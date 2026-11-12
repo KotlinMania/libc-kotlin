@@ -2,70 +2,73 @@
 
 package io.github.kotlinmania.libc.trusty
 
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.trusty.cinterop.libc_trusty_calloc
-import io.github.kotlinmania.libc.trusty.cinterop.libc_trusty_clockGettime
-import io.github.kotlinmania.libc.trusty.cinterop.libc_trusty_close
-import io.github.kotlinmania.libc.trusty.cinterop.libc_trusty_free
-import io.github.kotlinmania.libc.trusty.cinterop.libc_trusty_getauxval
-import io.github.kotlinmania.libc.trusty.cinterop.libc_trusty_malloc
-import io.github.kotlinmania.libc.trusty.cinterop.libc_trusty_memalign
-import io.github.kotlinmania.libc.trusty.cinterop.libc_trusty_mmap
-import io.github.kotlinmania.libc.trusty.cinterop.libc_trusty_munmap
-import io.github.kotlinmania.libc.trusty.cinterop.libc_trusty_nanosleep
-import io.github.kotlinmania.libc.trusty.cinterop.libc_trusty_posixMemalign
-import io.github.kotlinmania.libc.trusty.cinterop.libc_trusty_realloc
-import io.github.kotlinmania.libc.trusty.cinterop.libc_trusty_strlen
-import io.github.kotlinmania.libc.trusty.cinterop.libc_trusty_write
-import io.github.kotlinmania.libc.trusty.cinterop.libc_trusty_writev
+import io.github.kotlinmania.libc.trusty.cinterop.libcTrustyCalloc
+import io.github.kotlinmania.libc.trusty.cinterop.libcTrustyClockGettime
+import io.github.kotlinmania.libc.trusty.cinterop.libcTrustyClose
+import io.github.kotlinmania.libc.trusty.cinterop.libcTrustyFree
+import io.github.kotlinmania.libc.trusty.cinterop.libcTrustyGetauxval
+import io.github.kotlinmania.libc.trusty.cinterop.libcTrustyMalloc
+import io.github.kotlinmania.libc.trusty.cinterop.libcTrustyMemalign
+import io.github.kotlinmania.libc.trusty.cinterop.libcTrustyMmap
+import io.github.kotlinmania.libc.trusty.cinterop.libcTrustyMunmap
+import io.github.kotlinmania.libc.trusty.cinterop.libcTrustyNanosleep
+import io.github.kotlinmania.libc.trusty.cinterop.libcTrustyPosixMemalign
+import io.github.kotlinmania.libc.trusty.cinterop.libcTrustyRealloc
+import io.github.kotlinmania.libc.trusty.cinterop.libcTrustyStrlen
+import io.github.kotlinmania.libc.trusty.cinterop.libcTrustyWrite
+import io.github.kotlinmania.libc.trusty.cinterop.libcTrustyWritev
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
 
-public actual fun calloc(nobj: SizeT, size: SizeT): COpaquePointer? =
-    libc_trusty_calloc(nobj, size)?.let { COpaquePointer(it.toLong()) }
+public actual fun calloc(nobj: SizeT, size: SizeT): MutPtr<CVoid> =
+    MutPtr(libcTrustyCalloc(nobj, size)?.toLong() ?: 0L)
 
-public actual fun malloc(size: SizeT): COpaquePointer? =
-    libc_trusty_malloc(size)?.let { COpaquePointer(it.toLong()) }
+public actual fun malloc(size: SizeT): MutPtr<CVoid> =
+    MutPtr(libcTrustyMalloc(size)?.toLong() ?: 0L)
 
-public actual fun realloc(p: COpaquePointer?, size: SizeT): COpaquePointer? =
-    libc_trusty_realloc(p?.value?.toCPointer<ByteVar>(), size)?.let { COpaquePointer(it.toLong()) }
+public actual fun realloc(p: MutPtr<CVoid>, size: SizeT): MutPtr<CVoid> =
+    MutPtr(libcTrustyRealloc(p.rawAddress.toCPointer<ByteVar>(), size)?.toLong() ?: 0L)
 
-public actual fun free(p: COpaquePointer?) {
-    libc_trusty_free(p?.value?.toCPointer<ByteVar>())
+public actual fun free(p: MutPtr<CVoid>) {
+    libcTrustyFree(p.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun memalign(align: SizeT, size: SizeT): COpaquePointer? =
-    libc_trusty_memalign(align, size)?.let { COpaquePointer(it.toLong()) }
+public actual fun memalign(align: SizeT, size: SizeT): MutPtr<CVoid> =
+    MutPtr(libcTrustyMemalign(align, size)?.toLong() ?: 0L)
 
-public actual fun posixMemalign(memptr: COpaquePointer?, align: SizeT, size: SizeT): CInt =
-    libc_trusty_posixMemalign(memptr?.value?.toCPointer<ByteVar>(), align, size)
+public actual fun posixMemalign(memptr: MutPtr<MutPtr<CVoid>>, align: SizeT, size: SizeT): CInt =
+    libcTrustyPosixMemalign(memptr.rawAddress.toCPointer<ByteVar>(), align, size)
 
-public actual fun write(fd: CInt, buf: COpaquePointer?, count: SizeT): SsizeT =
-    libc_trusty_write(fd, buf?.value?.toCPointer<ByteVar>(), count)
+public actual fun write(fd: CInt, buf: ConstPtr<CVoid>, count: SizeT): SsizeT =
+    libcTrustyWrite(fd, buf.rawAddress.toCPointer<ByteVar>(), count)
 
-public actual fun writev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT =
-    libc_trusty_writev(fd, iov?.value?.toCPointer<ByteVar>(), iovcnt)
+public actual fun writev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+    libcTrustyWritev(fd, iov.rawAddress.toCPointer<ByteVar>(), iovcnt)
 
 public actual fun close(fd: CInt): CInt =
-    libc_trusty_close(fd)
+    libcTrustyClose(fd)
 
-public actual fun strlen(cs: String?): SizeT =
-    libc_trusty_strlen(cs)
+public actual fun strlen(cs: ConstPtr<CChar>): SizeT =
+    libcTrustyStrlen(cs.rawAddress.toCPointer<ByteVar>())
 
 public actual fun getauxval(type: CUlong): CUlong =
-    libc_trusty_getauxval(type)
+    libcTrustyGetauxval(type)
 
-public actual fun mmap(addr: COpaquePointer?, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: OffT): COpaquePointer? =
-    libc_trusty_mmap(addr?.value?.toCPointer<ByteVar>(), len, prot, flags, fd, offset)?.let { COpaquePointer(it.toLong()) }
+public actual fun mmap(addr: MutPtr<CVoid>, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: OffT): MutPtr<CVoid> =
+    MutPtr(libcTrustyMmap(addr.rawAddress.toCPointer<ByteVar>(), len, prot, flags, fd, offset)?.toLong() ?: 0L)
 
-public actual fun munmap(addr: COpaquePointer?, len: SizeT): CInt =
-    libc_trusty_munmap(addr?.value?.toCPointer<ByteVar>(), len)
+public actual fun munmap(addr: MutPtr<CVoid>, len: SizeT): CInt =
+    libcTrustyMunmap(addr.rawAddress.toCPointer<ByteVar>(), len)
 
-public actual fun clockGettime(clkId: ClockidT, tp: COpaquePointer?): CInt =
-    libc_trusty_clockGettime(clkId, tp?.value?.toCPointer<ByteVar>())
+public actual fun clockGettime(clkId: ClockidT, tp: MutPtr<Timespec>): CInt =
+    libcTrustyClockGettime(clkId, tp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun nanosleep(rqtp: COpaquePointer?, rmtp: COpaquePointer?): CInt =
-    libc_trusty_nanosleep(rqtp?.value?.toCPointer<ByteVar>(), rmtp?.value?.toCPointer<ByteVar>())
+public actual fun nanosleep(rqtp: ConstPtr<Timespec>, rmtp: MutPtr<Timespec>): CInt =
+    libcTrustyNanosleep(rqtp.rawAddress.toCPointer<ByteVar>(), rmtp.rawAddress.toCPointer<ByteVar>())

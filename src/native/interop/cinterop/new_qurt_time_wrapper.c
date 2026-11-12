@@ -16,27 +16,27 @@
 #endif
 #endif
 
-int64_t libc_new_qurt_time_time(void* tloc) {
+int64_t libcNewQurtTimeTime(void* tloc) {
     return (int64_t)time(tloc);
 }
 
-int64_t libc_new_qurt_time_clock(void) {
+int64_t libcNewQurtTimeClock(void) {
     return (int64_t)clock();
 }
 
-double libc_new_qurt_time_difftime(int64_t time1, int64_t time0) {
+double libcNewQurtTimeDifftime(int64_t time1, int64_t time0) {
     return (double)difftime(time1, time0);
 }
 
-int64_t libc_new_qurt_time_mktime(void* tm) {
+int64_t libcNewQurtTimeMktime(void* tm) {
     return (int64_t)mktime(tm);
 }
 
-void* libc_new_qurt_time_gmtime(void* timep) {
+void* libcNewQurtTimeGmtime(void* timep) {
     return (void*)gmtime(timep);
 }
 
-void* libc_new_qurt_time_gmtimeR(void* timep, void* result) {
+void* libcNewQurtTimeGmtimeR(void* timep, void* result) {
     typedef void* (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -64,11 +64,11 @@ void* libc_new_qurt_time_gmtimeR(void* timep, void* result) {
     return NULL;
 }
 
-void* libc_new_qurt_time_localtime(void* timep) {
+void* libcNewQurtTimeLocaltime(void* timep) {
     return (void*)localtime(timep);
 }
 
-void* libc_new_qurt_time_localtimeR(void* timep, void* result) {
+void* libcNewQurtTimeLocaltimeR(void* timep, void* result) {
     typedef void* (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -96,11 +96,11 @@ void* libc_new_qurt_time_localtimeR(void* timep, void* result) {
     return NULL;
 }
 
-char* libc_new_qurt_time_asctime(void* tm) {
+char* libcNewQurtTimeAsctime(void* tm) {
     return (char*)asctime(tm);
 }
 
-char* libc_new_qurt_time_asctimeR(void* tm, char* buf) {
+char* libcNewQurtTimeAsctimeR(void* tm, char* buf) {
     typedef char* (*km_fn_t)(void*, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -128,11 +128,11 @@ char* libc_new_qurt_time_asctimeR(void* tm, char* buf) {
     return NULL;
 }
 
-char* libc_new_qurt_time_ctime(void* timep) {
+char* libcNewQurtTimeCtime(void* timep) {
     return (char*)ctime(timep);
 }
 
-char* libc_new_qurt_time_ctimeR(void* timep, char* buf) {
+char* libcNewQurtTimeCtimeR(void* timep, char* buf) {
     typedef char* (*km_fn_t)(void*, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -160,11 +160,11 @@ char* libc_new_qurt_time_ctimeR(void* timep, char* buf) {
     return NULL;
 }
 
-uint64_t libc_new_qurt_time_strftime(char* s, uint64_t maxsize, const char* format, void* timeptr) {
+uint64_t libcNewQurtTimeStrftime(char* s, uint64_t maxsize, const char* format, void* timeptr) {
     return (uint64_t)strftime(s, maxsize, format, timeptr);
 }
 
-char* libc_new_qurt_time_strptime(const char* s, const char* format, void* tm) {
+char* libcNewQurtTimeStrptime(const char* s, const char* format, void* tm) {
     typedef char* (*km_fn_t)(const char*, const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -192,7 +192,7 @@ char* libc_new_qurt_time_strptime(const char* s, const char* format, void* tm) {
     return NULL;
 }
 
-int32_t libc_new_qurt_time_clockGettime(int32_t clk_id, void* tp) {
+int32_t libcNewQurtTimeClockGettime(int32_t clkId, void* tp) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -214,13 +214,13 @@ int32_t libc_new_qurt_time_clockGettime(int32_t clk_id, void* tp) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(clk_id, tp);
+        return km_fn_ptr(clkId, tp);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_new_qurt_time_nanosleep(void* req, void* rem) {
+int32_t libcNewQurtTimeNanosleep(void* req, void* rem) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

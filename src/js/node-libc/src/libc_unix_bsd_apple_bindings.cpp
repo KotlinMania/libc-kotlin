@@ -51,7 +51,7 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_unix_bsd_apple_get_MACH_TASK_SELF_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleGetMACHTASKSELF_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     static uint32_t* km_sym_ptr = nullptr;
 #ifdef _WIN32
@@ -76,7 +76,7 @@ static Napi::Value libc_unix_bsd_apple_get_MACH_TASK_SELF_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_set_MACH_TASK_SELF_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleSetMACHTASKSELF_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t value = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     static uint32_t* km_sym_ptr = nullptr;
@@ -104,7 +104,7 @@ static Napi::Value libc_unix_bsd_apple_set_MACH_TASK_SELF_napi(const Napi::Callb
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_apple_get_VM_PAGE_SIZE_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleGetVMPAGESIZE_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     static uint64_t* km_sym_ptr = nullptr;
 #ifdef _WIN32
@@ -129,7 +129,7 @@ static Napi::Value libc_unix_bsd_apple_get_VM_PAGE_SIZE_napi(const Napi::Callbac
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_bsd_apple_setgrent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleSetgrent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -159,7 +159,7 @@ static Napi::Value libc_unix_bsd_apple_setgrent_napi(const Napi::CallbackInfo& k
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_apple_daemon_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleDaemon_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t nochdir = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t noclose = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -193,7 +193,7 @@ static Napi::Value libc_unix_bsd_apple_daemon_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_semDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleSemDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* sem = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -226,7 +226,7 @@ static Napi::Value libc_unix_bsd_apple_semDestroy_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_semInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleSemInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* sem = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t pshared = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -261,7 +261,7 @@ static Napi::Value libc_unix_bsd_apple_semInit_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_aioRead_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleAioRead_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* aiocbp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -294,7 +294,7 @@ static Napi::Value libc_unix_bsd_apple_aioRead_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_aioWrite_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleAioWrite_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* aiocbp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -327,7 +327,7 @@ static Napi::Value libc_unix_bsd_apple_aioWrite_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_aioFsync_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleAioFsync_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t op = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* aiocbp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -361,7 +361,7 @@ static Napi::Value libc_unix_bsd_apple_aioFsync_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_aioError_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleAioError_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* aiocbp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -394,7 +394,7 @@ static Napi::Value libc_unix_bsd_apple_aioError_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_aioReturn_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleAioReturn_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* aiocbp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(void*);
@@ -427,9 +427,9 @@ static Napi::Value libc_unix_bsd_apple_aioReturn_napi(const Napi::CallbackInfo& 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_bsd_apple_aioSuspend_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleAioSuspend_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* aiocb_list = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* aiocbList = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t nitems = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     void* timeout = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(void*, int32_t, void*);
@@ -454,7 +454,7 @@ static Napi::Value libc_unix_bsd_apple_aioSuspend_napi(const Napi::CallbackInfo&
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(aiocb_list, nitems, timeout);
+        km_res = km_fn_ptr(aiocbList, nitems, timeout);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -462,7 +462,7 @@ static Napi::Value libc_unix_bsd_apple_aioSuspend_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_aioCancel_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleAioCancel_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* aiocbp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -496,11 +496,9 @@ static Napi::Value libc_unix_bsd_apple_aioCancel_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_chflags_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleChflags_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t flags = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -532,7 +530,7 @@ static Napi::Value libc_unix_bsd_apple_chflags_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_fchflags_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleFchflags_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t flags = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -566,9 +564,9 @@ static Napi::Value libc_unix_bsd_apple_fchflags_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_clockGetres_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleClockGetres_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint32_t clk_id = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    uint32_t clkId = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* tp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(uint32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -592,7 +590,7 @@ static Napi::Value libc_unix_bsd_apple_clockGetres_napi(const Napi::CallbackInfo
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(clk_id, tp);
+        km_res = km_fn_ptr(clkId, tp);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -600,9 +598,9 @@ static Napi::Value libc_unix_bsd_apple_clockGetres_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_clockGettime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleClockGettime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint32_t clk_id = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    uint32_t clkId = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* tp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(uint32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -626,7 +624,7 @@ static Napi::Value libc_unix_bsd_apple_clockGettime_napi(const Napi::CallbackInf
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(clk_id, tp);
+        km_res = km_fn_ptr(clkId, tp);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -634,10 +632,10 @@ static Napi::Value libc_unix_bsd_apple_clockGettime_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_lioListio_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleLioListio_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t mode = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* aiocb_list = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* aiocbList = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t nitems = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     void* sevp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t, void*);
@@ -662,7 +660,7 @@ static Napi::Value libc_unix_bsd_apple_lioListio_napi(const Napi::CallbackInfo& 
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(mode, aiocb_list, nitems, sevp);
+        km_res = km_fn_ptr(mode, aiocbList, nitems, sevp);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -670,7 +668,7 @@ static Napi::Value libc_unix_bsd_apple_lioListio_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_dirfd_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleDirfd_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* dirp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -703,11 +701,9 @@ static Napi::Value libc_unix_bsd_apple_dirfd_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_lutimes_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleLutimes_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool file_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string file_str = file_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* file = file_null ? nullptr : file_str.c_str();
+    const char* file = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* times = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -739,7 +735,7 @@ static Napi::Value libc_unix_bsd_apple_lutimes_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_gettimeofday_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleGettimeofday_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* tp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* tz = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -773,7 +769,7 @@ static Napi::Value libc_unix_bsd_apple_gettimeofday_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_getutxent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleGetutxent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -805,7 +801,7 @@ static Napi::Value libc_unix_bsd_apple_getutxent_napi(const Napi::CallbackInfo& 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_apple_getutxid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleGetutxid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ut = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -838,7 +834,7 @@ static Napi::Value libc_unix_bsd_apple_getutxid_napi(const Napi::CallbackInfo& k
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_apple_getutxline_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleGetutxline_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ut = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -871,7 +867,7 @@ static Napi::Value libc_unix_bsd_apple_getutxline_napi(const Napi::CallbackInfo&
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_apple_pututxline_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdApplePututxline_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ut = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -904,7 +900,7 @@ static Napi::Value libc_unix_bsd_apple_pututxline_napi(const Napi::CallbackInfo&
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_apple_setutxent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleSetutxent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -934,7 +930,7 @@ static Napi::Value libc_unix_bsd_apple_setutxent_napi(const Napi::CallbackInfo& 
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_apple_endutxent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleEndutxent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -964,11 +960,9 @@ static Napi::Value libc_unix_bsd_apple_endutxent_napi(const Napi::CallbackInfo& 
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_apple_utmpxname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleUtmpxname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool file_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string file_str = file_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* file = file_null ? nullptr : file_str.c_str();
+    const char* file = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -999,7 +993,7 @@ static Napi::Value libc_unix_bsd_apple_utmpxname_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_asctime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleAsctime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* tm = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef char* (*km_fn_t)(void*);
@@ -1032,7 +1026,7 @@ static Napi::Value libc_unix_bsd_apple_asctime_napi(const Napi::CallbackInfo& km
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_apple_ctime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleCtime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* clock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef char* (*km_fn_t)(void*);
@@ -1065,11 +1059,9 @@ static Napi::Value libc_unix_bsd_apple_ctime_napi(const Napi::CallbackInfo& km_i
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_apple_getdate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleGetdate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool datestr_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string datestr_str = datestr_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* datestr = datestr_null ? nullptr : datestr_str.c_str();
+    const char* datestr = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1100,14 +1092,10 @@ static Napi::Value libc_unix_bsd_apple_getdate_napi(const Napi::CallbackInfo& km
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_apple_strptime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleStrptime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool buf_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string buf_str = buf_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* buf = buf_null ? nullptr : buf_str.c_str();
-    bool format_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string format_str = format_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* format = format_null ? nullptr : format_str.c_str();
+    const char* buf = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* format = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* timeptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef char* (*km_fn_t)(const char*, const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1139,7 +1127,7 @@ static Napi::Value libc_unix_bsd_apple_strptime_napi(const Napi::CallbackInfo& k
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_apple_asctimeR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleAsctimeR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* tm = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* result = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1173,7 +1161,7 @@ static Napi::Value libc_unix_bsd_apple_asctimeR_napi(const Napi::CallbackInfo& k
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_apple_ctimeR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleCtimeR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* clock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* result = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1207,7 +1195,7 @@ static Napi::Value libc_unix_bsd_apple_ctimeR_napi(const Napi::CallbackInfo& km_
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_apple_getnameinfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleGetnameinfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* sa = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t salen = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1246,7 +1234,7 @@ static Napi::Value libc_unix_bsd_apple_getnameinfo_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_mincore_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleMincore_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1281,11 +1269,9 @@ static Napi::Value libc_unix_bsd_apple_mincore_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_sysctlnametomib_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleSysctlnametomib_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* mibp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* sizep = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(const char*, void*, void*);
@@ -1318,7 +1304,7 @@ static Napi::Value libc_unix_bsd_apple_sysctlnametomib_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_mprotect_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleMprotect_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1353,7 +1339,7 @@ static Napi::Value libc_unix_bsd_apple_mprotect_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_semget_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleSemget_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t key = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t nsems = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1388,7 +1374,7 @@ static Napi::Value libc_unix_bsd_apple_semget_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_semctl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleSemctl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t semid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t semnum = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1433,7 +1419,7 @@ static Napi::Value libc_unix_bsd_apple_semctl_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_semop_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleSemop_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t semid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* sops = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1468,11 +1454,9 @@ static Napi::Value libc_unix_bsd_apple_semop_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_shmOpen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleShmOpen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t oflag = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     int32_t km_vac = km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
@@ -1514,12 +1498,10 @@ static Napi::Value libc_unix_bsd_apple_shmOpen_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_ftok_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleFtok_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool pathname_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string pathname_str = pathname_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* pathname = pathname_null ? nullptr : pathname_str.c_str();
-    int32_t proj_id = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    const char* pathname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    int32_t projId = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1542,7 +1524,7 @@ static Napi::Value libc_unix_bsd_apple_ftok_napi(const Napi::CallbackInfo& km_in
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(pathname, proj_id);
+        km_res = km_fn_ptr(pathname, projId);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1550,7 +1532,7 @@ static Napi::Value libc_unix_bsd_apple_ftok_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_shmat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleShmat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t shmid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* shmaddr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1585,7 +1567,7 @@ static Napi::Value libc_unix_bsd_apple_shmat_napi(const Napi::CallbackInfo& km_i
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_apple_shmdt_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleShmdt_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* shmaddr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -1618,7 +1600,7 @@ static Napi::Value libc_unix_bsd_apple_shmdt_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_shmctl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleShmctl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t shmid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t cmd = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1653,7 +1635,7 @@ static Napi::Value libc_unix_bsd_apple_shmctl_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_shmget_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleShmget_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t key = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1688,7 +1670,7 @@ static Napi::Value libc_unix_bsd_apple_shmget_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_sysctl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleSysctl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* name = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t namelen = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1726,11 +1708,9 @@ static Napi::Value libc_unix_bsd_apple_sysctl_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_sysctlbyname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleSysctlbyname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* oldp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* oldlenp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* newp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
@@ -1765,7 +1745,7 @@ static Napi::Value libc_unix_bsd_apple_sysctlbyname_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_machAbsoluteTime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleMachAbsoluteTime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef uint64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1797,7 +1777,7 @@ static Napi::Value libc_unix_bsd_apple_machAbsoluteTime_napi(const Napi::Callbac
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_bsd_apple_machTimebaseInfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleMachTimebaseInfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -1830,7 +1810,7 @@ static Napi::Value libc_unix_bsd_apple_machTimebaseInfo_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_machHostSelf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleMachHostSelf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef uint32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1862,7 +1842,7 @@ static Napi::Value libc_unix_bsd_apple_machHostSelf_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_machThreadSelf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleMachThreadSelf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef uint32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1894,7 +1874,7 @@ static Napi::Value libc_unix_bsd_apple_machThreadSelf_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_pthreadCondTimedwaitRelativeNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdApplePthreadCondTimedwaitRelativeNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cond = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1929,7 +1909,7 @@ static Napi::Value libc_unix_bsd_apple_pthreadCondTimedwaitRelativeNp_napi(const
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_pthreadAttrGetscope_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdApplePthreadAttrGetscope_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* contentionscope = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1963,7 +1943,7 @@ static Napi::Value libc_unix_bsd_apple_pthreadAttrGetscope_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_pthreadAttrGetstackaddr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdApplePthreadAttrGetstackaddr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* stackaddr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1997,7 +1977,7 @@ static Napi::Value libc_unix_bsd_apple_pthreadAttrGetstackaddr_napi(const Napi::
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_pthreadAttrGetdetachstate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdApplePthreadAttrGetdetachstate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* detachstate = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2031,7 +2011,7 @@ static Napi::Value libc_unix_bsd_apple_pthreadAttrGetdetachstate_napi(const Napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_pthreadAttrSetscope_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdApplePthreadAttrSetscope_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t contentionscope = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -2065,7 +2045,7 @@ static Napi::Value libc_unix_bsd_apple_pthreadAttrSetscope_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_pthreadAttrSetstackaddr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdApplePthreadAttrSetstackaddr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* stackaddr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2099,11 +2079,9 @@ static Napi::Value libc_unix_bsd_apple_pthreadAttrSetstackaddr_napi(const Napi::
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_pthreadSetnameNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdApplePthreadSetnameNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2134,7 +2112,7 @@ static Napi::Value libc_unix_bsd_apple_pthreadSetnameNp_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_pthreadGetnameNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdApplePthreadGetnameNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* thread = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* name = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2169,7 +2147,7 @@ static Napi::Value libc_unix_bsd_apple_pthreadGetnameNp_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_pthreadMachThreadNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdApplePthreadMachThreadNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* thread = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef uint32_t (*km_fn_t)(void*);
@@ -2202,7 +2180,7 @@ static Napi::Value libc_unix_bsd_apple_pthreadMachThreadNp_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_pthreadFromMachThreadNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdApplePthreadFromMachThreadNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t port = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void* (*km_fn_t)(uint32_t);
@@ -2235,7 +2213,7 @@ static Napi::Value libc_unix_bsd_apple_pthreadFromMachThreadNp_napi(const Napi::
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_apple_pthreadGetStackaddrNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdApplePthreadGetStackaddrNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* thread = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -2268,7 +2246,7 @@ static Napi::Value libc_unix_bsd_apple_pthreadGetStackaddrNp_napi(const Napi::Ca
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_apple_pthreadGetStacksizeNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdApplePthreadGetStacksizeNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* thread = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef uint64_t (*km_fn_t)(void*);
@@ -2301,7 +2279,7 @@ static Napi::Value libc_unix_bsd_apple_pthreadGetStacksizeNp_napi(const Napi::Ca
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_bsd_apple_pthreadMainNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdApplePthreadMainNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2333,10 +2311,10 @@ static Napi::Value libc_unix_bsd_apple_pthreadMainNp_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_pthreadThreadidNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdApplePthreadThreadidNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* thread = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* thread_id = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* threadId = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2359,7 +2337,7 @@ static Napi::Value libc_unix_bsd_apple_pthreadThreadidNp_napi(const Napi::Callba
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(thread, thread_id);
+        km_res = km_fn_ptr(thread, threadId);
     } else {
         errno = ENOSYS;
         km_res = ENOSYS;
@@ -2367,7 +2345,7 @@ static Napi::Value libc_unix_bsd_apple_pthreadThreadidNp_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_pthreadJitWriteProtectNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdApplePthreadJitWriteProtectNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t enabled = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(int32_t);
@@ -2398,7 +2376,7 @@ static Napi::Value libc_unix_bsd_apple_pthreadJitWriteProtectNp_napi(const Napi:
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_apple_pthreadJitWriteProtectSupportedNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdApplePthreadJitWriteProtectSupportedNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2430,7 +2408,7 @@ static Napi::Value libc_unix_bsd_apple_pthreadJitWriteProtectSupportedNp_napi(co
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_pthreadJitWriteWithCallbackNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdApplePthreadJitWriteWithCallbackNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* callback = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* ctx = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2464,7 +2442,7 @@ static Napi::Value libc_unix_bsd_apple_pthreadJitWriteWithCallbackNp_napi(const 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_pthreadJitWriteFreezeCallbacksNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdApplePthreadJitWriteFreezeCallbacksNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2494,9 +2472,9 @@ static Napi::Value libc_unix_bsd_apple_pthreadJitWriteFreezeCallbacksNp_napi(con
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_apple_pthreadCpuNumberNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdApplePthreadCpuNumberNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* cpu_number_out = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* cpuNumberOut = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2519,7 +2497,7 @@ static Napi::Value libc_unix_bsd_apple_pthreadCpuNumberNp_napi(const Napi::Callb
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(cpu_number_out);
+        km_res = km_fn_ptr(cpuNumberOut);
     } else {
         errno = ENOSYS;
         km_res = ENOSYS;
@@ -2527,7 +2505,7 @@ static Napi::Value libc_unix_bsd_apple_pthreadCpuNumberNp_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_osSyncWaitOnAddress_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleOsSyncWaitOnAddress_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t value = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -2563,7 +2541,7 @@ static Napi::Value libc_unix_bsd_apple_osSyncWaitOnAddress_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_osSyncWaitOnAddressWithDeadline_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleOsSyncWaitOnAddressWithDeadline_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t value = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -2601,14 +2579,14 @@ static Napi::Value libc_unix_bsd_apple_osSyncWaitOnAddressWithDeadline_napi(cons
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_osSyncWaitOnAddressWithTimeout_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleOsSyncWaitOnAddressWithTimeout_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t value = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
     uint64_t size = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     uint32_t flags = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     uint32_t clockid = static_cast<uint32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
-    uint64_t timeout_ns = km_info.Length() > 5 ? km_napi_arg_u64(km_info[5]) : 0;
+    uint64_t timeoutNs = km_info.Length() > 5 ? km_napi_arg_u64(km_info[5]) : 0;
     typedef int32_t (*km_fn_t)(void*, uint64_t, uint64_t, uint32_t, uint32_t, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2631,7 +2609,7 @@ static Napi::Value libc_unix_bsd_apple_osSyncWaitOnAddressWithTimeout_napi(const
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(addr, value, size, flags, clockid, timeout_ns);
+        km_res = km_fn_ptr(addr, value, size, flags, clockid, timeoutNs);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2639,7 +2617,7 @@ static Napi::Value libc_unix_bsd_apple_osSyncWaitOnAddressWithTimeout_napi(const
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_osSyncWakeByAddressAny_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleOsSyncWakeByAddressAny_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -2674,7 +2652,7 @@ static Napi::Value libc_unix_bsd_apple_osSyncWakeByAddressAny_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_osSyncWakeByAddressAll_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleOsSyncWakeByAddressAll_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -2709,7 +2687,7 @@ static Napi::Value libc_unix_bsd_apple_osSyncWakeByAddressAll_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_osUnfairLockLock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleOsUnfairLockLock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -2740,7 +2718,7 @@ static Napi::Value libc_unix_bsd_apple_osUnfairLockLock_napi(const Napi::Callbac
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_apple_osUnfairLockTrylock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleOsUnfairLockTrylock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef bool (*km_fn_t)(void*);
@@ -2773,7 +2751,7 @@ static Napi::Value libc_unix_bsd_apple_osUnfairLockTrylock_napi(const Napi::Call
     return Napi::Boolean::New(km_env, km_res);
 }
 
-static Napi::Value libc_unix_bsd_apple_osUnfairLockUnlock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleOsUnfairLockUnlock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -2804,7 +2782,7 @@ static Napi::Value libc_unix_bsd_apple_osUnfairLockUnlock_napi(const Napi::Callb
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_apple_osUnfairLockAssertOwner_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleOsUnfairLockAssertOwner_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -2835,7 +2813,7 @@ static Napi::Value libc_unix_bsd_apple_osUnfairLockAssertOwner_napi(const Napi::
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_apple_osUnfairLockAssertNotOwner_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleOsUnfairLockAssertNotOwner_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -2866,14 +2844,10 @@ static Napi::Value libc_unix_bsd_apple_osUnfairLockAssertNotOwner_napi(const Nap
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_apple_osLogCreate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleOsLogCreate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool subsystem_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string subsystem_str = subsystem_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* subsystem = subsystem_null ? nullptr : subsystem_str.c_str();
-    bool category_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string category_str = category_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* category = category_null ? nullptr : category_str.c_str();
+    const char* subsystem = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* category = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef void* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2904,7 +2878,7 @@ static Napi::Value libc_unix_bsd_apple_osLogCreate_napi(const Napi::CallbackInfo
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_apple_osLogTypeEnabled_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleOsLogTypeEnabled_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* oslog = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint8_t tpe = static_cast<uint8_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -2938,9 +2912,9 @@ static Napi::Value libc_unix_bsd_apple_osLogTypeEnabled_napi(const Napi::Callbac
     return Napi::Boolean::New(km_env, km_res);
 }
 
-static Napi::Value libc_unix_bsd_apple_osSignpostIdMakeWithPointer_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleOsSignpostIdMakeWithPointer_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_log = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* arg0Log = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* ptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef uint64_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2964,7 +2938,7 @@ static Napi::Value libc_unix_bsd_apple_osSignpostIdMakeWithPointer_napi(const Na
 #endif
     uint64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_log, ptr);
+        km_res = km_fn_ptr(arg0Log, ptr);
     } else {
         errno = ENOSYS;
         km_res = 0;
@@ -2972,9 +2946,9 @@ static Napi::Value libc_unix_bsd_apple_osSignpostIdMakeWithPointer_napi(const Na
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_bsd_apple_osSignpostIdGenerate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleOsSignpostIdGenerate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_log = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* arg0Log = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef uint64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2997,7 +2971,7 @@ static Napi::Value libc_unix_bsd_apple_osSignpostIdGenerate_napi(const Napi::Cal
 #endif
     uint64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_log);
+        km_res = km_fn_ptr(arg0Log);
     } else {
         errno = ENOSYS;
         km_res = 0;
@@ -3005,9 +2979,9 @@ static Napi::Value libc_unix_bsd_apple_osSignpostIdGenerate_napi(const Napi::Cal
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_bsd_apple_osSignpostEnabled_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleOsSignpostEnabled_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_log = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* arg0Log = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef bool (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3030,7 +3004,7 @@ static Napi::Value libc_unix_bsd_apple_osSignpostEnabled_napi(const Napi::Callba
 #endif
     bool km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_log);
+        km_res = km_fn_ptr(arg0Log);
     } else {
         errno = ENOSYS;
         km_res = false;
@@ -3038,11 +3012,11 @@ static Napi::Value libc_unix_bsd_apple_osSignpostEnabled_napi(const Napi::Callba
     return Napi::Boolean::New(km_env, km_res);
 }
 
-static Napi::Value libc_unix_bsd_apple_threadPolicySet_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleThreadPolicySet_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* thread = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t flavor = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    void* policy_info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* policyInfo = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint32_t count = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, uint32_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3066,7 +3040,7 @@ static Napi::Value libc_unix_bsd_apple_threadPolicySet_napi(const Napi::Callback
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(thread, flavor, policy_info, count);
+        km_res = km_fn_ptr(thread, flavor, policyInfo, count);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3074,13 +3048,13 @@ static Napi::Value libc_unix_bsd_apple_threadPolicySet_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_threadPolicyGet_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleThreadPolicyGet_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* thread = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t flavor = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    void* policy_info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* policyInfo = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* count = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
-    void* get_default = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
+    void* getDefault = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
     typedef int32_t (*km_fn_t)(void*, uint32_t, void*, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3103,7 +3077,7 @@ static Napi::Value libc_unix_bsd_apple_threadPolicyGet_napi(const Napi::Callback
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(thread, flavor, policy_info, count, get_default);
+        km_res = km_fn_ptr(thread, flavor, policyInfo, count, getDefault);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3111,12 +3085,12 @@ static Napi::Value libc_unix_bsd_apple_threadPolicyGet_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_threadInfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleThreadInfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint32_t target_act = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    uint32_t targetAct = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t flavor = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    void* thread_info_out = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    void* thread_info_outCnt = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    void* threadInfoOut = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* threadInfoOutCnt = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(uint32_t, uint32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3139,7 +3113,7 @@ static Napi::Value libc_unix_bsd_apple_threadInfo_napi(const Napi::CallbackInfo&
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(target_act, flavor, thread_info_out, thread_info_outCnt);
+        km_res = km_fn_ptr(targetAct, flavor, threadInfoOut, threadInfoOutCnt);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3147,7 +3121,7 @@ static Napi::Value libc_unix_bsd_apple_threadInfo_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_error_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleError_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3177,7 +3151,7 @@ static Napi::Value libc_unix_bsd_apple_error_napi(const Napi::CallbackInfo& km_i
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_apple_backtrace_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleBacktrace_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t sz = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3211,7 +3185,7 @@ static Napi::Value libc_unix_bsd_apple_backtrace_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_backtraceSymbols_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleBacktraceSymbols_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addrs = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t sz = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3245,7 +3219,7 @@ static Napi::Value libc_unix_bsd_apple_backtraceSymbols_napi(const Napi::Callbac
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_apple_backtraceSymbolsFd_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleBacktraceSymbolsFd_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addrs = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t sz = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3278,7 +3252,7 @@ static Napi::Value libc_unix_bsd_apple_backtraceSymbolsFd_napi(const Napi::Callb
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_apple_backtraceFromFp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleBacktraceFromFp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* startfp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* array = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3313,10 +3287,10 @@ static Napi::Value libc_unix_bsd_apple_backtraceFromFp_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_backtraceImageOffsets_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleBacktraceImageOffsets_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* array = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* image_offsets = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* imageOffsets = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t size = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(void*, void*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3339,18 +3313,18 @@ static Napi::Value libc_unix_bsd_apple_backtraceImageOffsets_napi(const Napi::Ca
     }
 #endif
     if (km_fn_ptr != nullptr) {
-        km_fn_ptr(array, image_offsets, size);
+        km_fn_ptr(array, imageOffsets, size);
     } else {
         errno = ENOSYS;
     }
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_apple_backtraceAsync_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleBacktraceAsync_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* array = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t length = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
-    void* task_id = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* taskId = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef uint64_t (*km_fn_t)(void*, uint64_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3373,7 +3347,7 @@ static Napi::Value libc_unix_bsd_apple_backtraceAsync_napi(const Napi::CallbackI
 #endif
     uint64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(array, length, task_id);
+        km_res = km_fn_ptr(array, length, taskId);
     } else {
         errno = ENOSYS;
         km_res = 0;
@@ -3381,11 +3355,9 @@ static Napi::Value libc_unix_bsd_apple_backtraceAsync_napi(const Napi::CallbackI
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_bsd_apple_statfs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleStatfs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3417,7 +3389,7 @@ static Napi::Value libc_unix_bsd_apple_statfs_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_fstatfs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleFstatfs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3451,7 +3423,7 @@ static Napi::Value libc_unix_bsd_apple_fstatfs_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_kevent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleKevent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t kq = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* changelist = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3489,7 +3461,7 @@ static Napi::Value libc_unix_bsd_apple_kevent_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_kevent64_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleKevent64_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t kq = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* changelist = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3533,14 +3505,10 @@ static Napi::Value libc_unix_bsd_apple_kevent64_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_mount_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleMount_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool src_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string src_str = src_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* src = src_null ? nullptr : src_str.c_str();
-    bool target_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string target_str = target_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* target = target_null ? nullptr : target_str.c_str();
+    const char* src = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* target = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     void* data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(const char*, const char*, int32_t, void*);
@@ -3573,11 +3541,9 @@ static Napi::Value libc_unix_bsd_apple_mount_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_fmount_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleFmount_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool src_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string src_str = src_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* src = src_null ? nullptr : src_str.c_str();
+    const char* src = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t fd = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     int32_t flags = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     void* data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
@@ -3611,7 +3577,7 @@ static Napi::Value libc_unix_bsd_apple_fmount_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_ptrace_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdApplePtrace_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t request = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t pid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3647,11 +3613,9 @@ static Napi::Value libc_unix_bsd_apple_ptrace_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_quotactl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleQuotactl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool special_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string special_str = special_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* special = special_null ? nullptr : special_str.c_str();
+    const char* special = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t cmd = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     int32_t id = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     char* data = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
@@ -3685,11 +3649,9 @@ static Napi::Value libc_unix_bsd_apple_quotactl_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_sethostname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleSethostname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t len = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3721,7 +3683,7 @@ static Napi::Value libc_unix_bsd_apple_sethostname_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_sendfile_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleSendfile_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t s = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3759,7 +3721,7 @@ static Napi::Value libc_unix_bsd_apple_sendfile_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_futimens_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleFutimens_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* times = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3793,12 +3755,10 @@ static Napi::Value libc_unix_bsd_apple_futimens_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_utimensat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleUtimensat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t dirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool path_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* times = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     int32_t flag = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, const char*, void*, int32_t);
@@ -3831,7 +3791,7 @@ static Napi::Value libc_unix_bsd_apple_utimensat_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_openpty_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleOpenpty_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* amaster = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* aslave = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3868,7 +3828,7 @@ static Napi::Value libc_unix_bsd_apple_openpty_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_forkpty_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleForkpty_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* amaster = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* name = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3904,7 +3864,7 @@ static Napi::Value libc_unix_bsd_apple_forkpty_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_loginTty_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleLoginTty_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -3937,7 +3897,7 @@ static Napi::Value libc_unix_bsd_apple_loginTty_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_duplocale_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleDuplocale_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* base = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -3970,7 +3930,7 @@ static Napi::Value libc_unix_bsd_apple_duplocale_napi(const Napi::CallbackInfo& 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_apple_freelocale_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleFreelocale_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* loc = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -4003,7 +3963,7 @@ static Napi::Value libc_unix_bsd_apple_freelocale_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_localeconvL_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleLocaleconvL_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* loc = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -4036,12 +3996,10 @@ static Napi::Value libc_unix_bsd_apple_localeconvL_napi(const Napi::CallbackInfo
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_apple_newlocale_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleNewlocale_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t mask = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool locale_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string locale_str = locale_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* locale = locale_null ? nullptr : locale_str.c_str();
+    const char* locale = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* base = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef void* (*km_fn_t)(int32_t, const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4073,7 +4031,7 @@ static Napi::Value libc_unix_bsd_apple_newlocale_napi(const Napi::CallbackInfo& 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_apple_uselocale_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleUselocale_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* loc = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -4106,7 +4064,7 @@ static Napi::Value libc_unix_bsd_apple_uselocale_napi(const Napi::CallbackInfo& 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_apple_querylocale_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleQuerylocale_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t mask = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* loc = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -4140,7 +4098,7 @@ static Napi::Value libc_unix_bsd_apple_querylocale_napi(const Napi::CallbackInfo
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_apple_getpriority_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleGetpriority_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t which = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t who = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4174,7 +4132,7 @@ static Napi::Value libc_unix_bsd_apple_getpriority_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_setpriority_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleSetpriority_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t which = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t who = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4209,7 +4167,7 @@ static Napi::Value libc_unix_bsd_apple_setpriority_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_getdomainname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleGetdomainname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* name = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t len = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4243,11 +4201,9 @@ static Napi::Value libc_unix_bsd_apple_getdomainname_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_setdomainname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleSetdomainname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t len = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4279,7 +4235,7 @@ static Napi::Value libc_unix_bsd_apple_setdomainname_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_preadv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdApplePreadv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -4315,7 +4271,7 @@ static Napi::Value libc_unix_bsd_apple_preadv_napi(const Napi::CallbackInfo& km_
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_bsd_apple_pwritev_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdApplePwritev_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -4351,14 +4307,10 @@ static Napi::Value libc_unix_bsd_apple_pwritev_napi(const Napi::CallbackInfo& km
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_bsd_apple_getxattr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleGetxattr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
-    bool name_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint64_t size = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
     uint32_t position = static_cast<uint32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
@@ -4393,12 +4345,10 @@ static Napi::Value libc_unix_bsd_apple_getxattr_napi(const Napi::CallbackInfo& k
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_bsd_apple_fgetxattr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleFgetxattr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t filedes = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool name_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint64_t size = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
     uint32_t position = static_cast<uint32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
@@ -4433,14 +4383,10 @@ static Napi::Value libc_unix_bsd_apple_fgetxattr_napi(const Napi::CallbackInfo& 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_bsd_apple_setxattr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleSetxattr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
-    bool name_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint64_t size = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
     uint32_t position = static_cast<uint32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
@@ -4475,12 +4421,10 @@ static Napi::Value libc_unix_bsd_apple_setxattr_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_fsetxattr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleFsetxattr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t filedes = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool name_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint64_t size = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
     uint32_t position = static_cast<uint32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
@@ -4515,11 +4459,9 @@ static Napi::Value libc_unix_bsd_apple_fsetxattr_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_listxattr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleListxattr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* list = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t size = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     int32_t flags = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
@@ -4553,7 +4495,7 @@ static Napi::Value libc_unix_bsd_apple_listxattr_napi(const Napi::CallbackInfo& 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_bsd_apple_flistxattr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleFlistxattr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t filedes = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     char* list = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -4589,14 +4531,10 @@ static Napi::Value libc_unix_bsd_apple_flistxattr_napi(const Napi::CallbackInfo&
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_bsd_apple_removexattr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleRemovexattr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
-    bool name_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4628,14 +4566,10 @@ static Napi::Value libc_unix_bsd_apple_removexattr_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_renamexNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleRenamexNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool from_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string from_str = from_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* from = from_null ? nullptr : from_str.c_str();
-    bool to_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string to_str = to_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* to = to_null ? nullptr : to_str.c_str();
+    const char* from = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* to = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint32_t flags = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, const char*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4667,16 +4601,12 @@ static Napi::Value libc_unix_bsd_apple_renamexNp_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_renameatxNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleRenameatxNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fromfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool from_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string from_str = from_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* from = from_null ? nullptr : from_str.c_str();
+    const char* from = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t tofd = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    bool to_null = (km_info.Length() <= 3 || km_info[3].IsNull() || km_info[3].IsUndefined());
-    std::string to_str = to_null ? std::string() : km_info[3].ToString().Utf8Value();
-    const char* to = to_null ? nullptr : to_str.c_str();
+    const char* to = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     uint32_t flags = static_cast<uint32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, const char*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4708,12 +4638,10 @@ static Napi::Value libc_unix_bsd_apple_renameatxNp_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_fremovexattr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleFremovexattr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t filedes = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool name_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4745,11 +4673,9 @@ static Napi::Value libc_unix_bsd_apple_fremovexattr_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_getgrouplist_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleGetgrouplist_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t basegid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     void* groups = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* ngroups = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
@@ -4783,11 +4709,9 @@ static Napi::Value libc_unix_bsd_apple_getgrouplist_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_initgroups_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleInitgroups_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool user_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string user_str = user_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* user = user_null ? nullptr : user_str.c_str();
+    const char* user = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t basegroup = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4819,7 +4743,7 @@ static Napi::Value libc_unix_bsd_apple_initgroups_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_waitid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleWaitid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t idtype = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t id = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4855,7 +4779,7 @@ static Napi::Value libc_unix_bsd_apple_waitid_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_brk_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleBrk_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -4888,7 +4812,7 @@ static Napi::Value libc_unix_bsd_apple_brk_napi(const Napi::CallbackInfo& km_inf
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_apple_sbrk_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleSbrk_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t increment = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void* (*km_fn_t)(int32_t);
@@ -4921,7 +4845,7 @@ static Napi::Value libc_unix_bsd_apple_sbrk_napi(const Napi::CallbackInfo& km_in
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_apple_settimeofday_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleSettimeofday_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* tv = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* tz = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -4955,7 +4879,7 @@ static Napi::Value libc_unix_bsd_apple_settimeofday_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_dyldImageCount_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleDyldImageCount_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef uint32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4985,9 +4909,9 @@ static Napi::Value libc_unix_bsd_apple_dyldImageCount_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_dyldGetImageHeader_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleDyldGetImageHeader_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint32_t image_index = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    uint32_t imageIndex = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void* (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5008,7 +4932,7 @@ static Napi::Value libc_unix_bsd_apple_dyldGetImageHeader_napi(const Napi::Callb
 #endif
     void* km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(image_index);
+        km_res = km_fn_ptr(imageIndex);
     } else {
         errno = ENOSYS;
         km_res = nullptr;
@@ -5016,9 +4940,9 @@ static Napi::Value libc_unix_bsd_apple_dyldGetImageHeader_napi(const Napi::Callb
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_apple_dyldGetImageVmaddrSlide_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleDyldGetImageVmaddrSlide_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint32_t image_index = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    uint32_t imageIndex = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5039,7 +4963,7 @@ static Napi::Value libc_unix_bsd_apple_dyldGetImageVmaddrSlide_napi(const Napi::
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(image_index);
+        km_res = km_fn_ptr(imageIndex);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5047,9 +4971,9 @@ static Napi::Value libc_unix_bsd_apple_dyldGetImageVmaddrSlide_napi(const Napi::
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_bsd_apple_dyldGetImageName_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleDyldGetImageName_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint32_t image_index = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    uint32_t imageIndex = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef const char* (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5070,7 +4994,7 @@ static Napi::Value libc_unix_bsd_apple_dyldGetImageName_napi(const Napi::Callbac
 #endif
     const char* km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(image_index);
+        km_res = km_fn_ptr(imageIndex);
     } else {
         errno = ENOSYS;
         km_res = nullptr;
@@ -5078,13 +5002,11 @@ static Napi::Value libc_unix_bsd_apple_dyldGetImageName_napi(const Napi::Callbac
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_apple_posixSpawn_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdApplePosixSpawn_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* pid = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool path_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
-    void* file_actions = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* fileActions = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* attrp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     void* argv = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
     void* envp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 5 ? km_napi_arg_u64(km_info[5]) : 0));
@@ -5110,7 +5032,7 @@ static Napi::Value libc_unix_bsd_apple_posixSpawn_napi(const Napi::CallbackInfo&
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(pid, path, file_actions, attrp, argv, envp);
+        km_res = km_fn_ptr(pid, path, fileActions, attrp, argv, envp);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5118,13 +5040,11 @@ static Napi::Value libc_unix_bsd_apple_posixSpawn_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_posixSpawnp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdApplePosixSpawnp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* pid = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool file_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string file_str = file_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* file = file_null ? nullptr : file_str.c_str();
-    void* file_actions = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    const char* file = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* fileActions = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* attrp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     void* argv = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
     void* envp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 5 ? km_napi_arg_u64(km_info[5]) : 0));
@@ -5150,7 +5070,7 @@ static Napi::Value libc_unix_bsd_apple_posixSpawnp_napi(const Napi::CallbackInfo
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(pid, file, file_actions, attrp, argv, envp);
+        km_res = km_fn_ptr(pid, file, fileActions, attrp, argv, envp);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5158,7 +5078,7 @@ static Napi::Value libc_unix_bsd_apple_posixSpawnp_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_posixSpawnattrInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdApplePosixSpawnattrInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -5191,7 +5111,7 @@ static Napi::Value libc_unix_bsd_apple_posixSpawnattrInit_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_posixSpawnattrDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdApplePosixSpawnattrDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -5224,10 +5144,10 @@ static Napi::Value libc_unix_bsd_apple_posixSpawnattrDestroy_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_posixSpawnattrGetsigdefault_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdApplePosixSpawnattrGetsigdefault_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* arg_1_default = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* arg1Default = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5250,7 +5170,7 @@ static Napi::Value libc_unix_bsd_apple_posixSpawnattrGetsigdefault_napi(const Na
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(attr, arg_1_default);
+        km_res = km_fn_ptr(attr, arg1Default);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5258,10 +5178,10 @@ static Napi::Value libc_unix_bsd_apple_posixSpawnattrGetsigdefault_napi(const Na
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_posixSpawnattrSetsigdefault_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdApplePosixSpawnattrSetsigdefault_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* arg_1_default = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* arg1Default = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5284,7 +5204,7 @@ static Napi::Value libc_unix_bsd_apple_posixSpawnattrSetsigdefault_napi(const Na
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(attr, arg_1_default);
+        km_res = km_fn_ptr(attr, arg1Default);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5292,10 +5212,10 @@ static Napi::Value libc_unix_bsd_apple_posixSpawnattrSetsigdefault_napi(const Na
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_posixSpawnattrGetsigmask_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdApplePosixSpawnattrGetsigmask_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* arg_1_default = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* arg1Default = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5318,7 +5238,7 @@ static Napi::Value libc_unix_bsd_apple_posixSpawnattrGetsigmask_napi(const Napi:
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(attr, arg_1_default);
+        km_res = km_fn_ptr(attr, arg1Default);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5326,10 +5246,10 @@ static Napi::Value libc_unix_bsd_apple_posixSpawnattrGetsigmask_napi(const Napi:
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_posixSpawnattrSetsigmask_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdApplePosixSpawnattrSetsigmask_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* arg_1_default = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* arg1Default = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5352,7 +5272,7 @@ static Napi::Value libc_unix_bsd_apple_posixSpawnattrSetsigmask_napi(const Napi:
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(attr, arg_1_default);
+        km_res = km_fn_ptr(attr, arg1Default);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5360,7 +5280,7 @@ static Napi::Value libc_unix_bsd_apple_posixSpawnattrSetsigmask_napi(const Napi:
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_posixSpawnattrGetflags_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdApplePosixSpawnattrGetflags_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* flags = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -5394,7 +5314,7 @@ static Napi::Value libc_unix_bsd_apple_posixSpawnattrGetflags_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_posixSpawnattrSetflags_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdApplePosixSpawnattrSetflags_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int16_t flags = static_cast<int16_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -5428,7 +5348,7 @@ static Napi::Value libc_unix_bsd_apple_posixSpawnattrSetflags_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_posixSpawnattrGetpgroup_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdApplePosixSpawnattrGetpgroup_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* flags = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -5462,7 +5382,7 @@ static Napi::Value libc_unix_bsd_apple_posixSpawnattrGetpgroup_napi(const Napi::
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_posixSpawnattrSetpgroup_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdApplePosixSpawnattrSetpgroup_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -5496,7 +5416,7 @@ static Napi::Value libc_unix_bsd_apple_posixSpawnattrSetpgroup_napi(const Napi::
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_posixSpawnattrSetarchprefNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdApplePosixSpawnattrSetarchprefNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t count = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -5533,7 +5453,7 @@ static Napi::Value libc_unix_bsd_apple_posixSpawnattrSetarchprefNp_napi(const Na
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_posixSpawnattrGetarchprefNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdApplePosixSpawnattrGetarchprefNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t count = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -5570,7 +5490,7 @@ static Napi::Value libc_unix_bsd_apple_posixSpawnattrGetarchprefNp_napi(const Na
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_posixSpawnattrGetbinprefNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdApplePosixSpawnattrGetbinprefNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t count = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -5606,7 +5526,7 @@ static Napi::Value libc_unix_bsd_apple_posixSpawnattrGetbinprefNp_napi(const Nap
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_posixSpawnattrSetbinprefNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdApplePosixSpawnattrSetbinprefNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t count = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -5642,7 +5562,7 @@ static Napi::Value libc_unix_bsd_apple_posixSpawnattrSetbinprefNp_napi(const Nap
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_posixSpawnFileActionsInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdApplePosixSpawnFileActionsInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* actions = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -5675,7 +5595,7 @@ static Napi::Value libc_unix_bsd_apple_posixSpawnFileActionsInit_napi(const Napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_posixSpawnFileActionsDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdApplePosixSpawnFileActionsDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* actions = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -5708,13 +5628,11 @@ static Napi::Value libc_unix_bsd_apple_posixSpawnFileActionsDestroy_napi(const N
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_posixSpawnFileActionsAddopen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdApplePosixSpawnFileActionsAddopen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* actions = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t fd = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    bool path_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     int32_t oflag = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     uint16_t mode = static_cast<uint16_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, int32_t, const char*, int32_t, uint16_t);
@@ -5747,7 +5665,7 @@ static Napi::Value libc_unix_bsd_apple_posixSpawnFileActionsAddopen_napi(const N
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_posixSpawnFileActionsAddclose_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdApplePosixSpawnFileActionsAddclose_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* actions = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t fd = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -5781,7 +5699,7 @@ static Napi::Value libc_unix_bsd_apple_posixSpawnFileActionsAddclose_napi(const 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_posixSpawnFileActionsAdddup2_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdApplePosixSpawnFileActionsAdddup2_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* actions = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t fd = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -5816,7 +5734,7 @@ static Napi::Value libc_unix_bsd_apple_posixSpawnFileActionsAdddup2_napi(const N
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_uname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleUname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -5849,9 +5767,9 @@ static Napi::Value libc_unix_bsd_apple_uname_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_connectx_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleConnectx_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t arg0Socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* endpoints = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint32_t associd = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     uint32_t flags = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
@@ -5881,7 +5799,7 @@ static Napi::Value libc_unix_bsd_apple_connectx_napi(const Napi::CallbackInfo& k
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_socket, endpoints, associd, flags, iov, iovcnt, len, connid);
+        km_res = km_fn_ptr(arg0Socket, endpoints, associd, flags, iov, iovcnt, len, connid);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5889,9 +5807,9 @@ static Napi::Value libc_unix_bsd_apple_connectx_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_disconnectx_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleDisconnectx_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t arg0Socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t associd = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     uint32_t connid = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, uint32_t, uint32_t);
@@ -5916,7 +5834,7 @@ static Napi::Value libc_unix_bsd_apple_disconnectx_napi(const Napi::CallbackInfo
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_socket, associd, connid);
+        km_res = km_fn_ptr(arg0Socket, associd, connid);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5924,7 +5842,7 @@ static Napi::Value libc_unix_bsd_apple_disconnectx_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_ntpAdjtime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleNtpAdjtime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -5957,7 +5875,7 @@ static Napi::Value libc_unix_bsd_apple_ntpAdjtime_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_ntpGettime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleNtpGettime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -5990,7 +5908,7 @@ static Napi::Value libc_unix_bsd_apple_ntpGettime_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_getmntinfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleGetmntinfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mntbufp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -6024,7 +5942,7 @@ static Napi::Value libc_unix_bsd_apple_getmntinfo_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_getfsstat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleGetfsstat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mntbufp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t bufsize = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -6059,14 +5977,10 @@ static Napi::Value libc_unix_bsd_apple_getfsstat_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_clonefile_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleClonefile_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool src_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string src_str = src_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* src = src_null ? nullptr : src_str.c_str();
-    bool dst_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string dst_str = dst_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* dst = dst_null ? nullptr : dst_str.c_str();
+    const char* src = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* dst = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint32_t flags = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, const char*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -6098,16 +6012,12 @@ static Napi::Value libc_unix_bsd_apple_clonefile_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_clonefileat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleClonefileat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t src_dirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool src_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string src_str = src_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* src = src_null ? nullptr : src_str.c_str();
-    int32_t dst_dirfd = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    bool dst_null = (km_info.Length() <= 3 || km_info[3].IsNull() || km_info[3].IsUndefined());
-    std::string dst_str = dst_null ? std::string() : km_info[3].ToString().Utf8Value();
-    const char* dst = dst_null ? nullptr : dst_str.c_str();
+    int32_t srcDirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    const char* src = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    int32_t dstDirfd = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    const char* dst = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     uint32_t flags = static_cast<uint32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, const char*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -6131,7 +6041,7 @@ static Napi::Value libc_unix_bsd_apple_clonefileat_napi(const Napi::CallbackInfo
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(src_dirfd, src, dst_dirfd, dst, flags);
+        km_res = km_fn_ptr(srcDirfd, src, dstDirfd, dst, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -6139,13 +6049,11 @@ static Napi::Value libc_unix_bsd_apple_clonefileat_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_fclonefileat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleFclonefileat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t srcfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t dst_dirfd = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    bool dst_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string dst_str = dst_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* dst = dst_null ? nullptr : dst_str.c_str();
+    int32_t dstDirfd = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    const char* dst = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint32_t flags = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, int32_t, const char*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -6169,7 +6077,7 @@ static Napi::Value libc_unix_bsd_apple_fclonefileat_napi(const Napi::CallbackInf
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(srcfd, dst_dirfd, dst, flags);
+        km_res = km_fn_ptr(srcfd, dstDirfd, dst, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -6177,14 +6085,10 @@ static Napi::Value libc_unix_bsd_apple_fclonefileat_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_copyfile_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleCopyfile_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool from_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string from_str = from_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* from = from_null ? nullptr : from_str.c_str();
-    bool to_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string to_str = to_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* to = to_null ? nullptr : to_str.c_str();
+    const char* from = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* to = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* state = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint32_t flags = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, const char*, void*, uint32_t);
@@ -6217,7 +6121,7 @@ static Napi::Value libc_unix_bsd_apple_copyfile_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_fcopyfile_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleFcopyfile_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t from = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t to = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -6253,7 +6157,7 @@ static Napi::Value libc_unix_bsd_apple_fcopyfile_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_copyfileStateFree_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleCopyfileStateFree_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* s = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -6286,7 +6190,7 @@ static Napi::Value libc_unix_bsd_apple_copyfileStateFree_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_copyfileStateAlloc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleCopyfileStateAlloc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -6318,7 +6222,7 @@ static Napi::Value libc_unix_bsd_apple_copyfileStateAlloc_napi(const Napi::Callb
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_apple_copyfileStateGet_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleCopyfileStateGet_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* s = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t flags = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -6353,7 +6257,7 @@ static Napi::Value libc_unix_bsd_apple_copyfileStateGet_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_copyfileStateSet_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleCopyfileStateSet_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* s = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t flags = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -6388,9 +6292,9 @@ static Napi::Value libc_unix_bsd_apple_copyfileStateSet_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_machErrorString_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleMachErrorString_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t error_value = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t errorValue = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef char* (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6413,7 +6317,7 @@ static Napi::Value libc_unix_bsd_apple_machErrorString_napi(const Napi::Callback
 #endif
     char* km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(error_value);
+        km_res = km_fn_ptr(errorValue);
     } else {
         errno = ENOSYS;
         km_res = nullptr;
@@ -6421,7 +6325,7 @@ static Napi::Value libc_unix_bsd_apple_machErrorString_napi(const Napi::Callback
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_apple_memsetS_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleMemsetS_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* s = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t smax = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -6457,7 +6361,7 @@ static Napi::Value libc_unix_bsd_apple_memsetS_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_memsetPattern4_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleMemsetPattern4_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* b = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* pattern4 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -6490,7 +6394,7 @@ static Napi::Value libc_unix_bsd_apple_memsetPattern4_napi(const Napi::CallbackI
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_apple_memsetPattern8_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleMemsetPattern8_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* b = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* pattern8 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -6523,7 +6427,7 @@ static Napi::Value libc_unix_bsd_apple_memsetPattern8_napi(const Napi::CallbackI
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_apple_memsetPattern16_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleMemsetPattern16_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* b = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* pattern16 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -6556,13 +6460,11 @@ static Napi::Value libc_unix_bsd_apple_memsetPattern16_napi(const Napi::Callback
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_apple_strtonum_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleStrtonum_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg_0_numstr_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg_0_numstr_str = arg_0_numstr_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg_0_numstr = arg_0_numstr_null ? nullptr : arg_0_numstr_str.c_str();
-    int64_t arg_1_minval = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
-    int64_t arg_2_maxval = km_info.Length() > 2 ? km_napi_arg_i64(km_info[2]) : 0;
+    const char* numstr = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    int64_t minval = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
+    int64_t maxval = km_info.Length() > 2 ? km_napi_arg_i64(km_info[2]) : 0;
     void* errstrp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int64_t (*km_fn_t)(const char*, int64_t, int64_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -6586,7 +6488,7 @@ static Napi::Value libc_unix_bsd_apple_strtonum_napi(const Napi::CallbackInfo& k
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_numstr, arg_1_minval, arg_2_maxval, errstrp);
+        km_res = km_fn_ptr(numstr, minval, maxval, errstrp);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -6594,11 +6496,9 @@ static Napi::Value libc_unix_bsd_apple_strtonum_napi(const Napi::CallbackInfo& k
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_bsd_apple_mallocPrintf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleMallocPrintf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool format_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string format_str = format_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* format = format_null ? nullptr : format_str.c_str();
+    const char* format = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t km_vac = km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 2 ? km_napi_arg_i64(km_info[2]) : 0;
     int64_t km_va1 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
@@ -6638,7 +6538,7 @@ static Napi::Value libc_unix_bsd_apple_mallocPrintf_napi(const Napi::CallbackInf
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_apple_mallocZoneCheck_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleMallocZoneCheck_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* zone = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -6671,7 +6571,7 @@ static Napi::Value libc_unix_bsd_apple_mallocZoneCheck_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_mallocZonePrint_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleMallocZonePrint_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* zone = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t verbose = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -6703,7 +6603,7 @@ static Napi::Value libc_unix_bsd_apple_mallocZonePrint_napi(const Napi::Callback
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_apple_mallocZoneStatistics_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleMallocZoneStatistics_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* zone = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* stats = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -6735,7 +6635,7 @@ static Napi::Value libc_unix_bsd_apple_mallocZoneStatistics_napi(const Napi::Cal
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_apple_mallocZoneLog_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleMallocZoneLog_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* zone = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* address = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -6767,7 +6667,7 @@ static Napi::Value libc_unix_bsd_apple_mallocZoneLog_napi(const Napi::CallbackIn
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_apple_mallocZonePrintPtrInfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleMallocZonePrintPtrInfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -6798,7 +6698,7 @@ static Napi::Value libc_unix_bsd_apple_mallocZonePrintPtrInfo_napi(const Napi::C
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_apple_mallocDefaultZone_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleMallocDefaultZone_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -6830,7 +6730,7 @@ static Napi::Value libc_unix_bsd_apple_mallocDefaultZone_napi(const Napi::Callba
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_apple_mallocZoneFromPtr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleMallocZoneFromPtr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -6863,7 +6763,7 @@ static Napi::Value libc_unix_bsd_apple_mallocZoneFromPtr_napi(const Napi::Callba
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_apple_mallocZoneMalloc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleMallocZoneMalloc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* zone = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -6897,7 +6797,7 @@ static Napi::Value libc_unix_bsd_apple_mallocZoneMalloc_napi(const Napi::Callbac
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_apple_mallocZoneValloc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleMallocZoneValloc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* zone = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -6931,10 +6831,10 @@ static Napi::Value libc_unix_bsd_apple_mallocZoneValloc_napi(const Napi::Callbac
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_apple_mallocZoneCalloc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleMallocZoneCalloc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* zone = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    uint64_t num_items = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
+    uint64_t numItems = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
     uint64_t size = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef void* (*km_fn_t)(void*, uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -6958,7 +6858,7 @@ static Napi::Value libc_unix_bsd_apple_mallocZoneCalloc_napi(const Napi::Callbac
 #endif
     void* km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(zone, num_items, size);
+        km_res = km_fn_ptr(zone, numItems, size);
     } else {
         errno = ENOSYS;
         km_res = nullptr;
@@ -6966,7 +6866,7 @@ static Napi::Value libc_unix_bsd_apple_mallocZoneCalloc_napi(const Napi::Callbac
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_apple_mallocZoneRealloc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleMallocZoneRealloc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* zone = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* ptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -7001,7 +6901,7 @@ static Napi::Value libc_unix_bsd_apple_mallocZoneRealloc_napi(const Napi::Callba
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_apple_mallocZoneFree_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleMallocZoneFree_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* zone = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* ptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -7033,7 +6933,7 @@ static Napi::Value libc_unix_bsd_apple_mallocZoneFree_napi(const Napi::CallbackI
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_apple_procListpids_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleProcListpids_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t t = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t typeinfo = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -7069,7 +6969,7 @@ static Napi::Value libc_unix_bsd_apple_procListpids_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_procListallpids_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleProcListallpids_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buffer = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t buffersize = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -7103,7 +7003,7 @@ static Napi::Value libc_unix_bsd_apple_procListallpids_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_procListpgrppids_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleProcListpgrppids_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pgrpid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buffer = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -7138,7 +7038,7 @@ static Napi::Value libc_unix_bsd_apple_procListpgrppids_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_procListchildpids_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleProcListchildpids_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t ppid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buffer = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -7173,7 +7073,7 @@ static Napi::Value libc_unix_bsd_apple_procListchildpids_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_procPidinfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleProcPidinfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t flavor = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -7210,7 +7110,7 @@ static Napi::Value libc_unix_bsd_apple_procPidinfo_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_procPidfdinfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleProcPidfdinfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t fd = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -7247,7 +7147,7 @@ static Napi::Value libc_unix_bsd_apple_procPidfdinfo_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_procPidfileportinfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleProcPidfileportinfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t fileport = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -7284,7 +7184,7 @@ static Napi::Value libc_unix_bsd_apple_procPidfileportinfo_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_procPidpath_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleProcPidpath_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buffer = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -7319,7 +7219,7 @@ static Napi::Value libc_unix_bsd_apple_procPidpath_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_procName_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleProcName_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buffer = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -7354,7 +7254,7 @@ static Napi::Value libc_unix_bsd_apple_procName_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_procRegionfilename_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleProcRegionfilename_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint64_t address = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -7390,7 +7290,7 @@ static Napi::Value libc_unix_bsd_apple_procRegionfilename_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_procKmsgbuf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleProcKmsgbuf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buffer = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t buffersize = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -7424,7 +7324,7 @@ static Napi::Value libc_unix_bsd_apple_procKmsgbuf_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_procLibversion_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleProcLibversion_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* major = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* minor = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -7458,7 +7358,7 @@ static Napi::Value libc_unix_bsd_apple_procLibversion_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_procPidRusage_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleProcPidRusage_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t flavor = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -7493,7 +7393,7 @@ static Napi::Value libc_unix_bsd_apple_procPidRusage_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_procSetNoSmt_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleProcSetNoSmt_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -7525,7 +7425,7 @@ static Napi::Value libc_unix_bsd_apple_procSetNoSmt_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_procSetthreadNoSmt_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleProcSetthreadNoSmt_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -7557,7 +7457,7 @@ static Napi::Value libc_unix_bsd_apple_procSetthreadNoSmt_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_procSetCsm_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleProcSetCsm_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t flags = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -7590,7 +7490,7 @@ static Napi::Value libc_unix_bsd_apple_procSetCsm_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_procSetthreadCsm_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleProcSetthreadCsm_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t flags = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -7623,7 +7523,7 @@ static Napi::Value libc_unix_bsd_apple_procSetthreadCsm_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_gethostuuid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleGethostuuid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* id = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* timeout = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -7657,7 +7557,7 @@ static Napi::Value libc_unix_bsd_apple_gethostuuid_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_gethostid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleGethostid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -7689,7 +7589,7 @@ static Napi::Value libc_unix_bsd_apple_gethostid_napi(const Napi::CallbackInfo& 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_bsd_apple_sethostid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleSethostid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int64_t hostid = km_info.Length() > 0 ? km_napi_arg_i64(km_info[0]) : 0;
     typedef void (*km_fn_t)(int64_t);
@@ -7720,7 +7620,7 @@ static Napi::Value libc_unix_bsd_apple_sethostid_napi(const Napi::CallbackInfo& 
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_apple_cCRandomGenerateBytes_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleCCRandomGenerateBytes_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* bytes = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -7754,7 +7654,7 @@ static Napi::Value libc_unix_bsd_apple_cCRandomGenerateBytes_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_getentropy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleGetentropy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t buflen = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -7788,7 +7688,7 @@ static Napi::Value libc_unix_bsd_apple_getentropy_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_nsgetExecutablePath_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleNsgetExecutablePath_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* bufsize = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -7820,7 +7720,7 @@ static Napi::Value libc_unix_bsd_apple_nsgetExecutablePath_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_nsgetArgv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleNsgetArgv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -7850,7 +7750,7 @@ static Napi::Value libc_unix_bsd_apple_nsgetArgv_napi(const Napi::CallbackInfo& 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_apple_nsgetArgc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleNsgetArgc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -7880,7 +7780,7 @@ static Napi::Value libc_unix_bsd_apple_nsgetArgc_napi(const Napi::CallbackInfo& 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_apple_nsgetEnviron_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleNsgetEnviron_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -7910,7 +7810,7 @@ static Napi::Value libc_unix_bsd_apple_nsgetEnviron_napi(const Napi::CallbackInf
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_apple_nsgetProgname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleNsgetProgname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -7940,9 +7840,9 @@ static Napi::Value libc_unix_bsd_apple_nsgetProgname_napi(const Napi::CallbackIn
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_apple_machVmMap_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleMachVmMap_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* target_task = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* targetTask = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* address = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t size = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     uint64_t mask = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
@@ -7950,8 +7850,8 @@ static Napi::Value libc_unix_bsd_apple_machVmMap_napi(const Napi::CallbackInfo& 
     uint32_t object = static_cast<uint32_t>(km_info.Length() > 5 ? km_info[5].ToNumber().Int32Value() : 0);
     uint64_t offset = km_info.Length() > 6 ? km_napi_arg_u64(km_info[6]) : 0;
     int32_t copy = static_cast<int32_t>(km_info.Length() > 7 ? km_info[7].ToNumber().Int32Value() : 0);
-    int32_t cur_protection = static_cast<int32_t>(km_info.Length() > 8 ? km_info[8].ToNumber().Int32Value() : 0);
-    int32_t max_protection = static_cast<int32_t>(km_info.Length() > 9 ? km_info[9].ToNumber().Int32Value() : 0);
+    int32_t curProtection = static_cast<int32_t>(km_info.Length() > 8 ? km_info[8].ToNumber().Int32Value() : 0);
+    int32_t maxProtection = static_cast<int32_t>(km_info.Length() > 9 ? km_info[9].ToNumber().Int32Value() : 0);
     uint32_t inheritance = static_cast<uint32_t>(km_info.Length() > 10 ? km_info[10].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, void*, uint64_t, uint64_t, int32_t, uint32_t, uint64_t, int32_t, int32_t, int32_t, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -7975,7 +7875,7 @@ static Napi::Value libc_unix_bsd_apple_machVmMap_napi(const Napi::CallbackInfo& 
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(target_task, address, size, mask, flags, object, offset, copy, cur_protection, max_protection, inheritance);
+        km_res = km_fn_ptr(targetTask, address, size, mask, flags, object, offset, copy, curProtection, maxProtection, inheritance);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -7983,9 +7883,9 @@ static Napi::Value libc_unix_bsd_apple_machVmMap_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_vmAllocate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleVmAllocate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* target_task = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* targetTask = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* address = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t size = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     int32_t flags = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
@@ -8011,7 +7911,7 @@ static Napi::Value libc_unix_bsd_apple_vmAllocate_napi(const Napi::CallbackInfo&
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(target_task, address, size, flags);
+        km_res = km_fn_ptr(targetTask, address, size, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8019,9 +7919,9 @@ static Napi::Value libc_unix_bsd_apple_vmAllocate_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_vmDeallocate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleVmDeallocate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* target_task = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* targetTask = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t address = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
     uint64_t size = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef int32_t (*km_fn_t)(void*, uint64_t, uint64_t);
@@ -8046,7 +7946,7 @@ static Napi::Value libc_unix_bsd_apple_vmDeallocate_napi(const Napi::CallbackInf
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(target_task, address, size);
+        km_res = km_fn_ptr(targetTask, address, size);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8054,12 +7954,12 @@ static Napi::Value libc_unix_bsd_apple_vmDeallocate_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_hostStatistics64_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleHostStatistics64_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint32_t host_priv = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    uint32_t hostPriv = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t flavor = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    void* host_info64_out = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    void* host_info64_outCnt = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    void* hostInfo64Out = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* hostInfo64OutCnt = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(uint32_t, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -8087,7 +7987,7 @@ static Napi::Value libc_unix_bsd_apple_hostStatistics64_napi(const Napi::Callbac
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(host_priv, flavor, host_info64_out, host_info64_outCnt);
+        km_res = km_fn_ptr(hostPriv, flavor, hostInfo64Out, hostInfo64OutCnt);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8095,13 +7995,13 @@ static Napi::Value libc_unix_bsd_apple_hostStatistics64_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_hostProcessorInfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleHostProcessorInfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t host = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t flavor = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    void* out_processor_count = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    void* out_processor_info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
-    void* out_processor_infoCnt = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
+    void* outProcessorCount = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* outProcessorInfo = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    void* outProcessorInfoCnt = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
     typedef int32_t (*km_fn_t)(uint32_t, int32_t, void*, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -8124,7 +8024,7 @@ static Napi::Value libc_unix_bsd_apple_hostProcessorInfo_napi(const Napi::Callba
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(host, flavor, out_processor_count, out_processor_info, out_processor_infoCnt);
+        km_res = km_fn_ptr(host, flavor, outProcessorCount, outProcessorInfo, outProcessorInfoCnt);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8132,7 +8032,7 @@ static Napi::Value libc_unix_bsd_apple_hostProcessorInfo_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_taskForPid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleTaskForPid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t host = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t pid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -8167,12 +8067,12 @@ static Napi::Value libc_unix_bsd_apple_taskForPid_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_taskInfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleTaskInfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t host = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t flavor = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    void* task_info_out = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    void* task_info_count = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    void* taskInfoOut = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* taskInfoCount = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(uint32_t, uint32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -8195,7 +8095,7 @@ static Napi::Value libc_unix_bsd_apple_taskInfo_napi(const Napi::CallbackInfo& k
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(host, flavor, task_info_out, task_info_count);
+        km_res = km_fn_ptr(host, flavor, taskInfoOut, taskInfoCount);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8203,13 +8103,13 @@ static Napi::Value libc_unix_bsd_apple_taskInfo_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_taskCreate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleTaskCreate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint32_t target_task = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    uint32_t targetTask = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* ledgers = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint32_t ledgersCnt = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    int32_t inherit_memory = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
-    void* child_task = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
+    int32_t inheritMemory = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
+    void* childTask = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
     typedef int32_t (*km_fn_t)(uint32_t, void*, uint32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -8232,7 +8132,7 @@ static Napi::Value libc_unix_bsd_apple_taskCreate_napi(const Napi::CallbackInfo&
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(target_task, ledgers, ledgersCnt, inherit_memory, child_task);
+        km_res = km_fn_ptr(targetTask, ledgers, ledgersCnt, inheritMemory, childTask);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8240,9 +8140,9 @@ static Napi::Value libc_unix_bsd_apple_taskCreate_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_taskTerminate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleTaskTerminate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint32_t target_task = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    uint32_t targetTask = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -8265,7 +8165,7 @@ static Napi::Value libc_unix_bsd_apple_taskTerminate_napi(const Napi::CallbackIn
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(target_task);
+        km_res = km_fn_ptr(targetTask);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8273,11 +8173,11 @@ static Napi::Value libc_unix_bsd_apple_taskTerminate_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_taskThreads_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleTaskThreads_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint32_t target_task = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* act_list = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* act_listCnt = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    uint32_t targetTask = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* actList = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* actListCnt = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(uint32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -8300,7 +8200,7 @@ static Napi::Value libc_unix_bsd_apple_taskThreads_napi(const Napi::CallbackInfo
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(target_task, act_list, act_listCnt);
+        km_res = km_fn_ptr(targetTask, actList, actListCnt);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8308,12 +8208,12 @@ static Napi::Value libc_unix_bsd_apple_taskThreads_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_hostStatistics_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleHostStatistics_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint32_t host_priv = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    uint32_t hostPriv = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t flavor = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    void* host_info_out = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    void* host_info_outCnt = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    void* hostInfoOut = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* hostInfoOutCnt = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(uint32_t, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -8336,7 +8236,7 @@ static Napi::Value libc_unix_bsd_apple_hostStatistics_napi(const Napi::CallbackI
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(host_priv, flavor, host_info_out, host_info_outCnt);
+        km_res = km_fn_ptr(hostPriv, flavor, hostInfoOut, hostInfoOutCnt);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8344,7 +8244,7 @@ static Napi::Value libc_unix_bsd_apple_hostStatistics_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_sysdirGetNextSearchPathEnumeration_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleSysdirGetNextSearchPathEnumeration_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t state = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     char* path = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -8378,11 +8278,9 @@ static Napi::Value libc_unix_bsd_apple_sysdirGetNextSearchPathEnumeration_napi(c
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_getattrlist_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleGetattrlist_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* attrList = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* attrBuf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint64_t attrBufSize = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
@@ -8417,7 +8315,7 @@ static Napi::Value libc_unix_bsd_apple_getattrlist_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_fgetattrlist_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleFgetattrlist_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* attrList = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -8454,12 +8352,10 @@ static Napi::Value libc_unix_bsd_apple_fgetattrlist_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_getattrlistat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleGetattrlistat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool path_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* attrList = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* attrBuf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     uint64_t attrBufSize = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
@@ -8494,11 +8390,9 @@ static Napi::Value libc_unix_bsd_apple_getattrlistat_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_setattrlist_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleSetattrlist_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* attrList = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* attrBuf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint64_t attrBufSize = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
@@ -8533,7 +8427,7 @@ static Napi::Value libc_unix_bsd_apple_setattrlist_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_fsetattrlist_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleFsetattrlist_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* attrList = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -8570,12 +8464,10 @@ static Napi::Value libc_unix_bsd_apple_fsetattrlist_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_setattrlistat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleSetattrlistat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t dir_fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool path_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    int32_t dirFd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* attrList = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* attrBuf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     uint64_t attrBufSize = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
@@ -8602,7 +8494,7 @@ static Napi::Value libc_unix_bsd_apple_setattrlistat_napi(const Napi::CallbackIn
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(dir_fd, path, attrList, attrBuf, attrBufSize, options);
+        km_res = km_fn_ptr(dirFd, path, attrList, attrBuf, attrBufSize, options);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8610,7 +8502,7 @@ static Napi::Value libc_unix_bsd_apple_setattrlistat_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_getattrlistbulk_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleGetattrlistbulk_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t dirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* attrList = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -8647,7 +8539,7 @@ static Napi::Value libc_unix_bsd_apple_getattrlistbulk_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_mallocSize_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleMallocSize_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef uint64_t (*km_fn_t)(void*);
@@ -8680,7 +8572,7 @@ static Napi::Value libc_unix_bsd_apple_mallocSize_napi(const Napi::CallbackInfo&
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_bsd_apple_mallocGoodSize_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleMallocGoodSize_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t size = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     typedef uint64_t (*km_fn_t)(uint64_t);
@@ -8713,7 +8605,7 @@ static Napi::Value libc_unix_bsd_apple_mallocGoodSize_napi(const Napi::CallbackI
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_bsd_apple_dirname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleDirname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* path = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef char* (*km_fn_t)(char*);
@@ -8746,7 +8638,7 @@ static Napi::Value libc_unix_bsd_apple_dirname_napi(const Napi::CallbackInfo& km
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_apple_basename_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleBasename_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* path = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef char* (*km_fn_t)(char*);
@@ -8779,12 +8671,10 @@ static Napi::Value libc_unix_bsd_apple_basename_napi(const Napi::CallbackInfo& k
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_apple_mkfifoat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleMkfifoat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t dirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool pathname_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string pathname_str = pathname_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* pathname = pathname_null ? nullptr : pathname_str.c_str();
+    const char* pathname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint16_t mode = static_cast<uint16_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, const char*, uint16_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -8816,12 +8706,10 @@ static Napi::Value libc_unix_bsd_apple_mkfifoat_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_mknodat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleMknodat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t dirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool pathname_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string pathname_str = pathname_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* pathname = pathname_null ? nullptr : pathname_str.c_str();
+    const char* pathname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint16_t mode = static_cast<uint16_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     int32_t dev = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, const char*, uint16_t, int32_t);
@@ -8854,7 +8742,7 @@ static Napi::Value libc_unix_bsd_apple_mknodat_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_freadlink_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleFreadlink_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -8889,14 +8777,10 @@ static Napi::Value libc_unix_bsd_apple_freadlink_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_execvP_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleExecvP_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool file_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string file_str = file_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* file = file_null ? nullptr : file_str.c_str();
-    bool search_path_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string search_path_str = search_path_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* search_path = search_path_null ? nullptr : search_path_str.c_str();
+    const char* file = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* searchPath = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* argv = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(const char*, const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -8920,7 +8804,7 @@ static Napi::Value libc_unix_bsd_apple_execvP_napi(const Napi::CallbackInfo& km_
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(file, search_path, argv);
+        km_res = km_fn_ptr(file, searchPath, argv);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8928,7 +8812,7 @@ static Napi::Value libc_unix_bsd_apple_execvP_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_qsortR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleQsortR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* base = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t num = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -8963,9 +8847,9 @@ static Napi::Value libc_unix_bsd_apple_qsortR_napi(const Napi::CallbackInfo& km_
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_apple_clockSettime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleClockSettime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint32_t clock_id = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    uint32_t clockId = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* tp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(uint32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -8989,7 +8873,7 @@ static Napi::Value libc_unix_bsd_apple_clockSettime_napi(const Napi::CallbackInf
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(clock_id, tp);
+        km_res = km_fn_ptr(clockId, tp);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8997,7 +8881,7 @@ static Napi::Value libc_unix_bsd_apple_clockSettime_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_memmem_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleMemmem_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* haystack = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t haystacklen = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -9033,12 +8917,12 @@ static Napi::Value libc_unix_bsd_apple_memmem_napi(const Napi::CallbackInfo& km_
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_apple_taskSetInfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleTaskSetInfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint32_t target_task = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    uint32_t targetTask = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t flavor = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    void* task_info_in = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    uint32_t task_info_inCnt = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
+    void* taskInfoIn = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    uint32_t taskInfoInCnt = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint32_t, uint32_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -9061,7 +8945,7 @@ static Napi::Value libc_unix_bsd_apple_taskSetInfo_napi(const Napi::CallbackInfo
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(target_task, flavor, task_info_in, task_info_inCnt);
+        km_res = km_fn_ptr(targetTask, flavor, taskInfoIn, taskInfoInCnt);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -9069,14 +8953,10 @@ static Napi::Value libc_unix_bsd_apple_taskSetInfo_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_apple_iconvOpen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleIconvOpen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool tocode_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string tocode_str = tocode_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* tocode = tocode_null ? nullptr : tocode_str.c_str();
-    bool fromcode_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string fromcode_str = fromcode_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* fromcode = fromcode_null ? nullptr : fromcode_str.c_str();
+    const char* tocode = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* fromcode = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef void* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -9128,7 +9008,7 @@ static Napi::Value libc_unix_bsd_apple_iconvOpen_napi(const Napi::CallbackInfo& 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_apple_iconv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleIconv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cd = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* inbuf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -9186,7 +9066,7 @@ static Napi::Value libc_unix_bsd_apple_iconv_napi(const Napi::CallbackInfo& km_i
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_bsd_apple_iconvClose_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleIconvClose_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cd = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -9241,268 +9121,268 @@ static Napi::Value libc_unix_bsd_apple_iconvClose_napi(const Napi::CallbackInfo&
 }
 
 static void register_unix_bsd_apple_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_unix_bsd_apple_get_MACH_TASK_SELF", Napi::Function::New(env, libc_unix_bsd_apple_get_MACH_TASK_SELF_napi));
-    exports.Set("libc_unix_bsd_apple_set_MACH_TASK_SELF", Napi::Function::New(env, libc_unix_bsd_apple_set_MACH_TASK_SELF_napi));
-    exports.Set("libc_unix_bsd_apple_get_VM_PAGE_SIZE", Napi::Function::New(env, libc_unix_bsd_apple_get_VM_PAGE_SIZE_napi));
-    exports.Set("libc_unix_bsd_apple_setgrent", Napi::Function::New(env, libc_unix_bsd_apple_setgrent_napi));
-    exports.Set("libc_unix_bsd_apple_daemon", Napi::Function::New(env, libc_unix_bsd_apple_daemon_napi));
-    exports.Set("libc_unix_bsd_apple_semDestroy", Napi::Function::New(env, libc_unix_bsd_apple_semDestroy_napi));
-    exports.Set("libc_unix_bsd_apple_semInit", Napi::Function::New(env, libc_unix_bsd_apple_semInit_napi));
-    exports.Set("libc_unix_bsd_apple_aioRead", Napi::Function::New(env, libc_unix_bsd_apple_aioRead_napi));
-    exports.Set("libc_unix_bsd_apple_aioWrite", Napi::Function::New(env, libc_unix_bsd_apple_aioWrite_napi));
-    exports.Set("libc_unix_bsd_apple_aioFsync", Napi::Function::New(env, libc_unix_bsd_apple_aioFsync_napi));
-    exports.Set("libc_unix_bsd_apple_aioError", Napi::Function::New(env, libc_unix_bsd_apple_aioError_napi));
-    exports.Set("libc_unix_bsd_apple_aioReturn", Napi::Function::New(env, libc_unix_bsd_apple_aioReturn_napi));
-    exports.Set("libc_unix_bsd_apple_aioSuspend", Napi::Function::New(env, libc_unix_bsd_apple_aioSuspend_napi));
-    exports.Set("libc_unix_bsd_apple_aioCancel", Napi::Function::New(env, libc_unix_bsd_apple_aioCancel_napi));
-    exports.Set("libc_unix_bsd_apple_chflags", Napi::Function::New(env, libc_unix_bsd_apple_chflags_napi));
-    exports.Set("libc_unix_bsd_apple_fchflags", Napi::Function::New(env, libc_unix_bsd_apple_fchflags_napi));
-    exports.Set("libc_unix_bsd_apple_clockGetres", Napi::Function::New(env, libc_unix_bsd_apple_clockGetres_napi));
-    exports.Set("libc_unix_bsd_apple_clockGettime", Napi::Function::New(env, libc_unix_bsd_apple_clockGettime_napi));
-    exports.Set("libc_unix_bsd_apple_lioListio", Napi::Function::New(env, libc_unix_bsd_apple_lioListio_napi));
-    exports.Set("libc_unix_bsd_apple_dirfd", Napi::Function::New(env, libc_unix_bsd_apple_dirfd_napi));
-    exports.Set("libc_unix_bsd_apple_lutimes", Napi::Function::New(env, libc_unix_bsd_apple_lutimes_napi));
-    exports.Set("libc_unix_bsd_apple_gettimeofday", Napi::Function::New(env, libc_unix_bsd_apple_gettimeofday_napi));
-    exports.Set("libc_unix_bsd_apple_getutxent", Napi::Function::New(env, libc_unix_bsd_apple_getutxent_napi));
-    exports.Set("libc_unix_bsd_apple_getutxid", Napi::Function::New(env, libc_unix_bsd_apple_getutxid_napi));
-    exports.Set("libc_unix_bsd_apple_getutxline", Napi::Function::New(env, libc_unix_bsd_apple_getutxline_napi));
-    exports.Set("libc_unix_bsd_apple_pututxline", Napi::Function::New(env, libc_unix_bsd_apple_pututxline_napi));
-    exports.Set("libc_unix_bsd_apple_setutxent", Napi::Function::New(env, libc_unix_bsd_apple_setutxent_napi));
-    exports.Set("libc_unix_bsd_apple_endutxent", Napi::Function::New(env, libc_unix_bsd_apple_endutxent_napi));
-    exports.Set("libc_unix_bsd_apple_utmpxname", Napi::Function::New(env, libc_unix_bsd_apple_utmpxname_napi));
-    exports.Set("libc_unix_bsd_apple_asctime", Napi::Function::New(env, libc_unix_bsd_apple_asctime_napi));
-    exports.Set("libc_unix_bsd_apple_ctime", Napi::Function::New(env, libc_unix_bsd_apple_ctime_napi));
-    exports.Set("libc_unix_bsd_apple_getdate", Napi::Function::New(env, libc_unix_bsd_apple_getdate_napi));
-    exports.Set("libc_unix_bsd_apple_strptime", Napi::Function::New(env, libc_unix_bsd_apple_strptime_napi));
-    exports.Set("libc_unix_bsd_apple_asctimeR", Napi::Function::New(env, libc_unix_bsd_apple_asctimeR_napi));
-    exports.Set("libc_unix_bsd_apple_ctimeR", Napi::Function::New(env, libc_unix_bsd_apple_ctimeR_napi));
-    exports.Set("libc_unix_bsd_apple_getnameinfo", Napi::Function::New(env, libc_unix_bsd_apple_getnameinfo_napi));
-    exports.Set("libc_unix_bsd_apple_mincore", Napi::Function::New(env, libc_unix_bsd_apple_mincore_napi));
-    exports.Set("libc_unix_bsd_apple_sysctlnametomib", Napi::Function::New(env, libc_unix_bsd_apple_sysctlnametomib_napi));
-    exports.Set("libc_unix_bsd_apple_mprotect", Napi::Function::New(env, libc_unix_bsd_apple_mprotect_napi));
-    exports.Set("libc_unix_bsd_apple_semget", Napi::Function::New(env, libc_unix_bsd_apple_semget_napi));
-    exports.Set("libc_unix_bsd_apple_semctl", Napi::Function::New(env, libc_unix_bsd_apple_semctl_napi));
-    exports.Set("libc_unix_bsd_apple_semop", Napi::Function::New(env, libc_unix_bsd_apple_semop_napi));
-    exports.Set("libc_unix_bsd_apple_shmOpen", Napi::Function::New(env, libc_unix_bsd_apple_shmOpen_napi));
-    exports.Set("libc_unix_bsd_apple_ftok", Napi::Function::New(env, libc_unix_bsd_apple_ftok_napi));
-    exports.Set("libc_unix_bsd_apple_shmat", Napi::Function::New(env, libc_unix_bsd_apple_shmat_napi));
-    exports.Set("libc_unix_bsd_apple_shmdt", Napi::Function::New(env, libc_unix_bsd_apple_shmdt_napi));
-    exports.Set("libc_unix_bsd_apple_shmctl", Napi::Function::New(env, libc_unix_bsd_apple_shmctl_napi));
-    exports.Set("libc_unix_bsd_apple_shmget", Napi::Function::New(env, libc_unix_bsd_apple_shmget_napi));
-    exports.Set("libc_unix_bsd_apple_sysctl", Napi::Function::New(env, libc_unix_bsd_apple_sysctl_napi));
-    exports.Set("libc_unix_bsd_apple_sysctlbyname", Napi::Function::New(env, libc_unix_bsd_apple_sysctlbyname_napi));
-    exports.Set("libc_unix_bsd_apple_machAbsoluteTime", Napi::Function::New(env, libc_unix_bsd_apple_machAbsoluteTime_napi));
-    exports.Set("libc_unix_bsd_apple_machTimebaseInfo", Napi::Function::New(env, libc_unix_bsd_apple_machTimebaseInfo_napi));
-    exports.Set("libc_unix_bsd_apple_machHostSelf", Napi::Function::New(env, libc_unix_bsd_apple_machHostSelf_napi));
-    exports.Set("libc_unix_bsd_apple_machThreadSelf", Napi::Function::New(env, libc_unix_bsd_apple_machThreadSelf_napi));
-    exports.Set("libc_unix_bsd_apple_pthreadCondTimedwaitRelativeNp", Napi::Function::New(env, libc_unix_bsd_apple_pthreadCondTimedwaitRelativeNp_napi));
-    exports.Set("libc_unix_bsd_apple_pthreadAttrGetscope", Napi::Function::New(env, libc_unix_bsd_apple_pthreadAttrGetscope_napi));
-    exports.Set("libc_unix_bsd_apple_pthreadAttrGetstackaddr", Napi::Function::New(env, libc_unix_bsd_apple_pthreadAttrGetstackaddr_napi));
-    exports.Set("libc_unix_bsd_apple_pthreadAttrGetdetachstate", Napi::Function::New(env, libc_unix_bsd_apple_pthreadAttrGetdetachstate_napi));
-    exports.Set("libc_unix_bsd_apple_pthreadAttrSetscope", Napi::Function::New(env, libc_unix_bsd_apple_pthreadAttrSetscope_napi));
-    exports.Set("libc_unix_bsd_apple_pthreadAttrSetstackaddr", Napi::Function::New(env, libc_unix_bsd_apple_pthreadAttrSetstackaddr_napi));
-    exports.Set("libc_unix_bsd_apple_pthreadSetnameNp", Napi::Function::New(env, libc_unix_bsd_apple_pthreadSetnameNp_napi));
-    exports.Set("libc_unix_bsd_apple_pthreadGetnameNp", Napi::Function::New(env, libc_unix_bsd_apple_pthreadGetnameNp_napi));
-    exports.Set("libc_unix_bsd_apple_pthreadMachThreadNp", Napi::Function::New(env, libc_unix_bsd_apple_pthreadMachThreadNp_napi));
-    exports.Set("libc_unix_bsd_apple_pthreadFromMachThreadNp", Napi::Function::New(env, libc_unix_bsd_apple_pthreadFromMachThreadNp_napi));
-    exports.Set("libc_unix_bsd_apple_pthreadGetStackaddrNp", Napi::Function::New(env, libc_unix_bsd_apple_pthreadGetStackaddrNp_napi));
-    exports.Set("libc_unix_bsd_apple_pthreadGetStacksizeNp", Napi::Function::New(env, libc_unix_bsd_apple_pthreadGetStacksizeNp_napi));
-    exports.Set("libc_unix_bsd_apple_pthreadMainNp", Napi::Function::New(env, libc_unix_bsd_apple_pthreadMainNp_napi));
-    exports.Set("libc_unix_bsd_apple_pthreadThreadidNp", Napi::Function::New(env, libc_unix_bsd_apple_pthreadThreadidNp_napi));
-    exports.Set("libc_unix_bsd_apple_pthreadJitWriteProtectNp", Napi::Function::New(env, libc_unix_bsd_apple_pthreadJitWriteProtectNp_napi));
-    exports.Set("libc_unix_bsd_apple_pthreadJitWriteProtectSupportedNp", Napi::Function::New(env, libc_unix_bsd_apple_pthreadJitWriteProtectSupportedNp_napi));
-    exports.Set("libc_unix_bsd_apple_pthreadJitWriteWithCallbackNp", Napi::Function::New(env, libc_unix_bsd_apple_pthreadJitWriteWithCallbackNp_napi));
-    exports.Set("libc_unix_bsd_apple_pthreadJitWriteFreezeCallbacksNp", Napi::Function::New(env, libc_unix_bsd_apple_pthreadJitWriteFreezeCallbacksNp_napi));
-    exports.Set("libc_unix_bsd_apple_pthreadCpuNumberNp", Napi::Function::New(env, libc_unix_bsd_apple_pthreadCpuNumberNp_napi));
-    exports.Set("libc_unix_bsd_apple_osSyncWaitOnAddress", Napi::Function::New(env, libc_unix_bsd_apple_osSyncWaitOnAddress_napi));
-    exports.Set("libc_unix_bsd_apple_osSyncWaitOnAddressWithDeadline", Napi::Function::New(env, libc_unix_bsd_apple_osSyncWaitOnAddressWithDeadline_napi));
-    exports.Set("libc_unix_bsd_apple_osSyncWaitOnAddressWithTimeout", Napi::Function::New(env, libc_unix_bsd_apple_osSyncWaitOnAddressWithTimeout_napi));
-    exports.Set("libc_unix_bsd_apple_osSyncWakeByAddressAny", Napi::Function::New(env, libc_unix_bsd_apple_osSyncWakeByAddressAny_napi));
-    exports.Set("libc_unix_bsd_apple_osSyncWakeByAddressAll", Napi::Function::New(env, libc_unix_bsd_apple_osSyncWakeByAddressAll_napi));
-    exports.Set("libc_unix_bsd_apple_osUnfairLockLock", Napi::Function::New(env, libc_unix_bsd_apple_osUnfairLockLock_napi));
-    exports.Set("libc_unix_bsd_apple_osUnfairLockTrylock", Napi::Function::New(env, libc_unix_bsd_apple_osUnfairLockTrylock_napi));
-    exports.Set("libc_unix_bsd_apple_osUnfairLockUnlock", Napi::Function::New(env, libc_unix_bsd_apple_osUnfairLockUnlock_napi));
-    exports.Set("libc_unix_bsd_apple_osUnfairLockAssertOwner", Napi::Function::New(env, libc_unix_bsd_apple_osUnfairLockAssertOwner_napi));
-    exports.Set("libc_unix_bsd_apple_osUnfairLockAssertNotOwner", Napi::Function::New(env, libc_unix_bsd_apple_osUnfairLockAssertNotOwner_napi));
-    exports.Set("libc_unix_bsd_apple_osLogCreate", Napi::Function::New(env, libc_unix_bsd_apple_osLogCreate_napi));
-    exports.Set("libc_unix_bsd_apple_osLogTypeEnabled", Napi::Function::New(env, libc_unix_bsd_apple_osLogTypeEnabled_napi));
-    exports.Set("libc_unix_bsd_apple_osSignpostIdMakeWithPointer", Napi::Function::New(env, libc_unix_bsd_apple_osSignpostIdMakeWithPointer_napi));
-    exports.Set("libc_unix_bsd_apple_osSignpostIdGenerate", Napi::Function::New(env, libc_unix_bsd_apple_osSignpostIdGenerate_napi));
-    exports.Set("libc_unix_bsd_apple_osSignpostEnabled", Napi::Function::New(env, libc_unix_bsd_apple_osSignpostEnabled_napi));
-    exports.Set("libc_unix_bsd_apple_threadPolicySet", Napi::Function::New(env, libc_unix_bsd_apple_threadPolicySet_napi));
-    exports.Set("libc_unix_bsd_apple_threadPolicyGet", Napi::Function::New(env, libc_unix_bsd_apple_threadPolicyGet_napi));
-    exports.Set("libc_unix_bsd_apple_threadInfo", Napi::Function::New(env, libc_unix_bsd_apple_threadInfo_napi));
-    exports.Set("libc_unix_bsd_apple_error", Napi::Function::New(env, libc_unix_bsd_apple_error_napi));
-    exports.Set("libc_unix_bsd_apple_backtrace", Napi::Function::New(env, libc_unix_bsd_apple_backtrace_napi));
-    exports.Set("libc_unix_bsd_apple_backtraceSymbols", Napi::Function::New(env, libc_unix_bsd_apple_backtraceSymbols_napi));
-    exports.Set("libc_unix_bsd_apple_backtraceSymbolsFd", Napi::Function::New(env, libc_unix_bsd_apple_backtraceSymbolsFd_napi));
-    exports.Set("libc_unix_bsd_apple_backtraceFromFp", Napi::Function::New(env, libc_unix_bsd_apple_backtraceFromFp_napi));
-    exports.Set("libc_unix_bsd_apple_backtraceImageOffsets", Napi::Function::New(env, libc_unix_bsd_apple_backtraceImageOffsets_napi));
-    exports.Set("libc_unix_bsd_apple_backtraceAsync", Napi::Function::New(env, libc_unix_bsd_apple_backtraceAsync_napi));
-    exports.Set("libc_unix_bsd_apple_statfs", Napi::Function::New(env, libc_unix_bsd_apple_statfs_napi));
-    exports.Set("libc_unix_bsd_apple_fstatfs", Napi::Function::New(env, libc_unix_bsd_apple_fstatfs_napi));
-    exports.Set("libc_unix_bsd_apple_kevent", Napi::Function::New(env, libc_unix_bsd_apple_kevent_napi));
-    exports.Set("libc_unix_bsd_apple_kevent64", Napi::Function::New(env, libc_unix_bsd_apple_kevent64_napi));
-    exports.Set("libc_unix_bsd_apple_mount", Napi::Function::New(env, libc_unix_bsd_apple_mount_napi));
-    exports.Set("libc_unix_bsd_apple_fmount", Napi::Function::New(env, libc_unix_bsd_apple_fmount_napi));
-    exports.Set("libc_unix_bsd_apple_ptrace", Napi::Function::New(env, libc_unix_bsd_apple_ptrace_napi));
-    exports.Set("libc_unix_bsd_apple_quotactl", Napi::Function::New(env, libc_unix_bsd_apple_quotactl_napi));
-    exports.Set("libc_unix_bsd_apple_sethostname", Napi::Function::New(env, libc_unix_bsd_apple_sethostname_napi));
-    exports.Set("libc_unix_bsd_apple_sendfile", Napi::Function::New(env, libc_unix_bsd_apple_sendfile_napi));
-    exports.Set("libc_unix_bsd_apple_futimens", Napi::Function::New(env, libc_unix_bsd_apple_futimens_napi));
-    exports.Set("libc_unix_bsd_apple_utimensat", Napi::Function::New(env, libc_unix_bsd_apple_utimensat_napi));
-    exports.Set("libc_unix_bsd_apple_openpty", Napi::Function::New(env, libc_unix_bsd_apple_openpty_napi));
-    exports.Set("libc_unix_bsd_apple_forkpty", Napi::Function::New(env, libc_unix_bsd_apple_forkpty_napi));
-    exports.Set("libc_unix_bsd_apple_loginTty", Napi::Function::New(env, libc_unix_bsd_apple_loginTty_napi));
-    exports.Set("libc_unix_bsd_apple_duplocale", Napi::Function::New(env, libc_unix_bsd_apple_duplocale_napi));
-    exports.Set("libc_unix_bsd_apple_freelocale", Napi::Function::New(env, libc_unix_bsd_apple_freelocale_napi));
-    exports.Set("libc_unix_bsd_apple_localeconvL", Napi::Function::New(env, libc_unix_bsd_apple_localeconvL_napi));
-    exports.Set("libc_unix_bsd_apple_newlocale", Napi::Function::New(env, libc_unix_bsd_apple_newlocale_napi));
-    exports.Set("libc_unix_bsd_apple_uselocale", Napi::Function::New(env, libc_unix_bsd_apple_uselocale_napi));
-    exports.Set("libc_unix_bsd_apple_querylocale", Napi::Function::New(env, libc_unix_bsd_apple_querylocale_napi));
-    exports.Set("libc_unix_bsd_apple_getpriority", Napi::Function::New(env, libc_unix_bsd_apple_getpriority_napi));
-    exports.Set("libc_unix_bsd_apple_setpriority", Napi::Function::New(env, libc_unix_bsd_apple_setpriority_napi));
-    exports.Set("libc_unix_bsd_apple_getdomainname", Napi::Function::New(env, libc_unix_bsd_apple_getdomainname_napi));
-    exports.Set("libc_unix_bsd_apple_setdomainname", Napi::Function::New(env, libc_unix_bsd_apple_setdomainname_napi));
-    exports.Set("libc_unix_bsd_apple_preadv", Napi::Function::New(env, libc_unix_bsd_apple_preadv_napi));
-    exports.Set("libc_unix_bsd_apple_pwritev", Napi::Function::New(env, libc_unix_bsd_apple_pwritev_napi));
-    exports.Set("libc_unix_bsd_apple_getxattr", Napi::Function::New(env, libc_unix_bsd_apple_getxattr_napi));
-    exports.Set("libc_unix_bsd_apple_fgetxattr", Napi::Function::New(env, libc_unix_bsd_apple_fgetxattr_napi));
-    exports.Set("libc_unix_bsd_apple_setxattr", Napi::Function::New(env, libc_unix_bsd_apple_setxattr_napi));
-    exports.Set("libc_unix_bsd_apple_fsetxattr", Napi::Function::New(env, libc_unix_bsd_apple_fsetxattr_napi));
-    exports.Set("libc_unix_bsd_apple_listxattr", Napi::Function::New(env, libc_unix_bsd_apple_listxattr_napi));
-    exports.Set("libc_unix_bsd_apple_flistxattr", Napi::Function::New(env, libc_unix_bsd_apple_flistxattr_napi));
-    exports.Set("libc_unix_bsd_apple_removexattr", Napi::Function::New(env, libc_unix_bsd_apple_removexattr_napi));
-    exports.Set("libc_unix_bsd_apple_renamexNp", Napi::Function::New(env, libc_unix_bsd_apple_renamexNp_napi));
-    exports.Set("libc_unix_bsd_apple_renameatxNp", Napi::Function::New(env, libc_unix_bsd_apple_renameatxNp_napi));
-    exports.Set("libc_unix_bsd_apple_fremovexattr", Napi::Function::New(env, libc_unix_bsd_apple_fremovexattr_napi));
-    exports.Set("libc_unix_bsd_apple_getgrouplist", Napi::Function::New(env, libc_unix_bsd_apple_getgrouplist_napi));
-    exports.Set("libc_unix_bsd_apple_initgroups", Napi::Function::New(env, libc_unix_bsd_apple_initgroups_napi));
-    exports.Set("libc_unix_bsd_apple_waitid", Napi::Function::New(env, libc_unix_bsd_apple_waitid_napi));
-    exports.Set("libc_unix_bsd_apple_brk", Napi::Function::New(env, libc_unix_bsd_apple_brk_napi));
-    exports.Set("libc_unix_bsd_apple_sbrk", Napi::Function::New(env, libc_unix_bsd_apple_sbrk_napi));
-    exports.Set("libc_unix_bsd_apple_settimeofday", Napi::Function::New(env, libc_unix_bsd_apple_settimeofday_napi));
-    exports.Set("libc_unix_bsd_apple_dyldImageCount", Napi::Function::New(env, libc_unix_bsd_apple_dyldImageCount_napi));
-    exports.Set("libc_unix_bsd_apple_dyldGetImageHeader", Napi::Function::New(env, libc_unix_bsd_apple_dyldGetImageHeader_napi));
-    exports.Set("libc_unix_bsd_apple_dyldGetImageVmaddrSlide", Napi::Function::New(env, libc_unix_bsd_apple_dyldGetImageVmaddrSlide_napi));
-    exports.Set("libc_unix_bsd_apple_dyldGetImageName", Napi::Function::New(env, libc_unix_bsd_apple_dyldGetImageName_napi));
-    exports.Set("libc_unix_bsd_apple_posixSpawn", Napi::Function::New(env, libc_unix_bsd_apple_posixSpawn_napi));
-    exports.Set("libc_unix_bsd_apple_posixSpawnp", Napi::Function::New(env, libc_unix_bsd_apple_posixSpawnp_napi));
-    exports.Set("libc_unix_bsd_apple_posixSpawnattrInit", Napi::Function::New(env, libc_unix_bsd_apple_posixSpawnattrInit_napi));
-    exports.Set("libc_unix_bsd_apple_posixSpawnattrDestroy", Napi::Function::New(env, libc_unix_bsd_apple_posixSpawnattrDestroy_napi));
-    exports.Set("libc_unix_bsd_apple_posixSpawnattrGetsigdefault", Napi::Function::New(env, libc_unix_bsd_apple_posixSpawnattrGetsigdefault_napi));
-    exports.Set("libc_unix_bsd_apple_posixSpawnattrSetsigdefault", Napi::Function::New(env, libc_unix_bsd_apple_posixSpawnattrSetsigdefault_napi));
-    exports.Set("libc_unix_bsd_apple_posixSpawnattrGetsigmask", Napi::Function::New(env, libc_unix_bsd_apple_posixSpawnattrGetsigmask_napi));
-    exports.Set("libc_unix_bsd_apple_posixSpawnattrSetsigmask", Napi::Function::New(env, libc_unix_bsd_apple_posixSpawnattrSetsigmask_napi));
-    exports.Set("libc_unix_bsd_apple_posixSpawnattrGetflags", Napi::Function::New(env, libc_unix_bsd_apple_posixSpawnattrGetflags_napi));
-    exports.Set("libc_unix_bsd_apple_posixSpawnattrSetflags", Napi::Function::New(env, libc_unix_bsd_apple_posixSpawnattrSetflags_napi));
-    exports.Set("libc_unix_bsd_apple_posixSpawnattrGetpgroup", Napi::Function::New(env, libc_unix_bsd_apple_posixSpawnattrGetpgroup_napi));
-    exports.Set("libc_unix_bsd_apple_posixSpawnattrSetpgroup", Napi::Function::New(env, libc_unix_bsd_apple_posixSpawnattrSetpgroup_napi));
-    exports.Set("libc_unix_bsd_apple_posixSpawnattrSetarchprefNp", Napi::Function::New(env, libc_unix_bsd_apple_posixSpawnattrSetarchprefNp_napi));
-    exports.Set("libc_unix_bsd_apple_posixSpawnattrGetarchprefNp", Napi::Function::New(env, libc_unix_bsd_apple_posixSpawnattrGetarchprefNp_napi));
-    exports.Set("libc_unix_bsd_apple_posixSpawnattrGetbinprefNp", Napi::Function::New(env, libc_unix_bsd_apple_posixSpawnattrGetbinprefNp_napi));
-    exports.Set("libc_unix_bsd_apple_posixSpawnattrSetbinprefNp", Napi::Function::New(env, libc_unix_bsd_apple_posixSpawnattrSetbinprefNp_napi));
-    exports.Set("libc_unix_bsd_apple_posixSpawnFileActionsInit", Napi::Function::New(env, libc_unix_bsd_apple_posixSpawnFileActionsInit_napi));
-    exports.Set("libc_unix_bsd_apple_posixSpawnFileActionsDestroy", Napi::Function::New(env, libc_unix_bsd_apple_posixSpawnFileActionsDestroy_napi));
-    exports.Set("libc_unix_bsd_apple_posixSpawnFileActionsAddopen", Napi::Function::New(env, libc_unix_bsd_apple_posixSpawnFileActionsAddopen_napi));
-    exports.Set("libc_unix_bsd_apple_posixSpawnFileActionsAddclose", Napi::Function::New(env, libc_unix_bsd_apple_posixSpawnFileActionsAddclose_napi));
-    exports.Set("libc_unix_bsd_apple_posixSpawnFileActionsAdddup2", Napi::Function::New(env, libc_unix_bsd_apple_posixSpawnFileActionsAdddup2_napi));
-    exports.Set("libc_unix_bsd_apple_uname", Napi::Function::New(env, libc_unix_bsd_apple_uname_napi));
-    exports.Set("libc_unix_bsd_apple_connectx", Napi::Function::New(env, libc_unix_bsd_apple_connectx_napi));
-    exports.Set("libc_unix_bsd_apple_disconnectx", Napi::Function::New(env, libc_unix_bsd_apple_disconnectx_napi));
-    exports.Set("libc_unix_bsd_apple_ntpAdjtime", Napi::Function::New(env, libc_unix_bsd_apple_ntpAdjtime_napi));
-    exports.Set("libc_unix_bsd_apple_ntpGettime", Napi::Function::New(env, libc_unix_bsd_apple_ntpGettime_napi));
-    exports.Set("libc_unix_bsd_apple_getmntinfo", Napi::Function::New(env, libc_unix_bsd_apple_getmntinfo_napi));
-    exports.Set("libc_unix_bsd_apple_getfsstat", Napi::Function::New(env, libc_unix_bsd_apple_getfsstat_napi));
-    exports.Set("libc_unix_bsd_apple_clonefile", Napi::Function::New(env, libc_unix_bsd_apple_clonefile_napi));
-    exports.Set("libc_unix_bsd_apple_clonefileat", Napi::Function::New(env, libc_unix_bsd_apple_clonefileat_napi));
-    exports.Set("libc_unix_bsd_apple_fclonefileat", Napi::Function::New(env, libc_unix_bsd_apple_fclonefileat_napi));
-    exports.Set("libc_unix_bsd_apple_copyfile", Napi::Function::New(env, libc_unix_bsd_apple_copyfile_napi));
-    exports.Set("libc_unix_bsd_apple_fcopyfile", Napi::Function::New(env, libc_unix_bsd_apple_fcopyfile_napi));
-    exports.Set("libc_unix_bsd_apple_copyfileStateFree", Napi::Function::New(env, libc_unix_bsd_apple_copyfileStateFree_napi));
-    exports.Set("libc_unix_bsd_apple_copyfileStateAlloc", Napi::Function::New(env, libc_unix_bsd_apple_copyfileStateAlloc_napi));
-    exports.Set("libc_unix_bsd_apple_copyfileStateGet", Napi::Function::New(env, libc_unix_bsd_apple_copyfileStateGet_napi));
-    exports.Set("libc_unix_bsd_apple_copyfileStateSet", Napi::Function::New(env, libc_unix_bsd_apple_copyfileStateSet_napi));
-    exports.Set("libc_unix_bsd_apple_machErrorString", Napi::Function::New(env, libc_unix_bsd_apple_machErrorString_napi));
-    exports.Set("libc_unix_bsd_apple_memsetS", Napi::Function::New(env, libc_unix_bsd_apple_memsetS_napi));
-    exports.Set("libc_unix_bsd_apple_memsetPattern4", Napi::Function::New(env, libc_unix_bsd_apple_memsetPattern4_napi));
-    exports.Set("libc_unix_bsd_apple_memsetPattern8", Napi::Function::New(env, libc_unix_bsd_apple_memsetPattern8_napi));
-    exports.Set("libc_unix_bsd_apple_memsetPattern16", Napi::Function::New(env, libc_unix_bsd_apple_memsetPattern16_napi));
-    exports.Set("libc_unix_bsd_apple_strtonum", Napi::Function::New(env, libc_unix_bsd_apple_strtonum_napi));
-    exports.Set("libc_unix_bsd_apple_mallocPrintf", Napi::Function::New(env, libc_unix_bsd_apple_mallocPrintf_napi));
-    exports.Set("libc_unix_bsd_apple_mallocZoneCheck", Napi::Function::New(env, libc_unix_bsd_apple_mallocZoneCheck_napi));
-    exports.Set("libc_unix_bsd_apple_mallocZonePrint", Napi::Function::New(env, libc_unix_bsd_apple_mallocZonePrint_napi));
-    exports.Set("libc_unix_bsd_apple_mallocZoneStatistics", Napi::Function::New(env, libc_unix_bsd_apple_mallocZoneStatistics_napi));
-    exports.Set("libc_unix_bsd_apple_mallocZoneLog", Napi::Function::New(env, libc_unix_bsd_apple_mallocZoneLog_napi));
-    exports.Set("libc_unix_bsd_apple_mallocZonePrintPtrInfo", Napi::Function::New(env, libc_unix_bsd_apple_mallocZonePrintPtrInfo_napi));
-    exports.Set("libc_unix_bsd_apple_mallocDefaultZone", Napi::Function::New(env, libc_unix_bsd_apple_mallocDefaultZone_napi));
-    exports.Set("libc_unix_bsd_apple_mallocZoneFromPtr", Napi::Function::New(env, libc_unix_bsd_apple_mallocZoneFromPtr_napi));
-    exports.Set("libc_unix_bsd_apple_mallocZoneMalloc", Napi::Function::New(env, libc_unix_bsd_apple_mallocZoneMalloc_napi));
-    exports.Set("libc_unix_bsd_apple_mallocZoneValloc", Napi::Function::New(env, libc_unix_bsd_apple_mallocZoneValloc_napi));
-    exports.Set("libc_unix_bsd_apple_mallocZoneCalloc", Napi::Function::New(env, libc_unix_bsd_apple_mallocZoneCalloc_napi));
-    exports.Set("libc_unix_bsd_apple_mallocZoneRealloc", Napi::Function::New(env, libc_unix_bsd_apple_mallocZoneRealloc_napi));
-    exports.Set("libc_unix_bsd_apple_mallocZoneFree", Napi::Function::New(env, libc_unix_bsd_apple_mallocZoneFree_napi));
-    exports.Set("libc_unix_bsd_apple_procListpids", Napi::Function::New(env, libc_unix_bsd_apple_procListpids_napi));
-    exports.Set("libc_unix_bsd_apple_procListallpids", Napi::Function::New(env, libc_unix_bsd_apple_procListallpids_napi));
-    exports.Set("libc_unix_bsd_apple_procListpgrppids", Napi::Function::New(env, libc_unix_bsd_apple_procListpgrppids_napi));
-    exports.Set("libc_unix_bsd_apple_procListchildpids", Napi::Function::New(env, libc_unix_bsd_apple_procListchildpids_napi));
-    exports.Set("libc_unix_bsd_apple_procPidinfo", Napi::Function::New(env, libc_unix_bsd_apple_procPidinfo_napi));
-    exports.Set("libc_unix_bsd_apple_procPidfdinfo", Napi::Function::New(env, libc_unix_bsd_apple_procPidfdinfo_napi));
-    exports.Set("libc_unix_bsd_apple_procPidfileportinfo", Napi::Function::New(env, libc_unix_bsd_apple_procPidfileportinfo_napi));
-    exports.Set("libc_unix_bsd_apple_procPidpath", Napi::Function::New(env, libc_unix_bsd_apple_procPidpath_napi));
-    exports.Set("libc_unix_bsd_apple_procName", Napi::Function::New(env, libc_unix_bsd_apple_procName_napi));
-    exports.Set("libc_unix_bsd_apple_procRegionfilename", Napi::Function::New(env, libc_unix_bsd_apple_procRegionfilename_napi));
-    exports.Set("libc_unix_bsd_apple_procKmsgbuf", Napi::Function::New(env, libc_unix_bsd_apple_procKmsgbuf_napi));
-    exports.Set("libc_unix_bsd_apple_procLibversion", Napi::Function::New(env, libc_unix_bsd_apple_procLibversion_napi));
-    exports.Set("libc_unix_bsd_apple_procPidRusage", Napi::Function::New(env, libc_unix_bsd_apple_procPidRusage_napi));
-    exports.Set("libc_unix_bsd_apple_procSetNoSmt", Napi::Function::New(env, libc_unix_bsd_apple_procSetNoSmt_napi));
-    exports.Set("libc_unix_bsd_apple_procSetthreadNoSmt", Napi::Function::New(env, libc_unix_bsd_apple_procSetthreadNoSmt_napi));
-    exports.Set("libc_unix_bsd_apple_procSetCsm", Napi::Function::New(env, libc_unix_bsd_apple_procSetCsm_napi));
-    exports.Set("libc_unix_bsd_apple_procSetthreadCsm", Napi::Function::New(env, libc_unix_bsd_apple_procSetthreadCsm_napi));
-    exports.Set("libc_unix_bsd_apple_gethostuuid", Napi::Function::New(env, libc_unix_bsd_apple_gethostuuid_napi));
-    exports.Set("libc_unix_bsd_apple_gethostid", Napi::Function::New(env, libc_unix_bsd_apple_gethostid_napi));
-    exports.Set("libc_unix_bsd_apple_sethostid", Napi::Function::New(env, libc_unix_bsd_apple_sethostid_napi));
-    exports.Set("libc_unix_bsd_apple_cCRandomGenerateBytes", Napi::Function::New(env, libc_unix_bsd_apple_cCRandomGenerateBytes_napi));
-    exports.Set("libc_unix_bsd_apple_getentropy", Napi::Function::New(env, libc_unix_bsd_apple_getentropy_napi));
-    exports.Set("libc_unix_bsd_apple_nsgetExecutablePath", Napi::Function::New(env, libc_unix_bsd_apple_nsgetExecutablePath_napi));
-    exports.Set("libc_unix_bsd_apple_nsgetArgv", Napi::Function::New(env, libc_unix_bsd_apple_nsgetArgv_napi));
-    exports.Set("libc_unix_bsd_apple_nsgetArgc", Napi::Function::New(env, libc_unix_bsd_apple_nsgetArgc_napi));
-    exports.Set("libc_unix_bsd_apple_nsgetEnviron", Napi::Function::New(env, libc_unix_bsd_apple_nsgetEnviron_napi));
-    exports.Set("libc_unix_bsd_apple_nsgetProgname", Napi::Function::New(env, libc_unix_bsd_apple_nsgetProgname_napi));
-    exports.Set("libc_unix_bsd_apple_machVmMap", Napi::Function::New(env, libc_unix_bsd_apple_machVmMap_napi));
-    exports.Set("libc_unix_bsd_apple_vmAllocate", Napi::Function::New(env, libc_unix_bsd_apple_vmAllocate_napi));
-    exports.Set("libc_unix_bsd_apple_vmDeallocate", Napi::Function::New(env, libc_unix_bsd_apple_vmDeallocate_napi));
-    exports.Set("libc_unix_bsd_apple_hostStatistics64", Napi::Function::New(env, libc_unix_bsd_apple_hostStatistics64_napi));
-    exports.Set("libc_unix_bsd_apple_hostProcessorInfo", Napi::Function::New(env, libc_unix_bsd_apple_hostProcessorInfo_napi));
-    exports.Set("libc_unix_bsd_apple_taskForPid", Napi::Function::New(env, libc_unix_bsd_apple_taskForPid_napi));
-    exports.Set("libc_unix_bsd_apple_taskInfo", Napi::Function::New(env, libc_unix_bsd_apple_taskInfo_napi));
-    exports.Set("libc_unix_bsd_apple_taskCreate", Napi::Function::New(env, libc_unix_bsd_apple_taskCreate_napi));
-    exports.Set("libc_unix_bsd_apple_taskTerminate", Napi::Function::New(env, libc_unix_bsd_apple_taskTerminate_napi));
-    exports.Set("libc_unix_bsd_apple_taskThreads", Napi::Function::New(env, libc_unix_bsd_apple_taskThreads_napi));
-    exports.Set("libc_unix_bsd_apple_hostStatistics", Napi::Function::New(env, libc_unix_bsd_apple_hostStatistics_napi));
-    exports.Set("libc_unix_bsd_apple_sysdirGetNextSearchPathEnumeration", Napi::Function::New(env, libc_unix_bsd_apple_sysdirGetNextSearchPathEnumeration_napi));
-    exports.Set("libc_unix_bsd_apple_getattrlist", Napi::Function::New(env, libc_unix_bsd_apple_getattrlist_napi));
-    exports.Set("libc_unix_bsd_apple_fgetattrlist", Napi::Function::New(env, libc_unix_bsd_apple_fgetattrlist_napi));
-    exports.Set("libc_unix_bsd_apple_getattrlistat", Napi::Function::New(env, libc_unix_bsd_apple_getattrlistat_napi));
-    exports.Set("libc_unix_bsd_apple_setattrlist", Napi::Function::New(env, libc_unix_bsd_apple_setattrlist_napi));
-    exports.Set("libc_unix_bsd_apple_fsetattrlist", Napi::Function::New(env, libc_unix_bsd_apple_fsetattrlist_napi));
-    exports.Set("libc_unix_bsd_apple_setattrlistat", Napi::Function::New(env, libc_unix_bsd_apple_setattrlistat_napi));
-    exports.Set("libc_unix_bsd_apple_getattrlistbulk", Napi::Function::New(env, libc_unix_bsd_apple_getattrlistbulk_napi));
-    exports.Set("libc_unix_bsd_apple_mallocSize", Napi::Function::New(env, libc_unix_bsd_apple_mallocSize_napi));
-    exports.Set("libc_unix_bsd_apple_mallocGoodSize", Napi::Function::New(env, libc_unix_bsd_apple_mallocGoodSize_napi));
-    exports.Set("libc_unix_bsd_apple_dirname", Napi::Function::New(env, libc_unix_bsd_apple_dirname_napi));
-    exports.Set("libc_unix_bsd_apple_basename", Napi::Function::New(env, libc_unix_bsd_apple_basename_napi));
-    exports.Set("libc_unix_bsd_apple_mkfifoat", Napi::Function::New(env, libc_unix_bsd_apple_mkfifoat_napi));
-    exports.Set("libc_unix_bsd_apple_mknodat", Napi::Function::New(env, libc_unix_bsd_apple_mknodat_napi));
-    exports.Set("libc_unix_bsd_apple_freadlink", Napi::Function::New(env, libc_unix_bsd_apple_freadlink_napi));
-    exports.Set("libc_unix_bsd_apple_execvP", Napi::Function::New(env, libc_unix_bsd_apple_execvP_napi));
-    exports.Set("libc_unix_bsd_apple_qsortR", Napi::Function::New(env, libc_unix_bsd_apple_qsortR_napi));
-    exports.Set("libc_unix_bsd_apple_clockSettime", Napi::Function::New(env, libc_unix_bsd_apple_clockSettime_napi));
-    exports.Set("libc_unix_bsd_apple_memmem", Napi::Function::New(env, libc_unix_bsd_apple_memmem_napi));
-    exports.Set("libc_unix_bsd_apple_taskSetInfo", Napi::Function::New(env, libc_unix_bsd_apple_taskSetInfo_napi));
-    exports.Set("libc_unix_bsd_apple_iconvOpen", Napi::Function::New(env, libc_unix_bsd_apple_iconvOpen_napi));
-    exports.Set("libc_unix_bsd_apple_iconv", Napi::Function::New(env, libc_unix_bsd_apple_iconv_napi));
-    exports.Set("libc_unix_bsd_apple_iconvClose", Napi::Function::New(env, libc_unix_bsd_apple_iconvClose_napi));
+    exports.Set("libcUnixBsdAppleGetMACHTASKSELF", Napi::Function::New(env, libcUnixBsdAppleGetMACHTASKSELF_napi));
+    exports.Set("libcUnixBsdAppleSetMACHTASKSELF", Napi::Function::New(env, libcUnixBsdAppleSetMACHTASKSELF_napi));
+    exports.Set("libcUnixBsdAppleGetVMPAGESIZE", Napi::Function::New(env, libcUnixBsdAppleGetVMPAGESIZE_napi));
+    exports.Set("libcUnixBsdAppleSetgrent", Napi::Function::New(env, libcUnixBsdAppleSetgrent_napi));
+    exports.Set("libcUnixBsdAppleDaemon", Napi::Function::New(env, libcUnixBsdAppleDaemon_napi));
+    exports.Set("libcUnixBsdAppleSemDestroy", Napi::Function::New(env, libcUnixBsdAppleSemDestroy_napi));
+    exports.Set("libcUnixBsdAppleSemInit", Napi::Function::New(env, libcUnixBsdAppleSemInit_napi));
+    exports.Set("libcUnixBsdAppleAioRead", Napi::Function::New(env, libcUnixBsdAppleAioRead_napi));
+    exports.Set("libcUnixBsdAppleAioWrite", Napi::Function::New(env, libcUnixBsdAppleAioWrite_napi));
+    exports.Set("libcUnixBsdAppleAioFsync", Napi::Function::New(env, libcUnixBsdAppleAioFsync_napi));
+    exports.Set("libcUnixBsdAppleAioError", Napi::Function::New(env, libcUnixBsdAppleAioError_napi));
+    exports.Set("libcUnixBsdAppleAioReturn", Napi::Function::New(env, libcUnixBsdAppleAioReturn_napi));
+    exports.Set("libcUnixBsdAppleAioSuspend", Napi::Function::New(env, libcUnixBsdAppleAioSuspend_napi));
+    exports.Set("libcUnixBsdAppleAioCancel", Napi::Function::New(env, libcUnixBsdAppleAioCancel_napi));
+    exports.Set("libcUnixBsdAppleChflags", Napi::Function::New(env, libcUnixBsdAppleChflags_napi));
+    exports.Set("libcUnixBsdAppleFchflags", Napi::Function::New(env, libcUnixBsdAppleFchflags_napi));
+    exports.Set("libcUnixBsdAppleClockGetres", Napi::Function::New(env, libcUnixBsdAppleClockGetres_napi));
+    exports.Set("libcUnixBsdAppleClockGettime", Napi::Function::New(env, libcUnixBsdAppleClockGettime_napi));
+    exports.Set("libcUnixBsdAppleLioListio", Napi::Function::New(env, libcUnixBsdAppleLioListio_napi));
+    exports.Set("libcUnixBsdAppleDirfd", Napi::Function::New(env, libcUnixBsdAppleDirfd_napi));
+    exports.Set("libcUnixBsdAppleLutimes", Napi::Function::New(env, libcUnixBsdAppleLutimes_napi));
+    exports.Set("libcUnixBsdAppleGettimeofday", Napi::Function::New(env, libcUnixBsdAppleGettimeofday_napi));
+    exports.Set("libcUnixBsdAppleGetutxent", Napi::Function::New(env, libcUnixBsdAppleGetutxent_napi));
+    exports.Set("libcUnixBsdAppleGetutxid", Napi::Function::New(env, libcUnixBsdAppleGetutxid_napi));
+    exports.Set("libcUnixBsdAppleGetutxline", Napi::Function::New(env, libcUnixBsdAppleGetutxline_napi));
+    exports.Set("libcUnixBsdApplePututxline", Napi::Function::New(env, libcUnixBsdApplePututxline_napi));
+    exports.Set("libcUnixBsdAppleSetutxent", Napi::Function::New(env, libcUnixBsdAppleSetutxent_napi));
+    exports.Set("libcUnixBsdAppleEndutxent", Napi::Function::New(env, libcUnixBsdAppleEndutxent_napi));
+    exports.Set("libcUnixBsdAppleUtmpxname", Napi::Function::New(env, libcUnixBsdAppleUtmpxname_napi));
+    exports.Set("libcUnixBsdAppleAsctime", Napi::Function::New(env, libcUnixBsdAppleAsctime_napi));
+    exports.Set("libcUnixBsdAppleCtime", Napi::Function::New(env, libcUnixBsdAppleCtime_napi));
+    exports.Set("libcUnixBsdAppleGetdate", Napi::Function::New(env, libcUnixBsdAppleGetdate_napi));
+    exports.Set("libcUnixBsdAppleStrptime", Napi::Function::New(env, libcUnixBsdAppleStrptime_napi));
+    exports.Set("libcUnixBsdAppleAsctimeR", Napi::Function::New(env, libcUnixBsdAppleAsctimeR_napi));
+    exports.Set("libcUnixBsdAppleCtimeR", Napi::Function::New(env, libcUnixBsdAppleCtimeR_napi));
+    exports.Set("libcUnixBsdAppleGetnameinfo", Napi::Function::New(env, libcUnixBsdAppleGetnameinfo_napi));
+    exports.Set("libcUnixBsdAppleMincore", Napi::Function::New(env, libcUnixBsdAppleMincore_napi));
+    exports.Set("libcUnixBsdAppleSysctlnametomib", Napi::Function::New(env, libcUnixBsdAppleSysctlnametomib_napi));
+    exports.Set("libcUnixBsdAppleMprotect", Napi::Function::New(env, libcUnixBsdAppleMprotect_napi));
+    exports.Set("libcUnixBsdAppleSemget", Napi::Function::New(env, libcUnixBsdAppleSemget_napi));
+    exports.Set("libcUnixBsdAppleSemctl", Napi::Function::New(env, libcUnixBsdAppleSemctl_napi));
+    exports.Set("libcUnixBsdAppleSemop", Napi::Function::New(env, libcUnixBsdAppleSemop_napi));
+    exports.Set("libcUnixBsdAppleShmOpen", Napi::Function::New(env, libcUnixBsdAppleShmOpen_napi));
+    exports.Set("libcUnixBsdAppleFtok", Napi::Function::New(env, libcUnixBsdAppleFtok_napi));
+    exports.Set("libcUnixBsdAppleShmat", Napi::Function::New(env, libcUnixBsdAppleShmat_napi));
+    exports.Set("libcUnixBsdAppleShmdt", Napi::Function::New(env, libcUnixBsdAppleShmdt_napi));
+    exports.Set("libcUnixBsdAppleShmctl", Napi::Function::New(env, libcUnixBsdAppleShmctl_napi));
+    exports.Set("libcUnixBsdAppleShmget", Napi::Function::New(env, libcUnixBsdAppleShmget_napi));
+    exports.Set("libcUnixBsdAppleSysctl", Napi::Function::New(env, libcUnixBsdAppleSysctl_napi));
+    exports.Set("libcUnixBsdAppleSysctlbyname", Napi::Function::New(env, libcUnixBsdAppleSysctlbyname_napi));
+    exports.Set("libcUnixBsdAppleMachAbsoluteTime", Napi::Function::New(env, libcUnixBsdAppleMachAbsoluteTime_napi));
+    exports.Set("libcUnixBsdAppleMachTimebaseInfo", Napi::Function::New(env, libcUnixBsdAppleMachTimebaseInfo_napi));
+    exports.Set("libcUnixBsdAppleMachHostSelf", Napi::Function::New(env, libcUnixBsdAppleMachHostSelf_napi));
+    exports.Set("libcUnixBsdAppleMachThreadSelf", Napi::Function::New(env, libcUnixBsdAppleMachThreadSelf_napi));
+    exports.Set("libcUnixBsdApplePthreadCondTimedwaitRelativeNp", Napi::Function::New(env, libcUnixBsdApplePthreadCondTimedwaitRelativeNp_napi));
+    exports.Set("libcUnixBsdApplePthreadAttrGetscope", Napi::Function::New(env, libcUnixBsdApplePthreadAttrGetscope_napi));
+    exports.Set("libcUnixBsdApplePthreadAttrGetstackaddr", Napi::Function::New(env, libcUnixBsdApplePthreadAttrGetstackaddr_napi));
+    exports.Set("libcUnixBsdApplePthreadAttrGetdetachstate", Napi::Function::New(env, libcUnixBsdApplePthreadAttrGetdetachstate_napi));
+    exports.Set("libcUnixBsdApplePthreadAttrSetscope", Napi::Function::New(env, libcUnixBsdApplePthreadAttrSetscope_napi));
+    exports.Set("libcUnixBsdApplePthreadAttrSetstackaddr", Napi::Function::New(env, libcUnixBsdApplePthreadAttrSetstackaddr_napi));
+    exports.Set("libcUnixBsdApplePthreadSetnameNp", Napi::Function::New(env, libcUnixBsdApplePthreadSetnameNp_napi));
+    exports.Set("libcUnixBsdApplePthreadGetnameNp", Napi::Function::New(env, libcUnixBsdApplePthreadGetnameNp_napi));
+    exports.Set("libcUnixBsdApplePthreadMachThreadNp", Napi::Function::New(env, libcUnixBsdApplePthreadMachThreadNp_napi));
+    exports.Set("libcUnixBsdApplePthreadFromMachThreadNp", Napi::Function::New(env, libcUnixBsdApplePthreadFromMachThreadNp_napi));
+    exports.Set("libcUnixBsdApplePthreadGetStackaddrNp", Napi::Function::New(env, libcUnixBsdApplePthreadGetStackaddrNp_napi));
+    exports.Set("libcUnixBsdApplePthreadGetStacksizeNp", Napi::Function::New(env, libcUnixBsdApplePthreadGetStacksizeNp_napi));
+    exports.Set("libcUnixBsdApplePthreadMainNp", Napi::Function::New(env, libcUnixBsdApplePthreadMainNp_napi));
+    exports.Set("libcUnixBsdApplePthreadThreadidNp", Napi::Function::New(env, libcUnixBsdApplePthreadThreadidNp_napi));
+    exports.Set("libcUnixBsdApplePthreadJitWriteProtectNp", Napi::Function::New(env, libcUnixBsdApplePthreadJitWriteProtectNp_napi));
+    exports.Set("libcUnixBsdApplePthreadJitWriteProtectSupportedNp", Napi::Function::New(env, libcUnixBsdApplePthreadJitWriteProtectSupportedNp_napi));
+    exports.Set("libcUnixBsdApplePthreadJitWriteWithCallbackNp", Napi::Function::New(env, libcUnixBsdApplePthreadJitWriteWithCallbackNp_napi));
+    exports.Set("libcUnixBsdApplePthreadJitWriteFreezeCallbacksNp", Napi::Function::New(env, libcUnixBsdApplePthreadJitWriteFreezeCallbacksNp_napi));
+    exports.Set("libcUnixBsdApplePthreadCpuNumberNp", Napi::Function::New(env, libcUnixBsdApplePthreadCpuNumberNp_napi));
+    exports.Set("libcUnixBsdAppleOsSyncWaitOnAddress", Napi::Function::New(env, libcUnixBsdAppleOsSyncWaitOnAddress_napi));
+    exports.Set("libcUnixBsdAppleOsSyncWaitOnAddressWithDeadline", Napi::Function::New(env, libcUnixBsdAppleOsSyncWaitOnAddressWithDeadline_napi));
+    exports.Set("libcUnixBsdAppleOsSyncWaitOnAddressWithTimeout", Napi::Function::New(env, libcUnixBsdAppleOsSyncWaitOnAddressWithTimeout_napi));
+    exports.Set("libcUnixBsdAppleOsSyncWakeByAddressAny", Napi::Function::New(env, libcUnixBsdAppleOsSyncWakeByAddressAny_napi));
+    exports.Set("libcUnixBsdAppleOsSyncWakeByAddressAll", Napi::Function::New(env, libcUnixBsdAppleOsSyncWakeByAddressAll_napi));
+    exports.Set("libcUnixBsdAppleOsUnfairLockLock", Napi::Function::New(env, libcUnixBsdAppleOsUnfairLockLock_napi));
+    exports.Set("libcUnixBsdAppleOsUnfairLockTrylock", Napi::Function::New(env, libcUnixBsdAppleOsUnfairLockTrylock_napi));
+    exports.Set("libcUnixBsdAppleOsUnfairLockUnlock", Napi::Function::New(env, libcUnixBsdAppleOsUnfairLockUnlock_napi));
+    exports.Set("libcUnixBsdAppleOsUnfairLockAssertOwner", Napi::Function::New(env, libcUnixBsdAppleOsUnfairLockAssertOwner_napi));
+    exports.Set("libcUnixBsdAppleOsUnfairLockAssertNotOwner", Napi::Function::New(env, libcUnixBsdAppleOsUnfairLockAssertNotOwner_napi));
+    exports.Set("libcUnixBsdAppleOsLogCreate", Napi::Function::New(env, libcUnixBsdAppleOsLogCreate_napi));
+    exports.Set("libcUnixBsdAppleOsLogTypeEnabled", Napi::Function::New(env, libcUnixBsdAppleOsLogTypeEnabled_napi));
+    exports.Set("libcUnixBsdAppleOsSignpostIdMakeWithPointer", Napi::Function::New(env, libcUnixBsdAppleOsSignpostIdMakeWithPointer_napi));
+    exports.Set("libcUnixBsdAppleOsSignpostIdGenerate", Napi::Function::New(env, libcUnixBsdAppleOsSignpostIdGenerate_napi));
+    exports.Set("libcUnixBsdAppleOsSignpostEnabled", Napi::Function::New(env, libcUnixBsdAppleOsSignpostEnabled_napi));
+    exports.Set("libcUnixBsdAppleThreadPolicySet", Napi::Function::New(env, libcUnixBsdAppleThreadPolicySet_napi));
+    exports.Set("libcUnixBsdAppleThreadPolicyGet", Napi::Function::New(env, libcUnixBsdAppleThreadPolicyGet_napi));
+    exports.Set("libcUnixBsdAppleThreadInfo", Napi::Function::New(env, libcUnixBsdAppleThreadInfo_napi));
+    exports.Set("libcUnixBsdAppleError", Napi::Function::New(env, libcUnixBsdAppleError_napi));
+    exports.Set("libcUnixBsdAppleBacktrace", Napi::Function::New(env, libcUnixBsdAppleBacktrace_napi));
+    exports.Set("libcUnixBsdAppleBacktraceSymbols", Napi::Function::New(env, libcUnixBsdAppleBacktraceSymbols_napi));
+    exports.Set("libcUnixBsdAppleBacktraceSymbolsFd", Napi::Function::New(env, libcUnixBsdAppleBacktraceSymbolsFd_napi));
+    exports.Set("libcUnixBsdAppleBacktraceFromFp", Napi::Function::New(env, libcUnixBsdAppleBacktraceFromFp_napi));
+    exports.Set("libcUnixBsdAppleBacktraceImageOffsets", Napi::Function::New(env, libcUnixBsdAppleBacktraceImageOffsets_napi));
+    exports.Set("libcUnixBsdAppleBacktraceAsync", Napi::Function::New(env, libcUnixBsdAppleBacktraceAsync_napi));
+    exports.Set("libcUnixBsdAppleStatfs", Napi::Function::New(env, libcUnixBsdAppleStatfs_napi));
+    exports.Set("libcUnixBsdAppleFstatfs", Napi::Function::New(env, libcUnixBsdAppleFstatfs_napi));
+    exports.Set("libcUnixBsdAppleKevent", Napi::Function::New(env, libcUnixBsdAppleKevent_napi));
+    exports.Set("libcUnixBsdAppleKevent64", Napi::Function::New(env, libcUnixBsdAppleKevent64_napi));
+    exports.Set("libcUnixBsdAppleMount", Napi::Function::New(env, libcUnixBsdAppleMount_napi));
+    exports.Set("libcUnixBsdAppleFmount", Napi::Function::New(env, libcUnixBsdAppleFmount_napi));
+    exports.Set("libcUnixBsdApplePtrace", Napi::Function::New(env, libcUnixBsdApplePtrace_napi));
+    exports.Set("libcUnixBsdAppleQuotactl", Napi::Function::New(env, libcUnixBsdAppleQuotactl_napi));
+    exports.Set("libcUnixBsdAppleSethostname", Napi::Function::New(env, libcUnixBsdAppleSethostname_napi));
+    exports.Set("libcUnixBsdAppleSendfile", Napi::Function::New(env, libcUnixBsdAppleSendfile_napi));
+    exports.Set("libcUnixBsdAppleFutimens", Napi::Function::New(env, libcUnixBsdAppleFutimens_napi));
+    exports.Set("libcUnixBsdAppleUtimensat", Napi::Function::New(env, libcUnixBsdAppleUtimensat_napi));
+    exports.Set("libcUnixBsdAppleOpenpty", Napi::Function::New(env, libcUnixBsdAppleOpenpty_napi));
+    exports.Set("libcUnixBsdAppleForkpty", Napi::Function::New(env, libcUnixBsdAppleForkpty_napi));
+    exports.Set("libcUnixBsdAppleLoginTty", Napi::Function::New(env, libcUnixBsdAppleLoginTty_napi));
+    exports.Set("libcUnixBsdAppleDuplocale", Napi::Function::New(env, libcUnixBsdAppleDuplocale_napi));
+    exports.Set("libcUnixBsdAppleFreelocale", Napi::Function::New(env, libcUnixBsdAppleFreelocale_napi));
+    exports.Set("libcUnixBsdAppleLocaleconvL", Napi::Function::New(env, libcUnixBsdAppleLocaleconvL_napi));
+    exports.Set("libcUnixBsdAppleNewlocale", Napi::Function::New(env, libcUnixBsdAppleNewlocale_napi));
+    exports.Set("libcUnixBsdAppleUselocale", Napi::Function::New(env, libcUnixBsdAppleUselocale_napi));
+    exports.Set("libcUnixBsdAppleQuerylocale", Napi::Function::New(env, libcUnixBsdAppleQuerylocale_napi));
+    exports.Set("libcUnixBsdAppleGetpriority", Napi::Function::New(env, libcUnixBsdAppleGetpriority_napi));
+    exports.Set("libcUnixBsdAppleSetpriority", Napi::Function::New(env, libcUnixBsdAppleSetpriority_napi));
+    exports.Set("libcUnixBsdAppleGetdomainname", Napi::Function::New(env, libcUnixBsdAppleGetdomainname_napi));
+    exports.Set("libcUnixBsdAppleSetdomainname", Napi::Function::New(env, libcUnixBsdAppleSetdomainname_napi));
+    exports.Set("libcUnixBsdApplePreadv", Napi::Function::New(env, libcUnixBsdApplePreadv_napi));
+    exports.Set("libcUnixBsdApplePwritev", Napi::Function::New(env, libcUnixBsdApplePwritev_napi));
+    exports.Set("libcUnixBsdAppleGetxattr", Napi::Function::New(env, libcUnixBsdAppleGetxattr_napi));
+    exports.Set("libcUnixBsdAppleFgetxattr", Napi::Function::New(env, libcUnixBsdAppleFgetxattr_napi));
+    exports.Set("libcUnixBsdAppleSetxattr", Napi::Function::New(env, libcUnixBsdAppleSetxattr_napi));
+    exports.Set("libcUnixBsdAppleFsetxattr", Napi::Function::New(env, libcUnixBsdAppleFsetxattr_napi));
+    exports.Set("libcUnixBsdAppleListxattr", Napi::Function::New(env, libcUnixBsdAppleListxattr_napi));
+    exports.Set("libcUnixBsdAppleFlistxattr", Napi::Function::New(env, libcUnixBsdAppleFlistxattr_napi));
+    exports.Set("libcUnixBsdAppleRemovexattr", Napi::Function::New(env, libcUnixBsdAppleRemovexattr_napi));
+    exports.Set("libcUnixBsdAppleRenamexNp", Napi::Function::New(env, libcUnixBsdAppleRenamexNp_napi));
+    exports.Set("libcUnixBsdAppleRenameatxNp", Napi::Function::New(env, libcUnixBsdAppleRenameatxNp_napi));
+    exports.Set("libcUnixBsdAppleFremovexattr", Napi::Function::New(env, libcUnixBsdAppleFremovexattr_napi));
+    exports.Set("libcUnixBsdAppleGetgrouplist", Napi::Function::New(env, libcUnixBsdAppleGetgrouplist_napi));
+    exports.Set("libcUnixBsdAppleInitgroups", Napi::Function::New(env, libcUnixBsdAppleInitgroups_napi));
+    exports.Set("libcUnixBsdAppleWaitid", Napi::Function::New(env, libcUnixBsdAppleWaitid_napi));
+    exports.Set("libcUnixBsdAppleBrk", Napi::Function::New(env, libcUnixBsdAppleBrk_napi));
+    exports.Set("libcUnixBsdAppleSbrk", Napi::Function::New(env, libcUnixBsdAppleSbrk_napi));
+    exports.Set("libcUnixBsdAppleSettimeofday", Napi::Function::New(env, libcUnixBsdAppleSettimeofday_napi));
+    exports.Set("libcUnixBsdAppleDyldImageCount", Napi::Function::New(env, libcUnixBsdAppleDyldImageCount_napi));
+    exports.Set("libcUnixBsdAppleDyldGetImageHeader", Napi::Function::New(env, libcUnixBsdAppleDyldGetImageHeader_napi));
+    exports.Set("libcUnixBsdAppleDyldGetImageVmaddrSlide", Napi::Function::New(env, libcUnixBsdAppleDyldGetImageVmaddrSlide_napi));
+    exports.Set("libcUnixBsdAppleDyldGetImageName", Napi::Function::New(env, libcUnixBsdAppleDyldGetImageName_napi));
+    exports.Set("libcUnixBsdApplePosixSpawn", Napi::Function::New(env, libcUnixBsdApplePosixSpawn_napi));
+    exports.Set("libcUnixBsdApplePosixSpawnp", Napi::Function::New(env, libcUnixBsdApplePosixSpawnp_napi));
+    exports.Set("libcUnixBsdApplePosixSpawnattrInit", Napi::Function::New(env, libcUnixBsdApplePosixSpawnattrInit_napi));
+    exports.Set("libcUnixBsdApplePosixSpawnattrDestroy", Napi::Function::New(env, libcUnixBsdApplePosixSpawnattrDestroy_napi));
+    exports.Set("libcUnixBsdApplePosixSpawnattrGetsigdefault", Napi::Function::New(env, libcUnixBsdApplePosixSpawnattrGetsigdefault_napi));
+    exports.Set("libcUnixBsdApplePosixSpawnattrSetsigdefault", Napi::Function::New(env, libcUnixBsdApplePosixSpawnattrSetsigdefault_napi));
+    exports.Set("libcUnixBsdApplePosixSpawnattrGetsigmask", Napi::Function::New(env, libcUnixBsdApplePosixSpawnattrGetsigmask_napi));
+    exports.Set("libcUnixBsdApplePosixSpawnattrSetsigmask", Napi::Function::New(env, libcUnixBsdApplePosixSpawnattrSetsigmask_napi));
+    exports.Set("libcUnixBsdApplePosixSpawnattrGetflags", Napi::Function::New(env, libcUnixBsdApplePosixSpawnattrGetflags_napi));
+    exports.Set("libcUnixBsdApplePosixSpawnattrSetflags", Napi::Function::New(env, libcUnixBsdApplePosixSpawnattrSetflags_napi));
+    exports.Set("libcUnixBsdApplePosixSpawnattrGetpgroup", Napi::Function::New(env, libcUnixBsdApplePosixSpawnattrGetpgroup_napi));
+    exports.Set("libcUnixBsdApplePosixSpawnattrSetpgroup", Napi::Function::New(env, libcUnixBsdApplePosixSpawnattrSetpgroup_napi));
+    exports.Set("libcUnixBsdApplePosixSpawnattrSetarchprefNp", Napi::Function::New(env, libcUnixBsdApplePosixSpawnattrSetarchprefNp_napi));
+    exports.Set("libcUnixBsdApplePosixSpawnattrGetarchprefNp", Napi::Function::New(env, libcUnixBsdApplePosixSpawnattrGetarchprefNp_napi));
+    exports.Set("libcUnixBsdApplePosixSpawnattrGetbinprefNp", Napi::Function::New(env, libcUnixBsdApplePosixSpawnattrGetbinprefNp_napi));
+    exports.Set("libcUnixBsdApplePosixSpawnattrSetbinprefNp", Napi::Function::New(env, libcUnixBsdApplePosixSpawnattrSetbinprefNp_napi));
+    exports.Set("libcUnixBsdApplePosixSpawnFileActionsInit", Napi::Function::New(env, libcUnixBsdApplePosixSpawnFileActionsInit_napi));
+    exports.Set("libcUnixBsdApplePosixSpawnFileActionsDestroy", Napi::Function::New(env, libcUnixBsdApplePosixSpawnFileActionsDestroy_napi));
+    exports.Set("libcUnixBsdApplePosixSpawnFileActionsAddopen", Napi::Function::New(env, libcUnixBsdApplePosixSpawnFileActionsAddopen_napi));
+    exports.Set("libcUnixBsdApplePosixSpawnFileActionsAddclose", Napi::Function::New(env, libcUnixBsdApplePosixSpawnFileActionsAddclose_napi));
+    exports.Set("libcUnixBsdApplePosixSpawnFileActionsAdddup2", Napi::Function::New(env, libcUnixBsdApplePosixSpawnFileActionsAdddup2_napi));
+    exports.Set("libcUnixBsdAppleUname", Napi::Function::New(env, libcUnixBsdAppleUname_napi));
+    exports.Set("libcUnixBsdAppleConnectx", Napi::Function::New(env, libcUnixBsdAppleConnectx_napi));
+    exports.Set("libcUnixBsdAppleDisconnectx", Napi::Function::New(env, libcUnixBsdAppleDisconnectx_napi));
+    exports.Set("libcUnixBsdAppleNtpAdjtime", Napi::Function::New(env, libcUnixBsdAppleNtpAdjtime_napi));
+    exports.Set("libcUnixBsdAppleNtpGettime", Napi::Function::New(env, libcUnixBsdAppleNtpGettime_napi));
+    exports.Set("libcUnixBsdAppleGetmntinfo", Napi::Function::New(env, libcUnixBsdAppleGetmntinfo_napi));
+    exports.Set("libcUnixBsdAppleGetfsstat", Napi::Function::New(env, libcUnixBsdAppleGetfsstat_napi));
+    exports.Set("libcUnixBsdAppleClonefile", Napi::Function::New(env, libcUnixBsdAppleClonefile_napi));
+    exports.Set("libcUnixBsdAppleClonefileat", Napi::Function::New(env, libcUnixBsdAppleClonefileat_napi));
+    exports.Set("libcUnixBsdAppleFclonefileat", Napi::Function::New(env, libcUnixBsdAppleFclonefileat_napi));
+    exports.Set("libcUnixBsdAppleCopyfile", Napi::Function::New(env, libcUnixBsdAppleCopyfile_napi));
+    exports.Set("libcUnixBsdAppleFcopyfile", Napi::Function::New(env, libcUnixBsdAppleFcopyfile_napi));
+    exports.Set("libcUnixBsdAppleCopyfileStateFree", Napi::Function::New(env, libcUnixBsdAppleCopyfileStateFree_napi));
+    exports.Set("libcUnixBsdAppleCopyfileStateAlloc", Napi::Function::New(env, libcUnixBsdAppleCopyfileStateAlloc_napi));
+    exports.Set("libcUnixBsdAppleCopyfileStateGet", Napi::Function::New(env, libcUnixBsdAppleCopyfileStateGet_napi));
+    exports.Set("libcUnixBsdAppleCopyfileStateSet", Napi::Function::New(env, libcUnixBsdAppleCopyfileStateSet_napi));
+    exports.Set("libcUnixBsdAppleMachErrorString", Napi::Function::New(env, libcUnixBsdAppleMachErrorString_napi));
+    exports.Set("libcUnixBsdAppleMemsetS", Napi::Function::New(env, libcUnixBsdAppleMemsetS_napi));
+    exports.Set("libcUnixBsdAppleMemsetPattern4", Napi::Function::New(env, libcUnixBsdAppleMemsetPattern4_napi));
+    exports.Set("libcUnixBsdAppleMemsetPattern8", Napi::Function::New(env, libcUnixBsdAppleMemsetPattern8_napi));
+    exports.Set("libcUnixBsdAppleMemsetPattern16", Napi::Function::New(env, libcUnixBsdAppleMemsetPattern16_napi));
+    exports.Set("libcUnixBsdAppleStrtonum", Napi::Function::New(env, libcUnixBsdAppleStrtonum_napi));
+    exports.Set("libcUnixBsdAppleMallocPrintf", Napi::Function::New(env, libcUnixBsdAppleMallocPrintf_napi));
+    exports.Set("libcUnixBsdAppleMallocZoneCheck", Napi::Function::New(env, libcUnixBsdAppleMallocZoneCheck_napi));
+    exports.Set("libcUnixBsdAppleMallocZonePrint", Napi::Function::New(env, libcUnixBsdAppleMallocZonePrint_napi));
+    exports.Set("libcUnixBsdAppleMallocZoneStatistics", Napi::Function::New(env, libcUnixBsdAppleMallocZoneStatistics_napi));
+    exports.Set("libcUnixBsdAppleMallocZoneLog", Napi::Function::New(env, libcUnixBsdAppleMallocZoneLog_napi));
+    exports.Set("libcUnixBsdAppleMallocZonePrintPtrInfo", Napi::Function::New(env, libcUnixBsdAppleMallocZonePrintPtrInfo_napi));
+    exports.Set("libcUnixBsdAppleMallocDefaultZone", Napi::Function::New(env, libcUnixBsdAppleMallocDefaultZone_napi));
+    exports.Set("libcUnixBsdAppleMallocZoneFromPtr", Napi::Function::New(env, libcUnixBsdAppleMallocZoneFromPtr_napi));
+    exports.Set("libcUnixBsdAppleMallocZoneMalloc", Napi::Function::New(env, libcUnixBsdAppleMallocZoneMalloc_napi));
+    exports.Set("libcUnixBsdAppleMallocZoneValloc", Napi::Function::New(env, libcUnixBsdAppleMallocZoneValloc_napi));
+    exports.Set("libcUnixBsdAppleMallocZoneCalloc", Napi::Function::New(env, libcUnixBsdAppleMallocZoneCalloc_napi));
+    exports.Set("libcUnixBsdAppleMallocZoneRealloc", Napi::Function::New(env, libcUnixBsdAppleMallocZoneRealloc_napi));
+    exports.Set("libcUnixBsdAppleMallocZoneFree", Napi::Function::New(env, libcUnixBsdAppleMallocZoneFree_napi));
+    exports.Set("libcUnixBsdAppleProcListpids", Napi::Function::New(env, libcUnixBsdAppleProcListpids_napi));
+    exports.Set("libcUnixBsdAppleProcListallpids", Napi::Function::New(env, libcUnixBsdAppleProcListallpids_napi));
+    exports.Set("libcUnixBsdAppleProcListpgrppids", Napi::Function::New(env, libcUnixBsdAppleProcListpgrppids_napi));
+    exports.Set("libcUnixBsdAppleProcListchildpids", Napi::Function::New(env, libcUnixBsdAppleProcListchildpids_napi));
+    exports.Set("libcUnixBsdAppleProcPidinfo", Napi::Function::New(env, libcUnixBsdAppleProcPidinfo_napi));
+    exports.Set("libcUnixBsdAppleProcPidfdinfo", Napi::Function::New(env, libcUnixBsdAppleProcPidfdinfo_napi));
+    exports.Set("libcUnixBsdAppleProcPidfileportinfo", Napi::Function::New(env, libcUnixBsdAppleProcPidfileportinfo_napi));
+    exports.Set("libcUnixBsdAppleProcPidpath", Napi::Function::New(env, libcUnixBsdAppleProcPidpath_napi));
+    exports.Set("libcUnixBsdAppleProcName", Napi::Function::New(env, libcUnixBsdAppleProcName_napi));
+    exports.Set("libcUnixBsdAppleProcRegionfilename", Napi::Function::New(env, libcUnixBsdAppleProcRegionfilename_napi));
+    exports.Set("libcUnixBsdAppleProcKmsgbuf", Napi::Function::New(env, libcUnixBsdAppleProcKmsgbuf_napi));
+    exports.Set("libcUnixBsdAppleProcLibversion", Napi::Function::New(env, libcUnixBsdAppleProcLibversion_napi));
+    exports.Set("libcUnixBsdAppleProcPidRusage", Napi::Function::New(env, libcUnixBsdAppleProcPidRusage_napi));
+    exports.Set("libcUnixBsdAppleProcSetNoSmt", Napi::Function::New(env, libcUnixBsdAppleProcSetNoSmt_napi));
+    exports.Set("libcUnixBsdAppleProcSetthreadNoSmt", Napi::Function::New(env, libcUnixBsdAppleProcSetthreadNoSmt_napi));
+    exports.Set("libcUnixBsdAppleProcSetCsm", Napi::Function::New(env, libcUnixBsdAppleProcSetCsm_napi));
+    exports.Set("libcUnixBsdAppleProcSetthreadCsm", Napi::Function::New(env, libcUnixBsdAppleProcSetthreadCsm_napi));
+    exports.Set("libcUnixBsdAppleGethostuuid", Napi::Function::New(env, libcUnixBsdAppleGethostuuid_napi));
+    exports.Set("libcUnixBsdAppleGethostid", Napi::Function::New(env, libcUnixBsdAppleGethostid_napi));
+    exports.Set("libcUnixBsdAppleSethostid", Napi::Function::New(env, libcUnixBsdAppleSethostid_napi));
+    exports.Set("libcUnixBsdAppleCCRandomGenerateBytes", Napi::Function::New(env, libcUnixBsdAppleCCRandomGenerateBytes_napi));
+    exports.Set("libcUnixBsdAppleGetentropy", Napi::Function::New(env, libcUnixBsdAppleGetentropy_napi));
+    exports.Set("libcUnixBsdAppleNsgetExecutablePath", Napi::Function::New(env, libcUnixBsdAppleNsgetExecutablePath_napi));
+    exports.Set("libcUnixBsdAppleNsgetArgv", Napi::Function::New(env, libcUnixBsdAppleNsgetArgv_napi));
+    exports.Set("libcUnixBsdAppleNsgetArgc", Napi::Function::New(env, libcUnixBsdAppleNsgetArgc_napi));
+    exports.Set("libcUnixBsdAppleNsgetEnviron", Napi::Function::New(env, libcUnixBsdAppleNsgetEnviron_napi));
+    exports.Set("libcUnixBsdAppleNsgetProgname", Napi::Function::New(env, libcUnixBsdAppleNsgetProgname_napi));
+    exports.Set("libcUnixBsdAppleMachVmMap", Napi::Function::New(env, libcUnixBsdAppleMachVmMap_napi));
+    exports.Set("libcUnixBsdAppleVmAllocate", Napi::Function::New(env, libcUnixBsdAppleVmAllocate_napi));
+    exports.Set("libcUnixBsdAppleVmDeallocate", Napi::Function::New(env, libcUnixBsdAppleVmDeallocate_napi));
+    exports.Set("libcUnixBsdAppleHostStatistics64", Napi::Function::New(env, libcUnixBsdAppleHostStatistics64_napi));
+    exports.Set("libcUnixBsdAppleHostProcessorInfo", Napi::Function::New(env, libcUnixBsdAppleHostProcessorInfo_napi));
+    exports.Set("libcUnixBsdAppleTaskForPid", Napi::Function::New(env, libcUnixBsdAppleTaskForPid_napi));
+    exports.Set("libcUnixBsdAppleTaskInfo", Napi::Function::New(env, libcUnixBsdAppleTaskInfo_napi));
+    exports.Set("libcUnixBsdAppleTaskCreate", Napi::Function::New(env, libcUnixBsdAppleTaskCreate_napi));
+    exports.Set("libcUnixBsdAppleTaskTerminate", Napi::Function::New(env, libcUnixBsdAppleTaskTerminate_napi));
+    exports.Set("libcUnixBsdAppleTaskThreads", Napi::Function::New(env, libcUnixBsdAppleTaskThreads_napi));
+    exports.Set("libcUnixBsdAppleHostStatistics", Napi::Function::New(env, libcUnixBsdAppleHostStatistics_napi));
+    exports.Set("libcUnixBsdAppleSysdirGetNextSearchPathEnumeration", Napi::Function::New(env, libcUnixBsdAppleSysdirGetNextSearchPathEnumeration_napi));
+    exports.Set("libcUnixBsdAppleGetattrlist", Napi::Function::New(env, libcUnixBsdAppleGetattrlist_napi));
+    exports.Set("libcUnixBsdAppleFgetattrlist", Napi::Function::New(env, libcUnixBsdAppleFgetattrlist_napi));
+    exports.Set("libcUnixBsdAppleGetattrlistat", Napi::Function::New(env, libcUnixBsdAppleGetattrlistat_napi));
+    exports.Set("libcUnixBsdAppleSetattrlist", Napi::Function::New(env, libcUnixBsdAppleSetattrlist_napi));
+    exports.Set("libcUnixBsdAppleFsetattrlist", Napi::Function::New(env, libcUnixBsdAppleFsetattrlist_napi));
+    exports.Set("libcUnixBsdAppleSetattrlistat", Napi::Function::New(env, libcUnixBsdAppleSetattrlistat_napi));
+    exports.Set("libcUnixBsdAppleGetattrlistbulk", Napi::Function::New(env, libcUnixBsdAppleGetattrlistbulk_napi));
+    exports.Set("libcUnixBsdAppleMallocSize", Napi::Function::New(env, libcUnixBsdAppleMallocSize_napi));
+    exports.Set("libcUnixBsdAppleMallocGoodSize", Napi::Function::New(env, libcUnixBsdAppleMallocGoodSize_napi));
+    exports.Set("libcUnixBsdAppleDirname", Napi::Function::New(env, libcUnixBsdAppleDirname_napi));
+    exports.Set("libcUnixBsdAppleBasename", Napi::Function::New(env, libcUnixBsdAppleBasename_napi));
+    exports.Set("libcUnixBsdAppleMkfifoat", Napi::Function::New(env, libcUnixBsdAppleMkfifoat_napi));
+    exports.Set("libcUnixBsdAppleMknodat", Napi::Function::New(env, libcUnixBsdAppleMknodat_napi));
+    exports.Set("libcUnixBsdAppleFreadlink", Napi::Function::New(env, libcUnixBsdAppleFreadlink_napi));
+    exports.Set("libcUnixBsdAppleExecvP", Napi::Function::New(env, libcUnixBsdAppleExecvP_napi));
+    exports.Set("libcUnixBsdAppleQsortR", Napi::Function::New(env, libcUnixBsdAppleQsortR_napi));
+    exports.Set("libcUnixBsdAppleClockSettime", Napi::Function::New(env, libcUnixBsdAppleClockSettime_napi));
+    exports.Set("libcUnixBsdAppleMemmem", Napi::Function::New(env, libcUnixBsdAppleMemmem_napi));
+    exports.Set("libcUnixBsdAppleTaskSetInfo", Napi::Function::New(env, libcUnixBsdAppleTaskSetInfo_napi));
+    exports.Set("libcUnixBsdAppleIconvOpen", Napi::Function::New(env, libcUnixBsdAppleIconvOpen_napi));
+    exports.Set("libcUnixBsdAppleIconv", Napi::Function::New(env, libcUnixBsdAppleIconv_napi));
+    exports.Set("libcUnixBsdAppleIconvClose", Napi::Function::New(env, libcUnixBsdAppleIconvClose_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_unix_bsd_apple_napi, nullptr };

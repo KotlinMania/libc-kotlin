@@ -15,7 +15,7 @@
 #endif
 #endif
 
-int32_t libc_unix_linuxlike_linux_gnu_fgetspentR(void* fp, void* spbuf, char* buf, uint64_t buflen, void* spbufp) {
+int32_t libcUnixLinuxlikeLinuxGnuFgetspentR(void* fp, void* spbuf, char* buf, uint64_t buflen, void* spbufp) {
     typedef int32_t (*km_fn_t)(void*, void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -43,7 +43,7 @@ int32_t libc_unix_linuxlike_linux_gnu_fgetspentR(void* fp, void* spbuf, char* bu
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_sgetspentR(const char* s, void* spbuf, char* buf, uint64_t buflen, void* spbufp) {
+int32_t libcUnixLinuxlikeLinuxGnuSgetspentR(const char* s, void* spbuf, char* buf, uint64_t buflen, void* spbufp) {
     typedef int32_t (*km_fn_t)(const char*, void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -71,7 +71,7 @@ int32_t libc_unix_linuxlike_linux_gnu_sgetspentR(const char* s, void* spbuf, cha
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_getspentR(void* spbuf, char* buf, uint64_t buflen, void* spbufp) {
+int32_t libcUnixLinuxlikeLinuxGnuGetspentR(void* spbuf, char* buf, uint64_t buflen, void* spbufp) {
     typedef int32_t (*km_fn_t)(void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -99,7 +99,7 @@ int32_t libc_unix_linuxlike_linux_gnu_getspentR(void* spbuf, char* buf, uint64_t
     return -1;
 }
 
-void libc_unix_linuxlike_linux_gnu_qsortR(void* base, uint64_t num, uint64_t size, void* compar, void* arg) {
+void libcUnixLinuxlikeLinuxGnuQsortR(void* base, uint64_t num, uint64_t size, void* compar, void* arg) {
     typedef void (*km_fn_t)(void*, uint64_t, uint64_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -127,7 +127,7 @@ void libc_unix_linuxlike_linux_gnu_qsortR(void* base, uint64_t num, uint64_t siz
     errno = ENOSYS;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_sendmmsg(int32_t sockfd, void* msgvec, uint32_t vlen, int32_t flags) {
+int32_t libcUnixLinuxlikeLinuxGnuSendmmsg(int32_t sockfd, void* msgvec, uint32_t vlen, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -155,7 +155,7 @@ int32_t libc_unix_linuxlike_linux_gnu_sendmmsg(int32_t sockfd, void* msgvec, uin
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_recvmmsg(int32_t sockfd, void* msgvec, uint32_t vlen, int32_t flags, void* timeout) {
+int32_t libcUnixLinuxlikeLinuxGnuRecvmmsg(int32_t sockfd, void* msgvec, uint32_t vlen, int32_t flags, void* timeout) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -183,7 +183,7 @@ int32_t libc_unix_linuxlike_linux_gnu_recvmmsg(int32_t sockfd, void* msgvec, uin
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_getrlimit64(uint32_t resource, void* rlim) {
+int32_t libcUnixLinuxlikeLinuxGnuGetrlimit64(uint32_t resource, void* rlim) {
     typedef int32_t (*km_fn_t)(uint32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -216,7 +216,7 @@ int32_t libc_unix_linuxlike_linux_gnu_getrlimit64(uint32_t resource, void* rlim)
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_setrlimit64(uint32_t resource, void* rlim) {
+int32_t libcUnixLinuxlikeLinuxGnuSetrlimit64(uint32_t resource, void* rlim) {
     typedef int32_t (*km_fn_t)(uint32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -249,7 +249,7 @@ int32_t libc_unix_linuxlike_linux_gnu_setrlimit64(uint32_t resource, void* rlim)
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_getrlimit(uint32_t resource, void* rlim) {
+int32_t libcUnixLinuxlikeLinuxGnuGetrlimit(uint32_t resource, void* rlim) {
     typedef int32_t (*km_fn_t)(uint32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -277,7 +277,7 @@ int32_t libc_unix_linuxlike_linux_gnu_getrlimit(uint32_t resource, void* rlim) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_setrlimit(uint32_t resource, void* rlim) {
+int32_t libcUnixLinuxlikeLinuxGnuSetrlimit(uint32_t resource, void* rlim) {
     typedef int32_t (*km_fn_t)(uint32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -305,7 +305,7 @@ int32_t libc_unix_linuxlike_linux_gnu_setrlimit(uint32_t resource, void* rlim) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_prlimit(int32_t pid, uint32_t resource, void* new_limit, void* old_limit) {
+int32_t libcUnixLinuxlikeLinuxGnuPrlimit(int32_t pid, uint32_t resource, void* newLimit, void* oldLimit) {
     typedef int32_t (*km_fn_t)(int32_t, uint32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -327,13 +327,13 @@ int32_t libc_unix_linuxlike_linux_gnu_prlimit(int32_t pid, uint32_t resource, vo
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(pid, resource, new_limit, old_limit);
+        return km_fn_ptr(pid, resource, newLimit, oldLimit);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_prlimit64(int32_t pid, uint32_t resource, void* new_limit, void* old_limit) {
+int32_t libcUnixLinuxlikeLinuxGnuPrlimit64(int32_t pid, uint32_t resource, void* newLimit, void* oldLimit) {
     typedef int32_t (*km_fn_t)(int32_t, uint32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -360,13 +360,13 @@ int32_t libc_unix_linuxlike_linux_gnu_prlimit64(int32_t pid, uint32_t resource, 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(pid, resource, new_limit, old_limit);
+        return km_fn_ptr(pid, resource, newLimit, oldLimit);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_utmpname(const char* file) {
+int32_t libcUnixLinuxlikeLinuxGnuUtmpname(const char* file) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -394,7 +394,7 @@ int32_t libc_unix_linuxlike_linux_gnu_utmpname(const char* file) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_utmpxname(const char* file) {
+int32_t libcUnixLinuxlikeLinuxGnuUtmpxname(const char* file) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -422,7 +422,7 @@ int32_t libc_unix_linuxlike_linux_gnu_utmpxname(const char* file) {
     return -1;
 }
 
-void* libc_unix_linuxlike_linux_gnu_getutxent(void) {
+void* libcUnixLinuxlikeLinuxGnuGetutxent(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -450,7 +450,7 @@ void* libc_unix_linuxlike_linux_gnu_getutxent(void) {
     return NULL;
 }
 
-void* libc_unix_linuxlike_linux_gnu_getutxid(void* ut) {
+void* libcUnixLinuxlikeLinuxGnuGetutxid(void* ut) {
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -478,7 +478,7 @@ void* libc_unix_linuxlike_linux_gnu_getutxid(void* ut) {
     return NULL;
 }
 
-void* libc_unix_linuxlike_linux_gnu_getutxline(void* ut) {
+void* libcUnixLinuxlikeLinuxGnuGetutxline(void* ut) {
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -506,7 +506,7 @@ void* libc_unix_linuxlike_linux_gnu_getutxline(void* ut) {
     return NULL;
 }
 
-void* libc_unix_linuxlike_linux_gnu_pututxline(void* ut) {
+void* libcUnixLinuxlikeLinuxGnuPututxline(void* ut) {
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -534,7 +534,7 @@ void* libc_unix_linuxlike_linux_gnu_pututxline(void* ut) {
     return NULL;
 }
 
-void libc_unix_linuxlike_linux_gnu_setutxent(void) {
+void libcUnixLinuxlikeLinuxGnuSetutxent(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -562,7 +562,7 @@ void libc_unix_linuxlike_linux_gnu_setutxent(void) {
     errno = ENOSYS;
 }
 
-void libc_unix_linuxlike_linux_gnu_endutxent(void) {
+void libcUnixLinuxlikeLinuxGnuEndutxent(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -590,7 +590,7 @@ void libc_unix_linuxlike_linux_gnu_endutxent(void) {
     errno = ENOSYS;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_getpt(void) {
+int32_t libcUnixLinuxlikeLinuxGnuGetpt(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -618,7 +618,7 @@ int32_t libc_unix_linuxlike_linux_gnu_getpt(void) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_mallopt(int32_t param, int32_t value) {
+int32_t libcUnixLinuxlikeLinuxGnuMallopt(int32_t param, int32_t value) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -646,7 +646,7 @@ int32_t libc_unix_linuxlike_linux_gnu_mallopt(int32_t param, int32_t value) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_gettimeofday(void* tp, void* tz) {
+int32_t libcUnixLinuxlikeLinuxGnuGettimeofday(void* tp, void* tz) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -674,7 +674,7 @@ int32_t libc_unix_linuxlike_linux_gnu_gettimeofday(void* tp, void* tz) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_getentropy(void* buf, uint64_t buflen) {
+int32_t libcUnixLinuxlikeLinuxGnuGetentropy(void* buf, uint64_t buflen) {
     typedef int32_t (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -702,7 +702,7 @@ int32_t libc_unix_linuxlike_linux_gnu_getentropy(void* buf, uint64_t buflen) {
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_gnu_getrandom(void* buf, uint64_t buflen, uint32_t flags) {
+int64_t libcUnixLinuxlikeLinuxGnuGetrandom(void* buf, uint64_t buflen, uint32_t flags) {
     typedef int64_t (*km_fn_t)(void*, uint64_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -730,7 +730,7 @@ int64_t libc_unix_linuxlike_linux_gnu_getrandom(void* buf, uint64_t buflen, uint
     return -1;
 }
 
-uint64_t libc_unix_linuxlike_linux_gnu_getauxval(uint64_t type_) {
+uint64_t libcUnixLinuxlikeLinuxGnuGetauxval(uint64_t type) {
     typedef uint64_t (*km_fn_t)(uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -752,13 +752,13 @@ uint64_t libc_unix_linuxlike_linux_gnu_getauxval(uint64_t type_) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(type_);
+        return km_fn_ptr(type);
     }
     errno = ENOSYS;
     return 0;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_adjtimex(void* buf) {
+int32_t libcUnixLinuxlikeLinuxGnuAdjtimex(void* buf) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -786,7 +786,7 @@ int32_t libc_unix_linuxlike_linux_gnu_adjtimex(void* buf) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_ntpAdjtime(void* buf) {
+int32_t libcUnixLinuxlikeLinuxGnuNtpAdjtime(void* buf) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -814,7 +814,7 @@ int32_t libc_unix_linuxlike_linux_gnu_ntpAdjtime(void* buf) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_ntpGettime(void* buf) {
+int32_t libcUnixLinuxlikeLinuxGnuNtpGettime(void* buf) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -842,7 +842,7 @@ int32_t libc_unix_linuxlike_linux_gnu_ntpGettime(void* buf) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_clockAdjtime(int32_t clk_id, void* buf) {
+int32_t libcUnixLinuxlikeLinuxGnuClockAdjtime(int32_t clkId, void* buf) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -864,13 +864,13 @@ int32_t libc_unix_linuxlike_linux_gnu_clockAdjtime(int32_t clk_id, void* buf) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(clk_id, buf);
+        return km_fn_ptr(clkId, buf);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_fanotifyMark(int32_t fd, uint32_t flags, uint64_t mask, int32_t dirfd, const char* path) {
+int32_t libcUnixLinuxlikeLinuxGnuFanotifyMark(int32_t fd, uint32_t flags, uint64_t mask, int32_t dirfd, const char* path) {
     typedef int32_t (*km_fn_t)(int32_t, uint32_t, uint64_t, int32_t, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -898,7 +898,7 @@ int32_t libc_unix_linuxlike_linux_gnu_fanotifyMark(int32_t fd, uint32_t flags, u
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_gnu_preadv2(int32_t fd, void* iov, int32_t iovcnt, int64_t offset, int32_t flags) {
+int64_t libcUnixLinuxlikeLinuxGnuPreadv2(int32_t fd, void* iov, int32_t iovcnt, int64_t offset, int32_t flags) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, int64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -926,7 +926,7 @@ int64_t libc_unix_linuxlike_linux_gnu_preadv2(int32_t fd, void* iov, int32_t iov
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_gnu_pwritev2(int32_t fd, void* iov, int32_t iovcnt, int64_t offset, int32_t flags) {
+int64_t libcUnixLinuxlikeLinuxGnuPwritev2(int32_t fd, void* iov, int32_t iovcnt, int64_t offset, int32_t flags) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, int64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -954,7 +954,7 @@ int64_t libc_unix_linuxlike_linux_gnu_pwritev2(int32_t fd, void* iov, int32_t io
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_gnu_preadv64v2(int32_t fd, void* iov, int32_t iovcnt, int64_t offset, int32_t flags) {
+int64_t libcUnixLinuxlikeLinuxGnuPreadv64v2(int32_t fd, void* iov, int32_t iovcnt, int64_t offset, int32_t flags) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, int64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -982,7 +982,7 @@ int64_t libc_unix_linuxlike_linux_gnu_preadv64v2(int32_t fd, void* iov, int32_t 
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_gnu_pwritev64v2(int32_t fd, void* iov, int32_t iovcnt, int64_t offset, int32_t flags) {
+int64_t libcUnixLinuxlikeLinuxGnuPwritev64v2(int32_t fd, void* iov, int32_t iovcnt, int64_t offset, int32_t flags) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, int64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1010,7 +1010,7 @@ int64_t libc_unix_linuxlike_linux_gnu_pwritev64v2(int32_t fd, void* iov, int32_t
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_renameat2(int32_t olddirfd, const char* oldpath, int32_t newdirfd, const char* newpath, uint32_t flags) {
+int32_t libcUnixLinuxlikeLinuxGnuRenameat2(int32_t olddirfd, const char* oldpath, int32_t newdirfd, const char* newpath, uint32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, const char*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1038,7 +1038,7 @@ int32_t libc_unix_linuxlike_linux_gnu_renameat2(int32_t olddirfd, const char* ol
     return -1;
 }
 
-void libc_unix_linuxlike_linux_gnu_explicitBzero(void* s, uint64_t len) {
+void libcUnixLinuxlikeLinuxGnuExplicitBzero(void* s, uint64_t len) {
     typedef void (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1066,7 +1066,7 @@ void libc_unix_linuxlike_linux_gnu_explicitBzero(void* s, uint64_t len) {
     errno = ENOSYS;
 }
 
-void* libc_unix_linuxlike_linux_gnu_reallocarray(void* ptr, uint64_t nmemb, uint64_t size) {
+void* libcUnixLinuxlikeLinuxGnuReallocarray(void* ptr, uint64_t nmemb, uint64_t size) {
     typedef void* (*km_fn_t)(void*, uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1094,7 +1094,7 @@ void* libc_unix_linuxlike_linux_gnu_reallocarray(void* ptr, uint64_t nmemb, uint
     return NULL;
 }
 
-char* libc_unix_linuxlike_linux_gnu_ctermid(char* s) {
+char* libcUnixLinuxlikeLinuxGnuCtermid(char* s) {
     typedef char* (*km_fn_t)(char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1122,7 +1122,7 @@ char* libc_unix_linuxlike_linux_gnu_ctermid(char* s) {
     return NULL;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_backtrace(void* buf, int32_t sz) {
+int32_t libcUnixLinuxlikeLinuxGnuBacktrace(void* buf, int32_t sz) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1150,7 +1150,7 @@ int32_t libc_unix_linuxlike_linux_gnu_backtrace(void* buf, int32_t sz) {
     return -1;
 }
 
-void* libc_unix_linuxlike_linux_gnu_backtraceSymbols(void* buffer, int32_t len) {
+void* libcUnixLinuxlikeLinuxGnuBacktraceSymbols(void* buffer, int32_t len) {
     typedef void* (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1178,7 +1178,7 @@ void* libc_unix_linuxlike_linux_gnu_backtraceSymbols(void* buffer, int32_t len) 
     return NULL;
 }
 
-void libc_unix_linuxlike_linux_gnu_backtraceSymbolsFd(void* buffer, int32_t len, int32_t fd) {
+void libcUnixLinuxlikeLinuxGnuBacktraceSymbolsFd(void* buffer, int32_t len, int32_t fd) {
     typedef void (*km_fn_t)(void*, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1206,7 +1206,7 @@ void libc_unix_linuxlike_linux_gnu_backtraceSymbolsFd(void* buffer, int32_t len,
     errno = ENOSYS;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_glob64(const char* pattern, int32_t flags, void* errfunc, void* pglob) {
+int32_t libcUnixLinuxlikeLinuxGnuGlob64(const char* pattern, int32_t flags, void* errfunc, void* pglob) {
     typedef int32_t (*km_fn_t)(const char*, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1239,7 +1239,7 @@ int32_t libc_unix_linuxlike_linux_gnu_glob64(const char* pattern, int32_t flags,
     return -1;
 }
 
-void libc_unix_linuxlike_linux_gnu_globfree64(void* pglob) {
+void libcUnixLinuxlikeLinuxGnuGlobfree64(void* pglob) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1272,7 +1272,7 @@ void libc_unix_linuxlike_linux_gnu_globfree64(void* pglob) {
     errno = ENOSYS;
 }
 
-int64_t libc_unix_linuxlike_linux_gnu_ptrace(uint32_t request, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int64_t libcUnixLinuxlikeLinuxGnuPtrace(uint32_t request, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int64_t (*km_fn_t)(uint32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1306,7 +1306,7 @@ int64_t libc_unix_linuxlike_linux_gnu_ptrace(uint32_t request, int32_t km_vac, i
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_pthreadAttrGetaffinityNp(void* attr, uint64_t cpusetsize, void* cpuset) {
+int32_t libcUnixLinuxlikeLinuxGnuPthreadAttrGetaffinityNp(void* attr, uint64_t cpusetsize, void* cpuset) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1334,7 +1334,7 @@ int32_t libc_unix_linuxlike_linux_gnu_pthreadAttrGetaffinityNp(void* attr, uint6
     return ENOSYS;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_pthreadAttrSetaffinityNp(void* attr, uint64_t cpusetsize, void* cpuset) {
+int32_t libcUnixLinuxlikeLinuxGnuPthreadAttrSetaffinityNp(void* attr, uint64_t cpusetsize, void* cpuset) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1362,7 +1362,7 @@ int32_t libc_unix_linuxlike_linux_gnu_pthreadAttrSetaffinityNp(void* attr, uint6
     return ENOSYS;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_getpriority(uint32_t which, uint32_t who) {
+int32_t libcUnixLinuxlikeLinuxGnuGetpriority(uint32_t which, uint32_t who) {
     typedef int32_t (*km_fn_t)(uint32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1390,7 +1390,7 @@ int32_t libc_unix_linuxlike_linux_gnu_getpriority(uint32_t which, uint32_t who) 
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_setpriority(uint32_t which, uint32_t who, int32_t prio) {
+int32_t libcUnixLinuxlikeLinuxGnuSetpriority(uint32_t which, uint32_t who, int32_t prio) {
     typedef int32_t (*km_fn_t)(uint32_t, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1418,7 +1418,7 @@ int32_t libc_unix_linuxlike_linux_gnu_setpriority(uint32_t which, uint32_t who, 
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_pthreadRwlockattrGetkindNp(void* attr, void* val) {
+int32_t libcUnixLinuxlikeLinuxGnuPthreadRwlockattrGetkindNp(void* attr, void* val) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1446,7 +1446,7 @@ int32_t libc_unix_linuxlike_linux_gnu_pthreadRwlockattrGetkindNp(void* attr, voi
     return ENOSYS;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_pthreadRwlockattrSetkindNp(void* attr, int32_t val) {
+int32_t libcUnixLinuxlikeLinuxGnuPthreadRwlockattrSetkindNp(void* attr, int32_t val) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1474,7 +1474,7 @@ int32_t libc_unix_linuxlike_linux_gnu_pthreadRwlockattrSetkindNp(void* attr, int
     return ENOSYS;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_pthreadTryjoinNp(void* thread, void* retval) {
+int32_t libcUnixLinuxlikeLinuxGnuPthreadTryjoinNp(void* thread, void* retval) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1502,7 +1502,7 @@ int32_t libc_unix_linuxlike_linux_gnu_pthreadTryjoinNp(void* thread, void* retva
     return ENOSYS;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_pthreadTimedjoinNp(void* thread, void* retval, void* abstime) {
+int32_t libcUnixLinuxlikeLinuxGnuPthreadTimedjoinNp(void* thread, void* retval, void* abstime) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1530,7 +1530,7 @@ int32_t libc_unix_linuxlike_linux_gnu_pthreadTimedjoinNp(void* thread, void* ret
     return ENOSYS;
 }
 
-void libc_unix_linuxlike_linux_gnu_mallocStats(void) {
+void libcUnixLinuxlikeLinuxGnuMallocStats(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1558,7 +1558,7 @@ void libc_unix_linuxlike_linux_gnu_mallocStats(void) {
     errno = ENOSYS;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_mallocInfo(int32_t options, void* stream) {
+int32_t libcUnixLinuxlikeLinuxGnuMallocInfo(int32_t options, void* stream) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1586,7 +1586,7 @@ int32_t libc_unix_linuxlike_linux_gnu_mallocInfo(int32_t options, void* stream) 
     return -1;
 }
 
-uint64_t libc_unix_linuxlike_linux_gnu_mallocUsableSize(void* ptr) {
+uint64_t libcUnixLinuxlikeLinuxGnuMallocUsableSize(void* ptr) {
     typedef uint64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1614,7 +1614,7 @@ uint64_t libc_unix_linuxlike_linux_gnu_mallocUsableSize(void* ptr) {
     return 0;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_getpwentR(void* pwd, char* buf, uint64_t buflen, void* result) {
+int32_t libcUnixLinuxlikeLinuxGnuGetpwentR(void* pwd, char* buf, uint64_t buflen, void* result) {
     typedef int32_t (*km_fn_t)(void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1642,7 +1642,7 @@ int32_t libc_unix_linuxlike_linux_gnu_getpwentR(void* pwd, char* buf, uint64_t b
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_getgrentR(void* grp, char* buf, uint64_t buflen, void* result) {
+int32_t libcUnixLinuxlikeLinuxGnuGetgrentR(void* grp, char* buf, uint64_t buflen, void* result) {
     typedef int32_t (*km_fn_t)(void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1670,7 +1670,7 @@ int32_t libc_unix_linuxlike_linux_gnu_getgrentR(void* grp, char* buf, uint64_t b
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_fgetpwentR(void* stream, void* pwd, char* buf, uint64_t buflen, void* result) {
+int32_t libcUnixLinuxlikeLinuxGnuFgetpwentR(void* stream, void* pwd, char* buf, uint64_t buflen, void* result) {
     typedef int32_t (*km_fn_t)(void*, void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1698,7 +1698,7 @@ int32_t libc_unix_linuxlike_linux_gnu_fgetpwentR(void* stream, void* pwd, char* 
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_fgetgrentR(void* stream, void* grp, char* buf, uint64_t buflen, void* result) {
+int32_t libcUnixLinuxlikeLinuxGnuFgetgrentR(void* stream, void* grp, char* buf, uint64_t buflen, void* result) {
     typedef int32_t (*km_fn_t)(void*, void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1726,7 +1726,7 @@ int32_t libc_unix_linuxlike_linux_gnu_fgetgrentR(void* stream, void* grp, char* 
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_putpwent(void* p, void* stream) {
+int32_t libcUnixLinuxlikeLinuxGnuPutpwent(void* p, void* stream) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1754,7 +1754,7 @@ int32_t libc_unix_linuxlike_linux_gnu_putpwent(void* p, void* stream) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_putgrent(void* grp, void* stream) {
+int32_t libcUnixLinuxlikeLinuxGnuPutgrent(void* grp, void* stream) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1782,7 +1782,7 @@ int32_t libc_unix_linuxlike_linux_gnu_putgrent(void* grp, void* stream) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_sethostid(int64_t hostid) {
+int32_t libcUnixLinuxlikeLinuxGnuSethostid(int64_t hostid) {
     typedef int32_t (*km_fn_t)(int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1810,7 +1810,7 @@ int32_t libc_unix_linuxlike_linux_gnu_sethostid(int64_t hostid) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_memfdCreate(const char* name, uint32_t flags) {
+int32_t libcUnixLinuxlikeLinuxGnuMemfdCreate(const char* name, uint32_t flags) {
     typedef int32_t (*km_fn_t)(const char*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1838,7 +1838,7 @@ int32_t libc_unix_linuxlike_linux_gnu_memfdCreate(const char* name, uint32_t fla
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_mlock2(void* addr, uint64_t len, uint32_t flags) {
+int32_t libcUnixLinuxlikeLinuxGnuMlock2(void* addr, uint64_t len, uint32_t flags) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1866,7 +1866,7 @@ int32_t libc_unix_linuxlike_linux_gnu_mlock2(void* addr, uint64_t len, uint32_t 
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_euidaccess(const char* pathname, int32_t mode) {
+int32_t libcUnixLinuxlikeLinuxGnuEuidaccess(const char* pathname, int32_t mode) {
     typedef int32_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1894,7 +1894,7 @@ int32_t libc_unix_linuxlike_linux_gnu_euidaccess(const char* pathname, int32_t m
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_eaccess(const char* pathname, int32_t mode) {
+int32_t libcUnixLinuxlikeLinuxGnuEaccess(const char* pathname, int32_t mode) {
     typedef int32_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1922,7 +1922,7 @@ int32_t libc_unix_linuxlike_linux_gnu_eaccess(const char* pathname, int32_t mode
     return -1;
 }
 
-char* libc_unix_linuxlike_linux_gnu_asctimeR(void* tm, char* buf) {
+char* libcUnixLinuxlikeLinuxGnuAsctimeR(void* tm, char* buf) {
     typedef char* (*km_fn_t)(void*, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1950,7 +1950,7 @@ char* libc_unix_linuxlike_linux_gnu_asctimeR(void* tm, char* buf) {
     return NULL;
 }
 
-char* libc_unix_linuxlike_linux_gnu_ctimeR(void* timep, char* buf) {
+char* libcUnixLinuxlikeLinuxGnuCtimeR(void* timep, char* buf) {
     typedef char* (*km_fn_t)(void*, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1978,7 +1978,7 @@ char* libc_unix_linuxlike_linux_gnu_ctimeR(void* timep, char* buf) {
     return NULL;
 }
 
-char* libc_unix_linuxlike_linux_gnu_dirname(char* path) {
+char* libcUnixLinuxlikeLinuxGnuDirname(char* path) {
     typedef char* (*km_fn_t)(char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2006,7 +2006,7 @@ char* libc_unix_linuxlike_linux_gnu_dirname(char* path) {
     return NULL;
 }
 
-char* libc_unix_linuxlike_linux_gnu_posixBasename(char* path) {
+char* libcUnixLinuxlikeLinuxGnuPosixBasename(char* path) {
     typedef char* (*km_fn_t)(char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2032,7 +2032,7 @@ char* libc_unix_linuxlike_linux_gnu_posixBasename(char* path) {
     return NULL;
 }
 
-char* libc_unix_linuxlike_linux_gnu_gnuBasename(const char* path) {
+char* libcUnixLinuxlikeLinuxGnuGnuBasename(const char* path) {
     typedef char* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2060,7 +2060,7 @@ char* libc_unix_linuxlike_linux_gnu_gnuBasename(const char* path) {
     return NULL;
 }
 
-void* libc_unix_linuxlike_linux_gnu_dlmopen(int64_t lmid, const char* filename, int32_t flag) {
+void* libcUnixLinuxlikeLinuxGnuDlmopen(int64_t lmid, const char* filename, int32_t flag) {
     typedef void* (*km_fn_t)(int64_t, const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2088,7 +2088,7 @@ void* libc_unix_linuxlike_linux_gnu_dlmopen(int64_t lmid, const char* filename, 
     return NULL;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_dlinfo(void* handle, int32_t request, void* info) {
+int32_t libcUnixLinuxlikeLinuxGnuDlinfo(void* handle, int32_t request, void* info) {
     typedef int32_t (*km_fn_t)(void*, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2116,7 +2116,7 @@ int32_t libc_unix_linuxlike_linux_gnu_dlinfo(void* handle, int32_t request, void
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_dladdr1(void* addr, void* info, void* extra_info, int32_t flags) {
+int32_t libcUnixLinuxlikeLinuxGnuDladdr1(void* addr, void* info, void* extraInfo, int32_t flags) {
     typedef int32_t (*km_fn_t)(void*, void*, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2138,13 +2138,13 @@ int32_t libc_unix_linuxlike_linux_gnu_dladdr1(void* addr, void* info, void* extr
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(addr, info, extra_info, flags);
+        return km_fn_ptr(addr, info, extraInfo, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-void* libc_unix_linuxlike_linux_gnu_dlvsym(void* handle, const char* symbol, const char* version) {
+void* libcUnixLinuxlikeLinuxGnuDlvsym(void* handle, const char* symbol, const char* version) {
     typedef void* (*km_fn_t)(void*, const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2172,7 +2172,7 @@ void* libc_unix_linuxlike_linux_gnu_dlvsym(void* handle, const char* symbol, con
     return NULL;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_mallocTrim(uint64_t arg_0_pad) {
+int32_t libcUnixLinuxlikeLinuxGnuMallocTrim(uint64_t pad) {
     typedef int32_t (*km_fn_t)(uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2194,13 +2194,13 @@ int32_t libc_unix_linuxlike_linux_gnu_mallocTrim(uint64_t arg_0_pad) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_pad);
+        return km_fn_ptr(pad);
     }
     errno = ENOSYS;
     return -1;
 }
 
-const char* libc_unix_linuxlike_linux_gnu_gnuGetLibcRelease(void) {
+const char* libcUnixLinuxlikeLinuxGnuGnuGetLibcRelease(void) {
     typedef const char* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2228,7 +2228,7 @@ const char* libc_unix_linuxlike_linux_gnu_gnuGetLibcRelease(void) {
     return NULL;
 }
 
-const char* libc_unix_linuxlike_linux_gnu_gnuGetLibcVersion(void) {
+const char* libcUnixLinuxlikeLinuxGnuGnuGetLibcVersion(void) {
     typedef const char* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2256,7 +2256,7 @@ const char* libc_unix_linuxlike_linux_gnu_gnuGetLibcVersion(void) {
     return NULL;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_posixSpawnFileActionsAddchdirNp(void* actions, const char* path) {
+int32_t libcUnixLinuxlikeLinuxGnuPosixSpawnFileActionsAddchdirNp(void* actions, const char* path) {
     typedef int32_t (*km_fn_t)(void*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2284,7 +2284,7 @@ int32_t libc_unix_linuxlike_linux_gnu_posixSpawnFileActionsAddchdirNp(void* acti
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_posixSpawnFileActionsAddfchdirNp(void* actions, int32_t fd) {
+int32_t libcUnixLinuxlikeLinuxGnuPosixSpawnFileActionsAddfchdirNp(void* actions, int32_t fd) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2312,7 +2312,7 @@ int32_t libc_unix_linuxlike_linux_gnu_posixSpawnFileActionsAddfchdirNp(void* act
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_posixSpawnFileActionsAddclosefromNp(void* actions, int32_t from) {
+int32_t libcUnixLinuxlikeLinuxGnuPosixSpawnFileActionsAddclosefromNp(void* actions, int32_t from) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2340,7 +2340,7 @@ int32_t libc_unix_linuxlike_linux_gnu_posixSpawnFileActionsAddclosefromNp(void* 
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_posixSpawnFileActionsAddtcsetpgrpNp(void* actions, int32_t tcfd) {
+int32_t libcUnixLinuxlikeLinuxGnuPosixSpawnFileActionsAddtcsetpgrpNp(void* actions, int32_t tcfd) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2368,7 +2368,7 @@ int32_t libc_unix_linuxlike_linux_gnu_posixSpawnFileActionsAddtcsetpgrpNp(void* 
     return -1;
 }
 
-void* libc_unix_linuxlike_linux_gnu_getmntentR(void* stream, void* mntbuf, char* buf, int32_t buflen) {
+void* libcUnixLinuxlikeLinuxGnuGetmntentR(void* stream, void* mntbuf, char* buf, int32_t buflen) {
     typedef void* (*km_fn_t)(void*, void*, char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2396,7 +2396,7 @@ void* libc_unix_linuxlike_linux_gnu_getmntentR(void* stream, void* mntbuf, char*
     return NULL;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_execveat(int32_t dirfd, const char* pathname, void* argv, void* envp, int32_t flags) {
+int32_t libcUnixLinuxlikeLinuxGnuExecveat(int32_t dirfd, const char* pathname, void* argv, void* envp, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, void*, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2424,7 +2424,7 @@ int32_t libc_unix_linuxlike_linux_gnu_execveat(int32_t dirfd, const char* pathna
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_closeRange(uint32_t first, uint32_t last, int32_t flags) {
+int32_t libcUnixLinuxlikeLinuxGnuCloseRange(uint32_t first, uint32_t last, int32_t flags) {
     typedef int32_t (*km_fn_t)(uint32_t, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2452,7 +2452,7 @@ int32_t libc_unix_linuxlike_linux_gnu_closeRange(uint32_t first, uint32_t last, 
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_mqNotify(void* mqdes, void* sevp) {
+int32_t libcUnixLinuxlikeLinuxGnuMqNotify(void* mqdes, void* sevp) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2480,7 +2480,7 @@ int32_t libc_unix_linuxlike_linux_gnu_mqNotify(void* mqdes, void* sevp) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_epollPwait2(int32_t epfd, void* events, int32_t maxevents, void* timeout, void* sigmask) {
+int32_t libcUnixLinuxlikeLinuxGnuEpollPwait2(int32_t epfd, void* events, int32_t maxevents, void* timeout, void* sigmask) {
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2508,7 +2508,7 @@ int32_t libc_unix_linuxlike_linux_gnu_epollPwait2(int32_t epfd, void* events, in
     return -1;
 }
 
-void* libc_unix_linuxlike_linux_gnu_mempcpy(void* dest, void* src, uint64_t n) {
+void* libcUnixLinuxlikeLinuxGnuMempcpy(void* dest, void* src, uint64_t n) {
     typedef void* (*km_fn_t)(void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2536,7 +2536,7 @@ void* libc_unix_linuxlike_linux_gnu_mempcpy(void* dest, void* src, uint64_t n) {
     return NULL;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_tgkill(int32_t tgid, int32_t tid, int32_t sig) {
+int32_t libcUnixLinuxlikeLinuxGnuTgkill(int32_t tgid, int32_t tid, int32_t sig) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

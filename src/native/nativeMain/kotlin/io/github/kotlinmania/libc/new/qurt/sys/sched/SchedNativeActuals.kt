@@ -3,15 +3,15 @@
 package io.github.kotlinmania.libc.new.qurt.sys.sched
 
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.new.qurt.sys.sched.cinterop.libc_new_qurt_sys_sched_schedGetPriorityMax
-import io.github.kotlinmania.libc.new.qurt.sys.sched.cinterop.libc_new_qurt_sys_sched_schedGetPriorityMin
-import io.github.kotlinmania.libc.new.qurt.sys.sched.cinterop.libc_new_qurt_sys_sched_schedYield
+import io.github.kotlinmania.libc.new.qurt.sys.sched.cinterop.libcNewQurtSysSchedSchedGetPriorityMax
+import io.github.kotlinmania.libc.new.qurt.sys.sched.cinterop.libcNewQurtSysSchedSchedGetPriorityMin
+import io.github.kotlinmania.libc.new.qurt.sys.sched.cinterop.libcNewQurtSysSchedSchedYield
 
 public actual fun schedYield(): CInt =
-    libc_new_qurt_sys_sched_schedYield()
+    libcNewQurtSysSchedSchedYield()
 
 public actual fun schedGetPriorityMax(policy: CInt): CInt =
-    libc_new_qurt_sys_sched_schedGetPriorityMax(policy)
+    libcNewQurtSysSchedSchedGetPriorityMax(policy)
 
 public actual fun schedGetPriorityMin(policy: CInt): CInt =
-    libc_new_qurt_sys_sched_schedGetPriorityMin(policy)
+    libcNewQurtSysSchedSchedGetPriorityMin(policy)

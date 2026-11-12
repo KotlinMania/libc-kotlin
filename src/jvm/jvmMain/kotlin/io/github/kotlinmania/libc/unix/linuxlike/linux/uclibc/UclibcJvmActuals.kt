@@ -3,139 +3,203 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.uclibc
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
+import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.PidT
+import io.github.kotlinmania.libc.unix.Rlimit
 import io.github.kotlinmania.libc.unix.SsizeT
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.Timeval
+import io.github.kotlinmania.libc.unix.Winsize
 import io.github.kotlinmania.libc.unix.linuxlike.IdT
+import io.github.kotlinmania.libc.unix.linuxlike.Mmsghdr
+import io.github.kotlinmania.libc.unix.linuxlike.Rlimit64
+import io.github.kotlinmania.libc.unix.linuxlike.Sockaddr
+import io.github.kotlinmania.libc.unix.linuxlike.Timezone
 import io.github.kotlinmania.libc.unix.linuxlike.linux.Off64T
+import io.github.kotlinmania.libc.unix.linuxlike.linux.PthreadRwlockattrT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.SocklenT
+import io.github.kotlinmania.libc.unix.linuxlike.linux.uclibc.x8664.Termios
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 private object UnixLinuxlikeLinuxUclibcJniBridge {
     init {
+        loadNativeLibrary()
+    }
+
+    private fun loadNativeLibrary() {
+        val osRaw = System.getProperty("os.name", "").lowercase()
+        val archRaw = System.getProperty("os.arch", "").lowercase()
+        val hostPlatform =
+            when {
+                osRaw.contains("win") -> "windows"
+                osRaw.contains("mac") || osRaw.contains("darwin") -> "macos"
+                else -> "linux"
+            }
+        val hostArch =
+            when {
+                archRaw == "aarch64" || archRaw == "arm64" -> "aarch64"
+                archRaw == "amd64" || archRaw == "x86_64" -> "x86_64"
+                else -> archRaw
+            }
+        val libFileName =
+            when (hostPlatform) {
+                "windows" -> "libc_jni.dll"
+                "macos" -> "liblibc_jni.dylib"
+                else -> "liblibc_jni.so"
+            }
+        val pathSep = System.getProperty("path.separator", ":")
+        val libPathProp = System.getProperty("java.library.path", "")
+        for (dirEntry in libPathProp.split(pathSep)) {
+            if (dirEntry.isEmpty()) continue
+            val candidate = java.io.File(dirEntry, libFileName)
+            if (candidate.isFile) {
+                System.load(candidate.absolutePath)
+                return
+            }
+        }
+        val resourcePath = "io/github/kotlinmania/libc/native/$hostPlatform-$hostArch/$libFileName"
+        val stream = UnixLinuxlikeLinuxUclibcJniBridge::class.java.classLoader?.getResourceAsStream(resourcePath)
+        if (stream != null) {
+            val suffix = "." + libFileName.substringAfterLast('.')
+            val extracted =
+                java.nio.file.Files
+                    .createTempFile("libc_jni-", suffix)
+                    .toFile()
+            extracted.deleteOnExit()
+            stream.use { input ->
+                extracted.outputStream().use { output ->
+                    input.copyTo(output)
+                }
+            }
+            System.load(extracted.absolutePath)
+            return
+        }
         System.loadLibrary("libc_jni")
     }
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_uclibc_gettimeofday(tp: Long, tz: Long): Int
+    external fun libcUnixLinuxlikeLinuxUclibcGettimeofday(tp: Long, tz: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_uclibc_pthreadRwlockattrGetkindNp(attr: Long, value: Long): Int
+    external fun libcUnixLinuxlikeLinuxUclibcPthreadRwlockattrGetkindNp(attr: Long, value: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_uclibc_pthreadRwlockattrSetkindNp(attr: Long, value: Int): Int
+    external fun libcUnixLinuxlikeLinuxUclibcPthreadRwlockattrSetkindNp(attr: Long, value: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_uclibc_ptrace(request: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
+    external fun libcUnixLinuxlikeLinuxUclibcPtrace(request: Int, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_uclibc_sendmmsg(sockfd: Int, msgvec: Long, vlen: Int, flags: Int): Int
+    external fun libcUnixLinuxlikeLinuxUclibcSendmmsg(sockfd: Int, msgvec: Long, vlen: Int, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_uclibc_recvmmsg(sockfd: Int, msgvec: Long, vlen: Int, flags: Int, timeout: Long): Int
+    external fun libcUnixLinuxlikeLinuxUclibcRecvmmsg(sockfd: Int, msgvec: Long, vlen: Int, flags: Int, timeout: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_uclibc_openpty(amaster: Long, aslave: Long, name: Long, termp: Long, winp: Long): Int
+    external fun libcUnixLinuxlikeLinuxUclibcOpenpty(amaster: Long, aslave: Long, name: Long, termp: Long, winp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_uclibc_forkpty(amaster: Long, name: Long, termp: Long, winp: Long): Int
+    external fun libcUnixLinuxlikeLinuxUclibcForkpty(amaster: Long, name: Long, termp: Long, winp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_uclibc_getnameinfo(sa: Long, salen: Int, host: Long, hostlen: Int, serv: Long, servlen: Int, flags: Int): Int
+    external fun libcUnixLinuxlikeLinuxUclibcGetnameinfo(sa: Long, salen: Int, host: Long, hostlen: Int, serv: Long, servlen: Int, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_uclibc_pwritev(fd: Int, iov: Long, iovcnt: Int, offset: Long): Long
+    external fun libcUnixLinuxlikeLinuxUclibcPwritev(fd: Int, iov: Long, iovcnt: Int, offset: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_uclibc_preadv(fd: Int, iov: Long, iovcnt: Int, offset: Long): Long
+    external fun libcUnixLinuxlikeLinuxUclibcPreadv(fd: Int, iov: Long, iovcnt: Int, offset: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_uclibc_sethostid(hostid: Long): Int
+    external fun libcUnixLinuxlikeLinuxUclibcSethostid(hostid: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_uclibc_fanotifyMark(fd: Int, flags: Int, mask: Long, dirfd: Int, path: String?): Int
+    external fun libcUnixLinuxlikeLinuxUclibcFanotifyMark(fd: Int, flags: Int, mask: Long, dirfd: Int, path: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_uclibc_getrlimit64(resource: Long, rlim: Long): Int
+    external fun libcUnixLinuxlikeLinuxUclibcGetrlimit64(resource: Long, rlim: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_uclibc_setrlimit64(resource: Long, rlim: Long): Int
+    external fun libcUnixLinuxlikeLinuxUclibcSetrlimit64(resource: Long, rlim: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_uclibc_getrlimit(resource: Long, rlim: Long): Int
+    external fun libcUnixLinuxlikeLinuxUclibcGetrlimit(resource: Long, rlim: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_uclibc_setrlimit(resource: Long, rlim: Long): Int
+    external fun libcUnixLinuxlikeLinuxUclibcSetrlimit(resource: Long, rlim: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_uclibc_getpriority(which: Int, who: Int): Int
+    external fun libcUnixLinuxlikeLinuxUclibcGetpriority(which: Int, who: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_uclibc_setpriority(which: Int, who: Int, prio: Int): Int
+    external fun libcUnixLinuxlikeLinuxUclibcSetpriority(which: Int, who: Int, prio: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_uclibc_getauxval(type: Long): Long
+    external fun libcUnixLinuxlikeLinuxUclibcGetauxval(type: Long): Long
 }
 
-public actual fun gettimeofday(tp: COpaquePointer?, tz: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxUclibcJniBridge.libc_unix_linuxlike_linux_uclibc_gettimeofday((tp?.value ?: 0L), (tz?.value ?: 0L))
+public actual fun gettimeofday(tp: MutPtr<Timeval>, tz: MutPtr<Timezone>): CInt =
+    UnixLinuxlikeLinuxUclibcJniBridge.libcUnixLinuxlikeLinuxUclibcGettimeofday(tp.rawAddress, tz.rawAddress)
 
-public actual fun pthreadRwlockattrGetkindNp(attr: COpaquePointer?, value: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxUclibcJniBridge.libc_unix_linuxlike_linux_uclibc_pthreadRwlockattrGetkindNp((attr?.value ?: 0L), (value?.value ?: 0L))
+public actual fun pthreadRwlockattrGetkindNp(attr: ConstPtr<PthreadRwlockattrT>, value: MutPtr<CInt>): CInt =
+    UnixLinuxlikeLinuxUclibcJniBridge.libcUnixLinuxlikeLinuxUclibcPthreadRwlockattrGetkindNp(attr.rawAddress, value.rawAddress)
 
-public actual fun pthreadRwlockattrSetkindNp(attr: COpaquePointer?, value: CInt): CInt =
-    UnixLinuxlikeLinuxUclibcJniBridge.libc_unix_linuxlike_linux_uclibc_pthreadRwlockattrSetkindNp((attr?.value ?: 0L), value)
+public actual fun pthreadRwlockattrSetkindNp(attr: MutPtr<PthreadRwlockattrT>, value: CInt): CInt =
+    UnixLinuxlikeLinuxUclibcJniBridge.libcUnixLinuxlikeLinuxUclibcPthreadRwlockattrSetkindNp(attr.rawAddress, value)
 
 public actual fun ptrace(request: CUint, vararg variadicArgs: Long): CLong =
-    UnixLinuxlikeLinuxUclibcJniBridge.libc_unix_linuxlike_linux_uclibc_ptrace(request.toInt(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+    UnixLinuxlikeLinuxUclibcJniBridge.libcUnixLinuxlikeLinuxUclibcPtrace(request.toInt(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun sendmmsg(sockfd: CInt, msgvec: COpaquePointer?, vlen: CUint, flags: CInt): CInt =
-    UnixLinuxlikeLinuxUclibcJniBridge.libc_unix_linuxlike_linux_uclibc_sendmmsg(sockfd, (msgvec?.value ?: 0L), vlen.toInt(), flags)
+public actual fun sendmmsg(sockfd: CInt, msgvec: MutPtr<Mmsghdr>, vlen: CUint, flags: CInt): CInt =
+    UnixLinuxlikeLinuxUclibcJniBridge.libcUnixLinuxlikeLinuxUclibcSendmmsg(sockfd, msgvec.rawAddress, vlen.toInt(), flags)
 
-public actual fun recvmmsg(sockfd: CInt, msgvec: COpaquePointer?, vlen: CUint, flags: CInt, timeout: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxUclibcJniBridge.libc_unix_linuxlike_linux_uclibc_recvmmsg(sockfd, (msgvec?.value ?: 0L), vlen.toInt(), flags, (timeout?.value ?: 0L))
+public actual fun recvmmsg(sockfd: CInt, msgvec: MutPtr<Mmsghdr>, vlen: CUint, flags: CInt, timeout: MutPtr<Timespec>): CInt =
+    UnixLinuxlikeLinuxUclibcJniBridge.libcUnixLinuxlikeLinuxUclibcRecvmmsg(sockfd, msgvec.rawAddress, vlen.toInt(), flags, timeout.rawAddress)
 
-public actual fun openpty(amaster: COpaquePointer?, aslave: COpaquePointer?, name: COpaquePointer?, termp: COpaquePointer?, winp: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxUclibcJniBridge.libc_unix_linuxlike_linux_uclibc_openpty((amaster?.value ?: 0L), (aslave?.value ?: 0L), (name?.value ?: 0L), (termp?.value ?: 0L), (winp?.value ?: 0L))
+public actual fun openpty(amaster: MutPtr<CInt>, aslave: MutPtr<CInt>, name: MutPtr<CChar>, termp: MutPtr<Termios>, winp: MutPtr<Winsize>): CInt =
+    UnixLinuxlikeLinuxUclibcJniBridge.libcUnixLinuxlikeLinuxUclibcOpenpty(amaster.rawAddress, aslave.rawAddress, name.rawAddress, termp.rawAddress, winp.rawAddress)
 
-public actual fun forkpty(amaster: COpaquePointer?, name: COpaquePointer?, termp: COpaquePointer?, winp: COpaquePointer?): PidT =
-    UnixLinuxlikeLinuxUclibcJniBridge.libc_unix_linuxlike_linux_uclibc_forkpty((amaster?.value ?: 0L), (name?.value ?: 0L), (termp?.value ?: 0L), (winp?.value ?: 0L))
+public actual fun forkpty(amaster: MutPtr<CInt>, name: MutPtr<CChar>, termp: MutPtr<Termios>, winp: MutPtr<Winsize>): PidT =
+    UnixLinuxlikeLinuxUclibcJniBridge.libcUnixLinuxlikeLinuxUclibcForkpty(amaster.rawAddress, name.rawAddress, termp.rawAddress, winp.rawAddress)
 
-public actual fun getnameinfo(sa: COpaquePointer?, salen: SocklenT, host: COpaquePointer?, hostlen: SocklenT, serv: COpaquePointer?, servlen: SocklenT, flags: CInt): CInt =
-    UnixLinuxlikeLinuxUclibcJniBridge.libc_unix_linuxlike_linux_uclibc_getnameinfo((sa?.value ?: 0L), salen.toInt(), (host?.value ?: 0L), hostlen.toInt(), (serv?.value ?: 0L), servlen.toInt(), flags)
+public actual fun getnameinfo(sa: ConstPtr<Sockaddr>, salen: SocklenT, host: MutPtr<CChar>, hostlen: SocklenT, serv: MutPtr<CChar>, servlen: SocklenT, flags: CInt): CInt =
+    UnixLinuxlikeLinuxUclibcJniBridge.libcUnixLinuxlikeLinuxUclibcGetnameinfo(sa.rawAddress, salen.toInt(), host.rawAddress, hostlen.toInt(), serv.rawAddress, servlen.toInt(), flags)
 
-public actual fun pwritev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: Off64T): SsizeT =
-    UnixLinuxlikeLinuxUclibcJniBridge.libc_unix_linuxlike_linux_uclibc_pwritev(fd, (iov?.value ?: 0L), iovcnt, offset)
+public actual fun pwritev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: Off64T): SsizeT =
+    UnixLinuxlikeLinuxUclibcJniBridge.libcUnixLinuxlikeLinuxUclibcPwritev(fd, iov.rawAddress, iovcnt, offset)
 
-public actual fun preadv(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: Off64T): SsizeT =
-    UnixLinuxlikeLinuxUclibcJniBridge.libc_unix_linuxlike_linux_uclibc_preadv(fd, (iov?.value ?: 0L), iovcnt, offset)
+public actual fun preadv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: Off64T): SsizeT =
+    UnixLinuxlikeLinuxUclibcJniBridge.libcUnixLinuxlikeLinuxUclibcPreadv(fd, iov.rawAddress, iovcnt, offset)
 
 public actual fun sethostid(hostid: CLong): CInt =
-    UnixLinuxlikeLinuxUclibcJniBridge.libc_unix_linuxlike_linux_uclibc_sethostid(hostid)
+    UnixLinuxlikeLinuxUclibcJniBridge.libcUnixLinuxlikeLinuxUclibcSethostid(hostid)
 
-public actual fun fanotifyMark(fd: CInt, flags: CUint, mask: ULong, dirfd: CInt, path: String?): CInt =
-    UnixLinuxlikeLinuxUclibcJniBridge.libc_unix_linuxlike_linux_uclibc_fanotifyMark(fd, flags.toInt(), mask.toLong(), dirfd, path)
+public actual fun fanotifyMark(fd: CInt, flags: CUint, mask: ULong, dirfd: CInt, path: ConstPtr<CChar>): CInt =
+    UnixLinuxlikeLinuxUclibcJniBridge.libcUnixLinuxlikeLinuxUclibcFanotifyMark(fd, flags.toInt(), mask.toLong(), dirfd, path.rawAddress)
 
-public actual fun getrlimit64(resource: RlimitResourceT, rlim: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxUclibcJniBridge.libc_unix_linuxlike_linux_uclibc_getrlimit64(resource.toLong(), (rlim?.value ?: 0L))
+public actual fun getrlimit64(resource: RlimitResourceT, rlim: MutPtr<Rlimit64>): CInt =
+    UnixLinuxlikeLinuxUclibcJniBridge.libcUnixLinuxlikeLinuxUclibcGetrlimit64(resource.toLong(), rlim.rawAddress)
 
-public actual fun setrlimit64(resource: RlimitResourceT, rlim: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxUclibcJniBridge.libc_unix_linuxlike_linux_uclibc_setrlimit64(resource.toLong(), (rlim?.value ?: 0L))
+public actual fun setrlimit64(resource: RlimitResourceT, rlim: ConstPtr<Rlimit64>): CInt =
+    UnixLinuxlikeLinuxUclibcJniBridge.libcUnixLinuxlikeLinuxUclibcSetrlimit64(resource.toLong(), rlim.rawAddress)
 
-public actual fun getrlimit(resource: RlimitResourceT, rlim: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxUclibcJniBridge.libc_unix_linuxlike_linux_uclibc_getrlimit(resource.toLong(), (rlim?.value ?: 0L))
+public actual fun getrlimit(resource: RlimitResourceT, rlim: MutPtr<Rlimit>): CInt =
+    UnixLinuxlikeLinuxUclibcJniBridge.libcUnixLinuxlikeLinuxUclibcGetrlimit(resource.toLong(), rlim.rawAddress)
 
-public actual fun setrlimit(resource: RlimitResourceT, rlim: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxUclibcJniBridge.libc_unix_linuxlike_linux_uclibc_setrlimit(resource.toLong(), (rlim?.value ?: 0L))
+public actual fun setrlimit(resource: RlimitResourceT, rlim: ConstPtr<Rlimit>): CInt =
+    UnixLinuxlikeLinuxUclibcJniBridge.libcUnixLinuxlikeLinuxUclibcSetrlimit(resource.toLong(), rlim.rawAddress)
 
 public actual fun getpriority(which: PriorityWhichT, who: IdT): CInt =
-    UnixLinuxlikeLinuxUclibcJniBridge.libc_unix_linuxlike_linux_uclibc_getpriority(which.toInt(), who.toInt())
+    UnixLinuxlikeLinuxUclibcJniBridge.libcUnixLinuxlikeLinuxUclibcGetpriority(which.toInt(), who.toInt())
 
 public actual fun setpriority(which: PriorityWhichT, who: IdT, prio: CInt): CInt =
-    UnixLinuxlikeLinuxUclibcJniBridge.libc_unix_linuxlike_linux_uclibc_setpriority(which.toInt(), who.toInt(), prio)
+    UnixLinuxlikeLinuxUclibcJniBridge.libcUnixLinuxlikeLinuxUclibcSetpriority(which.toInt(), who.toInt(), prio)
 
 public actual fun getauxval(type: CUlong): CUlong =
-    UnixLinuxlikeLinuxUclibcJniBridge.libc_unix_linuxlike_linux_uclibc_getauxval(type.toLong()).toULong()
+    UnixLinuxlikeLinuxUclibcJniBridge.libcUnixLinuxlikeLinuxUclibcGetauxval(type.toLong()).toULong()

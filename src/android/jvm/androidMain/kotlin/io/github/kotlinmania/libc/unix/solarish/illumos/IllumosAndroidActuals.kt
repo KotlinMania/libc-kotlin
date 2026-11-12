@@ -3,18 +3,27 @@
 package io.github.kotlinmania.libc.unix.solarish.illumos
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
+import io.github.kotlinmania.libc.CDouble
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
+import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.PidT
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
 import io.github.kotlinmania.libc.unix.solarish.CaddrT
 import io.github.kotlinmania.libc.unix.solarish.IdT
+import io.github.kotlinmania.libc.unix.solarish.Itimerspec
 import io.github.kotlinmania.libc.unix.solarish.OffT
+import io.github.kotlinmania.libc.unix.solarish.PosixSpawnFileActionsT
 import io.github.kotlinmania.libc.unix.solarish.PsetidT
+import io.github.kotlinmania.libc.unix.solarish.PthreadAttrT
 import io.github.kotlinmania.libc.unix.solarish.PthreadT
+import io.github.kotlinmania.libc.unix.solarish.SigsetT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 private object UnixSolarishIllumosJniBridge {
     init {
@@ -22,152 +31,152 @@ private object UnixSolarishIllumosJniBridge {
     }
 
     @JvmStatic
-    external fun libc_unix_solarish_illumos_eventfd(initval: Int, flags: Int): Int
+    external fun libcUnixSolarishIllumosEventfd(initval: Int, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_solarish_illumos_epollPwait(epfd: Int, events: Long, maxevents: Int, timeout: Int, sigmask: Long): Int
+    external fun libcUnixSolarishIllumosEpollPwait(epfd: Int, events: Long, maxevents: Int, timeout: Int, sigmask: Long): Int
 
     @JvmStatic
-    external fun libc_unix_solarish_illumos_epollCreate(size: Int): Int
+    external fun libcUnixSolarishIllumosEpollCreate(size: Int): Int
 
     @JvmStatic
-    external fun libc_unix_solarish_illumos_epollCreate1(flags: Int): Int
+    external fun libcUnixSolarishIllumosEpollCreate1(flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_solarish_illumos_epollWait(epfd: Int, events: Long, maxevents: Int, timeout: Int): Int
+    external fun libcUnixSolarishIllumosEpollWait(epfd: Int, events: Long, maxevents: Int, timeout: Int): Int
 
     @JvmStatic
-    external fun libc_unix_solarish_illumos_epollCtl(epfd: Int, op: Int, fd: Int, event: Long): Int
+    external fun libcUnixSolarishIllumosEpollCtl(epfd: Int, op: Int, fd: Int, event: Long): Int
 
     @JvmStatic
-    external fun libc_unix_solarish_illumos_mincore(addr: Long, len: Long, vec: Long): Int
+    external fun libcUnixSolarishIllumosMincore(addr: Long, len: Long, vec: Long): Int
 
     @JvmStatic
-    external fun libc_unix_solarish_illumos_psetBindLwp(pset: Int, id: Int, pid: Int, opset: Long): Int
+    external fun libcUnixSolarishIllumosPsetBindLwp(pset: Int, id: Int, pid: Int, opset: Long): Int
 
     @JvmStatic
-    external fun libc_unix_solarish_illumos_psetGetloadavg(pset: Int, load: Long, num: Int): Int
+    external fun libcUnixSolarishIllumosPsetGetloadavg(pset: Int, load: Long, num: Int): Int
 
     @JvmStatic
-    external fun libc_unix_solarish_illumos_pthreadAttrGetNp(thread: Long, attr: Long): Int
+    external fun libcUnixSolarishIllumosPthreadAttrGetNp(thread: Long, attr: Long): Int
 
     @JvmStatic
-    external fun libc_unix_solarish_illumos_pthreadAttrGetstackaddr(attr: Long, stackaddr: Long): Int
+    external fun libcUnixSolarishIllumosPthreadAttrGetstackaddr(attr: Long, stackaddr: Long): Int
 
     @JvmStatic
-    external fun libc_unix_solarish_illumos_pthreadAttrSetstack(attr: Long, stackaddr: Long, stacksize: Long): Int
+    external fun libcUnixSolarishIllumosPthreadAttrSetstack(attr: Long, stackaddr: Long, stacksize: Long): Int
 
     @JvmStatic
-    external fun libc_unix_solarish_illumos_pthreadAttrSetstackaddr(attr: Long, stackaddr: Long): Int
+    external fun libcUnixSolarishIllumosPthreadAttrSetstackaddr(attr: Long, stackaddr: Long): Int
 
     @JvmStatic
-    external fun libc_unix_solarish_illumos_posixFadvise(fd: Int, offset: Long, len: Long, advice: Int): Int
+    external fun libcUnixSolarishIllumosPosixFadvise(fd: Int, offset: Long, len: Long, advice: Int): Int
 
     @JvmStatic
-    external fun libc_unix_solarish_illumos_preadv(fd: Int, iov: Long, iovcnt: Int, offset: Long): Long
+    external fun libcUnixSolarishIllumosPreadv(fd: Int, iov: Long, iovcnt: Int, offset: Long): Long
 
     @JvmStatic
-    external fun libc_unix_solarish_illumos_pwritev(fd: Int, iov: Long, iovcnt: Int, offset: Long): Long
+    external fun libcUnixSolarishIllumosPwritev(fd: Int, iov: Long, iovcnt: Int, offset: Long): Long
 
     @JvmStatic
-    external fun libc_unix_solarish_illumos_getpagesizes2(pagesize: Long, nelem: Int): Int
+    external fun libcUnixSolarishIllumosGetpagesizes2(pagesize: Long, nelem: Int): Int
 
     @JvmStatic
-    external fun libc_unix_solarish_illumos_posixSpawnFileActionsAddfchdirNp(fileActions: Long, fd: Int): Int
+    external fun libcUnixSolarishIllumosPosixSpawnFileActionsAddfchdirNp(fileActions: Long, fd: Int): Int
 
     @JvmStatic
-    external fun libc_unix_solarish_illumos_ptsnameR(fildes: Int, name: Long, namelen: Long): Int
+    external fun libcUnixSolarishIllumosPtsnameR(fildes: Int, name: Long, namelen: Long): Int
 
     @JvmStatic
-    external fun libc_unix_solarish_illumos_syncfs(fd: Int): Int
+    external fun libcUnixSolarishIllumosSyncfs(fd: Int): Int
 
     @JvmStatic
-    external fun libc_unix_solarish_illumos_strcasecmpL(s1: String?, s2: String?, loc: Long): Int
+    external fun libcUnixSolarishIllumosStrcasecmpL(s1: Long, s2: Long, loc: Long): Int
 
     @JvmStatic
-    external fun libc_unix_solarish_illumos_strncasecmpL(s1: String?, s2: String?, n: Long, loc: Long): Int
+    external fun libcUnixSolarishIllumosStrncasecmpL(s1: Long, s2: Long, n: Long, loc: Long): Int
 
     @JvmStatic
-    external fun libc_unix_solarish_illumos_timerfdCreate(clockid: Int, flags: Int): Int
+    external fun libcUnixSolarishIllumosTimerfdCreate(clockid: Int, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_solarish_illumos_timerfdGettime(fd: Int, currValue: Long): Int
+    external fun libcUnixSolarishIllumosTimerfdGettime(fd: Int, currValue: Long): Int
 
     @JvmStatic
-    external fun libc_unix_solarish_illumos_timerfdSettime(fd: Int, flags: Int, newValue: Long, oldValue: Long): Int
+    external fun libcUnixSolarishIllumosTimerfdSettime(fd: Int, flags: Int, newValue: Long, oldValue: Long): Int
 }
 
 public actual fun eventfd(initval: CUint, flags: CInt): CInt =
-    UnixSolarishIllumosJniBridge.libc_unix_solarish_illumos_eventfd(initval.toInt(), flags)
+    UnixSolarishIllumosJniBridge.libcUnixSolarishIllumosEventfd(initval.toInt(), flags)
 
-public actual fun epollPwait(epfd: CInt, events: COpaquePointer?, maxevents: CInt, timeout: CInt, sigmask: COpaquePointer?): CInt =
-    UnixSolarishIllumosJniBridge.libc_unix_solarish_illumos_epollPwait(epfd, (events?.value ?: 0L), maxevents, timeout, (sigmask?.value ?: 0L))
+public actual fun epollPwait(epfd: CInt, events: MutPtr<EpollEvent>, maxevents: CInt, timeout: CInt, sigmask: ConstPtr<SigsetT>): CInt =
+    UnixSolarishIllumosJniBridge.libcUnixSolarishIllumosEpollPwait(epfd, events.rawAddress, maxevents, timeout, sigmask.rawAddress)
 
 public actual fun epollCreate(size: CInt): CInt =
-    UnixSolarishIllumosJniBridge.libc_unix_solarish_illumos_epollCreate(size)
+    UnixSolarishIllumosJniBridge.libcUnixSolarishIllumosEpollCreate(size)
 
 public actual fun epollCreate1(flags: CInt): CInt =
-    UnixSolarishIllumosJniBridge.libc_unix_solarish_illumos_epollCreate1(flags)
+    UnixSolarishIllumosJniBridge.libcUnixSolarishIllumosEpollCreate1(flags)
 
-public actual fun epollWait(epfd: CInt, events: COpaquePointer?, maxevents: CInt, timeout: CInt): CInt =
-    UnixSolarishIllumosJniBridge.libc_unix_solarish_illumos_epollWait(epfd, (events?.value ?: 0L), maxevents, timeout)
+public actual fun epollWait(epfd: CInt, events: MutPtr<EpollEvent>, maxevents: CInt, timeout: CInt): CInt =
+    UnixSolarishIllumosJniBridge.libcUnixSolarishIllumosEpollWait(epfd, events.rawAddress, maxevents, timeout)
 
-public actual fun epollCtl(epfd: CInt, op: CInt, fd: CInt, event: COpaquePointer?): CInt =
-    UnixSolarishIllumosJniBridge.libc_unix_solarish_illumos_epollCtl(epfd, op, fd, (event?.value ?: 0L))
+public actual fun epollCtl(epfd: CInt, op: CInt, fd: CInt, event: MutPtr<EpollEvent>): CInt =
+    UnixSolarishIllumosJniBridge.libcUnixSolarishIllumosEpollCtl(epfd, op, fd, event.rawAddress)
 
-public actual fun mincore(addr: CaddrT, len: SizeT, vec: COpaquePointer?): CInt =
-    UnixSolarishIllumosJniBridge.libc_unix_solarish_illumos_mincore((addr?.value ?: 0L), len.toLong(), (vec?.value ?: 0L))
+public actual fun mincore(addr: CaddrT, len: SizeT, vec: MutPtr<CChar>): CInt =
+    UnixSolarishIllumosJniBridge.libcUnixSolarishIllumosMincore(addr.rawAddress, len.toLong(), vec.rawAddress)
 
-public actual fun psetBindLwp(pset: PsetidT, id: IdT, pid: PidT, opset: COpaquePointer?): CInt =
-    UnixSolarishIllumosJniBridge.libc_unix_solarish_illumos_psetBindLwp(pset, id, pid, (opset?.value ?: 0L))
+public actual fun psetBindLwp(pset: PsetidT, id: IdT, pid: PidT, opset: MutPtr<PsetidT>): CInt =
+    UnixSolarishIllumosJniBridge.libcUnixSolarishIllumosPsetBindLwp(pset, id, pid, opset.rawAddress)
 
-public actual fun psetGetloadavg(pset: PsetidT, load: COpaquePointer?, num: CInt): CInt =
-    UnixSolarishIllumosJniBridge.libc_unix_solarish_illumos_psetGetloadavg(pset, (load?.value ?: 0L), num)
+public actual fun psetGetloadavg(pset: PsetidT, load: MutPtr<CDouble>, num: CInt): CInt =
+    UnixSolarishIllumosJniBridge.libcUnixSolarishIllumosPsetGetloadavg(pset, load.rawAddress, num)
 
-public actual fun pthreadAttrGetNp(thread: PthreadT, attr: COpaquePointer?): CInt =
-    UnixSolarishIllumosJniBridge.libc_unix_solarish_illumos_pthreadAttrGetNp(thread.toLong(), (attr?.value ?: 0L))
+public actual fun pthreadAttrGetNp(thread: PthreadT, attr: MutPtr<PthreadAttrT>): CInt =
+    UnixSolarishIllumosJniBridge.libcUnixSolarishIllumosPthreadAttrGetNp(thread.toLong(), attr.rawAddress)
 
-public actual fun pthreadAttrGetstackaddr(attr: COpaquePointer?, stackaddr: COpaquePointer?): CInt =
-    UnixSolarishIllumosJniBridge.libc_unix_solarish_illumos_pthreadAttrGetstackaddr((attr?.value ?: 0L), (stackaddr?.value ?: 0L))
+public actual fun pthreadAttrGetstackaddr(attr: ConstPtr<PthreadAttrT>, stackaddr: MutPtr<MutPtr<CVoid>>): CInt =
+    UnixSolarishIllumosJniBridge.libcUnixSolarishIllumosPthreadAttrGetstackaddr(attr.rawAddress, stackaddr.rawAddress)
 
-public actual fun pthreadAttrSetstack(attr: COpaquePointer?, stackaddr: COpaquePointer?, stacksize: SizeT): CInt =
-    UnixSolarishIllumosJniBridge.libc_unix_solarish_illumos_pthreadAttrSetstack((attr?.value ?: 0L), (stackaddr?.value ?: 0L), stacksize.toLong())
+public actual fun pthreadAttrSetstack(attr: MutPtr<PthreadAttrT>, stackaddr: MutPtr<CVoid>, stacksize: SizeT): CInt =
+    UnixSolarishIllumosJniBridge.libcUnixSolarishIllumosPthreadAttrSetstack(attr.rawAddress, stackaddr.rawAddress, stacksize.toLong())
 
-public actual fun pthreadAttrSetstackaddr(attr: COpaquePointer?, stackaddr: COpaquePointer?): CInt =
-    UnixSolarishIllumosJniBridge.libc_unix_solarish_illumos_pthreadAttrSetstackaddr((attr?.value ?: 0L), (stackaddr?.value ?: 0L))
+public actual fun pthreadAttrSetstackaddr(attr: MutPtr<PthreadAttrT>, stackaddr: MutPtr<CVoid>): CInt =
+    UnixSolarishIllumosJniBridge.libcUnixSolarishIllumosPthreadAttrSetstackaddr(attr.rawAddress, stackaddr.rawAddress)
 
 public actual fun posixFadvise(fd: CInt, offset: OffT, len: OffT, advice: CInt): CInt =
-    UnixSolarishIllumosJniBridge.libc_unix_solarish_illumos_posixFadvise(fd, offset, len, advice)
+    UnixSolarishIllumosJniBridge.libcUnixSolarishIllumosPosixFadvise(fd, offset, len, advice)
 
-public actual fun preadv(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: OffT): SsizeT =
-    UnixSolarishIllumosJniBridge.libc_unix_solarish_illumos_preadv(fd, (iov?.value ?: 0L), iovcnt, offset)
+public actual fun preadv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT =
+    UnixSolarishIllumosJniBridge.libcUnixSolarishIllumosPreadv(fd, iov.rawAddress, iovcnt, offset)
 
-public actual fun pwritev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: OffT): SsizeT =
-    UnixSolarishIllumosJniBridge.libc_unix_solarish_illumos_pwritev(fd, (iov?.value ?: 0L), iovcnt, offset)
+public actual fun pwritev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT =
+    UnixSolarishIllumosJniBridge.libcUnixSolarishIllumosPwritev(fd, iov.rawAddress, iovcnt, offset)
 
-public actual fun getpagesizes2(pagesize: COpaquePointer?, nelem: CInt): CInt =
-    UnixSolarishIllumosJniBridge.libc_unix_solarish_illumos_getpagesizes2((pagesize?.value ?: 0L), nelem)
+public actual fun getpagesizes2(pagesize: MutPtr<SizeT>, nelem: CInt): CInt =
+    UnixSolarishIllumosJniBridge.libcUnixSolarishIllumosGetpagesizes2(pagesize.rawAddress, nelem)
 
-public actual fun posixSpawnFileActionsAddfchdirNp(fileActions: COpaquePointer?, fd: CInt): CInt =
-    UnixSolarishIllumosJniBridge.libc_unix_solarish_illumos_posixSpawnFileActionsAddfchdirNp((fileActions?.value ?: 0L), fd)
+public actual fun posixSpawnFileActionsAddfchdirNp(fileActions: MutPtr<PosixSpawnFileActionsT>, fd: CInt): CInt =
+    UnixSolarishIllumosJniBridge.libcUnixSolarishIllumosPosixSpawnFileActionsAddfchdirNp(fileActions.rawAddress, fd)
 
-public actual fun ptsnameR(fildes: CInt, name: COpaquePointer?, namelen: SizeT): CInt =
-    UnixSolarishIllumosJniBridge.libc_unix_solarish_illumos_ptsnameR(fildes, (name?.value ?: 0L), namelen.toLong())
+public actual fun ptsnameR(fildes: CInt, name: MutPtr<CChar>, namelen: SizeT): CInt =
+    UnixSolarishIllumosJniBridge.libcUnixSolarishIllumosPtsnameR(fildes, name.rawAddress, namelen.toLong())
 
 public actual fun syncfs(fd: CInt): CInt =
-    UnixSolarishIllumosJniBridge.libc_unix_solarish_illumos_syncfs(fd)
+    UnixSolarishIllumosJniBridge.libcUnixSolarishIllumosSyncfs(fd)
 
-public actual fun strcasecmpL(s1: String?, s2: String?, loc: LocaleT): CInt =
-    UnixSolarishIllumosJniBridge.libc_unix_solarish_illumos_strcasecmpL(s1, s2, (loc?.value ?: 0L))
+public actual fun strcasecmpL(s1: ConstPtr<CChar>, s2: ConstPtr<CChar>, loc: LocaleT): CInt =
+    UnixSolarishIllumosJniBridge.libcUnixSolarishIllumosStrcasecmpL(s1.rawAddress, s2.rawAddress, loc.rawAddress)
 
-public actual fun strncasecmpL(s1: String?, s2: String?, n: SizeT, loc: LocaleT): CInt =
-    UnixSolarishIllumosJniBridge.libc_unix_solarish_illumos_strncasecmpL(s1, s2, n.toLong(), (loc?.value ?: 0L))
+public actual fun strncasecmpL(s1: ConstPtr<CChar>, s2: ConstPtr<CChar>, n: SizeT, loc: LocaleT): CInt =
+    UnixSolarishIllumosJniBridge.libcUnixSolarishIllumosStrncasecmpL(s1.rawAddress, s2.rawAddress, n.toLong(), loc.rawAddress)
 
 public actual fun timerfdCreate(clockid: CInt, flags: CInt): CInt =
-    UnixSolarishIllumosJniBridge.libc_unix_solarish_illumos_timerfdCreate(clockid, flags)
+    UnixSolarishIllumosJniBridge.libcUnixSolarishIllumosTimerfdCreate(clockid, flags)
 
-public actual fun timerfdGettime(fd: CInt, currValue: COpaquePointer?): CInt =
-    UnixSolarishIllumosJniBridge.libc_unix_solarish_illumos_timerfdGettime(fd, (currValue?.value ?: 0L))
+public actual fun timerfdGettime(fd: CInt, currValue: MutPtr<Itimerspec>): CInt =
+    UnixSolarishIllumosJniBridge.libcUnixSolarishIllumosTimerfdGettime(fd, currValue.rawAddress)
 
-public actual fun timerfdSettime(fd: CInt, flags: CInt, newValue: COpaquePointer?, oldValue: COpaquePointer?): CInt =
-    UnixSolarishIllumosJniBridge.libc_unix_solarish_illumos_timerfdSettime(fd, flags, (newValue?.value ?: 0L), (oldValue?.value ?: 0L))
+public actual fun timerfdSettime(fd: CInt, flags: CInt, newValue: ConstPtr<Itimerspec>, oldValue: MutPtr<Itimerspec>): CInt =
+    UnixSolarishIllumosJniBridge.libcUnixSolarishIllumosTimerfdSettime(fd, flags, newValue.rawAddress, oldValue.rawAddress)

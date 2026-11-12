@@ -1,6 +1,7 @@
 import Darwin
 import Foundation
 import Testing
+import RustLang
 import Libc
 
 @Suite("Libc Export Smoke Tests")
@@ -10,27 +11,34 @@ struct LibcExportTests {
         typealias Unix = ExportedKotlinPackages.io.github.kotlinmania.libc.unix
         typealias Bsd = ExportedKotlinPackages.io.github.kotlinmania.libc.unix.bsd
         typealias Apple = ExportedKotlinPackages.io.github.kotlinmania.libc.unix.bsd.apple
-        let source = try #require(Unix.malloc(size: 64))
-        let destination = try #require(Unix.calloc(nobj: 64, size: 1))
+        typealias AllocFfi = ExportedKotlinPackages.io.github.kotlinmania.rustlang.alloc.ffi
+        let source = Unix.malloc(size: 64)
+        let destination = Unix.calloc(nobj: 64, size: 1)
+        #expect(!source.isNull())
+        #expect(!destination.isNull())
         defer {
             Unix.free(p: source)
             Unix.free(p: destination)
         }
-        #expect(Unix.memset(dest: source, c: 171, n: 64)?.value == source.value)
-        #expect(Unix.memcmp(cx: source, ct: destination, n: 64) != 0)
+        #expect(Unix.memset(dest: source, c: 171, n: 64).rawAddress == source.rawAddress)
+        #expect(Unix.memcmp(cx: source.castConst(), ct: destination.castConst(), n: 64) != 0)
         let outputDirectory = ProcessInfo.processInfo.environment["LIBC_SWIFT_TEST_OUTPUT_ROOT"] ?? "../../../build"
         let path = "\(outputDirectory)/swift-io-\(UUID().uuidString).bin"
-        let fd = Unix.open(path: path, oflag: Bsd.O_RDWR | Bsd.O_CREAT | Bsd.O_TRUNC, variadicArgs: 0o600)
+        let pathCStr = AllocFfi.CString.Companion.shared.new(text: path).unwrap()
+        defer {
+            pathCStr.deallocate()
+        }
+        let fd = Unix.open(path: pathCStr.asPtr(), oflag: Bsd.O_RDWR | Bsd.O_CREAT | Bsd.O_TRUNC, variadicArgs: 0o600)
         #expect(fd >= 0)
         guard fd >= 0 else { return }
         defer {
             #expect(Unix.close(fd: fd) == 0)
-            #expect(Unix.unlink(c: path) == 0)
+            #expect(Unix.unlink(c: pathCStr.asPtr()) == 0)
         }
-        #expect(Unix.write(fd: fd, buf: source, count: 64) == 64)
+        #expect(Unix.write(fd: fd, buf: source.castConst(), count: 64) == 64)
         #expect(Unix.lseek(fd: fd, offset: 0, whence: Apple.SEEK_SET) == 0)
         #expect(Unix.read(fd: fd, buf: destination, count: 64) == 64)
-        #expect(Unix.memcmp(cx: source, ct: destination, n: 64) == 0)
+        #expect(Unix.memcmp(cx: source.castConst(), ct: destination.castConst(), n: 64) == 0)
         #expect(Unix.read(fd: fd, buf: destination, count: 1) == 0)
         let original = Unix.fcntl(fd: fd, cmd: Apple.F_GETFD)
         #expect(original >= 0)

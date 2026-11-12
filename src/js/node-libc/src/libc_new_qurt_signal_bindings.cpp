@@ -51,7 +51,7 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_new_qurt_signal_signal_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtSignalSignal_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t sig = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint64_t handler = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -85,7 +85,7 @@ static Napi::Value libc_new_qurt_signal_signal_napi(const Napi::CallbackInfo& km
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_new_qurt_signal_kill_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtSignalKill_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t sig = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -119,7 +119,7 @@ static Napi::Value libc_new_qurt_signal_kill_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_signal_raise_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtSignalRaise_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t sig = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -152,7 +152,7 @@ static Napi::Value libc_new_qurt_signal_raise_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_signal_alarm_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtSignalAlarm_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t seconds = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef uint32_t (*km_fn_t)(uint32_t);
@@ -185,7 +185,7 @@ static Napi::Value libc_new_qurt_signal_alarm_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_signal_pause_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtSignalPause_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -217,7 +217,7 @@ static Napi::Value libc_new_qurt_signal_pause_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_signal_sigemptyset_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtSignalSigemptyset_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -250,7 +250,7 @@ static Napi::Value libc_new_qurt_signal_sigemptyset_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_signal_sigfillset_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtSignalSigfillset_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -283,7 +283,7 @@ static Napi::Value libc_new_qurt_signal_sigfillset_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_signal_sigaddset_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtSignalSigaddset_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t signum = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -317,7 +317,7 @@ static Napi::Value libc_new_qurt_signal_sigaddset_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_signal_sigdelset_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtSignalSigdelset_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t signum = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -351,7 +351,7 @@ static Napi::Value libc_new_qurt_signal_sigdelset_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_signal_sigismember_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtSignalSigismember_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t signum = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -385,7 +385,7 @@ static Napi::Value libc_new_qurt_signal_sigismember_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_signal_sigprocmask_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtSignalSigprocmask_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t how = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -420,7 +420,7 @@ static Napi::Value libc_new_qurt_signal_sigprocmask_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_signal_sigpending_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtSignalSigpending_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -453,7 +453,7 @@ static Napi::Value libc_new_qurt_signal_sigpending_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_signal_sigsuspend_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtSignalSigsuspend_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mask = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -486,7 +486,7 @@ static Napi::Value libc_new_qurt_signal_sigsuspend_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_signal_sigwait_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtSignalSigwait_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* sig = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -520,7 +520,7 @@ static Napi::Value libc_new_qurt_signal_sigwait_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_signal_sigaction_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtSignalSigaction_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t sig = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* act = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -553,7 +553,7 @@ static Napi::Value libc_new_qurt_signal_sigaction_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_signal_sigtimedwait_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtSignalSigtimedwait_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -589,22 +589,22 @@ static Napi::Value libc_new_qurt_signal_sigtimedwait_napi(const Napi::CallbackIn
 }
 
 static void register_new_qurt_signal_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_new_qurt_signal_signal", Napi::Function::New(env, libc_new_qurt_signal_signal_napi));
-    exports.Set("libc_new_qurt_signal_kill", Napi::Function::New(env, libc_new_qurt_signal_kill_napi));
-    exports.Set("libc_new_qurt_signal_raise", Napi::Function::New(env, libc_new_qurt_signal_raise_napi));
-    exports.Set("libc_new_qurt_signal_alarm", Napi::Function::New(env, libc_new_qurt_signal_alarm_napi));
-    exports.Set("libc_new_qurt_signal_pause", Napi::Function::New(env, libc_new_qurt_signal_pause_napi));
-    exports.Set("libc_new_qurt_signal_sigemptyset", Napi::Function::New(env, libc_new_qurt_signal_sigemptyset_napi));
-    exports.Set("libc_new_qurt_signal_sigfillset", Napi::Function::New(env, libc_new_qurt_signal_sigfillset_napi));
-    exports.Set("libc_new_qurt_signal_sigaddset", Napi::Function::New(env, libc_new_qurt_signal_sigaddset_napi));
-    exports.Set("libc_new_qurt_signal_sigdelset", Napi::Function::New(env, libc_new_qurt_signal_sigdelset_napi));
-    exports.Set("libc_new_qurt_signal_sigismember", Napi::Function::New(env, libc_new_qurt_signal_sigismember_napi));
-    exports.Set("libc_new_qurt_signal_sigprocmask", Napi::Function::New(env, libc_new_qurt_signal_sigprocmask_napi));
-    exports.Set("libc_new_qurt_signal_sigpending", Napi::Function::New(env, libc_new_qurt_signal_sigpending_napi));
-    exports.Set("libc_new_qurt_signal_sigsuspend", Napi::Function::New(env, libc_new_qurt_signal_sigsuspend_napi));
-    exports.Set("libc_new_qurt_signal_sigwait", Napi::Function::New(env, libc_new_qurt_signal_sigwait_napi));
-    exports.Set("libc_new_qurt_signal_sigaction", Napi::Function::New(env, libc_new_qurt_signal_sigaction_napi));
-    exports.Set("libc_new_qurt_signal_sigtimedwait", Napi::Function::New(env, libc_new_qurt_signal_sigtimedwait_napi));
+    exports.Set("libcNewQurtSignalSignal", Napi::Function::New(env, libcNewQurtSignalSignal_napi));
+    exports.Set("libcNewQurtSignalKill", Napi::Function::New(env, libcNewQurtSignalKill_napi));
+    exports.Set("libcNewQurtSignalRaise", Napi::Function::New(env, libcNewQurtSignalRaise_napi));
+    exports.Set("libcNewQurtSignalAlarm", Napi::Function::New(env, libcNewQurtSignalAlarm_napi));
+    exports.Set("libcNewQurtSignalPause", Napi::Function::New(env, libcNewQurtSignalPause_napi));
+    exports.Set("libcNewQurtSignalSigemptyset", Napi::Function::New(env, libcNewQurtSignalSigemptyset_napi));
+    exports.Set("libcNewQurtSignalSigfillset", Napi::Function::New(env, libcNewQurtSignalSigfillset_napi));
+    exports.Set("libcNewQurtSignalSigaddset", Napi::Function::New(env, libcNewQurtSignalSigaddset_napi));
+    exports.Set("libcNewQurtSignalSigdelset", Napi::Function::New(env, libcNewQurtSignalSigdelset_napi));
+    exports.Set("libcNewQurtSignalSigismember", Napi::Function::New(env, libcNewQurtSignalSigismember_napi));
+    exports.Set("libcNewQurtSignalSigprocmask", Napi::Function::New(env, libcNewQurtSignalSigprocmask_napi));
+    exports.Set("libcNewQurtSignalSigpending", Napi::Function::New(env, libcNewQurtSignalSigpending_napi));
+    exports.Set("libcNewQurtSignalSigsuspend", Napi::Function::New(env, libcNewQurtSignalSigsuspend_napi));
+    exports.Set("libcNewQurtSignalSigwait", Napi::Function::New(env, libcNewQurtSignalSigwait_napi));
+    exports.Set("libcNewQurtSignalSigaction", Napi::Function::New(env, libcNewQurtSignalSigaction_napi));
+    exports.Set("libcNewQurtSignalSigtimedwait", Napi::Function::New(env, libcNewQurtSignalSigtimedwait_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_new_qurt_signal_napi, nullptr };

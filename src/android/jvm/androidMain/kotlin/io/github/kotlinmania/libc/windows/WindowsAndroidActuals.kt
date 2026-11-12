@@ -3,15 +3,18 @@
 package io.github.kotlinmania.libc.windows
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CDouble
 import io.github.kotlinmania.libc.CFloat
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CLonglong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 private object WindowsJniBridge {
     init {
@@ -19,1083 +22,1083 @@ private object WindowsJniBridge {
     }
 
     @JvmStatic
-    external fun libc_windows_printf(format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcWindowsPrintf(format: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_windows_fprintf(stream: Long, format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcWindowsFprintf(stream: Long, format: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_windows_isalnum(c: Int): Int
+    external fun libcWindowsIsalnum(c: Int): Int
 
     @JvmStatic
-    external fun libc_windows_isalpha(c: Int): Int
+    external fun libcWindowsIsalpha(c: Int): Int
 
     @JvmStatic
-    external fun libc_windows_iscntrl(c: Int): Int
+    external fun libcWindowsIscntrl(c: Int): Int
 
     @JvmStatic
-    external fun libc_windows_isdigit(c: Int): Int
+    external fun libcWindowsIsdigit(c: Int): Int
 
     @JvmStatic
-    external fun libc_windows_isgraph(c: Int): Int
+    external fun libcWindowsIsgraph(c: Int): Int
 
     @JvmStatic
-    external fun libc_windows_islower(c: Int): Int
+    external fun libcWindowsIslower(c: Int): Int
 
     @JvmStatic
-    external fun libc_windows_isprint(c: Int): Int
+    external fun libcWindowsIsprint(c: Int): Int
 
     @JvmStatic
-    external fun libc_windows_ispunct(c: Int): Int
+    external fun libcWindowsIspunct(c: Int): Int
 
     @JvmStatic
-    external fun libc_windows_isspace(c: Int): Int
+    external fun libcWindowsIsspace(c: Int): Int
 
     @JvmStatic
-    external fun libc_windows_isupper(c: Int): Int
+    external fun libcWindowsIsupper(c: Int): Int
 
     @JvmStatic
-    external fun libc_windows_isxdigit(c: Int): Int
+    external fun libcWindowsIsxdigit(c: Int): Int
 
     @JvmStatic
-    external fun libc_windows_isblank(c: Int): Int
+    external fun libcWindowsIsblank(c: Int): Int
 
     @JvmStatic
-    external fun libc_windows_tolower(c: Int): Int
+    external fun libcWindowsTolower(c: Int): Int
 
     @JvmStatic
-    external fun libc_windows_toupper(c: Int): Int
+    external fun libcWindowsToupper(c: Int): Int
 
     @JvmStatic
-    external fun libc_windows_qsort(base: Long, num: Long, size: Long, compar: Long)
+    external fun libcWindowsQsort(base: Long, num: Long, size: Long, compar: Long)
 
     @JvmStatic
-    external fun libc_windows_qsortS(base: Long, num: Long, size: Long, compar: Long, arg: Long)
+    external fun libcWindowsQsortS(base: Long, num: Long, size: Long, compar: Long, arg: Long)
 
     @JvmStatic
-    external fun libc_windows_fopen(filename: String?, mode: String?): Long
+    external fun libcWindowsFopen(filename: Long, mode: Long): Long
 
     @JvmStatic
-    external fun libc_windows_freopen(filename: String?, mode: String?, file: Long): Long
+    external fun libcWindowsFreopen(filename: Long, mode: Long, file: Long): Long
 
     @JvmStatic
-    external fun libc_windows_fflush(file: Long): Int
+    external fun libcWindowsFflush(file: Long): Int
 
     @JvmStatic
-    external fun libc_windows_fclose(file: Long): Int
+    external fun libcWindowsFclose(file: Long): Int
 
     @JvmStatic
-    external fun libc_windows_remove(filename: String?): Int
+    external fun libcWindowsRemove(filename: Long): Int
 
     @JvmStatic
-    external fun libc_windows_rename(oldname: String?, newname: String?): Int
+    external fun libcWindowsRename(oldname: Long, newname: Long): Int
 
     @JvmStatic
-    external fun libc_windows_tmpfile(): Long
+    external fun libcWindowsTmpfile(): Long
 
     @JvmStatic
-    external fun libc_windows_setvbuf(stream: Long, buffer: Long, mode: Int, size: Long): Int
+    external fun libcWindowsSetvbuf(stream: Long, buffer: Long, mode: Int, size: Long): Int
 
     @JvmStatic
-    external fun libc_windows_setbuf(stream: Long, buf: Long)
+    external fun libcWindowsSetbuf(stream: Long, buf: Long)
 
     @JvmStatic
-    external fun libc_windows_getchar(): Int
+    external fun libcWindowsGetchar(): Int
 
     @JvmStatic
-    external fun libc_windows_putchar(c: Int): Int
+    external fun libcWindowsPutchar(c: Int): Int
 
     @JvmStatic
-    external fun libc_windows_fgetc(stream: Long): Int
+    external fun libcWindowsFgetc(stream: Long): Int
 
     @JvmStatic
-    external fun libc_windows_fgets(buf: Long, n: Int, stream: Long): Long
+    external fun libcWindowsFgets(buf: Long, n: Int, stream: Long): Long
 
     @JvmStatic
-    external fun libc_windows_fputc(c: Int, stream: Long): Int
+    external fun libcWindowsFputc(c: Int, stream: Long): Int
 
     @JvmStatic
-    external fun libc_windows_fputs(s: String?, stream: Long): Int
+    external fun libcWindowsFputs(s: Long, stream: Long): Int
 
     @JvmStatic
-    external fun libc_windows_puts(s: String?): Int
+    external fun libcWindowsPuts(s: Long): Int
 
     @JvmStatic
-    external fun libc_windows_ungetc(c: Int, stream: Long): Int
+    external fun libcWindowsUngetc(c: Int, stream: Long): Int
 
     @JvmStatic
-    external fun libc_windows_fread(ptr: Long, size: Long, nobj: Long, stream: Long): Long
+    external fun libcWindowsFread(ptr: Long, size: Long, nobj: Long, stream: Long): Long
 
     @JvmStatic
-    external fun libc_windows_fwrite(ptr: Long, size: Long, nobj: Long, stream: Long): Long
+    external fun libcWindowsFwrite(ptr: Long, size: Long, nobj: Long, stream: Long): Long
 
     @JvmStatic
-    external fun libc_windows_fseek(stream: Long, offset: Long, whence: Int): Int
+    external fun libcWindowsFseek(stream: Long, offset: Long, whence: Int): Int
 
     @JvmStatic
-    external fun libc_windows_ftell(stream: Long): Long
+    external fun libcWindowsFtell(stream: Long): Long
 
     @JvmStatic
-    external fun libc_windows_rewind(stream: Long)
+    external fun libcWindowsRewind(stream: Long)
 
     @JvmStatic
-    external fun libc_windows_fgetpos(stream: Long, ptr: Long): Int
+    external fun libcWindowsFgetpos(stream: Long, ptr: Long): Int
 
     @JvmStatic
-    external fun libc_windows_fsetpos(stream: Long, ptr: Long): Int
+    external fun libcWindowsFsetpos(stream: Long, ptr: Long): Int
 
     @JvmStatic
-    external fun libc_windows_feof(stream: Long): Int
+    external fun libcWindowsFeof(stream: Long): Int
 
     @JvmStatic
-    external fun libc_windows_ferror(stream: Long): Int
+    external fun libcWindowsFerror(stream: Long): Int
 
     @JvmStatic
-    external fun libc_windows_perror(s: String?)
+    external fun libcWindowsPerror(s: Long)
 
     @JvmStatic
-    external fun libc_windows_atof(s: String?): Double
+    external fun libcWindowsAtof(s: Long): Double
 
     @JvmStatic
-    external fun libc_windows_atoi(s: String?): Int
+    external fun libcWindowsAtoi(s: Long): Int
 
     @JvmStatic
-    external fun libc_windows_atol(s: String?): Long
+    external fun libcWindowsAtol(s: Long): Long
 
     @JvmStatic
-    external fun libc_windows_atoll(s: String?): Long
+    external fun libcWindowsAtoll(s: Long): Long
 
     @JvmStatic
-    external fun libc_windows_strtod(s: String?, endp: Long): Double
+    external fun libcWindowsStrtod(s: Long, endp: Long): Double
 
     @JvmStatic
-    external fun libc_windows_strtof(s: String?, endp: Long): Float
+    external fun libcWindowsStrtof(s: Long, endp: Long): Float
 
     @JvmStatic
-    external fun libc_windows_strtol(s: String?, endp: Long, base: Int): Long
+    external fun libcWindowsStrtol(s: Long, endp: Long, base: Int): Long
 
     @JvmStatic
-    external fun libc_windows_strtoll(s: String?, endp: Long, base: Int): Long
+    external fun libcWindowsStrtoll(s: Long, endp: Long, base: Int): Long
 
     @JvmStatic
-    external fun libc_windows_strtoul(s: String?, endp: Long, base: Int): Long
+    external fun libcWindowsStrtoul(s: Long, endp: Long, base: Int): Long
 
     @JvmStatic
-    external fun libc_windows_strtoull(s: String?, endp: Long, base: Int): Long
+    external fun libcWindowsStrtoull(s: Long, endp: Long, base: Int): Long
 
     @JvmStatic
-    external fun libc_windows_calloc(nobj: Long, size: Long): Long
+    external fun libcWindowsCalloc(nobj: Long, size: Long): Long
 
     @JvmStatic
-    external fun libc_windows_malloc(size: Long): Long
+    external fun libcWindowsMalloc(size: Long): Long
 
     @JvmStatic
-    external fun libc_windows_msize(p: Long): Long
+    external fun libcWindowsMsize(p: Long): Long
 
     @JvmStatic
-    external fun libc_windows_realloc(p: Long, size: Long): Long
+    external fun libcWindowsRealloc(p: Long, size: Long): Long
 
     @JvmStatic
-    external fun libc_windows_free(p: Long)
+    external fun libcWindowsFree(p: Long)
 
     @JvmStatic
-    external fun libc_windows_abort()
+    external fun libcWindowsAbort()
 
     @JvmStatic
-    external fun libc_windows_exit(status: Int)
+    external fun libcWindowsExit(status: Int)
 
     @JvmStatic
-    external fun libc_windows_atexit(cb: Long): Int
+    external fun libcWindowsAtexit(cb: Long): Int
 
     @JvmStatic
-    external fun libc_windows_system(s: String?): Int
+    external fun libcWindowsSystem(s: Long): Int
 
     @JvmStatic
-    external fun libc_windows_getenv(s: String?): Long
+    external fun libcWindowsGetenv(s: Long): Long
 
     @JvmStatic
-    external fun libc_windows_strcpy(dst: Long, src: String?): Long
+    external fun libcWindowsStrcpy(dst: Long, src: Long): Long
 
     @JvmStatic
-    external fun libc_windows_strncpy(dst: Long, src: String?, n: Long): Long
+    external fun libcWindowsStrncpy(dst: Long, src: Long, n: Long): Long
 
     @JvmStatic
-    external fun libc_windows_strcat(s: Long, ct: String?): Long
+    external fun libcWindowsStrcat(s: Long, ct: Long): Long
 
     @JvmStatic
-    external fun libc_windows_strncat(s: Long, ct: String?, n: Long): Long
+    external fun libcWindowsStrncat(s: Long, ct: Long, n: Long): Long
 
     @JvmStatic
-    external fun libc_windows_strcmp(cs: String?, ct: String?): Int
+    external fun libcWindowsStrcmp(cs: Long, ct: Long): Int
 
     @JvmStatic
-    external fun libc_windows_strncmp(cs: String?, ct: String?, n: Long): Int
+    external fun libcWindowsStrncmp(cs: Long, ct: Long, n: Long): Int
 
     @JvmStatic
-    external fun libc_windows_strcoll(cs: String?, ct: String?): Int
+    external fun libcWindowsStrcoll(cs: Long, ct: Long): Int
 
     @JvmStatic
-    external fun libc_windows_strchr(cs: String?, c: Int): Long
+    external fun libcWindowsStrchr(cs: Long, c: Int): Long
 
     @JvmStatic
-    external fun libc_windows_strrchr(cs: String?, c: Int): Long
+    external fun libcWindowsStrrchr(cs: Long, c: Int): Long
 
     @JvmStatic
-    external fun libc_windows_strspn(cs: String?, ct: String?): Long
+    external fun libcWindowsStrspn(cs: Long, ct: Long): Long
 
     @JvmStatic
-    external fun libc_windows_strcspn(cs: String?, ct: String?): Long
+    external fun libcWindowsStrcspn(cs: Long, ct: Long): Long
 
     @JvmStatic
-    external fun libc_windows_strdup(cs: String?): Long
+    external fun libcWindowsStrdup(cs: Long): Long
 
     @JvmStatic
-    external fun libc_windows_strpbrk(cs: String?, ct: String?): Long
+    external fun libcWindowsStrpbrk(cs: Long, ct: Long): Long
 
     @JvmStatic
-    external fun libc_windows_strstr(cs: String?, ct: String?): Long
+    external fun libcWindowsStrstr(cs: Long, ct: Long): Long
 
     @JvmStatic
-    external fun libc_windows_strlen(cs: String?): Long
+    external fun libcWindowsStrlen(cs: Long): Long
 
     @JvmStatic
-    external fun libc_windows_strnlen(cs: String?, maxlen: Long): Long
+    external fun libcWindowsStrnlen(cs: Long, maxlen: Long): Long
 
     @JvmStatic
-    external fun libc_windows_strerror(n: Int): Long
+    external fun libcWindowsStrerror(n: Int): Long
 
     @JvmStatic
-    external fun libc_windows_strtok(s: Long, t: String?): Long
+    external fun libcWindowsStrtok(s: Long, t: Long): Long
 
     @JvmStatic
-    external fun libc_windows_strxfrm(s: Long, ct: String?, n: Long): Long
+    external fun libcWindowsStrxfrm(s: Long, ct: Long, n: Long): Long
 
     @JvmStatic
-    external fun libc_windows_wcslen(buf: Long): Long
+    external fun libcWindowsWcslen(buf: Long): Long
 
     @JvmStatic
-    external fun libc_windows_wcsnlen(str: Long, numberOfElements: Long): Long
+    external fun libcWindowsWcsnlen(str: Long, numberOfElements: Long): Long
 
     @JvmStatic
-    external fun libc_windows_wcstombs(dest: Long, src: Long, n: Long): Long
+    external fun libcWindowsWcstombs(dest: Long, src: Long, n: Long): Long
 
     @JvmStatic
-    external fun libc_windows_memchr(cx: Long, c: Int, n: Long): Long
+    external fun libcWindowsMemchr(cx: Long, c: Int, n: Long): Long
 
     @JvmStatic
-    external fun libc_windows_memcmp(cx: Long, ct: Long, n: Long): Int
+    external fun libcWindowsMemcmp(cx: Long, ct: Long, n: Long): Int
 
     @JvmStatic
-    external fun libc_windows_memcpy(dest: Long, src: Long, n: Long): Long
+    external fun libcWindowsMemcpy(dest: Long, src: Long, n: Long): Long
 
     @JvmStatic
-    external fun libc_windows_memmove(dest: Long, src: Long, n: Long): Long
+    external fun libcWindowsMemmove(dest: Long, src: Long, n: Long): Long
 
     @JvmStatic
-    external fun libc_windows_memset(dest: Long, c: Int, n: Long): Long
+    external fun libcWindowsMemset(dest: Long, c: Int, n: Long): Long
 
     @JvmStatic
-    external fun libc_windows_abs(i: Int): Int
+    external fun libcWindowsAbs(i: Int): Int
 
     @JvmStatic
-    external fun libc_windows_labs(i: Long): Long
+    external fun libcWindowsLabs(i: Long): Long
 
     @JvmStatic
-    external fun libc_windows_rand(): Int
+    external fun libcWindowsRand(): Int
 
     @JvmStatic
-    external fun libc_windows_srand(seed: Int)
+    external fun libcWindowsSrand(seed: Int)
 
     @JvmStatic
-    external fun libc_windows_signal(signum: Int, handler: Long): Long
+    external fun libcWindowsSignal(signum: Int, handler: Long): Long
 
     @JvmStatic
-    external fun libc_windows_raise(signum: Int): Int
+    external fun libcWindowsRaise(signum: Int): Int
 
     @JvmStatic
-    external fun libc_windows_clock(): Int
+    external fun libcWindowsClock(): Int
 
     @JvmStatic
-    external fun libc_windows_ctime(sourceTime: Long): Long
+    external fun libcWindowsCtime(sourceTime: Long): Long
 
     @JvmStatic
-    external fun libc_windows_difftime(timeEnd: Long, timeStart: Long): Double
+    external fun libcWindowsDifftime(timeEnd: Long, timeStart: Long): Double
 
     @JvmStatic
-    external fun libc_windows_gmtimeS(destTime: Long, srcTime: Long): Int
+    external fun libcWindowsGmtimeS(destTime: Long, srcTime: Long): Int
 
     @JvmStatic
-    external fun libc_windows_getDaylight(hours: Long): Int
+    external fun libcWindowsGetDaylight(hours: Long): Int
 
     @JvmStatic
-    external fun libc_windows_getDstbias(seconds: Long): Int
+    external fun libcWindowsGetDstbias(seconds: Long): Int
 
     @JvmStatic
-    external fun libc_windows_getTimezone(seconds: Long): Int
+    external fun libcWindowsGetTimezone(seconds: Long): Int
 
     @JvmStatic
-    external fun libc_windows_getTzname(pReturnValue: Long, timeZoneName: Long, sizeInBytes: Long, index: Int): Int
+    external fun libcWindowsGetTzname(pReturnValue: Long, timeZoneName: Long, sizeInBytes: Long, index: Int): Int
 
     @JvmStatic
-    external fun libc_windows_localtimeS(tmDest: Long, sourceTime: Long): Int
+    external fun libcWindowsLocaltimeS(tmDest: Long, sourceTime: Long): Int
 
     @JvmStatic
-    external fun libc_windows_time(destTime: Long): Long
+    external fun libcWindowsTime(destTime: Long): Long
 
     @JvmStatic
-    external fun libc_windows_tzset()
+    external fun libcWindowsTzset()
 
     @JvmStatic
-    external fun libc_windows_chmod(path: String?, mode: Int): Int
+    external fun libcWindowsChmod(path: Long, mode: Int): Int
 
     @JvmStatic
-    external fun libc_windows_wchmod(path: Long, mode: Int): Int
+    external fun libcWindowsWchmod(path: Long, mode: Int): Int
 
     @JvmStatic
-    external fun libc_windows_mkdir(path: String?): Int
+    external fun libcWindowsMkdir(path: Long): Int
 
     @JvmStatic
-    external fun libc_windows_wrmdir(path: Long): Int
+    external fun libcWindowsWrmdir(path: Long): Int
 
     @JvmStatic
-    external fun libc_windows_fstat(fildes: Int, buf: Long): Int
+    external fun libcWindowsFstat(fildes: Int, buf: Long): Int
 
     @JvmStatic
-    external fun libc_windows_stat(path: String?, buf: Long): Int
+    external fun libcWindowsStat(path: Long, buf: Long): Int
 
     @JvmStatic
-    external fun libc_windows_wstat(path: Long, buf: Long): Int
+    external fun libcWindowsWstat(path: Long, buf: Long): Int
 
     @JvmStatic
-    external fun libc_windows_wutime(file: Long, buf: Long): Int
+    external fun libcWindowsWutime(file: Long, buf: Long): Int
 
     @JvmStatic
-    external fun libc_windows_popen(command: String?, mode: String?): Long
+    external fun libcWindowsPopen(command: Long, mode: Long): Long
 
     @JvmStatic
-    external fun libc_windows_pclose(stream: Long): Int
+    external fun libcWindowsPclose(stream: Long): Int
 
     @JvmStatic
-    external fun libc_windows_fdopen(fd: Int, mode: String?): Long
+    external fun libcWindowsFdopen(fd: Int, mode: Long): Long
 
     @JvmStatic
-    external fun libc_windows_fileno(stream: Long): Int
+    external fun libcWindowsFileno(stream: Long): Int
 
     @JvmStatic
-    external fun libc_windows_open(path: String?, oflag: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcWindowsOpen(path: Long, oflag: Int, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_windows_wopen(path: Long, oflag: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcWindowsWopen(path: Long, oflag: Int, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_windows_creat(path: String?, mode: Int): Int
+    external fun libcWindowsCreat(path: Long, mode: Int): Int
 
     @JvmStatic
-    external fun libc_windows_access(path: String?, amode: Int): Int
+    external fun libcWindowsAccess(path: Long, amode: Int): Int
 
     @JvmStatic
-    external fun libc_windows_chdir(dir: String?): Int
+    external fun libcWindowsChdir(dir: Long): Int
 
     @JvmStatic
-    external fun libc_windows_close(fd: Int): Int
+    external fun libcWindowsClose(fd: Int): Int
 
     @JvmStatic
-    external fun libc_windows_dup(fd: Int): Int
+    external fun libcWindowsDup(fd: Int): Int
 
     @JvmStatic
-    external fun libc_windows_dup2(src: Int, dst: Int): Int
+    external fun libcWindowsDup2(src: Int, dst: Int): Int
 
     @JvmStatic
-    external fun libc_windows_execl(path: String?, arg0: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
+    external fun libcWindowsExecl(path: Long, arg0: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Long
 
     @JvmStatic
-    external fun libc_windows_wexecl(path: Long, arg0: Long, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
+    external fun libcWindowsWexecl(path: Long, arg0: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Long
 
     @JvmStatic
-    external fun libc_windows_execle(path: String?, arg0: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
+    external fun libcWindowsExecle(path: Long, arg0: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Long
 
     @JvmStatic
-    external fun libc_windows_wexecle(path: Long, arg0: Long, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
+    external fun libcWindowsWexecle(path: Long, arg0: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Long
 
     @JvmStatic
-    external fun libc_windows_execlp(path: String?, arg0: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
+    external fun libcWindowsExeclp(path: Long, arg0: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Long
 
     @JvmStatic
-    external fun libc_windows_wexeclp(path: Long, arg0: Long, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
+    external fun libcWindowsWexeclp(path: Long, arg0: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Long
 
     @JvmStatic
-    external fun libc_windows_execlpe(path: String?, arg0: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
+    external fun libcWindowsExeclpe(path: Long, arg0: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Long
 
     @JvmStatic
-    external fun libc_windows_wexeclpe(path: Long, arg0: Long, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
+    external fun libcWindowsWexeclpe(path: Long, arg0: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Long
 
     @JvmStatic
-    external fun libc_windows_execv(prog: String?, argv: Long): Long
+    external fun libcWindowsExecv(prog: Long, argv: Long): Long
 
     @JvmStatic
-    external fun libc_windows_execve(prog: String?, argv: Long, envp: Long): Int
+    external fun libcWindowsExecve(prog: Long, argv: Long, envp: Long): Int
 
     @JvmStatic
-    external fun libc_windows_execvp(c: String?, argv: Long): Int
+    external fun libcWindowsExecvp(c: Long, argv: Long): Int
 
     @JvmStatic
-    external fun libc_windows_execvpe(c: String?, argv: Long, envp: Long): Int
+    external fun libcWindowsExecvpe(c: Long, argv: Long, envp: Long): Int
 
     @JvmStatic
-    external fun libc_windows_wexecv(prog: Long, argv: Long): Long
+    external fun libcWindowsWexecv(prog: Long, argv: Long): Long
 
     @JvmStatic
-    external fun libc_windows_wexecve(prog: Long, argv: Long, envp: Long): Long
+    external fun libcWindowsWexecve(prog: Long, argv: Long, envp: Long): Long
 
     @JvmStatic
-    external fun libc_windows_wexecvp(c: Long, argv: Long): Long
+    external fun libcWindowsWexecvp(c: Long, argv: Long): Long
 
     @JvmStatic
-    external fun libc_windows_wexecvpe(c: Long, argv: Long, envp: Long): Long
+    external fun libcWindowsWexecvpe(c: Long, argv: Long, envp: Long): Long
 
     @JvmStatic
-    external fun libc_windows_getcwd(buf: Long, size: Int): Long
+    external fun libcWindowsGetcwd(buf: Long, size: Int): Long
 
     @JvmStatic
-    external fun libc_windows_getpid(): Int
+    external fun libcWindowsGetpid(): Int
 
     @JvmStatic
-    external fun libc_windows_isatty(fd: Int): Int
+    external fun libcWindowsIsatty(fd: Int): Int
 
     @JvmStatic
-    external fun libc_windows_lseek(fd: Int, offset: Long, origin: Int): Long
+    external fun libcWindowsLseek(fd: Int, offset: Long, origin: Int): Long
 
     @JvmStatic
-    external fun libc_windows_lseek64(fd: Int, offset: Long, origin: Int): Long
+    external fun libcWindowsLseek64(fd: Int, offset: Long, origin: Int): Long
 
     @JvmStatic
-    external fun libc_windows_pipe(fds: Long, psize: Int, textmode: Int): Int
+    external fun libcWindowsPipe(fds: Long, psize: Int, textmode: Int): Int
 
     @JvmStatic
-    external fun libc_windows_read(fd: Int, buf: Long, count: Int): Int
+    external fun libcWindowsRead(fd: Int, buf: Long, count: Int): Int
 
     @JvmStatic
-    external fun libc_windows_rmdir(path: String?): Int
+    external fun libcWindowsRmdir(path: Long): Int
 
     @JvmStatic
-    external fun libc_windows_unlink(c: String?): Int
+    external fun libcWindowsUnlink(c: Long): Int
 
     @JvmStatic
-    external fun libc_windows_write(fd: Int, buf: Long, count: Int): Int
+    external fun libcWindowsWrite(fd: Int, buf: Long, count: Int): Int
 
     @JvmStatic
-    external fun libc_windows_commit(fd: Int): Int
+    external fun libcWindowsCommit(fd: Int): Int
 
     @JvmStatic
-    external fun libc_windows_getOsfhandle(fd: Int): Long
+    external fun libcWindowsGetOsfhandle(fd: Int): Long
 
     @JvmStatic
-    external fun libc_windows_openOsfhandle(osfhandle: Long, flags: Int): Int
+    external fun libcWindowsOpenOsfhandle(osfhandle: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_windows_setlocale(category: Int, locale: String?): Long
+    external fun libcWindowsSetlocale(category: Int, locale: Long): Long
 
     @JvmStatic
-    external fun libc_windows_wsetlocale(category: Int, locale: Long): Long
+    external fun libcWindowsWsetlocale(category: Int, locale: Long): Long
 
     @JvmStatic
-    external fun libc_windows_alignedMalloc(size: Long, alignment: Long): Long
+    external fun libcWindowsAlignedMalloc(size: Long, alignment: Long): Long
 
     @JvmStatic
-    external fun libc_windows_alignedFree(ptr: Long)
+    external fun libcWindowsAlignedFree(ptr: Long)
 
     @JvmStatic
-    external fun libc_windows_alignedRealloc(memblock: Long, size: Long, alignment: Long): Long
+    external fun libcWindowsAlignedRealloc(memblock: Long, size: Long, alignment: Long): Long
 
     @JvmStatic
-    external fun libc_windows_putenv(envstring: String?): Int
+    external fun libcWindowsPutenv(envstring: Long): Int
 
     @JvmStatic
-    external fun libc_windows_wputenv(envstring: Long): Int
+    external fun libcWindowsWputenv(envstring: Long): Int
 
     @JvmStatic
-    external fun libc_windows_putenvS(envstring: String?, valueString: String?): Int
+    external fun libcWindowsPutenvS(envstring: Long, valueString: Long): Int
 
     @JvmStatic
-    external fun libc_windows_wputenvS(envstring: Long, valueString: Long): Int
+    external fun libcWindowsWputenvS(envstring: Long, valueString: Long): Int
 
     @JvmStatic
-    external fun libc_windows_listen(s: Long, backlog: Int): Int
+    external fun libcWindowsListen(s: Long, backlog: Int): Int
 
     @JvmStatic
-    external fun libc_windows_accept(s: Long, addr: Long, addrlen: Long): Long
+    external fun libcWindowsAccept(s: Long, addr: Long, addrlen: Long): Long
 
     @JvmStatic
-    external fun libc_windows_bind(s: Long, name: Long, namelen: Int): Int
+    external fun libcWindowsBind(s: Long, name: Long, namelen: Int): Int
 
     @JvmStatic
-    external fun libc_windows_connect(s: Long, name: Long, namelen: Int): Int
+    external fun libcWindowsConnect(s: Long, name: Long, namelen: Int): Int
 
     @JvmStatic
-    external fun libc_windows_getpeername(s: Long, name: Long, nameln: Long): Int
+    external fun libcWindowsGetpeername(s: Long, name: Long, nameln: Long): Int
 
     @JvmStatic
-    external fun libc_windows_getsockname(s: Long, name: Long, nameln: Long): Int
+    external fun libcWindowsGetsockname(s: Long, name: Long, nameln: Long): Int
 
     @JvmStatic
-    external fun libc_windows_getsockopt(s: Long, level: Int, optname: Int, optval: Long, optlen: Long): Int
+    external fun libcWindowsGetsockopt(s: Long, level: Int, optname: Int, optval: Long, optlen: Long): Int
 
     @JvmStatic
-    external fun libc_windows_recvfrom(s: Long, buf: Long, len: Int, flags: Int, from: Long, fromlen: Long): Int
+    external fun libcWindowsRecvfrom(s: Long, buf: Long, len: Int, flags: Int, from: Long, fromlen: Long): Int
 
     @JvmStatic
-    external fun libc_windows_sendto(s: Long, buf: String?, len: Int, flags: Int, to: Long, tolen: Int): Int
+    external fun libcWindowsSendto(s: Long, buf: Long, len: Int, flags: Int, to: Long, tolen: Int): Int
 
     @JvmStatic
-    external fun libc_windows_setsockopt(s: Long, level: Int, optname: Int, optval: String?, optlen: Int): Int
+    external fun libcWindowsSetsockopt(s: Long, level: Int, optname: Int, optval: Long, optlen: Int): Int
 
     @JvmStatic
-    external fun libc_windows_socket(af: Int, socketType: Int, protocol: Int): Long
+    external fun libcWindowsSocket(af: Int, socketType: Int, protocol: Int): Long
 }
 
-public actual fun printf(format: String?, vararg variadicArgs: Long): CInt =
-    WindowsJniBridge.libc_windows_printf(format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun printf(format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    WindowsJniBridge.libcWindowsPrintf(format.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun fprintf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
-    WindowsJniBridge.libc_windows_fprintf((stream?.handle ?: 0L), format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun fprintf(stream: MutPtr<FILE>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    WindowsJniBridge.libcWindowsFprintf(stream.rawAddress, format.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun isalnum(c: CInt): CInt =
-    WindowsJniBridge.libc_windows_isalnum(c)
+    WindowsJniBridge.libcWindowsIsalnum(c)
 
 public actual fun isalpha(c: CInt): CInt =
-    WindowsJniBridge.libc_windows_isalpha(c)
+    WindowsJniBridge.libcWindowsIsalpha(c)
 
 public actual fun iscntrl(c: CInt): CInt =
-    WindowsJniBridge.libc_windows_iscntrl(c)
+    WindowsJniBridge.libcWindowsIscntrl(c)
 
 public actual fun isdigit(c: CInt): CInt =
-    WindowsJniBridge.libc_windows_isdigit(c)
+    WindowsJniBridge.libcWindowsIsdigit(c)
 
 public actual fun isgraph(c: CInt): CInt =
-    WindowsJniBridge.libc_windows_isgraph(c)
+    WindowsJniBridge.libcWindowsIsgraph(c)
 
 public actual fun islower(c: CInt): CInt =
-    WindowsJniBridge.libc_windows_islower(c)
+    WindowsJniBridge.libcWindowsIslower(c)
 
 public actual fun isprint(c: CInt): CInt =
-    WindowsJniBridge.libc_windows_isprint(c)
+    WindowsJniBridge.libcWindowsIsprint(c)
 
 public actual fun ispunct(c: CInt): CInt =
-    WindowsJniBridge.libc_windows_ispunct(c)
+    WindowsJniBridge.libcWindowsIspunct(c)
 
 public actual fun isspace(c: CInt): CInt =
-    WindowsJniBridge.libc_windows_isspace(c)
+    WindowsJniBridge.libcWindowsIsspace(c)
 
 public actual fun isupper(c: CInt): CInt =
-    WindowsJniBridge.libc_windows_isupper(c)
+    WindowsJniBridge.libcWindowsIsupper(c)
 
 public actual fun isxdigit(c: CInt): CInt =
-    WindowsJniBridge.libc_windows_isxdigit(c)
+    WindowsJniBridge.libcWindowsIsxdigit(c)
 
 public actual fun isblank(c: CInt): CInt =
-    WindowsJniBridge.libc_windows_isblank(c)
+    WindowsJniBridge.libcWindowsIsblank(c)
 
 public actual fun tolower(c: CInt): CInt =
-    WindowsJniBridge.libc_windows_tolower(c)
+    WindowsJniBridge.libcWindowsTolower(c)
 
 public actual fun toupper(c: CInt): CInt =
-    WindowsJniBridge.libc_windows_toupper(c)
+    WindowsJniBridge.libcWindowsToupper(c)
 
-public actual fun qsort(base: COpaquePointer?, num: SizeT, size: SizeT, compar: QsortComparCallback?) {
-    WindowsJniBridge.libc_windows_qsort((base?.value ?: 0L), num.toLong(), size.toLong(), 0L)
+public actual fun qsort(base: MutPtr<CVoid>, num: SizeT, size: SizeT, compar: QsortComparCallback?) {
+    WindowsJniBridge.libcWindowsQsort(base.rawAddress, num.toLong(), size.toLong(), 0L)
 }
 
-public actual fun qsortS(base: COpaquePointer?, num: SizeT, size: SizeT, compar: QsortSComparCallback?, arg: COpaquePointer?) {
-    WindowsJniBridge.libc_windows_qsortS((base?.value ?: 0L), num.toLong(), size.toLong(), 0L, (arg?.value ?: 0L))
+public actual fun qsortS(base: MutPtr<CVoid>, num: SizeT, size: SizeT, compar: QsortSComparCallback?, arg: MutPtr<CVoid>) {
+    WindowsJniBridge.libcWindowsQsortS(base.rawAddress, num.toLong(), size.toLong(), 0L, arg.rawAddress)
 }
 
-public actual fun fopen(filename: String?, mode: String?): FILE? =
-    WindowsJniBridge.libc_windows_fopen(filename, mode).let { if (it == 0L) null else FILE(it) }
+public actual fun fopen(filename: ConstPtr<CChar>, mode: ConstPtr<CChar>): MutPtr<FILE> =
+    MutPtr(WindowsJniBridge.libcWindowsFopen(filename.rawAddress, mode.rawAddress))
 
-public actual fun freopen(filename: String?, mode: String?, file: FILE?): FILE? =
-    WindowsJniBridge.libc_windows_freopen(filename, mode, (file?.handle ?: 0L)).let { if (it == 0L) null else FILE(it) }
+public actual fun freopen(filename: ConstPtr<CChar>, mode: ConstPtr<CChar>, file: MutPtr<FILE>): MutPtr<FILE> =
+    MutPtr(WindowsJniBridge.libcWindowsFreopen(filename.rawAddress, mode.rawAddress, file.rawAddress))
 
-public actual fun fflush(file: FILE?): CInt =
-    WindowsJniBridge.libc_windows_fflush((file?.handle ?: 0L))
+public actual fun fflush(file: MutPtr<FILE>): CInt =
+    WindowsJniBridge.libcWindowsFflush(file.rawAddress)
 
-public actual fun fclose(file: FILE?): CInt =
-    WindowsJniBridge.libc_windows_fclose((file?.handle ?: 0L))
+public actual fun fclose(file: MutPtr<FILE>): CInt =
+    WindowsJniBridge.libcWindowsFclose(file.rawAddress)
 
-public actual fun remove(filename: String?): CInt =
-    WindowsJniBridge.libc_windows_remove(filename)
+public actual fun remove(filename: ConstPtr<CChar>): CInt =
+    WindowsJniBridge.libcWindowsRemove(filename.rawAddress)
 
-public actual fun rename(oldname: String?, newname: String?): CInt =
-    WindowsJniBridge.libc_windows_rename(oldname, newname)
+public actual fun rename(oldname: ConstPtr<CChar>, newname: ConstPtr<CChar>): CInt =
+    WindowsJniBridge.libcWindowsRename(oldname.rawAddress, newname.rawAddress)
 
-public actual fun tmpfile(): FILE? =
-    WindowsJniBridge.libc_windows_tmpfile().let { if (it == 0L) null else FILE(it) }
+public actual fun tmpfile(): MutPtr<FILE> =
+    MutPtr(WindowsJniBridge.libcWindowsTmpfile())
 
-public actual fun setvbuf(stream: FILE?, buffer: COpaquePointer?, mode: CInt, size: SizeT): CInt =
-    WindowsJniBridge.libc_windows_setvbuf((stream?.handle ?: 0L), (buffer?.value ?: 0L), mode, size.toLong())
+public actual fun setvbuf(stream: MutPtr<FILE>, buffer: MutPtr<CChar>, mode: CInt, size: SizeT): CInt =
+    WindowsJniBridge.libcWindowsSetvbuf(stream.rawAddress, buffer.rawAddress, mode, size.toLong())
 
-public actual fun setbuf(stream: FILE?, buf: COpaquePointer?) {
-    WindowsJniBridge.libc_windows_setbuf((stream?.handle ?: 0L), (buf?.value ?: 0L))
+public actual fun setbuf(stream: MutPtr<FILE>, buf: MutPtr<CChar>) {
+    WindowsJniBridge.libcWindowsSetbuf(stream.rawAddress, buf.rawAddress)
 }
 
 public actual fun getchar(): CInt =
-    WindowsJniBridge.libc_windows_getchar()
+    WindowsJniBridge.libcWindowsGetchar()
 
 public actual fun putchar(c: CInt): CInt =
-    WindowsJniBridge.libc_windows_putchar(c)
+    WindowsJniBridge.libcWindowsPutchar(c)
 
-public actual fun fgetc(stream: FILE?): CInt =
-    WindowsJniBridge.libc_windows_fgetc((stream?.handle ?: 0L))
+public actual fun fgetc(stream: MutPtr<FILE>): CInt =
+    WindowsJniBridge.libcWindowsFgetc(stream.rawAddress)
 
-public actual fun fgets(buf: COpaquePointer?, n: CInt, stream: FILE?): COpaquePointer? =
-    WindowsJniBridge.libc_windows_fgets((buf?.value ?: 0L), n, (stream?.handle ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun fgets(buf: MutPtr<CChar>, n: CInt, stream: MutPtr<FILE>): MutPtr<CChar> =
+    MutPtr(WindowsJniBridge.libcWindowsFgets(buf.rawAddress, n, stream.rawAddress))
 
-public actual fun fputc(c: CInt, stream: FILE?): CInt =
-    WindowsJniBridge.libc_windows_fputc(c, (stream?.handle ?: 0L))
+public actual fun fputc(c: CInt, stream: MutPtr<FILE>): CInt =
+    WindowsJniBridge.libcWindowsFputc(c, stream.rawAddress)
 
-public actual fun fputs(s: String?, stream: FILE?): CInt =
-    WindowsJniBridge.libc_windows_fputs(s, (stream?.handle ?: 0L))
+public actual fun fputs(s: ConstPtr<CChar>, stream: MutPtr<FILE>): CInt =
+    WindowsJniBridge.libcWindowsFputs(s.rawAddress, stream.rawAddress)
 
-public actual fun puts(s: String?): CInt =
-    WindowsJniBridge.libc_windows_puts(s)
+public actual fun puts(s: ConstPtr<CChar>): CInt =
+    WindowsJniBridge.libcWindowsPuts(s.rawAddress)
 
-public actual fun ungetc(c: CInt, stream: FILE?): CInt =
-    WindowsJniBridge.libc_windows_ungetc(c, (stream?.handle ?: 0L))
+public actual fun ungetc(c: CInt, stream: MutPtr<FILE>): CInt =
+    WindowsJniBridge.libcWindowsUngetc(c, stream.rawAddress)
 
-public actual fun fread(ptr: COpaquePointer?, size: SizeT, nobj: SizeT, stream: FILE?): SizeT =
-    WindowsJniBridge.libc_windows_fread((ptr?.value ?: 0L), size.toLong(), nobj.toLong(), (stream?.handle ?: 0L)).toULong()
+public actual fun fread(ptr: MutPtr<CVoid>, size: SizeT, nobj: SizeT, stream: MutPtr<FILE>): SizeT =
+    WindowsJniBridge.libcWindowsFread(ptr.rawAddress, size.toLong(), nobj.toLong(), stream.rawAddress).toULong()
 
-public actual fun fwrite(ptr: COpaquePointer?, size: SizeT, nobj: SizeT, stream: FILE?): SizeT =
-    WindowsJniBridge.libc_windows_fwrite((ptr?.value ?: 0L), size.toLong(), nobj.toLong(), (stream?.handle ?: 0L)).toULong()
+public actual fun fwrite(ptr: ConstPtr<CVoid>, size: SizeT, nobj: SizeT, stream: MutPtr<FILE>): SizeT =
+    WindowsJniBridge.libcWindowsFwrite(ptr.rawAddress, size.toLong(), nobj.toLong(), stream.rawAddress).toULong()
 
-public actual fun fseek(stream: FILE?, offset: CLong, whence: CInt): CInt =
-    WindowsJniBridge.libc_windows_fseek((stream?.handle ?: 0L), offset, whence)
+public actual fun fseek(stream: MutPtr<FILE>, offset: CLong, whence: CInt): CInt =
+    WindowsJniBridge.libcWindowsFseek(stream.rawAddress, offset, whence)
 
-public actual fun ftell(stream: FILE?): CLong =
-    WindowsJniBridge.libc_windows_ftell((stream?.handle ?: 0L))
+public actual fun ftell(stream: MutPtr<FILE>): CLong =
+    WindowsJniBridge.libcWindowsFtell(stream.rawAddress)
 
-public actual fun rewind(stream: FILE?) {
-    WindowsJniBridge.libc_windows_rewind((stream?.handle ?: 0L))
+public actual fun rewind(stream: MutPtr<FILE>) {
+    WindowsJniBridge.libcWindowsRewind(stream.rawAddress)
 }
 
-public actual fun fgetpos(stream: FILE?, ptr: COpaquePointer?): CInt =
-    WindowsJniBridge.libc_windows_fgetpos((stream?.handle ?: 0L), (ptr?.value ?: 0L))
+public actual fun fgetpos(stream: MutPtr<FILE>, ptr: MutPtr<FposT>): CInt =
+    WindowsJniBridge.libcWindowsFgetpos(stream.rawAddress, ptr.rawAddress)
 
-public actual fun fsetpos(stream: FILE?, ptr: COpaquePointer?): CInt =
-    WindowsJniBridge.libc_windows_fsetpos((stream?.handle ?: 0L), (ptr?.value ?: 0L))
+public actual fun fsetpos(stream: MutPtr<FILE>, ptr: ConstPtr<FposT>): CInt =
+    WindowsJniBridge.libcWindowsFsetpos(stream.rawAddress, ptr.rawAddress)
 
-public actual fun feof(stream: FILE?): CInt =
-    WindowsJniBridge.libc_windows_feof((stream?.handle ?: 0L))
+public actual fun feof(stream: MutPtr<FILE>): CInt =
+    WindowsJniBridge.libcWindowsFeof(stream.rawAddress)
 
-public actual fun ferror(stream: FILE?): CInt =
-    WindowsJniBridge.libc_windows_ferror((stream?.handle ?: 0L))
+public actual fun ferror(stream: MutPtr<FILE>): CInt =
+    WindowsJniBridge.libcWindowsFerror(stream.rawAddress)
 
-public actual fun perror(s: String?) {
-    WindowsJniBridge.libc_windows_perror(s)
+public actual fun perror(s: ConstPtr<CChar>) {
+    WindowsJniBridge.libcWindowsPerror(s.rawAddress)
 }
 
-public actual fun atof(s: String?): CDouble =
-    WindowsJniBridge.libc_windows_atof(s)
+public actual fun atof(s: ConstPtr<CChar>): CDouble =
+    WindowsJniBridge.libcWindowsAtof(s.rawAddress)
 
-public actual fun atoi(s: String?): CInt =
-    WindowsJniBridge.libc_windows_atoi(s)
+public actual fun atoi(s: ConstPtr<CChar>): CInt =
+    WindowsJniBridge.libcWindowsAtoi(s.rawAddress)
 
-public actual fun atol(s: String?): CLong =
-    WindowsJniBridge.libc_windows_atol(s)
+public actual fun atol(s: ConstPtr<CChar>): CLong =
+    WindowsJniBridge.libcWindowsAtol(s.rawAddress)
 
-public actual fun atoll(s: String?): CLonglong =
-    WindowsJniBridge.libc_windows_atoll(s)
+public actual fun atoll(s: ConstPtr<CChar>): CLonglong =
+    WindowsJniBridge.libcWindowsAtoll(s.rawAddress)
 
-public actual fun strtod(s: String?, endp: COpaquePointer?): CDouble =
-    WindowsJniBridge.libc_windows_strtod(s, (endp?.value ?: 0L))
+public actual fun strtod(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>): CDouble =
+    WindowsJniBridge.libcWindowsStrtod(s.rawAddress, endp.rawAddress)
 
-public actual fun strtof(s: String?, endp: COpaquePointer?): CFloat =
-    WindowsJniBridge.libc_windows_strtof(s, (endp?.value ?: 0L))
+public actual fun strtof(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>): CFloat =
+    WindowsJniBridge.libcWindowsStrtof(s.rawAddress, endp.rawAddress)
 
-public actual fun strtol(s: String?, endp: COpaquePointer?, base: CInt): CLong =
-    WindowsJniBridge.libc_windows_strtol(s, (endp?.value ?: 0L), base)
+public actual fun strtol(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CLong =
+    WindowsJniBridge.libcWindowsStrtol(s.rawAddress, endp.rawAddress, base)
 
-public actual fun strtoll(s: String?, endp: COpaquePointer?, base: CInt): CLonglong =
-    WindowsJniBridge.libc_windows_strtoll(s, (endp?.value ?: 0L), base)
+public actual fun strtoll(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CLonglong =
+    WindowsJniBridge.libcWindowsStrtoll(s.rawAddress, endp.rawAddress, base)
 
-public actual fun strtoul(s: String?, endp: COpaquePointer?, base: CInt): CUlong =
-    WindowsJniBridge.libc_windows_strtoul(s, (endp?.value ?: 0L), base).toULong()
+public actual fun strtoul(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CUlong =
+    WindowsJniBridge.libcWindowsStrtoul(s.rawAddress, endp.rawAddress, base).toULong()
 
-public actual fun strtoull(s: String?, endp: COpaquePointer?, base: CInt): CUlonglong =
-    WindowsJniBridge.libc_windows_strtoull(s, (endp?.value ?: 0L), base).toULong()
+public actual fun strtoull(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CUlonglong =
+    WindowsJniBridge.libcWindowsStrtoull(s.rawAddress, endp.rawAddress, base).toULong()
 
-public actual fun calloc(nobj: SizeT, size: SizeT): COpaquePointer? =
-    WindowsJniBridge.libc_windows_calloc(nobj.toLong(), size.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun calloc(nobj: SizeT, size: SizeT): MutPtr<CVoid> =
+    MutPtr(WindowsJniBridge.libcWindowsCalloc(nobj.toLong(), size.toLong()))
 
-public actual fun malloc(size: SizeT): COpaquePointer? =
-    WindowsJniBridge.libc_windows_malloc(size.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun malloc(size: SizeT): MutPtr<CVoid> =
+    MutPtr(WindowsJniBridge.libcWindowsMalloc(size.toLong()))
 
-public actual fun msize(p: COpaquePointer?): SizeT =
-    WindowsJniBridge.libc_windows_msize((p?.value ?: 0L)).toULong()
+public actual fun msize(p: MutPtr<CVoid>): SizeT =
+    WindowsJniBridge.libcWindowsMsize(p.rawAddress).toULong()
 
-public actual fun realloc(p: COpaquePointer?, size: SizeT): COpaquePointer? =
-    WindowsJniBridge.libc_windows_realloc((p?.value ?: 0L), size.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun realloc(p: MutPtr<CVoid>, size: SizeT): MutPtr<CVoid> =
+    MutPtr(WindowsJniBridge.libcWindowsRealloc(p.rawAddress, size.toLong()))
 
-public actual fun free(p: COpaquePointer?) {
-    WindowsJniBridge.libc_windows_free((p?.value ?: 0L))
+public actual fun free(p: MutPtr<CVoid>) {
+    WindowsJniBridge.libcWindowsFree(p.rawAddress)
 }
 
 public actual fun abort(): Nothing {
-    WindowsJniBridge.libc_windows_abort()
+    WindowsJniBridge.libcWindowsAbort()
     error("Unreachable noreturn C function abort")
 }
 
 public actual fun exit(status: CInt): Nothing {
-    WindowsJniBridge.libc_windows_exit(status)
+    WindowsJniBridge.libcWindowsExit(status)
     error("Unreachable noreturn C function exit")
 }
 
 public actual fun atexit(cb: AtexitCbCallback): CInt =
-    WindowsJniBridge.libc_windows_atexit(0L)
+    WindowsJniBridge.libcWindowsAtexit(0L)
 
-public actual fun system(s: String?): CInt =
-    WindowsJniBridge.libc_windows_system(s)
+public actual fun system(s: ConstPtr<CChar>): CInt =
+    WindowsJniBridge.libcWindowsSystem(s.rawAddress)
 
-public actual fun getenv(s: String?): COpaquePointer? =
-    WindowsJniBridge.libc_windows_getenv(s).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getenv(s: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(WindowsJniBridge.libcWindowsGetenv(s.rawAddress))
 
-public actual fun strcpy(dst: COpaquePointer?, src: String?): COpaquePointer? =
-    WindowsJniBridge.libc_windows_strcpy((dst?.value ?: 0L), src).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun strcpy(dst: MutPtr<CChar>, src: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(WindowsJniBridge.libcWindowsStrcpy(dst.rawAddress, src.rawAddress))
 
-public actual fun strncpy(dst: COpaquePointer?, src: String?, n: SizeT): COpaquePointer? =
-    WindowsJniBridge.libc_windows_strncpy((dst?.value ?: 0L), src, n.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun strncpy(dst: MutPtr<CChar>, src: ConstPtr<CChar>, n: SizeT): MutPtr<CChar> =
+    MutPtr(WindowsJniBridge.libcWindowsStrncpy(dst.rawAddress, src.rawAddress, n.toLong()))
 
-public actual fun strcat(s: COpaquePointer?, ct: String?): COpaquePointer? =
-    WindowsJniBridge.libc_windows_strcat((s?.value ?: 0L), ct).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun strcat(s: MutPtr<CChar>, ct: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(WindowsJniBridge.libcWindowsStrcat(s.rawAddress, ct.rawAddress))
 
-public actual fun strncat(s: COpaquePointer?, ct: String?, n: SizeT): COpaquePointer? =
-    WindowsJniBridge.libc_windows_strncat((s?.value ?: 0L), ct, n.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun strncat(s: MutPtr<CChar>, ct: ConstPtr<CChar>, n: SizeT): MutPtr<CChar> =
+    MutPtr(WindowsJniBridge.libcWindowsStrncat(s.rawAddress, ct.rawAddress, n.toLong()))
 
-public actual fun strcmp(cs: String?, ct: String?): CInt =
-    WindowsJniBridge.libc_windows_strcmp(cs, ct)
+public actual fun strcmp(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): CInt =
+    WindowsJniBridge.libcWindowsStrcmp(cs.rawAddress, ct.rawAddress)
 
-public actual fun strncmp(cs: String?, ct: String?, n: SizeT): CInt =
-    WindowsJniBridge.libc_windows_strncmp(cs, ct, n.toLong())
+public actual fun strncmp(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>, n: SizeT): CInt =
+    WindowsJniBridge.libcWindowsStrncmp(cs.rawAddress, ct.rawAddress, n.toLong())
 
-public actual fun strcoll(cs: String?, ct: String?): CInt =
-    WindowsJniBridge.libc_windows_strcoll(cs, ct)
+public actual fun strcoll(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): CInt =
+    WindowsJniBridge.libcWindowsStrcoll(cs.rawAddress, ct.rawAddress)
 
-public actual fun strchr(cs: String?, c: CInt): COpaquePointer? =
-    WindowsJniBridge.libc_windows_strchr(cs, c).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun strchr(cs: ConstPtr<CChar>, c: CInt): MutPtr<CChar> =
+    MutPtr(WindowsJniBridge.libcWindowsStrchr(cs.rawAddress, c))
 
-public actual fun strrchr(cs: String?, c: CInt): COpaquePointer? =
-    WindowsJniBridge.libc_windows_strrchr(cs, c).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun strrchr(cs: ConstPtr<CChar>, c: CInt): MutPtr<CChar> =
+    MutPtr(WindowsJniBridge.libcWindowsStrrchr(cs.rawAddress, c))
 
-public actual fun strspn(cs: String?, ct: String?): SizeT =
-    WindowsJniBridge.libc_windows_strspn(cs, ct).toULong()
+public actual fun strspn(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): SizeT =
+    WindowsJniBridge.libcWindowsStrspn(cs.rawAddress, ct.rawAddress).toULong()
 
-public actual fun strcspn(cs: String?, ct: String?): SizeT =
-    WindowsJniBridge.libc_windows_strcspn(cs, ct).toULong()
+public actual fun strcspn(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): SizeT =
+    WindowsJniBridge.libcWindowsStrcspn(cs.rawAddress, ct.rawAddress).toULong()
 
-public actual fun strdup(cs: String?): COpaquePointer? =
-    WindowsJniBridge.libc_windows_strdup(cs).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun strdup(cs: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(WindowsJniBridge.libcWindowsStrdup(cs.rawAddress))
 
-public actual fun strpbrk(cs: String?, ct: String?): COpaquePointer? =
-    WindowsJniBridge.libc_windows_strpbrk(cs, ct).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun strpbrk(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(WindowsJniBridge.libcWindowsStrpbrk(cs.rawAddress, ct.rawAddress))
 
-public actual fun strstr(cs: String?, ct: String?): COpaquePointer? =
-    WindowsJniBridge.libc_windows_strstr(cs, ct).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun strstr(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(WindowsJniBridge.libcWindowsStrstr(cs.rawAddress, ct.rawAddress))
 
-public actual fun strlen(cs: String?): SizeT =
-    WindowsJniBridge.libc_windows_strlen(cs).toULong()
+public actual fun strlen(cs: ConstPtr<CChar>): SizeT =
+    WindowsJniBridge.libcWindowsStrlen(cs.rawAddress).toULong()
 
-public actual fun strnlen(cs: String?, maxlen: SizeT): SizeT =
-    WindowsJniBridge.libc_windows_strnlen(cs, maxlen.toLong()).toULong()
+public actual fun strnlen(cs: ConstPtr<CChar>, maxlen: SizeT): SizeT =
+    WindowsJniBridge.libcWindowsStrnlen(cs.rawAddress, maxlen.toLong()).toULong()
 
-public actual fun strerror(n: CInt): COpaquePointer? =
-    WindowsJniBridge.libc_windows_strerror(n).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun strerror(n: CInt): MutPtr<CChar> =
+    MutPtr(WindowsJniBridge.libcWindowsStrerror(n))
 
-public actual fun strtok(s: COpaquePointer?, t: String?): COpaquePointer? =
-    WindowsJniBridge.libc_windows_strtok((s?.value ?: 0L), t).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun strtok(s: MutPtr<CChar>, t: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(WindowsJniBridge.libcWindowsStrtok(s.rawAddress, t.rawAddress))
 
-public actual fun strxfrm(s: COpaquePointer?, ct: String?, n: SizeT): SizeT =
-    WindowsJniBridge.libc_windows_strxfrm((s?.value ?: 0L), ct, n.toLong()).toULong()
+public actual fun strxfrm(s: MutPtr<CChar>, ct: ConstPtr<CChar>, n: SizeT): SizeT =
+    WindowsJniBridge.libcWindowsStrxfrm(s.rawAddress, ct.rawAddress, n.toLong()).toULong()
 
-public actual fun wcslen(buf: COpaquePointer?): SizeT =
-    WindowsJniBridge.libc_windows_wcslen((buf?.value ?: 0L)).toULong()
+public actual fun wcslen(buf: ConstPtr<WcharT>): SizeT =
+    WindowsJniBridge.libcWindowsWcslen(buf.rawAddress).toULong()
 
-public actual fun wcsnlen(str: COpaquePointer?, numberOfElements: SizeT): SizeT =
-    WindowsJniBridge.libc_windows_wcsnlen((str?.value ?: 0L), numberOfElements.toLong()).toULong()
+public actual fun wcsnlen(str: ConstPtr<WcharT>, numberOfElements: SizeT): SizeT =
+    WindowsJniBridge.libcWindowsWcsnlen(str.rawAddress, numberOfElements.toLong()).toULong()
 
-public actual fun wcstombs(dest: COpaquePointer?, src: COpaquePointer?, n: SizeT): SizeT =
-    WindowsJniBridge.libc_windows_wcstombs((dest?.value ?: 0L), (src?.value ?: 0L), n.toLong()).toULong()
+public actual fun wcstombs(dest: MutPtr<CChar>, src: ConstPtr<WcharT>, n: SizeT): SizeT =
+    WindowsJniBridge.libcWindowsWcstombs(dest.rawAddress, src.rawAddress, n.toLong()).toULong()
 
-public actual fun memchr(cx: COpaquePointer?, c: CInt, n: SizeT): COpaquePointer? =
-    WindowsJniBridge.libc_windows_memchr((cx?.value ?: 0L), c, n.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun memchr(cx: ConstPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+    MutPtr(WindowsJniBridge.libcWindowsMemchr(cx.rawAddress, c, n.toLong()))
 
-public actual fun memcmp(cx: COpaquePointer?, ct: COpaquePointer?, n: SizeT): CInt =
-    WindowsJniBridge.libc_windows_memcmp((cx?.value ?: 0L), (ct?.value ?: 0L), n.toLong())
+public actual fun memcmp(cx: ConstPtr<CVoid>, ct: ConstPtr<CVoid>, n: SizeT): CInt =
+    WindowsJniBridge.libcWindowsMemcmp(cx.rawAddress, ct.rawAddress, n.toLong())
 
-public actual fun memcpy(dest: COpaquePointer?, src: COpaquePointer?, n: SizeT): COpaquePointer? =
-    WindowsJniBridge.libc_windows_memcpy((dest?.value ?: 0L), (src?.value ?: 0L), n.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun memcpy(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, n: SizeT): MutPtr<CVoid> =
+    MutPtr(WindowsJniBridge.libcWindowsMemcpy(dest.rawAddress, src.rawAddress, n.toLong()))
 
-public actual fun memmove(dest: COpaquePointer?, src: COpaquePointer?, n: SizeT): COpaquePointer? =
-    WindowsJniBridge.libc_windows_memmove((dest?.value ?: 0L), (src?.value ?: 0L), n.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun memmove(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, n: SizeT): MutPtr<CVoid> =
+    MutPtr(WindowsJniBridge.libcWindowsMemmove(dest.rawAddress, src.rawAddress, n.toLong()))
 
-public actual fun memset(dest: COpaquePointer?, c: CInt, n: SizeT): COpaquePointer? =
-    WindowsJniBridge.libc_windows_memset((dest?.value ?: 0L), c, n.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun memset(dest: MutPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+    MutPtr(WindowsJniBridge.libcWindowsMemset(dest.rawAddress, c, n.toLong()))
 
 public actual fun abs(i: CInt): CInt =
-    WindowsJniBridge.libc_windows_abs(i)
+    WindowsJniBridge.libcWindowsAbs(i)
 
 public actual fun labs(i: CLong): CLong =
-    WindowsJniBridge.libc_windows_labs(i)
+    WindowsJniBridge.libcWindowsLabs(i)
 
 public actual fun rand(): CInt =
-    WindowsJniBridge.libc_windows_rand()
+    WindowsJniBridge.libcWindowsRand()
 
 public actual fun srand(seed: CUint) {
-    WindowsJniBridge.libc_windows_srand(seed.toInt())
+    WindowsJniBridge.libcWindowsSrand(seed.toInt())
 }
 
 public actual fun signal(signum: CInt, handler: SighandlerT): SighandlerT =
-    WindowsJniBridge.libc_windows_signal(signum, handler.toLong()).toULong()
+    WindowsJniBridge.libcWindowsSignal(signum, handler.toLong()).toULong()
 
 public actual fun raise(signum: CInt): CInt =
-    WindowsJniBridge.libc_windows_raise(signum)
+    WindowsJniBridge.libcWindowsRaise(signum)
 
 public actual fun clock(): ClockT =
-    WindowsJniBridge.libc_windows_clock()
+    WindowsJniBridge.libcWindowsClock()
 
-public actual fun ctime(sourceTime: COpaquePointer?): COpaquePointer? =
-    WindowsJniBridge.libc_windows_ctime((sourceTime?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun ctime(sourceTime: ConstPtr<TimeT>): MutPtr<CChar> =
+    MutPtr(WindowsJniBridge.libcWindowsCtime(sourceTime.rawAddress))
 
 public actual fun difftime(timeEnd: TimeT, timeStart: TimeT): CDouble =
-    WindowsJniBridge.libc_windows_difftime(timeEnd, timeStart)
+    WindowsJniBridge.libcWindowsDifftime(timeEnd, timeStart)
 
-public actual fun gmtimeS(destTime: COpaquePointer?, srcTime: COpaquePointer?): CInt =
-    WindowsJniBridge.libc_windows_gmtimeS((destTime?.value ?: 0L), (srcTime?.value ?: 0L))
+public actual fun gmtimeS(destTime: MutPtr<Tm>, srcTime: ConstPtr<TimeT>): CInt =
+    WindowsJniBridge.libcWindowsGmtimeS(destTime.rawAddress, srcTime.rawAddress)
 
-public actual fun getDaylight(hours: COpaquePointer?): ErrnoT =
-    WindowsJniBridge.libc_windows_getDaylight((hours?.value ?: 0L))
+public actual fun getDaylight(hours: MutPtr<CInt>): ErrnoT =
+    WindowsJniBridge.libcWindowsGetDaylight(hours.rawAddress)
 
-public actual fun getDstbias(seconds: COpaquePointer?): ErrnoT =
-    WindowsJniBridge.libc_windows_getDstbias((seconds?.value ?: 0L))
+public actual fun getDstbias(seconds: MutPtr<CLong>): ErrnoT =
+    WindowsJniBridge.libcWindowsGetDstbias(seconds.rawAddress)
 
-public actual fun getTimezone(seconds: COpaquePointer?): ErrnoT =
-    WindowsJniBridge.libc_windows_getTimezone((seconds?.value ?: 0L))
+public actual fun getTimezone(seconds: MutPtr<CLong>): ErrnoT =
+    WindowsJniBridge.libcWindowsGetTimezone(seconds.rawAddress)
 
-public actual fun getTzname(pReturnValue: COpaquePointer?, timeZoneName: COpaquePointer?, sizeInBytes: SizeT, index: CInt): ErrnoT =
-    WindowsJniBridge.libc_windows_getTzname((pReturnValue?.value ?: 0L), (timeZoneName?.value ?: 0L), sizeInBytes.toLong(), index)
+public actual fun getTzname(pReturnValue: MutPtr<SizeT>, timeZoneName: MutPtr<CChar>, sizeInBytes: SizeT, index: CInt): ErrnoT =
+    WindowsJniBridge.libcWindowsGetTzname(pReturnValue.rawAddress, timeZoneName.rawAddress, sizeInBytes.toLong(), index)
 
-public actual fun localtimeS(tmDest: COpaquePointer?, sourceTime: COpaquePointer?): ErrnoT =
-    WindowsJniBridge.libc_windows_localtimeS((tmDest?.value ?: 0L), (sourceTime?.value ?: 0L))
+public actual fun localtimeS(tmDest: MutPtr<Tm>, sourceTime: ConstPtr<TimeT>): ErrnoT =
+    WindowsJniBridge.libcWindowsLocaltimeS(tmDest.rawAddress, sourceTime.rawAddress)
 
-public actual fun time(destTime: COpaquePointer?): TimeT =
-    WindowsJniBridge.libc_windows_time((destTime?.value ?: 0L))
+public actual fun time(destTime: MutPtr<TimeT>): TimeT =
+    WindowsJniBridge.libcWindowsTime(destTime.rawAddress)
 
 public actual fun tzset() {
-    WindowsJniBridge.libc_windows_tzset()
+    WindowsJniBridge.libcWindowsTzset()
 }
 
-public actual fun chmod(path: String?, mode: CInt): CInt =
-    WindowsJniBridge.libc_windows_chmod(path, mode)
+public actual fun chmod(path: ConstPtr<CChar>, mode: CInt): CInt =
+    WindowsJniBridge.libcWindowsChmod(path.rawAddress, mode)
 
-public actual fun wchmod(path: COpaquePointer?, mode: CInt): CInt =
-    WindowsJniBridge.libc_windows_wchmod((path?.value ?: 0L), mode)
+public actual fun wchmod(path: ConstPtr<WcharT>, mode: CInt): CInt =
+    WindowsJniBridge.libcWindowsWchmod(path.rawAddress, mode)
 
-public actual fun mkdir(path: String?): CInt =
-    WindowsJniBridge.libc_windows_mkdir(path)
+public actual fun mkdir(path: ConstPtr<CChar>): CInt =
+    WindowsJniBridge.libcWindowsMkdir(path.rawAddress)
 
-public actual fun wrmdir(path: COpaquePointer?): CInt =
-    WindowsJniBridge.libc_windows_wrmdir((path?.value ?: 0L))
+public actual fun wrmdir(path: ConstPtr<WcharT>): CInt =
+    WindowsJniBridge.libcWindowsWrmdir(path.rawAddress)
 
-public actual fun fstat(fildes: CInt, buf: COpaquePointer?): CInt =
-    WindowsJniBridge.libc_windows_fstat(fildes, (buf?.value ?: 0L))
+public actual fun fstat(fildes: CInt, buf: MutPtr<Stat>): CInt =
+    WindowsJniBridge.libcWindowsFstat(fildes, buf.rawAddress)
 
-public actual fun stat(path: String?, buf: COpaquePointer?): CInt =
-    WindowsJniBridge.libc_windows_stat(path, (buf?.value ?: 0L))
+public actual fun stat(path: ConstPtr<CChar>, buf: MutPtr<Stat>): CInt =
+    WindowsJniBridge.libcWindowsStat(path.rawAddress, buf.rawAddress)
 
-public actual fun wstat(path: COpaquePointer?, buf: COpaquePointer?): CInt =
-    WindowsJniBridge.libc_windows_wstat((path?.value ?: 0L), (buf?.value ?: 0L))
+public actual fun wstat(path: ConstPtr<WcharT>, buf: MutPtr<Stat>): CInt =
+    WindowsJniBridge.libcWindowsWstat(path.rawAddress, buf.rawAddress)
 
-public actual fun wutime(file: COpaquePointer?, buf: COpaquePointer?): CInt =
-    WindowsJniBridge.libc_windows_wutime((file?.value ?: 0L), (buf?.value ?: 0L))
+public actual fun wutime(file: ConstPtr<WcharT>, buf: MutPtr<Utimbuf>): CInt =
+    WindowsJniBridge.libcWindowsWutime(file.rawAddress, buf.rawAddress)
 
-public actual fun popen(command: String?, mode: String?): FILE? =
-    WindowsJniBridge.libc_windows_popen(command, mode).let { if (it == 0L) null else FILE(it) }
+public actual fun popen(command: ConstPtr<CChar>, mode: ConstPtr<CChar>): MutPtr<FILE> =
+    MutPtr(WindowsJniBridge.libcWindowsPopen(command.rawAddress, mode.rawAddress))
 
-public actual fun pclose(stream: FILE?): CInt =
-    WindowsJniBridge.libc_windows_pclose((stream?.handle ?: 0L))
+public actual fun pclose(stream: MutPtr<FILE>): CInt =
+    WindowsJniBridge.libcWindowsPclose(stream.rawAddress)
 
-public actual fun fdopen(fd: CInt, mode: String?): FILE? =
-    WindowsJniBridge.libc_windows_fdopen(fd, mode).let { if (it == 0L) null else FILE(it) }
+public actual fun fdopen(fd: CInt, mode: ConstPtr<CChar>): MutPtr<FILE> =
+    MutPtr(WindowsJniBridge.libcWindowsFdopen(fd, mode.rawAddress))
 
-public actual fun fileno(stream: FILE?): CInt =
-    WindowsJniBridge.libc_windows_fileno((stream?.handle ?: 0L))
+public actual fun fileno(stream: MutPtr<FILE>): CInt =
+    WindowsJniBridge.libcWindowsFileno(stream.rawAddress)
 
-public actual fun open(path: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
-    WindowsJniBridge.libc_windows_open(path, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun open(path: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): CInt =
+    WindowsJniBridge.libcWindowsOpen(path.rawAddress, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun wopen(path: COpaquePointer?, oflag: CInt, vararg variadicArgs: Long): CInt =
-    WindowsJniBridge.libc_windows_wopen((path?.value ?: 0L), oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun wopen(path: ConstPtr<WcharT>, oflag: CInt, vararg variadicArgs: Long): CInt =
+    WindowsJniBridge.libcWindowsWopen(path.rawAddress, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun creat(path: String?, mode: CInt): CInt =
-    WindowsJniBridge.libc_windows_creat(path, mode)
+public actual fun creat(path: ConstPtr<CChar>, mode: CInt): CInt =
+    WindowsJniBridge.libcWindowsCreat(path.rawAddress, mode)
 
-public actual fun access(path: String?, amode: CInt): CInt =
-    WindowsJniBridge.libc_windows_access(path, amode)
+public actual fun access(path: ConstPtr<CChar>, amode: CInt): CInt =
+    WindowsJniBridge.libcWindowsAccess(path.rawAddress, amode)
 
-public actual fun chdir(dir: String?): CInt =
-    WindowsJniBridge.libc_windows_chdir(dir)
+public actual fun chdir(dir: ConstPtr<CChar>): CInt =
+    WindowsJniBridge.libcWindowsChdir(dir.rawAddress)
 
 public actual fun close(fd: CInt): CInt =
-    WindowsJniBridge.libc_windows_close(fd)
+    WindowsJniBridge.libcWindowsClose(fd)
 
 public actual fun dup(fd: CInt): CInt =
-    WindowsJniBridge.libc_windows_dup(fd)
+    WindowsJniBridge.libcWindowsDup(fd)
 
 public actual fun dup2(src: CInt, dst: CInt): CInt =
-    WindowsJniBridge.libc_windows_dup2(src, dst)
+    WindowsJniBridge.libcWindowsDup2(src, dst)
 
-public actual fun execl(path: String?, arg0: String?, vararg variadicArgs: Long): IntptrT =
-    WindowsJniBridge.libc_windows_execl(path, arg0, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun execl(path: ConstPtr<CChar>, arg0: ConstPtr<CChar>, vararg variadicArgs: Long): IntptrT =
+    WindowsJniBridge.libcWindowsExecl(path.rawAddress, arg0.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun wexecl(path: COpaquePointer?, arg0: COpaquePointer?, vararg variadicArgs: Long): IntptrT =
-    WindowsJniBridge.libc_windows_wexecl((path?.value ?: 0L), (arg0?.value ?: 0L), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun wexecl(path: ConstPtr<WcharT>, arg0: ConstPtr<WcharT>, vararg variadicArgs: Long): IntptrT =
+    WindowsJniBridge.libcWindowsWexecl(path.rawAddress, arg0.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun execle(path: String?, arg0: String?, vararg variadicArgs: Long): IntptrT =
-    WindowsJniBridge.libc_windows_execle(path, arg0, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun execle(path: ConstPtr<CChar>, arg0: ConstPtr<CChar>, vararg variadicArgs: Long): IntptrT =
+    WindowsJniBridge.libcWindowsExecle(path.rawAddress, arg0.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun wexecle(path: COpaquePointer?, arg0: COpaquePointer?, vararg variadicArgs: Long): IntptrT =
-    WindowsJniBridge.libc_windows_wexecle((path?.value ?: 0L), (arg0?.value ?: 0L), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun wexecle(path: ConstPtr<WcharT>, arg0: ConstPtr<WcharT>, vararg variadicArgs: Long): IntptrT =
+    WindowsJniBridge.libcWindowsWexecle(path.rawAddress, arg0.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun execlp(path: String?, arg0: String?, vararg variadicArgs: Long): IntptrT =
-    WindowsJniBridge.libc_windows_execlp(path, arg0, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun execlp(path: ConstPtr<CChar>, arg0: ConstPtr<CChar>, vararg variadicArgs: Long): IntptrT =
+    WindowsJniBridge.libcWindowsExeclp(path.rawAddress, arg0.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun wexeclp(path: COpaquePointer?, arg0: COpaquePointer?, vararg variadicArgs: Long): IntptrT =
-    WindowsJniBridge.libc_windows_wexeclp((path?.value ?: 0L), (arg0?.value ?: 0L), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun wexeclp(path: ConstPtr<WcharT>, arg0: ConstPtr<WcharT>, vararg variadicArgs: Long): IntptrT =
+    WindowsJniBridge.libcWindowsWexeclp(path.rawAddress, arg0.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun execlpe(path: String?, arg0: String?, vararg variadicArgs: Long): IntptrT =
-    WindowsJniBridge.libc_windows_execlpe(path, arg0, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun execlpe(path: ConstPtr<CChar>, arg0: ConstPtr<CChar>, vararg variadicArgs: Long): IntptrT =
+    WindowsJniBridge.libcWindowsExeclpe(path.rawAddress, arg0.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun wexeclpe(path: COpaquePointer?, arg0: COpaquePointer?, vararg variadicArgs: Long): IntptrT =
-    WindowsJniBridge.libc_windows_wexeclpe((path?.value ?: 0L), (arg0?.value ?: 0L), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun wexeclpe(path: ConstPtr<WcharT>, arg0: ConstPtr<WcharT>, vararg variadicArgs: Long): IntptrT =
+    WindowsJniBridge.libcWindowsWexeclpe(path.rawAddress, arg0.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun execv(prog: String?, argv: COpaquePointer?): IntptrT =
-    WindowsJniBridge.libc_windows_execv(prog, (argv?.value ?: 0L))
+public actual fun execv(prog: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>): IntptrT =
+    WindowsJniBridge.libcWindowsExecv(prog.rawAddress, argv.rawAddress)
 
-public actual fun execve(prog: String?, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
-    WindowsJniBridge.libc_windows_execve(prog, (argv?.value ?: 0L), (envp?.value ?: 0L))
+public actual fun execve(prog: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>, envp: ConstPtr<ConstPtr<CChar>>): CInt =
+    WindowsJniBridge.libcWindowsExecve(prog.rawAddress, argv.rawAddress, envp.rawAddress)
 
-public actual fun execvp(c: String?, argv: COpaquePointer?): CInt =
-    WindowsJniBridge.libc_windows_execvp(c, (argv?.value ?: 0L))
+public actual fun execvp(c: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>): CInt =
+    WindowsJniBridge.libcWindowsExecvp(c.rawAddress, argv.rawAddress)
 
-public actual fun execvpe(c: String?, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
-    WindowsJniBridge.libc_windows_execvpe(c, (argv?.value ?: 0L), (envp?.value ?: 0L))
+public actual fun execvpe(c: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>, envp: ConstPtr<ConstPtr<CChar>>): CInt =
+    WindowsJniBridge.libcWindowsExecvpe(c.rawAddress, argv.rawAddress, envp.rawAddress)
 
-public actual fun wexecv(prog: COpaquePointer?, argv: COpaquePointer?): IntptrT =
-    WindowsJniBridge.libc_windows_wexecv((prog?.value ?: 0L), (argv?.value ?: 0L))
+public actual fun wexecv(prog: ConstPtr<WcharT>, argv: ConstPtr<ConstPtr<WcharT>>): IntptrT =
+    WindowsJniBridge.libcWindowsWexecv(prog.rawAddress, argv.rawAddress)
 
-public actual fun wexecve(prog: COpaquePointer?, argv: COpaquePointer?, envp: COpaquePointer?): IntptrT =
-    WindowsJniBridge.libc_windows_wexecve((prog?.value ?: 0L), (argv?.value ?: 0L), (envp?.value ?: 0L))
+public actual fun wexecve(prog: ConstPtr<WcharT>, argv: ConstPtr<ConstPtr<WcharT>>, envp: ConstPtr<ConstPtr<WcharT>>): IntptrT =
+    WindowsJniBridge.libcWindowsWexecve(prog.rawAddress, argv.rawAddress, envp.rawAddress)
 
-public actual fun wexecvp(c: COpaquePointer?, argv: COpaquePointer?): IntptrT =
-    WindowsJniBridge.libc_windows_wexecvp((c?.value ?: 0L), (argv?.value ?: 0L))
+public actual fun wexecvp(c: ConstPtr<WcharT>, argv: ConstPtr<ConstPtr<WcharT>>): IntptrT =
+    WindowsJniBridge.libcWindowsWexecvp(c.rawAddress, argv.rawAddress)
 
-public actual fun wexecvpe(c: COpaquePointer?, argv: COpaquePointer?, envp: COpaquePointer?): IntptrT =
-    WindowsJniBridge.libc_windows_wexecvpe((c?.value ?: 0L), (argv?.value ?: 0L), (envp?.value ?: 0L))
+public actual fun wexecvpe(c: ConstPtr<WcharT>, argv: ConstPtr<ConstPtr<WcharT>>, envp: ConstPtr<ConstPtr<WcharT>>): IntptrT =
+    WindowsJniBridge.libcWindowsWexecvpe(c.rawAddress, argv.rawAddress, envp.rawAddress)
 
-public actual fun getcwd(buf: COpaquePointer?, size: CInt): COpaquePointer? =
-    WindowsJniBridge.libc_windows_getcwd((buf?.value ?: 0L), size).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getcwd(buf: MutPtr<CChar>, size: CInt): MutPtr<CChar> =
+    MutPtr(WindowsJniBridge.libcWindowsGetcwd(buf.rawAddress, size))
 
 public actual fun getpid(): CInt =
-    WindowsJniBridge.libc_windows_getpid()
+    WindowsJniBridge.libcWindowsGetpid()
 
 public actual fun isatty(fd: CInt): CInt =
-    WindowsJniBridge.libc_windows_isatty(fd)
+    WindowsJniBridge.libcWindowsIsatty(fd)
 
 public actual fun lseek(fd: CInt, offset: CLong, origin: CInt): CLong =
-    WindowsJniBridge.libc_windows_lseek(fd, offset, origin)
+    WindowsJniBridge.libcWindowsLseek(fd, offset, origin)
 
 public actual fun lseek64(fd: CInt, offset: CLonglong, origin: CInt): CLonglong =
-    WindowsJniBridge.libc_windows_lseek64(fd, offset, origin)
+    WindowsJniBridge.libcWindowsLseek64(fd, offset, origin)
 
-public actual fun pipe(fds: COpaquePointer?, psize: CUint, textmode: CInt): CInt =
-    WindowsJniBridge.libc_windows_pipe((fds?.value ?: 0L), psize.toInt(), textmode)
+public actual fun pipe(fds: MutPtr<CInt>, psize: CUint, textmode: CInt): CInt =
+    WindowsJniBridge.libcWindowsPipe(fds.rawAddress, psize.toInt(), textmode)
 
-public actual fun read(fd: CInt, buf: COpaquePointer?, count: CUint): CInt =
-    WindowsJniBridge.libc_windows_read(fd, (buf?.value ?: 0L), count.toInt())
+public actual fun read(fd: CInt, buf: MutPtr<CVoid>, count: CUint): CInt =
+    WindowsJniBridge.libcWindowsRead(fd, buf.rawAddress, count.toInt())
 
-public actual fun rmdir(path: String?): CInt =
-    WindowsJniBridge.libc_windows_rmdir(path)
+public actual fun rmdir(path: ConstPtr<CChar>): CInt =
+    WindowsJniBridge.libcWindowsRmdir(path.rawAddress)
 
-public actual fun unlink(c: String?): CInt =
-    WindowsJniBridge.libc_windows_unlink(c)
+public actual fun unlink(c: ConstPtr<CChar>): CInt =
+    WindowsJniBridge.libcWindowsUnlink(c.rawAddress)
 
-public actual fun write(fd: CInt, buf: COpaquePointer?, count: CUint): CInt =
-    WindowsJniBridge.libc_windows_write(fd, (buf?.value ?: 0L), count.toInt())
+public actual fun write(fd: CInt, buf: ConstPtr<CVoid>, count: CUint): CInt =
+    WindowsJniBridge.libcWindowsWrite(fd, buf.rawAddress, count.toInt())
 
 public actual fun commit(fd: CInt): CInt =
-    WindowsJniBridge.libc_windows_commit(fd)
+    WindowsJniBridge.libcWindowsCommit(fd)
 
 public actual fun getOsfhandle(fd: CInt): IntptrT =
-    WindowsJniBridge.libc_windows_getOsfhandle(fd)
+    WindowsJniBridge.libcWindowsGetOsfhandle(fd)
 
 public actual fun openOsfhandle(osfhandle: IntptrT, flags: CInt): CInt =
-    WindowsJniBridge.libc_windows_openOsfhandle(osfhandle, flags)
+    WindowsJniBridge.libcWindowsOpenOsfhandle(osfhandle, flags)
 
-public actual fun setlocale(category: CInt, locale: String?): COpaquePointer? =
-    WindowsJniBridge.libc_windows_setlocale(category, locale).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun setlocale(category: CInt, locale: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(WindowsJniBridge.libcWindowsSetlocale(category, locale.rawAddress))
 
-public actual fun wsetlocale(category: CInt, locale: COpaquePointer?): COpaquePointer? =
-    WindowsJniBridge.libc_windows_wsetlocale(category, (locale?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun wsetlocale(category: CInt, locale: ConstPtr<WcharT>): MutPtr<WcharT> =
+    MutPtr(WindowsJniBridge.libcWindowsWsetlocale(category, locale.rawAddress))
 
-public actual fun alignedMalloc(size: SizeT, alignment: SizeT): COpaquePointer? =
-    WindowsJniBridge.libc_windows_alignedMalloc(size.toLong(), alignment.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun alignedMalloc(size: SizeT, alignment: SizeT): MutPtr<CVoid> =
+    MutPtr(WindowsJniBridge.libcWindowsAlignedMalloc(size.toLong(), alignment.toLong()))
 
-public actual fun alignedFree(ptr: COpaquePointer?) {
-    WindowsJniBridge.libc_windows_alignedFree((ptr?.value ?: 0L))
+public actual fun alignedFree(ptr: MutPtr<CVoid>) {
+    WindowsJniBridge.libcWindowsAlignedFree(ptr.rawAddress)
 }
 
-public actual fun alignedRealloc(memblock: COpaquePointer?, size: SizeT, alignment: SizeT): COpaquePointer? =
-    WindowsJniBridge.libc_windows_alignedRealloc((memblock?.value ?: 0L), size.toLong(), alignment.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun alignedRealloc(memblock: MutPtr<CVoid>, size: SizeT, alignment: SizeT): MutPtr<CVoid> =
+    MutPtr(WindowsJniBridge.libcWindowsAlignedRealloc(memblock.rawAddress, size.toLong(), alignment.toLong()))
 
-public actual fun putenv(envstring: String?): CInt =
-    WindowsJniBridge.libc_windows_putenv(envstring)
+public actual fun putenv(envstring: ConstPtr<CChar>): CInt =
+    WindowsJniBridge.libcWindowsPutenv(envstring.rawAddress)
 
-public actual fun wputenv(envstring: COpaquePointer?): CInt =
-    WindowsJniBridge.libc_windows_wputenv((envstring?.value ?: 0L))
+public actual fun wputenv(envstring: ConstPtr<WcharT>): CInt =
+    WindowsJniBridge.libcWindowsWputenv(envstring.rawAddress)
 
-public actual fun putenvS(envstring: String?, valueString: String?): ErrnoT =
-    WindowsJniBridge.libc_windows_putenvS(envstring, valueString)
+public actual fun putenvS(envstring: ConstPtr<CChar>, valueString: ConstPtr<CChar>): ErrnoT =
+    WindowsJniBridge.libcWindowsPutenvS(envstring.rawAddress, valueString.rawAddress)
 
-public actual fun wputenvS(envstring: COpaquePointer?, valueString: COpaquePointer?): ErrnoT =
-    WindowsJniBridge.libc_windows_wputenvS((envstring?.value ?: 0L), (valueString?.value ?: 0L))
+public actual fun wputenvS(envstring: ConstPtr<WcharT>, valueString: ConstPtr<WcharT>): ErrnoT =
+    WindowsJniBridge.libcWindowsWputenvS(envstring.rawAddress, valueString.rawAddress)
 
 public actual fun listen(s: Socket, backlog: CInt): CInt =
-    WindowsJniBridge.libc_windows_listen(s.toLong(), backlog)
+    WindowsJniBridge.libcWindowsListen(s.toLong(), backlog)
 
-public actual fun accept(s: Socket, addr: COpaquePointer?, addrlen: COpaquePointer?): Socket =
-    WindowsJniBridge.libc_windows_accept(s.toLong(), (addr?.value ?: 0L), (addrlen?.value ?: 0L)).toULong()
+public actual fun accept(s: Socket, addr: MutPtr<Sockaddr>, addrlen: MutPtr<CInt>): Socket =
+    WindowsJniBridge.libcWindowsAccept(s.toLong(), addr.rawAddress, addrlen.rawAddress).toULong()
 
-public actual fun bind(s: Socket, name: COpaquePointer?, namelen: CInt): CInt =
-    WindowsJniBridge.libc_windows_bind(s.toLong(), (name?.value ?: 0L), namelen)
+public actual fun bind(s: Socket, name: ConstPtr<Sockaddr>, namelen: CInt): CInt =
+    WindowsJniBridge.libcWindowsBind(s.toLong(), name.rawAddress, namelen)
 
-public actual fun connect(s: Socket, name: COpaquePointer?, namelen: CInt): CInt =
-    WindowsJniBridge.libc_windows_connect(s.toLong(), (name?.value ?: 0L), namelen)
+public actual fun connect(s: Socket, name: ConstPtr<Sockaddr>, namelen: CInt): CInt =
+    WindowsJniBridge.libcWindowsConnect(s.toLong(), name.rawAddress, namelen)
 
-public actual fun getpeername(s: Socket, name: COpaquePointer?, nameln: COpaquePointer?): CInt =
-    WindowsJniBridge.libc_windows_getpeername(s.toLong(), (name?.value ?: 0L), (nameln?.value ?: 0L))
+public actual fun getpeername(s: Socket, name: MutPtr<Sockaddr>, nameln: MutPtr<CInt>): CInt =
+    WindowsJniBridge.libcWindowsGetpeername(s.toLong(), name.rawAddress, nameln.rawAddress)
 
-public actual fun getsockname(s: Socket, name: COpaquePointer?, nameln: COpaquePointer?): CInt =
-    WindowsJniBridge.libc_windows_getsockname(s.toLong(), (name?.value ?: 0L), (nameln?.value ?: 0L))
+public actual fun getsockname(s: Socket, name: MutPtr<Sockaddr>, nameln: MutPtr<CInt>): CInt =
+    WindowsJniBridge.libcWindowsGetsockname(s.toLong(), name.rawAddress, nameln.rawAddress)
 
-public actual fun getsockopt(s: Socket, level: CInt, optname: CInt, optval: COpaquePointer?, optlen: COpaquePointer?): CInt =
-    WindowsJniBridge.libc_windows_getsockopt(s.toLong(), level, optname, (optval?.value ?: 0L), (optlen?.value ?: 0L))
+public actual fun getsockopt(s: Socket, level: CInt, optname: CInt, optval: MutPtr<CChar>, optlen: MutPtr<CInt>): CInt =
+    WindowsJniBridge.libcWindowsGetsockopt(s.toLong(), level, optname, optval.rawAddress, optlen.rawAddress)
 
-public actual fun recvfrom(s: Socket, buf: COpaquePointer?, len: CInt, flags: CInt, from: COpaquePointer?, fromlen: COpaquePointer?): CInt =
-    WindowsJniBridge.libc_windows_recvfrom(s.toLong(), (buf?.value ?: 0L), len, flags, (from?.value ?: 0L), (fromlen?.value ?: 0L))
+public actual fun recvfrom(s: Socket, buf: MutPtr<CChar>, len: CInt, flags: CInt, from: MutPtr<Sockaddr>, fromlen: MutPtr<CInt>): CInt =
+    WindowsJniBridge.libcWindowsRecvfrom(s.toLong(), buf.rawAddress, len, flags, from.rawAddress, fromlen.rawAddress)
 
-public actual fun sendto(s: Socket, buf: String?, len: CInt, flags: CInt, to: COpaquePointer?, tolen: CInt): CInt =
-    WindowsJniBridge.libc_windows_sendto(s.toLong(), buf, len, flags, (to?.value ?: 0L), tolen)
+public actual fun sendto(s: Socket, buf: ConstPtr<CChar>, len: CInt, flags: CInt, to: ConstPtr<Sockaddr>, tolen: CInt): CInt =
+    WindowsJniBridge.libcWindowsSendto(s.toLong(), buf.rawAddress, len, flags, to.rawAddress, tolen)
 
-public actual fun setsockopt(s: Socket, level: CInt, optname: CInt, optval: String?, optlen: CInt): CInt =
-    WindowsJniBridge.libc_windows_setsockopt(s.toLong(), level, optname, optval, optlen)
+public actual fun setsockopt(s: Socket, level: CInt, optname: CInt, optval: ConstPtr<CChar>, optlen: CInt): CInt =
+    WindowsJniBridge.libcWindowsSetsockopt(s.toLong(), level, optname, optval.rawAddress, optlen)
 
 public actual fun socket(af: CInt, socketType: CInt, protocol: CInt): Socket =
-    WindowsJniBridge.libc_windows_socket(af, socketType, protocol).toULong()
+    WindowsJniBridge.libcWindowsSocket(af, socketType, protocol).toULong()

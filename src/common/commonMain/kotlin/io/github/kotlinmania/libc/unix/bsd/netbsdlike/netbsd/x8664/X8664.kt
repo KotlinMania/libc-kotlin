@@ -5,11 +5,16 @@ package io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.x8664
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.StackT
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.PT_FIRSTMACH
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.SigsetT
+import io.github.kotlinmania.rustlang.core.mem.ObjectSlotLayout
+import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+import io.github.kotlinmania.rustlang.core.mem.TypeLayout
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public typealias CGregT = ULong
 
@@ -38,15 +43,109 @@ public data class McontextT(
         result = 31 * result + this.fpregs.contentHashCode()
         return result
     }
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<McontextT> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<McontextT> {
+                override val sizeBytes: Long = 728L
+                override val alignBytes: Long = 8L
+                override fun readNative(addr: Long): McontextT =
+                    McontextT(
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64, (26).toInt())
+                        ).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 208L),
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8, (512).toInt())
+                        ).readNative(addr + 216L),
+                    )
+                override fun writeNative(addr: Long, value: McontextT) {
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64, (26).toInt())
+                    ).writeNative(addr, value.gregs)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 208L, value.mcTlsbase)
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8, (512).toInt())
+                    ).writeNative(addr + 216L, value.fpregs)
+                }
+            }
+    }
 }
 
-public data class UcontextT(
-    public var ucFlags: CUint = 0u,
-    public var ucLink: UcontextT? = null,
-    public var ucSigmask: SigsetT = SigsetT(),
-    public var ucStack: StackT = StackT(),
-    public var ucMcontext: McontextT = McontextT(),
-)
+public class UcontextT internal constructor(
+    public var ucFlags: CUint,
+    ucLinkCtorArg: MutPtr<UcontextT>,
+    public var ucSigmask: SigsetT,
+    public var ucStack: StackT,
+    ucMcontextCtorArg: McontextT,
+) {
+    public var ucLink: MutPtr<UcontextT> = ucLinkCtorArg
+        internal set
+
+    public var ucMcontext: McontextT = ucMcontextCtorArg
+        internal set
+
+    public constructor() : this(
+        ucFlags = 0u,
+        ucLinkCtorArg = MutPtr(0L),
+        ucSigmask = SigsetT(),
+        ucStack = StackT(),
+        ucMcontextCtorArg = McontextT(),
+    )
+
+    public operator fun component1(): CUint = this.ucFlags
+
+    public operator fun component2(): MutPtr<UcontextT> = this.ucLink
+
+    public operator fun component3(): SigsetT = this.ucSigmask
+
+    public operator fun component4(): StackT = this.ucStack
+
+    public operator fun component5(): McontextT = this.ucMcontext
+
+    public fun copy(ucFlags: CUint = this.ucFlags, ucLink: MutPtr<UcontextT> = this.ucLink, ucSigmask: SigsetT = this.ucSigmask, ucStack: StackT = this.ucStack, ucMcontext: McontextT = this.ucMcontext): UcontextT = UcontextT(ucFlags = ucFlags, ucLinkCtorArg = ucLink, ucSigmask = ucSigmask, ucStack = ucStack, ucMcontextCtorArg = ucMcontext)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is UcontextT) return false
+        if (this.ucFlags != other.ucFlags) return false
+        if (this.ucLink != other.ucLink) return false
+        if (this.ucSigmask != other.ucSigmask) return false
+        if (this.ucStack != other.ucStack) return false
+        if (this.ucMcontext != other.ucMcontext) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.ucFlags.hashCode()
+        result = 31 * result + this.ucLink.hashCode()
+        result = 31 * result + this.ucSigmask.hashCode()
+        result = 31 * result + this.ucStack.hashCode()
+        result = 31 * result + this.ucMcontext.hashCode()
+        return result
+    }
+
+    public companion object {
+        public operator fun invoke(
+            ucFlags: CUint = 0u,
+            ucLink: MutPtr<UcontextT> = MutPtr(0L),
+            ucSigmask: SigsetT = SigsetT(),
+            ucStack: StackT = StackT(),
+            ucMcontext: McontextT = McontextT(),
+        ): UcontextT =
+            UcontextT(
+                ucFlags = ucFlags,
+                ucLinkCtorArg = ucLink,
+                ucSigmask = ucSigmask,
+                ucStack = ucStack,
+                ucMcontextCtorArg = ucMcontext,
+            )
+    }
+}
 
 public val PT_STEP: CInt = PT_FIRSTMACH + 0
 
@@ -110,4 +209,4 @@ public val REG_RSP: CInt = 24
 
 public val REG_SS: CInt = 25
 
-internal val ALIGNBYTES: Int = 8 - 1
+internal val ALIGNBYTES: Int = sizeOf<CLong>(typeLayoutT = ObjectSlotLayout<CLong>()) - 1

@@ -16,59 +16,59 @@
 #endif
 #endif
 
-void* libc_new_qurt_stdio_fopen(const char* filename, const char* mode) {
+void* libcNewQurtStdioFopen(const char* filename, const char* mode) {
     return (void*)fopen(filename, mode);
 }
 
-void* libc_new_qurt_stdio_freopen(const char* filename, const char* mode, void* stream) {
+void* libcNewQurtStdioFreopen(const char* filename, const char* mode, void* stream) {
     return (void*)freopen(filename, mode, (FILE*)stream);
 }
 
-int32_t libc_new_qurt_stdio_fclose(void* stream) {
+int32_t libcNewQurtStdioFclose(void* stream) {
     return (int32_t)fclose((FILE*)stream);
 }
 
-int32_t libc_new_qurt_stdio_fflush(void* stream) {
+int32_t libcNewQurtStdioFflush(void* stream) {
     return (int32_t)fflush((FILE*)stream);
 }
 
-uint64_t libc_new_qurt_stdio_fread(void* ptr, uint64_t size, uint64_t nmemb, void* stream) {
+uint64_t libcNewQurtStdioFread(void* ptr, uint64_t size, uint64_t nmemb, void* stream) {
     return (uint64_t)fread(ptr, size, nmemb, (FILE*)stream);
 }
 
-uint64_t libc_new_qurt_stdio_fwrite(void* ptr, uint64_t size, uint64_t nmemb, void* stream) {
+uint64_t libcNewQurtStdioFwrite(void* ptr, uint64_t size, uint64_t nmemb, void* stream) {
     return (uint64_t)fwrite(ptr, size, nmemb, (FILE*)stream);
 }
 
-int32_t libc_new_qurt_stdio_fgetc(void* stream) {
+int32_t libcNewQurtStdioFgetc(void* stream) {
     return (int32_t)fgetc((FILE*)stream);
 }
 
-int32_t libc_new_qurt_stdio_fputc(int32_t c, void* stream) {
+int32_t libcNewQurtStdioFputc(int32_t c, void* stream) {
     return (int32_t)fputc(c, (FILE*)stream);
 }
 
-int32_t libc_new_qurt_stdio_getchar(void) {
+int32_t libcNewQurtStdioGetchar(void) {
     return (int32_t)getchar();
 }
 
-int32_t libc_new_qurt_stdio_putchar(int32_t c) {
+int32_t libcNewQurtStdioPutchar(int32_t c) {
     return (int32_t)putchar(c);
 }
 
-int32_t libc_new_qurt_stdio_ungetc(int32_t c, void* stream) {
+int32_t libcNewQurtStdioUngetc(int32_t c, void* stream) {
     return (int32_t)ungetc(c, (FILE*)stream);
 }
 
-char* libc_new_qurt_stdio_fgets(char* s, int32_t size, void* stream) {
+char* libcNewQurtStdioFgets(char* s, int32_t size, void* stream) {
     return (char*)fgets(s, size, (FILE*)stream);
 }
 
-int32_t libc_new_qurt_stdio_fputs(const char* s, void* stream) {
+int32_t libcNewQurtStdioFputs(const char* s, void* stream) {
     return (int32_t)fputs(s, (FILE*)stream);
 }
 
-char* libc_new_qurt_stdio_gets(char* s) {
+char* libcNewQurtStdioGets(char* s) {
     typedef char* (*km_fn_t)(char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -96,11 +96,11 @@ char* libc_new_qurt_stdio_gets(char* s) {
     return NULL;
 }
 
-int32_t libc_new_qurt_stdio_puts(const char* s) {
+int32_t libcNewQurtStdioPuts(const char* s) {
     return (int32_t)puts(s);
 }
 
-int32_t libc_new_qurt_stdio_printf(const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcNewQurtStdioPrintf(const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -134,7 +134,7 @@ int32_t libc_new_qurt_stdio_printf(const char* format, int32_t km_vac, int64_t k
     return -1;
 }
 
-int32_t libc_new_qurt_stdio_fprintf(void* stream, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcNewQurtStdioFprintf(void* stream, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(void*, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -168,7 +168,7 @@ int32_t libc_new_qurt_stdio_fprintf(void* stream, const char* format, int32_t km
     return -1;
 }
 
-int32_t libc_new_qurt_stdio_sprintf(char* s, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcNewQurtStdioSprintf(char* s, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(char*, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -202,7 +202,7 @@ int32_t libc_new_qurt_stdio_sprintf(char* s, const char* format, int32_t km_vac,
     return -1;
 }
 
-int32_t libc_new_qurt_stdio_snprintf(char* s, uint64_t n, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcNewQurtStdioSnprintf(char* s, uint64_t n, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(char*, uint64_t, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -236,7 +236,7 @@ int32_t libc_new_qurt_stdio_snprintf(char* s, uint64_t n, const char* format, in
     return -1;
 }
 
-int32_t libc_new_qurt_stdio_vprintf(const char* format, char* ap) {
+int32_t libcNewQurtStdioVprintf(const char* format, char* ap) {
     typedef int32_t (*km_fn_t)(const char*, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -264,7 +264,7 @@ int32_t libc_new_qurt_stdio_vprintf(const char* format, char* ap) {
     return -1;
 }
 
-int32_t libc_new_qurt_stdio_vfprintf(void* stream, const char* format, char* ap) {
+int32_t libcNewQurtStdioVfprintf(void* stream, const char* format, char* ap) {
     typedef int32_t (*km_fn_t)(void*, const char*, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -292,7 +292,7 @@ int32_t libc_new_qurt_stdio_vfprintf(void* stream, const char* format, char* ap)
     return -1;
 }
 
-int32_t libc_new_qurt_stdio_vsprintf(char* s, const char* format, char* ap) {
+int32_t libcNewQurtStdioVsprintf(char* s, const char* format, char* ap) {
     typedef int32_t (*km_fn_t)(char*, const char*, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -320,7 +320,7 @@ int32_t libc_new_qurt_stdio_vsprintf(char* s, const char* format, char* ap) {
     return -1;
 }
 
-int32_t libc_new_qurt_stdio_vsnprintf(char* s, uint64_t n, const char* format, char* ap) {
+int32_t libcNewQurtStdioVsnprintf(char* s, uint64_t n, const char* format, char* ap) {
     typedef int32_t (*km_fn_t)(char*, uint64_t, const char*, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -348,7 +348,7 @@ int32_t libc_new_qurt_stdio_vsnprintf(char* s, uint64_t n, const char* format, c
     return -1;
 }
 
-int32_t libc_new_qurt_stdio_scanf(const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcNewQurtStdioScanf(const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -382,7 +382,7 @@ int32_t libc_new_qurt_stdio_scanf(const char* format, int32_t km_vac, int64_t km
     return -1;
 }
 
-int32_t libc_new_qurt_stdio_fscanf(void* stream, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcNewQurtStdioFscanf(void* stream, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(void*, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -416,7 +416,7 @@ int32_t libc_new_qurt_stdio_fscanf(void* stream, const char* format, int32_t km_
     return -1;
 }
 
-int32_t libc_new_qurt_stdio_sscanf(const char* s, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcNewQurtStdioSscanf(const char* s, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(const char*, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -450,19 +450,19 @@ int32_t libc_new_qurt_stdio_sscanf(const char* s, const char* format, int32_t km
     return -1;
 }
 
-int32_t libc_new_qurt_stdio_fseek(void* stream, int64_t offset, int32_t whence) {
+int32_t libcNewQurtStdioFseek(void* stream, int64_t offset, int32_t whence) {
     return (int32_t)fseek((FILE*)stream, offset, whence);
 }
 
-int64_t libc_new_qurt_stdio_ftell(void* stream) {
+int64_t libcNewQurtStdioFtell(void* stream) {
     return (int64_t)ftell((FILE*)stream);
 }
 
-void libc_new_qurt_stdio_rewind(void* stream) {
+void libcNewQurtStdioRewind(void* stream) {
     rewind((FILE*)stream);
 }
 
-int32_t libc_new_qurt_stdio_fgetpos(void* stream, void* pos) {
+int32_t libcNewQurtStdioFgetpos(void* stream, void* pos) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -490,7 +490,7 @@ int32_t libc_new_qurt_stdio_fgetpos(void* stream, void* pos) {
     return -1;
 }
 
-int32_t libc_new_qurt_stdio_fsetpos(void* stream, void* pos) {
+int32_t libcNewQurtStdioFsetpos(void* stream, void* pos) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -518,35 +518,35 @@ int32_t libc_new_qurt_stdio_fsetpos(void* stream, void* pos) {
     return -1;
 }
 
-void libc_new_qurt_stdio_clearerr(void* stream) {
+void libcNewQurtStdioClearerr(void* stream) {
     clearerr((FILE*)stream);
 }
 
-int32_t libc_new_qurt_stdio_feof(void* stream) {
+int32_t libcNewQurtStdioFeof(void* stream) {
     return (int32_t)feof((FILE*)stream);
 }
 
-int32_t libc_new_qurt_stdio_ferror(void* stream) {
+int32_t libcNewQurtStdioFerror(void* stream) {
     return (int32_t)ferror((FILE*)stream);
 }
 
-void libc_new_qurt_stdio_perror(const char* s) {
+void libcNewQurtStdioPerror(const char* s) {
     perror(s);
 }
 
-int32_t libc_new_qurt_stdio_remove(const char* filename) {
+int32_t libcNewQurtStdioRemove(const char* filename) {
     return (int32_t)remove(filename);
 }
 
-int32_t libc_new_qurt_stdio_rename(const char* old, const char* arg_1_new) {
-    return (int32_t)rename(old, arg_1_new);
+int32_t libcNewQurtStdioRename(const char* old, const char* arg1New) {
+    return (int32_t)rename(old, arg1New);
 }
 
-void* libc_new_qurt_stdio_tmpfile(void) {
+void* libcNewQurtStdioTmpfile(void) {
     return (void*)tmpfile();
 }
 
-char* libc_new_qurt_stdio_tmpnam(char* s) {
+char* libcNewQurtStdioTmpnam(char* s) {
     typedef char* (*km_fn_t)(char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -574,11 +574,11 @@ char* libc_new_qurt_stdio_tmpnam(char* s) {
     return NULL;
 }
 
-int32_t libc_new_qurt_stdio_setvbuf(void* stream, char* buffer, int32_t mode, uint64_t size) {
+int32_t libcNewQurtStdioSetvbuf(void* stream, char* buffer, int32_t mode, uint64_t size) {
     return (int32_t)setvbuf((FILE*)stream, buffer, mode, size);
 }
 
-void libc_new_qurt_stdio_setbuf(void* stream, char* buffer) {
+void libcNewQurtStdioSetbuf(void* stream, char* buffer) {
     setbuf((FILE*)stream, buffer);
 }
 

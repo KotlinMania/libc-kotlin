@@ -3,103 +3,157 @@
 package io.github.kotlinmania.libc.trusty
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUlong
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 private object TrustyJniBridge {
     init {
+        loadNativeLibrary()
+    }
+
+    private fun loadNativeLibrary() {
+        val osRaw = System.getProperty("os.name", "").lowercase()
+        val archRaw = System.getProperty("os.arch", "").lowercase()
+        val hostPlatform =
+            when {
+                osRaw.contains("win") -> "windows"
+                osRaw.contains("mac") || osRaw.contains("darwin") -> "macos"
+                else -> "linux"
+            }
+        val hostArch =
+            when {
+                archRaw == "aarch64" || archRaw == "arm64" -> "aarch64"
+                archRaw == "amd64" || archRaw == "x86_64" -> "x86_64"
+                else -> archRaw
+            }
+        val libFileName =
+            when (hostPlatform) {
+                "windows" -> "libc_jni.dll"
+                "macos" -> "liblibc_jni.dylib"
+                else -> "liblibc_jni.so"
+            }
+        val pathSep = System.getProperty("path.separator", ":")
+        val libPathProp = System.getProperty("java.library.path", "")
+        for (dirEntry in libPathProp.split(pathSep)) {
+            if (dirEntry.isEmpty()) continue
+            val candidate = java.io.File(dirEntry, libFileName)
+            if (candidate.isFile) {
+                System.load(candidate.absolutePath)
+                return
+            }
+        }
+        val resourcePath = "io/github/kotlinmania/libc/native/$hostPlatform-$hostArch/$libFileName"
+        val stream = TrustyJniBridge::class.java.classLoader?.getResourceAsStream(resourcePath)
+        if (stream != null) {
+            val suffix = "." + libFileName.substringAfterLast('.')
+            val extracted =
+                java.nio.file.Files
+                    .createTempFile("libc_jni-", suffix)
+                    .toFile()
+            extracted.deleteOnExit()
+            stream.use { input ->
+                extracted.outputStream().use { output ->
+                    input.copyTo(output)
+                }
+            }
+            System.load(extracted.absolutePath)
+            return
+        }
         System.loadLibrary("libc_jni")
     }
 
     @JvmStatic
-    external fun libc_trusty_calloc(nobj: Long, size: Long): Long
+    external fun libcTrustyCalloc(nobj: Long, size: Long): Long
 
     @JvmStatic
-    external fun libc_trusty_malloc(size: Long): Long
+    external fun libcTrustyMalloc(size: Long): Long
 
     @JvmStatic
-    external fun libc_trusty_realloc(p: Long, size: Long): Long
+    external fun libcTrustyRealloc(p: Long, size: Long): Long
 
     @JvmStatic
-    external fun libc_trusty_free(p: Long)
+    external fun libcTrustyFree(p: Long)
 
     @JvmStatic
-    external fun libc_trusty_memalign(align: Long, size: Long): Long
+    external fun libcTrustyMemalign(align: Long, size: Long): Long
 
     @JvmStatic
-    external fun libc_trusty_posixMemalign(memptr: Long, align: Long, size: Long): Int
+    external fun libcTrustyPosixMemalign(memptr: Long, align: Long, size: Long): Int
 
     @JvmStatic
-    external fun libc_trusty_write(fd: Int, buf: Long, count: Long): Long
+    external fun libcTrustyWrite(fd: Int, buf: Long, count: Long): Long
 
     @JvmStatic
-    external fun libc_trusty_writev(fd: Int, iov: Long, iovcnt: Int): Long
+    external fun libcTrustyWritev(fd: Int, iov: Long, iovcnt: Int): Long
 
     @JvmStatic
-    external fun libc_trusty_close(fd: Int): Int
+    external fun libcTrustyClose(fd: Int): Int
 
     @JvmStatic
-    external fun libc_trusty_strlen(cs: String?): Long
+    external fun libcTrustyStrlen(cs: Long): Long
 
     @JvmStatic
-    external fun libc_trusty_getauxval(type: Long): Long
+    external fun libcTrustyGetauxval(type: Long): Long
 
     @JvmStatic
-    external fun libc_trusty_mmap(addr: Long, len: Long, prot: Int, flags: Int, fd: Int, offset: Long): Long
+    external fun libcTrustyMmap(addr: Long, len: Long, prot: Int, flags: Int, fd: Int, offset: Long): Long
 
     @JvmStatic
-    external fun libc_trusty_munmap(addr: Long, len: Long): Int
+    external fun libcTrustyMunmap(addr: Long, len: Long): Int
 
     @JvmStatic
-    external fun libc_trusty_clockGettime(clkId: Int, tp: Long): Int
+    external fun libcTrustyClockGettime(clkId: Int, tp: Long): Int
 
     @JvmStatic
-    external fun libc_trusty_nanosleep(rqtp: Long, rmtp: Long): Int
+    external fun libcTrustyNanosleep(rqtp: Long, rmtp: Long): Int
 }
 
-public actual fun calloc(nobj: SizeT, size: SizeT): COpaquePointer? =
-    TrustyJniBridge.libc_trusty_calloc(nobj.toLong(), size.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun calloc(nobj: SizeT, size: SizeT): MutPtr<CVoid> =
+    MutPtr(TrustyJniBridge.libcTrustyCalloc(nobj.toLong(), size.toLong()))
 
-public actual fun malloc(size: SizeT): COpaquePointer? =
-    TrustyJniBridge.libc_trusty_malloc(size.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun malloc(size: SizeT): MutPtr<CVoid> =
+    MutPtr(TrustyJniBridge.libcTrustyMalloc(size.toLong()))
 
-public actual fun realloc(p: COpaquePointer?, size: SizeT): COpaquePointer? =
-    TrustyJniBridge.libc_trusty_realloc((p?.value ?: 0L), size.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun realloc(p: MutPtr<CVoid>, size: SizeT): MutPtr<CVoid> =
+    MutPtr(TrustyJniBridge.libcTrustyRealloc(p.rawAddress, size.toLong()))
 
-public actual fun free(p: COpaquePointer?) {
-    TrustyJniBridge.libc_trusty_free((p?.value ?: 0L))
+public actual fun free(p: MutPtr<CVoid>) {
+    TrustyJniBridge.libcTrustyFree(p.rawAddress)
 }
 
-public actual fun memalign(align: SizeT, size: SizeT): COpaquePointer? =
-    TrustyJniBridge.libc_trusty_memalign(align.toLong(), size.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun memalign(align: SizeT, size: SizeT): MutPtr<CVoid> =
+    MutPtr(TrustyJniBridge.libcTrustyMemalign(align.toLong(), size.toLong()))
 
-public actual fun posixMemalign(memptr: COpaquePointer?, align: SizeT, size: SizeT): CInt =
-    TrustyJniBridge.libc_trusty_posixMemalign((memptr?.value ?: 0L), align.toLong(), size.toLong())
+public actual fun posixMemalign(memptr: MutPtr<MutPtr<CVoid>>, align: SizeT, size: SizeT): CInt =
+    TrustyJniBridge.libcTrustyPosixMemalign(memptr.rawAddress, align.toLong(), size.toLong())
 
-public actual fun write(fd: CInt, buf: COpaquePointer?, count: SizeT): SsizeT =
-    TrustyJniBridge.libc_trusty_write(fd, (buf?.value ?: 0L), count.toLong())
+public actual fun write(fd: CInt, buf: ConstPtr<CVoid>, count: SizeT): SsizeT =
+    TrustyJniBridge.libcTrustyWrite(fd, buf.rawAddress, count.toLong())
 
-public actual fun writev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT =
-    TrustyJniBridge.libc_trusty_writev(fd, (iov?.value ?: 0L), iovcnt)
+public actual fun writev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+    TrustyJniBridge.libcTrustyWritev(fd, iov.rawAddress, iovcnt)
 
 public actual fun close(fd: CInt): CInt =
-    TrustyJniBridge.libc_trusty_close(fd)
+    TrustyJniBridge.libcTrustyClose(fd)
 
-public actual fun strlen(cs: String?): SizeT =
-    TrustyJniBridge.libc_trusty_strlen(cs).toULong()
+public actual fun strlen(cs: ConstPtr<CChar>): SizeT =
+    TrustyJniBridge.libcTrustyStrlen(cs.rawAddress).toULong()
 
 public actual fun getauxval(type: CUlong): CUlong =
-    TrustyJniBridge.libc_trusty_getauxval(type.toLong()).toULong()
+    TrustyJniBridge.libcTrustyGetauxval(type.toLong()).toULong()
 
-public actual fun mmap(addr: COpaquePointer?, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: OffT): COpaquePointer? =
-    TrustyJniBridge.libc_trusty_mmap((addr?.value ?: 0L), len.toLong(), prot, flags, fd, offset).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun mmap(addr: MutPtr<CVoid>, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: OffT): MutPtr<CVoid> =
+    MutPtr(TrustyJniBridge.libcTrustyMmap(addr.rawAddress, len.toLong(), prot, flags, fd, offset))
 
-public actual fun munmap(addr: COpaquePointer?, len: SizeT): CInt =
-    TrustyJniBridge.libc_trusty_munmap((addr?.value ?: 0L), len.toLong())
+public actual fun munmap(addr: MutPtr<CVoid>, len: SizeT): CInt =
+    TrustyJniBridge.libcTrustyMunmap(addr.rawAddress, len.toLong())
 
-public actual fun clockGettime(clkId: ClockidT, tp: COpaquePointer?): CInt =
-    TrustyJniBridge.libc_trusty_clockGettime(clkId, (tp?.value ?: 0L))
+public actual fun clockGettime(clkId: ClockidT, tp: MutPtr<Timespec>): CInt =
+    TrustyJniBridge.libcTrustyClockGettime(clkId, tp.rawAddress)
 
-public actual fun nanosleep(rqtp: COpaquePointer?, rmtp: COpaquePointer?): CInt =
-    TrustyJniBridge.libc_trusty_nanosleep((rqtp?.value ?: 0L), (rmtp?.value ?: 0L))
+public actual fun nanosleep(rqtp: ConstPtr<Timespec>, rmtp: MutPtr<Timespec>): CInt =
+    TrustyJniBridge.libcTrustyNanosleep(rqtp.rawAddress, rmtp.rawAddress)

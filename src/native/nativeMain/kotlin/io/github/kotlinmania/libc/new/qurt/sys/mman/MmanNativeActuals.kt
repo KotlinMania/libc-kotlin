@@ -3,41 +3,43 @@
 package io.github.kotlinmania.libc.new.qurt.sys.mman
 
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.new.qurt.OffT
 import io.github.kotlinmania.libc.new.qurt.SizeT
-import io.github.kotlinmania.libc.new.qurt.sys.mman.cinterop.libc_new_qurt_sys_mman_mlock
-import io.github.kotlinmania.libc.new.qurt.sys.mman.cinterop.libc_new_qurt_sys_mman_mlockall
-import io.github.kotlinmania.libc.new.qurt.sys.mman.cinterop.libc_new_qurt_sys_mman_mmap
-import io.github.kotlinmania.libc.new.qurt.sys.mman.cinterop.libc_new_qurt_sys_mman_mprotect
-import io.github.kotlinmania.libc.new.qurt.sys.mman.cinterop.libc_new_qurt_sys_mman_msync
-import io.github.kotlinmania.libc.new.qurt.sys.mman.cinterop.libc_new_qurt_sys_mman_munlock
-import io.github.kotlinmania.libc.new.qurt.sys.mman.cinterop.libc_new_qurt_sys_mman_munlockall
-import io.github.kotlinmania.libc.new.qurt.sys.mman.cinterop.libc_new_qurt_sys_mman_munmap
+import io.github.kotlinmania.libc.new.qurt.sys.mman.cinterop.libcNewQurtSysMmanMlock
+import io.github.kotlinmania.libc.new.qurt.sys.mman.cinterop.libcNewQurtSysMmanMlockall
+import io.github.kotlinmania.libc.new.qurt.sys.mman.cinterop.libcNewQurtSysMmanMmap
+import io.github.kotlinmania.libc.new.qurt.sys.mman.cinterop.libcNewQurtSysMmanMprotect
+import io.github.kotlinmania.libc.new.qurt.sys.mman.cinterop.libcNewQurtSysMmanMsync
+import io.github.kotlinmania.libc.new.qurt.sys.mman.cinterop.libcNewQurtSysMmanMunlock
+import io.github.kotlinmania.libc.new.qurt.sys.mman.cinterop.libcNewQurtSysMmanMunlockall
+import io.github.kotlinmania.libc.new.qurt.sys.mman.cinterop.libcNewQurtSysMmanMunmap
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
 
-public actual fun mmap(addr: COpaquePointer?, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: OffT): COpaquePointer? =
-    libc_new_qurt_sys_mman_mmap(addr?.value?.toCPointer<ByteVar>(), len, prot, flags, fd, offset)?.let { COpaquePointer(it.toLong()) }
+public actual fun mmap(addr: MutPtr<CVoid>, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: OffT): MutPtr<CVoid> =
+    MutPtr(libcNewQurtSysMmanMmap(addr.rawAddress.toCPointer<ByteVar>(), len, prot, flags, fd, offset)?.toLong() ?: 0L)
 
-public actual fun munmap(addr: COpaquePointer?, len: SizeT): CInt =
-    libc_new_qurt_sys_mman_munmap(addr?.value?.toCPointer<ByteVar>(), len)
+public actual fun munmap(addr: MutPtr<CVoid>, len: SizeT): CInt =
+    libcNewQurtSysMmanMunmap(addr.rawAddress.toCPointer<ByteVar>(), len)
 
-public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt =
-    libc_new_qurt_sys_mman_mprotect(addr?.value?.toCPointer<ByteVar>(), len, prot)
+public actual fun mprotect(addr: MutPtr<CVoid>, len: SizeT, prot: CInt): CInt =
+    libcNewQurtSysMmanMprotect(addr.rawAddress.toCPointer<ByteVar>(), len, prot)
 
-public actual fun mlock(addr: COpaquePointer?, len: SizeT): CInt =
-    libc_new_qurt_sys_mman_mlock(addr?.value?.toCPointer<ByteVar>(), len)
+public actual fun mlock(addr: ConstPtr<CVoid>, len: SizeT): CInt =
+    libcNewQurtSysMmanMlock(addr.rawAddress.toCPointer<ByteVar>(), len)
 
-public actual fun munlock(addr: COpaquePointer?, len: SizeT): CInt =
-    libc_new_qurt_sys_mman_munlock(addr?.value?.toCPointer<ByteVar>(), len)
+public actual fun munlock(addr: ConstPtr<CVoid>, len: SizeT): CInt =
+    libcNewQurtSysMmanMunlock(addr.rawAddress.toCPointer<ByteVar>(), len)
 
 public actual fun mlockall(flags: CInt): CInt =
-    libc_new_qurt_sys_mman_mlockall(flags)
+    libcNewQurtSysMmanMlockall(flags)
 
 public actual fun munlockall(): CInt =
-    libc_new_qurt_sys_mman_munlockall()
+    libcNewQurtSysMmanMunlockall()
 
-public actual fun msync(addr: COpaquePointer?, len: SizeT, flags: CInt): CInt =
-    libc_new_qurt_sys_mman_msync(addr?.value?.toCPointer<ByteVar>(), len, flags)
+public actual fun msync(addr: MutPtr<CVoid>, len: SizeT, flags: CInt): CInt =
+    libcNewQurtSysMmanMsync(addr.rawAddress.toCPointer<ByteVar>(), len, flags)

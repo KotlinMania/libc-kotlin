@@ -9,10 +9,10 @@
 extern "C" {
 #endif
 
-void* libc_new_qurt_dlfcn_dlopen(const char* filename, int32_t flag);
-int32_t libc_new_qurt_dlfcn_dlclose(void* handle);
-void* libc_new_qurt_dlfcn_dlsym(void* handle, const char* symbol);
-char* libc_new_qurt_dlfcn_dlerror(void);
+void* libcNewQurtDlfcnDlopen(const char* filename, int32_t flag);
+int32_t libcNewQurtDlfcnDlclose(void* handle);
+void* libcNewQurtDlfcnDlsym(void* handle, const char* symbol);
+char* libcNewQurtDlfcnDlerror(void);
 
 #ifdef __cplusplus
 }

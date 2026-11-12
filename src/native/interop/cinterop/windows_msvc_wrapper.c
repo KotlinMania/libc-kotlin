@@ -15,7 +15,7 @@
 #endif
 #endif
 
-int32_t libc_windows_msvc_stricmp(const char* s1, const char* s2) {
+int32_t libcWindowsMsvcStricmp(const char* s1, const char* s2) {
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -41,7 +41,7 @@ int32_t libc_windows_msvc_stricmp(const char* s1, const char* s2) {
     return -1;
 }
 
-int32_t libc_windows_msvc_strnicmp(const char* s1, const char* s2, uint64_t n) {
+int32_t libcWindowsMsvcStrnicmp(const char* s1, const char* s2, uint64_t n) {
     typedef int32_t (*km_fn_t)(const char*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -67,7 +67,7 @@ int32_t libc_windows_msvc_strnicmp(const char* s1, const char* s2, uint64_t n) {
     return -1;
 }
 
-void* libc_windows_msvc_memccpy(void* dest, void* src, int32_t c, uint64_t count) {
+void* libcWindowsMsvcMemccpy(void* dest, void* src, int32_t c, uint64_t count) {
     typedef void* (*km_fn_t)(void*, void*, int32_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

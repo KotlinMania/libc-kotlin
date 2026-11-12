@@ -4,13 +4,14 @@ package io.github.kotlinmania.libc.unix.newlib.espidf
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.unix.In6Addr
 import io.github.kotlinmania.libc.unix.InPortT
 import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.newlib.InAddr
 import io.github.kotlinmania.libc.unix.newlib.SaFamilyT
 import io.github.kotlinmania.libc.unix.newlib.SocklenT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public data class Cmsghdr(
     public var cmsgLen: SocklenT = 0u,
@@ -18,15 +19,95 @@ public data class Cmsghdr(
     public var cmsgType: CInt = 0,
 )
 
-public data class Msghdr(
-    public var msgName: COpaquePointer? = null,
-    public var msgNamelen: SocklenT = 0u,
-    public var msgIov: Iovec? = null,
-    public var msgIovlen: CInt = 0,
-    public var msgControl: COpaquePointer? = null,
-    public var msgControllen: SocklenT = 0u,
-    public var msgFlags: CInt = 0,
-)
+public class Msghdr internal constructor(
+    msgNameCtorArg: MutPtr<CVoid>,
+    public var msgNamelen: SocklenT,
+    msgIovCtorArg: MutPtr<Iovec>,
+    public var msgIovlen: CInt,
+    msgControlCtorArg: MutPtr<CVoid>,
+    public var msgControllen: SocklenT,
+    public var msgFlags: CInt,
+) {
+    public var msgName: MutPtr<CVoid> = msgNameCtorArg
+        internal set
+
+    public var msgIov: MutPtr<Iovec> = msgIovCtorArg
+        internal set
+
+    public var msgControl: MutPtr<CVoid> = msgControlCtorArg
+        internal set
+
+    public constructor() : this(
+        msgNameCtorArg = MutPtr(0L),
+        msgNamelen = 0u,
+        msgIovCtorArg = MutPtr(0L),
+        msgIovlen = 0,
+        msgControlCtorArg = MutPtr(0L),
+        msgControllen = 0u,
+        msgFlags = 0,
+    )
+
+    public operator fun component1(): MutPtr<CVoid> = this.msgName
+
+    public operator fun component2(): SocklenT = this.msgNamelen
+
+    public operator fun component3(): MutPtr<Iovec> = this.msgIov
+
+    public operator fun component4(): CInt = this.msgIovlen
+
+    public operator fun component5(): MutPtr<CVoid> = this.msgControl
+
+    public operator fun component6(): SocklenT = this.msgControllen
+
+    public operator fun component7(): CInt = this.msgFlags
+
+    public fun copy(msgName: MutPtr<CVoid> = this.msgName, msgNamelen: SocklenT = this.msgNamelen, msgIov: MutPtr<Iovec> = this.msgIov, msgIovlen: CInt = this.msgIovlen, msgControl: MutPtr<CVoid> = this.msgControl, msgControllen: SocklenT = this.msgControllen, msgFlags: CInt = this.msgFlags): Msghdr = Msghdr(msgNameCtorArg = msgName, msgNamelen = msgNamelen, msgIovCtorArg = msgIov, msgIovlen = msgIovlen, msgControlCtorArg = msgControl, msgControllen = msgControllen, msgFlags = msgFlags)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Msghdr) return false
+        if (this.msgName != other.msgName) return false
+        if (this.msgNamelen != other.msgNamelen) return false
+        if (this.msgIov != other.msgIov) return false
+        if (this.msgIovlen != other.msgIovlen) return false
+        if (this.msgControl != other.msgControl) return false
+        if (this.msgControllen != other.msgControllen) return false
+        if (this.msgFlags != other.msgFlags) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.msgName.hashCode()
+        result = 31 * result + this.msgNamelen.hashCode()
+        result = 31 * result + this.msgIov.hashCode()
+        result = 31 * result + this.msgIovlen.hashCode()
+        result = 31 * result + this.msgControl.hashCode()
+        result = 31 * result + this.msgControllen.hashCode()
+        result = 31 * result + this.msgFlags.hashCode()
+        return result
+    }
+
+    public companion object {
+        public operator fun invoke(
+            msgName: MutPtr<CVoid> = MutPtr(0L),
+            msgNamelen: SocklenT = 0u,
+            msgIov: MutPtr<Iovec> = MutPtr(0L),
+            msgIovlen: CInt = 0,
+            msgControl: MutPtr<CVoid> = MutPtr(0L),
+            msgControllen: SocklenT = 0u,
+            msgFlags: CInt = 0,
+        ): Msghdr =
+            Msghdr(
+                msgNameCtorArg = msgName,
+                msgNamelen = msgNamelen,
+                msgIovCtorArg = msgIov,
+                msgIovlen = msgIovlen,
+                msgControlCtorArg = msgControl,
+                msgControllen = msgControllen,
+                msgFlags = msgFlags,
+            )
+    }
+}
 
 public data class SockaddrUn(
     public var sunFamily: SaFamilyT = 0u,

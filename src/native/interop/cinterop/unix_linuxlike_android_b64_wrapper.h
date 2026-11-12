@@ -9,7 +9,7 @@
 extern "C" {
 #endif
 
-bool libc_unix_linuxlike_android_b64_systemPropertyWait(void* pi, uint32_t arg_1_old_serial, void* arg_2_new_serial_ptr, void* arg_3_relative_timeout);
+bool libcUnixLinuxlikeAndroidB64SystemPropertyWait(void* pi, uint32_t oldSerial, void* newSerialPtr, void* relativeTimeout);
 
 #ifdef __cplusplus
 }

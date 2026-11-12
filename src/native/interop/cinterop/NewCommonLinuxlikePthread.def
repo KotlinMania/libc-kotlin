@@ -3,3 +3,4 @@ headers = new_common_linuxlike_pthread_wrapper.h
 headerFilter = new_common_linuxlike_pthread_wrapper.h
 compilerOpts = -Isrc/native/interop/cinterop
 staticLibraries = new_common_linuxlike_pthread_wrapper.a
+noStringConversion = libcNewCommonLinuxlikePthreadPthreadSetnameNp

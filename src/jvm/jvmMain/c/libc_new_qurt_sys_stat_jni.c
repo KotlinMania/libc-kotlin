@@ -19,10 +19,9 @@
 #endif
 #endif
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_sys_stat_NewQurtSysStatJniBridge_libc_1new_1qurt_1sys_1stat_1stat(JNIEnv* km_env, jclass km_clazz, jstring pathname, jlong statbuf) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_sys_stat_NewQurtSysStatJniBridge_libcNewQurtSysStatStat(JNIEnv* km_env, jclass km_clazz, jlong pathname, jlong statbuf) {
     (void)km_env;
     (void)km_clazz;
-    const char* pathname_utf = (pathname != NULL) ? (*km_env)->GetStringUTFChars(km_env, pathname, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -45,16 +44,15 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_sys_stat_NewQurt
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(pathname_utf, (void*)(uintptr_t)statbuf);
+        km_res = km_fn_ptr((const char*)(uintptr_t)pathname, (void*)(uintptr_t)statbuf);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (pathname != NULL && pathname_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, pathname, pathname_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_sys_stat_NewQurtSysStatJniBridge_libc_1new_1qurt_1sys_1stat_1fstat(JNIEnv* km_env, jclass km_clazz, jint fd, jlong statbuf) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_sys_stat_NewQurtSysStatJniBridge_libcNewQurtSysStatFstat(JNIEnv* km_env, jclass km_clazz, jint fd, jlong statbuf) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);

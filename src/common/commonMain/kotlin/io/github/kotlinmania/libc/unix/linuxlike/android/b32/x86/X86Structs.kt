@@ -7,6 +7,9 @@ import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.unix.linuxlike.android.StackT
 import io.github.kotlinmania.libc.unix.linuxlike.android.b32.Sigset64T
 import io.github.kotlinmania.libc.unix.linuxlike.android.b32.SigsetT
+import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+import io.github.kotlinmania.rustlang.core.mem.TypeLayout
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public class DebugStruct(
     private val out: StringBuilder,
@@ -50,6 +53,29 @@ public data class LibcFpreg(
         result = 31 * result + this.exponent.hashCode()
         return result
     }
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<LibcFpreg> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<LibcFpreg> {
+                override val sizeBytes: Long = 10L
+                override val alignBytes: Long = 2L
+                override fun readNative(addr: Long): LibcFpreg =
+                    LibcFpreg(
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16, (4).toInt())
+                        ).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr + 8L),
+                    )
+                override fun writeNative(addr: Long, value: LibcFpreg) {
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16, (4).toInt())
+                    ).writeNative(addr, value.significand)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr + 8L, value.exponent)
+                }
+            }
+    }
 }
 
 public data class LibcFpstate(
@@ -64,12 +90,32 @@ public data class LibcFpstate(
     public var status: CUlong = 0uL,
 )
 
-public data class McontextT(
-    public var gregs: IntArray = IntArray(19),
-    public var fpregs: LibcFpstate? = null,
-    public var oldmask: CUlong = 0uL,
-    public var cr2: CUlong = 0uL,
+public class McontextT internal constructor(
+    public var gregs: IntArray,
+    fpregsCtorArg: MutPtr<LibcFpstate>,
+    public var oldmask: CUlong,
+    public var cr2: CUlong,
 ) {
+    public var fpregs: MutPtr<LibcFpstate> = fpregsCtorArg
+        internal set
+
+    public constructor() : this(
+        gregs = IntArray(19),
+        fpregsCtorArg = MutPtr(0L),
+        oldmask = 0uL,
+        cr2 = 0uL,
+    )
+
+    public operator fun component1(): IntArray = this.gregs
+
+    public operator fun component2(): MutPtr<LibcFpstate> = this.fpregs
+
+    public operator fun component3(): CUlong = this.oldmask
+
+    public operator fun component4(): CUlong = this.cr2
+
+    public fun copy(gregs: IntArray = this.gregs, fpregs: MutPtr<LibcFpstate> = this.fpregs, oldmask: CUlong = this.oldmask, cr2: CUlong = this.cr2): McontextT = McontextT(gregs = gregs, fpregsCtorArg = fpregs, oldmask = oldmask, cr2 = cr2)
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is McontextT) return false
@@ -87,6 +133,21 @@ public data class McontextT(
         result = 31 * result + this.cr2.hashCode()
         return result
     }
+
+    public companion object {
+        public operator fun invoke(
+            gregs: IntArray = IntArray(19),
+            fpregs: MutPtr<LibcFpstate> = MutPtr(0L),
+            oldmask: CUlong = 0uL,
+            cr2: CUlong = 0uL,
+        ): McontextT =
+            McontextT(
+                gregs = gregs,
+                fpregsCtorArg = fpregs,
+                oldmask = oldmask,
+                cr2 = cr2,
+            )
+    }
 }
 
 public data class CAnonymousUcSigmaskWithPadding(
@@ -95,15 +156,92 @@ public data class CAnonymousUcSigmaskWithPadding(
     public var paddingRtSigset: UInt = 0u,
 )
 
-public data class UcontextT(
-    public var ucFlags: CUlong = 0uL,
-    public var ucLink: UcontextT? = null,
-    public var ucStack: StackT = StackT(),
-    public var ucMcontext: McontextT = McontextT(),
-    public var ucSigmaskCAnonymousUnion: CAnonymousUcSigmask = CAnonymousUcSigmask(),
-    public var paddingRtSigset: UInt = 0u,
-    public var fpregsMem: LibcFpstate = LibcFpstate(),
-)
+public class UcontextT internal constructor(
+    public var ucFlags: CUlong,
+    ucLinkCtorArg: MutPtr<UcontextT>,
+    public var ucStack: StackT,
+    ucMcontextCtorArg: McontextT,
+    public var ucSigmaskCAnonymousUnion: CAnonymousUcSigmask,
+    public var paddingRtSigset: UInt,
+    public var fpregsMem: LibcFpstate,
+) {
+    public var ucLink: MutPtr<UcontextT> = ucLinkCtorArg
+        internal set
+
+    public var ucMcontext: McontextT = ucMcontextCtorArg
+        internal set
+
+    public constructor() : this(
+        ucFlags = 0uL,
+        ucLinkCtorArg = MutPtr(0L),
+        ucStack = StackT(),
+        ucMcontextCtorArg = McontextT(),
+        ucSigmaskCAnonymousUnion = CAnonymousUcSigmask(),
+        paddingRtSigset = 0u,
+        fpregsMem = LibcFpstate(),
+    )
+
+    public operator fun component1(): CUlong = this.ucFlags
+
+    public operator fun component2(): MutPtr<UcontextT> = this.ucLink
+
+    public operator fun component3(): StackT = this.ucStack
+
+    public operator fun component4(): McontextT = this.ucMcontext
+
+    public operator fun component5(): CAnonymousUcSigmask = this.ucSigmaskCAnonymousUnion
+
+    public operator fun component6(): UInt = this.paddingRtSigset
+
+    public operator fun component7(): LibcFpstate = this.fpregsMem
+
+    public fun copy(ucFlags: CUlong = this.ucFlags, ucLink: MutPtr<UcontextT> = this.ucLink, ucStack: StackT = this.ucStack, ucMcontext: McontextT = this.ucMcontext, ucSigmaskCAnonymousUnion: CAnonymousUcSigmask = this.ucSigmaskCAnonymousUnion, paddingRtSigset: UInt = this.paddingRtSigset, fpregsMem: LibcFpstate = this.fpregsMem): UcontextT = UcontextT(ucFlags = ucFlags, ucLinkCtorArg = ucLink, ucStack = ucStack, ucMcontextCtorArg = ucMcontext, ucSigmaskCAnonymousUnion = ucSigmaskCAnonymousUnion, paddingRtSigset = paddingRtSigset, fpregsMem = fpregsMem)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is UcontextT) return false
+        if (this.ucFlags != other.ucFlags) return false
+        if (this.ucLink != other.ucLink) return false
+        if (this.ucStack != other.ucStack) return false
+        if (this.ucMcontext != other.ucMcontext) return false
+        if (this.ucSigmaskCAnonymousUnion != other.ucSigmaskCAnonymousUnion) return false
+        if (this.paddingRtSigset != other.paddingRtSigset) return false
+        if (this.fpregsMem != other.fpregsMem) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.ucFlags.hashCode()
+        result = 31 * result + this.ucLink.hashCode()
+        result = 31 * result + this.ucStack.hashCode()
+        result = 31 * result + this.ucMcontext.hashCode()
+        result = 31 * result + this.ucSigmaskCAnonymousUnion.hashCode()
+        result = 31 * result + this.paddingRtSigset.hashCode()
+        result = 31 * result + this.fpregsMem.hashCode()
+        return result
+    }
+
+    public companion object {
+        public operator fun invoke(
+            ucFlags: CUlong = 0uL,
+            ucLink: MutPtr<UcontextT> = MutPtr(0L),
+            ucStack: StackT = StackT(),
+            ucMcontext: McontextT = McontextT(),
+            ucSigmaskCAnonymousUnion: CAnonymousUcSigmask = CAnonymousUcSigmask(),
+            paddingRtSigset: UInt = 0u,
+            fpregsMem: LibcFpstate = LibcFpstate(),
+        ): UcontextT =
+            UcontextT(
+                ucFlags = ucFlags,
+                ucLinkCtorArg = ucLink,
+                ucStack = ucStack,
+                ucMcontextCtorArg = ucMcontext,
+                ucSigmaskCAnonymousUnion = ucSigmaskCAnonymousUnion,
+                paddingRtSigset = paddingRtSigset,
+                fpregsMem = fpregsMem,
+            )
+    }
+}
 
 public data class CAnonymousUcSigmask(
     public var ucSigmask: CAnonymousUcSigmaskWithPadding = CAnonymousUcSigmaskWithPadding(),
@@ -133,4 +271,25 @@ public data class MaxAlignT(
     }
 
     override fun hashCode(): Int = this.priv.contentHashCode()
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<MaxAlignT> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<MaxAlignT> {
+                override val sizeBytes: Long = 16L
+                override val alignBytes: Long = 8L
+                override fun readNative(addr: Long): MaxAlignT =
+                    MaxAlignT(
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.F64, (2).toInt())
+                        ).readNative(addr),
+                    )
+                override fun writeNative(addr: Long, value: MaxAlignT) {
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.F64, (2).toInt())
+                    ).writeNative(addr, value.priv)
+                }
+            }
+    }
 }

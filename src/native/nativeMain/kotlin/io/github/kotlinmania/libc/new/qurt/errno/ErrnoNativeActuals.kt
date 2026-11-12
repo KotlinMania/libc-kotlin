@@ -2,9 +2,10 @@
 
 package io.github.kotlinmania.libc.new.qurt.errno
 
-import io.github.kotlinmania.libc.COpaquePointer
-import io.github.kotlinmania.libc.new.qurt.errno.cinterop.libc_new_qurt_errno_errnoLocation
+import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.libc.new.qurt.errno.cinterop.libcNewQurtErrnoErrnoLocation
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 import kotlinx.cinterop.toLong
 
-public actual fun errnoLocation(): COpaquePointer? =
-    libc_new_qurt_errno_errnoLocation()?.let { COpaquePointer(it.toLong()) }
+public actual fun errnoLocation(): MutPtr<CInt> =
+    MutPtr(libcNewQurtErrnoErrnoLocation()?.toLong() ?: 0L)

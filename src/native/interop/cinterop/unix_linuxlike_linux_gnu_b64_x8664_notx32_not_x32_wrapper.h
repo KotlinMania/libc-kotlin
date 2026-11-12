@@ -9,7 +9,7 @@
 extern "C" {
 #endif
 
-int32_t libc_unix_linuxlike_linux_gnu_b64_x8664_notx32_not_x32_sysctl(void* name, int32_t namelen, void* oldp, void* oldlenp, void* newp, uint64_t newlen);
+int32_t libcUnixLinuxlikeLinuxGnuB64X8664Notx32NotX32Sysctl(void* name, int32_t namelen, void* oldp, void* oldlenp, void* newp, uint64_t newlen);
 
 #ifdef __cplusplus
 }

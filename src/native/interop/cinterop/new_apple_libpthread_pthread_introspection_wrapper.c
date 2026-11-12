@@ -18,7 +18,7 @@
 #endif
 #endif
 
-void* libc_new_apple_libpthread_pthread_introspection_pthreadIntrospectionHookInstall(void* hook) {
+void* libcNewAppleLibpthreadPthreadIntrospectionPthreadIntrospectionHookInstall(void* hook) {
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -46,7 +46,7 @@ void* libc_new_apple_libpthread_pthread_introspection_pthreadIntrospectionHookIn
     return NULL;
 }
 
-int32_t libc_new_apple_libpthread_pthread_introspection_pthreadIntrospectionSetspecificNp(void* thread, uint64_t key, void* value) {
+int32_t libcNewAppleLibpthreadPthreadIntrospectionPthreadIntrospectionSetspecificNp(void* thread, uint64_t key, void* value) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -74,7 +74,7 @@ int32_t libc_new_apple_libpthread_pthread_introspection_pthreadIntrospectionSets
     return ENOSYS;
 }
 
-void* libc_new_apple_libpthread_pthread_introspection_pthreadIntrospectionGetspecificNp(void* thread, uint64_t key) {
+void* libcNewAppleLibpthreadPthreadIntrospectionPthreadIntrospectionGetspecificNp(void* thread, uint64_t key) {
     typedef void* (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

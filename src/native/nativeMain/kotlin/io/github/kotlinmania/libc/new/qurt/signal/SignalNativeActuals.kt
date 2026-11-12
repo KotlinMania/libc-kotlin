@@ -3,72 +3,75 @@
 package io.github.kotlinmania.libc.new.qurt.signal
 
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.new.qurt.PidT
-import io.github.kotlinmania.libc.new.qurt.signal.cinterop.libc_new_qurt_signal_alarm
-import io.github.kotlinmania.libc.new.qurt.signal.cinterop.libc_new_qurt_signal_kill
-import io.github.kotlinmania.libc.new.qurt.signal.cinterop.libc_new_qurt_signal_pause
-import io.github.kotlinmania.libc.new.qurt.signal.cinterop.libc_new_qurt_signal_raise
-import io.github.kotlinmania.libc.new.qurt.signal.cinterop.libc_new_qurt_signal_sigaction
-import io.github.kotlinmania.libc.new.qurt.signal.cinterop.libc_new_qurt_signal_sigaddset
-import io.github.kotlinmania.libc.new.qurt.signal.cinterop.libc_new_qurt_signal_sigdelset
-import io.github.kotlinmania.libc.new.qurt.signal.cinterop.libc_new_qurt_signal_sigemptyset
-import io.github.kotlinmania.libc.new.qurt.signal.cinterop.libc_new_qurt_signal_sigfillset
-import io.github.kotlinmania.libc.new.qurt.signal.cinterop.libc_new_qurt_signal_sigismember
-import io.github.kotlinmania.libc.new.qurt.signal.cinterop.libc_new_qurt_signal_signal
-import io.github.kotlinmania.libc.new.qurt.signal.cinterop.libc_new_qurt_signal_sigpending
-import io.github.kotlinmania.libc.new.qurt.signal.cinterop.libc_new_qurt_signal_sigprocmask
-import io.github.kotlinmania.libc.new.qurt.signal.cinterop.libc_new_qurt_signal_sigsuspend
-import io.github.kotlinmania.libc.new.qurt.signal.cinterop.libc_new_qurt_signal_sigtimedwait
-import io.github.kotlinmania.libc.new.qurt.signal.cinterop.libc_new_qurt_signal_sigwait
+import io.github.kotlinmania.libc.new.qurt.SigsetT
+import io.github.kotlinmania.libc.new.qurt.Timespec
+import io.github.kotlinmania.libc.new.qurt.signal.cinterop.libcNewQurtSignalAlarm
+import io.github.kotlinmania.libc.new.qurt.signal.cinterop.libcNewQurtSignalKill
+import io.github.kotlinmania.libc.new.qurt.signal.cinterop.libcNewQurtSignalPause
+import io.github.kotlinmania.libc.new.qurt.signal.cinterop.libcNewQurtSignalRaise
+import io.github.kotlinmania.libc.new.qurt.signal.cinterop.libcNewQurtSignalSigaction
+import io.github.kotlinmania.libc.new.qurt.signal.cinterop.libcNewQurtSignalSigaddset
+import io.github.kotlinmania.libc.new.qurt.signal.cinterop.libcNewQurtSignalSigdelset
+import io.github.kotlinmania.libc.new.qurt.signal.cinterop.libcNewQurtSignalSigemptyset
+import io.github.kotlinmania.libc.new.qurt.signal.cinterop.libcNewQurtSignalSigfillset
+import io.github.kotlinmania.libc.new.qurt.signal.cinterop.libcNewQurtSignalSigismember
+import io.github.kotlinmania.libc.new.qurt.signal.cinterop.libcNewQurtSignalSignal
+import io.github.kotlinmania.libc.new.qurt.signal.cinterop.libcNewQurtSignalSigpending
+import io.github.kotlinmania.libc.new.qurt.signal.cinterop.libcNewQurtSignalSigprocmask
+import io.github.kotlinmania.libc.new.qurt.signal.cinterop.libcNewQurtSignalSigsuspend
+import io.github.kotlinmania.libc.new.qurt.signal.cinterop.libcNewQurtSignalSigtimedwait
+import io.github.kotlinmania.libc.new.qurt.signal.cinterop.libcNewQurtSignalSigwait
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 
 public actual fun signal(sig: CInt, handler: SighandlerT): SighandlerT =
-    libc_new_qurt_signal_signal(sig, handler)
+    libcNewQurtSignalSignal(sig, handler)
 
 public actual fun kill(pid: PidT, sig: CInt): CInt =
-    libc_new_qurt_signal_kill(pid, sig)
+    libcNewQurtSignalKill(pid, sig)
 
 public actual fun raise(sig: CInt): CInt =
-    libc_new_qurt_signal_raise(sig)
+    libcNewQurtSignalRaise(sig)
 
 public actual fun alarm(seconds: CUint): CUint =
-    libc_new_qurt_signal_alarm(seconds)
+    libcNewQurtSignalAlarm(seconds)
 
 public actual fun pause(): CInt =
-    libc_new_qurt_signal_pause()
+    libcNewQurtSignalPause()
 
-public actual fun sigemptyset(set: COpaquePointer?): CInt =
-    libc_new_qurt_signal_sigemptyset(set?.value?.toCPointer<ByteVar>())
+public actual fun sigemptyset(set: MutPtr<SigsetT>): CInt =
+    libcNewQurtSignalSigemptyset(set.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sigfillset(set: COpaquePointer?): CInt =
-    libc_new_qurt_signal_sigfillset(set?.value?.toCPointer<ByteVar>())
+public actual fun sigfillset(set: MutPtr<SigsetT>): CInt =
+    libcNewQurtSignalSigfillset(set.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sigaddset(set: COpaquePointer?, signum: CInt): CInt =
-    libc_new_qurt_signal_sigaddset(set?.value?.toCPointer<ByteVar>(), signum)
+public actual fun sigaddset(set: MutPtr<SigsetT>, signum: CInt): CInt =
+    libcNewQurtSignalSigaddset(set.rawAddress.toCPointer<ByteVar>(), signum)
 
-public actual fun sigdelset(set: COpaquePointer?, signum: CInt): CInt =
-    libc_new_qurt_signal_sigdelset(set?.value?.toCPointer<ByteVar>(), signum)
+public actual fun sigdelset(set: MutPtr<SigsetT>, signum: CInt): CInt =
+    libcNewQurtSignalSigdelset(set.rawAddress.toCPointer<ByteVar>(), signum)
 
-public actual fun sigismember(set: COpaquePointer?, signum: CInt): CInt =
-    libc_new_qurt_signal_sigismember(set?.value?.toCPointer<ByteVar>(), signum)
+public actual fun sigismember(set: ConstPtr<SigsetT>, signum: CInt): CInt =
+    libcNewQurtSignalSigismember(set.rawAddress.toCPointer<ByteVar>(), signum)
 
-public actual fun sigprocmask(how: CInt, set: COpaquePointer?, oldset: COpaquePointer?): CInt =
-    libc_new_qurt_signal_sigprocmask(how, set?.value?.toCPointer<ByteVar>(), oldset?.value?.toCPointer<ByteVar>())
+public actual fun sigprocmask(how: CInt, set: ConstPtr<SigsetT>, oldset: MutPtr<SigsetT>): CInt =
+    libcNewQurtSignalSigprocmask(how, set.rawAddress.toCPointer<ByteVar>(), oldset.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sigpending(set: COpaquePointer?): CInt =
-    libc_new_qurt_signal_sigpending(set?.value?.toCPointer<ByteVar>())
+public actual fun sigpending(set: MutPtr<SigsetT>): CInt =
+    libcNewQurtSignalSigpending(set.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sigsuspend(mask: COpaquePointer?): CInt =
-    libc_new_qurt_signal_sigsuspend(mask?.value?.toCPointer<ByteVar>())
+public actual fun sigsuspend(mask: ConstPtr<SigsetT>): CInt =
+    libcNewQurtSignalSigsuspend(mask.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sigwait(set: COpaquePointer?, sig: COpaquePointer?): CInt =
-    libc_new_qurt_signal_sigwait(set?.value?.toCPointer<ByteVar>(), sig?.value?.toCPointer<ByteVar>())
+public actual fun sigwait(set: ConstPtr<SigsetT>, sig: MutPtr<CInt>): CInt =
+    libcNewQurtSignalSigwait(set.rawAddress.toCPointer<ByteVar>(), sig.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sigaction(sig: CInt, act: COpaquePointer?, oact: COpaquePointer?): CInt =
-    libc_new_qurt_signal_sigaction(sig, act?.value?.toCPointer<ByteVar>(), oact?.value?.toCPointer<ByteVar>())
+public actual fun sigaction(sig: CInt, act: ConstPtr<Sigaction>, oact: MutPtr<Sigaction>): CInt =
+    libcNewQurtSignalSigaction(sig, act.rawAddress.toCPointer<ByteVar>(), oact.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sigtimedwait(set: COpaquePointer?, info: COpaquePointer?, timeout: COpaquePointer?): CInt =
-    libc_new_qurt_signal_sigtimedwait(set?.value?.toCPointer<ByteVar>(), info?.value?.toCPointer<ByteVar>(), timeout?.value?.toCPointer<ByteVar>())
+public actual fun sigtimedwait(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>, timeout: ConstPtr<Timespec>): CInt =
+    libcNewQurtSignalSigtimedwait(set.rawAddress.toCPointer<ByteVar>(), info.rawAddress.toCPointer<ByteVar>(), timeout.rawAddress.toCPointer<ByteVar>())

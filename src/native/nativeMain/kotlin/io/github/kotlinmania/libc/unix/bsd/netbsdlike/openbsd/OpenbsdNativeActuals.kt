@@ -2,271 +2,282 @@
 
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd
 
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CLonglong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
+import io.github.kotlinmania.libc.CUshort
 import io.github.kotlinmania.libc.unix.DIR
 import io.github.kotlinmania.libc.unix.GidT
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.PidT
 import io.github.kotlinmania.libc.unix.SizeT
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.Timeval
 import io.github.kotlinmania.libc.unix.UidT
+import io.github.kotlinmania.libc.unix.Winsize
 import io.github.kotlinmania.libc.unix.bsd.PthreadT
+import io.github.kotlinmania.libc.unix.bsd.Sockaddr
 import io.github.kotlinmania.libc.unix.bsd.SocklenT
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_backtrace
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_backtraceSymbols
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_backtraceSymbolsFd
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_backtraceSymbolsFmt
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_callocConceal
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_chflags
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_chflagsat
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_dirfd
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_dlIteratePhdr
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_dup3
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_duplocale
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_elfAuxInfo
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_explicitBzero
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_fchflags
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_forkpty
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_freelocale
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_freezero
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_fstatfs
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_futex
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_getfsstat
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_getmntinfo
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_getnameinfo
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_getresgid
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_getresuid
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_getthrid
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_gettimeofday
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_hcreate
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_hdestroy
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_kevent
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_lcong48Deterministic
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_lfind
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_lsearch
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_mallocConceal
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_memmem
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_mimmutable
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_mprotect
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_newlocale
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_openpty
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_pledge
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_pthreadAttrGetguardsize
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_pthreadAttrGetstack
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_pthreadAttrSetguardsize
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_pthreadGetNameNp
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_pthreadMainNp
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_pthreadSetNameNp
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_pthreadStacksegNp
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_ptrace
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_reboot
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_seed48Deterministic
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_setproctitle
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_setresgid
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_setresuid
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_settimeofday
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_srand48Deterministic
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_statfs
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_strtonum
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_sysctl
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_unveil
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_uselocale
-import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libc_unix_bsd_netbsdlike_openbsd_utrace
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.StackT
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.Termios
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.Timezone
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdBacktrace
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdBacktraceSymbols
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdBacktraceSymbolsFd
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdBacktraceSymbolsFmt
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdCallocConceal
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdChflags
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdChflagsat
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdDirfd
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdDlIteratePhdr
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdDup3
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdDuplocale
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdElfAuxInfo
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdExplicitBzero
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdFchflags
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdForkpty
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdFreelocale
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdFreezero
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdFstatfs
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdFutex
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdGetfsstat
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdGetmntinfo
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdGetnameinfo
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdGetresgid
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdGetresuid
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdGetthrid
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdGettimeofday
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdHcreate
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdHdestroy
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdKevent
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdLcong48Deterministic
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdLfind
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdLsearch
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdMallocConceal
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdMemmem
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdMimmutable
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdMprotect
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdNewlocale
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdOpenpty
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdPledge
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdPthreadAttrGetguardsize
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdPthreadAttrGetstack
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdPthreadAttrSetguardsize
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdPthreadGetNameNp
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdPthreadMainNp
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdPthreadSetNameNp
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdPthreadStacksegNp
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdPtrace
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdReboot
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdSeed48Deterministic
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdSetproctitle
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdSetresgid
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdSetresuid
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdSettimeofday
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdSrand48Deterministic
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdStatfs
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdStrtonum
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdSysctl
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdUnveil
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdUselocale
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.cinterop.libcUnixBsdNetbsdlikeOpenbsdUtrace
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
 
-public actual fun gettimeofday(tp: COpaquePointer?, tz: COpaquePointer?): CInt =
-    libc_unix_bsd_netbsdlike_openbsd_gettimeofday(tp?.value?.toCPointer<ByteVar>(), tz?.value?.toCPointer<ByteVar>())
+public actual fun gettimeofday(tp: MutPtr<Timeval>, tz: MutPtr<Timezone>): CInt =
+    libcUnixBsdNetbsdlikeOpenbsdGettimeofday(tp.rawAddress.toCPointer<ByteVar>(), tz.rawAddress.toCPointer<ByteVar>())
 
-public actual fun settimeofday(tp: COpaquePointer?, tz: COpaquePointer?): CInt =
-    libc_unix_bsd_netbsdlike_openbsd_settimeofday(tp?.value?.toCPointer<ByteVar>(), tz?.value?.toCPointer<ByteVar>())
+public actual fun settimeofday(tp: ConstPtr<Timeval>, tz: ConstPtr<Timezone>): CInt =
+    libcUnixBsdNetbsdlikeOpenbsdSettimeofday(tp.rawAddress.toCPointer<ByteVar>(), tz.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pledge(promises: String?, execpromises: String?): CInt =
-    libc_unix_bsd_netbsdlike_openbsd_pledge(promises, execpromises)
+public actual fun pledge(promises: ConstPtr<CChar>, execpromises: ConstPtr<CChar>): CInt =
+    libcUnixBsdNetbsdlikeOpenbsdPledge(promises.rawAddress.toCPointer<ByteVar>(), execpromises.rawAddress.toCPointer<ByteVar>())
 
-public actual fun unveil(path: String?, permissions: String?): CInt =
-    libc_unix_bsd_netbsdlike_openbsd_unveil(path, permissions)
+public actual fun unveil(path: ConstPtr<CChar>, permissions: ConstPtr<CChar>): CInt =
+    libcUnixBsdNetbsdlikeOpenbsdUnveil(path.rawAddress.toCPointer<ByteVar>(), permissions.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strtonum(nptr: String?, minval: CLonglong, maxval: CLonglong, errstr: COpaquePointer?): CLonglong =
-    libc_unix_bsd_netbsdlike_openbsd_strtonum(nptr, minval, maxval, errstr?.value?.toCPointer<ByteVar>())
+public actual fun strtonum(nptr: ConstPtr<CChar>, minval: CLonglong, maxval: CLonglong, errstr: MutPtr<ConstPtr<CChar>>): CLonglong =
+    libcUnixBsdNetbsdlikeOpenbsdStrtonum(nptr.rawAddress.toCPointer<ByteVar>(), minval, maxval, errstr.rawAddress.toCPointer<ByteVar>())
 
 public actual fun dup3(src: CInt, dst: CInt, flags: CInt): CInt =
-    libc_unix_bsd_netbsdlike_openbsd_dup3(src, dst, flags)
+    libcUnixBsdNetbsdlikeOpenbsdDup3(src, dst, flags)
 
-public actual fun chflags(path: String?, flags: CUint): CInt =
-    libc_unix_bsd_netbsdlike_openbsd_chflags(path, flags)
+public actual fun chflags(path: ConstPtr<CChar>, flags: CUint): CInt =
+    libcUnixBsdNetbsdlikeOpenbsdChflags(path.rawAddress.toCPointer<ByteVar>(), flags)
 
 public actual fun fchflags(fd: CInt, flags: CUint): CInt =
-    libc_unix_bsd_netbsdlike_openbsd_fchflags(fd, flags)
+    libcUnixBsdNetbsdlikeOpenbsdFchflags(fd, flags)
 
-public actual fun chflagsat(fd: CInt, path: String?, flags: CUint, atflag: CInt): CInt =
-    libc_unix_bsd_netbsdlike_openbsd_chflagsat(fd, path, flags, atflag)
+public actual fun chflagsat(fd: CInt, path: ConstPtr<CChar>, flags: CUint, atflag: CInt): CInt =
+    libcUnixBsdNetbsdlikeOpenbsdChflagsat(fd, path.rawAddress.toCPointer<ByteVar>(), flags, atflag)
 
-public actual fun dirfd(dirp: DIR?): CInt =
-    libc_unix_bsd_netbsdlike_openbsd_dirfd(dirp?.handle?.toCPointer<ByteVar>())
+public actual fun dirfd(dirp: MutPtr<DIR>): CInt =
+    libcUnixBsdNetbsdlikeOpenbsdDirfd(dirp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getnameinfo(sa: COpaquePointer?, salen: SocklenT, host: COpaquePointer?, hostlen: SizeT, serv: COpaquePointer?, servlen: SizeT, flags: CInt): CInt =
-    libc_unix_bsd_netbsdlike_openbsd_getnameinfo(sa?.value?.toCPointer<ByteVar>(), salen, host?.value?.toCPointer<ByteVar>(), hostlen, serv?.value?.toCPointer<ByteVar>(), servlen, flags)
+public actual fun getnameinfo(sa: ConstPtr<Sockaddr>, salen: SocklenT, host: MutPtr<CChar>, hostlen: SizeT, serv: MutPtr<CChar>, servlen: SizeT, flags: CInt): CInt =
+    libcUnixBsdNetbsdlikeOpenbsdGetnameinfo(sa.rawAddress.toCPointer<ByteVar>(), salen, host.rawAddress.toCPointer<ByteVar>(), hostlen, serv.rawAddress.toCPointer<ByteVar>(), servlen, flags)
 
-public actual fun getresgid(rgid: COpaquePointer?, egid: COpaquePointer?, sgid: COpaquePointer?): CInt =
-    libc_unix_bsd_netbsdlike_openbsd_getresgid(rgid?.value?.toCPointer<ByteVar>(), egid?.value?.toCPointer<ByteVar>(), sgid?.value?.toCPointer<ByteVar>())
+public actual fun getresgid(rgid: MutPtr<GidT>, egid: MutPtr<GidT>, sgid: MutPtr<GidT>): CInt =
+    libcUnixBsdNetbsdlikeOpenbsdGetresgid(rgid.rawAddress.toCPointer<ByteVar>(), egid.rawAddress.toCPointer<ByteVar>(), sgid.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getresuid(ruid: COpaquePointer?, euid: COpaquePointer?, suid: COpaquePointer?): CInt =
-    libc_unix_bsd_netbsdlike_openbsd_getresuid(ruid?.value?.toCPointer<ByteVar>(), euid?.value?.toCPointer<ByteVar>(), suid?.value?.toCPointer<ByteVar>())
+public actual fun getresuid(ruid: MutPtr<UidT>, euid: MutPtr<UidT>, suid: MutPtr<UidT>): CInt =
+    libcUnixBsdNetbsdlikeOpenbsdGetresuid(ruid.rawAddress.toCPointer<ByteVar>(), euid.rawAddress.toCPointer<ByteVar>(), suid.rawAddress.toCPointer<ByteVar>())
 
-public actual fun kevent(kq: CInt, changelist: COpaquePointer?, nchanges: CInt, eventlist: COpaquePointer?, nevents: CInt, timeout: COpaquePointer?): CInt =
-    libc_unix_bsd_netbsdlike_openbsd_kevent(kq, changelist?.value?.toCPointer<ByteVar>(), nchanges, eventlist?.value?.toCPointer<ByteVar>(), nevents, timeout?.value?.toCPointer<ByteVar>())
+public actual fun kevent(kq: CInt, changelist: ConstPtr<Kevent>, nchanges: CInt, eventlist: MutPtr<Kevent>, nevents: CInt, timeout: ConstPtr<Timespec>): CInt =
+    libcUnixBsdNetbsdlikeOpenbsdKevent(kq, changelist.rawAddress.toCPointer<ByteVar>(), nchanges, eventlist.rawAddress.toCPointer<ByteVar>(), nevents, timeout.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt =
-    libc_unix_bsd_netbsdlike_openbsd_mprotect(addr?.value?.toCPointer<ByteVar>(), len, prot)
+public actual fun mprotect(addr: MutPtr<CVoid>, len: SizeT, prot: CInt): CInt =
+    libcUnixBsdNetbsdlikeOpenbsdMprotect(addr.rawAddress.toCPointer<ByteVar>(), len, prot)
 
 public actual fun getthrid(): PidT =
-    libc_unix_bsd_netbsdlike_openbsd_getthrid()
+    libcUnixBsdNetbsdlikeOpenbsdGetthrid()
 
-public actual fun pthreadAttrGetguardsize(attr: COpaquePointer?, guardsize: COpaquePointer?): CInt =
-    libc_unix_bsd_netbsdlike_openbsd_pthreadAttrGetguardsize(attr?.value?.toCPointer<ByteVar>(), guardsize?.value?.toCPointer<ByteVar>())
+public actual fun pthreadAttrGetguardsize(attr: ConstPtr<PthreadAttrT>, guardsize: MutPtr<SizeT>): CInt =
+    libcUnixBsdNetbsdlikeOpenbsdPthreadAttrGetguardsize(attr.rawAddress.toCPointer<ByteVar>(), guardsize.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrSetguardsize(attr: COpaquePointer?, guardsize: SizeT): CInt =
-    libc_unix_bsd_netbsdlike_openbsd_pthreadAttrSetguardsize(attr?.value?.toCPointer<ByteVar>(), guardsize)
+public actual fun pthreadAttrSetguardsize(attr: MutPtr<PthreadAttrT>, guardsize: SizeT): CInt =
+    libcUnixBsdNetbsdlikeOpenbsdPthreadAttrSetguardsize(attr.rawAddress.toCPointer<ByteVar>(), guardsize)
 
-public actual fun pthreadAttrGetstack(attr: COpaquePointer?, stackaddr: COpaquePointer?, stacksize: COpaquePointer?): CInt =
-    libc_unix_bsd_netbsdlike_openbsd_pthreadAttrGetstack(attr?.value?.toCPointer<ByteVar>(), stackaddr?.value?.toCPointer<ByteVar>(), stacksize?.value?.toCPointer<ByteVar>())
+public actual fun pthreadAttrGetstack(attr: ConstPtr<PthreadAttrT>, stackaddr: MutPtr<MutPtr<CVoid>>, stacksize: MutPtr<SizeT>): CInt =
+    libcUnixBsdNetbsdlikeOpenbsdPthreadAttrGetstack(attr.rawAddress.toCPointer<ByteVar>(), stackaddr.rawAddress.toCPointer<ByteVar>(), stacksize.rawAddress.toCPointer<ByteVar>())
 
 public actual fun pthreadMainNp(): CInt =
-    libc_unix_bsd_netbsdlike_openbsd_pthreadMainNp()
+    libcUnixBsdNetbsdlikeOpenbsdPthreadMainNp()
 
-public actual fun pthreadGetNameNp(tid: PthreadT, name: COpaquePointer?, len: SizeT) {
-    libc_unix_bsd_netbsdlike_openbsd_pthreadGetNameNp(tid.toLong().toCPointer<ByteVar>(), name?.value?.toCPointer<ByteVar>(), len)
+public actual fun pthreadGetNameNp(tid: PthreadT, name: MutPtr<CChar>, len: SizeT) {
+    libcUnixBsdNetbsdlikeOpenbsdPthreadGetNameNp(tid.toLong().toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>(), len)
 }
 
-public actual fun pthreadSetNameNp(tid: PthreadT, name: String?) {
-    libc_unix_bsd_netbsdlike_openbsd_pthreadSetNameNp(tid.toLong().toCPointer<ByteVar>(), name)
+public actual fun pthreadSetNameNp(tid: PthreadT, name: ConstPtr<CChar>) {
+    libcUnixBsdNetbsdlikeOpenbsdPthreadSetNameNp(tid.toLong().toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun pthreadStacksegNp(thread: PthreadT, sinfo: COpaquePointer?): CInt =
-    libc_unix_bsd_netbsdlike_openbsd_pthreadStacksegNp(thread.toLong().toCPointer<ByteVar>(), sinfo?.value?.toCPointer<ByteVar>())
+public actual fun pthreadStacksegNp(thread: PthreadT, sinfo: MutPtr<StackT>): CInt =
+    libcUnixBsdNetbsdlikeOpenbsdPthreadStacksegNp(thread.toLong().toCPointer<ByteVar>(), sinfo.rawAddress.toCPointer<ByteVar>())
 
-public actual fun openpty(amaster: COpaquePointer?, aslave: COpaquePointer?, name: COpaquePointer?, termp: COpaquePointer?, winp: COpaquePointer?): CInt =
-    libc_unix_bsd_netbsdlike_openbsd_openpty(amaster?.value?.toCPointer<ByteVar>(), aslave?.value?.toCPointer<ByteVar>(), name?.value?.toCPointer<ByteVar>(), termp?.value?.toCPointer<ByteVar>(), winp?.value?.toCPointer<ByteVar>())
+public actual fun openpty(amaster: MutPtr<CInt>, aslave: MutPtr<CInt>, name: MutPtr<CChar>, termp: ConstPtr<Termios>, winp: ConstPtr<Winsize>): CInt =
+    libcUnixBsdNetbsdlikeOpenbsdOpenpty(amaster.rawAddress.toCPointer<ByteVar>(), aslave.rawAddress.toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>(), termp.rawAddress.toCPointer<ByteVar>(), winp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun forkpty(amaster: COpaquePointer?, name: COpaquePointer?, termp: COpaquePointer?, winp: COpaquePointer?): PidT =
-    libc_unix_bsd_netbsdlike_openbsd_forkpty(amaster?.value?.toCPointer<ByteVar>(), name?.value?.toCPointer<ByteVar>(), termp?.value?.toCPointer<ByteVar>(), winp?.value?.toCPointer<ByteVar>())
+public actual fun forkpty(amaster: MutPtr<CInt>, name: MutPtr<CChar>, termp: ConstPtr<Termios>, winp: ConstPtr<Winsize>): PidT =
+    libcUnixBsdNetbsdlikeOpenbsdForkpty(amaster.rawAddress.toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>(), termp.rawAddress.toCPointer<ByteVar>(), winp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sysctl(name: COpaquePointer?, namelen: CUint, oldp: COpaquePointer?, oldlenp: COpaquePointer?, newp: COpaquePointer?, newlen: SizeT): CInt =
-    libc_unix_bsd_netbsdlike_openbsd_sysctl(name?.value?.toCPointer<ByteVar>(), namelen, oldp?.value?.toCPointer<ByteVar>(), oldlenp?.value?.toCPointer<ByteVar>(), newp?.value?.toCPointer<ByteVar>(), newlen)
+public actual fun sysctl(name: ConstPtr<CInt>, namelen: CUint, oldp: MutPtr<CVoid>, oldlenp: MutPtr<SizeT>, newp: MutPtr<CVoid>, newlen: SizeT): CInt =
+    libcUnixBsdNetbsdlikeOpenbsdSysctl(name.rawAddress.toCPointer<ByteVar>(), namelen, oldp.rawAddress.toCPointer<ByteVar>(), oldlenp.rawAddress.toCPointer<ByteVar>(), newp.rawAddress.toCPointer<ByteVar>(), newlen)
 
 public actual fun setresgid(rgid: GidT, egid: GidT, sgid: GidT): CInt =
-    libc_unix_bsd_netbsdlike_openbsd_setresgid(rgid, egid, sgid)
+    libcUnixBsdNetbsdlikeOpenbsdSetresgid(rgid, egid, sgid)
 
 public actual fun setresuid(ruid: UidT, euid: UidT, suid: UidT): CInt =
-    libc_unix_bsd_netbsdlike_openbsd_setresuid(ruid, euid, suid)
+    libcUnixBsdNetbsdlikeOpenbsdSetresuid(ruid, euid, suid)
 
 public actual fun ptrace(request: CInt, pid: PidT, addr: CaddrT, data: CInt): CInt =
-    libc_unix_bsd_netbsdlike_openbsd_ptrace(request, pid, addr?.value?.toCPointer<ByteVar>(), data)
+    libcUnixBsdNetbsdlikeOpenbsdPtrace(request, pid, addr.rawAddress.toCPointer<ByteVar>(), data)
 
-public actual fun utrace(label: String?, addr: COpaquePointer?, len: SizeT): CInt =
-    libc_unix_bsd_netbsdlike_openbsd_utrace(label, addr?.value?.toCPointer<ByteVar>(), len)
+public actual fun utrace(label: ConstPtr<CChar>, addr: ConstPtr<CVoid>, len: SizeT): CInt =
+    libcUnixBsdNetbsdlikeOpenbsdUtrace(label.rawAddress.toCPointer<ByteVar>(), addr.rawAddress.toCPointer<ByteVar>(), len)
 
-public actual fun memmem(haystack: COpaquePointer?, haystacklen: SizeT, needle: COpaquePointer?, needlelen: SizeT): COpaquePointer? =
-    libc_unix_bsd_netbsdlike_openbsd_memmem(haystack?.value?.toCPointer<ByteVar>(), haystacklen, needle?.value?.toCPointer<ByteVar>(), needlelen)?.let { COpaquePointer(it.toLong()) }
+public actual fun memmem(haystack: ConstPtr<CVoid>, haystacklen: SizeT, needle: ConstPtr<CVoid>, needlelen: SizeT): MutPtr<CVoid> =
+    MutPtr(libcUnixBsdNetbsdlikeOpenbsdMemmem(haystack.rawAddress.toCPointer<ByteVar>(), haystacklen, needle.rawAddress.toCPointer<ByteVar>(), needlelen)?.toLong() ?: 0L)
 
-public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt =
-    libc_unix_bsd_netbsdlike_openbsd_dlIteratePhdr(0L.toCPointer<ByteVar>(), data?.value?.toCPointer<ByteVar>())
+public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: MutPtr<CVoid>): CInt =
+    libcUnixBsdNetbsdlikeOpenbsdDlIteratePhdr(0L.toCPointer<ByteVar>(), data.rawAddress.toCPointer<ByteVar>())
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
-    libc_unix_bsd_netbsdlike_openbsd_uselocale(loc?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+    MutPtr(libcUnixBsdNetbsdlikeOpenbsdUselocale(loc.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun freelocale(loc: LocaleT) {
-    libc_unix_bsd_netbsdlike_openbsd_freelocale(loc?.value?.toCPointer<ByteVar>())
+    libcUnixBsdNetbsdlikeOpenbsdFreelocale(loc.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
-    libc_unix_bsd_netbsdlike_openbsd_newlocale(mask, locale, base?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun newlocale(mask: CInt, locale: ConstPtr<CChar>, base: LocaleT): LocaleT =
+    MutPtr(libcUnixBsdNetbsdlikeOpenbsdNewlocale(mask, locale.rawAddress.toCPointer<ByteVar>(), base.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun duplocale(base: LocaleT): LocaleT =
-    libc_unix_bsd_netbsdlike_openbsd_duplocale(base?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+    MutPtr(libcUnixBsdNetbsdlikeOpenbsdDuplocale(base.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun explicitBzero(s: COpaquePointer?, len: SizeT) {
-    libc_unix_bsd_netbsdlike_openbsd_explicitBzero(s?.value?.toCPointer<ByteVar>(), len)
+public actual fun explicitBzero(s: MutPtr<CVoid>, len: SizeT) {
+    libcUnixBsdNetbsdlikeOpenbsdExplicitBzero(s.rawAddress.toCPointer<ByteVar>(), len)
 }
 
-public actual fun setproctitle(fmt: String?, vararg variadicArgs: Long) {
-    libc_unix_bsd_netbsdlike_openbsd_setproctitle(fmt, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun setproctitle(fmt: ConstPtr<CChar>, vararg variadicArgs: Long) {
+    libcUnixBsdNetbsdlikeOpenbsdSetproctitle(fmt.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 }
 
-public actual fun freezero(ptr: COpaquePointer?, size: SizeT) {
-    libc_unix_bsd_netbsdlike_openbsd_freezero(ptr?.value?.toCPointer<ByteVar>(), size)
+public actual fun freezero(ptr: MutPtr<CVoid>, size: SizeT) {
+    libcUnixBsdNetbsdlikeOpenbsdFreezero(ptr.rawAddress.toCPointer<ByteVar>(), size)
 }
 
-public actual fun mallocConceal(size: SizeT): COpaquePointer? =
-    libc_unix_bsd_netbsdlike_openbsd_mallocConceal(size)?.let { COpaquePointer(it.toLong()) }
+public actual fun mallocConceal(size: SizeT): MutPtr<CVoid> =
+    MutPtr(libcUnixBsdNetbsdlikeOpenbsdMallocConceal(size)?.toLong() ?: 0L)
 
-public actual fun callocConceal(nmemb: SizeT, size: SizeT): COpaquePointer? =
-    libc_unix_bsd_netbsdlike_openbsd_callocConceal(nmemb, size)?.let { COpaquePointer(it.toLong()) }
+public actual fun callocConceal(nmemb: SizeT, size: SizeT): MutPtr<CVoid> =
+    MutPtr(libcUnixBsdNetbsdlikeOpenbsdCallocConceal(nmemb, size)?.toLong() ?: 0L)
 
 public actual fun srand48Deterministic(seed: CLong) {
-    libc_unix_bsd_netbsdlike_openbsd_srand48Deterministic(seed)
+    libcUnixBsdNetbsdlikeOpenbsdSrand48Deterministic(seed)
 }
 
-public actual fun seed48Deterministic(xseed: COpaquePointer?): COpaquePointer? =
-    libc_unix_bsd_netbsdlike_openbsd_seed48Deterministic(xseed?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun seed48Deterministic(xseed: MutPtr<CUshort>): MutPtr<CUshort> =
+    MutPtr(libcUnixBsdNetbsdlikeOpenbsdSeed48Deterministic(xseed.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun lcong48Deterministic(p: COpaquePointer?) {
-    libc_unix_bsd_netbsdlike_openbsd_lcong48Deterministic(p?.value?.toCPointer<ByteVar>())
+public actual fun lcong48Deterministic(p: MutPtr<CUshort>) {
+    libcUnixBsdNetbsdlikeOpenbsdLcong48Deterministic(p.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: LsearchComparCallback?): COpaquePointer? =
-    libc_unix_bsd_netbsdlike_openbsd_lsearch(key?.value?.toCPointer<ByteVar>(), base?.value?.toCPointer<ByteVar>(), nelp?.value?.toCPointer<ByteVar>(), width, 0L.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun lsearch(key: ConstPtr<CVoid>, base: MutPtr<CVoid>, nelp: MutPtr<SizeT>, width: SizeT, compar: LsearchComparCallback?): MutPtr<CVoid> =
+    MutPtr(libcUnixBsdNetbsdlikeOpenbsdLsearch(key.rawAddress.toCPointer<ByteVar>(), base.rawAddress.toCPointer<ByteVar>(), nelp.rawAddress.toCPointer<ByteVar>(), width, 0L.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: LsearchComparCallback?): COpaquePointer? =
-    libc_unix_bsd_netbsdlike_openbsd_lfind(key?.value?.toCPointer<ByteVar>(), base?.value?.toCPointer<ByteVar>(), nelp?.value?.toCPointer<ByteVar>(), width, 0L.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun lfind(key: ConstPtr<CVoid>, base: ConstPtr<CVoid>, nelp: MutPtr<SizeT>, width: SizeT, compar: LsearchComparCallback?): MutPtr<CVoid> =
+    MutPtr(libcUnixBsdNetbsdlikeOpenbsdLfind(key.rawAddress.toCPointer<ByteVar>(), base.rawAddress.toCPointer<ByteVar>(), nelp.rawAddress.toCPointer<ByteVar>(), width, 0L.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun hcreate(nelt: SizeT): CInt =
-    libc_unix_bsd_netbsdlike_openbsd_hcreate(nelt)
+    libcUnixBsdNetbsdlikeOpenbsdHcreate(nelt)
 
 public actual fun hdestroy() {
-    libc_unix_bsd_netbsdlike_openbsd_hdestroy()
+    libcUnixBsdNetbsdlikeOpenbsdHdestroy()
 }
 
-public actual fun hsearch(entry: Entry, action: Action): COpaquePointer? =
-    null
+public actual fun hsearch(entry: Entry, action: Action): MutPtr<Entry> =
+    MutPtr(0L)
 
-public actual fun futex(uaddr: COpaquePointer?, op: CInt, value: CInt, timeout: COpaquePointer?, uaddr2: COpaquePointer?): CInt =
-    libc_unix_bsd_netbsdlike_openbsd_futex(uaddr?.value?.toCPointer<ByteVar>(), op, value, timeout?.value?.toCPointer<ByteVar>(), uaddr2?.value?.toCPointer<ByteVar>())
+public actual fun futex(uaddr: MutPtr<UInt>, op: CInt, value: CInt, timeout: ConstPtr<Timespec>, uaddr2: MutPtr<UInt>): CInt =
+    libcUnixBsdNetbsdlikeOpenbsdFutex(uaddr.rawAddress.toCPointer<ByteVar>(), op, value, timeout.rawAddress.toCPointer<ByteVar>(), uaddr2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mimmutable(addr: COpaquePointer?, len: SizeT): CInt =
-    libc_unix_bsd_netbsdlike_openbsd_mimmutable(addr?.value?.toCPointer<ByteVar>(), len)
+public actual fun mimmutable(addr: MutPtr<CVoid>, len: SizeT): CInt =
+    libcUnixBsdNetbsdlikeOpenbsdMimmutable(addr.rawAddress.toCPointer<ByteVar>(), len)
 
 public actual fun reboot(mode: CInt): CInt =
-    libc_unix_bsd_netbsdlike_openbsd_reboot(mode)
+    libcUnixBsdNetbsdlikeOpenbsdReboot(mode)
 
-public actual fun statfs(path: String?, buf: COpaquePointer?): CInt =
-    libc_unix_bsd_netbsdlike_openbsd_statfs(path, buf?.value?.toCPointer<ByteVar>())
+public actual fun statfs(path: ConstPtr<CChar>, buf: MutPtr<Statfs>): CInt =
+    libcUnixBsdNetbsdlikeOpenbsdStatfs(path.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fstatfs(fd: CInt, buf: COpaquePointer?): CInt =
-    libc_unix_bsd_netbsdlike_openbsd_fstatfs(fd, buf?.value?.toCPointer<ByteVar>())
+public actual fun fstatfs(fd: CInt, buf: MutPtr<Statfs>): CInt =
+    libcUnixBsdNetbsdlikeOpenbsdFstatfs(fd, buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getmntinfo(mntbufp: COpaquePointer?, flags: CInt): CInt =
-    libc_unix_bsd_netbsdlike_openbsd_getmntinfo(mntbufp?.value?.toCPointer<ByteVar>(), flags)
+public actual fun getmntinfo(mntbufp: MutPtr<MutPtr<Statfs>>, flags: CInt): CInt =
+    libcUnixBsdNetbsdlikeOpenbsdGetmntinfo(mntbufp.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun getfsstat(buf: COpaquePointer?, bufsize: SizeT, flags: CInt): CInt =
-    libc_unix_bsd_netbsdlike_openbsd_getfsstat(buf?.value?.toCPointer<ByteVar>(), bufsize, flags)
+public actual fun getfsstat(buf: MutPtr<Statfs>, bufsize: SizeT, flags: CInt): CInt =
+    libcUnixBsdNetbsdlikeOpenbsdGetfsstat(buf.rawAddress.toCPointer<ByteVar>(), bufsize, flags)
 
-public actual fun elfAuxInfo(aux: CInt, buf: COpaquePointer?, buflen: CInt): CInt =
-    libc_unix_bsd_netbsdlike_openbsd_elfAuxInfo(aux, buf?.value?.toCPointer<ByteVar>(), buflen)
+public actual fun elfAuxInfo(aux: CInt, buf: MutPtr<CVoid>, buflen: CInt): CInt =
+    libcUnixBsdNetbsdlikeOpenbsdElfAuxInfo(aux, buf.rawAddress.toCPointer<ByteVar>(), buflen)
 
-public actual fun backtrace(addrlist: COpaquePointer?, len: SizeT): SizeT =
-    libc_unix_bsd_netbsdlike_openbsd_backtrace(addrlist?.value?.toCPointer<ByteVar>(), len)
+public actual fun backtrace(addrlist: MutPtr<MutPtr<CVoid>>, len: SizeT): SizeT =
+    libcUnixBsdNetbsdlikeOpenbsdBacktrace(addrlist.rawAddress.toCPointer<ByteVar>(), len)
 
-public actual fun backtraceSymbols(addrlist: COpaquePointer?, len: SizeT): COpaquePointer? =
-    libc_unix_bsd_netbsdlike_openbsd_backtraceSymbols(addrlist?.value?.toCPointer<ByteVar>(), len)?.let { COpaquePointer(it.toLong()) }
+public actual fun backtraceSymbols(addrlist: ConstPtr<MutPtr<CVoid>>, len: SizeT): MutPtr<MutPtr<CChar>> =
+    MutPtr(libcUnixBsdNetbsdlikeOpenbsdBacktraceSymbols(addrlist.rawAddress.toCPointer<ByteVar>(), len)?.toLong() ?: 0L)
 
-public actual fun backtraceSymbolsFd(addrlist: COpaquePointer?, len: SizeT, fd: CInt): CInt =
-    libc_unix_bsd_netbsdlike_openbsd_backtraceSymbolsFd(addrlist?.value?.toCPointer<ByteVar>(), len, fd)
+public actual fun backtraceSymbolsFd(addrlist: ConstPtr<MutPtr<CVoid>>, len: SizeT, fd: CInt): CInt =
+    libcUnixBsdNetbsdlikeOpenbsdBacktraceSymbolsFd(addrlist.rawAddress.toCPointer<ByteVar>(), len, fd)
 
-public actual fun backtraceSymbolsFmt(addrlist: COpaquePointer?, len: SizeT, fmt: String?): COpaquePointer? =
-    libc_unix_bsd_netbsdlike_openbsd_backtraceSymbolsFmt(addrlist?.value?.toCPointer<ByteVar>(), len, fmt)?.let { COpaquePointer(it.toLong()) }
+public actual fun backtraceSymbolsFmt(addrlist: ConstPtr<MutPtr<CVoid>>, len: SizeT, fmt: ConstPtr<CChar>): MutPtr<MutPtr<CChar>> =
+    MutPtr(libcUnixBsdNetbsdlikeOpenbsdBacktraceSymbolsFmt(addrlist.rawAddress.toCPointer<ByteVar>(), len, fmt.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)

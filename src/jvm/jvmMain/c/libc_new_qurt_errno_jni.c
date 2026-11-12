@@ -19,7 +19,7 @@
 #endif
 #endif
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_errno_NewQurtErrnoJniBridge_libc_1new_1qurt_1errno_1errnoLocation(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_errno_NewQurtErrnoJniBridge_libcNewQurtErrnoErrnoLocation(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void);

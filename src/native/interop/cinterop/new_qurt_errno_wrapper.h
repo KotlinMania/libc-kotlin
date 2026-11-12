@@ -9,7 +9,7 @@
 extern "C" {
 #endif
 
-void* libc_new_qurt_errno_errnoLocation(void);
+void* libcNewQurtErrnoErrnoLocation(void);
 
 #ifdef __cplusplus
 }

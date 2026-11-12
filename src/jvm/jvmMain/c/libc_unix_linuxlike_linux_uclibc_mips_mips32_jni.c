@@ -19,7 +19,7 @@
 #endif
 #endif
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_uclibc_mips_mips32_UnixLinuxlikeLinuxUclibcMipsMips32JniBridge_libc_1unix_1linuxlike_1linux_1uclibc_1mips_1mips32_1sysctl(JNIEnv* km_env, jclass km_clazz, jlong name, jint namelen, jlong oldp, jlong oldlenp, jlong newp, jlong newlen) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_uclibc_mips_mips32_UnixLinuxlikeLinuxUclibcMipsMips32JniBridge_libcUnixLinuxlikeLinuxUclibcMipsMips32Sysctl(JNIEnv* km_env, jclass km_clazz, jlong name, jint namelen, jlong oldp, jlong oldlenp, jlong newp, jlong newlen) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t, void*, void*, void*, uint64_t);
@@ -73,10 +73,9 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_ucli
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_uclibc_mips_mips32_UnixLinuxlikeLinuxUclibcMipsMips32JniBridge_libc_1unix_1linuxlike_1linux_1uclibc_1mips_1mips32_1glob64(JNIEnv* km_env, jclass km_clazz, jstring pattern, jint flags, jlong errfunc, jlong pglob) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_uclibc_mips_mips32_UnixLinuxlikeLinuxUclibcMipsMips32JniBridge_libcUnixLinuxlikeLinuxUclibcMipsMips32Glob64(JNIEnv* km_env, jclass km_clazz, jlong pattern, jint flags, jlong errfunc, jlong pglob) {
     (void)km_env;
     (void)km_clazz;
-    const char* pattern_utf = (pattern != NULL) ? (*km_env)->GetStringUTFChars(km_env, pattern, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -125,16 +124,15 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_ucli
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(pattern_utf, (int32_t)flags, (void*)(uintptr_t)errfunc, (void*)(uintptr_t)pglob);
+        km_res = km_fn_ptr((const char*)(uintptr_t)pattern, (int32_t)flags, (void*)(uintptr_t)errfunc, (void*)(uintptr_t)pglob);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (pattern != NULL && pattern_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, pattern, pattern_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_uclibc_mips_mips32_UnixLinuxlikeLinuxUclibcMipsMips32JniBridge_libc_1unix_1linuxlike_1linux_1uclibc_1mips_1mips32_1globfree64(JNIEnv* km_env, jclass km_clazz, jlong pglob) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_uclibc_mips_mips32_UnixLinuxlikeLinuxUclibcMipsMips32JniBridge_libcUnixLinuxlikeLinuxUclibcMipsMips32Globfree64(JNIEnv* km_env, jclass km_clazz, jlong pglob) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void*);
@@ -190,7 +188,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_ucli
     }
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_uclibc_mips_mips32_UnixLinuxlikeLinuxUclibcMipsMips32JniBridge_libc_1unix_1linuxlike_1linux_1uclibc_1mips_1mips32_1pthreadAttrGetaffinityNp(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong cpusetsize, jlong cpuset) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_uclibc_mips_mips32_UnixLinuxlikeLinuxUclibcMipsMips32JniBridge_libcUnixLinuxlikeLinuxUclibcMipsMips32PthreadAttrGetaffinityNp(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong cpusetsize, jlong cpuset) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint64_t, void*);
@@ -244,7 +242,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_ucli
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_uclibc_mips_mips32_UnixLinuxlikeLinuxUclibcMipsMips32JniBridge_libc_1unix_1linuxlike_1linux_1uclibc_1mips_1mips32_1pthreadAttrSetaffinityNp(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong cpusetsize, jlong cpuset) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_uclibc_mips_mips32_UnixLinuxlikeLinuxUclibcMipsMips32JniBridge_libcUnixLinuxlikeLinuxUclibcMipsMips32PthreadAttrSetaffinityNp(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong cpusetsize, jlong cpuset) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint64_t, void*);

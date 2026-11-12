@@ -3,170 +3,179 @@
 package io.github.kotlinmania.libc.unix.solarish.illumos
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
+import io.github.kotlinmania.libc.CDouble
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
+import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.PidT
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
 import io.github.kotlinmania.libc.unix.solarish.CaddrT
 import io.github.kotlinmania.libc.unix.solarish.IdT
+import io.github.kotlinmania.libc.unix.solarish.Itimerspec
 import io.github.kotlinmania.libc.unix.solarish.OffT
+import io.github.kotlinmania.libc.unix.solarish.PosixSpawnFileActionsT
 import io.github.kotlinmania.libc.unix.solarish.PsetidT
+import io.github.kotlinmania.libc.unix.solarish.PthreadAttrT
 import io.github.kotlinmania.libc.unix.solarish.PthreadT
+import io.github.kotlinmania.libc.unix.solarish.SigsetT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 @JsFun("() => { if (typeof globalThis.__km_napi_libc !== 'undefined') return globalThis.__km_napi_libc !== null; if (typeof process === 'undefined' || !process.versions || !process.versions.node) { globalThis.__km_napi_libc = null; return false; } var mod = process.getBuiltinModule ? process.getBuiltinModule('module') : (process.mainModule && process.mainModule.constructor); var req = (mod && mod.createRequire) ? mod.createRequire((process.cwd ? process.cwd() : '.') + '/package.json') : (process.mainModule ? process.mainModule.require : null); if (!req) { globalThis.__km_napi_libc = null; return false; } try { globalThis.__km_napi_libc = req('@kotlinmania/libc-native-bindings'); return true; } catch (_) {} var fs = req('fs'); var path = req('path'); var dir = process.cwd ? process.cwd() : '.'; var rels = ['libc_native.node', 'build/node-ffi/libc_native.node', 'build/node-ffi/release/libc_native.node', 'build/node-ffi/debug/libc_native.node', 'src/js/node-libc/build/Release/libc_native.node', 'src/js/node-libc/build/Debug/libc_native.node', 'src/js/node-libc/dist/build/Release/libc_native.node', 'src/js/node-libc/dist/build/Debug/libc_native.node', 'c_native.node', 'build/node-ffi/c_native.node', 'build/node-ffi/release/c_native.node', 'build/node-ffi/debug/c_native.node', 'src/js/node-libc/build/Release/c_native.node', 'src/js/node-libc/build/Debug/c_native.node', 'src/js/node-libc/dist/build/Release/c_native.node', 'src/js/node-libc/dist/build/Debug/c_native.node']; for (var d = 0; d < 8; d++) { for (var i = 0; i < rels.length; i++) { var c = path.resolve(dir, rels[i]); if (fs.existsSync(c)) { globalThis.__km_napi_libc = req(c); return true; } } var parent = path.dirname(dir); if (parent === dir) break; dir = parent; } globalThis.__km_napi_libc = null; return false; }")
-private external fun _initUnixSolarishIllumosNapiAddon(): Boolean
+private external fun initUnixSolarishIllumosNapiAddon(): Boolean
 
-private val _unixSolarishIllumosNapiAvailable: Boolean = _initUnixSolarishIllumosNapiAddon()
+private val unixSolarishIllumosNapiAvailable: Boolean = initUnixSolarishIllumosNapiAddon()
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_illumos_eventfd(p0, p1)")
-private external fun _wasm_libc_unix_solarish_illumos_eventfd(p0: Int, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishIllumosEventfd(p0, p1)")
+private external fun wasmLibcUnixSolarishIllumosEventfd(p0: Int, p1: Int): Int
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_unix_solarish_illumos_epollPwait(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_unix_solarish_illumos_epollPwait(p0: Int, p1: String, p2: Int, p3: Int, p4: String): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcUnixSolarishIllumosEpollPwait(p0, p1, p2, p3, p4)")
+private external fun wasmLibcUnixSolarishIllumosEpollPwait(p0: Int, p1: String, p2: Int, p3: Int, p4: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_illumos_epollCreate(p0)")
-private external fun _wasm_libc_unix_solarish_illumos_epollCreate(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishIllumosEpollCreate(p0)")
+private external fun wasmLibcUnixSolarishIllumosEpollCreate(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_illumos_epollCreate1(p0)")
-private external fun _wasm_libc_unix_solarish_illumos_epollCreate1(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishIllumosEpollCreate1(p0)")
+private external fun wasmLibcUnixSolarishIllumosEpollCreate1(p0: Int): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_solarish_illumos_epollWait(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_solarish_illumos_epollWait(p0: Int, p1: String, p2: Int, p3: Int): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixSolarishIllumosEpollWait(p0, p1, p2, p3)")
+private external fun wasmLibcUnixSolarishIllumosEpollWait(p0: Int, p1: String, p2: Int, p3: Int): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_solarish_illumos_epollCtl(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_solarish_illumos_epollCtl(p0: Int, p1: Int, p2: Int, p3: String): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixSolarishIllumosEpollCtl(p0, p1, p2, p3)")
+private external fun wasmLibcUnixSolarishIllumosEpollCtl(p0: Int, p1: Int, p2: Int, p3: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_solarish_illumos_mincore(p0, p1, p2)")
-private external fun _wasm_libc_unix_solarish_illumos_mincore(p0: String, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixSolarishIllumosMincore(p0, p1, p2)")
+private external fun wasmLibcUnixSolarishIllumosMincore(p0: String, p1: String, p2: String): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_solarish_illumos_psetBindLwp(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_solarish_illumos_psetBindLwp(p0: Int, p1: Int, p2: Int, p3: String): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixSolarishIllumosPsetBindLwp(p0, p1, p2, p3)")
+private external fun wasmLibcUnixSolarishIllumosPsetBindLwp(p0: Int, p1: Int, p2: Int, p3: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_solarish_illumos_psetGetloadavg(p0, p1, p2)")
-private external fun _wasm_libc_unix_solarish_illumos_psetGetloadavg(p0: Int, p1: String, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixSolarishIllumosPsetGetloadavg(p0, p1, p2)")
+private external fun wasmLibcUnixSolarishIllumosPsetGetloadavg(p0: Int, p1: String, p2: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_illumos_pthreadAttrGetNp(p0, p1)")
-private external fun _wasm_libc_unix_solarish_illumos_pthreadAttrGetNp(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishIllumosPthreadAttrGetNp(p0, p1)")
+private external fun wasmLibcUnixSolarishIllumosPthreadAttrGetNp(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_illumos_pthreadAttrGetstackaddr(p0, p1)")
-private external fun _wasm_libc_unix_solarish_illumos_pthreadAttrGetstackaddr(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishIllumosPthreadAttrGetstackaddr(p0, p1)")
+private external fun wasmLibcUnixSolarishIllumosPthreadAttrGetstackaddr(p0: String, p1: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_solarish_illumos_pthreadAttrSetstack(p0, p1, p2)")
-private external fun _wasm_libc_unix_solarish_illumos_pthreadAttrSetstack(p0: String, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixSolarishIllumosPthreadAttrSetstack(p0, p1, p2)")
+private external fun wasmLibcUnixSolarishIllumosPthreadAttrSetstack(p0: String, p1: String, p2: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_illumos_pthreadAttrSetstackaddr(p0, p1)")
-private external fun _wasm_libc_unix_solarish_illumos_pthreadAttrSetstackaddr(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishIllumosPthreadAttrSetstackaddr(p0, p1)")
+private external fun wasmLibcUnixSolarishIllumosPthreadAttrSetstackaddr(p0: String, p1: String): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_solarish_illumos_posixFadvise(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_solarish_illumos_posixFadvise(p0: Int, p1: String, p2: String, p3: Int): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixSolarishIllumosPosixFadvise(p0, p1, p2, p3)")
+private external fun wasmLibcUnixSolarishIllumosPosixFadvise(p0: Int, p1: String, p2: String, p3: Int): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_solarish_illumos_preadv(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_solarish_illumos_preadv(p0: Int, p1: String, p2: Int, p3: String): String
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixSolarishIllumosPreadv(p0, p1, p2, p3)")
+private external fun wasmLibcUnixSolarishIllumosPreadv(p0: Int, p1: String, p2: Int, p3: String): String
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_solarish_illumos_pwritev(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_solarish_illumos_pwritev(p0: Int, p1: String, p2: Int, p3: String): String
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixSolarishIllumosPwritev(p0, p1, p2, p3)")
+private external fun wasmLibcUnixSolarishIllumosPwritev(p0: Int, p1: String, p2: Int, p3: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_illumos_getpagesizes2(p0, p1)")
-private external fun _wasm_libc_unix_solarish_illumos_getpagesizes2(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishIllumosGetpagesizes2(p0, p1)")
+private external fun wasmLibcUnixSolarishIllumosGetpagesizes2(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_illumos_posixSpawnFileActionsAddfchdirNp(p0, p1)")
-private external fun _wasm_libc_unix_solarish_illumos_posixSpawnFileActionsAddfchdirNp(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishIllumosPosixSpawnFileActionsAddfchdirNp(p0, p1)")
+private external fun wasmLibcUnixSolarishIllumosPosixSpawnFileActionsAddfchdirNp(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_solarish_illumos_ptsnameR(p0, p1, p2)")
-private external fun _wasm_libc_unix_solarish_illumos_ptsnameR(p0: Int, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixSolarishIllumosPtsnameR(p0, p1, p2)")
+private external fun wasmLibcUnixSolarishIllumosPtsnameR(p0: Int, p1: String, p2: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_illumos_syncfs(p0)")
-private external fun _wasm_libc_unix_solarish_illumos_syncfs(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishIllumosSyncfs(p0)")
+private external fun wasmLibcUnixSolarishIllumosSyncfs(p0: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_solarish_illumos_strcasecmpL(p0, p1, p2)")
-private external fun _wasm_libc_unix_solarish_illumos_strcasecmpL(p0: String?, p1: String?, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixSolarishIllumosStrcasecmpL(p0, p1, p2)")
+private external fun wasmLibcUnixSolarishIllumosStrcasecmpL(p0: String, p1: String, p2: String): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_solarish_illumos_strncasecmpL(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_solarish_illumos_strncasecmpL(p0: String?, p1: String?, p2: String, p3: String): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixSolarishIllumosStrncasecmpL(p0, p1, p2, p3)")
+private external fun wasmLibcUnixSolarishIllumosStrncasecmpL(p0: String, p1: String, p2: String, p3: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_illumos_timerfdCreate(p0, p1)")
-private external fun _wasm_libc_unix_solarish_illumos_timerfdCreate(p0: Int, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishIllumosTimerfdCreate(p0, p1)")
+private external fun wasmLibcUnixSolarishIllumosTimerfdCreate(p0: Int, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_illumos_timerfdGettime(p0, p1)")
-private external fun _wasm_libc_unix_solarish_illumos_timerfdGettime(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishIllumosTimerfdGettime(p0, p1)")
+private external fun wasmLibcUnixSolarishIllumosTimerfdGettime(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_solarish_illumos_timerfdSettime(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_solarish_illumos_timerfdSettime(p0: Int, p1: Int, p2: String, p3: String): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixSolarishIllumosTimerfdSettime(p0, p1, p2, p3)")
+private external fun wasmLibcUnixSolarishIllumosTimerfdSettime(p0: Int, p1: Int, p2: String, p3: String): Int
 
 public actual fun eventfd(initval: CUint, flags: CInt): CInt =
-    if (_unixSolarishIllumosNapiAvailable) _wasm_libc_unix_solarish_illumos_eventfd(initval.toInt(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosEventfd(initval.toInt(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun epollPwait(epfd: CInt, events: COpaquePointer?, maxevents: CInt, timeout: CInt, sigmask: COpaquePointer?): CInt =
-    if (_unixSolarishIllumosNapiAvailable) _wasm_libc_unix_solarish_illumos_epollPwait(epfd, (events?.value ?: 0L).toString(), maxevents, timeout, (sigmask?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun epollPwait(epfd: CInt, events: MutPtr<EpollEvent>, maxevents: CInt, timeout: CInt, sigmask: ConstPtr<SigsetT>): CInt =
+    if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosEpollPwait(epfd, events.rawAddress.toString(), maxevents, timeout, sigmask.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun epollCreate(size: CInt): CInt =
-    if (_unixSolarishIllumosNapiAvailable) _wasm_libc_unix_solarish_illumos_epollCreate(size) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosEpollCreate(size) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun epollCreate1(flags: CInt): CInt =
-    if (_unixSolarishIllumosNapiAvailable) _wasm_libc_unix_solarish_illumos_epollCreate1(flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosEpollCreate1(flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun epollWait(epfd: CInt, events: COpaquePointer?, maxevents: CInt, timeout: CInt): CInt =
-    if (_unixSolarishIllumosNapiAvailable) _wasm_libc_unix_solarish_illumos_epollWait(epfd, (events?.value ?: 0L).toString(), maxevents, timeout) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun epollWait(epfd: CInt, events: MutPtr<EpollEvent>, maxevents: CInt, timeout: CInt): CInt =
+    if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosEpollWait(epfd, events.rawAddress.toString(), maxevents, timeout) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun epollCtl(epfd: CInt, op: CInt, fd: CInt, event: COpaquePointer?): CInt =
-    if (_unixSolarishIllumosNapiAvailable) _wasm_libc_unix_solarish_illumos_epollCtl(epfd, op, fd, (event?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun epollCtl(epfd: CInt, op: CInt, fd: CInt, event: MutPtr<EpollEvent>): CInt =
+    if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosEpollCtl(epfd, op, fd, event.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mincore(addr: CaddrT, len: SizeT, vec: COpaquePointer?): CInt =
-    if (_unixSolarishIllumosNapiAvailable) _wasm_libc_unix_solarish_illumos_mincore((addr?.value ?: 0L).toString(), len.toString(), (vec?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mincore(addr: CaddrT, len: SizeT, vec: MutPtr<CChar>): CInt =
+    if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosMincore(addr.rawAddress.toString(), len.toString(), vec.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun psetBindLwp(pset: PsetidT, id: IdT, pid: PidT, opset: COpaquePointer?): CInt =
-    if (_unixSolarishIllumosNapiAvailable) _wasm_libc_unix_solarish_illumos_psetBindLwp(pset, id, pid, (opset?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun psetBindLwp(pset: PsetidT, id: IdT, pid: PidT, opset: MutPtr<PsetidT>): CInt =
+    if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosPsetBindLwp(pset, id, pid, opset.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun psetGetloadavg(pset: PsetidT, load: COpaquePointer?, num: CInt): CInt =
-    if (_unixSolarishIllumosNapiAvailable) _wasm_libc_unix_solarish_illumos_psetGetloadavg(pset, (load?.value ?: 0L).toString(), num) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun psetGetloadavg(pset: PsetidT, load: MutPtr<CDouble>, num: CInt): CInt =
+    if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosPsetGetloadavg(pset, load.rawAddress.toString(), num) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrGetNp(thread: PthreadT, attr: COpaquePointer?): CInt =
-    if (_unixSolarishIllumosNapiAvailable) _wasm_libc_unix_solarish_illumos_pthreadAttrGetNp(thread.toLong().toString(), (attr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadAttrGetNp(thread: PthreadT, attr: MutPtr<PthreadAttrT>): CInt =
+    if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosPthreadAttrGetNp(thread.toLong().toString(), attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrGetstackaddr(attr: COpaquePointer?, stackaddr: COpaquePointer?): CInt =
-    if (_unixSolarishIllumosNapiAvailable) _wasm_libc_unix_solarish_illumos_pthreadAttrGetstackaddr((attr?.value ?: 0L).toString(), (stackaddr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadAttrGetstackaddr(attr: ConstPtr<PthreadAttrT>, stackaddr: MutPtr<MutPtr<CVoid>>): CInt =
+    if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosPthreadAttrGetstackaddr(attr.rawAddress.toString(), stackaddr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrSetstack(attr: COpaquePointer?, stackaddr: COpaquePointer?, stacksize: SizeT): CInt =
-    if (_unixSolarishIllumosNapiAvailable) _wasm_libc_unix_solarish_illumos_pthreadAttrSetstack((attr?.value ?: 0L).toString(), (stackaddr?.value ?: 0L).toString(), stacksize.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadAttrSetstack(attr: MutPtr<PthreadAttrT>, stackaddr: MutPtr<CVoid>, stacksize: SizeT): CInt =
+    if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosPthreadAttrSetstack(attr.rawAddress.toString(), stackaddr.rawAddress.toString(), stacksize.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrSetstackaddr(attr: COpaquePointer?, stackaddr: COpaquePointer?): CInt =
-    if (_unixSolarishIllumosNapiAvailable) _wasm_libc_unix_solarish_illumos_pthreadAttrSetstackaddr((attr?.value ?: 0L).toString(), (stackaddr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadAttrSetstackaddr(attr: MutPtr<PthreadAttrT>, stackaddr: MutPtr<CVoid>): CInt =
+    if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosPthreadAttrSetstackaddr(attr.rawAddress.toString(), stackaddr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun posixFadvise(fd: CInt, offset: OffT, len: OffT, advice: CInt): CInt =
-    if (_unixSolarishIllumosNapiAvailable) _wasm_libc_unix_solarish_illumos_posixFadvise(fd, offset.toString(), len.toString(), advice) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosPosixFadvise(fd, offset.toString(), len.toString(), advice) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun preadv(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: OffT): SsizeT =
-    if (_unixSolarishIllumosNapiAvailable) _wasm_libc_unix_solarish_illumos_preadv(fd, (iov?.value ?: 0L).toString(), iovcnt, offset.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun preadv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT =
+    if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosPreadv(fd, iov.rawAddress.toString(), iovcnt, offset.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pwritev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: OffT): SsizeT =
-    if (_unixSolarishIllumosNapiAvailable) _wasm_libc_unix_solarish_illumos_pwritev(fd, (iov?.value ?: 0L).toString(), iovcnt, offset.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pwritev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT =
+    if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosPwritev(fd, iov.rawAddress.toString(), iovcnt, offset.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getpagesizes2(pagesize: COpaquePointer?, nelem: CInt): CInt =
-    if (_unixSolarishIllumosNapiAvailable) _wasm_libc_unix_solarish_illumos_getpagesizes2((pagesize?.value ?: 0L).toString(), nelem) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getpagesizes2(pagesize: MutPtr<SizeT>, nelem: CInt): CInt =
+    if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosGetpagesizes2(pagesize.rawAddress.toString(), nelem) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnFileActionsAddfchdirNp(fileActions: COpaquePointer?, fd: CInt): CInt =
-    if (_unixSolarishIllumosNapiAvailable) _wasm_libc_unix_solarish_illumos_posixSpawnFileActionsAddfchdirNp((fileActions?.value ?: 0L).toString(), fd) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnFileActionsAddfchdirNp(fileActions: MutPtr<PosixSpawnFileActionsT>, fd: CInt): CInt =
+    if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosPosixSpawnFileActionsAddfchdirNp(fileActions.rawAddress.toString(), fd) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ptsnameR(fildes: CInt, name: COpaquePointer?, namelen: SizeT): CInt =
-    if (_unixSolarishIllumosNapiAvailable) _wasm_libc_unix_solarish_illumos_ptsnameR(fildes, (name?.value ?: 0L).toString(), namelen.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ptsnameR(fildes: CInt, name: MutPtr<CChar>, namelen: SizeT): CInt =
+    if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosPtsnameR(fildes, name.rawAddress.toString(), namelen.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun syncfs(fd: CInt): CInt =
-    if (_unixSolarishIllumosNapiAvailable) _wasm_libc_unix_solarish_illumos_syncfs(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosSyncfs(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strcasecmpL(s1: String?, s2: String?, loc: LocaleT): CInt =
-    if (_unixSolarishIllumosNapiAvailable) _wasm_libc_unix_solarish_illumos_strcasecmpL(s1, s2, (loc?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strcasecmpL(s1: ConstPtr<CChar>, s2: ConstPtr<CChar>, loc: LocaleT): CInt =
+    if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosStrcasecmpL(s1.rawAddress.toString(), s2.rawAddress.toString(), loc.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strncasecmpL(s1: String?, s2: String?, n: SizeT, loc: LocaleT): CInt =
-    if (_unixSolarishIllumosNapiAvailable) _wasm_libc_unix_solarish_illumos_strncasecmpL(s1, s2, n.toString(), (loc?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strncasecmpL(s1: ConstPtr<CChar>, s2: ConstPtr<CChar>, n: SizeT, loc: LocaleT): CInt =
+    if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosStrncasecmpL(s1.rawAddress.toString(), s2.rawAddress.toString(), n.toString(), loc.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun timerfdCreate(clockid: CInt, flags: CInt): CInt =
-    if (_unixSolarishIllumosNapiAvailable) _wasm_libc_unix_solarish_illumos_timerfdCreate(clockid, flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosTimerfdCreate(clockid, flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun timerfdGettime(fd: CInt, currValue: COpaquePointer?): CInt =
-    if (_unixSolarishIllumosNapiAvailable) _wasm_libc_unix_solarish_illumos_timerfdGettime(fd, (currValue?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun timerfdGettime(fd: CInt, currValue: MutPtr<Itimerspec>): CInt =
+    if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosTimerfdGettime(fd, currValue.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun timerfdSettime(fd: CInt, flags: CInt, newValue: COpaquePointer?, oldValue: COpaquePointer?): CInt =
-    if (_unixSolarishIllumosNapiAvailable) _wasm_libc_unix_solarish_illumos_timerfdSettime(fd, flags, (newValue?.value ?: 0L).toString(), (oldValue?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun timerfdSettime(fd: CInt, flags: CInt, newValue: ConstPtr<Itimerspec>, oldValue: MutPtr<Itimerspec>): CInt =
+    if (unixSolarishIllumosNapiAvailable) wasmLibcUnixSolarishIllumosTimerfdSettime(fd, flags, newValue.rawAddress.toString(), oldValue.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")

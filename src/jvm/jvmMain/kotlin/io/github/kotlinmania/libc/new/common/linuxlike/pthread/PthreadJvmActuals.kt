@@ -3,43 +3,98 @@
 package io.github.kotlinmania.libc.new.common.linuxlike.pthread
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.libc.new.apple.libpthread.sys.pthread.pthreadtypes.PthreadAttrT
 import io.github.kotlinmania.libc.new.qurt.PthreadT
 import io.github.kotlinmania.libc.new.qurt.SizeT
+import io.github.kotlinmania.libc.new.qurt.sys.types.CpuSetT
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 private object NewCommonLinuxlikePthreadJniBridge {
     init {
+        loadNativeLibrary()
+    }
+
+    private fun loadNativeLibrary() {
+        val osRaw = System.getProperty("os.name", "").lowercase()
+        val archRaw = System.getProperty("os.arch", "").lowercase()
+        val hostPlatform =
+            when {
+                osRaw.contains("win") -> "windows"
+                osRaw.contains("mac") || osRaw.contains("darwin") -> "macos"
+                else -> "linux"
+            }
+        val hostArch =
+            when {
+                archRaw == "aarch64" || archRaw == "arm64" -> "aarch64"
+                archRaw == "amd64" || archRaw == "x86_64" -> "x86_64"
+                else -> archRaw
+            }
+        val libFileName =
+            when (hostPlatform) {
+                "windows" -> "libc_jni.dll"
+                "macos" -> "liblibc_jni.dylib"
+                else -> "liblibc_jni.so"
+            }
+        val pathSep = System.getProperty("path.separator", ":")
+        val libPathProp = System.getProperty("java.library.path", "")
+        for (dirEntry in libPathProp.split(pathSep)) {
+            if (dirEntry.isEmpty()) continue
+            val candidate = java.io.File(dirEntry, libFileName)
+            if (candidate.isFile) {
+                System.load(candidate.absolutePath)
+                return
+            }
+        }
+        val resourcePath = "io/github/kotlinmania/libc/native/$hostPlatform-$hostArch/$libFileName"
+        val stream = NewCommonLinuxlikePthreadJniBridge::class.java.classLoader?.getResourceAsStream(resourcePath)
+        if (stream != null) {
+            val suffix = "." + libFileName.substringAfterLast('.')
+            val extracted =
+                java.nio.file.Files
+                    .createTempFile("libc_jni-", suffix)
+                    .toFile()
+            extracted.deleteOnExit()
+            stream.use { input ->
+                extracted.outputStream().use { output ->
+                    input.copyTo(output)
+                }
+            }
+            System.load(extracted.absolutePath)
+            return
+        }
         System.loadLibrary("libc_jni")
     }
 
     @JvmStatic
-    external fun libc_new_common_linuxlike_pthread_pthreadGetaffinityNp(thread: Long, cpusetsize: Long, cpuset: Long): Int
+    external fun libcNewCommonLinuxlikePthreadPthreadGetaffinityNp(thread: Long, cpusetsize: Long, cpuset: Long): Int
 
     @JvmStatic
-    external fun libc_new_common_linuxlike_pthread_pthreadGetattrNp(native: Long, attr: Long): Int
+    external fun libcNewCommonLinuxlikePthreadPthreadGetattrNp(native: Long, attr: Long): Int
 
     @JvmStatic
-    external fun libc_new_common_linuxlike_pthread_pthreadGetnameNp(thread: Long, name: Long, len: Long): Int
+    external fun libcNewCommonLinuxlikePthreadPthreadGetnameNp(thread: Long, name: Long, len: Long): Int
 
     @JvmStatic
-    external fun libc_new_common_linuxlike_pthread_pthreadSetaffinityNp(thread: Long, cpusetsize: Long, cpuset: Long): Int
+    external fun libcNewCommonLinuxlikePthreadPthreadSetaffinityNp(thread: Long, cpusetsize: Long, cpuset: Long): Int
 
     @JvmStatic
-    external fun libc_new_common_linuxlike_pthread_pthreadSetnameNp(thread: Long, name: String?): Int
+    external fun libcNewCommonLinuxlikePthreadPthreadSetnameNp(thread: Long, name: Long): Int
 }
 
-public actual fun pthreadGetaffinityNp(thread: PthreadT, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
-    NewCommonLinuxlikePthreadJniBridge.libc_new_common_linuxlike_pthread_pthreadGetaffinityNp(thread.toLong(), cpusetsize.toLong(), (cpuset?.value ?: 0L))
+public actual fun pthreadGetaffinityNp(thread: PthreadT, cpusetsize: SizeT, cpuset: MutPtr<CpuSetT>): CInt =
+    NewCommonLinuxlikePthreadJniBridge.libcNewCommonLinuxlikePthreadPthreadGetaffinityNp(thread.toLong(), cpusetsize.toLong(), cpuset.rawAddress)
 
-public actual fun pthreadGetattrNp(native: PthreadT, attr: COpaquePointer?): CInt =
-    NewCommonLinuxlikePthreadJniBridge.libc_new_common_linuxlike_pthread_pthreadGetattrNp(native.toLong(), (attr?.value ?: 0L))
+public actual fun pthreadGetattrNp(native: PthreadT, attr: MutPtr<PthreadAttrT>): CInt =
+    NewCommonLinuxlikePthreadJniBridge.libcNewCommonLinuxlikePthreadPthreadGetattrNp(native.toLong(), attr.rawAddress)
 
-public actual fun pthreadGetnameNp(thread: PthreadT, name: COpaquePointer?, len: SizeT): CInt =
-    NewCommonLinuxlikePthreadJniBridge.libc_new_common_linuxlike_pthread_pthreadGetnameNp(thread.toLong(), (name?.value ?: 0L), len.toLong())
+public actual fun pthreadGetnameNp(thread: PthreadT, name: MutPtr<CChar>, len: SizeT): CInt =
+    NewCommonLinuxlikePthreadJniBridge.libcNewCommonLinuxlikePthreadPthreadGetnameNp(thread.toLong(), name.rawAddress, len.toLong())
 
-public actual fun pthreadSetaffinityNp(thread: PthreadT, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
-    NewCommonLinuxlikePthreadJniBridge.libc_new_common_linuxlike_pthread_pthreadSetaffinityNp(thread.toLong(), cpusetsize.toLong(), (cpuset?.value ?: 0L))
+public actual fun pthreadSetaffinityNp(thread: PthreadT, cpusetsize: SizeT, cpuset: ConstPtr<CpuSetT>): CInt =
+    NewCommonLinuxlikePthreadJniBridge.libcNewCommonLinuxlikePthreadPthreadSetaffinityNp(thread.toLong(), cpusetsize.toLong(), cpuset.rawAddress)
 
-public actual fun pthreadSetnameNp(thread: PthreadT, name: String?): CInt =
-    NewCommonLinuxlikePthreadJniBridge.libc_new_common_linuxlike_pthread_pthreadSetnameNp(thread.toLong(), name)
+public actual fun pthreadSetnameNp(thread: PthreadT, name: ConstPtr<CChar>): CInt =
+    NewCommonLinuxlikePthreadJniBridge.libcNewCommonLinuxlikePthreadPthreadSetnameNp(thread.toLong(), name.rawAddress)

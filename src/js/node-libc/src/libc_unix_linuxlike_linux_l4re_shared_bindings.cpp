@@ -51,7 +51,7 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_iopl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedIopl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t level = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -84,11 +84,11 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_iopl_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_ioperm_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedIoperm_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t from = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     uint64_t num = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
-    int32_t turn_on = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    int32_t turnOn = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint64_t, uint64_t, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -111,7 +111,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_ioperm_napi(const Napi:
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(from, num, turn_on);
+        km_res = km_fn_ptr(from, num, turnOn);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -119,7 +119,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_ioperm_napi(const Napi:
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_aioRead_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedAioRead_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* aiocbp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -152,7 +152,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_aioRead_napi(const Napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_aioWrite_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedAioWrite_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* aiocbp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -185,7 +185,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_aioWrite_napi(const Nap
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_aioFsync_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedAioFsync_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t op = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* aiocbp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -219,7 +219,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_aioFsync_napi(const Nap
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_aioError_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedAioError_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* aiocbp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -252,7 +252,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_aioError_napi(const Nap
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_aioReturn_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedAioReturn_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* aiocbp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(void*);
@@ -285,9 +285,9 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_aioReturn_napi(const Na
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_aioSuspend_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedAioSuspend_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* aiocb_list = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* aiocbList = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t nitems = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     void* timeout = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(void*, int32_t, void*);
@@ -312,7 +312,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_aioSuspend_napi(const N
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(aiocb_list, nitems, timeout);
+        km_res = km_fn_ptr(aiocbList, nitems, timeout);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -320,7 +320,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_aioSuspend_napi(const N
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_aioCancel_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedAioCancel_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* aiocbp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -354,10 +354,10 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_aioCancel_napi(const Na
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_lioListio_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedLioListio_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t mode = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* aiocb_list = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* aiocbList = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t nitems = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     void* sevp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t, void*);
@@ -382,7 +382,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_lioListio_napi(const Na
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(mode, aiocb_list, nitems, sevp);
+        km_res = km_fn_ptr(mode, aiocbList, nitems, sevp);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -390,7 +390,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_lioListio_napi(const Na
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_pwritev_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedPwritev_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -426,7 +426,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_pwritev_napi(const Napi
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_preadv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedPreadv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -462,7 +462,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_preadv_napi(const Napi:
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_getnameinfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedGetnameinfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* sa = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t salen = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -501,7 +501,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_getnameinfo_napi(const 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_getloadavg_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedGetloadavg_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* loadavg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t nelem = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -535,12 +535,12 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_getloadavg_napi(const N
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_processVmReadv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedProcessVmReadv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* local_iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* localIov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t liovcnt = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    void* remote_iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    void* remoteIov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     uint64_t riovcnt = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
     uint64_t flags = km_info.Length() > 5 ? km_napi_arg_u64(km_info[5]) : 0;
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, void*, uint64_t, uint64_t);
@@ -565,7 +565,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_processVmReadv_napi(con
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(pid, local_iov, liovcnt, remote_iov, riovcnt, flags);
+        km_res = km_fn_ptr(pid, localIov, liovcnt, remoteIov, riovcnt, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -573,12 +573,12 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_processVmReadv_napi(con
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_processVmWritev_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedProcessVmWritev_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* local_iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* localIov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t liovcnt = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    void* remote_iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    void* remoteIov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     uint64_t riovcnt = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
     uint64_t flags = km_info.Length() > 5 ? km_napi_arg_u64(km_info[5]) : 0;
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, void*, uint64_t, uint64_t);
@@ -603,7 +603,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_processVmWritev_napi(co
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(pid, local_iov, liovcnt, remote_iov, riovcnt, flags);
+        km_res = km_fn_ptr(pid, localIov, liovcnt, remoteIov, riovcnt, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -611,7 +611,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_processVmWritev_napi(co
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_futimes_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedFutimes_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* times = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -645,7 +645,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_futimes_napi(const Napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_strerrorR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedStrerrorR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t errnum = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -680,7 +680,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_strerrorR_napi(const Na
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_abs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedAbs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t i = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -713,7 +713,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_abs_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_labs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedLabs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int64_t i = km_info.Length() > 0 ? km_napi_arg_i64(km_info[0]) : 0;
     typedef int64_t (*km_fn_t)(int64_t);
@@ -746,7 +746,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_labs_napi(const Napi::C
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_rand_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedRand_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -778,7 +778,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_rand_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_srand_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedSrand_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t seed = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(uint32_t);
@@ -809,7 +809,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_srand_napi(const Napi::
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_drand48_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedDrand48_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef double (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -841,7 +841,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_drand48_napi(const Napi
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_erand48_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedErand48_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* xseed = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef double (*km_fn_t)(void*);
@@ -874,7 +874,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_erand48_napi(const Napi
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_lrand48_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedLrand48_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -906,7 +906,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_lrand48_napi(const Napi
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_nrand48_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedNrand48_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* xseed = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(void*);
@@ -939,7 +939,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_nrand48_napi(const Napi
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_jrand48_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedJrand48_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* xseed = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(void*);
@@ -972,7 +972,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_jrand48_napi(const Napi
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_srand48_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedSrand48_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int64_t seed = km_info.Length() > 0 ? km_napi_arg_i64(km_info[0]) : 0;
     typedef void (*km_fn_t)(int64_t);
@@ -1003,7 +1003,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_srand48_napi(const Napi
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_setpwent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedSetpwent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1033,7 +1033,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_setpwent_napi(const Nap
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_endpwent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedEndpwent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1063,7 +1063,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_endpwent_napi(const Nap
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_getpwent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedGetpwent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1095,7 +1095,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_getpwent_napi(const Nap
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_setgrent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedSetgrent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1125,7 +1125,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_setgrent_napi(const Nap
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_endgrent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedEndgrent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1155,7 +1155,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_endgrent_napi(const Nap
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_getgrent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedGetgrent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1187,7 +1187,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_getgrent_napi(const Nap
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_setspent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedSetspent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1217,7 +1217,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_setspent_napi(const Nap
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_endspent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedEndspent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1247,7 +1247,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_endspent_napi(const Nap
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_getspent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedGetspent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1279,11 +1279,9 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_getspent_napi(const Nap
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_getspnam_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedGetspnam_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1314,7 +1312,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_getspnam_napi(const Nap
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_shmget_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedShmget_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t key = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1349,7 +1347,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_shmget_napi(const Napi:
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_shmat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedShmat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t shmid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* shmaddr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1384,7 +1382,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_shmat_napi(const Napi::
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_shmdt_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedShmdt_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* shmaddr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -1417,7 +1415,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_shmdt_napi(const Napi::
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_shmctl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedShmctl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t shmid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t cmd = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1452,7 +1450,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_shmctl_napi(const Napi:
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_mprotect_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedMprotect_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1487,7 +1485,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_mprotect_napi(const Nap
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_errnoLocation_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedErrnoLocation_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1517,11 +1515,11 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_errnoLocation_napi(cons
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_mremap_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedMremap_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
-    uint64_t new_len = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    uint64_t newLen = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     int32_t flags = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     int32_t km_vac = km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 5 ? km_napi_arg_i64(km_info[5]) : 0;
@@ -1551,11 +1549,11 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_mremap_napi(const Napi:
     void* km_res = nullptr;
     if (km_fn_ptr != nullptr) {
         switch (km_vac) {
-            case 0: km_res = km_fn_ptr(addr, len, new_len, flags); break;
-            case 1: km_res = km_fn_ptr(addr, len, new_len, flags, static_cast<intptr_t>(km_va0)); break;
-            case 2: km_res = km_fn_ptr(addr, len, new_len, flags, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1)); break;
-            case 3: km_res = km_fn_ptr(addr, len, new_len, flags, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2)); break;
-            default: km_res = km_fn_ptr(addr, len, new_len, flags, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2), static_cast<intptr_t>(km_va3)); break;
+            case 0: km_res = km_fn_ptr(addr, len, newLen, flags); break;
+            case 1: km_res = km_fn_ptr(addr, len, newLen, flags, static_cast<intptr_t>(km_va0)); break;
+            case 2: km_res = km_fn_ptr(addr, len, newLen, flags, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1)); break;
+            case 3: km_res = km_fn_ptr(addr, len, newLen, flags, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2)); break;
+            default: km_res = km_fn_ptr(addr, len, newLen, flags, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2), static_cast<intptr_t>(km_va3)); break;
         }
     } else {
         errno = ENOSYS;
@@ -1563,11 +1561,9 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_mremap_napi(const Napi:
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_glob_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedGlob_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool pattern_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string pattern_str = pattern_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* pattern = pattern_null ? nullptr : pattern_str.c_str();
+    const char* pattern = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     void* errfunc = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* pglob = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
@@ -1601,7 +1597,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_glob_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_globfree_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedGlobfree_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* pglob = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -1632,7 +1628,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_globfree_napi(const Nap
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_seekdir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedSeekdir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* dirp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int64_t loc = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
@@ -1664,7 +1660,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_seekdir_napi(const Napi
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_telldir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedTelldir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* dirp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(void*);
@@ -1697,7 +1693,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_telldir_napi(const Napi
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_madvise_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedMadvise_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1732,7 +1728,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_madvise_napi(const Napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_msync_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedMsync_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1767,9 +1763,9 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_msync_napi(const Napi::
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_recvfrom_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedRecvfrom_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t arg0Socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t len = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     int32_t flags = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
@@ -1797,7 +1793,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_recvfrom_napi(const Nap
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_socket, buf, len, flags, addr, addrlen);
+        km_res = km_fn_ptr(arg0Socket, buf, len, flags, addr, addrlen);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1805,7 +1801,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_recvfrom_napi(const Nap
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_nlLanginfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedNlLanginfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t item = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef char* (*km_fn_t)(int32_t);
@@ -1838,7 +1834,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_nlLanginfo_napi(const N
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_nlLanginfoL_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedNlLanginfoL_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t item = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* locale = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1872,7 +1868,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_nlLanginfoL_napi(const 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_schedGetaffinity_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedSchedGetaffinity_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint64_t cpusetsize = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1907,7 +1903,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_schedGetaffinity_napi(c
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_schedGetPriorityMax_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedSchedGetPriorityMax_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t policy = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -1940,7 +1936,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_schedGetPriorityMax_nap
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_settimeofday_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedSettimeofday_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* tv = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* tz = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1974,7 +1970,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_settimeofday_napi(const
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_semTimedwait_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedSemTimedwait_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* sem = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* abstime = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2008,7 +2004,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_semTimedwait_napi(const
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_semGetvalue_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedSemGetvalue_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* sem = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* sval = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2042,17 +2038,11 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_semGetvalue_napi(const 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_mount_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedMount_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool src_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string src_str = src_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* src = src_null ? nullptr : src_str.c_str();
-    bool target_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string target_str = target_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* target = target_null ? nullptr : target_str.c_str();
-    bool fstype_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string fstype_str = fstype_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* fstype = fstype_null ? nullptr : fstype_str.c_str();
+    const char* src = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* target = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    const char* fstype = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint64_t flags = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
     void* data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
     typedef int32_t (*km_fn_t)(const char*, const char*, const char*, uint64_t, void*);
@@ -2085,7 +2075,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_mount_napi(const Napi::
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_prctl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedPrctl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t option = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t km_vac = km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0;
@@ -2128,7 +2118,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_prctl_napi(const Napi::
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_ppoll_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedPpoll_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* fds = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t nfds = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -2164,11 +2154,9 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_ppoll_napi(const Napi::
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_sethostname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedSethostname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
     typedef int32_t (*km_fn_t)(const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2200,7 +2188,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_sethostname_napi(const 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_schedGetPriorityMin_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedSchedGetPriorityMin_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t policy = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -2233,7 +2221,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_schedGetPriorityMin_nap
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_sysinfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedSysinfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -2266,7 +2254,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_sysinfo_napi(const Napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_sigsuspend_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedSigsuspend_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mask = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -2299,7 +2287,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_sigsuspend_napi(const N
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_getgrgidR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedGetgrgidR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint16_t gid = static_cast<uint16_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* grp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2336,7 +2324,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_getgrgidR_napi(const Na
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_semClose_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedSemClose_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* sem = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -2369,11 +2357,9 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_semClose_napi(const Nap
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_getgrnamR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedGetgrnamR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* grp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint64_t buflen = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
@@ -2408,11 +2394,9 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_getgrnamR_napi(const Na
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_initgroups_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedInitgroups_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool user_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string user_str = user_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* user = user_null ? nullptr : user_str.c_str();
+    const char* user = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint16_t group = static_cast<uint16_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, uint16_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2444,11 +2428,9 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_initgroups_napi(const N
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_semOpen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedSemOpen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t oflag = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     int32_t km_vac = km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
@@ -2490,11 +2472,9 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_semOpen_napi(const Napi
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_getgrnam_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedGetgrnam_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2525,11 +2505,9 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_getgrnam_napi(const Nap
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_semUnlink_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedSemUnlink_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2560,7 +2538,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_semUnlink_napi(const Na
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_daemon_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedDaemon_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t nochdir = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t noclose = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -2594,7 +2572,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_daemon_napi(const Napi:
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_sigwait_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedSigwait_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* sig = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2628,7 +2606,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_sigwait_napi(const Napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_getgrgid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedGetgrgid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint16_t gid = static_cast<uint16_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void* (*km_fn_t)(uint16_t);
@@ -2661,14 +2639,10 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_getgrgid_napi(const Nap
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_popen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedPopen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool command_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string command_str = command_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* command = command_null ? nullptr : command_str.c_str();
-    bool mode_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string mode_str = mode_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* mode = mode_null ? nullptr : mode_str.c_str();
+    const char* command = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* mode = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef void* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2699,12 +2673,10 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_popen_napi(const Napi::
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_faccessat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedFaccessat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t dirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool pathname_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string pathname_str = pathname_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* pathname = pathname_null ? nullptr : pathname_str.c_str();
+    const char* pathname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t mode = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     int32_t flags = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, int32_t);
@@ -2737,7 +2709,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_faccessat_napi(const Na
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_dlIteratePhdr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedDlIteratePhdr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* callback = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2771,14 +2743,10 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_dlIteratePhdr_napi(cons
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_setmntent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedSetmntent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool filename_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string filename_str = filename_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* filename = filename_null ? nullptr : filename_str.c_str();
-    bool ty_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string ty_str = ty_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* ty = ty_null ? nullptr : ty_str.c_str();
+    const char* filename = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* ty = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef void* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2809,7 +2777,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_setmntent_napi(const Na
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_getmntent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedGetmntent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -2842,7 +2810,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_getmntent_napi(const Na
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_addmntent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedAddmntent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* mnt = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2876,7 +2844,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_addmntent_napi(const Na
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_endmntent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedEndmntent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* streamp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -2909,12 +2877,10 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_endmntent_napi(const Na
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_hasmntopt_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedHasmntopt_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mnt = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool opt_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string opt_str = opt_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* opt = opt_null ? nullptr : opt_str.c_str();
+    const char* opt = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef char* (*km_fn_t)(void*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2945,12 +2911,10 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_hasmntopt_napi(const Na
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_regcomp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedRegcomp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* preg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool pattern_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string pattern_str = pattern_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* pattern = pattern_null ? nullptr : pattern_str.c_str();
+    const char* pattern = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t cflags = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2982,12 +2946,10 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_regcomp_napi(const Napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_regexec_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedRegexec_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* preg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool input_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string input_str = input_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* input = input_null ? nullptr : input_str.c_str();
+    const char* input = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t nmatch = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     void* pmatch = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     int32_t eflags = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
@@ -3021,12 +2983,12 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_regexec_napi(const Napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_regerror_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedRegerror_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t errcode = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* preg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     char* errbuf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    uint64_t errbuf_size = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
+    uint64_t errbufSize = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
     typedef uint64_t (*km_fn_t)(int32_t, void*, char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3049,7 +3011,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_regerror_napi(const Nap
 #endif
     uint64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(errcode, preg, errbuf, errbuf_size);
+        km_res = km_fn_ptr(errcode, preg, errbuf, errbufSize);
     } else {
         errno = ENOSYS;
         km_res = 0;
@@ -3057,7 +3019,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_regerror_napi(const Nap
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_regfree_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedRegfree_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* preg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -3088,14 +3050,10 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_regfree_napi(const Napi
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_iconvOpen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedIconvOpen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool tocode_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string tocode_str = tocode_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* tocode = tocode_null ? nullptr : tocode_str.c_str();
-    bool fromcode_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string fromcode_str = fromcode_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* fromcode = fromcode_null ? nullptr : fromcode_str.c_str();
+    const char* tocode = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* fromcode = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef void* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3126,7 +3084,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_iconvOpen_napi(const Na
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_iconv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedIconv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cd = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* inbuf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3163,7 +3121,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_iconv_napi(const Napi::
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_iconvClose_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedIconvClose_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cd = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -3196,7 +3154,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_iconvClose_napi(const N
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_gettid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedGettid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3228,7 +3186,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_gettid_napi(const Napi:
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_timerCreate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedTimerCreate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t clockid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* sevp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3263,7 +3221,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_timerCreate_napi(const 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_timerDelete_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedTimerDelete_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* timerid = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -3296,7 +3254,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_timerDelete_napi(const 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_timerGetoverrun_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedTimerGetoverrun_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* timerid = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -3329,10 +3287,10 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_timerGetoverrun_napi(co
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_timerGettime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedTimerGettime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* timerid = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* curr_value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* currValue = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3355,7 +3313,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_timerGettime_napi(const
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(timerid, curr_value);
+        km_res = km_fn_ptr(timerid, currValue);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3363,12 +3321,12 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_timerGettime_napi(const
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_timerSettime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedTimerSettime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* timerid = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    void* new_value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    void* old_value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    void* newValue = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* oldValue = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(void*, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3391,7 +3349,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_timerSettime_napi(const
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(timerid, flags, new_value, old_value);
+        km_res = km_fn_ptr(timerid, flags, newValue, oldValue);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3399,7 +3357,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_timerSettime_napi(const
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_memmem_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedMemmem_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* haystack = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t haystacklen = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -3435,7 +3393,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_memmem_napi(const Napi:
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_schedGetcpu_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedSchedGetcpu_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3467,13 +3425,11 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_schedGetcpu_napi(const 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_getoptLong_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedGetoptLong_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t argc = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* argv = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    bool optstring_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string optstring_str = optstring_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* optstring = optstring_null ? nullptr : optstring_str.c_str();
+    const char* optstring = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* longopts = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     void* longindex = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, const char*, void*, void*);
@@ -3506,12 +3462,12 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_getoptLong_napi(const N
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_copyFileRange_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedCopyFileRange_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t fd_in = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* off_in = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    int32_t fd_out = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    void* off_out = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    int32_t fdIn = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* offIn = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    int32_t fdOut = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    void* offOut = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     uint64_t len = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
     uint32_t flags = static_cast<uint32_t>(km_info.Length() > 5 ? km_info[5].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, void*, uint64_t, uint32_t);
@@ -3536,7 +3492,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_copyFileRange_napi(cons
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(fd_in, off_in, fd_out, off_out, len, flags);
+        km_res = km_fn_ptr(fdIn, offIn, fdOut, offOut, len, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3544,14 +3500,10 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_copyFileRange_napi(cons
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_freopen64_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedFreopen64_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool filename_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string filename_str = filename_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* filename = filename_null ? nullptr : filename_str.c_str();
-    bool mode_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string mode_str = mode_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* mode = mode_null ? nullptr : mode_str.c_str();
+    const char* filename = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* mode = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* file = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef void* (*km_fn_t)(const char*, const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3588,7 +3540,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_freopen64_napi(const Na
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_fseeko64_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedFseeko64_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int64_t offset = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
@@ -3628,7 +3580,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_fseeko64_napi(const Nap
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_fsetpos64_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedFsetpos64_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* ptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3667,7 +3619,7 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_fsetpos64_napi(const Na
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_l4re_shared_ftello64_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxL4reSharedFtello64_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(void*);
@@ -3706,111 +3658,111 @@ static Napi::Value libc_unix_linuxlike_linux_l4re_shared_ftello64_napi(const Nap
 }
 
 static void register_unix_linuxlike_linux_l4re_shared_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_iopl", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_iopl_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_ioperm", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_ioperm_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_aioRead", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_aioRead_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_aioWrite", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_aioWrite_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_aioFsync", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_aioFsync_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_aioError", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_aioError_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_aioReturn", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_aioReturn_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_aioSuspend", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_aioSuspend_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_aioCancel", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_aioCancel_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_lioListio", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_lioListio_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_pwritev", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_pwritev_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_preadv", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_preadv_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_getnameinfo", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_getnameinfo_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_getloadavg", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_getloadavg_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_processVmReadv", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_processVmReadv_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_processVmWritev", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_processVmWritev_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_futimes", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_futimes_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_strerrorR", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_strerrorR_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_abs", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_abs_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_labs", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_labs_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_rand", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_rand_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_srand", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_srand_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_drand48", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_drand48_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_erand48", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_erand48_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_lrand48", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_lrand48_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_nrand48", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_nrand48_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_jrand48", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_jrand48_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_srand48", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_srand48_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_setpwent", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_setpwent_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_endpwent", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_endpwent_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_getpwent", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_getpwent_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_setgrent", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_setgrent_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_endgrent", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_endgrent_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_getgrent", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_getgrent_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_setspent", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_setspent_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_endspent", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_endspent_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_getspent", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_getspent_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_getspnam", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_getspnam_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_shmget", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_shmget_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_shmat", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_shmat_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_shmdt", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_shmdt_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_shmctl", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_shmctl_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_mprotect", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_mprotect_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_errnoLocation", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_errnoLocation_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_mremap", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_mremap_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_glob", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_glob_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_globfree", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_globfree_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_seekdir", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_seekdir_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_telldir", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_telldir_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_madvise", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_madvise_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_msync", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_msync_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_recvfrom", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_recvfrom_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_nlLanginfo", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_nlLanginfo_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_nlLanginfoL", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_nlLanginfoL_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_schedGetaffinity", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_schedGetaffinity_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_schedGetPriorityMax", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_schedGetPriorityMax_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_settimeofday", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_settimeofday_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_semTimedwait", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_semTimedwait_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_semGetvalue", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_semGetvalue_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_mount", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_mount_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_prctl", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_prctl_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_ppoll", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_ppoll_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_sethostname", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_sethostname_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_schedGetPriorityMin", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_schedGetPriorityMin_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_sysinfo", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_sysinfo_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_sigsuspend", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_sigsuspend_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_getgrgidR", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_getgrgidR_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_semClose", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_semClose_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_getgrnamR", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_getgrnamR_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_initgroups", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_initgroups_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_semOpen", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_semOpen_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_getgrnam", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_getgrnam_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_semUnlink", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_semUnlink_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_daemon", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_daemon_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_sigwait", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_sigwait_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_getgrgid", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_getgrgid_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_popen", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_popen_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_faccessat", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_faccessat_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_dlIteratePhdr", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_dlIteratePhdr_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_setmntent", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_setmntent_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_getmntent", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_getmntent_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_addmntent", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_addmntent_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_endmntent", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_endmntent_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_hasmntopt", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_hasmntopt_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_regcomp", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_regcomp_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_regexec", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_regexec_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_regerror", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_regerror_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_regfree", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_regfree_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_iconvOpen", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_iconvOpen_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_iconv", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_iconv_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_iconvClose", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_iconvClose_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_gettid", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_gettid_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_timerCreate", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_timerCreate_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_timerDelete", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_timerDelete_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_timerGetoverrun", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_timerGetoverrun_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_timerGettime", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_timerGettime_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_timerSettime", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_timerSettime_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_memmem", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_memmem_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_schedGetcpu", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_schedGetcpu_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_getoptLong", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_getoptLong_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_copyFileRange", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_copyFileRange_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_freopen64", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_freopen64_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_fseeko64", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_fseeko64_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_fsetpos64", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_fsetpos64_napi));
-    exports.Set("libc_unix_linuxlike_linux_l4re_shared_ftello64", Napi::Function::New(env, libc_unix_linuxlike_linux_l4re_shared_ftello64_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedIopl", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedIopl_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedIoperm", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedIoperm_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedAioRead", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedAioRead_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedAioWrite", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedAioWrite_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedAioFsync", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedAioFsync_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedAioError", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedAioError_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedAioReturn", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedAioReturn_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedAioSuspend", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedAioSuspend_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedAioCancel", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedAioCancel_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedLioListio", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedLioListio_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedPwritev", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedPwritev_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedPreadv", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedPreadv_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedGetnameinfo", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedGetnameinfo_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedGetloadavg", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedGetloadavg_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedProcessVmReadv", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedProcessVmReadv_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedProcessVmWritev", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedProcessVmWritev_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedFutimes", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedFutimes_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedStrerrorR", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedStrerrorR_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedAbs", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedAbs_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedLabs", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedLabs_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedRand", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedRand_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedSrand", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedSrand_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedDrand48", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedDrand48_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedErand48", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedErand48_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedLrand48", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedLrand48_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedNrand48", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedNrand48_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedJrand48", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedJrand48_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedSrand48", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedSrand48_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedSetpwent", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedSetpwent_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedEndpwent", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedEndpwent_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedGetpwent", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedGetpwent_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedSetgrent", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedSetgrent_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedEndgrent", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedEndgrent_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedGetgrent", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedGetgrent_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedSetspent", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedSetspent_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedEndspent", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedEndspent_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedGetspent", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedGetspent_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedGetspnam", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedGetspnam_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedShmget", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedShmget_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedShmat", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedShmat_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedShmdt", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedShmdt_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedShmctl", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedShmctl_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedMprotect", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedMprotect_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedErrnoLocation", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedErrnoLocation_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedMremap", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedMremap_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedGlob", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedGlob_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedGlobfree", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedGlobfree_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedSeekdir", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedSeekdir_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedTelldir", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedTelldir_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedMadvise", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedMadvise_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedMsync", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedMsync_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedRecvfrom", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedRecvfrom_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedNlLanginfo", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedNlLanginfo_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedNlLanginfoL", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedNlLanginfoL_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedSchedGetaffinity", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedSchedGetaffinity_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedSchedGetPriorityMax", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedSchedGetPriorityMax_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedSettimeofday", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedSettimeofday_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedSemTimedwait", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedSemTimedwait_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedSemGetvalue", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedSemGetvalue_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedMount", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedMount_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedPrctl", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedPrctl_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedPpoll", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedPpoll_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedSethostname", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedSethostname_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedSchedGetPriorityMin", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedSchedGetPriorityMin_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedSysinfo", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedSysinfo_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedSigsuspend", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedSigsuspend_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedGetgrgidR", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedGetgrgidR_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedSemClose", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedSemClose_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedGetgrnamR", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedGetgrnamR_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedInitgroups", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedInitgroups_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedSemOpen", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedSemOpen_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedGetgrnam", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedGetgrnam_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedSemUnlink", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedSemUnlink_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedDaemon", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedDaemon_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedSigwait", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedSigwait_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedGetgrgid", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedGetgrgid_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedPopen", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedPopen_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedFaccessat", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedFaccessat_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedDlIteratePhdr", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedDlIteratePhdr_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedSetmntent", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedSetmntent_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedGetmntent", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedGetmntent_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedAddmntent", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedAddmntent_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedEndmntent", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedEndmntent_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedHasmntopt", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedHasmntopt_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedRegcomp", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedRegcomp_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedRegexec", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedRegexec_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedRegerror", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedRegerror_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedRegfree", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedRegfree_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedIconvOpen", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedIconvOpen_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedIconv", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedIconv_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedIconvClose", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedIconvClose_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedGettid", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedGettid_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedTimerCreate", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedTimerCreate_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedTimerDelete", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedTimerDelete_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedTimerGetoverrun", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedTimerGetoverrun_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedTimerGettime", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedTimerGettime_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedTimerSettime", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedTimerSettime_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedMemmem", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedMemmem_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedSchedGetcpu", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedSchedGetcpu_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedGetoptLong", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedGetoptLong_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedCopyFileRange", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedCopyFileRange_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedFreopen64", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedFreopen64_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedFseeko64", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedFseeko64_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedFsetpos64", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedFsetpos64_napi));
+    exports.Set("libcUnixLinuxlikeLinuxL4reSharedFtello64", Napi::Function::New(env, libcUnixLinuxlikeLinuxL4reSharedFtello64_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_unix_linuxlike_linux_l4re_shared_napi, nullptr };

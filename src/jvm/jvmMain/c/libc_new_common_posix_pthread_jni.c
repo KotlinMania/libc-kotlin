@@ -19,7 +19,7 @@
 #endif
 #endif
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libc_1new_1common_1posix_1pthread_1pthreadAtfork(JNIEnv* km_env, jclass km_clazz, jlong prepare, jlong parent, jlong child) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libcNewCommonPosixPthreadPthreadAtfork(JNIEnv* km_env, jclass km_clazz, jlong prepare, jlong parent, jlong child) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, void*);
@@ -52,7 +52,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libc_1new_1common_1posix_1pthread_1pthreadAttrGetguardsize(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong guardsize) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libcNewCommonPosixPthreadPthreadAttrGetguardsize(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong guardsize) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -85,7 +85,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libc_1new_1common_1posix_1pthread_1pthreadAttrGetinheritsched(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong inheritsched) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libcNewCommonPosixPthreadPthreadAttrGetinheritsched(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong inheritsched) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -118,7 +118,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libc_1new_1common_1posix_1pthread_1pthreadAttrGetschedparam(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong param) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libcNewCommonPosixPthreadPthreadAttrGetschedparam(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong param) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -151,7 +151,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libc_1new_1common_1posix_1pthread_1pthreadAttrGetschedpolicy(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong policy) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libcNewCommonPosixPthreadPthreadAttrGetschedpolicy(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong policy) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -184,7 +184,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libc_1new_1common_1posix_1pthread_1pthreadAttrGetstack(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong stackaddr, jlong stacksize) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libcNewCommonPosixPthreadPthreadAttrGetstack(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong stackaddr, jlong stacksize) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, void*);
@@ -217,7 +217,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libc_1new_1common_1posix_1pthread_1pthreadAttrSetguardsize(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong guardsize) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libcNewCommonPosixPthreadPthreadAttrSetguardsize(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong guardsize) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint64_t);
@@ -250,7 +250,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libc_1new_1common_1posix_1pthread_1pthreadAttrSetinheritsched(JNIEnv* km_env, jclass km_clazz, jlong attr, jint inheritsched) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libcNewCommonPosixPthreadPthreadAttrSetinheritsched(JNIEnv* km_env, jclass km_clazz, jlong attr, jint inheritsched) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t);
@@ -283,7 +283,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libc_1new_1common_1posix_1pthread_1pthreadAttrSetschedparam(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong param) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libcNewCommonPosixPthreadPthreadAttrSetschedparam(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong param) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -316,7 +316,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libc_1new_1common_1posix_1pthread_1pthreadAttrSetschedpolicy(JNIEnv* km_env, jclass km_clazz, jlong attr, jint policy) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libcNewCommonPosixPthreadPthreadAttrSetschedpolicy(JNIEnv* km_env, jclass km_clazz, jlong attr, jint policy) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t);
@@ -349,7 +349,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libc_1new_1common_1posix_1pthread_1pthreadAttrSetstack(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong stackaddr, jlong stacksize) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libcNewCommonPosixPthreadPthreadAttrSetstack(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong stackaddr, jlong stacksize) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, uint64_t);
@@ -382,7 +382,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libc_1new_1common_1posix_1pthread_1pthreadBarrierDestroy(JNIEnv* km_env, jclass km_clazz, jlong barrier) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libcNewCommonPosixPthreadPthreadBarrierDestroy(JNIEnv* km_env, jclass km_clazz, jlong barrier) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -415,7 +415,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libc_1new_1common_1posix_1pthread_1pthreadBarrierInit(JNIEnv* km_env, jclass km_clazz, jlong barrier, jlong attr, jint count) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libcNewCommonPosixPthreadPthreadBarrierInit(JNIEnv* km_env, jclass km_clazz, jlong barrier, jlong attr, jint count) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, uint32_t);
@@ -448,7 +448,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libc_1new_1common_1posix_1pthread_1pthreadBarrierWait(JNIEnv* km_env, jclass km_clazz, jlong barrier) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libcNewCommonPosixPthreadPthreadBarrierWait(JNIEnv* km_env, jclass km_clazz, jlong barrier) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -481,7 +481,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libc_1new_1common_1posix_1pthread_1pthreadBarrierattrDestroy(JNIEnv* km_env, jclass km_clazz, jlong attr) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libcNewCommonPosixPthreadPthreadBarrierattrDestroy(JNIEnv* km_env, jclass km_clazz, jlong attr) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -514,7 +514,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libc_1new_1common_1posix_1pthread_1pthreadBarrierattrGetpshared(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong shared) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libcNewCommonPosixPthreadPthreadBarrierattrGetpshared(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong shared) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -547,7 +547,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libc_1new_1common_1posix_1pthread_1pthreadBarrierattrInit(JNIEnv* km_env, jclass km_clazz, jlong attr) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libcNewCommonPosixPthreadPthreadBarrierattrInit(JNIEnv* km_env, jclass km_clazz, jlong attr) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -580,7 +580,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libc_1new_1common_1posix_1pthread_1pthreadBarrierattrSetpshared(JNIEnv* km_env, jclass km_clazz, jlong attr, jint shared) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libcNewCommonPosixPthreadPthreadBarrierattrSetpshared(JNIEnv* km_env, jclass km_clazz, jlong attr, jint shared) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t);
@@ -613,7 +613,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libc_1new_1common_1posix_1pthread_1pthreadCancel(JNIEnv* km_env, jclass km_clazz, jlong thread) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libcNewCommonPosixPthreadPthreadCancel(JNIEnv* km_env, jclass km_clazz, jlong thread) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -646,7 +646,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libc_1new_1common_1posix_1pthread_1pthreadCondattrGetclock(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong clock_id) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libcNewCommonPosixPthreadPthreadCondattrGetclock(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong clockId) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -671,7 +671,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)attr, (void*)(uintptr_t)clock_id);
+        km_res = km_fn_ptr((void*)(uintptr_t)attr, (void*)(uintptr_t)clockId);
     } else {
         errno = ENOSYS;
         km_res = ENOSYS;
@@ -679,7 +679,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libc_1new_1common_1posix_1pthread_1pthreadCondattrGetpshared(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong pshared) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libcNewCommonPosixPthreadPthreadCondattrGetpshared(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong pshared) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -712,7 +712,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libc_1new_1common_1posix_1pthread_1pthreadCondattrSetclock(JNIEnv* km_env, jclass km_clazz, jlong attr, jint clock_id) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libcNewCommonPosixPthreadPthreadCondattrSetclock(JNIEnv* km_env, jclass km_clazz, jlong attr, jint clockId) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t);
@@ -737,7 +737,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)attr, (int32_t)clock_id);
+        km_res = km_fn_ptr((void*)(uintptr_t)attr, (int32_t)clockId);
     } else {
         errno = ENOSYS;
         km_res = ENOSYS;
@@ -745,7 +745,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libc_1new_1common_1posix_1pthread_1pthreadCondattrSetpshared(JNIEnv* km_env, jclass km_clazz, jlong attr, jint pshared) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libcNewCommonPosixPthreadPthreadCondattrSetpshared(JNIEnv* km_env, jclass km_clazz, jlong attr, jint pshared) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t);
@@ -778,7 +778,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libc_1new_1common_1posix_1pthread_1pthreadCreate(JNIEnv* km_env, jclass km_clazz, jlong native, jlong attr, jlong f, jlong value) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libcNewCommonPosixPthreadPthreadCreate(JNIEnv* km_env, jclass km_clazz, jlong native, jlong attr, jlong f, jlong value) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, void*, void*);
@@ -811,7 +811,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libc_1new_1common_1posix_1pthread_1pthreadGetcpuclockid(JNIEnv* km_env, jclass km_clazz, jlong thread, jlong clk_id) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libcNewCommonPosixPthreadPthreadGetcpuclockid(JNIEnv* km_env, jclass km_clazz, jlong thread, jlong clkId) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -836,7 +836,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)thread, (void*)(uintptr_t)clk_id);
+        km_res = km_fn_ptr((void*)(uintptr_t)thread, (void*)(uintptr_t)clkId);
     } else {
         errno = ENOSYS;
         km_res = ENOSYS;
@@ -844,7 +844,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libc_1new_1common_1posix_1pthread_1pthreadGetschedparam(JNIEnv* km_env, jclass km_clazz, jlong native, jlong policy, jlong param) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libcNewCommonPosixPthreadPthreadGetschedparam(JNIEnv* km_env, jclass km_clazz, jlong native, jlong policy, jlong param) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, void*);
@@ -877,7 +877,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libc_1new_1common_1posix_1pthread_1pthreadKill(JNIEnv* km_env, jclass km_clazz, jlong thread, jint sig) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libcNewCommonPosixPthreadPthreadKill(JNIEnv* km_env, jclass km_clazz, jlong thread, jint sig) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t);
@@ -910,7 +910,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libc_1new_1common_1posix_1pthread_1pthreadMutexConsistent(JNIEnv* km_env, jclass km_clazz, jlong mutex) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libcNewCommonPosixPthreadPthreadMutexConsistent(JNIEnv* km_env, jclass km_clazz, jlong mutex) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -943,7 +943,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libc_1new_1common_1posix_1pthread_1pthreadMutexTimedlock(JNIEnv* km_env, jclass km_clazz, jlong lock, jlong abstime) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libcNewCommonPosixPthreadPthreadMutexTimedlock(JNIEnv* km_env, jclass km_clazz, jlong lock, jlong abstime) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -976,7 +976,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libc_1new_1common_1posix_1pthread_1pthreadMutexattrGetprotocol(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong protocol) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libcNewCommonPosixPthreadPthreadMutexattrGetprotocol(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong protocol) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -1009,7 +1009,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libc_1new_1common_1posix_1pthread_1pthreadMutexattrGetpshared(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong pshared) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libcNewCommonPosixPthreadPthreadMutexattrGetpshared(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong pshared) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -1042,7 +1042,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libc_1new_1common_1posix_1pthread_1pthreadMutexattrGetrobust(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong robustness) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libcNewCommonPosixPthreadPthreadMutexattrGetrobust(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong robustness) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -1075,7 +1075,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libc_1new_1common_1posix_1pthread_1pthreadMutexattrSetprotocol(JNIEnv* km_env, jclass km_clazz, jlong attr, jint protocol) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libcNewCommonPosixPthreadPthreadMutexattrSetprotocol(JNIEnv* km_env, jclass km_clazz, jlong attr, jint protocol) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t);
@@ -1108,7 +1108,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libc_1new_1common_1posix_1pthread_1pthreadMutexattrSetpshared(JNIEnv* km_env, jclass km_clazz, jlong attr, jint pshared) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libcNewCommonPosixPthreadPthreadMutexattrSetpshared(JNIEnv* km_env, jclass km_clazz, jlong attr, jint pshared) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t);
@@ -1141,7 +1141,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libc_1new_1common_1posix_1pthread_1pthreadMutexattrSetrobust(JNIEnv* km_env, jclass km_clazz, jlong attr, jint robustness) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libcNewCommonPosixPthreadPthreadMutexattrSetrobust(JNIEnv* km_env, jclass km_clazz, jlong attr, jint robustness) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t);
@@ -1174,7 +1174,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libc_1new_1common_1posix_1pthread_1pthreadRwlockattrGetpshared(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong val) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libcNewCommonPosixPthreadPthreadRwlockattrGetpshared(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong val) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -1207,7 +1207,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libc_1new_1common_1posix_1pthread_1pthreadRwlockattrSetpshared(JNIEnv* km_env, jclass km_clazz, jlong attr, jint val) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libcNewCommonPosixPthreadPthreadRwlockattrSetpshared(JNIEnv* km_env, jclass km_clazz, jlong attr, jint val) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t);
@@ -1240,7 +1240,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libc_1new_1common_1posix_1pthread_1pthreadOnce(JNIEnv* km_env, jclass km_clazz, jlong control, jlong routine) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libcNewCommonPosixPthreadPthreadOnce(JNIEnv* km_env, jclass km_clazz, jlong control, jlong routine) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -1273,7 +1273,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libc_1new_1common_1posix_1pthread_1pthreadSetschedparam(JNIEnv* km_env, jclass km_clazz, jlong native, jint policy, jlong param) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libcNewCommonPosixPthreadPthreadSetschedparam(JNIEnv* km_env, jclass km_clazz, jlong native, jint policy, jlong param) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t, void*);
@@ -1306,7 +1306,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libc_1new_1common_1posix_1pthread_1pthreadSetschedprio(JNIEnv* km_env, jclass km_clazz, jlong native, jint priority) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libcNewCommonPosixPthreadPthreadSetschedprio(JNIEnv* km_env, jclass km_clazz, jlong native, jint priority) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t);
@@ -1339,7 +1339,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libc_1new_1common_1posix_1pthread_1pthreadSigmask(JNIEnv* km_env, jclass km_clazz, jint how, jlong set, jlong oldset) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libcNewCommonPosixPthreadPthreadSigmask(JNIEnv* km_env, jclass km_clazz, jint how, jlong set, jlong oldset) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
@@ -1372,7 +1372,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libc_1new_1common_1posix_1pthread_1pthreadSpinDestroy(JNIEnv* km_env, jclass km_clazz, jlong lock) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libcNewCommonPosixPthreadPthreadSpinDestroy(JNIEnv* km_env, jclass km_clazz, jlong lock) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -1405,7 +1405,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libc_1new_1common_1posix_1pthread_1pthreadSpinInit(JNIEnv* km_env, jclass km_clazz, jlong lock, jint pshared) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libcNewCommonPosixPthreadPthreadSpinInit(JNIEnv* km_env, jclass km_clazz, jlong lock, jint pshared) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t);
@@ -1438,7 +1438,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libc_1new_1common_1posix_1pthread_1pthreadSpinLock(JNIEnv* km_env, jclass km_clazz, jlong lock) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libcNewCommonPosixPthreadPthreadSpinLock(JNIEnv* km_env, jclass km_clazz, jlong lock) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -1471,7 +1471,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libc_1new_1common_1posix_1pthread_1pthreadSpinTrylock(JNIEnv* km_env, jclass km_clazz, jlong lock) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libcNewCommonPosixPthreadPthreadSpinTrylock(JNIEnv* km_env, jclass km_clazz, jlong lock) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -1504,7 +1504,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libc_1new_1common_1posix_1pthread_1pthreadSpinUnlock(JNIEnv* km_env, jclass km_clazz, jlong lock) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_posix_pthread_NewCommonPosixPthreadJniBridge_libcNewCommonPosixPthreadPthreadSpinUnlock(JNIEnv* km_env, jclass km_clazz, jlong lock) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);

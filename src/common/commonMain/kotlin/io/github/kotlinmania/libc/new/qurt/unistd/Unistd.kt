@@ -2,14 +2,17 @@
 package io.github.kotlinmania.libc.new.qurt.unistd
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.new.qurt.OffT
 import io.github.kotlinmania.libc.new.qurt.PidT
 import io.github.kotlinmania.libc.new.qurt.SizeT
 import io.github.kotlinmania.libc.new.qurt.SsizeT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 // Header: `unistd.h`
 
@@ -432,24 +435,24 @@ public val SC_THREAD_ROBUST_PRIO_INHERIT: CInt = 247
 public val SC_THREAD_ROBUST_PRIO_PROTECT: CInt = 248
 
 // File operations
-public expect fun access(pathname: String?, mode: CInt): CInt
+public expect fun access(pathname: ConstPtr<CChar>, mode: CInt): CInt
 
 public expect fun close(fd: CInt): CInt
 
 public expect fun lseek(fd: CInt, offset: OffT, whence: CInt): OffT
 
-public expect fun read(fd: CInt, buf: COpaquePointer?, count: SizeT): SsizeT
+public expect fun read(fd: CInt, buf: MutPtr<CVoid>, count: SizeT): SsizeT
 
-public expect fun write(fd: CInt, buf: COpaquePointer?, count: SizeT): SsizeT
+public expect fun write(fd: CInt, buf: ConstPtr<CVoid>, count: SizeT): SsizeT
 
 public expect fun ftruncate(fd: CInt, length: OffT): CInt
 
-public expect fun unlink(pathname: String?): CInt
+public expect fun unlink(pathname: ConstPtr<CChar>): CInt
 
 // Directory operations
-public expect fun getcwd(buf: COpaquePointer?, size: SizeT): COpaquePointer?
+public expect fun getcwd(buf: MutPtr<CChar>, size: SizeT): MutPtr<CChar>
 
-public expect fun rmdir(pathname: String?): CInt
+public expect fun rmdir(pathname: ConstPtr<CChar>): CInt
 
 // Process operations
 public expect fun getpid(): PidT

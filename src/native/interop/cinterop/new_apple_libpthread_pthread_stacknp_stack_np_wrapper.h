@@ -9,7 +9,7 @@
 extern "C" {
 #endif
 
-uint64_t libc_new_apple_libpthread_pthread_stacknp_stack_np_pthreadStackFrameDecodeNp(uint64_t frame_addr, void* return_addr);
+uint64_t libcNewAppleLibpthreadPthreadStacknpStackNpPthreadStackFrameDecodeNp(uint64_t frameAddr, void* returnAddr);
 
 #ifdef __cplusplus
 }

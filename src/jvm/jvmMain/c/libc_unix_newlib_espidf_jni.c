@@ -19,7 +19,7 @@
 #endif
 #endif
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_newlib_espidf_UnixNewlibEspidfJniBridge_libc_1unix_1newlib_1espidf_1pthreadCreate(JNIEnv* km_env, jclass km_clazz, jlong native, jlong attr, jlong f, jlong value) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_newlib_espidf_UnixNewlibEspidfJniBridge_libcUnixNewlibEspidfPthreadCreate(JNIEnv* km_env, jclass km_clazz, jlong native, jlong attr, jlong f, jlong value) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, void*, void*);
@@ -52,7 +52,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_newlib_espidf_UnixNe
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_newlib_espidf_UnixNewlibEspidfJniBridge_libc_1unix_1newlib_1espidf_1getrandom(JNIEnv* km_env, jclass km_clazz, jlong buf, jlong buflen, jint flags) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_newlib_espidf_UnixNewlibEspidfJniBridge_libcUnixNewlibEspidfGetrandom(JNIEnv* km_env, jclass km_clazz, jlong buf, jlong buflen, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(void*, uint64_t, uint32_t);
@@ -85,7 +85,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_newlib_espidf_UnixN
     return (jlong)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_newlib_espidf_UnixNewlibEspidfJniBridge_libc_1unix_1newlib_1espidf_1gethostname(JNIEnv* km_env, jclass km_clazz, jlong name, jlong namelen) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_newlib_espidf_UnixNewlibEspidfJniBridge_libcUnixNewlibEspidfGethostname(JNIEnv* km_env, jclass km_clazz, jlong name, jlong namelen) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(char*, int64_t);
@@ -115,7 +115,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_newlib_espidf_UnixNe
     }
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_newlib_espidf_UnixNewlibEspidfJniBridge_libc_1unix_1newlib_1espidf_1sendmsg(JNIEnv* km_env, jclass km_clazz, jint s, jlong msg, jint flags) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_newlib_espidf_UnixNewlibEspidfJniBridge_libcUnixNewlibEspidfSendmsg(JNIEnv* km_env, jclass km_clazz, jint s, jlong msg, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t);
@@ -148,7 +148,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_newlib_espidf_UnixN
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_newlib_espidf_UnixNewlibEspidfJniBridge_libc_1unix_1newlib_1espidf_1recvmsg(JNIEnv* km_env, jclass km_clazz, jint s, jlong msg, jint flags) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_newlib_espidf_UnixNewlibEspidfJniBridge_libcUnixNewlibEspidfRecvmsg(JNIEnv* km_env, jclass km_clazz, jint s, jlong msg, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t);
@@ -181,7 +181,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_newlib_espidf_UnixN
     return (jlong)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_newlib_espidf_UnixNewlibEspidfJniBridge_libc_1unix_1newlib_1espidf_1eventfd(JNIEnv* km_env, jclass km_clazz, jint initval, jint flags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_newlib_espidf_UnixNewlibEspidfJniBridge_libcUnixNewlibEspidfEventfd(JNIEnv* km_env, jclass km_clazz, jint initval, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(uint32_t, int32_t);

@@ -2,12 +2,13 @@ package io.github.kotlinmania.libc.unix.bsd.apple
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.bsd.SocklenT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public val UTX_USERSIZE: Int = 256
 
@@ -639,7 +640,7 @@ public val VM_MEMORY_APPLICATION_SPECIFIC_1: CInt = 240
 
 public val VM_MEMORY_APPLICATION_SPECIFIC_16: CInt = 255
 
-public val MAP_FAILED: COpaquePointer? = COpaquePointer((0.inv()).toLong())
+public val MAP_FAILED: MutPtr<CVoid> = MutPtr<CVoid>((0.inv()).toLong())
 
 public val MCL_CURRENT: CInt = 0x0001
 
@@ -2813,7 +2814,7 @@ public val RTLD_NOLOAD: CInt = 0x10
 
 public val RTLD_GLOBAL: CInt = 0x8
 
-public val RTLD_MAIN_ONLY: COpaquePointer? = COpaquePointer((-5).toLong())
+public val RTLD_MAIN_ONLY: MutPtr<CVoid> = MutPtr<CVoid>((-5).toLong())
 
 public val WSTOPPED1: CInt = 127
 
@@ -3363,7 +3364,7 @@ public val PRIO_DARWIN_BG: CInt = 0x1000
 
 public val PRIO_DARWIN_NONUI: CInt = 0x1001
 
-public val SEM_FAILED: CInt? = -1
+public val SEM_FAILED: MutPtr<SemT> = MutPtr<SemT>((-1).toLong())
 
 public val AI_PASSIVE: CInt = 0x00000001
 

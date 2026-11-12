@@ -9,16 +9,16 @@
 extern "C" {
 #endif
 
-int32_t libc_unix_solarish_solaris_fexecve(int32_t fd, void* argv, void* envp);
-int32_t libc_unix_solarish_solaris_mincore(void* addr, uint64_t len, char* vec);
-int32_t libc_unix_solarish_solaris_doorCall(int32_t d, void* params);
-int32_t libc_unix_solarish_solaris_doorReturn(char* data_ptr, uint64_t data_size, void* desc_ptr, uint32_t num_desc);
-int32_t libc_unix_solarish_solaris_doorCreate(void* server_procedure, void* cookie, uint32_t attributes);
-int32_t libc_unix_solarish_solaris_fattach(int32_t fildes, const char* path);
-int32_t libc_unix_solarish_solaris_pthreadGetattrNp(void* thread, void* attr);
-int32_t libc_unix_solarish_solaris_euidaccess(const char* path, int32_t amode);
-int32_t libc_unix_solarish_solaris_openpty(void* amain, void* asubord, char* name, void* termp, void* winp);
-int32_t libc_unix_solarish_solaris_forkpty(void* amain, char* name, void* termp, void* winp);
+int32_t libcUnixSolarishSolarisFexecve(int32_t fd, void* argv, void* envp);
+int32_t libcUnixSolarishSolarisMincore(void* addr, uint64_t len, char* vec);
+int32_t libcUnixSolarishSolarisDoorCall(int32_t d, void* params);
+int32_t libcUnixSolarishSolarisDoorReturn(char* dataPtr, uint64_t dataSize, void* descPtr, uint32_t numDesc);
+int32_t libcUnixSolarishSolarisDoorCreate(void* serverProcedure, void* cookie, uint32_t attributes);
+int32_t libcUnixSolarishSolarisFattach(int32_t fildes, const char* path);
+int32_t libcUnixSolarishSolarisPthreadGetattrNp(void* thread, void* attr);
+int32_t libcUnixSolarishSolarisEuidaccess(const char* path, int32_t amode);
+int32_t libcUnixSolarishSolarisOpenpty(void* amain, void* asubord, char* name, void* termp, void* winp);
+int32_t libcUnixSolarishSolarisForkpty(void* amain, char* name, void* termp, void* winp);
 
 #ifdef __cplusplus
 }

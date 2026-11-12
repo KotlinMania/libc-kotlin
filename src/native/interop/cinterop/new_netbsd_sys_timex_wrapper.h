@@ -9,8 +9,8 @@
 extern "C" {
 #endif
 
-int32_t libc_new_netbsd_sys_timex_ntpGettime(void* buf);
-int32_t libc_new_netbsd_sys_timex_ntpAdjtime(void* buf);
+int32_t libcNewNetbsdSysTimexNtpGettime(void* buf);
+int32_t libcNewNetbsdSysTimexNtpAdjtime(void* buf);
 
 #ifdef __cplusplus
 }

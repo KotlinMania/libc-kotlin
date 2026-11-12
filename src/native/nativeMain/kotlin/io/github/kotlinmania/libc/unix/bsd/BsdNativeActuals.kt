@@ -2,401 +2,417 @@
 
 package io.github.kotlinmania.libc.unix.bsd
 
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CDouble
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
+import io.github.kotlinmania.libc.CUshort
 import io.github.kotlinmania.libc.unix.DIR
 import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.GidT
+import io.github.kotlinmania.libc.unix.Group
+import io.github.kotlinmania.libc.unix.Iovec
+import io.github.kotlinmania.libc.unix.Itimerval
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.PidT
+import io.github.kotlinmania.libc.unix.Rlimit
+import io.github.kotlinmania.libc.unix.Rusage
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
+import io.github.kotlinmania.libc.unix.Timeval
 import io.github.kotlinmania.libc.unix.UidT
 import io.github.kotlinmania.libc.unix.bsd.apple.DevT
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_abs
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_acct
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_arc4random
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_arc4randomBuf
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_arc4randomUniform
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_bind
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_devname
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_drand48
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_endgrent
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_endpwent
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_erand48
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_faccessat
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_freeifaddrs
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_futimes
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_getdtablesize
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_getgrent
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_getgrgid
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_getgrgidR
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_getgrnam
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_getgrnamR
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_getifaddrs
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_getitimer
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_getloadavg
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_getoptLong
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_getpeereid
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_getprogname
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_getpwent
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_getpwnamR
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_getpwuidR
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_getrlimit
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_glob
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_globfree
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_ifFreenameindex
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_ifNameindex
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_ioctl
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_issetugid
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_jrand48
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_kqueue
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_labs
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_lcong48
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_lrand48
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_madvise
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_mkstemps
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_mrand48
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_msync
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_nlLanginfo
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_nrand48
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_popen
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_posixMadvise
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_pthreadAtfork
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_pthreadCancel
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_pthreadCreate
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_pthreadKill
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_pthreadSigmask
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_rand
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_readv
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_recvfrom
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_recvmsg
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_regcomp
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_regerror
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_regexec
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_regfree
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_schedGetPriorityMax
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_schedGetPriorityMin
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_seed48
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_seekdir
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_semClose
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_semOpen
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_semUnlink
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_sendmsg
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_setgroups
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_setitimer
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_setlogin
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_setprogname
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_setpwent
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_setrlimit
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_shmUnlink
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_sigaltstack
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_sigsuspend
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_sigwait
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_srand
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_srand48
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_strerrorR
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_strftime
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_strftimeL
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_sync
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_syscall
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_telldir
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_unmount
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_wait4
-import io.github.kotlinmania.libc.unix.bsd.cinterop.libc_unix_bsd_writev
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdAbs
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdAcct
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdArc4random
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdArc4randomBuf
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdArc4randomUniform
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdBind
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdDevname
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdDrand48
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdEndgrent
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdEndpwent
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdErand48
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdFaccessat
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdFreeifaddrs
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdFutimes
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdGetdtablesize
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdGetgrent
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdGetgrgid
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdGetgrgidR
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdGetgrnam
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdGetgrnamR
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdGetifaddrs
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdGetitimer
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdGetloadavg
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdGetoptLong
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdGetpeereid
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdGetprogname
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdGetpwent
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdGetpwnamR
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdGetpwuidR
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdGetrlimit
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdGlob
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdGlobfree
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdIfFreenameindex
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdIfNameindex
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdIoctl
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdIssetugid
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdJrand48
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdKqueue
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdLabs
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdLcong48
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdLrand48
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdMadvise
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdMkstemps
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdMrand48
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdMsync
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdNlLanginfo
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdNrand48
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdPopen
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdPosixMadvise
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdPthreadAtfork
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdPthreadCancel
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdPthreadCreate
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdPthreadKill
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdPthreadSigmask
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdRand
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdReadv
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdRecvfrom
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdRecvmsg
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdRegcomp
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdRegerror
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdRegexec
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdRegfree
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdSchedGetPriorityMax
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdSchedGetPriorityMin
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdSeed48
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdSeekdir
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdSemClose
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdSemOpen
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdSemUnlink
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdSendmsg
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdSetgroups
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdSetitimer
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdSetlogin
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdSetprogname
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdSetpwent
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdSetrlimit
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdShmUnlink
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdSigaltstack
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdSigsuspend
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdSigwait
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdSrand
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdSrand48
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdStrerrorR
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdStrftime
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdStrftimeL
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdSync
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdSyscall
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdTelldir
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdUnmount
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdWait4
+import io.github.kotlinmania.libc.unix.bsd.cinterop.libcUnixBsdWritev
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.GlobT
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.ModeT
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.NlItem
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.PthreadAttrT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.SigsetT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.Tm
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.SemT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.StackT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
 
-public actual fun getrlimit(resource: CInt, rlim: COpaquePointer?): CInt =
-    libc_unix_bsd_getrlimit(resource, rlim?.value?.toCPointer<ByteVar>())
+public actual fun getrlimit(resource: CInt, rlim: MutPtr<Rlimit>): CInt =
+    libcUnixBsdGetrlimit(resource, rlim.rawAddress.toCPointer<ByteVar>())
 
-public actual fun setrlimit(resource: CInt, rlim: COpaquePointer?): CInt =
-    libc_unix_bsd_setrlimit(resource, rlim?.value?.toCPointer<ByteVar>())
+public actual fun setrlimit(resource: CInt, rlim: ConstPtr<Rlimit>): CInt =
+    libcUnixBsdSetrlimit(resource, rlim.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strerrorR(errnum: CInt, buf: COpaquePointer?, buflen: SizeT): CInt =
-    libc_unix_bsd_strerrorR(errnum, buf?.value?.toCPointer<ByteVar>(), buflen)
+public actual fun strerrorR(errnum: CInt, buf: MutPtr<CChar>, buflen: SizeT): CInt =
+    libcUnixBsdStrerrorR(errnum, buf.rawAddress.toCPointer<ByteVar>(), buflen)
 
 public actual fun abs(i: CInt): CInt =
-    libc_unix_bsd_abs(i)
+    libcUnixBsdAbs(i)
 
 public actual fun labs(i: CLong): CLong =
-    libc_unix_bsd_labs(i)
+    libcUnixBsdLabs(i)
 
 public actual fun rand(): CInt =
-    libc_unix_bsd_rand()
+    libcUnixBsdRand()
 
 public actual fun srand(seed: CUint) {
-    libc_unix_bsd_srand(seed)
+    libcUnixBsdSrand(seed)
 }
 
-public actual fun getifaddrs(ifap: COpaquePointer?): CInt =
-    libc_unix_bsd_getifaddrs(ifap?.value?.toCPointer<ByteVar>())
+public actual fun getifaddrs(ifap: MutPtr<MutPtr<Ifaddrs>>): CInt =
+    libcUnixBsdGetifaddrs(ifap.rawAddress.toCPointer<ByteVar>())
 
-public actual fun freeifaddrs(ifa: COpaquePointer?) {
-    libc_unix_bsd_freeifaddrs(ifa?.value?.toCPointer<ByteVar>())
+public actual fun freeifaddrs(ifa: MutPtr<Ifaddrs>) {
+    libcUnixBsdFreeifaddrs(ifa.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun setgroups(ngroups: CInt, ptr: COpaquePointer?): CInt =
-    libc_unix_bsd_setgroups(ngroups, ptr?.value?.toCPointer<ByteVar>())
+public actual fun setgroups(ngroups: CInt, ptr: ConstPtr<GidT>): CInt =
+    libcUnixBsdSetgroups(ngroups, ptr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun setlogin(name: String?): CInt =
-    libc_unix_bsd_setlogin(name)
+public actual fun setlogin(name: ConstPtr<CChar>): CInt =
+    libcUnixBsdSetlogin(name.rawAddress.toCPointer<ByteVar>())
 
 public actual fun ioctl(fd: CInt, request: CUlong, vararg variadicArgs: Long): CInt =
-    libc_unix_bsd_ioctl(fd, request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+    libcUnixBsdIoctl(fd, request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun kqueue(): CInt =
-    libc_unix_bsd_kqueue()
+    libcUnixBsdKqueue()
 
-public actual fun unmount(target: String?, arg: CInt): CInt =
-    libc_unix_bsd_unmount(target, arg)
+public actual fun unmount(target: ConstPtr<CChar>, arg: CInt): CInt =
+    libcUnixBsdUnmount(target.rawAddress.toCPointer<ByteVar>(), arg)
 
 public actual fun syscall(num: CInt, vararg variadicArgs: Long): CInt =
-    libc_unix_bsd_syscall(num, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+    libcUnixBsdSyscall(num, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun getpwent(): COpaquePointer? =
-    libc_unix_bsd_getpwent()?.let { COpaquePointer(it.toLong()) }
+public actual fun getpwent(): MutPtr<Passwd> =
+    MutPtr(libcUnixBsdGetpwent()?.toLong() ?: 0L)
 
 public actual fun setpwent() {
-    libc_unix_bsd_setpwent()
+    libcUnixBsdSetpwent()
 }
 
 public actual fun endpwent() {
-    libc_unix_bsd_endpwent()
+    libcUnixBsdEndpwent()
 }
 
 public actual fun endgrent() {
-    libc_unix_bsd_endgrent()
+    libcUnixBsdEndgrent()
 }
 
-public actual fun getgrent(): COpaquePointer? =
-    libc_unix_bsd_getgrent()?.let { COpaquePointer(it.toLong()) }
+public actual fun getgrent(): MutPtr<Group> =
+    MutPtr(libcUnixBsdGetgrent()?.toLong() ?: 0L)
 
-public actual fun getprogname(): COpaquePointer? =
-    libc_unix_bsd_getprogname()?.let { COpaquePointer(it.toLong()) }
+public actual fun getprogname(): ConstPtr<CChar> =
+    ConstPtr(libcUnixBsdGetprogname()?.toLong() ?: 0L)
 
-public actual fun setprogname(name: String?) {
-    libc_unix_bsd_setprogname(name)
+public actual fun setprogname(name: ConstPtr<CChar>) {
+    libcUnixBsdSetprogname(name.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun getloadavg(loadavg: COpaquePointer?, nelem: CInt): CInt =
-    libc_unix_bsd_getloadavg(loadavg?.value?.toCPointer<ByteVar>(), nelem)
+public actual fun getloadavg(loadavg: MutPtr<CDouble>, nelem: CInt): CInt =
+    libcUnixBsdGetloadavg(loadavg.rawAddress.toCPointer<ByteVar>(), nelem)
 
-public actual fun ifNameindex(): COpaquePointer? =
-    libc_unix_bsd_ifNameindex()?.let { COpaquePointer(it.toLong()) }
+public actual fun ifNameindex(): MutPtr<IfNameindex> =
+    MutPtr(libcUnixBsdIfNameindex()?.toLong() ?: 0L)
 
-public actual fun ifFreenameindex(ptr: COpaquePointer?) {
-    libc_unix_bsd_ifFreenameindex(ptr?.value?.toCPointer<ByteVar>())
+public actual fun ifFreenameindex(ptr: MutPtr<IfNameindex>) {
+    libcUnixBsdIfFreenameindex(ptr.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun getpeereid(socket: CInt, euid: COpaquePointer?, egid: COpaquePointer?): CInt =
-    libc_unix_bsd_getpeereid(socket, euid?.value?.toCPointer<ByteVar>(), egid?.value?.toCPointer<ByteVar>())
+public actual fun getpeereid(socket: CInt, euid: MutPtr<UidT>, egid: MutPtr<GidT>): CInt =
+    libcUnixBsdGetpeereid(socket, euid.rawAddress.toCPointer<ByteVar>(), egid.rawAddress.toCPointer<ByteVar>())
 
-public actual fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt =
-    libc_unix_bsd_glob(pattern, flags, 0L.toCPointer<ByteVar>(), pglob?.value?.toCPointer<ByteVar>())
+public actual fun glob(pattern: ConstPtr<CChar>, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: MutPtr<GlobT>): CInt =
+    libcUnixBsdGlob(pattern.rawAddress.toCPointer<ByteVar>(), flags, 0L.toCPointer<ByteVar>(), pglob.rawAddress.toCPointer<ByteVar>())
 
-public actual fun globfree(pglob: COpaquePointer?) {
-    libc_unix_bsd_globfree(pglob?.value?.toCPointer<ByteVar>())
+public actual fun globfree(pglob: MutPtr<GlobT>) {
+    libcUnixBsdGlobfree(pglob.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun posixMadvise(addr: COpaquePointer?, len: SizeT, advice: CInt): CInt =
-    libc_unix_bsd_posixMadvise(addr?.value?.toCPointer<ByteVar>(), len, advice)
+public actual fun posixMadvise(addr: MutPtr<CVoid>, len: SizeT, advice: CInt): CInt =
+    libcUnixBsdPosixMadvise(addr.rawAddress.toCPointer<ByteVar>(), len, advice)
 
-public actual fun shmUnlink(name: String?): CInt =
-    libc_unix_bsd_shmUnlink(name)
+public actual fun shmUnlink(name: ConstPtr<CChar>): CInt =
+    libcUnixBsdShmUnlink(name.rawAddress.toCPointer<ByteVar>())
 
-public actual fun seekdir(dirp: DIR?, loc: CLong) {
-    libc_unix_bsd_seekdir(dirp?.handle?.toCPointer<ByteVar>(), loc)
+public actual fun seekdir(dirp: MutPtr<DIR>, loc: CLong) {
+    libcUnixBsdSeekdir(dirp.rawAddress.toCPointer<ByteVar>(), loc)
 }
 
-public actual fun telldir(dirp: DIR?): CLong =
-    libc_unix_bsd_telldir(dirp?.handle?.toCPointer<ByteVar>())
+public actual fun telldir(dirp: MutPtr<DIR>): CLong =
+    libcUnixBsdTelldir(dirp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun madvise(addr: COpaquePointer?, len: SizeT, advice: CInt): CInt =
-    libc_unix_bsd_madvise(addr?.value?.toCPointer<ByteVar>(), len, advice)
+public actual fun madvise(addr: MutPtr<CVoid>, len: SizeT, advice: CInt): CInt =
+    libcUnixBsdMadvise(addr.rawAddress.toCPointer<ByteVar>(), len, advice)
 
-public actual fun msync(addr: COpaquePointer?, len: SizeT, flags: CInt): CInt =
-    libc_unix_bsd_msync(addr?.value?.toCPointer<ByteVar>(), len, flags)
+public actual fun msync(addr: MutPtr<CVoid>, len: SizeT, flags: CInt): CInt =
+    libcUnixBsdMsync(addr.rawAddress.toCPointer<ByteVar>(), len, flags)
 
-public actual fun recvfrom(socket: CInt, buf: COpaquePointer?, len: SizeT, flags: CInt, addr: COpaquePointer?, addrlen: COpaquePointer?): SsizeT =
-    libc_unix_bsd_recvfrom(socket, buf?.value?.toCPointer<ByteVar>(), len, flags, addr?.value?.toCPointer<ByteVar>(), addrlen?.value?.toCPointer<ByteVar>())
+public actual fun recvfrom(socket: CInt, buf: MutPtr<CVoid>, len: SizeT, flags: CInt, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): SsizeT =
+    libcUnixBsdRecvfrom(socket, buf.rawAddress.toCPointer<ByteVar>(), len, flags, addr.rawAddress.toCPointer<ByteVar>(), addrlen.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mkstemps(template: COpaquePointer?, suffixlen: CInt): CInt =
-    libc_unix_bsd_mkstemps(template?.value?.toCPointer<ByteVar>(), suffixlen)
+public actual fun mkstemps(template: MutPtr<CChar>, suffixlen: CInt): CInt =
+    libcUnixBsdMkstemps(template.rawAddress.toCPointer<ByteVar>(), suffixlen)
 
-public actual fun futimes(fd: CInt, times: COpaquePointer?): CInt =
-    libc_unix_bsd_futimes(fd, times?.value?.toCPointer<ByteVar>())
+public actual fun futimes(fd: CInt, times: ConstPtr<Timeval>): CInt =
+    libcUnixBsdFutimes(fd, times.rawAddress.toCPointer<ByteVar>())
 
-public actual fun nlLanginfo(item: NlItem): COpaquePointer? =
-    libc_unix_bsd_nlLanginfo(item)?.let { COpaquePointer(it.toLong()) }
+public actual fun nlLanginfo(item: NlItem): MutPtr<CChar> =
+    MutPtr(libcUnixBsdNlLanginfo(item)?.toLong() ?: 0L)
 
-public actual fun bind(socket: CInt, address: COpaquePointer?, addressLen: SocklenT): CInt =
-    libc_unix_bsd_bind(socket, address?.value?.toCPointer<ByteVar>(), addressLen)
+public actual fun bind(socket: CInt, address: ConstPtr<Sockaddr>, addressLen: SocklenT): CInt =
+    libcUnixBsdBind(socket, address.rawAddress.toCPointer<ByteVar>(), addressLen)
 
-public actual fun writev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT =
-    libc_unix_bsd_writev(fd, iov?.value?.toCPointer<ByteVar>(), iovcnt)
+public actual fun writev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+    libcUnixBsdWritev(fd, iov.rawAddress.toCPointer<ByteVar>(), iovcnt)
 
-public actual fun readv(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT =
-    libc_unix_bsd_readv(fd, iov?.value?.toCPointer<ByteVar>(), iovcnt)
+public actual fun readv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+    libcUnixBsdReadv(fd, iov.rawAddress.toCPointer<ByteVar>(), iovcnt)
 
-public actual fun sendmsg(fd: CInt, msg: COpaquePointer?, flags: CInt): SsizeT =
-    libc_unix_bsd_sendmsg(fd, msg?.value?.toCPointer<ByteVar>(), flags)
+public actual fun sendmsg(fd: CInt, msg: ConstPtr<Msghdr>, flags: CInt): SsizeT =
+    libcUnixBsdSendmsg(fd, msg.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun recvmsg(fd: CInt, msg: COpaquePointer?, flags: CInt): SsizeT =
-    libc_unix_bsd_recvmsg(fd, msg?.value?.toCPointer<ByteVar>(), flags)
+public actual fun recvmsg(fd: CInt, msg: MutPtr<Msghdr>, flags: CInt): SsizeT =
+    libcUnixBsdRecvmsg(fd, msg.rawAddress.toCPointer<ByteVar>(), flags)
 
 public actual fun sync() {
-    libc_unix_bsd_sync()
+    libcUnixBsdSync()
 }
 
-public actual fun getgrgidR(gid: GidT, grp: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    libc_unix_bsd_getgrgidR(gid, grp?.value?.toCPointer<ByteVar>(), buf?.value?.toCPointer<ByteVar>(), buflen, result?.value?.toCPointer<ByteVar>())
+public actual fun getgrgidR(gid: GidT, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+    libcUnixBsdGetgrgidR(gid, grp.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>(), buflen, result.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sigaltstack(ss: COpaquePointer?, oss: COpaquePointer?): CInt =
-    libc_unix_bsd_sigaltstack(ss?.value?.toCPointer<ByteVar>(), oss?.value?.toCPointer<ByteVar>())
+public actual fun sigaltstack(ss: ConstPtr<StackT>, oss: MutPtr<StackT>): CInt =
+    libcUnixBsdSigaltstack(ss.rawAddress.toCPointer<ByteVar>(), oss.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sigsuspend(mask: COpaquePointer?): CInt =
-    libc_unix_bsd_sigsuspend(mask?.value?.toCPointer<ByteVar>())
+public actual fun sigsuspend(mask: ConstPtr<SigsetT>): CInt =
+    libcUnixBsdSigsuspend(mask.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semClose(sem: COpaquePointer?): CInt =
-    libc_unix_bsd_semClose(sem?.value?.toCPointer<ByteVar>())
+public actual fun semClose(sem: MutPtr<SemT>): CInt =
+    libcUnixBsdSemClose(sem.rawAddress.toCPointer<ByteVar>())
 
 public actual fun getdtablesize(): CInt =
-    libc_unix_bsd_getdtablesize()
+    libcUnixBsdGetdtablesize()
 
-public actual fun getgrnamR(name: String?, grp: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    libc_unix_bsd_getgrnamR(name, grp?.value?.toCPointer<ByteVar>(), buf?.value?.toCPointer<ByteVar>(), buflen, result?.value?.toCPointer<ByteVar>())
+public actual fun getgrnamR(name: ConstPtr<CChar>, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+    libcUnixBsdGetgrnamR(name.rawAddress.toCPointer<ByteVar>(), grp.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>(), buflen, result.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadSigmask(how: CInt, set: COpaquePointer?, oldset: COpaquePointer?): CInt =
-    libc_unix_bsd_pthreadSigmask(how, set?.value?.toCPointer<ByteVar>(), oldset?.value?.toCPointer<ByteVar>())
+public actual fun pthreadSigmask(how: CInt, set: ConstPtr<SigsetT>, oldset: MutPtr<SigsetT>): CInt =
+    libcUnixBsdPthreadSigmask(how, set.rawAddress.toCPointer<ByteVar>(), oldset.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    libc_unix_bsd_semOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.let { COpaquePointer(it.toLong()) }
+public actual fun semOpen(name: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): MutPtr<SemT> =
+    MutPtr(libcUnixBsdSemOpen(name.rawAddress.toCPointer<ByteVar>(), oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.toLong() ?: 0L)
 
-public actual fun getgrnam(name: String?): COpaquePointer? =
-    libc_unix_bsd_getgrnam(name)?.let { COpaquePointer(it.toLong()) }
+public actual fun getgrnam(name: ConstPtr<CChar>): MutPtr<Group> =
+    MutPtr(libcUnixBsdGetgrnam(name.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun pthreadCancel(thread: PthreadT): CInt =
-    libc_unix_bsd_pthreadCancel(thread.toLong().toCPointer<ByteVar>())
+    libcUnixBsdPthreadCancel(thread.toLong().toCPointer<ByteVar>())
 
 public actual fun pthreadKill(thread: PthreadT, sig: CInt): CInt =
-    libc_unix_bsd_pthreadKill(thread.toLong().toCPointer<ByteVar>(), sig)
+    libcUnixBsdPthreadKill(thread.toLong().toCPointer<ByteVar>(), sig)
 
 public actual fun schedGetPriorityMin(policy: CInt): CInt =
-    libc_unix_bsd_schedGetPriorityMin(policy)
+    libcUnixBsdSchedGetPriorityMin(policy)
 
 public actual fun schedGetPriorityMax(policy: CInt): CInt =
-    libc_unix_bsd_schedGetPriorityMax(policy)
+    libcUnixBsdSchedGetPriorityMax(policy)
 
-public actual fun semUnlink(name: String?): CInt =
-    libc_unix_bsd_semUnlink(name)
+public actual fun semUnlink(name: ConstPtr<CChar>): CInt =
+    libcUnixBsdSemUnlink(name.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getpwnamR(name: String?, pwd: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    libc_unix_bsd_getpwnamR(name, pwd?.value?.toCPointer<ByteVar>(), buf?.value?.toCPointer<ByteVar>(), buflen, result?.value?.toCPointer<ByteVar>())
+public actual fun getpwnamR(name: ConstPtr<CChar>, pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt =
+    libcUnixBsdGetpwnamR(name.rawAddress.toCPointer<ByteVar>(), pwd.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>(), buflen, result.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getpwuidR(uid: UidT, pwd: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    libc_unix_bsd_getpwuidR(uid, pwd?.value?.toCPointer<ByteVar>(), buf?.value?.toCPointer<ByteVar>(), buflen, result?.value?.toCPointer<ByteVar>())
+public actual fun getpwuidR(uid: UidT, pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt =
+    libcUnixBsdGetpwuidR(uid, pwd.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>(), buflen, result.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sigwait(set: COpaquePointer?, sig: COpaquePointer?): CInt =
-    libc_unix_bsd_sigwait(set?.value?.toCPointer<ByteVar>(), sig?.value?.toCPointer<ByteVar>())
+public actual fun sigwait(set: ConstPtr<SigsetT>, sig: MutPtr<CInt>): CInt =
+    libcUnixBsdSigwait(set.rawAddress.toCPointer<ByteVar>(), sig.rawAddress.toCPointer<ByteVar>())
 
 public actual fun pthreadAtfork(prepare: PthreadAtforkPrepareCallback?, parent: PthreadAtforkPrepareCallback?, child: PthreadAtforkPrepareCallback?): CInt =
-    libc_unix_bsd_pthreadAtfork(0L.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
+    libcUnixBsdPthreadAtfork(0L.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
 
-public actual fun getgrgid(gid: GidT): COpaquePointer? =
-    libc_unix_bsd_getgrgid(gid)?.let { COpaquePointer(it.toLong()) }
+public actual fun getgrgid(gid: GidT): MutPtr<Group> =
+    MutPtr(libcUnixBsdGetgrgid(gid)?.toLong() ?: 0L)
 
-public actual fun popen(command: String?, mode: String?): FILE? =
-    libc_unix_bsd_popen(command, mode)?.let { FILE(it.toLong()) }
+public actual fun popen(command: ConstPtr<CChar>, mode: ConstPtr<CChar>): MutPtr<FILE> =
+    MutPtr(libcUnixBsdPopen(command.rawAddress.toCPointer<ByteVar>(), mode.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt =
-    libc_unix_bsd_faccessat(dirfd, pathname, mode, flags)
+public actual fun faccessat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: CInt, flags: CInt): CInt =
+    libcUnixBsdFaccessat(dirfd, pathname.rawAddress.toCPointer<ByteVar>(), mode, flags)
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
-    libc_unix_bsd_pthreadCreate(native?.value?.toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), value?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCreate(native: MutPtr<PthreadT>, attr: ConstPtr<PthreadAttrT>, f: PthreadCreateFCallback, value: MutPtr<CVoid>): CInt =
+    libcUnixBsdPthreadCreate(native.rawAddress.toCPointer<ByteVar>(), attr.rawAddress.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>())
 
-public actual fun acct(filename: String?): CInt =
-    libc_unix_bsd_acct(filename)
+public actual fun acct(filename: ConstPtr<CChar>): CInt =
+    libcUnixBsdAcct(filename.rawAddress.toCPointer<ByteVar>())
 
-public actual fun wait4(pid: PidT, status: COpaquePointer?, options: CInt, rusage: COpaquePointer?): PidT =
-    libc_unix_bsd_wait4(pid, status?.value?.toCPointer<ByteVar>(), options, rusage?.value?.toCPointer<ByteVar>())
+public actual fun wait4(pid: PidT, status: MutPtr<CInt>, options: CInt, rusage: MutPtr<Rusage>): PidT =
+    libcUnixBsdWait4(pid, status.rawAddress.toCPointer<ByteVar>(), options, rusage.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getitimer(which: CInt, currValue: COpaquePointer?): CInt =
-    libc_unix_bsd_getitimer(which, currValue?.value?.toCPointer<ByteVar>())
+public actual fun getitimer(which: CInt, currValue: MutPtr<Itimerval>): CInt =
+    libcUnixBsdGetitimer(which, currValue.rawAddress.toCPointer<ByteVar>())
 
-public actual fun setitimer(which: CInt, newValue: COpaquePointer?, oldValue: COpaquePointer?): CInt =
-    libc_unix_bsd_setitimer(which, newValue?.value?.toCPointer<ByteVar>(), oldValue?.value?.toCPointer<ByteVar>())
+public actual fun setitimer(which: CInt, newValue: ConstPtr<Itimerval>, oldValue: MutPtr<Itimerval>): CInt =
+    libcUnixBsdSetitimer(which, newValue.rawAddress.toCPointer<ByteVar>(), oldValue.rawAddress.toCPointer<ByteVar>())
 
-public actual fun regcomp(preg: COpaquePointer?, pattern: String?, cflags: CInt): CInt =
-    libc_unix_bsd_regcomp(preg?.value?.toCPointer<ByteVar>(), pattern, cflags)
+public actual fun regcomp(preg: MutPtr<RegexT>, pattern: ConstPtr<CChar>, cflags: CInt): CInt =
+    libcUnixBsdRegcomp(preg.rawAddress.toCPointer<ByteVar>(), pattern.rawAddress.toCPointer<ByteVar>(), cflags)
 
-public actual fun regexec(preg: COpaquePointer?, input: String?, nmatch: SizeT, pmatch: COpaquePointer?, eflags: CInt): CInt =
-    libc_unix_bsd_regexec(preg?.value?.toCPointer<ByteVar>(), input, nmatch, pmatch?.value?.toCPointer<ByteVar>(), eflags)
+public actual fun regexec(preg: ConstPtr<RegexT>, input: ConstPtr<CChar>, nmatch: SizeT, pmatch: MutPtr<RegmatchT>, eflags: CInt): CInt =
+    libcUnixBsdRegexec(preg.rawAddress.toCPointer<ByteVar>(), input.rawAddress.toCPointer<ByteVar>(), nmatch, pmatch.rawAddress.toCPointer<ByteVar>(), eflags)
 
-public actual fun regerror(errcode: CInt, preg: COpaquePointer?, errbuf: COpaquePointer?, errbufSize: SizeT): SizeT =
-    libc_unix_bsd_regerror(errcode, preg?.value?.toCPointer<ByteVar>(), errbuf?.value?.toCPointer<ByteVar>(), errbufSize)
+public actual fun regerror(errcode: CInt, preg: ConstPtr<RegexT>, errbuf: MutPtr<CChar>, errbufSize: SizeT): SizeT =
+    libcUnixBsdRegerror(errcode, preg.rawAddress.toCPointer<ByteVar>(), errbuf.rawAddress.toCPointer<ByteVar>(), errbufSize)
 
-public actual fun regfree(preg: COpaquePointer?) {
-    libc_unix_bsd_regfree(preg?.value?.toCPointer<ByteVar>())
+public actual fun regfree(preg: MutPtr<RegexT>) {
+    libcUnixBsdRegfree(preg.rawAddress.toCPointer<ByteVar>())
 }
 
 public actual fun arc4random(): UInt =
-    libc_unix_bsd_arc4random()
+    libcUnixBsdArc4random()
 
-public actual fun arc4randomBuf(buf: COpaquePointer?, size: SizeT) {
-    libc_unix_bsd_arc4randomBuf(buf?.value?.toCPointer<ByteVar>(), size)
+public actual fun arc4randomBuf(buf: MutPtr<CVoid>, size: SizeT) {
+    libcUnixBsdArc4randomBuf(buf.rawAddress.toCPointer<ByteVar>(), size)
 }
 
 public actual fun arc4randomUniform(l: UInt): UInt =
-    libc_unix_bsd_arc4randomUniform(l)
+    libcUnixBsdArc4randomUniform(l)
 
 public actual fun drand48(): CDouble =
-    libc_unix_bsd_drand48()
+    libcUnixBsdDrand48()
 
-public actual fun erand48(xseed: COpaquePointer?): CDouble =
-    libc_unix_bsd_erand48(xseed?.value?.toCPointer<ByteVar>())
+public actual fun erand48(xseed: MutPtr<CUshort>): CDouble =
+    libcUnixBsdErand48(xseed.rawAddress.toCPointer<ByteVar>())
 
 public actual fun lrand48(): CLong =
-    libc_unix_bsd_lrand48()
+    libcUnixBsdLrand48()
 
-public actual fun nrand48(xseed: COpaquePointer?): CLong =
-    libc_unix_bsd_nrand48(xseed?.value?.toCPointer<ByteVar>())
+public actual fun nrand48(xseed: MutPtr<CUshort>): CLong =
+    libcUnixBsdNrand48(xseed.rawAddress.toCPointer<ByteVar>())
 
 public actual fun mrand48(): CLong =
-    libc_unix_bsd_mrand48()
+    libcUnixBsdMrand48()
 
-public actual fun jrand48(xseed: COpaquePointer?): CLong =
-    libc_unix_bsd_jrand48(xseed?.value?.toCPointer<ByteVar>())
+public actual fun jrand48(xseed: MutPtr<CUshort>): CLong =
+    libcUnixBsdJrand48(xseed.rawAddress.toCPointer<ByteVar>())
 
 public actual fun srand48(seed: CLong) {
-    libc_unix_bsd_srand48(seed)
+    libcUnixBsdSrand48(seed)
 }
 
-public actual fun seed48(xseed: COpaquePointer?): COpaquePointer? =
-    libc_unix_bsd_seed48(xseed?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun seed48(xseed: MutPtr<CUshort>): MutPtr<CUshort> =
+    MutPtr(libcUnixBsdSeed48(xseed.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun lcong48(p: COpaquePointer?) {
-    libc_unix_bsd_lcong48(p?.value?.toCPointer<ByteVar>())
+public actual fun lcong48(p: MutPtr<CUshort>) {
+    libcUnixBsdLcong48(p.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun getoptLong(argc: CInt, argv: COpaquePointer?, optstring: String?, longopts: COpaquePointer?, longindex: COpaquePointer?): CInt =
-    libc_unix_bsd_getoptLong(argc, argv?.value?.toCPointer<ByteVar>(), optstring, longopts?.value?.toCPointer<ByteVar>(), longindex?.value?.toCPointer<ByteVar>())
+public actual fun getoptLong(argc: CInt, argv: ConstPtr<MutPtr<CChar>>, optstring: ConstPtr<CChar>, longopts: ConstPtr<Option>, longindex: MutPtr<CInt>): CInt =
+    libcUnixBsdGetoptLong(argc, argv.rawAddress.toCPointer<ByteVar>(), optstring.rawAddress.toCPointer<ByteVar>(), longopts.rawAddress.toCPointer<ByteVar>(), longindex.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strftime(buf: COpaquePointer?, maxsize: SizeT, format: String?, timeptr: COpaquePointer?): SizeT =
-    libc_unix_bsd_strftime(buf?.value?.toCPointer<ByteVar>(), maxsize, format, timeptr?.value?.toCPointer<ByteVar>())
+public actual fun strftime(buf: MutPtr<CChar>, maxsize: SizeT, format: ConstPtr<CChar>, timeptr: ConstPtr<Tm>): SizeT =
+    libcUnixBsdStrftime(buf.rawAddress.toCPointer<ByteVar>(), maxsize, format.rawAddress.toCPointer<ByteVar>(), timeptr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strftimeL(buf: COpaquePointer?, maxsize: SizeT, format: String?, timeptr: COpaquePointer?, locale: LocaleT): SizeT =
-    libc_unix_bsd_strftimeL(buf?.value?.toCPointer<ByteVar>(), maxsize, format, timeptr?.value?.toCPointer<ByteVar>(), locale?.value?.toCPointer<ByteVar>())
+public actual fun strftimeL(buf: MutPtr<CChar>, maxsize: SizeT, format: ConstPtr<CChar>, timeptr: ConstPtr<Tm>, locale: LocaleT): SizeT =
+    libcUnixBsdStrftimeL(buf.rawAddress.toCPointer<ByteVar>(), maxsize, format.rawAddress.toCPointer<ByteVar>(), timeptr.rawAddress.toCPointer<ByteVar>(), locale.rawAddress.toCPointer<ByteVar>())
 
-public actual fun devname(dev: DevT, modeT: ModeT): COpaquePointer? =
-    libc_unix_bsd_devname(dev, modeT)?.let { COpaquePointer(it.toLong()) }
+public actual fun devname(dev: DevT, modeT: ModeT): MutPtr<CChar> =
+    MutPtr(libcUnixBsdDevname(dev, modeT)?.toLong() ?: 0L)
 
 public actual fun issetugid(): CInt =
-    libc_unix_bsd_issetugid()
+    libcUnixBsdIssetugid()

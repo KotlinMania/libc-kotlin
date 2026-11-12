@@ -51,7 +51,7 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_new_bioniclibc_sys_socket_recvmmsg_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewBioniclibcSysSocketRecvmmsg_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t sockfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* msgvec = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -88,7 +88,7 @@ static Napi::Value libc_new_bioniclibc_sys_socket_recvmmsg_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_bioniclibc_sys_socket_sendmmsg_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewBioniclibcSysSocketSendmmsg_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t sockfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* msgvec = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -124,9 +124,9 @@ static Napi::Value libc_new_bioniclibc_sys_socket_sendmmsg_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_bioniclibc_sys_socket_recvfrom_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewBioniclibcSysSocketRecvfrom_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t arg0Socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t len = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     int32_t flags = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
@@ -154,7 +154,7 @@ static Napi::Value libc_new_bioniclibc_sys_socket_recvfrom_napi(const Napi::Call
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_socket, buf, len, flags, addr, addrlen);
+        km_res = km_fn_ptr(arg0Socket, buf, len, flags, addr, addrlen);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -163,9 +163,9 @@ static Napi::Value libc_new_bioniclibc_sys_socket_recvfrom_napi(const Napi::Call
 }
 
 static void register_new_bioniclibc_sys_socket_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_new_bioniclibc_sys_socket_recvmmsg", Napi::Function::New(env, libc_new_bioniclibc_sys_socket_recvmmsg_napi));
-    exports.Set("libc_new_bioniclibc_sys_socket_sendmmsg", Napi::Function::New(env, libc_new_bioniclibc_sys_socket_sendmmsg_napi));
-    exports.Set("libc_new_bioniclibc_sys_socket_recvfrom", Napi::Function::New(env, libc_new_bioniclibc_sys_socket_recvfrom_napi));
+    exports.Set("libcNewBioniclibcSysSocketRecvmmsg", Napi::Function::New(env, libcNewBioniclibcSysSocketRecvmmsg_napi));
+    exports.Set("libcNewBioniclibcSysSocketSendmmsg", Napi::Function::New(env, libcNewBioniclibcSysSocketSendmmsg_napi));
+    exports.Set("libcNewBioniclibcSysSocketRecvfrom", Napi::Function::New(env, libcNewBioniclibcSysSocketRecvfrom_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_new_bioniclibc_sys_socket_napi, nullptr };

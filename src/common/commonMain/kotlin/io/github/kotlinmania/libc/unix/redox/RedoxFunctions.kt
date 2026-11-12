@@ -1,48 +1,59 @@
 package io.github.kotlinmania.libc.unix.redox
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.unix.DIR
+import io.github.kotlinmania.libc.unix.Group
+import io.github.kotlinmania.libc.unix.Iovec
+import io.github.kotlinmania.libc.unix.Rlimit
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.Timeval
+import io.github.kotlinmania.libc.unix.Winsize
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.mem.ObjectSlotLayout
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public fun interface PthreadCreateStartCallback {
-    public operator fun invoke(arg0: COpaquePointer?): COpaquePointer?
+    public operator fun invoke(arg0: MutPtr<CVoid>): MutPtr<CVoid>
 }
 
 // intentionally not public, only used for fdSet
-public fun cmsgAlign(len: SizeT): SizeT = (len + 8uL - 1uL) and (8uL - 1uL).inv()
+public fun cmsgAlign(len: SizeT): SizeT = (len + sizeOf<SizeT>(typeLayoutT = ObjectSlotLayout<SizeT>()) - 1uL) and (sizeOf<SizeT>(typeLayoutT = ObjectSlotLayout<SizeT>()) - 1uL).inv()
 
-public fun cmsgLen(length: CUint): CUint = (cmsgAlign(8uL) + (length.toInt()).toULong()).toUInt()
+public fun cmsgLen(length: CUint): CUint = (cmsgAlign(sizeOf<Cmsghdr>(typeLayoutT = Cmsghdr.typeLayout()).toULong()) + (length.toInt()).toULong()).toUInt()
 
-public fun cmsgSpace(len: CUint): CUint = (cmsgAlign(len.toULong()) + cmsgAlign(8uL)).toUInt()
+public fun cmsgSpace(len: CUint): CUint = (cmsgAlign(len.toULong()) + cmsgAlign(sizeOf<Cmsghdr>(typeLayoutT = Cmsghdr.typeLayout()).toULong())).toUInt()
 
-public fun fdClr(fd: CInt, set: FdSet?) {
+public fun fdClr(fd: CInt, set: MutPtr<FdSet>) {
     val fd1 = fd
-    val size = 8 * 8
-    set!!.fdsBits[fd1 / size] = set.fdsBits[fd1 / size] and (1uL shl (fd1 % size)).inv()
+    val size = sizeOfVal((ObjectSlotLayout<FdSet>()).readNative((set).rawAddress).fdsBits[0]) * 8
+    (ObjectSlotLayout<FdSet>()).readNative((set).rawAddress).fdsBits[fd1 / size] = (ObjectSlotLayout<FdSet>()).readNative((set).rawAddress).fdsBits[fd1 / size] and (1uL shl (fd1 % size)).inv()
     return
 }
 
-public fun fdIsset(fd: CInt, set: FdSet?): Boolean {
+public fun fdIsset(fd: CInt, set: ConstPtr<FdSet>): Boolean {
     val fd1 = fd
-    val size = 8 * 8
-    return (set!!.fdsBits[fd1 / size] and (1uL shl (fd1 % size))) != 0uL
+    val size = sizeOfVal((ObjectSlotLayout<FdSet>()).readNative((set).rawAddress).fdsBits[0]) * 8
+    return ((ObjectSlotLayout<FdSet>()).readNative((set).rawAddress).fdsBits[fd1 / size] and (1uL shl (fd1 % size))) != 0uL
 }
 
-public fun fdSet(fd: CInt, set: FdSet?) {
+public fun fdSet(fd: CInt, set: MutPtr<FdSet>) {
     val fd1 = fd
-    val size = 8 * 8
-    set!!.fdsBits[fd1 / size] = set.fdsBits[fd1 / size] or (1uL shl (fd1 % size))
+    val size = sizeOfVal((ObjectSlotLayout<FdSet>()).readNative((set).rawAddress).fdsBits[0]) * 8
+    (ObjectSlotLayout<FdSet>()).readNative((set).rawAddress).fdsBits[fd1 / size] = (ObjectSlotLayout<FdSet>()).readNative((set).rawAddress).fdsBits[fd1 / size] or (1uL shl (fd1 % size))
     return
 }
 
-public fun fdZero(set: FdSet?) {
-    for (idx in (set!!.fdsBits).indices) {
-        (set.fdsBits)[idx] = 0uL
+public fun fdZero(set: MutPtr<FdSet>) {
+    for (idx in ((ObjectSlotLayout<FdSet>()).readNative((set).rawAddress).fdsBits).indices) {
+        ((ObjectSlotLayout<FdSet>()).readNative((set).rawAddress).fdsBits)[idx] = 0uL
     }
 }
 
@@ -88,168 +99,168 @@ public fun minor(dev: DevT): CUint {
 }
 
 // errno.h
-public expect fun errnoLocation(): COpaquePointer?
+public expect fun errnoLocation(): MutPtr<CInt>
 
-public expect fun strerrorR(errnum: CInt, buf: COpaquePointer?, buflen: SizeT): CInt
+public expect fun strerrorR(errnum: CInt, buf: MutPtr<CChar>, buflen: SizeT): CInt
 
 // dirent.h
-public expect fun dirfd(dirp: DIR?): CInt
+public expect fun dirfd(dirp: MutPtr<DIR>): CInt
 
 // unistd.h
-public expect fun pipe2(fds: COpaquePointer?, flags: CInt): CInt
+public expect fun pipe2(fds: MutPtr<CInt>, flags: CInt): CInt
 
 public expect fun getdtablesize(): CInt
 
-public expect fun getresgid(rgid: COpaquePointer?, egid: COpaquePointer?, sgid: COpaquePointer?): CInt
+public expect fun getresgid(rgid: MutPtr<GidT>, egid: MutPtr<GidT>, sgid: MutPtr<GidT>): CInt
 
-public expect fun getresuid(ruid: COpaquePointer?, euid: COpaquePointer?, suid: COpaquePointer?): CInt
+public expect fun getresuid(ruid: MutPtr<UidT>, euid: MutPtr<UidT>, suid: MutPtr<UidT>): CInt
 
 public expect fun setresgid(rgid: GidT, egid: GidT, sgid: GidT): CInt
 
 public expect fun setresuid(ruid: UidT, euid: UidT, suid: UidT): CInt
 
 // grp.h
-public expect fun getgrent(): COpaquePointer?
+public expect fun getgrent(): MutPtr<Group>
 
 public expect fun setgrent()
 
 public expect fun endgrent()
 
-public expect fun getgrgid(gid: GidT): COpaquePointer?
+public expect fun getgrgid(gid: GidT): MutPtr<Group>
 
-public expect fun getgrgidR(gid: GidT, grp: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt
+public expect fun getgrgidR(gid: GidT, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt
 
-public expect fun getgrnam(name: String?): COpaquePointer?
+public expect fun getgrnam(name: ConstPtr<CChar>): MutPtr<Group>
 
-public expect fun getgrnamR(name: String?, grp: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt
+public expect fun getgrnamR(name: ConstPtr<CChar>, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt
 
-public expect fun getgrouplist(user: String?, group: GidT, groups: COpaquePointer?, ngroups: COpaquePointer?): CInt
+public expect fun getgrouplist(user: ConstPtr<CChar>, group: GidT, groups: MutPtr<GidT>, ngroups: MutPtr<CInt>): CInt
 
 // malloc.h
-public expect fun memalign(align: SizeT, size: SizeT): COpaquePointer?
+public expect fun memalign(align: SizeT, size: SizeT): MutPtr<CVoid>
 
 // netdb.h
-public expect fun getnameinfo(addr: COpaquePointer?, addrlen: SocklenT, host: COpaquePointer?, hostlen: SocklenT, serv: COpaquePointer?, servlen: SocklenT, flags: CInt): CInt
+public expect fun getnameinfo(addr: ConstPtr<Sockaddr>, addrlen: SocklenT, host: MutPtr<CChar>, hostlen: SocklenT, serv: MutPtr<CChar>, servlen: SocklenT, flags: CInt): CInt
 
 // pthread.h
 public expect fun pthreadAtfork(prepare: SigactionSaRestorerCallback?, parent: SigactionSaRestorerCallback?, child: SigactionSaRestorerCallback?): CInt
 
-public expect fun pthreadCreate(tid: COpaquePointer?, attr: COpaquePointer?, start: PthreadCreateStartCallback, arg: COpaquePointer?): CInt
+public expect fun pthreadCreate(tid: MutPtr<PthreadT>, attr: ConstPtr<PthreadAttrT>, start: PthreadCreateStartCallback, arg: MutPtr<CVoid>): CInt
 
-public expect fun pthreadCondattrSetclock(attr: COpaquePointer?, clockId: ClockidT): CInt
+public expect fun pthreadCondattrSetclock(attr: MutPtr<PthreadCondattrT>, clockId: ClockidT): CInt
 
 // pty.h
-public expect fun openpty(amaster: COpaquePointer?, aslave: COpaquePointer?, name: COpaquePointer?, termp: COpaquePointer?, winp: COpaquePointer?): CInt
+public expect fun openpty(amaster: MutPtr<CInt>, aslave: MutPtr<CInt>, name: MutPtr<CChar>, termp: ConstPtr<Termios>, winp: ConstPtr<Winsize>): CInt
 
 // pwd.h
-public expect fun getpwent(): COpaquePointer?
+public expect fun getpwent(): MutPtr<Passwd>
 
 public expect fun setpwent()
 
 public expect fun endpwent()
 
-public expect fun getpwnamR(name: String?, pwd: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt
+public expect fun getpwnamR(name: ConstPtr<CChar>, pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt
 
-public expect fun getpwuidR(uid: UidT, pwd: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt
+public expect fun getpwuidR(uid: UidT, pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt
 
 // signal.h
-public expect fun pthreadSigmask(how: CInt, set: COpaquePointer?, oldset: COpaquePointer?): CInt
+public expect fun pthreadSigmask(how: CInt, set: ConstPtr<SigsetT>, oldset: MutPtr<SigsetT>): CInt
 
 public expect fun pthreadCancel(thread: PthreadT): CInt
 
 public expect fun pthreadKill(thread: PthreadT, sig: CInt): CInt
 
-public expect fun sigtimedwait(set: COpaquePointer?, sig: COpaquePointer?, timeout: COpaquePointer?): CInt
+public expect fun sigtimedwait(set: ConstPtr<SigsetT>, sig: MutPtr<SiginfoT>, timeout: ConstPtr<Timespec>): CInt
 
-public expect fun sigwait(set: COpaquePointer?, sig: COpaquePointer?): CInt
+public expect fun sigwait(set: ConstPtr<SigsetT>, sig: MutPtr<CInt>): CInt
 
 // stdlib.h
-public expect fun getsubopt(optionp: COpaquePointer?, tokens: COpaquePointer?, valuep: COpaquePointer?): CInt
+public expect fun getsubopt(optionp: MutPtr<MutPtr<CChar>>, tokens: ConstPtr<MutPtr<CChar>>, valuep: MutPtr<MutPtr<CChar>>): CInt
 
-public expect fun mkostemp(template: COpaquePointer?, flags: CInt): CInt
+public expect fun mkostemp(template: MutPtr<CChar>, flags: CInt): CInt
 
-public expect fun mkostemps(template: COpaquePointer?, suffixlen: CInt, flags: CInt): CInt
+public expect fun mkostemps(template: MutPtr<CChar>, suffixlen: CInt, flags: CInt): CInt
 
-public expect fun reallocarray(ptr: COpaquePointer?, nmemb: SizeT, size: SizeT): COpaquePointer?
+public expect fun reallocarray(ptr: MutPtr<CVoid>, nmemb: SizeT, size: SizeT): MutPtr<CVoid>
 
 // stdio.h
-public expect fun renameat2(olddirfd: CInt, oldpath: String?, newdirfd: CInt, newpath: String?, flags: CUint): CInt
+public expect fun renameat2(olddirfd: CInt, oldpath: ConstPtr<CChar>, newdirfd: CInt, newpath: ConstPtr<CChar>, flags: CUint): CInt
 
 // string.h
-public expect fun explicitBzero(p: COpaquePointer?, len: SizeT)
+public expect fun explicitBzero(p: MutPtr<CVoid>, len: SizeT)
 
-public expect fun strlcat(dst: COpaquePointer?, src: String?, siz: SizeT): SizeT
+public expect fun strlcat(dst: MutPtr<CChar>, src: ConstPtr<CChar>, siz: SizeT): SizeT
 
-public expect fun strlcpy(dst: COpaquePointer?, src: String?, siz: SizeT): SizeT
+public expect fun strlcpy(dst: MutPtr<CChar>, src: ConstPtr<CChar>, siz: SizeT): SizeT
 
 // sys/epoll.h
 public expect fun epollCreate(size: CInt): CInt
 
 public expect fun epollCreate1(flags: CInt): CInt
 
-public expect fun epollWait(epfd: CInt, events: COpaquePointer?, maxevents: CInt, timeout: CInt): CInt
+public expect fun epollWait(epfd: CInt, events: MutPtr<EpollEvent>, maxevents: CInt, timeout: CInt): CInt
 
-public expect fun epollCtl(epfd: CInt, op: CInt, fd: CInt, event: COpaquePointer?): CInt
+public expect fun epollCtl(epfd: CInt, op: CInt, fd: CInt, event: MutPtr<EpollEvent>): CInt
 
 // sys/ioctl.h
 public expect fun ioctl(fd: CInt, request: CUlong, vararg variadicArgs: Long): CInt
 
 // sys/mman.h
-public expect fun madvise(addr: COpaquePointer?, len: SizeT, advice: CInt): CInt
+public expect fun madvise(addr: MutPtr<CVoid>, len: SizeT, advice: CInt): CInt
 
-public expect fun msync(addr: COpaquePointer?, len: SizeT, flags: CInt): CInt
+public expect fun msync(addr: MutPtr<CVoid>, len: SizeT, flags: CInt): CInt
 
-public expect fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt
+public expect fun mprotect(addr: MutPtr<CVoid>, len: SizeT, prot: CInt): CInt
 
-public expect fun shmOpen(name: String?, oflag: CInt, mode: ModeT): CInt
+public expect fun shmOpen(name: ConstPtr<CChar>, oflag: CInt, mode: ModeT): CInt
 
-public expect fun shmUnlink(name: String?): CInt
+public expect fun shmUnlink(name: ConstPtr<CChar>): CInt
 
 // sys/resource.h
 public expect fun getpriority(which: CInt, who: IdT): CInt
 
 public expect fun setpriority(which: CInt, who: IdT, prio: CInt): CInt
 
-public expect fun getrlimit(resource: CInt, rlim: COpaquePointer?): CInt
+public expect fun getrlimit(resource: CInt, rlim: MutPtr<Rlimit>): CInt
 
-public expect fun setrlimit(resource: CInt, rlim: COpaquePointer?): CInt
+public expect fun setrlimit(resource: CInt, rlim: ConstPtr<Rlimit>): CInt
 
 // sys/socket.h
-public expect fun cmsgData(cmsg: COpaquePointer?): COpaquePointer?
+public expect fun cmsgData(cmsg: ConstPtr<Cmsghdr>): MutPtr<CUchar>
 
-public expect fun cmsgFirsthdr(mhdr: COpaquePointer?): COpaquePointer?
+public expect fun cmsgFirsthdr(mhdr: ConstPtr<Msghdr>): MutPtr<Cmsghdr>
 
-public expect fun cmsgNxthdr(mhdr: COpaquePointer?, cmsg: COpaquePointer?): COpaquePointer?
+public expect fun cmsgNxthdr(mhdr: ConstPtr<Msghdr>, cmsg: ConstPtr<Cmsghdr>): MutPtr<Cmsghdr>
 
-public expect fun bind(socket: CInt, address: COpaquePointer?, addressLen: SocklenT): CInt
+public expect fun bind(socket: CInt, address: ConstPtr<Sockaddr>, addressLen: SocklenT): CInt
 
-public expect fun recvfrom(socket: CInt, buf: COpaquePointer?, len: SizeT, flags: CInt, addr: COpaquePointer?, addrlen: COpaquePointer?): SsizeT
+public expect fun recvfrom(socket: CInt, buf: MutPtr<CVoid>, len: SizeT, flags: CInt, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): SsizeT
 
-public expect fun recvmsg(socket: CInt, msg: COpaquePointer?, flags: CInt): SsizeT
+public expect fun recvmsg(socket: CInt, msg: MutPtr<Msghdr>, flags: CInt): SsizeT
 
-public expect fun sendmsg(socket: CInt, msg: COpaquePointer?, flags: CInt): SsizeT
+public expect fun sendmsg(socket: CInt, msg: ConstPtr<Msghdr>, flags: CInt): SsizeT
 
 // sys/stat.h
-public expect fun futimens(fd: CInt, times: COpaquePointer?): CInt
+public expect fun futimens(fd: CInt, times: ConstPtr<Timespec>): CInt
 
 // sys/uio.h
-public expect fun preadv(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: OffT): SsizeT
+public expect fun preadv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT
 
-public expect fun pwritev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: OffT): SsizeT
+public expect fun pwritev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT
 
-public expect fun readv(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT
+public expect fun readv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT
 
-public expect fun writev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT
+public expect fun writev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT
 
 // sys/utsname.h
-public expect fun uname(utsname: COpaquePointer?): CInt
+public expect fun uname(utsname: MutPtr<Utsname>): CInt
 
 // time.h
-public expect fun gettimeofday(tp: COpaquePointer?, tz: COpaquePointer?): CInt
+public expect fun gettimeofday(tp: MutPtr<Timeval>, tz: MutPtr<Timezone>): CInt
 
-public expect fun clockGettime(clkId: ClockidT, tp: COpaquePointer?): CInt
+public expect fun clockGettime(clkId: ClockidT, tp: MutPtr<Timespec>): CInt
 
-public expect fun strftime(s: COpaquePointer?, max: SizeT, format: String?, tm: COpaquePointer?): SizeT
+public expect fun strftime(s: MutPtr<CChar>, max: SizeT, format: ConstPtr<CChar>, tm: ConstPtr<Tm>): SizeT
 
 // utmp.h
 public expect fun loginTty(fd: CInt): CInt

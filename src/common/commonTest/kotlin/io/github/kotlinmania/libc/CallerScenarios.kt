@@ -8,9 +8,24 @@ import io.github.kotlinmania.libc.unix.memcpy
 import io.github.kotlinmania.libc.unix.memset
 import io.github.kotlinmania.libc.unix.realloc
 import io.github.kotlinmania.libc.unix.strlen
+import io.github.kotlinmania.rustlang.alloc.ffi.CString
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertNotEquals
-import kotlin.test.assertNotNull
+
+internal inline fun <R> withCString(
+    text: String,
+    block: (ConstPtr<CChar>) -> R,
+): R {
+    val cstr = CString.new(text).unwrap()
+    return try {
+        block(cstr.asPtr())
+    } finally {
+        cstr.deallocate()
+    }
+}
 
 /**
  * Shared memory scenarios derived from RUST_CALLERS.md caller patterns.
@@ -20,20 +35,23 @@ import kotlin.test.assertNotNull
  * FFI paths those callers depend on.
  */
 internal fun verifyCallerMemory() {
-    var source = assertNotNull(malloc(64uL))
-    val destination = assertNotNull(calloc(64uL, 1uL))
+    var source = malloc(64uL)
+    assertFalse(source.isNull())
+    val destination = calloc(64uL, 1uL)
+    assertFalse(destination.isNull())
     try {
-        assertEquals(source, assertNotNull(memset(source, 0xAB, 64uL)))
-        assertNotEquals(0, memcmp(source, destination, 64uL))
-        assertEquals(destination, assertNotNull(memcpy(destination, source, 64uL)))
-        assertEquals(0, memcmp(source, destination, 64uL))
-        source = assertNotNull(realloc(source, 128uL))
-        assertEquals(0, memcmp(source, destination, 64uL))
+        assertEquals(source.rawAddress, memset(source, 0xAB, 64uL).rawAddress)
+        assertNotEquals(0, memcmp(source.castConst(), destination.castConst(), 64uL))
+        assertEquals(destination.rawAddress, memcpy(destination, source.castConst(), 64uL).rawAddress)
+        assertEquals(0, memcmp(source.castConst(), destination.castConst(), 64uL))
+        source = realloc(source, 128uL)
+        assertFalse(source.isNull())
+        assertEquals(0, memcmp(source.castConst(), destination.castConst(), 64uL))
     } finally {
         free(source)
         free(destination)
     }
-    free(null)
+    free(MutPtr(0L))
 }
 
 /**
@@ -41,7 +59,7 @@ internal fun verifyCallerMemory() {
  * to measure C-string lengths at FFI boundaries.
  */
 internal fun verifyCallerString() {
-    assertEquals(0uL, strlen(""))
-    assertEquals(5uL, strlen("hello"))
-    assertEquals(13uL, strlen("hello, world!"))
+    withCString("") { assertEquals(0uL, strlen(it)) }
+    withCString("hello") { assertEquals(5uL, strlen(it)) }
+    withCString("hello, world!") { assertEquals(13uL, strlen(it)) }
 }

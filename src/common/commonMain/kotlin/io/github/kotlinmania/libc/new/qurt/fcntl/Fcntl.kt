@@ -2,8 +2,10 @@
 package io.github.kotlinmania.libc.new.qurt.fcntl
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.new.qurt.ModeT
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 
 // Header: `fcntl.h`
 
@@ -72,8 +74,8 @@ public val F_WRLCK: CInt = 1
 public val F_UNLCK: CInt = 2
 
 // Functions
-public expect fun open(pathname: String?, flags: CInt, vararg variadicArgs: Long): CInt
+public expect fun open(pathname: ConstPtr<CChar>, flags: CInt, vararg variadicArgs: Long): CInt
 
-public expect fun creat(pathname: String?, mode: ModeT): CInt
+public expect fun creat(pathname: ConstPtr<CChar>, mode: ModeT): CInt
 
 public expect fun fcntl(fd: CInt, cmd: CInt, vararg variadicArgs: Long): CInt

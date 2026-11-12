@@ -20,52 +20,63 @@ import io.github.kotlinmania.libc.unix.linuxlike.android.prctl
 import io.github.kotlinmania.libc.unix.memcmp
 import io.github.kotlinmania.libc.unix.memset
 import io.github.kotlinmania.libc.unix.open
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertNotEquals
-import kotlin.test.assertNotNull
-import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 private fun writeInt32Le(
-    base: COpaquePointer,
+    base: MutPtr<*>,
     byteOffset: Long,
     value: Int,
 ) {
-    memset(COpaquePointer(base.value + byteOffset), value and 0xFF, 1uL)
-    memset(COpaquePointer(base.value + byteOffset + 1L), (value ushr 8) and 0xFF, 1uL)
-    memset(COpaquePointer(base.value + byteOffset + 2L), (value ushr 16) and 0xFF, 1uL)
-    memset(COpaquePointer(base.value + byteOffset + 3L), (value ushr 24) and 0xFF, 1uL)
+    memset(MutPtr<CVoid>(base.rawAddress + byteOffset), value and 0xFF, 1uL)
+    memset(MutPtr<CVoid>(base.rawAddress + byteOffset + 1L), (value ushr 8) and 0xFF, 1uL)
+    memset(MutPtr<CVoid>(base.rawAddress + byteOffset + 2L), (value ushr 16) and 0xFF, 1uL)
+    memset(MutPtr<CVoid>(base.rawAddress + byteOffset + 3L), (value ushr 24) and 0xFF, 1uL)
 }
 
 private fun writeInt64Le(
-    base: COpaquePointer,
+    base: MutPtr<*>,
     byteOffset: Long,
     value: Long,
 ) {
     for (i in 0 until 8) {
         val byteVal = ((value ushr (i * 8)) and 0xFFL).toInt()
-        memset(COpaquePointer(base.value + byteOffset + i.toLong()), byteVal, 1uL)
+        memset(MutPtr<CVoid>(base.rawAddress + byteOffset + i.toLong()), byteVal, 1uL)
     }
 }
 
 internal fun verifyAndroidBionicFfi() {
-    val errnoPtr = assertNotNull(errno())
-    assertNotEquals(0L, errnoPtr.value)
+    val errnoPtr = errno()
+    assertFalse(errnoPtr.isNull())
 
-    val expectedInt = assertNotNull(calloc(4uL, 1uL))
-    val nameBuf = assertNotNull(calloc(32uL, 1uL))
-    val randBuf = assertNotNull(calloc(16uL, 1uL))
-    val zeroBuf = assertNotNull(calloc(16uL, 1uL))
-    val tmBuf = assertNotNull(calloc(64uL, 1uL))
-    val barrierBuf = assertNotNull(calloc(64uL, 1uL))
+    val expectedInt = calloc(4uL, 1uL)
+    assertFalse(expectedInt.isNull())
+    val nameBuf = calloc(32uL, 1uL)
+    assertFalse(nameBuf.isNull())
+    val randBuf = calloc(16uL, 1uL)
+    assertFalse(randBuf.isNull())
+    val zeroBuf = calloc(16uL, 1uL)
+    assertFalse(zeroBuf.isNull())
+    val tmBuf = calloc(64uL, 1uL)
+    assertFalse(tmBuf.isNull())
+    val barrierBuf = calloc(64uL, 1uL)
+    assertFalse(barrierBuf.isNull())
     try {
         // 1. Bionic __errno() thread-local errno pointer updates on failed open()
         writeInt32Le(errnoPtr, 0L, 0)
         writeInt32Le(expectedInt, 0L, BIONIC_ENOENT)
-        assertEquals(-1, open("/nonexistent-km-bionic-errno-probe-7a9b", 0))
-        val afterErrnoPtr = assertNotNull(errno())
-        assertEquals(errnoPtr, afterErrnoPtr)
-        assertEquals(0, memcmp(afterErrnoPtr, expectedInt, 4uL))
+        withCString("/nonexistent-km-bionic-errno-probe-7a9b") { probePath ->
+            assertEquals(-1, open(probePath, 0))
+        }
+        val afterErrnoPtr = errno()
+        assertFalse(afterErrnoPtr.isNull())
+        assertEquals(errnoPtr.rawAddress, afterErrnoPtr.rawAddress)
+        assertEquals(0, memcmp(afterErrnoPtr.castConst().cast(), expectedInt.castConst(), 4uL))
 
         // 2. Bionic epoll_create1 + close
         val epfd = epollCreate1(0)
@@ -73,28 +84,30 @@ internal fun verifyAndroidBionicFfi() {
         assertEquals(0, close(epfd))
 
         // 3. Bionic prctl(PR_GET_NAME, ...)
-        assertEquals(0, prctl(BIONIC_PR_GET_NAME, nameBuf.value, 0L, 0L, 0L))
+        assertEquals(0, prctl(BIONIC_PR_GET_NAME, nameBuf.rawAddress, 0L, 0L, 0L))
 
         // 4. Bionic getrandom()
         assertEquals(16L, getrandom(randBuf, 16uL, 0u))
-        assertNotEquals(0, memcmp(randBuf, zeroBuf, 16uL))
+        assertNotEquals(0, memcmp(randBuf.castConst(), zeroBuf.castConst(), 16uL))
 
         // 5. 64-bit Bionic timegm64 -> timegm fallback (2000-01-01T00:00:00Z = 946684800)
         writeInt32Le(tmBuf, 12L, 1)
         writeInt32Le(tmBuf, 20L, 100)
-        assertEquals(EPOCH_2000_01_01_UTC, timegm64(tmBuf))
+        assertEquals(EPOCH_2000_01_01_UTC, timegm64(ConstPtr(tmBuf.rawAddress)))
 
         // 6. Bionic atexit is crtbegin-static (not in dynamic libc.so) and rejects null with EINVAL (not ENOSYS)
-        assertNull(dlsym(null, "atexit"))
+        withCString("atexit") { sym ->
+            assertTrue(dlsym(MutPtr(0L), sym).isNull())
+        }
         writeInt32Le(errnoPtr, 0L, 0)
         writeInt32Le(expectedInt, 0L, BIONIC_EINVAL)
         assertEquals(-1, atexit {})
-        assertEquals(0, memcmp(assertNotNull(errno()), expectedInt, 4uL))
+        assertEquals(0, memcmp(ConstPtr(errno().rawAddress), expectedInt.castConst(), 4uL))
 
         // 7. POSIX pthread direct error return (ENOSYS = 38 for omitted pthread_cancel; 0 for API 24+ barriers)
         assertEquals(BIONIC_ENOSYS, pthreadCancel(0u))
-        assertEquals(0, pthreadBarrierInit(barrierBuf, null, 1u))
-        assertEquals(0, pthreadBarrierDestroy(barrierBuf))
+        assertEquals(0, pthreadBarrierInit(barrierBuf.cast(), ConstPtr(0L), 1u))
+        assertEquals(0, pthreadBarrierDestroy(barrierBuf.cast()))
     } finally {
         free(expectedInt)
         free(nameBuf)
@@ -106,44 +119,61 @@ internal fun verifyAndroidBionicFfi() {
 }
 
 internal fun verifyAppleDarwinFfi() {
-    val errPtr = assertNotNull(error())
-    assertNotEquals(0L, errPtr.value)
+    val errPtr = error()
+    assertFalse(errPtr.isNull())
 
-    val expectedInt = assertNotNull(calloc(4uL, 1uL))
-    val inBytes = assertNotNull(calloc(4uL, 1uL))
-    val outBytes = assertNotNull(calloc(4uL, 1uL))
-    val inPtrCell = assertNotNull(calloc(8uL, 1uL))
-    val inLeftCell = assertNotNull(calloc(8uL, 1uL))
-    val outPtrCell = assertNotNull(calloc(8uL, 1uL))
-    val outLeftCell = assertNotNull(calloc(8uL, 1uL))
-    val barrierBuf = assertNotNull(calloc(64uL, 1uL))
+    val expectedInt = calloc(4uL, 1uL)
+    assertFalse(expectedInt.isNull())
+    val inBytes = calloc(4uL, 1uL)
+    assertFalse(inBytes.isNull())
+    val outBytes = calloc(4uL, 1uL)
+    assertFalse(outBytes.isNull())
+    val inPtrCell = calloc(8uL, 1uL)
+    assertFalse(inPtrCell.isNull())
+    val inLeftCell = calloc(8uL, 1uL)
+    assertFalse(inLeftCell.isNull())
+    val outPtrCell = calloc(8uL, 1uL)
+    assertFalse(outPtrCell.isNull())
+    val outLeftCell = calloc(8uL, 1uL)
+    assertFalse(outLeftCell.isNull())
+    val barrierBuf = calloc(64uL, 1uL)
+    assertFalse(barrierBuf.isNull())
     try {
         // 1. Darwin __error() thread-local errno pointer updates on failed open()
         writeInt32Le(errPtr, 0L, 0)
         writeInt32Le(expectedInt, 0L, DARWIN_ENOENT)
-        assertEquals(-1, open("/nonexistent-km-darwin-error-probe-7a9b", 0))
-        val afterErrPtr = assertNotNull(error())
-        assertEquals(errPtr, afterErrPtr)
-        assertEquals(0, memcmp(afterErrPtr, expectedInt, 4uL))
+        withCString("/nonexistent-km-darwin-error-probe-7a9b") { probePath ->
+            assertEquals(-1, open(probePath, 0))
+        }
+        val afterErrPtr = error()
+        assertFalse(afterErrPtr.isNull())
+        assertEquals(errPtr.rawAddress, afterErrPtr.rawAddress)
+        assertEquals(0, memcmp(ConstPtr(afterErrPtr.rawAddress), expectedInt.castConst(), 4uL))
 
         // 2. Darwin #[link(name = "iconv")] dyld shared-cache /usr/lib/libiconv.dylib resolution
-        val cd = assertNotNull(iconvOpen("UTF-8", "ASCII"))
-        assertNotEquals(-1L, cd.value)
+        val cd =
+            withCString("UTF-8") { toCode ->
+                withCString("ASCII") { fromCode ->
+                    iconvOpen(toCode, fromCode)
+                }
+            }
+        assertFalse(cd.isNull())
+        assertNotEquals(-1L, cd.rawAddress)
         try {
             memset(inBytes, 0x4F, 1uL)
-            memset(COpaquePointer(inBytes.value + 1L), 0x4B, 1uL)
-            writeInt64Le(inPtrCell, 0L, inBytes.value)
+            memset(MutPtr(inBytes.rawAddress + 1L), 0x4B, 1uL)
+            writeInt64Le(inPtrCell, 0L, inBytes.rawAddress)
             writeInt64Le(inLeftCell, 0L, 2L)
-            writeInt64Le(outPtrCell, 0L, outBytes.value)
+            writeInt64Le(outPtrCell, 0L, outBytes.rawAddress)
             writeInt64Le(outLeftCell, 0L, 4L)
-            assertEquals(0uL, iconv(cd, inPtrCell, inLeftCell, outPtrCell, outLeftCell))
-            assertEquals(0, memcmp(inBytes, outBytes, 2uL))
+            assertEquals(0uL, iconv(cd, inPtrCell.cast(), inLeftCell.cast(), outPtrCell.cast(), outLeftCell.cast()))
+            assertEquals(0, memcmp(inBytes.castConst(), outBytes.castConst(), 2uL))
         } finally {
             assertEquals(0, iconvClose(cd))
         }
 
         // 3. Darwin POSIX pthread_barrier_init direct ENOSYS (78) return
-        assertEquals(DARWIN_ENOSYS, pthreadBarrierInit(barrierBuf, null, 2u))
+        assertEquals(DARWIN_ENOSYS, pthreadBarrierInit(barrierBuf.cast(), ConstPtr(0L), 2u))
     } finally {
         free(expectedInt)
         free(inBytes)
@@ -157,7 +187,11 @@ internal fun verifyAppleDarwinFfi() {
 }
 
 internal fun verifyHostAppleDarwinIfPresent() {
-    if (dlsym(null, "mach_absolute_time") != null) {
+    val machSym =
+        withCString("mach_absolute_time") { sym ->
+            dlsym(MutPtr(0L), sym)
+        }
+    if (!machSym.isNull()) {
         verifyAppleDarwinFfi()
     }
 }

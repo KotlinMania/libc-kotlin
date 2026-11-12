@@ -3,104 +3,112 @@
 package io.github.kotlinmania.libc.unix.haiku
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLonglong
-import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.PidT
+import io.github.kotlinmania.libc.unix.Rusage
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.Timeval
+import io.github.kotlinmania.libc.unix.Winsize
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
-private val _unixHaikuBsdNapiAddon: dynamic =
+private val unixHaikuBsdNapiAddon: dynamic =
     js("(function() { if (typeof globalThis !== 'undefined' && typeof globalThis.__km_napi_libc !== 'undefined') return globalThis.__km_napi_libc; if (typeof process === 'undefined' || !process.versions || !process.versions.node) return null; var mod = process.getBuiltinModule ? process.getBuiltinModule('module') : (process.mainModule && process.mainModule.constructor); var req = (mod && mod.createRequire) ? mod.createRequire((process.cwd ? process.cwd() : '.') + '/package.json') : (process.mainModule ? process.mainModule.require : null); if (!req) return null; try { var pkg = req('@kotlinmania/libc-native-bindings'); if (typeof globalThis !== 'undefined') globalThis.__km_napi_libc = pkg; return pkg; } catch (_) {} var fs = req('fs'); var path = req('path'); var dir = process.cwd ? process.cwd() : '.'; var rels = ['libc_native.node', 'build/node-ffi/libc_native.node', 'build/node-ffi/release/libc_native.node', 'build/node-ffi/debug/libc_native.node', 'src/js/node-libc/build/Release/libc_native.node', 'src/js/node-libc/build/Debug/libc_native.node', 'src/js/node-libc/dist/build/Release/libc_native.node', 'src/js/node-libc/dist/build/Debug/libc_native.node', 'c_native.node', 'build/node-ffi/c_native.node', 'build/node-ffi/release/c_native.node', 'build/node-ffi/debug/c_native.node', 'src/js/node-libc/build/Release/c_native.node', 'src/js/node-libc/build/Debug/c_native.node', 'src/js/node-libc/dist/build/Release/c_native.node', 'src/js/node-libc/dist/build/Debug/c_native.node']; for (var d = 0; d < 8; d++) { for (var i = 0; i < rels.length; i++) { var c = path.resolve(dir, rels[i]); if (fs.existsSync(c)) { var loaded = req(c); if (typeof globalThis !== 'undefined') globalThis.__km_napi_libc = loaded; return loaded; } } var parent = path.dirname(dir); if (parent === dir) break; dir = parent; } if (typeof globalThis !== 'undefined') globalThis.__km_napi_libc = null; return null; })()")
 
 public actual fun daemon(nochdir: CInt, noclose: CInt): CInt =
-    if (_unixHaikuBsdNapiAddon != null) (_unixHaikuBsdNapiAddon.libc_unix_haiku_bsd_daemon(nochdir, noclose) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixHaikuBsdNapiAddon != null) (unixHaikuBsdNapiAddon.libcUnixHaikuBsdDaemon(nochdir, noclose) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getprogname(): COpaquePointer? =
-    if (_unixHaikuBsdNapiAddon != null) (_unixHaikuBsdNapiAddon.libc_unix_haiku_bsd_getprogname() as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getprogname(): ConstPtr<CChar> =
+    if (unixHaikuBsdNapiAddon != null) ConstPtr((unixHaikuBsdNapiAddon.libcUnixHaikuBsdGetprogname() as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setprogname(progname: String?) {
-    if (_unixHaikuBsdNapiAddon != null) {
-        _unixHaikuBsdNapiAddon.libc_unix_haiku_bsd_setprogname(progname)
+public actual fun setprogname(progname: ConstPtr<CChar>) {
+    if (unixHaikuBsdNapiAddon != null) {
+        unixHaikuBsdNapiAddon.libcUnixHaikuBsdSetprogname(progname.rawAddress.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
 public actual fun arc4random(): UInt =
-    if (_unixHaikuBsdNapiAddon != null) (_unixHaikuBsdNapiAddon.libc_unix_haiku_bsd_arc4random() as Int).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixHaikuBsdNapiAddon != null) (unixHaikuBsdNapiAddon.libcUnixHaikuBsdArc4random() as Int).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun arc4randomUniform(upperBound: UInt): UInt =
-    if (_unixHaikuBsdNapiAddon != null) (_unixHaikuBsdNapiAddon.libc_unix_haiku_bsd_arc4randomUniform(upperBound.toInt()) as Int).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixHaikuBsdNapiAddon != null) (unixHaikuBsdNapiAddon.libcUnixHaikuBsdArc4randomUniform(upperBound.toInt()) as Int).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun arc4randomBuf(buf: COpaquePointer?, n: SizeT) {
-    if (_unixHaikuBsdNapiAddon != null) {
-        _unixHaikuBsdNapiAddon.libc_unix_haiku_bsd_arc4randomBuf((buf?.value ?: 0L).toString(), n.toString())
+public actual fun arc4randomBuf(buf: MutPtr<CVoid>, n: SizeT) {
+    if (unixHaikuBsdNapiAddon != null) {
+        unixHaikuBsdNapiAddon.libcUnixHaikuBsdArc4randomBuf(buf.rawAddress.toString(), n.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun mkstemps(template: COpaquePointer?, suffixlen: CInt): CInt =
-    if (_unixHaikuBsdNapiAddon != null) (_unixHaikuBsdNapiAddon.libc_unix_haiku_bsd_mkstemps((template?.value ?: 0L).toString(), suffixlen) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mkstemps(template: MutPtr<CChar>, suffixlen: CInt): CInt =
+    if (unixHaikuBsdNapiAddon != null) (unixHaikuBsdNapiAddon.libcUnixHaikuBsdMkstemps(template.rawAddress.toString(), suffixlen) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtonum(nptr: String?, minval: CLonglong, maxval: CLonglong, errstr: COpaquePointer?): CLonglong =
-    if (_unixHaikuBsdNapiAddon != null) (_unixHaikuBsdNapiAddon.libc_unix_haiku_bsd_strtonum(nptr, minval.toString(), maxval.toString(), (errstr?.value ?: 0L).toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strtonum(nptr: ConstPtr<CChar>, minval: CLonglong, maxval: CLonglong, errstr: MutPtr<ConstPtr<CChar>>): CLonglong =
+    if (unixHaikuBsdNapiAddon != null) (unixHaikuBsdNapiAddon.libcUnixHaikuBsdStrtonum(nptr.rawAddress.toString(), minval.toString(), maxval.toString(), errstr.rawAddress.toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun openpty(amaster: COpaquePointer?, aslave: COpaquePointer?, name: COpaquePointer?, termp: COpaquePointer?, winp: COpaquePointer?): CInt =
-    if (_unixHaikuBsdNapiAddon != null) (_unixHaikuBsdNapiAddon.libc_unix_haiku_bsd_openpty((amaster?.value ?: 0L).toString(), (aslave?.value ?: 0L).toString(), (name?.value ?: 0L).toString(), (termp?.value ?: 0L).toString(), (winp?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun openpty(amaster: MutPtr<CInt>, aslave: MutPtr<CInt>, name: MutPtr<CChar>, termp: MutPtr<Termios>, winp: MutPtr<Winsize>): CInt =
+    if (unixHaikuBsdNapiAddon != null) (unixHaikuBsdNapiAddon.libcUnixHaikuBsdOpenpty(amaster.rawAddress.toString(), aslave.rawAddress.toString(), name.rawAddress.toString(), termp.rawAddress.toString(), winp.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun loginTty(fd: CInt): CInt =
-    if (_unixHaikuBsdNapiAddon != null) (_unixHaikuBsdNapiAddon.libc_unix_haiku_bsd_loginTty(fd) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixHaikuBsdNapiAddon != null) (unixHaikuBsdNapiAddon.libcUnixHaikuBsdLoginTty(fd) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun forkpty(amaster: COpaquePointer?, name: COpaquePointer?, termp: COpaquePointer?, winp: COpaquePointer?): PidT =
-    if (_unixHaikuBsdNapiAddon != null) (_unixHaikuBsdNapiAddon.libc_unix_haiku_bsd_forkpty((amaster?.value ?: 0L).toString(), (name?.value ?: 0L).toString(), (termp?.value ?: 0L).toString(), (winp?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun forkpty(amaster: MutPtr<CInt>, name: MutPtr<CChar>, termp: MutPtr<Termios>, winp: MutPtr<Winsize>): PidT =
+    if (unixHaikuBsdNapiAddon != null) (unixHaikuBsdNapiAddon.libcUnixHaikuBsdForkpty(amaster.rawAddress.toString(), name.rawAddress.toString(), termp.rawAddress.toString(), winp.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strsep(string: COpaquePointer?, delimiters: String?): COpaquePointer? =
-    if (_unixHaikuBsdNapiAddon != null) (_unixHaikuBsdNapiAddon.libc_unix_haiku_bsd_strsep((string?.value ?: 0L).toString(), delimiters) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strsep(string: MutPtr<MutPtr<CChar>>, delimiters: ConstPtr<CChar>): MutPtr<CChar> =
+    if (unixHaikuBsdNapiAddon != null) MutPtr((unixHaikuBsdNapiAddon.libcUnixHaikuBsdStrsep(string.rawAddress.toString(), delimiters.rawAddress.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun explicitBzero(buf: COpaquePointer?, len: SizeT) {
-    if (_unixHaikuBsdNapiAddon != null) {
-        _unixHaikuBsdNapiAddon.libc_unix_haiku_bsd_explicitBzero((buf?.value ?: 0L).toString(), len.toString())
+public actual fun explicitBzero(buf: MutPtr<CVoid>, len: SizeT) {
+    if (unixHaikuBsdNapiAddon != null) {
+        unixHaikuBsdNapiAddon.libcUnixHaikuBsdExplicitBzero(buf.rawAddress.toString(), len.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun slInit(): COpaquePointer? =
-    if (_unixHaikuBsdNapiAddon != null) (_unixHaikuBsdNapiAddon.libc_unix_haiku_bsd_slInit() as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun slInit(): MutPtr<StringList> =
+    if (unixHaikuBsdNapiAddon != null) MutPtr((unixHaikuBsdNapiAddon.libcUnixHaikuBsdSlInit() as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun slAdd(sl: COpaquePointer?, n: COpaquePointer?): CInt =
-    if (_unixHaikuBsdNapiAddon != null) (_unixHaikuBsdNapiAddon.libc_unix_haiku_bsd_slAdd((sl?.value ?: 0L).toString(), (n?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun slAdd(sl: MutPtr<StringList>, n: MutPtr<CChar>): CInt =
+    if (unixHaikuBsdNapiAddon != null) (unixHaikuBsdNapiAddon.libcUnixHaikuBsdSlAdd(sl.rawAddress.toString(), n.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun slFree(sl: COpaquePointer?, i: CInt) {
-    if (_unixHaikuBsdNapiAddon != null) {
-        _unixHaikuBsdNapiAddon.libc_unix_haiku_bsd_slFree((sl?.value ?: 0L).toString(), i)
+public actual fun slFree(sl: MutPtr<StringList>, i: CInt) {
+    if (unixHaikuBsdNapiAddon != null) {
+        unixHaikuBsdNapiAddon.libcUnixHaikuBsdSlFree(sl.rawAddress.toString(), i)
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun slFind(sl: COpaquePointer?, n: COpaquePointer?): COpaquePointer? =
-    if (_unixHaikuBsdNapiAddon != null) (_unixHaikuBsdNapiAddon.libc_unix_haiku_bsd_slFind((sl?.value ?: 0L).toString(), (n?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun slFind(sl: MutPtr<StringList>, n: MutPtr<CChar>): MutPtr<CChar> =
+    if (unixHaikuBsdNapiAddon != null) MutPtr((unixHaikuBsdNapiAddon.libcUnixHaikuBsdSlFind(sl.rawAddress.toString(), n.rawAddress.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun kqueue(): CInt =
-    if (_unixHaikuBsdNapiAddon != null) (_unixHaikuBsdNapiAddon.libc_unix_haiku_bsd_kqueue() as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixHaikuBsdNapiAddon != null) (unixHaikuBsdNapiAddon.libcUnixHaikuBsdKqueue() as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun kevent(kq: CInt, changelist: COpaquePointer?, nchanges: CInt, eventlist: COpaquePointer?, nevents: CInt, timeout: COpaquePointer?): CInt =
-    if (_unixHaikuBsdNapiAddon != null) (_unixHaikuBsdNapiAddon.libc_unix_haiku_bsd_kevent(kq, (changelist?.value ?: 0L).toString(), nchanges, (eventlist?.value ?: 0L).toString(), nevents, (timeout?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun kevent(kq: CInt, changelist: ConstPtr<Kevent>, nchanges: CInt, eventlist: MutPtr<Kevent>, nevents: CInt, timeout: ConstPtr<Timespec>): CInt =
+    if (unixHaikuBsdNapiAddon != null) (unixHaikuBsdNapiAddon.libcUnixHaikuBsdKevent(kq, changelist.rawAddress.toString(), nchanges, eventlist.rawAddress.toString(), nevents, timeout.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt =
-    if (_unixHaikuBsdNapiAddon != null) (_unixHaikuBsdNapiAddon.libc_unix_haiku_bsd_dlIteratePhdr(0L.toString(), (data?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: MutPtr<CVoid>): CInt =
+    if (unixHaikuBsdNapiAddon != null) (unixHaikuBsdNapiAddon.libcUnixHaikuBsdDlIteratePhdr(0L.toString(), data.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun lutimes(file: String?, times: COpaquePointer?): CInt =
-    if (_unixHaikuBsdNapiAddon != null) (_unixHaikuBsdNapiAddon.libc_unix_haiku_bsd_lutimes(file, (times?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun lutimes(file: ConstPtr<CChar>, times: ConstPtr<Timeval>): CInt =
+    if (unixHaikuBsdNapiAddon != null) (unixHaikuBsdNapiAddon.libcUnixHaikuBsdLutimes(file.rawAddress.toString(), times.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun preadv(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: OffT): SsizeT =
-    if (_unixHaikuBsdNapiAddon != null) (_unixHaikuBsdNapiAddon.libc_unix_haiku_bsd_preadv(fd, (iov?.value ?: 0L).toString(), iovcnt, offset.toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun preadv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT =
+    if (unixHaikuBsdNapiAddon != null) (unixHaikuBsdNapiAddon.libcUnixHaikuBsdPreadv(fd, iov.rawAddress.toString(), iovcnt, offset.toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pwritev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: OffT): SsizeT =
-    if (_unixHaikuBsdNapiAddon != null) (_unixHaikuBsdNapiAddon.libc_unix_haiku_bsd_pwritev(fd, (iov?.value ?: 0L).toString(), iovcnt, offset.toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pwritev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT =
+    if (unixHaikuBsdNapiAddon != null) (unixHaikuBsdNapiAddon.libcUnixHaikuBsdPwritev(fd, iov.rawAddress.toString(), iovcnt, offset.toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wait4(pid: PidT, status: COpaquePointer?, options: CInt, rusage: COpaquePointer?): PidT =
-    if (_unixHaikuBsdNapiAddon != null) (_unixHaikuBsdNapiAddon.libc_unix_haiku_bsd_wait4(pid, (status?.value ?: 0L).toString(), options, (rusage?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wait4(pid: PidT, status: MutPtr<CInt>, options: CInt, rusage: MutPtr<Rusage>): PidT =
+    if (unixHaikuBsdNapiAddon != null) (unixHaikuBsdNapiAddon.libcUnixHaikuBsdWait4(pid, status.rawAddress.toString(), options, rusage.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")

@@ -4,8 +4,9 @@ package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.x8664.notx32
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.unix.SizeT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 private object UnixLinuxlikeLinuxGnuB64X8664Notx32NotX32JniBridge {
     init {
@@ -13,8 +14,8 @@ private object UnixLinuxlikeLinuxGnuB64X8664Notx32NotX32JniBridge {
     }
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_b64_x8664_notx32_not_x32_sysctl(name: Long, namelen: Int, oldp: Long, oldlenp: Long, newp: Long, newlen: Long): Int
+    external fun libcUnixLinuxlikeLinuxGnuB64X8664Notx32NotX32Sysctl(name: Long, namelen: Int, oldp: Long, oldlenp: Long, newp: Long, newlen: Long): Int
 }
 
-public actual fun sysctl(name: COpaquePointer?, namelen: CInt, oldp: COpaquePointer?, oldlenp: COpaquePointer?, newp: COpaquePointer?, newlen: SizeT): CInt =
-    UnixLinuxlikeLinuxGnuB64X8664Notx32NotX32JniBridge.libc_unix_linuxlike_linux_gnu_b64_x8664_notx32_not_x32_sysctl((name?.value ?: 0L), namelen, (oldp?.value ?: 0L), (oldlenp?.value ?: 0L), (newp?.value ?: 0L), newlen.toLong())
+public actual fun sysctl(name: MutPtr<CInt>, namelen: CInt, oldp: MutPtr<CVoid>, oldlenp: MutPtr<SizeT>, newp: MutPtr<CVoid>, newlen: SizeT): CInt =
+    UnixLinuxlikeLinuxGnuB64X8664Notx32NotX32JniBridge.libcUnixLinuxlikeLinuxGnuB64X8664Notx32NotX32Sysctl(name.rawAddress, namelen, oldp.rawAddress, oldlenp.rawAddress, newp.rawAddress, newlen.toLong())

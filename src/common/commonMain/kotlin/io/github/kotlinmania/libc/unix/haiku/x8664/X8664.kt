@@ -9,6 +9,7 @@ import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUshort
 import io.github.kotlinmania.libc.unix.haiku.SigsetT
 import io.github.kotlinmania.libc.unix.haiku.StackT
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public data class FpuState(
     public var control: CUshort = 0u,
@@ -106,9 +107,65 @@ public class McontextT(
     public var fpu: Savefpu = Savefpu(),
 )
 
-public data class UcontextT(
-    public var ucLink: UcontextT? = null,
-    public var ucSigmask: SigsetT = 0uL,
-    public var ucStack: StackT = StackT(),
-    public var ucMcontext: McontextT = McontextT(),
-)
+public class UcontextT internal constructor(
+    ucLinkCtorArg: MutPtr<UcontextT>,
+    public var ucSigmask: SigsetT,
+    public var ucStack: StackT,
+    ucMcontextCtorArg: McontextT,
+) {
+    public var ucLink: MutPtr<UcontextT> = ucLinkCtorArg
+        internal set
+
+    public var ucMcontext: McontextT = ucMcontextCtorArg
+        internal set
+
+    public constructor() : this(
+        ucLinkCtorArg = MutPtr(0L),
+        ucSigmask = 0uL,
+        ucStack = StackT(),
+        ucMcontextCtorArg = McontextT(),
+    )
+
+    public operator fun component1(): MutPtr<UcontextT> = this.ucLink
+
+    public operator fun component2(): SigsetT = this.ucSigmask
+
+    public operator fun component3(): StackT = this.ucStack
+
+    public operator fun component4(): McontextT = this.ucMcontext
+
+    public fun copy(ucLink: MutPtr<UcontextT> = this.ucLink, ucSigmask: SigsetT = this.ucSigmask, ucStack: StackT = this.ucStack, ucMcontext: McontextT = this.ucMcontext): UcontextT = UcontextT(ucLinkCtorArg = ucLink, ucSigmask = ucSigmask, ucStack = ucStack, ucMcontextCtorArg = ucMcontext)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is UcontextT) return false
+        if (this.ucLink != other.ucLink) return false
+        if (this.ucSigmask != other.ucSigmask) return false
+        if (this.ucStack != other.ucStack) return false
+        if (this.ucMcontext != other.ucMcontext) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.ucLink.hashCode()
+        result = 31 * result + this.ucSigmask.hashCode()
+        result = 31 * result + this.ucStack.hashCode()
+        result = 31 * result + this.ucMcontext.hashCode()
+        return result
+    }
+
+    public companion object {
+        public operator fun invoke(
+            ucLink: MutPtr<UcontextT> = MutPtr(0L),
+            ucSigmask: SigsetT = 0uL,
+            ucStack: StackT = StackT(),
+            ucMcontext: McontextT = McontextT(),
+        ): UcontextT =
+            UcontextT(
+                ucLinkCtorArg = ucLink,
+                ucSigmask = ucSigmask,
+                ucStack = ucStack,
+                ucMcontextCtorArg = ucMcontext,
+            )
+    }
+}

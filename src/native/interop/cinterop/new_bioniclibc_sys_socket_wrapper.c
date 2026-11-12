@@ -22,7 +22,7 @@
 #endif
 #endif
 
-int32_t libc_new_bioniclibc_sys_socket_recvmmsg(int32_t sockfd, void* msgvec, uint32_t vlen, int32_t flags, void* timeout) {
+int32_t libcNewBioniclibcSysSocketRecvmmsg(int32_t sockfd, void* msgvec, uint32_t vlen, int32_t flags, void* timeout) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -50,7 +50,7 @@ int32_t libc_new_bioniclibc_sys_socket_recvmmsg(int32_t sockfd, void* msgvec, ui
     return -1;
 }
 
-int32_t libc_new_bioniclibc_sys_socket_sendmmsg(int32_t sockfd, void* msgvec, uint32_t vlen, int32_t flags) {
+int32_t libcNewBioniclibcSysSocketSendmmsg(int32_t sockfd, void* msgvec, uint32_t vlen, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -78,7 +78,7 @@ int32_t libc_new_bioniclibc_sys_socket_sendmmsg(int32_t sockfd, void* msgvec, ui
     return -1;
 }
 
-int32_t libc_new_bioniclibc_sys_socket_recvfrom(int32_t arg_0_socket, void* buf, uint64_t len, int32_t flags, void* addr, void* addrlen) {
-    return (int32_t)recvfrom(arg_0_socket, buf, len, flags, addr, addrlen);
+int32_t libcNewBioniclibcSysSocketRecvfrom(int32_t arg0Socket, void* buf, uint64_t len, int32_t flags, void* addr, void* addrlen) {
+    return (int32_t)recvfrom(arg0Socket, buf, len, flags, addr, addrlen);
 }
 

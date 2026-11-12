@@ -8,14 +8,14 @@ import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.linuxlike.SpeedT
 import io.github.kotlinmania.libc.unix.linuxlike.TcflagT
 
-// pub const RLIM_INFINITY: crate::rlimT = !0;
+// pub const RLIM_INFINITY: rlimT = !0;
 public val VEOF: Int = 4
 
-// pub const RLIMIT_RSS: crate::__rlimit_resource_t = 5;
-// pub const RLIMIT_AS: crate::__rlimit_resource_t = 9;
-// pub const RLIMIT_MEMLOCK: crate::__rlimit_resource_t = 8;
-// pub const RLIMIT_NOFILE: crate::__rlimit_resource_t = 7;
-// pub const RLIMIT_NPROC: crate::__rlimit_resource_t = 6;
+// pub const RLIMIT_RSS: rlimitResourceT = 5;
+// pub const RLIMIT_AS: rlimitResourceT = 9;
+// pub const RLIMIT_MEMLOCK: rlimitResourceT = 8;
+// pub const RLIMIT_NOFILE: rlimitResourceT = 7;
+// pub const RLIMIT_NPROC: rlimitResourceT = 6;
 public val O_APPEND: CInt = 1024
 
 public val O_CREAT: CInt = 64

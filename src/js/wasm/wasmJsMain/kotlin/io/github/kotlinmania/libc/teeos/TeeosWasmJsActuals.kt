@@ -3,904 +3,907 @@
 package io.github.kotlinmania.libc.teeos
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CDouble
 import io.github.kotlinmania.libc.CFloat
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CLonglong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 @JsFun("() => { if (typeof globalThis.__km_napi_libc !== 'undefined') return globalThis.__km_napi_libc !== null; if (typeof process === 'undefined' || !process.versions || !process.versions.node) { globalThis.__km_napi_libc = null; return false; } var mod = process.getBuiltinModule ? process.getBuiltinModule('module') : (process.mainModule && process.mainModule.constructor); var req = (mod && mod.createRequire) ? mod.createRequire((process.cwd ? process.cwd() : '.') + '/package.json') : (process.mainModule ? process.mainModule.require : null); if (!req) { globalThis.__km_napi_libc = null; return false; } try { globalThis.__km_napi_libc = req('@kotlinmania/libc-native-bindings'); return true; } catch (_) {} var fs = req('fs'); var path = req('path'); var dir = process.cwd ? process.cwd() : '.'; var rels = ['libc_native.node', 'build/node-ffi/libc_native.node', 'build/node-ffi/release/libc_native.node', 'build/node-ffi/debug/libc_native.node', 'src/js/node-libc/build/Release/libc_native.node', 'src/js/node-libc/build/Debug/libc_native.node', 'src/js/node-libc/dist/build/Release/libc_native.node', 'src/js/node-libc/dist/build/Debug/libc_native.node', 'c_native.node', 'build/node-ffi/c_native.node', 'build/node-ffi/release/c_native.node', 'build/node-ffi/debug/c_native.node', 'src/js/node-libc/build/Release/c_native.node', 'src/js/node-libc/build/Debug/c_native.node', 'src/js/node-libc/dist/build/Release/c_native.node', 'src/js/node-libc/dist/build/Debug/c_native.node']; for (var d = 0; d < 8; d++) { for (var i = 0; i < rels.length; i++) { var c = path.resolve(dir, rels[i]); if (fs.existsSync(c)) { globalThis.__km_napi_libc = req(c); return true; } } var parent = path.dirname(dir); if (parent === dir) break; dir = parent; } globalThis.__km_napi_libc = null; return false; }")
-private external fun _initTeeosNapiAddon(): Boolean
+private external fun initTeeosNapiAddon(): Boolean
 
-private val _teeosNapiAvailable: Boolean = _initTeeosNapiAddon()
+private val teeosNapiAvailable: Boolean = initTeeosNapiAddon()
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_teeos_calloc(p0, p1)")
-private external fun _wasm_libc_teeos_calloc(p0: String, p1: String): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcTeeosCalloc(p0, p1)")
+private external fun wasmLibcTeeosCalloc(p0: String, p1: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_malloc(p0)")
-private external fun _wasm_libc_teeos_malloc(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosMalloc(p0)")
+private external fun wasmLibcTeeosMalloc(p0: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_teeos_realloc(p0, p1)")
-private external fun _wasm_libc_teeos_realloc(p0: String, p1: String): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcTeeosRealloc(p0, p1)")
+private external fun wasmLibcTeeosRealloc(p0: String, p1: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_teeos_alignedAlloc(p0, p1)")
-private external fun _wasm_libc_teeos_alignedAlloc(p0: String, p1: String): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcTeeosAlignedAlloc(p0, p1)")
+private external fun wasmLibcTeeosAlignedAlloc(p0: String, p1: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_free(p0)")
-private external fun _wasm_libc_teeos_free(p0: String)
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosFree(p0)")
+private external fun wasmLibcTeeosFree(p0: String)
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_teeos_posixMemalign(p0, p1, p2)")
-private external fun _wasm_libc_teeos_posixMemalign(p0: String, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcTeeosPosixMemalign(p0, p1, p2)")
+private external fun wasmLibcTeeosPosixMemalign(p0: String, p1: String, p2: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_teeos_memchr(p0, p1, p2)")
-private external fun _wasm_libc_teeos_memchr(p0: String, p1: Int, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcTeeosMemchr(p0, p1, p2)")
+private external fun wasmLibcTeeosMemchr(p0: String, p1: Int, p2: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_teeos_wmemchr(p0, p1, p2)")
-private external fun _wasm_libc_teeos_wmemchr(p0: String, p1: Int, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcTeeosWmemchr(p0, p1, p2)")
+private external fun wasmLibcTeeosWmemchr(p0: String, p1: Int, p2: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_teeos_memcmp(p0, p1, p2)")
-private external fun _wasm_libc_teeos_memcmp(p0: String, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcTeeosMemcmp(p0, p1, p2)")
+private external fun wasmLibcTeeosMemcmp(p0: String, p1: String, p2: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_teeos_memcpy(p0, p1, p2)")
-private external fun _wasm_libc_teeos_memcpy(p0: String, p1: String, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcTeeosMemcpy(p0, p1, p2)")
+private external fun wasmLibcTeeosMemcpy(p0: String, p1: String, p2: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_teeos_memmove(p0, p1, p2)")
-private external fun _wasm_libc_teeos_memmove(p0: String, p1: String, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcTeeosMemmove(p0, p1, p2)")
+private external fun wasmLibcTeeosMemmove(p0: String, p1: String, p2: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_teeos_memset(p0, p1, p2)")
-private external fun _wasm_libc_teeos_memset(p0: String, p1: Int, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcTeeosMemset(p0, p1, p2)")
+private external fun wasmLibcTeeosMemset(p0: String, p1: Int, p2: String): String
 
-@JsFun("() => globalThis.__km_napi_libc.libc_teeos_pthreadSelf()")
-private external fun _wasm_libc_teeos_pthreadSelf(): String
+@JsFun("() => globalThis.__km_napi_libc.libcTeeosPthreadSelf()")
+private external fun wasmLibcTeeosPthreadSelf(): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_teeos_pthreadJoin(p0, p1)")
-private external fun _wasm_libc_teeos_pthreadJoin(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcTeeosPthreadJoin(p0, p1)")
+private external fun wasmLibcTeeosPthreadJoin(p0: String, p1: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_pthreadExit(p0)")
-private external fun _wasm_libc_teeos_pthreadExit(p0: String)
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosPthreadExit(p0)")
+private external fun wasmLibcTeeosPthreadExit(p0: String)
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_pthreadAttrInit(p0)")
-private external fun _wasm_libc_teeos_pthreadAttrInit(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosPthreadAttrInit(p0)")
+private external fun wasmLibcTeeosPthreadAttrInit(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_pthreadAttrDestroy(p0)")
-private external fun _wasm_libc_teeos_pthreadAttrDestroy(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosPthreadAttrDestroy(p0)")
+private external fun wasmLibcTeeosPthreadAttrDestroy(p0: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_teeos_pthreadAttrGetstack(p0, p1, p2)")
-private external fun _wasm_libc_teeos_pthreadAttrGetstack(p0: String, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcTeeosPthreadAttrGetstack(p0, p1, p2)")
+private external fun wasmLibcTeeosPthreadAttrGetstack(p0: String, p1: String, p2: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_teeos_pthreadAttrSetstacksize(p0, p1)")
-private external fun _wasm_libc_teeos_pthreadAttrSetstacksize(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcTeeosPthreadAttrSetstacksize(p0, p1)")
+private external fun wasmLibcTeeosPthreadAttrSetstacksize(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_teeos_pthreadAttrGetstacksize(p0, p1)")
-private external fun _wasm_libc_teeos_pthreadAttrGetstacksize(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcTeeosPthreadAttrGetstacksize(p0, p1)")
+private external fun wasmLibcTeeosPthreadAttrGetstacksize(p0: String, p1: String): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_teeos_pthreadAttrSettee(p0, p1, p2, p3)")
-private external fun _wasm_libc_teeos_pthreadAttrSettee(p0: String, p1: Int, p2: Int, p3: Int): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcTeeosPthreadAttrSettee(p0, p1, p2, p3)")
+private external fun wasmLibcTeeosPthreadAttrSettee(p0: String, p1: Int, p2: Int, p3: Int): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_teeos_schedYield()")
-private external fun _wasm_libc_teeos_schedYield(): Int
+@JsFun("() => globalThis.__km_napi_libc.libcTeeosSchedYield()")
+private external fun wasmLibcTeeosSchedYield(): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_teeos_pthreadKeyCreate(p0, p1)")
-private external fun _wasm_libc_teeos_pthreadKeyCreate(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcTeeosPthreadKeyCreate(p0, p1)")
+private external fun wasmLibcTeeosPthreadKeyCreate(p0: String, p1: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_pthreadKeyDelete(p0)")
-private external fun _wasm_libc_teeos_pthreadKeyDelete(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosPthreadKeyDelete(p0)")
+private external fun wasmLibcTeeosPthreadKeyDelete(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_pthreadGetspecific(p0)")
-private external fun _wasm_libc_teeos_pthreadGetspecific(p0: Int): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosPthreadGetspecific(p0)")
+private external fun wasmLibcTeeosPthreadGetspecific(p0: Int): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_teeos_pthreadSetspecific(p0, p1)")
-private external fun _wasm_libc_teeos_pthreadSetspecific(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcTeeosPthreadSetspecific(p0, p1)")
+private external fun wasmLibcTeeosPthreadSetspecific(p0: Int, p1: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_pthreadMutexDestroy(p0)")
-private external fun _wasm_libc_teeos_pthreadMutexDestroy(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosPthreadMutexDestroy(p0)")
+private external fun wasmLibcTeeosPthreadMutexDestroy(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_teeos_pthreadMutexInit(p0, p1)")
-private external fun _wasm_libc_teeos_pthreadMutexInit(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcTeeosPthreadMutexInit(p0, p1)")
+private external fun wasmLibcTeeosPthreadMutexInit(p0: String, p1: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_pthreadMutexLock(p0)")
-private external fun _wasm_libc_teeos_pthreadMutexLock(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosPthreadMutexLock(p0)")
+private external fun wasmLibcTeeosPthreadMutexLock(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_pthreadMutexTrylock(p0)")
-private external fun _wasm_libc_teeos_pthreadMutexTrylock(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosPthreadMutexTrylock(p0)")
+private external fun wasmLibcTeeosPthreadMutexTrylock(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_pthreadMutexUnlock(p0)")
-private external fun _wasm_libc_teeos_pthreadMutexUnlock(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosPthreadMutexUnlock(p0)")
+private external fun wasmLibcTeeosPthreadMutexUnlock(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_pthreadMutexattrDestroy(p0)")
-private external fun _wasm_libc_teeos_pthreadMutexattrDestroy(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosPthreadMutexattrDestroy(p0)")
+private external fun wasmLibcTeeosPthreadMutexattrDestroy(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_pthreadMutexattrInit(p0)")
-private external fun _wasm_libc_teeos_pthreadMutexattrInit(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosPthreadMutexattrInit(p0)")
+private external fun wasmLibcTeeosPthreadMutexattrInit(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_teeos_pthreadMutexattrSettype(p0, p1)")
-private external fun _wasm_libc_teeos_pthreadMutexattrSettype(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcTeeosPthreadMutexattrSettype(p0, p1)")
+private external fun wasmLibcTeeosPthreadMutexattrSettype(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_teeos_pthreadMutexattrSetpshared(p0, p1)")
-private external fun _wasm_libc_teeos_pthreadMutexattrSetpshared(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcTeeosPthreadMutexattrSetpshared(p0, p1)")
+private external fun wasmLibcTeeosPthreadMutexattrSetpshared(p0: String, p1: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_pthreadCondBroadcast(p0)")
-private external fun _wasm_libc_teeos_pthreadCondBroadcast(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosPthreadCondBroadcast(p0)")
+private external fun wasmLibcTeeosPthreadCondBroadcast(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_pthreadCondDestroy(p0)")
-private external fun _wasm_libc_teeos_pthreadCondDestroy(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosPthreadCondDestroy(p0)")
+private external fun wasmLibcTeeosPthreadCondDestroy(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_teeos_pthreadCondInit(p0, p1)")
-private external fun _wasm_libc_teeos_pthreadCondInit(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcTeeosPthreadCondInit(p0, p1)")
+private external fun wasmLibcTeeosPthreadCondInit(p0: String, p1: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_pthreadCondSignal(p0)")
-private external fun _wasm_libc_teeos_pthreadCondSignal(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosPthreadCondSignal(p0)")
+private external fun wasmLibcTeeosPthreadCondSignal(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_teeos_pthreadCondWait(p0, p1)")
-private external fun _wasm_libc_teeos_pthreadCondWait(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcTeeosPthreadCondWait(p0, p1)")
+private external fun wasmLibcTeeosPthreadCondWait(p0: String, p1: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_teeos_pthreadCondTimedwait(p0, p1, p2)")
-private external fun _wasm_libc_teeos_pthreadCondTimedwait(p0: String, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcTeeosPthreadCondTimedwait(p0, p1, p2)")
+private external fun wasmLibcTeeosPthreadCondTimedwait(p0: String, p1: String, p2: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_teeos_pthreadMutexattrSetrobust(p0, p1)")
-private external fun _wasm_libc_teeos_pthreadMutexattrSetrobust(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcTeeosPthreadMutexattrSetrobust(p0, p1)")
+private external fun wasmLibcTeeosPthreadMutexattrSetrobust(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_teeos_pthreadCreate(p0, p1, p2, p3)")
-private external fun _wasm_libc_teeos_pthreadCreate(p0: String, p1: String, p2: String, p3: String): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcTeeosPthreadCreate(p0, p1, p2, p3)")
+private external fun wasmLibcTeeosPthreadCreate(p0: String, p1: String, p2: String, p3: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_teeos_pthreadSpinInit(p0, p1)")
-private external fun _wasm_libc_teeos_pthreadSpinInit(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcTeeosPthreadSpinInit(p0, p1)")
+private external fun wasmLibcTeeosPthreadSpinInit(p0: String, p1: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_pthreadSpinDestroy(p0)")
-private external fun _wasm_libc_teeos_pthreadSpinDestroy(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosPthreadSpinDestroy(p0)")
+private external fun wasmLibcTeeosPthreadSpinDestroy(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_pthreadSpinLock(p0)")
-private external fun _wasm_libc_teeos_pthreadSpinLock(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosPthreadSpinLock(p0)")
+private external fun wasmLibcTeeosPthreadSpinLock(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_pthreadSpinTrylock(p0)")
-private external fun _wasm_libc_teeos_pthreadSpinTrylock(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosPthreadSpinTrylock(p0)")
+private external fun wasmLibcTeeosPthreadSpinTrylock(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_pthreadSpinUnlock(p0)")
-private external fun _wasm_libc_teeos_pthreadSpinUnlock(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosPthreadSpinUnlock(p0)")
+private external fun wasmLibcTeeosPthreadSpinUnlock(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_teeos_pthreadSetschedprio(p0, p1)")
-private external fun _wasm_libc_teeos_pthreadSetschedprio(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcTeeosPthreadSetschedprio(p0, p1)")
+private external fun wasmLibcTeeosPthreadSetschedprio(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_teeos_pthreadOnce(p0, p1)")
-private external fun _wasm_libc_teeos_pthreadOnce(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcTeeosPthreadOnce(p0, p1)")
+private external fun wasmLibcTeeosPthreadOnce(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_teeos_pthreadEqual(p0, p1)")
-private external fun _wasm_libc_teeos_pthreadEqual(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcTeeosPthreadEqual(p0, p1)")
+private external fun wasmLibcTeeosPthreadEqual(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_teeos_pthreadMutexattrSetprotocol(p0, p1)")
-private external fun _wasm_libc_teeos_pthreadMutexattrSetprotocol(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcTeeosPthreadMutexattrSetprotocol(p0, p1)")
+private external fun wasmLibcTeeosPthreadMutexattrSetprotocol(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_teeos_pthreadAttrSetstack(p0, p1, p2)")
-private external fun _wasm_libc_teeos_pthreadAttrSetstack(p0: String, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcTeeosPthreadAttrSetstack(p0, p1, p2)")
+private external fun wasmLibcTeeosPthreadAttrSetstack(p0: String, p1: String, p2: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_teeos_pthreadSetaffinityNp(p0, p1, p2)")
-private external fun _wasm_libc_teeos_pthreadSetaffinityNp(p0: String, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcTeeosPthreadSetaffinityNp(p0, p1, p2)")
+private external fun wasmLibcTeeosPthreadSetaffinityNp(p0: String, p1: String, p2: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_teeos_pthreadGetaffinityNp(p0, p1, p2)")
-private external fun _wasm_libc_teeos_pthreadGetaffinityNp(p0: String, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcTeeosPthreadGetaffinityNp(p0, p1, p2)")
+private external fun wasmLibcTeeosPthreadGetaffinityNp(p0: String, p1: String, p2: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libc_teeos_printf(p0, p1, p2, p3, p4, p5)")
-private external fun _wasm_libc_teeos_printf(p0: String?, p1: Int, p2: String, p3: String, p4: String, p5: String): Int
+@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libcTeeosPrintf(p0, p1, p2, p3, p4, p5)")
+private external fun wasmLibcTeeosPrintf(p0: String, p1: Int, p2: String, p3: String, p4: String, p5: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libc_teeos_scanf(p0, p1, p2, p3, p4, p5)")
-private external fun _wasm_libc_teeos_scanf(p0: String?, p1: Int, p2: String, p3: String, p4: String, p5: String): Int
+@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libcTeeosScanf(p0, p1, p2, p3, p4, p5)")
+private external fun wasmLibcTeeosScanf(p0: String, p1: Int, p2: String, p3: String, p4: String, p5: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5, p6, p7) => globalThis.__km_napi_libc.libc_teeos_snprintf(p0, p1, p2, p3, p4, p5, p6, p7)")
-private external fun _wasm_libc_teeos_snprintf(p0: String, p1: String, p2: String?, p3: Int, p4: String, p5: String, p6: String, p7: String): Int
+@JsFun("(p0, p1, p2, p3, p4, p5, p6, p7) => globalThis.__km_napi_libc.libcTeeosSnprintf(p0, p1, p2, p3, p4, p5, p6, p7)")
+private external fun wasmLibcTeeosSnprintf(p0: String, p1: String, p2: String, p3: Int, p4: String, p5: String, p6: String, p7: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libc_teeos_sprintf(p0, p1, p2, p3, p4, p5, p6)")
-private external fun _wasm_libc_teeos_sprintf(p0: String, p1: String?, p2: Int, p3: String, p4: String, p5: String, p6: String): Int
+@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libcTeeosSprintf(p0, p1, p2, p3, p4, p5, p6)")
+private external fun wasmLibcTeeosSprintf(p0: String, p1: String, p2: Int, p3: String, p4: String, p5: String, p6: String): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_teeos_vsnprintf(p0, p1, p2, p3)")
-private external fun _wasm_libc_teeos_vsnprintf(p0: String, p1: String, p2: String?, p3: String): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcTeeosVsnprintf(p0, p1, p2, p3)")
+private external fun wasmLibcTeeosVsnprintf(p0: String, p1: String, p2: String, p3: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_teeos_vsprintf(p0, p1, p2)")
-private external fun _wasm_libc_teeos_vsprintf(p0: String, p1: String?, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcTeeosVsprintf(p0, p1, p2)")
+private external fun wasmLibcTeeosVsprintf(p0: String, p1: String, p2: String): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_teeos_abort()")
-private external fun _wasm_libc_teeos_abort()
+@JsFun("() => globalThis.__km_napi_libc.libcTeeosAbort()")
+private external fun wasmLibcTeeosAbort()
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_teeos_schedGetaffinity(p0, p1, p2)")
-private external fun _wasm_libc_teeos_schedGetaffinity(p0: Int, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcTeeosSchedGetaffinity(p0, p1, p2)")
+private external fun wasmLibcTeeosSchedGetaffinity(p0: Int, p1: String, p2: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_teeos_schedSetaffinity(p0, p1, p2)")
-private external fun _wasm_libc_teeos_schedSetaffinity(p0: Int, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcTeeosSchedSetaffinity(p0, p1, p2)")
+private external fun wasmLibcTeeosSchedSetaffinity(p0: Int, p1: String, p2: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_sysconf(p0)")
-private external fun _wasm_libc_teeos_sysconf(p0: Int): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosSysconf(p0)")
+private external fun wasmLibcTeeosSysconf(p0: Int): String
 
-@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libc_teeos_mmap(p0, p1, p2, p3, p4, p5)")
-private external fun _wasm_libc_teeos_mmap(p0: String, p1: String, p2: Int, p3: Int, p4: Int, p5: String): String
+@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libcTeeosMmap(p0, p1, p2, p3, p4, p5)")
+private external fun wasmLibcTeeosMmap(p0: String, p1: String, p2: Int, p3: Int, p4: Int, p5: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_teeos_munmap(p0, p1)")
-private external fun _wasm_libc_teeos_munmap(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcTeeosMunmap(p0, p1)")
+private external fun wasmLibcTeeosMunmap(p0: String, p1: String): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_teeos_errnoLocation()")
-private external fun _wasm_libc_teeos_errnoLocation(): String
+@JsFun("() => globalThis.__km_napi_libc.libcTeeosErrnoLocation()")
+private external fun wasmLibcTeeosErrnoLocation(): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_strerror(p0)")
-private external fun _wasm_libc_teeos_strerror(p0: Int): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosStrerror(p0)")
+private external fun wasmLibcTeeosStrerror(p0: Int): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_teeos_clockGettime(p0, p1)")
-private external fun _wasm_libc_teeos_clockGettime(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcTeeosClockGettime(p0, p1)")
+private external fun wasmLibcTeeosClockGettime(p0: Int, p1: String): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_teeos_getpid()")
-private external fun _wasm_libc_teeos_getpid(): Int
+@JsFun("() => globalThis.__km_napi_libc.libcTeeosGetpid()")
+private external fun wasmLibcTeeosGetpid(): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_teeos_gettimeofday(p0, p1)")
-private external fun _wasm_libc_teeos_gettimeofday(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcTeeosGettimeofday(p0, p1)")
+private external fun wasmLibcTeeosGettimeofday(p0: String, p1: String): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_teeos_strftime(p0, p1, p2, p3)")
-private external fun _wasm_libc_teeos_strftime(p0: String, p1: String, p2: String?, p3: String): String
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcTeeosStrftime(p0, p1, p2, p3)")
+private external fun wasmLibcTeeosStrftime(p0: String, p1: String, p2: String, p3: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_time(p0)")
-private external fun _wasm_libc_teeos_time(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosTime(p0)")
+private external fun wasmLibcTeeosTime(p0: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_semClose(p0)")
-private external fun _wasm_libc_teeos_semClose(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosSemClose(p0)")
+private external fun wasmLibcTeeosSemClose(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_semDestroy(p0)")
-private external fun _wasm_libc_teeos_semDestroy(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosSemDestroy(p0)")
+private external fun wasmLibcTeeosSemDestroy(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_teeos_semGetvalue(p0, p1)")
-private external fun _wasm_libc_teeos_semGetvalue(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcTeeosSemGetvalue(p0, p1)")
+private external fun wasmLibcTeeosSemGetvalue(p0: String, p1: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_teeos_semInit(p0, p1, p2)")
-private external fun _wasm_libc_teeos_semInit(p0: String, p1: Int, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcTeeosSemInit(p0, p1, p2)")
+private external fun wasmLibcTeeosSemInit(p0: String, p1: Int, p2: Int): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libc_teeos_semOpen(p0, p1, p2, p3, p4, p5, p6)")
-private external fun _wasm_libc_teeos_semOpen(p0: String?, p1: Int, p2: Int, p3: String, p4: String, p5: String, p6: String): String
+@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libcTeeosSemOpen(p0, p1, p2, p3, p4, p5, p6)")
+private external fun wasmLibcTeeosSemOpen(p0: String, p1: Int, p2: Int, p3: String, p4: String, p5: String, p6: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_semPost(p0)")
-private external fun _wasm_libc_teeos_semPost(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosSemPost(p0)")
+private external fun wasmLibcTeeosSemPost(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_semUnlink(p0)")
-private external fun _wasm_libc_teeos_semUnlink(p0: String?): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosSemUnlink(p0)")
+private external fun wasmLibcTeeosSemUnlink(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_semWait(p0)")
-private external fun _wasm_libc_teeos_semWait(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosSemWait(p0)")
+private external fun wasmLibcTeeosSemWait(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_teeos_setlocale(p0, p1)")
-private external fun _wasm_libc_teeos_setlocale(p0: Int, p1: String?): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcTeeosSetlocale(p0, p1)")
+private external fun wasmLibcTeeosSetlocale(p0: Int, p1: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_teeos_strcoll(p0, p1)")
-private external fun _wasm_libc_teeos_strcoll(p0: String?, p1: String?): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcTeeosStrcoll(p0, p1)")
+private external fun wasmLibcTeeosStrcoll(p0: String, p1: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_teeos_strxfrm(p0, p1, p2)")
-private external fun _wasm_libc_teeos_strxfrm(p0: String, p1: String?, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcTeeosStrxfrm(p0, p1, p2)")
+private external fun wasmLibcTeeosStrxfrm(p0: String, p1: String, p2: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_teeos_strtod(p0, p1)")
-private external fun _wasm_libc_teeos_strtod(p0: String?, p1: String): Double
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcTeeosStrtod(p0, p1)")
+private external fun wasmLibcTeeosStrtod(p0: String, p1: String): Double
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_teeos_mbrtowc(p0, p1, p2, p3)")
-private external fun _wasm_libc_teeos_mbrtowc(p0: String, p1: String?, p2: String, p3: String): String
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcTeeosMbrtowc(p0, p1, p2, p3)")
+private external fun wasmLibcTeeosMbrtowc(p0: String, p1: String, p2: String, p3: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_teeos_wcrtomb(p0, p1, p2)")
-private external fun _wasm_libc_teeos_wcrtomb(p0: String, p1: Int, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcTeeosWcrtomb(p0, p1, p2)")
+private external fun wasmLibcTeeosWcrtomb(p0: String, p1: Int, p2: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_wctob(p0)")
-private external fun _wasm_libc_teeos_wctob(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosWctob(p0)")
+private external fun wasmLibcTeeosWctob(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_srandom(p0)")
-private external fun _wasm_libc_teeos_srandom(p0: Int)
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosSrandom(p0)")
+private external fun wasmLibcTeeosSrandom(p0: Int)
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_teeos_initstate(p0, p1, p2)")
-private external fun _wasm_libc_teeos_initstate(p0: Int, p1: String, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcTeeosInitstate(p0, p1, p2)")
+private external fun wasmLibcTeeosInitstate(p0: Int, p1: String, p2: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_setstate(p0)")
-private external fun _wasm_libc_teeos_setstate(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosSetstate(p0)")
+private external fun wasmLibcTeeosSetstate(p0: String): String
 
-@JsFun("() => globalThis.__km_napi_libc.libc_teeos_random()")
-private external fun _wasm_libc_teeos_random(): String
+@JsFun("() => globalThis.__km_napi_libc.libcTeeosRandom()")
+private external fun wasmLibcTeeosRandom(): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_teeos_strchr(p0, p1)")
-private external fun _wasm_libc_teeos_strchr(p0: String?, p1: Int): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcTeeosStrchr(p0, p1)")
+private external fun wasmLibcTeeosStrchr(p0: String, p1: Int): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_strlen(p0)")
-private external fun _wasm_libc_teeos_strlen(p0: String?): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosStrlen(p0)")
+private external fun wasmLibcTeeosStrlen(p0: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_teeos_strcmp(p0, p1)")
-private external fun _wasm_libc_teeos_strcmp(p0: String?, p1: String?): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcTeeosStrcmp(p0, p1)")
+private external fun wasmLibcTeeosStrcmp(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_teeos_strcpy(p0, p1)")
-private external fun _wasm_libc_teeos_strcpy(p0: String, p1: String?): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcTeeosStrcpy(p0, p1)")
+private external fun wasmLibcTeeosStrcpy(p0: String, p1: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_teeos_strncmp(p0, p1, p2)")
-private external fun _wasm_libc_teeos_strncmp(p0: String?, p1: String?, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcTeeosStrncmp(p0, p1, p2)")
+private external fun wasmLibcTeeosStrncmp(p0: String, p1: String, p2: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_teeos_strncpy(p0, p1, p2)")
-private external fun _wasm_libc_teeos_strncpy(p0: String, p1: String?, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcTeeosStrncpy(p0, p1, p2)")
+private external fun wasmLibcTeeosStrncpy(p0: String, p1: String, p2: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_teeos_strnlen(p0, p1)")
-private external fun _wasm_libc_teeos_strnlen(p0: String?, p1: String): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcTeeosStrnlen(p0, p1)")
+private external fun wasmLibcTeeosStrnlen(p0: String, p1: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_teeos_strrchr(p0, p1)")
-private external fun _wasm_libc_teeos_strrchr(p0: String?, p1: Int): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcTeeosStrrchr(p0, p1)")
+private external fun wasmLibcTeeosStrrchr(p0: String, p1: Int): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_teeos_strstr(p0, p1)")
-private external fun _wasm_libc_teeos_strstr(p0: String?, p1: String?): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcTeeosStrstr(p0, p1)")
+private external fun wasmLibcTeeosStrstr(p0: String, p1: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_teeos_wcschr(p0, p1)")
-private external fun _wasm_libc_teeos_wcschr(p0: String, p1: Int): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcTeeosWcschr(p0, p1)")
+private external fun wasmLibcTeeosWcschr(p0: String, p1: Int): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_wcslen(p0)")
-private external fun _wasm_libc_teeos_wcslen(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosWcslen(p0)")
+private external fun wasmLibcTeeosWcslen(p0: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_isalpha(p0)")
-private external fun _wasm_libc_teeos_isalpha(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosIsalpha(p0)")
+private external fun wasmLibcTeeosIsalpha(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_isascii(p0)")
-private external fun _wasm_libc_teeos_isascii(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosIsascii(p0)")
+private external fun wasmLibcTeeosIsascii(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_isdigit(p0)")
-private external fun _wasm_libc_teeos_isdigit(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosIsdigit(p0)")
+private external fun wasmLibcTeeosIsdigit(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_islower(p0)")
-private external fun _wasm_libc_teeos_islower(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosIslower(p0)")
+private external fun wasmLibcTeeosIslower(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_isprint(p0)")
-private external fun _wasm_libc_teeos_isprint(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosIsprint(p0)")
+private external fun wasmLibcTeeosIsprint(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_isspace(p0)")
-private external fun _wasm_libc_teeos_isspace(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosIsspace(p0)")
+private external fun wasmLibcTeeosIsspace(p0: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_teeos_iswctype(p0, p1)")
-private external fun _wasm_libc_teeos_iswctype(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcTeeosIswctype(p0, p1)")
+private external fun wasmLibcTeeosIswctype(p0: Int, p1: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_iswdigit(p0)")
-private external fun _wasm_libc_teeos_iswdigit(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosIswdigit(p0)")
+private external fun wasmLibcTeeosIswdigit(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_iswlower(p0)")
-private external fun _wasm_libc_teeos_iswlower(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosIswlower(p0)")
+private external fun wasmLibcTeeosIswlower(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_iswspace(p0)")
-private external fun _wasm_libc_teeos_iswspace(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosIswspace(p0)")
+private external fun wasmLibcTeeosIswspace(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_iswupper(p0)")
-private external fun _wasm_libc_teeos_iswupper(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosIswupper(p0)")
+private external fun wasmLibcTeeosIswupper(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_towupper(p0)")
-private external fun _wasm_libc_teeos_towupper(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosTowupper(p0)")
+private external fun wasmLibcTeeosTowupper(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_towlower(p0)")
-private external fun _wasm_libc_teeos_towlower(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosTowlower(p0)")
+private external fun wasmLibcTeeosTowlower(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_atan(p0)")
-private external fun _wasm_libc_teeos_atan(p0: Double): Double
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosAtan(p0)")
+private external fun wasmLibcTeeosAtan(p0: Double): Double
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_ceil(p0)")
-private external fun _wasm_libc_teeos_ceil(p0: Double): Double
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosCeil(p0)")
+private external fun wasmLibcTeeosCeil(p0: Double): Double
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_ceilf(p0)")
-private external fun _wasm_libc_teeos_ceilf(p0: Double): Double
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosCeilf(p0)")
+private external fun wasmLibcTeeosCeilf(p0: Double): Double
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_exp(p0)")
-private external fun _wasm_libc_teeos_exp(p0: Double): Double
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosExp(p0)")
+private external fun wasmLibcTeeosExp(p0: Double): Double
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_fabs(p0)")
-private external fun _wasm_libc_teeos_fabs(p0: Double): Double
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosFabs(p0)")
+private external fun wasmLibcTeeosFabs(p0: Double): Double
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_floor(p0)")
-private external fun _wasm_libc_teeos_floor(p0: Double): Double
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosFloor(p0)")
+private external fun wasmLibcTeeosFloor(p0: Double): Double
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_teeos_frexp(p0, p1)")
-private external fun _wasm_libc_teeos_frexp(p0: Double, p1: String): Double
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcTeeosFrexp(p0, p1)")
+private external fun wasmLibcTeeosFrexp(p0: Double, p1: String): Double
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_log(p0)")
-private external fun _wasm_libc_teeos_log(p0: Double): Double
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosLog(p0)")
+private external fun wasmLibcTeeosLog(p0: Double): Double
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_log2(p0)")
-private external fun _wasm_libc_teeos_log2(p0: Double): Double
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosLog2(p0)")
+private external fun wasmLibcTeeosLog2(p0: Double): Double
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_teeos_pow(p0, p1)")
-private external fun _wasm_libc_teeos_pow(p0: Double, p1: Double): Double
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcTeeosPow(p0, p1)")
+private external fun wasmLibcTeeosPow(p0: Double, p1: Double): Double
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_roundf(p0)")
-private external fun _wasm_libc_teeos_roundf(p0: Double): Double
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosRoundf(p0)")
+private external fun wasmLibcTeeosRoundf(p0: Double): Double
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_teeos_scalbn(p0, p1)")
-private external fun _wasm_libc_teeos_scalbn(p0: Double, p1: Int): Double
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcTeeosScalbn(p0, p1)")
+private external fun wasmLibcTeeosScalbn(p0: Double, p1: Int): Double
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_sqrt(p0)")
-private external fun _wasm_libc_teeos_sqrt(p0: Double): Double
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosSqrt(p0)")
+private external fun wasmLibcTeeosSqrt(p0: Double): Double
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_abs(p0)")
-private external fun _wasm_libc_teeos_abs(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosAbs(p0)")
+private external fun wasmLibcTeeosAbs(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_atof(p0)")
-private external fun _wasm_libc_teeos_atof(p0: String?): Double
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosAtof(p0)")
+private external fun wasmLibcTeeosAtof(p0: String): Double
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_atoi(p0)")
-private external fun _wasm_libc_teeos_atoi(p0: String?): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosAtoi(p0)")
+private external fun wasmLibcTeeosAtoi(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_atol(p0)")
-private external fun _wasm_libc_teeos_atol(p0: String?): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosAtol(p0)")
+private external fun wasmLibcTeeosAtol(p0: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_atoll(p0)")
-private external fun _wasm_libc_teeos_atoll(p0: String?): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosAtoll(p0)")
+private external fun wasmLibcTeeosAtoll(p0: String): String
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_teeos_bsearch(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_teeos_bsearch(p0: String, p1: String, p2: String, p3: String, p4: String): String
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcTeeosBsearch(p0, p1, p2, p3, p4)")
+private external fun wasmLibcTeeosBsearch(p0: String, p1: String, p2: String, p3: String, p4: String): String
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_teeos_ecvt(p0, p1, p2, p3)")
-private external fun _wasm_libc_teeos_ecvt(p0: Double, p1: Int, p2: String, p3: String): String
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcTeeosEcvt(p0, p1, p2, p3)")
+private external fun wasmLibcTeeosEcvt(p0: Double, p1: Int, p2: String, p3: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_imaxabs(p0)")
-private external fun _wasm_libc_teeos_imaxabs(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosImaxabs(p0)")
+private external fun wasmLibcTeeosImaxabs(p0: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_teeos_llabs(p0)")
-private external fun _wasm_libc_teeos_llabs(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcTeeosLlabs(p0)")
+private external fun wasmLibcTeeosLlabs(p0: String): String
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_teeos_qsort(p0, p1, p2, p3)")
-private external fun _wasm_libc_teeos_qsort(p0: String, p1: String, p2: String, p3: String)
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcTeeosQsort(p0, p1, p2, p3)")
+private external fun wasmLibcTeeosQsort(p0: String, p1: String, p2: String, p3: String)
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_teeos_strtoul(p0, p1, p2)")
-private external fun _wasm_libc_teeos_strtoul(p0: String?, p1: String, p2: Int): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcTeeosStrtoul(p0, p1, p2)")
+private external fun wasmLibcTeeosStrtoul(p0: String, p1: String, p2: Int): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_teeos_strtol(p0, p1, p2)")
-private external fun _wasm_libc_teeos_strtol(p0: String?, p1: String, p2: Int): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcTeeosStrtol(p0, p1, p2)")
+private external fun wasmLibcTeeosStrtol(p0: String, p1: String, p2: Int): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_teeos_wcstod(p0, p1)")
-private external fun _wasm_libc_teeos_wcstod(p0: String, p1: String): Double
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcTeeosWcstod(p0, p1)")
+private external fun wasmLibcTeeosWcstod(p0: String, p1: String): Double
 
-public actual fun calloc(nobj: SizeT, size: SizeT): COpaquePointer? =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_calloc(nobj.toString(), size.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun calloc(nobj: SizeT, size: SizeT): MutPtr<CVoid> =
+    if (teeosNapiAvailable) MutPtr(wasmLibcTeeosCalloc(nobj.toString(), size.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun malloc(size: SizeT): COpaquePointer? =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_malloc(size.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun malloc(size: SizeT): MutPtr<CVoid> =
+    if (teeosNapiAvailable) MutPtr(wasmLibcTeeosMalloc(size.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun realloc(p: COpaquePointer?, size: SizeT): COpaquePointer? =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_realloc((p?.value ?: 0L).toString(), size.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun realloc(p: MutPtr<CVoid>, size: SizeT): MutPtr<CVoid> =
+    if (teeosNapiAvailable) MutPtr(wasmLibcTeeosRealloc(p.rawAddress.toString(), size.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun alignedAlloc(align: SizeT, len: SizeT): COpaquePointer? =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_alignedAlloc(align.toString(), len.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun alignedAlloc(align: SizeT, len: SizeT): MutPtr<CVoid> =
+    if (teeosNapiAvailable) MutPtr(wasmLibcTeeosAlignedAlloc(align.toString(), len.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun free(p: COpaquePointer?) {
-    if (_teeosNapiAvailable) {
-        _wasm_libc_teeos_free((p?.value ?: 0L).toString())
+public actual fun free(p: MutPtr<CVoid>) {
+    if (teeosNapiAvailable) {
+        wasmLibcTeeosFree(p.rawAddress.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun posixMemalign(memptr: COpaquePointer?, align: SizeT, size: SizeT): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_posixMemalign((memptr?.value ?: 0L).toString(), align.toString(), size.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixMemalign(memptr: MutPtr<MutPtr<CVoid>>, align: SizeT, size: SizeT): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosPosixMemalign(memptr.rawAddress.toString(), align.toString(), size.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memchr(cx: COpaquePointer?, c: CInt, n: SizeT): COpaquePointer? =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_memchr((cx?.value ?: 0L).toString(), c, n.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun memchr(cx: ConstPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+    if (teeosNapiAvailable) MutPtr(wasmLibcTeeosMemchr(cx.rawAddress.toString(), c, n.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wmemchr(cx: COpaquePointer?, c: WcharT, n: SizeT): COpaquePointer? =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_wmemchr((cx?.value ?: 0L).toString(), c.toInt(), n.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wmemchr(cx: ConstPtr<WcharT>, c: WcharT, n: SizeT): MutPtr<WcharT> =
+    if (teeosNapiAvailable) MutPtr(wasmLibcTeeosWmemchr(cx.rawAddress.toString(), c.toInt(), n.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memcmp(cx: COpaquePointer?, ct: COpaquePointer?, n: SizeT): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_memcmp((cx?.value ?: 0L).toString(), (ct?.value ?: 0L).toString(), n.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun memcmp(cx: ConstPtr<CVoid>, ct: ConstPtr<CVoid>, n: SizeT): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosMemcmp(cx.rawAddress.toString(), ct.rawAddress.toString(), n.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memcpy(dest: COpaquePointer?, src: COpaquePointer?, n: SizeT): COpaquePointer? =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_memcpy((dest?.value ?: 0L).toString(), (src?.value ?: 0L).toString(), n.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun memcpy(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, n: SizeT): MutPtr<CVoid> =
+    if (teeosNapiAvailable) MutPtr(wasmLibcTeeosMemcpy(dest.rawAddress.toString(), src.rawAddress.toString(), n.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memmove(dest: COpaquePointer?, src: COpaquePointer?, n: SizeT): COpaquePointer? =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_memmove((dest?.value ?: 0L).toString(), (src?.value ?: 0L).toString(), n.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun memmove(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, n: SizeT): MutPtr<CVoid> =
+    if (teeosNapiAvailable) MutPtr(wasmLibcTeeosMemmove(dest.rawAddress.toString(), src.rawAddress.toString(), n.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memset(dest: COpaquePointer?, c: CInt, n: SizeT): COpaquePointer? =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_memset((dest?.value ?: 0L).toString(), c, n.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun memset(dest: MutPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+    if (teeosNapiAvailable) MutPtr(wasmLibcTeeosMemset(dest.rawAddress.toString(), c, n.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun pthreadSelf(): PthreadT =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_pthreadSelf().toLong().toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (teeosNapiAvailable) wasmLibcTeeosPthreadSelf().toLong().toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadJoin(native: PthreadT, value: COpaquePointer?): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_pthreadJoin(native.toLong().toString(), (value?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadJoin(native: PthreadT, value: MutPtr<MutPtr<CVoid>>): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosPthreadJoin(native.toLong().toString(), value.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadExit(value: COpaquePointer?): Nothing {
-    if (_teeosNapiAvailable) {
-        _wasm_libc_teeos_pthreadExit((value?.value ?: 0L).toString())
+public actual fun pthreadExit(value: MutPtr<CVoid>): Nothing {
+    if (teeosNapiAvailable) {
+        wasmLibcTeeosPthreadExit(value.rawAddress.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
     error("Unreachable noreturn C function pthreadExit")
 }
 
-public actual fun pthreadAttrInit(attr: COpaquePointer?): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_pthreadAttrInit((attr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadAttrInit(attr: MutPtr<PthreadAttrT>): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosPthreadAttrInit(attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrDestroy(attr: COpaquePointer?): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_pthreadAttrDestroy((attr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadAttrDestroy(attr: MutPtr<PthreadAttrT>): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosPthreadAttrDestroy(attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrGetstack(attr: COpaquePointer?, stackaddr: COpaquePointer?, stacksize: COpaquePointer?): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_pthreadAttrGetstack((attr?.value ?: 0L).toString(), (stackaddr?.value ?: 0L).toString(), (stacksize?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadAttrGetstack(attr: ConstPtr<PthreadAttrT>, stackaddr: MutPtr<MutPtr<CVoid>>, stacksize: MutPtr<SizeT>): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosPthreadAttrGetstack(attr.rawAddress.toString(), stackaddr.rawAddress.toString(), stacksize.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrSetstacksize(attr: COpaquePointer?, stackSize: SizeT): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_pthreadAttrSetstacksize((attr?.value ?: 0L).toString(), stackSize.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadAttrSetstacksize(attr: MutPtr<PthreadAttrT>, stackSize: SizeT): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosPthreadAttrSetstacksize(attr.rawAddress.toString(), stackSize.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrGetstacksize(attr: COpaquePointer?, size: COpaquePointer?): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_pthreadAttrGetstacksize((attr?.value ?: 0L).toString(), (size?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadAttrGetstacksize(attr: ConstPtr<PthreadAttrT>, size: MutPtr<SizeT>): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosPthreadAttrGetstacksize(attr.rawAddress.toString(), size.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrSettee(attr: COpaquePointer?, ca: CInt, taskId: CInt, shadow: CInt): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_pthreadAttrSettee((attr?.value ?: 0L).toString(), ca, taskId, shadow) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadAttrSettee(attr: MutPtr<PthreadAttrT>, ca: CInt, taskId: CInt, shadow: CInt): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosPthreadAttrSettee(attr.rawAddress.toString(), ca, taskId, shadow) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun schedYield(): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_schedYield() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (teeosNapiAvailable) wasmLibcTeeosSchedYield() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadKeyCreate(key: COpaquePointer?, dtor: PthreadKeyCreateDtorCallback?): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_pthreadKeyCreate((key?.value ?: 0L).toString(), 0L.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadKeyCreate(key: MutPtr<PthreadKeyT>, dtor: PthreadKeyCreateDtorCallback?): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosPthreadKeyCreate(key.rawAddress.toString(), 0L.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun pthreadKeyDelete(key: PthreadKeyT): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_pthreadKeyDelete(key.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (teeosNapiAvailable) wasmLibcTeeosPthreadKeyDelete(key.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadGetspecific(key: PthreadKeyT): COpaquePointer? =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_pthreadGetspecific(key.toInt()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadGetspecific(key: PthreadKeyT): MutPtr<CVoid> =
+    if (teeosNapiAvailable) MutPtr(wasmLibcTeeosPthreadGetspecific(key.toInt()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadSetspecific(key: PthreadKeyT, value: COpaquePointer?): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_pthreadSetspecific(key.toInt(), (value?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadSetspecific(key: PthreadKeyT, value: ConstPtr<CVoid>): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosPthreadSetspecific(key.toInt(), value.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexDestroy(lock: COpaquePointer?): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_pthreadMutexDestroy((lock?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadMutexDestroy(lock: MutPtr<PthreadMutexT>): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosPthreadMutexDestroy(lock.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexInit(lock: COpaquePointer?, attr: COpaquePointer?): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_pthreadMutexInit((lock?.value ?: 0L).toString(), (attr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadMutexInit(lock: MutPtr<PthreadMutexT>, attr: ConstPtr<PthreadMutexattrT>): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosPthreadMutexInit(lock.rawAddress.toString(), attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexLock(lock: COpaquePointer?): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_pthreadMutexLock((lock?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadMutexLock(lock: MutPtr<PthreadMutexT>): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosPthreadMutexLock(lock.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexTrylock(lock: COpaquePointer?): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_pthreadMutexTrylock((lock?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadMutexTrylock(lock: MutPtr<PthreadMutexT>): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosPthreadMutexTrylock(lock.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexUnlock(lock: COpaquePointer?): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_pthreadMutexUnlock((lock?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadMutexUnlock(lock: MutPtr<PthreadMutexT>): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosPthreadMutexUnlock(lock.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexattrDestroy(attr: COpaquePointer?): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_pthreadMutexattrDestroy((attr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadMutexattrDestroy(attr: MutPtr<PthreadMutexattrT>): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosPthreadMutexattrDestroy(attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexattrInit(attr: COpaquePointer?): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_pthreadMutexattrInit((attr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadMutexattrInit(attr: MutPtr<PthreadMutexattrT>): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosPthreadMutexattrInit(attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexattrSettype(attr: COpaquePointer?, type: CInt): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_pthreadMutexattrSettype((attr?.value ?: 0L).toString(), type) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadMutexattrSettype(attr: MutPtr<PthreadMutexattrT>, type: CInt): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosPthreadMutexattrSettype(attr.rawAddress.toString(), type) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexattrSetpshared(attr: COpaquePointer?, pshared: CInt): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_pthreadMutexattrSetpshared((attr?.value ?: 0L).toString(), pshared) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadMutexattrSetpshared(attr: MutPtr<PthreadMutexattrT>, pshared: CInt): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosPthreadMutexattrSetpshared(attr.rawAddress.toString(), pshared) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondBroadcast(cond: COpaquePointer?): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_pthreadCondBroadcast((cond?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadCondBroadcast(cond: MutPtr<PthreadCondT>): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosPthreadCondBroadcast(cond.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondDestroy(cond: COpaquePointer?): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_pthreadCondDestroy((cond?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadCondDestroy(cond: MutPtr<PthreadCondT>): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosPthreadCondDestroy(cond.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondInit(cond: COpaquePointer?, attr: COpaquePointer?): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_pthreadCondInit((cond?.value ?: 0L).toString(), (attr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadCondInit(cond: MutPtr<PthreadCondT>, attr: ConstPtr<PthreadCondattrT>): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosPthreadCondInit(cond.rawAddress.toString(), attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondSignal(cond: COpaquePointer?): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_pthreadCondSignal((cond?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadCondSignal(cond: MutPtr<PthreadCondT>): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosPthreadCondSignal(cond.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondWait(cond: COpaquePointer?, lock: COpaquePointer?): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_pthreadCondWait((cond?.value ?: 0L).toString(), (lock?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadCondWait(cond: MutPtr<PthreadCondT>, lock: MutPtr<PthreadMutexT>): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosPthreadCondWait(cond.rawAddress.toString(), lock.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondTimedwait(cond: COpaquePointer?, lock: COpaquePointer?, abstime: COpaquePointer?): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_pthreadCondTimedwait((cond?.value ?: 0L).toString(), (lock?.value ?: 0L).toString(), (abstime?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadCondTimedwait(cond: MutPtr<PthreadCondT>, lock: MutPtr<PthreadMutexT>, abstime: ConstPtr<Timespec>): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosPthreadCondTimedwait(cond.rawAddress.toString(), lock.rawAddress.toString(), abstime.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexattrSetrobust(attr: COpaquePointer?, robustness: CInt): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_pthreadMutexattrSetrobust((attr?.value ?: 0L).toString(), robustness) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadMutexattrSetrobust(attr: MutPtr<PthreadMutexattrT>, robustness: CInt): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosPthreadMutexattrSetrobust(attr.rawAddress.toString(), robustness) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_pthreadCreate((native?.value ?: 0L).toString(), (attr?.value ?: 0L).toString(), 0L.toString(), (value?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadCreate(native: MutPtr<PthreadT>, attr: ConstPtr<PthreadAttrT>, f: PthreadCreateFCallback, value: MutPtr<CVoid>): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosPthreadCreate(native.rawAddress.toString(), attr.rawAddress.toString(), 0L.toString(), value.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadSpinInit(lock: COpaquePointer?, pshared: CInt): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_pthreadSpinInit((lock?.value ?: 0L).toString(), pshared) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadSpinInit(lock: MutPtr<PthreadSpinlockT>, pshared: CInt): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosPthreadSpinInit(lock.rawAddress.toString(), pshared) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadSpinDestroy(lock: COpaquePointer?): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_pthreadSpinDestroy((lock?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadSpinDestroy(lock: MutPtr<PthreadSpinlockT>): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosPthreadSpinDestroy(lock.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadSpinLock(lock: COpaquePointer?): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_pthreadSpinLock((lock?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadSpinLock(lock: MutPtr<PthreadSpinlockT>): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosPthreadSpinLock(lock.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadSpinTrylock(lock: COpaquePointer?): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_pthreadSpinTrylock((lock?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadSpinTrylock(lock: MutPtr<PthreadSpinlockT>): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosPthreadSpinTrylock(lock.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadSpinUnlock(lock: COpaquePointer?): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_pthreadSpinUnlock((lock?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadSpinUnlock(lock: MutPtr<PthreadSpinlockT>): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosPthreadSpinUnlock(lock.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun pthreadSetschedprio(native: PthreadT, priority: CInt): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_pthreadSetschedprio(native.toLong().toString(), priority) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (teeosNapiAvailable) wasmLibcTeeosPthreadSetschedprio(native.toLong().toString(), priority) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadOnce(pot: COpaquePointer?, f: OnceFn?): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_pthreadOnce((pot?.value ?: 0L).toString(), 0L.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadOnce(pot: MutPtr<PthreadOnceT>, f: OnceFn?): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosPthreadOnce(pot.rawAddress.toString(), 0L.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun pthreadEqual(p1: PthreadT, p2: PthreadT): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_pthreadEqual(p1.toLong().toString(), p2.toLong().toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (teeosNapiAvailable) wasmLibcTeeosPthreadEqual(p1.toLong().toString(), p2.toLong().toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexattrSetprotocol(a: COpaquePointer?, protocol: CInt): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_pthreadMutexattrSetprotocol((a?.value ?: 0L).toString(), protocol) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadMutexattrSetprotocol(a: MutPtr<PthreadMutexattrT>, protocol: CInt): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosPthreadMutexattrSetprotocol(a.rawAddress.toString(), protocol) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrSetstack(attr: COpaquePointer?, stack: COpaquePointer?, size: SizeT): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_pthreadAttrSetstack((attr?.value ?: 0L).toString(), (stack?.value ?: 0L).toString(), size.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadAttrSetstack(attr: MutPtr<PthreadAttrT>, stack: MutPtr<CVoid>, size: SizeT): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosPthreadAttrSetstack(attr.rawAddress.toString(), stack.rawAddress.toString(), size.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadSetaffinityNp(td: PthreadT, size: SizeT, set: COpaquePointer?): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_pthreadSetaffinityNp(td.toLong().toString(), size.toString(), (set?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadSetaffinityNp(td: PthreadT, size: SizeT, set: ConstPtr<CpuSetT>): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosPthreadSetaffinityNp(td.toLong().toString(), size.toString(), set.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadGetaffinityNp(td: PthreadT, size: SizeT, set: COpaquePointer?): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_pthreadGetaffinityNp(td.toLong().toString(), size.toString(), (set?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadGetaffinityNp(td: PthreadT, size: SizeT, set: MutPtr<CpuSetT>): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosPthreadGetaffinityNp(td.toLong().toString(), size.toString(), set.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun printf(fmt: String?, vararg variadicArgs: Long): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_printf(fmt, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun printf(fmt: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosPrintf(fmt.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun scanf(fmt: String?, vararg variadicArgs: Long): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_scanf(fmt, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun scanf(fmt: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosScanf(fmt.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun snprintf(s: COpaquePointer?, n: SizeT, fmt: String?, vararg variadicArgs: Long): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_snprintf((s?.value ?: 0L).toString(), n.toString(), fmt, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun snprintf(s: MutPtr<CChar>, n: SizeT, fmt: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosSnprintf(s.rawAddress.toString(), n.toString(), fmt.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sprintf(s: COpaquePointer?, fmt: String?, vararg variadicArgs: Long): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_sprintf((s?.value ?: 0L).toString(), fmt, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sprintf(s: MutPtr<CChar>, fmt: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosSprintf(s.rawAddress.toString(), fmt.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun vsnprintf(s: COpaquePointer?, n: SizeT, fmt: String?, ap: VaList): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_vsnprintf((s?.value ?: 0L).toString(), n.toString(), fmt, (ap?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun vsnprintf(s: MutPtr<CChar>, n: SizeT, fmt: ConstPtr<CChar>, ap: VaList): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosVsnprintf(s.rawAddress.toString(), n.toString(), fmt.rawAddress.toString(), ap.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun vsprintf(s: COpaquePointer?, fmt: String?, ap: VaList): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_vsprintf((s?.value ?: 0L).toString(), fmt, (ap?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun vsprintf(s: MutPtr<CChar>, fmt: ConstPtr<CChar>, ap: VaList): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosVsprintf(s.rawAddress.toString(), fmt.rawAddress.toString(), ap.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun abort(): Nothing {
-    if (_teeosNapiAvailable) {
-        _wasm_libc_teeos_abort()
+    if (teeosNapiAvailable) {
+        wasmLibcTeeosAbort()
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
     error("Unreachable noreturn C function abort")
 }
 
-public actual fun schedGetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_schedGetaffinity(pid, cpusetsize.toString(), (cpuset?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun schedGetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: MutPtr<CpuSetT>): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosSchedGetaffinity(pid, cpusetsize.toString(), cpuset.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun schedSetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_schedSetaffinity(pid, cpusetsize.toString(), (cpuset?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun schedSetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: ConstPtr<CpuSetT>): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosSchedSetaffinity(pid, cpusetsize.toString(), cpuset.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sysconf(name: CInt): CLong =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_sysconf(name).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (teeosNapiAvailable) wasmLibcTeeosSysconf(name).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mmap(addr: COpaquePointer?, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: OffT): COpaquePointer? =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_mmap((addr?.value ?: 0L).toString(), len.toString(), prot, flags, fd, offset.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mmap(addr: MutPtr<CVoid>, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: OffT): MutPtr<CVoid> =
+    if (teeosNapiAvailable) MutPtr(wasmLibcTeeosMmap(addr.rawAddress.toString(), len.toString(), prot, flags, fd, offset.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun munmap(addr: COpaquePointer?, len: SizeT): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_munmap((addr?.value ?: 0L).toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun munmap(addr: MutPtr<CVoid>, len: SizeT): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosMunmap(addr.rawAddress.toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun errnoLocation(): COpaquePointer? =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_errnoLocation().toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun errnoLocation(): MutPtr<CInt> =
+    if (teeosNapiAvailable) MutPtr(wasmLibcTeeosErrnoLocation().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strerror(e: CInt): COpaquePointer? =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_strerror(e).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strerror(e: CInt): MutPtr<CChar> =
+    if (teeosNapiAvailable) MutPtr(wasmLibcTeeosStrerror(e).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun clockGettime(clockId: ClockidT, tp: COpaquePointer?): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_clockGettime(clockId, (tp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun clockGettime(clockId: ClockidT, tp: MutPtr<Timespec>): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosClockGettime(clockId, tp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun getpid(): PidT =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_getpid() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (teeosNapiAvailable) wasmLibcTeeosGetpid() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun gettimeofday(tv: COpaquePointer?, tz: COpaquePointer?): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_gettimeofday((tv?.value ?: 0L).toString(), (tz?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun gettimeofday(tv: MutPtr<Timeval>, tz: MutPtr<CVoid>): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosGettimeofday(tv.rawAddress.toString(), tz.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strftime(restrict: COpaquePointer?, sz: SizeT, restrict_2: String?, restrict_3: COpaquePointer?): SizeT =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_strftime((restrict?.value ?: 0L).toString(), sz.toString(), restrict_2, (restrict_3?.value ?: 0L).toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strftime(restrict: MutPtr<CChar>, sz: SizeT, restrict_2: ConstPtr<CChar>, restrict_3: ConstPtr<Tm>): SizeT =
+    if (teeosNapiAvailable) wasmLibcTeeosStrftime(restrict.rawAddress.toString(), sz.toString(), restrict_2.rawAddress.toString(), restrict_3.rawAddress.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun time(t: COpaquePointer?): TimeT =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_time((t?.value ?: 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun time(t: MutPtr<TimeT>): TimeT =
+    if (teeosNapiAvailable) wasmLibcTeeosTime(t.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semClose(sem: COpaquePointer?): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_semClose((sem?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun semClose(sem: MutPtr<SemT>): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosSemClose(sem.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semDestroy(sem: COpaquePointer?): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_semDestroy((sem?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun semDestroy(sem: MutPtr<SemT>): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosSemDestroy(sem.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semGetvalue(sem: COpaquePointer?, valp: COpaquePointer?): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_semGetvalue((sem?.value ?: 0L).toString(), (valp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun semGetvalue(sem: MutPtr<SemT>, valp: MutPtr<CInt>): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosSemGetvalue(sem.rawAddress.toString(), valp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semInit(sem: COpaquePointer?, pshared: CInt, value: CUint): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_semInit((sem?.value ?: 0L).toString(), pshared, value.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun semInit(sem: MutPtr<SemT>, pshared: CInt, value: CUint): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosSemInit(sem.rawAddress.toString(), pshared, value.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semOpen(name: String?, flags: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_semOpen(name, flags, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun semOpen(name: ConstPtr<CChar>, flags: CInt, vararg variadicArgs: Long): MutPtr<SemT> =
+    if (teeosNapiAvailable) MutPtr(wasmLibcTeeosSemOpen(name.rawAddress.toString(), flags, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semPost(sem: COpaquePointer?): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_semPost((sem?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun semPost(sem: MutPtr<SemT>): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosSemPost(sem.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semUnlink(name: String?): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_semUnlink(name) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun semUnlink(name: ConstPtr<CChar>): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosSemUnlink(name.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semWait(sem: COpaquePointer?): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_semWait((sem?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun semWait(sem: MutPtr<SemT>): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosSemWait(sem.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setlocale(cat: CInt, name: String?): COpaquePointer? =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_setlocale(cat, name).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun setlocale(cat: CInt, name: ConstPtr<CChar>): MutPtr<CChar> =
+    if (teeosNapiAvailable) MutPtr(wasmLibcTeeosSetlocale(cat, name.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strcoll(l: String?, r: String?): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_strcoll(l, r) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strcoll(l: ConstPtr<CChar>, r: ConstPtr<CChar>): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosStrcoll(l.rawAddress.toString(), r.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strxfrm(dest: COpaquePointer?, src: String?, n: SizeT): SizeT =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_strxfrm((dest?.value ?: 0L).toString(), src, n.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strxfrm(dest: MutPtr<CChar>, src: ConstPtr<CChar>, n: SizeT): SizeT =
+    if (teeosNapiAvailable) wasmLibcTeeosStrxfrm(dest.rawAddress.toString(), src.rawAddress.toString(), n.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtod(s: String?, p: COpaquePointer?): CDouble =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_strtod(s, (p?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strtod(s: ConstPtr<CChar>, p: MutPtr<MutPtr<CChar>>): CDouble =
+    if (teeosNapiAvailable) wasmLibcTeeosStrtod(s.rawAddress.toString(), p.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mbrtowc(wc: COpaquePointer?, src: String?, n: SizeT, st: COpaquePointer?): SizeT =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_mbrtowc((wc?.value ?: 0L).toString(), src, n.toString(), (st?.value ?: 0L).toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mbrtowc(wc: MutPtr<WcharT>, src: ConstPtr<CChar>, n: SizeT, st: MutPtr<MbstateT>): SizeT =
+    if (teeosNapiAvailable) wasmLibcTeeosMbrtowc(wc.rawAddress.toString(), src.rawAddress.toString(), n.toString(), st.rawAddress.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wcrtomb(s: COpaquePointer?, wc: WcharT, st: COpaquePointer?): SizeT =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_wcrtomb((s?.value ?: 0L).toString(), wc.toInt(), (st?.value ?: 0L).toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wcrtomb(s: MutPtr<CChar>, wc: WcharT, st: MutPtr<MbstateT>): SizeT =
+    if (teeosNapiAvailable) wasmLibcTeeosWcrtomb(s.rawAddress.toString(), wc.toInt(), st.rawAddress.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun wctob(c: WintT): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_wctob(c.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (teeosNapiAvailable) wasmLibcTeeosWctob(c.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun srandom(seed: CUint) {
-    if (_teeosNapiAvailable) {
-        _wasm_libc_teeos_srandom(seed.toInt())
+    if (teeosNapiAvailable) {
+        wasmLibcTeeosSrandom(seed.toInt())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun initstate(seed: CUint, state: COpaquePointer?, size: SizeT): COpaquePointer? =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_initstate(seed.toInt(), (state?.value ?: 0L).toString(), size.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun initstate(seed: CUint, state: MutPtr<CChar>, size: SizeT): MutPtr<CChar> =
+    if (teeosNapiAvailable) MutPtr(wasmLibcTeeosInitstate(seed.toInt(), state.rawAddress.toString(), size.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setstate(state: COpaquePointer?): COpaquePointer? =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_setstate((state?.value ?: 0L).toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun setstate(state: MutPtr<CChar>): MutPtr<CChar> =
+    if (teeosNapiAvailable) MutPtr(wasmLibcTeeosSetstate(state.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun random(): CLong =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_random().toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (teeosNapiAvailable) wasmLibcTeeosRandom().toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strchr(s: String?, c: CInt): COpaquePointer? =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_strchr(s, c).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strchr(s: ConstPtr<CChar>, c: CInt): MutPtr<CChar> =
+    if (teeosNapiAvailable) MutPtr(wasmLibcTeeosStrchr(s.rawAddress.toString(), c).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strlen(cs: String?): SizeT =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_strlen(cs).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strlen(cs: ConstPtr<CChar>): SizeT =
+    if (teeosNapiAvailable) wasmLibcTeeosStrlen(cs.rawAddress.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strcmp(l: String?, r: String?): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_strcmp(l, r) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strcmp(l: ConstPtr<CChar>, r: ConstPtr<CChar>): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosStrcmp(l.rawAddress.toString(), r.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strcpy(dest: COpaquePointer?, src: String?): COpaquePointer? =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_strcpy((dest?.value ?: 0L).toString(), src).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strcpy(dest: MutPtr<CChar>, src: ConstPtr<CChar>): MutPtr<CChar> =
+    if (teeosNapiAvailable) MutPtr(wasmLibcTeeosStrcpy(dest.rawAddress.toString(), src.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strncmp(l: String?, r: String?, n: SizeT): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_strncmp(l, r, n.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strncmp(l: ConstPtr<CChar>, r: ConstPtr<CChar>, n: SizeT): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosStrncmp(l.rawAddress.toString(), r.rawAddress.toString(), n.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strncpy(dest: COpaquePointer?, src: String?, n: SizeT): COpaquePointer? =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_strncpy((dest?.value ?: 0L).toString(), src, n.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strncpy(dest: MutPtr<CChar>, src: ConstPtr<CChar>, n: SizeT): MutPtr<CChar> =
+    if (teeosNapiAvailable) MutPtr(wasmLibcTeeosStrncpy(dest.rawAddress.toString(), src.rawAddress.toString(), n.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strnlen(cs: String?, n: SizeT): SizeT =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_strnlen(cs, n.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strnlen(cs: ConstPtr<CChar>, n: SizeT): SizeT =
+    if (teeosNapiAvailable) wasmLibcTeeosStrnlen(cs.rawAddress.toString(), n.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strrchr(s: String?, c: CInt): COpaquePointer? =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_strrchr(s, c).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strrchr(s: ConstPtr<CChar>, c: CInt): MutPtr<CChar> =
+    if (teeosNapiAvailable) MutPtr(wasmLibcTeeosStrrchr(s.rawAddress.toString(), c).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strstr(h: String?, n: String?): COpaquePointer? =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_strstr(h, n).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strstr(h: ConstPtr<CChar>, n: ConstPtr<CChar>): MutPtr<CChar> =
+    if (teeosNapiAvailable) MutPtr(wasmLibcTeeosStrstr(h.rawAddress.toString(), n.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wcschr(s: COpaquePointer?, c: WcharT): COpaquePointer? =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_wcschr((s?.value ?: 0L).toString(), c.toInt()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wcschr(s: ConstPtr<WcharT>, c: WcharT): MutPtr<WcharT> =
+    if (teeosNapiAvailable) MutPtr(wasmLibcTeeosWcschr(s.rawAddress.toString(), c.toInt()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wcslen(s: COpaquePointer?): SizeT =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_wcslen((s?.value ?: 0L).toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wcslen(s: ConstPtr<WcharT>): SizeT =
+    if (teeosNapiAvailable) wasmLibcTeeosWcslen(s.rawAddress.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun isalpha(c: CInt): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_isalpha(c) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (teeosNapiAvailable) wasmLibcTeeosIsalpha(c) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun isascii(c: CInt): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_isascii(c) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (teeosNapiAvailable) wasmLibcTeeosIsascii(c) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun isdigit(c: CInt): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_isdigit(c) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (teeosNapiAvailable) wasmLibcTeeosIsdigit(c) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun islower(c: CInt): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_islower(c) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (teeosNapiAvailable) wasmLibcTeeosIslower(c) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun isprint(c: CInt): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_isprint(c) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (teeosNapiAvailable) wasmLibcTeeosIsprint(c) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun isspace(c: CInt): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_isspace(c) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (teeosNapiAvailable) wasmLibcTeeosIsspace(c) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun iswctype(wc: WintT, ttype: WctypeT): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_iswctype(wc.toInt(), ttype.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (teeosNapiAvailable) wasmLibcTeeosIswctype(wc.toInt(), ttype.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun iswdigit(wc: WintT): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_iswdigit(wc.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (teeosNapiAvailable) wasmLibcTeeosIswdigit(wc.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun iswlower(wc: WintT): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_iswlower(wc.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (teeosNapiAvailable) wasmLibcTeeosIswlower(wc.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun iswspace(wc: WintT): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_iswspace(wc.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (teeosNapiAvailable) wasmLibcTeeosIswspace(wc.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun iswupper(wc: WintT): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_iswupper(wc.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (teeosNapiAvailable) wasmLibcTeeosIswupper(wc.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun towupper(wc: WintT): WintT =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_towupper(wc.toInt()).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (teeosNapiAvailable) wasmLibcTeeosTowupper(wc.toInt()).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun towlower(wc: WintT): WintT =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_towlower(wc.toInt()).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (teeosNapiAvailable) wasmLibcTeeosTowlower(wc.toInt()).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun atan(x: CDouble): CDouble =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_atan(x) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (teeosNapiAvailable) wasmLibcTeeosAtan(x) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun ceil(x: CDouble): CDouble =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_ceil(x) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (teeosNapiAvailable) wasmLibcTeeosCeil(x) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun ceilf(x: CFloat): CFloat =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_ceilf(x.toDouble()).toFloat() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (teeosNapiAvailable) wasmLibcTeeosCeilf(x.toDouble()).toFloat() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun exp(x: CDouble): CDouble =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_exp(x) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (teeosNapiAvailable) wasmLibcTeeosExp(x) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun fabs(x: CDouble): CDouble =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_fabs(x) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (teeosNapiAvailable) wasmLibcTeeosFabs(x) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun floor(x: CDouble): CDouble =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_floor(x) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (teeosNapiAvailable) wasmLibcTeeosFloor(x) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun frexp(x: CDouble, e: COpaquePointer?): CDouble =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_frexp(x, (e?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun frexp(x: CDouble, e: MutPtr<CInt>): CDouble =
+    if (teeosNapiAvailable) wasmLibcTeeosFrexp(x, e.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun log(x: CDouble): CDouble =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_log(x) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (teeosNapiAvailable) wasmLibcTeeosLog(x) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun log2(x: CDouble): CDouble =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_log2(x) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (teeosNapiAvailable) wasmLibcTeeosLog2(x) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun pow(x: CDouble, y: CDouble): CDouble =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_pow(x, y) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (teeosNapiAvailable) wasmLibcTeeosPow(x, y) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun roundf(x: CFloat): CFloat =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_roundf(x.toDouble()).toFloat() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (teeosNapiAvailable) wasmLibcTeeosRoundf(x.toDouble()).toFloat() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun scalbn(x: CDouble, n: CInt): CDouble =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_scalbn(x, n) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (teeosNapiAvailable) wasmLibcTeeosScalbn(x, n) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sqrt(x: CDouble): CDouble =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_sqrt(x) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (teeosNapiAvailable) wasmLibcTeeosSqrt(x) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun abs(x: CInt): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_abs(x) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (teeosNapiAvailable) wasmLibcTeeosAbs(x) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun atof(s: String?): CDouble =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_atof(s) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun atof(s: ConstPtr<CChar>): CDouble =
+    if (teeosNapiAvailable) wasmLibcTeeosAtof(s.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun atoi(s: String?): CInt =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_atoi(s) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun atoi(s: ConstPtr<CChar>): CInt =
+    if (teeosNapiAvailable) wasmLibcTeeosAtoi(s.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun atol(s: String?): CLong =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_atol(s).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun atol(s: ConstPtr<CChar>): CLong =
+    if (teeosNapiAvailable) wasmLibcTeeosAtol(s.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun atoll(s: String?): CLonglong =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_atoll(s).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun atoll(s: ConstPtr<CChar>): CLonglong =
+    if (teeosNapiAvailable) wasmLibcTeeosAtoll(s.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun bsearch(key: COpaquePointer?, base: COpaquePointer?, nel: SizeT, width: SizeT, cmp: Cmpfunc): COpaquePointer? =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_bsearch((key?.value ?: 0L).toString(), (base?.value ?: 0L).toString(), nel.toString(), width.toString(), 0L.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun bsearch(key: ConstPtr<CVoid>, base: ConstPtr<CVoid>, nel: SizeT, width: SizeT, cmp: Cmpfunc): MutPtr<CVoid> =
+    if (teeosNapiAvailable) MutPtr(wasmLibcTeeosBsearch(key.rawAddress.toString(), base.rawAddress.toString(), nel.toString(), width.toString(), 0L.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun div(num: CInt, den: CInt): DivT =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ecvt(x: CDouble, n: CInt, dp: COpaquePointer?, sign: COpaquePointer?): COpaquePointer? =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_ecvt(x, n, (dp?.value ?: 0L).toString(), (sign?.value ?: 0L).toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ecvt(x: CDouble, n: CInt, dp: MutPtr<CInt>, sign: MutPtr<CInt>): MutPtr<CChar> =
+    if (teeosNapiAvailable) MutPtr(wasmLibcTeeosEcvt(x, n, dp.rawAddress.toString(), sign.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun imaxabs(a: IntmaxT): IntmaxT =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_imaxabs(a.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (teeosNapiAvailable) wasmLibcTeeosImaxabs(a.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun llabs(a: CLonglong): CLonglong =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_llabs(a.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (teeosNapiAvailable) wasmLibcTeeosLlabs(a.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun qsort(base: COpaquePointer?, nel: SizeT, width: SizeT, cmp: Cmpfunc) {
-    if (_teeosNapiAvailable) {
-        _wasm_libc_teeos_qsort((base?.value ?: 0L).toString(), nel.toString(), width.toString(), 0L.toString())
+public actual fun qsort(base: MutPtr<CVoid>, nel: SizeT, width: SizeT, cmp: Cmpfunc) {
+    if (teeosNapiAvailable) {
+        wasmLibcTeeosQsort(base.rawAddress.toString(), nel.toString(), width.toString(), 0L.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun strtoul(s: String?, p: COpaquePointer?, base: CInt): CUlong =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_strtoul(s, (p?.value ?: 0L).toString(), base).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strtoul(s: ConstPtr<CChar>, p: MutPtr<MutPtr<CChar>>, base: CInt): CUlong =
+    if (teeosNapiAvailable) wasmLibcTeeosStrtoul(s.rawAddress.toString(), p.rawAddress.toString(), base).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtol(s: String?, p: COpaquePointer?, base: CInt): CLong =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_strtol(s, (p?.value ?: 0L).toString(), base).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strtol(s: ConstPtr<CChar>, p: MutPtr<MutPtr<CChar>>, base: CInt): CLong =
+    if (teeosNapiAvailable) wasmLibcTeeosStrtol(s.rawAddress.toString(), p.rawAddress.toString(), base).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wcstod(s: COpaquePointer?, p: COpaquePointer?): CDouble =
-    if (_teeosNapiAvailable) _wasm_libc_teeos_wcstod((s?.value ?: 0L).toString(), (p?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wcstod(s: ConstPtr<WcharT>, p: MutPtr<MutPtr<WcharT>>): CDouble =
+    if (teeosNapiAvailable) wasmLibcTeeosWcstod(s.rawAddress.toString(), p.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")

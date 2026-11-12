@@ -25,7 +25,7 @@
 #endif
 #endif
 
-int32_t libc_unix_cygwin_sigwait(void* set, void* sig) {
+int32_t libcUnixCygwinSigwait(void* set, void* sig) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -53,7 +53,7 @@ int32_t libc_unix_cygwin_sigwait(void* set, void* sig) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_sigwaitinfo(void* set, void* info) {
+int32_t libcUnixCygwinSigwaitinfo(void* set, void* info) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -81,7 +81,7 @@ int32_t libc_unix_cygwin_sigwaitinfo(void* set, void* info) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_pthreadSigmask(int32_t how, void* set, void* oldset) {
+int32_t libcUnixCygwinPthreadSigmask(int32_t how, void* set, void* oldset) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -109,7 +109,7 @@ int32_t libc_unix_cygwin_pthreadSigmask(int32_t how, void* set, void* oldset) {
     return ENOSYS;
 }
 
-int32_t libc_unix_cygwin_sigsuspend(void* mask) {
+int32_t libcUnixCygwinSigsuspend(void* mask) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -137,7 +137,7 @@ int32_t libc_unix_cygwin_sigsuspend(void* mask) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_sigaltstack(void* ss, void* oss) {
+int32_t libcUnixCygwinSigaltstack(void* ss, void* oss) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -165,7 +165,7 @@ int32_t libc_unix_cygwin_sigaltstack(void* ss, void* oss) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_pthreadKill(void* thread, int32_t sig) {
+int32_t libcUnixCygwinPthreadKill(void* thread, int32_t sig) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -193,7 +193,7 @@ int32_t libc_unix_cygwin_pthreadKill(void* thread, int32_t sig) {
     return ENOSYS;
 }
 
-int32_t libc_unix_cygwin_sigtimedwait(void* set, void* info, void* timeout) {
+int32_t libcUnixCygwinSigtimedwait(void* set, void* info, void* timeout) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -221,11 +221,11 @@ int32_t libc_unix_cygwin_sigtimedwait(void* set, void* info, void* timeout) {
     return -1;
 }
 
-uint64_t libc_unix_cygwin_strftime(char* s, uint64_t max, const char* format, void* tm) {
+uint64_t libcUnixCygwinStrftime(char* s, uint64_t max, const char* format, void* tm) {
     return (uint64_t)strftime(s, max, format, tm);
 }
 
-char* libc_unix_cygwin_asctimeR(void* tm, char* buf) {
+char* libcUnixCygwinAsctimeR(void* tm, char* buf) {
     typedef char* (*km_fn_t)(void*, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -253,7 +253,7 @@ char* libc_unix_cygwin_asctimeR(void* tm, char* buf) {
     return NULL;
 }
 
-char* libc_unix_cygwin_ctimeR(void* timep, char* buf) {
+char* libcUnixCygwinCtimeR(void* timep, char* buf) {
     typedef char* (*km_fn_t)(void*, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -281,7 +281,7 @@ char* libc_unix_cygwin_ctimeR(void* timep, char* buf) {
     return NULL;
 }
 
-char* libc_unix_cygwin_strptime(const char* s, const char* format, void* tm) {
+char* libcUnixCygwinStrptime(const char* s, const char* format, void* tm) {
     typedef char* (*km_fn_t)(const char*, const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -309,7 +309,7 @@ char* libc_unix_cygwin_strptime(const char* s, const char* format, void* tm) {
     return NULL;
 }
 
-int32_t libc_unix_cygwin_clockSettime(uint64_t clk_id, void* tp) {
+int32_t libcUnixCygwinClockSettime(uint64_t clkId, void* tp) {
     typedef int32_t (*km_fn_t)(uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -331,13 +331,13 @@ int32_t libc_unix_cygwin_clockSettime(uint64_t clk_id, void* tp) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(clk_id, tp);
+        return km_fn_ptr(clkId, tp);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_cygwin_clockGettime(uint64_t clk_id, void* tp) {
+int32_t libcUnixCygwinClockGettime(uint64_t clkId, void* tp) {
     typedef int32_t (*km_fn_t)(uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -359,13 +359,13 @@ int32_t libc_unix_cygwin_clockGettime(uint64_t clk_id, void* tp) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(clk_id, tp);
+        return km_fn_ptr(clkId, tp);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_cygwin_clockGetres(uint64_t clk_id, void* tp) {
+int32_t libcUnixCygwinClockGetres(uint64_t clkId, void* tp) {
     typedef int32_t (*km_fn_t)(uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -387,13 +387,13 @@ int32_t libc_unix_cygwin_clockGetres(uint64_t clk_id, void* tp) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(clk_id, tp);
+        return km_fn_ptr(clkId, tp);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_cygwin_timerCreate(uint64_t clockid, void* sevp, void* timerid) {
+int32_t libcUnixCygwinTimerCreate(uint64_t clockid, void* sevp, void* timerid) {
     typedef int32_t (*km_fn_t)(uint64_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -421,7 +421,7 @@ int32_t libc_unix_cygwin_timerCreate(uint64_t clockid, void* sevp, void* timerid
     return -1;
 }
 
-int32_t libc_unix_cygwin_timerDelete(void* timerid) {
+int32_t libcUnixCygwinTimerDelete(void* timerid) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -449,7 +449,7 @@ int32_t libc_unix_cygwin_timerDelete(void* timerid) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_timerSettime(void* timerid, int32_t flags, void* new_value, void* old_value) {
+int32_t libcUnixCygwinTimerSettime(void* timerid, int32_t flags, void* newValue, void* oldValue) {
     typedef int32_t (*km_fn_t)(void*, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -471,13 +471,13 @@ int32_t libc_unix_cygwin_timerSettime(void* timerid, int32_t flags, void* new_va
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(timerid, flags, new_value, old_value);
+        return km_fn_ptr(timerid, flags, newValue, oldValue);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_cygwin_timerGettime(void* timerid, void* curr_value) {
+int32_t libcUnixCygwinTimerGettime(void* timerid, void* currValue) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -499,13 +499,13 @@ int32_t libc_unix_cygwin_timerGettime(void* timerid, void* curr_value) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(timerid, curr_value);
+        return km_fn_ptr(timerid, currValue);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_cygwin_timerGetoverrun(void* timerid) {
+int32_t libcUnixCygwinTimerGetoverrun(void* timerid) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -533,7 +533,7 @@ int32_t libc_unix_cygwin_timerGetoverrun(void* timerid) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_clockNanosleep(uint64_t clk_id, int32_t flags, void* rqtp, void* rmtp) {
+int32_t libcUnixCygwinClockNanosleep(uint64_t clkId, int32_t flags, void* rqtp, void* rmtp) {
     typedef int32_t (*km_fn_t)(uint64_t, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -555,13 +555,13 @@ int32_t libc_unix_cygwin_clockNanosleep(uint64_t clk_id, int32_t flags, void* rq
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(clk_id, flags, rqtp, rmtp);
+        return km_fn_ptr(clkId, flags, rqtp, rmtp);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_cygwin_clockGetcpuclockid(int32_t pid, void* clk_id) {
+int32_t libcUnixCygwinClockGetcpuclockid(int32_t pid, void* clkId) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -583,13 +583,13 @@ int32_t libc_unix_cygwin_clockGetcpuclockid(int32_t pid, void* clk_id) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(pid, clk_id);
+        return km_fn_ptr(pid, clkId);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_cygwin_futimes(int32_t fd, void* times) {
+int32_t libcUnixCygwinFutimes(int32_t fd, void* times) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -617,7 +617,7 @@ int32_t libc_unix_cygwin_futimes(int32_t fd, void* times) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_lutimes(const char* file, void* times) {
+int32_t libcUnixCygwinLutimes(const char* file, void* times) {
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -645,7 +645,7 @@ int32_t libc_unix_cygwin_lutimes(const char* file, void* times) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_settimeofday(void* tv, void* tz) {
+int32_t libcUnixCygwinSettimeofday(void* tv, void* tz) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -673,7 +673,7 @@ int32_t libc_unix_cygwin_settimeofday(void* tv, void* tz) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_getitimer(int32_t which, void* curr_value) {
+int32_t libcUnixCygwinGetitimer(int32_t which, void* currValue) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -695,13 +695,13 @@ int32_t libc_unix_cygwin_getitimer(int32_t which, void* curr_value) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(which, curr_value);
+        return km_fn_ptr(which, currValue);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_cygwin_setitimer(int32_t which, void* new_value, void* old_value) {
+int32_t libcUnixCygwinSetitimer(int32_t which, void* newValue, void* oldValue) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -723,13 +723,13 @@ int32_t libc_unix_cygwin_setitimer(int32_t which, void* new_value, void* old_val
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(which, new_value, old_value);
+        return km_fn_ptr(which, newValue, oldValue);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_cygwin_gettimeofday(void* tp, void* tz) {
+int32_t libcUnixCygwinGettimeofday(void* tp, void* tz) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -757,7 +757,7 @@ int32_t libc_unix_cygwin_gettimeofday(void* tp, void* tz) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_futimesat(int32_t fd, const char* path, void* times) {
+int32_t libcUnixCygwinFutimesat(int32_t fd, const char* path, void* times) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -785,7 +785,7 @@ int32_t libc_unix_cygwin_futimesat(int32_t fd, const char* path, void* times) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_getrlimit(int32_t resource, void* rlim) {
+int32_t libcUnixCygwinGetrlimit(int32_t resource, void* rlim) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -813,7 +813,7 @@ int32_t libc_unix_cygwin_getrlimit(int32_t resource, void* rlim) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_setrlimit(int32_t resource, void* rlim) {
+int32_t libcUnixCygwinSetrlimit(int32_t resource, void* rlim) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -841,7 +841,7 @@ int32_t libc_unix_cygwin_setrlimit(int32_t resource, void* rlim) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_getpriority(int32_t which, uint32_t who) {
+int32_t libcUnixCygwinGetpriority(int32_t which, uint32_t who) {
     typedef int32_t (*km_fn_t)(int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -869,7 +869,7 @@ int32_t libc_unix_cygwin_getpriority(int32_t which, uint32_t who) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_setpriority(int32_t which, uint32_t who, int32_t prio) {
+int32_t libcUnixCygwinSetpriority(int32_t which, uint32_t who, int32_t prio) {
     typedef int32_t (*km_fn_t)(int32_t, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -897,7 +897,7 @@ int32_t libc_unix_cygwin_setpriority(int32_t which, uint32_t who, int32_t prio) 
     return -1;
 }
 
-int32_t libc_unix_cygwin_getpwnamR(const char* name, void* pwd, char* buf, uint64_t buflen, void* result) {
+int32_t libcUnixCygwinGetpwnamR(const char* name, void* pwd, char* buf, uint64_t buflen, void* result) {
     typedef int32_t (*km_fn_t)(const char*, void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -925,7 +925,7 @@ int32_t libc_unix_cygwin_getpwnamR(const char* name, void* pwd, char* buf, uint6
     return -1;
 }
 
-int32_t libc_unix_cygwin_getpwuidR(uint16_t uid, void* pwd, char* buf, uint64_t buflen, void* result) {
+int32_t libcUnixCygwinGetpwuidR(uint16_t uid, void* pwd, char* buf, uint64_t buflen, void* result) {
     typedef int32_t (*km_fn_t)(uint16_t, void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -953,7 +953,7 @@ int32_t libc_unix_cygwin_getpwuidR(uint16_t uid, void* pwd, char* buf, uint64_t 
     return -1;
 }
 
-void* libc_unix_cygwin_getpwent(void) {
+void* libcUnixCygwinGetpwent(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -981,7 +981,7 @@ void* libc_unix_cygwin_getpwent(void) {
     return NULL;
 }
 
-void libc_unix_cygwin_setpwent(void) {
+void libcUnixCygwinSetpwent(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1009,7 +1009,7 @@ void libc_unix_cygwin_setpwent(void) {
     errno = ENOSYS;
 }
 
-void libc_unix_cygwin_endpwent(void) {
+void libcUnixCygwinEndpwent(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1037,7 +1037,7 @@ void libc_unix_cygwin_endpwent(void) {
     errno = ENOSYS;
 }
 
-void* libc_unix_cygwin_ifNameindex(void) {
+void* libcUnixCygwinIfNameindex(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1065,7 +1065,7 @@ void* libc_unix_cygwin_ifNameindex(void) {
     return NULL;
 }
 
-void libc_unix_cygwin_ifFreenameindex(void* ptr) {
+void libcUnixCygwinIfFreenameindex(void* ptr) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1093,7 +1093,7 @@ void libc_unix_cygwin_ifFreenameindex(void* ptr) {
     errno = ENOSYS;
 }
 
-int64_t libc_unix_cygwin_readv(int32_t fd, void* iov, int32_t iovcnt) {
+int64_t libcUnixCygwinReadv(int32_t fd, void* iov, int32_t iovcnt) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1121,7 +1121,7 @@ int64_t libc_unix_cygwin_readv(int32_t fd, void* iov, int32_t iovcnt) {
     return -1;
 }
 
-int64_t libc_unix_cygwin_writev(int32_t fd, void* iov, int32_t iovcnt) {
+int64_t libcUnixCygwinWritev(int32_t fd, void* iov, int32_t iovcnt) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1149,7 +1149,7 @@ int64_t libc_unix_cygwin_writev(int32_t fd, void* iov, int32_t iovcnt) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_mkfifoat(int32_t dirfd, const char* pathname, uint32_t mode) {
+int32_t libcUnixCygwinMkfifoat(int32_t dirfd, const char* pathname, uint32_t mode) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1177,7 +1177,7 @@ int32_t libc_unix_cygwin_mkfifoat(int32_t dirfd, const char* pathname, uint32_t 
     return -1;
 }
 
-int32_t libc_unix_cygwin_mknodat(int32_t dirfd, const char* pathname, uint32_t mode, uint32_t dev) {
+int32_t libcUnixCygwinMknodat(int32_t dirfd, const char* pathname, uint32_t mode, uint32_t dev) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, uint32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1205,7 +1205,7 @@ int32_t libc_unix_cygwin_mknodat(int32_t dirfd, const char* pathname, uint32_t m
     return -1;
 }
 
-int32_t libc_unix_cygwin_utimensat(int32_t dirfd, const char* path, void* times, int32_t flag) {
+int32_t libcUnixCygwinUtimensat(int32_t dirfd, const char* path, void* times, int32_t flag) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1233,7 +1233,7 @@ int32_t libc_unix_cygwin_utimensat(int32_t dirfd, const char* path, void* times,
     return -1;
 }
 
-int32_t libc_unix_cygwin_futimens(int32_t fd, void* times) {
+int32_t libcUnixCygwinFutimens(int32_t fd, void* times) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1261,7 +1261,7 @@ int32_t libc_unix_cygwin_futimens(int32_t fd, void* times) {
     return -1;
 }
 
-void libc_unix_cygwin_dlfork(int32_t val) {
+void libcUnixCygwinDlfork(int32_t val) {
     typedef void (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1289,7 +1289,7 @@ void libc_unix_cygwin_dlfork(int32_t val) {
     errno = ENOSYS;
 }
 
-int32_t libc_unix_cygwin_accept4(int32_t s, void* addr, void* addrlen, int32_t flags) {
+int32_t libcUnixCygwinAccept4(int32_t s, void* addr, void* addrlen, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1317,15 +1317,15 @@ int32_t libc_unix_cygwin_accept4(int32_t s, void* addr, void* addrlen, int32_t f
     return -1;
 }
 
-int32_t libc_unix_cygwin_bind(int32_t arg_0_socket, void* address, int32_t address_len) {
-    return (int32_t)bind(arg_0_socket, address, address_len);
+int32_t libcUnixCygwinBind(int32_t arg0Socket, void* address, int32_t addressLen) {
+    return (int32_t)bind(arg0Socket, address, addressLen);
 }
 
-int64_t libc_unix_cygwin_recvfrom(int32_t arg_0_socket, void* buf, uint64_t len, int32_t flags, void* addr, void* addrlen) {
-    return (int64_t)recvfrom(arg_0_socket, buf, len, flags, addr, addrlen);
+int64_t libcUnixCygwinRecvfrom(int32_t arg0Socket, void* buf, uint64_t len, int32_t flags, void* addr, void* addrlen) {
+    return (int64_t)recvfrom(arg0Socket, buf, len, flags, addr, addrlen);
 }
 
-int64_t libc_unix_cygwin_recvmsg(int32_t fd, void* msg, int32_t flags) {
+int64_t libcUnixCygwinRecvmsg(int32_t fd, void* msg, int32_t flags) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1353,7 +1353,7 @@ int64_t libc_unix_cygwin_recvmsg(int32_t fd, void* msg, int32_t flags) {
     return -1;
 }
 
-int64_t libc_unix_cygwin_sendmsg(int32_t fd, void* msg, int32_t flags) {
+int64_t libcUnixCygwinSendmsg(int32_t fd, void* msg, int32_t flags) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1381,7 +1381,7 @@ int64_t libc_unix_cygwin_sendmsg(int32_t fd, void* msg, int32_t flags) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_getnameinfo(void* sa, int32_t salen, char* host, int32_t hostlen, char* serv, int32_t sevlen, int32_t flags) {
+int32_t libcUnixCygwinGetnameinfo(void* sa, int32_t salen, char* host, int32_t hostlen, char* serv, int32_t sevlen, int32_t flags) {
     typedef int32_t (*km_fn_t)(void*, int32_t, char*, int32_t, char*, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1409,7 +1409,7 @@ int32_t libc_unix_cygwin_getnameinfo(void* sa, int32_t salen, char* host, int32_
     return -1;
 }
 
-int32_t libc_unix_cygwin_ppoll(void* fds, uint32_t nfds, void* timeout, void* sigmask) {
+int32_t libcUnixCygwinPpoll(void* fds, uint32_t nfds, void* timeout, void* sigmask) {
     typedef int32_t (*km_fn_t)(void*, uint32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1437,7 +1437,7 @@ int32_t libc_unix_cygwin_ppoll(void* fds, uint32_t nfds, void* timeout, void* si
     return -1;
 }
 
-void* libc_unix_cygwin_newlocale(int32_t mask, const char* locale, void* base) {
+void* libcUnixCygwinNewlocale(int32_t mask, const char* locale, void* base) {
     typedef void* (*km_fn_t)(int32_t, const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1465,7 +1465,7 @@ void* libc_unix_cygwin_newlocale(int32_t mask, const char* locale, void* base) {
     return NULL;
 }
 
-void libc_unix_cygwin_freelocale(void* loc) {
+void libcUnixCygwinFreelocale(void* loc) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1493,7 +1493,7 @@ void libc_unix_cygwin_freelocale(void* loc) {
     errno = ENOSYS;
 }
 
-void* libc_unix_cygwin_duplocale(void* base) {
+void* libcUnixCygwinDuplocale(void* base) {
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1521,7 +1521,7 @@ void* libc_unix_cygwin_duplocale(void* base) {
     return NULL;
 }
 
-void* libc_unix_cygwin_uselocale(void* loc) {
+void* libcUnixCygwinUselocale(void* loc) {
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1549,7 +1549,7 @@ void* libc_unix_cygwin_uselocale(void* loc) {
     return NULL;
 }
 
-int32_t libc_unix_cygwin_semInit(void* sem, int32_t pshared, uint32_t value) {
+int32_t libcUnixCygwinSemInit(void* sem, int32_t pshared, uint32_t value) {
     typedef int32_t (*km_fn_t)(void*, int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1577,7 +1577,7 @@ int32_t libc_unix_cygwin_semInit(void* sem, int32_t pshared, uint32_t value) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_semDestroy(void* sem) {
+int32_t libcUnixCygwinSemDestroy(void* sem) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1605,7 +1605,7 @@ int32_t libc_unix_cygwin_semDestroy(void* sem) {
     return -1;
 }
 
-void* libc_unix_cygwin_semOpen(const char* name, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+void* libcUnixCygwinSemOpen(const char* name, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef void* (*km_fn_t)(const char*, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1639,7 +1639,7 @@ void* libc_unix_cygwin_semOpen(const char* name, int32_t oflag, int32_t km_vac, 
     return NULL;
 }
 
-int32_t libc_unix_cygwin_semClose(void* sem) {
+int32_t libcUnixCygwinSemClose(void* sem) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1667,7 +1667,7 @@ int32_t libc_unix_cygwin_semClose(void* sem) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_semUnlink(const char* name) {
+int32_t libcUnixCygwinSemUnlink(const char* name) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1695,7 +1695,7 @@ int32_t libc_unix_cygwin_semUnlink(const char* name) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_semTimedwait(void* sem, void* abstime) {
+int32_t libcUnixCygwinSemTimedwait(void* sem, void* abstime) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1723,7 +1723,7 @@ int32_t libc_unix_cygwin_semTimedwait(void* sem, void* abstime) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_semGetvalue(void* sem, void* sval) {
+int32_t libcUnixCygwinSemGetvalue(void* sem, void* sval) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1751,7 +1751,7 @@ int32_t libc_unix_cygwin_semGetvalue(void* sem, void* sval) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_clearenv(void) {
+int32_t libcUnixCygwinClearenv(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1779,7 +1779,7 @@ int32_t libc_unix_cygwin_clearenv(void) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_ptsnameR(int32_t fd, char* buf, uint64_t buflen) {
+int32_t libcUnixCygwinPtsnameR(int32_t fd, char* buf, uint64_t buflen) {
     typedef int32_t (*km_fn_t)(int32_t, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1807,7 +1807,7 @@ int32_t libc_unix_cygwin_ptsnameR(int32_t fd, char* buf, uint64_t buflen) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_getpt(void) {
+int32_t libcUnixCygwinGetpt(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1835,7 +1835,7 @@ int32_t libc_unix_cygwin_getpt(void) {
     return -1;
 }
 
-void* libc_unix_cygwin_memalign(uint64_t align, uint64_t size) {
+void* libcUnixCygwinMemalign(uint64_t align, uint64_t size) {
     typedef void* (*km_fn_t)(uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1863,7 +1863,7 @@ void* libc_unix_cygwin_memalign(uint64_t align, uint64_t size) {
     return NULL;
 }
 
-int32_t libc_unix_cygwin_getloadavg(void* loadavg, int32_t nelem) {
+int32_t libcUnixCygwinGetloadavg(void* loadavg, int32_t nelem) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1891,11 +1891,11 @@ int32_t libc_unix_cygwin_getloadavg(void* loadavg, int32_t nelem) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_abs(int32_t i) {
+int32_t libcUnixCygwinAbs(int32_t i) {
     return (int32_t)abs(i);
 }
 
-uint32_t libc_unix_cygwin_arc4random(void) {
+uint32_t libcUnixCygwinArc4random(void) {
     typedef uint32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1923,7 +1923,7 @@ uint32_t libc_unix_cygwin_arc4random(void) {
     return 0;
 }
 
-uint32_t libc_unix_cygwin_arc4randomUniform(uint32_t l) {
+uint32_t libcUnixCygwinArc4randomUniform(uint32_t l) {
     typedef uint32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1951,7 +1951,7 @@ uint32_t libc_unix_cygwin_arc4randomUniform(uint32_t l) {
     return 0;
 }
 
-void libc_unix_cygwin_arc4randomBuf(void* buf, uint64_t size) {
+void libcUnixCygwinArc4randomBuf(void* buf, uint64_t size) {
     typedef void (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1979,7 +1979,7 @@ void libc_unix_cygwin_arc4randomBuf(void* buf, uint64_t size) {
     errno = ENOSYS;
 }
 
-int64_t libc_unix_cygwin_labs(int64_t i) {
+int64_t libcUnixCygwinLabs(int64_t i) {
     typedef int64_t (*km_fn_t)(int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2007,7 +2007,7 @@ int64_t libc_unix_cygwin_labs(int64_t i) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_mkostemp(char* arg_0_template, int32_t flags) {
+int32_t libcUnixCygwinMkostemp(char* arg0Template, int32_t flags) {
     typedef int32_t (*km_fn_t)(char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2029,13 +2029,13 @@ int32_t libc_unix_cygwin_mkostemp(char* arg_0_template, int32_t flags) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_template, flags);
+        return km_fn_ptr(arg0Template, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_cygwin_mkostemps(char* arg_0_template, int32_t suffixlen, int32_t flags) {
+int32_t libcUnixCygwinMkostemps(char* arg0Template, int32_t suffixlen, int32_t flags) {
     typedef int32_t (*km_fn_t)(char*, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2057,13 +2057,13 @@ int32_t libc_unix_cygwin_mkostemps(char* arg_0_template, int32_t suffixlen, int3
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_template, suffixlen, flags);
+        return km_fn_ptr(arg0Template, suffixlen, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_cygwin_mkstemps(char* arg_0_template, int32_t suffixlen) {
+int32_t libcUnixCygwinMkstemps(char* arg0Template, int32_t suffixlen) {
     typedef int32_t (*km_fn_t)(char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2085,17 +2085,17 @@ int32_t libc_unix_cygwin_mkstemps(char* arg_0_template, int32_t suffixlen) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_template, suffixlen);
+        return km_fn_ptr(arg0Template, suffixlen);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_cygwin_rand(void) {
+int32_t libcUnixCygwinRand(void) {
     return (int32_t)rand();
 }
 
-void* libc_unix_cygwin_reallocarray(void* ptr, uint64_t nmemb, uint64_t size) {
+void* libcUnixCygwinReallocarray(void* ptr, uint64_t nmemb, uint64_t size) {
     typedef void* (*km_fn_t)(void*, uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2123,7 +2123,7 @@ void* libc_unix_cygwin_reallocarray(void* ptr, uint64_t nmemb, uint64_t size) {
     return NULL;
 }
 
-void* libc_unix_cygwin_reallocf(void* ptr, uint64_t size) {
+void* libcUnixCygwinReallocf(void* ptr, uint64_t size) {
     typedef void* (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2151,11 +2151,11 @@ void* libc_unix_cygwin_reallocf(void* ptr, uint64_t size) {
     return NULL;
 }
 
-void libc_unix_cygwin_srand(uint32_t seed) {
+void libcUnixCygwinSrand(uint32_t seed) {
     srand(seed);
 }
 
-double libc_unix_cygwin_drand48(void) {
+double libcUnixCygwinDrand48(void) {
     typedef double (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2183,7 +2183,7 @@ double libc_unix_cygwin_drand48(void) {
     return 0.0;
 }
 
-double libc_unix_cygwin_erand48(void* xseed) {
+double libcUnixCygwinErand48(void* xseed) {
     typedef double (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2211,7 +2211,7 @@ double libc_unix_cygwin_erand48(void* xseed) {
     return 0.0;
 }
 
-int64_t libc_unix_cygwin_jrand48(void* xseed) {
+int64_t libcUnixCygwinJrand48(void* xseed) {
     typedef int64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2239,7 +2239,7 @@ int64_t libc_unix_cygwin_jrand48(void* xseed) {
     return -1;
 }
 
-void libc_unix_cygwin_lcong48(void* p) {
+void libcUnixCygwinLcong48(void* p) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2267,7 +2267,7 @@ void libc_unix_cygwin_lcong48(void* p) {
     errno = ENOSYS;
 }
 
-int64_t libc_unix_cygwin_lrand48(void) {
+int64_t libcUnixCygwinLrand48(void) {
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2295,7 +2295,7 @@ int64_t libc_unix_cygwin_lrand48(void) {
     return -1;
 }
 
-int64_t libc_unix_cygwin_mrand48(void) {
+int64_t libcUnixCygwinMrand48(void) {
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2323,7 +2323,7 @@ int64_t libc_unix_cygwin_mrand48(void) {
     return -1;
 }
 
-int64_t libc_unix_cygwin_nrand48(void* xseed) {
+int64_t libcUnixCygwinNrand48(void* xseed) {
     typedef int64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2351,7 +2351,7 @@ int64_t libc_unix_cygwin_nrand48(void* xseed) {
     return -1;
 }
 
-void* libc_unix_cygwin_seed48(void* xseed) {
+void* libcUnixCygwinSeed48(void* xseed) {
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2379,7 +2379,7 @@ void* libc_unix_cygwin_seed48(void* xseed) {
     return NULL;
 }
 
-void libc_unix_cygwin_srand48(int64_t seed) {
+void libcUnixCygwinSrand48(int64_t seed) {
     typedef void (*km_fn_t)(int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2407,7 +2407,7 @@ void libc_unix_cygwin_srand48(int64_t seed) {
     errno = ENOSYS;
 }
 
-void libc_unix_cygwin_qsortR(void* base, uint64_t num, uint64_t size, void* compar, void* arg) {
+void libcUnixCygwinQsortR(void* base, uint64_t num, uint64_t size, void* compar, void* arg) {
     typedef void (*km_fn_t)(void*, uint64_t, uint64_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2435,7 +2435,7 @@ void libc_unix_cygwin_qsortR(void* base, uint64_t num, uint64_t size, void* comp
     errno = ENOSYS;
 }
 
-int32_t libc_unix_cygwin_mprotect(void* addr, uint64_t len, int32_t prot) {
+int32_t libcUnixCygwinMprotect(void* addr, uint64_t len, int32_t prot) {
 #if !defined(_WIN32)
     return (int32_t)mprotect(addr, len, prot);
 #else
@@ -2447,7 +2447,7 @@ int32_t libc_unix_cygwin_mprotect(void* addr, uint64_t len, int32_t prot) {
 #endif
 }
 
-int32_t libc_unix_cygwin_msync(void* addr, uint64_t len, int32_t flags) {
+int32_t libcUnixCygwinMsync(void* addr, uint64_t len, int32_t flags) {
 #if !defined(_WIN32)
     return (int32_t)msync(addr, len, flags);
 #else
@@ -2459,7 +2459,7 @@ int32_t libc_unix_cygwin_msync(void* addr, uint64_t len, int32_t flags) {
 #endif
 }
 
-int32_t libc_unix_cygwin_posixMadvise(void* addr, uint64_t len, int32_t advice) {
+int32_t libcUnixCygwinPosixMadvise(void* addr, uint64_t len, int32_t advice) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2487,7 +2487,7 @@ int32_t libc_unix_cygwin_posixMadvise(void* addr, uint64_t len, int32_t advice) 
     return -1;
 }
 
-int32_t libc_unix_cygwin_madvise(void* addr, uint64_t len, int32_t advice) {
+int32_t libcUnixCygwinMadvise(void* addr, uint64_t len, int32_t advice) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2515,7 +2515,7 @@ int32_t libc_unix_cygwin_madvise(void* addr, uint64_t len, int32_t advice) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_shmOpen(const char* name, int32_t oflag, uint32_t mode) {
+int32_t libcUnixCygwinShmOpen(const char* name, int32_t oflag, uint32_t mode) {
     typedef int32_t (*km_fn_t)(const char*, int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2543,7 +2543,7 @@ int32_t libc_unix_cygwin_shmOpen(const char* name, int32_t oflag, uint32_t mode)
     return -1;
 }
 
-int32_t libc_unix_cygwin_shmUnlink(const char* name) {
+int32_t libcUnixCygwinShmUnlink(const char* name) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2571,7 +2571,7 @@ int32_t libc_unix_cygwin_shmUnlink(const char* name) {
     return -1;
 }
 
-void libc_unix_cygwin_explicitBzero(void* s, uint64_t len) {
+void libcUnixCygwinExplicitBzero(void* s, uint64_t len) {
     typedef void (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2599,7 +2599,7 @@ void libc_unix_cygwin_explicitBzero(void* s, uint64_t len) {
     errno = ENOSYS;
 }
 
-int32_t libc_unix_cygwin_ffs(int32_t value) {
+int32_t libcUnixCygwinFfs(int32_t value) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2627,7 +2627,7 @@ int32_t libc_unix_cygwin_ffs(int32_t value) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_ffsl(int64_t value) {
+int32_t libcUnixCygwinFfsl(int64_t value) {
     typedef int32_t (*km_fn_t)(int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2655,7 +2655,7 @@ int32_t libc_unix_cygwin_ffsl(int64_t value) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_ffsll(int64_t value) {
+int32_t libcUnixCygwinFfsll(int64_t value) {
     typedef int32_t (*km_fn_t)(int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2683,7 +2683,7 @@ int32_t libc_unix_cygwin_ffsll(int64_t value) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_fls(int32_t value) {
+int32_t libcUnixCygwinFls(int32_t value) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2711,7 +2711,7 @@ int32_t libc_unix_cygwin_fls(int32_t value) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_flsl(int64_t value) {
+int32_t libcUnixCygwinFlsl(int64_t value) {
     typedef int32_t (*km_fn_t)(int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2739,7 +2739,7 @@ int32_t libc_unix_cygwin_flsl(int64_t value) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_flsll(int64_t value) {
+int32_t libcUnixCygwinFlsll(int64_t value) {
     typedef int32_t (*km_fn_t)(int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2767,7 +2767,7 @@ int32_t libc_unix_cygwin_flsll(int64_t value) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_strcasecmpL(const char* s1, const char* s2, void* loc) {
+int32_t libcUnixCygwinStrcasecmpL(const char* s1, const char* s2, void* loc) {
     typedef int32_t (*km_fn_t)(const char*, const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2795,7 +2795,7 @@ int32_t libc_unix_cygwin_strcasecmpL(const char* s1, const char* s2, void* loc) 
     return -1;
 }
 
-int32_t libc_unix_cygwin_strncasecmpL(const char* s1, const char* s2, uint64_t n, void* loc) {
+int32_t libcUnixCygwinStrncasecmpL(const char* s1, const char* s2, uint64_t n, void* loc) {
     typedef int32_t (*km_fn_t)(const char*, const char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2823,7 +2823,7 @@ int32_t libc_unix_cygwin_strncasecmpL(const char* s1, const char* s2, uint64_t n
     return -1;
 }
 
-int32_t libc_unix_cygwin_timingsafeBcmp(void* a, void* b, uint64_t len) {
+int32_t libcUnixCygwinTimingsafeBcmp(void* a, void* b, uint64_t len) {
     typedef int32_t (*km_fn_t)(void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2851,7 +2851,7 @@ int32_t libc_unix_cygwin_timingsafeBcmp(void* a, void* b, uint64_t len) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_timingsafeMemcmp(void* a, void* b, uint64_t len) {
+int32_t libcUnixCygwinTimingsafeMemcmp(void* a, void* b, uint64_t len) {
     typedef int32_t (*km_fn_t)(void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2879,7 +2879,7 @@ int32_t libc_unix_cygwin_timingsafeMemcmp(void* a, void* b, uint64_t len) {
     return -1;
 }
 
-void* libc_unix_cygwin_memmem(void* haystack, uint64_t haystacklen, void* needle, uint64_t needlelen) {
+void* libcUnixCygwinMemmem(void* haystack, uint64_t haystacklen, void* needle, uint64_t needlelen) {
     typedef void* (*km_fn_t)(void*, uint64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2907,7 +2907,7 @@ void* libc_unix_cygwin_memmem(void* haystack, uint64_t haystacklen, void* needle
     return NULL;
 }
 
-void* libc_unix_cygwin_memrchr(void* cx, int32_t c, uint64_t n) {
+void* libcUnixCygwinMemrchr(void* cx, int32_t c, uint64_t n) {
     typedef void* (*km_fn_t)(void*, int32_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2935,7 +2935,7 @@ void* libc_unix_cygwin_memrchr(void* cx, int32_t c, uint64_t n) {
     return NULL;
 }
 
-int32_t libc_unix_cygwin_strerrorR(int32_t errnum, char* buf, uint64_t buflen) {
+int32_t libcUnixCygwinStrerrorR(int32_t errnum, char* buf, uint64_t buflen) {
     typedef int32_t (*km_fn_t)(int32_t, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2961,7 +2961,7 @@ int32_t libc_unix_cygwin_strerrorR(int32_t errnum, char* buf, uint64_t buflen) {
     return -1;
 }
 
-char* libc_unix_cygwin_strsep(void* string, const char* delim) {
+char* libcUnixCygwinStrsep(void* string, const char* delim) {
     typedef char* (*km_fn_t)(void*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2989,7 +2989,7 @@ char* libc_unix_cygwin_strsep(void* string, const char* delim) {
     return NULL;
 }
 
-char* libc_unix_cygwin_basename(const char* path) {
+char* libcUnixCygwinBasename(const char* path) {
     typedef char* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3015,7 +3015,7 @@ char* libc_unix_cygwin_basename(const char* path) {
     return NULL;
 }
 
-int32_t libc_unix_cygwin_daemon(int32_t nochdir, int32_t noclose) {
+int32_t libcUnixCygwinDaemon(int32_t nochdir, int32_t noclose) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3043,7 +3043,7 @@ int32_t libc_unix_cygwin_daemon(int32_t nochdir, int32_t noclose) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_dup3(int32_t src, int32_t dst, int32_t flags) {
+int32_t libcUnixCygwinDup3(int32_t src, int32_t dst, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3071,7 +3071,7 @@ int32_t libc_unix_cygwin_dup3(int32_t src, int32_t dst, int32_t flags) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_eaccess(const char* pathname, int32_t mode) {
+int32_t libcUnixCygwinEaccess(const char* pathname, int32_t mode) {
     typedef int32_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3099,7 +3099,7 @@ int32_t libc_unix_cygwin_eaccess(const char* pathname, int32_t mode) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_euidaccess(const char* pathname, int32_t mode) {
+int32_t libcUnixCygwinEuidaccess(const char* pathname, int32_t mode) {
     typedef int32_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3127,7 +3127,7 @@ int32_t libc_unix_cygwin_euidaccess(const char* pathname, int32_t mode) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_execvpe(const char* file, void* argv, void* envp) {
+int32_t libcUnixCygwinExecvpe(const char* file, void* argv, void* envp) {
     typedef int32_t (*km_fn_t)(const char*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3155,7 +3155,7 @@ int32_t libc_unix_cygwin_execvpe(const char* file, void* argv, void* envp) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_faccessat(int32_t dirfd, const char* pathname, int32_t mode, int32_t flags) {
+int32_t libcUnixCygwinFaccessat(int32_t dirfd, const char* pathname, int32_t mode, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3183,7 +3183,7 @@ int32_t libc_unix_cygwin_faccessat(int32_t dirfd, const char* pathname, int32_t 
     return -1;
 }
 
-int32_t libc_unix_cygwin_fexecve(int32_t fd, void* argv, void* envp) {
+int32_t libcUnixCygwinFexecve(int32_t fd, void* argv, void* envp) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3211,7 +3211,7 @@ int32_t libc_unix_cygwin_fexecve(int32_t fd, void* argv, void* envp) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_fdatasync(int32_t fd) {
+int32_t libcUnixCygwinFdatasync(int32_t fd) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3239,7 +3239,7 @@ int32_t libc_unix_cygwin_fdatasync(int32_t fd) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_getdomainname(char* name, uint64_t len) {
+int32_t libcUnixCygwinGetdomainname(char* name, uint64_t len) {
     typedef int32_t (*km_fn_t)(char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3267,7 +3267,7 @@ int32_t libc_unix_cygwin_getdomainname(char* name, uint64_t len) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_getentropy(void* buf, uint64_t buflen) {
+int32_t libcUnixCygwinGetentropy(void* buf, uint64_t buflen) {
     typedef int32_t (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3295,7 +3295,7 @@ int32_t libc_unix_cygwin_getentropy(void* buf, uint64_t buflen) {
     return -1;
 }
 
-int64_t libc_unix_cygwin_gethostid(void) {
+int64_t libcUnixCygwinGethostid(void) {
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3323,7 +3323,7 @@ int64_t libc_unix_cygwin_gethostid(void) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_getpagesize(void) {
+int32_t libcUnixCygwinGetpagesize(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3351,7 +3351,7 @@ int32_t libc_unix_cygwin_getpagesize(void) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_getpeereid(int32_t arg_0_socket, void* euid, void* egid) {
+int32_t libcUnixCygwinGetpeereid(int32_t arg0Socket, void* euid, void* egid) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3373,13 +3373,13 @@ int32_t libc_unix_cygwin_getpeereid(int32_t arg_0_socket, void* euid, void* egid
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_socket, euid, egid);
+        return km_fn_ptr(arg0Socket, euid, egid);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_cygwin_pthreadAtfork(void* prepare, void* parent, void* child) {
+int32_t libcUnixCygwinPthreadAtfork(void* prepare, void* parent, void* child) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3407,7 +3407,7 @@ int32_t libc_unix_cygwin_pthreadAtfork(void* prepare, void* parent, void* child)
     return ENOSYS;
 }
 
-int32_t libc_unix_cygwin_pipe2(void* fds, int32_t flags) {
+int32_t libcUnixCygwinPipe2(void* fds, int32_t flags) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3435,7 +3435,7 @@ int32_t libc_unix_cygwin_pipe2(void* fds, int32_t flags) {
     return -1;
 }
 
-void* libc_unix_cygwin_sbrk(int64_t increment) {
+void* libcUnixCygwinSbrk(int64_t increment) {
     typedef void* (*km_fn_t)(int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3463,7 +3463,7 @@ void* libc_unix_cygwin_sbrk(int64_t increment) {
     return NULL;
 }
 
-int32_t libc_unix_cygwin_setgroups(int32_t ngroups, void* ptr) {
+int32_t libcUnixCygwinSetgroups(int32_t ngroups, void* ptr) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3491,7 +3491,7 @@ int32_t libc_unix_cygwin_setgroups(int32_t ngroups, void* ptr) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_sethostname(const char* name, uint64_t len) {
+int32_t libcUnixCygwinSethostname(const char* name, uint64_t len) {
     typedef int32_t (*km_fn_t)(const char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3519,7 +3519,7 @@ int32_t libc_unix_cygwin_sethostname(const char* name, uint64_t len) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_vhangup(void) {
+int32_t libcUnixCygwinVhangup(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3547,7 +3547,7 @@ int32_t libc_unix_cygwin_vhangup(void) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_getdtablesize(void) {
+int32_t libcUnixCygwinGetdtablesize(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3575,7 +3575,7 @@ int32_t libc_unix_cygwin_getdtablesize(void) {
     return -1;
 }
 
-void libc_unix_cygwin_sync(void) {
+void libcUnixCygwinSync(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3603,7 +3603,7 @@ void libc_unix_cygwin_sync(void) {
     errno = ENOSYS;
 }
 
-void* libc_unix_cygwin_errno(void) {
+void* libcUnixCygwinErrno(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3629,7 +3629,7 @@ void* libc_unix_cygwin_errno(void) {
     return NULL;
 }
 
-int32_t libc_unix_cygwin_schedSetparam(int32_t pid, void* param) {
+int32_t libcUnixCygwinSchedSetparam(int32_t pid, void* param) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3657,7 +3657,7 @@ int32_t libc_unix_cygwin_schedSetparam(int32_t pid, void* param) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_schedGetparam(int32_t pid, void* param) {
+int32_t libcUnixCygwinSchedGetparam(int32_t pid, void* param) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3685,7 +3685,7 @@ int32_t libc_unix_cygwin_schedGetparam(int32_t pid, void* param) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_schedSetscheduler(int32_t pid, int32_t policy, void* param) {
+int32_t libcUnixCygwinSchedSetscheduler(int32_t pid, int32_t policy, void* param) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3713,7 +3713,7 @@ int32_t libc_unix_cygwin_schedSetscheduler(int32_t pid, int32_t policy, void* pa
     return -1;
 }
 
-int32_t libc_unix_cygwin_schedGetscheduler(int32_t pid) {
+int32_t libcUnixCygwinSchedGetscheduler(int32_t pid) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3741,7 +3741,7 @@ int32_t libc_unix_cygwin_schedGetscheduler(int32_t pid) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_schedGetPriorityMax(int32_t policy) {
+int32_t libcUnixCygwinSchedGetPriorityMax(int32_t policy) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3769,7 +3769,7 @@ int32_t libc_unix_cygwin_schedGetPriorityMax(int32_t policy) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_schedGetPriorityMin(int32_t policy) {
+int32_t libcUnixCygwinSchedGetPriorityMin(int32_t policy) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3797,7 +3797,7 @@ int32_t libc_unix_cygwin_schedGetPriorityMin(int32_t policy) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_schedRrGetInterval(int32_t pid, void* t) {
+int32_t libcUnixCygwinSchedRrGetInterval(int32_t pid, void* t) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3825,7 +3825,7 @@ int32_t libc_unix_cygwin_schedRrGetInterval(int32_t pid, void* t) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_schedGetcpu(void) {
+int32_t libcUnixCygwinSchedGetcpu(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3853,7 +3853,7 @@ int32_t libc_unix_cygwin_schedGetcpu(void) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_schedGetaffinity(int32_t pid, uint64_t cpusetsize, void* mask) {
+int32_t libcUnixCygwinSchedGetaffinity(int32_t pid, uint64_t cpusetsize, void* mask) {
     typedef int32_t (*km_fn_t)(int32_t, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3881,7 +3881,7 @@ int32_t libc_unix_cygwin_schedGetaffinity(int32_t pid, uint64_t cpusetsize, void
     return -1;
 }
 
-int32_t libc_unix_cygwin_schedSetaffinity(int32_t pid, uint64_t cpusetsize, void* cpuset) {
+int32_t libcUnixCygwinSchedSetaffinity(int32_t pid, uint64_t cpusetsize, void* cpuset) {
     typedef int32_t (*km_fn_t)(int32_t, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3909,7 +3909,7 @@ int32_t libc_unix_cygwin_schedSetaffinity(int32_t pid, uint64_t cpusetsize, void
     return -1;
 }
 
-int32_t libc_unix_cygwin_pthreadAttrGetguardsize(void* attr, void* guardsize) {
+int32_t libcUnixCygwinPthreadAttrGetguardsize(void* attr, void* guardsize) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3937,7 +3937,7 @@ int32_t libc_unix_cygwin_pthreadAttrGetguardsize(void* attr, void* guardsize) {
     return ENOSYS;
 }
 
-int32_t libc_unix_cygwin_pthreadAttrGetschedparam(void* attr, void* param) {
+int32_t libcUnixCygwinPthreadAttrGetschedparam(void* attr, void* param) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3965,7 +3965,7 @@ int32_t libc_unix_cygwin_pthreadAttrGetschedparam(void* attr, void* param) {
     return ENOSYS;
 }
 
-int32_t libc_unix_cygwin_pthreadAttrSetschedparam(void* attr, void* param) {
+int32_t libcUnixCygwinPthreadAttrSetschedparam(void* attr, void* param) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3993,7 +3993,7 @@ int32_t libc_unix_cygwin_pthreadAttrSetschedparam(void* attr, void* param) {
     return ENOSYS;
 }
 
-int32_t libc_unix_cygwin_pthreadAttrGetstack(void* attr, void* stackaddr, void* stacksize) {
+int32_t libcUnixCygwinPthreadAttrGetstack(void* attr, void* stackaddr, void* stacksize) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4021,7 +4021,7 @@ int32_t libc_unix_cygwin_pthreadAttrGetstack(void* attr, void* stackaddr, void* 
     return ENOSYS;
 }
 
-int32_t libc_unix_cygwin_pthreadCancel(void* thread) {
+int32_t libcUnixCygwinPthreadCancel(void* thread) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4049,7 +4049,7 @@ int32_t libc_unix_cygwin_pthreadCancel(void* thread) {
     return ENOSYS;
 }
 
-int32_t libc_unix_cygwin_pthreadCondattrGetclock(void* attr, void* clock_id) {
+int32_t libcUnixCygwinPthreadCondattrGetclock(void* attr, void* clockId) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4071,13 +4071,13 @@ int32_t libc_unix_cygwin_pthreadCondattrGetclock(void* attr, void* clock_id) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(attr, clock_id);
+        return km_fn_ptr(attr, clockId);
     }
     errno = ENOSYS;
     return ENOSYS;
 }
 
-int32_t libc_unix_cygwin_pthreadCondattrGetpshared(void* attr, void* pshared) {
+int32_t libcUnixCygwinPthreadCondattrGetpshared(void* attr, void* pshared) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4105,7 +4105,7 @@ int32_t libc_unix_cygwin_pthreadCondattrGetpshared(void* attr, void* pshared) {
     return ENOSYS;
 }
 
-int32_t libc_unix_cygwin_pthreadCondattrSetclock(void* attr, uint64_t clock_id) {
+int32_t libcUnixCygwinPthreadCondattrSetclock(void* attr, uint64_t clockId) {
     typedef int32_t (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4127,13 +4127,13 @@ int32_t libc_unix_cygwin_pthreadCondattrSetclock(void* attr, uint64_t clock_id) 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(attr, clock_id);
+        return km_fn_ptr(attr, clockId);
     }
     errno = ENOSYS;
     return ENOSYS;
 }
 
-int32_t libc_unix_cygwin_pthreadCondattrSetpshared(void* attr, int32_t pshared) {
+int32_t libcUnixCygwinPthreadCondattrSetpshared(void* attr, int32_t pshared) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4161,7 +4161,7 @@ int32_t libc_unix_cygwin_pthreadCondattrSetpshared(void* attr, int32_t pshared) 
     return ENOSYS;
 }
 
-int32_t libc_unix_cygwin_pthreadBarrierattrInit(void* attr) {
+int32_t libcUnixCygwinPthreadBarrierattrInit(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4189,7 +4189,7 @@ int32_t libc_unix_cygwin_pthreadBarrierattrInit(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_unix_cygwin_pthreadBarrierattrSetpshared(void* attr, int32_t shared) {
+int32_t libcUnixCygwinPthreadBarrierattrSetpshared(void* attr, int32_t shared) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4217,7 +4217,7 @@ int32_t libc_unix_cygwin_pthreadBarrierattrSetpshared(void* attr, int32_t shared
     return ENOSYS;
 }
 
-int32_t libc_unix_cygwin_pthreadBarrierattrGetpshared(void* attr, void* shared) {
+int32_t libcUnixCygwinPthreadBarrierattrGetpshared(void* attr, void* shared) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4245,7 +4245,7 @@ int32_t libc_unix_cygwin_pthreadBarrierattrGetpshared(void* attr, void* shared) 
     return ENOSYS;
 }
 
-int32_t libc_unix_cygwin_pthreadBarrierattrDestroy(void* attr) {
+int32_t libcUnixCygwinPthreadBarrierattrDestroy(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4273,7 +4273,7 @@ int32_t libc_unix_cygwin_pthreadBarrierattrDestroy(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_unix_cygwin_pthreadBarrierInit(void* barrier, void* attr, uint32_t count) {
+int32_t libcUnixCygwinPthreadBarrierInit(void* barrier, void* attr, uint32_t count) {
     typedef int32_t (*km_fn_t)(void*, void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4301,7 +4301,7 @@ int32_t libc_unix_cygwin_pthreadBarrierInit(void* barrier, void* attr, uint32_t 
     return ENOSYS;
 }
 
-int32_t libc_unix_cygwin_pthreadBarrierDestroy(void* barrier) {
+int32_t libcUnixCygwinPthreadBarrierDestroy(void* barrier) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4329,7 +4329,7 @@ int32_t libc_unix_cygwin_pthreadBarrierDestroy(void* barrier) {
     return ENOSYS;
 }
 
-int32_t libc_unix_cygwin_pthreadBarrierWait(void* barrier) {
+int32_t libcUnixCygwinPthreadBarrierWait(void* barrier) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4357,7 +4357,7 @@ int32_t libc_unix_cygwin_pthreadBarrierWait(void* barrier) {
     return ENOSYS;
 }
 
-int32_t libc_unix_cygwin_pthreadCreate(void* native, void* attr, void* f, void* value) {
+int32_t libcUnixCygwinPthreadCreate(void* native, void* attr, void* f, void* value) {
     typedef int32_t (*km_fn_t)(void*, void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4385,7 +4385,7 @@ int32_t libc_unix_cygwin_pthreadCreate(void* native, void* attr, void* f, void* 
     return ENOSYS;
 }
 
-int32_t libc_unix_cygwin_pthreadGetcpuclockid(void* thread, void* clk_id) {
+int32_t libcUnixCygwinPthreadGetcpuclockid(void* thread, void* clkId) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4407,13 +4407,13 @@ int32_t libc_unix_cygwin_pthreadGetcpuclockid(void* thread, void* clk_id) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(thread, clk_id);
+        return km_fn_ptr(thread, clkId);
     }
     errno = ENOSYS;
     return ENOSYS;
 }
 
-int32_t libc_unix_cygwin_pthreadGetschedparam(void* native, void* policy, void* param) {
+int32_t libcUnixCygwinPthreadGetschedparam(void* native, void* policy, void* param) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4441,7 +4441,7 @@ int32_t libc_unix_cygwin_pthreadGetschedparam(void* native, void* policy, void* 
     return ENOSYS;
 }
 
-int32_t libc_unix_cygwin_pthreadMutexTimedlock(void* lock, void* abstime) {
+int32_t libcUnixCygwinPthreadMutexTimedlock(void* lock, void* abstime) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4469,7 +4469,7 @@ int32_t libc_unix_cygwin_pthreadMutexTimedlock(void* lock, void* abstime) {
     return ENOSYS;
 }
 
-int32_t libc_unix_cygwin_pthreadMutexattrGetprotocol(void* attr, void* protocol) {
+int32_t libcUnixCygwinPthreadMutexattrGetprotocol(void* attr, void* protocol) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4497,7 +4497,7 @@ int32_t libc_unix_cygwin_pthreadMutexattrGetprotocol(void* attr, void* protocol)
     return ENOSYS;
 }
 
-int32_t libc_unix_cygwin_pthreadMutexattrGetpshared(void* attr, void* pshared) {
+int32_t libcUnixCygwinPthreadMutexattrGetpshared(void* attr, void* pshared) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4525,7 +4525,7 @@ int32_t libc_unix_cygwin_pthreadMutexattrGetpshared(void* attr, void* pshared) {
     return ENOSYS;
 }
 
-int32_t libc_unix_cygwin_pthreadMutexattrSetprotocol(void* attr, int32_t protocol) {
+int32_t libcUnixCygwinPthreadMutexattrSetprotocol(void* attr, int32_t protocol) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4553,7 +4553,7 @@ int32_t libc_unix_cygwin_pthreadMutexattrSetprotocol(void* attr, int32_t protoco
     return ENOSYS;
 }
 
-int32_t libc_unix_cygwin_pthreadMutexattrSetpshared(void* attr, int32_t pshared) {
+int32_t libcUnixCygwinPthreadMutexattrSetpshared(void* attr, int32_t pshared) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4581,7 +4581,7 @@ int32_t libc_unix_cygwin_pthreadMutexattrSetpshared(void* attr, int32_t pshared)
     return ENOSYS;
 }
 
-int32_t libc_unix_cygwin_pthreadSpinDestroy(void* lock) {
+int32_t libcUnixCygwinPthreadSpinDestroy(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4609,7 +4609,7 @@ int32_t libc_unix_cygwin_pthreadSpinDestroy(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_unix_cygwin_pthreadSpinInit(void* lock, int32_t pshared) {
+int32_t libcUnixCygwinPthreadSpinInit(void* lock, int32_t pshared) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4637,7 +4637,7 @@ int32_t libc_unix_cygwin_pthreadSpinInit(void* lock, int32_t pshared) {
     return ENOSYS;
 }
 
-int32_t libc_unix_cygwin_pthreadSpinLock(void* lock) {
+int32_t libcUnixCygwinPthreadSpinLock(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4665,7 +4665,7 @@ int32_t libc_unix_cygwin_pthreadSpinLock(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_unix_cygwin_pthreadSpinTrylock(void* lock) {
+int32_t libcUnixCygwinPthreadSpinTrylock(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4693,7 +4693,7 @@ int32_t libc_unix_cygwin_pthreadSpinTrylock(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_unix_cygwin_pthreadSpinUnlock(void* lock) {
+int32_t libcUnixCygwinPthreadSpinUnlock(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4721,7 +4721,7 @@ int32_t libc_unix_cygwin_pthreadSpinUnlock(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_unix_cygwin_pthreadRwlockattrGetpshared(void* attr, void* val) {
+int32_t libcUnixCygwinPthreadRwlockattrGetpshared(void* attr, void* val) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4749,7 +4749,7 @@ int32_t libc_unix_cygwin_pthreadRwlockattrGetpshared(void* attr, void* val) {
     return ENOSYS;
 }
 
-int32_t libc_unix_cygwin_pthreadRwlockattrSetpshared(void* attr, int32_t val) {
+int32_t libcUnixCygwinPthreadRwlockattrSetpshared(void* attr, int32_t val) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4777,7 +4777,7 @@ int32_t libc_unix_cygwin_pthreadRwlockattrSetpshared(void* attr, int32_t val) {
     return ENOSYS;
 }
 
-int32_t libc_unix_cygwin_pthreadSetschedparam(void* native, int32_t policy, void* param) {
+int32_t libcUnixCygwinPthreadSetschedparam(void* native, int32_t policy, void* param) {
     typedef int32_t (*km_fn_t)(void*, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4805,7 +4805,7 @@ int32_t libc_unix_cygwin_pthreadSetschedparam(void* native, int32_t policy, void
     return ENOSYS;
 }
 
-int32_t libc_unix_cygwin_pthreadSetschedprio(void* native, int32_t priority) {
+int32_t libcUnixCygwinPthreadSetschedprio(void* native, int32_t priority) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4833,7 +4833,7 @@ int32_t libc_unix_cygwin_pthreadSetschedprio(void* native, int32_t priority) {
     return ENOSYS;
 }
 
-int32_t libc_unix_cygwin_pthreadGetaffinityNp(void* thread, uint64_t cpusetsize, void* cpuset) {
+int32_t libcUnixCygwinPthreadGetaffinityNp(void* thread, uint64_t cpusetsize, void* cpuset) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4861,7 +4861,7 @@ int32_t libc_unix_cygwin_pthreadGetaffinityNp(void* thread, uint64_t cpusetsize,
     return ENOSYS;
 }
 
-int32_t libc_unix_cygwin_pthreadGetattrNp(void* native, void* attr) {
+int32_t libcUnixCygwinPthreadGetattrNp(void* native, void* attr) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4889,7 +4889,7 @@ int32_t libc_unix_cygwin_pthreadGetattrNp(void* native, void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_unix_cygwin_pthreadGetnameNp(void* thread, char* name, uint64_t len) {
+int32_t libcUnixCygwinPthreadGetnameNp(void* thread, char* name, uint64_t len) {
     typedef int32_t (*km_fn_t)(void*, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4917,7 +4917,7 @@ int32_t libc_unix_cygwin_pthreadGetnameNp(void* thread, char* name, uint64_t len
     return ENOSYS;
 }
 
-int32_t libc_unix_cygwin_pthreadSetaffinityNp(void* thread, uint64_t cpusetsize, void* cpuset) {
+int32_t libcUnixCygwinPthreadSetaffinityNp(void* thread, uint64_t cpusetsize, void* cpuset) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4945,7 +4945,7 @@ int32_t libc_unix_cygwin_pthreadSetaffinityNp(void* thread, uint64_t cpusetsize,
     return ENOSYS;
 }
 
-int32_t libc_unix_cygwin_pthreadSetnameNp(void* thread, const char* name) {
+int32_t libcUnixCygwinPthreadSetnameNp(void* thread, const char* name) {
     typedef int32_t (*km_fn_t)(void*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4973,7 +4973,7 @@ int32_t libc_unix_cygwin_pthreadSetnameNp(void* thread, const char* name) {
     return ENOSYS;
 }
 
-int32_t libc_unix_cygwin_ioctl(int32_t fd, int32_t request, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcUnixCygwinIoctl(int32_t fd, int32_t request, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5007,7 +5007,7 @@ int32_t libc_unix_cygwin_ioctl(int32_t fd, int32_t request, int32_t km_vac, int6
     return -1;
 }
 
-int64_t libc_unix_cygwin_getrandom(void* buf, uint64_t buflen, uint32_t flags) {
+int64_t libcUnixCygwinGetrandom(void* buf, uint64_t buflen, uint32_t flags) {
     typedef int64_t (*km_fn_t)(void*, uint64_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5035,7 +5035,7 @@ int64_t libc_unix_cygwin_getrandom(void* buf, uint64_t buflen, uint32_t flags) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_mount(const char* src, const char* target, uint32_t flags) {
+int32_t libcUnixCygwinMount(const char* src, const char* target, uint32_t flags) {
     typedef int32_t (*km_fn_t)(const char*, const char*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5063,7 +5063,7 @@ int32_t libc_unix_cygwin_mount(const char* src, const char* target, uint32_t fla
     return -1;
 }
 
-int32_t libc_unix_cygwin_umount(const char* target) {
+int32_t libcUnixCygwinUmount(const char* target) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5091,7 +5091,7 @@ int32_t libc_unix_cygwin_umount(const char* target) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_cygwinUmount(const char* target, uint32_t flags) {
+int32_t libcUnixCygwinCygwinUmount(const char* target, uint32_t flags) {
     typedef int32_t (*km_fn_t)(const char*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5119,7 +5119,7 @@ int32_t libc_unix_cygwin_cygwinUmount(const char* target, uint32_t flags) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_dirfd(void* dirp) {
+int32_t libcUnixCygwinDirfd(void* dirp) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5147,7 +5147,7 @@ int32_t libc_unix_cygwin_dirfd(void* dirp) {
     return -1;
 }
 
-void libc_unix_cygwin_seekdir(void* dirp, int64_t loc) {
+void libcUnixCygwinSeekdir(void* dirp, int64_t loc) {
     typedef void (*km_fn_t)(void*, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5175,7 +5175,7 @@ void libc_unix_cygwin_seekdir(void* dirp, int64_t loc) {
     errno = ENOSYS;
 }
 
-int64_t libc_unix_cygwin_telldir(void* dirp) {
+int64_t libcUnixCygwinTelldir(void* dirp) {
     typedef int64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5203,7 +5203,7 @@ int64_t libc_unix_cygwin_telldir(void* dirp) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_uname(void* buf) {
+int32_t libcUnixCygwinUname(void* buf) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5231,7 +5231,7 @@ int32_t libc_unix_cygwin_uname(void* buf) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_posixSpawn(void* pid, const char* path, void* file_actions, void* attrp, void* argv, void* envp) {
+int32_t libcUnixCygwinPosixSpawn(void* pid, const char* path, void* fileActions, void* attrp, void* argv, void* envp) {
     typedef int32_t (*km_fn_t)(void*, const char*, void*, void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5253,13 +5253,13 @@ int32_t libc_unix_cygwin_posixSpawn(void* pid, const char* path, void* file_acti
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(pid, path, file_actions, attrp, argv, envp);
+        return km_fn_ptr(pid, path, fileActions, attrp, argv, envp);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_cygwin_posixSpawnp(void* pid, const char* file, void* file_actions, void* attrp, void* argv, void* envp) {
+int32_t libcUnixCygwinPosixSpawnp(void* pid, const char* file, void* fileActions, void* attrp, void* argv, void* envp) {
     typedef int32_t (*km_fn_t)(void*, const char*, void*, void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5281,13 +5281,13 @@ int32_t libc_unix_cygwin_posixSpawnp(void* pid, const char* file, void* file_act
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(pid, file, file_actions, attrp, argv, envp);
+        return km_fn_ptr(pid, file, fileActions, attrp, argv, envp);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_cygwin_posixSpawnattrInit(void* attr) {
+int32_t libcUnixCygwinPosixSpawnattrInit(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5315,7 +5315,7 @@ int32_t libc_unix_cygwin_posixSpawnattrInit(void* attr) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_posixSpawnattrDestroy(void* attr) {
+int32_t libcUnixCygwinPosixSpawnattrDestroy(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5343,7 +5343,7 @@ int32_t libc_unix_cygwin_posixSpawnattrDestroy(void* attr) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_posixSpawnattrGetsigdefault(void* attr, void* arg_1_default) {
+int32_t libcUnixCygwinPosixSpawnattrGetsigdefault(void* attr, void* arg1Default) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5365,13 +5365,13 @@ int32_t libc_unix_cygwin_posixSpawnattrGetsigdefault(void* attr, void* arg_1_def
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(attr, arg_1_default);
+        return km_fn_ptr(attr, arg1Default);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_cygwin_posixSpawnattrSetsigdefault(void* attr, void* arg_1_default) {
+int32_t libcUnixCygwinPosixSpawnattrSetsigdefault(void* attr, void* arg1Default) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5393,13 +5393,13 @@ int32_t libc_unix_cygwin_posixSpawnattrSetsigdefault(void* attr, void* arg_1_def
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(attr, arg_1_default);
+        return km_fn_ptr(attr, arg1Default);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_cygwin_posixSpawnattrGetsigmask(void* attr, void* arg_1_default) {
+int32_t libcUnixCygwinPosixSpawnattrGetsigmask(void* attr, void* arg1Default) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5421,13 +5421,13 @@ int32_t libc_unix_cygwin_posixSpawnattrGetsigmask(void* attr, void* arg_1_defaul
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(attr, arg_1_default);
+        return km_fn_ptr(attr, arg1Default);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_cygwin_posixSpawnattrSetsigmask(void* attr, void* arg_1_default) {
+int32_t libcUnixCygwinPosixSpawnattrSetsigmask(void* attr, void* arg1Default) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5449,13 +5449,13 @@ int32_t libc_unix_cygwin_posixSpawnattrSetsigmask(void* attr, void* arg_1_defaul
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(attr, arg_1_default);
+        return km_fn_ptr(attr, arg1Default);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_cygwin_posixSpawnattrGetflags(void* attr, void* flags) {
+int32_t libcUnixCygwinPosixSpawnattrGetflags(void* attr, void* flags) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5483,7 +5483,7 @@ int32_t libc_unix_cygwin_posixSpawnattrGetflags(void* attr, void* flags) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_posixSpawnattrSetflags(void* attr, int16_t flags) {
+int32_t libcUnixCygwinPosixSpawnattrSetflags(void* attr, int16_t flags) {
     typedef int32_t (*km_fn_t)(void*, int16_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5511,7 +5511,7 @@ int32_t libc_unix_cygwin_posixSpawnattrSetflags(void* attr, int16_t flags) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_posixSpawnattrGetpgroup(void* attr, void* flags) {
+int32_t libcUnixCygwinPosixSpawnattrGetpgroup(void* attr, void* flags) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5539,7 +5539,7 @@ int32_t libc_unix_cygwin_posixSpawnattrGetpgroup(void* attr, void* flags) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_posixSpawnattrSetpgroup(void* attr, int32_t flags) {
+int32_t libcUnixCygwinPosixSpawnattrSetpgroup(void* attr, int32_t flags) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5567,7 +5567,7 @@ int32_t libc_unix_cygwin_posixSpawnattrSetpgroup(void* attr, int32_t flags) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_posixSpawnattrGetschedpolicy(void* attr, void* flags) {
+int32_t libcUnixCygwinPosixSpawnattrGetschedpolicy(void* attr, void* flags) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5595,7 +5595,7 @@ int32_t libc_unix_cygwin_posixSpawnattrGetschedpolicy(void* attr, void* flags) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_posixSpawnattrSetschedpolicy(void* attr, int32_t flags) {
+int32_t libcUnixCygwinPosixSpawnattrSetschedpolicy(void* attr, int32_t flags) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5623,7 +5623,7 @@ int32_t libc_unix_cygwin_posixSpawnattrSetschedpolicy(void* attr, int32_t flags)
     return -1;
 }
 
-int32_t libc_unix_cygwin_posixSpawnattrGetschedparam(void* attr, void* param) {
+int32_t libcUnixCygwinPosixSpawnattrGetschedparam(void* attr, void* param) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5651,7 +5651,7 @@ int32_t libc_unix_cygwin_posixSpawnattrGetschedparam(void* attr, void* param) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_posixSpawnattrSetschedparam(void* attr, void* param) {
+int32_t libcUnixCygwinPosixSpawnattrSetschedparam(void* attr, void* param) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5679,7 +5679,7 @@ int32_t libc_unix_cygwin_posixSpawnattrSetschedparam(void* attr, void* param) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_posixSpawnFileActionsInit(void* actions) {
+int32_t libcUnixCygwinPosixSpawnFileActionsInit(void* actions) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5707,7 +5707,7 @@ int32_t libc_unix_cygwin_posixSpawnFileActionsInit(void* actions) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_posixSpawnFileActionsDestroy(void* actions) {
+int32_t libcUnixCygwinPosixSpawnFileActionsDestroy(void* actions) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5735,7 +5735,7 @@ int32_t libc_unix_cygwin_posixSpawnFileActionsDestroy(void* actions) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_posixSpawnFileActionsAddopen(void* actions, int32_t fd, const char* path, int32_t oflag, uint32_t mode) {
+int32_t libcUnixCygwinPosixSpawnFileActionsAddopen(void* actions, int32_t fd, const char* path, int32_t oflag, uint32_t mode) {
     typedef int32_t (*km_fn_t)(void*, int32_t, const char*, int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5763,7 +5763,7 @@ int32_t libc_unix_cygwin_posixSpawnFileActionsAddopen(void* actions, int32_t fd,
     return -1;
 }
 
-int32_t libc_unix_cygwin_posixSpawnFileActionsAddclose(void* actions, int32_t fd) {
+int32_t libcUnixCygwinPosixSpawnFileActionsAddclose(void* actions, int32_t fd) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5791,7 +5791,7 @@ int32_t libc_unix_cygwin_posixSpawnFileActionsAddclose(void* actions, int32_t fd
     return -1;
 }
 
-int32_t libc_unix_cygwin_posixSpawnFileActionsAdddup2(void* actions, int32_t fd, int32_t newfd) {
+int32_t libcUnixCygwinPosixSpawnFileActionsAdddup2(void* actions, int32_t fd, int32_t newfd) {
     typedef int32_t (*km_fn_t)(void*, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5819,7 +5819,7 @@ int32_t libc_unix_cygwin_posixSpawnFileActionsAdddup2(void* actions, int32_t fd,
     return -1;
 }
 
-int32_t libc_unix_cygwin_posixSpawnFileActionsAddchdir(void* actions, const char* path) {
+int32_t libcUnixCygwinPosixSpawnFileActionsAddchdir(void* actions, const char* path) {
     typedef int32_t (*km_fn_t)(void*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5847,7 +5847,7 @@ int32_t libc_unix_cygwin_posixSpawnFileActionsAddchdir(void* actions, const char
     return -1;
 }
 
-int32_t libc_unix_cygwin_posixSpawnFileActionsAddfchdir(void* actions, int32_t fd) {
+int32_t libcUnixCygwinPosixSpawnFileActionsAddfchdir(void* actions, int32_t fd) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5875,7 +5875,7 @@ int32_t libc_unix_cygwin_posixSpawnFileActionsAddfchdir(void* actions, int32_t f
     return -1;
 }
 
-int32_t libc_unix_cygwin_posixSpawnFileActionsAddchdirNp(void* actions, const char* path) {
+int32_t libcUnixCygwinPosixSpawnFileActionsAddchdirNp(void* actions, const char* path) {
     typedef int32_t (*km_fn_t)(void*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5903,7 +5903,7 @@ int32_t libc_unix_cygwin_posixSpawnFileActionsAddchdirNp(void* actions, const ch
     return -1;
 }
 
-int32_t libc_unix_cygwin_posixSpawnFileActionsAddfchdirNp(void* actions, int32_t fd) {
+int32_t libcUnixCygwinPosixSpawnFileActionsAddfchdirNp(void* actions, int32_t fd) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5931,7 +5931,7 @@ int32_t libc_unix_cygwin_posixSpawnFileActionsAddfchdirNp(void* actions, int32_t
     return -1;
 }
 
-int32_t libc_unix_cygwin_forkpty(void* amaster, char* name, void* termp, void* winp) {
+int32_t libcUnixCygwinForkpty(void* amaster, char* name, void* termp, void* winp) {
     typedef int32_t (*km_fn_t)(void*, char*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5959,7 +5959,7 @@ int32_t libc_unix_cygwin_forkpty(void* amaster, char* name, void* termp, void* w
     return -1;
 }
 
-int32_t libc_unix_cygwin_openpty(void* amaster, void* aslave, char* name, void* termp, void* winp) {
+int32_t libcUnixCygwinOpenpty(void* amaster, void* aslave, char* name, void* termp, void* winp) {
     typedef int32_t (*km_fn_t)(void*, void*, char*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5987,7 +5987,7 @@ int32_t libc_unix_cygwin_openpty(void* amaster, void* aslave, char* name, void* 
     return -1;
 }
 
-void* libc_unix_cygwin_getgrgid(uint16_t gid) {
+void* libcUnixCygwinGetgrgid(uint16_t gid) {
     typedef void* (*km_fn_t)(uint16_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6015,7 +6015,7 @@ void* libc_unix_cygwin_getgrgid(uint16_t gid) {
     return NULL;
 }
 
-int32_t libc_unix_cygwin_getgrgidR(uint16_t gid, void* grp, char* buf, uint64_t buflen, void* result) {
+int32_t libcUnixCygwinGetgrgidR(uint16_t gid, void* grp, char* buf, uint64_t buflen, void* result) {
     typedef int32_t (*km_fn_t)(uint16_t, void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6043,7 +6043,7 @@ int32_t libc_unix_cygwin_getgrgidR(uint16_t gid, void* grp, char* buf, uint64_t 
     return -1;
 }
 
-int32_t libc_unix_cygwin_getgrouplist(const char* user, uint16_t group, void* groups, void* ngroups) {
+int32_t libcUnixCygwinGetgrouplist(const char* user, uint16_t group, void* groups, void* ngroups) {
     typedef int32_t (*km_fn_t)(const char*, uint16_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6071,7 +6071,7 @@ int32_t libc_unix_cygwin_getgrouplist(const char* user, uint16_t group, void* gr
     return -1;
 }
 
-void* libc_unix_cygwin_getgrnam(const char* name) {
+void* libcUnixCygwinGetgrnam(const char* name) {
     typedef void* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6099,7 +6099,7 @@ void* libc_unix_cygwin_getgrnam(const char* name) {
     return NULL;
 }
 
-int32_t libc_unix_cygwin_getgrnamR(const char* name, void* grp, char* buf, uint64_t buflen, void* result) {
+int32_t libcUnixCygwinGetgrnamR(const char* name, void* grp, char* buf, uint64_t buflen, void* result) {
     typedef int32_t (*km_fn_t)(const char*, void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6127,7 +6127,7 @@ int32_t libc_unix_cygwin_getgrnamR(const char* name, void* grp, char* buf, uint6
     return -1;
 }
 
-int32_t libc_unix_cygwin_initgroups(const char* user, uint16_t group) {
+int32_t libcUnixCygwinInitgroups(const char* user, uint16_t group) {
     typedef int32_t (*km_fn_t)(const char*, uint16_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6155,7 +6155,7 @@ int32_t libc_unix_cygwin_initgroups(const char* user, uint16_t group) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_statfs(const char* path, void* buf) {
+int32_t libcUnixCygwinStatfs(const char* path, void* buf) {
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6183,7 +6183,7 @@ int32_t libc_unix_cygwin_statfs(const char* path, void* buf) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_fstatfs(int32_t fd, void* buf) {
+int32_t libcUnixCygwinFstatfs(int32_t fd, void* buf) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6211,7 +6211,7 @@ int32_t libc_unix_cygwin_fstatfs(int32_t fd, void* buf) {
     return -1;
 }
 
-int32_t libc_unix_cygwin_posixFadvise(int32_t fd, int64_t offset, int64_t len, int32_t advise) {
+int32_t libcUnixCygwinPosixFadvise(int32_t fd, int64_t offset, int64_t len, int32_t advise) {
     typedef int32_t (*km_fn_t)(int32_t, int64_t, int64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6239,7 +6239,7 @@ int32_t libc_unix_cygwin_posixFadvise(int32_t fd, int64_t offset, int64_t len, i
     return -1;
 }
 
-int32_t libc_unix_cygwin_posixFallocate(int32_t fd, int64_t offset, int64_t len) {
+int32_t libcUnixCygwinPosixFallocate(int32_t fd, int64_t offset, int64_t len) {
     typedef int32_t (*km_fn_t)(int32_t, int64_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6267,7 +6267,7 @@ int32_t libc_unix_cygwin_posixFallocate(int32_t fd, int64_t offset, int64_t len)
     return -1;
 }
 
-int32_t libc_unix_cygwin_fallocate(int32_t fd, int32_t mode, int64_t offset, int64_t len) {
+int32_t libcUnixCygwinFallocate(int32_t fd, int32_t mode, int64_t offset, int64_t len) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int64_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6295,7 +6295,7 @@ int32_t libc_unix_cygwin_fallocate(int32_t fd, int32_t mode, int64_t offset, int
     return -1;
 }
 
-void libc_unix_cygwin_endutxent(void) {
+void libcUnixCygwinEndutxent(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6323,7 +6323,7 @@ void libc_unix_cygwin_endutxent(void) {
     errno = ENOSYS;
 }
 
-void* libc_unix_cygwin_getutxent(void) {
+void* libcUnixCygwinGetutxent(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6351,7 +6351,7 @@ void* libc_unix_cygwin_getutxent(void) {
     return NULL;
 }
 
-void* libc_unix_cygwin_getutxid(void* id) {
+void* libcUnixCygwinGetutxid(void* id) {
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6379,7 +6379,7 @@ void* libc_unix_cygwin_getutxid(void* id) {
     return NULL;
 }
 
-void* libc_unix_cygwin_getutxline(void* line) {
+void* libcUnixCygwinGetutxline(void* line) {
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6407,7 +6407,7 @@ void* libc_unix_cygwin_getutxline(void* line) {
     return NULL;
 }
 
-void* libc_unix_cygwin_pututxline(void* utmpx) {
+void* libcUnixCygwinPututxline(void* utmpx) {
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6435,7 +6435,7 @@ void* libc_unix_cygwin_pututxline(void* utmpx) {
     return NULL;
 }
 
-void libc_unix_cygwin_setutxent(void) {
+void libcUnixCygwinSetutxent(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6463,7 +6463,7 @@ void libc_unix_cygwin_setutxent(void) {
     errno = ENOSYS;
 }
 
-int32_t libc_unix_cygwin_utmpxname(const char* file) {
+int32_t libcUnixCygwinUtmpxname(const char* file) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6491,7 +6491,7 @@ int32_t libc_unix_cygwin_utmpxname(const char* file) {
     return -1;
 }
 
-void libc_unix_cygwin_updwtmpx(const char* file, void* utmpx) {
+void libcUnixCygwinUpdwtmpx(const char* file, void* utmpx) {
     typedef void (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

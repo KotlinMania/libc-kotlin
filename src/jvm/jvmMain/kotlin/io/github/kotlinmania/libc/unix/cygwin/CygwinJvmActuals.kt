@@ -3,1472 +3,1535 @@
 package io.github.kotlinmania.libc.unix.cygwin
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CDouble
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CLonglong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
+import io.github.kotlinmania.libc.CUshort
 import io.github.kotlinmania.libc.unix.DIR
 import io.github.kotlinmania.libc.unix.GidT
+import io.github.kotlinmania.libc.unix.Group
 import io.github.kotlinmania.libc.unix.IntptrT
+import io.github.kotlinmania.libc.unix.Iovec
+import io.github.kotlinmania.libc.unix.Itimerval
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.PidT
+import io.github.kotlinmania.libc.unix.Pollfd
+import io.github.kotlinmania.libc.unix.Rlimit
 import io.github.kotlinmania.libc.unix.Sigval
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.Timeval
 import io.github.kotlinmania.libc.unix.UidT
+import io.github.kotlinmania.libc.unix.Winsize
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 private object UnixCygwinJniBridge {
     init {
+        loadNativeLibrary()
+    }
+
+    private fun loadNativeLibrary() {
+        val osRaw = System.getProperty("os.name", "").lowercase()
+        val archRaw = System.getProperty("os.arch", "").lowercase()
+        val hostPlatform =
+            when {
+                osRaw.contains("win") -> "windows"
+                osRaw.contains("mac") || osRaw.contains("darwin") -> "macos"
+                else -> "linux"
+            }
+        val hostArch =
+            when {
+                archRaw == "aarch64" || archRaw == "arm64" -> "aarch64"
+                archRaw == "amd64" || archRaw == "x86_64" -> "x86_64"
+                else -> archRaw
+            }
+        val libFileName =
+            when (hostPlatform) {
+                "windows" -> "libc_jni.dll"
+                "macos" -> "liblibc_jni.dylib"
+                else -> "liblibc_jni.so"
+            }
+        val pathSep = System.getProperty("path.separator", ":")
+        val libPathProp = System.getProperty("java.library.path", "")
+        for (dirEntry in libPathProp.split(pathSep)) {
+            if (dirEntry.isEmpty()) continue
+            val candidate = java.io.File(dirEntry, libFileName)
+            if (candidate.isFile) {
+                System.load(candidate.absolutePath)
+                return
+            }
+        }
+        val resourcePath = "io/github/kotlinmania/libc/native/$hostPlatform-$hostArch/$libFileName"
+        val stream = UnixCygwinJniBridge::class.java.classLoader?.getResourceAsStream(resourcePath)
+        if (stream != null) {
+            val suffix = "." + libFileName.substringAfterLast('.')
+            val extracted =
+                java.nio.file.Files
+                    .createTempFile("libc_jni-", suffix)
+                    .toFile()
+            extracted.deleteOnExit()
+            stream.use { input ->
+                extracted.outputStream().use { output ->
+                    input.copyTo(output)
+                }
+            }
+            System.load(extracted.absolutePath)
+            return
+        }
         System.loadLibrary("libc_jni")
     }
 
     @JvmStatic
-    external fun libc_unix_cygwin_sigwait(set: Long, sig: Long): Int
+    external fun libcUnixCygwinSigwait(set: Long, sig: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_sigwaitinfo(set: Long, info: Long): Int
+    external fun libcUnixCygwinSigwaitinfo(set: Long, info: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_pthreadSigmask(how: Int, set: Long, oldset: Long): Int
+    external fun libcUnixCygwinPthreadSigmask(how: Int, set: Long, oldset: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_sigsuspend(mask: Long): Int
+    external fun libcUnixCygwinSigsuspend(mask: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_sigaltstack(ss: Long, oss: Long): Int
+    external fun libcUnixCygwinSigaltstack(ss: Long, oss: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_pthreadKill(thread: Long, sig: Int): Int
+    external fun libcUnixCygwinPthreadKill(thread: Long, sig: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_sigtimedwait(set: Long, info: Long, timeout: Long): Int
+    external fun libcUnixCygwinSigtimedwait(set: Long, info: Long, timeout: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_strftime(s: Long, max: Long, format: String?, tm: Long): Long
+    external fun libcUnixCygwinStrftime(s: Long, max: Long, format: Long, tm: Long): Long
 
     @JvmStatic
-    external fun libc_unix_cygwin_asctimeR(tm: Long, buf: Long): Long
+    external fun libcUnixCygwinAsctimeR(tm: Long, buf: Long): Long
 
     @JvmStatic
-    external fun libc_unix_cygwin_ctimeR(timep: Long, buf: Long): Long
+    external fun libcUnixCygwinCtimeR(timep: Long, buf: Long): Long
 
     @JvmStatic
-    external fun libc_unix_cygwin_strptime(s: String?, format: String?, tm: Long): Long
+    external fun libcUnixCygwinStrptime(s: Long, format: Long, tm: Long): Long
 
     @JvmStatic
-    external fun libc_unix_cygwin_clockSettime(clkId: Long, tp: Long): Int
+    external fun libcUnixCygwinClockSettime(clkId: Long, tp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_clockGettime(clkId: Long, tp: Long): Int
+    external fun libcUnixCygwinClockGettime(clkId: Long, tp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_clockGetres(clkId: Long, tp: Long): Int
+    external fun libcUnixCygwinClockGetres(clkId: Long, tp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_timerCreate(clockid: Long, sevp: Long, timerid: Long): Int
+    external fun libcUnixCygwinTimerCreate(clockid: Long, sevp: Long, timerid: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_timerDelete(timerid: Long): Int
+    external fun libcUnixCygwinTimerDelete(timerid: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_timerSettime(timerid: Long, flags: Int, newValue: Long, oldValue: Long): Int
+    external fun libcUnixCygwinTimerSettime(timerid: Long, flags: Int, newValue: Long, oldValue: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_timerGettime(timerid: Long, currValue: Long): Int
+    external fun libcUnixCygwinTimerGettime(timerid: Long, currValue: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_timerGetoverrun(timerid: Long): Int
+    external fun libcUnixCygwinTimerGetoverrun(timerid: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_clockNanosleep(clkId: Long, flags: Int, rqtp: Long, rmtp: Long): Int
+    external fun libcUnixCygwinClockNanosleep(clkId: Long, flags: Int, rqtp: Long, rmtp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_clockGetcpuclockid(pid: Int, clkId: Long): Int
+    external fun libcUnixCygwinClockGetcpuclockid(pid: Int, clkId: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_futimes(fd: Int, times: Long): Int
+    external fun libcUnixCygwinFutimes(fd: Int, times: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_lutimes(file: String?, times: Long): Int
+    external fun libcUnixCygwinLutimes(file: Long, times: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_settimeofday(tv: Long, tz: Long): Int
+    external fun libcUnixCygwinSettimeofday(tv: Long, tz: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_getitimer(which: Int, currValue: Long): Int
+    external fun libcUnixCygwinGetitimer(which: Int, currValue: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_setitimer(which: Int, newValue: Long, oldValue: Long): Int
+    external fun libcUnixCygwinSetitimer(which: Int, newValue: Long, oldValue: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_gettimeofday(tp: Long, tz: Long): Int
+    external fun libcUnixCygwinGettimeofday(tp: Long, tz: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_futimesat(fd: Int, path: String?, times: Long): Int
+    external fun libcUnixCygwinFutimesat(fd: Int, path: Long, times: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_getrlimit(resource: Int, rlim: Long): Int
+    external fun libcUnixCygwinGetrlimit(resource: Int, rlim: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_setrlimit(resource: Int, rlim: Long): Int
+    external fun libcUnixCygwinSetrlimit(resource: Int, rlim: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_getpriority(which: Int, who: Int): Int
+    external fun libcUnixCygwinGetpriority(which: Int, who: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_setpriority(which: Int, who: Int, prio: Int): Int
+    external fun libcUnixCygwinSetpriority(which: Int, who: Int, prio: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_getpwnamR(name: String?, pwd: Long, buf: Long, buflen: Long, result: Long): Int
+    external fun libcUnixCygwinGetpwnamR(name: Long, pwd: Long, buf: Long, buflen: Long, result: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_getpwuidR(uid: Short, pwd: Long, buf: Long, buflen: Long, result: Long): Int
+    external fun libcUnixCygwinGetpwuidR(uid: Short, pwd: Long, buf: Long, buflen: Long, result: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_getpwent(): Long
+    external fun libcUnixCygwinGetpwent(): Long
 
     @JvmStatic
-    external fun libc_unix_cygwin_setpwent()
+    external fun libcUnixCygwinSetpwent()
 
     @JvmStatic
-    external fun libc_unix_cygwin_endpwent()
+    external fun libcUnixCygwinEndpwent()
 
     @JvmStatic
-    external fun libc_unix_cygwin_ifNameindex(): Long
+    external fun libcUnixCygwinIfNameindex(): Long
 
     @JvmStatic
-    external fun libc_unix_cygwin_ifFreenameindex(ptr: Long)
+    external fun libcUnixCygwinIfFreenameindex(ptr: Long)
 
     @JvmStatic
-    external fun libc_unix_cygwin_readv(fd: Int, iov: Long, iovcnt: Int): Long
+    external fun libcUnixCygwinReadv(fd: Int, iov: Long, iovcnt: Int): Long
 
     @JvmStatic
-    external fun libc_unix_cygwin_writev(fd: Int, iov: Long, iovcnt: Int): Long
+    external fun libcUnixCygwinWritev(fd: Int, iov: Long, iovcnt: Int): Long
 
     @JvmStatic
-    external fun libc_unix_cygwin_mkfifoat(dirfd: Int, pathname: String?, mode: Int): Int
+    external fun libcUnixCygwinMkfifoat(dirfd: Int, pathname: Long, mode: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_mknodat(dirfd: Int, pathname: String?, mode: Int, dev: Int): Int
+    external fun libcUnixCygwinMknodat(dirfd: Int, pathname: Long, mode: Int, dev: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_utimensat(dirfd: Int, path: String?, times: Long, flag: Int): Int
+    external fun libcUnixCygwinUtimensat(dirfd: Int, path: Long, times: Long, flag: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_futimens(fd: Int, times: Long): Int
+    external fun libcUnixCygwinFutimens(fd: Int, times: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_dlfork(value: Int)
+    external fun libcUnixCygwinDlfork(value: Int)
 
     @JvmStatic
-    external fun libc_unix_cygwin_accept4(s: Int, addr: Long, addrlen: Long, flags: Int): Int
+    external fun libcUnixCygwinAccept4(s: Int, addr: Long, addrlen: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_bind(socket: Int, address: Long, addressLen: Int): Int
+    external fun libcUnixCygwinBind(socket: Int, address: Long, addressLen: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_recvfrom(socket: Int, buf: Long, len: Long, flags: Int, addr: Long, addrlen: Long): Long
+    external fun libcUnixCygwinRecvfrom(socket: Int, buf: Long, len: Long, flags: Int, addr: Long, addrlen: Long): Long
 
     @JvmStatic
-    external fun libc_unix_cygwin_recvmsg(fd: Int, msg: Long, flags: Int): Long
+    external fun libcUnixCygwinRecvmsg(fd: Int, msg: Long, flags: Int): Long
 
     @JvmStatic
-    external fun libc_unix_cygwin_sendmsg(fd: Int, msg: Long, flags: Int): Long
+    external fun libcUnixCygwinSendmsg(fd: Int, msg: Long, flags: Int): Long
 
     @JvmStatic
-    external fun libc_unix_cygwin_getnameinfo(sa: Long, salen: Int, host: Long, hostlen: Int, serv: Long, sevlen: Int, flags: Int): Int
+    external fun libcUnixCygwinGetnameinfo(sa: Long, salen: Int, host: Long, hostlen: Int, serv: Long, sevlen: Int, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_ppoll(fds: Long, nfds: Int, timeout: Long, sigmask: Long): Int
+    external fun libcUnixCygwinPpoll(fds: Long, nfds: Int, timeout: Long, sigmask: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_newlocale(mask: Int, locale: String?, base: Long): Long
+    external fun libcUnixCygwinNewlocale(mask: Int, locale: Long, base: Long): Long
 
     @JvmStatic
-    external fun libc_unix_cygwin_freelocale(loc: Long)
+    external fun libcUnixCygwinFreelocale(loc: Long)
 
     @JvmStatic
-    external fun libc_unix_cygwin_duplocale(base: Long): Long
+    external fun libcUnixCygwinDuplocale(base: Long): Long
 
     @JvmStatic
-    external fun libc_unix_cygwin_uselocale(loc: Long): Long
+    external fun libcUnixCygwinUselocale(loc: Long): Long
 
     @JvmStatic
-    external fun libc_unix_cygwin_semInit(sem: Long, pshared: Int, value: Int): Int
+    external fun libcUnixCygwinSemInit(sem: Long, pshared: Int, value: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_semDestroy(sem: Long): Int
+    external fun libcUnixCygwinSemDestroy(sem: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_semOpen(name: String?, oflag: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
+    external fun libcUnixCygwinSemOpen(name: Long, oflag: Int, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Long
 
     @JvmStatic
-    external fun libc_unix_cygwin_semClose(sem: Long): Int
+    external fun libcUnixCygwinSemClose(sem: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_semUnlink(name: String?): Int
+    external fun libcUnixCygwinSemUnlink(name: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_semTimedwait(sem: Long, abstime: Long): Int
+    external fun libcUnixCygwinSemTimedwait(sem: Long, abstime: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_semGetvalue(sem: Long, sval: Long): Int
+    external fun libcUnixCygwinSemGetvalue(sem: Long, sval: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_clearenv(): Int
+    external fun libcUnixCygwinClearenv(): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_ptsnameR(fd: Int, buf: Long, buflen: Long): Int
+    external fun libcUnixCygwinPtsnameR(fd: Int, buf: Long, buflen: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_getpt(): Int
+    external fun libcUnixCygwinGetpt(): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_memalign(align: Long, size: Long): Long
+    external fun libcUnixCygwinMemalign(align: Long, size: Long): Long
 
     @JvmStatic
-    external fun libc_unix_cygwin_getloadavg(loadavg: Long, nelem: Int): Int
+    external fun libcUnixCygwinGetloadavg(loadavg: Long, nelem: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_abs(i: Int): Int
+    external fun libcUnixCygwinAbs(i: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_arc4random(): Int
+    external fun libcUnixCygwinArc4random(): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_arc4randomUniform(l: Int): Int
+    external fun libcUnixCygwinArc4randomUniform(l: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_arc4randomBuf(buf: Long, size: Long)
+    external fun libcUnixCygwinArc4randomBuf(buf: Long, size: Long)
 
     @JvmStatic
-    external fun libc_unix_cygwin_labs(i: Long): Long
+    external fun libcUnixCygwinLabs(i: Long): Long
 
     @JvmStatic
-    external fun libc_unix_cygwin_mkostemp(template: Long, flags: Int): Int
+    external fun libcUnixCygwinMkostemp(template: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_mkostemps(template: Long, suffixlen: Int, flags: Int): Int
+    external fun libcUnixCygwinMkostemps(template: Long, suffixlen: Int, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_mkstemps(template: Long, suffixlen: Int): Int
+    external fun libcUnixCygwinMkstemps(template: Long, suffixlen: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_rand(): Int
+    external fun libcUnixCygwinRand(): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_reallocarray(ptr: Long, nmemb: Long, size: Long): Long
+    external fun libcUnixCygwinReallocarray(ptr: Long, nmemb: Long, size: Long): Long
 
     @JvmStatic
-    external fun libc_unix_cygwin_reallocf(ptr: Long, size: Long): Long
+    external fun libcUnixCygwinReallocf(ptr: Long, size: Long): Long
 
     @JvmStatic
-    external fun libc_unix_cygwin_srand(seed: Int)
+    external fun libcUnixCygwinSrand(seed: Int)
 
     @JvmStatic
-    external fun libc_unix_cygwin_drand48(): Double
+    external fun libcUnixCygwinDrand48(): Double
 
     @JvmStatic
-    external fun libc_unix_cygwin_erand48(xseed: Long): Double
+    external fun libcUnixCygwinErand48(xseed: Long): Double
 
     @JvmStatic
-    external fun libc_unix_cygwin_jrand48(xseed: Long): Long
+    external fun libcUnixCygwinJrand48(xseed: Long): Long
 
     @JvmStatic
-    external fun libc_unix_cygwin_lcong48(p: Long)
+    external fun libcUnixCygwinLcong48(p: Long)
 
     @JvmStatic
-    external fun libc_unix_cygwin_lrand48(): Long
+    external fun libcUnixCygwinLrand48(): Long
 
     @JvmStatic
-    external fun libc_unix_cygwin_mrand48(): Long
+    external fun libcUnixCygwinMrand48(): Long
 
     @JvmStatic
-    external fun libc_unix_cygwin_nrand48(xseed: Long): Long
+    external fun libcUnixCygwinNrand48(xseed: Long): Long
 
     @JvmStatic
-    external fun libc_unix_cygwin_seed48(xseed: Long): Long
+    external fun libcUnixCygwinSeed48(xseed: Long): Long
 
     @JvmStatic
-    external fun libc_unix_cygwin_srand48(seed: Long)
+    external fun libcUnixCygwinSrand48(seed: Long)
 
     @JvmStatic
-    external fun libc_unix_cygwin_qsortR(base: Long, num: Long, size: Long, compar: Long, arg: Long)
+    external fun libcUnixCygwinQsortR(base: Long, num: Long, size: Long, compar: Long, arg: Long)
 
     @JvmStatic
-    external fun libc_unix_cygwin_mprotect(addr: Long, len: Long, prot: Int): Int
+    external fun libcUnixCygwinMprotect(addr: Long, len: Long, prot: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_msync(addr: Long, len: Long, flags: Int): Int
+    external fun libcUnixCygwinMsync(addr: Long, len: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_posixMadvise(addr: Long, len: Long, advice: Int): Int
+    external fun libcUnixCygwinPosixMadvise(addr: Long, len: Long, advice: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_madvise(addr: Long, len: Long, advice: Int): Int
+    external fun libcUnixCygwinMadvise(addr: Long, len: Long, advice: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_shmOpen(name: String?, oflag: Int, mode: Int): Int
+    external fun libcUnixCygwinShmOpen(name: Long, oflag: Int, mode: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_shmUnlink(name: String?): Int
+    external fun libcUnixCygwinShmUnlink(name: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_explicitBzero(s: Long, len: Long)
+    external fun libcUnixCygwinExplicitBzero(s: Long, len: Long)
 
     @JvmStatic
-    external fun libc_unix_cygwin_ffs(value: Int): Int
+    external fun libcUnixCygwinFfs(value: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_ffsl(value: Long): Int
+    external fun libcUnixCygwinFfsl(value: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_ffsll(value: Long): Int
+    external fun libcUnixCygwinFfsll(value: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_fls(value: Int): Int
+    external fun libcUnixCygwinFls(value: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_flsl(value: Long): Int
+    external fun libcUnixCygwinFlsl(value: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_flsll(value: Long): Int
+    external fun libcUnixCygwinFlsll(value: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_strcasecmpL(s1: String?, s2: String?, loc: Long): Int
+    external fun libcUnixCygwinStrcasecmpL(s1: Long, s2: Long, loc: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_strncasecmpL(s1: String?, s2: String?, n: Long, loc: Long): Int
+    external fun libcUnixCygwinStrncasecmpL(s1: Long, s2: Long, n: Long, loc: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_timingsafeBcmp(a: Long, b: Long, len: Long): Int
+    external fun libcUnixCygwinTimingsafeBcmp(a: Long, b: Long, len: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_timingsafeMemcmp(a: Long, b: Long, len: Long): Int
+    external fun libcUnixCygwinTimingsafeMemcmp(a: Long, b: Long, len: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_memmem(haystack: Long, haystacklen: Long, needle: Long, needlelen: Long): Long
+    external fun libcUnixCygwinMemmem(haystack: Long, haystacklen: Long, needle: Long, needlelen: Long): Long
 
     @JvmStatic
-    external fun libc_unix_cygwin_memrchr(cx: Long, c: Int, n: Long): Long
+    external fun libcUnixCygwinMemrchr(cx: Long, c: Int, n: Long): Long
 
     @JvmStatic
-    external fun libc_unix_cygwin_strerrorR(errnum: Int, buf: Long, buflen: Long): Int
+    external fun libcUnixCygwinStrerrorR(errnum: Int, buf: Long, buflen: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_strsep(string: Long, delim: String?): Long
+    external fun libcUnixCygwinStrsep(string: Long, delim: Long): Long
 
     @JvmStatic
-    external fun libc_unix_cygwin_basename(path: String?): Long
+    external fun libcUnixCygwinBasename(path: Long): Long
 
     @JvmStatic
-    external fun libc_unix_cygwin_daemon(nochdir: Int, noclose: Int): Int
+    external fun libcUnixCygwinDaemon(nochdir: Int, noclose: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_dup3(src: Int, dst: Int, flags: Int): Int
+    external fun libcUnixCygwinDup3(src: Int, dst: Int, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_eaccess(pathname: String?, mode: Int): Int
+    external fun libcUnixCygwinEaccess(pathname: Long, mode: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_euidaccess(pathname: String?, mode: Int): Int
+    external fun libcUnixCygwinEuidaccess(pathname: Long, mode: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_execvpe(file: String?, argv: Long, envp: Long): Int
+    external fun libcUnixCygwinExecvpe(file: Long, argv: Long, envp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_faccessat(dirfd: Int, pathname: String?, mode: Int, flags: Int): Int
+    external fun libcUnixCygwinFaccessat(dirfd: Int, pathname: Long, mode: Int, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_fexecve(fd: Int, argv: Long, envp: Long): Int
+    external fun libcUnixCygwinFexecve(fd: Int, argv: Long, envp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_fdatasync(fd: Int): Int
+    external fun libcUnixCygwinFdatasync(fd: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_getdomainname(name: Long, len: Long): Int
+    external fun libcUnixCygwinGetdomainname(name: Long, len: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_getentropy(buf: Long, buflen: Long): Int
+    external fun libcUnixCygwinGetentropy(buf: Long, buflen: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_gethostid(): Long
+    external fun libcUnixCygwinGethostid(): Long
 
     @JvmStatic
-    external fun libc_unix_cygwin_getpagesize(): Int
+    external fun libcUnixCygwinGetpagesize(): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_getpeereid(socket: Int, euid: Long, egid: Long): Int
+    external fun libcUnixCygwinGetpeereid(socket: Int, euid: Long, egid: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_pthreadAtfork(prepare: Long, parent: Long, child: Long): Int
+    external fun libcUnixCygwinPthreadAtfork(prepare: Long, parent: Long, child: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_pipe2(fds: Long, flags: Int): Int
+    external fun libcUnixCygwinPipe2(fds: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_sbrk(increment: Long): Long
+    external fun libcUnixCygwinSbrk(increment: Long): Long
 
     @JvmStatic
-    external fun libc_unix_cygwin_setgroups(ngroups: Int, ptr: Long): Int
+    external fun libcUnixCygwinSetgroups(ngroups: Int, ptr: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_sethostname(name: String?, len: Long): Int
+    external fun libcUnixCygwinSethostname(name: Long, len: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_vhangup(): Int
+    external fun libcUnixCygwinVhangup(): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_getdtablesize(): Int
+    external fun libcUnixCygwinGetdtablesize(): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_sync()
+    external fun libcUnixCygwinSync()
 
     @JvmStatic
-    external fun libc_unix_cygwin_errno(): Long
+    external fun libcUnixCygwinErrno(): Long
 
     @JvmStatic
-    external fun libc_unix_cygwin_schedSetparam(pid: Int, param: Long): Int
+    external fun libcUnixCygwinSchedSetparam(pid: Int, param: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_schedGetparam(pid: Int, param: Long): Int
+    external fun libcUnixCygwinSchedGetparam(pid: Int, param: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_schedSetscheduler(pid: Int, policy: Int, param: Long): Int
+    external fun libcUnixCygwinSchedSetscheduler(pid: Int, policy: Int, param: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_schedGetscheduler(pid: Int): Int
+    external fun libcUnixCygwinSchedGetscheduler(pid: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_schedGetPriorityMax(policy: Int): Int
+    external fun libcUnixCygwinSchedGetPriorityMax(policy: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_schedGetPriorityMin(policy: Int): Int
+    external fun libcUnixCygwinSchedGetPriorityMin(policy: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_schedRrGetInterval(pid: Int, t: Long): Int
+    external fun libcUnixCygwinSchedRrGetInterval(pid: Int, t: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_schedGetcpu(): Int
+    external fun libcUnixCygwinSchedGetcpu(): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_schedGetaffinity(pid: Int, cpusetsize: Long, mask: Long): Int
+    external fun libcUnixCygwinSchedGetaffinity(pid: Int, cpusetsize: Long, mask: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_schedSetaffinity(pid: Int, cpusetsize: Long, cpuset: Long): Int
+    external fun libcUnixCygwinSchedSetaffinity(pid: Int, cpusetsize: Long, cpuset: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_pthreadAttrGetguardsize(attr: Long, guardsize: Long): Int
+    external fun libcUnixCygwinPthreadAttrGetguardsize(attr: Long, guardsize: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_pthreadAttrGetschedparam(attr: Long, param: Long): Int
+    external fun libcUnixCygwinPthreadAttrGetschedparam(attr: Long, param: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_pthreadAttrSetschedparam(attr: Long, param: Long): Int
+    external fun libcUnixCygwinPthreadAttrSetschedparam(attr: Long, param: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_pthreadAttrGetstack(attr: Long, stackaddr: Long, stacksize: Long): Int
+    external fun libcUnixCygwinPthreadAttrGetstack(attr: Long, stackaddr: Long, stacksize: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_pthreadCancel(thread: Long): Int
+    external fun libcUnixCygwinPthreadCancel(thread: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_pthreadCondattrGetclock(attr: Long, clockId: Long): Int
+    external fun libcUnixCygwinPthreadCondattrGetclock(attr: Long, clockId: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_pthreadCondattrGetpshared(attr: Long, pshared: Long): Int
+    external fun libcUnixCygwinPthreadCondattrGetpshared(attr: Long, pshared: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_pthreadCondattrSetclock(attr: Long, clockId: Long): Int
+    external fun libcUnixCygwinPthreadCondattrSetclock(attr: Long, clockId: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_pthreadCondattrSetpshared(attr: Long, pshared: Int): Int
+    external fun libcUnixCygwinPthreadCondattrSetpshared(attr: Long, pshared: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_pthreadBarrierattrInit(attr: Long): Int
+    external fun libcUnixCygwinPthreadBarrierattrInit(attr: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_pthreadBarrierattrSetpshared(attr: Long, shared: Int): Int
+    external fun libcUnixCygwinPthreadBarrierattrSetpshared(attr: Long, shared: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_pthreadBarrierattrGetpshared(attr: Long, shared: Long): Int
+    external fun libcUnixCygwinPthreadBarrierattrGetpshared(attr: Long, shared: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_pthreadBarrierattrDestroy(attr: Long): Int
+    external fun libcUnixCygwinPthreadBarrierattrDestroy(attr: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_pthreadBarrierInit(barrier: Long, attr: Long, count: Int): Int
+    external fun libcUnixCygwinPthreadBarrierInit(barrier: Long, attr: Long, count: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_pthreadBarrierDestroy(barrier: Long): Int
+    external fun libcUnixCygwinPthreadBarrierDestroy(barrier: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_pthreadBarrierWait(barrier: Long): Int
+    external fun libcUnixCygwinPthreadBarrierWait(barrier: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_pthreadCreate(native: Long, attr: Long, f: Long, value: Long): Int
+    external fun libcUnixCygwinPthreadCreate(native: Long, attr: Long, f: Long, value: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_pthreadGetcpuclockid(thread: Long, clkId: Long): Int
+    external fun libcUnixCygwinPthreadGetcpuclockid(thread: Long, clkId: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_pthreadGetschedparam(native: Long, policy: Long, param: Long): Int
+    external fun libcUnixCygwinPthreadGetschedparam(native: Long, policy: Long, param: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_pthreadMutexTimedlock(lock: Long, abstime: Long): Int
+    external fun libcUnixCygwinPthreadMutexTimedlock(lock: Long, abstime: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_pthreadMutexattrGetprotocol(attr: Long, protocol: Long): Int
+    external fun libcUnixCygwinPthreadMutexattrGetprotocol(attr: Long, protocol: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_pthreadMutexattrGetpshared(attr: Long, pshared: Long): Int
+    external fun libcUnixCygwinPthreadMutexattrGetpshared(attr: Long, pshared: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_pthreadMutexattrSetprotocol(attr: Long, protocol: Int): Int
+    external fun libcUnixCygwinPthreadMutexattrSetprotocol(attr: Long, protocol: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_pthreadMutexattrSetpshared(attr: Long, pshared: Int): Int
+    external fun libcUnixCygwinPthreadMutexattrSetpshared(attr: Long, pshared: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_pthreadSpinDestroy(lock: Long): Int
+    external fun libcUnixCygwinPthreadSpinDestroy(lock: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_pthreadSpinInit(lock: Long, pshared: Int): Int
+    external fun libcUnixCygwinPthreadSpinInit(lock: Long, pshared: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_pthreadSpinLock(lock: Long): Int
+    external fun libcUnixCygwinPthreadSpinLock(lock: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_pthreadSpinTrylock(lock: Long): Int
+    external fun libcUnixCygwinPthreadSpinTrylock(lock: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_pthreadSpinUnlock(lock: Long): Int
+    external fun libcUnixCygwinPthreadSpinUnlock(lock: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_pthreadRwlockattrGetpshared(attr: Long, value: Long): Int
+    external fun libcUnixCygwinPthreadRwlockattrGetpshared(attr: Long, value: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_pthreadRwlockattrSetpshared(attr: Long, value: Int): Int
+    external fun libcUnixCygwinPthreadRwlockattrSetpshared(attr: Long, value: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_pthreadSetschedparam(native: Long, policy: Int, param: Long): Int
+    external fun libcUnixCygwinPthreadSetschedparam(native: Long, policy: Int, param: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_pthreadSetschedprio(native: Long, priority: Int): Int
+    external fun libcUnixCygwinPthreadSetschedprio(native: Long, priority: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_pthreadGetaffinityNp(thread: Long, cpusetsize: Long, cpuset: Long): Int
+    external fun libcUnixCygwinPthreadGetaffinityNp(thread: Long, cpusetsize: Long, cpuset: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_pthreadGetattrNp(native: Long, attr: Long): Int
+    external fun libcUnixCygwinPthreadGetattrNp(native: Long, attr: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_pthreadGetnameNp(thread: Long, name: Long, len: Long): Int
+    external fun libcUnixCygwinPthreadGetnameNp(thread: Long, name: Long, len: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_pthreadSetaffinityNp(thread: Long, cpusetsize: Long, cpuset: Long): Int
+    external fun libcUnixCygwinPthreadSetaffinityNp(thread: Long, cpusetsize: Long, cpuset: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_pthreadSetnameNp(thread: Long, name: String?): Int
+    external fun libcUnixCygwinPthreadSetnameNp(thread: Long, name: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_ioctl(fd: Int, request: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcUnixCygwinIoctl(fd: Int, request: Int, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_getrandom(buf: Long, buflen: Long, flags: Int): Long
+    external fun libcUnixCygwinGetrandom(buf: Long, buflen: Long, flags: Int): Long
 
     @JvmStatic
-    external fun libc_unix_cygwin_mount(src: String?, target: String?, flags: Int): Int
+    external fun libcUnixCygwinMount(src: Long, target: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_umount(target: String?): Int
+    external fun libcUnixCygwinUmount(target: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_cygwinUmount(target: String?, flags: Int): Int
+    external fun libcUnixCygwinCygwinUmount(target: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_dirfd(dirp: Long): Int
+    external fun libcUnixCygwinDirfd(dirp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_seekdir(dirp: Long, loc: Long)
+    external fun libcUnixCygwinSeekdir(dirp: Long, loc: Long)
 
     @JvmStatic
-    external fun libc_unix_cygwin_telldir(dirp: Long): Long
+    external fun libcUnixCygwinTelldir(dirp: Long): Long
 
     @JvmStatic
-    external fun libc_unix_cygwin_uname(buf: Long): Int
+    external fun libcUnixCygwinUname(buf: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_posixSpawn(pid: Long, path: String?, fileActions: Long, attrp: Long, argv: Long, envp: Long): Int
+    external fun libcUnixCygwinPosixSpawn(pid: Long, path: Long, fileActions: Long, attrp: Long, argv: Long, envp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_posixSpawnp(pid: Long, file: String?, fileActions: Long, attrp: Long, argv: Long, envp: Long): Int
+    external fun libcUnixCygwinPosixSpawnp(pid: Long, file: Long, fileActions: Long, attrp: Long, argv: Long, envp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_posixSpawnattrInit(attr: Long): Int
+    external fun libcUnixCygwinPosixSpawnattrInit(attr: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_posixSpawnattrDestroy(attr: Long): Int
+    external fun libcUnixCygwinPosixSpawnattrDestroy(attr: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_posixSpawnattrGetsigdefault(attr: Long, default: Long): Int
+    external fun libcUnixCygwinPosixSpawnattrGetsigdefault(attr: Long, default: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_posixSpawnattrSetsigdefault(attr: Long, default: Long): Int
+    external fun libcUnixCygwinPosixSpawnattrSetsigdefault(attr: Long, default: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_posixSpawnattrGetsigmask(attr: Long, default: Long): Int
+    external fun libcUnixCygwinPosixSpawnattrGetsigmask(attr: Long, default: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_posixSpawnattrSetsigmask(attr: Long, default: Long): Int
+    external fun libcUnixCygwinPosixSpawnattrSetsigmask(attr: Long, default: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_posixSpawnattrGetflags(attr: Long, flags: Long): Int
+    external fun libcUnixCygwinPosixSpawnattrGetflags(attr: Long, flags: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_posixSpawnattrSetflags(attr: Long, flags: Short): Int
+    external fun libcUnixCygwinPosixSpawnattrSetflags(attr: Long, flags: Short): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_posixSpawnattrGetpgroup(attr: Long, flags: Long): Int
+    external fun libcUnixCygwinPosixSpawnattrGetpgroup(attr: Long, flags: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_posixSpawnattrSetpgroup(attr: Long, flags: Int): Int
+    external fun libcUnixCygwinPosixSpawnattrSetpgroup(attr: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_posixSpawnattrGetschedpolicy(attr: Long, flags: Long): Int
+    external fun libcUnixCygwinPosixSpawnattrGetschedpolicy(attr: Long, flags: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_posixSpawnattrSetschedpolicy(attr: Long, flags: Int): Int
+    external fun libcUnixCygwinPosixSpawnattrSetschedpolicy(attr: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_posixSpawnattrGetschedparam(attr: Long, param: Long): Int
+    external fun libcUnixCygwinPosixSpawnattrGetschedparam(attr: Long, param: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_posixSpawnattrSetschedparam(attr: Long, param: Long): Int
+    external fun libcUnixCygwinPosixSpawnattrSetschedparam(attr: Long, param: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_posixSpawnFileActionsInit(actions: Long): Int
+    external fun libcUnixCygwinPosixSpawnFileActionsInit(actions: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_posixSpawnFileActionsDestroy(actions: Long): Int
+    external fun libcUnixCygwinPosixSpawnFileActionsDestroy(actions: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_posixSpawnFileActionsAddopen(actions: Long, fd: Int, path: String?, oflag: Int, mode: Int): Int
+    external fun libcUnixCygwinPosixSpawnFileActionsAddopen(actions: Long, fd: Int, path: Long, oflag: Int, mode: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_posixSpawnFileActionsAddclose(actions: Long, fd: Int): Int
+    external fun libcUnixCygwinPosixSpawnFileActionsAddclose(actions: Long, fd: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_posixSpawnFileActionsAdddup2(actions: Long, fd: Int, newfd: Int): Int
+    external fun libcUnixCygwinPosixSpawnFileActionsAdddup2(actions: Long, fd: Int, newfd: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_posixSpawnFileActionsAddchdir(actions: Long, path: String?): Int
+    external fun libcUnixCygwinPosixSpawnFileActionsAddchdir(actions: Long, path: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_posixSpawnFileActionsAddfchdir(actions: Long, fd: Int): Int
+    external fun libcUnixCygwinPosixSpawnFileActionsAddfchdir(actions: Long, fd: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_posixSpawnFileActionsAddchdirNp(actions: Long, path: String?): Int
+    external fun libcUnixCygwinPosixSpawnFileActionsAddchdirNp(actions: Long, path: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_posixSpawnFileActionsAddfchdirNp(actions: Long, fd: Int): Int
+    external fun libcUnixCygwinPosixSpawnFileActionsAddfchdirNp(actions: Long, fd: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_forkpty(amaster: Long, name: Long, termp: Long, winp: Long): Int
+    external fun libcUnixCygwinForkpty(amaster: Long, name: Long, termp: Long, winp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_openpty(amaster: Long, aslave: Long, name: Long, termp: Long, winp: Long): Int
+    external fun libcUnixCygwinOpenpty(amaster: Long, aslave: Long, name: Long, termp: Long, winp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_getgrgid(gid: Short): Long
+    external fun libcUnixCygwinGetgrgid(gid: Short): Long
 
     @JvmStatic
-    external fun libc_unix_cygwin_getgrgidR(gid: Short, grp: Long, buf: Long, buflen: Long, result: Long): Int
+    external fun libcUnixCygwinGetgrgidR(gid: Short, grp: Long, buf: Long, buflen: Long, result: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_getgrouplist(user: String?, group: Short, groups: Long, ngroups: Long): Int
+    external fun libcUnixCygwinGetgrouplist(user: Long, group: Short, groups: Long, ngroups: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_getgrnam(name: String?): Long
+    external fun libcUnixCygwinGetgrnam(name: Long): Long
 
     @JvmStatic
-    external fun libc_unix_cygwin_getgrnamR(name: String?, grp: Long, buf: Long, buflen: Long, result: Long): Int
+    external fun libcUnixCygwinGetgrnamR(name: Long, grp: Long, buf: Long, buflen: Long, result: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_initgroups(user: String?, group: Short): Int
+    external fun libcUnixCygwinInitgroups(user: Long, group: Short): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_statfs(path: String?, buf: Long): Int
+    external fun libcUnixCygwinStatfs(path: Long, buf: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_fstatfs(fd: Int, buf: Long): Int
+    external fun libcUnixCygwinFstatfs(fd: Int, buf: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_posixFadvise(fd: Int, offset: Long, len: Long, advise: Int): Int
+    external fun libcUnixCygwinPosixFadvise(fd: Int, offset: Long, len: Long, advise: Int): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_posixFallocate(fd: Int, offset: Long, len: Long): Int
+    external fun libcUnixCygwinPosixFallocate(fd: Int, offset: Long, len: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_fallocate(fd: Int, mode: Int, offset: Long, len: Long): Int
+    external fun libcUnixCygwinFallocate(fd: Int, mode: Int, offset: Long, len: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_endutxent()
+    external fun libcUnixCygwinEndutxent()
 
     @JvmStatic
-    external fun libc_unix_cygwin_getutxent(): Long
+    external fun libcUnixCygwinGetutxent(): Long
 
     @JvmStatic
-    external fun libc_unix_cygwin_getutxid(id: Long): Long
+    external fun libcUnixCygwinGetutxid(id: Long): Long
 
     @JvmStatic
-    external fun libc_unix_cygwin_getutxline(line: Long): Long
+    external fun libcUnixCygwinGetutxline(line: Long): Long
 
     @JvmStatic
-    external fun libc_unix_cygwin_pututxline(utmpx: Long): Long
+    external fun libcUnixCygwinPututxline(utmpx: Long): Long
 
     @JvmStatic
-    external fun libc_unix_cygwin_setutxent()
+    external fun libcUnixCygwinSetutxent()
 
     @JvmStatic
-    external fun libc_unix_cygwin_utmpxname(file: String?): Int
+    external fun libcUnixCygwinUtmpxname(file: Long): Int
 
     @JvmStatic
-    external fun libc_unix_cygwin_updwtmpx(file: String?, utmpx: Long)
+    external fun libcUnixCygwinUpdwtmpx(file: Long, utmpx: Long)
 }
 
-public actual fun sigwait(set: COpaquePointer?, sig: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_sigwait((set?.value ?: 0L), (sig?.value ?: 0L))
+public actual fun sigwait(set: ConstPtr<SigsetT>, sig: MutPtr<CInt>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinSigwait(set.rawAddress, sig.rawAddress)
 
-public actual fun sigwaitinfo(set: COpaquePointer?, info: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_sigwaitinfo((set?.value ?: 0L), (info?.value ?: 0L))
+public actual fun sigwaitinfo(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinSigwaitinfo(set.rawAddress, info.rawAddress)
 
-public actual fun pthreadSigmask(how: CInt, set: COpaquePointer?, oldset: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadSigmask(how, (set?.value ?: 0L), (oldset?.value ?: 0L))
+public actual fun pthreadSigmask(how: CInt, set: ConstPtr<SigsetT>, oldset: MutPtr<SigsetT>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPthreadSigmask(how, set.rawAddress, oldset.rawAddress)
 
-public actual fun sigsuspend(mask: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_sigsuspend((mask?.value ?: 0L))
+public actual fun sigsuspend(mask: ConstPtr<SigsetT>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinSigsuspend(mask.rawAddress)
 
-public actual fun sigaltstack(ss: COpaquePointer?, oss: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_sigaltstack((ss?.value ?: 0L), (oss?.value ?: 0L))
+public actual fun sigaltstack(ss: ConstPtr<StackT>, oss: MutPtr<StackT>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinSigaltstack(ss.rawAddress, oss.rawAddress)
 
 public actual fun pthreadKill(thread: PthreadT, sig: CInt): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadKill((thread?.value ?: 0L), sig)
+    UnixCygwinJniBridge.libcUnixCygwinPthreadKill(thread.rawAddress, sig)
 
-public actual fun sigtimedwait(set: COpaquePointer?, info: COpaquePointer?, timeout: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_sigtimedwait((set?.value ?: 0L), (info?.value ?: 0L), (timeout?.value ?: 0L))
+public actual fun sigtimedwait(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>, timeout: ConstPtr<Timespec>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinSigtimedwait(set.rawAddress, info.rawAddress, timeout.rawAddress)
 
-public actual fun strftime(s: COpaquePointer?, max: SizeT, format: String?, tm: COpaquePointer?): SizeT =
-    UnixCygwinJniBridge.libc_unix_cygwin_strftime((s?.value ?: 0L), max.toLong(), format, (tm?.value ?: 0L)).toULong()
+public actual fun strftime(s: MutPtr<CChar>, max: SizeT, format: ConstPtr<CChar>, tm: ConstPtr<Tm>): SizeT =
+    UnixCygwinJniBridge.libcUnixCygwinStrftime(s.rawAddress, max.toLong(), format.rawAddress, tm.rawAddress).toULong()
 
-public actual fun asctimeR(tm: COpaquePointer?, buf: COpaquePointer?): COpaquePointer? =
-    UnixCygwinJniBridge.libc_unix_cygwin_asctimeR((tm?.value ?: 0L), (buf?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun asctimeR(tm: ConstPtr<Tm>, buf: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(UnixCygwinJniBridge.libcUnixCygwinAsctimeR(tm.rawAddress, buf.rawAddress))
 
-public actual fun ctimeR(timep: COpaquePointer?, buf: COpaquePointer?): COpaquePointer? =
-    UnixCygwinJniBridge.libc_unix_cygwin_ctimeR((timep?.value ?: 0L), (buf?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun ctimeR(timep: ConstPtr<TimeT>, buf: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(UnixCygwinJniBridge.libcUnixCygwinCtimeR(timep.rawAddress, buf.rawAddress))
 
-public actual fun strptime(s: String?, format: String?, tm: COpaquePointer?): COpaquePointer? =
-    UnixCygwinJniBridge.libc_unix_cygwin_strptime(s, format, (tm?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun strptime(s: ConstPtr<CChar>, format: ConstPtr<CChar>, tm: MutPtr<Tm>): MutPtr<CChar> =
+    MutPtr(UnixCygwinJniBridge.libcUnixCygwinStrptime(s.rawAddress, format.rawAddress, tm.rawAddress))
 
-public actual fun clockSettime(clkId: ClockidT, tp: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_clockSettime(clkId.toLong(), (tp?.value ?: 0L))
+public actual fun clockSettime(clkId: ClockidT, tp: ConstPtr<Timespec>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinClockSettime(clkId.toLong(), tp.rawAddress)
 
-public actual fun clockGettime(clkId: ClockidT, tp: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_clockGettime(clkId.toLong(), (tp?.value ?: 0L))
+public actual fun clockGettime(clkId: ClockidT, tp: MutPtr<Timespec>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinClockGettime(clkId.toLong(), tp.rawAddress)
 
-public actual fun clockGetres(clkId: ClockidT, tp: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_clockGetres(clkId.toLong(), (tp?.value ?: 0L))
+public actual fun clockGetres(clkId: ClockidT, tp: MutPtr<Timespec>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinClockGetres(clkId.toLong(), tp.rawAddress)
 
-public actual fun timerCreate(clockid: ClockidT, sevp: COpaquePointer?, timerid: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_timerCreate(clockid.toLong(), (sevp?.value ?: 0L), (timerid?.value ?: 0L))
+public actual fun timerCreate(clockid: ClockidT, sevp: MutPtr<Sigevent>, timerid: MutPtr<TimerT>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinTimerCreate(clockid.toLong(), sevp.rawAddress, timerid.rawAddress)
 
 public actual fun timerDelete(timerid: TimerT): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_timerDelete(timerid.toLong())
+    UnixCygwinJniBridge.libcUnixCygwinTimerDelete(timerid.toLong())
 
-public actual fun timerSettime(timerid: TimerT, flags: CInt, newValue: COpaquePointer?, oldValue: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_timerSettime(timerid.toLong(), flags, (newValue?.value ?: 0L), (oldValue?.value ?: 0L))
+public actual fun timerSettime(timerid: TimerT, flags: CInt, newValue: ConstPtr<Itimerspec>, oldValue: MutPtr<Itimerspec>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinTimerSettime(timerid.toLong(), flags, newValue.rawAddress, oldValue.rawAddress)
 
-public actual fun timerGettime(timerid: TimerT, currValue: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_timerGettime(timerid.toLong(), (currValue?.value ?: 0L))
+public actual fun timerGettime(timerid: TimerT, currValue: MutPtr<Itimerspec>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinTimerGettime(timerid.toLong(), currValue.rawAddress)
 
 public actual fun timerGetoverrun(timerid: TimerT): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_timerGetoverrun(timerid.toLong())
+    UnixCygwinJniBridge.libcUnixCygwinTimerGetoverrun(timerid.toLong())
 
-public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: COpaquePointer?, rmtp: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_clockNanosleep(clkId.toLong(), flags, (rqtp?.value ?: 0L), (rmtp?.value ?: 0L))
+public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: ConstPtr<Timespec>, rmtp: MutPtr<Timespec>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinClockNanosleep(clkId.toLong(), flags, rqtp.rawAddress, rmtp.rawAddress)
 
-public actual fun clockGetcpuclockid(pid: PidT, clkId: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_clockGetcpuclockid(pid, (clkId?.value ?: 0L))
+public actual fun clockGetcpuclockid(pid: PidT, clkId: MutPtr<ClockidT>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinClockGetcpuclockid(pid, clkId.rawAddress)
 
-public actual fun futimes(fd: CInt, times: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_futimes(fd, (times?.value ?: 0L))
+public actual fun futimes(fd: CInt, times: ConstPtr<Timeval>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinFutimes(fd, times.rawAddress)
 
-public actual fun lutimes(file: String?, times: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_lutimes(file, (times?.value ?: 0L))
+public actual fun lutimes(file: ConstPtr<CChar>, times: ConstPtr<Timeval>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinLutimes(file.rawAddress, times.rawAddress)
 
-public actual fun settimeofday(tv: COpaquePointer?, tz: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_settimeofday((tv?.value ?: 0L), (tz?.value ?: 0L))
+public actual fun settimeofday(tv: ConstPtr<Timeval>, tz: ConstPtr<Timezone>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinSettimeofday(tv.rawAddress, tz.rawAddress)
 
-public actual fun getitimer(which: CInt, currValue: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_getitimer(which, (currValue?.value ?: 0L))
+public actual fun getitimer(which: CInt, currValue: MutPtr<Itimerval>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinGetitimer(which, currValue.rawAddress)
 
-public actual fun setitimer(which: CInt, newValue: COpaquePointer?, oldValue: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_setitimer(which, (newValue?.value ?: 0L), (oldValue?.value ?: 0L))
+public actual fun setitimer(which: CInt, newValue: ConstPtr<Itimerval>, oldValue: MutPtr<Itimerval>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinSetitimer(which, newValue.rawAddress, oldValue.rawAddress)
 
-public actual fun gettimeofday(tp: COpaquePointer?, tz: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_gettimeofday((tp?.value ?: 0L), (tz?.value ?: 0L))
+public actual fun gettimeofday(tp: MutPtr<Timeval>, tz: MutPtr<CVoid>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinGettimeofday(tp.rawAddress, tz.rawAddress)
 
-public actual fun futimesat(fd: CInt, path: String?, times: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_futimesat(fd, path, (times?.value ?: 0L))
+public actual fun futimesat(fd: CInt, path: ConstPtr<CChar>, times: ConstPtr<Timeval>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinFutimesat(fd, path.rawAddress, times.rawAddress)
 
-public actual fun getrlimit(resource: CInt, rlim: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_getrlimit(resource, (rlim?.value ?: 0L))
+public actual fun getrlimit(resource: CInt, rlim: MutPtr<Rlimit>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinGetrlimit(resource, rlim.rawAddress)
 
-public actual fun setrlimit(resource: CInt, rlim: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_setrlimit(resource, (rlim?.value ?: 0L))
+public actual fun setrlimit(resource: CInt, rlim: ConstPtr<Rlimit>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinSetrlimit(resource, rlim.rawAddress)
 
 public actual fun getpriority(which: CInt, who: IdT): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_getpriority(which, who.toInt())
+    UnixCygwinJniBridge.libcUnixCygwinGetpriority(which, who.toInt())
 
 public actual fun setpriority(which: CInt, who: IdT, prio: CInt): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_setpriority(which, who.toInt(), prio)
+    UnixCygwinJniBridge.libcUnixCygwinSetpriority(which, who.toInt(), prio)
 
-public actual fun getpwnamR(name: String?, pwd: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_getpwnamR(name, (pwd?.value ?: 0L), (buf?.value ?: 0L), buflen.toLong(), (result?.value ?: 0L))
+public actual fun getpwnamR(name: ConstPtr<CChar>, pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinGetpwnamR(name.rawAddress, pwd.rawAddress, buf.rawAddress, buflen.toLong(), result.rawAddress)
 
-public actual fun getpwuidR(uid: UidT, pwd: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_getpwuidR(uid.toShort(), (pwd?.value ?: 0L), (buf?.value ?: 0L), buflen.toLong(), (result?.value ?: 0L))
+public actual fun getpwuidR(uid: UidT, pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinGetpwuidR(uid.toShort(), pwd.rawAddress, buf.rawAddress, buflen.toLong(), result.rawAddress)
 
-public actual fun getpwent(): COpaquePointer? =
-    UnixCygwinJniBridge.libc_unix_cygwin_getpwent().let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getpwent(): MutPtr<Passwd> =
+    MutPtr(UnixCygwinJniBridge.libcUnixCygwinGetpwent())
 
 public actual fun setpwent() {
-    UnixCygwinJniBridge.libc_unix_cygwin_setpwent()
+    UnixCygwinJniBridge.libcUnixCygwinSetpwent()
 }
 
 public actual fun endpwent() {
-    UnixCygwinJniBridge.libc_unix_cygwin_endpwent()
+    UnixCygwinJniBridge.libcUnixCygwinEndpwent()
 }
 
-public actual fun ifNameindex(): COpaquePointer? =
-    UnixCygwinJniBridge.libc_unix_cygwin_ifNameindex().let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun ifNameindex(): MutPtr<IfNameindex> =
+    MutPtr(UnixCygwinJniBridge.libcUnixCygwinIfNameindex())
 
-public actual fun ifFreenameindex(ptr: COpaquePointer?) {
-    UnixCygwinJniBridge.libc_unix_cygwin_ifFreenameindex((ptr?.value ?: 0L))
+public actual fun ifFreenameindex(ptr: MutPtr<IfNameindex>) {
+    UnixCygwinJniBridge.libcUnixCygwinIfFreenameindex(ptr.rawAddress)
 }
 
-public actual fun readv(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT =
-    UnixCygwinJniBridge.libc_unix_cygwin_readv(fd, (iov?.value ?: 0L), iovcnt)
+public actual fun readv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+    UnixCygwinJniBridge.libcUnixCygwinReadv(fd, iov.rawAddress, iovcnt)
 
-public actual fun writev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT =
-    UnixCygwinJniBridge.libc_unix_cygwin_writev(fd, (iov?.value ?: 0L), iovcnt)
+public actual fun writev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+    UnixCygwinJniBridge.libcUnixCygwinWritev(fd, iov.rawAddress, iovcnt)
 
-public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_mkfifoat(dirfd, pathname, mode.toInt())
+public actual fun mkfifoat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinMkfifoat(dirfd, pathname.rawAddress, mode.toInt())
 
-public actual fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_mknodat(dirfd, pathname, mode.toInt(), dev.toInt())
+public actual fun mknodat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT, dev: DevT): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinMknodat(dirfd, pathname.rawAddress, mode.toInt(), dev.toInt())
 
-public actual fun utimensat(dirfd: CInt, path: String?, times: COpaquePointer?, flag: CInt): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_utimensat(dirfd, path, (times?.value ?: 0L), flag)
+public actual fun utimensat(dirfd: CInt, path: ConstPtr<CChar>, times: ConstPtr<Timespec>, flag: CInt): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinUtimensat(dirfd, path.rawAddress, times.rawAddress, flag)
 
-public actual fun futimens(fd: CInt, times: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_futimens(fd, (times?.value ?: 0L))
+public actual fun futimens(fd: CInt, times: ConstPtr<Timespec>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinFutimens(fd, times.rawAddress)
 
 public actual fun dlfork(value: CInt) {
-    UnixCygwinJniBridge.libc_unix_cygwin_dlfork(value)
+    UnixCygwinJniBridge.libcUnixCygwinDlfork(value)
 }
 
-public actual fun accept4(s: CInt, addr: COpaquePointer?, addrlen: COpaquePointer?, flags: CInt): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_accept4(s, (addr?.value ?: 0L), (addrlen?.value ?: 0L), flags)
+public actual fun accept4(s: CInt, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>, flags: CInt): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinAccept4(s, addr.rawAddress, addrlen.rawAddress, flags)
 
-public actual fun bind(socket: CInt, address: COpaquePointer?, addressLen: SocklenT): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_bind(socket, (address?.value ?: 0L), addressLen)
+public actual fun bind(socket: CInt, address: ConstPtr<Sockaddr>, addressLen: SocklenT): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinBind(socket, address.rawAddress, addressLen)
 
-public actual fun recvfrom(socket: CInt, buf: COpaquePointer?, len: SizeT, flags: CInt, addr: COpaquePointer?, addrlen: COpaquePointer?): SsizeT =
-    UnixCygwinJniBridge.libc_unix_cygwin_recvfrom(socket, (buf?.value ?: 0L), len.toLong(), flags, (addr?.value ?: 0L), (addrlen?.value ?: 0L))
+public actual fun recvfrom(socket: CInt, buf: MutPtr<CVoid>, len: SizeT, flags: CInt, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): SsizeT =
+    UnixCygwinJniBridge.libcUnixCygwinRecvfrom(socket, buf.rawAddress, len.toLong(), flags, addr.rawAddress, addrlen.rawAddress)
 
-public actual fun recvmsg(fd: CInt, msg: COpaquePointer?, flags: CInt): SsizeT =
-    UnixCygwinJniBridge.libc_unix_cygwin_recvmsg(fd, (msg?.value ?: 0L), flags)
+public actual fun recvmsg(fd: CInt, msg: MutPtr<Msghdr>, flags: CInt): SsizeT =
+    UnixCygwinJniBridge.libcUnixCygwinRecvmsg(fd, msg.rawAddress, flags)
 
-public actual fun sendmsg(fd: CInt, msg: COpaquePointer?, flags: CInt): SsizeT =
-    UnixCygwinJniBridge.libc_unix_cygwin_sendmsg(fd, (msg?.value ?: 0L), flags)
+public actual fun sendmsg(fd: CInt, msg: ConstPtr<Msghdr>, flags: CInt): SsizeT =
+    UnixCygwinJniBridge.libcUnixCygwinSendmsg(fd, msg.rawAddress, flags)
 
-public actual fun getnameinfo(sa: COpaquePointer?, salen: SocklenT, host: COpaquePointer?, hostlen: SocklenT, serv: COpaquePointer?, sevlen: SocklenT, flags: CInt): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_getnameinfo((sa?.value ?: 0L), salen, (host?.value ?: 0L), hostlen, (serv?.value ?: 0L), sevlen, flags)
+public actual fun getnameinfo(sa: ConstPtr<Sockaddr>, salen: SocklenT, host: MutPtr<CChar>, hostlen: SocklenT, serv: MutPtr<CChar>, sevlen: SocklenT, flags: CInt): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinGetnameinfo(sa.rawAddress, salen, host.rawAddress, hostlen, serv.rawAddress, sevlen, flags)
 
-public actual fun ppoll(fds: COpaquePointer?, nfds: NfdsT, timeout: COpaquePointer?, sigmask: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_ppoll((fds?.value ?: 0L), nfds.toInt(), (timeout?.value ?: 0L), (sigmask?.value ?: 0L))
+public actual fun ppoll(fds: MutPtr<Pollfd>, nfds: NfdsT, timeout: ConstPtr<Timespec>, sigmask: ConstPtr<SigsetT>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPpoll(fds.rawAddress, nfds.toInt(), timeout.rawAddress, sigmask.rawAddress)
 
-public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
-    UnixCygwinJniBridge.libc_unix_cygwin_newlocale(mask, locale, (base?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun newlocale(mask: CInt, locale: ConstPtr<CChar>, base: LocaleT): LocaleT =
+    MutPtr(UnixCygwinJniBridge.libcUnixCygwinNewlocale(mask, locale.rawAddress, base.rawAddress))
 
 public actual fun freelocale(loc: LocaleT) {
-    UnixCygwinJniBridge.libc_unix_cygwin_freelocale((loc?.value ?: 0L))
+    UnixCygwinJniBridge.libcUnixCygwinFreelocale(loc.rawAddress)
 }
 
 public actual fun duplocale(base: LocaleT): LocaleT =
-    UnixCygwinJniBridge.libc_unix_cygwin_duplocale((base?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+    MutPtr(UnixCygwinJniBridge.libcUnixCygwinDuplocale(base.rawAddress))
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
-    UnixCygwinJniBridge.libc_unix_cygwin_uselocale((loc?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+    MutPtr(UnixCygwinJniBridge.libcUnixCygwinUselocale(loc.rawAddress))
 
-public actual fun semInit(sem: COpaquePointer?, pshared: CInt, value: CUint): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_semInit((sem?.value ?: 0L), pshared, value.toInt())
+public actual fun semInit(sem: MutPtr<SemT>, pshared: CInt, value: CUint): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinSemInit(sem.rawAddress, pshared, value.toInt())
 
-public actual fun semDestroy(sem: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_semDestroy((sem?.value ?: 0L))
+public actual fun semDestroy(sem: MutPtr<SemT>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinSemDestroy(sem.rawAddress)
 
-public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    UnixCygwinJniBridge.libc_unix_cygwin_semOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun semOpen(name: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): MutPtr<SemT> =
+    MutPtr(UnixCygwinJniBridge.libcUnixCygwinSemOpen(name.rawAddress, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L))
 
-public actual fun semClose(sem: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_semClose((sem?.value ?: 0L))
+public actual fun semClose(sem: MutPtr<SemT>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinSemClose(sem.rawAddress)
 
-public actual fun semUnlink(name: String?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_semUnlink(name)
+public actual fun semUnlink(name: ConstPtr<CChar>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinSemUnlink(name.rawAddress)
 
-public actual fun semTimedwait(sem: COpaquePointer?, abstime: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_semTimedwait((sem?.value ?: 0L), (abstime?.value ?: 0L))
+public actual fun semTimedwait(sem: MutPtr<SemT>, abstime: ConstPtr<Timespec>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinSemTimedwait(sem.rawAddress, abstime.rawAddress)
 
-public actual fun semGetvalue(sem: COpaquePointer?, sval: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_semGetvalue((sem?.value ?: 0L), (sval?.value ?: 0L))
+public actual fun semGetvalue(sem: MutPtr<SemT>, sval: MutPtr<CInt>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinSemGetvalue(sem.rawAddress, sval.rawAddress)
 
 public actual fun clearenv(): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_clearenv()
+    UnixCygwinJniBridge.libcUnixCygwinClearenv()
 
-public actual fun ptsnameR(fd: CInt, buf: COpaquePointer?, buflen: SizeT): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_ptsnameR(fd, (buf?.value ?: 0L), buflen.toLong())
+public actual fun ptsnameR(fd: CInt, buf: MutPtr<CChar>, buflen: SizeT): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPtsnameR(fd, buf.rawAddress, buflen.toLong())
 
 public actual fun getpt(): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_getpt()
+    UnixCygwinJniBridge.libcUnixCygwinGetpt()
 
-public actual fun memalign(align: SizeT, size: SizeT): COpaquePointer? =
-    UnixCygwinJniBridge.libc_unix_cygwin_memalign(align.toLong(), size.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun memalign(align: SizeT, size: SizeT): MutPtr<CVoid> =
+    MutPtr(UnixCygwinJniBridge.libcUnixCygwinMemalign(align.toLong(), size.toLong()))
 
-public actual fun getloadavg(loadavg: COpaquePointer?, nelem: CInt): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_getloadavg((loadavg?.value ?: 0L), nelem)
+public actual fun getloadavg(loadavg: MutPtr<CDouble>, nelem: CInt): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinGetloadavg(loadavg.rawAddress, nelem)
 
 public actual fun abs(i: CInt): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_abs(i)
+    UnixCygwinJniBridge.libcUnixCygwinAbs(i)
 
 public actual fun arc4random(): UInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_arc4random().toUInt()
+    UnixCygwinJniBridge.libcUnixCygwinArc4random().toUInt()
 
 public actual fun arc4randomUniform(l: UInt): UInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_arc4randomUniform(l.toInt()).toUInt()
+    UnixCygwinJniBridge.libcUnixCygwinArc4randomUniform(l.toInt()).toUInt()
 
-public actual fun arc4randomBuf(buf: COpaquePointer?, size: SizeT) {
-    UnixCygwinJniBridge.libc_unix_cygwin_arc4randomBuf((buf?.value ?: 0L), size.toLong())
+public actual fun arc4randomBuf(buf: MutPtr<CVoid>, size: SizeT) {
+    UnixCygwinJniBridge.libcUnixCygwinArc4randomBuf(buf.rawAddress, size.toLong())
 }
 
 public actual fun labs(i: CLong): CLong =
-    UnixCygwinJniBridge.libc_unix_cygwin_labs(i)
+    UnixCygwinJniBridge.libcUnixCygwinLabs(i)
 
-public actual fun mkostemp(template: COpaquePointer?, flags: CInt): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_mkostemp((template?.value ?: 0L), flags)
+public actual fun mkostemp(template: MutPtr<CChar>, flags: CInt): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinMkostemp(template.rawAddress, flags)
 
-public actual fun mkostemps(template: COpaquePointer?, suffixlen: CInt, flags: CInt): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_mkostemps((template?.value ?: 0L), suffixlen, flags)
+public actual fun mkostemps(template: MutPtr<CChar>, suffixlen: CInt, flags: CInt): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinMkostemps(template.rawAddress, suffixlen, flags)
 
-public actual fun mkstemps(template: COpaquePointer?, suffixlen: CInt): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_mkstemps((template?.value ?: 0L), suffixlen)
+public actual fun mkstemps(template: MutPtr<CChar>, suffixlen: CInt): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinMkstemps(template.rawAddress, suffixlen)
 
 public actual fun rand(): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_rand()
+    UnixCygwinJniBridge.libcUnixCygwinRand()
 
-public actual fun reallocarray(ptr: COpaquePointer?, nmemb: SizeT, size: SizeT): COpaquePointer? =
-    UnixCygwinJniBridge.libc_unix_cygwin_reallocarray((ptr?.value ?: 0L), nmemb.toLong(), size.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun reallocarray(ptr: MutPtr<CVoid>, nmemb: SizeT, size: SizeT): MutPtr<CVoid> =
+    MutPtr(UnixCygwinJniBridge.libcUnixCygwinReallocarray(ptr.rawAddress, nmemb.toLong(), size.toLong()))
 
-public actual fun reallocf(ptr: COpaquePointer?, size: SizeT): COpaquePointer? =
-    UnixCygwinJniBridge.libc_unix_cygwin_reallocf((ptr?.value ?: 0L), size.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun reallocf(ptr: MutPtr<CVoid>, size: SizeT): MutPtr<CVoid> =
+    MutPtr(UnixCygwinJniBridge.libcUnixCygwinReallocf(ptr.rawAddress, size.toLong()))
 
 public actual fun srand(seed: CUint) {
-    UnixCygwinJniBridge.libc_unix_cygwin_srand(seed.toInt())
+    UnixCygwinJniBridge.libcUnixCygwinSrand(seed.toInt())
 }
 
 public actual fun drand48(): CDouble =
-    UnixCygwinJniBridge.libc_unix_cygwin_drand48()
+    UnixCygwinJniBridge.libcUnixCygwinDrand48()
 
-public actual fun erand48(xseed: COpaquePointer?): CDouble =
-    UnixCygwinJniBridge.libc_unix_cygwin_erand48((xseed?.value ?: 0L))
+public actual fun erand48(xseed: MutPtr<CUshort>): CDouble =
+    UnixCygwinJniBridge.libcUnixCygwinErand48(xseed.rawAddress)
 
-public actual fun jrand48(xseed: COpaquePointer?): CLong =
-    UnixCygwinJniBridge.libc_unix_cygwin_jrand48((xseed?.value ?: 0L))
+public actual fun jrand48(xseed: MutPtr<CUshort>): CLong =
+    UnixCygwinJniBridge.libcUnixCygwinJrand48(xseed.rawAddress)
 
-public actual fun lcong48(p: COpaquePointer?) {
-    UnixCygwinJniBridge.libc_unix_cygwin_lcong48((p?.value ?: 0L))
+public actual fun lcong48(p: MutPtr<CUshort>) {
+    UnixCygwinJniBridge.libcUnixCygwinLcong48(p.rawAddress)
 }
 
 public actual fun lrand48(): CLong =
-    UnixCygwinJniBridge.libc_unix_cygwin_lrand48()
+    UnixCygwinJniBridge.libcUnixCygwinLrand48()
 
 public actual fun mrand48(): CLong =
-    UnixCygwinJniBridge.libc_unix_cygwin_mrand48()
+    UnixCygwinJniBridge.libcUnixCygwinMrand48()
 
-public actual fun nrand48(xseed: COpaquePointer?): CLong =
-    UnixCygwinJniBridge.libc_unix_cygwin_nrand48((xseed?.value ?: 0L))
+public actual fun nrand48(xseed: MutPtr<CUshort>): CLong =
+    UnixCygwinJniBridge.libcUnixCygwinNrand48(xseed.rawAddress)
 
-public actual fun seed48(xseed: COpaquePointer?): COpaquePointer? =
-    UnixCygwinJniBridge.libc_unix_cygwin_seed48((xseed?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun seed48(xseed: MutPtr<CUshort>): MutPtr<CUshort> =
+    MutPtr(UnixCygwinJniBridge.libcUnixCygwinSeed48(xseed.rawAddress))
 
 public actual fun srand48(seed: CLong) {
-    UnixCygwinJniBridge.libc_unix_cygwin_srand48(seed)
+    UnixCygwinJniBridge.libcUnixCygwinSrand48(seed)
 }
 
-public actual fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, compar: QsortRComparCallback?, arg: COpaquePointer?) {
-    UnixCygwinJniBridge.libc_unix_cygwin_qsortR((base?.value ?: 0L), num.toLong(), size.toLong(), 0L, (arg?.value ?: 0L))
+public actual fun qsortR(base: MutPtr<CVoid>, num: SizeT, size: SizeT, compar: QsortRComparCallback?, arg: MutPtr<CVoid>) {
+    UnixCygwinJniBridge.libcUnixCygwinQsortR(base.rawAddress, num.toLong(), size.toLong(), 0L, arg.rawAddress)
 }
 
-public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_mprotect((addr?.value ?: 0L), len.toLong(), prot)
+public actual fun mprotect(addr: MutPtr<CVoid>, len: SizeT, prot: CInt): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinMprotect(addr.rawAddress, len.toLong(), prot)
 
-public actual fun msync(addr: COpaquePointer?, len: SizeT, flags: CInt): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_msync((addr?.value ?: 0L), len.toLong(), flags)
+public actual fun msync(addr: MutPtr<CVoid>, len: SizeT, flags: CInt): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinMsync(addr.rawAddress, len.toLong(), flags)
 
-public actual fun posixMadvise(addr: COpaquePointer?, len: SizeT, advice: CInt): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_posixMadvise((addr?.value ?: 0L), len.toLong(), advice)
+public actual fun posixMadvise(addr: MutPtr<CVoid>, len: SizeT, advice: CInt): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPosixMadvise(addr.rawAddress, len.toLong(), advice)
 
-public actual fun madvise(addr: COpaquePointer?, len: SizeT, advice: CInt): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_madvise((addr?.value ?: 0L), len.toLong(), advice)
+public actual fun madvise(addr: MutPtr<CVoid>, len: SizeT, advice: CInt): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinMadvise(addr.rawAddress, len.toLong(), advice)
 
-public actual fun shmOpen(name: String?, oflag: CInt, mode: ModeT): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_shmOpen(name, oflag, mode.toInt())
+public actual fun shmOpen(name: ConstPtr<CChar>, oflag: CInt, mode: ModeT): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinShmOpen(name.rawAddress, oflag, mode.toInt())
 
-public actual fun shmUnlink(name: String?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_shmUnlink(name)
+public actual fun shmUnlink(name: ConstPtr<CChar>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinShmUnlink(name.rawAddress)
 
-public actual fun explicitBzero(s: COpaquePointer?, len: SizeT) {
-    UnixCygwinJniBridge.libc_unix_cygwin_explicitBzero((s?.value ?: 0L), len.toLong())
+public actual fun explicitBzero(s: MutPtr<CVoid>, len: SizeT) {
+    UnixCygwinJniBridge.libcUnixCygwinExplicitBzero(s.rawAddress, len.toLong())
 }
 
 public actual fun ffs(value: CInt): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_ffs(value)
+    UnixCygwinJniBridge.libcUnixCygwinFfs(value)
 
 public actual fun ffsl(value: CLong): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_ffsl(value)
+    UnixCygwinJniBridge.libcUnixCygwinFfsl(value)
 
 public actual fun ffsll(value: CLonglong): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_ffsll(value)
+    UnixCygwinJniBridge.libcUnixCygwinFfsll(value)
 
 public actual fun fls(value: CInt): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_fls(value)
+    UnixCygwinJniBridge.libcUnixCygwinFls(value)
 
 public actual fun flsl(value: CLong): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_flsl(value)
+    UnixCygwinJniBridge.libcUnixCygwinFlsl(value)
 
 public actual fun flsll(value: CLonglong): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_flsll(value)
+    UnixCygwinJniBridge.libcUnixCygwinFlsll(value)
 
-public actual fun strcasecmpL(s1: String?, s2: String?, loc: LocaleT): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_strcasecmpL(s1, s2, (loc?.value ?: 0L))
+public actual fun strcasecmpL(s1: ConstPtr<CChar>, s2: ConstPtr<CChar>, loc: LocaleT): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinStrcasecmpL(s1.rawAddress, s2.rawAddress, loc.rawAddress)
 
-public actual fun strncasecmpL(s1: String?, s2: String?, n: SizeT, loc: LocaleT): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_strncasecmpL(s1, s2, n.toLong(), (loc?.value ?: 0L))
+public actual fun strncasecmpL(s1: ConstPtr<CChar>, s2: ConstPtr<CChar>, n: SizeT, loc: LocaleT): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinStrncasecmpL(s1.rawAddress, s2.rawAddress, n.toLong(), loc.rawAddress)
 
-public actual fun timingsafeBcmp(a: COpaquePointer?, b: COpaquePointer?, len: SizeT): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_timingsafeBcmp((a?.value ?: 0L), (b?.value ?: 0L), len.toLong())
+public actual fun timingsafeBcmp(a: ConstPtr<CVoid>, b: ConstPtr<CVoid>, len: SizeT): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinTimingsafeBcmp(a.rawAddress, b.rawAddress, len.toLong())
 
-public actual fun timingsafeMemcmp(a: COpaquePointer?, b: COpaquePointer?, len: SizeT): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_timingsafeMemcmp((a?.value ?: 0L), (b?.value ?: 0L), len.toLong())
+public actual fun timingsafeMemcmp(a: ConstPtr<CVoid>, b: ConstPtr<CVoid>, len: SizeT): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinTimingsafeMemcmp(a.rawAddress, b.rawAddress, len.toLong())
 
-public actual fun memmem(haystack: COpaquePointer?, haystacklen: SizeT, needle: COpaquePointer?, needlelen: SizeT): COpaquePointer? =
-    UnixCygwinJniBridge.libc_unix_cygwin_memmem((haystack?.value ?: 0L), haystacklen.toLong(), (needle?.value ?: 0L), needlelen.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun memmem(haystack: ConstPtr<CVoid>, haystacklen: SizeT, needle: ConstPtr<CVoid>, needlelen: SizeT): MutPtr<CVoid> =
+    MutPtr(UnixCygwinJniBridge.libcUnixCygwinMemmem(haystack.rawAddress, haystacklen.toLong(), needle.rawAddress, needlelen.toLong()))
 
-public actual fun memrchr(cx: COpaquePointer?, c: CInt, n: SizeT): COpaquePointer? =
-    UnixCygwinJniBridge.libc_unix_cygwin_memrchr((cx?.value ?: 0L), c, n.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun memrchr(cx: ConstPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+    MutPtr(UnixCygwinJniBridge.libcUnixCygwinMemrchr(cx.rawAddress, c, n.toLong()))
 
-public actual fun strerrorR(errnum: CInt, buf: COpaquePointer?, buflen: SizeT): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_strerrorR(errnum, (buf?.value ?: 0L), buflen.toLong())
+public actual fun strerrorR(errnum: CInt, buf: MutPtr<CChar>, buflen: SizeT): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinStrerrorR(errnum, buf.rawAddress, buflen.toLong())
 
-public actual fun strsep(string: COpaquePointer?, delim: String?): COpaquePointer? =
-    UnixCygwinJniBridge.libc_unix_cygwin_strsep((string?.value ?: 0L), delim).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun strsep(string: MutPtr<MutPtr<CChar>>, delim: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(UnixCygwinJniBridge.libcUnixCygwinStrsep(string.rawAddress, delim.rawAddress))
 
-public actual fun basename(path: String?): COpaquePointer? =
-    UnixCygwinJniBridge.libc_unix_cygwin_basename(path).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun basename(path: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(UnixCygwinJniBridge.libcUnixCygwinBasename(path.rawAddress))
 
 public actual fun daemon(nochdir: CInt, noclose: CInt): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_daemon(nochdir, noclose)
+    UnixCygwinJniBridge.libcUnixCygwinDaemon(nochdir, noclose)
 
 public actual fun dup3(src: CInt, dst: CInt, flags: CInt): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_dup3(src, dst, flags)
+    UnixCygwinJniBridge.libcUnixCygwinDup3(src, dst, flags)
 
-public actual fun eaccess(pathname: String?, mode: CInt): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_eaccess(pathname, mode)
+public actual fun eaccess(pathname: ConstPtr<CChar>, mode: CInt): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinEaccess(pathname.rawAddress, mode)
 
-public actual fun euidaccess(pathname: String?, mode: CInt): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_euidaccess(pathname, mode)
+public actual fun euidaccess(pathname: ConstPtr<CChar>, mode: CInt): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinEuidaccess(pathname.rawAddress, mode)
 
-public actual fun execvpe(file: String?, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_execvpe(file, (argv?.value ?: 0L), (envp?.value ?: 0L))
+public actual fun execvpe(file: ConstPtr<CChar>, argv: ConstPtr<MutPtr<CChar>>, envp: ConstPtr<MutPtr<CChar>>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinExecvpe(file.rawAddress, argv.rawAddress, envp.rawAddress)
 
-public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_faccessat(dirfd, pathname, mode, flags)
+public actual fun faccessat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: CInt, flags: CInt): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinFaccessat(dirfd, pathname.rawAddress, mode, flags)
 
-public actual fun fexecve(fd: CInt, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_fexecve(fd, (argv?.value ?: 0L), (envp?.value ?: 0L))
+public actual fun fexecve(fd: CInt, argv: ConstPtr<MutPtr<CChar>>, envp: ConstPtr<MutPtr<CChar>>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinFexecve(fd, argv.rawAddress, envp.rawAddress)
 
 public actual fun fdatasync(fd: CInt): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_fdatasync(fd)
+    UnixCygwinJniBridge.libcUnixCygwinFdatasync(fd)
 
-public actual fun getdomainname(name: COpaquePointer?, len: SizeT): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_getdomainname((name?.value ?: 0L), len.toLong())
+public actual fun getdomainname(name: MutPtr<CChar>, len: SizeT): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinGetdomainname(name.rawAddress, len.toLong())
 
-public actual fun getentropy(buf: COpaquePointer?, buflen: SizeT): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_getentropy((buf?.value ?: 0L), buflen.toLong())
+public actual fun getentropy(buf: MutPtr<CVoid>, buflen: SizeT): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinGetentropy(buf.rawAddress, buflen.toLong())
 
 public actual fun gethostid(): CLong =
-    UnixCygwinJniBridge.libc_unix_cygwin_gethostid()
+    UnixCygwinJniBridge.libcUnixCygwinGethostid()
 
 public actual fun getpagesize(): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_getpagesize()
+    UnixCygwinJniBridge.libcUnixCygwinGetpagesize()
 
-public actual fun getpeereid(socket: CInt, euid: COpaquePointer?, egid: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_getpeereid(socket, (euid?.value ?: 0L), (egid?.value ?: 0L))
+public actual fun getpeereid(socket: CInt, euid: MutPtr<UidT>, egid: MutPtr<GidT>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinGetpeereid(socket, euid.rawAddress, egid.rawAddress)
 
 public actual fun pthreadAtfork(prepare: PthreadAtforkPrepareCallback?, parent: PthreadAtforkPrepareCallback?, child: PthreadAtforkPrepareCallback?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadAtfork(0L, 0L, 0L)
+    UnixCygwinJniBridge.libcUnixCygwinPthreadAtfork(0L, 0L, 0L)
 
-public actual fun pipe2(fds: COpaquePointer?, flags: CInt): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pipe2((fds?.value ?: 0L), flags)
+public actual fun pipe2(fds: MutPtr<CInt>, flags: CInt): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPipe2(fds.rawAddress, flags)
 
-public actual fun sbrk(increment: IntptrT): COpaquePointer? =
-    UnixCygwinJniBridge.libc_unix_cygwin_sbrk(increment).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun sbrk(increment: IntptrT): MutPtr<CVoid> =
+    MutPtr(UnixCygwinJniBridge.libcUnixCygwinSbrk(increment))
 
-public actual fun setgroups(ngroups: CInt, ptr: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_setgroups(ngroups, (ptr?.value ?: 0L))
+public actual fun setgroups(ngroups: CInt, ptr: ConstPtr<GidT>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinSetgroups(ngroups, ptr.rawAddress)
 
-public actual fun sethostname(name: String?, len: SizeT): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_sethostname(name, len.toLong())
+public actual fun sethostname(name: ConstPtr<CChar>, len: SizeT): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinSethostname(name.rawAddress, len.toLong())
 
 public actual fun vhangup(): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_vhangup()
+    UnixCygwinJniBridge.libcUnixCygwinVhangup()
 
 public actual fun getdtablesize(): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_getdtablesize()
+    UnixCygwinJniBridge.libcUnixCygwinGetdtablesize()
 
 public actual fun sync() {
-    UnixCygwinJniBridge.libc_unix_cygwin_sync()
+    UnixCygwinJniBridge.libcUnixCygwinSync()
 }
 
-public actual fun errno(): COpaquePointer? =
-    UnixCygwinJniBridge.libc_unix_cygwin_errno().let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun errno(): MutPtr<CInt> =
+    MutPtr(UnixCygwinJniBridge.libcUnixCygwinErrno())
 
-public actual fun schedSetparam(pid: PidT, param: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_schedSetparam(pid, (param?.value ?: 0L))
+public actual fun schedSetparam(pid: PidT, param: ConstPtr<SchedParam>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinSchedSetparam(pid, param.rawAddress)
 
-public actual fun schedGetparam(pid: PidT, param: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_schedGetparam(pid, (param?.value ?: 0L))
+public actual fun schedGetparam(pid: PidT, param: MutPtr<SchedParam>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinSchedGetparam(pid, param.rawAddress)
 
-public actual fun schedSetscheduler(pid: PidT, policy: CInt, param: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_schedSetscheduler(pid, policy, (param?.value ?: 0L))
+public actual fun schedSetscheduler(pid: PidT, policy: CInt, param: ConstPtr<SchedParam>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinSchedSetscheduler(pid, policy, param.rawAddress)
 
 public actual fun schedGetscheduler(pid: PidT): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_schedGetscheduler(pid)
+    UnixCygwinJniBridge.libcUnixCygwinSchedGetscheduler(pid)
 
 public actual fun schedGetPriorityMax(policy: CInt): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_schedGetPriorityMax(policy)
+    UnixCygwinJniBridge.libcUnixCygwinSchedGetPriorityMax(policy)
 
 public actual fun schedGetPriorityMin(policy: CInt): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_schedGetPriorityMin(policy)
+    UnixCygwinJniBridge.libcUnixCygwinSchedGetPriorityMin(policy)
 
-public actual fun schedRrGetInterval(pid: PidT, t: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_schedRrGetInterval(pid, (t?.value ?: 0L))
+public actual fun schedRrGetInterval(pid: PidT, t: MutPtr<Timespec>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinSchedRrGetInterval(pid, t.rawAddress)
 
 public actual fun schedGetcpu(): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_schedGetcpu()
+    UnixCygwinJniBridge.libcUnixCygwinSchedGetcpu()
 
-public actual fun schedGetaffinity(pid: PidT, cpusetsize: SizeT, mask: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_schedGetaffinity(pid, cpusetsize.toLong(), (mask?.value ?: 0L))
+public actual fun schedGetaffinity(pid: PidT, cpusetsize: SizeT, mask: MutPtr<CpuSetT>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinSchedGetaffinity(pid, cpusetsize.toLong(), mask.rawAddress)
 
-public actual fun schedSetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_schedSetaffinity(pid, cpusetsize.toLong(), (cpuset?.value ?: 0L))
+public actual fun schedSetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: ConstPtr<CpuSetT>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinSchedSetaffinity(pid, cpusetsize.toLong(), cpuset.rawAddress)
 
-public actual fun pthreadAttrGetguardsize(attr: COpaquePointer?, guardsize: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadAttrGetguardsize((attr?.value ?: 0L), (guardsize?.value ?: 0L))
+public actual fun pthreadAttrGetguardsize(attr: ConstPtr<PthreadAttrT>, guardsize: MutPtr<SizeT>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPthreadAttrGetguardsize(attr.rawAddress, guardsize.rawAddress)
 
-public actual fun pthreadAttrGetschedparam(attr: COpaquePointer?, param: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadAttrGetschedparam((attr?.value ?: 0L), (param?.value ?: 0L))
+public actual fun pthreadAttrGetschedparam(attr: ConstPtr<PthreadAttrT>, param: MutPtr<SchedParam>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPthreadAttrGetschedparam(attr.rawAddress, param.rawAddress)
 
-public actual fun pthreadAttrSetschedparam(attr: COpaquePointer?, param: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadAttrSetschedparam((attr?.value ?: 0L), (param?.value ?: 0L))
+public actual fun pthreadAttrSetschedparam(attr: MutPtr<PthreadAttrT>, param: ConstPtr<SchedParam>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPthreadAttrSetschedparam(attr.rawAddress, param.rawAddress)
 
-public actual fun pthreadAttrGetstack(attr: COpaquePointer?, stackaddr: COpaquePointer?, stacksize: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadAttrGetstack((attr?.value ?: 0L), (stackaddr?.value ?: 0L), (stacksize?.value ?: 0L))
+public actual fun pthreadAttrGetstack(attr: ConstPtr<PthreadAttrT>, stackaddr: MutPtr<MutPtr<CVoid>>, stacksize: MutPtr<SizeT>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPthreadAttrGetstack(attr.rawAddress, stackaddr.rawAddress, stacksize.rawAddress)
 
 public actual fun pthreadCancel(thread: PthreadT): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadCancel((thread?.value ?: 0L))
+    UnixCygwinJniBridge.libcUnixCygwinPthreadCancel(thread.rawAddress)
 
-public actual fun pthreadCondattrGetclock(attr: COpaquePointer?, clockId: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadCondattrGetclock((attr?.value ?: 0L), (clockId?.value ?: 0L))
+public actual fun pthreadCondattrGetclock(attr: ConstPtr<PthreadCondattrT>, clockId: MutPtr<ClockidT>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPthreadCondattrGetclock(attr.rawAddress, clockId.rawAddress)
 
-public actual fun pthreadCondattrGetpshared(attr: COpaquePointer?, pshared: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadCondattrGetpshared((attr?.value ?: 0L), (pshared?.value ?: 0L))
+public actual fun pthreadCondattrGetpshared(attr: ConstPtr<PthreadCondattrT>, pshared: MutPtr<CInt>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPthreadCondattrGetpshared(attr.rawAddress, pshared.rawAddress)
 
-public actual fun pthreadCondattrSetclock(attr: COpaquePointer?, clockId: ClockidT): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadCondattrSetclock((attr?.value ?: 0L), clockId.toLong())
+public actual fun pthreadCondattrSetclock(attr: MutPtr<PthreadCondattrT>, clockId: ClockidT): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPthreadCondattrSetclock(attr.rawAddress, clockId.toLong())
 
-public actual fun pthreadCondattrSetpshared(attr: COpaquePointer?, pshared: CInt): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadCondattrSetpshared((attr?.value ?: 0L), pshared)
+public actual fun pthreadCondattrSetpshared(attr: MutPtr<PthreadCondattrT>, pshared: CInt): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPthreadCondattrSetpshared(attr.rawAddress, pshared)
 
-public actual fun pthreadBarrierattrInit(attr: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadBarrierattrInit((attr?.value ?: 0L))
+public actual fun pthreadBarrierattrInit(attr: MutPtr<PthreadBarrierattrT>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPthreadBarrierattrInit(attr.rawAddress)
 
-public actual fun pthreadBarrierattrSetpshared(attr: COpaquePointer?, shared: CInt): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadBarrierattrSetpshared((attr?.value ?: 0L), shared)
+public actual fun pthreadBarrierattrSetpshared(attr: MutPtr<PthreadBarrierattrT>, shared: CInt): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPthreadBarrierattrSetpshared(attr.rawAddress, shared)
 
-public actual fun pthreadBarrierattrGetpshared(attr: COpaquePointer?, shared: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadBarrierattrGetpshared((attr?.value ?: 0L), (shared?.value ?: 0L))
+public actual fun pthreadBarrierattrGetpshared(attr: ConstPtr<PthreadBarrierattrT>, shared: MutPtr<CInt>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPthreadBarrierattrGetpshared(attr.rawAddress, shared.rawAddress)
 
-public actual fun pthreadBarrierattrDestroy(attr: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadBarrierattrDestroy((attr?.value ?: 0L))
+public actual fun pthreadBarrierattrDestroy(attr: MutPtr<PthreadBarrierattrT>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPthreadBarrierattrDestroy(attr.rawAddress)
 
-public actual fun pthreadBarrierInit(barrier: COpaquePointer?, attr: COpaquePointer?, count: CUint): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadBarrierInit((barrier?.value ?: 0L), (attr?.value ?: 0L), count.toInt())
+public actual fun pthreadBarrierInit(barrier: MutPtr<PthreadBarrierT>, attr: ConstPtr<PthreadBarrierattrT>, count: CUint): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPthreadBarrierInit(barrier.rawAddress, attr.rawAddress, count.toInt())
 
-public actual fun pthreadBarrierDestroy(barrier: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadBarrierDestroy((barrier?.value ?: 0L))
+public actual fun pthreadBarrierDestroy(barrier: MutPtr<PthreadBarrierT>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPthreadBarrierDestroy(barrier.rawAddress)
 
-public actual fun pthreadBarrierWait(barrier: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadBarrierWait((barrier?.value ?: 0L))
+public actual fun pthreadBarrierWait(barrier: MutPtr<PthreadBarrierT>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPthreadBarrierWait(barrier.rawAddress)
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadCreate((native?.value ?: 0L), (attr?.value ?: 0L), 0L, (value?.value ?: 0L))
+public actual fun pthreadCreate(native: MutPtr<PthreadT>, attr: ConstPtr<PthreadAttrT>, f: PthreadCreateFCallback, value: MutPtr<CVoid>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPthreadCreate(native.rawAddress, attr.rawAddress, 0L, value.rawAddress)
 
-public actual fun pthreadGetcpuclockid(thread: PthreadT, clkId: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadGetcpuclockid((thread?.value ?: 0L), (clkId?.value ?: 0L))
+public actual fun pthreadGetcpuclockid(thread: PthreadT, clkId: MutPtr<ClockidT>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPthreadGetcpuclockid(thread.rawAddress, clkId.rawAddress)
 
-public actual fun pthreadGetschedparam(native: PthreadT, policy: COpaquePointer?, param: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadGetschedparam((native?.value ?: 0L), (policy?.value ?: 0L), (param?.value ?: 0L))
+public actual fun pthreadGetschedparam(native: PthreadT, policy: MutPtr<CInt>, param: MutPtr<SchedParam>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPthreadGetschedparam(native.rawAddress, policy.rawAddress, param.rawAddress)
 
-public actual fun pthreadMutexTimedlock(lock: COpaquePointer?, abstime: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadMutexTimedlock((lock?.value ?: 0L), (abstime?.value ?: 0L))
+public actual fun pthreadMutexTimedlock(lock: MutPtr<PthreadMutexT>, abstime: ConstPtr<Timespec>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPthreadMutexTimedlock(lock.rawAddress, abstime.rawAddress)
 
-public actual fun pthreadMutexattrGetprotocol(attr: COpaquePointer?, protocol: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadMutexattrGetprotocol((attr?.value ?: 0L), (protocol?.value ?: 0L))
+public actual fun pthreadMutexattrGetprotocol(attr: ConstPtr<PthreadMutexattrT>, protocol: MutPtr<CInt>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPthreadMutexattrGetprotocol(attr.rawAddress, protocol.rawAddress)
 
-public actual fun pthreadMutexattrGetpshared(attr: COpaquePointer?, pshared: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadMutexattrGetpshared((attr?.value ?: 0L), (pshared?.value ?: 0L))
+public actual fun pthreadMutexattrGetpshared(attr: ConstPtr<PthreadMutexattrT>, pshared: MutPtr<CInt>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPthreadMutexattrGetpshared(attr.rawAddress, pshared.rawAddress)
 
-public actual fun pthreadMutexattrSetprotocol(attr: COpaquePointer?, protocol: CInt): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadMutexattrSetprotocol((attr?.value ?: 0L), protocol)
+public actual fun pthreadMutexattrSetprotocol(attr: MutPtr<PthreadMutexattrT>, protocol: CInt): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPthreadMutexattrSetprotocol(attr.rawAddress, protocol)
 
-public actual fun pthreadMutexattrSetpshared(attr: COpaquePointer?, pshared: CInt): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadMutexattrSetpshared((attr?.value ?: 0L), pshared)
+public actual fun pthreadMutexattrSetpshared(attr: MutPtr<PthreadMutexattrT>, pshared: CInt): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPthreadMutexattrSetpshared(attr.rawAddress, pshared)
 
-public actual fun pthreadSpinDestroy(lock: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadSpinDestroy((lock?.value ?: 0L))
+public actual fun pthreadSpinDestroy(lock: MutPtr<PthreadSpinlockT>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPthreadSpinDestroy(lock.rawAddress)
 
-public actual fun pthreadSpinInit(lock: COpaquePointer?, pshared: CInt): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadSpinInit((lock?.value ?: 0L), pshared)
+public actual fun pthreadSpinInit(lock: MutPtr<PthreadSpinlockT>, pshared: CInt): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPthreadSpinInit(lock.rawAddress, pshared)
 
-public actual fun pthreadSpinLock(lock: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadSpinLock((lock?.value ?: 0L))
+public actual fun pthreadSpinLock(lock: MutPtr<PthreadSpinlockT>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPthreadSpinLock(lock.rawAddress)
 
-public actual fun pthreadSpinTrylock(lock: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadSpinTrylock((lock?.value ?: 0L))
+public actual fun pthreadSpinTrylock(lock: MutPtr<PthreadSpinlockT>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPthreadSpinTrylock(lock.rawAddress)
 
-public actual fun pthreadSpinUnlock(lock: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadSpinUnlock((lock?.value ?: 0L))
+public actual fun pthreadSpinUnlock(lock: MutPtr<PthreadSpinlockT>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPthreadSpinUnlock(lock.rawAddress)
 
-public actual fun pthreadRwlockattrGetpshared(attr: COpaquePointer?, value: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadRwlockattrGetpshared((attr?.value ?: 0L), (value?.value ?: 0L))
+public actual fun pthreadRwlockattrGetpshared(attr: ConstPtr<PthreadRwlockattrT>, value: MutPtr<CInt>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPthreadRwlockattrGetpshared(attr.rawAddress, value.rawAddress)
 
-public actual fun pthreadRwlockattrSetpshared(attr: COpaquePointer?, value: CInt): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadRwlockattrSetpshared((attr?.value ?: 0L), value)
+public actual fun pthreadRwlockattrSetpshared(attr: MutPtr<PthreadRwlockattrT>, value: CInt): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPthreadRwlockattrSetpshared(attr.rawAddress, value)
 
-public actual fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadSetschedparam((native?.value ?: 0L), policy, (param?.value ?: 0L))
+public actual fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: ConstPtr<SchedParam>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPthreadSetschedparam(native.rawAddress, policy, param.rawAddress)
 
 public actual fun pthreadSetschedprio(native: PthreadT, priority: CInt): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadSetschedprio((native?.value ?: 0L), priority)
+    UnixCygwinJniBridge.libcUnixCygwinPthreadSetschedprio(native.rawAddress, priority)
 
-public actual fun pthreadGetaffinityNp(thread: PthreadT, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadGetaffinityNp((thread?.value ?: 0L), cpusetsize.toLong(), (cpuset?.value ?: 0L))
+public actual fun pthreadGetaffinityNp(thread: PthreadT, cpusetsize: SizeT, cpuset: MutPtr<CpuSetT>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPthreadGetaffinityNp(thread.rawAddress, cpusetsize.toLong(), cpuset.rawAddress)
 
-public actual fun pthreadGetattrNp(native: PthreadT, attr: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadGetattrNp((native?.value ?: 0L), (attr?.value ?: 0L))
+public actual fun pthreadGetattrNp(native: PthreadT, attr: MutPtr<PthreadAttrT>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPthreadGetattrNp(native.rawAddress, attr.rawAddress)
 
-public actual fun pthreadGetnameNp(thread: PthreadT, name: COpaquePointer?, len: SizeT): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadGetnameNp((thread?.value ?: 0L), (name?.value ?: 0L), len.toLong())
+public actual fun pthreadGetnameNp(thread: PthreadT, name: MutPtr<CChar>, len: SizeT): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPthreadGetnameNp(thread.rawAddress, name.rawAddress, len.toLong())
 
-public actual fun pthreadSetaffinityNp(thread: PthreadT, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadSetaffinityNp((thread?.value ?: 0L), cpusetsize.toLong(), (cpuset?.value ?: 0L))
+public actual fun pthreadSetaffinityNp(thread: PthreadT, cpusetsize: SizeT, cpuset: ConstPtr<CpuSetT>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPthreadSetaffinityNp(thread.rawAddress, cpusetsize.toLong(), cpuset.rawAddress)
 
-public actual fun pthreadSetnameNp(thread: PthreadT, name: String?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_pthreadSetnameNp((thread?.value ?: 0L), name)
+public actual fun pthreadSetnameNp(thread: PthreadT, name: ConstPtr<CChar>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPthreadSetnameNp(thread.rawAddress, name.rawAddress)
 
 public actual fun pthreadSigqueue(thread: PthreadT, sig: CInt, value: Sigval): CInt =
     0
 
 public actual fun ioctl(fd: CInt, request: CInt, vararg variadicArgs: Long): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_ioctl(fd, request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+    UnixCygwinJniBridge.libcUnixCygwinIoctl(fd, request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun getrandom(buf: COpaquePointer?, buflen: SizeT, flags: CUint): SsizeT =
-    UnixCygwinJniBridge.libc_unix_cygwin_getrandom((buf?.value ?: 0L), buflen.toLong(), flags.toInt())
+public actual fun getrandom(buf: MutPtr<CVoid>, buflen: SizeT, flags: CUint): SsizeT =
+    UnixCygwinJniBridge.libcUnixCygwinGetrandom(buf.rawAddress, buflen.toLong(), flags.toInt())
 
-public actual fun mount(src: String?, target: String?, flags: CUint): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_mount(src, target, flags.toInt())
+public actual fun mount(src: ConstPtr<CChar>, target: ConstPtr<CChar>, flags: CUint): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinMount(src.rawAddress, target.rawAddress, flags.toInt())
 
-public actual fun umount(target: String?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_umount(target)
+public actual fun umount(target: ConstPtr<CChar>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinUmount(target.rawAddress)
 
-public actual fun cygwinUmount(target: String?, flags: CUint): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_cygwinUmount(target, flags.toInt())
+public actual fun cygwinUmount(target: ConstPtr<CChar>, flags: CUint): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinCygwinUmount(target.rawAddress, flags.toInt())
 
-public actual fun dirfd(dirp: DIR?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_dirfd((dirp?.handle ?: 0L))
+public actual fun dirfd(dirp: MutPtr<DIR>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinDirfd(dirp.rawAddress)
 
-public actual fun seekdir(dirp: DIR?, loc: CLong) {
-    UnixCygwinJniBridge.libc_unix_cygwin_seekdir((dirp?.handle ?: 0L), loc)
+public actual fun seekdir(dirp: MutPtr<DIR>, loc: CLong) {
+    UnixCygwinJniBridge.libcUnixCygwinSeekdir(dirp.rawAddress, loc)
 }
 
-public actual fun telldir(dirp: DIR?): CLong =
-    UnixCygwinJniBridge.libc_unix_cygwin_telldir((dirp?.handle ?: 0L))
+public actual fun telldir(dirp: MutPtr<DIR>): CLong =
+    UnixCygwinJniBridge.libcUnixCygwinTelldir(dirp.rawAddress)
 
-public actual fun uname(buf: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_uname((buf?.value ?: 0L))
+public actual fun uname(buf: MutPtr<Utsname>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinUname(buf.rawAddress)
 
-public actual fun posixSpawn(pid: COpaquePointer?, path: String?, fileActions: COpaquePointer?, attrp: COpaquePointer?, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_posixSpawn((pid?.value ?: 0L), path, (fileActions?.value ?: 0L), (attrp?.value ?: 0L), (argv?.value ?: 0L), (envp?.value ?: 0L))
+public actual fun posixSpawn(pid: MutPtr<PidT>, path: ConstPtr<CChar>, fileActions: ConstPtr<PosixSpawnFileActionsT>, attrp: ConstPtr<PosixSpawnattrT>, argv: ConstPtr<MutPtr<CChar>>, envp: ConstPtr<MutPtr<CChar>>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPosixSpawn(pid.rawAddress, path.rawAddress, fileActions.rawAddress, attrp.rawAddress, argv.rawAddress, envp.rawAddress)
 
-public actual fun posixSpawnp(pid: COpaquePointer?, file: String?, fileActions: COpaquePointer?, attrp: COpaquePointer?, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_posixSpawnp((pid?.value ?: 0L), file, (fileActions?.value ?: 0L), (attrp?.value ?: 0L), (argv?.value ?: 0L), (envp?.value ?: 0L))
+public actual fun posixSpawnp(pid: MutPtr<PidT>, file: ConstPtr<CChar>, fileActions: ConstPtr<PosixSpawnFileActionsT>, attrp: ConstPtr<PosixSpawnattrT>, argv: ConstPtr<MutPtr<CChar>>, envp: ConstPtr<MutPtr<CChar>>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPosixSpawnp(pid.rawAddress, file.rawAddress, fileActions.rawAddress, attrp.rawAddress, argv.rawAddress, envp.rawAddress)
 
-public actual fun posixSpawnattrInit(attr: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_posixSpawnattrInit((attr?.value ?: 0L))
+public actual fun posixSpawnattrInit(attr: MutPtr<PosixSpawnattrT>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPosixSpawnattrInit(attr.rawAddress)
 
-public actual fun posixSpawnattrDestroy(attr: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_posixSpawnattrDestroy((attr?.value ?: 0L))
+public actual fun posixSpawnattrDestroy(attr: MutPtr<PosixSpawnattrT>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPosixSpawnattrDestroy(attr.rawAddress)
 
-public actual fun posixSpawnattrGetsigdefault(attr: COpaquePointer?, default: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_posixSpawnattrGetsigdefault((attr?.value ?: 0L), (default?.value ?: 0L))
+public actual fun posixSpawnattrGetsigdefault(attr: ConstPtr<PosixSpawnattrT>, default: MutPtr<SigsetT>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPosixSpawnattrGetsigdefault(attr.rawAddress, default.rawAddress)
 
-public actual fun posixSpawnattrSetsigdefault(attr: COpaquePointer?, default: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_posixSpawnattrSetsigdefault((attr?.value ?: 0L), (default?.value ?: 0L))
+public actual fun posixSpawnattrSetsigdefault(attr: MutPtr<PosixSpawnattrT>, default: ConstPtr<SigsetT>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPosixSpawnattrSetsigdefault(attr.rawAddress, default.rawAddress)
 
-public actual fun posixSpawnattrGetsigmask(attr: COpaquePointer?, default: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_posixSpawnattrGetsigmask((attr?.value ?: 0L), (default?.value ?: 0L))
+public actual fun posixSpawnattrGetsigmask(attr: ConstPtr<PosixSpawnattrT>, default: MutPtr<SigsetT>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPosixSpawnattrGetsigmask(attr.rawAddress, default.rawAddress)
 
-public actual fun posixSpawnattrSetsigmask(attr: COpaquePointer?, default: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_posixSpawnattrSetsigmask((attr?.value ?: 0L), (default?.value ?: 0L))
+public actual fun posixSpawnattrSetsigmask(attr: MutPtr<PosixSpawnattrT>, default: ConstPtr<SigsetT>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPosixSpawnattrSetsigmask(attr.rawAddress, default.rawAddress)
 
-public actual fun posixSpawnattrGetflags(attr: COpaquePointer?, flags: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_posixSpawnattrGetflags((attr?.value ?: 0L), (flags?.value ?: 0L))
+public actual fun posixSpawnattrGetflags(attr: ConstPtr<PosixSpawnattrT>, flags: MutPtr<CShort>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPosixSpawnattrGetflags(attr.rawAddress, flags.rawAddress)
 
-public actual fun posixSpawnattrSetflags(attr: COpaquePointer?, flags: CShort): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_posixSpawnattrSetflags((attr?.value ?: 0L), flags)
+public actual fun posixSpawnattrSetflags(attr: MutPtr<PosixSpawnattrT>, flags: CShort): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPosixSpawnattrSetflags(attr.rawAddress, flags)
 
-public actual fun posixSpawnattrGetpgroup(attr: COpaquePointer?, flags: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_posixSpawnattrGetpgroup((attr?.value ?: 0L), (flags?.value ?: 0L))
+public actual fun posixSpawnattrGetpgroup(attr: ConstPtr<PosixSpawnattrT>, flags: MutPtr<PidT>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPosixSpawnattrGetpgroup(attr.rawAddress, flags.rawAddress)
 
-public actual fun posixSpawnattrSetpgroup(attr: COpaquePointer?, flags: PidT): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_posixSpawnattrSetpgroup((attr?.value ?: 0L), flags)
+public actual fun posixSpawnattrSetpgroup(attr: MutPtr<PosixSpawnattrT>, flags: PidT): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPosixSpawnattrSetpgroup(attr.rawAddress, flags)
 
-public actual fun posixSpawnattrGetschedpolicy(attr: COpaquePointer?, flags: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_posixSpawnattrGetschedpolicy((attr?.value ?: 0L), (flags?.value ?: 0L))
+public actual fun posixSpawnattrGetschedpolicy(attr: ConstPtr<PosixSpawnattrT>, flags: MutPtr<CInt>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPosixSpawnattrGetschedpolicy(attr.rawAddress, flags.rawAddress)
 
-public actual fun posixSpawnattrSetschedpolicy(attr: COpaquePointer?, flags: CInt): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_posixSpawnattrSetschedpolicy((attr?.value ?: 0L), flags)
+public actual fun posixSpawnattrSetschedpolicy(attr: MutPtr<PosixSpawnattrT>, flags: CInt): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPosixSpawnattrSetschedpolicy(attr.rawAddress, flags)
 
-public actual fun posixSpawnattrGetschedparam(attr: COpaquePointer?, param: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_posixSpawnattrGetschedparam((attr?.value ?: 0L), (param?.value ?: 0L))
+public actual fun posixSpawnattrGetschedparam(attr: ConstPtr<PosixSpawnattrT>, param: MutPtr<SchedParam>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPosixSpawnattrGetschedparam(attr.rawAddress, param.rawAddress)
 
-public actual fun posixSpawnattrSetschedparam(attr: COpaquePointer?, param: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_posixSpawnattrSetschedparam((attr?.value ?: 0L), (param?.value ?: 0L))
+public actual fun posixSpawnattrSetschedparam(attr: MutPtr<PosixSpawnattrT>, param: ConstPtr<SchedParam>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPosixSpawnattrSetschedparam(attr.rawAddress, param.rawAddress)
 
-public actual fun posixSpawnFileActionsInit(actions: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_posixSpawnFileActionsInit((actions?.value ?: 0L))
+public actual fun posixSpawnFileActionsInit(actions: MutPtr<PosixSpawnFileActionsT>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPosixSpawnFileActionsInit(actions.rawAddress)
 
-public actual fun posixSpawnFileActionsDestroy(actions: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_posixSpawnFileActionsDestroy((actions?.value ?: 0L))
+public actual fun posixSpawnFileActionsDestroy(actions: MutPtr<PosixSpawnFileActionsT>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPosixSpawnFileActionsDestroy(actions.rawAddress)
 
-public actual fun posixSpawnFileActionsAddopen(actions: COpaquePointer?, fd: CInt, path: String?, oflag: CInt, mode: ModeT): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_posixSpawnFileActionsAddopen((actions?.value ?: 0L), fd, path, oflag, mode.toInt())
+public actual fun posixSpawnFileActionsAddopen(actions: MutPtr<PosixSpawnFileActionsT>, fd: CInt, path: ConstPtr<CChar>, oflag: CInt, mode: ModeT): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPosixSpawnFileActionsAddopen(actions.rawAddress, fd, path.rawAddress, oflag, mode.toInt())
 
-public actual fun posixSpawnFileActionsAddclose(actions: COpaquePointer?, fd: CInt): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_posixSpawnFileActionsAddclose((actions?.value ?: 0L), fd)
+public actual fun posixSpawnFileActionsAddclose(actions: MutPtr<PosixSpawnFileActionsT>, fd: CInt): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPosixSpawnFileActionsAddclose(actions.rawAddress, fd)
 
-public actual fun posixSpawnFileActionsAdddup2(actions: COpaquePointer?, fd: CInt, newfd: CInt): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_posixSpawnFileActionsAdddup2((actions?.value ?: 0L), fd, newfd)
+public actual fun posixSpawnFileActionsAdddup2(actions: MutPtr<PosixSpawnFileActionsT>, fd: CInt, newfd: CInt): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPosixSpawnFileActionsAdddup2(actions.rawAddress, fd, newfd)
 
-public actual fun posixSpawnFileActionsAddchdir(actions: COpaquePointer?, path: String?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_posixSpawnFileActionsAddchdir((actions?.value ?: 0L), path)
+public actual fun posixSpawnFileActionsAddchdir(actions: MutPtr<PosixSpawnFileActionsT>, path: ConstPtr<CChar>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPosixSpawnFileActionsAddchdir(actions.rawAddress, path.rawAddress)
 
-public actual fun posixSpawnFileActionsAddfchdir(actions: COpaquePointer?, fd: CInt): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_posixSpawnFileActionsAddfchdir((actions?.value ?: 0L), fd)
+public actual fun posixSpawnFileActionsAddfchdir(actions: MutPtr<PosixSpawnFileActionsT>, fd: CInt): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPosixSpawnFileActionsAddfchdir(actions.rawAddress, fd)
 
-public actual fun posixSpawnFileActionsAddchdirNp(actions: COpaquePointer?, path: String?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_posixSpawnFileActionsAddchdirNp((actions?.value ?: 0L), path)
+public actual fun posixSpawnFileActionsAddchdirNp(actions: MutPtr<PosixSpawnFileActionsT>, path: ConstPtr<CChar>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPosixSpawnFileActionsAddchdirNp(actions.rawAddress, path.rawAddress)
 
-public actual fun posixSpawnFileActionsAddfchdirNp(actions: COpaquePointer?, fd: CInt): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_posixSpawnFileActionsAddfchdirNp((actions?.value ?: 0L), fd)
+public actual fun posixSpawnFileActionsAddfchdirNp(actions: MutPtr<PosixSpawnFileActionsT>, fd: CInt): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinPosixSpawnFileActionsAddfchdirNp(actions.rawAddress, fd)
 
-public actual fun forkpty(amaster: COpaquePointer?, name: COpaquePointer?, termp: COpaquePointer?, winp: COpaquePointer?): PidT =
-    UnixCygwinJniBridge.libc_unix_cygwin_forkpty((amaster?.value ?: 0L), (name?.value ?: 0L), (termp?.value ?: 0L), (winp?.value ?: 0L))
+public actual fun forkpty(amaster: MutPtr<CInt>, name: MutPtr<CChar>, termp: ConstPtr<Termios>, winp: ConstPtr<Winsize>): PidT =
+    UnixCygwinJniBridge.libcUnixCygwinForkpty(amaster.rawAddress, name.rawAddress, termp.rawAddress, winp.rawAddress)
 
-public actual fun openpty(amaster: COpaquePointer?, aslave: COpaquePointer?, name: COpaquePointer?, termp: COpaquePointer?, winp: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_openpty((amaster?.value ?: 0L), (aslave?.value ?: 0L), (name?.value ?: 0L), (termp?.value ?: 0L), (winp?.value ?: 0L))
+public actual fun openpty(amaster: MutPtr<CInt>, aslave: MutPtr<CInt>, name: MutPtr<CChar>, termp: ConstPtr<Termios>, winp: ConstPtr<Winsize>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinOpenpty(amaster.rawAddress, aslave.rawAddress, name.rawAddress, termp.rawAddress, winp.rawAddress)
 
-public actual fun getgrgid(gid: GidT): COpaquePointer? =
-    UnixCygwinJniBridge.libc_unix_cygwin_getgrgid(gid.toShort()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getgrgid(gid: GidT): MutPtr<Group> =
+    MutPtr(UnixCygwinJniBridge.libcUnixCygwinGetgrgid(gid.toShort()))
 
-public actual fun getgrgidR(gid: GidT, grp: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_getgrgidR(gid.toShort(), (grp?.value ?: 0L), (buf?.value ?: 0L), buflen.toLong(), (result?.value ?: 0L))
+public actual fun getgrgidR(gid: GidT, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinGetgrgidR(gid.toShort(), grp.rawAddress, buf.rawAddress, buflen.toLong(), result.rawAddress)
 
-public actual fun getgrouplist(user: String?, group: GidT, groups: COpaquePointer?, ngroups: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_getgrouplist(user, group.toShort(), (groups?.value ?: 0L), (ngroups?.value ?: 0L))
+public actual fun getgrouplist(user: ConstPtr<CChar>, group: GidT, groups: MutPtr<GidT>, ngroups: MutPtr<CInt>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinGetgrouplist(user.rawAddress, group.toShort(), groups.rawAddress, ngroups.rawAddress)
 
-public actual fun getgrnam(name: String?): COpaquePointer? =
-    UnixCygwinJniBridge.libc_unix_cygwin_getgrnam(name).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getgrnam(name: ConstPtr<CChar>): MutPtr<Group> =
+    MutPtr(UnixCygwinJniBridge.libcUnixCygwinGetgrnam(name.rawAddress))
 
-public actual fun getgrnamR(name: String?, grp: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_getgrnamR(name, (grp?.value ?: 0L), (buf?.value ?: 0L), buflen.toLong(), (result?.value ?: 0L))
+public actual fun getgrnamR(name: ConstPtr<CChar>, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinGetgrnamR(name.rawAddress, grp.rawAddress, buf.rawAddress, buflen.toLong(), result.rawAddress)
 
-public actual fun initgroups(user: String?, group: GidT): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_initgroups(user, group.toShort())
+public actual fun initgroups(user: ConstPtr<CChar>, group: GidT): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinInitgroups(user.rawAddress, group.toShort())
 
-public actual fun statfs(path: String?, buf: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_statfs(path, (buf?.value ?: 0L))
+public actual fun statfs(path: ConstPtr<CChar>, buf: MutPtr<Statfs>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinStatfs(path.rawAddress, buf.rawAddress)
 
-public actual fun fstatfs(fd: CInt, buf: COpaquePointer?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_fstatfs(fd, (buf?.value ?: 0L))
+public actual fun fstatfs(fd: CInt, buf: MutPtr<Statfs>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinFstatfs(fd, buf.rawAddress)
 
 public actual fun posixFadvise(fd: CInt, offset: OffT, len: OffT, advise: CInt): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_posixFadvise(fd, offset, len, advise)
+    UnixCygwinJniBridge.libcUnixCygwinPosixFadvise(fd, offset, len, advise)
 
 public actual fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_posixFallocate(fd, offset, len)
+    UnixCygwinJniBridge.libcUnixCygwinPosixFallocate(fd, offset, len)
 
 public actual fun fallocate(fd: CInt, mode: CInt, offset: OffT, len: OffT): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_fallocate(fd, mode, offset, len)
+    UnixCygwinJniBridge.libcUnixCygwinFallocate(fd, mode, offset, len)
 
 public actual fun endutxent() {
-    UnixCygwinJniBridge.libc_unix_cygwin_endutxent()
+    UnixCygwinJniBridge.libcUnixCygwinEndutxent()
 }
 
-public actual fun getutxent(): COpaquePointer? =
-    UnixCygwinJniBridge.libc_unix_cygwin_getutxent().let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getutxent(): MutPtr<Utmpx> =
+    MutPtr(UnixCygwinJniBridge.libcUnixCygwinGetutxent())
 
-public actual fun getutxid(id: COpaquePointer?): COpaquePointer? =
-    UnixCygwinJniBridge.libc_unix_cygwin_getutxid((id?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getutxid(id: ConstPtr<Utmpx>): MutPtr<Utmpx> =
+    MutPtr(UnixCygwinJniBridge.libcUnixCygwinGetutxid(id.rawAddress))
 
-public actual fun getutxline(line: COpaquePointer?): COpaquePointer? =
-    UnixCygwinJniBridge.libc_unix_cygwin_getutxline((line?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getutxline(line: ConstPtr<Utmpx>): MutPtr<Utmpx> =
+    MutPtr(UnixCygwinJniBridge.libcUnixCygwinGetutxline(line.rawAddress))
 
-public actual fun pututxline(utmpx: COpaquePointer?): COpaquePointer? =
-    UnixCygwinJniBridge.libc_unix_cygwin_pututxline((utmpx?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun pututxline(utmpx: ConstPtr<Utmpx>): MutPtr<Utmpx> =
+    MutPtr(UnixCygwinJniBridge.libcUnixCygwinPututxline(utmpx.rawAddress))
 
 public actual fun setutxent() {
-    UnixCygwinJniBridge.libc_unix_cygwin_setutxent()
+    UnixCygwinJniBridge.libcUnixCygwinSetutxent()
 }
 
-public actual fun utmpxname(file: String?): CInt =
-    UnixCygwinJniBridge.libc_unix_cygwin_utmpxname(file)
+public actual fun utmpxname(file: ConstPtr<CChar>): CInt =
+    UnixCygwinJniBridge.libcUnixCygwinUtmpxname(file.rawAddress)
 
-public actual fun updwtmpx(file: String?, utmpx: COpaquePointer?) {
-    UnixCygwinJniBridge.libc_unix_cygwin_updwtmpx(file, (utmpx?.value ?: 0L))
+public actual fun updwtmpx(file: ConstPtr<CChar>, utmpx: ConstPtr<Utmpx>) {
+    UnixCygwinJniBridge.libcUnixCygwinUpdwtmpx(file.rawAddress, utmpx.rawAddress)
 }

@@ -29,7 +29,7 @@
 #endif
 #endif
 
-int32_t libc_windows_printf(const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcWindowsPrintf(const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -63,7 +63,7 @@ int32_t libc_windows_printf(const char* format, int32_t km_vac, int64_t km_va0, 
     return -1;
 }
 
-int32_t libc_windows_fprintf(void* stream, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcWindowsFprintf(void* stream, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(void*, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -97,63 +97,63 @@ int32_t libc_windows_fprintf(void* stream, const char* format, int32_t km_vac, i
     return -1;
 }
 
-int32_t libc_windows_isalnum(int32_t c) {
+int32_t libcWindowsIsalnum(int32_t c) {
     return (int32_t)isalnum(c);
 }
 
-int32_t libc_windows_isalpha(int32_t c) {
+int32_t libcWindowsIsalpha(int32_t c) {
     return (int32_t)isalpha(c);
 }
 
-int32_t libc_windows_iscntrl(int32_t c) {
+int32_t libcWindowsIscntrl(int32_t c) {
     return (int32_t)iscntrl(c);
 }
 
-int32_t libc_windows_isdigit(int32_t c) {
+int32_t libcWindowsIsdigit(int32_t c) {
     return (int32_t)isdigit(c);
 }
 
-int32_t libc_windows_isgraph(int32_t c) {
+int32_t libcWindowsIsgraph(int32_t c) {
     return (int32_t)isgraph(c);
 }
 
-int32_t libc_windows_islower(int32_t c) {
+int32_t libcWindowsIslower(int32_t c) {
     return (int32_t)islower(c);
 }
 
-int32_t libc_windows_isprint(int32_t c) {
+int32_t libcWindowsIsprint(int32_t c) {
     return (int32_t)isprint(c);
 }
 
-int32_t libc_windows_ispunct(int32_t c) {
+int32_t libcWindowsIspunct(int32_t c) {
     return (int32_t)ispunct(c);
 }
 
-int32_t libc_windows_isspace(int32_t c) {
+int32_t libcWindowsIsspace(int32_t c) {
     return (int32_t)isspace(c);
 }
 
-int32_t libc_windows_isupper(int32_t c) {
+int32_t libcWindowsIsupper(int32_t c) {
     return (int32_t)isupper(c);
 }
 
-int32_t libc_windows_isxdigit(int32_t c) {
+int32_t libcWindowsIsxdigit(int32_t c) {
     return (int32_t)isxdigit(c);
 }
 
-int32_t libc_windows_isblank(int32_t c) {
+int32_t libcWindowsIsblank(int32_t c) {
     return (int32_t)isblank(c);
 }
 
-int32_t libc_windows_tolower(int32_t c) {
+int32_t libcWindowsTolower(int32_t c) {
     return (int32_t)tolower(c);
 }
 
-int32_t libc_windows_toupper(int32_t c) {
+int32_t libcWindowsToupper(int32_t c) {
     return (int32_t)toupper(c);
 }
 
-void libc_windows_qsort(void* base, uint64_t num, uint64_t size, void* compar) {
+void libcWindowsQsort(void* base, uint64_t num, uint64_t size, void* compar) {
     typedef void (*km_fn_t)(void*, uint64_t, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -181,7 +181,7 @@ void libc_windows_qsort(void* base, uint64_t num, uint64_t size, void* compar) {
     errno = ENOSYS;
 }
 
-void libc_windows_qsortS(void* base, uint64_t num, uint64_t size, void* compar, void* arg) {
+void libcWindowsQsortS(void* base, uint64_t num, uint64_t size, void* compar, void* arg) {
     typedef void (*km_fn_t)(void*, uint64_t, uint64_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -209,95 +209,95 @@ void libc_windows_qsortS(void* base, uint64_t num, uint64_t size, void* compar, 
     errno = ENOSYS;
 }
 
-void* libc_windows_fopen(const char* filename, const char* mode) {
+void* libcWindowsFopen(const char* filename, const char* mode) {
     return (void*)fopen(filename, mode);
 }
 
-void* libc_windows_freopen(const char* filename, const char* mode, void* file) {
+void* libcWindowsFreopen(const char* filename, const char* mode, void* file) {
     return (void*)freopen(filename, mode, (FILE*)file);
 }
 
-int32_t libc_windows_fflush(void* file) {
+int32_t libcWindowsFflush(void* file) {
     return (int32_t)fflush((FILE*)file);
 }
 
-int32_t libc_windows_fclose(void* file) {
+int32_t libcWindowsFclose(void* file) {
     return (int32_t)fclose((FILE*)file);
 }
 
-int32_t libc_windows_remove(const char* filename) {
+int32_t libcWindowsRemove(const char* filename) {
     return (int32_t)remove(filename);
 }
 
-int32_t libc_windows_rename(const char* oldname, const char* newname) {
+int32_t libcWindowsRename(const char* oldname, const char* newname) {
     return (int32_t)rename(oldname, newname);
 }
 
-void* libc_windows_tmpfile(void) {
+void* libcWindowsTmpfile(void) {
     return (void*)tmpfile();
 }
 
-int32_t libc_windows_setvbuf(void* stream, char* buffer, int32_t mode, uint64_t size) {
+int32_t libcWindowsSetvbuf(void* stream, char* buffer, int32_t mode, uint64_t size) {
     return (int32_t)setvbuf((FILE*)stream, buffer, mode, size);
 }
 
-void libc_windows_setbuf(void* stream, char* buf) {
+void libcWindowsSetbuf(void* stream, char* buf) {
     setbuf((FILE*)stream, buf);
 }
 
-int32_t libc_windows_getchar(void) {
+int32_t libcWindowsGetchar(void) {
     return (int32_t)getchar();
 }
 
-int32_t libc_windows_putchar(int32_t c) {
+int32_t libcWindowsPutchar(int32_t c) {
     return (int32_t)putchar(c);
 }
 
-int32_t libc_windows_fgetc(void* stream) {
+int32_t libcWindowsFgetc(void* stream) {
     return (int32_t)fgetc((FILE*)stream);
 }
 
-char* libc_windows_fgets(char* buf, int32_t n, void* stream) {
+char* libcWindowsFgets(char* buf, int32_t n, void* stream) {
     return (char*)fgets(buf, n, (FILE*)stream);
 }
 
-int32_t libc_windows_fputc(int32_t c, void* stream) {
+int32_t libcWindowsFputc(int32_t c, void* stream) {
     return (int32_t)fputc(c, (FILE*)stream);
 }
 
-int32_t libc_windows_fputs(const char* s, void* stream) {
+int32_t libcWindowsFputs(const char* s, void* stream) {
     return (int32_t)fputs(s, (FILE*)stream);
 }
 
-int32_t libc_windows_puts(const char* s) {
+int32_t libcWindowsPuts(const char* s) {
     return (int32_t)puts(s);
 }
 
-int32_t libc_windows_ungetc(int32_t c, void* stream) {
+int32_t libcWindowsUngetc(int32_t c, void* stream) {
     return (int32_t)ungetc(c, (FILE*)stream);
 }
 
-uint64_t libc_windows_fread(void* ptr, uint64_t size, uint64_t nobj, void* stream) {
+uint64_t libcWindowsFread(void* ptr, uint64_t size, uint64_t nobj, void* stream) {
     return (uint64_t)fread(ptr, size, nobj, (FILE*)stream);
 }
 
-uint64_t libc_windows_fwrite(void* ptr, uint64_t size, uint64_t nobj, void* stream) {
+uint64_t libcWindowsFwrite(void* ptr, uint64_t size, uint64_t nobj, void* stream) {
     return (uint64_t)fwrite(ptr, size, nobj, (FILE*)stream);
 }
 
-int32_t libc_windows_fseek(void* stream, int64_t offset, int32_t whence) {
+int32_t libcWindowsFseek(void* stream, int64_t offset, int32_t whence) {
     return (int32_t)fseek((FILE*)stream, offset, whence);
 }
 
-int64_t libc_windows_ftell(void* stream) {
+int64_t libcWindowsFtell(void* stream) {
     return (int64_t)ftell((FILE*)stream);
 }
 
-void libc_windows_rewind(void* stream) {
+void libcWindowsRewind(void* stream) {
     rewind((FILE*)stream);
 }
 
-int32_t libc_windows_fgetpos(void* stream, void* ptr) {
+int32_t libcWindowsFgetpos(void* stream, void* ptr) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -325,7 +325,7 @@ int32_t libc_windows_fgetpos(void* stream, void* ptr) {
     return -1;
 }
 
-int32_t libc_windows_fsetpos(void* stream, void* ptr) {
+int32_t libcWindowsFsetpos(void* stream, void* ptr) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -353,67 +353,67 @@ int32_t libc_windows_fsetpos(void* stream, void* ptr) {
     return -1;
 }
 
-int32_t libc_windows_feof(void* stream) {
+int32_t libcWindowsFeof(void* stream) {
     return (int32_t)feof((FILE*)stream);
 }
 
-int32_t libc_windows_ferror(void* stream) {
+int32_t libcWindowsFerror(void* stream) {
     return (int32_t)ferror((FILE*)stream);
 }
 
-void libc_windows_perror(const char* s) {
+void libcWindowsPerror(const char* s) {
     perror(s);
 }
 
-double libc_windows_atof(const char* s) {
+double libcWindowsAtof(const char* s) {
     return (double)atof(s);
 }
 
-int32_t libc_windows_atoi(const char* s) {
+int32_t libcWindowsAtoi(const char* s) {
     return (int32_t)atoi(s);
 }
 
-int64_t libc_windows_atol(const char* s) {
+int64_t libcWindowsAtol(const char* s) {
     return (int64_t)atol(s);
 }
 
-int64_t libc_windows_atoll(const char* s) {
+int64_t libcWindowsAtoll(const char* s) {
     return (int64_t)atoll(s);
 }
 
-double libc_windows_strtod(const char* s, void* endp) {
+double libcWindowsStrtod(const char* s, void* endp) {
     return (double)strtod(s, endp);
 }
 
-float libc_windows_strtof(const char* s, void* endp) {
+float libcWindowsStrtof(const char* s, void* endp) {
     return (float)strtof(s, endp);
 }
 
-int64_t libc_windows_strtol(const char* s, void* endp, int32_t base) {
+int64_t libcWindowsStrtol(const char* s, void* endp, int32_t base) {
     return (int64_t)strtol(s, endp, base);
 }
 
-int64_t libc_windows_strtoll(const char* s, void* endp, int32_t base) {
+int64_t libcWindowsStrtoll(const char* s, void* endp, int32_t base) {
     return (int64_t)strtoll(s, endp, base);
 }
 
-uint64_t libc_windows_strtoul(const char* s, void* endp, int32_t base) {
+uint64_t libcWindowsStrtoul(const char* s, void* endp, int32_t base) {
     return (uint64_t)strtoul(s, endp, base);
 }
 
-uint64_t libc_windows_strtoull(const char* s, void* endp, int32_t base) {
+uint64_t libcWindowsStrtoull(const char* s, void* endp, int32_t base) {
     return (uint64_t)strtoull(s, endp, base);
 }
 
-void* libc_windows_calloc(uint64_t nobj, uint64_t size) {
+void* libcWindowsCalloc(uint64_t nobj, uint64_t size) {
     return (void*)calloc(nobj, size);
 }
 
-void* libc_windows_malloc(uint64_t size) {
+void* libcWindowsMalloc(uint64_t size) {
     return (void*)malloc(size);
 }
 
-uint64_t libc_windows_msize(void* p) {
+uint64_t libcWindowsMsize(void* p) {
     typedef uint64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -439,23 +439,23 @@ uint64_t libc_windows_msize(void* p) {
     return 0;
 }
 
-void* libc_windows_realloc(void* p, uint64_t size) {
+void* libcWindowsRealloc(void* p, uint64_t size) {
     return (void*)realloc(p, size);
 }
 
-void libc_windows_free(void* p) {
+void libcWindowsFree(void* p) {
     free(p);
 }
 
-void libc_windows_abort(void) {
+void libcWindowsAbort(void) {
     abort();
 }
 
-void libc_windows_exit(int32_t status) {
+void libcWindowsExit(int32_t status) {
     exit(status);
 }
 
-int32_t libc_windows_atexit(void* cb) {
+int32_t libcWindowsAtexit(void* cb) {
     if (cb == NULL) {
         errno = EINVAL;
         return -1;
@@ -491,7 +491,7 @@ int32_t libc_windows_atexit(void* cb) {
 #endif
 }
 
-int32_t libc_windows_system(const char* s) {
+int32_t libcWindowsSystem(const char* s) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -519,87 +519,87 @@ int32_t libc_windows_system(const char* s) {
     return -1;
 }
 
-char* libc_windows_getenv(const char* s) {
+char* libcWindowsGetenv(const char* s) {
     return (char*)getenv(s);
 }
 
-char* libc_windows_strcpy(char* dst, const char* src) {
+char* libcWindowsStrcpy(char* dst, const char* src) {
     return (char*)strcpy(dst, src);
 }
 
-char* libc_windows_strncpy(char* dst, const char* src, uint64_t n) {
+char* libcWindowsStrncpy(char* dst, const char* src, uint64_t n) {
     return (char*)strncpy(dst, src, n);
 }
 
-char* libc_windows_strcat(char* s, const char* ct) {
+char* libcWindowsStrcat(char* s, const char* ct) {
     return (char*)strcat(s, ct);
 }
 
-char* libc_windows_strncat(char* s, const char* ct, uint64_t n) {
+char* libcWindowsStrncat(char* s, const char* ct, uint64_t n) {
     return (char*)strncat(s, ct, n);
 }
 
-int32_t libc_windows_strcmp(const char* cs, const char* ct) {
+int32_t libcWindowsStrcmp(const char* cs, const char* ct) {
     return (int32_t)strcmp(cs, ct);
 }
 
-int32_t libc_windows_strncmp(const char* cs, const char* ct, uint64_t n) {
+int32_t libcWindowsStrncmp(const char* cs, const char* ct, uint64_t n) {
     return (int32_t)strncmp(cs, ct, n);
 }
 
-int32_t libc_windows_strcoll(const char* cs, const char* ct) {
+int32_t libcWindowsStrcoll(const char* cs, const char* ct) {
     return (int32_t)strcoll(cs, ct);
 }
 
-char* libc_windows_strchr(const char* cs, int32_t c) {
+char* libcWindowsStrchr(const char* cs, int32_t c) {
     return (char*)strchr(cs, c);
 }
 
-char* libc_windows_strrchr(const char* cs, int32_t c) {
+char* libcWindowsStrrchr(const char* cs, int32_t c) {
     return (char*)strrchr(cs, c);
 }
 
-uint64_t libc_windows_strspn(const char* cs, const char* ct) {
+uint64_t libcWindowsStrspn(const char* cs, const char* ct) {
     return (uint64_t)strspn(cs, ct);
 }
 
-uint64_t libc_windows_strcspn(const char* cs, const char* ct) {
+uint64_t libcWindowsStrcspn(const char* cs, const char* ct) {
     return (uint64_t)strcspn(cs, ct);
 }
 
-char* libc_windows_strdup(const char* cs) {
+char* libcWindowsStrdup(const char* cs) {
     return (char*)strdup(cs);
 }
 
-char* libc_windows_strpbrk(const char* cs, const char* ct) {
+char* libcWindowsStrpbrk(const char* cs, const char* ct) {
     return (char*)strpbrk(cs, ct);
 }
 
-char* libc_windows_strstr(const char* cs, const char* ct) {
+char* libcWindowsStrstr(const char* cs, const char* ct) {
     return (char*)strstr(cs, ct);
 }
 
-uint64_t libc_windows_strlen(const char* cs) {
+uint64_t libcWindowsStrlen(const char* cs) {
     return (uint64_t)strlen(cs);
 }
 
-uint64_t libc_windows_strnlen(const char* cs, uint64_t maxlen) {
+uint64_t libcWindowsStrnlen(const char* cs, uint64_t maxlen) {
     return (uint64_t)strnlen(cs, maxlen);
 }
 
-char* libc_windows_strerror(int32_t n) {
+char* libcWindowsStrerror(int32_t n) {
     return (char*)strerror(n);
 }
 
-char* libc_windows_strtok(char* s, const char* t) {
+char* libcWindowsStrtok(char* s, const char* t) {
     return (char*)strtok(s, t);
 }
 
-uint64_t libc_windows_strxfrm(char* s, const char* ct, uint64_t n) {
+uint64_t libcWindowsStrxfrm(char* s, const char* ct, uint64_t n) {
     return (uint64_t)strxfrm(s, ct, n);
 }
 
-uint64_t libc_windows_wcslen(void* buf) {
+uint64_t libcWindowsWcslen(void* buf) {
     typedef uint64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -627,7 +627,7 @@ uint64_t libc_windows_wcslen(void* buf) {
     return 0;
 }
 
-uint64_t libc_windows_wcsnlen(void* str, uint64_t numberOfElements) {
+uint64_t libcWindowsWcsnlen(void* str, uint64_t numberOfElements) {
     typedef uint64_t (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -655,7 +655,7 @@ uint64_t libc_windows_wcsnlen(void* str, uint64_t numberOfElements) {
     return 0;
 }
 
-uint64_t libc_windows_wcstombs(char* dest, void* src, uint64_t n) {
+uint64_t libcWindowsWcstombs(char* dest, void* src, uint64_t n) {
     typedef uint64_t (*km_fn_t)(char*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -683,31 +683,31 @@ uint64_t libc_windows_wcstombs(char* dest, void* src, uint64_t n) {
     return 0;
 }
 
-void* libc_windows_memchr(void* cx, int32_t c, uint64_t n) {
+void* libcWindowsMemchr(void* cx, int32_t c, uint64_t n) {
     return (void*)memchr(cx, c, n);
 }
 
-int32_t libc_windows_memcmp(void* cx, void* ct, uint64_t n) {
+int32_t libcWindowsMemcmp(void* cx, void* ct, uint64_t n) {
     return (int32_t)memcmp(cx, ct, n);
 }
 
-void* libc_windows_memcpy(void* dest, void* src, uint64_t n) {
+void* libcWindowsMemcpy(void* dest, void* src, uint64_t n) {
     return (void*)memcpy(dest, src, n);
 }
 
-void* libc_windows_memmove(void* dest, void* src, uint64_t n) {
+void* libcWindowsMemmove(void* dest, void* src, uint64_t n) {
     return (void*)memmove(dest, src, n);
 }
 
-void* libc_windows_memset(void* dest, int32_t c, uint64_t n) {
+void* libcWindowsMemset(void* dest, int32_t c, uint64_t n) {
     return (void*)memset(dest, c, n);
 }
 
-int32_t libc_windows_abs(int32_t i) {
+int32_t libcWindowsAbs(int32_t i) {
     return (int32_t)abs(i);
 }
 
-int64_t libc_windows_labs(int64_t i) {
+int64_t libcWindowsLabs(int64_t i) {
     typedef int64_t (*km_fn_t)(int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -735,15 +735,15 @@ int64_t libc_windows_labs(int64_t i) {
     return -1;
 }
 
-int32_t libc_windows_rand(void) {
+int32_t libcWindowsRand(void) {
     return (int32_t)rand();
 }
 
-void libc_windows_srand(uint32_t seed) {
+void libcWindowsSrand(uint32_t seed) {
     srand(seed);
 }
 
-uint64_t libc_windows_signal(int32_t signum, uint64_t handler) {
+uint64_t libcWindowsSignal(int32_t signum, uint64_t handler) {
     typedef uint64_t (*km_fn_t)(int32_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -771,23 +771,23 @@ uint64_t libc_windows_signal(int32_t signum, uint64_t handler) {
     return 0;
 }
 
-int32_t libc_windows_raise(int32_t signum) {
+int32_t libcWindowsRaise(int32_t signum) {
     return (int32_t)raise(signum);
 }
 
-int32_t libc_windows_clock(void) {
+int32_t libcWindowsClock(void) {
     return (int32_t)clock();
 }
 
-char* libc_windows_ctime(void* sourceTime) {
+char* libcWindowsCtime(void* sourceTime) {
     return (char*)ctime(sourceTime);
 }
 
-double libc_windows_difftime(int64_t timeEnd, int64_t timeStart) {
+double libcWindowsDifftime(int64_t timeEnd, int64_t timeStart) {
     return (double)difftime(timeEnd, timeStart);
 }
 
-int32_t libc_windows_gmtimeS(void* destTime, void* srcTime) {
+int32_t libcWindowsGmtimeS(void* destTime, void* srcTime) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -813,7 +813,7 @@ int32_t libc_windows_gmtimeS(void* destTime, void* srcTime) {
     return -1;
 }
 
-int32_t libc_windows_getDaylight(void* hours) {
+int32_t libcWindowsGetDaylight(void* hours) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -839,7 +839,7 @@ int32_t libc_windows_getDaylight(void* hours) {
     return -1;
 }
 
-int32_t libc_windows_getDstbias(void* seconds) {
+int32_t libcWindowsGetDstbias(void* seconds) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -865,7 +865,7 @@ int32_t libc_windows_getDstbias(void* seconds) {
     return -1;
 }
 
-int32_t libc_windows_getTimezone(void* seconds) {
+int32_t libcWindowsGetTimezone(void* seconds) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -891,7 +891,7 @@ int32_t libc_windows_getTimezone(void* seconds) {
     return -1;
 }
 
-int32_t libc_windows_getTzname(void* p_return_value, char* time_zone_name, uint64_t size_in_bytes, int32_t arg_3_index) {
+int32_t libcWindowsGetTzname(void* pReturnValue, char* timeZoneName, uint64_t sizeInBytes, int32_t arg3Index) {
     typedef int32_t (*km_fn_t)(void*, char*, uint64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -911,13 +911,13 @@ int32_t libc_windows_getTzname(void* p_return_value, char* time_zone_name, uint6
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(p_return_value, time_zone_name, size_in_bytes, arg_3_index);
+        return km_fn_ptr(pReturnValue, timeZoneName, sizeInBytes, arg3Index);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_windows_localtimeS(void* tmDest, void* sourceTime) {
+int32_t libcWindowsLocaltimeS(void* tmDest, void* sourceTime) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -943,7 +943,7 @@ int32_t libc_windows_localtimeS(void* tmDest, void* sourceTime) {
     return -1;
 }
 
-int64_t libc_windows_time(void* destTime) {
+int64_t libcWindowsTime(void* destTime) {
     typedef int64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -974,7 +974,7 @@ int64_t libc_windows_time(void* destTime) {
     return -1;
 }
 
-void libc_windows_tzset(void) {
+void libcWindowsTzset(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1000,7 +1000,7 @@ void libc_windows_tzset(void) {
     errno = ENOSYS;
 }
 
-int32_t libc_windows_chmod(const char* path, int32_t mode) {
+int32_t libcWindowsChmod(const char* path, int32_t mode) {
     typedef int32_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1026,7 +1026,7 @@ int32_t libc_windows_chmod(const char* path, int32_t mode) {
     return -1;
 }
 
-int32_t libc_windows_wchmod(void* path, int32_t mode) {
+int32_t libcWindowsWchmod(void* path, int32_t mode) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1052,7 +1052,7 @@ int32_t libc_windows_wchmod(void* path, int32_t mode) {
     return -1;
 }
 
-int32_t libc_windows_mkdir(const char* path) {
+int32_t libcWindowsMkdir(const char* path) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1078,7 +1078,7 @@ int32_t libc_windows_mkdir(const char* path) {
     return -1;
 }
 
-int32_t libc_windows_wrmdir(void* path) {
+int32_t libcWindowsWrmdir(void* path) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1104,7 +1104,7 @@ int32_t libc_windows_wrmdir(void* path) {
     return -1;
 }
 
-int32_t libc_windows_fstat(int32_t fildes, void* buf) {
+int32_t libcWindowsFstat(int32_t fildes, void* buf) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1135,7 +1135,7 @@ int32_t libc_windows_fstat(int32_t fildes, void* buf) {
     return -1;
 }
 
-int32_t libc_windows_stat(const char* path, void* buf) {
+int32_t libcWindowsStat(const char* path, void* buf) {
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1166,7 +1166,7 @@ int32_t libc_windows_stat(const char* path, void* buf) {
     return -1;
 }
 
-int32_t libc_windows_wstat(void* path, void* buf) {
+int32_t libcWindowsWstat(void* path, void* buf) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1197,7 +1197,7 @@ int32_t libc_windows_wstat(void* path, void* buf) {
     return -1;
 }
 
-int32_t libc_windows_wutime(void* file, void* buf) {
+int32_t libcWindowsWutime(void* file, void* buf) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1228,7 +1228,7 @@ int32_t libc_windows_wutime(void* file, void* buf) {
     return -1;
 }
 
-void* libc_windows_popen(const char* command, const char* mode) {
+void* libcWindowsPopen(const char* command, const char* mode) {
     typedef void* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1254,7 +1254,7 @@ void* libc_windows_popen(const char* command, const char* mode) {
     return NULL;
 }
 
-int32_t libc_windows_pclose(void* stream) {
+int32_t libcWindowsPclose(void* stream) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1280,7 +1280,7 @@ int32_t libc_windows_pclose(void* stream) {
     return -1;
 }
 
-void* libc_windows_fdopen(int32_t fd, const char* mode) {
+void* libcWindowsFdopen(int32_t fd, const char* mode) {
     typedef void* (*km_fn_t)(int32_t, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1306,7 +1306,7 @@ void* libc_windows_fdopen(int32_t fd, const char* mode) {
     return NULL;
 }
 
-int32_t libc_windows_fileno(void* stream) {
+int32_t libcWindowsFileno(void* stream) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1332,7 +1332,7 @@ int32_t libc_windows_fileno(void* stream) {
     return -1;
 }
 
-int32_t libc_windows_open(const char* path, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcWindowsOpen(const char* path, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(const char*, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1364,7 +1364,7 @@ int32_t libc_windows_open(const char* path, int32_t oflag, int32_t km_vac, int64
     return -1;
 }
 
-int32_t libc_windows_wopen(void* path, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcWindowsWopen(void* path, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(void*, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1396,7 +1396,7 @@ int32_t libc_windows_wopen(void* path, int32_t oflag, int32_t km_vac, int64_t km
     return -1;
 }
 
-int32_t libc_windows_creat(const char* path, int32_t mode) {
+int32_t libcWindowsCreat(const char* path, int32_t mode) {
     typedef int32_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1422,7 +1422,7 @@ int32_t libc_windows_creat(const char* path, int32_t mode) {
     return -1;
 }
 
-int32_t libc_windows_access(const char* path, int32_t amode) {
+int32_t libcWindowsAccess(const char* path, int32_t amode) {
     typedef int32_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1448,7 +1448,7 @@ int32_t libc_windows_access(const char* path, int32_t amode) {
     return -1;
 }
 
-int32_t libc_windows_chdir(const char* dir) {
+int32_t libcWindowsChdir(const char* dir) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1474,7 +1474,7 @@ int32_t libc_windows_chdir(const char* dir) {
     return -1;
 }
 
-int32_t libc_windows_close(int32_t fd) {
+int32_t libcWindowsClose(int32_t fd) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1500,7 +1500,7 @@ int32_t libc_windows_close(int32_t fd) {
     return -1;
 }
 
-int32_t libc_windows_dup(int32_t fd) {
+int32_t libcWindowsDup(int32_t fd) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1526,7 +1526,7 @@ int32_t libc_windows_dup(int32_t fd) {
     return -1;
 }
 
-int32_t libc_windows_dup2(int32_t src, int32_t dst) {
+int32_t libcWindowsDup2(int32_t src, int32_t dst) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1552,7 +1552,7 @@ int32_t libc_windows_dup2(int32_t src, int32_t dst) {
     return -1;
 }
 
-int64_t libc_windows_execl(const char* path, const char* arg0, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int64_t libcWindowsExecl(const char* path, const char* arg0, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int64_t (*km_fn_t)(const char*, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1584,7 +1584,7 @@ int64_t libc_windows_execl(const char* path, const char* arg0, int32_t km_vac, i
     return -1;
 }
 
-int64_t libc_windows_wexecl(void* path, void* arg0, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int64_t libcWindowsWexecl(void* path, void* arg0, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int64_t (*km_fn_t)(void*, void*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1616,7 +1616,7 @@ int64_t libc_windows_wexecl(void* path, void* arg0, int32_t km_vac, int64_t km_v
     return -1;
 }
 
-int64_t libc_windows_execle(const char* path, const char* arg0, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int64_t libcWindowsExecle(const char* path, const char* arg0, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int64_t (*km_fn_t)(const char*, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1648,7 +1648,7 @@ int64_t libc_windows_execle(const char* path, const char* arg0, int32_t km_vac, 
     return -1;
 }
 
-int64_t libc_windows_wexecle(void* path, void* arg0, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int64_t libcWindowsWexecle(void* path, void* arg0, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int64_t (*km_fn_t)(void*, void*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1680,7 +1680,7 @@ int64_t libc_windows_wexecle(void* path, void* arg0, int32_t km_vac, int64_t km_
     return -1;
 }
 
-int64_t libc_windows_execlp(const char* path, const char* arg0, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int64_t libcWindowsExeclp(const char* path, const char* arg0, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int64_t (*km_fn_t)(const char*, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1712,7 +1712,7 @@ int64_t libc_windows_execlp(const char* path, const char* arg0, int32_t km_vac, 
     return -1;
 }
 
-int64_t libc_windows_wexeclp(void* path, void* arg0, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int64_t libcWindowsWexeclp(void* path, void* arg0, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int64_t (*km_fn_t)(void*, void*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1744,7 +1744,7 @@ int64_t libc_windows_wexeclp(void* path, void* arg0, int32_t km_vac, int64_t km_
     return -1;
 }
 
-int64_t libc_windows_execlpe(const char* path, const char* arg0, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int64_t libcWindowsExeclpe(const char* path, const char* arg0, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int64_t (*km_fn_t)(const char*, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1776,7 +1776,7 @@ int64_t libc_windows_execlpe(const char* path, const char* arg0, int32_t km_vac,
     return -1;
 }
 
-int64_t libc_windows_wexeclpe(void* path, void* arg0, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int64_t libcWindowsWexeclpe(void* path, void* arg0, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int64_t (*km_fn_t)(void*, void*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1808,7 +1808,7 @@ int64_t libc_windows_wexeclpe(void* path, void* arg0, int32_t km_vac, int64_t km
     return -1;
 }
 
-int64_t libc_windows_execv(const char* prog, void* argv) {
+int64_t libcWindowsExecv(const char* prog, void* argv) {
     typedef int64_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1834,7 +1834,7 @@ int64_t libc_windows_execv(const char* prog, void* argv) {
     return -1;
 }
 
-int32_t libc_windows_execve(const char* prog, void* argv, void* envp) {
+int32_t libcWindowsExecve(const char* prog, void* argv, void* envp) {
     typedef int32_t (*km_fn_t)(const char*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1860,7 +1860,7 @@ int32_t libc_windows_execve(const char* prog, void* argv, void* envp) {
     return -1;
 }
 
-int32_t libc_windows_execvp(const char* c, void* argv) {
+int32_t libcWindowsExecvp(const char* c, void* argv) {
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1886,7 +1886,7 @@ int32_t libc_windows_execvp(const char* c, void* argv) {
     return -1;
 }
 
-int32_t libc_windows_execvpe(const char* c, void* argv, void* envp) {
+int32_t libcWindowsExecvpe(const char* c, void* argv, void* envp) {
     typedef int32_t (*km_fn_t)(const char*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1912,7 +1912,7 @@ int32_t libc_windows_execvpe(const char* c, void* argv, void* envp) {
     return -1;
 }
 
-int64_t libc_windows_wexecv(void* prog, void* argv) {
+int64_t libcWindowsWexecv(void* prog, void* argv) {
     typedef int64_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1938,7 +1938,7 @@ int64_t libc_windows_wexecv(void* prog, void* argv) {
     return -1;
 }
 
-int64_t libc_windows_wexecve(void* prog, void* argv, void* envp) {
+int64_t libcWindowsWexecve(void* prog, void* argv, void* envp) {
     typedef int64_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1964,7 +1964,7 @@ int64_t libc_windows_wexecve(void* prog, void* argv, void* envp) {
     return -1;
 }
 
-int64_t libc_windows_wexecvp(void* c, void* argv) {
+int64_t libcWindowsWexecvp(void* c, void* argv) {
     typedef int64_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1990,7 +1990,7 @@ int64_t libc_windows_wexecvp(void* c, void* argv) {
     return -1;
 }
 
-int64_t libc_windows_wexecvpe(void* c, void* argv, void* envp) {
+int64_t libcWindowsWexecvpe(void* c, void* argv, void* envp) {
     typedef int64_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2016,7 +2016,7 @@ int64_t libc_windows_wexecvpe(void* c, void* argv, void* envp) {
     return -1;
 }
 
-char* libc_windows_getcwd(char* buf, int32_t size) {
+char* libcWindowsGetcwd(char* buf, int32_t size) {
     typedef char* (*km_fn_t)(char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2042,7 +2042,7 @@ char* libc_windows_getcwd(char* buf, int32_t size) {
     return NULL;
 }
 
-int32_t libc_windows_getpid(void) {
+int32_t libcWindowsGetpid(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2068,7 +2068,7 @@ int32_t libc_windows_getpid(void) {
     return -1;
 }
 
-int32_t libc_windows_isatty(int32_t fd) {
+int32_t libcWindowsIsatty(int32_t fd) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2094,7 +2094,7 @@ int32_t libc_windows_isatty(int32_t fd) {
     return -1;
 }
 
-int64_t libc_windows_lseek(int32_t fd, int64_t offset, int32_t origin) {
+int64_t libcWindowsLseek(int32_t fd, int64_t offset, int32_t origin) {
     typedef int64_t (*km_fn_t)(int32_t, int64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2120,7 +2120,7 @@ int64_t libc_windows_lseek(int32_t fd, int64_t offset, int32_t origin) {
     return -1;
 }
 
-int64_t libc_windows_lseek64(int32_t fd, int64_t offset, int32_t origin) {
+int64_t libcWindowsLseek64(int32_t fd, int64_t offset, int32_t origin) {
     typedef int64_t (*km_fn_t)(int32_t, int64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2151,7 +2151,7 @@ int64_t libc_windows_lseek64(int32_t fd, int64_t offset, int32_t origin) {
     return -1;
 }
 
-int32_t libc_windows_pipe(void* fds, uint32_t psize, int32_t textmode) {
+int32_t libcWindowsPipe(void* fds, uint32_t psize, int32_t textmode) {
     typedef int32_t (*km_fn_t)(void*, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2177,7 +2177,7 @@ int32_t libc_windows_pipe(void* fds, uint32_t psize, int32_t textmode) {
     return -1;
 }
 
-int32_t libc_windows_read(int32_t fd, void* buf, uint32_t count) {
+int32_t libcWindowsRead(int32_t fd, void* buf, uint32_t count) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2203,7 +2203,7 @@ int32_t libc_windows_read(int32_t fd, void* buf, uint32_t count) {
     return -1;
 }
 
-int32_t libc_windows_rmdir(const char* path) {
+int32_t libcWindowsRmdir(const char* path) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2229,7 +2229,7 @@ int32_t libc_windows_rmdir(const char* path) {
     return -1;
 }
 
-int32_t libc_windows_unlink(const char* c) {
+int32_t libcWindowsUnlink(const char* c) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2255,7 +2255,7 @@ int32_t libc_windows_unlink(const char* c) {
     return -1;
 }
 
-int32_t libc_windows_write(int32_t fd, void* buf, uint32_t count) {
+int32_t libcWindowsWrite(int32_t fd, void* buf, uint32_t count) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2281,7 +2281,7 @@ int32_t libc_windows_write(int32_t fd, void* buf, uint32_t count) {
     return -1;
 }
 
-int32_t libc_windows_commit(int32_t fd) {
+int32_t libcWindowsCommit(int32_t fd) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2307,7 +2307,7 @@ int32_t libc_windows_commit(int32_t fd) {
     return -1;
 }
 
-int64_t libc_windows_getOsfhandle(int32_t fd) {
+int64_t libcWindowsGetOsfhandle(int32_t fd) {
     typedef int64_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2333,7 +2333,7 @@ int64_t libc_windows_getOsfhandle(int32_t fd) {
     return -1;
 }
 
-int32_t libc_windows_openOsfhandle(int64_t osfhandle, int32_t flags) {
+int32_t libcWindowsOpenOsfhandle(int64_t osfhandle, int32_t flags) {
     typedef int32_t (*km_fn_t)(int64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2359,11 +2359,11 @@ int32_t libc_windows_openOsfhandle(int64_t osfhandle, int32_t flags) {
     return -1;
 }
 
-char* libc_windows_setlocale(int32_t category, const char* locale) {
+char* libcWindowsSetlocale(int32_t category, const char* locale) {
     return (char*)setlocale(category, locale);
 }
 
-void* libc_windows_wsetlocale(int32_t category, void* locale) {
+void* libcWindowsWsetlocale(int32_t category, void* locale) {
     typedef void* (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2389,7 +2389,7 @@ void* libc_windows_wsetlocale(int32_t category, void* locale) {
     return NULL;
 }
 
-void* libc_windows_alignedMalloc(uint64_t size, uint64_t alignment) {
+void* libcWindowsAlignedMalloc(uint64_t size, uint64_t alignment) {
     typedef void* (*km_fn_t)(uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2415,7 +2415,7 @@ void* libc_windows_alignedMalloc(uint64_t size, uint64_t alignment) {
     return NULL;
 }
 
-void libc_windows_alignedFree(void* ptr) {
+void libcWindowsAlignedFree(void* ptr) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2441,7 +2441,7 @@ void libc_windows_alignedFree(void* ptr) {
     errno = ENOSYS;
 }
 
-void* libc_windows_alignedRealloc(void* memblock, uint64_t size, uint64_t alignment) {
+void* libcWindowsAlignedRealloc(void* memblock, uint64_t size, uint64_t alignment) {
     typedef void* (*km_fn_t)(void*, uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2467,7 +2467,7 @@ void* libc_windows_alignedRealloc(void* memblock, uint64_t size, uint64_t alignm
     return NULL;
 }
 
-int32_t libc_windows_putenv(const char* envstring) {
+int32_t libcWindowsPutenv(const char* envstring) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2493,7 +2493,7 @@ int32_t libc_windows_putenv(const char* envstring) {
     return -1;
 }
 
-int32_t libc_windows_wputenv(void* envstring) {
+int32_t libcWindowsWputenv(void* envstring) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2519,7 +2519,7 @@ int32_t libc_windows_wputenv(void* envstring) {
     return -1;
 }
 
-int32_t libc_windows_putenvS(const char* envstring, const char* value_string) {
+int32_t libcWindowsPutenvS(const char* envstring, const char* valueString) {
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2539,13 +2539,13 @@ int32_t libc_windows_putenvS(const char* envstring, const char* value_string) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(envstring, value_string);
+        return km_fn_ptr(envstring, valueString);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_windows_wputenvS(void* envstring, void* value_string) {
+int32_t libcWindowsWputenvS(void* envstring, void* valueString) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2565,53 +2565,53 @@ int32_t libc_windows_wputenvS(void* envstring, void* value_string) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(envstring, value_string);
+        return km_fn_ptr(envstring, valueString);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_windows_listen(uint64_t s, int32_t backlog) {
+int32_t libcWindowsListen(uint64_t s, int32_t backlog) {
     return (int32_t)listen(s, backlog);
 }
 
-uint64_t libc_windows_accept(uint64_t s, void* addr, void* addrlen) {
+uint64_t libcWindowsAccept(uint64_t s, void* addr, void* addrlen) {
     return (uint64_t)accept(s, addr, addrlen);
 }
 
-int32_t libc_windows_bind(uint64_t s, void* name, int32_t namelen) {
+int32_t libcWindowsBind(uint64_t s, void* name, int32_t namelen) {
     return (int32_t)bind(s, name, namelen);
 }
 
-int32_t libc_windows_connect(uint64_t s, void* name, int32_t namelen) {
+int32_t libcWindowsConnect(uint64_t s, void* name, int32_t namelen) {
     return (int32_t)connect(s, name, namelen);
 }
 
-int32_t libc_windows_getpeername(uint64_t s, void* name, void* nameln) {
+int32_t libcWindowsGetpeername(uint64_t s, void* name, void* nameln) {
     return (int32_t)getpeername(s, name, nameln);
 }
 
-int32_t libc_windows_getsockname(uint64_t s, void* name, void* nameln) {
+int32_t libcWindowsGetsockname(uint64_t s, void* name, void* nameln) {
     return (int32_t)getsockname(s, name, nameln);
 }
 
-int32_t libc_windows_getsockopt(uint64_t s, int32_t level, int32_t optname, char* optval, void* optlen) {
+int32_t libcWindowsGetsockopt(uint64_t s, int32_t level, int32_t optname, char* optval, void* optlen) {
     return (int32_t)getsockopt(s, level, optname, optval, optlen);
 }
 
-int32_t libc_windows_recvfrom(uint64_t s, char* buf, int32_t len, int32_t flags, void* from, void* fromlen) {
+int32_t libcWindowsRecvfrom(uint64_t s, char* buf, int32_t len, int32_t flags, void* from, void* fromlen) {
     return (int32_t)recvfrom(s, buf, len, flags, from, fromlen);
 }
 
-int32_t libc_windows_sendto(uint64_t s, const char* buf, int32_t len, int32_t flags, void* to, int32_t tolen) {
+int32_t libcWindowsSendto(uint64_t s, const char* buf, int32_t len, int32_t flags, void* to, int32_t tolen) {
     return (int32_t)sendto(s, buf, len, flags, to, tolen);
 }
 
-int32_t libc_windows_setsockopt(uint64_t s, int32_t level, int32_t optname, const char* optval, int32_t optlen) {
+int32_t libcWindowsSetsockopt(uint64_t s, int32_t level, int32_t optname, const char* optval, int32_t optlen) {
     return (int32_t)setsockopt(s, level, optname, optval, optlen);
 }
 
-uint64_t libc_windows_socket(int32_t af, int32_t socket_type, int32_t protocol) {
-    return (uint64_t)socket(af, socket_type, protocol);
+uint64_t libcWindowsSocket(int32_t af, int32_t socketType, int32_t protocol) {
+    return (uint64_t)socket(af, socketType, protocol);
 }
 

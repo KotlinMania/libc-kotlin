@@ -1,9 +1,10 @@
 package io.github.kotlinmania.libc.unix
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUshort
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public typealias IntmaxT = Long
 
@@ -39,7 +40,7 @@ public class DIR(
     public val ptr: Long get() = handle
 }
 
-public typealias LocaleT = COpaquePointer?
+public typealias LocaleT = MutPtr<CVoid>
 
 public class FposT(
     public val handle: Long = -1L,

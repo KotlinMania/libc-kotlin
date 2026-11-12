@@ -15,7 +15,7 @@
 #endif
 #endif
 
-int32_t libc_unix_bsd_apple_b64_exchangedata(const char* path1, const char* path2, uint32_t options) {
+int32_t libcUnixBsdAppleB64Exchangedata(const char* path1, const char* path2, uint32_t options) {
     typedef int32_t (*km_fn_t)(const char*, const char*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

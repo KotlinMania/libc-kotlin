@@ -7,6 +7,8 @@ import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.new.linuxuapi.linux.can.CAN_J1939
 import io.github.kotlinmania.libc.new.linuxuapi.linux.can.SOL_CAN_BASE
+import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+import io.github.kotlinmania.rustlang.core.mem.TypeLayout
 
 // `linux / can / j1939.h`
 
@@ -88,6 +90,31 @@ public data class J1939Filter(
     public var pgnMask: PgnT = 0u,
     public var addr: UByte = 0u,
     public var addrMask: UByte = 0u,
-)
+) {
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<J1939Filter> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<J1939Filter> {
+                override val sizeBytes: Long = 32L
+                override val alignBytes: Long = 8L
+                override fun readNative(addr: Long): J1939Filter =
+                    J1939Filter(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 8L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 16L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 20L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).readNative(addr + 24L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).readNative(addr + 25L),
+                    )
+                override fun writeNative(addr: Long, value: J1939Filter) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr, value.name)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 8L, value.nameMask)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 16L, value.pgn)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 20L, value.pgnMask)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).writeNative(addr + 24L, value.addr)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).writeNative(addr + 25L, value.addrMask)
+                }
+            }
+    }
+}
 
 public val J1939_FILTER_MAX: CInt = 512

@@ -51,14 +51,10 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_windows_gnu_strcasecmp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWindowsGnuStrcasecmp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s1_str = s1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s1 = s1_null ? nullptr : s1_str.c_str();
-    bool s2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string s2_str = s2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* s2 = s2_null ? nullptr : s2_str.c_str();
+    const char* s1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* s2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -89,14 +85,10 @@ static Napi::Value libc_windows_gnu_strcasecmp_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_windows_gnu_strncasecmp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWindowsGnuStrncasecmp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s1_str = s1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s1 = s1_null ? nullptr : s1_str.c_str();
-    bool s2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string s2_str = s2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* s2 = s2_null ? nullptr : s2_str.c_str();
+    const char* s1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* s2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t n = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef int32_t (*km_fn_t)(const char*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -128,7 +120,7 @@ static Napi::Value libc_windows_gnu_strncasecmp_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_windows_gnu_wmemchr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWindowsGnuWmemchr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cx = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint16_t c = static_cast<uint16_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -164,9 +156,9 @@ static Napi::Value libc_windows_gnu_wmemchr_napi(const Napi::CallbackInfo& km_in
 }
 
 static void register_windows_gnu_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_windows_gnu_strcasecmp", Napi::Function::New(env, libc_windows_gnu_strcasecmp_napi));
-    exports.Set("libc_windows_gnu_strncasecmp", Napi::Function::New(env, libc_windows_gnu_strncasecmp_napi));
-    exports.Set("libc_windows_gnu_wmemchr", Napi::Function::New(env, libc_windows_gnu_wmemchr_napi));
+    exports.Set("libcWindowsGnuStrcasecmp", Napi::Function::New(env, libcWindowsGnuStrcasecmp_napi));
+    exports.Set("libcWindowsGnuStrncasecmp", Napi::Function::New(env, libcWindowsGnuStrncasecmp_napi));
+    exports.Set("libcWindowsGnuWmemchr", Napi::Function::New(env, libcWindowsGnuWmemchr_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_windows_gnu_napi, nullptr };

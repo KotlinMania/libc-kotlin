@@ -37,7 +37,7 @@
 #endif
 #endif
 
-void* libc_wasi_get_ENVIRON(void) {
+void* libcWasiGetENVIRON(void) {
     static void** km_sym_ptr = NULL;
 #ifdef _WIN32
     if (km_sym_ptr == NULL) {
@@ -63,7 +63,7 @@ void* libc_wasi_get_ENVIRON(void) {
     return NULL;
 }
 
-void libc_wasi_set_ENVIRON(void* km_val) {
+void libcWasiSetENVIRON(void* km_val) {
     static void** km_sym_ptr = NULL;
 #ifdef _WIN32
     if (km_sym_ptr == NULL) {
@@ -88,7 +88,7 @@ void libc_wasi_set_ENVIRON(void* km_val) {
     }
 }
 
-uint8_t libc_wasi_get_CLOCK_MONOTONIC1(void) {
+uint8_t libcWasiGetCLOCKMONOTONIC1(void) {
     static uint8_t* km_sym_ptr = NULL;
 #ifdef _WIN32
     if (km_sym_ptr == NULL) {
@@ -112,7 +112,7 @@ uint8_t libc_wasi_get_CLOCK_MONOTONIC1(void) {
     return 0;
 }
 
-uint8_t libc_wasi_get_CLOCK_REALTIME1(void) {
+uint8_t libcWasiGetCLOCKREALTIME1(void) {
     static uint8_t* km_sym_ptr = NULL;
 #ifdef _WIN32
     if (km_sym_ptr == NULL) {
@@ -136,7 +136,7 @@ uint8_t libc_wasi_get_CLOCK_REALTIME1(void) {
     return 0;
 }
 
-void libc_wasi_exit(int32_t code) {
+void libcWasiExit(int32_t code) {
     typedef void (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -162,11 +162,11 @@ void libc_wasi_exit(int32_t code) {
     errno = ENOSYS;
 }
 
-void libc_wasi_abort(void) {
+void libcWasiAbort(void) {
     abort();
 }
 
-void* libc_wasi_alignedAlloc(uint64_t a, uint64_t b) {
+void* libcWasiAlignedAlloc(uint64_t a, uint64_t b) {
     typedef void* (*km_fn_t)(uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -194,23 +194,23 @@ void* libc_wasi_alignedAlloc(uint64_t a, uint64_t b) {
     return NULL;
 }
 
-void* libc_wasi_calloc(uint64_t amt, uint64_t amt2) {
+void* libcWasiCalloc(uint64_t amt, uint64_t amt2) {
     return (void*)calloc(amt, amt2);
 }
 
-void libc_wasi_free(void* ptr) {
+void libcWasiFree(void* ptr) {
     free(ptr);
 }
 
-char* libc_wasi_getenv(const char* s) {
+char* libcWasiGetenv(const char* s) {
     return (char*)getenv(s);
 }
 
-void* libc_wasi_malloc(uint64_t amt) {
+void* libcWasiMalloc(uint64_t amt) {
     return (void*)malloc(amt);
 }
 
-uint64_t libc_wasi_mallocUsableSize(void* ptr) {
+uint64_t libcWasiMallocUsableSize(void* ptr) {
     typedef uint64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -238,7 +238,7 @@ uint64_t libc_wasi_mallocUsableSize(void* ptr) {
     return 0;
 }
 
-void* libc_wasi_sbrk(int64_t increment) {
+void* libcWasiSbrk(int64_t increment) {
     typedef void* (*km_fn_t)(int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -266,19 +266,19 @@ void* libc_wasi_sbrk(int64_t increment) {
     return NULL;
 }
 
-int32_t libc_wasi_rand(void) {
+int32_t libcWasiRand(void) {
     return (int32_t)rand();
 }
 
-int64_t libc_wasi_read(int32_t fd, void* ptr, uint64_t size) {
+int64_t libcWasiRead(int32_t fd, void* ptr, uint64_t size) {
     return (int64_t)read(fd, ptr, size);
 }
 
-void* libc_wasi_realloc(void* ptr, uint64_t amt) {
+void* libcWasiRealloc(void* ptr, uint64_t amt) {
     return (void*)realloc(ptr, amt);
 }
 
-int32_t libc_wasi_setenv(const char* k, const char* v, int32_t a) {
+int32_t libcWasiSetenv(const char* k, const char* v, int32_t a) {
 #if !defined(_WIN32)
     return (int32_t)setenv(k, v, a);
 #else
@@ -290,7 +290,7 @@ int32_t libc_wasi_setenv(const char* k, const char* v, int32_t a) {
 #endif
 }
 
-int32_t libc_wasi_unsetenv(const char* k) {
+int32_t libcWasiUnsetenv(const char* k) {
 #if !defined(_WIN32)
     return (int32_t)unsetenv(k);
 #else
@@ -300,7 +300,7 @@ int32_t libc_wasi_unsetenv(const char* k) {
 #endif
 }
 
-int32_t libc_wasi_clearenv(void) {
+int32_t libcWasiClearenv(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -328,59 +328,59 @@ int32_t libc_wasi_clearenv(void) {
     return -1;
 }
 
-int64_t libc_wasi_write(int32_t fd, void* ptr, uint64_t size) {
+int64_t libcWasiWrite(int32_t fd, void* ptr, uint64_t size) {
     return (int64_t)write(fd, ptr, size);
 }
 
-void* libc_wasi_fopen(const char* a, const char* b) {
+void* libcWasiFopen(const char* a, const char* b) {
     return (void*)fopen(a, b);
 }
 
-void* libc_wasi_freopen(const char* a, const char* b, void* f) {
+void* libcWasiFreopen(const char* a, const char* b, void* f) {
     return (void*)freopen(a, b, (FILE*)f);
 }
 
-int32_t libc_wasi_fclose(void* f) {
+int32_t libcWasiFclose(void* f) {
     return (int32_t)fclose((FILE*)f);
 }
 
-int32_t libc_wasi_remove(const char* a) {
+int32_t libcWasiRemove(const char* a) {
     return (int32_t)remove(a);
 }
 
-int32_t libc_wasi_rename(const char* a, const char* b) {
+int32_t libcWasiRename(const char* a, const char* b) {
     return (int32_t)rename(a, b);
 }
 
-int32_t libc_wasi_feof(void* f) {
+int32_t libcWasiFeof(void* f) {
     return (int32_t)feof((FILE*)f);
 }
 
-int32_t libc_wasi_ferror(void* f) {
+int32_t libcWasiFerror(void* f) {
     return (int32_t)ferror((FILE*)f);
 }
 
-int32_t libc_wasi_fflush(void* f) {
+int32_t libcWasiFflush(void* f) {
     return (int32_t)fflush((FILE*)f);
 }
 
-void libc_wasi_clearerr(void* f) {
+void libcWasiClearerr(void* f) {
     clearerr((FILE*)f);
 }
 
-int32_t libc_wasi_fseek(void* f, int64_t b, int32_t c) {
+int32_t libcWasiFseek(void* f, int64_t b, int32_t c) {
     return (int32_t)fseek((FILE*)f, b, c);
 }
 
-int64_t libc_wasi_ftell(void* f) {
+int64_t libcWasiFtell(void* f) {
     return (int64_t)ftell((FILE*)f);
 }
 
-void libc_wasi_rewind(void* f) {
+void libcWasiRewind(void* f) {
     rewind((FILE*)f);
 }
 
-int32_t libc_wasi_fgetpos(void* f, void* pos) {
+int32_t libcWasiFgetpos(void* f, void* pos) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -408,7 +408,7 @@ int32_t libc_wasi_fgetpos(void* f, void* pos) {
     return -1;
 }
 
-int32_t libc_wasi_fsetpos(void* f, void* pos) {
+int32_t libcWasiFsetpos(void* f, void* pos) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -436,35 +436,35 @@ int32_t libc_wasi_fsetpos(void* f, void* pos) {
     return -1;
 }
 
-uint64_t libc_wasi_fread(void* buf, uint64_t a, uint64_t b, void* f) {
+uint64_t libcWasiFread(void* buf, uint64_t a, uint64_t b, void* f) {
     return (uint64_t)fread(buf, a, b, (FILE*)f);
 }
 
-uint64_t libc_wasi_fwrite(void* buf, uint64_t a, uint64_t b, void* f) {
+uint64_t libcWasiFwrite(void* buf, uint64_t a, uint64_t b, void* f) {
     return (uint64_t)fwrite(buf, a, b, (FILE*)f);
 }
 
-int32_t libc_wasi_fgetc(void* f) {
+int32_t libcWasiFgetc(void* f) {
     return (int32_t)fgetc((FILE*)f);
 }
 
-int32_t libc_wasi_getc(void* f) {
+int32_t libcWasiGetc(void* f) {
     return (int32_t)getc((FILE*)f);
 }
 
-int32_t libc_wasi_getchar(void) {
+int32_t libcWasiGetchar(void) {
     return (int32_t)getchar();
 }
 
-int32_t libc_wasi_ungetc(int32_t a, void* f) {
+int32_t libcWasiUngetc(int32_t a, void* f) {
     return (int32_t)ungetc(a, (FILE*)f);
 }
 
-int32_t libc_wasi_fputc(int32_t a, void* f) {
+int32_t libcWasiFputc(int32_t a, void* f) {
     return (int32_t)fputc(a, (FILE*)f);
 }
 
-int32_t libc_wasi_putc(int32_t a, void* f) {
+int32_t libcWasiPutc(int32_t a, void* f) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -492,27 +492,27 @@ int32_t libc_wasi_putc(int32_t a, void* f) {
     return -1;
 }
 
-int32_t libc_wasi_putchar(int32_t a) {
+int32_t libcWasiPutchar(int32_t a) {
     return (int32_t)putchar(a);
 }
 
-int32_t libc_wasi_fputs(const char* a, void* f) {
+int32_t libcWasiFputs(const char* a, void* f) {
     return (int32_t)fputs(a, (FILE*)f);
 }
 
-int32_t libc_wasi_puts(const char* a) {
+int32_t libcWasiPuts(const char* a) {
     return (int32_t)puts(a);
 }
 
-void libc_wasi_perror(const char* a) {
+void libcWasiPerror(const char* a) {
     perror(a);
 }
 
-void libc_wasi_srand(uint32_t a) {
+void libcWasiSrand(uint32_t a) {
     srand(a);
 }
 
-int32_t libc_wasi_atexit(void* a) {
+int32_t libcWasiAtexit(void* a) {
     if (a == NULL) {
         errno = EINVAL;
         return -1;
@@ -548,7 +548,7 @@ int32_t libc_wasi_atexit(void* a) {
 #endif
 }
 
-int32_t libc_wasi_atQuickExit(void* a) {
+int32_t libcWasiAtQuickExit(void* a) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -576,7 +576,7 @@ int32_t libc_wasi_atQuickExit(void* a) {
     return -1;
 }
 
-void libc_wasi_quickExit(int32_t a) {
+void libcWasiQuickExit(int32_t a) {
     typedef void (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -604,7 +604,7 @@ void libc_wasi_quickExit(int32_t a) {
     errno = ENOSYS;
 }
 
-int32_t libc_wasi_posixMemalign(void* a, uint64_t b, uint64_t c) {
+int32_t libcWasiPosixMemalign(void* a, uint64_t b, uint64_t c) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -632,7 +632,7 @@ int32_t libc_wasi_posixMemalign(void* a, uint64_t b, uint64_t c) {
     return -1;
 }
 
-int32_t libc_wasi_randR(void* a) {
+int32_t libcWasiRandR(void* a) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -660,7 +660,7 @@ int32_t libc_wasi_randR(void* a) {
     return -1;
 }
 
-int64_t libc_wasi_random(void) {
+int64_t libcWasiRandom(void) {
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -688,7 +688,7 @@ int64_t libc_wasi_random(void) {
     return -1;
 }
 
-void libc_wasi_srandom(uint32_t a) {
+void libcWasiSrandom(uint32_t a) {
     typedef void (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -716,7 +716,7 @@ void libc_wasi_srandom(uint32_t a) {
     errno = ENOSYS;
 }
 
-int32_t libc_wasi_putenv(char* a) {
+int32_t libcWasiPutenv(char* a) {
     typedef int32_t (*km_fn_t)(char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -744,31 +744,31 @@ int32_t libc_wasi_putenv(char* a) {
     return -1;
 }
 
-int64_t libc_wasi_clock(void) {
+int64_t libcWasiClock(void) {
     return (int64_t)clock();
 }
 
-int64_t libc_wasi_time(void* a) {
+int64_t libcWasiTime(void* a) {
     return (int64_t)time(a);
 }
 
-double libc_wasi_difftime(int64_t a, int64_t b) {
+double libcWasiDifftime(int64_t a, int64_t b) {
     return (double)difftime(a, b);
 }
 
-int64_t libc_wasi_mktime(void* a) {
+int64_t libcWasiMktime(void* a) {
     return (int64_t)mktime(a);
 }
 
-uint64_t libc_wasi_strftime(char* a, uint64_t b, const char* c, void* d) {
+uint64_t libcWasiStrftime(char* a, uint64_t b, const char* c, void* d) {
     return (uint64_t)strftime(a, b, c, d);
 }
 
-void* libc_wasi_gmtime(void* a) {
+void* libcWasiGmtime(void* a) {
     return (void*)gmtime(a);
 }
 
-void* libc_wasi_gmtimeR(void* a, void* b) {
+void* libcWasiGmtimeR(void* a, void* b) {
     typedef void* (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -796,11 +796,11 @@ void* libc_wasi_gmtimeR(void* a, void* b) {
     return NULL;
 }
 
-void* libc_wasi_localtime(void* a) {
+void* libcWasiLocaltime(void* a) {
     return (void*)localtime(a);
 }
 
-void* libc_wasi_localtimeR(void* a, void* b) {
+void* libcWasiLocaltimeR(void* a, void* b) {
     typedef void* (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -828,7 +828,7 @@ void* libc_wasi_localtimeR(void* a, void* b) {
     return NULL;
 }
 
-char* libc_wasi_asctimeR(void* a, char* b) {
+char* libcWasiAsctimeR(void* a, char* b) {
     typedef char* (*km_fn_t)(void*, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -856,7 +856,7 @@ char* libc_wasi_asctimeR(void* a, char* b) {
     return NULL;
 }
 
-char* libc_wasi_ctimeR(void* a, char* b) {
+char* libcWasiCtimeR(void* a, char* b) {
     typedef char* (*km_fn_t)(void*, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -884,7 +884,7 @@ char* libc_wasi_ctimeR(void* a, char* b) {
     return NULL;
 }
 
-int32_t libc_wasi_nanosleep(void* a, void* b) {
+int32_t libcWasiNanosleep(void* a, void* b) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -912,163 +912,163 @@ int32_t libc_wasi_nanosleep(void* a, void* b) {
     return -1;
 }
 
-int32_t libc_wasi_isalnum(int32_t c) {
+int32_t libcWasiIsalnum(int32_t c) {
     return (int32_t)isalnum(c);
 }
 
-int32_t libc_wasi_isalpha(int32_t c) {
+int32_t libcWasiIsalpha(int32_t c) {
     return (int32_t)isalpha(c);
 }
 
-int32_t libc_wasi_iscntrl(int32_t c) {
+int32_t libcWasiIscntrl(int32_t c) {
     return (int32_t)iscntrl(c);
 }
 
-int32_t libc_wasi_isdigit(int32_t c) {
+int32_t libcWasiIsdigit(int32_t c) {
     return (int32_t)isdigit(c);
 }
 
-int32_t libc_wasi_isgraph(int32_t c) {
+int32_t libcWasiIsgraph(int32_t c) {
     return (int32_t)isgraph(c);
 }
 
-int32_t libc_wasi_islower(int32_t c) {
+int32_t libcWasiIslower(int32_t c) {
     return (int32_t)islower(c);
 }
 
-int32_t libc_wasi_isprint(int32_t c) {
+int32_t libcWasiIsprint(int32_t c) {
     return (int32_t)isprint(c);
 }
 
-int32_t libc_wasi_ispunct(int32_t c) {
+int32_t libcWasiIspunct(int32_t c) {
     return (int32_t)ispunct(c);
 }
 
-int32_t libc_wasi_isspace(int32_t c) {
+int32_t libcWasiIsspace(int32_t c) {
     return (int32_t)isspace(c);
 }
 
-int32_t libc_wasi_isupper(int32_t c) {
+int32_t libcWasiIsupper(int32_t c) {
     return (int32_t)isupper(c);
 }
 
-int32_t libc_wasi_isxdigit(int32_t c) {
+int32_t libcWasiIsxdigit(int32_t c) {
     return (int32_t)isxdigit(c);
 }
 
-int32_t libc_wasi_isblank(int32_t c) {
+int32_t libcWasiIsblank(int32_t c) {
     return (int32_t)isblank(c);
 }
 
-int32_t libc_wasi_tolower(int32_t c) {
+int32_t libcWasiTolower(int32_t c) {
     return (int32_t)tolower(c);
 }
 
-int32_t libc_wasi_toupper(int32_t c) {
+int32_t libcWasiToupper(int32_t c) {
     return (int32_t)toupper(c);
 }
 
-int32_t libc_wasi_setvbuf(void* stream, char* buffer, int32_t mode, uint64_t size) {
+int32_t libcWasiSetvbuf(void* stream, char* buffer, int32_t mode, uint64_t size) {
     return (int32_t)setvbuf((FILE*)stream, buffer, mode, size);
 }
 
-void libc_wasi_setbuf(void* stream, char* buf) {
+void libcWasiSetbuf(void* stream, char* buf) {
     setbuf((FILE*)stream, buf);
 }
 
-char* libc_wasi_fgets(char* buf, int32_t n, void* stream) {
+char* libcWasiFgets(char* buf, int32_t n, void* stream) {
     return (char*)fgets(buf, n, (FILE*)stream);
 }
 
-double libc_wasi_atof(const char* s) {
+double libcWasiAtof(const char* s) {
     return (double)atof(s);
 }
 
-int32_t libc_wasi_atoi(const char* s) {
+int32_t libcWasiAtoi(const char* s) {
     return (int32_t)atoi(s);
 }
 
-int64_t libc_wasi_atol(const char* s) {
+int64_t libcWasiAtol(const char* s) {
     return (int64_t)atol(s);
 }
 
-int64_t libc_wasi_atoll(const char* s) {
+int64_t libcWasiAtoll(const char* s) {
     return (int64_t)atoll(s);
 }
 
-double libc_wasi_strtod(const char* s, void* endp) {
+double libcWasiStrtod(const char* s, void* endp) {
     return (double)strtod(s, endp);
 }
 
-float libc_wasi_strtof(const char* s, void* endp) {
+float libcWasiStrtof(const char* s, void* endp) {
     return (float)strtof(s, endp);
 }
 
-int64_t libc_wasi_strtol(const char* s, void* endp, int32_t base) {
+int64_t libcWasiStrtol(const char* s, void* endp, int32_t base) {
     return (int64_t)strtol(s, endp, base);
 }
 
-int64_t libc_wasi_strtoll(const char* s, void* endp, int32_t base) {
+int64_t libcWasiStrtoll(const char* s, void* endp, int32_t base) {
     return (int64_t)strtoll(s, endp, base);
 }
 
-uint64_t libc_wasi_strtoul(const char* s, void* endp, int32_t base) {
+uint64_t libcWasiStrtoul(const char* s, void* endp, int32_t base) {
     return (uint64_t)strtoul(s, endp, base);
 }
 
-uint64_t libc_wasi_strtoull(const char* s, void* endp, int32_t base) {
+uint64_t libcWasiStrtoull(const char* s, void* endp, int32_t base) {
     return (uint64_t)strtoull(s, endp, base);
 }
 
-char* libc_wasi_strcpy(char* dst, const char* src) {
+char* libcWasiStrcpy(char* dst, const char* src) {
     return (char*)strcpy(dst, src);
 }
 
-char* libc_wasi_strncpy(char* dst, const char* src, uint64_t n) {
+char* libcWasiStrncpy(char* dst, const char* src, uint64_t n) {
     return (char*)strncpy(dst, src, n);
 }
 
-char* libc_wasi_strcat(char* s, const char* ct) {
+char* libcWasiStrcat(char* s, const char* ct) {
     return (char*)strcat(s, ct);
 }
 
-char* libc_wasi_strncat(char* s, const char* ct, uint64_t n) {
+char* libcWasiStrncat(char* s, const char* ct, uint64_t n) {
     return (char*)strncat(s, ct, n);
 }
 
-int32_t libc_wasi_strcmp(const char* cs, const char* ct) {
+int32_t libcWasiStrcmp(const char* cs, const char* ct) {
     return (int32_t)strcmp(cs, ct);
 }
 
-int32_t libc_wasi_strncmp(const char* cs, const char* ct, uint64_t n) {
+int32_t libcWasiStrncmp(const char* cs, const char* ct, uint64_t n) {
     return (int32_t)strncmp(cs, ct, n);
 }
 
-int32_t libc_wasi_strcoll(const char* cs, const char* ct) {
+int32_t libcWasiStrcoll(const char* cs, const char* ct) {
     return (int32_t)strcoll(cs, ct);
 }
 
-char* libc_wasi_strchr(const char* cs, int32_t c) {
+char* libcWasiStrchr(const char* cs, int32_t c) {
     return (char*)strchr(cs, c);
 }
 
-char* libc_wasi_strrchr(const char* cs, int32_t c) {
+char* libcWasiStrrchr(const char* cs, int32_t c) {
     return (char*)strrchr(cs, c);
 }
 
-uint64_t libc_wasi_strspn(const char* cs, const char* ct) {
+uint64_t libcWasiStrspn(const char* cs, const char* ct) {
     return (uint64_t)strspn(cs, ct);
 }
 
-uint64_t libc_wasi_strcspn(const char* cs, const char* ct) {
+uint64_t libcWasiStrcspn(const char* cs, const char* ct) {
     return (uint64_t)strcspn(cs, ct);
 }
 
-char* libc_wasi_strdup(const char* cs) {
+char* libcWasiStrdup(const char* cs) {
     return (char*)strdup(cs);
 }
 
-char* libc_wasi_strndup(const char* cs, uint64_t n) {
+char* libcWasiStrndup(const char* cs, uint64_t n) {
 #if !defined(_WIN32)
     return (char*)strndup(cs, n);
 #else
@@ -1079,15 +1079,15 @@ char* libc_wasi_strndup(const char* cs, uint64_t n) {
 #endif
 }
 
-char* libc_wasi_strpbrk(const char* cs, const char* ct) {
+char* libcWasiStrpbrk(const char* cs, const char* ct) {
     return (char*)strpbrk(cs, ct);
 }
 
-char* libc_wasi_strstr(const char* cs, const char* ct) {
+char* libcWasiStrstr(const char* cs, const char* ct) {
     return (char*)strstr(cs, ct);
 }
 
-int32_t libc_wasi_strcasecmp(const char* s1, const char* s2) {
+int32_t libcWasiStrcasecmp(const char* s1, const char* s2) {
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1115,7 +1115,7 @@ int32_t libc_wasi_strcasecmp(const char* s1, const char* s2) {
     return -1;
 }
 
-int32_t libc_wasi_strncasecmp(const char* s1, const char* s2, uint64_t n) {
+int32_t libcWasiStrncasecmp(const char* s1, const char* s2, uint64_t n) {
     typedef int32_t (*km_fn_t)(const char*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1143,47 +1143,47 @@ int32_t libc_wasi_strncasecmp(const char* s1, const char* s2, uint64_t n) {
     return -1;
 }
 
-uint64_t libc_wasi_strlen(const char* cs) {
+uint64_t libcWasiStrlen(const char* cs) {
     return (uint64_t)strlen(cs);
 }
 
-uint64_t libc_wasi_strnlen(const char* cs, uint64_t maxlen) {
+uint64_t libcWasiStrnlen(const char* cs, uint64_t maxlen) {
     return (uint64_t)strnlen(cs, maxlen);
 }
 
-char* libc_wasi_strerror(int32_t n) {
+char* libcWasiStrerror(int32_t n) {
     return (char*)strerror(n);
 }
 
-char* libc_wasi_strtok(char* s, const char* t) {
+char* libcWasiStrtok(char* s, const char* t) {
     return (char*)strtok(s, t);
 }
 
-uint64_t libc_wasi_strxfrm(char* s, const char* ct, uint64_t n) {
+uint64_t libcWasiStrxfrm(char* s, const char* ct, uint64_t n) {
     return (uint64_t)strxfrm(s, ct, n);
 }
 
-void* libc_wasi_memchr(void* cx, int32_t c, uint64_t n) {
+void* libcWasiMemchr(void* cx, int32_t c, uint64_t n) {
     return (void*)memchr(cx, c, n);
 }
 
-int32_t libc_wasi_memcmp(void* cx, void* ct, uint64_t n) {
+int32_t libcWasiMemcmp(void* cx, void* ct, uint64_t n) {
     return (int32_t)memcmp(cx, ct, n);
 }
 
-void* libc_wasi_memcpy(void* dest, void* src, uint64_t n) {
+void* libcWasiMemcpy(void* dest, void* src, uint64_t n) {
     return (void*)memcpy(dest, src, n);
 }
 
-void* libc_wasi_memmove(void* dest, void* src, uint64_t n) {
+void* libcWasiMemmove(void* dest, void* src, uint64_t n) {
     return (void*)memmove(dest, src, n);
 }
 
-void* libc_wasi_memset(void* dest, int32_t c, uint64_t n) {
+void* libcWasiMemset(void* dest, int32_t c, uint64_t n) {
     return (void*)memset(dest, c, n);
 }
 
-int32_t libc_wasi_fprintf(void* stream, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcWasiFprintf(void* stream, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(void*, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1217,7 +1217,7 @@ int32_t libc_wasi_fprintf(void* stream, const char* format, int32_t km_vac, int6
     return -1;
 }
 
-int32_t libc_wasi_printf(const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcWasiPrintf(const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1251,7 +1251,7 @@ int32_t libc_wasi_printf(const char* format, int32_t km_vac, int64_t km_va0, int
     return -1;
 }
 
-int32_t libc_wasi_snprintf(char* s, uint64_t n, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcWasiSnprintf(char* s, uint64_t n, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(char*, uint64_t, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1285,7 +1285,7 @@ int32_t libc_wasi_snprintf(char* s, uint64_t n, const char* format, int32_t km_v
     return -1;
 }
 
-int32_t libc_wasi_sprintf(char* s, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcWasiSprintf(char* s, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(char*, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1319,7 +1319,7 @@ int32_t libc_wasi_sprintf(char* s, const char* format, int32_t km_vac, int64_t k
     return -1;
 }
 
-int32_t libc_wasi_fscanf(void* stream, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcWasiFscanf(void* stream, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(void*, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1353,7 +1353,7 @@ int32_t libc_wasi_fscanf(void* stream, const char* format, int32_t km_vac, int64
     return -1;
 }
 
-int32_t libc_wasi_scanf(const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcWasiScanf(const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1387,7 +1387,7 @@ int32_t libc_wasi_scanf(const char* format, int32_t km_vac, int64_t km_va0, int6
     return -1;
 }
 
-int32_t libc_wasi_sscanf(const char* s, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcWasiSscanf(const char* s, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(const char*, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1421,7 +1421,7 @@ int32_t libc_wasi_sscanf(const char* s, const char* format, int32_t km_vac, int6
     return -1;
 }
 
-int32_t libc_wasi_getcharUnlocked(void) {
+int32_t libcWasiGetcharUnlocked(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1449,7 +1449,7 @@ int32_t libc_wasi_getcharUnlocked(void) {
     return -1;
 }
 
-int32_t libc_wasi_putcharUnlocked(int32_t c) {
+int32_t libcWasiPutcharUnlocked(int32_t c) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1477,15 +1477,15 @@ int32_t libc_wasi_putcharUnlocked(int32_t c) {
     return -1;
 }
 
-int32_t libc_wasi_shutdown(int32_t arg_0_socket, int32_t how) {
-    return (int32_t)shutdown(arg_0_socket, how);
+int32_t libcWasiShutdown(int32_t arg0Socket, int32_t how) {
+    return (int32_t)shutdown(arg0Socket, how);
 }
 
-int32_t libc_wasi_fstat(int32_t fildes, void* buf) {
+int32_t libcWasiFstat(int32_t fildes, void* buf) {
     return (int32_t)fstat(fildes, buf);
 }
 
-int32_t libc_wasi_mkdir(const char* path, uint32_t mode) {
+int32_t libcWasiMkdir(const char* path, uint32_t mode) {
     typedef int32_t (*km_fn_t)(const char*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1513,11 +1513,11 @@ int32_t libc_wasi_mkdir(const char* path, uint32_t mode) {
     return -1;
 }
 
-int32_t libc_wasi_stat(const char* path, void* buf) {
+int32_t libcWasiStat(const char* path, void* buf) {
     return (int32_t)stat(path, buf);
 }
 
-void* libc_wasi_fdopen(int32_t fd, const char* mode) {
+void* libcWasiFdopen(int32_t fd, const char* mode) {
     typedef void* (*km_fn_t)(int32_t, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1545,7 +1545,7 @@ void* libc_wasi_fdopen(int32_t fd, const char* mode) {
     return NULL;
 }
 
-int32_t libc_wasi_fileno(void* stream) {
+int32_t libcWasiFileno(void* stream) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1573,7 +1573,7 @@ int32_t libc_wasi_fileno(void* stream) {
     return -1;
 }
 
-int32_t libc_wasi_open(const char* path, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcWasiOpen(const char* path, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(const char*, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1607,11 +1607,11 @@ int32_t libc_wasi_open(const char* path, int32_t oflag, int32_t km_vac, int64_t 
     return -1;
 }
 
-int32_t libc_wasi_creat(const char* path, uint32_t mode) {
+int32_t libcWasiCreat(const char* path, uint32_t mode) {
     return (int32_t)creat(path, mode);
 }
 
-int32_t libc_wasi_fcntl(int32_t fd, int32_t cmd, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcWasiFcntl(int32_t fd, int32_t cmd, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1645,7 +1645,7 @@ int32_t libc_wasi_fcntl(int32_t fd, int32_t cmd, int32_t km_vac, int64_t km_va0,
     return -1;
 }
 
-void* libc_wasi_opendir(const char* dirname) {
+void* libcWasiOpendir(const char* dirname) {
 #if !defined(_WIN32)
     return (void*)opendir(dirname);
 #else
@@ -1655,7 +1655,7 @@ void* libc_wasi_opendir(const char* dirname) {
 #endif
 }
 
-void* libc_wasi_fdopendir(int32_t fd) {
+void* libcWasiFdopendir(int32_t fd) {
     typedef void* (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1683,7 +1683,7 @@ void* libc_wasi_fdopendir(int32_t fd) {
     return NULL;
 }
 
-void* libc_wasi_readdir(void* dirp) {
+void* libcWasiReaddir(void* dirp) {
 #if !defined(_WIN32)
     return (void*)readdir((DIR*)dirp);
 #else
@@ -1693,7 +1693,7 @@ void* libc_wasi_readdir(void* dirp) {
 #endif
 }
 
-int32_t libc_wasi_closedir(void* dirp) {
+int32_t libcWasiClosedir(void* dirp) {
 #if !defined(_WIN32)
     return (int32_t)closedir((DIR*)dirp);
 #else
@@ -1703,7 +1703,7 @@ int32_t libc_wasi_closedir(void* dirp) {
 #endif
 }
 
-void libc_wasi_rewinddir(void* dirp) {
+void libcWasiRewinddir(void* dirp) {
 #if !defined(_WIN32)
     rewinddir((DIR*)dirp);
 #else
@@ -1712,7 +1712,7 @@ void libc_wasi_rewinddir(void* dirp) {
 #endif
 }
 
-int32_t libc_wasi_dirfd(void* dirp) {
+int32_t libcWasiDirfd(void* dirp) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1740,7 +1740,7 @@ int32_t libc_wasi_dirfd(void* dirp) {
     return -1;
 }
 
-void libc_wasi_seekdir(void* dirp, int64_t loc) {
+void libcWasiSeekdir(void* dirp, int64_t loc) {
     typedef void (*km_fn_t)(void*, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1768,7 +1768,7 @@ void libc_wasi_seekdir(void* dirp, int64_t loc) {
     errno = ENOSYS;
 }
 
-int64_t libc_wasi_telldir(void* dirp) {
+int64_t libcWasiTelldir(void* dirp) {
     typedef int64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1796,7 +1796,7 @@ int64_t libc_wasi_telldir(void* dirp) {
     return -1;
 }
 
-int32_t libc_wasi_openat(int32_t dirfd, const char* pathname, int32_t flags, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcWasiOpenat(int32_t dirfd, const char* pathname, int32_t flags, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1830,7 +1830,7 @@ int32_t libc_wasi_openat(int32_t dirfd, const char* pathname, int32_t flags, int
     return -1;
 }
 
-int32_t libc_wasi_fstatat(int32_t dirfd, const char* pathname, void* buf, int32_t flags) {
+int32_t libcWasiFstatat(int32_t dirfd, const char* pathname, void* buf, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1858,7 +1858,7 @@ int32_t libc_wasi_fstatat(int32_t dirfd, const char* pathname, void* buf, int32_
     return -1;
 }
 
-int32_t libc_wasi_linkat(int32_t olddirfd, const char* oldpath, int32_t newdirfd, const char* newpath, int32_t flags) {
+int32_t libcWasiLinkat(int32_t olddirfd, const char* oldpath, int32_t newdirfd, const char* newpath, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1886,7 +1886,7 @@ int32_t libc_wasi_linkat(int32_t olddirfd, const char* oldpath, int32_t newdirfd
     return -1;
 }
 
-int32_t libc_wasi_mkdirat(int32_t dirfd, const char* pathname, uint32_t mode) {
+int32_t libcWasiMkdirat(int32_t dirfd, const char* pathname, uint32_t mode) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1914,7 +1914,7 @@ int32_t libc_wasi_mkdirat(int32_t dirfd, const char* pathname, uint32_t mode) {
     return -1;
 }
 
-int64_t libc_wasi_readlinkat(int32_t dirfd, const char* pathname, char* buf, uint64_t bufsiz) {
+int64_t libcWasiReadlinkat(int32_t dirfd, const char* pathname, char* buf, uint64_t bufsiz) {
     typedef int64_t (*km_fn_t)(int32_t, const char*, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1942,7 +1942,7 @@ int64_t libc_wasi_readlinkat(int32_t dirfd, const char* pathname, char* buf, uin
     return -1;
 }
 
-int32_t libc_wasi_renameat(int32_t olddirfd, const char* oldpath, int32_t newdirfd, const char* newpath) {
+int32_t libcWasiRenameat(int32_t olddirfd, const char* oldpath, int32_t newdirfd, const char* newpath) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1970,7 +1970,7 @@ int32_t libc_wasi_renameat(int32_t olddirfd, const char* oldpath, int32_t newdir
     return -1;
 }
 
-int32_t libc_wasi_symlinkat(const char* target, int32_t newdirfd, const char* linkpath) {
+int32_t libcWasiSymlinkat(const char* target, int32_t newdirfd, const char* linkpath) {
     typedef int32_t (*km_fn_t)(const char*, int32_t, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1998,7 +1998,7 @@ int32_t libc_wasi_symlinkat(const char* target, int32_t newdirfd, const char* li
     return -1;
 }
 
-int32_t libc_wasi_unlinkat(int32_t dirfd, const char* pathname, int32_t flags) {
+int32_t libcWasiUnlinkat(int32_t dirfd, const char* pathname, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2026,15 +2026,15 @@ int32_t libc_wasi_unlinkat(int32_t dirfd, const char* pathname, int32_t flags) {
     return -1;
 }
 
-int32_t libc_wasi_access(const char* path, int32_t amode) {
+int32_t libcWasiAccess(const char* path, int32_t amode) {
     return (int32_t)access(path, amode);
 }
 
-int32_t libc_wasi_close(int32_t fd) {
+int32_t libcWasiClose(int32_t fd) {
     return (int32_t)close(fd);
 }
 
-int64_t libc_wasi_fpathconf(int32_t filedes, int32_t name) {
+int64_t libcWasiFpathconf(int32_t filedes, int32_t name) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2062,7 +2062,7 @@ int64_t libc_wasi_fpathconf(int32_t filedes, int32_t name) {
     return -1;
 }
 
-int32_t libc_wasi_getopt(int32_t argc, void* argv, const char* optstr) {
+int32_t libcWasiGetopt(int32_t argc, void* argv, const char* optstr) {
     typedef int32_t (*km_fn_t)(int32_t, void*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2090,11 +2090,11 @@ int32_t libc_wasi_getopt(int32_t argc, void* argv, const char* optstr) {
     return -1;
 }
 
-int32_t libc_wasi_isatty(int32_t fd) {
+int32_t libcWasiIsatty(int32_t fd) {
     return (int32_t)isatty(fd);
 }
 
-int32_t libc_wasi_link(const char* src, const char* dst) {
+int32_t libcWasiLink(const char* src, const char* dst) {
 #if !defined(_WIN32)
     return (int32_t)link(src, dst);
 #else
@@ -2105,11 +2105,11 @@ int32_t libc_wasi_link(const char* src, const char* dst) {
 #endif
 }
 
-int64_t libc_wasi_lseek(int32_t fd, int64_t offset, int32_t whence) {
+int64_t libcWasiLseek(int32_t fd, int64_t offset, int32_t whence) {
     return (int64_t)lseek(fd, offset, whence);
 }
 
-int64_t libc_wasi_pathconf(const char* path, int32_t name) {
+int64_t libcWasiPathconf(const char* path, int32_t name) {
     typedef int64_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2137,11 +2137,11 @@ int64_t libc_wasi_pathconf(const char* path, int32_t name) {
     return -1;
 }
 
-int32_t libc_wasi_rmdir(const char* path) {
+int32_t libcWasiRmdir(const char* path) {
     return (int32_t)rmdir(path);
 }
 
-uint32_t libc_wasi_sleep(uint32_t secs) {
+uint32_t libcWasiSleep(uint32_t secs) {
 #if !defined(_WIN32)
     return (uint32_t)sleep(secs);
 #else
@@ -2151,11 +2151,11 @@ uint32_t libc_wasi_sleep(uint32_t secs) {
 #endif
 }
 
-int32_t libc_wasi_unlink(const char* c) {
+int32_t libcWasiUnlink(const char* c) {
     return (int32_t)unlink(c);
 }
 
-int64_t libc_wasi_pread(int32_t fd, void* buf, uint64_t count, int64_t offset) {
+int64_t libcWasiPread(int32_t fd, void* buf, uint64_t count, int64_t offset) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2183,7 +2183,7 @@ int64_t libc_wasi_pread(int32_t fd, void* buf, uint64_t count, int64_t offset) {
     return -1;
 }
 
-int64_t libc_wasi_pwrite(int32_t fd, void* buf, uint64_t count, int64_t offset) {
+int64_t libcWasiPwrite(int32_t fd, void* buf, uint64_t count, int64_t offset) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2211,7 +2211,7 @@ int64_t libc_wasi_pwrite(int32_t fd, void* buf, uint64_t count, int64_t offset) 
     return -1;
 }
 
-int32_t libc_wasi_lstat(const char* path, void* buf) {
+int32_t libcWasiLstat(const char* path, void* buf) {
 #if !defined(_WIN32)
     return (int32_t)lstat(path, buf);
 #else
@@ -2222,7 +2222,7 @@ int32_t libc_wasi_lstat(const char* path, void* buf) {
 #endif
 }
 
-int32_t libc_wasi_fsync(int32_t fd) {
+int32_t libcWasiFsync(int32_t fd) {
 #if !defined(_WIN32)
     return (int32_t)fsync(fd);
 #else
@@ -2232,7 +2232,7 @@ int32_t libc_wasi_fsync(int32_t fd) {
 #endif
 }
 
-int32_t libc_wasi_fdatasync(int32_t fd) {
+int32_t libcWasiFdatasync(int32_t fd) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2260,7 +2260,7 @@ int32_t libc_wasi_fdatasync(int32_t fd) {
     return -1;
 }
 
-int32_t libc_wasi_symlink(const char* path1, const char* path2) {
+int32_t libcWasiSymlink(const char* path1, const char* path2) {
 #if !defined(_WIN32)
     return (int32_t)symlink(path1, path2);
 #else
@@ -2271,7 +2271,7 @@ int32_t libc_wasi_symlink(const char* path1, const char* path2) {
 #endif
 }
 
-int32_t libc_wasi_truncate(const char* path, int64_t length) {
+int32_t libcWasiTruncate(const char* path, int64_t length) {
 #if !defined(_WIN32)
     return (int32_t)truncate(path, length);
 #else
@@ -2282,7 +2282,7 @@ int32_t libc_wasi_truncate(const char* path, int64_t length) {
 #endif
 }
 
-int32_t libc_wasi_ftruncate(int32_t fd, int64_t length) {
+int32_t libcWasiFtruncate(int32_t fd, int64_t length) {
 #if !defined(_WIN32)
     return (int32_t)ftruncate(fd, length);
 #else
@@ -2293,7 +2293,7 @@ int32_t libc_wasi_ftruncate(int32_t fd, int64_t length) {
 #endif
 }
 
-int32_t libc_wasi_getrusage(int32_t resource, void* usage) {
+int32_t libcWasiGetrusage(int32_t resource, void* usage) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2321,7 +2321,7 @@ int32_t libc_wasi_getrusage(int32_t resource, void* usage) {
     return -1;
 }
 
-int32_t libc_wasi_gettimeofday(void* tp, void* tz) {
+int32_t libcWasiGettimeofday(void* tp, void* tz) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2349,7 +2349,7 @@ int32_t libc_wasi_gettimeofday(void* tp, void* tz) {
     return -1;
 }
 
-int64_t libc_wasi_times(void* buf) {
+int64_t libcWasiTimes(void* buf) {
     typedef int64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2377,7 +2377,7 @@ int64_t libc_wasi_times(void* buf) {
     return -1;
 }
 
-int32_t libc_wasi_strerrorR(int32_t errnum, char* buf, uint64_t buflen) {
+int32_t libcWasiStrerrorR(int32_t errnum, char* buf, uint64_t buflen) {
     typedef int32_t (*km_fn_t)(int32_t, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2405,7 +2405,7 @@ int32_t libc_wasi_strerrorR(int32_t errnum, char* buf, uint64_t buflen) {
     return -1;
 }
 
-int32_t libc_wasi_usleep(uint32_t secs) {
+int32_t libcWasiUsleep(uint32_t secs) {
 #if !defined(_WIN32)
     return (int32_t)usleep(secs);
 #else
@@ -2415,15 +2415,15 @@ int32_t libc_wasi_usleep(uint32_t secs) {
 #endif
 }
 
-int64_t libc_wasi_send(int32_t arg_0_socket, void* buf, uint64_t len, int32_t flags) {
-    return (int64_t)send(arg_0_socket, buf, len, flags);
+int64_t libcWasiSend(int32_t arg0Socket, void* buf, uint64_t len, int32_t flags) {
+    return (int64_t)send(arg0Socket, buf, len, flags);
 }
 
-int64_t libc_wasi_recv(int32_t arg_0_socket, void* buf, uint64_t len, int32_t flags) {
-    return (int64_t)recv(arg_0_socket, buf, len, flags);
+int64_t libcWasiRecv(int32_t arg0Socket, void* buf, uint64_t len, int32_t flags) {
+    return (int64_t)recv(arg0Socket, buf, len, flags);
 }
 
-int32_t libc_wasi_poll(void* fds, uint64_t nfds, int32_t timeout) {
+int32_t libcWasiPoll(void* fds, uint64_t nfds, int32_t timeout) {
 #if !defined(_WIN32)
     return (int32_t)poll(fds, nfds, timeout);
 #else
@@ -2435,15 +2435,15 @@ int32_t libc_wasi_poll(void* fds, uint64_t nfds, int32_t timeout) {
 #endif
 }
 
-char* libc_wasi_setlocale(int32_t category, const char* locale) {
+char* libcWasiSetlocale(int32_t category, const char* locale) {
     return (char*)setlocale(category, locale);
 }
 
-void* libc_wasi_localeconv(void) {
+void* libcWasiLocaleconv(void) {
     return (void*)localeconv();
 }
 
-int64_t libc_wasi_readlink(const char* path, char* buf, uint64_t bufsz) {
+int64_t libcWasiReadlink(const char* path, char* buf, uint64_t bufsz) {
 #if !defined(_WIN32)
     return (int64_t)readlink(path, buf, bufsz);
 #else
@@ -2455,7 +2455,7 @@ int64_t libc_wasi_readlink(const char* path, char* buf, uint64_t bufsz) {
 #endif
 }
 
-int64_t libc_wasi_timegm(void* tm) {
+int64_t libcWasiTimegm(void* tm) {
     typedef int64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2483,7 +2483,7 @@ int64_t libc_wasi_timegm(void* tm) {
     return -1;
 }
 
-int64_t libc_wasi_sysconf(int32_t name) {
+int64_t libcWasiSysconf(int32_t name) {
 #if !defined(_WIN32)
     return (int64_t)sysconf(name);
 #else
@@ -2493,7 +2493,7 @@ int64_t libc_wasi_sysconf(int32_t name) {
 #endif
 }
 
-int32_t libc_wasi_ioctl(int32_t fd, int32_t request, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcWasiIoctl(int32_t fd, int32_t request, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2527,7 +2527,7 @@ int32_t libc_wasi_ioctl(int32_t fd, int32_t request, int32_t km_vac, int64_t km_
     return -1;
 }
 
-int32_t libc_wasi_fseeko(void* stream, int64_t offset, int32_t whence) {
+int32_t libcWasiFseeko(void* stream, int64_t offset, int32_t whence) {
     typedef int32_t (*km_fn_t)(void*, int64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2555,7 +2555,7 @@ int32_t libc_wasi_fseeko(void* stream, int64_t offset, int32_t whence) {
     return -1;
 }
 
-int64_t libc_wasi_ftello(void* stream) {
+int64_t libcWasiFtello(void* stream) {
     typedef int64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2583,7 +2583,7 @@ int64_t libc_wasi_ftello(void* stream) {
     return -1;
 }
 
-int32_t libc_wasi_posixFallocate(int32_t fd, int64_t offset, int64_t len) {
+int32_t libcWasiPosixFallocate(int32_t fd, int64_t offset, int64_t len) {
     typedef int32_t (*km_fn_t)(int32_t, int64_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2611,7 +2611,7 @@ int32_t libc_wasi_posixFallocate(int32_t fd, int64_t offset, int64_t len) {
     return -1;
 }
 
-char* libc_wasi_strcasestr(const char* cs, const char* ct) {
+char* libcWasiStrcasestr(const char* cs, const char* ct) {
     typedef char* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2639,7 +2639,7 @@ char* libc_wasi_strcasestr(const char* cs, const char* ct) {
     return NULL;
 }
 
-int64_t libc_wasi_getline(void* lineptr, void* n, void* stream) {
+int64_t libcWasiGetline(void* lineptr, void* n, void* stream) {
     typedef int64_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2667,7 +2667,7 @@ int64_t libc_wasi_getline(void* lineptr, void* n, void* stream) {
     return -1;
 }
 
-int32_t libc_wasi_faccessat(int32_t dirfd, const char* pathname, int32_t mode, int32_t flags) {
+int32_t libcWasiFaccessat(int32_t dirfd, const char* pathname, int32_t mode, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2695,7 +2695,7 @@ int32_t libc_wasi_faccessat(int32_t dirfd, const char* pathname, int32_t mode, i
     return -1;
 }
 
-int64_t libc_wasi_writev(int32_t fd, void* iov, int32_t iovcnt) {
+int64_t libcWasiWritev(int32_t fd, void* iov, int32_t iovcnt) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2723,7 +2723,7 @@ int64_t libc_wasi_writev(int32_t fd, void* iov, int32_t iovcnt) {
     return -1;
 }
 
-int64_t libc_wasi_readv(int32_t fd, void* iov, int32_t iovcnt) {
+int64_t libcWasiReadv(int32_t fd, void* iov, int32_t iovcnt) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2751,7 +2751,7 @@ int64_t libc_wasi_readv(int32_t fd, void* iov, int32_t iovcnt) {
     return -1;
 }
 
-int64_t libc_wasi_pwritev(int32_t fd, void* iov, int32_t iovcnt, int64_t offset) {
+int64_t libcWasiPwritev(int32_t fd, void* iov, int32_t iovcnt, int64_t offset) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2779,7 +2779,7 @@ int64_t libc_wasi_pwritev(int32_t fd, void* iov, int32_t iovcnt, int64_t offset)
     return -1;
 }
 
-int64_t libc_wasi_preadv(int32_t fd, void* iov, int32_t iovcnt, int64_t offset) {
+int64_t libcWasiPreadv(int32_t fd, void* iov, int32_t iovcnt, int64_t offset) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2807,7 +2807,7 @@ int64_t libc_wasi_preadv(int32_t fd, void* iov, int32_t iovcnt, int64_t offset) 
     return -1;
 }
 
-int32_t libc_wasi_posixFadvise(int32_t fd, int64_t offset, int64_t len, int32_t advise) {
+int32_t libcWasiPosixFadvise(int32_t fd, int64_t offset, int64_t len, int32_t advise) {
     typedef int32_t (*km_fn_t)(int32_t, int64_t, int64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2835,7 +2835,7 @@ int32_t libc_wasi_posixFadvise(int32_t fd, int64_t offset, int64_t len, int32_t 
     return -1;
 }
 
-int32_t libc_wasi_futimens(int32_t fd, void* times) {
+int32_t libcWasiFutimens(int32_t fd, void* times) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2863,7 +2863,7 @@ int32_t libc_wasi_futimens(int32_t fd, void* times) {
     return -1;
 }
 
-int32_t libc_wasi_utimensat(int32_t dirfd, const char* path, void* times, int32_t flag) {
+int32_t libcWasiUtimensat(int32_t dirfd, const char* path, void* times, int32_t flag) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2891,7 +2891,7 @@ int32_t libc_wasi_utimensat(int32_t dirfd, const char* path, void* times, int32_
     return -1;
 }
 
-int32_t libc_wasi_getentropy(void* buf, uint64_t buflen) {
+int32_t libcWasiGetentropy(void* buf, uint64_t buflen) {
     typedef int32_t (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2919,7 +2919,7 @@ int32_t libc_wasi_getentropy(void* buf, uint64_t buflen) {
     return -1;
 }
 
-void* libc_wasi_memrchr(void* cx, int32_t c, uint64_t n) {
+void* libcWasiMemrchr(void* cx, int32_t c, uint64_t n) {
     typedef void* (*km_fn_t)(void*, int32_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2947,11 +2947,11 @@ void* libc_wasi_memrchr(void* cx, int32_t c, uint64_t n) {
     return NULL;
 }
 
-int32_t libc_wasi_abs(int32_t i) {
+int32_t libcWasiAbs(int32_t i) {
     return (int32_t)abs(i);
 }
 
-int64_t libc_wasi_labs(int64_t i) {
+int64_t libcWasiLabs(int64_t i) {
     typedef int64_t (*km_fn_t)(int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2979,7 +2979,7 @@ int64_t libc_wasi_labs(int64_t i) {
     return -1;
 }
 
-void* libc_wasi_duplocale(void* base) {
+void* libcWasiDuplocale(void* base) {
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3007,7 +3007,7 @@ void* libc_wasi_duplocale(void* base) {
     return NULL;
 }
 
-void libc_wasi_freelocale(void* loc) {
+void libcWasiFreelocale(void* loc) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3035,7 +3035,7 @@ void libc_wasi_freelocale(void* loc) {
     errno = ENOSYS;
 }
 
-void* libc_wasi_newlocale(int32_t mask, const char* locale, void* base) {
+void* libcWasiNewlocale(int32_t mask, const char* locale, void* base) {
     typedef void* (*km_fn_t)(int32_t, const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3063,7 +3063,7 @@ void* libc_wasi_newlocale(int32_t mask, const char* locale, void* base) {
     return NULL;
 }
 
-void* libc_wasi_uselocale(void* loc) {
+void* libcWasiUselocale(void* loc) {
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3091,7 +3091,7 @@ void* libc_wasi_uselocale(void* loc) {
     return NULL;
 }
 
-int32_t libc_wasi_schedYield(void) {
+int32_t libcWasiSchedYield(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3119,15 +3119,15 @@ int32_t libc_wasi_schedYield(void) {
     return -1;
 }
 
-char* libc_wasi_getcwd(char* buf, uint64_t size) {
+char* libcWasiGetcwd(char* buf, uint64_t size) {
     return (char*)getcwd(buf, size);
 }
 
-int32_t libc_wasi_chdir(const char* dir) {
+int32_t libcWasiChdir(const char* dir) {
     return (int32_t)chdir(dir);
 }
 
-char* libc_wasi_nlLanginfo(int32_t item) {
+char* libcWasiNlLanginfo(int32_t item) {
     typedef char* (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3155,7 +3155,7 @@ char* libc_wasi_nlLanginfo(int32_t item) {
     return NULL;
 }
 
-char* libc_wasi_nlLanginfoL(int32_t item, void* loc) {
+char* libcWasiNlLanginfoL(int32_t item, void* loc) {
     typedef char* (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3183,7 +3183,7 @@ char* libc_wasi_nlLanginfoL(int32_t item, void* loc) {
     return NULL;
 }
 
-int32_t libc_wasi_select(int32_t nfds, void* readfds, void* writefds, void* errorfds, void* timeout) {
+int32_t libcWasiSelect(int32_t nfds, void* readfds, void* writefds, void* errorfds, void* timeout) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3211,7 +3211,7 @@ int32_t libc_wasi_select(int32_t nfds, void* readfds, void* writefds, void* erro
     return -1;
 }
 
-int32_t libc_wasi_wasilibcRegisterPreopenedFd(int32_t fd, const char* path) {
+int32_t libcWasiWasilibcRegisterPreopenedFd(int32_t fd, const char* path) {
     typedef int32_t (*km_fn_t)(int32_t, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3237,7 +3237,7 @@ int32_t libc_wasi_wasilibcRegisterPreopenedFd(int32_t fd, const char* path) {
     return -1;
 }
 
-int32_t libc_wasi_wasilibcFdRenumber(int32_t fd, int32_t newfd) {
+int32_t libcWasiWasilibcFdRenumber(int32_t fd, int32_t newfd) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3263,7 +3263,7 @@ int32_t libc_wasi_wasilibcFdRenumber(int32_t fd, int32_t newfd) {
     return -1;
 }
 
-int32_t libc_wasi_wasilibcUnlinkat(int32_t fd, const char* path) {
+int32_t libcWasiWasilibcUnlinkat(int32_t fd, const char* path) {
     typedef int32_t (*km_fn_t)(int32_t, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3289,7 +3289,7 @@ int32_t libc_wasi_wasilibcUnlinkat(int32_t fd, const char* path) {
     return -1;
 }
 
-int32_t libc_wasi_wasilibcRmdirat(int32_t fd, const char* path) {
+int32_t libcWasiWasilibcRmdirat(int32_t fd, const char* path) {
     typedef int32_t (*km_fn_t)(int32_t, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3315,7 +3315,7 @@ int32_t libc_wasi_wasilibcRmdirat(int32_t fd, const char* path) {
     return -1;
 }
 
-int32_t libc_wasi_wasilibcFindRelpath(const char* path, void* abs_prefix, void* relative_path, uint64_t relative_path_len) {
+int32_t libcWasiWasilibcFindRelpath(const char* path, void* absPrefix, void* relativePath, uint64_t relativePathLen) {
     typedef int32_t (*km_fn_t)(const char*, void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3335,13 +3335,13 @@ int32_t libc_wasi_wasilibcFindRelpath(const char* path, void* abs_prefix, void* 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(path, abs_prefix, relative_path, relative_path_len);
+        return km_fn_ptr(path, absPrefix, relativePath, relativePathLen);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_wasi_wasilibcTell(int32_t fd) {
+int64_t libcWasiWasilibcTell(int32_t fd) {
     typedef int64_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3367,7 +3367,7 @@ int64_t libc_wasi_wasilibcTell(int32_t fd) {
     return -1;
 }
 
-int32_t libc_wasi_wasilibcNocwdWasilibcUnlinkat(int32_t dirfd, const char* path) {
+int32_t libcWasiWasilibcNocwdWasilibcUnlinkat(int32_t dirfd, const char* path) {
     typedef int32_t (*km_fn_t)(int32_t, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3393,7 +3393,7 @@ int32_t libc_wasi_wasilibcNocwdWasilibcUnlinkat(int32_t dirfd, const char* path)
     return -1;
 }
 
-int32_t libc_wasi_wasilibcNocwdWasilibcRmdirat(int32_t dirfd, const char* path) {
+int32_t libcWasiWasilibcNocwdWasilibcRmdirat(int32_t dirfd, const char* path) {
     typedef int32_t (*km_fn_t)(int32_t, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3419,7 +3419,7 @@ int32_t libc_wasi_wasilibcNocwdWasilibcRmdirat(int32_t dirfd, const char* path) 
     return -1;
 }
 
-int32_t libc_wasi_wasilibcNocwdLinkat(int32_t olddirfd, const char* oldpath, int32_t newdirfd, const char* newpath, int32_t flags) {
+int32_t libcWasiWasilibcNocwdLinkat(int32_t olddirfd, const char* oldpath, int32_t newdirfd, const char* newpath, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3445,7 +3445,7 @@ int32_t libc_wasi_wasilibcNocwdLinkat(int32_t olddirfd, const char* oldpath, int
     return -1;
 }
 
-int32_t libc_wasi_wasilibcNocwdSymlinkat(const char* target, int32_t dirfd, const char* path) {
+int32_t libcWasiWasilibcNocwdSymlinkat(const char* target, int32_t dirfd, const char* path) {
     typedef int32_t (*km_fn_t)(const char*, int32_t, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3471,7 +3471,7 @@ int32_t libc_wasi_wasilibcNocwdSymlinkat(const char* target, int32_t dirfd, cons
     return -1;
 }
 
-int64_t libc_wasi_wasilibcNocwdReadlinkat(int32_t dirfd, const char* path, char* buf, uint64_t bufsize) {
+int64_t libcWasiWasilibcNocwdReadlinkat(int32_t dirfd, const char* path, char* buf, uint64_t bufsize) {
     typedef int64_t (*km_fn_t)(int32_t, const char*, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3497,7 +3497,7 @@ int64_t libc_wasi_wasilibcNocwdReadlinkat(int32_t dirfd, const char* path, char*
     return -1;
 }
 
-int32_t libc_wasi_wasilibcNocwdFaccessat(int32_t dirfd, const char* path, int32_t mode, int32_t flags) {
+int32_t libcWasiWasilibcNocwdFaccessat(int32_t dirfd, const char* path, int32_t mode, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3523,7 +3523,7 @@ int32_t libc_wasi_wasilibcNocwdFaccessat(int32_t dirfd, const char* path, int32_
     return -1;
 }
 
-int32_t libc_wasi_wasilibcNocwdRenameat(int32_t olddirfd, const char* oldpath, int32_t newdirfd, const char* newpath) {
+int32_t libcWasiWasilibcNocwdRenameat(int32_t olddirfd, const char* oldpath, int32_t newdirfd, const char* newpath) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3549,7 +3549,7 @@ int32_t libc_wasi_wasilibcNocwdRenameat(int32_t olddirfd, const char* oldpath, i
     return -1;
 }
 
-int32_t libc_wasi_wasilibcNocwdOpenatNomode(int32_t dirfd, const char* path, int32_t flags) {
+int32_t libcWasiWasilibcNocwdOpenatNomode(int32_t dirfd, const char* path, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3575,7 +3575,7 @@ int32_t libc_wasi_wasilibcNocwdOpenatNomode(int32_t dirfd, const char* path, int
     return -1;
 }
 
-int32_t libc_wasi_wasilibcNocwdFstatat(int32_t dirfd, const char* path, void* buf, int32_t flags) {
+int32_t libcWasiWasilibcNocwdFstatat(int32_t dirfd, const char* path, void* buf, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3601,7 +3601,7 @@ int32_t libc_wasi_wasilibcNocwdFstatat(int32_t dirfd, const char* path, void* bu
     return -1;
 }
 
-int32_t libc_wasi_wasilibcNocwdMkdiratNomode(int32_t dirfd, const char* path) {
+int32_t libcWasiWasilibcNocwdMkdiratNomode(int32_t dirfd, const char* path) {
     typedef int32_t (*km_fn_t)(int32_t, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3627,7 +3627,7 @@ int32_t libc_wasi_wasilibcNocwdMkdiratNomode(int32_t dirfd, const char* path) {
     return -1;
 }
 
-int32_t libc_wasi_wasilibcNocwdUtimensat(int32_t dirfd, const char* path, void* times, int32_t flags) {
+int32_t libcWasiWasilibcNocwdUtimensat(int32_t dirfd, const char* path, void* times, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3653,7 +3653,7 @@ int32_t libc_wasi_wasilibcNocwdUtimensat(int32_t dirfd, const char* path, void* 
     return -1;
 }
 
-void* libc_wasi_wasilibcNocwdOpendirat(int32_t dirfd, const char* path) {
+void* libcWasiWasilibcNocwdOpendirat(int32_t dirfd, const char* path) {
     typedef void* (*km_fn_t)(int32_t, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3679,7 +3679,7 @@ void* libc_wasi_wasilibcNocwdOpendirat(int32_t dirfd, const char* path) {
     return NULL;
 }
 
-int32_t libc_wasi_wasilibcAccess(const char* pathname, int32_t mode, int32_t flags) {
+int32_t libcWasiWasilibcAccess(const char* pathname, int32_t mode, int32_t flags) {
     typedef int32_t (*km_fn_t)(const char*, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3705,7 +3705,7 @@ int32_t libc_wasi_wasilibcAccess(const char* pathname, int32_t mode, int32_t fla
     return -1;
 }
 
-int32_t libc_wasi_wasilibcStat(const char* pathname, void* buf, int32_t flags) {
+int32_t libcWasiWasilibcStat(const char* pathname, void* buf, int32_t flags) {
     typedef int32_t (*km_fn_t)(const char*, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3731,7 +3731,7 @@ int32_t libc_wasi_wasilibcStat(const char* pathname, void* buf, int32_t flags) {
     return -1;
 }
 
-int32_t libc_wasi_wasilibcUtimens(const char* pathname, void* times, int32_t flags) {
+int32_t libcWasiWasilibcUtimens(const char* pathname, void* times, int32_t flags) {
     typedef int32_t (*km_fn_t)(const char*, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3757,7 +3757,7 @@ int32_t libc_wasi_wasilibcUtimens(const char* pathname, void* times, int32_t fla
     return -1;
 }
 
-int32_t libc_wasi_wasilibcLink(const char* oldpath, const char* newpath, int32_t flags) {
+int32_t libcWasiWasilibcLink(const char* oldpath, const char* newpath, int32_t flags) {
     typedef int32_t (*km_fn_t)(const char*, const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3783,7 +3783,7 @@ int32_t libc_wasi_wasilibcLink(const char* oldpath, const char* newpath, int32_t
     return -1;
 }
 
-int32_t libc_wasi_wasilibcLinkOldat(int32_t olddirfd, const char* oldpath, const char* newpath, int32_t flags) {
+int32_t libcWasiWasilibcLinkOldat(int32_t olddirfd, const char* oldpath, const char* newpath, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3809,7 +3809,7 @@ int32_t libc_wasi_wasilibcLinkOldat(int32_t olddirfd, const char* oldpath, const
     return -1;
 }
 
-int32_t libc_wasi_wasilibcLinkNewat(const char* oldpath, int32_t newdirfd, const char* newpath, int32_t flags) {
+int32_t libcWasiWasilibcLinkNewat(const char* oldpath, int32_t newdirfd, const char* newpath, int32_t flags) {
     typedef int32_t (*km_fn_t)(const char*, int32_t, const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3835,7 +3835,7 @@ int32_t libc_wasi_wasilibcLinkNewat(const char* oldpath, int32_t newdirfd, const
     return -1;
 }
 
-int32_t libc_wasi_wasilibcRenameOldat(int32_t olddirfd, const char* oldpath, const char* newpath) {
+int32_t libcWasiWasilibcRenameOldat(int32_t olddirfd, const char* oldpath, const char* newpath) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3861,7 +3861,7 @@ int32_t libc_wasi_wasilibcRenameOldat(int32_t olddirfd, const char* oldpath, con
     return -1;
 }
 
-int32_t libc_wasi_wasilibcRenameNewat(const char* oldpath, int32_t newdirfd, const char* newpath) {
+int32_t libcWasiWasilibcRenameNewat(const char* oldpath, int32_t newdirfd, const char* newpath) {
     typedef int32_t (*km_fn_t)(const char*, int32_t, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3887,7 +3887,7 @@ int32_t libc_wasi_wasilibcRenameNewat(const char* oldpath, int32_t newdirfd, con
     return -1;
 }
 
-uint32_t libc_wasi_arc4random(void) {
+uint32_t libcWasiArc4random(void) {
     typedef uint32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3915,7 +3915,7 @@ uint32_t libc_wasi_arc4random(void) {
     return 0;
 }
 
-void libc_wasi_arc4randomBuf(void* a, uint64_t b) {
+void libcWasiArc4randomBuf(void* a, uint64_t b) {
     typedef void (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3943,7 +3943,7 @@ void libc_wasi_arc4randomBuf(void* a, uint64_t b) {
     errno = ENOSYS;
 }
 
-uint32_t libc_wasi_arc4randomUniform(uint32_t a) {
+uint32_t libcWasiArc4randomUniform(uint32_t a) {
     typedef uint32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3971,7 +3971,7 @@ uint32_t libc_wasi_arc4randomUniform(uint32_t a) {
     return 0;
 }
 
-void* libc_wasi_errnoLocation(void) {
+void* libcWasiErrnoLocation(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3997,7 +3997,7 @@ void* libc_wasi_errnoLocation(void) {
     return NULL;
 }
 
-int32_t libc_wasi_chmod(const char* path, uint32_t mode) {
+int32_t libcWasiChmod(const char* path, uint32_t mode) {
 #if !defined(_WIN32)
     return (int32_t)chmod(path, mode);
 #else
@@ -4008,7 +4008,7 @@ int32_t libc_wasi_chmod(const char* path, uint32_t mode) {
 #endif
 }
 
-int32_t libc_wasi_fchmod(int32_t fd, uint32_t mode) {
+int32_t libcWasiFchmod(int32_t fd, uint32_t mode) {
 #if !defined(_WIN32)
     return (int32_t)fchmod(fd, mode);
 #else
@@ -4019,7 +4019,7 @@ int32_t libc_wasi_fchmod(int32_t fd, uint32_t mode) {
 #endif
 }
 
-char* libc_wasi_realpath(const char* pathname, char* resolved) {
+char* libcWasiRealpath(const char* pathname, char* resolved) {
     typedef char* (*km_fn_t)(const char*, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4047,7 +4047,7 @@ char* libc_wasi_realpath(const char* pathname, char* resolved) {
     return NULL;
 }
 
-void* libc_wasi_pthreadSelf(void) {
+void* libcWasiPthreadSelf(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4075,7 +4075,7 @@ void* libc_wasi_pthreadSelf(void) {
     return NULL;
 }
 
-int32_t libc_wasi_pthreadCreate(void* native, void* attr, void* f, void* value) {
+int32_t libcWasiPthreadCreate(void* native, void* attr, void* f, void* value) {
     typedef int32_t (*km_fn_t)(void*, void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4103,7 +4103,7 @@ int32_t libc_wasi_pthreadCreate(void* native, void* attr, void* f, void* value) 
     return ENOSYS;
 }
 
-int32_t libc_wasi_pthreadEqual(void* t1, void* t2) {
+int32_t libcWasiPthreadEqual(void* t1, void* t2) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4131,7 +4131,7 @@ int32_t libc_wasi_pthreadEqual(void* t1, void* t2) {
     return -1;
 }
 
-int32_t libc_wasi_pthreadJoin(void* native, void* value) {
+int32_t libcWasiPthreadJoin(void* native, void* value) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4159,7 +4159,7 @@ int32_t libc_wasi_pthreadJoin(void* native, void* value) {
     return ENOSYS;
 }
 
-int32_t libc_wasi_pthreadAttrInit(void* attr) {
+int32_t libcWasiPthreadAttrInit(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4187,7 +4187,7 @@ int32_t libc_wasi_pthreadAttrInit(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_wasi_pthreadAttrDestroy(void* attr) {
+int32_t libcWasiPthreadAttrDestroy(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4215,7 +4215,7 @@ int32_t libc_wasi_pthreadAttrDestroy(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_wasi_pthreadAttrGetstacksize(void* attr, void* stacksize) {
+int32_t libcWasiPthreadAttrGetstacksize(void* attr, void* stacksize) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4243,7 +4243,7 @@ int32_t libc_wasi_pthreadAttrGetstacksize(void* attr, void* stacksize) {
     return ENOSYS;
 }
 
-int32_t libc_wasi_pthreadAttrSetstacksize(void* attr, uint64_t stack_size) {
+int32_t libcWasiPthreadAttrSetstacksize(void* attr, uint64_t stackSize) {
     typedef int32_t (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4265,13 +4265,13 @@ int32_t libc_wasi_pthreadAttrSetstacksize(void* attr, uint64_t stack_size) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(attr, stack_size);
+        return km_fn_ptr(attr, stackSize);
     }
     errno = ENOSYS;
     return ENOSYS;
 }
 
-int32_t libc_wasi_pthreadAttrSetdetachstate(void* attr, int32_t state) {
+int32_t libcWasiPthreadAttrSetdetachstate(void* attr, int32_t state) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4299,7 +4299,7 @@ int32_t libc_wasi_pthreadAttrSetdetachstate(void* attr, int32_t state) {
     return ENOSYS;
 }
 
-int32_t libc_wasi_pthreadDetach(void* thread) {
+int32_t libcWasiPthreadDetach(void* thread) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4327,7 +4327,7 @@ int32_t libc_wasi_pthreadDetach(void* thread) {
     return ENOSYS;
 }
 
-int32_t libc_wasi_pthreadKeyCreate(void* key, void* dtor) {
+int32_t libcWasiPthreadKeyCreate(void* key, void* dtor) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4355,7 +4355,7 @@ int32_t libc_wasi_pthreadKeyCreate(void* key, void* dtor) {
     return ENOSYS;
 }
 
-int32_t libc_wasi_pthreadKeyDelete(uint32_t key) {
+int32_t libcWasiPthreadKeyDelete(uint32_t key) {
     typedef int32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4383,7 +4383,7 @@ int32_t libc_wasi_pthreadKeyDelete(uint32_t key) {
     return ENOSYS;
 }
 
-void* libc_wasi_pthreadGetspecific(uint32_t key) {
+void* libcWasiPthreadGetspecific(uint32_t key) {
     typedef void* (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4411,7 +4411,7 @@ void* libc_wasi_pthreadGetspecific(uint32_t key) {
     return NULL;
 }
 
-int32_t libc_wasi_pthreadSetspecific(uint32_t key, void* value) {
+int32_t libcWasiPthreadSetspecific(uint32_t key, void* value) {
     typedef int32_t (*km_fn_t)(uint32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4439,7 +4439,7 @@ int32_t libc_wasi_pthreadSetspecific(uint32_t key, void* value) {
     return ENOSYS;
 }
 
-int32_t libc_wasi_pthreadMutexInit(void* lock, void* attr) {
+int32_t libcWasiPthreadMutexInit(void* lock, void* attr) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4467,7 +4467,7 @@ int32_t libc_wasi_pthreadMutexInit(void* lock, void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_wasi_pthreadMutexDestroy(void* lock) {
+int32_t libcWasiPthreadMutexDestroy(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4495,7 +4495,7 @@ int32_t libc_wasi_pthreadMutexDestroy(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_wasi_pthreadMutexLock(void* lock) {
+int32_t libcWasiPthreadMutexLock(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4523,7 +4523,7 @@ int32_t libc_wasi_pthreadMutexLock(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_wasi_pthreadMutexTrylock(void* lock) {
+int32_t libcWasiPthreadMutexTrylock(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4551,7 +4551,7 @@ int32_t libc_wasi_pthreadMutexTrylock(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_wasi_pthreadMutexUnlock(void* lock) {
+int32_t libcWasiPthreadMutexUnlock(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4579,7 +4579,7 @@ int32_t libc_wasi_pthreadMutexUnlock(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_wasi_pthreadMutexattrInit(void* attr) {
+int32_t libcWasiPthreadMutexattrInit(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4607,7 +4607,7 @@ int32_t libc_wasi_pthreadMutexattrInit(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_wasi_pthreadMutexattrDestroy(void* attr) {
+int32_t libcWasiPthreadMutexattrDestroy(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4635,7 +4635,7 @@ int32_t libc_wasi_pthreadMutexattrDestroy(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_wasi_pthreadMutexattrSettype(void* attr, int32_t arg_1_type) {
+int32_t libcWasiPthreadMutexattrSettype(void* attr, int32_t type) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4657,13 +4657,13 @@ int32_t libc_wasi_pthreadMutexattrSettype(void* attr, int32_t arg_1_type) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(attr, arg_1_type);
+        return km_fn_ptr(attr, type);
     }
     errno = ENOSYS;
     return ENOSYS;
 }
 
-int32_t libc_wasi_pthreadCondInit(void* cond, void* attr) {
+int32_t libcWasiPthreadCondInit(void* cond, void* attr) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4691,7 +4691,7 @@ int32_t libc_wasi_pthreadCondInit(void* cond, void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_wasi_pthreadCondWait(void* cond, void* lock) {
+int32_t libcWasiPthreadCondWait(void* cond, void* lock) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4719,7 +4719,7 @@ int32_t libc_wasi_pthreadCondWait(void* cond, void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_wasi_pthreadCondTimedwait(void* cond, void* lock, void* abstime) {
+int32_t libcWasiPthreadCondTimedwait(void* cond, void* lock, void* abstime) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4747,7 +4747,7 @@ int32_t libc_wasi_pthreadCondTimedwait(void* cond, void* lock, void* abstime) {
     return ENOSYS;
 }
 
-int32_t libc_wasi_pthreadCondSignal(void* cond) {
+int32_t libcWasiPthreadCondSignal(void* cond) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4775,7 +4775,7 @@ int32_t libc_wasi_pthreadCondSignal(void* cond) {
     return ENOSYS;
 }
 
-int32_t libc_wasi_pthreadCondBroadcast(void* cond) {
+int32_t libcWasiPthreadCondBroadcast(void* cond) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4803,7 +4803,7 @@ int32_t libc_wasi_pthreadCondBroadcast(void* cond) {
     return ENOSYS;
 }
 
-int32_t libc_wasi_pthreadCondDestroy(void* cond) {
+int32_t libcWasiPthreadCondDestroy(void* cond) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4831,7 +4831,7 @@ int32_t libc_wasi_pthreadCondDestroy(void* cond) {
     return ENOSYS;
 }
 
-int32_t libc_wasi_pthreadCondattrInit(void* attr) {
+int32_t libcWasiPthreadCondattrInit(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4859,7 +4859,7 @@ int32_t libc_wasi_pthreadCondattrInit(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_wasi_pthreadCondattrDestroy(void* attr) {
+int32_t libcWasiPthreadCondattrDestroy(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4887,7 +4887,7 @@ int32_t libc_wasi_pthreadCondattrDestroy(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_wasi_pthreadRwlockInit(void* lock, void* attr) {
+int32_t libcWasiPthreadRwlockInit(void* lock, void* attr) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4915,7 +4915,7 @@ int32_t libc_wasi_pthreadRwlockInit(void* lock, void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_wasi_pthreadRwlockDestroy(void* lock) {
+int32_t libcWasiPthreadRwlockDestroy(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4943,7 +4943,7 @@ int32_t libc_wasi_pthreadRwlockDestroy(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_wasi_pthreadRwlockRdlock(void* lock) {
+int32_t libcWasiPthreadRwlockRdlock(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4971,7 +4971,7 @@ int32_t libc_wasi_pthreadRwlockRdlock(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_wasi_pthreadRwlockTryrdlock(void* lock) {
+int32_t libcWasiPthreadRwlockTryrdlock(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4999,7 +4999,7 @@ int32_t libc_wasi_pthreadRwlockTryrdlock(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_wasi_pthreadRwlockWrlock(void* lock) {
+int32_t libcWasiPthreadRwlockWrlock(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5027,7 +5027,7 @@ int32_t libc_wasi_pthreadRwlockWrlock(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_wasi_pthreadRwlockTrywrlock(void* lock) {
+int32_t libcWasiPthreadRwlockTrywrlock(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5055,7 +5055,7 @@ int32_t libc_wasi_pthreadRwlockTrywrlock(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_wasi_pthreadRwlockUnlock(void* lock) {
+int32_t libcWasiPthreadRwlockUnlock(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5083,7 +5083,7 @@ int32_t libc_wasi_pthreadRwlockUnlock(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_wasi_pthreadRwlockattrInit(void* attr) {
+int32_t libcWasiPthreadRwlockattrInit(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5111,7 +5111,7 @@ int32_t libc_wasi_pthreadRwlockattrInit(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_wasi_pthreadRwlockattrDestroy(void* attr) {
+int32_t libcWasiPthreadRwlockattrDestroy(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

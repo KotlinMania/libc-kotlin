@@ -51,9 +51,9 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_unix_nto_neutrino_channelCreate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoChannelCreate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint32_t arg_0_flags = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    uint32_t flags = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -76,7 +76,7 @@ static Napi::Value libc_unix_nto_neutrino_channelCreate_napi(const Napi::Callbac
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_flags);
+        km_res = km_fn_ptr(flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -84,9 +84,9 @@ static Napi::Value libc_unix_nto_neutrino_channelCreate_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_channelCreateR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoChannelCreateR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint32_t arg_0_flags = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    uint32_t flags = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -109,7 +109,7 @@ static Napi::Value libc_unix_nto_neutrino_channelCreateR_napi(const Napi::Callba
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_flags);
+        km_res = km_fn_ptr(flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -117,10 +117,10 @@ static Napi::Value libc_unix_nto_neutrino_channelCreateR_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_channelCreatePulsePool_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoChannelCreatePulsePool_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint32_t arg_0_flags = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_config = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint32_t flags = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* config = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(uint32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -143,7 +143,7 @@ static Napi::Value libc_unix_nto_neutrino_channelCreatePulsePool_napi(const Napi
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_flags, arg_1_config);
+        km_res = km_fn_ptr(flags, config);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -151,14 +151,14 @@ static Napi::Value libc_unix_nto_neutrino_channelCreatePulsePool_napi(const Napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_channelCreateExt_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoChannelCreateExt_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint32_t arg_0_flags = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    uint32_t arg_1_mode = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    uint64_t arg_2_bufsize = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    uint32_t arg_3_maxnumbuf = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
-    void* arg_4_ev = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
-    void* arg_5_cred = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 5 ? km_napi_arg_u64(km_info[5]) : 0));
+    uint32_t flags = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    uint32_t mode = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    uint64_t bufsize = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    uint32_t maxnumbuf = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
+    void* ev = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
+    void* cred = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 5 ? km_napi_arg_u64(km_info[5]) : 0));
     typedef int32_t (*km_fn_t)(uint32_t, uint32_t, uint64_t, uint32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -181,7 +181,7 @@ static Napi::Value libc_unix_nto_neutrino_channelCreateExt_napi(const Napi::Call
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_flags, arg_1_mode, arg_2_bufsize, arg_3_maxnumbuf, arg_4_ev, arg_5_cred);
+        km_res = km_fn_ptr(flags, mode, bufsize, maxnumbuf, ev, cred);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -189,9 +189,9 @@ static Napi::Value libc_unix_nto_neutrino_channelCreateExt_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_channelDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoChannelDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_chid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t chid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -214,7 +214,7 @@ static Napi::Value libc_unix_nto_neutrino_channelDestroy_napi(const Napi::Callba
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_chid);
+        km_res = km_fn_ptr(chid);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -222,9 +222,9 @@ static Napi::Value libc_unix_nto_neutrino_channelDestroy_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_channelDestroyR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoChannelDestroyR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_chid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t chid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -247,7 +247,7 @@ static Napi::Value libc_unix_nto_neutrino_channelDestroyR_napi(const Napi::Callb
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_chid);
+        km_res = km_fn_ptr(chid);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -255,13 +255,13 @@ static Napi::Value libc_unix_nto_neutrino_channelDestroyR_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_connectAttach_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoConnectAttach_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint32_t arg_0_nd = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t arg_1_pid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    int32_t arg_2_chid = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    uint32_t arg_3_index = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
-    int32_t arg_4_flags = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
+    uint32_t nd = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t pid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t chid = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    uint32_t arg3Index = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
+    int32_t flags = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint32_t, int32_t, int32_t, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -284,7 +284,7 @@ static Napi::Value libc_unix_nto_neutrino_connectAttach_napi(const Napi::Callbac
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_nd, arg_1_pid, arg_2_chid, arg_3_index, arg_4_flags);
+        km_res = km_fn_ptr(nd, pid, chid, arg3Index, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -292,13 +292,13 @@ static Napi::Value libc_unix_nto_neutrino_connectAttach_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_connectAttachR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoConnectAttachR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint32_t arg_0_nd = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t arg_1_pid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    int32_t arg_2_chid = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    uint32_t arg_3_index = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
-    int32_t arg_4_flags = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
+    uint32_t nd = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t pid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t chid = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    uint32_t arg3Index = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
+    int32_t flags = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint32_t, int32_t, int32_t, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -321,7 +321,7 @@ static Napi::Value libc_unix_nto_neutrino_connectAttachR_napi(const Napi::Callba
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_nd, arg_1_pid, arg_2_chid, arg_3_index, arg_4_flags);
+        km_res = km_fn_ptr(nd, pid, chid, arg3Index, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -329,9 +329,9 @@ static Napi::Value libc_unix_nto_neutrino_connectAttachR_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_connectDetach_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoConnectDetach_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -354,7 +354,7 @@ static Napi::Value libc_unix_nto_neutrino_connectDetach_napi(const Napi::Callbac
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_coid);
+        km_res = km_fn_ptr(coid);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -362,9 +362,9 @@ static Napi::Value libc_unix_nto_neutrino_connectDetach_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_connectDetachR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoConnectDetachR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -387,7 +387,7 @@ static Napi::Value libc_unix_nto_neutrino_connectDetachR_napi(const Napi::Callba
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_coid);
+        km_res = km_fn_ptr(coid);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -395,11 +395,11 @@ static Napi::Value libc_unix_nto_neutrino_connectDetachR_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_connectServerInfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoConnectServerInfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t arg_1_coid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    void* arg_2_info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t coid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    void* info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -422,7 +422,7 @@ static Napi::Value libc_unix_nto_neutrino_connectServerInfo_napi(const Napi::Cal
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_pid, arg_1_coid, arg_2_info);
+        km_res = km_fn_ptr(pid, coid, info);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -430,11 +430,11 @@ static Napi::Value libc_unix_nto_neutrino_connectServerInfo_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_connectServerInfoR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoConnectServerInfoR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t arg_1_coid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    void* arg_2_info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t coid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    void* info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -457,7 +457,7 @@ static Napi::Value libc_unix_nto_neutrino_connectServerInfoR_napi(const Napi::Ca
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_pid, arg_1_coid, arg_2_info);
+        km_res = km_fn_ptr(pid, coid, info);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -465,14 +465,14 @@ static Napi::Value libc_unix_nto_neutrino_connectServerInfoR_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_connectClientInfoExtraArgs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoConnectClientInfoExtraArgs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_scoid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_info_pp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    int32_t arg_2_ngroups = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    void* arg_3_abilities = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
-    int32_t arg_4_nable = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
-    void* arg_5_type_id = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 5 ? km_napi_arg_u64(km_info[5]) : 0));
+    int32_t scoid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* infoPp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    int32_t ngroups = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    void* abilities = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    int32_t nable = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
+    void* typeId = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 5 ? km_napi_arg_u64(km_info[5]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t, void*, int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -495,7 +495,7 @@ static Napi::Value libc_unix_nto_neutrino_connectClientInfoExtraArgs_napi(const 
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_scoid, arg_1_info_pp, arg_2_ngroups, arg_3_abilities, arg_4_nable, arg_5_type_id);
+        km_res = km_fn_ptr(scoid, infoPp, ngroups, abilities, nable, typeId);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -503,14 +503,14 @@ static Napi::Value libc_unix_nto_neutrino_connectClientInfoExtraArgs_napi(const 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_connectClientInfoExtraArgsR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoConnectClientInfoExtraArgsR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_scoid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_info_pp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    int32_t arg_2_ngroups = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    void* arg_3_abilities = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
-    int32_t arg_4_nable = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
-    void* arg_5_type_id = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 5 ? km_napi_arg_u64(km_info[5]) : 0));
+    int32_t scoid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* infoPp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    int32_t ngroups = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    void* abilities = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    int32_t nable = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
+    void* typeId = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 5 ? km_napi_arg_u64(km_info[5]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t, void*, int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -533,7 +533,7 @@ static Napi::Value libc_unix_nto_neutrino_connectClientInfoExtraArgsR_napi(const
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_scoid, arg_1_info_pp, arg_2_ngroups, arg_3_abilities, arg_4_nable, arg_5_type_id);
+        km_res = km_fn_ptr(scoid, infoPp, ngroups, abilities, nable, typeId);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -541,11 +541,11 @@ static Napi::Value libc_unix_nto_neutrino_connectClientInfoExtraArgsR_napi(const
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_connectClientInfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoConnectClientInfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_scoid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    int32_t arg_2_ngroups = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    int32_t scoid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    int32_t ngroups = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -568,7 +568,7 @@ static Napi::Value libc_unix_nto_neutrino_connectClientInfo_napi(const Napi::Cal
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_scoid, arg_1_info, arg_2_ngroups);
+        km_res = km_fn_ptr(scoid, info, ngroups);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -576,11 +576,11 @@ static Napi::Value libc_unix_nto_neutrino_connectClientInfo_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_connectClientInfoR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoConnectClientInfoR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_scoid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    int32_t arg_2_ngroups = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    int32_t scoid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    int32_t ngroups = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -603,7 +603,7 @@ static Napi::Value libc_unix_nto_neutrino_connectClientInfoR_napi(const Napi::Ca
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_scoid, arg_1_info, arg_2_ngroups);
+        km_res = km_fn_ptr(scoid, info, ngroups);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -611,10 +611,10 @@ static Napi::Value libc_unix_nto_neutrino_connectClientInfoR_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_connectClientInfoExt_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoConnectClientInfoExt_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_scoid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_info_pp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    int32_t scoid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* infoPp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -638,7 +638,7 @@ static Napi::Value libc_unix_nto_neutrino_connectClientInfoExt_napi(const Napi::
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_scoid, arg_1_info_pp, flags);
+        km_res = km_fn_ptr(scoid, infoPp, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -646,9 +646,9 @@ static Napi::Value libc_unix_nto_neutrino_connectClientInfoExt_napi(const Napi::
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_clientInfoExtFree_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoClientInfoExtFree_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_info_pp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* infoPp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -671,7 +671,7 @@ static Napi::Value libc_unix_nto_neutrino_clientInfoExtFree_napi(const Napi::Cal
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_info_pp);
+        km_res = km_fn_ptr(infoPp);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -679,10 +679,10 @@ static Napi::Value libc_unix_nto_neutrino_clientInfoExtFree_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_connectClientInfoAble_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoConnectClientInfoAble_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_scoid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_info_pp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    int32_t scoid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* infoPp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     void* abilities = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     int32_t nable = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
@@ -708,7 +708,7 @@ static Napi::Value libc_unix_nto_neutrino_connectClientInfoAble_napi(const Napi:
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_scoid, arg_1_info_pp, flags, abilities, nable);
+        km_res = km_fn_ptr(scoid, infoPp, flags, abilities, nable);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -716,12 +716,12 @@ static Napi::Value libc_unix_nto_neutrino_connectClientInfoAble_napi(const Napi:
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_connectFlags_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoConnectFlags_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t arg_1_coid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    uint32_t arg_2_mask = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    uint32_t arg_3_bits = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
+    int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t coid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    uint32_t mask = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    uint32_t bits = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, int32_t, uint32_t, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -744,7 +744,7 @@ static Napi::Value libc_unix_nto_neutrino_connectFlags_napi(const Napi::Callback
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_pid, arg_1_coid, arg_2_mask, arg_3_bits);
+        km_res = km_fn_ptr(pid, coid, mask, bits);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -752,12 +752,12 @@ static Napi::Value libc_unix_nto_neutrino_connectFlags_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_connectFlagsR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoConnectFlagsR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t arg_1_coid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    uint32_t arg_2_mask = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    uint32_t arg_3_bits = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
+    int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t coid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    uint32_t mask = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    uint32_t bits = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, int32_t, uint32_t, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -780,7 +780,7 @@ static Napi::Value libc_unix_nto_neutrino_connectFlagsR_napi(const Napi::Callbac
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_pid, arg_1_coid, arg_2_mask, arg_3_bits);
+        km_res = km_fn_ptr(pid, coid, mask, bits);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -788,12 +788,12 @@ static Napi::Value libc_unix_nto_neutrino_connectFlagsR_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_channelConnectAttr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoChannelConnectAttr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint32_t arg_0_id = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_old_attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* arg_2_new_attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    uint32_t arg_3_flags = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
+    uint32_t id = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* oldAttr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* newAttr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    uint32_t flags = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint32_t, void*, void*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -816,7 +816,7 @@ static Napi::Value libc_unix_nto_neutrino_channelConnectAttr_napi(const Napi::Ca
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_id, arg_1_old_attr, arg_2_new_attr, arg_3_flags);
+        km_res = km_fn_ptr(id, oldAttr, newAttr, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -824,13 +824,13 @@ static Napi::Value libc_unix_nto_neutrino_channelConnectAttr_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgSend_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgSend_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_smsg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t arg_2_sbytes = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    void* arg_3_rmsg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
-    uint64_t arg_4_rbytes = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
+    int32_t coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* smsg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t sbytes = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    void* rmsg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    uint64_t rbytes = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -853,7 +853,7 @@ static Napi::Value libc_unix_nto_neutrino_msgSend_napi(const Napi::CallbackInfo&
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_coid, arg_1_smsg, arg_2_sbytes, arg_3_rmsg, arg_4_rbytes);
+        km_res = km_fn_ptr(coid, smsg, sbytes, rmsg, rbytes);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -861,13 +861,13 @@ static Napi::Value libc_unix_nto_neutrino_msgSend_napi(const Napi::CallbackInfo&
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgSendR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgSendR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_smsg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t arg_2_sbytes = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    void* arg_3_rmsg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
-    uint64_t arg_4_rbytes = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
+    int32_t coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* smsg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t sbytes = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    void* rmsg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    uint64_t rbytes = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -890,7 +890,7 @@ static Napi::Value libc_unix_nto_neutrino_msgSendR_napi(const Napi::CallbackInfo
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_coid, arg_1_smsg, arg_2_sbytes, arg_3_rmsg, arg_4_rbytes);
+        km_res = km_fn_ptr(coid, smsg, sbytes, rmsg, rbytes);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -898,13 +898,13 @@ static Napi::Value libc_unix_nto_neutrino_msgSendR_napi(const Napi::CallbackInfo
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgSendnc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgSendnc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_smsg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t arg_2_sbytes = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    void* arg_3_rmsg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
-    uint64_t arg_4_rbytes = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
+    int32_t coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* smsg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t sbytes = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    void* rmsg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    uint64_t rbytes = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -927,7 +927,7 @@ static Napi::Value libc_unix_nto_neutrino_msgSendnc_napi(const Napi::CallbackInf
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_coid, arg_1_smsg, arg_2_sbytes, arg_3_rmsg, arg_4_rbytes);
+        km_res = km_fn_ptr(coid, smsg, sbytes, rmsg, rbytes);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -935,13 +935,13 @@ static Napi::Value libc_unix_nto_neutrino_msgSendnc_napi(const Napi::CallbackInf
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgSendncR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgSendncR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_smsg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t arg_2_sbytes = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    void* arg_3_rmsg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
-    uint64_t arg_4_rbytes = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
+    int32_t coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* smsg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t sbytes = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    void* rmsg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    uint64_t rbytes = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -964,7 +964,7 @@ static Napi::Value libc_unix_nto_neutrino_msgSendncR_napi(const Napi::CallbackIn
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_coid, arg_1_smsg, arg_2_sbytes, arg_3_rmsg, arg_4_rbytes);
+        km_res = km_fn_ptr(coid, smsg, sbytes, rmsg, rbytes);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -972,13 +972,13 @@ static Napi::Value libc_unix_nto_neutrino_msgSendncR_napi(const Napi::CallbackIn
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgSendsv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgSendsv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_smsg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t arg_2_sbytes = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    void* arg_3_riov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
-    uint64_t arg_4_rparts = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
+    int32_t coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* smsg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t sbytes = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    void* riov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    uint64_t rparts = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1001,7 +1001,7 @@ static Napi::Value libc_unix_nto_neutrino_msgSendsv_napi(const Napi::CallbackInf
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_coid, arg_1_smsg, arg_2_sbytes, arg_3_riov, arg_4_rparts);
+        km_res = km_fn_ptr(coid, smsg, sbytes, riov, rparts);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1009,13 +1009,13 @@ static Napi::Value libc_unix_nto_neutrino_msgSendsv_napi(const Napi::CallbackInf
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgSendsvR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgSendsvR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_smsg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t arg_2_sbytes = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    void* arg_3_riov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
-    uint64_t arg_4_rparts = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
+    int32_t coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* smsg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t sbytes = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    void* riov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    uint64_t rparts = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1038,7 +1038,7 @@ static Napi::Value libc_unix_nto_neutrino_msgSendsvR_napi(const Napi::CallbackIn
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_coid, arg_1_smsg, arg_2_sbytes, arg_3_riov, arg_4_rparts);
+        km_res = km_fn_ptr(coid, smsg, sbytes, riov, rparts);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1046,13 +1046,13 @@ static Napi::Value libc_unix_nto_neutrino_msgSendsvR_napi(const Napi::CallbackIn
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgSendsvnc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgSendsvnc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_smsg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t arg_2_sbytes = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    void* arg_3_riov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
-    uint64_t arg_4_rparts = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
+    int32_t coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* smsg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t sbytes = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    void* riov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    uint64_t rparts = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1075,7 +1075,7 @@ static Napi::Value libc_unix_nto_neutrino_msgSendsvnc_napi(const Napi::CallbackI
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_coid, arg_1_smsg, arg_2_sbytes, arg_3_riov, arg_4_rparts);
+        km_res = km_fn_ptr(coid, smsg, sbytes, riov, rparts);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1083,13 +1083,13 @@ static Napi::Value libc_unix_nto_neutrino_msgSendsvnc_napi(const Napi::CallbackI
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgSendsvncR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgSendsvncR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_smsg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t arg_2_sbytes = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    void* arg_3_riov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
-    uint64_t arg_4_rparts = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
+    int32_t coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* smsg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t sbytes = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    void* riov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    uint64_t rparts = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1112,7 +1112,7 @@ static Napi::Value libc_unix_nto_neutrino_msgSendsvncR_napi(const Napi::Callback
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_coid, arg_1_smsg, arg_2_sbytes, arg_3_riov, arg_4_rparts);
+        km_res = km_fn_ptr(coid, smsg, sbytes, riov, rparts);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1120,13 +1120,13 @@ static Napi::Value libc_unix_nto_neutrino_msgSendsvncR_napi(const Napi::Callback
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgSendvs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgSendvs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_siov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t arg_2_sparts = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    void* arg_3_rmsg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
-    uint64_t arg_4_rbytes = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
+    int32_t coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* siov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t sparts = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    void* rmsg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    uint64_t rbytes = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1149,7 +1149,7 @@ static Napi::Value libc_unix_nto_neutrino_msgSendvs_napi(const Napi::CallbackInf
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_coid, arg_1_siov, arg_2_sparts, arg_3_rmsg, arg_4_rbytes);
+        km_res = km_fn_ptr(coid, siov, sparts, rmsg, rbytes);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1157,13 +1157,13 @@ static Napi::Value libc_unix_nto_neutrino_msgSendvs_napi(const Napi::CallbackInf
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgSendvsR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgSendvsR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_siov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t arg_2_sparts = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    void* arg_3_rmsg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
-    uint64_t arg_4_rbytes = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
+    int32_t coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* siov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t sparts = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    void* rmsg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    uint64_t rbytes = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1186,7 +1186,7 @@ static Napi::Value libc_unix_nto_neutrino_msgSendvsR_napi(const Napi::CallbackIn
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_coid, arg_1_siov, arg_2_sparts, arg_3_rmsg, arg_4_rbytes);
+        km_res = km_fn_ptr(coid, siov, sparts, rmsg, rbytes);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1194,13 +1194,13 @@ static Napi::Value libc_unix_nto_neutrino_msgSendvsR_napi(const Napi::CallbackIn
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgSendvsnc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgSendvsnc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_siov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t arg_2_sparts = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    void* arg_3_rmsg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
-    uint64_t arg_4_rbytes = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
+    int32_t coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* siov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t sparts = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    void* rmsg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    uint64_t rbytes = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1223,7 +1223,7 @@ static Napi::Value libc_unix_nto_neutrino_msgSendvsnc_napi(const Napi::CallbackI
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_coid, arg_1_siov, arg_2_sparts, arg_3_rmsg, arg_4_rbytes);
+        km_res = km_fn_ptr(coid, siov, sparts, rmsg, rbytes);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1231,13 +1231,13 @@ static Napi::Value libc_unix_nto_neutrino_msgSendvsnc_napi(const Napi::CallbackI
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgSendvsncR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgSendvsncR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_siov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t arg_2_sparts = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    void* arg_3_rmsg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
-    uint64_t arg_4_rbytes = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
+    int32_t coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* siov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t sparts = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    void* rmsg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    uint64_t rbytes = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1260,7 +1260,7 @@ static Napi::Value libc_unix_nto_neutrino_msgSendvsncR_napi(const Napi::Callback
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_coid, arg_1_siov, arg_2_sparts, arg_3_rmsg, arg_4_rbytes);
+        km_res = km_fn_ptr(coid, siov, sparts, rmsg, rbytes);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1268,13 +1268,13 @@ static Napi::Value libc_unix_nto_neutrino_msgSendvsncR_napi(const Napi::Callback
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgSendv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgSendv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_siov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t arg_2_sparts = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    void* arg_3_riov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
-    uint64_t arg_4_rparts = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
+    int32_t coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* siov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t sparts = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    void* riov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    uint64_t rparts = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1297,7 +1297,7 @@ static Napi::Value libc_unix_nto_neutrino_msgSendv_napi(const Napi::CallbackInfo
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_coid, arg_1_siov, arg_2_sparts, arg_3_riov, arg_4_rparts);
+        km_res = km_fn_ptr(coid, siov, sparts, riov, rparts);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1305,13 +1305,13 @@ static Napi::Value libc_unix_nto_neutrino_msgSendv_napi(const Napi::CallbackInfo
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgSendvR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgSendvR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_siov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t arg_2_sparts = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    void* arg_3_riov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
-    uint64_t arg_4_rparts = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
+    int32_t coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* siov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t sparts = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    void* riov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    uint64_t rparts = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1334,7 +1334,7 @@ static Napi::Value libc_unix_nto_neutrino_msgSendvR_napi(const Napi::CallbackInf
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_coid, arg_1_siov, arg_2_sparts, arg_3_riov, arg_4_rparts);
+        km_res = km_fn_ptr(coid, siov, sparts, riov, rparts);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1342,13 +1342,13 @@ static Napi::Value libc_unix_nto_neutrino_msgSendvR_napi(const Napi::CallbackInf
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgSendvnc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgSendvnc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_siov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t arg_2_sparts = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    void* arg_3_riov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
-    uint64_t arg_4_rparts = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
+    int32_t coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* siov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t sparts = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    void* riov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    uint64_t rparts = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1371,7 +1371,7 @@ static Napi::Value libc_unix_nto_neutrino_msgSendvnc_napi(const Napi::CallbackIn
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_coid, arg_1_siov, arg_2_sparts, arg_3_riov, arg_4_rparts);
+        km_res = km_fn_ptr(coid, siov, sparts, riov, rparts);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1379,13 +1379,13 @@ static Napi::Value libc_unix_nto_neutrino_msgSendvnc_napi(const Napi::CallbackIn
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgSendvncR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgSendvncR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_siov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t arg_2_sparts = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    void* arg_3_riov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
-    uint64_t arg_4_rparts = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
+    int32_t coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* siov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t sparts = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    void* riov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    uint64_t rparts = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1408,7 +1408,7 @@ static Napi::Value libc_unix_nto_neutrino_msgSendvncR_napi(const Napi::CallbackI
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_coid, arg_1_siov, arg_2_sparts, arg_3_riov, arg_4_rparts);
+        km_res = km_fn_ptr(coid, siov, sparts, riov, rparts);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1416,12 +1416,12 @@ static Napi::Value libc_unix_nto_neutrino_msgSendvncR_napi(const Napi::CallbackI
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgReceive_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgReceive_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_chid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_msg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t arg_2_bytes = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    void* arg_3_info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    int32_t chid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* msg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t bytes = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    void* info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, uint64_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1444,7 +1444,7 @@ static Napi::Value libc_unix_nto_neutrino_msgReceive_napi(const Napi::CallbackIn
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_chid, arg_1_msg, arg_2_bytes, arg_3_info);
+        km_res = km_fn_ptr(chid, msg, bytes, info);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1452,12 +1452,12 @@ static Napi::Value libc_unix_nto_neutrino_msgReceive_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgReceiveR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgReceiveR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_chid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_msg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t arg_2_bytes = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    void* arg_3_info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    int32_t chid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* msg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t bytes = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    void* info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, uint64_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1480,7 +1480,7 @@ static Napi::Value libc_unix_nto_neutrino_msgReceiveR_napi(const Napi::CallbackI
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_chid, arg_1_msg, arg_2_bytes, arg_3_info);
+        km_res = km_fn_ptr(chid, msg, bytes, info);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1488,12 +1488,12 @@ static Napi::Value libc_unix_nto_neutrino_msgReceiveR_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgReceivev_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgReceivev_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_chid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t arg_2_parts = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    void* arg_3_info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    int32_t chid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t parts = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    void* info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, uint64_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1516,7 +1516,7 @@ static Napi::Value libc_unix_nto_neutrino_msgReceivev_napi(const Napi::CallbackI
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_chid, arg_1_iov, arg_2_parts, arg_3_info);
+        km_res = km_fn_ptr(chid, iov, parts, info);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1524,12 +1524,12 @@ static Napi::Value libc_unix_nto_neutrino_msgReceivev_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgReceivevR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgReceivevR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_chid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t arg_2_parts = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    void* arg_3_info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    int32_t chid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t parts = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    void* info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, uint64_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1552,7 +1552,7 @@ static Napi::Value libc_unix_nto_neutrino_msgReceivevR_napi(const Napi::Callback
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_chid, arg_1_iov, arg_2_parts, arg_3_info);
+        km_res = km_fn_ptr(chid, iov, parts, info);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1560,12 +1560,12 @@ static Napi::Value libc_unix_nto_neutrino_msgReceivevR_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgReceivePulse_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgReceivePulse_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_chid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_pulse = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t arg_2_bytes = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    void* arg_3_info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    int32_t chid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* pulse = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t bytes = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    void* info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, uint64_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1588,7 +1588,7 @@ static Napi::Value libc_unix_nto_neutrino_msgReceivePulse_napi(const Napi::Callb
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_chid, arg_1_pulse, arg_2_bytes, arg_3_info);
+        km_res = km_fn_ptr(chid, pulse, bytes, info);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1596,12 +1596,12 @@ static Napi::Value libc_unix_nto_neutrino_msgReceivePulse_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgReceivePulseR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgReceivePulseR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_chid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_pulse = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t arg_2_bytes = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    void* arg_3_info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    int32_t chid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* pulse = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t bytes = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    void* info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, uint64_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1624,7 +1624,7 @@ static Napi::Value libc_unix_nto_neutrino_msgReceivePulseR_napi(const Napi::Call
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_chid, arg_1_pulse, arg_2_bytes, arg_3_info);
+        km_res = km_fn_ptr(chid, pulse, bytes, info);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1632,12 +1632,12 @@ static Napi::Value libc_unix_nto_neutrino_msgReceivePulseR_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgReceivePulsev_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgReceivePulsev_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_chid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t arg_2_parts = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    void* arg_3_info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    int32_t chid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t parts = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    void* info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, uint64_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1660,7 +1660,7 @@ static Napi::Value libc_unix_nto_neutrino_msgReceivePulsev_napi(const Napi::Call
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_chid, arg_1_iov, arg_2_parts, arg_3_info);
+        km_res = km_fn_ptr(chid, iov, parts, info);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1668,12 +1668,12 @@ static Napi::Value libc_unix_nto_neutrino_msgReceivePulsev_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgReceivePulsevR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgReceivePulsevR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_chid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t arg_2_parts = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    void* arg_3_info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    int32_t chid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t parts = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    void* info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, uint64_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1696,7 +1696,7 @@ static Napi::Value libc_unix_nto_neutrino_msgReceivePulsevR_napi(const Napi::Cal
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_chid, arg_1_iov, arg_2_parts, arg_3_info);
+        km_res = km_fn_ptr(chid, iov, parts, info);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1704,12 +1704,12 @@ static Napi::Value libc_unix_nto_neutrino_msgReceivePulsevR_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgReply_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgReply_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int64_t arg_1_status = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
-    void* arg_2_msg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    uint64_t arg_3_bytes = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
+    int32_t rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int64_t status = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
+    void* msg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    uint64_t bytes = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
     typedef int32_t (*km_fn_t)(int32_t, int64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1732,7 +1732,7 @@ static Napi::Value libc_unix_nto_neutrino_msgReply_napi(const Napi::CallbackInfo
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_rcvid, arg_1_status, arg_2_msg, arg_3_bytes);
+        km_res = km_fn_ptr(rcvid, status, msg, bytes);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1740,12 +1740,12 @@ static Napi::Value libc_unix_nto_neutrino_msgReply_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgReplyR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgReplyR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int64_t arg_1_status = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
-    void* arg_2_msg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    uint64_t arg_3_bytes = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
+    int32_t rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int64_t status = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
+    void* msg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    uint64_t bytes = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
     typedef int32_t (*km_fn_t)(int32_t, int64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1768,7 +1768,7 @@ static Napi::Value libc_unix_nto_neutrino_msgReplyR_napi(const Napi::CallbackInf
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_rcvid, arg_1_status, arg_2_msg, arg_3_bytes);
+        km_res = km_fn_ptr(rcvid, status, msg, bytes);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1776,12 +1776,12 @@ static Napi::Value libc_unix_nto_neutrino_msgReplyR_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgReplyv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgReplyv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int64_t arg_1_status = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
-    void* arg_2_iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    uint64_t arg_3_parts = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
+    int32_t rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int64_t status = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
+    void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    uint64_t parts = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
     typedef int32_t (*km_fn_t)(int32_t, int64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1804,7 +1804,7 @@ static Napi::Value libc_unix_nto_neutrino_msgReplyv_napi(const Napi::CallbackInf
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_rcvid, arg_1_status, arg_2_iov, arg_3_parts);
+        km_res = km_fn_ptr(rcvid, status, iov, parts);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1812,12 +1812,12 @@ static Napi::Value libc_unix_nto_neutrino_msgReplyv_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgReplyvR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgReplyvR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int64_t arg_1_status = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
-    void* arg_2_iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    uint64_t arg_3_parts = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
+    int32_t rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int64_t status = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
+    void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    uint64_t parts = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
     typedef int32_t (*km_fn_t)(int32_t, int64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1840,7 +1840,7 @@ static Napi::Value libc_unix_nto_neutrino_msgReplyvR_napi(const Napi::CallbackIn
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_rcvid, arg_1_status, arg_2_iov, arg_3_parts);
+        km_res = km_fn_ptr(rcvid, status, iov, parts);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1848,13 +1848,13 @@ static Napi::Value libc_unix_nto_neutrino_msgReplyvR_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgReadiov_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgReadiov_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t arg_2_parts = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    uint64_t arg_3_offset = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
-    int32_t arg_4_flags = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
+    int32_t rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t parts = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    uint64_t offset = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
+    int32_t flags = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, uint64_t, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1877,7 +1877,7 @@ static Napi::Value libc_unix_nto_neutrino_msgReadiov_napi(const Napi::CallbackIn
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_rcvid, arg_1_iov, arg_2_parts, arg_3_offset, arg_4_flags);
+        km_res = km_fn_ptr(rcvid, iov, parts, offset, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1885,13 +1885,13 @@ static Napi::Value libc_unix_nto_neutrino_msgReadiov_napi(const Napi::CallbackIn
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgReadiovR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgReadiovR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t arg_2_parts = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    uint64_t arg_3_offset = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
-    int32_t arg_4_flags = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
+    int32_t rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t parts = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    uint64_t offset = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
+    int32_t flags = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, uint64_t, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1914,7 +1914,7 @@ static Napi::Value libc_unix_nto_neutrino_msgReadiovR_napi(const Napi::CallbackI
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_rcvid, arg_1_iov, arg_2_parts, arg_3_offset, arg_4_flags);
+        km_res = km_fn_ptr(rcvid, iov, parts, offset, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1922,12 +1922,12 @@ static Napi::Value libc_unix_nto_neutrino_msgReadiovR_napi(const Napi::CallbackI
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgRead_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgRead_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_msg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t arg_2_bytes = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    uint64_t arg_3_offset = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
+    int32_t rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* msg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t bytes = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    uint64_t offset = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1950,7 +1950,7 @@ static Napi::Value libc_unix_nto_neutrino_msgRead_napi(const Napi::CallbackInfo&
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_rcvid, arg_1_msg, arg_2_bytes, arg_3_offset);
+        km_res = km_fn_ptr(rcvid, msg, bytes, offset);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1958,12 +1958,12 @@ static Napi::Value libc_unix_nto_neutrino_msgRead_napi(const Napi::CallbackInfo&
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgReadR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgReadR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_msg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t arg_2_bytes = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    uint64_t arg_3_offset = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
+    int32_t rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* msg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t bytes = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    uint64_t offset = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1986,7 +1986,7 @@ static Napi::Value libc_unix_nto_neutrino_msgReadR_napi(const Napi::CallbackInfo
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_rcvid, arg_1_msg, arg_2_bytes, arg_3_offset);
+        km_res = km_fn_ptr(rcvid, msg, bytes, offset);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1994,12 +1994,12 @@ static Napi::Value libc_unix_nto_neutrino_msgReadR_napi(const Napi::CallbackInfo
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgReadv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgReadv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t arg_2_parts = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    uint64_t arg_3_offset = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
+    int32_t rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t parts = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    uint64_t offset = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2022,7 +2022,7 @@ static Napi::Value libc_unix_nto_neutrino_msgReadv_napi(const Napi::CallbackInfo
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_rcvid, arg_1_iov, arg_2_parts, arg_3_offset);
+        km_res = km_fn_ptr(rcvid, iov, parts, offset);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2030,12 +2030,12 @@ static Napi::Value libc_unix_nto_neutrino_msgReadv_napi(const Napi::CallbackInfo
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgReadvR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgReadvR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t arg_2_parts = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    uint64_t arg_3_offset = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
+    int32_t rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t parts = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    uint64_t offset = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2058,7 +2058,7 @@ static Napi::Value libc_unix_nto_neutrino_msgReadvR_napi(const Napi::CallbackInf
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_rcvid, arg_1_iov, arg_2_parts, arg_3_offset);
+        km_res = km_fn_ptr(rcvid, iov, parts, offset);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2066,12 +2066,12 @@ static Napi::Value libc_unix_nto_neutrino_msgReadvR_napi(const Napi::CallbackInf
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgWrite_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgWrite_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_msg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t arg_2_bytes = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    uint64_t arg_3_offset = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
+    int32_t rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* msg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t bytes = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    uint64_t offset = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2094,7 +2094,7 @@ static Napi::Value libc_unix_nto_neutrino_msgWrite_napi(const Napi::CallbackInfo
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_rcvid, arg_1_msg, arg_2_bytes, arg_3_offset);
+        km_res = km_fn_ptr(rcvid, msg, bytes, offset);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2102,12 +2102,12 @@ static Napi::Value libc_unix_nto_neutrino_msgWrite_napi(const Napi::CallbackInfo
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgWriteR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgWriteR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_msg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t arg_2_bytes = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    uint64_t arg_3_offset = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
+    int32_t rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* msg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t bytes = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    uint64_t offset = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2130,7 +2130,7 @@ static Napi::Value libc_unix_nto_neutrino_msgWriteR_napi(const Napi::CallbackInf
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_rcvid, arg_1_msg, arg_2_bytes, arg_3_offset);
+        km_res = km_fn_ptr(rcvid, msg, bytes, offset);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2138,12 +2138,12 @@ static Napi::Value libc_unix_nto_neutrino_msgWriteR_napi(const Napi::CallbackInf
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgWritev_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgWritev_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t arg_2_parts = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    uint64_t arg_3_offset = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
+    int32_t rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t parts = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    uint64_t offset = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2166,7 +2166,7 @@ static Napi::Value libc_unix_nto_neutrino_msgWritev_napi(const Napi::CallbackInf
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_rcvid, arg_1_iov, arg_2_parts, arg_3_offset);
+        km_res = km_fn_ptr(rcvid, iov, parts, offset);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2174,12 +2174,12 @@ static Napi::Value libc_unix_nto_neutrino_msgWritev_napi(const Napi::CallbackInf
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgWritevR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgWritevR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t arg_2_parts = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    uint64_t arg_3_offset = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
+    int32_t rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t parts = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    uint64_t offset = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2202,7 +2202,7 @@ static Napi::Value libc_unix_nto_neutrino_msgWritevR_napi(const Napi::CallbackIn
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_rcvid, arg_1_iov, arg_2_parts, arg_3_offset);
+        km_res = km_fn_ptr(rcvid, iov, parts, offset);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2210,12 +2210,12 @@ static Napi::Value libc_unix_nto_neutrino_msgWritevR_napi(const Napi::CallbackIn
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgSendPulse_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgSendPulse_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t arg_1_priority = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    int32_t arg_2_code = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    int32_t arg_3_value = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
+    int32_t coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t priority = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t code = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    int32_t value = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2238,7 +2238,7 @@ static Napi::Value libc_unix_nto_neutrino_msgSendPulse_napi(const Napi::Callback
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_coid, arg_1_priority, arg_2_code, arg_3_value);
+        km_res = km_fn_ptr(coid, priority, code, value);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2246,12 +2246,12 @@ static Napi::Value libc_unix_nto_neutrino_msgSendPulse_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgSendPulseR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgSendPulseR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t arg_1_priority = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    int32_t arg_2_code = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    int32_t arg_3_value = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
+    int32_t coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t priority = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t code = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    int32_t value = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2274,7 +2274,7 @@ static Napi::Value libc_unix_nto_neutrino_msgSendPulseR_napi(const Napi::Callbac
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_coid, arg_1_priority, arg_2_code, arg_3_value);
+        km_res = km_fn_ptr(coid, priority, code, value);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2282,12 +2282,12 @@ static Napi::Value libc_unix_nto_neutrino_msgSendPulseR_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgSendPulsePtr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgSendPulsePtr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t arg_1_priority = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    int32_t arg_2_code = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    void* arg_3_value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    int32_t coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t priority = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t code = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    void* value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2310,7 +2310,7 @@ static Napi::Value libc_unix_nto_neutrino_msgSendPulsePtr_napi(const Napi::Callb
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_coid, arg_1_priority, arg_2_code, arg_3_value);
+        km_res = km_fn_ptr(coid, priority, code, value);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2318,12 +2318,12 @@ static Napi::Value libc_unix_nto_neutrino_msgSendPulsePtr_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgSendPulsePtrR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgSendPulsePtrR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t arg_1_priority = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    int32_t arg_2_code = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    void* arg_3_value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    int32_t coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t priority = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t code = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    void* value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2346,7 +2346,7 @@ static Napi::Value libc_unix_nto_neutrino_msgSendPulsePtrR_napi(const Napi::Call
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_coid, arg_1_priority, arg_2_code, arg_3_value);
+        km_res = km_fn_ptr(coid, priority, code, value);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2354,10 +2354,10 @@ static Napi::Value libc_unix_nto_neutrino_msgSendPulsePtrR_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgDeliverEvent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgDeliverEvent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_event = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    int32_t rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* event = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2380,7 +2380,7 @@ static Napi::Value libc_unix_nto_neutrino_msgDeliverEvent_napi(const Napi::Callb
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_rcvid, arg_1_event);
+        km_res = km_fn_ptr(rcvid, event);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2388,10 +2388,10 @@ static Napi::Value libc_unix_nto_neutrino_msgDeliverEvent_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgDeliverEventR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgDeliverEventR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_event = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    int32_t rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* event = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2414,7 +2414,7 @@ static Napi::Value libc_unix_nto_neutrino_msgDeliverEventR_napi(const Napi::Call
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_rcvid, arg_1_event);
+        km_res = km_fn_ptr(rcvid, event);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2422,10 +2422,10 @@ static Napi::Value libc_unix_nto_neutrino_msgDeliverEventR_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgVerifyEvent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgVerifyEvent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_event = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    int32_t rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* event = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2448,7 +2448,7 @@ static Napi::Value libc_unix_nto_neutrino_msgVerifyEvent_napi(const Napi::Callba
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_rcvid, arg_1_event);
+        km_res = km_fn_ptr(rcvid, event);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2456,10 +2456,10 @@ static Napi::Value libc_unix_nto_neutrino_msgVerifyEvent_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgVerifyEventR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgVerifyEventR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_event = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    int32_t rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* event = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2482,7 +2482,7 @@ static Napi::Value libc_unix_nto_neutrino_msgVerifyEventR_napi(const Napi::Callb
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_rcvid, arg_1_event);
+        km_res = km_fn_ptr(rcvid, event);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2490,10 +2490,10 @@ static Napi::Value libc_unix_nto_neutrino_msgVerifyEventR_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgRegisterEvent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgRegisterEvent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_event = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    int32_t arg_1_coid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    void* event = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    int32_t coid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2516,7 +2516,7 @@ static Napi::Value libc_unix_nto_neutrino_msgRegisterEvent_napi(const Napi::Call
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_event, arg_1_coid);
+        km_res = km_fn_ptr(event, coid);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2524,10 +2524,10 @@ static Napi::Value libc_unix_nto_neutrino_msgRegisterEvent_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgRegisterEventR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgRegisterEventR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_event = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    int32_t arg_1_coid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    void* event = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    int32_t coid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2550,7 +2550,7 @@ static Napi::Value libc_unix_nto_neutrino_msgRegisterEventR_napi(const Napi::Cal
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_event, arg_1_coid);
+        km_res = km_fn_ptr(event, coid);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2558,9 +2558,9 @@ static Napi::Value libc_unix_nto_neutrino_msgRegisterEventR_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgUnregisterEvent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgUnregisterEvent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_event = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* event = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2583,7 +2583,7 @@ static Napi::Value libc_unix_nto_neutrino_msgUnregisterEvent_napi(const Napi::Ca
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_event);
+        km_res = km_fn_ptr(event);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2591,9 +2591,9 @@ static Napi::Value libc_unix_nto_neutrino_msgUnregisterEvent_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgUnregisterEventR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgUnregisterEventR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_event = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* event = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2616,7 +2616,7 @@ static Napi::Value libc_unix_nto_neutrino_msgUnregisterEventR_napi(const Napi::C
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_event);
+        km_res = km_fn_ptr(event);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2624,10 +2624,10 @@ static Napi::Value libc_unix_nto_neutrino_msgUnregisterEventR_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgInfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgInfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    int32_t rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2650,7 +2650,7 @@ static Napi::Value libc_unix_nto_neutrino_msgInfo_napi(const Napi::CallbackInfo&
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_rcvid, arg_1_info);
+        km_res = km_fn_ptr(rcvid, info);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2658,10 +2658,10 @@ static Napi::Value libc_unix_nto_neutrino_msgInfo_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgInfoR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgInfoR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    int32_t rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2684,7 +2684,7 @@ static Napi::Value libc_unix_nto_neutrino_msgInfoR_napi(const Napi::CallbackInfo
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_rcvid, arg_1_info);
+        km_res = km_fn_ptr(rcvid, info);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2692,14 +2692,14 @@ static Napi::Value libc_unix_nto_neutrino_msgInfoR_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgKeyData_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgKeyData_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t arg_1_oper = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    uint32_t arg_2_key = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    void* arg_3_newkey = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
-    void* arg_4_iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
-    int32_t arg_5_parts = static_cast<int32_t>(km_info.Length() > 5 ? km_info[5].ToNumber().Int32Value() : 0);
+    int32_t rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t oper = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    uint32_t key = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    void* newkey = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
+    int32_t parts = static_cast<int32_t>(km_info.Length() > 5 ? km_info[5].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, int32_t, uint32_t, void*, void*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2722,7 +2722,7 @@ static Napi::Value libc_unix_nto_neutrino_msgKeyData_napi(const Napi::CallbackIn
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_rcvid, arg_1_oper, arg_2_key, arg_3_newkey, arg_4_iov, arg_5_parts);
+        km_res = km_fn_ptr(rcvid, oper, key, newkey, iov, parts);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2730,14 +2730,14 @@ static Napi::Value libc_unix_nto_neutrino_msgKeyData_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgKeyDataR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgKeyDataR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t arg_1_oper = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    uint32_t arg_2_key = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    void* arg_3_newkey = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
-    void* arg_4_iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
-    int32_t arg_5_parts = static_cast<int32_t>(km_info.Length() > 5 ? km_info[5].ToNumber().Int32Value() : 0);
+    int32_t rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t oper = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    uint32_t key = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    void* newkey = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
+    int32_t parts = static_cast<int32_t>(km_info.Length() > 5 ? km_info[5].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, int32_t, uint32_t, void*, void*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2760,7 +2760,7 @@ static Napi::Value libc_unix_nto_neutrino_msgKeyDataR_napi(const Napi::CallbackI
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_rcvid, arg_1_oper, arg_2_key, arg_3_newkey, arg_4_iov, arg_5_parts);
+        km_res = km_fn_ptr(rcvid, oper, key, newkey, iov, parts);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2768,10 +2768,10 @@ static Napi::Value libc_unix_nto_neutrino_msgKeyDataR_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgError_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgError_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t arg_1_err = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t err = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2794,7 +2794,7 @@ static Napi::Value libc_unix_nto_neutrino_msgError_napi(const Napi::CallbackInfo
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_rcvid, arg_1_err);
+        km_res = km_fn_ptr(rcvid, err);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2802,10 +2802,10 @@ static Napi::Value libc_unix_nto_neutrino_msgError_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgErrorR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgErrorR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t arg_1_err = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t err = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2828,7 +2828,7 @@ static Napi::Value libc_unix_nto_neutrino_msgErrorR_napi(const Napi::CallbackInf
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_rcvid, arg_1_err);
+        km_res = km_fn_ptr(rcvid, err);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2836,9 +2836,9 @@ static Napi::Value libc_unix_nto_neutrino_msgErrorR_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgCurrent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgCurrent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2861,7 +2861,7 @@ static Napi::Value libc_unix_nto_neutrino_msgCurrent_napi(const Napi::CallbackIn
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_rcvid);
+        km_res = km_fn_ptr(rcvid);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2869,9 +2869,9 @@ static Napi::Value libc_unix_nto_neutrino_msgCurrent_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgCurrentR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgCurrentR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2894,7 +2894,7 @@ static Napi::Value libc_unix_nto_neutrino_msgCurrentR_napi(const Napi::CallbackI
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_rcvid);
+        km_res = km_fn_ptr(rcvid);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2902,12 +2902,12 @@ static Napi::Value libc_unix_nto_neutrino_msgCurrentR_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgSendAsyncGbl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgSendAsyncGbl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_smsg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t arg_2_sbytes = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    uint32_t arg_3_msg_prio = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
+    int32_t coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* smsg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t sbytes = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    uint32_t msgPrio = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, void*, uint64_t, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2930,7 +2930,7 @@ static Napi::Value libc_unix_nto_neutrino_msgSendAsyncGbl_napi(const Napi::Callb
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_coid, arg_1_smsg, arg_2_sbytes, arg_3_msg_prio);
+        km_res = km_fn_ptr(coid, smsg, sbytes, msgPrio);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2938,9 +2938,9 @@ static Napi::Value libc_unix_nto_neutrino_msgSendAsyncGbl_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgSendAsync_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgSendAsync_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t coid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2963,7 +2963,7 @@ static Napi::Value libc_unix_nto_neutrino_msgSendAsync_napi(const Napi::Callback
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_coid);
+        km_res = km_fn_ptr(coid);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2971,13 +2971,13 @@ static Napi::Value libc_unix_nto_neutrino_msgSendAsync_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgReceiveAsyncGbl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgReceiveAsyncGbl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_chid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_rmsg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t arg_2_rbytes = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    void* arg_3_info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
-    int32_t arg_4_coid = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
+    int32_t chid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* rmsg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t rbytes = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    void* info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    int32_t coid = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, void*, uint64_t, void*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3000,7 +3000,7 @@ static Napi::Value libc_unix_nto_neutrino_msgReceiveAsyncGbl_napi(const Napi::Ca
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_chid, arg_1_rmsg, arg_2_rbytes, arg_3_info, arg_4_coid);
+        km_res = km_fn_ptr(chid, rmsg, rbytes, info, coid);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3008,11 +3008,11 @@ static Napi::Value libc_unix_nto_neutrino_msgReceiveAsyncGbl_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgReceiveAsync_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgReceiveAsync_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_chid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint32_t arg_2_parts = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    int32_t chid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint32_t parts = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3035,7 +3035,7 @@ static Napi::Value libc_unix_nto_neutrino_msgReceiveAsync_napi(const Napi::Callb
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_chid, arg_1_iov, arg_2_parts);
+        km_res = km_fn_ptr(chid, iov, parts);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3043,10 +3043,10 @@ static Napi::Value libc_unix_nto_neutrino_msgReceiveAsync_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgPause_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgPause_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    uint32_t arg_1_cookie = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    uint32_t cookie = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3069,7 +3069,7 @@ static Napi::Value libc_unix_nto_neutrino_msgPause_napi(const Napi::CallbackInfo
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_rcvid, arg_1_cookie);
+        km_res = km_fn_ptr(rcvid, cookie);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3077,10 +3077,10 @@ static Napi::Value libc_unix_nto_neutrino_msgPause_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_msgPauseR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoMsgPauseR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    uint32_t arg_1_cookie = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t rcvid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    uint32_t cookie = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3103,7 +3103,7 @@ static Napi::Value libc_unix_nto_neutrino_msgPauseR_napi(const Napi::CallbackInf
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_rcvid, arg_1_cookie);
+        km_res = km_fn_ptr(rcvid, cookie);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3111,14 +3111,14 @@ static Napi::Value libc_unix_nto_neutrino_msgPauseR_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_signalKill_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSignalKill_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint32_t arg_0_nd = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t arg_1_pid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    int32_t arg_2_tid = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    int32_t arg_3_signo = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
-    int32_t arg_4_code = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
-    int32_t arg_5_value = static_cast<int32_t>(km_info.Length() > 5 ? km_info[5].ToNumber().Int32Value() : 0);
+    uint32_t nd = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t pid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t tid = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    int32_t signo = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
+    int32_t code = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
+    int32_t value = static_cast<int32_t>(km_info.Length() > 5 ? km_info[5].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint32_t, int32_t, int32_t, int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3141,7 +3141,7 @@ static Napi::Value libc_unix_nto_neutrino_signalKill_napi(const Napi::CallbackIn
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_nd, arg_1_pid, arg_2_tid, arg_3_signo, arg_4_code, arg_5_value);
+        km_res = km_fn_ptr(nd, pid, tid, signo, code, value);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3149,14 +3149,14 @@ static Napi::Value libc_unix_nto_neutrino_signalKill_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_signalKillR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSignalKillR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint32_t arg_0_nd = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t arg_1_pid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    int32_t arg_2_tid = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    int32_t arg_3_signo = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
-    int32_t arg_4_code = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
-    int32_t arg_5_value = static_cast<int32_t>(km_info.Length() > 5 ? km_info[5].ToNumber().Int32Value() : 0);
+    uint32_t nd = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t pid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t tid = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    int32_t signo = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
+    int32_t code = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
+    int32_t value = static_cast<int32_t>(km_info.Length() > 5 ? km_info[5].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint32_t, int32_t, int32_t, int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3179,7 +3179,7 @@ static Napi::Value libc_unix_nto_neutrino_signalKillR_napi(const Napi::CallbackI
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_nd, arg_1_pid, arg_2_tid, arg_3_signo, arg_4_code, arg_5_value);
+        km_res = km_fn_ptr(nd, pid, tid, signo, code, value);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3187,14 +3187,14 @@ static Napi::Value libc_unix_nto_neutrino_signalKillR_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_signalKillSigval_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSignalKillSigval_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint32_t arg_0_nd = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t arg_1_pid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    int32_t arg_2_tid = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    int32_t arg_3_signo = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
-    int32_t arg_4_code = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
-    void* arg_5_value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 5 ? km_napi_arg_u64(km_info[5]) : 0));
+    uint32_t nd = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t pid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t tid = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    int32_t signo = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
+    int32_t code = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
+    void* value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 5 ? km_napi_arg_u64(km_info[5]) : 0));
     typedef int32_t (*km_fn_t)(uint32_t, int32_t, int32_t, int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3217,7 +3217,7 @@ static Napi::Value libc_unix_nto_neutrino_signalKillSigval_napi(const Napi::Call
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_nd, arg_1_pid, arg_2_tid, arg_3_signo, arg_4_code, arg_5_value);
+        km_res = km_fn_ptr(nd, pid, tid, signo, code, value);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3225,14 +3225,14 @@ static Napi::Value libc_unix_nto_neutrino_signalKillSigval_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_signalKillSigvalR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSignalKillSigvalR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint32_t arg_0_nd = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t arg_1_pid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    int32_t arg_2_tid = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    int32_t arg_3_signo = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
-    int32_t arg_4_code = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
-    void* arg_5_value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 5 ? km_napi_arg_u64(km_info[5]) : 0));
+    uint32_t nd = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t pid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t tid = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    int32_t signo = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
+    int32_t code = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
+    void* value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 5 ? km_napi_arg_u64(km_info[5]) : 0));
     typedef int32_t (*km_fn_t)(uint32_t, int32_t, int32_t, int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3255,7 +3255,7 @@ static Napi::Value libc_unix_nto_neutrino_signalKillSigvalR_napi(const Napi::Cal
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_nd, arg_1_pid, arg_2_tid, arg_3_signo, arg_4_code, arg_5_value);
+        km_res = km_fn_ptr(nd, pid, tid, signo, code, value);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3263,9 +3263,9 @@ static Napi::Value libc_unix_nto_neutrino_signalKillSigvalR_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_signalReturn_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSignalReturn_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3288,7 +3288,7 @@ static Napi::Value libc_unix_nto_neutrino_signalReturn_napi(const Napi::Callback
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_info);
+        km_res = km_fn_ptr(info);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3296,11 +3296,11 @@ static Napi::Value libc_unix_nto_neutrino_signalReturn_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_signalFault_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSignalFault_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint32_t arg_0_sigcode = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_regs = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t arg_2_refaddr = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    uint32_t sigcode = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* regs = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t refaddr = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef int32_t (*km_fn_t)(uint32_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3323,7 +3323,7 @@ static Napi::Value libc_unix_nto_neutrino_signalFault_napi(const Napi::CallbackI
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_sigcode, arg_1_regs, arg_2_refaddr);
+        km_res = km_fn_ptr(sigcode, regs, refaddr);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3331,13 +3331,13 @@ static Napi::Value libc_unix_nto_neutrino_signalFault_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_signalAction_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSignalAction_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_sigstub = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    int32_t arg_2_signo = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    void* arg_3_act = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
-    void* arg_4_oact = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
+    int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* sigstub = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    int32_t signo = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    void* act = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    void* oact = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3360,7 +3360,7 @@ static Napi::Value libc_unix_nto_neutrino_signalAction_napi(const Napi::Callback
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_pid, arg_1_sigstub, arg_2_signo, arg_3_act, arg_4_oact);
+        km_res = km_fn_ptr(pid, sigstub, signo, act, oact);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3368,13 +3368,13 @@ static Napi::Value libc_unix_nto_neutrino_signalAction_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_signalActionR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSignalActionR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_sigstub = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    int32_t arg_2_signo = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    void* arg_3_act = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
-    void* arg_4_oact = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
+    int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* sigstub = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    int32_t signo = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    void* act = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    void* oact = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3397,7 +3397,7 @@ static Napi::Value libc_unix_nto_neutrino_signalActionR_napi(const Napi::Callbac
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_pid, arg_1_sigstub, arg_2_signo, arg_3_act, arg_4_oact);
+        km_res = km_fn_ptr(pid, sigstub, signo, act, oact);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3405,13 +3405,13 @@ static Napi::Value libc_unix_nto_neutrino_signalActionR_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_signalProcmask_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSignalProcmask_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t arg_1_tid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    int32_t arg_2_how = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    void* arg_3_set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
-    void* arg_4_oldset = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
+    int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t tid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t how = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    void* oldset = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3434,7 +3434,7 @@ static Napi::Value libc_unix_nto_neutrino_signalProcmask_napi(const Napi::Callba
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_pid, arg_1_tid, arg_2_how, arg_3_set, arg_4_oldset);
+        km_res = km_fn_ptr(pid, tid, how, set, oldset);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3442,13 +3442,13 @@ static Napi::Value libc_unix_nto_neutrino_signalProcmask_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_signalProcmaskR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSignalProcmaskR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t arg_1_tid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    int32_t arg_2_how = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    void* arg_3_set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
-    void* arg_4_oldset = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
+    int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t tid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t how = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    void* oldset = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3471,7 +3471,7 @@ static Napi::Value libc_unix_nto_neutrino_signalProcmaskR_napi(const Napi::Callb
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_pid, arg_1_tid, arg_2_how, arg_3_set, arg_4_oldset);
+        km_res = km_fn_ptr(pid, tid, how, set, oldset);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3479,9 +3479,9 @@ static Napi::Value libc_unix_nto_neutrino_signalProcmaskR_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_signalSuspend_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSignalSuspend_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3504,7 +3504,7 @@ static Napi::Value libc_unix_nto_neutrino_signalSuspend_napi(const Napi::Callbac
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_set);
+        km_res = km_fn_ptr(set);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3512,9 +3512,9 @@ static Napi::Value libc_unix_nto_neutrino_signalSuspend_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_signalSuspendR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSignalSuspendR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3537,7 +3537,7 @@ static Napi::Value libc_unix_nto_neutrino_signalSuspendR_napi(const Napi::Callba
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_set);
+        km_res = km_fn_ptr(set);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3545,10 +3545,10 @@ static Napi::Value libc_unix_nto_neutrino_signalSuspendR_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_signalWaitinfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSignalWaitinfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* arg_1_info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3571,7 +3571,7 @@ static Napi::Value libc_unix_nto_neutrino_signalWaitinfo_napi(const Napi::Callba
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_set, arg_1_info);
+        km_res = km_fn_ptr(set, info);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3579,10 +3579,10 @@ static Napi::Value libc_unix_nto_neutrino_signalWaitinfo_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_signalWaitinfoR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSignalWaitinfoR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* arg_1_info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3605,7 +3605,7 @@ static Napi::Value libc_unix_nto_neutrino_signalWaitinfoR_napi(const Napi::Callb
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_set, arg_1_info);
+        km_res = km_fn_ptr(set, info);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3613,11 +3613,11 @@ static Napi::Value libc_unix_nto_neutrino_signalWaitinfoR_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_signalWaitinfoMask_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSignalWaitinfoMask_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* arg_1_info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* arg_2_mask = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* mask = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3640,7 +3640,7 @@ static Napi::Value libc_unix_nto_neutrino_signalWaitinfoMask_napi(const Napi::Ca
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_set, arg_1_info, arg_2_mask);
+        km_res = km_fn_ptr(set, info, mask);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3648,11 +3648,11 @@ static Napi::Value libc_unix_nto_neutrino_signalWaitinfoMask_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_signalWaitinfoMaskR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSignalWaitinfoMaskR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* arg_1_info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* arg_2_mask = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* mask = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3675,7 +3675,7 @@ static Napi::Value libc_unix_nto_neutrino_signalWaitinfoMaskR_napi(const Napi::C
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_set, arg_1_info, arg_2_mask);
+        km_res = km_fn_ptr(set, info, mask);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3683,12 +3683,12 @@ static Napi::Value libc_unix_nto_neutrino_signalWaitinfoMaskR_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_threadCreate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoThreadCreate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_func = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* arg_2_arg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    void* arg_3_attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* func = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* arg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3711,7 +3711,7 @@ static Napi::Value libc_unix_nto_neutrino_threadCreate_napi(const Napi::Callback
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_pid, arg_1_func, arg_2_arg, arg_3_attr);
+        km_res = km_fn_ptr(pid, func, arg, attr);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3719,12 +3719,12 @@ static Napi::Value libc_unix_nto_neutrino_threadCreate_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_threadCreateR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoThreadCreateR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_func = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* arg_2_arg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    void* arg_3_attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* func = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* arg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3747,7 +3747,7 @@ static Napi::Value libc_unix_nto_neutrino_threadCreateR_napi(const Napi::Callbac
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_pid, arg_1_func, arg_2_arg, arg_3_attr);
+        km_res = km_fn_ptr(pid, func, arg, attr);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3755,11 +3755,11 @@ static Napi::Value libc_unix_nto_neutrino_threadCreateR_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_threadDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoThreadDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_tid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t arg_1_priority = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    void* arg_2_status = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    int32_t tid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t priority = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    void* status = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3782,7 +3782,7 @@ static Napi::Value libc_unix_nto_neutrino_threadDestroy_napi(const Napi::Callbac
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_tid, arg_1_priority, arg_2_status);
+        km_res = km_fn_ptr(tid, priority, status);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3790,11 +3790,11 @@ static Napi::Value libc_unix_nto_neutrino_threadDestroy_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_threadDestroyR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoThreadDestroyR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_tid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t arg_1_priority = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    void* arg_2_status = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    int32_t tid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t priority = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    void* status = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3817,7 +3817,7 @@ static Napi::Value libc_unix_nto_neutrino_threadDestroyR_napi(const Napi::Callba
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_tid, arg_1_priority, arg_2_status);
+        km_res = km_fn_ptr(tid, priority, status);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3825,9 +3825,9 @@ static Napi::Value libc_unix_nto_neutrino_threadDestroyR_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_threadDetach_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoThreadDetach_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_tid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t tid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3850,7 +3850,7 @@ static Napi::Value libc_unix_nto_neutrino_threadDetach_napi(const Napi::Callback
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_tid);
+        km_res = km_fn_ptr(tid);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3858,9 +3858,9 @@ static Napi::Value libc_unix_nto_neutrino_threadDetach_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_threadDetachR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoThreadDetachR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_tid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t tid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3883,7 +3883,7 @@ static Napi::Value libc_unix_nto_neutrino_threadDetachR_napi(const Napi::Callbac
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_tid);
+        km_res = km_fn_ptr(tid);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3891,10 +3891,10 @@ static Napi::Value libc_unix_nto_neutrino_threadDetachR_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_threadJoin_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoThreadJoin_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_tid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_status = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    int32_t tid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* status = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3917,7 +3917,7 @@ static Napi::Value libc_unix_nto_neutrino_threadJoin_napi(const Napi::CallbackIn
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_tid, arg_1_status);
+        km_res = km_fn_ptr(tid, status);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3925,10 +3925,10 @@ static Napi::Value libc_unix_nto_neutrino_threadJoin_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_threadJoinR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoThreadJoinR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_tid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_status = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    int32_t tid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* status = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3951,7 +3951,7 @@ static Napi::Value libc_unix_nto_neutrino_threadJoinR_napi(const Napi::CallbackI
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_tid, arg_1_status);
+        km_res = km_fn_ptr(tid, status);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3959,10 +3959,10 @@ static Napi::Value libc_unix_nto_neutrino_threadJoinR_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_threadCancel_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoThreadCancel_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_tid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_canstub = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    int32_t tid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* canstub = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3985,7 +3985,7 @@ static Napi::Value libc_unix_nto_neutrino_threadCancel_napi(const Napi::Callback
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_tid, arg_1_canstub);
+        km_res = km_fn_ptr(tid, canstub);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3993,10 +3993,10 @@ static Napi::Value libc_unix_nto_neutrino_threadCancel_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_threadCancelR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoThreadCancelR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_tid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_canstub = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    int32_t tid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* canstub = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4019,7 +4019,7 @@ static Napi::Value libc_unix_nto_neutrino_threadCancelR_napi(const Napi::Callbac
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_tid, arg_1_canstub);
+        km_res = km_fn_ptr(tid, canstub);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4027,10 +4027,10 @@ static Napi::Value libc_unix_nto_neutrino_threadCancelR_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_threadCtl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoThreadCtl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_cmd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    int32_t cmd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4053,7 +4053,7 @@ static Napi::Value libc_unix_nto_neutrino_threadCtl_napi(const Napi::CallbackInf
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_cmd, arg_1_data);
+        km_res = km_fn_ptr(cmd, data);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4061,10 +4061,10 @@ static Napi::Value libc_unix_nto_neutrino_threadCtl_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_threadCtlR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoThreadCtlR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_cmd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    int32_t cmd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4087,7 +4087,7 @@ static Napi::Value libc_unix_nto_neutrino_threadCtlR_napi(const Napi::CallbackIn
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_cmd, arg_1_data);
+        km_res = km_fn_ptr(cmd, data);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4095,12 +4095,12 @@ static Napi::Value libc_unix_nto_neutrino_threadCtlR_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_threadCtlExt_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoThreadCtlExt_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t arg_1_tid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    int32_t arg_2_cmd = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    void* arg_3_data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t tid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t cmd = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    void* data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4123,7 +4123,7 @@ static Napi::Value libc_unix_nto_neutrino_threadCtlExt_napi(const Napi::Callback
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_pid, arg_1_tid, arg_2_cmd, arg_3_data);
+        km_res = km_fn_ptr(pid, tid, cmd, data);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4131,12 +4131,12 @@ static Napi::Value libc_unix_nto_neutrino_threadCtlExt_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_threadCtlExtR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoThreadCtlExtR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t arg_1_tid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    int32_t arg_2_cmd = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    void* arg_3_data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t tid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t cmd = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    void* data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4159,7 +4159,7 @@ static Napi::Value libc_unix_nto_neutrino_threadCtlExtR_napi(const Napi::Callbac
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_pid, arg_1_tid, arg_2_cmd, arg_3_data);
+        km_res = km_fn_ptr(pid, tid, cmd, data);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4167,10 +4167,10 @@ static Napi::Value libc_unix_nto_neutrino_threadCtlExtR_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_interruptHookTrace_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoInterruptHookTrace_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_handler = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    uint32_t arg_1_flags = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    void* handler = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    uint32_t flags = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4193,7 +4193,7 @@ static Napi::Value libc_unix_nto_neutrino_interruptHookTrace_napi(const Napi::Ca
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_handler, arg_1_flags);
+        km_res = km_fn_ptr(handler, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4201,10 +4201,10 @@ static Napi::Value libc_unix_nto_neutrino_interruptHookTrace_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_interruptHookIdle_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoInterruptHookIdle_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_handler = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    uint32_t arg_1_flags = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    void* handler = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    uint32_t flags = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4227,7 +4227,7 @@ static Napi::Value libc_unix_nto_neutrino_interruptHookIdle_napi(const Napi::Cal
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_handler, arg_1_flags);
+        km_res = km_fn_ptr(handler, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4235,10 +4235,10 @@ static Napi::Value libc_unix_nto_neutrino_interruptHookIdle_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_interruptHookIdle2_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoInterruptHookIdle2_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_handler = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    uint32_t arg_1_flags = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    void* handler = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    uint32_t flags = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4261,7 +4261,7 @@ static Napi::Value libc_unix_nto_neutrino_interruptHookIdle2_napi(const Napi::Ca
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_handler, arg_1_flags);
+        km_res = km_fn_ptr(handler, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4269,10 +4269,10 @@ static Napi::Value libc_unix_nto_neutrino_interruptHookIdle2_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_interruptHookOverdriveEvent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoInterruptHookOverdriveEvent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_event = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    uint32_t arg_1_flags = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    void* event = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    uint32_t flags = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4295,7 +4295,7 @@ static Napi::Value libc_unix_nto_neutrino_interruptHookOverdriveEvent_napi(const
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_event, arg_1_flags);
+        km_res = km_fn_ptr(event, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4303,11 +4303,11 @@ static Napi::Value libc_unix_nto_neutrino_interruptHookOverdriveEvent_napi(const
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_interruptAttachEvent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoInterruptAttachEvent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_intr = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_event = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint32_t arg_2_flags = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    int32_t intr = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* event = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint32_t flags = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4330,7 +4330,7 @@ static Napi::Value libc_unix_nto_neutrino_interruptAttachEvent_napi(const Napi::
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_intr, arg_1_event, arg_2_flags);
+        km_res = km_fn_ptr(intr, event, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4338,11 +4338,11 @@ static Napi::Value libc_unix_nto_neutrino_interruptAttachEvent_napi(const Napi::
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_interruptAttachEventR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoInterruptAttachEventR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_intr = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_event = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint32_t arg_2_flags = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    int32_t intr = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* event = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint32_t flags = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4365,7 +4365,7 @@ static Napi::Value libc_unix_nto_neutrino_interruptAttachEventR_napi(const Napi:
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_intr, arg_1_event, arg_2_flags);
+        km_res = km_fn_ptr(intr, event, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4373,13 +4373,13 @@ static Napi::Value libc_unix_nto_neutrino_interruptAttachEventR_napi(const Napi:
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_interruptAttach_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoInterruptAttach_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_intr = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_handler = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* arg_2_area = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    int32_t arg_3_size = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
-    uint32_t arg_4_flags = static_cast<uint32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
+    int32_t intr = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* handler = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* area = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    int32_t size = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
+    uint32_t flags = static_cast<uint32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, int32_t, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4402,7 +4402,7 @@ static Napi::Value libc_unix_nto_neutrino_interruptAttach_napi(const Napi::Callb
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_intr, arg_1_handler, arg_2_area, arg_3_size, arg_4_flags);
+        km_res = km_fn_ptr(intr, handler, area, size, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4410,13 +4410,13 @@ static Napi::Value libc_unix_nto_neutrino_interruptAttach_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_interruptAttachR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoInterruptAttachR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_intr = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_handler = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* arg_2_area = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    int32_t arg_3_size = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
-    uint32_t arg_4_flags = static_cast<uint32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
+    int32_t intr = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* handler = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* area = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    int32_t size = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
+    uint32_t flags = static_cast<uint32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, int32_t, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4439,7 +4439,7 @@ static Napi::Value libc_unix_nto_neutrino_interruptAttachR_napi(const Napi::Call
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_intr, arg_1_handler, arg_2_area, arg_3_size, arg_4_flags);
+        km_res = km_fn_ptr(intr, handler, area, size, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4447,13 +4447,13 @@ static Napi::Value libc_unix_nto_neutrino_interruptAttachR_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_interruptAttachArray_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoInterruptAttachArray_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_intr = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_handler = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* arg_2_area = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    int32_t arg_3_size = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
-    uint32_t arg_4_flags = static_cast<uint32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
+    int32_t intr = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* handler = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* area = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    int32_t size = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
+    uint32_t flags = static_cast<uint32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, int32_t, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4476,7 +4476,7 @@ static Napi::Value libc_unix_nto_neutrino_interruptAttachArray_napi(const Napi::
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_intr, arg_1_handler, arg_2_area, arg_3_size, arg_4_flags);
+        km_res = km_fn_ptr(intr, handler, area, size, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4484,13 +4484,13 @@ static Napi::Value libc_unix_nto_neutrino_interruptAttachArray_napi(const Napi::
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_interruptAttachArrayR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoInterruptAttachArrayR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_intr = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_handler = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* arg_2_area = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    int32_t arg_3_size = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
-    uint32_t arg_4_flags = static_cast<uint32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
+    int32_t intr = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* handler = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* area = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    int32_t size = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
+    uint32_t flags = static_cast<uint32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, int32_t, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4513,7 +4513,7 @@ static Napi::Value libc_unix_nto_neutrino_interruptAttachArrayR_napi(const Napi:
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_intr, arg_1_handler, arg_2_area, arg_3_size, arg_4_flags);
+        km_res = km_fn_ptr(intr, handler, area, size, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4521,9 +4521,9 @@ static Napi::Value libc_unix_nto_neutrino_interruptAttachArrayR_napi(const Napi:
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_interruptDetach_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoInterruptDetach_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4546,7 +4546,7 @@ static Napi::Value libc_unix_nto_neutrino_interruptDetach_napi(const Napi::Callb
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_id);
+        km_res = km_fn_ptr(id);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4554,9 +4554,9 @@ static Napi::Value libc_unix_nto_neutrino_interruptDetach_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_interruptDetachR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoInterruptDetachR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4579,7 +4579,7 @@ static Napi::Value libc_unix_nto_neutrino_interruptDetachR_napi(const Napi::Call
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_id);
+        km_res = km_fn_ptr(id);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4587,10 +4587,10 @@ static Napi::Value libc_unix_nto_neutrino_interruptDetachR_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_interruptWait_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoInterruptWait_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_flags = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_timeout = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    int32_t flags = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* timeout = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4613,7 +4613,7 @@ static Napi::Value libc_unix_nto_neutrino_interruptWait_napi(const Napi::Callbac
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_flags, arg_1_timeout);
+        km_res = km_fn_ptr(flags, timeout);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4621,10 +4621,10 @@ static Napi::Value libc_unix_nto_neutrino_interruptWait_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_interruptWaitR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoInterruptWaitR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_flags = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_timeout = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    int32_t flags = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* timeout = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4647,7 +4647,7 @@ static Napi::Value libc_unix_nto_neutrino_interruptWaitR_napi(const Napi::Callba
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_flags, arg_1_timeout);
+        km_res = km_fn_ptr(flags, timeout);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4655,12 +4655,12 @@ static Napi::Value libc_unix_nto_neutrino_interruptWaitR_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_interruptCharacteristic_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoInterruptCharacteristic_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_type = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t arg_1_id = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    void* arg_2_new = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    void* arg_3_old = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    int32_t type = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t id = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    void* arg2New = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* old = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4683,7 +4683,7 @@ static Napi::Value libc_unix_nto_neutrino_interruptCharacteristic_napi(const Nap
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_type, arg_1_id, arg_2_new, arg_3_old);
+        km_res = km_fn_ptr(type, id, arg2New, old);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4691,12 +4691,12 @@ static Napi::Value libc_unix_nto_neutrino_interruptCharacteristic_napi(const Nap
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_interruptCharacteristicR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoInterruptCharacteristicR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_type = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t arg_1_id = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    void* arg_2_new = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    void* arg_3_old = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    int32_t type = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t id = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    void* arg2New = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* old = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4719,7 +4719,7 @@ static Napi::Value libc_unix_nto_neutrino_interruptCharacteristicR_napi(const Na
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_type, arg_1_id, arg_2_new, arg_3_old);
+        km_res = km_fn_ptr(type, id, arg2New, old);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4727,11 +4727,11 @@ static Napi::Value libc_unix_nto_neutrino_interruptCharacteristicR_napi(const Na
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_schedGet_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSchedGet_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t arg_1_tid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    void* arg_2_param = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t tid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    void* param = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4754,7 +4754,7 @@ static Napi::Value libc_unix_nto_neutrino_schedGet_napi(const Napi::CallbackInfo
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_pid, arg_1_tid, arg_2_param);
+        km_res = km_fn_ptr(pid, tid, param);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4762,11 +4762,11 @@ static Napi::Value libc_unix_nto_neutrino_schedGet_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_schedGetR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSchedGetR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t arg_1_tid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    void* arg_2_param = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t tid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    void* param = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4789,7 +4789,7 @@ static Napi::Value libc_unix_nto_neutrino_schedGetR_napi(const Napi::CallbackInf
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_pid, arg_1_tid, arg_2_param);
+        km_res = km_fn_ptr(pid, tid, param);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4797,7 +4797,7 @@ static Napi::Value libc_unix_nto_neutrino_schedGetR_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_schedGetCpuNum_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSchedGetCpuNum_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef uint32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4829,12 +4829,12 @@ static Napi::Value libc_unix_nto_neutrino_schedGetCpuNum_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_schedSet_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSchedSet_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t arg_1_tid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    int32_t arg_2_algorithm = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    void* arg_3_param = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t tid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t algorithm = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    void* param = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4857,7 +4857,7 @@ static Napi::Value libc_unix_nto_neutrino_schedSet_napi(const Napi::CallbackInfo
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_pid, arg_1_tid, arg_2_algorithm, arg_3_param);
+        km_res = km_fn_ptr(pid, tid, algorithm, param);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4865,12 +4865,12 @@ static Napi::Value libc_unix_nto_neutrino_schedSet_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_schedSetR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSchedSetR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t arg_1_tid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    int32_t arg_2_algorithm = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    void* arg_3_param = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t tid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t algorithm = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    void* param = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4893,7 +4893,7 @@ static Napi::Value libc_unix_nto_neutrino_schedSetR_napi(const Napi::CallbackInf
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_pid, arg_1_tid, arg_2_algorithm, arg_3_param);
+        km_res = km_fn_ptr(pid, tid, algorithm, param);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4901,11 +4901,11 @@ static Napi::Value libc_unix_nto_neutrino_schedSetR_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_schedInfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSchedInfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t arg_1_algorithm = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    void* arg_2_info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t algorithm = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    void* info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4928,7 +4928,7 @@ static Napi::Value libc_unix_nto_neutrino_schedInfo_napi(const Napi::CallbackInf
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_pid, arg_1_algorithm, arg_2_info);
+        km_res = km_fn_ptr(pid, algorithm, info);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4936,11 +4936,11 @@ static Napi::Value libc_unix_nto_neutrino_schedInfo_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_schedInfoR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSchedInfoR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t arg_1_algorithm = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    void* arg_2_info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t algorithm = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    void* info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4963,7 +4963,7 @@ static Napi::Value libc_unix_nto_neutrino_schedInfoR_napi(const Napi::CallbackIn
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_pid, arg_1_algorithm, arg_2_info);
+        km_res = km_fn_ptr(pid, algorithm, info);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4971,7 +4971,7 @@ static Napi::Value libc_unix_nto_neutrino_schedInfoR_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_schedYield_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSchedYield_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5003,7 +5003,7 @@ static Napi::Value libc_unix_nto_neutrino_schedYield_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_schedYieldR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSchedYieldR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5035,11 +5035,11 @@ static Napi::Value libc_unix_nto_neutrino_schedYieldR_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_schedCtl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSchedCtl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_cmd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t arg_2_length = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    int32_t cmd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t length = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef int32_t (*km_fn_t)(int32_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5062,7 +5062,7 @@ static Napi::Value libc_unix_nto_neutrino_schedCtl_napi(const Napi::CallbackInfo
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_cmd, arg_1_data, arg_2_length);
+        km_res = km_fn_ptr(cmd, data, length);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5070,11 +5070,11 @@ static Napi::Value libc_unix_nto_neutrino_schedCtl_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_schedCtlR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSchedCtlR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_cmd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t arg_2_length = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    int32_t cmd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t length = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef int32_t (*km_fn_t)(int32_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5097,7 +5097,7 @@ static Napi::Value libc_unix_nto_neutrino_schedCtlR_napi(const Napi::CallbackInf
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_cmd, arg_1_data, arg_2_length);
+        km_res = km_fn_ptr(cmd, data, length);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5105,9 +5105,9 @@ static Napi::Value libc_unix_nto_neutrino_schedCtlR_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_schedJobCreate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSchedJobCreate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_job = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* job = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5130,7 +5130,7 @@ static Napi::Value libc_unix_nto_neutrino_schedJobCreate_napi(const Napi::Callba
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_job);
+        km_res = km_fn_ptr(job);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5138,9 +5138,9 @@ static Napi::Value libc_unix_nto_neutrino_schedJobCreate_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_schedJobCreateR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSchedJobCreateR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_job = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* job = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5163,7 +5163,7 @@ static Napi::Value libc_unix_nto_neutrino_schedJobCreateR_napi(const Napi::Callb
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_job);
+        km_res = km_fn_ptr(job);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5171,9 +5171,9 @@ static Napi::Value libc_unix_nto_neutrino_schedJobCreateR_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_schedJobDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSchedJobDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_job = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* job = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5196,7 +5196,7 @@ static Napi::Value libc_unix_nto_neutrino_schedJobDestroy_napi(const Napi::Callb
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_job);
+        km_res = km_fn_ptr(job);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5204,9 +5204,9 @@ static Napi::Value libc_unix_nto_neutrino_schedJobDestroy_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_schedJobDestroyR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSchedJobDestroyR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_job = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* job = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5229,7 +5229,7 @@ static Napi::Value libc_unix_nto_neutrino_schedJobDestroyR_napi(const Napi::Call
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_job);
+        km_res = km_fn_ptr(job);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5237,12 +5237,12 @@ static Napi::Value libc_unix_nto_neutrino_schedJobDestroyR_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_schedWaypoint_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSchedWaypoint_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_job = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* arg_1_new = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* arg_2_max = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    void* arg_3_old = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    void* job = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* arg1New = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* max = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* old = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5265,7 +5265,7 @@ static Napi::Value libc_unix_nto_neutrino_schedWaypoint_napi(const Napi::Callbac
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_job, arg_1_new, arg_2_max, arg_3_old);
+        km_res = km_fn_ptr(job, arg1New, max, old);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5273,12 +5273,12 @@ static Napi::Value libc_unix_nto_neutrino_schedWaypoint_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_schedWaypointR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSchedWaypointR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_job = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* arg_1_new = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* arg_2_max = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    void* arg_3_old = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    void* job = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* arg1New = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* max = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* old = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5301,7 +5301,7 @@ static Napi::Value libc_unix_nto_neutrino_schedWaypointR_napi(const Napi::Callba
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_job, arg_1_new, arg_2_max, arg_3_old);
+        km_res = km_fn_ptr(job, arg1New, max, old);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5309,10 +5309,10 @@ static Napi::Value libc_unix_nto_neutrino_schedWaypointR_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_timerCreate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoTimerCreate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_notify = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* notify = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5335,7 +5335,7 @@ static Napi::Value libc_unix_nto_neutrino_timerCreate_napi(const Napi::CallbackI
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_id, arg_1_notify);
+        km_res = km_fn_ptr(id, notify);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5343,10 +5343,10 @@ static Napi::Value libc_unix_nto_neutrino_timerCreate_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_timerCreateR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoTimerCreateR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_notify = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* notify = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5369,7 +5369,7 @@ static Napi::Value libc_unix_nto_neutrino_timerCreateR_napi(const Napi::Callback
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_id, arg_1_notify);
+        km_res = km_fn_ptr(id, notify);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5377,9 +5377,9 @@ static Napi::Value libc_unix_nto_neutrino_timerCreateR_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_timerDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoTimerDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_id = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* id = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5402,7 +5402,7 @@ static Napi::Value libc_unix_nto_neutrino_timerDestroy_napi(const Napi::Callback
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_id);
+        km_res = km_fn_ptr(id);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5410,9 +5410,9 @@ static Napi::Value libc_unix_nto_neutrino_timerDestroy_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_timerDestroyR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoTimerDestroyR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_id = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* id = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5435,7 +5435,7 @@ static Napi::Value libc_unix_nto_neutrino_timerDestroyR_napi(const Napi::Callbac
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_id);
+        km_res = km_fn_ptr(id);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5443,12 +5443,12 @@ static Napi::Value libc_unix_nto_neutrino_timerDestroyR_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_timerSettime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoTimerSettime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_id = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    int32_t arg_1_flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    void* arg_2_itime = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    void* arg_3_oitime = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    void* id = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    int32_t flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    void* itime = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* oitime = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(void*, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5471,7 +5471,7 @@ static Napi::Value libc_unix_nto_neutrino_timerSettime_napi(const Napi::Callback
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_id, arg_1_flags, arg_2_itime, arg_3_oitime);
+        km_res = km_fn_ptr(id, flags, itime, oitime);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5479,12 +5479,12 @@ static Napi::Value libc_unix_nto_neutrino_timerSettime_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_timerSettimeR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoTimerSettimeR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_id = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    int32_t arg_1_flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    void* arg_2_itime = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    void* arg_3_oitime = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    void* id = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    int32_t flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    void* itime = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* oitime = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(void*, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5507,7 +5507,7 @@ static Napi::Value libc_unix_nto_neutrino_timerSettimeR_napi(const Napi::Callbac
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_id, arg_1_flags, arg_2_itime, arg_3_oitime);
+        km_res = km_fn_ptr(id, flags, itime, oitime);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5515,12 +5515,12 @@ static Napi::Value libc_unix_nto_neutrino_timerSettimeR_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_timerInfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoTimerInfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_id = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    int32_t arg_2_flags = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    void* arg_3_info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* id = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    int32_t flags = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    void* info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5543,7 +5543,7 @@ static Napi::Value libc_unix_nto_neutrino_timerInfo_napi(const Napi::CallbackInf
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_pid, arg_1_id, arg_2_flags, arg_3_info);
+        km_res = km_fn_ptr(pid, id, flags, info);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5551,12 +5551,12 @@ static Napi::Value libc_unix_nto_neutrino_timerInfo_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_timerInfoR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoTimerInfoR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_id = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    int32_t arg_2_flags = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    void* arg_3_info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* id = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    int32_t flags = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    void* info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5579,7 +5579,7 @@ static Napi::Value libc_unix_nto_neutrino_timerInfoR_napi(const Napi::CallbackIn
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_pid, arg_1_id, arg_2_flags, arg_3_info);
+        km_res = km_fn_ptr(pid, id, flags, info);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5587,11 +5587,11 @@ static Napi::Value libc_unix_nto_neutrino_timerInfoR_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_timerAlarm_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoTimerAlarm_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_itime = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* arg_2_otime = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* itime = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* otime = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5614,7 +5614,7 @@ static Napi::Value libc_unix_nto_neutrino_timerAlarm_napi(const Napi::CallbackIn
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_id, arg_1_itime, arg_2_otime);
+        km_res = km_fn_ptr(id, itime, otime);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5622,11 +5622,11 @@ static Napi::Value libc_unix_nto_neutrino_timerAlarm_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_timerAlarmR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoTimerAlarmR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_itime = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* arg_2_otime = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* itime = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* otime = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5649,7 +5649,7 @@ static Napi::Value libc_unix_nto_neutrino_timerAlarmR_napi(const Napi::CallbackI
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_id, arg_1_itime, arg_2_otime);
+        km_res = km_fn_ptr(id, itime, otime);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5657,13 +5657,13 @@ static Napi::Value libc_unix_nto_neutrino_timerAlarmR_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_timerTimeout_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoTimerTimeout_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t arg_1_flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    void* arg_2_notify = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    void* arg_3_ntime = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
-    void* arg_4_otime = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
+    int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    void* notify = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* ntime = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    void* otime = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5686,7 +5686,7 @@ static Napi::Value libc_unix_nto_neutrino_timerTimeout_napi(const Napi::Callback
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_id, arg_1_flags, arg_2_notify, arg_3_ntime, arg_4_otime);
+        km_res = km_fn_ptr(id, flags, notify, ntime, otime);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5694,13 +5694,13 @@ static Napi::Value libc_unix_nto_neutrino_timerTimeout_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_timerTimeoutR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoTimerTimeoutR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t arg_1_flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    void* arg_2_notify = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    void* arg_3_ntime = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
-    void* arg_4_otime = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
+    int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    void* notify = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* ntime = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    void* otime = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5723,7 +5723,7 @@ static Napi::Value libc_unix_nto_neutrino_timerTimeoutR_napi(const Napi::Callbac
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_id, arg_1_flags, arg_2_notify, arg_3_ntime, arg_4_otime);
+        km_res = km_fn_ptr(id, flags, notify, ntime, otime);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5731,11 +5731,11 @@ static Napi::Value libc_unix_nto_neutrino_timerTimeoutR_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_syncTypeCreate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSyncTypeCreate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint32_t arg_0_type = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_sync = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* arg_2_attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    uint32_t type = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* sync = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(uint32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5758,7 +5758,7 @@ static Napi::Value libc_unix_nto_neutrino_syncTypeCreate_napi(const Napi::Callba
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_type, arg_1_sync, arg_2_attr);
+        km_res = km_fn_ptr(type, sync, attr);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5766,11 +5766,11 @@ static Napi::Value libc_unix_nto_neutrino_syncTypeCreate_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_syncTypeCreateR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSyncTypeCreateR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint32_t arg_0_type = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_sync = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* arg_2_attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    uint32_t type = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* sync = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(uint32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5793,7 +5793,7 @@ static Napi::Value libc_unix_nto_neutrino_syncTypeCreateR_napi(const Napi::Callb
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_type, arg_1_sync, arg_2_attr);
+        km_res = km_fn_ptr(type, sync, attr);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5801,9 +5801,9 @@ static Napi::Value libc_unix_nto_neutrino_syncTypeCreateR_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_syncDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSyncDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_sync = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* sync = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5826,7 +5826,7 @@ static Napi::Value libc_unix_nto_neutrino_syncDestroy_napi(const Napi::CallbackI
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_sync);
+        km_res = km_fn_ptr(sync);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5834,9 +5834,9 @@ static Napi::Value libc_unix_nto_neutrino_syncDestroy_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_syncDestroyR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSyncDestroyR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_sync = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* sync = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5859,7 +5859,7 @@ static Napi::Value libc_unix_nto_neutrino_syncDestroyR_napi(const Napi::Callback
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_sync);
+        km_res = km_fn_ptr(sync);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5867,11 +5867,11 @@ static Napi::Value libc_unix_nto_neutrino_syncDestroyR_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_syncCtl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSyncCtl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_cmd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_sync = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* arg_2_data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    int32_t cmd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* sync = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5894,7 +5894,7 @@ static Napi::Value libc_unix_nto_neutrino_syncCtl_napi(const Napi::CallbackInfo&
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_cmd, arg_1_sync, arg_2_data);
+        km_res = km_fn_ptr(cmd, sync, data);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5902,11 +5902,11 @@ static Napi::Value libc_unix_nto_neutrino_syncCtl_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_syncCtlR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSyncCtlR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_cmd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_sync = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* arg_2_data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    int32_t cmd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* sync = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5929,7 +5929,7 @@ static Napi::Value libc_unix_nto_neutrino_syncCtlR_napi(const Napi::CallbackInfo
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_cmd, arg_1_sync, arg_2_data);
+        km_res = km_fn_ptr(cmd, sync, data);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5937,9 +5937,9 @@ static Napi::Value libc_unix_nto_neutrino_syncCtlR_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_syncMutexEvent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSyncMutexEvent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_sync = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* sync = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* event = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5963,7 +5963,7 @@ static Napi::Value libc_unix_nto_neutrino_syncMutexEvent_napi(const Napi::Callba
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_sync, event);
+        km_res = km_fn_ptr(sync, event);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5971,9 +5971,9 @@ static Napi::Value libc_unix_nto_neutrino_syncMutexEvent_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_syncMutexEventR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSyncMutexEventR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_sync = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* sync = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* event = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5997,7 +5997,7 @@ static Napi::Value libc_unix_nto_neutrino_syncMutexEventR_napi(const Napi::Callb
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_sync, event);
+        km_res = km_fn_ptr(sync, event);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -6005,9 +6005,9 @@ static Napi::Value libc_unix_nto_neutrino_syncMutexEventR_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_syncMutexLock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSyncMutexLock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_sync = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* sync = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6030,7 +6030,7 @@ static Napi::Value libc_unix_nto_neutrino_syncMutexLock_napi(const Napi::Callbac
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_sync);
+        km_res = km_fn_ptr(sync);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -6038,9 +6038,9 @@ static Napi::Value libc_unix_nto_neutrino_syncMutexLock_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_syncMutexLockR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSyncMutexLockR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_sync = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* sync = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6063,7 +6063,7 @@ static Napi::Value libc_unix_nto_neutrino_syncMutexLockR_napi(const Napi::Callba
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_sync);
+        km_res = km_fn_ptr(sync);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -6071,9 +6071,9 @@ static Napi::Value libc_unix_nto_neutrino_syncMutexLockR_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_syncMutexUnlock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSyncMutexUnlock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_sync = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* sync = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6096,7 +6096,7 @@ static Napi::Value libc_unix_nto_neutrino_syncMutexUnlock_napi(const Napi::Callb
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_sync);
+        km_res = km_fn_ptr(sync);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -6104,9 +6104,9 @@ static Napi::Value libc_unix_nto_neutrino_syncMutexUnlock_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_syncMutexUnlockR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSyncMutexUnlockR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_sync = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* sync = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6129,7 +6129,7 @@ static Napi::Value libc_unix_nto_neutrino_syncMutexUnlockR_napi(const Napi::Call
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_sync);
+        km_res = km_fn_ptr(sync);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -6137,9 +6137,9 @@ static Napi::Value libc_unix_nto_neutrino_syncMutexUnlockR_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_syncMutexRevive_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSyncMutexRevive_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_sync = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* sync = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6162,7 +6162,7 @@ static Napi::Value libc_unix_nto_neutrino_syncMutexRevive_napi(const Napi::Callb
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_sync);
+        km_res = km_fn_ptr(sync);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -6170,9 +6170,9 @@ static Napi::Value libc_unix_nto_neutrino_syncMutexRevive_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_syncMutexReviveR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSyncMutexReviveR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_sync = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* sync = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6195,7 +6195,7 @@ static Napi::Value libc_unix_nto_neutrino_syncMutexReviveR_napi(const Napi::Call
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_sync);
+        km_res = km_fn_ptr(sync);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -6203,10 +6203,10 @@ static Napi::Value libc_unix_nto_neutrino_syncMutexReviveR_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_syncCondvarWait_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSyncCondvarWait_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_sync = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* arg_1_mutex = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* sync = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* mutex = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6229,7 +6229,7 @@ static Napi::Value libc_unix_nto_neutrino_syncCondvarWait_napi(const Napi::Callb
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_sync, arg_1_mutex);
+        km_res = km_fn_ptr(sync, mutex);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -6237,10 +6237,10 @@ static Napi::Value libc_unix_nto_neutrino_syncCondvarWait_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_syncCondvarWaitR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSyncCondvarWaitR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_sync = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* arg_1_mutex = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* sync = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* mutex = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6263,7 +6263,7 @@ static Napi::Value libc_unix_nto_neutrino_syncCondvarWaitR_napi(const Napi::Call
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_sync, arg_1_mutex);
+        km_res = km_fn_ptr(sync, mutex);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -6271,10 +6271,10 @@ static Napi::Value libc_unix_nto_neutrino_syncCondvarWaitR_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_syncCondvarSignal_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSyncCondvarSignal_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_sync = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    int32_t arg_1_all = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    void* sync = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    int32_t all = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6297,7 +6297,7 @@ static Napi::Value libc_unix_nto_neutrino_syncCondvarSignal_napi(const Napi::Cal
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_sync, arg_1_all);
+        km_res = km_fn_ptr(sync, all);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -6305,10 +6305,10 @@ static Napi::Value libc_unix_nto_neutrino_syncCondvarSignal_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_syncCondvarSignalR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSyncCondvarSignalR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_sync = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    int32_t arg_1_all = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    void* sync = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    int32_t all = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6331,7 +6331,7 @@ static Napi::Value libc_unix_nto_neutrino_syncCondvarSignalR_napi(const Napi::Ca
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_sync, arg_1_all);
+        km_res = km_fn_ptr(sync, all);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -6339,9 +6339,9 @@ static Napi::Value libc_unix_nto_neutrino_syncCondvarSignalR_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_syncSemPost_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSyncSemPost_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_sync = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* sync = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6364,7 +6364,7 @@ static Napi::Value libc_unix_nto_neutrino_syncSemPost_napi(const Napi::CallbackI
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_sync);
+        km_res = km_fn_ptr(sync);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -6372,9 +6372,9 @@ static Napi::Value libc_unix_nto_neutrino_syncSemPost_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_syncSemPostR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSyncSemPostR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_sync = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* sync = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6397,7 +6397,7 @@ static Napi::Value libc_unix_nto_neutrino_syncSemPostR_napi(const Napi::Callback
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_sync);
+        km_res = km_fn_ptr(sync);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -6405,10 +6405,10 @@ static Napi::Value libc_unix_nto_neutrino_syncSemPostR_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_syncSemWait_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSyncSemWait_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_sync = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    int32_t arg_1_tryto = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    void* sync = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    int32_t tryto = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6431,7 +6431,7 @@ static Napi::Value libc_unix_nto_neutrino_syncSemWait_napi(const Napi::CallbackI
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_sync, arg_1_tryto);
+        km_res = km_fn_ptr(sync, tryto);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -6439,10 +6439,10 @@ static Napi::Value libc_unix_nto_neutrino_syncSemWait_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_syncSemWaitR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoSyncSemWaitR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_sync = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    int32_t arg_1_tryto = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    void* sync = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    int32_t tryto = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6465,7 +6465,7 @@ static Napi::Value libc_unix_nto_neutrino_syncSemWaitR_napi(const Napi::Callback
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_sync, arg_1_tryto);
+        km_res = km_fn_ptr(sync, tryto);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -6473,11 +6473,11 @@ static Napi::Value libc_unix_nto_neutrino_syncSemWaitR_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_clockTime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoClockTime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_new = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* arg_2_old = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* arg1New = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* old = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6500,7 +6500,7 @@ static Napi::Value libc_unix_nto_neutrino_clockTime_napi(const Napi::CallbackInf
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_id, arg_1_new, arg_2_old);
+        km_res = km_fn_ptr(id, arg1New, old);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -6508,11 +6508,11 @@ static Napi::Value libc_unix_nto_neutrino_clockTime_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_clockTimeR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoClockTimeR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_new = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* arg_2_old = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* arg1New = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* old = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6535,7 +6535,7 @@ static Napi::Value libc_unix_nto_neutrino_clockTimeR_napi(const Napi::CallbackIn
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_id, arg_1_new, arg_2_old);
+        km_res = km_fn_ptr(id, arg1New, old);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -6543,11 +6543,11 @@ static Napi::Value libc_unix_nto_neutrino_clockTimeR_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_clockAdjust_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoClockAdjust_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_new = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* arg_2_old = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* arg1New = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* old = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6570,7 +6570,7 @@ static Napi::Value libc_unix_nto_neutrino_clockAdjust_napi(const Napi::CallbackI
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_id, arg_1_new, arg_2_old);
+        km_res = km_fn_ptr(id, arg1New, old);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -6578,11 +6578,11 @@ static Napi::Value libc_unix_nto_neutrino_clockAdjust_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_clockAdjustR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoClockAdjustR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_new = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* arg_2_old = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* arg1New = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* old = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6605,7 +6605,7 @@ static Napi::Value libc_unix_nto_neutrino_clockAdjustR_napi(const Napi::Callback
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_id, arg_1_new, arg_2_old);
+        km_res = km_fn_ptr(id, arg1New, old);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -6613,12 +6613,12 @@ static Napi::Value libc_unix_nto_neutrino_clockAdjustR_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_clockPeriod_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoClockPeriod_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_new = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* arg_2_old = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    int32_t arg_3_reserved = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
+    int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* arg1New = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* old = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    int32_t reserved = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6641,7 +6641,7 @@ static Napi::Value libc_unix_nto_neutrino_clockPeriod_napi(const Napi::CallbackI
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_id, arg_1_new, arg_2_old, arg_3_reserved);
+        km_res = km_fn_ptr(id, arg1New, old, reserved);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -6649,12 +6649,12 @@ static Napi::Value libc_unix_nto_neutrino_clockPeriod_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_clockPeriodR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoClockPeriodR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_new = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* arg_2_old = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    int32_t arg_3_reserved = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
+    int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* arg1New = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* old = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    int32_t reserved = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6677,7 +6677,7 @@ static Napi::Value libc_unix_nto_neutrino_clockPeriodR_napi(const Napi::Callback
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_id, arg_1_new, arg_2_old, arg_3_reserved);
+        km_res = km_fn_ptr(id, arg1New, old, reserved);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -6685,10 +6685,10 @@ static Napi::Value libc_unix_nto_neutrino_clockPeriodR_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_clockId_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoClockId_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t arg_1_tid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t tid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6711,7 +6711,7 @@ static Napi::Value libc_unix_nto_neutrino_clockId_napi(const Napi::CallbackInfo&
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_pid, arg_1_tid);
+        km_res = km_fn_ptr(pid, tid);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -6719,10 +6719,10 @@ static Napi::Value libc_unix_nto_neutrino_clockId_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_clockIdR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoClockIdR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t arg_1_tid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t tid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6745,7 +6745,7 @@ static Napi::Value libc_unix_nto_neutrino_clockIdR_napi(const Napi::CallbackInfo
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_pid, arg_1_tid);
+        km_res = km_fn_ptr(pid, tid);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -6753,10 +6753,10 @@ static Napi::Value libc_unix_nto_neutrino_clockIdR_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_interruptMask_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoInterruptMask_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_intr = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t arg_1_id = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t intr = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t id = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6779,7 +6779,7 @@ static Napi::Value libc_unix_nto_neutrino_interruptMask_napi(const Napi::Callbac
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_intr, arg_1_id);
+        km_res = km_fn_ptr(intr, id);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -6787,10 +6787,10 @@ static Napi::Value libc_unix_nto_neutrino_interruptMask_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nto_neutrino_interruptUnmask_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNtoNeutrinoInterruptUnmask_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_intr = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t arg_1_id = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t intr = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t id = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6813,7 +6813,7 @@ static Napi::Value libc_unix_nto_neutrino_interruptUnmask_napi(const Napi::Callb
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_intr, arg_1_id);
+        km_res = km_fn_ptr(intr, id);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -6822,199 +6822,199 @@ static Napi::Value libc_unix_nto_neutrino_interruptUnmask_napi(const Napi::Callb
 }
 
 static void register_unix_nto_neutrino_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_unix_nto_neutrino_channelCreate", Napi::Function::New(env, libc_unix_nto_neutrino_channelCreate_napi));
-    exports.Set("libc_unix_nto_neutrino_channelCreateR", Napi::Function::New(env, libc_unix_nto_neutrino_channelCreateR_napi));
-    exports.Set("libc_unix_nto_neutrino_channelCreatePulsePool", Napi::Function::New(env, libc_unix_nto_neutrino_channelCreatePulsePool_napi));
-    exports.Set("libc_unix_nto_neutrino_channelCreateExt", Napi::Function::New(env, libc_unix_nto_neutrino_channelCreateExt_napi));
-    exports.Set("libc_unix_nto_neutrino_channelDestroy", Napi::Function::New(env, libc_unix_nto_neutrino_channelDestroy_napi));
-    exports.Set("libc_unix_nto_neutrino_channelDestroyR", Napi::Function::New(env, libc_unix_nto_neutrino_channelDestroyR_napi));
-    exports.Set("libc_unix_nto_neutrino_connectAttach", Napi::Function::New(env, libc_unix_nto_neutrino_connectAttach_napi));
-    exports.Set("libc_unix_nto_neutrino_connectAttachR", Napi::Function::New(env, libc_unix_nto_neutrino_connectAttachR_napi));
-    exports.Set("libc_unix_nto_neutrino_connectDetach", Napi::Function::New(env, libc_unix_nto_neutrino_connectDetach_napi));
-    exports.Set("libc_unix_nto_neutrino_connectDetachR", Napi::Function::New(env, libc_unix_nto_neutrino_connectDetachR_napi));
-    exports.Set("libc_unix_nto_neutrino_connectServerInfo", Napi::Function::New(env, libc_unix_nto_neutrino_connectServerInfo_napi));
-    exports.Set("libc_unix_nto_neutrino_connectServerInfoR", Napi::Function::New(env, libc_unix_nto_neutrino_connectServerInfoR_napi));
-    exports.Set("libc_unix_nto_neutrino_connectClientInfoExtraArgs", Napi::Function::New(env, libc_unix_nto_neutrino_connectClientInfoExtraArgs_napi));
-    exports.Set("libc_unix_nto_neutrino_connectClientInfoExtraArgsR", Napi::Function::New(env, libc_unix_nto_neutrino_connectClientInfoExtraArgsR_napi));
-    exports.Set("libc_unix_nto_neutrino_connectClientInfo", Napi::Function::New(env, libc_unix_nto_neutrino_connectClientInfo_napi));
-    exports.Set("libc_unix_nto_neutrino_connectClientInfoR", Napi::Function::New(env, libc_unix_nto_neutrino_connectClientInfoR_napi));
-    exports.Set("libc_unix_nto_neutrino_connectClientInfoExt", Napi::Function::New(env, libc_unix_nto_neutrino_connectClientInfoExt_napi));
-    exports.Set("libc_unix_nto_neutrino_clientInfoExtFree", Napi::Function::New(env, libc_unix_nto_neutrino_clientInfoExtFree_napi));
-    exports.Set("libc_unix_nto_neutrino_connectClientInfoAble", Napi::Function::New(env, libc_unix_nto_neutrino_connectClientInfoAble_napi));
-    exports.Set("libc_unix_nto_neutrino_connectFlags", Napi::Function::New(env, libc_unix_nto_neutrino_connectFlags_napi));
-    exports.Set("libc_unix_nto_neutrino_connectFlagsR", Napi::Function::New(env, libc_unix_nto_neutrino_connectFlagsR_napi));
-    exports.Set("libc_unix_nto_neutrino_channelConnectAttr", Napi::Function::New(env, libc_unix_nto_neutrino_channelConnectAttr_napi));
-    exports.Set("libc_unix_nto_neutrino_msgSend", Napi::Function::New(env, libc_unix_nto_neutrino_msgSend_napi));
-    exports.Set("libc_unix_nto_neutrino_msgSendR", Napi::Function::New(env, libc_unix_nto_neutrino_msgSendR_napi));
-    exports.Set("libc_unix_nto_neutrino_msgSendnc", Napi::Function::New(env, libc_unix_nto_neutrino_msgSendnc_napi));
-    exports.Set("libc_unix_nto_neutrino_msgSendncR", Napi::Function::New(env, libc_unix_nto_neutrino_msgSendncR_napi));
-    exports.Set("libc_unix_nto_neutrino_msgSendsv", Napi::Function::New(env, libc_unix_nto_neutrino_msgSendsv_napi));
-    exports.Set("libc_unix_nto_neutrino_msgSendsvR", Napi::Function::New(env, libc_unix_nto_neutrino_msgSendsvR_napi));
-    exports.Set("libc_unix_nto_neutrino_msgSendsvnc", Napi::Function::New(env, libc_unix_nto_neutrino_msgSendsvnc_napi));
-    exports.Set("libc_unix_nto_neutrino_msgSendsvncR", Napi::Function::New(env, libc_unix_nto_neutrino_msgSendsvncR_napi));
-    exports.Set("libc_unix_nto_neutrino_msgSendvs", Napi::Function::New(env, libc_unix_nto_neutrino_msgSendvs_napi));
-    exports.Set("libc_unix_nto_neutrino_msgSendvsR", Napi::Function::New(env, libc_unix_nto_neutrino_msgSendvsR_napi));
-    exports.Set("libc_unix_nto_neutrino_msgSendvsnc", Napi::Function::New(env, libc_unix_nto_neutrino_msgSendvsnc_napi));
-    exports.Set("libc_unix_nto_neutrino_msgSendvsncR", Napi::Function::New(env, libc_unix_nto_neutrino_msgSendvsncR_napi));
-    exports.Set("libc_unix_nto_neutrino_msgSendv", Napi::Function::New(env, libc_unix_nto_neutrino_msgSendv_napi));
-    exports.Set("libc_unix_nto_neutrino_msgSendvR", Napi::Function::New(env, libc_unix_nto_neutrino_msgSendvR_napi));
-    exports.Set("libc_unix_nto_neutrino_msgSendvnc", Napi::Function::New(env, libc_unix_nto_neutrino_msgSendvnc_napi));
-    exports.Set("libc_unix_nto_neutrino_msgSendvncR", Napi::Function::New(env, libc_unix_nto_neutrino_msgSendvncR_napi));
-    exports.Set("libc_unix_nto_neutrino_msgReceive", Napi::Function::New(env, libc_unix_nto_neutrino_msgReceive_napi));
-    exports.Set("libc_unix_nto_neutrino_msgReceiveR", Napi::Function::New(env, libc_unix_nto_neutrino_msgReceiveR_napi));
-    exports.Set("libc_unix_nto_neutrino_msgReceivev", Napi::Function::New(env, libc_unix_nto_neutrino_msgReceivev_napi));
-    exports.Set("libc_unix_nto_neutrino_msgReceivevR", Napi::Function::New(env, libc_unix_nto_neutrino_msgReceivevR_napi));
-    exports.Set("libc_unix_nto_neutrino_msgReceivePulse", Napi::Function::New(env, libc_unix_nto_neutrino_msgReceivePulse_napi));
-    exports.Set("libc_unix_nto_neutrino_msgReceivePulseR", Napi::Function::New(env, libc_unix_nto_neutrino_msgReceivePulseR_napi));
-    exports.Set("libc_unix_nto_neutrino_msgReceivePulsev", Napi::Function::New(env, libc_unix_nto_neutrino_msgReceivePulsev_napi));
-    exports.Set("libc_unix_nto_neutrino_msgReceivePulsevR", Napi::Function::New(env, libc_unix_nto_neutrino_msgReceivePulsevR_napi));
-    exports.Set("libc_unix_nto_neutrino_msgReply", Napi::Function::New(env, libc_unix_nto_neutrino_msgReply_napi));
-    exports.Set("libc_unix_nto_neutrino_msgReplyR", Napi::Function::New(env, libc_unix_nto_neutrino_msgReplyR_napi));
-    exports.Set("libc_unix_nto_neutrino_msgReplyv", Napi::Function::New(env, libc_unix_nto_neutrino_msgReplyv_napi));
-    exports.Set("libc_unix_nto_neutrino_msgReplyvR", Napi::Function::New(env, libc_unix_nto_neutrino_msgReplyvR_napi));
-    exports.Set("libc_unix_nto_neutrino_msgReadiov", Napi::Function::New(env, libc_unix_nto_neutrino_msgReadiov_napi));
-    exports.Set("libc_unix_nto_neutrino_msgReadiovR", Napi::Function::New(env, libc_unix_nto_neutrino_msgReadiovR_napi));
-    exports.Set("libc_unix_nto_neutrino_msgRead", Napi::Function::New(env, libc_unix_nto_neutrino_msgRead_napi));
-    exports.Set("libc_unix_nto_neutrino_msgReadR", Napi::Function::New(env, libc_unix_nto_neutrino_msgReadR_napi));
-    exports.Set("libc_unix_nto_neutrino_msgReadv", Napi::Function::New(env, libc_unix_nto_neutrino_msgReadv_napi));
-    exports.Set("libc_unix_nto_neutrino_msgReadvR", Napi::Function::New(env, libc_unix_nto_neutrino_msgReadvR_napi));
-    exports.Set("libc_unix_nto_neutrino_msgWrite", Napi::Function::New(env, libc_unix_nto_neutrino_msgWrite_napi));
-    exports.Set("libc_unix_nto_neutrino_msgWriteR", Napi::Function::New(env, libc_unix_nto_neutrino_msgWriteR_napi));
-    exports.Set("libc_unix_nto_neutrino_msgWritev", Napi::Function::New(env, libc_unix_nto_neutrino_msgWritev_napi));
-    exports.Set("libc_unix_nto_neutrino_msgWritevR", Napi::Function::New(env, libc_unix_nto_neutrino_msgWritevR_napi));
-    exports.Set("libc_unix_nto_neutrino_msgSendPulse", Napi::Function::New(env, libc_unix_nto_neutrino_msgSendPulse_napi));
-    exports.Set("libc_unix_nto_neutrino_msgSendPulseR", Napi::Function::New(env, libc_unix_nto_neutrino_msgSendPulseR_napi));
-    exports.Set("libc_unix_nto_neutrino_msgSendPulsePtr", Napi::Function::New(env, libc_unix_nto_neutrino_msgSendPulsePtr_napi));
-    exports.Set("libc_unix_nto_neutrino_msgSendPulsePtrR", Napi::Function::New(env, libc_unix_nto_neutrino_msgSendPulsePtrR_napi));
-    exports.Set("libc_unix_nto_neutrino_msgDeliverEvent", Napi::Function::New(env, libc_unix_nto_neutrino_msgDeliverEvent_napi));
-    exports.Set("libc_unix_nto_neutrino_msgDeliverEventR", Napi::Function::New(env, libc_unix_nto_neutrino_msgDeliverEventR_napi));
-    exports.Set("libc_unix_nto_neutrino_msgVerifyEvent", Napi::Function::New(env, libc_unix_nto_neutrino_msgVerifyEvent_napi));
-    exports.Set("libc_unix_nto_neutrino_msgVerifyEventR", Napi::Function::New(env, libc_unix_nto_neutrino_msgVerifyEventR_napi));
-    exports.Set("libc_unix_nto_neutrino_msgRegisterEvent", Napi::Function::New(env, libc_unix_nto_neutrino_msgRegisterEvent_napi));
-    exports.Set("libc_unix_nto_neutrino_msgRegisterEventR", Napi::Function::New(env, libc_unix_nto_neutrino_msgRegisterEventR_napi));
-    exports.Set("libc_unix_nto_neutrino_msgUnregisterEvent", Napi::Function::New(env, libc_unix_nto_neutrino_msgUnregisterEvent_napi));
-    exports.Set("libc_unix_nto_neutrino_msgUnregisterEventR", Napi::Function::New(env, libc_unix_nto_neutrino_msgUnregisterEventR_napi));
-    exports.Set("libc_unix_nto_neutrino_msgInfo", Napi::Function::New(env, libc_unix_nto_neutrino_msgInfo_napi));
-    exports.Set("libc_unix_nto_neutrino_msgInfoR", Napi::Function::New(env, libc_unix_nto_neutrino_msgInfoR_napi));
-    exports.Set("libc_unix_nto_neutrino_msgKeyData", Napi::Function::New(env, libc_unix_nto_neutrino_msgKeyData_napi));
-    exports.Set("libc_unix_nto_neutrino_msgKeyDataR", Napi::Function::New(env, libc_unix_nto_neutrino_msgKeyDataR_napi));
-    exports.Set("libc_unix_nto_neutrino_msgError", Napi::Function::New(env, libc_unix_nto_neutrino_msgError_napi));
-    exports.Set("libc_unix_nto_neutrino_msgErrorR", Napi::Function::New(env, libc_unix_nto_neutrino_msgErrorR_napi));
-    exports.Set("libc_unix_nto_neutrino_msgCurrent", Napi::Function::New(env, libc_unix_nto_neutrino_msgCurrent_napi));
-    exports.Set("libc_unix_nto_neutrino_msgCurrentR", Napi::Function::New(env, libc_unix_nto_neutrino_msgCurrentR_napi));
-    exports.Set("libc_unix_nto_neutrino_msgSendAsyncGbl", Napi::Function::New(env, libc_unix_nto_neutrino_msgSendAsyncGbl_napi));
-    exports.Set("libc_unix_nto_neutrino_msgSendAsync", Napi::Function::New(env, libc_unix_nto_neutrino_msgSendAsync_napi));
-    exports.Set("libc_unix_nto_neutrino_msgReceiveAsyncGbl", Napi::Function::New(env, libc_unix_nto_neutrino_msgReceiveAsyncGbl_napi));
-    exports.Set("libc_unix_nto_neutrino_msgReceiveAsync", Napi::Function::New(env, libc_unix_nto_neutrino_msgReceiveAsync_napi));
-    exports.Set("libc_unix_nto_neutrino_msgPause", Napi::Function::New(env, libc_unix_nto_neutrino_msgPause_napi));
-    exports.Set("libc_unix_nto_neutrino_msgPauseR", Napi::Function::New(env, libc_unix_nto_neutrino_msgPauseR_napi));
-    exports.Set("libc_unix_nto_neutrino_signalKill", Napi::Function::New(env, libc_unix_nto_neutrino_signalKill_napi));
-    exports.Set("libc_unix_nto_neutrino_signalKillR", Napi::Function::New(env, libc_unix_nto_neutrino_signalKillR_napi));
-    exports.Set("libc_unix_nto_neutrino_signalKillSigval", Napi::Function::New(env, libc_unix_nto_neutrino_signalKillSigval_napi));
-    exports.Set("libc_unix_nto_neutrino_signalKillSigvalR", Napi::Function::New(env, libc_unix_nto_neutrino_signalKillSigvalR_napi));
-    exports.Set("libc_unix_nto_neutrino_signalReturn", Napi::Function::New(env, libc_unix_nto_neutrino_signalReturn_napi));
-    exports.Set("libc_unix_nto_neutrino_signalFault", Napi::Function::New(env, libc_unix_nto_neutrino_signalFault_napi));
-    exports.Set("libc_unix_nto_neutrino_signalAction", Napi::Function::New(env, libc_unix_nto_neutrino_signalAction_napi));
-    exports.Set("libc_unix_nto_neutrino_signalActionR", Napi::Function::New(env, libc_unix_nto_neutrino_signalActionR_napi));
-    exports.Set("libc_unix_nto_neutrino_signalProcmask", Napi::Function::New(env, libc_unix_nto_neutrino_signalProcmask_napi));
-    exports.Set("libc_unix_nto_neutrino_signalProcmaskR", Napi::Function::New(env, libc_unix_nto_neutrino_signalProcmaskR_napi));
-    exports.Set("libc_unix_nto_neutrino_signalSuspend", Napi::Function::New(env, libc_unix_nto_neutrino_signalSuspend_napi));
-    exports.Set("libc_unix_nto_neutrino_signalSuspendR", Napi::Function::New(env, libc_unix_nto_neutrino_signalSuspendR_napi));
-    exports.Set("libc_unix_nto_neutrino_signalWaitinfo", Napi::Function::New(env, libc_unix_nto_neutrino_signalWaitinfo_napi));
-    exports.Set("libc_unix_nto_neutrino_signalWaitinfoR", Napi::Function::New(env, libc_unix_nto_neutrino_signalWaitinfoR_napi));
-    exports.Set("libc_unix_nto_neutrino_signalWaitinfoMask", Napi::Function::New(env, libc_unix_nto_neutrino_signalWaitinfoMask_napi));
-    exports.Set("libc_unix_nto_neutrino_signalWaitinfoMaskR", Napi::Function::New(env, libc_unix_nto_neutrino_signalWaitinfoMaskR_napi));
-    exports.Set("libc_unix_nto_neutrino_threadCreate", Napi::Function::New(env, libc_unix_nto_neutrino_threadCreate_napi));
-    exports.Set("libc_unix_nto_neutrino_threadCreateR", Napi::Function::New(env, libc_unix_nto_neutrino_threadCreateR_napi));
-    exports.Set("libc_unix_nto_neutrino_threadDestroy", Napi::Function::New(env, libc_unix_nto_neutrino_threadDestroy_napi));
-    exports.Set("libc_unix_nto_neutrino_threadDestroyR", Napi::Function::New(env, libc_unix_nto_neutrino_threadDestroyR_napi));
-    exports.Set("libc_unix_nto_neutrino_threadDetach", Napi::Function::New(env, libc_unix_nto_neutrino_threadDetach_napi));
-    exports.Set("libc_unix_nto_neutrino_threadDetachR", Napi::Function::New(env, libc_unix_nto_neutrino_threadDetachR_napi));
-    exports.Set("libc_unix_nto_neutrino_threadJoin", Napi::Function::New(env, libc_unix_nto_neutrino_threadJoin_napi));
-    exports.Set("libc_unix_nto_neutrino_threadJoinR", Napi::Function::New(env, libc_unix_nto_neutrino_threadJoinR_napi));
-    exports.Set("libc_unix_nto_neutrino_threadCancel", Napi::Function::New(env, libc_unix_nto_neutrino_threadCancel_napi));
-    exports.Set("libc_unix_nto_neutrino_threadCancelR", Napi::Function::New(env, libc_unix_nto_neutrino_threadCancelR_napi));
-    exports.Set("libc_unix_nto_neutrino_threadCtl", Napi::Function::New(env, libc_unix_nto_neutrino_threadCtl_napi));
-    exports.Set("libc_unix_nto_neutrino_threadCtlR", Napi::Function::New(env, libc_unix_nto_neutrino_threadCtlR_napi));
-    exports.Set("libc_unix_nto_neutrino_threadCtlExt", Napi::Function::New(env, libc_unix_nto_neutrino_threadCtlExt_napi));
-    exports.Set("libc_unix_nto_neutrino_threadCtlExtR", Napi::Function::New(env, libc_unix_nto_neutrino_threadCtlExtR_napi));
-    exports.Set("libc_unix_nto_neutrino_interruptHookTrace", Napi::Function::New(env, libc_unix_nto_neutrino_interruptHookTrace_napi));
-    exports.Set("libc_unix_nto_neutrino_interruptHookIdle", Napi::Function::New(env, libc_unix_nto_neutrino_interruptHookIdle_napi));
-    exports.Set("libc_unix_nto_neutrino_interruptHookIdle2", Napi::Function::New(env, libc_unix_nto_neutrino_interruptHookIdle2_napi));
-    exports.Set("libc_unix_nto_neutrino_interruptHookOverdriveEvent", Napi::Function::New(env, libc_unix_nto_neutrino_interruptHookOverdriveEvent_napi));
-    exports.Set("libc_unix_nto_neutrino_interruptAttachEvent", Napi::Function::New(env, libc_unix_nto_neutrino_interruptAttachEvent_napi));
-    exports.Set("libc_unix_nto_neutrino_interruptAttachEventR", Napi::Function::New(env, libc_unix_nto_neutrino_interruptAttachEventR_napi));
-    exports.Set("libc_unix_nto_neutrino_interruptAttach", Napi::Function::New(env, libc_unix_nto_neutrino_interruptAttach_napi));
-    exports.Set("libc_unix_nto_neutrino_interruptAttachR", Napi::Function::New(env, libc_unix_nto_neutrino_interruptAttachR_napi));
-    exports.Set("libc_unix_nto_neutrino_interruptAttachArray", Napi::Function::New(env, libc_unix_nto_neutrino_interruptAttachArray_napi));
-    exports.Set("libc_unix_nto_neutrino_interruptAttachArrayR", Napi::Function::New(env, libc_unix_nto_neutrino_interruptAttachArrayR_napi));
-    exports.Set("libc_unix_nto_neutrino_interruptDetach", Napi::Function::New(env, libc_unix_nto_neutrino_interruptDetach_napi));
-    exports.Set("libc_unix_nto_neutrino_interruptDetachR", Napi::Function::New(env, libc_unix_nto_neutrino_interruptDetachR_napi));
-    exports.Set("libc_unix_nto_neutrino_interruptWait", Napi::Function::New(env, libc_unix_nto_neutrino_interruptWait_napi));
-    exports.Set("libc_unix_nto_neutrino_interruptWaitR", Napi::Function::New(env, libc_unix_nto_neutrino_interruptWaitR_napi));
-    exports.Set("libc_unix_nto_neutrino_interruptCharacteristic", Napi::Function::New(env, libc_unix_nto_neutrino_interruptCharacteristic_napi));
-    exports.Set("libc_unix_nto_neutrino_interruptCharacteristicR", Napi::Function::New(env, libc_unix_nto_neutrino_interruptCharacteristicR_napi));
-    exports.Set("libc_unix_nto_neutrino_schedGet", Napi::Function::New(env, libc_unix_nto_neutrino_schedGet_napi));
-    exports.Set("libc_unix_nto_neutrino_schedGetR", Napi::Function::New(env, libc_unix_nto_neutrino_schedGetR_napi));
-    exports.Set("libc_unix_nto_neutrino_schedGetCpuNum", Napi::Function::New(env, libc_unix_nto_neutrino_schedGetCpuNum_napi));
-    exports.Set("libc_unix_nto_neutrino_schedSet", Napi::Function::New(env, libc_unix_nto_neutrino_schedSet_napi));
-    exports.Set("libc_unix_nto_neutrino_schedSetR", Napi::Function::New(env, libc_unix_nto_neutrino_schedSetR_napi));
-    exports.Set("libc_unix_nto_neutrino_schedInfo", Napi::Function::New(env, libc_unix_nto_neutrino_schedInfo_napi));
-    exports.Set("libc_unix_nto_neutrino_schedInfoR", Napi::Function::New(env, libc_unix_nto_neutrino_schedInfoR_napi));
-    exports.Set("libc_unix_nto_neutrino_schedYield", Napi::Function::New(env, libc_unix_nto_neutrino_schedYield_napi));
-    exports.Set("libc_unix_nto_neutrino_schedYieldR", Napi::Function::New(env, libc_unix_nto_neutrino_schedYieldR_napi));
-    exports.Set("libc_unix_nto_neutrino_schedCtl", Napi::Function::New(env, libc_unix_nto_neutrino_schedCtl_napi));
-    exports.Set("libc_unix_nto_neutrino_schedCtlR", Napi::Function::New(env, libc_unix_nto_neutrino_schedCtlR_napi));
-    exports.Set("libc_unix_nto_neutrino_schedJobCreate", Napi::Function::New(env, libc_unix_nto_neutrino_schedJobCreate_napi));
-    exports.Set("libc_unix_nto_neutrino_schedJobCreateR", Napi::Function::New(env, libc_unix_nto_neutrino_schedJobCreateR_napi));
-    exports.Set("libc_unix_nto_neutrino_schedJobDestroy", Napi::Function::New(env, libc_unix_nto_neutrino_schedJobDestroy_napi));
-    exports.Set("libc_unix_nto_neutrino_schedJobDestroyR", Napi::Function::New(env, libc_unix_nto_neutrino_schedJobDestroyR_napi));
-    exports.Set("libc_unix_nto_neutrino_schedWaypoint", Napi::Function::New(env, libc_unix_nto_neutrino_schedWaypoint_napi));
-    exports.Set("libc_unix_nto_neutrino_schedWaypointR", Napi::Function::New(env, libc_unix_nto_neutrino_schedWaypointR_napi));
-    exports.Set("libc_unix_nto_neutrino_timerCreate", Napi::Function::New(env, libc_unix_nto_neutrino_timerCreate_napi));
-    exports.Set("libc_unix_nto_neutrino_timerCreateR", Napi::Function::New(env, libc_unix_nto_neutrino_timerCreateR_napi));
-    exports.Set("libc_unix_nto_neutrino_timerDestroy", Napi::Function::New(env, libc_unix_nto_neutrino_timerDestroy_napi));
-    exports.Set("libc_unix_nto_neutrino_timerDestroyR", Napi::Function::New(env, libc_unix_nto_neutrino_timerDestroyR_napi));
-    exports.Set("libc_unix_nto_neutrino_timerSettime", Napi::Function::New(env, libc_unix_nto_neutrino_timerSettime_napi));
-    exports.Set("libc_unix_nto_neutrino_timerSettimeR", Napi::Function::New(env, libc_unix_nto_neutrino_timerSettimeR_napi));
-    exports.Set("libc_unix_nto_neutrino_timerInfo", Napi::Function::New(env, libc_unix_nto_neutrino_timerInfo_napi));
-    exports.Set("libc_unix_nto_neutrino_timerInfoR", Napi::Function::New(env, libc_unix_nto_neutrino_timerInfoR_napi));
-    exports.Set("libc_unix_nto_neutrino_timerAlarm", Napi::Function::New(env, libc_unix_nto_neutrino_timerAlarm_napi));
-    exports.Set("libc_unix_nto_neutrino_timerAlarmR", Napi::Function::New(env, libc_unix_nto_neutrino_timerAlarmR_napi));
-    exports.Set("libc_unix_nto_neutrino_timerTimeout", Napi::Function::New(env, libc_unix_nto_neutrino_timerTimeout_napi));
-    exports.Set("libc_unix_nto_neutrino_timerTimeoutR", Napi::Function::New(env, libc_unix_nto_neutrino_timerTimeoutR_napi));
-    exports.Set("libc_unix_nto_neutrino_syncTypeCreate", Napi::Function::New(env, libc_unix_nto_neutrino_syncTypeCreate_napi));
-    exports.Set("libc_unix_nto_neutrino_syncTypeCreateR", Napi::Function::New(env, libc_unix_nto_neutrino_syncTypeCreateR_napi));
-    exports.Set("libc_unix_nto_neutrino_syncDestroy", Napi::Function::New(env, libc_unix_nto_neutrino_syncDestroy_napi));
-    exports.Set("libc_unix_nto_neutrino_syncDestroyR", Napi::Function::New(env, libc_unix_nto_neutrino_syncDestroyR_napi));
-    exports.Set("libc_unix_nto_neutrino_syncCtl", Napi::Function::New(env, libc_unix_nto_neutrino_syncCtl_napi));
-    exports.Set("libc_unix_nto_neutrino_syncCtlR", Napi::Function::New(env, libc_unix_nto_neutrino_syncCtlR_napi));
-    exports.Set("libc_unix_nto_neutrino_syncMutexEvent", Napi::Function::New(env, libc_unix_nto_neutrino_syncMutexEvent_napi));
-    exports.Set("libc_unix_nto_neutrino_syncMutexEventR", Napi::Function::New(env, libc_unix_nto_neutrino_syncMutexEventR_napi));
-    exports.Set("libc_unix_nto_neutrino_syncMutexLock", Napi::Function::New(env, libc_unix_nto_neutrino_syncMutexLock_napi));
-    exports.Set("libc_unix_nto_neutrino_syncMutexLockR", Napi::Function::New(env, libc_unix_nto_neutrino_syncMutexLockR_napi));
-    exports.Set("libc_unix_nto_neutrino_syncMutexUnlock", Napi::Function::New(env, libc_unix_nto_neutrino_syncMutexUnlock_napi));
-    exports.Set("libc_unix_nto_neutrino_syncMutexUnlockR", Napi::Function::New(env, libc_unix_nto_neutrino_syncMutexUnlockR_napi));
-    exports.Set("libc_unix_nto_neutrino_syncMutexRevive", Napi::Function::New(env, libc_unix_nto_neutrino_syncMutexRevive_napi));
-    exports.Set("libc_unix_nto_neutrino_syncMutexReviveR", Napi::Function::New(env, libc_unix_nto_neutrino_syncMutexReviveR_napi));
-    exports.Set("libc_unix_nto_neutrino_syncCondvarWait", Napi::Function::New(env, libc_unix_nto_neutrino_syncCondvarWait_napi));
-    exports.Set("libc_unix_nto_neutrino_syncCondvarWaitR", Napi::Function::New(env, libc_unix_nto_neutrino_syncCondvarWaitR_napi));
-    exports.Set("libc_unix_nto_neutrino_syncCondvarSignal", Napi::Function::New(env, libc_unix_nto_neutrino_syncCondvarSignal_napi));
-    exports.Set("libc_unix_nto_neutrino_syncCondvarSignalR", Napi::Function::New(env, libc_unix_nto_neutrino_syncCondvarSignalR_napi));
-    exports.Set("libc_unix_nto_neutrino_syncSemPost", Napi::Function::New(env, libc_unix_nto_neutrino_syncSemPost_napi));
-    exports.Set("libc_unix_nto_neutrino_syncSemPostR", Napi::Function::New(env, libc_unix_nto_neutrino_syncSemPostR_napi));
-    exports.Set("libc_unix_nto_neutrino_syncSemWait", Napi::Function::New(env, libc_unix_nto_neutrino_syncSemWait_napi));
-    exports.Set("libc_unix_nto_neutrino_syncSemWaitR", Napi::Function::New(env, libc_unix_nto_neutrino_syncSemWaitR_napi));
-    exports.Set("libc_unix_nto_neutrino_clockTime", Napi::Function::New(env, libc_unix_nto_neutrino_clockTime_napi));
-    exports.Set("libc_unix_nto_neutrino_clockTimeR", Napi::Function::New(env, libc_unix_nto_neutrino_clockTimeR_napi));
-    exports.Set("libc_unix_nto_neutrino_clockAdjust", Napi::Function::New(env, libc_unix_nto_neutrino_clockAdjust_napi));
-    exports.Set("libc_unix_nto_neutrino_clockAdjustR", Napi::Function::New(env, libc_unix_nto_neutrino_clockAdjustR_napi));
-    exports.Set("libc_unix_nto_neutrino_clockPeriod", Napi::Function::New(env, libc_unix_nto_neutrino_clockPeriod_napi));
-    exports.Set("libc_unix_nto_neutrino_clockPeriodR", Napi::Function::New(env, libc_unix_nto_neutrino_clockPeriodR_napi));
-    exports.Set("libc_unix_nto_neutrino_clockId", Napi::Function::New(env, libc_unix_nto_neutrino_clockId_napi));
-    exports.Set("libc_unix_nto_neutrino_clockIdR", Napi::Function::New(env, libc_unix_nto_neutrino_clockIdR_napi));
-    exports.Set("libc_unix_nto_neutrino_interruptMask", Napi::Function::New(env, libc_unix_nto_neutrino_interruptMask_napi));
-    exports.Set("libc_unix_nto_neutrino_interruptUnmask", Napi::Function::New(env, libc_unix_nto_neutrino_interruptUnmask_napi));
+    exports.Set("libcUnixNtoNeutrinoChannelCreate", Napi::Function::New(env, libcUnixNtoNeutrinoChannelCreate_napi));
+    exports.Set("libcUnixNtoNeutrinoChannelCreateR", Napi::Function::New(env, libcUnixNtoNeutrinoChannelCreateR_napi));
+    exports.Set("libcUnixNtoNeutrinoChannelCreatePulsePool", Napi::Function::New(env, libcUnixNtoNeutrinoChannelCreatePulsePool_napi));
+    exports.Set("libcUnixNtoNeutrinoChannelCreateExt", Napi::Function::New(env, libcUnixNtoNeutrinoChannelCreateExt_napi));
+    exports.Set("libcUnixNtoNeutrinoChannelDestroy", Napi::Function::New(env, libcUnixNtoNeutrinoChannelDestroy_napi));
+    exports.Set("libcUnixNtoNeutrinoChannelDestroyR", Napi::Function::New(env, libcUnixNtoNeutrinoChannelDestroyR_napi));
+    exports.Set("libcUnixNtoNeutrinoConnectAttach", Napi::Function::New(env, libcUnixNtoNeutrinoConnectAttach_napi));
+    exports.Set("libcUnixNtoNeutrinoConnectAttachR", Napi::Function::New(env, libcUnixNtoNeutrinoConnectAttachR_napi));
+    exports.Set("libcUnixNtoNeutrinoConnectDetach", Napi::Function::New(env, libcUnixNtoNeutrinoConnectDetach_napi));
+    exports.Set("libcUnixNtoNeutrinoConnectDetachR", Napi::Function::New(env, libcUnixNtoNeutrinoConnectDetachR_napi));
+    exports.Set("libcUnixNtoNeutrinoConnectServerInfo", Napi::Function::New(env, libcUnixNtoNeutrinoConnectServerInfo_napi));
+    exports.Set("libcUnixNtoNeutrinoConnectServerInfoR", Napi::Function::New(env, libcUnixNtoNeutrinoConnectServerInfoR_napi));
+    exports.Set("libcUnixNtoNeutrinoConnectClientInfoExtraArgs", Napi::Function::New(env, libcUnixNtoNeutrinoConnectClientInfoExtraArgs_napi));
+    exports.Set("libcUnixNtoNeutrinoConnectClientInfoExtraArgsR", Napi::Function::New(env, libcUnixNtoNeutrinoConnectClientInfoExtraArgsR_napi));
+    exports.Set("libcUnixNtoNeutrinoConnectClientInfo", Napi::Function::New(env, libcUnixNtoNeutrinoConnectClientInfo_napi));
+    exports.Set("libcUnixNtoNeutrinoConnectClientInfoR", Napi::Function::New(env, libcUnixNtoNeutrinoConnectClientInfoR_napi));
+    exports.Set("libcUnixNtoNeutrinoConnectClientInfoExt", Napi::Function::New(env, libcUnixNtoNeutrinoConnectClientInfoExt_napi));
+    exports.Set("libcUnixNtoNeutrinoClientInfoExtFree", Napi::Function::New(env, libcUnixNtoNeutrinoClientInfoExtFree_napi));
+    exports.Set("libcUnixNtoNeutrinoConnectClientInfoAble", Napi::Function::New(env, libcUnixNtoNeutrinoConnectClientInfoAble_napi));
+    exports.Set("libcUnixNtoNeutrinoConnectFlags", Napi::Function::New(env, libcUnixNtoNeutrinoConnectFlags_napi));
+    exports.Set("libcUnixNtoNeutrinoConnectFlagsR", Napi::Function::New(env, libcUnixNtoNeutrinoConnectFlagsR_napi));
+    exports.Set("libcUnixNtoNeutrinoChannelConnectAttr", Napi::Function::New(env, libcUnixNtoNeutrinoChannelConnectAttr_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgSend", Napi::Function::New(env, libcUnixNtoNeutrinoMsgSend_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgSendR", Napi::Function::New(env, libcUnixNtoNeutrinoMsgSendR_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgSendnc", Napi::Function::New(env, libcUnixNtoNeutrinoMsgSendnc_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgSendncR", Napi::Function::New(env, libcUnixNtoNeutrinoMsgSendncR_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgSendsv", Napi::Function::New(env, libcUnixNtoNeutrinoMsgSendsv_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgSendsvR", Napi::Function::New(env, libcUnixNtoNeutrinoMsgSendsvR_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgSendsvnc", Napi::Function::New(env, libcUnixNtoNeutrinoMsgSendsvnc_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgSendsvncR", Napi::Function::New(env, libcUnixNtoNeutrinoMsgSendsvncR_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgSendvs", Napi::Function::New(env, libcUnixNtoNeutrinoMsgSendvs_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgSendvsR", Napi::Function::New(env, libcUnixNtoNeutrinoMsgSendvsR_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgSendvsnc", Napi::Function::New(env, libcUnixNtoNeutrinoMsgSendvsnc_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgSendvsncR", Napi::Function::New(env, libcUnixNtoNeutrinoMsgSendvsncR_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgSendv", Napi::Function::New(env, libcUnixNtoNeutrinoMsgSendv_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgSendvR", Napi::Function::New(env, libcUnixNtoNeutrinoMsgSendvR_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgSendvnc", Napi::Function::New(env, libcUnixNtoNeutrinoMsgSendvnc_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgSendvncR", Napi::Function::New(env, libcUnixNtoNeutrinoMsgSendvncR_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgReceive", Napi::Function::New(env, libcUnixNtoNeutrinoMsgReceive_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgReceiveR", Napi::Function::New(env, libcUnixNtoNeutrinoMsgReceiveR_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgReceivev", Napi::Function::New(env, libcUnixNtoNeutrinoMsgReceivev_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgReceivevR", Napi::Function::New(env, libcUnixNtoNeutrinoMsgReceivevR_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgReceivePulse", Napi::Function::New(env, libcUnixNtoNeutrinoMsgReceivePulse_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgReceivePulseR", Napi::Function::New(env, libcUnixNtoNeutrinoMsgReceivePulseR_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgReceivePulsev", Napi::Function::New(env, libcUnixNtoNeutrinoMsgReceivePulsev_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgReceivePulsevR", Napi::Function::New(env, libcUnixNtoNeutrinoMsgReceivePulsevR_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgReply", Napi::Function::New(env, libcUnixNtoNeutrinoMsgReply_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgReplyR", Napi::Function::New(env, libcUnixNtoNeutrinoMsgReplyR_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgReplyv", Napi::Function::New(env, libcUnixNtoNeutrinoMsgReplyv_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgReplyvR", Napi::Function::New(env, libcUnixNtoNeutrinoMsgReplyvR_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgReadiov", Napi::Function::New(env, libcUnixNtoNeutrinoMsgReadiov_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgReadiovR", Napi::Function::New(env, libcUnixNtoNeutrinoMsgReadiovR_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgRead", Napi::Function::New(env, libcUnixNtoNeutrinoMsgRead_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgReadR", Napi::Function::New(env, libcUnixNtoNeutrinoMsgReadR_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgReadv", Napi::Function::New(env, libcUnixNtoNeutrinoMsgReadv_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgReadvR", Napi::Function::New(env, libcUnixNtoNeutrinoMsgReadvR_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgWrite", Napi::Function::New(env, libcUnixNtoNeutrinoMsgWrite_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgWriteR", Napi::Function::New(env, libcUnixNtoNeutrinoMsgWriteR_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgWritev", Napi::Function::New(env, libcUnixNtoNeutrinoMsgWritev_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgWritevR", Napi::Function::New(env, libcUnixNtoNeutrinoMsgWritevR_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgSendPulse", Napi::Function::New(env, libcUnixNtoNeutrinoMsgSendPulse_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgSendPulseR", Napi::Function::New(env, libcUnixNtoNeutrinoMsgSendPulseR_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgSendPulsePtr", Napi::Function::New(env, libcUnixNtoNeutrinoMsgSendPulsePtr_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgSendPulsePtrR", Napi::Function::New(env, libcUnixNtoNeutrinoMsgSendPulsePtrR_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgDeliverEvent", Napi::Function::New(env, libcUnixNtoNeutrinoMsgDeliverEvent_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgDeliverEventR", Napi::Function::New(env, libcUnixNtoNeutrinoMsgDeliverEventR_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgVerifyEvent", Napi::Function::New(env, libcUnixNtoNeutrinoMsgVerifyEvent_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgVerifyEventR", Napi::Function::New(env, libcUnixNtoNeutrinoMsgVerifyEventR_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgRegisterEvent", Napi::Function::New(env, libcUnixNtoNeutrinoMsgRegisterEvent_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgRegisterEventR", Napi::Function::New(env, libcUnixNtoNeutrinoMsgRegisterEventR_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgUnregisterEvent", Napi::Function::New(env, libcUnixNtoNeutrinoMsgUnregisterEvent_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgUnregisterEventR", Napi::Function::New(env, libcUnixNtoNeutrinoMsgUnregisterEventR_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgInfo", Napi::Function::New(env, libcUnixNtoNeutrinoMsgInfo_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgInfoR", Napi::Function::New(env, libcUnixNtoNeutrinoMsgInfoR_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgKeyData", Napi::Function::New(env, libcUnixNtoNeutrinoMsgKeyData_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgKeyDataR", Napi::Function::New(env, libcUnixNtoNeutrinoMsgKeyDataR_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgError", Napi::Function::New(env, libcUnixNtoNeutrinoMsgError_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgErrorR", Napi::Function::New(env, libcUnixNtoNeutrinoMsgErrorR_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgCurrent", Napi::Function::New(env, libcUnixNtoNeutrinoMsgCurrent_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgCurrentR", Napi::Function::New(env, libcUnixNtoNeutrinoMsgCurrentR_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgSendAsyncGbl", Napi::Function::New(env, libcUnixNtoNeutrinoMsgSendAsyncGbl_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgSendAsync", Napi::Function::New(env, libcUnixNtoNeutrinoMsgSendAsync_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgReceiveAsyncGbl", Napi::Function::New(env, libcUnixNtoNeutrinoMsgReceiveAsyncGbl_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgReceiveAsync", Napi::Function::New(env, libcUnixNtoNeutrinoMsgReceiveAsync_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgPause", Napi::Function::New(env, libcUnixNtoNeutrinoMsgPause_napi));
+    exports.Set("libcUnixNtoNeutrinoMsgPauseR", Napi::Function::New(env, libcUnixNtoNeutrinoMsgPauseR_napi));
+    exports.Set("libcUnixNtoNeutrinoSignalKill", Napi::Function::New(env, libcUnixNtoNeutrinoSignalKill_napi));
+    exports.Set("libcUnixNtoNeutrinoSignalKillR", Napi::Function::New(env, libcUnixNtoNeutrinoSignalKillR_napi));
+    exports.Set("libcUnixNtoNeutrinoSignalKillSigval", Napi::Function::New(env, libcUnixNtoNeutrinoSignalKillSigval_napi));
+    exports.Set("libcUnixNtoNeutrinoSignalKillSigvalR", Napi::Function::New(env, libcUnixNtoNeutrinoSignalKillSigvalR_napi));
+    exports.Set("libcUnixNtoNeutrinoSignalReturn", Napi::Function::New(env, libcUnixNtoNeutrinoSignalReturn_napi));
+    exports.Set("libcUnixNtoNeutrinoSignalFault", Napi::Function::New(env, libcUnixNtoNeutrinoSignalFault_napi));
+    exports.Set("libcUnixNtoNeutrinoSignalAction", Napi::Function::New(env, libcUnixNtoNeutrinoSignalAction_napi));
+    exports.Set("libcUnixNtoNeutrinoSignalActionR", Napi::Function::New(env, libcUnixNtoNeutrinoSignalActionR_napi));
+    exports.Set("libcUnixNtoNeutrinoSignalProcmask", Napi::Function::New(env, libcUnixNtoNeutrinoSignalProcmask_napi));
+    exports.Set("libcUnixNtoNeutrinoSignalProcmaskR", Napi::Function::New(env, libcUnixNtoNeutrinoSignalProcmaskR_napi));
+    exports.Set("libcUnixNtoNeutrinoSignalSuspend", Napi::Function::New(env, libcUnixNtoNeutrinoSignalSuspend_napi));
+    exports.Set("libcUnixNtoNeutrinoSignalSuspendR", Napi::Function::New(env, libcUnixNtoNeutrinoSignalSuspendR_napi));
+    exports.Set("libcUnixNtoNeutrinoSignalWaitinfo", Napi::Function::New(env, libcUnixNtoNeutrinoSignalWaitinfo_napi));
+    exports.Set("libcUnixNtoNeutrinoSignalWaitinfoR", Napi::Function::New(env, libcUnixNtoNeutrinoSignalWaitinfoR_napi));
+    exports.Set("libcUnixNtoNeutrinoSignalWaitinfoMask", Napi::Function::New(env, libcUnixNtoNeutrinoSignalWaitinfoMask_napi));
+    exports.Set("libcUnixNtoNeutrinoSignalWaitinfoMaskR", Napi::Function::New(env, libcUnixNtoNeutrinoSignalWaitinfoMaskR_napi));
+    exports.Set("libcUnixNtoNeutrinoThreadCreate", Napi::Function::New(env, libcUnixNtoNeutrinoThreadCreate_napi));
+    exports.Set("libcUnixNtoNeutrinoThreadCreateR", Napi::Function::New(env, libcUnixNtoNeutrinoThreadCreateR_napi));
+    exports.Set("libcUnixNtoNeutrinoThreadDestroy", Napi::Function::New(env, libcUnixNtoNeutrinoThreadDestroy_napi));
+    exports.Set("libcUnixNtoNeutrinoThreadDestroyR", Napi::Function::New(env, libcUnixNtoNeutrinoThreadDestroyR_napi));
+    exports.Set("libcUnixNtoNeutrinoThreadDetach", Napi::Function::New(env, libcUnixNtoNeutrinoThreadDetach_napi));
+    exports.Set("libcUnixNtoNeutrinoThreadDetachR", Napi::Function::New(env, libcUnixNtoNeutrinoThreadDetachR_napi));
+    exports.Set("libcUnixNtoNeutrinoThreadJoin", Napi::Function::New(env, libcUnixNtoNeutrinoThreadJoin_napi));
+    exports.Set("libcUnixNtoNeutrinoThreadJoinR", Napi::Function::New(env, libcUnixNtoNeutrinoThreadJoinR_napi));
+    exports.Set("libcUnixNtoNeutrinoThreadCancel", Napi::Function::New(env, libcUnixNtoNeutrinoThreadCancel_napi));
+    exports.Set("libcUnixNtoNeutrinoThreadCancelR", Napi::Function::New(env, libcUnixNtoNeutrinoThreadCancelR_napi));
+    exports.Set("libcUnixNtoNeutrinoThreadCtl", Napi::Function::New(env, libcUnixNtoNeutrinoThreadCtl_napi));
+    exports.Set("libcUnixNtoNeutrinoThreadCtlR", Napi::Function::New(env, libcUnixNtoNeutrinoThreadCtlR_napi));
+    exports.Set("libcUnixNtoNeutrinoThreadCtlExt", Napi::Function::New(env, libcUnixNtoNeutrinoThreadCtlExt_napi));
+    exports.Set("libcUnixNtoNeutrinoThreadCtlExtR", Napi::Function::New(env, libcUnixNtoNeutrinoThreadCtlExtR_napi));
+    exports.Set("libcUnixNtoNeutrinoInterruptHookTrace", Napi::Function::New(env, libcUnixNtoNeutrinoInterruptHookTrace_napi));
+    exports.Set("libcUnixNtoNeutrinoInterruptHookIdle", Napi::Function::New(env, libcUnixNtoNeutrinoInterruptHookIdle_napi));
+    exports.Set("libcUnixNtoNeutrinoInterruptHookIdle2", Napi::Function::New(env, libcUnixNtoNeutrinoInterruptHookIdle2_napi));
+    exports.Set("libcUnixNtoNeutrinoInterruptHookOverdriveEvent", Napi::Function::New(env, libcUnixNtoNeutrinoInterruptHookOverdriveEvent_napi));
+    exports.Set("libcUnixNtoNeutrinoInterruptAttachEvent", Napi::Function::New(env, libcUnixNtoNeutrinoInterruptAttachEvent_napi));
+    exports.Set("libcUnixNtoNeutrinoInterruptAttachEventR", Napi::Function::New(env, libcUnixNtoNeutrinoInterruptAttachEventR_napi));
+    exports.Set("libcUnixNtoNeutrinoInterruptAttach", Napi::Function::New(env, libcUnixNtoNeutrinoInterruptAttach_napi));
+    exports.Set("libcUnixNtoNeutrinoInterruptAttachR", Napi::Function::New(env, libcUnixNtoNeutrinoInterruptAttachR_napi));
+    exports.Set("libcUnixNtoNeutrinoInterruptAttachArray", Napi::Function::New(env, libcUnixNtoNeutrinoInterruptAttachArray_napi));
+    exports.Set("libcUnixNtoNeutrinoInterruptAttachArrayR", Napi::Function::New(env, libcUnixNtoNeutrinoInterruptAttachArrayR_napi));
+    exports.Set("libcUnixNtoNeutrinoInterruptDetach", Napi::Function::New(env, libcUnixNtoNeutrinoInterruptDetach_napi));
+    exports.Set("libcUnixNtoNeutrinoInterruptDetachR", Napi::Function::New(env, libcUnixNtoNeutrinoInterruptDetachR_napi));
+    exports.Set("libcUnixNtoNeutrinoInterruptWait", Napi::Function::New(env, libcUnixNtoNeutrinoInterruptWait_napi));
+    exports.Set("libcUnixNtoNeutrinoInterruptWaitR", Napi::Function::New(env, libcUnixNtoNeutrinoInterruptWaitR_napi));
+    exports.Set("libcUnixNtoNeutrinoInterruptCharacteristic", Napi::Function::New(env, libcUnixNtoNeutrinoInterruptCharacteristic_napi));
+    exports.Set("libcUnixNtoNeutrinoInterruptCharacteristicR", Napi::Function::New(env, libcUnixNtoNeutrinoInterruptCharacteristicR_napi));
+    exports.Set("libcUnixNtoNeutrinoSchedGet", Napi::Function::New(env, libcUnixNtoNeutrinoSchedGet_napi));
+    exports.Set("libcUnixNtoNeutrinoSchedGetR", Napi::Function::New(env, libcUnixNtoNeutrinoSchedGetR_napi));
+    exports.Set("libcUnixNtoNeutrinoSchedGetCpuNum", Napi::Function::New(env, libcUnixNtoNeutrinoSchedGetCpuNum_napi));
+    exports.Set("libcUnixNtoNeutrinoSchedSet", Napi::Function::New(env, libcUnixNtoNeutrinoSchedSet_napi));
+    exports.Set("libcUnixNtoNeutrinoSchedSetR", Napi::Function::New(env, libcUnixNtoNeutrinoSchedSetR_napi));
+    exports.Set("libcUnixNtoNeutrinoSchedInfo", Napi::Function::New(env, libcUnixNtoNeutrinoSchedInfo_napi));
+    exports.Set("libcUnixNtoNeutrinoSchedInfoR", Napi::Function::New(env, libcUnixNtoNeutrinoSchedInfoR_napi));
+    exports.Set("libcUnixNtoNeutrinoSchedYield", Napi::Function::New(env, libcUnixNtoNeutrinoSchedYield_napi));
+    exports.Set("libcUnixNtoNeutrinoSchedYieldR", Napi::Function::New(env, libcUnixNtoNeutrinoSchedYieldR_napi));
+    exports.Set("libcUnixNtoNeutrinoSchedCtl", Napi::Function::New(env, libcUnixNtoNeutrinoSchedCtl_napi));
+    exports.Set("libcUnixNtoNeutrinoSchedCtlR", Napi::Function::New(env, libcUnixNtoNeutrinoSchedCtlR_napi));
+    exports.Set("libcUnixNtoNeutrinoSchedJobCreate", Napi::Function::New(env, libcUnixNtoNeutrinoSchedJobCreate_napi));
+    exports.Set("libcUnixNtoNeutrinoSchedJobCreateR", Napi::Function::New(env, libcUnixNtoNeutrinoSchedJobCreateR_napi));
+    exports.Set("libcUnixNtoNeutrinoSchedJobDestroy", Napi::Function::New(env, libcUnixNtoNeutrinoSchedJobDestroy_napi));
+    exports.Set("libcUnixNtoNeutrinoSchedJobDestroyR", Napi::Function::New(env, libcUnixNtoNeutrinoSchedJobDestroyR_napi));
+    exports.Set("libcUnixNtoNeutrinoSchedWaypoint", Napi::Function::New(env, libcUnixNtoNeutrinoSchedWaypoint_napi));
+    exports.Set("libcUnixNtoNeutrinoSchedWaypointR", Napi::Function::New(env, libcUnixNtoNeutrinoSchedWaypointR_napi));
+    exports.Set("libcUnixNtoNeutrinoTimerCreate", Napi::Function::New(env, libcUnixNtoNeutrinoTimerCreate_napi));
+    exports.Set("libcUnixNtoNeutrinoTimerCreateR", Napi::Function::New(env, libcUnixNtoNeutrinoTimerCreateR_napi));
+    exports.Set("libcUnixNtoNeutrinoTimerDestroy", Napi::Function::New(env, libcUnixNtoNeutrinoTimerDestroy_napi));
+    exports.Set("libcUnixNtoNeutrinoTimerDestroyR", Napi::Function::New(env, libcUnixNtoNeutrinoTimerDestroyR_napi));
+    exports.Set("libcUnixNtoNeutrinoTimerSettime", Napi::Function::New(env, libcUnixNtoNeutrinoTimerSettime_napi));
+    exports.Set("libcUnixNtoNeutrinoTimerSettimeR", Napi::Function::New(env, libcUnixNtoNeutrinoTimerSettimeR_napi));
+    exports.Set("libcUnixNtoNeutrinoTimerInfo", Napi::Function::New(env, libcUnixNtoNeutrinoTimerInfo_napi));
+    exports.Set("libcUnixNtoNeutrinoTimerInfoR", Napi::Function::New(env, libcUnixNtoNeutrinoTimerInfoR_napi));
+    exports.Set("libcUnixNtoNeutrinoTimerAlarm", Napi::Function::New(env, libcUnixNtoNeutrinoTimerAlarm_napi));
+    exports.Set("libcUnixNtoNeutrinoTimerAlarmR", Napi::Function::New(env, libcUnixNtoNeutrinoTimerAlarmR_napi));
+    exports.Set("libcUnixNtoNeutrinoTimerTimeout", Napi::Function::New(env, libcUnixNtoNeutrinoTimerTimeout_napi));
+    exports.Set("libcUnixNtoNeutrinoTimerTimeoutR", Napi::Function::New(env, libcUnixNtoNeutrinoTimerTimeoutR_napi));
+    exports.Set("libcUnixNtoNeutrinoSyncTypeCreate", Napi::Function::New(env, libcUnixNtoNeutrinoSyncTypeCreate_napi));
+    exports.Set("libcUnixNtoNeutrinoSyncTypeCreateR", Napi::Function::New(env, libcUnixNtoNeutrinoSyncTypeCreateR_napi));
+    exports.Set("libcUnixNtoNeutrinoSyncDestroy", Napi::Function::New(env, libcUnixNtoNeutrinoSyncDestroy_napi));
+    exports.Set("libcUnixNtoNeutrinoSyncDestroyR", Napi::Function::New(env, libcUnixNtoNeutrinoSyncDestroyR_napi));
+    exports.Set("libcUnixNtoNeutrinoSyncCtl", Napi::Function::New(env, libcUnixNtoNeutrinoSyncCtl_napi));
+    exports.Set("libcUnixNtoNeutrinoSyncCtlR", Napi::Function::New(env, libcUnixNtoNeutrinoSyncCtlR_napi));
+    exports.Set("libcUnixNtoNeutrinoSyncMutexEvent", Napi::Function::New(env, libcUnixNtoNeutrinoSyncMutexEvent_napi));
+    exports.Set("libcUnixNtoNeutrinoSyncMutexEventR", Napi::Function::New(env, libcUnixNtoNeutrinoSyncMutexEventR_napi));
+    exports.Set("libcUnixNtoNeutrinoSyncMutexLock", Napi::Function::New(env, libcUnixNtoNeutrinoSyncMutexLock_napi));
+    exports.Set("libcUnixNtoNeutrinoSyncMutexLockR", Napi::Function::New(env, libcUnixNtoNeutrinoSyncMutexLockR_napi));
+    exports.Set("libcUnixNtoNeutrinoSyncMutexUnlock", Napi::Function::New(env, libcUnixNtoNeutrinoSyncMutexUnlock_napi));
+    exports.Set("libcUnixNtoNeutrinoSyncMutexUnlockR", Napi::Function::New(env, libcUnixNtoNeutrinoSyncMutexUnlockR_napi));
+    exports.Set("libcUnixNtoNeutrinoSyncMutexRevive", Napi::Function::New(env, libcUnixNtoNeutrinoSyncMutexRevive_napi));
+    exports.Set("libcUnixNtoNeutrinoSyncMutexReviveR", Napi::Function::New(env, libcUnixNtoNeutrinoSyncMutexReviveR_napi));
+    exports.Set("libcUnixNtoNeutrinoSyncCondvarWait", Napi::Function::New(env, libcUnixNtoNeutrinoSyncCondvarWait_napi));
+    exports.Set("libcUnixNtoNeutrinoSyncCondvarWaitR", Napi::Function::New(env, libcUnixNtoNeutrinoSyncCondvarWaitR_napi));
+    exports.Set("libcUnixNtoNeutrinoSyncCondvarSignal", Napi::Function::New(env, libcUnixNtoNeutrinoSyncCondvarSignal_napi));
+    exports.Set("libcUnixNtoNeutrinoSyncCondvarSignalR", Napi::Function::New(env, libcUnixNtoNeutrinoSyncCondvarSignalR_napi));
+    exports.Set("libcUnixNtoNeutrinoSyncSemPost", Napi::Function::New(env, libcUnixNtoNeutrinoSyncSemPost_napi));
+    exports.Set("libcUnixNtoNeutrinoSyncSemPostR", Napi::Function::New(env, libcUnixNtoNeutrinoSyncSemPostR_napi));
+    exports.Set("libcUnixNtoNeutrinoSyncSemWait", Napi::Function::New(env, libcUnixNtoNeutrinoSyncSemWait_napi));
+    exports.Set("libcUnixNtoNeutrinoSyncSemWaitR", Napi::Function::New(env, libcUnixNtoNeutrinoSyncSemWaitR_napi));
+    exports.Set("libcUnixNtoNeutrinoClockTime", Napi::Function::New(env, libcUnixNtoNeutrinoClockTime_napi));
+    exports.Set("libcUnixNtoNeutrinoClockTimeR", Napi::Function::New(env, libcUnixNtoNeutrinoClockTimeR_napi));
+    exports.Set("libcUnixNtoNeutrinoClockAdjust", Napi::Function::New(env, libcUnixNtoNeutrinoClockAdjust_napi));
+    exports.Set("libcUnixNtoNeutrinoClockAdjustR", Napi::Function::New(env, libcUnixNtoNeutrinoClockAdjustR_napi));
+    exports.Set("libcUnixNtoNeutrinoClockPeriod", Napi::Function::New(env, libcUnixNtoNeutrinoClockPeriod_napi));
+    exports.Set("libcUnixNtoNeutrinoClockPeriodR", Napi::Function::New(env, libcUnixNtoNeutrinoClockPeriodR_napi));
+    exports.Set("libcUnixNtoNeutrinoClockId", Napi::Function::New(env, libcUnixNtoNeutrinoClockId_napi));
+    exports.Set("libcUnixNtoNeutrinoClockIdR", Napi::Function::New(env, libcUnixNtoNeutrinoClockIdR_napi));
+    exports.Set("libcUnixNtoNeutrinoInterruptMask", Napi::Function::New(env, libcUnixNtoNeutrinoInterruptMask_napi));
+    exports.Set("libcUnixNtoNeutrinoInterruptUnmask", Napi::Function::New(env, libcUnixNtoNeutrinoInterruptUnmask_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_unix_nto_neutrino_napi, nullptr };

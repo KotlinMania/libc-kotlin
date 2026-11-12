@@ -19,7 +19,7 @@
 #endif
 #endif
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_aix_powerpc64_UnixAixPowerpc64JniBridge_libc_1unix_1aix_1powerpc64_1getsystemcfg(JNIEnv* km_env, jclass km_clazz, jint label) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_aix_powerpc64_UnixAixPowerpc64JniBridge_libcUnixAixPowerpc64Getsystemcfg(JNIEnv* km_env, jclass km_clazz, jint label) {
     (void)km_env;
     (void)km_clazz;
     typedef uint64_t (*km_fn_t)(int32_t);

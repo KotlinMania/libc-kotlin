@@ -3,9 +3,9 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.uclibc.x8664
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUshort
@@ -29,6 +29,10 @@ import io.github.kotlinmania.libc.unix.linuxlike.linux.SocklenT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.uclibc.MsglenT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.uclibc.MsgqnumT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.uclibc.ShmattT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+import io.github.kotlinmania.rustlang.core.mem.TypeLayout
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public fun interface SigactionSaRestorerCallback {
     public operator fun invoke()
@@ -49,22 +53,160 @@ public data class IpcPerm(
     public var unused2: CUlong = 0uL,
 )
 
-public data class PthreadAttrT(
-    public var detachstate: CInt = 0,
-    public var schedpolicy: CInt = 0,
-    public var schedparam: SchedParam = SchedParam(),
-    public var inheritsched: CInt = 0,
-    public var scope: CInt = 0,
-    public var guardsize: SizeT = 0uL,
-    public var stackaddrSet: CInt = 0,
-    public var stackaddr: COpaquePointer? = null,
+public class PthreadAttrT internal constructor(
+    public var detachstate: CInt,
+    public var schedpolicy: CInt,
+    public var schedparam: SchedParam,
+    public var inheritsched: CInt,
+    public var scope: CInt,
+    public var guardsize: SizeT,
+    public var stackaddrSet: CInt,
+    stackaddrCtorArg: MutPtr<CVoid>,
     // better don't use it
-    public var stacksize: SizeT = 0uL,
-)
+    public var stacksize: SizeT,
+) {
+    public var stackaddr: MutPtr<CVoid> = stackaddrCtorArg
+        internal set
+
+    public constructor() : this(
+        detachstate = 0,
+        schedpolicy = 0,
+        schedparam = SchedParam(),
+        inheritsched = 0,
+        scope = 0,
+        guardsize = 0uL,
+        stackaddrSet = 0,
+        stackaddrCtorArg = MutPtr(0L),
+        stacksize = 0uL,
+    )
+
+    public operator fun component1(): CInt = this.detachstate
+
+    public operator fun component2(): CInt = this.schedpolicy
+
+    public operator fun component3(): SchedParam = this.schedparam
+
+    public operator fun component4(): CInt = this.inheritsched
+
+    public operator fun component5(): CInt = this.scope
+
+    public operator fun component6(): SizeT = this.guardsize
+
+    public operator fun component7(): CInt = this.stackaddrSet
+
+    public operator fun component8(): MutPtr<CVoid> = this.stackaddr
+
+    public operator fun component9(): SizeT = this.stacksize
+
+    public fun copy(detachstate: CInt = this.detachstate, schedpolicy: CInt = this.schedpolicy, schedparam: SchedParam = this.schedparam, inheritsched: CInt = this.inheritsched, scope: CInt = this.scope, guardsize: SizeT = this.guardsize, stackaddrSet: CInt = this.stackaddrSet, stackaddr: MutPtr<CVoid> = this.stackaddr, stacksize: SizeT = this.stacksize): PthreadAttrT = PthreadAttrT(detachstate = detachstate, schedpolicy = schedpolicy, schedparam = schedparam, inheritsched = inheritsched, scope = scope, guardsize = guardsize, stackaddrSet = stackaddrSet, stackaddrCtorArg = stackaddr, stacksize = stacksize)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is PthreadAttrT) return false
+        if (this.detachstate != other.detachstate) return false
+        if (this.schedpolicy != other.schedpolicy) return false
+        if (this.schedparam != other.schedparam) return false
+        if (this.inheritsched != other.inheritsched) return false
+        if (this.scope != other.scope) return false
+        if (this.guardsize != other.guardsize) return false
+        if (this.stackaddrSet != other.stackaddrSet) return false
+        if (this.stackaddr != other.stackaddr) return false
+        if (this.stacksize != other.stacksize) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.detachstate.hashCode()
+        result = 31 * result + this.schedpolicy.hashCode()
+        result = 31 * result + this.schedparam.hashCode()
+        result = 31 * result + this.inheritsched.hashCode()
+        result = 31 * result + this.scope.hashCode()
+        result = 31 * result + this.guardsize.hashCode()
+        result = 31 * result + this.stackaddrSet.hashCode()
+        result = 31 * result + this.stackaddr.hashCode()
+        result = 31 * result + this.stacksize.hashCode()
+        return result
+    }
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<PthreadAttrT> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<PthreadAttrT> {
+                override val sizeBytes: Long = 56L
+                override val alignBytes: Long = 8L
+                override fun readNative(addr: Long): PthreadAttrT =
+                    PthreadAttrT(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 4L),
+                        (SchedParam.typeLayout()).readNative(addr + 8L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 12L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 16L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.USIZE64).readNative(addr + 24L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 32L),
+                        (
+                            io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+                                .mutPtrLayout<CVoid>(64)
+                        ).readNative(addr + 40L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.USIZE64).readNative(addr + 48L),
+                    )
+                override fun writeNative(addr: Long, value: PthreadAttrT) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr, value.detachstate)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 4L, value.schedpolicy)
+                    (SchedParam.typeLayout()).writeNative(addr + 8L, value.schedparam)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 12L, value.inheritsched)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 16L, value.scope)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.USIZE64).writeNative(addr + 24L, value.guardsize)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 32L, value.stackaddrSet)
+                    (
+                        io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+                            .mutPtrLayout<CVoid>(64)
+                    ).writeNative(addr + 40L, value.stackaddr)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.USIZE64).writeNative(addr + 48L, value.stacksize)
+                }
+            }
+
+        public operator fun invoke(
+            detachstate: CInt = 0,
+            schedpolicy: CInt = 0,
+            schedparam: SchedParam = SchedParam(),
+            inheritsched: CInt = 0,
+            scope: CInt = 0,
+            guardsize: SizeT = 0uL,
+            stackaddrSet: CInt = 0,
+            stackaddr: MutPtr<CVoid> = MutPtr(0L),
+            stacksize: SizeT = 0uL,
+        ): PthreadAttrT =
+            PthreadAttrT(
+                detachstate = detachstate,
+                schedpolicy = schedpolicy,
+                schedparam = schedparam,
+                inheritsched = inheritsched,
+                scope = scope,
+                guardsize = guardsize,
+                stackaddrSet = stackaddrSet,
+                stackaddrCtorArg = stackaddr,
+                stacksize = stacksize,
+            )
+    }
+}
 
 public data class SchedParam(
     public var schedPriority: CInt = 0,
-)
+) {
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<SchedParam> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<SchedParam> {
+                override val sizeBytes: Long = 4L
+                override val alignBytes: Long = 4L
+                override fun readNative(addr: Long): SchedParam =
+                    SchedParam(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr),
+                    )
+                override fun writeNative(addr: Long, value: SchedParam) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr, value.schedPriority)
+                }
+            }
+    }
+}
 
 public data class SiginfoT(
     public var siSigno: CInt = 0,
@@ -95,6 +237,41 @@ public data class SiginfoT(
         result = 31 * result + this.pad.contentHashCode()
         result = 31 * result + this.align.contentHashCode()
         return result
+    }
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<SiginfoT> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<SiginfoT> {
+                override val sizeBytes: Long = 128L
+                override val alignBytes: Long = 8L
+                override fun readNative(addr: Long): SiginfoT =
+                    SiginfoT(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 4L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 8L),
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (28).toInt())
+                        ).readNative(addr + 12L),
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.USIZE64, (0).toInt())
+                        ).readNative(addr + 128L),
+                    )
+                override fun writeNative(addr: Long, value: SiginfoT) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr, value.siSigno)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 4L, value.siErrno)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 8L, value.siCode)
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (28).toInt())
+                    ).writeNative(addr + 12L, value.pad)
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.USIZE64, (0).toInt())
+                    ).writeNative(addr + 128L, value.align)
+                }
+            }
     }
 }
 
@@ -220,12 +397,81 @@ public data class Sigaction(
     public var saMask: SigsetT = SigsetT(),
 )
 
-public data class StackT(
+public class StackT internal constructor(
+    ssSpCtorArg: MutPtr<CVoid>,
+    public var ssFlags: CInt,
+    public var ssSize: SizeT,
+) {
     // Note(ulibc)
-    public var ssSp: COpaquePointer? = null,
-    public var ssFlags: CInt = 0,
-    public var ssSize: SizeT = 0uL,
-)
+    public var ssSp: MutPtr<CVoid> = ssSpCtorArg
+        internal set
+
+    public constructor() : this(
+        ssSpCtorArg = MutPtr(0L),
+        ssFlags = 0,
+        ssSize = 0uL,
+    )
+
+    public operator fun component1(): MutPtr<CVoid> = this.ssSp
+
+    public operator fun component2(): CInt = this.ssFlags
+
+    public operator fun component3(): SizeT = this.ssSize
+
+    public fun copy(ssSp: MutPtr<CVoid> = this.ssSp, ssFlags: CInt = this.ssFlags, ssSize: SizeT = this.ssSize): StackT = StackT(ssSpCtorArg = ssSp, ssFlags = ssFlags, ssSize = ssSize)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is StackT) return false
+        if (this.ssSp != other.ssSp) return false
+        if (this.ssFlags != other.ssFlags) return false
+        if (this.ssSize != other.ssSize) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.ssSp.hashCode()
+        result = 31 * result + this.ssFlags.hashCode()
+        result = 31 * result + this.ssSize.hashCode()
+        return result
+    }
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<StackT> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<StackT> {
+                override val sizeBytes: Long = 24L
+                override val alignBytes: Long = 8L
+                override fun readNative(addr: Long): StackT =
+                    StackT(
+                        (
+                            io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+                                .mutPtrLayout<CVoid>(64)
+                        ).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 8L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.USIZE64).readNative(addr + 16L),
+                    )
+                override fun writeNative(addr: Long, value: StackT) {
+                    (
+                        io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+                            .mutPtrLayout<CVoid>(64)
+                    ).writeNative(addr, value.ssSp)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 8L, value.ssFlags)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.USIZE64).writeNative(addr + 16L, value.ssSize)
+                }
+            }
+
+        public operator fun invoke(
+            ssSp: MutPtr<CVoid> = MutPtr(0L),
+            ssFlags: CInt = 0,
+            ssSize: SizeT = 0uL,
+        ): StackT =
+            StackT(
+                ssSpCtorArg = ssSp,
+                ssFlags = ssFlags,
+                ssSize = ssSize,
+            )
+    }
+}
 
 public data class Statfs(
     // Note(ulibc)
@@ -321,6 +567,49 @@ public data class Statfs64(
         result = 31 * result + this.fSpare.contentHashCode()
         return result
     }
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<Statfs64> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<Statfs64> {
+                override val sizeBytes: Long = 88L
+                override val alignBytes: Long = 8L
+                override fun readNative(addr: Long): Statfs64 =
+                    Statfs64(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 4L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 8L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 16L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 24L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 32L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 40L),
+                        (FsidT.typeLayout()).readNative(addr + 48L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 56L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 60L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 64L),
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (4).toInt())
+                        ).readNative(addr + 68L),
+                    )
+                override fun writeNative(addr: Long, value: Statfs64) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr, value.fType)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 4L, value.fBsize)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 8L, value.fBlocks)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 16L, value.fBfree)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 24L, value.fBavail)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 32L, value.fFiles)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 40L, value.fFfree)
+                    (FsidT.typeLayout()).writeNative(addr + 48L, value.fFsid)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 56L, value.fNamelen)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 60L, value.fFrsize)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 64L, value.fFlags)
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (4).toInt())
+                    ).writeNative(addr + 68L, value.fSpare)
+                }
+            }
+    }
 }
 
 public data class Statvfs64(
@@ -375,16 +664,96 @@ public data class Statvfs64(
     }
 }
 
-public data class Msghdr(
+public class Msghdr internal constructor(
+    msgNameCtorArg: MutPtr<CVoid>,
+    public var msgNamelen: SocklenT,
+    msgIovCtorArg: MutPtr<Iovec>,
+    public var msgIovlen: SizeT,
+    msgControlCtorArg: MutPtr<CVoid>,
+    public var msgControllen: SizeT,
+    public var msgFlags: CInt,
+) {
     // Note(ulibc)
-    public var msgName: COpaquePointer? = null,
-    public var msgNamelen: SocklenT = 0u,
-    public var msgIov: Iovec? = null,
-    public var msgIovlen: SizeT = 0uL,
-    public var msgControl: COpaquePointer? = null,
-    public var msgControllen: SizeT = 0uL,
-    public var msgFlags: CInt = 0,
-)
+    public var msgName: MutPtr<CVoid> = msgNameCtorArg
+        internal set
+
+    public var msgIov: MutPtr<Iovec> = msgIovCtorArg
+        internal set
+
+    public var msgControl: MutPtr<CVoid> = msgControlCtorArg
+        internal set
+
+    public constructor() : this(
+        msgNameCtorArg = MutPtr(0L),
+        msgNamelen = 0u,
+        msgIovCtorArg = MutPtr(0L),
+        msgIovlen = 0uL,
+        msgControlCtorArg = MutPtr(0L),
+        msgControllen = 0uL,
+        msgFlags = 0,
+    )
+
+    public operator fun component1(): MutPtr<CVoid> = this.msgName
+
+    public operator fun component2(): SocklenT = this.msgNamelen
+
+    public operator fun component3(): MutPtr<Iovec> = this.msgIov
+
+    public operator fun component4(): SizeT = this.msgIovlen
+
+    public operator fun component5(): MutPtr<CVoid> = this.msgControl
+
+    public operator fun component6(): SizeT = this.msgControllen
+
+    public operator fun component7(): CInt = this.msgFlags
+
+    public fun copy(msgName: MutPtr<CVoid> = this.msgName, msgNamelen: SocklenT = this.msgNamelen, msgIov: MutPtr<Iovec> = this.msgIov, msgIovlen: SizeT = this.msgIovlen, msgControl: MutPtr<CVoid> = this.msgControl, msgControllen: SizeT = this.msgControllen, msgFlags: CInt = this.msgFlags): Msghdr = Msghdr(msgNameCtorArg = msgName, msgNamelen = msgNamelen, msgIovCtorArg = msgIov, msgIovlen = msgIovlen, msgControlCtorArg = msgControl, msgControllen = msgControllen, msgFlags = msgFlags)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Msghdr) return false
+        if (this.msgName != other.msgName) return false
+        if (this.msgNamelen != other.msgNamelen) return false
+        if (this.msgIov != other.msgIov) return false
+        if (this.msgIovlen != other.msgIovlen) return false
+        if (this.msgControl != other.msgControl) return false
+        if (this.msgControllen != other.msgControllen) return false
+        if (this.msgFlags != other.msgFlags) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.msgName.hashCode()
+        result = 31 * result + this.msgNamelen.hashCode()
+        result = 31 * result + this.msgIov.hashCode()
+        result = 31 * result + this.msgIovlen.hashCode()
+        result = 31 * result + this.msgControl.hashCode()
+        result = 31 * result + this.msgControllen.hashCode()
+        result = 31 * result + this.msgFlags.hashCode()
+        return result
+    }
+
+    public companion object {
+        public operator fun invoke(
+            msgName: MutPtr<CVoid> = MutPtr(0L),
+            msgNamelen: SocklenT = 0u,
+            msgIov: MutPtr<Iovec> = MutPtr(0L),
+            msgIovlen: SizeT = 0uL,
+            msgControl: MutPtr<CVoid> = MutPtr(0L),
+            msgControllen: SizeT = 0uL,
+            msgFlags: CInt = 0,
+        ): Msghdr =
+            Msghdr(
+                msgNameCtorArg = msgName,
+                msgNamelen = msgNamelen,
+                msgIovCtorArg = msgIov,
+                msgIovlen = msgIovlen,
+                msgControlCtorArg = msgControl,
+                msgControllen = msgControllen,
+                msgFlags = msgFlags,
+            )
+    }
+}
 
 public data class Termios(
     // Note(ulibc)
@@ -488,18 +857,121 @@ public data class Sysinfo(
     }
 }
 
-public data class GlobT(
+public class GlobT internal constructor(
     // Note(ulibc)
-    public var glPathc: SizeT = 0uL,
-    public var glPathv: COpaquePointer? = null,
-    public var glOffs: SizeT = 0uL,
-    public var glFlags: CInt = 0,
-    public var unused1: COpaquePointer? = null,
-    public var unused2: COpaquePointer? = null,
-    public var unused3: COpaquePointer? = null,
-    public var unused4: COpaquePointer? = null,
-    public var unused5: COpaquePointer? = null,
-)
+    public var glPathc: SizeT,
+    glPathvCtorArg: MutPtr<MutPtr<CChar>>,
+    public var glOffs: SizeT,
+    public var glFlags: CInt,
+    unused1CtorArg: MutPtr<CVoid>,
+    unused2CtorArg: MutPtr<CVoid>,
+    unused3CtorArg: MutPtr<CVoid>,
+    unused4CtorArg: MutPtr<CVoid>,
+    unused5CtorArg: MutPtr<CVoid>,
+) {
+    public var glPathv: MutPtr<MutPtr<CChar>> = glPathvCtorArg
+        internal set
+
+    public var unused1: MutPtr<CVoid> = unused1CtorArg
+        internal set
+
+    public var unused2: MutPtr<CVoid> = unused2CtorArg
+        internal set
+
+    public var unused3: MutPtr<CVoid> = unused3CtorArg
+        internal set
+
+    public var unused4: MutPtr<CVoid> = unused4CtorArg
+        internal set
+
+    public var unused5: MutPtr<CVoid> = unused5CtorArg
+        internal set
+
+    public constructor() : this(
+        glPathc = 0uL,
+        glPathvCtorArg = MutPtr(0L),
+        glOffs = 0uL,
+        glFlags = 0,
+        unused1CtorArg = MutPtr(0L),
+        unused2CtorArg = MutPtr(0L),
+        unused3CtorArg = MutPtr(0L),
+        unused4CtorArg = MutPtr(0L),
+        unused5CtorArg = MutPtr(0L),
+    )
+
+    public operator fun component1(): SizeT = this.glPathc
+
+    public operator fun component2(): MutPtr<MutPtr<CChar>> = this.glPathv
+
+    public operator fun component3(): SizeT = this.glOffs
+
+    public operator fun component4(): CInt = this.glFlags
+
+    public operator fun component5(): MutPtr<CVoid> = this.unused1
+
+    public operator fun component6(): MutPtr<CVoid> = this.unused2
+
+    public operator fun component7(): MutPtr<CVoid> = this.unused3
+
+    public operator fun component8(): MutPtr<CVoid> = this.unused4
+
+    public operator fun component9(): MutPtr<CVoid> = this.unused5
+
+    public fun copy(glPathc: SizeT = this.glPathc, glPathv: MutPtr<MutPtr<CChar>> = this.glPathv, glOffs: SizeT = this.glOffs, glFlags: CInt = this.glFlags, unused1: MutPtr<CVoid> = this.unused1, unused2: MutPtr<CVoid> = this.unused2, unused3: MutPtr<CVoid> = this.unused3, unused4: MutPtr<CVoid> = this.unused4, unused5: MutPtr<CVoid> = this.unused5): GlobT = GlobT(glPathc = glPathc, glPathvCtorArg = glPathv, glOffs = glOffs, glFlags = glFlags, unused1CtorArg = unused1, unused2CtorArg = unused2, unused3CtorArg = unused3, unused4CtorArg = unused4, unused5CtorArg = unused5)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is GlobT) return false
+        if (this.glPathc != other.glPathc) return false
+        if (this.glPathv != other.glPathv) return false
+        if (this.glOffs != other.glOffs) return false
+        if (this.glFlags != other.glFlags) return false
+        if (this.unused1 != other.unused1) return false
+        if (this.unused2 != other.unused2) return false
+        if (this.unused3 != other.unused3) return false
+        if (this.unused4 != other.unused4) return false
+        if (this.unused5 != other.unused5) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.glPathc.hashCode()
+        result = 31 * result + this.glPathv.hashCode()
+        result = 31 * result + this.glOffs.hashCode()
+        result = 31 * result + this.glFlags.hashCode()
+        result = 31 * result + this.unused1.hashCode()
+        result = 31 * result + this.unused2.hashCode()
+        result = 31 * result + this.unused3.hashCode()
+        result = 31 * result + this.unused4.hashCode()
+        result = 31 * result + this.unused5.hashCode()
+        return result
+    }
+
+    public companion object {
+        public operator fun invoke(
+            glPathc: SizeT = 0uL,
+            glPathv: MutPtr<MutPtr<CChar>> = MutPtr(0L),
+            glOffs: SizeT = 0uL,
+            glFlags: CInt = 0,
+            unused1: MutPtr<CVoid> = MutPtr(0L),
+            unused2: MutPtr<CVoid> = MutPtr(0L),
+            unused3: MutPtr<CVoid> = MutPtr(0L),
+            unused4: MutPtr<CVoid> = MutPtr(0L),
+            unused5: MutPtr<CVoid> = MutPtr(0L),
+        ): GlobT =
+            GlobT(
+                glPathc = glPathc,
+                glPathvCtorArg = glPathv,
+                glOffs = glOffs,
+                glFlags = glFlags,
+                unused1CtorArg = unused1,
+                unused2CtorArg = unused2,
+                unused3CtorArg = unused3,
+                unused4CtorArg = unused4,
+                unused5CtorArg = unused5,
+            )
+    }
+}
 
 public data class CpuSetT(
     public var bits: ULongArray = ULongArray(16),
@@ -512,6 +984,27 @@ public data class CpuSetT(
     }
 
     override fun hashCode(): Int = this.bits.contentHashCode()
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<CpuSetT> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<CpuSetT> {
+                override val sizeBytes: Long = 128L
+                override val alignBytes: Long = 8L
+                override fun readNative(addr: Long): CpuSetT =
+                    CpuSetT(
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64, (16).toInt())
+                        ).readNative(addr),
+                    )
+                override fun writeNative(addr: Long, value: CpuSetT) {
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64, (16).toInt())
+                    ).writeNative(addr, value.bits)
+                }
+            }
+    }
 }
 
 public data class FsidT(
@@ -526,6 +1019,27 @@ public data class FsidT(
     }
 
     override fun hashCode(): Int = this.value.contentHashCode()
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<FsidT> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<FsidT> {
+                override val sizeBytes: Long = 8L
+                override val alignBytes: Long = 4L
+                override fun readNative(addr: Long): FsidT =
+                    FsidT(
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (2).toInt())
+                        ).readNative(addr),
+                    )
+                override fun writeNative(addr: Long, value: FsidT) {
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (2).toInt())
+                    ).writeNative(addr, value.value)
+                }
+            }
+    }
 }
 
 // Note(1.0): this is actually a union
@@ -552,7 +1066,26 @@ public data class Cmsghdr(
     public var cmsgLen: SizeT = 0uL,
     public var cmsgLevel: CInt = 0,
     public var cmsgType: CInt = 0,
-)
+) {
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<Cmsghdr> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<Cmsghdr> {
+                override val sizeBytes: Long = 16L
+                override val alignBytes: Long = 8L
+                override fun readNative(addr: Long): Cmsghdr =
+                    Cmsghdr(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.USIZE64).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 8L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 12L),
+                    )
+                override fun writeNative(addr: Long, value: Cmsghdr) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.USIZE64).writeNative(addr, value.cmsgLen)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 8L, value.cmsgLevel)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 12L, value.cmsgType)
+                }
+            }
+    }
+}
 
 public data class Dirent(
     public var dIno: Ino64T = 0uL,

@@ -15,7 +15,7 @@
 #endif
 #endif
 
-int32_t libc_unix_linuxlike_l4re_uclibc_gettimeofday(void* tp, void* tz) {
+int32_t libcUnixLinuxlikeL4reUclibcGettimeofday(void* tp, void* tz) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -43,7 +43,7 @@ int32_t libc_unix_linuxlike_l4re_uclibc_gettimeofday(void* tp, void* tz) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_l4re_uclibc_pthreadRwlockattrGetkindNp(void* attr, void* val) {
+int32_t libcUnixLinuxlikeL4reUclibcPthreadRwlockattrGetkindNp(void* attr, void* val) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -71,7 +71,7 @@ int32_t libc_unix_linuxlike_l4re_uclibc_pthreadRwlockattrGetkindNp(void* attr, v
     return ENOSYS;
 }
 
-int32_t libc_unix_linuxlike_l4re_uclibc_pthreadRwlockattrSetkindNp(void* attr, int32_t val) {
+int32_t libcUnixLinuxlikeL4reUclibcPthreadRwlockattrSetkindNp(void* attr, int32_t val) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -99,7 +99,7 @@ int32_t libc_unix_linuxlike_l4re_uclibc_pthreadRwlockattrSetkindNp(void* attr, i
     return ENOSYS;
 }
 
-int32_t libc_unix_linuxlike_l4re_uclibc_openpty(void* amaster, void* aslave, char* name, void* termp, void* winp) {
+int32_t libcUnixLinuxlikeL4reUclibcOpenpty(void* amaster, void* aslave, char* name, void* termp, void* winp) {
     typedef int32_t (*km_fn_t)(void*, void*, char*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -127,7 +127,7 @@ int32_t libc_unix_linuxlike_l4re_uclibc_openpty(void* amaster, void* aslave, cha
     return -1;
 }
 
-int32_t libc_unix_linuxlike_l4re_uclibc_getnameinfo(void* sa, uint32_t salen, char* host, uint32_t hostlen, char* serv, uint32_t servlen, int32_t flags) {
+int32_t libcUnixLinuxlikeL4reUclibcGetnameinfo(void* sa, uint32_t salen, char* host, uint32_t hostlen, char* serv, uint32_t servlen, int32_t flags) {
     typedef int32_t (*km_fn_t)(void*, uint32_t, char*, uint32_t, char*, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -155,7 +155,7 @@ int32_t libc_unix_linuxlike_l4re_uclibc_getnameinfo(void* sa, uint32_t salen, ch
     return -1;
 }
 
-int64_t libc_unix_linuxlike_l4re_uclibc_pwritev(int32_t fd, void* iov, int32_t iovcnt, int64_t offset) {
+int64_t libcUnixLinuxlikeL4reUclibcPwritev(int32_t fd, void* iov, int32_t iovcnt, int64_t offset) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -183,7 +183,7 @@ int64_t libc_unix_linuxlike_l4re_uclibc_pwritev(int32_t fd, void* iov, int32_t i
     return -1;
 }
 
-int64_t libc_unix_linuxlike_l4re_uclibc_preadv(int32_t fd, void* iov, int32_t iovcnt, int64_t offset) {
+int64_t libcUnixLinuxlikeL4reUclibcPreadv(int32_t fd, void* iov, int32_t iovcnt, int64_t offset) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -211,7 +211,7 @@ int64_t libc_unix_linuxlike_l4re_uclibc_preadv(int32_t fd, void* iov, int32_t io
     return -1;
 }
 
-int32_t libc_unix_linuxlike_l4re_uclibc_getrlimit64(int32_t resource, void* rlim) {
+int32_t libcUnixLinuxlikeL4reUclibcGetrlimit64(int32_t resource, void* rlim) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -244,7 +244,7 @@ int32_t libc_unix_linuxlike_l4re_uclibc_getrlimit64(int32_t resource, void* rlim
     return -1;
 }
 
-int32_t libc_unix_linuxlike_l4re_uclibc_setrlimit64(int32_t resource, void* rlim) {
+int32_t libcUnixLinuxlikeL4reUclibcSetrlimit64(int32_t resource, void* rlim) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -277,7 +277,7 @@ int32_t libc_unix_linuxlike_l4re_uclibc_setrlimit64(int32_t resource, void* rlim
     return -1;
 }
 
-int32_t libc_unix_linuxlike_l4re_uclibc_getrlimit(int32_t resource, void* rlim) {
+int32_t libcUnixLinuxlikeL4reUclibcGetrlimit(int32_t resource, void* rlim) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -305,7 +305,7 @@ int32_t libc_unix_linuxlike_l4re_uclibc_getrlimit(int32_t resource, void* rlim) 
     return -1;
 }
 
-int32_t libc_unix_linuxlike_l4re_uclibc_setrlimit(int32_t resource, void* rlim) {
+int32_t libcUnixLinuxlikeL4reUclibcSetrlimit(int32_t resource, void* rlim) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -333,7 +333,7 @@ int32_t libc_unix_linuxlike_l4re_uclibc_setrlimit(int32_t resource, void* rlim) 
     return -1;
 }
 
-uint64_t libc_unix_linuxlike_l4re_uclibc_getauxval(uint64_t type_) {
+uint64_t libcUnixLinuxlikeL4reUclibcGetauxval(uint64_t type) {
     typedef uint64_t (*km_fn_t)(uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -355,7 +355,7 @@ uint64_t libc_unix_linuxlike_l4re_uclibc_getauxval(uint64_t type_) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(type_);
+        return km_fn_ptr(type);
     }
     errno = ENOSYS;
     return 0;

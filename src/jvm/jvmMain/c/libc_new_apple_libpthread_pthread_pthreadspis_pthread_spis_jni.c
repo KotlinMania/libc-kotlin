@@ -19,7 +19,7 @@
 #endif
 #endif
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_apple_libpthread_pthread_pthreadspis_NewAppleLibpthreadPthreadPthreadspisPthreadSpisJniBridge_libc_1new_1apple_1libpthread_1pthread_1pthreadspis_1pthread_1spis_1pthreadCreateFromMachThread(JNIEnv* km_env, jclass km_clazz, jlong thread, jlong attr, jlong f, jlong value) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_apple_libpthread_pthread_pthreadspis_NewAppleLibpthreadPthreadPthreadspisPthreadSpisJniBridge_libcNewAppleLibpthreadPthreadPthreadspisPthreadSpisPthreadCreateFromMachThread(JNIEnv* km_env, jclass km_clazz, jlong thread, jlong attr, jlong f, jlong value) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, void*, void*);

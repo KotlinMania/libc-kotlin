@@ -3,1713 +3,1717 @@
 package io.github.kotlinmania.libc.fuchsia
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CDouble
 import io.github.kotlinmania.libc.CFloat
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CLonglong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
+import io.github.kotlinmania.libc.fuchsia.aarch64.Stat
 import io.github.kotlinmania.libc.fuchsia.aarch64.WcharT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 @JsFun("() => { if (typeof globalThis.__km_napi_libc !== 'undefined') return globalThis.__km_napi_libc !== null; if (typeof process === 'undefined' || !process.versions || !process.versions.node) { globalThis.__km_napi_libc = null; return false; } var mod = process.getBuiltinModule ? process.getBuiltinModule('module') : (process.mainModule && process.mainModule.constructor); var req = (mod && mod.createRequire) ? mod.createRequire((process.cwd ? process.cwd() : '.') + '/package.json') : (process.mainModule ? process.mainModule.require : null); if (!req) { globalThis.__km_napi_libc = null; return false; } try { globalThis.__km_napi_libc = req('@kotlinmania/libc-native-bindings'); return true; } catch (_) {} var fs = req('fs'); var path = req('path'); var dir = process.cwd ? process.cwd() : '.'; var rels = ['libc_native.node', 'build/node-ffi/libc_native.node', 'build/node-ffi/release/libc_native.node', 'build/node-ffi/debug/libc_native.node', 'src/js/node-libc/build/Release/libc_native.node', 'src/js/node-libc/build/Debug/libc_native.node', 'src/js/node-libc/dist/build/Release/libc_native.node', 'src/js/node-libc/dist/build/Debug/libc_native.node', 'c_native.node', 'build/node-ffi/c_native.node', 'build/node-ffi/release/c_native.node', 'build/node-ffi/debug/c_native.node', 'src/js/node-libc/build/Release/c_native.node', 'src/js/node-libc/build/Debug/c_native.node', 'src/js/node-libc/dist/build/Release/c_native.node', 'src/js/node-libc/dist/build/Debug/c_native.node']; for (var d = 0; d < 8; d++) { for (var i = 0; i < rels.length; i++) { var c = path.resolve(dir, rels[i]); if (fs.existsSync(c)) { globalThis.__km_napi_libc = req(c); return true; } } var parent = path.dirname(dir); if (parent === dir) break; dir = parent; } globalThis.__km_napi_libc = null; return false; }")
-private external fun _initFuchsiaNapiAddon(): Boolean
+private external fun initFuchsiaNapiAddon(): Boolean
 
-private val _fuchsiaNapiAvailable: Boolean = _initFuchsiaNapiAddon()
+private val fuchsiaNapiAvailable: Boolean = initFuchsiaNapiAddon()
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_isalnum(p0)")
-private external fun _wasm_libc_fuchsia_isalnum(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaIsalnum(p0)")
+private external fun wasmLibcFuchsiaIsalnum(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_isalpha(p0)")
-private external fun _wasm_libc_fuchsia_isalpha(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaIsalpha(p0)")
+private external fun wasmLibcFuchsiaIsalpha(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_iscntrl(p0)")
-private external fun _wasm_libc_fuchsia_iscntrl(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaIscntrl(p0)")
+private external fun wasmLibcFuchsiaIscntrl(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_isdigit(p0)")
-private external fun _wasm_libc_fuchsia_isdigit(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaIsdigit(p0)")
+private external fun wasmLibcFuchsiaIsdigit(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_isgraph(p0)")
-private external fun _wasm_libc_fuchsia_isgraph(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaIsgraph(p0)")
+private external fun wasmLibcFuchsiaIsgraph(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_islower(p0)")
-private external fun _wasm_libc_fuchsia_islower(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaIslower(p0)")
+private external fun wasmLibcFuchsiaIslower(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_isprint(p0)")
-private external fun _wasm_libc_fuchsia_isprint(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaIsprint(p0)")
+private external fun wasmLibcFuchsiaIsprint(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_ispunct(p0)")
-private external fun _wasm_libc_fuchsia_ispunct(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaIspunct(p0)")
+private external fun wasmLibcFuchsiaIspunct(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_isspace(p0)")
-private external fun _wasm_libc_fuchsia_isspace(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaIsspace(p0)")
+private external fun wasmLibcFuchsiaIsspace(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_isupper(p0)")
-private external fun _wasm_libc_fuchsia_isupper(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaIsupper(p0)")
+private external fun wasmLibcFuchsiaIsupper(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_isxdigit(p0)")
-private external fun _wasm_libc_fuchsia_isxdigit(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaIsxdigit(p0)")
+private external fun wasmLibcFuchsiaIsxdigit(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_isblank(p0)")
-private external fun _wasm_libc_fuchsia_isblank(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaIsblank(p0)")
+private external fun wasmLibcFuchsiaIsblank(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_tolower(p0)")
-private external fun _wasm_libc_fuchsia_tolower(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaTolower(p0)")
+private external fun wasmLibcFuchsiaTolower(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_toupper(p0)")
-private external fun _wasm_libc_fuchsia_toupper(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaToupper(p0)")
+private external fun wasmLibcFuchsiaToupper(p0: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_fopen(p0, p1)")
-private external fun _wasm_libc_fuchsia_fopen(p0: String?, p1: String?): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaFopen(p0, p1)")
+private external fun wasmLibcFuchsiaFopen(p0: String, p1: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_freopen(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_freopen(p0: String?, p1: String?, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaFreopen(p0, p1, p2)")
+private external fun wasmLibcFuchsiaFreopen(p0: String, p1: String, p2: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_fflush(p0)")
-private external fun _wasm_libc_fuchsia_fflush(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaFflush(p0)")
+private external fun wasmLibcFuchsiaFflush(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_fclose(p0)")
-private external fun _wasm_libc_fuchsia_fclose(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaFclose(p0)")
+private external fun wasmLibcFuchsiaFclose(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_remove(p0)")
-private external fun _wasm_libc_fuchsia_remove(p0: String?): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaRemove(p0)")
+private external fun wasmLibcFuchsiaRemove(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_rename(p0, p1)")
-private external fun _wasm_libc_fuchsia_rename(p0: String?, p1: String?): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaRename(p0, p1)")
+private external fun wasmLibcFuchsiaRename(p0: String, p1: String): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_fuchsia_tmpfile()")
-private external fun _wasm_libc_fuchsia_tmpfile(): String
+@JsFun("() => globalThis.__km_napi_libc.libcFuchsiaTmpfile()")
+private external fun wasmLibcFuchsiaTmpfile(): String
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_fuchsia_setvbuf(p0, p1, p2, p3)")
-private external fun _wasm_libc_fuchsia_setvbuf(p0: String, p1: String, p2: Int, p3: String): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcFuchsiaSetvbuf(p0, p1, p2, p3)")
+private external fun wasmLibcFuchsiaSetvbuf(p0: String, p1: String, p2: Int, p3: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_setbuf(p0, p1)")
-private external fun _wasm_libc_fuchsia_setbuf(p0: String, p1: String)
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaSetbuf(p0, p1)")
+private external fun wasmLibcFuchsiaSetbuf(p0: String, p1: String)
 
-@JsFun("() => globalThis.__km_napi_libc.libc_fuchsia_getchar()")
-private external fun _wasm_libc_fuchsia_getchar(): Int
+@JsFun("() => globalThis.__km_napi_libc.libcFuchsiaGetchar()")
+private external fun wasmLibcFuchsiaGetchar(): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_putchar(p0)")
-private external fun _wasm_libc_fuchsia_putchar(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaPutchar(p0)")
+private external fun wasmLibcFuchsiaPutchar(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_fgetc(p0)")
-private external fun _wasm_libc_fuchsia_fgetc(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaFgetc(p0)")
+private external fun wasmLibcFuchsiaFgetc(p0: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_fgets(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_fgets(p0: String, p1: Int, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaFgets(p0, p1, p2)")
+private external fun wasmLibcFuchsiaFgets(p0: String, p1: Int, p2: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_fputc(p0, p1)")
-private external fun _wasm_libc_fuchsia_fputc(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaFputc(p0, p1)")
+private external fun wasmLibcFuchsiaFputc(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_fputs(p0, p1)")
-private external fun _wasm_libc_fuchsia_fputs(p0: String?, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaFputs(p0, p1)")
+private external fun wasmLibcFuchsiaFputs(p0: String, p1: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_puts(p0)")
-private external fun _wasm_libc_fuchsia_puts(p0: String?): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaPuts(p0)")
+private external fun wasmLibcFuchsiaPuts(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_ungetc(p0, p1)")
-private external fun _wasm_libc_fuchsia_ungetc(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaUngetc(p0, p1)")
+private external fun wasmLibcFuchsiaUngetc(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_fuchsia_fread(p0, p1, p2, p3)")
-private external fun _wasm_libc_fuchsia_fread(p0: String, p1: String, p2: String, p3: String): String
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcFuchsiaFread(p0, p1, p2, p3)")
+private external fun wasmLibcFuchsiaFread(p0: String, p1: String, p2: String, p3: String): String
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_fuchsia_fwrite(p0, p1, p2, p3)")
-private external fun _wasm_libc_fuchsia_fwrite(p0: String, p1: String, p2: String, p3: String): String
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcFuchsiaFwrite(p0, p1, p2, p3)")
+private external fun wasmLibcFuchsiaFwrite(p0: String, p1: String, p2: String, p3: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_fseek(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_fseek(p0: String, p1: String, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaFseek(p0, p1, p2)")
+private external fun wasmLibcFuchsiaFseek(p0: String, p1: String, p2: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_ftell(p0)")
-private external fun _wasm_libc_fuchsia_ftell(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaFtell(p0)")
+private external fun wasmLibcFuchsiaFtell(p0: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_rewind(p0)")
-private external fun _wasm_libc_fuchsia_rewind(p0: String)
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaRewind(p0)")
+private external fun wasmLibcFuchsiaRewind(p0: String)
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_fgetpos(p0, p1)")
-private external fun _wasm_libc_fuchsia_fgetpos(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaFgetpos(p0, p1)")
+private external fun wasmLibcFuchsiaFgetpos(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_fsetpos(p0, p1)")
-private external fun _wasm_libc_fuchsia_fsetpos(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaFsetpos(p0, p1)")
+private external fun wasmLibcFuchsiaFsetpos(p0: String, p1: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_feof(p0)")
-private external fun _wasm_libc_fuchsia_feof(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaFeof(p0)")
+private external fun wasmLibcFuchsiaFeof(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_ferror(p0)")
-private external fun _wasm_libc_fuchsia_ferror(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaFerror(p0)")
+private external fun wasmLibcFuchsiaFerror(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_perror(p0)")
-private external fun _wasm_libc_fuchsia_perror(p0: String?)
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaPerror(p0)")
+private external fun wasmLibcFuchsiaPerror(p0: String)
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_atof(p0)")
-private external fun _wasm_libc_fuchsia_atof(p0: String?): Double
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaAtof(p0)")
+private external fun wasmLibcFuchsiaAtof(p0: String): Double
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_atoi(p0)")
-private external fun _wasm_libc_fuchsia_atoi(p0: String?): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaAtoi(p0)")
+private external fun wasmLibcFuchsiaAtoi(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_atol(p0)")
-private external fun _wasm_libc_fuchsia_atol(p0: String?): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaAtol(p0)")
+private external fun wasmLibcFuchsiaAtol(p0: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_atoll(p0)")
-private external fun _wasm_libc_fuchsia_atoll(p0: String?): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaAtoll(p0)")
+private external fun wasmLibcFuchsiaAtoll(p0: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_strtod(p0, p1)")
-private external fun _wasm_libc_fuchsia_strtod(p0: String?, p1: String): Double
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaStrtod(p0, p1)")
+private external fun wasmLibcFuchsiaStrtod(p0: String, p1: String): Double
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_strtof(p0, p1)")
-private external fun _wasm_libc_fuchsia_strtof(p0: String?, p1: String): Double
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaStrtof(p0, p1)")
+private external fun wasmLibcFuchsiaStrtof(p0: String, p1: String): Double
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_strtol(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_strtol(p0: String?, p1: String, p2: Int): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaStrtol(p0, p1, p2)")
+private external fun wasmLibcFuchsiaStrtol(p0: String, p1: String, p2: Int): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_strtoll(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_strtoll(p0: String?, p1: String, p2: Int): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaStrtoll(p0, p1, p2)")
+private external fun wasmLibcFuchsiaStrtoll(p0: String, p1: String, p2: Int): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_strtoul(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_strtoul(p0: String?, p1: String, p2: Int): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaStrtoul(p0, p1, p2)")
+private external fun wasmLibcFuchsiaStrtoul(p0: String, p1: String, p2: Int): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_strtoull(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_strtoull(p0: String?, p1: String, p2: Int): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaStrtoull(p0, p1, p2)")
+private external fun wasmLibcFuchsiaStrtoull(p0: String, p1: String, p2: Int): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_calloc(p0, p1)")
-private external fun _wasm_libc_fuchsia_calloc(p0: String, p1: String): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaCalloc(p0, p1)")
+private external fun wasmLibcFuchsiaCalloc(p0: String, p1: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_malloc(p0)")
-private external fun _wasm_libc_fuchsia_malloc(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaMalloc(p0)")
+private external fun wasmLibcFuchsiaMalloc(p0: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_realloc(p0, p1)")
-private external fun _wasm_libc_fuchsia_realloc(p0: String, p1: String): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaRealloc(p0, p1)")
+private external fun wasmLibcFuchsiaRealloc(p0: String, p1: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_free(p0)")
-private external fun _wasm_libc_fuchsia_free(p0: String)
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaFree(p0)")
+private external fun wasmLibcFuchsiaFree(p0: String)
 
-@JsFun("() => globalThis.__km_napi_libc.libc_fuchsia_abort()")
-private external fun _wasm_libc_fuchsia_abort()
+@JsFun("() => globalThis.__km_napi_libc.libcFuchsiaAbort()")
+private external fun wasmLibcFuchsiaAbort()
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_exit(p0)")
-private external fun _wasm_libc_fuchsia_exit(p0: Int)
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaExit(p0)")
+private external fun wasmLibcFuchsiaExit(p0: Int)
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_atexit(p0)")
-private external fun _wasm_libc_fuchsia_atexit(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaAtexit(p0)")
+private external fun wasmLibcFuchsiaAtexit(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_system(p0)")
-private external fun _wasm_libc_fuchsia_system(p0: String?): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaSystem(p0)")
+private external fun wasmLibcFuchsiaSystem(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_getenv(p0)")
-private external fun _wasm_libc_fuchsia_getenv(p0: String?): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaGetenv(p0)")
+private external fun wasmLibcFuchsiaGetenv(p0: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_strcpy(p0, p1)")
-private external fun _wasm_libc_fuchsia_strcpy(p0: String, p1: String?): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaStrcpy(p0, p1)")
+private external fun wasmLibcFuchsiaStrcpy(p0: String, p1: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_strncpy(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_strncpy(p0: String, p1: String?, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaStrncpy(p0, p1, p2)")
+private external fun wasmLibcFuchsiaStrncpy(p0: String, p1: String, p2: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_strcat(p0, p1)")
-private external fun _wasm_libc_fuchsia_strcat(p0: String, p1: String?): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaStrcat(p0, p1)")
+private external fun wasmLibcFuchsiaStrcat(p0: String, p1: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_strncat(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_strncat(p0: String, p1: String?, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaStrncat(p0, p1, p2)")
+private external fun wasmLibcFuchsiaStrncat(p0: String, p1: String, p2: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_strcmp(p0, p1)")
-private external fun _wasm_libc_fuchsia_strcmp(p0: String?, p1: String?): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaStrcmp(p0, p1)")
+private external fun wasmLibcFuchsiaStrcmp(p0: String, p1: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_strncmp(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_strncmp(p0: String?, p1: String?, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaStrncmp(p0, p1, p2)")
+private external fun wasmLibcFuchsiaStrncmp(p0: String, p1: String, p2: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_strcoll(p0, p1)")
-private external fun _wasm_libc_fuchsia_strcoll(p0: String?, p1: String?): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaStrcoll(p0, p1)")
+private external fun wasmLibcFuchsiaStrcoll(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_strchr(p0, p1)")
-private external fun _wasm_libc_fuchsia_strchr(p0: String?, p1: Int): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaStrchr(p0, p1)")
+private external fun wasmLibcFuchsiaStrchr(p0: String, p1: Int): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_strrchr(p0, p1)")
-private external fun _wasm_libc_fuchsia_strrchr(p0: String?, p1: Int): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaStrrchr(p0, p1)")
+private external fun wasmLibcFuchsiaStrrchr(p0: String, p1: Int): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_strspn(p0, p1)")
-private external fun _wasm_libc_fuchsia_strspn(p0: String?, p1: String?): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaStrspn(p0, p1)")
+private external fun wasmLibcFuchsiaStrspn(p0: String, p1: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_strcspn(p0, p1)")
-private external fun _wasm_libc_fuchsia_strcspn(p0: String?, p1: String?): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaStrcspn(p0, p1)")
+private external fun wasmLibcFuchsiaStrcspn(p0: String, p1: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_strdup(p0)")
-private external fun _wasm_libc_fuchsia_strdup(p0: String?): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaStrdup(p0)")
+private external fun wasmLibcFuchsiaStrdup(p0: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_strpbrk(p0, p1)")
-private external fun _wasm_libc_fuchsia_strpbrk(p0: String?, p1: String?): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaStrpbrk(p0, p1)")
+private external fun wasmLibcFuchsiaStrpbrk(p0: String, p1: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_strstr(p0, p1)")
-private external fun _wasm_libc_fuchsia_strstr(p0: String?, p1: String?): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaStrstr(p0, p1)")
+private external fun wasmLibcFuchsiaStrstr(p0: String, p1: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_strlen(p0)")
-private external fun _wasm_libc_fuchsia_strlen(p0: String?): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaStrlen(p0)")
+private external fun wasmLibcFuchsiaStrlen(p0: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_strnlen(p0, p1)")
-private external fun _wasm_libc_fuchsia_strnlen(p0: String?, p1: String): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaStrnlen(p0, p1)")
+private external fun wasmLibcFuchsiaStrnlen(p0: String, p1: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_strerror(p0)")
-private external fun _wasm_libc_fuchsia_strerror(p0: Int): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaStrerror(p0)")
+private external fun wasmLibcFuchsiaStrerror(p0: Int): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_strtok(p0, p1)")
-private external fun _wasm_libc_fuchsia_strtok(p0: String, p1: String?): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaStrtok(p0, p1)")
+private external fun wasmLibcFuchsiaStrtok(p0: String, p1: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_strxfrm(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_strxfrm(p0: String, p1: String?, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaStrxfrm(p0, p1, p2)")
+private external fun wasmLibcFuchsiaStrxfrm(p0: String, p1: String, p2: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_wcslen(p0)")
-private external fun _wasm_libc_fuchsia_wcslen(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaWcslen(p0)")
+private external fun wasmLibcFuchsiaWcslen(p0: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_wcstombs(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_wcstombs(p0: String, p1: String, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaWcstombs(p0, p1, p2)")
+private external fun wasmLibcFuchsiaWcstombs(p0: String, p1: String, p2: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_memchr(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_memchr(p0: String, p1: Int, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaMemchr(p0, p1, p2)")
+private external fun wasmLibcFuchsiaMemchr(p0: String, p1: Int, p2: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_wmemchr(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_wmemchr(p0: String, p1: Int, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaWmemchr(p0, p1, p2)")
+private external fun wasmLibcFuchsiaWmemchr(p0: String, p1: Int, p2: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_memcmp(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_memcmp(p0: String, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaMemcmp(p0, p1, p2)")
+private external fun wasmLibcFuchsiaMemcmp(p0: String, p1: String, p2: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_memcpy(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_memcpy(p0: String, p1: String, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaMemcpy(p0, p1, p2)")
+private external fun wasmLibcFuchsiaMemcpy(p0: String, p1: String, p2: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_memmove(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_memmove(p0: String, p1: String, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaMemmove(p0, p1, p2)")
+private external fun wasmLibcFuchsiaMemmove(p0: String, p1: String, p2: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_memset(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_memset(p0: String, p1: Int, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaMemset(p0, p1, p2)")
+private external fun wasmLibcFuchsiaMemset(p0: String, p1: Int, p2: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_abs(p0)")
-private external fun _wasm_libc_fuchsia_abs(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaAbs(p0)")
+private external fun wasmLibcFuchsiaAbs(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_labs(p0)")
-private external fun _wasm_libc_fuchsia_labs(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaLabs(p0)")
+private external fun wasmLibcFuchsiaLabs(p0: String): String
 
-@JsFun("() => globalThis.__km_napi_libc.libc_fuchsia_rand()")
-private external fun _wasm_libc_fuchsia_rand(): Int
+@JsFun("() => globalThis.__km_napi_libc.libcFuchsiaRand()")
+private external fun wasmLibcFuchsiaRand(): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_srand(p0)")
-private external fun _wasm_libc_fuchsia_srand(p0: Int)
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaSrand(p0)")
+private external fun wasmLibcFuchsiaSrand(p0: Int)
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_getpwnam(p0)")
-private external fun _wasm_libc_fuchsia_getpwnam(p0: String?): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaGetpwnam(p0)")
+private external fun wasmLibcFuchsiaGetpwnam(p0: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_getpwuid(p0)")
-private external fun _wasm_libc_fuchsia_getpwuid(p0: Int): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaGetpwuid(p0)")
+private external fun wasmLibcFuchsiaGetpwuid(p0: Int): String
 
-@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libc_fuchsia_fprintf(p0, p1, p2, p3, p4, p5, p6)")
-private external fun _wasm_libc_fuchsia_fprintf(p0: String, p1: String?, p2: Int, p3: String, p4: String, p5: String, p6: String): Int
+@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libcFuchsiaFprintf(p0, p1, p2, p3, p4, p5, p6)")
+private external fun wasmLibcFuchsiaFprintf(p0: String, p1: String, p2: Int, p3: String, p4: String, p5: String, p6: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libc_fuchsia_printf(p0, p1, p2, p3, p4, p5)")
-private external fun _wasm_libc_fuchsia_printf(p0: String?, p1: Int, p2: String, p3: String, p4: String, p5: String): Int
+@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libcFuchsiaPrintf(p0, p1, p2, p3, p4, p5)")
+private external fun wasmLibcFuchsiaPrintf(p0: String, p1: Int, p2: String, p3: String, p4: String, p5: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5, p6, p7) => globalThis.__km_napi_libc.libc_fuchsia_snprintf(p0, p1, p2, p3, p4, p5, p6, p7)")
-private external fun _wasm_libc_fuchsia_snprintf(p0: String, p1: String, p2: String?, p3: Int, p4: String, p5: String, p6: String, p7: String): Int
+@JsFun("(p0, p1, p2, p3, p4, p5, p6, p7) => globalThis.__km_napi_libc.libcFuchsiaSnprintf(p0, p1, p2, p3, p4, p5, p6, p7)")
+private external fun wasmLibcFuchsiaSnprintf(p0: String, p1: String, p2: String, p3: Int, p4: String, p5: String, p6: String, p7: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libc_fuchsia_sprintf(p0, p1, p2, p3, p4, p5, p6)")
-private external fun _wasm_libc_fuchsia_sprintf(p0: String, p1: String?, p2: Int, p3: String, p4: String, p5: String, p6: String): Int
+@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libcFuchsiaSprintf(p0, p1, p2, p3, p4, p5, p6)")
+private external fun wasmLibcFuchsiaSprintf(p0: String, p1: String, p2: Int, p3: String, p4: String, p5: String, p6: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libc_fuchsia_fscanf(p0, p1, p2, p3, p4, p5, p6)")
-private external fun _wasm_libc_fuchsia_fscanf(p0: String, p1: String?, p2: Int, p3: String, p4: String, p5: String, p6: String): Int
+@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libcFuchsiaFscanf(p0, p1, p2, p3, p4, p5, p6)")
+private external fun wasmLibcFuchsiaFscanf(p0: String, p1: String, p2: Int, p3: String, p4: String, p5: String, p6: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libc_fuchsia_scanf(p0, p1, p2, p3, p4, p5)")
-private external fun _wasm_libc_fuchsia_scanf(p0: String?, p1: Int, p2: String, p3: String, p4: String, p5: String): Int
+@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libcFuchsiaScanf(p0, p1, p2, p3, p4, p5)")
+private external fun wasmLibcFuchsiaScanf(p0: String, p1: Int, p2: String, p3: String, p4: String, p5: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libc_fuchsia_sscanf(p0, p1, p2, p3, p4, p5, p6)")
-private external fun _wasm_libc_fuchsia_sscanf(p0: String?, p1: String?, p2: Int, p3: String, p4: String, p5: String, p6: String): Int
+@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libcFuchsiaSscanf(p0, p1, p2, p3, p4, p5, p6)")
+private external fun wasmLibcFuchsiaSscanf(p0: String, p1: String, p2: Int, p3: String, p4: String, p5: String, p6: String): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_fuchsia_getcharUnlocked()")
-private external fun _wasm_libc_fuchsia_getcharUnlocked(): Int
+@JsFun("() => globalThis.__km_napi_libc.libcFuchsiaGetcharUnlocked()")
+private external fun wasmLibcFuchsiaGetcharUnlocked(): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_putcharUnlocked(p0)")
-private external fun _wasm_libc_fuchsia_putcharUnlocked(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaPutcharUnlocked(p0)")
+private external fun wasmLibcFuchsiaPutcharUnlocked(p0: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_socket(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_socket(p0: Int, p1: Int, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaSocket(p0, p1, p2)")
+private external fun wasmLibcFuchsiaSocket(p0: Int, p1: Int, p2: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_connect(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_connect(p0: Int, p1: String, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaConnect(p0, p1, p2)")
+private external fun wasmLibcFuchsiaConnect(p0: Int, p1: String, p2: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_listen(p0, p1)")
-private external fun _wasm_libc_fuchsia_listen(p0: Int, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaListen(p0, p1)")
+private external fun wasmLibcFuchsiaListen(p0: Int, p1: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_accept(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_accept(p0: Int, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaAccept(p0, p1, p2)")
+private external fun wasmLibcFuchsiaAccept(p0: Int, p1: String, p2: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_getpeername(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_getpeername(p0: Int, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaGetpeername(p0, p1, p2)")
+private external fun wasmLibcFuchsiaGetpeername(p0: Int, p1: String, p2: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_getsockname(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_getsockname(p0: Int, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaGetsockname(p0, p1, p2)")
+private external fun wasmLibcFuchsiaGetsockname(p0: Int, p1: String, p2: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_fuchsia_setsockopt(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_fuchsia_setsockopt(p0: Int, p1: Int, p2: Int, p3: String, p4: Int): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcFuchsiaSetsockopt(p0, p1, p2, p3, p4)")
+private external fun wasmLibcFuchsiaSetsockopt(p0: Int, p1: Int, p2: Int, p3: String, p4: Int): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_fuchsia_socketpair(p0, p1, p2, p3)")
-private external fun _wasm_libc_fuchsia_socketpair(p0: Int, p1: Int, p2: Int, p3: String): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcFuchsiaSocketpair(p0, p1, p2, p3)")
+private external fun wasmLibcFuchsiaSocketpair(p0: Int, p1: Int, p2: Int, p3: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libc_fuchsia_sendto(p0, p1, p2, p3, p4, p5)")
-private external fun _wasm_libc_fuchsia_sendto(p0: Int, p1: String, p2: String, p3: Int, p4: String, p5: Int): String
+@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libcFuchsiaSendto(p0, p1, p2, p3, p4, p5)")
+private external fun wasmLibcFuchsiaSendto(p0: Int, p1: String, p2: String, p3: Int, p4: String, p5: Int): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_shutdown(p0, p1)")
-private external fun _wasm_libc_fuchsia_shutdown(p0: Int, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaShutdown(p0, p1)")
+private external fun wasmLibcFuchsiaShutdown(p0: Int, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_chmod(p0, p1)")
-private external fun _wasm_libc_fuchsia_chmod(p0: String?, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaChmod(p0, p1)")
+private external fun wasmLibcFuchsiaChmod(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_fchmod(p0, p1)")
-private external fun _wasm_libc_fuchsia_fchmod(p0: Int, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaFchmod(p0, p1)")
+private external fun wasmLibcFuchsiaFchmod(p0: Int, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_fstat(p0, p1)")
-private external fun _wasm_libc_fuchsia_fstat(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaFstat(p0, p1)")
+private external fun wasmLibcFuchsiaFstat(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_mkdir(p0, p1)")
-private external fun _wasm_libc_fuchsia_mkdir(p0: String?, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaMkdir(p0, p1)")
+private external fun wasmLibcFuchsiaMkdir(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_stat(p0, p1)")
-private external fun _wasm_libc_fuchsia_stat(p0: String?, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaStat(p0, p1)")
+private external fun wasmLibcFuchsiaStat(p0: String, p1: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_pclose(p0)")
-private external fun _wasm_libc_fuchsia_pclose(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaPclose(p0)")
+private external fun wasmLibcFuchsiaPclose(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_fdopen(p0, p1)")
-private external fun _wasm_libc_fuchsia_fdopen(p0: Int, p1: String?): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaFdopen(p0, p1)")
+private external fun wasmLibcFuchsiaFdopen(p0: Int, p1: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_fileno(p0)")
-private external fun _wasm_libc_fuchsia_fileno(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaFileno(p0)")
+private external fun wasmLibcFuchsiaFileno(p0: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libc_fuchsia_open(p0, p1, p2, p3, p4, p5, p6)")
-private external fun _wasm_libc_fuchsia_open(p0: String?, p1: Int, p2: Int, p3: String, p4: String, p5: String, p6: String): Int
+@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libcFuchsiaOpen(p0, p1, p2, p3, p4, p5, p6)")
+private external fun wasmLibcFuchsiaOpen(p0: String, p1: Int, p2: Int, p3: String, p4: String, p5: String, p6: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_creat(p0, p1)")
-private external fun _wasm_libc_fuchsia_creat(p0: String?, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaCreat(p0, p1)")
+private external fun wasmLibcFuchsiaCreat(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libc_fuchsia_fcntl(p0, p1, p2, p3, p4, p5, p6)")
-private external fun _wasm_libc_fuchsia_fcntl(p0: Int, p1: Int, p2: Int, p3: String, p4: String, p5: String, p6: String): Int
+@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libcFuchsiaFcntl(p0, p1, p2, p3, p4, p5, p6)")
+private external fun wasmLibcFuchsiaFcntl(p0: Int, p1: Int, p2: Int, p3: String, p4: String, p5: String, p6: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_opendir(p0)")
-private external fun _wasm_libc_fuchsia_opendir(p0: String?): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaOpendir(p0)")
+private external fun wasmLibcFuchsiaOpendir(p0: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_readdir(p0)")
-private external fun _wasm_libc_fuchsia_readdir(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaReaddir(p0)")
+private external fun wasmLibcFuchsiaReaddir(p0: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_readdirR(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_readdirR(p0: String, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaReaddirR(p0, p1, p2)")
+private external fun wasmLibcFuchsiaReaddirR(p0: String, p1: String, p2: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_closedir(p0)")
-private external fun _wasm_libc_fuchsia_closedir(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaClosedir(p0)")
+private external fun wasmLibcFuchsiaClosedir(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_rewinddir(p0)")
-private external fun _wasm_libc_fuchsia_rewinddir(p0: String)
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaRewinddir(p0)")
+private external fun wasmLibcFuchsiaRewinddir(p0: String)
 
-@JsFun("(p0, p1, p2, p3, p4, p5, p6, p7) => globalThis.__km_napi_libc.libc_fuchsia_openat(p0, p1, p2, p3, p4, p5, p6, p7)")
-private external fun _wasm_libc_fuchsia_openat(p0: Int, p1: String?, p2: Int, p3: Int, p4: String, p5: String, p6: String, p7: String): Int
+@JsFun("(p0, p1, p2, p3, p4, p5, p6, p7) => globalThis.__km_napi_libc.libcFuchsiaOpenat(p0, p1, p2, p3, p4, p5, p6, p7)")
+private external fun wasmLibcFuchsiaOpenat(p0: Int, p1: String, p2: Int, p3: Int, p4: String, p5: String, p6: String, p7: String): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_fuchsia_fchmodat(p0, p1, p2, p3)")
-private external fun _wasm_libc_fuchsia_fchmodat(p0: Int, p1: String?, p2: Int, p3: Int): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcFuchsiaFchmodat(p0, p1, p2, p3)")
+private external fun wasmLibcFuchsiaFchmodat(p0: Int, p1: String, p2: Int, p3: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_fchown(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_fchown(p0: Int, p1: Int, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaFchown(p0, p1, p2)")
+private external fun wasmLibcFuchsiaFchown(p0: Int, p1: Int, p2: Int): Int
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_fuchsia_fchownat(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_fuchsia_fchownat(p0: Int, p1: String?, p2: Int, p3: Int, p4: Int): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcFuchsiaFchownat(p0, p1, p2, p3, p4)")
+private external fun wasmLibcFuchsiaFchownat(p0: Int, p1: String, p2: Int, p3: Int, p4: Int): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_fuchsia_fstatat(p0, p1, p2, p3)")
-private external fun _wasm_libc_fuchsia_fstatat(p0: Int, p1: String?, p2: String, p3: Int): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcFuchsiaFstatat(p0, p1, p2, p3)")
+private external fun wasmLibcFuchsiaFstatat(p0: Int, p1: String, p2: String, p3: Int): Int
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_fuchsia_linkat(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_fuchsia_linkat(p0: Int, p1: String?, p2: Int, p3: String?, p4: Int): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcFuchsiaLinkat(p0, p1, p2, p3, p4)")
+private external fun wasmLibcFuchsiaLinkat(p0: Int, p1: String, p2: Int, p3: String, p4: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_mkdirat(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_mkdirat(p0: Int, p1: String?, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaMkdirat(p0, p1, p2)")
+private external fun wasmLibcFuchsiaMkdirat(p0: Int, p1: String, p2: Int): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_fuchsia_readlinkat(p0, p1, p2, p3)")
-private external fun _wasm_libc_fuchsia_readlinkat(p0: Int, p1: String?, p2: String, p3: String): String
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcFuchsiaReadlinkat(p0, p1, p2, p3)")
+private external fun wasmLibcFuchsiaReadlinkat(p0: Int, p1: String, p2: String, p3: String): String
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_fuchsia_renameat(p0, p1, p2, p3)")
-private external fun _wasm_libc_fuchsia_renameat(p0: Int, p1: String?, p2: Int, p3: String?): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcFuchsiaRenameat(p0, p1, p2, p3)")
+private external fun wasmLibcFuchsiaRenameat(p0: Int, p1: String, p2: Int, p3: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_symlinkat(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_symlinkat(p0: String?, p1: Int, p2: String?): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaSymlinkat(p0, p1, p2)")
+private external fun wasmLibcFuchsiaSymlinkat(p0: String, p1: Int, p2: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_unlinkat(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_unlinkat(p0: Int, p1: String?, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaUnlinkat(p0, p1, p2)")
+private external fun wasmLibcFuchsiaUnlinkat(p0: Int, p1: String, p2: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_access(p0, p1)")
-private external fun _wasm_libc_fuchsia_access(p0: String?, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaAccess(p0, p1)")
+private external fun wasmLibcFuchsiaAccess(p0: String, p1: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_alarm(p0)")
-private external fun _wasm_libc_fuchsia_alarm(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaAlarm(p0)")
+private external fun wasmLibcFuchsiaAlarm(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_chdir(p0)")
-private external fun _wasm_libc_fuchsia_chdir(p0: String?): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaChdir(p0)")
+private external fun wasmLibcFuchsiaChdir(p0: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_chown(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_chown(p0: String?, p1: Int, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaChown(p0, p1, p2)")
+private external fun wasmLibcFuchsiaChown(p0: String, p1: Int, p2: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_lchown(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_lchown(p0: String?, p1: Int, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaLchown(p0, p1, p2)")
+private external fun wasmLibcFuchsiaLchown(p0: String, p1: Int, p2: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_close(p0)")
-private external fun _wasm_libc_fuchsia_close(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaClose(p0)")
+private external fun wasmLibcFuchsiaClose(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_dup(p0)")
-private external fun _wasm_libc_fuchsia_dup(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaDup(p0)")
+private external fun wasmLibcFuchsiaDup(p0: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_dup2(p0, p1)")
-private external fun _wasm_libc_fuchsia_dup2(p0: Int, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaDup2(p0, p1)")
+private external fun wasmLibcFuchsiaDup2(p0: Int, p1: Int): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libc_fuchsia_execl(p0, p1, p2, p3, p4, p5, p6)")
-private external fun _wasm_libc_fuchsia_execl(p0: String?, p1: String?, p2: Int, p3: String, p4: String, p5: String, p6: String): Int
+@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libcFuchsiaExecl(p0, p1, p2, p3, p4, p5, p6)")
+private external fun wasmLibcFuchsiaExecl(p0: String, p1: String, p2: Int, p3: String, p4: String, p5: String, p6: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libc_fuchsia_execle(p0, p1, p2, p3, p4, p5, p6)")
-private external fun _wasm_libc_fuchsia_execle(p0: String?, p1: String?, p2: Int, p3: String, p4: String, p5: String, p6: String): Int
+@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libcFuchsiaExecle(p0, p1, p2, p3, p4, p5, p6)")
+private external fun wasmLibcFuchsiaExecle(p0: String, p1: String, p2: Int, p3: String, p4: String, p5: String, p6: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libc_fuchsia_execlp(p0, p1, p2, p3, p4, p5, p6)")
-private external fun _wasm_libc_fuchsia_execlp(p0: String?, p1: String?, p2: Int, p3: String, p4: String, p5: String, p6: String): Int
+@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libcFuchsiaExeclp(p0, p1, p2, p3, p4, p5, p6)")
+private external fun wasmLibcFuchsiaExeclp(p0: String, p1: String, p2: Int, p3: String, p4: String, p5: String, p6: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_execv(p0, p1)")
-private external fun _wasm_libc_fuchsia_execv(p0: String?, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaExecv(p0, p1)")
+private external fun wasmLibcFuchsiaExecv(p0: String, p1: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_execve(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_execve(p0: String?, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaExecve(p0, p1, p2)")
+private external fun wasmLibcFuchsiaExecve(p0: String, p1: String, p2: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_execvp(p0, p1)")
-private external fun _wasm_libc_fuchsia_execvp(p0: String?, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaExecvp(p0, p1)")
+private external fun wasmLibcFuchsiaExecvp(p0: String, p1: String): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_fuchsia_fork()")
-private external fun _wasm_libc_fuchsia_fork(): Int
+@JsFun("() => globalThis.__km_napi_libc.libcFuchsiaFork()")
+private external fun wasmLibcFuchsiaFork(): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_fpathconf(p0, p1)")
-private external fun _wasm_libc_fuchsia_fpathconf(p0: Int, p1: Int): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaFpathconf(p0, p1)")
+private external fun wasmLibcFuchsiaFpathconf(p0: Int, p1: Int): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_getcwd(p0, p1)")
-private external fun _wasm_libc_fuchsia_getcwd(p0: String, p1: String): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaGetcwd(p0, p1)")
+private external fun wasmLibcFuchsiaGetcwd(p0: String, p1: String): String
 
-@JsFun("() => globalThis.__km_napi_libc.libc_fuchsia_getegid()")
-private external fun _wasm_libc_fuchsia_getegid(): Int
+@JsFun("() => globalThis.__km_napi_libc.libcFuchsiaGetegid()")
+private external fun wasmLibcFuchsiaGetegid(): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_fuchsia_geteuid()")
-private external fun _wasm_libc_fuchsia_geteuid(): Int
+@JsFun("() => globalThis.__km_napi_libc.libcFuchsiaGeteuid()")
+private external fun wasmLibcFuchsiaGeteuid(): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_fuchsia_getgid()")
-private external fun _wasm_libc_fuchsia_getgid(): Int
+@JsFun("() => globalThis.__km_napi_libc.libcFuchsiaGetgid()")
+private external fun wasmLibcFuchsiaGetgid(): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_getgroups(p0, p1)")
-private external fun _wasm_libc_fuchsia_getgroups(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaGetgroups(p0, p1)")
+private external fun wasmLibcFuchsiaGetgroups(p0: Int, p1: String): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_fuchsia_getlogin()")
-private external fun _wasm_libc_fuchsia_getlogin(): String
+@JsFun("() => globalThis.__km_napi_libc.libcFuchsiaGetlogin()")
+private external fun wasmLibcFuchsiaGetlogin(): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_getopt(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_getopt(p0: Int, p1: String, p2: String?): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaGetopt(p0, p1, p2)")
+private external fun wasmLibcFuchsiaGetopt(p0: Int, p1: String, p2: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_getpgid(p0)")
-private external fun _wasm_libc_fuchsia_getpgid(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaGetpgid(p0)")
+private external fun wasmLibcFuchsiaGetpgid(p0: Int): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_fuchsia_getpgrp()")
-private external fun _wasm_libc_fuchsia_getpgrp(): Int
+@JsFun("() => globalThis.__km_napi_libc.libcFuchsiaGetpgrp()")
+private external fun wasmLibcFuchsiaGetpgrp(): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_fuchsia_getpid()")
-private external fun _wasm_libc_fuchsia_getpid(): Int
+@JsFun("() => globalThis.__km_napi_libc.libcFuchsiaGetpid()")
+private external fun wasmLibcFuchsiaGetpid(): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_fuchsia_getppid()")
-private external fun _wasm_libc_fuchsia_getppid(): Int
+@JsFun("() => globalThis.__km_napi_libc.libcFuchsiaGetppid()")
+private external fun wasmLibcFuchsiaGetppid(): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_fuchsia_getuid()")
-private external fun _wasm_libc_fuchsia_getuid(): Int
+@JsFun("() => globalThis.__km_napi_libc.libcFuchsiaGetuid()")
+private external fun wasmLibcFuchsiaGetuid(): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_isatty(p0)")
-private external fun _wasm_libc_fuchsia_isatty(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaIsatty(p0)")
+private external fun wasmLibcFuchsiaIsatty(p0: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_link(p0, p1)")
-private external fun _wasm_libc_fuchsia_link(p0: String?, p1: String?): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaLink(p0, p1)")
+private external fun wasmLibcFuchsiaLink(p0: String, p1: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_lseek(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_lseek(p0: Int, p1: String, p2: Int): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaLseek(p0, p1, p2)")
+private external fun wasmLibcFuchsiaLseek(p0: Int, p1: String, p2: Int): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_pathconf(p0, p1)")
-private external fun _wasm_libc_fuchsia_pathconf(p0: String?, p1: Int): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaPathconf(p0, p1)")
+private external fun wasmLibcFuchsiaPathconf(p0: String, p1: Int): String
 
-@JsFun("() => globalThis.__km_napi_libc.libc_fuchsia_pause()")
-private external fun _wasm_libc_fuchsia_pause(): Int
+@JsFun("() => globalThis.__km_napi_libc.libcFuchsiaPause()")
+private external fun wasmLibcFuchsiaPause(): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_pipe(p0)")
-private external fun _wasm_libc_fuchsia_pipe(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaPipe(p0)")
+private external fun wasmLibcFuchsiaPipe(p0: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_posixMemalign(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_posixMemalign(p0: String, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaPosixMemalign(p0, p1, p2)")
+private external fun wasmLibcFuchsiaPosixMemalign(p0: String, p1: String, p2: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_read(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_read(p0: Int, p1: String, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaRead(p0, p1, p2)")
+private external fun wasmLibcFuchsiaRead(p0: Int, p1: String, p2: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_rmdir(p0)")
-private external fun _wasm_libc_fuchsia_rmdir(p0: String?): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaRmdir(p0)")
+private external fun wasmLibcFuchsiaRmdir(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_seteuid(p0)")
-private external fun _wasm_libc_fuchsia_seteuid(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaSeteuid(p0)")
+private external fun wasmLibcFuchsiaSeteuid(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_setegid(p0)")
-private external fun _wasm_libc_fuchsia_setegid(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaSetegid(p0)")
+private external fun wasmLibcFuchsiaSetegid(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_setgid(p0)")
-private external fun _wasm_libc_fuchsia_setgid(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaSetgid(p0)")
+private external fun wasmLibcFuchsiaSetgid(p0: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_setpgid(p0, p1)")
-private external fun _wasm_libc_fuchsia_setpgid(p0: Int, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaSetpgid(p0, p1)")
+private external fun wasmLibcFuchsiaSetpgid(p0: Int, p1: Int): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_fuchsia_setsid()")
-private external fun _wasm_libc_fuchsia_setsid(): Int
+@JsFun("() => globalThis.__km_napi_libc.libcFuchsiaSetsid()")
+private external fun wasmLibcFuchsiaSetsid(): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_setuid(p0)")
-private external fun _wasm_libc_fuchsia_setuid(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaSetuid(p0)")
+private external fun wasmLibcFuchsiaSetuid(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_sleep(p0)")
-private external fun _wasm_libc_fuchsia_sleep(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaSleep(p0)")
+private external fun wasmLibcFuchsiaSleep(p0: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_nanosleep(p0, p1)")
-private external fun _wasm_libc_fuchsia_nanosleep(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaNanosleep(p0, p1)")
+private external fun wasmLibcFuchsiaNanosleep(p0: String, p1: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_tcgetpgrp(p0)")
-private external fun _wasm_libc_fuchsia_tcgetpgrp(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaTcgetpgrp(p0)")
+private external fun wasmLibcFuchsiaTcgetpgrp(p0: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_tcsetpgrp(p0, p1)")
-private external fun _wasm_libc_fuchsia_tcsetpgrp(p0: Int, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaTcsetpgrp(p0, p1)")
+private external fun wasmLibcFuchsiaTcsetpgrp(p0: Int, p1: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_ttyname(p0)")
-private external fun _wasm_libc_fuchsia_ttyname(p0: Int): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaTtyname(p0)")
+private external fun wasmLibcFuchsiaTtyname(p0: Int): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_unlink(p0)")
-private external fun _wasm_libc_fuchsia_unlink(p0: String?): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaUnlink(p0)")
+private external fun wasmLibcFuchsiaUnlink(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_wait(p0)")
-private external fun _wasm_libc_fuchsia_wait(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaWait(p0)")
+private external fun wasmLibcFuchsiaWait(p0: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_waitpid(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_waitpid(p0: Int, p1: String, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaWaitpid(p0, p1, p2)")
+private external fun wasmLibcFuchsiaWaitpid(p0: Int, p1: String, p2: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_write(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_write(p0: Int, p1: String, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaWrite(p0, p1, p2)")
+private external fun wasmLibcFuchsiaWrite(p0: Int, p1: String, p2: String): String
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_fuchsia_pread(p0, p1, p2, p3)")
-private external fun _wasm_libc_fuchsia_pread(p0: Int, p1: String, p2: String, p3: String): String
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcFuchsiaPread(p0, p1, p2, p3)")
+private external fun wasmLibcFuchsiaPread(p0: Int, p1: String, p2: String, p3: String): String
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_fuchsia_pwrite(p0, p1, p2, p3)")
-private external fun _wasm_libc_fuchsia_pwrite(p0: Int, p1: String, p2: String, p3: String): String
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcFuchsiaPwrite(p0, p1, p2, p3)")
+private external fun wasmLibcFuchsiaPwrite(p0: Int, p1: String, p2: String, p3: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_umask(p0)")
-private external fun _wasm_libc_fuchsia_umask(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaUmask(p0)")
+private external fun wasmLibcFuchsiaUmask(p0: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_utime(p0, p1)")
-private external fun _wasm_libc_fuchsia_utime(p0: String?, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaUtime(p0, p1)")
+private external fun wasmLibcFuchsiaUtime(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_kill(p0, p1)")
-private external fun _wasm_libc_fuchsia_kill(p0: Int, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaKill(p0, p1)")
+private external fun wasmLibcFuchsiaKill(p0: Int, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_mlock(p0, p1)")
-private external fun _wasm_libc_fuchsia_mlock(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaMlock(p0, p1)")
+private external fun wasmLibcFuchsiaMlock(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_munlock(p0, p1)")
-private external fun _wasm_libc_fuchsia_munlock(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaMunlock(p0, p1)")
+private external fun wasmLibcFuchsiaMunlock(p0: String, p1: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_mlockall(p0)")
-private external fun _wasm_libc_fuchsia_mlockall(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaMlockall(p0)")
+private external fun wasmLibcFuchsiaMlockall(p0: Int): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_fuchsia_munlockall()")
-private external fun _wasm_libc_fuchsia_munlockall(): Int
+@JsFun("() => globalThis.__km_napi_libc.libcFuchsiaMunlockall()")
+private external fun wasmLibcFuchsiaMunlockall(): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libc_fuchsia_mmap(p0, p1, p2, p3, p4, p5)")
-private external fun _wasm_libc_fuchsia_mmap(p0: String, p1: String, p2: Int, p3: Int, p4: Int, p5: String): String
+@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libcFuchsiaMmap(p0, p1, p2, p3, p4, p5)")
+private external fun wasmLibcFuchsiaMmap(p0: String, p1: String, p2: Int, p3: Int, p4: Int, p5: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_munmap(p0, p1)")
-private external fun _wasm_libc_fuchsia_munmap(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaMunmap(p0, p1)")
+private external fun wasmLibcFuchsiaMunmap(p0: String, p1: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_ifNametoindex(p0)")
-private external fun _wasm_libc_fuchsia_ifNametoindex(p0: String?): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaIfNametoindex(p0)")
+private external fun wasmLibcFuchsiaIfNametoindex(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_ifIndextoname(p0, p1)")
-private external fun _wasm_libc_fuchsia_ifIndextoname(p0: Int, p1: String): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaIfIndextoname(p0, p1)")
+private external fun wasmLibcFuchsiaIfIndextoname(p0: Int, p1: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_lstat(p0, p1)")
-private external fun _wasm_libc_fuchsia_lstat(p0: String?, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaLstat(p0, p1)")
+private external fun wasmLibcFuchsiaLstat(p0: String, p1: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_fsync(p0)")
-private external fun _wasm_libc_fuchsia_fsync(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaFsync(p0)")
+private external fun wasmLibcFuchsiaFsync(p0: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_setenv(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_setenv(p0: String?, p1: String?, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaSetenv(p0, p1, p2)")
+private external fun wasmLibcFuchsiaSetenv(p0: String, p1: String, p2: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_unsetenv(p0)")
-private external fun _wasm_libc_fuchsia_unsetenv(p0: String?): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaUnsetenv(p0)")
+private external fun wasmLibcFuchsiaUnsetenv(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_symlink(p0, p1)")
-private external fun _wasm_libc_fuchsia_symlink(p0: String?, p1: String?): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaSymlink(p0, p1)")
+private external fun wasmLibcFuchsiaSymlink(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_ftruncate(p0, p1)")
-private external fun _wasm_libc_fuchsia_ftruncate(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaFtruncate(p0, p1)")
+private external fun wasmLibcFuchsiaFtruncate(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_signal(p0, p1)")
-private external fun _wasm_libc_fuchsia_signal(p0: Int, p1: String): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaSignal(p0, p1)")
+private external fun wasmLibcFuchsiaSignal(p0: Int, p1: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_realpath(p0, p1)")
-private external fun _wasm_libc_fuchsia_realpath(p0: String?, p1: String): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaRealpath(p0, p1)")
+private external fun wasmLibcFuchsiaRealpath(p0: String, p1: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_flock(p0, p1)")
-private external fun _wasm_libc_fuchsia_flock(p0: Int, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaFlock(p0, p1)")
+private external fun wasmLibcFuchsiaFlock(p0: Int, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_gettimeofday(p0, p1)")
-private external fun _wasm_libc_fuchsia_gettimeofday(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaGettimeofday(p0, p1)")
+private external fun wasmLibcFuchsiaGettimeofday(p0: String, p1: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_times(p0)")
-private external fun _wasm_libc_fuchsia_times(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaTimes(p0)")
+private external fun wasmLibcFuchsiaTimes(p0: String): String
 
-@JsFun("() => globalThis.__km_napi_libc.libc_fuchsia_pthreadSelf()")
-private external fun _wasm_libc_fuchsia_pthreadSelf(): String
+@JsFun("() => globalThis.__km_napi_libc.libcFuchsiaPthreadSelf()")
+private external fun wasmLibcFuchsiaPthreadSelf(): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_pthreadJoin(p0, p1)")
-private external fun _wasm_libc_fuchsia_pthreadJoin(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaPthreadJoin(p0, p1)")
+private external fun wasmLibcFuchsiaPthreadJoin(p0: String, p1: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_pthreadExit(p0)")
-private external fun _wasm_libc_fuchsia_pthreadExit(p0: String)
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaPthreadExit(p0)")
+private external fun wasmLibcFuchsiaPthreadExit(p0: String)
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_pthreadAttrInit(p0)")
-private external fun _wasm_libc_fuchsia_pthreadAttrInit(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaPthreadAttrInit(p0)")
+private external fun wasmLibcFuchsiaPthreadAttrInit(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_pthreadAttrDestroy(p0)")
-private external fun _wasm_libc_fuchsia_pthreadAttrDestroy(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaPthreadAttrDestroy(p0)")
+private external fun wasmLibcFuchsiaPthreadAttrDestroy(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_pthreadAttrGetstacksize(p0, p1)")
-private external fun _wasm_libc_fuchsia_pthreadAttrGetstacksize(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaPthreadAttrGetstacksize(p0, p1)")
+private external fun wasmLibcFuchsiaPthreadAttrGetstacksize(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_pthreadAttrSetstacksize(p0, p1)")
-private external fun _wasm_libc_fuchsia_pthreadAttrSetstacksize(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaPthreadAttrSetstacksize(p0, p1)")
+private external fun wasmLibcFuchsiaPthreadAttrSetstacksize(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_pthreadAttrSetdetachstate(p0, p1)")
-private external fun _wasm_libc_fuchsia_pthreadAttrSetdetachstate(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaPthreadAttrSetdetachstate(p0, p1)")
+private external fun wasmLibcFuchsiaPthreadAttrSetdetachstate(p0: String, p1: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_pthreadDetach(p0)")
-private external fun _wasm_libc_fuchsia_pthreadDetach(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaPthreadDetach(p0)")
+private external fun wasmLibcFuchsiaPthreadDetach(p0: String): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_fuchsia_schedYield()")
-private external fun _wasm_libc_fuchsia_schedYield(): Int
+@JsFun("() => globalThis.__km_napi_libc.libcFuchsiaSchedYield()")
+private external fun wasmLibcFuchsiaSchedYield(): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_pthreadKeyCreate(p0, p1)")
-private external fun _wasm_libc_fuchsia_pthreadKeyCreate(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaPthreadKeyCreate(p0, p1)")
+private external fun wasmLibcFuchsiaPthreadKeyCreate(p0: String, p1: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_pthreadKeyDelete(p0)")
-private external fun _wasm_libc_fuchsia_pthreadKeyDelete(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaPthreadKeyDelete(p0)")
+private external fun wasmLibcFuchsiaPthreadKeyDelete(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_pthreadGetspecific(p0)")
-private external fun _wasm_libc_fuchsia_pthreadGetspecific(p0: Int): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaPthreadGetspecific(p0)")
+private external fun wasmLibcFuchsiaPthreadGetspecific(p0: Int): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_pthreadSetspecific(p0, p1)")
-private external fun _wasm_libc_fuchsia_pthreadSetspecific(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaPthreadSetspecific(p0, p1)")
+private external fun wasmLibcFuchsiaPthreadSetspecific(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_pthreadMutexInit(p0, p1)")
-private external fun _wasm_libc_fuchsia_pthreadMutexInit(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaPthreadMutexInit(p0, p1)")
+private external fun wasmLibcFuchsiaPthreadMutexInit(p0: String, p1: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_pthreadMutexDestroy(p0)")
-private external fun _wasm_libc_fuchsia_pthreadMutexDestroy(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaPthreadMutexDestroy(p0)")
+private external fun wasmLibcFuchsiaPthreadMutexDestroy(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_pthreadMutexLock(p0)")
-private external fun _wasm_libc_fuchsia_pthreadMutexLock(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaPthreadMutexLock(p0)")
+private external fun wasmLibcFuchsiaPthreadMutexLock(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_pthreadMutexTrylock(p0)")
-private external fun _wasm_libc_fuchsia_pthreadMutexTrylock(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaPthreadMutexTrylock(p0)")
+private external fun wasmLibcFuchsiaPthreadMutexTrylock(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_pthreadMutexUnlock(p0)")
-private external fun _wasm_libc_fuchsia_pthreadMutexUnlock(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaPthreadMutexUnlock(p0)")
+private external fun wasmLibcFuchsiaPthreadMutexUnlock(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_pthreadMutexattrInit(p0)")
-private external fun _wasm_libc_fuchsia_pthreadMutexattrInit(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaPthreadMutexattrInit(p0)")
+private external fun wasmLibcFuchsiaPthreadMutexattrInit(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_pthreadMutexattrDestroy(p0)")
-private external fun _wasm_libc_fuchsia_pthreadMutexattrDestroy(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaPthreadMutexattrDestroy(p0)")
+private external fun wasmLibcFuchsiaPthreadMutexattrDestroy(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_pthreadMutexattrSettype(p0, p1)")
-private external fun _wasm_libc_fuchsia_pthreadMutexattrSettype(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaPthreadMutexattrSettype(p0, p1)")
+private external fun wasmLibcFuchsiaPthreadMutexattrSettype(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_pthreadCondInit(p0, p1)")
-private external fun _wasm_libc_fuchsia_pthreadCondInit(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaPthreadCondInit(p0, p1)")
+private external fun wasmLibcFuchsiaPthreadCondInit(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_pthreadCondWait(p0, p1)")
-private external fun _wasm_libc_fuchsia_pthreadCondWait(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaPthreadCondWait(p0, p1)")
+private external fun wasmLibcFuchsiaPthreadCondWait(p0: String, p1: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_pthreadCondTimedwait(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_pthreadCondTimedwait(p0: String, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaPthreadCondTimedwait(p0, p1, p2)")
+private external fun wasmLibcFuchsiaPthreadCondTimedwait(p0: String, p1: String, p2: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_pthreadCondSignal(p0)")
-private external fun _wasm_libc_fuchsia_pthreadCondSignal(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaPthreadCondSignal(p0)")
+private external fun wasmLibcFuchsiaPthreadCondSignal(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_pthreadCondBroadcast(p0)")
-private external fun _wasm_libc_fuchsia_pthreadCondBroadcast(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaPthreadCondBroadcast(p0)")
+private external fun wasmLibcFuchsiaPthreadCondBroadcast(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_pthreadCondDestroy(p0)")
-private external fun _wasm_libc_fuchsia_pthreadCondDestroy(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaPthreadCondDestroy(p0)")
+private external fun wasmLibcFuchsiaPthreadCondDestroy(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_pthreadCondattrInit(p0)")
-private external fun _wasm_libc_fuchsia_pthreadCondattrInit(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaPthreadCondattrInit(p0)")
+private external fun wasmLibcFuchsiaPthreadCondattrInit(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_pthreadCondattrDestroy(p0)")
-private external fun _wasm_libc_fuchsia_pthreadCondattrDestroy(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaPthreadCondattrDestroy(p0)")
+private external fun wasmLibcFuchsiaPthreadCondattrDestroy(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_pthreadRwlockInit(p0, p1)")
-private external fun _wasm_libc_fuchsia_pthreadRwlockInit(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaPthreadRwlockInit(p0, p1)")
+private external fun wasmLibcFuchsiaPthreadRwlockInit(p0: String, p1: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_pthreadRwlockDestroy(p0)")
-private external fun _wasm_libc_fuchsia_pthreadRwlockDestroy(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaPthreadRwlockDestroy(p0)")
+private external fun wasmLibcFuchsiaPthreadRwlockDestroy(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_pthreadRwlockRdlock(p0)")
-private external fun _wasm_libc_fuchsia_pthreadRwlockRdlock(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaPthreadRwlockRdlock(p0)")
+private external fun wasmLibcFuchsiaPthreadRwlockRdlock(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_pthreadRwlockTryrdlock(p0)")
-private external fun _wasm_libc_fuchsia_pthreadRwlockTryrdlock(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaPthreadRwlockTryrdlock(p0)")
+private external fun wasmLibcFuchsiaPthreadRwlockTryrdlock(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_pthreadRwlockWrlock(p0)")
-private external fun _wasm_libc_fuchsia_pthreadRwlockWrlock(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaPthreadRwlockWrlock(p0)")
+private external fun wasmLibcFuchsiaPthreadRwlockWrlock(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_pthreadRwlockTrywrlock(p0)")
-private external fun _wasm_libc_fuchsia_pthreadRwlockTrywrlock(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaPthreadRwlockTrywrlock(p0)")
+private external fun wasmLibcFuchsiaPthreadRwlockTrywrlock(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_pthreadRwlockUnlock(p0)")
-private external fun _wasm_libc_fuchsia_pthreadRwlockUnlock(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaPthreadRwlockUnlock(p0)")
+private external fun wasmLibcFuchsiaPthreadRwlockUnlock(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_pthreadRwlockattrInit(p0)")
-private external fun _wasm_libc_fuchsia_pthreadRwlockattrInit(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaPthreadRwlockattrInit(p0)")
+private external fun wasmLibcFuchsiaPthreadRwlockattrInit(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_pthreadRwlockattrDestroy(p0)")
-private external fun _wasm_libc_fuchsia_pthreadRwlockattrDestroy(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaPthreadRwlockattrDestroy(p0)")
+private external fun wasmLibcFuchsiaPthreadRwlockattrDestroy(p0: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_pthreadGetnameNp(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_pthreadGetnameNp(p0: String, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaPthreadGetnameNp(p0, p1, p2)")
+private external fun wasmLibcFuchsiaPthreadGetnameNp(p0: String, p1: String, p2: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_pthreadSetnameNp(p0, p1)")
-private external fun _wasm_libc_fuchsia_pthreadSetnameNp(p0: String, p1: String?): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaPthreadSetnameNp(p0, p1)")
+private external fun wasmLibcFuchsiaPthreadSetnameNp(p0: String, p1: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_strerrorR(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_strerrorR(p0: Int, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaStrerrorR(p0, p1, p2)")
+private external fun wasmLibcFuchsiaStrerrorR(p0: Int, p1: String, p2: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_fuchsia_getsockopt(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_fuchsia_getsockopt(p0: Int, p1: Int, p2: Int, p3: String, p4: String): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcFuchsiaGetsockopt(p0, p1, p2, p3, p4)")
+private external fun wasmLibcFuchsiaGetsockopt(p0: Int, p1: Int, p2: Int, p3: String, p4: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_raise(p0)")
-private external fun _wasm_libc_fuchsia_raise(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaRaise(p0)")
+private external fun wasmLibcFuchsiaRaise(p0: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_sigaction(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_sigaction(p0: Int, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaSigaction(p0, p1, p2)")
+private external fun wasmLibcFuchsiaSigaction(p0: Int, p1: String, p2: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_utimes(p0, p1)")
-private external fun _wasm_libc_fuchsia_utimes(p0: String?, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaUtimes(p0, p1)")
+private external fun wasmLibcFuchsiaUtimes(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_dlopen(p0, p1)")
-private external fun _wasm_libc_fuchsia_dlopen(p0: String?, p1: Int): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaDlopen(p0, p1)")
+private external fun wasmLibcFuchsiaDlopen(p0: String, p1: Int): String
 
-@JsFun("() => globalThis.__km_napi_libc.libc_fuchsia_dlerror()")
-private external fun _wasm_libc_fuchsia_dlerror(): String
+@JsFun("() => globalThis.__km_napi_libc.libcFuchsiaDlerror()")
+private external fun wasmLibcFuchsiaDlerror(): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_dlsym(p0, p1)")
-private external fun _wasm_libc_fuchsia_dlsym(p0: String, p1: String?): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaDlsym(p0, p1)")
+private external fun wasmLibcFuchsiaDlsym(p0: String, p1: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_dlclose(p0)")
-private external fun _wasm_libc_fuchsia_dlclose(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaDlclose(p0)")
+private external fun wasmLibcFuchsiaDlclose(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_dladdr(p0, p1)")
-private external fun _wasm_libc_fuchsia_dladdr(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaDladdr(p0, p1)")
+private external fun wasmLibcFuchsiaDladdr(p0: String, p1: String): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_fuchsia_getaddrinfo(p0, p1, p2, p3)")
-private external fun _wasm_libc_fuchsia_getaddrinfo(p0: String?, p1: String?, p2: String, p3: String): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcFuchsiaGetaddrinfo(p0, p1, p2, p3)")
+private external fun wasmLibcFuchsiaGetaddrinfo(p0: String, p1: String, p2: String, p3: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_freeaddrinfo(p0)")
-private external fun _wasm_libc_fuchsia_freeaddrinfo(p0: String)
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaFreeaddrinfo(p0)")
+private external fun wasmLibcFuchsiaFreeaddrinfo(p0: String)
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_gaiStrerror(p0)")
-private external fun _wasm_libc_fuchsia_gaiStrerror(p0: Int): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaGaiStrerror(p0)")
+private external fun wasmLibcFuchsiaGaiStrerror(p0: Int): String
 
-@JsFun("() => globalThis.__km_napi_libc.libc_fuchsia_resInit()")
-private external fun _wasm_libc_fuchsia_resInit(): Int
+@JsFun("() => globalThis.__km_napi_libc.libcFuchsiaResInit()")
+private external fun wasmLibcFuchsiaResInit(): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_gmtimeR(p0, p1)")
-private external fun _wasm_libc_fuchsia_gmtimeR(p0: String, p1: String): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaGmtimeR(p0, p1)")
+private external fun wasmLibcFuchsiaGmtimeR(p0: String, p1: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_localtimeR(p0, p1)")
-private external fun _wasm_libc_fuchsia_localtimeR(p0: String, p1: String): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaLocaltimeR(p0, p1)")
+private external fun wasmLibcFuchsiaLocaltimeR(p0: String, p1: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_mktime(p0)")
-private external fun _wasm_libc_fuchsia_mktime(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaMktime(p0)")
+private external fun wasmLibcFuchsiaMktime(p0: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_time(p0)")
-private external fun _wasm_libc_fuchsia_time(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaTime(p0)")
+private external fun wasmLibcFuchsiaTime(p0: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_gmtime(p0)")
-private external fun _wasm_libc_fuchsia_gmtime(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaGmtime(p0)")
+private external fun wasmLibcFuchsiaGmtime(p0: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_localtime(p0)")
-private external fun _wasm_libc_fuchsia_localtime(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaLocaltime(p0)")
+private external fun wasmLibcFuchsiaLocaltime(p0: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_mknod(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_mknod(p0: String?, p1: Int, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaMknod(p0, p1, p2)")
+private external fun wasmLibcFuchsiaMknod(p0: String, p1: Int, p2: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_uname(p0)")
-private external fun _wasm_libc_fuchsia_uname(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaUname(p0)")
+private external fun wasmLibcFuchsiaUname(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_gethostname(p0, p1)")
-private external fun _wasm_libc_fuchsia_gethostname(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaGethostname(p0, p1)")
+private external fun wasmLibcFuchsiaGethostname(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_getservbyname(p0, p1)")
-private external fun _wasm_libc_fuchsia_getservbyname(p0: String?, p1: String?): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaGetservbyname(p0, p1)")
+private external fun wasmLibcFuchsiaGetservbyname(p0: String, p1: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_getprotobyname(p0)")
-private external fun _wasm_libc_fuchsia_getprotobyname(p0: String?): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaGetprotobyname(p0)")
+private external fun wasmLibcFuchsiaGetprotobyname(p0: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_getprotobynumber(p0)")
-private external fun _wasm_libc_fuchsia_getprotobynumber(p0: Int): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaGetprotobynumber(p0)")
+private external fun wasmLibcFuchsiaGetprotobynumber(p0: Int): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_usleep(p0)")
-private external fun _wasm_libc_fuchsia_usleep(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaUsleep(p0)")
+private external fun wasmLibcFuchsiaUsleep(p0: Int): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_fuchsia_send(p0, p1, p2, p3)")
-private external fun _wasm_libc_fuchsia_send(p0: Int, p1: String, p2: String, p3: Int): String
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcFuchsiaSend(p0, p1, p2, p3)")
+private external fun wasmLibcFuchsiaSend(p0: Int, p1: String, p2: String, p3: Int): String
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_fuchsia_recv(p0, p1, p2, p3)")
-private external fun _wasm_libc_fuchsia_recv(p0: Int, p1: String, p2: String, p3: Int): String
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcFuchsiaRecv(p0, p1, p2, p3)")
+private external fun wasmLibcFuchsiaRecv(p0: Int, p1: String, p2: String, p3: Int): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_putenv(p0)")
-private external fun _wasm_libc_fuchsia_putenv(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaPutenv(p0)")
+private external fun wasmLibcFuchsiaPutenv(p0: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_poll(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_poll(p0: String, p1: String, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaPoll(p0, p1, p2)")
+private external fun wasmLibcFuchsiaPoll(p0: String, p1: String, p2: Int): Int
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_fuchsia_select(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_fuchsia_select(p0: Int, p1: String, p2: String, p3: String, p4: String): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcFuchsiaSelect(p0, p1, p2, p3, p4)")
+private external fun wasmLibcFuchsiaSelect(p0: Int, p1: String, p2: String, p3: String, p4: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_setlocale(p0, p1)")
-private external fun _wasm_libc_fuchsia_setlocale(p0: Int, p1: String?): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaSetlocale(p0, p1)")
+private external fun wasmLibcFuchsiaSetlocale(p0: Int, p1: String): String
 
-@JsFun("() => globalThis.__km_napi_libc.libc_fuchsia_localeconv()")
-private external fun _wasm_libc_fuchsia_localeconv(): String
+@JsFun("() => globalThis.__km_napi_libc.libcFuchsiaLocaleconv()")
+private external fun wasmLibcFuchsiaLocaleconv(): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_semDestroy(p0)")
-private external fun _wasm_libc_fuchsia_semDestroy(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaSemDestroy(p0)")
+private external fun wasmLibcFuchsiaSemDestroy(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_semWait(p0)")
-private external fun _wasm_libc_fuchsia_semWait(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaSemWait(p0)")
+private external fun wasmLibcFuchsiaSemWait(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_semTrywait(p0)")
-private external fun _wasm_libc_fuchsia_semTrywait(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaSemTrywait(p0)")
+private external fun wasmLibcFuchsiaSemTrywait(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_semPost(p0)")
-private external fun _wasm_libc_fuchsia_semPost(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaSemPost(p0)")
+private external fun wasmLibcFuchsiaSemPost(p0: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_semInit(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_semInit(p0: String, p1: Int, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaSemInit(p0, p1, p2)")
+private external fun wasmLibcFuchsiaSemInit(p0: String, p1: Int, p2: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_statvfs(p0, p1)")
-private external fun _wasm_libc_fuchsia_statvfs(p0: String?, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaStatvfs(p0, p1)")
+private external fun wasmLibcFuchsiaStatvfs(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_fstatvfs(p0, p1)")
-private external fun _wasm_libc_fuchsia_fstatvfs(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaFstatvfs(p0, p1)")
+private external fun wasmLibcFuchsiaFstatvfs(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_readlink(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_readlink(p0: String?, p1: String, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaReadlink(p0, p1, p2)")
+private external fun wasmLibcFuchsiaReadlink(p0: String, p1: String, p2: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_sigemptyset(p0)")
-private external fun _wasm_libc_fuchsia_sigemptyset(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaSigemptyset(p0)")
+private external fun wasmLibcFuchsiaSigemptyset(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_sigaddset(p0, p1)")
-private external fun _wasm_libc_fuchsia_sigaddset(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaSigaddset(p0, p1)")
+private external fun wasmLibcFuchsiaSigaddset(p0: String, p1: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_sigfillset(p0)")
-private external fun _wasm_libc_fuchsia_sigfillset(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaSigfillset(p0)")
+private external fun wasmLibcFuchsiaSigfillset(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_sigdelset(p0, p1)")
-private external fun _wasm_libc_fuchsia_sigdelset(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaSigdelset(p0, p1)")
+private external fun wasmLibcFuchsiaSigdelset(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_sigismember(p0, p1)")
-private external fun _wasm_libc_fuchsia_sigismember(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaSigismember(p0, p1)")
+private external fun wasmLibcFuchsiaSigismember(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_sigprocmask(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_sigprocmask(p0: Int, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaSigprocmask(p0, p1, p2)")
+private external fun wasmLibcFuchsiaSigprocmask(p0: Int, p1: String, p2: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_sigpending(p0)")
-private external fun _wasm_libc_fuchsia_sigpending(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaSigpending(p0)")
+private external fun wasmLibcFuchsiaSigpending(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_timegm(p0)")
-private external fun _wasm_libc_fuchsia_timegm(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaTimegm(p0)")
+private external fun wasmLibcFuchsiaTimegm(p0: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_getsid(p0)")
-private external fun _wasm_libc_fuchsia_getsid(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaGetsid(p0)")
+private external fun wasmLibcFuchsiaGetsid(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_sysconf(p0)")
-private external fun _wasm_libc_fuchsia_sysconf(p0: Int): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaSysconf(p0)")
+private external fun wasmLibcFuchsiaSysconf(p0: Int): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_mkfifo(p0, p1)")
-private external fun _wasm_libc_fuchsia_mkfifo(p0: String?, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaMkfifo(p0, p1)")
+private external fun wasmLibcFuchsiaMkfifo(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libc_fuchsia_pselect(p0, p1, p2, p3, p4, p5)")
-private external fun _wasm_libc_fuchsia_pselect(p0: Int, p1: String, p2: String, p3: String, p4: String, p5: String): Int
+@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libcFuchsiaPselect(p0, p1, p2, p3, p4, p5)")
+private external fun wasmLibcFuchsiaPselect(p0: Int, p1: String, p2: String, p3: String, p4: String, p5: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_fseeko(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_fseeko(p0: String, p1: String, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaFseeko(p0, p1, p2)")
+private external fun wasmLibcFuchsiaFseeko(p0: String, p1: String, p2: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_ftello(p0)")
-private external fun _wasm_libc_fuchsia_ftello(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaFtello(p0)")
+private external fun wasmLibcFuchsiaFtello(p0: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_tcdrain(p0)")
-private external fun _wasm_libc_fuchsia_tcdrain(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaTcdrain(p0)")
+private external fun wasmLibcFuchsiaTcdrain(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_cfgetispeed(p0)")
-private external fun _wasm_libc_fuchsia_cfgetispeed(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaCfgetispeed(p0)")
+private external fun wasmLibcFuchsiaCfgetispeed(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_cfgetospeed(p0)")
-private external fun _wasm_libc_fuchsia_cfgetospeed(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaCfgetospeed(p0)")
+private external fun wasmLibcFuchsiaCfgetospeed(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_cfmakeraw(p0)")
-private external fun _wasm_libc_fuchsia_cfmakeraw(p0: String)
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaCfmakeraw(p0)")
+private external fun wasmLibcFuchsiaCfmakeraw(p0: String)
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_cfsetispeed(p0, p1)")
-private external fun _wasm_libc_fuchsia_cfsetispeed(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaCfsetispeed(p0, p1)")
+private external fun wasmLibcFuchsiaCfsetispeed(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_cfsetospeed(p0, p1)")
-private external fun _wasm_libc_fuchsia_cfsetospeed(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaCfsetospeed(p0, p1)")
+private external fun wasmLibcFuchsiaCfsetospeed(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_cfsetspeed(p0, p1)")
-private external fun _wasm_libc_fuchsia_cfsetspeed(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaCfsetspeed(p0, p1)")
+private external fun wasmLibcFuchsiaCfsetspeed(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_tcgetattr(p0, p1)")
-private external fun _wasm_libc_fuchsia_tcgetattr(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaTcgetattr(p0, p1)")
+private external fun wasmLibcFuchsiaTcgetattr(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_tcsetattr(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_tcsetattr(p0: Int, p1: Int, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaTcsetattr(p0, p1, p2)")
+private external fun wasmLibcFuchsiaTcsetattr(p0: Int, p1: Int, p2: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_tcflow(p0, p1)")
-private external fun _wasm_libc_fuchsia_tcflow(p0: Int, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaTcflow(p0, p1)")
+private external fun wasmLibcFuchsiaTcflow(p0: Int, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_tcflush(p0, p1)")
-private external fun _wasm_libc_fuchsia_tcflush(p0: Int, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaTcflush(p0, p1)")
+private external fun wasmLibcFuchsiaTcflush(p0: Int, p1: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_tcgetsid(p0)")
-private external fun _wasm_libc_fuchsia_tcgetsid(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaTcgetsid(p0)")
+private external fun wasmLibcFuchsiaTcgetsid(p0: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_tcsendbreak(p0, p1)")
-private external fun _wasm_libc_fuchsia_tcsendbreak(p0: Int, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaTcsendbreak(p0, p1)")
+private external fun wasmLibcFuchsiaTcsendbreak(p0: Int, p1: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_mkstemp(p0)")
-private external fun _wasm_libc_fuchsia_mkstemp(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaMkstemp(p0)")
+private external fun wasmLibcFuchsiaMkstemp(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_mkdtemp(p0)")
-private external fun _wasm_libc_fuchsia_mkdtemp(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaMkdtemp(p0)")
+private external fun wasmLibcFuchsiaMkdtemp(p0: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_tmpnam(p0)")
-private external fun _wasm_libc_fuchsia_tmpnam(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaTmpnam(p0)")
+private external fun wasmLibcFuchsiaTmpnam(p0: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_openlog(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_openlog(p0: String?, p1: Int, p2: Int)
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaOpenlog(p0, p1, p2)")
+private external fun wasmLibcFuchsiaOpenlog(p0: String, p1: Int, p2: Int)
 
-@JsFun("() => globalThis.__km_napi_libc.libc_fuchsia_closelog()")
-private external fun _wasm_libc_fuchsia_closelog()
+@JsFun("() => globalThis.__km_napi_libc.libcFuchsiaCloselog()")
+private external fun wasmLibcFuchsiaCloselog()
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_setlogmask(p0)")
-private external fun _wasm_libc_fuchsia_setlogmask(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaSetlogmask(p0)")
+private external fun wasmLibcFuchsiaSetlogmask(p0: Int): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libc_fuchsia_syslog(p0, p1, p2, p3, p4, p5, p6)")
-private external fun _wasm_libc_fuchsia_syslog(p0: Int, p1: String?, p2: Int, p3: String, p4: String, p5: String, p6: String)
+@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libcFuchsiaSyslog(p0, p1, p2, p3, p4, p5, p6)")
+private external fun wasmLibcFuchsiaSyslog(p0: Int, p1: String, p2: Int, p3: String, p4: String, p5: String, p6: String)
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_grantpt(p0)")
-private external fun _wasm_libc_fuchsia_grantpt(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaGrantpt(p0)")
+private external fun wasmLibcFuchsiaGrantpt(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_posixOpenpt(p0)")
-private external fun _wasm_libc_fuchsia_posixOpenpt(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaPosixOpenpt(p0)")
+private external fun wasmLibcFuchsiaPosixOpenpt(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_ptsname(p0)")
-private external fun _wasm_libc_fuchsia_ptsname(p0: Int): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaPtsname(p0)")
+private external fun wasmLibcFuchsiaPtsname(p0: Int): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_unlockpt(p0)")
-private external fun _wasm_libc_fuchsia_unlockpt(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaUnlockpt(p0)")
+private external fun wasmLibcFuchsiaUnlockpt(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_fdatasync(p0)")
-private external fun _wasm_libc_fuchsia_fdatasync(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaFdatasync(p0)")
+private external fun wasmLibcFuchsiaFdatasync(p0: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_clockGetres(p0, p1)")
-private external fun _wasm_libc_fuchsia_clockGetres(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaClockGetres(p0, p1)")
+private external fun wasmLibcFuchsiaClockGetres(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_clockGettime(p0, p1)")
-private external fun _wasm_libc_fuchsia_clockGettime(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaClockGettime(p0, p1)")
+private external fun wasmLibcFuchsiaClockGettime(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_clockSettime(p0, p1)")
-private external fun _wasm_libc_fuchsia_clockSettime(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaClockSettime(p0, p1)")
+private external fun wasmLibcFuchsiaClockSettime(p0: Int, p1: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_dirfd(p0)")
-private external fun _wasm_libc_fuchsia_dirfd(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaDirfd(p0)")
+private external fun wasmLibcFuchsiaDirfd(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_pthreadGetattrNp(p0, p1)")
-private external fun _wasm_libc_fuchsia_pthreadGetattrNp(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaPthreadGetattrNp(p0, p1)")
+private external fun wasmLibcFuchsiaPthreadGetattrNp(p0: String, p1: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_pthreadAttrGetstack(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_pthreadAttrGetstack(p0: String, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaPthreadAttrGetstack(p0, p1, p2)")
+private external fun wasmLibcFuchsiaPthreadAttrGetstack(p0: String, p1: String, p2: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_memalign(p0, p1)")
-private external fun _wasm_libc_fuchsia_memalign(p0: String, p1: String): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaMemalign(p0, p1)")
+private external fun wasmLibcFuchsiaMemalign(p0: String, p1: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_setgroups(p0, p1)")
-private external fun _wasm_libc_fuchsia_setgroups(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaSetgroups(p0, p1)")
+private external fun wasmLibcFuchsiaSetgroups(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_pipe2(p0, p1)")
-private external fun _wasm_libc_fuchsia_pipe2(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaPipe2(p0, p1)")
+private external fun wasmLibcFuchsiaPipe2(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_statfs(p0, p1)")
-private external fun _wasm_libc_fuchsia_statfs(p0: String?, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaStatfs(p0, p1)")
+private external fun wasmLibcFuchsiaStatfs(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_fstatfs(p0, p1)")
-private external fun _wasm_libc_fuchsia_fstatfs(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaFstatfs(p0, p1)")
+private external fun wasmLibcFuchsiaFstatfs(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_memrchr(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_memrchr(p0: String, p1: Int, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaMemrchr(p0, p1, p2)")
+private external fun wasmLibcFuchsiaMemrchr(p0: String, p1: Int, p2: String): String
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_fuchsia_posixFadvise(p0, p1, p2, p3)")
-private external fun _wasm_libc_fuchsia_posixFadvise(p0: Int, p1: String, p2: String, p3: Int): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcFuchsiaPosixFadvise(p0, p1, p2, p3)")
+private external fun wasmLibcFuchsiaPosixFadvise(p0: Int, p1: String, p2: String, p3: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_futimens(p0, p1)")
-private external fun _wasm_libc_fuchsia_futimens(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaFutimens(p0, p1)")
+private external fun wasmLibcFuchsiaFutimens(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_fuchsia_utimensat(p0, p1, p2, p3)")
-private external fun _wasm_libc_fuchsia_utimensat(p0: Int, p1: String?, p2: String, p3: Int): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcFuchsiaUtimensat(p0, p1, p2, p3)")
+private external fun wasmLibcFuchsiaUtimensat(p0: Int, p1: String, p2: String, p3: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_duplocale(p0)")
-private external fun _wasm_libc_fuchsia_duplocale(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaDuplocale(p0)")
+private external fun wasmLibcFuchsiaDuplocale(p0: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_freelocale(p0)")
-private external fun _wasm_libc_fuchsia_freelocale(p0: String)
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaFreelocale(p0)")
+private external fun wasmLibcFuchsiaFreelocale(p0: String)
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_newlocale(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_newlocale(p0: Int, p1: String?, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaNewlocale(p0, p1, p2)")
+private external fun wasmLibcFuchsiaNewlocale(p0: Int, p1: String, p2: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_uselocale(p0)")
-private external fun _wasm_libc_fuchsia_uselocale(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaUselocale(p0)")
+private external fun wasmLibcFuchsiaUselocale(p0: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_fdopendir(p0)")
-private external fun _wasm_libc_fuchsia_fdopendir(p0: Int): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaFdopendir(p0)")
+private external fun wasmLibcFuchsiaFdopendir(p0: Int): String
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_fuchsia_mknodat(p0, p1, p2, p3)")
-private external fun _wasm_libc_fuchsia_mknodat(p0: Int, p1: String?, p2: Int, p3: String): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcFuchsiaMknodat(p0, p1, p2, p3)")
+private external fun wasmLibcFuchsiaMknodat(p0: Int, p1: String, p2: Int, p3: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_pthreadCondattrGetclock(p0, p1)")
-private external fun _wasm_libc_fuchsia_pthreadCondattrGetclock(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaPthreadCondattrGetclock(p0, p1)")
+private external fun wasmLibcFuchsiaPthreadCondattrGetclock(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_pthreadCondattrSetclock(p0, p1)")
-private external fun _wasm_libc_fuchsia_pthreadCondattrSetclock(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaPthreadCondattrSetclock(p0, p1)")
+private external fun wasmLibcFuchsiaPthreadCondattrSetclock(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_fuchsia_accept4(p0, p1, p2, p3)")
-private external fun _wasm_libc_fuchsia_accept4(p0: Int, p1: String, p2: String, p3: Int): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcFuchsiaAccept4(p0, p1, p2, p3)")
+private external fun wasmLibcFuchsiaAccept4(p0: Int, p1: String, p2: String, p3: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_ptsnameR(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_ptsnameR(p0: Int, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaPtsnameR(p0, p1, p2)")
+private external fun wasmLibcFuchsiaPtsnameR(p0: Int, p1: String, p2: String): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_fuchsia_clearenv()")
-private external fun _wasm_libc_fuchsia_clearenv(): Int
+@JsFun("() => globalThis.__km_napi_libc.libcFuchsiaClearenv()")
+private external fun wasmLibcFuchsiaClearenv(): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_fuchsia_waitid(p0, p1, p2, p3)")
-private external fun _wasm_libc_fuchsia_waitid(p0: Int, p1: Int, p2: String, p3: Int): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcFuchsiaWaitid(p0, p1, p2, p3)")
+private external fun wasmLibcFuchsiaWaitid(p0: Int, p1: Int, p2: String, p3: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_setreuid(p0, p1)")
-private external fun _wasm_libc_fuchsia_setreuid(p0: Int, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaSetreuid(p0, p1)")
+private external fun wasmLibcFuchsiaSetreuid(p0: Int, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_setregid(p0, p1)")
-private external fun _wasm_libc_fuchsia_setregid(p0: Int, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaSetregid(p0, p1)")
+private external fun wasmLibcFuchsiaSetregid(p0: Int, p1: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_getresuid(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_getresuid(p0: String, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaGetresuid(p0, p1, p2)")
+private external fun wasmLibcFuchsiaGetresuid(p0: String, p1: String, p2: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_getresgid(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_getresgid(p0: String, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaGetresgid(p0, p1, p2)")
+private external fun wasmLibcFuchsiaGetresgid(p0: String, p1: String, p2: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_acct(p0)")
-private external fun _wasm_libc_fuchsia_acct(p0: String?): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaAcct(p0)")
+private external fun wasmLibcFuchsiaAcct(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_brk(p0)")
-private external fun _wasm_libc_fuchsia_brk(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaBrk(p0)")
+private external fun wasmLibcFuchsiaBrk(p0: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_setresgid(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_setresgid(p0: Int, p1: Int, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaSetresgid(p0, p1, p2)")
+private external fun wasmLibcFuchsiaSetresgid(p0: Int, p1: Int, p2: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_setresuid(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_setresuid(p0: Int, p1: Int, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaSetresuid(p0, p1, p2)")
+private external fun wasmLibcFuchsiaSetresuid(p0: Int, p1: Int, p2: Int): Int
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_fuchsia_openpty(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_fuchsia_openpty(p0: String, p1: String, p2: String, p3: String, p4: String): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcFuchsiaOpenpty(p0, p1, p2, p3, p4)")
+private external fun wasmLibcFuchsiaOpenpty(p0: String, p1: String, p2: String, p3: String, p4: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_execvpe(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_execvpe(p0: String?, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaExecvpe(p0, p1, p2)")
+private external fun wasmLibcFuchsiaExecvpe(p0: String, p1: String, p2: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_fexecve(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_fexecve(p0: Int, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaFexecve(p0, p1, p2)")
+private external fun wasmLibcFuchsiaFexecve(p0: Int, p1: String, p2: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libc_fuchsia_ioctl(p0, p1, p2, p3, p4, p5, p6)")
-private external fun _wasm_libc_fuchsia_ioctl(p0: Int, p1: Int, p2: Int, p3: String, p4: String, p5: String, p6: String): Int
+@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libcFuchsiaIoctl(p0, p1, p2, p3, p4, p5, p6)")
+private external fun wasmLibcFuchsiaIoctl(p0: Int, p1: Int, p2: Int, p3: String, p4: String, p5: String, p6: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_lutimes(p0, p1)")
-private external fun _wasm_libc_fuchsia_lutimes(p0: String?, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaLutimes(p0, p1)")
+private external fun wasmLibcFuchsiaLutimes(p0: String, p1: String): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_fuchsia_setpwent()")
-private external fun _wasm_libc_fuchsia_setpwent()
+@JsFun("() => globalThis.__km_napi_libc.libcFuchsiaSetpwent()")
+private external fun wasmLibcFuchsiaSetpwent()
 
-@JsFun("() => globalThis.__km_napi_libc.libc_fuchsia_endpwent()")
-private external fun _wasm_libc_fuchsia_endpwent()
+@JsFun("() => globalThis.__km_napi_libc.libcFuchsiaEndpwent()")
+private external fun wasmLibcFuchsiaEndpwent()
 
-@JsFun("() => globalThis.__km_napi_libc.libc_fuchsia_getpwent()")
-private external fun _wasm_libc_fuchsia_getpwent(): String
+@JsFun("() => globalThis.__km_napi_libc.libcFuchsiaGetpwent()")
+private external fun wasmLibcFuchsiaGetpwent(): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_shmOpen(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_shmOpen(p0: String?, p1: Int, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaShmOpen(p0, p1, p2)")
+private external fun wasmLibcFuchsiaShmOpen(p0: String, p1: Int, p2: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_shmget(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_shmget(p0: Int, p1: String, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaShmget(p0, p1, p2)")
+private external fun wasmLibcFuchsiaShmget(p0: Int, p1: String, p2: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_shmat(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_shmat(p0: Int, p1: String, p2: Int): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaShmat(p0, p1, p2)")
+private external fun wasmLibcFuchsiaShmat(p0: Int, p1: String, p2: Int): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_shmdt(p0)")
-private external fun _wasm_libc_fuchsia_shmdt(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaShmdt(p0)")
+private external fun wasmLibcFuchsiaShmdt(p0: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_shmctl(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_shmctl(p0: Int, p1: Int, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaShmctl(p0, p1, p2)")
+private external fun wasmLibcFuchsiaShmctl(p0: Int, p1: Int, p2: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_ftok(p0, p1)")
-private external fun _wasm_libc_fuchsia_ftok(p0: String?, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaFtok(p0, p1)")
+private external fun wasmLibcFuchsiaFtok(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_semget(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_semget(p0: Int, p1: Int, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaSemget(p0, p1, p2)")
+private external fun wasmLibcFuchsiaSemget(p0: Int, p1: Int, p2: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_semop(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_semop(p0: Int, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaSemop(p0, p1, p2)")
+private external fun wasmLibcFuchsiaSemop(p0: Int, p1: String, p2: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5, p6, p7) => globalThis.__km_napi_libc.libc_fuchsia_semctl(p0, p1, p2, p3, p4, p5, p6, p7)")
-private external fun _wasm_libc_fuchsia_semctl(p0: Int, p1: Int, p2: Int, p3: Int, p4: String, p5: String, p6: String, p7: String): Int
+@JsFun("(p0, p1, p2, p3, p4, p5, p6, p7) => globalThis.__km_napi_libc.libcFuchsiaSemctl(p0, p1, p2, p3, p4, p5, p6, p7)")
+private external fun wasmLibcFuchsiaSemctl(p0: Int, p1: Int, p2: Int, p3: Int, p4: String, p5: String, p6: String, p7: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_msgctl(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_msgctl(p0: Int, p1: Int, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaMsgctl(p0, p1, p2)")
+private external fun wasmLibcFuchsiaMsgctl(p0: Int, p1: Int, p2: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_msgget(p0, p1)")
-private external fun _wasm_libc_fuchsia_msgget(p0: Int, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaMsgget(p0, p1)")
+private external fun wasmLibcFuchsiaMsgget(p0: Int, p1: Int): Int
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_fuchsia_msgrcv(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_fuchsia_msgrcv(p0: Int, p1: String, p2: String, p3: String, p4: Int): String
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcFuchsiaMsgrcv(p0, p1, p2, p3, p4)")
+private external fun wasmLibcFuchsiaMsgrcv(p0: Int, p1: String, p2: String, p3: String, p4: Int): String
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_fuchsia_msgsnd(p0, p1, p2, p3)")
-private external fun _wasm_libc_fuchsia_msgsnd(p0: Int, p1: String, p2: String, p3: Int): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcFuchsiaMsgsnd(p0, p1, p2, p3)")
+private external fun wasmLibcFuchsiaMsgsnd(p0: Int, p1: String, p2: String, p3: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_mprotect(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_mprotect(p0: String, p1: String, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaMprotect(p0, p1, p2)")
+private external fun wasmLibcFuchsiaMprotect(p0: String, p1: String, p2: Int): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_fuchsia_errnoLocation()")
-private external fun _wasm_libc_fuchsia_errnoLocation(): String
+@JsFun("() => globalThis.__km_napi_libc.libcFuchsiaErrnoLocation()")
+private external fun wasmLibcFuchsiaErrnoLocation(): String
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_fuchsia_fallocate(p0, p1, p2, p3)")
-private external fun _wasm_libc_fuchsia_fallocate(p0: Int, p1: Int, p2: String, p3: String): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcFuchsiaFallocate(p0, p1, p2, p3)")
+private external fun wasmLibcFuchsiaFallocate(p0: Int, p1: Int, p2: String, p3: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_posixFallocate(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_posixFallocate(p0: Int, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaPosixFallocate(p0, p1, p2)")
+private external fun wasmLibcFuchsiaPosixFallocate(p0: Int, p1: String, p2: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_readahead(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_readahead(p0: Int, p1: String, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaReadahead(p0, p1, p2)")
+private external fun wasmLibcFuchsiaReadahead(p0: Int, p1: String, p2: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_signalfd(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_signalfd(p0: Int, p1: String, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaSignalfd(p0, p1, p2)")
+private external fun wasmLibcFuchsiaSignalfd(p0: Int, p1: String, p2: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_timerfdCreate(p0, p1)")
-private external fun _wasm_libc_fuchsia_timerfdCreate(p0: Int, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaTimerfdCreate(p0, p1)")
+private external fun wasmLibcFuchsiaTimerfdCreate(p0: Int, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_timerfdGettime(p0, p1)")
-private external fun _wasm_libc_fuchsia_timerfdGettime(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaTimerfdGettime(p0, p1)")
+private external fun wasmLibcFuchsiaTimerfdGettime(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_fuchsia_timerfdSettime(p0, p1, p2, p3)")
-private external fun _wasm_libc_fuchsia_timerfdSettime(p0: Int, p1: Int, p2: String, p3: String): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcFuchsiaTimerfdSettime(p0, p1, p2, p3)")
+private external fun wasmLibcFuchsiaTimerfdSettime(p0: Int, p1: Int, p2: String, p3: String): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_fuchsia_pwritev(p0, p1, p2, p3)")
-private external fun _wasm_libc_fuchsia_pwritev(p0: Int, p1: String, p2: Int, p3: String): String
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcFuchsiaPwritev(p0, p1, p2, p3)")
+private external fun wasmLibcFuchsiaPwritev(p0: Int, p1: String, p2: Int, p3: String): String
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_fuchsia_preadv(p0, p1, p2, p3)")
-private external fun _wasm_libc_fuchsia_preadv(p0: Int, p1: String, p2: Int, p3: String): String
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcFuchsiaPreadv(p0, p1, p2, p3)")
+private external fun wasmLibcFuchsiaPreadv(p0: Int, p1: String, p2: Int, p3: String): String
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_fuchsia_quotactl(p0, p1, p2, p3)")
-private external fun _wasm_libc_fuchsia_quotactl(p0: Int, p1: String?, p2: Int, p3: String): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcFuchsiaQuotactl(p0, p1, p2, p3)")
+private external fun wasmLibcFuchsiaQuotactl(p0: Int, p1: String, p2: Int, p3: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_dup3(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_dup3(p0: Int, p1: Int, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaDup3(p0, p1, p2)")
+private external fun wasmLibcFuchsiaDup3(p0: Int, p1: Int, p2: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_mkostemp(p0, p1)")
-private external fun _wasm_libc_fuchsia_mkostemp(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaMkostemp(p0, p1)")
+private external fun wasmLibcFuchsiaMkostemp(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_mkostemps(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_mkostemps(p0: String, p1: Int, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaMkostemps(p0, p1, p2)")
+private external fun wasmLibcFuchsiaMkostemps(p0: String, p1: Int, p2: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_sigtimedwait(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_sigtimedwait(p0: String, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaSigtimedwait(p0, p1, p2)")
+private external fun wasmLibcFuchsiaSigtimedwait(p0: String, p1: String, p2: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_sigwaitinfo(p0, p1)")
-private external fun _wasm_libc_fuchsia_sigwaitinfo(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaSigwaitinfo(p0, p1)")
+private external fun wasmLibcFuchsiaSigwaitinfo(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_nlLanginfoL(p0, p1)")
-private external fun _wasm_libc_fuchsia_nlLanginfoL(p0: Int, p1: String): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaNlLanginfoL(p0, p1)")
+private external fun wasmLibcFuchsiaNlLanginfoL(p0: Int, p1: String): String
 
-@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libc_fuchsia_getnameinfo(p0, p1, p2, p3, p4, p5, p6)")
-private external fun _wasm_libc_fuchsia_getnameinfo(p0: String, p1: Int, p2: String, p3: Int, p4: String, p5: Int, p6: Int): Int
+@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libcFuchsiaGetnameinfo(p0, p1, p2, p3, p4, p5, p6)")
+private external fun wasmLibcFuchsiaGetnameinfo(p0: String, p1: Int, p2: String, p3: Int, p4: String, p5: Int, p6: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_reboot(p0)")
-private external fun _wasm_libc_fuchsia_reboot(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaReboot(p0)")
+private external fun wasmLibcFuchsiaReboot(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_setfsgid(p0)")
-private external fun _wasm_libc_fuchsia_setfsgid(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaSetfsgid(p0)")
+private external fun wasmLibcFuchsiaSetfsgid(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_setfsuid(p0)")
-private external fun _wasm_libc_fuchsia_setfsuid(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaSetfsuid(p0)")
+private external fun wasmLibcFuchsiaSetfsuid(p0: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_mkfifoat(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_mkfifoat(p0: Int, p1: String?, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaMkfifoat(p0, p1, p2)")
+private external fun wasmLibcFuchsiaMkfifoat(p0: Int, p1: String, p2: Int): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_fuchsia_ifNameindex()")
-private external fun _wasm_libc_fuchsia_ifNameindex(): String
+@JsFun("() => globalThis.__km_napi_libc.libcFuchsiaIfNameindex()")
+private external fun wasmLibcFuchsiaIfNameindex(): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_ifFreenameindex(p0)")
-private external fun _wasm_libc_fuchsia_ifFreenameindex(p0: String)
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaIfFreenameindex(p0)")
+private external fun wasmLibcFuchsiaIfFreenameindex(p0: String)
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_fuchsia_syncFileRange(p0, p1, p2, p3)")
-private external fun _wasm_libc_fuchsia_syncFileRange(p0: Int, p1: String, p2: String, p3: Int): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcFuchsiaSyncFileRange(p0, p1, p2, p3)")
+private external fun wasmLibcFuchsiaSyncFileRange(p0: Int, p1: String, p2: String, p3: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_getifaddrs(p0)")
-private external fun _wasm_libc_fuchsia_getifaddrs(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaGetifaddrs(p0)")
+private external fun wasmLibcFuchsiaGetifaddrs(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_freeifaddrs(p0)")
-private external fun _wasm_libc_fuchsia_freeifaddrs(p0: String)
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaFreeifaddrs(p0)")
+private external fun wasmLibcFuchsiaFreeifaddrs(p0: String)
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_fuchsia_glob(p0, p1, p2, p3)")
-private external fun _wasm_libc_fuchsia_glob(p0: String?, p1: Int, p2: String, p3: String): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcFuchsiaGlob(p0, p1, p2, p3)")
+private external fun wasmLibcFuchsiaGlob(p0: String, p1: Int, p2: String, p3: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_globfree(p0)")
-private external fun _wasm_libc_fuchsia_globfree(p0: String)
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaGlobfree(p0)")
+private external fun wasmLibcFuchsiaGlobfree(p0: String)
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_posixMadvise(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_posixMadvise(p0: String, p1: String, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaPosixMadvise(p0, p1, p2)")
+private external fun wasmLibcFuchsiaPosixMadvise(p0: String, p1: String, p2: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_shmUnlink(p0)")
-private external fun _wasm_libc_fuchsia_shmUnlink(p0: String?): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaShmUnlink(p0)")
+private external fun wasmLibcFuchsiaShmUnlink(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_seekdir(p0, p1)")
-private external fun _wasm_libc_fuchsia_seekdir(p0: String, p1: String)
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaSeekdir(p0, p1)")
+private external fun wasmLibcFuchsiaSeekdir(p0: String, p1: String)
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_telldir(p0)")
-private external fun _wasm_libc_fuchsia_telldir(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaTelldir(p0)")
+private external fun wasmLibcFuchsiaTelldir(p0: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_madvise(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_madvise(p0: String, p1: String, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaMadvise(p0, p1, p2)")
+private external fun wasmLibcFuchsiaMadvise(p0: String, p1: String, p2: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_msync(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_msync(p0: String, p1: String, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaMsync(p0, p1, p2)")
+private external fun wasmLibcFuchsiaMsync(p0: String, p1: String, p2: Int): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libc_fuchsia_recvfrom(p0, p1, p2, p3, p4, p5)")
-private external fun _wasm_libc_fuchsia_recvfrom(p0: Int, p1: String, p2: String, p3: Int, p4: String, p5: String): String
+@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libcFuchsiaRecvfrom(p0, p1, p2, p3, p4, p5)")
+private external fun wasmLibcFuchsiaRecvfrom(p0: Int, p1: String, p2: String, p3: Int, p4: String, p5: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_mkstemps(p0, p1)")
-private external fun _wasm_libc_fuchsia_mkstemps(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaMkstemps(p0, p1)")
+private external fun wasmLibcFuchsiaMkstemps(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_futimes(p0, p1)")
-private external fun _wasm_libc_fuchsia_futimes(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaFutimes(p0, p1)")
+private external fun wasmLibcFuchsiaFutimes(p0: Int, p1: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_nlLanginfo(p0)")
-private external fun _wasm_libc_fuchsia_nlLanginfo(p0: Int): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaNlLanginfo(p0)")
+private external fun wasmLibcFuchsiaNlLanginfo(p0: Int): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_bind(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_bind(p0: Int, p1: String, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaBind(p0, p1, p2)")
+private external fun wasmLibcFuchsiaBind(p0: Int, p1: String, p2: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_writev(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_writev(p0: Int, p1: String, p2: Int): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaWritev(p0, p1, p2)")
+private external fun wasmLibcFuchsiaWritev(p0: Int, p1: String, p2: Int): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_readv(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_readv(p0: Int, p1: String, p2: Int): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaReadv(p0, p1, p2)")
+private external fun wasmLibcFuchsiaReadv(p0: Int, p1: String, p2: Int): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_sendmsg(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_sendmsg(p0: Int, p1: String, p2: Int): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaSendmsg(p0, p1, p2)")
+private external fun wasmLibcFuchsiaSendmsg(p0: Int, p1: String, p2: Int): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_recvmsg(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_recvmsg(p0: Int, p1: String, p2: Int): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaRecvmsg(p0, p1, p2)")
+private external fun wasmLibcFuchsiaRecvmsg(p0: Int, p1: String, p2: Int): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_getdomainname(p0, p1)")
-private external fun _wasm_libc_fuchsia_getdomainname(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaGetdomainname(p0, p1)")
+private external fun wasmLibcFuchsiaGetdomainname(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_setdomainname(p0, p1)")
-private external fun _wasm_libc_fuchsia_setdomainname(p0: String?, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaSetdomainname(p0, p1)")
+private external fun wasmLibcFuchsiaSetdomainname(p0: String, p1: String): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_fuchsia_vhangup()")
-private external fun _wasm_libc_fuchsia_vhangup(): Int
+@JsFun("() => globalThis.__km_napi_libc.libcFuchsiaVhangup()")
+private external fun wasmLibcFuchsiaVhangup(): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_fuchsia_sendmmsg(p0, p1, p2, p3)")
-private external fun _wasm_libc_fuchsia_sendmmsg(p0: Int, p1: String, p2: Int, p3: Int): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcFuchsiaSendmmsg(p0, p1, p2, p3)")
+private external fun wasmLibcFuchsiaSendmmsg(p0: Int, p1: String, p2: Int, p3: Int): Int
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_fuchsia_recvmmsg(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_fuchsia_recvmmsg(p0: Int, p1: String, p2: Int, p3: Int, p4: String): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcFuchsiaRecvmmsg(p0, p1, p2, p3, p4)")
+private external fun wasmLibcFuchsiaRecvmmsg(p0: Int, p1: String, p2: Int, p3: Int, p4: String): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_fuchsia_sync()")
-private external fun _wasm_libc_fuchsia_sync()
+@JsFun("() => globalThis.__km_napi_libc.libcFuchsiaSync()")
+private external fun wasmLibcFuchsiaSync()
 
-@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libc_fuchsia_syscall(p0, p1, p2, p3, p4, p5)")
-private external fun _wasm_libc_fuchsia_syscall(p0: String, p1: Int, p2: String, p3: String, p4: String, p5: String): String
+@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libcFuchsiaSyscall(p0, p1, p2, p3, p4, p5)")
+private external fun wasmLibcFuchsiaSyscall(p0: String, p1: Int, p2: String, p3: String, p4: String, p5: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_schedGetaffinity(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_schedGetaffinity(p0: Int, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaSchedGetaffinity(p0, p1, p2)")
+private external fun wasmLibcFuchsiaSchedGetaffinity(p0: Int, p1: String, p2: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_schedSetaffinity(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_schedSetaffinity(p0: Int, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaSchedSetaffinity(p0, p1, p2)")
+private external fun wasmLibcFuchsiaSchedSetaffinity(p0: Int, p1: String, p2: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_umount(p0)")
-private external fun _wasm_libc_fuchsia_umount(p0: String?): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaUmount(p0)")
+private external fun wasmLibcFuchsiaUmount(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_schedGetPriorityMax(p0)")
-private external fun _wasm_libc_fuchsia_schedGetPriorityMax(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaSchedGetPriorityMax(p0)")
+private external fun wasmLibcFuchsiaSchedGetPriorityMax(p0: Int): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_fuchsia_tee(p0, p1, p2, p3)")
-private external fun _wasm_libc_fuchsia_tee(p0: Int, p1: Int, p2: String, p3: Int): String
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcFuchsiaTee(p0, p1, p2, p3)")
+private external fun wasmLibcFuchsiaTee(p0: Int, p1: Int, p2: String, p3: Int): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_settimeofday(p0, p1)")
-private external fun _wasm_libc_fuchsia_settimeofday(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaSettimeofday(p0, p1)")
+private external fun wasmLibcFuchsiaSettimeofday(p0: String, p1: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libc_fuchsia_splice(p0, p1, p2, p3, p4, p5)")
-private external fun _wasm_libc_fuchsia_splice(p0: Int, p1: String, p2: Int, p3: String, p4: String, p5: Int): String
+@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libcFuchsiaSplice(p0, p1, p2, p3, p4, p5)")
+private external fun wasmLibcFuchsiaSplice(p0: Int, p1: String, p2: Int, p3: String, p4: String, p5: Int): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_eventfd(p0, p1)")
-private external fun _wasm_libc_fuchsia_eventfd(p0: Int, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaEventfd(p0, p1)")
+private external fun wasmLibcFuchsiaEventfd(p0: Int, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_schedRrGetInterval(p0, p1)")
-private external fun _wasm_libc_fuchsia_schedRrGetInterval(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaSchedRrGetInterval(p0, p1)")
+private external fun wasmLibcFuchsiaSchedRrGetInterval(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_semTimedwait(p0, p1)")
-private external fun _wasm_libc_fuchsia_semTimedwait(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaSemTimedwait(p0, p1)")
+private external fun wasmLibcFuchsiaSemTimedwait(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_semGetvalue(p0, p1)")
-private external fun _wasm_libc_fuchsia_semGetvalue(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaSemGetvalue(p0, p1)")
+private external fun wasmLibcFuchsiaSemGetvalue(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_schedSetparam(p0, p1)")
-private external fun _wasm_libc_fuchsia_schedSetparam(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaSchedSetparam(p0, p1)")
+private external fun wasmLibcFuchsiaSchedSetparam(p0: Int, p1: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_swapoff(p0)")
-private external fun _wasm_libc_fuchsia_swapoff(p0: String?): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaSwapoff(p0)")
+private external fun wasmLibcFuchsiaSwapoff(p0: String): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_fuchsia_vmsplice(p0, p1, p2, p3)")
-private external fun _wasm_libc_fuchsia_vmsplice(p0: Int, p1: String, p2: String, p3: Int): String
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcFuchsiaVmsplice(p0, p1, p2, p3)")
+private external fun wasmLibcFuchsiaVmsplice(p0: Int, p1: String, p2: String, p3: Int): String
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_fuchsia_mount(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_fuchsia_mount(p0: String?, p1: String?, p2: String?, p3: String, p4: String): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcFuchsiaMount(p0, p1, p2, p3, p4)")
+private external fun wasmLibcFuchsiaMount(p0: String, p1: String, p2: String, p3: String, p4: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_personality(p0)")
-private external fun _wasm_libc_fuchsia_personality(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaPersonality(p0)")
+private external fun wasmLibcFuchsiaPersonality(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_schedGetparam(p0, p1)")
-private external fun _wasm_libc_fuchsia_schedGetparam(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaSchedGetparam(p0, p1)")
+private external fun wasmLibcFuchsiaSchedGetparam(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_fuchsia_ppoll(p0, p1, p2, p3)")
-private external fun _wasm_libc_fuchsia_ppoll(p0: String, p1: String, p2: String, p3: String): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcFuchsiaPpoll(p0, p1, p2, p3)")
+private external fun wasmLibcFuchsiaPpoll(p0: String, p1: String, p2: String, p3: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_pthreadMutexTimedlock(p0, p1)")
-private external fun _wasm_libc_fuchsia_pthreadMutexTimedlock(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaPthreadMutexTimedlock(p0, p1)")
+private external fun wasmLibcFuchsiaPthreadMutexTimedlock(p0: String, p1: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5, p6, p7, p8) => globalThis.__km_napi_libc.libc_fuchsia_clone(p0, p1, p2, p3, p4, p5, p6, p7, p8)")
-private external fun _wasm_libc_fuchsia_clone(p0: String, p1: String, p2: Int, p3: String, p4: Int, p5: String, p6: String, p7: String, p8: String): Int
+@JsFun("(p0, p1, p2, p3, p4, p5, p6, p7, p8) => globalThis.__km_napi_libc.libcFuchsiaClone(p0, p1, p2, p3, p4, p5, p6, p7, p8)")
+private external fun wasmLibcFuchsiaClone(p0: String, p1: String, p2: Int, p3: String, p4: Int, p5: String, p6: String, p7: String, p8: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_schedGetscheduler(p0)")
-private external fun _wasm_libc_fuchsia_schedGetscheduler(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaSchedGetscheduler(p0)")
+private external fun wasmLibcFuchsiaSchedGetscheduler(p0: Int): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_fuchsia_clockNanosleep(p0, p1, p2, p3)")
-private external fun _wasm_libc_fuchsia_clockNanosleep(p0: Int, p1: Int, p2: String, p3: String): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcFuchsiaClockNanosleep(p0, p1, p2, p3)")
+private external fun wasmLibcFuchsiaClockNanosleep(p0: Int, p1: Int, p2: String, p3: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_pthreadAttrGetguardsize(p0, p1)")
-private external fun _wasm_libc_fuchsia_pthreadAttrGetguardsize(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaPthreadAttrGetguardsize(p0, p1)")
+private external fun wasmLibcFuchsiaPthreadAttrGetguardsize(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_pthreadAttrSetguardsize(p0, p1)")
-private external fun _wasm_libc_fuchsia_pthreadAttrSetguardsize(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaPthreadAttrSetguardsize(p0, p1)")
+private external fun wasmLibcFuchsiaPthreadAttrSetguardsize(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_sethostname(p0, p1)")
-private external fun _wasm_libc_fuchsia_sethostname(p0: String?, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaSethostname(p0, p1)")
+private external fun wasmLibcFuchsiaSethostname(p0: String, p1: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_schedGetPriorityMin(p0)")
-private external fun _wasm_libc_fuchsia_schedGetPriorityMin(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaSchedGetPriorityMin(p0)")
+private external fun wasmLibcFuchsiaSchedGetPriorityMin(p0: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_umount2(p0, p1)")
-private external fun _wasm_libc_fuchsia_umount2(p0: String?, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaUmount2(p0, p1)")
+private external fun wasmLibcFuchsiaUmount2(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_swapon(p0, p1)")
-private external fun _wasm_libc_fuchsia_swapon(p0: String?, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaSwapon(p0, p1)")
+private external fun wasmLibcFuchsiaSwapon(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_schedSetscheduler(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_schedSetscheduler(p0: Int, p1: Int, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaSchedSetscheduler(p0, p1, p2)")
+private external fun wasmLibcFuchsiaSchedSetscheduler(p0: Int, p1: Int, p2: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_sigsuspend(p0)")
-private external fun _wasm_libc_fuchsia_sigsuspend(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaSigsuspend(p0)")
+private external fun wasmLibcFuchsiaSigsuspend(p0: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_fuchsia_getgrgidR(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_fuchsia_getgrgidR(p0: Int, p1: String, p2: String, p3: String, p4: String): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcFuchsiaGetgrgidR(p0, p1, p2, p3, p4)")
+private external fun wasmLibcFuchsiaGetgrgidR(p0: Int, p1: String, p2: String, p3: String, p4: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_sigaltstack(p0, p1)")
-private external fun _wasm_libc_fuchsia_sigaltstack(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaSigaltstack(p0, p1)")
+private external fun wasmLibcFuchsiaSigaltstack(p0: String, p1: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_semClose(p0)")
-private external fun _wasm_libc_fuchsia_semClose(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaSemClose(p0)")
+private external fun wasmLibcFuchsiaSemClose(p0: String): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_fuchsia_getdtablesize()")
-private external fun _wasm_libc_fuchsia_getdtablesize(): Int
+@JsFun("() => globalThis.__km_napi_libc.libcFuchsiaGetdtablesize()")
+private external fun wasmLibcFuchsiaGetdtablesize(): Int
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_fuchsia_getgrnamR(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_fuchsia_getgrnamR(p0: String?, p1: String, p2: String, p3: String, p4: String): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcFuchsiaGetgrnamR(p0, p1, p2, p3, p4)")
+private external fun wasmLibcFuchsiaGetgrnamR(p0: String, p1: String, p2: String, p3: String, p4: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_initgroups(p0, p1)")
-private external fun _wasm_libc_fuchsia_initgroups(p0: String?, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaInitgroups(p0, p1)")
+private external fun wasmLibcFuchsiaInitgroups(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_pthreadSigmask(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_pthreadSigmask(p0: Int, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaPthreadSigmask(p0, p1, p2)")
+private external fun wasmLibcFuchsiaPthreadSigmask(p0: Int, p1: String, p2: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libc_fuchsia_semOpen(p0, p1, p2, p3, p4, p5, p6)")
-private external fun _wasm_libc_fuchsia_semOpen(p0: String?, p1: Int, p2: Int, p3: String, p4: String, p5: String, p6: String): String
+@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libcFuchsiaSemOpen(p0, p1, p2, p3, p4, p5, p6)")
+private external fun wasmLibcFuchsiaSemOpen(p0: String, p1: Int, p2: Int, p3: String, p4: String, p5: String, p6: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_getgrnam(p0)")
-private external fun _wasm_libc_fuchsia_getgrnam(p0: String?): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaGetgrnam(p0)")
+private external fun wasmLibcFuchsiaGetgrnam(p0: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_pthreadCancel(p0)")
-private external fun _wasm_libc_fuchsia_pthreadCancel(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaPthreadCancel(p0)")
+private external fun wasmLibcFuchsiaPthreadCancel(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_pthreadKill(p0, p1)")
-private external fun _wasm_libc_fuchsia_pthreadKill(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaPthreadKill(p0, p1)")
+private external fun wasmLibcFuchsiaPthreadKill(p0: String, p1: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_semUnlink(p0)")
-private external fun _wasm_libc_fuchsia_semUnlink(p0: String?): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaSemUnlink(p0)")
+private external fun wasmLibcFuchsiaSemUnlink(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_daemon(p0, p1)")
-private external fun _wasm_libc_fuchsia_daemon(p0: Int, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaDaemon(p0, p1)")
+private external fun wasmLibcFuchsiaDaemon(p0: Int, p1: Int): Int
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_fuchsia_getpwnamR(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_fuchsia_getpwnamR(p0: String?, p1: String, p2: String, p3: String, p4: String): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcFuchsiaGetpwnamR(p0, p1, p2, p3, p4)")
+private external fun wasmLibcFuchsiaGetpwnamR(p0: String, p1: String, p2: String, p3: String, p4: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_fuchsia_getpwuidR(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_fuchsia_getpwuidR(p0: Int, p1: String, p2: String, p3: String, p4: String): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcFuchsiaGetpwuidR(p0, p1, p2, p3, p4)")
+private external fun wasmLibcFuchsiaGetpwuidR(p0: Int, p1: String, p2: String, p3: String, p4: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_sigwait(p0, p1)")
-private external fun _wasm_libc_fuchsia_sigwait(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaSigwait(p0, p1)")
+private external fun wasmLibcFuchsiaSigwait(p0: String, p1: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_fuchsia_pthreadAtfork(p0, p1, p2)")
-private external fun _wasm_libc_fuchsia_pthreadAtfork(p0: String, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcFuchsiaPthreadAtfork(p0, p1, p2)")
+private external fun wasmLibcFuchsiaPthreadAtfork(p0: String, p1: String, p2: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_fuchsia_getgrgid(p0)")
-private external fun _wasm_libc_fuchsia_getgrgid(p0: Int): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcFuchsiaGetgrgid(p0)")
+private external fun wasmLibcFuchsiaGetgrgid(p0: Int): String
 
-@JsFun("() => globalThis.__km_napi_libc.libc_fuchsia_setgrent()")
-private external fun _wasm_libc_fuchsia_setgrent()
+@JsFun("() => globalThis.__km_napi_libc.libcFuchsiaSetgrent()")
+private external fun wasmLibcFuchsiaSetgrent()
 
-@JsFun("() => globalThis.__km_napi_libc.libc_fuchsia_endgrent()")
-private external fun _wasm_libc_fuchsia_endgrent()
+@JsFun("() => globalThis.__km_napi_libc.libcFuchsiaEndgrent()")
+private external fun wasmLibcFuchsiaEndgrent()
 
-@JsFun("() => globalThis.__km_napi_libc.libc_fuchsia_getgrent()")
-private external fun _wasm_libc_fuchsia_getgrent(): String
+@JsFun("() => globalThis.__km_napi_libc.libcFuchsiaGetgrent()")
+private external fun wasmLibcFuchsiaGetgrent(): String
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_fuchsia_getgrouplist(p0, p1, p2, p3)")
-private external fun _wasm_libc_fuchsia_getgrouplist(p0: String?, p1: Int, p2: String, p3: String): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcFuchsiaGetgrouplist(p0, p1, p2, p3)")
+private external fun wasmLibcFuchsiaGetgrouplist(p0: String, p1: Int, p2: String, p3: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_popen(p0, p1)")
-private external fun _wasm_libc_fuchsia_popen(p0: String?, p1: String?): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaPopen(p0, p1)")
+private external fun wasmLibcFuchsiaPopen(p0: String, p1: String): String
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_fuchsia_faccessat(p0, p1, p2, p3)")
-private external fun _wasm_libc_fuchsia_faccessat(p0: Int, p1: String?, p2: Int, p3: Int): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcFuchsiaFaccessat(p0, p1, p2, p3)")
+private external fun wasmLibcFuchsiaFaccessat(p0: Int, p1: String, p2: Int, p3: Int): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_fuchsia_pthreadCreate(p0, p1, p2, p3)")
-private external fun _wasm_libc_fuchsia_pthreadCreate(p0: String, p1: String, p2: String, p3: String): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcFuchsiaPthreadCreate(p0, p1, p2, p3)")
+private external fun wasmLibcFuchsiaPthreadCreate(p0: String, p1: String, p2: String, p3: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_fuchsia_dlIteratePhdr(p0, p1)")
-private external fun _wasm_libc_fuchsia_dlIteratePhdr(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcFuchsiaDlIteratePhdr(p0, p1)")
+private external fun wasmLibcFuchsiaDlIteratePhdr(p0: String, p1: String): Int
 
 public actual fun isalnum(c: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_isalnum(c) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaIsalnum(c) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun isalpha(c: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_isalpha(c) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaIsalpha(c) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun iscntrl(c: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_iscntrl(c) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaIscntrl(c) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun isdigit(c: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_isdigit(c) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaIsdigit(c) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun isgraph(c: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_isgraph(c) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaIsgraph(c) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun islower(c: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_islower(c) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaIslower(c) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun isprint(c: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_isprint(c) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaIsprint(c) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun ispunct(c: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_ispunct(c) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaIspunct(c) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun isspace(c: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_isspace(c) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaIsspace(c) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun isupper(c: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_isupper(c) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaIsupper(c) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun isxdigit(c: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_isxdigit(c) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaIsxdigit(c) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun isblank(c: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_isblank(c) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaIsblank(c) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun tolower(c: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_tolower(c) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaTolower(c) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun toupper(c: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_toupper(c) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaToupper(c) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fopen(filename: String?, mode: String?): FILE? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_fopen(filename, mode).toLong().let { if (it == 0L) null else FILE(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fopen(filename: ConstPtr<CChar>, mode: ConstPtr<CChar>): MutPtr<FILE> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaFopen(filename.rawAddress.toString(), mode.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun freopen(filename: String?, mode: String?, file: FILE?): FILE? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_freopen(filename, mode, (file?.handle ?: 0L).toString()).toLong().let { if (it == 0L) null else FILE(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun freopen(filename: ConstPtr<CChar>, mode: ConstPtr<CChar>, file: MutPtr<FILE>): MutPtr<FILE> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaFreopen(filename.rawAddress.toString(), mode.rawAddress.toString(), file.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fflush(file: FILE?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_fflush((file?.handle ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fflush(file: MutPtr<FILE>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaFflush(file.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fclose(file: FILE?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_fclose((file?.handle ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fclose(file: MutPtr<FILE>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaFclose(file.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun remove(filename: String?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_remove(filename) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun remove(filename: ConstPtr<CChar>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaRemove(filename.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun rename(oldname: String?, newname: String?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_rename(oldname, newname) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun rename(oldname: ConstPtr<CChar>, newname: ConstPtr<CChar>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaRename(oldname.rawAddress.toString(), newname.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun tmpfile(): FILE? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_tmpfile().toLong().let { if (it == 0L) null else FILE(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun tmpfile(): MutPtr<FILE> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaTmpfile().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setvbuf(stream: FILE?, buffer: COpaquePointer?, mode: CInt, size: SizeT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_setvbuf((stream?.handle ?: 0L).toString(), (buffer?.value ?: 0L).toString(), mode, size.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun setvbuf(stream: MutPtr<FILE>, buffer: MutPtr<CChar>, mode: CInt, size: SizeT): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSetvbuf(stream.rawAddress.toString(), buffer.rawAddress.toString(), mode, size.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setbuf(stream: FILE?, buf: COpaquePointer?) {
-    if (_fuchsiaNapiAvailable) {
-        _wasm_libc_fuchsia_setbuf((stream?.handle ?: 0L).toString(), (buf?.value ?: 0L).toString())
+public actual fun setbuf(stream: MutPtr<FILE>, buf: MutPtr<CChar>) {
+    if (fuchsiaNapiAvailable) {
+        wasmLibcFuchsiaSetbuf(stream.rawAddress.toString(), buf.rawAddress.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
 public actual fun getchar(): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_getchar() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaGetchar() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun putchar(c: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_putchar(c) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPutchar(c) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fgetc(stream: FILE?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_fgetc((stream?.handle ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fgetc(stream: MutPtr<FILE>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaFgetc(stream.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fgets(buf: COpaquePointer?, n: CInt, stream: FILE?): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_fgets((buf?.value ?: 0L).toString(), n, (stream?.handle ?: 0L).toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fgets(buf: MutPtr<CChar>, n: CInt, stream: MutPtr<FILE>): MutPtr<CChar> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaFgets(buf.rawAddress.toString(), n, stream.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fputc(c: CInt, stream: FILE?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_fputc(c, (stream?.handle ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fputc(c: CInt, stream: MutPtr<FILE>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaFputc(c, stream.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fputs(s: String?, stream: FILE?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_fputs(s, (stream?.handle ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fputs(s: ConstPtr<CChar>, stream: MutPtr<FILE>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaFputs(s.rawAddress.toString(), stream.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun puts(s: String?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_puts(s) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun puts(s: ConstPtr<CChar>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPuts(s.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ungetc(c: CInt, stream: FILE?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_ungetc(c, (stream?.handle ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ungetc(c: CInt, stream: MutPtr<FILE>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaUngetc(c, stream.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fread(ptr: COpaquePointer?, size: SizeT, nobj: SizeT, stream: FILE?): SizeT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_fread((ptr?.value ?: 0L).toString(), size.toString(), nobj.toString(), (stream?.handle ?: 0L).toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fread(ptr: MutPtr<CVoid>, size: SizeT, nobj: SizeT, stream: MutPtr<FILE>): SizeT =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaFread(ptr.rawAddress.toString(), size.toString(), nobj.toString(), stream.rawAddress.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fwrite(ptr: COpaquePointer?, size: SizeT, nobj: SizeT, stream: FILE?): SizeT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_fwrite((ptr?.value ?: 0L).toString(), size.toString(), nobj.toString(), (stream?.handle ?: 0L).toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fwrite(ptr: ConstPtr<CVoid>, size: SizeT, nobj: SizeT, stream: MutPtr<FILE>): SizeT =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaFwrite(ptr.rawAddress.toString(), size.toString(), nobj.toString(), stream.rawAddress.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fseek(stream: FILE?, offset: CLong, whence: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_fseek((stream?.handle ?: 0L).toString(), offset.toString(), whence) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fseek(stream: MutPtr<FILE>, offset: CLong, whence: CInt): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaFseek(stream.rawAddress.toString(), offset.toString(), whence) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ftell(stream: FILE?): CLong =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_ftell((stream?.handle ?: 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ftell(stream: MutPtr<FILE>): CLong =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaFtell(stream.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun rewind(stream: FILE?) {
-    if (_fuchsiaNapiAvailable) {
-        _wasm_libc_fuchsia_rewind((stream?.handle ?: 0L).toString())
+public actual fun rewind(stream: MutPtr<FILE>) {
+    if (fuchsiaNapiAvailable) {
+        wasmLibcFuchsiaRewind(stream.rawAddress.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun fgetpos(stream: FILE?, ptr: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_fgetpos((stream?.handle ?: 0L).toString(), (ptr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fgetpos(stream: MutPtr<FILE>, ptr: MutPtr<FposT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaFgetpos(stream.rawAddress.toString(), ptr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fsetpos(stream: FILE?, ptr: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_fsetpos((stream?.handle ?: 0L).toString(), (ptr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fsetpos(stream: MutPtr<FILE>, ptr: ConstPtr<FposT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaFsetpos(stream.rawAddress.toString(), ptr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun feof(stream: FILE?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_feof((stream?.handle ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun feof(stream: MutPtr<FILE>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaFeof(stream.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ferror(stream: FILE?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_ferror((stream?.handle ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ferror(stream: MutPtr<FILE>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaFerror(stream.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun perror(s: String?) {
-    if (_fuchsiaNapiAvailable) {
-        _wasm_libc_fuchsia_perror(s)
+public actual fun perror(s: ConstPtr<CChar>) {
+    if (fuchsiaNapiAvailable) {
+        wasmLibcFuchsiaPerror(s.rawAddress.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun atof(s: String?): CDouble =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_atof(s) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun atof(s: ConstPtr<CChar>): CDouble =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaAtof(s.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun atoi(s: String?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_atoi(s) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun atoi(s: ConstPtr<CChar>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaAtoi(s.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun atol(s: String?): CLong =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_atol(s).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun atol(s: ConstPtr<CChar>): CLong =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaAtol(s.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun atoll(s: String?): CLonglong =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_atoll(s).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun atoll(s: ConstPtr<CChar>): CLonglong =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaAtoll(s.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtod(s: String?, endp: COpaquePointer?): CDouble =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_strtod(s, (endp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strtod(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>): CDouble =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaStrtod(s.rawAddress.toString(), endp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtof(s: String?, endp: COpaquePointer?): CFloat =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_strtof(s, (endp?.value ?: 0L).toString()).toFloat() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strtof(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>): CFloat =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaStrtof(s.rawAddress.toString(), endp.rawAddress.toString()).toFloat() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtol(s: String?, endp: COpaquePointer?, base: CInt): CLong =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_strtol(s, (endp?.value ?: 0L).toString(), base).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strtol(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CLong =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaStrtol(s.rawAddress.toString(), endp.rawAddress.toString(), base).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtoll(s: String?, endp: COpaquePointer?, base: CInt): CLonglong =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_strtoll(s, (endp?.value ?: 0L).toString(), base).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strtoll(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CLonglong =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaStrtoll(s.rawAddress.toString(), endp.rawAddress.toString(), base).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtoul(s: String?, endp: COpaquePointer?, base: CInt): CUlong =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_strtoul(s, (endp?.value ?: 0L).toString(), base).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strtoul(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CUlong =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaStrtoul(s.rawAddress.toString(), endp.rawAddress.toString(), base).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtoull(s: String?, endp: COpaquePointer?, base: CInt): CUlonglong =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_strtoull(s, (endp?.value ?: 0L).toString(), base).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strtoull(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CUlonglong =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaStrtoull(s.rawAddress.toString(), endp.rawAddress.toString(), base).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun calloc(nobj: SizeT, size: SizeT): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_calloc(nobj.toString(), size.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun calloc(nobj: SizeT, size: SizeT): MutPtr<CVoid> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaCalloc(nobj.toString(), size.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun malloc(size: SizeT): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_malloc(size.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun malloc(size: SizeT): MutPtr<CVoid> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaMalloc(size.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun realloc(p: COpaquePointer?, size: SizeT): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_realloc((p?.value ?: 0L).toString(), size.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun realloc(p: MutPtr<CVoid>, size: SizeT): MutPtr<CVoid> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaRealloc(p.rawAddress.toString(), size.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun free(p: COpaquePointer?) {
-    if (_fuchsiaNapiAvailable) {
-        _wasm_libc_fuchsia_free((p?.value ?: 0L).toString())
+public actual fun free(p: MutPtr<CVoid>) {
+    if (fuchsiaNapiAvailable) {
+        wasmLibcFuchsiaFree(p.rawAddress.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
 public actual fun abort(): Nothing {
-    if (_fuchsiaNapiAvailable) {
-        _wasm_libc_fuchsia_abort()
+    if (fuchsiaNapiAvailable) {
+        wasmLibcFuchsiaAbort()
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
@@ -1717,8 +1721,8 @@ public actual fun abort(): Nothing {
 }
 
 public actual fun exit(status: CInt): Nothing {
-    if (_fuchsiaNapiAvailable) {
-        _wasm_libc_fuchsia_exit(status)
+    if (fuchsiaNapiAvailable) {
+        wasmLibcFuchsiaExit(status)
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
@@ -1726,1424 +1730,1424 @@ public actual fun exit(status: CInt): Nothing {
 }
 
 public actual fun atexit(cb: SigactionSaRestorerCallback): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_atexit(0L.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaAtexit(0L.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun system(s: String?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_system(s) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun system(s: ConstPtr<CChar>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSystem(s.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getenv(s: String?): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_getenv(s).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getenv(s: ConstPtr<CChar>): MutPtr<CChar> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaGetenv(s.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strcpy(dst: COpaquePointer?, src: String?): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_strcpy((dst?.value ?: 0L).toString(), src).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strcpy(dst: MutPtr<CChar>, src: ConstPtr<CChar>): MutPtr<CChar> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaStrcpy(dst.rawAddress.toString(), src.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strncpy(dst: COpaquePointer?, src: String?, n: SizeT): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_strncpy((dst?.value ?: 0L).toString(), src, n.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strncpy(dst: MutPtr<CChar>, src: ConstPtr<CChar>, n: SizeT): MutPtr<CChar> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaStrncpy(dst.rawAddress.toString(), src.rawAddress.toString(), n.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strcat(s: COpaquePointer?, ct: String?): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_strcat((s?.value ?: 0L).toString(), ct).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strcat(s: MutPtr<CChar>, ct: ConstPtr<CChar>): MutPtr<CChar> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaStrcat(s.rawAddress.toString(), ct.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strncat(s: COpaquePointer?, ct: String?, n: SizeT): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_strncat((s?.value ?: 0L).toString(), ct, n.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strncat(s: MutPtr<CChar>, ct: ConstPtr<CChar>, n: SizeT): MutPtr<CChar> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaStrncat(s.rawAddress.toString(), ct.rawAddress.toString(), n.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strcmp(cs: String?, ct: String?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_strcmp(cs, ct) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strcmp(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaStrcmp(cs.rawAddress.toString(), ct.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strncmp(cs: String?, ct: String?, n: SizeT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_strncmp(cs, ct, n.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strncmp(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>, n: SizeT): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaStrncmp(cs.rawAddress.toString(), ct.rawAddress.toString(), n.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strcoll(cs: String?, ct: String?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_strcoll(cs, ct) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strcoll(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaStrcoll(cs.rawAddress.toString(), ct.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strchr(cs: String?, c: CInt): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_strchr(cs, c).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strchr(cs: ConstPtr<CChar>, c: CInt): MutPtr<CChar> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaStrchr(cs.rawAddress.toString(), c).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strrchr(cs: String?, c: CInt): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_strrchr(cs, c).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strrchr(cs: ConstPtr<CChar>, c: CInt): MutPtr<CChar> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaStrrchr(cs.rawAddress.toString(), c).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strspn(cs: String?, ct: String?): SizeT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_strspn(cs, ct).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strspn(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): SizeT =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaStrspn(cs.rawAddress.toString(), ct.rawAddress.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strcspn(cs: String?, ct: String?): SizeT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_strcspn(cs, ct).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strcspn(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): SizeT =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaStrcspn(cs.rawAddress.toString(), ct.rawAddress.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strdup(cs: String?): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_strdup(cs).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strdup(cs: ConstPtr<CChar>): MutPtr<CChar> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaStrdup(cs.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strpbrk(cs: String?, ct: String?): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_strpbrk(cs, ct).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strpbrk(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): MutPtr<CChar> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaStrpbrk(cs.rawAddress.toString(), ct.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strstr(cs: String?, ct: String?): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_strstr(cs, ct).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strstr(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): MutPtr<CChar> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaStrstr(cs.rawAddress.toString(), ct.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strlen(cs: String?): SizeT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_strlen(cs).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strlen(cs: ConstPtr<CChar>): SizeT =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaStrlen(cs.rawAddress.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strnlen(cs: String?, maxlen: SizeT): SizeT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_strnlen(cs, maxlen.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strnlen(cs: ConstPtr<CChar>, maxlen: SizeT): SizeT =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaStrnlen(cs.rawAddress.toString(), maxlen.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strerror(n: CInt): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_strerror(n).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strerror(n: CInt): MutPtr<CChar> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaStrerror(n).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtok(s: COpaquePointer?, t: String?): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_strtok((s?.value ?: 0L).toString(), t).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strtok(s: MutPtr<CChar>, t: ConstPtr<CChar>): MutPtr<CChar> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaStrtok(s.rawAddress.toString(), t.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strxfrm(s: COpaquePointer?, ct: String?, n: SizeT): SizeT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_strxfrm((s?.value ?: 0L).toString(), ct, n.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strxfrm(s: MutPtr<CChar>, ct: ConstPtr<CChar>, n: SizeT): SizeT =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaStrxfrm(s.rawAddress.toString(), ct.rawAddress.toString(), n.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wcslen(buf: COpaquePointer?): SizeT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_wcslen((buf?.value ?: 0L).toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wcslen(buf: ConstPtr<WcharT>): SizeT =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaWcslen(buf.rawAddress.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wcstombs(dest: COpaquePointer?, src: COpaquePointer?, n: SizeT): SizeT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_wcstombs((dest?.value ?: 0L).toString(), (src?.value ?: 0L).toString(), n.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wcstombs(dest: MutPtr<CChar>, src: ConstPtr<WcharT>, n: SizeT): SizeT =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaWcstombs(dest.rawAddress.toString(), src.rawAddress.toString(), n.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memchr(cx: COpaquePointer?, c: CInt, n: SizeT): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_memchr((cx?.value ?: 0L).toString(), c, n.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun memchr(cx: ConstPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaMemchr(cx.rawAddress.toString(), c, n.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wmemchr(cx: COpaquePointer?, c: WcharT, n: SizeT): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_wmemchr((cx?.value ?: 0L).toString(), c.toInt(), n.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wmemchr(cx: ConstPtr<WcharT>, c: WcharT, n: SizeT): MutPtr<WcharT> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaWmemchr(cx.rawAddress.toString(), c.toInt(), n.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memcmp(cx: COpaquePointer?, ct: COpaquePointer?, n: SizeT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_memcmp((cx?.value ?: 0L).toString(), (ct?.value ?: 0L).toString(), n.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun memcmp(cx: ConstPtr<CVoid>, ct: ConstPtr<CVoid>, n: SizeT): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaMemcmp(cx.rawAddress.toString(), ct.rawAddress.toString(), n.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memcpy(dest: COpaquePointer?, src: COpaquePointer?, n: SizeT): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_memcpy((dest?.value ?: 0L).toString(), (src?.value ?: 0L).toString(), n.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun memcpy(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, n: SizeT): MutPtr<CVoid> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaMemcpy(dest.rawAddress.toString(), src.rawAddress.toString(), n.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memmove(dest: COpaquePointer?, src: COpaquePointer?, n: SizeT): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_memmove((dest?.value ?: 0L).toString(), (src?.value ?: 0L).toString(), n.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun memmove(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, n: SizeT): MutPtr<CVoid> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaMemmove(dest.rawAddress.toString(), src.rawAddress.toString(), n.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memset(dest: COpaquePointer?, c: CInt, n: SizeT): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_memset((dest?.value ?: 0L).toString(), c, n.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun memset(dest: MutPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaMemset(dest.rawAddress.toString(), c, n.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun abs(i: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_abs(i) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaAbs(i) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun labs(i: CLong): CLong =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_labs(i.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaLabs(i.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun rand(): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_rand() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaRand() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun srand(seed: CUint) {
-    if (_fuchsiaNapiAvailable) {
-        _wasm_libc_fuchsia_srand(seed.toInt())
+    if (fuchsiaNapiAvailable) {
+        wasmLibcFuchsiaSrand(seed.toInt())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun getpwnam(name: String?): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_getpwnam(name).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getpwnam(name: ConstPtr<CChar>): MutPtr<Passwd> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaGetpwnam(name.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getpwuid(uid: UidT): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_getpwuid(uid.toInt()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getpwuid(uid: UidT): MutPtr<Passwd> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaGetpwuid(uid.toInt()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fprintf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_fprintf((stream?.handle ?: 0L).toString(), format, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fprintf(stream: MutPtr<FILE>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaFprintf(stream.rawAddress.toString(), format.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun printf(format: String?, vararg variadicArgs: Long): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_printf(format, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun printf(format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPrintf(format.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun snprintf(s: COpaquePointer?, n: SizeT, format: String?, vararg variadicArgs: Long): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_snprintf((s?.value ?: 0L).toString(), n.toString(), format, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun snprintf(s: MutPtr<CChar>, n: SizeT, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSnprintf(s.rawAddress.toString(), n.toString(), format.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sprintf(s: COpaquePointer?, format: String?, vararg variadicArgs: Long): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_sprintf((s?.value ?: 0L).toString(), format, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sprintf(s: MutPtr<CChar>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSprintf(s.rawAddress.toString(), format.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fscanf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_fscanf((stream?.handle ?: 0L).toString(), format, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fscanf(stream: MutPtr<FILE>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaFscanf(stream.rawAddress.toString(), format.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun scanf(format: String?, vararg variadicArgs: Long): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_scanf(format, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun scanf(format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaScanf(format.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sscanf(s: String?, format: String?, vararg variadicArgs: Long): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_sscanf(s, format, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sscanf(s: ConstPtr<CChar>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSscanf(s.rawAddress.toString(), format.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun getcharUnlocked(): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_getcharUnlocked() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaGetcharUnlocked() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun putcharUnlocked(c: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_putcharUnlocked(c) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPutcharUnlocked(c) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun socket(domain: CInt, ty: CInt, protocol: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_socket(domain, ty, protocol) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSocket(domain, ty, protocol) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun connect(socket: CInt, address: COpaquePointer?, len: SocklenT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_connect(socket, (address?.value ?: 0L).toString(), len.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun connect(socket: CInt, address: ConstPtr<Sockaddr>, len: SocklenT): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaConnect(socket, address.rawAddress.toString(), len.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun listen(socket: CInt, backlog: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_listen(socket, backlog) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaListen(socket, backlog) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun accept(socket: CInt, address: COpaquePointer?, addressLen: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_accept(socket, (address?.value ?: 0L).toString(), (addressLen?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun accept(socket: CInt, address: MutPtr<Sockaddr>, addressLen: MutPtr<SocklenT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaAccept(socket, address.rawAddress.toString(), addressLen.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getpeername(socket: CInt, address: COpaquePointer?, addressLen: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_getpeername(socket, (address?.value ?: 0L).toString(), (addressLen?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getpeername(socket: CInt, address: MutPtr<Sockaddr>, addressLen: MutPtr<SocklenT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaGetpeername(socket, address.rawAddress.toString(), addressLen.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getsockname(socket: CInt, address: COpaquePointer?, addressLen: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_getsockname(socket, (address?.value ?: 0L).toString(), (addressLen?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getsockname(socket: CInt, address: MutPtr<Sockaddr>, addressLen: MutPtr<SocklenT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaGetsockname(socket, address.rawAddress.toString(), addressLen.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setsockopt(socket: CInt, level: CInt, name: CInt, value: COpaquePointer?, optionLen: SocklenT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_setsockopt(socket, level, name, (value?.value ?: 0L).toString(), optionLen.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun setsockopt(socket: CInt, level: CInt, name: CInt, value: ConstPtr<CVoid>, optionLen: SocklenT): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSetsockopt(socket, level, name, value.rawAddress.toString(), optionLen.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun socketpair(domain: CInt, type: CInt, protocol: CInt, socketVector: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_socketpair(domain, type, protocol, (socketVector?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun socketpair(domain: CInt, type: CInt, protocol: CInt, socketVector: MutPtr<CInt>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSocketpair(domain, type, protocol, socketVector.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sendto(socket: CInt, buf: COpaquePointer?, len: SizeT, flags: CInt, addr: COpaquePointer?, addrlen: SocklenT): SsizeT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_sendto(socket, (buf?.value ?: 0L).toString(), len.toString(), flags, (addr?.value ?: 0L).toString(), addrlen.toInt()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sendto(socket: CInt, buf: ConstPtr<CVoid>, len: SizeT, flags: CInt, addr: ConstPtr<Sockaddr>, addrlen: SocklenT): SsizeT =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSendto(socket, buf.rawAddress.toString(), len.toString(), flags, addr.rawAddress.toString(), addrlen.toInt()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun shutdown(socket: CInt, how: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_shutdown(socket, how) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaShutdown(socket, how) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun chmod(path: String?, mode: ModeT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_chmod(path, mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun chmod(path: ConstPtr<CChar>, mode: ModeT): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaChmod(path.rawAddress.toString(), mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun fchmod(fd: CInt, mode: ModeT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_fchmod(fd, mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaFchmod(fd, mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fstat(fildes: CInt, buf: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_fstat(fildes, (buf?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fstat(fildes: CInt, buf: MutPtr<Stat>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaFstat(fildes, buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mkdir(path: String?, mode: ModeT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_mkdir(path, mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mkdir(path: ConstPtr<CChar>, mode: ModeT): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaMkdir(path.rawAddress.toString(), mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun stat(path: String?, buf: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_stat(path, (buf?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun stat(path: ConstPtr<CChar>, buf: MutPtr<Stat>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaStat(path.rawAddress.toString(), buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pclose(stream: FILE?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pclose((stream?.handle ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pclose(stream: MutPtr<FILE>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPclose(stream.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fdopen(fd: CInt, mode: String?): FILE? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_fdopen(fd, mode).toLong().let { if (it == 0L) null else FILE(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fdopen(fd: CInt, mode: ConstPtr<CChar>): MutPtr<FILE> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaFdopen(fd, mode.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fileno(stream: FILE?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_fileno((stream?.handle ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fileno(stream: MutPtr<FILE>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaFileno(stream.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun open(path: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_open(path, oflag, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun open(path: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaOpen(path.rawAddress.toString(), oflag, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun creat(path: String?, mode: ModeT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_creat(path, mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun creat(path: ConstPtr<CChar>, mode: ModeT): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaCreat(path.rawAddress.toString(), mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun fcntl(fd: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_fcntl(fd, cmd, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaFcntl(fd, cmd, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun opendir(dirname: String?): DIR? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_opendir(dirname).toLong().let { if (it == 0L) null else DIR(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun opendir(dirname: ConstPtr<CChar>): MutPtr<DIR> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaOpendir(dirname.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun readdir(dirp: DIR?): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_readdir((dirp?.handle ?: 0L).toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun readdir(dirp: MutPtr<DIR>): MutPtr<Dirent> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaReaddir(dirp.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun readdirR(dirp: DIR?, entry: COpaquePointer?, result: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_readdirR((dirp?.handle ?: 0L).toString(), (entry?.value ?: 0L).toString(), (result?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun readdirR(dirp: MutPtr<DIR>, entry: MutPtr<Dirent>, result: MutPtr<MutPtr<Dirent>>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaReaddirR(dirp.rawAddress.toString(), entry.rawAddress.toString(), result.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun closedir(dirp: DIR?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_closedir((dirp?.handle ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun closedir(dirp: MutPtr<DIR>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaClosedir(dirp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun rewinddir(dirp: DIR?) {
-    if (_fuchsiaNapiAvailable) {
-        _wasm_libc_fuchsia_rewinddir((dirp?.handle ?: 0L).toString())
+public actual fun rewinddir(dirp: MutPtr<DIR>) {
+    if (fuchsiaNapiAvailable) {
+        wasmLibcFuchsiaRewinddir(dirp.rawAddress.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun openat(dirfd: CInt, pathname: String?, flags: CInt, vararg variadicArgs: Long): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_openat(dirfd, pathname, flags, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun openat(dirfd: CInt, pathname: ConstPtr<CChar>, flags: CInt, vararg variadicArgs: Long): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaOpenat(dirfd, pathname.rawAddress.toString(), flags, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fchmodat(dirfd: CInt, pathname: String?, mode: ModeT, flags: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_fchmodat(dirfd, pathname, mode.toInt(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fchmodat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT, flags: CInt): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaFchmodat(dirfd, pathname.rawAddress.toString(), mode.toInt(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun fchown(fd: CInt, owner: UidT, group: GidT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_fchown(fd, owner.toInt(), group.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaFchown(fd, owner.toInt(), group.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fchownat(dirfd: CInt, pathname: String?, owner: UidT, group: GidT, flags: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_fchownat(dirfd, pathname, owner.toInt(), group.toInt(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fchownat(dirfd: CInt, pathname: ConstPtr<CChar>, owner: UidT, group: GidT, flags: CInt): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaFchownat(dirfd, pathname.rawAddress.toString(), owner.toInt(), group.toInt(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fstatat(dirfd: CInt, pathname: String?, buf: COpaquePointer?, flags: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_fstatat(dirfd, pathname, (buf?.value ?: 0L).toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fstatat(dirfd: CInt, pathname: ConstPtr<CChar>, buf: MutPtr<Stat>, flags: CInt): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaFstatat(dirfd, pathname.rawAddress.toString(), buf.rawAddress.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun linkat(olddirfd: CInt, oldpath: String?, newdirfd: CInt, newpath: String?, flags: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_linkat(olddirfd, oldpath, newdirfd, newpath, flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun linkat(olddirfd: CInt, oldpath: ConstPtr<CChar>, newdirfd: CInt, newpath: ConstPtr<CChar>, flags: CInt): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaLinkat(olddirfd, oldpath.rawAddress.toString(), newdirfd, newpath.rawAddress.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mkdirat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_mkdirat(dirfd, pathname, mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mkdirat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaMkdirat(dirfd, pathname.rawAddress.toString(), mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun readlinkat(dirfd: CInt, pathname: String?, buf: COpaquePointer?, bufsiz: SizeT): SsizeT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_readlinkat(dirfd, pathname, (buf?.value ?: 0L).toString(), bufsiz.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun readlinkat(dirfd: CInt, pathname: ConstPtr<CChar>, buf: MutPtr<CChar>, bufsiz: SizeT): SsizeT =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaReadlinkat(dirfd, pathname.rawAddress.toString(), buf.rawAddress.toString(), bufsiz.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun renameat(olddirfd: CInt, oldpath: String?, newdirfd: CInt, newpath: String?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_renameat(olddirfd, oldpath, newdirfd, newpath) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun renameat(olddirfd: CInt, oldpath: ConstPtr<CChar>, newdirfd: CInt, newpath: ConstPtr<CChar>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaRenameat(olddirfd, oldpath.rawAddress.toString(), newdirfd, newpath.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun symlinkat(target: String?, newdirfd: CInt, linkpath: String?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_symlinkat(target, newdirfd, linkpath) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun symlinkat(target: ConstPtr<CChar>, newdirfd: CInt, linkpath: ConstPtr<CChar>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSymlinkat(target.rawAddress.toString(), newdirfd, linkpath.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun unlinkat(dirfd: CInt, pathname: String?, flags: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_unlinkat(dirfd, pathname, flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun unlinkat(dirfd: CInt, pathname: ConstPtr<CChar>, flags: CInt): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaUnlinkat(dirfd, pathname.rawAddress.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun access(path: String?, amode: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_access(path, amode) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun access(path: ConstPtr<CChar>, amode: CInt): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaAccess(path.rawAddress.toString(), amode) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun alarm(seconds: CUint): CUint =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_alarm(seconds.toInt()).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaAlarm(seconds.toInt()).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun chdir(dir: String?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_chdir(dir) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun chdir(dir: ConstPtr<CChar>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaChdir(dir.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun chown(path: String?, uid: UidT, gid: GidT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_chown(path, uid.toInt(), gid.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun chown(path: ConstPtr<CChar>, uid: UidT, gid: GidT): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaChown(path.rawAddress.toString(), uid.toInt(), gid.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun lchown(path: String?, uid: UidT, gid: GidT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_lchown(path, uid.toInt(), gid.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun lchown(path: ConstPtr<CChar>, uid: UidT, gid: GidT): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaLchown(path.rawAddress.toString(), uid.toInt(), gid.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun close(fd: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_close(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaClose(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun dup(fd: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_dup(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaDup(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun dup2(src: CInt, dst: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_dup2(src, dst) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaDup2(src, dst) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun execl(path: String?, arg0: String?, vararg variadicArgs: Long): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_execl(path, arg0, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun execl(path: ConstPtr<CChar>, arg0: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaExecl(path.rawAddress.toString(), arg0.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun execle(path: String?, arg0: String?, vararg variadicArgs: Long): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_execle(path, arg0, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun execle(path: ConstPtr<CChar>, arg0: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaExecle(path.rawAddress.toString(), arg0.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun execlp(file: String?, arg0: String?, vararg variadicArgs: Long): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_execlp(file, arg0, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun execlp(file: ConstPtr<CChar>, arg0: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaExeclp(file.rawAddress.toString(), arg0.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun execv(prog: String?, argv: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_execv(prog, (argv?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun execv(prog: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaExecv(prog.rawAddress.toString(), argv.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun execve(prog: String?, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_execve(prog, (argv?.value ?: 0L).toString(), (envp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun execve(prog: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>, envp: ConstPtr<ConstPtr<CChar>>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaExecve(prog.rawAddress.toString(), argv.rawAddress.toString(), envp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun execvp(c: String?, argv: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_execvp(c, (argv?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun execvp(c: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaExecvp(c.rawAddress.toString(), argv.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun fork(): PidT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_fork() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaFork() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun fpathconf(filedes: CInt, name: CInt): CLong =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_fpathconf(filedes, name).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaFpathconf(filedes, name).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getcwd(buf: COpaquePointer?, size: SizeT): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_getcwd((buf?.value ?: 0L).toString(), size.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getcwd(buf: MutPtr<CChar>, size: SizeT): MutPtr<CChar> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaGetcwd(buf.rawAddress.toString(), size.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun getegid(): GidT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_getegid().toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaGetegid().toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun geteuid(): UidT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_geteuid().toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaGeteuid().toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun getgid(): GidT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_getgid().toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaGetgid().toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getgroups(ngroupsMax: CInt, groups: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_getgroups(ngroupsMax, (groups?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getgroups(ngroupsMax: CInt, groups: MutPtr<GidT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaGetgroups(ngroupsMax, groups.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getlogin(): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_getlogin().toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getlogin(): MutPtr<CChar> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaGetlogin().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getopt(argc: CInt, argv: COpaquePointer?, optstr: String?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_getopt(argc, (argv?.value ?: 0L).toString(), optstr) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getopt(argc: CInt, argv: ConstPtr<MutPtr<CChar>>, optstr: ConstPtr<CChar>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaGetopt(argc, argv.rawAddress.toString(), optstr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun getpgid(pid: PidT): PidT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_getpgid(pid) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaGetpgid(pid) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun getpgrp(): PidT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_getpgrp() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaGetpgrp() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun getpid(): PidT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_getpid() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaGetpid() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun getppid(): PidT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_getppid() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaGetppid() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun getuid(): UidT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_getuid().toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaGetuid().toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun isatty(fd: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_isatty(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaIsatty(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun link(src: String?, dst: String?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_link(src, dst) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun link(src: ConstPtr<CChar>, dst: ConstPtr<CChar>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaLink(src.rawAddress.toString(), dst.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun lseek(fd: CInt, offset: OffT, whence: CInt): OffT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_lseek(fd, offset.toString(), whence).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaLseek(fd, offset.toString(), whence).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pathconf(path: String?, name: CInt): CLong =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pathconf(path, name).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pathconf(path: ConstPtr<CChar>, name: CInt): CLong =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPathconf(path.rawAddress.toString(), name).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun pause(): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pause() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPause() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pipe(fds: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pipe((fds?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pipe(fds: MutPtr<CInt>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPipe(fds.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixMemalign(memptr: COpaquePointer?, align: SizeT, size: SizeT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_posixMemalign((memptr?.value ?: 0L).toString(), align.toString(), size.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixMemalign(memptr: MutPtr<MutPtr<CVoid>>, align: SizeT, size: SizeT): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPosixMemalign(memptr.rawAddress.toString(), align.toString(), size.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun read(fd: CInt, buf: COpaquePointer?, count: SizeT): SsizeT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_read(fd, (buf?.value ?: 0L).toString(), count.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun read(fd: CInt, buf: MutPtr<CVoid>, count: SizeT): SsizeT =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaRead(fd, buf.rawAddress.toString(), count.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun rmdir(path: String?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_rmdir(path) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun rmdir(path: ConstPtr<CChar>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaRmdir(path.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun seteuid(uid: UidT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_seteuid(uid.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSeteuid(uid.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun setegid(gid: GidT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_setegid(gid.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSetegid(gid.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun setgid(gid: GidT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_setgid(gid.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSetgid(gid.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun setpgid(pid: PidT, pgid: PidT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_setpgid(pid, pgid) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSetpgid(pid, pgid) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun setsid(): PidT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_setsid() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSetsid() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun setuid(uid: UidT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_setuid(uid.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSetuid(uid.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sleep(secs: CUint): CUint =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_sleep(secs.toInt()).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSleep(secs.toInt()).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun nanosleep(rqtp: COpaquePointer?, rmtp: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_nanosleep((rqtp?.value ?: 0L).toString(), (rmtp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun nanosleep(rqtp: ConstPtr<Timespec>, rmtp: MutPtr<Timespec>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaNanosleep(rqtp.rawAddress.toString(), rmtp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun tcgetpgrp(fd: CInt): PidT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_tcgetpgrp(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaTcgetpgrp(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun tcsetpgrp(fd: CInt, pgrp: PidT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_tcsetpgrp(fd, pgrp) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaTcsetpgrp(fd, pgrp) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ttyname(fd: CInt): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_ttyname(fd).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ttyname(fd: CInt): MutPtr<CChar> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaTtyname(fd).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun unlink(c: String?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_unlink(c) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun unlink(c: ConstPtr<CChar>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaUnlink(c.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wait(status: COpaquePointer?): PidT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_wait((status?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wait(status: MutPtr<CInt>): PidT =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaWait(status.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun waitpid(pid: PidT, status: COpaquePointer?, options: CInt): PidT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_waitpid(pid, (status?.value ?: 0L).toString(), options) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun waitpid(pid: PidT, status: MutPtr<CInt>, options: CInt): PidT =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaWaitpid(pid, status.rawAddress.toString(), options) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun write(fd: CInt, buf: COpaquePointer?, count: SizeT): SsizeT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_write(fd, (buf?.value ?: 0L).toString(), count.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun write(fd: CInt, buf: ConstPtr<CVoid>, count: SizeT): SsizeT =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaWrite(fd, buf.rawAddress.toString(), count.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pread(fd: CInt, buf: COpaquePointer?, count: SizeT, offset: OffT): SsizeT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pread(fd, (buf?.value ?: 0L).toString(), count.toString(), offset.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pread(fd: CInt, buf: MutPtr<CVoid>, count: SizeT, offset: OffT): SsizeT =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPread(fd, buf.rawAddress.toString(), count.toString(), offset.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pwrite(fd: CInt, buf: COpaquePointer?, count: SizeT, offset: OffT): SsizeT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pwrite(fd, (buf?.value ?: 0L).toString(), count.toString(), offset.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pwrite(fd: CInt, buf: ConstPtr<CVoid>, count: SizeT, offset: OffT): SsizeT =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPwrite(fd, buf.rawAddress.toString(), count.toString(), offset.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun umask(mask: ModeT): ModeT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_umask(mask.toInt()).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaUmask(mask.toInt()).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun utime(file: String?, buf: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_utime(file, (buf?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun utime(file: ConstPtr<CChar>, buf: ConstPtr<Utimbuf>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaUtime(file.rawAddress.toString(), buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun kill(pid: PidT, sig: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_kill(pid, sig) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaKill(pid, sig) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mlock(addr: COpaquePointer?, len: SizeT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_mlock((addr?.value ?: 0L).toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mlock(addr: ConstPtr<CVoid>, len: SizeT): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaMlock(addr.rawAddress.toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun munlock(addr: COpaquePointer?, len: SizeT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_munlock((addr?.value ?: 0L).toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun munlock(addr: ConstPtr<CVoid>, len: SizeT): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaMunlock(addr.rawAddress.toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun mlockall(flags: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_mlockall(flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaMlockall(flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun munlockall(): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_munlockall() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaMunlockall() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mmap(addr: COpaquePointer?, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: OffT): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_mmap((addr?.value ?: 0L).toString(), len.toString(), prot, flags, fd, offset.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mmap(addr: MutPtr<CVoid>, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: OffT): MutPtr<CVoid> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaMmap(addr.rawAddress.toString(), len.toString(), prot, flags, fd, offset.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun munmap(addr: COpaquePointer?, len: SizeT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_munmap((addr?.value ?: 0L).toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun munmap(addr: MutPtr<CVoid>, len: SizeT): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaMunmap(addr.rawAddress.toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ifNametoindex(ifname: String?): CUint =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_ifNametoindex(ifname).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ifNametoindex(ifname: ConstPtr<CChar>): CUint =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaIfNametoindex(ifname.rawAddress.toString()).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ifIndextoname(ifindex: CUint, ifname: COpaquePointer?): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_ifIndextoname(ifindex.toInt(), (ifname?.value ?: 0L).toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ifIndextoname(ifindex: CUint, ifname: MutPtr<CChar>): MutPtr<CChar> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaIfIndextoname(ifindex.toInt(), ifname.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun lstat(path: String?, buf: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_lstat(path, (buf?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun lstat(path: ConstPtr<CChar>, buf: MutPtr<Stat>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaLstat(path.rawAddress.toString(), buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun fsync(fd: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_fsync(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaFsync(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setenv(name: String?, value: String?, overwrite: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_setenv(name, value, overwrite) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun setenv(name: ConstPtr<CChar>, value: ConstPtr<CChar>, overwrite: CInt): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSetenv(name.rawAddress.toString(), value.rawAddress.toString(), overwrite) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun unsetenv(name: String?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_unsetenv(name) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun unsetenv(name: ConstPtr<CChar>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaUnsetenv(name.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun symlink(path1: String?, path2: String?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_symlink(path1, path2) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun symlink(path1: ConstPtr<CChar>, path2: ConstPtr<CChar>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSymlink(path1.rawAddress.toString(), path2.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun ftruncate(fd: CInt, length: OffT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_ftruncate(fd, length.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaFtruncate(fd, length.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun signal(signum: CInt, handler: SighandlerT): SighandlerT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_signal(signum, handler.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSignal(signum, handler.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun realpath(pathname: String?, resolved: COpaquePointer?): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_realpath(pathname, (resolved?.value ?: 0L).toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun realpath(pathname: ConstPtr<CChar>, resolved: MutPtr<CChar>): MutPtr<CChar> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaRealpath(pathname.rawAddress.toString(), resolved.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun flock(fd: CInt, operation: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_flock(fd, operation) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaFlock(fd, operation) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun gettimeofday(tp: COpaquePointer?, tz: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_gettimeofday((tp?.value ?: 0L).toString(), (tz?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun gettimeofday(tp: MutPtr<Timeval>, tz: MutPtr<CVoid>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaGettimeofday(tp.rawAddress.toString(), tz.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun times(buf: COpaquePointer?): ClockT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_times((buf?.value ?: 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun times(buf: MutPtr<Tms>): ClockT =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaTimes(buf.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun pthreadSelf(): PthreadT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadSelf().toLong().toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadSelf().toLong().toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadJoin(native: PthreadT, value: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadJoin(native.toLong().toString(), (value?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadJoin(native: PthreadT, value: MutPtr<MutPtr<CVoid>>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadJoin(native.toLong().toString(), value.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadExit(value: COpaquePointer?): Nothing {
-    if (_fuchsiaNapiAvailable) {
-        _wasm_libc_fuchsia_pthreadExit((value?.value ?: 0L).toString())
+public actual fun pthreadExit(value: MutPtr<CVoid>): Nothing {
+    if (fuchsiaNapiAvailable) {
+        wasmLibcFuchsiaPthreadExit(value.rawAddress.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
     error("Unreachable noreturn C function pthreadExit")
 }
 
-public actual fun pthreadAttrInit(attr: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadAttrInit((attr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadAttrInit(attr: MutPtr<PthreadAttrT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadAttrInit(attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrDestroy(attr: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadAttrDestroy((attr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadAttrDestroy(attr: MutPtr<PthreadAttrT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadAttrDestroy(attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrGetstacksize(attr: COpaquePointer?, stacksize: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadAttrGetstacksize((attr?.value ?: 0L).toString(), (stacksize?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadAttrGetstacksize(attr: ConstPtr<PthreadAttrT>, stacksize: MutPtr<SizeT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadAttrGetstacksize(attr.rawAddress.toString(), stacksize.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrSetstacksize(attr: COpaquePointer?, stackSize: SizeT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadAttrSetstacksize((attr?.value ?: 0L).toString(), stackSize.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadAttrSetstacksize(attr: MutPtr<PthreadAttrT>, stackSize: SizeT): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadAttrSetstacksize(attr.rawAddress.toString(), stackSize.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrSetdetachstate(attr: COpaquePointer?, state: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadAttrSetdetachstate((attr?.value ?: 0L).toString(), state) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadAttrSetdetachstate(attr: MutPtr<PthreadAttrT>, state: CInt): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadAttrSetdetachstate(attr.rawAddress.toString(), state) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun pthreadDetach(thread: PthreadT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadDetach(thread.toLong().toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadDetach(thread.toLong().toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun schedYield(): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_schedYield() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSchedYield() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadKeyCreate(key: COpaquePointer?, dtor: PthreadKeyCreateDtorCallback?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadKeyCreate((key?.value ?: 0L).toString(), 0L.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadKeyCreate(key: MutPtr<PthreadKeyT>, dtor: PthreadKeyCreateDtorCallback?): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadKeyCreate(key.rawAddress.toString(), 0L.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun pthreadKeyDelete(key: PthreadKeyT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadKeyDelete(key.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadKeyDelete(key.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadGetspecific(key: PthreadKeyT): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadGetspecific(key.toInt()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadGetspecific(key: PthreadKeyT): MutPtr<CVoid> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaPthreadGetspecific(key.toInt()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadSetspecific(key: PthreadKeyT, value: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadSetspecific(key.toInt(), (value?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadSetspecific(key: PthreadKeyT, value: ConstPtr<CVoid>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadSetspecific(key.toInt(), value.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexInit(lock: COpaquePointer?, attr: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadMutexInit((lock?.value ?: 0L).toString(), (attr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadMutexInit(lock: MutPtr<PthreadMutexT>, attr: ConstPtr<PthreadMutexattrT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadMutexInit(lock.rawAddress.toString(), attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexDestroy(lock: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadMutexDestroy((lock?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadMutexDestroy(lock: MutPtr<PthreadMutexT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadMutexDestroy(lock.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexLock(lock: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadMutexLock((lock?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadMutexLock(lock: MutPtr<PthreadMutexT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadMutexLock(lock.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexTrylock(lock: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadMutexTrylock((lock?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadMutexTrylock(lock: MutPtr<PthreadMutexT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadMutexTrylock(lock.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexUnlock(lock: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadMutexUnlock((lock?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadMutexUnlock(lock: MutPtr<PthreadMutexT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadMutexUnlock(lock.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexattrInit(attr: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadMutexattrInit((attr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadMutexattrInit(attr: MutPtr<PthreadMutexattrT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadMutexattrInit(attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexattrDestroy(attr: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadMutexattrDestroy((attr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadMutexattrDestroy(attr: MutPtr<PthreadMutexattrT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadMutexattrDestroy(attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexattrSettype(attr: COpaquePointer?, type: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadMutexattrSettype((attr?.value ?: 0L).toString(), type) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadMutexattrSettype(attr: MutPtr<PthreadMutexattrT>, type: CInt): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadMutexattrSettype(attr.rawAddress.toString(), type) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondInit(cond: COpaquePointer?, attr: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadCondInit((cond?.value ?: 0L).toString(), (attr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadCondInit(cond: MutPtr<PthreadCondT>, attr: ConstPtr<PthreadCondattrT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadCondInit(cond.rawAddress.toString(), attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondWait(cond: COpaquePointer?, lock: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadCondWait((cond?.value ?: 0L).toString(), (lock?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadCondWait(cond: MutPtr<PthreadCondT>, lock: MutPtr<PthreadMutexT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadCondWait(cond.rawAddress.toString(), lock.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondTimedwait(cond: COpaquePointer?, lock: COpaquePointer?, abstime: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadCondTimedwait((cond?.value ?: 0L).toString(), (lock?.value ?: 0L).toString(), (abstime?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadCondTimedwait(cond: MutPtr<PthreadCondT>, lock: MutPtr<PthreadMutexT>, abstime: ConstPtr<Timespec>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadCondTimedwait(cond.rawAddress.toString(), lock.rawAddress.toString(), abstime.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondSignal(cond: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadCondSignal((cond?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadCondSignal(cond: MutPtr<PthreadCondT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadCondSignal(cond.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondBroadcast(cond: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadCondBroadcast((cond?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadCondBroadcast(cond: MutPtr<PthreadCondT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadCondBroadcast(cond.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondDestroy(cond: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadCondDestroy((cond?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadCondDestroy(cond: MutPtr<PthreadCondT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadCondDestroy(cond.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondattrInit(attr: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadCondattrInit((attr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadCondattrInit(attr: MutPtr<PthreadCondattrT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadCondattrInit(attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondattrDestroy(attr: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadCondattrDestroy((attr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadCondattrDestroy(attr: MutPtr<PthreadCondattrT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadCondattrDestroy(attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadRwlockInit(lock: COpaquePointer?, attr: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadRwlockInit((lock?.value ?: 0L).toString(), (attr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadRwlockInit(lock: MutPtr<PthreadRwlockT>, attr: ConstPtr<PthreadRwlockattrT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadRwlockInit(lock.rawAddress.toString(), attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadRwlockDestroy(lock: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadRwlockDestroy((lock?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadRwlockDestroy(lock: MutPtr<PthreadRwlockT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadRwlockDestroy(lock.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadRwlockRdlock(lock: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadRwlockRdlock((lock?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadRwlockRdlock(lock: MutPtr<PthreadRwlockT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadRwlockRdlock(lock.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadRwlockTryrdlock(lock: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadRwlockTryrdlock((lock?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadRwlockTryrdlock(lock: MutPtr<PthreadRwlockT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadRwlockTryrdlock(lock.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadRwlockWrlock(lock: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadRwlockWrlock((lock?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadRwlockWrlock(lock: MutPtr<PthreadRwlockT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadRwlockWrlock(lock.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadRwlockTrywrlock(lock: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadRwlockTrywrlock((lock?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadRwlockTrywrlock(lock: MutPtr<PthreadRwlockT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadRwlockTrywrlock(lock.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadRwlockUnlock(lock: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadRwlockUnlock((lock?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadRwlockUnlock(lock: MutPtr<PthreadRwlockT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadRwlockUnlock(lock.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadRwlockattrInit(attr: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadRwlockattrInit((attr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadRwlockattrInit(attr: MutPtr<PthreadRwlockattrT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadRwlockattrInit(attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadRwlockattrDestroy(attr: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadRwlockattrDestroy((attr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadRwlockattrDestroy(attr: MutPtr<PthreadRwlockattrT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadRwlockattrDestroy(attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadGetnameNp(thread: PthreadT, name: COpaquePointer?, len: SizeT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadGetnameNp(thread.toLong().toString(), (name?.value ?: 0L).toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadGetnameNp(thread: PthreadT, name: MutPtr<CChar>, len: SizeT): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadGetnameNp(thread.toLong().toString(), name.rawAddress.toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadSetnameNp(thread: PthreadT, name: String?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadSetnameNp(thread.toLong().toString(), name) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadSetnameNp(thread: PthreadT, name: ConstPtr<CChar>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadSetnameNp(thread.toLong().toString(), name.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strerrorR(errnum: CInt, buf: COpaquePointer?, buflen: SizeT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_strerrorR(errnum, (buf?.value ?: 0L).toString(), buflen.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strerrorR(errnum: CInt, buf: MutPtr<CChar>, buflen: SizeT): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaStrerrorR(errnum, buf.rawAddress.toString(), buflen.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getsockopt(sockfd: CInt, level: CInt, optname: CInt, optval: COpaquePointer?, optlen: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_getsockopt(sockfd, level, optname, (optval?.value ?: 0L).toString(), (optlen?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getsockopt(sockfd: CInt, level: CInt, optname: CInt, optval: MutPtr<CVoid>, optlen: MutPtr<SocklenT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaGetsockopt(sockfd, level, optname, optval.rawAddress.toString(), optlen.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun raise(signum: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_raise(signum) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaRaise(signum) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigaction(signum: CInt, act: COpaquePointer?, oldact: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_sigaction(signum, (act?.value ?: 0L).toString(), (oldact?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sigaction(signum: CInt, act: ConstPtr<Sigaction>, oldact: MutPtr<Sigaction>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSigaction(signum, act.rawAddress.toString(), oldact.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun utimes(filename: String?, times: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_utimes(filename, (times?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun utimes(filename: ConstPtr<CChar>, times: ConstPtr<Timeval>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaUtimes(filename.rawAddress.toString(), times.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun dlopen(filename: String?, flag: CInt): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_dlopen(filename, flag).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun dlopen(filename: ConstPtr<CChar>, flag: CInt): MutPtr<CVoid> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaDlopen(filename.rawAddress.toString(), flag).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun dlerror(): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_dlerror().toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun dlerror(): MutPtr<CChar> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaDlerror().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun dlsym(handle: COpaquePointer?, symbol: String?): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_dlsym((handle?.value ?: 0L).toString(), symbol).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun dlsym(handle: MutPtr<CVoid>, symbol: ConstPtr<CChar>): MutPtr<CVoid> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaDlsym(handle.rawAddress.toString(), symbol.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun dlclose(handle: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_dlclose((handle?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun dlclose(handle: MutPtr<CVoid>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaDlclose(handle.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun dladdr(addr: COpaquePointer?, info: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_dladdr((addr?.value ?: 0L).toString(), (info?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun dladdr(addr: ConstPtr<CVoid>, info: MutPtr<DlInfo>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaDladdr(addr.rawAddress.toString(), info.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getaddrinfo(node: String?, service: String?, hints: COpaquePointer?, res: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_getaddrinfo(node, service, (hints?.value ?: 0L).toString(), (res?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getaddrinfo(node: ConstPtr<CChar>, service: ConstPtr<CChar>, hints: ConstPtr<Addrinfo>, res: MutPtr<MutPtr<Addrinfo>>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaGetaddrinfo(node.rawAddress.toString(), service.rawAddress.toString(), hints.rawAddress.toString(), res.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun freeaddrinfo(res: COpaquePointer?) {
-    if (_fuchsiaNapiAvailable) {
-        _wasm_libc_fuchsia_freeaddrinfo((res?.value ?: 0L).toString())
+public actual fun freeaddrinfo(res: MutPtr<Addrinfo>) {
+    if (fuchsiaNapiAvailable) {
+        wasmLibcFuchsiaFreeaddrinfo(res.rawAddress.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun gaiStrerror(errcode: CInt): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_gaiStrerror(errcode).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun gaiStrerror(errcode: CInt): ConstPtr<CChar> =
+    if (fuchsiaNapiAvailable) ConstPtr(wasmLibcFuchsiaGaiStrerror(errcode).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun resInit(): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_resInit() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaResInit() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun gmtimeR(timeP: COpaquePointer?, result: COpaquePointer?): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_gmtimeR((timeP?.value ?: 0L).toString(), (result?.value ?: 0L).toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun gmtimeR(timeP: ConstPtr<TimeT>, result: MutPtr<Tm>): MutPtr<Tm> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaGmtimeR(timeP.rawAddress.toString(), result.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun localtimeR(timeP: COpaquePointer?, result: COpaquePointer?): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_localtimeR((timeP?.value ?: 0L).toString(), (result?.value ?: 0L).toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun localtimeR(timeP: ConstPtr<TimeT>, result: MutPtr<Tm>): MutPtr<Tm> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaLocaltimeR(timeP.rawAddress.toString(), result.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mktime(tm: COpaquePointer?): TimeT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_mktime((tm?.value ?: 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mktime(tm: MutPtr<Tm>): TimeT =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaMktime(tm.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun time(time: COpaquePointer?): TimeT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_time((time?.value ?: 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun time(time: MutPtr<TimeT>): TimeT =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaTime(time.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun gmtime(timeP: COpaquePointer?): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_gmtime((timeP?.value ?: 0L).toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun gmtime(timeP: ConstPtr<TimeT>): MutPtr<Tm> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaGmtime(timeP.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun localtime(timeP: COpaquePointer?): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_localtime((timeP?.value ?: 0L).toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun localtime(timeP: ConstPtr<TimeT>): MutPtr<Tm> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaLocaltime(timeP.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mknod(pathname: String?, mode: ModeT, dev: DevT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_mknod(pathname, mode.toInt(), dev.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mknod(pathname: ConstPtr<CChar>, mode: ModeT, dev: DevT): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaMknod(pathname.rawAddress.toString(), mode.toInt(), dev.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun uname(buf: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_uname((buf?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun uname(buf: MutPtr<Utsname>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaUname(buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun gethostname(name: COpaquePointer?, len: SizeT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_gethostname((name?.value ?: 0L).toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun gethostname(name: MutPtr<CChar>, len: SizeT): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaGethostname(name.rawAddress.toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getservbyname(name: String?, proto: String?): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_getservbyname(name, proto).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getservbyname(name: ConstPtr<CChar>, proto: ConstPtr<CChar>): MutPtr<Servent> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaGetservbyname(name.rawAddress.toString(), proto.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getprotobyname(name: String?): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_getprotobyname(name).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getprotobyname(name: ConstPtr<CChar>): MutPtr<Protoent> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaGetprotobyname(name.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getprotobynumber(proto: CInt): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_getprotobynumber(proto).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getprotobynumber(proto: CInt): MutPtr<Protoent> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaGetprotobynumber(proto).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun usleep(secs: CUint): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_usleep(secs.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaUsleep(secs.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun send(socket: CInt, buf: COpaquePointer?, len: SizeT, flags: CInt): SsizeT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_send(socket, (buf?.value ?: 0L).toString(), len.toString(), flags).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun send(socket: CInt, buf: ConstPtr<CVoid>, len: SizeT, flags: CInt): SsizeT =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSend(socket, buf.rawAddress.toString(), len.toString(), flags).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun recv(socket: CInt, buf: COpaquePointer?, len: SizeT, flags: CInt): SsizeT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_recv(socket, (buf?.value ?: 0L).toString(), len.toString(), flags).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun recv(socket: CInt, buf: MutPtr<CVoid>, len: SizeT, flags: CInt): SsizeT =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaRecv(socket, buf.rawAddress.toString(), len.toString(), flags).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun putenv(string: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_putenv((string?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun putenv(string: MutPtr<CChar>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPutenv(string.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun poll(fds: COpaquePointer?, nfds: NfdsT, timeout: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_poll((fds?.value ?: 0L).toString(), nfds.toString(), timeout) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun poll(fds: MutPtr<Pollfd>, nfds: NfdsT, timeout: CInt): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPoll(fds.rawAddress.toString(), nfds.toString(), timeout) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun select(nfds: CInt, readfds: COpaquePointer?, writefds: COpaquePointer?, errorfds: COpaquePointer?, timeout: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_select(nfds, (readfds?.value ?: 0L).toString(), (writefds?.value ?: 0L).toString(), (errorfds?.value ?: 0L).toString(), (timeout?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun select(nfds: CInt, readfds: MutPtr<FdSet>, writefds: MutPtr<FdSet>, errorfds: MutPtr<FdSet>, timeout: MutPtr<Timeval>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSelect(nfds, readfds.rawAddress.toString(), writefds.rawAddress.toString(), errorfds.rawAddress.toString(), timeout.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setlocale(category: CInt, locale: String?): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_setlocale(category, locale).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun setlocale(category: CInt, locale: ConstPtr<CChar>): MutPtr<CChar> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaSetlocale(category, locale.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun localeconv(): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_localeconv().toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun localeconv(): MutPtr<Lconv> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaLocaleconv().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semDestroy(sem: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_semDestroy((sem?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun semDestroy(sem: MutPtr<SemT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSemDestroy(sem.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semWait(sem: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_semWait((sem?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun semWait(sem: MutPtr<SemT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSemWait(sem.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semTrywait(sem: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_semTrywait((sem?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun semTrywait(sem: MutPtr<SemT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSemTrywait(sem.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semPost(sem: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_semPost((sem?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun semPost(sem: MutPtr<SemT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSemPost(sem.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semInit(sem: COpaquePointer?, pshared: CInt, value: CUint): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_semInit((sem?.value ?: 0L).toString(), pshared, value.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun semInit(sem: MutPtr<SemT>, pshared: CInt, value: CUint): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSemInit(sem.rawAddress.toString(), pshared, value.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun statvfs(path: String?, buf: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_statvfs(path, (buf?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun statvfs(path: ConstPtr<CChar>, buf: MutPtr<Statvfs>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaStatvfs(path.rawAddress.toString(), buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fstatvfs(fd: CInt, buf: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_fstatvfs(fd, (buf?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fstatvfs(fd: CInt, buf: MutPtr<Statvfs>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaFstatvfs(fd, buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun readlink(path: String?, buf: COpaquePointer?, bufsz: SizeT): SsizeT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_readlink(path, (buf?.value ?: 0L).toString(), bufsz.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun readlink(path: ConstPtr<CChar>, buf: MutPtr<CChar>, bufsz: SizeT): SsizeT =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaReadlink(path.rawAddress.toString(), buf.rawAddress.toString(), bufsz.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigemptyset(set: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_sigemptyset((set?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sigemptyset(set: MutPtr<SigsetT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSigemptyset(set.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigaddset(set: COpaquePointer?, signum: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_sigaddset((set?.value ?: 0L).toString(), signum) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sigaddset(set: MutPtr<SigsetT>, signum: CInt): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSigaddset(set.rawAddress.toString(), signum) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigfillset(set: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_sigfillset((set?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sigfillset(set: MutPtr<SigsetT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSigfillset(set.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigdelset(set: COpaquePointer?, signum: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_sigdelset((set?.value ?: 0L).toString(), signum) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sigdelset(set: MutPtr<SigsetT>, signum: CInt): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSigdelset(set.rawAddress.toString(), signum) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigismember(set: COpaquePointer?, signum: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_sigismember((set?.value ?: 0L).toString(), signum) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sigismember(set: ConstPtr<SigsetT>, signum: CInt): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSigismember(set.rawAddress.toString(), signum) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigprocmask(how: CInt, set: COpaquePointer?, oldset: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_sigprocmask(how, (set?.value ?: 0L).toString(), (oldset?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sigprocmask(how: CInt, set: ConstPtr<SigsetT>, oldset: MutPtr<SigsetT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSigprocmask(how, set.rawAddress.toString(), oldset.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigpending(set: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_sigpending((set?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sigpending(set: MutPtr<SigsetT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSigpending(set.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun timegm(tm: COpaquePointer?): TimeT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_timegm((tm?.value ?: 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun timegm(tm: MutPtr<Tm>): TimeT =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaTimegm(tm.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun getsid(pid: PidT): PidT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_getsid(pid) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaGetsid(pid) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sysconf(name: CInt): CLong =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_sysconf(name).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSysconf(name).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mkfifo(path: String?, mode: ModeT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_mkfifo(path, mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mkfifo(path: ConstPtr<CChar>, mode: ModeT): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaMkfifo(path.rawAddress.toString(), mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pselect(nfds: CInt, readfds: COpaquePointer?, writefds: COpaquePointer?, errorfds: COpaquePointer?, timeout: COpaquePointer?, sigmask: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pselect(nfds, (readfds?.value ?: 0L).toString(), (writefds?.value ?: 0L).toString(), (errorfds?.value ?: 0L).toString(), (timeout?.value ?: 0L).toString(), (sigmask?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pselect(nfds: CInt, readfds: MutPtr<FdSet>, writefds: MutPtr<FdSet>, errorfds: MutPtr<FdSet>, timeout: ConstPtr<Timespec>, sigmask: ConstPtr<SigsetT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPselect(nfds, readfds.rawAddress.toString(), writefds.rawAddress.toString(), errorfds.rawAddress.toString(), timeout.rawAddress.toString(), sigmask.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fseeko(stream: FILE?, offset: OffT, whence: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_fseeko((stream?.handle ?: 0L).toString(), offset.toString(), whence) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fseeko(stream: MutPtr<FILE>, offset: OffT, whence: CInt): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaFseeko(stream.rawAddress.toString(), offset.toString(), whence) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ftello(stream: FILE?): OffT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_ftello((stream?.handle ?: 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ftello(stream: MutPtr<FILE>): OffT =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaFtello(stream.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun tcdrain(fd: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_tcdrain(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaTcdrain(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun cfgetispeed(termios: COpaquePointer?): SpeedT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_cfgetispeed((termios?.value ?: 0L).toString()).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun cfgetispeed(termios: ConstPtr<Termios>): SpeedT =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaCfgetispeed(termios.rawAddress.toString()).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun cfgetospeed(termios: COpaquePointer?): SpeedT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_cfgetospeed((termios?.value ?: 0L).toString()).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun cfgetospeed(termios: ConstPtr<Termios>): SpeedT =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaCfgetospeed(termios.rawAddress.toString()).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun cfmakeraw(termios: COpaquePointer?) {
-    if (_fuchsiaNapiAvailable) {
-        _wasm_libc_fuchsia_cfmakeraw((termios?.value ?: 0L).toString())
+public actual fun cfmakeraw(termios: MutPtr<Termios>) {
+    if (fuchsiaNapiAvailable) {
+        wasmLibcFuchsiaCfmakeraw(termios.rawAddress.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun cfsetispeed(termios: COpaquePointer?, speed: SpeedT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_cfsetispeed((termios?.value ?: 0L).toString(), speed.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun cfsetispeed(termios: MutPtr<Termios>, speed: SpeedT): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaCfsetispeed(termios.rawAddress.toString(), speed.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun cfsetospeed(termios: COpaquePointer?, speed: SpeedT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_cfsetospeed((termios?.value ?: 0L).toString(), speed.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun cfsetospeed(termios: MutPtr<Termios>, speed: SpeedT): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaCfsetospeed(termios.rawAddress.toString(), speed.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun cfsetspeed(termios: COpaquePointer?, speed: SpeedT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_cfsetspeed((termios?.value ?: 0L).toString(), speed.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun cfsetspeed(termios: MutPtr<Termios>, speed: SpeedT): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaCfsetspeed(termios.rawAddress.toString(), speed.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun tcgetattr(fd: CInt, termios: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_tcgetattr(fd, (termios?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun tcgetattr(fd: CInt, termios: MutPtr<Termios>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaTcgetattr(fd, termios.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun tcsetattr(fd: CInt, optionalActions: CInt, termios: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_tcsetattr(fd, optionalActions, (termios?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun tcsetattr(fd: CInt, optionalActions: CInt, termios: ConstPtr<Termios>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaTcsetattr(fd, optionalActions, termios.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun tcflow(fd: CInt, action: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_tcflow(fd, action) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaTcflow(fd, action) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun tcflush(fd: CInt, action: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_tcflush(fd, action) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaTcflush(fd, action) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun tcgetsid(fd: CInt): PidT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_tcgetsid(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaTcgetsid(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun tcsendbreak(fd: CInt, duration: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_tcsendbreak(fd, duration) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaTcsendbreak(fd, duration) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mkstemp(template: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_mkstemp((template?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mkstemp(template: MutPtr<CChar>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaMkstemp(template.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mkdtemp(template: COpaquePointer?): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_mkdtemp((template?.value ?: 0L).toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mkdtemp(template: MutPtr<CChar>): MutPtr<CChar> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaMkdtemp(template.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun tmpnam(ptr: COpaquePointer?): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_tmpnam((ptr?.value ?: 0L).toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun tmpnam(ptr: MutPtr<CChar>): MutPtr<CChar> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaTmpnam(ptr.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun openlog(ident: String?, logopt: CInt, facility: CInt) {
-    if (_fuchsiaNapiAvailable) {
-        _wasm_libc_fuchsia_openlog(ident, logopt, facility)
+public actual fun openlog(ident: ConstPtr<CChar>, logopt: CInt, facility: CInt) {
+    if (fuchsiaNapiAvailable) {
+        wasmLibcFuchsiaOpenlog(ident.rawAddress.toString(), logopt, facility)
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
 public actual fun closelog() {
-    if (_fuchsiaNapiAvailable) {
-        _wasm_libc_fuchsia_closelog()
+    if (fuchsiaNapiAvailable) {
+        wasmLibcFuchsiaCloselog()
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
 public actual fun setlogmask(maskpri: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_setlogmask(maskpri) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSetlogmask(maskpri) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun syslog(priority: CInt, message: String?, vararg variadicArgs: Long) {
-    if (_fuchsiaNapiAvailable) {
-        _wasm_libc_fuchsia_syslog(priority, message, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString())
+public actual fun syslog(priority: CInt, message: ConstPtr<CChar>, vararg variadicArgs: Long) {
+    if (fuchsiaNapiAvailable) {
+        wasmLibcFuchsiaSyslog(priority, message.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
 public actual fun grantpt(fd: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_grantpt(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaGrantpt(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun posixOpenpt(flags: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_posixOpenpt(flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPosixOpenpt(flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ptsname(fd: CInt): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_ptsname(fd).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ptsname(fd: CInt): MutPtr<CChar> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaPtsname(fd).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun unlockpt(fd: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_unlockpt(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaUnlockpt(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun fdatasync(fd: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_fdatasync(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaFdatasync(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun clockGetres(clkId: ClockidT, tp: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_clockGetres(clkId, (tp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun clockGetres(clkId: ClockidT, tp: MutPtr<Timespec>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaClockGetres(clkId, tp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun clockGettime(clkId: ClockidT, tp: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_clockGettime(clkId, (tp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun clockGettime(clkId: ClockidT, tp: MutPtr<Timespec>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaClockGettime(clkId, tp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun clockSettime(clkId: ClockidT, tp: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_clockSettime(clkId, (tp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun clockSettime(clkId: ClockidT, tp: ConstPtr<Timespec>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaClockSettime(clkId, tp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun dirfd(dirp: DIR?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_dirfd((dirp?.handle ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun dirfd(dirp: MutPtr<DIR>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaDirfd(dirp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadGetattrNp(native: PthreadT, attr: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadGetattrNp(native.toLong().toString(), (attr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadGetattrNp(native: PthreadT, attr: MutPtr<PthreadAttrT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadGetattrNp(native.toLong().toString(), attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrGetstack(attr: COpaquePointer?, stackaddr: COpaquePointer?, stacksize: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadAttrGetstack((attr?.value ?: 0L).toString(), (stackaddr?.value ?: 0L).toString(), (stacksize?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadAttrGetstack(attr: ConstPtr<PthreadAttrT>, stackaddr: MutPtr<MutPtr<CVoid>>, stacksize: MutPtr<SizeT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadAttrGetstack(attr.rawAddress.toString(), stackaddr.rawAddress.toString(), stacksize.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memalign(align: SizeT, size: SizeT): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_memalign(align.toString(), size.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun memalign(align: SizeT, size: SizeT): MutPtr<CVoid> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaMemalign(align.toString(), size.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setgroups(ngroups: SizeT, ptr: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_setgroups(ngroups.toString(), (ptr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun setgroups(ngroups: SizeT, ptr: ConstPtr<GidT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSetgroups(ngroups.toString(), ptr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pipe2(fds: COpaquePointer?, flags: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pipe2((fds?.value ?: 0L).toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pipe2(fds: MutPtr<CInt>, flags: CInt): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPipe2(fds.rawAddress.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun statfs(path: String?, buf: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_statfs(path, (buf?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun statfs(path: ConstPtr<CChar>, buf: MutPtr<Statfs>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaStatfs(path.rawAddress.toString(), buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fstatfs(fd: CInt, buf: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_fstatfs(fd, (buf?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fstatfs(fd: CInt, buf: MutPtr<Statfs>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaFstatfs(fd, buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memrchr(cx: COpaquePointer?, c: CInt, n: SizeT): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_memrchr((cx?.value ?: 0L).toString(), c, n.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun memrchr(cx: ConstPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaMemrchr(cx.rawAddress.toString(), c, n.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun posixFadvise(fd: CInt, offset: OffT, len: OffT, advise: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_posixFadvise(fd, offset.toString(), len.toString(), advise) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPosixFadvise(fd, offset.toString(), len.toString(), advise) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun futimens(fd: CInt, times: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_futimens(fd, (times?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun futimens(fd: CInt, times: ConstPtr<Timespec>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaFutimens(fd, times.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun utimensat(dirfd: CInt, path: String?, times: COpaquePointer?, flag: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_utimensat(dirfd, path, (times?.value ?: 0L).toString(), flag) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun utimensat(dirfd: CInt, path: ConstPtr<CChar>, times: ConstPtr<Timespec>, flag: CInt): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaUtimensat(dirfd, path.rawAddress.toString(), times.rawAddress.toString(), flag) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun duplocale(base: LocaleT): LocaleT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_duplocale((base?.value ?: 0L).toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaDuplocale(base.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun freelocale(loc: LocaleT) {
-    if (_fuchsiaNapiAvailable) {
-        _wasm_libc_fuchsia_freelocale((loc?.value ?: 0L).toString())
+    if (fuchsiaNapiAvailable) {
+        wasmLibcFuchsiaFreelocale(loc.rawAddress.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_newlocale(mask, locale, (base?.value ?: 0L).toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun newlocale(mask: CInt, locale: ConstPtr<CChar>, base: LocaleT): LocaleT =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaNewlocale(mask, locale.rawAddress.toString(), base.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_uselocale((loc?.value ?: 0L).toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaUselocale(loc.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fdopendir(fd: CInt): DIR? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_fdopendir(fd).toLong().let { if (it == 0L) null else DIR(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fdopendir(fd: CInt): MutPtr<DIR> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaFdopendir(fd).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_mknodat(dirfd, pathname, mode.toInt(), dev.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mknodat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT, dev: DevT): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaMknodat(dirfd, pathname.rawAddress.toString(), mode.toInt(), dev.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondattrGetclock(attr: COpaquePointer?, clockId: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadCondattrGetclock((attr?.value ?: 0L).toString(), (clockId?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadCondattrGetclock(attr: ConstPtr<PthreadCondattrT>, clockId: MutPtr<ClockidT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadCondattrGetclock(attr.rawAddress.toString(), clockId.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondattrSetclock(attr: COpaquePointer?, clockId: ClockidT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadCondattrSetclock((attr?.value ?: 0L).toString(), clockId) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadCondattrSetclock(attr: MutPtr<PthreadCondattrT>, clockId: ClockidT): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadCondattrSetclock(attr.rawAddress.toString(), clockId) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun accept4(fd: CInt, addr: COpaquePointer?, len: COpaquePointer?, flg: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_accept4(fd, (addr?.value ?: 0L).toString(), (len?.value ?: 0L).toString(), flg) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun accept4(fd: CInt, addr: MutPtr<Sockaddr>, len: MutPtr<SocklenT>, flg: CInt): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaAccept4(fd, addr.rawAddress.toString(), len.rawAddress.toString(), flg) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ptsnameR(fd: CInt, buf: COpaquePointer?, buflen: SizeT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_ptsnameR(fd, (buf?.value ?: 0L).toString(), buflen.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ptsnameR(fd: CInt, buf: MutPtr<CChar>, buflen: SizeT): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPtsnameR(fd, buf.rawAddress.toString(), buflen.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun clearenv(): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_clearenv() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaClearenv() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun waitid(idtype: IdtypeT, id: IdT, infop: COpaquePointer?, options: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_waitid(idtype.toInt(), id.toInt(), (infop?.value ?: 0L).toString(), options) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun waitid(idtype: IdtypeT, id: IdT, infop: MutPtr<SiginfoT>, options: CInt): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaWaitid(idtype.toInt(), id.toInt(), infop.rawAddress.toString(), options) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun setreuid(ruid: UidT, euid: UidT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_setreuid(ruid.toInt(), euid.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSetreuid(ruid.toInt(), euid.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun setregid(rgid: GidT, egid: GidT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_setregid(rgid.toInt(), egid.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSetregid(rgid.toInt(), egid.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getresuid(ruid: COpaquePointer?, euid: COpaquePointer?, suid: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_getresuid((ruid?.value ?: 0L).toString(), (euid?.value ?: 0L).toString(), (suid?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getresuid(ruid: MutPtr<UidT>, euid: MutPtr<UidT>, suid: MutPtr<UidT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaGetresuid(ruid.rawAddress.toString(), euid.rawAddress.toString(), suid.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getresgid(rgid: COpaquePointer?, egid: COpaquePointer?, sgid: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_getresgid((rgid?.value ?: 0L).toString(), (egid?.value ?: 0L).toString(), (sgid?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getresgid(rgid: MutPtr<GidT>, egid: MutPtr<GidT>, sgid: MutPtr<GidT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaGetresgid(rgid.rawAddress.toString(), egid.rawAddress.toString(), sgid.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun acct(filename: String?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_acct(filename) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun acct(filename: ConstPtr<CChar>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaAcct(filename.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun brk(addr: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_brk((addr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun brk(addr: MutPtr<CVoid>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaBrk(addr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun setresgid(rgid: GidT, egid: GidT, sgid: GidT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_setresgid(rgid.toInt(), egid.toInt(), sgid.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSetresgid(rgid.toInt(), egid.toInt(), sgid.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun setresuid(ruid: UidT, euid: UidT, suid: UidT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_setresuid(ruid.toInt(), euid.toInt(), suid.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSetresuid(ruid.toInt(), euid.toInt(), suid.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun openpty(amaster: COpaquePointer?, aslave: COpaquePointer?, name: COpaquePointer?, termp: COpaquePointer?, winp: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_openpty((amaster?.value ?: 0L).toString(), (aslave?.value ?: 0L).toString(), (name?.value ?: 0L).toString(), (termp?.value ?: 0L).toString(), (winp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun openpty(amaster: MutPtr<CInt>, aslave: MutPtr<CInt>, name: MutPtr<CChar>, termp: ConstPtr<Termios>, winp: ConstPtr<Winsize>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaOpenpty(amaster.rawAddress.toString(), aslave.rawAddress.toString(), name.rawAddress.toString(), termp.rawAddress.toString(), winp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun execvpe(file: String?, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_execvpe(file, (argv?.value ?: 0L).toString(), (envp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun execvpe(file: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>, envp: ConstPtr<ConstPtr<CChar>>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaExecvpe(file.rawAddress.toString(), argv.rawAddress.toString(), envp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fexecve(fd: CInt, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_fexecve(fd, (argv?.value ?: 0L).toString(), (envp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fexecve(fd: CInt, argv: ConstPtr<ConstPtr<CChar>>, envp: ConstPtr<ConstPtr<CChar>>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaFexecve(fd, argv.rawAddress.toString(), envp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun ioctl(fd: CInt, request: CInt, vararg variadicArgs: Long): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_ioctl(fd, request, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaIoctl(fd, request, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun lutimes(file: String?, times: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_lutimes(file, (times?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun lutimes(file: ConstPtr<CChar>, times: ConstPtr<Timeval>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaLutimes(file.rawAddress.toString(), times.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun setpwent() {
-    if (_fuchsiaNapiAvailable) {
-        _wasm_libc_fuchsia_setpwent()
+    if (fuchsiaNapiAvailable) {
+        wasmLibcFuchsiaSetpwent()
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
 public actual fun endpwent() {
-    if (_fuchsiaNapiAvailable) {
-        _wasm_libc_fuchsia_endpwent()
+    if (fuchsiaNapiAvailable) {
+        wasmLibcFuchsiaEndpwent()
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun getpwent(): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_getpwent().toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getpwent(): MutPtr<Passwd> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaGetpwent().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun shmOpen(name: String?, oflag: CInt, mode: ModeT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_shmOpen(name, oflag, mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun shmOpen(name: ConstPtr<CChar>, oflag: CInt, mode: ModeT): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaShmOpen(name.rawAddress.toString(), oflag, mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun shmget(key: KeyT, size: SizeT, shmflg: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_shmget(key, size.toString(), shmflg) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaShmget(key, size.toString(), shmflg) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun shmat(shmid: CInt, shmaddr: COpaquePointer?, shmflg: CInt): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_shmat(shmid, (shmaddr?.value ?: 0L).toString(), shmflg).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun shmat(shmid: CInt, shmaddr: ConstPtr<CVoid>, shmflg: CInt): MutPtr<CVoid> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaShmat(shmid, shmaddr.rawAddress.toString(), shmflg).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun shmdt(shmaddr: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_shmdt((shmaddr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun shmdt(shmaddr: ConstPtr<CVoid>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaShmdt(shmaddr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun shmctl(shmid: CInt, cmd: CInt, buf: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_shmctl(shmid, cmd, (buf?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun shmctl(shmid: CInt, cmd: CInt, buf: MutPtr<ShmidDs>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaShmctl(shmid, cmd, buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ftok(pathname: String?, projId: CInt): KeyT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_ftok(pathname, projId) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ftok(pathname: ConstPtr<CChar>, projId: CInt): KeyT =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaFtok(pathname.rawAddress.toString(), projId) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun semget(key: KeyT, nsems: CInt, semflag: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_semget(key, nsems, semflag) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSemget(key, nsems, semflag) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semop(semid: CInt, sops: COpaquePointer?, nsops: SizeT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_semop(semid, (sops?.value ?: 0L).toString(), nsops.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun semop(semid: CInt, sops: MutPtr<Sembuf>, nsops: SizeT): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSemop(semid, sops.rawAddress.toString(), nsops.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_semctl(semid, semnum, cmd, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSemctl(semid, semnum, cmd, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgctl(msqid: CInt, cmd: CInt, buf: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_msgctl(msqid, cmd, (buf?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun msgctl(msqid: CInt, cmd: CInt, buf: MutPtr<MsqidDs>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaMsgctl(msqid, cmd, buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun msgget(key: KeyT, msgflg: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_msgget(key, msgflg) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaMsgget(key, msgflg) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgrcv(msqid: CInt, msgp: COpaquePointer?, msgsz: SizeT, msgtyp: CLong, msgflg: CInt): SsizeT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_msgrcv(msqid, (msgp?.value ?: 0L).toString(), msgsz.toString(), msgtyp.toString(), msgflg).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun msgrcv(msqid: CInt, msgp: MutPtr<CVoid>, msgsz: SizeT, msgtyp: CLong, msgflg: CInt): SsizeT =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaMsgrcv(msqid, msgp.rawAddress.toString(), msgsz.toString(), msgtyp.toString(), msgflg).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgsnd(msqid: CInt, msgp: COpaquePointer?, msgsz: SizeT, msgflg: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_msgsnd(msqid, (msgp?.value ?: 0L).toString(), msgsz.toString(), msgflg) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun msgsnd(msqid: CInt, msgp: ConstPtr<CVoid>, msgsz: SizeT, msgflg: CInt): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaMsgsnd(msqid, msgp.rawAddress.toString(), msgsz.toString(), msgflg) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_mprotect((addr?.value ?: 0L).toString(), len.toString(), prot) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mprotect(addr: MutPtr<CVoid>, len: SizeT, prot: CInt): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaMprotect(addr.rawAddress.toString(), len.toString(), prot) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun errnoLocation(): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_errnoLocation().toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun errnoLocation(): MutPtr<CInt> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaErrnoLocation().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun fallocate(fd: CInt, mode: CInt, offset: OffT, len: OffT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_fallocate(fd, mode, offset.toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaFallocate(fd, mode, offset.toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_posixFallocate(fd, offset.toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPosixFallocate(fd, offset.toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun readahead(fd: CInt, offset: Off64T, count: SizeT): SsizeT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_readahead(fd, offset.toString(), count.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaReadahead(fd, offset.toString(), count.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun signalfd(fd: CInt, mask: COpaquePointer?, flags: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_signalfd(fd, (mask?.value ?: 0L).toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun signalfd(fd: CInt, mask: ConstPtr<SigsetT>, flags: CInt): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSignalfd(fd, mask.rawAddress.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun timerfdCreate(clockid: CInt, flags: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_timerfdCreate(clockid, flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaTimerfdCreate(clockid, flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun timerfdGettime(fd: CInt, currValue: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_timerfdGettime(fd, (currValue?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun timerfdGettime(fd: CInt, currValue: MutPtr<Itimerspec>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaTimerfdGettime(fd, currValue.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun timerfdSettime(fd: CInt, flags: CInt, newValue: COpaquePointer?, oldValue: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_timerfdSettime(fd, flags, (newValue?.value ?: 0L).toString(), (oldValue?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun timerfdSettime(fd: CInt, flags: CInt, newValue: ConstPtr<Itimerspec>, oldValue: MutPtr<Itimerspec>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaTimerfdSettime(fd, flags, newValue.rawAddress.toString(), oldValue.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pwritev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: OffT): SsizeT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pwritev(fd, (iov?.value ?: 0L).toString(), iovcnt, offset.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pwritev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPwritev(fd, iov.rawAddress.toString(), iovcnt, offset.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun preadv(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: OffT): SsizeT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_preadv(fd, (iov?.value ?: 0L).toString(), iovcnt, offset.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun preadv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPreadv(fd, iov.rawAddress.toString(), iovcnt, offset.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun quotactl(cmd: CInt, special: String?, id: CInt, data: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_quotactl(cmd, special, id, (data?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun quotactl(cmd: CInt, special: ConstPtr<CChar>, id: CInt, data: MutPtr<CChar>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaQuotactl(cmd, special.rawAddress.toString(), id, data.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun dup3(oldfd: CInt, newfd: CInt, flags: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_dup3(oldfd, newfd, flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaDup3(oldfd, newfd, flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mkostemp(template: COpaquePointer?, flags: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_mkostemp((template?.value ?: 0L).toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mkostemp(template: MutPtr<CChar>, flags: CInt): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaMkostemp(template.rawAddress.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mkostemps(template: COpaquePointer?, suffixlen: CInt, flags: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_mkostemps((template?.value ?: 0L).toString(), suffixlen, flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mkostemps(template: MutPtr<CChar>, suffixlen: CInt, flags: CInt): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaMkostemps(template.rawAddress.toString(), suffixlen, flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigtimedwait(set: COpaquePointer?, info: COpaquePointer?, timeout: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_sigtimedwait((set?.value ?: 0L).toString(), (info?.value ?: 0L).toString(), (timeout?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sigtimedwait(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>, timeout: ConstPtr<Timespec>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSigtimedwait(set.rawAddress.toString(), info.rawAddress.toString(), timeout.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigwaitinfo(set: COpaquePointer?, info: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_sigwaitinfo((set?.value ?: 0L).toString(), (info?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sigwaitinfo(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSigwaitinfo(set.rawAddress.toString(), info.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun nlLanginfoL(item: NlItem, locale: LocaleT): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_nlLanginfoL(item, (locale?.value ?: 0L).toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun nlLanginfoL(item: NlItem, locale: LocaleT): MutPtr<CChar> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaNlLanginfoL(item, locale.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getnameinfo(sa: COpaquePointer?, salen: SocklenT, host: COpaquePointer?, hostlen: SocklenT, serv: COpaquePointer?, servlen: SocklenT, flags: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_getnameinfo((sa?.value ?: 0L).toString(), salen.toInt(), (host?.value ?: 0L).toString(), hostlen.toInt(), (serv?.value ?: 0L).toString(), servlen.toInt(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getnameinfo(sa: ConstPtr<Sockaddr>, salen: SocklenT, host: MutPtr<CChar>, hostlen: SocklenT, serv: MutPtr<CChar>, servlen: SocklenT, flags: CInt): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaGetnameinfo(sa.rawAddress.toString(), salen.toInt(), host.rawAddress.toString(), hostlen.toInt(), serv.rawAddress.toString(), servlen.toInt(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun reboot(howTo: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_reboot(howTo) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaReboot(howTo) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun setfsgid(gid: GidT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_setfsgid(gid.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSetfsgid(gid.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun setfsuid(uid: UidT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_setfsuid(uid.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSetfsuid(uid.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_mkfifoat(dirfd, pathname, mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mkfifoat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaMkfifoat(dirfd, pathname.rawAddress.toString(), mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ifNameindex(): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_ifNameindex().toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ifNameindex(): MutPtr<IfNameindex> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaIfNameindex().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ifFreenameindex(ptr: COpaquePointer?) {
-    if (_fuchsiaNapiAvailable) {
-        _wasm_libc_fuchsia_ifFreenameindex((ptr?.value ?: 0L).toString())
+public actual fun ifFreenameindex(ptr: MutPtr<IfNameindex>) {
+    if (fuchsiaNapiAvailable) {
+        wasmLibcFuchsiaIfFreenameindex(ptr.rawAddress.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
 public actual fun syncFileRange(fd: CInt, offset: Off64T, nbytes: Off64T, flags: CUint): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_syncFileRange(fd, offset.toString(), nbytes.toString(), flags.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSyncFileRange(fd, offset.toString(), nbytes.toString(), flags.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getifaddrs(ifap: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_getifaddrs((ifap?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getifaddrs(ifap: MutPtr<MutPtr<Ifaddrs>>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaGetifaddrs(ifap.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun freeifaddrs(ifa: COpaquePointer?) {
-    if (_fuchsiaNapiAvailable) {
-        _wasm_libc_fuchsia_freeifaddrs((ifa?.value ?: 0L).toString())
+public actual fun freeifaddrs(ifa: MutPtr<Ifaddrs>) {
+    if (fuchsiaNapiAvailable) {
+        wasmLibcFuchsiaFreeifaddrs(ifa.rawAddress.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_glob(pattern, flags, 0L.toString(), (pglob?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun glob(pattern: ConstPtr<CChar>, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: MutPtr<GlobT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaGlob(pattern.rawAddress.toString(), flags, 0L.toString(), pglob.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun globfree(pglob: COpaquePointer?) {
-    if (_fuchsiaNapiAvailable) {
-        _wasm_libc_fuchsia_globfree((pglob?.value ?: 0L).toString())
+public actual fun globfree(pglob: MutPtr<GlobT>) {
+    if (fuchsiaNapiAvailable) {
+        wasmLibcFuchsiaGlobfree(pglob.rawAddress.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun posixMadvise(addr: COpaquePointer?, len: SizeT, advice: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_posixMadvise((addr?.value ?: 0L).toString(), len.toString(), advice) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixMadvise(addr: MutPtr<CVoid>, len: SizeT, advice: CInt): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPosixMadvise(addr.rawAddress.toString(), len.toString(), advice) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun shmUnlink(name: String?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_shmUnlink(name) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun shmUnlink(name: ConstPtr<CChar>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaShmUnlink(name.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun seekdir(dirp: DIR?, loc: CLong) {
-    if (_fuchsiaNapiAvailable) {
-        _wasm_libc_fuchsia_seekdir((dirp?.handle ?: 0L).toString(), loc.toString())
+public actual fun seekdir(dirp: MutPtr<DIR>, loc: CLong) {
+    if (fuchsiaNapiAvailable) {
+        wasmLibcFuchsiaSeekdir(dirp.rawAddress.toString(), loc.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun telldir(dirp: DIR?): CLong =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_telldir((dirp?.handle ?: 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun telldir(dirp: MutPtr<DIR>): CLong =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaTelldir(dirp.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun madvise(addr: COpaquePointer?, len: SizeT, advice: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_madvise((addr?.value ?: 0L).toString(), len.toString(), advice) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun madvise(addr: MutPtr<CVoid>, len: SizeT, advice: CInt): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaMadvise(addr.rawAddress.toString(), len.toString(), advice) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msync(addr: COpaquePointer?, len: SizeT, flags: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_msync((addr?.value ?: 0L).toString(), len.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun msync(addr: MutPtr<CVoid>, len: SizeT, flags: CInt): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaMsync(addr.rawAddress.toString(), len.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun recvfrom(socket: CInt, buf: COpaquePointer?, len: SizeT, flags: CInt, addr: COpaquePointer?, addrlen: COpaquePointer?): SsizeT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_recvfrom(socket, (buf?.value ?: 0L).toString(), len.toString(), flags, (addr?.value ?: 0L).toString(), (addrlen?.value ?: 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun recvfrom(socket: CInt, buf: MutPtr<CVoid>, len: SizeT, flags: CInt, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): SsizeT =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaRecvfrom(socket, buf.rawAddress.toString(), len.toString(), flags, addr.rawAddress.toString(), addrlen.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mkstemps(template: COpaquePointer?, suffixlen: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_mkstemps((template?.value ?: 0L).toString(), suffixlen) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mkstemps(template: MutPtr<CChar>, suffixlen: CInt): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaMkstemps(template.rawAddress.toString(), suffixlen) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun futimes(fd: CInt, times: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_futimes(fd, (times?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun futimes(fd: CInt, times: ConstPtr<Timeval>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaFutimes(fd, times.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun nlLanginfo(item: NlItem): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_nlLanginfo(item).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun nlLanginfo(item: NlItem): MutPtr<CChar> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaNlLanginfo(item).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun bind(socket: CInt, address: COpaquePointer?, addressLen: SocklenT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_bind(socket, (address?.value ?: 0L).toString(), addressLen.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun bind(socket: CInt, address: ConstPtr<Sockaddr>, addressLen: SocklenT): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaBind(socket, address.rawAddress.toString(), addressLen.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun writev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_writev(fd, (iov?.value ?: 0L).toString(), iovcnt).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun writev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaWritev(fd, iov.rawAddress.toString(), iovcnt).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun readv(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_readv(fd, (iov?.value ?: 0L).toString(), iovcnt).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun readv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaReadv(fd, iov.rawAddress.toString(), iovcnt).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sendmsg(fd: CInt, msg: COpaquePointer?, flags: CInt): SsizeT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_sendmsg(fd, (msg?.value ?: 0L).toString(), flags).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sendmsg(fd: CInt, msg: ConstPtr<Msghdr>, flags: CInt): SsizeT =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSendmsg(fd, msg.rawAddress.toString(), flags).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun recvmsg(fd: CInt, msg: COpaquePointer?, flags: CInt): SsizeT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_recvmsg(fd, (msg?.value ?: 0L).toString(), flags).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun recvmsg(fd: CInt, msg: MutPtr<Msghdr>, flags: CInt): SsizeT =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaRecvmsg(fd, msg.rawAddress.toString(), flags).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getdomainname(name: COpaquePointer?, len: SizeT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_getdomainname((name?.value ?: 0L).toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getdomainname(name: MutPtr<CChar>, len: SizeT): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaGetdomainname(name.rawAddress.toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setdomainname(name: String?, len: SizeT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_setdomainname(name, len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun setdomainname(name: ConstPtr<CChar>, len: SizeT): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSetdomainname(name.rawAddress.toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun vhangup(): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_vhangup() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaVhangup() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sendmmsg(sockfd: CInt, msgvec: COpaquePointer?, vlen: CUint, flags: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_sendmmsg(sockfd, (msgvec?.value ?: 0L).toString(), vlen.toInt(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sendmmsg(sockfd: CInt, msgvec: MutPtr<Mmsghdr>, vlen: CUint, flags: CInt): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSendmmsg(sockfd, msgvec.rawAddress.toString(), vlen.toInt(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun recvmmsg(sockfd: CInt, msgvec: COpaquePointer?, vlen: CUint, flags: CInt, timeout: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_recvmmsg(sockfd, (msgvec?.value ?: 0L).toString(), vlen.toInt(), flags, (timeout?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun recvmmsg(sockfd: CInt, msgvec: MutPtr<Mmsghdr>, vlen: CUint, flags: CInt, timeout: MutPtr<Timespec>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaRecvmmsg(sockfd, msgvec.rawAddress.toString(), vlen.toInt(), flags, timeout.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sync() {
-    if (_fuchsiaNapiAvailable) {
-        _wasm_libc_fuchsia_sync()
+    if (fuchsiaNapiAvailable) {
+        wasmLibcFuchsiaSync()
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
 public actual fun syscall(num: CLong, vararg variadicArgs: Long): CLong =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_syscall(num.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSyscall(num.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun schedGetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_schedGetaffinity(pid, cpusetsize.toString(), (cpuset?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun schedGetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: MutPtr<CpuSetT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSchedGetaffinity(pid, cpusetsize.toString(), cpuset.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun schedSetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_schedSetaffinity(pid, cpusetsize.toString(), (cpuset?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun schedSetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: ConstPtr<CpuSetT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSchedSetaffinity(pid, cpusetsize.toString(), cpuset.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun umount(target: String?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_umount(target) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun umount(target: ConstPtr<CChar>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaUmount(target.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun schedGetPriorityMax(policy: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_schedGetPriorityMax(policy) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSchedGetPriorityMax(policy) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun tee(fdIn: CInt, fdOut: CInt, len: SizeT, flags: CUint): SsizeT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_tee(fdIn, fdOut, len.toString(), flags.toInt()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaTee(fdIn, fdOut, len.toString(), flags.toInt()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun settimeofday(tv: COpaquePointer?, tz: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_settimeofday((tv?.value ?: 0L).toString(), (tz?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun settimeofday(tv: ConstPtr<Timeval>, tz: ConstPtr<Timezone>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSettimeofday(tv.rawAddress.toString(), tz.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun splice(fdIn: CInt, offIn: COpaquePointer?, fdOut: CInt, offOut: COpaquePointer?, len: SizeT, flags: CUint): SsizeT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_splice(fdIn, (offIn?.value ?: 0L).toString(), fdOut, (offOut?.value ?: 0L).toString(), len.toString(), flags.toInt()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun splice(fdIn: CInt, offIn: MutPtr<LoffT>, fdOut: CInt, offOut: MutPtr<LoffT>, len: SizeT, flags: CUint): SsizeT =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSplice(fdIn, offIn.rawAddress.toString(), fdOut, offOut.rawAddress.toString(), len.toString(), flags.toInt()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun eventfd(initval: CUint, flags: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_eventfd(initval.toInt(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaEventfd(initval.toInt(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun schedRrGetInterval(pid: PidT, tp: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_schedRrGetInterval(pid, (tp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun schedRrGetInterval(pid: PidT, tp: MutPtr<Timespec>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSchedRrGetInterval(pid, tp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semTimedwait(sem: COpaquePointer?, abstime: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_semTimedwait((sem?.value ?: 0L).toString(), (abstime?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun semTimedwait(sem: MutPtr<SemT>, abstime: ConstPtr<Timespec>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSemTimedwait(sem.rawAddress.toString(), abstime.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semGetvalue(sem: COpaquePointer?, sval: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_semGetvalue((sem?.value ?: 0L).toString(), (sval?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun semGetvalue(sem: MutPtr<SemT>, sval: MutPtr<CInt>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSemGetvalue(sem.rawAddress.toString(), sval.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun schedSetparam(pid: PidT, param: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_schedSetparam(pid, (param?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun schedSetparam(pid: PidT, param: ConstPtr<SchedParam>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSchedSetparam(pid, param.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun swapoff(puath: String?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_swapoff(puath) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun swapoff(puath: ConstPtr<CChar>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSwapoff(puath.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun vmsplice(fd: CInt, iov: COpaquePointer?, nrSegs: SizeT, flags: CUint): SsizeT =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_vmsplice(fd, (iov?.value ?: 0L).toString(), nrSegs.toString(), flags.toInt()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun vmsplice(fd: CInt, iov: ConstPtr<Iovec>, nrSegs: SizeT, flags: CUint): SsizeT =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaVmsplice(fd, iov.rawAddress.toString(), nrSegs.toString(), flags.toInt()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mount(src: String?, target: String?, fstype: String?, flags: CUlong, data: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_mount(src, target, fstype, flags.toString(), (data?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mount(src: ConstPtr<CChar>, target: ConstPtr<CChar>, fstype: ConstPtr<CChar>, flags: CUlong, data: ConstPtr<CVoid>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaMount(src.rawAddress.toString(), target.rawAddress.toString(), fstype.rawAddress.toString(), flags.toString(), data.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun personality(persona: CUlong): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_personality(persona.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPersonality(persona.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun schedGetparam(pid: PidT, param: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_schedGetparam(pid, (param?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun schedGetparam(pid: PidT, param: MutPtr<SchedParam>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSchedGetparam(pid, param.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ppoll(fds: COpaquePointer?, nfds: NfdsT, timeout: COpaquePointer?, sigmask: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_ppoll((fds?.value ?: 0L).toString(), nfds.toString(), (timeout?.value ?: 0L).toString(), (sigmask?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ppoll(fds: MutPtr<Pollfd>, nfds: NfdsT, timeout: ConstPtr<Timespec>, sigmask: ConstPtr<SigsetT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPpoll(fds.rawAddress.toString(), nfds.toString(), timeout.rawAddress.toString(), sigmask.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexTimedlock(lock: COpaquePointer?, abstime: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadMutexTimedlock((lock?.value ?: 0L).toString(), (abstime?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadMutexTimedlock(lock: MutPtr<PthreadMutexT>, abstime: ConstPtr<Timespec>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadMutexTimedlock(lock.rawAddress.toString(), abstime.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun clone(cb: CloneCbCallback, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, vararg variadicArgs: Long): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_clone(0L.toString(), (childStack?.value ?: 0L).toString(), flags, (arg?.value ?: 0L).toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun clone(cb: CloneCbCallback, childStack: MutPtr<CVoid>, flags: CInt, arg: MutPtr<CVoid>, vararg variadicArgs: Long): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaClone(0L.toString(), childStack.rawAddress.toString(), flags, arg.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun schedGetscheduler(pid: PidT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_schedGetscheduler(pid) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSchedGetscheduler(pid) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: COpaquePointer?, rmtp: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_clockNanosleep(clkId, flags, (rqtp?.value ?: 0L).toString(), (rmtp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: ConstPtr<Timespec>, rmtp: MutPtr<Timespec>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaClockNanosleep(clkId, flags, rqtp.rawAddress.toString(), rmtp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrGetguardsize(attr: COpaquePointer?, guardsize: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadAttrGetguardsize((attr?.value ?: 0L).toString(), (guardsize?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadAttrGetguardsize(attr: ConstPtr<PthreadAttrT>, guardsize: MutPtr<SizeT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadAttrGetguardsize(attr.rawAddress.toString(), guardsize.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrSetguardsize(attr: COpaquePointer?, guardsize: SizeT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadAttrSetguardsize((attr?.value ?: 0L).toString(), guardsize.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadAttrSetguardsize(attr: MutPtr<PthreadAttrT>, guardsize: SizeT): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadAttrSetguardsize(attr.rawAddress.toString(), guardsize.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sethostname(name: String?, len: SizeT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_sethostname(name, len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sethostname(name: ConstPtr<CChar>, len: SizeT): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSethostname(name.rawAddress.toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun schedGetPriorityMin(policy: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_schedGetPriorityMin(policy) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSchedGetPriorityMin(policy) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun umount2(target: String?, flags: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_umount2(target, flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun umount2(target: ConstPtr<CChar>, flags: CInt): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaUmount2(target.rawAddress.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun swapon(path: String?, swapflags: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_swapon(path, swapflags) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun swapon(path: ConstPtr<CChar>, swapflags: CInt): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSwapon(path.rawAddress.toString(), swapflags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun schedSetscheduler(pid: PidT, policy: CInt, param: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_schedSetscheduler(pid, policy, (param?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun schedSetscheduler(pid: PidT, policy: CInt, param: ConstPtr<SchedParam>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSchedSetscheduler(pid, policy, param.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigsuspend(mask: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_sigsuspend((mask?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sigsuspend(mask: ConstPtr<SigsetT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSigsuspend(mask.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getgrgidR(gid: GidT, grp: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_getgrgidR(gid.toInt(), (grp?.value ?: 0L).toString(), (buf?.value ?: 0L).toString(), buflen.toString(), (result?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getgrgidR(gid: GidT, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaGetgrgidR(gid.toInt(), grp.rawAddress.toString(), buf.rawAddress.toString(), buflen.toString(), result.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigaltstack(ss: COpaquePointer?, oss: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_sigaltstack((ss?.value ?: 0L).toString(), (oss?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sigaltstack(ss: ConstPtr<StackT>, oss: MutPtr<StackT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSigaltstack(ss.rawAddress.toString(), oss.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semClose(sem: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_semClose((sem?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun semClose(sem: MutPtr<SemT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSemClose(sem.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun getdtablesize(): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_getdtablesize() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaGetdtablesize() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getgrnamR(name: String?, grp: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_getgrnamR(name, (grp?.value ?: 0L).toString(), (buf?.value ?: 0L).toString(), buflen.toString(), (result?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getgrnamR(name: ConstPtr<CChar>, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaGetgrnamR(name.rawAddress.toString(), grp.rawAddress.toString(), buf.rawAddress.toString(), buflen.toString(), result.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun initgroups(user: String?, group: GidT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_initgroups(user, group.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun initgroups(user: ConstPtr<CChar>, group: GidT): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaInitgroups(user.rawAddress.toString(), group.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadSigmask(how: CInt, set: COpaquePointer?, oldset: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadSigmask(how, (set?.value ?: 0L).toString(), (oldset?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadSigmask(how: CInt, set: ConstPtr<SigsetT>, oldset: MutPtr<SigsetT>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadSigmask(how, set.rawAddress.toString(), oldset.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_semOpen(name, oflag, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun semOpen(name: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): MutPtr<SemT> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaSemOpen(name.rawAddress.toString(), oflag, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getgrnam(name: String?): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_getgrnam(name).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getgrnam(name: ConstPtr<CChar>): MutPtr<Group> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaGetgrnam(name.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun pthreadCancel(thread: PthreadT): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadCancel(thread.toLong().toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadCancel(thread.toLong().toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun pthreadKill(thread: PthreadT, sig: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadKill(thread.toLong().toString(), sig) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadKill(thread.toLong().toString(), sig) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semUnlink(name: String?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_semUnlink(name) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun semUnlink(name: ConstPtr<CChar>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSemUnlink(name.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun daemon(nochdir: CInt, noclose: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_daemon(nochdir, noclose) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaDaemon(nochdir, noclose) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getpwnamR(name: String?, pwd: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_getpwnamR(name, (pwd?.value ?: 0L).toString(), (buf?.value ?: 0L).toString(), buflen.toString(), (result?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getpwnamR(name: ConstPtr<CChar>, pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaGetpwnamR(name.rawAddress.toString(), pwd.rawAddress.toString(), buf.rawAddress.toString(), buflen.toString(), result.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getpwuidR(uid: UidT, pwd: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_getpwuidR(uid.toInt(), (pwd?.value ?: 0L).toString(), (buf?.value ?: 0L).toString(), buflen.toString(), (result?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getpwuidR(uid: UidT, pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaGetpwuidR(uid.toInt(), pwd.rawAddress.toString(), buf.rawAddress.toString(), buflen.toString(), result.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigwait(set: COpaquePointer?, sig: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_sigwait((set?.value ?: 0L).toString(), (sig?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sigwait(set: ConstPtr<SigsetT>, sig: MutPtr<CInt>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaSigwait(set.rawAddress.toString(), sig.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun pthreadAtfork(prepare: SigactionSaRestorerCallback?, parent: SigactionSaRestorerCallback?, child: SigactionSaRestorerCallback?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadAtfork(0L.toString(), 0L.toString(), 0L.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadAtfork(0L.toString(), 0L.toString(), 0L.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getgrgid(gid: GidT): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_getgrgid(gid.toInt()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getgrgid(gid: GidT): MutPtr<Group> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaGetgrgid(gid.toInt()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun setgrent() {
-    if (_fuchsiaNapiAvailable) {
-        _wasm_libc_fuchsia_setgrent()
+    if (fuchsiaNapiAvailable) {
+        wasmLibcFuchsiaSetgrent()
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
 public actual fun endgrent() {
-    if (_fuchsiaNapiAvailable) {
-        _wasm_libc_fuchsia_endgrent()
+    if (fuchsiaNapiAvailable) {
+        wasmLibcFuchsiaEndgrent()
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun getgrent(): COpaquePointer? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_getgrent().toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getgrent(): MutPtr<Group> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaGetgrent().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getgrouplist(user: String?, group: GidT, groups: COpaquePointer?, ngroups: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_getgrouplist(user, group.toInt(), (groups?.value ?: 0L).toString(), (ngroups?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getgrouplist(user: ConstPtr<CChar>, group: GidT, groups: MutPtr<GidT>, ngroups: MutPtr<CInt>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaGetgrouplist(user.rawAddress.toString(), group.toInt(), groups.rawAddress.toString(), ngroups.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun popen(command: String?, mode: String?): FILE? =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_popen(command, mode).toLong().let { if (it == 0L) null else FILE(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun popen(command: ConstPtr<CChar>, mode: ConstPtr<CChar>): MutPtr<FILE> =
+    if (fuchsiaNapiAvailable) MutPtr(wasmLibcFuchsiaPopen(command.rawAddress.toString(), mode.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_faccessat(dirfd, pathname, mode, flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun faccessat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: CInt, flags: CInt): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaFaccessat(dirfd, pathname.rawAddress.toString(), mode, flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_pthreadCreate((native?.value ?: 0L).toString(), (attr?.value ?: 0L).toString(), 0L.toString(), (value?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadCreate(native: MutPtr<PthreadT>, attr: ConstPtr<PthreadAttrT>, f: PthreadCreateFCallback, value: MutPtr<CVoid>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaPthreadCreate(native.rawAddress.toString(), attr.rawAddress.toString(), 0L.toString(), value.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt =
-    if (_fuchsiaNapiAvailable) _wasm_libc_fuchsia_dlIteratePhdr(0L.toString(), (data?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: MutPtr<CVoid>): CInt =
+    if (fuchsiaNapiAvailable) wasmLibcFuchsiaDlIteratePhdr(0L.toString(), data.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")

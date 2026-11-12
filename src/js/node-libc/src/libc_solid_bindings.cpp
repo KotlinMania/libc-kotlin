@@ -51,7 +51,7 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_solid_get_OPTARG_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidGetOPTARG_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     static void** km_sym_ptr = nullptr;
 #ifdef _WIN32
@@ -76,7 +76,7 @@ static Napi::Value libc_solid_get_OPTARG_napi(const Napi::CallbackInfo& km_info)
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_set_OPTARG_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidSetOPTARG_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     static void** km_sym_ptr = nullptr;
@@ -104,7 +104,7 @@ static Napi::Value libc_solid_set_OPTARG_napi(const Napi::CallbackInfo& km_info)
     return km_env.Undefined();
 }
 
-static Napi::Value libc_solid_get_OPTERR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidGetOPTERR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     static int32_t* km_sym_ptr = nullptr;
 #ifdef _WIN32
@@ -129,7 +129,7 @@ static Napi::Value libc_solid_get_OPTERR_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_set_OPTERR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidSetOPTERR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t value = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     static int32_t* km_sym_ptr = nullptr;
@@ -157,7 +157,7 @@ static Napi::Value libc_solid_set_OPTERR_napi(const Napi::CallbackInfo& km_info)
     return km_env.Undefined();
 }
 
-static Napi::Value libc_solid_get_OPTIND_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidGetOPTIND_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     static int32_t* km_sym_ptr = nullptr;
 #ifdef _WIN32
@@ -182,7 +182,7 @@ static Napi::Value libc_solid_get_OPTIND_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_set_OPTIND_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidSetOPTIND_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t value = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     static int32_t* km_sym_ptr = nullptr;
@@ -210,7 +210,7 @@ static Napi::Value libc_solid_set_OPTIND_napi(const Napi::CallbackInfo& km_info)
     return km_env.Undefined();
 }
 
-static Napi::Value libc_solid_get_OPTOPT_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidGetOPTOPT_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     static int32_t* km_sym_ptr = nullptr;
 #ifdef _WIN32
@@ -235,7 +235,7 @@ static Napi::Value libc_solid_get_OPTOPT_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_set_OPTOPT_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidSetOPTOPT_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t value = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     static int32_t* km_sym_ptr = nullptr;
@@ -263,7 +263,7 @@ static Napi::Value libc_solid_set_OPTOPT_napi(const Napi::CallbackInfo& km_info)
     return km_env.Undefined();
 }
 
-static Napi::Value libc_solid_get_OPTRESET_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidGetOPTRESET_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     static int32_t* km_sym_ptr = nullptr;
 #ifdef _WIN32
@@ -288,7 +288,7 @@ static Napi::Value libc_solid_get_OPTRESET_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_set_OPTRESET_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidSetOPTRESET_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t value = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     static int32_t* km_sym_ptr = nullptr;
@@ -316,7 +316,7 @@ static Napi::Value libc_solid_set_OPTRESET_napi(const Napi::CallbackInfo& km_inf
     return km_env.Undefined();
 }
 
-static Napi::Value libc_solid_get_SUBOPTARG_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidGetSUBOPTARG_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     static void** km_sym_ptr = nullptr;
 #ifdef _WIN32
@@ -341,7 +341,7 @@ static Napi::Value libc_solid_get_SUBOPTARG_napi(const Napi::CallbackInfo& km_in
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_set_SUBOPTARG_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidSetSUBOPTARG_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     static void** km_sym_ptr = nullptr;
@@ -369,7 +369,7 @@ static Napi::Value libc_solid_set_SUBOPTARG_napi(const Napi::CallbackInfo& km_in
     return km_env.Undefined();
 }
 
-static Napi::Value libc_solid_isalnum_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidIsalnum_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -402,7 +402,7 @@ static Napi::Value libc_solid_isalnum_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_isalpha_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidIsalpha_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -435,7 +435,7 @@ static Napi::Value libc_solid_isalpha_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_iscntrl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidIscntrl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -468,7 +468,7 @@ static Napi::Value libc_solid_iscntrl_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_isdigit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidIsdigit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -501,7 +501,7 @@ static Napi::Value libc_solid_isdigit_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_isgraph_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidIsgraph_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -534,7 +534,7 @@ static Napi::Value libc_solid_isgraph_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_islower_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidIslower_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -567,7 +567,7 @@ static Napi::Value libc_solid_islower_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_isprint_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidIsprint_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -600,7 +600,7 @@ static Napi::Value libc_solid_isprint_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_ispunct_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidIspunct_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -633,7 +633,7 @@ static Napi::Value libc_solid_ispunct_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_isspace_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidIsspace_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -666,7 +666,7 @@ static Napi::Value libc_solid_isspace_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_isupper_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidIsupper_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -699,7 +699,7 @@ static Napi::Value libc_solid_isupper_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_isxdigit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidIsxdigit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -732,7 +732,7 @@ static Napi::Value libc_solid_isxdigit_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_isblank_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidIsblank_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -765,7 +765,7 @@ static Napi::Value libc_solid_isblank_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_tolower_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidTolower_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -798,7 +798,7 @@ static Napi::Value libc_solid_tolower_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_toupper_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidToupper_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -831,7 +831,7 @@ static Napi::Value libc_solid_toupper_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_getStdioFile_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidGetStdioFile_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fileno = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void* (*km_fn_t)(int32_t);
@@ -862,7 +862,7 @@ static Napi::Value libc_solid_getStdioFile_napi(const Napi::CallbackInfo& km_inf
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_clearerr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidClearerr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -893,7 +893,7 @@ static Napi::Value libc_solid_clearerr_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_solid_fclose_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidFclose_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -926,7 +926,7 @@ static Napi::Value libc_solid_fclose_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_feof_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidFeof_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -959,7 +959,7 @@ static Napi::Value libc_solid_feof_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_ferror_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidFerror_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -992,7 +992,7 @@ static Napi::Value libc_solid_ferror_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_fflush_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidFflush_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -1025,7 +1025,7 @@ static Napi::Value libc_solid_fflush_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_fgetc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidFgetc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -1058,7 +1058,7 @@ static Napi::Value libc_solid_fgetc_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_fgets_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidFgets_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* arg1 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t arg2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1093,14 +1093,10 @@ static Napi::Value libc_solid_fgets_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_fopen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidFopen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef void* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1131,12 +1127,10 @@ static Napi::Value libc_solid_fopen_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_fprintf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidFprintf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t km_vac = km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
     int64_t km_va1 = km_info.Length() > 4 ? km_napi_arg_i64(km_info[4]) : 0;
@@ -1177,7 +1171,7 @@ static Napi::Value libc_solid_fprintf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_fputc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidFputc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t arg1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1211,11 +1205,9 @@ static Napi::Value libc_solid_fputc_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_fputs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidFputs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1247,7 +1239,7 @@ static Napi::Value libc_solid_fputs_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_fread_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidFread_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t arg2 = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1283,14 +1275,10 @@ static Napi::Value libc_solid_fread_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_freopen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidFreopen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* arg3 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef void* (*km_fn_t)(const char*, const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1322,12 +1310,10 @@ static Napi::Value libc_solid_freopen_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_fscanf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidFscanf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t km_vac = km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
     int64_t km_va1 = km_info.Length() > 4 ? km_napi_arg_i64(km_info[4]) : 0;
@@ -1368,7 +1354,7 @@ static Napi::Value libc_solid_fscanf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_fseek_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidFseek_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int64_t arg2 = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
@@ -1403,7 +1389,7 @@ static Napi::Value libc_solid_fseek_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_ftell_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidFtell_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(void*);
@@ -1436,7 +1422,7 @@ static Napi::Value libc_solid_ftell_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_fwrite_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidFwrite_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t arg2 = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1472,7 +1458,7 @@ static Napi::Value libc_solid_fwrite_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_getc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidGetc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -1505,7 +1491,7 @@ static Napi::Value libc_solid_getc_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_getchar_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidGetchar_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1537,11 +1523,9 @@ static Napi::Value libc_solid_getchar_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_perror_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidPerror_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1570,11 +1554,9 @@ static Napi::Value libc_solid_perror_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_solid_printf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidPrintf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t km_vac = km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 2 ? km_napi_arg_i64(km_info[2]) : 0;
     int64_t km_va1 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
@@ -1615,7 +1597,7 @@ static Napi::Value libc_solid_printf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_putc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidPutc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t arg1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1649,7 +1631,7 @@ static Napi::Value libc_solid_putc_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_putchar_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidPutchar_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t arg1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -1682,11 +1664,9 @@ static Napi::Value libc_solid_putchar_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_puts_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidPuts_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1717,11 +1697,9 @@ static Napi::Value libc_solid_puts_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_remove_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidRemove_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1752,7 +1730,7 @@ static Napi::Value libc_solid_remove_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_rewind_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidRewind_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -1783,11 +1761,9 @@ static Napi::Value libc_solid_rewind_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_solid_scanf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidScanf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t km_vac = km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 2 ? km_napi_arg_i64(km_info[2]) : 0;
     int64_t km_va1 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
@@ -1828,7 +1804,7 @@ static Napi::Value libc_solid_scanf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_setbuf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidSetbuf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* arg2 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1860,7 +1836,7 @@ static Napi::Value libc_solid_setbuf_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_solid_setvbuf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidSetvbuf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* arg2 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1896,14 +1872,10 @@ static Napi::Value libc_solid_setvbuf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_sscanf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidSscanf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t km_vac = km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
     int64_t km_va1 = km_info.Length() > 4 ? km_napi_arg_i64(km_info[4]) : 0;
@@ -1944,7 +1916,7 @@ static Napi::Value libc_solid_sscanf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_tmpfile_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidTmpfile_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1976,7 +1948,7 @@ static Napi::Value libc_solid_tmpfile_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_ungetc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidUngetc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t arg1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2010,12 +1982,10 @@ static Napi::Value libc_solid_ungetc_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_vfprintf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidVfprintf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     char* arg3 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(void*, const char*, char*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2047,11 +2017,9 @@ static Napi::Value libc_solid_vfprintf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_vprintf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidVprintf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* arg2 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, char*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2083,7 +2051,7 @@ static Napi::Value libc_solid_vprintf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_gets_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidGets_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* arg1 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef char* (*km_fn_t)(char*);
@@ -2116,12 +2084,10 @@ static Napi::Value libc_solid_gets_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_sprintf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidSprintf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* arg1 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t km_vac = km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
     int64_t km_va1 = km_info.Length() > 4 ? km_napi_arg_i64(km_info[4]) : 0;
@@ -2162,11 +2128,9 @@ static Napi::Value libc_solid_sprintf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_tmpnam_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidTmpnam_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef char* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2197,12 +2161,10 @@ static Napi::Value libc_solid_tmpnam_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_vsprintf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidVsprintf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* arg1 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     char* arg3 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(char*, const char*, char*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2234,14 +2196,10 @@ static Napi::Value libc_solid_vsprintf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_rename_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidRename_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2272,12 +2230,10 @@ static Napi::Value libc_solid_rename_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_asiprintf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidAsiprintf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t km_vac = km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
     int64_t km_va1 = km_info.Length() > 4 ? km_napi_arg_i64(km_info[4]) : 0;
@@ -2318,12 +2274,10 @@ static Napi::Value libc_solid_asiprintf_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_fiprintf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidFiprintf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t km_vac = km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
     int64_t km_va1 = km_info.Length() > 4 ? km_napi_arg_i64(km_info[4]) : 0;
@@ -2364,12 +2318,10 @@ static Napi::Value libc_solid_fiprintf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_fiscanf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidFiscanf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t km_vac = km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
     int64_t km_va1 = km_info.Length() > 4 ? km_napi_arg_i64(km_info[4]) : 0;
@@ -2410,11 +2362,9 @@ static Napi::Value libc_solid_fiscanf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_iprintf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidIprintf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t km_vac = km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 2 ? km_napi_arg_i64(km_info[2]) : 0;
     int64_t km_va1 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
@@ -2455,11 +2405,9 @@ static Napi::Value libc_solid_iprintf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_iscanf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidIscanf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t km_vac = km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 2 ? km_napi_arg_i64(km_info[2]) : 0;
     int64_t km_va1 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
@@ -2500,12 +2448,10 @@ static Napi::Value libc_solid_iscanf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_siprintf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidSiprintf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* arg1 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t km_vac = km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
     int64_t km_va1 = km_info.Length() > 4 ? km_napi_arg_i64(km_info[4]) : 0;
@@ -2546,12 +2492,10 @@ static Napi::Value libc_solid_siprintf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_siscanf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidSiscanf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* arg1 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t km_vac = km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
     int64_t km_va1 = km_info.Length() > 4 ? km_napi_arg_i64(km_info[4]) : 0;
@@ -2592,13 +2536,11 @@ static Napi::Value libc_solid_siscanf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_sniprintf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidSniprintf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* arg1 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t arg2 = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
-    bool arg3_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string arg3_str = arg3_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* arg3 = arg3_null ? nullptr : arg3_str.c_str();
+    const char* arg3 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     int32_t km_vac = km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 4 ? km_napi_arg_i64(km_info[4]) : 0;
     int64_t km_va1 = km_info.Length() > 5 ? km_napi_arg_i64(km_info[5]) : 0;
@@ -2639,12 +2581,10 @@ static Napi::Value libc_solid_sniprintf_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_vasiprintf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidVasiprintf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     char* arg3 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(void*, const char*, char*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2676,12 +2616,10 @@ static Napi::Value libc_solid_vasiprintf_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_vfiprintf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidVfiprintf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     char* arg3 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(void*, const char*, char*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2713,12 +2651,10 @@ static Napi::Value libc_solid_vfiprintf_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_vfiscanf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidVfiscanf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     char* arg3 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(void*, const char*, char*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2750,11 +2686,9 @@ static Napi::Value libc_solid_vfiscanf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_viprintf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidViprintf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* arg2 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, char*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2786,11 +2720,9 @@ static Napi::Value libc_solid_viprintf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_viscanf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidViscanf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* arg2 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, char*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2822,12 +2754,10 @@ static Napi::Value libc_solid_viscanf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_vsiprintf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidVsiprintf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* arg1 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     char* arg3 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(char*, const char*, char*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2859,14 +2789,10 @@ static Napi::Value libc_solid_vsiprintf_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_vsiscanf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidVsiscanf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     char* arg3 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(const char*, const char*, char*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2898,13 +2824,11 @@ static Napi::Value libc_solid_vsiscanf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_vsniprintf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidVsniprintf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* arg1 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t arg2 = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
-    bool arg3_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string arg3_str = arg3_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* arg3 = arg3_null ? nullptr : arg3_str.c_str();
+    const char* arg3 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     char* arg4 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(char*, uint64_t, const char*, char*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2936,12 +2860,10 @@ static Napi::Value libc_solid_vsniprintf_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_vdiprintf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidVdiprintf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t arg1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     char* arg3 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, const char*, char*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2973,12 +2895,10 @@ static Napi::Value libc_solid_vdiprintf_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_diprintf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidDiprintf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t arg1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t km_vac = km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
     int64_t km_va1 = km_info.Length() > 4 ? km_napi_arg_i64(km_info[4]) : 0;
@@ -3019,7 +2939,7 @@ static Napi::Value libc_solid_diprintf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_fgetpos_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidFgetpos_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3053,7 +2973,7 @@ static Napi::Value libc_solid_fgetpos_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_fsetpos_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidFsetpos_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3087,12 +3007,10 @@ static Napi::Value libc_solid_fsetpos_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_fdopen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidFdopen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t arg1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef void* (*km_fn_t)(int32_t, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3123,7 +3041,7 @@ static Napi::Value libc_solid_fdopen_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_fileno_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidFileno_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -3156,7 +3074,7 @@ static Napi::Value libc_solid_fileno_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_flockfile_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidFlockfile_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -3187,7 +3105,7 @@ static Napi::Value libc_solid_flockfile_napi(const Napi::CallbackInfo& km_info) 
     return km_env.Undefined();
 }
 
-static Napi::Value libc_solid_ftrylockfile_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidFtrylockfile_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -3220,7 +3138,7 @@ static Napi::Value libc_solid_ftrylockfile_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_funlockfile_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidFunlockfile_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -3251,7 +3169,7 @@ static Napi::Value libc_solid_funlockfile_napi(const Napi::CallbackInfo& km_info
     return km_env.Undefined();
 }
 
-static Napi::Value libc_solid_getcUnlocked_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidGetcUnlocked_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -3284,7 +3202,7 @@ static Napi::Value libc_solid_getcUnlocked_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_getcharUnlocked_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidGetcharUnlocked_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3316,7 +3234,7 @@ static Napi::Value libc_solid_getcharUnlocked_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_putcUnlocked_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidPutcUnlocked_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t arg1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3350,7 +3268,7 @@ static Napi::Value libc_solid_putcUnlocked_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_putcharUnlocked_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidPutcharUnlocked_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t arg1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -3383,13 +3301,11 @@ static Napi::Value libc_solid_putcharUnlocked_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_snprintf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidSnprintf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* arg1 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t arg2 = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
-    bool arg3_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string arg3_str = arg3_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* arg3 = arg3_null ? nullptr : arg3_str.c_str();
+    const char* arg3 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     int32_t km_vac = km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 4 ? km_napi_arg_i64(km_info[4]) : 0;
     int64_t km_va1 = km_info.Length() > 5 ? km_napi_arg_i64(km_info[5]) : 0;
@@ -3430,13 +3346,11 @@ static Napi::Value libc_solid_snprintf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_vsnprintf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidVsnprintf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* arg1 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t arg2 = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
-    bool arg3_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string arg3_str = arg3_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* arg3 = arg3_null ? nullptr : arg3_str.c_str();
+    const char* arg3 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     char* arg4 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(char*, uint64_t, const char*, char*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3468,7 +3382,7 @@ static Napi::Value libc_solid_vsnprintf_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_getw_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidGetw_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -3501,7 +3415,7 @@ static Napi::Value libc_solid_getw_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_putw_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidPutw_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t arg1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3535,14 +3449,10 @@ static Napi::Value libc_solid_putw_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_tempnam_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidTempnam_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef char* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3573,7 +3483,7 @@ static Napi::Value libc_solid_tempnam_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_fseeko_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidFseeko_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int64_t offset = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
@@ -3608,7 +3518,7 @@ static Napi::Value libc_solid_fseeko_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_ftello_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidFtello_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(void*);
@@ -3641,11 +3551,9 @@ static Napi::Value libc_solid_ftello_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_atof_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidAtof_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef double (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3676,11 +3584,9 @@ static Napi::Value libc_solid_atof_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
-static Napi::Value libc_solid_strtod_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrtod_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef double (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3712,7 +3618,7 @@ static Napi::Value libc_solid_strtod_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
-static Napi::Value libc_solid_drand48_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidDrand48_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef double (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3744,7 +3650,7 @@ static Napi::Value libc_solid_drand48_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
-static Napi::Value libc_solid_erand48_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidErand48_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef double (*km_fn_t)(void*);
@@ -3777,11 +3683,9 @@ static Napi::Value libc_solid_erand48_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
-static Napi::Value libc_solid_strtof_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrtof_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef float (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3813,11 +3717,9 @@ static Napi::Value libc_solid_strtof_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
-static Napi::Value libc_solid_strtold_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrtold_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef double (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3849,11 +3751,9 @@ static Napi::Value libc_solid_strtold_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
-static Napi::Value libc_solid_strtodL_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrtodL_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* arg3 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef double (*km_fn_t)(const char*, void*, void*);
@@ -3886,11 +3786,9 @@ static Napi::Value libc_solid_strtodL_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
-static Napi::Value libc_solid_strtofL_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrtofL_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* arg3 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef float (*km_fn_t)(const char*, void*, void*);
@@ -3923,11 +3821,9 @@ static Napi::Value libc_solid_strtofL_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
-static Napi::Value libc_solid_strtoldL_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrtoldL_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* arg3 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef double (*km_fn_t)(const char*, void*, void*);
@@ -3960,7 +3856,7 @@ static Napi::Value libc_solid_strtoldL_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
-static Napi::Value libc_solid_exit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidExit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t arg1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(int32_t);
@@ -3989,7 +3885,7 @@ static Napi::Value libc_solid_exit_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_solid_abort_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidAbort_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4019,7 +3915,7 @@ static Napi::Value libc_solid_abort_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_solid_abs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidAbs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t arg1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -4052,7 +3948,7 @@ static Napi::Value libc_solid_abs_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_atexit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidAtexit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     if (arg1 == nullptr) {
@@ -4094,11 +3990,9 @@ static Napi::Value libc_solid_atexit_napi(const Napi::CallbackInfo& km_info) {
 #endif
 }
 
-static Napi::Value libc_solid_atoi_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidAtoi_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4129,11 +4023,9 @@ static Napi::Value libc_solid_atoi_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_atol_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidAtol_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4164,7 +4056,7 @@ static Napi::Value libc_solid_atol_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_itoa_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidItoa_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t arg1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     char* arg2 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -4199,7 +4091,7 @@ static Napi::Value libc_solid_itoa_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_ltoa_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidLtoa_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int64_t arg1 = km_info.Length() > 0 ? km_napi_arg_i64(km_info[0]) : 0;
     char* arg2 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -4234,7 +4126,7 @@ static Napi::Value libc_solid_ltoa_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_ultoa_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidUltoa_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t arg1 = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     char* arg2 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -4269,7 +4161,7 @@ static Napi::Value libc_solid_ultoa_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_bsearch_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidBsearch_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -4306,7 +4198,7 @@ static Napi::Value libc_solid_bsearch_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_calloc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidCalloc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t arg1 = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     uint64_t arg2 = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -4340,7 +4232,7 @@ static Napi::Value libc_solid_calloc_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_free_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidFree_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -4371,11 +4263,9 @@ static Napi::Value libc_solid_free_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_solid_getenv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidGetenv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef char* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4406,7 +4296,7 @@ static Napi::Value libc_solid_getenv_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_labs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidLabs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int64_t arg1 = km_info.Length() > 0 ? km_napi_arg_i64(km_info[0]) : 0;
     typedef int64_t (*km_fn_t)(int64_t);
@@ -4439,7 +4329,7 @@ static Napi::Value libc_solid_labs_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_malloc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidMalloc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t arg1 = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     typedef void* (*km_fn_t)(uint64_t);
@@ -4472,7 +4362,7 @@ static Napi::Value libc_solid_malloc_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_qsort_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidQsort_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t arg2 = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -4506,7 +4396,7 @@ static Napi::Value libc_solid_qsort_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_solid_rand_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidRand_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4538,7 +4428,7 @@ static Napi::Value libc_solid_rand_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_realloc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidRealloc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t arg2 = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -4572,7 +4462,7 @@ static Napi::Value libc_solid_realloc_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_srand_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidSrand_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t arg1 = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(uint32_t);
@@ -4603,11 +4493,9 @@ static Napi::Value libc_solid_srand_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_solid_strtol_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrtol_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t arg3 = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(const char*, void*, int32_t);
@@ -4640,11 +4528,9 @@ static Napi::Value libc_solid_strtol_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_strtoul_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrtoul_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t arg3 = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef uint64_t (*km_fn_t)(const char*, void*, int32_t);
@@ -4677,11 +4563,9 @@ static Napi::Value libc_solid_strtoul_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_mblen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidMblen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t arg2 = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
     typedef int32_t (*km_fn_t)(const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4713,12 +4597,10 @@ static Napi::Value libc_solid_mblen_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_mbstowcs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidMbstowcs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t arg3 = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef uint64_t (*km_fn_t)(void*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4750,7 +4632,7 @@ static Napi::Value libc_solid_mbstowcs_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_wctomb_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidWctomb_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* arg1 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t arg2 = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4784,12 +4666,10 @@ static Napi::Value libc_solid_wctomb_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_mbtowc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidMbtowc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t arg3 = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef int32_t (*km_fn_t)(void*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4821,7 +4701,7 @@ static Napi::Value libc_solid_mbtowc_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_wcstombs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidWcstombs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* arg1 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -4856,7 +4736,7 @@ static Napi::Value libc_solid_wcstombs_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_randR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidRandR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -4889,7 +4769,7 @@ static Napi::Value libc_solid_randR_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_jrand48_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidJrand48_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(void*);
@@ -4922,7 +4802,7 @@ static Napi::Value libc_solid_jrand48_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_lcong48_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidLcong48_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -4953,7 +4833,7 @@ static Napi::Value libc_solid_lcong48_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_solid_lrand48_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidLrand48_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4985,7 +4865,7 @@ static Napi::Value libc_solid_lrand48_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_mrand48_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidMrand48_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5017,7 +4897,7 @@ static Napi::Value libc_solid_mrand48_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_nrand48_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidNrand48_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(void*);
@@ -5050,7 +4930,7 @@ static Napi::Value libc_solid_nrand48_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_seed48_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidSeed48_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -5083,7 +4963,7 @@ static Napi::Value libc_solid_seed48_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_srand48_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidSrand48_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int64_t arg1 = km_info.Length() > 0 ? km_napi_arg_i64(km_info[0]) : 0;
     typedef void (*km_fn_t)(int64_t);
@@ -5114,7 +4994,7 @@ static Napi::Value libc_solid_srand48_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_solid_putenv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidPutenv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* arg1 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(char*);
@@ -5147,11 +5027,9 @@ static Napi::Value libc_solid_putenv_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_a64l_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidA64l_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5182,7 +5060,7 @@ static Napi::Value libc_solid_a64l_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_l64a_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidL64a_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int64_t arg1 = km_info.Length() > 0 ? km_napi_arg_i64(km_info[0]) : 0;
     typedef char* (*km_fn_t)(int64_t);
@@ -5215,7 +5093,7 @@ static Napi::Value libc_solid_l64a_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_random_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidRandom_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5247,7 +5125,7 @@ static Napi::Value libc_solid_random_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_setstate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidSetstate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* arg1 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef char* (*km_fn_t)(char*);
@@ -5280,7 +5158,7 @@ static Napi::Value libc_solid_setstate_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_initstate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidInitstate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t arg1 = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     char* arg2 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -5315,7 +5193,7 @@ static Napi::Value libc_solid_initstate_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_srandom_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidSrandom_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t arg1 = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(uint32_t);
@@ -5346,7 +5224,7 @@ static Napi::Value libc_solid_srandom_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_solid_mkostemp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidMkostemp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* arg1 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t arg2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -5380,7 +5258,7 @@ static Napi::Value libc_solid_mkostemp_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_mkostemps_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidMkostemps_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* arg1 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t arg2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -5415,7 +5293,7 @@ static Napi::Value libc_solid_mkostemps_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_mkdtemp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidMkdtemp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* arg1 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef char* (*km_fn_t)(char*);
@@ -5448,7 +5326,7 @@ static Napi::Value libc_solid_mkdtemp_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_mkstemp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidMkstemp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* arg1 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(char*);
@@ -5481,7 +5359,7 @@ static Napi::Value libc_solid_mkstemp_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_mktemp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidMktemp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* arg1 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef char* (*km_fn_t)(char*);
@@ -5514,11 +5392,9 @@ static Napi::Value libc_solid_mktemp_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_atoll_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidAtoll_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5549,7 +5425,7 @@ static Napi::Value libc_solid_atoll_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_llabs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidLlabs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int64_t arg1 = km_info.Length() > 0 ? km_napi_arg_i64(km_info[0]) : 0;
     typedef int64_t (*km_fn_t)(int64_t);
@@ -5582,11 +5458,9 @@ static Napi::Value libc_solid_llabs_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_strtoll_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrtoll_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t arg3 = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(const char*, void*, int32_t);
@@ -5619,11 +5493,9 @@ static Napi::Value libc_solid_strtoll_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_strtoull_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrtoull_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t arg3 = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef uint64_t (*km_fn_t)(const char*, void*, int32_t);
@@ -5656,7 +5528,7 @@ static Napi::Value libc_solid_strtoull_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_alignedAlloc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidAlignedAlloc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t arg1 = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     uint64_t arg2 = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -5690,7 +5562,7 @@ static Napi::Value libc_solid_alignedAlloc_napi(const Napi::CallbackInfo& km_inf
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_atQuickExit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidAtQuickExit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -5723,7 +5595,7 @@ static Napi::Value libc_solid_atQuickExit_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_quickExit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidQuickExit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t arg1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(int32_t);
@@ -5754,14 +5626,10 @@ static Napi::Value libc_solid_quickExit_napi(const Napi::CallbackInfo& km_info) 
     return km_env.Undefined();
 }
 
-static Napi::Value libc_solid_setenv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidSetenv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t arg3 = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5793,11 +5661,9 @@ static Napi::Value libc_solid_setenv_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_unsetenv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidUnsetenv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5828,14 +5694,12 @@ static Napi::Value libc_solid_unsetenv_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_humanizeNumber_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidHumanizeNumber_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* arg1 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t arg2 = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
     int64_t arg3 = km_info.Length() > 2 ? km_napi_arg_i64(km_info[2]) : 0;
-    bool arg4_null = (km_info.Length() <= 3 || km_info[3].IsNull() || km_info[3].IsUndefined());
-    std::string arg4_str = arg4_null ? std::string() : km_info[3].ToString().Utf8Value();
-    const char* arg4 = arg4_null ? nullptr : arg4_str.c_str();
+    const char* arg4 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     int32_t arg5 = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
     int32_t arg6 = static_cast<int32_t>(km_info.Length() > 5 ? km_info[5].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(char*, uint64_t, int64_t, const char*, int32_t, int32_t);
@@ -5868,11 +5732,9 @@ static Napi::Value libc_solid_humanizeNumber_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_dehumanizeNumber_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidDehumanizeNumber_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5904,11 +5766,9 @@ static Napi::Value libc_solid_dehumanizeNumber_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_getenvR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidGetenvR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* arg2 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t arg3 = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef int32_t (*km_fn_t)(const char*, char*, uint64_t);
@@ -5941,7 +5801,7 @@ static Napi::Value libc_solid_getenvR_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_heapsort_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidHeapsort_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t arg2 = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -5977,7 +5837,7 @@ static Napi::Value libc_solid_heapsort_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_mergesort_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidMergesort_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t arg2 = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -6013,7 +5873,7 @@ static Napi::Value libc_solid_mergesort_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_radixsort_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidRadixsort_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t arg2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -6049,7 +5909,7 @@ static Napi::Value libc_solid_radixsort_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_sradixsort_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidSradixsort_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t arg2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -6085,7 +5945,7 @@ static Napi::Value libc_solid_sradixsort_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_getprogname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidGetprogname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef const char* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -6117,11 +5977,9 @@ static Napi::Value libc_solid_getprogname_napi(const Napi::CallbackInfo& km_info
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_setprogname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidSetprogname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6150,7 +6008,7 @@ static Napi::Value libc_solid_setprogname_napi(const Napi::CallbackInfo& km_info
     return km_env.Undefined();
 }
 
-static Napi::Value libc_solid_qabs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidQabs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int64_t arg1 = km_info.Length() > 0 ? km_napi_arg_i64(km_info[0]) : 0;
     typedef int64_t (*km_fn_t)(int64_t);
@@ -6183,11 +6041,9 @@ static Napi::Value libc_solid_qabs_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_strtoq_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrtoq_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t arg3 = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(const char*, void*, int32_t);
@@ -6220,11 +6076,9 @@ static Napi::Value libc_solid_strtoq_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_strtouq_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrtouq_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t arg3 = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef uint64_t (*km_fn_t)(const char*, void*, int32_t);
@@ -6257,14 +6111,10 @@ static Napi::Value libc_solid_strtouq_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_strsuftoll_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrsuftoll_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int64_t arg3 = km_info.Length() > 2 ? km_napi_arg_i64(km_info[2]) : 0;
     int64_t arg4 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
     typedef int64_t (*km_fn_t)(const char*, const char*, int64_t, int64_t);
@@ -6297,14 +6147,10 @@ static Napi::Value libc_solid_strsuftoll_napi(const Napi::CallbackInfo& km_info)
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_strsuftollx_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrsuftollx_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int64_t arg3 = km_info.Length() > 2 ? km_napi_arg_i64(km_info[2]) : 0;
     int64_t arg4 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
     char* arg5 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
@@ -6339,7 +6185,7 @@ static Napi::Value libc_solid_strsuftollx_napi(const Napi::CallbackInfo& km_info
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_l64aR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidL64aR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int64_t arg1 = km_info.Length() > 0 ? km_napi_arg_i64(km_info[0]) : 0;
     char* arg2 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -6374,11 +6220,9 @@ static Napi::Value libc_solid_l64aR_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_strtolL_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrtolL_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t arg3 = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     void* arg4 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
@@ -6412,11 +6256,9 @@ static Napi::Value libc_solid_strtolL_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_strtoulL_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrtoulL_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t arg3 = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     void* arg4 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
@@ -6450,11 +6292,9 @@ static Napi::Value libc_solid_strtoulL_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_strtollL_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrtollL_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t arg3 = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     void* arg4 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
@@ -6488,11 +6328,9 @@ static Napi::Value libc_solid_strtollL_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_strtoullL_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrtoullL_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t arg3 = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     void* arg4 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
@@ -6526,11 +6364,9 @@ static Napi::Value libc_solid_strtoullL_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_strtoqL_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrtoqL_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t arg3 = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     void* arg4 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
@@ -6564,11 +6400,9 @@ static Napi::Value libc_solid_strtoqL_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_strtouqL_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrtouqL_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t arg3 = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     void* arg4 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
@@ -6602,7 +6436,7 @@ static Napi::Value libc_solid_strtouqL_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_mbCurMaxL_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidMbCurMaxL_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef uint64_t (*km_fn_t)(void*);
@@ -6633,11 +6467,9 @@ static Napi::Value libc_solid_mbCurMaxL_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_mblenL_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidMblenL_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t arg2 = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
     void* arg3 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(const char*, uint64_t, void*);
@@ -6670,12 +6502,10 @@ static Napi::Value libc_solid_mblenL_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_mbstowcsL_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidMbstowcsL_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t arg3 = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     void* arg4 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef uint64_t (*km_fn_t)(void*, const char*, uint64_t, void*);
@@ -6708,7 +6538,7 @@ static Napi::Value libc_solid_mbstowcsL_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_wctombL_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidWctombL_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* arg1 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t arg2 = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -6743,12 +6573,10 @@ static Napi::Value libc_solid_wctombL_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_mbtowcL_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidMbtowcL_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t arg3 = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     void* arg4 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(void*, const char*, uint64_t, void*);
@@ -6781,7 +6609,7 @@ static Napi::Value libc_solid_mbtowcL_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_wcstombsL_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidWcstombsL_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* arg1 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -6817,7 +6645,7 @@ static Napi::Value libc_solid_wcstombsL_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_memchr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidMemchr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t arg2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -6852,7 +6680,7 @@ static Napi::Value libc_solid_memchr_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_memcmp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidMemcmp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -6887,7 +6715,7 @@ static Napi::Value libc_solid_memcmp_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_memcpy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidMemcpy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -6922,7 +6750,7 @@ static Napi::Value libc_solid_memcpy_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_memmove_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidMemmove_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -6957,7 +6785,7 @@ static Napi::Value libc_solid_memmove_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_memset_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidMemset_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t arg2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -6992,12 +6820,10 @@ static Napi::Value libc_solid_memset_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_strcat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrcat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* arg1 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef char* (*km_fn_t)(char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -7028,11 +6854,9 @@ static Napi::Value libc_solid_strcat_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_strchr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrchr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t arg2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef char* (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -7064,14 +6888,10 @@ static Napi::Value libc_solid_strchr_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_strcmp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrcmp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -7102,14 +6922,10 @@ static Napi::Value libc_solid_strcmp_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_strcoll_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrcoll_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -7140,12 +6956,10 @@ static Napi::Value libc_solid_strcoll_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_strcpy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrcpy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* arg1 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef char* (*km_fn_t)(char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -7176,14 +6990,10 @@ static Napi::Value libc_solid_strcpy_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_strcspn_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrcspn_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef uint64_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -7214,7 +7024,7 @@ static Napi::Value libc_solid_strcspn_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_strerror_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrerror_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t arg1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef char* (*km_fn_t)(int32_t);
@@ -7247,11 +7057,9 @@ static Napi::Value libc_solid_strerror_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_strlen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrlen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef uint64_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -7282,12 +7090,10 @@ static Napi::Value libc_solid_strlen_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_strncat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrncat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* arg1 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t arg3 = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef char* (*km_fn_t)(char*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -7319,14 +7125,10 @@ static Napi::Value libc_solid_strncat_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_strncmp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrncmp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t arg3 = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef int32_t (*km_fn_t)(const char*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -7358,12 +7160,10 @@ static Napi::Value libc_solid_strncmp_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_strncpy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrncpy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* arg1 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t arg3 = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef char* (*km_fn_t)(char*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -7395,14 +7195,10 @@ static Napi::Value libc_solid_strncpy_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_strpbrk_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrpbrk_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef char* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -7433,11 +7229,9 @@ static Napi::Value libc_solid_strpbrk_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_strrchr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrrchr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t arg2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef char* (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -7469,14 +7263,10 @@ static Napi::Value libc_solid_strrchr_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_strspn_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrspn_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef uint64_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -7507,14 +7297,10 @@ static Napi::Value libc_solid_strspn_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_strstr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrstr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef char* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -7545,12 +7331,10 @@ static Napi::Value libc_solid_strstr_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_strtok_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrtok_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* arg1 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef char* (*km_fn_t)(char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -7581,12 +7365,10 @@ static Napi::Value libc_solid_strtok_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_strtokR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrtokR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* arg1 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* arg3 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef char* (*km_fn_t)(char*, const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -7618,7 +7400,7 @@ static Napi::Value libc_solid_strtokR_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_strerrorR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrerrorR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t arg1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     char* arg2 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -7653,12 +7435,10 @@ static Napi::Value libc_solid_strerrorR_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_strxfrm_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrxfrm_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* arg1 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t arg3 = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef uint64_t (*km_fn_t)(char*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -7690,7 +7470,7 @@ static Napi::Value libc_solid_strxfrm_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_memccpy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidMemccpy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -7726,11 +7506,9 @@ static Napi::Value libc_solid_memccpy_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_strdup_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrdup_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef char* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -7761,12 +7539,10 @@ static Napi::Value libc_solid_strdup_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_stpcpy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStpcpy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* arg1 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef char* (*km_fn_t)(char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -7797,12 +7573,10 @@ static Napi::Value libc_solid_stpcpy_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_stpncpy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStpncpy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* arg1 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t arg3 = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef char* (*km_fn_t)(char*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -7834,11 +7608,9 @@ static Napi::Value libc_solid_stpncpy_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_strnlen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrnlen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t arg2 = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
     typedef uint64_t (*km_fn_t)(const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -7870,7 +7642,7 @@ static Napi::Value libc_solid_strnlen_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_memmem_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidMemmem_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t arg2 = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -7906,14 +7678,10 @@ static Napi::Value libc_solid_memmem_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_strcasestr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrcasestr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef char* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -7944,12 +7712,10 @@ static Napi::Value libc_solid_strcasestr_napi(const Napi::CallbackInfo& km_info)
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_strlcat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrlcat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* arg1 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t arg3 = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef uint64_t (*km_fn_t)(char*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -7981,12 +7747,10 @@ static Napi::Value libc_solid_strlcat_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_strlcpy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrlcpy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* arg1 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t arg3 = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef uint64_t (*km_fn_t)(char*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -8018,12 +7782,10 @@ static Napi::Value libc_solid_strlcpy_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_strsep_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrsep_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef char* (*km_fn_t)(void*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -8054,12 +7816,10 @@ static Napi::Value libc_solid_strsep_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_stresep_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStresep_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t arg3 = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef char* (*km_fn_t)(void*, const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -8091,11 +7851,9 @@ static Napi::Value libc_solid_stresep_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_strndup_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrndup_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t arg2 = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
     typedef char* (*km_fn_t)(const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -8127,7 +7885,7 @@ static Napi::Value libc_solid_strndup_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_memrchr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidMemrchr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t arg2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -8162,7 +7920,7 @@ static Napi::Value libc_solid_memrchr_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_explicitMemset_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidExplicitMemset_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t arg2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -8197,7 +7955,7 @@ static Napi::Value libc_solid_explicitMemset_napi(const Napi::CallbackInfo& km_i
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_consttimeMemequal_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidConsttimeMemequal_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -8232,14 +7990,10 @@ static Napi::Value libc_solid_consttimeMemequal_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_strcollL_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrcollL_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* arg3 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(const char*, const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -8271,12 +8025,10 @@ static Napi::Value libc_solid_strcollL_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_strxfrmL_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrxfrmL_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* arg1 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t arg3 = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     void* arg4 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef uint64_t (*km_fn_t)(char*, const char*, uint64_t, void*);
@@ -8309,7 +8061,7 @@ static Napi::Value libc_solid_strxfrmL_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_strerrorL_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrerrorL_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t arg1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -8343,7 +8095,7 @@ static Napi::Value libc_solid_strerrorL_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_bcmp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidBcmp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -8378,7 +8130,7 @@ static Napi::Value libc_solid_bcmp_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_bcopy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidBcopy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -8411,7 +8163,7 @@ static Napi::Value libc_solid_bcopy_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_solid_bzero_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidBzero_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t arg2 = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -8443,7 +8195,7 @@ static Napi::Value libc_solid_bzero_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_solid_ffs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidFfs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t arg1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -8476,7 +8228,7 @@ static Napi::Value libc_solid_ffs_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_popcount_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidPopcount_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t arg1 = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef uint32_t (*km_fn_t)(uint32_t);
@@ -8509,7 +8261,7 @@ static Napi::Value libc_solid_popcount_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_popcountl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidPopcountl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t arg1 = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     typedef uint32_t (*km_fn_t)(uint64_t);
@@ -8542,7 +8294,7 @@ static Napi::Value libc_solid_popcountl_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_popcountll_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidPopcountll_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t arg1 = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     typedef uint32_t (*km_fn_t)(uint64_t);
@@ -8575,7 +8327,7 @@ static Napi::Value libc_solid_popcountll_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_popcount32_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidPopcount32_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t arg1 = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef uint32_t (*km_fn_t)(uint32_t);
@@ -8608,7 +8360,7 @@ static Napi::Value libc_solid_popcount32_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_popcount64_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidPopcount64_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t arg1 = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     typedef uint32_t (*km_fn_t)(uint64_t);
@@ -8646,11 +8398,9 @@ static Napi::Value libc_solid_popcount64_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_rindex_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidRindex_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t arg2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef char* (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -8682,14 +8432,10 @@ static Napi::Value libc_solid_rindex_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_strcasecmp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrcasecmp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -8720,14 +8466,10 @@ static Napi::Value libc_solid_strcasecmp_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_strncasecmp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrncasecmp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t arg3 = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef int32_t (*km_fn_t)(const char*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -8759,7 +8501,7 @@ static Napi::Value libc_solid_strncasecmp_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_signal_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidSignal_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t arg1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint64_t arg2 = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -8793,7 +8535,7 @@ static Napi::Value libc_solid_signal_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_raise_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidRaise_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t arg1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -8826,7 +8568,7 @@ static Napi::Value libc_solid_raise_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_asctime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidAsctime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef char* (*km_fn_t)(void*);
@@ -8859,7 +8601,7 @@ static Napi::Value libc_solid_asctime_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_clock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidClock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef uint32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -8891,7 +8633,7 @@ static Napi::Value libc_solid_clock_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_ctime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidCtime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef char* (*km_fn_t)(void*);
@@ -8924,7 +8666,7 @@ static Napi::Value libc_solid_ctime_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_difftime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidDifftime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int64_t arg1 = km_info.Length() > 0 ? km_napi_arg_i64(km_info[0]) : 0;
     int64_t arg2 = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
@@ -8958,7 +8700,7 @@ static Napi::Value libc_solid_difftime_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
-static Napi::Value libc_solid_gmtime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidGmtime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -8991,7 +8733,7 @@ static Napi::Value libc_solid_gmtime_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_localtime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidLocaltime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -9024,7 +8766,7 @@ static Napi::Value libc_solid_localtime_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_time_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidTime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(void*);
@@ -9057,7 +8799,7 @@ static Napi::Value libc_solid_time_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_mktime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidMktime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(void*);
@@ -9090,13 +8832,11 @@ static Napi::Value libc_solid_mktime_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_strftime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStrftime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* arg1 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t arg2 = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
-    bool arg3_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string arg3_str = arg3_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* arg3 = arg3_null ? nullptr : arg3_str.c_str();
+    const char* arg3 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* arg4 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef uint64_t (*km_fn_t)(char*, uint64_t, const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -9128,11 +8868,9 @@ static Napi::Value libc_solid_strftime_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_utime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidUtime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -9164,7 +8902,7 @@ static Napi::Value libc_solid_utime_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_asctimeR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidAsctimeR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* arg2 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -9198,7 +8936,7 @@ static Napi::Value libc_solid_asctimeR_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_ctimeR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidCtimeR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* arg2 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -9232,7 +8970,7 @@ static Napi::Value libc_solid_ctimeR_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_gmtimeR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidGmtimeR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -9266,7 +9004,7 @@ static Napi::Value libc_solid_gmtimeR_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_localtimeR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidLocaltimeR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -9300,11 +9038,9 @@ static Napi::Value libc_solid_localtimeR_napi(const Napi::CallbackInfo& km_info)
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_stat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidStat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -9336,11 +9072,9 @@ static Napi::Value libc_solid_stat_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_lstat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidLstat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -9372,7 +9106,7 @@ static Napi::Value libc_solid_lstat_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_fstat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidFstat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t arg1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -9406,11 +9140,9 @@ static Napi::Value libc_solid_fstat_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_chmod_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidChmod_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t arg2 = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -9442,11 +9174,9 @@ static Napi::Value libc_solid_chmod_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_mkdir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidMkdir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t arg2 = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -9478,11 +9208,9 @@ static Napi::Value libc_solid_mkdir_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_open_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidOpen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t arg2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     int32_t km_vac = km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
@@ -9524,11 +9252,9 @@ static Napi::Value libc_solid_open_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_creat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidCreat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t arg2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -9560,7 +9286,7 @@ static Napi::Value libc_solid_creat_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_close_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidClose_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t arg1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -9593,7 +9319,7 @@ static Napi::Value libc_solid_close_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_read_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidRead_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t arg1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -9628,7 +9354,7 @@ static Napi::Value libc_solid_read_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_write_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidWrite_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t arg1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -9663,11 +9389,9 @@ static Napi::Value libc_solid_write_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_unlink_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidUnlink_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -9698,7 +9422,7 @@ static Napi::Value libc_solid_unlink_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_tell_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidTell_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t arg1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(int32_t);
@@ -9731,7 +9455,7 @@ static Napi::Value libc_solid_tell_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_solid_dup_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidDup_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t arg1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -9764,7 +9488,7 @@ static Napi::Value libc_solid_dup_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_dup2_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidDup2_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t arg1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t arg2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -9798,11 +9522,9 @@ static Napi::Value libc_solid_dup2_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_access_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidAccess_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t arg2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -9834,11 +9556,9 @@ static Napi::Value libc_solid_access_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_rmdir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidRmdir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -9869,11 +9589,9 @@ static Napi::Value libc_solid_rmdir_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_chdir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidChdir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg1_str = arg1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg1 = arg1_null ? nullptr : arg1_str.c_str();
+    const char* arg1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -9904,7 +9622,7 @@ static Napi::Value libc_solid_chdir_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_getwd_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidGetwd_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* arg1 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef char* (*km_fn_t)(char*);
@@ -9937,7 +9655,7 @@ static Napi::Value libc_solid_getwd_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_getcwd_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidGetcwd_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* arg1 = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t arg2 = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -9971,13 +9689,11 @@ static Napi::Value libc_solid_getcwd_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_getopt_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidGetopt_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t arg1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    bool arg3_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string arg3_str = arg3_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* arg3 = arg3_null ? nullptr : arg3_str.c_str();
+    const char* arg3 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -10008,7 +9724,7 @@ static Napi::Value libc_solid_getopt_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_getsubopt_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidGetsubopt_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* arg2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -10043,7 +9759,7 @@ static Napi::Value libc_solid_getsubopt_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_fcntl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidFcntl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t arg1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t arg2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -10087,7 +9803,7 @@ static Napi::Value libc_solid_fcntl_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_getpid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidGetpid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -10119,7 +9835,7 @@ static Napi::Value libc_solid_getpid_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_sleep_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidSleep_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t arg1 = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef uint32_t (*km_fn_t)(uint32_t);
@@ -10152,7 +9868,7 @@ static Napi::Value libc_solid_sleep_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_usleep_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidUsleep_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t arg1 = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -10185,7 +9901,7 @@ static Napi::Value libc_solid_usleep_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_solid_localeconv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidLocaleconv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -10217,12 +9933,10 @@ static Napi::Value libc_solid_localeconv_napi(const Napi::CallbackInfo& km_info)
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_setlocale_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidSetlocale_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t arg1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef char* (*km_fn_t)(int32_t, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -10253,7 +9967,7 @@ static Napi::Value libc_solid_setlocale_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_duplocale_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidDuplocale_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -10286,7 +10000,7 @@ static Napi::Value libc_solid_duplocale_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_freelocale_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidFreelocale_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -10317,7 +10031,7 @@ static Napi::Value libc_solid_freelocale_napi(const Napi::CallbackInfo& km_info)
     return km_env.Undefined();
 }
 
-static Napi::Value libc_solid_localeconvL_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidLocaleconvL_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* arg1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -10350,12 +10064,10 @@ static Napi::Value libc_solid_localeconvL_napi(const Napi::CallbackInfo& km_info
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_newlocale_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidNewlocale_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t arg1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool arg2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg2_str = arg2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg2 = arg2_null ? nullptr : arg2_str.c_str();
+    const char* arg2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* arg3 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef void* (*km_fn_t)(int32_t, const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -10387,7 +10099,7 @@ static Napi::Value libc_solid_newlocale_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_nlLanginfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidNlLanginfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int64_t item = km_info.Length() > 0 ? km_napi_arg_i64(km_info[0]) : 0;
     typedef char* (*km_fn_t)(int64_t);
@@ -10420,7 +10132,7 @@ static Napi::Value libc_solid_nlLanginfo_napi(const Napi::CallbackInfo& km_info)
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_nlLanginfoL_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidNlLanginfoL_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int64_t item = km_info.Length() > 0 ? km_napi_arg_i64(km_info[0]) : 0;
     void* locale = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -10454,7 +10166,7 @@ static Napi::Value libc_solid_nlLanginfoL_napi(const Napi::CallbackInfo& km_info
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_memalign_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidMemalign_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t align = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -10488,7 +10200,7 @@ static Napi::Value libc_solid_memalign_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_solid_lseek_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcSolidLseek_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t arg1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int64_t arg2 = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
@@ -10524,304 +10236,304 @@ static Napi::Value libc_solid_lseek_napi(const Napi::CallbackInfo& km_info) {
 }
 
 static void register_solid_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_solid_get_OPTARG", Napi::Function::New(env, libc_solid_get_OPTARG_napi));
-    exports.Set("libc_solid_set_OPTARG", Napi::Function::New(env, libc_solid_set_OPTARG_napi));
-    exports.Set("libc_solid_get_OPTERR", Napi::Function::New(env, libc_solid_get_OPTERR_napi));
-    exports.Set("libc_solid_set_OPTERR", Napi::Function::New(env, libc_solid_set_OPTERR_napi));
-    exports.Set("libc_solid_get_OPTIND", Napi::Function::New(env, libc_solid_get_OPTIND_napi));
-    exports.Set("libc_solid_set_OPTIND", Napi::Function::New(env, libc_solid_set_OPTIND_napi));
-    exports.Set("libc_solid_get_OPTOPT", Napi::Function::New(env, libc_solid_get_OPTOPT_napi));
-    exports.Set("libc_solid_set_OPTOPT", Napi::Function::New(env, libc_solid_set_OPTOPT_napi));
-    exports.Set("libc_solid_get_OPTRESET", Napi::Function::New(env, libc_solid_get_OPTRESET_napi));
-    exports.Set("libc_solid_set_OPTRESET", Napi::Function::New(env, libc_solid_set_OPTRESET_napi));
-    exports.Set("libc_solid_get_SUBOPTARG", Napi::Function::New(env, libc_solid_get_SUBOPTARG_napi));
-    exports.Set("libc_solid_set_SUBOPTARG", Napi::Function::New(env, libc_solid_set_SUBOPTARG_napi));
-    exports.Set("libc_solid_isalnum", Napi::Function::New(env, libc_solid_isalnum_napi));
-    exports.Set("libc_solid_isalpha", Napi::Function::New(env, libc_solid_isalpha_napi));
-    exports.Set("libc_solid_iscntrl", Napi::Function::New(env, libc_solid_iscntrl_napi));
-    exports.Set("libc_solid_isdigit", Napi::Function::New(env, libc_solid_isdigit_napi));
-    exports.Set("libc_solid_isgraph", Napi::Function::New(env, libc_solid_isgraph_napi));
-    exports.Set("libc_solid_islower", Napi::Function::New(env, libc_solid_islower_napi));
-    exports.Set("libc_solid_isprint", Napi::Function::New(env, libc_solid_isprint_napi));
-    exports.Set("libc_solid_ispunct", Napi::Function::New(env, libc_solid_ispunct_napi));
-    exports.Set("libc_solid_isspace", Napi::Function::New(env, libc_solid_isspace_napi));
-    exports.Set("libc_solid_isupper", Napi::Function::New(env, libc_solid_isupper_napi));
-    exports.Set("libc_solid_isxdigit", Napi::Function::New(env, libc_solid_isxdigit_napi));
-    exports.Set("libc_solid_isblank", Napi::Function::New(env, libc_solid_isblank_napi));
-    exports.Set("libc_solid_tolower", Napi::Function::New(env, libc_solid_tolower_napi));
-    exports.Set("libc_solid_toupper", Napi::Function::New(env, libc_solid_toupper_napi));
-    exports.Set("libc_solid_getStdioFile", Napi::Function::New(env, libc_solid_getStdioFile_napi));
-    exports.Set("libc_solid_clearerr", Napi::Function::New(env, libc_solid_clearerr_napi));
-    exports.Set("libc_solid_fclose", Napi::Function::New(env, libc_solid_fclose_napi));
-    exports.Set("libc_solid_feof", Napi::Function::New(env, libc_solid_feof_napi));
-    exports.Set("libc_solid_ferror", Napi::Function::New(env, libc_solid_ferror_napi));
-    exports.Set("libc_solid_fflush", Napi::Function::New(env, libc_solid_fflush_napi));
-    exports.Set("libc_solid_fgetc", Napi::Function::New(env, libc_solid_fgetc_napi));
-    exports.Set("libc_solid_fgets", Napi::Function::New(env, libc_solid_fgets_napi));
-    exports.Set("libc_solid_fopen", Napi::Function::New(env, libc_solid_fopen_napi));
-    exports.Set("libc_solid_fprintf", Napi::Function::New(env, libc_solid_fprintf_napi));
-    exports.Set("libc_solid_fputc", Napi::Function::New(env, libc_solid_fputc_napi));
-    exports.Set("libc_solid_fputs", Napi::Function::New(env, libc_solid_fputs_napi));
-    exports.Set("libc_solid_fread", Napi::Function::New(env, libc_solid_fread_napi));
-    exports.Set("libc_solid_freopen", Napi::Function::New(env, libc_solid_freopen_napi));
-    exports.Set("libc_solid_fscanf", Napi::Function::New(env, libc_solid_fscanf_napi));
-    exports.Set("libc_solid_fseek", Napi::Function::New(env, libc_solid_fseek_napi));
-    exports.Set("libc_solid_ftell", Napi::Function::New(env, libc_solid_ftell_napi));
-    exports.Set("libc_solid_fwrite", Napi::Function::New(env, libc_solid_fwrite_napi));
-    exports.Set("libc_solid_getc", Napi::Function::New(env, libc_solid_getc_napi));
-    exports.Set("libc_solid_getchar", Napi::Function::New(env, libc_solid_getchar_napi));
-    exports.Set("libc_solid_perror", Napi::Function::New(env, libc_solid_perror_napi));
-    exports.Set("libc_solid_printf", Napi::Function::New(env, libc_solid_printf_napi));
-    exports.Set("libc_solid_putc", Napi::Function::New(env, libc_solid_putc_napi));
-    exports.Set("libc_solid_putchar", Napi::Function::New(env, libc_solid_putchar_napi));
-    exports.Set("libc_solid_puts", Napi::Function::New(env, libc_solid_puts_napi));
-    exports.Set("libc_solid_remove", Napi::Function::New(env, libc_solid_remove_napi));
-    exports.Set("libc_solid_rewind", Napi::Function::New(env, libc_solid_rewind_napi));
-    exports.Set("libc_solid_scanf", Napi::Function::New(env, libc_solid_scanf_napi));
-    exports.Set("libc_solid_setbuf", Napi::Function::New(env, libc_solid_setbuf_napi));
-    exports.Set("libc_solid_setvbuf", Napi::Function::New(env, libc_solid_setvbuf_napi));
-    exports.Set("libc_solid_sscanf", Napi::Function::New(env, libc_solid_sscanf_napi));
-    exports.Set("libc_solid_tmpfile", Napi::Function::New(env, libc_solid_tmpfile_napi));
-    exports.Set("libc_solid_ungetc", Napi::Function::New(env, libc_solid_ungetc_napi));
-    exports.Set("libc_solid_vfprintf", Napi::Function::New(env, libc_solid_vfprintf_napi));
-    exports.Set("libc_solid_vprintf", Napi::Function::New(env, libc_solid_vprintf_napi));
-    exports.Set("libc_solid_gets", Napi::Function::New(env, libc_solid_gets_napi));
-    exports.Set("libc_solid_sprintf", Napi::Function::New(env, libc_solid_sprintf_napi));
-    exports.Set("libc_solid_tmpnam", Napi::Function::New(env, libc_solid_tmpnam_napi));
-    exports.Set("libc_solid_vsprintf", Napi::Function::New(env, libc_solid_vsprintf_napi));
-    exports.Set("libc_solid_rename", Napi::Function::New(env, libc_solid_rename_napi));
-    exports.Set("libc_solid_asiprintf", Napi::Function::New(env, libc_solid_asiprintf_napi));
-    exports.Set("libc_solid_fiprintf", Napi::Function::New(env, libc_solid_fiprintf_napi));
-    exports.Set("libc_solid_fiscanf", Napi::Function::New(env, libc_solid_fiscanf_napi));
-    exports.Set("libc_solid_iprintf", Napi::Function::New(env, libc_solid_iprintf_napi));
-    exports.Set("libc_solid_iscanf", Napi::Function::New(env, libc_solid_iscanf_napi));
-    exports.Set("libc_solid_siprintf", Napi::Function::New(env, libc_solid_siprintf_napi));
-    exports.Set("libc_solid_siscanf", Napi::Function::New(env, libc_solid_siscanf_napi));
-    exports.Set("libc_solid_sniprintf", Napi::Function::New(env, libc_solid_sniprintf_napi));
-    exports.Set("libc_solid_vasiprintf", Napi::Function::New(env, libc_solid_vasiprintf_napi));
-    exports.Set("libc_solid_vfiprintf", Napi::Function::New(env, libc_solid_vfiprintf_napi));
-    exports.Set("libc_solid_vfiscanf", Napi::Function::New(env, libc_solid_vfiscanf_napi));
-    exports.Set("libc_solid_viprintf", Napi::Function::New(env, libc_solid_viprintf_napi));
-    exports.Set("libc_solid_viscanf", Napi::Function::New(env, libc_solid_viscanf_napi));
-    exports.Set("libc_solid_vsiprintf", Napi::Function::New(env, libc_solid_vsiprintf_napi));
-    exports.Set("libc_solid_vsiscanf", Napi::Function::New(env, libc_solid_vsiscanf_napi));
-    exports.Set("libc_solid_vsniprintf", Napi::Function::New(env, libc_solid_vsniprintf_napi));
-    exports.Set("libc_solid_vdiprintf", Napi::Function::New(env, libc_solid_vdiprintf_napi));
-    exports.Set("libc_solid_diprintf", Napi::Function::New(env, libc_solid_diprintf_napi));
-    exports.Set("libc_solid_fgetpos", Napi::Function::New(env, libc_solid_fgetpos_napi));
-    exports.Set("libc_solid_fsetpos", Napi::Function::New(env, libc_solid_fsetpos_napi));
-    exports.Set("libc_solid_fdopen", Napi::Function::New(env, libc_solid_fdopen_napi));
-    exports.Set("libc_solid_fileno", Napi::Function::New(env, libc_solid_fileno_napi));
-    exports.Set("libc_solid_flockfile", Napi::Function::New(env, libc_solid_flockfile_napi));
-    exports.Set("libc_solid_ftrylockfile", Napi::Function::New(env, libc_solid_ftrylockfile_napi));
-    exports.Set("libc_solid_funlockfile", Napi::Function::New(env, libc_solid_funlockfile_napi));
-    exports.Set("libc_solid_getcUnlocked", Napi::Function::New(env, libc_solid_getcUnlocked_napi));
-    exports.Set("libc_solid_getcharUnlocked", Napi::Function::New(env, libc_solid_getcharUnlocked_napi));
-    exports.Set("libc_solid_putcUnlocked", Napi::Function::New(env, libc_solid_putcUnlocked_napi));
-    exports.Set("libc_solid_putcharUnlocked", Napi::Function::New(env, libc_solid_putcharUnlocked_napi));
-    exports.Set("libc_solid_snprintf", Napi::Function::New(env, libc_solid_snprintf_napi));
-    exports.Set("libc_solid_vsnprintf", Napi::Function::New(env, libc_solid_vsnprintf_napi));
-    exports.Set("libc_solid_getw", Napi::Function::New(env, libc_solid_getw_napi));
-    exports.Set("libc_solid_putw", Napi::Function::New(env, libc_solid_putw_napi));
-    exports.Set("libc_solid_tempnam", Napi::Function::New(env, libc_solid_tempnam_napi));
-    exports.Set("libc_solid_fseeko", Napi::Function::New(env, libc_solid_fseeko_napi));
-    exports.Set("libc_solid_ftello", Napi::Function::New(env, libc_solid_ftello_napi));
-    exports.Set("libc_solid_atof", Napi::Function::New(env, libc_solid_atof_napi));
-    exports.Set("libc_solid_strtod", Napi::Function::New(env, libc_solid_strtod_napi));
-    exports.Set("libc_solid_drand48", Napi::Function::New(env, libc_solid_drand48_napi));
-    exports.Set("libc_solid_erand48", Napi::Function::New(env, libc_solid_erand48_napi));
-    exports.Set("libc_solid_strtof", Napi::Function::New(env, libc_solid_strtof_napi));
-    exports.Set("libc_solid_strtold", Napi::Function::New(env, libc_solid_strtold_napi));
-    exports.Set("libc_solid_strtodL", Napi::Function::New(env, libc_solid_strtodL_napi));
-    exports.Set("libc_solid_strtofL", Napi::Function::New(env, libc_solid_strtofL_napi));
-    exports.Set("libc_solid_strtoldL", Napi::Function::New(env, libc_solid_strtoldL_napi));
-    exports.Set("libc_solid_exit", Napi::Function::New(env, libc_solid_exit_napi));
-    exports.Set("libc_solid_abort", Napi::Function::New(env, libc_solid_abort_napi));
-    exports.Set("libc_solid_abs", Napi::Function::New(env, libc_solid_abs_napi));
-    exports.Set("libc_solid_atexit", Napi::Function::New(env, libc_solid_atexit_napi));
-    exports.Set("libc_solid_atoi", Napi::Function::New(env, libc_solid_atoi_napi));
-    exports.Set("libc_solid_atol", Napi::Function::New(env, libc_solid_atol_napi));
-    exports.Set("libc_solid_itoa", Napi::Function::New(env, libc_solid_itoa_napi));
-    exports.Set("libc_solid_ltoa", Napi::Function::New(env, libc_solid_ltoa_napi));
-    exports.Set("libc_solid_ultoa", Napi::Function::New(env, libc_solid_ultoa_napi));
-    exports.Set("libc_solid_bsearch", Napi::Function::New(env, libc_solid_bsearch_napi));
-    exports.Set("libc_solid_calloc", Napi::Function::New(env, libc_solid_calloc_napi));
-    exports.Set("libc_solid_free", Napi::Function::New(env, libc_solid_free_napi));
-    exports.Set("libc_solid_getenv", Napi::Function::New(env, libc_solid_getenv_napi));
-    exports.Set("libc_solid_labs", Napi::Function::New(env, libc_solid_labs_napi));
-    exports.Set("libc_solid_malloc", Napi::Function::New(env, libc_solid_malloc_napi));
-    exports.Set("libc_solid_qsort", Napi::Function::New(env, libc_solid_qsort_napi));
-    exports.Set("libc_solid_rand", Napi::Function::New(env, libc_solid_rand_napi));
-    exports.Set("libc_solid_realloc", Napi::Function::New(env, libc_solid_realloc_napi));
-    exports.Set("libc_solid_srand", Napi::Function::New(env, libc_solid_srand_napi));
-    exports.Set("libc_solid_strtol", Napi::Function::New(env, libc_solid_strtol_napi));
-    exports.Set("libc_solid_strtoul", Napi::Function::New(env, libc_solid_strtoul_napi));
-    exports.Set("libc_solid_mblen", Napi::Function::New(env, libc_solid_mblen_napi));
-    exports.Set("libc_solid_mbstowcs", Napi::Function::New(env, libc_solid_mbstowcs_napi));
-    exports.Set("libc_solid_wctomb", Napi::Function::New(env, libc_solid_wctomb_napi));
-    exports.Set("libc_solid_mbtowc", Napi::Function::New(env, libc_solid_mbtowc_napi));
-    exports.Set("libc_solid_wcstombs", Napi::Function::New(env, libc_solid_wcstombs_napi));
-    exports.Set("libc_solid_randR", Napi::Function::New(env, libc_solid_randR_napi));
-    exports.Set("libc_solid_jrand48", Napi::Function::New(env, libc_solid_jrand48_napi));
-    exports.Set("libc_solid_lcong48", Napi::Function::New(env, libc_solid_lcong48_napi));
-    exports.Set("libc_solid_lrand48", Napi::Function::New(env, libc_solid_lrand48_napi));
-    exports.Set("libc_solid_mrand48", Napi::Function::New(env, libc_solid_mrand48_napi));
-    exports.Set("libc_solid_nrand48", Napi::Function::New(env, libc_solid_nrand48_napi));
-    exports.Set("libc_solid_seed48", Napi::Function::New(env, libc_solid_seed48_napi));
-    exports.Set("libc_solid_srand48", Napi::Function::New(env, libc_solid_srand48_napi));
-    exports.Set("libc_solid_putenv", Napi::Function::New(env, libc_solid_putenv_napi));
-    exports.Set("libc_solid_a64l", Napi::Function::New(env, libc_solid_a64l_napi));
-    exports.Set("libc_solid_l64a", Napi::Function::New(env, libc_solid_l64a_napi));
-    exports.Set("libc_solid_random", Napi::Function::New(env, libc_solid_random_napi));
-    exports.Set("libc_solid_setstate", Napi::Function::New(env, libc_solid_setstate_napi));
-    exports.Set("libc_solid_initstate", Napi::Function::New(env, libc_solid_initstate_napi));
-    exports.Set("libc_solid_srandom", Napi::Function::New(env, libc_solid_srandom_napi));
-    exports.Set("libc_solid_mkostemp", Napi::Function::New(env, libc_solid_mkostemp_napi));
-    exports.Set("libc_solid_mkostemps", Napi::Function::New(env, libc_solid_mkostemps_napi));
-    exports.Set("libc_solid_mkdtemp", Napi::Function::New(env, libc_solid_mkdtemp_napi));
-    exports.Set("libc_solid_mkstemp", Napi::Function::New(env, libc_solid_mkstemp_napi));
-    exports.Set("libc_solid_mktemp", Napi::Function::New(env, libc_solid_mktemp_napi));
-    exports.Set("libc_solid_atoll", Napi::Function::New(env, libc_solid_atoll_napi));
-    exports.Set("libc_solid_llabs", Napi::Function::New(env, libc_solid_llabs_napi));
-    exports.Set("libc_solid_strtoll", Napi::Function::New(env, libc_solid_strtoll_napi));
-    exports.Set("libc_solid_strtoull", Napi::Function::New(env, libc_solid_strtoull_napi));
-    exports.Set("libc_solid_alignedAlloc", Napi::Function::New(env, libc_solid_alignedAlloc_napi));
-    exports.Set("libc_solid_atQuickExit", Napi::Function::New(env, libc_solid_atQuickExit_napi));
-    exports.Set("libc_solid_quickExit", Napi::Function::New(env, libc_solid_quickExit_napi));
-    exports.Set("libc_solid_setenv", Napi::Function::New(env, libc_solid_setenv_napi));
-    exports.Set("libc_solid_unsetenv", Napi::Function::New(env, libc_solid_unsetenv_napi));
-    exports.Set("libc_solid_humanizeNumber", Napi::Function::New(env, libc_solid_humanizeNumber_napi));
-    exports.Set("libc_solid_dehumanizeNumber", Napi::Function::New(env, libc_solid_dehumanizeNumber_napi));
-    exports.Set("libc_solid_getenvR", Napi::Function::New(env, libc_solid_getenvR_napi));
-    exports.Set("libc_solid_heapsort", Napi::Function::New(env, libc_solid_heapsort_napi));
-    exports.Set("libc_solid_mergesort", Napi::Function::New(env, libc_solid_mergesort_napi));
-    exports.Set("libc_solid_radixsort", Napi::Function::New(env, libc_solid_radixsort_napi));
-    exports.Set("libc_solid_sradixsort", Napi::Function::New(env, libc_solid_sradixsort_napi));
-    exports.Set("libc_solid_getprogname", Napi::Function::New(env, libc_solid_getprogname_napi));
-    exports.Set("libc_solid_setprogname", Napi::Function::New(env, libc_solid_setprogname_napi));
-    exports.Set("libc_solid_qabs", Napi::Function::New(env, libc_solid_qabs_napi));
-    exports.Set("libc_solid_strtoq", Napi::Function::New(env, libc_solid_strtoq_napi));
-    exports.Set("libc_solid_strtouq", Napi::Function::New(env, libc_solid_strtouq_napi));
-    exports.Set("libc_solid_strsuftoll", Napi::Function::New(env, libc_solid_strsuftoll_napi));
-    exports.Set("libc_solid_strsuftollx", Napi::Function::New(env, libc_solid_strsuftollx_napi));
-    exports.Set("libc_solid_l64aR", Napi::Function::New(env, libc_solid_l64aR_napi));
-    exports.Set("libc_solid_strtolL", Napi::Function::New(env, libc_solid_strtolL_napi));
-    exports.Set("libc_solid_strtoulL", Napi::Function::New(env, libc_solid_strtoulL_napi));
-    exports.Set("libc_solid_strtollL", Napi::Function::New(env, libc_solid_strtollL_napi));
-    exports.Set("libc_solid_strtoullL", Napi::Function::New(env, libc_solid_strtoullL_napi));
-    exports.Set("libc_solid_strtoqL", Napi::Function::New(env, libc_solid_strtoqL_napi));
-    exports.Set("libc_solid_strtouqL", Napi::Function::New(env, libc_solid_strtouqL_napi));
-    exports.Set("libc_solid_mbCurMaxL", Napi::Function::New(env, libc_solid_mbCurMaxL_napi));
-    exports.Set("libc_solid_mblenL", Napi::Function::New(env, libc_solid_mblenL_napi));
-    exports.Set("libc_solid_mbstowcsL", Napi::Function::New(env, libc_solid_mbstowcsL_napi));
-    exports.Set("libc_solid_wctombL", Napi::Function::New(env, libc_solid_wctombL_napi));
-    exports.Set("libc_solid_mbtowcL", Napi::Function::New(env, libc_solid_mbtowcL_napi));
-    exports.Set("libc_solid_wcstombsL", Napi::Function::New(env, libc_solid_wcstombsL_napi));
-    exports.Set("libc_solid_memchr", Napi::Function::New(env, libc_solid_memchr_napi));
-    exports.Set("libc_solid_memcmp", Napi::Function::New(env, libc_solid_memcmp_napi));
-    exports.Set("libc_solid_memcpy", Napi::Function::New(env, libc_solid_memcpy_napi));
-    exports.Set("libc_solid_memmove", Napi::Function::New(env, libc_solid_memmove_napi));
-    exports.Set("libc_solid_memset", Napi::Function::New(env, libc_solid_memset_napi));
-    exports.Set("libc_solid_strcat", Napi::Function::New(env, libc_solid_strcat_napi));
-    exports.Set("libc_solid_strchr", Napi::Function::New(env, libc_solid_strchr_napi));
-    exports.Set("libc_solid_strcmp", Napi::Function::New(env, libc_solid_strcmp_napi));
-    exports.Set("libc_solid_strcoll", Napi::Function::New(env, libc_solid_strcoll_napi));
-    exports.Set("libc_solid_strcpy", Napi::Function::New(env, libc_solid_strcpy_napi));
-    exports.Set("libc_solid_strcspn", Napi::Function::New(env, libc_solid_strcspn_napi));
-    exports.Set("libc_solid_strerror", Napi::Function::New(env, libc_solid_strerror_napi));
-    exports.Set("libc_solid_strlen", Napi::Function::New(env, libc_solid_strlen_napi));
-    exports.Set("libc_solid_strncat", Napi::Function::New(env, libc_solid_strncat_napi));
-    exports.Set("libc_solid_strncmp", Napi::Function::New(env, libc_solid_strncmp_napi));
-    exports.Set("libc_solid_strncpy", Napi::Function::New(env, libc_solid_strncpy_napi));
-    exports.Set("libc_solid_strpbrk", Napi::Function::New(env, libc_solid_strpbrk_napi));
-    exports.Set("libc_solid_strrchr", Napi::Function::New(env, libc_solid_strrchr_napi));
-    exports.Set("libc_solid_strspn", Napi::Function::New(env, libc_solid_strspn_napi));
-    exports.Set("libc_solid_strstr", Napi::Function::New(env, libc_solid_strstr_napi));
-    exports.Set("libc_solid_strtok", Napi::Function::New(env, libc_solid_strtok_napi));
-    exports.Set("libc_solid_strtokR", Napi::Function::New(env, libc_solid_strtokR_napi));
-    exports.Set("libc_solid_strerrorR", Napi::Function::New(env, libc_solid_strerrorR_napi));
-    exports.Set("libc_solid_strxfrm", Napi::Function::New(env, libc_solid_strxfrm_napi));
-    exports.Set("libc_solid_memccpy", Napi::Function::New(env, libc_solid_memccpy_napi));
-    exports.Set("libc_solid_strdup", Napi::Function::New(env, libc_solid_strdup_napi));
-    exports.Set("libc_solid_stpcpy", Napi::Function::New(env, libc_solid_stpcpy_napi));
-    exports.Set("libc_solid_stpncpy", Napi::Function::New(env, libc_solid_stpncpy_napi));
-    exports.Set("libc_solid_strnlen", Napi::Function::New(env, libc_solid_strnlen_napi));
-    exports.Set("libc_solid_memmem", Napi::Function::New(env, libc_solid_memmem_napi));
-    exports.Set("libc_solid_strcasestr", Napi::Function::New(env, libc_solid_strcasestr_napi));
-    exports.Set("libc_solid_strlcat", Napi::Function::New(env, libc_solid_strlcat_napi));
-    exports.Set("libc_solid_strlcpy", Napi::Function::New(env, libc_solid_strlcpy_napi));
-    exports.Set("libc_solid_strsep", Napi::Function::New(env, libc_solid_strsep_napi));
-    exports.Set("libc_solid_stresep", Napi::Function::New(env, libc_solid_stresep_napi));
-    exports.Set("libc_solid_strndup", Napi::Function::New(env, libc_solid_strndup_napi));
-    exports.Set("libc_solid_memrchr", Napi::Function::New(env, libc_solid_memrchr_napi));
-    exports.Set("libc_solid_explicitMemset", Napi::Function::New(env, libc_solid_explicitMemset_napi));
-    exports.Set("libc_solid_consttimeMemequal", Napi::Function::New(env, libc_solid_consttimeMemequal_napi));
-    exports.Set("libc_solid_strcollL", Napi::Function::New(env, libc_solid_strcollL_napi));
-    exports.Set("libc_solid_strxfrmL", Napi::Function::New(env, libc_solid_strxfrmL_napi));
-    exports.Set("libc_solid_strerrorL", Napi::Function::New(env, libc_solid_strerrorL_napi));
-    exports.Set("libc_solid_bcmp", Napi::Function::New(env, libc_solid_bcmp_napi));
-    exports.Set("libc_solid_bcopy", Napi::Function::New(env, libc_solid_bcopy_napi));
-    exports.Set("libc_solid_bzero", Napi::Function::New(env, libc_solid_bzero_napi));
-    exports.Set("libc_solid_ffs", Napi::Function::New(env, libc_solid_ffs_napi));
-    exports.Set("libc_solid_popcount", Napi::Function::New(env, libc_solid_popcount_napi));
-    exports.Set("libc_solid_popcountl", Napi::Function::New(env, libc_solid_popcountl_napi));
-    exports.Set("libc_solid_popcountll", Napi::Function::New(env, libc_solid_popcountll_napi));
-    exports.Set("libc_solid_popcount32", Napi::Function::New(env, libc_solid_popcount32_napi));
-    exports.Set("libc_solid_popcount64", Napi::Function::New(env, libc_solid_popcount64_napi));
-    exports.Set("libc_solid_rindex", Napi::Function::New(env, libc_solid_rindex_napi));
-    exports.Set("libc_solid_strcasecmp", Napi::Function::New(env, libc_solid_strcasecmp_napi));
-    exports.Set("libc_solid_strncasecmp", Napi::Function::New(env, libc_solid_strncasecmp_napi));
-    exports.Set("libc_solid_signal", Napi::Function::New(env, libc_solid_signal_napi));
-    exports.Set("libc_solid_raise", Napi::Function::New(env, libc_solid_raise_napi));
-    exports.Set("libc_solid_asctime", Napi::Function::New(env, libc_solid_asctime_napi));
-    exports.Set("libc_solid_clock", Napi::Function::New(env, libc_solid_clock_napi));
-    exports.Set("libc_solid_ctime", Napi::Function::New(env, libc_solid_ctime_napi));
-    exports.Set("libc_solid_difftime", Napi::Function::New(env, libc_solid_difftime_napi));
-    exports.Set("libc_solid_gmtime", Napi::Function::New(env, libc_solid_gmtime_napi));
-    exports.Set("libc_solid_localtime", Napi::Function::New(env, libc_solid_localtime_napi));
-    exports.Set("libc_solid_time", Napi::Function::New(env, libc_solid_time_napi));
-    exports.Set("libc_solid_mktime", Napi::Function::New(env, libc_solid_mktime_napi));
-    exports.Set("libc_solid_strftime", Napi::Function::New(env, libc_solid_strftime_napi));
-    exports.Set("libc_solid_utime", Napi::Function::New(env, libc_solid_utime_napi));
-    exports.Set("libc_solid_asctimeR", Napi::Function::New(env, libc_solid_asctimeR_napi));
-    exports.Set("libc_solid_ctimeR", Napi::Function::New(env, libc_solid_ctimeR_napi));
-    exports.Set("libc_solid_gmtimeR", Napi::Function::New(env, libc_solid_gmtimeR_napi));
-    exports.Set("libc_solid_localtimeR", Napi::Function::New(env, libc_solid_localtimeR_napi));
-    exports.Set("libc_solid_stat", Napi::Function::New(env, libc_solid_stat_napi));
-    exports.Set("libc_solid_lstat", Napi::Function::New(env, libc_solid_lstat_napi));
-    exports.Set("libc_solid_fstat", Napi::Function::New(env, libc_solid_fstat_napi));
-    exports.Set("libc_solid_chmod", Napi::Function::New(env, libc_solid_chmod_napi));
-    exports.Set("libc_solid_mkdir", Napi::Function::New(env, libc_solid_mkdir_napi));
-    exports.Set("libc_solid_open", Napi::Function::New(env, libc_solid_open_napi));
-    exports.Set("libc_solid_creat", Napi::Function::New(env, libc_solid_creat_napi));
-    exports.Set("libc_solid_close", Napi::Function::New(env, libc_solid_close_napi));
-    exports.Set("libc_solid_read", Napi::Function::New(env, libc_solid_read_napi));
-    exports.Set("libc_solid_write", Napi::Function::New(env, libc_solid_write_napi));
-    exports.Set("libc_solid_unlink", Napi::Function::New(env, libc_solid_unlink_napi));
-    exports.Set("libc_solid_tell", Napi::Function::New(env, libc_solid_tell_napi));
-    exports.Set("libc_solid_dup", Napi::Function::New(env, libc_solid_dup_napi));
-    exports.Set("libc_solid_dup2", Napi::Function::New(env, libc_solid_dup2_napi));
-    exports.Set("libc_solid_access", Napi::Function::New(env, libc_solid_access_napi));
-    exports.Set("libc_solid_rmdir", Napi::Function::New(env, libc_solid_rmdir_napi));
-    exports.Set("libc_solid_chdir", Napi::Function::New(env, libc_solid_chdir_napi));
-    exports.Set("libc_solid_getwd", Napi::Function::New(env, libc_solid_getwd_napi));
-    exports.Set("libc_solid_getcwd", Napi::Function::New(env, libc_solid_getcwd_napi));
-    exports.Set("libc_solid_getopt", Napi::Function::New(env, libc_solid_getopt_napi));
-    exports.Set("libc_solid_getsubopt", Napi::Function::New(env, libc_solid_getsubopt_napi));
-    exports.Set("libc_solid_fcntl", Napi::Function::New(env, libc_solid_fcntl_napi));
-    exports.Set("libc_solid_getpid", Napi::Function::New(env, libc_solid_getpid_napi));
-    exports.Set("libc_solid_sleep", Napi::Function::New(env, libc_solid_sleep_napi));
-    exports.Set("libc_solid_usleep", Napi::Function::New(env, libc_solid_usleep_napi));
-    exports.Set("libc_solid_localeconv", Napi::Function::New(env, libc_solid_localeconv_napi));
-    exports.Set("libc_solid_setlocale", Napi::Function::New(env, libc_solid_setlocale_napi));
-    exports.Set("libc_solid_duplocale", Napi::Function::New(env, libc_solid_duplocale_napi));
-    exports.Set("libc_solid_freelocale", Napi::Function::New(env, libc_solid_freelocale_napi));
-    exports.Set("libc_solid_localeconvL", Napi::Function::New(env, libc_solid_localeconvL_napi));
-    exports.Set("libc_solid_newlocale", Napi::Function::New(env, libc_solid_newlocale_napi));
-    exports.Set("libc_solid_nlLanginfo", Napi::Function::New(env, libc_solid_nlLanginfo_napi));
-    exports.Set("libc_solid_nlLanginfoL", Napi::Function::New(env, libc_solid_nlLanginfoL_napi));
-    exports.Set("libc_solid_memalign", Napi::Function::New(env, libc_solid_memalign_napi));
-    exports.Set("libc_solid_lseek", Napi::Function::New(env, libc_solid_lseek_napi));
+    exports.Set("libcSolidGetOPTARG", Napi::Function::New(env, libcSolidGetOPTARG_napi));
+    exports.Set("libcSolidSetOPTARG", Napi::Function::New(env, libcSolidSetOPTARG_napi));
+    exports.Set("libcSolidGetOPTERR", Napi::Function::New(env, libcSolidGetOPTERR_napi));
+    exports.Set("libcSolidSetOPTERR", Napi::Function::New(env, libcSolidSetOPTERR_napi));
+    exports.Set("libcSolidGetOPTIND", Napi::Function::New(env, libcSolidGetOPTIND_napi));
+    exports.Set("libcSolidSetOPTIND", Napi::Function::New(env, libcSolidSetOPTIND_napi));
+    exports.Set("libcSolidGetOPTOPT", Napi::Function::New(env, libcSolidGetOPTOPT_napi));
+    exports.Set("libcSolidSetOPTOPT", Napi::Function::New(env, libcSolidSetOPTOPT_napi));
+    exports.Set("libcSolidGetOPTRESET", Napi::Function::New(env, libcSolidGetOPTRESET_napi));
+    exports.Set("libcSolidSetOPTRESET", Napi::Function::New(env, libcSolidSetOPTRESET_napi));
+    exports.Set("libcSolidGetSUBOPTARG", Napi::Function::New(env, libcSolidGetSUBOPTARG_napi));
+    exports.Set("libcSolidSetSUBOPTARG", Napi::Function::New(env, libcSolidSetSUBOPTARG_napi));
+    exports.Set("libcSolidIsalnum", Napi::Function::New(env, libcSolidIsalnum_napi));
+    exports.Set("libcSolidIsalpha", Napi::Function::New(env, libcSolidIsalpha_napi));
+    exports.Set("libcSolidIscntrl", Napi::Function::New(env, libcSolidIscntrl_napi));
+    exports.Set("libcSolidIsdigit", Napi::Function::New(env, libcSolidIsdigit_napi));
+    exports.Set("libcSolidIsgraph", Napi::Function::New(env, libcSolidIsgraph_napi));
+    exports.Set("libcSolidIslower", Napi::Function::New(env, libcSolidIslower_napi));
+    exports.Set("libcSolidIsprint", Napi::Function::New(env, libcSolidIsprint_napi));
+    exports.Set("libcSolidIspunct", Napi::Function::New(env, libcSolidIspunct_napi));
+    exports.Set("libcSolidIsspace", Napi::Function::New(env, libcSolidIsspace_napi));
+    exports.Set("libcSolidIsupper", Napi::Function::New(env, libcSolidIsupper_napi));
+    exports.Set("libcSolidIsxdigit", Napi::Function::New(env, libcSolidIsxdigit_napi));
+    exports.Set("libcSolidIsblank", Napi::Function::New(env, libcSolidIsblank_napi));
+    exports.Set("libcSolidTolower", Napi::Function::New(env, libcSolidTolower_napi));
+    exports.Set("libcSolidToupper", Napi::Function::New(env, libcSolidToupper_napi));
+    exports.Set("libcSolidGetStdioFile", Napi::Function::New(env, libcSolidGetStdioFile_napi));
+    exports.Set("libcSolidClearerr", Napi::Function::New(env, libcSolidClearerr_napi));
+    exports.Set("libcSolidFclose", Napi::Function::New(env, libcSolidFclose_napi));
+    exports.Set("libcSolidFeof", Napi::Function::New(env, libcSolidFeof_napi));
+    exports.Set("libcSolidFerror", Napi::Function::New(env, libcSolidFerror_napi));
+    exports.Set("libcSolidFflush", Napi::Function::New(env, libcSolidFflush_napi));
+    exports.Set("libcSolidFgetc", Napi::Function::New(env, libcSolidFgetc_napi));
+    exports.Set("libcSolidFgets", Napi::Function::New(env, libcSolidFgets_napi));
+    exports.Set("libcSolidFopen", Napi::Function::New(env, libcSolidFopen_napi));
+    exports.Set("libcSolidFprintf", Napi::Function::New(env, libcSolidFprintf_napi));
+    exports.Set("libcSolidFputc", Napi::Function::New(env, libcSolidFputc_napi));
+    exports.Set("libcSolidFputs", Napi::Function::New(env, libcSolidFputs_napi));
+    exports.Set("libcSolidFread", Napi::Function::New(env, libcSolidFread_napi));
+    exports.Set("libcSolidFreopen", Napi::Function::New(env, libcSolidFreopen_napi));
+    exports.Set("libcSolidFscanf", Napi::Function::New(env, libcSolidFscanf_napi));
+    exports.Set("libcSolidFseek", Napi::Function::New(env, libcSolidFseek_napi));
+    exports.Set("libcSolidFtell", Napi::Function::New(env, libcSolidFtell_napi));
+    exports.Set("libcSolidFwrite", Napi::Function::New(env, libcSolidFwrite_napi));
+    exports.Set("libcSolidGetc", Napi::Function::New(env, libcSolidGetc_napi));
+    exports.Set("libcSolidGetchar", Napi::Function::New(env, libcSolidGetchar_napi));
+    exports.Set("libcSolidPerror", Napi::Function::New(env, libcSolidPerror_napi));
+    exports.Set("libcSolidPrintf", Napi::Function::New(env, libcSolidPrintf_napi));
+    exports.Set("libcSolidPutc", Napi::Function::New(env, libcSolidPutc_napi));
+    exports.Set("libcSolidPutchar", Napi::Function::New(env, libcSolidPutchar_napi));
+    exports.Set("libcSolidPuts", Napi::Function::New(env, libcSolidPuts_napi));
+    exports.Set("libcSolidRemove", Napi::Function::New(env, libcSolidRemove_napi));
+    exports.Set("libcSolidRewind", Napi::Function::New(env, libcSolidRewind_napi));
+    exports.Set("libcSolidScanf", Napi::Function::New(env, libcSolidScanf_napi));
+    exports.Set("libcSolidSetbuf", Napi::Function::New(env, libcSolidSetbuf_napi));
+    exports.Set("libcSolidSetvbuf", Napi::Function::New(env, libcSolidSetvbuf_napi));
+    exports.Set("libcSolidSscanf", Napi::Function::New(env, libcSolidSscanf_napi));
+    exports.Set("libcSolidTmpfile", Napi::Function::New(env, libcSolidTmpfile_napi));
+    exports.Set("libcSolidUngetc", Napi::Function::New(env, libcSolidUngetc_napi));
+    exports.Set("libcSolidVfprintf", Napi::Function::New(env, libcSolidVfprintf_napi));
+    exports.Set("libcSolidVprintf", Napi::Function::New(env, libcSolidVprintf_napi));
+    exports.Set("libcSolidGets", Napi::Function::New(env, libcSolidGets_napi));
+    exports.Set("libcSolidSprintf", Napi::Function::New(env, libcSolidSprintf_napi));
+    exports.Set("libcSolidTmpnam", Napi::Function::New(env, libcSolidTmpnam_napi));
+    exports.Set("libcSolidVsprintf", Napi::Function::New(env, libcSolidVsprintf_napi));
+    exports.Set("libcSolidRename", Napi::Function::New(env, libcSolidRename_napi));
+    exports.Set("libcSolidAsiprintf", Napi::Function::New(env, libcSolidAsiprintf_napi));
+    exports.Set("libcSolidFiprintf", Napi::Function::New(env, libcSolidFiprintf_napi));
+    exports.Set("libcSolidFiscanf", Napi::Function::New(env, libcSolidFiscanf_napi));
+    exports.Set("libcSolidIprintf", Napi::Function::New(env, libcSolidIprintf_napi));
+    exports.Set("libcSolidIscanf", Napi::Function::New(env, libcSolidIscanf_napi));
+    exports.Set("libcSolidSiprintf", Napi::Function::New(env, libcSolidSiprintf_napi));
+    exports.Set("libcSolidSiscanf", Napi::Function::New(env, libcSolidSiscanf_napi));
+    exports.Set("libcSolidSniprintf", Napi::Function::New(env, libcSolidSniprintf_napi));
+    exports.Set("libcSolidVasiprintf", Napi::Function::New(env, libcSolidVasiprintf_napi));
+    exports.Set("libcSolidVfiprintf", Napi::Function::New(env, libcSolidVfiprintf_napi));
+    exports.Set("libcSolidVfiscanf", Napi::Function::New(env, libcSolidVfiscanf_napi));
+    exports.Set("libcSolidViprintf", Napi::Function::New(env, libcSolidViprintf_napi));
+    exports.Set("libcSolidViscanf", Napi::Function::New(env, libcSolidViscanf_napi));
+    exports.Set("libcSolidVsiprintf", Napi::Function::New(env, libcSolidVsiprintf_napi));
+    exports.Set("libcSolidVsiscanf", Napi::Function::New(env, libcSolidVsiscanf_napi));
+    exports.Set("libcSolidVsniprintf", Napi::Function::New(env, libcSolidVsniprintf_napi));
+    exports.Set("libcSolidVdiprintf", Napi::Function::New(env, libcSolidVdiprintf_napi));
+    exports.Set("libcSolidDiprintf", Napi::Function::New(env, libcSolidDiprintf_napi));
+    exports.Set("libcSolidFgetpos", Napi::Function::New(env, libcSolidFgetpos_napi));
+    exports.Set("libcSolidFsetpos", Napi::Function::New(env, libcSolidFsetpos_napi));
+    exports.Set("libcSolidFdopen", Napi::Function::New(env, libcSolidFdopen_napi));
+    exports.Set("libcSolidFileno", Napi::Function::New(env, libcSolidFileno_napi));
+    exports.Set("libcSolidFlockfile", Napi::Function::New(env, libcSolidFlockfile_napi));
+    exports.Set("libcSolidFtrylockfile", Napi::Function::New(env, libcSolidFtrylockfile_napi));
+    exports.Set("libcSolidFunlockfile", Napi::Function::New(env, libcSolidFunlockfile_napi));
+    exports.Set("libcSolidGetcUnlocked", Napi::Function::New(env, libcSolidGetcUnlocked_napi));
+    exports.Set("libcSolidGetcharUnlocked", Napi::Function::New(env, libcSolidGetcharUnlocked_napi));
+    exports.Set("libcSolidPutcUnlocked", Napi::Function::New(env, libcSolidPutcUnlocked_napi));
+    exports.Set("libcSolidPutcharUnlocked", Napi::Function::New(env, libcSolidPutcharUnlocked_napi));
+    exports.Set("libcSolidSnprintf", Napi::Function::New(env, libcSolidSnprintf_napi));
+    exports.Set("libcSolidVsnprintf", Napi::Function::New(env, libcSolidVsnprintf_napi));
+    exports.Set("libcSolidGetw", Napi::Function::New(env, libcSolidGetw_napi));
+    exports.Set("libcSolidPutw", Napi::Function::New(env, libcSolidPutw_napi));
+    exports.Set("libcSolidTempnam", Napi::Function::New(env, libcSolidTempnam_napi));
+    exports.Set("libcSolidFseeko", Napi::Function::New(env, libcSolidFseeko_napi));
+    exports.Set("libcSolidFtello", Napi::Function::New(env, libcSolidFtello_napi));
+    exports.Set("libcSolidAtof", Napi::Function::New(env, libcSolidAtof_napi));
+    exports.Set("libcSolidStrtod", Napi::Function::New(env, libcSolidStrtod_napi));
+    exports.Set("libcSolidDrand48", Napi::Function::New(env, libcSolidDrand48_napi));
+    exports.Set("libcSolidErand48", Napi::Function::New(env, libcSolidErand48_napi));
+    exports.Set("libcSolidStrtof", Napi::Function::New(env, libcSolidStrtof_napi));
+    exports.Set("libcSolidStrtold", Napi::Function::New(env, libcSolidStrtold_napi));
+    exports.Set("libcSolidStrtodL", Napi::Function::New(env, libcSolidStrtodL_napi));
+    exports.Set("libcSolidStrtofL", Napi::Function::New(env, libcSolidStrtofL_napi));
+    exports.Set("libcSolidStrtoldL", Napi::Function::New(env, libcSolidStrtoldL_napi));
+    exports.Set("libcSolidExit", Napi::Function::New(env, libcSolidExit_napi));
+    exports.Set("libcSolidAbort", Napi::Function::New(env, libcSolidAbort_napi));
+    exports.Set("libcSolidAbs", Napi::Function::New(env, libcSolidAbs_napi));
+    exports.Set("libcSolidAtexit", Napi::Function::New(env, libcSolidAtexit_napi));
+    exports.Set("libcSolidAtoi", Napi::Function::New(env, libcSolidAtoi_napi));
+    exports.Set("libcSolidAtol", Napi::Function::New(env, libcSolidAtol_napi));
+    exports.Set("libcSolidItoa", Napi::Function::New(env, libcSolidItoa_napi));
+    exports.Set("libcSolidLtoa", Napi::Function::New(env, libcSolidLtoa_napi));
+    exports.Set("libcSolidUltoa", Napi::Function::New(env, libcSolidUltoa_napi));
+    exports.Set("libcSolidBsearch", Napi::Function::New(env, libcSolidBsearch_napi));
+    exports.Set("libcSolidCalloc", Napi::Function::New(env, libcSolidCalloc_napi));
+    exports.Set("libcSolidFree", Napi::Function::New(env, libcSolidFree_napi));
+    exports.Set("libcSolidGetenv", Napi::Function::New(env, libcSolidGetenv_napi));
+    exports.Set("libcSolidLabs", Napi::Function::New(env, libcSolidLabs_napi));
+    exports.Set("libcSolidMalloc", Napi::Function::New(env, libcSolidMalloc_napi));
+    exports.Set("libcSolidQsort", Napi::Function::New(env, libcSolidQsort_napi));
+    exports.Set("libcSolidRand", Napi::Function::New(env, libcSolidRand_napi));
+    exports.Set("libcSolidRealloc", Napi::Function::New(env, libcSolidRealloc_napi));
+    exports.Set("libcSolidSrand", Napi::Function::New(env, libcSolidSrand_napi));
+    exports.Set("libcSolidStrtol", Napi::Function::New(env, libcSolidStrtol_napi));
+    exports.Set("libcSolidStrtoul", Napi::Function::New(env, libcSolidStrtoul_napi));
+    exports.Set("libcSolidMblen", Napi::Function::New(env, libcSolidMblen_napi));
+    exports.Set("libcSolidMbstowcs", Napi::Function::New(env, libcSolidMbstowcs_napi));
+    exports.Set("libcSolidWctomb", Napi::Function::New(env, libcSolidWctomb_napi));
+    exports.Set("libcSolidMbtowc", Napi::Function::New(env, libcSolidMbtowc_napi));
+    exports.Set("libcSolidWcstombs", Napi::Function::New(env, libcSolidWcstombs_napi));
+    exports.Set("libcSolidRandR", Napi::Function::New(env, libcSolidRandR_napi));
+    exports.Set("libcSolidJrand48", Napi::Function::New(env, libcSolidJrand48_napi));
+    exports.Set("libcSolidLcong48", Napi::Function::New(env, libcSolidLcong48_napi));
+    exports.Set("libcSolidLrand48", Napi::Function::New(env, libcSolidLrand48_napi));
+    exports.Set("libcSolidMrand48", Napi::Function::New(env, libcSolidMrand48_napi));
+    exports.Set("libcSolidNrand48", Napi::Function::New(env, libcSolidNrand48_napi));
+    exports.Set("libcSolidSeed48", Napi::Function::New(env, libcSolidSeed48_napi));
+    exports.Set("libcSolidSrand48", Napi::Function::New(env, libcSolidSrand48_napi));
+    exports.Set("libcSolidPutenv", Napi::Function::New(env, libcSolidPutenv_napi));
+    exports.Set("libcSolidA64l", Napi::Function::New(env, libcSolidA64l_napi));
+    exports.Set("libcSolidL64a", Napi::Function::New(env, libcSolidL64a_napi));
+    exports.Set("libcSolidRandom", Napi::Function::New(env, libcSolidRandom_napi));
+    exports.Set("libcSolidSetstate", Napi::Function::New(env, libcSolidSetstate_napi));
+    exports.Set("libcSolidInitstate", Napi::Function::New(env, libcSolidInitstate_napi));
+    exports.Set("libcSolidSrandom", Napi::Function::New(env, libcSolidSrandom_napi));
+    exports.Set("libcSolidMkostemp", Napi::Function::New(env, libcSolidMkostemp_napi));
+    exports.Set("libcSolidMkostemps", Napi::Function::New(env, libcSolidMkostemps_napi));
+    exports.Set("libcSolidMkdtemp", Napi::Function::New(env, libcSolidMkdtemp_napi));
+    exports.Set("libcSolidMkstemp", Napi::Function::New(env, libcSolidMkstemp_napi));
+    exports.Set("libcSolidMktemp", Napi::Function::New(env, libcSolidMktemp_napi));
+    exports.Set("libcSolidAtoll", Napi::Function::New(env, libcSolidAtoll_napi));
+    exports.Set("libcSolidLlabs", Napi::Function::New(env, libcSolidLlabs_napi));
+    exports.Set("libcSolidStrtoll", Napi::Function::New(env, libcSolidStrtoll_napi));
+    exports.Set("libcSolidStrtoull", Napi::Function::New(env, libcSolidStrtoull_napi));
+    exports.Set("libcSolidAlignedAlloc", Napi::Function::New(env, libcSolidAlignedAlloc_napi));
+    exports.Set("libcSolidAtQuickExit", Napi::Function::New(env, libcSolidAtQuickExit_napi));
+    exports.Set("libcSolidQuickExit", Napi::Function::New(env, libcSolidQuickExit_napi));
+    exports.Set("libcSolidSetenv", Napi::Function::New(env, libcSolidSetenv_napi));
+    exports.Set("libcSolidUnsetenv", Napi::Function::New(env, libcSolidUnsetenv_napi));
+    exports.Set("libcSolidHumanizeNumber", Napi::Function::New(env, libcSolidHumanizeNumber_napi));
+    exports.Set("libcSolidDehumanizeNumber", Napi::Function::New(env, libcSolidDehumanizeNumber_napi));
+    exports.Set("libcSolidGetenvR", Napi::Function::New(env, libcSolidGetenvR_napi));
+    exports.Set("libcSolidHeapsort", Napi::Function::New(env, libcSolidHeapsort_napi));
+    exports.Set("libcSolidMergesort", Napi::Function::New(env, libcSolidMergesort_napi));
+    exports.Set("libcSolidRadixsort", Napi::Function::New(env, libcSolidRadixsort_napi));
+    exports.Set("libcSolidSradixsort", Napi::Function::New(env, libcSolidSradixsort_napi));
+    exports.Set("libcSolidGetprogname", Napi::Function::New(env, libcSolidGetprogname_napi));
+    exports.Set("libcSolidSetprogname", Napi::Function::New(env, libcSolidSetprogname_napi));
+    exports.Set("libcSolidQabs", Napi::Function::New(env, libcSolidQabs_napi));
+    exports.Set("libcSolidStrtoq", Napi::Function::New(env, libcSolidStrtoq_napi));
+    exports.Set("libcSolidStrtouq", Napi::Function::New(env, libcSolidStrtouq_napi));
+    exports.Set("libcSolidStrsuftoll", Napi::Function::New(env, libcSolidStrsuftoll_napi));
+    exports.Set("libcSolidStrsuftollx", Napi::Function::New(env, libcSolidStrsuftollx_napi));
+    exports.Set("libcSolidL64aR", Napi::Function::New(env, libcSolidL64aR_napi));
+    exports.Set("libcSolidStrtolL", Napi::Function::New(env, libcSolidStrtolL_napi));
+    exports.Set("libcSolidStrtoulL", Napi::Function::New(env, libcSolidStrtoulL_napi));
+    exports.Set("libcSolidStrtollL", Napi::Function::New(env, libcSolidStrtollL_napi));
+    exports.Set("libcSolidStrtoullL", Napi::Function::New(env, libcSolidStrtoullL_napi));
+    exports.Set("libcSolidStrtoqL", Napi::Function::New(env, libcSolidStrtoqL_napi));
+    exports.Set("libcSolidStrtouqL", Napi::Function::New(env, libcSolidStrtouqL_napi));
+    exports.Set("libcSolidMbCurMaxL", Napi::Function::New(env, libcSolidMbCurMaxL_napi));
+    exports.Set("libcSolidMblenL", Napi::Function::New(env, libcSolidMblenL_napi));
+    exports.Set("libcSolidMbstowcsL", Napi::Function::New(env, libcSolidMbstowcsL_napi));
+    exports.Set("libcSolidWctombL", Napi::Function::New(env, libcSolidWctombL_napi));
+    exports.Set("libcSolidMbtowcL", Napi::Function::New(env, libcSolidMbtowcL_napi));
+    exports.Set("libcSolidWcstombsL", Napi::Function::New(env, libcSolidWcstombsL_napi));
+    exports.Set("libcSolidMemchr", Napi::Function::New(env, libcSolidMemchr_napi));
+    exports.Set("libcSolidMemcmp", Napi::Function::New(env, libcSolidMemcmp_napi));
+    exports.Set("libcSolidMemcpy", Napi::Function::New(env, libcSolidMemcpy_napi));
+    exports.Set("libcSolidMemmove", Napi::Function::New(env, libcSolidMemmove_napi));
+    exports.Set("libcSolidMemset", Napi::Function::New(env, libcSolidMemset_napi));
+    exports.Set("libcSolidStrcat", Napi::Function::New(env, libcSolidStrcat_napi));
+    exports.Set("libcSolidStrchr", Napi::Function::New(env, libcSolidStrchr_napi));
+    exports.Set("libcSolidStrcmp", Napi::Function::New(env, libcSolidStrcmp_napi));
+    exports.Set("libcSolidStrcoll", Napi::Function::New(env, libcSolidStrcoll_napi));
+    exports.Set("libcSolidStrcpy", Napi::Function::New(env, libcSolidStrcpy_napi));
+    exports.Set("libcSolidStrcspn", Napi::Function::New(env, libcSolidStrcspn_napi));
+    exports.Set("libcSolidStrerror", Napi::Function::New(env, libcSolidStrerror_napi));
+    exports.Set("libcSolidStrlen", Napi::Function::New(env, libcSolidStrlen_napi));
+    exports.Set("libcSolidStrncat", Napi::Function::New(env, libcSolidStrncat_napi));
+    exports.Set("libcSolidStrncmp", Napi::Function::New(env, libcSolidStrncmp_napi));
+    exports.Set("libcSolidStrncpy", Napi::Function::New(env, libcSolidStrncpy_napi));
+    exports.Set("libcSolidStrpbrk", Napi::Function::New(env, libcSolidStrpbrk_napi));
+    exports.Set("libcSolidStrrchr", Napi::Function::New(env, libcSolidStrrchr_napi));
+    exports.Set("libcSolidStrspn", Napi::Function::New(env, libcSolidStrspn_napi));
+    exports.Set("libcSolidStrstr", Napi::Function::New(env, libcSolidStrstr_napi));
+    exports.Set("libcSolidStrtok", Napi::Function::New(env, libcSolidStrtok_napi));
+    exports.Set("libcSolidStrtokR", Napi::Function::New(env, libcSolidStrtokR_napi));
+    exports.Set("libcSolidStrerrorR", Napi::Function::New(env, libcSolidStrerrorR_napi));
+    exports.Set("libcSolidStrxfrm", Napi::Function::New(env, libcSolidStrxfrm_napi));
+    exports.Set("libcSolidMemccpy", Napi::Function::New(env, libcSolidMemccpy_napi));
+    exports.Set("libcSolidStrdup", Napi::Function::New(env, libcSolidStrdup_napi));
+    exports.Set("libcSolidStpcpy", Napi::Function::New(env, libcSolidStpcpy_napi));
+    exports.Set("libcSolidStpncpy", Napi::Function::New(env, libcSolidStpncpy_napi));
+    exports.Set("libcSolidStrnlen", Napi::Function::New(env, libcSolidStrnlen_napi));
+    exports.Set("libcSolidMemmem", Napi::Function::New(env, libcSolidMemmem_napi));
+    exports.Set("libcSolidStrcasestr", Napi::Function::New(env, libcSolidStrcasestr_napi));
+    exports.Set("libcSolidStrlcat", Napi::Function::New(env, libcSolidStrlcat_napi));
+    exports.Set("libcSolidStrlcpy", Napi::Function::New(env, libcSolidStrlcpy_napi));
+    exports.Set("libcSolidStrsep", Napi::Function::New(env, libcSolidStrsep_napi));
+    exports.Set("libcSolidStresep", Napi::Function::New(env, libcSolidStresep_napi));
+    exports.Set("libcSolidStrndup", Napi::Function::New(env, libcSolidStrndup_napi));
+    exports.Set("libcSolidMemrchr", Napi::Function::New(env, libcSolidMemrchr_napi));
+    exports.Set("libcSolidExplicitMemset", Napi::Function::New(env, libcSolidExplicitMemset_napi));
+    exports.Set("libcSolidConsttimeMemequal", Napi::Function::New(env, libcSolidConsttimeMemequal_napi));
+    exports.Set("libcSolidStrcollL", Napi::Function::New(env, libcSolidStrcollL_napi));
+    exports.Set("libcSolidStrxfrmL", Napi::Function::New(env, libcSolidStrxfrmL_napi));
+    exports.Set("libcSolidStrerrorL", Napi::Function::New(env, libcSolidStrerrorL_napi));
+    exports.Set("libcSolidBcmp", Napi::Function::New(env, libcSolidBcmp_napi));
+    exports.Set("libcSolidBcopy", Napi::Function::New(env, libcSolidBcopy_napi));
+    exports.Set("libcSolidBzero", Napi::Function::New(env, libcSolidBzero_napi));
+    exports.Set("libcSolidFfs", Napi::Function::New(env, libcSolidFfs_napi));
+    exports.Set("libcSolidPopcount", Napi::Function::New(env, libcSolidPopcount_napi));
+    exports.Set("libcSolidPopcountl", Napi::Function::New(env, libcSolidPopcountl_napi));
+    exports.Set("libcSolidPopcountll", Napi::Function::New(env, libcSolidPopcountll_napi));
+    exports.Set("libcSolidPopcount32", Napi::Function::New(env, libcSolidPopcount32_napi));
+    exports.Set("libcSolidPopcount64", Napi::Function::New(env, libcSolidPopcount64_napi));
+    exports.Set("libcSolidRindex", Napi::Function::New(env, libcSolidRindex_napi));
+    exports.Set("libcSolidStrcasecmp", Napi::Function::New(env, libcSolidStrcasecmp_napi));
+    exports.Set("libcSolidStrncasecmp", Napi::Function::New(env, libcSolidStrncasecmp_napi));
+    exports.Set("libcSolidSignal", Napi::Function::New(env, libcSolidSignal_napi));
+    exports.Set("libcSolidRaise", Napi::Function::New(env, libcSolidRaise_napi));
+    exports.Set("libcSolidAsctime", Napi::Function::New(env, libcSolidAsctime_napi));
+    exports.Set("libcSolidClock", Napi::Function::New(env, libcSolidClock_napi));
+    exports.Set("libcSolidCtime", Napi::Function::New(env, libcSolidCtime_napi));
+    exports.Set("libcSolidDifftime", Napi::Function::New(env, libcSolidDifftime_napi));
+    exports.Set("libcSolidGmtime", Napi::Function::New(env, libcSolidGmtime_napi));
+    exports.Set("libcSolidLocaltime", Napi::Function::New(env, libcSolidLocaltime_napi));
+    exports.Set("libcSolidTime", Napi::Function::New(env, libcSolidTime_napi));
+    exports.Set("libcSolidMktime", Napi::Function::New(env, libcSolidMktime_napi));
+    exports.Set("libcSolidStrftime", Napi::Function::New(env, libcSolidStrftime_napi));
+    exports.Set("libcSolidUtime", Napi::Function::New(env, libcSolidUtime_napi));
+    exports.Set("libcSolidAsctimeR", Napi::Function::New(env, libcSolidAsctimeR_napi));
+    exports.Set("libcSolidCtimeR", Napi::Function::New(env, libcSolidCtimeR_napi));
+    exports.Set("libcSolidGmtimeR", Napi::Function::New(env, libcSolidGmtimeR_napi));
+    exports.Set("libcSolidLocaltimeR", Napi::Function::New(env, libcSolidLocaltimeR_napi));
+    exports.Set("libcSolidStat", Napi::Function::New(env, libcSolidStat_napi));
+    exports.Set("libcSolidLstat", Napi::Function::New(env, libcSolidLstat_napi));
+    exports.Set("libcSolidFstat", Napi::Function::New(env, libcSolidFstat_napi));
+    exports.Set("libcSolidChmod", Napi::Function::New(env, libcSolidChmod_napi));
+    exports.Set("libcSolidMkdir", Napi::Function::New(env, libcSolidMkdir_napi));
+    exports.Set("libcSolidOpen", Napi::Function::New(env, libcSolidOpen_napi));
+    exports.Set("libcSolidCreat", Napi::Function::New(env, libcSolidCreat_napi));
+    exports.Set("libcSolidClose", Napi::Function::New(env, libcSolidClose_napi));
+    exports.Set("libcSolidRead", Napi::Function::New(env, libcSolidRead_napi));
+    exports.Set("libcSolidWrite", Napi::Function::New(env, libcSolidWrite_napi));
+    exports.Set("libcSolidUnlink", Napi::Function::New(env, libcSolidUnlink_napi));
+    exports.Set("libcSolidTell", Napi::Function::New(env, libcSolidTell_napi));
+    exports.Set("libcSolidDup", Napi::Function::New(env, libcSolidDup_napi));
+    exports.Set("libcSolidDup2", Napi::Function::New(env, libcSolidDup2_napi));
+    exports.Set("libcSolidAccess", Napi::Function::New(env, libcSolidAccess_napi));
+    exports.Set("libcSolidRmdir", Napi::Function::New(env, libcSolidRmdir_napi));
+    exports.Set("libcSolidChdir", Napi::Function::New(env, libcSolidChdir_napi));
+    exports.Set("libcSolidGetwd", Napi::Function::New(env, libcSolidGetwd_napi));
+    exports.Set("libcSolidGetcwd", Napi::Function::New(env, libcSolidGetcwd_napi));
+    exports.Set("libcSolidGetopt", Napi::Function::New(env, libcSolidGetopt_napi));
+    exports.Set("libcSolidGetsubopt", Napi::Function::New(env, libcSolidGetsubopt_napi));
+    exports.Set("libcSolidFcntl", Napi::Function::New(env, libcSolidFcntl_napi));
+    exports.Set("libcSolidGetpid", Napi::Function::New(env, libcSolidGetpid_napi));
+    exports.Set("libcSolidSleep", Napi::Function::New(env, libcSolidSleep_napi));
+    exports.Set("libcSolidUsleep", Napi::Function::New(env, libcSolidUsleep_napi));
+    exports.Set("libcSolidLocaleconv", Napi::Function::New(env, libcSolidLocaleconv_napi));
+    exports.Set("libcSolidSetlocale", Napi::Function::New(env, libcSolidSetlocale_napi));
+    exports.Set("libcSolidDuplocale", Napi::Function::New(env, libcSolidDuplocale_napi));
+    exports.Set("libcSolidFreelocale", Napi::Function::New(env, libcSolidFreelocale_napi));
+    exports.Set("libcSolidLocaleconvL", Napi::Function::New(env, libcSolidLocaleconvL_napi));
+    exports.Set("libcSolidNewlocale", Napi::Function::New(env, libcSolidNewlocale_napi));
+    exports.Set("libcSolidNlLanginfo", Napi::Function::New(env, libcSolidNlLanginfo_napi));
+    exports.Set("libcSolidNlLanginfoL", Napi::Function::New(env, libcSolidNlLanginfoL_napi));
+    exports.Set("libcSolidMemalign", Napi::Function::New(env, libcSolidMemalign_napi));
+    exports.Set("libcSolidLseek", Napi::Function::New(env, libcSolidLseek_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_solid_napi, nullptr };

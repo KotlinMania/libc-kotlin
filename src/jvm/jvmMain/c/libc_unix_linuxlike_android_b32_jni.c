@@ -19,7 +19,7 @@
 #endif
 #endif
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_b32_UnixLinuxlikeAndroidB32JniBridge_libc_1unix_1linuxlike_1android_1b32_1timegm64(JNIEnv* km_env, jclass km_clazz, jlong tm) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_b32_UnixLinuxlikeAndroidB32JniBridge_libcUnixLinuxlikeAndroidB32Timegm64(JNIEnv* km_env, jclass km_clazz, jlong tm) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(void*);

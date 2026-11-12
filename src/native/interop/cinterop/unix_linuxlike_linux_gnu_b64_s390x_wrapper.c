@@ -15,7 +15,7 @@
 #endif
 #endif
 
-int32_t libc_unix_linuxlike_linux_gnu_b64_s390x_sysctl(void* name, int32_t namelen, void* oldp, void* oldlenp, void* newp, uint64_t newlen) {
+int32_t libcUnixLinuxlikeLinuxGnuB64S390xSysctl(void* name, int32_t namelen, void* oldp, void* oldlenp, void* newp, uint64_t newlen) {
     typedef int32_t (*km_fn_t)(void*, int32_t, void*, void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -43,7 +43,7 @@ int32_t libc_unix_linuxlike_linux_gnu_b64_s390x_sysctl(void* name, int32_t namel
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_b64_s390x_getcontext(void* ucp) {
+int32_t libcUnixLinuxlikeLinuxGnuB64S390xGetcontext(void* ucp) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -71,7 +71,7 @@ int32_t libc_unix_linuxlike_linux_gnu_b64_s390x_getcontext(void* ucp) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_b64_s390x_setcontext(void* ucp) {
+int32_t libcUnixLinuxlikeLinuxGnuB64S390xSetcontext(void* ucp) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -99,7 +99,7 @@ int32_t libc_unix_linuxlike_linux_gnu_b64_s390x_setcontext(void* ucp) {
     return -1;
 }
 
-void libc_unix_linuxlike_linux_gnu_b64_s390x_makecontext(void* ucp, void* func, int32_t argc, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+void libcUnixLinuxlikeLinuxGnuB64S390xMakecontext(void* ucp, void* func, int32_t argc, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef void (*km_fn_t)(void*, void*, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -133,7 +133,7 @@ void libc_unix_linuxlike_linux_gnu_b64_s390x_makecontext(void* ucp, void* func, 
     errno = ENOSYS;
 }
 
-int32_t libc_unix_linuxlike_linux_gnu_b64_s390x_swapcontext(void* uocp, void* ucp) {
+int32_t libcUnixLinuxlikeLinuxGnuB64S390xSwapcontext(void* uocp, void* ucp) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

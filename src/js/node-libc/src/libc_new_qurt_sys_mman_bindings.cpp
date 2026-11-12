@@ -51,7 +51,7 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_new_qurt_sys_mman_mmap_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtSysMmanMmap_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -89,7 +89,7 @@ static Napi::Value libc_new_qurt_sys_mman_mmap_napi(const Napi::CallbackInfo& km
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_new_qurt_sys_mman_munmap_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtSysMmanMunmap_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -123,7 +123,7 @@ static Napi::Value libc_new_qurt_sys_mman_munmap_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_sys_mman_mprotect_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtSysMmanMprotect_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -158,7 +158,7 @@ static Napi::Value libc_new_qurt_sys_mman_mprotect_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_sys_mman_mlock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtSysMmanMlock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -192,7 +192,7 @@ static Napi::Value libc_new_qurt_sys_mman_mlock_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_sys_mman_munlock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtSysMmanMunlock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -226,7 +226,7 @@ static Napi::Value libc_new_qurt_sys_mman_munlock_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_sys_mman_mlockall_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtSysMmanMlockall_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t flags = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -259,7 +259,7 @@ static Napi::Value libc_new_qurt_sys_mman_mlockall_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_sys_mman_munlockall_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtSysMmanMunlockall_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -291,7 +291,7 @@ static Napi::Value libc_new_qurt_sys_mman_munlockall_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_sys_mman_msync_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtSysMmanMsync_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -327,14 +327,14 @@ static Napi::Value libc_new_qurt_sys_mman_msync_napi(const Napi::CallbackInfo& k
 }
 
 static void register_new_qurt_sys_mman_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_new_qurt_sys_mman_mmap", Napi::Function::New(env, libc_new_qurt_sys_mman_mmap_napi));
-    exports.Set("libc_new_qurt_sys_mman_munmap", Napi::Function::New(env, libc_new_qurt_sys_mman_munmap_napi));
-    exports.Set("libc_new_qurt_sys_mman_mprotect", Napi::Function::New(env, libc_new_qurt_sys_mman_mprotect_napi));
-    exports.Set("libc_new_qurt_sys_mman_mlock", Napi::Function::New(env, libc_new_qurt_sys_mman_mlock_napi));
-    exports.Set("libc_new_qurt_sys_mman_munlock", Napi::Function::New(env, libc_new_qurt_sys_mman_munlock_napi));
-    exports.Set("libc_new_qurt_sys_mman_mlockall", Napi::Function::New(env, libc_new_qurt_sys_mman_mlockall_napi));
-    exports.Set("libc_new_qurt_sys_mman_munlockall", Napi::Function::New(env, libc_new_qurt_sys_mman_munlockall_napi));
-    exports.Set("libc_new_qurt_sys_mman_msync", Napi::Function::New(env, libc_new_qurt_sys_mman_msync_napi));
+    exports.Set("libcNewQurtSysMmanMmap", Napi::Function::New(env, libcNewQurtSysMmanMmap_napi));
+    exports.Set("libcNewQurtSysMmanMunmap", Napi::Function::New(env, libcNewQurtSysMmanMunmap_napi));
+    exports.Set("libcNewQurtSysMmanMprotect", Napi::Function::New(env, libcNewQurtSysMmanMprotect_napi));
+    exports.Set("libcNewQurtSysMmanMlock", Napi::Function::New(env, libcNewQurtSysMmanMlock_napi));
+    exports.Set("libcNewQurtSysMmanMunlock", Napi::Function::New(env, libcNewQurtSysMmanMunlock_napi));
+    exports.Set("libcNewQurtSysMmanMlockall", Napi::Function::New(env, libcNewQurtSysMmanMlockall_napi));
+    exports.Set("libcNewQurtSysMmanMunlockall", Napi::Function::New(env, libcNewQurtSysMmanMunlockall_napi));
+    exports.Set("libcNewQurtSysMmanMsync", Napi::Function::New(env, libcNewQurtSysMmanMsync_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_new_qurt_sys_mman_napi, nullptr };

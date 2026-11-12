@@ -3,7 +3,8 @@
 package io.github.kotlinmania.libc.unix.linuxlike.android.b32
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.libc.unix.linuxlike.Tm
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 
 private object UnixLinuxlikeAndroidB32JniBridge {
     init {
@@ -11,8 +12,8 @@ private object UnixLinuxlikeAndroidB32JniBridge {
     }
 
     @JvmStatic
-    external fun libc_unix_linuxlike_android_b32_timegm64(tm: Long): Long
+    external fun libcUnixLinuxlikeAndroidB32Timegm64(tm: Long): Long
 }
 
-public actual fun timegm64(tm: COpaquePointer?): Time64T =
-    UnixLinuxlikeAndroidB32JniBridge.libc_unix_linuxlike_android_b32_timegm64((tm?.value ?: 0L))
+public actual fun timegm64(tm: ConstPtr<Tm>): Time64T =
+    UnixLinuxlikeAndroidB32JniBridge.libcUnixLinuxlikeAndroidB32Timegm64(tm.rawAddress)

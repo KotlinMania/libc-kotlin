@@ -9,18 +9,18 @@
 extern "C" {
 #endif
 
-void libc_new_netbsd_utmpx_setutxent(void);
-void libc_new_netbsd_utmpx_endutxent(void);
-void* libc_new_netbsd_utmpx_getutxent(void);
-void* libc_new_netbsd_utmpx_getutxid(void* ut);
-void* libc_new_netbsd_utmpx_getutxline(void* ut);
-void* libc_new_netbsd_utmpx_pututxline(void* ut);
-int32_t libc_new_netbsd_utmpx_updwtmpx(const char* file, void* ut);
-void* libc_new_netbsd_utmpx_getlastlogx(const char* fname, uint32_t uid, void* ll);
-int32_t libc_new_netbsd_utmpx_updlastlogx(const char* fname, uint32_t uid, void* ll);
-void libc_new_netbsd_utmpx_getutmp(void* ux, void* u);
-void libc_new_netbsd_utmpx_getutmpx(void* u, void* ux);
-int32_t libc_new_netbsd_utmpx_utmpxname(const char* file);
+void libcNewNetbsdUtmpxSetutxent(void);
+void libcNewNetbsdUtmpxEndutxent(void);
+void* libcNewNetbsdUtmpxGetutxent(void);
+void* libcNewNetbsdUtmpxGetutxid(void* ut);
+void* libcNewNetbsdUtmpxGetutxline(void* ut);
+void* libcNewNetbsdUtmpxPututxline(void* ut);
+int32_t libcNewNetbsdUtmpxUpdwtmpx(const char* file, void* ut);
+void* libcNewNetbsdUtmpxGetlastlogx(const char* fname, uint32_t uid, void* ll);
+int32_t libcNewNetbsdUtmpxUpdlastlogx(const char* fname, uint32_t uid, void* ll);
+void libcNewNetbsdUtmpxGetutmp(void* ux, void* u);
+void libcNewNetbsdUtmpxGetutmpx(void* u, void* ux);
+int32_t libcNewNetbsdUtmpxUtmpxname(const char* file);
 
 #ifdef __cplusplus
 }

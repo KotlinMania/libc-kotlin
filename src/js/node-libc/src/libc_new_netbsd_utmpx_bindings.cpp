@@ -51,7 +51,7 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_new_netbsd_utmpx_setutxent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewNetbsdUtmpxSetutxent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -102,7 +102,7 @@ static Napi::Value libc_new_netbsd_utmpx_setutxent_napi(const Napi::CallbackInfo
     return km_env.Undefined();
 }
 
-static Napi::Value libc_new_netbsd_utmpx_endutxent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewNetbsdUtmpxEndutxent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -153,7 +153,7 @@ static Napi::Value libc_new_netbsd_utmpx_endutxent_napi(const Napi::CallbackInfo
     return km_env.Undefined();
 }
 
-static Napi::Value libc_new_netbsd_utmpx_getutxent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewNetbsdUtmpxGetutxent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -204,7 +204,7 @@ static Napi::Value libc_new_netbsd_utmpx_getutxent_napi(const Napi::CallbackInfo
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_new_netbsd_utmpx_getutxid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewNetbsdUtmpxGetutxid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ut = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -256,7 +256,7 @@ static Napi::Value libc_new_netbsd_utmpx_getutxid_napi(const Napi::CallbackInfo&
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_new_netbsd_utmpx_getutxline_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewNetbsdUtmpxGetutxline_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ut = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -308,7 +308,7 @@ static Napi::Value libc_new_netbsd_utmpx_getutxline_napi(const Napi::CallbackInf
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_new_netbsd_utmpx_pututxline_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewNetbsdUtmpxPututxline_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ut = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -360,11 +360,9 @@ static Napi::Value libc_new_netbsd_utmpx_pututxline_napi(const Napi::CallbackInf
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_new_netbsd_utmpx_updwtmpx_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewNetbsdUtmpxUpdwtmpx_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool file_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string file_str = file_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* file = file_null ? nullptr : file_str.c_str();
+    const char* file = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* ut = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -415,11 +413,9 @@ static Napi::Value libc_new_netbsd_utmpx_updwtmpx_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_netbsd_utmpx_getlastlogx_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewNetbsdUtmpxGetlastlogx_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool fname_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string fname_str = fname_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* fname = fname_null ? nullptr : fname_str.c_str();
+    const char* fname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t uid = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     void* ll = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef void* (*km_fn_t)(const char*, uint32_t, void*);
@@ -471,11 +467,9 @@ static Napi::Value libc_new_netbsd_utmpx_getlastlogx_napi(const Napi::CallbackIn
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_new_netbsd_utmpx_updlastlogx_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewNetbsdUtmpxUpdlastlogx_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool fname_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string fname_str = fname_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* fname = fname_null ? nullptr : fname_str.c_str();
+    const char* fname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t uid = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     void* ll = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(const char*, uint32_t, void*);
@@ -527,7 +521,7 @@ static Napi::Value libc_new_netbsd_utmpx_updlastlogx_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_netbsd_utmpx_getutmp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewNetbsdUtmpxGetutmp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ux = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* u = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -578,7 +572,7 @@ static Napi::Value libc_new_netbsd_utmpx_getutmp_napi(const Napi::CallbackInfo& 
     return km_env.Undefined();
 }
 
-static Napi::Value libc_new_netbsd_utmpx_getutmpx_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewNetbsdUtmpxGetutmpx_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* u = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* ux = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -629,11 +623,9 @@ static Napi::Value libc_new_netbsd_utmpx_getutmpx_napi(const Napi::CallbackInfo&
     return km_env.Undefined();
 }
 
-static Napi::Value libc_new_netbsd_utmpx_utmpxname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewNetbsdUtmpxUtmpxname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool file_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string file_str = file_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* file = file_null ? nullptr : file_str.c_str();
+    const char* file = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -686,18 +678,18 @@ static Napi::Value libc_new_netbsd_utmpx_utmpxname_napi(const Napi::CallbackInfo
 }
 
 static void register_new_netbsd_utmpx_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_new_netbsd_utmpx_setutxent", Napi::Function::New(env, libc_new_netbsd_utmpx_setutxent_napi));
-    exports.Set("libc_new_netbsd_utmpx_endutxent", Napi::Function::New(env, libc_new_netbsd_utmpx_endutxent_napi));
-    exports.Set("libc_new_netbsd_utmpx_getutxent", Napi::Function::New(env, libc_new_netbsd_utmpx_getutxent_napi));
-    exports.Set("libc_new_netbsd_utmpx_getutxid", Napi::Function::New(env, libc_new_netbsd_utmpx_getutxid_napi));
-    exports.Set("libc_new_netbsd_utmpx_getutxline", Napi::Function::New(env, libc_new_netbsd_utmpx_getutxline_napi));
-    exports.Set("libc_new_netbsd_utmpx_pututxline", Napi::Function::New(env, libc_new_netbsd_utmpx_pututxline_napi));
-    exports.Set("libc_new_netbsd_utmpx_updwtmpx", Napi::Function::New(env, libc_new_netbsd_utmpx_updwtmpx_napi));
-    exports.Set("libc_new_netbsd_utmpx_getlastlogx", Napi::Function::New(env, libc_new_netbsd_utmpx_getlastlogx_napi));
-    exports.Set("libc_new_netbsd_utmpx_updlastlogx", Napi::Function::New(env, libc_new_netbsd_utmpx_updlastlogx_napi));
-    exports.Set("libc_new_netbsd_utmpx_getutmp", Napi::Function::New(env, libc_new_netbsd_utmpx_getutmp_napi));
-    exports.Set("libc_new_netbsd_utmpx_getutmpx", Napi::Function::New(env, libc_new_netbsd_utmpx_getutmpx_napi));
-    exports.Set("libc_new_netbsd_utmpx_utmpxname", Napi::Function::New(env, libc_new_netbsd_utmpx_utmpxname_napi));
+    exports.Set("libcNewNetbsdUtmpxSetutxent", Napi::Function::New(env, libcNewNetbsdUtmpxSetutxent_napi));
+    exports.Set("libcNewNetbsdUtmpxEndutxent", Napi::Function::New(env, libcNewNetbsdUtmpxEndutxent_napi));
+    exports.Set("libcNewNetbsdUtmpxGetutxent", Napi::Function::New(env, libcNewNetbsdUtmpxGetutxent_napi));
+    exports.Set("libcNewNetbsdUtmpxGetutxid", Napi::Function::New(env, libcNewNetbsdUtmpxGetutxid_napi));
+    exports.Set("libcNewNetbsdUtmpxGetutxline", Napi::Function::New(env, libcNewNetbsdUtmpxGetutxline_napi));
+    exports.Set("libcNewNetbsdUtmpxPututxline", Napi::Function::New(env, libcNewNetbsdUtmpxPututxline_napi));
+    exports.Set("libcNewNetbsdUtmpxUpdwtmpx", Napi::Function::New(env, libcNewNetbsdUtmpxUpdwtmpx_napi));
+    exports.Set("libcNewNetbsdUtmpxGetlastlogx", Napi::Function::New(env, libcNewNetbsdUtmpxGetlastlogx_napi));
+    exports.Set("libcNewNetbsdUtmpxUpdlastlogx", Napi::Function::New(env, libcNewNetbsdUtmpxUpdlastlogx_napi));
+    exports.Set("libcNewNetbsdUtmpxGetutmp", Napi::Function::New(env, libcNewNetbsdUtmpxGetutmp_napi));
+    exports.Set("libcNewNetbsdUtmpxGetutmpx", Napi::Function::New(env, libcNewNetbsdUtmpxGetutmpx_napi));
+    exports.Set("libcNewNetbsdUtmpxUtmpxname", Napi::Function::New(env, libcNewNetbsdUtmpxUtmpxname_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_new_netbsd_utmpx_napi, nullptr };

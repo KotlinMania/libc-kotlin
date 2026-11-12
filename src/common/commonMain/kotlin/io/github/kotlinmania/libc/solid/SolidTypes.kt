@@ -1,13 +1,14 @@
 package io.github.kotlinmania.libc.solid
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUshort
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public typealias IntmaxT = Long
 
@@ -38,7 +39,7 @@ public typealias UsecondsT = CUint
 public typealias SighandlerT = SizeT
 
 // sys/ansi.h
-public typealias CaddrT = COpaquePointer?
+public typealias CaddrT = MutPtr<CChar>
 
 public typealias GidT = UInt
 
@@ -69,7 +70,7 @@ public typealias LocaleT = ULong
 public typealias NlItem = CLong
 
 // sys/types.h
-public typealias VaList = COpaquePointer?
+public typealias VaList = MutPtr<CChar>
 
 public typealias UInt8T = UByte
 
@@ -99,7 +100,7 @@ public typealias UQuadT = ULong
 
 public typealias QuadT = Long
 
-public typealias QaddrT = Long?
+public typealias QaddrT = MutPtr<QuadT>
 
 public typealias LonglongT = Long
 

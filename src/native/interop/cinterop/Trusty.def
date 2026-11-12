@@ -4,3 +4,4 @@ headerFilter = trusty_wrapper.h
 compilerOpts = -Isrc/native/interop/cinterop
 staticLibraries = trusty_wrapper.a
 linkerOpts.mingw = -lws2_32
+noStringConversion = libcTrustyStrlen

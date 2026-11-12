@@ -18,7 +18,7 @@
 #endif
 #endif
 
-int32_t libc_new_musl_sys_socket_sendmmsg(int32_t sockfd, void* msgvec, uint32_t vlen, uint32_t flags) {
+int32_t libcNewMuslSysSocketSendmmsg(int32_t sockfd, void* msgvec, uint32_t vlen, uint32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -46,7 +46,7 @@ int32_t libc_new_musl_sys_socket_sendmmsg(int32_t sockfd, void* msgvec, uint32_t
     return -1;
 }
 
-int32_t libc_new_musl_sys_socket_recvmmsg(int32_t sockfd, void* msgvec, uint32_t vlen, uint32_t flags, void* timeout) {
+int32_t libcNewMuslSysSocketRecvmmsg(int32_t sockfd, void* msgvec, uint32_t vlen, uint32_t flags, void* timeout) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t, uint32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

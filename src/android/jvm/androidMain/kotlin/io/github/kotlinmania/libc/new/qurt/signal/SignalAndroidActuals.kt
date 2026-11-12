@@ -4,9 +4,12 @@ package io.github.kotlinmania.libc.new.qurt.signal
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.new.qurt.PidT
+import io.github.kotlinmania.libc.new.qurt.SigsetT
+import io.github.kotlinmania.libc.new.qurt.Timespec
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 private object NewQurtSignalJniBridge {
     init {
@@ -14,98 +17,98 @@ private object NewQurtSignalJniBridge {
     }
 
     @JvmStatic
-    external fun libc_new_qurt_signal_signal(sig: Int, handler: Long): Long
+    external fun libcNewQurtSignalSignal(sig: Int, handler: Long): Long
 
     @JvmStatic
-    external fun libc_new_qurt_signal_kill(pid: Int, sig: Int): Int
+    external fun libcNewQurtSignalKill(pid: Int, sig: Int): Int
 
     @JvmStatic
-    external fun libc_new_qurt_signal_raise(sig: Int): Int
+    external fun libcNewQurtSignalRaise(sig: Int): Int
 
     @JvmStatic
-    external fun libc_new_qurt_signal_alarm(seconds: Int): Int
+    external fun libcNewQurtSignalAlarm(seconds: Int): Int
 
     @JvmStatic
-    external fun libc_new_qurt_signal_pause(): Int
+    external fun libcNewQurtSignalPause(): Int
 
     @JvmStatic
-    external fun libc_new_qurt_signal_sigemptyset(set: Long): Int
+    external fun libcNewQurtSignalSigemptyset(set: Long): Int
 
     @JvmStatic
-    external fun libc_new_qurt_signal_sigfillset(set: Long): Int
+    external fun libcNewQurtSignalSigfillset(set: Long): Int
 
     @JvmStatic
-    external fun libc_new_qurt_signal_sigaddset(set: Long, signum: Int): Int
+    external fun libcNewQurtSignalSigaddset(set: Long, signum: Int): Int
 
     @JvmStatic
-    external fun libc_new_qurt_signal_sigdelset(set: Long, signum: Int): Int
+    external fun libcNewQurtSignalSigdelset(set: Long, signum: Int): Int
 
     @JvmStatic
-    external fun libc_new_qurt_signal_sigismember(set: Long, signum: Int): Int
+    external fun libcNewQurtSignalSigismember(set: Long, signum: Int): Int
 
     @JvmStatic
-    external fun libc_new_qurt_signal_sigprocmask(how: Int, set: Long, oldset: Long): Int
+    external fun libcNewQurtSignalSigprocmask(how: Int, set: Long, oldset: Long): Int
 
     @JvmStatic
-    external fun libc_new_qurt_signal_sigpending(set: Long): Int
+    external fun libcNewQurtSignalSigpending(set: Long): Int
 
     @JvmStatic
-    external fun libc_new_qurt_signal_sigsuspend(mask: Long): Int
+    external fun libcNewQurtSignalSigsuspend(mask: Long): Int
 
     @JvmStatic
-    external fun libc_new_qurt_signal_sigwait(set: Long, sig: Long): Int
+    external fun libcNewQurtSignalSigwait(set: Long, sig: Long): Int
 
     @JvmStatic
-    external fun libc_new_qurt_signal_sigaction(sig: Int, act: Long, oact: Long): Int
+    external fun libcNewQurtSignalSigaction(sig: Int, act: Long, oact: Long): Int
 
     @JvmStatic
-    external fun libc_new_qurt_signal_sigtimedwait(set: Long, info: Long, timeout: Long): Int
+    external fun libcNewQurtSignalSigtimedwait(set: Long, info: Long, timeout: Long): Int
 }
 
 public actual fun signal(sig: CInt, handler: SighandlerT): SighandlerT =
-    NewQurtSignalJniBridge.libc_new_qurt_signal_signal(sig, handler.toLong()).toULong()
+    NewQurtSignalJniBridge.libcNewQurtSignalSignal(sig, handler.toLong()).toULong()
 
 public actual fun kill(pid: PidT, sig: CInt): CInt =
-    NewQurtSignalJniBridge.libc_new_qurt_signal_kill(pid, sig)
+    NewQurtSignalJniBridge.libcNewQurtSignalKill(pid, sig)
 
 public actual fun raise(sig: CInt): CInt =
-    NewQurtSignalJniBridge.libc_new_qurt_signal_raise(sig)
+    NewQurtSignalJniBridge.libcNewQurtSignalRaise(sig)
 
 public actual fun alarm(seconds: CUint): CUint =
-    NewQurtSignalJniBridge.libc_new_qurt_signal_alarm(seconds.toInt()).toUInt()
+    NewQurtSignalJniBridge.libcNewQurtSignalAlarm(seconds.toInt()).toUInt()
 
 public actual fun pause(): CInt =
-    NewQurtSignalJniBridge.libc_new_qurt_signal_pause()
+    NewQurtSignalJniBridge.libcNewQurtSignalPause()
 
-public actual fun sigemptyset(set: COpaquePointer?): CInt =
-    NewQurtSignalJniBridge.libc_new_qurt_signal_sigemptyset((set?.value ?: 0L))
+public actual fun sigemptyset(set: MutPtr<SigsetT>): CInt =
+    NewQurtSignalJniBridge.libcNewQurtSignalSigemptyset(set.rawAddress)
 
-public actual fun sigfillset(set: COpaquePointer?): CInt =
-    NewQurtSignalJniBridge.libc_new_qurt_signal_sigfillset((set?.value ?: 0L))
+public actual fun sigfillset(set: MutPtr<SigsetT>): CInt =
+    NewQurtSignalJniBridge.libcNewQurtSignalSigfillset(set.rawAddress)
 
-public actual fun sigaddset(set: COpaquePointer?, signum: CInt): CInt =
-    NewQurtSignalJniBridge.libc_new_qurt_signal_sigaddset((set?.value ?: 0L), signum)
+public actual fun sigaddset(set: MutPtr<SigsetT>, signum: CInt): CInt =
+    NewQurtSignalJniBridge.libcNewQurtSignalSigaddset(set.rawAddress, signum)
 
-public actual fun sigdelset(set: COpaquePointer?, signum: CInt): CInt =
-    NewQurtSignalJniBridge.libc_new_qurt_signal_sigdelset((set?.value ?: 0L), signum)
+public actual fun sigdelset(set: MutPtr<SigsetT>, signum: CInt): CInt =
+    NewQurtSignalJniBridge.libcNewQurtSignalSigdelset(set.rawAddress, signum)
 
-public actual fun sigismember(set: COpaquePointer?, signum: CInt): CInt =
-    NewQurtSignalJniBridge.libc_new_qurt_signal_sigismember((set?.value ?: 0L), signum)
+public actual fun sigismember(set: ConstPtr<SigsetT>, signum: CInt): CInt =
+    NewQurtSignalJniBridge.libcNewQurtSignalSigismember(set.rawAddress, signum)
 
-public actual fun sigprocmask(how: CInt, set: COpaquePointer?, oldset: COpaquePointer?): CInt =
-    NewQurtSignalJniBridge.libc_new_qurt_signal_sigprocmask(how, (set?.value ?: 0L), (oldset?.value ?: 0L))
+public actual fun sigprocmask(how: CInt, set: ConstPtr<SigsetT>, oldset: MutPtr<SigsetT>): CInt =
+    NewQurtSignalJniBridge.libcNewQurtSignalSigprocmask(how, set.rawAddress, oldset.rawAddress)
 
-public actual fun sigpending(set: COpaquePointer?): CInt =
-    NewQurtSignalJniBridge.libc_new_qurt_signal_sigpending((set?.value ?: 0L))
+public actual fun sigpending(set: MutPtr<SigsetT>): CInt =
+    NewQurtSignalJniBridge.libcNewQurtSignalSigpending(set.rawAddress)
 
-public actual fun sigsuspend(mask: COpaquePointer?): CInt =
-    NewQurtSignalJniBridge.libc_new_qurt_signal_sigsuspend((mask?.value ?: 0L))
+public actual fun sigsuspend(mask: ConstPtr<SigsetT>): CInt =
+    NewQurtSignalJniBridge.libcNewQurtSignalSigsuspend(mask.rawAddress)
 
-public actual fun sigwait(set: COpaquePointer?, sig: COpaquePointer?): CInt =
-    NewQurtSignalJniBridge.libc_new_qurt_signal_sigwait((set?.value ?: 0L), (sig?.value ?: 0L))
+public actual fun sigwait(set: ConstPtr<SigsetT>, sig: MutPtr<CInt>): CInt =
+    NewQurtSignalJniBridge.libcNewQurtSignalSigwait(set.rawAddress, sig.rawAddress)
 
-public actual fun sigaction(sig: CInt, act: COpaquePointer?, oact: COpaquePointer?): CInt =
-    NewQurtSignalJniBridge.libc_new_qurt_signal_sigaction(sig, (act?.value ?: 0L), (oact?.value ?: 0L))
+public actual fun sigaction(sig: CInt, act: ConstPtr<Sigaction>, oact: MutPtr<Sigaction>): CInt =
+    NewQurtSignalJniBridge.libcNewQurtSignalSigaction(sig, act.rawAddress, oact.rawAddress)
 
-public actual fun sigtimedwait(set: COpaquePointer?, info: COpaquePointer?, timeout: COpaquePointer?): CInt =
-    NewQurtSignalJniBridge.libc_new_qurt_signal_sigtimedwait((set?.value ?: 0L), (info?.value ?: 0L), (timeout?.value ?: 0L))
+public actual fun sigtimedwait(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>, timeout: ConstPtr<Timespec>): CInt =
+    NewQurtSignalJniBridge.libcNewQurtSignalSigtimedwait(set.rawAddress, info.rawAddress, timeout.rawAddress)

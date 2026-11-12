@@ -19,7 +19,7 @@
 #endif
 #endif
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_musl_sys_socket_NewMuslSysSocketJniBridge_libc_1new_1musl_1sys_1socket_1sendmmsg(JNIEnv* km_env, jclass km_clazz, jint sockfd, jlong msgvec, jint vlen, jint flags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_musl_sys_socket_NewMuslSysSocketJniBridge_libcNewMuslSysSocketSendmmsg(JNIEnv* km_env, jclass km_clazz, jint sockfd, jlong msgvec, jint vlen, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t, uint32_t);
@@ -52,7 +52,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_musl_sys_socket_NewMu
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_musl_sys_socket_NewMuslSysSocketJniBridge_libc_1new_1musl_1sys_1socket_1recvmmsg(JNIEnv* km_env, jclass km_clazz, jint sockfd, jlong msgvec, jint vlen, jint flags, jlong timeout) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_musl_sys_socket_NewMuslSysSocketJniBridge_libcNewMuslSysSocketRecvmmsg(JNIEnv* km_env, jclass km_clazz, jint sockfd, jlong msgvec, jint vlen, jint flags, jlong timeout) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t, uint32_t, void*);

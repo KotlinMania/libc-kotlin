@@ -51,7 +51,7 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_gettimeofday_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdGettimeofday_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* tp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* tz = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -85,7 +85,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_gettimeofday_napi(const Napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_settimeofday_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdSettimeofday_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* tp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* tz = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -119,14 +119,10 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_settimeofday_napi(const Napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_pledge_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdPledge_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool promises_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string promises_str = promises_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* promises = promises_null ? nullptr : promises_str.c_str();
-    bool execpromises_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string execpromises_str = execpromises_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* execpromises = execpromises_null ? nullptr : execpromises_str.c_str();
+    const char* promises = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* execpromises = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -157,14 +153,10 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_pledge_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_unveil_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdUnveil_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
-    bool permissions_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string permissions_str = permissions_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* permissions = permissions_null ? nullptr : permissions_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* permissions = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -195,11 +187,9 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_unveil_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_strtonum_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdStrtonum_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool nptr_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string nptr_str = nptr_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* nptr = nptr_null ? nullptr : nptr_str.c_str();
+    const char* nptr = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int64_t minval = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
     int64_t maxval = km_info.Length() > 2 ? km_napi_arg_i64(km_info[2]) : 0;
     void* errstr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
@@ -233,7 +223,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_strtonum_napi(const Napi::Ca
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_dup3_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdDup3_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t src = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t dst = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -268,11 +258,9 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_dup3_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_chflags_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdChflags_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t flags = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -304,7 +292,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_chflags_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_fchflags_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdFchflags_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t flags = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -338,12 +326,10 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_fchflags_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_chflagsat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdChflagsat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool path_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint32_t flags = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     int32_t atflag = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, const char*, uint32_t, int32_t);
@@ -376,7 +362,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_chflagsat_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_dirfd_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdDirfd_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* dirp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -409,7 +395,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_dirfd_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_getnameinfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdGetnameinfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* sa = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t salen = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -448,7 +434,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_getnameinfo_napi(const Napi:
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_getresgid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdGetresgid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* rgid = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* egid = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -483,7 +469,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_getresgid_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_getresuid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdGetresuid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ruid = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* euid = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -518,7 +504,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_getresuid_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_kevent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdKevent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t kq = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* changelist = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -556,7 +542,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_kevent_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_mprotect_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdMprotect_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -591,7 +577,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_mprotect_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_getthrid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdGetthrid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -623,7 +609,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_getthrid_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_pthreadAttrGetguardsize_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdPthreadAttrGetguardsize_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* guardsize = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -657,7 +643,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_pthreadAttrGetguardsize_napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_pthreadAttrSetguardsize_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdPthreadAttrSetguardsize_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t guardsize = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -691,7 +677,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_pthreadAttrSetguardsize_napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_pthreadAttrGetstack_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdPthreadAttrGetstack_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* stackaddr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -726,7 +712,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_pthreadAttrGetstack_napi(con
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_pthreadMainNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdPthreadMainNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -758,7 +744,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_pthreadMainNp_napi(const Nap
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_pthreadGetNameNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdPthreadGetNameNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* tid = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* name = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -791,12 +777,10 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_pthreadGetNameNp_napi(const 
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_pthreadSetNameNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdPthreadSetNameNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* tid = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool name_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef void (*km_fn_t)(void*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -825,7 +809,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_pthreadSetNameNp_napi(const 
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_pthreadStacksegNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdPthreadStacksegNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* thread = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* sinfo = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -859,7 +843,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_pthreadStacksegNp_napi(const
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_openpty_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdOpenpty_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* amaster = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* aslave = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -896,7 +880,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_openpty_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_forkpty_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdForkpty_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* amaster = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* name = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -932,7 +916,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_forkpty_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_sysctl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdSysctl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* name = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t namelen = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -970,7 +954,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_sysctl_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_setresgid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdSetresgid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint16_t rgid = static_cast<uint16_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint16_t egid = static_cast<uint16_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1005,7 +989,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_setresgid_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_setresuid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdSetresuid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint16_t ruid = static_cast<uint16_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint16_t euid = static_cast<uint16_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1040,7 +1024,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_setresuid_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_ptrace_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdPtrace_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t request = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t pid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1076,11 +1060,9 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_ptrace_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_utrace_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdUtrace_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool label_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string label_str = label_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* label = label_null ? nullptr : label_str.c_str();
+    const char* label = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t len = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef int32_t (*km_fn_t)(const char*, void*, uint64_t);
@@ -1113,7 +1095,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_utrace_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_memmem_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdMemmem_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* haystack = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t haystacklen = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1149,7 +1131,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_memmem_napi(const Napi::Call
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_dlIteratePhdr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdDlIteratePhdr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* callback = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1183,7 +1165,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_dlIteratePhdr_napi(const Nap
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_uselocale_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdUselocale_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* loc = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -1216,7 +1198,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_uselocale_napi(const Napi::C
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_freelocale_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdFreelocale_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* loc = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -1247,12 +1229,10 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_freelocale_napi(const Napi::
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_newlocale_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdNewlocale_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t mask = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool locale_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string locale_str = locale_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* locale = locale_null ? nullptr : locale_str.c_str();
+    const char* locale = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* base = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef void* (*km_fn_t)(int32_t, const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1284,7 +1264,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_newlocale_napi(const Napi::C
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_duplocale_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdDuplocale_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* base = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -1317,7 +1297,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_duplocale_napi(const Napi::C
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_explicitBzero_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdExplicitBzero_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* s = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1349,11 +1329,9 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_explicitBzero_napi(const Nap
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_setproctitle_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdSetproctitle_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool fmt_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string fmt_str = fmt_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* fmt = fmt_null ? nullptr : fmt_str.c_str();
+    const char* fmt = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t km_vac = km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 2 ? km_napi_arg_i64(km_info[2]) : 0;
     int64_t km_va1 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
@@ -1393,7 +1371,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_setproctitle_napi(const Napi
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_freezero_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdFreezero_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1425,7 +1403,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_freezero_napi(const Napi::Ca
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_mallocConceal_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdMallocConceal_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t size = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     typedef void* (*km_fn_t)(uint64_t);
@@ -1458,7 +1436,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_mallocConceal_napi(const Nap
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_callocConceal_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdCallocConceal_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t nmemb = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1492,7 +1470,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_callocConceal_napi(const Nap
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_srand48Deterministic_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdSrand48Deterministic_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int64_t seed = km_info.Length() > 0 ? km_napi_arg_i64(km_info[0]) : 0;
     typedef void (*km_fn_t)(int64_t);
@@ -1523,7 +1501,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_srand48Deterministic_napi(co
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_seed48Deterministic_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdSeed48Deterministic_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* xseed = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -1556,7 +1534,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_seed48Deterministic_napi(con
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_lcong48Deterministic_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdLcong48Deterministic_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* p = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -1587,7 +1565,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_lcong48Deterministic_napi(co
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_lsearch_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdLsearch_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* key = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* base = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1624,7 +1602,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_lsearch_napi(const Napi::Cal
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_lfind_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdLfind_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* key = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* base = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1661,7 +1639,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_lfind_napi(const Napi::Callb
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_hcreate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdHcreate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t nelt = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     typedef int32_t (*km_fn_t)(uint64_t);
@@ -1694,7 +1672,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_hcreate_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_hdestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdHdestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1724,7 +1702,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_hdestroy_napi(const Napi::Ca
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_futex_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdFutex_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* uaddr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t op = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1761,7 +1739,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_futex_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_mimmutable_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdMimmutable_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1795,7 +1773,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_mimmutable_napi(const Napi::
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_reboot_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdReboot_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t mode = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -1828,11 +1806,9 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_reboot_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_statfs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdStatfs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1864,7 +1840,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_statfs_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_fstatfs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdFstatfs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1898,7 +1874,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_fstatfs_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_getmntinfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdGetmntinfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mntbufp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1932,7 +1908,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_getmntinfo_napi(const Napi::
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_getfsstat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdGetfsstat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t bufsize = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1967,7 +1943,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_getfsstat_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_elfAuxInfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdElfAuxInfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t aux = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2002,7 +1978,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_elfAuxInfo_napi(const Napi::
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_backtrace_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdBacktrace_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addrlist = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -2057,7 +2033,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_backtrace_napi(const Napi::C
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_backtraceSymbols_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdBacktraceSymbols_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addrlist = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -2112,7 +2088,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_backtraceSymbols_napi(const 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_backtraceSymbolsFd_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdBacktraceSymbolsFd_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addrlist = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -2168,13 +2144,11 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_backtraceSymbolsFd_napi(cons
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_openbsd_backtraceSymbolsFmt_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeOpenbsdBacktraceSymbolsFmt_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addrlist = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
-    bool fmt_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string fmt_str = fmt_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* fmt = fmt_null ? nullptr : fmt_str.c_str();
+    const char* fmt = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef void* (*km_fn_t)(void*, uint64_t, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2227,66 +2201,66 @@ static Napi::Value libc_unix_bsd_netbsdlike_openbsd_backtraceSymbolsFmt_napi(con
 }
 
 static void register_unix_bsd_netbsdlike_openbsd_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_gettimeofday", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_gettimeofday_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_settimeofday", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_settimeofday_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_pledge", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_pledge_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_unveil", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_unveil_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_strtonum", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_strtonum_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_dup3", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_dup3_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_chflags", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_chflags_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_fchflags", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_fchflags_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_chflagsat", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_chflagsat_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_dirfd", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_dirfd_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_getnameinfo", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_getnameinfo_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_getresgid", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_getresgid_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_getresuid", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_getresuid_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_kevent", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_kevent_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_mprotect", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_mprotect_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_getthrid", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_getthrid_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_pthreadAttrGetguardsize", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_pthreadAttrGetguardsize_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_pthreadAttrSetguardsize", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_pthreadAttrSetguardsize_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_pthreadAttrGetstack", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_pthreadAttrGetstack_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_pthreadMainNp", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_pthreadMainNp_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_pthreadGetNameNp", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_pthreadGetNameNp_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_pthreadSetNameNp", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_pthreadSetNameNp_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_pthreadStacksegNp", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_pthreadStacksegNp_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_openpty", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_openpty_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_forkpty", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_forkpty_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_sysctl", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_sysctl_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_setresgid", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_setresgid_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_setresuid", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_setresuid_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_ptrace", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_ptrace_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_utrace", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_utrace_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_memmem", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_memmem_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_dlIteratePhdr", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_dlIteratePhdr_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_uselocale", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_uselocale_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_freelocale", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_freelocale_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_newlocale", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_newlocale_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_duplocale", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_duplocale_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_explicitBzero", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_explicitBzero_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_setproctitle", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_setproctitle_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_freezero", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_freezero_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_mallocConceal", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_mallocConceal_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_callocConceal", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_callocConceal_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_srand48Deterministic", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_srand48Deterministic_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_seed48Deterministic", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_seed48Deterministic_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_lcong48Deterministic", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_lcong48Deterministic_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_lsearch", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_lsearch_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_lfind", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_lfind_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_hcreate", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_hcreate_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_hdestroy", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_hdestroy_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_futex", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_futex_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_mimmutable", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_mimmutable_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_reboot", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_reboot_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_statfs", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_statfs_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_fstatfs", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_fstatfs_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_getmntinfo", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_getmntinfo_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_getfsstat", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_getfsstat_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_elfAuxInfo", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_elfAuxInfo_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_backtrace", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_backtrace_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_backtraceSymbols", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_backtraceSymbols_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_backtraceSymbolsFd", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_backtraceSymbolsFd_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_openbsd_backtraceSymbolsFmt", Napi::Function::New(env, libc_unix_bsd_netbsdlike_openbsd_backtraceSymbolsFmt_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdGettimeofday", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdGettimeofday_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdSettimeofday", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdSettimeofday_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdPledge", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdPledge_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdUnveil", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdUnveil_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdStrtonum", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdStrtonum_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdDup3", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdDup3_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdChflags", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdChflags_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdFchflags", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdFchflags_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdChflagsat", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdChflagsat_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdDirfd", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdDirfd_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdGetnameinfo", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdGetnameinfo_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdGetresgid", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdGetresgid_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdGetresuid", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdGetresuid_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdKevent", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdKevent_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdMprotect", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdMprotect_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdGetthrid", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdGetthrid_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdPthreadAttrGetguardsize", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdPthreadAttrGetguardsize_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdPthreadAttrSetguardsize", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdPthreadAttrSetguardsize_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdPthreadAttrGetstack", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdPthreadAttrGetstack_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdPthreadMainNp", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdPthreadMainNp_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdPthreadGetNameNp", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdPthreadGetNameNp_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdPthreadSetNameNp", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdPthreadSetNameNp_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdPthreadStacksegNp", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdPthreadStacksegNp_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdOpenpty", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdOpenpty_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdForkpty", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdForkpty_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdSysctl", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdSysctl_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdSetresgid", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdSetresgid_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdSetresuid", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdSetresuid_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdPtrace", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdPtrace_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdUtrace", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdUtrace_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdMemmem", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdMemmem_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdDlIteratePhdr", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdDlIteratePhdr_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdUselocale", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdUselocale_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdFreelocale", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdFreelocale_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdNewlocale", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdNewlocale_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdDuplocale", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdDuplocale_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdExplicitBzero", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdExplicitBzero_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdSetproctitle", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdSetproctitle_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdFreezero", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdFreezero_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdMallocConceal", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdMallocConceal_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdCallocConceal", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdCallocConceal_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdSrand48Deterministic", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdSrand48Deterministic_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdSeed48Deterministic", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdSeed48Deterministic_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdLcong48Deterministic", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdLcong48Deterministic_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdLsearch", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdLsearch_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdLfind", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdLfind_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdHcreate", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdHcreate_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdHdestroy", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdHdestroy_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdFutex", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdFutex_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdMimmutable", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdMimmutable_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdReboot", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdReboot_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdStatfs", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdStatfs_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdFstatfs", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdFstatfs_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdGetmntinfo", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdGetmntinfo_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdGetfsstat", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdGetfsstat_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdElfAuxInfo", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdElfAuxInfo_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdBacktrace", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdBacktrace_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdBacktraceSymbols", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdBacktraceSymbols_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdBacktraceSymbolsFd", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdBacktraceSymbolsFd_napi));
+    exports.Set("libcUnixBsdNetbsdlikeOpenbsdBacktraceSymbolsFmt", Napi::Function::New(env, libcUnixBsdNetbsdlikeOpenbsdBacktraceSymbolsFmt_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_unix_bsd_netbsdlike_openbsd_napi, nullptr };

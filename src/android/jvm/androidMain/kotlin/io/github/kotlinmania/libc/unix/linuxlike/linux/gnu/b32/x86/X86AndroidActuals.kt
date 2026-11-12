@@ -4,7 +4,8 @@ package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b32.x86
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 private object UnixLinuxlikeLinuxGnuB32X86JniBridge {
     init {
@@ -12,27 +13,27 @@ private object UnixLinuxlikeLinuxGnuB32X86JniBridge {
     }
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_b32_x86_getcontext(ucp: Long): Int
+    external fun libcUnixLinuxlikeLinuxGnuB32X86Getcontext(ucp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_b32_x86_setcontext(ucp: Long): Int
+    external fun libcUnixLinuxlikeLinuxGnuB32X86Setcontext(ucp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_b32_x86_makecontext(ucp: Long, func: Long, argc: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long)
+    external fun libcUnixLinuxlikeLinuxGnuB32X86Makecontext(ucp: Long, func: Long, argc: Int, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long)
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_b32_x86_swapcontext(uocp: Long, ucp: Long): Int
+    external fun libcUnixLinuxlikeLinuxGnuB32X86Swapcontext(uocp: Long, ucp: Long): Int
 }
 
-public actual fun getcontext(ucp: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxGnuB32X86JniBridge.libc_unix_linuxlike_linux_gnu_b32_x86_getcontext((ucp?.value ?: 0L))
+public actual fun getcontext(ucp: MutPtr<UcontextT>): CInt =
+    UnixLinuxlikeLinuxGnuB32X86JniBridge.libcUnixLinuxlikeLinuxGnuB32X86Getcontext(ucp.rawAddress)
 
-public actual fun setcontext(ucp: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxGnuB32X86JniBridge.libc_unix_linuxlike_linux_gnu_b32_x86_setcontext((ucp?.value ?: 0L))
+public actual fun setcontext(ucp: ConstPtr<UcontextT>): CInt =
+    UnixLinuxlikeLinuxGnuB32X86JniBridge.libcUnixLinuxlikeLinuxGnuB32X86Setcontext(ucp.rawAddress)
 
-public actual fun makecontext(ucp: COpaquePointer?, func: SigactionSaRestorerCallback, argc: CInt, vararg variadicArgs: Long) {
-    UnixLinuxlikeLinuxGnuB32X86JniBridge.libc_unix_linuxlike_linux_gnu_b32_x86_makecontext((ucp?.value ?: 0L), 0L, argc, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun makecontext(ucp: MutPtr<UcontextT>, func: SigactionSaRestorerCallback, argc: CInt, vararg variadicArgs: Long) {
+    UnixLinuxlikeLinuxGnuB32X86JniBridge.libcUnixLinuxlikeLinuxGnuB32X86Makecontext(ucp.rawAddress, 0L, argc, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 }
 
-public actual fun swapcontext(uocp: COpaquePointer?, ucp: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxGnuB32X86JniBridge.libc_unix_linuxlike_linux_gnu_b32_x86_swapcontext((uocp?.value ?: 0L), (ucp?.value ?: 0L))
+public actual fun swapcontext(uocp: MutPtr<UcontextT>, ucp: ConstPtr<UcontextT>): CInt =
+    UnixLinuxlikeLinuxGnuB32X86JniBridge.libcUnixLinuxlikeLinuxGnuB32X86Swapcontext(uocp.rawAddress, ucp.rawAddress)

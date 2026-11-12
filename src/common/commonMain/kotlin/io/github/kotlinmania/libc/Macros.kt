@@ -47,11 +47,7 @@ private const val SAFE_F_TEMPLATE: String = "\$(\$()* public\$(extern \"C\" fun 
 
 private const val DEPRECATED_MACH_TEMPLATE: String = "public const \$id: \$ty= \$expr;"
 
-private const val DEPRECATED_MACH_TEMPLATE_1: String = "\$(deprecatedMach(public const \$id: \$ty= \$expr; ); )*"
-
-private const val DEPRECATED_MACH_TEMPLATE_2: String = "public type \$id= \$ty;"
-
-private const val DEPRECATED_MACH_TEMPLATE_3: String = "\$(deprecatedMach(public type \$id= \$ty; ); )*"
+private const val DEPRECATED_MACH_TEMPLATE_1: String = "public type \$id= \$ty;"
 
 private const val OFFSET_OF_TEMPLATE: String = "{val \$ty {\$field: unused, ..}; val data= core.mem.MaybeUninit.< \$ty>.uninit(); val ptr= data.asPtr(); val fptr= unsafe {core.ptr.addrOf((* ptr). \$field)}; val off=(fptr asTarget usize).checkedSub(ptr asTarget usize).unwrap(); core.assert(off<= core.mem.sizeOf.< \$ty>()); off}"
 
@@ -68,11 +64,11 @@ private const val OFFSET_OF_TEMPLATE: String = "{val \$ty {\$field: unused, ..};
 
 internal fun cfgIf(meta: String = "", it: String = "", it2: String = "", iMet: String = "", iIt: String = "", eMet: String = "", eIt: String = "", not: String = "", m: String = "", rest: String = "", clause: String = ""): String =
     when {
-        clause == "elseBranch" && meta.isNotEmpty() && it.isNotEmpty() && it2.isNotEmpty() -> arrayOf("\$meta" to meta, "\$it" to it, "\$it2" to it2).fold(CFG_IF_TEMPLATE) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
-        clause == "ifBranch #" && iMet.isNotEmpty() && iIt.isNotEmpty() && eMet.isNotEmpty() && eIt.isNotEmpty() -> arrayOf("\$iMet" to iMet, "\$iIt" to iIt, "\$eMet" to eMet, "\$eIt" to eIt).fold(CFG_IF_TEMPLATE_1) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
-        clause == "@ items" && not.isNotEmpty() -> ""
-        clause == "@ items" && not.isNotEmpty() && m.isNotEmpty() && it.isNotEmpty() && rest.isNotEmpty() -> arrayOf("\$not" to not, "\$m" to m, "\$it" to it, "\$rest" to rest).fold(CFG_IF_TEMPLATE_3) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
-        clause == "@ apply" && m.isNotEmpty() && it.isNotEmpty() -> CFG_IF_TEMPLATE_4.replace("\$it", it)
+        clause == "ifBranch # cfg elseBranch ifBranch # cfg" && iMet.isNotEmpty() && iIt.isNotEmpty() && eMet.isNotEmpty() && eIt.isNotEmpty() -> arrayOf("\$iMet" to iMet, "\$iIt" to iIt, "\$eMet" to eMet, "\$eIt" to eIt).fold(CFG_IF_TEMPLATE_1) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
+        clause == "@items" && not.isNotEmpty() && m.isNotEmpty() && it.isNotEmpty() && rest.isNotEmpty() -> arrayOf("\$not" to not, "\$m" to m, "\$it" to it, "\$rest" to rest).fold(CFG_IF_TEMPLATE_3) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
+        clause == "ifBranch # cfg elseBranch" && meta.isNotEmpty() && it.isNotEmpty() && it2.isNotEmpty() -> arrayOf("\$meta" to meta, "\$it" to it, "\$it2" to it2).fold(CFG_IF_TEMPLATE) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
+        clause == "@apply" && m.isNotEmpty() && it.isNotEmpty() -> CFG_IF_TEMPLATE_4.replace("\$it", it)
+        clause == "@items" && not.isNotEmpty() -> ""
         else -> ""
     }
 
@@ -95,9 +91,9 @@ internal fun prelude(): String =
 
 internal fun s(attr: String = "", pub: String = "", t: String = "", i: String = "", field: String = "", clause: String = ""): String =
     when {
-        attr.isNotEmpty() && pub.isNotEmpty() && t.isNotEmpty() && i.isNotEmpty() && field.isNotEmpty() -> arrayOf("\$pub" to pub, "\$t" to t, "\$i" to i, "\$field" to field).fold(S_TEMPLATE) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
-        clause == "it union" && attr.isNotEmpty() && pub.isNotEmpty() && i.isNotEmpty() && field.isNotEmpty() -> S_TEMPLATE_1
-        clause == "it class" && attr.isNotEmpty() && pub.isNotEmpty() && i.isNotEmpty() && field.isNotEmpty() -> arrayOf("\$pub" to pub, "\$i" to i, "\$field" to field).fold(S_TEMPLATE_2) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
+        clause == "#" && attr.isNotEmpty() && pub.isNotEmpty() && t.isNotEmpty() && i.isNotEmpty() && field.isNotEmpty() -> arrayOf("\$pub" to pub, "\$t" to t, "\$i" to i, "\$field" to field).fold(S_TEMPLATE) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
+        clause == "it # union" && attr.isNotEmpty() && pub.isNotEmpty() && i.isNotEmpty() && field.isNotEmpty() -> S_TEMPLATE_1
+        clause == "it # class" && attr.isNotEmpty() && pub.isNotEmpty() && i.isNotEmpty() && field.isNotEmpty() -> arrayOf("\$pub" to pub, "\$i" to i, "\$field" to field).fold(S_TEMPLATE_2) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
         else -> ""
     }
 
@@ -105,7 +101,7 @@ internal fun s(attr: String = "", pub: String = "", t: String = "", i: String = 
  * Implement `Clone`, `Copy`, and `Debug` for a tuple struct, as well as `PartialEq`, `Eq`,
  * and `Hash` if the `extraTraits` feature is enabled.
  *
- * Unlike `s !`, this does *not* mark the type with `repr(C)`. Users should provide their own
+ * Unlike `s`, this does *not* mark the type with `repr(C)`. Users should provide their own
  * `repr` attribute via `$ attr` as necessary.
  */
 
@@ -127,9 +123,9 @@ internal fun sParen(attr: String = "", pub: String = "", i: String = "", field: 
 
 internal fun sNoExtraTraits(attr: String = "", pub: String = "", t: String = "", i: String = "", field: String = "", clause: String = ""): String =
     when {
-        attr.isNotEmpty() && pub.isNotEmpty() && t.isNotEmpty() && i.isNotEmpty() && field.isNotEmpty() -> arrayOf("\$pub" to pub, "\$t" to t, "\$i" to i, "\$field" to field).fold(S_NO_EXTRA_TRAITS_TEMPLATE) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
-        clause == "it union" && attr.isNotEmpty() && pub.isNotEmpty() && i.isNotEmpty() && field.isNotEmpty() -> arrayOf("\$pub" to pub, "\$i" to i, "\$field" to field).fold(S_NO_EXTRA_TRAITS_TEMPLATE_1) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
-        clause == "it class" && attr.isNotEmpty() && pub.isNotEmpty() && i.isNotEmpty() && field.isNotEmpty() -> arrayOf("\$pub" to pub, "\$i" to i, "\$field" to field).fold(S_NO_EXTRA_TRAITS_TEMPLATE_2) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
+        clause == "#" && attr.isNotEmpty() && pub.isNotEmpty() && t.isNotEmpty() && i.isNotEmpty() && field.isNotEmpty() -> arrayOf("\$pub" to pub, "\$t" to t, "\$i" to i, "\$field" to field).fold(S_NO_EXTRA_TRAITS_TEMPLATE) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
+        clause == "it # union" && attr.isNotEmpty() && pub.isNotEmpty() && i.isNotEmpty() && field.isNotEmpty() -> arrayOf("\$pub" to pub, "\$i" to i, "\$field" to field).fold(S_NO_EXTRA_TRAITS_TEMPLATE_1) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
+        clause == "it # class" && attr.isNotEmpty() && pub.isNotEmpty() && i.isNotEmpty() && field.isNotEmpty() -> arrayOf("\$pub" to pub, "\$i" to i, "\$field" to field).fold(S_NO_EXTRA_TRAITS_TEMPLATE_2) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
         else -> ""
     }
 
@@ -175,13 +171,13 @@ internal fun e(attr: String = "", i: String = "", field: String = ""): String =
 
 internal fun cEnum(repr: String = "", tyName: String = "", anon: String = "", vis: String = "", variant: String = "", value: String = "", tyNameArg: String = "", idx: String = "", defaultVal: String = "", tail: String = "", clause: String = ""): String =
     when {
-        repr.isNotEmpty() && tyName.isNotEmpty() && anon.isNotEmpty() && vis.isNotEmpty() && variant.isNotEmpty() && value.isNotEmpty() -> arrayOf("\$tyName" to tyName, "\$anon" to anon, "\$vis" to vis, "\$variant" to variant, "\$value" to value).fold(C_ENUM_TEMPLATE) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
-        clause == "@ single public sealed class" && repr.isNotEmpty() && tyName.isNotEmpty() && vis.isNotEmpty() && variant.isNotEmpty() && value.isNotEmpty() -> arrayOf("\$repr" to repr, "\$tyName" to tyName, "\$vis" to vis, "\$variant" to variant, "\$value" to value).fold(C_ENUM_TEMPLATE_1) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
-        clause == "@ single public sealed class @anon" && repr.isNotEmpty() && vis.isNotEmpty() && variant.isNotEmpty() && value.isNotEmpty() -> arrayOf("\$repr" to repr, "\$vis" to vis, "\$variant" to variant, "\$value" to value).fold(C_ENUM_TEMPLATE_2) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
-        clause == "@ variant ty default variants" && tyNameArg.isNotEmpty() && idx.isNotEmpty() -> ""
-        clause == "@ variant ty default variants" && tyName.isNotEmpty() && defaultVal.isNotEmpty() && vis.isNotEmpty() && variant.isNotEmpty() && value.isNotEmpty() && tail.isNotEmpty() -> arrayOf("\$tyName" to tyName, "\$defaultVal" to defaultVal, "\$vis" to vis, "\$variant" to variant, "\$value" to value, "\$tail" to tail).fold(C_ENUM_TEMPLATE_4) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
-        clause == "@ ty" && repr.isNotEmpty() -> C_ENUM_TEMPLATE_5.replace("\$repr", repr)
-        clause == "@ ty" -> C_ENUM_TEMPLATE_6
+        clause == "# repr public sealed class # =" && repr.isNotEmpty() && tyName.isNotEmpty() && anon.isNotEmpty() && vis.isNotEmpty() && variant.isNotEmpty() && value.isNotEmpty() -> arrayOf("\$tyName" to tyName, "\$anon" to anon, "\$vis" to vis, "\$variant" to variant, "\$value" to value).fold(C_ENUM_TEMPLATE) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
+        clause == "@variant ty default variants =" && tyName.isNotEmpty() && defaultVal.isNotEmpty() && vis.isNotEmpty() && variant.isNotEmpty() && value.isNotEmpty() && tail.isNotEmpty() -> arrayOf("\$tyName" to tyName, "\$defaultVal" to defaultVal, "\$vis" to vis, "\$variant" to variant, "\$value" to value, "\$tail" to tail).fold(C_ENUM_TEMPLATE_4) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
+        clause == "@single # repr public sealed class =" && repr.isNotEmpty() && tyName.isNotEmpty() && vis.isNotEmpty() && variant.isNotEmpty() && value.isNotEmpty() -> arrayOf("\$repr" to repr, "\$tyName" to tyName, "\$vis" to vis, "\$variant" to variant, "\$value" to value).fold(C_ENUM_TEMPLATE_1) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
+        clause == "@single # repr public sealed class @anon =" && repr.isNotEmpty() && vis.isNotEmpty() && variant.isNotEmpty() && value.isNotEmpty() -> arrayOf("\$repr" to repr, "\$vis" to vis, "\$variant" to variant, "\$value" to value).fold(C_ENUM_TEMPLATE_2) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
+        clause == "@variant ty default variants" && tyNameArg.isNotEmpty() && idx.isNotEmpty() -> ""
+        clause == "@ty" && repr.isNotEmpty() -> C_ENUM_TEMPLATE_5.replace("\$repr", repr)
+        clause == "@ty" -> C_ENUM_TEMPLATE_6
         else -> ""
     }
 
@@ -210,9 +206,7 @@ internal fun safeF(attr: String = "", i: String = "", constI: String = "", arg: 
 internal fun deprecatedMach(id: String = "", ty: String = "", expr: String = "", clause: String = ""): String =
     when {
         clause == "public const =" && id.isNotEmpty() && ty.isNotEmpty() && expr.isNotEmpty() -> arrayOf("\$id" to id, "\$ty" to ty, "\$expr" to expr).fold(DEPRECATED_MACH_TEMPLATE) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
-        id.isNotEmpty() && ty.isNotEmpty() && expr.isNotEmpty() -> arrayOf("\$id" to id, "\$ty" to ty, "\$expr" to expr).fold(DEPRECATED_MACH_TEMPLATE_1) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
-        clause == "public type =" && id.isNotEmpty() && ty.isNotEmpty() -> arrayOf("\$id" to id, "\$ty" to ty).fold(DEPRECATED_MACH_TEMPLATE_2) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
-        id.isNotEmpty() && ty.isNotEmpty() -> arrayOf("\$id" to id, "\$ty" to ty).fold(DEPRECATED_MACH_TEMPLATE_3) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
+        clause == "public type =" && id.isNotEmpty() && ty.isNotEmpty() -> arrayOf("\$id" to id, "\$ty" to ty).fold(DEPRECATED_MACH_TEMPLATE_1) { acc0, (k0, v0) -> acc0.replace(k0, v0) }
         else -> ""
     }
 

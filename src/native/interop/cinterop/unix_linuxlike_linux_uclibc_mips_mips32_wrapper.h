@@ -9,11 +9,11 @@
 extern "C" {
 #endif
 
-int32_t libc_unix_linuxlike_linux_uclibc_mips_mips32_sysctl(void* name, int32_t namelen, void* oldp, void* oldlenp, void* newp, uint64_t newlen);
-int32_t libc_unix_linuxlike_linux_uclibc_mips_mips32_glob64(const char* pattern, int32_t flags, void* errfunc, void* pglob);
-void libc_unix_linuxlike_linux_uclibc_mips_mips32_globfree64(void* pglob);
-int32_t libc_unix_linuxlike_linux_uclibc_mips_mips32_pthreadAttrGetaffinityNp(void* attr, uint64_t cpusetsize, void* cpuset);
-int32_t libc_unix_linuxlike_linux_uclibc_mips_mips32_pthreadAttrSetaffinityNp(void* attr, uint64_t cpusetsize, void* cpuset);
+int32_t libcUnixLinuxlikeLinuxUclibcMipsMips32Sysctl(void* name, int32_t namelen, void* oldp, void* oldlenp, void* newp, uint64_t newlen);
+int32_t libcUnixLinuxlikeLinuxUclibcMipsMips32Glob64(const char* pattern, int32_t flags, void* errfunc, void* pglob);
+void libcUnixLinuxlikeLinuxUclibcMipsMips32Globfree64(void* pglob);
+int32_t libcUnixLinuxlikeLinuxUclibcMipsMips32PthreadAttrGetaffinityNp(void* attr, uint64_t cpusetsize, void* cpuset);
+int32_t libcUnixLinuxlikeLinuxUclibcMipsMips32PthreadAttrSetaffinityNp(void* attr, uint64_t cpusetsize, void* cpuset);
 
 #ifdef __cplusplus
 }

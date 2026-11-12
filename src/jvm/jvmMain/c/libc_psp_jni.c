@@ -19,7 +19,7 @@
 #endif
 #endif
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceAudioChRelease(JNIEnv* km_env, jclass km_clazz, jint channel) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceAudioChRelease(JNIEnv* km_env, jclass km_clazz, jint channel) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -52,7 +52,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceAudioOutput(JNIEnv* km_env, jclass km_clazz, jint channel, jint vol, jlong buf) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceAudioOutput(JNIEnv* km_env, jclass km_clazz, jint channel, jint vol, jlong buf) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
@@ -85,7 +85,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceAudioOutputBlocking(JNIEnv* km_env, jclass km_clazz, jint channel, jint vol, jlong buf) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceAudioOutputBlocking(JNIEnv* km_env, jclass km_clazz, jint channel, jint vol, jlong buf) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
@@ -118,7 +118,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceAudioOutputPanned(JNIEnv* km_env, jclass km_clazz, jint channel, jint left_vol, jint right_vol, jlong buf) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceAudioOutputPanned(JNIEnv* km_env, jclass km_clazz, jint channel, jint leftVol, jint rightVol, jlong buf) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, void*);
@@ -143,7 +143,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)channel, (int32_t)left_vol, (int32_t)right_vol, (void*)(uintptr_t)buf);
+        km_res = km_fn_ptr((int32_t)channel, (int32_t)leftVol, (int32_t)rightVol, (void*)(uintptr_t)buf);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -151,7 +151,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceAudioOutputPannedBlocking(JNIEnv* km_env, jclass km_clazz, jint channel, jint left_vol, jint right_vol, jlong buf) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceAudioOutputPannedBlocking(JNIEnv* km_env, jclass km_clazz, jint channel, jint leftVol, jint rightVol, jlong buf) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, void*);
@@ -176,7 +176,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)channel, (int32_t)left_vol, (int32_t)right_vol, (void*)(uintptr_t)buf);
+        km_res = km_fn_ptr((int32_t)channel, (int32_t)leftVol, (int32_t)rightVol, (void*)(uintptr_t)buf);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -184,7 +184,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceAudioGetChannelRestLen(JNIEnv* km_env, jclass km_clazz, jint channel) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceAudioGetChannelRestLen(JNIEnv* km_env, jclass km_clazz, jint channel) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -217,7 +217,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceAudioGetChannelRestLength(JNIEnv* km_env, jclass km_clazz, jint channel) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceAudioGetChannelRestLength(JNIEnv* km_env, jclass km_clazz, jint channel) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -250,7 +250,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceAudioSetChannelDataLen(JNIEnv* km_env, jclass km_clazz, jint channel, jint sample_count) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceAudioSetChannelDataLen(JNIEnv* km_env, jclass km_clazz, jint channel, jint sampleCount) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
@@ -275,7 +275,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)channel, (int32_t)sample_count);
+        km_res = km_fn_ptr((int32_t)channel, (int32_t)sampleCount);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -283,7 +283,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceAudioChangeChannelVolume(JNIEnv* km_env, jclass km_clazz, jint channel, jint left_vol, jint right_vol) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceAudioChangeChannelVolume(JNIEnv* km_env, jclass km_clazz, jint channel, jint leftVol, jint rightVol) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t);
@@ -308,7 +308,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)channel, (int32_t)left_vol, (int32_t)right_vol);
+        km_res = km_fn_ptr((int32_t)channel, (int32_t)leftVol, (int32_t)rightVol);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -316,7 +316,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceAudioOutput2Reserve(JNIEnv* km_env, jclass km_clazz, jint sample_count) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceAudioOutput2Reserve(JNIEnv* km_env, jclass km_clazz, jint sampleCount) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -341,7 +341,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)sample_count);
+        km_res = km_fn_ptr((int32_t)sampleCount);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -349,7 +349,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceAudioOutput2Release(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceAudioOutput2Release(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -382,7 +382,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceAudioOutput2ChangeLength(JNIEnv* km_env, jclass km_clazz, jint sample_count) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceAudioOutput2ChangeLength(JNIEnv* km_env, jclass km_clazz, jint sampleCount) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -407,7 +407,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)sample_count);
+        km_res = km_fn_ptr((int32_t)sampleCount);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -415,7 +415,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceAudioOutput2OutputBlocking(JNIEnv* km_env, jclass km_clazz, jint vol, jlong buf) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceAudioOutput2OutputBlocking(JNIEnv* km_env, jclass km_clazz, jint vol, jlong buf) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -448,7 +448,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceAudioOutput2GetRestSample(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceAudioOutput2GetRestSample(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -481,7 +481,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceAudioSRCChRelease(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceAudioSRCChRelease(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -514,7 +514,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceAudioSRCOutputBlocking(JNIEnv* km_env, jclass km_clazz, jint vol, jlong buf) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceAudioSRCOutputBlocking(JNIEnv* km_env, jclass km_clazz, jint vol, jlong buf) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -547,7 +547,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceAudioInputInit(JNIEnv* km_env, jclass km_clazz, jint unknown1, jint gain, jint unknown2) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceAudioInputInit(JNIEnv* km_env, jclass km_clazz, jint unknown1, jint gain, jint unknown2) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t);
@@ -580,7 +580,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceAudioInputInitEx(JNIEnv* km_env, jclass km_clazz, jlong params) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceAudioInputInitEx(JNIEnv* km_env, jclass km_clazz, jlong params) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -613,7 +613,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceAudioGetInputLength(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceAudioGetInputLength(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -646,7 +646,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceAudioWaitInputEnd(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceAudioWaitInputEnd(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -679,7 +679,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceAudioPollInputEnd(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceAudioPollInputEnd(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -712,7 +712,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceAtracGetAtracID(JNIEnv* km_env, jclass km_clazz, jint ui_codec_type) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceAtracGetAtracID(JNIEnv* km_env, jclass km_clazz, jint uiCodecType) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -737,7 +737,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((uint32_t)ui_codec_type);
+        km_res = km_fn_ptr((uint32_t)uiCodecType);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -745,7 +745,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceAtracSetDataAndGetID(JNIEnv* km_env, jclass km_clazz, jlong buf, jlong bufsize) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceAtracSetDataAndGetID(JNIEnv* km_env, jclass km_clazz, jlong buf, jlong bufsize) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint64_t);
@@ -778,7 +778,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceAtracDecodeData(JNIEnv* km_env, jclass km_clazz, jint atrac_id, jlong out_samples, jlong out_n, jlong out_end, jlong out_remain_frame) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceAtracDecodeData(JNIEnv* km_env, jclass km_clazz, jint atracId, jlong outSamples, jlong outN, jlong outEnd, jlong outRemainFrame) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, void*, void*);
@@ -803,7 +803,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)atrac_id, (void*)(uintptr_t)out_samples, (void*)(uintptr_t)out_n, (void*)(uintptr_t)out_end, (void*)(uintptr_t)out_remain_frame);
+        km_res = km_fn_ptr((int32_t)atracId, (void*)(uintptr_t)outSamples, (void*)(uintptr_t)outN, (void*)(uintptr_t)outEnd, (void*)(uintptr_t)outRemainFrame);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -811,7 +811,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceAtracGetRemainFrame(JNIEnv* km_env, jclass km_clazz, jint atrac_id, jlong out_remain_frame) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceAtracGetRemainFrame(JNIEnv* km_env, jclass km_clazz, jint atracId, jlong outRemainFrame) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -836,7 +836,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)atrac_id, (void*)(uintptr_t)out_remain_frame);
+        km_res = km_fn_ptr((int32_t)atracId, (void*)(uintptr_t)outRemainFrame);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -844,7 +844,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceAtracGetStreamDataInfo(JNIEnv* km_env, jclass km_clazz, jint atrac_id, jlong write_pointer, jlong available_bytes, jlong read_offset) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceAtracGetStreamDataInfo(JNIEnv* km_env, jclass km_clazz, jint atracId, jlong writePointer, jlong availableBytes, jlong readOffset) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, void*);
@@ -869,7 +869,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)atrac_id, (void*)(uintptr_t)write_pointer, (void*)(uintptr_t)available_bytes, (void*)(uintptr_t)read_offset);
+        km_res = km_fn_ptr((int32_t)atracId, (void*)(uintptr_t)writePointer, (void*)(uintptr_t)availableBytes, (void*)(uintptr_t)readOffset);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -877,7 +877,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceAtracAddStreamData(JNIEnv* km_env, jclass km_clazz, jint atrac_id, jint bytes_to_add) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceAtracAddStreamData(JNIEnv* km_env, jclass km_clazz, jint atracId, jint bytesToAdd) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, uint32_t);
@@ -902,7 +902,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)atrac_id, (uint32_t)bytes_to_add);
+        km_res = km_fn_ptr((int32_t)atracId, (uint32_t)bytesToAdd);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -910,7 +910,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceAtracGetBitrate(JNIEnv* km_env, jclass km_clazz, jint atrac_id, jlong out_bitrate) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceAtracGetBitrate(JNIEnv* km_env, jclass km_clazz, jint atracId, jlong outBitrate) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -935,7 +935,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)atrac_id, (void*)(uintptr_t)out_bitrate);
+        km_res = km_fn_ptr((int32_t)atracId, (void*)(uintptr_t)outBitrate);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -943,7 +943,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceAtracSetLoopNum(JNIEnv* km_env, jclass km_clazz, jint atrac_id, jint nloops) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceAtracSetLoopNum(JNIEnv* km_env, jclass km_clazz, jint atracId, jint nloops) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
@@ -968,7 +968,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)atrac_id, (int32_t)nloops);
+        km_res = km_fn_ptr((int32_t)atracId, (int32_t)nloops);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -976,7 +976,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceAtracReleaseAtracID(JNIEnv* km_env, jclass km_clazz, jint atrac_id) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceAtracReleaseAtracID(JNIEnv* km_env, jclass km_clazz, jint atracId) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -1001,7 +1001,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)atrac_id);
+        km_res = km_fn_ptr((int32_t)atracId);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1009,7 +1009,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceAtracGetNextSample(JNIEnv* km_env, jclass km_clazz, jint atrac_id, jlong out_n) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceAtracGetNextSample(JNIEnv* km_env, jclass km_clazz, jint atracId, jlong outN) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -1034,7 +1034,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)atrac_id, (void*)(uintptr_t)out_n);
+        km_res = km_fn_ptr((int32_t)atracId, (void*)(uintptr_t)outN);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1042,7 +1042,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceAtracGetMaxSample(JNIEnv* km_env, jclass km_clazz, jint atrac_id, jlong out_max) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceAtracGetMaxSample(JNIEnv* km_env, jclass km_clazz, jint atracId, jlong outMax) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -1067,7 +1067,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)atrac_id, (void*)(uintptr_t)out_max);
+        km_res = km_fn_ptr((int32_t)atracId, (void*)(uintptr_t)outMax);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1075,7 +1075,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceAtracGetBufferInfoForReseting(JNIEnv* km_env, jclass km_clazz, jint atrac_id, jint ui_sample, jlong pbuffer_info) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceAtracGetBufferInfoForReseting(JNIEnv* km_env, jclass km_clazz, jint atracId, jint uiSample, jlong pbufferInfo) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, uint32_t, void*);
@@ -1100,7 +1100,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)atrac_id, (uint32_t)ui_sample, (void*)(uintptr_t)pbuffer_info);
+        km_res = km_fn_ptr((int32_t)atracId, (uint32_t)uiSample, (void*)(uintptr_t)pbufferInfo);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1108,7 +1108,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceAtracGetChannel(JNIEnv* km_env, jclass km_clazz, jint atrac_id, jlong pui_channel) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceAtracGetChannel(JNIEnv* km_env, jclass km_clazz, jint atracId, jlong puiChannel) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -1133,7 +1133,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)atrac_id, (void*)(uintptr_t)pui_channel);
+        km_res = km_fn_ptr((int32_t)atracId, (void*)(uintptr_t)puiChannel);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1141,7 +1141,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceAtracGetInternalErrorInfo(JNIEnv* km_env, jclass km_clazz, jint atrac_id, jlong pi_result) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceAtracGetInternalErrorInfo(JNIEnv* km_env, jclass km_clazz, jint atracId, jlong piResult) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -1166,7 +1166,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)atrac_id, (void*)(uintptr_t)pi_result);
+        km_res = km_fn_ptr((int32_t)atracId, (void*)(uintptr_t)piResult);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1174,7 +1174,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceAtracGetLoopStatus(JNIEnv* km_env, jclass km_clazz, jint atrac_id, jlong pi_loop_num, jlong pui_loop_status) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceAtracGetLoopStatus(JNIEnv* km_env, jclass km_clazz, jint atracId, jlong piLoopNum, jlong puiLoopStatus) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
@@ -1199,7 +1199,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)atrac_id, (void*)(uintptr_t)pi_loop_num, (void*)(uintptr_t)pui_loop_status);
+        km_res = km_fn_ptr((int32_t)atracId, (void*)(uintptr_t)piLoopNum, (void*)(uintptr_t)puiLoopStatus);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1207,7 +1207,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceAtracGetNextDecodePosition(JNIEnv* km_env, jclass km_clazz, jint atrac_id, jlong pui_sample_position) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceAtracGetNextDecodePosition(JNIEnv* km_env, jclass km_clazz, jint atracId, jlong puiSamplePosition) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -1232,7 +1232,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)atrac_id, (void*)(uintptr_t)pui_sample_position);
+        km_res = km_fn_ptr((int32_t)atracId, (void*)(uintptr_t)puiSamplePosition);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1240,7 +1240,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceAtracGetSecondBufferInfo(JNIEnv* km_env, jclass km_clazz, jint atrac_id, jlong pui_position, jlong pui_data_byte) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceAtracGetSecondBufferInfo(JNIEnv* km_env, jclass km_clazz, jint atracId, jlong puiPosition, jlong puiDataByte) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
@@ -1265,7 +1265,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)atrac_id, (void*)(uintptr_t)pui_position, (void*)(uintptr_t)pui_data_byte);
+        km_res = km_fn_ptr((int32_t)atracId, (void*)(uintptr_t)puiPosition, (void*)(uintptr_t)puiDataByte);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1273,7 +1273,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceAtracGetSoundSample(JNIEnv* km_env, jclass km_clazz, jint atrac_id, jlong pi_end_sample, jlong pi_loop_start_sample, jlong pi_loop_end_sample) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceAtracGetSoundSample(JNIEnv* km_env, jclass km_clazz, jint atracId, jlong piEndSample, jlong piLoopStartSample, jlong piLoopEndSample) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, void*);
@@ -1298,7 +1298,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)atrac_id, (void*)(uintptr_t)pi_end_sample, (void*)(uintptr_t)pi_loop_start_sample, (void*)(uintptr_t)pi_loop_end_sample);
+        km_res = km_fn_ptr((int32_t)atracId, (void*)(uintptr_t)piEndSample, (void*)(uintptr_t)piLoopStartSample, (void*)(uintptr_t)piLoopEndSample);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1306,7 +1306,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceAtracResetPlayPosition(JNIEnv* km_env, jclass km_clazz, jint atrac_id, jint ui_sample, jint ui_write_byte_first_buf, jint ui_write_byte_second_buf) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceAtracResetPlayPosition(JNIEnv* km_env, jclass km_clazz, jint atracId, jint uiSample, jint uiWriteByteFirstBuf, jint uiWriteByteSecondBuf) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, uint32_t, uint32_t, uint32_t);
@@ -1331,7 +1331,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)atrac_id, (uint32_t)ui_sample, (uint32_t)ui_write_byte_first_buf, (uint32_t)ui_write_byte_second_buf);
+        km_res = km_fn_ptr((int32_t)atracId, (uint32_t)uiSample, (uint32_t)uiWriteByteFirstBuf, (uint32_t)uiWriteByteSecondBuf);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1339,7 +1339,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceAtracSetData(JNIEnv* km_env, jclass km_clazz, jint atrac_id, jlong puc_buffer_addr, jint ui_buffer_byte) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceAtracSetData(JNIEnv* km_env, jclass km_clazz, jint atracId, jlong pucBufferAddr, jint uiBufferByte) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t);
@@ -1364,7 +1364,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)atrac_id, (void*)(uintptr_t)puc_buffer_addr, (uint32_t)ui_buffer_byte);
+        km_res = km_fn_ptr((int32_t)atracId, (void*)(uintptr_t)pucBufferAddr, (uint32_t)uiBufferByte);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1372,7 +1372,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceAtracSetHalfwayBuffer(JNIEnv* km_env, jclass km_clazz, jint atrac_id, jlong puc_buffer_addr, jint ui_read_byte, jint ui_buffer_byte) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceAtracSetHalfwayBuffer(JNIEnv* km_env, jclass km_clazz, jint atracId, jlong pucBufferAddr, jint uiReadByte, jint uiBufferByte) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t, uint32_t);
@@ -1397,7 +1397,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)atrac_id, (void*)(uintptr_t)puc_buffer_addr, (uint32_t)ui_read_byte, (uint32_t)ui_buffer_byte);
+        km_res = km_fn_ptr((int32_t)atracId, (void*)(uintptr_t)pucBufferAddr, (uint32_t)uiReadByte, (uint32_t)uiBufferByte);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1405,7 +1405,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceAtracSetHalfwayBufferAndGetID(JNIEnv* km_env, jclass km_clazz, jlong puc_buffer_addr, jint ui_read_byte, jint ui_buffer_byte) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceAtracSetHalfwayBufferAndGetID(JNIEnv* km_env, jclass km_clazz, jlong pucBufferAddr, jint uiReadByte, jint uiBufferByte) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint32_t, uint32_t);
@@ -1430,7 +1430,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)puc_buffer_addr, (uint32_t)ui_read_byte, (uint32_t)ui_buffer_byte);
+        km_res = km_fn_ptr((void*)(uintptr_t)pucBufferAddr, (uint32_t)uiReadByte, (uint32_t)uiBufferByte);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1438,7 +1438,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceAtracSetSecondBuffer(JNIEnv* km_env, jclass km_clazz, jint atrac_id, jlong puc_second_buffer_addr, jint ui_second_buffer_byte) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceAtracSetSecondBuffer(JNIEnv* km_env, jclass km_clazz, jint atracId, jlong pucSecondBufferAddr, jint uiSecondBufferByte) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t);
@@ -1463,7 +1463,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)atrac_id, (void*)(uintptr_t)puc_second_buffer_addr, (uint32_t)ui_second_buffer_byte);
+        km_res = km_fn_ptr((int32_t)atracId, (void*)(uintptr_t)pucSecondBufferAddr, (uint32_t)uiSecondBufferByte);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1471,7 +1471,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceCtrlSetSamplingCycle(JNIEnv* km_env, jclass km_clazz, jint cycle) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceCtrlSetSamplingCycle(JNIEnv* km_env, jclass km_clazz, jint cycle) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -1504,7 +1504,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceCtrlGetSamplingCycle(JNIEnv* km_env, jclass km_clazz, jlong pcycle) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceCtrlGetSamplingCycle(JNIEnv* km_env, jclass km_clazz, jlong pcycle) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -1537,7 +1537,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceCtrlGetSamplingMode(JNIEnv* km_env, jclass km_clazz, jlong pmode) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceCtrlGetSamplingMode(JNIEnv* km_env, jclass km_clazz, jlong pmode) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -1570,7 +1570,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceCtrlPeekBufferPositive(JNIEnv* km_env, jclass km_clazz, jlong pad_data, jint count) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceCtrlPeekBufferPositive(JNIEnv* km_env, jclass km_clazz, jlong padData, jint count) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t);
@@ -1595,7 +1595,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)pad_data, (int32_t)count);
+        km_res = km_fn_ptr((void*)(uintptr_t)padData, (int32_t)count);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1603,7 +1603,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceCtrlPeekBufferNegative(JNIEnv* km_env, jclass km_clazz, jlong pad_data, jint count) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceCtrlPeekBufferNegative(JNIEnv* km_env, jclass km_clazz, jlong padData, jint count) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t);
@@ -1628,7 +1628,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)pad_data, (int32_t)count);
+        km_res = km_fn_ptr((void*)(uintptr_t)padData, (int32_t)count);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1636,7 +1636,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceCtrlReadBufferPositive(JNIEnv* km_env, jclass km_clazz, jlong pad_data, jint count) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceCtrlReadBufferPositive(JNIEnv* km_env, jclass km_clazz, jlong padData, jint count) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t);
@@ -1661,7 +1661,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)pad_data, (int32_t)count);
+        km_res = km_fn_ptr((void*)(uintptr_t)padData, (int32_t)count);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1669,7 +1669,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceCtrlReadBufferNegative(JNIEnv* km_env, jclass km_clazz, jlong pad_data, jint count) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceCtrlReadBufferNegative(JNIEnv* km_env, jclass km_clazz, jlong padData, jint count) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t);
@@ -1694,7 +1694,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)pad_data, (int32_t)count);
+        km_res = km_fn_ptr((void*)(uintptr_t)padData, (int32_t)count);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1702,7 +1702,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceCtrlPeekLatch(JNIEnv* km_env, jclass km_clazz, jlong latch_data) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceCtrlPeekLatch(JNIEnv* km_env, jclass km_clazz, jlong latchData) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -1727,7 +1727,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)latch_data);
+        km_res = km_fn_ptr((void*)(uintptr_t)latchData);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1735,7 +1735,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceCtrlReadLatch(JNIEnv* km_env, jclass km_clazz, jlong latch_data) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceCtrlReadLatch(JNIEnv* km_env, jclass km_clazz, jlong latchData) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -1760,7 +1760,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)latch_data);
+        km_res = km_fn_ptr((void*)(uintptr_t)latchData);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1768,7 +1768,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceCtrlSetIdleCancelThreshold(JNIEnv* km_env, jclass km_clazz, jint idlereset, jint idleback) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceCtrlSetIdleCancelThreshold(JNIEnv* km_env, jclass km_clazz, jint idlereset, jint idleback) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
@@ -1801,7 +1801,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceCtrlGetIdleCancelThreshold(JNIEnv* km_env, jclass km_clazz, jlong idlereset, jlong idleback) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceCtrlGetIdleCancelThreshold(JNIEnv* km_env, jclass km_clazz, jlong idlereset, jlong idleback) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -1834,7 +1834,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceDisplayGetMode(JNIEnv* km_env, jclass km_clazz, jlong pmode, jlong pwidth, jlong pheight) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceDisplayGetMode(JNIEnv* km_env, jclass km_clazz, jlong pmode, jlong pwidth, jlong pheight) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, void*);
@@ -1867,7 +1867,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceDisplayGetVcount(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceDisplayGetVcount(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef uint32_t (*km_fn_t)(void);
@@ -1900,7 +1900,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceDisplayWaitVblank(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceDisplayWaitVblank(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -1933,7 +1933,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceDisplayWaitVblankCB(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceDisplayWaitVblankCB(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -1966,7 +1966,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceDisplayWaitVblankStart(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceDisplayWaitVblankStart(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -1999,7 +1999,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceDisplayWaitVblankStartCB(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceDisplayWaitVblankStartCB(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -2032,7 +2032,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceDisplayGetAccumulatedHcount(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceDisplayGetAccumulatedHcount(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -2065,7 +2065,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceDisplayGetCurrentHcount(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceDisplayGetCurrentHcount(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -2098,7 +2098,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jfloat JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceDisplayGetFramePerSec(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jfloat JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceDisplayGetFramePerSec(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef float (*km_fn_t)(void);
@@ -2131,7 +2131,7 @@ JNIEXPORT jfloat JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1
     return (jfloat)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceDisplayIsForeground(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceDisplayIsForeground(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -2164,7 +2164,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceDisplayIsVblank(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceDisplayIsVblank(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -2197,7 +2197,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGeEdramGetSize(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGeEdramGetSize(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef uint32_t (*km_fn_t)(void);
@@ -2230,7 +2230,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGeEdramGetAddr(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGeEdramGetAddr(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void);
@@ -2263,7 +2263,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1p
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGeEdramSetAddrTranslation(JNIEnv* km_env, jclass km_clazz, jint width) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGeEdramSetAddrTranslation(JNIEnv* km_env, jclass km_clazz, jint width) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -2296,7 +2296,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGeGetCmd(JNIEnv* km_env, jclass km_clazz, jint cmd) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGeGetCmd(JNIEnv* km_env, jclass km_clazz, jint cmd) {
     (void)km_env;
     (void)km_clazz;
     typedef uint32_t (*km_fn_t)(int32_t);
@@ -2329,7 +2329,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGeGetStack(JNIEnv* km_env, jclass km_clazz, jint stack_id, jlong stack) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGeGetStack(JNIEnv* km_env, jclass km_clazz, jint stackId, jlong stack) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -2354,7 +2354,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)stack_id, (void*)(uintptr_t)stack);
+        km_res = km_fn_ptr((int32_t)stackId, (void*)(uintptr_t)stack);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2362,7 +2362,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGeSaveContext(JNIEnv* km_env, jclass km_clazz, jlong context) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGeSaveContext(JNIEnv* km_env, jclass km_clazz, jlong context) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -2395,7 +2395,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGeRestoreContext(JNIEnv* km_env, jclass km_clazz, jlong context) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGeRestoreContext(JNIEnv* km_env, jclass km_clazz, jlong context) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -2428,7 +2428,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGeListEnQueue(JNIEnv* km_env, jclass km_clazz, jlong list, jlong stall, jint cbid, jlong arg) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGeListEnQueue(JNIEnv* km_env, jclass km_clazz, jlong list, jlong stall, jint cbid, jlong arg) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, int32_t, void*);
@@ -2461,7 +2461,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGeListEnQueueHead(JNIEnv* km_env, jclass km_clazz, jlong list, jlong stall, jint cbid, jlong arg) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGeListEnQueueHead(JNIEnv* km_env, jclass km_clazz, jlong list, jlong stall, jint cbid, jlong arg) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, int32_t, void*);
@@ -2494,7 +2494,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGeListDeQueue(JNIEnv* km_env, jclass km_clazz, jint qid) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGeListDeQueue(JNIEnv* km_env, jclass km_clazz, jint qid) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -2527,7 +2527,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGeListUpdateStallAddr(JNIEnv* km_env, jclass km_clazz, jint qid, jlong stall) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGeListUpdateStallAddr(JNIEnv* km_env, jclass km_clazz, jint qid, jlong stall) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -2560,7 +2560,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGeBreak(JNIEnv* km_env, jclass km_clazz, jint mode, jlong p_param) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGeBreak(JNIEnv* km_env, jclass km_clazz, jint mode, jlong pParam) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -2585,7 +2585,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)mode, (void*)(uintptr_t)p_param);
+        km_res = km_fn_ptr((int32_t)mode, (void*)(uintptr_t)pParam);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2593,7 +2593,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGeContinue(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGeContinue(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -2626,7 +2626,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGeSetCallback(JNIEnv* km_env, jclass km_clazz, jlong cb) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGeSetCallback(JNIEnv* km_env, jclass km_clazz, jlong cb) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -2659,7 +2659,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGeUnsetCallback(JNIEnv* km_env, jclass km_clazz, jint cbid) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGeUnsetCallback(JNIEnv* km_env, jclass km_clazz, jint cbid) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -2692,7 +2692,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelExitGame(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelExitGame(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void);
@@ -2722,7 +2722,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelLoadExec(JNIEnv* km_env, jclass km_clazz, jlong file, jlong param) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelLoadExec(JNIEnv* km_env, jclass km_clazz, jlong file, jlong param) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -2755,7 +2755,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelTotalFreeMemSize(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelTotalFreeMemSize(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef uint64_t (*km_fn_t)(void);
@@ -2788,7 +2788,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1p
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelMaxFreeMemSize(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelMaxFreeMemSize(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef uint64_t (*km_fn_t)(void);
@@ -2821,7 +2821,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1p
     return (jlong)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelDevkitVersion(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelDevkitVersion(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef uint32_t (*km_fn_t)(void);
@@ -2854,7 +2854,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelSetCompiledSdkVersion(JNIEnv* km_env, jclass km_clazz, jint version) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelSetCompiledSdkVersion(JNIEnv* km_env, jclass km_clazz, jint version) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -2887,7 +2887,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelGetCompiledSdkVersion(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelGetCompiledSdkVersion(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef uint32_t (*km_fn_t)(void);
@@ -2920,7 +2920,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelLibcTime(JNIEnv* km_env, jclass km_clazz, jlong t) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelLibcTime(JNIEnv* km_env, jclass km_clazz, jlong t) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -2953,7 +2953,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelLibcClock(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelLibcClock(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef uint32_t (*km_fn_t)(void);
@@ -2986,7 +2986,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelLibcGettimeofday(JNIEnv* km_env, jclass km_clazz, jlong tp, jlong tzp) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelLibcGettimeofday(JNIEnv* km_env, jclass km_clazz, jlong tp, jlong tzp) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -3019,7 +3019,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelDcacheWritebackAll(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelDcacheWritebackAll(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void);
@@ -3049,7 +3049,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelDcacheWritebackInvalidateAll(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelDcacheWritebackInvalidateAll(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void);
@@ -3079,7 +3079,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelDcacheWritebackRange(JNIEnv* km_env, jclass km_clazz, jlong p, jint size) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelDcacheWritebackRange(JNIEnv* km_env, jclass km_clazz, jlong p, jint size) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void*, uint32_t);
@@ -3109,7 +3109,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelDcacheWritebackInvalidateRange(JNIEnv* km_env, jclass km_clazz, jlong p, jint size) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelDcacheWritebackInvalidateRange(JNIEnv* km_env, jclass km_clazz, jlong p, jint size) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void*, uint32_t);
@@ -3139,7 +3139,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelDcacheInvalidateRange(JNIEnv* km_env, jclass km_clazz, jlong p, jint size) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelDcacheInvalidateRange(JNIEnv* km_env, jclass km_clazz, jlong p, jint size) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void*, uint32_t);
@@ -3169,7 +3169,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelIcacheInvalidateAll(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelIcacheInvalidateAll(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void);
@@ -3199,7 +3199,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelIcacheInvalidateRange(JNIEnv* km_env, jclass km_clazz, jlong p, jint size) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelIcacheInvalidateRange(JNIEnv* km_env, jclass km_clazz, jlong p, jint size) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void*, uint32_t);
@@ -3229,7 +3229,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelUtilsMt19937Init(JNIEnv* km_env, jclass km_clazz, jlong ctx, jint seed) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelUtilsMt19937Init(JNIEnv* km_env, jclass km_clazz, jlong ctx, jint seed) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint32_t);
@@ -3262,7 +3262,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelUtilsMt19937UInt(JNIEnv* km_env, jclass km_clazz, jlong ctx) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelUtilsMt19937UInt(JNIEnv* km_env, jclass km_clazz, jlong ctx) {
     (void)km_env;
     (void)km_clazz;
     typedef uint32_t (*km_fn_t)(void*);
@@ -3295,7 +3295,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelUtilsMd5Digest(JNIEnv* km_env, jclass km_clazz, jlong data, jint size, jlong digest) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelUtilsMd5Digest(JNIEnv* km_env, jclass km_clazz, jlong data, jint size, jlong digest) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint32_t, void*);
@@ -3328,7 +3328,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelUtilsMd5BlockInit(JNIEnv* km_env, jclass km_clazz, jlong ctx) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelUtilsMd5BlockInit(JNIEnv* km_env, jclass km_clazz, jlong ctx) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -3361,7 +3361,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelUtilsMd5BlockUpdate(JNIEnv* km_env, jclass km_clazz, jlong ctx, jlong data, jint size) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelUtilsMd5BlockUpdate(JNIEnv* km_env, jclass km_clazz, jlong ctx, jlong data, jint size) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, uint32_t);
@@ -3394,7 +3394,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelUtilsMd5BlockResult(JNIEnv* km_env, jclass km_clazz, jlong ctx, jlong digest) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelUtilsMd5BlockResult(JNIEnv* km_env, jclass km_clazz, jlong ctx, jlong digest) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -3427,7 +3427,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelUtilsSha1Digest(JNIEnv* km_env, jclass km_clazz, jlong data, jint size, jlong digest) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelUtilsSha1Digest(JNIEnv* km_env, jclass km_clazz, jlong data, jint size, jlong digest) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint32_t, void*);
@@ -3460,7 +3460,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelUtilsSha1BlockInit(JNIEnv* km_env, jclass km_clazz, jlong ctx) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelUtilsSha1BlockInit(JNIEnv* km_env, jclass km_clazz, jlong ctx) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -3493,7 +3493,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelUtilsSha1BlockUpdate(JNIEnv* km_env, jclass km_clazz, jlong ctx, jlong data, jint size) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelUtilsSha1BlockUpdate(JNIEnv* km_env, jclass km_clazz, jlong ctx, jlong data, jint size) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, uint32_t);
@@ -3526,7 +3526,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelUtilsSha1BlockResult(JNIEnv* km_env, jclass km_clazz, jlong ctx, jlong digest) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelUtilsSha1BlockResult(JNIEnv* km_env, jclass km_clazz, jlong ctx, jlong digest) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -3559,7 +3559,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelRegisterSubIntrHandler(JNIEnv* km_env, jclass km_clazz, jint int_no, jint no, jlong handler, jlong arg) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelRegisterSubIntrHandler(JNIEnv* km_env, jclass km_clazz, jint intNo, jint no, jlong handler, jlong arg) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*, void*);
@@ -3584,7 +3584,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)int_no, (int32_t)no, (void*)(uintptr_t)handler, (void*)(uintptr_t)arg);
+        km_res = km_fn_ptr((int32_t)intNo, (int32_t)no, (void*)(uintptr_t)handler, (void*)(uintptr_t)arg);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3592,7 +3592,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelReleaseSubIntrHandler(JNIEnv* km_env, jclass km_clazz, jint int_no, jint no) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelReleaseSubIntrHandler(JNIEnv* km_env, jclass km_clazz, jint intNo, jint no) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
@@ -3617,7 +3617,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)int_no, (int32_t)no);
+        km_res = km_fn_ptr((int32_t)intNo, (int32_t)no);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3625,7 +3625,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelEnableSubIntr(JNIEnv* km_env, jclass km_clazz, jint int_no, jint no) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelEnableSubIntr(JNIEnv* km_env, jclass km_clazz, jint intNo, jint no) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
@@ -3650,7 +3650,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)int_no, (int32_t)no);
+        km_res = km_fn_ptr((int32_t)intNo, (int32_t)no);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3658,7 +3658,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelDisableSubIntr(JNIEnv* km_env, jclass km_clazz, jint int_no, jint no) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelDisableSubIntr(JNIEnv* km_env, jclass km_clazz, jint intNo, jint no) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
@@ -3683,7 +3683,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)int_no, (int32_t)no);
+        km_res = km_fn_ptr((int32_t)intNo, (int32_t)no);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3691,7 +3691,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelCpuSuspendIntr(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelCpuSuspendIntr(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef uint32_t (*km_fn_t)(void);
@@ -3724,7 +3724,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelCpuResumeIntr(JNIEnv* km_env, jclass km_clazz, jint flags) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelCpuResumeIntr(JNIEnv* km_env, jclass km_clazz, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(uint32_t);
@@ -3754,7 +3754,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelCpuResumeIntrWithSync(JNIEnv* km_env, jclass km_clazz, jint flags) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelCpuResumeIntrWithSync(JNIEnv* km_env, jclass km_clazz, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(uint32_t);
@@ -3784,7 +3784,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelIsCpuIntrSuspended(JNIEnv* km_env, jclass km_clazz, jint flags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelIsCpuIntrSuspended(JNIEnv* km_env, jclass km_clazz, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -3817,7 +3817,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelIsCpuIntrEnable(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelIsCpuIntrEnable(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -3850,7 +3850,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelSelfStopUnloadModule(JNIEnv* km_env, jclass km_clazz, jint unknown, jlong arg_size, jlong argp) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelSelfStopUnloadModule(JNIEnv* km_env, jclass km_clazz, jint unknown, jlong argSize, jlong argp) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, uint64_t, void*);
@@ -3875,7 +3875,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)unknown, (uint64_t)arg_size, (void*)(uintptr_t)argp);
+        km_res = km_fn_ptr((int32_t)unknown, (uint64_t)argSize, (void*)(uintptr_t)argp);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3883,7 +3883,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelStopUnloadSelfModule(JNIEnv* km_env, jclass km_clazz, jlong arg_size, jlong argp, jlong status, jlong option) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelStopUnloadSelfModule(JNIEnv* km_env, jclass km_clazz, jlong argSize, jlong argp, jlong status, jlong option) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(uint64_t, void*, void*, void*);
@@ -3908,7 +3908,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((uint64_t)arg_size, (void*)(uintptr_t)argp, (void*)(uintptr_t)status, (void*)(uintptr_t)option);
+        km_res = km_fn_ptr((uint64_t)argSize, (void*)(uintptr_t)argp, (void*)(uintptr_t)status, (void*)(uintptr_t)option);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3916,7 +3916,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelGetModuleIdList(JNIEnv* km_env, jclass km_clazz, jlong read_buf, jint read_buf_size, jlong id_count) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelGetModuleIdList(JNIEnv* km_env, jclass km_clazz, jlong readBuf, jint readBufSize, jlong idCount) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t, void*);
@@ -3941,7 +3941,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)read_buf, (int32_t)read_buf_size, (void*)(uintptr_t)id_count);
+        km_res = km_fn_ptr((void*)(uintptr_t)readBuf, (int32_t)readBufSize, (void*)(uintptr_t)idCount);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3949,7 +3949,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelVolatileMemLock(JNIEnv* km_env, jclass km_clazz, jint unk, jlong ptr, jlong size) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelVolatileMemLock(JNIEnv* km_env, jclass km_clazz, jint unk, jlong ptr, jlong size) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
@@ -3982,7 +3982,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelVolatileMemTryLock(JNIEnv* km_env, jclass km_clazz, jint unk, jlong ptr, jlong size) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelVolatileMemTryLock(JNIEnv* km_env, jclass km_clazz, jint unk, jlong ptr, jlong size) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
@@ -4015,7 +4015,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelVolatileMemUnlock(JNIEnv* km_env, jclass km_clazz, jint unk) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelVolatileMemUnlock(JNIEnv* km_env, jclass km_clazz, jint unk) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -4048,7 +4048,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelExitThread(JNIEnv* km_env, jclass km_clazz, jint status) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelExitThread(JNIEnv* km_env, jclass km_clazz, jint status) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -4081,7 +4081,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelExitDeleteThread(JNIEnv* km_env, jclass km_clazz, jint status) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelExitDeleteThread(JNIEnv* km_env, jclass km_clazz, jint status) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -4114,7 +4114,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelSuspendDispatchThread(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelSuspendDispatchThread(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -4147,7 +4147,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelResumeDispatchThread(JNIEnv* km_env, jclass km_clazz, jint state) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelResumeDispatchThread(JNIEnv* km_env, jclass km_clazz, jint state) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -4180,7 +4180,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelSleepThread(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelSleepThread(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -4213,7 +4213,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelSleepThreadCB(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelSleepThreadCB(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -4246,7 +4246,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelDelayThread(JNIEnv* km_env, jclass km_clazz, jint delay) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelDelayThread(JNIEnv* km_env, jclass km_clazz, jint delay) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -4279,7 +4279,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelDelayThreadCB(JNIEnv* km_env, jclass km_clazz, jint delay) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelDelayThreadCB(JNIEnv* km_env, jclass km_clazz, jint delay) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -4312,7 +4312,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelDelaySysClockThread(JNIEnv* km_env, jclass km_clazz, jlong delay) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelDelaySysClockThread(JNIEnv* km_env, jclass km_clazz, jlong delay) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -4345,7 +4345,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelDelaySysClockThreadCB(JNIEnv* km_env, jclass km_clazz, jlong delay) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelDelaySysClockThreadCB(JNIEnv* km_env, jclass km_clazz, jlong delay) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -4378,7 +4378,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelChangeCurrentThreadAttr(JNIEnv* km_env, jclass km_clazz, jint unknown, jint attr) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelChangeCurrentThreadAttr(JNIEnv* km_env, jclass km_clazz, jint unknown, jint attr) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
@@ -4411,7 +4411,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelRotateThreadReadyQueue(JNIEnv* km_env, jclass km_clazz, jint priority) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelRotateThreadReadyQueue(JNIEnv* km_env, jclass km_clazz, jint priority) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -4444,7 +4444,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelGetThreadId(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelGetThreadId(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -4477,7 +4477,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelGetThreadCurrentPriority(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelGetThreadCurrentPriority(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -4510,7 +4510,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelCheckThreadStack(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelCheckThreadStack(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -4543,7 +4543,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelCheckCallback(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelCheckCallback(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -4576,7 +4576,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelReferSystemStatus(JNIEnv* km_env, jclass km_clazz, jlong status) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelReferSystemStatus(JNIEnv* km_env, jclass km_clazz, jlong status) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -4609,7 +4609,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelCreateFpl(JNIEnv* km_env, jclass km_clazz, jlong name, jint part, jint attr, jint size, jint blocks, jlong opt) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelCreateFpl(JNIEnv* km_env, jclass km_clazz, jlong name, jint part, jint attr, jint size, jint blocks, jlong opt) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t, int32_t, uint32_t, uint32_t, void*);
@@ -4642,7 +4642,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelUSec2SysClock(JNIEnv* km_env, jclass km_clazz, jint usec, jlong clock) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelUSec2SysClock(JNIEnv* km_env, jclass km_clazz, jint usec, jlong clock) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(uint32_t, void*);
@@ -4675,7 +4675,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelUSec2SysClockWide(JNIEnv* km_env, jclass km_clazz, jint usec) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelUSec2SysClockWide(JNIEnv* km_env, jclass km_clazz, jint usec) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(uint32_t);
@@ -4708,7 +4708,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1p
     return (jlong)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelSysClock2USec(JNIEnv* km_env, jclass km_clazz, jlong clock, jlong low, jlong high) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelSysClock2USec(JNIEnv* km_env, jclass km_clazz, jlong clock, jlong low, jlong high) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, void*);
@@ -4741,7 +4741,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelSysClock2USecWide(JNIEnv* km_env, jclass km_clazz, jlong clock, jlong low, jlong high) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelSysClock2USecWide(JNIEnv* km_env, jclass km_clazz, jlong clock, jlong low, jlong high) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int64_t, void*, void*);
@@ -4774,7 +4774,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelGetSystemTime(JNIEnv* km_env, jclass km_clazz, jlong arg_0_time) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelGetSystemTime(JNIEnv* km_env, jclass km_clazz, jlong arg0Time) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -4799,7 +4799,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)arg_0_time);
+        km_res = km_fn_ptr((void*)(uintptr_t)arg0Time);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4807,7 +4807,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelGetSystemTimeWide(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelGetSystemTimeWide(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(void);
@@ -4840,7 +4840,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1p
     return (jlong)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelGetSystemTimeLow(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelGetSystemTimeLow(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef uint32_t (*km_fn_t)(void);
@@ -4873,7 +4873,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelReferThreadProfiler(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelReferThreadProfiler(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void);
@@ -4906,7 +4906,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1p
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceKernelReferGlobalProfiler(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceKernelReferGlobalProfiler(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void);
@@ -4939,7 +4939,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1p
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUsbStart(JNIEnv* km_env, jclass km_clazz, jlong driver_name, jint size, jlong args) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUsbStart(JNIEnv* km_env, jclass km_clazz, jlong driverName, jint size, jlong args) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t, void*);
@@ -4964,7 +4964,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)driver_name, (int32_t)size, (void*)(uintptr_t)args);
+        km_res = km_fn_ptr((void*)(uintptr_t)driverName, (int32_t)size, (void*)(uintptr_t)args);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4972,7 +4972,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUsbStop(JNIEnv* km_env, jclass km_clazz, jlong driver_name, jint size, jlong args) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUsbStop(JNIEnv* km_env, jclass km_clazz, jlong driverName, jint size, jlong args) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t, void*);
@@ -4997,7 +4997,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)driver_name, (int32_t)size, (void*)(uintptr_t)args);
+        km_res = km_fn_ptr((void*)(uintptr_t)driverName, (int32_t)size, (void*)(uintptr_t)args);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5005,7 +5005,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUsbActivate(JNIEnv* km_env, jclass km_clazz, jint pid) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUsbActivate(JNIEnv* km_env, jclass km_clazz, jint pid) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -5038,7 +5038,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUsbDeactivate(JNIEnv* km_env, jclass km_clazz, jint pid) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUsbDeactivate(JNIEnv* km_env, jclass km_clazz, jint pid) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -5071,7 +5071,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUsbGetState(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUsbGetState(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -5104,7 +5104,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUsbGetDrvState(JNIEnv* km_env, jclass km_clazz, jlong driver_name) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUsbGetDrvState(JNIEnv* km_env, jclass km_clazz, jlong driverName) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -5129,7 +5129,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)driver_name);
+        km_res = km_fn_ptr((void*)(uintptr_t)driverName);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5137,7 +5137,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUsbCamSetupStill(JNIEnv* km_env, jclass km_clazz, jlong param) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUsbCamSetupStill(JNIEnv* km_env, jclass km_clazz, jlong param) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -5170,7 +5170,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUsbCamSetupStillEx(JNIEnv* km_env, jclass km_clazz, jlong param) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUsbCamSetupStillEx(JNIEnv* km_env, jclass km_clazz, jlong param) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -5203,7 +5203,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUsbCamStillInputBlocking(JNIEnv* km_env, jclass km_clazz, jlong buf, jlong size) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUsbCamStillInputBlocking(JNIEnv* km_env, jclass km_clazz, jlong buf, jlong size) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint64_t);
@@ -5236,7 +5236,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUsbCamStillInput(JNIEnv* km_env, jclass km_clazz, jlong buf, jlong size) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUsbCamStillInput(JNIEnv* km_env, jclass km_clazz, jlong buf, jlong size) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint64_t);
@@ -5269,7 +5269,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUsbCamStillWaitInputEnd(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUsbCamStillWaitInputEnd(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -5302,7 +5302,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUsbCamStillPollInputEnd(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUsbCamStillPollInputEnd(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -5335,7 +5335,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUsbCamStillCancelInput(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUsbCamStillCancelInput(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -5368,7 +5368,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUsbCamStillGetInputLength(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUsbCamStillGetInputLength(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -5401,7 +5401,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUsbCamSetupVideo(JNIEnv* km_env, jclass km_clazz, jlong param, jlong work_area, jint work_area_size) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUsbCamSetupVideo(JNIEnv* km_env, jclass km_clazz, jlong param, jlong workArea, jint workAreaSize) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, int32_t);
@@ -5426,7 +5426,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)param, (void*)(uintptr_t)work_area, (int32_t)work_area_size);
+        km_res = km_fn_ptr((void*)(uintptr_t)param, (void*)(uintptr_t)workArea, (int32_t)workAreaSize);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5434,7 +5434,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUsbCamSetupVideoEx(JNIEnv* km_env, jclass km_clazz, jlong param, jlong work_area, jint work_area_size) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUsbCamSetupVideoEx(JNIEnv* km_env, jclass km_clazz, jlong param, jlong workArea, jint workAreaSize) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, int32_t);
@@ -5459,7 +5459,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)param, (void*)(uintptr_t)work_area, (int32_t)work_area_size);
+        km_res = km_fn_ptr((void*)(uintptr_t)param, (void*)(uintptr_t)workArea, (int32_t)workAreaSize);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5467,7 +5467,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUsbCamStartVideo(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUsbCamStartVideo(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -5500,7 +5500,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUsbCamStopVideo(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUsbCamStopVideo(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -5533,7 +5533,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUsbCamReadVideoFrameBlocking(JNIEnv* km_env, jclass km_clazz, jlong buf, jlong size) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUsbCamReadVideoFrameBlocking(JNIEnv* km_env, jclass km_clazz, jlong buf, jlong size) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint64_t);
@@ -5566,7 +5566,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUsbCamReadVideoFrame(JNIEnv* km_env, jclass km_clazz, jlong buf, jlong size) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUsbCamReadVideoFrame(JNIEnv* km_env, jclass km_clazz, jlong buf, jlong size) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint64_t);
@@ -5599,7 +5599,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUsbCamWaitReadVideoFrameEnd(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUsbCamWaitReadVideoFrameEnd(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -5632,7 +5632,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUsbCamPollReadVideoFrameEnd(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUsbCamPollReadVideoFrameEnd(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -5665,7 +5665,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUsbCamGetReadVideoFrameSize(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUsbCamGetReadVideoFrameSize(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -5698,7 +5698,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUsbCamSetSaturation(JNIEnv* km_env, jclass km_clazz, jint saturation) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUsbCamSetSaturation(JNIEnv* km_env, jclass km_clazz, jint saturation) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -5731,7 +5731,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUsbCamSetBrightness(JNIEnv* km_env, jclass km_clazz, jint brightness) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUsbCamSetBrightness(JNIEnv* km_env, jclass km_clazz, jint brightness) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -5764,7 +5764,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUsbCamSetContrast(JNIEnv* km_env, jclass km_clazz, jint contrast) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUsbCamSetContrast(JNIEnv* km_env, jclass km_clazz, jint contrast) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -5797,7 +5797,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUsbCamSetSharpness(JNIEnv* km_env, jclass km_clazz, jint sharpness) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUsbCamSetSharpness(JNIEnv* km_env, jclass km_clazz, jint sharpness) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -5830,7 +5830,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUsbCamSetReverseMode(JNIEnv* km_env, jclass km_clazz, jint reverse_flags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUsbCamSetReverseMode(JNIEnv* km_env, jclass km_clazz, jint reverseFlags) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -5855,7 +5855,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)reverse_flags);
+        km_res = km_fn_ptr((int32_t)reverseFlags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5863,7 +5863,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUsbCamSetZoom(JNIEnv* km_env, jclass km_clazz, jint zoom) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUsbCamSetZoom(JNIEnv* km_env, jclass km_clazz, jint zoom) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -5896,7 +5896,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUsbCamGetSaturation(JNIEnv* km_env, jclass km_clazz, jlong saturation) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUsbCamGetSaturation(JNIEnv* km_env, jclass km_clazz, jlong saturation) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -5929,7 +5929,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUsbCamGetBrightness(JNIEnv* km_env, jclass km_clazz, jlong brightness) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUsbCamGetBrightness(JNIEnv* km_env, jclass km_clazz, jlong brightness) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -5962,7 +5962,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUsbCamGetContrast(JNIEnv* km_env, jclass km_clazz, jlong contrast) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUsbCamGetContrast(JNIEnv* km_env, jclass km_clazz, jlong contrast) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -5995,7 +5995,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUsbCamGetSharpness(JNIEnv* km_env, jclass km_clazz, jlong sharpness) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUsbCamGetSharpness(JNIEnv* km_env, jclass km_clazz, jlong sharpness) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -6028,7 +6028,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUsbCamGetImageEffectMode(JNIEnv* km_env, jclass km_clazz, jlong effect_mode) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUsbCamGetImageEffectMode(JNIEnv* km_env, jclass km_clazz, jlong effectMode) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -6053,7 +6053,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)effect_mode);
+        km_res = km_fn_ptr((void*)(uintptr_t)effectMode);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -6061,7 +6061,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUsbCamGetEvLevel(JNIEnv* km_env, jclass km_clazz, jlong exposure_level) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUsbCamGetEvLevel(JNIEnv* km_env, jclass km_clazz, jlong exposureLevel) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -6086,7 +6086,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)exposure_level);
+        km_res = km_fn_ptr((void*)(uintptr_t)exposureLevel);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -6094,7 +6094,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUsbCamGetReverseMode(JNIEnv* km_env, jclass km_clazz, jlong reverse_flags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUsbCamGetReverseMode(JNIEnv* km_env, jclass km_clazz, jlong reverseFlags) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -6119,7 +6119,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)reverse_flags);
+        km_res = km_fn_ptr((void*)(uintptr_t)reverseFlags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -6127,7 +6127,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUsbCamGetZoom(JNIEnv* km_env, jclass km_clazz, jlong zoom) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUsbCamGetZoom(JNIEnv* km_env, jclass km_clazz, jlong zoom) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -6160,7 +6160,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUsbCamAutoImageReverseSW(JNIEnv* km_env, jclass km_clazz, jint on) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUsbCamAutoImageReverseSW(JNIEnv* km_env, jclass km_clazz, jint on) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -6193,7 +6193,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUsbCamGetAutoImageReverseState(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUsbCamGetAutoImageReverseState(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -6226,7 +6226,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUsbCamGetLensDirection(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUsbCamGetLensDirection(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -6259,7 +6259,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUsbstorBootUnregisterNotify(JNIEnv* km_env, jclass km_clazz, jint event_flag) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUsbstorBootUnregisterNotify(JNIEnv* km_env, jclass km_clazz, jint eventFlag) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -6284,7 +6284,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((uint32_t)event_flag);
+        km_res = km_fn_ptr((uint32_t)eventFlag);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -6292,7 +6292,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUsbstorBootSetCapacity(JNIEnv* km_env, jclass km_clazz, jint size) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUsbstorBootSetCapacity(JNIEnv* km_env, jclass km_clazz, jint size) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -6325,7 +6325,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1scePowerUnregisterCallback(JNIEnv* km_env, jclass km_clazz, jint slot) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspScePowerUnregisterCallback(JNIEnv* km_env, jclass km_clazz, jint slot) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -6358,7 +6358,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1scePowerIsPowerOnline(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspScePowerIsPowerOnline(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -6391,7 +6391,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1scePowerIsBatteryExist(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspScePowerIsBatteryExist(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -6424,7 +6424,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1scePowerIsBatteryCharging(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspScePowerIsBatteryCharging(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -6457,7 +6457,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1scePowerGetBatteryChargingStatus(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspScePowerGetBatteryChargingStatus(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -6490,7 +6490,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1scePowerIsLowBattery(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspScePowerIsLowBattery(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -6523,7 +6523,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1scePowerGetBatteryLifePercent(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspScePowerGetBatteryLifePercent(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -6556,7 +6556,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1scePowerGetBatteryLifeTime(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspScePowerGetBatteryLifeTime(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -6589,7 +6589,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1scePowerGetBatteryTemp(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspScePowerGetBatteryTemp(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -6622,7 +6622,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1scePowerGetBatteryElec(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspScePowerGetBatteryElec(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -6655,7 +6655,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1scePowerGetBatteryVolt(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspScePowerGetBatteryVolt(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -6688,7 +6688,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1scePowerSetCpuClockFrequency(JNIEnv* km_env, jclass km_clazz, jint cpufreq) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspScePowerSetCpuClockFrequency(JNIEnv* km_env, jclass km_clazz, jint cpufreq) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -6721,7 +6721,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1scePowerSetBusClockFrequency(JNIEnv* km_env, jclass km_clazz, jint busfreq) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspScePowerSetBusClockFrequency(JNIEnv* km_env, jclass km_clazz, jint busfreq) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -6754,7 +6754,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1scePowerGetCpuClockFrequency(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspScePowerGetCpuClockFrequency(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -6787,7 +6787,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1scePowerGetCpuClockFrequencyInt(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspScePowerGetCpuClockFrequencyInt(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -6820,7 +6820,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jfloat JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1scePowerGetCpuClockFrequencyFloat(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jfloat JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspScePowerGetCpuClockFrequencyFloat(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef float (*km_fn_t)(void);
@@ -6853,7 +6853,7 @@ JNIEXPORT jfloat JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1
     return (jfloat)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1scePowerGetBusClockFrequency(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspScePowerGetBusClockFrequency(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -6886,7 +6886,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1scePowerGetBusClockFrequencyInt(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspScePowerGetBusClockFrequencyInt(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -6919,7 +6919,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jfloat JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1scePowerGetBusClockFrequencyFloat(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jfloat JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspScePowerGetBusClockFrequencyFloat(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef float (*km_fn_t)(void);
@@ -6952,7 +6952,7 @@ JNIEXPORT jfloat JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1
     return (jfloat)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1scePowerSetClockFrequency(JNIEnv* km_env, jclass km_clazz, jint pllfreq, jint cpufreq, jint busfreq) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspScePowerSetClockFrequency(JNIEnv* km_env, jclass km_clazz, jint pllfreq, jint cpufreq, jint busfreq) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t);
@@ -6985,7 +6985,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1scePowerLock(JNIEnv* km_env, jclass km_clazz, jint unknown) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspScePowerLock(JNIEnv* km_env, jclass km_clazz, jint unknown) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -7018,7 +7018,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1scePowerUnlock(JNIEnv* km_env, jclass km_clazz, jint unknown) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspScePowerUnlock(JNIEnv* km_env, jclass km_clazz, jint unknown) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -7051,7 +7051,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1scePowerGetIdleTimer(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspScePowerGetIdleTimer(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -7084,7 +7084,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1scePowerIdleTimerEnable(JNIEnv* km_env, jclass km_clazz, jint unknown) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspScePowerIdleTimerEnable(JNIEnv* km_env, jclass km_clazz, jint unknown) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -7117,7 +7117,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1scePowerIdleTimerDisable(JNIEnv* km_env, jclass km_clazz, jint unknown) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspScePowerIdleTimerDisable(JNIEnv* km_env, jclass km_clazz, jint unknown) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -7150,7 +7150,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1scePowerRequestStandby(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspScePowerRequestStandby(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -7183,7 +7183,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1scePowerRequestSuspend(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspScePowerRequestSuspend(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -7216,7 +7216,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceWlanDevIsPowerOn(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceWlanDevIsPowerOn(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -7249,7 +7249,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceWlanGetSwitchState(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceWlanGetSwitchState(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -7282,7 +7282,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceWlanGetEtherAddr(JNIEnv* km_env, jclass km_clazz, jlong ether_addr) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceWlanGetEtherAddr(JNIEnv* km_env, jclass km_clazz, jlong etherAddr) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -7307,7 +7307,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)ether_addr);
+        km_res = km_fn_ptr((void*)(uintptr_t)etherAddr);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -7315,7 +7315,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceWlanDevAttach(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceWlanDevAttach(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -7348,7 +7348,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceWlanDevDetach(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceWlanDevDetach(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -7381,7 +7381,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceRtcGetTickResolution(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceRtcGetTickResolution(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef uint32_t (*km_fn_t)(void);
@@ -7414,7 +7414,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceRtcGetCurrentTick(JNIEnv* km_env, jclass km_clazz, jlong tick) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceRtcGetCurrentTick(JNIEnv* km_env, jclass km_clazz, jlong tick) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -7447,7 +7447,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceRtcGetCurrentClock(JNIEnv* km_env, jclass km_clazz, jlong tm, jint tz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceRtcGetCurrentClock(JNIEnv* km_env, jclass km_clazz, jlong tm, jint tz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t);
@@ -7480,7 +7480,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceRtcGetCurrentClockLocalTime(JNIEnv* km_env, jclass km_clazz, jlong tm) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceRtcGetCurrentClockLocalTime(JNIEnv* km_env, jclass km_clazz, jlong tm) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -7513,7 +7513,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceRtcConvertUtcToLocalTime(JNIEnv* km_env, jclass km_clazz, jlong tick_utc, jlong tick_local) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceRtcConvertUtcToLocalTime(JNIEnv* km_env, jclass km_clazz, jlong tickUtc, jlong tickLocal) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -7538,7 +7538,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)tick_utc, (void*)(uintptr_t)tick_local);
+        km_res = km_fn_ptr((void*)(uintptr_t)tickUtc, (void*)(uintptr_t)tickLocal);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -7546,7 +7546,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceRtcConvertLocalTimeToUTC(JNIEnv* km_env, jclass km_clazz, jlong tick_local, jlong tick_utc) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceRtcConvertLocalTimeToUTC(JNIEnv* km_env, jclass km_clazz, jlong tickLocal, jlong tickUtc) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -7571,7 +7571,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)tick_local, (void*)(uintptr_t)tick_utc);
+        km_res = km_fn_ptr((void*)(uintptr_t)tickLocal, (void*)(uintptr_t)tickUtc);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -7579,7 +7579,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceRtcIsLeapYear(JNIEnv* km_env, jclass km_clazz, jint year) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceRtcIsLeapYear(JNIEnv* km_env, jclass km_clazz, jint year) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -7612,7 +7612,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceRtcGetDaysInMonth(JNIEnv* km_env, jclass km_clazz, jint year, jint month) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceRtcGetDaysInMonth(JNIEnv* km_env, jclass km_clazz, jint year, jint month) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
@@ -7645,7 +7645,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceRtcGetDayOfWeek(JNIEnv* km_env, jclass km_clazz, jint year, jint month, jint day) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceRtcGetDayOfWeek(JNIEnv* km_env, jclass km_clazz, jint year, jint month, jint day) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t);
@@ -7678,7 +7678,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceRtcCheckValid(JNIEnv* km_env, jclass km_clazz, jlong date) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceRtcCheckValid(JNIEnv* km_env, jclass km_clazz, jlong date) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -7711,7 +7711,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceRtcSetTick(JNIEnv* km_env, jclass km_clazz, jlong date, jlong tick) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceRtcSetTick(JNIEnv* km_env, jclass km_clazz, jlong date, jlong tick) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -7744,7 +7744,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceRtcGetTick(JNIEnv* km_env, jclass km_clazz, jlong date, jlong tick) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceRtcGetTick(JNIEnv* km_env, jclass km_clazz, jlong date, jlong tick) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -7777,7 +7777,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceRtcCompareTick(JNIEnv* km_env, jclass km_clazz, jlong tick1, jlong tick2) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceRtcCompareTick(JNIEnv* km_env, jclass km_clazz, jlong tick1, jlong tick2) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -7810,7 +7810,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceRtcTickAddTicks(JNIEnv* km_env, jclass km_clazz, jlong dest_tick, jlong src_tick, jlong num_ticks) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceRtcTickAddTicks(JNIEnv* km_env, jclass km_clazz, jlong destTick, jlong srcTick, jlong numTicks) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, uint64_t);
@@ -7835,7 +7835,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)dest_tick, (void*)(uintptr_t)src_tick, (uint64_t)num_ticks);
+        km_res = km_fn_ptr((void*)(uintptr_t)destTick, (void*)(uintptr_t)srcTick, (uint64_t)numTicks);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -7843,7 +7843,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceRtcTickAddMicroseconds(JNIEnv* km_env, jclass km_clazz, jlong dest_tick, jlong src_tick, jlong num_ms) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceRtcTickAddMicroseconds(JNIEnv* km_env, jclass km_clazz, jlong destTick, jlong srcTick, jlong numMs) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, uint64_t);
@@ -7868,7 +7868,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)dest_tick, (void*)(uintptr_t)src_tick, (uint64_t)num_ms);
+        km_res = km_fn_ptr((void*)(uintptr_t)destTick, (void*)(uintptr_t)srcTick, (uint64_t)numMs);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -7876,7 +7876,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceRtcTickAddSeconds(JNIEnv* km_env, jclass km_clazz, jlong dest_tick, jlong src_tick, jlong num_seconds) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceRtcTickAddSeconds(JNIEnv* km_env, jclass km_clazz, jlong destTick, jlong srcTick, jlong numSeconds) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, uint64_t);
@@ -7901,7 +7901,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)dest_tick, (void*)(uintptr_t)src_tick, (uint64_t)num_seconds);
+        km_res = km_fn_ptr((void*)(uintptr_t)destTick, (void*)(uintptr_t)srcTick, (uint64_t)numSeconds);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -7909,7 +7909,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceRtcTickAddMinutes(JNIEnv* km_env, jclass km_clazz, jlong dest_tick, jlong src_tick, jlong num_minutes) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceRtcTickAddMinutes(JNIEnv* km_env, jclass km_clazz, jlong destTick, jlong srcTick, jlong numMinutes) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, uint64_t);
@@ -7934,7 +7934,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)dest_tick, (void*)(uintptr_t)src_tick, (uint64_t)num_minutes);
+        km_res = km_fn_ptr((void*)(uintptr_t)destTick, (void*)(uintptr_t)srcTick, (uint64_t)numMinutes);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -7942,7 +7942,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceRtcTickAddHours(JNIEnv* km_env, jclass km_clazz, jlong dest_tick, jlong src_tick, jlong num_hours) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceRtcTickAddHours(JNIEnv* km_env, jclass km_clazz, jlong destTick, jlong srcTick, jlong numHours) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, uint64_t);
@@ -7967,7 +7967,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)dest_tick, (void*)(uintptr_t)src_tick, (uint64_t)num_hours);
+        km_res = km_fn_ptr((void*)(uintptr_t)destTick, (void*)(uintptr_t)srcTick, (uint64_t)numHours);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -7975,7 +7975,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceRtcTickAddDays(JNIEnv* km_env, jclass km_clazz, jlong dest_tick, jlong src_tick, jlong num_days) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceRtcTickAddDays(JNIEnv* km_env, jclass km_clazz, jlong destTick, jlong srcTick, jlong numDays) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, uint64_t);
@@ -8000,7 +8000,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)dest_tick, (void*)(uintptr_t)src_tick, (uint64_t)num_days);
+        km_res = km_fn_ptr((void*)(uintptr_t)destTick, (void*)(uintptr_t)srcTick, (uint64_t)numDays);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8008,7 +8008,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceRtcTickAddWeeks(JNIEnv* km_env, jclass km_clazz, jlong dest_tick, jlong src_tick, jlong num_weeks) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceRtcTickAddWeeks(JNIEnv* km_env, jclass km_clazz, jlong destTick, jlong srcTick, jlong numWeeks) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, uint64_t);
@@ -8033,7 +8033,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)dest_tick, (void*)(uintptr_t)src_tick, (uint64_t)num_weeks);
+        km_res = km_fn_ptr((void*)(uintptr_t)destTick, (void*)(uintptr_t)srcTick, (uint64_t)numWeeks);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8041,7 +8041,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceRtcTickAddMonths(JNIEnv* km_env, jclass km_clazz, jlong dest_tick, jlong src_tick, jlong num_months) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceRtcTickAddMonths(JNIEnv* km_env, jclass km_clazz, jlong destTick, jlong srcTick, jlong numMonths) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, uint64_t);
@@ -8066,7 +8066,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)dest_tick, (void*)(uintptr_t)src_tick, (uint64_t)num_months);
+        km_res = km_fn_ptr((void*)(uintptr_t)destTick, (void*)(uintptr_t)srcTick, (uint64_t)numMonths);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8074,7 +8074,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceRtcTickAddYears(JNIEnv* km_env, jclass km_clazz, jlong dest_tick, jlong src_tick, jlong num_years) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceRtcTickAddYears(JNIEnv* km_env, jclass km_clazz, jlong destTick, jlong srcTick, jlong numYears) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, uint64_t);
@@ -8099,7 +8099,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)dest_tick, (void*)(uintptr_t)src_tick, (uint64_t)num_years);
+        km_res = km_fn_ptr((void*)(uintptr_t)destTick, (void*)(uintptr_t)srcTick, (uint64_t)numYears);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8107,7 +8107,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceRtcSetTimeT(JNIEnv* km_env, jclass km_clazz, jlong date, jint arg_1_time) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceRtcSetTimeT(JNIEnv* km_env, jclass km_clazz, jlong date, jint arg1Time) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint32_t);
@@ -8132,7 +8132,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)date, (uint32_t)arg_1_time);
+        km_res = km_fn_ptr((void*)(uintptr_t)date, (uint32_t)arg1Time);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8140,7 +8140,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceRtcGetTimeT(JNIEnv* km_env, jclass km_clazz, jlong date, jlong arg_1_time) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceRtcGetTimeT(JNIEnv* km_env, jclass km_clazz, jlong date, jlong arg1Time) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -8165,7 +8165,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)date, (void*)(uintptr_t)arg_1_time);
+        km_res = km_fn_ptr((void*)(uintptr_t)date, (void*)(uintptr_t)arg1Time);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8173,7 +8173,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceRtcSetTime64T(JNIEnv* km_env, jclass km_clazz, jlong date, jlong arg_1_time) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceRtcSetTime64T(JNIEnv* km_env, jclass km_clazz, jlong date, jlong arg1Time) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint64_t);
@@ -8198,7 +8198,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)date, (uint64_t)arg_1_time);
+        km_res = km_fn_ptr((void*)(uintptr_t)date, (uint64_t)arg1Time);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8206,7 +8206,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceRtcGetTime64T(JNIEnv* km_env, jclass km_clazz, jlong date, jlong arg_1_time) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceRtcGetTime64T(JNIEnv* km_env, jclass km_clazz, jlong date, jlong arg1Time) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -8231,7 +8231,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)date, (void*)(uintptr_t)arg_1_time);
+        km_res = km_fn_ptr((void*)(uintptr_t)date, (void*)(uintptr_t)arg1Time);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8239,7 +8239,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceRtcSetDosTime(JNIEnv* km_env, jclass km_clazz, jlong date, jint dos_time) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceRtcSetDosTime(JNIEnv* km_env, jclass km_clazz, jlong date, jint dosTime) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint32_t);
@@ -8264,7 +8264,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)date, (uint32_t)dos_time);
+        km_res = km_fn_ptr((void*)(uintptr_t)date, (uint32_t)dosTime);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8272,7 +8272,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceRtcGetDosTime(JNIEnv* km_env, jclass km_clazz, jlong date, jint dos_time) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceRtcGetDosTime(JNIEnv* km_env, jclass km_clazz, jlong date, jint dosTime) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint32_t);
@@ -8297,7 +8297,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)date, (uint32_t)dos_time);
+        km_res = km_fn_ptr((void*)(uintptr_t)date, (uint32_t)dosTime);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8305,7 +8305,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceRtcSetWin32FileTime(JNIEnv* km_env, jclass km_clazz, jlong date, jlong arg_1_time) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceRtcSetWin32FileTime(JNIEnv* km_env, jclass km_clazz, jlong date, jlong arg1Time) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -8330,7 +8330,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)date, (void*)(uintptr_t)arg_1_time);
+        km_res = km_fn_ptr((void*)(uintptr_t)date, (void*)(uintptr_t)arg1Time);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8338,7 +8338,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceRtcGetWin32FileTime(JNIEnv* km_env, jclass km_clazz, jlong date, jlong arg_1_time) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceRtcGetWin32FileTime(JNIEnv* km_env, jclass km_clazz, jlong date, jlong arg1Time) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -8363,7 +8363,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)date, (void*)(uintptr_t)arg_1_time);
+        km_res = km_fn_ptr((void*)(uintptr_t)date, (void*)(uintptr_t)arg1Time);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8371,7 +8371,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceRtcParseDateTime(JNIEnv* km_env, jclass km_clazz, jlong dest_tick, jlong date_string) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceRtcParseDateTime(JNIEnv* km_env, jclass km_clazz, jlong destTick, jlong dateString) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -8396,7 +8396,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)dest_tick, (void*)(uintptr_t)date_string);
+        km_res = km_fn_ptr((void*)(uintptr_t)destTick, (void*)(uintptr_t)dateString);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8404,7 +8404,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceRtcFormatRFC3339(JNIEnv* km_env, jclass km_clazz, jlong psz_date_time, jlong p_utc, jint time_zone_minutes) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceRtcFormatRFC3339(JNIEnv* km_env, jclass km_clazz, jlong pszDateTime, jlong pUtc, jint timeZoneMinutes) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(char*, void*, int32_t);
@@ -8429,7 +8429,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((char*)(uintptr_t)psz_date_time, (void*)(uintptr_t)p_utc, (int32_t)time_zone_minutes);
+        km_res = km_fn_ptr((char*)(uintptr_t)pszDateTime, (void*)(uintptr_t)pUtc, (int32_t)timeZoneMinutes);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8437,7 +8437,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceRtcFormatRFC3339LocalTime(JNIEnv* km_env, jclass km_clazz, jlong psz_date_time, jlong p_utc) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceRtcFormatRFC3339LocalTime(JNIEnv* km_env, jclass km_clazz, jlong pszDateTime, jlong pUtc) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(char*, void*);
@@ -8462,7 +8462,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((char*)(uintptr_t)psz_date_time, (void*)(uintptr_t)p_utc);
+        km_res = km_fn_ptr((char*)(uintptr_t)pszDateTime, (void*)(uintptr_t)pUtc);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8470,7 +8470,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceRtcParseRFC3339(JNIEnv* km_env, jclass km_clazz, jlong p_utc, jlong psz_date_time) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceRtcParseRFC3339(JNIEnv* km_env, jclass km_clazz, jlong pUtc, jlong pszDateTime) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -8495,7 +8495,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)p_utc, (void*)(uintptr_t)psz_date_time);
+        km_res = km_fn_ptr((void*)(uintptr_t)pUtc, (void*)(uintptr_t)pszDateTime);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8503,7 +8503,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceRtcFormatRFC2822(JNIEnv* km_env, jclass km_clazz, jlong psz_date_time, jlong p_utc, jint time_zone_minutes) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceRtcFormatRFC2822(JNIEnv* km_env, jclass km_clazz, jlong pszDateTime, jlong pUtc, jint timeZoneMinutes) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(char*, void*, int32_t);
@@ -8528,7 +8528,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((char*)(uintptr_t)psz_date_time, (void*)(uintptr_t)p_utc, (int32_t)time_zone_minutes);
+        km_res = km_fn_ptr((char*)(uintptr_t)pszDateTime, (void*)(uintptr_t)pUtc, (int32_t)timeZoneMinutes);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8536,7 +8536,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceRtcFormatRFC2822LocalTime(JNIEnv* km_env, jclass km_clazz, jlong psz_date_time, jlong p_utc) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceRtcFormatRFC2822LocalTime(JNIEnv* km_env, jclass km_clazz, jlong pszDateTime, jlong pUtc) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(char*, void*);
@@ -8561,7 +8561,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((char*)(uintptr_t)psz_date_time, (void*)(uintptr_t)p_utc);
+        km_res = km_fn_ptr((char*)(uintptr_t)pszDateTime, (void*)(uintptr_t)pUtc);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8569,7 +8569,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceIoRemove(JNIEnv* km_env, jclass km_clazz, jlong file) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceIoRemove(JNIEnv* km_env, jclass km_clazz, jlong file) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -8602,7 +8602,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceIoMkdir(JNIEnv* km_env, jclass km_clazz, jlong dir, jint mode) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceIoMkdir(JNIEnv* km_env, jclass km_clazz, jlong dir, jint mode) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t);
@@ -8635,7 +8635,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceIoRmdir(JNIEnv* km_env, jclass km_clazz, jlong path) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceIoRmdir(JNIEnv* km_env, jclass km_clazz, jlong path) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -8668,7 +8668,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceIoChdir(JNIEnv* km_env, jclass km_clazz, jlong path) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceIoChdir(JNIEnv* km_env, jclass km_clazz, jlong path) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -8701,7 +8701,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceIoRename(JNIEnv* km_env, jclass km_clazz, jlong oldname, jlong newname) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceIoRename(JNIEnv* km_env, jclass km_clazz, jlong oldname, jlong newname) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -8734,7 +8734,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceIoDevctl(JNIEnv* km_env, jclass km_clazz, jlong dev, jint cmd, jlong indata, jint inlen, jlong outdata, jint outlen) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceIoDevctl(JNIEnv* km_env, jclass km_clazz, jlong dev, jint cmd, jlong indata, jint inlen, jlong outdata, jint outlen) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint32_t, void*, int32_t, void*, int32_t);
@@ -8767,7 +8767,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceIoUnassign(JNIEnv* km_env, jclass km_clazz, jlong dev) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceIoUnassign(JNIEnv* km_env, jclass km_clazz, jlong dev) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -8800,7 +8800,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceIoGetstat(JNIEnv* km_env, jclass km_clazz, jlong file, jlong arg_1_stat) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceIoGetstat(JNIEnv* km_env, jclass km_clazz, jlong file, jlong arg1Stat) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -8825,7 +8825,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)file, (void*)(uintptr_t)arg_1_stat);
+        km_res = km_fn_ptr((void*)(uintptr_t)file, (void*)(uintptr_t)arg1Stat);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8833,7 +8833,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceIoChstat(JNIEnv* km_env, jclass km_clazz, jlong file, jlong arg_1_stat, jint bits) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceIoChstat(JNIEnv* km_env, jclass km_clazz, jlong file, jlong arg1Stat, jint bits) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, int32_t);
@@ -8858,7 +8858,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)file, (void*)(uintptr_t)arg_1_stat, (int32_t)bits);
+        km_res = km_fn_ptr((void*)(uintptr_t)file, (void*)(uintptr_t)arg1Stat, (int32_t)bits);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8866,7 +8866,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceIoSync(JNIEnv* km_env, jclass km_clazz, jlong device, jint unk) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceIoSync(JNIEnv* km_env, jclass km_clazz, jlong device, jint unk) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint32_t);
@@ -8899,7 +8899,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceJpegInitMJpeg(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceJpegInitMJpeg(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -8932,7 +8932,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceJpegFinishMJpeg(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceJpegFinishMJpeg(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -8965,7 +8965,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceJpegCreateMJpeg(JNIEnv* km_env, jclass km_clazz, jint width, jint height) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceJpegCreateMJpeg(JNIEnv* km_env, jclass km_clazz, jint width, jint height) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
@@ -8998,7 +8998,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceJpegDeleteMJpeg(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceJpegDeleteMJpeg(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -9031,7 +9031,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceJpegDecodeMJpeg(JNIEnv* km_env, jclass km_clazz, jlong jpeg_buf, jlong size, jlong rgba, jint unk) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceJpegDecodeMJpeg(JNIEnv* km_env, jclass km_clazz, jlong jpegBuf, jlong size, jlong rgba, jint unk) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint64_t, void*, uint32_t);
@@ -9056,7 +9056,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)jpeg_buf, (uint64_t)size, (void*)(uintptr_t)rgba, (uint32_t)unk);
+        km_res = km_fn_ptr((void*)(uintptr_t)jpegBuf, (uint64_t)size, (void*)(uintptr_t)rgba, (uint32_t)unk);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -9064,7 +9064,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUmdCheckMedium(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUmdCheckMedium(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -9097,7 +9097,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUmdGetDiscInfo(JNIEnv* km_env, jclass km_clazz, jlong info) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUmdGetDiscInfo(JNIEnv* km_env, jclass km_clazz, jlong info) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -9130,7 +9130,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUmdActivate(JNIEnv* km_env, jclass km_clazz, jint unit, jlong drive) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUmdActivate(JNIEnv* km_env, jclass km_clazz, jint unit, jlong drive) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -9163,7 +9163,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUmdDeactivate(JNIEnv* km_env, jclass km_clazz, jint unit, jlong drive) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUmdDeactivate(JNIEnv* km_env, jclass km_clazz, jint unit, jlong drive) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -9196,7 +9196,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUmdWaitDriveStat(JNIEnv* km_env, jclass km_clazz, jint state) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUmdWaitDriveStat(JNIEnv* km_env, jclass km_clazz, jint state) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -9229,7 +9229,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUmdWaitDriveStatWithTimer(JNIEnv* km_env, jclass km_clazz, jint state, jint timeout) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUmdWaitDriveStatWithTimer(JNIEnv* km_env, jclass km_clazz, jint state, jint timeout) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, uint32_t);
@@ -9262,7 +9262,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUmdWaitDriveStatCB(JNIEnv* km_env, jclass km_clazz, jint state, jint timeout) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUmdWaitDriveStatCB(JNIEnv* km_env, jclass km_clazz, jint state, jint timeout) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, uint32_t);
@@ -9295,7 +9295,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUmdCancelWaitDriveStat(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUmdCancelWaitDriveStat(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -9328,7 +9328,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUmdGetDriveStat(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUmdGetDriveStat(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -9361,7 +9361,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUmdGetErrorStat(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUmdGetErrorStat(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -9394,7 +9394,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUmdRegisterUMDCallBack(JNIEnv* km_env, jclass km_clazz, jint cbid) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUmdRegisterUMDCallBack(JNIEnv* km_env, jclass km_clazz, jint cbid) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -9427,7 +9427,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUmdUnRegisterUMDCallBack(JNIEnv* km_env, jclass km_clazz, jint cbid) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUmdUnRegisterUMDCallBack(JNIEnv* km_env, jclass km_clazz, jint cbid) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -9460,7 +9460,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUmdReplacePermit(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUmdReplacePermit(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -9493,7 +9493,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUmdReplaceProhibit(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUmdReplaceProhibit(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -9526,7 +9526,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceMpegInit(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceMpegInit(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -9559,7 +9559,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceMpegFinish(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceMpegFinish(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void);
@@ -9589,7 +9589,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceMpegRingbufferQueryMemSize(JNIEnv* km_env, jclass km_clazz, jint packets) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceMpegRingbufferQueryMemSize(JNIEnv* km_env, jclass km_clazz, jint packets) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -9622,7 +9622,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceMpegRingbufferConstruct(JNIEnv* km_env, jclass km_clazz, jlong ringbuffer, jint packets, jlong data, jint size, jlong callback, jlong cb_param) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceMpegRingbufferConstruct(JNIEnv* km_env, jclass km_clazz, jlong ringbuffer, jint packets, jlong data, jint size, jlong callback, jlong cbParam) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t, void*, int32_t, void*, void*);
@@ -9647,7 +9647,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)ringbuffer, (int32_t)packets, (void*)(uintptr_t)data, (int32_t)size, (void*)(uintptr_t)callback, (void*)(uintptr_t)cb_param);
+        km_res = km_fn_ptr((void*)(uintptr_t)ringbuffer, (int32_t)packets, (void*)(uintptr_t)data, (int32_t)size, (void*)(uintptr_t)callback, (void*)(uintptr_t)cbParam);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -9655,7 +9655,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceMpegRingbufferDestruct(JNIEnv* km_env, jclass km_clazz, jlong ringbuffer) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceMpegRingbufferDestruct(JNIEnv* km_env, jclass km_clazz, jlong ringbuffer) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void*);
@@ -9685,7 +9685,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceMpegRingbufferAvailableSize(JNIEnv* km_env, jclass km_clazz, jlong ringbuffer) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceMpegRingbufferAvailableSize(JNIEnv* km_env, jclass km_clazz, jlong ringbuffer) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -9718,7 +9718,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceMpegRingbufferPut(JNIEnv* km_env, jclass km_clazz, jlong ringbuffer, jint num_packets, jint available) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceMpegRingbufferPut(JNIEnv* km_env, jclass km_clazz, jlong ringbuffer, jint numPackets, jint available) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t, int32_t);
@@ -9743,7 +9743,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)ringbuffer, (int32_t)num_packets, (int32_t)available);
+        km_res = km_fn_ptr((void*)(uintptr_t)ringbuffer, (int32_t)numPackets, (int32_t)available);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -9751,7 +9751,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceMpegQueryMemSize(JNIEnv* km_env, jclass km_clazz, jint unk) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceMpegQueryMemSize(JNIEnv* km_env, jclass km_clazz, jint unk) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -9784,7 +9784,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceMpegQueryStreamSize(JNIEnv* km_env, jclass km_clazz, jlong buffer, jlong size) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceMpegQueryStreamSize(JNIEnv* km_env, jclass km_clazz, jlong buffer, jlong size) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -9817,7 +9817,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceMpegBaseYCrCbCopyVme(JNIEnv* km_env, jclass km_clazz, jlong yuv_buffer, jlong buffer, jint type_) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceMpegBaseYCrCbCopyVme(JNIEnv* km_env, jclass km_clazz, jlong yuvBuffer, jlong buffer, jint type) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, int32_t);
@@ -9842,7 +9842,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)yuv_buffer, (void*)(uintptr_t)buffer, (int32_t)type_);
+        km_res = km_fn_ptr((void*)(uintptr_t)yuvBuffer, (void*)(uintptr_t)buffer, (int32_t)type);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -9850,7 +9850,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceMpegBaseCscInit(JNIEnv* km_env, jclass km_clazz, jint width) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceMpegBaseCscInit(JNIEnv* km_env, jclass km_clazz, jint width) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -9883,7 +9883,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceMpegBaseCscVme(JNIEnv* km_env, jclass km_clazz, jlong rgb_buffer, jlong rgb_buffer2, jint width, jlong y_cr_cb_buffer) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceMpegBaseCscVme(JNIEnv* km_env, jclass km_clazz, jlong rgbBuffer, jlong rgbBuffer2, jint width, jlong yCrCbBuffer) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, int32_t, void*);
@@ -9908,7 +9908,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)rgb_buffer, (void*)(uintptr_t)rgb_buffer2, (int32_t)width, (void*)(uintptr_t)y_cr_cb_buffer);
+        km_res = km_fn_ptr((void*)(uintptr_t)rgbBuffer, (void*)(uintptr_t)rgbBuffer2, (int32_t)width, (void*)(uintptr_t)yCrCbBuffer);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -9916,7 +9916,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceMpegbaseBea18f91(JNIEnv* km_env, jclass km_clazz, jlong lli) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceMpegbaseBea18f91(JNIEnv* km_env, jclass km_clazz, jlong lli) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -9949,7 +9949,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHprmPeekCurrentKey(JNIEnv* km_env, jclass km_clazz, jlong key) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHprmPeekCurrentKey(JNIEnv* km_env, jclass km_clazz, jlong key) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -9982,7 +9982,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHprmPeekLatch(JNIEnv* km_env, jclass km_clazz, jlong latch) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHprmPeekLatch(JNIEnv* km_env, jclass km_clazz, jlong latch) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -10015,7 +10015,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHprmReadLatch(JNIEnv* km_env, jclass km_clazz, jlong latch) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHprmReadLatch(JNIEnv* km_env, jclass km_clazz, jlong latch) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -10048,7 +10048,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHprmIsHeadphoneExist(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHprmIsHeadphoneExist(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -10081,7 +10081,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHprmIsRemoteExist(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHprmIsRemoteExist(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -10114,7 +10114,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHprmIsMicrophoneExist(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHprmIsMicrophoneExist(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -10147,7 +10147,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuDepthBuffer(JNIEnv* km_env, jclass km_clazz, jlong zbp, jint zbw) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuDepthBuffer(JNIEnv* km_env, jclass km_clazz, jlong zbp, jint zbw) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void*, int32_t);
@@ -10177,7 +10177,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuDispBuffer(JNIEnv* km_env, jclass km_clazz, jint width, jint height, jlong dispbp, jint dispbw) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuDispBuffer(JNIEnv* km_env, jclass km_clazz, jint width, jint height, jlong dispbp, jint dispbw) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(int32_t, int32_t, void*, int32_t);
@@ -10207,7 +10207,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT jboolean JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuDisplay(JNIEnv* km_env, jclass km_clazz, jboolean state) {
+JNIEXPORT jboolean JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuDisplay(JNIEnv* km_env, jclass km_clazz, jboolean state) {
     (void)km_env;
     (void)km_clazz;
     typedef bool (*km_fn_t)(bool);
@@ -10240,7 +10240,7 @@ JNIEXPORT jboolean JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc
     return (jboolean)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuDepthMask(JNIEnv* km_env, jclass km_clazz, jint mask) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuDepthMask(JNIEnv* km_env, jclass km_clazz, jint mask) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(int32_t);
@@ -10270,7 +10270,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuDepthOffset(JNIEnv* km_env, jclass km_clazz, jint offset) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuDepthOffset(JNIEnv* km_env, jclass km_clazz, jint offset) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(int32_t);
@@ -10300,7 +10300,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuDepthRange(JNIEnv* km_env, jclass km_clazz, jint arg_0_near, jint arg_1_far) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuDepthRange(JNIEnv* km_env, jclass km_clazz, jint arg0Near, jint arg1Far) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(int32_t, int32_t);
@@ -10324,13 +10324,13 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 #endif
     if (km_fn_ptr != NULL) {
-        km_fn_ptr((int32_t)arg_0_near, (int32_t)arg_1_far);
+        km_fn_ptr((int32_t)arg0Near, (int32_t)arg1Far);
     } else {
         errno = ENOSYS;
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuFog(JNIEnv* km_env, jclass km_clazz, jfloat arg_0_near, jfloat arg_1_far, jint color) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuFog(JNIEnv* km_env, jclass km_clazz, jfloat arg0Near, jfloat arg1Far, jint color) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(float, float, uint32_t);
@@ -10354,13 +10354,13 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 #endif
     if (km_fn_ptr != NULL) {
-        km_fn_ptr((float)arg_0_near, (float)arg_1_far, (uint32_t)color);
+        km_fn_ptr((float)arg0Near, (float)arg1Far, (uint32_t)color);
     } else {
         errno = ENOSYS;
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuInit(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuInit(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void);
@@ -10390,7 +10390,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuTerm(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuTerm(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void);
@@ -10420,7 +10420,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuBreak(JNIEnv* km_env, jclass km_clazz, jint mode) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuBreak(JNIEnv* km_env, jclass km_clazz, jint mode) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(int32_t);
@@ -10450,7 +10450,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuContinue(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuContinue(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void);
@@ -10480,7 +10480,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuGetMemory(JNIEnv* km_env, jclass km_clazz, jint size) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuGetMemory(JNIEnv* km_env, jclass km_clazz, jint size) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(int32_t);
@@ -10513,7 +10513,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1p
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuFinish(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuFinish(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -10546,7 +10546,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuFinishId(JNIEnv* km_env, jclass km_clazz, jint id) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuFinishId(JNIEnv* km_env, jclass km_clazz, jint id) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -10579,7 +10579,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuCallList(JNIEnv* km_env, jclass km_clazz, jlong list) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuCallList(JNIEnv* km_env, jclass km_clazz, jlong list) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void*);
@@ -10609,7 +10609,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuCallMode(JNIEnv* km_env, jclass km_clazz, jint mode) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuCallMode(JNIEnv* km_env, jclass km_clazz, jint mode) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(int32_t);
@@ -10639,7 +10639,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuCheckList(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuCheckList(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -10672,7 +10672,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuSwapBuffers(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuSwapBuffers(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void);
@@ -10705,7 +10705,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1p
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuBeginObject(JNIEnv* km_env, jclass km_clazz, jint vtype, jint count, jlong indices, jlong vertices) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuBeginObject(JNIEnv* km_env, jclass km_clazz, jint vtype, jint count, jlong indices, jlong vertices) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(int32_t, int32_t, void*, void*);
@@ -10735,7 +10735,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuEndObject(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuEndObject(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void);
@@ -10765,7 +10765,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuSetAllStatus(JNIEnv* km_env, jclass km_clazz, jint status) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuSetAllStatus(JNIEnv* km_env, jclass km_clazz, jint status) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(int32_t);
@@ -10795,7 +10795,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuGetAllStatus(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuGetAllStatus(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -10828,7 +10828,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuLightAtt(JNIEnv* km_env, jclass km_clazz, jint light, jfloat atten0, jfloat atten1, jfloat atten2) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuLightAtt(JNIEnv* km_env, jclass km_clazz, jint light, jfloat atten0, jfloat atten1, jfloat atten2) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(int32_t, float, float, float);
@@ -10858,7 +10858,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuLightColor(JNIEnv* km_env, jclass km_clazz, jint light, jint component, jint color) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuLightColor(JNIEnv* km_env, jclass km_clazz, jint light, jint component, jint color) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(int32_t, int32_t, uint32_t);
@@ -10888,7 +10888,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuClear(JNIEnv* km_env, jclass km_clazz, jint flags) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuClear(JNIEnv* km_env, jclass km_clazz, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(int32_t);
@@ -10918,7 +10918,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuClearColor(JNIEnv* km_env, jclass km_clazz, jint color) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuClearColor(JNIEnv* km_env, jclass km_clazz, jint color) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(uint32_t);
@@ -10948,7 +10948,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuClearDepth(JNIEnv* km_env, jclass km_clazz, jint depth) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuClearDepth(JNIEnv* km_env, jclass km_clazz, jint depth) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(uint32_t);
@@ -10978,7 +10978,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuClearStencil(JNIEnv* km_env, jclass km_clazz, jint stencil) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuClearStencil(JNIEnv* km_env, jclass km_clazz, jint stencil) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(uint32_t);
@@ -11008,7 +11008,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuPixelMask(JNIEnv* km_env, jclass km_clazz, jint mask) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuPixelMask(JNIEnv* km_env, jclass km_clazz, jint mask) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(uint32_t);
@@ -11038,7 +11038,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuColor(JNIEnv* km_env, jclass km_clazz, jint color) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuColor(JNIEnv* km_env, jclass km_clazz, jint color) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(uint32_t);
@@ -11068,7 +11068,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuColorMaterial(JNIEnv* km_env, jclass km_clazz, jint components) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuColorMaterial(JNIEnv* km_env, jclass km_clazz, jint components) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(int32_t);
@@ -11098,7 +11098,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuAmbient(JNIEnv* km_env, jclass km_clazz, jint color) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuAmbient(JNIEnv* km_env, jclass km_clazz, jint color) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(uint32_t);
@@ -11128,7 +11128,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuAmbientColor(JNIEnv* km_env, jclass km_clazz, jint color) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuAmbientColor(JNIEnv* km_env, jclass km_clazz, jint color) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(uint32_t);
@@ -11158,7 +11158,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuMaterial(JNIEnv* km_env, jclass km_clazz, jint components, jint color) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuMaterial(JNIEnv* km_env, jclass km_clazz, jint components, jint color) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(int32_t, uint32_t);
@@ -11188,7 +11188,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuModelColor(JNIEnv* km_env, jclass km_clazz, jint emissive, jint ambient, jint diffuse, jint specular) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuModelColor(JNIEnv* km_env, jclass km_clazz, jint emissive, jint ambient, jint diffuse, jint specular) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(uint32_t, uint32_t, uint32_t, uint32_t);
@@ -11218,7 +11218,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuSpecular(JNIEnv* km_env, jclass km_clazz, jfloat power) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuSpecular(JNIEnv* km_env, jclass km_clazz, jfloat power) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(float);
@@ -11248,7 +11248,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuTexEnvColor(JNIEnv* km_env, jclass km_clazz, jint color) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuTexEnvColor(JNIEnv* km_env, jclass km_clazz, jint color) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(uint32_t);
@@ -11278,7 +11278,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuTexFlush(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuTexFlush(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void);
@@ -11308,7 +11308,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuTexOffset(JNIEnv* km_env, jclass km_clazz, jfloat u, jfloat v) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuTexOffset(JNIEnv* km_env, jclass km_clazz, jfloat u, jfloat v) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(float, float);
@@ -11338,7 +11338,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuTexScale(JNIEnv* km_env, jclass km_clazz, jfloat u, jfloat v) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuTexScale(JNIEnv* km_env, jclass km_clazz, jfloat u, jfloat v) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(float, float);
@@ -11368,7 +11368,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuTexSlope(JNIEnv* km_env, jclass km_clazz, jfloat slope) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuTexSlope(JNIEnv* km_env, jclass km_clazz, jfloat slope) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(float);
@@ -11398,7 +11398,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuTexSync(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuTexSync(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void);
@@ -11428,7 +11428,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuClutLoad(JNIEnv* km_env, jclass km_clazz, jint num_blocks, jlong cbp) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuClutLoad(JNIEnv* km_env, jclass km_clazz, jint numBlocks, jlong cbp) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(int32_t, void*);
@@ -11452,13 +11452,13 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 #endif
     if (km_fn_ptr != NULL) {
-        km_fn_ptr((int32_t)num_blocks, (void*)(uintptr_t)cbp);
+        km_fn_ptr((int32_t)numBlocks, (void*)(uintptr_t)cbp);
     } else {
         errno = ENOSYS;
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuOffset(JNIEnv* km_env, jclass km_clazz, jint x, jint y) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuOffset(JNIEnv* km_env, jclass km_clazz, jint x, jint y) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(uint32_t, uint32_t);
@@ -11488,7 +11488,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuScissor(JNIEnv* km_env, jclass km_clazz, jint x, jint y, jint w, jint h) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuScissor(JNIEnv* km_env, jclass km_clazz, jint x, jint y, jint w, jint h) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(int32_t, int32_t, int32_t, int32_t);
@@ -11518,7 +11518,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuViewport(JNIEnv* km_env, jclass km_clazz, jint cx, jint cy, jint width, jint height) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuViewport(JNIEnv* km_env, jclass km_clazz, jint cx, jint cy, jint width, jint height) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(int32_t, int32_t, int32_t, int32_t);
@@ -11548,7 +11548,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuDrawBezier(JNIEnv* km_env, jclass km_clazz, jint v_type, jint u_count, jint v_count, jlong indices, jlong vertices) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuDrawBezier(JNIEnv* km_env, jclass km_clazz, jint vType, jint uCount, jint vCount, jlong indices, jlong vertices) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(int32_t, int32_t, int32_t, void*, void*);
@@ -11572,13 +11572,13 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 #endif
     if (km_fn_ptr != NULL) {
-        km_fn_ptr((int32_t)v_type, (int32_t)u_count, (int32_t)v_count, (void*)(uintptr_t)indices, (void*)(uintptr_t)vertices);
+        km_fn_ptr((int32_t)vType, (int32_t)uCount, (int32_t)vCount, (void*)(uintptr_t)indices, (void*)(uintptr_t)vertices);
     } else {
         errno = ENOSYS;
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuPatchDivide(JNIEnv* km_env, jclass km_clazz, jint ulevel, jint vlevel) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuPatchDivide(JNIEnv* km_env, jclass km_clazz, jint ulevel, jint vlevel) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(uint32_t, uint32_t);
@@ -11608,7 +11608,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuPatchFrontFace(JNIEnv* km_env, jclass km_clazz, jint a0) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuPatchFrontFace(JNIEnv* km_env, jclass km_clazz, jint a0) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(uint32_t);
@@ -11638,7 +11638,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuDrawSpline(JNIEnv* km_env, jclass km_clazz, jint v_type, jint u_count, jint v_count, jint u_edge, jint v_edge, jlong indices, jlong vertices) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuDrawSpline(JNIEnv* km_env, jclass km_clazz, jint vType, jint uCount, jint vCount, jint uEdge, jint vEdge, jlong indices, jlong vertices) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(int32_t, int32_t, int32_t, int32_t, int32_t, void*, void*);
@@ -11662,13 +11662,13 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 #endif
     if (km_fn_ptr != NULL) {
-        km_fn_ptr((int32_t)v_type, (int32_t)u_count, (int32_t)v_count, (int32_t)u_edge, (int32_t)v_edge, (void*)(uintptr_t)indices, (void*)(uintptr_t)vertices);
+        km_fn_ptr((int32_t)vType, (int32_t)uCount, (int32_t)vCount, (int32_t)uEdge, (int32_t)vEdge, (void*)(uintptr_t)indices, (void*)(uintptr_t)vertices);
     } else {
         errno = ENOSYS;
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGuMorphWeight(JNIEnv* km_env, jclass km_clazz, jint arg_0_index, jfloat weight) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGuMorphWeight(JNIEnv* km_env, jclass km_clazz, jint arg0Index, jfloat weight) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(int32_t, float);
@@ -11692,13 +11692,13 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 #endif
     if (km_fn_ptr != NULL) {
-        km_fn_ptr((int32_t)arg_0_index, (float)weight);
+        km_fn_ptr((int32_t)arg0Index, (float)weight);
     } else {
         errno = ENOSYS;
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGumDrawBezier(JNIEnv* km_env, jclass km_clazz, jint v_type, jint u_count, jint v_count, jlong indices, jlong vertices) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGumDrawBezier(JNIEnv* km_env, jclass km_clazz, jint vType, jint uCount, jint vCount, jlong indices, jlong vertices) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(int32_t, int32_t, int32_t, void*, void*);
@@ -11722,13 +11722,13 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 #endif
     if (km_fn_ptr != NULL) {
-        km_fn_ptr((int32_t)v_type, (int32_t)u_count, (int32_t)v_count, (void*)(uintptr_t)indices, (void*)(uintptr_t)vertices);
+        km_fn_ptr((int32_t)vType, (int32_t)uCount, (int32_t)vCount, (void*)(uintptr_t)indices, (void*)(uintptr_t)vertices);
     } else {
         errno = ENOSYS;
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGumDrawSpline(JNIEnv* km_env, jclass km_clazz, jint v_type, jint u_count, jint v_count, jint u_edge, jint v_edge, jlong indices, jlong vertices) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGumDrawSpline(JNIEnv* km_env, jclass km_clazz, jint vType, jint uCount, jint vCount, jint uEdge, jint vEdge, jlong indices, jlong vertices) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(int32_t, int32_t, int32_t, int32_t, int32_t, void*, void*);
@@ -11752,13 +11752,13 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 #endif
     if (km_fn_ptr != NULL) {
-        km_fn_ptr((int32_t)v_type, (int32_t)u_count, (int32_t)v_count, (int32_t)u_edge, (int32_t)v_edge, (void*)(uintptr_t)indices, (void*)(uintptr_t)vertices);
+        km_fn_ptr((int32_t)vType, (int32_t)uCount, (int32_t)vCount, (int32_t)uEdge, (int32_t)vEdge, (void*)(uintptr_t)indices, (void*)(uintptr_t)vertices);
     } else {
         errno = ENOSYS;
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGumFastInverse(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGumFastInverse(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void);
@@ -11788,7 +11788,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGumFullInverse(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGumFullInverse(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void);
@@ -11818,7 +11818,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGumLoadIdentity(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGumLoadIdentity(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void);
@@ -11848,7 +11848,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGumOrtho(JNIEnv* km_env, jclass km_clazz, jfloat left, jfloat right, jfloat bottom, jfloat top, jfloat arg_4_near, jfloat arg_5_far) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGumOrtho(JNIEnv* km_env, jclass km_clazz, jfloat left, jfloat right, jfloat bottom, jfloat top, jfloat arg4Near, jfloat arg5Far) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(float, float, float, float, float, float);
@@ -11872,13 +11872,13 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 #endif
     if (km_fn_ptr != NULL) {
-        km_fn_ptr((float)left, (float)right, (float)bottom, (float)top, (float)arg_4_near, (float)arg_5_far);
+        km_fn_ptr((float)left, (float)right, (float)bottom, (float)top, (float)arg4Near, (float)arg5Far);
     } else {
         errno = ENOSYS;
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGumPerspective(JNIEnv* km_env, jclass km_clazz, jfloat fovy, jfloat aspect, jfloat arg_2_near, jfloat arg_3_far) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGumPerspective(JNIEnv* km_env, jclass km_clazz, jfloat fovy, jfloat aspect, jfloat arg2Near, jfloat arg3Far) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(float, float, float, float);
@@ -11902,13 +11902,13 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 #endif
     if (km_fn_ptr != NULL) {
-        km_fn_ptr((float)fovy, (float)aspect, (float)arg_2_near, (float)arg_3_far);
+        km_fn_ptr((float)fovy, (float)aspect, (float)arg2Near, (float)arg3Far);
     } else {
         errno = ENOSYS;
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGumPopMatrix(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGumPopMatrix(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void);
@@ -11938,7 +11938,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGumPushMatrix(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGumPushMatrix(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void);
@@ -11968,7 +11968,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGumRotateX(JNIEnv* km_env, jclass km_clazz, jfloat angle) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGumRotateX(JNIEnv* km_env, jclass km_clazz, jfloat angle) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(float);
@@ -11998,7 +11998,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGumRotateY(JNIEnv* km_env, jclass km_clazz, jfloat angle) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGumRotateY(JNIEnv* km_env, jclass km_clazz, jfloat angle) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(float);
@@ -12028,7 +12028,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGumRotateZ(JNIEnv* km_env, jclass km_clazz, jfloat angle) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGumRotateZ(JNIEnv* km_env, jclass km_clazz, jfloat angle) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(float);
@@ -12058,7 +12058,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceGumUpdateMatrix(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceGumUpdateMatrix(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void);
@@ -12088,7 +12088,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceMp3ReserveMp3Handle(JNIEnv* km_env, jclass km_clazz, jlong args) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceMp3ReserveMp3Handle(JNIEnv* km_env, jclass km_clazz, jlong args) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -12121,7 +12121,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceMp3InitResource(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceMp3InitResource(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -12154,7 +12154,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceMp3TermResource(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceMp3TermResource(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -12187,7 +12187,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceRegOpenRegistry(JNIEnv* km_env, jclass km_clazz, jlong reg, jint mode, jlong handle) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceRegOpenRegistry(JNIEnv* km_env, jclass km_clazz, jlong reg, jint mode, jlong handle) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t, void*);
@@ -12220,7 +12220,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceRegRemoveRegistry(JNIEnv* km_env, jclass km_clazz, jlong key) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceRegRemoveRegistry(JNIEnv* km_env, jclass km_clazz, jlong key) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -12253,7 +12253,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceOpenPSIDGetOpenPSID(JNIEnv* km_env, jclass km_clazz, jlong openpsid) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceOpenPSIDGetOpenPSID(JNIEnv* km_env, jclass km_clazz, jlong openpsid) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -12286,7 +12286,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUtilityMsgDialogInitStart(JNIEnv* km_env, jclass km_clazz, jlong params) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUtilityMsgDialogInitStart(JNIEnv* km_env, jclass km_clazz, jlong params) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -12319,7 +12319,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUtilityMsgDialogShutdownStart(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUtilityMsgDialogShutdownStart(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void);
@@ -12349,7 +12349,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUtilityMsgDialogGetStatus(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUtilityMsgDialogGetStatus(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -12382,7 +12382,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUtilityMsgDialogUpdate(JNIEnv* km_env, jclass km_clazz, jint n) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUtilityMsgDialogUpdate(JNIEnv* km_env, jclass km_clazz, jint n) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(int32_t);
@@ -12412,7 +12412,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUtilityMsgDialogAbort(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUtilityMsgDialogAbort(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -12445,7 +12445,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUtilityNetconfInitStart(JNIEnv* km_env, jclass km_clazz, jlong data) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUtilityNetconfInitStart(JNIEnv* km_env, jclass km_clazz, jlong data) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -12478,7 +12478,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUtilityNetconfShutdownStart(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUtilityNetconfShutdownStart(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -12511,7 +12511,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUtilityNetconfUpdate(JNIEnv* km_env, jclass km_clazz, jint unknown) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUtilityNetconfUpdate(JNIEnv* km_env, jclass km_clazz, jint unknown) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -12544,7 +12544,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUtilityNetconfGetStatus(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUtilityNetconfGetStatus(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -12577,7 +12577,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUtilityCheckNetParam(JNIEnv* km_env, jclass km_clazz, jint id) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUtilityCheckNetParam(JNIEnv* km_env, jclass km_clazz, jint id) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -12610,7 +12610,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUtilitySavedataInitStart(JNIEnv* km_env, jclass km_clazz, jlong params) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUtilitySavedataInitStart(JNIEnv* km_env, jclass km_clazz, jlong params) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -12643,7 +12643,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUtilitySavedataGetStatus(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUtilitySavedataGetStatus(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -12676,7 +12676,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUtilitySavedataShutdownStart(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUtilitySavedataShutdownStart(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -12709,7 +12709,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUtilitySavedataUpdate(JNIEnv* km_env, jclass km_clazz, jint unknown) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUtilitySavedataUpdate(JNIEnv* km_env, jclass km_clazz, jint unknown) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(int32_t);
@@ -12739,7 +12739,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUtilityGameSharingInitStart(JNIEnv* km_env, jclass km_clazz, jlong params) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUtilityGameSharingInitStart(JNIEnv* km_env, jclass km_clazz, jlong params) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -12772,7 +12772,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUtilityGameSharingShutdownStart(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUtilityGameSharingShutdownStart(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void);
@@ -12802,7 +12802,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUtilityGameSharingGetStatus(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUtilityGameSharingGetStatus(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -12835,7 +12835,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUtilityGameSharingUpdate(JNIEnv* km_env, jclass km_clazz, jint n) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUtilityGameSharingUpdate(JNIEnv* km_env, jclass km_clazz, jint n) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(int32_t);
@@ -12865,7 +12865,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUtilityHtmlViewerInitStart(JNIEnv* km_env, jclass km_clazz, jlong params) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUtilityHtmlViewerInitStart(JNIEnv* km_env, jclass km_clazz, jlong params) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -12898,7 +12898,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUtilityHtmlViewerShutdownStart(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUtilityHtmlViewerShutdownStart(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -12931,7 +12931,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUtilityHtmlViewerUpdate(JNIEnv* km_env, jclass km_clazz, jint n) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUtilityHtmlViewerUpdate(JNIEnv* km_env, jclass km_clazz, jint n) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -12964,7 +12964,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUtilityHtmlViewerGetStatus(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUtilityHtmlViewerGetStatus(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -12997,7 +12997,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUtilityOskInitStart(JNIEnv* km_env, jclass km_clazz, jlong params) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUtilityOskInitStart(JNIEnv* km_env, jclass km_clazz, jlong params) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -13030,7 +13030,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUtilityOskShutdownStart(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUtilityOskShutdownStart(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -13063,7 +13063,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUtilityOskUpdate(JNIEnv* km_env, jclass km_clazz, jint n) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUtilityOskUpdate(JNIEnv* km_env, jclass km_clazz, jint n) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -13096,7 +13096,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUtilityOskGetStatus(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUtilityOskGetStatus(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -13129,7 +13129,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUtilityCreateNetParam(JNIEnv* km_env, jclass km_clazz, jint conf) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUtilityCreateNetParam(JNIEnv* km_env, jclass km_clazz, jint conf) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -13162,7 +13162,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUtilityCopyNetParam(JNIEnv* km_env, jclass km_clazz, jint src, jint dest) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUtilityCopyNetParam(JNIEnv* km_env, jclass km_clazz, jint src, jint dest) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
@@ -13195,7 +13195,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceUtilityDeleteNetParam(JNIEnv* km_env, jclass km_clazz, jint conf) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceUtilityDeleteNetParam(JNIEnv* km_env, jclass km_clazz, jint conf) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -13228,7 +13228,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetInit(JNIEnv* km_env, jclass km_clazz, jint poolsize, jint calloutprio, jint calloutstack, jint netintrprio, jint netintrstack) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetInit(JNIEnv* km_env, jclass km_clazz, jint poolsize, jint calloutprio, jint calloutstack, jint netintrprio, jint netintrstack) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t, int32_t);
@@ -13261,7 +13261,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetTerm(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetTerm(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -13294,7 +13294,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetFreeThreadinfo(JNIEnv* km_env, jclass km_clazz, jint thid) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetFreeThreadinfo(JNIEnv* km_env, jclass km_clazz, jint thid) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -13327,7 +13327,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetThreadAbort(JNIEnv* km_env, jclass km_clazz, jint thid) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetThreadAbort(JNIEnv* km_env, jclass km_clazz, jint thid) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -13360,7 +13360,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetEtherStrton(JNIEnv* km_env, jclass km_clazz, jlong name, jlong mac) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetEtherStrton(JNIEnv* km_env, jclass km_clazz, jlong name, jlong mac) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void*, void*);
@@ -13390,7 +13390,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetEtherNtostr(JNIEnv* km_env, jclass km_clazz, jlong mac, jlong name) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetEtherNtostr(JNIEnv* km_env, jclass km_clazz, jlong mac, jlong name) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void*, void*);
@@ -13420,7 +13420,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     }
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetGetLocalEtherAddr(JNIEnv* km_env, jclass km_clazz, jlong mac) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetGetLocalEtherAddr(JNIEnv* km_env, jclass km_clazz, jlong mac) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -13453,7 +13453,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetGetMallocStat(JNIEnv* km_env, jclass km_clazz, jlong arg_0_stat) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetGetMallocStat(JNIEnv* km_env, jclass km_clazz, jlong arg0Stat) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -13478,7 +13478,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)arg_0_stat);
+        km_res = km_fn_ptr((void*)(uintptr_t)arg0Stat);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -13486,7 +13486,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocctlInit(JNIEnv* km_env, jclass km_clazz, jint stacksize, jint priority, jlong adhoc_id) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocctlInit(JNIEnv* km_env, jclass km_clazz, jint stacksize, jint priority, jlong adhocId) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
@@ -13511,7 +13511,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)stacksize, (int32_t)priority, (void*)(uintptr_t)adhoc_id);
+        km_res = km_fn_ptr((int32_t)stacksize, (int32_t)priority, (void*)(uintptr_t)adhocId);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -13519,7 +13519,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocctlTerm(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocctlTerm(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -13552,7 +13552,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocctlConnect(JNIEnv* km_env, jclass km_clazz, jlong name) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocctlConnect(JNIEnv* km_env, jclass km_clazz, jlong name) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -13585,7 +13585,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocctlDisconnect(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocctlDisconnect(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -13618,7 +13618,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocctlGetState(JNIEnv* km_env, jclass km_clazz, jlong event) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocctlGetState(JNIEnv* km_env, jclass km_clazz, jlong event) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -13651,7 +13651,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocctlCreate(JNIEnv* km_env, jclass km_clazz, jlong name) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocctlCreate(JNIEnv* km_env, jclass km_clazz, jlong name) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -13684,7 +13684,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocctlJoin(JNIEnv* km_env, jclass km_clazz, jlong scaninfo) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocctlJoin(JNIEnv* km_env, jclass km_clazz, jlong scaninfo) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -13717,7 +13717,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocctlGetAdhocId(JNIEnv* km_env, jclass km_clazz, jlong id) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocctlGetAdhocId(JNIEnv* km_env, jclass km_clazz, jlong id) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -13750,7 +13750,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocctlCreateEnterGameMode(JNIEnv* km_env, jclass km_clazz, jlong name, jint unknown, jint num, jlong macs, jint timeout, jint unknown2) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocctlCreateEnterGameMode(JNIEnv* km_env, jclass km_clazz, jlong name, jint unknown, jint num, jlong macs, jint timeout, jint unknown2) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t, int32_t, void*, uint32_t, int32_t);
@@ -13783,7 +13783,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocctlJoinEnterGameMode(JNIEnv* km_env, jclass km_clazz, jlong name, jlong hostmac, jint timeout, jint unknown) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocctlJoinEnterGameMode(JNIEnv* km_env, jclass km_clazz, jlong name, jlong hostmac, jint timeout, jint unknown) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, uint32_t, int32_t);
@@ -13816,7 +13816,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocctlGetGameModeInfo(JNIEnv* km_env, jclass km_clazz, jlong gamemodeinfo) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocctlGetGameModeInfo(JNIEnv* km_env, jclass km_clazz, jlong gamemodeinfo) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -13849,7 +13849,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocctlExitGameMode(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocctlExitGameMode(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -13882,7 +13882,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocctlGetPeerList(JNIEnv* km_env, jclass km_clazz, jlong length, jlong buf) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocctlGetPeerList(JNIEnv* km_env, jclass km_clazz, jlong length, jlong buf) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -13915,7 +13915,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocctlGetPeerInfo(JNIEnv* km_env, jclass km_clazz, jlong mac, jint size, jlong peerinfo) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocctlGetPeerInfo(JNIEnv* km_env, jclass km_clazz, jlong mac, jint size, jlong peerinfo) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t, void*);
@@ -13948,7 +13948,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocctlScan(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocctlScan(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -13981,7 +13981,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocctlGetScanInfo(JNIEnv* km_env, jclass km_clazz, jlong length, jlong buf) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocctlGetScanInfo(JNIEnv* km_env, jclass km_clazz, jlong length, jlong buf) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -14014,7 +14014,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocctlAddHandler(JNIEnv* km_env, jclass km_clazz, jlong handler, jlong unknown) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocctlAddHandler(JNIEnv* km_env, jclass km_clazz, jlong handler, jlong unknown) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -14047,7 +14047,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocctlDelHandler(JNIEnv* km_env, jclass km_clazz, jint id) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocctlDelHandler(JNIEnv* km_env, jclass km_clazz, jint id) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -14080,7 +14080,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocctlGetNameByAddr(JNIEnv* km_env, jclass km_clazz, jlong mac, jlong nickname) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocctlGetNameByAddr(JNIEnv* km_env, jclass km_clazz, jlong mac, jlong nickname) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -14113,7 +14113,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocctlGetAddrByName(JNIEnv* km_env, jclass km_clazz, jlong nickname, jlong length, jlong buf) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocctlGetAddrByName(JNIEnv* km_env, jclass km_clazz, jlong nickname, jlong length, jlong buf) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, void*);
@@ -14146,7 +14146,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocctlGetParameter(JNIEnv* km_env, jclass km_clazz, jlong params) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocctlGetParameter(JNIEnv* km_env, jclass km_clazz, jlong params) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -14179,7 +14179,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocInit(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocInit(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -14212,7 +14212,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocTerm(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocTerm(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -14245,7 +14245,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocPdpCreate(JNIEnv* km_env, jclass km_clazz, jlong mac, jshort port, jint buf_size, jint unk1) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocPdpCreate(JNIEnv* km_env, jclass km_clazz, jlong mac, jshort port, jint bufSize, jint unk1) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint16_t, uint32_t, int32_t);
@@ -14270,7 +14270,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)mac, (uint16_t)port, (uint32_t)buf_size, (int32_t)unk1);
+        km_res = km_fn_ptr((void*)(uintptr_t)mac, (uint16_t)port, (uint32_t)bufSize, (int32_t)unk1);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -14278,7 +14278,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocPdpDelete(JNIEnv* km_env, jclass km_clazz, jint id, jint unk1) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocPdpDelete(JNIEnv* km_env, jclass km_clazz, jint id, jint unk1) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
@@ -14311,7 +14311,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocPdpSend(JNIEnv* km_env, jclass km_clazz, jint id, jlong dest_mac_addr, jshort port, jlong data, jint len, jint timeout, jint nonblock) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocPdpSend(JNIEnv* km_env, jclass km_clazz, jint id, jlong destMacAddr, jshort port, jlong data, jint len, jint timeout, jint nonblock) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, uint16_t, void*, uint32_t, uint32_t, int32_t);
@@ -14336,7 +14336,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)id, (void*)(uintptr_t)dest_mac_addr, (uint16_t)port, (void*)(uintptr_t)data, (uint32_t)len, (uint32_t)timeout, (int32_t)nonblock);
+        km_res = km_fn_ptr((int32_t)id, (void*)(uintptr_t)destMacAddr, (uint16_t)port, (void*)(uintptr_t)data, (uint32_t)len, (uint32_t)timeout, (int32_t)nonblock);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -14344,7 +14344,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocPdpRecv(JNIEnv* km_env, jclass km_clazz, jint id, jlong src_mac_addr, jlong port, jlong data, jlong data_length, jint timeout, jint nonblock) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocPdpRecv(JNIEnv* km_env, jclass km_clazz, jint id, jlong srcMacAddr, jlong port, jlong data, jlong dataLength, jint timeout, jint nonblock) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, void*, void*, uint32_t, int32_t);
@@ -14369,7 +14369,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)id, (void*)(uintptr_t)src_mac_addr, (void*)(uintptr_t)port, (void*)(uintptr_t)data, (void*)(uintptr_t)data_length, (uint32_t)timeout, (int32_t)nonblock);
+        km_res = km_fn_ptr((int32_t)id, (void*)(uintptr_t)srcMacAddr, (void*)(uintptr_t)port, (void*)(uintptr_t)data, (void*)(uintptr_t)dataLength, (uint32_t)timeout, (int32_t)nonblock);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -14377,7 +14377,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocGetPdpStat(JNIEnv* km_env, jclass km_clazz, jlong size, jlong arg_1_stat) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocGetPdpStat(JNIEnv* km_env, jclass km_clazz, jlong size, jlong arg1Stat) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -14402,7 +14402,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)size, (void*)(uintptr_t)arg_1_stat);
+        km_res = km_fn_ptr((void*)(uintptr_t)size, (void*)(uintptr_t)arg1Stat);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -14410,7 +14410,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocGameModeCreateMaster(JNIEnv* km_env, jclass km_clazz, jlong data, jint size) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocGameModeCreateMaster(JNIEnv* km_env, jclass km_clazz, jlong data, jint size) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t);
@@ -14443,7 +14443,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocGameModeCreateReplica(JNIEnv* km_env, jclass km_clazz, jlong mac, jlong data, jint size) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocGameModeCreateReplica(JNIEnv* km_env, jclass km_clazz, jlong mac, jlong data, jint size) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, int32_t);
@@ -14476,7 +14476,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocGameModeUpdateMaster(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocGameModeUpdateMaster(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -14509,7 +14509,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocGameModeUpdateReplica(JNIEnv* km_env, jclass km_clazz, jint id, jint unk1) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocGameModeUpdateReplica(JNIEnv* km_env, jclass km_clazz, jint id, jint unk1) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
@@ -14542,7 +14542,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocGameModeDeleteMaster(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocGameModeDeleteMaster(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -14575,7 +14575,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocGameModeDeleteReplica(JNIEnv* km_env, jclass km_clazz, jint id) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocGameModeDeleteReplica(JNIEnv* km_env, jclass km_clazz, jint id) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -14608,7 +14608,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocPtpOpen(JNIEnv* km_env, jclass km_clazz, jlong srcmac, jshort srcport, jlong destmac, jshort destport, jint buf_size, jint delay, jint count, jint unk1) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocPtpOpen(JNIEnv* km_env, jclass km_clazz, jlong srcmac, jshort srcport, jlong destmac, jshort destport, jint bufSize, jint delay, jint count, jint unk1) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint16_t, void*, uint16_t, uint32_t, uint32_t, int32_t, int32_t);
@@ -14633,7 +14633,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)srcmac, (uint16_t)srcport, (void*)(uintptr_t)destmac, (uint16_t)destport, (uint32_t)buf_size, (uint32_t)delay, (int32_t)count, (int32_t)unk1);
+        km_res = km_fn_ptr((void*)(uintptr_t)srcmac, (uint16_t)srcport, (void*)(uintptr_t)destmac, (uint16_t)destport, (uint32_t)bufSize, (uint32_t)delay, (int32_t)count, (int32_t)unk1);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -14641,7 +14641,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocPtpConnect(JNIEnv* km_env, jclass km_clazz, jint id, jint timeout, jint nonblock) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocPtpConnect(JNIEnv* km_env, jclass km_clazz, jint id, jint timeout, jint nonblock) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, uint32_t, int32_t);
@@ -14674,7 +14674,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocPtpListen(JNIEnv* km_env, jclass km_clazz, jlong srcmac, jshort srcport, jint buf_size, jint delay, jint count, jint queue, jint unk1) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocPtpListen(JNIEnv* km_env, jclass km_clazz, jlong srcmac, jshort srcport, jint bufSize, jint delay, jint count, jint queue, jint unk1) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint16_t, uint32_t, uint32_t, int32_t, int32_t, int32_t);
@@ -14699,7 +14699,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)srcmac, (uint16_t)srcport, (uint32_t)buf_size, (uint32_t)delay, (int32_t)count, (int32_t)queue, (int32_t)unk1);
+        km_res = km_fn_ptr((void*)(uintptr_t)srcmac, (uint16_t)srcport, (uint32_t)bufSize, (uint32_t)delay, (int32_t)count, (int32_t)queue, (int32_t)unk1);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -14707,7 +14707,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocPtpAccept(JNIEnv* km_env, jclass km_clazz, jint id, jlong mac, jlong port, jint timeout, jint nonblock) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocPtpAccept(JNIEnv* km_env, jclass km_clazz, jint id, jlong mac, jlong port, jint timeout, jint nonblock) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, uint32_t, int32_t);
@@ -14740,7 +14740,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocPtpSend(JNIEnv* km_env, jclass km_clazz, jint id, jlong data, jlong data_size, jint timeout, jint nonblock) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocPtpSend(JNIEnv* km_env, jclass km_clazz, jint id, jlong data, jlong dataSize, jint timeout, jint nonblock) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, uint32_t, int32_t);
@@ -14765,7 +14765,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)id, (void*)(uintptr_t)data, (void*)(uintptr_t)data_size, (uint32_t)timeout, (int32_t)nonblock);
+        km_res = km_fn_ptr((int32_t)id, (void*)(uintptr_t)data, (void*)(uintptr_t)dataSize, (uint32_t)timeout, (int32_t)nonblock);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -14773,7 +14773,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocPtpRecv(JNIEnv* km_env, jclass km_clazz, jint id, jlong data, jlong data_size, jint timeout, jint nonblock) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocPtpRecv(JNIEnv* km_env, jclass km_clazz, jint id, jlong data, jlong dataSize, jint timeout, jint nonblock) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, uint32_t, int32_t);
@@ -14798,7 +14798,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)id, (void*)(uintptr_t)data, (void*)(uintptr_t)data_size, (uint32_t)timeout, (int32_t)nonblock);
+        km_res = km_fn_ptr((int32_t)id, (void*)(uintptr_t)data, (void*)(uintptr_t)dataSize, (uint32_t)timeout, (int32_t)nonblock);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -14806,7 +14806,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocPtpFlush(JNIEnv* km_env, jclass km_clazz, jint id, jint timeout, jint nonblock) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocPtpFlush(JNIEnv* km_env, jclass km_clazz, jint id, jint timeout, jint nonblock) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, uint32_t, int32_t);
@@ -14839,7 +14839,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocPtpClose(JNIEnv* km_env, jclass km_clazz, jint id, jint unk1) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocPtpClose(JNIEnv* km_env, jclass km_clazz, jint id, jint unk1) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
@@ -14872,7 +14872,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocGetPtpStat(JNIEnv* km_env, jclass km_clazz, jlong size, jlong arg_1_stat) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocGetPtpStat(JNIEnv* km_env, jclass km_clazz, jlong size, jlong arg1Stat) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -14897,7 +14897,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)size, (void*)(uintptr_t)arg_1_stat);
+        km_res = km_fn_ptr((void*)(uintptr_t)size, (void*)(uintptr_t)arg1Stat);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -14905,7 +14905,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocMatchingInit(JNIEnv* km_env, jclass km_clazz, jint memsize) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocMatchingInit(JNIEnv* km_env, jclass km_clazz, jint memsize) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -14938,7 +14938,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocMatchingTerm(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocMatchingTerm(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -14971,7 +14971,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocMatchingDelete(JNIEnv* km_env, jclass km_clazz, jint matching_id) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocMatchingDelete(JNIEnv* km_env, jclass km_clazz, jint matchingId) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -14996,7 +14996,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)matching_id);
+        km_res = km_fn_ptr((int32_t)matchingId);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -15004,7 +15004,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocMatchingStart(JNIEnv* km_env, jclass km_clazz, jint matching_id, jint evth_pri, jint evth_stack, jint inth_pri, jint inth_stack, jint opt_len, jlong opt_data) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocMatchingStart(JNIEnv* km_env, jclass km_clazz, jint matchingId, jint evthPri, jint evthStack, jint inthPri, jint inthStack, jint optLen, jlong optData) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, void*);
@@ -15029,7 +15029,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)matching_id, (int32_t)evth_pri, (int32_t)evth_stack, (int32_t)inth_pri, (int32_t)inth_stack, (int32_t)opt_len, (void*)(uintptr_t)opt_data);
+        km_res = km_fn_ptr((int32_t)matchingId, (int32_t)evthPri, (int32_t)evthStack, (int32_t)inthPri, (int32_t)inthStack, (int32_t)optLen, (void*)(uintptr_t)optData);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -15037,7 +15037,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocMatchingStop(JNIEnv* km_env, jclass km_clazz, jint matching_id) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocMatchingStop(JNIEnv* km_env, jclass km_clazz, jint matchingId) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -15062,7 +15062,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)matching_id);
+        km_res = km_fn_ptr((int32_t)matchingId);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -15070,7 +15070,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocMatchingSelectTarget(JNIEnv* km_env, jclass km_clazz, jint matching_id, jlong mac, jint opt_len, jlong opt_data) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocMatchingSelectTarget(JNIEnv* km_env, jclass km_clazz, jint matchingId, jlong mac, jint optLen, jlong optData) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t, void*);
@@ -15095,7 +15095,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)matching_id, (void*)(uintptr_t)mac, (int32_t)opt_len, (void*)(uintptr_t)opt_data);
+        km_res = km_fn_ptr((int32_t)matchingId, (void*)(uintptr_t)mac, (int32_t)optLen, (void*)(uintptr_t)optData);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -15103,7 +15103,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocMatchingCancelTarget(JNIEnv* km_env, jclass km_clazz, jint matching_id, jlong mac) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocMatchingCancelTarget(JNIEnv* km_env, jclass km_clazz, jint matchingId, jlong mac) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -15128,7 +15128,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)matching_id, (void*)(uintptr_t)mac);
+        km_res = km_fn_ptr((int32_t)matchingId, (void*)(uintptr_t)mac);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -15136,7 +15136,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocMatchingCancelTargetWithOpt(JNIEnv* km_env, jclass km_clazz, jint matching_id, jlong mac, jint opt_len, jlong opt_data) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocMatchingCancelTargetWithOpt(JNIEnv* km_env, jclass km_clazz, jint matchingId, jlong mac, jint optLen, jlong optData) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t, void*);
@@ -15161,7 +15161,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)matching_id, (void*)(uintptr_t)mac, (int32_t)opt_len, (void*)(uintptr_t)opt_data);
+        km_res = km_fn_ptr((int32_t)matchingId, (void*)(uintptr_t)mac, (int32_t)optLen, (void*)(uintptr_t)optData);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -15169,7 +15169,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocMatchingSendData(JNIEnv* km_env, jclass km_clazz, jint matching_id, jlong mac, jint data_len, jlong data) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocMatchingSendData(JNIEnv* km_env, jclass km_clazz, jint matchingId, jlong mac, jint dataLen, jlong data) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t, void*);
@@ -15194,7 +15194,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)matching_id, (void*)(uintptr_t)mac, (int32_t)data_len, (void*)(uintptr_t)data);
+        km_res = km_fn_ptr((int32_t)matchingId, (void*)(uintptr_t)mac, (int32_t)dataLen, (void*)(uintptr_t)data);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -15202,7 +15202,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocMatchingAbortSendData(JNIEnv* km_env, jclass km_clazz, jint matching_id, jlong mac) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocMatchingAbortSendData(JNIEnv* km_env, jclass km_clazz, jint matchingId, jlong mac) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -15227,7 +15227,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)matching_id, (void*)(uintptr_t)mac);
+        km_res = km_fn_ptr((int32_t)matchingId, (void*)(uintptr_t)mac);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -15235,7 +15235,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocMatchingSetHelloOpt(JNIEnv* km_env, jclass km_clazz, jint matching_id, jint opt_len, jlong opt_data) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocMatchingSetHelloOpt(JNIEnv* km_env, jclass km_clazz, jint matchingId, jint optLen, jlong optData) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
@@ -15260,7 +15260,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)matching_id, (int32_t)opt_len, (void*)(uintptr_t)opt_data);
+        km_res = km_fn_ptr((int32_t)matchingId, (int32_t)optLen, (void*)(uintptr_t)optData);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -15268,7 +15268,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocMatchingGetHelloOpt(JNIEnv* km_env, jclass km_clazz, jint matching_id, jlong opt_len, jlong opt_data) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocMatchingGetHelloOpt(JNIEnv* km_env, jclass km_clazz, jint matchingId, jlong optLen, jlong optData) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
@@ -15293,7 +15293,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)matching_id, (void*)(uintptr_t)opt_len, (void*)(uintptr_t)opt_data);
+        km_res = km_fn_ptr((int32_t)matchingId, (void*)(uintptr_t)optLen, (void*)(uintptr_t)optData);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -15301,7 +15301,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocMatchingGetMembers(JNIEnv* km_env, jclass km_clazz, jint matching_id, jlong length, jlong buf) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocMatchingGetMembers(JNIEnv* km_env, jclass km_clazz, jint matchingId, jlong length, jlong buf) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
@@ -15326,7 +15326,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)matching_id, (void*)(uintptr_t)length, (void*)(uintptr_t)buf);
+        km_res = km_fn_ptr((int32_t)matchingId, (void*)(uintptr_t)length, (void*)(uintptr_t)buf);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -15334,7 +15334,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocMatchingGetPoolMaxAlloc(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocMatchingGetPoolMaxAlloc(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -15367,7 +15367,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetAdhocMatchingGetPoolStat(JNIEnv* km_env, jclass km_clazz, jlong poolstat) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetAdhocMatchingGetPoolStat(JNIEnv* km_env, jclass km_clazz, jlong poolstat) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -15400,7 +15400,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetApctlInit(JNIEnv* km_env, jclass km_clazz, jint stack_size, jint init_priority) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetApctlInit(JNIEnv* km_env, jclass km_clazz, jint stackSize, jint initPriority) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
@@ -15425,7 +15425,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)stack_size, (int32_t)init_priority);
+        km_res = km_fn_ptr((int32_t)stackSize, (int32_t)initPriority);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -15433,7 +15433,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetApctlTerm(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetApctlTerm(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -15466,7 +15466,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetApctlAddHandler(JNIEnv* km_env, jclass km_clazz, jlong handler, jlong parg) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetApctlAddHandler(JNIEnv* km_env, jclass km_clazz, jlong handler, jlong parg) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -15499,7 +15499,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetApctlDelHandler(JNIEnv* km_env, jclass km_clazz, jint handler_id) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetApctlDelHandler(JNIEnv* km_env, jclass km_clazz, jint handlerId) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -15524,7 +15524,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)handler_id);
+        km_res = km_fn_ptr((int32_t)handlerId);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -15532,7 +15532,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetApctlConnect(JNIEnv* km_env, jclass km_clazz, jint conn_index) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetApctlConnect(JNIEnv* km_env, jclass km_clazz, jint connIndex) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -15557,7 +15557,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)conn_index);
+        km_res = km_fn_ptr((int32_t)connIndex);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -15565,7 +15565,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetApctlDisconnect(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetApctlDisconnect(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -15598,7 +15598,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetApctlGetState(JNIEnv* km_env, jclass km_clazz, jlong pstate) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetApctlGetState(JNIEnv* km_env, jclass km_clazz, jlong pstate) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -15631,7 +15631,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetInetInit(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetInetInit(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -15664,7 +15664,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetInetTerm(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetInetTerm(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -15697,7 +15697,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetInetAccept(JNIEnv* km_env, jclass km_clazz, jint s, jlong addr, jlong addr_len) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetInetAccept(JNIEnv* km_env, jclass km_clazz, jint s, jlong addr, jlong addrLen) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
@@ -15722,7 +15722,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)s, (void*)(uintptr_t)addr, (void*)(uintptr_t)addr_len);
+        km_res = km_fn_ptr((int32_t)s, (void*)(uintptr_t)addr, (void*)(uintptr_t)addrLen);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -15730,7 +15730,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetInetBind(JNIEnv* km_env, jclass km_clazz, jint s, jlong my_addr, jint addr_len) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetInetBind(JNIEnv* km_env, jclass km_clazz, jint s, jlong myAddr, jint addrLen) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t);
@@ -15755,7 +15755,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)s, (void*)(uintptr_t)my_addr, (uint32_t)addr_len);
+        km_res = km_fn_ptr((int32_t)s, (void*)(uintptr_t)myAddr, (uint32_t)addrLen);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -15763,7 +15763,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetInetConnect(JNIEnv* km_env, jclass km_clazz, jint s, jlong serv_addr, jint addr_len) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetInetConnect(JNIEnv* km_env, jclass km_clazz, jint s, jlong servAddr, jint addrLen) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t);
@@ -15788,7 +15788,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)s, (void*)(uintptr_t)serv_addr, (uint32_t)addr_len);
+        km_res = km_fn_ptr((int32_t)s, (void*)(uintptr_t)servAddr, (uint32_t)addrLen);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -15796,7 +15796,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetInetGetsockopt(JNIEnv* km_env, jclass km_clazz, jint s, jint level, jint opt_name, jlong opt_val, jlong optl_en) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetInetGetsockopt(JNIEnv* km_env, jclass km_clazz, jint s, jint level, jint optName, jlong optVal, jlong optlEn) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, void*, void*);
@@ -15821,7 +15821,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)s, (int32_t)level, (int32_t)opt_name, (void*)(uintptr_t)opt_val, (void*)(uintptr_t)optl_en);
+        km_res = km_fn_ptr((int32_t)s, (int32_t)level, (int32_t)optName, (void*)(uintptr_t)optVal, (void*)(uintptr_t)optlEn);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -15829,7 +15829,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetInetListen(JNIEnv* km_env, jclass km_clazz, jint s, jint backlog) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetInetListen(JNIEnv* km_env, jclass km_clazz, jint s, jint backlog) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
@@ -15862,7 +15862,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetInetRecv(JNIEnv* km_env, jclass km_clazz, jint s, jlong buf, jlong len, jint flags) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetInetRecv(JNIEnv* km_env, jclass km_clazz, jint s, jlong buf, jlong len, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef uint64_t (*km_fn_t)(int32_t, void*, uint64_t, int32_t);
@@ -15895,7 +15895,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1p
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetInetRecvfrom(JNIEnv* km_env, jclass km_clazz, jint s, jlong buf, jlong flags, jint arg1, jlong from, jlong from_len) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetInetRecvfrom(JNIEnv* km_env, jclass km_clazz, jint s, jlong buf, jlong flags, jint arg1, jlong from, jlong fromLen) {
     (void)km_env;
     (void)km_clazz;
     typedef uint64_t (*km_fn_t)(int32_t, void*, uint64_t, int32_t, void*, void*);
@@ -15920,7 +15920,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1p
 #endif
     uint64_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)s, (void*)(uintptr_t)buf, (uint64_t)flags, (int32_t)arg1, (void*)(uintptr_t)from, (void*)(uintptr_t)from_len);
+        km_res = km_fn_ptr((int32_t)s, (void*)(uintptr_t)buf, (uint64_t)flags, (int32_t)arg1, (void*)(uintptr_t)from, (void*)(uintptr_t)fromLen);
     } else {
         errno = ENOSYS;
         km_res = 0;
@@ -15928,7 +15928,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1p
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetInetSend(JNIEnv* km_env, jclass km_clazz, jint s, jlong buf, jlong len, jint flags) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetInetSend(JNIEnv* km_env, jclass km_clazz, jint s, jlong buf, jlong len, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef uint64_t (*km_fn_t)(int32_t, void*, uint64_t, int32_t);
@@ -15961,7 +15961,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1p
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetInetSendto(JNIEnv* km_env, jclass km_clazz, jint s, jlong buf, jlong len, jint flags, jlong to, jint to_len) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetInetSendto(JNIEnv* km_env, jclass km_clazz, jint s, jlong buf, jlong len, jint flags, jlong to, jint toLen) {
     (void)km_env;
     (void)km_clazz;
     typedef uint64_t (*km_fn_t)(int32_t, void*, uint64_t, int32_t, void*, uint32_t);
@@ -15986,7 +15986,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1p
 #endif
     uint64_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)s, (void*)(uintptr_t)buf, (uint64_t)len, (int32_t)flags, (void*)(uintptr_t)to, (uint32_t)to_len);
+        km_res = km_fn_ptr((int32_t)s, (void*)(uintptr_t)buf, (uint64_t)len, (int32_t)flags, (void*)(uintptr_t)to, (uint32_t)toLen);
     } else {
         errno = ENOSYS;
         km_res = 0;
@@ -15994,7 +15994,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1p
     return (jlong)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetInetSetsockopt(JNIEnv* km_env, jclass km_clazz, jint s, jint level, jint opt_name, jlong opt_val, jint opt_len) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetInetSetsockopt(JNIEnv* km_env, jclass km_clazz, jint s, jint level, jint optName, jlong optVal, jint optLen) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, void*, uint32_t);
@@ -16019,7 +16019,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)s, (int32_t)level, (int32_t)opt_name, (void*)(uintptr_t)opt_val, (uint32_t)opt_len);
+        km_res = km_fn_ptr((int32_t)s, (int32_t)level, (int32_t)optName, (void*)(uintptr_t)optVal, (uint32_t)optLen);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -16027,7 +16027,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetInetShutdown(JNIEnv* km_env, jclass km_clazz, jint s, jint how) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetInetShutdown(JNIEnv* km_env, jclass km_clazz, jint s, jint how) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
@@ -16060,7 +16060,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetInetSocket(JNIEnv* km_env, jclass km_clazz, jint domain, jint type_, jint protocol) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetInetSocket(JNIEnv* km_env, jclass km_clazz, jint domain, jint type, jint protocol) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t);
@@ -16085,7 +16085,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)domain, (int32_t)type_, (int32_t)protocol);
+        km_res = km_fn_ptr((int32_t)domain, (int32_t)type, (int32_t)protocol);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -16093,7 +16093,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetInetClose(JNIEnv* km_env, jclass km_clazz, jint s) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetInetClose(JNIEnv* km_env, jclass km_clazz, jint s) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -16126,7 +16126,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetInetGetErrno(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetInetGetErrno(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -16159,7 +16159,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceSslInit(JNIEnv* km_env, jclass km_clazz, jint unknown1) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceSslInit(JNIEnv* km_env, jclass km_clazz, jint unknown1) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -16192,7 +16192,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceSslEnd(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceSslEnd(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -16225,7 +16225,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceSslGetUsedMemoryMax(JNIEnv* km_env, jclass km_clazz, jlong memory) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceSslGetUsedMemoryMax(JNIEnv* km_env, jclass km_clazz, jlong memory) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -16258,7 +16258,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceSslGetUsedMemoryCurrent(JNIEnv* km_env, jclass km_clazz, jlong memory) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceSslGetUsedMemoryCurrent(JNIEnv* km_env, jclass km_clazz, jlong memory) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -16291,7 +16291,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHttpInit(JNIEnv* km_env, jclass km_clazz, jint unknown1) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHttpInit(JNIEnv* km_env, jclass km_clazz, jint unknown1) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -16324,7 +16324,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHttpEnd(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHttpEnd(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -16357,7 +16357,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHttpCreateTemplate(JNIEnv* km_env, jclass km_clazz, jlong agent, jint unknown1, jint unknown2) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHttpCreateTemplate(JNIEnv* km_env, jclass km_clazz, jlong agent, jint unknown1, jint unknown2) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t, int32_t);
@@ -16390,7 +16390,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHttpDeleteTemplate(JNIEnv* km_env, jclass km_clazz, jint templateid) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHttpDeleteTemplate(JNIEnv* km_env, jclass km_clazz, jint templateid) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -16423,7 +16423,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHttpCreateConnection(JNIEnv* km_env, jclass km_clazz, jint templateid, jlong host, jlong unknown1, jshort port, jint unknown2) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHttpCreateConnection(JNIEnv* km_env, jclass km_clazz, jint templateid, jlong host, jlong unknown1, jshort port, jint unknown2) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, uint16_t, int32_t);
@@ -16456,7 +16456,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHttpCreateConnectionWithURL(JNIEnv* km_env, jclass km_clazz, jint templateid, jlong url, jint unknown1) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHttpCreateConnectionWithURL(JNIEnv* km_env, jclass km_clazz, jint templateid, jlong url, jint unknown1) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t);
@@ -16489,7 +16489,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHttpDeleteConnection(JNIEnv* km_env, jclass km_clazz, jint connection_id) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHttpDeleteConnection(JNIEnv* km_env, jclass km_clazz, jint connectionId) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -16514,7 +16514,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)connection_id);
+        km_res = km_fn_ptr((int32_t)connectionId);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -16522,7 +16522,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHttpDeleteRequest(JNIEnv* km_env, jclass km_clazz, jint request_id) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHttpDeleteRequest(JNIEnv* km_env, jclass km_clazz, jint requestId) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -16547,7 +16547,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)request_id);
+        km_res = km_fn_ptr((int32_t)requestId);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -16555,7 +16555,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHttpSendRequest(JNIEnv* km_env, jclass km_clazz, jint request_id, jlong data, jint data_size) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHttpSendRequest(JNIEnv* km_env, jclass km_clazz, jint requestId, jlong data, jint dataSize) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t);
@@ -16580,7 +16580,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)request_id, (void*)(uintptr_t)data, (uint32_t)data_size);
+        km_res = km_fn_ptr((int32_t)requestId, (void*)(uintptr_t)data, (uint32_t)dataSize);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -16588,7 +16588,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHttpAbortRequest(JNIEnv* km_env, jclass km_clazz, jint request_id) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHttpAbortRequest(JNIEnv* km_env, jclass km_clazz, jint requestId) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -16613,7 +16613,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)request_id);
+        km_res = km_fn_ptr((int32_t)requestId);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -16621,7 +16621,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHttpReadData(JNIEnv* km_env, jclass km_clazz, jint request_id, jlong data, jint data_size) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHttpReadData(JNIEnv* km_env, jclass km_clazz, jint requestId, jlong data, jint dataSize) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t);
@@ -16646,7 +16646,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)request_id, (void*)(uintptr_t)data, (uint32_t)data_size);
+        km_res = km_fn_ptr((int32_t)requestId, (void*)(uintptr_t)data, (uint32_t)dataSize);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -16654,7 +16654,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHttpGetContentLength(JNIEnv* km_env, jclass km_clazz, jint request_id, jlong content_length) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHttpGetContentLength(JNIEnv* km_env, jclass km_clazz, jint requestId, jlong contentLength) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -16679,7 +16679,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)request_id, (void*)(uintptr_t)content_length);
+        km_res = km_fn_ptr((int32_t)requestId, (void*)(uintptr_t)contentLength);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -16687,7 +16687,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHttpGetStatusCode(JNIEnv* km_env, jclass km_clazz, jint request_id, jlong status_code) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHttpGetStatusCode(JNIEnv* km_env, jclass km_clazz, jint requestId, jlong statusCode) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -16712,7 +16712,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)request_id, (void*)(uintptr_t)status_code);
+        km_res = km_fn_ptr((int32_t)requestId, (void*)(uintptr_t)statusCode);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -16720,7 +16720,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHttpSetResolveTimeOut(JNIEnv* km_env, jclass km_clazz, jint id, jint timeout) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHttpSetResolveTimeOut(JNIEnv* km_env, jclass km_clazz, jint id, jint timeout) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, uint32_t);
@@ -16753,7 +16753,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHttpSetResolveRetry(JNIEnv* km_env, jclass km_clazz, jint id, jint count) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHttpSetResolveRetry(JNIEnv* km_env, jclass km_clazz, jint id, jint count) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
@@ -16786,7 +16786,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHttpSetConnectTimeOut(JNIEnv* km_env, jclass km_clazz, jint id, jint timeout) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHttpSetConnectTimeOut(JNIEnv* km_env, jclass km_clazz, jint id, jint timeout) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, uint32_t);
@@ -16819,7 +16819,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHttpSetSendTimeOut(JNIEnv* km_env, jclass km_clazz, jint id, jint timeout) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHttpSetSendTimeOut(JNIEnv* km_env, jclass km_clazz, jint id, jint timeout) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, uint32_t);
@@ -16852,7 +16852,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHttpSetRecvTimeOut(JNIEnv* km_env, jclass km_clazz, jint id, jint timeout) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHttpSetRecvTimeOut(JNIEnv* km_env, jclass km_clazz, jint id, jint timeout) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, uint32_t);
@@ -16885,7 +16885,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHttpEnableKeepAlive(JNIEnv* km_env, jclass km_clazz, jint id) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHttpEnableKeepAlive(JNIEnv* km_env, jclass km_clazz, jint id) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -16918,7 +16918,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHttpDisableKeepAlive(JNIEnv* km_env, jclass km_clazz, jint id) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHttpDisableKeepAlive(JNIEnv* km_env, jclass km_clazz, jint id) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -16951,7 +16951,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHttpEnableRedirect(JNIEnv* km_env, jclass km_clazz, jint id) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHttpEnableRedirect(JNIEnv* km_env, jclass km_clazz, jint id) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -16984,7 +16984,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHttpDisableRedirect(JNIEnv* km_env, jclass km_clazz, jint id) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHttpDisableRedirect(JNIEnv* km_env, jclass km_clazz, jint id) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -17017,7 +17017,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHttpEnableCookie(JNIEnv* km_env, jclass km_clazz, jint id) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHttpEnableCookie(JNIEnv* km_env, jclass km_clazz, jint id) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -17050,7 +17050,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHttpDisableCookie(JNIEnv* km_env, jclass km_clazz, jint id) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHttpDisableCookie(JNIEnv* km_env, jclass km_clazz, jint id) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -17083,7 +17083,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHttpSaveSystemCookie(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHttpSaveSystemCookie(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -17116,7 +17116,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHttpLoadSystemCookie(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHttpLoadSystemCookie(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -17149,7 +17149,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHttpAddExtraHeader(JNIEnv* km_env, jclass km_clazz, jint id, jlong name, jlong value, jint unknown1) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHttpAddExtraHeader(JNIEnv* km_env, jclass km_clazz, jint id, jlong name, jlong value, jint unknown1) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, int32_t);
@@ -17182,7 +17182,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHttpDeleteHeader(JNIEnv* km_env, jclass km_clazz, jint id, jlong name) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHttpDeleteHeader(JNIEnv* km_env, jclass km_clazz, jint id, jlong name) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -17215,7 +17215,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHttpsInit(JNIEnv* km_env, jclass km_clazz, jint unknown1, jint unknown2, jint unknown3, jint unknown4) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHttpsInit(JNIEnv* km_env, jclass km_clazz, jint unknown1, jint unknown2, jint unknown3, jint unknown4) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t);
@@ -17248,7 +17248,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHttpsEnd(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHttpsEnd(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -17281,7 +17281,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHttpsLoadDefaultCert(JNIEnv* km_env, jclass km_clazz, jint unknown1, jint unknown2) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHttpsLoadDefaultCert(JNIEnv* km_env, jclass km_clazz, jint unknown1, jint unknown2) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
@@ -17314,7 +17314,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHttpDisableAuth(JNIEnv* km_env, jclass km_clazz, jint id) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHttpDisableAuth(JNIEnv* km_env, jclass km_clazz, jint id) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -17347,7 +17347,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHttpDisableCache(JNIEnv* km_env, jclass km_clazz, jint id) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHttpDisableCache(JNIEnv* km_env, jclass km_clazz, jint id) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -17380,7 +17380,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHttpEnableAuth(JNIEnv* km_env, jclass km_clazz, jint id) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHttpEnableAuth(JNIEnv* km_env, jclass km_clazz, jint id) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -17413,7 +17413,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHttpEnableCache(JNIEnv* km_env, jclass km_clazz, jint id) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHttpEnableCache(JNIEnv* km_env, jclass km_clazz, jint id) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -17446,7 +17446,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHttpEndCache(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHttpEndCache(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -17479,7 +17479,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHttpGetAllHeader(JNIEnv* km_env, jclass km_clazz, jint request, jlong header, jlong header_size) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHttpGetAllHeader(JNIEnv* km_env, jclass km_clazz, jint request, jlong header, jlong headerSize) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
@@ -17504,7 +17504,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)request, (void*)(uintptr_t)header, (void*)(uintptr_t)header_size);
+        km_res = km_fn_ptr((int32_t)request, (void*)(uintptr_t)header, (void*)(uintptr_t)headerSize);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -17512,7 +17512,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHttpGetNetworkErrno(JNIEnv* km_env, jclass km_clazz, jint request, jlong err_num) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHttpGetNetworkErrno(JNIEnv* km_env, jclass km_clazz, jint request, jlong errNum) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -17537,7 +17537,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)request, (void*)(uintptr_t)err_num);
+        km_res = km_fn_ptr((int32_t)request, (void*)(uintptr_t)errNum);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -17545,7 +17545,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHttpGetProxy(JNIEnv* km_env, jclass km_clazz, jint id, jlong activate_flag, jlong mode, jlong proxy_host, jlong len, jlong proxy_port) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHttpGetProxy(JNIEnv* km_env, jclass km_clazz, jint id, jlong activateFlag, jlong mode, jlong proxyHost, jlong len, jlong proxyPort) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, void*, uint64_t, void*);
@@ -17570,7 +17570,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)id, (void*)(uintptr_t)activate_flag, (void*)(uintptr_t)mode, (void*)(uintptr_t)proxy_host, (uint64_t)len, (void*)(uintptr_t)proxy_port);
+        km_res = km_fn_ptr((int32_t)id, (void*)(uintptr_t)activateFlag, (void*)(uintptr_t)mode, (void*)(uintptr_t)proxyHost, (uint64_t)len, (void*)(uintptr_t)proxyPort);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -17578,7 +17578,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHttpInitCache(JNIEnv* km_env, jclass km_clazz, jlong max_size) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHttpInitCache(JNIEnv* km_env, jclass km_clazz, jlong maxSize) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(uint64_t);
@@ -17603,7 +17603,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((uint64_t)max_size);
+        km_res = km_fn_ptr((uint64_t)maxSize);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -17611,7 +17611,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHttpSetAuthInfoCB(JNIEnv* km_env, jclass km_clazz, jint id, jlong cbfunc) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHttpSetAuthInfoCB(JNIEnv* km_env, jclass km_clazz, jint id, jlong cbfunc) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -17644,7 +17644,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHttpSetProxy(JNIEnv* km_env, jclass km_clazz, jint id, jint activate_flag, jint mode, jlong new_proxy_host, jshort new_proxy_port) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHttpSetProxy(JNIEnv* km_env, jclass km_clazz, jint id, jint activateFlag, jint mode, jlong newProxyHost, jshort newProxyPort) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, void*, uint16_t);
@@ -17669,7 +17669,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)id, (int32_t)activate_flag, (int32_t)mode, (void*)(uintptr_t)new_proxy_host, (uint16_t)new_proxy_port);
+        km_res = km_fn_ptr((int32_t)id, (int32_t)activateFlag, (int32_t)mode, (void*)(uintptr_t)newProxyHost, (uint16_t)newProxyPort);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -17677,7 +17677,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHttpSetResHeaderMaxSize(JNIEnv* km_env, jclass km_clazz, jint id, jint header_size) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHttpSetResHeaderMaxSize(JNIEnv* km_env, jclass km_clazz, jint id, jint headerSize) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, uint32_t);
@@ -17702,7 +17702,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)id, (uint32_t)header_size);
+        km_res = km_fn_ptr((int32_t)id, (uint32_t)headerSize);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -17710,7 +17710,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceHttpSetMallocFunction(JNIEnv* km_env, jclass km_clazz, jlong malloc_func, jlong free_func, jlong realloc_func) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceHttpSetMallocFunction(JNIEnv* km_env, jclass km_clazz, jlong mallocFunc, jlong freeFunc, jlong reallocFunc) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, void*);
@@ -17735,7 +17735,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)malloc_func, (void*)(uintptr_t)free_func, (void*)(uintptr_t)realloc_func);
+        km_res = km_fn_ptr((void*)(uintptr_t)mallocFunc, (void*)(uintptr_t)freeFunc, (void*)(uintptr_t)reallocFunc);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -17743,7 +17743,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetResolverInit(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetResolverInit(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -17776,7 +17776,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetResolverCreate(JNIEnv* km_env, jclass km_clazz, jlong rid, jlong buf, jint buf_length) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetResolverCreate(JNIEnv* km_env, jclass km_clazz, jlong rid, jlong buf, jint bufLength) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, uint32_t);
@@ -17801,7 +17801,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)rid, (void*)(uintptr_t)buf, (uint32_t)buf_length);
+        km_res = km_fn_ptr((void*)(uintptr_t)rid, (void*)(uintptr_t)buf, (uint32_t)bufLength);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -17809,7 +17809,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetResolverDelete(JNIEnv* km_env, jclass km_clazz, jint rid) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetResolverDelete(JNIEnv* km_env, jclass km_clazz, jint rid) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -17842,7 +17842,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetResolverStartNtoA(JNIEnv* km_env, jclass km_clazz, jint rid, jlong hostname, jlong addr, jint timeout, jint retry) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetResolverStartNtoA(JNIEnv* km_env, jclass km_clazz, jint rid, jlong hostname, jlong addr, jint timeout, jint retry) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, uint32_t, int32_t);
@@ -17875,7 +17875,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetResolverStartAtoN(JNIEnv* km_env, jclass km_clazz, jint rid, jlong addr, jlong hostname, jint hostname_len, jint timeout, jint retry) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetResolverStartAtoN(JNIEnv* km_env, jclass km_clazz, jint rid, jlong addr, jlong hostname, jint hostnameLen, jint timeout, jint retry) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, uint32_t, uint32_t, int32_t);
@@ -17900,7 +17900,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)rid, (void*)(uintptr_t)addr, (void*)(uintptr_t)hostname, (uint32_t)hostname_len, (uint32_t)timeout, (int32_t)retry);
+        km_res = km_fn_ptr((int32_t)rid, (void*)(uintptr_t)addr, (void*)(uintptr_t)hostname, (uint32_t)hostnameLen, (uint32_t)timeout, (int32_t)retry);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -17908,7 +17908,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetResolverStop(JNIEnv* km_env, jclass km_clazz, jint rid) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetResolverStop(JNIEnv* km_env, jclass km_clazz, jint rid) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -17941,7 +17941,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1ps
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libc_1psp_1sceNetResolverTerm(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_psp_PspJniBridge_libcPspSceNetResolverTerm(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);

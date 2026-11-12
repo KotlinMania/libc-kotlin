@@ -15,7 +15,7 @@
 #endif
 #endif
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRead(int32_t a1, int32_t a2, uint32_t a3) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRead(int32_t a1, int32_t a2, uint32_t a3) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -43,7 +43,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRead(int32_t a1
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysWrite(int32_t a1, int32_t a2, uint32_t a3) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysWrite(int32_t a1, int32_t a2, uint32_t a3) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -71,7 +71,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysWrite(int32_t a
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysOpen(int32_t a1, int32_t a2, int32_t a3) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysOpen(int32_t a1, int32_t a2, int32_t a3) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -99,7 +99,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysOpen(int32_t a1
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysClose(int32_t a1) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysClose(int32_t a1) {
     typedef int64_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -127,7 +127,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysClose(int32_t a
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysStat(int32_t a1, int32_t a2) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysStat(int32_t a1, int32_t a2) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -155,7 +155,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysStat(int32_t a1
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFstat(int32_t a1, int32_t a2) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFstat(int32_t a1, int32_t a2) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -183,7 +183,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFstat(int32_t a
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysLstat(int32_t a1, int32_t a2) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysLstat(int32_t a1, int32_t a2) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -211,7 +211,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysLstat(int32_t a
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPoll(int32_t a1, uint32_t a2, int32_t a3) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysPoll(int32_t a1, uint32_t a2, int32_t a3) {
     typedef int64_t (*km_fn_t)(int32_t, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -239,7 +239,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPoll(int32_t a1
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysLseek(int32_t a1, int64_t a2, int32_t a3) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysLseek(int32_t a1, int64_t a2, int32_t a3) {
     typedef int64_t (*km_fn_t)(int32_t, int64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -267,7 +267,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysLseek(int32_t a
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMmap(int32_t a1, uint32_t a2, int32_t a3, int32_t a4, int32_t a5, int64_t a6) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysMmap(int32_t a1, uint32_t a2, int32_t a3, int32_t a4, int32_t a5, int64_t a6) {
     typedef int64_t (*km_fn_t)(int32_t, uint32_t, int32_t, int32_t, int32_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -295,7 +295,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMmap(int32_t a1
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMprotect(int32_t a1, uint32_t a2, int32_t a3) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysMprotect(int32_t a1, uint32_t a2, int32_t a3) {
     typedef int64_t (*km_fn_t)(int32_t, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -323,7 +323,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMprotect(int32_
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMunmap(int32_t a1, uint32_t a2) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysMunmap(int32_t a1, uint32_t a2) {
     typedef int64_t (*km_fn_t)(int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -351,7 +351,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMunmap(int32_t 
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysBrk(int32_t a1) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysBrk(int32_t a1) {
     typedef int64_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -379,7 +379,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysBrk(int32_t a1)
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRtSigaction(int32_t a1, int32_t a2, int32_t a3, uint32_t a4) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRtSigaction(int32_t a1, int32_t a2, int32_t a3, uint32_t a4) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -407,7 +407,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRtSigaction(int
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRtSigprocmask(int32_t a1, int32_t a2, int32_t a3, uint32_t a4) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRtSigprocmask(int32_t a1, int32_t a2, int32_t a3, uint32_t a4) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -435,7 +435,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRtSigprocmask(i
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRtSigreturn(int64_t a1) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRtSigreturn(int64_t a1) {
     typedef int64_t (*km_fn_t)(int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -463,7 +463,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRtSigreturn(int
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysIoctl(int32_t a1, int32_t a2, int32_t a3) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysIoctl(int32_t a1, int32_t a2, int32_t a3) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -491,7 +491,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysIoctl(int32_t a
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPread64(int32_t a1, int32_t a2, uint32_t a3, int64_t a4) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysPread64(int32_t a1, int32_t a2, uint32_t a3, int64_t a4) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, uint32_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -524,7 +524,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPread64(int32_t
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPwrite64(int32_t a1, int32_t a2, uint32_t a3, int64_t a4) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysPwrite64(int32_t a1, int32_t a2, uint32_t a3, int64_t a4) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, uint32_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -557,7 +557,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPwrite64(int32_
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysReadv(int32_t a1, int32_t a2, int32_t a3) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysReadv(int32_t a1, int32_t a2, int32_t a3) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -585,7 +585,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysReadv(int32_t a
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysWritev(int32_t a1, int32_t a2, int32_t a3) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysWritev(int32_t a1, int32_t a2, int32_t a3) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -613,7 +613,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysWritev(int32_t 
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysAccess(int32_t a1, int32_t a2) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysAccess(int32_t a1, int32_t a2) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -641,7 +641,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysAccess(int32_t 
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPipe(int32_t a1) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysPipe(int32_t a1) {
     typedef int64_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -669,7 +669,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPipe(int32_t a1
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSelect(int32_t a1, int32_t a2, int32_t a3, int32_t a4, int32_t a5) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSelect(int32_t a1, int32_t a2, int32_t a3, int32_t a4, int32_t a5) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -697,7 +697,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSelect(int32_t 
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSchedYield(void) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSchedYield(void) {
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -725,7 +725,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSchedYield(void
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMremap(int32_t a1, uint32_t a2, uint32_t a3, int32_t a4, int32_t a5) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysMremap(int32_t a1, uint32_t a2, uint32_t a3, int32_t a4, int32_t a5) {
     typedef int64_t (*km_fn_t)(int32_t, uint32_t, uint32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -753,7 +753,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMremap(int32_t 
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMsync(int32_t a1, uint32_t a2, int32_t a3) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysMsync(int32_t a1, uint32_t a2, int32_t a3) {
     typedef int64_t (*km_fn_t)(int32_t, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -781,7 +781,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMsync(int32_t a
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMadvise(int32_t a1, uint32_t a2, int32_t a3) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysMadvise(int32_t a1, uint32_t a2, int32_t a3) {
     typedef int64_t (*km_fn_t)(int32_t, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -809,7 +809,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMadvise(int32_t
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysDup(int32_t a1) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysDup(int32_t a1) {
     typedef int64_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -837,7 +837,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysDup(int32_t a1)
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysDup2(int32_t a1, int32_t a2) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysDup2(int32_t a1, int32_t a2) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -865,7 +865,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysDup2(int32_t a1
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysNanosleep(int32_t a1, int32_t a2) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysNanosleep(int32_t a1, int32_t a2) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -893,7 +893,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysNanosleep(int32
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysAlarm(int32_t a1) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysAlarm(int32_t a1) {
     typedef int64_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -921,7 +921,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysAlarm(int32_t a
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetitimer(int32_t a1, int32_t a2, int32_t a3) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetitimer(int32_t a1, int32_t a2, int32_t a3) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -949,7 +949,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetitimer(int32
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetpid(void) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetpid(void) {
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -977,7 +977,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetpid(void) {
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSocket(int32_t a1, int32_t a2, int32_t a3) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSocket(int32_t a1, int32_t a2, int32_t a3) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1005,7 +1005,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSocket(int32_t 
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysConnect(int32_t a1, int32_t a2, uint32_t a3) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysConnect(int32_t a1, int32_t a2, uint32_t a3) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1033,7 +1033,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysConnect(int32_t
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysAccept(int32_t a1, int32_t a2, int32_t a3) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysAccept(int32_t a1, int32_t a2, int32_t a3) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1061,7 +1061,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysAccept(int32_t 
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSendto(int32_t a1, int32_t a2, uint32_t a3, int32_t a4, int32_t a5, uint32_t a6) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSendto(int32_t a1, int32_t a2, uint32_t a3, int32_t a4, int32_t a5, uint32_t a6) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, uint32_t, int32_t, int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1089,7 +1089,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSendto(int32_t 
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRecvfrom(int32_t a1, int32_t a2, uint32_t a3, int32_t a4, int32_t a5, int32_t a6) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRecvfrom(int32_t a1, int32_t a2, uint32_t a3, int32_t a4, int32_t a5, int32_t a6) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, uint32_t, int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1117,7 +1117,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRecvfrom(int32_
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSendmsg(int32_t a1, int32_t a2, int32_t a3) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSendmsg(int32_t a1, int32_t a2, int32_t a3) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1145,7 +1145,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSendmsg(int32_t
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRecvmsg(int32_t a1, int32_t a2, int32_t a3) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRecvmsg(int32_t a1, int32_t a2, int32_t a3) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1173,7 +1173,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRecvmsg(int32_t
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysShutdown(int32_t a1, int32_t a2) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysShutdown(int32_t a1, int32_t a2) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1201,7 +1201,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysShutdown(int32_
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysBind(int32_t a1, int32_t a2, uint32_t a3) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysBind(int32_t a1, int32_t a2, uint32_t a3) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1229,7 +1229,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysBind(int32_t a1
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysListen(int32_t a1, int32_t a2) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysListen(int32_t a1, int32_t a2) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1257,7 +1257,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysListen(int32_t 
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetsockname(int32_t a1, int32_t a2, int32_t a3) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetsockname(int32_t a1, int32_t a2, int32_t a3) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1285,7 +1285,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetsockname(int
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetpeername(int32_t a1, int32_t a2, int32_t a3) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetpeername(int32_t a1, int32_t a2, int32_t a3) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1313,7 +1313,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetpeername(int
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSocketpair(int32_t a1, int32_t a2, int32_t a3, int32_t a4) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSocketpair(int32_t a1, int32_t a2, int32_t a3, int32_t a4) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1341,7 +1341,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSocketpair(int3
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetsockopt(int32_t a1, int32_t a2, int32_t a3, int32_t a4, uint32_t a5) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetsockopt(int32_t a1, int32_t a2, int32_t a3, int32_t a4, uint32_t a5) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1369,7 +1369,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetsockopt(int3
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetsockopt(int32_t a1, int32_t a2, int32_t a3, int32_t a4, int32_t a5) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetsockopt(int32_t a1, int32_t a2, int32_t a3, int32_t a4, int32_t a5) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1397,7 +1397,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetsockopt(int3
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFork(void) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFork(void) {
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1425,7 +1425,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFork(void) {
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysExecve(int32_t a1, int32_t a2, int32_t a3) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysExecve(int32_t a1, int32_t a2, int32_t a3) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1453,7 +1453,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysExecve(int32_t 
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysExit(int32_t a1) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysExit(int32_t a1) {
     typedef int64_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1481,7 +1481,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysExit(int32_t a1
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysWait4(int32_t a1, int32_t a2, int32_t a3, int32_t a4) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysWait4(int32_t a1, int32_t a2, int32_t a3, int32_t a4) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1509,7 +1509,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysWait4(int32_t a
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysKill(int32_t a1, int32_t a2) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysKill(int32_t a1, int32_t a2) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1537,7 +1537,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysKill(int32_t a1
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysUname(int32_t a1) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysUname(int32_t a1) {
     typedef int64_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1565,7 +1565,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysUname(int32_t a
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFcntl(int32_t a1, int32_t a2, int32_t a3) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFcntl(int32_t a1, int32_t a2, int32_t a3) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1593,7 +1593,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFcntl(int32_t a
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFlock(int32_t a1, int32_t a2) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFlock(int32_t a1, int32_t a2) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1621,7 +1621,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFlock(int32_t a
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFsync(int32_t a1) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFsync(int32_t a1) {
     typedef int64_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1649,7 +1649,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFsync(int32_t a
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFdatasync(int32_t a1) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFdatasync(int32_t a1) {
     typedef int64_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1677,7 +1677,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFdatasync(int32
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFtruncate(int32_t a1, int64_t a2) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFtruncate(int32_t a1, int64_t a2) {
     typedef int64_t (*km_fn_t)(int32_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1705,7 +1705,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFtruncate(int32
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetdents(int32_t a1, int32_t a2, int32_t a3) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetdents(int32_t a1, int32_t a2, int32_t a3) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1733,7 +1733,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetdents(int32_
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetcwd(int32_t a1, uint32_t a2) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetcwd(int32_t a1, uint32_t a2) {
     typedef int64_t (*km_fn_t)(int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1761,7 +1761,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetcwd(int32_t 
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysChdir(int32_t a1) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysChdir(int32_t a1) {
     typedef int64_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1789,7 +1789,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysChdir(int32_t a
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFchdir(int32_t a1) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFchdir(int32_t a1) {
     typedef int64_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1817,7 +1817,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFchdir(int32_t 
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRename(int32_t a1, int32_t a2) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRename(int32_t a1, int32_t a2) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1845,7 +1845,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRename(int32_t 
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMkdir(int32_t a1, int32_t a2) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysMkdir(int32_t a1, int32_t a2) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1873,7 +1873,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMkdir(int32_t a
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRmdir(int32_t a1) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRmdir(int32_t a1) {
     typedef int64_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1901,7 +1901,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRmdir(int32_t a
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysLink(int32_t a1, int32_t a2) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysLink(int32_t a1, int32_t a2) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1929,7 +1929,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysLink(int32_t a1
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysUnlink(int32_t a1) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysUnlink(int32_t a1) {
     typedef int64_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1957,7 +1957,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysUnlink(int32_t 
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSymlink(int32_t a1, int32_t a2) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSymlink(int32_t a1, int32_t a2) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1985,7 +1985,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSymlink(int32_t
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysReadlink(int32_t a1, int32_t a2, uint32_t a3) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysReadlink(int32_t a1, int32_t a2, uint32_t a3) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2013,7 +2013,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysReadlink(int32_
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysChmod(int32_t a1, int32_t a2) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysChmod(int32_t a1, int32_t a2) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2041,7 +2041,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysChmod(int32_t a
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFchmod(int32_t a1, int32_t a2) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFchmod(int32_t a1, int32_t a2) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2069,7 +2069,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFchmod(int32_t 
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysChown(int32_t a1, int32_t a2, int32_t a3) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysChown(int32_t a1, int32_t a2, int32_t a3) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2097,7 +2097,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysChown(int32_t a
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFchown(int32_t a1, int32_t a2, int32_t a3) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFchown(int32_t a1, int32_t a2, int32_t a3) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2125,7 +2125,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFchown(int32_t 
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysUmask(int32_t a1) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysUmask(int32_t a1) {
     typedef int64_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2153,7 +2153,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysUmask(int32_t a
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetrlimit(int32_t a1, int32_t a2) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetrlimit(int32_t a1, int32_t a2) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2181,7 +2181,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetrlimit(int32
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetrusage(int32_t a1, int32_t a2) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetrusage(int32_t a1, int32_t a2) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2209,7 +2209,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetrusage(int32
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSysinfo(int32_t a1) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSysinfo(int32_t a1) {
     typedef int64_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2237,7 +2237,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSysinfo(int32_t
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetuid(void) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetuid(void) {
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2265,7 +2265,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetuid(void) {
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetgid(void) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetgid(void) {
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2293,7 +2293,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetgid(void) {
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetuid(int32_t a1) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetuid(int32_t a1) {
     typedef int64_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2321,7 +2321,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetuid(int32_t 
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetgid(int32_t a1) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetgid(int32_t a1) {
     typedef int64_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2349,7 +2349,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetgid(int32_t 
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGeteuid(void) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGeteuid(void) {
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2377,7 +2377,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGeteuid(void) {
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetegid(void) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetegid(void) {
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2405,7 +2405,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetegid(void) {
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetpgid(int32_t a1, int32_t a2) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetpgid(int32_t a1, int32_t a2) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2433,7 +2433,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetpgid(int32_t
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetppid(void) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetppid(void) {
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2461,7 +2461,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetppid(void) {
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetsid(void) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetsid(void) {
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2489,7 +2489,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetsid(void) {
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetreuid(int32_t a1, int32_t a2) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetreuid(int32_t a1, int32_t a2) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2517,7 +2517,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetreuid(int32_
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetregid(int32_t a1, int32_t a2) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetregid(int32_t a1, int32_t a2) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2545,7 +2545,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetregid(int32_
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetgroups(uint32_t a1, int32_t a2) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetgroups(uint32_t a1, int32_t a2) {
     typedef int64_t (*km_fn_t)(uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2573,7 +2573,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetgroups(uint3
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetgroups(uint32_t a1, int32_t a2) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetgroups(uint32_t a1, int32_t a2) {
     typedef int64_t (*km_fn_t)(uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2601,7 +2601,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetgroups(uint3
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetresuid(int32_t a1, int32_t a2, int32_t a3) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetresuid(int32_t a1, int32_t a2, int32_t a3) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2629,7 +2629,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetresuid(int32
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetresgid(int32_t a1, int32_t a2, int32_t a3) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetresgid(int32_t a1, int32_t a2, int32_t a3) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2657,7 +2657,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetresgid(int32
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetpgid(int32_t a1) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetpgid(int32_t a1) {
     typedef int64_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2685,7 +2685,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetpgid(int32_t
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetsid(int32_t a1) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetsid(int32_t a1) {
     typedef int64_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2713,7 +2713,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetsid(int32_t 
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRtSigpending(int32_t a1, uint32_t a2) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRtSigpending(int32_t a1, uint32_t a2) {
     typedef int64_t (*km_fn_t)(int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2741,7 +2741,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRtSigpending(in
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRtSigsuspend(int32_t a1, uint32_t a2) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRtSigsuspend(int32_t a1, uint32_t a2) {
     typedef int64_t (*km_fn_t)(int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2769,7 +2769,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRtSigsuspend(in
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSigaltstack(int32_t a1, int32_t a2) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSigaltstack(int32_t a1, int32_t a2) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2797,7 +2797,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSigaltstack(int
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysUtime(int32_t a1, int32_t a2) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysUtime(int32_t a1, int32_t a2) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2825,7 +2825,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysUtime(int32_t a
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysStatfs(int32_t a1, int32_t a2) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysStatfs(int32_t a1, int32_t a2) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2853,7 +2853,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysStatfs(int32_t 
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFstatfs(int32_t a1, int32_t a2) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFstatfs(int32_t a1, int32_t a2) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2881,7 +2881,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFstatfs(int32_t
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPrctl(int32_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysPrctl(int32_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5) {
     typedef int64_t (*km_fn_t)(int32_t, uint64_t, uint64_t, uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2909,7 +2909,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPrctl(int32_t a
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetrlimit(int32_t a1, int32_t a2) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetrlimit(int32_t a1, int32_t a2) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2937,7 +2937,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetrlimit(int32
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysChroot(int32_t a1) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysChroot(int32_t a1) {
     typedef int64_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2965,7 +2965,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysChroot(int32_t 
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGettid(void) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGettid(void) {
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2993,7 +2993,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGettid(void) {
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysTkill(int32_t a1, int32_t a2) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysTkill(int32_t a1, int32_t a2) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3021,7 +3021,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysTkill(int32_t a
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFutex(int32_t a1, int32_t a2, int32_t a3, int32_t a4, int32_t a5, int32_t a6) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFutex(int32_t a1, int32_t a2, int32_t a3, int32_t a4, int32_t a5, int32_t a6) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3049,7 +3049,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFutex(int32_t a
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSchedGetaffinity(int32_t a1, uint32_t a2, int32_t a3) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSchedGetaffinity(int32_t a1, uint32_t a2, int32_t a3) {
     typedef int64_t (*km_fn_t)(int32_t, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3077,7 +3077,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSchedGetaffinit
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetdents64(int32_t a1, int32_t a2, int32_t a3) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetdents64(int32_t a1, int32_t a2, int32_t a3) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3110,7 +3110,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetdents64(int3
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetTidAddress(int32_t a1) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetTidAddress(int32_t a1) {
     typedef int64_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3138,7 +3138,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetTidAddress(i
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFadvise(int32_t a1, int64_t a2, int64_t a3, int32_t a4) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFadvise(int32_t a1, int64_t a2, int64_t a3, int32_t a4) {
     typedef int64_t (*km_fn_t)(int32_t, int64_t, int64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3166,7 +3166,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFadvise(int32_t
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysClockGettime(int32_t a1, int32_t a2) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysClockGettime(int32_t a1, int32_t a2) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3194,7 +3194,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysClockGettime(in
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysClockGetres(int32_t a1, int32_t a2) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysClockGetres(int32_t a1, int32_t a2) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3222,7 +3222,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysClockGetres(int
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysClockNanosleep(int32_t a1, int32_t a2, int32_t a3, int32_t a4) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysClockNanosleep(int32_t a1, int32_t a2, int32_t a3, int32_t a4) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3250,7 +3250,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysClockNanosleep(
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysExitGroup(int32_t a1) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysExitGroup(int32_t a1) {
     typedef int64_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3278,7 +3278,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysExitGroup(int32
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysEpollCtl(int32_t a1, int32_t a2, int32_t a3, int32_t a4) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysEpollCtl(int32_t a1, int32_t a2, int32_t a3, int32_t a4) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3306,7 +3306,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysEpollCtl(int32_
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysOpenat(int32_t a1, int32_t a2, int32_t a3, int32_t a4) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysOpenat(int32_t a1, int32_t a2, int32_t a3, int32_t a4) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3334,7 +3334,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysOpenat(int32_t 
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMkdirat(int32_t a1, int32_t a2, int32_t a3) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysMkdirat(int32_t a1, int32_t a2, int32_t a3) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3362,7 +3362,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMkdirat(int32_t
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFchownat(int32_t a1, int32_t a2, int32_t a3, int32_t a4, int32_t a5) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFchownat(int32_t a1, int32_t a2, int32_t a3, int32_t a4, int32_t a5) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3390,7 +3390,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFchownat(int32_
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFstatat(int32_t a1, int32_t a2, int32_t a3, int32_t a4) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFstatat(int32_t a1, int32_t a2, int32_t a3, int32_t a4) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3418,7 +3418,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFstatat(int32_t
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysUnlinkat(int32_t a1, int32_t a2, int32_t a3) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysUnlinkat(int32_t a1, int32_t a2, int32_t a3) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3446,7 +3446,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysUnlinkat(int32_
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysLinkat(int32_t a1, int32_t a2, int32_t a3, int32_t a4, int32_t a5) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysLinkat(int32_t a1, int32_t a2, int32_t a3, int32_t a4, int32_t a5) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3474,7 +3474,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysLinkat(int32_t 
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSymlinkat(int32_t a1, int32_t a2, int32_t a3) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSymlinkat(int32_t a1, int32_t a2, int32_t a3) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3502,7 +3502,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSymlinkat(int32
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysReadlinkat(int32_t a1, int32_t a2, int32_t a3, uint32_t a4) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysReadlinkat(int32_t a1, int32_t a2, int32_t a3, uint32_t a4) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3530,7 +3530,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysReadlinkat(int3
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFchmodat(int32_t a1, int32_t a2, int32_t a3, int32_t a4) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFchmodat(int32_t a1, int32_t a2, int32_t a3, int32_t a4) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3558,7 +3558,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFchmodat(int32_
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFaccessat(int32_t a1, int32_t a2, int32_t a3, int32_t a4) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFaccessat(int32_t a1, int32_t a2, int32_t a3, int32_t a4) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3586,7 +3586,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFaccessat(int32
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPselect6(int32_t a1, int32_t a2, int32_t a3, int32_t a4, int32_t a5, int32_t a6) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysPselect6(int32_t a1, int32_t a2, int32_t a3, int32_t a4, int32_t a5, int32_t a6) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3614,7 +3614,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPselect6(int32_
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPpoll(int32_t a1, uint32_t a2, int32_t a3, int32_t a4, uint32_t a5) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysPpoll(int32_t a1, uint32_t a2, int32_t a3, int32_t a4, uint32_t a5) {
     typedef int64_t (*km_fn_t)(int32_t, uint32_t, int32_t, int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3642,7 +3642,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPpoll(int32_t a
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysUtimensat(int32_t a1, int32_t a2, int32_t a3, int32_t a4) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysUtimensat(int32_t a1, int32_t a2, int32_t a3, int32_t a4) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3670,7 +3670,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysUtimensat(int32
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysEpollPwait(int32_t a1, int32_t a2, int32_t a3, int32_t a4, int32_t a5, uint32_t a6) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysEpollPwait(int32_t a1, int32_t a2, int32_t a3, int32_t a4, int32_t a5, uint32_t a6) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t, int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3698,7 +3698,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysEpollPwait(int3
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysEventfd(int32_t a1) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysEventfd(int32_t a1) {
     typedef int64_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3726,7 +3726,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysEventfd(int32_t
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysAccept4(int32_t a1, int32_t a2, int32_t a3, int32_t a4) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysAccept4(int32_t a1, int32_t a2, int32_t a3, int32_t a4) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3754,7 +3754,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysAccept4(int32_t
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysEventfd2(int32_t a1, int32_t a2) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysEventfd2(int32_t a1, int32_t a2) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3782,7 +3782,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysEventfd2(int32_
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysEpollCreate1(int32_t a1) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysEpollCreate1(int32_t a1) {
     typedef int64_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3810,7 +3810,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysEpollCreate1(in
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysDup3(int32_t a1, int32_t a2, int32_t a3) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysDup3(int32_t a1, int32_t a2, int32_t a3) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3838,7 +3838,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysDup3(int32_t a1
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPipe2(int32_t a1, int32_t a2) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysPipe2(int32_t a1, int32_t a2) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3866,7 +3866,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPipe2(int32_t a
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPrlimit64(int32_t a1, int32_t a2, int32_t a3, int32_t a4) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysPrlimit64(int32_t a1, int32_t a2, int32_t a3, int32_t a4) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3899,7 +3899,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPrlimit64(int32
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRenameat2(int32_t a1, int32_t a2, int32_t a3, int32_t a4, int32_t a5) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRenameat2(int32_t a1, int32_t a2, int32_t a3, int32_t a4, int32_t a5) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3927,7 +3927,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRenameat2(int32
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetrandom(int32_t a1, uint32_t a2, int32_t a3) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetrandom(int32_t a1, uint32_t a2, int32_t a3) {
     typedef int64_t (*km_fn_t)(int32_t, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3955,7 +3955,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetrandom(int32
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysStatx(int32_t a1, int32_t a2, int32_t a3, int32_t a4, int32_t a5) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysStatx(int32_t a1, int32_t a2, int32_t a3, int32_t a4, int32_t a5) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3983,7 +3983,7 @@ int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysStatx(int32_t a
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFaccessat2(int32_t a1, int32_t a2, int32_t a3, int32_t a4) {
+int64_t libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFaccessat2(int32_t a1, int32_t a2, int32_t a3, int32_t a4) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

@@ -5,6 +5,7 @@ import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlonglong
 import io.github.kotlinmania.libc.unix.linuxlike.MSG_FIN
+import io.github.kotlinmania.libc.unix.linuxlike.SockaddrLl
 import io.github.kotlinmania.libc.unix.linuxlike.io
 import io.github.kotlinmania.libc.unix.linuxlike.ior
 import io.github.kotlinmania.libc.unix.linuxlike.iow
@@ -12,6 +13,7 @@ import io.github.kotlinmania.libc.unix.linuxlike.iowr
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.Ioctl
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.OffT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.U64
+import io.github.kotlinmania.rustlang.core.mem.ObjectSlotLayout
 
 public val NFT_REJECT_TCP_RST: CInt = 1
 
@@ -1043,7 +1045,7 @@ public val MOUNT_ATTR_NODEV: U64 = 0x00000004uL
 
 public val MOUNT_ATTR_NOEXEC: U64 = 0x00000008uL
 
-public val MOUNT_ATTR__ATIME: U64 = 0x00000070uL
+public val MOUNT_ATTR_ATIME: U64 = 0x00000070uL
 
 public val MOUNT_ATTR_RELATIME: U64 = 0x00000000uL
 
@@ -1121,11 +1123,11 @@ public val PIDFD_GET_UTS_NAMESPACE: Ioctl = io(PIDFS_IOCTL_MAGIC, 10u)
 
 public val PIDFD_GET_INFO: Ioctl = iowr<PidfdInfo>(PIDFS_IOCTL_MAGIC, 11u)
 
-public val TPACKET_HDRLEN: Int = ((8 + TPACKET_ALIGNMENT - 1) and (TPACKET_ALIGNMENT - 1).inv()) + 8
+public val TPACKET_HDRLEN: Int = ((sizeOf<TpacketHdr>(typeLayoutT = ObjectSlotLayout<TpacketHdr>()) + TPACKET_ALIGNMENT - 1) and (TPACKET_ALIGNMENT - 1).inv()) + sizeOf<SockaddrLl>(typeLayoutT = ObjectSlotLayout<SockaddrLl>())
 
-public val TPACKET2_HDRLEN: Int = ((8 + TPACKET_ALIGNMENT - 1) and (TPACKET_ALIGNMENT - 1).inv()) + 8
+public val TPACKET2_HDRLEN: Int = ((sizeOf<Tpacket2Hdr>(typeLayoutT = Tpacket2Hdr.typeLayout()) + TPACKET_ALIGNMENT - 1) and (TPACKET_ALIGNMENT - 1).inv()) + sizeOf<SockaddrLl>(typeLayoutT = ObjectSlotLayout<SockaddrLl>())
 
-public val TPACKET3_HDRLEN: Int = ((8 + TPACKET_ALIGNMENT - 1) and (TPACKET_ALIGNMENT - 1).inv()) + 8
+public val TPACKET3_HDRLEN: Int = ((sizeOf<Tpacket3Hdr>(typeLayoutT = Tpacket3Hdr.typeLayout()) + TPACKET_ALIGNMENT - 1) and (TPACKET_ALIGNMENT - 1).inv()) + sizeOf<SockaddrLl>(typeLayoutT = ObjectSlotLayout<SockaddrLl>())
 
 public val PTP_CLOCK_GETCAPS: Ioctl = ior<PtpClockCaps>(PTP_CLK_MAGIC, 1u)
 

@@ -18,7 +18,7 @@
 #endif
 #endif
 
-int32_t libc_unix_haiku_bsd_daemon(int32_t nochdir, int32_t noclose) {
+int32_t libcUnixHaikuBsdDaemon(int32_t nochdir, int32_t noclose) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -67,7 +67,7 @@ int32_t libc_unix_haiku_bsd_daemon(int32_t nochdir, int32_t noclose) {
     return -1;
 }
 
-const char* libc_unix_haiku_bsd_getprogname(void) {
+const char* libcUnixHaikuBsdGetprogname(void) {
     typedef const char* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -116,7 +116,7 @@ const char* libc_unix_haiku_bsd_getprogname(void) {
     return NULL;
 }
 
-void libc_unix_haiku_bsd_setprogname(const char* progname) {
+void libcUnixHaikuBsdSetprogname(const char* progname) {
     typedef void (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -165,7 +165,7 @@ void libc_unix_haiku_bsd_setprogname(const char* progname) {
     errno = ENOSYS;
 }
 
-uint32_t libc_unix_haiku_bsd_arc4random(void) {
+uint32_t libcUnixHaikuBsdArc4random(void) {
     typedef uint32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -214,7 +214,7 @@ uint32_t libc_unix_haiku_bsd_arc4random(void) {
     return 0;
 }
 
-uint32_t libc_unix_haiku_bsd_arc4randomUniform(uint32_t upper_bound) {
+uint32_t libcUnixHaikuBsdArc4randomUniform(uint32_t upperBound) {
     typedef uint32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -257,13 +257,13 @@ uint32_t libc_unix_haiku_bsd_arc4randomUniform(uint32_t upper_bound) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(upper_bound);
+        return km_fn_ptr(upperBound);
     }
     errno = ENOSYS;
     return 0;
 }
 
-void libc_unix_haiku_bsd_arc4randomBuf(void* buf, uint64_t n) {
+void libcUnixHaikuBsdArc4randomBuf(void* buf, uint64_t n) {
     typedef void (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -312,7 +312,7 @@ void libc_unix_haiku_bsd_arc4randomBuf(void* buf, uint64_t n) {
     errno = ENOSYS;
 }
 
-int32_t libc_unix_haiku_bsd_mkstemps(char* arg_0_template, int32_t suffixlen) {
+int32_t libcUnixHaikuBsdMkstemps(char* arg0Template, int32_t suffixlen) {
     typedef int32_t (*km_fn_t)(char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -355,13 +355,13 @@ int32_t libc_unix_haiku_bsd_mkstemps(char* arg_0_template, int32_t suffixlen) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_template, suffixlen);
+        return km_fn_ptr(arg0Template, suffixlen);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_unix_haiku_bsd_strtonum(const char* nptr, int64_t minval, int64_t maxval, void* errstr) {
+int64_t libcUnixHaikuBsdStrtonum(const char* nptr, int64_t minval, int64_t maxval, void* errstr) {
     typedef int64_t (*km_fn_t)(const char*, int64_t, int64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -410,7 +410,7 @@ int64_t libc_unix_haiku_bsd_strtonum(const char* nptr, int64_t minval, int64_t m
     return -1;
 }
 
-int32_t libc_unix_haiku_bsd_openpty(void* amaster, void* aslave, char* name, void* termp, void* winp) {
+int32_t libcUnixHaikuBsdOpenpty(void* amaster, void* aslave, char* name, void* termp, void* winp) {
     typedef int32_t (*km_fn_t)(void*, void*, char*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -459,7 +459,7 @@ int32_t libc_unix_haiku_bsd_openpty(void* amaster, void* aslave, char* name, voi
     return -1;
 }
 
-int32_t libc_unix_haiku_bsd_loginTty(int32_t arg_0_fd) {
+int32_t libcUnixHaikuBsdLoginTty(int32_t fd) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -502,13 +502,13 @@ int32_t libc_unix_haiku_bsd_loginTty(int32_t arg_0_fd) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_fd);
+        return km_fn_ptr(fd);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_haiku_bsd_forkpty(void* amaster, char* name, void* termp, void* winp) {
+int32_t libcUnixHaikuBsdForkpty(void* amaster, char* name, void* termp, void* winp) {
     typedef int32_t (*km_fn_t)(void*, char*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -557,7 +557,7 @@ int32_t libc_unix_haiku_bsd_forkpty(void* amaster, char* name, void* termp, void
     return -1;
 }
 
-char* libc_unix_haiku_bsd_strsep(void* string, const char* delimiters) {
+char* libcUnixHaikuBsdStrsep(void* string, const char* delimiters) {
     typedef char* (*km_fn_t)(void*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -606,7 +606,7 @@ char* libc_unix_haiku_bsd_strsep(void* string, const char* delimiters) {
     return NULL;
 }
 
-void libc_unix_haiku_bsd_explicitBzero(void* buf, uint64_t len) {
+void libcUnixHaikuBsdExplicitBzero(void* buf, uint64_t len) {
     typedef void (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -655,7 +655,7 @@ void libc_unix_haiku_bsd_explicitBzero(void* buf, uint64_t len) {
     errno = ENOSYS;
 }
 
-void* libc_unix_haiku_bsd_slInit(void) {
+void* libcUnixHaikuBsdSlInit(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -704,7 +704,7 @@ void* libc_unix_haiku_bsd_slInit(void) {
     return NULL;
 }
 
-int32_t libc_unix_haiku_bsd_slAdd(void* sl, char* n) {
+int32_t libcUnixHaikuBsdSlAdd(void* sl, char* n) {
     typedef int32_t (*km_fn_t)(void*, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -753,7 +753,7 @@ int32_t libc_unix_haiku_bsd_slAdd(void* sl, char* n) {
     return -1;
 }
 
-void libc_unix_haiku_bsd_slFree(void* sl, int32_t i) {
+void libcUnixHaikuBsdSlFree(void* sl, int32_t i) {
     typedef void (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -802,7 +802,7 @@ void libc_unix_haiku_bsd_slFree(void* sl, int32_t i) {
     errno = ENOSYS;
 }
 
-char* libc_unix_haiku_bsd_slFind(void* sl, char* n) {
+char* libcUnixHaikuBsdSlFind(void* sl, char* n) {
     typedef char* (*km_fn_t)(void*, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -851,7 +851,7 @@ char* libc_unix_haiku_bsd_slFind(void* sl, char* n) {
     return NULL;
 }
 
-int32_t libc_unix_haiku_bsd_kqueue(void) {
+int32_t libcUnixHaikuBsdKqueue(void) {
 #if defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__)
     return (int32_t)kqueue();
 #else
@@ -860,7 +860,7 @@ int32_t libc_unix_haiku_bsd_kqueue(void) {
 #endif
 }
 
-int32_t libc_unix_haiku_bsd_kevent(int32_t kq, void* changelist, int32_t nchanges, void* eventlist, int32_t nevents, void* timeout) {
+int32_t libcUnixHaikuBsdKevent(int32_t kq, void* changelist, int32_t nchanges, void* eventlist, int32_t nevents, void* timeout) {
 #if defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__)
     return (int32_t)kevent(kq, changelist, nchanges, eventlist, nevents, timeout);
 #else
@@ -875,7 +875,7 @@ int32_t libc_unix_haiku_bsd_kevent(int32_t kq, void* changelist, int32_t nchange
 #endif
 }
 
-int32_t libc_unix_haiku_bsd_dlIteratePhdr(void* callback, void* data) {
+int32_t libcUnixHaikuBsdDlIteratePhdr(void* callback, void* data) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -924,7 +924,7 @@ int32_t libc_unix_haiku_bsd_dlIteratePhdr(void* callback, void* data) {
     return -1;
 }
 
-int32_t libc_unix_haiku_bsd_lutimes(const char* file, void* times) {
+int32_t libcUnixHaikuBsdLutimes(const char* file, void* times) {
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -973,7 +973,7 @@ int32_t libc_unix_haiku_bsd_lutimes(const char* file, void* times) {
     return -1;
 }
 
-int64_t libc_unix_haiku_bsd_preadv(int32_t fd, void* iov, int32_t iovcnt, int64_t offset) {
+int64_t libcUnixHaikuBsdPreadv(int32_t fd, void* iov, int32_t iovcnt, int64_t offset) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1022,7 +1022,7 @@ int64_t libc_unix_haiku_bsd_preadv(int32_t fd, void* iov, int32_t iovcnt, int64_
     return -1;
 }
 
-int64_t libc_unix_haiku_bsd_pwritev(int32_t fd, void* iov, int32_t iovcnt, int64_t offset) {
+int64_t libcUnixHaikuBsdPwritev(int32_t fd, void* iov, int32_t iovcnt, int64_t offset) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1071,7 +1071,7 @@ int64_t libc_unix_haiku_bsd_pwritev(int32_t fd, void* iov, int32_t iovcnt, int64
     return -1;
 }
 
-int32_t libc_unix_haiku_bsd_wait4(int32_t pid, void* status, int32_t options, void* rusage) {
+int32_t libcUnixHaikuBsdWait4(int32_t pid, void* status, int32_t options, void* rusage) {
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

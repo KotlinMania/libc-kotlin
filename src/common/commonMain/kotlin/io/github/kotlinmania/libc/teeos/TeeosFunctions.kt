@@ -1,150 +1,154 @@
 package io.github.kotlinmania.libc.teeos
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CDouble
 import io.github.kotlinmania.libc.CFloat
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CLonglong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.mem.ObjectSlotLayout
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public fun interface PthreadKeyCreateDtorCallback {
-    public operator fun invoke(arg0: COpaquePointer?)
+    public operator fun invoke(arg0: MutPtr<CVoid>)
 }
 
 public fun interface PthreadCreateFCallback {
-    public operator fun invoke(arg0: COpaquePointer?): COpaquePointer?
+    public operator fun invoke(arg0: MutPtr<CVoid>): MutPtr<CVoid>
 }
 
 // ---- ALLOC -----------------------------------------------------------------------------
-public expect fun calloc(nobj: SizeT, size: SizeT): COpaquePointer?
+public expect fun calloc(nobj: SizeT, size: SizeT): MutPtr<CVoid>
 
-public expect fun malloc(size: SizeT): COpaquePointer?
+public expect fun malloc(size: SizeT): MutPtr<CVoid>
 
-public expect fun realloc(p: COpaquePointer?, size: SizeT): COpaquePointer?
+public expect fun realloc(p: MutPtr<CVoid>, size: SizeT): MutPtr<CVoid>
 
-public expect fun alignedAlloc(align: SizeT, len: SizeT): COpaquePointer?
+public expect fun alignedAlloc(align: SizeT, len: SizeT): MutPtr<CVoid>
 
-public expect fun free(p: COpaquePointer?)
+public expect fun free(p: MutPtr<CVoid>)
 
-public expect fun posixMemalign(memptr: COpaquePointer?, align: SizeT, size: SizeT): CInt
+public expect fun posixMemalign(memptr: MutPtr<MutPtr<CVoid>>, align: SizeT, size: SizeT): CInt
 
-public expect fun memchr(cx: COpaquePointer?, c: CInt, n: SizeT): COpaquePointer?
+public expect fun memchr(cx: ConstPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid>
 
-public expect fun wmemchr(cx: COpaquePointer?, c: WcharT, n: SizeT): COpaquePointer?
+public expect fun wmemchr(cx: ConstPtr<WcharT>, c: WcharT, n: SizeT): MutPtr<WcharT>
 
-public expect fun memcmp(cx: COpaquePointer?, ct: COpaquePointer?, n: SizeT): CInt
+public expect fun memcmp(cx: ConstPtr<CVoid>, ct: ConstPtr<CVoid>, n: SizeT): CInt
 
-public expect fun memcpy(dest: COpaquePointer?, src: COpaquePointer?, n: SizeT): COpaquePointer?
+public expect fun memcpy(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, n: SizeT): MutPtr<CVoid>
 
-public expect fun memmove(dest: COpaquePointer?, src: COpaquePointer?, n: SizeT): COpaquePointer?
+public expect fun memmove(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, n: SizeT): MutPtr<CVoid>
 
-public expect fun memset(dest: COpaquePointer?, c: CInt, n: SizeT): COpaquePointer?
+public expect fun memset(dest: MutPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid>
 
 // ----- PTHREAD ---------------------------------------------------------------------------
 public expect fun pthreadSelf(): PthreadT
 
-public expect fun pthreadJoin(native: PthreadT, value: COpaquePointer?): CInt
+public expect fun pthreadJoin(native: PthreadT, value: MutPtr<MutPtr<CVoid>>): CInt
 
 // detach or pthreadAttrSetdetachstate must not be called!
 // pub fn pthreadDetach(thread: pthreadT) -> cInt;
-public expect fun pthreadExit(value: COpaquePointer?): Nothing
+public expect fun pthreadExit(value: MutPtr<CVoid>): Nothing
 
-public expect fun pthreadAttrInit(attr: COpaquePointer?): CInt
+public expect fun pthreadAttrInit(attr: MutPtr<PthreadAttrT>): CInt
 
-public expect fun pthreadAttrDestroy(attr: COpaquePointer?): CInt
+public expect fun pthreadAttrDestroy(attr: MutPtr<PthreadAttrT>): CInt
 
-public expect fun pthreadAttrGetstack(attr: COpaquePointer?, stackaddr: COpaquePointer?, stacksize: COpaquePointer?): CInt
+public expect fun pthreadAttrGetstack(attr: ConstPtr<PthreadAttrT>, stackaddr: MutPtr<MutPtr<CVoid>>, stacksize: MutPtr<SizeT>): CInt
 
-public expect fun pthreadAttrSetstacksize(attr: COpaquePointer?, stackSize: SizeT): CInt
+public expect fun pthreadAttrSetstacksize(attr: MutPtr<PthreadAttrT>, stackSize: SizeT): CInt
 
-public expect fun pthreadAttrGetstacksize(attr: COpaquePointer?, size: COpaquePointer?): CInt
+public expect fun pthreadAttrGetstacksize(attr: ConstPtr<PthreadAttrT>, size: MutPtr<SizeT>): CInt
 
-public expect fun pthreadAttrSettee(attr: COpaquePointer?, ca: CInt, taskId: CInt, shadow: CInt): CInt
+public expect fun pthreadAttrSettee(attr: MutPtr<PthreadAttrT>, ca: CInt, taskId: CInt, shadow: CInt): CInt
 
 // C-TA API do not include this interface, but TA can use.
 public expect fun schedYield(): CInt
 
-public expect fun pthreadKeyCreate(key: COpaquePointer?, dtor: PthreadKeyCreateDtorCallback?): CInt
+public expect fun pthreadKeyCreate(key: MutPtr<PthreadKeyT>, dtor: PthreadKeyCreateDtorCallback?): CInt
 
 public expect fun pthreadKeyDelete(key: PthreadKeyT): CInt
 
-public expect fun pthreadGetspecific(key: PthreadKeyT): COpaquePointer?
+public expect fun pthreadGetspecific(key: PthreadKeyT): MutPtr<CVoid>
 
-public expect fun pthreadSetspecific(key: PthreadKeyT, value: COpaquePointer?): CInt
+public expect fun pthreadSetspecific(key: PthreadKeyT, value: ConstPtr<CVoid>): CInt
 
-public expect fun pthreadMutexDestroy(lock: COpaquePointer?): CInt
+public expect fun pthreadMutexDestroy(lock: MutPtr<PthreadMutexT>): CInt
 
-public expect fun pthreadMutexInit(lock: COpaquePointer?, attr: COpaquePointer?): CInt
+public expect fun pthreadMutexInit(lock: MutPtr<PthreadMutexT>, attr: ConstPtr<PthreadMutexattrT>): CInt
 
-public expect fun pthreadMutexLock(lock: COpaquePointer?): CInt
+public expect fun pthreadMutexLock(lock: MutPtr<PthreadMutexT>): CInt
 
-public expect fun pthreadMutexTrylock(lock: COpaquePointer?): CInt
+public expect fun pthreadMutexTrylock(lock: MutPtr<PthreadMutexT>): CInt
 
-public expect fun pthreadMutexUnlock(lock: COpaquePointer?): CInt
+public expect fun pthreadMutexUnlock(lock: MutPtr<PthreadMutexT>): CInt
 
-public expect fun pthreadMutexattrDestroy(attr: COpaquePointer?): CInt
+public expect fun pthreadMutexattrDestroy(attr: MutPtr<PthreadMutexattrT>): CInt
 
-public expect fun pthreadMutexattrInit(attr: COpaquePointer?): CInt
+public expect fun pthreadMutexattrInit(attr: MutPtr<PthreadMutexattrT>): CInt
 
-public expect fun pthreadMutexattrSettype(attr: COpaquePointer?, type: CInt): CInt
+public expect fun pthreadMutexattrSettype(attr: MutPtr<PthreadMutexattrT>, type: CInt): CInt
 
-public expect fun pthreadMutexattrSetpshared(attr: COpaquePointer?, pshared: CInt): CInt
+public expect fun pthreadMutexattrSetpshared(attr: MutPtr<PthreadMutexattrT>, pshared: CInt): CInt
 
-public expect fun pthreadCondBroadcast(cond: COpaquePointer?): CInt
+public expect fun pthreadCondBroadcast(cond: MutPtr<PthreadCondT>): CInt
 
-public expect fun pthreadCondDestroy(cond: COpaquePointer?): CInt
+public expect fun pthreadCondDestroy(cond: MutPtr<PthreadCondT>): CInt
 
-public expect fun pthreadCondInit(cond: COpaquePointer?, attr: COpaquePointer?): CInt
+public expect fun pthreadCondInit(cond: MutPtr<PthreadCondT>, attr: ConstPtr<PthreadCondattrT>): CInt
 
-public expect fun pthreadCondSignal(cond: COpaquePointer?): CInt
+public expect fun pthreadCondSignal(cond: MutPtr<PthreadCondT>): CInt
 
-public expect fun pthreadCondWait(cond: COpaquePointer?, lock: COpaquePointer?): CInt
+public expect fun pthreadCondWait(cond: MutPtr<PthreadCondT>, lock: MutPtr<PthreadMutexT>): CInt
 
-public expect fun pthreadCondTimedwait(cond: COpaquePointer?, lock: COpaquePointer?, abstime: COpaquePointer?): CInt
+public expect fun pthreadCondTimedwait(cond: MutPtr<PthreadCondT>, lock: MutPtr<PthreadMutexT>, abstime: ConstPtr<Timespec>): CInt
 
-public expect fun pthreadMutexattrSetrobust(attr: COpaquePointer?, robustness: CInt): CInt
+public expect fun pthreadMutexattrSetrobust(attr: MutPtr<PthreadMutexattrT>, robustness: CInt): CInt
 
-public expect fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt
+public expect fun pthreadCreate(native: MutPtr<PthreadT>, attr: ConstPtr<PthreadAttrT>, f: PthreadCreateFCallback, value: MutPtr<CVoid>): CInt
 
-public expect fun pthreadSpinInit(lock: COpaquePointer?, pshared: CInt): CInt
+public expect fun pthreadSpinInit(lock: MutPtr<PthreadSpinlockT>, pshared: CInt): CInt
 
-public expect fun pthreadSpinDestroy(lock: COpaquePointer?): CInt
+public expect fun pthreadSpinDestroy(lock: MutPtr<PthreadSpinlockT>): CInt
 
-public expect fun pthreadSpinLock(lock: COpaquePointer?): CInt
+public expect fun pthreadSpinLock(lock: MutPtr<PthreadSpinlockT>): CInt
 
-public expect fun pthreadSpinTrylock(lock: COpaquePointer?): CInt
+public expect fun pthreadSpinTrylock(lock: MutPtr<PthreadSpinlockT>): CInt
 
-public expect fun pthreadSpinUnlock(lock: COpaquePointer?): CInt
+public expect fun pthreadSpinUnlock(lock: MutPtr<PthreadSpinlockT>): CInt
 
 public expect fun pthreadSetschedprio(native: PthreadT, priority: CInt): CInt
 
-public expect fun pthreadOnce(pot: COpaquePointer?, f: OnceFn?): CInt
+public expect fun pthreadOnce(pot: MutPtr<PthreadOnceT>, f: OnceFn?): CInt
 
 public expect fun pthreadEqual(p1: PthreadT, p2: PthreadT): CInt
 
-public expect fun pthreadMutexattrSetprotocol(a: COpaquePointer?, protocol: CInt): CInt
+public expect fun pthreadMutexattrSetprotocol(a: MutPtr<PthreadMutexattrT>, protocol: CInt): CInt
 
-public expect fun pthreadAttrSetstack(attr: COpaquePointer?, stack: COpaquePointer?, size: SizeT): CInt
+public expect fun pthreadAttrSetstack(attr: MutPtr<PthreadAttrT>, stack: MutPtr<CVoid>, size: SizeT): CInt
 
-public expect fun pthreadSetaffinityNp(td: PthreadT, size: SizeT, set: COpaquePointer?): CInt
+public expect fun pthreadSetaffinityNp(td: PthreadT, size: SizeT, set: ConstPtr<CpuSetT>): CInt
 
-public expect fun pthreadGetaffinityNp(td: PthreadT, size: SizeT, set: COpaquePointer?): CInt
+public expect fun pthreadGetaffinityNp(td: PthreadT, size: SizeT, set: MutPtr<CpuSetT>): CInt
 
 // stdio.h
-public expect fun printf(fmt: String?, vararg variadicArgs: Long): CInt
+public expect fun printf(fmt: ConstPtr<CChar>, vararg variadicArgs: Long): CInt
 
-public expect fun scanf(fmt: String?, vararg variadicArgs: Long): CInt
+public expect fun scanf(fmt: ConstPtr<CChar>, vararg variadicArgs: Long): CInt
 
-public expect fun snprintf(s: COpaquePointer?, n: SizeT, fmt: String?, vararg variadicArgs: Long): CInt
+public expect fun snprintf(s: MutPtr<CChar>, n: SizeT, fmt: ConstPtr<CChar>, vararg variadicArgs: Long): CInt
 
-public expect fun sprintf(s: COpaquePointer?, fmt: String?, vararg variadicArgs: Long): CInt
+public expect fun sprintf(s: MutPtr<CChar>, fmt: ConstPtr<CChar>, vararg variadicArgs: Long): CInt
 
-public expect fun vsnprintf(s: COpaquePointer?, n: SizeT, fmt: String?, ap: VaList): CInt
+public expect fun vsnprintf(s: MutPtr<CChar>, n: SizeT, fmt: ConstPtr<CChar>, ap: VaList): CInt
 
-public expect fun vsprintf(s: COpaquePointer?, fmt: String?, ap: VaList): CInt
+public expect fun vsprintf(s: MutPtr<CChar>, fmt: ConstPtr<CChar>, ap: VaList): CInt
 
 // Not available.
 // pub fn pthreadSetnameNp(thread: pthreadT, name: *const cChar) -> cInt;
@@ -152,100 +156,100 @@ public expect fun abort(): Nothing
 
 // Not available.
 // pub fn prctl(op: cInt, ...) -> cInt;
-public expect fun schedGetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt
+public expect fun schedGetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: MutPtr<CpuSetT>): CInt
 
-public expect fun schedSetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt
+public expect fun schedSetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: ConstPtr<CpuSetT>): CInt
 
 // sysconf is currently only implemented as a Note.
 public expect fun sysconf(name: CInt): CLong
 
 // mman.h
-public expect fun mmap(addr: COpaquePointer?, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: OffT): COpaquePointer?
+public expect fun mmap(addr: MutPtr<CVoid>, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: OffT): MutPtr<CVoid>
 
-public expect fun munmap(addr: COpaquePointer?, len: SizeT): CInt
+public expect fun munmap(addr: MutPtr<CVoid>, len: SizeT): CInt
 
 // errno.h
-public expect fun errnoLocation(): COpaquePointer?
+public expect fun errnoLocation(): MutPtr<CInt>
 
-public expect fun strerror(e: CInt): COpaquePointer?
+public expect fun strerror(e: CInt): MutPtr<CChar>
 
 // time.h
-public expect fun clockGettime(clockId: ClockidT, tp: COpaquePointer?): CInt
+public expect fun clockGettime(clockId: ClockidT, tp: MutPtr<Timespec>): CInt
 
 // unistd
 public expect fun getpid(): PidT
 
 // time
-public expect fun gettimeofday(tv: COpaquePointer?, tz: COpaquePointer?): CInt
+public expect fun gettimeofday(tv: MutPtr<Timeval>, tz: MutPtr<CVoid>): CInt
 
-public expect fun strftime(restrict: COpaquePointer?, sz: SizeT, restrict_2: String?, restrict_3: COpaquePointer?): SizeT
+public expect fun strftime(restrict: MutPtr<CChar>, sz: SizeT, restrict_2: ConstPtr<CChar>, restrict_3: ConstPtr<Tm>): SizeT
 
-public expect fun time(t: COpaquePointer?): TimeT
+public expect fun time(t: MutPtr<TimeT>): TimeT
 
 // sem
-public expect fun semClose(sem: COpaquePointer?): CInt
+public expect fun semClose(sem: MutPtr<SemT>): CInt
 
-public expect fun semDestroy(sem: COpaquePointer?): CInt
+public expect fun semDestroy(sem: MutPtr<SemT>): CInt
 
-public expect fun semGetvalue(sem: COpaquePointer?, valp: COpaquePointer?): CInt
+public expect fun semGetvalue(sem: MutPtr<SemT>, valp: MutPtr<CInt>): CInt
 
-public expect fun semInit(sem: COpaquePointer?, pshared: CInt, value: CUint): CInt
+public expect fun semInit(sem: MutPtr<SemT>, pshared: CInt, value: CUint): CInt
 
-public expect fun semOpen(name: String?, flags: CInt, vararg variadicArgs: Long): COpaquePointer?
+public expect fun semOpen(name: ConstPtr<CChar>, flags: CInt, vararg variadicArgs: Long): MutPtr<SemT>
 
-public expect fun semPost(sem: COpaquePointer?): CInt
+public expect fun semPost(sem: MutPtr<SemT>): CInt
 
-public expect fun semUnlink(name: String?): CInt
+public expect fun semUnlink(name: ConstPtr<CChar>): CInt
 
-public expect fun semWait(sem: COpaquePointer?): CInt
+public expect fun semWait(sem: MutPtr<SemT>): CInt
 
 // locale
-public expect fun setlocale(cat: CInt, name: String?): COpaquePointer?
+public expect fun setlocale(cat: CInt, name: ConstPtr<CChar>): MutPtr<CChar>
 
-public expect fun strcoll(l: String?, r: String?): CInt
+public expect fun strcoll(l: ConstPtr<CChar>, r: ConstPtr<CChar>): CInt
 
-public expect fun strxfrm(dest: COpaquePointer?, src: String?, n: SizeT): SizeT
+public expect fun strxfrm(dest: MutPtr<CChar>, src: ConstPtr<CChar>, n: SizeT): SizeT
 
-public expect fun strtod(s: String?, p: COpaquePointer?): CDouble
+public expect fun strtod(s: ConstPtr<CChar>, p: MutPtr<MutPtr<CChar>>): CDouble
 
 // multibyte
-public expect fun mbrtowc(wc: COpaquePointer?, src: String?, n: SizeT, st: COpaquePointer?): SizeT
+public expect fun mbrtowc(wc: MutPtr<WcharT>, src: ConstPtr<CChar>, n: SizeT, st: MutPtr<MbstateT>): SizeT
 
-public expect fun wcrtomb(s: COpaquePointer?, wc: WcharT, st: COpaquePointer?): SizeT
+public expect fun wcrtomb(s: MutPtr<CChar>, wc: WcharT, st: MutPtr<MbstateT>): SizeT
 
 public expect fun wctob(c: WintT): CInt
 
 // prng
 public expect fun srandom(seed: CUint)
 
-public expect fun initstate(seed: CUint, state: COpaquePointer?, size: SizeT): COpaquePointer?
+public expect fun initstate(seed: CUint, state: MutPtr<CChar>, size: SizeT): MutPtr<CChar>
 
-public expect fun setstate(state: COpaquePointer?): COpaquePointer?
+public expect fun setstate(state: MutPtr<CChar>): MutPtr<CChar>
 
 public expect fun random(): CLong
 
 // string
-public expect fun strchr(s: String?, c: CInt): COpaquePointer?
+public expect fun strchr(s: ConstPtr<CChar>, c: CInt): MutPtr<CChar>
 
-public expect fun strlen(cs: String?): SizeT
+public expect fun strlen(cs: ConstPtr<CChar>): SizeT
 
-public expect fun strcmp(l: String?, r: String?): CInt
+public expect fun strcmp(l: ConstPtr<CChar>, r: ConstPtr<CChar>): CInt
 
-public expect fun strcpy(dest: COpaquePointer?, src: String?): COpaquePointer?
+public expect fun strcpy(dest: MutPtr<CChar>, src: ConstPtr<CChar>): MutPtr<CChar>
 
-public expect fun strncmp(l: String?, r: String?, n: SizeT): CInt
+public expect fun strncmp(l: ConstPtr<CChar>, r: ConstPtr<CChar>, n: SizeT): CInt
 
-public expect fun strncpy(dest: COpaquePointer?, src: String?, n: SizeT): COpaquePointer?
+public expect fun strncpy(dest: MutPtr<CChar>, src: ConstPtr<CChar>, n: SizeT): MutPtr<CChar>
 
-public expect fun strnlen(cs: String?, n: SizeT): SizeT
+public expect fun strnlen(cs: ConstPtr<CChar>, n: SizeT): SizeT
 
-public expect fun strrchr(s: String?, c: CInt): COpaquePointer?
+public expect fun strrchr(s: ConstPtr<CChar>, c: CInt): MutPtr<CChar>
 
-public expect fun strstr(h: String?, n: String?): COpaquePointer?
+public expect fun strstr(h: ConstPtr<CChar>, n: ConstPtr<CChar>): MutPtr<CChar>
 
-public expect fun wcschr(s: COpaquePointer?, c: WcharT): COpaquePointer?
+public expect fun wcschr(s: ConstPtr<WcharT>, c: WcharT): MutPtr<WcharT>
 
-public expect fun wcslen(s: COpaquePointer?): SizeT
+public expect fun wcslen(s: ConstPtr<WcharT>): SizeT
 
 // ctype
 public expect fun isalpha(c: CInt): CInt
@@ -287,7 +291,7 @@ public expect fun fabs(x: CDouble): CDouble
 
 public expect fun floor(x: CDouble): CDouble
 
-public expect fun frexp(x: CDouble, e: COpaquePointer?): CDouble
+public expect fun frexp(x: CDouble, e: MutPtr<CInt>): CDouble
 
 public expect fun log(x: CDouble): CDouble
 
@@ -304,41 +308,41 @@ public expect fun sqrt(x: CDouble): CDouble
 // stdlib
 public expect fun abs(x: CInt): CInt
 
-public expect fun atof(s: String?): CDouble
+public expect fun atof(s: ConstPtr<CChar>): CDouble
 
-public expect fun atoi(s: String?): CInt
+public expect fun atoi(s: ConstPtr<CChar>): CInt
 
-public expect fun atol(s: String?): CLong
+public expect fun atol(s: ConstPtr<CChar>): CLong
 
-public expect fun atoll(s: String?): CLonglong
+public expect fun atoll(s: ConstPtr<CChar>): CLonglong
 
-public expect fun bsearch(key: COpaquePointer?, base: COpaquePointer?, nel: SizeT, width: SizeT, cmp: Cmpfunc): COpaquePointer?
+public expect fun bsearch(key: ConstPtr<CVoid>, base: ConstPtr<CVoid>, nel: SizeT, width: SizeT, cmp: Cmpfunc): MutPtr<CVoid>
 
 public expect fun div(num: CInt, den: CInt): DivT
 
-public expect fun ecvt(x: CDouble, n: CInt, dp: COpaquePointer?, sign: COpaquePointer?): COpaquePointer?
+public expect fun ecvt(x: CDouble, n: CInt, dp: MutPtr<CInt>, sign: MutPtr<CInt>): MutPtr<CChar>
 
 public expect fun imaxabs(a: IntmaxT): IntmaxT
 
 public expect fun llabs(a: CLonglong): CLonglong
 
-public expect fun qsort(base: COpaquePointer?, nel: SizeT, width: SizeT, cmp: Cmpfunc)
+public expect fun qsort(base: MutPtr<CVoid>, nel: SizeT, width: SizeT, cmp: Cmpfunc)
 
-public expect fun strtoul(s: String?, p: COpaquePointer?, base: CInt): CUlong
+public expect fun strtoul(s: ConstPtr<CChar>, p: MutPtr<MutPtr<CChar>>, base: CInt): CUlong
 
-public expect fun strtol(s: String?, p: COpaquePointer?, base: CInt): CLong
+public expect fun strtol(s: ConstPtr<CChar>, p: MutPtr<MutPtr<CChar>>, base: CInt): CLong
 
-public expect fun wcstod(s: COpaquePointer?, p: COpaquePointer?): CDouble
+public expect fun wcstod(s: ConstPtr<WcharT>, p: MutPtr<MutPtr<WcharT>>): CDouble
 
-public fun errno(): CInt = (errnoLocation()?.rawValue ?: 0L).toInt()
+public fun errno(): CInt = (ObjectSlotLayout<CInt>()).readNative((errnoLocation()).rawAddress)
 
 public fun cpuCountS(size: Int, cpuset: CpuSetT): CInt {
     var s: UInt = 0u
-    val sizeOfMask = 8
+    val sizeOfMask = sizeOfVal(cpuset.bits[0])
     for (i in ((cpuset.bits).slice(0 until (size / sizeOfMask)))) {
         s += i.countOneBits().toUInt()
     }
     return s.toInt()
 }
 
-public fun cpuCount(cpuset: CpuSetT): CInt = cpuCountS(8, cpuset)
+public fun cpuCount(cpuset: CpuSetT): CInt = cpuCountS(sizeOf<CpuSetT>(typeLayoutT = ObjectSlotLayout<CpuSetT>()), cpuset)

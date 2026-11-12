@@ -12,8 +12,8 @@ private object UnixAixPowerpc64JniBridge {
     }
 
     @JvmStatic
-    external fun libc_unix_aix_powerpc64_getsystemcfg(label: Int): Long
+    external fun libcUnixAixPowerpc64Getsystemcfg(label: Int): Long
 }
 
 public actual fun getsystemcfg(label: CInt): CUlong =
-    UnixAixPowerpc64JniBridge.libc_unix_aix_powerpc64_getsystemcfg(label).toULong()
+    UnixAixPowerpc64JniBridge.libcUnixAixPowerpc64Getsystemcfg(label).toULong()

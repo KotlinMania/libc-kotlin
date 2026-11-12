@@ -19,7 +19,7 @@
 #endif
 #endif
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libc_1unix_1solarish_1illumos_1eventfd(JNIEnv* km_env, jclass km_clazz, jint initval, jint flags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libcUnixSolarishIllumosEventfd(JNIEnv* km_env, jclass km_clazz, jint initval, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(uint32_t, int32_t);
@@ -52,7 +52,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_Uni
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libc_1unix_1solarish_1illumos_1epollPwait(JNIEnv* km_env, jclass km_clazz, jint epfd, jlong events, jint maxevents, jint timeout, jlong sigmask) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libcUnixSolarishIllumosEpollPwait(JNIEnv* km_env, jclass km_clazz, jint epfd, jlong events, jint maxevents, jint timeout, jlong sigmask) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t, int32_t, void*);
@@ -85,7 +85,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_Uni
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libc_1unix_1solarish_1illumos_1epollCreate(JNIEnv* km_env, jclass km_clazz, jint size) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libcUnixSolarishIllumosEpollCreate(JNIEnv* km_env, jclass km_clazz, jint size) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -118,7 +118,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_Uni
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libc_1unix_1solarish_1illumos_1epollCreate1(JNIEnv* km_env, jclass km_clazz, jint flags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libcUnixSolarishIllumosEpollCreate1(JNIEnv* km_env, jclass km_clazz, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -151,7 +151,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_Uni
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libc_1unix_1solarish_1illumos_1epollWait(JNIEnv* km_env, jclass km_clazz, jint epfd, jlong events, jint maxevents, jint timeout) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libcUnixSolarishIllumosEpollWait(JNIEnv* km_env, jclass km_clazz, jint epfd, jlong events, jint maxevents, jint timeout) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t, int32_t);
@@ -184,7 +184,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_Uni
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libc_1unix_1solarish_1illumos_1epollCtl(JNIEnv* km_env, jclass km_clazz, jint epfd, jint op, jint fd, jlong event) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libcUnixSolarishIllumosEpollCtl(JNIEnv* km_env, jclass km_clazz, jint epfd, jint op, jint fd, jlong event) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, void*);
@@ -217,7 +217,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_Uni
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libc_1unix_1solarish_1illumos_1mincore(JNIEnv* km_env, jclass km_clazz, jlong addr, jlong len, jlong vec) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libcUnixSolarishIllumosMincore(JNIEnv* km_env, jclass km_clazz, jlong addr, jlong len, jlong vec) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(char*, uint64_t, char*);
@@ -250,7 +250,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_Uni
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libc_1unix_1solarish_1illumos_1psetBindLwp(JNIEnv* km_env, jclass km_clazz, jint pset, jint id, jint pid, jlong opset) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libcUnixSolarishIllumosPsetBindLwp(JNIEnv* km_env, jclass km_clazz, jint pset, jint id, jint pid, jlong opset) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, void*);
@@ -283,7 +283,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_Uni
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libc_1unix_1solarish_1illumos_1psetGetloadavg(JNIEnv* km_env, jclass km_clazz, jint pset, jlong load, jint num) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libcUnixSolarishIllumosPsetGetloadavg(JNIEnv* km_env, jclass km_clazz, jint pset, jlong load, jint num) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t);
@@ -316,7 +316,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_Uni
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libc_1unix_1solarish_1illumos_1pthreadAttrGetNp(JNIEnv* km_env, jclass km_clazz, jlong thread, jlong attr) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libcUnixSolarishIllumosPthreadAttrGetNp(JNIEnv* km_env, jclass km_clazz, jlong thread, jlong attr) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -349,7 +349,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_Uni
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libc_1unix_1solarish_1illumos_1pthreadAttrGetstackaddr(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong stackaddr) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libcUnixSolarishIllumosPthreadAttrGetstackaddr(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong stackaddr) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -382,7 +382,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_Uni
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libc_1unix_1solarish_1illumos_1pthreadAttrSetstack(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong stackaddr, jlong stacksize) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libcUnixSolarishIllumosPthreadAttrSetstack(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong stackaddr, jlong stacksize) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, uint64_t);
@@ -415,7 +415,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_Uni
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libc_1unix_1solarish_1illumos_1pthreadAttrSetstackaddr(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong stackaddr) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libcUnixSolarishIllumosPthreadAttrSetstackaddr(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong stackaddr) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -448,7 +448,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_Uni
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libc_1unix_1solarish_1illumos_1posixFadvise(JNIEnv* km_env, jclass km_clazz, jint fd, jlong offset, jlong len, jint advice) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libcUnixSolarishIllumosPosixFadvise(JNIEnv* km_env, jclass km_clazz, jint fd, jlong offset, jlong len, jint advice) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int64_t, int64_t, int32_t);
@@ -481,7 +481,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_Uni
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libc_1unix_1solarish_1illumos_1preadv(JNIEnv* km_env, jclass km_clazz, jint fd, jlong iov, jint iovcnt, jlong offset) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libcUnixSolarishIllumosPreadv(JNIEnv* km_env, jclass km_clazz, jint fd, jlong iov, jint iovcnt, jlong offset) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, int64_t);
@@ -514,7 +514,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_Un
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libc_1unix_1solarish_1illumos_1pwritev(JNIEnv* km_env, jclass km_clazz, jint fd, jlong iov, jint iovcnt, jlong offset) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libcUnixSolarishIllumosPwritev(JNIEnv* km_env, jclass km_clazz, jint fd, jlong iov, jint iovcnt, jlong offset) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, int64_t);
@@ -547,7 +547,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_Un
     return (jlong)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libc_1unix_1solarish_1illumos_1getpagesizes2(JNIEnv* km_env, jclass km_clazz, jlong pagesize, jint nelem) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libcUnixSolarishIllumosGetpagesizes2(JNIEnv* km_env, jclass km_clazz, jlong pagesize, jint nelem) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t);
@@ -580,7 +580,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_Uni
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libc_1unix_1solarish_1illumos_1posixSpawnFileActionsAddfchdirNp(JNIEnv* km_env, jclass km_clazz, jlong file_actions, jint fd) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libcUnixSolarishIllumosPosixSpawnFileActionsAddfchdirNp(JNIEnv* km_env, jclass km_clazz, jlong fileActions, jint fd) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t);
@@ -605,7 +605,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_Uni
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)file_actions, (int32_t)fd);
+        km_res = km_fn_ptr((void*)(uintptr_t)fileActions, (int32_t)fd);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -613,7 +613,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_Uni
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libc_1unix_1solarish_1illumos_1ptsnameR(JNIEnv* km_env, jclass km_clazz, jint fildes, jlong name, jlong namelen) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libcUnixSolarishIllumosPtsnameR(JNIEnv* km_env, jclass km_clazz, jint fildes, jlong name, jlong namelen) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, char*, uint64_t);
@@ -646,7 +646,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_Uni
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libc_1unix_1solarish_1illumos_1syncfs(JNIEnv* km_env, jclass km_clazz, jint fd) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libcUnixSolarishIllumosSyncfs(JNIEnv* km_env, jclass km_clazz, jint fd) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -679,11 +679,9 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_Uni
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libc_1unix_1solarish_1illumos_1strcasecmpL(JNIEnv* km_env, jclass km_clazz, jstring s1, jstring s2, jlong loc) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libcUnixSolarishIllumosStrcasecmpL(JNIEnv* km_env, jclass km_clazz, jlong s1, jlong s2, jlong loc) {
     (void)km_env;
     (void)km_clazz;
-    const char* s1_utf = (s1 != NULL) ? (*km_env)->GetStringUTFChars(km_env, s1, NULL) : NULL;
-    const char* s2_utf = (s2 != NULL) ? (*km_env)->GetStringUTFChars(km_env, s2, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -706,21 +704,17 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_Uni
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(s1_utf, s2_utf, (void*)(uintptr_t)loc);
+        km_res = km_fn_ptr((const char*)(uintptr_t)s1, (const char*)(uintptr_t)s2, (void*)(uintptr_t)loc);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (s1 != NULL && s1_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, s1, s1_utf);
-    if (s2 != NULL && s2_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, s2, s2_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libc_1unix_1solarish_1illumos_1strncasecmpL(JNIEnv* km_env, jclass km_clazz, jstring s1, jstring s2, jlong n, jlong loc) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libcUnixSolarishIllumosStrncasecmpL(JNIEnv* km_env, jclass km_clazz, jlong s1, jlong s2, jlong n, jlong loc) {
     (void)km_env;
     (void)km_clazz;
-    const char* s1_utf = (s1 != NULL) ? (*km_env)->GetStringUTFChars(km_env, s1, NULL) : NULL;
-    const char* s2_utf = (s2 != NULL) ? (*km_env)->GetStringUTFChars(km_env, s2, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, const char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -743,17 +737,15 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_Uni
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(s1_utf, s2_utf, (uint64_t)n, (void*)(uintptr_t)loc);
+        km_res = km_fn_ptr((const char*)(uintptr_t)s1, (const char*)(uintptr_t)s2, (uint64_t)n, (void*)(uintptr_t)loc);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (s1 != NULL && s1_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, s1, s1_utf);
-    if (s2 != NULL && s2_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, s2, s2_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libc_1unix_1solarish_1illumos_1timerfdCreate(JNIEnv* km_env, jclass km_clazz, jint clockid, jint flags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libcUnixSolarishIllumosTimerfdCreate(JNIEnv* km_env, jclass km_clazz, jint clockid, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
@@ -786,7 +778,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_Uni
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libc_1unix_1solarish_1illumos_1timerfdGettime(JNIEnv* km_env, jclass km_clazz, jint fd, jlong curr_value) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libcUnixSolarishIllumosTimerfdGettime(JNIEnv* km_env, jclass km_clazz, jint fd, jlong currValue) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -811,7 +803,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_Uni
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)fd, (void*)(uintptr_t)curr_value);
+        km_res = km_fn_ptr((int32_t)fd, (void*)(uintptr_t)currValue);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -819,7 +811,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_Uni
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libc_1unix_1solarish_1illumos_1timerfdSettime(JNIEnv* km_env, jclass km_clazz, jint fd, jint flags, jlong new_value, jlong old_value) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_UnixSolarishIllumosJniBridge_libcUnixSolarishIllumosTimerfdSettime(JNIEnv* km_env, jclass km_clazz, jint fd, jint flags, jlong newValue, jlong oldValue) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*, void*);
@@ -844,7 +836,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_solarish_illumos_Uni
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)fd, (int32_t)flags, (void*)(uintptr_t)new_value, (void*)(uintptr_t)old_value);
+        km_res = km_fn_ptr((int32_t)fd, (int32_t)flags, (void*)(uintptr_t)newValue, (void*)(uintptr_t)oldValue);
     } else {
         errno = ENOSYS;
         km_res = -1;

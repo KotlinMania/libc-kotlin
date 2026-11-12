@@ -3,1927 +3,1981 @@
 package io.github.kotlinmania.libc.psp
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.libc.CChar
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 private object PspJniBridge {
     init {
+        loadNativeLibrary()
+    }
+
+    private fun loadNativeLibrary() {
+        val osRaw = System.getProperty("os.name", "").lowercase()
+        val archRaw = System.getProperty("os.arch", "").lowercase()
+        val hostPlatform =
+            when {
+                osRaw.contains("win") -> "windows"
+                osRaw.contains("mac") || osRaw.contains("darwin") -> "macos"
+                else -> "linux"
+            }
+        val hostArch =
+            when {
+                archRaw == "aarch64" || archRaw == "arm64" -> "aarch64"
+                archRaw == "amd64" || archRaw == "x86_64" -> "x86_64"
+                else -> archRaw
+            }
+        val libFileName =
+            when (hostPlatform) {
+                "windows" -> "libc_jni.dll"
+                "macos" -> "liblibc_jni.dylib"
+                else -> "liblibc_jni.so"
+            }
+        val pathSep = System.getProperty("path.separator", ":")
+        val libPathProp = System.getProperty("java.library.path", "")
+        for (dirEntry in libPathProp.split(pathSep)) {
+            if (dirEntry.isEmpty()) continue
+            val candidate = java.io.File(dirEntry, libFileName)
+            if (candidate.isFile) {
+                System.load(candidate.absolutePath)
+                return
+            }
+        }
+        val resourcePath = "io/github/kotlinmania/libc/native/$hostPlatform-$hostArch/$libFileName"
+        val stream = PspJniBridge::class.java.classLoader?.getResourceAsStream(resourcePath)
+        if (stream != null) {
+            val suffix = "." + libFileName.substringAfterLast('.')
+            val extracted =
+                java.nio.file.Files
+                    .createTempFile("libc_jni-", suffix)
+                    .toFile()
+            extracted.deleteOnExit()
+            stream.use { input ->
+                extracted.outputStream().use { output ->
+                    input.copyTo(output)
+                }
+            }
+            System.load(extracted.absolutePath)
+            return
+        }
         System.loadLibrary("libc_jni")
     }
 
     @JvmStatic
-    external fun libc_psp_sceAudioChRelease(channel: Int): Int
+    external fun libcPspSceAudioChRelease(channel: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceAudioOutput(channel: Int, vol: Int, buf: Long): Int
+    external fun libcPspSceAudioOutput(channel: Int, vol: Int, buf: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceAudioOutputBlocking(channel: Int, vol: Int, buf: Long): Int
+    external fun libcPspSceAudioOutputBlocking(channel: Int, vol: Int, buf: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceAudioOutputPanned(channel: Int, leftVol: Int, rightVol: Int, buf: Long): Int
+    external fun libcPspSceAudioOutputPanned(channel: Int, leftVol: Int, rightVol: Int, buf: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceAudioOutputPannedBlocking(channel: Int, leftVol: Int, rightVol: Int, buf: Long): Int
+    external fun libcPspSceAudioOutputPannedBlocking(channel: Int, leftVol: Int, rightVol: Int, buf: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceAudioGetChannelRestLen(channel: Int): Int
+    external fun libcPspSceAudioGetChannelRestLen(channel: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceAudioGetChannelRestLength(channel: Int): Int
+    external fun libcPspSceAudioGetChannelRestLength(channel: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceAudioSetChannelDataLen(channel: Int, sampleCount: Int): Int
+    external fun libcPspSceAudioSetChannelDataLen(channel: Int, sampleCount: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceAudioChangeChannelVolume(channel: Int, leftVol: Int, rightVol: Int): Int
+    external fun libcPspSceAudioChangeChannelVolume(channel: Int, leftVol: Int, rightVol: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceAudioOutput2Reserve(sampleCount: Int): Int
+    external fun libcPspSceAudioOutput2Reserve(sampleCount: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceAudioOutput2Release(): Int
+    external fun libcPspSceAudioOutput2Release(): Int
 
     @JvmStatic
-    external fun libc_psp_sceAudioOutput2ChangeLength(sampleCount: Int): Int
+    external fun libcPspSceAudioOutput2ChangeLength(sampleCount: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceAudioOutput2OutputBlocking(vol: Int, buf: Long): Int
+    external fun libcPspSceAudioOutput2OutputBlocking(vol: Int, buf: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceAudioOutput2GetRestSample(): Int
+    external fun libcPspSceAudioOutput2GetRestSample(): Int
 
     @JvmStatic
-    external fun libc_psp_sceAudioSRCChRelease(): Int
+    external fun libcPspSceAudioSRCChRelease(): Int
 
     @JvmStatic
-    external fun libc_psp_sceAudioSRCOutputBlocking(vol: Int, buf: Long): Int
+    external fun libcPspSceAudioSRCOutputBlocking(vol: Int, buf: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceAudioInputInit(unknown1: Int, gain: Int, unknown2: Int): Int
+    external fun libcPspSceAudioInputInit(unknown1: Int, gain: Int, unknown2: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceAudioInputInitEx(params: Long): Int
+    external fun libcPspSceAudioInputInitEx(params: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceAudioGetInputLength(): Int
+    external fun libcPspSceAudioGetInputLength(): Int
 
     @JvmStatic
-    external fun libc_psp_sceAudioWaitInputEnd(): Int
+    external fun libcPspSceAudioWaitInputEnd(): Int
 
     @JvmStatic
-    external fun libc_psp_sceAudioPollInputEnd(): Int
+    external fun libcPspSceAudioPollInputEnd(): Int
 
     @JvmStatic
-    external fun libc_psp_sceAtracGetAtracID(uiCodecType: Int): Int
+    external fun libcPspSceAtracGetAtracID(uiCodecType: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceAtracSetDataAndGetID(buf: Long, bufsize: Long): Int
+    external fun libcPspSceAtracSetDataAndGetID(buf: Long, bufsize: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceAtracDecodeData(atracId: Int, outSamples: Long, outN: Long, outEnd: Long, outRemainFrame: Long): Int
+    external fun libcPspSceAtracDecodeData(atracId: Int, outSamples: Long, outN: Long, outEnd: Long, outRemainFrame: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceAtracGetRemainFrame(atracId: Int, outRemainFrame: Long): Int
+    external fun libcPspSceAtracGetRemainFrame(atracId: Int, outRemainFrame: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceAtracGetStreamDataInfo(atracId: Int, writePointer: Long, availableBytes: Long, readOffset: Long): Int
+    external fun libcPspSceAtracGetStreamDataInfo(atracId: Int, writePointer: Long, availableBytes: Long, readOffset: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceAtracAddStreamData(atracId: Int, bytesToAdd: Int): Int
+    external fun libcPspSceAtracAddStreamData(atracId: Int, bytesToAdd: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceAtracGetBitrate(atracId: Int, outBitrate: Long): Int
+    external fun libcPspSceAtracGetBitrate(atracId: Int, outBitrate: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceAtracSetLoopNum(atracId: Int, nloops: Int): Int
+    external fun libcPspSceAtracSetLoopNum(atracId: Int, nloops: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceAtracReleaseAtracID(atracId: Int): Int
+    external fun libcPspSceAtracReleaseAtracID(atracId: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceAtracGetNextSample(atracId: Int, outN: Long): Int
+    external fun libcPspSceAtracGetNextSample(atracId: Int, outN: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceAtracGetMaxSample(atracId: Int, outMax: Long): Int
+    external fun libcPspSceAtracGetMaxSample(atracId: Int, outMax: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceAtracGetBufferInfoForReseting(atracId: Int, uiSample: Int, pbufferInfo: Long): Int
+    external fun libcPspSceAtracGetBufferInfoForReseting(atracId: Int, uiSample: Int, pbufferInfo: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceAtracGetChannel(atracId: Int, puiChannel: Long): Int
+    external fun libcPspSceAtracGetChannel(atracId: Int, puiChannel: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceAtracGetInternalErrorInfo(atracId: Int, piResult: Long): Int
+    external fun libcPspSceAtracGetInternalErrorInfo(atracId: Int, piResult: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceAtracGetLoopStatus(atracId: Int, piLoopNum: Long, puiLoopStatus: Long): Int
+    external fun libcPspSceAtracGetLoopStatus(atracId: Int, piLoopNum: Long, puiLoopStatus: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceAtracGetNextDecodePosition(atracId: Int, puiSamplePosition: Long): Int
+    external fun libcPspSceAtracGetNextDecodePosition(atracId: Int, puiSamplePosition: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceAtracGetSecondBufferInfo(atracId: Int, puiPosition: Long, puiDataByte: Long): Int
+    external fun libcPspSceAtracGetSecondBufferInfo(atracId: Int, puiPosition: Long, puiDataByte: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceAtracGetSoundSample(atracId: Int, piEndSample: Long, piLoopStartSample: Long, piLoopEndSample: Long): Int
+    external fun libcPspSceAtracGetSoundSample(atracId: Int, piEndSample: Long, piLoopStartSample: Long, piLoopEndSample: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceAtracResetPlayPosition(atracId: Int, uiSample: Int, uiWriteByteFirstBuf: Int, uiWriteByteSecondBuf: Int): Int
+    external fun libcPspSceAtracResetPlayPosition(atracId: Int, uiSample: Int, uiWriteByteFirstBuf: Int, uiWriteByteSecondBuf: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceAtracSetData(atracId: Int, pucBufferAddr: Long, uiBufferByte: Int): Int
+    external fun libcPspSceAtracSetData(atracId: Int, pucBufferAddr: Long, uiBufferByte: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceAtracSetHalfwayBuffer(atracId: Int, pucBufferAddr: Long, uiReadByte: Int, uiBufferByte: Int): Int
+    external fun libcPspSceAtracSetHalfwayBuffer(atracId: Int, pucBufferAddr: Long, uiReadByte: Int, uiBufferByte: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceAtracSetHalfwayBufferAndGetID(pucBufferAddr: Long, uiReadByte: Int, uiBufferByte: Int): Int
+    external fun libcPspSceAtracSetHalfwayBufferAndGetID(pucBufferAddr: Long, uiReadByte: Int, uiBufferByte: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceAtracSetSecondBuffer(atracId: Int, pucSecondBufferAddr: Long, uiSecondBufferByte: Int): Int
+    external fun libcPspSceAtracSetSecondBuffer(atracId: Int, pucSecondBufferAddr: Long, uiSecondBufferByte: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceCtrlSetSamplingCycle(cycle: Int): Int
+    external fun libcPspSceCtrlSetSamplingCycle(cycle: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceCtrlGetSamplingCycle(pcycle: Long): Int
+    external fun libcPspSceCtrlGetSamplingCycle(pcycle: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceCtrlGetSamplingMode(pmode: Long): Int
+    external fun libcPspSceCtrlGetSamplingMode(pmode: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceCtrlPeekBufferPositive(padData: Long, count: Int): Int
+    external fun libcPspSceCtrlPeekBufferPositive(padData: Long, count: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceCtrlPeekBufferNegative(padData: Long, count: Int): Int
+    external fun libcPspSceCtrlPeekBufferNegative(padData: Long, count: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceCtrlReadBufferPositive(padData: Long, count: Int): Int
+    external fun libcPspSceCtrlReadBufferPositive(padData: Long, count: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceCtrlReadBufferNegative(padData: Long, count: Int): Int
+    external fun libcPspSceCtrlReadBufferNegative(padData: Long, count: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceCtrlPeekLatch(latchData: Long): Int
+    external fun libcPspSceCtrlPeekLatch(latchData: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceCtrlReadLatch(latchData: Long): Int
+    external fun libcPspSceCtrlReadLatch(latchData: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceCtrlSetIdleCancelThreshold(idlereset: Int, idleback: Int): Int
+    external fun libcPspSceCtrlSetIdleCancelThreshold(idlereset: Int, idleback: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceCtrlGetIdleCancelThreshold(idlereset: Long, idleback: Long): Int
+    external fun libcPspSceCtrlGetIdleCancelThreshold(idlereset: Long, idleback: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceDisplayGetMode(pmode: Long, pwidth: Long, pheight: Long): Int
+    external fun libcPspSceDisplayGetMode(pmode: Long, pwidth: Long, pheight: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceDisplayGetVcount(): Int
+    external fun libcPspSceDisplayGetVcount(): Int
 
     @JvmStatic
-    external fun libc_psp_sceDisplayWaitVblank(): Int
+    external fun libcPspSceDisplayWaitVblank(): Int
 
     @JvmStatic
-    external fun libc_psp_sceDisplayWaitVblankCB(): Int
+    external fun libcPspSceDisplayWaitVblankCB(): Int
 
     @JvmStatic
-    external fun libc_psp_sceDisplayWaitVblankStart(): Int
+    external fun libcPspSceDisplayWaitVblankStart(): Int
 
     @JvmStatic
-    external fun libc_psp_sceDisplayWaitVblankStartCB(): Int
+    external fun libcPspSceDisplayWaitVblankStartCB(): Int
 
     @JvmStatic
-    external fun libc_psp_sceDisplayGetAccumulatedHcount(): Int
+    external fun libcPspSceDisplayGetAccumulatedHcount(): Int
 
     @JvmStatic
-    external fun libc_psp_sceDisplayGetCurrentHcount(): Int
+    external fun libcPspSceDisplayGetCurrentHcount(): Int
 
     @JvmStatic
-    external fun libc_psp_sceDisplayGetFramePerSec(): Float
+    external fun libcPspSceDisplayGetFramePerSec(): Float
 
     @JvmStatic
-    external fun libc_psp_sceDisplayIsForeground(): Int
+    external fun libcPspSceDisplayIsForeground(): Int
 
     @JvmStatic
-    external fun libc_psp_sceDisplayIsVblank(): Int
+    external fun libcPspSceDisplayIsVblank(): Int
 
     @JvmStatic
-    external fun libc_psp_sceGeEdramGetSize(): Int
+    external fun libcPspSceGeEdramGetSize(): Int
 
     @JvmStatic
-    external fun libc_psp_sceGeEdramGetAddr(): Long
+    external fun libcPspSceGeEdramGetAddr(): Long
 
     @JvmStatic
-    external fun libc_psp_sceGeEdramSetAddrTranslation(width: Int): Int
+    external fun libcPspSceGeEdramSetAddrTranslation(width: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceGeGetCmd(cmd: Int): Int
+    external fun libcPspSceGeGetCmd(cmd: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceGeGetStack(stackId: Int, stack: Long): Int
+    external fun libcPspSceGeGetStack(stackId: Int, stack: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceGeSaveContext(context: Long): Int
+    external fun libcPspSceGeSaveContext(context: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceGeRestoreContext(context: Long): Int
+    external fun libcPspSceGeRestoreContext(context: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceGeListEnQueue(list: Long, stall: Long, cbid: Int, arg: Long): Int
+    external fun libcPspSceGeListEnQueue(list: Long, stall: Long, cbid: Int, arg: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceGeListEnQueueHead(list: Long, stall: Long, cbid: Int, arg: Long): Int
+    external fun libcPspSceGeListEnQueueHead(list: Long, stall: Long, cbid: Int, arg: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceGeListDeQueue(qid: Int): Int
+    external fun libcPspSceGeListDeQueue(qid: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceGeListUpdateStallAddr(qid: Int, stall: Long): Int
+    external fun libcPspSceGeListUpdateStallAddr(qid: Int, stall: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceGeBreak(mode: Int, pParam: Long): Int
+    external fun libcPspSceGeBreak(mode: Int, pParam: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceGeContinue(): Int
+    external fun libcPspSceGeContinue(): Int
 
     @JvmStatic
-    external fun libc_psp_sceGeSetCallback(cb: Long): Int
+    external fun libcPspSceGeSetCallback(cb: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceGeUnsetCallback(cbid: Int): Int
+    external fun libcPspSceGeUnsetCallback(cbid: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelExitGame()
+    external fun libcPspSceKernelExitGame()
 
     @JvmStatic
-    external fun libc_psp_sceKernelLoadExec(file: Long, param: Long): Int
+    external fun libcPspSceKernelLoadExec(file: Long, param: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelTotalFreeMemSize(): Long
+    external fun libcPspSceKernelTotalFreeMemSize(): Long
 
     @JvmStatic
-    external fun libc_psp_sceKernelMaxFreeMemSize(): Long
+    external fun libcPspSceKernelMaxFreeMemSize(): Long
 
     @JvmStatic
-    external fun libc_psp_sceKernelDevkitVersion(): Int
+    external fun libcPspSceKernelDevkitVersion(): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelSetCompiledSdkVersion(version: Int): Int
+    external fun libcPspSceKernelSetCompiledSdkVersion(version: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelGetCompiledSdkVersion(): Int
+    external fun libcPspSceKernelGetCompiledSdkVersion(): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelLibcTime(t: Long): Int
+    external fun libcPspSceKernelLibcTime(t: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelLibcClock(): Int
+    external fun libcPspSceKernelLibcClock(): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelLibcGettimeofday(tp: Long, tzp: Long): Int
+    external fun libcPspSceKernelLibcGettimeofday(tp: Long, tzp: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelDcacheWritebackAll()
+    external fun libcPspSceKernelDcacheWritebackAll()
 
     @JvmStatic
-    external fun libc_psp_sceKernelDcacheWritebackInvalidateAll()
+    external fun libcPspSceKernelDcacheWritebackInvalidateAll()
 
     @JvmStatic
-    external fun libc_psp_sceKernelDcacheWritebackRange(p: Long, size: Int)
+    external fun libcPspSceKernelDcacheWritebackRange(p: Long, size: Int)
 
     @JvmStatic
-    external fun libc_psp_sceKernelDcacheWritebackInvalidateRange(p: Long, size: Int)
+    external fun libcPspSceKernelDcacheWritebackInvalidateRange(p: Long, size: Int)
 
     @JvmStatic
-    external fun libc_psp_sceKernelDcacheInvalidateRange(p: Long, size: Int)
+    external fun libcPspSceKernelDcacheInvalidateRange(p: Long, size: Int)
 
     @JvmStatic
-    external fun libc_psp_sceKernelIcacheInvalidateAll()
+    external fun libcPspSceKernelIcacheInvalidateAll()
 
     @JvmStatic
-    external fun libc_psp_sceKernelIcacheInvalidateRange(p: Long, size: Int)
+    external fun libcPspSceKernelIcacheInvalidateRange(p: Long, size: Int)
 
     @JvmStatic
-    external fun libc_psp_sceKernelUtilsMt19937Init(ctx: Long, seed: Int): Int
+    external fun libcPspSceKernelUtilsMt19937Init(ctx: Long, seed: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelUtilsMt19937UInt(ctx: Long): Int
+    external fun libcPspSceKernelUtilsMt19937UInt(ctx: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelUtilsMd5Digest(data: Long, size: Int, digest: Long): Int
+    external fun libcPspSceKernelUtilsMd5Digest(data: Long, size: Int, digest: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelUtilsMd5BlockInit(ctx: Long): Int
+    external fun libcPspSceKernelUtilsMd5BlockInit(ctx: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelUtilsMd5BlockUpdate(ctx: Long, data: Long, size: Int): Int
+    external fun libcPspSceKernelUtilsMd5BlockUpdate(ctx: Long, data: Long, size: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelUtilsMd5BlockResult(ctx: Long, digest: Long): Int
+    external fun libcPspSceKernelUtilsMd5BlockResult(ctx: Long, digest: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelUtilsSha1Digest(data: Long, size: Int, digest: Long): Int
+    external fun libcPspSceKernelUtilsSha1Digest(data: Long, size: Int, digest: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelUtilsSha1BlockInit(ctx: Long): Int
+    external fun libcPspSceKernelUtilsSha1BlockInit(ctx: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelUtilsSha1BlockUpdate(ctx: Long, data: Long, size: Int): Int
+    external fun libcPspSceKernelUtilsSha1BlockUpdate(ctx: Long, data: Long, size: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelUtilsSha1BlockResult(ctx: Long, digest: Long): Int
+    external fun libcPspSceKernelUtilsSha1BlockResult(ctx: Long, digest: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelRegisterSubIntrHandler(intNo: Int, no: Int, handler: Long, arg: Long): Int
+    external fun libcPspSceKernelRegisterSubIntrHandler(intNo: Int, no: Int, handler: Long, arg: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelReleaseSubIntrHandler(intNo: Int, no: Int): Int
+    external fun libcPspSceKernelReleaseSubIntrHandler(intNo: Int, no: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelEnableSubIntr(intNo: Int, no: Int): Int
+    external fun libcPspSceKernelEnableSubIntr(intNo: Int, no: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelDisableSubIntr(intNo: Int, no: Int): Int
+    external fun libcPspSceKernelDisableSubIntr(intNo: Int, no: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelCpuSuspendIntr(): Int
+    external fun libcPspSceKernelCpuSuspendIntr(): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelCpuResumeIntr(flags: Int)
+    external fun libcPspSceKernelCpuResumeIntr(flags: Int)
 
     @JvmStatic
-    external fun libc_psp_sceKernelCpuResumeIntrWithSync(flags: Int)
+    external fun libcPspSceKernelCpuResumeIntrWithSync(flags: Int)
 
     @JvmStatic
-    external fun libc_psp_sceKernelIsCpuIntrSuspended(flags: Int): Int
+    external fun libcPspSceKernelIsCpuIntrSuspended(flags: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelIsCpuIntrEnable(): Int
+    external fun libcPspSceKernelIsCpuIntrEnable(): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelSelfStopUnloadModule(unknown: Int, argSize: Long, argp: Long): Int
+    external fun libcPspSceKernelSelfStopUnloadModule(unknown: Int, argSize: Long, argp: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelStopUnloadSelfModule(argSize: Long, argp: Long, status: Long, option: Long): Int
+    external fun libcPspSceKernelStopUnloadSelfModule(argSize: Long, argp: Long, status: Long, option: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelGetModuleIdList(readBuf: Long, readBufSize: Int, idCount: Long): Int
+    external fun libcPspSceKernelGetModuleIdList(readBuf: Long, readBufSize: Int, idCount: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelVolatileMemLock(unk: Int, ptr: Long, size: Long): Int
+    external fun libcPspSceKernelVolatileMemLock(unk: Int, ptr: Long, size: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelVolatileMemTryLock(unk: Int, ptr: Long, size: Long): Int
+    external fun libcPspSceKernelVolatileMemTryLock(unk: Int, ptr: Long, size: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelVolatileMemUnlock(unk: Int): Int
+    external fun libcPspSceKernelVolatileMemUnlock(unk: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelExitThread(status: Int): Int
+    external fun libcPspSceKernelExitThread(status: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelExitDeleteThread(status: Int): Int
+    external fun libcPspSceKernelExitDeleteThread(status: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelSuspendDispatchThread(): Int
+    external fun libcPspSceKernelSuspendDispatchThread(): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelResumeDispatchThread(state: Int): Int
+    external fun libcPspSceKernelResumeDispatchThread(state: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelSleepThread(): Int
+    external fun libcPspSceKernelSleepThread(): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelSleepThreadCB(): Int
+    external fun libcPspSceKernelSleepThreadCB(): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelDelayThread(delay: Int): Int
+    external fun libcPspSceKernelDelayThread(delay: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelDelayThreadCB(delay: Int): Int
+    external fun libcPspSceKernelDelayThreadCB(delay: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelDelaySysClockThread(delay: Long): Int
+    external fun libcPspSceKernelDelaySysClockThread(delay: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelDelaySysClockThreadCB(delay: Long): Int
+    external fun libcPspSceKernelDelaySysClockThreadCB(delay: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelChangeCurrentThreadAttr(unknown: Int, attr: Int): Int
+    external fun libcPspSceKernelChangeCurrentThreadAttr(unknown: Int, attr: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelRotateThreadReadyQueue(priority: Int): Int
+    external fun libcPspSceKernelRotateThreadReadyQueue(priority: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelGetThreadId(): Int
+    external fun libcPspSceKernelGetThreadId(): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelGetThreadCurrentPriority(): Int
+    external fun libcPspSceKernelGetThreadCurrentPriority(): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelCheckThreadStack(): Int
+    external fun libcPspSceKernelCheckThreadStack(): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelCheckCallback(): Int
+    external fun libcPspSceKernelCheckCallback(): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelReferSystemStatus(status: Long): Int
+    external fun libcPspSceKernelReferSystemStatus(status: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelCreateFpl(name: Long, part: Int, attr: Int, size: Int, blocks: Int, opt: Long): Int
+    external fun libcPspSceKernelCreateFpl(name: Long, part: Int, attr: Int, size: Int, blocks: Int, opt: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelUSec2SysClock(usec: Int, clock: Long): Int
+    external fun libcPspSceKernelUSec2SysClock(usec: Int, clock: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelUSec2SysClockWide(usec: Int): Long
+    external fun libcPspSceKernelUSec2SysClockWide(usec: Int): Long
 
     @JvmStatic
-    external fun libc_psp_sceKernelSysClock2USec(clock: Long, low: Long, high: Long): Int
+    external fun libcPspSceKernelSysClock2USec(clock: Long, low: Long, high: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelSysClock2USecWide(clock: Long, low: Long, high: Long): Int
+    external fun libcPspSceKernelSysClock2USecWide(clock: Long, low: Long, high: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelGetSystemTime(time: Long): Int
+    external fun libcPspSceKernelGetSystemTime(time: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelGetSystemTimeWide(): Long
+    external fun libcPspSceKernelGetSystemTimeWide(): Long
 
     @JvmStatic
-    external fun libc_psp_sceKernelGetSystemTimeLow(): Int
+    external fun libcPspSceKernelGetSystemTimeLow(): Int
 
     @JvmStatic
-    external fun libc_psp_sceKernelReferThreadProfiler(): Long
+    external fun libcPspSceKernelReferThreadProfiler(): Long
 
     @JvmStatic
-    external fun libc_psp_sceKernelReferGlobalProfiler(): Long
+    external fun libcPspSceKernelReferGlobalProfiler(): Long
 
     @JvmStatic
-    external fun libc_psp_sceUsbStart(driverName: Long, size: Int, args: Long): Int
+    external fun libcPspSceUsbStart(driverName: Long, size: Int, args: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceUsbStop(driverName: Long, size: Int, args: Long): Int
+    external fun libcPspSceUsbStop(driverName: Long, size: Int, args: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceUsbActivate(pid: Int): Int
+    external fun libcPspSceUsbActivate(pid: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceUsbDeactivate(pid: Int): Int
+    external fun libcPspSceUsbDeactivate(pid: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceUsbGetState(): Int
+    external fun libcPspSceUsbGetState(): Int
 
     @JvmStatic
-    external fun libc_psp_sceUsbGetDrvState(driverName: Long): Int
+    external fun libcPspSceUsbGetDrvState(driverName: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceUsbCamSetupStill(param: Long): Int
+    external fun libcPspSceUsbCamSetupStill(param: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceUsbCamSetupStillEx(param: Long): Int
+    external fun libcPspSceUsbCamSetupStillEx(param: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceUsbCamStillInputBlocking(buf: Long, size: Long): Int
+    external fun libcPspSceUsbCamStillInputBlocking(buf: Long, size: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceUsbCamStillInput(buf: Long, size: Long): Int
+    external fun libcPspSceUsbCamStillInput(buf: Long, size: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceUsbCamStillWaitInputEnd(): Int
+    external fun libcPspSceUsbCamStillWaitInputEnd(): Int
 
     @JvmStatic
-    external fun libc_psp_sceUsbCamStillPollInputEnd(): Int
+    external fun libcPspSceUsbCamStillPollInputEnd(): Int
 
     @JvmStatic
-    external fun libc_psp_sceUsbCamStillCancelInput(): Int
+    external fun libcPspSceUsbCamStillCancelInput(): Int
 
     @JvmStatic
-    external fun libc_psp_sceUsbCamStillGetInputLength(): Int
+    external fun libcPspSceUsbCamStillGetInputLength(): Int
 
     @JvmStatic
-    external fun libc_psp_sceUsbCamSetupVideo(param: Long, workArea: Long, workAreaSize: Int): Int
+    external fun libcPspSceUsbCamSetupVideo(param: Long, workArea: Long, workAreaSize: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceUsbCamSetupVideoEx(param: Long, workArea: Long, workAreaSize: Int): Int
+    external fun libcPspSceUsbCamSetupVideoEx(param: Long, workArea: Long, workAreaSize: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceUsbCamStartVideo(): Int
+    external fun libcPspSceUsbCamStartVideo(): Int
 
     @JvmStatic
-    external fun libc_psp_sceUsbCamStopVideo(): Int
+    external fun libcPspSceUsbCamStopVideo(): Int
 
     @JvmStatic
-    external fun libc_psp_sceUsbCamReadVideoFrameBlocking(buf: Long, size: Long): Int
+    external fun libcPspSceUsbCamReadVideoFrameBlocking(buf: Long, size: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceUsbCamReadVideoFrame(buf: Long, size: Long): Int
+    external fun libcPspSceUsbCamReadVideoFrame(buf: Long, size: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceUsbCamWaitReadVideoFrameEnd(): Int
+    external fun libcPspSceUsbCamWaitReadVideoFrameEnd(): Int
 
     @JvmStatic
-    external fun libc_psp_sceUsbCamPollReadVideoFrameEnd(): Int
+    external fun libcPspSceUsbCamPollReadVideoFrameEnd(): Int
 
     @JvmStatic
-    external fun libc_psp_sceUsbCamGetReadVideoFrameSize(): Int
+    external fun libcPspSceUsbCamGetReadVideoFrameSize(): Int
 
     @JvmStatic
-    external fun libc_psp_sceUsbCamSetSaturation(saturation: Int): Int
+    external fun libcPspSceUsbCamSetSaturation(saturation: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceUsbCamSetBrightness(brightness: Int): Int
+    external fun libcPspSceUsbCamSetBrightness(brightness: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceUsbCamSetContrast(contrast: Int): Int
+    external fun libcPspSceUsbCamSetContrast(contrast: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceUsbCamSetSharpness(sharpness: Int): Int
+    external fun libcPspSceUsbCamSetSharpness(sharpness: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceUsbCamSetReverseMode(reverseFlags: Int): Int
+    external fun libcPspSceUsbCamSetReverseMode(reverseFlags: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceUsbCamSetZoom(zoom: Int): Int
+    external fun libcPspSceUsbCamSetZoom(zoom: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceUsbCamGetSaturation(saturation: Long): Int
+    external fun libcPspSceUsbCamGetSaturation(saturation: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceUsbCamGetBrightness(brightness: Long): Int
+    external fun libcPspSceUsbCamGetBrightness(brightness: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceUsbCamGetContrast(contrast: Long): Int
+    external fun libcPspSceUsbCamGetContrast(contrast: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceUsbCamGetSharpness(sharpness: Long): Int
+    external fun libcPspSceUsbCamGetSharpness(sharpness: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceUsbCamGetImageEffectMode(effectMode: Long): Int
+    external fun libcPspSceUsbCamGetImageEffectMode(effectMode: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceUsbCamGetEvLevel(exposureLevel: Long): Int
+    external fun libcPspSceUsbCamGetEvLevel(exposureLevel: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceUsbCamGetReverseMode(reverseFlags: Long): Int
+    external fun libcPspSceUsbCamGetReverseMode(reverseFlags: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceUsbCamGetZoom(zoom: Long): Int
+    external fun libcPspSceUsbCamGetZoom(zoom: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceUsbCamAutoImageReverseSW(on: Int): Int
+    external fun libcPspSceUsbCamAutoImageReverseSW(on: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceUsbCamGetAutoImageReverseState(): Int
+    external fun libcPspSceUsbCamGetAutoImageReverseState(): Int
 
     @JvmStatic
-    external fun libc_psp_sceUsbCamGetLensDirection(): Int
+    external fun libcPspSceUsbCamGetLensDirection(): Int
 
     @JvmStatic
-    external fun libc_psp_sceUsbstorBootUnregisterNotify(eventFlag: Int): Int
+    external fun libcPspSceUsbstorBootUnregisterNotify(eventFlag: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceUsbstorBootSetCapacity(size: Int): Int
+    external fun libcPspSceUsbstorBootSetCapacity(size: Int): Int
 
     @JvmStatic
-    external fun libc_psp_scePowerUnregisterCallback(slot: Int): Int
+    external fun libcPspScePowerUnregisterCallback(slot: Int): Int
 
     @JvmStatic
-    external fun libc_psp_scePowerIsPowerOnline(): Int
+    external fun libcPspScePowerIsPowerOnline(): Int
 
     @JvmStatic
-    external fun libc_psp_scePowerIsBatteryExist(): Int
+    external fun libcPspScePowerIsBatteryExist(): Int
 
     @JvmStatic
-    external fun libc_psp_scePowerIsBatteryCharging(): Int
+    external fun libcPspScePowerIsBatteryCharging(): Int
 
     @JvmStatic
-    external fun libc_psp_scePowerGetBatteryChargingStatus(): Int
+    external fun libcPspScePowerGetBatteryChargingStatus(): Int
 
     @JvmStatic
-    external fun libc_psp_scePowerIsLowBattery(): Int
+    external fun libcPspScePowerIsLowBattery(): Int
 
     @JvmStatic
-    external fun libc_psp_scePowerGetBatteryLifePercent(): Int
+    external fun libcPspScePowerGetBatteryLifePercent(): Int
 
     @JvmStatic
-    external fun libc_psp_scePowerGetBatteryLifeTime(): Int
+    external fun libcPspScePowerGetBatteryLifeTime(): Int
 
     @JvmStatic
-    external fun libc_psp_scePowerGetBatteryTemp(): Int
+    external fun libcPspScePowerGetBatteryTemp(): Int
 
     @JvmStatic
-    external fun libc_psp_scePowerGetBatteryElec(): Int
+    external fun libcPspScePowerGetBatteryElec(): Int
 
     @JvmStatic
-    external fun libc_psp_scePowerGetBatteryVolt(): Int
+    external fun libcPspScePowerGetBatteryVolt(): Int
 
     @JvmStatic
-    external fun libc_psp_scePowerSetCpuClockFrequency(cpufreq: Int): Int
+    external fun libcPspScePowerSetCpuClockFrequency(cpufreq: Int): Int
 
     @JvmStatic
-    external fun libc_psp_scePowerSetBusClockFrequency(busfreq: Int): Int
+    external fun libcPspScePowerSetBusClockFrequency(busfreq: Int): Int
 
     @JvmStatic
-    external fun libc_psp_scePowerGetCpuClockFrequency(): Int
+    external fun libcPspScePowerGetCpuClockFrequency(): Int
 
     @JvmStatic
-    external fun libc_psp_scePowerGetCpuClockFrequencyInt(): Int
+    external fun libcPspScePowerGetCpuClockFrequencyInt(): Int
 
     @JvmStatic
-    external fun libc_psp_scePowerGetCpuClockFrequencyFloat(): Float
+    external fun libcPspScePowerGetCpuClockFrequencyFloat(): Float
 
     @JvmStatic
-    external fun libc_psp_scePowerGetBusClockFrequency(): Int
+    external fun libcPspScePowerGetBusClockFrequency(): Int
 
     @JvmStatic
-    external fun libc_psp_scePowerGetBusClockFrequencyInt(): Int
+    external fun libcPspScePowerGetBusClockFrequencyInt(): Int
 
     @JvmStatic
-    external fun libc_psp_scePowerGetBusClockFrequencyFloat(): Float
+    external fun libcPspScePowerGetBusClockFrequencyFloat(): Float
 
     @JvmStatic
-    external fun libc_psp_scePowerSetClockFrequency(pllfreq: Int, cpufreq: Int, busfreq: Int): Int
+    external fun libcPspScePowerSetClockFrequency(pllfreq: Int, cpufreq: Int, busfreq: Int): Int
 
     @JvmStatic
-    external fun libc_psp_scePowerLock(unknown: Int): Int
+    external fun libcPspScePowerLock(unknown: Int): Int
 
     @JvmStatic
-    external fun libc_psp_scePowerUnlock(unknown: Int): Int
+    external fun libcPspScePowerUnlock(unknown: Int): Int
 
     @JvmStatic
-    external fun libc_psp_scePowerGetIdleTimer(): Int
+    external fun libcPspScePowerGetIdleTimer(): Int
 
     @JvmStatic
-    external fun libc_psp_scePowerIdleTimerEnable(unknown: Int): Int
+    external fun libcPspScePowerIdleTimerEnable(unknown: Int): Int
 
     @JvmStatic
-    external fun libc_psp_scePowerIdleTimerDisable(unknown: Int): Int
+    external fun libcPspScePowerIdleTimerDisable(unknown: Int): Int
 
     @JvmStatic
-    external fun libc_psp_scePowerRequestStandby(): Int
+    external fun libcPspScePowerRequestStandby(): Int
 
     @JvmStatic
-    external fun libc_psp_scePowerRequestSuspend(): Int
+    external fun libcPspScePowerRequestSuspend(): Int
 
     @JvmStatic
-    external fun libc_psp_sceWlanDevIsPowerOn(): Int
+    external fun libcPspSceWlanDevIsPowerOn(): Int
 
     @JvmStatic
-    external fun libc_psp_sceWlanGetSwitchState(): Int
+    external fun libcPspSceWlanGetSwitchState(): Int
 
     @JvmStatic
-    external fun libc_psp_sceWlanGetEtherAddr(etherAddr: Long): Int
+    external fun libcPspSceWlanGetEtherAddr(etherAddr: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceWlanDevAttach(): Int
+    external fun libcPspSceWlanDevAttach(): Int
 
     @JvmStatic
-    external fun libc_psp_sceWlanDevDetach(): Int
+    external fun libcPspSceWlanDevDetach(): Int
 
     @JvmStatic
-    external fun libc_psp_sceRtcGetTickResolution(): Int
+    external fun libcPspSceRtcGetTickResolution(): Int
 
     @JvmStatic
-    external fun libc_psp_sceRtcGetCurrentTick(tick: Long): Int
+    external fun libcPspSceRtcGetCurrentTick(tick: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceRtcGetCurrentClock(tm: Long, tz: Int): Int
+    external fun libcPspSceRtcGetCurrentClock(tm: Long, tz: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceRtcGetCurrentClockLocalTime(tm: Long): Int
+    external fun libcPspSceRtcGetCurrentClockLocalTime(tm: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceRtcConvertUtcToLocalTime(tickUtc: Long, tickLocal: Long): Int
+    external fun libcPspSceRtcConvertUtcToLocalTime(tickUtc: Long, tickLocal: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceRtcConvertLocalTimeToUTC(tickLocal: Long, tickUtc: Long): Int
+    external fun libcPspSceRtcConvertLocalTimeToUTC(tickLocal: Long, tickUtc: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceRtcIsLeapYear(year: Int): Int
+    external fun libcPspSceRtcIsLeapYear(year: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceRtcGetDaysInMonth(year: Int, month: Int): Int
+    external fun libcPspSceRtcGetDaysInMonth(year: Int, month: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceRtcGetDayOfWeek(year: Int, month: Int, day: Int): Int
+    external fun libcPspSceRtcGetDayOfWeek(year: Int, month: Int, day: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceRtcCheckValid(date: Long): Int
+    external fun libcPspSceRtcCheckValid(date: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceRtcSetTick(date: Long, tick: Long): Int
+    external fun libcPspSceRtcSetTick(date: Long, tick: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceRtcGetTick(date: Long, tick: Long): Int
+    external fun libcPspSceRtcGetTick(date: Long, tick: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceRtcCompareTick(tick1: Long, tick2: Long): Int
+    external fun libcPspSceRtcCompareTick(tick1: Long, tick2: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceRtcTickAddTicks(destTick: Long, srcTick: Long, numTicks: Long): Int
+    external fun libcPspSceRtcTickAddTicks(destTick: Long, srcTick: Long, numTicks: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceRtcTickAddMicroseconds(destTick: Long, srcTick: Long, numMs: Long): Int
+    external fun libcPspSceRtcTickAddMicroseconds(destTick: Long, srcTick: Long, numMs: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceRtcTickAddSeconds(destTick: Long, srcTick: Long, numSeconds: Long): Int
+    external fun libcPspSceRtcTickAddSeconds(destTick: Long, srcTick: Long, numSeconds: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceRtcTickAddMinutes(destTick: Long, srcTick: Long, numMinutes: Long): Int
+    external fun libcPspSceRtcTickAddMinutes(destTick: Long, srcTick: Long, numMinutes: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceRtcTickAddHours(destTick: Long, srcTick: Long, numHours: Long): Int
+    external fun libcPspSceRtcTickAddHours(destTick: Long, srcTick: Long, numHours: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceRtcTickAddDays(destTick: Long, srcTick: Long, numDays: Long): Int
+    external fun libcPspSceRtcTickAddDays(destTick: Long, srcTick: Long, numDays: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceRtcTickAddWeeks(destTick: Long, srcTick: Long, numWeeks: Long): Int
+    external fun libcPspSceRtcTickAddWeeks(destTick: Long, srcTick: Long, numWeeks: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceRtcTickAddMonths(destTick: Long, srcTick: Long, numMonths: Long): Int
+    external fun libcPspSceRtcTickAddMonths(destTick: Long, srcTick: Long, numMonths: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceRtcTickAddYears(destTick: Long, srcTick: Long, numYears: Long): Int
+    external fun libcPspSceRtcTickAddYears(destTick: Long, srcTick: Long, numYears: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceRtcSetTimeT(date: Long, time: Int): Int
+    external fun libcPspSceRtcSetTimeT(date: Long, time: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceRtcGetTimeT(date: Long, time: Long): Int
+    external fun libcPspSceRtcGetTimeT(date: Long, time: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceRtcSetTime64T(date: Long, time: Long): Int
+    external fun libcPspSceRtcSetTime64T(date: Long, time: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceRtcGetTime64T(date: Long, time: Long): Int
+    external fun libcPspSceRtcGetTime64T(date: Long, time: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceRtcSetDosTime(date: Long, dosTime: Int): Int
+    external fun libcPspSceRtcSetDosTime(date: Long, dosTime: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceRtcGetDosTime(date: Long, dosTime: Int): Int
+    external fun libcPspSceRtcGetDosTime(date: Long, dosTime: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceRtcSetWin32FileTime(date: Long, time: Long): Int
+    external fun libcPspSceRtcSetWin32FileTime(date: Long, time: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceRtcGetWin32FileTime(date: Long, time: Long): Int
+    external fun libcPspSceRtcGetWin32FileTime(date: Long, time: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceRtcParseDateTime(destTick: Long, dateString: Long): Int
+    external fun libcPspSceRtcParseDateTime(destTick: Long, dateString: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceRtcFormatRFC3339(pszDateTime: Long, pUtc: Long, timeZoneMinutes: Int): Int
+    external fun libcPspSceRtcFormatRFC3339(pszDateTime: Long, pUtc: Long, timeZoneMinutes: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceRtcFormatRFC3339LocalTime(pszDateTime: Long, pUtc: Long): Int
+    external fun libcPspSceRtcFormatRFC3339LocalTime(pszDateTime: Long, pUtc: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceRtcParseRFC3339(pUtc: Long, pszDateTime: Long): Int
+    external fun libcPspSceRtcParseRFC3339(pUtc: Long, pszDateTime: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceRtcFormatRFC2822(pszDateTime: Long, pUtc: Long, timeZoneMinutes: Int): Int
+    external fun libcPspSceRtcFormatRFC2822(pszDateTime: Long, pUtc: Long, timeZoneMinutes: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceRtcFormatRFC2822LocalTime(pszDateTime: Long, pUtc: Long): Int
+    external fun libcPspSceRtcFormatRFC2822LocalTime(pszDateTime: Long, pUtc: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceIoRemove(file: Long): Int
+    external fun libcPspSceIoRemove(file: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceIoMkdir(dir: Long, mode: Int): Int
+    external fun libcPspSceIoMkdir(dir: Long, mode: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceIoRmdir(path: Long): Int
+    external fun libcPspSceIoRmdir(path: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceIoChdir(path: Long): Int
+    external fun libcPspSceIoChdir(path: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceIoRename(oldname: Long, newname: Long): Int
+    external fun libcPspSceIoRename(oldname: Long, newname: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceIoDevctl(dev: Long, cmd: Int, indata: Long, inlen: Int, outdata: Long, outlen: Int): Int
+    external fun libcPspSceIoDevctl(dev: Long, cmd: Int, indata: Long, inlen: Int, outdata: Long, outlen: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceIoUnassign(dev: Long): Int
+    external fun libcPspSceIoUnassign(dev: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceIoGetstat(file: Long, stat: Long): Int
+    external fun libcPspSceIoGetstat(file: Long, stat: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceIoChstat(file: Long, stat: Long, bits: Int): Int
+    external fun libcPspSceIoChstat(file: Long, stat: Long, bits: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceIoSync(device: Long, unk: Int): Int
+    external fun libcPspSceIoSync(device: Long, unk: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceJpegInitMJpeg(): Int
+    external fun libcPspSceJpegInitMJpeg(): Int
 
     @JvmStatic
-    external fun libc_psp_sceJpegFinishMJpeg(): Int
+    external fun libcPspSceJpegFinishMJpeg(): Int
 
     @JvmStatic
-    external fun libc_psp_sceJpegCreateMJpeg(width: Int, height: Int): Int
+    external fun libcPspSceJpegCreateMJpeg(width: Int, height: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceJpegDeleteMJpeg(): Int
+    external fun libcPspSceJpegDeleteMJpeg(): Int
 
     @JvmStatic
-    external fun libc_psp_sceJpegDecodeMJpeg(jpegBuf: Long, size: Long, rgba: Long, unk: Int): Int
+    external fun libcPspSceJpegDecodeMJpeg(jpegBuf: Long, size: Long, rgba: Long, unk: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceUmdCheckMedium(): Int
+    external fun libcPspSceUmdCheckMedium(): Int
 
     @JvmStatic
-    external fun libc_psp_sceUmdGetDiscInfo(info: Long): Int
+    external fun libcPspSceUmdGetDiscInfo(info: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceUmdActivate(unit: Int, drive: Long): Int
+    external fun libcPspSceUmdActivate(unit: Int, drive: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceUmdDeactivate(unit: Int, drive: Long): Int
+    external fun libcPspSceUmdDeactivate(unit: Int, drive: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceUmdWaitDriveStat(state: Int): Int
+    external fun libcPspSceUmdWaitDriveStat(state: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceUmdWaitDriveStatWithTimer(state: Int, timeout: Int): Int
+    external fun libcPspSceUmdWaitDriveStatWithTimer(state: Int, timeout: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceUmdWaitDriveStatCB(state: Int, timeout: Int): Int
+    external fun libcPspSceUmdWaitDriveStatCB(state: Int, timeout: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceUmdCancelWaitDriveStat(): Int
+    external fun libcPspSceUmdCancelWaitDriveStat(): Int
 
     @JvmStatic
-    external fun libc_psp_sceUmdGetDriveStat(): Int
+    external fun libcPspSceUmdGetDriveStat(): Int
 
     @JvmStatic
-    external fun libc_psp_sceUmdGetErrorStat(): Int
+    external fun libcPspSceUmdGetErrorStat(): Int
 
     @JvmStatic
-    external fun libc_psp_sceUmdRegisterUMDCallBack(cbid: Int): Int
+    external fun libcPspSceUmdRegisterUMDCallBack(cbid: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceUmdUnRegisterUMDCallBack(cbid: Int): Int
+    external fun libcPspSceUmdUnRegisterUMDCallBack(cbid: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceUmdReplacePermit(): Int
+    external fun libcPspSceUmdReplacePermit(): Int
 
     @JvmStatic
-    external fun libc_psp_sceUmdReplaceProhibit(): Int
+    external fun libcPspSceUmdReplaceProhibit(): Int
 
     @JvmStatic
-    external fun libc_psp_sceMpegInit(): Int
+    external fun libcPspSceMpegInit(): Int
 
     @JvmStatic
-    external fun libc_psp_sceMpegFinish()
+    external fun libcPspSceMpegFinish()
 
     @JvmStatic
-    external fun libc_psp_sceMpegRingbufferQueryMemSize(packets: Int): Int
+    external fun libcPspSceMpegRingbufferQueryMemSize(packets: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceMpegRingbufferConstruct(ringbuffer: Long, packets: Int, data: Long, size: Int, callback: Long, cbParam: Long): Int
+    external fun libcPspSceMpegRingbufferConstruct(ringbuffer: Long, packets: Int, data: Long, size: Int, callback: Long, cbParam: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceMpegRingbufferDestruct(ringbuffer: Long)
+    external fun libcPspSceMpegRingbufferDestruct(ringbuffer: Long)
 
     @JvmStatic
-    external fun libc_psp_sceMpegRingbufferAvailableSize(ringbuffer: Long): Int
+    external fun libcPspSceMpegRingbufferAvailableSize(ringbuffer: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceMpegRingbufferPut(ringbuffer: Long, numPackets: Int, available: Int): Int
+    external fun libcPspSceMpegRingbufferPut(ringbuffer: Long, numPackets: Int, available: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceMpegQueryMemSize(unk: Int): Int
+    external fun libcPspSceMpegQueryMemSize(unk: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceMpegQueryStreamSize(buffer: Long, size: Long): Int
+    external fun libcPspSceMpegQueryStreamSize(buffer: Long, size: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceMpegBaseYCrCbCopyVme(yuvBuffer: Long, buffer: Long, type: Int): Int
+    external fun libcPspSceMpegBaseYCrCbCopyVme(yuvBuffer: Long, buffer: Long, type: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceMpegBaseCscInit(width: Int): Int
+    external fun libcPspSceMpegBaseCscInit(width: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceMpegBaseCscVme(rgbBuffer: Long, rgbBuffer2: Long, width: Int, yCrCbBuffer: Long): Int
+    external fun libcPspSceMpegBaseCscVme(rgbBuffer: Long, rgbBuffer2: Long, width: Int, yCrCbBuffer: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceMpegbaseBea18f91(lli: Long): Int
+    external fun libcPspSceMpegbaseBea18f91(lli: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceHprmPeekCurrentKey(key: Long): Int
+    external fun libcPspSceHprmPeekCurrentKey(key: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceHprmPeekLatch(latch: Long): Int
+    external fun libcPspSceHprmPeekLatch(latch: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceHprmReadLatch(latch: Long): Int
+    external fun libcPspSceHprmReadLatch(latch: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceHprmIsHeadphoneExist(): Int
+    external fun libcPspSceHprmIsHeadphoneExist(): Int
 
     @JvmStatic
-    external fun libc_psp_sceHprmIsRemoteExist(): Int
+    external fun libcPspSceHprmIsRemoteExist(): Int
 
     @JvmStatic
-    external fun libc_psp_sceHprmIsMicrophoneExist(): Int
+    external fun libcPspSceHprmIsMicrophoneExist(): Int
 
     @JvmStatic
-    external fun libc_psp_sceGuDepthBuffer(zbp: Long, zbw: Int)
+    external fun libcPspSceGuDepthBuffer(zbp: Long, zbw: Int)
 
     @JvmStatic
-    external fun libc_psp_sceGuDispBuffer(width: Int, height: Int, dispbp: Long, dispbw: Int)
+    external fun libcPspSceGuDispBuffer(width: Int, height: Int, dispbp: Long, dispbw: Int)
 
     @JvmStatic
-    external fun libc_psp_sceGuDisplay(state: Boolean): Boolean
+    external fun libcPspSceGuDisplay(state: Boolean): Boolean
 
     @JvmStatic
-    external fun libc_psp_sceGuDepthMask(mask: Int)
+    external fun libcPspSceGuDepthMask(mask: Int)
 
     @JvmStatic
-    external fun libc_psp_sceGuDepthOffset(offset: Int)
+    external fun libcPspSceGuDepthOffset(offset: Int)
 
     @JvmStatic
-    external fun libc_psp_sceGuDepthRange(near: Int, far: Int)
+    external fun libcPspSceGuDepthRange(near: Int, far: Int)
 
     @JvmStatic
-    external fun libc_psp_sceGuFog(near: Float, far: Float, color: Int)
+    external fun libcPspSceGuFog(near: Float, far: Float, color: Int)
 
     @JvmStatic
-    external fun libc_psp_sceGuInit()
+    external fun libcPspSceGuInit()
 
     @JvmStatic
-    external fun libc_psp_sceGuTerm()
+    external fun libcPspSceGuTerm()
 
     @JvmStatic
-    external fun libc_psp_sceGuBreak(mode: Int)
+    external fun libcPspSceGuBreak(mode: Int)
 
     @JvmStatic
-    external fun libc_psp_sceGuContinue()
+    external fun libcPspSceGuContinue()
 
     @JvmStatic
-    external fun libc_psp_sceGuGetMemory(size: Int): Long
+    external fun libcPspSceGuGetMemory(size: Int): Long
 
     @JvmStatic
-    external fun libc_psp_sceGuFinish(): Int
+    external fun libcPspSceGuFinish(): Int
 
     @JvmStatic
-    external fun libc_psp_sceGuFinishId(id: Int): Int
+    external fun libcPspSceGuFinishId(id: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceGuCallList(list: Long)
+    external fun libcPspSceGuCallList(list: Long)
 
     @JvmStatic
-    external fun libc_psp_sceGuCallMode(mode: Int)
+    external fun libcPspSceGuCallMode(mode: Int)
 
     @JvmStatic
-    external fun libc_psp_sceGuCheckList(): Int
+    external fun libcPspSceGuCheckList(): Int
 
     @JvmStatic
-    external fun libc_psp_sceGuSwapBuffers(): Long
+    external fun libcPspSceGuSwapBuffers(): Long
 
     @JvmStatic
-    external fun libc_psp_sceGuBeginObject(vtype: Int, count: Int, indices: Long, vertices: Long)
+    external fun libcPspSceGuBeginObject(vtype: Int, count: Int, indices: Long, vertices: Long)
 
     @JvmStatic
-    external fun libc_psp_sceGuEndObject()
+    external fun libcPspSceGuEndObject()
 
     @JvmStatic
-    external fun libc_psp_sceGuSetAllStatus(status: Int)
+    external fun libcPspSceGuSetAllStatus(status: Int)
 
     @JvmStatic
-    external fun libc_psp_sceGuGetAllStatus(): Int
+    external fun libcPspSceGuGetAllStatus(): Int
 
     @JvmStatic
-    external fun libc_psp_sceGuLightAtt(light: Int, atten0: Float, atten1: Float, atten2: Float)
+    external fun libcPspSceGuLightAtt(light: Int, atten0: Float, atten1: Float, atten2: Float)
 
     @JvmStatic
-    external fun libc_psp_sceGuLightColor(light: Int, component: Int, color: Int)
+    external fun libcPspSceGuLightColor(light: Int, component: Int, color: Int)
 
     @JvmStatic
-    external fun libc_psp_sceGuClear(flags: Int)
+    external fun libcPspSceGuClear(flags: Int)
 
     @JvmStatic
-    external fun libc_psp_sceGuClearColor(color: Int)
+    external fun libcPspSceGuClearColor(color: Int)
 
     @JvmStatic
-    external fun libc_psp_sceGuClearDepth(depth: Int)
+    external fun libcPspSceGuClearDepth(depth: Int)
 
     @JvmStatic
-    external fun libc_psp_sceGuClearStencil(stencil: Int)
+    external fun libcPspSceGuClearStencil(stencil: Int)
 
     @JvmStatic
-    external fun libc_psp_sceGuPixelMask(mask: Int)
+    external fun libcPspSceGuPixelMask(mask: Int)
 
     @JvmStatic
-    external fun libc_psp_sceGuColor(color: Int)
+    external fun libcPspSceGuColor(color: Int)
 
     @JvmStatic
-    external fun libc_psp_sceGuColorMaterial(components: Int)
+    external fun libcPspSceGuColorMaterial(components: Int)
 
     @JvmStatic
-    external fun libc_psp_sceGuAmbient(color: Int)
+    external fun libcPspSceGuAmbient(color: Int)
 
     @JvmStatic
-    external fun libc_psp_sceGuAmbientColor(color: Int)
+    external fun libcPspSceGuAmbientColor(color: Int)
 
     @JvmStatic
-    external fun libc_psp_sceGuMaterial(components: Int, color: Int)
+    external fun libcPspSceGuMaterial(components: Int, color: Int)
 
     @JvmStatic
-    external fun libc_psp_sceGuModelColor(emissive: Int, ambient: Int, diffuse: Int, specular: Int)
+    external fun libcPspSceGuModelColor(emissive: Int, ambient: Int, diffuse: Int, specular: Int)
 
     @JvmStatic
-    external fun libc_psp_sceGuSpecular(power: Float)
+    external fun libcPspSceGuSpecular(power: Float)
 
     @JvmStatic
-    external fun libc_psp_sceGuTexEnvColor(color: Int)
+    external fun libcPspSceGuTexEnvColor(color: Int)
 
     @JvmStatic
-    external fun libc_psp_sceGuTexFlush()
+    external fun libcPspSceGuTexFlush()
 
     @JvmStatic
-    external fun libc_psp_sceGuTexOffset(u: Float, v: Float)
+    external fun libcPspSceGuTexOffset(u: Float, v: Float)
 
     @JvmStatic
-    external fun libc_psp_sceGuTexScale(u: Float, v: Float)
+    external fun libcPspSceGuTexScale(u: Float, v: Float)
 
     @JvmStatic
-    external fun libc_psp_sceGuTexSlope(slope: Float)
+    external fun libcPspSceGuTexSlope(slope: Float)
 
     @JvmStatic
-    external fun libc_psp_sceGuTexSync()
+    external fun libcPspSceGuTexSync()
 
     @JvmStatic
-    external fun libc_psp_sceGuClutLoad(numBlocks: Int, cbp: Long)
+    external fun libcPspSceGuClutLoad(numBlocks: Int, cbp: Long)
 
     @JvmStatic
-    external fun libc_psp_sceGuOffset(x: Int, y: Int)
+    external fun libcPspSceGuOffset(x: Int, y: Int)
 
     @JvmStatic
-    external fun libc_psp_sceGuScissor(x: Int, y: Int, w: Int, h: Int)
+    external fun libcPspSceGuScissor(x: Int, y: Int, w: Int, h: Int)
 
     @JvmStatic
-    external fun libc_psp_sceGuViewport(cx: Int, cy: Int, width: Int, height: Int)
+    external fun libcPspSceGuViewport(cx: Int, cy: Int, width: Int, height: Int)
 
     @JvmStatic
-    external fun libc_psp_sceGuDrawBezier(vType: Int, uCount: Int, vCount: Int, indices: Long, vertices: Long)
+    external fun libcPspSceGuDrawBezier(vType: Int, uCount: Int, vCount: Int, indices: Long, vertices: Long)
 
     @JvmStatic
-    external fun libc_psp_sceGuPatchDivide(ulevel: Int, vlevel: Int)
+    external fun libcPspSceGuPatchDivide(ulevel: Int, vlevel: Int)
 
     @JvmStatic
-    external fun libc_psp_sceGuPatchFrontFace(a0: Int)
+    external fun libcPspSceGuPatchFrontFace(a0: Int)
 
     @JvmStatic
-    external fun libc_psp_sceGuDrawSpline(vType: Int, uCount: Int, vCount: Int, uEdge: Int, vEdge: Int, indices: Long, vertices: Long)
+    external fun libcPspSceGuDrawSpline(vType: Int, uCount: Int, vCount: Int, uEdge: Int, vEdge: Int, indices: Long, vertices: Long)
 
     @JvmStatic
-    external fun libc_psp_sceGuMorphWeight(index: Int, weight: Float)
+    external fun libcPspSceGuMorphWeight(index: Int, weight: Float)
 
     @JvmStatic
-    external fun libc_psp_sceGumDrawBezier(vType: Int, uCount: Int, vCount: Int, indices: Long, vertices: Long)
+    external fun libcPspSceGumDrawBezier(vType: Int, uCount: Int, vCount: Int, indices: Long, vertices: Long)
 
     @JvmStatic
-    external fun libc_psp_sceGumDrawSpline(vType: Int, uCount: Int, vCount: Int, uEdge: Int, vEdge: Int, indices: Long, vertices: Long)
+    external fun libcPspSceGumDrawSpline(vType: Int, uCount: Int, vCount: Int, uEdge: Int, vEdge: Int, indices: Long, vertices: Long)
 
     @JvmStatic
-    external fun libc_psp_sceGumFastInverse()
+    external fun libcPspSceGumFastInverse()
 
     @JvmStatic
-    external fun libc_psp_sceGumFullInverse()
+    external fun libcPspSceGumFullInverse()
 
     @JvmStatic
-    external fun libc_psp_sceGumLoadIdentity()
+    external fun libcPspSceGumLoadIdentity()
 
     @JvmStatic
-    external fun libc_psp_sceGumOrtho(left: Float, right: Float, bottom: Float, top: Float, near: Float, far: Float)
+    external fun libcPspSceGumOrtho(left: Float, right: Float, bottom: Float, top: Float, near: Float, far: Float)
 
     @JvmStatic
-    external fun libc_psp_sceGumPerspective(fovy: Float, aspect: Float, near: Float, far: Float)
+    external fun libcPspSceGumPerspective(fovy: Float, aspect: Float, near: Float, far: Float)
 
     @JvmStatic
-    external fun libc_psp_sceGumPopMatrix()
+    external fun libcPspSceGumPopMatrix()
 
     @JvmStatic
-    external fun libc_psp_sceGumPushMatrix()
+    external fun libcPspSceGumPushMatrix()
 
     @JvmStatic
-    external fun libc_psp_sceGumRotateX(angle: Float)
+    external fun libcPspSceGumRotateX(angle: Float)
 
     @JvmStatic
-    external fun libc_psp_sceGumRotateY(angle: Float)
+    external fun libcPspSceGumRotateY(angle: Float)
 
     @JvmStatic
-    external fun libc_psp_sceGumRotateZ(angle: Float)
+    external fun libcPspSceGumRotateZ(angle: Float)
 
     @JvmStatic
-    external fun libc_psp_sceGumUpdateMatrix()
+    external fun libcPspSceGumUpdateMatrix()
 
     @JvmStatic
-    external fun libc_psp_sceMp3ReserveMp3Handle(args: Long): Int
+    external fun libcPspSceMp3ReserveMp3Handle(args: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceMp3InitResource(): Int
+    external fun libcPspSceMp3InitResource(): Int
 
     @JvmStatic
-    external fun libc_psp_sceMp3TermResource(): Int
+    external fun libcPspSceMp3TermResource(): Int
 
     @JvmStatic
-    external fun libc_psp_sceRegOpenRegistry(reg: Long, mode: Int, handle: Long): Int
+    external fun libcPspSceRegOpenRegistry(reg: Long, mode: Int, handle: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceRegRemoveRegistry(key: Long): Int
+    external fun libcPspSceRegRemoveRegistry(key: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceOpenPSIDGetOpenPSID(openpsid: Long): Int
+    external fun libcPspSceOpenPSIDGetOpenPSID(openpsid: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceUtilityMsgDialogInitStart(params: Long): Int
+    external fun libcPspSceUtilityMsgDialogInitStart(params: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceUtilityMsgDialogShutdownStart()
+    external fun libcPspSceUtilityMsgDialogShutdownStart()
 
     @JvmStatic
-    external fun libc_psp_sceUtilityMsgDialogGetStatus(): Int
+    external fun libcPspSceUtilityMsgDialogGetStatus(): Int
 
     @JvmStatic
-    external fun libc_psp_sceUtilityMsgDialogUpdate(n: Int)
+    external fun libcPspSceUtilityMsgDialogUpdate(n: Int)
 
     @JvmStatic
-    external fun libc_psp_sceUtilityMsgDialogAbort(): Int
+    external fun libcPspSceUtilityMsgDialogAbort(): Int
 
     @JvmStatic
-    external fun libc_psp_sceUtilityNetconfInitStart(data: Long): Int
+    external fun libcPspSceUtilityNetconfInitStart(data: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceUtilityNetconfShutdownStart(): Int
+    external fun libcPspSceUtilityNetconfShutdownStart(): Int
 
     @JvmStatic
-    external fun libc_psp_sceUtilityNetconfUpdate(unknown: Int): Int
+    external fun libcPspSceUtilityNetconfUpdate(unknown: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceUtilityNetconfGetStatus(): Int
+    external fun libcPspSceUtilityNetconfGetStatus(): Int
 
     @JvmStatic
-    external fun libc_psp_sceUtilityCheckNetParam(id: Int): Int
+    external fun libcPspSceUtilityCheckNetParam(id: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceUtilitySavedataInitStart(params: Long): Int
+    external fun libcPspSceUtilitySavedataInitStart(params: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceUtilitySavedataGetStatus(): Int
+    external fun libcPspSceUtilitySavedataGetStatus(): Int
 
     @JvmStatic
-    external fun libc_psp_sceUtilitySavedataShutdownStart(): Int
+    external fun libcPspSceUtilitySavedataShutdownStart(): Int
 
     @JvmStatic
-    external fun libc_psp_sceUtilitySavedataUpdate(unknown: Int)
+    external fun libcPspSceUtilitySavedataUpdate(unknown: Int)
 
     @JvmStatic
-    external fun libc_psp_sceUtilityGameSharingInitStart(params: Long): Int
+    external fun libcPspSceUtilityGameSharingInitStart(params: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceUtilityGameSharingShutdownStart()
+    external fun libcPspSceUtilityGameSharingShutdownStart()
 
     @JvmStatic
-    external fun libc_psp_sceUtilityGameSharingGetStatus(): Int
+    external fun libcPspSceUtilityGameSharingGetStatus(): Int
 
     @JvmStatic
-    external fun libc_psp_sceUtilityGameSharingUpdate(n: Int)
+    external fun libcPspSceUtilityGameSharingUpdate(n: Int)
 
     @JvmStatic
-    external fun libc_psp_sceUtilityHtmlViewerInitStart(params: Long): Int
+    external fun libcPspSceUtilityHtmlViewerInitStart(params: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceUtilityHtmlViewerShutdownStart(): Int
+    external fun libcPspSceUtilityHtmlViewerShutdownStart(): Int
 
     @JvmStatic
-    external fun libc_psp_sceUtilityHtmlViewerUpdate(n: Int): Int
+    external fun libcPspSceUtilityHtmlViewerUpdate(n: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceUtilityHtmlViewerGetStatus(): Int
+    external fun libcPspSceUtilityHtmlViewerGetStatus(): Int
 
     @JvmStatic
-    external fun libc_psp_sceUtilityOskInitStart(params: Long): Int
+    external fun libcPspSceUtilityOskInitStart(params: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceUtilityOskShutdownStart(): Int
+    external fun libcPspSceUtilityOskShutdownStart(): Int
 
     @JvmStatic
-    external fun libc_psp_sceUtilityOskUpdate(n: Int): Int
+    external fun libcPspSceUtilityOskUpdate(n: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceUtilityOskGetStatus(): Int
+    external fun libcPspSceUtilityOskGetStatus(): Int
 
     @JvmStatic
-    external fun libc_psp_sceUtilityCreateNetParam(conf: Int): Int
+    external fun libcPspSceUtilityCreateNetParam(conf: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceUtilityCopyNetParam(src: Int, dest: Int): Int
+    external fun libcPspSceUtilityCopyNetParam(src: Int, dest: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceUtilityDeleteNetParam(conf: Int): Int
+    external fun libcPspSceUtilityDeleteNetParam(conf: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetInit(poolsize: Int, calloutprio: Int, calloutstack: Int, netintrprio: Int, netintrstack: Int): Int
+    external fun libcPspSceNetInit(poolsize: Int, calloutprio: Int, calloutstack: Int, netintrprio: Int, netintrstack: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetTerm(): Int
+    external fun libcPspSceNetTerm(): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetFreeThreadinfo(thid: Int): Int
+    external fun libcPspSceNetFreeThreadinfo(thid: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetThreadAbort(thid: Int): Int
+    external fun libcPspSceNetThreadAbort(thid: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetEtherStrton(name: Long, mac: Long)
+    external fun libcPspSceNetEtherStrton(name: Long, mac: Long)
 
     @JvmStatic
-    external fun libc_psp_sceNetEtherNtostr(mac: Long, name: Long)
+    external fun libcPspSceNetEtherNtostr(mac: Long, name: Long)
 
     @JvmStatic
-    external fun libc_psp_sceNetGetLocalEtherAddr(mac: Long): Int
+    external fun libcPspSceNetGetLocalEtherAddr(mac: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetGetMallocStat(stat: Long): Int
+    external fun libcPspSceNetGetMallocStat(stat: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocctlInit(stacksize: Int, priority: Int, adhocId: Long): Int
+    external fun libcPspSceNetAdhocctlInit(stacksize: Int, priority: Int, adhocId: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocctlTerm(): Int
+    external fun libcPspSceNetAdhocctlTerm(): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocctlConnect(name: Long): Int
+    external fun libcPspSceNetAdhocctlConnect(name: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocctlDisconnect(): Int
+    external fun libcPspSceNetAdhocctlDisconnect(): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocctlGetState(event: Long): Int
+    external fun libcPspSceNetAdhocctlGetState(event: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocctlCreate(name: Long): Int
+    external fun libcPspSceNetAdhocctlCreate(name: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocctlJoin(scaninfo: Long): Int
+    external fun libcPspSceNetAdhocctlJoin(scaninfo: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocctlGetAdhocId(id: Long): Int
+    external fun libcPspSceNetAdhocctlGetAdhocId(id: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocctlCreateEnterGameMode(name: Long, unknown: Int, num: Int, macs: Long, timeout: Int, unknown2: Int): Int
+    external fun libcPspSceNetAdhocctlCreateEnterGameMode(name: Long, unknown: Int, num: Int, macs: Long, timeout: Int, unknown2: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocctlJoinEnterGameMode(name: Long, hostmac: Long, timeout: Int, unknown: Int): Int
+    external fun libcPspSceNetAdhocctlJoinEnterGameMode(name: Long, hostmac: Long, timeout: Int, unknown: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocctlGetGameModeInfo(gamemodeinfo: Long): Int
+    external fun libcPspSceNetAdhocctlGetGameModeInfo(gamemodeinfo: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocctlExitGameMode(): Int
+    external fun libcPspSceNetAdhocctlExitGameMode(): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocctlGetPeerList(length: Long, buf: Long): Int
+    external fun libcPspSceNetAdhocctlGetPeerList(length: Long, buf: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocctlGetPeerInfo(mac: Long, size: Int, peerinfo: Long): Int
+    external fun libcPspSceNetAdhocctlGetPeerInfo(mac: Long, size: Int, peerinfo: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocctlScan(): Int
+    external fun libcPspSceNetAdhocctlScan(): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocctlGetScanInfo(length: Long, buf: Long): Int
+    external fun libcPspSceNetAdhocctlGetScanInfo(length: Long, buf: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocctlAddHandler(handler: Long, unknown: Long): Int
+    external fun libcPspSceNetAdhocctlAddHandler(handler: Long, unknown: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocctlDelHandler(id: Int): Int
+    external fun libcPspSceNetAdhocctlDelHandler(id: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocctlGetNameByAddr(mac: Long, nickname: Long): Int
+    external fun libcPspSceNetAdhocctlGetNameByAddr(mac: Long, nickname: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocctlGetAddrByName(nickname: Long, length: Long, buf: Long): Int
+    external fun libcPspSceNetAdhocctlGetAddrByName(nickname: Long, length: Long, buf: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocctlGetParameter(params: Long): Int
+    external fun libcPspSceNetAdhocctlGetParameter(params: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocInit(): Int
+    external fun libcPspSceNetAdhocInit(): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocTerm(): Int
+    external fun libcPspSceNetAdhocTerm(): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocPdpCreate(mac: Long, port: Short, bufSize: Int, unk1: Int): Int
+    external fun libcPspSceNetAdhocPdpCreate(mac: Long, port: Short, bufSize: Int, unk1: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocPdpDelete(id: Int, unk1: Int): Int
+    external fun libcPspSceNetAdhocPdpDelete(id: Int, unk1: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocPdpSend(id: Int, destMacAddr: Long, port: Short, data: Long, len: Int, timeout: Int, nonblock: Int): Int
+    external fun libcPspSceNetAdhocPdpSend(id: Int, destMacAddr: Long, port: Short, data: Long, len: Int, timeout: Int, nonblock: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocPdpRecv(id: Int, srcMacAddr: Long, port: Long, data: Long, dataLength: Long, timeout: Int, nonblock: Int): Int
+    external fun libcPspSceNetAdhocPdpRecv(id: Int, srcMacAddr: Long, port: Long, data: Long, dataLength: Long, timeout: Int, nonblock: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocGetPdpStat(size: Long, stat: Long): Int
+    external fun libcPspSceNetAdhocGetPdpStat(size: Long, stat: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocGameModeCreateMaster(data: Long, size: Int): Int
+    external fun libcPspSceNetAdhocGameModeCreateMaster(data: Long, size: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocGameModeCreateReplica(mac: Long, data: Long, size: Int): Int
+    external fun libcPspSceNetAdhocGameModeCreateReplica(mac: Long, data: Long, size: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocGameModeUpdateMaster(): Int
+    external fun libcPspSceNetAdhocGameModeUpdateMaster(): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocGameModeUpdateReplica(id: Int, unk1: Int): Int
+    external fun libcPspSceNetAdhocGameModeUpdateReplica(id: Int, unk1: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocGameModeDeleteMaster(): Int
+    external fun libcPspSceNetAdhocGameModeDeleteMaster(): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocGameModeDeleteReplica(id: Int): Int
+    external fun libcPspSceNetAdhocGameModeDeleteReplica(id: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocPtpOpen(srcmac: Long, srcport: Short, destmac: Long, destport: Short, bufSize: Int, delay: Int, count: Int, unk1: Int): Int
+    external fun libcPspSceNetAdhocPtpOpen(srcmac: Long, srcport: Short, destmac: Long, destport: Short, bufSize: Int, delay: Int, count: Int, unk1: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocPtpConnect(id: Int, timeout: Int, nonblock: Int): Int
+    external fun libcPspSceNetAdhocPtpConnect(id: Int, timeout: Int, nonblock: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocPtpListen(srcmac: Long, srcport: Short, bufSize: Int, delay: Int, count: Int, queue: Int, unk1: Int): Int
+    external fun libcPspSceNetAdhocPtpListen(srcmac: Long, srcport: Short, bufSize: Int, delay: Int, count: Int, queue: Int, unk1: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocPtpAccept(id: Int, mac: Long, port: Long, timeout: Int, nonblock: Int): Int
+    external fun libcPspSceNetAdhocPtpAccept(id: Int, mac: Long, port: Long, timeout: Int, nonblock: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocPtpSend(id: Int, data: Long, dataSize: Long, timeout: Int, nonblock: Int): Int
+    external fun libcPspSceNetAdhocPtpSend(id: Int, data: Long, dataSize: Long, timeout: Int, nonblock: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocPtpRecv(id: Int, data: Long, dataSize: Long, timeout: Int, nonblock: Int): Int
+    external fun libcPspSceNetAdhocPtpRecv(id: Int, data: Long, dataSize: Long, timeout: Int, nonblock: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocPtpFlush(id: Int, timeout: Int, nonblock: Int): Int
+    external fun libcPspSceNetAdhocPtpFlush(id: Int, timeout: Int, nonblock: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocPtpClose(id: Int, unk1: Int): Int
+    external fun libcPspSceNetAdhocPtpClose(id: Int, unk1: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocGetPtpStat(size: Long, stat: Long): Int
+    external fun libcPspSceNetAdhocGetPtpStat(size: Long, stat: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocMatchingInit(memsize: Int): Int
+    external fun libcPspSceNetAdhocMatchingInit(memsize: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocMatchingTerm(): Int
+    external fun libcPspSceNetAdhocMatchingTerm(): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocMatchingDelete(matchingId: Int): Int
+    external fun libcPspSceNetAdhocMatchingDelete(matchingId: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocMatchingStart(matchingId: Int, evthPri: Int, evthStack: Int, inthPri: Int, inthStack: Int, optLen: Int, optData: Long): Int
+    external fun libcPspSceNetAdhocMatchingStart(matchingId: Int, evthPri: Int, evthStack: Int, inthPri: Int, inthStack: Int, optLen: Int, optData: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocMatchingStop(matchingId: Int): Int
+    external fun libcPspSceNetAdhocMatchingStop(matchingId: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocMatchingSelectTarget(matchingId: Int, mac: Long, optLen: Int, optData: Long): Int
+    external fun libcPspSceNetAdhocMatchingSelectTarget(matchingId: Int, mac: Long, optLen: Int, optData: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocMatchingCancelTarget(matchingId: Int, mac: Long): Int
+    external fun libcPspSceNetAdhocMatchingCancelTarget(matchingId: Int, mac: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocMatchingCancelTargetWithOpt(matchingId: Int, mac: Long, optLen: Int, optData: Long): Int
+    external fun libcPspSceNetAdhocMatchingCancelTargetWithOpt(matchingId: Int, mac: Long, optLen: Int, optData: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocMatchingSendData(matchingId: Int, mac: Long, dataLen: Int, data: Long): Int
+    external fun libcPspSceNetAdhocMatchingSendData(matchingId: Int, mac: Long, dataLen: Int, data: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocMatchingAbortSendData(matchingId: Int, mac: Long): Int
+    external fun libcPspSceNetAdhocMatchingAbortSendData(matchingId: Int, mac: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocMatchingSetHelloOpt(matchingId: Int, optLen: Int, optData: Long): Int
+    external fun libcPspSceNetAdhocMatchingSetHelloOpt(matchingId: Int, optLen: Int, optData: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocMatchingGetHelloOpt(matchingId: Int, optLen: Long, optData: Long): Int
+    external fun libcPspSceNetAdhocMatchingGetHelloOpt(matchingId: Int, optLen: Long, optData: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocMatchingGetMembers(matchingId: Int, length: Long, buf: Long): Int
+    external fun libcPspSceNetAdhocMatchingGetMembers(matchingId: Int, length: Long, buf: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocMatchingGetPoolMaxAlloc(): Int
+    external fun libcPspSceNetAdhocMatchingGetPoolMaxAlloc(): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetAdhocMatchingGetPoolStat(poolstat: Long): Int
+    external fun libcPspSceNetAdhocMatchingGetPoolStat(poolstat: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetApctlInit(stackSize: Int, initPriority: Int): Int
+    external fun libcPspSceNetApctlInit(stackSize: Int, initPriority: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetApctlTerm(): Int
+    external fun libcPspSceNetApctlTerm(): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetApctlAddHandler(handler: Long, parg: Long): Int
+    external fun libcPspSceNetApctlAddHandler(handler: Long, parg: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetApctlDelHandler(handlerId: Int): Int
+    external fun libcPspSceNetApctlDelHandler(handlerId: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetApctlConnect(connIndex: Int): Int
+    external fun libcPspSceNetApctlConnect(connIndex: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetApctlDisconnect(): Int
+    external fun libcPspSceNetApctlDisconnect(): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetApctlGetState(pstate: Long): Int
+    external fun libcPspSceNetApctlGetState(pstate: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetInetInit(): Int
+    external fun libcPspSceNetInetInit(): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetInetTerm(): Int
+    external fun libcPspSceNetInetTerm(): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetInetAccept(s: Int, addr: Long, addrLen: Long): Int
+    external fun libcPspSceNetInetAccept(s: Int, addr: Long, addrLen: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetInetBind(s: Int, myAddr: Long, addrLen: Int): Int
+    external fun libcPspSceNetInetBind(s: Int, myAddr: Long, addrLen: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetInetConnect(s: Int, servAddr: Long, addrLen: Int): Int
+    external fun libcPspSceNetInetConnect(s: Int, servAddr: Long, addrLen: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetInetGetsockopt(s: Int, level: Int, optName: Int, optVal: Long, optlEn: Long): Int
+    external fun libcPspSceNetInetGetsockopt(s: Int, level: Int, optName: Int, optVal: Long, optlEn: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetInetListen(s: Int, backlog: Int): Int
+    external fun libcPspSceNetInetListen(s: Int, backlog: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetInetRecv(s: Int, buf: Long, len: Long, flags: Int): Long
+    external fun libcPspSceNetInetRecv(s: Int, buf: Long, len: Long, flags: Int): Long
 
     @JvmStatic
-    external fun libc_psp_sceNetInetRecvfrom(s: Int, buf: Long, flags: Long, arg1: Int, from: Long, fromLen: Long): Long
+    external fun libcPspSceNetInetRecvfrom(s: Int, buf: Long, flags: Long, arg1: Int, from: Long, fromLen: Long): Long
 
     @JvmStatic
-    external fun libc_psp_sceNetInetSend(s: Int, buf: Long, len: Long, flags: Int): Long
+    external fun libcPspSceNetInetSend(s: Int, buf: Long, len: Long, flags: Int): Long
 
     @JvmStatic
-    external fun libc_psp_sceNetInetSendto(s: Int, buf: Long, len: Long, flags: Int, to: Long, toLen: Int): Long
+    external fun libcPspSceNetInetSendto(s: Int, buf: Long, len: Long, flags: Int, to: Long, toLen: Int): Long
 
     @JvmStatic
-    external fun libc_psp_sceNetInetSetsockopt(s: Int, level: Int, optName: Int, optVal: Long, optLen: Int): Int
+    external fun libcPspSceNetInetSetsockopt(s: Int, level: Int, optName: Int, optVal: Long, optLen: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetInetShutdown(s: Int, how: Int): Int
+    external fun libcPspSceNetInetShutdown(s: Int, how: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetInetSocket(domain: Int, type: Int, protocol: Int): Int
+    external fun libcPspSceNetInetSocket(domain: Int, type: Int, protocol: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetInetClose(s: Int): Int
+    external fun libcPspSceNetInetClose(s: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetInetGetErrno(): Int
+    external fun libcPspSceNetInetGetErrno(): Int
 
     @JvmStatic
-    external fun libc_psp_sceSslInit(unknown1: Int): Int
+    external fun libcPspSceSslInit(unknown1: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceSslEnd(): Int
+    external fun libcPspSceSslEnd(): Int
 
     @JvmStatic
-    external fun libc_psp_sceSslGetUsedMemoryMax(memory: Long): Int
+    external fun libcPspSceSslGetUsedMemoryMax(memory: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceSslGetUsedMemoryCurrent(memory: Long): Int
+    external fun libcPspSceSslGetUsedMemoryCurrent(memory: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceHttpInit(unknown1: Int): Int
+    external fun libcPspSceHttpInit(unknown1: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceHttpEnd(): Int
+    external fun libcPspSceHttpEnd(): Int
 
     @JvmStatic
-    external fun libc_psp_sceHttpCreateTemplate(agent: Long, unknown1: Int, unknown2: Int): Int
+    external fun libcPspSceHttpCreateTemplate(agent: Long, unknown1: Int, unknown2: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceHttpDeleteTemplate(templateid: Int): Int
+    external fun libcPspSceHttpDeleteTemplate(templateid: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceHttpCreateConnection(templateid: Int, host: Long, unknown1: Long, port: Short, unknown2: Int): Int
+    external fun libcPspSceHttpCreateConnection(templateid: Int, host: Long, unknown1: Long, port: Short, unknown2: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceHttpCreateConnectionWithURL(templateid: Int, url: Long, unknown1: Int): Int
+    external fun libcPspSceHttpCreateConnectionWithURL(templateid: Int, url: Long, unknown1: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceHttpDeleteConnection(connectionId: Int): Int
+    external fun libcPspSceHttpDeleteConnection(connectionId: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceHttpDeleteRequest(requestId: Int): Int
+    external fun libcPspSceHttpDeleteRequest(requestId: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceHttpSendRequest(requestId: Int, data: Long, dataSize: Int): Int
+    external fun libcPspSceHttpSendRequest(requestId: Int, data: Long, dataSize: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceHttpAbortRequest(requestId: Int): Int
+    external fun libcPspSceHttpAbortRequest(requestId: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceHttpReadData(requestId: Int, data: Long, dataSize: Int): Int
+    external fun libcPspSceHttpReadData(requestId: Int, data: Long, dataSize: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceHttpGetContentLength(requestId: Int, contentLength: Long): Int
+    external fun libcPspSceHttpGetContentLength(requestId: Int, contentLength: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceHttpGetStatusCode(requestId: Int, statusCode: Long): Int
+    external fun libcPspSceHttpGetStatusCode(requestId: Int, statusCode: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceHttpSetResolveTimeOut(id: Int, timeout: Int): Int
+    external fun libcPspSceHttpSetResolveTimeOut(id: Int, timeout: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceHttpSetResolveRetry(id: Int, count: Int): Int
+    external fun libcPspSceHttpSetResolveRetry(id: Int, count: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceHttpSetConnectTimeOut(id: Int, timeout: Int): Int
+    external fun libcPspSceHttpSetConnectTimeOut(id: Int, timeout: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceHttpSetSendTimeOut(id: Int, timeout: Int): Int
+    external fun libcPspSceHttpSetSendTimeOut(id: Int, timeout: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceHttpSetRecvTimeOut(id: Int, timeout: Int): Int
+    external fun libcPspSceHttpSetRecvTimeOut(id: Int, timeout: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceHttpEnableKeepAlive(id: Int): Int
+    external fun libcPspSceHttpEnableKeepAlive(id: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceHttpDisableKeepAlive(id: Int): Int
+    external fun libcPspSceHttpDisableKeepAlive(id: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceHttpEnableRedirect(id: Int): Int
+    external fun libcPspSceHttpEnableRedirect(id: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceHttpDisableRedirect(id: Int): Int
+    external fun libcPspSceHttpDisableRedirect(id: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceHttpEnableCookie(id: Int): Int
+    external fun libcPspSceHttpEnableCookie(id: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceHttpDisableCookie(id: Int): Int
+    external fun libcPspSceHttpDisableCookie(id: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceHttpSaveSystemCookie(): Int
+    external fun libcPspSceHttpSaveSystemCookie(): Int
 
     @JvmStatic
-    external fun libc_psp_sceHttpLoadSystemCookie(): Int
+    external fun libcPspSceHttpLoadSystemCookie(): Int
 
     @JvmStatic
-    external fun libc_psp_sceHttpAddExtraHeader(id: Int, name: Long, value: Long, unknown1: Int): Int
+    external fun libcPspSceHttpAddExtraHeader(id: Int, name: Long, value: Long, unknown1: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceHttpDeleteHeader(id: Int, name: Long): Int
+    external fun libcPspSceHttpDeleteHeader(id: Int, name: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceHttpsInit(unknown1: Int, unknown2: Int, unknown3: Int, unknown4: Int): Int
+    external fun libcPspSceHttpsInit(unknown1: Int, unknown2: Int, unknown3: Int, unknown4: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceHttpsEnd(): Int
+    external fun libcPspSceHttpsEnd(): Int
 
     @JvmStatic
-    external fun libc_psp_sceHttpsLoadDefaultCert(unknown1: Int, unknown2: Int): Int
+    external fun libcPspSceHttpsLoadDefaultCert(unknown1: Int, unknown2: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceHttpDisableAuth(id: Int): Int
+    external fun libcPspSceHttpDisableAuth(id: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceHttpDisableCache(id: Int): Int
+    external fun libcPspSceHttpDisableCache(id: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceHttpEnableAuth(id: Int): Int
+    external fun libcPspSceHttpEnableAuth(id: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceHttpEnableCache(id: Int): Int
+    external fun libcPspSceHttpEnableCache(id: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceHttpEndCache(): Int
+    external fun libcPspSceHttpEndCache(): Int
 
     @JvmStatic
-    external fun libc_psp_sceHttpGetAllHeader(request: Int, header: Long, headerSize: Long): Int
+    external fun libcPspSceHttpGetAllHeader(request: Int, header: Long, headerSize: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceHttpGetNetworkErrno(request: Int, errNum: Long): Int
+    external fun libcPspSceHttpGetNetworkErrno(request: Int, errNum: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceHttpGetProxy(id: Int, activateFlag: Long, mode: Long, proxyHost: Long, len: Long, proxyPort: Long): Int
+    external fun libcPspSceHttpGetProxy(id: Int, activateFlag: Long, mode: Long, proxyHost: Long, len: Long, proxyPort: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceHttpInitCache(maxSize: Long): Int
+    external fun libcPspSceHttpInitCache(maxSize: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceHttpSetAuthInfoCB(id: Int, cbfunc: Long): Int
+    external fun libcPspSceHttpSetAuthInfoCB(id: Int, cbfunc: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceHttpSetProxy(id: Int, activateFlag: Int, mode: Int, newProxyHost: Long, newProxyPort: Short): Int
+    external fun libcPspSceHttpSetProxy(id: Int, activateFlag: Int, mode: Int, newProxyHost: Long, newProxyPort: Short): Int
 
     @JvmStatic
-    external fun libc_psp_sceHttpSetResHeaderMaxSize(id: Int, headerSize: Int): Int
+    external fun libcPspSceHttpSetResHeaderMaxSize(id: Int, headerSize: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceHttpSetMallocFunction(mallocFunc: Long, freeFunc: Long, reallocFunc: Long): Int
+    external fun libcPspSceHttpSetMallocFunction(mallocFunc: Long, freeFunc: Long, reallocFunc: Long): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetResolverInit(): Int
+    external fun libcPspSceNetResolverInit(): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetResolverCreate(rid: Long, buf: Long, bufLength: Int): Int
+    external fun libcPspSceNetResolverCreate(rid: Long, buf: Long, bufLength: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetResolverDelete(rid: Int): Int
+    external fun libcPspSceNetResolverDelete(rid: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetResolverStartNtoA(rid: Int, hostname: Long, addr: Long, timeout: Int, retry: Int): Int
+    external fun libcPspSceNetResolverStartNtoA(rid: Int, hostname: Long, addr: Long, timeout: Int, retry: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetResolverStartAtoN(rid: Int, addr: Long, hostname: Long, hostnameLen: Int, timeout: Int, retry: Int): Int
+    external fun libcPspSceNetResolverStartAtoN(rid: Int, addr: Long, hostname: Long, hostnameLen: Int, timeout: Int, retry: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetResolverStop(rid: Int): Int
+    external fun libcPspSceNetResolverStop(rid: Int): Int
 
     @JvmStatic
-    external fun libc_psp_sceNetResolverTerm(): Int
+    external fun libcPspSceNetResolverTerm(): Int
 }
 
 public actual fun sceAudioChReserve(channel: Int, sampleCount: Int, format: AudioFormat): Int =
     0
 
 public actual fun sceAudioChRelease(channel: Int): Int =
-    PspJniBridge.libc_psp_sceAudioChRelease(channel)
+    PspJniBridge.libcPspSceAudioChRelease(channel)
 
-public actual fun sceAudioOutput(channel: Int, vol: Int, buf: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceAudioOutput(channel, vol, (buf?.value ?: 0L))
+public actual fun sceAudioOutput(channel: Int, vol: Int, buf: MutPtr<CVoid>): Int =
+    PspJniBridge.libcPspSceAudioOutput(channel, vol, buf.rawAddress)
 
-public actual fun sceAudioOutputBlocking(channel: Int, vol: Int, buf: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceAudioOutputBlocking(channel, vol, (buf?.value ?: 0L))
+public actual fun sceAudioOutputBlocking(channel: Int, vol: Int, buf: MutPtr<CVoid>): Int =
+    PspJniBridge.libcPspSceAudioOutputBlocking(channel, vol, buf.rawAddress)
 
-public actual fun sceAudioOutputPanned(channel: Int, leftVol: Int, rightVol: Int, buf: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceAudioOutputPanned(channel, leftVol, rightVol, (buf?.value ?: 0L))
+public actual fun sceAudioOutputPanned(channel: Int, leftVol: Int, rightVol: Int, buf: MutPtr<CVoid>): Int =
+    PspJniBridge.libcPspSceAudioOutputPanned(channel, leftVol, rightVol, buf.rawAddress)
 
-public actual fun sceAudioOutputPannedBlocking(channel: Int, leftVol: Int, rightVol: Int, buf: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceAudioOutputPannedBlocking(channel, leftVol, rightVol, (buf?.value ?: 0L))
+public actual fun sceAudioOutputPannedBlocking(channel: Int, leftVol: Int, rightVol: Int, buf: MutPtr<CVoid>): Int =
+    PspJniBridge.libcPspSceAudioOutputPannedBlocking(channel, leftVol, rightVol, buf.rawAddress)
 
 public actual fun sceAudioGetChannelRestLen(channel: Int): Int =
-    PspJniBridge.libc_psp_sceAudioGetChannelRestLen(channel)
+    PspJniBridge.libcPspSceAudioGetChannelRestLen(channel)
 
 public actual fun sceAudioGetChannelRestLength(channel: Int): Int =
-    PspJniBridge.libc_psp_sceAudioGetChannelRestLength(channel)
+    PspJniBridge.libcPspSceAudioGetChannelRestLength(channel)
 
 public actual fun sceAudioSetChannelDataLen(channel: Int, sampleCount: Int): Int =
-    PspJniBridge.libc_psp_sceAudioSetChannelDataLen(channel, sampleCount)
+    PspJniBridge.libcPspSceAudioSetChannelDataLen(channel, sampleCount)
 
 public actual fun sceAudioChangeChannelConfig(channel: Int, format: AudioFormat): Int =
     0
 
 public actual fun sceAudioChangeChannelVolume(channel: Int, leftVol: Int, rightVol: Int): Int =
-    PspJniBridge.libc_psp_sceAudioChangeChannelVolume(channel, leftVol, rightVol)
+    PspJniBridge.libcPspSceAudioChangeChannelVolume(channel, leftVol, rightVol)
 
 public actual fun sceAudioOutput2Reserve(sampleCount: Int): Int =
-    PspJniBridge.libc_psp_sceAudioOutput2Reserve(sampleCount)
+    PspJniBridge.libcPspSceAudioOutput2Reserve(sampleCount)
 
 public actual fun sceAudioOutput2Release(): Int =
-    PspJniBridge.libc_psp_sceAudioOutput2Release()
+    PspJniBridge.libcPspSceAudioOutput2Release()
 
 public actual fun sceAudioOutput2ChangeLength(sampleCount: Int): Int =
-    PspJniBridge.libc_psp_sceAudioOutput2ChangeLength(sampleCount)
+    PspJniBridge.libcPspSceAudioOutput2ChangeLength(sampleCount)
 
-public actual fun sceAudioOutput2OutputBlocking(vol: Int, buf: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceAudioOutput2OutputBlocking(vol, (buf?.value ?: 0L))
+public actual fun sceAudioOutput2OutputBlocking(vol: Int, buf: MutPtr<CVoid>): Int =
+    PspJniBridge.libcPspSceAudioOutput2OutputBlocking(vol, buf.rawAddress)
 
 public actual fun sceAudioOutput2GetRestSample(): Int =
-    PspJniBridge.libc_psp_sceAudioOutput2GetRestSample()
+    PspJniBridge.libcPspSceAudioOutput2GetRestSample()
 
 public actual fun sceAudioSRCChReserve(sampleCount: Int, freq: AudioOutputFrequency, channels: Int): Int =
     0
 
 public actual fun sceAudioSRCChRelease(): Int =
-    PspJniBridge.libc_psp_sceAudioSRCChRelease()
+    PspJniBridge.libcPspSceAudioSRCChRelease()
 
-public actual fun sceAudioSRCOutputBlocking(vol: Int, buf: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceAudioSRCOutputBlocking(vol, (buf?.value ?: 0L))
+public actual fun sceAudioSRCOutputBlocking(vol: Int, buf: MutPtr<CVoid>): Int =
+    PspJniBridge.libcPspSceAudioSRCOutputBlocking(vol, buf.rawAddress)
 
 public actual fun sceAudioInputInit(unknown1: Int, gain: Int, unknown2: Int): Int =
-    PspJniBridge.libc_psp_sceAudioInputInit(unknown1, gain, unknown2)
+    PspJniBridge.libcPspSceAudioInputInit(unknown1, gain, unknown2)
 
-public actual fun sceAudioInputInitEx(params: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceAudioInputInitEx((params?.value ?: 0L))
+public actual fun sceAudioInputInitEx(params: MutPtr<AudioInputParams>): Int =
+    PspJniBridge.libcPspSceAudioInputInitEx(params.rawAddress)
 
-public actual fun sceAudioInputBlocking(sampleCount: Int, freq: AudioInputFrequency, buf: COpaquePointer?) {
+public actual fun sceAudioInputBlocking(sampleCount: Int, freq: AudioInputFrequency, buf: MutPtr<CVoid>) {
 }
 
-public actual fun sceAudioInput(sampleCount: Int, freq: AudioInputFrequency, buf: COpaquePointer?) {
+public actual fun sceAudioInput(sampleCount: Int, freq: AudioInputFrequency, buf: MutPtr<CVoid>) {
 }
 
 public actual fun sceAudioGetInputLength(): Int =
-    PspJniBridge.libc_psp_sceAudioGetInputLength()
+    PspJniBridge.libcPspSceAudioGetInputLength()
 
 public actual fun sceAudioWaitInputEnd(): Int =
-    PspJniBridge.libc_psp_sceAudioWaitInputEnd()
+    PspJniBridge.libcPspSceAudioWaitInputEnd()
 
 public actual fun sceAudioPollInputEnd(): Int =
-    PspJniBridge.libc_psp_sceAudioPollInputEnd()
+    PspJniBridge.libcPspSceAudioPollInputEnd()
 
 public actual fun sceAtracGetAtracID(uiCodecType: UInt): Int =
-    PspJniBridge.libc_psp_sceAtracGetAtracID(uiCodecType.toInt())
+    PspJniBridge.libcPspSceAtracGetAtracID(uiCodecType.toInt())
 
-public actual fun sceAtracSetDataAndGetID(buf: COpaquePointer?, bufsize: ULong): Int =
-    PspJniBridge.libc_psp_sceAtracSetDataAndGetID((buf?.value ?: 0L), bufsize.toLong())
+public actual fun sceAtracSetDataAndGetID(buf: MutPtr<CVoid>, bufsize: ULong): Int =
+    PspJniBridge.libcPspSceAtracSetDataAndGetID(buf.rawAddress, bufsize.toLong())
 
-public actual fun sceAtracDecodeData(atracId: Int, outSamples: COpaquePointer?, outN: COpaquePointer?, outEnd: COpaquePointer?, outRemainFrame: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceAtracDecodeData(atracId, (outSamples?.value ?: 0L), (outN?.value ?: 0L), (outEnd?.value ?: 0L), (outRemainFrame?.value ?: 0L))
+public actual fun sceAtracDecodeData(atracId: Int, outSamples: MutPtr<UShort>, outN: MutPtr<Int>, outEnd: MutPtr<Int>, outRemainFrame: MutPtr<Int>): Int =
+    PspJniBridge.libcPspSceAtracDecodeData(atracId, outSamples.rawAddress, outN.rawAddress, outEnd.rawAddress, outRemainFrame.rawAddress)
 
-public actual fun sceAtracGetRemainFrame(atracId: Int, outRemainFrame: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceAtracGetRemainFrame(atracId, (outRemainFrame?.value ?: 0L))
+public actual fun sceAtracGetRemainFrame(atracId: Int, outRemainFrame: MutPtr<Int>): Int =
+    PspJniBridge.libcPspSceAtracGetRemainFrame(atracId, outRemainFrame.rawAddress)
 
-public actual fun sceAtracGetStreamDataInfo(atracId: Int, writePointer: COpaquePointer?, availableBytes: COpaquePointer?, readOffset: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceAtracGetStreamDataInfo(atracId, (writePointer?.value ?: 0L), (availableBytes?.value ?: 0L), (readOffset?.value ?: 0L))
+public actual fun sceAtracGetStreamDataInfo(atracId: Int, writePointer: MutPtr<MutPtr<UByte>>, availableBytes: MutPtr<UInt>, readOffset: MutPtr<UInt>): Int =
+    PspJniBridge.libcPspSceAtracGetStreamDataInfo(atracId, writePointer.rawAddress, availableBytes.rawAddress, readOffset.rawAddress)
 
 public actual fun sceAtracAddStreamData(atracId: Int, bytesToAdd: UInt): Int =
-    PspJniBridge.libc_psp_sceAtracAddStreamData(atracId, bytesToAdd.toInt())
+    PspJniBridge.libcPspSceAtracAddStreamData(atracId, bytesToAdd.toInt())
 
-public actual fun sceAtracGetBitrate(atracId: Int, outBitrate: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceAtracGetBitrate(atracId, (outBitrate?.value ?: 0L))
+public actual fun sceAtracGetBitrate(atracId: Int, outBitrate: MutPtr<Int>): Int =
+    PspJniBridge.libcPspSceAtracGetBitrate(atracId, outBitrate.rawAddress)
 
 public actual fun sceAtracSetLoopNum(atracId: Int, nloops: Int): Int =
-    PspJniBridge.libc_psp_sceAtracSetLoopNum(atracId, nloops)
+    PspJniBridge.libcPspSceAtracSetLoopNum(atracId, nloops)
 
 public actual fun sceAtracReleaseAtracID(atracId: Int): Int =
-    PspJniBridge.libc_psp_sceAtracReleaseAtracID(atracId)
+    PspJniBridge.libcPspSceAtracReleaseAtracID(atracId)
 
-public actual fun sceAtracGetNextSample(atracId: Int, outN: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceAtracGetNextSample(atracId, (outN?.value ?: 0L))
+public actual fun sceAtracGetNextSample(atracId: Int, outN: MutPtr<Int>): Int =
+    PspJniBridge.libcPspSceAtracGetNextSample(atracId, outN.rawAddress)
 
-public actual fun sceAtracGetMaxSample(atracId: Int, outMax: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceAtracGetMaxSample(atracId, (outMax?.value ?: 0L))
+public actual fun sceAtracGetMaxSample(atracId: Int, outMax: MutPtr<Int>): Int =
+    PspJniBridge.libcPspSceAtracGetMaxSample(atracId, outMax.rawAddress)
 
-public actual fun sceAtracGetBufferInfoForReseting(atracId: Int, uiSample: UInt, pbufferInfo: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceAtracGetBufferInfoForReseting(atracId, uiSample.toInt(), (pbufferInfo?.value ?: 0L))
+public actual fun sceAtracGetBufferInfoForReseting(atracId: Int, uiSample: UInt, pbufferInfo: MutPtr<Atrac3BufferInfo>): Int =
+    PspJniBridge.libcPspSceAtracGetBufferInfoForReseting(atracId, uiSample.toInt(), pbufferInfo.rawAddress)
 
-public actual fun sceAtracGetChannel(atracId: Int, puiChannel: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceAtracGetChannel(atracId, (puiChannel?.value ?: 0L))
+public actual fun sceAtracGetChannel(atracId: Int, puiChannel: MutPtr<UInt>): Int =
+    PspJniBridge.libcPspSceAtracGetChannel(atracId, puiChannel.rawAddress)
 
-public actual fun sceAtracGetInternalErrorInfo(atracId: Int, piResult: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceAtracGetInternalErrorInfo(atracId, (piResult?.value ?: 0L))
+public actual fun sceAtracGetInternalErrorInfo(atracId: Int, piResult: MutPtr<Int>): Int =
+    PspJniBridge.libcPspSceAtracGetInternalErrorInfo(atracId, piResult.rawAddress)
 
-public actual fun sceAtracGetLoopStatus(atracId: Int, piLoopNum: COpaquePointer?, puiLoopStatus: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceAtracGetLoopStatus(atracId, (piLoopNum?.value ?: 0L), (puiLoopStatus?.value ?: 0L))
+public actual fun sceAtracGetLoopStatus(atracId: Int, piLoopNum: MutPtr<Int>, puiLoopStatus: MutPtr<UInt>): Int =
+    PspJniBridge.libcPspSceAtracGetLoopStatus(atracId, piLoopNum.rawAddress, puiLoopStatus.rawAddress)
 
-public actual fun sceAtracGetNextDecodePosition(atracId: Int, puiSamplePosition: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceAtracGetNextDecodePosition(atracId, (puiSamplePosition?.value ?: 0L))
+public actual fun sceAtracGetNextDecodePosition(atracId: Int, puiSamplePosition: MutPtr<UInt>): Int =
+    PspJniBridge.libcPspSceAtracGetNextDecodePosition(atracId, puiSamplePosition.rawAddress)
 
-public actual fun sceAtracGetSecondBufferInfo(atracId: Int, puiPosition: COpaquePointer?, puiDataByte: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceAtracGetSecondBufferInfo(atracId, (puiPosition?.value ?: 0L), (puiDataByte?.value ?: 0L))
+public actual fun sceAtracGetSecondBufferInfo(atracId: Int, puiPosition: MutPtr<UInt>, puiDataByte: MutPtr<UInt>): Int =
+    PspJniBridge.libcPspSceAtracGetSecondBufferInfo(atracId, puiPosition.rawAddress, puiDataByte.rawAddress)
 
-public actual fun sceAtracGetSoundSample(atracId: Int, piEndSample: COpaquePointer?, piLoopStartSample: COpaquePointer?, piLoopEndSample: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceAtracGetSoundSample(atracId, (piEndSample?.value ?: 0L), (piLoopStartSample?.value ?: 0L), (piLoopEndSample?.value ?: 0L))
+public actual fun sceAtracGetSoundSample(atracId: Int, piEndSample: MutPtr<Int>, piLoopStartSample: MutPtr<Int>, piLoopEndSample: MutPtr<Int>): Int =
+    PspJniBridge.libcPspSceAtracGetSoundSample(atracId, piEndSample.rawAddress, piLoopStartSample.rawAddress, piLoopEndSample.rawAddress)
 
 public actual fun sceAtracResetPlayPosition(atracId: Int, uiSample: UInt, uiWriteByteFirstBuf: UInt, uiWriteByteSecondBuf: UInt): Int =
-    PspJniBridge.libc_psp_sceAtracResetPlayPosition(atracId, uiSample.toInt(), uiWriteByteFirstBuf.toInt(), uiWriteByteSecondBuf.toInt())
+    PspJniBridge.libcPspSceAtracResetPlayPosition(atracId, uiSample.toInt(), uiWriteByteFirstBuf.toInt(), uiWriteByteSecondBuf.toInt())
 
-public actual fun sceAtracSetData(atracId: Int, pucBufferAddr: COpaquePointer?, uiBufferByte: UInt): Int =
-    PspJniBridge.libc_psp_sceAtracSetData(atracId, (pucBufferAddr?.value ?: 0L), uiBufferByte.toInt())
+public actual fun sceAtracSetData(atracId: Int, pucBufferAddr: MutPtr<UByte>, uiBufferByte: UInt): Int =
+    PspJniBridge.libcPspSceAtracSetData(atracId, pucBufferAddr.rawAddress, uiBufferByte.toInt())
 
-public actual fun sceAtracSetHalfwayBuffer(atracId: Int, pucBufferAddr: COpaquePointer?, uiReadByte: UInt, uiBufferByte: UInt): Int =
-    PspJniBridge.libc_psp_sceAtracSetHalfwayBuffer(atracId, (pucBufferAddr?.value ?: 0L), uiReadByte.toInt(), uiBufferByte.toInt())
+public actual fun sceAtracSetHalfwayBuffer(atracId: Int, pucBufferAddr: MutPtr<UByte>, uiReadByte: UInt, uiBufferByte: UInt): Int =
+    PspJniBridge.libcPspSceAtracSetHalfwayBuffer(atracId, pucBufferAddr.rawAddress, uiReadByte.toInt(), uiBufferByte.toInt())
 
-public actual fun sceAtracSetHalfwayBufferAndGetID(pucBufferAddr: COpaquePointer?, uiReadByte: UInt, uiBufferByte: UInt): Int =
-    PspJniBridge.libc_psp_sceAtracSetHalfwayBufferAndGetID((pucBufferAddr?.value ?: 0L), uiReadByte.toInt(), uiBufferByte.toInt())
+public actual fun sceAtracSetHalfwayBufferAndGetID(pucBufferAddr: MutPtr<UByte>, uiReadByte: UInt, uiBufferByte: UInt): Int =
+    PspJniBridge.libcPspSceAtracSetHalfwayBufferAndGetID(pucBufferAddr.rawAddress, uiReadByte.toInt(), uiBufferByte.toInt())
 
-public actual fun sceAtracSetSecondBuffer(atracId: Int, pucSecondBufferAddr: COpaquePointer?, uiSecondBufferByte: UInt): Int =
-    PspJniBridge.libc_psp_sceAtracSetSecondBuffer(atracId, (pucSecondBufferAddr?.value ?: 0L), uiSecondBufferByte.toInt())
+public actual fun sceAtracSetSecondBuffer(atracId: Int, pucSecondBufferAddr: MutPtr<UByte>, uiSecondBufferByte: UInt): Int =
+    PspJniBridge.libcPspSceAtracSetSecondBuffer(atracId, pucSecondBufferAddr.rawAddress, uiSecondBufferByte.toInt())
 
 public actual fun sceCtrlSetSamplingCycle(cycle: Int): Int =
-    PspJniBridge.libc_psp_sceCtrlSetSamplingCycle(cycle)
+    PspJniBridge.libcPspSceCtrlSetSamplingCycle(cycle)
 
-public actual fun sceCtrlGetSamplingCycle(pcycle: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceCtrlGetSamplingCycle((pcycle?.value ?: 0L))
+public actual fun sceCtrlGetSamplingCycle(pcycle: MutPtr<Int>): Int =
+    PspJniBridge.libcPspSceCtrlGetSamplingCycle(pcycle.rawAddress)
 
 public actual fun sceCtrlSetSamplingMode(mode: CtrlMode): Int =
     0
 
-public actual fun sceCtrlGetSamplingMode(pmode: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceCtrlGetSamplingMode((pmode?.value ?: 0L))
+public actual fun sceCtrlGetSamplingMode(pmode: MutPtr<Int>): Int =
+    PspJniBridge.libcPspSceCtrlGetSamplingMode(pmode.rawAddress)
 
-public actual fun sceCtrlPeekBufferPositive(padData: COpaquePointer?, count: Int): Int =
-    PspJniBridge.libc_psp_sceCtrlPeekBufferPositive((padData?.value ?: 0L), count)
+public actual fun sceCtrlPeekBufferPositive(padData: MutPtr<SceCtrlData>, count: Int): Int =
+    PspJniBridge.libcPspSceCtrlPeekBufferPositive(padData.rawAddress, count)
 
-public actual fun sceCtrlPeekBufferNegative(padData: COpaquePointer?, count: Int): Int =
-    PspJniBridge.libc_psp_sceCtrlPeekBufferNegative((padData?.value ?: 0L), count)
+public actual fun sceCtrlPeekBufferNegative(padData: MutPtr<SceCtrlData>, count: Int): Int =
+    PspJniBridge.libcPspSceCtrlPeekBufferNegative(padData.rawAddress, count)
 
-public actual fun sceCtrlReadBufferPositive(padData: COpaquePointer?, count: Int): Int =
-    PspJniBridge.libc_psp_sceCtrlReadBufferPositive((padData?.value ?: 0L), count)
+public actual fun sceCtrlReadBufferPositive(padData: MutPtr<SceCtrlData>, count: Int): Int =
+    PspJniBridge.libcPspSceCtrlReadBufferPositive(padData.rawAddress, count)
 
-public actual fun sceCtrlReadBufferNegative(padData: COpaquePointer?, count: Int): Int =
-    PspJniBridge.libc_psp_sceCtrlReadBufferNegative((padData?.value ?: 0L), count)
+public actual fun sceCtrlReadBufferNegative(padData: MutPtr<SceCtrlData>, count: Int): Int =
+    PspJniBridge.libcPspSceCtrlReadBufferNegative(padData.rawAddress, count)
 
-public actual fun sceCtrlPeekLatch(latchData: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceCtrlPeekLatch((latchData?.value ?: 0L))
+public actual fun sceCtrlPeekLatch(latchData: MutPtr<SceCtrlLatch>): Int =
+    PspJniBridge.libcPspSceCtrlPeekLatch(latchData.rawAddress)
 
-public actual fun sceCtrlReadLatch(latchData: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceCtrlReadLatch((latchData?.value ?: 0L))
+public actual fun sceCtrlReadLatch(latchData: MutPtr<SceCtrlLatch>): Int =
+    PspJniBridge.libcPspSceCtrlReadLatch(latchData.rawAddress)
 
 public actual fun sceCtrlSetIdleCancelThreshold(idlereset: Int, idleback: Int): Int =
-    PspJniBridge.libc_psp_sceCtrlSetIdleCancelThreshold(idlereset, idleback)
+    PspJniBridge.libcPspSceCtrlSetIdleCancelThreshold(idlereset, idleback)
 
-public actual fun sceCtrlGetIdleCancelThreshold(idlereset: COpaquePointer?, idleback: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceCtrlGetIdleCancelThreshold((idlereset?.value ?: 0L), (idleback?.value ?: 0L))
+public actual fun sceCtrlGetIdleCancelThreshold(idlereset: MutPtr<Int>, idleback: MutPtr<Int>): Int =
+    PspJniBridge.libcPspSceCtrlGetIdleCancelThreshold(idlereset.rawAddress, idleback.rawAddress)
 
 public actual fun sceDisplaySetMode(mode: DisplayMode, width: ULong, height: ULong): UInt =
     0u
 
-public actual fun sceDisplayGetMode(pmode: COpaquePointer?, pwidth: COpaquePointer?, pheight: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceDisplayGetMode((pmode?.value ?: 0L), (pwidth?.value ?: 0L), (pheight?.value ?: 0L))
+public actual fun sceDisplayGetMode(pmode: MutPtr<Int>, pwidth: MutPtr<Int>, pheight: MutPtr<Int>): Int =
+    PspJniBridge.libcPspSceDisplayGetMode(pmode.rawAddress, pwidth.rawAddress, pheight.rawAddress)
 
-public actual fun sceDisplaySetFrameBuf(topAddr: COpaquePointer?, bufferWidth: ULong, pixelFormat: DisplayPixelFormat, sync: DisplaySetBufSync): UInt =
+public actual fun sceDisplaySetFrameBuf(topAddr: ConstPtr<UByte>, bufferWidth: ULong, pixelFormat: DisplayPixelFormat, sync: DisplaySetBufSync): UInt =
     0u
 
-public actual fun sceDisplayGetFrameBuf(topAddr: COpaquePointer?, bufferWidth: COpaquePointer?, pixelFormat: COpaquePointer?, sync: DisplaySetBufSync): Int =
+public actual fun sceDisplayGetFrameBuf(topAddr: MutPtr<MutPtr<CVoid>>, bufferWidth: MutPtr<ULong>, pixelFormat: MutPtr<DisplayPixelFormat>, sync: DisplaySetBufSync): Int =
     0
 
 public actual fun sceDisplayGetVcount(): UInt =
-    PspJniBridge.libc_psp_sceDisplayGetVcount().toUInt()
+    PspJniBridge.libcPspSceDisplayGetVcount().toUInt()
 
 public actual fun sceDisplayWaitVblank(): Int =
-    PspJniBridge.libc_psp_sceDisplayWaitVblank()
+    PspJniBridge.libcPspSceDisplayWaitVblank()
 
 public actual fun sceDisplayWaitVblankCB(): Int =
-    PspJniBridge.libc_psp_sceDisplayWaitVblankCB()
+    PspJniBridge.libcPspSceDisplayWaitVblankCB()
 
 public actual fun sceDisplayWaitVblankStart(): Int =
-    PspJniBridge.libc_psp_sceDisplayWaitVblankStart()
+    PspJniBridge.libcPspSceDisplayWaitVblankStart()
 
 public actual fun sceDisplayWaitVblankStartCB(): Int =
-    PspJniBridge.libc_psp_sceDisplayWaitVblankStartCB()
+    PspJniBridge.libcPspSceDisplayWaitVblankStartCB()
 
 public actual fun sceDisplayGetAccumulatedHcount(): Int =
-    PspJniBridge.libc_psp_sceDisplayGetAccumulatedHcount()
+    PspJniBridge.libcPspSceDisplayGetAccumulatedHcount()
 
 public actual fun sceDisplayGetCurrentHcount(): Int =
-    PspJniBridge.libc_psp_sceDisplayGetCurrentHcount()
+    PspJniBridge.libcPspSceDisplayGetCurrentHcount()
 
 public actual fun sceDisplayGetFramePerSec(): Float =
-    PspJniBridge.libc_psp_sceDisplayGetFramePerSec()
+    PspJniBridge.libcPspSceDisplayGetFramePerSec()
 
 public actual fun sceDisplayIsForeground(): Int =
-    PspJniBridge.libc_psp_sceDisplayIsForeground()
+    PspJniBridge.libcPspSceDisplayIsForeground()
 
 public actual fun sceDisplayIsVblank(): Int =
-    PspJniBridge.libc_psp_sceDisplayIsVblank()
+    PspJniBridge.libcPspSceDisplayIsVblank()
 
 public actual fun sceGeEdramGetSize(): UInt =
-    PspJniBridge.libc_psp_sceGeEdramGetSize().toUInt()
+    PspJniBridge.libcPspSceGeEdramGetSize().toUInt()
 
-public actual fun sceGeEdramGetAddr(): COpaquePointer? =
-    PspJniBridge.libc_psp_sceGeEdramGetAddr().let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun sceGeEdramGetAddr(): MutPtr<UByte> =
+    MutPtr(PspJniBridge.libcPspSceGeEdramGetAddr())
 
 public actual fun sceGeEdramSetAddrTranslation(width: Int): Int =
-    PspJniBridge.libc_psp_sceGeEdramSetAddrTranslation(width)
+    PspJniBridge.libcPspSceGeEdramSetAddrTranslation(width)
 
 public actual fun sceGeGetCmd(cmd: Int): UInt =
-    PspJniBridge.libc_psp_sceGeGetCmd(cmd).toUInt()
+    PspJniBridge.libcPspSceGeGetCmd(cmd).toUInt()
 
-public actual fun sceGeGetMtx(type: GeMatrixType, matrix: COpaquePointer?): Int =
+public actual fun sceGeGetMtx(type: GeMatrixType, matrix: MutPtr<CVoid>): Int =
     0
 
-public actual fun sceGeGetStack(stackId: Int, stack: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceGeGetStack(stackId, (stack?.value ?: 0L))
+public actual fun sceGeGetStack(stackId: Int, stack: MutPtr<GeStack>): Int =
+    PspJniBridge.libcPspSceGeGetStack(stackId, stack.rawAddress)
 
-public actual fun sceGeSaveContext(context: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceGeSaveContext((context?.value ?: 0L))
+public actual fun sceGeSaveContext(context: MutPtr<GeContext>): Int =
+    PspJniBridge.libcPspSceGeSaveContext(context.rawAddress)
 
-public actual fun sceGeRestoreContext(context: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceGeRestoreContext((context?.value ?: 0L))
+public actual fun sceGeRestoreContext(context: ConstPtr<GeContext>): Int =
+    PspJniBridge.libcPspSceGeRestoreContext(context.rawAddress)
 
-public actual fun sceGeListEnQueue(list: COpaquePointer?, stall: COpaquePointer?, cbid: Int, arg: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceGeListEnQueue((list?.value ?: 0L), (stall?.value ?: 0L), cbid, (arg?.value ?: 0L))
+public actual fun sceGeListEnQueue(list: ConstPtr<CVoid>, stall: MutPtr<CVoid>, cbid: Int, arg: MutPtr<GeListArgs>): Int =
+    PspJniBridge.libcPspSceGeListEnQueue(list.rawAddress, stall.rawAddress, cbid, arg.rawAddress)
 
-public actual fun sceGeListEnQueueHead(list: COpaquePointer?, stall: COpaquePointer?, cbid: Int, arg: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceGeListEnQueueHead((list?.value ?: 0L), (stall?.value ?: 0L), cbid, (arg?.value ?: 0L))
+public actual fun sceGeListEnQueueHead(list: ConstPtr<CVoid>, stall: MutPtr<CVoid>, cbid: Int, arg: MutPtr<GeListArgs>): Int =
+    PspJniBridge.libcPspSceGeListEnQueueHead(list.rawAddress, stall.rawAddress, cbid, arg.rawAddress)
 
 public actual fun sceGeListDeQueue(qid: Int): Int =
-    PspJniBridge.libc_psp_sceGeListDeQueue(qid)
+    PspJniBridge.libcPspSceGeListDeQueue(qid)
 
-public actual fun sceGeListUpdateStallAddr(qid: Int, stall: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceGeListUpdateStallAddr(qid, (stall?.value ?: 0L))
+public actual fun sceGeListUpdateStallAddr(qid: Int, stall: MutPtr<CVoid>): Int =
+    PspJniBridge.libcPspSceGeListUpdateStallAddr(qid, stall.rawAddress)
 
 public actual fun sceGeListSync(qid: Int, syncType: Int): GeListState =
     GeListState.entries.first()
@@ -1931,192 +1985,192 @@ public actual fun sceGeListSync(qid: Int, syncType: Int): GeListState =
 public actual fun sceGeDrawSync(syncType: Int): GeListState =
     GeListState.entries.first()
 
-public actual fun sceGeBreak(mode: Int, pParam: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceGeBreak(mode, (pParam?.value ?: 0L))
+public actual fun sceGeBreak(mode: Int, pParam: MutPtr<GeBreakParam>): Int =
+    PspJniBridge.libcPspSceGeBreak(mode, pParam.rawAddress)
 
 public actual fun sceGeContinue(): Int =
-    PspJniBridge.libc_psp_sceGeContinue()
+    PspJniBridge.libcPspSceGeContinue()
 
-public actual fun sceGeSetCallback(cb: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceGeSetCallback((cb?.value ?: 0L))
+public actual fun sceGeSetCallback(cb: MutPtr<GeCallbackData>): Int =
+    PspJniBridge.libcPspSceGeSetCallback(cb.rawAddress)
 
 public actual fun sceGeUnsetCallback(cbid: Int): Int =
-    PspJniBridge.libc_psp_sceGeUnsetCallback(cbid)
+    PspJniBridge.libcPspSceGeUnsetCallback(cbid)
 
 public actual fun sceKernelExitGame() {
-    PspJniBridge.libc_psp_sceKernelExitGame()
+    PspJniBridge.libcPspSceKernelExitGame()
 }
 
 public actual fun sceKernelRegisterExitCallback(id: SceUid): Int =
     0
 
-public actual fun sceKernelLoadExec(file: COpaquePointer?, param: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceKernelLoadExec((file?.value ?: 0L), (param?.value ?: 0L))
+public actual fun sceKernelLoadExec(file: ConstPtr<UByte>, param: MutPtr<SceKernelLoadExecParam>): Int =
+    PspJniBridge.libcPspSceKernelLoadExec(file.rawAddress, param.rawAddress)
 
-public actual fun sceKernelAllocPartitionMemory(partition: SceSysMemPartitionId, name: COpaquePointer?, type: SceSysMemBlockTypes, size: UInt, addr: COpaquePointer?): SceUid =
+public actual fun sceKernelAllocPartitionMemory(partition: SceSysMemPartitionId, name: ConstPtr<UByte>, type: SceSysMemBlockTypes, size: UInt, addr: MutPtr<CVoid>): SceUid =
     SceUid()
 
-public actual fun sceKernelGetBlockHeadAddr(blockid: SceUid): COpaquePointer? =
-    null
+public actual fun sceKernelGetBlockHeadAddr(blockid: SceUid): MutPtr<CVoid> =
+    MutPtr(0L)
 
 public actual fun sceKernelFreePartitionMemory(blockid: SceUid): Int =
     0
 
 public actual fun sceKernelTotalFreeMemSize(): ULong =
-    PspJniBridge.libc_psp_sceKernelTotalFreeMemSize().toULong()
+    PspJniBridge.libcPspSceKernelTotalFreeMemSize().toULong()
 
 public actual fun sceKernelMaxFreeMemSize(): ULong =
-    PspJniBridge.libc_psp_sceKernelMaxFreeMemSize().toULong()
+    PspJniBridge.libcPspSceKernelMaxFreeMemSize().toULong()
 
 public actual fun sceKernelDevkitVersion(): UInt =
-    PspJniBridge.libc_psp_sceKernelDevkitVersion().toUInt()
+    PspJniBridge.libcPspSceKernelDevkitVersion().toUInt()
 
 public actual fun sceKernelSetCompiledSdkVersion(version: UInt): Int =
-    PspJniBridge.libc_psp_sceKernelSetCompiledSdkVersion(version.toInt())
+    PspJniBridge.libcPspSceKernelSetCompiledSdkVersion(version.toInt())
 
 public actual fun sceKernelGetCompiledSdkVersion(): UInt =
-    PspJniBridge.libc_psp_sceKernelGetCompiledSdkVersion().toUInt()
+    PspJniBridge.libcPspSceKernelGetCompiledSdkVersion().toUInt()
 
-public actual fun sceKernelLibcTime(t: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceKernelLibcTime((t?.value ?: 0L))
+public actual fun sceKernelLibcTime(t: MutPtr<Int>): Int =
+    PspJniBridge.libcPspSceKernelLibcTime(t.rawAddress)
 
 public actual fun sceKernelLibcClock(): UInt =
-    PspJniBridge.libc_psp_sceKernelLibcClock().toUInt()
+    PspJniBridge.libcPspSceKernelLibcClock().toUInt()
 
-public actual fun sceKernelLibcGettimeofday(tp: COpaquePointer?, tzp: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceKernelLibcGettimeofday((tp?.value ?: 0L), (tzp?.value ?: 0L))
+public actual fun sceKernelLibcGettimeofday(tp: MutPtr<Timeval>, tzp: MutPtr<Timezone>): Int =
+    PspJniBridge.libcPspSceKernelLibcGettimeofday(tp.rawAddress, tzp.rawAddress)
 
 public actual fun sceKernelDcacheWritebackAll() {
-    PspJniBridge.libc_psp_sceKernelDcacheWritebackAll()
+    PspJniBridge.libcPspSceKernelDcacheWritebackAll()
 }
 
 public actual fun sceKernelDcacheWritebackInvalidateAll() {
-    PspJniBridge.libc_psp_sceKernelDcacheWritebackInvalidateAll()
+    PspJniBridge.libcPspSceKernelDcacheWritebackInvalidateAll()
 }
 
-public actual fun sceKernelDcacheWritebackRange(p: COpaquePointer?, size: UInt) {
-    PspJniBridge.libc_psp_sceKernelDcacheWritebackRange((p?.value ?: 0L), size.toInt())
+public actual fun sceKernelDcacheWritebackRange(p: ConstPtr<CVoid>, size: UInt) {
+    PspJniBridge.libcPspSceKernelDcacheWritebackRange(p.rawAddress, size.toInt())
 }
 
-public actual fun sceKernelDcacheWritebackInvalidateRange(p: COpaquePointer?, size: UInt) {
-    PspJniBridge.libc_psp_sceKernelDcacheWritebackInvalidateRange((p?.value ?: 0L), size.toInt())
+public actual fun sceKernelDcacheWritebackInvalidateRange(p: ConstPtr<CVoid>, size: UInt) {
+    PspJniBridge.libcPspSceKernelDcacheWritebackInvalidateRange(p.rawAddress, size.toInt())
 }
 
-public actual fun sceKernelDcacheInvalidateRange(p: COpaquePointer?, size: UInt) {
-    PspJniBridge.libc_psp_sceKernelDcacheInvalidateRange((p?.value ?: 0L), size.toInt())
+public actual fun sceKernelDcacheInvalidateRange(p: ConstPtr<CVoid>, size: UInt) {
+    PspJniBridge.libcPspSceKernelDcacheInvalidateRange(p.rawAddress, size.toInt())
 }
 
 public actual fun sceKernelIcacheInvalidateAll() {
-    PspJniBridge.libc_psp_sceKernelIcacheInvalidateAll()
+    PspJniBridge.libcPspSceKernelIcacheInvalidateAll()
 }
 
-public actual fun sceKernelIcacheInvalidateRange(p: COpaquePointer?, size: UInt) {
-    PspJniBridge.libc_psp_sceKernelIcacheInvalidateRange((p?.value ?: 0L), size.toInt())
+public actual fun sceKernelIcacheInvalidateRange(p: ConstPtr<CVoid>, size: UInt) {
+    PspJniBridge.libcPspSceKernelIcacheInvalidateRange(p.rawAddress, size.toInt())
 }
 
-public actual fun sceKernelUtilsMt19937Init(ctx: COpaquePointer?, seed: UInt): Int =
-    PspJniBridge.libc_psp_sceKernelUtilsMt19937Init((ctx?.value ?: 0L), seed.toInt())
+public actual fun sceKernelUtilsMt19937Init(ctx: MutPtr<SceKernelUtilsMt19937Context>, seed: UInt): Int =
+    PspJniBridge.libcPspSceKernelUtilsMt19937Init(ctx.rawAddress, seed.toInt())
 
-public actual fun sceKernelUtilsMt19937UInt(ctx: COpaquePointer?): UInt =
-    PspJniBridge.libc_psp_sceKernelUtilsMt19937UInt((ctx?.value ?: 0L)).toUInt()
+public actual fun sceKernelUtilsMt19937UInt(ctx: MutPtr<SceKernelUtilsMt19937Context>): UInt =
+    PspJniBridge.libcPspSceKernelUtilsMt19937UInt(ctx.rawAddress).toUInt()
 
-public actual fun sceKernelUtilsMd5Digest(data: COpaquePointer?, size: UInt, digest: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceKernelUtilsMd5Digest((data?.value ?: 0L), size.toInt(), (digest?.value ?: 0L))
+public actual fun sceKernelUtilsMd5Digest(data: MutPtr<UByte>, size: UInt, digest: MutPtr<UByte>): Int =
+    PspJniBridge.libcPspSceKernelUtilsMd5Digest(data.rawAddress, size.toInt(), digest.rawAddress)
 
-public actual fun sceKernelUtilsMd5BlockInit(ctx: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceKernelUtilsMd5BlockInit((ctx?.value ?: 0L))
+public actual fun sceKernelUtilsMd5BlockInit(ctx: MutPtr<SceKernelUtilsMd5Context>): Int =
+    PspJniBridge.libcPspSceKernelUtilsMd5BlockInit(ctx.rawAddress)
 
-public actual fun sceKernelUtilsMd5BlockUpdate(ctx: COpaquePointer?, data: COpaquePointer?, size: UInt): Int =
-    PspJniBridge.libc_psp_sceKernelUtilsMd5BlockUpdate((ctx?.value ?: 0L), (data?.value ?: 0L), size.toInt())
+public actual fun sceKernelUtilsMd5BlockUpdate(ctx: MutPtr<SceKernelUtilsMd5Context>, data: MutPtr<UByte>, size: UInt): Int =
+    PspJniBridge.libcPspSceKernelUtilsMd5BlockUpdate(ctx.rawAddress, data.rawAddress, size.toInt())
 
-public actual fun sceKernelUtilsMd5BlockResult(ctx: COpaquePointer?, digest: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceKernelUtilsMd5BlockResult((ctx?.value ?: 0L), (digest?.value ?: 0L))
+public actual fun sceKernelUtilsMd5BlockResult(ctx: MutPtr<SceKernelUtilsMd5Context>, digest: MutPtr<UByte>): Int =
+    PspJniBridge.libcPspSceKernelUtilsMd5BlockResult(ctx.rawAddress, digest.rawAddress)
 
-public actual fun sceKernelUtilsSha1Digest(data: COpaquePointer?, size: UInt, digest: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceKernelUtilsSha1Digest((data?.value ?: 0L), size.toInt(), (digest?.value ?: 0L))
+public actual fun sceKernelUtilsSha1Digest(data: MutPtr<UByte>, size: UInt, digest: MutPtr<UByte>): Int =
+    PspJniBridge.libcPspSceKernelUtilsSha1Digest(data.rawAddress, size.toInt(), digest.rawAddress)
 
-public actual fun sceKernelUtilsSha1BlockInit(ctx: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceKernelUtilsSha1BlockInit((ctx?.value ?: 0L))
+public actual fun sceKernelUtilsSha1BlockInit(ctx: MutPtr<SceKernelUtilsSha1Context>): Int =
+    PspJniBridge.libcPspSceKernelUtilsSha1BlockInit(ctx.rawAddress)
 
-public actual fun sceKernelUtilsSha1BlockUpdate(ctx: COpaquePointer?, data: COpaquePointer?, size: UInt): Int =
-    PspJniBridge.libc_psp_sceKernelUtilsSha1BlockUpdate((ctx?.value ?: 0L), (data?.value ?: 0L), size.toInt())
+public actual fun sceKernelUtilsSha1BlockUpdate(ctx: MutPtr<SceKernelUtilsSha1Context>, data: MutPtr<UByte>, size: UInt): Int =
+    PspJniBridge.libcPspSceKernelUtilsSha1BlockUpdate(ctx.rawAddress, data.rawAddress, size.toInt())
 
-public actual fun sceKernelUtilsSha1BlockResult(ctx: COpaquePointer?, digest: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceKernelUtilsSha1BlockResult((ctx?.value ?: 0L), (digest?.value ?: 0L))
+public actual fun sceKernelUtilsSha1BlockResult(ctx: MutPtr<SceKernelUtilsSha1Context>, digest: MutPtr<UByte>): Int =
+    PspJniBridge.libcPspSceKernelUtilsSha1BlockResult(ctx.rawAddress, digest.rawAddress)
 
-public actual fun sceKernelRegisterSubIntrHandler(intNo: Int, no: Int, handler: COpaquePointer?, arg: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceKernelRegisterSubIntrHandler(intNo, no, (handler?.value ?: 0L), (arg?.value ?: 0L))
+public actual fun sceKernelRegisterSubIntrHandler(intNo: Int, no: Int, handler: MutPtr<CVoid>, arg: MutPtr<CVoid>): Int =
+    PspJniBridge.libcPspSceKernelRegisterSubIntrHandler(intNo, no, handler.rawAddress, arg.rawAddress)
 
 public actual fun sceKernelReleaseSubIntrHandler(intNo: Int, no: Int): Int =
-    PspJniBridge.libc_psp_sceKernelReleaseSubIntrHandler(intNo, no)
+    PspJniBridge.libcPspSceKernelReleaseSubIntrHandler(intNo, no)
 
 public actual fun sceKernelEnableSubIntr(intNo: Int, no: Int): Int =
-    PspJniBridge.libc_psp_sceKernelEnableSubIntr(intNo, no)
+    PspJniBridge.libcPspSceKernelEnableSubIntr(intNo, no)
 
 public actual fun sceKernelDisableSubIntr(intNo: Int, no: Int): Int =
-    PspJniBridge.libc_psp_sceKernelDisableSubIntr(intNo, no)
+    PspJniBridge.libcPspSceKernelDisableSubIntr(intNo, no)
 
-public actual fun queryIntrHandlerInfo(intrCode: SceUid, subIntrCode: SceUid, data: COpaquePointer?): Int =
+public actual fun queryIntrHandlerInfo(intrCode: SceUid, subIntrCode: SceUid, data: MutPtr<IntrHandlerOptionParam>): Int =
     0
 
 public actual fun sceKernelCpuSuspendIntr(): UInt =
-    PspJniBridge.libc_psp_sceKernelCpuSuspendIntr().toUInt()
+    PspJniBridge.libcPspSceKernelCpuSuspendIntr().toUInt()
 
 public actual fun sceKernelCpuResumeIntr(flags: UInt) {
-    PspJniBridge.libc_psp_sceKernelCpuResumeIntr(flags.toInt())
+    PspJniBridge.libcPspSceKernelCpuResumeIntr(flags.toInt())
 }
 
 public actual fun sceKernelCpuResumeIntrWithSync(flags: UInt) {
-    PspJniBridge.libc_psp_sceKernelCpuResumeIntrWithSync(flags.toInt())
+    PspJniBridge.libcPspSceKernelCpuResumeIntrWithSync(flags.toInt())
 }
 
 public actual fun sceKernelIsCpuIntrSuspended(flags: UInt): Int =
-    PspJniBridge.libc_psp_sceKernelIsCpuIntrSuspended(flags.toInt())
+    PspJniBridge.libcPspSceKernelIsCpuIntrSuspended(flags.toInt())
 
 public actual fun sceKernelIsCpuIntrEnable(): Int =
-    PspJniBridge.libc_psp_sceKernelIsCpuIntrEnable()
+    PspJniBridge.libcPspSceKernelIsCpuIntrEnable()
 
-public actual fun sceKernelLoadModule(path: COpaquePointer?, flags: Int, option: COpaquePointer?): SceUid =
+public actual fun sceKernelLoadModule(path: ConstPtr<UByte>, flags: Int, option: MutPtr<SceKernelLMOption>): SceUid =
     SceUid()
 
-public actual fun sceKernelLoadModuleMs(path: COpaquePointer?, flags: Int, option: COpaquePointer?): SceUid =
+public actual fun sceKernelLoadModuleMs(path: ConstPtr<UByte>, flags: Int, option: MutPtr<SceKernelLMOption>): SceUid =
     SceUid()
 
-public actual fun sceKernelLoadModuleByID(fid: SceUid, flags: Int, option: COpaquePointer?): SceUid =
+public actual fun sceKernelLoadModuleByID(fid: SceUid, flags: Int, option: MutPtr<SceKernelLMOption>): SceUid =
     SceUid()
 
-public actual fun sceKernelLoadModuleBufferUsbWlan(bufSize: ULong, buf: COpaquePointer?, flags: Int, option: COpaquePointer?): SceUid =
+public actual fun sceKernelLoadModuleBufferUsbWlan(bufSize: ULong, buf: MutPtr<CVoid>, flags: Int, option: MutPtr<SceKernelLMOption>): SceUid =
     SceUid()
 
-public actual fun sceKernelStartModule(modId: SceUid, argSize: ULong, argp: COpaquePointer?, status: COpaquePointer?, option: COpaquePointer?): Int =
+public actual fun sceKernelStartModule(modId: SceUid, argSize: ULong, argp: MutPtr<CVoid>, status: MutPtr<Int>, option: MutPtr<SceKernelSMOption>): Int =
     0
 
-public actual fun sceKernelStopModule(modId: SceUid, argSize: ULong, argp: COpaquePointer?, status: COpaquePointer?, option: COpaquePointer?): Int =
+public actual fun sceKernelStopModule(modId: SceUid, argSize: ULong, argp: MutPtr<CVoid>, status: MutPtr<Int>, option: MutPtr<SceKernelSMOption>): Int =
     0
 
 public actual fun sceKernelUnloadModule(modId: SceUid): Int =
     0
 
-public actual fun sceKernelSelfStopUnloadModule(unknown: Int, argSize: ULong, argp: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceKernelSelfStopUnloadModule(unknown, argSize.toLong(), (argp?.value ?: 0L))
+public actual fun sceKernelSelfStopUnloadModule(unknown: Int, argSize: ULong, argp: MutPtr<CVoid>): Int =
+    PspJniBridge.libcPspSceKernelSelfStopUnloadModule(unknown, argSize.toLong(), argp.rawAddress)
 
-public actual fun sceKernelStopUnloadSelfModule(argSize: ULong, argp: COpaquePointer?, status: COpaquePointer?, option: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceKernelStopUnloadSelfModule(argSize.toLong(), (argp?.value ?: 0L), (status?.value ?: 0L), (option?.value ?: 0L))
+public actual fun sceKernelStopUnloadSelfModule(argSize: ULong, argp: MutPtr<CVoid>, status: MutPtr<Int>, option: MutPtr<SceKernelSMOption>): Int =
+    PspJniBridge.libcPspSceKernelStopUnloadSelfModule(argSize.toLong(), argp.rawAddress, status.rawAddress, option.rawAddress)
 
-public actual fun sceKernelQueryModuleInfo(modId: SceUid, info: COpaquePointer?): Int =
+public actual fun sceKernelQueryModuleInfo(modId: SceUid, info: MutPtr<SceKernelModuleInfo>): Int =
     0
 
-public actual fun sceKernelGetModuleIdList(readBuf: COpaquePointer?, readBufSize: Int, idCount: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceKernelGetModuleIdList((readBuf?.value ?: 0L), readBufSize, (idCount?.value ?: 0L))
+public actual fun sceKernelGetModuleIdList(readBuf: MutPtr<SceUid>, readBufSize: Int, idCount: MutPtr<Int>): Int =
+    PspJniBridge.libcPspSceKernelGetModuleIdList(readBuf.rawAddress, readBufSize, idCount.rawAddress)
 
-public actual fun sceKernelVolatileMemLock(unk: Int, ptr: COpaquePointer?, size: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceKernelVolatileMemLock(unk, (ptr?.value ?: 0L), (size?.value ?: 0L))
+public actual fun sceKernelVolatileMemLock(unk: Int, ptr: MutPtr<MutPtr<CVoid>>, size: MutPtr<Int>): Int =
+    PspJniBridge.libcPspSceKernelVolatileMemLock(unk, ptr.rawAddress, size.rawAddress)
 
-public actual fun sceKernelVolatileMemTryLock(unk: Int, ptr: COpaquePointer?, size: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceKernelVolatileMemTryLock(unk, (ptr?.value ?: 0L), (size?.value ?: 0L))
+public actual fun sceKernelVolatileMemTryLock(unk: Int, ptr: MutPtr<MutPtr<CVoid>>, size: MutPtr<Int>): Int =
+    PspJniBridge.libcPspSceKernelVolatileMemTryLock(unk, ptr.rawAddress, size.rawAddress)
 
 public actual fun sceKernelVolatileMemUnlock(unk: Int): Int =
-    PspJniBridge.libc_psp_sceKernelVolatileMemUnlock(unk)
+    PspJniBridge.libcPspSceKernelVolatileMemUnlock(unk)
 
 public actual fun sceKernelStdin(): SceUid =
     SceUid()
@@ -2130,20 +2184,20 @@ public actual fun sceKernelStderr(): SceUid =
 public actual fun sceKernelGetThreadmanIdType(uid: SceUid): SceKernelIdListType =
     SceKernelIdListType.entries.first()
 
-public actual fun sceKernelCreateThread(name: COpaquePointer?, entry: SceKernelThreadEntry, initPriority: Int, stackSize: Int, attr: Int, option: COpaquePointer?): SceUid =
+public actual fun sceKernelCreateThread(name: ConstPtr<UByte>, entry: SceKernelThreadEntry, initPriority: Int, stackSize: Int, attr: Int, option: MutPtr<SceKernelThreadOptParam>): SceUid =
     SceUid()
 
 public actual fun sceKernelDeleteThread(thid: SceUid): Int =
     0
 
-public actual fun sceKernelStartThread(id: SceUid, argLen: ULong, argP: COpaquePointer?): Int =
+public actual fun sceKernelStartThread(id: SceUid, argLen: ULong, argP: MutPtr<CVoid>): Int =
     0
 
 public actual fun sceKernelExitThread(status: Int): Int =
-    PspJniBridge.libc_psp_sceKernelExitThread(status)
+    PspJniBridge.libcPspSceKernelExitThread(status)
 
 public actual fun sceKernelExitDeleteThread(status: Int): Int =
-    PspJniBridge.libc_psp_sceKernelExitDeleteThread(status)
+    PspJniBridge.libcPspSceKernelExitDeleteThread(status)
 
 public actual fun sceKernelTerminateThread(thid: SceUid): Int =
     0
@@ -2152,16 +2206,16 @@ public actual fun sceKernelTerminateDeleteThread(thid: SceUid): Int =
     0
 
 public actual fun sceKernelSuspendDispatchThread(): Int =
-    PspJniBridge.libc_psp_sceKernelSuspendDispatchThread()
+    PspJniBridge.libcPspSceKernelSuspendDispatchThread()
 
 public actual fun sceKernelResumeDispatchThread(state: Int): Int =
-    PspJniBridge.libc_psp_sceKernelResumeDispatchThread(state)
+    PspJniBridge.libcPspSceKernelResumeDispatchThread(state)
 
 public actual fun sceKernelSleepThread(): Int =
-    PspJniBridge.libc_psp_sceKernelSleepThread()
+    PspJniBridge.libcPspSceKernelSleepThread()
 
 public actual fun sceKernelSleepThreadCB(): Int =
-    PspJniBridge.libc_psp_sceKernelSleepThreadCB()
+    PspJniBridge.libcPspSceKernelSleepThreadCB()
 
 public actual fun sceKernelWakeupThread(thid: SceUid): Int =
     0
@@ -2175,58 +2229,58 @@ public actual fun sceKernelSuspendThread(thid: SceUid): Int =
 public actual fun sceKernelResumeThread(thid: SceUid): Int =
     0
 
-public actual fun sceKernelWaitThreadEnd(thid: SceUid, timeout: COpaquePointer?): Int =
+public actual fun sceKernelWaitThreadEnd(thid: SceUid, timeout: MutPtr<UInt>): Int =
     0
 
-public actual fun sceKernelWaitThreadEndCB(thid: SceUid, timeout: COpaquePointer?): Int =
+public actual fun sceKernelWaitThreadEndCB(thid: SceUid, timeout: MutPtr<UInt>): Int =
     0
 
 public actual fun sceKernelDelayThread(delay: UInt): Int =
-    PspJniBridge.libc_psp_sceKernelDelayThread(delay.toInt())
+    PspJniBridge.libcPspSceKernelDelayThread(delay.toInt())
 
 public actual fun sceKernelDelayThreadCB(delay: UInt): Int =
-    PspJniBridge.libc_psp_sceKernelDelayThreadCB(delay.toInt())
+    PspJniBridge.libcPspSceKernelDelayThreadCB(delay.toInt())
 
-public actual fun sceKernelDelaySysClockThread(delay: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceKernelDelaySysClockThread((delay?.value ?: 0L))
+public actual fun sceKernelDelaySysClockThread(delay: MutPtr<SceKernelSysClock>): Int =
+    PspJniBridge.libcPspSceKernelDelaySysClockThread(delay.rawAddress)
 
-public actual fun sceKernelDelaySysClockThreadCB(delay: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceKernelDelaySysClockThreadCB((delay?.value ?: 0L))
+public actual fun sceKernelDelaySysClockThreadCB(delay: MutPtr<SceKernelSysClock>): Int =
+    PspJniBridge.libcPspSceKernelDelaySysClockThreadCB(delay.rawAddress)
 
 public actual fun sceKernelChangeCurrentThreadAttr(unknown: Int, attr: Int): Int =
-    PspJniBridge.libc_psp_sceKernelChangeCurrentThreadAttr(unknown, attr)
+    PspJniBridge.libcPspSceKernelChangeCurrentThreadAttr(unknown, attr)
 
 public actual fun sceKernelChangeThreadPriority(thid: SceUid, priority: Int): Int =
     0
 
 public actual fun sceKernelRotateThreadReadyQueue(priority: Int): Int =
-    PspJniBridge.libc_psp_sceKernelRotateThreadReadyQueue(priority)
+    PspJniBridge.libcPspSceKernelRotateThreadReadyQueue(priority)
 
 public actual fun sceKernelReleaseWaitThread(thid: SceUid): Int =
     0
 
 public actual fun sceKernelGetThreadId(): Int =
-    PspJniBridge.libc_psp_sceKernelGetThreadId()
+    PspJniBridge.libcPspSceKernelGetThreadId()
 
 public actual fun sceKernelGetThreadCurrentPriority(): Int =
-    PspJniBridge.libc_psp_sceKernelGetThreadCurrentPriority()
+    PspJniBridge.libcPspSceKernelGetThreadCurrentPriority()
 
 public actual fun sceKernelGetThreadExitStatus(thid: SceUid): Int =
     0
 
 public actual fun sceKernelCheckThreadStack(): Int =
-    PspJniBridge.libc_psp_sceKernelCheckThreadStack()
+    PspJniBridge.libcPspSceKernelCheckThreadStack()
 
 public actual fun sceKernelGetThreadStackFreeSize(thid: SceUid): Int =
     0
 
-public actual fun sceKernelReferThreadStatus(thid: SceUid, info: COpaquePointer?): Int =
+public actual fun sceKernelReferThreadStatus(thid: SceUid, info: MutPtr<SceKernelThreadInfo>): Int =
     0
 
-public actual fun sceKernelReferThreadRunStatus(thid: SceUid, status: COpaquePointer?): Int =
+public actual fun sceKernelReferThreadRunStatus(thid: SceUid, status: MutPtr<SceKernelThreadRunStatus>): Int =
     0
 
-public actual fun sceKernelCreateSema(name: COpaquePointer?, attr: UInt, initVal: Int, maxVal: Int, option: COpaquePointer?): SceUid =
+public actual fun sceKernelCreateSema(name: ConstPtr<UByte>, attr: UInt, initVal: Int, maxVal: Int, option: MutPtr<SceKernelSemaOptParam>): SceUid =
     SceUid()
 
 public actual fun sceKernelDeleteSema(semaId: SceUid): Int =
@@ -2235,19 +2289,19 @@ public actual fun sceKernelDeleteSema(semaId: SceUid): Int =
 public actual fun sceKernelSignalSema(semaId: SceUid, signal: Int): Int =
     0
 
-public actual fun sceKernelWaitSema(semaId: SceUid, signal: Int, timeout: COpaquePointer?): Int =
+public actual fun sceKernelWaitSema(semaId: SceUid, signal: Int, timeout: MutPtr<UInt>): Int =
     0
 
-public actual fun sceKernelWaitSemaCB(semaId: SceUid, signal: Int, timeout: COpaquePointer?): Int =
+public actual fun sceKernelWaitSemaCB(semaId: SceUid, signal: Int, timeout: MutPtr<UInt>): Int =
     0
 
 public actual fun sceKernelPollSema(semaId: SceUid, signal: Int): Int =
     0
 
-public actual fun sceKernelReferSemaStatus(semaId: SceUid, info: COpaquePointer?): Int =
+public actual fun sceKernelReferSemaStatus(semaId: SceUid, info: MutPtr<SceKernelSemaInfo>): Int =
     0
 
-public actual fun sceKernelCreateEventFlag(name: COpaquePointer?, attr: Int, bits: Int, opt: COpaquePointer?): SceUid =
+public actual fun sceKernelCreateEventFlag(name: ConstPtr<UByte>, attr: Int, bits: Int, opt: MutPtr<SceKernelEventFlagOptParam>): SceUid =
     SceUid()
 
 public actual fun sceKernelSetEventFlag(evId: SceUid, bits: UInt): Int =
@@ -2256,61 +2310,61 @@ public actual fun sceKernelSetEventFlag(evId: SceUid, bits: UInt): Int =
 public actual fun sceKernelClearEventFlag(evId: SceUid, bits: UInt): Int =
     0
 
-public actual fun sceKernelPollEventFlag(evId: SceUid, bits: UInt, wait: Int, outBits: COpaquePointer?): Int =
+public actual fun sceKernelPollEventFlag(evId: SceUid, bits: UInt, wait: Int, outBits: MutPtr<UInt>): Int =
     0
 
-public actual fun sceKernelWaitEventFlag(evId: SceUid, bits: UInt, wait: Int, outBits: COpaquePointer?, timeout: COpaquePointer?): Int =
+public actual fun sceKernelWaitEventFlag(evId: SceUid, bits: UInt, wait: Int, outBits: MutPtr<UInt>, timeout: MutPtr<UInt>): Int =
     0
 
-public actual fun sceKernelWaitEventFlagCB(evId: SceUid, bits: UInt, wait: Int, outBits: COpaquePointer?, timeout: COpaquePointer?): Int =
+public actual fun sceKernelWaitEventFlagCB(evId: SceUid, bits: UInt, wait: Int, outBits: MutPtr<UInt>, timeout: MutPtr<UInt>): Int =
     0
 
 public actual fun sceKernelDeleteEventFlag(evId: SceUid): Int =
     0
 
-public actual fun sceKernelReferEventFlagStatus(event: SceUid, status: COpaquePointer?): Int =
+public actual fun sceKernelReferEventFlagStatus(event: SceUid, status: MutPtr<SceKernelEventFlagInfo>): Int =
     0
 
-public actual fun sceKernelCreateMbx(name: COpaquePointer?, attr: UInt, option: COpaquePointer?): SceUid =
+public actual fun sceKernelCreateMbx(name: ConstPtr<UByte>, attr: UInt, option: MutPtr<SceKernelMbxOptParam>): SceUid =
     SceUid()
 
 public actual fun sceKernelDeleteMbx(mbxId: SceUid): Int =
     0
 
-public actual fun sceKernelSendMbx(mbxId: SceUid, message: COpaquePointer?): Int =
+public actual fun sceKernelSendMbx(mbxId: SceUid, message: MutPtr<CVoid>): Int =
     0
 
-public actual fun sceKernelReceiveMbx(mbxId: SceUid, message: COpaquePointer?, timeout: COpaquePointer?): Int =
+public actual fun sceKernelReceiveMbx(mbxId: SceUid, message: MutPtr<MutPtr<CVoid>>, timeout: MutPtr<UInt>): Int =
     0
 
-public actual fun sceKernelReceiveMbxCB(mbxId: SceUid, message: COpaquePointer?, timeout: COpaquePointer?): Int =
+public actual fun sceKernelReceiveMbxCB(mbxId: SceUid, message: MutPtr<MutPtr<CVoid>>, timeout: MutPtr<UInt>): Int =
     0
 
-public actual fun sceKernelPollMbx(mbxId: SceUid, pmessage: COpaquePointer?): Int =
+public actual fun sceKernelPollMbx(mbxId: SceUid, pmessage: MutPtr<MutPtr<CVoid>>): Int =
     0
 
-public actual fun sceKernelCancelReceiveMbx(mbxId: SceUid, num: COpaquePointer?): Int =
+public actual fun sceKernelCancelReceiveMbx(mbxId: SceUid, num: MutPtr<Int>): Int =
     0
 
-public actual fun sceKernelReferMbxStatus(mbxId: SceUid, info: COpaquePointer?): Int =
+public actual fun sceKernelReferMbxStatus(mbxId: SceUid, info: MutPtr<SceKernelMbxInfo>): Int =
     0
 
-public actual fun sceKernelSetAlarm(clock: UInt, handler: SceKernelAlarmHandler, common: COpaquePointer?): SceUid =
+public actual fun sceKernelSetAlarm(clock: UInt, handler: SceKernelAlarmHandler, common: MutPtr<CVoid>): SceUid =
     SceUid()
 
-public actual fun sceKernelSetSysClockAlarm(clock: COpaquePointer?, handler: COpaquePointer?, common: COpaquePointer?): SceUid =
+public actual fun sceKernelSetSysClockAlarm(clock: MutPtr<SceKernelSysClock>, handler: MutPtr<SceKernelAlarmHandler>, common: MutPtr<CVoid>): SceUid =
     SceUid()
 
 public actual fun sceKernelCancelAlarm(alarmId: SceUid): Int =
     0
 
-public actual fun sceKernelReferAlarmStatus(alarmId: SceUid, info: COpaquePointer?): Int =
+public actual fun sceKernelReferAlarmStatus(alarmId: SceUid, info: MutPtr<SceKernelAlarmInfo>): Int =
     0
 
-public actual fun sceKernelCreateCallback(name: COpaquePointer?, func: SceKernelCallbackFunction, arg: COpaquePointer?): SceUid =
+public actual fun sceKernelCreateCallback(name: ConstPtr<UByte>, func: SceKernelCallbackFunction, arg: MutPtr<CVoid>): SceUid =
     SceUid()
 
-public actual fun sceKernelReferCallbackStatus(cb: SceUid, status: COpaquePointer?): Int =
+public actual fun sceKernelReferCallbackStatus(cb: SceUid, status: MutPtr<SceKernelCallbackInfo>): Int =
     0
 
 public actual fun sceKernelDeleteCallback(cb: SceUid): Int =
@@ -2326,132 +2380,132 @@ public actual fun sceKernelGetCallbackCount(cb: SceUid): Int =
     0
 
 public actual fun sceKernelCheckCallback(): Int =
-    PspJniBridge.libc_psp_sceKernelCheckCallback()
+    PspJniBridge.libcPspSceKernelCheckCallback()
 
-public actual fun sceKernelGetThreadmanIdList(type: SceKernelIdListType, readBuf: COpaquePointer?, readBufSize: Int, idCount: COpaquePointer?): Int =
+public actual fun sceKernelGetThreadmanIdList(type: SceKernelIdListType, readBuf: MutPtr<SceUid>, readBufSize: Int, idCount: MutPtr<Int>): Int =
     0
 
-public actual fun sceKernelReferSystemStatus(status: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceKernelReferSystemStatus((status?.value ?: 0L))
+public actual fun sceKernelReferSystemStatus(status: MutPtr<SceKernelSystemStatus>): Int =
+    PspJniBridge.libcPspSceKernelReferSystemStatus(status.rawAddress)
 
-public actual fun sceKernelCreateMsgPipe(name: COpaquePointer?, part: Int, attr: Int, unk1: COpaquePointer?, opt: COpaquePointer?): SceUid =
+public actual fun sceKernelCreateMsgPipe(name: ConstPtr<UByte>, part: Int, attr: Int, unk1: MutPtr<CVoid>, opt: MutPtr<CVoid>): SceUid =
     SceUid()
 
 public actual fun sceKernelDeleteMsgPipe(uid: SceUid): Int =
     0
 
-public actual fun sceKernelSendMsgPipe(uid: SceUid, message: COpaquePointer?, size: UInt, unk1: Int, unk2: COpaquePointer?, timeout: COpaquePointer?): Int =
+public actual fun sceKernelSendMsgPipe(uid: SceUid, message: MutPtr<CVoid>, size: UInt, unk1: Int, unk2: MutPtr<CVoid>, timeout: MutPtr<UInt>): Int =
     0
 
-public actual fun sceKernelSendMsgPipeCB(uid: SceUid, message: COpaquePointer?, size: UInt, unk1: Int, unk2: COpaquePointer?, timeout: COpaquePointer?): Int =
+public actual fun sceKernelSendMsgPipeCB(uid: SceUid, message: MutPtr<CVoid>, size: UInt, unk1: Int, unk2: MutPtr<CVoid>, timeout: MutPtr<UInt>): Int =
     0
 
-public actual fun sceKernelTrySendMsgPipe(uid: SceUid, message: COpaquePointer?, size: UInt, unk1: Int, unk2: COpaquePointer?): Int =
+public actual fun sceKernelTrySendMsgPipe(uid: SceUid, message: MutPtr<CVoid>, size: UInt, unk1: Int, unk2: MutPtr<CVoid>): Int =
     0
 
-public actual fun sceKernelReceiveMsgPipe(uid: SceUid, message: COpaquePointer?, size: UInt, unk1: Int, unk2: COpaquePointer?, timeout: COpaquePointer?): Int =
+public actual fun sceKernelReceiveMsgPipe(uid: SceUid, message: MutPtr<CVoid>, size: UInt, unk1: Int, unk2: MutPtr<CVoid>, timeout: MutPtr<UInt>): Int =
     0
 
-public actual fun sceKernelReceiveMsgPipeCB(uid: SceUid, message: COpaquePointer?, size: UInt, unk1: Int, unk2: COpaquePointer?, timeout: COpaquePointer?): Int =
+public actual fun sceKernelReceiveMsgPipeCB(uid: SceUid, message: MutPtr<CVoid>, size: UInt, unk1: Int, unk2: MutPtr<CVoid>, timeout: MutPtr<UInt>): Int =
     0
 
-public actual fun sceKernelTryReceiveMsgPipe(uid: SceUid, message: COpaquePointer?, size: UInt, unk1: Int, unk2: COpaquePointer?): Int =
+public actual fun sceKernelTryReceiveMsgPipe(uid: SceUid, message: MutPtr<CVoid>, size: UInt, unk1: Int, unk2: MutPtr<CVoid>): Int =
     0
 
-public actual fun sceKernelCancelMsgPipe(uid: SceUid, send: COpaquePointer?, recv: COpaquePointer?): Int =
+public actual fun sceKernelCancelMsgPipe(uid: SceUid, send: MutPtr<Int>, recv: MutPtr<Int>): Int =
     0
 
-public actual fun sceKernelReferMsgPipeStatus(uid: SceUid, info: COpaquePointer?): Int =
+public actual fun sceKernelReferMsgPipeStatus(uid: SceUid, info: MutPtr<SceKernelMppInfo>): Int =
     0
 
-public actual fun sceKernelCreateVpl(name: COpaquePointer?, part: Int, attr: Int, size: UInt, opt: COpaquePointer?): SceUid =
+public actual fun sceKernelCreateVpl(name: ConstPtr<UByte>, part: Int, attr: Int, size: UInt, opt: MutPtr<SceKernelVplOptParam>): SceUid =
     SceUid()
 
 public actual fun sceKernelDeleteVpl(uid: SceUid): Int =
     0
 
-public actual fun sceKernelAllocateVpl(uid: SceUid, size: UInt, data: COpaquePointer?, timeout: COpaquePointer?): Int =
+public actual fun sceKernelAllocateVpl(uid: SceUid, size: UInt, data: MutPtr<MutPtr<CVoid>>, timeout: MutPtr<UInt>): Int =
     0
 
-public actual fun sceKernelAllocateVplCB(uid: SceUid, size: UInt, data: COpaquePointer?, timeout: COpaquePointer?): Int =
+public actual fun sceKernelAllocateVplCB(uid: SceUid, size: UInt, data: MutPtr<MutPtr<CVoid>>, timeout: MutPtr<UInt>): Int =
     0
 
-public actual fun sceKernelTryAllocateVpl(uid: SceUid, size: UInt, data: COpaquePointer?): Int =
+public actual fun sceKernelTryAllocateVpl(uid: SceUid, size: UInt, data: MutPtr<MutPtr<CVoid>>): Int =
     0
 
-public actual fun sceKernelFreeVpl(uid: SceUid, data: COpaquePointer?): Int =
+public actual fun sceKernelFreeVpl(uid: SceUid, data: MutPtr<CVoid>): Int =
     0
 
-public actual fun sceKernelCancelVpl(uid: SceUid, num: COpaquePointer?): Int =
+public actual fun sceKernelCancelVpl(uid: SceUid, num: MutPtr<Int>): Int =
     0
 
-public actual fun sceKernelReferVplStatus(uid: SceUid, info: COpaquePointer?): Int =
+public actual fun sceKernelReferVplStatus(uid: SceUid, info: MutPtr<SceKernelVplInfo>): Int =
     0
 
-public actual fun sceKernelCreateFpl(name: COpaquePointer?, part: Int, attr: Int, size: UInt, blocks: UInt, opt: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceKernelCreateFpl((name?.value ?: 0L), part, attr, size.toInt(), blocks.toInt(), (opt?.value ?: 0L))
+public actual fun sceKernelCreateFpl(name: ConstPtr<UByte>, part: Int, attr: Int, size: UInt, blocks: UInt, opt: MutPtr<SceKernelFplOptParam>): Int =
+    PspJniBridge.libcPspSceKernelCreateFpl(name.rawAddress, part, attr, size.toInt(), blocks.toInt(), opt.rawAddress)
 
 public actual fun sceKernelDeleteFpl(uid: SceUid): Int =
     0
 
-public actual fun sceKernelAllocateFpl(uid: SceUid, data: COpaquePointer?, timeout: COpaquePointer?): Int =
+public actual fun sceKernelAllocateFpl(uid: SceUid, data: MutPtr<MutPtr<CVoid>>, timeout: MutPtr<UInt>): Int =
     0
 
-public actual fun sceKernelAllocateFplCB(uid: SceUid, data: COpaquePointer?, timeout: COpaquePointer?): Int =
+public actual fun sceKernelAllocateFplCB(uid: SceUid, data: MutPtr<MutPtr<CVoid>>, timeout: MutPtr<UInt>): Int =
     0
 
-public actual fun sceKernelTryAllocateFpl(uid: SceUid, data: COpaquePointer?): Int =
+public actual fun sceKernelTryAllocateFpl(uid: SceUid, data: MutPtr<MutPtr<CVoid>>): Int =
     0
 
-public actual fun sceKernelFreeFpl(uid: SceUid, data: COpaquePointer?): Int =
+public actual fun sceKernelFreeFpl(uid: SceUid, data: MutPtr<CVoid>): Int =
     0
 
-public actual fun sceKernelCancelFpl(uid: SceUid, pnum: COpaquePointer?): Int =
+public actual fun sceKernelCancelFpl(uid: SceUid, pnum: MutPtr<Int>): Int =
     0
 
-public actual fun sceKernelReferFplStatus(uid: SceUid, info: COpaquePointer?): Int =
+public actual fun sceKernelReferFplStatus(uid: SceUid, info: MutPtr<SceKernelFplInfo>): Int =
     0
 
-public actual fun sceKernelUSec2SysClock(usec: UInt, clock: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceKernelUSec2SysClock(usec.toInt(), (clock?.value ?: 0L))
+public actual fun sceKernelUSec2SysClock(usec: UInt, clock: MutPtr<SceKernelSysClock>): Int =
+    PspJniBridge.libcPspSceKernelUSec2SysClock(usec.toInt(), clock.rawAddress)
 
 public actual fun sceKernelUSec2SysClockWide(usec: UInt): Long =
-    PspJniBridge.libc_psp_sceKernelUSec2SysClockWide(usec.toInt())
+    PspJniBridge.libcPspSceKernelUSec2SysClockWide(usec.toInt())
 
-public actual fun sceKernelSysClock2USec(clock: COpaquePointer?, low: COpaquePointer?, high: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceKernelSysClock2USec((clock?.value ?: 0L), (low?.value ?: 0L), (high?.value ?: 0L))
+public actual fun sceKernelSysClock2USec(clock: MutPtr<SceKernelSysClock>, low: MutPtr<UInt>, high: MutPtr<UInt>): Int =
+    PspJniBridge.libcPspSceKernelSysClock2USec(clock.rawAddress, low.rawAddress, high.rawAddress)
 
-public actual fun sceKernelSysClock2USecWide(clock: Long, low: COpaquePointer?, high: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceKernelSysClock2USecWide(clock, (low?.value ?: 0L), (high?.value ?: 0L))
+public actual fun sceKernelSysClock2USecWide(clock: Long, low: MutPtr<UInt>, high: MutPtr<UInt>): Int =
+    PspJniBridge.libcPspSceKernelSysClock2USecWide(clock, low.rawAddress, high.rawAddress)
 
-public actual fun sceKernelGetSystemTime(time: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceKernelGetSystemTime((time?.value ?: 0L))
+public actual fun sceKernelGetSystemTime(time: MutPtr<SceKernelSysClock>): Int =
+    PspJniBridge.libcPspSceKernelGetSystemTime(time.rawAddress)
 
 public actual fun sceKernelGetSystemTimeWide(): Long =
-    PspJniBridge.libc_psp_sceKernelGetSystemTimeWide()
+    PspJniBridge.libcPspSceKernelGetSystemTimeWide()
 
 public actual fun sceKernelGetSystemTimeLow(): UInt =
-    PspJniBridge.libc_psp_sceKernelGetSystemTimeLow().toUInt()
+    PspJniBridge.libcPspSceKernelGetSystemTimeLow().toUInt()
 
-public actual fun sceKernelCreateVTimer(name: COpaquePointer?, opt: COpaquePointer?): SceUid =
+public actual fun sceKernelCreateVTimer(name: ConstPtr<UByte>, opt: MutPtr<SceKernelVTimerOptParam>): SceUid =
     SceUid()
 
 public actual fun sceKernelDeleteVTimer(uid: SceUid): Int =
     0
 
-public actual fun sceKernelGetVTimerBase(uid: SceUid, base: COpaquePointer?): Int =
+public actual fun sceKernelGetVTimerBase(uid: SceUid, base: MutPtr<SceKernelSysClock>): Int =
     0
 
 public actual fun sceKernelGetVTimerBaseWide(uid: SceUid): Long =
     0L
 
-public actual fun sceKernelGetVTimerTime(uid: SceUid, time: COpaquePointer?): Int =
+public actual fun sceKernelGetVTimerTime(uid: SceUid, time: MutPtr<SceKernelSysClock>): Int =
     0
 
 public actual fun sceKernelGetVTimerTimeWide(uid: SceUid): Long =
     0L
 
-public actual fun sceKernelSetVTimerTime(uid: SceUid, time: COpaquePointer?): Int =
+public actual fun sceKernelSetVTimerTime(uid: SceUid, time: MutPtr<SceKernelSysClock>): Int =
     0
 
 public actual fun sceKernelSetVTimerTimeWide(uid: SceUid, time: Long): Long =
@@ -2463,113 +2517,113 @@ public actual fun sceKernelStartVTimer(uid: SceUid): Int =
 public actual fun sceKernelStopVTimer(uid: SceUid): Int =
     0
 
-public actual fun sceKernelSetVTimerHandler(uid: SceUid, time: COpaquePointer?, handler: SceKernelVTimerHandler, common: COpaquePointer?): Int =
+public actual fun sceKernelSetVTimerHandler(uid: SceUid, time: MutPtr<SceKernelSysClock>, handler: SceKernelVTimerHandler, common: MutPtr<CVoid>): Int =
     0
 
-public actual fun sceKernelSetVTimerHandlerWide(uid: SceUid, time: Long, handler: SceKernelVTimerHandlerWide, common: COpaquePointer?): Int =
+public actual fun sceKernelSetVTimerHandlerWide(uid: SceUid, time: Long, handler: SceKernelVTimerHandlerWide, common: MutPtr<CVoid>): Int =
     0
 
 public actual fun sceKernelCancelVTimerHandler(uid: SceUid): Int =
     0
 
-public actual fun sceKernelReferVTimerStatus(uid: SceUid, info: COpaquePointer?): Int =
+public actual fun sceKernelReferVTimerStatus(uid: SceUid, info: MutPtr<SceKernelVTimerInfo>): Int =
     0
 
-public actual fun sceKernelRegisterThreadEventHandler(name: COpaquePointer?, threadId: SceUid, mask: Int, handler: SceKernelThreadEventHandler, common: COpaquePointer?): SceUid =
+public actual fun sceKernelRegisterThreadEventHandler(name: ConstPtr<UByte>, threadId: SceUid, mask: Int, handler: SceKernelThreadEventHandler, common: MutPtr<CVoid>): SceUid =
     SceUid()
 
 public actual fun sceKernelReleaseThreadEventHandler(uid: SceUid): Int =
     0
 
-public actual fun sceKernelReferThreadEventHandlerStatus(uid: SceUid, info: COpaquePointer?): Int =
+public actual fun sceKernelReferThreadEventHandlerStatus(uid: SceUid, info: MutPtr<SceKernelThreadEventHandlerInfo>): Int =
     0
 
-public actual fun sceKernelReferThreadProfiler(): COpaquePointer? =
-    PspJniBridge.libc_psp_sceKernelReferThreadProfiler().let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun sceKernelReferThreadProfiler(): MutPtr<DebugProfilerRegs> =
+    MutPtr(PspJniBridge.libcPspSceKernelReferThreadProfiler())
 
-public actual fun sceKernelReferGlobalProfiler(): COpaquePointer? =
-    PspJniBridge.libc_psp_sceKernelReferGlobalProfiler().let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun sceKernelReferGlobalProfiler(): MutPtr<DebugProfilerRegs> =
+    MutPtr(PspJniBridge.libcPspSceKernelReferGlobalProfiler())
 
-public actual fun sceUsbStart(driverName: COpaquePointer?, size: Int, args: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceUsbStart((driverName?.value ?: 0L), size, (args?.value ?: 0L))
+public actual fun sceUsbStart(driverName: ConstPtr<UByte>, size: Int, args: MutPtr<CVoid>): Int =
+    PspJniBridge.libcPspSceUsbStart(driverName.rawAddress, size, args.rawAddress)
 
-public actual fun sceUsbStop(driverName: COpaquePointer?, size: Int, args: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceUsbStop((driverName?.value ?: 0L), size, (args?.value ?: 0L))
+public actual fun sceUsbStop(driverName: ConstPtr<UByte>, size: Int, args: MutPtr<CVoid>): Int =
+    PspJniBridge.libcPspSceUsbStop(driverName.rawAddress, size, args.rawAddress)
 
 public actual fun sceUsbActivate(pid: UInt): Int =
-    PspJniBridge.libc_psp_sceUsbActivate(pid.toInt())
+    PspJniBridge.libcPspSceUsbActivate(pid.toInt())
 
 public actual fun sceUsbDeactivate(pid: UInt): Int =
-    PspJniBridge.libc_psp_sceUsbDeactivate(pid.toInt())
+    PspJniBridge.libcPspSceUsbDeactivate(pid.toInt())
 
 public actual fun sceUsbGetState(): Int =
-    PspJniBridge.libc_psp_sceUsbGetState()
+    PspJniBridge.libcPspSceUsbGetState()
 
-public actual fun sceUsbGetDrvState(driverName: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceUsbGetDrvState((driverName?.value ?: 0L))
+public actual fun sceUsbGetDrvState(driverName: ConstPtr<UByte>): Int =
+    PspJniBridge.libcPspSceUsbGetDrvState(driverName.rawAddress)
 
-public actual fun sceUsbCamSetupStill(param: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceUsbCamSetupStill((param?.value ?: 0L))
+public actual fun sceUsbCamSetupStill(param: MutPtr<UsbCamSetupStillParam>): Int =
+    PspJniBridge.libcPspSceUsbCamSetupStill(param.rawAddress)
 
-public actual fun sceUsbCamSetupStillEx(param: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceUsbCamSetupStillEx((param?.value ?: 0L))
+public actual fun sceUsbCamSetupStillEx(param: MutPtr<UsbCamSetupStillExParam>): Int =
+    PspJniBridge.libcPspSceUsbCamSetupStillEx(param.rawAddress)
 
-public actual fun sceUsbCamStillInputBlocking(buf: COpaquePointer?, size: ULong): Int =
-    PspJniBridge.libc_psp_sceUsbCamStillInputBlocking((buf?.value ?: 0L), size.toLong())
+public actual fun sceUsbCamStillInputBlocking(buf: MutPtr<UByte>, size: ULong): Int =
+    PspJniBridge.libcPspSceUsbCamStillInputBlocking(buf.rawAddress, size.toLong())
 
-public actual fun sceUsbCamStillInput(buf: COpaquePointer?, size: ULong): Int =
-    PspJniBridge.libc_psp_sceUsbCamStillInput((buf?.value ?: 0L), size.toLong())
+public actual fun sceUsbCamStillInput(buf: MutPtr<UByte>, size: ULong): Int =
+    PspJniBridge.libcPspSceUsbCamStillInput(buf.rawAddress, size.toLong())
 
 public actual fun sceUsbCamStillWaitInputEnd(): Int =
-    PspJniBridge.libc_psp_sceUsbCamStillWaitInputEnd()
+    PspJniBridge.libcPspSceUsbCamStillWaitInputEnd()
 
 public actual fun sceUsbCamStillPollInputEnd(): Int =
-    PspJniBridge.libc_psp_sceUsbCamStillPollInputEnd()
+    PspJniBridge.libcPspSceUsbCamStillPollInputEnd()
 
 public actual fun sceUsbCamStillCancelInput(): Int =
-    PspJniBridge.libc_psp_sceUsbCamStillCancelInput()
+    PspJniBridge.libcPspSceUsbCamStillCancelInput()
 
 public actual fun sceUsbCamStillGetInputLength(): Int =
-    PspJniBridge.libc_psp_sceUsbCamStillGetInputLength()
+    PspJniBridge.libcPspSceUsbCamStillGetInputLength()
 
-public actual fun sceUsbCamSetupVideo(param: COpaquePointer?, workArea: COpaquePointer?, workAreaSize: Int): Int =
-    PspJniBridge.libc_psp_sceUsbCamSetupVideo((param?.value ?: 0L), (workArea?.value ?: 0L), workAreaSize)
+public actual fun sceUsbCamSetupVideo(param: MutPtr<UsbCamSetupVideoParam>, workArea: MutPtr<CVoid>, workAreaSize: Int): Int =
+    PspJniBridge.libcPspSceUsbCamSetupVideo(param.rawAddress, workArea.rawAddress, workAreaSize)
 
-public actual fun sceUsbCamSetupVideoEx(param: COpaquePointer?, workArea: COpaquePointer?, workAreaSize: Int): Int =
-    PspJniBridge.libc_psp_sceUsbCamSetupVideoEx((param?.value ?: 0L), (workArea?.value ?: 0L), workAreaSize)
+public actual fun sceUsbCamSetupVideoEx(param: MutPtr<UsbCamSetupVideoExParam>, workArea: MutPtr<CVoid>, workAreaSize: Int): Int =
+    PspJniBridge.libcPspSceUsbCamSetupVideoEx(param.rawAddress, workArea.rawAddress, workAreaSize)
 
 public actual fun sceUsbCamStartVideo(): Int =
-    PspJniBridge.libc_psp_sceUsbCamStartVideo()
+    PspJniBridge.libcPspSceUsbCamStartVideo()
 
 public actual fun sceUsbCamStopVideo(): Int =
-    PspJniBridge.libc_psp_sceUsbCamStopVideo()
+    PspJniBridge.libcPspSceUsbCamStopVideo()
 
-public actual fun sceUsbCamReadVideoFrameBlocking(buf: COpaquePointer?, size: ULong): Int =
-    PspJniBridge.libc_psp_sceUsbCamReadVideoFrameBlocking((buf?.value ?: 0L), size.toLong())
+public actual fun sceUsbCamReadVideoFrameBlocking(buf: MutPtr<UByte>, size: ULong): Int =
+    PspJniBridge.libcPspSceUsbCamReadVideoFrameBlocking(buf.rawAddress, size.toLong())
 
-public actual fun sceUsbCamReadVideoFrame(buf: COpaquePointer?, size: ULong): Int =
-    PspJniBridge.libc_psp_sceUsbCamReadVideoFrame((buf?.value ?: 0L), size.toLong())
+public actual fun sceUsbCamReadVideoFrame(buf: MutPtr<UByte>, size: ULong): Int =
+    PspJniBridge.libcPspSceUsbCamReadVideoFrame(buf.rawAddress, size.toLong())
 
 public actual fun sceUsbCamWaitReadVideoFrameEnd(): Int =
-    PspJniBridge.libc_psp_sceUsbCamWaitReadVideoFrameEnd()
+    PspJniBridge.libcPspSceUsbCamWaitReadVideoFrameEnd()
 
 public actual fun sceUsbCamPollReadVideoFrameEnd(): Int =
-    PspJniBridge.libc_psp_sceUsbCamPollReadVideoFrameEnd()
+    PspJniBridge.libcPspSceUsbCamPollReadVideoFrameEnd()
 
 public actual fun sceUsbCamGetReadVideoFrameSize(): Int =
-    PspJniBridge.libc_psp_sceUsbCamGetReadVideoFrameSize()
+    PspJniBridge.libcPspSceUsbCamGetReadVideoFrameSize()
 
 public actual fun sceUsbCamSetSaturation(saturation: Int): Int =
-    PspJniBridge.libc_psp_sceUsbCamSetSaturation(saturation)
+    PspJniBridge.libcPspSceUsbCamSetSaturation(saturation)
 
 public actual fun sceUsbCamSetBrightness(brightness: Int): Int =
-    PspJniBridge.libc_psp_sceUsbCamSetBrightness(brightness)
+    PspJniBridge.libcPspSceUsbCamSetBrightness(brightness)
 
 public actual fun sceUsbCamSetContrast(contrast: Int): Int =
-    PspJniBridge.libc_psp_sceUsbCamSetContrast(contrast)
+    PspJniBridge.libcPspSceUsbCamSetContrast(contrast)
 
 public actual fun sceUsbCamSetSharpness(sharpness: Int): Int =
-    PspJniBridge.libc_psp_sceUsbCamSetSharpness(sharpness)
+    PspJniBridge.libcPspSceUsbCamSetSharpness(sharpness)
 
 public actual fun sceUsbCamSetImageEffectMode(effectMode: UsbCamEffectMode): Int =
     0
@@ -2578,267 +2632,267 @@ public actual fun sceUsbCamSetEvLevel(exposureLevel: UsbCamEvLevel): Int =
     0
 
 public actual fun sceUsbCamSetReverseMode(reverseFlags: Int): Int =
-    PspJniBridge.libc_psp_sceUsbCamSetReverseMode(reverseFlags)
+    PspJniBridge.libcPspSceUsbCamSetReverseMode(reverseFlags)
 
 public actual fun sceUsbCamSetZoom(zoom: Int): Int =
-    PspJniBridge.libc_psp_sceUsbCamSetZoom(zoom)
+    PspJniBridge.libcPspSceUsbCamSetZoom(zoom)
 
-public actual fun sceUsbCamGetSaturation(saturation: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceUsbCamGetSaturation((saturation?.value ?: 0L))
+public actual fun sceUsbCamGetSaturation(saturation: MutPtr<Int>): Int =
+    PspJniBridge.libcPspSceUsbCamGetSaturation(saturation.rawAddress)
 
-public actual fun sceUsbCamGetBrightness(brightness: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceUsbCamGetBrightness((brightness?.value ?: 0L))
+public actual fun sceUsbCamGetBrightness(brightness: MutPtr<Int>): Int =
+    PspJniBridge.libcPspSceUsbCamGetBrightness(brightness.rawAddress)
 
-public actual fun sceUsbCamGetContrast(contrast: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceUsbCamGetContrast((contrast?.value ?: 0L))
+public actual fun sceUsbCamGetContrast(contrast: MutPtr<Int>): Int =
+    PspJniBridge.libcPspSceUsbCamGetContrast(contrast.rawAddress)
 
-public actual fun sceUsbCamGetSharpness(sharpness: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceUsbCamGetSharpness((sharpness?.value ?: 0L))
+public actual fun sceUsbCamGetSharpness(sharpness: MutPtr<Int>): Int =
+    PspJniBridge.libcPspSceUsbCamGetSharpness(sharpness.rawAddress)
 
-public actual fun sceUsbCamGetImageEffectMode(effectMode: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceUsbCamGetImageEffectMode((effectMode?.value ?: 0L))
+public actual fun sceUsbCamGetImageEffectMode(effectMode: MutPtr<UsbCamEffectMode>): Int =
+    PspJniBridge.libcPspSceUsbCamGetImageEffectMode(effectMode.rawAddress)
 
-public actual fun sceUsbCamGetEvLevel(exposureLevel: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceUsbCamGetEvLevel((exposureLevel?.value ?: 0L))
+public actual fun sceUsbCamGetEvLevel(exposureLevel: MutPtr<UsbCamEvLevel>): Int =
+    PspJniBridge.libcPspSceUsbCamGetEvLevel(exposureLevel.rawAddress)
 
-public actual fun sceUsbCamGetReverseMode(reverseFlags: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceUsbCamGetReverseMode((reverseFlags?.value ?: 0L))
+public actual fun sceUsbCamGetReverseMode(reverseFlags: MutPtr<Int>): Int =
+    PspJniBridge.libcPspSceUsbCamGetReverseMode(reverseFlags.rawAddress)
 
-public actual fun sceUsbCamGetZoom(zoom: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceUsbCamGetZoom((zoom?.value ?: 0L))
+public actual fun sceUsbCamGetZoom(zoom: MutPtr<Int>): Int =
+    PspJniBridge.libcPspSceUsbCamGetZoom(zoom.rawAddress)
 
 public actual fun sceUsbCamAutoImageReverseSW(on: Int): Int =
-    PspJniBridge.libc_psp_sceUsbCamAutoImageReverseSW(on)
+    PspJniBridge.libcPspSceUsbCamAutoImageReverseSW(on)
 
 public actual fun sceUsbCamGetAutoImageReverseState(): Int =
-    PspJniBridge.libc_psp_sceUsbCamGetAutoImageReverseState()
+    PspJniBridge.libcPspSceUsbCamGetAutoImageReverseState()
 
 public actual fun sceUsbCamGetLensDirection(): Int =
-    PspJniBridge.libc_psp_sceUsbCamGetLensDirection()
+    PspJniBridge.libcPspSceUsbCamGetLensDirection()
 
 public actual fun sceUsbstorBootRegisterNotify(eventFlag: SceUid): Int =
     0
 
 public actual fun sceUsbstorBootUnregisterNotify(eventFlag: UInt): Int =
-    PspJniBridge.libc_psp_sceUsbstorBootUnregisterNotify(eventFlag.toInt())
+    PspJniBridge.libcPspSceUsbstorBootUnregisterNotify(eventFlag.toInt())
 
 public actual fun sceUsbstorBootSetCapacity(size: UInt): Int =
-    PspJniBridge.libc_psp_sceUsbstorBootSetCapacity(size.toInt())
+    PspJniBridge.libcPspSceUsbstorBootSetCapacity(size.toInt())
 
 public actual fun scePowerRegisterCallback(slot: Int, cbid: SceUid): Int =
     0
 
 public actual fun scePowerUnregisterCallback(slot: Int): Int =
-    PspJniBridge.libc_psp_scePowerUnregisterCallback(slot)
+    PspJniBridge.libcPspScePowerUnregisterCallback(slot)
 
 public actual fun scePowerIsPowerOnline(): Int =
-    PspJniBridge.libc_psp_scePowerIsPowerOnline()
+    PspJniBridge.libcPspScePowerIsPowerOnline()
 
 public actual fun scePowerIsBatteryExist(): Int =
-    PspJniBridge.libc_psp_scePowerIsBatteryExist()
+    PspJniBridge.libcPspScePowerIsBatteryExist()
 
 public actual fun scePowerIsBatteryCharging(): Int =
-    PspJniBridge.libc_psp_scePowerIsBatteryCharging()
+    PspJniBridge.libcPspScePowerIsBatteryCharging()
 
 public actual fun scePowerGetBatteryChargingStatus(): Int =
-    PspJniBridge.libc_psp_scePowerGetBatteryChargingStatus()
+    PspJniBridge.libcPspScePowerGetBatteryChargingStatus()
 
 public actual fun scePowerIsLowBattery(): Int =
-    PspJniBridge.libc_psp_scePowerIsLowBattery()
+    PspJniBridge.libcPspScePowerIsLowBattery()
 
 public actual fun scePowerGetBatteryLifePercent(): Int =
-    PspJniBridge.libc_psp_scePowerGetBatteryLifePercent()
+    PspJniBridge.libcPspScePowerGetBatteryLifePercent()
 
 public actual fun scePowerGetBatteryLifeTime(): Int =
-    PspJniBridge.libc_psp_scePowerGetBatteryLifeTime()
+    PspJniBridge.libcPspScePowerGetBatteryLifeTime()
 
 public actual fun scePowerGetBatteryTemp(): Int =
-    PspJniBridge.libc_psp_scePowerGetBatteryTemp()
+    PspJniBridge.libcPspScePowerGetBatteryTemp()
 
 public actual fun scePowerGetBatteryElec(): Int =
-    PspJniBridge.libc_psp_scePowerGetBatteryElec()
+    PspJniBridge.libcPspScePowerGetBatteryElec()
 
 public actual fun scePowerGetBatteryVolt(): Int =
-    PspJniBridge.libc_psp_scePowerGetBatteryVolt()
+    PspJniBridge.libcPspScePowerGetBatteryVolt()
 
 public actual fun scePowerSetCpuClockFrequency(cpufreq: Int): Int =
-    PspJniBridge.libc_psp_scePowerSetCpuClockFrequency(cpufreq)
+    PspJniBridge.libcPspScePowerSetCpuClockFrequency(cpufreq)
 
 public actual fun scePowerSetBusClockFrequency(busfreq: Int): Int =
-    PspJniBridge.libc_psp_scePowerSetBusClockFrequency(busfreq)
+    PspJniBridge.libcPspScePowerSetBusClockFrequency(busfreq)
 
 public actual fun scePowerGetCpuClockFrequency(): Int =
-    PspJniBridge.libc_psp_scePowerGetCpuClockFrequency()
+    PspJniBridge.libcPspScePowerGetCpuClockFrequency()
 
 public actual fun scePowerGetCpuClockFrequencyInt(): Int =
-    PspJniBridge.libc_psp_scePowerGetCpuClockFrequencyInt()
+    PspJniBridge.libcPspScePowerGetCpuClockFrequencyInt()
 
 public actual fun scePowerGetCpuClockFrequencyFloat(): Float =
-    PspJniBridge.libc_psp_scePowerGetCpuClockFrequencyFloat()
+    PspJniBridge.libcPspScePowerGetCpuClockFrequencyFloat()
 
 public actual fun scePowerGetBusClockFrequency(): Int =
-    PspJniBridge.libc_psp_scePowerGetBusClockFrequency()
+    PspJniBridge.libcPspScePowerGetBusClockFrequency()
 
 public actual fun scePowerGetBusClockFrequencyInt(): Int =
-    PspJniBridge.libc_psp_scePowerGetBusClockFrequencyInt()
+    PspJniBridge.libcPspScePowerGetBusClockFrequencyInt()
 
 public actual fun scePowerGetBusClockFrequencyFloat(): Float =
-    PspJniBridge.libc_psp_scePowerGetBusClockFrequencyFloat()
+    PspJniBridge.libcPspScePowerGetBusClockFrequencyFloat()
 
 public actual fun scePowerSetClockFrequency(pllfreq: Int, cpufreq: Int, busfreq: Int): Int =
-    PspJniBridge.libc_psp_scePowerSetClockFrequency(pllfreq, cpufreq, busfreq)
+    PspJniBridge.libcPspScePowerSetClockFrequency(pllfreq, cpufreq, busfreq)
 
 public actual fun scePowerLock(unknown: Int): Int =
-    PspJniBridge.libc_psp_scePowerLock(unknown)
+    PspJniBridge.libcPspScePowerLock(unknown)
 
 public actual fun scePowerUnlock(unknown: Int): Int =
-    PspJniBridge.libc_psp_scePowerUnlock(unknown)
+    PspJniBridge.libcPspScePowerUnlock(unknown)
 
 public actual fun scePowerTick(t: PowerTick): Int =
     0
 
 public actual fun scePowerGetIdleTimer(): Int =
-    PspJniBridge.libc_psp_scePowerGetIdleTimer()
+    PspJniBridge.libcPspScePowerGetIdleTimer()
 
 public actual fun scePowerIdleTimerEnable(unknown: Int): Int =
-    PspJniBridge.libc_psp_scePowerIdleTimerEnable(unknown)
+    PspJniBridge.libcPspScePowerIdleTimerEnable(unknown)
 
 public actual fun scePowerIdleTimerDisable(unknown: Int): Int =
-    PspJniBridge.libc_psp_scePowerIdleTimerDisable(unknown)
+    PspJniBridge.libcPspScePowerIdleTimerDisable(unknown)
 
 public actual fun scePowerRequestStandby(): Int =
-    PspJniBridge.libc_psp_scePowerRequestStandby()
+    PspJniBridge.libcPspScePowerRequestStandby()
 
 public actual fun scePowerRequestSuspend(): Int =
-    PspJniBridge.libc_psp_scePowerRequestSuspend()
+    PspJniBridge.libcPspScePowerRequestSuspend()
 
 public actual fun sceWlanDevIsPowerOn(): Int =
-    PspJniBridge.libc_psp_sceWlanDevIsPowerOn()
+    PspJniBridge.libcPspSceWlanDevIsPowerOn()
 
 public actual fun sceWlanGetSwitchState(): Int =
-    PspJniBridge.libc_psp_sceWlanGetSwitchState()
+    PspJniBridge.libcPspSceWlanGetSwitchState()
 
-public actual fun sceWlanGetEtherAddr(etherAddr: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceWlanGetEtherAddr((etherAddr?.value ?: 0L))
+public actual fun sceWlanGetEtherAddr(etherAddr: MutPtr<UByte>): Int =
+    PspJniBridge.libcPspSceWlanGetEtherAddr(etherAddr.rawAddress)
 
 public actual fun sceWlanDevAttach(): Int =
-    PspJniBridge.libc_psp_sceWlanDevAttach()
+    PspJniBridge.libcPspSceWlanDevAttach()
 
 public actual fun sceWlanDevDetach(): Int =
-    PspJniBridge.libc_psp_sceWlanDevDetach()
+    PspJniBridge.libcPspSceWlanDevDetach()
 
 public actual fun sceRtcGetTickResolution(): UInt =
-    PspJniBridge.libc_psp_sceRtcGetTickResolution().toUInt()
+    PspJniBridge.libcPspSceRtcGetTickResolution().toUInt()
 
-public actual fun sceRtcGetCurrentTick(tick: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceRtcGetCurrentTick((tick?.value ?: 0L))
+public actual fun sceRtcGetCurrentTick(tick: MutPtr<ULong>): Int =
+    PspJniBridge.libcPspSceRtcGetCurrentTick(tick.rawAddress)
 
-public actual fun sceRtcGetCurrentClock(tm: COpaquePointer?, tz: Int): Int =
-    PspJniBridge.libc_psp_sceRtcGetCurrentClock((tm?.value ?: 0L), tz)
+public actual fun sceRtcGetCurrentClock(tm: MutPtr<ScePspDateTime>, tz: Int): Int =
+    PspJniBridge.libcPspSceRtcGetCurrentClock(tm.rawAddress, tz)
 
-public actual fun sceRtcGetCurrentClockLocalTime(tm: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceRtcGetCurrentClockLocalTime((tm?.value ?: 0L))
+public actual fun sceRtcGetCurrentClockLocalTime(tm: MutPtr<ScePspDateTime>): Int =
+    PspJniBridge.libcPspSceRtcGetCurrentClockLocalTime(tm.rawAddress)
 
-public actual fun sceRtcConvertUtcToLocalTime(tickUtc: COpaquePointer?, tickLocal: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceRtcConvertUtcToLocalTime((tickUtc?.value ?: 0L), (tickLocal?.value ?: 0L))
+public actual fun sceRtcConvertUtcToLocalTime(tickUtc: ConstPtr<ULong>, tickLocal: MutPtr<ULong>): Int =
+    PspJniBridge.libcPspSceRtcConvertUtcToLocalTime(tickUtc.rawAddress, tickLocal.rawAddress)
 
-public actual fun sceRtcConvertLocalTimeToUTC(tickLocal: COpaquePointer?, tickUtc: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceRtcConvertLocalTimeToUTC((tickLocal?.value ?: 0L), (tickUtc?.value ?: 0L))
+public actual fun sceRtcConvertLocalTimeToUTC(tickLocal: ConstPtr<ULong>, tickUtc: MutPtr<ULong>): Int =
+    PspJniBridge.libcPspSceRtcConvertLocalTimeToUTC(tickLocal.rawAddress, tickUtc.rawAddress)
 
 public actual fun sceRtcIsLeapYear(year: Int): Int =
-    PspJniBridge.libc_psp_sceRtcIsLeapYear(year)
+    PspJniBridge.libcPspSceRtcIsLeapYear(year)
 
 public actual fun sceRtcGetDaysInMonth(year: Int, month: Int): Int =
-    PspJniBridge.libc_psp_sceRtcGetDaysInMonth(year, month)
+    PspJniBridge.libcPspSceRtcGetDaysInMonth(year, month)
 
 public actual fun sceRtcGetDayOfWeek(year: Int, month: Int, day: Int): Int =
-    PspJniBridge.libc_psp_sceRtcGetDayOfWeek(year, month, day)
+    PspJniBridge.libcPspSceRtcGetDayOfWeek(year, month, day)
 
-public actual fun sceRtcCheckValid(date: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceRtcCheckValid((date?.value ?: 0L))
+public actual fun sceRtcCheckValid(date: ConstPtr<ScePspDateTime>): Int =
+    PspJniBridge.libcPspSceRtcCheckValid(date.rawAddress)
 
-public actual fun sceRtcSetTick(date: COpaquePointer?, tick: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceRtcSetTick((date?.value ?: 0L), (tick?.value ?: 0L))
+public actual fun sceRtcSetTick(date: MutPtr<ScePspDateTime>, tick: ConstPtr<ULong>): Int =
+    PspJniBridge.libcPspSceRtcSetTick(date.rawAddress, tick.rawAddress)
 
-public actual fun sceRtcGetTick(date: COpaquePointer?, tick: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceRtcGetTick((date?.value ?: 0L), (tick?.value ?: 0L))
+public actual fun sceRtcGetTick(date: ConstPtr<ScePspDateTime>, tick: MutPtr<ULong>): Int =
+    PspJniBridge.libcPspSceRtcGetTick(date.rawAddress, tick.rawAddress)
 
-public actual fun sceRtcCompareTick(tick1: COpaquePointer?, tick2: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceRtcCompareTick((tick1?.value ?: 0L), (tick2?.value ?: 0L))
+public actual fun sceRtcCompareTick(tick1: ConstPtr<ULong>, tick2: ConstPtr<ULong>): Int =
+    PspJniBridge.libcPspSceRtcCompareTick(tick1.rawAddress, tick2.rawAddress)
 
-public actual fun sceRtcTickAddTicks(destTick: COpaquePointer?, srcTick: COpaquePointer?, numTicks: ULong): Int =
-    PspJniBridge.libc_psp_sceRtcTickAddTicks((destTick?.value ?: 0L), (srcTick?.value ?: 0L), numTicks.toLong())
+public actual fun sceRtcTickAddTicks(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numTicks: ULong): Int =
+    PspJniBridge.libcPspSceRtcTickAddTicks(destTick.rawAddress, srcTick.rawAddress, numTicks.toLong())
 
-public actual fun sceRtcTickAddMicroseconds(destTick: COpaquePointer?, srcTick: COpaquePointer?, numMs: ULong): Int =
-    PspJniBridge.libc_psp_sceRtcTickAddMicroseconds((destTick?.value ?: 0L), (srcTick?.value ?: 0L), numMs.toLong())
+public actual fun sceRtcTickAddMicroseconds(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numMs: ULong): Int =
+    PspJniBridge.libcPspSceRtcTickAddMicroseconds(destTick.rawAddress, srcTick.rawAddress, numMs.toLong())
 
-public actual fun sceRtcTickAddSeconds(destTick: COpaquePointer?, srcTick: COpaquePointer?, numSeconds: ULong): Int =
-    PspJniBridge.libc_psp_sceRtcTickAddSeconds((destTick?.value ?: 0L), (srcTick?.value ?: 0L), numSeconds.toLong())
+public actual fun sceRtcTickAddSeconds(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numSeconds: ULong): Int =
+    PspJniBridge.libcPspSceRtcTickAddSeconds(destTick.rawAddress, srcTick.rawAddress, numSeconds.toLong())
 
-public actual fun sceRtcTickAddMinutes(destTick: COpaquePointer?, srcTick: COpaquePointer?, numMinutes: ULong): Int =
-    PspJniBridge.libc_psp_sceRtcTickAddMinutes((destTick?.value ?: 0L), (srcTick?.value ?: 0L), numMinutes.toLong())
+public actual fun sceRtcTickAddMinutes(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numMinutes: ULong): Int =
+    PspJniBridge.libcPspSceRtcTickAddMinutes(destTick.rawAddress, srcTick.rawAddress, numMinutes.toLong())
 
-public actual fun sceRtcTickAddHours(destTick: COpaquePointer?, srcTick: COpaquePointer?, numHours: ULong): Int =
-    PspJniBridge.libc_psp_sceRtcTickAddHours((destTick?.value ?: 0L), (srcTick?.value ?: 0L), numHours.toLong())
+public actual fun sceRtcTickAddHours(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numHours: ULong): Int =
+    PspJniBridge.libcPspSceRtcTickAddHours(destTick.rawAddress, srcTick.rawAddress, numHours.toLong())
 
-public actual fun sceRtcTickAddDays(destTick: COpaquePointer?, srcTick: COpaquePointer?, numDays: ULong): Int =
-    PspJniBridge.libc_psp_sceRtcTickAddDays((destTick?.value ?: 0L), (srcTick?.value ?: 0L), numDays.toLong())
+public actual fun sceRtcTickAddDays(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numDays: ULong): Int =
+    PspJniBridge.libcPspSceRtcTickAddDays(destTick.rawAddress, srcTick.rawAddress, numDays.toLong())
 
-public actual fun sceRtcTickAddWeeks(destTick: COpaquePointer?, srcTick: COpaquePointer?, numWeeks: ULong): Int =
-    PspJniBridge.libc_psp_sceRtcTickAddWeeks((destTick?.value ?: 0L), (srcTick?.value ?: 0L), numWeeks.toLong())
+public actual fun sceRtcTickAddWeeks(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numWeeks: ULong): Int =
+    PspJniBridge.libcPspSceRtcTickAddWeeks(destTick.rawAddress, srcTick.rawAddress, numWeeks.toLong())
 
-public actual fun sceRtcTickAddMonths(destTick: COpaquePointer?, srcTick: COpaquePointer?, numMonths: ULong): Int =
-    PspJniBridge.libc_psp_sceRtcTickAddMonths((destTick?.value ?: 0L), (srcTick?.value ?: 0L), numMonths.toLong())
+public actual fun sceRtcTickAddMonths(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numMonths: ULong): Int =
+    PspJniBridge.libcPspSceRtcTickAddMonths(destTick.rawAddress, srcTick.rawAddress, numMonths.toLong())
 
-public actual fun sceRtcTickAddYears(destTick: COpaquePointer?, srcTick: COpaquePointer?, numYears: ULong): Int =
-    PspJniBridge.libc_psp_sceRtcTickAddYears((destTick?.value ?: 0L), (srcTick?.value ?: 0L), numYears.toLong())
+public actual fun sceRtcTickAddYears(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numYears: ULong): Int =
+    PspJniBridge.libcPspSceRtcTickAddYears(destTick.rawAddress, srcTick.rawAddress, numYears.toLong())
 
-public actual fun sceRtcSetTimeT(date: COpaquePointer?, time: UInt): Int =
-    PspJniBridge.libc_psp_sceRtcSetTimeT((date?.value ?: 0L), time.toInt())
+public actual fun sceRtcSetTimeT(date: MutPtr<ScePspDateTime>, time: UInt): Int =
+    PspJniBridge.libcPspSceRtcSetTimeT(date.rawAddress, time.toInt())
 
-public actual fun sceRtcGetTimeT(date: COpaquePointer?, time: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceRtcGetTimeT((date?.value ?: 0L), (time?.value ?: 0L))
+public actual fun sceRtcGetTimeT(date: ConstPtr<ScePspDateTime>, time: MutPtr<UInt>): Int =
+    PspJniBridge.libcPspSceRtcGetTimeT(date.rawAddress, time.rawAddress)
 
-public actual fun sceRtcSetTime64T(date: COpaquePointer?, time: ULong): Int =
-    PspJniBridge.libc_psp_sceRtcSetTime64T((date?.value ?: 0L), time.toLong())
+public actual fun sceRtcSetTime64T(date: MutPtr<ScePspDateTime>, time: ULong): Int =
+    PspJniBridge.libcPspSceRtcSetTime64T(date.rawAddress, time.toLong())
 
-public actual fun sceRtcGetTime64T(date: COpaquePointer?, time: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceRtcGetTime64T((date?.value ?: 0L), (time?.value ?: 0L))
+public actual fun sceRtcGetTime64T(date: ConstPtr<ScePspDateTime>, time: MutPtr<ULong>): Int =
+    PspJniBridge.libcPspSceRtcGetTime64T(date.rawAddress, time.rawAddress)
 
-public actual fun sceRtcSetDosTime(date: COpaquePointer?, dosTime: UInt): Int =
-    PspJniBridge.libc_psp_sceRtcSetDosTime((date?.value ?: 0L), dosTime.toInt())
+public actual fun sceRtcSetDosTime(date: MutPtr<ScePspDateTime>, dosTime: UInt): Int =
+    PspJniBridge.libcPspSceRtcSetDosTime(date.rawAddress, dosTime.toInt())
 
-public actual fun sceRtcGetDosTime(date: COpaquePointer?, dosTime: UInt): Int =
-    PspJniBridge.libc_psp_sceRtcGetDosTime((date?.value ?: 0L), dosTime.toInt())
+public actual fun sceRtcGetDosTime(date: MutPtr<ScePspDateTime>, dosTime: UInt): Int =
+    PspJniBridge.libcPspSceRtcGetDosTime(date.rawAddress, dosTime.toInt())
 
-public actual fun sceRtcSetWin32FileTime(date: COpaquePointer?, time: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceRtcSetWin32FileTime((date?.value ?: 0L), (time?.value ?: 0L))
+public actual fun sceRtcSetWin32FileTime(date: MutPtr<ScePspDateTime>, time: MutPtr<ULong>): Int =
+    PspJniBridge.libcPspSceRtcSetWin32FileTime(date.rawAddress, time.rawAddress)
 
-public actual fun sceRtcGetWin32FileTime(date: COpaquePointer?, time: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceRtcGetWin32FileTime((date?.value ?: 0L), (time?.value ?: 0L))
+public actual fun sceRtcGetWin32FileTime(date: MutPtr<ScePspDateTime>, time: MutPtr<ULong>): Int =
+    PspJniBridge.libcPspSceRtcGetWin32FileTime(date.rawAddress, time.rawAddress)
 
-public actual fun sceRtcParseDateTime(destTick: COpaquePointer?, dateString: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceRtcParseDateTime((destTick?.value ?: 0L), (dateString?.value ?: 0L))
+public actual fun sceRtcParseDateTime(destTick: MutPtr<ULong>, dateString: ConstPtr<UByte>): Int =
+    PspJniBridge.libcPspSceRtcParseDateTime(destTick.rawAddress, dateString.rawAddress)
 
-public actual fun sceRtcFormatRFC3339(pszDateTime: COpaquePointer?, pUtc: COpaquePointer?, timeZoneMinutes: Int): Int =
-    PspJniBridge.libc_psp_sceRtcFormatRFC3339((pszDateTime?.value ?: 0L), (pUtc?.value ?: 0L), timeZoneMinutes)
+public actual fun sceRtcFormatRFC3339(pszDateTime: MutPtr<CChar>, pUtc: ConstPtr<ULong>, timeZoneMinutes: Int): Int =
+    PspJniBridge.libcPspSceRtcFormatRFC3339(pszDateTime.rawAddress, pUtc.rawAddress, timeZoneMinutes)
 
-public actual fun sceRtcFormatRFC3339LocalTime(pszDateTime: COpaquePointer?, pUtc: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceRtcFormatRFC3339LocalTime((pszDateTime?.value ?: 0L), (pUtc?.value ?: 0L))
+public actual fun sceRtcFormatRFC3339LocalTime(pszDateTime: MutPtr<CChar>, pUtc: ConstPtr<ULong>): Int =
+    PspJniBridge.libcPspSceRtcFormatRFC3339LocalTime(pszDateTime.rawAddress, pUtc.rawAddress)
 
-public actual fun sceRtcParseRFC3339(pUtc: COpaquePointer?, pszDateTime: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceRtcParseRFC3339((pUtc?.value ?: 0L), (pszDateTime?.value ?: 0L))
+public actual fun sceRtcParseRFC3339(pUtc: MutPtr<ULong>, pszDateTime: ConstPtr<UByte>): Int =
+    PspJniBridge.libcPspSceRtcParseRFC3339(pUtc.rawAddress, pszDateTime.rawAddress)
 
-public actual fun sceRtcFormatRFC2822(pszDateTime: COpaquePointer?, pUtc: COpaquePointer?, timeZoneMinutes: Int): Int =
-    PspJniBridge.libc_psp_sceRtcFormatRFC2822((pszDateTime?.value ?: 0L), (pUtc?.value ?: 0L), timeZoneMinutes)
+public actual fun sceRtcFormatRFC2822(pszDateTime: MutPtr<CChar>, pUtc: ConstPtr<ULong>, timeZoneMinutes: Int): Int =
+    PspJniBridge.libcPspSceRtcFormatRFC2822(pszDateTime.rawAddress, pUtc.rawAddress, timeZoneMinutes)
 
-public actual fun sceRtcFormatRFC2822LocalTime(pszDateTime: COpaquePointer?, pUtc: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceRtcFormatRFC2822LocalTime((pszDateTime?.value ?: 0L), (pUtc?.value ?: 0L))
+public actual fun sceRtcFormatRFC2822LocalTime(pszDateTime: MutPtr<CChar>, pUtc: ConstPtr<ULong>): Int =
+    PspJniBridge.libcPspSceRtcFormatRFC2822LocalTime(pszDateTime.rawAddress, pUtc.rawAddress)
 
-public actual fun sceIoOpen(file: COpaquePointer?, flags: Int, permissions: IoPermissions): SceUid =
+public actual fun sceIoOpen(file: ConstPtr<UByte>, flags: Int, permissions: IoPermissions): SceUid =
     SceUid()
 
-public actual fun sceIoOpenAsync(file: COpaquePointer?, flags: Int, permissions: IoPermissions): SceUid =
+public actual fun sceIoOpenAsync(file: ConstPtr<UByte>, flags: Int, permissions: IoPermissions): SceUid =
     SceUid()
 
 public actual fun sceIoClose(fd: SceUid): Int =
@@ -2847,16 +2901,16 @@ public actual fun sceIoClose(fd: SceUid): Int =
 public actual fun sceIoCloseAsync(fd: SceUid): Int =
     0
 
-public actual fun sceIoRead(fd: SceUid, data: COpaquePointer?, size: UInt): Int =
+public actual fun sceIoRead(fd: SceUid, data: MutPtr<CVoid>, size: UInt): Int =
     0
 
-public actual fun sceIoReadAsync(fd: SceUid, data: COpaquePointer?, size: UInt): Int =
+public actual fun sceIoReadAsync(fd: SceUid, data: MutPtr<CVoid>, size: UInt): Int =
     0
 
-public actual fun sceIoWrite(fd: SceUid, data: COpaquePointer?, size: ULong): Int =
+public actual fun sceIoWrite(fd: SceUid, data: ConstPtr<CVoid>, size: ULong): Int =
     0
 
-public actual fun sceIoWriteAsync(fd: SceUid, data: COpaquePointer?, size: UInt): Int =
+public actual fun sceIoWriteAsync(fd: SceUid, data: ConstPtr<CVoid>, size: UInt): Int =
     0
 
 public actual fun sceIoLseek(fd: SceUid, offset: Long, whence: IoWhence): Long =
@@ -2871,64 +2925,64 @@ public actual fun sceIoLseek32(fd: SceUid, offset: Int, whence: IoWhence): Int =
 public actual fun sceIoLseek32Async(fd: SceUid, offset: Int, whence: IoWhence): Int =
     0
 
-public actual fun sceIoRemove(file: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceIoRemove((file?.value ?: 0L))
+public actual fun sceIoRemove(file: ConstPtr<UByte>): Int =
+    PspJniBridge.libcPspSceIoRemove(file.rawAddress)
 
-public actual fun sceIoMkdir(dir: COpaquePointer?, mode: IoPermissions): Int =
-    PspJniBridge.libc_psp_sceIoMkdir((dir?.value ?: 0L), mode)
+public actual fun sceIoMkdir(dir: ConstPtr<UByte>, mode: IoPermissions): Int =
+    PspJniBridge.libcPspSceIoMkdir(dir.rawAddress, mode)
 
-public actual fun sceIoRmdir(path: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceIoRmdir((path?.value ?: 0L))
+public actual fun sceIoRmdir(path: ConstPtr<UByte>): Int =
+    PspJniBridge.libcPspSceIoRmdir(path.rawAddress)
 
-public actual fun sceIoChdir(path: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceIoChdir((path?.value ?: 0L))
+public actual fun sceIoChdir(path: ConstPtr<UByte>): Int =
+    PspJniBridge.libcPspSceIoChdir(path.rawAddress)
 
-public actual fun sceIoRename(oldname: COpaquePointer?, newname: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceIoRename((oldname?.value ?: 0L), (newname?.value ?: 0L))
+public actual fun sceIoRename(oldname: ConstPtr<UByte>, newname: ConstPtr<UByte>): Int =
+    PspJniBridge.libcPspSceIoRename(oldname.rawAddress, newname.rawAddress)
 
-public actual fun sceIoDopen(dirname: COpaquePointer?): SceUid =
+public actual fun sceIoDopen(dirname: ConstPtr<UByte>): SceUid =
     SceUid()
 
-public actual fun sceIoDread(fd: SceUid, dir: COpaquePointer?): Int =
+public actual fun sceIoDread(fd: SceUid, dir: MutPtr<SceIoDirent>): Int =
     0
 
 public actual fun sceIoDclose(fd: SceUid): Int =
     0
 
-public actual fun sceIoDevctl(dev: COpaquePointer?, cmd: UInt, indata: COpaquePointer?, inlen: Int, outdata: COpaquePointer?, outlen: Int): Int =
-    PspJniBridge.libc_psp_sceIoDevctl((dev?.value ?: 0L), cmd.toInt(), (indata?.value ?: 0L), inlen, (outdata?.value ?: 0L), outlen)
+public actual fun sceIoDevctl(dev: ConstPtr<UByte>, cmd: UInt, indata: MutPtr<CVoid>, inlen: Int, outdata: MutPtr<CVoid>, outlen: Int): Int =
+    PspJniBridge.libcPspSceIoDevctl(dev.rawAddress, cmd.toInt(), indata.rawAddress, inlen, outdata.rawAddress, outlen)
 
-public actual fun sceIoAssign(dev1: COpaquePointer?, dev2: COpaquePointer?, dev3: COpaquePointer?, mode: IoAssignPerms, unk1: COpaquePointer?, unk2: Int): Int =
+public actual fun sceIoAssign(dev1: ConstPtr<UByte>, dev2: ConstPtr<UByte>, dev3: ConstPtr<UByte>, mode: IoAssignPerms, unk1: MutPtr<CVoid>, unk2: Int): Int =
     0
 
-public actual fun sceIoUnassign(dev: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceIoUnassign((dev?.value ?: 0L))
+public actual fun sceIoUnassign(dev: ConstPtr<UByte>): Int =
+    PspJniBridge.libcPspSceIoUnassign(dev.rawAddress)
 
-public actual fun sceIoGetstat(file: COpaquePointer?, stat: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceIoGetstat((file?.value ?: 0L), (stat?.value ?: 0L))
+public actual fun sceIoGetstat(file: ConstPtr<UByte>, stat: MutPtr<SceIoStat>): Int =
+    PspJniBridge.libcPspSceIoGetstat(file.rawAddress, stat.rawAddress)
 
-public actual fun sceIoChstat(file: COpaquePointer?, stat: COpaquePointer?, bits: Int): Int =
-    PspJniBridge.libc_psp_sceIoChstat((file?.value ?: 0L), (stat?.value ?: 0L), bits)
+public actual fun sceIoChstat(file: ConstPtr<UByte>, stat: MutPtr<SceIoStat>, bits: Int): Int =
+    PspJniBridge.libcPspSceIoChstat(file.rawAddress, stat.rawAddress, bits)
 
-public actual fun sceIoIoctl(fd: SceUid, cmd: UInt, indata: COpaquePointer?, inlen: Int, outdata: COpaquePointer?, outlen: Int): Int =
+public actual fun sceIoIoctl(fd: SceUid, cmd: UInt, indata: MutPtr<CVoid>, inlen: Int, outdata: MutPtr<CVoid>, outlen: Int): Int =
     0
 
-public actual fun sceIoIoctlAsync(fd: SceUid, cmd: UInt, indata: COpaquePointer?, inlen: Int, outdata: COpaquePointer?, outlen: Int): Int =
+public actual fun sceIoIoctlAsync(fd: SceUid, cmd: UInt, indata: MutPtr<CVoid>, inlen: Int, outdata: MutPtr<CVoid>, outlen: Int): Int =
     0
 
-public actual fun sceIoSync(device: COpaquePointer?, unk: UInt): Int =
-    PspJniBridge.libc_psp_sceIoSync((device?.value ?: 0L), unk.toInt())
+public actual fun sceIoSync(device: ConstPtr<UByte>, unk: UInt): Int =
+    PspJniBridge.libcPspSceIoSync(device.rawAddress, unk.toInt())
 
-public actual fun sceIoWaitAsync(fd: SceUid, res: COpaquePointer?): Int =
+public actual fun sceIoWaitAsync(fd: SceUid, res: MutPtr<Long>): Int =
     0
 
-public actual fun sceIoWaitAsyncCB(fd: SceUid, res: COpaquePointer?): Int =
+public actual fun sceIoWaitAsyncCB(fd: SceUid, res: MutPtr<Long>): Int =
     0
 
-public actual fun sceIoPollAsync(fd: SceUid, res: COpaquePointer?): Int =
+public actual fun sceIoPollAsync(fd: SceUid, res: MutPtr<Long>): Int =
     0
 
-public actual fun sceIoGetAsyncStat(fd: SceUid, poll: Int, res: COpaquePointer?): Int =
+public actual fun sceIoGetAsyncStat(fd: SceUid, poll: Int, res: MutPtr<Long>): Int =
     0
 
 public actual fun sceIoCancel(fd: SceUid): Int =
@@ -2940,103 +2994,103 @@ public actual fun sceIoGetDevType(fd: SceUid): Int =
 public actual fun sceIoChangeAsyncPriority(fd: SceUid, pri: Int): Int =
     0
 
-public actual fun sceIoSetAsyncCallback(fd: SceUid, cb: SceUid, argp: COpaquePointer?): Int =
+public actual fun sceIoSetAsyncCallback(fd: SceUid, cb: SceUid, argp: MutPtr<CVoid>): Int =
     0
 
 public actual fun sceJpegInitMJpeg(): Int =
-    PspJniBridge.libc_psp_sceJpegInitMJpeg()
+    PspJniBridge.libcPspSceJpegInitMJpeg()
 
 public actual fun sceJpegFinishMJpeg(): Int =
-    PspJniBridge.libc_psp_sceJpegFinishMJpeg()
+    PspJniBridge.libcPspSceJpegFinishMJpeg()
 
 public actual fun sceJpegCreateMJpeg(width: Int, height: Int): Int =
-    PspJniBridge.libc_psp_sceJpegCreateMJpeg(width, height)
+    PspJniBridge.libcPspSceJpegCreateMJpeg(width, height)
 
 public actual fun sceJpegDeleteMJpeg(): Int =
-    PspJniBridge.libc_psp_sceJpegDeleteMJpeg()
+    PspJniBridge.libcPspSceJpegDeleteMJpeg()
 
-public actual fun sceJpegDecodeMJpeg(jpegBuf: COpaquePointer?, size: ULong, rgba: COpaquePointer?, unk: UInt): Int =
-    PspJniBridge.libc_psp_sceJpegDecodeMJpeg((jpegBuf?.value ?: 0L), size.toLong(), (rgba?.value ?: 0L), unk.toInt())
+public actual fun sceJpegDecodeMJpeg(jpegBuf: MutPtr<UByte>, size: ULong, rgba: MutPtr<CVoid>, unk: UInt): Int =
+    PspJniBridge.libcPspSceJpegDecodeMJpeg(jpegBuf.rawAddress, size.toLong(), rgba.rawAddress, unk.toInt())
 
 public actual fun sceUmdCheckMedium(): Int =
-    PspJniBridge.libc_psp_sceUmdCheckMedium()
+    PspJniBridge.libcPspSceUmdCheckMedium()
 
-public actual fun sceUmdGetDiscInfo(info: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceUmdGetDiscInfo((info?.value ?: 0L))
+public actual fun sceUmdGetDiscInfo(info: MutPtr<UmdInfo>): Int =
+    PspJniBridge.libcPspSceUmdGetDiscInfo(info.rawAddress)
 
-public actual fun sceUmdActivate(unit: Int, drive: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceUmdActivate(unit, (drive?.value ?: 0L))
+public actual fun sceUmdActivate(unit: Int, drive: ConstPtr<UByte>): Int =
+    PspJniBridge.libcPspSceUmdActivate(unit, drive.rawAddress)
 
-public actual fun sceUmdDeactivate(unit: Int, drive: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceUmdDeactivate(unit, (drive?.value ?: 0L))
+public actual fun sceUmdDeactivate(unit: Int, drive: ConstPtr<UByte>): Int =
+    PspJniBridge.libcPspSceUmdDeactivate(unit, drive.rawAddress)
 
 public actual fun sceUmdWaitDriveStat(state: Int): Int =
-    PspJniBridge.libc_psp_sceUmdWaitDriveStat(state)
+    PspJniBridge.libcPspSceUmdWaitDriveStat(state)
 
 public actual fun sceUmdWaitDriveStatWithTimer(state: Int, timeout: UInt): Int =
-    PspJniBridge.libc_psp_sceUmdWaitDriveStatWithTimer(state, timeout.toInt())
+    PspJniBridge.libcPspSceUmdWaitDriveStatWithTimer(state, timeout.toInt())
 
 public actual fun sceUmdWaitDriveStatCB(state: Int, timeout: UInt): Int =
-    PspJniBridge.libc_psp_sceUmdWaitDriveStatCB(state, timeout.toInt())
+    PspJniBridge.libcPspSceUmdWaitDriveStatCB(state, timeout.toInt())
 
 public actual fun sceUmdCancelWaitDriveStat(): Int =
-    PspJniBridge.libc_psp_sceUmdCancelWaitDriveStat()
+    PspJniBridge.libcPspSceUmdCancelWaitDriveStat()
 
 public actual fun sceUmdGetDriveStat(): Int =
-    PspJniBridge.libc_psp_sceUmdGetDriveStat()
+    PspJniBridge.libcPspSceUmdGetDriveStat()
 
 public actual fun sceUmdGetErrorStat(): Int =
-    PspJniBridge.libc_psp_sceUmdGetErrorStat()
+    PspJniBridge.libcPspSceUmdGetErrorStat()
 
 public actual fun sceUmdRegisterUMDCallBack(cbid: Int): Int =
-    PspJniBridge.libc_psp_sceUmdRegisterUMDCallBack(cbid)
+    PspJniBridge.libcPspSceUmdRegisterUMDCallBack(cbid)
 
 public actual fun sceUmdUnRegisterUMDCallBack(cbid: Int): Int =
-    PspJniBridge.libc_psp_sceUmdUnRegisterUMDCallBack(cbid)
+    PspJniBridge.libcPspSceUmdUnRegisterUMDCallBack(cbid)
 
 public actual fun sceUmdReplacePermit(): Int =
-    PspJniBridge.libc_psp_sceUmdReplacePermit()
+    PspJniBridge.libcPspSceUmdReplacePermit()
 
 public actual fun sceUmdReplaceProhibit(): Int =
-    PspJniBridge.libc_psp_sceUmdReplaceProhibit()
+    PspJniBridge.libcPspSceUmdReplaceProhibit()
 
 public actual fun sceMpegInit(): Int =
-    PspJniBridge.libc_psp_sceMpegInit()
+    PspJniBridge.libcPspSceMpegInit()
 
 public actual fun sceMpegFinish() {
-    PspJniBridge.libc_psp_sceMpegFinish()
+    PspJniBridge.libcPspSceMpegFinish()
 }
 
 public actual fun sceMpegRingbufferQueryMemSize(packets: Int): Int =
-    PspJniBridge.libc_psp_sceMpegRingbufferQueryMemSize(packets)
+    PspJniBridge.libcPspSceMpegRingbufferQueryMemSize(packets)
 
-public actual fun sceMpegRingbufferConstruct(ringbuffer: COpaquePointer?, packets: Int, data: COpaquePointer?, size: Int, callback: SceMpegRingbufferCb, cbParam: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceMpegRingbufferConstruct((ringbuffer?.value ?: 0L), packets, (data?.value ?: 0L), size, 0L, (cbParam?.value ?: 0L))
+public actual fun sceMpegRingbufferConstruct(ringbuffer: MutPtr<SceMpegRingbuffer>, packets: Int, data: MutPtr<CVoid>, size: Int, callback: SceMpegRingbufferCb, cbParam: MutPtr<CVoid>): Int =
+    PspJniBridge.libcPspSceMpegRingbufferConstruct(ringbuffer.rawAddress, packets, data.rawAddress, size, 0L, cbParam.rawAddress)
 
-public actual fun sceMpegRingbufferDestruct(ringbuffer: COpaquePointer?) {
-    PspJniBridge.libc_psp_sceMpegRingbufferDestruct((ringbuffer?.value ?: 0L))
+public actual fun sceMpegRingbufferDestruct(ringbuffer: MutPtr<SceMpegRingbuffer>) {
+    PspJniBridge.libcPspSceMpegRingbufferDestruct(ringbuffer.rawAddress)
 }
 
-public actual fun sceMpegRingbufferAvailableSize(ringbuffer: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceMpegRingbufferAvailableSize((ringbuffer?.value ?: 0L))
+public actual fun sceMpegRingbufferAvailableSize(ringbuffer: MutPtr<SceMpegRingbuffer>): Int =
+    PspJniBridge.libcPspSceMpegRingbufferAvailableSize(ringbuffer.rawAddress)
 
-public actual fun sceMpegRingbufferPut(ringbuffer: COpaquePointer?, numPackets: Int, available: Int): Int =
-    PspJniBridge.libc_psp_sceMpegRingbufferPut((ringbuffer?.value ?: 0L), numPackets, available)
+public actual fun sceMpegRingbufferPut(ringbuffer: MutPtr<SceMpegRingbuffer>, numPackets: Int, available: Int): Int =
+    PspJniBridge.libcPspSceMpegRingbufferPut(ringbuffer.rawAddress, numPackets, available)
 
 public actual fun sceMpegQueryMemSize(unk: Int): Int =
-    PspJniBridge.libc_psp_sceMpegQueryMemSize(unk)
+    PspJniBridge.libcPspSceMpegQueryMemSize(unk)
 
-public actual fun sceMpegCreate(handle: SceMpeg, data: COpaquePointer?, size: Int, ringbuffer: COpaquePointer?, frameWidth: Int, unk1: Int, unk2: Int): Int =
+public actual fun sceMpegCreate(handle: SceMpeg, data: MutPtr<CVoid>, size: Int, ringbuffer: MutPtr<SceMpegRingbuffer>, frameWidth: Int, unk1: Int, unk2: Int): Int =
     0
 
 public actual fun sceMpegDelete(handle: SceMpeg) {
 }
 
-public actual fun sceMpegQueryStreamOffset(handle: SceMpeg, buffer: COpaquePointer?, offset: COpaquePointer?): Int =
+public actual fun sceMpegQueryStreamOffset(handle: SceMpeg, buffer: MutPtr<CVoid>, offset: MutPtr<Int>): Int =
     0
 
-public actual fun sceMpegQueryStreamSize(buffer: COpaquePointer?, size: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceMpegQueryStreamSize((buffer?.value ?: 0L), (size?.value ?: 0L))
+public actual fun sceMpegQueryStreamSize(buffer: MutPtr<CVoid>, size: MutPtr<Int>): Int =
+    PspJniBridge.libcPspSceMpegQueryStreamSize(buffer.rawAddress, size.rawAddress)
 
 public actual fun sceMpegRegistStream(handle: SceMpeg, streamId: Int, unk: Int): SceMpegStream =
     SceMpegStream()
@@ -3047,116 +3101,116 @@ public actual fun sceMpegUnRegistStream(handle: SceMpeg, stream: SceMpegStream) 
 public actual fun sceMpegFlushAllStream(handle: SceMpeg): Int =
     0
 
-public actual fun sceMpegMallocAvcEsBuf(handle: SceMpeg): COpaquePointer? =
-    null
+public actual fun sceMpegMallocAvcEsBuf(handle: SceMpeg): MutPtr<CVoid> =
+    MutPtr(0L)
 
-public actual fun sceMpegFreeAvcEsBuf(handle: SceMpeg, buf: COpaquePointer?) {
+public actual fun sceMpegFreeAvcEsBuf(handle: SceMpeg, buf: MutPtr<CVoid>) {
 }
 
-public actual fun sceMpegQueryAtracEsSize(handle: SceMpeg, esSize: COpaquePointer?, outSize: COpaquePointer?): Int =
+public actual fun sceMpegQueryAtracEsSize(handle: SceMpeg, esSize: MutPtr<Int>, outSize: MutPtr<Int>): Int =
     0
 
-public actual fun sceMpegInitAu(handle: SceMpeg, esBuffer: COpaquePointer?, au: COpaquePointer?): Int =
+public actual fun sceMpegInitAu(handle: SceMpeg, esBuffer: MutPtr<CVoid>, au: MutPtr<SceMpegAu>): Int =
     0
 
-public actual fun sceMpegGetAvcAu(handle: SceMpeg, stream: SceMpegStream, au: COpaquePointer?, unk: COpaquePointer?): Int =
+public actual fun sceMpegGetAvcAu(handle: SceMpeg, stream: SceMpegStream, au: MutPtr<SceMpegAu>, unk: MutPtr<Int>): Int =
     0
 
-public actual fun sceMpegAvcDecodeMode(handle: SceMpeg, mode: COpaquePointer?): Int =
+public actual fun sceMpegAvcDecodeMode(handle: SceMpeg, mode: MutPtr<SceMpegAvcMode>): Int =
     0
 
-public actual fun sceMpegAvcDecode(handle: SceMpeg, au: COpaquePointer?, iframeWidth: Int, buffer: COpaquePointer?, init: COpaquePointer?): Int =
+public actual fun sceMpegAvcDecode(handle: SceMpeg, au: MutPtr<SceMpegAu>, iframeWidth: Int, buffer: MutPtr<CVoid>, init: MutPtr<Int>): Int =
     0
 
-public actual fun sceMpegAvcDecodeStop(handle: SceMpeg, frameWidth: Int, buffer: COpaquePointer?, status: COpaquePointer?): Int =
+public actual fun sceMpegAvcDecodeStop(handle: SceMpeg, frameWidth: Int, buffer: MutPtr<CVoid>, status: MutPtr<Int>): Int =
     0
 
-public actual fun sceMpegGetAtracAu(handle: SceMpeg, stream: SceMpegStream, au: COpaquePointer?, unk: COpaquePointer?): Int =
+public actual fun sceMpegGetAtracAu(handle: SceMpeg, stream: SceMpegStream, au: MutPtr<SceMpegAu>, unk: MutPtr<CVoid>): Int =
     0
 
-public actual fun sceMpegAtracDecode(handle: SceMpeg, au: COpaquePointer?, buffer: COpaquePointer?, init: Int): Int =
+public actual fun sceMpegAtracDecode(handle: SceMpeg, au: MutPtr<SceMpegAu>, buffer: MutPtr<CVoid>, init: Int): Int =
     0
 
-public actual fun sceMpegBaseYCrCbCopyVme(yuvBuffer: COpaquePointer?, buffer: COpaquePointer?, type: Int): Int =
-    PspJniBridge.libc_psp_sceMpegBaseYCrCbCopyVme((yuvBuffer?.value ?: 0L), (buffer?.value ?: 0L), type)
+public actual fun sceMpegBaseYCrCbCopyVme(yuvBuffer: MutPtr<CVoid>, buffer: MutPtr<Int>, type: Int): Int =
+    PspJniBridge.libcPspSceMpegBaseYCrCbCopyVme(yuvBuffer.rawAddress, buffer.rawAddress, type)
 
 public actual fun sceMpegBaseCscInit(width: Int): Int =
-    PspJniBridge.libc_psp_sceMpegBaseCscInit(width)
+    PspJniBridge.libcPspSceMpegBaseCscInit(width)
 
-public actual fun sceMpegBaseCscVme(rgbBuffer: COpaquePointer?, rgbBuffer2: COpaquePointer?, width: Int, yCrCbBuffer: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceMpegBaseCscVme((rgbBuffer?.value ?: 0L), (rgbBuffer2?.value ?: 0L), width, (yCrCbBuffer?.value ?: 0L))
+public actual fun sceMpegBaseCscVme(rgbBuffer: MutPtr<CVoid>, rgbBuffer2: MutPtr<CVoid>, width: Int, yCrCbBuffer: MutPtr<SceMpegYCrCbBuffer>): Int =
+    PspJniBridge.libcPspSceMpegBaseCscVme(rgbBuffer.rawAddress, rgbBuffer2.rawAddress, width, yCrCbBuffer.rawAddress)
 
-public actual fun sceMpegbaseBea18f91(lli: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceMpegbaseBea18f91((lli?.value ?: 0L))
+public actual fun sceMpegbaseBea18f91(lli: MutPtr<SceMpegLLI>): Int =
+    PspJniBridge.libcPspSceMpegbaseBea18f91(lli.rawAddress)
 
-public actual fun sceHprmPeekCurrentKey(key: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceHprmPeekCurrentKey((key?.value ?: 0L))
+public actual fun sceHprmPeekCurrentKey(key: MutPtr<Int>): Int =
+    PspJniBridge.libcPspSceHprmPeekCurrentKey(key.rawAddress)
 
-public actual fun sceHprmPeekLatch(latch: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceHprmPeekLatch((latch?.value ?: 0L))
+public actual fun sceHprmPeekLatch(latch: MutPtr<UIntArray>): Int =
+    PspJniBridge.libcPspSceHprmPeekLatch(latch.rawAddress)
 
-public actual fun sceHprmReadLatch(latch: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceHprmReadLatch((latch?.value ?: 0L))
+public actual fun sceHprmReadLatch(latch: MutPtr<UIntArray>): Int =
+    PspJniBridge.libcPspSceHprmReadLatch(latch.rawAddress)
 
 public actual fun sceHprmIsHeadphoneExist(): Int =
-    PspJniBridge.libc_psp_sceHprmIsHeadphoneExist()
+    PspJniBridge.libcPspSceHprmIsHeadphoneExist()
 
 public actual fun sceHprmIsRemoteExist(): Int =
-    PspJniBridge.libc_psp_sceHprmIsRemoteExist()
+    PspJniBridge.libcPspSceHprmIsRemoteExist()
 
 public actual fun sceHprmIsMicrophoneExist(): Int =
-    PspJniBridge.libc_psp_sceHprmIsMicrophoneExist()
+    PspJniBridge.libcPspSceHprmIsMicrophoneExist()
 
-public actual fun sceGuDepthBuffer(zbp: COpaquePointer?, zbw: Int) {
-    PspJniBridge.libc_psp_sceGuDepthBuffer((zbp?.value ?: 0L), zbw)
+public actual fun sceGuDepthBuffer(zbp: MutPtr<CVoid>, zbw: Int) {
+    PspJniBridge.libcPspSceGuDepthBuffer(zbp.rawAddress, zbw)
 }
 
-public actual fun sceGuDispBuffer(width: Int, height: Int, dispbp: COpaquePointer?, dispbw: Int) {
-    PspJniBridge.libc_psp_sceGuDispBuffer(width, height, (dispbp?.value ?: 0L), dispbw)
+public actual fun sceGuDispBuffer(width: Int, height: Int, dispbp: MutPtr<CVoid>, dispbw: Int) {
+    PspJniBridge.libcPspSceGuDispBuffer(width, height, dispbp.rawAddress, dispbw)
 }
 
-public actual fun sceGuDrawBuffer(psm: DisplayPixelFormat, fbp: COpaquePointer?, fbw: Int) {
+public actual fun sceGuDrawBuffer(psm: DisplayPixelFormat, fbp: MutPtr<CVoid>, fbw: Int) {
 }
 
-public actual fun sceGuDrawBufferList(psm: DisplayPixelFormat, fbp: COpaquePointer?, fbw: Int) {
+public actual fun sceGuDrawBufferList(psm: DisplayPixelFormat, fbp: MutPtr<CVoid>, fbw: Int) {
 }
 
 public actual fun sceGuDisplay(state: Boolean): Boolean =
-    PspJniBridge.libc_psp_sceGuDisplay(state)
+    PspJniBridge.libcPspSceGuDisplay(state)
 
 public actual fun sceGuDepthFunc(function: DepthFunc) {
 }
 
 public actual fun sceGuDepthMask(mask: Int) {
-    PspJniBridge.libc_psp_sceGuDepthMask(mask)
+    PspJniBridge.libcPspSceGuDepthMask(mask)
 }
 
 public actual fun sceGuDepthOffset(offset: Int) {
-    PspJniBridge.libc_psp_sceGuDepthOffset(offset)
+    PspJniBridge.libcPspSceGuDepthOffset(offset)
 }
 
 public actual fun sceGuDepthRange(near: Int, far: Int) {
-    PspJniBridge.libc_psp_sceGuDepthRange(near, far)
+    PspJniBridge.libcPspSceGuDepthRange(near, far)
 }
 
 public actual fun sceGuFog(near: Float, far: Float, color: UInt) {
-    PspJniBridge.libc_psp_sceGuFog(near, far, color.toInt())
+    PspJniBridge.libcPspSceGuFog(near, far, color.toInt())
 }
 
 public actual fun sceGuInit() {
-    PspJniBridge.libc_psp_sceGuInit()
+    PspJniBridge.libcPspSceGuInit()
 }
 
 public actual fun sceGuTerm() {
-    PspJniBridge.libc_psp_sceGuTerm()
+    PspJniBridge.libcPspSceGuTerm()
 }
 
 public actual fun sceGuBreak(mode: Int) {
-    PspJniBridge.libc_psp_sceGuBreak(mode)
+    PspJniBridge.libcPspSceGuBreak(mode)
 }
 
 public actual fun sceGuContinue() {
-    PspJniBridge.libc_psp_sceGuContinue()
+    PspJniBridge.libcPspSceGuContinue()
 }
 
 public actual fun sceGuSetCallback(signal: GuCallbackId, callback: GuCallback): GuCallback =
@@ -3171,47 +3225,47 @@ public actual fun sceGuSendCommandf(cmd: GeCommand, argument: Float) {
 public actual fun sceGuSendCommandi(cmd: GeCommand, argument: Int) {
 }
 
-public actual fun sceGuGetMemory(size: Int): COpaquePointer? =
-    PspJniBridge.libc_psp_sceGuGetMemory(size).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun sceGuGetMemory(size: Int): MutPtr<CVoid> =
+    MutPtr(PspJniBridge.libcPspSceGuGetMemory(size))
 
-public actual fun sceGuStart(contextType: GuContextType, list: COpaquePointer?) {
+public actual fun sceGuStart(contextType: GuContextType, list: MutPtr<CVoid>) {
 }
 
 public actual fun sceGuFinish(): Int =
-    PspJniBridge.libc_psp_sceGuFinish()
+    PspJniBridge.libcPspSceGuFinish()
 
 public actual fun sceGuFinishId(id: UInt): Int =
-    PspJniBridge.libc_psp_sceGuFinishId(id.toInt())
+    PspJniBridge.libcPspSceGuFinishId(id.toInt())
 
-public actual fun sceGuCallList(list: COpaquePointer?) {
-    PspJniBridge.libc_psp_sceGuCallList((list?.value ?: 0L))
+public actual fun sceGuCallList(list: ConstPtr<CVoid>) {
+    PspJniBridge.libcPspSceGuCallList(list.rawAddress)
 }
 
 public actual fun sceGuCallMode(mode: Int) {
-    PspJniBridge.libc_psp_sceGuCallMode(mode)
+    PspJniBridge.libcPspSceGuCallMode(mode)
 }
 
 public actual fun sceGuCheckList(): Int =
-    PspJniBridge.libc_psp_sceGuCheckList()
+    PspJniBridge.libcPspSceGuCheckList()
 
-public actual fun sceGuSendList(mode: GuQueueMode, list: COpaquePointer?, context: COpaquePointer?) {
+public actual fun sceGuSendList(mode: GuQueueMode, list: ConstPtr<CVoid>, context: MutPtr<GeContext>) {
 }
 
-public actual fun sceGuSwapBuffers(): COpaquePointer? =
-    PspJniBridge.libc_psp_sceGuSwapBuffers().let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun sceGuSwapBuffers(): MutPtr<CVoid> =
+    MutPtr(PspJniBridge.libcPspSceGuSwapBuffers())
 
 public actual fun sceGuSync(mode: GuSyncMode, behavior: GuSyncBehavior): GeListState =
     GeListState.entries.first()
 
-public actual fun sceGuDrawArray(prim: GuPrimitive, vtype: Int, count: Int, indices: COpaquePointer?, vertices: COpaquePointer?) {
+public actual fun sceGuDrawArray(prim: GuPrimitive, vtype: Int, count: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>) {
 }
 
-public actual fun sceGuBeginObject(vtype: Int, count: Int, indices: COpaquePointer?, vertices: COpaquePointer?) {
-    PspJniBridge.libc_psp_sceGuBeginObject(vtype, count, (indices?.value ?: 0L), (vertices?.value ?: 0L))
+public actual fun sceGuBeginObject(vtype: Int, count: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>) {
+    PspJniBridge.libcPspSceGuBeginObject(vtype, count, indices.rawAddress, vertices.rawAddress)
 }
 
 public actual fun sceGuEndObject() {
-    PspJniBridge.libc_psp_sceGuEndObject()
+    PspJniBridge.libcPspSceGuEndObject()
 }
 
 public actual fun sceGuSetStatus(state: GuState, status: Int) {
@@ -3221,11 +3275,11 @@ public actual fun sceGuGetStatus(state: GuState): Boolean =
     false
 
 public actual fun sceGuSetAllStatus(status: Int) {
-    PspJniBridge.libc_psp_sceGuSetAllStatus(status)
+    PspJniBridge.libcPspSceGuSetAllStatus(status)
 }
 
 public actual fun sceGuGetAllStatus(): Int =
-    PspJniBridge.libc_psp_sceGuGetAllStatus()
+    PspJniBridge.libcPspSceGuGetAllStatus()
 
 public actual fun sceGuEnable(state: GuState) {
 }
@@ -3237,11 +3291,11 @@ public actual fun sceGuLight(light: Int, type: LightType, components: Int, posit
 }
 
 public actual fun sceGuLightAtt(light: Int, atten0: Float, atten1: Float, atten2: Float) {
-    PspJniBridge.libc_psp_sceGuLightAtt(light, atten0, atten1, atten2)
+    PspJniBridge.libcPspSceGuLightAtt(light, atten0, atten1, atten2)
 }
 
 public actual fun sceGuLightColor(light: Int, component: Int, color: UInt) {
-    PspJniBridge.libc_psp_sceGuLightColor(light, component, color.toInt())
+    PspJniBridge.libcPspSceGuLightColor(light, component, color.toInt())
 }
 
 public actual fun sceGuLightMode(mode: LightMode) {
@@ -3251,56 +3305,56 @@ public actual fun sceGuLightSpot(light: Int, direction: ScePspFVector3, exponent
 }
 
 public actual fun sceGuClear(flags: Int) {
-    PspJniBridge.libc_psp_sceGuClear(flags)
+    PspJniBridge.libcPspSceGuClear(flags)
 }
 
 public actual fun sceGuClearColor(color: UInt) {
-    PspJniBridge.libc_psp_sceGuClearColor(color.toInt())
+    PspJniBridge.libcPspSceGuClearColor(color.toInt())
 }
 
 public actual fun sceGuClearDepth(depth: UInt) {
-    PspJniBridge.libc_psp_sceGuClearDepth(depth.toInt())
+    PspJniBridge.libcPspSceGuClearDepth(depth.toInt())
 }
 
 public actual fun sceGuClearStencil(stencil: UInt) {
-    PspJniBridge.libc_psp_sceGuClearStencil(stencil.toInt())
+    PspJniBridge.libcPspSceGuClearStencil(stencil.toInt())
 }
 
 public actual fun sceGuPixelMask(mask: UInt) {
-    PspJniBridge.libc_psp_sceGuPixelMask(mask.toInt())
+    PspJniBridge.libcPspSceGuPixelMask(mask.toInt())
 }
 
 public actual fun sceGuColor(color: UInt) {
-    PspJniBridge.libc_psp_sceGuColor(color.toInt())
+    PspJniBridge.libcPspSceGuColor(color.toInt())
 }
 
 public actual fun sceGuColorFunc(func: ColorFunc, color: UInt, mask: UInt) {
 }
 
 public actual fun sceGuColorMaterial(components: Int) {
-    PspJniBridge.libc_psp_sceGuColorMaterial(components)
+    PspJniBridge.libcPspSceGuColorMaterial(components)
 }
 
 public actual fun sceGuAlphaFunc(func: AlphaFunc, value: Int, mask: Int) {
 }
 
 public actual fun sceGuAmbient(color: UInt) {
-    PspJniBridge.libc_psp_sceGuAmbient(color.toInt())
+    PspJniBridge.libcPspSceGuAmbient(color.toInt())
 }
 
 public actual fun sceGuAmbientColor(color: UInt) {
-    PspJniBridge.libc_psp_sceGuAmbientColor(color.toInt())
+    PspJniBridge.libcPspSceGuAmbientColor(color.toInt())
 }
 
 public actual fun sceGuBlendFunc(op: BlendOp, src: BlendSrc, dest: BlendDst, srcFix: UInt, destFix: UInt) {
 }
 
 public actual fun sceGuMaterial(components: Int, color: UInt) {
-    PspJniBridge.libc_psp_sceGuMaterial(components, color.toInt())
+    PspJniBridge.libcPspSceGuMaterial(components, color.toInt())
 }
 
 public actual fun sceGuModelColor(emissive: UInt, ambient: UInt, diffuse: UInt, specular: UInt) {
-    PspJniBridge.libc_psp_sceGuModelColor(emissive.toInt(), ambient.toInt(), diffuse.toInt(), specular.toInt())
+    PspJniBridge.libcPspSceGuModelColor(emissive.toInt(), ambient.toInt(), diffuse.toInt(), specular.toInt())
 }
 
 public actual fun sceGuStencilFunc(func: StencilFunc, ref: Int, mask: Int) {
@@ -3310,7 +3364,7 @@ public actual fun sceGuStencilOp(fail: StencilOperation, zfail: StencilOperation
 }
 
 public actual fun sceGuSpecular(power: Float) {
-    PspJniBridge.libc_psp_sceGuSpecular(power)
+    PspJniBridge.libcPspSceGuSpecular(power)
 }
 
 public actual fun sceGuFrontFace(order: FrontFaceDirection) {
@@ -3325,24 +3379,24 @@ public actual fun sceGuSetDither(matrix: ScePspIMatrix4) {
 public actual fun sceGuShadeModel(mode: ShadingModel) {
 }
 
-public actual fun sceGuCopyImage(psm: DisplayPixelFormat, sx: Int, sy: Int, width: Int, height: Int, srcw: Int, src: COpaquePointer?, dx: Int, dy: Int, destw: Int, dest: COpaquePointer?) {
+public actual fun sceGuCopyImage(psm: DisplayPixelFormat, sx: Int, sy: Int, width: Int, height: Int, srcw: Int, src: MutPtr<CVoid>, dx: Int, dy: Int, destw: Int, dest: MutPtr<CVoid>) {
 }
 
 public actual fun sceGuTexEnvColor(color: UInt) {
-    PspJniBridge.libc_psp_sceGuTexEnvColor(color.toInt())
+    PspJniBridge.libcPspSceGuTexEnvColor(color.toInt())
 }
 
 public actual fun sceGuTexFilter(min: TextureFilter, mag: TextureFilter) {
 }
 
 public actual fun sceGuTexFlush() {
-    PspJniBridge.libc_psp_sceGuTexFlush()
+    PspJniBridge.libcPspSceGuTexFlush()
 }
 
 public actual fun sceGuTexFunc(tfx: TextureEffect, tcc: TextureColorComponent) {
 }
 
-public actual fun sceGuTexImage(mipmap: MipmapLevel, width: Int, height: Int, tbw: Int, tbp: COpaquePointer?) {
+public actual fun sceGuTexImage(mipmap: MipmapLevel, width: Int, height: Int, tbw: Int, tbp: ConstPtr<CVoid>) {
 }
 
 public actual fun sceGuTexLevelMode(mode: TextureLevelMode, bias: Float) {
@@ -3355,63 +3409,63 @@ public actual fun sceGuTexMode(tpsm: TexturePixelFormat, maxmips: Int, a2: Int, 
 }
 
 public actual fun sceGuTexOffset(u: Float, v: Float) {
-    PspJniBridge.libc_psp_sceGuTexOffset(u, v)
+    PspJniBridge.libcPspSceGuTexOffset(u, v)
 }
 
 public actual fun sceGuTexProjMapMode(mode: TextureProjectionMapMode) {
 }
 
 public actual fun sceGuTexScale(u: Float, v: Float) {
-    PspJniBridge.libc_psp_sceGuTexScale(u, v)
+    PspJniBridge.libcPspSceGuTexScale(u, v)
 }
 
 public actual fun sceGuTexSlope(slope: Float) {
-    PspJniBridge.libc_psp_sceGuTexSlope(slope)
+    PspJniBridge.libcPspSceGuTexSlope(slope)
 }
 
 public actual fun sceGuTexSync() {
-    PspJniBridge.libc_psp_sceGuTexSync()
+    PspJniBridge.libcPspSceGuTexSync()
 }
 
 public actual fun sceGuTexWrap(u: GuTexWrapMode, v: GuTexWrapMode) {
 }
 
-public actual fun sceGuClutLoad(numBlocks: Int, cbp: COpaquePointer?) {
-    PspJniBridge.libc_psp_sceGuClutLoad(numBlocks, (cbp?.value ?: 0L))
+public actual fun sceGuClutLoad(numBlocks: Int, cbp: ConstPtr<CVoid>) {
+    PspJniBridge.libcPspSceGuClutLoad(numBlocks, cbp.rawAddress)
 }
 
 public actual fun sceGuClutMode(cpsm: ClutPixelFormat, shift: UInt, mask: UInt, a3: UInt) {
 }
 
 public actual fun sceGuOffset(x: UInt, y: UInt) {
-    PspJniBridge.libc_psp_sceGuOffset(x.toInt(), y.toInt())
+    PspJniBridge.libcPspSceGuOffset(x.toInt(), y.toInt())
 }
 
 public actual fun sceGuScissor(x: Int, y: Int, w: Int, h: Int) {
-    PspJniBridge.libc_psp_sceGuScissor(x, y, w, h)
+    PspJniBridge.libcPspSceGuScissor(x, y, w, h)
 }
 
 public actual fun sceGuViewport(cx: Int, cy: Int, width: Int, height: Int) {
-    PspJniBridge.libc_psp_sceGuViewport(cx, cy, width, height)
+    PspJniBridge.libcPspSceGuViewport(cx, cy, width, height)
 }
 
-public actual fun sceGuDrawBezier(vType: Int, uCount: Int, vCount: Int, indices: COpaquePointer?, vertices: COpaquePointer?) {
-    PspJniBridge.libc_psp_sceGuDrawBezier(vType, uCount, vCount, (indices?.value ?: 0L), (vertices?.value ?: 0L))
+public actual fun sceGuDrawBezier(vType: Int, uCount: Int, vCount: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>) {
+    PspJniBridge.libcPspSceGuDrawBezier(vType, uCount, vCount, indices.rawAddress, vertices.rawAddress)
 }
 
 public actual fun sceGuPatchDivide(ulevel: UInt, vlevel: UInt) {
-    PspJniBridge.libc_psp_sceGuPatchDivide(ulevel.toInt(), vlevel.toInt())
+    PspJniBridge.libcPspSceGuPatchDivide(ulevel.toInt(), vlevel.toInt())
 }
 
 public actual fun sceGuPatchFrontFace(a0: UInt) {
-    PspJniBridge.libc_psp_sceGuPatchFrontFace(a0.toInt())
+    PspJniBridge.libcPspSceGuPatchFrontFace(a0.toInt())
 }
 
 public actual fun sceGuPatchPrim(prim: PatchPrimitive) {
 }
 
-public actual fun sceGuDrawSpline(vType: Int, uCount: Int, vCount: Int, uEdge: Int, vEdge: Int, indices: COpaquePointer?, vertices: COpaquePointer?) {
-    PspJniBridge.libc_psp_sceGuDrawSpline(vType, uCount, vCount, uEdge, vEdge, (indices?.value ?: 0L), (vertices?.value ?: 0L))
+public actual fun sceGuDrawSpline(vType: Int, uCount: Int, vCount: Int, uEdge: Int, vEdge: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>) {
+    PspJniBridge.libcPspSceGuDrawSpline(vType, uCount, vCount, uEdge, vEdge, indices.rawAddress, vertices.rawAddress)
 }
 
 public actual fun sceGuSetMatrix(type: MatrixMode, matrix: ScePspFMatrix4) {
@@ -3421,36 +3475,36 @@ public actual fun sceGuBoneMatrix(index: UInt, matrix: ScePspFMatrix4) {
 }
 
 public actual fun sceGuMorphWeight(index: Int, weight: Float) {
-    PspJniBridge.libc_psp_sceGuMorphWeight(index, weight)
+    PspJniBridge.libcPspSceGuMorphWeight(index, weight)
 }
 
-public actual fun sceGuDrawArrayN(primitiveType: GuPrimitive, vType: Int, count: Int, a3: Int, indices: COpaquePointer?, vertices: COpaquePointer?) {
+public actual fun sceGuDrawArrayN(primitiveType: GuPrimitive, vType: Int, count: Int, a3: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>) {
 }
 
-public actual fun sceGumDrawArray(prim: GuPrimitive, vType: Int, count: Int, indices: COpaquePointer?, vertices: COpaquePointer?) {
+public actual fun sceGumDrawArray(prim: GuPrimitive, vType: Int, count: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>) {
 }
 
-public actual fun sceGumDrawArrayN(prim: GuPrimitive, vType: Int, count: Int, a3: Int, indices: COpaquePointer?, vertices: COpaquePointer?) {
+public actual fun sceGumDrawArrayN(prim: GuPrimitive, vType: Int, count: Int, a3: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>) {
 }
 
-public actual fun sceGumDrawBezier(vType: Int, uCount: Int, vCount: Int, indices: COpaquePointer?, vertices: COpaquePointer?) {
-    PspJniBridge.libc_psp_sceGumDrawBezier(vType, uCount, vCount, (indices?.value ?: 0L), (vertices?.value ?: 0L))
+public actual fun sceGumDrawBezier(vType: Int, uCount: Int, vCount: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>) {
+    PspJniBridge.libcPspSceGumDrawBezier(vType, uCount, vCount, indices.rawAddress, vertices.rawAddress)
 }
 
-public actual fun sceGumDrawSpline(vType: Int, uCount: Int, vCount: Int, uEdge: Int, vEdge: Int, indices: COpaquePointer?, vertices: COpaquePointer?) {
-    PspJniBridge.libc_psp_sceGumDrawSpline(vType, uCount, vCount, uEdge, vEdge, (indices?.value ?: 0L), (vertices?.value ?: 0L))
+public actual fun sceGumDrawSpline(vType: Int, uCount: Int, vCount: Int, uEdge: Int, vEdge: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>) {
+    PspJniBridge.libcPspSceGumDrawSpline(vType, uCount, vCount, uEdge, vEdge, indices.rawAddress, vertices.rawAddress)
 }
 
 public actual fun sceGumFastInverse() {
-    PspJniBridge.libc_psp_sceGumFastInverse()
+    PspJniBridge.libcPspSceGumFastInverse()
 }
 
 public actual fun sceGumFullInverse() {
-    PspJniBridge.libc_psp_sceGumFullInverse()
+    PspJniBridge.libcPspSceGumFullInverse()
 }
 
 public actual fun sceGumLoadIdentity() {
-    PspJniBridge.libc_psp_sceGumLoadIdentity()
+    PspJniBridge.libcPspSceGumLoadIdentity()
 }
 
 public actual fun sceGumLoadMatrix(m: ScePspFMatrix4) {
@@ -3466,31 +3520,31 @@ public actual fun sceGumMultMatrix(m: ScePspFMatrix4) {
 }
 
 public actual fun sceGumOrtho(left: Float, right: Float, bottom: Float, top: Float, near: Float, far: Float) {
-    PspJniBridge.libc_psp_sceGumOrtho(left, right, bottom, top, near, far)
+    PspJniBridge.libcPspSceGumOrtho(left, right, bottom, top, near, far)
 }
 
 public actual fun sceGumPerspective(fovy: Float, aspect: Float, near: Float, far: Float) {
-    PspJniBridge.libc_psp_sceGumPerspective(fovy, aspect, near, far)
+    PspJniBridge.libcPspSceGumPerspective(fovy, aspect, near, far)
 }
 
 public actual fun sceGumPopMatrix() {
-    PspJniBridge.libc_psp_sceGumPopMatrix()
+    PspJniBridge.libcPspSceGumPopMatrix()
 }
 
 public actual fun sceGumPushMatrix() {
-    PspJniBridge.libc_psp_sceGumPushMatrix()
+    PspJniBridge.libcPspSceGumPushMatrix()
 }
 
 public actual fun sceGumRotateX(angle: Float) {
-    PspJniBridge.libc_psp_sceGumRotateX(angle)
+    PspJniBridge.libcPspSceGumRotateX(angle)
 }
 
 public actual fun sceGumRotateY(angle: Float) {
-    PspJniBridge.libc_psp_sceGumRotateY(angle)
+    PspJniBridge.libcPspSceGumRotateY(angle)
 }
 
 public actual fun sceGumRotateZ(angle: Float) {
-    PspJniBridge.libc_psp_sceGumRotateZ(angle)
+    PspJniBridge.libcPspSceGumRotateZ(angle)
 }
 
 public actual fun sceGumRotateXYZ(v: ScePspFVector3) {
@@ -3509,28 +3563,28 @@ public actual fun sceGumTranslate(v: ScePspFVector3) {
 }
 
 public actual fun sceGumUpdateMatrix() {
-    PspJniBridge.libc_psp_sceGumUpdateMatrix()
+    PspJniBridge.libcPspSceGumUpdateMatrix()
 }
 
-public actual fun sceMp3ReserveMp3Handle(args: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceMp3ReserveMp3Handle((args?.value ?: 0L))
+public actual fun sceMp3ReserveMp3Handle(args: MutPtr<SceMp3InitArg>): Int =
+    PspJniBridge.libcPspSceMp3ReserveMp3Handle(args.rawAddress)
 
 public actual fun sceMp3ReleaseMp3Handle(handle: Mp3Handle): Int =
     0
 
 public actual fun sceMp3InitResource(): Int =
-    PspJniBridge.libc_psp_sceMp3InitResource()
+    PspJniBridge.libcPspSceMp3InitResource()
 
 public actual fun sceMp3TermResource(): Int =
-    PspJniBridge.libc_psp_sceMp3TermResource()
+    PspJniBridge.libcPspSceMp3TermResource()
 
 public actual fun sceMp3Init(handle: Mp3Handle): Int =
     0
 
-public actual fun sceMp3Decode(handle: Mp3Handle, dst: COpaquePointer?): Int =
+public actual fun sceMp3Decode(handle: Mp3Handle, dst: MutPtr<MutPtr<Short>>): Int =
     0
 
-public actual fun sceMp3GetInfoToAddStreamData(handle: Mp3Handle, dst: COpaquePointer?, toWrite: COpaquePointer?, srcPos: COpaquePointer?): Int =
+public actual fun sceMp3GetInfoToAddStreamData(handle: Mp3Handle, dst: MutPtr<MutPtr<UByte>>, toWrite: MutPtr<Int>, srcPos: MutPtr<Int>): Int =
     0
 
 public actual fun sceMp3NotifyAddStreamData(handle: Mp3Handle, size: Int): Int =
@@ -3563,8 +3617,8 @@ public actual fun sceMp3GetMp3ChannelNum(handle: Mp3Handle): Int =
 public actual fun sceMp3ResetPlayPosition(handle: Mp3Handle): Int =
     0
 
-public actual fun sceRegOpenRegistry(reg: COpaquePointer?, mode: Int, handle: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceRegOpenRegistry((reg?.value ?: 0L), mode, (handle?.value ?: 0L))
+public actual fun sceRegOpenRegistry(reg: MutPtr<Key>, mode: Int, handle: MutPtr<RegHandle>): Int =
+    PspJniBridge.libcPspSceRegOpenRegistry(reg.rawAddress, mode, handle.rawAddress)
 
 public actual fun sceRegFlushRegistry(handle: RegHandle): Int =
     0
@@ -3572,10 +3626,10 @@ public actual fun sceRegFlushRegistry(handle: RegHandle): Int =
 public actual fun sceRegCloseRegistry(handle: RegHandle): Int =
     0
 
-public actual fun sceRegOpenCategory(handle: RegHandle, name: COpaquePointer?, mode: Int, dirHandle: COpaquePointer?): Int =
+public actual fun sceRegOpenCategory(handle: RegHandle, name: ConstPtr<UByte>, mode: Int, dirHandle: MutPtr<RegHandle>): Int =
     0
 
-public actual fun sceRegRemoveCategory(handle: RegHandle, name: COpaquePointer?): Int =
+public actual fun sceRegRemoveCategory(handle: RegHandle, name: ConstPtr<UByte>): Int =
     0
 
 public actual fun sceRegCloseCategory(dirHandle: RegHandle): Int =
@@ -3584,133 +3638,133 @@ public actual fun sceRegCloseCategory(dirHandle: RegHandle): Int =
 public actual fun sceRegFlushCategory(dirHandle: RegHandle): Int =
     0
 
-public actual fun sceRegGetKeyInfo(dirHandle: RegHandle, name: COpaquePointer?, keyHandle: COpaquePointer?, type: COpaquePointer?, size: COpaquePointer?): Int =
+public actual fun sceRegGetKeyInfo(dirHandle: RegHandle, name: ConstPtr<UByte>, keyHandle: MutPtr<RegHandle>, type: MutPtr<KeyType>, size: MutPtr<ULong>): Int =
     0
 
-public actual fun sceRegGetKeyInfoByName(dirHandle: RegHandle, name: COpaquePointer?, type: COpaquePointer?, size: COpaquePointer?): Int =
+public actual fun sceRegGetKeyInfoByName(dirHandle: RegHandle, name: ConstPtr<UByte>, type: MutPtr<KeyType>, size: MutPtr<ULong>): Int =
     0
 
-public actual fun sceRegGetKeyValue(dirHandle: RegHandle, keyHandle: RegHandle, buf: COpaquePointer?, size: ULong): Int =
+public actual fun sceRegGetKeyValue(dirHandle: RegHandle, keyHandle: RegHandle, buf: MutPtr<CVoid>, size: ULong): Int =
     0
 
-public actual fun sceRegGetKeyValueByName(dirHandle: RegHandle, name: COpaquePointer?, buf: COpaquePointer?, size: ULong): Int =
+public actual fun sceRegGetKeyValueByName(dirHandle: RegHandle, name: ConstPtr<UByte>, buf: MutPtr<CVoid>, size: ULong): Int =
     0
 
-public actual fun sceRegSetKeyValue(dirHandle: RegHandle, name: COpaquePointer?, buf: COpaquePointer?, size: ULong): Int =
+public actual fun sceRegSetKeyValue(dirHandle: RegHandle, name: ConstPtr<UByte>, buf: ConstPtr<CVoid>, size: ULong): Int =
     0
 
-public actual fun sceRegGetKeysNum(dirHandle: RegHandle, num: COpaquePointer?): Int =
+public actual fun sceRegGetKeysNum(dirHandle: RegHandle, num: MutPtr<Int>): Int =
     0
 
-public actual fun sceRegGetKeys(dirHandle: RegHandle, buf: COpaquePointer?, num: Int): Int =
+public actual fun sceRegGetKeys(dirHandle: RegHandle, buf: MutPtr<UByte>, num: Int): Int =
     0
 
-public actual fun sceRegCreateKey(dirHandle: RegHandle, name: COpaquePointer?, type: Int, size: ULong): Int =
+public actual fun sceRegCreateKey(dirHandle: RegHandle, name: ConstPtr<UByte>, type: Int, size: ULong): Int =
     0
 
-public actual fun sceRegRemoveRegistry(key: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceRegRemoveRegistry((key?.value ?: 0L))
+public actual fun sceRegRemoveRegistry(key: MutPtr<Key>): Int =
+    PspJniBridge.libcPspSceRegRemoveRegistry(key.rawAddress)
 
-public actual fun sceOpenPSIDGetOpenPSID(openpsid: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceOpenPSIDGetOpenPSID((openpsid?.value ?: 0L))
+public actual fun sceOpenPSIDGetOpenPSID(openpsid: MutPtr<OpenPSID>): Int =
+    PspJniBridge.libcPspSceOpenPSIDGetOpenPSID(openpsid.rawAddress)
 
-public actual fun sceUtilityMsgDialogInitStart(params: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceUtilityMsgDialogInitStart((params?.value ?: 0L))
+public actual fun sceUtilityMsgDialogInitStart(params: MutPtr<UtilityMsgDialogParams>): Int =
+    PspJniBridge.libcPspSceUtilityMsgDialogInitStart(params.rawAddress)
 
 public actual fun sceUtilityMsgDialogShutdownStart() {
-    PspJniBridge.libc_psp_sceUtilityMsgDialogShutdownStart()
+    PspJniBridge.libcPspSceUtilityMsgDialogShutdownStart()
 }
 
 public actual fun sceUtilityMsgDialogGetStatus(): Int =
-    PspJniBridge.libc_psp_sceUtilityMsgDialogGetStatus()
+    PspJniBridge.libcPspSceUtilityMsgDialogGetStatus()
 
 public actual fun sceUtilityMsgDialogUpdate(n: Int) {
-    PspJniBridge.libc_psp_sceUtilityMsgDialogUpdate(n)
+    PspJniBridge.libcPspSceUtilityMsgDialogUpdate(n)
 }
 
 public actual fun sceUtilityMsgDialogAbort(): Int =
-    PspJniBridge.libc_psp_sceUtilityMsgDialogAbort()
+    PspJniBridge.libcPspSceUtilityMsgDialogAbort()
 
-public actual fun sceUtilityNetconfInitStart(data: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceUtilityNetconfInitStart((data?.value ?: 0L))
+public actual fun sceUtilityNetconfInitStart(data: MutPtr<UtilityNetconfData>): Int =
+    PspJniBridge.libcPspSceUtilityNetconfInitStart(data.rawAddress)
 
 public actual fun sceUtilityNetconfShutdownStart(): Int =
-    PspJniBridge.libc_psp_sceUtilityNetconfShutdownStart()
+    PspJniBridge.libcPspSceUtilityNetconfShutdownStart()
 
 public actual fun sceUtilityNetconfUpdate(unknown: Int): Int =
-    PspJniBridge.libc_psp_sceUtilityNetconfUpdate(unknown)
+    PspJniBridge.libcPspSceUtilityNetconfUpdate(unknown)
 
 public actual fun sceUtilityNetconfGetStatus(): Int =
-    PspJniBridge.libc_psp_sceUtilityNetconfGetStatus()
+    PspJniBridge.libcPspSceUtilityNetconfGetStatus()
 
 public actual fun sceUtilityCheckNetParam(id: Int): Int =
-    PspJniBridge.libc_psp_sceUtilityCheckNetParam(id)
+    PspJniBridge.libcPspSceUtilityCheckNetParam(id)
 
-public actual fun sceUtilityGetNetParam(conf: Int, param: NetParam, data: COpaquePointer?): Int =
+public actual fun sceUtilityGetNetParam(conf: Int, param: NetParam, data: MutPtr<UtilityNetData>): Int =
     0
 
-public actual fun sceUtilitySavedataInitStart(params: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceUtilitySavedataInitStart((params?.value ?: 0L))
+public actual fun sceUtilitySavedataInitStart(params: MutPtr<SceUtilitySavedataParam>): Int =
+    PspJniBridge.libcPspSceUtilitySavedataInitStart(params.rawAddress)
 
 public actual fun sceUtilitySavedataGetStatus(): Int =
-    PspJniBridge.libc_psp_sceUtilitySavedataGetStatus()
+    PspJniBridge.libcPspSceUtilitySavedataGetStatus()
 
 public actual fun sceUtilitySavedataShutdownStart(): Int =
-    PspJniBridge.libc_psp_sceUtilitySavedataShutdownStart()
+    PspJniBridge.libcPspSceUtilitySavedataShutdownStart()
 
 public actual fun sceUtilitySavedataUpdate(unknown: Int) {
-    PspJniBridge.libc_psp_sceUtilitySavedataUpdate(unknown)
+    PspJniBridge.libcPspSceUtilitySavedataUpdate(unknown)
 }
 
-public actual fun sceUtilityGameSharingInitStart(params: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceUtilityGameSharingInitStart((params?.value ?: 0L))
+public actual fun sceUtilityGameSharingInitStart(params: MutPtr<UtilityGameSharingParams>): Int =
+    PspJniBridge.libcPspSceUtilityGameSharingInitStart(params.rawAddress)
 
 public actual fun sceUtilityGameSharingShutdownStart() {
-    PspJniBridge.libc_psp_sceUtilityGameSharingShutdownStart()
+    PspJniBridge.libcPspSceUtilityGameSharingShutdownStart()
 }
 
 public actual fun sceUtilityGameSharingGetStatus(): Int =
-    PspJniBridge.libc_psp_sceUtilityGameSharingGetStatus()
+    PspJniBridge.libcPspSceUtilityGameSharingGetStatus()
 
 public actual fun sceUtilityGameSharingUpdate(n: Int) {
-    PspJniBridge.libc_psp_sceUtilityGameSharingUpdate(n)
+    PspJniBridge.libcPspSceUtilityGameSharingUpdate(n)
 }
 
-public actual fun sceUtilityHtmlViewerInitStart(params: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceUtilityHtmlViewerInitStart((params?.value ?: 0L))
+public actual fun sceUtilityHtmlViewerInitStart(params: MutPtr<UtilityHtmlViewerParam>): Int =
+    PspJniBridge.libcPspSceUtilityHtmlViewerInitStart(params.rawAddress)
 
 public actual fun sceUtilityHtmlViewerShutdownStart(): Int =
-    PspJniBridge.libc_psp_sceUtilityHtmlViewerShutdownStart()
+    PspJniBridge.libcPspSceUtilityHtmlViewerShutdownStart()
 
 public actual fun sceUtilityHtmlViewerUpdate(n: Int): Int =
-    PspJniBridge.libc_psp_sceUtilityHtmlViewerUpdate(n)
+    PspJniBridge.libcPspSceUtilityHtmlViewerUpdate(n)
 
 public actual fun sceUtilityHtmlViewerGetStatus(): Int =
-    PspJniBridge.libc_psp_sceUtilityHtmlViewerGetStatus()
+    PspJniBridge.libcPspSceUtilityHtmlViewerGetStatus()
 
 public actual fun sceUtilitySetSystemParamInt(id: SystemParamId, value: Int): Int =
     0
 
-public actual fun sceUtilitySetSystemParamString(id: SystemParamId, str: COpaquePointer?): Int =
+public actual fun sceUtilitySetSystemParamString(id: SystemParamId, str: ConstPtr<UByte>): Int =
     0
 
-public actual fun sceUtilityGetSystemParamInt(id: SystemParamId, value: COpaquePointer?): Int =
+public actual fun sceUtilityGetSystemParamInt(id: SystemParamId, value: MutPtr<Int>): Int =
     0
 
-public actual fun sceUtilityGetSystemParamString(id: SystemParamId, str: COpaquePointer?, len: Int): Int =
+public actual fun sceUtilityGetSystemParamString(id: SystemParamId, str: MutPtr<UByte>, len: Int): Int =
     0
 
-public actual fun sceUtilityOskInitStart(params: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceUtilityOskInitStart((params?.value ?: 0L))
+public actual fun sceUtilityOskInitStart(params: MutPtr<SceUtilityOskParams>): Int =
+    PspJniBridge.libcPspSceUtilityOskInitStart(params.rawAddress)
 
 public actual fun sceUtilityOskShutdownStart(): Int =
-    PspJniBridge.libc_psp_sceUtilityOskShutdownStart()
+    PspJniBridge.libcPspSceUtilityOskShutdownStart()
 
 public actual fun sceUtilityOskUpdate(n: Int): Int =
-    PspJniBridge.libc_psp_sceUtilityOskUpdate(n)
+    PspJniBridge.libcPspSceUtilityOskUpdate(n)
 
 public actual fun sceUtilityOskGetStatus(): Int =
-    PspJniBridge.libc_psp_sceUtilityOskGetStatus()
+    PspJniBridge.libcPspSceUtilityOskGetStatus()
 
 public actual fun sceUtilityLoadNetModule(module: NetModule): Int =
     0
@@ -3737,459 +3791,459 @@ public actual fun sceUtilityUnloadModule(module: Module): Int =
     0
 
 public actual fun sceUtilityCreateNetParam(conf: Int): Int =
-    PspJniBridge.libc_psp_sceUtilityCreateNetParam(conf)
+    PspJniBridge.libcPspSceUtilityCreateNetParam(conf)
 
-public actual fun sceUtilitySetNetParam(param: NetParam, value: COpaquePointer?): Int =
+public actual fun sceUtilitySetNetParam(param: NetParam, value: ConstPtr<CVoid>): Int =
     0
 
 public actual fun sceUtilityCopyNetParam(src: Int, dest: Int): Int =
-    PspJniBridge.libc_psp_sceUtilityCopyNetParam(src, dest)
+    PspJniBridge.libcPspSceUtilityCopyNetParam(src, dest)
 
 public actual fun sceUtilityDeleteNetParam(conf: Int): Int =
-    PspJniBridge.libc_psp_sceUtilityDeleteNetParam(conf)
+    PspJniBridge.libcPspSceUtilityDeleteNetParam(conf)
 
 public actual fun sceNetInit(poolsize: Int, calloutprio: Int, calloutstack: Int, netintrprio: Int, netintrstack: Int): Int =
-    PspJniBridge.libc_psp_sceNetInit(poolsize, calloutprio, calloutstack, netintrprio, netintrstack)
+    PspJniBridge.libcPspSceNetInit(poolsize, calloutprio, calloutstack, netintrprio, netintrstack)
 
 public actual fun sceNetTerm(): Int =
-    PspJniBridge.libc_psp_sceNetTerm()
+    PspJniBridge.libcPspSceNetTerm()
 
 public actual fun sceNetFreeThreadinfo(thid: Int): Int =
-    PspJniBridge.libc_psp_sceNetFreeThreadinfo(thid)
+    PspJniBridge.libcPspSceNetFreeThreadinfo(thid)
 
 public actual fun sceNetThreadAbort(thid: Int): Int =
-    PspJniBridge.libc_psp_sceNetThreadAbort(thid)
+    PspJniBridge.libcPspSceNetThreadAbort(thid)
 
-public actual fun sceNetEtherStrton(name: COpaquePointer?, mac: COpaquePointer?) {
-    PspJniBridge.libc_psp_sceNetEtherStrton((name?.value ?: 0L), (mac?.value ?: 0L))
+public actual fun sceNetEtherStrton(name: MutPtr<UByte>, mac: MutPtr<UByte>) {
+    PspJniBridge.libcPspSceNetEtherStrton(name.rawAddress, mac.rawAddress)
 }
 
-public actual fun sceNetEtherNtostr(mac: COpaquePointer?, name: COpaquePointer?) {
-    PspJniBridge.libc_psp_sceNetEtherNtostr((mac?.value ?: 0L), (name?.value ?: 0L))
+public actual fun sceNetEtherNtostr(mac: MutPtr<UByte>, name: MutPtr<UByte>) {
+    PspJniBridge.libcPspSceNetEtherNtostr(mac.rawAddress, name.rawAddress)
 }
 
-public actual fun sceNetGetLocalEtherAddr(mac: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceNetGetLocalEtherAddr((mac?.value ?: 0L))
+public actual fun sceNetGetLocalEtherAddr(mac: MutPtr<UByte>): Int =
+    PspJniBridge.libcPspSceNetGetLocalEtherAddr(mac.rawAddress)
 
-public actual fun sceNetGetMallocStat(stat: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceNetGetMallocStat((stat?.value ?: 0L))
+public actual fun sceNetGetMallocStat(stat: MutPtr<SceNetMallocStat>): Int =
+    PspJniBridge.libcPspSceNetGetMallocStat(stat.rawAddress)
 
-public actual fun sceNetAdhocctlInit(stacksize: Int, priority: Int, adhocId: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceNetAdhocctlInit(stacksize, priority, (adhocId?.value ?: 0L))
+public actual fun sceNetAdhocctlInit(stacksize: Int, priority: Int, adhocId: MutPtr<SceNetAdhocctlAdhocId>): Int =
+    PspJniBridge.libcPspSceNetAdhocctlInit(stacksize, priority, adhocId.rawAddress)
 
 public actual fun sceNetAdhocctlTerm(): Int =
-    PspJniBridge.libc_psp_sceNetAdhocctlTerm()
+    PspJniBridge.libcPspSceNetAdhocctlTerm()
 
-public actual fun sceNetAdhocctlConnect(name: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceNetAdhocctlConnect((name?.value ?: 0L))
+public actual fun sceNetAdhocctlConnect(name: ConstPtr<UByte>): Int =
+    PspJniBridge.libcPspSceNetAdhocctlConnect(name.rawAddress)
 
 public actual fun sceNetAdhocctlDisconnect(): Int =
-    PspJniBridge.libc_psp_sceNetAdhocctlDisconnect()
+    PspJniBridge.libcPspSceNetAdhocctlDisconnect()
 
-public actual fun sceNetAdhocctlGetState(event: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceNetAdhocctlGetState((event?.value ?: 0L))
+public actual fun sceNetAdhocctlGetState(event: MutPtr<Int>): Int =
+    PspJniBridge.libcPspSceNetAdhocctlGetState(event.rawAddress)
 
-public actual fun sceNetAdhocctlCreate(name: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceNetAdhocctlCreate((name?.value ?: 0L))
+public actual fun sceNetAdhocctlCreate(name: ConstPtr<UByte>): Int =
+    PspJniBridge.libcPspSceNetAdhocctlCreate(name.rawAddress)
 
-public actual fun sceNetAdhocctlJoin(scaninfo: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceNetAdhocctlJoin((scaninfo?.value ?: 0L))
+public actual fun sceNetAdhocctlJoin(scaninfo: MutPtr<SceNetAdhocctlScanInfo>): Int =
+    PspJniBridge.libcPspSceNetAdhocctlJoin(scaninfo.rawAddress)
 
-public actual fun sceNetAdhocctlGetAdhocId(id: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceNetAdhocctlGetAdhocId((id?.value ?: 0L))
+public actual fun sceNetAdhocctlGetAdhocId(id: MutPtr<SceNetAdhocctlAdhocId>): Int =
+    PspJniBridge.libcPspSceNetAdhocctlGetAdhocId(id.rawAddress)
 
-public actual fun sceNetAdhocctlCreateEnterGameMode(name: COpaquePointer?, unknown: Int, num: Int, macs: COpaquePointer?, timeout: UInt, unknown2: Int): Int =
-    PspJniBridge.libc_psp_sceNetAdhocctlCreateEnterGameMode((name?.value ?: 0L), unknown, num, (macs?.value ?: 0L), timeout.toInt(), unknown2)
+public actual fun sceNetAdhocctlCreateEnterGameMode(name: ConstPtr<UByte>, unknown: Int, num: Int, macs: MutPtr<UByte>, timeout: UInt, unknown2: Int): Int =
+    PspJniBridge.libcPspSceNetAdhocctlCreateEnterGameMode(name.rawAddress, unknown, num, macs.rawAddress, timeout.toInt(), unknown2)
 
-public actual fun sceNetAdhocctlJoinEnterGameMode(name: COpaquePointer?, hostmac: COpaquePointer?, timeout: UInt, unknown: Int): Int =
-    PspJniBridge.libc_psp_sceNetAdhocctlJoinEnterGameMode((name?.value ?: 0L), (hostmac?.value ?: 0L), timeout.toInt(), unknown)
+public actual fun sceNetAdhocctlJoinEnterGameMode(name: ConstPtr<UByte>, hostmac: MutPtr<UByte>, timeout: UInt, unknown: Int): Int =
+    PspJniBridge.libcPspSceNetAdhocctlJoinEnterGameMode(name.rawAddress, hostmac.rawAddress, timeout.toInt(), unknown)
 
-public actual fun sceNetAdhocctlGetGameModeInfo(gamemodeinfo: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceNetAdhocctlGetGameModeInfo((gamemodeinfo?.value ?: 0L))
+public actual fun sceNetAdhocctlGetGameModeInfo(gamemodeinfo: MutPtr<SceNetAdhocctlGameModeInfo>): Int =
+    PspJniBridge.libcPspSceNetAdhocctlGetGameModeInfo(gamemodeinfo.rawAddress)
 
 public actual fun sceNetAdhocctlExitGameMode(): Int =
-    PspJniBridge.libc_psp_sceNetAdhocctlExitGameMode()
+    PspJniBridge.libcPspSceNetAdhocctlExitGameMode()
 
-public actual fun sceNetAdhocctlGetPeerList(length: COpaquePointer?, buf: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceNetAdhocctlGetPeerList((length?.value ?: 0L), (buf?.value ?: 0L))
+public actual fun sceNetAdhocctlGetPeerList(length: MutPtr<Int>, buf: MutPtr<CVoid>): Int =
+    PspJniBridge.libcPspSceNetAdhocctlGetPeerList(length.rawAddress, buf.rawAddress)
 
-public actual fun sceNetAdhocctlGetPeerInfo(mac: COpaquePointer?, size: Int, peerinfo: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceNetAdhocctlGetPeerInfo((mac?.value ?: 0L), size, (peerinfo?.value ?: 0L))
+public actual fun sceNetAdhocctlGetPeerInfo(mac: MutPtr<UByte>, size: Int, peerinfo: MutPtr<SceNetAdhocctlPeerInfo>): Int =
+    PspJniBridge.libcPspSceNetAdhocctlGetPeerInfo(mac.rawAddress, size, peerinfo.rawAddress)
 
 public actual fun sceNetAdhocctlScan(): Int =
-    PspJniBridge.libc_psp_sceNetAdhocctlScan()
+    PspJniBridge.libcPspSceNetAdhocctlScan()
 
-public actual fun sceNetAdhocctlGetScanInfo(length: COpaquePointer?, buf: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceNetAdhocctlGetScanInfo((length?.value ?: 0L), (buf?.value ?: 0L))
+public actual fun sceNetAdhocctlGetScanInfo(length: MutPtr<Int>, buf: MutPtr<CVoid>): Int =
+    PspJniBridge.libcPspSceNetAdhocctlGetScanInfo(length.rawAddress, buf.rawAddress)
 
-public actual fun sceNetAdhocctlAddHandler(handler: SceNetAdhocctlHandler, unknown: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceNetAdhocctlAddHandler(0L, (unknown?.value ?: 0L))
+public actual fun sceNetAdhocctlAddHandler(handler: SceNetAdhocctlHandler, unknown: MutPtr<CVoid>): Int =
+    PspJniBridge.libcPspSceNetAdhocctlAddHandler(0L, unknown.rawAddress)
 
 public actual fun sceNetAdhocctlDelHandler(id: Int): Int =
-    PspJniBridge.libc_psp_sceNetAdhocctlDelHandler(id)
+    PspJniBridge.libcPspSceNetAdhocctlDelHandler(id)
 
-public actual fun sceNetAdhocctlGetNameByAddr(mac: COpaquePointer?, nickname: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceNetAdhocctlGetNameByAddr((mac?.value ?: 0L), (nickname?.value ?: 0L))
+public actual fun sceNetAdhocctlGetNameByAddr(mac: MutPtr<UByte>, nickname: MutPtr<UByte>): Int =
+    PspJniBridge.libcPspSceNetAdhocctlGetNameByAddr(mac.rawAddress, nickname.rawAddress)
 
-public actual fun sceNetAdhocctlGetAddrByName(nickname: COpaquePointer?, length: COpaquePointer?, buf: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceNetAdhocctlGetAddrByName((nickname?.value ?: 0L), (length?.value ?: 0L), (buf?.value ?: 0L))
+public actual fun sceNetAdhocctlGetAddrByName(nickname: MutPtr<UByte>, length: MutPtr<Int>, buf: MutPtr<CVoid>): Int =
+    PspJniBridge.libcPspSceNetAdhocctlGetAddrByName(nickname.rawAddress, length.rawAddress, buf.rawAddress)
 
-public actual fun sceNetAdhocctlGetParameter(params: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceNetAdhocctlGetParameter((params?.value ?: 0L))
+public actual fun sceNetAdhocctlGetParameter(params: MutPtr<SceNetAdhocctlParams>): Int =
+    PspJniBridge.libcPspSceNetAdhocctlGetParameter(params.rawAddress)
 
 public actual fun sceNetAdhocInit(): Int =
-    PspJniBridge.libc_psp_sceNetAdhocInit()
+    PspJniBridge.libcPspSceNetAdhocInit()
 
 public actual fun sceNetAdhocTerm(): Int =
-    PspJniBridge.libc_psp_sceNetAdhocTerm()
+    PspJniBridge.libcPspSceNetAdhocTerm()
 
-public actual fun sceNetAdhocPdpCreate(mac: COpaquePointer?, port: UShort, bufSize: UInt, unk1: Int): Int =
-    PspJniBridge.libc_psp_sceNetAdhocPdpCreate((mac?.value ?: 0L), port.toShort(), bufSize.toInt(), unk1)
+public actual fun sceNetAdhocPdpCreate(mac: MutPtr<UByte>, port: UShort, bufSize: UInt, unk1: Int): Int =
+    PspJniBridge.libcPspSceNetAdhocPdpCreate(mac.rawAddress, port.toShort(), bufSize.toInt(), unk1)
 
 public actual fun sceNetAdhocPdpDelete(id: Int, unk1: Int): Int =
-    PspJniBridge.libc_psp_sceNetAdhocPdpDelete(id, unk1)
+    PspJniBridge.libcPspSceNetAdhocPdpDelete(id, unk1)
 
-public actual fun sceNetAdhocPdpSend(id: Int, destMacAddr: COpaquePointer?, port: UShort, data: COpaquePointer?, len: UInt, timeout: UInt, nonblock: Int): Int =
-    PspJniBridge.libc_psp_sceNetAdhocPdpSend(id, (destMacAddr?.value ?: 0L), port.toShort(), (data?.value ?: 0L), len.toInt(), timeout.toInt(), nonblock)
+public actual fun sceNetAdhocPdpSend(id: Int, destMacAddr: MutPtr<UByte>, port: UShort, data: MutPtr<CVoid>, len: UInt, timeout: UInt, nonblock: Int): Int =
+    PspJniBridge.libcPspSceNetAdhocPdpSend(id, destMacAddr.rawAddress, port.toShort(), data.rawAddress, len.toInt(), timeout.toInt(), nonblock)
 
-public actual fun sceNetAdhocPdpRecv(id: Int, srcMacAddr: COpaquePointer?, port: COpaquePointer?, data: COpaquePointer?, dataLength: COpaquePointer?, timeout: UInt, nonblock: Int): Int =
-    PspJniBridge.libc_psp_sceNetAdhocPdpRecv(id, (srcMacAddr?.value ?: 0L), (port?.value ?: 0L), (data?.value ?: 0L), (dataLength?.value ?: 0L), timeout.toInt(), nonblock)
+public actual fun sceNetAdhocPdpRecv(id: Int, srcMacAddr: MutPtr<UByte>, port: MutPtr<UShort>, data: MutPtr<CVoid>, dataLength: MutPtr<CVoid>, timeout: UInt, nonblock: Int): Int =
+    PspJniBridge.libcPspSceNetAdhocPdpRecv(id, srcMacAddr.rawAddress, port.rawAddress, data.rawAddress, dataLength.rawAddress, timeout.toInt(), nonblock)
 
-public actual fun sceNetAdhocGetPdpStat(size: COpaquePointer?, stat: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceNetAdhocGetPdpStat((size?.value ?: 0L), (stat?.value ?: 0L))
+public actual fun sceNetAdhocGetPdpStat(size: MutPtr<Int>, stat: MutPtr<SceNetAdhocPdpStat>): Int =
+    PspJniBridge.libcPspSceNetAdhocGetPdpStat(size.rawAddress, stat.rawAddress)
 
-public actual fun sceNetAdhocGameModeCreateMaster(data: COpaquePointer?, size: Int): Int =
-    PspJniBridge.libc_psp_sceNetAdhocGameModeCreateMaster((data?.value ?: 0L), size)
+public actual fun sceNetAdhocGameModeCreateMaster(data: MutPtr<CVoid>, size: Int): Int =
+    PspJniBridge.libcPspSceNetAdhocGameModeCreateMaster(data.rawAddress, size)
 
-public actual fun sceNetAdhocGameModeCreateReplica(mac: COpaquePointer?, data: COpaquePointer?, size: Int): Int =
-    PspJniBridge.libc_psp_sceNetAdhocGameModeCreateReplica((mac?.value ?: 0L), (data?.value ?: 0L), size)
+public actual fun sceNetAdhocGameModeCreateReplica(mac: MutPtr<UByte>, data: MutPtr<CVoid>, size: Int): Int =
+    PspJniBridge.libcPspSceNetAdhocGameModeCreateReplica(mac.rawAddress, data.rawAddress, size)
 
 public actual fun sceNetAdhocGameModeUpdateMaster(): Int =
-    PspJniBridge.libc_psp_sceNetAdhocGameModeUpdateMaster()
+    PspJniBridge.libcPspSceNetAdhocGameModeUpdateMaster()
 
 public actual fun sceNetAdhocGameModeUpdateReplica(id: Int, unk1: Int): Int =
-    PspJniBridge.libc_psp_sceNetAdhocGameModeUpdateReplica(id, unk1)
+    PspJniBridge.libcPspSceNetAdhocGameModeUpdateReplica(id, unk1)
 
 public actual fun sceNetAdhocGameModeDeleteMaster(): Int =
-    PspJniBridge.libc_psp_sceNetAdhocGameModeDeleteMaster()
+    PspJniBridge.libcPspSceNetAdhocGameModeDeleteMaster()
 
 public actual fun sceNetAdhocGameModeDeleteReplica(id: Int): Int =
-    PspJniBridge.libc_psp_sceNetAdhocGameModeDeleteReplica(id)
+    PspJniBridge.libcPspSceNetAdhocGameModeDeleteReplica(id)
 
-public actual fun sceNetAdhocPtpOpen(srcmac: COpaquePointer?, srcport: UShort, destmac: COpaquePointer?, destport: UShort, bufSize: UInt, delay: UInt, count: Int, unk1: Int): Int =
-    PspJniBridge.libc_psp_sceNetAdhocPtpOpen((srcmac?.value ?: 0L), srcport.toShort(), (destmac?.value ?: 0L), destport.toShort(), bufSize.toInt(), delay.toInt(), count, unk1)
+public actual fun sceNetAdhocPtpOpen(srcmac: MutPtr<UByte>, srcport: UShort, destmac: MutPtr<UByte>, destport: UShort, bufSize: UInt, delay: UInt, count: Int, unk1: Int): Int =
+    PspJniBridge.libcPspSceNetAdhocPtpOpen(srcmac.rawAddress, srcport.toShort(), destmac.rawAddress, destport.toShort(), bufSize.toInt(), delay.toInt(), count, unk1)
 
 public actual fun sceNetAdhocPtpConnect(id: Int, timeout: UInt, nonblock: Int): Int =
-    PspJniBridge.libc_psp_sceNetAdhocPtpConnect(id, timeout.toInt(), nonblock)
+    PspJniBridge.libcPspSceNetAdhocPtpConnect(id, timeout.toInt(), nonblock)
 
-public actual fun sceNetAdhocPtpListen(srcmac: COpaquePointer?, srcport: UShort, bufSize: UInt, delay: UInt, count: Int, queue: Int, unk1: Int): Int =
-    PspJniBridge.libc_psp_sceNetAdhocPtpListen((srcmac?.value ?: 0L), srcport.toShort(), bufSize.toInt(), delay.toInt(), count, queue, unk1)
+public actual fun sceNetAdhocPtpListen(srcmac: MutPtr<UByte>, srcport: UShort, bufSize: UInt, delay: UInt, count: Int, queue: Int, unk1: Int): Int =
+    PspJniBridge.libcPspSceNetAdhocPtpListen(srcmac.rawAddress, srcport.toShort(), bufSize.toInt(), delay.toInt(), count, queue, unk1)
 
-public actual fun sceNetAdhocPtpAccept(id: Int, mac: COpaquePointer?, port: COpaquePointer?, timeout: UInt, nonblock: Int): Int =
-    PspJniBridge.libc_psp_sceNetAdhocPtpAccept(id, (mac?.value ?: 0L), (port?.value ?: 0L), timeout.toInt(), nonblock)
+public actual fun sceNetAdhocPtpAccept(id: Int, mac: MutPtr<UByte>, port: MutPtr<UShort>, timeout: UInt, nonblock: Int): Int =
+    PspJniBridge.libcPspSceNetAdhocPtpAccept(id, mac.rawAddress, port.rawAddress, timeout.toInt(), nonblock)
 
-public actual fun sceNetAdhocPtpSend(id: Int, data: COpaquePointer?, dataSize: COpaquePointer?, timeout: UInt, nonblock: Int): Int =
-    PspJniBridge.libc_psp_sceNetAdhocPtpSend(id, (data?.value ?: 0L), (dataSize?.value ?: 0L), timeout.toInt(), nonblock)
+public actual fun sceNetAdhocPtpSend(id: Int, data: MutPtr<CVoid>, dataSize: MutPtr<Int>, timeout: UInt, nonblock: Int): Int =
+    PspJniBridge.libcPspSceNetAdhocPtpSend(id, data.rawAddress, dataSize.rawAddress, timeout.toInt(), nonblock)
 
-public actual fun sceNetAdhocPtpRecv(id: Int, data: COpaquePointer?, dataSize: COpaquePointer?, timeout: UInt, nonblock: Int): Int =
-    PspJniBridge.libc_psp_sceNetAdhocPtpRecv(id, (data?.value ?: 0L), (dataSize?.value ?: 0L), timeout.toInt(), nonblock)
+public actual fun sceNetAdhocPtpRecv(id: Int, data: MutPtr<CVoid>, dataSize: MutPtr<Int>, timeout: UInt, nonblock: Int): Int =
+    PspJniBridge.libcPspSceNetAdhocPtpRecv(id, data.rawAddress, dataSize.rawAddress, timeout.toInt(), nonblock)
 
 public actual fun sceNetAdhocPtpFlush(id: Int, timeout: UInt, nonblock: Int): Int =
-    PspJniBridge.libc_psp_sceNetAdhocPtpFlush(id, timeout.toInt(), nonblock)
+    PspJniBridge.libcPspSceNetAdhocPtpFlush(id, timeout.toInt(), nonblock)
 
 public actual fun sceNetAdhocPtpClose(id: Int, unk1: Int): Int =
-    PspJniBridge.libc_psp_sceNetAdhocPtpClose(id, unk1)
+    PspJniBridge.libcPspSceNetAdhocPtpClose(id, unk1)
 
-public actual fun sceNetAdhocGetPtpStat(size: COpaquePointer?, stat: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceNetAdhocGetPtpStat((size?.value ?: 0L), (stat?.value ?: 0L))
+public actual fun sceNetAdhocGetPtpStat(size: MutPtr<Int>, stat: MutPtr<SceNetAdhocPtpStat>): Int =
+    PspJniBridge.libcPspSceNetAdhocGetPtpStat(size.rawAddress, stat.rawAddress)
 
 public actual fun sceNetAdhocMatchingInit(memsize: Int): Int =
-    PspJniBridge.libc_psp_sceNetAdhocMatchingInit(memsize)
+    PspJniBridge.libcPspSceNetAdhocMatchingInit(memsize)
 
 public actual fun sceNetAdhocMatchingTerm(): Int =
-    PspJniBridge.libc_psp_sceNetAdhocMatchingTerm()
+    PspJniBridge.libcPspSceNetAdhocMatchingTerm()
 
 public actual fun sceNetAdhocMatchingCreate(mode: AdhocMatchingMode, maxPeers: Int, port: UShort, bufSize: Int, helloDelay: UInt, pingDelay: UInt, initCount: Int, msgDelay: UInt, callback: AdhocMatchingCallback): Int =
     0
 
 public actual fun sceNetAdhocMatchingDelete(matchingId: Int): Int =
-    PspJniBridge.libc_psp_sceNetAdhocMatchingDelete(matchingId)
+    PspJniBridge.libcPspSceNetAdhocMatchingDelete(matchingId)
 
-public actual fun sceNetAdhocMatchingStart(matchingId: Int, evthPri: Int, evthStack: Int, inthPri: Int, inthStack: Int, optLen: Int, optData: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceNetAdhocMatchingStart(matchingId, evthPri, evthStack, inthPri, inthStack, optLen, (optData?.value ?: 0L))
+public actual fun sceNetAdhocMatchingStart(matchingId: Int, evthPri: Int, evthStack: Int, inthPri: Int, inthStack: Int, optLen: Int, optData: MutPtr<CVoid>): Int =
+    PspJniBridge.libcPspSceNetAdhocMatchingStart(matchingId, evthPri, evthStack, inthPri, inthStack, optLen, optData.rawAddress)
 
 public actual fun sceNetAdhocMatchingStop(matchingId: Int): Int =
-    PspJniBridge.libc_psp_sceNetAdhocMatchingStop(matchingId)
+    PspJniBridge.libcPspSceNetAdhocMatchingStop(matchingId)
 
-public actual fun sceNetAdhocMatchingSelectTarget(matchingId: Int, mac: COpaquePointer?, optLen: Int, optData: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceNetAdhocMatchingSelectTarget(matchingId, (mac?.value ?: 0L), optLen, (optData?.value ?: 0L))
+public actual fun sceNetAdhocMatchingSelectTarget(matchingId: Int, mac: MutPtr<UByte>, optLen: Int, optData: MutPtr<CVoid>): Int =
+    PspJniBridge.libcPspSceNetAdhocMatchingSelectTarget(matchingId, mac.rawAddress, optLen, optData.rawAddress)
 
-public actual fun sceNetAdhocMatchingCancelTarget(matchingId: Int, mac: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceNetAdhocMatchingCancelTarget(matchingId, (mac?.value ?: 0L))
+public actual fun sceNetAdhocMatchingCancelTarget(matchingId: Int, mac: MutPtr<UByte>): Int =
+    PspJniBridge.libcPspSceNetAdhocMatchingCancelTarget(matchingId, mac.rawAddress)
 
-public actual fun sceNetAdhocMatchingCancelTargetWithOpt(matchingId: Int, mac: COpaquePointer?, optLen: Int, optData: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceNetAdhocMatchingCancelTargetWithOpt(matchingId, (mac?.value ?: 0L), optLen, (optData?.value ?: 0L))
+public actual fun sceNetAdhocMatchingCancelTargetWithOpt(matchingId: Int, mac: MutPtr<UByte>, optLen: Int, optData: MutPtr<CVoid>): Int =
+    PspJniBridge.libcPspSceNetAdhocMatchingCancelTargetWithOpt(matchingId, mac.rawAddress, optLen, optData.rawAddress)
 
-public actual fun sceNetAdhocMatchingSendData(matchingId: Int, mac: COpaquePointer?, dataLen: Int, data: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceNetAdhocMatchingSendData(matchingId, (mac?.value ?: 0L), dataLen, (data?.value ?: 0L))
+public actual fun sceNetAdhocMatchingSendData(matchingId: Int, mac: MutPtr<UByte>, dataLen: Int, data: MutPtr<CVoid>): Int =
+    PspJniBridge.libcPspSceNetAdhocMatchingSendData(matchingId, mac.rawAddress, dataLen, data.rawAddress)
 
-public actual fun sceNetAdhocMatchingAbortSendData(matchingId: Int, mac: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceNetAdhocMatchingAbortSendData(matchingId, (mac?.value ?: 0L))
+public actual fun sceNetAdhocMatchingAbortSendData(matchingId: Int, mac: MutPtr<UByte>): Int =
+    PspJniBridge.libcPspSceNetAdhocMatchingAbortSendData(matchingId, mac.rawAddress)
 
-public actual fun sceNetAdhocMatchingSetHelloOpt(matchingId: Int, optLen: Int, optData: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceNetAdhocMatchingSetHelloOpt(matchingId, optLen, (optData?.value ?: 0L))
+public actual fun sceNetAdhocMatchingSetHelloOpt(matchingId: Int, optLen: Int, optData: MutPtr<CVoid>): Int =
+    PspJniBridge.libcPspSceNetAdhocMatchingSetHelloOpt(matchingId, optLen, optData.rawAddress)
 
-public actual fun sceNetAdhocMatchingGetHelloOpt(matchingId: Int, optLen: COpaquePointer?, optData: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceNetAdhocMatchingGetHelloOpt(matchingId, (optLen?.value ?: 0L), (optData?.value ?: 0L))
+public actual fun sceNetAdhocMatchingGetHelloOpt(matchingId: Int, optLen: MutPtr<Int>, optData: MutPtr<CVoid>): Int =
+    PspJniBridge.libcPspSceNetAdhocMatchingGetHelloOpt(matchingId, optLen.rawAddress, optData.rawAddress)
 
-public actual fun sceNetAdhocMatchingGetMembers(matchingId: Int, length: COpaquePointer?, buf: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceNetAdhocMatchingGetMembers(matchingId, (length?.value ?: 0L), (buf?.value ?: 0L))
+public actual fun sceNetAdhocMatchingGetMembers(matchingId: Int, length: MutPtr<Int>, buf: MutPtr<CVoid>): Int =
+    PspJniBridge.libcPspSceNetAdhocMatchingGetMembers(matchingId, length.rawAddress, buf.rawAddress)
 
 public actual fun sceNetAdhocMatchingGetPoolMaxAlloc(): Int =
-    PspJniBridge.libc_psp_sceNetAdhocMatchingGetPoolMaxAlloc()
+    PspJniBridge.libcPspSceNetAdhocMatchingGetPoolMaxAlloc()
 
-public actual fun sceNetAdhocMatchingGetPoolStat(poolstat: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceNetAdhocMatchingGetPoolStat((poolstat?.value ?: 0L))
+public actual fun sceNetAdhocMatchingGetPoolStat(poolstat: MutPtr<AdhocPoolStat>): Int =
+    PspJniBridge.libcPspSceNetAdhocMatchingGetPoolStat(poolstat.rawAddress)
 
 public actual fun sceNetApctlInit(stackSize: Int, initPriority: Int): Int =
-    PspJniBridge.libc_psp_sceNetApctlInit(stackSize, initPriority)
+    PspJniBridge.libcPspSceNetApctlInit(stackSize, initPriority)
 
 public actual fun sceNetApctlTerm(): Int =
-    PspJniBridge.libc_psp_sceNetApctlTerm()
+    PspJniBridge.libcPspSceNetApctlTerm()
 
-public actual fun sceNetApctlGetInfo(code: ApctlInfo, pinfo: COpaquePointer?): Int =
+public actual fun sceNetApctlGetInfo(code: ApctlInfo, pinfo: MutPtr<SceNetApctlInfo>): Int =
     0
 
-public actual fun sceNetApctlAddHandler(handler: SceNetApctlHandler, parg: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceNetApctlAddHandler(0L, (parg?.value ?: 0L))
+public actual fun sceNetApctlAddHandler(handler: SceNetApctlHandler, parg: MutPtr<CVoid>): Int =
+    PspJniBridge.libcPspSceNetApctlAddHandler(0L, parg.rawAddress)
 
 public actual fun sceNetApctlDelHandler(handlerId: Int): Int =
-    PspJniBridge.libc_psp_sceNetApctlDelHandler(handlerId)
+    PspJniBridge.libcPspSceNetApctlDelHandler(handlerId)
 
 public actual fun sceNetApctlConnect(connIndex: Int): Int =
-    PspJniBridge.libc_psp_sceNetApctlConnect(connIndex)
+    PspJniBridge.libcPspSceNetApctlConnect(connIndex)
 
 public actual fun sceNetApctlDisconnect(): Int =
-    PspJniBridge.libc_psp_sceNetApctlDisconnect()
+    PspJniBridge.libcPspSceNetApctlDisconnect()
 
-public actual fun sceNetApctlGetState(pstate: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceNetApctlGetState((pstate?.value ?: 0L))
+public actual fun sceNetApctlGetState(pstate: MutPtr<ApctlState>): Int =
+    PspJniBridge.libcPspSceNetApctlGetState(pstate.rawAddress)
 
 public actual fun sceNetInetInit(): Int =
-    PspJniBridge.libc_psp_sceNetInetInit()
+    PspJniBridge.libcPspSceNetInetInit()
 
 public actual fun sceNetInetTerm(): Int =
-    PspJniBridge.libc_psp_sceNetInetTerm()
+    PspJniBridge.libcPspSceNetInetTerm()
 
-public actual fun sceNetInetAccept(s: Int, addr: COpaquePointer?, addrLen: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceNetInetAccept(s, (addr?.value ?: 0L), (addrLen?.value ?: 0L))
+public actual fun sceNetInetAccept(s: Int, addr: MutPtr<Sockaddr>, addrLen: MutPtr<SocklenT>): Int =
+    PspJniBridge.libcPspSceNetInetAccept(s, addr.rawAddress, addrLen.rawAddress)
 
-public actual fun sceNetInetBind(s: Int, myAddr: COpaquePointer?, addrLen: SocklenT): Int =
-    PspJniBridge.libc_psp_sceNetInetBind(s, (myAddr?.value ?: 0L), addrLen.toInt())
+public actual fun sceNetInetBind(s: Int, myAddr: ConstPtr<Sockaddr>, addrLen: SocklenT): Int =
+    PspJniBridge.libcPspSceNetInetBind(s, myAddr.rawAddress, addrLen.toInt())
 
-public actual fun sceNetInetConnect(s: Int, servAddr: COpaquePointer?, addrLen: SocklenT): Int =
-    PspJniBridge.libc_psp_sceNetInetConnect(s, (servAddr?.value ?: 0L), addrLen.toInt())
+public actual fun sceNetInetConnect(s: Int, servAddr: ConstPtr<Sockaddr>, addrLen: SocklenT): Int =
+    PspJniBridge.libcPspSceNetInetConnect(s, servAddr.rawAddress, addrLen.toInt())
 
-public actual fun sceNetInetGetsockopt(s: Int, level: Int, optName: Int, optVal: COpaquePointer?, optlEn: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceNetInetGetsockopt(s, level, optName, (optVal?.value ?: 0L), (optlEn?.value ?: 0L))
+public actual fun sceNetInetGetsockopt(s: Int, level: Int, optName: Int, optVal: MutPtr<CVoid>, optlEn: MutPtr<SocklenT>): Int =
+    PspJniBridge.libcPspSceNetInetGetsockopt(s, level, optName, optVal.rawAddress, optlEn.rawAddress)
 
 public actual fun sceNetInetListen(s: Int, backlog: Int): Int =
-    PspJniBridge.libc_psp_sceNetInetListen(s, backlog)
+    PspJniBridge.libcPspSceNetInetListen(s, backlog)
 
-public actual fun sceNetInetRecv(s: Int, buf: COpaquePointer?, len: ULong, flags: Int): ULong =
-    PspJniBridge.libc_psp_sceNetInetRecv(s, (buf?.value ?: 0L), len.toLong(), flags).toULong()
+public actual fun sceNetInetRecv(s: Int, buf: MutPtr<CVoid>, len: ULong, flags: Int): ULong =
+    PspJniBridge.libcPspSceNetInetRecv(s, buf.rawAddress, len.toLong(), flags).toULong()
 
-public actual fun sceNetInetRecvfrom(s: Int, buf: COpaquePointer?, flags: ULong, arg1: Int, from: COpaquePointer?, fromLen: COpaquePointer?): ULong =
-    PspJniBridge.libc_psp_sceNetInetRecvfrom(s, (buf?.value ?: 0L), flags.toLong(), arg1, (from?.value ?: 0L), (fromLen?.value ?: 0L)).toULong()
+public actual fun sceNetInetRecvfrom(s: Int, buf: MutPtr<CVoid>, flags: ULong, arg1: Int, from: MutPtr<Sockaddr>, fromLen: MutPtr<SocklenT>): ULong =
+    PspJniBridge.libcPspSceNetInetRecvfrom(s, buf.rawAddress, flags.toLong(), arg1, from.rawAddress, fromLen.rawAddress).toULong()
 
-public actual fun sceNetInetSend(s: Int, buf: COpaquePointer?, len: ULong, flags: Int): ULong =
-    PspJniBridge.libc_psp_sceNetInetSend(s, (buf?.value ?: 0L), len.toLong(), flags).toULong()
+public actual fun sceNetInetSend(s: Int, buf: ConstPtr<CVoid>, len: ULong, flags: Int): ULong =
+    PspJniBridge.libcPspSceNetInetSend(s, buf.rawAddress, len.toLong(), flags).toULong()
 
-public actual fun sceNetInetSendto(s: Int, buf: COpaquePointer?, len: ULong, flags: Int, to: COpaquePointer?, toLen: SocklenT): ULong =
-    PspJniBridge.libc_psp_sceNetInetSendto(s, (buf?.value ?: 0L), len.toLong(), flags, (to?.value ?: 0L), toLen.toInt()).toULong()
+public actual fun sceNetInetSendto(s: Int, buf: ConstPtr<CVoid>, len: ULong, flags: Int, to: ConstPtr<Sockaddr>, toLen: SocklenT): ULong =
+    PspJniBridge.libcPspSceNetInetSendto(s, buf.rawAddress, len.toLong(), flags, to.rawAddress, toLen.toInt()).toULong()
 
-public actual fun sceNetInetSetsockopt(s: Int, level: Int, optName: Int, optVal: COpaquePointer?, optLen: SocklenT): Int =
-    PspJniBridge.libc_psp_sceNetInetSetsockopt(s, level, optName, (optVal?.value ?: 0L), optLen.toInt())
+public actual fun sceNetInetSetsockopt(s: Int, level: Int, optName: Int, optVal: ConstPtr<CVoid>, optLen: SocklenT): Int =
+    PspJniBridge.libcPspSceNetInetSetsockopt(s, level, optName, optVal.rawAddress, optLen.toInt())
 
 public actual fun sceNetInetShutdown(s: Int, how: Int): Int =
-    PspJniBridge.libc_psp_sceNetInetShutdown(s, how)
+    PspJniBridge.libcPspSceNetInetShutdown(s, how)
 
 public actual fun sceNetInetSocket(domain: Int, type: Int, protocol: Int): Int =
-    PspJniBridge.libc_psp_sceNetInetSocket(domain, type, protocol)
+    PspJniBridge.libcPspSceNetInetSocket(domain, type, protocol)
 
 public actual fun sceNetInetClose(s: Int): Int =
-    PspJniBridge.libc_psp_sceNetInetClose(s)
+    PspJniBridge.libcPspSceNetInetClose(s)
 
 public actual fun sceNetInetGetErrno(): Int =
-    PspJniBridge.libc_psp_sceNetInetGetErrno()
+    PspJniBridge.libcPspSceNetInetGetErrno()
 
 public actual fun sceSslInit(unknown1: Int): Int =
-    PspJniBridge.libc_psp_sceSslInit(unknown1)
+    PspJniBridge.libcPspSceSslInit(unknown1)
 
 public actual fun sceSslEnd(): Int =
-    PspJniBridge.libc_psp_sceSslEnd()
+    PspJniBridge.libcPspSceSslEnd()
 
-public actual fun sceSslGetUsedMemoryMax(memory: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceSslGetUsedMemoryMax((memory?.value ?: 0L))
+public actual fun sceSslGetUsedMemoryMax(memory: MutPtr<UInt>): Int =
+    PspJniBridge.libcPspSceSslGetUsedMemoryMax(memory.rawAddress)
 
-public actual fun sceSslGetUsedMemoryCurrent(memory: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceSslGetUsedMemoryCurrent((memory?.value ?: 0L))
+public actual fun sceSslGetUsedMemoryCurrent(memory: MutPtr<UInt>): Int =
+    PspJniBridge.libcPspSceSslGetUsedMemoryCurrent(memory.rawAddress)
 
 public actual fun sceHttpInit(unknown1: UInt): Int =
-    PspJniBridge.libc_psp_sceHttpInit(unknown1.toInt())
+    PspJniBridge.libcPspSceHttpInit(unknown1.toInt())
 
 public actual fun sceHttpEnd(): Int =
-    PspJniBridge.libc_psp_sceHttpEnd()
+    PspJniBridge.libcPspSceHttpEnd()
 
-public actual fun sceHttpCreateTemplate(agent: COpaquePointer?, unknown1: Int, unknown2: Int): Int =
-    PspJniBridge.libc_psp_sceHttpCreateTemplate((agent?.value ?: 0L), unknown1, unknown2)
+public actual fun sceHttpCreateTemplate(agent: MutPtr<UByte>, unknown1: Int, unknown2: Int): Int =
+    PspJniBridge.libcPspSceHttpCreateTemplate(agent.rawAddress, unknown1, unknown2)
 
 public actual fun sceHttpDeleteTemplate(templateid: Int): Int =
-    PspJniBridge.libc_psp_sceHttpDeleteTemplate(templateid)
+    PspJniBridge.libcPspSceHttpDeleteTemplate(templateid)
 
-public actual fun sceHttpCreateConnection(templateid: Int, host: COpaquePointer?, unknown1: COpaquePointer?, port: UShort, unknown2: Int): Int =
-    PspJniBridge.libc_psp_sceHttpCreateConnection(templateid, (host?.value ?: 0L), (unknown1?.value ?: 0L), port.toShort(), unknown2)
+public actual fun sceHttpCreateConnection(templateid: Int, host: MutPtr<UByte>, unknown1: MutPtr<UByte>, port: UShort, unknown2: Int): Int =
+    PspJniBridge.libcPspSceHttpCreateConnection(templateid, host.rawAddress, unknown1.rawAddress, port.toShort(), unknown2)
 
-public actual fun sceHttpCreateConnectionWithURL(templateid: Int, url: COpaquePointer?, unknown1: Int): Int =
-    PspJniBridge.libc_psp_sceHttpCreateConnectionWithURL(templateid, (url?.value ?: 0L), unknown1)
+public actual fun sceHttpCreateConnectionWithURL(templateid: Int, url: ConstPtr<UByte>, unknown1: Int): Int =
+    PspJniBridge.libcPspSceHttpCreateConnectionWithURL(templateid, url.rawAddress, unknown1)
 
 public actual fun sceHttpDeleteConnection(connectionId: Int): Int =
-    PspJniBridge.libc_psp_sceHttpDeleteConnection(connectionId)
+    PspJniBridge.libcPspSceHttpDeleteConnection(connectionId)
 
-public actual fun sceHttpCreateRequest(connectionId: Int, method: HttpMethod, path: COpaquePointer?, contentLength: ULong): Int =
+public actual fun sceHttpCreateRequest(connectionId: Int, method: HttpMethod, path: MutPtr<UByte>, contentLength: ULong): Int =
     0
 
-public actual fun sceHttpCreateRequestWithURL(connectionId: Int, method: HttpMethod, url: COpaquePointer?, contentLength: ULong): Int =
+public actual fun sceHttpCreateRequestWithURL(connectionId: Int, method: HttpMethod, url: MutPtr<UByte>, contentLength: ULong): Int =
     0
 
 public actual fun sceHttpDeleteRequest(requestId: Int): Int =
-    PspJniBridge.libc_psp_sceHttpDeleteRequest(requestId)
+    PspJniBridge.libcPspSceHttpDeleteRequest(requestId)
 
-public actual fun sceHttpSendRequest(requestId: Int, data: COpaquePointer?, dataSize: UInt): Int =
-    PspJniBridge.libc_psp_sceHttpSendRequest(requestId, (data?.value ?: 0L), dataSize.toInt())
+public actual fun sceHttpSendRequest(requestId: Int, data: MutPtr<CVoid>, dataSize: UInt): Int =
+    PspJniBridge.libcPspSceHttpSendRequest(requestId, data.rawAddress, dataSize.toInt())
 
 public actual fun sceHttpAbortRequest(requestId: Int): Int =
-    PspJniBridge.libc_psp_sceHttpAbortRequest(requestId)
+    PspJniBridge.libcPspSceHttpAbortRequest(requestId)
 
-public actual fun sceHttpReadData(requestId: Int, data: COpaquePointer?, dataSize: UInt): Int =
-    PspJniBridge.libc_psp_sceHttpReadData(requestId, (data?.value ?: 0L), dataSize.toInt())
+public actual fun sceHttpReadData(requestId: Int, data: MutPtr<CVoid>, dataSize: UInt): Int =
+    PspJniBridge.libcPspSceHttpReadData(requestId, data.rawAddress, dataSize.toInt())
 
-public actual fun sceHttpGetContentLength(requestId: Int, contentLength: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceHttpGetContentLength(requestId, (contentLength?.value ?: 0L))
+public actual fun sceHttpGetContentLength(requestId: Int, contentLength: MutPtr<ULong>): Int =
+    PspJniBridge.libcPspSceHttpGetContentLength(requestId, contentLength.rawAddress)
 
-public actual fun sceHttpGetStatusCode(requestId: Int, statusCode: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceHttpGetStatusCode(requestId, (statusCode?.value ?: 0L))
+public actual fun sceHttpGetStatusCode(requestId: Int, statusCode: MutPtr<Int>): Int =
+    PspJniBridge.libcPspSceHttpGetStatusCode(requestId, statusCode.rawAddress)
 
 public actual fun sceHttpSetResolveTimeOut(id: Int, timeout: UInt): Int =
-    PspJniBridge.libc_psp_sceHttpSetResolveTimeOut(id, timeout.toInt())
+    PspJniBridge.libcPspSceHttpSetResolveTimeOut(id, timeout.toInt())
 
 public actual fun sceHttpSetResolveRetry(id: Int, count: Int): Int =
-    PspJniBridge.libc_psp_sceHttpSetResolveRetry(id, count)
+    PspJniBridge.libcPspSceHttpSetResolveRetry(id, count)
 
 public actual fun sceHttpSetConnectTimeOut(id: Int, timeout: UInt): Int =
-    PspJniBridge.libc_psp_sceHttpSetConnectTimeOut(id, timeout.toInt())
+    PspJniBridge.libcPspSceHttpSetConnectTimeOut(id, timeout.toInt())
 
 public actual fun sceHttpSetSendTimeOut(id: Int, timeout: UInt): Int =
-    PspJniBridge.libc_psp_sceHttpSetSendTimeOut(id, timeout.toInt())
+    PspJniBridge.libcPspSceHttpSetSendTimeOut(id, timeout.toInt())
 
 public actual fun sceHttpSetRecvTimeOut(id: Int, timeout: UInt): Int =
-    PspJniBridge.libc_psp_sceHttpSetRecvTimeOut(id, timeout.toInt())
+    PspJniBridge.libcPspSceHttpSetRecvTimeOut(id, timeout.toInt())
 
 public actual fun sceHttpEnableKeepAlive(id: Int): Int =
-    PspJniBridge.libc_psp_sceHttpEnableKeepAlive(id)
+    PspJniBridge.libcPspSceHttpEnableKeepAlive(id)
 
 public actual fun sceHttpDisableKeepAlive(id: Int): Int =
-    PspJniBridge.libc_psp_sceHttpDisableKeepAlive(id)
+    PspJniBridge.libcPspSceHttpDisableKeepAlive(id)
 
 public actual fun sceHttpEnableRedirect(id: Int): Int =
-    PspJniBridge.libc_psp_sceHttpEnableRedirect(id)
+    PspJniBridge.libcPspSceHttpEnableRedirect(id)
 
 public actual fun sceHttpDisableRedirect(id: Int): Int =
-    PspJniBridge.libc_psp_sceHttpDisableRedirect(id)
+    PspJniBridge.libcPspSceHttpDisableRedirect(id)
 
 public actual fun sceHttpEnableCookie(id: Int): Int =
-    PspJniBridge.libc_psp_sceHttpEnableCookie(id)
+    PspJniBridge.libcPspSceHttpEnableCookie(id)
 
 public actual fun sceHttpDisableCookie(id: Int): Int =
-    PspJniBridge.libc_psp_sceHttpDisableCookie(id)
+    PspJniBridge.libcPspSceHttpDisableCookie(id)
 
 public actual fun sceHttpSaveSystemCookie(): Int =
-    PspJniBridge.libc_psp_sceHttpSaveSystemCookie()
+    PspJniBridge.libcPspSceHttpSaveSystemCookie()
 
 public actual fun sceHttpLoadSystemCookie(): Int =
-    PspJniBridge.libc_psp_sceHttpLoadSystemCookie()
+    PspJniBridge.libcPspSceHttpLoadSystemCookie()
 
-public actual fun sceHttpAddExtraHeader(id: Int, name: COpaquePointer?, value: COpaquePointer?, unknown1: Int): Int =
-    PspJniBridge.libc_psp_sceHttpAddExtraHeader(id, (name?.value ?: 0L), (value?.value ?: 0L), unknown1)
+public actual fun sceHttpAddExtraHeader(id: Int, name: MutPtr<UByte>, value: MutPtr<UByte>, unknown1: Int): Int =
+    PspJniBridge.libcPspSceHttpAddExtraHeader(id, name.rawAddress, value.rawAddress, unknown1)
 
-public actual fun sceHttpDeleteHeader(id: Int, name: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceHttpDeleteHeader(id, (name?.value ?: 0L))
+public actual fun sceHttpDeleteHeader(id: Int, name: ConstPtr<UByte>): Int =
+    PspJniBridge.libcPspSceHttpDeleteHeader(id, name.rawAddress)
 
 public actual fun sceHttpsInit(unknown1: Int, unknown2: Int, unknown3: Int, unknown4: Int): Int =
-    PspJniBridge.libc_psp_sceHttpsInit(unknown1, unknown2, unknown3, unknown4)
+    PspJniBridge.libcPspSceHttpsInit(unknown1, unknown2, unknown3, unknown4)
 
 public actual fun sceHttpsEnd(): Int =
-    PspJniBridge.libc_psp_sceHttpsEnd()
+    PspJniBridge.libcPspSceHttpsEnd()
 
 public actual fun sceHttpsLoadDefaultCert(unknown1: Int, unknown2: Int): Int =
-    PspJniBridge.libc_psp_sceHttpsLoadDefaultCert(unknown1, unknown2)
+    PspJniBridge.libcPspSceHttpsLoadDefaultCert(unknown1, unknown2)
 
 public actual fun sceHttpDisableAuth(id: Int): Int =
-    PspJniBridge.libc_psp_sceHttpDisableAuth(id)
+    PspJniBridge.libcPspSceHttpDisableAuth(id)
 
 public actual fun sceHttpDisableCache(id: Int): Int =
-    PspJniBridge.libc_psp_sceHttpDisableCache(id)
+    PspJniBridge.libcPspSceHttpDisableCache(id)
 
 public actual fun sceHttpEnableAuth(id: Int): Int =
-    PspJniBridge.libc_psp_sceHttpEnableAuth(id)
+    PspJniBridge.libcPspSceHttpEnableAuth(id)
 
 public actual fun sceHttpEnableCache(id: Int): Int =
-    PspJniBridge.libc_psp_sceHttpEnableCache(id)
+    PspJniBridge.libcPspSceHttpEnableCache(id)
 
 public actual fun sceHttpEndCache(): Int =
-    PspJniBridge.libc_psp_sceHttpEndCache()
+    PspJniBridge.libcPspSceHttpEndCache()
 
-public actual fun sceHttpGetAllHeader(request: Int, header: COpaquePointer?, headerSize: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceHttpGetAllHeader(request, (header?.value ?: 0L), (headerSize?.value ?: 0L))
+public actual fun sceHttpGetAllHeader(request: Int, header: MutPtr<MutPtr<UByte>>, headerSize: MutPtr<UInt>): Int =
+    PspJniBridge.libcPspSceHttpGetAllHeader(request, header.rawAddress, headerSize.rawAddress)
 
-public actual fun sceHttpGetNetworkErrno(request: Int, errNum: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceHttpGetNetworkErrno(request, (errNum?.value ?: 0L))
+public actual fun sceHttpGetNetworkErrno(request: Int, errNum: MutPtr<Int>): Int =
+    PspJniBridge.libcPspSceHttpGetNetworkErrno(request, errNum.rawAddress)
 
-public actual fun sceHttpGetProxy(id: Int, activateFlag: COpaquePointer?, mode: COpaquePointer?, proxyHost: COpaquePointer?, len: ULong, proxyPort: COpaquePointer?): Int =
-    PspJniBridge.libc_psp_sceHttpGetProxy(id, (activateFlag?.value ?: 0L), (mode?.value ?: 0L), (proxyHost?.value ?: 0L), len.toLong(), (proxyPort?.value ?: 0L))
+public actual fun sceHttpGetProxy(id: Int, activateFlag: MutPtr<Int>, mode: MutPtr<Int>, proxyHost: MutPtr<UByte>, len: ULong, proxyPort: MutPtr<UShort>): Int =
+    PspJniBridge.libcPspSceHttpGetProxy(id, activateFlag.rawAddress, mode.rawAddress, proxyHost.rawAddress, len.toLong(), proxyPort.rawAddress)
 
 public actual fun sceHttpInitCache(maxSize: ULong): Int =
-    PspJniBridge.libc_psp_sceHttpInitCache(maxSize.toLong())
+    PspJniBridge.libcPspSceHttpInitCache(maxSize.toLong())
 
 public actual fun sceHttpSetAuthInfoCB(id: Int, cbfunc: HttpPasswordCB): Int =
-    PspJniBridge.libc_psp_sceHttpSetAuthInfoCB(id, 0L)
+    PspJniBridge.libcPspSceHttpSetAuthInfoCB(id, 0L)
 
-public actual fun sceHttpSetProxy(id: Int, activateFlag: Int, mode: Int, newProxyHost: COpaquePointer?, newProxyPort: UShort): Int =
-    PspJniBridge.libc_psp_sceHttpSetProxy(id, activateFlag, mode, (newProxyHost?.value ?: 0L), newProxyPort.toShort())
+public actual fun sceHttpSetProxy(id: Int, activateFlag: Int, mode: Int, newProxyHost: ConstPtr<UByte>, newProxyPort: UShort): Int =
+    PspJniBridge.libcPspSceHttpSetProxy(id, activateFlag, mode, newProxyHost.rawAddress, newProxyPort.toShort())
 
 public actual fun sceHttpSetResHeaderMaxSize(id: Int, headerSize: UInt): Int =
-    PspJniBridge.libc_psp_sceHttpSetResHeaderMaxSize(id, headerSize.toInt())
+    PspJniBridge.libcPspSceHttpSetResHeaderMaxSize(id, headerSize.toInt())
 
 public actual fun sceHttpSetMallocFunction(mallocFunc: HttpMallocFunction, freeFunc: HttpFreeFunction, reallocFunc: HttpReallocFunction): Int =
-    PspJniBridge.libc_psp_sceHttpSetMallocFunction(0L, 0L, 0L)
+    PspJniBridge.libcPspSceHttpSetMallocFunction(0L, 0L, 0L)
 
 public actual fun sceNetResolverInit(): Int =
-    PspJniBridge.libc_psp_sceNetResolverInit()
+    PspJniBridge.libcPspSceNetResolverInit()
 
-public actual fun sceNetResolverCreate(rid: COpaquePointer?, buf: COpaquePointer?, bufLength: UInt): Int =
-    PspJniBridge.libc_psp_sceNetResolverCreate((rid?.value ?: 0L), (buf?.value ?: 0L), bufLength.toInt())
+public actual fun sceNetResolverCreate(rid: MutPtr<Int>, buf: MutPtr<CVoid>, bufLength: UInt): Int =
+    PspJniBridge.libcPspSceNetResolverCreate(rid.rawAddress, buf.rawAddress, bufLength.toInt())
 
 public actual fun sceNetResolverDelete(rid: Int): Int =
-    PspJniBridge.libc_psp_sceNetResolverDelete(rid)
+    PspJniBridge.libcPspSceNetResolverDelete(rid)
 
-public actual fun sceNetResolverStartNtoA(rid: Int, hostname: COpaquePointer?, addr: COpaquePointer?, timeout: UInt, retry: Int): Int =
-    PspJniBridge.libc_psp_sceNetResolverStartNtoA(rid, (hostname?.value ?: 0L), (addr?.value ?: 0L), timeout.toInt(), retry)
+public actual fun sceNetResolverStartNtoA(rid: Int, hostname: ConstPtr<UByte>, addr: MutPtr<InAddr>, timeout: UInt, retry: Int): Int =
+    PspJniBridge.libcPspSceNetResolverStartNtoA(rid, hostname.rawAddress, addr.rawAddress, timeout.toInt(), retry)
 
-public actual fun sceNetResolverStartAtoN(rid: Int, addr: COpaquePointer?, hostname: COpaquePointer?, hostnameLen: UInt, timeout: UInt, retry: Int): Int =
-    PspJniBridge.libc_psp_sceNetResolverStartAtoN(rid, (addr?.value ?: 0L), (hostname?.value ?: 0L), hostnameLen.toInt(), timeout.toInt(), retry)
+public actual fun sceNetResolverStartAtoN(rid: Int, addr: ConstPtr<InAddr>, hostname: MutPtr<UByte>, hostnameLen: UInt, timeout: UInt, retry: Int): Int =
+    PspJniBridge.libcPspSceNetResolverStartAtoN(rid, addr.rawAddress, hostname.rawAddress, hostnameLen.toInt(), timeout.toInt(), retry)
 
 public actual fun sceNetResolverStop(rid: Int): Int =
-    PspJniBridge.libc_psp_sceNetResolverStop(rid)
+    PspJniBridge.libcPspSceNetResolverStop(rid)
 
 public actual fun sceNetResolverTerm(): Int =
-    PspJniBridge.libc_psp_sceNetResolverTerm()
+    PspJniBridge.libcPspSceNetResolverTerm()

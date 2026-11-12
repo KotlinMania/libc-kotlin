@@ -3,1101 +3,1163 @@
 package io.github.kotlinmania.libc.unix.haiku
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CDouble
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
+import io.github.kotlinmania.libc.CUshort
 import io.github.kotlinmania.libc.unix.DIR
 import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.GidT
+import io.github.kotlinmania.libc.unix.Group
 import io.github.kotlinmania.libc.unix.IntptrT
+import io.github.kotlinmania.libc.unix.Iovec
+import io.github.kotlinmania.libc.unix.Itimerval
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.PidT
+import io.github.kotlinmania.libc.unix.Pollfd
+import io.github.kotlinmania.libc.unix.Rlimit
 import io.github.kotlinmania.libc.unix.Sigval
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.Timeval
 import io.github.kotlinmania.libc.unix.UidT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 private object UnixHaikuJniBridge {
     init {
+        loadNativeLibrary()
+    }
+
+    private fun loadNativeLibrary() {
+        val osRaw = System.getProperty("os.name", "").lowercase()
+        val archRaw = System.getProperty("os.arch", "").lowercase()
+        val hostPlatform =
+            when {
+                osRaw.contains("win") -> "windows"
+                osRaw.contains("mac") || osRaw.contains("darwin") -> "macos"
+                else -> "linux"
+            }
+        val hostArch =
+            when {
+                archRaw == "aarch64" || archRaw == "arm64" -> "aarch64"
+                archRaw == "amd64" || archRaw == "x86_64" -> "x86_64"
+                else -> archRaw
+            }
+        val libFileName =
+            when (hostPlatform) {
+                "windows" -> "libc_jni.dll"
+                "macos" -> "liblibc_jni.dylib"
+                else -> "liblibc_jni.so"
+            }
+        val pathSep = System.getProperty("path.separator", ":")
+        val libPathProp = System.getProperty("java.library.path", "")
+        for (dirEntry in libPathProp.split(pathSep)) {
+            if (dirEntry.isEmpty()) continue
+            val candidate = java.io.File(dirEntry, libFileName)
+            if (candidate.isFile) {
+                System.load(candidate.absolutePath)
+                return
+            }
+        }
+        val resourcePath = "io/github/kotlinmania/libc/native/$hostPlatform-$hostArch/$libFileName"
+        val stream = UnixHaikuJniBridge::class.java.classLoader?.getResourceAsStream(resourcePath)
+        if (stream != null) {
+            val suffix = "." + libFileName.substringAfterLast('.')
+            val extracted =
+                java.nio.file.Files
+                    .createTempFile("libc_jni-", suffix)
+                    .toFile()
+            extracted.deleteOnExit()
+            stream.use { input ->
+                extracted.outputStream().use { output ->
+                    input.copyTo(output)
+                }
+            }
+            System.load(extracted.absolutePath)
+            return
+        }
         System.loadLibrary("libc_jni")
     }
 
     @JvmStatic
-    external fun libc_unix_haiku_getrlimit(resource: Int, rlim: Long): Int
+    external fun libcUnixHaikuGetrlimit(resource: Int, rlim: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_setrlimit(resource: Int, rlim: Long): Int
+    external fun libcUnixHaikuSetrlimit(resource: Int, rlim: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_getpriority(which: Int, who: Int): Int
+    external fun libcUnixHaikuGetpriority(which: Int, who: Int): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_setpriority(which: Int, who: Int, priority: Int): Int
+    external fun libcUnixHaikuSetpriority(which: Int, who: Int, priority: Int): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_endusershell()
+    external fun libcUnixHaikuEndusershell()
 
     @JvmStatic
-    external fun libc_unix_haiku_getpass(prompt: String?): Long
+    external fun libcUnixHaikuGetpass(prompt: Long): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_getusershell(): Long
+    external fun libcUnixHaikuGetusershell(): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_issetugid(): Int
+    external fun libcUnixHaikuIssetugid(): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_setusershell()
+    external fun libcUnixHaikuSetusershell()
 
     @JvmStatic
-    external fun libc_unix_haiku_utimensat(fd: Int, path: String?, times: Long, flag: Int): Int
+    external fun libcUnixHaikuUtimensat(fd: Int, path: Long, times: Long, flag: Int): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_futimens(fd: Int, times: Long): Int
+    external fun libcUnixHaikuFutimens(fd: Int, times: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_strerrorR(errnum: Int, buf: Long, buflen: Long): Int
+    external fun libcUnixHaikuStrerrorR(errnum: Int, buf: Long, buflen: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_errnop(): Long
+    external fun libcUnixHaikuErrnop(): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_abs(i: Int): Int
+    external fun libcUnixHaikuAbs(i: Int): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_labs(i: Long): Long
+    external fun libcUnixHaikuLabs(i: Long): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_rand(): Int
+    external fun libcUnixHaikuRand(): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_srand(seed: Int)
+    external fun libcUnixHaikuSrand(seed: Int)
 
     @JvmStatic
-    external fun libc_unix_haiku_getifaddrs(ifap: Long): Int
+    external fun libcUnixHaikuGetifaddrs(ifap: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_freeifaddrs(ifa: Long)
+    external fun libcUnixHaikuFreeifaddrs(ifa: Long)
 
     @JvmStatic
-    external fun libc_unix_haiku_ppoll(fds: Long, numfds: Long, timeout: Long, sigMask: Long): Int
+    external fun libcUnixHaikuPpoll(fds: Long, numfds: Long, timeout: Long, sigMask: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_getspent(): Long
+    external fun libcUnixHaikuGetspent(): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_getspentR(pwd: Long, buf: Long, bufferSize: Long, res: Long): Int
+    external fun libcUnixHaikuGetspentR(pwd: Long, buf: Long, bufferSize: Long, res: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_setspent()
+    external fun libcUnixHaikuSetspent()
 
     @JvmStatic
-    external fun libc_unix_haiku_endspent()
+    external fun libcUnixHaikuEndspent()
 
     @JvmStatic
-    external fun libc_unix_haiku_getspnam(name: String?): Long
+    external fun libcUnixHaikuGetspnam(name: Long): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_getspnamR(name: String?, spwd: Long, buffer: Long, bufferSize: Long, res: Long): Int
+    external fun libcUnixHaikuGetspnamR(name: Long, spwd: Long, buffer: Long, bufferSize: Long, res: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_sgetspent(line: String?): Long
+    external fun libcUnixHaikuSgetspent(line: Long): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_sgetspentR(line: String?, spwd: Long, buffer: Long, bufferSize: Long, res: Long): Int
+    external fun libcUnixHaikuSgetspentR(line: Long, spwd: Long, buffer: Long, bufferSize: Long, res: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_fgetspent(file: Long): Long
+    external fun libcUnixHaikuFgetspent(file: Long): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_fgetspentR(file: Long, spwd: Long, buffer: Long, bufferSize: Long, res: Long): Int
+    external fun libcUnixHaikuFgetspentR(file: Long, spwd: Long, buffer: Long, bufferSize: Long, res: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_mkfifoat(dirfd: Int, pathname: String?, mode: Int): Int
+    external fun libcUnixHaikuMkfifoat(dirfd: Int, pathname: Long, mode: Int): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_mknodat(dirfd: Int, pathname: String?, mode: Int, dev: Int): Int
+    external fun libcUnixHaikuMknodat(dirfd: Int, pathname: Long, mode: Int, dev: Int): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_semDestroy(sem: Long): Int
+    external fun libcUnixHaikuSemDestroy(sem: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_semInit(sem: Long, pshared: Int, value: Int): Int
+    external fun libcUnixHaikuSemInit(sem: Long, pshared: Int, value: Int): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_clockGetres(clkId: Int, tp: Long): Int
+    external fun libcUnixHaikuClockGetres(clkId: Int, tp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_clockGettime(clkId: Int, tp: Long): Int
+    external fun libcUnixHaikuClockGettime(clkId: Int, tp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_clockSettime(clkId: Int, tp: Long): Int
+    external fun libcUnixHaikuClockSettime(clkId: Int, tp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_clockGetcpuclockid(pid: Int, clkId: Long): Int
+    external fun libcUnixHaikuClockGetcpuclockid(pid: Int, clkId: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_pthreadCreate(thread: Long, attr: Long, f: Long, value: Long): Int
+    external fun libcUnixHaikuPthreadCreate(thread: Long, attr: Long, f: Long, value: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_pthreadAttrGetguardsize(attr: Long, guardsize: Long): Int
+    external fun libcUnixHaikuPthreadAttrGetguardsize(attr: Long, guardsize: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_pthreadAttrSetguardsize(attr: Long, guardsize: Long): Int
+    external fun libcUnixHaikuPthreadAttrSetguardsize(attr: Long, guardsize: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_pthreadAttrGetstack(attr: Long, stackaddr: Long, stacksize: Long): Int
+    external fun libcUnixHaikuPthreadAttrGetstack(attr: Long, stackaddr: Long, stacksize: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_pthreadCondattrGetclock(attr: Long, clockId: Long): Int
+    external fun libcUnixHaikuPthreadCondattrGetclock(attr: Long, clockId: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_pthreadCondattrSetclock(attr: Long, clockId: Int): Int
+    external fun libcUnixHaikuPthreadCondattrSetclock(attr: Long, clockId: Int): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_valloc(numBytes: Long): Long
+    external fun libcUnixHaikuValloc(numBytes: Long): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_mallocUsableSize(ptr: Long): Long
+    external fun libcUnixHaikuMallocUsableSize(ptr: Long): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_memalign(align: Long, size: Long): Long
+    external fun libcUnixHaikuMemalign(align: Long, size: Long): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_setgroups(ngroups: Int, ptr: Long): Int
+    external fun libcUnixHaikuSetgroups(ngroups: Int, ptr: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_initgroups(name: String?, basegid: Short): Int
+    external fun libcUnixHaikuInitgroups(name: Long, basegid: Short): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_ioctl(fd: Int, request: Long, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcUnixHaikuIoctl(fd: Int, request: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_mprotect(addr: Long, len: Long, prot: Int): Int
+    external fun libcUnixHaikuMprotect(addr: Long, len: Long, prot: Int): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_dirfd(dirp: Long): Int
+    external fun libcUnixHaikuDirfd(dirp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_getnameinfo(sa: Long, salen: Int, host: Long, hostlen: Int, serv: Long, servlen: Int, flags: Int): Int
+    external fun libcUnixHaikuGetnameinfo(sa: Long, salen: Int, host: Long, hostlen: Int, serv: Long, servlen: Int, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_pthreadMutexTimedlock(lock: Long, abstime: Long): Int
+    external fun libcUnixHaikuPthreadMutexTimedlock(lock: Long, abstime: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_pthreadSpinInit(lock: Long, pshared: Int): Int
+    external fun libcUnixHaikuPthreadSpinInit(lock: Long, pshared: Int): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_pthreadSpinDestroy(lock: Long): Int
+    external fun libcUnixHaikuPthreadSpinDestroy(lock: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_pthreadSpinLock(lock: Long): Int
+    external fun libcUnixHaikuPthreadSpinLock(lock: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_pthreadSpinTrylock(lock: Long): Int
+    external fun libcUnixHaikuPthreadSpinTrylock(lock: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_pthreadSpinUnlock(lock: Long): Int
+    external fun libcUnixHaikuPthreadSpinUnlock(lock: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_waitid(idtype: Int, id: Int, infop: Long, options: Int): Int
+    external fun libcUnixHaikuWaitid(idtype: Int, id: Int, infop: Long, options: Int): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_glob(pattern: String?, flags: Int, errfunc: Long, pglob: Long): Int
+    external fun libcUnixHaikuGlob(pattern: Long, flags: Int, errfunc: Long, pglob: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_globfree(pglob: Long)
+    external fun libcUnixHaikuGlobfree(pglob: Long)
 
     @JvmStatic
-    external fun libc_unix_haiku_gettimeofday(tp: Long, tz: Long): Int
+    external fun libcUnixHaikuGettimeofday(tp: Long, tz: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_posixMadvise(addr: Long, len: Long, advice: Int): Int
+    external fun libcUnixHaikuPosixMadvise(addr: Long, len: Long, advice: Int): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_posixFadvise(fd: Int, offset: Long, len: Long, advice: Int): Int
+    external fun libcUnixHaikuPosixFadvise(fd: Int, offset: Long, len: Long, advice: Int): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_posixFallocate(fd: Int, offset: Long, len: Long): Int
+    external fun libcUnixHaikuPosixFallocate(fd: Int, offset: Long, len: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_shmOpen(name: String?, oflag: Int, mode: Int): Int
+    external fun libcUnixHaikuShmOpen(name: Long, oflag: Int, mode: Int): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_shmUnlink(name: String?): Int
+    external fun libcUnixHaikuShmUnlink(name: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_seekdir(dirp: Long, loc: Long)
+    external fun libcUnixHaikuSeekdir(dirp: Long, loc: Long)
 
     @JvmStatic
-    external fun libc_unix_haiku_telldir(dirp: Long): Long
+    external fun libcUnixHaikuTelldir(dirp: Long): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_madvise(addr: Long, len: Long, advice: Int): Int
+    external fun libcUnixHaikuMadvise(addr: Long, len: Long, advice: Int): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_msync(addr: Long, len: Long, flags: Int): Int
+    external fun libcUnixHaikuMsync(addr: Long, len: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_recvfrom(socket: Int, buf: Long, len: Long, flags: Int, addr: Long, addrlen: Long): Long
+    external fun libcUnixHaikuRecvfrom(socket: Int, buf: Long, len: Long, flags: Int, addr: Long, addrlen: Long): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_nlLanginfo(item: Int): Long
+    external fun libcUnixHaikuNlLanginfo(item: Int): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_bind(socket: Int, address: Long, addressLen: Int): Int
+    external fun libcUnixHaikuBind(socket: Int, address: Long, addressLen: Int): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_accept4(socket: Int, address: Long, addressLength: Long, flags: Int): Int
+    external fun libcUnixHaikuAccept4(socket: Int, address: Long, addressLength: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_writev(fd: Int, iov: Long, count: Int): Long
+    external fun libcUnixHaikuWritev(fd: Int, iov: Long, count: Int): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_readv(fd: Int, iov: Long, count: Int): Long
+    external fun libcUnixHaikuReadv(fd: Int, iov: Long, count: Int): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_sendmsg(fd: Int, msg: Long, flags: Int): Long
+    external fun libcUnixHaikuSendmsg(fd: Int, msg: Long, flags: Int): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_recvmsg(fd: Int, msg: Long, flags: Int): Long
+    external fun libcUnixHaikuRecvmsg(fd: Int, msg: Long, flags: Int): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_execvpe(file: String?, argv: Long, environment: Long): Int
+    external fun libcUnixHaikuExecvpe(file: Long, argv: Long, environment: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_getgrgidR(gid: Short, grp: Long, buf: Long, buflen: Long, result: Long): Int
+    external fun libcUnixHaikuGetgrgidR(gid: Short, grp: Long, buf: Long, buflen: Long, result: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_getgrouplist(user: String?, basegroup: Short, grouplist: Long, groupcount: Long): Int
+    external fun libcUnixHaikuGetgrouplist(user: Long, basegroup: Short, grouplist: Long, groupcount: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_sigaltstack(ss: Long, oss: Long): Int
+    external fun libcUnixHaikuSigaltstack(ss: Long, oss: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_sigsuspend(mask: Long): Int
+    external fun libcUnixHaikuSigsuspend(mask: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_semClose(sem: Long): Int
+    external fun libcUnixHaikuSemClose(sem: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_getdtablesize(): Int
+    external fun libcUnixHaikuGetdtablesize(): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_getgrnamR(name: String?, grp: Long, buf: Long, buflen: Long, result: Long): Int
+    external fun libcUnixHaikuGetgrnamR(name: Long, grp: Long, buf: Long, buflen: Long, result: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_pthreadSigmask(how: Int, set: Long, oldset: Long): Int
+    external fun libcUnixHaikuPthreadSigmask(how: Int, set: Long, oldset: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_semOpen(name: String?, oflag: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
+    external fun libcUnixHaikuSemOpen(name: Long, oflag: Int, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_getgrnam(name: String?): Long
+    external fun libcUnixHaikuGetgrnam(name: Long): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_pthreadKill(thread: Long, sig: Int): Int
+    external fun libcUnixHaikuPthreadKill(thread: Long, sig: Int): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_semUnlink(name: String?): Int
+    external fun libcUnixHaikuSemUnlink(name: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_getpwnamR(name: String?, pwd: Long, buf: Long, buflen: Long, result: Long): Int
+    external fun libcUnixHaikuGetpwnamR(name: Long, pwd: Long, buf: Long, buflen: Long, result: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_getpwuidR(uid: Short, pwd: Long, buf: Long, buflen: Long, result: Long): Int
+    external fun libcUnixHaikuGetpwuidR(uid: Short, pwd: Long, buf: Long, buflen: Long, result: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_getpwent(): Long
+    external fun libcUnixHaikuGetpwent(): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_setpwent()
+    external fun libcUnixHaikuSetpwent()
 
     @JvmStatic
-    external fun libc_unix_haiku_endpwent()
+    external fun libcUnixHaikuEndpwent()
 
     @JvmStatic
-    external fun libc_unix_haiku_endgrent()
+    external fun libcUnixHaikuEndgrent()
 
     @JvmStatic
-    external fun libc_unix_haiku_getgrent(): Long
+    external fun libcUnixHaikuGetgrent(): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_setgrent()
+    external fun libcUnixHaikuSetgrent()
 
     @JvmStatic
-    external fun libc_unix_haiku_sigwait(set: Long, sig: Long): Int
+    external fun libcUnixHaikuSigwait(set: Long, sig: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_pthreadAtfork(prepare: Long, parent: Long, child: Long): Int
+    external fun libcUnixHaikuPthreadAtfork(prepare: Long, parent: Long, child: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_getgrgid(gid: Short): Long
+    external fun libcUnixHaikuGetgrgid(gid: Short): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_popen(command: String?, mode: String?): Long
+    external fun libcUnixHaikuPopen(command: Long, mode: Long): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_sethostname(name: String?, len: Long): Int
+    external fun libcUnixHaikuSethostname(name: Long, len: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_uname(buf: Long): Int
+    external fun libcUnixHaikuUname(buf: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_getutxent(): Long
+    external fun libcUnixHaikuGetutxent(): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_getutxid(ut: Long): Long
+    external fun libcUnixHaikuGetutxid(ut: Long): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_getutxline(ut: Long): Long
+    external fun libcUnixHaikuGetutxline(ut: Long): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_pututxline(ut: Long): Long
+    external fun libcUnixHaikuPututxline(ut: Long): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_setutxent()
+    external fun libcUnixHaikuSetutxent()
 
     @JvmStatic
-    external fun libc_unix_haiku_endutxent()
+    external fun libcUnixHaikuEndutxent()
 
     @JvmStatic
-    external fun libc_unix_haiku_faccessat(dirfd: Int, pathname: String?, mode: Int, flags: Int): Int
+    external fun libcUnixHaikuFaccessat(dirfd: Int, pathname: Long, mode: Int, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_sigtimedwait(set: Long, info: Long, timeout: Long): Int
+    external fun libcUnixHaikuSigtimedwait(set: Long, info: Long, timeout: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_sigwaitinfo(set: Long, info: Long): Int
+    external fun libcUnixHaikuSigwaitinfo(set: Long, info: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_getitimer(which: Int, currValue: Long): Int
+    external fun libcUnixHaikuGetitimer(which: Int, currValue: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_setitimer(which: Int, newValue: Long, oldValue: Long): Int
+    external fun libcUnixHaikuSetitimer(which: Int, newValue: Long, oldValue: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_regcomp(preg: Long, pattern: String?, cflags: Int): Int
+    external fun libcUnixHaikuRegcomp(preg: Long, pattern: Long, cflags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_regexec(preg: Long, input: String?, nmatch: Long, pmatch: Long, eflags: Int): Int
+    external fun libcUnixHaikuRegexec(preg: Long, input: Long, nmatch: Long, pmatch: Long, eflags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_regerror(errcode: Int, preg: Long, errbuf: Long, errbufSize: Long): Long
+    external fun libcUnixHaikuRegerror(errcode: Int, preg: Long, errbuf: Long, errbufSize: Long): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_regfree(preg: Long)
+    external fun libcUnixHaikuRegfree(preg: Long)
 
     @JvmStatic
-    external fun libc_unix_haiku_msgctl(msqid: Int, cmd: Int, buf: Long): Int
+    external fun libcUnixHaikuMsgctl(msqid: Int, cmd: Int, buf: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_msgget(key: Int, msgflg: Int): Int
+    external fun libcUnixHaikuMsgget(key: Int, msgflg: Int): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_msgrcv(msqid: Int, msgp: Long, msgsz: Long, msgtype: Long, msgflg: Int): Long
+    external fun libcUnixHaikuMsgrcv(msqid: Int, msgp: Long, msgsz: Long, msgtype: Long, msgflg: Int): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_msgsnd(msqid: Int, msgp: Long, msgsz: Long, msgflg: Int): Int
+    external fun libcUnixHaikuMsgsnd(msqid: Int, msgp: Long, msgsz: Long, msgflg: Int): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_semget(key: Int, nsems: Int, semflg: Int): Int
+    external fun libcUnixHaikuSemget(key: Int, nsems: Int, semflg: Int): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_semctl(semid: Int, semnum: Int, cmd: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcUnixHaikuSemctl(semid: Int, semnum: Int, cmd: Int, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_semop(semid: Int, sops: Long, nsops: Long): Int
+    external fun libcUnixHaikuSemop(semid: Int, sops: Long, nsops: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_ftok(pathname: String?, projId: Int): Int
+    external fun libcUnixHaikuFtok(pathname: Long, projId: Int): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_memrchr(cx: Long, c: Int, n: Long): Long
+    external fun libcUnixHaikuMemrchr(cx: Long, c: Int, n: Long): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_lsearch(key: Long, base: Long, nelp: Long, width: Long, compar: Long): Long
+    external fun libcUnixHaikuLsearch(key: Long, base: Long, nelp: Long, width: Long, compar: Long): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_lfind(key: Long, base: Long, nelp: Long, width: Long, compar: Long): Long
+    external fun libcUnixHaikuLfind(key: Long, base: Long, nelp: Long, width: Long, compar: Long): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_hcreate(nelt: Long): Int
+    external fun libcUnixHaikuHcreate(nelt: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_hdestroy()
+    external fun libcUnixHaikuHdestroy()
 
     @JvmStatic
-    external fun libc_unix_haiku_drand48(): Double
+    external fun libcUnixHaikuDrand48(): Double
 
     @JvmStatic
-    external fun libc_unix_haiku_erand48(xseed: Long): Double
+    external fun libcUnixHaikuErand48(xseed: Long): Double
 
     @JvmStatic
-    external fun libc_unix_haiku_lrand48(): Long
+    external fun libcUnixHaikuLrand48(): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_nrand48(xseed: Long): Long
+    external fun libcUnixHaikuNrand48(xseed: Long): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_mrand48(): Long
+    external fun libcUnixHaikuMrand48(): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_jrand48(xseed: Long): Long
+    external fun libcUnixHaikuJrand48(xseed: Long): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_srand48(seed: Long)
+    external fun libcUnixHaikuSrand48(seed: Long)
 
     @JvmStatic
-    external fun libc_unix_haiku_seed48(xseed: Long): Long
+    external fun libcUnixHaikuSeed48(xseed: Long): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_lcong48(p: Long)
+    external fun libcUnixHaikuLcong48(p: Long)
 
     @JvmStatic
-    external fun libc_unix_haiku_clearenv(): Int
+    external fun libcUnixHaikuClearenv(): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_ctermid(s: Long): Long
+    external fun libcUnixHaikuCtermid(s: Long): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_sync()
+    external fun libcUnixHaikuSync()
 
     @JvmStatic
-    external fun libc_unix_haiku_getpagesize(): Int
+    external fun libcUnixHaikuGetpagesize(): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_brk(addr: Long): Int
+    external fun libcUnixHaikuBrk(addr: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_sbrk(increment: Long): Long
+    external fun libcUnixHaikuSbrk(increment: Long): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_posixSpawn(pid: Long, path: String?, fileActions: Long, attrp: Long, argv: Long, envp: Long): Int
+    external fun libcUnixHaikuPosixSpawn(pid: Long, path: Long, fileActions: Long, attrp: Long, argv: Long, envp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_posixSpawnp(pid: Long, file: String?, fileActions: Long, attrp: Long, argv: Long, envp: Long): Int
+    external fun libcUnixHaikuPosixSpawnp(pid: Long, file: Long, fileActions: Long, attrp: Long, argv: Long, envp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_posixSpawnFileActionsInit(fileActions: Long): Int
+    external fun libcUnixHaikuPosixSpawnFileActionsInit(fileActions: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_posixSpawnFileActionsDestroy(fileActions: Long): Int
+    external fun libcUnixHaikuPosixSpawnFileActionsDestroy(fileActions: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_posixSpawnFileActionsAddopen(fileActions: Long, fildes: Int, path: String?, oflag: Int, mode: Int): Int
+    external fun libcUnixHaikuPosixSpawnFileActionsAddopen(fileActions: Long, fildes: Int, path: Long, oflag: Int, mode: Int): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_posixSpawnFileActionsAddclose(fileActions: Long, fildes: Int): Int
+    external fun libcUnixHaikuPosixSpawnFileActionsAddclose(fileActions: Long, fildes: Int): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_posixSpawnFileActionsAdddup2(fileActions: Long, fildes: Int, newfildes: Int): Int
+    external fun libcUnixHaikuPosixSpawnFileActionsAdddup2(fileActions: Long, fildes: Int, newfildes: Int): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_posixSpawnattrInit(attr: Long): Int
+    external fun libcUnixHaikuPosixSpawnattrInit(attr: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_posixSpawnattrDestroy(attr: Long): Int
+    external fun libcUnixHaikuPosixSpawnattrDestroy(attr: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_posixSpawnattrGetflags(attr: Long, flags: Long): Int
+    external fun libcUnixHaikuPosixSpawnattrGetflags(attr: Long, flags: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_posixSpawnattrSetflags(attr: Long, flags: Short): Int
+    external fun libcUnixHaikuPosixSpawnattrSetflags(attr: Long, flags: Short): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_posixSpawnattrGetpgroup(attr: Long, pgroup: Long): Int
+    external fun libcUnixHaikuPosixSpawnattrGetpgroup(attr: Long, pgroup: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_posixSpawnattrSetpgroup(attr: Long, pgroup: Int): Int
+    external fun libcUnixHaikuPosixSpawnattrSetpgroup(attr: Long, pgroup: Int): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_posixSpawnattrGetsigdefault(attr: Long, sigdefault: Long): Int
+    external fun libcUnixHaikuPosixSpawnattrGetsigdefault(attr: Long, sigdefault: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_posixSpawnattrSetsigdefault(attr: Long, sigdefault: Long): Int
+    external fun libcUnixHaikuPosixSpawnattrSetsigdefault(attr: Long, sigdefault: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_posixSpawnattrGetsigmask(attr: Long, sigmask: Long): Int
+    external fun libcUnixHaikuPosixSpawnattrGetsigmask(attr: Long, sigmask: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_posixSpawnattrSetsigmask(attr: Long, sigmask: Long): Int
+    external fun libcUnixHaikuPosixSpawnattrSetsigmask(attr: Long, sigmask: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_getoptLong(argc: Int, argv: Long, optstring: String?, longopts: Long, longindex: Long): Int
+    external fun libcUnixHaikuGetoptLong(argc: Int, argv: Long, optstring: Long, longopts: Long, longindex: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_strcasecmpL(string1: String?, string2: String?, locale: Long): Int
+    external fun libcUnixHaikuStrcasecmpL(string1: Long, string2: Long, locale: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_strncasecmpL(string1: String?, string2: String?, length: Long, locale: Long): Int
+    external fun libcUnixHaikuStrncasecmpL(string1: Long, string2: Long, length: Long, locale: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_getentropy(buf: Long, buflen: Long): Int
+    external fun libcUnixHaikuGetentropy(buf: Long, buflen: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_memmem(source: Long, sourceLength: Long, search: Long, searchLength: Long): Long
+    external fun libcUnixHaikuMemmem(source: Long, sourceLength: Long, search: Long, searchLength: Long): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_pthreadGetattrNp(thread: Long, attr: Long): Int
+    external fun libcUnixHaikuPthreadGetattrNp(thread: Long, attr: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_pthreadGetnameNp(thread: Long, buffer: Long, length: Long): Int
+    external fun libcUnixHaikuPthreadGetnameNp(thread: Long, buffer: Long, length: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_pthreadSetnameNp(thread: Long, name: String?): Int
+    external fun libcUnixHaikuPthreadSetnameNp(thread: Long, name: Long): Int
 }
 
-public actual fun getrlimit(resource: CInt, rlim: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_getrlimit(resource, (rlim?.value ?: 0L))
+public actual fun getrlimit(resource: CInt, rlim: MutPtr<Rlimit>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuGetrlimit(resource, rlim.rawAddress)
 
-public actual fun setrlimit(resource: CInt, rlim: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_setrlimit(resource, (rlim?.value ?: 0L))
+public actual fun setrlimit(resource: CInt, rlim: ConstPtr<Rlimit>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuSetrlimit(resource, rlim.rawAddress)
 
 public actual fun getpriority(which: CInt, who: IdT): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_getpriority(which, who)
+    UnixHaikuJniBridge.libcUnixHaikuGetpriority(which, who)
 
 public actual fun setpriority(which: CInt, who: IdT, priority: CInt): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_setpriority(which, who, priority)
+    UnixHaikuJniBridge.libcUnixHaikuSetpriority(which, who, priority)
 
 public actual fun endusershell() {
-    UnixHaikuJniBridge.libc_unix_haiku_endusershell()
+    UnixHaikuJniBridge.libcUnixHaikuEndusershell()
 }
 
-public actual fun getpass(prompt: String?): COpaquePointer? =
-    UnixHaikuJniBridge.libc_unix_haiku_getpass(prompt).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getpass(prompt: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(UnixHaikuJniBridge.libcUnixHaikuGetpass(prompt.rawAddress))
 
-public actual fun getusershell(): COpaquePointer? =
-    UnixHaikuJniBridge.libc_unix_haiku_getusershell().let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getusershell(): MutPtr<CChar> =
+    MutPtr(UnixHaikuJniBridge.libcUnixHaikuGetusershell())
 
 public actual fun issetugid(): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_issetugid()
+    UnixHaikuJniBridge.libcUnixHaikuIssetugid()
 
 public actual fun setusershell() {
-    UnixHaikuJniBridge.libc_unix_haiku_setusershell()
+    UnixHaikuJniBridge.libcUnixHaikuSetusershell()
 }
 
-public actual fun utimensat(fd: CInt, path: String?, times: COpaquePointer?, flag: CInt): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_utimensat(fd, path, (times?.value ?: 0L), flag)
+public actual fun utimensat(fd: CInt, path: ConstPtr<CChar>, times: ConstPtr<Timespec>, flag: CInt): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuUtimensat(fd, path.rawAddress, times.rawAddress, flag)
 
-public actual fun futimens(fd: CInt, times: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_futimens(fd, (times?.value ?: 0L))
+public actual fun futimens(fd: CInt, times: ConstPtr<Timespec>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuFutimens(fd, times.rawAddress)
 
-public actual fun strerrorR(errnum: CInt, buf: COpaquePointer?, buflen: SizeT): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_strerrorR(errnum, (buf?.value ?: 0L), buflen.toLong())
+public actual fun strerrorR(errnum: CInt, buf: MutPtr<CChar>, buflen: SizeT): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuStrerrorR(errnum, buf.rawAddress, buflen.toLong())
 
-public actual fun errnop(): COpaquePointer? =
-    UnixHaikuJniBridge.libc_unix_haiku_errnop().let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun errnop(): MutPtr<CInt> =
+    MutPtr(UnixHaikuJniBridge.libcUnixHaikuErrnop())
 
 public actual fun abs(i: CInt): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_abs(i)
+    UnixHaikuJniBridge.libcUnixHaikuAbs(i)
 
 public actual fun labs(i: CLong): CLong =
-    UnixHaikuJniBridge.libc_unix_haiku_labs(i)
+    UnixHaikuJniBridge.libcUnixHaikuLabs(i)
 
 public actual fun rand(): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_rand()
+    UnixHaikuJniBridge.libcUnixHaikuRand()
 
 public actual fun srand(seed: CUint) {
-    UnixHaikuJniBridge.libc_unix_haiku_srand(seed.toInt())
+    UnixHaikuJniBridge.libcUnixHaikuSrand(seed.toInt())
 }
 
-public actual fun getifaddrs(ifap: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_getifaddrs((ifap?.value ?: 0L))
+public actual fun getifaddrs(ifap: MutPtr<MutPtr<Ifaddrs>>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuGetifaddrs(ifap.rawAddress)
 
-public actual fun freeifaddrs(ifa: COpaquePointer?) {
-    UnixHaikuJniBridge.libc_unix_haiku_freeifaddrs((ifa?.value ?: 0L))
+public actual fun freeifaddrs(ifa: MutPtr<Ifaddrs>) {
+    UnixHaikuJniBridge.libcUnixHaikuFreeifaddrs(ifa.rawAddress)
 }
 
-public actual fun ppoll(fds: COpaquePointer?, numfds: NfdsT, timeout: COpaquePointer?, sigMask: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_ppoll((fds?.value ?: 0L), numfds.toLong(), (timeout?.value ?: 0L), (sigMask?.value ?: 0L))
+public actual fun ppoll(fds: MutPtr<Pollfd>, numfds: NfdsT, timeout: ConstPtr<Timespec>, sigMask: ConstPtr<SigsetT>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuPpoll(fds.rawAddress, numfds.toLong(), timeout.rawAddress, sigMask.rawAddress)
 
-public actual fun getspent(): COpaquePointer? =
-    UnixHaikuJniBridge.libc_unix_haiku_getspent().let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getspent(): MutPtr<Spwd> =
+    MutPtr(UnixHaikuJniBridge.libcUnixHaikuGetspent())
 
-public actual fun getspentR(pwd: COpaquePointer?, buf: COpaquePointer?, bufferSize: SizeT, res: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_getspentR((pwd?.value ?: 0L), (buf?.value ?: 0L), bufferSize.toLong(), (res?.value ?: 0L))
+public actual fun getspentR(pwd: MutPtr<Spwd>, buf: MutPtr<CChar>, bufferSize: SizeT, res: MutPtr<MutPtr<Spwd>>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuGetspentR(pwd.rawAddress, buf.rawAddress, bufferSize.toLong(), res.rawAddress)
 
 public actual fun setspent() {
-    UnixHaikuJniBridge.libc_unix_haiku_setspent()
+    UnixHaikuJniBridge.libcUnixHaikuSetspent()
 }
 
 public actual fun endspent() {
-    UnixHaikuJniBridge.libc_unix_haiku_endspent()
+    UnixHaikuJniBridge.libcUnixHaikuEndspent()
 }
 
-public actual fun getspnam(name: String?): COpaquePointer? =
-    UnixHaikuJniBridge.libc_unix_haiku_getspnam(name).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getspnam(name: ConstPtr<CChar>): MutPtr<Spwd> =
+    MutPtr(UnixHaikuJniBridge.libcUnixHaikuGetspnam(name.rawAddress))
 
-public actual fun getspnamR(name: String?, spwd: COpaquePointer?, buffer: COpaquePointer?, bufferSize: SizeT, res: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_getspnamR(name, (spwd?.value ?: 0L), (buffer?.value ?: 0L), bufferSize.toLong(), (res?.value ?: 0L))
+public actual fun getspnamR(name: ConstPtr<CChar>, spwd: MutPtr<Spwd>, buffer: MutPtr<CChar>, bufferSize: SizeT, res: MutPtr<MutPtr<Spwd>>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuGetspnamR(name.rawAddress, spwd.rawAddress, buffer.rawAddress, bufferSize.toLong(), res.rawAddress)
 
-public actual fun sgetspent(line: String?): COpaquePointer? =
-    UnixHaikuJniBridge.libc_unix_haiku_sgetspent(line).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun sgetspent(line: ConstPtr<CChar>): MutPtr<Spwd> =
+    MutPtr(UnixHaikuJniBridge.libcUnixHaikuSgetspent(line.rawAddress))
 
-public actual fun sgetspentR(line: String?, spwd: COpaquePointer?, buffer: COpaquePointer?, bufferSize: SizeT, res: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_sgetspentR(line, (spwd?.value ?: 0L), (buffer?.value ?: 0L), bufferSize.toLong(), (res?.value ?: 0L))
+public actual fun sgetspentR(line: ConstPtr<CChar>, spwd: MutPtr<Spwd>, buffer: MutPtr<CChar>, bufferSize: SizeT, res: MutPtr<MutPtr<Spwd>>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuSgetspentR(line.rawAddress, spwd.rawAddress, buffer.rawAddress, bufferSize.toLong(), res.rawAddress)
 
-public actual fun fgetspent(file: FILE?): COpaquePointer? =
-    UnixHaikuJniBridge.libc_unix_haiku_fgetspent((file?.handle ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun fgetspent(file: MutPtr<FILE>): MutPtr<Spwd> =
+    MutPtr(UnixHaikuJniBridge.libcUnixHaikuFgetspent(file.rawAddress))
 
-public actual fun fgetspentR(file: FILE?, spwd: COpaquePointer?, buffer: COpaquePointer?, bufferSize: SizeT, res: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_fgetspentR((file?.handle ?: 0L), (spwd?.value ?: 0L), (buffer?.value ?: 0L), bufferSize.toLong(), (res?.value ?: 0L))
+public actual fun fgetspentR(file: MutPtr<FILE>, spwd: MutPtr<Spwd>, buffer: MutPtr<CChar>, bufferSize: SizeT, res: MutPtr<MutPtr<Spwd>>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuFgetspentR(file.rawAddress, spwd.rawAddress, buffer.rawAddress, bufferSize.toLong(), res.rawAddress)
 
-public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_mkfifoat(dirfd, pathname, mode.toInt())
+public actual fun mkfifoat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuMkfifoat(dirfd, pathname.rawAddress, mode.toInt())
 
-public actual fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_mknodat(dirfd, pathname, mode.toInt(), dev)
+public actual fun mknodat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT, dev: DevT): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuMknodat(dirfd, pathname.rawAddress, mode.toInt(), dev)
 
-public actual fun semDestroy(sem: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_semDestroy((sem?.value ?: 0L))
+public actual fun semDestroy(sem: MutPtr<SemT>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuSemDestroy(sem.rawAddress)
 
-public actual fun semInit(sem: COpaquePointer?, pshared: CInt, value: CUint): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_semInit((sem?.value ?: 0L), pshared, value.toInt())
+public actual fun semInit(sem: MutPtr<SemT>, pshared: CInt, value: CUint): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuSemInit(sem.rawAddress, pshared, value.toInt())
 
-public actual fun clockGetres(clkId: ClockidT, tp: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_clockGetres(clkId, (tp?.value ?: 0L))
+public actual fun clockGetres(clkId: ClockidT, tp: MutPtr<Timespec>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuClockGetres(clkId, tp.rawAddress)
 
-public actual fun clockGettime(clkId: ClockidT, tp: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_clockGettime(clkId, (tp?.value ?: 0L))
+public actual fun clockGettime(clkId: ClockidT, tp: MutPtr<Timespec>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuClockGettime(clkId, tp.rawAddress)
 
-public actual fun clockSettime(clkId: ClockidT, tp: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_clockSettime(clkId, (tp?.value ?: 0L))
+public actual fun clockSettime(clkId: ClockidT, tp: ConstPtr<Timespec>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuClockSettime(clkId, tp.rawAddress)
 
-public actual fun clockGetcpuclockid(pid: PidT, clkId: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_clockGetcpuclockid(pid, (clkId?.value ?: 0L))
+public actual fun clockGetcpuclockid(pid: PidT, clkId: MutPtr<ClockidT>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuClockGetcpuclockid(pid, clkId.rawAddress)
 
-public actual fun pthreadCreate(thread: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_pthreadCreate((thread?.value ?: 0L), (attr?.value ?: 0L), 0L, (value?.value ?: 0L))
+public actual fun pthreadCreate(thread: MutPtr<PthreadT>, attr: ConstPtr<PthreadAttrT>, f: PthreadCreateFCallback, value: MutPtr<CVoid>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuPthreadCreate(thread.rawAddress, attr.rawAddress, 0L, value.rawAddress)
 
-public actual fun pthreadAttrGetguardsize(attr: COpaquePointer?, guardsize: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_pthreadAttrGetguardsize((attr?.value ?: 0L), (guardsize?.value ?: 0L))
+public actual fun pthreadAttrGetguardsize(attr: ConstPtr<PthreadAttrT>, guardsize: MutPtr<SizeT>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuPthreadAttrGetguardsize(attr.rawAddress, guardsize.rawAddress)
 
-public actual fun pthreadAttrSetguardsize(attr: COpaquePointer?, guardsize: SizeT): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_pthreadAttrSetguardsize((attr?.value ?: 0L), guardsize.toLong())
+public actual fun pthreadAttrSetguardsize(attr: MutPtr<PthreadAttrT>, guardsize: SizeT): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuPthreadAttrSetguardsize(attr.rawAddress, guardsize.toLong())
 
-public actual fun pthreadAttrGetstack(attr: COpaquePointer?, stackaddr: COpaquePointer?, stacksize: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_pthreadAttrGetstack((attr?.value ?: 0L), (stackaddr?.value ?: 0L), (stacksize?.value ?: 0L))
+public actual fun pthreadAttrGetstack(attr: ConstPtr<PthreadAttrT>, stackaddr: MutPtr<MutPtr<CVoid>>, stacksize: MutPtr<SizeT>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuPthreadAttrGetstack(attr.rawAddress, stackaddr.rawAddress, stacksize.rawAddress)
 
-public actual fun pthreadCondattrGetclock(attr: COpaquePointer?, clockId: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_pthreadCondattrGetclock((attr?.value ?: 0L), (clockId?.value ?: 0L))
+public actual fun pthreadCondattrGetclock(attr: ConstPtr<PthreadCondattrT>, clockId: MutPtr<ClockidT>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuPthreadCondattrGetclock(attr.rawAddress, clockId.rawAddress)
 
-public actual fun pthreadCondattrSetclock(attr: COpaquePointer?, clockId: ClockidT): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_pthreadCondattrSetclock((attr?.value ?: 0L), clockId)
+public actual fun pthreadCondattrSetclock(attr: MutPtr<PthreadCondattrT>, clockId: ClockidT): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuPthreadCondattrSetclock(attr.rawAddress, clockId)
 
-public actual fun valloc(numBytes: SizeT): COpaquePointer? =
-    UnixHaikuJniBridge.libc_unix_haiku_valloc(numBytes.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun valloc(numBytes: SizeT): MutPtr<CVoid> =
+    MutPtr(UnixHaikuJniBridge.libcUnixHaikuValloc(numBytes.toLong()))
 
-public actual fun mallocUsableSize(ptr: COpaquePointer?): SizeT =
-    UnixHaikuJniBridge.libc_unix_haiku_mallocUsableSize((ptr?.value ?: 0L)).toULong()
+public actual fun mallocUsableSize(ptr: MutPtr<CVoid>): SizeT =
+    UnixHaikuJniBridge.libcUnixHaikuMallocUsableSize(ptr.rawAddress).toULong()
 
-public actual fun memalign(align: SizeT, size: SizeT): COpaquePointer? =
-    UnixHaikuJniBridge.libc_unix_haiku_memalign(align.toLong(), size.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun memalign(align: SizeT, size: SizeT): MutPtr<CVoid> =
+    MutPtr(UnixHaikuJniBridge.libcUnixHaikuMemalign(align.toLong(), size.toLong()))
 
-public actual fun setgroups(ngroups: CInt, ptr: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_setgroups(ngroups, (ptr?.value ?: 0L))
+public actual fun setgroups(ngroups: CInt, ptr: ConstPtr<GidT>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuSetgroups(ngroups, ptr.rawAddress)
 
-public actual fun initgroups(name: String?, basegid: GidT): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_initgroups(name, basegid.toShort())
+public actual fun initgroups(name: ConstPtr<CChar>, basegid: GidT): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuInitgroups(name.rawAddress, basegid.toShort())
 
 public actual fun ioctl(fd: CInt, request: CUlong, vararg variadicArgs: Long): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_ioctl(fd, request.toLong(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+    UnixHaikuJniBridge.libcUnixHaikuIoctl(fd, request.toLong(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_mprotect((addr?.value ?: 0L), len.toLong(), prot)
+public actual fun mprotect(addr: MutPtr<CVoid>, len: SizeT, prot: CInt): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuMprotect(addr.rawAddress, len.toLong(), prot)
 
-public actual fun dirfd(dirp: DIR?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_dirfd((dirp?.handle ?: 0L))
+public actual fun dirfd(dirp: MutPtr<DIR>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuDirfd(dirp.rawAddress)
 
-public actual fun getnameinfo(sa: COpaquePointer?, salen: SocklenT, host: COpaquePointer?, hostlen: SocklenT, serv: COpaquePointer?, servlen: SocklenT, flags: CInt): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_getnameinfo((sa?.value ?: 0L), salen.toInt(), (host?.value ?: 0L), hostlen.toInt(), (serv?.value ?: 0L), servlen.toInt(), flags)
+public actual fun getnameinfo(sa: ConstPtr<Sockaddr>, salen: SocklenT, host: MutPtr<CChar>, hostlen: SocklenT, serv: MutPtr<CChar>, servlen: SocklenT, flags: CInt): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuGetnameinfo(sa.rawAddress, salen.toInt(), host.rawAddress, hostlen.toInt(), serv.rawAddress, servlen.toInt(), flags)
 
-public actual fun pthreadMutexTimedlock(lock: COpaquePointer?, abstime: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_pthreadMutexTimedlock((lock?.value ?: 0L), (abstime?.value ?: 0L))
+public actual fun pthreadMutexTimedlock(lock: MutPtr<PthreadMutexT>, abstime: ConstPtr<Timespec>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuPthreadMutexTimedlock(lock.rawAddress, abstime.rawAddress)
 
 public actual fun pthreadSigqueue(thread: PthreadT, sig: CInt, value: Sigval): CInt =
     0
 
-public actual fun pthreadSpinInit(lock: COpaquePointer?, pshared: CInt): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_pthreadSpinInit((lock?.value ?: 0L), pshared)
+public actual fun pthreadSpinInit(lock: MutPtr<PthreadSpinlockT>, pshared: CInt): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuPthreadSpinInit(lock.rawAddress, pshared)
 
-public actual fun pthreadSpinDestroy(lock: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_pthreadSpinDestroy((lock?.value ?: 0L))
+public actual fun pthreadSpinDestroy(lock: MutPtr<PthreadSpinlockT>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuPthreadSpinDestroy(lock.rawAddress)
 
-public actual fun pthreadSpinLock(lock: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_pthreadSpinLock((lock?.value ?: 0L))
+public actual fun pthreadSpinLock(lock: MutPtr<PthreadSpinlockT>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuPthreadSpinLock(lock.rawAddress)
 
-public actual fun pthreadSpinTrylock(lock: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_pthreadSpinTrylock((lock?.value ?: 0L))
+public actual fun pthreadSpinTrylock(lock: MutPtr<PthreadSpinlockT>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuPthreadSpinTrylock(lock.rawAddress)
 
-public actual fun pthreadSpinUnlock(lock: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_pthreadSpinUnlock((lock?.value ?: 0L))
+public actual fun pthreadSpinUnlock(lock: MutPtr<PthreadSpinlockT>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuPthreadSpinUnlock(lock.rawAddress)
 
-public actual fun waitid(idtype: IdtypeT, id: IdT, infop: COpaquePointer?, options: CInt): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_waitid(idtype, id, (infop?.value ?: 0L), options)
+public actual fun waitid(idtype: IdtypeT, id: IdT, infop: MutPtr<SiginfoT>, options: CInt): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuWaitid(idtype, id, infop.rawAddress, options)
 
-public actual fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_glob(pattern, flags, 0L, (pglob?.value ?: 0L))
+public actual fun glob(pattern: ConstPtr<CChar>, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: MutPtr<GlobT>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuGlob(pattern.rawAddress, flags, 0L, pglob.rawAddress)
 
-public actual fun globfree(pglob: COpaquePointer?) {
-    UnixHaikuJniBridge.libc_unix_haiku_globfree((pglob?.value ?: 0L))
+public actual fun globfree(pglob: MutPtr<GlobT>) {
+    UnixHaikuJniBridge.libcUnixHaikuGlobfree(pglob.rawAddress)
 }
 
-public actual fun gettimeofday(tp: COpaquePointer?, tz: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_gettimeofday((tp?.value ?: 0L), (tz?.value ?: 0L))
+public actual fun gettimeofday(tp: MutPtr<Timeval>, tz: MutPtr<CVoid>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuGettimeofday(tp.rawAddress, tz.rawAddress)
 
-public actual fun posixMadvise(addr: COpaquePointer?, len: SizeT, advice: CInt): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_posixMadvise((addr?.value ?: 0L), len.toLong(), advice)
+public actual fun posixMadvise(addr: MutPtr<CVoid>, len: SizeT, advice: CInt): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuPosixMadvise(addr.rawAddress, len.toLong(), advice)
 
 public actual fun posixFadvise(fd: CInt, offset: OffT, len: OffT, advice: CInt): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_posixFadvise(fd, offset, len, advice)
+    UnixHaikuJniBridge.libcUnixHaikuPosixFadvise(fd, offset, len, advice)
 
 public actual fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_posixFallocate(fd, offset, len)
+    UnixHaikuJniBridge.libcUnixHaikuPosixFallocate(fd, offset, len)
 
-public actual fun shmOpen(name: String?, oflag: CInt, mode: ModeT): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_shmOpen(name, oflag, mode.toInt())
+public actual fun shmOpen(name: ConstPtr<CChar>, oflag: CInt, mode: ModeT): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuShmOpen(name.rawAddress, oflag, mode.toInt())
 
-public actual fun shmUnlink(name: String?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_shmUnlink(name)
+public actual fun shmUnlink(name: ConstPtr<CChar>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuShmUnlink(name.rawAddress)
 
-public actual fun seekdir(dirp: DIR?, loc: CLong) {
-    UnixHaikuJniBridge.libc_unix_haiku_seekdir((dirp?.handle ?: 0L), loc)
+public actual fun seekdir(dirp: MutPtr<DIR>, loc: CLong) {
+    UnixHaikuJniBridge.libcUnixHaikuSeekdir(dirp.rawAddress, loc)
 }
 
-public actual fun telldir(dirp: DIR?): CLong =
-    UnixHaikuJniBridge.libc_unix_haiku_telldir((dirp?.handle ?: 0L))
+public actual fun telldir(dirp: MutPtr<DIR>): CLong =
+    UnixHaikuJniBridge.libcUnixHaikuTelldir(dirp.rawAddress)
 
-public actual fun madvise(addr: COpaquePointer?, len: SizeT, advice: CInt): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_madvise((addr?.value ?: 0L), len.toLong(), advice)
+public actual fun madvise(addr: MutPtr<CVoid>, len: SizeT, advice: CInt): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuMadvise(addr.rawAddress, len.toLong(), advice)
 
-public actual fun msync(addr: COpaquePointer?, len: SizeT, flags: CInt): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_msync((addr?.value ?: 0L), len.toLong(), flags)
+public actual fun msync(addr: MutPtr<CVoid>, len: SizeT, flags: CInt): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuMsync(addr.rawAddress, len.toLong(), flags)
 
-public actual fun recvfrom(socket: CInt, buf: COpaquePointer?, len: SizeT, flags: CInt, addr: COpaquePointer?, addrlen: COpaquePointer?): SsizeT =
-    UnixHaikuJniBridge.libc_unix_haiku_recvfrom(socket, (buf?.value ?: 0L), len.toLong(), flags, (addr?.value ?: 0L), (addrlen?.value ?: 0L))
+public actual fun recvfrom(socket: CInt, buf: MutPtr<CVoid>, len: SizeT, flags: CInt, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): SsizeT =
+    UnixHaikuJniBridge.libcUnixHaikuRecvfrom(socket, buf.rawAddress, len.toLong(), flags, addr.rawAddress, addrlen.rawAddress)
 
-public actual fun nlLanginfo(item: NlItem): COpaquePointer? =
-    UnixHaikuJniBridge.libc_unix_haiku_nlLanginfo(item).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun nlLanginfo(item: NlItem): MutPtr<CChar> =
+    MutPtr(UnixHaikuJniBridge.libcUnixHaikuNlLanginfo(item))
 
-public actual fun bind(socket: CInt, address: COpaquePointer?, addressLen: SocklenT): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_bind(socket, (address?.value ?: 0L), addressLen.toInt())
+public actual fun bind(socket: CInt, address: ConstPtr<Sockaddr>, addressLen: SocklenT): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuBind(socket, address.rawAddress, addressLen.toInt())
 
-public actual fun accept4(socket: CInt, address: COpaquePointer?, addressLength: COpaquePointer?, flags: CInt): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_accept4(socket, (address?.value ?: 0L), (addressLength?.value ?: 0L), flags)
+public actual fun accept4(socket: CInt, address: MutPtr<Sockaddr>, addressLength: MutPtr<SocklenT>, flags: CInt): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuAccept4(socket, address.rawAddress, addressLength.rawAddress, flags)
 
-public actual fun writev(fd: CInt, iov: COpaquePointer?, count: CInt): SsizeT =
-    UnixHaikuJniBridge.libc_unix_haiku_writev(fd, (iov?.value ?: 0L), count)
+public actual fun writev(fd: CInt, iov: ConstPtr<Iovec>, count: CInt): SsizeT =
+    UnixHaikuJniBridge.libcUnixHaikuWritev(fd, iov.rawAddress, count)
 
-public actual fun readv(fd: CInt, iov: COpaquePointer?, count: CInt): SsizeT =
-    UnixHaikuJniBridge.libc_unix_haiku_readv(fd, (iov?.value ?: 0L), count)
+public actual fun readv(fd: CInt, iov: ConstPtr<Iovec>, count: CInt): SsizeT =
+    UnixHaikuJniBridge.libcUnixHaikuReadv(fd, iov.rawAddress, count)
 
-public actual fun sendmsg(fd: CInt, msg: COpaquePointer?, flags: CInt): SsizeT =
-    UnixHaikuJniBridge.libc_unix_haiku_sendmsg(fd, (msg?.value ?: 0L), flags)
+public actual fun sendmsg(fd: CInt, msg: ConstPtr<Msghdr>, flags: CInt): SsizeT =
+    UnixHaikuJniBridge.libcUnixHaikuSendmsg(fd, msg.rawAddress, flags)
 
-public actual fun recvmsg(fd: CInt, msg: COpaquePointer?, flags: CInt): SsizeT =
-    UnixHaikuJniBridge.libc_unix_haiku_recvmsg(fd, (msg?.value ?: 0L), flags)
+public actual fun recvmsg(fd: CInt, msg: MutPtr<Msghdr>, flags: CInt): SsizeT =
+    UnixHaikuJniBridge.libcUnixHaikuRecvmsg(fd, msg.rawAddress, flags)
 
-public actual fun execvpe(file: String?, argv: COpaquePointer?, environment: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_execvpe(file, (argv?.value ?: 0L), (environment?.value ?: 0L))
+public actual fun execvpe(file: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>, environment: ConstPtr<ConstPtr<CChar>>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuExecvpe(file.rawAddress, argv.rawAddress, environment.rawAddress)
 
-public actual fun getgrgidR(gid: GidT, grp: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_getgrgidR(gid.toShort(), (grp?.value ?: 0L), (buf?.value ?: 0L), buflen.toLong(), (result?.value ?: 0L))
+public actual fun getgrgidR(gid: GidT, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuGetgrgidR(gid.toShort(), grp.rawAddress, buf.rawAddress, buflen.toLong(), result.rawAddress)
 
-public actual fun getgrouplist(user: String?, basegroup: GidT, grouplist: COpaquePointer?, groupcount: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_getgrouplist(user, basegroup.toShort(), (grouplist?.value ?: 0L), (groupcount?.value ?: 0L))
+public actual fun getgrouplist(user: ConstPtr<CChar>, basegroup: GidT, grouplist: MutPtr<GidT>, groupcount: MutPtr<CInt>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuGetgrouplist(user.rawAddress, basegroup.toShort(), grouplist.rawAddress, groupcount.rawAddress)
 
-public actual fun sigaltstack(ss: COpaquePointer?, oss: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_sigaltstack((ss?.value ?: 0L), (oss?.value ?: 0L))
+public actual fun sigaltstack(ss: ConstPtr<StackT>, oss: MutPtr<StackT>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuSigaltstack(ss.rawAddress, oss.rawAddress)
 
-public actual fun sigsuspend(mask: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_sigsuspend((mask?.value ?: 0L))
+public actual fun sigsuspend(mask: ConstPtr<SigsetT>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuSigsuspend(mask.rawAddress)
 
-public actual fun semClose(sem: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_semClose((sem?.value ?: 0L))
+public actual fun semClose(sem: MutPtr<SemT>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuSemClose(sem.rawAddress)
 
 public actual fun getdtablesize(): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_getdtablesize()
+    UnixHaikuJniBridge.libcUnixHaikuGetdtablesize()
 
-public actual fun getgrnamR(name: String?, grp: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_getgrnamR(name, (grp?.value ?: 0L), (buf?.value ?: 0L), buflen.toLong(), (result?.value ?: 0L))
+public actual fun getgrnamR(name: ConstPtr<CChar>, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuGetgrnamR(name.rawAddress, grp.rawAddress, buf.rawAddress, buflen.toLong(), result.rawAddress)
 
-public actual fun pthreadSigmask(how: CInt, set: COpaquePointer?, oldset: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_pthreadSigmask(how, (set?.value ?: 0L), (oldset?.value ?: 0L))
+public actual fun pthreadSigmask(how: CInt, set: ConstPtr<SigsetT>, oldset: MutPtr<SigsetT>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuPthreadSigmask(how, set.rawAddress, oldset.rawAddress)
 
-public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    UnixHaikuJniBridge.libc_unix_haiku_semOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun semOpen(name: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): MutPtr<SemT> =
+    MutPtr(UnixHaikuJniBridge.libcUnixHaikuSemOpen(name.rawAddress, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L))
 
-public actual fun getgrnam(name: String?): COpaquePointer? =
-    UnixHaikuJniBridge.libc_unix_haiku_getgrnam(name).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getgrnam(name: ConstPtr<CChar>): MutPtr<Group> =
+    MutPtr(UnixHaikuJniBridge.libcUnixHaikuGetgrnam(name.rawAddress))
 
 public actual fun pthreadKill(thread: PthreadT, sig: CInt): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_pthreadKill(thread.toLong(), sig)
+    UnixHaikuJniBridge.libcUnixHaikuPthreadKill(thread.toLong(), sig)
 
-public actual fun semUnlink(name: String?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_semUnlink(name)
+public actual fun semUnlink(name: ConstPtr<CChar>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuSemUnlink(name.rawAddress)
 
-public actual fun getpwnamR(name: String?, pwd: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_getpwnamR(name, (pwd?.value ?: 0L), (buf?.value ?: 0L), buflen.toLong(), (result?.value ?: 0L))
+public actual fun getpwnamR(name: ConstPtr<CChar>, pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuGetpwnamR(name.rawAddress, pwd.rawAddress, buf.rawAddress, buflen.toLong(), result.rawAddress)
 
-public actual fun getpwuidR(uid: UidT, pwd: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_getpwuidR(uid.toShort(), (pwd?.value ?: 0L), (buf?.value ?: 0L), buflen.toLong(), (result?.value ?: 0L))
+public actual fun getpwuidR(uid: UidT, pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuGetpwuidR(uid.toShort(), pwd.rawAddress, buf.rawAddress, buflen.toLong(), result.rawAddress)
 
-public actual fun getpwent(): COpaquePointer? =
-    UnixHaikuJniBridge.libc_unix_haiku_getpwent().let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getpwent(): MutPtr<Passwd> =
+    MutPtr(UnixHaikuJniBridge.libcUnixHaikuGetpwent())
 
 public actual fun setpwent() {
-    UnixHaikuJniBridge.libc_unix_haiku_setpwent()
+    UnixHaikuJniBridge.libcUnixHaikuSetpwent()
 }
 
 public actual fun endpwent() {
-    UnixHaikuJniBridge.libc_unix_haiku_endpwent()
+    UnixHaikuJniBridge.libcUnixHaikuEndpwent()
 }
 
 public actual fun endgrent() {
-    UnixHaikuJniBridge.libc_unix_haiku_endgrent()
+    UnixHaikuJniBridge.libcUnixHaikuEndgrent()
 }
 
-public actual fun getgrent(): COpaquePointer? =
-    UnixHaikuJniBridge.libc_unix_haiku_getgrent().let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getgrent(): MutPtr<Group> =
+    MutPtr(UnixHaikuJniBridge.libcUnixHaikuGetgrent())
 
 public actual fun setgrent() {
-    UnixHaikuJniBridge.libc_unix_haiku_setgrent()
+    UnixHaikuJniBridge.libcUnixHaikuSetgrent()
 }
 
-public actual fun sigwait(set: COpaquePointer?, sig: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_sigwait((set?.value ?: 0L), (sig?.value ?: 0L))
+public actual fun sigwait(set: ConstPtr<SigsetT>, sig: MutPtr<CInt>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuSigwait(set.rawAddress, sig.rawAddress)
 
 public actual fun pthreadAtfork(prepare: PthreadAtforkPrepareCallback?, parent: PthreadAtforkPrepareCallback?, child: PthreadAtforkPrepareCallback?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_pthreadAtfork(0L, 0L, 0L)
+    UnixHaikuJniBridge.libcUnixHaikuPthreadAtfork(0L, 0L, 0L)
 
-public actual fun getgrgid(gid: GidT): COpaquePointer? =
-    UnixHaikuJniBridge.libc_unix_haiku_getgrgid(gid.toShort()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getgrgid(gid: GidT): MutPtr<Group> =
+    MutPtr(UnixHaikuJniBridge.libcUnixHaikuGetgrgid(gid.toShort()))
 
-public actual fun popen(command: String?, mode: String?): FILE? =
-    UnixHaikuJniBridge.libc_unix_haiku_popen(command, mode).let { if (it == 0L) null else FILE(it) }
+public actual fun popen(command: ConstPtr<CChar>, mode: ConstPtr<CChar>): MutPtr<FILE> =
+    MutPtr(UnixHaikuJniBridge.libcUnixHaikuPopen(command.rawAddress, mode.rawAddress))
 
-public actual fun sethostname(name: String?, len: SizeT): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_sethostname(name, len.toLong())
+public actual fun sethostname(name: ConstPtr<CChar>, len: SizeT): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuSethostname(name.rawAddress, len.toLong())
 
-public actual fun uname(buf: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_uname((buf?.value ?: 0L))
+public actual fun uname(buf: MutPtr<Utsname>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuUname(buf.rawAddress)
 
-public actual fun getutxent(): COpaquePointer? =
-    UnixHaikuJniBridge.libc_unix_haiku_getutxent().let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getutxent(): MutPtr<Utmpx> =
+    MutPtr(UnixHaikuJniBridge.libcUnixHaikuGetutxent())
 
-public actual fun getutxid(ut: COpaquePointer?): COpaquePointer? =
-    UnixHaikuJniBridge.libc_unix_haiku_getutxid((ut?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getutxid(ut: ConstPtr<Utmpx>): MutPtr<Utmpx> =
+    MutPtr(UnixHaikuJniBridge.libcUnixHaikuGetutxid(ut.rawAddress))
 
-public actual fun getutxline(ut: COpaquePointer?): COpaquePointer? =
-    UnixHaikuJniBridge.libc_unix_haiku_getutxline((ut?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getutxline(ut: ConstPtr<Utmpx>): MutPtr<Utmpx> =
+    MutPtr(UnixHaikuJniBridge.libcUnixHaikuGetutxline(ut.rawAddress))
 
-public actual fun pututxline(ut: COpaquePointer?): COpaquePointer? =
-    UnixHaikuJniBridge.libc_unix_haiku_pututxline((ut?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun pututxline(ut: ConstPtr<Utmpx>): MutPtr<Utmpx> =
+    MutPtr(UnixHaikuJniBridge.libcUnixHaikuPututxline(ut.rawAddress))
 
 public actual fun setutxent() {
-    UnixHaikuJniBridge.libc_unix_haiku_setutxent()
+    UnixHaikuJniBridge.libcUnixHaikuSetutxent()
 }
 
 public actual fun endutxent() {
-    UnixHaikuJniBridge.libc_unix_haiku_endutxent()
+    UnixHaikuJniBridge.libcUnixHaikuEndutxent()
 }
 
-public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_faccessat(dirfd, pathname, mode, flags)
+public actual fun faccessat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: CInt, flags: CInt): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuFaccessat(dirfd, pathname.rawAddress, mode, flags)
 
-public actual fun sigtimedwait(set: COpaquePointer?, info: COpaquePointer?, timeout: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_sigtimedwait((set?.value ?: 0L), (info?.value ?: 0L), (timeout?.value ?: 0L))
+public actual fun sigtimedwait(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>, timeout: ConstPtr<Timespec>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuSigtimedwait(set.rawAddress, info.rawAddress, timeout.rawAddress)
 
-public actual fun sigwaitinfo(set: COpaquePointer?, info: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_sigwaitinfo((set?.value ?: 0L), (info?.value ?: 0L))
+public actual fun sigwaitinfo(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuSigwaitinfo(set.rawAddress, info.rawAddress)
 
-public actual fun getitimer(which: CInt, currValue: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_getitimer(which, (currValue?.value ?: 0L))
+public actual fun getitimer(which: CInt, currValue: MutPtr<Itimerval>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuGetitimer(which, currValue.rawAddress)
 
-public actual fun setitimer(which: CInt, newValue: COpaquePointer?, oldValue: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_setitimer(which, (newValue?.value ?: 0L), (oldValue?.value ?: 0L))
+public actual fun setitimer(which: CInt, newValue: ConstPtr<Itimerval>, oldValue: MutPtr<Itimerval>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuSetitimer(which, newValue.rawAddress, oldValue.rawAddress)
 
-public actual fun regcomp(preg: COpaquePointer?, pattern: String?, cflags: CInt): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_regcomp((preg?.value ?: 0L), pattern, cflags)
+public actual fun regcomp(preg: MutPtr<RegexT>, pattern: ConstPtr<CChar>, cflags: CInt): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuRegcomp(preg.rawAddress, pattern.rawAddress, cflags)
 
-public actual fun regexec(preg: COpaquePointer?, input: String?, nmatch: SizeT, pmatch: COpaquePointer?, eflags: CInt): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_regexec((preg?.value ?: 0L), input, nmatch.toLong(), (pmatch?.value ?: 0L), eflags)
+public actual fun regexec(preg: ConstPtr<RegexT>, input: ConstPtr<CChar>, nmatch: SizeT, pmatch: MutPtr<RegmatchT>, eflags: CInt): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuRegexec(preg.rawAddress, input.rawAddress, nmatch.toLong(), pmatch.rawAddress, eflags)
 
-public actual fun regerror(errcode: CInt, preg: COpaquePointer?, errbuf: COpaquePointer?, errbufSize: SizeT): SizeT =
-    UnixHaikuJniBridge.libc_unix_haiku_regerror(errcode, (preg?.value ?: 0L), (errbuf?.value ?: 0L), errbufSize.toLong()).toULong()
+public actual fun regerror(errcode: CInt, preg: ConstPtr<RegexT>, errbuf: MutPtr<CChar>, errbufSize: SizeT): SizeT =
+    UnixHaikuJniBridge.libcUnixHaikuRegerror(errcode, preg.rawAddress, errbuf.rawAddress, errbufSize.toLong()).toULong()
 
-public actual fun regfree(preg: COpaquePointer?) {
-    UnixHaikuJniBridge.libc_unix_haiku_regfree((preg?.value ?: 0L))
+public actual fun regfree(preg: MutPtr<RegexT>) {
+    UnixHaikuJniBridge.libcUnixHaikuRegfree(preg.rawAddress)
 }
 
-public actual fun msgctl(msqid: CInt, cmd: CInt, buf: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_msgctl(msqid, cmd, (buf?.value ?: 0L))
+public actual fun msgctl(msqid: CInt, cmd: CInt, buf: MutPtr<MsqidDs>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuMsgctl(msqid, cmd, buf.rawAddress)
 
 public actual fun msgget(key: KeyT, msgflg: CInt): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_msgget(key, msgflg)
+    UnixHaikuJniBridge.libcUnixHaikuMsgget(key, msgflg)
 
-public actual fun msgrcv(msqid: CInt, msgp: COpaquePointer?, msgsz: SizeT, msgtype: CLong, msgflg: CInt): SsizeT =
-    UnixHaikuJniBridge.libc_unix_haiku_msgrcv(msqid, (msgp?.value ?: 0L), msgsz.toLong(), msgtype, msgflg)
+public actual fun msgrcv(msqid: CInt, msgp: MutPtr<CVoid>, msgsz: SizeT, msgtype: CLong, msgflg: CInt): SsizeT =
+    UnixHaikuJniBridge.libcUnixHaikuMsgrcv(msqid, msgp.rawAddress, msgsz.toLong(), msgtype, msgflg)
 
-public actual fun msgsnd(msqid: CInt, msgp: COpaquePointer?, msgsz: SizeT, msgflg: CInt): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_msgsnd(msqid, (msgp?.value ?: 0L), msgsz.toLong(), msgflg)
+public actual fun msgsnd(msqid: CInt, msgp: ConstPtr<CVoid>, msgsz: SizeT, msgflg: CInt): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuMsgsnd(msqid, msgp.rawAddress, msgsz.toLong(), msgflg)
 
 public actual fun semget(key: KeyT, nsems: CInt, semflg: CInt): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_semget(key, nsems, semflg)
+    UnixHaikuJniBridge.libcUnixHaikuSemget(key, nsems, semflg)
 
 public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_semctl(semid, semnum, cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+    UnixHaikuJniBridge.libcUnixHaikuSemctl(semid, semnum, cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun semop(semid: CInt, sops: COpaquePointer?, nsops: SizeT): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_semop(semid, (sops?.value ?: 0L), nsops.toLong())
+public actual fun semop(semid: CInt, sops: MutPtr<Sembuf>, nsops: SizeT): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuSemop(semid, sops.rawAddress, nsops.toLong())
 
-public actual fun ftok(pathname: String?, projId: CInt): KeyT =
-    UnixHaikuJniBridge.libc_unix_haiku_ftok(pathname, projId)
+public actual fun ftok(pathname: ConstPtr<CChar>, projId: CInt): KeyT =
+    UnixHaikuJniBridge.libcUnixHaikuFtok(pathname.rawAddress, projId)
 
-public actual fun memrchr(cx: COpaquePointer?, c: CInt, n: SizeT): COpaquePointer? =
-    UnixHaikuJniBridge.libc_unix_haiku_memrchr((cx?.value ?: 0L), c, n.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun memrchr(cx: ConstPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+    MutPtr(UnixHaikuJniBridge.libcUnixHaikuMemrchr(cx.rawAddress, c, n.toLong()))
 
-public actual fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: LsearchComparCallback?): COpaquePointer? =
-    UnixHaikuJniBridge.libc_unix_haiku_lsearch((key?.value ?: 0L), (base?.value ?: 0L), (nelp?.value ?: 0L), width.toLong(), 0L).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun lsearch(key: ConstPtr<CVoid>, base: MutPtr<CVoid>, nelp: MutPtr<SizeT>, width: SizeT, compar: LsearchComparCallback?): MutPtr<CVoid> =
+    MutPtr(UnixHaikuJniBridge.libcUnixHaikuLsearch(key.rawAddress, base.rawAddress, nelp.rawAddress, width.toLong(), 0L))
 
-public actual fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: LsearchComparCallback?): COpaquePointer? =
-    UnixHaikuJniBridge.libc_unix_haiku_lfind((key?.value ?: 0L), (base?.value ?: 0L), (nelp?.value ?: 0L), width.toLong(), 0L).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun lfind(key: ConstPtr<CVoid>, base: ConstPtr<CVoid>, nelp: MutPtr<SizeT>, width: SizeT, compar: LsearchComparCallback?): MutPtr<CVoid> =
+    MutPtr(UnixHaikuJniBridge.libcUnixHaikuLfind(key.rawAddress, base.rawAddress, nelp.rawAddress, width.toLong(), 0L))
 
 public actual fun hcreate(nelt: SizeT): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_hcreate(nelt.toLong())
+    UnixHaikuJniBridge.libcUnixHaikuHcreate(nelt.toLong())
 
 public actual fun hdestroy() {
-    UnixHaikuJniBridge.libc_unix_haiku_hdestroy()
+    UnixHaikuJniBridge.libcUnixHaikuHdestroy()
 }
 
-public actual fun hsearch(entry: Entry, action: Action): COpaquePointer? =
-    null
+public actual fun hsearch(entry: Entry, action: Action): MutPtr<Entry> =
+    MutPtr(0L)
 
 public actual fun drand48(): CDouble =
-    UnixHaikuJniBridge.libc_unix_haiku_drand48()
+    UnixHaikuJniBridge.libcUnixHaikuDrand48()
 
-public actual fun erand48(xseed: COpaquePointer?): CDouble =
-    UnixHaikuJniBridge.libc_unix_haiku_erand48((xseed?.value ?: 0L))
+public actual fun erand48(xseed: MutPtr<CUshort>): CDouble =
+    UnixHaikuJniBridge.libcUnixHaikuErand48(xseed.rawAddress)
 
 public actual fun lrand48(): CLong =
-    UnixHaikuJniBridge.libc_unix_haiku_lrand48()
+    UnixHaikuJniBridge.libcUnixHaikuLrand48()
 
-public actual fun nrand48(xseed: COpaquePointer?): CLong =
-    UnixHaikuJniBridge.libc_unix_haiku_nrand48((xseed?.value ?: 0L))
+public actual fun nrand48(xseed: MutPtr<CUshort>): CLong =
+    UnixHaikuJniBridge.libcUnixHaikuNrand48(xseed.rawAddress)
 
 public actual fun mrand48(): CLong =
-    UnixHaikuJniBridge.libc_unix_haiku_mrand48()
+    UnixHaikuJniBridge.libcUnixHaikuMrand48()
 
-public actual fun jrand48(xseed: COpaquePointer?): CLong =
-    UnixHaikuJniBridge.libc_unix_haiku_jrand48((xseed?.value ?: 0L))
+public actual fun jrand48(xseed: MutPtr<CUshort>): CLong =
+    UnixHaikuJniBridge.libcUnixHaikuJrand48(xseed.rawAddress)
 
 public actual fun srand48(seed: CLong) {
-    UnixHaikuJniBridge.libc_unix_haiku_srand48(seed)
+    UnixHaikuJniBridge.libcUnixHaikuSrand48(seed)
 }
 
-public actual fun seed48(xseed: COpaquePointer?): COpaquePointer? =
-    UnixHaikuJniBridge.libc_unix_haiku_seed48((xseed?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun seed48(xseed: MutPtr<CUshort>): MutPtr<CUshort> =
+    MutPtr(UnixHaikuJniBridge.libcUnixHaikuSeed48(xseed.rawAddress))
 
-public actual fun lcong48(p: COpaquePointer?) {
-    UnixHaikuJniBridge.libc_unix_haiku_lcong48((p?.value ?: 0L))
+public actual fun lcong48(p: MutPtr<CUshort>) {
+    UnixHaikuJniBridge.libcUnixHaikuLcong48(p.rawAddress)
 }
 
 public actual fun clearenv(): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_clearenv()
+    UnixHaikuJniBridge.libcUnixHaikuClearenv()
 
-public actual fun ctermid(s: COpaquePointer?): COpaquePointer? =
-    UnixHaikuJniBridge.libc_unix_haiku_ctermid((s?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun ctermid(s: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(UnixHaikuJniBridge.libcUnixHaikuCtermid(s.rawAddress))
 
 public actual fun sync() {
-    UnixHaikuJniBridge.libc_unix_haiku_sync()
+    UnixHaikuJniBridge.libcUnixHaikuSync()
 }
 
 public actual fun getpagesize(): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_getpagesize()
+    UnixHaikuJniBridge.libcUnixHaikuGetpagesize()
 
-public actual fun brk(addr: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_brk((addr?.value ?: 0L))
+public actual fun brk(addr: MutPtr<CVoid>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuBrk(addr.rawAddress)
 
-public actual fun sbrk(increment: IntptrT): COpaquePointer? =
-    UnixHaikuJniBridge.libc_unix_haiku_sbrk(increment).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun sbrk(increment: IntptrT): MutPtr<CVoid> =
+    MutPtr(UnixHaikuJniBridge.libcUnixHaikuSbrk(increment))
 
-public actual fun posixSpawn(pid: COpaquePointer?, path: String?, fileActions: COpaquePointer?, attrp: COpaquePointer?, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_posixSpawn((pid?.value ?: 0L), path, (fileActions?.value ?: 0L), (attrp?.value ?: 0L), (argv?.value ?: 0L), (envp?.value ?: 0L))
+public actual fun posixSpawn(pid: MutPtr<PidT>, path: ConstPtr<CChar>, fileActions: ConstPtr<PosixSpawnFileActionsT>, attrp: ConstPtr<PosixSpawnattrT>, argv: ConstPtr<MutPtr<CChar>>, envp: ConstPtr<MutPtr<CChar>>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuPosixSpawn(pid.rawAddress, path.rawAddress, fileActions.rawAddress, attrp.rawAddress, argv.rawAddress, envp.rawAddress)
 
-public actual fun posixSpawnp(pid: COpaquePointer?, file: String?, fileActions: COpaquePointer?, attrp: COpaquePointer?, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_posixSpawnp((pid?.value ?: 0L), file, (fileActions?.value ?: 0L), (attrp?.value ?: 0L), (argv?.value ?: 0L), (envp?.value ?: 0L))
+public actual fun posixSpawnp(pid: MutPtr<PidT>, file: ConstPtr<CChar>, fileActions: ConstPtr<PosixSpawnFileActionsT>, attrp: ConstPtr<PosixSpawnattrT>, argv: ConstPtr<MutPtr<CChar>>, envp: ConstPtr<MutPtr<CChar>>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuPosixSpawnp(pid.rawAddress, file.rawAddress, fileActions.rawAddress, attrp.rawAddress, argv.rawAddress, envp.rawAddress)
 
-public actual fun posixSpawnFileActionsInit(fileActions: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_posixSpawnFileActionsInit((fileActions?.value ?: 0L))
+public actual fun posixSpawnFileActionsInit(fileActions: MutPtr<PosixSpawnFileActionsT>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuPosixSpawnFileActionsInit(fileActions.rawAddress)
 
-public actual fun posixSpawnFileActionsDestroy(fileActions: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_posixSpawnFileActionsDestroy((fileActions?.value ?: 0L))
+public actual fun posixSpawnFileActionsDestroy(fileActions: MutPtr<PosixSpawnFileActionsT>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuPosixSpawnFileActionsDestroy(fileActions.rawAddress)
 
-public actual fun posixSpawnFileActionsAddopen(fileActions: COpaquePointer?, fildes: CInt, path: String?, oflag: CInt, mode: ModeT): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_posixSpawnFileActionsAddopen((fileActions?.value ?: 0L), fildes, path, oflag, mode.toInt())
+public actual fun posixSpawnFileActionsAddopen(fileActions: MutPtr<PosixSpawnFileActionsT>, fildes: CInt, path: ConstPtr<CChar>, oflag: CInt, mode: ModeT): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuPosixSpawnFileActionsAddopen(fileActions.rawAddress, fildes, path.rawAddress, oflag, mode.toInt())
 
-public actual fun posixSpawnFileActionsAddclose(fileActions: COpaquePointer?, fildes: CInt): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_posixSpawnFileActionsAddclose((fileActions?.value ?: 0L), fildes)
+public actual fun posixSpawnFileActionsAddclose(fileActions: MutPtr<PosixSpawnFileActionsT>, fildes: CInt): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuPosixSpawnFileActionsAddclose(fileActions.rawAddress, fildes)
 
-public actual fun posixSpawnFileActionsAdddup2(fileActions: COpaquePointer?, fildes: CInt, newfildes: CInt): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_posixSpawnFileActionsAdddup2((fileActions?.value ?: 0L), fildes, newfildes)
+public actual fun posixSpawnFileActionsAdddup2(fileActions: MutPtr<PosixSpawnFileActionsT>, fildes: CInt, newfildes: CInt): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuPosixSpawnFileActionsAdddup2(fileActions.rawAddress, fildes, newfildes)
 
-public actual fun posixSpawnattrInit(attr: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_posixSpawnattrInit((attr?.value ?: 0L))
+public actual fun posixSpawnattrInit(attr: MutPtr<PosixSpawnattrT>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuPosixSpawnattrInit(attr.rawAddress)
 
-public actual fun posixSpawnattrDestroy(attr: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_posixSpawnattrDestroy((attr?.value ?: 0L))
+public actual fun posixSpawnattrDestroy(attr: MutPtr<PosixSpawnattrT>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuPosixSpawnattrDestroy(attr.rawAddress)
 
-public actual fun posixSpawnattrGetflags(attr: COpaquePointer?, flags: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_posixSpawnattrGetflags((attr?.value ?: 0L), (flags?.value ?: 0L))
+public actual fun posixSpawnattrGetflags(attr: ConstPtr<PosixSpawnattrT>, flags: MutPtr<CShort>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuPosixSpawnattrGetflags(attr.rawAddress, flags.rawAddress)
 
-public actual fun posixSpawnattrSetflags(attr: COpaquePointer?, flags: CShort): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_posixSpawnattrSetflags((attr?.value ?: 0L), flags)
+public actual fun posixSpawnattrSetflags(attr: MutPtr<PosixSpawnattrT>, flags: CShort): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuPosixSpawnattrSetflags(attr.rawAddress, flags)
 
-public actual fun posixSpawnattrGetpgroup(attr: COpaquePointer?, pgroup: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_posixSpawnattrGetpgroup((attr?.value ?: 0L), (pgroup?.value ?: 0L))
+public actual fun posixSpawnattrGetpgroup(attr: ConstPtr<PosixSpawnattrT>, pgroup: MutPtr<PidT>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuPosixSpawnattrGetpgroup(attr.rawAddress, pgroup.rawAddress)
 
-public actual fun posixSpawnattrSetpgroup(attr: COpaquePointer?, pgroup: PidT): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_posixSpawnattrSetpgroup((attr?.value ?: 0L), pgroup)
+public actual fun posixSpawnattrSetpgroup(attr: MutPtr<PosixSpawnattrT>, pgroup: PidT): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuPosixSpawnattrSetpgroup(attr.rawAddress, pgroup)
 
-public actual fun posixSpawnattrGetsigdefault(attr: COpaquePointer?, sigdefault: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_posixSpawnattrGetsigdefault((attr?.value ?: 0L), (sigdefault?.value ?: 0L))
+public actual fun posixSpawnattrGetsigdefault(attr: ConstPtr<PosixSpawnattrT>, sigdefault: MutPtr<SigsetT>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuPosixSpawnattrGetsigdefault(attr.rawAddress, sigdefault.rawAddress)
 
-public actual fun posixSpawnattrSetsigdefault(attr: COpaquePointer?, sigdefault: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_posixSpawnattrSetsigdefault((attr?.value ?: 0L), (sigdefault?.value ?: 0L))
+public actual fun posixSpawnattrSetsigdefault(attr: MutPtr<PosixSpawnattrT>, sigdefault: ConstPtr<SigsetT>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuPosixSpawnattrSetsigdefault(attr.rawAddress, sigdefault.rawAddress)
 
-public actual fun posixSpawnattrGetsigmask(attr: COpaquePointer?, sigmask: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_posixSpawnattrGetsigmask((attr?.value ?: 0L), (sigmask?.value ?: 0L))
+public actual fun posixSpawnattrGetsigmask(attr: ConstPtr<PosixSpawnattrT>, sigmask: MutPtr<SigsetT>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuPosixSpawnattrGetsigmask(attr.rawAddress, sigmask.rawAddress)
 
-public actual fun posixSpawnattrSetsigmask(attr: COpaquePointer?, sigmask: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_posixSpawnattrSetsigmask((attr?.value ?: 0L), (sigmask?.value ?: 0L))
+public actual fun posixSpawnattrSetsigmask(attr: MutPtr<PosixSpawnattrT>, sigmask: ConstPtr<SigsetT>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuPosixSpawnattrSetsigmask(attr.rawAddress, sigmask.rawAddress)
 
-public actual fun getoptLong(argc: CInt, argv: COpaquePointer?, optstring: String?, longopts: COpaquePointer?, longindex: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_getoptLong(argc, (argv?.value ?: 0L), optstring, (longopts?.value ?: 0L), (longindex?.value ?: 0L))
+public actual fun getoptLong(argc: CInt, argv: ConstPtr<MutPtr<CChar>>, optstring: ConstPtr<CChar>, longopts: ConstPtr<Option>, longindex: MutPtr<CInt>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuGetoptLong(argc, argv.rawAddress, optstring.rawAddress, longopts.rawAddress, longindex.rawAddress)
 
-public actual fun strcasecmpL(string1: String?, string2: String?, locale: LocaleT): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_strcasecmpL(string1, string2, (locale?.value ?: 0L))
+public actual fun strcasecmpL(string1: ConstPtr<CChar>, string2: ConstPtr<CChar>, locale: LocaleT): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuStrcasecmpL(string1.rawAddress, string2.rawAddress, locale.rawAddress)
 
-public actual fun strncasecmpL(string1: String?, string2: String?, length: SizeT, locale: LocaleT): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_strncasecmpL(string1, string2, length.toLong(), (locale?.value ?: 0L))
+public actual fun strncasecmpL(string1: ConstPtr<CChar>, string2: ConstPtr<CChar>, length: SizeT, locale: LocaleT): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuStrncasecmpL(string1.rawAddress, string2.rawAddress, length.toLong(), locale.rawAddress)
 
-public actual fun getentropy(buf: COpaquePointer?, buflen: SizeT): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_getentropy((buf?.value ?: 0L), buflen.toLong())
+public actual fun getentropy(buf: MutPtr<CVoid>, buflen: SizeT): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuGetentropy(buf.rawAddress, buflen.toLong())
 
-public actual fun memmem(source: COpaquePointer?, sourceLength: SizeT, search: COpaquePointer?, searchLength: SizeT): COpaquePointer? =
-    UnixHaikuJniBridge.libc_unix_haiku_memmem((source?.value ?: 0L), sourceLength.toLong(), (search?.value ?: 0L), searchLength.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun memmem(source: ConstPtr<CVoid>, sourceLength: SizeT, search: ConstPtr<CVoid>, searchLength: SizeT): MutPtr<CVoid> =
+    MutPtr(UnixHaikuJniBridge.libcUnixHaikuMemmem(source.rawAddress, sourceLength.toLong(), search.rawAddress, searchLength.toLong()))
 
-public actual fun pthreadGetattrNp(thread: PthreadT, attr: COpaquePointer?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_pthreadGetattrNp(thread.toLong(), (attr?.value ?: 0L))
+public actual fun pthreadGetattrNp(thread: PthreadT, attr: MutPtr<PthreadAttrT>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuPthreadGetattrNp(thread.toLong(), attr.rawAddress)
 
-public actual fun pthreadGetnameNp(thread: PthreadT, buffer: COpaquePointer?, length: SizeT): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_pthreadGetnameNp(thread.toLong(), (buffer?.value ?: 0L), length.toLong())
+public actual fun pthreadGetnameNp(thread: PthreadT, buffer: MutPtr<CChar>, length: SizeT): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuPthreadGetnameNp(thread.toLong(), buffer.rawAddress, length.toLong())
 
-public actual fun pthreadSetnameNp(thread: PthreadT, name: String?): CInt =
-    UnixHaikuJniBridge.libc_unix_haiku_pthreadSetnameNp(thread.toLong(), name)
+public actual fun pthreadSetnameNp(thread: PthreadT, name: ConstPtr<CChar>): CInt =
+    UnixHaikuJniBridge.libcUnixHaikuPthreadSetnameNp(thread.toLong(), name.rawAddress)

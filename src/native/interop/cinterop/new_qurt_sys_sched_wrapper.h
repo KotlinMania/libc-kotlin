@@ -9,9 +9,9 @@
 extern "C" {
 #endif
 
-int32_t libc_new_qurt_sys_sched_schedYield(void);
-int32_t libc_new_qurt_sys_sched_schedGetPriorityMax(int32_t policy);
-int32_t libc_new_qurt_sys_sched_schedGetPriorityMin(int32_t policy);
+int32_t libcNewQurtSysSchedSchedYield(void);
+int32_t libcNewQurtSysSchedSchedGetPriorityMax(int32_t policy);
+int32_t libcNewQurtSysSchedSchedGetPriorityMin(int32_t policy);
 
 #ifdef __cplusplus
 }

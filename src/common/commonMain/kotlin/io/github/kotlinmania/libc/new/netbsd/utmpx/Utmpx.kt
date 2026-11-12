@@ -4,12 +4,17 @@
 package io.github.kotlinmania.libc.new.netbsd.utmpx
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.libc.new.netbsd.utmp.Utmp
 import io.github.kotlinmania.libc.new.qurt.PidT
 import io.github.kotlinmania.libc.new.qurt.Timeval
 import io.github.kotlinmania.libc.new.qurt.UidT
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.SockaddrStorage
+import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+import io.github.kotlinmania.rustlang.core.mem.TypeLayout
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 // Header: `utmpx.h`
 //
@@ -109,7 +114,24 @@ public data class Utmpx(
 public data class ExitStatus(
     public var eTermination: UShort = 0u,
     public var eExit: UShort = 0u,
-)
+) {
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<ExitStatus> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<ExitStatus> {
+                override val sizeBytes: Long = 4L
+                override val alignBytes: Long = 2L
+                override fun readNative(addr: Long): ExitStatus =
+                    ExitStatus(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr + 2L),
+                    )
+                override fun writeNative(addr: Long, value: ExitStatus) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr, value.eTermination)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr + 2L, value.eExit)
+                }
+            }
+    }
+}
 
 public data class Lastlogx(
     public var llTv: Timeval = Timeval(),
@@ -140,22 +162,22 @@ public expect fun setutxent()
 
 public expect fun endutxent()
 
-public expect fun getutxent(): COpaquePointer?
+public expect fun getutxent(): MutPtr<Utmpx>
 
-public expect fun getutxid(ut: COpaquePointer?): COpaquePointer?
+public expect fun getutxid(ut: ConstPtr<Utmpx>): MutPtr<Utmpx>
 
-public expect fun getutxline(ut: COpaquePointer?): COpaquePointer?
+public expect fun getutxline(ut: ConstPtr<Utmpx>): MutPtr<Utmpx>
 
-public expect fun pututxline(ut: COpaquePointer?): COpaquePointer?
+public expect fun pututxline(ut: ConstPtr<Utmpx>): MutPtr<Utmpx>
 
-public expect fun updwtmpx(file: String?, ut: COpaquePointer?): CInt
+public expect fun updwtmpx(file: ConstPtr<CChar>, ut: ConstPtr<Utmpx>): CInt
 
-public expect fun getlastlogx(fname: String?, uid: UidT, ll: COpaquePointer?): COpaquePointer?
+public expect fun getlastlogx(fname: ConstPtr<CChar>, uid: UidT, ll: MutPtr<Lastlogx>): MutPtr<Lastlogx>
 
-public expect fun updlastlogx(fname: String?, uid: UidT, ll: COpaquePointer?): CInt
+public expect fun updlastlogx(fname: ConstPtr<CChar>, uid: UidT, ll: MutPtr<Lastlogx>): CInt
 
-public expect fun getutmp(ux: COpaquePointer?, u: COpaquePointer?)
+public expect fun getutmp(ux: ConstPtr<Utmpx>, u: MutPtr<Utmp>)
 
-public expect fun getutmpx(u: COpaquePointer?, ux: COpaquePointer?)
+public expect fun getutmpx(u: ConstPtr<Utmp>, ux: MutPtr<Utmpx>)
 
-public expect fun utmpxname(file: String?): CInt
+public expect fun utmpxname(file: ConstPtr<CChar>): CInt

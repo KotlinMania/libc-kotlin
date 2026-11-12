@@ -6,7 +6,6 @@ import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
@@ -39,19 +38,117 @@ import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.Pargs
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.Priority
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.SegszT
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.TDNAMLEN
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.UInt
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.UShort
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.WMESGLEN
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.aarch64.TimeT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+import io.github.kotlinmania.rustlang.core.mem.TypeLayout
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
-public data class Kevent(
-    public var ident: UintptrT = 0uL,
-    public var filter: CShort = 0,
-    public var flags: CUshort = 0u,
-    public var fflags: CUint = 0u,
-    public var data: IntptrT = 0L,
-    public var udata: COpaquePointer? = null,
-)
+public class Kevent internal constructor(
+    public var ident: UintptrT,
+    public var filter: CShort,
+    public var flags: CUshort,
+    public var fflags: CUint,
+    public var data: IntptrT,
+    udataCtorArg: MutPtr<CVoid>,
+) {
+    public var udata: MutPtr<CVoid> = udataCtorArg
+        internal set
+
+    public constructor() : this(
+        ident = 0uL,
+        filter = 0,
+        flags = 0u,
+        fflags = 0u,
+        data = 0L,
+        udataCtorArg = MutPtr(0L),
+    )
+
+    public operator fun component1(): UintptrT = this.ident
+
+    public operator fun component2(): CShort = this.filter
+
+    public operator fun component3(): CUshort = this.flags
+
+    public operator fun component4(): CUint = this.fflags
+
+    public operator fun component5(): IntptrT = this.data
+
+    public operator fun component6(): MutPtr<CVoid> = this.udata
+
+    public fun copy(ident: UintptrT = this.ident, filter: CShort = this.filter, flags: CUshort = this.flags, fflags: CUint = this.fflags, data: IntptrT = this.data, udata: MutPtr<CVoid> = this.udata): Kevent = Kevent(ident = ident, filter = filter, flags = flags, fflags = fflags, data = data, udataCtorArg = udata)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Kevent) return false
+        if (this.ident != other.ident) return false
+        if (this.filter != other.filter) return false
+        if (this.flags != other.flags) return false
+        if (this.fflags != other.fflags) return false
+        if (this.data != other.data) return false
+        if (this.udata != other.udata) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.ident.hashCode()
+        result = 31 * result + this.filter.hashCode()
+        result = 31 * result + this.flags.hashCode()
+        result = 31 * result + this.fflags.hashCode()
+        result = 31 * result + this.data.hashCode()
+        result = 31 * result + this.udata.hashCode()
+        return result
+    }
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<Kevent> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<Kevent> {
+                override val sizeBytes: Long = 32L
+                override val alignBytes: Long = 8L
+                override fun readNative(addr: Long): Kevent =
+                    Kevent(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.USIZE64).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I16).readNative(addr + 8L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr + 10L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 12L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.ISIZE64).readNative(addr + 16L),
+                        (
+                            io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+                                .mutPtrLayout<CVoid>(64)
+                        ).readNative(addr + 24L),
+                    )
+                override fun writeNative(addr: Long, value: Kevent) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.USIZE64).writeNative(addr, value.ident)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I16).writeNative(addr + 8L, value.filter)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr + 10L, value.flags)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 12L, value.fflags)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.ISIZE64).writeNative(addr + 16L, value.data)
+                    (
+                        io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+                            .mutPtrLayout<CVoid>(64)
+                    ).writeNative(addr + 24L, value.udata)
+                }
+            }
+
+        public operator fun invoke(
+            ident: UintptrT = 0uL,
+            filter: CShort = 0,
+            flags: CUshort = 0u,
+            fflags: CUint = 0u,
+            data: IntptrT = 0L,
+            udata: MutPtr<CVoid> = MutPtr(0L),
+        ): Kevent =
+            Kevent(
+                ident = ident,
+                filter = filter,
+                flags = flags,
+                fflags = fflags,
+                data = data,
+                udataCtorArg = udata,
+            )
+    }
+}
 
 public data class ShmidDs(
     public var shmPerm: IpcPerm = IpcPerm(),
@@ -80,52 +177,60 @@ public class KinfoProc {
     /**
      * Address of command arguments.
      */
-    public var kiArgs: Pargs? = null
+    public var kiArgs: MutPtr<Pargs> = MutPtr(0L)
+        internal set
 
     // This is normally "struct proc".
 
     /**
      * Address of proc.
      */
-    public var kiPaddr: COpaquePointer? = null
+    public var kiPaddr: MutPtr<CVoid> = MutPtr(0L)
+        internal set
 
     // This is normally "struct user".
 
     /**
      * Kernel virtual address of u-area.
      */
-    public var kiAddr: COpaquePointer? = null
+    public var kiAddr: MutPtr<CVoid> = MutPtr(0L)
+        internal set
 
     // This is normally "struct vnode".
 
     /**
      * Pointer to trace file.
      */
-    public var kiTracep: COpaquePointer? = null
+    public var kiTracep: MutPtr<CVoid> = MutPtr(0L)
+        internal set
 
     // This is normally "struct vnode".
 
     /**
      * Pointer to executable file.
      */
-    public var kiTextvp: COpaquePointer? = null
+    public var kiTextvp: MutPtr<CVoid> = MutPtr(0L)
+        internal set
 
     /**
      * Pointer to open file info.
      */
-    public var kiFd: Filedesc? = null
+    public var kiFd: MutPtr<Filedesc> = MutPtr(0L)
+        internal set
 
     // This is normally "struct vmspace".
 
     /**
      * Pointer to kernel vmspace struct.
      */
-    public var kiVmspace: COpaquePointer? = null
+    public var kiVmspace: MutPtr<CVoid> = MutPtr(0L)
+        internal set
 
     /**
      * Sleep address.
      */
-    public var kiWchan: COpaquePointer? = null
+    public var kiWchan: MutPtr<CVoid> = MutPtr(0L)
+        internal set
 
     /**
      * Process identifier.
@@ -265,12 +370,12 @@ public class KinfoProc {
     /**
      * Exit status for wait & stop signal.
      */
-    public var kiXstat: UShort = 0u
+    public var kiXstat: io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.UShort = 0u
 
     /**
      * Accounting flags.
      */
-    public var kiAcflag: UShort = 0u
+    public var kiAcflag: io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.UShort = 0u
 
     /**
      * %cpu for process during `kiSwtime`.
@@ -280,22 +385,22 @@ public class KinfoProc {
     /**
      * Time averaged value of `kiCpticks`.
      */
-    public var kiEstcpu: UInt = 0u
+    public var kiEstcpu: io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.UInt = 0u
 
     /**
      * Time since last blocked.
      */
-    public var kiSlptime: UInt = 0u
+    public var kiSlptime: io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.UInt = 0u
 
     /**
      * Time swapped in or out.
      */
-    public var kiSwtime: UInt = 0u
+    public var kiSwtime: io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.UInt = 0u
 
     /**
      * Number of copy-on-write faults.
      */
-    public var kiCow: UInt = 0u
+    public var kiCow: io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.UInt = 0u
 
     /**
      * Real time in microsec.
@@ -439,7 +544,7 @@ public class KinfoProc {
     /**
      * Credential flags.
      */
-    public var kiCrFlags: UInt = 0u
+    public var kiCrFlags: io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.UInt = 0u
 
     /**
      * Process jail ID.
@@ -476,22 +581,27 @@ public class KinfoProc {
     /**
      * Kernel virtual addr of pcb.
      */
-    public var kiPcb: COpaquePointer? = null
+    public var kiPcb: MutPtr<CVoid> = MutPtr(0L)
+        internal set
 
     /**
      * Kernel virtual addr of stack.
      */
-    public var kiKstack: COpaquePointer? = null
+    public var kiKstack: MutPtr<CVoid> = MutPtr(0L)
+        internal set
 
     /**
      * User convenience pointer.
      */
-    public var kiUdata: COpaquePointer? = null
+    public var kiUdata: MutPtr<CVoid> = MutPtr(0L)
+        internal set
 
     // This is normally "struct thread".
-    public var kiTdaddr: COpaquePointer? = null
+    public var kiTdaddr: MutPtr<CVoid> = MutPtr(0L)
+        internal set
 
-    public var kiSpareptrs: List<COpaquePointer> = List(KI_NSPARE_PTR) { COpaquePointer(0L) }
+    public var kiSpareptrs: List<MutPtr<CVoid>> = List(KI_NSPARE_PTR) { MutPtr(0L) }
+        internal set
 
     public var kiSparelongs: LongArray = LongArray(KI_NSPARE_LONG)
 
@@ -533,6 +643,35 @@ public data class Dirent(
         result = 31 * result + this.dName.contentHashCode()
         return result
     }
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<Dirent> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<Dirent> {
+                override val sizeBytes: Long = 264L
+                override val alignBytes: Long = 4L
+                override fun readNative(addr: Long): Dirent =
+                    Dirent(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr + 4L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).readNative(addr + 6L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).readNative(addr + 7L),
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8, (256).toInt())
+                        ).readNative(addr + 8L),
+                    )
+                override fun writeNative(addr: Long, value: Dirent) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr, value.dFileno)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr + 4L, value.dReclen)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).writeNative(addr + 6L, value.dType)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).writeNative(addr + 7L, value.dNamlen)
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8, (256).toInt())
+                    ).writeNative(addr + 8L, value.dName)
+                }
+            }
+    }
 }
 
 public class Statfs(
@@ -562,16 +701,48 @@ public class Statfs(
     public var fMntonname: UByteArray = UByteArray(88),
 )
 
-public data class Vnstat(
-    public var vnFileid: ULong = 0uL,
-    public var vnSize: ULong = 0uL,
-    public var vnMntdir: COpaquePointer? = null,
-    public var vnDev: UInt = 0u,
-    public var vnFsid: UInt = 0u,
-    public var vnType: CInt = 0,
-    public var vnMode: UShort = 0u,
-    public var vnDevname: UByteArray = UByteArray(SPECNAMELEN + 1),
+public class Vnstat internal constructor(
+    public var vnFileid: ULong,
+    public var vnSize: ULong,
+    vnMntdirCtorArg: MutPtr<CChar>,
+    public var vnDev: UInt,
+    public var vnFsid: UInt,
+    public var vnType: CInt,
+    public var vnMode: UShort,
+    public var vnDevname: UByteArray,
 ) {
+    public var vnMntdir: MutPtr<CChar> = vnMntdirCtorArg
+        internal set
+
+    public constructor() : this(
+        vnFileid = 0uL,
+        vnSize = 0uL,
+        vnMntdirCtorArg = MutPtr(0L),
+        vnDev = 0u,
+        vnFsid = 0u,
+        vnType = 0,
+        vnMode = 0u,
+        vnDevname = UByteArray(SPECNAMELEN + 1),
+    )
+
+    public operator fun component1(): ULong = this.vnFileid
+
+    public operator fun component2(): ULong = this.vnSize
+
+    public operator fun component3(): MutPtr<CChar> = this.vnMntdir
+
+    public operator fun component4(): UInt = this.vnDev
+
+    public operator fun component5(): UInt = this.vnFsid
+
+    public operator fun component6(): CInt = this.vnType
+
+    public operator fun component7(): UShort = this.vnMode
+
+    public operator fun component8(): UByteArray = this.vnDevname
+
+    public fun copy(vnFileid: ULong = this.vnFileid, vnSize: ULong = this.vnSize, vnMntdir: MutPtr<CChar> = this.vnMntdir, vnDev: UInt = this.vnDev, vnFsid: UInt = this.vnFsid, vnType: CInt = this.vnType, vnMode: UShort = this.vnMode, vnDevname: UByteArray = this.vnDevname): Vnstat = Vnstat(vnFileid = vnFileid, vnSize = vnSize, vnMntdirCtorArg = vnMntdir, vnDev = vnDev, vnFsid = vnFsid, vnType = vnType, vnMode = vnMode, vnDevname = vnDevname)
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is Vnstat) return false
@@ -596,5 +767,84 @@ public data class Vnstat(
         result = 31 * result + this.vnMode.hashCode()
         result = 31 * result + this.vnDevname.contentHashCode()
         return result
+    }
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<Vnstat> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<Vnstat> {
+                override val sizeBytes: Long =
+                    io.github.kotlinmania.rustlang.core.mem
+                        .alignUpBytes(
+                            (
+                                io.github.kotlinmania.rustlang.core.mem
+                                    .alignUpBytes(38L, 1L) + ((SPECNAMELEN + 1).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)
+                            ),
+                            maxOf(maxOf(maxOf(8L, 4L), 2L), 1L),
+                        )
+                override val alignBytes: Long = maxOf(maxOf(maxOf(8L, 4L), 2L), 1L)
+                override fun readNative(addr: Long): Vnstat =
+                    Vnstat(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 8L),
+                        (
+                            io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+                                .mutPtrLayout<CChar>(64)
+                        ).readNative(addr + 16L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 24L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 28L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 32L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr + 36L),
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8, (SPECNAMELEN + 1).toInt())
+                        ).readNative(
+                            addr +
+                                io.github.kotlinmania.rustlang.core.mem
+                                    .alignUpBytes(38L, 1L),
+                        ),
+                    )
+                override fun writeNative(addr: Long, value: Vnstat) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr, value.vnFileid)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 8L, value.vnSize)
+                    (
+                        io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+                            .mutPtrLayout<CChar>(64)
+                    ).writeNative(addr + 16L, value.vnMntdir)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 24L, value.vnDev)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 28L, value.vnFsid)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 32L, value.vnType)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr + 36L, value.vnMode)
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8, (SPECNAMELEN + 1).toInt())
+                    ).writeNative(
+                        addr +
+                            io.github.kotlinmania.rustlang.core.mem
+                                .alignUpBytes(38L, 1L),
+                        value.vnDevname,
+                    )
+                }
+            }
+
+        public operator fun invoke(
+            vnFileid: ULong = 0uL,
+            vnSize: ULong = 0uL,
+            vnMntdir: MutPtr<CChar> = MutPtr(0L),
+            vnDev: UInt = 0u,
+            vnFsid: UInt = 0u,
+            vnType: CInt = 0,
+            vnMode: UShort = 0u,
+            vnDevname: UByteArray = UByteArray(SPECNAMELEN + 1),
+        ): Vnstat =
+            Vnstat(
+                vnFileid = vnFileid,
+                vnSize = vnSize,
+                vnMntdirCtorArg = vnMntdir,
+                vnDev = vnDev,
+                vnFsid = vnFsid,
+                vnType = vnType,
+                vnMode = vnMode,
+                vnDevname = vnDevname,
+            )
     }
 }

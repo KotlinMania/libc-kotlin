@@ -3,30 +3,84 @@
 package io.github.kotlinmania.libc.windows.msvc
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.windows.SizeT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 private object WindowsMsvcJniBridge {
     init {
+        loadNativeLibrary()
+    }
+
+    private fun loadNativeLibrary() {
+        val osRaw = System.getProperty("os.name", "").lowercase()
+        val archRaw = System.getProperty("os.arch", "").lowercase()
+        val hostPlatform =
+            when {
+                osRaw.contains("win") -> "windows"
+                osRaw.contains("mac") || osRaw.contains("darwin") -> "macos"
+                else -> "linux"
+            }
+        val hostArch =
+            when {
+                archRaw == "aarch64" || archRaw == "arm64" -> "aarch64"
+                archRaw == "amd64" || archRaw == "x86_64" -> "x86_64"
+                else -> archRaw
+            }
+        val libFileName =
+            when (hostPlatform) {
+                "windows" -> "libc_jni.dll"
+                "macos" -> "liblibc_jni.dylib"
+                else -> "liblibc_jni.so"
+            }
+        val pathSep = System.getProperty("path.separator", ":")
+        val libPathProp = System.getProperty("java.library.path", "")
+        for (dirEntry in libPathProp.split(pathSep)) {
+            if (dirEntry.isEmpty()) continue
+            val candidate = java.io.File(dirEntry, libFileName)
+            if (candidate.isFile) {
+                System.load(candidate.absolutePath)
+                return
+            }
+        }
+        val resourcePath = "io/github/kotlinmania/libc/native/$hostPlatform-$hostArch/$libFileName"
+        val stream = WindowsMsvcJniBridge::class.java.classLoader?.getResourceAsStream(resourcePath)
+        if (stream != null) {
+            val suffix = "." + libFileName.substringAfterLast('.')
+            val extracted =
+                java.nio.file.Files
+                    .createTempFile("libc_jni-", suffix)
+                    .toFile()
+            extracted.deleteOnExit()
+            stream.use { input ->
+                extracted.outputStream().use { output ->
+                    input.copyTo(output)
+                }
+            }
+            System.load(extracted.absolutePath)
+            return
+        }
         System.loadLibrary("libc_jni")
     }
 
     @JvmStatic
-    external fun libc_windows_msvc_stricmp(s1: String?, s2: String?): Int
+    external fun libcWindowsMsvcStricmp(s1: Long, s2: Long): Int
 
     @JvmStatic
-    external fun libc_windows_msvc_strnicmp(s1: String?, s2: String?, n: Long): Int
+    external fun libcWindowsMsvcStrnicmp(s1: Long, s2: Long, n: Long): Int
 
     @JvmStatic
-    external fun libc_windows_msvc_memccpy(dest: Long, src: Long, c: Int, count: Long): Long
+    external fun libcWindowsMsvcMemccpy(dest: Long, src: Long, c: Int, count: Long): Long
 }
 
-public actual fun stricmp(s1: String?, s2: String?): CInt =
-    WindowsMsvcJniBridge.libc_windows_msvc_stricmp(s1, s2)
+public actual fun stricmp(s1: ConstPtr<CChar>, s2: ConstPtr<CChar>): CInt =
+    WindowsMsvcJniBridge.libcWindowsMsvcStricmp(s1.rawAddress, s2.rawAddress)
 
-public actual fun strnicmp(s1: String?, s2: String?, n: SizeT): CInt =
-    WindowsMsvcJniBridge.libc_windows_msvc_strnicmp(s1, s2, n.toLong())
+public actual fun strnicmp(s1: ConstPtr<CChar>, s2: ConstPtr<CChar>, n: SizeT): CInt =
+    WindowsMsvcJniBridge.libcWindowsMsvcStrnicmp(s1.rawAddress, s2.rawAddress, n.toLong())
 
-public actual fun memccpy(dest: COpaquePointer?, src: COpaquePointer?, c: CInt, count: SizeT): COpaquePointer? =
-    WindowsMsvcJniBridge.libc_windows_msvc_memccpy((dest?.value ?: 0L), (src?.value ?: 0L), c, count.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun memccpy(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, c: CInt, count: SizeT): MutPtr<CVoid> =
+    MutPtr(WindowsMsvcJniBridge.libcWindowsMsvcMemccpy(dest.rawAddress, src.rawAddress, c, count.toLong()))

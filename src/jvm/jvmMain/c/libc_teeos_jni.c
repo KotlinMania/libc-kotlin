@@ -19,7 +19,7 @@
 #endif
 #endif
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1calloc(JNIEnv* km_env, jclass km_clazz, jlong nobj, jlong size) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosCalloc(JNIEnv* km_env, jclass km_clazz, jlong nobj, jlong size) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(uint64_t, uint64_t);
@@ -52,7 +52,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_lib
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1malloc(JNIEnv* km_env, jclass km_clazz, jlong size) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosMalloc(JNIEnv* km_env, jclass km_clazz, jlong size) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(uint64_t);
@@ -85,7 +85,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_lib
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1realloc(JNIEnv* km_env, jclass km_clazz, jlong p, jlong size) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosRealloc(JNIEnv* km_env, jclass km_clazz, jlong p, jlong size) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void*, uint64_t);
@@ -118,7 +118,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_lib
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1alignedAlloc(JNIEnv* km_env, jclass km_clazz, jlong align, jlong len) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosAlignedAlloc(JNIEnv* km_env, jclass km_clazz, jlong align, jlong len) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(uint64_t, uint64_t);
@@ -151,7 +151,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_lib
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1free(JNIEnv* km_env, jclass km_clazz, jlong p) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosFree(JNIEnv* km_env, jclass km_clazz, jlong p) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void*);
@@ -181,7 +181,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     }
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1posixMemalign(JNIEnv* km_env, jclass km_clazz, jlong memptr, jlong align, jlong size) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosPosixMemalign(JNIEnv* km_env, jclass km_clazz, jlong memptr, jlong align, jlong size) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint64_t, uint64_t);
@@ -214,7 +214,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1memchr(JNIEnv* km_env, jclass km_clazz, jlong cx, jint c, jlong n) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosMemchr(JNIEnv* km_env, jclass km_clazz, jlong cx, jint c, jlong n) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void*, int32_t, uint64_t);
@@ -247,7 +247,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_lib
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1wmemchr(JNIEnv* km_env, jclass km_clazz, jlong cx, jint c, jlong n) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosWmemchr(JNIEnv* km_env, jclass km_clazz, jlong cx, jint c, jlong n) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void*, uint32_t, uint64_t);
@@ -280,7 +280,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_lib
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1memcmp(JNIEnv* km_env, jclass km_clazz, jlong cx, jlong ct, jlong n) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosMemcmp(JNIEnv* km_env, jclass km_clazz, jlong cx, jlong ct, jlong n) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, uint64_t);
@@ -313,7 +313,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1memcpy(JNIEnv* km_env, jclass km_clazz, jlong dest, jlong src, jlong n) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosMemcpy(JNIEnv* km_env, jclass km_clazz, jlong dest, jlong src, jlong n) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void*, void*, uint64_t);
@@ -346,7 +346,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_lib
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1memmove(JNIEnv* km_env, jclass km_clazz, jlong dest, jlong src, jlong n) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosMemmove(JNIEnv* km_env, jclass km_clazz, jlong dest, jlong src, jlong n) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void*, void*, uint64_t);
@@ -379,7 +379,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_lib
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1memset(JNIEnv* km_env, jclass km_clazz, jlong dest, jint c, jlong n) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosMemset(JNIEnv* km_env, jclass km_clazz, jlong dest, jint c, jlong n) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void*, int32_t, uint64_t);
@@ -412,7 +412,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_lib
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1pthreadSelf(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosPthreadSelf(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void);
@@ -445,7 +445,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_lib
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1pthreadJoin(JNIEnv* km_env, jclass km_clazz, jlong native, jlong value) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosPthreadJoin(JNIEnv* km_env, jclass km_clazz, jlong native, jlong value) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -478,7 +478,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1pthreadExit(JNIEnv* km_env, jclass km_clazz, jlong value) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosPthreadExit(JNIEnv* km_env, jclass km_clazz, jlong value) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void*);
@@ -508,7 +508,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     }
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1pthreadAttrInit(JNIEnv* km_env, jclass km_clazz, jlong attr) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosPthreadAttrInit(JNIEnv* km_env, jclass km_clazz, jlong attr) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -541,7 +541,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1pthreadAttrDestroy(JNIEnv* km_env, jclass km_clazz, jlong attr) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosPthreadAttrDestroy(JNIEnv* km_env, jclass km_clazz, jlong attr) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -574,7 +574,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1pthreadAttrGetstack(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong stackaddr, jlong stacksize) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosPthreadAttrGetstack(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong stackaddr, jlong stacksize) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, void*);
@@ -607,7 +607,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1pthreadAttrSetstacksize(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong stack_size) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosPthreadAttrSetstacksize(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong stackSize) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint64_t);
@@ -632,7 +632,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)attr, (uint64_t)stack_size);
+        km_res = km_fn_ptr((void*)(uintptr_t)attr, (uint64_t)stackSize);
     } else {
         errno = ENOSYS;
         km_res = ENOSYS;
@@ -640,7 +640,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1pthreadAttrGetstacksize(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong size) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosPthreadAttrGetstacksize(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong size) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -673,7 +673,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1pthreadAttrSettee(JNIEnv* km_env, jclass km_clazz, jlong attr, jint ca, jint task_id, jint shadow) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosPthreadAttrSettee(JNIEnv* km_env, jclass km_clazz, jlong attr, jint ca, jint taskId, jint shadow) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t, int32_t, int32_t);
@@ -698,7 +698,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)attr, (int32_t)ca, (int32_t)task_id, (int32_t)shadow);
+        km_res = km_fn_ptr((void*)(uintptr_t)attr, (int32_t)ca, (int32_t)taskId, (int32_t)shadow);
     } else {
         errno = ENOSYS;
         km_res = ENOSYS;
@@ -706,7 +706,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1schedYield(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosSchedYield(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -739,7 +739,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1pthreadKeyCreate(JNIEnv* km_env, jclass km_clazz, jlong key, jlong dtor) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosPthreadKeyCreate(JNIEnv* km_env, jclass km_clazz, jlong key, jlong dtor) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -772,7 +772,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1pthreadKeyDelete(JNIEnv* km_env, jclass km_clazz, jint key) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosPthreadKeyDelete(JNIEnv* km_env, jclass km_clazz, jint key) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -805,7 +805,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1pthreadGetspecific(JNIEnv* km_env, jclass km_clazz, jint key) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosPthreadGetspecific(JNIEnv* km_env, jclass km_clazz, jint key) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(uint32_t);
@@ -838,7 +838,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_lib
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1pthreadSetspecific(JNIEnv* km_env, jclass km_clazz, jint key, jlong value) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosPthreadSetspecific(JNIEnv* km_env, jclass km_clazz, jint key, jlong value) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(uint32_t, void*);
@@ -871,7 +871,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1pthreadMutexDestroy(JNIEnv* km_env, jclass km_clazz, jlong lock) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosPthreadMutexDestroy(JNIEnv* km_env, jclass km_clazz, jlong lock) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -904,7 +904,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1pthreadMutexInit(JNIEnv* km_env, jclass km_clazz, jlong lock, jlong attr) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosPthreadMutexInit(JNIEnv* km_env, jclass km_clazz, jlong lock, jlong attr) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -937,7 +937,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1pthreadMutexLock(JNIEnv* km_env, jclass km_clazz, jlong lock) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosPthreadMutexLock(JNIEnv* km_env, jclass km_clazz, jlong lock) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -970,7 +970,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1pthreadMutexTrylock(JNIEnv* km_env, jclass km_clazz, jlong lock) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosPthreadMutexTrylock(JNIEnv* km_env, jclass km_clazz, jlong lock) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -1003,7 +1003,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1pthreadMutexUnlock(JNIEnv* km_env, jclass km_clazz, jlong lock) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosPthreadMutexUnlock(JNIEnv* km_env, jclass km_clazz, jlong lock) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -1036,7 +1036,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1pthreadMutexattrDestroy(JNIEnv* km_env, jclass km_clazz, jlong attr) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosPthreadMutexattrDestroy(JNIEnv* km_env, jclass km_clazz, jlong attr) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -1069,7 +1069,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1pthreadMutexattrInit(JNIEnv* km_env, jclass km_clazz, jlong attr) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosPthreadMutexattrInit(JNIEnv* km_env, jclass km_clazz, jlong attr) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -1102,7 +1102,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1pthreadMutexattrSettype(JNIEnv* km_env, jclass km_clazz, jlong attr, jint arg_1_type) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosPthreadMutexattrSettype(JNIEnv* km_env, jclass km_clazz, jlong attr, jint type) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t);
@@ -1127,7 +1127,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)attr, (int32_t)arg_1_type);
+        km_res = km_fn_ptr((void*)(uintptr_t)attr, (int32_t)type);
     } else {
         errno = ENOSYS;
         km_res = ENOSYS;
@@ -1135,7 +1135,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1pthreadMutexattrSetpshared(JNIEnv* km_env, jclass km_clazz, jlong attr, jint pshared) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosPthreadMutexattrSetpshared(JNIEnv* km_env, jclass km_clazz, jlong attr, jint pshared) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t);
@@ -1168,7 +1168,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1pthreadCondBroadcast(JNIEnv* km_env, jclass km_clazz, jlong cond) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosPthreadCondBroadcast(JNIEnv* km_env, jclass km_clazz, jlong cond) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -1201,7 +1201,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1pthreadCondDestroy(JNIEnv* km_env, jclass km_clazz, jlong cond) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosPthreadCondDestroy(JNIEnv* km_env, jclass km_clazz, jlong cond) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -1234,7 +1234,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1pthreadCondInit(JNIEnv* km_env, jclass km_clazz, jlong cond, jlong attr) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosPthreadCondInit(JNIEnv* km_env, jclass km_clazz, jlong cond, jlong attr) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -1267,7 +1267,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1pthreadCondSignal(JNIEnv* km_env, jclass km_clazz, jlong cond) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosPthreadCondSignal(JNIEnv* km_env, jclass km_clazz, jlong cond) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -1300,7 +1300,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1pthreadCondWait(JNIEnv* km_env, jclass km_clazz, jlong cond, jlong lock) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosPthreadCondWait(JNIEnv* km_env, jclass km_clazz, jlong cond, jlong lock) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -1333,7 +1333,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1pthreadCondTimedwait(JNIEnv* km_env, jclass km_clazz, jlong cond, jlong lock, jlong abstime) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosPthreadCondTimedwait(JNIEnv* km_env, jclass km_clazz, jlong cond, jlong lock, jlong abstime) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, void*);
@@ -1366,7 +1366,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1pthreadMutexattrSetrobust(JNIEnv* km_env, jclass km_clazz, jlong attr, jint robustness) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosPthreadMutexattrSetrobust(JNIEnv* km_env, jclass km_clazz, jlong attr, jint robustness) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t);
@@ -1399,7 +1399,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1pthreadCreate(JNIEnv* km_env, jclass km_clazz, jlong native, jlong attr, jlong f, jlong value) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosPthreadCreate(JNIEnv* km_env, jclass km_clazz, jlong native, jlong attr, jlong f, jlong value) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, void*, void*);
@@ -1432,7 +1432,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1pthreadSpinInit(JNIEnv* km_env, jclass km_clazz, jlong lock, jint pshared) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosPthreadSpinInit(JNIEnv* km_env, jclass km_clazz, jlong lock, jint pshared) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t);
@@ -1465,7 +1465,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1pthreadSpinDestroy(JNIEnv* km_env, jclass km_clazz, jlong lock) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosPthreadSpinDestroy(JNIEnv* km_env, jclass km_clazz, jlong lock) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -1498,7 +1498,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1pthreadSpinLock(JNIEnv* km_env, jclass km_clazz, jlong lock) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosPthreadSpinLock(JNIEnv* km_env, jclass km_clazz, jlong lock) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -1531,7 +1531,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1pthreadSpinTrylock(JNIEnv* km_env, jclass km_clazz, jlong lock) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosPthreadSpinTrylock(JNIEnv* km_env, jclass km_clazz, jlong lock) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -1564,7 +1564,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1pthreadSpinUnlock(JNIEnv* km_env, jclass km_clazz, jlong lock) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosPthreadSpinUnlock(JNIEnv* km_env, jclass km_clazz, jlong lock) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -1597,7 +1597,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1pthreadSetschedprio(JNIEnv* km_env, jclass km_clazz, jlong native, jint priority) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosPthreadSetschedprio(JNIEnv* km_env, jclass km_clazz, jlong native, jint priority) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t);
@@ -1630,7 +1630,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1pthreadOnce(JNIEnv* km_env, jclass km_clazz, jlong pot, jlong f) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosPthreadOnce(JNIEnv* km_env, jclass km_clazz, jlong pot, jlong f) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -1663,7 +1663,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1pthreadEqual(JNIEnv* km_env, jclass km_clazz, jlong p1, jlong p2) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosPthreadEqual(JNIEnv* km_env, jclass km_clazz, jlong p1, jlong p2) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -1696,7 +1696,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1pthreadMutexattrSetprotocol(JNIEnv* km_env, jclass km_clazz, jlong a, jint protocol) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosPthreadMutexattrSetprotocol(JNIEnv* km_env, jclass km_clazz, jlong a, jint protocol) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t);
@@ -1729,7 +1729,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1pthreadAttrSetstack(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong stack, jlong size) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosPthreadAttrSetstack(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong stack, jlong size) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, uint64_t);
@@ -1762,7 +1762,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1pthreadSetaffinityNp(JNIEnv* km_env, jclass km_clazz, jlong td, jlong size, jlong set) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosPthreadSetaffinityNp(JNIEnv* km_env, jclass km_clazz, jlong td, jlong size, jlong set) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint64_t, void*);
@@ -1795,7 +1795,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1pthreadGetaffinityNp(JNIEnv* km_env, jclass km_clazz, jlong td, jlong size, jlong set) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosPthreadGetaffinityNp(JNIEnv* km_env, jclass km_clazz, jlong td, jlong size, jlong set) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint64_t, void*);
@@ -1828,10 +1828,9 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1printf(JNIEnv* km_env, jclass km_clazz, jstring fmt, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosPrintf(JNIEnv* km_env, jclass km_clazz, jlong fmt, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
     (void)km_env;
     (void)km_clazz;
-    const char* fmt_utf = (fmt != NULL) ? (*km_env)->GetStringUTFChars(km_env, fmt, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1855,23 +1854,21 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     int32_t km_res = -1;
     if (km_fn_ptr != NULL) {
         switch (km_vac) {
-            case 0: km_res = km_fn_ptr(fmt_utf); break;
-            case 1: km_res = km_fn_ptr(fmt_utf, (intptr_t)km_va0); break;
-            case 2: km_res = km_fn_ptr(fmt_utf, (intptr_t)km_va0, (intptr_t)km_va1); break;
-            case 3: km_res = km_fn_ptr(fmt_utf, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2); break;
-            default: km_res = km_fn_ptr(fmt_utf, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3); break;
+            case 0: km_res = km_fn_ptr((const char*)(uintptr_t)fmt); break;
+            case 1: km_res = km_fn_ptr((const char*)(uintptr_t)fmt, (intptr_t)km_va0); break;
+            case 2: km_res = km_fn_ptr((const char*)(uintptr_t)fmt, (intptr_t)km_va0, (intptr_t)km_va1); break;
+            case 3: km_res = km_fn_ptr((const char*)(uintptr_t)fmt, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2); break;
+            default: km_res = km_fn_ptr((const char*)(uintptr_t)fmt, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3); break;
         }
     } else {
         errno = ENOSYS;
     }
-    if (fmt != NULL && fmt_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, fmt, fmt_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1scanf(JNIEnv* km_env, jclass km_clazz, jstring fmt, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosScanf(JNIEnv* km_env, jclass km_clazz, jlong fmt, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
     (void)km_env;
     (void)km_clazz;
-    const char* fmt_utf = (fmt != NULL) ? (*km_env)->GetStringUTFChars(km_env, fmt, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1895,23 +1892,21 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     int32_t km_res = -1;
     if (km_fn_ptr != NULL) {
         switch (km_vac) {
-            case 0: km_res = km_fn_ptr(fmt_utf); break;
-            case 1: km_res = km_fn_ptr(fmt_utf, (intptr_t)km_va0); break;
-            case 2: km_res = km_fn_ptr(fmt_utf, (intptr_t)km_va0, (intptr_t)km_va1); break;
-            case 3: km_res = km_fn_ptr(fmt_utf, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2); break;
-            default: km_res = km_fn_ptr(fmt_utf, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3); break;
+            case 0: km_res = km_fn_ptr((const char*)(uintptr_t)fmt); break;
+            case 1: km_res = km_fn_ptr((const char*)(uintptr_t)fmt, (intptr_t)km_va0); break;
+            case 2: km_res = km_fn_ptr((const char*)(uintptr_t)fmt, (intptr_t)km_va0, (intptr_t)km_va1); break;
+            case 3: km_res = km_fn_ptr((const char*)(uintptr_t)fmt, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2); break;
+            default: km_res = km_fn_ptr((const char*)(uintptr_t)fmt, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3); break;
         }
     } else {
         errno = ENOSYS;
     }
-    if (fmt != NULL && fmt_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, fmt, fmt_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1snprintf(JNIEnv* km_env, jclass km_clazz, jlong s, jlong n, jstring fmt, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosSnprintf(JNIEnv* km_env, jclass km_clazz, jlong s, jlong n, jlong fmt, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
     (void)km_env;
     (void)km_clazz;
-    const char* fmt_utf = (fmt != NULL) ? (*km_env)->GetStringUTFChars(km_env, fmt, NULL) : NULL;
     typedef int32_t (*km_fn_t)(char*, uint64_t, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1935,23 +1930,21 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     int32_t km_res = -1;
     if (km_fn_ptr != NULL) {
         switch (km_vac) {
-            case 0: km_res = km_fn_ptr((char*)(uintptr_t)s, (uint64_t)n, fmt_utf); break;
-            case 1: km_res = km_fn_ptr((char*)(uintptr_t)s, (uint64_t)n, fmt_utf, (intptr_t)km_va0); break;
-            case 2: km_res = km_fn_ptr((char*)(uintptr_t)s, (uint64_t)n, fmt_utf, (intptr_t)km_va0, (intptr_t)km_va1); break;
-            case 3: km_res = km_fn_ptr((char*)(uintptr_t)s, (uint64_t)n, fmt_utf, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2); break;
-            default: km_res = km_fn_ptr((char*)(uintptr_t)s, (uint64_t)n, fmt_utf, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3); break;
+            case 0: km_res = km_fn_ptr((char*)(uintptr_t)s, (uint64_t)n, (const char*)(uintptr_t)fmt); break;
+            case 1: km_res = km_fn_ptr((char*)(uintptr_t)s, (uint64_t)n, (const char*)(uintptr_t)fmt, (intptr_t)km_va0); break;
+            case 2: km_res = km_fn_ptr((char*)(uintptr_t)s, (uint64_t)n, (const char*)(uintptr_t)fmt, (intptr_t)km_va0, (intptr_t)km_va1); break;
+            case 3: km_res = km_fn_ptr((char*)(uintptr_t)s, (uint64_t)n, (const char*)(uintptr_t)fmt, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2); break;
+            default: km_res = km_fn_ptr((char*)(uintptr_t)s, (uint64_t)n, (const char*)(uintptr_t)fmt, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3); break;
         }
     } else {
         errno = ENOSYS;
     }
-    if (fmt != NULL && fmt_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, fmt, fmt_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1sprintf(JNIEnv* km_env, jclass km_clazz, jlong s, jstring fmt, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosSprintf(JNIEnv* km_env, jclass km_clazz, jlong s, jlong fmt, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
     (void)km_env;
     (void)km_clazz;
-    const char* fmt_utf = (fmt != NULL) ? (*km_env)->GetStringUTFChars(km_env, fmt, NULL) : NULL;
     typedef int32_t (*km_fn_t)(char*, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1975,23 +1968,21 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     int32_t km_res = -1;
     if (km_fn_ptr != NULL) {
         switch (km_vac) {
-            case 0: km_res = km_fn_ptr((char*)(uintptr_t)s, fmt_utf); break;
-            case 1: km_res = km_fn_ptr((char*)(uintptr_t)s, fmt_utf, (intptr_t)km_va0); break;
-            case 2: km_res = km_fn_ptr((char*)(uintptr_t)s, fmt_utf, (intptr_t)km_va0, (intptr_t)km_va1); break;
-            case 3: km_res = km_fn_ptr((char*)(uintptr_t)s, fmt_utf, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2); break;
-            default: km_res = km_fn_ptr((char*)(uintptr_t)s, fmt_utf, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3); break;
+            case 0: km_res = km_fn_ptr((char*)(uintptr_t)s, (const char*)(uintptr_t)fmt); break;
+            case 1: km_res = km_fn_ptr((char*)(uintptr_t)s, (const char*)(uintptr_t)fmt, (intptr_t)km_va0); break;
+            case 2: km_res = km_fn_ptr((char*)(uintptr_t)s, (const char*)(uintptr_t)fmt, (intptr_t)km_va0, (intptr_t)km_va1); break;
+            case 3: km_res = km_fn_ptr((char*)(uintptr_t)s, (const char*)(uintptr_t)fmt, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2); break;
+            default: km_res = km_fn_ptr((char*)(uintptr_t)s, (const char*)(uintptr_t)fmt, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3); break;
         }
     } else {
         errno = ENOSYS;
     }
-    if (fmt != NULL && fmt_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, fmt, fmt_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1vsnprintf(JNIEnv* km_env, jclass km_clazz, jlong s, jlong n, jstring fmt, jlong ap) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosVsnprintf(JNIEnv* km_env, jclass km_clazz, jlong s, jlong n, jlong fmt, jlong ap) {
     (void)km_env;
     (void)km_clazz;
-    const char* fmt_utf = (fmt != NULL) ? (*km_env)->GetStringUTFChars(km_env, fmt, NULL) : NULL;
     typedef int32_t (*km_fn_t)(char*, uint64_t, const char*, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2014,19 +2005,17 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((char*)(uintptr_t)s, (uint64_t)n, fmt_utf, (char*)(uintptr_t)ap);
+        km_res = km_fn_ptr((char*)(uintptr_t)s, (uint64_t)n, (const char*)(uintptr_t)fmt, (char*)(uintptr_t)ap);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (fmt != NULL && fmt_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, fmt, fmt_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1vsprintf(JNIEnv* km_env, jclass km_clazz, jlong s, jstring fmt, jlong ap) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosVsprintf(JNIEnv* km_env, jclass km_clazz, jlong s, jlong fmt, jlong ap) {
     (void)km_env;
     (void)km_clazz;
-    const char* fmt_utf = (fmt != NULL) ? (*km_env)->GetStringUTFChars(km_env, fmt, NULL) : NULL;
     typedef int32_t (*km_fn_t)(char*, const char*, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2049,16 +2038,15 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((char*)(uintptr_t)s, fmt_utf, (char*)(uintptr_t)ap);
+        km_res = km_fn_ptr((char*)(uintptr_t)s, (const char*)(uintptr_t)fmt, (char*)(uintptr_t)ap);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (fmt != NULL && fmt_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, fmt, fmt_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1abort(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosAbort(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void);
@@ -2088,7 +2076,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     }
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1schedGetaffinity(JNIEnv* km_env, jclass km_clazz, jint pid, jlong cpusetsize, jlong cpuset) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosSchedGetaffinity(JNIEnv* km_env, jclass km_clazz, jint pid, jlong cpusetsize, jlong cpuset) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, uint64_t, void*);
@@ -2121,7 +2109,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1schedSetaffinity(JNIEnv* km_env, jclass km_clazz, jint pid, jlong cpusetsize, jlong cpuset) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosSchedSetaffinity(JNIEnv* km_env, jclass km_clazz, jint pid, jlong cpusetsize, jlong cpuset) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, uint64_t, void*);
@@ -2154,7 +2142,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1sysconf(JNIEnv* km_env, jclass km_clazz, jint name) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosSysconf(JNIEnv* km_env, jclass km_clazz, jint name) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t);
@@ -2187,7 +2175,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_lib
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1mmap(JNIEnv* km_env, jclass km_clazz, jlong addr, jlong len, jint prot, jint flags, jint fd, jlong offset) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosMmap(JNIEnv* km_env, jclass km_clazz, jlong addr, jlong len, jint prot, jint flags, jint fd, jlong offset) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void*, uint64_t, int32_t, int32_t, int32_t, int64_t);
@@ -2220,7 +2208,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_lib
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1munmap(JNIEnv* km_env, jclass km_clazz, jlong addr, jlong len) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosMunmap(JNIEnv* km_env, jclass km_clazz, jlong addr, jlong len) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint64_t);
@@ -2253,7 +2241,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1errnoLocation(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosErrnoLocation(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void);
@@ -2284,7 +2272,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_lib
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1strerror(JNIEnv* km_env, jclass km_clazz, jint e) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosStrerror(JNIEnv* km_env, jclass km_clazz, jint e) {
     (void)km_env;
     (void)km_clazz;
     typedef char* (*km_fn_t)(int32_t);
@@ -2317,7 +2305,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_lib
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1clockGettime(JNIEnv* km_env, jclass km_clazz, jint clock_id, jlong tp) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosClockGettime(JNIEnv* km_env, jclass km_clazz, jint clockId, jlong tp) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -2342,7 +2330,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)clock_id, (void*)(uintptr_t)tp);
+        km_res = km_fn_ptr((int32_t)clockId, (void*)(uintptr_t)tp);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2350,7 +2338,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1getpid(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosGetpid(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -2383,7 +2371,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1gettimeofday(JNIEnv* km_env, jclass km_clazz, jlong tv, jlong tz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosGettimeofday(JNIEnv* km_env, jclass km_clazz, jlong tv, jlong tz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -2416,10 +2404,9 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1strftime(JNIEnv* km_env, jclass km_clazz, jlong arg_0_restrict, jlong sz, jstring arg_2_restrict, jlong arg_3_restrict) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosStrftime(JNIEnv* km_env, jclass km_clazz, jlong arg0Restrict, jlong sz, jlong arg2Restrict, jlong arg3Restrict) {
     (void)km_env;
     (void)km_clazz;
-    const char* arg_2_restrict_utf = (arg_2_restrict != NULL) ? (*km_env)->GetStringUTFChars(km_env, arg_2_restrict, NULL) : NULL;
     typedef uint64_t (*km_fn_t)(char*, uint64_t, const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2442,16 +2429,15 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_lib
 #endif
     uint64_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((char*)(uintptr_t)arg_0_restrict, (uint64_t)sz, arg_2_restrict_utf, (void*)(uintptr_t)arg_3_restrict);
+        km_res = km_fn_ptr((char*)(uintptr_t)arg0Restrict, (uint64_t)sz, (const char*)(uintptr_t)arg2Restrict, (void*)(uintptr_t)arg3Restrict);
     } else {
         errno = ENOSYS;
         km_res = 0;
     }
-    if (arg_2_restrict != NULL && arg_2_restrict_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, arg_2_restrict, arg_2_restrict_utf);
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1time(JNIEnv* km_env, jclass km_clazz, jlong t) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosTime(JNIEnv* km_env, jclass km_clazz, jlong t) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(void*);
@@ -2484,7 +2470,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_lib
     return (jlong)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1semClose(JNIEnv* km_env, jclass km_clazz, jlong sem) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosSemClose(JNIEnv* km_env, jclass km_clazz, jlong sem) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -2517,7 +2503,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1semDestroy(JNIEnv* km_env, jclass km_clazz, jlong sem) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosSemDestroy(JNIEnv* km_env, jclass km_clazz, jlong sem) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -2550,7 +2536,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1semGetvalue(JNIEnv* km_env, jclass km_clazz, jlong sem, jlong valp) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosSemGetvalue(JNIEnv* km_env, jclass km_clazz, jlong sem, jlong valp) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -2583,7 +2569,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1semInit(JNIEnv* km_env, jclass km_clazz, jlong sem, jint pshared, jint value) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosSemInit(JNIEnv* km_env, jclass km_clazz, jlong sem, jint pshared, jint value) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t, uint32_t);
@@ -2616,10 +2602,9 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1semOpen(JNIEnv* km_env, jclass km_clazz, jstring name, jint flags, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosSemOpen(JNIEnv* km_env, jclass km_clazz, jlong name, jint flags, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
     (void)km_env;
     (void)km_clazz;
-    const char* name_utf = (name != NULL) ? (*km_env)->GetStringUTFChars(km_env, name, NULL) : NULL;
     typedef void* (*km_fn_t)(const char*, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2643,20 +2628,19 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_lib
     void* km_res = NULL;
     if (km_fn_ptr != NULL) {
         switch (km_vac) {
-            case 0: km_res = km_fn_ptr(name_utf, (int32_t)flags); break;
-            case 1: km_res = km_fn_ptr(name_utf, (int32_t)flags, (intptr_t)km_va0); break;
-            case 2: km_res = km_fn_ptr(name_utf, (int32_t)flags, (intptr_t)km_va0, (intptr_t)km_va1); break;
-            case 3: km_res = km_fn_ptr(name_utf, (int32_t)flags, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2); break;
-            default: km_res = km_fn_ptr(name_utf, (int32_t)flags, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3); break;
+            case 0: km_res = km_fn_ptr((const char*)(uintptr_t)name, (int32_t)flags); break;
+            case 1: km_res = km_fn_ptr((const char*)(uintptr_t)name, (int32_t)flags, (intptr_t)km_va0); break;
+            case 2: km_res = km_fn_ptr((const char*)(uintptr_t)name, (int32_t)flags, (intptr_t)km_va0, (intptr_t)km_va1); break;
+            case 3: km_res = km_fn_ptr((const char*)(uintptr_t)name, (int32_t)flags, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2); break;
+            default: km_res = km_fn_ptr((const char*)(uintptr_t)name, (int32_t)flags, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3); break;
         }
     } else {
         errno = ENOSYS;
     }
-    if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1semPost(JNIEnv* km_env, jclass km_clazz, jlong sem) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosSemPost(JNIEnv* km_env, jclass km_clazz, jlong sem) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -2689,10 +2673,9 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1semUnlink(JNIEnv* km_env, jclass km_clazz, jstring name) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosSemUnlink(JNIEnv* km_env, jclass km_clazz, jlong name) {
     (void)km_env;
     (void)km_clazz;
-    const char* name_utf = (name != NULL) ? (*km_env)->GetStringUTFChars(km_env, name, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2715,16 +2698,15 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(name_utf);
+        km_res = km_fn_ptr((const char*)(uintptr_t)name);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1semWait(JNIEnv* km_env, jclass km_clazz, jlong sem) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosSemWait(JNIEnv* km_env, jclass km_clazz, jlong sem) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -2757,10 +2739,9 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1setlocale(JNIEnv* km_env, jclass km_clazz, jint cat, jstring name) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosSetlocale(JNIEnv* km_env, jclass km_clazz, jint cat, jlong name) {
     (void)km_env;
     (void)km_clazz;
-    const char* name_utf = (name != NULL) ? (*km_env)->GetStringUTFChars(km_env, name, NULL) : NULL;
     typedef char* (*km_fn_t)(int32_t, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2783,20 +2764,17 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_lib
 #endif
     char* km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)cat, name_utf);
+        km_res = km_fn_ptr((int32_t)cat, (const char*)(uintptr_t)name);
     } else {
         errno = ENOSYS;
         km_res = NULL;
     }
-    if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1strcoll(JNIEnv* km_env, jclass km_clazz, jstring l, jstring r) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosStrcoll(JNIEnv* km_env, jclass km_clazz, jlong l, jlong r) {
     (void)km_env;
     (void)km_clazz;
-    const char* l_utf = (l != NULL) ? (*km_env)->GetStringUTFChars(km_env, l, NULL) : NULL;
-    const char* r_utf = (r != NULL) ? (*km_env)->GetStringUTFChars(km_env, r, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2819,20 +2797,17 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(l_utf, r_utf);
+        km_res = km_fn_ptr((const char*)(uintptr_t)l, (const char*)(uintptr_t)r);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (l != NULL && l_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, l, l_utf);
-    if (r != NULL && r_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, r, r_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1strxfrm(JNIEnv* km_env, jclass km_clazz, jlong dest, jstring src, jlong n) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosStrxfrm(JNIEnv* km_env, jclass km_clazz, jlong dest, jlong src, jlong n) {
     (void)km_env;
     (void)km_clazz;
-    const char* src_utf = (src != NULL) ? (*km_env)->GetStringUTFChars(km_env, src, NULL) : NULL;
     typedef uint64_t (*km_fn_t)(char*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2855,19 +2830,17 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_lib
 #endif
     uint64_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((char*)(uintptr_t)dest, src_utf, (uint64_t)n);
+        km_res = km_fn_ptr((char*)(uintptr_t)dest, (const char*)(uintptr_t)src, (uint64_t)n);
     } else {
         errno = ENOSYS;
         km_res = 0;
     }
-    if (src != NULL && src_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, src, src_utf);
     return (jlong)km_res;
 }
 
-JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1strtod(JNIEnv* km_env, jclass km_clazz, jstring s, jlong p) {
+JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosStrtod(JNIEnv* km_env, jclass km_clazz, jlong s, jlong p) {
     (void)km_env;
     (void)km_clazz;
-    const char* s_utf = (s != NULL) ? (*km_env)->GetStringUTFChars(km_env, s, NULL) : NULL;
     typedef double (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2890,19 +2863,17 @@ JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_l
 #endif
     double km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(s_utf, (void*)(uintptr_t)p);
+        km_res = km_fn_ptr((const char*)(uintptr_t)s, (void*)(uintptr_t)p);
     } else {
         errno = ENOSYS;
         km_res = 0.0;
     }
-    if (s != NULL && s_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, s, s_utf);
     return (jdouble)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1mbrtowc(JNIEnv* km_env, jclass km_clazz, jlong wc, jstring src, jlong n, jlong st) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosMbrtowc(JNIEnv* km_env, jclass km_clazz, jlong wc, jlong src, jlong n, jlong st) {
     (void)km_env;
     (void)km_clazz;
-    const char* src_utf = (src != NULL) ? (*km_env)->GetStringUTFChars(km_env, src, NULL) : NULL;
     typedef uint64_t (*km_fn_t)(void*, const char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2925,16 +2896,15 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_lib
 #endif
     uint64_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)wc, src_utf, (uint64_t)n, (void*)(uintptr_t)st);
+        km_res = km_fn_ptr((void*)(uintptr_t)wc, (const char*)(uintptr_t)src, (uint64_t)n, (void*)(uintptr_t)st);
     } else {
         errno = ENOSYS;
         km_res = 0;
     }
-    if (src != NULL && src_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, src, src_utf);
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1wcrtomb(JNIEnv* km_env, jclass km_clazz, jlong s, jint wc, jlong st) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosWcrtomb(JNIEnv* km_env, jclass km_clazz, jlong s, jint wc, jlong st) {
     (void)km_env;
     (void)km_clazz;
     typedef uint64_t (*km_fn_t)(char*, uint32_t, void*);
@@ -2967,7 +2937,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_lib
     return (jlong)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1wctob(JNIEnv* km_env, jclass km_clazz, jint c) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosWctob(JNIEnv* km_env, jclass km_clazz, jint c) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -3000,7 +2970,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1srandom(JNIEnv* km_env, jclass km_clazz, jint seed) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosSrandom(JNIEnv* km_env, jclass km_clazz, jint seed) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(uint32_t);
@@ -3030,7 +3000,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     }
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1initstate(JNIEnv* km_env, jclass km_clazz, jint seed, jlong state, jlong size) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosInitstate(JNIEnv* km_env, jclass km_clazz, jint seed, jlong state, jlong size) {
     (void)km_env;
     (void)km_clazz;
     typedef char* (*km_fn_t)(uint32_t, char*, uint64_t);
@@ -3063,7 +3033,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_lib
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1setstate(JNIEnv* km_env, jclass km_clazz, jlong state) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosSetstate(JNIEnv* km_env, jclass km_clazz, jlong state) {
     (void)km_env;
     (void)km_clazz;
     typedef char* (*km_fn_t)(char*);
@@ -3096,7 +3066,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_lib
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1random(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosRandom(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(void);
@@ -3129,10 +3099,9 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_lib
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1strchr(JNIEnv* km_env, jclass km_clazz, jstring s, jint c) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosStrchr(JNIEnv* km_env, jclass km_clazz, jlong s, jint c) {
     (void)km_env;
     (void)km_clazz;
-    const char* s_utf = (s != NULL) ? (*km_env)->GetStringUTFChars(km_env, s, NULL) : NULL;
     typedef char* (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3155,19 +3124,17 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_lib
 #endif
     char* km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(s_utf, (int32_t)c);
+        km_res = km_fn_ptr((const char*)(uintptr_t)s, (int32_t)c);
     } else {
         errno = ENOSYS;
         km_res = NULL;
     }
-    if (s != NULL && s_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, s, s_utf);
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1strlen(JNIEnv* km_env, jclass km_clazz, jstring cs) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosStrlen(JNIEnv* km_env, jclass km_clazz, jlong cs) {
     (void)km_env;
     (void)km_clazz;
-    const char* cs_utf = (cs != NULL) ? (*km_env)->GetStringUTFChars(km_env, cs, NULL) : NULL;
     typedef uint64_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3190,20 +3157,17 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_lib
 #endif
     uint64_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(cs_utf);
+        km_res = km_fn_ptr((const char*)(uintptr_t)cs);
     } else {
         errno = ENOSYS;
         km_res = 0;
     }
-    if (cs != NULL && cs_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, cs, cs_utf);
     return (jlong)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1strcmp(JNIEnv* km_env, jclass km_clazz, jstring l, jstring r) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosStrcmp(JNIEnv* km_env, jclass km_clazz, jlong l, jlong r) {
     (void)km_env;
     (void)km_clazz;
-    const char* l_utf = (l != NULL) ? (*km_env)->GetStringUTFChars(km_env, l, NULL) : NULL;
-    const char* r_utf = (r != NULL) ? (*km_env)->GetStringUTFChars(km_env, r, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3226,20 +3190,17 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(l_utf, r_utf);
+        km_res = km_fn_ptr((const char*)(uintptr_t)l, (const char*)(uintptr_t)r);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (l != NULL && l_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, l, l_utf);
-    if (r != NULL && r_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, r, r_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1strcpy(JNIEnv* km_env, jclass km_clazz, jlong dest, jstring src) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosStrcpy(JNIEnv* km_env, jclass km_clazz, jlong dest, jlong src) {
     (void)km_env;
     (void)km_clazz;
-    const char* src_utf = (src != NULL) ? (*km_env)->GetStringUTFChars(km_env, src, NULL) : NULL;
     typedef char* (*km_fn_t)(char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3262,20 +3223,17 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_lib
 #endif
     char* km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((char*)(uintptr_t)dest, src_utf);
+        km_res = km_fn_ptr((char*)(uintptr_t)dest, (const char*)(uintptr_t)src);
     } else {
         errno = ENOSYS;
         km_res = NULL;
     }
-    if (src != NULL && src_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, src, src_utf);
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1strncmp(JNIEnv* km_env, jclass km_clazz, jstring arg_0_l, jstring r, jlong n) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosStrncmp(JNIEnv* km_env, jclass km_clazz, jlong l, jlong r, jlong n) {
     (void)km_env;
     (void)km_clazz;
-    const char* arg_0_l_utf = (arg_0_l != NULL) ? (*km_env)->GetStringUTFChars(km_env, arg_0_l, NULL) : NULL;
-    const char* r_utf = (r != NULL) ? (*km_env)->GetStringUTFChars(km_env, r, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3298,20 +3256,17 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(arg_0_l_utf, r_utf, (uint64_t)n);
+        km_res = km_fn_ptr((const char*)(uintptr_t)l, (const char*)(uintptr_t)r, (uint64_t)n);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (arg_0_l != NULL && arg_0_l_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, arg_0_l, arg_0_l_utf);
-    if (r != NULL && r_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, r, r_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1strncpy(JNIEnv* km_env, jclass km_clazz, jlong dest, jstring src, jlong n) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosStrncpy(JNIEnv* km_env, jclass km_clazz, jlong dest, jlong src, jlong n) {
     (void)km_env;
     (void)km_clazz;
-    const char* src_utf = (src != NULL) ? (*km_env)->GetStringUTFChars(km_env, src, NULL) : NULL;
     typedef char* (*km_fn_t)(char*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3334,19 +3289,17 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_lib
 #endif
     char* km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((char*)(uintptr_t)dest, src_utf, (uint64_t)n);
+        km_res = km_fn_ptr((char*)(uintptr_t)dest, (const char*)(uintptr_t)src, (uint64_t)n);
     } else {
         errno = ENOSYS;
         km_res = NULL;
     }
-    if (src != NULL && src_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, src, src_utf);
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1strnlen(JNIEnv* km_env, jclass km_clazz, jstring cs, jlong n) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosStrnlen(JNIEnv* km_env, jclass km_clazz, jlong cs, jlong n) {
     (void)km_env;
     (void)km_clazz;
-    const char* cs_utf = (cs != NULL) ? (*km_env)->GetStringUTFChars(km_env, cs, NULL) : NULL;
     typedef uint64_t (*km_fn_t)(const char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3369,19 +3322,17 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_lib
 #endif
     uint64_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(cs_utf, (uint64_t)n);
+        km_res = km_fn_ptr((const char*)(uintptr_t)cs, (uint64_t)n);
     } else {
         errno = ENOSYS;
         km_res = 0;
     }
-    if (cs != NULL && cs_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, cs, cs_utf);
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1strrchr(JNIEnv* km_env, jclass km_clazz, jstring s, jint c) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosStrrchr(JNIEnv* km_env, jclass km_clazz, jlong s, jint c) {
     (void)km_env;
     (void)km_clazz;
-    const char* s_utf = (s != NULL) ? (*km_env)->GetStringUTFChars(km_env, s, NULL) : NULL;
     typedef char* (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3404,20 +3355,17 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_lib
 #endif
     char* km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(s_utf, (int32_t)c);
+        km_res = km_fn_ptr((const char*)(uintptr_t)s, (int32_t)c);
     } else {
         errno = ENOSYS;
         km_res = NULL;
     }
-    if (s != NULL && s_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, s, s_utf);
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1strstr(JNIEnv* km_env, jclass km_clazz, jstring h, jstring n) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosStrstr(JNIEnv* km_env, jclass km_clazz, jlong h, jlong n) {
     (void)km_env;
     (void)km_clazz;
-    const char* h_utf = (h != NULL) ? (*km_env)->GetStringUTFChars(km_env, h, NULL) : NULL;
-    const char* n_utf = (n != NULL) ? (*km_env)->GetStringUTFChars(km_env, n, NULL) : NULL;
     typedef char* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3440,17 +3388,15 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_lib
 #endif
     char* km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(h_utf, n_utf);
+        km_res = km_fn_ptr((const char*)(uintptr_t)h, (const char*)(uintptr_t)n);
     } else {
         errno = ENOSYS;
         km_res = NULL;
     }
-    if (h != NULL && h_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, h, h_utf);
-    if (n != NULL && n_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, n, n_utf);
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1wcschr(JNIEnv* km_env, jclass km_clazz, jlong s, jint c) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosWcschr(JNIEnv* km_env, jclass km_clazz, jlong s, jint c) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void*, uint32_t);
@@ -3483,7 +3429,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_lib
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1wcslen(JNIEnv* km_env, jclass km_clazz, jlong s) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosWcslen(JNIEnv* km_env, jclass km_clazz, jlong s) {
     (void)km_env;
     (void)km_clazz;
     typedef uint64_t (*km_fn_t)(void*);
@@ -3516,7 +3462,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_lib
     return (jlong)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1isalpha(JNIEnv* km_env, jclass km_clazz, jint c) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosIsalpha(JNIEnv* km_env, jclass km_clazz, jint c) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -3549,7 +3495,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1isascii(JNIEnv* km_env, jclass km_clazz, jint c) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosIsascii(JNIEnv* km_env, jclass km_clazz, jint c) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -3582,7 +3528,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1isdigit(JNIEnv* km_env, jclass km_clazz, jint c) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosIsdigit(JNIEnv* km_env, jclass km_clazz, jint c) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -3615,7 +3561,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1islower(JNIEnv* km_env, jclass km_clazz, jint c) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosIslower(JNIEnv* km_env, jclass km_clazz, jint c) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -3648,7 +3594,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1isprint(JNIEnv* km_env, jclass km_clazz, jint c) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosIsprint(JNIEnv* km_env, jclass km_clazz, jint c) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -3681,7 +3627,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1isspace(JNIEnv* km_env, jclass km_clazz, jint c) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosIsspace(JNIEnv* km_env, jclass km_clazz, jint c) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -3714,7 +3660,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1iswctype(JNIEnv* km_env, jclass km_clazz, jint wc, jlong ttype) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosIswctype(JNIEnv* km_env, jclass km_clazz, jint wc, jlong ttype) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(uint32_t, uint64_t);
@@ -3747,7 +3693,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1iswdigit(JNIEnv* km_env, jclass km_clazz, jint wc) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosIswdigit(JNIEnv* km_env, jclass km_clazz, jint wc) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -3780,7 +3726,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1iswlower(JNIEnv* km_env, jclass km_clazz, jint wc) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosIswlower(JNIEnv* km_env, jclass km_clazz, jint wc) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -3813,7 +3759,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1iswspace(JNIEnv* km_env, jclass km_clazz, jint wc) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosIswspace(JNIEnv* km_env, jclass km_clazz, jint wc) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -3846,7 +3792,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1iswupper(JNIEnv* km_env, jclass km_clazz, jint wc) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosIswupper(JNIEnv* km_env, jclass km_clazz, jint wc) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -3879,7 +3825,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1towupper(JNIEnv* km_env, jclass km_clazz, jint wc) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosTowupper(JNIEnv* km_env, jclass km_clazz, jint wc) {
     (void)km_env;
     (void)km_clazz;
     typedef uint32_t (*km_fn_t)(uint32_t);
@@ -3912,7 +3858,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1towlower(JNIEnv* km_env, jclass km_clazz, jint wc) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosTowlower(JNIEnv* km_env, jclass km_clazz, jint wc) {
     (void)km_env;
     (void)km_clazz;
     typedef uint32_t (*km_fn_t)(uint32_t);
@@ -3945,7 +3891,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1atan(JNIEnv* km_env, jclass km_clazz, jdouble x) {
+JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosAtan(JNIEnv* km_env, jclass km_clazz, jdouble x) {
     (void)km_env;
     (void)km_clazz;
     typedef double (*km_fn_t)(double);
@@ -3978,7 +3924,7 @@ JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_l
     return (jdouble)km_res;
 }
 
-JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1ceil(JNIEnv* km_env, jclass km_clazz, jdouble x) {
+JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosCeil(JNIEnv* km_env, jclass km_clazz, jdouble x) {
     (void)km_env;
     (void)km_clazz;
     typedef double (*km_fn_t)(double);
@@ -4011,7 +3957,7 @@ JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_l
     return (jdouble)km_res;
 }
 
-JNIEXPORT jfloat JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1ceilf(JNIEnv* km_env, jclass km_clazz, jfloat x) {
+JNIEXPORT jfloat JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosCeilf(JNIEnv* km_env, jclass km_clazz, jfloat x) {
     (void)km_env;
     (void)km_clazz;
     typedef float (*km_fn_t)(float);
@@ -4044,7 +3990,7 @@ JNIEXPORT jfloat JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_li
     return (jfloat)km_res;
 }
 
-JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1exp(JNIEnv* km_env, jclass km_clazz, jdouble x) {
+JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosExp(JNIEnv* km_env, jclass km_clazz, jdouble x) {
     (void)km_env;
     (void)km_clazz;
     typedef double (*km_fn_t)(double);
@@ -4077,7 +4023,7 @@ JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_l
     return (jdouble)km_res;
 }
 
-JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1fabs(JNIEnv* km_env, jclass km_clazz, jdouble x) {
+JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosFabs(JNIEnv* km_env, jclass km_clazz, jdouble x) {
     (void)km_env;
     (void)km_clazz;
     typedef double (*km_fn_t)(double);
@@ -4110,7 +4056,7 @@ JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_l
     return (jdouble)km_res;
 }
 
-JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1floor(JNIEnv* km_env, jclass km_clazz, jdouble x) {
+JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosFloor(JNIEnv* km_env, jclass km_clazz, jdouble x) {
     (void)km_env;
     (void)km_clazz;
     typedef double (*km_fn_t)(double);
@@ -4143,7 +4089,7 @@ JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_l
     return (jdouble)km_res;
 }
 
-JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1frexp(JNIEnv* km_env, jclass km_clazz, jdouble x, jlong e) {
+JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosFrexp(JNIEnv* km_env, jclass km_clazz, jdouble x, jlong e) {
     (void)km_env;
     (void)km_clazz;
     typedef double (*km_fn_t)(double, void*);
@@ -4176,7 +4122,7 @@ JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_l
     return (jdouble)km_res;
 }
 
-JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1log(JNIEnv* km_env, jclass km_clazz, jdouble x) {
+JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosLog(JNIEnv* km_env, jclass km_clazz, jdouble x) {
     (void)km_env;
     (void)km_clazz;
     typedef double (*km_fn_t)(double);
@@ -4209,7 +4155,7 @@ JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_l
     return (jdouble)km_res;
 }
 
-JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1log2(JNIEnv* km_env, jclass km_clazz, jdouble x) {
+JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosLog2(JNIEnv* km_env, jclass km_clazz, jdouble x) {
     (void)km_env;
     (void)km_clazz;
     typedef double (*km_fn_t)(double);
@@ -4242,7 +4188,7 @@ JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_l
     return (jdouble)km_res;
 }
 
-JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1pow(JNIEnv* km_env, jclass km_clazz, jdouble x, jdouble y) {
+JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosPow(JNIEnv* km_env, jclass km_clazz, jdouble x, jdouble y) {
     (void)km_env;
     (void)km_clazz;
     typedef double (*km_fn_t)(double, double);
@@ -4275,7 +4221,7 @@ JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_l
     return (jdouble)km_res;
 }
 
-JNIEXPORT jfloat JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1roundf(JNIEnv* km_env, jclass km_clazz, jfloat x) {
+JNIEXPORT jfloat JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosRoundf(JNIEnv* km_env, jclass km_clazz, jfloat x) {
     (void)km_env;
     (void)km_clazz;
     typedef float (*km_fn_t)(float);
@@ -4308,7 +4254,7 @@ JNIEXPORT jfloat JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_li
     return (jfloat)km_res;
 }
 
-JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1scalbn(JNIEnv* km_env, jclass km_clazz, jdouble x, jint n) {
+JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosScalbn(JNIEnv* km_env, jclass km_clazz, jdouble x, jint n) {
     (void)km_env;
     (void)km_clazz;
     typedef double (*km_fn_t)(double, int32_t);
@@ -4341,7 +4287,7 @@ JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_l
     return (jdouble)km_res;
 }
 
-JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1sqrt(JNIEnv* km_env, jclass km_clazz, jdouble x) {
+JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosSqrt(JNIEnv* km_env, jclass km_clazz, jdouble x) {
     (void)km_env;
     (void)km_clazz;
     typedef double (*km_fn_t)(double);
@@ -4374,7 +4320,7 @@ JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_l
     return (jdouble)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1abs(JNIEnv* km_env, jclass km_clazz, jint x) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosAbs(JNIEnv* km_env, jclass km_clazz, jint x) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -4407,10 +4353,9 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     return (jint)km_res;
 }
 
-JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1atof(JNIEnv* km_env, jclass km_clazz, jstring s) {
+JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosAtof(JNIEnv* km_env, jclass km_clazz, jlong s) {
     (void)km_env;
     (void)km_clazz;
-    const char* s_utf = (s != NULL) ? (*km_env)->GetStringUTFChars(km_env, s, NULL) : NULL;
     typedef double (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4433,19 +4378,17 @@ JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_l
 #endif
     double km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(s_utf);
+        km_res = km_fn_ptr((const char*)(uintptr_t)s);
     } else {
         errno = ENOSYS;
         km_res = 0.0;
     }
-    if (s != NULL && s_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, s, s_utf);
     return (jdouble)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1atoi(JNIEnv* km_env, jclass km_clazz, jstring s) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosAtoi(JNIEnv* km_env, jclass km_clazz, jlong s) {
     (void)km_env;
     (void)km_clazz;
-    const char* s_utf = (s != NULL) ? (*km_env)->GetStringUTFChars(km_env, s, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4468,19 +4411,17 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(s_utf);
+        km_res = km_fn_ptr((const char*)(uintptr_t)s);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (s != NULL && s_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, s, s_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1atol(JNIEnv* km_env, jclass km_clazz, jstring s) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosAtol(JNIEnv* km_env, jclass km_clazz, jlong s) {
     (void)km_env;
     (void)km_clazz;
-    const char* s_utf = (s != NULL) ? (*km_env)->GetStringUTFChars(km_env, s, NULL) : NULL;
     typedef int64_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4503,19 +4444,17 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_lib
 #endif
     int64_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(s_utf);
+        km_res = km_fn_ptr((const char*)(uintptr_t)s);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (s != NULL && s_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, s, s_utf);
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1atoll(JNIEnv* km_env, jclass km_clazz, jstring s) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosAtoll(JNIEnv* km_env, jclass km_clazz, jlong s) {
     (void)km_env;
     (void)km_clazz;
-    const char* s_utf = (s != NULL) ? (*km_env)->GetStringUTFChars(km_env, s, NULL) : NULL;
     typedef int64_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4538,16 +4477,15 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_lib
 #endif
     int64_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(s_utf);
+        km_res = km_fn_ptr((const char*)(uintptr_t)s);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (s != NULL && s_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, s, s_utf);
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1bsearch(JNIEnv* km_env, jclass km_clazz, jlong key, jlong base, jlong nel, jlong width, jlong cmp) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosBsearch(JNIEnv* km_env, jclass km_clazz, jlong key, jlong base, jlong nel, jlong width, jlong cmp) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void*, void*, uint64_t, uint64_t, void*);
@@ -4580,7 +4518,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_lib
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1ecvt(JNIEnv* km_env, jclass km_clazz, jdouble x, jint n, jlong dp, jlong sign) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosEcvt(JNIEnv* km_env, jclass km_clazz, jdouble x, jint n, jlong dp, jlong sign) {
     (void)km_env;
     (void)km_clazz;
     typedef char* (*km_fn_t)(double, int32_t, void*, void*);
@@ -4613,7 +4551,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_lib
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1imaxabs(JNIEnv* km_env, jclass km_clazz, jlong a) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosImaxabs(JNIEnv* km_env, jclass km_clazz, jlong a) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int64_t);
@@ -4646,7 +4584,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_lib
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1llabs(JNIEnv* km_env, jclass km_clazz, jlong a) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosLlabs(JNIEnv* km_env, jclass km_clazz, jlong a) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int64_t);
@@ -4679,7 +4617,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_lib
     return (jlong)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1qsort(JNIEnv* km_env, jclass km_clazz, jlong base, jlong nel, jlong width, jlong cmp) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosQsort(JNIEnv* km_env, jclass km_clazz, jlong base, jlong nel, jlong width, jlong cmp) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void*, uint64_t, uint64_t, void*);
@@ -4709,10 +4647,9 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc
     }
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1strtoul(JNIEnv* km_env, jclass km_clazz, jstring s, jlong p, jint base) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosStrtoul(JNIEnv* km_env, jclass km_clazz, jlong s, jlong p, jint base) {
     (void)km_env;
     (void)km_clazz;
-    const char* s_utf = (s != NULL) ? (*km_env)->GetStringUTFChars(km_env, s, NULL) : NULL;
     typedef uint64_t (*km_fn_t)(const char*, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4735,19 +4672,17 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_lib
 #endif
     uint64_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(s_utf, (void*)(uintptr_t)p, (int32_t)base);
+        km_res = km_fn_ptr((const char*)(uintptr_t)s, (void*)(uintptr_t)p, (int32_t)base);
     } else {
         errno = ENOSYS;
         km_res = 0;
     }
-    if (s != NULL && s_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, s, s_utf);
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1strtol(JNIEnv* km_env, jclass km_clazz, jstring s, jlong p, jint base) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosStrtol(JNIEnv* km_env, jclass km_clazz, jlong s, jlong p, jint base) {
     (void)km_env;
     (void)km_clazz;
-    const char* s_utf = (s != NULL) ? (*km_env)->GetStringUTFChars(km_env, s, NULL) : NULL;
     typedef int64_t (*km_fn_t)(const char*, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4770,16 +4705,15 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_lib
 #endif
     int64_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(s_utf, (void*)(uintptr_t)p, (int32_t)base);
+        km_res = km_fn_ptr((const char*)(uintptr_t)s, (void*)(uintptr_t)p, (int32_t)base);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (s != NULL && s_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, s, s_utf);
     return (jlong)km_res;
 }
 
-JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libc_1teeos_1wcstod(JNIEnv* km_env, jclass km_clazz, jlong s, jlong p) {
+JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_teeos_TeeosJniBridge_libcTeeosWcstod(JNIEnv* km_env, jclass km_clazz, jlong s, jlong p) {
     (void)km_env;
     (void)km_clazz;
     typedef double (*km_fn_t)(void*, void*);

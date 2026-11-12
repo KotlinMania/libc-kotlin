@@ -4,6 +4,7 @@ import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 // Additional pthread constants
 public val PTHREAD_NAME_LEN: CInt = 16
@@ -44,7 +45,7 @@ public val FOPEN_MAX: CUint = 20u
 public val EOK: CInt = 0
 
 // Semaphore constants
-public val SEM_FAILED: CUint? = null
+public val SEM_FAILED: MutPtr<SemT> = MutPtr<SemT>(0L)
 
 // Page size constants (hexagon-specific)
 public val PAGESIZE: SizeT = 4096uL

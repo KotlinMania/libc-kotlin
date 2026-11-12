@@ -4,57 +4,60 @@ package io.github.kotlinmania.libc.new.qurt.signal
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.new.qurt.PidT
+import io.github.kotlinmania.libc.new.qurt.SigsetT
+import io.github.kotlinmania.libc.new.qurt.Timespec
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
-private val _newQurtSignalNapiAddon: dynamic =
+private val newQurtSignalNapiAddon: dynamic =
     js("(function() { if (typeof globalThis !== 'undefined' && typeof globalThis.__km_napi_libc !== 'undefined') return globalThis.__km_napi_libc; if (typeof process === 'undefined' || !process.versions || !process.versions.node) return null; var mod = process.getBuiltinModule ? process.getBuiltinModule('module') : (process.mainModule && process.mainModule.constructor); var req = (mod && mod.createRequire) ? mod.createRequire((process.cwd ? process.cwd() : '.') + '/package.json') : (process.mainModule ? process.mainModule.require : null); if (!req) return null; try { var pkg = req('@kotlinmania/libc-native-bindings'); if (typeof globalThis !== 'undefined') globalThis.__km_napi_libc = pkg; return pkg; } catch (_) {} var fs = req('fs'); var path = req('path'); var dir = process.cwd ? process.cwd() : '.'; var rels = ['libc_native.node', 'build/node-ffi/libc_native.node', 'build/node-ffi/release/libc_native.node', 'build/node-ffi/debug/libc_native.node', 'src/js/node-libc/build/Release/libc_native.node', 'src/js/node-libc/build/Debug/libc_native.node', 'src/js/node-libc/dist/build/Release/libc_native.node', 'src/js/node-libc/dist/build/Debug/libc_native.node', 'c_native.node', 'build/node-ffi/c_native.node', 'build/node-ffi/release/c_native.node', 'build/node-ffi/debug/c_native.node', 'src/js/node-libc/build/Release/c_native.node', 'src/js/node-libc/build/Debug/c_native.node', 'src/js/node-libc/dist/build/Release/c_native.node', 'src/js/node-libc/dist/build/Debug/c_native.node']; for (var d = 0; d < 8; d++) { for (var i = 0; i < rels.length; i++) { var c = path.resolve(dir, rels[i]); if (fs.existsSync(c)) { var loaded = req(c); if (typeof globalThis !== 'undefined') globalThis.__km_napi_libc = loaded; return loaded; } } var parent = path.dirname(dir); if (parent === dir) break; dir = parent; } if (typeof globalThis !== 'undefined') globalThis.__km_napi_libc = null; return null; })()")
 
 public actual fun signal(sig: CInt, handler: SighandlerT): SighandlerT =
-    if (_newQurtSignalNapiAddon != null) (_newQurtSignalNapiAddon.libc_new_qurt_signal_signal(sig, handler.toString()) as String).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (newQurtSignalNapiAddon != null) (newQurtSignalNapiAddon.libcNewQurtSignalSignal(sig, handler.toString()) as String).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun kill(pid: PidT, sig: CInt): CInt =
-    if (_newQurtSignalNapiAddon != null) (_newQurtSignalNapiAddon.libc_new_qurt_signal_kill(pid, sig) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (newQurtSignalNapiAddon != null) (newQurtSignalNapiAddon.libcNewQurtSignalKill(pid, sig) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun raise(sig: CInt): CInt =
-    if (_newQurtSignalNapiAddon != null) (_newQurtSignalNapiAddon.libc_new_qurt_signal_raise(sig) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (newQurtSignalNapiAddon != null) (newQurtSignalNapiAddon.libcNewQurtSignalRaise(sig) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun alarm(seconds: CUint): CUint =
-    if (_newQurtSignalNapiAddon != null) (_newQurtSignalNapiAddon.libc_new_qurt_signal_alarm(seconds.toInt()) as Int).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (newQurtSignalNapiAddon != null) (newQurtSignalNapiAddon.libcNewQurtSignalAlarm(seconds.toInt()) as Int).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun pause(): CInt =
-    if (_newQurtSignalNapiAddon != null) (_newQurtSignalNapiAddon.libc_new_qurt_signal_pause() as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (newQurtSignalNapiAddon != null) (newQurtSignalNapiAddon.libcNewQurtSignalPause() as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigemptyset(set: COpaquePointer?): CInt =
-    if (_newQurtSignalNapiAddon != null) (_newQurtSignalNapiAddon.libc_new_qurt_signal_sigemptyset((set?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sigemptyset(set: MutPtr<SigsetT>): CInt =
+    if (newQurtSignalNapiAddon != null) (newQurtSignalNapiAddon.libcNewQurtSignalSigemptyset(set.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigfillset(set: COpaquePointer?): CInt =
-    if (_newQurtSignalNapiAddon != null) (_newQurtSignalNapiAddon.libc_new_qurt_signal_sigfillset((set?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sigfillset(set: MutPtr<SigsetT>): CInt =
+    if (newQurtSignalNapiAddon != null) (newQurtSignalNapiAddon.libcNewQurtSignalSigfillset(set.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigaddset(set: COpaquePointer?, signum: CInt): CInt =
-    if (_newQurtSignalNapiAddon != null) (_newQurtSignalNapiAddon.libc_new_qurt_signal_sigaddset((set?.value ?: 0L).toString(), signum) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sigaddset(set: MutPtr<SigsetT>, signum: CInt): CInt =
+    if (newQurtSignalNapiAddon != null) (newQurtSignalNapiAddon.libcNewQurtSignalSigaddset(set.rawAddress.toString(), signum) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigdelset(set: COpaquePointer?, signum: CInt): CInt =
-    if (_newQurtSignalNapiAddon != null) (_newQurtSignalNapiAddon.libc_new_qurt_signal_sigdelset((set?.value ?: 0L).toString(), signum) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sigdelset(set: MutPtr<SigsetT>, signum: CInt): CInt =
+    if (newQurtSignalNapiAddon != null) (newQurtSignalNapiAddon.libcNewQurtSignalSigdelset(set.rawAddress.toString(), signum) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigismember(set: COpaquePointer?, signum: CInt): CInt =
-    if (_newQurtSignalNapiAddon != null) (_newQurtSignalNapiAddon.libc_new_qurt_signal_sigismember((set?.value ?: 0L).toString(), signum) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sigismember(set: ConstPtr<SigsetT>, signum: CInt): CInt =
+    if (newQurtSignalNapiAddon != null) (newQurtSignalNapiAddon.libcNewQurtSignalSigismember(set.rawAddress.toString(), signum) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigprocmask(how: CInt, set: COpaquePointer?, oldset: COpaquePointer?): CInt =
-    if (_newQurtSignalNapiAddon != null) (_newQurtSignalNapiAddon.libc_new_qurt_signal_sigprocmask(how, (set?.value ?: 0L).toString(), (oldset?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sigprocmask(how: CInt, set: ConstPtr<SigsetT>, oldset: MutPtr<SigsetT>): CInt =
+    if (newQurtSignalNapiAddon != null) (newQurtSignalNapiAddon.libcNewQurtSignalSigprocmask(how, set.rawAddress.toString(), oldset.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigpending(set: COpaquePointer?): CInt =
-    if (_newQurtSignalNapiAddon != null) (_newQurtSignalNapiAddon.libc_new_qurt_signal_sigpending((set?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sigpending(set: MutPtr<SigsetT>): CInt =
+    if (newQurtSignalNapiAddon != null) (newQurtSignalNapiAddon.libcNewQurtSignalSigpending(set.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigsuspend(mask: COpaquePointer?): CInt =
-    if (_newQurtSignalNapiAddon != null) (_newQurtSignalNapiAddon.libc_new_qurt_signal_sigsuspend((mask?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sigsuspend(mask: ConstPtr<SigsetT>): CInt =
+    if (newQurtSignalNapiAddon != null) (newQurtSignalNapiAddon.libcNewQurtSignalSigsuspend(mask.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigwait(set: COpaquePointer?, sig: COpaquePointer?): CInt =
-    if (_newQurtSignalNapiAddon != null) (_newQurtSignalNapiAddon.libc_new_qurt_signal_sigwait((set?.value ?: 0L).toString(), (sig?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sigwait(set: ConstPtr<SigsetT>, sig: MutPtr<CInt>): CInt =
+    if (newQurtSignalNapiAddon != null) (newQurtSignalNapiAddon.libcNewQurtSignalSigwait(set.rawAddress.toString(), sig.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigaction(sig: CInt, act: COpaquePointer?, oact: COpaquePointer?): CInt =
-    if (_newQurtSignalNapiAddon != null) (_newQurtSignalNapiAddon.libc_new_qurt_signal_sigaction(sig, (act?.value ?: 0L).toString(), (oact?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sigaction(sig: CInt, act: ConstPtr<Sigaction>, oact: MutPtr<Sigaction>): CInt =
+    if (newQurtSignalNapiAddon != null) (newQurtSignalNapiAddon.libcNewQurtSignalSigaction(sig, act.rawAddress.toString(), oact.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigtimedwait(set: COpaquePointer?, info: COpaquePointer?, timeout: COpaquePointer?): CInt =
-    if (_newQurtSignalNapiAddon != null) (_newQurtSignalNapiAddon.libc_new_qurt_signal_sigtimedwait((set?.value ?: 0L).toString(), (info?.value ?: 0L).toString(), (timeout?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sigtimedwait(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>, timeout: ConstPtr<Timespec>): CInt =
+    if (newQurtSignalNapiAddon != null) (newQurtSignalNapiAddon.libcNewQurtSignalSigtimedwait(set.rawAddress.toString(), info.rawAddress.toString(), timeout.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")

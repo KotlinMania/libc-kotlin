@@ -3,13 +3,14 @@ package io.github.kotlinmania.libc.unix.cygwin
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.unix.CcT
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.SizeT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public val FD_SETSIZE: Int = 1024
 
@@ -850,7 +851,7 @@ public val LC_TIME_MASK: CInt = 1 shl 5
 
 public val LC_MESSAGES_MASK: CInt = 1 shl 6
 
-public val LC_GLOBAL_LOCALE: LocaleT = COpaquePointer((-1).toLong())
+public val LC_GLOBAL_LOCALE: LocaleT = MutPtr<CVoid>((-1).toLong())
 
 public val ST_RDONLY: CUlong = 0x80000uL
 
@@ -1216,7 +1217,7 @@ public val MAP_ANONYMOUS: CInt = MAP_ANON
 
 public val MAP_NORESERVE: CInt = 0x4000
 
-public val MAP_FAILED: COpaquePointer? = COpaquePointer((0.inv()).toLong())
+public val MAP_FAILED: MutPtr<CVoid> = MutPtr<CVoid>((0.inv()).toLong())
 
 public val MS_ASYNC: CInt = 1
 
@@ -1963,7 +1964,7 @@ public val SCHED_FIFO: CInt = 1
 
 public val SCHED_RR: CInt = 2
 
-public val PTHREAD_COND_INITIALIZER: PthreadCondT = COpaquePointer(21.toLong())
+public val PTHREAD_COND_INITIALIZER: PthreadCondT = MutPtr<UByte>(21.toLong())
 
 public val PTHREAD_CREATE_DETACHED: CInt = 1
 
@@ -1977,17 +1978,17 @@ public val PTHREAD_MUTEX_NORMAL: CInt = 2
 
 public val PTHREAD_MUTEX_DEFAULT: CInt = PTHREAD_MUTEX_NORMAL
 
-public val PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP: PthreadMutexT = COpaquePointer(18.toLong())
+public val PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP: PthreadMutexT = MutPtr<UByte>(18.toLong())
 
-public val PTHREAD_ERRORCHECK_MUTEX_INITIALIZER_NP: PthreadMutexT = COpaquePointer(20.toLong())
+public val PTHREAD_ERRORCHECK_MUTEX_INITIALIZER_NP: PthreadMutexT = MutPtr<UByte>(20.toLong())
 
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = COpaquePointer(19.toLong())
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = MutPtr<UByte>(19.toLong())
 
 public val PTHREAD_PROCESS_SHARED: CInt = 1
 
 public val PTHREAD_PROCESS_PRIVATE: CInt = 0
 
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = COpaquePointer(22.toLong())
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = MutPtr<UByte>(22.toLong())
 
 public val LITTLE_ENDIAN: CInt = 1234
 
@@ -2105,6 +2106,6 @@ public val FALLOC_FL_INSERT_RANGE: CInt = 0x0010
 
 public val FALLOC_FL_KEEP_SIZE: CInt = 0x1000
 
-public val RTLD_DEFAULT: COpaquePointer? = null
+public val RTLD_DEFAULT: MutPtr<CVoid> = MutPtr(0L)
 
-public val SEM_FAILED: COpaquePointer? = null
+public val SEM_FAILED: MutPtr<SemT> = MutPtr(0L)

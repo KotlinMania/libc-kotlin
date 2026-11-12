@@ -19,7 +19,7 @@
 #endif
 #endif
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_linuxlike_pthread_NewCommonLinuxlikePthreadJniBridge_libc_1new_1common_1linuxlike_1pthread_1pthreadGetaffinityNp(JNIEnv* km_env, jclass km_clazz, jlong thread, jlong cpusetsize, jlong cpuset) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_linuxlike_pthread_NewCommonLinuxlikePthreadJniBridge_libcNewCommonLinuxlikePthreadPthreadGetaffinityNp(JNIEnv* km_env, jclass km_clazz, jlong thread, jlong cpusetsize, jlong cpuset) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint64_t, void*);
@@ -52,7 +52,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_linuxlike_pthr
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_linuxlike_pthread_NewCommonLinuxlikePthreadJniBridge_libc_1new_1common_1linuxlike_1pthread_1pthreadGetattrNp(JNIEnv* km_env, jclass km_clazz, jlong native, jlong attr) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_linuxlike_pthread_NewCommonLinuxlikePthreadJniBridge_libcNewCommonLinuxlikePthreadPthreadGetattrNp(JNIEnv* km_env, jclass km_clazz, jlong native, jlong attr) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -85,7 +85,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_linuxlike_pthr
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_linuxlike_pthread_NewCommonLinuxlikePthreadJniBridge_libc_1new_1common_1linuxlike_1pthread_1pthreadGetnameNp(JNIEnv* km_env, jclass km_clazz, jlong thread, jlong name, jlong len) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_linuxlike_pthread_NewCommonLinuxlikePthreadJniBridge_libcNewCommonLinuxlikePthreadPthreadGetnameNp(JNIEnv* km_env, jclass km_clazz, jlong thread, jlong name, jlong len) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, char*, uint64_t);
@@ -118,7 +118,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_linuxlike_pthr
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_linuxlike_pthread_NewCommonLinuxlikePthreadJniBridge_libc_1new_1common_1linuxlike_1pthread_1pthreadSetaffinityNp(JNIEnv* km_env, jclass km_clazz, jlong thread, jlong cpusetsize, jlong cpuset) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_linuxlike_pthread_NewCommonLinuxlikePthreadJniBridge_libcNewCommonLinuxlikePthreadPthreadSetaffinityNp(JNIEnv* km_env, jclass km_clazz, jlong thread, jlong cpusetsize, jlong cpuset) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint64_t, void*);
@@ -151,10 +151,9 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_linuxlike_pthr
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_linuxlike_pthread_NewCommonLinuxlikePthreadJniBridge_libc_1new_1common_1linuxlike_1pthread_1pthreadSetnameNp(JNIEnv* km_env, jclass km_clazz, jlong thread, jstring name) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_linuxlike_pthread_NewCommonLinuxlikePthreadJniBridge_libcNewCommonLinuxlikePthreadPthreadSetnameNp(JNIEnv* km_env, jclass km_clazz, jlong thread, jlong name) {
     (void)km_env;
     (void)km_clazz;
-    const char* name_utf = (name != NULL) ? (*km_env)->GetStringUTFChars(km_env, name, NULL) : NULL;
     typedef int32_t (*km_fn_t)(void*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -177,12 +176,11 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_common_linuxlike_pthr
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)thread, name_utf);
+        km_res = km_fn_ptr((void*)(uintptr_t)thread, (const char*)(uintptr_t)name);
     } else {
         errno = ENOSYS;
         km_res = ENOSYS;
     }
-    if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jint)km_res;
 }
 

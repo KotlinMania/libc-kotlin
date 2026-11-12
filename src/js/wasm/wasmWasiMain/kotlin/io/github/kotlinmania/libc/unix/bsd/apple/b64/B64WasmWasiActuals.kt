@@ -1,10 +1,13 @@
-@file:OptIn(kotlin.ExperimentalUnsignedTypes::class)
+@file:OptIn(kotlin.ExperimentalUnsignedTypes::class, kotlin.wasm.ExperimentalWasmInterop::class)
 
 package io.github.kotlinmania.libc.unix.bsd.apple.b64
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CUint
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 
-public actual fun exchangedata(path1: String?, path2: String?, options: CUint): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+// The host must provide the C companion wrapper exports in import module libc.
+public actual fun exchangedata(path1: ConstPtr<CChar>, path2: ConstPtr<CChar>, options: CUint): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixBsdAppleB64Exchangedata")

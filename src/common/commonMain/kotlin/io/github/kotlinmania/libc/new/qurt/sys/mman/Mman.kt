@@ -3,9 +3,11 @@ package io.github.kotlinmania.libc.new.qurt.sys.mman
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.new.qurt.OffT
 import io.github.kotlinmania.libc.new.qurt.SizeT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 // Header: `sys / mman.h`
 //
@@ -45,7 +47,7 @@ public val MAP_TRYFIXED: CInt = 0x0400
 
 public val MAP_WIRED: CInt = 0x0800
 
-public val MAP_FAILED: COpaquePointer? = COpaquePointer((0.inv()).toLong())
+public val MAP_FAILED: MutPtr<CVoid> = MutPtr<CVoid>((0.inv()).toLong())
 
 // Memory sync constants
 public val MS_ASYNC: CInt = 0x01
@@ -59,18 +61,18 @@ public val MCL_CURRENT: CInt = 0x01
 
 public val MCL_FUTURE: CInt = 0x02
 
-public expect fun mmap(addr: COpaquePointer?, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: OffT): COpaquePointer?
+public expect fun mmap(addr: MutPtr<CVoid>, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: OffT): MutPtr<CVoid>
 
-public expect fun munmap(addr: COpaquePointer?, len: SizeT): CInt
+public expect fun munmap(addr: MutPtr<CVoid>, len: SizeT): CInt
 
-public expect fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt
+public expect fun mprotect(addr: MutPtr<CVoid>, len: SizeT, prot: CInt): CInt
 
-public expect fun mlock(addr: COpaquePointer?, len: SizeT): CInt
+public expect fun mlock(addr: ConstPtr<CVoid>, len: SizeT): CInt
 
-public expect fun munlock(addr: COpaquePointer?, len: SizeT): CInt
+public expect fun munlock(addr: ConstPtr<CVoid>, len: SizeT): CInt
 
 public expect fun mlockall(flags: CInt): CInt
 
 public expect fun munlockall(): CInt
 
-public expect fun msync(addr: COpaquePointer?, len: SizeT, flags: CInt): CInt
+public expect fun msync(addr: MutPtr<CVoid>, len: SizeT, flags: CInt): CInt

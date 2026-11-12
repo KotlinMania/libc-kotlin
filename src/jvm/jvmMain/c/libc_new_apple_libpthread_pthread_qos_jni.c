@@ -19,7 +19,7 @@
 #endif
 #endif
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_apple_libpthread_pthread_qos_NewAppleLibpthreadPthreadQosJniBridge_libc_1new_1apple_1libpthread_1pthread_1qos_1pthreadAttrGetQosClassNp(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong arg_1_class, jlong priority) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_apple_libpthread_pthread_qos_NewAppleLibpthreadPthreadQosJniBridge_libcNewAppleLibpthreadPthreadQosPthreadAttrGetQosClassNp(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong arg1Class, jlong priority) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, void*);
@@ -44,7 +44,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_apple_libpthread_pthr
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)attr, (void*)(uintptr_t)arg_1_class, (void*)(uintptr_t)priority);
+        km_res = km_fn_ptr((void*)(uintptr_t)attr, (void*)(uintptr_t)arg1Class, (void*)(uintptr_t)priority);
     } else {
         errno = ENOSYS;
         km_res = ENOSYS;
@@ -52,7 +52,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_apple_libpthread_pthr
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_apple_libpthread_pthread_qos_NewAppleLibpthreadPthreadQosJniBridge_libc_1new_1apple_1libpthread_1pthread_1qos_1pthreadGetQosClassNp(JNIEnv* km_env, jclass km_clazz, jlong thread, jlong arg_1_class, jlong priority) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_apple_libpthread_pthread_qos_NewAppleLibpthreadPthreadQosJniBridge_libcNewAppleLibpthreadPthreadQosPthreadGetQosClassNp(JNIEnv* km_env, jclass km_clazz, jlong thread, jlong arg1Class, jlong priority) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, void*);
@@ -77,7 +77,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_apple_libpthread_pthr
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)thread, (void*)(uintptr_t)arg_1_class, (void*)(uintptr_t)priority);
+        km_res = km_fn_ptr((void*)(uintptr_t)thread, (void*)(uintptr_t)arg1Class, (void*)(uintptr_t)priority);
     } else {
         errno = ENOSYS;
         km_res = ENOSYS;

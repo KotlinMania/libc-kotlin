@@ -18,7 +18,7 @@
 #endif
 #endif
 
-int32_t libc_new_netbsd_utmp_utmpname(const char* file) {
+int32_t libcNewNetbsdUtmpUtmpname(const char* file) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -67,7 +67,7 @@ int32_t libc_new_netbsd_utmp_utmpname(const char* file) {
     return -1;
 }
 
-void libc_new_netbsd_utmp_setutent(void) {
+void libcNewNetbsdUtmpSetutent(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -116,7 +116,7 @@ void libc_new_netbsd_utmp_setutent(void) {
     errno = ENOSYS;
 }
 
-void* libc_new_netbsd_utmp_getutent(void) {
+void* libcNewNetbsdUtmpGetutent(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -163,7 +163,7 @@ void* libc_new_netbsd_utmp_getutent(void) {
     return NULL;
 }
 
-void libc_new_netbsd_utmp_endutent(void) {
+void libcNewNetbsdUtmpEndutent(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

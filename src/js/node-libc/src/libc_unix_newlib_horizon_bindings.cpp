@@ -51,7 +51,7 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_unix_newlib_horizon_pthreadCreate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNewlibHorizonPthreadCreate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* native = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -87,7 +87,7 @@ static Napi::Value libc_unix_newlib_horizon_pthreadCreate_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_newlib_horizon_pthreadAttrGetschedparam_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNewlibHorizonPthreadAttrGetschedparam_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* param = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -121,7 +121,7 @@ static Napi::Value libc_unix_newlib_horizon_pthreadAttrGetschedparam_napi(const 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_newlib_horizon_pthreadAttrSetschedparam_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNewlibHorizonPthreadAttrSetschedparam_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* param = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -155,10 +155,10 @@ static Napi::Value libc_unix_newlib_horizon_pthreadAttrSetschedparam_napi(const 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_newlib_horizon_pthreadAttrGetprocessoridNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNewlibHorizonPthreadAttrGetprocessoridNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* processor_id = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* processorId = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -181,7 +181,7 @@ static Napi::Value libc_unix_newlib_horizon_pthreadAttrGetprocessoridNp_napi(con
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(attr, processor_id);
+        km_res = km_fn_ptr(attr, processorId);
     } else {
         errno = ENOSYS;
         km_res = ENOSYS;
@@ -189,10 +189,10 @@ static Napi::Value libc_unix_newlib_horizon_pthreadAttrGetprocessoridNp_napi(con
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_newlib_horizon_pthreadAttrSetprocessoridNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNewlibHorizonPthreadAttrSetprocessoridNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    int32_t processor_id = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t processorId = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -215,7 +215,7 @@ static Napi::Value libc_unix_newlib_horizon_pthreadAttrSetprocessoridNp_napi(con
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(attr, processor_id);
+        km_res = km_fn_ptr(attr, processorId);
     } else {
         errno = ENOSYS;
         km_res = ENOSYS;
@@ -223,7 +223,7 @@ static Napi::Value libc_unix_newlib_horizon_pthreadAttrSetprocessoridNp_napi(con
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_newlib_horizon_pthreadGetschedparam_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNewlibHorizonPthreadGetschedparam_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* native = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* policy = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -258,7 +258,7 @@ static Napi::Value libc_unix_newlib_horizon_pthreadGetschedparam_napi(const Napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_newlib_horizon_pthreadSetschedparam_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNewlibHorizonPthreadSetschedparam_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* native = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t policy = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -293,10 +293,10 @@ static Napi::Value libc_unix_newlib_horizon_pthreadSetschedparam_napi(const Napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_newlib_horizon_pthreadCondattrGetclock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNewlibHorizonPthreadCondattrGetclock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* clock_id = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* clockId = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -319,7 +319,7 @@ static Napi::Value libc_unix_newlib_horizon_pthreadCondattrGetclock_napi(const N
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(attr, clock_id);
+        km_res = km_fn_ptr(attr, clockId);
     } else {
         errno = ENOSYS;
         km_res = ENOSYS;
@@ -327,10 +327,10 @@ static Napi::Value libc_unix_newlib_horizon_pthreadCondattrGetclock_napi(const N
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_newlib_horizon_pthreadCondattrSetclock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNewlibHorizonPthreadCondattrSetclock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    uint64_t clock_id = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
+    uint64_t clockId = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
     typedef int32_t (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -353,7 +353,7 @@ static Napi::Value libc_unix_newlib_horizon_pthreadCondattrSetclock_napi(const N
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(attr, clock_id);
+        km_res = km_fn_ptr(attr, clockId);
     } else {
         errno = ENOSYS;
         km_res = ENOSYS;
@@ -361,7 +361,7 @@ static Napi::Value libc_unix_newlib_horizon_pthreadCondattrSetclock_napi(const N
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_newlib_horizon_pthreadGetprocessoridNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNewlibHorizonPthreadGetprocessoridNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -393,7 +393,7 @@ static Napi::Value libc_unix_newlib_horizon_pthreadGetprocessoridNp_napi(const N
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_newlib_horizon_getrandom_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNewlibHorizonGetrandom_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t buflen = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -428,7 +428,7 @@ static Napi::Value libc_unix_newlib_horizon_getrandom_napi(const Napi::CallbackI
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_newlib_horizon_gethostid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNewlibHorizonGethostid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -461,18 +461,18 @@ static Napi::Value libc_unix_newlib_horizon_gethostid_napi(const Napi::CallbackI
 }
 
 static void register_unix_newlib_horizon_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_unix_newlib_horizon_pthreadCreate", Napi::Function::New(env, libc_unix_newlib_horizon_pthreadCreate_napi));
-    exports.Set("libc_unix_newlib_horizon_pthreadAttrGetschedparam", Napi::Function::New(env, libc_unix_newlib_horizon_pthreadAttrGetschedparam_napi));
-    exports.Set("libc_unix_newlib_horizon_pthreadAttrSetschedparam", Napi::Function::New(env, libc_unix_newlib_horizon_pthreadAttrSetschedparam_napi));
-    exports.Set("libc_unix_newlib_horizon_pthreadAttrGetprocessoridNp", Napi::Function::New(env, libc_unix_newlib_horizon_pthreadAttrGetprocessoridNp_napi));
-    exports.Set("libc_unix_newlib_horizon_pthreadAttrSetprocessoridNp", Napi::Function::New(env, libc_unix_newlib_horizon_pthreadAttrSetprocessoridNp_napi));
-    exports.Set("libc_unix_newlib_horizon_pthreadGetschedparam", Napi::Function::New(env, libc_unix_newlib_horizon_pthreadGetschedparam_napi));
-    exports.Set("libc_unix_newlib_horizon_pthreadSetschedparam", Napi::Function::New(env, libc_unix_newlib_horizon_pthreadSetschedparam_napi));
-    exports.Set("libc_unix_newlib_horizon_pthreadCondattrGetclock", Napi::Function::New(env, libc_unix_newlib_horizon_pthreadCondattrGetclock_napi));
-    exports.Set("libc_unix_newlib_horizon_pthreadCondattrSetclock", Napi::Function::New(env, libc_unix_newlib_horizon_pthreadCondattrSetclock_napi));
-    exports.Set("libc_unix_newlib_horizon_pthreadGetprocessoridNp", Napi::Function::New(env, libc_unix_newlib_horizon_pthreadGetprocessoridNp_napi));
-    exports.Set("libc_unix_newlib_horizon_getrandom", Napi::Function::New(env, libc_unix_newlib_horizon_getrandom_napi));
-    exports.Set("libc_unix_newlib_horizon_gethostid", Napi::Function::New(env, libc_unix_newlib_horizon_gethostid_napi));
+    exports.Set("libcUnixNewlibHorizonPthreadCreate", Napi::Function::New(env, libcUnixNewlibHorizonPthreadCreate_napi));
+    exports.Set("libcUnixNewlibHorizonPthreadAttrGetschedparam", Napi::Function::New(env, libcUnixNewlibHorizonPthreadAttrGetschedparam_napi));
+    exports.Set("libcUnixNewlibHorizonPthreadAttrSetschedparam", Napi::Function::New(env, libcUnixNewlibHorizonPthreadAttrSetschedparam_napi));
+    exports.Set("libcUnixNewlibHorizonPthreadAttrGetprocessoridNp", Napi::Function::New(env, libcUnixNewlibHorizonPthreadAttrGetprocessoridNp_napi));
+    exports.Set("libcUnixNewlibHorizonPthreadAttrSetprocessoridNp", Napi::Function::New(env, libcUnixNewlibHorizonPthreadAttrSetprocessoridNp_napi));
+    exports.Set("libcUnixNewlibHorizonPthreadGetschedparam", Napi::Function::New(env, libcUnixNewlibHorizonPthreadGetschedparam_napi));
+    exports.Set("libcUnixNewlibHorizonPthreadSetschedparam", Napi::Function::New(env, libcUnixNewlibHorizonPthreadSetschedparam_napi));
+    exports.Set("libcUnixNewlibHorizonPthreadCondattrGetclock", Napi::Function::New(env, libcUnixNewlibHorizonPthreadCondattrGetclock_napi));
+    exports.Set("libcUnixNewlibHorizonPthreadCondattrSetclock", Napi::Function::New(env, libcUnixNewlibHorizonPthreadCondattrSetclock_napi));
+    exports.Set("libcUnixNewlibHorizonPthreadGetprocessoridNp", Napi::Function::New(env, libcUnixNewlibHorizonPthreadGetprocessoridNp_napi));
+    exports.Set("libcUnixNewlibHorizonGetrandom", Napi::Function::New(env, libcUnixNewlibHorizonGetrandom_napi));
+    exports.Set("libcUnixNewlibHorizonGethostid", Napi::Function::New(env, libcUnixNewlibHorizonGethostid_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_unix_newlib_horizon_napi, nullptr };

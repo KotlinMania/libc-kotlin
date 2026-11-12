@@ -9,8 +9,8 @@
 extern "C" {
 #endif
 
-int32_t libc_new_qurt_sys_stat_stat(const char* pathname, void* statbuf);
-int32_t libc_new_qurt_sys_stat_fstat(int32_t fd, void* statbuf);
+int32_t libcNewQurtSysStatStat(const char* pathname, void* statbuf);
+int32_t libcNewQurtSysStatFstat(int32_t fd, void* statbuf);
 
 #ifdef __cplusplus
 }

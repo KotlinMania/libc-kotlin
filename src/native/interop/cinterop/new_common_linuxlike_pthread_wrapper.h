@@ -9,11 +9,11 @@
 extern "C" {
 #endif
 
-int32_t libc_new_common_linuxlike_pthread_pthreadGetaffinityNp(void* thread, uint64_t cpusetsize, void* cpuset);
-int32_t libc_new_common_linuxlike_pthread_pthreadGetattrNp(void* native, void* attr);
-int32_t libc_new_common_linuxlike_pthread_pthreadGetnameNp(void* thread, char* name, uint64_t len);
-int32_t libc_new_common_linuxlike_pthread_pthreadSetaffinityNp(void* thread, uint64_t cpusetsize, void* cpuset);
-int32_t libc_new_common_linuxlike_pthread_pthreadSetnameNp(void* thread, const char* name);
+int32_t libcNewCommonLinuxlikePthreadPthreadGetaffinityNp(void* thread, uint64_t cpusetsize, void* cpuset);
+int32_t libcNewCommonLinuxlikePthreadPthreadGetattrNp(void* native, void* attr);
+int32_t libcNewCommonLinuxlikePthreadPthreadGetnameNp(void* thread, char* name, uint64_t len);
+int32_t libcNewCommonLinuxlikePthreadPthreadSetaffinityNp(void* thread, uint64_t cpusetsize, void* cpuset);
+int32_t libcNewCommonLinuxlikePthreadPthreadSetnameNp(void* thread, const char* name);
 
 #ifdef __cplusplus
 }

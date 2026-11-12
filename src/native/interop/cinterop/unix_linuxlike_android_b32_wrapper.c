@@ -15,7 +15,7 @@
 #endif
 #endif
 
-int64_t libc_unix_linuxlike_android_b32_timegm64(void* tm) {
+int64_t libcUnixLinuxlikeAndroidB32Timegm64(void* tm) {
     typedef int64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

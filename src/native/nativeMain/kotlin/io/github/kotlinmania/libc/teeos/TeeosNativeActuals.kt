@@ -3,596 +3,599 @@
 package io.github.kotlinmania.libc.teeos
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CDouble
 import io.github.kotlinmania.libc.CFloat
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CLonglong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_abort
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_abs
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_alignedAlloc
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_atan
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_atof
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_atoi
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_atol
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_atoll
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_bsearch
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_calloc
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_ceil
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_ceilf
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_clockGettime
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_ecvt
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_errnoLocation
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_exp
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_fabs
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_floor
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_free
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_frexp
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_getpid
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_gettimeofday
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_imaxabs
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_initstate
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_isalpha
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_isascii
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_isdigit
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_islower
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_isprint
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_isspace
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_iswctype
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_iswdigit
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_iswlower
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_iswspace
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_iswupper
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_llabs
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_log
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_log2
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_malloc
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_mbrtowc
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_memchr
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_memcmp
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_memcpy
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_memmove
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_memset
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_mmap
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_munmap
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_posixMemalign
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pow
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_printf
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadAttrDestroy
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadAttrGetstack
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadAttrGetstacksize
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadAttrInit
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadAttrSetstack
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadAttrSetstacksize
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadAttrSettee
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadCondBroadcast
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadCondDestroy
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadCondInit
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadCondSignal
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadCondTimedwait
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadCondWait
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadCreate
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadEqual
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadExit
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadGetaffinityNp
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadGetspecific
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadJoin
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadKeyCreate
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadKeyDelete
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadMutexDestroy
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadMutexInit
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadMutexLock
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadMutexTrylock
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadMutexUnlock
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadMutexattrDestroy
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadMutexattrInit
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadMutexattrSetprotocol
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadMutexattrSetpshared
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadMutexattrSetrobust
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadMutexattrSettype
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadOnce
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadSelf
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadSetaffinityNp
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadSetschedprio
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadSetspecific
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadSpinDestroy
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadSpinInit
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadSpinLock
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadSpinTrylock
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_pthreadSpinUnlock
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_qsort
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_random
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_realloc
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_roundf
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_scalbn
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_scanf
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_schedGetaffinity
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_schedSetaffinity
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_schedYield
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_semClose
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_semDestroy
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_semGetvalue
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_semInit
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_semOpen
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_semPost
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_semUnlink
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_semWait
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_setlocale
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_setstate
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_snprintf
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_sprintf
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_sqrt
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_srandom
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_strchr
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_strcmp
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_strcoll
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_strcpy
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_strerror
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_strftime
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_strlen
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_strncmp
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_strncpy
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_strnlen
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_strrchr
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_strstr
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_strtod
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_strtol
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_strtoul
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_strxfrm
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_sysconf
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_time
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_towlower
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_towupper
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_vsnprintf
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_vsprintf
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_wcrtomb
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_wcschr
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_wcslen
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_wcstod
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_wctob
-import io.github.kotlinmania.libc.teeos.cinterop.libc_teeos_wmemchr
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosAbort
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosAbs
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosAlignedAlloc
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosAtan
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosAtof
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosAtoi
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosAtol
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosAtoll
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosBsearch
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosCalloc
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosCeil
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosCeilf
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosClockGettime
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosEcvt
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosErrnoLocation
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosExp
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosFabs
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosFloor
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosFree
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosFrexp
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosGetpid
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosGettimeofday
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosImaxabs
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosInitstate
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosIsalpha
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosIsascii
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosIsdigit
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosIslower
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosIsprint
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosIsspace
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosIswctype
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosIswdigit
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosIswlower
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosIswspace
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosIswupper
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosLlabs
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosLog
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosLog2
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosMalloc
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosMbrtowc
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosMemchr
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosMemcmp
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosMemcpy
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosMemmove
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosMemset
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosMmap
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosMunmap
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosPosixMemalign
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosPow
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosPrintf
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosPthreadAttrDestroy
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosPthreadAttrGetstack
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosPthreadAttrGetstacksize
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosPthreadAttrInit
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosPthreadAttrSetstack
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosPthreadAttrSetstacksize
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosPthreadAttrSettee
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosPthreadCondBroadcast
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosPthreadCondDestroy
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosPthreadCondInit
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosPthreadCondSignal
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosPthreadCondTimedwait
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosPthreadCondWait
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosPthreadCreate
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosPthreadEqual
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosPthreadExit
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosPthreadGetaffinityNp
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosPthreadGetspecific
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosPthreadJoin
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosPthreadKeyCreate
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosPthreadKeyDelete
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosPthreadMutexDestroy
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosPthreadMutexInit
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosPthreadMutexLock
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosPthreadMutexTrylock
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosPthreadMutexUnlock
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosPthreadMutexattrDestroy
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosPthreadMutexattrInit
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosPthreadMutexattrSetprotocol
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosPthreadMutexattrSetpshared
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosPthreadMutexattrSetrobust
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosPthreadMutexattrSettype
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosPthreadOnce
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosPthreadSelf
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosPthreadSetaffinityNp
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosPthreadSetschedprio
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosPthreadSetspecific
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosPthreadSpinDestroy
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosPthreadSpinInit
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosPthreadSpinLock
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosPthreadSpinTrylock
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosPthreadSpinUnlock
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosQsort
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosRandom
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosRealloc
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosRoundf
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosScalbn
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosScanf
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosSchedGetaffinity
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosSchedSetaffinity
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosSchedYield
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosSemClose
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosSemDestroy
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosSemGetvalue
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosSemInit
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosSemOpen
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosSemPost
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosSemUnlink
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosSemWait
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosSetlocale
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosSetstate
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosSnprintf
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosSprintf
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosSqrt
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosSrandom
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosStrchr
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosStrcmp
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosStrcoll
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosStrcpy
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosStrerror
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosStrftime
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosStrlen
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosStrncmp
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosStrncpy
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosStrnlen
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosStrrchr
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosStrstr
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosStrtod
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosStrtol
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosStrtoul
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosStrxfrm
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosSysconf
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosTime
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosTowlower
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosTowupper
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosVsnprintf
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosVsprintf
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosWcrtomb
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosWcschr
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosWcslen
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosWcstod
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosWctob
+import io.github.kotlinmania.libc.teeos.cinterop.libcTeeosWmemchr
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
 
-public actual fun calloc(nobj: SizeT, size: SizeT): COpaquePointer? =
-    libc_teeos_calloc(nobj, size)?.let { COpaquePointer(it.toLong()) }
+public actual fun calloc(nobj: SizeT, size: SizeT): MutPtr<CVoid> =
+    MutPtr(libcTeeosCalloc(nobj, size)?.toLong() ?: 0L)
 
-public actual fun malloc(size: SizeT): COpaquePointer? =
-    libc_teeos_malloc(size)?.let { COpaquePointer(it.toLong()) }
+public actual fun malloc(size: SizeT): MutPtr<CVoid> =
+    MutPtr(libcTeeosMalloc(size)?.toLong() ?: 0L)
 
-public actual fun realloc(p: COpaquePointer?, size: SizeT): COpaquePointer? =
-    libc_teeos_realloc(p?.value?.toCPointer<ByteVar>(), size)?.let { COpaquePointer(it.toLong()) }
+public actual fun realloc(p: MutPtr<CVoid>, size: SizeT): MutPtr<CVoid> =
+    MutPtr(libcTeeosRealloc(p.rawAddress.toCPointer<ByteVar>(), size)?.toLong() ?: 0L)
 
-public actual fun alignedAlloc(align: SizeT, len: SizeT): COpaquePointer? =
-    libc_teeos_alignedAlloc(align, len)?.let { COpaquePointer(it.toLong()) }
+public actual fun alignedAlloc(align: SizeT, len: SizeT): MutPtr<CVoid> =
+    MutPtr(libcTeeosAlignedAlloc(align, len)?.toLong() ?: 0L)
 
-public actual fun free(p: COpaquePointer?) {
-    libc_teeos_free(p?.value?.toCPointer<ByteVar>())
+public actual fun free(p: MutPtr<CVoid>) {
+    libcTeeosFree(p.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun posixMemalign(memptr: COpaquePointer?, align: SizeT, size: SizeT): CInt =
-    libc_teeos_posixMemalign(memptr?.value?.toCPointer<ByteVar>(), align, size)
+public actual fun posixMemalign(memptr: MutPtr<MutPtr<CVoid>>, align: SizeT, size: SizeT): CInt =
+    libcTeeosPosixMemalign(memptr.rawAddress.toCPointer<ByteVar>(), align, size)
 
-public actual fun memchr(cx: COpaquePointer?, c: CInt, n: SizeT): COpaquePointer? =
-    libc_teeos_memchr(cx?.value?.toCPointer<ByteVar>(), c, n)?.let { COpaquePointer(it.toLong()) }
+public actual fun memchr(cx: ConstPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+    MutPtr(libcTeeosMemchr(cx.rawAddress.toCPointer<ByteVar>(), c, n)?.toLong() ?: 0L)
 
-public actual fun wmemchr(cx: COpaquePointer?, c: WcharT, n: SizeT): COpaquePointer? =
-    libc_teeos_wmemchr(cx?.value?.toCPointer<ByteVar>(), c, n)?.let { COpaquePointer(it.toLong()) }
+public actual fun wmemchr(cx: ConstPtr<WcharT>, c: WcharT, n: SizeT): MutPtr<WcharT> =
+    MutPtr(libcTeeosWmemchr(cx.rawAddress.toCPointer<ByteVar>(), c, n)?.toLong() ?: 0L)
 
-public actual fun memcmp(cx: COpaquePointer?, ct: COpaquePointer?, n: SizeT): CInt =
-    libc_teeos_memcmp(cx?.value?.toCPointer<ByteVar>(), ct?.value?.toCPointer<ByteVar>(), n)
+public actual fun memcmp(cx: ConstPtr<CVoid>, ct: ConstPtr<CVoid>, n: SizeT): CInt =
+    libcTeeosMemcmp(cx.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>(), n)
 
-public actual fun memcpy(dest: COpaquePointer?, src: COpaquePointer?, n: SizeT): COpaquePointer? =
-    libc_teeos_memcpy(dest?.value?.toCPointer<ByteVar>(), src?.value?.toCPointer<ByteVar>(), n)?.let { COpaquePointer(it.toLong()) }
+public actual fun memcpy(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, n: SizeT): MutPtr<CVoid> =
+    MutPtr(libcTeeosMemcpy(dest.rawAddress.toCPointer<ByteVar>(), src.rawAddress.toCPointer<ByteVar>(), n)?.toLong() ?: 0L)
 
-public actual fun memmove(dest: COpaquePointer?, src: COpaquePointer?, n: SizeT): COpaquePointer? =
-    libc_teeos_memmove(dest?.value?.toCPointer<ByteVar>(), src?.value?.toCPointer<ByteVar>(), n)?.let { COpaquePointer(it.toLong()) }
+public actual fun memmove(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, n: SizeT): MutPtr<CVoid> =
+    MutPtr(libcTeeosMemmove(dest.rawAddress.toCPointer<ByteVar>(), src.rawAddress.toCPointer<ByteVar>(), n)?.toLong() ?: 0L)
 
-public actual fun memset(dest: COpaquePointer?, c: CInt, n: SizeT): COpaquePointer? =
-    libc_teeos_memset(dest?.value?.toCPointer<ByteVar>(), c, n)?.let { COpaquePointer(it.toLong()) }
+public actual fun memset(dest: MutPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+    MutPtr(libcTeeosMemset(dest.rawAddress.toCPointer<ByteVar>(), c, n)?.toLong() ?: 0L)
 
 public actual fun pthreadSelf(): PthreadT =
-    (libc_teeos_pthreadSelf()?.toLong() ?: 0L).toULong()
+    (libcTeeosPthreadSelf()?.toLong() ?: 0L).toULong()
 
-public actual fun pthreadJoin(native: PthreadT, value: COpaquePointer?): CInt =
-    libc_teeos_pthreadJoin(native.toLong().toCPointer<ByteVar>(), value?.value?.toCPointer<ByteVar>())
+public actual fun pthreadJoin(native: PthreadT, value: MutPtr<MutPtr<CVoid>>): CInt =
+    libcTeeosPthreadJoin(native.toLong().toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadExit(value: COpaquePointer?): Nothing {
-    libc_teeos_pthreadExit(value?.value?.toCPointer<ByteVar>())
+public actual fun pthreadExit(value: MutPtr<CVoid>): Nothing {
+    libcTeeosPthreadExit(value.rawAddress.toCPointer<ByteVar>())
     error("Unreachable noreturn C function pthreadExit")
 }
 
-public actual fun pthreadAttrInit(attr: COpaquePointer?): CInt =
-    libc_teeos_pthreadAttrInit(attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadAttrInit(attr: MutPtr<PthreadAttrT>): CInt =
+    libcTeeosPthreadAttrInit(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrDestroy(attr: COpaquePointer?): CInt =
-    libc_teeos_pthreadAttrDestroy(attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadAttrDestroy(attr: MutPtr<PthreadAttrT>): CInt =
+    libcTeeosPthreadAttrDestroy(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrGetstack(attr: COpaquePointer?, stackaddr: COpaquePointer?, stacksize: COpaquePointer?): CInt =
-    libc_teeos_pthreadAttrGetstack(attr?.value?.toCPointer<ByteVar>(), stackaddr?.value?.toCPointer<ByteVar>(), stacksize?.value?.toCPointer<ByteVar>())
+public actual fun pthreadAttrGetstack(attr: ConstPtr<PthreadAttrT>, stackaddr: MutPtr<MutPtr<CVoid>>, stacksize: MutPtr<SizeT>): CInt =
+    libcTeeosPthreadAttrGetstack(attr.rawAddress.toCPointer<ByteVar>(), stackaddr.rawAddress.toCPointer<ByteVar>(), stacksize.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrSetstacksize(attr: COpaquePointer?, stackSize: SizeT): CInt =
-    libc_teeos_pthreadAttrSetstacksize(attr?.value?.toCPointer<ByteVar>(), stackSize)
+public actual fun pthreadAttrSetstacksize(attr: MutPtr<PthreadAttrT>, stackSize: SizeT): CInt =
+    libcTeeosPthreadAttrSetstacksize(attr.rawAddress.toCPointer<ByteVar>(), stackSize)
 
-public actual fun pthreadAttrGetstacksize(attr: COpaquePointer?, size: COpaquePointer?): CInt =
-    libc_teeos_pthreadAttrGetstacksize(attr?.value?.toCPointer<ByteVar>(), size?.value?.toCPointer<ByteVar>())
+public actual fun pthreadAttrGetstacksize(attr: ConstPtr<PthreadAttrT>, size: MutPtr<SizeT>): CInt =
+    libcTeeosPthreadAttrGetstacksize(attr.rawAddress.toCPointer<ByteVar>(), size.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrSettee(attr: COpaquePointer?, ca: CInt, taskId: CInt, shadow: CInt): CInt =
-    libc_teeos_pthreadAttrSettee(attr?.value?.toCPointer<ByteVar>(), ca, taskId, shadow)
+public actual fun pthreadAttrSettee(attr: MutPtr<PthreadAttrT>, ca: CInt, taskId: CInt, shadow: CInt): CInt =
+    libcTeeosPthreadAttrSettee(attr.rawAddress.toCPointer<ByteVar>(), ca, taskId, shadow)
 
 public actual fun schedYield(): CInt =
-    libc_teeos_schedYield()
+    libcTeeosSchedYield()
 
-public actual fun pthreadKeyCreate(key: COpaquePointer?, dtor: PthreadKeyCreateDtorCallback?): CInt =
-    libc_teeos_pthreadKeyCreate(key?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
+public actual fun pthreadKeyCreate(key: MutPtr<PthreadKeyT>, dtor: PthreadKeyCreateDtorCallback?): CInt =
+    libcTeeosPthreadKeyCreate(key.rawAddress.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
 
 public actual fun pthreadKeyDelete(key: PthreadKeyT): CInt =
-    libc_teeos_pthreadKeyDelete(key)
+    libcTeeosPthreadKeyDelete(key)
 
-public actual fun pthreadGetspecific(key: PthreadKeyT): COpaquePointer? =
-    libc_teeos_pthreadGetspecific(key)?.let { COpaquePointer(it.toLong()) }
+public actual fun pthreadGetspecific(key: PthreadKeyT): MutPtr<CVoid> =
+    MutPtr(libcTeeosPthreadGetspecific(key)?.toLong() ?: 0L)
 
-public actual fun pthreadSetspecific(key: PthreadKeyT, value: COpaquePointer?): CInt =
-    libc_teeos_pthreadSetspecific(key, value?.value?.toCPointer<ByteVar>())
+public actual fun pthreadSetspecific(key: PthreadKeyT, value: ConstPtr<CVoid>): CInt =
+    libcTeeosPthreadSetspecific(key, value.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexDestroy(lock: COpaquePointer?): CInt =
-    libc_teeos_pthreadMutexDestroy(lock?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexDestroy(lock: MutPtr<PthreadMutexT>): CInt =
+    libcTeeosPthreadMutexDestroy(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexInit(lock: COpaquePointer?, attr: COpaquePointer?): CInt =
-    libc_teeos_pthreadMutexInit(lock?.value?.toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexInit(lock: MutPtr<PthreadMutexT>, attr: ConstPtr<PthreadMutexattrT>): CInt =
+    libcTeeosPthreadMutexInit(lock.rawAddress.toCPointer<ByteVar>(), attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexLock(lock: COpaquePointer?): CInt =
-    libc_teeos_pthreadMutexLock(lock?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexLock(lock: MutPtr<PthreadMutexT>): CInt =
+    libcTeeosPthreadMutexLock(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexTrylock(lock: COpaquePointer?): CInt =
-    libc_teeos_pthreadMutexTrylock(lock?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexTrylock(lock: MutPtr<PthreadMutexT>): CInt =
+    libcTeeosPthreadMutexTrylock(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexUnlock(lock: COpaquePointer?): CInt =
-    libc_teeos_pthreadMutexUnlock(lock?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexUnlock(lock: MutPtr<PthreadMutexT>): CInt =
+    libcTeeosPthreadMutexUnlock(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexattrDestroy(attr: COpaquePointer?): CInt =
-    libc_teeos_pthreadMutexattrDestroy(attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexattrDestroy(attr: MutPtr<PthreadMutexattrT>): CInt =
+    libcTeeosPthreadMutexattrDestroy(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexattrInit(attr: COpaquePointer?): CInt =
-    libc_teeos_pthreadMutexattrInit(attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexattrInit(attr: MutPtr<PthreadMutexattrT>): CInt =
+    libcTeeosPthreadMutexattrInit(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexattrSettype(attr: COpaquePointer?, type: CInt): CInt =
-    libc_teeos_pthreadMutexattrSettype(attr?.value?.toCPointer<ByteVar>(), type)
+public actual fun pthreadMutexattrSettype(attr: MutPtr<PthreadMutexattrT>, type: CInt): CInt =
+    libcTeeosPthreadMutexattrSettype(attr.rawAddress.toCPointer<ByteVar>(), type)
 
-public actual fun pthreadMutexattrSetpshared(attr: COpaquePointer?, pshared: CInt): CInt =
-    libc_teeos_pthreadMutexattrSetpshared(attr?.value?.toCPointer<ByteVar>(), pshared)
+public actual fun pthreadMutexattrSetpshared(attr: MutPtr<PthreadMutexattrT>, pshared: CInt): CInt =
+    libcTeeosPthreadMutexattrSetpshared(attr.rawAddress.toCPointer<ByteVar>(), pshared)
 
-public actual fun pthreadCondBroadcast(cond: COpaquePointer?): CInt =
-    libc_teeos_pthreadCondBroadcast(cond?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCondBroadcast(cond: MutPtr<PthreadCondT>): CInt =
+    libcTeeosPthreadCondBroadcast(cond.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondDestroy(cond: COpaquePointer?): CInt =
-    libc_teeos_pthreadCondDestroy(cond?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCondDestroy(cond: MutPtr<PthreadCondT>): CInt =
+    libcTeeosPthreadCondDestroy(cond.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondInit(cond: COpaquePointer?, attr: COpaquePointer?): CInt =
-    libc_teeos_pthreadCondInit(cond?.value?.toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCondInit(cond: MutPtr<PthreadCondT>, attr: ConstPtr<PthreadCondattrT>): CInt =
+    libcTeeosPthreadCondInit(cond.rawAddress.toCPointer<ByteVar>(), attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondSignal(cond: COpaquePointer?): CInt =
-    libc_teeos_pthreadCondSignal(cond?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCondSignal(cond: MutPtr<PthreadCondT>): CInt =
+    libcTeeosPthreadCondSignal(cond.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondWait(cond: COpaquePointer?, lock: COpaquePointer?): CInt =
-    libc_teeos_pthreadCondWait(cond?.value?.toCPointer<ByteVar>(), lock?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCondWait(cond: MutPtr<PthreadCondT>, lock: MutPtr<PthreadMutexT>): CInt =
+    libcTeeosPthreadCondWait(cond.rawAddress.toCPointer<ByteVar>(), lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondTimedwait(cond: COpaquePointer?, lock: COpaquePointer?, abstime: COpaquePointer?): CInt =
-    libc_teeos_pthreadCondTimedwait(cond?.value?.toCPointer<ByteVar>(), lock?.value?.toCPointer<ByteVar>(), abstime?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCondTimedwait(cond: MutPtr<PthreadCondT>, lock: MutPtr<PthreadMutexT>, abstime: ConstPtr<Timespec>): CInt =
+    libcTeeosPthreadCondTimedwait(cond.rawAddress.toCPointer<ByteVar>(), lock.rawAddress.toCPointer<ByteVar>(), abstime.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexattrSetrobust(attr: COpaquePointer?, robustness: CInt): CInt =
-    libc_teeos_pthreadMutexattrSetrobust(attr?.value?.toCPointer<ByteVar>(), robustness)
+public actual fun pthreadMutexattrSetrobust(attr: MutPtr<PthreadMutexattrT>, robustness: CInt): CInt =
+    libcTeeosPthreadMutexattrSetrobust(attr.rawAddress.toCPointer<ByteVar>(), robustness)
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
-    libc_teeos_pthreadCreate(native?.value?.toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), value?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCreate(native: MutPtr<PthreadT>, attr: ConstPtr<PthreadAttrT>, f: PthreadCreateFCallback, value: MutPtr<CVoid>): CInt =
+    libcTeeosPthreadCreate(native.rawAddress.toCPointer<ByteVar>(), attr.rawAddress.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadSpinInit(lock: COpaquePointer?, pshared: CInt): CInt =
-    libc_teeos_pthreadSpinInit(lock?.value?.toCPointer<ByteVar>(), pshared)
+public actual fun pthreadSpinInit(lock: MutPtr<PthreadSpinlockT>, pshared: CInt): CInt =
+    libcTeeosPthreadSpinInit(lock.rawAddress.toCPointer<ByteVar>(), pshared)
 
-public actual fun pthreadSpinDestroy(lock: COpaquePointer?): CInt =
-    libc_teeos_pthreadSpinDestroy(lock?.value?.toCPointer<ByteVar>())
+public actual fun pthreadSpinDestroy(lock: MutPtr<PthreadSpinlockT>): CInt =
+    libcTeeosPthreadSpinDestroy(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadSpinLock(lock: COpaquePointer?): CInt =
-    libc_teeos_pthreadSpinLock(lock?.value?.toCPointer<ByteVar>())
+public actual fun pthreadSpinLock(lock: MutPtr<PthreadSpinlockT>): CInt =
+    libcTeeosPthreadSpinLock(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadSpinTrylock(lock: COpaquePointer?): CInt =
-    libc_teeos_pthreadSpinTrylock(lock?.value?.toCPointer<ByteVar>())
+public actual fun pthreadSpinTrylock(lock: MutPtr<PthreadSpinlockT>): CInt =
+    libcTeeosPthreadSpinTrylock(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadSpinUnlock(lock: COpaquePointer?): CInt =
-    libc_teeos_pthreadSpinUnlock(lock?.value?.toCPointer<ByteVar>())
+public actual fun pthreadSpinUnlock(lock: MutPtr<PthreadSpinlockT>): CInt =
+    libcTeeosPthreadSpinUnlock(lock.rawAddress.toCPointer<ByteVar>())
 
 public actual fun pthreadSetschedprio(native: PthreadT, priority: CInt): CInt =
-    libc_teeos_pthreadSetschedprio(native.toLong().toCPointer<ByteVar>(), priority)
+    libcTeeosPthreadSetschedprio(native.toLong().toCPointer<ByteVar>(), priority)
 
-public actual fun pthreadOnce(pot: COpaquePointer?, f: OnceFn?): CInt =
-    libc_teeos_pthreadOnce(pot?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
+public actual fun pthreadOnce(pot: MutPtr<PthreadOnceT>, f: OnceFn?): CInt =
+    libcTeeosPthreadOnce(pot.rawAddress.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
 
 public actual fun pthreadEqual(p1: PthreadT, p2: PthreadT): CInt =
-    libc_teeos_pthreadEqual(p1.toLong().toCPointer<ByteVar>(), p2.toLong().toCPointer<ByteVar>())
+    libcTeeosPthreadEqual(p1.toLong().toCPointer<ByteVar>(), p2.toLong().toCPointer<ByteVar>())
 
-public actual fun pthreadMutexattrSetprotocol(a: COpaquePointer?, protocol: CInt): CInt =
-    libc_teeos_pthreadMutexattrSetprotocol(a?.value?.toCPointer<ByteVar>(), protocol)
+public actual fun pthreadMutexattrSetprotocol(a: MutPtr<PthreadMutexattrT>, protocol: CInt): CInt =
+    libcTeeosPthreadMutexattrSetprotocol(a.rawAddress.toCPointer<ByteVar>(), protocol)
 
-public actual fun pthreadAttrSetstack(attr: COpaquePointer?, stack: COpaquePointer?, size: SizeT): CInt =
-    libc_teeos_pthreadAttrSetstack(attr?.value?.toCPointer<ByteVar>(), stack?.value?.toCPointer<ByteVar>(), size)
+public actual fun pthreadAttrSetstack(attr: MutPtr<PthreadAttrT>, stack: MutPtr<CVoid>, size: SizeT): CInt =
+    libcTeeosPthreadAttrSetstack(attr.rawAddress.toCPointer<ByteVar>(), stack.rawAddress.toCPointer<ByteVar>(), size)
 
-public actual fun pthreadSetaffinityNp(td: PthreadT, size: SizeT, set: COpaquePointer?): CInt =
-    libc_teeos_pthreadSetaffinityNp(td.toLong().toCPointer<ByteVar>(), size, set?.value?.toCPointer<ByteVar>())
+public actual fun pthreadSetaffinityNp(td: PthreadT, size: SizeT, set: ConstPtr<CpuSetT>): CInt =
+    libcTeeosPthreadSetaffinityNp(td.toLong().toCPointer<ByteVar>(), size, set.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadGetaffinityNp(td: PthreadT, size: SizeT, set: COpaquePointer?): CInt =
-    libc_teeos_pthreadGetaffinityNp(td.toLong().toCPointer<ByteVar>(), size, set?.value?.toCPointer<ByteVar>())
+public actual fun pthreadGetaffinityNp(td: PthreadT, size: SizeT, set: MutPtr<CpuSetT>): CInt =
+    libcTeeosPthreadGetaffinityNp(td.toLong().toCPointer<ByteVar>(), size, set.rawAddress.toCPointer<ByteVar>())
 
-public actual fun printf(fmt: String?, vararg variadicArgs: Long): CInt =
-    libc_teeos_printf(fmt, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun printf(fmt: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    libcTeeosPrintf(fmt.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun scanf(fmt: String?, vararg variadicArgs: Long): CInt =
-    libc_teeos_scanf(fmt, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun scanf(fmt: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    libcTeeosScanf(fmt.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun snprintf(s: COpaquePointer?, n: SizeT, fmt: String?, vararg variadicArgs: Long): CInt =
-    libc_teeos_snprintf(s?.value?.toCPointer<ByteVar>(), n, fmt, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun snprintf(s: MutPtr<CChar>, n: SizeT, fmt: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    libcTeeosSnprintf(s.rawAddress.toCPointer<ByteVar>(), n, fmt.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun sprintf(s: COpaquePointer?, fmt: String?, vararg variadicArgs: Long): CInt =
-    libc_teeos_sprintf(s?.value?.toCPointer<ByteVar>(), fmt, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun sprintf(s: MutPtr<CChar>, fmt: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    libcTeeosSprintf(s.rawAddress.toCPointer<ByteVar>(), fmt.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun vsnprintf(s: COpaquePointer?, n: SizeT, fmt: String?, ap: VaList): CInt =
-    libc_teeos_vsnprintf(s?.value?.toCPointer<ByteVar>(), n, fmt, ap?.value?.toCPointer<ByteVar>())
+public actual fun vsnprintf(s: MutPtr<CChar>, n: SizeT, fmt: ConstPtr<CChar>, ap: VaList): CInt =
+    libcTeeosVsnprintf(s.rawAddress.toCPointer<ByteVar>(), n, fmt.rawAddress.toCPointer<ByteVar>(), ap.rawAddress.toCPointer<ByteVar>())
 
-public actual fun vsprintf(s: COpaquePointer?, fmt: String?, ap: VaList): CInt =
-    libc_teeos_vsprintf(s?.value?.toCPointer<ByteVar>(), fmt, ap?.value?.toCPointer<ByteVar>())
+public actual fun vsprintf(s: MutPtr<CChar>, fmt: ConstPtr<CChar>, ap: VaList): CInt =
+    libcTeeosVsprintf(s.rawAddress.toCPointer<ByteVar>(), fmt.rawAddress.toCPointer<ByteVar>(), ap.rawAddress.toCPointer<ByteVar>())
 
 public actual fun abort(): Nothing {
-    libc_teeos_abort()
+    libcTeeosAbort()
     error("Unreachable noreturn C function abort")
 }
 
-public actual fun schedGetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
-    libc_teeos_schedGetaffinity(pid, cpusetsize, cpuset?.value?.toCPointer<ByteVar>())
+public actual fun schedGetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: MutPtr<CpuSetT>): CInt =
+    libcTeeosSchedGetaffinity(pid, cpusetsize, cpuset.rawAddress.toCPointer<ByteVar>())
 
-public actual fun schedSetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
-    libc_teeos_schedSetaffinity(pid, cpusetsize, cpuset?.value?.toCPointer<ByteVar>())
+public actual fun schedSetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: ConstPtr<CpuSetT>): CInt =
+    libcTeeosSchedSetaffinity(pid, cpusetsize, cpuset.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sysconf(name: CInt): CLong =
-    libc_teeos_sysconf(name)
+    libcTeeosSysconf(name)
 
-public actual fun mmap(addr: COpaquePointer?, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: OffT): COpaquePointer? =
-    libc_teeos_mmap(addr?.value?.toCPointer<ByteVar>(), len, prot, flags, fd, offset)?.let { COpaquePointer(it.toLong()) }
+public actual fun mmap(addr: MutPtr<CVoid>, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: OffT): MutPtr<CVoid> =
+    MutPtr(libcTeeosMmap(addr.rawAddress.toCPointer<ByteVar>(), len, prot, flags, fd, offset)?.toLong() ?: 0L)
 
-public actual fun munmap(addr: COpaquePointer?, len: SizeT): CInt =
-    libc_teeos_munmap(addr?.value?.toCPointer<ByteVar>(), len)
+public actual fun munmap(addr: MutPtr<CVoid>, len: SizeT): CInt =
+    libcTeeosMunmap(addr.rawAddress.toCPointer<ByteVar>(), len)
 
-public actual fun errnoLocation(): COpaquePointer? =
-    libc_teeos_errnoLocation()?.let { COpaquePointer(it.toLong()) }
+public actual fun errnoLocation(): MutPtr<CInt> =
+    MutPtr(libcTeeosErrnoLocation()?.toLong() ?: 0L)
 
-public actual fun strerror(e: CInt): COpaquePointer? =
-    libc_teeos_strerror(e)?.let { COpaquePointer(it.toLong()) }
+public actual fun strerror(e: CInt): MutPtr<CChar> =
+    MutPtr(libcTeeosStrerror(e)?.toLong() ?: 0L)
 
-public actual fun clockGettime(clockId: ClockidT, tp: COpaquePointer?): CInt =
-    libc_teeos_clockGettime(clockId, tp?.value?.toCPointer<ByteVar>())
+public actual fun clockGettime(clockId: ClockidT, tp: MutPtr<Timespec>): CInt =
+    libcTeeosClockGettime(clockId, tp.rawAddress.toCPointer<ByteVar>())
 
 public actual fun getpid(): PidT =
-    libc_teeos_getpid()
+    libcTeeosGetpid()
 
-public actual fun gettimeofday(tv: COpaquePointer?, tz: COpaquePointer?): CInt =
-    libc_teeos_gettimeofday(tv?.value?.toCPointer<ByteVar>(), tz?.value?.toCPointer<ByteVar>())
+public actual fun gettimeofday(tv: MutPtr<Timeval>, tz: MutPtr<CVoid>): CInt =
+    libcTeeosGettimeofday(tv.rawAddress.toCPointer<ByteVar>(), tz.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strftime(restrict: COpaquePointer?, sz: SizeT, restrict_2: String?, restrict_3: COpaquePointer?): SizeT =
-    libc_teeos_strftime(restrict?.value?.toCPointer<ByteVar>(), sz, restrict_2, restrict_3?.value?.toCPointer<ByteVar>())
+public actual fun strftime(restrict: MutPtr<CChar>, sz: SizeT, restrict_2: ConstPtr<CChar>, restrict_3: ConstPtr<Tm>): SizeT =
+    libcTeeosStrftime(restrict.rawAddress.toCPointer<ByteVar>(), sz, restrict_2.rawAddress.toCPointer<ByteVar>(), restrict_3.rawAddress.toCPointer<ByteVar>())
 
-public actual fun time(t: COpaquePointer?): TimeT =
-    libc_teeos_time(t?.value?.toCPointer<ByteVar>())
+public actual fun time(t: MutPtr<TimeT>): TimeT =
+    libcTeeosTime(t.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semClose(sem: COpaquePointer?): CInt =
-    libc_teeos_semClose(sem?.value?.toCPointer<ByteVar>())
+public actual fun semClose(sem: MutPtr<SemT>): CInt =
+    libcTeeosSemClose(sem.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semDestroy(sem: COpaquePointer?): CInt =
-    libc_teeos_semDestroy(sem?.value?.toCPointer<ByteVar>())
+public actual fun semDestroy(sem: MutPtr<SemT>): CInt =
+    libcTeeosSemDestroy(sem.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semGetvalue(sem: COpaquePointer?, valp: COpaquePointer?): CInt =
-    libc_teeos_semGetvalue(sem?.value?.toCPointer<ByteVar>(), valp?.value?.toCPointer<ByteVar>())
+public actual fun semGetvalue(sem: MutPtr<SemT>, valp: MutPtr<CInt>): CInt =
+    libcTeeosSemGetvalue(sem.rawAddress.toCPointer<ByteVar>(), valp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semInit(sem: COpaquePointer?, pshared: CInt, value: CUint): CInt =
-    libc_teeos_semInit(sem?.value?.toCPointer<ByteVar>(), pshared, value)
+public actual fun semInit(sem: MutPtr<SemT>, pshared: CInt, value: CUint): CInt =
+    libcTeeosSemInit(sem.rawAddress.toCPointer<ByteVar>(), pshared, value)
 
-public actual fun semOpen(name: String?, flags: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    libc_teeos_semOpen(name, flags, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.let { COpaquePointer(it.toLong()) }
+public actual fun semOpen(name: ConstPtr<CChar>, flags: CInt, vararg variadicArgs: Long): MutPtr<SemT> =
+    MutPtr(libcTeeosSemOpen(name.rawAddress.toCPointer<ByteVar>(), flags, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.toLong() ?: 0L)
 
-public actual fun semPost(sem: COpaquePointer?): CInt =
-    libc_teeos_semPost(sem?.value?.toCPointer<ByteVar>())
+public actual fun semPost(sem: MutPtr<SemT>): CInt =
+    libcTeeosSemPost(sem.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semUnlink(name: String?): CInt =
-    libc_teeos_semUnlink(name)
+public actual fun semUnlink(name: ConstPtr<CChar>): CInt =
+    libcTeeosSemUnlink(name.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semWait(sem: COpaquePointer?): CInt =
-    libc_teeos_semWait(sem?.value?.toCPointer<ByteVar>())
+public actual fun semWait(sem: MutPtr<SemT>): CInt =
+    libcTeeosSemWait(sem.rawAddress.toCPointer<ByteVar>())
 
-public actual fun setlocale(cat: CInt, name: String?): COpaquePointer? =
-    libc_teeos_setlocale(cat, name)?.let { COpaquePointer(it.toLong()) }
+public actual fun setlocale(cat: CInt, name: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcTeeosSetlocale(cat, name.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strcoll(l: String?, r: String?): CInt =
-    libc_teeos_strcoll(l, r)
+public actual fun strcoll(l: ConstPtr<CChar>, r: ConstPtr<CChar>): CInt =
+    libcTeeosStrcoll(l.rawAddress.toCPointer<ByteVar>(), r.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strxfrm(dest: COpaquePointer?, src: String?, n: SizeT): SizeT =
-    libc_teeos_strxfrm(dest?.value?.toCPointer<ByteVar>(), src, n)
+public actual fun strxfrm(dest: MutPtr<CChar>, src: ConstPtr<CChar>, n: SizeT): SizeT =
+    libcTeeosStrxfrm(dest.rawAddress.toCPointer<ByteVar>(), src.rawAddress.toCPointer<ByteVar>(), n)
 
-public actual fun strtod(s: String?, p: COpaquePointer?): CDouble =
-    libc_teeos_strtod(s, p?.value?.toCPointer<ByteVar>())
+public actual fun strtod(s: ConstPtr<CChar>, p: MutPtr<MutPtr<CChar>>): CDouble =
+    libcTeeosStrtod(s.rawAddress.toCPointer<ByteVar>(), p.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mbrtowc(wc: COpaquePointer?, src: String?, n: SizeT, st: COpaquePointer?): SizeT =
-    libc_teeos_mbrtowc(wc?.value?.toCPointer<ByteVar>(), src, n, st?.value?.toCPointer<ByteVar>())
+public actual fun mbrtowc(wc: MutPtr<WcharT>, src: ConstPtr<CChar>, n: SizeT, st: MutPtr<MbstateT>): SizeT =
+    libcTeeosMbrtowc(wc.rawAddress.toCPointer<ByteVar>(), src.rawAddress.toCPointer<ByteVar>(), n, st.rawAddress.toCPointer<ByteVar>())
 
-public actual fun wcrtomb(s: COpaquePointer?, wc: WcharT, st: COpaquePointer?): SizeT =
-    libc_teeos_wcrtomb(s?.value?.toCPointer<ByteVar>(), wc, st?.value?.toCPointer<ByteVar>())
+public actual fun wcrtomb(s: MutPtr<CChar>, wc: WcharT, st: MutPtr<MbstateT>): SizeT =
+    libcTeeosWcrtomb(s.rawAddress.toCPointer<ByteVar>(), wc, st.rawAddress.toCPointer<ByteVar>())
 
 public actual fun wctob(c: WintT): CInt =
-    libc_teeos_wctob(c)
+    libcTeeosWctob(c)
 
 public actual fun srandom(seed: CUint) {
-    libc_teeos_srandom(seed)
+    libcTeeosSrandom(seed)
 }
 
-public actual fun initstate(seed: CUint, state: COpaquePointer?, size: SizeT): COpaquePointer? =
-    libc_teeos_initstate(seed, state?.value?.toCPointer<ByteVar>(), size)?.let { COpaquePointer(it.toLong()) }
+public actual fun initstate(seed: CUint, state: MutPtr<CChar>, size: SizeT): MutPtr<CChar> =
+    MutPtr(libcTeeosInitstate(seed, state.rawAddress.toCPointer<ByteVar>(), size)?.toLong() ?: 0L)
 
-public actual fun setstate(state: COpaquePointer?): COpaquePointer? =
-    libc_teeos_setstate(state?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun setstate(state: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcTeeosSetstate(state.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun random(): CLong =
-    libc_teeos_random()
+    libcTeeosRandom()
 
-public actual fun strchr(s: String?, c: CInt): COpaquePointer? =
-    libc_teeos_strchr(s, c)?.let { COpaquePointer(it.toLong()) }
+public actual fun strchr(s: ConstPtr<CChar>, c: CInt): MutPtr<CChar> =
+    MutPtr(libcTeeosStrchr(s.rawAddress.toCPointer<ByteVar>(), c)?.toLong() ?: 0L)
 
-public actual fun strlen(cs: String?): SizeT =
-    libc_teeos_strlen(cs)
+public actual fun strlen(cs: ConstPtr<CChar>): SizeT =
+    libcTeeosStrlen(cs.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strcmp(l: String?, r: String?): CInt =
-    libc_teeos_strcmp(l, r)
+public actual fun strcmp(l: ConstPtr<CChar>, r: ConstPtr<CChar>): CInt =
+    libcTeeosStrcmp(l.rawAddress.toCPointer<ByteVar>(), r.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strcpy(dest: COpaquePointer?, src: String?): COpaquePointer? =
-    libc_teeos_strcpy(dest?.value?.toCPointer<ByteVar>(), src)?.let { COpaquePointer(it.toLong()) }
+public actual fun strcpy(dest: MutPtr<CChar>, src: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcTeeosStrcpy(dest.rawAddress.toCPointer<ByteVar>(), src.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strncmp(l: String?, r: String?, n: SizeT): CInt =
-    libc_teeos_strncmp(l, r, n)
+public actual fun strncmp(l: ConstPtr<CChar>, r: ConstPtr<CChar>, n: SizeT): CInt =
+    libcTeeosStrncmp(l.rawAddress.toCPointer<ByteVar>(), r.rawAddress.toCPointer<ByteVar>(), n)
 
-public actual fun strncpy(dest: COpaquePointer?, src: String?, n: SizeT): COpaquePointer? =
-    libc_teeos_strncpy(dest?.value?.toCPointer<ByteVar>(), src, n)?.let { COpaquePointer(it.toLong()) }
+public actual fun strncpy(dest: MutPtr<CChar>, src: ConstPtr<CChar>, n: SizeT): MutPtr<CChar> =
+    MutPtr(libcTeeosStrncpy(dest.rawAddress.toCPointer<ByteVar>(), src.rawAddress.toCPointer<ByteVar>(), n)?.toLong() ?: 0L)
 
-public actual fun strnlen(cs: String?, n: SizeT): SizeT =
-    libc_teeos_strnlen(cs, n)
+public actual fun strnlen(cs: ConstPtr<CChar>, n: SizeT): SizeT =
+    libcTeeosStrnlen(cs.rawAddress.toCPointer<ByteVar>(), n)
 
-public actual fun strrchr(s: String?, c: CInt): COpaquePointer? =
-    libc_teeos_strrchr(s, c)?.let { COpaquePointer(it.toLong()) }
+public actual fun strrchr(s: ConstPtr<CChar>, c: CInt): MutPtr<CChar> =
+    MutPtr(libcTeeosStrrchr(s.rawAddress.toCPointer<ByteVar>(), c)?.toLong() ?: 0L)
 
-public actual fun strstr(h: String?, n: String?): COpaquePointer? =
-    libc_teeos_strstr(h, n)?.let { COpaquePointer(it.toLong()) }
+public actual fun strstr(h: ConstPtr<CChar>, n: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcTeeosStrstr(h.rawAddress.toCPointer<ByteVar>(), n.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun wcschr(s: COpaquePointer?, c: WcharT): COpaquePointer? =
-    libc_teeos_wcschr(s?.value?.toCPointer<ByteVar>(), c)?.let { COpaquePointer(it.toLong()) }
+public actual fun wcschr(s: ConstPtr<WcharT>, c: WcharT): MutPtr<WcharT> =
+    MutPtr(libcTeeosWcschr(s.rawAddress.toCPointer<ByteVar>(), c)?.toLong() ?: 0L)
 
-public actual fun wcslen(s: COpaquePointer?): SizeT =
-    libc_teeos_wcslen(s?.value?.toCPointer<ByteVar>())
+public actual fun wcslen(s: ConstPtr<WcharT>): SizeT =
+    libcTeeosWcslen(s.rawAddress.toCPointer<ByteVar>())
 
 public actual fun isalpha(c: CInt): CInt =
-    libc_teeos_isalpha(c)
+    libcTeeosIsalpha(c)
 
 public actual fun isascii(c: CInt): CInt =
-    libc_teeos_isascii(c)
+    libcTeeosIsascii(c)
 
 public actual fun isdigit(c: CInt): CInt =
-    libc_teeos_isdigit(c)
+    libcTeeosIsdigit(c)
 
 public actual fun islower(c: CInt): CInt =
-    libc_teeos_islower(c)
+    libcTeeosIslower(c)
 
 public actual fun isprint(c: CInt): CInt =
-    libc_teeos_isprint(c)
+    libcTeeosIsprint(c)
 
 public actual fun isspace(c: CInt): CInt =
-    libc_teeos_isspace(c)
+    libcTeeosIsspace(c)
 
 public actual fun iswctype(wc: WintT, ttype: WctypeT): CInt =
-    libc_teeos_iswctype(wc, ttype)
+    libcTeeosIswctype(wc, ttype)
 
 public actual fun iswdigit(wc: WintT): CInt =
-    libc_teeos_iswdigit(wc)
+    libcTeeosIswdigit(wc)
 
 public actual fun iswlower(wc: WintT): CInt =
-    libc_teeos_iswlower(wc)
+    libcTeeosIswlower(wc)
 
 public actual fun iswspace(wc: WintT): CInt =
-    libc_teeos_iswspace(wc)
+    libcTeeosIswspace(wc)
 
 public actual fun iswupper(wc: WintT): CInt =
-    libc_teeos_iswupper(wc)
+    libcTeeosIswupper(wc)
 
 public actual fun towupper(wc: WintT): WintT =
-    libc_teeos_towupper(wc)
+    libcTeeosTowupper(wc)
 
 public actual fun towlower(wc: WintT): WintT =
-    libc_teeos_towlower(wc)
+    libcTeeosTowlower(wc)
 
 public actual fun atan(x: CDouble): CDouble =
-    libc_teeos_atan(x)
+    libcTeeosAtan(x)
 
 public actual fun ceil(x: CDouble): CDouble =
-    libc_teeos_ceil(x)
+    libcTeeosCeil(x)
 
 public actual fun ceilf(x: CFloat): CFloat =
-    libc_teeos_ceilf(x)
+    libcTeeosCeilf(x)
 
 public actual fun exp(x: CDouble): CDouble =
-    libc_teeos_exp(x)
+    libcTeeosExp(x)
 
 public actual fun fabs(x: CDouble): CDouble =
-    libc_teeos_fabs(x)
+    libcTeeosFabs(x)
 
 public actual fun floor(x: CDouble): CDouble =
-    libc_teeos_floor(x)
+    libcTeeosFloor(x)
 
-public actual fun frexp(x: CDouble, e: COpaquePointer?): CDouble =
-    libc_teeos_frexp(x, e?.value?.toCPointer<ByteVar>())
+public actual fun frexp(x: CDouble, e: MutPtr<CInt>): CDouble =
+    libcTeeosFrexp(x, e.rawAddress.toCPointer<ByteVar>())
 
 public actual fun log(x: CDouble): CDouble =
-    libc_teeos_log(x)
+    libcTeeosLog(x)
 
 public actual fun log2(x: CDouble): CDouble =
-    libc_teeos_log2(x)
+    libcTeeosLog2(x)
 
 public actual fun pow(x: CDouble, y: CDouble): CDouble =
-    libc_teeos_pow(x, y)
+    libcTeeosPow(x, y)
 
 public actual fun roundf(x: CFloat): CFloat =
-    libc_teeos_roundf(x)
+    libcTeeosRoundf(x)
 
 public actual fun scalbn(x: CDouble, n: CInt): CDouble =
-    libc_teeos_scalbn(x, n)
+    libcTeeosScalbn(x, n)
 
 public actual fun sqrt(x: CDouble): CDouble =
-    libc_teeos_sqrt(x)
+    libcTeeosSqrt(x)
 
 public actual fun abs(x: CInt): CInt =
-    libc_teeos_abs(x)
+    libcTeeosAbs(x)
 
-public actual fun atof(s: String?): CDouble =
-    libc_teeos_atof(s)
+public actual fun atof(s: ConstPtr<CChar>): CDouble =
+    libcTeeosAtof(s.rawAddress.toCPointer<ByteVar>())
 
-public actual fun atoi(s: String?): CInt =
-    libc_teeos_atoi(s)
+public actual fun atoi(s: ConstPtr<CChar>): CInt =
+    libcTeeosAtoi(s.rawAddress.toCPointer<ByteVar>())
 
-public actual fun atol(s: String?): CLong =
-    libc_teeos_atol(s)
+public actual fun atol(s: ConstPtr<CChar>): CLong =
+    libcTeeosAtol(s.rawAddress.toCPointer<ByteVar>())
 
-public actual fun atoll(s: String?): CLonglong =
-    libc_teeos_atoll(s)
+public actual fun atoll(s: ConstPtr<CChar>): CLonglong =
+    libcTeeosAtoll(s.rawAddress.toCPointer<ByteVar>())
 
-public actual fun bsearch(key: COpaquePointer?, base: COpaquePointer?, nel: SizeT, width: SizeT, cmp: Cmpfunc): COpaquePointer? =
-    libc_teeos_bsearch(key?.value?.toCPointer<ByteVar>(), base?.value?.toCPointer<ByteVar>(), nel, width, 0L.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun bsearch(key: ConstPtr<CVoid>, base: ConstPtr<CVoid>, nel: SizeT, width: SizeT, cmp: Cmpfunc): MutPtr<CVoid> =
+    MutPtr(libcTeeosBsearch(key.rawAddress.toCPointer<ByteVar>(), base.rawAddress.toCPointer<ByteVar>(), nel, width, 0L.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun div(num: CInt, den: CInt): DivT =
     DivT()
 
-public actual fun ecvt(x: CDouble, n: CInt, dp: COpaquePointer?, sign: COpaquePointer?): COpaquePointer? =
-    libc_teeos_ecvt(x, n, dp?.value?.toCPointer<ByteVar>(), sign?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun ecvt(x: CDouble, n: CInt, dp: MutPtr<CInt>, sign: MutPtr<CInt>): MutPtr<CChar> =
+    MutPtr(libcTeeosEcvt(x, n, dp.rawAddress.toCPointer<ByteVar>(), sign.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun imaxabs(a: IntmaxT): IntmaxT =
-    libc_teeos_imaxabs(a)
+    libcTeeosImaxabs(a)
 
 public actual fun llabs(a: CLonglong): CLonglong =
-    libc_teeos_llabs(a)
+    libcTeeosLlabs(a)
 
-public actual fun qsort(base: COpaquePointer?, nel: SizeT, width: SizeT, cmp: Cmpfunc) {
-    libc_teeos_qsort(base?.value?.toCPointer<ByteVar>(), nel, width, 0L.toCPointer<ByteVar>())
+public actual fun qsort(base: MutPtr<CVoid>, nel: SizeT, width: SizeT, cmp: Cmpfunc) {
+    libcTeeosQsort(base.rawAddress.toCPointer<ByteVar>(), nel, width, 0L.toCPointer<ByteVar>())
 }
 
-public actual fun strtoul(s: String?, p: COpaquePointer?, base: CInt): CUlong =
-    libc_teeos_strtoul(s, p?.value?.toCPointer<ByteVar>(), base)
+public actual fun strtoul(s: ConstPtr<CChar>, p: MutPtr<MutPtr<CChar>>, base: CInt): CUlong =
+    libcTeeosStrtoul(s.rawAddress.toCPointer<ByteVar>(), p.rawAddress.toCPointer<ByteVar>(), base)
 
-public actual fun strtol(s: String?, p: COpaquePointer?, base: CInt): CLong =
-    libc_teeos_strtol(s, p?.value?.toCPointer<ByteVar>(), base)
+public actual fun strtol(s: ConstPtr<CChar>, p: MutPtr<MutPtr<CChar>>, base: CInt): CLong =
+    libcTeeosStrtol(s.rawAddress.toCPointer<ByteVar>(), p.rawAddress.toCPointer<ByteVar>(), base)
 
-public actual fun wcstod(s: COpaquePointer?, p: COpaquePointer?): CDouble =
-    libc_teeos_wcstod(s?.value?.toCPointer<ByteVar>(), p?.value?.toCPointer<ByteVar>())
+public actual fun wcstod(s: ConstPtr<WcharT>, p: MutPtr<MutPtr<WcharT>>): CDouble =
+    libcTeeosWcstod(s.rawAddress.toCPointer<ByteVar>(), p.rawAddress.toCPointer<ByteVar>())

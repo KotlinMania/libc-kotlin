@@ -51,7 +51,7 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_trusty_calloc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTrustyCalloc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t nobj = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -85,7 +85,7 @@ static Napi::Value libc_trusty_calloc_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_trusty_malloc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTrustyMalloc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t size = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     typedef void* (*km_fn_t)(uint64_t);
@@ -118,7 +118,7 @@ static Napi::Value libc_trusty_malloc_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_trusty_realloc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTrustyRealloc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* p = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -152,7 +152,7 @@ static Napi::Value libc_trusty_realloc_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_trusty_free_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTrustyFree_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* p = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -183,7 +183,7 @@ static Napi::Value libc_trusty_free_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_trusty_memalign_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTrustyMemalign_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t align = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -217,7 +217,7 @@ static Napi::Value libc_trusty_memalign_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_trusty_posixMemalign_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTrustyPosixMemalign_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* memptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t align = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -252,7 +252,7 @@ static Napi::Value libc_trusty_posixMemalign_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_trusty_write_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTrustyWrite_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -287,7 +287,7 @@ static Napi::Value libc_trusty_write_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_trusty_writev_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTrustyWritev_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -322,7 +322,7 @@ static Napi::Value libc_trusty_writev_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_trusty_close_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTrustyClose_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -355,11 +355,9 @@ static Napi::Value libc_trusty_close_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_trusty_strlen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTrustyStrlen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool cs_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string cs_str = cs_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* cs = cs_null ? nullptr : cs_str.c_str();
+    const char* cs = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef uint64_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -390,9 +388,9 @@ static Napi::Value libc_trusty_strlen_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_trusty_getauxval_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTrustyGetauxval_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint64_t type_ = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
+    uint64_t type = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     typedef uint64_t (*km_fn_t)(uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -415,7 +413,7 @@ static Napi::Value libc_trusty_getauxval_napi(const Napi::CallbackInfo& km_info)
 #endif
     uint64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(type_);
+        km_res = km_fn_ptr(type);
     } else {
         errno = ENOSYS;
         km_res = 0;
@@ -423,7 +421,7 @@ static Napi::Value libc_trusty_getauxval_napi(const Napi::CallbackInfo& km_info)
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_trusty_mmap_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTrustyMmap_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -461,7 +459,7 @@ static Napi::Value libc_trusty_mmap_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_trusty_munmap_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTrustyMunmap_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -495,9 +493,9 @@ static Napi::Value libc_trusty_munmap_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_trusty_clockGettime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTrustyClockGettime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t clk_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t clkId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* tp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -521,7 +519,7 @@ static Napi::Value libc_trusty_clockGettime_napi(const Napi::CallbackInfo& km_in
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(clk_id, tp);
+        km_res = km_fn_ptr(clkId, tp);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -529,7 +527,7 @@ static Napi::Value libc_trusty_clockGettime_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_trusty_nanosleep_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTrustyNanosleep_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* rqtp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* rmtp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -564,21 +562,21 @@ static Napi::Value libc_trusty_nanosleep_napi(const Napi::CallbackInfo& km_info)
 }
 
 static void register_trusty_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_trusty_calloc", Napi::Function::New(env, libc_trusty_calloc_napi));
-    exports.Set("libc_trusty_malloc", Napi::Function::New(env, libc_trusty_malloc_napi));
-    exports.Set("libc_trusty_realloc", Napi::Function::New(env, libc_trusty_realloc_napi));
-    exports.Set("libc_trusty_free", Napi::Function::New(env, libc_trusty_free_napi));
-    exports.Set("libc_trusty_memalign", Napi::Function::New(env, libc_trusty_memalign_napi));
-    exports.Set("libc_trusty_posixMemalign", Napi::Function::New(env, libc_trusty_posixMemalign_napi));
-    exports.Set("libc_trusty_write", Napi::Function::New(env, libc_trusty_write_napi));
-    exports.Set("libc_trusty_writev", Napi::Function::New(env, libc_trusty_writev_napi));
-    exports.Set("libc_trusty_close", Napi::Function::New(env, libc_trusty_close_napi));
-    exports.Set("libc_trusty_strlen", Napi::Function::New(env, libc_trusty_strlen_napi));
-    exports.Set("libc_trusty_getauxval", Napi::Function::New(env, libc_trusty_getauxval_napi));
-    exports.Set("libc_trusty_mmap", Napi::Function::New(env, libc_trusty_mmap_napi));
-    exports.Set("libc_trusty_munmap", Napi::Function::New(env, libc_trusty_munmap_napi));
-    exports.Set("libc_trusty_clockGettime", Napi::Function::New(env, libc_trusty_clockGettime_napi));
-    exports.Set("libc_trusty_nanosleep", Napi::Function::New(env, libc_trusty_nanosleep_napi));
+    exports.Set("libcTrustyCalloc", Napi::Function::New(env, libcTrustyCalloc_napi));
+    exports.Set("libcTrustyMalloc", Napi::Function::New(env, libcTrustyMalloc_napi));
+    exports.Set("libcTrustyRealloc", Napi::Function::New(env, libcTrustyRealloc_napi));
+    exports.Set("libcTrustyFree", Napi::Function::New(env, libcTrustyFree_napi));
+    exports.Set("libcTrustyMemalign", Napi::Function::New(env, libcTrustyMemalign_napi));
+    exports.Set("libcTrustyPosixMemalign", Napi::Function::New(env, libcTrustyPosixMemalign_napi));
+    exports.Set("libcTrustyWrite", Napi::Function::New(env, libcTrustyWrite_napi));
+    exports.Set("libcTrustyWritev", Napi::Function::New(env, libcTrustyWritev_napi));
+    exports.Set("libcTrustyClose", Napi::Function::New(env, libcTrustyClose_napi));
+    exports.Set("libcTrustyStrlen", Napi::Function::New(env, libcTrustyStrlen_napi));
+    exports.Set("libcTrustyGetauxval", Napi::Function::New(env, libcTrustyGetauxval_napi));
+    exports.Set("libcTrustyMmap", Napi::Function::New(env, libcTrustyMmap_napi));
+    exports.Set("libcTrustyMunmap", Napi::Function::New(env, libcTrustyMunmap_napi));
+    exports.Set("libcTrustyClockGettime", Napi::Function::New(env, libcTrustyClockGettime_napi));
+    exports.Set("libcTrustyNanosleep", Napi::Function::New(env, libcTrustyNanosleep_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_trusty_napi, nullptr };

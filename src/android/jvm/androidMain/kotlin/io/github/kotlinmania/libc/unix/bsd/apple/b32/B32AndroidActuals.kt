@@ -3,8 +3,10 @@
 package io.github.kotlinmania.libc.unix.bsd.apple.b32
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CUlong
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 
 private object UnixBsdAppleB32JniBridge {
     init {
@@ -12,8 +14,8 @@ private object UnixBsdAppleB32JniBridge {
     }
 
     @JvmStatic
-    external fun libc_unix_bsd_apple_b32_exchangedata(path1: String?, path2: String?, options: Long): Int
+    external fun libcUnixBsdAppleB32Exchangedata(path1: Long, path2: Long, options: Long): Int
 }
 
-public actual fun exchangedata(path1: String?, path2: String?, options: CUlong): CInt =
-    UnixBsdAppleB32JniBridge.libc_unix_bsd_apple_b32_exchangedata(path1, path2, options.toLong())
+public actual fun exchangedata(path1: ConstPtr<CChar>, path2: ConstPtr<CChar>, options: CUlong): CInt =
+    UnixBsdAppleB32JniBridge.libcUnixBsdAppleB32Exchangedata(path1.rawAddress, path2.rawAddress, options.toLong())

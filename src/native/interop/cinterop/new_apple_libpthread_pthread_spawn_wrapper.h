@@ -9,7 +9,7 @@
 extern "C" {
 #endif
 
-int32_t libc_new_apple_libpthread_pthread_spawn_posixSpawnattrGetQosClassNp(void* attr, void* qos_class);
+int32_t libcNewAppleLibpthreadPthreadSpawnPosixSpawnattrGetQosClassNp(void* attr, void* qosClass);
 
 #ifdef __cplusplus
 }

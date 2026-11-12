@@ -51,7 +51,7 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_unix_linuxlike_linux_uclibc_mips_mips32_sysctl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxUclibcMipsMips32Sysctl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* name = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t namelen = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -110,11 +110,9 @@ static Napi::Value libc_unix_linuxlike_linux_uclibc_mips_mips32_sysctl_napi(cons
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_uclibc_mips_mips32_glob64_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxUclibcMipsMips32Glob64_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool pattern_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string pattern_str = pattern_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* pattern = pattern_null ? nullptr : pattern_str.c_str();
+    const char* pattern = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     void* errfunc = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* pglob = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
@@ -174,7 +172,7 @@ static Napi::Value libc_unix_linuxlike_linux_uclibc_mips_mips32_glob64_napi(cons
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_uclibc_mips_mips32_globfree64_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxUclibcMipsMips32Globfree64_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* pglob = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -231,7 +229,7 @@ static Napi::Value libc_unix_linuxlike_linux_uclibc_mips_mips32_globfree64_napi(
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_linuxlike_linux_uclibc_mips_mips32_pthreadAttrGetaffinityNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxUclibcMipsMips32PthreadAttrGetaffinityNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t cpusetsize = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -287,7 +285,7 @@ static Napi::Value libc_unix_linuxlike_linux_uclibc_mips_mips32_pthreadAttrGetaf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_uclibc_mips_mips32_pthreadAttrSetaffinityNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxUclibcMipsMips32PthreadAttrSetaffinityNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t cpusetsize = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -344,11 +342,11 @@ static Napi::Value libc_unix_linuxlike_linux_uclibc_mips_mips32_pthreadAttrSetaf
 }
 
 static void register_unix_linuxlike_linux_uclibc_mips_mips32_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_unix_linuxlike_linux_uclibc_mips_mips32_sysctl", Napi::Function::New(env, libc_unix_linuxlike_linux_uclibc_mips_mips32_sysctl_napi));
-    exports.Set("libc_unix_linuxlike_linux_uclibc_mips_mips32_glob64", Napi::Function::New(env, libc_unix_linuxlike_linux_uclibc_mips_mips32_glob64_napi));
-    exports.Set("libc_unix_linuxlike_linux_uclibc_mips_mips32_globfree64", Napi::Function::New(env, libc_unix_linuxlike_linux_uclibc_mips_mips32_globfree64_napi));
-    exports.Set("libc_unix_linuxlike_linux_uclibc_mips_mips32_pthreadAttrGetaffinityNp", Napi::Function::New(env, libc_unix_linuxlike_linux_uclibc_mips_mips32_pthreadAttrGetaffinityNp_napi));
-    exports.Set("libc_unix_linuxlike_linux_uclibc_mips_mips32_pthreadAttrSetaffinityNp", Napi::Function::New(env, libc_unix_linuxlike_linux_uclibc_mips_mips32_pthreadAttrSetaffinityNp_napi));
+    exports.Set("libcUnixLinuxlikeLinuxUclibcMipsMips32Sysctl", Napi::Function::New(env, libcUnixLinuxlikeLinuxUclibcMipsMips32Sysctl_napi));
+    exports.Set("libcUnixLinuxlikeLinuxUclibcMipsMips32Glob64", Napi::Function::New(env, libcUnixLinuxlikeLinuxUclibcMipsMips32Glob64_napi));
+    exports.Set("libcUnixLinuxlikeLinuxUclibcMipsMips32Globfree64", Napi::Function::New(env, libcUnixLinuxlikeLinuxUclibcMipsMips32Globfree64_napi));
+    exports.Set("libcUnixLinuxlikeLinuxUclibcMipsMips32PthreadAttrGetaffinityNp", Napi::Function::New(env, libcUnixLinuxlikeLinuxUclibcMipsMips32PthreadAttrGetaffinityNp_napi));
+    exports.Set("libcUnixLinuxlikeLinuxUclibcMipsMips32PthreadAttrSetaffinityNp", Napi::Function::New(env, libcUnixLinuxlikeLinuxUclibcMipsMips32PthreadAttrSetaffinityNp_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_unix_linuxlike_linux_uclibc_mips_mips32_napi, nullptr };

@@ -6,12 +6,18 @@ package io.github.kotlinmania.libc.unix.nto
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.unix.GidT
+import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.PidT
+import io.github.kotlinmania.libc.unix.Sigval
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.UidT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+import io.github.kotlinmania.rustlang.core.mem.TypeLayout
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public fun interface SighandlerInfoHandlerCallback {
     public operator fun invoke(value: CInt)
@@ -22,23 +28,27 @@ public fun interface SignalActionSigstubCallback {
 }
 
 public fun interface ThreadCreateFuncCallback {
-    public operator fun invoke(arg: COpaquePointer?): COpaquePointer?
+    public operator fun invoke(arg: MutPtr<CVoid>): MutPtr<CVoid>
 }
 
 public fun interface InterruptHookTraceHandlerCallback {
-    public operator fun invoke(arg1: CInt): COpaquePointer?
+    public operator fun invoke(arg1: CInt): ConstPtr<Sigevent>
 }
 
 public fun interface InterruptHookIdleHandlerCallback {
-    public operator fun invoke(arg1: COpaquePointer?, arg2: COpaquePointer?)
+    public operator fun invoke(arg1: MutPtr<ULong>, arg2: MutPtr<QtimeEntry>)
 }
 
 public fun interface InterruptHookIdle2HandlerCallback {
-    public operator fun invoke(arg1: CUint, arg2: COpaquePointer?, arg3: COpaquePointer?)
+    public operator fun invoke(arg1: CUint, arg2: MutPtr<SyspageEntry>, arg3: MutPtr<IdleHook>)
 }
 
 public fun interface InterruptAttachHandlerCallback {
-    public operator fun invoke(area: COpaquePointer?, id: CInt): COpaquePointer?
+    public operator fun invoke(area: MutPtr<CVoid>, id: CInt): ConstPtr<Sigevent>
+}
+
+public fun interface InterruptAttachArrayHandlerCallback {
+    public operator fun invoke(area: MutPtr<CVoid>, id: CInt): ConstPtr<ConstPtr<Sigevent>>
 }
 
 public typealias NtoJobT = SyncT
@@ -46,28 +56,156 @@ public typealias NtoJobT = SyncT
 public data class SyspageEntryInfo(
     public var entryOff: UShort = 0u,
     public var entrySize: UShort = 0u,
-)
+) {
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<SyspageEntryInfo> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<SyspageEntryInfo> {
+                override val sizeBytes: Long = 4L
+                override val alignBytes: Long = 2L
+                override fun readNative(addr: Long): SyspageEntryInfo =
+                    SyspageEntryInfo(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr + 2L),
+                    )
+                override fun writeNative(addr: Long, value: SyspageEntryInfo) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr, value.entryOff)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr + 2L, value.entrySize)
+                }
+            }
+    }
+}
 
 public data class SyspageArrayInfo(
     public var entryOff: UShort = 0u,
     public var entrySize: UShort = 0u,
     public var elementSize: UShort = 0u,
-)
+) {
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<SyspageArrayInfo> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<SyspageArrayInfo> {
+                override val sizeBytes: Long = 6L
+                override val alignBytes: Long = 2L
+                override fun readNative(addr: Long): SyspageArrayInfo =
+                    SyspageArrayInfo(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr + 2L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr + 4L),
+                    )
+                override fun writeNative(addr: Long, value: SyspageArrayInfo) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr, value.entryOff)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr + 2L, value.entrySize)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr + 4L, value.elementSize)
+                }
+            }
+    }
+}
 
 public data class Intrspin(
     public var value: CUint = 0u,
-)
+) {
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<Intrspin> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<Intrspin> {
+                override val sizeBytes: Long = 4L
+                override val alignBytes: Long = 4L
+                override fun readNative(addr: Long): Intrspin =
+                    Intrspin(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr),
+                    )
+                override fun writeNative(addr: Long, value: Intrspin) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr, value.value)
+                }
+            }
+    }
+}
 
-public data class IovT(
-    public var iovBase: COpaquePointer? = null,
+public class IovT internal constructor(
+    iovBaseCtorArg: MutPtr<CVoid>,
     // union
-    public var iovLen: SizeT = 0uL,
-)
+    public var iovLen: SizeT,
+) {
+    public var iovBase: MutPtr<CVoid> = iovBaseCtorArg
+        internal set
+
+    public constructor() : this(
+        iovBaseCtorArg = MutPtr(0L),
+        iovLen = 0uL,
+    )
+
+    public operator fun component1(): MutPtr<CVoid> = this.iovBase
+
+    public operator fun component2(): SizeT = this.iovLen
+
+    public fun copy(iovBase: MutPtr<CVoid> = this.iovBase, iovLen: SizeT = this.iovLen): IovT = IovT(iovBaseCtorArg = iovBase, iovLen = iovLen)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is IovT) return false
+        if (this.iovBase != other.iovBase) return false
+        if (this.iovLen != other.iovLen) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.iovBase.hashCode()
+        result = 31 * result + this.iovLen.hashCode()
+        return result
+    }
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<IovT> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<IovT> {
+                override val sizeBytes: Long = 16L
+                override val alignBytes: Long = 8L
+                override fun readNative(addr: Long): IovT =
+                    IovT(
+                        (
+                            io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+                                .mutPtrLayout<CVoid>(64)
+                        ).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.USIZE64).readNative(addr + 8L),
+                    )
+                override fun writeNative(addr: Long, value: IovT) {
+                    (
+                        io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+                            .mutPtrLayout<CVoid>(64)
+                    ).writeNative(addr, value.iovBase)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.USIZE64).writeNative(addr + 8L, value.iovLen)
+                }
+            }
+
+        public operator fun invoke(
+            iovBase: MutPtr<CVoid> = MutPtr(0L),
+            iovLen: SizeT = 0uL,
+        ): IovT =
+            IovT(
+                iovBaseCtorArg = iovBase,
+                iovLen = iovLen,
+            )
+    }
+}
 
 public data class Itimer(
     public var nsec: ULong = 0uL,
     public var intervalNsec: ULong = 0uL,
-)
+) {
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<Itimer> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<Itimer> {
+                override val sizeBytes: Long = 16L
+                override val alignBytes: Long = 8L
+                override fun readNative(addr: Long): Itimer =
+                    Itimer(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 8L),
+                    )
+                override fun writeNative(addr: Long, value: Itimer) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr, value.nsec)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 8L, value.intervalNsec)
+                }
+            }
+    }
+}
 
 public data class MsgInfo64(
     public var nd: UInt = 0u,
@@ -136,7 +274,28 @@ public data class ClientAble(
     public var flags: UInt = 0u,
     public var rangeLo: ULong = 0uL,
     public var rangeHi: ULong = 0uL,
-)
+) {
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<ClientAble> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<ClientAble> {
+                override val sizeBytes: Long = 24L
+                override val alignBytes: Long = 8L
+                override fun readNative(addr: Long): ClientAble =
+                    ClientAble(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 4L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 8L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 16L),
+                    )
+                override fun writeNative(addr: Long, value: ClientAble) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr, value.ability)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 4L, value.flags)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 8L, value.rangeLo)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 16L, value.rangeHi)
+                }
+            }
+    }
+}
 
 public data class NtoChannelConfig(
     public var event: Sigevent = Sigevent(),
@@ -171,7 +330,7 @@ public data class NtoChannelConfig(
 // of Neutrino 7.1 SDP.  Commented out for now.
 // pub struct _asyncmsg_put_header {
 // pub err: cInt,
-// pub iov: *mut crate::iovT,
+// pub iov: *mut iovT,
 // pub parts: cInt,
 // pub handle: cUint,
 // pub cb: Option<
@@ -192,7 +351,7 @@ public data class NtoChannelConfig(
 // pub bufferSize: sizeT,
 // pub maxNumBuffer: cUint,
 // pub triggerNumMsg: cUint,
-// pub triggerTime: crate::_itimer,
+// pub triggerTime: itimer,
 // reserve: Padding<cUint>,
 // }
 // pub struct _asyncmsg_connection_descriptor {
@@ -202,15 +361,15 @@ public data class NtoChannelConfig(
 // pub sendqTail: cUint,
 // pub sendqFree: cUint,
 // pub err: cInt,
-// pub ev: crate::sigevent,
+// pub ev: sigevent,
 // pub numCurmsg: cUint,
-// pub ttimer: crate::timerT,
-// pub blockCon: crate::pthreadCondT,
-// pub mu: crate::pthreadMutexT,
+// pub ttimer: timerT,
+// pub blockCon: pthreadCondT,
+// pub mu: pthreadMutexT,
 // reserved: Padding<cUint>,
-// pub attr: crate::_asyncmsg_connection_attr,
+// pub attr: asyncmsgConnectionAttr,
 // reserves: Padding<[cUint; 3]>,
-// pub sendq: [crate::_asyncmsg_put_header; 1], // flexarray
+// pub sendq: [asyncmsgPutHeader; 1], // flexarray
 // }
 public data class CAnonymousStructEv(
     public var event: Sigevent = Sigevent(),
@@ -222,36 +381,225 @@ public data class ChannelConnectAttr(
     public var ev: CAnonymousStructEv = CAnonymousStructEv(),
 )
 
-public data class SighandlerInfo(
-    public var siginfo: SiginfoT = SiginfoT(),
-    public var handler: SighandlerInfoHandlerCallback? = null,
-    public var context: COpaquePointer? = null,
-)
+public class SighandlerInfo internal constructor(
+    public var siginfo: SiginfoT,
+    public var handler: SighandlerInfoHandlerCallback?,
+    contextCtorArg: MutPtr<CVoid>,
+) {
+    public var context: MutPtr<CVoid> = contextCtorArg
+        internal set
+
+    public constructor() : this(
+        siginfo = SiginfoT(),
+        handler = null,
+        contextCtorArg = MutPtr(0L),
+    )
+
+    public operator fun component1(): SiginfoT = this.siginfo
+
+    public operator fun component2(): SighandlerInfoHandlerCallback? = this.handler
+
+    public operator fun component3(): MutPtr<CVoid> = this.context
+
+    public fun copy(siginfo: SiginfoT = this.siginfo, handler: SighandlerInfoHandlerCallback? = this.handler, context: MutPtr<CVoid> = this.context): SighandlerInfo = SighandlerInfo(siginfo = siginfo, handler = handler, contextCtorArg = context)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is SighandlerInfo) return false
+        if (this.siginfo != other.siginfo) return false
+        if (this.handler != other.handler) return false
+        if (this.context != other.context) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.siginfo.hashCode()
+        result = 31 * result + this.handler.hashCode()
+        result = 31 * result + this.context.hashCode()
+        return result
+    }
+
+    public companion object {
+        public operator fun invoke(
+            siginfo: SiginfoT = SiginfoT(),
+            handler: SighandlerInfoHandlerCallback? = null,
+            context: MutPtr<CVoid> = MutPtr(0L),
+        ): SighandlerInfo =
+            SighandlerInfo(
+                siginfo = siginfo,
+                handler = handler,
+                contextCtorArg = context,
+            )
+    }
+}
 
 public data class CAnonymousStructTime(
     public var length: CUint = 0u,
     public var scale: CUint = 0u,
-)
+) {
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<CAnonymousStructTime> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<CAnonymousStructTime> {
+                override val sizeBytes: Long = 8L
+                override val alignBytes: Long = 4L
+                override fun readNative(addr: Long): CAnonymousStructTime =
+                    CAnonymousStructTime(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 4L),
+                    )
+                override fun writeNative(addr: Long, value: CAnonymousStructTime) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr, value.length)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 4L, value.scale)
+                }
+            }
+    }
+}
 
-public data class IdleHook(
-    public var hookSize: CUint = 0u,
-    public var cmd: CUint = 0u,
-    public var mode: CUint = 0u,
-    public var latency: CUint = 0u,
-    public var nextFire: ULong = 0uL,
-    public var currTime: ULong = 0uL,
-    public var todAdjust: ULong = 0uL,
-    public var resp: CUint = 0u,
-    public var time: CAnonymousStructTime = CAnonymousStructTime(),
-    public var trigger: Sigevent = Sigevent(),
-    public var intrs: CUint? = null,
-    public var blockStackSize: CUint = 0u,
-)
+public class IdleHook internal constructor(
+    public var hookSize: CUint,
+    public var cmd: CUint,
+    public var mode: CUint,
+    public var latency: CUint,
+    public var nextFire: ULong,
+    public var currTime: ULong,
+    public var todAdjust: ULong,
+    public var resp: CUint,
+    public var time: CAnonymousStructTime,
+    public var trigger: Sigevent,
+    intrsCtorArg: MutPtr<CUint>,
+    public var blockStackSize: CUint,
+) {
+    public var intrs: MutPtr<CUint> = intrsCtorArg
+        internal set
+
+    public constructor() : this(
+        hookSize = 0u,
+        cmd = 0u,
+        mode = 0u,
+        latency = 0u,
+        nextFire = 0uL,
+        currTime = 0uL,
+        todAdjust = 0uL,
+        resp = 0u,
+        time = CAnonymousStructTime(),
+        trigger = Sigevent(),
+        intrsCtorArg = MutPtr(0L),
+        blockStackSize = 0u,
+    )
+
+    public operator fun component1(): CUint = this.hookSize
+
+    public operator fun component2(): CUint = this.cmd
+
+    public operator fun component3(): CUint = this.mode
+
+    public operator fun component4(): CUint = this.latency
+
+    public operator fun component5(): ULong = this.nextFire
+
+    public operator fun component6(): ULong = this.currTime
+
+    public operator fun component7(): ULong = this.todAdjust
+
+    public operator fun component8(): CUint = this.resp
+
+    public operator fun component9(): CAnonymousStructTime = this.time
+
+    public operator fun component10(): Sigevent = this.trigger
+
+    public operator fun component11(): MutPtr<CUint> = this.intrs
+
+    public operator fun component12(): CUint = this.blockStackSize
+
+    public fun copy(hookSize: CUint = this.hookSize, cmd: CUint = this.cmd, mode: CUint = this.mode, latency: CUint = this.latency, nextFire: ULong = this.nextFire, currTime: ULong = this.currTime, todAdjust: ULong = this.todAdjust, resp: CUint = this.resp, time: CAnonymousStructTime = this.time, trigger: Sigevent = this.trigger, intrs: MutPtr<CUint> = this.intrs, blockStackSize: CUint = this.blockStackSize): IdleHook = IdleHook(hookSize = hookSize, cmd = cmd, mode = mode, latency = latency, nextFire = nextFire, currTime = currTime, todAdjust = todAdjust, resp = resp, time = time, trigger = trigger, intrsCtorArg = intrs, blockStackSize = blockStackSize)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is IdleHook) return false
+        if (this.hookSize != other.hookSize) return false
+        if (this.cmd != other.cmd) return false
+        if (this.mode != other.mode) return false
+        if (this.latency != other.latency) return false
+        if (this.nextFire != other.nextFire) return false
+        if (this.currTime != other.currTime) return false
+        if (this.todAdjust != other.todAdjust) return false
+        if (this.resp != other.resp) return false
+        if (this.time != other.time) return false
+        if (this.trigger != other.trigger) return false
+        if (this.intrs != other.intrs) return false
+        if (this.blockStackSize != other.blockStackSize) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.hookSize.hashCode()
+        result = 31 * result + this.cmd.hashCode()
+        result = 31 * result + this.mode.hashCode()
+        result = 31 * result + this.latency.hashCode()
+        result = 31 * result + this.nextFire.hashCode()
+        result = 31 * result + this.currTime.hashCode()
+        result = 31 * result + this.todAdjust.hashCode()
+        result = 31 * result + this.resp.hashCode()
+        result = 31 * result + this.time.hashCode()
+        result = 31 * result + this.trigger.hashCode()
+        result = 31 * result + this.intrs.hashCode()
+        result = 31 * result + this.blockStackSize.hashCode()
+        return result
+    }
+
+    public companion object {
+        public operator fun invoke(
+            hookSize: CUint = 0u,
+            cmd: CUint = 0u,
+            mode: CUint = 0u,
+            latency: CUint = 0u,
+            nextFire: ULong = 0uL,
+            currTime: ULong = 0uL,
+            todAdjust: ULong = 0uL,
+            resp: CUint = 0u,
+            time: CAnonymousStructTime = CAnonymousStructTime(),
+            trigger: Sigevent = Sigevent(),
+            intrs: MutPtr<CUint> = MutPtr(0L),
+            blockStackSize: CUint = 0u,
+        ): IdleHook =
+            IdleHook(
+                hookSize = hookSize,
+                cmd = cmd,
+                mode = mode,
+                latency = latency,
+                nextFire = nextFire,
+                currTime = currTime,
+                todAdjust = todAdjust,
+                resp = resp,
+                time = time,
+                trigger = trigger,
+                intrsCtorArg = intrs,
+                blockStackSize = blockStackSize,
+            )
+    }
+}
 
 public data class Clockadjust(
     public var tickCount: UInt = 0u,
     public var tickNsecInc: Int = 0,
-)
+) {
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<Clockadjust> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<Clockadjust> {
+                override val sizeBytes: Long = 8L
+                override val alignBytes: Long = 4L
+                override fun readNative(addr: Long): Clockadjust =
+                    Clockadjust(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 4L),
+                    )
+                override fun writeNative(addr: Long, value: Clockadjust) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr, value.tickCount)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 4L, value.tickNsecInc)
+                }
+            }
+    }
+}
 
 public class QtimeEntry(
     public var cyclesPerSec: ULong = 0uL,
@@ -275,7 +623,62 @@ public class QtimeEntry(
     public var timerLoadMax: ULong = 0uL,
     public var timerProgTime: UInt = 0u,
     public var spare: UIntArray = UIntArray(7),
-)
+) {
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<QtimeEntry> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<QtimeEntry> {
+                override val sizeBytes: Long = 120L
+                override val alignBytes: Long = 8L
+                override fun readNative(addr: Long): QtimeEntry =
+                    QtimeEntry(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 8L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 16L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 24L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 28L),
+                        (Clockadjust.typeLayout()).readNative(addr + 32L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 40L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 44L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 48L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 52L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 56L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 60L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 64L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 68L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 72L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 80L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 88L),
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32, (7).toInt())
+                        ).readNative(addr + 92L),
+                    )
+                override fun writeNative(addr: Long, value: QtimeEntry) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr, value.cyclesPerSec)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 8L, value.nsecTodAdjust)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 16L, value.nsec)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 24L, value.nsecInc)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 28L, value.bootTime)
+                    (Clockadjust.typeLayout()).writeNative(addr + 32L, value.adjust)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 40L, value.timerRate)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 44L, value.timerScale)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 48L, value.timerLoad)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 52L, value.intr)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 56L, value.epoch)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 60L, value.flags)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 64L, value.rrIntervalMul)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 68L, value.timerLoadHi)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 72L, value.nsecStable)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 80L, value.timerLoadMax)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 88L, value.timerProgTime)
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32, (7).toInt())
+                    ).writeNative(addr + 92L, value.spare)
+                }
+            }
+    }
+}
 
 public data class SchedInfo(
     public var priorityMin: CInt = 0,
@@ -319,7 +722,24 @@ public data class TimerInfo(
 public data class Clockperiod(
     public var nsec: UInt = 0u,
     public var fract: Int = 0,
-)
+) {
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<Clockperiod> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<Clockperiod> {
+                override val sizeBytes: Long = 8L
+                override val alignBytes: Long = 4L
+                override fun readNative(addr: Long): Clockperiod =
+                    Clockperiod(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 4L),
+                    )
+                override fun writeNative(addr: Long, value: Clockperiod) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr, value.nsec)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 4L, value.fract)
+                }
+            }
+    }
+}
 
 public class SyspageEntry(
     public var size: UShort = 0u,
@@ -821,9 +1241,9 @@ public expect fun channelCreate(flags: CUint): CInt
 
 public expect fun channelCreateR(flags: CUint): CInt
 
-public expect fun channelCreatePulsePool(flags: CUint, config: COpaquePointer?): CInt
+public expect fun channelCreatePulsePool(flags: CUint, config: ConstPtr<NtoChannelConfig>): CInt
 
-public expect fun channelCreateExt(flags: CUint, mode: ModeT, bufsize: ULong, maxnumbuf: CUint, ev: COpaquePointer?, cred: COpaquePointer?): CInt
+public expect fun channelCreateExt(flags: CUint, mode: ModeT, bufsize: ULong, maxnumbuf: CUint, ev: ConstPtr<Sigevent>, cred: MutPtr<CredInfo>): CInt
 
 public expect fun channelDestroy(chid: CInt): CInt
 
@@ -838,7 +1258,7 @@ public expect fun connectAttachR(nd: UInt, pid: PidT, chid: CInt, index: CUint, 
 // standard installation of Neutrino 7.1 SDP.  Commented out for now.
 // pub fn ConnectAttachExt(
 // __nd: u32,
-// __pid: crate::pidT,
+// __pid: pidT,
 // __chid: cInt,
 // __index: cUint,
 // __flags: cInt,
@@ -848,137 +1268,137 @@ public expect fun connectDetach(coid: CInt): CInt
 
 public expect fun connectDetachR(coid: CInt): CInt
 
-public expect fun connectServerInfo(pid: PidT, coid: CInt, info: COpaquePointer?): CInt
+public expect fun connectServerInfo(pid: PidT, coid: CInt, info: MutPtr<MsgInfo64>): CInt
 
-public expect fun connectServerInfoR(pid: PidT, coid: CInt, info: COpaquePointer?): CInt
+public expect fun connectServerInfoR(pid: PidT, coid: CInt, info: MutPtr<MsgInfo64>): CInt
 
-public expect fun connectClientInfoExtraArgs(scoid: CInt, infoPp: COpaquePointer?, ngroups: CInt, abilities: COpaquePointer?, nable: CInt, typeId: COpaquePointer?): CInt
+public expect fun connectClientInfoExtraArgs(scoid: CInt, infoPp: MutPtr<ClientInfo>, ngroups: CInt, abilities: MutPtr<ClientAble>, nable: CInt, typeId: MutPtr<CUint>): CInt
 
-public expect fun connectClientInfoExtraArgsR(scoid: CInt, infoPp: COpaquePointer?, ngroups: CInt, abilities: COpaquePointer?, nable: CInt, typeId: COpaquePointer?): CInt
+public expect fun connectClientInfoExtraArgsR(scoid: CInt, infoPp: MutPtr<ClientInfo>, ngroups: CInt, abilities: MutPtr<ClientAble>, nable: CInt, typeId: MutPtr<CUint>): CInt
 
-public expect fun connectClientInfo(scoid: CInt, info: COpaquePointer?, ngroups: CInt): CInt
+public expect fun connectClientInfo(scoid: CInt, info: MutPtr<ClientInfo>, ngroups: CInt): CInt
 
-public expect fun connectClientInfoR(scoid: CInt, info: COpaquePointer?, ngroups: CInt): CInt
+public expect fun connectClientInfoR(scoid: CInt, info: MutPtr<ClientInfo>, ngroups: CInt): CInt
 
-public expect fun connectClientInfoExt(scoid: CInt, infoPp: COpaquePointer?, flags: CInt): CInt
+public expect fun connectClientInfoExt(scoid: CInt, infoPp: MutPtr<MutPtr<ClientInfo>>, flags: CInt): CInt
 
-public expect fun clientInfoExtFree(infoPp: COpaquePointer?): CInt
+public expect fun clientInfoExtFree(infoPp: MutPtr<MutPtr<ClientInfo>>): CInt
 
-public expect fun connectClientInfoAble(scoid: CInt, infoPp: COpaquePointer?, flags: CInt, abilities: COpaquePointer?, nable: CInt): CInt
+public expect fun connectClientInfoAble(scoid: CInt, infoPp: MutPtr<MutPtr<ClientInfo>>, flags: CInt, abilities: MutPtr<ClientAble>, nable: CInt): CInt
 
 public expect fun connectFlags(pid: PidT, coid: CInt, mask: CUint, bits: CUint): CInt
 
 public expect fun connectFlagsR(pid: PidT, coid: CInt, mask: CUint, bits: CUint): CInt
 
-public expect fun channelConnectAttr(id: CUint, oldAttr: COpaquePointer?, newAttr: COpaquePointer?, flags: CUint): CInt
+public expect fun channelConnectAttr(id: CUint, oldAttr: MutPtr<ChannelConnectAttr>, newAttr: MutPtr<ChannelConnectAttr>, flags: CUint): CInt
 
-public expect fun msgSend(coid: CInt, smsg: COpaquePointer?, sbytes: ULong, rmsg: COpaquePointer?, rbytes: ULong): CLong
+public expect fun msgSend(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULong, rmsg: MutPtr<CVoid>, rbytes: ULong): CLong
 
-public expect fun msgSendR(coid: CInt, smsg: COpaquePointer?, sbytes: ULong, rmsg: COpaquePointer?, rbytes: ULong): CLong
+public expect fun msgSendR(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULong, rmsg: MutPtr<CVoid>, rbytes: ULong): CLong
 
-public expect fun msgSendnc(coid: CInt, smsg: COpaquePointer?, sbytes: ULong, rmsg: COpaquePointer?, rbytes: ULong): CLong
+public expect fun msgSendnc(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULong, rmsg: MutPtr<CVoid>, rbytes: ULong): CLong
 
-public expect fun msgSendncR(coid: CInt, smsg: COpaquePointer?, sbytes: ULong, rmsg: COpaquePointer?, rbytes: ULong): CLong
+public expect fun msgSendncR(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULong, rmsg: MutPtr<CVoid>, rbytes: ULong): CLong
 
-public expect fun msgSendsv(coid: CInt, smsg: COpaquePointer?, sbytes: ULong, riov: COpaquePointer?, rparts: ULong): CLong
+public expect fun msgSendsv(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULong, riov: ConstPtr<Iovec>, rparts: ULong): CLong
 
-public expect fun msgSendsvR(coid: CInt, smsg: COpaquePointer?, sbytes: ULong, riov: COpaquePointer?, rparts: ULong): CLong
+public expect fun msgSendsvR(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULong, riov: ConstPtr<Iovec>, rparts: ULong): CLong
 
-public expect fun msgSendsvnc(coid: CInt, smsg: COpaquePointer?, sbytes: ULong, riov: COpaquePointer?, rparts: ULong): CLong
+public expect fun msgSendsvnc(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULong, riov: ConstPtr<Iovec>, rparts: ULong): CLong
 
-public expect fun msgSendsvncR(coid: CInt, smsg: COpaquePointer?, sbytes: ULong, riov: COpaquePointer?, rparts: ULong): CLong
+public expect fun msgSendsvncR(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULong, riov: ConstPtr<Iovec>, rparts: ULong): CLong
 
-public expect fun msgSendvs(coid: CInt, siov: COpaquePointer?, sparts: ULong, rmsg: COpaquePointer?, rbytes: ULong): CLong
+public expect fun msgSendvs(coid: CInt, siov: ConstPtr<Iovec>, sparts: ULong, rmsg: MutPtr<CVoid>, rbytes: ULong): CLong
 
-public expect fun msgSendvsR(coid: CInt, siov: COpaquePointer?, sparts: ULong, rmsg: COpaquePointer?, rbytes: ULong): CLong
+public expect fun msgSendvsR(coid: CInt, siov: ConstPtr<Iovec>, sparts: ULong, rmsg: MutPtr<CVoid>, rbytes: ULong): CLong
 
-public expect fun msgSendvsnc(coid: CInt, siov: COpaquePointer?, sparts: ULong, rmsg: COpaquePointer?, rbytes: ULong): CLong
+public expect fun msgSendvsnc(coid: CInt, siov: ConstPtr<Iovec>, sparts: ULong, rmsg: MutPtr<CVoid>, rbytes: ULong): CLong
 
-public expect fun msgSendvsncR(coid: CInt, siov: COpaquePointer?, sparts: ULong, rmsg: COpaquePointer?, rbytes: ULong): CLong
+public expect fun msgSendvsncR(coid: CInt, siov: ConstPtr<Iovec>, sparts: ULong, rmsg: MutPtr<CVoid>, rbytes: ULong): CLong
 
-public expect fun msgSendv(coid: CInt, siov: COpaquePointer?, sparts: ULong, riov: COpaquePointer?, rparts: ULong): CLong
+public expect fun msgSendv(coid: CInt, siov: ConstPtr<Iovec>, sparts: ULong, riov: ConstPtr<Iovec>, rparts: ULong): CLong
 
-public expect fun msgSendvR(coid: CInt, siov: COpaquePointer?, sparts: ULong, riov: COpaquePointer?, rparts: ULong): CLong
+public expect fun msgSendvR(coid: CInt, siov: ConstPtr<Iovec>, sparts: ULong, riov: ConstPtr<Iovec>, rparts: ULong): CLong
 
-public expect fun msgSendvnc(coid: CInt, siov: COpaquePointer?, sparts: ULong, riov: COpaquePointer?, rparts: ULong): CLong
+public expect fun msgSendvnc(coid: CInt, siov: ConstPtr<Iovec>, sparts: ULong, riov: ConstPtr<Iovec>, rparts: ULong): CLong
 
-public expect fun msgSendvncR(coid: CInt, siov: COpaquePointer?, sparts: ULong, riov: COpaquePointer?, rparts: ULong): CLong
+public expect fun msgSendvncR(coid: CInt, siov: ConstPtr<Iovec>, sparts: ULong, riov: ConstPtr<Iovec>, rparts: ULong): CLong
 
-public expect fun msgReceive(chid: CInt, msg: COpaquePointer?, bytes: ULong, info: COpaquePointer?): CInt
+public expect fun msgReceive(chid: CInt, msg: MutPtr<CVoid>, bytes: ULong, info: MutPtr<MsgInfo64>): CInt
 
-public expect fun msgReceiveR(chid: CInt, msg: COpaquePointer?, bytes: ULong, info: COpaquePointer?): CInt
+public expect fun msgReceiveR(chid: CInt, msg: MutPtr<CVoid>, bytes: ULong, info: MutPtr<MsgInfo64>): CInt
 
-public expect fun msgReceivev(chid: CInt, iov: COpaquePointer?, parts: ULong, info: COpaquePointer?): CInt
+public expect fun msgReceivev(chid: CInt, iov: ConstPtr<Iovec>, parts: ULong, info: MutPtr<MsgInfo64>): CInt
 
-public expect fun msgReceivevR(chid: CInt, iov: COpaquePointer?, parts: ULong, info: COpaquePointer?): CInt
+public expect fun msgReceivevR(chid: CInt, iov: ConstPtr<Iovec>, parts: ULong, info: MutPtr<MsgInfo64>): CInt
 
-public expect fun msgReceivePulse(chid: CInt, pulse: COpaquePointer?, bytes: ULong, info: COpaquePointer?): CInt
+public expect fun msgReceivePulse(chid: CInt, pulse: MutPtr<CVoid>, bytes: ULong, info: MutPtr<MsgInfo64>): CInt
 
-public expect fun msgReceivePulseR(chid: CInt, pulse: COpaquePointer?, bytes: ULong, info: COpaquePointer?): CInt
+public expect fun msgReceivePulseR(chid: CInt, pulse: MutPtr<CVoid>, bytes: ULong, info: MutPtr<MsgInfo64>): CInt
 
-public expect fun msgReceivePulsev(chid: CInt, iov: COpaquePointer?, parts: ULong, info: COpaquePointer?): CInt
+public expect fun msgReceivePulsev(chid: CInt, iov: ConstPtr<Iovec>, parts: ULong, info: MutPtr<MsgInfo64>): CInt
 
-public expect fun msgReceivePulsevR(chid: CInt, iov: COpaquePointer?, parts: ULong, info: COpaquePointer?): CInt
+public expect fun msgReceivePulsevR(chid: CInt, iov: ConstPtr<Iovec>, parts: ULong, info: MutPtr<MsgInfo64>): CInt
 
-public expect fun msgReply(rcvid: CInt, status: CLong, msg: COpaquePointer?, bytes: ULong): CInt
+public expect fun msgReply(rcvid: CInt, status: CLong, msg: ConstPtr<CVoid>, bytes: ULong): CInt
 
-public expect fun msgReplyR(rcvid: CInt, status: CLong, msg: COpaquePointer?, bytes: ULong): CInt
+public expect fun msgReplyR(rcvid: CInt, status: CLong, msg: ConstPtr<CVoid>, bytes: ULong): CInt
 
-public expect fun msgReplyv(rcvid: CInt, status: CLong, iov: COpaquePointer?, parts: ULong): CInt
+public expect fun msgReplyv(rcvid: CInt, status: CLong, iov: ConstPtr<Iovec>, parts: ULong): CInt
 
-public expect fun msgReplyvR(rcvid: CInt, status: CLong, iov: COpaquePointer?, parts: ULong): CInt
+public expect fun msgReplyvR(rcvid: CInt, status: CLong, iov: ConstPtr<Iovec>, parts: ULong): CInt
 
-public expect fun msgReadiov(rcvid: CInt, iov: COpaquePointer?, parts: ULong, offset: ULong, flags: CInt): Long
+public expect fun msgReadiov(rcvid: CInt, iov: ConstPtr<Iovec>, parts: ULong, offset: ULong, flags: CInt): Long
 
-public expect fun msgReadiovR(rcvid: CInt, iov: COpaquePointer?, parts: ULong, offset: ULong, flags: CInt): Long
+public expect fun msgReadiovR(rcvid: CInt, iov: ConstPtr<Iovec>, parts: ULong, offset: ULong, flags: CInt): Long
 
-public expect fun msgRead(rcvid: CInt, msg: COpaquePointer?, bytes: ULong, offset: ULong): Long
+public expect fun msgRead(rcvid: CInt, msg: MutPtr<CVoid>, bytes: ULong, offset: ULong): Long
 
-public expect fun msgReadR(rcvid: CInt, msg: COpaquePointer?, bytes: ULong, offset: ULong): Long
+public expect fun msgReadR(rcvid: CInt, msg: MutPtr<CVoid>, bytes: ULong, offset: ULong): Long
 
-public expect fun msgReadv(rcvid: CInt, iov: COpaquePointer?, parts: ULong, offset: ULong): Long
+public expect fun msgReadv(rcvid: CInt, iov: ConstPtr<Iovec>, parts: ULong, offset: ULong): Long
 
-public expect fun msgReadvR(rcvid: CInt, iov: COpaquePointer?, parts: ULong, offset: ULong): Long
+public expect fun msgReadvR(rcvid: CInt, iov: ConstPtr<Iovec>, parts: ULong, offset: ULong): Long
 
-public expect fun msgWrite(rcvid: CInt, msg: COpaquePointer?, bytes: ULong, offset: ULong): Long
+public expect fun msgWrite(rcvid: CInt, msg: ConstPtr<CVoid>, bytes: ULong, offset: ULong): Long
 
-public expect fun msgWriteR(rcvid: CInt, msg: COpaquePointer?, bytes: ULong, offset: ULong): Long
+public expect fun msgWriteR(rcvid: CInt, msg: ConstPtr<CVoid>, bytes: ULong, offset: ULong): Long
 
-public expect fun msgWritev(rcvid: CInt, iov: COpaquePointer?, parts: ULong, offset: ULong): Long
+public expect fun msgWritev(rcvid: CInt, iov: ConstPtr<Iovec>, parts: ULong, offset: ULong): Long
 
-public expect fun msgWritevR(rcvid: CInt, iov: COpaquePointer?, parts: ULong, offset: ULong): Long
+public expect fun msgWritevR(rcvid: CInt, iov: ConstPtr<Iovec>, parts: ULong, offset: ULong): Long
 
 public expect fun msgSendPulse(coid: CInt, priority: CInt, code: CInt, value: CInt): CInt
 
 public expect fun msgSendPulseR(coid: CInt, priority: CInt, code: CInt, value: CInt): CInt
 
-public expect fun msgSendPulsePtr(coid: CInt, priority: CInt, code: CInt, value: COpaquePointer?): CInt
+public expect fun msgSendPulsePtr(coid: CInt, priority: CInt, code: CInt, value: MutPtr<CVoid>): CInt
 
-public expect fun msgSendPulsePtrR(coid: CInt, priority: CInt, code: CInt, value: COpaquePointer?): CInt
+public expect fun msgSendPulsePtrR(coid: CInt, priority: CInt, code: CInt, value: MutPtr<CVoid>): CInt
 
-public expect fun msgDeliverEvent(rcvid: CInt, event: COpaquePointer?): CInt
+public expect fun msgDeliverEvent(rcvid: CInt, event: ConstPtr<Sigevent>): CInt
 
-public expect fun msgDeliverEventR(rcvid: CInt, event: COpaquePointer?): CInt
+public expect fun msgDeliverEventR(rcvid: CInt, event: ConstPtr<Sigevent>): CInt
 
-public expect fun msgVerifyEvent(rcvid: CInt, event: COpaquePointer?): CInt
+public expect fun msgVerifyEvent(rcvid: CInt, event: ConstPtr<Sigevent>): CInt
 
-public expect fun msgVerifyEventR(rcvid: CInt, event: COpaquePointer?): CInt
+public expect fun msgVerifyEventR(rcvid: CInt, event: ConstPtr<Sigevent>): CInt
 
-public expect fun msgRegisterEvent(event: COpaquePointer?, coid: CInt): CInt
+public expect fun msgRegisterEvent(event: MutPtr<Sigevent>, coid: CInt): CInt
 
-public expect fun msgRegisterEventR(event: COpaquePointer?, coid: CInt): CInt
+public expect fun msgRegisterEventR(event: MutPtr<Sigevent>, coid: CInt): CInt
 
-public expect fun msgUnregisterEvent(event: COpaquePointer?): CInt
+public expect fun msgUnregisterEvent(event: ConstPtr<Sigevent>): CInt
 
-public expect fun msgUnregisterEventR(event: COpaquePointer?): CInt
+public expect fun msgUnregisterEventR(event: ConstPtr<Sigevent>): CInt
 
-public expect fun msgInfo(rcvid: CInt, info: COpaquePointer?): CInt
+public expect fun msgInfo(rcvid: CInt, info: MutPtr<MsgInfo64>): CInt
 
-public expect fun msgInfoR(rcvid: CInt, info: COpaquePointer?): CInt
+public expect fun msgInfoR(rcvid: CInt, info: MutPtr<MsgInfo64>): CInt
 
-public expect fun msgKeyData(rcvid: CInt, oper: CInt, key: UInt, newkey: COpaquePointer?, iov: COpaquePointer?, parts: CInt): CInt
+public expect fun msgKeyData(rcvid: CInt, oper: CInt, key: UInt, newkey: MutPtr<UInt>, iov: ConstPtr<Iovec>, parts: CInt): CInt
 
-public expect fun msgKeyDataR(rcvid: CInt, oper: CInt, key: UInt, newkey: COpaquePointer?, iov: COpaquePointer?, parts: CInt): CInt
+public expect fun msgKeyDataR(rcvid: CInt, oper: CInt, key: UInt, newkey: MutPtr<UInt>, iov: ConstPtr<Iovec>, parts: CInt): CInt
 
 public expect fun msgError(rcvid: CInt, err: CInt): CInt
 
@@ -988,13 +1408,13 @@ public expect fun msgCurrent(rcvid: CInt): CInt
 
 public expect fun msgCurrentR(rcvid: CInt): CInt
 
-public expect fun msgSendAsyncGbl(coid: CInt, smsg: COpaquePointer?, sbytes: ULong, msgPrio: CUint): CInt
+public expect fun msgSendAsyncGbl(coid: CInt, smsg: ConstPtr<CVoid>, sbytes: ULong, msgPrio: CUint): CInt
 
 public expect fun msgSendAsync(coid: CInt): CInt
 
-public expect fun msgReceiveAsyncGbl(chid: CInt, rmsg: COpaquePointer?, rbytes: ULong, info: COpaquePointer?, coid: CInt): CInt
+public expect fun msgReceiveAsyncGbl(chid: CInt, rmsg: MutPtr<CVoid>, rbytes: ULong, info: MutPtr<MsgInfo64>, coid: CInt): CInt
 
-public expect fun msgReceiveAsync(chid: CInt, iov: COpaquePointer?, parts: CUint): CInt
+public expect fun msgReceiveAsync(chid: CInt, iov: ConstPtr<Iovec>, parts: CUint): CInt
 
 public expect fun msgPause(rcvid: CInt, cookie: CUint): CInt
 
@@ -1004,61 +1424,61 @@ public expect fun signalKill(nd: UInt, pid: PidT, tid: CInt, signo: CInt, code: 
 
 public expect fun signalKillR(nd: UInt, pid: PidT, tid: CInt, signo: CInt, code: CInt, value: CInt): CInt
 
-public expect fun signalKillSigval(nd: UInt, pid: PidT, tid: CInt, signo: CInt, code: CInt, value: COpaquePointer?): CInt
+public expect fun signalKillSigval(nd: UInt, pid: PidT, tid: CInt, signo: CInt, code: CInt, value: ConstPtr<Sigval>): CInt
 
-public expect fun signalKillSigvalR(nd: UInt, pid: PidT, tid: CInt, signo: CInt, code: CInt, value: COpaquePointer?): CInt
+public expect fun signalKillSigvalR(nd: UInt, pid: PidT, tid: CInt, signo: CInt, code: CInt, value: ConstPtr<Sigval>): CInt
 
-public expect fun signalReturn(info: COpaquePointer?): CInt
+public expect fun signalReturn(info: MutPtr<SighandlerInfo>): CInt
 
-public expect fun signalFault(sigcode: CUint, regs: COpaquePointer?, refaddr: ULong): CInt
+public expect fun signalFault(sigcode: CUint, regs: MutPtr<CVoid>, refaddr: ULong): CInt
 
-public expect fun signalAction(pid: PidT, sigstub: SignalActionSigstubCallback, signo: CInt, act: COpaquePointer?, oact: COpaquePointer?): CInt
+public expect fun signalAction(pid: PidT, sigstub: SignalActionSigstubCallback, signo: CInt, act: ConstPtr<Sigaction>, oact: MutPtr<Sigaction>): CInt
 
-public expect fun signalActionR(pid: PidT, sigstub: SignalActionSigstubCallback, signo: CInt, act: COpaquePointer?, oact: COpaquePointer?): CInt
+public expect fun signalActionR(pid: PidT, sigstub: SignalActionSigstubCallback, signo: CInt, act: ConstPtr<Sigaction>, oact: MutPtr<Sigaction>): CInt
 
-public expect fun signalProcmask(pid: PidT, tid: CInt, how: CInt, set: COpaquePointer?, oldset: COpaquePointer?): CInt
+public expect fun signalProcmask(pid: PidT, tid: CInt, how: CInt, set: ConstPtr<SigsetT>, oldset: MutPtr<SigsetT>): CInt
 
-public expect fun signalProcmaskR(pid: PidT, tid: CInt, how: CInt, set: COpaquePointer?, oldset: COpaquePointer?): CInt
+public expect fun signalProcmaskR(pid: PidT, tid: CInt, how: CInt, set: ConstPtr<SigsetT>, oldset: MutPtr<SigsetT>): CInt
 
-public expect fun signalSuspend(set: COpaquePointer?): CInt
+public expect fun signalSuspend(set: ConstPtr<SigsetT>): CInt
 
-public expect fun signalSuspendR(set: COpaquePointer?): CInt
+public expect fun signalSuspendR(set: ConstPtr<SigsetT>): CInt
 
-public expect fun signalWaitinfo(set: COpaquePointer?, info: COpaquePointer?): CInt
+public expect fun signalWaitinfo(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>): CInt
 
-public expect fun signalWaitinfoR(set: COpaquePointer?, info: COpaquePointer?): CInt
+public expect fun signalWaitinfoR(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>): CInt
 
-public expect fun signalWaitinfoMask(set: COpaquePointer?, info: COpaquePointer?, mask: COpaquePointer?): CInt
+public expect fun signalWaitinfoMask(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>, mask: ConstPtr<SigsetT>): CInt
 
-public expect fun signalWaitinfoMaskR(set: COpaquePointer?, info: COpaquePointer?, mask: COpaquePointer?): CInt
+public expect fun signalWaitinfoMaskR(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>, mask: ConstPtr<SigsetT>): CInt
 
-public expect fun threadCreate(pid: PidT, func: ThreadCreateFuncCallback, arg: COpaquePointer?, attr: COpaquePointer?): CInt
+public expect fun threadCreate(pid: PidT, func: ThreadCreateFuncCallback, arg: MutPtr<CVoid>, attr: ConstPtr<ThreadAttr>): CInt
 
-public expect fun threadCreateR(pid: PidT, func: ThreadCreateFuncCallback, arg: COpaquePointer?, attr: COpaquePointer?): CInt
+public expect fun threadCreateR(pid: PidT, func: ThreadCreateFuncCallback, arg: MutPtr<CVoid>, attr: ConstPtr<ThreadAttr>): CInt
 
-public expect fun threadDestroy(tid: CInt, priority: CInt, status: COpaquePointer?): CInt
+public expect fun threadDestroy(tid: CInt, priority: CInt, status: MutPtr<CVoid>): CInt
 
-public expect fun threadDestroyR(tid: CInt, priority: CInt, status: COpaquePointer?): CInt
+public expect fun threadDestroyR(tid: CInt, priority: CInt, status: MutPtr<CVoid>): CInt
 
 public expect fun threadDetach(tid: CInt): CInt
 
 public expect fun threadDetachR(tid: CInt): CInt
 
-public expect fun threadJoin(tid: CInt, status: COpaquePointer?): CInt
+public expect fun threadJoin(tid: CInt, status: MutPtr<MutPtr<CVoid>>): CInt
 
-public expect fun threadJoinR(tid: CInt, status: COpaquePointer?): CInt
+public expect fun threadJoinR(tid: CInt, status: MutPtr<MutPtr<CVoid>>): CInt
 
 public expect fun threadCancel(tid: CInt, canstub: SignalActionSigstubCallback): CInt
 
 public expect fun threadCancelR(tid: CInt, canstub: SignalActionSigstubCallback): CInt
 
-public expect fun threadCtl(cmd: CInt, data: COpaquePointer?): CInt
+public expect fun threadCtl(cmd: CInt, data: MutPtr<CVoid>): CInt
 
-public expect fun threadCtlR(cmd: CInt, data: COpaquePointer?): CInt
+public expect fun threadCtlR(cmd: CInt, data: MutPtr<CVoid>): CInt
 
-public expect fun threadCtlExt(pid: PidT, tid: CInt, cmd: CInt, data: COpaquePointer?): CInt
+public expect fun threadCtlExt(pid: PidT, tid: CInt, cmd: CInt, data: MutPtr<CVoid>): CInt
 
-public expect fun threadCtlExtR(pid: PidT, tid: CInt, cmd: CInt, data: COpaquePointer?): CInt
+public expect fun threadCtlExtR(pid: PidT, tid: CInt, cmd: CInt, data: MutPtr<CVoid>): CInt
 
 public expect fun interruptHookTrace(handler: InterruptHookTraceHandlerCallback?, flags: CUint): CInt
 
@@ -1066,145 +1486,145 @@ public expect fun interruptHookIdle(handler: InterruptHookIdleHandlerCallback?, 
 
 public expect fun interruptHookIdle2(handler: InterruptHookIdle2HandlerCallback?, flags: CUint): CInt
 
-public expect fun interruptHookOverdriveEvent(event: COpaquePointer?, flags: CUint): CInt
+public expect fun interruptHookOverdriveEvent(event: ConstPtr<Sigevent>, flags: CUint): CInt
 
-public expect fun interruptAttachEvent(intr: CInt, event: COpaquePointer?, flags: CUint): CInt
+public expect fun interruptAttachEvent(intr: CInt, event: ConstPtr<Sigevent>, flags: CUint): CInt
 
-public expect fun interruptAttachEventR(intr: CInt, event: COpaquePointer?, flags: CUint): CInt
+public expect fun interruptAttachEventR(intr: CInt, event: ConstPtr<Sigevent>, flags: CUint): CInt
 
-public expect fun interruptAttach(intr: CInt, handler: InterruptAttachHandlerCallback?, area: COpaquePointer?, size: CInt, flags: CUint): CInt
+public expect fun interruptAttach(intr: CInt, handler: InterruptAttachHandlerCallback?, area: ConstPtr<CVoid>, size: CInt, flags: CUint): CInt
 
-public expect fun interruptAttachR(intr: CInt, handler: InterruptAttachHandlerCallback?, area: COpaquePointer?, size: CInt, flags: CUint): CInt
+public expect fun interruptAttachR(intr: CInt, handler: InterruptAttachHandlerCallback?, area: ConstPtr<CVoid>, size: CInt, flags: CUint): CInt
 
-public expect fun interruptAttachArray(intr: CInt, handler: InterruptAttachHandlerCallback?, area: COpaquePointer?, size: CInt, flags: CUint): CInt
+public expect fun interruptAttachArray(intr: CInt, handler: InterruptAttachArrayHandlerCallback?, area: ConstPtr<CVoid>, size: CInt, flags: CUint): CInt
 
-public expect fun interruptAttachArrayR(intr: CInt, handler: InterruptAttachHandlerCallback?, area: COpaquePointer?, size: CInt, flags: CUint): CInt
+public expect fun interruptAttachArrayR(intr: CInt, handler: InterruptAttachArrayHandlerCallback?, area: ConstPtr<CVoid>, size: CInt, flags: CUint): CInt
 
 public expect fun interruptDetach(id: CInt): CInt
 
 public expect fun interruptDetachR(id: CInt): CInt
 
-public expect fun interruptWait(flags: CInt, timeout: COpaquePointer?): CInt
+public expect fun interruptWait(flags: CInt, timeout: ConstPtr<ULong>): CInt
 
-public expect fun interruptWaitR(flags: CInt, timeout: COpaquePointer?): CInt
+public expect fun interruptWaitR(flags: CInt, timeout: ConstPtr<ULong>): CInt
 
-public expect fun interruptCharacteristic(type: CInt, id: CInt, new: COpaquePointer?, old: COpaquePointer?): CInt
+public expect fun interruptCharacteristic(type: CInt, id: CInt, new: MutPtr<CUint>, old: MutPtr<CUint>): CInt
 
-public expect fun interruptCharacteristicR(type: CInt, id: CInt, new: COpaquePointer?, old: COpaquePointer?): CInt
+public expect fun interruptCharacteristicR(type: CInt, id: CInt, new: MutPtr<CUint>, old: MutPtr<CUint>): CInt
 
-public expect fun schedGet(pid: PidT, tid: CInt, param: COpaquePointer?): CInt
+public expect fun schedGet(pid: PidT, tid: CInt, param: MutPtr<SchedParam>): CInt
 
-public expect fun schedGetR(pid: PidT, tid: CInt, param: COpaquePointer?): CInt
+public expect fun schedGetR(pid: PidT, tid: CInt, param: MutPtr<SchedParam>): CInt
 
 public expect fun schedGetCpuNum(): CUint
 
-public expect fun schedSet(pid: PidT, tid: CInt, algorithm: CInt, param: COpaquePointer?): CInt
+public expect fun schedSet(pid: PidT, tid: CInt, algorithm: CInt, param: ConstPtr<SchedParam>): CInt
 
-public expect fun schedSetR(pid: PidT, tid: CInt, algorithm: CInt, param: COpaquePointer?): CInt
+public expect fun schedSetR(pid: PidT, tid: CInt, algorithm: CInt, param: ConstPtr<SchedParam>): CInt
 
-public expect fun schedInfo(pid: PidT, algorithm: CInt, info: COpaquePointer?): CInt
+public expect fun schedInfo(pid: PidT, algorithm: CInt, info: MutPtr<SchedInfo>): CInt
 
-public expect fun schedInfoR(pid: PidT, algorithm: CInt, info: COpaquePointer?): CInt
+public expect fun schedInfoR(pid: PidT, algorithm: CInt, info: MutPtr<SchedInfo>): CInt
 
 public expect fun schedYield(): CInt
 
 public expect fun schedYieldR(): CInt
 
-public expect fun schedCtl(cmd: CInt, data: COpaquePointer?, length: ULong): CInt
+public expect fun schedCtl(cmd: CInt, data: MutPtr<CVoid>, length: ULong): CInt
 
-public expect fun schedCtlR(cmd: CInt, data: COpaquePointer?, length: ULong): CInt
+public expect fun schedCtlR(cmd: CInt, data: MutPtr<CVoid>, length: ULong): CInt
 
-public expect fun schedJobCreate(job: COpaquePointer?): CInt
+public expect fun schedJobCreate(job: MutPtr<NtoJobT>): CInt
 
-public expect fun schedJobCreateR(job: COpaquePointer?): CInt
+public expect fun schedJobCreateR(job: MutPtr<NtoJobT>): CInt
 
-public expect fun schedJobDestroy(job: COpaquePointer?): CInt
+public expect fun schedJobDestroy(job: MutPtr<NtoJobT>): CInt
 
-public expect fun schedJobDestroyR(job: COpaquePointer?): CInt
+public expect fun schedJobDestroyR(job: MutPtr<NtoJobT>): CInt
 
-public expect fun schedWaypoint(job: COpaquePointer?, new: COpaquePointer?, max: COpaquePointer?, old: COpaquePointer?): CInt
+public expect fun schedWaypoint(job: MutPtr<NtoJobT>, new: ConstPtr<Long>, max: ConstPtr<Long>, old: MutPtr<Long>): CInt
 
-public expect fun schedWaypointR(job: COpaquePointer?, new: COpaquePointer?, max: COpaquePointer?, old: COpaquePointer?): CInt
+public expect fun schedWaypointR(job: MutPtr<NtoJobT>, new: ConstPtr<Long>, max: ConstPtr<Long>, old: MutPtr<Long>): CInt
 
-public expect fun timerCreate(id: ClockidT, notify: COpaquePointer?): CInt
+public expect fun timerCreate(id: ClockidT, notify: ConstPtr<Sigevent>): CInt
 
-public expect fun timerCreateR(id: ClockidT, notify: COpaquePointer?): CInt
+public expect fun timerCreateR(id: ClockidT, notify: ConstPtr<Sigevent>): CInt
 
 public expect fun timerDestroy(id: TimerT): CInt
 
 public expect fun timerDestroyR(id: TimerT): CInt
 
-public expect fun timerSettime(id: TimerT, flags: CInt, itime: COpaquePointer?, oitime: COpaquePointer?): CInt
+public expect fun timerSettime(id: TimerT, flags: CInt, itime: ConstPtr<Itimer>, oitime: MutPtr<Itimer>): CInt
 
-public expect fun timerSettimeR(id: TimerT, flags: CInt, itime: COpaquePointer?, oitime: COpaquePointer?): CInt
+public expect fun timerSettimeR(id: TimerT, flags: CInt, itime: ConstPtr<Itimer>, oitime: MutPtr<Itimer>): CInt
 
-public expect fun timerInfo(pid: PidT, id: TimerT, flags: CInt, info: COpaquePointer?): CInt
+public expect fun timerInfo(pid: PidT, id: TimerT, flags: CInt, info: MutPtr<TimerInfo>): CInt
 
-public expect fun timerInfoR(pid: PidT, id: TimerT, flags: CInt, info: COpaquePointer?): CInt
+public expect fun timerInfoR(pid: PidT, id: TimerT, flags: CInt, info: MutPtr<TimerInfo>): CInt
 
-public expect fun timerAlarm(id: ClockidT, itime: COpaquePointer?, otime: COpaquePointer?): CInt
+public expect fun timerAlarm(id: ClockidT, itime: ConstPtr<Itimer>, otime: MutPtr<Itimer>): CInt
 
-public expect fun timerAlarmR(id: ClockidT, itime: COpaquePointer?, otime: COpaquePointer?): CInt
+public expect fun timerAlarmR(id: ClockidT, itime: ConstPtr<Itimer>, otime: MutPtr<Itimer>): CInt
 
-public expect fun timerTimeout(id: ClockidT, flags: CInt, notify: COpaquePointer?, ntime: COpaquePointer?, otime: COpaquePointer?): CInt
+public expect fun timerTimeout(id: ClockidT, flags: CInt, notify: ConstPtr<Sigevent>, ntime: ConstPtr<ULong>, otime: MutPtr<ULong>): CInt
 
-public expect fun timerTimeoutR(id: ClockidT, flags: CInt, notify: COpaquePointer?, ntime: COpaquePointer?, otime: COpaquePointer?): CInt
+public expect fun timerTimeoutR(id: ClockidT, flags: CInt, notify: ConstPtr<Sigevent>, ntime: ConstPtr<ULong>, otime: MutPtr<ULong>): CInt
 
-public expect fun syncTypeCreate(type: CUint, sync: COpaquePointer?, attr: COpaquePointer?): CInt
+public expect fun syncTypeCreate(type: CUint, sync: MutPtr<SyncT>, attr: ConstPtr<SyncAttr>): CInt
 
-public expect fun syncTypeCreateR(type: CUint, sync: COpaquePointer?, attr: COpaquePointer?): CInt
+public expect fun syncTypeCreateR(type: CUint, sync: MutPtr<SyncT>, attr: ConstPtr<SyncAttr>): CInt
 
-public expect fun syncDestroy(sync: COpaquePointer?): CInt
+public expect fun syncDestroy(sync: MutPtr<SyncT>): CInt
 
-public expect fun syncDestroyR(sync: COpaquePointer?): CInt
+public expect fun syncDestroyR(sync: MutPtr<SyncT>): CInt
 
-public expect fun syncCtl(cmd: CInt, sync: COpaquePointer?, data: COpaquePointer?): CInt
+public expect fun syncCtl(cmd: CInt, sync: MutPtr<SyncT>, data: MutPtr<CVoid>): CInt
 
-public expect fun syncCtlR(cmd: CInt, sync: COpaquePointer?, data: COpaquePointer?): CInt
+public expect fun syncCtlR(cmd: CInt, sync: MutPtr<SyncT>, data: MutPtr<CVoid>): CInt
 
-public expect fun syncMutexEvent(sync: COpaquePointer?, event: COpaquePointer?): CInt
+public expect fun syncMutexEvent(sync: MutPtr<SyncT>, event: ConstPtr<Sigevent>): CInt
 
-public expect fun syncMutexEventR(sync: COpaquePointer?, event: COpaquePointer?): CInt
+public expect fun syncMutexEventR(sync: MutPtr<SyncT>, event: ConstPtr<Sigevent>): CInt
 
-public expect fun syncMutexLock(sync: COpaquePointer?): CInt
+public expect fun syncMutexLock(sync: MutPtr<SyncT>): CInt
 
-public expect fun syncMutexLockR(sync: COpaquePointer?): CInt
+public expect fun syncMutexLockR(sync: MutPtr<SyncT>): CInt
 
-public expect fun syncMutexUnlock(sync: COpaquePointer?): CInt
+public expect fun syncMutexUnlock(sync: MutPtr<SyncT>): CInt
 
-public expect fun syncMutexUnlockR(sync: COpaquePointer?): CInt
+public expect fun syncMutexUnlockR(sync: MutPtr<SyncT>): CInt
 
-public expect fun syncMutexRevive(sync: COpaquePointer?): CInt
+public expect fun syncMutexRevive(sync: MutPtr<SyncT>): CInt
 
-public expect fun syncMutexReviveR(sync: COpaquePointer?): CInt
+public expect fun syncMutexReviveR(sync: MutPtr<SyncT>): CInt
 
-public expect fun syncCondvarWait(sync: COpaquePointer?, mutex: COpaquePointer?): CInt
+public expect fun syncCondvarWait(sync: MutPtr<SyncT>, mutex: MutPtr<SyncT>): CInt
 
-public expect fun syncCondvarWaitR(sync: COpaquePointer?, mutex: COpaquePointer?): CInt
+public expect fun syncCondvarWaitR(sync: MutPtr<SyncT>, mutex: MutPtr<SyncT>): CInt
 
-public expect fun syncCondvarSignal(sync: COpaquePointer?, all: CInt): CInt
+public expect fun syncCondvarSignal(sync: MutPtr<SyncT>, all: CInt): CInt
 
-public expect fun syncCondvarSignalR(sync: COpaquePointer?, all: CInt): CInt
+public expect fun syncCondvarSignalR(sync: MutPtr<SyncT>, all: CInt): CInt
 
-public expect fun syncSemPost(sync: COpaquePointer?): CInt
+public expect fun syncSemPost(sync: MutPtr<SyncT>): CInt
 
-public expect fun syncSemPostR(sync: COpaquePointer?): CInt
+public expect fun syncSemPostR(sync: MutPtr<SyncT>): CInt
 
-public expect fun syncSemWait(sync: COpaquePointer?, tryto: CInt): CInt
+public expect fun syncSemWait(sync: MutPtr<SyncT>, tryto: CInt): CInt
 
-public expect fun syncSemWaitR(sync: COpaquePointer?, tryto: CInt): CInt
+public expect fun syncSemWaitR(sync: MutPtr<SyncT>, tryto: CInt): CInt
 
-public expect fun clockTime(id: ClockidT, new: COpaquePointer?, old: COpaquePointer?): CInt
+public expect fun clockTime(id: ClockidT, new: ConstPtr<ULong>, old: MutPtr<ULong>): CInt
 
-public expect fun clockTimeR(id: ClockidT, new: COpaquePointer?, old: COpaquePointer?): CInt
+public expect fun clockTimeR(id: ClockidT, new: ConstPtr<ULong>, old: MutPtr<ULong>): CInt
 
-public expect fun clockAdjust(id: ClockidT, new: COpaquePointer?, old: COpaquePointer?): CInt
+public expect fun clockAdjust(id: ClockidT, new: ConstPtr<Clockadjust>, old: MutPtr<Clockadjust>): CInt
 
-public expect fun clockAdjustR(id: ClockidT, new: COpaquePointer?, old: COpaquePointer?): CInt
+public expect fun clockAdjustR(id: ClockidT, new: ConstPtr<Clockadjust>, old: MutPtr<Clockadjust>): CInt
 
-public expect fun clockPeriod(id: ClockidT, new: COpaquePointer?, old: COpaquePointer?, reserved: CInt): CInt
+public expect fun clockPeriod(id: ClockidT, new: ConstPtr<Clockperiod>, old: MutPtr<Clockperiod>, reserved: CInt): CInt
 
-public expect fun clockPeriodR(id: ClockidT, new: COpaquePointer?, old: COpaquePointer?, reserved: CInt): CInt
+public expect fun clockPeriodR(id: ClockidT, new: ConstPtr<Clockperiod>, old: MutPtr<Clockperiod>, reserved: CInt): CInt
 
 public expect fun clockId(pid: PidT, tid: CInt): CInt
 

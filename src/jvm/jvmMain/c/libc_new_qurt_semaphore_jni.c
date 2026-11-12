@@ -19,7 +19,7 @@
 #endif
 #endif
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_semaphore_NewQurtSemaphoreJniBridge_libc_1new_1qurt_1semaphore_1semInit(JNIEnv* km_env, jclass km_clazz, jlong sem, jint pshared, jint value) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_semaphore_NewQurtSemaphoreJniBridge_libcNewQurtSemaphoreSemInit(JNIEnv* km_env, jclass km_clazz, jlong sem, jint pshared, jint value) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t, uint32_t);
@@ -52,7 +52,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_semaphore_NewQur
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_semaphore_NewQurtSemaphoreJniBridge_libc_1new_1qurt_1semaphore_1semDestroy(JNIEnv* km_env, jclass km_clazz, jlong sem) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_semaphore_NewQurtSemaphoreJniBridge_libcNewQurtSemaphoreSemDestroy(JNIEnv* km_env, jclass km_clazz, jlong sem) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -85,7 +85,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_semaphore_NewQur
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_semaphore_NewQurtSemaphoreJniBridge_libc_1new_1qurt_1semaphore_1semWait(JNIEnv* km_env, jclass km_clazz, jlong sem) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_semaphore_NewQurtSemaphoreJniBridge_libcNewQurtSemaphoreSemWait(JNIEnv* km_env, jclass km_clazz, jlong sem) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -118,7 +118,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_semaphore_NewQur
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_semaphore_NewQurtSemaphoreJniBridge_libc_1new_1qurt_1semaphore_1semTrywait(JNIEnv* km_env, jclass km_clazz, jlong sem) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_semaphore_NewQurtSemaphoreJniBridge_libcNewQurtSemaphoreSemTrywait(JNIEnv* km_env, jclass km_clazz, jlong sem) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -151,7 +151,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_semaphore_NewQur
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_semaphore_NewQurtSemaphoreJniBridge_libc_1new_1qurt_1semaphore_1semPost(JNIEnv* km_env, jclass km_clazz, jlong sem) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_semaphore_NewQurtSemaphoreJniBridge_libcNewQurtSemaphoreSemPost(JNIEnv* km_env, jclass km_clazz, jlong sem) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -184,7 +184,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_semaphore_NewQur
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_semaphore_NewQurtSemaphoreJniBridge_libc_1new_1qurt_1semaphore_1semGetvalue(JNIEnv* km_env, jclass km_clazz, jlong sem, jlong sval) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_semaphore_NewQurtSemaphoreJniBridge_libcNewQurtSemaphoreSemGetvalue(JNIEnv* km_env, jclass km_clazz, jlong sem, jlong sval) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);

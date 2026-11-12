@@ -2,117 +2,126 @@
 
 package io.github.kotlinmania.libc.unix.solarish.illumos
 
+import io.github.kotlinmania.libc.CChar
+import io.github.kotlinmania.libc.CDouble
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
+import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.PidT
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
 import io.github.kotlinmania.libc.unix.solarish.CaddrT
 import io.github.kotlinmania.libc.unix.solarish.IdT
+import io.github.kotlinmania.libc.unix.solarish.Itimerspec
 import io.github.kotlinmania.libc.unix.solarish.OffT
+import io.github.kotlinmania.libc.unix.solarish.PosixSpawnFileActionsT
 import io.github.kotlinmania.libc.unix.solarish.PsetidT
+import io.github.kotlinmania.libc.unix.solarish.PthreadAttrT
 import io.github.kotlinmania.libc.unix.solarish.PthreadT
-import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libc_unix_solarish_illumos_epollCreate
-import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libc_unix_solarish_illumos_epollCreate1
-import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libc_unix_solarish_illumos_epollCtl
-import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libc_unix_solarish_illumos_epollPwait
-import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libc_unix_solarish_illumos_epollWait
-import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libc_unix_solarish_illumos_eventfd
-import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libc_unix_solarish_illumos_getpagesizes2
-import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libc_unix_solarish_illumos_mincore
-import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libc_unix_solarish_illumos_posixFadvise
-import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libc_unix_solarish_illumos_posixSpawnFileActionsAddfchdirNp
-import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libc_unix_solarish_illumos_preadv
-import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libc_unix_solarish_illumos_psetBindLwp
-import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libc_unix_solarish_illumos_psetGetloadavg
-import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libc_unix_solarish_illumos_pthreadAttrGetNp
-import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libc_unix_solarish_illumos_pthreadAttrGetstackaddr
-import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libc_unix_solarish_illumos_pthreadAttrSetstack
-import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libc_unix_solarish_illumos_pthreadAttrSetstackaddr
-import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libc_unix_solarish_illumos_ptsnameR
-import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libc_unix_solarish_illumos_pwritev
-import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libc_unix_solarish_illumos_strcasecmpL
-import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libc_unix_solarish_illumos_strncasecmpL
-import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libc_unix_solarish_illumos_syncfs
-import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libc_unix_solarish_illumos_timerfdCreate
-import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libc_unix_solarish_illumos_timerfdGettime
-import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libc_unix_solarish_illumos_timerfdSettime
+import io.github.kotlinmania.libc.unix.solarish.SigsetT
+import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libcUnixSolarishIllumosEpollCreate
+import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libcUnixSolarishIllumosEpollCreate1
+import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libcUnixSolarishIllumosEpollCtl
+import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libcUnixSolarishIllumosEpollPwait
+import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libcUnixSolarishIllumosEpollWait
+import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libcUnixSolarishIllumosEventfd
+import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libcUnixSolarishIllumosGetpagesizes2
+import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libcUnixSolarishIllumosMincore
+import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libcUnixSolarishIllumosPosixFadvise
+import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libcUnixSolarishIllumosPosixSpawnFileActionsAddfchdirNp
+import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libcUnixSolarishIllumosPreadv
+import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libcUnixSolarishIllumosPsetBindLwp
+import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libcUnixSolarishIllumosPsetGetloadavg
+import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libcUnixSolarishIllumosPthreadAttrGetNp
+import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libcUnixSolarishIllumosPthreadAttrGetstackaddr
+import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libcUnixSolarishIllumosPthreadAttrSetstack
+import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libcUnixSolarishIllumosPthreadAttrSetstackaddr
+import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libcUnixSolarishIllumosPtsnameR
+import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libcUnixSolarishIllumosPwritev
+import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libcUnixSolarishIllumosStrcasecmpL
+import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libcUnixSolarishIllumosStrncasecmpL
+import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libcUnixSolarishIllumosSyncfs
+import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libcUnixSolarishIllumosTimerfdCreate
+import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libcUnixSolarishIllumosTimerfdGettime
+import io.github.kotlinmania.libc.unix.solarish.illumos.cinterop.libcUnixSolarishIllumosTimerfdSettime
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 
 public actual fun eventfd(initval: CUint, flags: CInt): CInt =
-    libc_unix_solarish_illumos_eventfd(initval, flags)
+    libcUnixSolarishIllumosEventfd(initval, flags)
 
-public actual fun epollPwait(epfd: CInt, events: COpaquePointer?, maxevents: CInt, timeout: CInt, sigmask: COpaquePointer?): CInt =
-    libc_unix_solarish_illumos_epollPwait(epfd, events?.value?.toCPointer<ByteVar>(), maxevents, timeout, sigmask?.value?.toCPointer<ByteVar>())
+public actual fun epollPwait(epfd: CInt, events: MutPtr<EpollEvent>, maxevents: CInt, timeout: CInt, sigmask: ConstPtr<SigsetT>): CInt =
+    libcUnixSolarishIllumosEpollPwait(epfd, events.rawAddress.toCPointer<ByteVar>(), maxevents, timeout, sigmask.rawAddress.toCPointer<ByteVar>())
 
 public actual fun epollCreate(size: CInt): CInt =
-    libc_unix_solarish_illumos_epollCreate(size)
+    libcUnixSolarishIllumosEpollCreate(size)
 
 public actual fun epollCreate1(flags: CInt): CInt =
-    libc_unix_solarish_illumos_epollCreate1(flags)
+    libcUnixSolarishIllumosEpollCreate1(flags)
 
-public actual fun epollWait(epfd: CInt, events: COpaquePointer?, maxevents: CInt, timeout: CInt): CInt =
-    libc_unix_solarish_illumos_epollWait(epfd, events?.value?.toCPointer<ByteVar>(), maxevents, timeout)
+public actual fun epollWait(epfd: CInt, events: MutPtr<EpollEvent>, maxevents: CInt, timeout: CInt): CInt =
+    libcUnixSolarishIllumosEpollWait(epfd, events.rawAddress.toCPointer<ByteVar>(), maxevents, timeout)
 
-public actual fun epollCtl(epfd: CInt, op: CInt, fd: CInt, event: COpaquePointer?): CInt =
-    libc_unix_solarish_illumos_epollCtl(epfd, op, fd, event?.value?.toCPointer<ByteVar>())
+public actual fun epollCtl(epfd: CInt, op: CInt, fd: CInt, event: MutPtr<EpollEvent>): CInt =
+    libcUnixSolarishIllumosEpollCtl(epfd, op, fd, event.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mincore(addr: CaddrT, len: SizeT, vec: COpaquePointer?): CInt =
-    libc_unix_solarish_illumos_mincore(addr?.value?.toCPointer<ByteVar>(), len, vec?.value?.toCPointer<ByteVar>())
+public actual fun mincore(addr: CaddrT, len: SizeT, vec: MutPtr<CChar>): CInt =
+    libcUnixSolarishIllumosMincore(addr.rawAddress.toCPointer<ByteVar>(), len, vec.rawAddress.toCPointer<ByteVar>())
 
-public actual fun psetBindLwp(pset: PsetidT, id: IdT, pid: PidT, opset: COpaquePointer?): CInt =
-    libc_unix_solarish_illumos_psetBindLwp(pset, id, pid, opset?.value?.toCPointer<ByteVar>())
+public actual fun psetBindLwp(pset: PsetidT, id: IdT, pid: PidT, opset: MutPtr<PsetidT>): CInt =
+    libcUnixSolarishIllumosPsetBindLwp(pset, id, pid, opset.rawAddress.toCPointer<ByteVar>())
 
-public actual fun psetGetloadavg(pset: PsetidT, load: COpaquePointer?, num: CInt): CInt =
-    libc_unix_solarish_illumos_psetGetloadavg(pset, load?.value?.toCPointer<ByteVar>(), num)
+public actual fun psetGetloadavg(pset: PsetidT, load: MutPtr<CDouble>, num: CInt): CInt =
+    libcUnixSolarishIllumosPsetGetloadavg(pset, load.rawAddress.toCPointer<ByteVar>(), num)
 
-public actual fun pthreadAttrGetNp(thread: PthreadT, attr: COpaquePointer?): CInt =
-    libc_unix_solarish_illumos_pthreadAttrGetNp(thread.toLong().toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadAttrGetNp(thread: PthreadT, attr: MutPtr<PthreadAttrT>): CInt =
+    libcUnixSolarishIllumosPthreadAttrGetNp(thread.toLong().toCPointer<ByteVar>(), attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrGetstackaddr(attr: COpaquePointer?, stackaddr: COpaquePointer?): CInt =
-    libc_unix_solarish_illumos_pthreadAttrGetstackaddr(attr?.value?.toCPointer<ByteVar>(), stackaddr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadAttrGetstackaddr(attr: ConstPtr<PthreadAttrT>, stackaddr: MutPtr<MutPtr<CVoid>>): CInt =
+    libcUnixSolarishIllumosPthreadAttrGetstackaddr(attr.rawAddress.toCPointer<ByteVar>(), stackaddr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrSetstack(attr: COpaquePointer?, stackaddr: COpaquePointer?, stacksize: SizeT): CInt =
-    libc_unix_solarish_illumos_pthreadAttrSetstack(attr?.value?.toCPointer<ByteVar>(), stackaddr?.value?.toCPointer<ByteVar>(), stacksize)
+public actual fun pthreadAttrSetstack(attr: MutPtr<PthreadAttrT>, stackaddr: MutPtr<CVoid>, stacksize: SizeT): CInt =
+    libcUnixSolarishIllumosPthreadAttrSetstack(attr.rawAddress.toCPointer<ByteVar>(), stackaddr.rawAddress.toCPointer<ByteVar>(), stacksize)
 
-public actual fun pthreadAttrSetstackaddr(attr: COpaquePointer?, stackaddr: COpaquePointer?): CInt =
-    libc_unix_solarish_illumos_pthreadAttrSetstackaddr(attr?.value?.toCPointer<ByteVar>(), stackaddr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadAttrSetstackaddr(attr: MutPtr<PthreadAttrT>, stackaddr: MutPtr<CVoid>): CInt =
+    libcUnixSolarishIllumosPthreadAttrSetstackaddr(attr.rawAddress.toCPointer<ByteVar>(), stackaddr.rawAddress.toCPointer<ByteVar>())
 
 public actual fun posixFadvise(fd: CInt, offset: OffT, len: OffT, advice: CInt): CInt =
-    libc_unix_solarish_illumos_posixFadvise(fd, offset, len, advice)
+    libcUnixSolarishIllumosPosixFadvise(fd, offset, len, advice)
 
-public actual fun preadv(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: OffT): SsizeT =
-    libc_unix_solarish_illumos_preadv(fd, iov?.value?.toCPointer<ByteVar>(), iovcnt, offset)
+public actual fun preadv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT =
+    libcUnixSolarishIllumosPreadv(fd, iov.rawAddress.toCPointer<ByteVar>(), iovcnt, offset)
 
-public actual fun pwritev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: OffT): SsizeT =
-    libc_unix_solarish_illumos_pwritev(fd, iov?.value?.toCPointer<ByteVar>(), iovcnt, offset)
+public actual fun pwritev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT =
+    libcUnixSolarishIllumosPwritev(fd, iov.rawAddress.toCPointer<ByteVar>(), iovcnt, offset)
 
-public actual fun getpagesizes2(pagesize: COpaquePointer?, nelem: CInt): CInt =
-    libc_unix_solarish_illumos_getpagesizes2(pagesize?.value?.toCPointer<ByteVar>(), nelem)
+public actual fun getpagesizes2(pagesize: MutPtr<SizeT>, nelem: CInt): CInt =
+    libcUnixSolarishIllumosGetpagesizes2(pagesize.rawAddress.toCPointer<ByteVar>(), nelem)
 
-public actual fun posixSpawnFileActionsAddfchdirNp(fileActions: COpaquePointer?, fd: CInt): CInt =
-    libc_unix_solarish_illumos_posixSpawnFileActionsAddfchdirNp(fileActions?.value?.toCPointer<ByteVar>(), fd)
+public actual fun posixSpawnFileActionsAddfchdirNp(fileActions: MutPtr<PosixSpawnFileActionsT>, fd: CInt): CInt =
+    libcUnixSolarishIllumosPosixSpawnFileActionsAddfchdirNp(fileActions.rawAddress.toCPointer<ByteVar>(), fd)
 
-public actual fun ptsnameR(fildes: CInt, name: COpaquePointer?, namelen: SizeT): CInt =
-    libc_unix_solarish_illumos_ptsnameR(fildes, name?.value?.toCPointer<ByteVar>(), namelen)
+public actual fun ptsnameR(fildes: CInt, name: MutPtr<CChar>, namelen: SizeT): CInt =
+    libcUnixSolarishIllumosPtsnameR(fildes, name.rawAddress.toCPointer<ByteVar>(), namelen)
 
 public actual fun syncfs(fd: CInt): CInt =
-    libc_unix_solarish_illumos_syncfs(fd)
+    libcUnixSolarishIllumosSyncfs(fd)
 
-public actual fun strcasecmpL(s1: String?, s2: String?, loc: LocaleT): CInt =
-    libc_unix_solarish_illumos_strcasecmpL(s1, s2, loc?.value?.toCPointer<ByteVar>())
+public actual fun strcasecmpL(s1: ConstPtr<CChar>, s2: ConstPtr<CChar>, loc: LocaleT): CInt =
+    libcUnixSolarishIllumosStrcasecmpL(s1.rawAddress.toCPointer<ByteVar>(), s2.rawAddress.toCPointer<ByteVar>(), loc.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strncasecmpL(s1: String?, s2: String?, n: SizeT, loc: LocaleT): CInt =
-    libc_unix_solarish_illumos_strncasecmpL(s1, s2, n, loc?.value?.toCPointer<ByteVar>())
+public actual fun strncasecmpL(s1: ConstPtr<CChar>, s2: ConstPtr<CChar>, n: SizeT, loc: LocaleT): CInt =
+    libcUnixSolarishIllumosStrncasecmpL(s1.rawAddress.toCPointer<ByteVar>(), s2.rawAddress.toCPointer<ByteVar>(), n, loc.rawAddress.toCPointer<ByteVar>())
 
 public actual fun timerfdCreate(clockid: CInt, flags: CInt): CInt =
-    libc_unix_solarish_illumos_timerfdCreate(clockid, flags)
+    libcUnixSolarishIllumosTimerfdCreate(clockid, flags)
 
-public actual fun timerfdGettime(fd: CInt, currValue: COpaquePointer?): CInt =
-    libc_unix_solarish_illumos_timerfdGettime(fd, currValue?.value?.toCPointer<ByteVar>())
+public actual fun timerfdGettime(fd: CInt, currValue: MutPtr<Itimerspec>): CInt =
+    libcUnixSolarishIllumosTimerfdGettime(fd, currValue.rawAddress.toCPointer<ByteVar>())
 
-public actual fun timerfdSettime(fd: CInt, flags: CInt, newValue: COpaquePointer?, oldValue: COpaquePointer?): CInt =
-    libc_unix_solarish_illumos_timerfdSettime(fd, flags, newValue?.value?.toCPointer<ByteVar>(), oldValue?.value?.toCPointer<ByteVar>())
+public actual fun timerfdSettime(fd: CInt, flags: CInt, newValue: ConstPtr<Itimerspec>, oldValue: MutPtr<Itimerspec>): CInt =
+    libcUnixSolarishIllumosTimerfdSettime(fd, flags, newValue.rawAddress.toCPointer<ByteVar>(), oldValue.rawAddress.toCPointer<ByteVar>())

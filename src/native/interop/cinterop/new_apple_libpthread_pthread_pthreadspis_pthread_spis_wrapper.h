@@ -9,7 +9,7 @@
 extern "C" {
 #endif
 
-int32_t libc_new_apple_libpthread_pthread_pthreadspis_pthread_spis_pthreadCreateFromMachThread(void* thread, void* attr, void* f, void* value);
+int32_t libcNewAppleLibpthreadPthreadPthreadspisPthreadSpisPthreadCreateFromMachThread(void* thread, void* attr, void* f, void* value);
 
 #ifdef __cplusplus
 }

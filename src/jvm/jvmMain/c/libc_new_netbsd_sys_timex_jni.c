@@ -19,7 +19,7 @@
 #endif
 #endif
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_netbsd_sys_timex_NewNetbsdSysTimexJniBridge_libc_1new_1netbsd_1sys_1timex_1ntpGettime(JNIEnv* km_env, jclass km_clazz, jlong buf) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_netbsd_sys_timex_NewNetbsdSysTimexJniBridge_libcNewNetbsdSysTimexNtpGettime(JNIEnv* km_env, jclass km_clazz, jlong buf) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -50,7 +50,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_netbsd_sys_timex_NewN
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_netbsd_sys_timex_NewNetbsdSysTimexJniBridge_libc_1new_1netbsd_1sys_1timex_1ntpAdjtime(JNIEnv* km_env, jclass km_clazz, jlong buf) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_netbsd_sys_timex_NewNetbsdSysTimexJniBridge_libcNewNetbsdSysTimexNtpAdjtime(JNIEnv* km_env, jclass km_clazz, jlong buf) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);

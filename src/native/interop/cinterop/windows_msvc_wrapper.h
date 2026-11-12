@@ -9,9 +9,9 @@
 extern "C" {
 #endif
 
-int32_t libc_windows_msvc_stricmp(const char* s1, const char* s2);
-int32_t libc_windows_msvc_strnicmp(const char* s1, const char* s2, uint64_t n);
-void* libc_windows_msvc_memccpy(void* dest, void* src, int32_t c, uint64_t count);
+int32_t libcWindowsMsvcStricmp(const char* s1, const char* s2);
+int32_t libcWindowsMsvcStrnicmp(const char* s1, const char* s2, uint64_t n);
+void* libcWindowsMsvcMemccpy(void* dest, void* src, int32_t c, uint64_t count);
 
 #ifdef __cplusplus
 }

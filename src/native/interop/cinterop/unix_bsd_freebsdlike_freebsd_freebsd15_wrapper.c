@@ -18,7 +18,7 @@
 #endif
 #endif
 
-void libc_unix_bsd_freebsdlike_freebsd_freebsd15_setgrent(void) {
+void libcUnixBsdFreebsdlikeFreebsdFreebsd15Setgrent(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -46,7 +46,7 @@ void libc_unix_bsd_freebsdlike_freebsd_freebsd15_setgrent(void) {
     errno = ENOSYS;
 }
 
-int32_t libc_unix_bsd_freebsdlike_freebsd_freebsd15_mprotect(void* addr, uint64_t len, int32_t prot) {
+int32_t libcUnixBsdFreebsdlikeFreebsdFreebsd15Mprotect(void* addr, uint64_t len, int32_t prot) {
 #if !defined(_WIN32)
     return (int32_t)mprotect(addr, len, prot);
 #else
@@ -58,7 +58,7 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_freebsd15_mprotect(void* addr, uint64_
 #endif
 }
 
-void libc_unix_bsd_freebsdlike_freebsd_freebsd15_freelocale(void* loc) {
+void libcUnixBsdFreebsdlikeFreebsdFreebsd15Freelocale(void* loc) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -86,7 +86,7 @@ void libc_unix_bsd_freebsdlike_freebsd_freebsd15_freelocale(void* loc) {
     errno = ENOSYS;
 }
 
-int64_t libc_unix_bsd_freebsdlike_freebsd_freebsd15_msgrcv(int32_t msqid, void* msgp, uint64_t msgsz, int64_t msgtyp, int32_t msgflg) {
+int64_t libcUnixBsdFreebsdlikeFreebsdFreebsd15Msgrcv(int32_t msqid, void* msgp, uint64_t msgsz, int64_t msgtyp, int32_t msgflg) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, int64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -114,7 +114,7 @@ int64_t libc_unix_bsd_freebsdlike_freebsd_freebsd15_msgrcv(int32_t msqid, void* 
     return -1;
 }
 
-int32_t libc_unix_bsd_freebsdlike_freebsd_freebsd15_cpusetGetdomain(int32_t level, int32_t which, int64_t id, uint64_t setsize, void* mask, void* policy) {
+int32_t libcUnixBsdFreebsdlikeFreebsdFreebsd15CpusetGetdomain(int32_t level, int32_t which, int64_t id, uint64_t setsize, void* mask, void* policy) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int64_t, uint64_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -142,7 +142,7 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_freebsd15_cpusetGetdomain(int32_t leve
     return -1;
 }
 
-int32_t libc_unix_bsd_freebsdlike_freebsd_freebsd15_cpusetSetdomain(int32_t level, int32_t which, int64_t id, uint64_t setsize, void* mask, int32_t policy) {
+int32_t libcUnixBsdFreebsdlikeFreebsdFreebsd15CpusetSetdomain(int32_t level, int32_t which, int64_t id, uint64_t setsize, void* mask, int32_t policy) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int64_t, uint64_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -170,7 +170,7 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_freebsd15_cpusetSetdomain(int32_t leve
     return -1;
 }
 
-char* libc_unix_bsd_freebsdlike_freebsd_freebsd15_dirname(char* path) {
+char* libcUnixBsdFreebsdlikeFreebsdFreebsd15Dirname(char* path) {
     typedef char* (*km_fn_t)(char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -198,7 +198,7 @@ char* libc_unix_bsd_freebsdlike_freebsd_freebsd15_dirname(char* path) {
     return NULL;
 }
 
-char* libc_unix_bsd_freebsdlike_freebsd_freebsd15_basename(char* path) {
+char* libcUnixBsdFreebsdlikeFreebsdFreebsd15Basename(char* path) {
     typedef char* (*km_fn_t)(char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -226,7 +226,7 @@ char* libc_unix_bsd_freebsdlike_freebsd_freebsd15_basename(char* path) {
     return NULL;
 }
 
-void libc_unix_bsd_freebsdlike_freebsd_freebsd15_qsortR(void* base, uint64_t num, uint64_t size, void* compar, void* arg) {
+void libcUnixBsdFreebsdlikeFreebsdFreebsd15QsortR(void* base, uint64_t num, uint64_t size, void* compar, void* arg) {
     typedef void (*km_fn_t)(void*, uint64_t, uint64_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -254,7 +254,7 @@ void libc_unix_bsd_freebsdlike_freebsd_freebsd15_qsortR(void* base, uint64_t num
     errno = ENOSYS;
 }
 
-int64_t libc_unix_bsd_freebsdlike_freebsd_freebsd15_kvmKerndisp(void* kd) {
+int64_t libcUnixBsdFreebsdlikeFreebsdFreebsd15KvmKerndisp(void* kd) {
     typedef int64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

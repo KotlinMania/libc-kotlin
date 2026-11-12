@@ -3,43 +3,98 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.uclibc.mips.mips32
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.unix.SizeT
+import io.github.kotlinmania.libc.unix.linuxlike.CpuSetT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 private object UnixLinuxlikeLinuxUclibcMipsMips32JniBridge {
     init {
+        loadNativeLibrary()
+    }
+
+    private fun loadNativeLibrary() {
+        val osRaw = System.getProperty("os.name", "").lowercase()
+        val archRaw = System.getProperty("os.arch", "").lowercase()
+        val hostPlatform =
+            when {
+                osRaw.contains("win") -> "windows"
+                osRaw.contains("mac") || osRaw.contains("darwin") -> "macos"
+                else -> "linux"
+            }
+        val hostArch =
+            when {
+                archRaw == "aarch64" || archRaw == "arm64" -> "aarch64"
+                archRaw == "amd64" || archRaw == "x86_64" -> "x86_64"
+                else -> archRaw
+            }
+        val libFileName =
+            when (hostPlatform) {
+                "windows" -> "libc_jni.dll"
+                "macos" -> "liblibc_jni.dylib"
+                else -> "liblibc_jni.so"
+            }
+        val pathSep = System.getProperty("path.separator", ":")
+        val libPathProp = System.getProperty("java.library.path", "")
+        for (dirEntry in libPathProp.split(pathSep)) {
+            if (dirEntry.isEmpty()) continue
+            val candidate = java.io.File(dirEntry, libFileName)
+            if (candidate.isFile) {
+                System.load(candidate.absolutePath)
+                return
+            }
+        }
+        val resourcePath = "io/github/kotlinmania/libc/native/$hostPlatform-$hostArch/$libFileName"
+        val stream = UnixLinuxlikeLinuxUclibcMipsMips32JniBridge::class.java.classLoader?.getResourceAsStream(resourcePath)
+        if (stream != null) {
+            val suffix = "." + libFileName.substringAfterLast('.')
+            val extracted =
+                java.nio.file.Files
+                    .createTempFile("libc_jni-", suffix)
+                    .toFile()
+            extracted.deleteOnExit()
+            stream.use { input ->
+                extracted.outputStream().use { output ->
+                    input.copyTo(output)
+                }
+            }
+            System.load(extracted.absolutePath)
+            return
+        }
         System.loadLibrary("libc_jni")
     }
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_uclibc_mips_mips32_sysctl(name: Long, namelen: Int, oldp: Long, oldlenp: Long, newp: Long, newlen: Long): Int
+    external fun libcUnixLinuxlikeLinuxUclibcMipsMips32Sysctl(name: Long, namelen: Int, oldp: Long, oldlenp: Long, newp: Long, newlen: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_uclibc_mips_mips32_glob64(pattern: String?, flags: Int, errfunc: Long, pglob: Long): Int
+    external fun libcUnixLinuxlikeLinuxUclibcMipsMips32Glob64(pattern: Long, flags: Int, errfunc: Long, pglob: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_uclibc_mips_mips32_globfree64(pglob: Long)
+    external fun libcUnixLinuxlikeLinuxUclibcMipsMips32Globfree64(pglob: Long)
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_uclibc_mips_mips32_pthreadAttrGetaffinityNp(attr: Long, cpusetsize: Long, cpuset: Long): Int
+    external fun libcUnixLinuxlikeLinuxUclibcMipsMips32PthreadAttrGetaffinityNp(attr: Long, cpusetsize: Long, cpuset: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_uclibc_mips_mips32_pthreadAttrSetaffinityNp(attr: Long, cpusetsize: Long, cpuset: Long): Int
+    external fun libcUnixLinuxlikeLinuxUclibcMipsMips32PthreadAttrSetaffinityNp(attr: Long, cpusetsize: Long, cpuset: Long): Int
 }
 
-public actual fun sysctl(name: COpaquePointer?, namelen: CInt, oldp: COpaquePointer?, oldlenp: COpaquePointer?, newp: COpaquePointer?, newlen: SizeT): CInt =
-    UnixLinuxlikeLinuxUclibcMipsMips32JniBridge.libc_unix_linuxlike_linux_uclibc_mips_mips32_sysctl((name?.value ?: 0L), namelen, (oldp?.value ?: 0L), (oldlenp?.value ?: 0L), (newp?.value ?: 0L), newlen.toLong())
+public actual fun sysctl(name: MutPtr<CInt>, namelen: CInt, oldp: MutPtr<CVoid>, oldlenp: MutPtr<SizeT>, newp: MutPtr<CVoid>, newlen: SizeT): CInt =
+    UnixLinuxlikeLinuxUclibcMipsMips32JniBridge.libcUnixLinuxlikeLinuxUclibcMipsMips32Sysctl(name.rawAddress, namelen, oldp.rawAddress, oldlenp.rawAddress, newp.rawAddress, newlen.toLong())
 
-public actual fun glob64(pattern: String?, flags: CInt, errfunc: Glob64ErrfuncCallback?, pglob: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxUclibcMipsMips32JniBridge.libc_unix_linuxlike_linux_uclibc_mips_mips32_glob64(pattern, flags, 0L, (pglob?.value ?: 0L))
+public actual fun glob64(pattern: ConstPtr<CChar>, flags: CInt, errfunc: Glob64ErrfuncCallback?, pglob: MutPtr<Glob64T>): CInt =
+    UnixLinuxlikeLinuxUclibcMipsMips32JniBridge.libcUnixLinuxlikeLinuxUclibcMipsMips32Glob64(pattern.rawAddress, flags, 0L, pglob.rawAddress)
 
-public actual fun globfree64(pglob: COpaquePointer?) {
-    UnixLinuxlikeLinuxUclibcMipsMips32JniBridge.libc_unix_linuxlike_linux_uclibc_mips_mips32_globfree64((pglob?.value ?: 0L))
+public actual fun globfree64(pglob: MutPtr<Glob64T>) {
+    UnixLinuxlikeLinuxUclibcMipsMips32JniBridge.libcUnixLinuxlikeLinuxUclibcMipsMips32Globfree64(pglob.rawAddress)
 }
 
-public actual fun pthreadAttrGetaffinityNp(attr: COpaquePointer?, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxUclibcMipsMips32JniBridge.libc_unix_linuxlike_linux_uclibc_mips_mips32_pthreadAttrGetaffinityNp((attr?.value ?: 0L), cpusetsize.toLong(), (cpuset?.value ?: 0L))
+public actual fun pthreadAttrGetaffinityNp(attr: ConstPtr<PthreadAttrT>, cpusetsize: SizeT, cpuset: MutPtr<CpuSetT>): CInt =
+    UnixLinuxlikeLinuxUclibcMipsMips32JniBridge.libcUnixLinuxlikeLinuxUclibcMipsMips32PthreadAttrGetaffinityNp(attr.rawAddress, cpusetsize.toLong(), cpuset.rawAddress)
 
-public actual fun pthreadAttrSetaffinityNp(attr: COpaquePointer?, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxUclibcMipsMips32JniBridge.libc_unix_linuxlike_linux_uclibc_mips_mips32_pthreadAttrSetaffinityNp((attr?.value ?: 0L), cpusetsize.toLong(), (cpuset?.value ?: 0L))
+public actual fun pthreadAttrSetaffinityNp(attr: MutPtr<PthreadAttrT>, cpusetsize: SizeT, cpuset: ConstPtr<CpuSetT>): CInt =
+    UnixLinuxlikeLinuxUclibcMipsMips32JniBridge.libcUnixLinuxlikeLinuxUclibcMipsMips32PthreadAttrSetaffinityNp(attr.rawAddress, cpusetsize.toLong(), cpuset.rawAddress)

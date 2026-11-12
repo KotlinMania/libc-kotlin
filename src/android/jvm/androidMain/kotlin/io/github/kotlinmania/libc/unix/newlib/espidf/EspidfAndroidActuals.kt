@@ -3,11 +3,16 @@
 package io.github.kotlinmania.libc.unix.newlib.espidf
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
+import io.github.kotlinmania.libc.unix.newlib.PthreadAttrT
+import io.github.kotlinmania.libc.unix.newlib.PthreadT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 private object UnixNewlibEspidfJniBridge {
     init {
@@ -15,39 +20,39 @@ private object UnixNewlibEspidfJniBridge {
     }
 
     @JvmStatic
-    external fun libc_unix_newlib_espidf_pthreadCreate(native: Long, attr: Long, f: Long, value: Long): Int
+    external fun libcUnixNewlibEspidfPthreadCreate(native: Long, attr: Long, f: Long, value: Long): Int
 
     @JvmStatic
-    external fun libc_unix_newlib_espidf_getrandom(buf: Long, buflen: Long, flags: Int): Long
+    external fun libcUnixNewlibEspidfGetrandom(buf: Long, buflen: Long, flags: Int): Long
 
     @JvmStatic
-    external fun libc_unix_newlib_espidf_gethostname(name: Long, namelen: Long)
+    external fun libcUnixNewlibEspidfGethostname(name: Long, namelen: Long)
 
     @JvmStatic
-    external fun libc_unix_newlib_espidf_sendmsg(s: Int, msg: Long, flags: Int): Long
+    external fun libcUnixNewlibEspidfSendmsg(s: Int, msg: Long, flags: Int): Long
 
     @JvmStatic
-    external fun libc_unix_newlib_espidf_recvmsg(s: Int, msg: Long, flags: Int): Long
+    external fun libcUnixNewlibEspidfRecvmsg(s: Int, msg: Long, flags: Int): Long
 
     @JvmStatic
-    external fun libc_unix_newlib_espidf_eventfd(initval: Int, flags: Int): Int
+    external fun libcUnixNewlibEspidfEventfd(initval: Int, flags: Int): Int
 }
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
-    UnixNewlibEspidfJniBridge.libc_unix_newlib_espidf_pthreadCreate((native?.value ?: 0L), (attr?.value ?: 0L), 0L, (value?.value ?: 0L))
+public actual fun pthreadCreate(native: MutPtr<PthreadT>, attr: ConstPtr<PthreadAttrT>, f: PthreadCreateFCallback, value: MutPtr<CVoid>): CInt =
+    UnixNewlibEspidfJniBridge.libcUnixNewlibEspidfPthreadCreate(native.rawAddress, attr.rawAddress, 0L, value.rawAddress)
 
-public actual fun getrandom(buf: COpaquePointer?, buflen: SizeT, flags: CUint): SsizeT =
-    UnixNewlibEspidfJniBridge.libc_unix_newlib_espidf_getrandom((buf?.value ?: 0L), buflen.toLong(), flags.toInt())
+public actual fun getrandom(buf: MutPtr<CVoid>, buflen: SizeT, flags: CUint): SsizeT =
+    UnixNewlibEspidfJniBridge.libcUnixNewlibEspidfGetrandom(buf.rawAddress, buflen.toLong(), flags.toInt())
 
-public actual fun gethostname(name: COpaquePointer?, namelen: SsizeT) {
-    UnixNewlibEspidfJniBridge.libc_unix_newlib_espidf_gethostname((name?.value ?: 0L), namelen)
+public actual fun gethostname(name: MutPtr<CChar>, namelen: SsizeT) {
+    UnixNewlibEspidfJniBridge.libcUnixNewlibEspidfGethostname(name.rawAddress, namelen)
 }
 
-public actual fun sendmsg(s: CInt, msg: COpaquePointer?, flags: CInt): SsizeT =
-    UnixNewlibEspidfJniBridge.libc_unix_newlib_espidf_sendmsg(s, (msg?.value ?: 0L), flags)
+public actual fun sendmsg(s: CInt, msg: ConstPtr<Msghdr>, flags: CInt): SsizeT =
+    UnixNewlibEspidfJniBridge.libcUnixNewlibEspidfSendmsg(s, msg.rawAddress, flags)
 
-public actual fun recvmsg(s: CInt, msg: COpaquePointer?, flags: CInt): SsizeT =
-    UnixNewlibEspidfJniBridge.libc_unix_newlib_espidf_recvmsg(s, (msg?.value ?: 0L), flags)
+public actual fun recvmsg(s: CInt, msg: MutPtr<Msghdr>, flags: CInt): SsizeT =
+    UnixNewlibEspidfJniBridge.libcUnixNewlibEspidfRecvmsg(s, msg.rawAddress, flags)
 
 public actual fun eventfd(initval: CUint, flags: CInt): CInt =
-    UnixNewlibEspidfJniBridge.libc_unix_newlib_espidf_eventfd(initval.toInt(), flags)
+    UnixNewlibEspidfJniBridge.libcUnixNewlibEspidfEventfd(initval.toInt(), flags)

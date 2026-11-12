@@ -3,7 +3,6 @@ package io.github.kotlinmania.libc.unix.linuxlike
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
@@ -13,6 +12,9 @@ import io.github.kotlinmania.libc.unix.linuxlike.android.b64.ModeT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.IdtypeT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.Ioctl
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.O_CLOEXEC
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.mem.ObjectSlotLayout
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 // intentionally not public, only used for fdSet
 // https://github.com/search?q=repo%3Atorvalds%2Flinux+%22%23define+_IOC_NONE%22&type=code
@@ -252,7 +254,7 @@ public val MAP_PRIVATE: CInt = 0x0002
 
 public val MAP_FIXED: CInt = 0x0010
 
-public val MAP_FAILED: COpaquePointer? = COpaquePointer((0.inv()).toLong())
+public val MAP_FAILED: MutPtr<CVoid> = MutPtr<CVoid>((0.inv()).toLong())
 
 // MS_ flags for msync(2)
 public val MS_ASYNC: CInt = 0x0001
@@ -1973,7 +1975,7 @@ public val STATX_MNT_ID: CUint = 0x1000u
 
 public val STATX_DIOALIGN: CUint = 0x2000u
 
-public val STATX__RESERVED: CInt = 0x80000000.toInt()
+public val STATX_RESERVED: CInt = 0x80000000.toInt()
 
 public val STATX_ATTR_COMPRESSED: CInt = 0x0004
 
@@ -2026,79 +2028,79 @@ public val IOC_SIZESHIFT: UInt = IOC_TYPESHIFT + IOC_TYPEBITS
 
 public val IOC_DIRSHIFT: UInt = IOC_SIZESHIFT + IOC_SIZEBITS
 
-public val TUNSETNOCSUM: Ioctl = iow<CInt>(T_TYPE, 200u)
+public val TUNSETNOCSUM: Ioctl = iow<CInt>(T_TYPE, 200u, typeLayoutT = ObjectSlotLayout<CInt>())
 
-public val TUNSETDEBUG: Ioctl = iow<CInt>(T_TYPE, 201u)
+public val TUNSETDEBUG: Ioctl = iow<CInt>(T_TYPE, 201u, typeLayoutT = ObjectSlotLayout<CInt>())
 
-public val TUNSETIFF: Ioctl = iow<CInt>(T_TYPE, 202u)
+public val TUNSETIFF: Ioctl = iow<CInt>(T_TYPE, 202u, typeLayoutT = ObjectSlotLayout<CInt>())
 
-public val TUNSETPERSIST: Ioctl = iow<CInt>(T_TYPE, 203u)
+public val TUNSETPERSIST: Ioctl = iow<CInt>(T_TYPE, 203u, typeLayoutT = ObjectSlotLayout<CInt>())
 
-public val TUNSETOWNER: Ioctl = iow<CInt>(T_TYPE, 204u)
+public val TUNSETOWNER: Ioctl = iow<CInt>(T_TYPE, 204u, typeLayoutT = ObjectSlotLayout<CInt>())
 
-public val TUNSETLINK: Ioctl = iow<CInt>(T_TYPE, 205u)
+public val TUNSETLINK: Ioctl = iow<CInt>(T_TYPE, 205u, typeLayoutT = ObjectSlotLayout<CInt>())
 
-public val TUNSETGROUP: Ioctl = iow<CInt>(T_TYPE, 206u)
+public val TUNSETGROUP: Ioctl = iow<CInt>(T_TYPE, 206u, typeLayoutT = ObjectSlotLayout<CInt>())
 
-public val TUNGETFEATURES: Ioctl = ior<CInt>(T_TYPE, 207u)
+public val TUNGETFEATURES: Ioctl = ior<CInt>(T_TYPE, 207u, typeLayoutT = ObjectSlotLayout<CInt>())
 
-public val TUNSETOFFLOAD: Ioctl = iow<CInt>(T_TYPE, 208u)
+public val TUNSETOFFLOAD: Ioctl = iow<CInt>(T_TYPE, 208u, typeLayoutT = ObjectSlotLayout<CInt>())
 
-public val TUNSETTXFILTER: Ioctl = iow<CInt>(T_TYPE, 209u)
+public val TUNSETTXFILTER: Ioctl = iow<CInt>(T_TYPE, 209u, typeLayoutT = ObjectSlotLayout<CInt>())
 
-public val TUNGETIFF: Ioctl = ior<CInt>(T_TYPE, 210u)
+public val TUNGETIFF: Ioctl = ior<CInt>(T_TYPE, 210u, typeLayoutT = ObjectSlotLayout<CInt>())
 
-public val TUNGETSNDBUF: Ioctl = ior<CInt>(T_TYPE, 211u)
+public val TUNGETSNDBUF: Ioctl = ior<CInt>(T_TYPE, 211u, typeLayoutT = ObjectSlotLayout<CInt>())
 
-public val TUNSETSNDBUF: Ioctl = iow<CInt>(T_TYPE, 212u)
+public val TUNSETSNDBUF: Ioctl = iow<CInt>(T_TYPE, 212u, typeLayoutT = ObjectSlotLayout<CInt>())
 
-public val TUNATTACHFILTER: Ioctl = iow<SockFprog>(T_TYPE, 213u)
+public val TUNATTACHFILTER: Ioctl = iow<SockFprog>(T_TYPE, 213u, typeLayoutT = SockFprog.typeLayout())
 
-public val TUNDETACHFILTER: Ioctl = iow<SockFprog>(T_TYPE, 214u)
+public val TUNDETACHFILTER: Ioctl = iow<SockFprog>(T_TYPE, 214u, typeLayoutT = SockFprog.typeLayout())
 
-public val TUNGETVNETHDRSZ: Ioctl = ior<CInt>(T_TYPE, 215u)
+public val TUNGETVNETHDRSZ: Ioctl = ior<CInt>(T_TYPE, 215u, typeLayoutT = ObjectSlotLayout<CInt>())
 
-public val TUNSETVNETHDRSZ: Ioctl = iow<CInt>(T_TYPE, 216u)
+public val TUNSETVNETHDRSZ: Ioctl = iow<CInt>(T_TYPE, 216u, typeLayoutT = ObjectSlotLayout<CInt>())
 
-public val TUNSETQUEUE: Ioctl = iow<CInt>(T_TYPE, 217u)
+public val TUNSETQUEUE: Ioctl = iow<CInt>(T_TYPE, 217u, typeLayoutT = ObjectSlotLayout<CInt>())
 
-public val TUNSETIFINDEX: Ioctl = iow<CInt>(T_TYPE, 218u)
+public val TUNSETIFINDEX: Ioctl = iow<CInt>(T_TYPE, 218u, typeLayoutT = ObjectSlotLayout<CInt>())
 
-public val TUNGETFILTER: Ioctl = ior<SockFprog>(T_TYPE, 219u)
+public val TUNGETFILTER: Ioctl = ior<SockFprog>(T_TYPE, 219u, typeLayoutT = SockFprog.typeLayout())
 
-public val TUNSETVNETLE: Ioctl = iow<CInt>(T_TYPE, 220u)
+public val TUNSETVNETLE: Ioctl = iow<CInt>(T_TYPE, 220u, typeLayoutT = ObjectSlotLayout<CInt>())
 
-public val TUNGETVNETLE: Ioctl = ior<CInt>(T_TYPE, 221u)
+public val TUNGETVNETLE: Ioctl = ior<CInt>(T_TYPE, 221u, typeLayoutT = ObjectSlotLayout<CInt>())
 
-public val TUNSETVNETBE: Ioctl = iow<CInt>(T_TYPE, 222u)
+public val TUNSETVNETBE: Ioctl = iow<CInt>(T_TYPE, 222u, typeLayoutT = ObjectSlotLayout<CInt>())
 
-public val TUNGETVNETBE: Ioctl = ior<CInt>(T_TYPE, 223u)
+public val TUNGETVNETBE: Ioctl = ior<CInt>(T_TYPE, 223u, typeLayoutT = ObjectSlotLayout<CInt>())
 
-public val TUNSETSTEERINGEBPF: Ioctl = ior<CInt>(T_TYPE, 224u)
+public val TUNSETSTEERINGEBPF: Ioctl = ior<CInt>(T_TYPE, 224u, typeLayoutT = ObjectSlotLayout<CInt>())
 
-public val TUNSETFILTEREBPF: Ioctl = ior<CInt>(T_TYPE, 225u)
+public val TUNSETFILTEREBPF: Ioctl = ior<CInt>(T_TYPE, 225u, typeLayoutT = ObjectSlotLayout<CInt>())
 
-public val TUNSETCARRIER: Ioctl = iow<CInt>(T_TYPE, 226u)
+public val TUNSETCARRIER: Ioctl = iow<CInt>(T_TYPE, 226u, typeLayoutT = ObjectSlotLayout<CInt>())
 
 public val TUNGETDEVNETNS: Ioctl = io(T_TYPE, 227u)
 
 // linux/fs.h
-public val FS_IOC_GETFLAGS: Ioctl = ior<CLong>('f'.code.toUInt(), 1u)
+public val FS_IOC_GETFLAGS: Ioctl = ior<CLong>('f'.code.toUInt(), 1u, typeLayoutT = ObjectSlotLayout<CLong>())
 
-public val FS_IOC_SETFLAGS: Ioctl = iow<CLong>('f'.code.toUInt(), 2u)
+public val FS_IOC_SETFLAGS: Ioctl = iow<CLong>('f'.code.toUInt(), 2u, typeLayoutT = ObjectSlotLayout<CLong>())
 
-public val FS_IOC_GETVERSION: Ioctl = ior<CLong>('v'.code.toUInt(), 1u)
+public val FS_IOC_GETVERSION: Ioctl = ior<CLong>('v'.code.toUInt(), 1u, typeLayoutT = ObjectSlotLayout<CLong>())
 
-public val FS_IOC_SETVERSION: Ioctl = iow<CLong>('v'.code.toUInt(), 2u)
+public val FS_IOC_SETVERSION: Ioctl = iow<CLong>('v'.code.toUInt(), 2u, typeLayoutT = ObjectSlotLayout<CLong>())
 
-public val FS_IOC32_GETFLAGS: Ioctl = ior<CInt>('f'.code.toUInt(), 1u)
+public val FS_IOC32_GETFLAGS: Ioctl = ior<CInt>('f'.code.toUInt(), 1u, typeLayoutT = ObjectSlotLayout<CInt>())
 
-public val FS_IOC32_SETFLAGS: Ioctl = iow<CInt>('f'.code.toUInt(), 2u)
+public val FS_IOC32_SETFLAGS: Ioctl = iow<CInt>('f'.code.toUInt(), 2u, typeLayoutT = ObjectSlotLayout<CInt>())
 
-public val FS_IOC32_GETVERSION: Ioctl = ior<CInt>('v'.code.toUInt(), 1u)
+public val FS_IOC32_GETVERSION: Ioctl = ior<CInt>('v'.code.toUInt(), 1u, typeLayoutT = ObjectSlotLayout<CInt>())
 
-public val FS_IOC32_SETVERSION: Ioctl = iow<CInt>('v'.code.toUInt(), 2u)
+public val FS_IOC32_SETVERSION: Ioctl = iow<CInt>('v'.code.toUInt(), 2u, typeLayoutT = ObjectSlotLayout<CInt>())
 
-public val FICLONE: Ioctl = iow<CInt>(0x94u, 9u)
+public val FICLONE: Ioctl = iow<CInt>(0x94u, 9u, typeLayoutT = ObjectSlotLayout<CInt>())
 
-public val FICLONERANGE: Ioctl = iow<FileCloneRange>(0x94u, 13u)
+public val FICLONERANGE: Ioctl = iow<FileCloneRange>(0x94u, 13u, typeLayoutT = ObjectSlotLayout<FileCloneRange>())

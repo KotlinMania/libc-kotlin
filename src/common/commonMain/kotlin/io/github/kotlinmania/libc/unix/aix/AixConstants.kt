@@ -2,7 +2,6 @@ package io.github.kotlinmania.libc.unix.aix
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
@@ -11,6 +10,8 @@ import io.github.kotlinmania.libc.CUshort
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.aix.powerpc64.RLIM_INFINITY
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 // dlfcn.h
 public val RTLD_LAZY: CInt = 0x4
@@ -25,11 +26,11 @@ public val RTLD_MEMBER: CInt = 0x40000
 
 public val RTLD_NOAUTODEFER: CInt = 0x20000
 
-public val RTLD_DEFAULT: COpaquePointer? = COpaquePointer((-1).toLong())
+public val RTLD_DEFAULT: MutPtr<CVoid> = MutPtr<CVoid>((-1).toLong())
 
-public val RTLD_MYSELF: COpaquePointer? = COpaquePointer((-2).toLong())
+public val RTLD_MYSELF: MutPtr<CVoid> = MutPtr<CVoid>((-2).toLong())
 
-public val RTLD_NEXT: COpaquePointer? = COpaquePointer((-3).toLong())
+public val RTLD_NEXT: MutPtr<CVoid> = MutPtr<CVoid>((-3).toLong())
 
 // fcntl.h
 public val O_RDONLY: CInt = 0x0
@@ -273,7 +274,7 @@ public val YESEXPR: NlItem = 61
 public val NOEXPR: NlItem = 62
 
 // locale.h
-public val LC_GLOBAL_LOCALE: LocaleT = COpaquePointer((-1).toLong())
+public val LC_GLOBAL_LOCALE: LocaleT = MutPtr<CVoid>((-1).toLong())
 
 public val LC_COLLATE: CInt = 0
 
@@ -1084,7 +1085,7 @@ public val NFSMNT_ACDIRMAX: CInt = 0x0800
 public val CPUSTATES: CInt = 4
 
 // semaphore.h
-public val SEM_FAILED: CInt? = -1
+public val SEM_FAILED: MutPtr<SemT> = MutPtr<SemT>((-1).toLong())
 
 // spawn.h
 // DIFF(main): changed to `cShort` in f62eb023ab
@@ -1712,7 +1713,7 @@ public val MAP_ANON: CInt = 0x10
 
 public val MAP_ANONYMOUS: CInt = 0x10
 
-public val MAP_FAILED: COpaquePointer? = COpaquePointer((0.inv()).toLong())
+public val MAP_FAILED: MutPtr<CVoid> = MutPtr<CVoid>((0.inv()).toLong())
 
 public val MAP_TYPE: CInt = 0xf0
 

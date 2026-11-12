@@ -30,19 +30,19 @@
 #endif
 #endif
 
-void* libc_teeos_calloc(uint64_t nobj, uint64_t size) {
+void* libcTeeosCalloc(uint64_t nobj, uint64_t size) {
     return (void*)calloc(nobj, size);
 }
 
-void* libc_teeos_malloc(uint64_t size) {
+void* libcTeeosMalloc(uint64_t size) {
     return (void*)malloc(size);
 }
 
-void* libc_teeos_realloc(void* p, uint64_t size) {
+void* libcTeeosRealloc(void* p, uint64_t size) {
     return (void*)realloc(p, size);
 }
 
-void* libc_teeos_alignedAlloc(uint64_t align, uint64_t len) {
+void* libcTeeosAlignedAlloc(uint64_t align, uint64_t len) {
     typedef void* (*km_fn_t)(uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -70,11 +70,11 @@ void* libc_teeos_alignedAlloc(uint64_t align, uint64_t len) {
     return NULL;
 }
 
-void libc_teeos_free(void* p) {
+void libcTeeosFree(void* p) {
     free(p);
 }
 
-int32_t libc_teeos_posixMemalign(void* memptr, uint64_t align, uint64_t size) {
+int32_t libcTeeosPosixMemalign(void* memptr, uint64_t align, uint64_t size) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -102,11 +102,11 @@ int32_t libc_teeos_posixMemalign(void* memptr, uint64_t align, uint64_t size) {
     return -1;
 }
 
-void* libc_teeos_memchr(void* cx, int32_t c, uint64_t n) {
+void* libcTeeosMemchr(void* cx, int32_t c, uint64_t n) {
     return (void*)memchr(cx, c, n);
 }
 
-void* libc_teeos_wmemchr(void* cx, uint32_t c, uint64_t n) {
+void* libcTeeosWmemchr(void* cx, uint32_t c, uint64_t n) {
     typedef void* (*km_fn_t)(void*, uint32_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -134,23 +134,23 @@ void* libc_teeos_wmemchr(void* cx, uint32_t c, uint64_t n) {
     return NULL;
 }
 
-int32_t libc_teeos_memcmp(void* cx, void* ct, uint64_t n) {
+int32_t libcTeeosMemcmp(void* cx, void* ct, uint64_t n) {
     return (int32_t)memcmp(cx, ct, n);
 }
 
-void* libc_teeos_memcpy(void* dest, void* src, uint64_t n) {
+void* libcTeeosMemcpy(void* dest, void* src, uint64_t n) {
     return (void*)memcpy(dest, src, n);
 }
 
-void* libc_teeos_memmove(void* dest, void* src, uint64_t n) {
+void* libcTeeosMemmove(void* dest, void* src, uint64_t n) {
     return (void*)memmove(dest, src, n);
 }
 
-void* libc_teeos_memset(void* dest, int32_t c, uint64_t n) {
+void* libcTeeosMemset(void* dest, int32_t c, uint64_t n) {
     return (void*)memset(dest, c, n);
 }
 
-void* libc_teeos_pthreadSelf(void) {
+void* libcTeeosPthreadSelf(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -178,7 +178,7 @@ void* libc_teeos_pthreadSelf(void) {
     return NULL;
 }
 
-int32_t libc_teeos_pthreadJoin(void* native, void* value) {
+int32_t libcTeeosPthreadJoin(void* native, void* value) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -206,7 +206,7 @@ int32_t libc_teeos_pthreadJoin(void* native, void* value) {
     return ENOSYS;
 }
 
-void libc_teeos_pthreadExit(void* value) {
+void libcTeeosPthreadExit(void* value) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -234,7 +234,7 @@ void libc_teeos_pthreadExit(void* value) {
     errno = ENOSYS;
 }
 
-int32_t libc_teeos_pthreadAttrInit(void* attr) {
+int32_t libcTeeosPthreadAttrInit(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -262,7 +262,7 @@ int32_t libc_teeos_pthreadAttrInit(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_teeos_pthreadAttrDestroy(void* attr) {
+int32_t libcTeeosPthreadAttrDestroy(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -290,7 +290,7 @@ int32_t libc_teeos_pthreadAttrDestroy(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_teeos_pthreadAttrGetstack(void* attr, void* stackaddr, void* stacksize) {
+int32_t libcTeeosPthreadAttrGetstack(void* attr, void* stackaddr, void* stacksize) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -318,7 +318,7 @@ int32_t libc_teeos_pthreadAttrGetstack(void* attr, void* stackaddr, void* stacks
     return ENOSYS;
 }
 
-int32_t libc_teeos_pthreadAttrSetstacksize(void* attr, uint64_t stack_size) {
+int32_t libcTeeosPthreadAttrSetstacksize(void* attr, uint64_t stackSize) {
     typedef int32_t (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -340,13 +340,13 @@ int32_t libc_teeos_pthreadAttrSetstacksize(void* attr, uint64_t stack_size) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(attr, stack_size);
+        return km_fn_ptr(attr, stackSize);
     }
     errno = ENOSYS;
     return ENOSYS;
 }
 
-int32_t libc_teeos_pthreadAttrGetstacksize(void* attr, void* size) {
+int32_t libcTeeosPthreadAttrGetstacksize(void* attr, void* size) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -374,7 +374,7 @@ int32_t libc_teeos_pthreadAttrGetstacksize(void* attr, void* size) {
     return ENOSYS;
 }
 
-int32_t libc_teeos_pthreadAttrSettee(void* attr, int32_t ca, int32_t task_id, int32_t shadow) {
+int32_t libcTeeosPthreadAttrSettee(void* attr, int32_t ca, int32_t taskId, int32_t shadow) {
     typedef int32_t (*km_fn_t)(void*, int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -396,13 +396,13 @@ int32_t libc_teeos_pthreadAttrSettee(void* attr, int32_t ca, int32_t task_id, in
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(attr, ca, task_id, shadow);
+        return km_fn_ptr(attr, ca, taskId, shadow);
     }
     errno = ENOSYS;
     return ENOSYS;
 }
 
-int32_t libc_teeos_schedYield(void) {
+int32_t libcTeeosSchedYield(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -430,7 +430,7 @@ int32_t libc_teeos_schedYield(void) {
     return -1;
 }
 
-int32_t libc_teeos_pthreadKeyCreate(void* key, void* dtor) {
+int32_t libcTeeosPthreadKeyCreate(void* key, void* dtor) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -458,7 +458,7 @@ int32_t libc_teeos_pthreadKeyCreate(void* key, void* dtor) {
     return ENOSYS;
 }
 
-int32_t libc_teeos_pthreadKeyDelete(uint32_t key) {
+int32_t libcTeeosPthreadKeyDelete(uint32_t key) {
     typedef int32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -486,7 +486,7 @@ int32_t libc_teeos_pthreadKeyDelete(uint32_t key) {
     return ENOSYS;
 }
 
-void* libc_teeos_pthreadGetspecific(uint32_t key) {
+void* libcTeeosPthreadGetspecific(uint32_t key) {
     typedef void* (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -514,7 +514,7 @@ void* libc_teeos_pthreadGetspecific(uint32_t key) {
     return NULL;
 }
 
-int32_t libc_teeos_pthreadSetspecific(uint32_t key, void* value) {
+int32_t libcTeeosPthreadSetspecific(uint32_t key, void* value) {
     typedef int32_t (*km_fn_t)(uint32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -542,7 +542,7 @@ int32_t libc_teeos_pthreadSetspecific(uint32_t key, void* value) {
     return ENOSYS;
 }
 
-int32_t libc_teeos_pthreadMutexDestroy(void* lock) {
+int32_t libcTeeosPthreadMutexDestroy(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -570,7 +570,7 @@ int32_t libc_teeos_pthreadMutexDestroy(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_teeos_pthreadMutexInit(void* lock, void* attr) {
+int32_t libcTeeosPthreadMutexInit(void* lock, void* attr) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -598,7 +598,7 @@ int32_t libc_teeos_pthreadMutexInit(void* lock, void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_teeos_pthreadMutexLock(void* lock) {
+int32_t libcTeeosPthreadMutexLock(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -626,7 +626,7 @@ int32_t libc_teeos_pthreadMutexLock(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_teeos_pthreadMutexTrylock(void* lock) {
+int32_t libcTeeosPthreadMutexTrylock(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -654,7 +654,7 @@ int32_t libc_teeos_pthreadMutexTrylock(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_teeos_pthreadMutexUnlock(void* lock) {
+int32_t libcTeeosPthreadMutexUnlock(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -682,7 +682,7 @@ int32_t libc_teeos_pthreadMutexUnlock(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_teeos_pthreadMutexattrDestroy(void* attr) {
+int32_t libcTeeosPthreadMutexattrDestroy(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -710,7 +710,7 @@ int32_t libc_teeos_pthreadMutexattrDestroy(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_teeos_pthreadMutexattrInit(void* attr) {
+int32_t libcTeeosPthreadMutexattrInit(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -738,7 +738,7 @@ int32_t libc_teeos_pthreadMutexattrInit(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_teeos_pthreadMutexattrSettype(void* attr, int32_t arg_1_type) {
+int32_t libcTeeosPthreadMutexattrSettype(void* attr, int32_t type) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -760,13 +760,13 @@ int32_t libc_teeos_pthreadMutexattrSettype(void* attr, int32_t arg_1_type) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(attr, arg_1_type);
+        return km_fn_ptr(attr, type);
     }
     errno = ENOSYS;
     return ENOSYS;
 }
 
-int32_t libc_teeos_pthreadMutexattrSetpshared(void* attr, int32_t pshared) {
+int32_t libcTeeosPthreadMutexattrSetpshared(void* attr, int32_t pshared) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -794,7 +794,7 @@ int32_t libc_teeos_pthreadMutexattrSetpshared(void* attr, int32_t pshared) {
     return ENOSYS;
 }
 
-int32_t libc_teeos_pthreadCondBroadcast(void* cond) {
+int32_t libcTeeosPthreadCondBroadcast(void* cond) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -822,7 +822,7 @@ int32_t libc_teeos_pthreadCondBroadcast(void* cond) {
     return ENOSYS;
 }
 
-int32_t libc_teeos_pthreadCondDestroy(void* cond) {
+int32_t libcTeeosPthreadCondDestroy(void* cond) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -850,7 +850,7 @@ int32_t libc_teeos_pthreadCondDestroy(void* cond) {
     return ENOSYS;
 }
 
-int32_t libc_teeos_pthreadCondInit(void* cond, void* attr) {
+int32_t libcTeeosPthreadCondInit(void* cond, void* attr) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -878,7 +878,7 @@ int32_t libc_teeos_pthreadCondInit(void* cond, void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_teeos_pthreadCondSignal(void* cond) {
+int32_t libcTeeosPthreadCondSignal(void* cond) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -906,7 +906,7 @@ int32_t libc_teeos_pthreadCondSignal(void* cond) {
     return ENOSYS;
 }
 
-int32_t libc_teeos_pthreadCondWait(void* cond, void* lock) {
+int32_t libcTeeosPthreadCondWait(void* cond, void* lock) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -934,7 +934,7 @@ int32_t libc_teeos_pthreadCondWait(void* cond, void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_teeos_pthreadCondTimedwait(void* cond, void* lock, void* abstime) {
+int32_t libcTeeosPthreadCondTimedwait(void* cond, void* lock, void* abstime) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -962,7 +962,7 @@ int32_t libc_teeos_pthreadCondTimedwait(void* cond, void* lock, void* abstime) {
     return ENOSYS;
 }
 
-int32_t libc_teeos_pthreadMutexattrSetrobust(void* attr, int32_t robustness) {
+int32_t libcTeeosPthreadMutexattrSetrobust(void* attr, int32_t robustness) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -990,7 +990,7 @@ int32_t libc_teeos_pthreadMutexattrSetrobust(void* attr, int32_t robustness) {
     return ENOSYS;
 }
 
-int32_t libc_teeos_pthreadCreate(void* native, void* attr, void* f, void* value) {
+int32_t libcTeeosPthreadCreate(void* native, void* attr, void* f, void* value) {
     typedef int32_t (*km_fn_t)(void*, void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1018,7 +1018,7 @@ int32_t libc_teeos_pthreadCreate(void* native, void* attr, void* f, void* value)
     return ENOSYS;
 }
 
-int32_t libc_teeos_pthreadSpinInit(void* lock, int32_t pshared) {
+int32_t libcTeeosPthreadSpinInit(void* lock, int32_t pshared) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1046,7 +1046,7 @@ int32_t libc_teeos_pthreadSpinInit(void* lock, int32_t pshared) {
     return ENOSYS;
 }
 
-int32_t libc_teeos_pthreadSpinDestroy(void* lock) {
+int32_t libcTeeosPthreadSpinDestroy(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1074,7 +1074,7 @@ int32_t libc_teeos_pthreadSpinDestroy(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_teeos_pthreadSpinLock(void* lock) {
+int32_t libcTeeosPthreadSpinLock(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1102,7 +1102,7 @@ int32_t libc_teeos_pthreadSpinLock(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_teeos_pthreadSpinTrylock(void* lock) {
+int32_t libcTeeosPthreadSpinTrylock(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1130,7 +1130,7 @@ int32_t libc_teeos_pthreadSpinTrylock(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_teeos_pthreadSpinUnlock(void* lock) {
+int32_t libcTeeosPthreadSpinUnlock(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1158,7 +1158,7 @@ int32_t libc_teeos_pthreadSpinUnlock(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_teeos_pthreadSetschedprio(void* native, int32_t priority) {
+int32_t libcTeeosPthreadSetschedprio(void* native, int32_t priority) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1186,7 +1186,7 @@ int32_t libc_teeos_pthreadSetschedprio(void* native, int32_t priority) {
     return ENOSYS;
 }
 
-int32_t libc_teeos_pthreadOnce(void* pot, void* f) {
+int32_t libcTeeosPthreadOnce(void* pot, void* f) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1214,7 +1214,7 @@ int32_t libc_teeos_pthreadOnce(void* pot, void* f) {
     return ENOSYS;
 }
 
-int32_t libc_teeos_pthreadEqual(void* p1, void* p2) {
+int32_t libcTeeosPthreadEqual(void* p1, void* p2) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1242,7 +1242,7 @@ int32_t libc_teeos_pthreadEqual(void* p1, void* p2) {
     return -1;
 }
 
-int32_t libc_teeos_pthreadMutexattrSetprotocol(void* a, int32_t protocol) {
+int32_t libcTeeosPthreadMutexattrSetprotocol(void* a, int32_t protocol) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1270,7 +1270,7 @@ int32_t libc_teeos_pthreadMutexattrSetprotocol(void* a, int32_t protocol) {
     return ENOSYS;
 }
 
-int32_t libc_teeos_pthreadAttrSetstack(void* attr, void* stack, uint64_t size) {
+int32_t libcTeeosPthreadAttrSetstack(void* attr, void* stack, uint64_t size) {
     typedef int32_t (*km_fn_t)(void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1298,7 +1298,7 @@ int32_t libc_teeos_pthreadAttrSetstack(void* attr, void* stack, uint64_t size) {
     return ENOSYS;
 }
 
-int32_t libc_teeos_pthreadSetaffinityNp(void* td, uint64_t size, void* set) {
+int32_t libcTeeosPthreadSetaffinityNp(void* td, uint64_t size, void* set) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1326,7 +1326,7 @@ int32_t libc_teeos_pthreadSetaffinityNp(void* td, uint64_t size, void* set) {
     return ENOSYS;
 }
 
-int32_t libc_teeos_pthreadGetaffinityNp(void* td, uint64_t size, void* set) {
+int32_t libcTeeosPthreadGetaffinityNp(void* td, uint64_t size, void* set) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1354,7 +1354,7 @@ int32_t libc_teeos_pthreadGetaffinityNp(void* td, uint64_t size, void* set) {
     return ENOSYS;
 }
 
-int32_t libc_teeos_printf(const char* fmt, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcTeeosPrintf(const char* fmt, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1388,7 +1388,7 @@ int32_t libc_teeos_printf(const char* fmt, int32_t km_vac, int64_t km_va0, int64
     return -1;
 }
 
-int32_t libc_teeos_scanf(const char* fmt, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcTeeosScanf(const char* fmt, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1422,7 +1422,7 @@ int32_t libc_teeos_scanf(const char* fmt, int32_t km_vac, int64_t km_va0, int64_
     return -1;
 }
 
-int32_t libc_teeos_snprintf(char* s, uint64_t n, const char* fmt, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcTeeosSnprintf(char* s, uint64_t n, const char* fmt, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(char*, uint64_t, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1456,7 +1456,7 @@ int32_t libc_teeos_snprintf(char* s, uint64_t n, const char* fmt, int32_t km_vac
     return -1;
 }
 
-int32_t libc_teeos_sprintf(char* s, const char* fmt, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcTeeosSprintf(char* s, const char* fmt, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(char*, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1490,7 +1490,7 @@ int32_t libc_teeos_sprintf(char* s, const char* fmt, int32_t km_vac, int64_t km_
     return -1;
 }
 
-int32_t libc_teeos_vsnprintf(char* s, uint64_t n, const char* fmt, char* ap) {
+int32_t libcTeeosVsnprintf(char* s, uint64_t n, const char* fmt, char* ap) {
     typedef int32_t (*km_fn_t)(char*, uint64_t, const char*, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1518,7 +1518,7 @@ int32_t libc_teeos_vsnprintf(char* s, uint64_t n, const char* fmt, char* ap) {
     return -1;
 }
 
-int32_t libc_teeos_vsprintf(char* s, const char* fmt, char* ap) {
+int32_t libcTeeosVsprintf(char* s, const char* fmt, char* ap) {
     typedef int32_t (*km_fn_t)(char*, const char*, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1546,11 +1546,11 @@ int32_t libc_teeos_vsprintf(char* s, const char* fmt, char* ap) {
     return -1;
 }
 
-void libc_teeos_abort(void) {
+void libcTeeosAbort(void) {
     abort();
 }
 
-int32_t libc_teeos_schedGetaffinity(int32_t pid, uint64_t cpusetsize, void* cpuset) {
+int32_t libcTeeosSchedGetaffinity(int32_t pid, uint64_t cpusetsize, void* cpuset) {
     typedef int32_t (*km_fn_t)(int32_t, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1578,7 +1578,7 @@ int32_t libc_teeos_schedGetaffinity(int32_t pid, uint64_t cpusetsize, void* cpus
     return -1;
 }
 
-int32_t libc_teeos_schedSetaffinity(int32_t pid, uint64_t cpusetsize, void* cpuset) {
+int32_t libcTeeosSchedSetaffinity(int32_t pid, uint64_t cpusetsize, void* cpuset) {
     typedef int32_t (*km_fn_t)(int32_t, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1606,7 +1606,7 @@ int32_t libc_teeos_schedSetaffinity(int32_t pid, uint64_t cpusetsize, void* cpus
     return -1;
 }
 
-int64_t libc_teeos_sysconf(int32_t name) {
+int64_t libcTeeosSysconf(int32_t name) {
 #if !defined(_WIN32)
     return (int64_t)sysconf(name);
 #else
@@ -1616,7 +1616,7 @@ int64_t libc_teeos_sysconf(int32_t name) {
 #endif
 }
 
-void* libc_teeos_mmap(void* addr, uint64_t len, int32_t prot, int32_t flags, int32_t fd, int64_t offset) {
+void* libcTeeosMmap(void* addr, uint64_t len, int32_t prot, int32_t flags, int32_t fd, int64_t offset) {
 #if !defined(_WIN32)
     return (void*)mmap(addr, len, prot, flags, fd, offset);
 #else
@@ -1631,7 +1631,7 @@ void* libc_teeos_mmap(void* addr, uint64_t len, int32_t prot, int32_t flags, int
 #endif
 }
 
-int32_t libc_teeos_munmap(void* addr, uint64_t len) {
+int32_t libcTeeosMunmap(void* addr, uint64_t len) {
 #if !defined(_WIN32)
     return (int32_t)munmap(addr, len);
 #else
@@ -1642,7 +1642,7 @@ int32_t libc_teeos_munmap(void* addr, uint64_t len) {
 #endif
 }
 
-void* libc_teeos_errnoLocation(void) {
+void* libcTeeosErrnoLocation(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1668,11 +1668,11 @@ void* libc_teeos_errnoLocation(void) {
     return NULL;
 }
 
-char* libc_teeos_strerror(int32_t e) {
+char* libcTeeosStrerror(int32_t e) {
     return (char*)strerror(e);
 }
 
-int32_t libc_teeos_clockGettime(int32_t clock_id, void* tp) {
+int32_t libcTeeosClockGettime(int32_t clockId, void* tp) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1694,17 +1694,17 @@ int32_t libc_teeos_clockGettime(int32_t clock_id, void* tp) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(clock_id, tp);
+        return km_fn_ptr(clockId, tp);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_teeos_getpid(void) {
+int32_t libcTeeosGetpid(void) {
     return (int32_t)getpid();
 }
 
-int32_t libc_teeos_gettimeofday(void* tv, void* tz) {
+int32_t libcTeeosGettimeofday(void* tv, void* tz) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1732,15 +1732,15 @@ int32_t libc_teeos_gettimeofday(void* tv, void* tz) {
     return -1;
 }
 
-uint64_t libc_teeos_strftime(char* arg_0_restrict, uint64_t sz, const char* arg_2_restrict, void* arg_3_restrict) {
-    return (uint64_t)strftime(arg_0_restrict, sz, arg_2_restrict, arg_3_restrict);
+uint64_t libcTeeosStrftime(char* arg0Restrict, uint64_t sz, const char* arg2Restrict, void* arg3Restrict) {
+    return (uint64_t)strftime(arg0Restrict, sz, arg2Restrict, arg3Restrict);
 }
 
-int64_t libc_teeos_time(void* t) {
+int64_t libcTeeosTime(void* t) {
     return (int64_t)time(t);
 }
 
-int32_t libc_teeos_semClose(void* sem) {
+int32_t libcTeeosSemClose(void* sem) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1768,7 +1768,7 @@ int32_t libc_teeos_semClose(void* sem) {
     return -1;
 }
 
-int32_t libc_teeos_semDestroy(void* sem) {
+int32_t libcTeeosSemDestroy(void* sem) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1796,7 +1796,7 @@ int32_t libc_teeos_semDestroy(void* sem) {
     return -1;
 }
 
-int32_t libc_teeos_semGetvalue(void* sem, void* valp) {
+int32_t libcTeeosSemGetvalue(void* sem, void* valp) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1824,7 +1824,7 @@ int32_t libc_teeos_semGetvalue(void* sem, void* valp) {
     return -1;
 }
 
-int32_t libc_teeos_semInit(void* sem, int32_t pshared, uint32_t value) {
+int32_t libcTeeosSemInit(void* sem, int32_t pshared, uint32_t value) {
     typedef int32_t (*km_fn_t)(void*, int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1852,7 +1852,7 @@ int32_t libc_teeos_semInit(void* sem, int32_t pshared, uint32_t value) {
     return -1;
 }
 
-void* libc_teeos_semOpen(const char* name, int32_t flags, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+void* libcTeeosSemOpen(const char* name, int32_t flags, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef void* (*km_fn_t)(const char*, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1886,7 +1886,7 @@ void* libc_teeos_semOpen(const char* name, int32_t flags, int32_t km_vac, int64_
     return NULL;
 }
 
-int32_t libc_teeos_semPost(void* sem) {
+int32_t libcTeeosSemPost(void* sem) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1914,7 +1914,7 @@ int32_t libc_teeos_semPost(void* sem) {
     return -1;
 }
 
-int32_t libc_teeos_semUnlink(const char* name) {
+int32_t libcTeeosSemUnlink(const char* name) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1942,7 +1942,7 @@ int32_t libc_teeos_semUnlink(const char* name) {
     return -1;
 }
 
-int32_t libc_teeos_semWait(void* sem) {
+int32_t libcTeeosSemWait(void* sem) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1970,23 +1970,23 @@ int32_t libc_teeos_semWait(void* sem) {
     return -1;
 }
 
-char* libc_teeos_setlocale(int32_t cat, const char* name) {
+char* libcTeeosSetlocale(int32_t cat, const char* name) {
     return (char*)setlocale(cat, name);
 }
 
-int32_t libc_teeos_strcoll(const char* l, const char* r) {
+int32_t libcTeeosStrcoll(const char* l, const char* r) {
     return (int32_t)strcoll(l, r);
 }
 
-uint64_t libc_teeos_strxfrm(char* dest, const char* src, uint64_t n) {
+uint64_t libcTeeosStrxfrm(char* dest, const char* src, uint64_t n) {
     return (uint64_t)strxfrm(dest, src, n);
 }
 
-double libc_teeos_strtod(const char* s, void* p) {
+double libcTeeosStrtod(const char* s, void* p) {
     return (double)strtod(s, p);
 }
 
-uint64_t libc_teeos_mbrtowc(void* wc, const char* src, uint64_t n, void* st) {
+uint64_t libcTeeosMbrtowc(void* wc, const char* src, uint64_t n, void* st) {
     typedef uint64_t (*km_fn_t)(void*, const char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2014,7 +2014,7 @@ uint64_t libc_teeos_mbrtowc(void* wc, const char* src, uint64_t n, void* st) {
     return 0;
 }
 
-uint64_t libc_teeos_wcrtomb(char* s, uint32_t wc, void* st) {
+uint64_t libcTeeosWcrtomb(char* s, uint32_t wc, void* st) {
     typedef uint64_t (*km_fn_t)(char*, uint32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2042,7 +2042,7 @@ uint64_t libc_teeos_wcrtomb(char* s, uint32_t wc, void* st) {
     return 0;
 }
 
-int32_t libc_teeos_wctob(uint32_t c) {
+int32_t libcTeeosWctob(uint32_t c) {
     typedef int32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2070,7 +2070,7 @@ int32_t libc_teeos_wctob(uint32_t c) {
     return -1;
 }
 
-void libc_teeos_srandom(uint32_t seed) {
+void libcTeeosSrandom(uint32_t seed) {
     typedef void (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2098,7 +2098,7 @@ void libc_teeos_srandom(uint32_t seed) {
     errno = ENOSYS;
 }
 
-char* libc_teeos_initstate(uint32_t seed, char* state, uint64_t size) {
+char* libcTeeosInitstate(uint32_t seed, char* state, uint64_t size) {
     typedef char* (*km_fn_t)(uint32_t, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2126,7 +2126,7 @@ char* libc_teeos_initstate(uint32_t seed, char* state, uint64_t size) {
     return NULL;
 }
 
-char* libc_teeos_setstate(char* state) {
+char* libcTeeosSetstate(char* state) {
     typedef char* (*km_fn_t)(char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2154,7 +2154,7 @@ char* libc_teeos_setstate(char* state) {
     return NULL;
 }
 
-int64_t libc_teeos_random(void) {
+int64_t libcTeeosRandom(void) {
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2182,43 +2182,43 @@ int64_t libc_teeos_random(void) {
     return -1;
 }
 
-char* libc_teeos_strchr(const char* s, int32_t c) {
+char* libcTeeosStrchr(const char* s, int32_t c) {
     return (char*)strchr(s, c);
 }
 
-uint64_t libc_teeos_strlen(const char* cs) {
+uint64_t libcTeeosStrlen(const char* cs) {
     return (uint64_t)strlen(cs);
 }
 
-int32_t libc_teeos_strcmp(const char* l, const char* r) {
+int32_t libcTeeosStrcmp(const char* l, const char* r) {
     return (int32_t)strcmp(l, r);
 }
 
-char* libc_teeos_strcpy(char* dest, const char* src) {
+char* libcTeeosStrcpy(char* dest, const char* src) {
     return (char*)strcpy(dest, src);
 }
 
-int32_t libc_teeos_strncmp(const char* arg_0_l, const char* r, uint64_t n) {
-    return (int32_t)strncmp(arg_0_l, r, n);
+int32_t libcTeeosStrncmp(const char* l, const char* r, uint64_t n) {
+    return (int32_t)strncmp(l, r, n);
 }
 
-char* libc_teeos_strncpy(char* dest, const char* src, uint64_t n) {
+char* libcTeeosStrncpy(char* dest, const char* src, uint64_t n) {
     return (char*)strncpy(dest, src, n);
 }
 
-uint64_t libc_teeos_strnlen(const char* cs, uint64_t n) {
+uint64_t libcTeeosStrnlen(const char* cs, uint64_t n) {
     return (uint64_t)strnlen(cs, n);
 }
 
-char* libc_teeos_strrchr(const char* s, int32_t c) {
+char* libcTeeosStrrchr(const char* s, int32_t c) {
     return (char*)strrchr(s, c);
 }
 
-char* libc_teeos_strstr(const char* h, const char* n) {
+char* libcTeeosStrstr(const char* h, const char* n) {
     return (char*)strstr(h, n);
 }
 
-void* libc_teeos_wcschr(void* s, uint32_t c) {
+void* libcTeeosWcschr(void* s, uint32_t c) {
     typedef void* (*km_fn_t)(void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2246,7 +2246,7 @@ void* libc_teeos_wcschr(void* s, uint32_t c) {
     return NULL;
 }
 
-uint64_t libc_teeos_wcslen(void* s) {
+uint64_t libcTeeosWcslen(void* s) {
     typedef uint64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2274,11 +2274,11 @@ uint64_t libc_teeos_wcslen(void* s) {
     return 0;
 }
 
-int32_t libc_teeos_isalpha(int32_t c) {
+int32_t libcTeeosIsalpha(int32_t c) {
     return (int32_t)isalpha(c);
 }
 
-int32_t libc_teeos_isascii(int32_t c) {
+int32_t libcTeeosIsascii(int32_t c) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2306,23 +2306,23 @@ int32_t libc_teeos_isascii(int32_t c) {
     return -1;
 }
 
-int32_t libc_teeos_isdigit(int32_t c) {
+int32_t libcTeeosIsdigit(int32_t c) {
     return (int32_t)isdigit(c);
 }
 
-int32_t libc_teeos_islower(int32_t c) {
+int32_t libcTeeosIslower(int32_t c) {
     return (int32_t)islower(c);
 }
 
-int32_t libc_teeos_isprint(int32_t c) {
+int32_t libcTeeosIsprint(int32_t c) {
     return (int32_t)isprint(c);
 }
 
-int32_t libc_teeos_isspace(int32_t c) {
+int32_t libcTeeosIsspace(int32_t c) {
     return (int32_t)isspace(c);
 }
 
-int32_t libc_teeos_iswctype(uint32_t wc, uint64_t ttype) {
+int32_t libcTeeosIswctype(uint32_t wc, uint64_t ttype) {
     typedef int32_t (*km_fn_t)(uint32_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2350,7 +2350,7 @@ int32_t libc_teeos_iswctype(uint32_t wc, uint64_t ttype) {
     return -1;
 }
 
-int32_t libc_teeos_iswdigit(uint32_t wc) {
+int32_t libcTeeosIswdigit(uint32_t wc) {
     typedef int32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2378,7 +2378,7 @@ int32_t libc_teeos_iswdigit(uint32_t wc) {
     return -1;
 }
 
-int32_t libc_teeos_iswlower(uint32_t wc) {
+int32_t libcTeeosIswlower(uint32_t wc) {
     typedef int32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2406,7 +2406,7 @@ int32_t libc_teeos_iswlower(uint32_t wc) {
     return -1;
 }
 
-int32_t libc_teeos_iswspace(uint32_t wc) {
+int32_t libcTeeosIswspace(uint32_t wc) {
     typedef int32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2434,7 +2434,7 @@ int32_t libc_teeos_iswspace(uint32_t wc) {
     return -1;
 }
 
-int32_t libc_teeos_iswupper(uint32_t wc) {
+int32_t libcTeeosIswupper(uint32_t wc) {
     typedef int32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2462,7 +2462,7 @@ int32_t libc_teeos_iswupper(uint32_t wc) {
     return -1;
 }
 
-uint32_t libc_teeos_towupper(uint32_t wc) {
+uint32_t libcTeeosTowupper(uint32_t wc) {
     typedef uint32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2490,7 +2490,7 @@ uint32_t libc_teeos_towupper(uint32_t wc) {
     return 0;
 }
 
-uint32_t libc_teeos_towlower(uint32_t wc) {
+uint32_t libcTeeosTowlower(uint32_t wc) {
     typedef uint32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2518,15 +2518,15 @@ uint32_t libc_teeos_towlower(uint32_t wc) {
     return 0;
 }
 
-double libc_teeos_atan(double x) {
+double libcTeeosAtan(double x) {
     return (double)atan(x);
 }
 
-double libc_teeos_ceil(double x) {
+double libcTeeosCeil(double x) {
     return (double)ceil(x);
 }
 
-float libc_teeos_ceilf(float x) {
+float libcTeeosCeilf(float x) {
     typedef float (*km_fn_t)(float);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2554,19 +2554,19 @@ float libc_teeos_ceilf(float x) {
     return 0.0f;
 }
 
-double libc_teeos_exp(double x) {
+double libcTeeosExp(double x) {
     return (double)exp(x);
 }
 
-double libc_teeos_fabs(double x) {
+double libcTeeosFabs(double x) {
     return (double)fabs(x);
 }
 
-double libc_teeos_floor(double x) {
+double libcTeeosFloor(double x) {
     return (double)floor(x);
 }
 
-double libc_teeos_frexp(double x, void* e) {
+double libcTeeosFrexp(double x, void* e) {
     typedef double (*km_fn_t)(double, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2594,11 +2594,11 @@ double libc_teeos_frexp(double x, void* e) {
     return 0.0;
 }
 
-double libc_teeos_log(double x) {
+double libcTeeosLog(double x) {
     return (double)log(x);
 }
 
-double libc_teeos_log2(double x) {
+double libcTeeosLog2(double x) {
     typedef double (*km_fn_t)(double);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2626,11 +2626,11 @@ double libc_teeos_log2(double x) {
     return 0.0;
 }
 
-double libc_teeos_pow(double x, double y) {
+double libcTeeosPow(double x, double y) {
     return (double)pow(x, y);
 }
 
-float libc_teeos_roundf(float x) {
+float libcTeeosRoundf(float x) {
     typedef float (*km_fn_t)(float);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2658,7 +2658,7 @@ float libc_teeos_roundf(float x) {
     return 0.0f;
 }
 
-double libc_teeos_scalbn(double x, int32_t n) {
+double libcTeeosScalbn(double x, int32_t n) {
     typedef double (*km_fn_t)(double, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2686,31 +2686,31 @@ double libc_teeos_scalbn(double x, int32_t n) {
     return 0.0;
 }
 
-double libc_teeos_sqrt(double x) {
+double libcTeeosSqrt(double x) {
     return (double)sqrt(x);
 }
 
-int32_t libc_teeos_abs(int32_t x) {
+int32_t libcTeeosAbs(int32_t x) {
     return (int32_t)abs(x);
 }
 
-double libc_teeos_atof(const char* s) {
+double libcTeeosAtof(const char* s) {
     return (double)atof(s);
 }
 
-int32_t libc_teeos_atoi(const char* s) {
+int32_t libcTeeosAtoi(const char* s) {
     return (int32_t)atoi(s);
 }
 
-int64_t libc_teeos_atol(const char* s) {
+int64_t libcTeeosAtol(const char* s) {
     return (int64_t)atol(s);
 }
 
-int64_t libc_teeos_atoll(const char* s) {
+int64_t libcTeeosAtoll(const char* s) {
     return (int64_t)atoll(s);
 }
 
-void* libc_teeos_bsearch(void* key, void* base, uint64_t nel, uint64_t width, void* cmp) {
+void* libcTeeosBsearch(void* key, void* base, uint64_t nel, uint64_t width, void* cmp) {
     typedef void* (*km_fn_t)(void*, void*, uint64_t, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2738,7 +2738,7 @@ void* libc_teeos_bsearch(void* key, void* base, uint64_t nel, uint64_t width, vo
     return NULL;
 }
 
-char* libc_teeos_ecvt(double x, int32_t n, void* dp, void* sign) {
+char* libcTeeosEcvt(double x, int32_t n, void* dp, void* sign) {
     typedef char* (*km_fn_t)(double, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2766,7 +2766,7 @@ char* libc_teeos_ecvt(double x, int32_t n, void* dp, void* sign) {
     return NULL;
 }
 
-int64_t libc_teeos_imaxabs(int64_t a) {
+int64_t libcTeeosImaxabs(int64_t a) {
     typedef int64_t (*km_fn_t)(int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2794,11 +2794,11 @@ int64_t libc_teeos_imaxabs(int64_t a) {
     return -1;
 }
 
-int64_t libc_teeos_llabs(int64_t a) {
+int64_t libcTeeosLlabs(int64_t a) {
     return (int64_t)llabs(a);
 }
 
-void libc_teeos_qsort(void* base, uint64_t nel, uint64_t width, void* cmp) {
+void libcTeeosQsort(void* base, uint64_t nel, uint64_t width, void* cmp) {
     typedef void (*km_fn_t)(void*, uint64_t, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2826,15 +2826,15 @@ void libc_teeos_qsort(void* base, uint64_t nel, uint64_t width, void* cmp) {
     errno = ENOSYS;
 }
 
-uint64_t libc_teeos_strtoul(const char* s, void* p, int32_t base) {
+uint64_t libcTeeosStrtoul(const char* s, void* p, int32_t base) {
     return (uint64_t)strtoul(s, p, base);
 }
 
-int64_t libc_teeos_strtol(const char* s, void* p, int32_t base) {
+int64_t libcTeeosStrtol(const char* s, void* p, int32_t base) {
     return (int64_t)strtol(s, p, base);
 }
 
-double libc_teeos_wcstod(void* s, void* p) {
+double libcTeeosWcstod(void* s, void* p) {
     typedef double (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

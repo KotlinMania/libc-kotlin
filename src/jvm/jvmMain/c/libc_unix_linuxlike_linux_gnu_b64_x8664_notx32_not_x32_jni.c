@@ -19,7 +19,7 @@
 #endif
 #endif
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_gnu_b64_x8664_notx32_UnixLinuxlikeLinuxGnuB64X8664Notx32NotX32JniBridge_libc_1unix_1linuxlike_1linux_1gnu_1b64_1x8664_1notx32_1not_1x32_1sysctl(JNIEnv* km_env, jclass km_clazz, jlong name, jint namelen, jlong oldp, jlong oldlenp, jlong newp, jlong newlen) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_gnu_b64_x8664_notx32_UnixLinuxlikeLinuxGnuB64X8664Notx32NotX32JniBridge_libcUnixLinuxlikeLinuxGnuB64X8664Notx32NotX32Sysctl(JNIEnv* km_env, jclass km_clazz, jlong name, jint namelen, jlong oldp, jlong oldlenp, jlong newp, jlong newlen) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t, void*, void*, void*, uint64_t);

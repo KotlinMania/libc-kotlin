@@ -2,1028 +2,1050 @@
 
 package io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd
 
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CLonglong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
+import io.github.kotlinmania.libc.CUshort
+import io.github.kotlinmania.libc.unix.GidT
+import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.PidT
+import io.github.kotlinmania.libc.unix.Rlimit
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.bsd.OffT
 import io.github.kotlinmania.libc.unix.bsd.PthreadT
 import io.github.kotlinmania.libc.unix.bsd.SaFamilyT
+import io.github.kotlinmania.libc.unix.bsd.Sockaddr
 import io.github.kotlinmania.libc.unix.bsd.SocklenT
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.IdT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.InAddr
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.KeyT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.KvmT
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.ModeT
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_aioCancel
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_aioError
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_aioFsync
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_aioRead
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_aioReadv
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_aioReturn
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_aioSuspend
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_aioWaitcomplete
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_aioWrite
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_aioWritev
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_capEnter
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_capFcntlsGet
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_capFcntlsLimit
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_capGetmode
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_capIoctlsGet
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_capIoctlsLimit
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_capRightsClear
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_capRightsContains
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_capRightsGet
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_capRightsInit
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_capRightsIsSet
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_capRightsIsValid
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_capRightsLimit
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_capRightsMerge
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_capRightsRemove
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_capRightsSet
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_capSandboxed
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_cfmakesane
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_clockGetcpuclockid2
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_closeRange
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_closefrom
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_copyFileRange
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_cpuset
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_cpusetGetaffinity
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_cpusetGetid
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_cpusetSetaffinity
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_cpusetSetid
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_dallocx
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_devnameR
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_devstatBuildmatch
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_devstatCheckversion
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_devstatGetgeneration
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_devstatGetnumdevs
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_devstatGetversion
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_dlvsym
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_dup3
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_elfAuxInfo
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_error
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_eventfd
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_eventfdRead
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_eventfdWrite
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_execvpe
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_extattrDeleteFd
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_extattrDeleteFile
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_extattrDeleteLink
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_extattrGetFd
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_extattrGetFile
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_extattrGetLink
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_extattrListFd
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_extattrListFile
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_extattrListLink
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_extattrNamespaceToString
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_extattrSetFd
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_extattrSetFile
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_extattrSetLink
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_extattrStringToNamespace
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_fdatasync
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_ffs
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_ffsl
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_ffsll
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_fhlink
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_fhlinkat
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_fhopen
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_fhreadlink
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_fhstat
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_fhstatfs
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_flopen
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_flopenat
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_fls
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_flsl
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_flsll
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_fspacectl
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_fstatfs
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_ftok
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_getfh
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_getfhat
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_getfsstat
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_getlocalbase
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_getmntinfo
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_getpagesize
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_getpagesizes
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_getutxuser
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_hexdump
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_humanizeNumber
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_jail
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_jailAttach
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_jailGet
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_jailRemove
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_jailSet
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_kcmp
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_kinfoGetvmmap
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_kldIsloaded
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_kldLoad
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_kvmCounterU64Fetch
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_kvmDpcpuSetcpu
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_kvmGetargv
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_kvmGetcptime
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_kvmGetenvv
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_kvmGeterr
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_kvmGetmaxcpu
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_kvmGetncpus
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_kvmGetpcpu
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_kvmGetswapinfo
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_kvmNative
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_kvmNlist
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_kvmNlist2
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_kvmRead2
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_kvmReadZpcpu
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_lgetfh
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_lioListio
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_mallctl
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_mallctlbymib
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_mallctlnametomib
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_mallocStatsPrint
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_mallocx
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_memfdCreate
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_memmem
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_memstatGetName
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_memstatMtlAlloc
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_memstatMtlFind
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_memstatMtlFirst
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_memstatMtlFree
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_memstatMtlGeterror
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_memstatMtlNext
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_memstatStrerror
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_mount
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_mqGetfdNp
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_msgctl
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_msgget
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_msgsnd
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_nallocx
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_nmount
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_pdfork
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_pdgetpid
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_pdkill
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_pidfileClose
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_pidfileFileno
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_pidfileOpen
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_pidfileRemove
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_pidfileWrite
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_procctl
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_procstatClose
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_procstatFreeargv
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_procstatFreeenvv
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_procstatFreefiles
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_procstatFreegroups
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_procstatFreeprocs
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_procstatFreeptlwpinfo
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_procstatFreevmmap
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_procstatGetPtsInfo
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_procstatGetShmInfo
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_procstatGetSocketInfo
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_procstatGetVnodeInfo
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_procstatGetargv
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_procstatGetenvv
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_procstatGetfiles
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_procstatGetgroups
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_procstatGetosrel
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_procstatGetpathname
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_procstatGetprocs
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_procstatGetrlimit
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_procstatGetumask
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_procstatGetvmmap
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_procstatOpenCore
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_procstatOpenKvm
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_procstatOpenSysctl
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_pthreadGetaffinityNp
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_pthreadGetthreadidNp
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_pthreadMutexConsistent
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_pthreadMutexattrGetrobust
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_pthreadMutexattrSetrobust
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_pthreadSetaffinityNp
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_pthreadSpinDestroy
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_pthreadSpinInit
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_pthreadSpinLock
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_pthreadSpinTrylock
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_pthreadSpinUnlock
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_pthreadTimedjoinNp
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_ptsnameR
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_rallocx
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_realhostname
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_realhostnameSa
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_reallocarray
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_recvmmsg
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_rfork
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_rtprioThread
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_sallocx
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_schedGetaffinity
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_schedGetcpu
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_schedSetaffinity
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_sctpBindx
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_sctpConnectx
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_sctpFreeladdrs
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_sctpFreepaddrs
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_sctpGetaddrlen
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_sctpGetladdrs
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_sctpGetpaddrs
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_sctpOptInfo
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_sctpPeeloff
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_sctpRecvv
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_sctpSendv
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_sdallocx
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_semctl
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_semget
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_semop
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_sendmmsg
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_setaudit
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_setproctitle
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_setproctitleFast
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_setutxdb
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_shmCreateLargepage
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_shmRename
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_shmat
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_shmctl
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_shmdt
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_shmget
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_statfs
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_strchrnul
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_thrKill
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_thrKill2
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_thrSelf
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_timerCreate
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_timerDelete
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_timerGetoverrun
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_timerGettime
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_timerSettime
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_timerfdCreate
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_timerfdGettime
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_timerfdSettime
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_timingsafeBcmp
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_timingsafeMemcmp
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_umtxOp
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_uuidgen
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_waitid
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_xallocx
-import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libc_unix_bsd_freebsdlike_freebsd_xuname
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.PthreadMutexT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.PthreadMutexattrT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.Rtprio
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.SiginfoT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.Termios
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdAioCancel
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdAioError
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdAioFsync
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdAioRead
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdAioReadv
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdAioReturn
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdAioSuspend
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdAioWaitcomplete
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdAioWrite
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdAioWritev
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdCapEnter
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdCapFcntlsGet
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdCapFcntlsLimit
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdCapGetmode
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdCapIoctlsGet
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdCapIoctlsLimit
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdCapRightsClear
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdCapRightsContains
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdCapRightsGet
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdCapRightsInit
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdCapRightsIsSet
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdCapRightsIsValid
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdCapRightsLimit
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdCapRightsMerge
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdCapRightsRemove
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdCapRightsSet
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdCapSandboxed
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdCfmakesane
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdClockGetcpuclockid2
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdCloseRange
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdClosefrom
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdCopyFileRange
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdCpuset
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdCpusetGetaffinity
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdCpusetGetid
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdCpusetSetaffinity
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdCpusetSetid
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdDallocx
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdDevnameR
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdDevstatBuildmatch
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdDevstatCheckversion
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdDevstatGetgeneration
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdDevstatGetnumdevs
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdDevstatGetversion
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdDlvsym
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdDup3
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdElfAuxInfo
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdError
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdEventfd
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdEventfdRead
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdEventfdWrite
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdExecvpe
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdExtattrDeleteFd
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdExtattrDeleteFile
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdExtattrDeleteLink
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdExtattrGetFd
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdExtattrGetFile
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdExtattrGetLink
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdExtattrListFd
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdExtattrListFile
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdExtattrListLink
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdExtattrNamespaceToString
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdExtattrSetFd
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdExtattrSetFile
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdExtattrSetLink
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdExtattrStringToNamespace
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdFdatasync
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdFfs
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdFfsl
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdFfsll
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdFhlink
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdFhlinkat
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdFhopen
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdFhreadlink
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdFhstat
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdFhstatfs
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdFlopen
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdFlopenat
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdFls
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdFlsl
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdFlsll
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdFspacectl
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdFstatfs
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdFtok
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdGetfh
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdGetfhat
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdGetfsstat
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdGetlocalbase
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdGetmntinfo
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdGetpagesize
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdGetpagesizes
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdGetutxuser
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdHexdump
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdHumanizeNumber
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdJail
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdJailAttach
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdJailGet
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdJailRemove
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdJailSet
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdKcmp
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdKinfoGetvmmap
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdKldIsloaded
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdKldLoad
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdKvmCounterU64Fetch
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdKvmDpcpuSetcpu
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdKvmGetargv
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdKvmGetcptime
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdKvmGetenvv
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdKvmGeterr
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdKvmGetmaxcpu
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdKvmGetncpus
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdKvmGetpcpu
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdKvmGetswapinfo
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdKvmNative
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdKvmNlist
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdKvmNlist2
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdKvmRead2
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdKvmReadZpcpu
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdLgetfh
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdLioListio
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdMallctl
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdMallctlbymib
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdMallctlnametomib
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdMallocStatsPrint
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdMallocx
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdMemfdCreate
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdMemmem
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdMemstatGetName
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdMemstatMtlAlloc
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdMemstatMtlFind
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdMemstatMtlFirst
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdMemstatMtlFree
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdMemstatMtlGeterror
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdMemstatMtlNext
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdMemstatStrerror
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdMount
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdMqGetfdNp
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdMsgctl
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdMsgget
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdMsgsnd
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdNallocx
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdNmount
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdPdfork
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdPdgetpid
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdPdkill
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdPidfileClose
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdPidfileFileno
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdPidfileOpen
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdPidfileRemove
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdPidfileWrite
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdProcctl
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdProcstatClose
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdProcstatFreeargv
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdProcstatFreeenvv
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdProcstatFreefiles
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdProcstatFreegroups
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdProcstatFreeprocs
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdProcstatFreeptlwpinfo
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdProcstatFreevmmap
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdProcstatGetPtsInfo
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdProcstatGetShmInfo
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdProcstatGetSocketInfo
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdProcstatGetVnodeInfo
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdProcstatGetargv
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdProcstatGetenvv
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdProcstatGetfiles
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdProcstatGetgroups
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdProcstatGetosrel
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdProcstatGetpathname
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdProcstatGetprocs
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdProcstatGetrlimit
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdProcstatGetumask
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdProcstatGetvmmap
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdProcstatOpenCore
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdProcstatOpenKvm
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdProcstatOpenSysctl
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdPthreadGetaffinityNp
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdPthreadGetthreadidNp
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdPthreadMutexConsistent
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdPthreadMutexattrGetrobust
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdPthreadMutexattrSetrobust
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdPthreadSetaffinityNp
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdPthreadSpinDestroy
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdPthreadSpinInit
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdPthreadSpinLock
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdPthreadSpinTrylock
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdPthreadSpinUnlock
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdPthreadTimedjoinNp
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdPtsnameR
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdRallocx
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdRealhostname
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdRealhostnameSa
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdReallocarray
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdRecvmmsg
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdRfork
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdRtprioThread
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdSallocx
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdSchedGetaffinity
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdSchedGetcpu
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdSchedSetaffinity
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdSctpBindx
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdSctpConnectx
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdSctpFreeladdrs
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdSctpFreepaddrs
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdSctpGetaddrlen
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdSctpGetladdrs
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdSctpGetpaddrs
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdSctpOptInfo
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdSctpPeeloff
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdSctpRecvv
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdSctpSendv
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdSdallocx
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdSemctl
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdSemget
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdSemop
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdSendmmsg
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdSetaudit
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdSetproctitle
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdSetproctitleFast
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdSetutxdb
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdShmCreateLargepage
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdShmRename
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdShmat
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdShmctl
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdShmdt
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdShmget
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdStatfs
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdStrchrnul
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdThrKill
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdThrKill2
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdThrSelf
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdTimerCreate
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdTimerDelete
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdTimerGetoverrun
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdTimerGettime
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdTimerSettime
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdTimerfdCreate
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdTimerfdGettime
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdTimerfdSettime
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdTimingsafeBcmp
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdTimingsafeMemcmp
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdUmtxOp
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdUuidgen
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdWaitid
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdXallocx
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.cinterop.libcUnixBsdFreebsdlikeFreebsdXuname
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd11.DevT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd11.KinfoProc
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd11.ShmidDs
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd11.Statfs
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd11.Vnstat
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd11.b64.Stat
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
 
-public actual fun fhlink(fhp: COpaquePointer?, to: String?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_fhlink(fhp?.value?.toCPointer<ByteVar>(), to)
+public actual fun fhlink(fhp: MutPtr<FhandleT>, to: ConstPtr<CChar>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdFhlink(fhp.rawAddress.toCPointer<ByteVar>(), to.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fhlinkat(fhp: COpaquePointer?, tofd: CInt, to: String?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_fhlinkat(fhp?.value?.toCPointer<ByteVar>(), tofd, to)
+public actual fun fhlinkat(fhp: MutPtr<FhandleT>, tofd: CInt, to: ConstPtr<CChar>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdFhlinkat(fhp.rawAddress.toCPointer<ByteVar>(), tofd, to.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fhreadlink(fhp: COpaquePointer?, buf: COpaquePointer?, bufsize: SizeT): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_fhreadlink(fhp?.value?.toCPointer<ByteVar>(), buf?.value?.toCPointer<ByteVar>(), bufsize)
+public actual fun fhreadlink(fhp: MutPtr<FhandleT>, buf: MutPtr<CChar>, bufsize: SizeT): CInt =
+    libcUnixBsdFreebsdlikeFreebsdFhreadlink(fhp.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>(), bufsize)
 
-public actual fun getfhat(fd: CInt, path: COpaquePointer?, fhp: COpaquePointer?, flag: CInt): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_getfhat(fd, path?.value?.toCPointer<ByteVar>(), fhp?.value?.toCPointer<ByteVar>(), flag)
+public actual fun getfhat(fd: CInt, path: MutPtr<CChar>, fhp: MutPtr<Fhandle>, flag: CInt): CInt =
+    libcUnixBsdFreebsdlikeFreebsdGetfhat(fd, path.rawAddress.toCPointer<ByteVar>(), fhp.rawAddress.toCPointer<ByteVar>(), flag)
 
-public actual fun error(): COpaquePointer? =
-    libc_unix_bsd_freebsdlike_freebsd_error()?.let { COpaquePointer(it.toLong()) }
+public actual fun error(): MutPtr<CInt> =
+    MutPtr(libcUnixBsdFreebsdlikeFreebsdError()?.toLong() ?: 0L)
 
-public actual fun aioCancel(fd: CInt, aiocbp: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_aioCancel(fd, aiocbp?.value?.toCPointer<ByteVar>())
+public actual fun aioCancel(fd: CInt, aiocbp: MutPtr<Aiocb>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdAioCancel(fd, aiocbp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun aioError(aiocbp: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_aioError(aiocbp?.value?.toCPointer<ByteVar>())
+public actual fun aioError(aiocbp: ConstPtr<Aiocb>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdAioError(aiocbp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun aioFsync(op: CInt, aiocbp: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_aioFsync(op, aiocbp?.value?.toCPointer<ByteVar>())
+public actual fun aioFsync(op: CInt, aiocbp: MutPtr<Aiocb>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdAioFsync(op, aiocbp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun aioRead(aiocbp: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_aioRead(aiocbp?.value?.toCPointer<ByteVar>())
+public actual fun aioRead(aiocbp: MutPtr<Aiocb>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdAioRead(aiocbp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun aioReadv(aiocbp: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_aioReadv(aiocbp?.value?.toCPointer<ByteVar>())
+public actual fun aioReadv(aiocbp: MutPtr<Aiocb>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdAioReadv(aiocbp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun aioReturn(aiocbp: COpaquePointer?): SsizeT =
-    libc_unix_bsd_freebsdlike_freebsd_aioReturn(aiocbp?.value?.toCPointer<ByteVar>())
+public actual fun aioReturn(aiocbp: MutPtr<Aiocb>): SsizeT =
+    libcUnixBsdFreebsdlikeFreebsdAioReturn(aiocbp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun aioSuspend(aiocbList: COpaquePointer?, nitems: CInt, timeout: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_aioSuspend(aiocbList?.value?.toCPointer<ByteVar>(), nitems, timeout?.value?.toCPointer<ByteVar>())
+public actual fun aioSuspend(aiocbList: ConstPtr<ConstPtr<Aiocb>>, nitems: CInt, timeout: ConstPtr<Timespec>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdAioSuspend(aiocbList.rawAddress.toCPointer<ByteVar>(), nitems, timeout.rawAddress.toCPointer<ByteVar>())
 
-public actual fun aioWrite(aiocbp: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_aioWrite(aiocbp?.value?.toCPointer<ByteVar>())
+public actual fun aioWrite(aiocbp: MutPtr<Aiocb>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdAioWrite(aiocbp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun aioWritev(aiocbp: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_aioWritev(aiocbp?.value?.toCPointer<ByteVar>())
+public actual fun aioWritev(aiocbp: MutPtr<Aiocb>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdAioWritev(aiocbp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun copyFileRange(infd: CInt, inoffp: COpaquePointer?, outfd: CInt, outoffp: COpaquePointer?, len: SizeT, flags: CUint): SsizeT =
-    libc_unix_bsd_freebsdlike_freebsd_copyFileRange(infd, inoffp?.value?.toCPointer<ByteVar>(), outfd, outoffp?.value?.toCPointer<ByteVar>(), len, flags)
+public actual fun copyFileRange(infd: CInt, inoffp: MutPtr<OffT>, outfd: CInt, outoffp: MutPtr<OffT>, len: SizeT, flags: CUint): SsizeT =
+    libcUnixBsdFreebsdlikeFreebsdCopyFileRange(infd, inoffp.rawAddress.toCPointer<ByteVar>(), outfd, outoffp.rawAddress.toCPointer<ByteVar>(), len, flags)
 
-public actual fun devnameR(dev: DevT, mode: ModeT, buf: COpaquePointer?, len: CInt): COpaquePointer? =
-    libc_unix_bsd_freebsdlike_freebsd_devnameR(dev, mode, buf?.value?.toCPointer<ByteVar>(), len)?.let { COpaquePointer(it.toLong()) }
+public actual fun devnameR(dev: DevT, mode: ModeT, buf: MutPtr<CChar>, len: CInt): MutPtr<CChar> =
+    MutPtr(libcUnixBsdFreebsdlikeFreebsdDevnameR(dev, mode, buf.rawAddress.toCPointer<ByteVar>(), len)?.toLong() ?: 0L)
 
-public actual fun extattrDeleteFd(fd: CInt, attrnamespace: CInt, attrname: String?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_extattrDeleteFd(fd, attrnamespace, attrname)
+public actual fun extattrDeleteFd(fd: CInt, attrnamespace: CInt, attrname: ConstPtr<CChar>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdExtattrDeleteFd(fd, attrnamespace, attrname.rawAddress.toCPointer<ByteVar>())
 
-public actual fun extattrDeleteFile(path: String?, attrnamespace: CInt, attrname: String?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_extattrDeleteFile(path, attrnamespace, attrname)
+public actual fun extattrDeleteFile(path: ConstPtr<CChar>, attrnamespace: CInt, attrname: ConstPtr<CChar>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdExtattrDeleteFile(path.rawAddress.toCPointer<ByteVar>(), attrnamespace, attrname.rawAddress.toCPointer<ByteVar>())
 
-public actual fun extattrDeleteLink(path: String?, attrnamespace: CInt, attrname: String?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_extattrDeleteLink(path, attrnamespace, attrname)
+public actual fun extattrDeleteLink(path: ConstPtr<CChar>, attrnamespace: CInt, attrname: ConstPtr<CChar>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdExtattrDeleteLink(path.rawAddress.toCPointer<ByteVar>(), attrnamespace, attrname.rawAddress.toCPointer<ByteVar>())
 
-public actual fun extattrGetFd(fd: CInt, attrnamespace: CInt, attrname: String?, data: COpaquePointer?, nbytes: SizeT): SsizeT =
-    libc_unix_bsd_freebsdlike_freebsd_extattrGetFd(fd, attrnamespace, attrname, data?.value?.toCPointer<ByteVar>(), nbytes)
+public actual fun extattrGetFd(fd: CInt, attrnamespace: CInt, attrname: ConstPtr<CChar>, data: MutPtr<CVoid>, nbytes: SizeT): SsizeT =
+    libcUnixBsdFreebsdlikeFreebsdExtattrGetFd(fd, attrnamespace, attrname.rawAddress.toCPointer<ByteVar>(), data.rawAddress.toCPointer<ByteVar>(), nbytes)
 
-public actual fun extattrGetFile(path: String?, attrnamespace: CInt, attrname: String?, data: COpaquePointer?, nbytes: SizeT): SsizeT =
-    libc_unix_bsd_freebsdlike_freebsd_extattrGetFile(path, attrnamespace, attrname, data?.value?.toCPointer<ByteVar>(), nbytes)
+public actual fun extattrGetFile(path: ConstPtr<CChar>, attrnamespace: CInt, attrname: ConstPtr<CChar>, data: MutPtr<CVoid>, nbytes: SizeT): SsizeT =
+    libcUnixBsdFreebsdlikeFreebsdExtattrGetFile(path.rawAddress.toCPointer<ByteVar>(), attrnamespace, attrname.rawAddress.toCPointer<ByteVar>(), data.rawAddress.toCPointer<ByteVar>(), nbytes)
 
-public actual fun extattrGetLink(path: String?, attrnamespace: CInt, attrname: String?, data: COpaquePointer?, nbytes: SizeT): SsizeT =
-    libc_unix_bsd_freebsdlike_freebsd_extattrGetLink(path, attrnamespace, attrname, data?.value?.toCPointer<ByteVar>(), nbytes)
+public actual fun extattrGetLink(path: ConstPtr<CChar>, attrnamespace: CInt, attrname: ConstPtr<CChar>, data: MutPtr<CVoid>, nbytes: SizeT): SsizeT =
+    libcUnixBsdFreebsdlikeFreebsdExtattrGetLink(path.rawAddress.toCPointer<ByteVar>(), attrnamespace, attrname.rawAddress.toCPointer<ByteVar>(), data.rawAddress.toCPointer<ByteVar>(), nbytes)
 
-public actual fun extattrListFd(fd: CInt, attrnamespace: CInt, data: COpaquePointer?, nbytes: SizeT): SsizeT =
-    libc_unix_bsd_freebsdlike_freebsd_extattrListFd(fd, attrnamespace, data?.value?.toCPointer<ByteVar>(), nbytes)
+public actual fun extattrListFd(fd: CInt, attrnamespace: CInt, data: MutPtr<CVoid>, nbytes: SizeT): SsizeT =
+    libcUnixBsdFreebsdlikeFreebsdExtattrListFd(fd, attrnamespace, data.rawAddress.toCPointer<ByteVar>(), nbytes)
 
-public actual fun extattrListFile(path: String?, attrnamespace: CInt, data: COpaquePointer?, nbytes: SizeT): SsizeT =
-    libc_unix_bsd_freebsdlike_freebsd_extattrListFile(path, attrnamespace, data?.value?.toCPointer<ByteVar>(), nbytes)
+public actual fun extattrListFile(path: ConstPtr<CChar>, attrnamespace: CInt, data: MutPtr<CVoid>, nbytes: SizeT): SsizeT =
+    libcUnixBsdFreebsdlikeFreebsdExtattrListFile(path.rawAddress.toCPointer<ByteVar>(), attrnamespace, data.rawAddress.toCPointer<ByteVar>(), nbytes)
 
-public actual fun extattrListLink(path: String?, attrnamespace: CInt, data: COpaquePointer?, nbytes: SizeT): SsizeT =
-    libc_unix_bsd_freebsdlike_freebsd_extattrListLink(path, attrnamespace, data?.value?.toCPointer<ByteVar>(), nbytes)
+public actual fun extattrListLink(path: ConstPtr<CChar>, attrnamespace: CInt, data: MutPtr<CVoid>, nbytes: SizeT): SsizeT =
+    libcUnixBsdFreebsdlikeFreebsdExtattrListLink(path.rawAddress.toCPointer<ByteVar>(), attrnamespace, data.rawAddress.toCPointer<ByteVar>(), nbytes)
 
-public actual fun extattrSetFd(fd: CInt, attrnamespace: CInt, attrname: String?, data: COpaquePointer?, nbytes: SizeT): SsizeT =
-    libc_unix_bsd_freebsdlike_freebsd_extattrSetFd(fd, attrnamespace, attrname, data?.value?.toCPointer<ByteVar>(), nbytes)
+public actual fun extattrSetFd(fd: CInt, attrnamespace: CInt, attrname: ConstPtr<CChar>, data: ConstPtr<CVoid>, nbytes: SizeT): SsizeT =
+    libcUnixBsdFreebsdlikeFreebsdExtattrSetFd(fd, attrnamespace, attrname.rawAddress.toCPointer<ByteVar>(), data.rawAddress.toCPointer<ByteVar>(), nbytes)
 
-public actual fun extattrSetFile(path: String?, attrnamespace: CInt, attrname: String?, data: COpaquePointer?, nbytes: SizeT): SsizeT =
-    libc_unix_bsd_freebsdlike_freebsd_extattrSetFile(path, attrnamespace, attrname, data?.value?.toCPointer<ByteVar>(), nbytes)
+public actual fun extattrSetFile(path: ConstPtr<CChar>, attrnamespace: CInt, attrname: ConstPtr<CChar>, data: ConstPtr<CVoid>, nbytes: SizeT): SsizeT =
+    libcUnixBsdFreebsdlikeFreebsdExtattrSetFile(path.rawAddress.toCPointer<ByteVar>(), attrnamespace, attrname.rawAddress.toCPointer<ByteVar>(), data.rawAddress.toCPointer<ByteVar>(), nbytes)
 
-public actual fun extattrSetLink(path: String?, attrnamespace: CInt, attrname: String?, data: COpaquePointer?, nbytes: SizeT): SsizeT =
-    libc_unix_bsd_freebsdlike_freebsd_extattrSetLink(path, attrnamespace, attrname, data?.value?.toCPointer<ByteVar>(), nbytes)
+public actual fun extattrSetLink(path: ConstPtr<CChar>, attrnamespace: CInt, attrname: ConstPtr<CChar>, data: ConstPtr<CVoid>, nbytes: SizeT): SsizeT =
+    libcUnixBsdFreebsdlikeFreebsdExtattrSetLink(path.rawAddress.toCPointer<ByteVar>(), attrnamespace, attrname.rawAddress.toCPointer<ByteVar>(), data.rawAddress.toCPointer<ByteVar>(), nbytes)
 
-public actual fun fspacectl(fd: CInt, cmd: CInt, rqsr: COpaquePointer?, flags: CInt, rmsr: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_fspacectl(fd, cmd, rqsr?.value?.toCPointer<ByteVar>(), flags, rmsr?.value?.toCPointer<ByteVar>())
+public actual fun fspacectl(fd: CInt, cmd: CInt, rqsr: ConstPtr<SpacectlRange>, flags: CInt, rmsr: MutPtr<SpacectlRange>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdFspacectl(fd, cmd, rqsr.rawAddress.toCPointer<ByteVar>(), flags, rmsr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun jail(jail: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_jail(jail?.value?.toCPointer<ByteVar>())
+public actual fun jail(jail: MutPtr<Jail>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdJail(jail.rawAddress.toCPointer<ByteVar>())
 
 public actual fun jailAttach(jid: CInt): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_jailAttach(jid)
+    libcUnixBsdFreebsdlikeFreebsdJailAttach(jid)
 
 public actual fun jailRemove(jid: CInt): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_jailRemove(jid)
+    libcUnixBsdFreebsdlikeFreebsdJailRemove(jid)
 
-public actual fun jailGet(iov: COpaquePointer?, niov: CUint, flags: CInt): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_jailGet(iov?.value?.toCPointer<ByteVar>(), niov, flags)
+public actual fun jailGet(iov: MutPtr<Iovec>, niov: CUint, flags: CInt): CInt =
+    libcUnixBsdFreebsdlikeFreebsdJailGet(iov.rawAddress.toCPointer<ByteVar>(), niov, flags)
 
-public actual fun jailSet(iov: COpaquePointer?, niov: CUint, flags: CInt): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_jailSet(iov?.value?.toCPointer<ByteVar>(), niov, flags)
+public actual fun jailSet(iov: MutPtr<Iovec>, niov: CUint, flags: CInt): CInt =
+    libcUnixBsdFreebsdlikeFreebsdJailSet(iov.rawAddress.toCPointer<ByteVar>(), niov, flags)
 
-public actual fun lioListio(mode: CInt, aiocbList: COpaquePointer?, nitems: CInt, sevp: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_lioListio(mode, aiocbList?.value?.toCPointer<ByteVar>(), nitems, sevp?.value?.toCPointer<ByteVar>())
+public actual fun lioListio(mode: CInt, aiocbList: ConstPtr<MutPtr<Aiocb>>, nitems: CInt, sevp: MutPtr<Sigevent>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdLioListio(mode, aiocbList.rawAddress.toCPointer<ByteVar>(), nitems, sevp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getutxuser(user: String?): COpaquePointer? =
-    libc_unix_bsd_freebsdlike_freebsd_getutxuser(user)?.let { COpaquePointer(it.toLong()) }
+public actual fun getutxuser(user: ConstPtr<CChar>): MutPtr<Utmpx> =
+    MutPtr(libcUnixBsdFreebsdlikeFreebsdGetutxuser(user.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun setutxdb(type: CInt, file: String?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_setutxdb(type, file)
+public actual fun setutxdb(type: CInt, file: ConstPtr<CChar>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdSetutxdb(type, file.rawAddress.toCPointer<ByteVar>())
 
-public actual fun aioWaitcomplete(iocbp: COpaquePointer?, timeout: COpaquePointer?): SsizeT =
-    libc_unix_bsd_freebsdlike_freebsd_aioWaitcomplete(iocbp?.value?.toCPointer<ByteVar>(), timeout?.value?.toCPointer<ByteVar>())
+public actual fun aioWaitcomplete(iocbp: MutPtr<MutPtr<Aiocb>>, timeout: MutPtr<Timespec>): SsizeT =
+    libcUnixBsdFreebsdlikeFreebsdAioWaitcomplete(iocbp.rawAddress.toCPointer<ByteVar>(), timeout.rawAddress.toCPointer<ByteVar>())
 
 public actual fun mqGetfdNp(mqd: MqdT): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_mqGetfdNp(mqd?.value?.toCPointer<ByteVar>())
+    libcUnixBsdFreebsdlikeFreebsdMqGetfdNp(mqd.rawAddress.toCPointer<ByteVar>())
 
-public actual fun waitid(idtype: IdtypeT, id: IdT, infop: COpaquePointer?, options: CInt): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_waitid(idtype, id, infop?.value?.toCPointer<ByteVar>(), options)
+public actual fun waitid(idtype: IdtypeT, id: IdT, infop: MutPtr<SiginfoT>, options: CInt): CInt =
+    libcUnixBsdFreebsdlikeFreebsdWaitid(idtype, id, infop.rawAddress.toCPointer<ByteVar>(), options)
 
-public actual fun ptsnameR(fd: CInt, buf: COpaquePointer?, buflen: SizeT): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_ptsnameR(fd, buf?.value?.toCPointer<ByteVar>(), buflen)
+public actual fun ptsnameR(fd: CInt, buf: MutPtr<CChar>, buflen: SizeT): CInt =
+    libcUnixBsdFreebsdlikeFreebsdPtsnameR(fd, buf.rawAddress.toCPointer<ByteVar>(), buflen)
 
-public actual fun ftok(pathname: String?, projId: CInt): KeyT =
-    libc_unix_bsd_freebsdlike_freebsd_ftok(pathname, projId)
+public actual fun ftok(pathname: ConstPtr<CChar>, projId: CInt): KeyT =
+    libcUnixBsdFreebsdlikeFreebsdFtok(pathname.rawAddress.toCPointer<ByteVar>(), projId)
 
 public actual fun shmget(key: KeyT, size: SizeT, shmflg: CInt): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_shmget(key, size, shmflg)
+    libcUnixBsdFreebsdlikeFreebsdShmget(key, size, shmflg)
 
-public actual fun shmat(shmid: CInt, shmaddr: COpaquePointer?, shmflg: CInt): COpaquePointer? =
-    libc_unix_bsd_freebsdlike_freebsd_shmat(shmid, shmaddr?.value?.toCPointer<ByteVar>(), shmflg)?.let { COpaquePointer(it.toLong()) }
+public actual fun shmat(shmid: CInt, shmaddr: ConstPtr<CVoid>, shmflg: CInt): MutPtr<CVoid> =
+    MutPtr(libcUnixBsdFreebsdlikeFreebsdShmat(shmid, shmaddr.rawAddress.toCPointer<ByteVar>(), shmflg)?.toLong() ?: 0L)
 
-public actual fun shmdt(shmaddr: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_shmdt(shmaddr?.value?.toCPointer<ByteVar>())
+public actual fun shmdt(shmaddr: ConstPtr<CVoid>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdShmdt(shmaddr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun shmctl(shmid: CInt, cmd: CInt, buf: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_shmctl(shmid, cmd, buf?.value?.toCPointer<ByteVar>())
+public actual fun shmctl(shmid: CInt, cmd: CInt, buf: MutPtr<ShmidDs>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdShmctl(shmid, cmd, buf.rawAddress.toCPointer<ByteVar>())
 
 public actual fun semget(key: KeyT, nsems: CInt, semflg: CInt): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_semget(key, nsems, semflg)
+    libcUnixBsdFreebsdlikeFreebsdSemget(key, nsems, semflg)
 
 public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_semctl(semid, semnum, cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+    libcUnixBsdFreebsdlikeFreebsdSemctl(semid, semnum, cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun semop(semid: CInt, sops: COpaquePointer?, nsops: SizeT): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_semop(semid, sops?.value?.toCPointer<ByteVar>(), nsops)
+public actual fun semop(semid: CInt, sops: MutPtr<Sembuf>, nsops: SizeT): CInt =
+    libcUnixBsdFreebsdlikeFreebsdSemop(semid, sops.rawAddress.toCPointer<ByteVar>(), nsops)
 
-public actual fun msgctl(msqid: CInt, cmd: CInt, buf: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_msgctl(msqid, cmd, buf?.value?.toCPointer<ByteVar>())
+public actual fun msgctl(msqid: CInt, cmd: CInt, buf: MutPtr<MsqidDs>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdMsgctl(msqid, cmd, buf.rawAddress.toCPointer<ByteVar>())
 
 public actual fun msgget(key: KeyT, msgflg: CInt): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_msgget(key, msgflg)
+    libcUnixBsdFreebsdlikeFreebsdMsgget(key, msgflg)
 
-public actual fun msgsnd(msqid: CInt, msgp: COpaquePointer?, msgsz: SizeT, msgflg: CInt): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_msgsnd(msqid, msgp?.value?.toCPointer<ByteVar>(), msgsz, msgflg)
+public actual fun msgsnd(msqid: CInt, msgp: ConstPtr<CVoid>, msgsz: SizeT, msgflg: CInt): CInt =
+    libcUnixBsdFreebsdlikeFreebsdMsgsnd(msqid, msgp.rawAddress.toCPointer<ByteVar>(), msgsz, msgflg)
 
-public actual fun cfmakesane(termios: COpaquePointer?) {
-    libc_unix_bsd_freebsdlike_freebsd_cfmakesane(termios?.value?.toCPointer<ByteVar>())
+public actual fun cfmakesane(termios: MutPtr<Termios>) {
+    libcUnixBsdFreebsdlikeFreebsdCfmakesane(termios.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun pdfork(fdp: COpaquePointer?, flags: CInt): PidT =
-    libc_unix_bsd_freebsdlike_freebsd_pdfork(fdp?.value?.toCPointer<ByteVar>(), flags)
+public actual fun pdfork(fdp: MutPtr<CInt>, flags: CInt): PidT =
+    libcUnixBsdFreebsdlikeFreebsdPdfork(fdp.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun pdgetpid(fd: CInt, pidp: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_pdgetpid(fd, pidp?.value?.toCPointer<ByteVar>())
+public actual fun pdgetpid(fd: CInt, pidp: MutPtr<PidT>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdPdgetpid(fd, pidp.rawAddress.toCPointer<ByteVar>())
 
 public actual fun pdkill(fd: CInt, signum: CInt): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_pdkill(fd, signum)
+    libcUnixBsdFreebsdlikeFreebsdPdkill(fd, signum)
 
-public actual fun rtprioThread(function: CInt, lwpid: LwpidT, rtp: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_rtprioThread(function, lwpid, rtp?.value?.toCPointer<ByteVar>())
+public actual fun rtprioThread(function: CInt, lwpid: LwpidT, rtp: MutPtr<Rtprio>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdRtprioThread(function, lwpid, rtp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun uuidgen(store: COpaquePointer?, count: CInt): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_uuidgen(store?.value?.toCPointer<ByteVar>(), count)
+public actual fun uuidgen(store: MutPtr<Uuid>, count: CInt): CInt =
+    libcUnixBsdFreebsdlikeFreebsdUuidgen(store.rawAddress.toCPointer<ByteVar>(), count)
 
 public actual fun thrKill(id: CLong, sig: CInt): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_thrKill(id, sig)
+    libcUnixBsdFreebsdlikeFreebsdThrKill(id, sig)
 
 public actual fun thrKill2(pid: PidT, id: CLong, sig: CInt): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_thrKill2(pid, id, sig)
+    libcUnixBsdFreebsdlikeFreebsdThrKill2(pid, id, sig)
 
-public actual fun thrSelf(tid: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_thrSelf(tid?.value?.toCPointer<ByteVar>())
+public actual fun thrSelf(tid: MutPtr<CLong>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdThrSelf(tid.rawAddress.toCPointer<ByteVar>())
 
 public actual fun pthreadGetthreadidNp(): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_pthreadGetthreadidNp()
+    libcUnixBsdFreebsdlikeFreebsdPthreadGetthreadidNp()
 
-public actual fun pthreadGetaffinityNp(td: PthreadT, cpusetsize: SizeT, cpusetp: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_pthreadGetaffinityNp(td.toLong().toCPointer<ByteVar>(), cpusetsize, cpusetp?.value?.toCPointer<ByteVar>())
+public actual fun pthreadGetaffinityNp(td: PthreadT, cpusetsize: SizeT, cpusetp: MutPtr<CpusetT>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdPthreadGetaffinityNp(td.toLong().toCPointer<ByteVar>(), cpusetsize, cpusetp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadSetaffinityNp(td: PthreadT, cpusetsize: SizeT, cpusetp: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_pthreadSetaffinityNp(td.toLong().toCPointer<ByteVar>(), cpusetsize, cpusetp?.value?.toCPointer<ByteVar>())
+public actual fun pthreadSetaffinityNp(td: PthreadT, cpusetsize: SizeT, cpusetp: ConstPtr<CpusetT>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdPthreadSetaffinityNp(td.toLong().toCPointer<ByteVar>(), cpusetsize, cpusetp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun schedGetaffinity(pid: PidT, cpusetsz: SizeT, cpuset: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_schedGetaffinity(pid, cpusetsz, cpuset?.value?.toCPointer<ByteVar>())
+public actual fun schedGetaffinity(pid: PidT, cpusetsz: SizeT, cpuset: MutPtr<CpusetT>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdSchedGetaffinity(pid, cpusetsz, cpuset.rawAddress.toCPointer<ByteVar>())
 
-public actual fun schedSetaffinity(pid: PidT, cpusetsz: SizeT, cpuset: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_schedSetaffinity(pid, cpusetsz, cpuset?.value?.toCPointer<ByteVar>())
+public actual fun schedSetaffinity(pid: PidT, cpusetsz: SizeT, cpuset: ConstPtr<CpusetT>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdSchedSetaffinity(pid, cpusetsz, cpuset.rawAddress.toCPointer<ByteVar>())
 
 public actual fun schedGetcpu(): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_schedGetcpu()
+    libcUnixBsdFreebsdlikeFreebsdSchedGetcpu()
 
-public actual fun pthreadMutexConsistent(mutex: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_pthreadMutexConsistent(mutex?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexConsistent(mutex: MutPtr<PthreadMutexT>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdPthreadMutexConsistent(mutex.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexattrGetrobust(attr: COpaquePointer?, robust: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_pthreadMutexattrGetrobust(attr?.value?.toCPointer<ByteVar>(), robust?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexattrGetrobust(attr: MutPtr<PthreadMutexattrT>, robust: MutPtr<CInt>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdPthreadMutexattrGetrobust(attr.rawAddress.toCPointer<ByteVar>(), robust.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexattrSetrobust(attr: COpaquePointer?, robust: CInt): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_pthreadMutexattrSetrobust(attr?.value?.toCPointer<ByteVar>(), robust)
+public actual fun pthreadMutexattrSetrobust(attr: MutPtr<PthreadMutexattrT>, robust: CInt): CInt =
+    libcUnixBsdFreebsdlikeFreebsdPthreadMutexattrSetrobust(attr.rawAddress.toCPointer<ByteVar>(), robust)
 
-public actual fun pthreadSpinInit(lock: COpaquePointer?, pshared: CInt): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_pthreadSpinInit(lock?.value?.toCPointer<ByteVar>(), pshared)
+public actual fun pthreadSpinInit(lock: MutPtr<PthreadSpinlockT>, pshared: CInt): CInt =
+    libcUnixBsdFreebsdlikeFreebsdPthreadSpinInit(lock.rawAddress.toCPointer<ByteVar>(), pshared)
 
-public actual fun pthreadSpinDestroy(lock: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_pthreadSpinDestroy(lock?.value?.toCPointer<ByteVar>())
+public actual fun pthreadSpinDestroy(lock: MutPtr<PthreadSpinlockT>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdPthreadSpinDestroy(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadSpinLock(lock: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_pthreadSpinLock(lock?.value?.toCPointer<ByteVar>())
+public actual fun pthreadSpinLock(lock: MutPtr<PthreadSpinlockT>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdPthreadSpinLock(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadSpinTrylock(lock: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_pthreadSpinTrylock(lock?.value?.toCPointer<ByteVar>())
+public actual fun pthreadSpinTrylock(lock: MutPtr<PthreadSpinlockT>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdPthreadSpinTrylock(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadSpinUnlock(lock: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_pthreadSpinUnlock(lock?.value?.toCPointer<ByteVar>())
+public actual fun pthreadSpinUnlock(lock: MutPtr<PthreadSpinlockT>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdPthreadSpinUnlock(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadTimedjoinNp(thread: PthreadT, retval: COpaquePointer?, abstime: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_pthreadTimedjoinNp(thread.toLong().toCPointer<ByteVar>(), retval?.value?.toCPointer<ByteVar>(), abstime?.value?.toCPointer<ByteVar>())
+public actual fun pthreadTimedjoinNp(thread: PthreadT, retval: MutPtr<MutPtr<CVoid>>, abstime: ConstPtr<Timespec>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdPthreadTimedjoinNp(thread.toLong().toCPointer<ByteVar>(), retval.rawAddress.toCPointer<ByteVar>(), abstime.rawAddress.toCPointer<ByteVar>())
 
-public actual fun statfs(path: String?, buf: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_statfs(path, buf?.value?.toCPointer<ByteVar>())
+public actual fun statfs(path: ConstPtr<CChar>, buf: MutPtr<Statfs>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdStatfs(path.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fstatfs(fd: CInt, buf: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_fstatfs(fd, buf?.value?.toCPointer<ByteVar>())
+public actual fun fstatfs(fd: CInt, buf: MutPtr<Statfs>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdFstatfs(fd, buf.rawAddress.toCPointer<ByteVar>())
 
 public actual fun dup3(src: CInt, dst: CInt, flags: CInt): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_dup3(src, dst, flags)
+    libcUnixBsdFreebsdlikeFreebsdDup3(src, dst, flags)
 
-public actual fun xuname(nmln: CInt, buf: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_xuname(nmln, buf?.value?.toCPointer<ByteVar>())
+public actual fun xuname(nmln: CInt, buf: MutPtr<CVoid>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdXuname(nmln, buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sendmmsg(sockfd: CInt, msgvec: COpaquePointer?, vlen: SizeT, flags: CInt): SsizeT =
-    libc_unix_bsd_freebsdlike_freebsd_sendmmsg(sockfd, msgvec?.value?.toCPointer<ByteVar>(), vlen, flags)
+public actual fun sendmmsg(sockfd: CInt, msgvec: MutPtr<Mmsghdr>, vlen: SizeT, flags: CInt): SsizeT =
+    libcUnixBsdFreebsdlikeFreebsdSendmmsg(sockfd, msgvec.rawAddress.toCPointer<ByteVar>(), vlen, flags)
 
-public actual fun recvmmsg(sockfd: CInt, msgvec: COpaquePointer?, vlen: SizeT, flags: CInt, timeout: COpaquePointer?): SsizeT =
-    libc_unix_bsd_freebsdlike_freebsd_recvmmsg(sockfd, msgvec?.value?.toCPointer<ByteVar>(), vlen, flags, timeout?.value?.toCPointer<ByteVar>())
+public actual fun recvmmsg(sockfd: CInt, msgvec: MutPtr<Mmsghdr>, vlen: SizeT, flags: CInt, timeout: ConstPtr<Timespec>): SsizeT =
+    libcUnixBsdFreebsdlikeFreebsdRecvmmsg(sockfd, msgvec.rawAddress.toCPointer<ByteVar>(), vlen, flags, timeout.rawAddress.toCPointer<ByteVar>())
 
-public actual fun memmem(haystack: COpaquePointer?, haystacklen: SizeT, needle: COpaquePointer?, needlelen: SizeT): COpaquePointer? =
-    libc_unix_bsd_freebsdlike_freebsd_memmem(haystack?.value?.toCPointer<ByteVar>(), haystacklen, needle?.value?.toCPointer<ByteVar>(), needlelen)?.let { COpaquePointer(it.toLong()) }
+public actual fun memmem(haystack: ConstPtr<CVoid>, haystacklen: SizeT, needle: ConstPtr<CVoid>, needlelen: SizeT): MutPtr<CVoid> =
+    MutPtr(libcUnixBsdFreebsdlikeFreebsdMemmem(haystack.rawAddress.toCPointer<ByteVar>(), haystacklen, needle.rawAddress.toCPointer<ByteVar>(), needlelen)?.toLong() ?: 0L)
 
-public actual fun fhopen(fhp: COpaquePointer?, flags: CInt): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_fhopen(fhp?.value?.toCPointer<ByteVar>(), flags)
+public actual fun fhopen(fhp: ConstPtr<FhandleT>, flags: CInt): CInt =
+    libcUnixBsdFreebsdlikeFreebsdFhopen(fhp.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun fhstat(fhp: COpaquePointer?, buf: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_fhstat(fhp?.value?.toCPointer<ByteVar>(), buf?.value?.toCPointer<ByteVar>())
+public actual fun fhstat(fhp: ConstPtr<Fhandle>, buf: MutPtr<Stat>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdFhstat(fhp.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fhstatfs(fhp: COpaquePointer?, buf: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_fhstatfs(fhp?.value?.toCPointer<ByteVar>(), buf?.value?.toCPointer<ByteVar>())
+public actual fun fhstatfs(fhp: ConstPtr<FhandleT>, buf: MutPtr<Statfs>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdFhstatfs(fhp.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getfh(path: String?, fhp: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_getfh(path, fhp?.value?.toCPointer<ByteVar>())
+public actual fun getfh(path: ConstPtr<CChar>, fhp: MutPtr<FhandleT>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdGetfh(path.rawAddress.toCPointer<ByteVar>(), fhp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun lgetfh(path: String?, fhp: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_lgetfh(path, fhp?.value?.toCPointer<ByteVar>())
+public actual fun lgetfh(path: ConstPtr<CChar>, fhp: MutPtr<FhandleT>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdLgetfh(path.rawAddress.toCPointer<ByteVar>(), fhp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getfsstat(buf: COpaquePointer?, bufsize: CLong, mode: CInt): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_getfsstat(buf?.value?.toCPointer<ByteVar>(), bufsize, mode)
+public actual fun getfsstat(buf: MutPtr<Statfs>, bufsize: CLong, mode: CInt): CInt =
+    libcUnixBsdFreebsdlikeFreebsdGetfsstat(buf.rawAddress.toCPointer<ByteVar>(), bufsize, mode)
 
-public actual fun getmntinfo(mntbufp: COpaquePointer?, mode: CInt): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_getmntinfo(mntbufp?.value?.toCPointer<ByteVar>(), mode)
+public actual fun getmntinfo(mntbufp: MutPtr<MutPtr<Statfs>>, mode: CInt): CInt =
+    libcUnixBsdFreebsdlikeFreebsdGetmntinfo(mntbufp.rawAddress.toCPointer<ByteVar>(), mode)
 
-public actual fun mount(type: String?, dir: String?, flags: CInt, data: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_mount(type, dir, flags, data?.value?.toCPointer<ByteVar>())
+public actual fun mount(type: ConstPtr<CChar>, dir: ConstPtr<CChar>, flags: CInt, data: MutPtr<CVoid>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdMount(type.rawAddress.toCPointer<ByteVar>(), dir.rawAddress.toCPointer<ByteVar>(), flags, data.rawAddress.toCPointer<ByteVar>())
 
-public actual fun nmount(iov: COpaquePointer?, niov: CUint, flags: CInt): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_nmount(iov?.value?.toCPointer<ByteVar>(), niov, flags)
+public actual fun nmount(iov: MutPtr<Iovec>, niov: CUint, flags: CInt): CInt =
+    libcUnixBsdFreebsdlikeFreebsdNmount(iov.rawAddress.toCPointer<ByteVar>(), niov, flags)
 
-public actual fun setproctitle(fmt: String?, vararg variadicArgs: Long) {
-    libc_unix_bsd_freebsdlike_freebsd_setproctitle(fmt, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun setproctitle(fmt: ConstPtr<CChar>, vararg variadicArgs: Long) {
+    libcUnixBsdFreebsdlikeFreebsdSetproctitle(fmt.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 }
 
 public actual fun rfork(flags: CInt): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_rfork(flags)
+    libcUnixBsdFreebsdlikeFreebsdRfork(flags)
 
-public actual fun cpusetGetaffinity(level: CpulevelT, which: CpuwhichT, id: IdT, setsize: SizeT, mask: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_cpusetGetaffinity(level, which, id, setsize, mask?.value?.toCPointer<ByteVar>())
+public actual fun cpusetGetaffinity(level: CpulevelT, which: CpuwhichT, id: IdT, setsize: SizeT, mask: MutPtr<CpusetT>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdCpusetGetaffinity(level, which, id, setsize, mask.rawAddress.toCPointer<ByteVar>())
 
-public actual fun cpusetSetaffinity(level: CpulevelT, which: CpuwhichT, id: IdT, setsize: SizeT, mask: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_cpusetSetaffinity(level, which, id, setsize, mask?.value?.toCPointer<ByteVar>())
+public actual fun cpusetSetaffinity(level: CpulevelT, which: CpuwhichT, id: IdT, setsize: SizeT, mask: ConstPtr<CpusetT>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdCpusetSetaffinity(level, which, id, setsize, mask.rawAddress.toCPointer<ByteVar>())
 
-public actual fun cpuset(setid: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_cpuset(setid?.value?.toCPointer<ByteVar>())
+public actual fun cpuset(setid: MutPtr<CpusetidT>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdCpuset(setid.rawAddress.toCPointer<ByteVar>())
 
-public actual fun cpusetGetid(level: CpulevelT, which: CpuwhichT, id: IdT, setid: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_cpusetGetid(level, which, id, setid?.value?.toCPointer<ByteVar>())
+public actual fun cpusetGetid(level: CpulevelT, which: CpuwhichT, id: IdT, setid: MutPtr<CpusetidT>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdCpusetGetid(level, which, id, setid.rawAddress.toCPointer<ByteVar>())
 
 public actual fun cpusetSetid(which: CpuwhichT, id: IdT, setid: CpusetidT): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_cpusetSetid(which, id, setid)
+    libcUnixBsdFreebsdlikeFreebsdCpusetSetid(which, id, setid)
 
 public actual fun capEnter(): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_capEnter()
+    libcUnixBsdFreebsdlikeFreebsdCapEnter()
 
-public actual fun capGetmode(modep: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_capGetmode(modep?.value?.toCPointer<ByteVar>())
+public actual fun capGetmode(modep: MutPtr<CUint>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdCapGetmode(modep.rawAddress.toCPointer<ByteVar>())
 
-public actual fun capFcntlsGet(fd: CInt, fcntlrightsp: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_capFcntlsGet(fd, fcntlrightsp?.value?.toCPointer<ByteVar>())
+public actual fun capFcntlsGet(fd: CInt, fcntlrightsp: MutPtr<UInt>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdCapFcntlsGet(fd, fcntlrightsp.rawAddress.toCPointer<ByteVar>())
 
 public actual fun capFcntlsLimit(fd: CInt, fcntlrights: UInt): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_capFcntlsLimit(fd, fcntlrights)
+    libcUnixBsdFreebsdlikeFreebsdCapFcntlsLimit(fd, fcntlrights)
 
-public actual fun capIoctlsGet(fd: CInt, cmds: COpaquePointer?, maxcmds: ULong): Long =
-    libc_unix_bsd_freebsdlike_freebsd_capIoctlsGet(fd, cmds?.value?.toCPointer<ByteVar>(), maxcmds)
+public actual fun capIoctlsGet(fd: CInt, cmds: MutPtr<ULong>, maxcmds: ULong): Long =
+    libcUnixBsdFreebsdlikeFreebsdCapIoctlsGet(fd, cmds.rawAddress.toCPointer<ByteVar>(), maxcmds)
 
-public actual fun capIoctlsLimit(fd: CInt, cmds: COpaquePointer?, ncmds: ULong): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_capIoctlsLimit(fd, cmds?.value?.toCPointer<ByteVar>(), ncmds)
+public actual fun capIoctlsLimit(fd: CInt, cmds: ConstPtr<ULong>, ncmds: ULong): CInt =
+    libcUnixBsdFreebsdlikeFreebsdCapIoctlsLimit(fd, cmds.rawAddress.toCPointer<ByteVar>(), ncmds)
 
-public actual fun capRightsInit(version: CInt, rights: COpaquePointer?, vararg variadicArgs: Long): COpaquePointer? =
-    libc_unix_bsd_freebsdlike_freebsd_capRightsInit(version, rights?.value?.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.let { COpaquePointer(it.toLong()) }
+public actual fun capRightsInit(version: CInt, rights: MutPtr<CapRightsT>, vararg variadicArgs: Long): MutPtr<CapRightsT> =
+    MutPtr(libcUnixBsdFreebsdlikeFreebsdCapRightsInit(version, rights.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.toLong() ?: 0L)
 
-public actual fun capRightsGet(version: CInt, fd: CInt, rightsp: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_capRightsGet(version, fd, rightsp?.value?.toCPointer<ByteVar>())
+public actual fun capRightsGet(version: CInt, fd: CInt, rightsp: MutPtr<CapRightsT>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdCapRightsGet(version, fd, rightsp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun capRightsSet(rights: COpaquePointer?, vararg variadicArgs: Long): COpaquePointer? =
-    libc_unix_bsd_freebsdlike_freebsd_capRightsSet(rights?.value?.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.let { COpaquePointer(it.toLong()) }
+public actual fun capRightsSet(rights: MutPtr<CapRightsT>, vararg variadicArgs: Long): MutPtr<CapRightsT> =
+    MutPtr(libcUnixBsdFreebsdlikeFreebsdCapRightsSet(rights.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.toLong() ?: 0L)
 
-public actual fun capRightsClear(rights: COpaquePointer?, vararg variadicArgs: Long): COpaquePointer? =
-    libc_unix_bsd_freebsdlike_freebsd_capRightsClear(rights?.value?.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.let { COpaquePointer(it.toLong()) }
+public actual fun capRightsClear(rights: MutPtr<CapRightsT>, vararg variadicArgs: Long): MutPtr<CapRightsT> =
+    MutPtr(libcUnixBsdFreebsdlikeFreebsdCapRightsClear(rights.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.toLong() ?: 0L)
 
-public actual fun capRightsIsSet(rights: COpaquePointer?, vararg variadicArgs: Long): Boolean =
-    libc_unix_bsd_freebsdlike_freebsd_capRightsIsSet(rights?.value?.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun capRightsIsSet(rights: ConstPtr<CapRightsT>, vararg variadicArgs: Long): Boolean =
+    libcUnixBsdFreebsdlikeFreebsdCapRightsIsSet(rights.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun capRightsIsValid(rights: COpaquePointer?): Boolean =
-    libc_unix_bsd_freebsdlike_freebsd_capRightsIsValid(rights?.value?.toCPointer<ByteVar>())
+public actual fun capRightsIsValid(rights: ConstPtr<CapRightsT>): Boolean =
+    libcUnixBsdFreebsdlikeFreebsdCapRightsIsValid(rights.rawAddress.toCPointer<ByteVar>())
 
-public actual fun capRightsLimit(fd: CInt, rights: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_capRightsLimit(fd, rights?.value?.toCPointer<ByteVar>())
+public actual fun capRightsLimit(fd: CInt, rights: ConstPtr<CapRightsT>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdCapRightsLimit(fd, rights.rawAddress.toCPointer<ByteVar>())
 
-public actual fun capRightsMerge(dst: COpaquePointer?, src: COpaquePointer?): COpaquePointer? =
-    libc_unix_bsd_freebsdlike_freebsd_capRightsMerge(dst?.value?.toCPointer<ByteVar>(), src?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun capRightsMerge(dst: MutPtr<CapRightsT>, src: ConstPtr<CapRightsT>): MutPtr<CapRightsT> =
+    MutPtr(libcUnixBsdFreebsdlikeFreebsdCapRightsMerge(dst.rawAddress.toCPointer<ByteVar>(), src.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun capRightsRemove(dst: COpaquePointer?, src: COpaquePointer?): COpaquePointer? =
-    libc_unix_bsd_freebsdlike_freebsd_capRightsRemove(dst?.value?.toCPointer<ByteVar>(), src?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun capRightsRemove(dst: MutPtr<CapRightsT>, src: ConstPtr<CapRightsT>): MutPtr<CapRightsT> =
+    MutPtr(libcUnixBsdFreebsdlikeFreebsdCapRightsRemove(dst.rawAddress.toCPointer<ByteVar>(), src.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun capRightsContains(big: COpaquePointer?, little: COpaquePointer?): Boolean =
-    libc_unix_bsd_freebsdlike_freebsd_capRightsContains(big?.value?.toCPointer<ByteVar>(), little?.value?.toCPointer<ByteVar>())
+public actual fun capRightsContains(big: ConstPtr<CapRightsT>, little: ConstPtr<CapRightsT>): Boolean =
+    libcUnixBsdFreebsdlikeFreebsdCapRightsContains(big.rawAddress.toCPointer<ByteVar>(), little.rawAddress.toCPointer<ByteVar>())
 
 public actual fun capSandboxed(): Boolean =
-    libc_unix_bsd_freebsdlike_freebsd_capSandboxed()
+    libcUnixBsdFreebsdlikeFreebsdCapSandboxed()
 
-public actual fun reallocarray(ptr: COpaquePointer?, nmemb: SizeT, size: SizeT): COpaquePointer? =
-    libc_unix_bsd_freebsdlike_freebsd_reallocarray(ptr?.value?.toCPointer<ByteVar>(), nmemb, size)?.let { COpaquePointer(it.toLong()) }
+public actual fun reallocarray(ptr: MutPtr<CVoid>, nmemb: SizeT, size: SizeT): MutPtr<CVoid> =
+    MutPtr(libcUnixBsdFreebsdlikeFreebsdReallocarray(ptr.rawAddress.toCPointer<ByteVar>(), nmemb, size)?.toLong() ?: 0L)
 
 public actual fun ffs(value: CInt): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_ffs(value)
+    libcUnixBsdFreebsdlikeFreebsdFfs(value)
 
 public actual fun ffsl(value: CLong): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_ffsl(value)
+    libcUnixBsdFreebsdlikeFreebsdFfsl(value)
 
 public actual fun ffsll(value: CLonglong): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_ffsll(value)
+    libcUnixBsdFreebsdlikeFreebsdFfsll(value)
 
 public actual fun fls(value: CInt): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_fls(value)
+    libcUnixBsdFreebsdlikeFreebsdFls(value)
 
 public actual fun flsl(value: CLong): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_flsl(value)
+    libcUnixBsdFreebsdlikeFreebsdFlsl(value)
 
 public actual fun flsll(value: CLonglong): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_flsll(value)
+    libcUnixBsdFreebsdlikeFreebsdFlsll(value)
 
-public actual fun mallocStatsPrint(writeCb: MallocStatsPrintWriteCbCallback, cbopaque: COpaquePointer?, opt: String?) {
-    libc_unix_bsd_freebsdlike_freebsd_mallocStatsPrint(0L.toCPointer<ByteVar>(), cbopaque?.value?.toCPointer<ByteVar>(), opt)
+public actual fun mallocStatsPrint(writeCb: MallocStatsPrintWriteCbCallback, cbopaque: MutPtr<CVoid>, opt: ConstPtr<CChar>) {
+    libcUnixBsdFreebsdlikeFreebsdMallocStatsPrint(0L.toCPointer<ByteVar>(), cbopaque.rawAddress.toCPointer<ByteVar>(), opt.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun mallctl(name: String?, oldp: COpaquePointer?, oldlenp: COpaquePointer?, newp: COpaquePointer?, newlen: SizeT): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_mallctl(name, oldp?.value?.toCPointer<ByteVar>(), oldlenp?.value?.toCPointer<ByteVar>(), newp?.value?.toCPointer<ByteVar>(), newlen)
+public actual fun mallctl(name: ConstPtr<CChar>, oldp: MutPtr<CVoid>, oldlenp: MutPtr<SizeT>, newp: MutPtr<CVoid>, newlen: SizeT): CInt =
+    libcUnixBsdFreebsdlikeFreebsdMallctl(name.rawAddress.toCPointer<ByteVar>(), oldp.rawAddress.toCPointer<ByteVar>(), oldlenp.rawAddress.toCPointer<ByteVar>(), newp.rawAddress.toCPointer<ByteVar>(), newlen)
 
-public actual fun mallctlnametomib(name: String?, mibp: COpaquePointer?, miplen: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_mallctlnametomib(name, mibp?.value?.toCPointer<ByteVar>(), miplen?.value?.toCPointer<ByteVar>())
+public actual fun mallctlnametomib(name: ConstPtr<CChar>, mibp: MutPtr<SizeT>, miplen: MutPtr<SizeT>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdMallctlnametomib(name.rawAddress.toCPointer<ByteVar>(), mibp.rawAddress.toCPointer<ByteVar>(), miplen.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mallctlbymib(mib: COpaquePointer?, mible: SizeT, oldp: COpaquePointer?, oldlenp: COpaquePointer?, newp: COpaquePointer?, newlen: SizeT): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_mallctlbymib(mib?.value?.toCPointer<ByteVar>(), mible, oldp?.value?.toCPointer<ByteVar>(), oldlenp?.value?.toCPointer<ByteVar>(), newp?.value?.toCPointer<ByteVar>(), newlen)
+public actual fun mallctlbymib(mib: ConstPtr<SizeT>, mible: SizeT, oldp: MutPtr<CVoid>, oldlenp: MutPtr<SizeT>, newp: MutPtr<CVoid>, newlen: SizeT): CInt =
+    libcUnixBsdFreebsdlikeFreebsdMallctlbymib(mib.rawAddress.toCPointer<ByteVar>(), mible, oldp.rawAddress.toCPointer<ByteVar>(), oldlenp.rawAddress.toCPointer<ByteVar>(), newp.rawAddress.toCPointer<ByteVar>(), newlen)
 
-public actual fun mallocx(size: SizeT, flags: CInt): COpaquePointer? =
-    libc_unix_bsd_freebsdlike_freebsd_mallocx(size, flags)?.let { COpaquePointer(it.toLong()) }
+public actual fun mallocx(size: SizeT, flags: CInt): MutPtr<CVoid> =
+    MutPtr(libcUnixBsdFreebsdlikeFreebsdMallocx(size, flags)?.toLong() ?: 0L)
 
-public actual fun rallocx(ptr: COpaquePointer?, size: SizeT, flags: CInt): COpaquePointer? =
-    libc_unix_bsd_freebsdlike_freebsd_rallocx(ptr?.value?.toCPointer<ByteVar>(), size, flags)?.let { COpaquePointer(it.toLong()) }
+public actual fun rallocx(ptr: MutPtr<CVoid>, size: SizeT, flags: CInt): MutPtr<CVoid> =
+    MutPtr(libcUnixBsdFreebsdlikeFreebsdRallocx(ptr.rawAddress.toCPointer<ByteVar>(), size, flags)?.toLong() ?: 0L)
 
-public actual fun xallocx(ptr: COpaquePointer?, size: SizeT, extra: SizeT, flags: CInt): SizeT =
-    libc_unix_bsd_freebsdlike_freebsd_xallocx(ptr?.value?.toCPointer<ByteVar>(), size, extra, flags)
+public actual fun xallocx(ptr: MutPtr<CVoid>, size: SizeT, extra: SizeT, flags: CInt): SizeT =
+    libcUnixBsdFreebsdlikeFreebsdXallocx(ptr.rawAddress.toCPointer<ByteVar>(), size, extra, flags)
 
-public actual fun sallocx(ptr: COpaquePointer?, flags: CInt): SizeT =
-    libc_unix_bsd_freebsdlike_freebsd_sallocx(ptr?.value?.toCPointer<ByteVar>(), flags)
+public actual fun sallocx(ptr: ConstPtr<CVoid>, flags: CInt): SizeT =
+    libcUnixBsdFreebsdlikeFreebsdSallocx(ptr.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun dallocx(ptr: COpaquePointer?, flags: CInt) {
-    libc_unix_bsd_freebsdlike_freebsd_dallocx(ptr?.value?.toCPointer<ByteVar>(), flags)
+public actual fun dallocx(ptr: MutPtr<CVoid>, flags: CInt) {
+    libcUnixBsdFreebsdlikeFreebsdDallocx(ptr.rawAddress.toCPointer<ByteVar>(), flags)
 }
 
-public actual fun sdallocx(ptr: COpaquePointer?, size: SizeT, flags: CInt) {
-    libc_unix_bsd_freebsdlike_freebsd_sdallocx(ptr?.value?.toCPointer<ByteVar>(), size, flags)
+public actual fun sdallocx(ptr: MutPtr<CVoid>, size: SizeT, flags: CInt) {
+    libcUnixBsdFreebsdlikeFreebsdSdallocx(ptr.rawAddress.toCPointer<ByteVar>(), size, flags)
 }
 
 public actual fun nallocx(size: SizeT, flags: CInt): SizeT =
-    libc_unix_bsd_freebsdlike_freebsd_nallocx(size, flags)
+    libcUnixBsdFreebsdlikeFreebsdNallocx(size, flags)
 
-public actual fun procctl(idtype: IdtypeT, id: IdT, cmd: CInt, data: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_procctl(idtype, id, cmd, data?.value?.toCPointer<ByteVar>())
+public actual fun procctl(idtype: IdtypeT, id: IdT, cmd: CInt, data: MutPtr<CVoid>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdProcctl(idtype, id, cmd, data.rawAddress.toCPointer<ByteVar>())
 
 public actual fun getpagesize(): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_getpagesize()
+    libcUnixBsdFreebsdlikeFreebsdGetpagesize()
 
-public actual fun getpagesizes(pagesize: COpaquePointer?, nelem: CInt): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_getpagesizes(pagesize?.value?.toCPointer<ByteVar>(), nelem)
+public actual fun getpagesizes(pagesize: MutPtr<SizeT>, nelem: CInt): CInt =
+    libcUnixBsdFreebsdlikeFreebsdGetpagesizes(pagesize.rawAddress.toCPointer<ByteVar>(), nelem)
 
-public actual fun clockGetcpuclockid2(arg1: IdT, arg2: CInt, arg3: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_clockGetcpuclockid2(arg1, arg2, arg3?.value?.toCPointer<ByteVar>())
+public actual fun clockGetcpuclockid2(arg1: IdT, arg2: CInt, arg3: MutPtr<ClockidT>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdClockGetcpuclockid2(arg1, arg2, arg3.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strchrnul(s: String?, c: CInt): COpaquePointer? =
-    libc_unix_bsd_freebsdlike_freebsd_strchrnul(s, c)?.let { COpaquePointer(it.toLong()) }
+public actual fun strchrnul(s: ConstPtr<CChar>, c: CInt): MutPtr<CChar> =
+    MutPtr(libcUnixBsdFreebsdlikeFreebsdStrchrnul(s.rawAddress.toCPointer<ByteVar>(), c)?.toLong() ?: 0L)
 
-public actual fun shmCreateLargepage(path: String?, flags: CInt, psind: CInt, allocPolicy: CInt, mode: ModeT): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_shmCreateLargepage(path, flags, psind, allocPolicy, mode)
+public actual fun shmCreateLargepage(path: ConstPtr<CChar>, flags: CInt, psind: CInt, allocPolicy: CInt, mode: ModeT): CInt =
+    libcUnixBsdFreebsdlikeFreebsdShmCreateLargepage(path.rawAddress.toCPointer<ByteVar>(), flags, psind, allocPolicy, mode)
 
-public actual fun shmRename(pathFrom: String?, pathTo: String?, flags: CInt): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_shmRename(pathFrom, pathTo, flags)
+public actual fun shmRename(pathFrom: ConstPtr<CChar>, pathTo: ConstPtr<CChar>, flags: CInt): CInt =
+    libcUnixBsdFreebsdlikeFreebsdShmRename(pathFrom.rawAddress.toCPointer<ByteVar>(), pathTo.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun memfdCreate(name: String?, flags: CUint): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_memfdCreate(name, flags)
+public actual fun memfdCreate(name: ConstPtr<CChar>, flags: CUint): CInt =
+    libcUnixBsdFreebsdlikeFreebsdMemfdCreate(name.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun setaudit(auditinfo: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_setaudit(auditinfo?.value?.toCPointer<ByteVar>())
+public actual fun setaudit(auditinfo: ConstPtr<AuditinfoT>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdSetaudit(auditinfo.rawAddress.toCPointer<ByteVar>())
 
 public actual fun eventfd(initval: CUint, flags: CInt): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_eventfd(initval, flags)
+    libcUnixBsdFreebsdlikeFreebsdEventfd(initval, flags)
 
-public actual fun eventfdRead(fd: CInt, value: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_eventfdRead(fd, value?.value?.toCPointer<ByteVar>())
+public actual fun eventfdRead(fd: CInt, value: MutPtr<EventfdT>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdEventfdRead(fd, value.rawAddress.toCPointer<ByteVar>())
 
 public actual fun eventfdWrite(fd: CInt, value: EventfdT): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_eventfdWrite(fd, value)
+    libcUnixBsdFreebsdlikeFreebsdEventfdWrite(fd, value)
 
 public actual fun fdatasync(fd: CInt): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_fdatasync(fd)
+    libcUnixBsdFreebsdlikeFreebsdFdatasync(fd)
 
-public actual fun elfAuxInfo(aux: CInt, buf: COpaquePointer?, buflen: CInt): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_elfAuxInfo(aux, buf?.value?.toCPointer<ByteVar>(), buflen)
+public actual fun elfAuxInfo(aux: CInt, buf: MutPtr<CVoid>, buflen: CInt): CInt =
+    libcUnixBsdFreebsdlikeFreebsdElfAuxInfo(aux, buf.rawAddress.toCPointer<ByteVar>(), buflen)
 
-public actual fun setproctitleFast(fmt: String?, vararg variadicArgs: Long) {
-    libc_unix_bsd_freebsdlike_freebsd_setproctitleFast(fmt, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun setproctitleFast(fmt: ConstPtr<CChar>, vararg variadicArgs: Long) {
+    libcUnixBsdFreebsdlikeFreebsdSetproctitleFast(fmt.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 }
 
-public actual fun timingsafeBcmp(a: COpaquePointer?, b: COpaquePointer?, len: SizeT): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_timingsafeBcmp(a?.value?.toCPointer<ByteVar>(), b?.value?.toCPointer<ByteVar>(), len)
+public actual fun timingsafeBcmp(a: ConstPtr<CVoid>, b: ConstPtr<CVoid>, len: SizeT): CInt =
+    libcUnixBsdFreebsdlikeFreebsdTimingsafeBcmp(a.rawAddress.toCPointer<ByteVar>(), b.rawAddress.toCPointer<ByteVar>(), len)
 
-public actual fun timingsafeMemcmp(a: COpaquePointer?, b: COpaquePointer?, len: SizeT): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_timingsafeMemcmp(a?.value?.toCPointer<ByteVar>(), b?.value?.toCPointer<ByteVar>(), len)
+public actual fun timingsafeMemcmp(a: ConstPtr<CVoid>, b: ConstPtr<CVoid>, len: SizeT): CInt =
+    libcUnixBsdFreebsdlikeFreebsdTimingsafeMemcmp(a.rawAddress.toCPointer<ByteVar>(), b.rawAddress.toCPointer<ByteVar>(), len)
 
-public actual fun umtxOp(obj: COpaquePointer?, op: CInt, value: CUlong, uaddr: COpaquePointer?, uaddr2: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_umtxOp(obj?.value?.toCPointer<ByteVar>(), op, value, uaddr?.value?.toCPointer<ByteVar>(), uaddr2?.value?.toCPointer<ByteVar>())
+public actual fun umtxOp(obj: MutPtr<CVoid>, op: CInt, value: CUlong, uaddr: MutPtr<CVoid>, uaddr2: MutPtr<CVoid>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdUmtxOp(obj.rawAddress.toCPointer<ByteVar>(), op, value, uaddr.rawAddress.toCPointer<ByteVar>(), uaddr2.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sctpPeeloff(s: CInt, id: SctpAssocT): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_sctpPeeloff(s, id)
+    libcUnixBsdFreebsdlikeFreebsdSctpPeeloff(s, id)
 
-public actual fun sctpBindx(s: CInt, addrs: COpaquePointer?, num: CInt, tpe: CInt): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_sctpBindx(s, addrs?.value?.toCPointer<ByteVar>(), num, tpe)
+public actual fun sctpBindx(s: CInt, addrs: MutPtr<Sockaddr>, num: CInt, tpe: CInt): CInt =
+    libcUnixBsdFreebsdlikeFreebsdSctpBindx(s, addrs.rawAddress.toCPointer<ByteVar>(), num, tpe)
 
-public actual fun sctpConnectx(s: CInt, addrs: COpaquePointer?, addrcnt: CInt, id: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_sctpConnectx(s, addrs?.value?.toCPointer<ByteVar>(), addrcnt, id?.value?.toCPointer<ByteVar>())
+public actual fun sctpConnectx(s: CInt, addrs: ConstPtr<Sockaddr>, addrcnt: CInt, id: MutPtr<SctpAssocT>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdSctpConnectx(s, addrs.rawAddress.toCPointer<ByteVar>(), addrcnt, id.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sctpGetaddrlen(family: SaFamilyT): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_sctpGetaddrlen(family)
+    libcUnixBsdFreebsdlikeFreebsdSctpGetaddrlen(family)
 
-public actual fun sctpGetpaddrs(s: CInt, asocid: SctpAssocT, addrs: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_sctpGetpaddrs(s, asocid, addrs?.value?.toCPointer<ByteVar>())
+public actual fun sctpGetpaddrs(s: CInt, asocid: SctpAssocT, addrs: MutPtr<MutPtr<Sockaddr>>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdSctpGetpaddrs(s, asocid, addrs.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sctpFreepaddrs(addrs: COpaquePointer?) {
-    libc_unix_bsd_freebsdlike_freebsd_sctpFreepaddrs(addrs?.value?.toCPointer<ByteVar>())
+public actual fun sctpFreepaddrs(addrs: MutPtr<Sockaddr>) {
+    libcUnixBsdFreebsdlikeFreebsdSctpFreepaddrs(addrs.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun sctpGetladdrs(s: CInt, asocid: SctpAssocT, addrs: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_sctpGetladdrs(s, asocid, addrs?.value?.toCPointer<ByteVar>())
+public actual fun sctpGetladdrs(s: CInt, asocid: SctpAssocT, addrs: MutPtr<MutPtr<Sockaddr>>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdSctpGetladdrs(s, asocid, addrs.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sctpFreeladdrs(addrs: COpaquePointer?) {
-    libc_unix_bsd_freebsdlike_freebsd_sctpFreeladdrs(addrs?.value?.toCPointer<ByteVar>())
+public actual fun sctpFreeladdrs(addrs: MutPtr<Sockaddr>) {
+    libcUnixBsdFreebsdlikeFreebsdSctpFreeladdrs(addrs.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun sctpOptInfo(s: CInt, id: SctpAssocT, opt: CInt, arg: COpaquePointer?, size: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_sctpOptInfo(s, id, opt, arg?.value?.toCPointer<ByteVar>(), size?.value?.toCPointer<ByteVar>())
+public actual fun sctpOptInfo(s: CInt, id: SctpAssocT, opt: CInt, arg: MutPtr<CVoid>, size: MutPtr<SocklenT>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdSctpOptInfo(s, id, opt, arg.rawAddress.toCPointer<ByteVar>(), size.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sctpSendv(sd: CInt, iov: COpaquePointer?, iovcnt: CInt, addrs: COpaquePointer?, addrcnt: CInt, info: COpaquePointer?, infolen: SocklenT, infotype: CUint, flags: CInt): SsizeT =
-    libc_unix_bsd_freebsdlike_freebsd_sctpSendv(sd, iov?.value?.toCPointer<ByteVar>(), iovcnt, addrs?.value?.toCPointer<ByteVar>(), addrcnt, info?.value?.toCPointer<ByteVar>(), infolen, infotype, flags)
+public actual fun sctpSendv(sd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, addrs: MutPtr<Sockaddr>, addrcnt: CInt, info: MutPtr<CVoid>, infolen: SocklenT, infotype: CUint, flags: CInt): SsizeT =
+    libcUnixBsdFreebsdlikeFreebsdSctpSendv(sd, iov.rawAddress.toCPointer<ByteVar>(), iovcnt, addrs.rawAddress.toCPointer<ByteVar>(), addrcnt, info.rawAddress.toCPointer<ByteVar>(), infolen, infotype, flags)
 
-public actual fun sctpRecvv(sd: CInt, iov: COpaquePointer?, iovcnt: CInt, from: COpaquePointer?, fromlen: COpaquePointer?, info: COpaquePointer?, infolen: COpaquePointer?, infotype: COpaquePointer?, flags: COpaquePointer?): SsizeT =
-    libc_unix_bsd_freebsdlike_freebsd_sctpRecvv(sd, iov?.value?.toCPointer<ByteVar>(), iovcnt, from?.value?.toCPointer<ByteVar>(), fromlen?.value?.toCPointer<ByteVar>(), info?.value?.toCPointer<ByteVar>(), infolen?.value?.toCPointer<ByteVar>(), infotype?.value?.toCPointer<ByteVar>(), flags?.value?.toCPointer<ByteVar>())
+public actual fun sctpRecvv(sd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, from: MutPtr<Sockaddr>, fromlen: MutPtr<SocklenT>, info: MutPtr<CVoid>, infolen: MutPtr<SocklenT>, infotype: MutPtr<CUint>, flags: MutPtr<CInt>): SsizeT =
+    libcUnixBsdFreebsdlikeFreebsdSctpRecvv(sd, iov.rawAddress.toCPointer<ByteVar>(), iovcnt, from.rawAddress.toCPointer<ByteVar>(), fromlen.rawAddress.toCPointer<ByteVar>(), info.rawAddress.toCPointer<ByteVar>(), infolen.rawAddress.toCPointer<ByteVar>(), infotype.rawAddress.toCPointer<ByteVar>(), flags.rawAddress.toCPointer<ByteVar>())
 
 public actual fun timerfdCreate(clockid: CInt, flags: CInt): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_timerfdCreate(clockid, flags)
+    libcUnixBsdFreebsdlikeFreebsdTimerfdCreate(clockid, flags)
 
-public actual fun timerfdGettime(fd: CInt, currValue: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_timerfdGettime(fd, currValue?.value?.toCPointer<ByteVar>())
+public actual fun timerfdGettime(fd: CInt, currValue: MutPtr<Itimerspec>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdTimerfdGettime(fd, currValue.rawAddress.toCPointer<ByteVar>())
 
-public actual fun timerfdSettime(fd: CInt, flags: CInt, newValue: COpaquePointer?, oldValue: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_timerfdSettime(fd, flags, newValue?.value?.toCPointer<ByteVar>(), oldValue?.value?.toCPointer<ByteVar>())
+public actual fun timerfdSettime(fd: CInt, flags: CInt, newValue: ConstPtr<Itimerspec>, oldValue: MutPtr<Itimerspec>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdTimerfdSettime(fd, flags, newValue.rawAddress.toCPointer<ByteVar>(), oldValue.rawAddress.toCPointer<ByteVar>())
 
 public actual fun closefrom(lowfd: CInt) {
-    libc_unix_bsd_freebsdlike_freebsd_closefrom(lowfd)
+    libcUnixBsdFreebsdlikeFreebsdClosefrom(lowfd)
 }
 
 public actual fun closeRange(lowfd: CUint, highfd: CUint, flags: CInt): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_closeRange(lowfd, highfd, flags)
+    libcUnixBsdFreebsdlikeFreebsdCloseRange(lowfd, highfd, flags)
 
-public actual fun execvpe(file: String?, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_execvpe(file, argv?.value?.toCPointer<ByteVar>(), envp?.value?.toCPointer<ByteVar>())
+public actual fun execvpe(file: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>, envp: ConstPtr<ConstPtr<CChar>>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdExecvpe(file.rawAddress.toCPointer<ByteVar>(), argv.rawAddress.toCPointer<ByteVar>(), envp.rawAddress.toCPointer<ByteVar>())
 
 public actual fun kcmp(pid1: PidT, pid2: PidT, type: CInt, idx1: CUlong, idx2: CUlong): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_kcmp(pid1, pid2, type, idx1, idx2)
+    libcUnixBsdFreebsdlikeFreebsdKcmp(pid1, pid2, type, idx1, idx2)
 
-public actual fun dlvsym(handle: COpaquePointer?, symbol: String?, version: String?): COpaquePointer? =
-    libc_unix_bsd_freebsdlike_freebsd_dlvsym(handle?.value?.toCPointer<ByteVar>(), symbol, version)?.let { COpaquePointer(it.toLong()) }
+public actual fun dlvsym(handle: MutPtr<CVoid>, symbol: ConstPtr<CChar>, version: ConstPtr<CChar>): MutPtr<CVoid> =
+    MutPtr(libcUnixBsdFreebsdlikeFreebsdDlvsym(handle.rawAddress.toCPointer<ByteVar>(), symbol.rawAddress.toCPointer<ByteVar>(), version.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun memstatStrerror(error: CInt): COpaquePointer? =
-    libc_unix_bsd_freebsdlike_freebsd_memstatStrerror(error)?.let { COpaquePointer(it.toLong()) }
+public actual fun memstatStrerror(error: CInt): ConstPtr<CChar> =
+    ConstPtr(libcUnixBsdFreebsdlikeFreebsdMemstatStrerror(error)?.toLong() ?: 0L)
 
-public actual fun memstatMtlAlloc(): COpaquePointer? =
-    libc_unix_bsd_freebsdlike_freebsd_memstatMtlAlloc()?.let { COpaquePointer(it.toLong()) }
+public actual fun memstatMtlAlloc(): MutPtr<MemoryTypeList> =
+    MutPtr(libcUnixBsdFreebsdlikeFreebsdMemstatMtlAlloc()?.toLong() ?: 0L)
 
-public actual fun memstatMtlFirst(list: COpaquePointer?): COpaquePointer? =
-    libc_unix_bsd_freebsdlike_freebsd_memstatMtlFirst(list?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun memstatMtlFirst(list: MutPtr<MemoryTypeList>): MutPtr<MemoryType> =
+    MutPtr(libcUnixBsdFreebsdlikeFreebsdMemstatMtlFirst(list.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun memstatMtlNext(mtp: COpaquePointer?): COpaquePointer? =
-    libc_unix_bsd_freebsdlike_freebsd_memstatMtlNext(mtp?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun memstatMtlNext(mtp: MutPtr<MemoryType>): MutPtr<MemoryType> =
+    MutPtr(libcUnixBsdFreebsdlikeFreebsdMemstatMtlNext(mtp.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun memstatMtlFind(list: COpaquePointer?, allocator: CInt, name: String?): COpaquePointer? =
-    libc_unix_bsd_freebsdlike_freebsd_memstatMtlFind(list?.value?.toCPointer<ByteVar>(), allocator, name)?.let { COpaquePointer(it.toLong()) }
+public actual fun memstatMtlFind(list: MutPtr<MemoryTypeList>, allocator: CInt, name: ConstPtr<CChar>): MutPtr<MemoryType> =
+    MutPtr(libcUnixBsdFreebsdlikeFreebsdMemstatMtlFind(list.rawAddress.toCPointer<ByteVar>(), allocator, name.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun memstatMtlFree(list: COpaquePointer?) {
-    libc_unix_bsd_freebsdlike_freebsd_memstatMtlFree(list?.value?.toCPointer<ByteVar>())
+public actual fun memstatMtlFree(list: MutPtr<MemoryTypeList>) {
+    libcUnixBsdFreebsdlikeFreebsdMemstatMtlFree(list.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun memstatMtlGeterror(list: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_memstatMtlGeterror(list?.value?.toCPointer<ByteVar>())
+public actual fun memstatMtlGeterror(list: MutPtr<MemoryTypeList>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdMemstatMtlGeterror(list.rawAddress.toCPointer<ByteVar>())
 
-public actual fun memstatGetName(mtp: COpaquePointer?): COpaquePointer? =
-    libc_unix_bsd_freebsdlike_freebsd_memstatGetName(mtp?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun memstatGetName(mtp: ConstPtr<MemoryType>): ConstPtr<CChar> =
+    ConstPtr(libcUnixBsdFreebsdlikeFreebsdMemstatGetName(mtp.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun kvmDpcpuSetcpu(kd: COpaquePointer?, cpu: CUint): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_kvmDpcpuSetcpu(kd?.value?.toCPointer<ByteVar>(), cpu)
+public actual fun kvmDpcpuSetcpu(kd: MutPtr<KvmT>, cpu: CUint): CInt =
+    libcUnixBsdFreebsdlikeFreebsdKvmDpcpuSetcpu(kd.rawAddress.toCPointer<ByteVar>(), cpu)
 
-public actual fun kvmGetargv(kd: COpaquePointer?, p: COpaquePointer?, nchr: CInt): COpaquePointer? =
-    libc_unix_bsd_freebsdlike_freebsd_kvmGetargv(kd?.value?.toCPointer<ByteVar>(), p?.value?.toCPointer<ByteVar>(), nchr)?.let { COpaquePointer(it.toLong()) }
+public actual fun kvmGetargv(kd: MutPtr<KvmT>, p: ConstPtr<KinfoProc>, nchr: CInt): MutPtr<MutPtr<CChar>> =
+    MutPtr(libcUnixBsdFreebsdlikeFreebsdKvmGetargv(kd.rawAddress.toCPointer<ByteVar>(), p.rawAddress.toCPointer<ByteVar>(), nchr)?.toLong() ?: 0L)
 
-public actual fun kvmGetcptime(kd: COpaquePointer?, cpTime: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_kvmGetcptime(kd?.value?.toCPointer<ByteVar>(), cpTime?.value?.toCPointer<ByteVar>())
+public actual fun kvmGetcptime(kd: MutPtr<KvmT>, cpTime: MutPtr<CLong>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdKvmGetcptime(kd.rawAddress.toCPointer<ByteVar>(), cpTime.rawAddress.toCPointer<ByteVar>())
 
-public actual fun kvmGetenvv(kd: COpaquePointer?, p: COpaquePointer?, nchr: CInt): COpaquePointer? =
-    libc_unix_bsd_freebsdlike_freebsd_kvmGetenvv(kd?.value?.toCPointer<ByteVar>(), p?.value?.toCPointer<ByteVar>(), nchr)?.let { COpaquePointer(it.toLong()) }
+public actual fun kvmGetenvv(kd: MutPtr<KvmT>, p: ConstPtr<KinfoProc>, nchr: CInt): MutPtr<MutPtr<CChar>> =
+    MutPtr(libcUnixBsdFreebsdlikeFreebsdKvmGetenvv(kd.rawAddress.toCPointer<ByteVar>(), p.rawAddress.toCPointer<ByteVar>(), nchr)?.toLong() ?: 0L)
 
-public actual fun kvmGeterr(kd: COpaquePointer?): COpaquePointer? =
-    libc_unix_bsd_freebsdlike_freebsd_kvmGeterr(kd?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun kvmGeterr(kd: MutPtr<KvmT>): MutPtr<CChar> =
+    MutPtr(libcUnixBsdFreebsdlikeFreebsdKvmGeterr(kd.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun kvmGetmaxcpu(kd: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_kvmGetmaxcpu(kd?.value?.toCPointer<ByteVar>())
+public actual fun kvmGetmaxcpu(kd: MutPtr<KvmT>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdKvmGetmaxcpu(kd.rawAddress.toCPointer<ByteVar>())
 
-public actual fun kvmGetncpus(kd: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_kvmGetncpus(kd?.value?.toCPointer<ByteVar>())
+public actual fun kvmGetncpus(kd: MutPtr<KvmT>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdKvmGetncpus(kd.rawAddress.toCPointer<ByteVar>())
 
-public actual fun kvmGetpcpu(kd: COpaquePointer?, cpu: CInt): COpaquePointer? =
-    libc_unix_bsd_freebsdlike_freebsd_kvmGetpcpu(kd?.value?.toCPointer<ByteVar>(), cpu)?.let { COpaquePointer(it.toLong()) }
+public actual fun kvmGetpcpu(kd: MutPtr<KvmT>, cpu: CInt): MutPtr<CVoid> =
+    MutPtr(libcUnixBsdFreebsdlikeFreebsdKvmGetpcpu(kd.rawAddress.toCPointer<ByteVar>(), cpu)?.toLong() ?: 0L)
 
-public actual fun kvmCounterU64Fetch(kd: COpaquePointer?, base: CUlong): ULong =
-    libc_unix_bsd_freebsdlike_freebsd_kvmCounterU64Fetch(kd?.value?.toCPointer<ByteVar>(), base)
+public actual fun kvmCounterU64Fetch(kd: MutPtr<KvmT>, base: CUlong): ULong =
+    libcUnixBsdFreebsdlikeFreebsdKvmCounterU64Fetch(kd.rawAddress.toCPointer<ByteVar>(), base)
 
-public actual fun kvmGetswapinfo(kd: COpaquePointer?, info: COpaquePointer?, maxswap: CInt, flags: CInt): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_kvmGetswapinfo(kd?.value?.toCPointer<ByteVar>(), info?.value?.toCPointer<ByteVar>(), maxswap, flags)
+public actual fun kvmGetswapinfo(kd: MutPtr<KvmT>, info: MutPtr<KvmSwap>, maxswap: CInt, flags: CInt): CInt =
+    libcUnixBsdFreebsdlikeFreebsdKvmGetswapinfo(kd.rawAddress.toCPointer<ByteVar>(), info.rawAddress.toCPointer<ByteVar>(), maxswap, flags)
 
-public actual fun kvmNative(kd: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_kvmNative(kd?.value?.toCPointer<ByteVar>())
+public actual fun kvmNative(kd: MutPtr<KvmT>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdKvmNative(kd.rawAddress.toCPointer<ByteVar>())
 
-public actual fun kvmNlist(kd: COpaquePointer?, nl: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_kvmNlist(kd?.value?.toCPointer<ByteVar>(), nl?.value?.toCPointer<ByteVar>())
+public actual fun kvmNlist(kd: MutPtr<KvmT>, nl: MutPtr<Nlist>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdKvmNlist(kd.rawAddress.toCPointer<ByteVar>(), nl.rawAddress.toCPointer<ByteVar>())
 
-public actual fun kvmNlist2(kd: COpaquePointer?, nl: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_kvmNlist2(kd?.value?.toCPointer<ByteVar>(), nl?.value?.toCPointer<ByteVar>())
+public actual fun kvmNlist2(kd: MutPtr<KvmT>, nl: MutPtr<KvmNlist>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdKvmNlist2(kd.rawAddress.toCPointer<ByteVar>(), nl.rawAddress.toCPointer<ByteVar>())
 
-public actual fun kvmReadZpcpu(kd: COpaquePointer?, base: CUlong, buf: COpaquePointer?, size: SizeT, cpu: CInt): SsizeT =
-    libc_unix_bsd_freebsdlike_freebsd_kvmReadZpcpu(kd?.value?.toCPointer<ByteVar>(), base, buf?.value?.toCPointer<ByteVar>(), size, cpu)
+public actual fun kvmReadZpcpu(kd: MutPtr<KvmT>, base: CUlong, buf: MutPtr<CVoid>, size: SizeT, cpu: CInt): SsizeT =
+    libcUnixBsdFreebsdlikeFreebsdKvmReadZpcpu(kd.rawAddress.toCPointer<ByteVar>(), base, buf.rawAddress.toCPointer<ByteVar>(), size, cpu)
 
-public actual fun kvmRead2(kd: COpaquePointer?, addr: KvaddrT, buf: COpaquePointer?, nbytes: SizeT): SsizeT =
-    libc_unix_bsd_freebsdlike_freebsd_kvmRead2(kd?.value?.toCPointer<ByteVar>(), addr, buf?.value?.toCPointer<ByteVar>(), nbytes)
+public actual fun kvmRead2(kd: MutPtr<KvmT>, addr: KvaddrT, buf: MutPtr<CVoid>, nbytes: SizeT): SsizeT =
+    libcUnixBsdFreebsdlikeFreebsdKvmRead2(kd.rawAddress.toCPointer<ByteVar>(), addr, buf.rawAddress.toCPointer<ByteVar>(), nbytes)
 
-public actual fun extattrNamespaceToString(attrnamespace: CInt, string: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_extattrNamespaceToString(attrnamespace, string?.value?.toCPointer<ByteVar>())
+public actual fun extattrNamespaceToString(attrnamespace: CInt, string: MutPtr<MutPtr<CChar>>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdExtattrNamespaceToString(attrnamespace, string.rawAddress.toCPointer<ByteVar>())
 
-public actual fun extattrStringToNamespace(string: String?, attrnamespace: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_extattrStringToNamespace(string, attrnamespace?.value?.toCPointer<ByteVar>())
+public actual fun extattrStringToNamespace(string: ConstPtr<CChar>, attrnamespace: MutPtr<CInt>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdExtattrStringToNamespace(string.rawAddress.toCPointer<ByteVar>(), attrnamespace.rawAddress.toCPointer<ByteVar>())
 
-public actual fun realhostname(host: COpaquePointer?, hsize: SizeT, ip: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_realhostname(host?.value?.toCPointer<ByteVar>(), hsize, ip?.value?.toCPointer<ByteVar>())
+public actual fun realhostname(host: MutPtr<CChar>, hsize: SizeT, ip: ConstPtr<InAddr>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdRealhostname(host.rawAddress.toCPointer<ByteVar>(), hsize, ip.rawAddress.toCPointer<ByteVar>())
 
-public actual fun realhostnameSa(host: COpaquePointer?, hsize: SizeT, addr: COpaquePointer?, addrlen: CInt): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_realhostnameSa(host?.value?.toCPointer<ByteVar>(), hsize, addr?.value?.toCPointer<ByteVar>(), addrlen)
+public actual fun realhostnameSa(host: MutPtr<CChar>, hsize: SizeT, addr: MutPtr<Sockaddr>, addrlen: CInt): CInt =
+    libcUnixBsdFreebsdlikeFreebsdRealhostnameSa(host.rawAddress.toCPointer<ByteVar>(), hsize, addr.rawAddress.toCPointer<ByteVar>(), addrlen)
 
-public actual fun kldIsloaded(name: String?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_kldIsloaded(name)
+public actual fun kldIsloaded(name: ConstPtr<CChar>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdKldIsloaded(name.rawAddress.toCPointer<ByteVar>())
 
-public actual fun kldLoad(name: String?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_kldLoad(name)
+public actual fun kldLoad(name: ConstPtr<CChar>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdKldLoad(name.rawAddress.toCPointer<ByteVar>())
 
-public actual fun kinfoGetvmmap(pid: PidT, cntp: COpaquePointer?): COpaquePointer? =
-    libc_unix_bsd_freebsdlike_freebsd_kinfoGetvmmap(pid, cntp?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun kinfoGetvmmap(pid: PidT, cntp: MutPtr<CInt>): MutPtr<KinfoVmentry> =
+    MutPtr(libcUnixBsdFreebsdlikeFreebsdKinfoGetvmmap(pid, cntp.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun hexdump(ptr: COpaquePointer?, length: CInt, hdr: String?, flags: CInt) {
-    libc_unix_bsd_freebsdlike_freebsd_hexdump(ptr?.value?.toCPointer<ByteVar>(), length, hdr, flags)
+public actual fun hexdump(ptr: ConstPtr<CVoid>, length: CInt, hdr: ConstPtr<CChar>, flags: CInt) {
+    libcUnixBsdFreebsdlikeFreebsdHexdump(ptr.rawAddress.toCPointer<ByteVar>(), length, hdr.rawAddress.toCPointer<ByteVar>(), flags)
 }
 
-public actual fun humanizeNumber(buf: COpaquePointer?, len: SizeT, number: Long, suffix: String?, scale: CInt, flags: CInt): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_humanizeNumber(buf?.value?.toCPointer<ByteVar>(), len, number, suffix, scale, flags)
+public actual fun humanizeNumber(buf: MutPtr<CChar>, len: SizeT, number: Long, suffix: ConstPtr<CChar>, scale: CInt, flags: CInt): CInt =
+    libcUnixBsdFreebsdlikeFreebsdHumanizeNumber(buf.rawAddress.toCPointer<ByteVar>(), len, number, suffix.rawAddress.toCPointer<ByteVar>(), scale, flags)
 
-public actual fun flopen(path: String?, flags: CInt, vararg variadicArgs: Long): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_flopen(path, flags, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun flopen(path: ConstPtr<CChar>, flags: CInt, vararg variadicArgs: Long): CInt =
+    libcUnixBsdFreebsdlikeFreebsdFlopen(path.rawAddress.toCPointer<ByteVar>(), flags, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun flopenat(fd: CInt, path: String?, flags: CInt, vararg variadicArgs: Long): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_flopenat(fd, path, flags, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun flopenat(fd: CInt, path: ConstPtr<CChar>, flags: CInt, vararg variadicArgs: Long): CInt =
+    libcUnixBsdFreebsdlikeFreebsdFlopenat(fd, path.rawAddress.toCPointer<ByteVar>(), flags, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun getlocalbase(): COpaquePointer? =
-    libc_unix_bsd_freebsdlike_freebsd_getlocalbase()?.let { COpaquePointer(it.toLong()) }
+public actual fun getlocalbase(): ConstPtr<CChar> =
+    ConstPtr(libcUnixBsdFreebsdlikeFreebsdGetlocalbase()?.toLong() ?: 0L)
 
-public actual fun pidfileOpen(path: String?, mode: ModeT, pidptr: COpaquePointer?): COpaquePointer? =
-    libc_unix_bsd_freebsdlike_freebsd_pidfileOpen(path, mode, pidptr?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun pidfileOpen(path: ConstPtr<CChar>, mode: ModeT, pidptr: MutPtr<PidT>): MutPtr<Pidfh> =
+    MutPtr(libcUnixBsdFreebsdlikeFreebsdPidfileOpen(path.rawAddress.toCPointer<ByteVar>(), mode, pidptr.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun pidfileWrite(path: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_pidfileWrite(path?.value?.toCPointer<ByteVar>())
+public actual fun pidfileWrite(path: MutPtr<Pidfh>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdPidfileWrite(path.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pidfileClose(path: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_pidfileClose(path?.value?.toCPointer<ByteVar>())
+public actual fun pidfileClose(path: MutPtr<Pidfh>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdPidfileClose(path.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pidfileRemove(path: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_pidfileRemove(path?.value?.toCPointer<ByteVar>())
+public actual fun pidfileRemove(path: MutPtr<Pidfh>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdPidfileRemove(path.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pidfileFileno(path: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_pidfileFileno(path?.value?.toCPointer<ByteVar>())
+public actual fun pidfileFileno(path: ConstPtr<Pidfh>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdPidfileFileno(path.rawAddress.toCPointer<ByteVar>())
 
-public actual fun procstatOpenSysctl(): COpaquePointer? =
-    libc_unix_bsd_freebsdlike_freebsd_procstatOpenSysctl()?.let { COpaquePointer(it.toLong()) }
+public actual fun procstatOpenSysctl(): MutPtr<Procstat> =
+    MutPtr(libcUnixBsdFreebsdlikeFreebsdProcstatOpenSysctl()?.toLong() ?: 0L)
 
-public actual fun procstatGetfiles(procstat: COpaquePointer?, kp: COpaquePointer?, mmapped: CInt): COpaquePointer? =
-    libc_unix_bsd_freebsdlike_freebsd_procstatGetfiles(procstat?.value?.toCPointer<ByteVar>(), kp?.value?.toCPointer<ByteVar>(), mmapped)?.let { COpaquePointer(it.toLong()) }
+public actual fun procstatGetfiles(procstat: MutPtr<Procstat>, kp: MutPtr<KinfoProc>, mmapped: CInt): MutPtr<FilestatList> =
+    MutPtr(libcUnixBsdFreebsdlikeFreebsdProcstatGetfiles(procstat.rawAddress.toCPointer<ByteVar>(), kp.rawAddress.toCPointer<ByteVar>(), mmapped)?.toLong() ?: 0L)
 
-public actual fun procstatFreefiles(procstat: COpaquePointer?, head: COpaquePointer?) {
-    libc_unix_bsd_freebsdlike_freebsd_procstatFreefiles(procstat?.value?.toCPointer<ByteVar>(), head?.value?.toCPointer<ByteVar>())
+public actual fun procstatFreefiles(procstat: MutPtr<Procstat>, head: MutPtr<FilestatList>) {
+    libcUnixBsdFreebsdlikeFreebsdProcstatFreefiles(procstat.rawAddress.toCPointer<ByteVar>(), head.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun procstatGetprocs(procstat: COpaquePointer?, what: CInt, arg: CInt, count: COpaquePointer?): COpaquePointer? =
-    libc_unix_bsd_freebsdlike_freebsd_procstatGetprocs(procstat?.value?.toCPointer<ByteVar>(), what, arg, count?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun procstatGetprocs(procstat: MutPtr<Procstat>, what: CInt, arg: CInt, count: MutPtr<CUint>): MutPtr<KinfoProc> =
+    MutPtr(libcUnixBsdFreebsdlikeFreebsdProcstatGetprocs(procstat.rawAddress.toCPointer<ByteVar>(), what, arg, count.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun procstatFreeprocs(procstat: COpaquePointer?, p: COpaquePointer?) {
-    libc_unix_bsd_freebsdlike_freebsd_procstatFreeprocs(procstat?.value?.toCPointer<ByteVar>(), p?.value?.toCPointer<ByteVar>())
+public actual fun procstatFreeprocs(procstat: MutPtr<Procstat>, p: MutPtr<KinfoProc>) {
+    libcUnixBsdFreebsdlikeFreebsdProcstatFreeprocs(procstat.rawAddress.toCPointer<ByteVar>(), p.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun procstatGetvmmap(procstat: COpaquePointer?, kp: COpaquePointer?, count: COpaquePointer?): COpaquePointer? =
-    libc_unix_bsd_freebsdlike_freebsd_procstatGetvmmap(procstat?.value?.toCPointer<ByteVar>(), kp?.value?.toCPointer<ByteVar>(), count?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun procstatGetvmmap(procstat: MutPtr<Procstat>, kp: MutPtr<KinfoProc>, count: MutPtr<CUint>): MutPtr<KinfoVmentry> =
+    MutPtr(libcUnixBsdFreebsdlikeFreebsdProcstatGetvmmap(procstat.rawAddress.toCPointer<ByteVar>(), kp.rawAddress.toCPointer<ByteVar>(), count.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun procstatFreevmmap(procstat: COpaquePointer?, vmmap: COpaquePointer?) {
-    libc_unix_bsd_freebsdlike_freebsd_procstatFreevmmap(procstat?.value?.toCPointer<ByteVar>(), vmmap?.value?.toCPointer<ByteVar>())
+public actual fun procstatFreevmmap(procstat: MutPtr<Procstat>, vmmap: MutPtr<KinfoVmentry>) {
+    libcUnixBsdFreebsdlikeFreebsdProcstatFreevmmap(procstat.rawAddress.toCPointer<ByteVar>(), vmmap.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun procstatClose(procstat: COpaquePointer?) {
-    libc_unix_bsd_freebsdlike_freebsd_procstatClose(procstat?.value?.toCPointer<ByteVar>())
+public actual fun procstatClose(procstat: MutPtr<Procstat>) {
+    libcUnixBsdFreebsdlikeFreebsdProcstatClose(procstat.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun procstatFreeargv(procstat: COpaquePointer?) {
-    libc_unix_bsd_freebsdlike_freebsd_procstatFreeargv(procstat?.value?.toCPointer<ByteVar>())
+public actual fun procstatFreeargv(procstat: MutPtr<Procstat>) {
+    libcUnixBsdFreebsdlikeFreebsdProcstatFreeargv(procstat.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun procstatFreeenvv(procstat: COpaquePointer?) {
-    libc_unix_bsd_freebsdlike_freebsd_procstatFreeenvv(procstat?.value?.toCPointer<ByteVar>())
+public actual fun procstatFreeenvv(procstat: MutPtr<Procstat>) {
+    libcUnixBsdFreebsdlikeFreebsdProcstatFreeenvv(procstat.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun procstatFreegroups(procstat: COpaquePointer?, groups: COpaquePointer?) {
-    libc_unix_bsd_freebsdlike_freebsd_procstatFreegroups(procstat?.value?.toCPointer<ByteVar>(), groups?.value?.toCPointer<ByteVar>())
+public actual fun procstatFreegroups(procstat: MutPtr<Procstat>, groups: MutPtr<GidT>) {
+    libcUnixBsdFreebsdlikeFreebsdProcstatFreegroups(procstat.rawAddress.toCPointer<ByteVar>(), groups.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun procstatFreeptlwpinfo(procstat: COpaquePointer?, pl: COpaquePointer?) {
-    libc_unix_bsd_freebsdlike_freebsd_procstatFreeptlwpinfo(procstat?.value?.toCPointer<ByteVar>(), pl?.value?.toCPointer<ByteVar>())
+public actual fun procstatFreeptlwpinfo(procstat: MutPtr<Procstat>, pl: MutPtr<PtraceLwpinfo>) {
+    libcUnixBsdFreebsdlikeFreebsdProcstatFreeptlwpinfo(procstat.rawAddress.toCPointer<ByteVar>(), pl.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun procstatGetargv(procstat: COpaquePointer?, kp: COpaquePointer?, nchr: SizeT): COpaquePointer? =
-    libc_unix_bsd_freebsdlike_freebsd_procstatGetargv(procstat?.value?.toCPointer<ByteVar>(), kp?.value?.toCPointer<ByteVar>(), nchr)?.let { COpaquePointer(it.toLong()) }
+public actual fun procstatGetargv(procstat: MutPtr<Procstat>, kp: MutPtr<KinfoProc>, nchr: SizeT): MutPtr<MutPtr<CChar>> =
+    MutPtr(libcUnixBsdFreebsdlikeFreebsdProcstatGetargv(procstat.rawAddress.toCPointer<ByteVar>(), kp.rawAddress.toCPointer<ByteVar>(), nchr)?.toLong() ?: 0L)
 
-public actual fun procstatGetenvv(procstat: COpaquePointer?, kp: COpaquePointer?, nchr: SizeT): COpaquePointer? =
-    libc_unix_bsd_freebsdlike_freebsd_procstatGetenvv(procstat?.value?.toCPointer<ByteVar>(), kp?.value?.toCPointer<ByteVar>(), nchr)?.let { COpaquePointer(it.toLong()) }
+public actual fun procstatGetenvv(procstat: MutPtr<Procstat>, kp: MutPtr<KinfoProc>, nchr: SizeT): MutPtr<MutPtr<CChar>> =
+    MutPtr(libcUnixBsdFreebsdlikeFreebsdProcstatGetenvv(procstat.rawAddress.toCPointer<ByteVar>(), kp.rawAddress.toCPointer<ByteVar>(), nchr)?.toLong() ?: 0L)
 
-public actual fun procstatGetgroups(procstat: COpaquePointer?, kp: COpaquePointer?, count: COpaquePointer?): COpaquePointer? =
-    libc_unix_bsd_freebsdlike_freebsd_procstatGetgroups(procstat?.value?.toCPointer<ByteVar>(), kp?.value?.toCPointer<ByteVar>(), count?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun procstatGetgroups(procstat: MutPtr<Procstat>, kp: MutPtr<KinfoProc>, count: MutPtr<CUint>): MutPtr<GidT> =
+    MutPtr(libcUnixBsdFreebsdlikeFreebsdProcstatGetgroups(procstat.rawAddress.toCPointer<ByteVar>(), kp.rawAddress.toCPointer<ByteVar>(), count.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun procstatGetosrel(procstat: COpaquePointer?, kp: COpaquePointer?, osrelp: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_procstatGetosrel(procstat?.value?.toCPointer<ByteVar>(), kp?.value?.toCPointer<ByteVar>(), osrelp?.value?.toCPointer<ByteVar>())
+public actual fun procstatGetosrel(procstat: MutPtr<Procstat>, kp: MutPtr<KinfoProc>, osrelp: MutPtr<CInt>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdProcstatGetosrel(procstat.rawAddress.toCPointer<ByteVar>(), kp.rawAddress.toCPointer<ByteVar>(), osrelp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun procstatGetpathname(procstat: COpaquePointer?, kp: COpaquePointer?, pathname: COpaquePointer?, maxlen: SizeT): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_procstatGetpathname(procstat?.value?.toCPointer<ByteVar>(), kp?.value?.toCPointer<ByteVar>(), pathname?.value?.toCPointer<ByteVar>(), maxlen)
+public actual fun procstatGetpathname(procstat: MutPtr<Procstat>, kp: MutPtr<KinfoProc>, pathname: MutPtr<CChar>, maxlen: SizeT): CInt =
+    libcUnixBsdFreebsdlikeFreebsdProcstatGetpathname(procstat.rawAddress.toCPointer<ByteVar>(), kp.rawAddress.toCPointer<ByteVar>(), pathname.rawAddress.toCPointer<ByteVar>(), maxlen)
 
-public actual fun procstatGetrlimit(procstat: COpaquePointer?, kp: COpaquePointer?, which: CInt, rlimit: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_procstatGetrlimit(procstat?.value?.toCPointer<ByteVar>(), kp?.value?.toCPointer<ByteVar>(), which, rlimit?.value?.toCPointer<ByteVar>())
+public actual fun procstatGetrlimit(procstat: MutPtr<Procstat>, kp: MutPtr<KinfoProc>, which: CInt, rlimit: MutPtr<Rlimit>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdProcstatGetrlimit(procstat.rawAddress.toCPointer<ByteVar>(), kp.rawAddress.toCPointer<ByteVar>(), which, rlimit.rawAddress.toCPointer<ByteVar>())
 
-public actual fun procstatGetumask(procstat: COpaquePointer?, kp: COpaquePointer?, maskp: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_procstatGetumask(procstat?.value?.toCPointer<ByteVar>(), kp?.value?.toCPointer<ByteVar>(), maskp?.value?.toCPointer<ByteVar>())
+public actual fun procstatGetumask(procstat: MutPtr<Procstat>, kp: MutPtr<KinfoProc>, maskp: MutPtr<CUshort>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdProcstatGetumask(procstat.rawAddress.toCPointer<ByteVar>(), kp.rawAddress.toCPointer<ByteVar>(), maskp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun procstatOpenCore(filename: String?): COpaquePointer? =
-    libc_unix_bsd_freebsdlike_freebsd_procstatOpenCore(filename)?.let { COpaquePointer(it.toLong()) }
+public actual fun procstatOpenCore(filename: ConstPtr<CChar>): MutPtr<Procstat> =
+    MutPtr(libcUnixBsdFreebsdlikeFreebsdProcstatOpenCore(filename.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun procstatOpenKvm(nlistf: String?, memf: String?): COpaquePointer? =
-    libc_unix_bsd_freebsdlike_freebsd_procstatOpenKvm(nlistf, memf)?.let { COpaquePointer(it.toLong()) }
+public actual fun procstatOpenKvm(nlistf: ConstPtr<CChar>, memf: ConstPtr<CChar>): MutPtr<Procstat> =
+    MutPtr(libcUnixBsdFreebsdlikeFreebsdProcstatOpenKvm(nlistf.rawAddress.toCPointer<ByteVar>(), memf.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun procstatGetSocketInfo(proc: COpaquePointer?, fst: COpaquePointer?, sock: COpaquePointer?, errbuf: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_procstatGetSocketInfo(proc?.value?.toCPointer<ByteVar>(), fst?.value?.toCPointer<ByteVar>(), sock?.value?.toCPointer<ByteVar>(), errbuf?.value?.toCPointer<ByteVar>())
+public actual fun procstatGetSocketInfo(proc: MutPtr<Procstat>, fst: MutPtr<Filestat>, sock: MutPtr<Sockstat>, errbuf: MutPtr<CChar>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdProcstatGetSocketInfo(proc.rawAddress.toCPointer<ByteVar>(), fst.rawAddress.toCPointer<ByteVar>(), sock.rawAddress.toCPointer<ByteVar>(), errbuf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun procstatGetVnodeInfo(proc: COpaquePointer?, fst: COpaquePointer?, vn: COpaquePointer?, errbuf: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_procstatGetVnodeInfo(proc?.value?.toCPointer<ByteVar>(), fst?.value?.toCPointer<ByteVar>(), vn?.value?.toCPointer<ByteVar>(), errbuf?.value?.toCPointer<ByteVar>())
+public actual fun procstatGetVnodeInfo(proc: MutPtr<Procstat>, fst: MutPtr<Filestat>, vn: MutPtr<Vnstat>, errbuf: MutPtr<CChar>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdProcstatGetVnodeInfo(proc.rawAddress.toCPointer<ByteVar>(), fst.rawAddress.toCPointer<ByteVar>(), vn.rawAddress.toCPointer<ByteVar>(), errbuf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun procstatGetPtsInfo(proc: COpaquePointer?, fst: COpaquePointer?, pts: COpaquePointer?, errbuf: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_procstatGetPtsInfo(proc?.value?.toCPointer<ByteVar>(), fst?.value?.toCPointer<ByteVar>(), pts?.value?.toCPointer<ByteVar>(), errbuf?.value?.toCPointer<ByteVar>())
+public actual fun procstatGetPtsInfo(proc: MutPtr<Procstat>, fst: MutPtr<Filestat>, pts: MutPtr<Ptsstat>, errbuf: MutPtr<CChar>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdProcstatGetPtsInfo(proc.rawAddress.toCPointer<ByteVar>(), fst.rawAddress.toCPointer<ByteVar>(), pts.rawAddress.toCPointer<ByteVar>(), errbuf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun procstatGetShmInfo(proc: COpaquePointer?, fst: COpaquePointer?, shm: COpaquePointer?, errbuf: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_procstatGetShmInfo(proc?.value?.toCPointer<ByteVar>(), fst?.value?.toCPointer<ByteVar>(), shm?.value?.toCPointer<ByteVar>(), errbuf?.value?.toCPointer<ByteVar>())
+public actual fun procstatGetShmInfo(proc: MutPtr<Procstat>, fst: MutPtr<Filestat>, shm: MutPtr<Shmstat>, errbuf: MutPtr<CChar>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdProcstatGetShmInfo(proc.rawAddress.toCPointer<ByteVar>(), fst.rawAddress.toCPointer<ByteVar>(), shm.rawAddress.toCPointer<ByteVar>(), errbuf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun timerCreate(clockId: ClockidT, evp: COpaquePointer?, timerid: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_timerCreate(clockId, evp?.value?.toCPointer<ByteVar>(), timerid?.value?.toCPointer<ByteVar>())
+public actual fun timerCreate(clockId: ClockidT, evp: MutPtr<Sigevent>, timerid: MutPtr<TimerT>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdTimerCreate(clockId, evp.rawAddress.toCPointer<ByteVar>(), timerid.rawAddress.toCPointer<ByteVar>())
 
 public actual fun timerDelete(timerid: TimerT): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_timerDelete(timerid?.value?.toCPointer<ByteVar>())
+    libcUnixBsdFreebsdlikeFreebsdTimerDelete(timerid.rawAddress.toCPointer<ByteVar>())
 
 public actual fun timerGetoverrun(timerid: TimerT): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_timerGetoverrun(timerid?.value?.toCPointer<ByteVar>())
+    libcUnixBsdFreebsdlikeFreebsdTimerGetoverrun(timerid.rawAddress.toCPointer<ByteVar>())
 
-public actual fun timerGettime(timerid: TimerT, value: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_timerGettime(timerid?.value?.toCPointer<ByteVar>(), value?.value?.toCPointer<ByteVar>())
+public actual fun timerGettime(timerid: TimerT, value: MutPtr<Itimerspec>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdTimerGettime(timerid.rawAddress.toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>())
 
-public actual fun timerSettime(timerid: TimerT, flags: CInt, value: COpaquePointer?, ovalue: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_timerSettime(timerid?.value?.toCPointer<ByteVar>(), flags, value?.value?.toCPointer<ByteVar>(), ovalue?.value?.toCPointer<ByteVar>())
+public actual fun timerSettime(timerid: TimerT, flags: CInt, value: ConstPtr<Itimerspec>, ovalue: MutPtr<Itimerspec>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdTimerSettime(timerid.rawAddress.toCPointer<ByteVar>(), flags, value.rawAddress.toCPointer<ByteVar>(), ovalue.rawAddress.toCPointer<ByteVar>())
 
-public actual fun devstatGetnumdevs(kd: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_devstatGetnumdevs(kd?.value?.toCPointer<ByteVar>())
+public actual fun devstatGetnumdevs(kd: MutPtr<KvmT>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdDevstatGetnumdevs(kd.rawAddress.toCPointer<ByteVar>())
 
-public actual fun devstatGetgeneration(kd: COpaquePointer?): CLong =
-    libc_unix_bsd_freebsdlike_freebsd_devstatGetgeneration(kd?.value?.toCPointer<ByteVar>())
+public actual fun devstatGetgeneration(kd: MutPtr<KvmT>): CLong =
+    libcUnixBsdFreebsdlikeFreebsdDevstatGetgeneration(kd.rawAddress.toCPointer<ByteVar>())
 
-public actual fun devstatGetversion(kd: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_devstatGetversion(kd?.value?.toCPointer<ByteVar>())
+public actual fun devstatGetversion(kd: MutPtr<KvmT>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdDevstatGetversion(kd.rawAddress.toCPointer<ByteVar>())
 
-public actual fun devstatCheckversion(kd: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_devstatCheckversion(kd?.value?.toCPointer<ByteVar>())
+public actual fun devstatCheckversion(kd: MutPtr<KvmT>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdDevstatCheckversion(kd.rawAddress.toCPointer<ByteVar>())
 
-public actual fun devstatSelectdevs(devSelect: COpaquePointer?, numSelected: COpaquePointer?, numSelections: COpaquePointer?, selectGeneration: COpaquePointer?, currentGeneration: CLong, devices: COpaquePointer?, numdevs: CInt, matches: COpaquePointer?, numMatches: CInt, devSelections: COpaquePointer?, numDevSelections: CInt, selectMode: DevstatSelectMode, maxshowdevs: CInt, perfSelect: CInt): CInt =
+public actual fun devstatSelectdevs(devSelect: MutPtr<MutPtr<DeviceSelection>>, numSelected: MutPtr<CInt>, numSelections: MutPtr<CInt>, selectGeneration: MutPtr<CLong>, currentGeneration: CLong, devices: MutPtr<Devstat>, numdevs: CInt, matches: MutPtr<DevstatMatch>, numMatches: CInt, devSelections: MutPtr<MutPtr<CChar>>, numDevSelections: CInt, selectMode: DevstatSelectMode, maxshowdevs: CInt, perfSelect: CInt): CInt =
     0
 
-public actual fun devstatBuildmatch(matchStr: COpaquePointer?, matches: COpaquePointer?, numMatches: COpaquePointer?): CInt =
-    libc_unix_bsd_freebsdlike_freebsd_devstatBuildmatch(matchStr?.value?.toCPointer<ByteVar>(), matches?.value?.toCPointer<ByteVar>(), numMatches?.value?.toCPointer<ByteVar>())
+public actual fun devstatBuildmatch(matchStr: MutPtr<CChar>, matches: MutPtr<MutPtr<DevstatMatch>>, numMatches: MutPtr<CInt>): CInt =
+    libcUnixBsdFreebsdlikeFreebsdDevstatBuildmatch(matchStr.rawAddress.toCPointer<ByteVar>(), matches.rawAddress.toCPointer<ByteVar>(), numMatches.rawAddress.toCPointer<ByteVar>())

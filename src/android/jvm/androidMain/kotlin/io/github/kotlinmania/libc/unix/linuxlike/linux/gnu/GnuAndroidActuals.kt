@@ -3,21 +3,44 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.unix.FILE
+import io.github.kotlinmania.libc.unix.Group
+import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.PidT
+import io.github.kotlinmania.libc.unix.Rlimit
 import io.github.kotlinmania.libc.unix.Sigval
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
 import io.github.kotlinmania.libc.unix.linuxlike.ClockidT
+import io.github.kotlinmania.libc.unix.linuxlike.CpuSetT
+import io.github.kotlinmania.libc.unix.linuxlike.DlInfo
+import io.github.kotlinmania.libc.unix.linuxlike.EpollEvent
 import io.github.kotlinmania.libc.unix.linuxlike.IdT
+import io.github.kotlinmania.libc.unix.linuxlike.Mmsghdr
+import io.github.kotlinmania.libc.unix.linuxlike.Mntent
+import io.github.kotlinmania.libc.unix.linuxlike.Passwd
+import io.github.kotlinmania.libc.unix.linuxlike.Rlimit64
+import io.github.kotlinmania.libc.unix.linuxlike.Sigevent
+import io.github.kotlinmania.libc.unix.linuxlike.Spwd
+import io.github.kotlinmania.libc.unix.linuxlike.Timezone
+import io.github.kotlinmania.libc.unix.linuxlike.Tm
 import io.github.kotlinmania.libc.unix.linuxlike.linux.MqdT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.Off64T
+import io.github.kotlinmania.libc.unix.linuxlike.linux.PosixSpawnFileActionsT
+import io.github.kotlinmania.libc.unix.linuxlike.linux.PthreadRwlockattrT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.OffT
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.SigsetT
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.TimeT
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.Timex
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.PthreadAttrT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 private object UnixLinuxlikeLinuxGnuJniBridge {
     init {
@@ -25,443 +48,443 @@ private object UnixLinuxlikeLinuxGnuJniBridge {
     }
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_fgetspentR(fp: Long, spbuf: Long, buf: Long, buflen: Long, spbufp: Long): Int
+    external fun libcUnixLinuxlikeLinuxGnuFgetspentR(fp: Long, spbuf: Long, buf: Long, buflen: Long, spbufp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_sgetspentR(s: String?, spbuf: Long, buf: Long, buflen: Long, spbufp: Long): Int
+    external fun libcUnixLinuxlikeLinuxGnuSgetspentR(s: Long, spbuf: Long, buf: Long, buflen: Long, spbufp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_getspentR(spbuf: Long, buf: Long, buflen: Long, spbufp: Long): Int
+    external fun libcUnixLinuxlikeLinuxGnuGetspentR(spbuf: Long, buf: Long, buflen: Long, spbufp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_qsortR(base: Long, num: Long, size: Long, compar: Long, arg: Long)
+    external fun libcUnixLinuxlikeLinuxGnuQsortR(base: Long, num: Long, size: Long, compar: Long, arg: Long)
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_sendmmsg(sockfd: Int, msgvec: Long, vlen: Int, flags: Int): Int
+    external fun libcUnixLinuxlikeLinuxGnuSendmmsg(sockfd: Int, msgvec: Long, vlen: Int, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_recvmmsg(sockfd: Int, msgvec: Long, vlen: Int, flags: Int, timeout: Long): Int
+    external fun libcUnixLinuxlikeLinuxGnuRecvmmsg(sockfd: Int, msgvec: Long, vlen: Int, flags: Int, timeout: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_getrlimit64(resource: Int, rlim: Long): Int
+    external fun libcUnixLinuxlikeLinuxGnuGetrlimit64(resource: Int, rlim: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_setrlimit64(resource: Int, rlim: Long): Int
+    external fun libcUnixLinuxlikeLinuxGnuSetrlimit64(resource: Int, rlim: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_getrlimit(resource: Int, rlim: Long): Int
+    external fun libcUnixLinuxlikeLinuxGnuGetrlimit(resource: Int, rlim: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_setrlimit(resource: Int, rlim: Long): Int
+    external fun libcUnixLinuxlikeLinuxGnuSetrlimit(resource: Int, rlim: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_prlimit(pid: Int, resource: Int, newLimit: Long, oldLimit: Long): Int
+    external fun libcUnixLinuxlikeLinuxGnuPrlimit(pid: Int, resource: Int, newLimit: Long, oldLimit: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_prlimit64(pid: Int, resource: Int, newLimit: Long, oldLimit: Long): Int
+    external fun libcUnixLinuxlikeLinuxGnuPrlimit64(pid: Int, resource: Int, newLimit: Long, oldLimit: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_utmpname(file: String?): Int
+    external fun libcUnixLinuxlikeLinuxGnuUtmpname(file: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_utmpxname(file: String?): Int
+    external fun libcUnixLinuxlikeLinuxGnuUtmpxname(file: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_getutxent(): Long
+    external fun libcUnixLinuxlikeLinuxGnuGetutxent(): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_getutxid(ut: Long): Long
+    external fun libcUnixLinuxlikeLinuxGnuGetutxid(ut: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_getutxline(ut: Long): Long
+    external fun libcUnixLinuxlikeLinuxGnuGetutxline(ut: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_pututxline(ut: Long): Long
+    external fun libcUnixLinuxlikeLinuxGnuPututxline(ut: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_setutxent()
+    external fun libcUnixLinuxlikeLinuxGnuSetutxent()
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_endutxent()
+    external fun libcUnixLinuxlikeLinuxGnuEndutxent()
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_getpt(): Int
+    external fun libcUnixLinuxlikeLinuxGnuGetpt(): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_mallopt(param: Int, value: Int): Int
+    external fun libcUnixLinuxlikeLinuxGnuMallopt(param: Int, value: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_gettimeofday(tp: Long, tz: Long): Int
+    external fun libcUnixLinuxlikeLinuxGnuGettimeofday(tp: Long, tz: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_getentropy(buf: Long, buflen: Long): Int
+    external fun libcUnixLinuxlikeLinuxGnuGetentropy(buf: Long, buflen: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_getrandom(buf: Long, buflen: Long, flags: Int): Long
+    external fun libcUnixLinuxlikeLinuxGnuGetrandom(buf: Long, buflen: Long, flags: Int): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_getauxval(type: Long): Long
+    external fun libcUnixLinuxlikeLinuxGnuGetauxval(type: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_adjtimex(buf: Long): Int
+    external fun libcUnixLinuxlikeLinuxGnuAdjtimex(buf: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_ntpAdjtime(buf: Long): Int
+    external fun libcUnixLinuxlikeLinuxGnuNtpAdjtime(buf: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_ntpGettime(buf: Long): Int
+    external fun libcUnixLinuxlikeLinuxGnuNtpGettime(buf: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_clockAdjtime(clkId: Int, buf: Long): Int
+    external fun libcUnixLinuxlikeLinuxGnuClockAdjtime(clkId: Int, buf: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_fanotifyMark(fd: Int, flags: Int, mask: Long, dirfd: Int, path: String?): Int
+    external fun libcUnixLinuxlikeLinuxGnuFanotifyMark(fd: Int, flags: Int, mask: Long, dirfd: Int, path: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_preadv2(fd: Int, iov: Long, iovcnt: Int, offset: Long, flags: Int): Long
+    external fun libcUnixLinuxlikeLinuxGnuPreadv2(fd: Int, iov: Long, iovcnt: Int, offset: Long, flags: Int): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_pwritev2(fd: Int, iov: Long, iovcnt: Int, offset: Long, flags: Int): Long
+    external fun libcUnixLinuxlikeLinuxGnuPwritev2(fd: Int, iov: Long, iovcnt: Int, offset: Long, flags: Int): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_preadv64v2(fd: Int, iov: Long, iovcnt: Int, offset: Long, flags: Int): Long
+    external fun libcUnixLinuxlikeLinuxGnuPreadv64v2(fd: Int, iov: Long, iovcnt: Int, offset: Long, flags: Int): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_pwritev64v2(fd: Int, iov: Long, iovcnt: Int, offset: Long, flags: Int): Long
+    external fun libcUnixLinuxlikeLinuxGnuPwritev64v2(fd: Int, iov: Long, iovcnt: Int, offset: Long, flags: Int): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_renameat2(olddirfd: Int, oldpath: String?, newdirfd: Int, newpath: String?, flags: Int): Int
+    external fun libcUnixLinuxlikeLinuxGnuRenameat2(olddirfd: Int, oldpath: Long, newdirfd: Int, newpath: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_explicitBzero(s: Long, len: Long)
+    external fun libcUnixLinuxlikeLinuxGnuExplicitBzero(s: Long, len: Long)
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_reallocarray(ptr: Long, nmemb: Long, size: Long): Long
+    external fun libcUnixLinuxlikeLinuxGnuReallocarray(ptr: Long, nmemb: Long, size: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_ctermid(s: Long): Long
+    external fun libcUnixLinuxlikeLinuxGnuCtermid(s: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_backtrace(buf: Long, sz: Int): Int
+    external fun libcUnixLinuxlikeLinuxGnuBacktrace(buf: Long, sz: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_backtraceSymbols(buffer: Long, len: Int): Long
+    external fun libcUnixLinuxlikeLinuxGnuBacktraceSymbols(buffer: Long, len: Int): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_backtraceSymbolsFd(buffer: Long, len: Int, fd: Int)
+    external fun libcUnixLinuxlikeLinuxGnuBacktraceSymbolsFd(buffer: Long, len: Int, fd: Int)
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_glob64(pattern: String?, flags: Int, errfunc: Long, pglob: Long): Int
+    external fun libcUnixLinuxlikeLinuxGnuGlob64(pattern: Long, flags: Int, errfunc: Long, pglob: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_globfree64(pglob: Long)
+    external fun libcUnixLinuxlikeLinuxGnuGlobfree64(pglob: Long)
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_ptrace(request: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
+    external fun libcUnixLinuxlikeLinuxGnuPtrace(request: Int, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_pthreadAttrGetaffinityNp(attr: Long, cpusetsize: Long, cpuset: Long): Int
+    external fun libcUnixLinuxlikeLinuxGnuPthreadAttrGetaffinityNp(attr: Long, cpusetsize: Long, cpuset: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_pthreadAttrSetaffinityNp(attr: Long, cpusetsize: Long, cpuset: Long): Int
+    external fun libcUnixLinuxlikeLinuxGnuPthreadAttrSetaffinityNp(attr: Long, cpusetsize: Long, cpuset: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_getpriority(which: Int, who: Int): Int
+    external fun libcUnixLinuxlikeLinuxGnuGetpriority(which: Int, who: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_setpriority(which: Int, who: Int, prio: Int): Int
+    external fun libcUnixLinuxlikeLinuxGnuSetpriority(which: Int, who: Int, prio: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_pthreadRwlockattrGetkindNp(attr: Long, value: Long): Int
+    external fun libcUnixLinuxlikeLinuxGnuPthreadRwlockattrGetkindNp(attr: Long, value: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_pthreadRwlockattrSetkindNp(attr: Long, value: Int): Int
+    external fun libcUnixLinuxlikeLinuxGnuPthreadRwlockattrSetkindNp(attr: Long, value: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_pthreadTryjoinNp(thread: Long, retval: Long): Int
+    external fun libcUnixLinuxlikeLinuxGnuPthreadTryjoinNp(thread: Long, retval: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_pthreadTimedjoinNp(thread: Long, retval: Long, abstime: Long): Int
+    external fun libcUnixLinuxlikeLinuxGnuPthreadTimedjoinNp(thread: Long, retval: Long, abstime: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_mallocStats()
+    external fun libcUnixLinuxlikeLinuxGnuMallocStats()
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_mallocInfo(options: Int, stream: Long): Int
+    external fun libcUnixLinuxlikeLinuxGnuMallocInfo(options: Int, stream: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_mallocUsableSize(ptr: Long): Long
+    external fun libcUnixLinuxlikeLinuxGnuMallocUsableSize(ptr: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_getpwentR(pwd: Long, buf: Long, buflen: Long, result: Long): Int
+    external fun libcUnixLinuxlikeLinuxGnuGetpwentR(pwd: Long, buf: Long, buflen: Long, result: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_getgrentR(grp: Long, buf: Long, buflen: Long, result: Long): Int
+    external fun libcUnixLinuxlikeLinuxGnuGetgrentR(grp: Long, buf: Long, buflen: Long, result: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_fgetpwentR(stream: Long, pwd: Long, buf: Long, buflen: Long, result: Long): Int
+    external fun libcUnixLinuxlikeLinuxGnuFgetpwentR(stream: Long, pwd: Long, buf: Long, buflen: Long, result: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_fgetgrentR(stream: Long, grp: Long, buf: Long, buflen: Long, result: Long): Int
+    external fun libcUnixLinuxlikeLinuxGnuFgetgrentR(stream: Long, grp: Long, buf: Long, buflen: Long, result: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_putpwent(p: Long, stream: Long): Int
+    external fun libcUnixLinuxlikeLinuxGnuPutpwent(p: Long, stream: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_putgrent(grp: Long, stream: Long): Int
+    external fun libcUnixLinuxlikeLinuxGnuPutgrent(grp: Long, stream: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_sethostid(hostid: Long): Int
+    external fun libcUnixLinuxlikeLinuxGnuSethostid(hostid: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_memfdCreate(name: String?, flags: Int): Int
+    external fun libcUnixLinuxlikeLinuxGnuMemfdCreate(name: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_mlock2(addr: Long, len: Long, flags: Int): Int
+    external fun libcUnixLinuxlikeLinuxGnuMlock2(addr: Long, len: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_euidaccess(pathname: String?, mode: Int): Int
+    external fun libcUnixLinuxlikeLinuxGnuEuidaccess(pathname: Long, mode: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_eaccess(pathname: String?, mode: Int): Int
+    external fun libcUnixLinuxlikeLinuxGnuEaccess(pathname: Long, mode: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_asctimeR(tm: Long, buf: Long): Long
+    external fun libcUnixLinuxlikeLinuxGnuAsctimeR(tm: Long, buf: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_ctimeR(timep: Long, buf: Long): Long
+    external fun libcUnixLinuxlikeLinuxGnuCtimeR(timep: Long, buf: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_dirname(path: Long): Long
+    external fun libcUnixLinuxlikeLinuxGnuDirname(path: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_posixBasename(path: Long): Long
+    external fun libcUnixLinuxlikeLinuxGnuPosixBasename(path: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_gnuBasename(path: String?): Long
+    external fun libcUnixLinuxlikeLinuxGnuGnuBasename(path: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_dlmopen(lmid: Long, filename: String?, flag: Int): Long
+    external fun libcUnixLinuxlikeLinuxGnuDlmopen(lmid: Long, filename: Long, flag: Int): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_dlinfo(handle: Long, request: Int, info: Long): Int
+    external fun libcUnixLinuxlikeLinuxGnuDlinfo(handle: Long, request: Int, info: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_dladdr1(addr: Long, info: Long, extraInfo: Long, flags: Int): Int
+    external fun libcUnixLinuxlikeLinuxGnuDladdr1(addr: Long, info: Long, extraInfo: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_dlvsym(handle: Long, symbol: String?, version: String?): Long
+    external fun libcUnixLinuxlikeLinuxGnuDlvsym(handle: Long, symbol: Long, version: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_mallocTrim(pad: Long): Int
+    external fun libcUnixLinuxlikeLinuxGnuMallocTrim(pad: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_gnuGetLibcRelease(): Long
+    external fun libcUnixLinuxlikeLinuxGnuGnuGetLibcRelease(): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_gnuGetLibcVersion(): Long
+    external fun libcUnixLinuxlikeLinuxGnuGnuGetLibcVersion(): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_posixSpawnFileActionsAddchdirNp(actions: Long, path: String?): Int
+    external fun libcUnixLinuxlikeLinuxGnuPosixSpawnFileActionsAddchdirNp(actions: Long, path: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_posixSpawnFileActionsAddfchdirNp(actions: Long, fd: Int): Int
+    external fun libcUnixLinuxlikeLinuxGnuPosixSpawnFileActionsAddfchdirNp(actions: Long, fd: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_posixSpawnFileActionsAddclosefromNp(actions: Long, from: Int): Int
+    external fun libcUnixLinuxlikeLinuxGnuPosixSpawnFileActionsAddclosefromNp(actions: Long, from: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_posixSpawnFileActionsAddtcsetpgrpNp(actions: Long, tcfd: Int): Int
+    external fun libcUnixLinuxlikeLinuxGnuPosixSpawnFileActionsAddtcsetpgrpNp(actions: Long, tcfd: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_getmntentR(stream: Long, mntbuf: Long, buf: Long, buflen: Int): Long
+    external fun libcUnixLinuxlikeLinuxGnuGetmntentR(stream: Long, mntbuf: Long, buf: Long, buflen: Int): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_execveat(dirfd: Int, pathname: String?, argv: Long, envp: Long, flags: Int): Int
+    external fun libcUnixLinuxlikeLinuxGnuExecveat(dirfd: Int, pathname: Long, argv: Long, envp: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_closeRange(first: Int, last: Int, flags: Int): Int
+    external fun libcUnixLinuxlikeLinuxGnuCloseRange(first: Int, last: Int, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_mqNotify(mqdes: Long, sevp: Long): Int
+    external fun libcUnixLinuxlikeLinuxGnuMqNotify(mqdes: Long, sevp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_epollPwait2(epfd: Int, events: Long, maxevents: Int, timeout: Long, sigmask: Long): Int
+    external fun libcUnixLinuxlikeLinuxGnuEpollPwait2(epfd: Int, events: Long, maxevents: Int, timeout: Long, sigmask: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_mempcpy(dest: Long, src: Long, n: Long): Long
+    external fun libcUnixLinuxlikeLinuxGnuMempcpy(dest: Long, src: Long, n: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_tgkill(tgid: Int, tid: Int, sig: Int): Int
+    external fun libcUnixLinuxlikeLinuxGnuTgkill(tgid: Int, tid: Int, sig: Int): Int
 }
 
-public actual fun fgetspentR(fp: FILE?, spbuf: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, spbufp: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_fgetspentR((fp?.handle ?: 0L), (spbuf?.value ?: 0L), (buf?.value ?: 0L), buflen.toLong(), (spbufp?.value ?: 0L))
+public actual fun fgetspentR(fp: MutPtr<FILE>, spbuf: MutPtr<Spwd>, buf: MutPtr<CChar>, buflen: SizeT, spbufp: MutPtr<MutPtr<Spwd>>): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuFgetspentR(fp.rawAddress, spbuf.rawAddress, buf.rawAddress, buflen.toLong(), spbufp.rawAddress)
 
-public actual fun sgetspentR(s: String?, spbuf: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, spbufp: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_sgetspentR(s, (spbuf?.value ?: 0L), (buf?.value ?: 0L), buflen.toLong(), (spbufp?.value ?: 0L))
+public actual fun sgetspentR(s: ConstPtr<CChar>, spbuf: MutPtr<Spwd>, buf: MutPtr<CChar>, buflen: SizeT, spbufp: MutPtr<MutPtr<Spwd>>): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuSgetspentR(s.rawAddress, spbuf.rawAddress, buf.rawAddress, buflen.toLong(), spbufp.rawAddress)
 
-public actual fun getspentR(spbuf: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, spbufp: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_getspentR((spbuf?.value ?: 0L), (buf?.value ?: 0L), buflen.toLong(), (spbufp?.value ?: 0L))
+public actual fun getspentR(spbuf: MutPtr<Spwd>, buf: MutPtr<CChar>, buflen: SizeT, spbufp: MutPtr<MutPtr<Spwd>>): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuGetspentR(spbuf.rawAddress, buf.rawAddress, buflen.toLong(), spbufp.rawAddress)
 
-public actual fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, compar: QsortRComparCallback?, arg: COpaquePointer?) {
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_qsortR((base?.value ?: 0L), num.toLong(), size.toLong(), 0L, (arg?.value ?: 0L))
+public actual fun qsortR(base: MutPtr<CVoid>, num: SizeT, size: SizeT, compar: QsortRComparCallback?, arg: MutPtr<CVoid>) {
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuQsortR(base.rawAddress, num.toLong(), size.toLong(), 0L, arg.rawAddress)
 }
 
-public actual fun sendmmsg(sockfd: CInt, msgvec: COpaquePointer?, vlen: CUint, flags: CInt): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_sendmmsg(sockfd, (msgvec?.value ?: 0L), vlen.toInt(), flags)
+public actual fun sendmmsg(sockfd: CInt, msgvec: MutPtr<Mmsghdr>, vlen: CUint, flags: CInt): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuSendmmsg(sockfd, msgvec.rawAddress, vlen.toInt(), flags)
 
-public actual fun recvmmsg(sockfd: CInt, msgvec: COpaquePointer?, vlen: CUint, flags: CInt, timeout: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_recvmmsg(sockfd, (msgvec?.value ?: 0L), vlen.toInt(), flags, (timeout?.value ?: 0L))
+public actual fun recvmmsg(sockfd: CInt, msgvec: MutPtr<Mmsghdr>, vlen: CUint, flags: CInt, timeout: MutPtr<Timespec>): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuRecvmmsg(sockfd, msgvec.rawAddress, vlen.toInt(), flags, timeout.rawAddress)
 
-public actual fun getrlimit64(resource: RlimitResourceT, rlim: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_getrlimit64(resource.toInt(), (rlim?.value ?: 0L))
+public actual fun getrlimit64(resource: RlimitResourceT, rlim: MutPtr<Rlimit64>): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuGetrlimit64(resource.toInt(), rlim.rawAddress)
 
-public actual fun setrlimit64(resource: RlimitResourceT, rlim: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_setrlimit64(resource.toInt(), (rlim?.value ?: 0L))
+public actual fun setrlimit64(resource: RlimitResourceT, rlim: ConstPtr<Rlimit64>): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuSetrlimit64(resource.toInt(), rlim.rawAddress)
 
-public actual fun getrlimit(resource: RlimitResourceT, rlim: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_getrlimit(resource.toInt(), (rlim?.value ?: 0L))
+public actual fun getrlimit(resource: RlimitResourceT, rlim: MutPtr<Rlimit>): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuGetrlimit(resource.toInt(), rlim.rawAddress)
 
-public actual fun setrlimit(resource: RlimitResourceT, rlim: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_setrlimit(resource.toInt(), (rlim?.value ?: 0L))
+public actual fun setrlimit(resource: RlimitResourceT, rlim: ConstPtr<Rlimit>): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuSetrlimit(resource.toInt(), rlim.rawAddress)
 
-public actual fun prlimit(pid: PidT, resource: RlimitResourceT, newLimit: COpaquePointer?, oldLimit: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_prlimit(pid, resource.toInt(), (newLimit?.value ?: 0L), (oldLimit?.value ?: 0L))
+public actual fun prlimit(pid: PidT, resource: RlimitResourceT, newLimit: ConstPtr<Rlimit>, oldLimit: MutPtr<Rlimit>): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuPrlimit(pid, resource.toInt(), newLimit.rawAddress, oldLimit.rawAddress)
 
-public actual fun prlimit64(pid: PidT, resource: RlimitResourceT, newLimit: COpaquePointer?, oldLimit: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_prlimit64(pid, resource.toInt(), (newLimit?.value ?: 0L), (oldLimit?.value ?: 0L))
+public actual fun prlimit64(pid: PidT, resource: RlimitResourceT, newLimit: ConstPtr<Rlimit64>, oldLimit: MutPtr<Rlimit64>): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuPrlimit64(pid, resource.toInt(), newLimit.rawAddress, oldLimit.rawAddress)
 
-public actual fun utmpname(file: String?): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_utmpname(file)
+public actual fun utmpname(file: ConstPtr<CChar>): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuUtmpname(file.rawAddress)
 
-public actual fun utmpxname(file: String?): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_utmpxname(file)
+public actual fun utmpxname(file: ConstPtr<CChar>): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuUtmpxname(file.rawAddress)
 
-public actual fun getutxent(): COpaquePointer? =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_getutxent().let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getutxent(): MutPtr<Utmpx> =
+    MutPtr(UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuGetutxent())
 
-public actual fun getutxid(ut: COpaquePointer?): COpaquePointer? =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_getutxid((ut?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getutxid(ut: ConstPtr<Utmpx>): MutPtr<Utmpx> =
+    MutPtr(UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuGetutxid(ut.rawAddress))
 
-public actual fun getutxline(ut: COpaquePointer?): COpaquePointer? =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_getutxline((ut?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getutxline(ut: ConstPtr<Utmpx>): MutPtr<Utmpx> =
+    MutPtr(UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuGetutxline(ut.rawAddress))
 
-public actual fun pututxline(ut: COpaquePointer?): COpaquePointer? =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_pututxline((ut?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun pututxline(ut: ConstPtr<Utmpx>): MutPtr<Utmpx> =
+    MutPtr(UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuPututxline(ut.rawAddress))
 
 public actual fun setutxent() {
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_setutxent()
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuSetutxent()
 }
 
 public actual fun endutxent() {
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_endutxent()
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuEndutxent()
 }
 
 public actual fun getpt(): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_getpt()
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuGetpt()
 
 public actual fun mallopt(param: CInt, value: CInt): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_mallopt(param, value)
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuMallopt(param, value)
 
-public actual fun gettimeofday(tp: COpaquePointer?, tz: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_gettimeofday((tp?.value ?: 0L), (tz?.value ?: 0L))
+public actual fun gettimeofday(tp: MutPtr<Timeval>, tz: MutPtr<Timezone>): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuGettimeofday(tp.rawAddress, tz.rawAddress)
 
-public actual fun getentropy(buf: COpaquePointer?, buflen: SizeT): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_getentropy((buf?.value ?: 0L), buflen.toLong())
+public actual fun getentropy(buf: MutPtr<CVoid>, buflen: SizeT): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuGetentropy(buf.rawAddress, buflen.toLong())
 
-public actual fun getrandom(buf: COpaquePointer?, buflen: SizeT, flags: CUint): SsizeT =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_getrandom((buf?.value ?: 0L), buflen.toLong(), flags.toInt())
+public actual fun getrandom(buf: MutPtr<CVoid>, buflen: SizeT, flags: CUint): SsizeT =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuGetrandom(buf.rawAddress, buflen.toLong(), flags.toInt())
 
 public actual fun getauxval(type: CUlong): CUlong =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_getauxval(type.toLong()).toULong()
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuGetauxval(type.toLong()).toULong()
 
-public actual fun adjtimex(buf: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_adjtimex((buf?.value ?: 0L))
+public actual fun adjtimex(buf: MutPtr<Timex>): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuAdjtimex(buf.rawAddress)
 
-public actual fun ntpAdjtime(buf: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_ntpAdjtime((buf?.value ?: 0L))
+public actual fun ntpAdjtime(buf: MutPtr<Timex>): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuNtpAdjtime(buf.rawAddress)
 
-public actual fun ntpGettime(buf: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_ntpGettime((buf?.value ?: 0L))
+public actual fun ntpGettime(buf: MutPtr<Ntptimeval>): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuNtpGettime(buf.rawAddress)
 
-public actual fun clockAdjtime(clkId: ClockidT, buf: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_clockAdjtime(clkId, (buf?.value ?: 0L))
+public actual fun clockAdjtime(clkId: ClockidT, buf: MutPtr<Timex>): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuClockAdjtime(clkId, buf.rawAddress)
 
-public actual fun fanotifyMark(fd: CInt, flags: CUint, mask: ULong, dirfd: CInt, path: String?): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_fanotifyMark(fd, flags.toInt(), mask.toLong(), dirfd, path)
+public actual fun fanotifyMark(fd: CInt, flags: CUint, mask: ULong, dirfd: CInt, path: ConstPtr<CChar>): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuFanotifyMark(fd, flags.toInt(), mask.toLong(), dirfd, path.rawAddress)
 
-public actual fun preadv2(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: OffT, flags: CInt): SsizeT =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_preadv2(fd, (iov?.value ?: 0L), iovcnt, offset, flags)
+public actual fun preadv2(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT, flags: CInt): SsizeT =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuPreadv2(fd, iov.rawAddress, iovcnt, offset, flags)
 
-public actual fun pwritev2(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: OffT, flags: CInt): SsizeT =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_pwritev2(fd, (iov?.value ?: 0L), iovcnt, offset, flags)
+public actual fun pwritev2(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT, flags: CInt): SsizeT =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuPwritev2(fd, iov.rawAddress, iovcnt, offset, flags)
 
-public actual fun preadv64v2(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: Off64T, flags: CInt): SsizeT =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_preadv64v2(fd, (iov?.value ?: 0L), iovcnt, offset, flags)
+public actual fun preadv64v2(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: Off64T, flags: CInt): SsizeT =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuPreadv64v2(fd, iov.rawAddress, iovcnt, offset, flags)
 
-public actual fun pwritev64v2(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: Off64T, flags: CInt): SsizeT =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_pwritev64v2(fd, (iov?.value ?: 0L), iovcnt, offset, flags)
+public actual fun pwritev64v2(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: Off64T, flags: CInt): SsizeT =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuPwritev64v2(fd, iov.rawAddress, iovcnt, offset, flags)
 
-public actual fun renameat2(olddirfd: CInt, oldpath: String?, newdirfd: CInt, newpath: String?, flags: CUint): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_renameat2(olddirfd, oldpath, newdirfd, newpath, flags.toInt())
+public actual fun renameat2(olddirfd: CInt, oldpath: ConstPtr<CChar>, newdirfd: CInt, newpath: ConstPtr<CChar>, flags: CUint): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuRenameat2(olddirfd, oldpath.rawAddress, newdirfd, newpath.rawAddress, flags.toInt())
 
-public actual fun explicitBzero(s: COpaquePointer?, len: SizeT) {
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_explicitBzero((s?.value ?: 0L), len.toLong())
+public actual fun explicitBzero(s: MutPtr<CVoid>, len: SizeT) {
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuExplicitBzero(s.rawAddress, len.toLong())
 }
 
-public actual fun reallocarray(ptr: COpaquePointer?, nmemb: SizeT, size: SizeT): COpaquePointer? =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_reallocarray((ptr?.value ?: 0L), nmemb.toLong(), size.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun reallocarray(ptr: MutPtr<CVoid>, nmemb: SizeT, size: SizeT): MutPtr<CVoid> =
+    MutPtr(UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuReallocarray(ptr.rawAddress, nmemb.toLong(), size.toLong()))
 
-public actual fun ctermid(s: COpaquePointer?): COpaquePointer? =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_ctermid((s?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun ctermid(s: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuCtermid(s.rawAddress))
 
-public actual fun backtrace(buf: COpaquePointer?, sz: CInt): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_backtrace((buf?.value ?: 0L), sz)
+public actual fun backtrace(buf: MutPtr<MutPtr<CVoid>>, sz: CInt): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuBacktrace(buf.rawAddress, sz)
 
-public actual fun backtraceSymbols(buffer: COpaquePointer?, len: CInt): COpaquePointer? =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_backtraceSymbols((buffer?.value ?: 0L), len).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun backtraceSymbols(buffer: ConstPtr<MutPtr<CVoid>>, len: CInt): MutPtr<MutPtr<CChar>> =
+    MutPtr(UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuBacktraceSymbols(buffer.rawAddress, len))
 
-public actual fun backtraceSymbolsFd(buffer: COpaquePointer?, len: CInt, fd: CInt) {
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_backtraceSymbolsFd((buffer?.value ?: 0L), len, fd)
+public actual fun backtraceSymbolsFd(buffer: ConstPtr<MutPtr<CVoid>>, len: CInt, fd: CInt) {
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuBacktraceSymbolsFd(buffer.rawAddress, len, fd)
 }
 
-public actual fun glob64(pattern: String?, flags: CInt, errfunc: Glob64ErrfuncCallback?, pglob: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_glob64(pattern, flags, 0L, (pglob?.value ?: 0L))
+public actual fun glob64(pattern: ConstPtr<CChar>, flags: CInt, errfunc: Glob64ErrfuncCallback?, pglob: MutPtr<Glob64T>): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuGlob64(pattern.rawAddress, flags, 0L, pglob.rawAddress)
 
-public actual fun globfree64(pglob: COpaquePointer?) {
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_globfree64((pglob?.value ?: 0L))
+public actual fun globfree64(pglob: MutPtr<Glob64T>) {
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuGlobfree64(pglob.rawAddress)
 }
 
 public actual fun ptrace(request: CUint, vararg variadicArgs: Long): CLong =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_ptrace(request.toInt(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuPtrace(request.toInt(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun pthreadAttrGetaffinityNp(attr: COpaquePointer?, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_pthreadAttrGetaffinityNp((attr?.value ?: 0L), cpusetsize.toLong(), (cpuset?.value ?: 0L))
+public actual fun pthreadAttrGetaffinityNp(attr: ConstPtr<PthreadAttrT>, cpusetsize: SizeT, cpuset: MutPtr<CpuSetT>): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuPthreadAttrGetaffinityNp(attr.rawAddress, cpusetsize.toLong(), cpuset.rawAddress)
 
-public actual fun pthreadAttrSetaffinityNp(attr: COpaquePointer?, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_pthreadAttrSetaffinityNp((attr?.value ?: 0L), cpusetsize.toLong(), (cpuset?.value ?: 0L))
+public actual fun pthreadAttrSetaffinityNp(attr: MutPtr<PthreadAttrT>, cpusetsize: SizeT, cpuset: ConstPtr<CpuSetT>): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuPthreadAttrSetaffinityNp(attr.rawAddress, cpusetsize.toLong(), cpuset.rawAddress)
 
 public actual fun getpriority(which: PriorityWhichT, who: IdT): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_getpriority(which.toInt(), who.toInt())
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuGetpriority(which.toInt(), who.toInt())
 
 public actual fun setpriority(which: PriorityWhichT, who: IdT, prio: CInt): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_setpriority(which.toInt(), who.toInt(), prio)
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuSetpriority(which.toInt(), who.toInt(), prio)
 
-public actual fun pthreadRwlockattrGetkindNp(attr: COpaquePointer?, value: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_pthreadRwlockattrGetkindNp((attr?.value ?: 0L), (value?.value ?: 0L))
+public actual fun pthreadRwlockattrGetkindNp(attr: ConstPtr<PthreadRwlockattrT>, value: MutPtr<CInt>): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuPthreadRwlockattrGetkindNp(attr.rawAddress, value.rawAddress)
 
-public actual fun pthreadRwlockattrSetkindNp(attr: COpaquePointer?, value: CInt): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_pthreadRwlockattrSetkindNp((attr?.value ?: 0L), value)
+public actual fun pthreadRwlockattrSetkindNp(attr: MutPtr<PthreadRwlockattrT>, value: CInt): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuPthreadRwlockattrSetkindNp(attr.rawAddress, value)
 
 public actual fun pthreadSigqueue(thread: PthreadT, sig: CInt, value: Sigval): CInt =
     0
 
-public actual fun pthreadTryjoinNp(thread: PthreadT, retval: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_pthreadTryjoinNp(thread.toLong(), (retval?.value ?: 0L))
+public actual fun pthreadTryjoinNp(thread: PthreadT, retval: MutPtr<MutPtr<CVoid>>): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuPthreadTryjoinNp(thread.toLong(), retval.rawAddress)
 
-public actual fun pthreadTimedjoinNp(thread: PthreadT, retval: COpaquePointer?, abstime: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_pthreadTimedjoinNp(thread.toLong(), (retval?.value ?: 0L), (abstime?.value ?: 0L))
+public actual fun pthreadTimedjoinNp(thread: PthreadT, retval: MutPtr<MutPtr<CVoid>>, abstime: ConstPtr<Timespec>): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuPthreadTimedjoinNp(thread.toLong(), retval.rawAddress, abstime.rawAddress)
 
 public actual fun mallinfo(): Mallinfo =
     Mallinfo()
@@ -470,113 +493,113 @@ public actual fun mallinfo2(): Mallinfo2 =
     Mallinfo2()
 
 public actual fun mallocStats() {
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_mallocStats()
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuMallocStats()
 }
 
-public actual fun mallocInfo(options: CInt, stream: FILE?): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_mallocInfo(options, (stream?.handle ?: 0L))
+public actual fun mallocInfo(options: CInt, stream: MutPtr<FILE>): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuMallocInfo(options, stream.rawAddress)
 
-public actual fun mallocUsableSize(ptr: COpaquePointer?): SizeT =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_mallocUsableSize((ptr?.value ?: 0L)).toULong()
+public actual fun mallocUsableSize(ptr: MutPtr<CVoid>): SizeT =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuMallocUsableSize(ptr.rawAddress).toULong()
 
-public actual fun getpwentR(pwd: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_getpwentR((pwd?.value ?: 0L), (buf?.value ?: 0L), buflen.toLong(), (result?.value ?: 0L))
+public actual fun getpwentR(pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuGetpwentR(pwd.rawAddress, buf.rawAddress, buflen.toLong(), result.rawAddress)
 
-public actual fun getgrentR(grp: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_getgrentR((grp?.value ?: 0L), (buf?.value ?: 0L), buflen.toLong(), (result?.value ?: 0L))
+public actual fun getgrentR(grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuGetgrentR(grp.rawAddress, buf.rawAddress, buflen.toLong(), result.rawAddress)
 
-public actual fun fgetpwentR(stream: FILE?, pwd: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_fgetpwentR((stream?.handle ?: 0L), (pwd?.value ?: 0L), (buf?.value ?: 0L), buflen.toLong(), (result?.value ?: 0L))
+public actual fun fgetpwentR(stream: MutPtr<FILE>, pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuFgetpwentR(stream.rawAddress, pwd.rawAddress, buf.rawAddress, buflen.toLong(), result.rawAddress)
 
-public actual fun fgetgrentR(stream: FILE?, grp: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_fgetgrentR((stream?.handle ?: 0L), (grp?.value ?: 0L), (buf?.value ?: 0L), buflen.toLong(), (result?.value ?: 0L))
+public actual fun fgetgrentR(stream: MutPtr<FILE>, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuFgetgrentR(stream.rawAddress, grp.rawAddress, buf.rawAddress, buflen.toLong(), result.rawAddress)
 
-public actual fun putpwent(p: COpaquePointer?, stream: FILE?): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_putpwent((p?.value ?: 0L), (stream?.handle ?: 0L))
+public actual fun putpwent(p: ConstPtr<Passwd>, stream: MutPtr<FILE>): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuPutpwent(p.rawAddress, stream.rawAddress)
 
-public actual fun putgrent(grp: COpaquePointer?, stream: FILE?): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_putgrent((grp?.value ?: 0L), (stream?.handle ?: 0L))
+public actual fun putgrent(grp: ConstPtr<Group>, stream: MutPtr<FILE>): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuPutgrent(grp.rawAddress, stream.rawAddress)
 
 public actual fun sethostid(hostid: CLong): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_sethostid(hostid)
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuSethostid(hostid)
 
-public actual fun memfdCreate(name: String?, flags: CUint): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_memfdCreate(name, flags.toInt())
+public actual fun memfdCreate(name: ConstPtr<CChar>, flags: CUint): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuMemfdCreate(name.rawAddress, flags.toInt())
 
-public actual fun mlock2(addr: COpaquePointer?, len: SizeT, flags: CUint): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_mlock2((addr?.value ?: 0L), len.toLong(), flags.toInt())
+public actual fun mlock2(addr: ConstPtr<CVoid>, len: SizeT, flags: CUint): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuMlock2(addr.rawAddress, len.toLong(), flags.toInt())
 
-public actual fun euidaccess(pathname: String?, mode: CInt): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_euidaccess(pathname, mode)
+public actual fun euidaccess(pathname: ConstPtr<CChar>, mode: CInt): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuEuidaccess(pathname.rawAddress, mode)
 
-public actual fun eaccess(pathname: String?, mode: CInt): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_eaccess(pathname, mode)
+public actual fun eaccess(pathname: ConstPtr<CChar>, mode: CInt): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuEaccess(pathname.rawAddress, mode)
 
-public actual fun asctimeR(tm: COpaquePointer?, buf: COpaquePointer?): COpaquePointer? =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_asctimeR((tm?.value ?: 0L), (buf?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun asctimeR(tm: ConstPtr<Tm>, buf: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuAsctimeR(tm.rawAddress, buf.rawAddress))
 
-public actual fun ctimeR(timep: COpaquePointer?, buf: COpaquePointer?): COpaquePointer? =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_ctimeR((timep?.value ?: 0L), (buf?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun ctimeR(timep: ConstPtr<TimeT>, buf: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuCtimeR(timep.rawAddress, buf.rawAddress))
 
-public actual fun dirname(path: COpaquePointer?): COpaquePointer? =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_dirname((path?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun dirname(path: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuDirname(path.rawAddress))
 
-public actual fun posixBasename(path: COpaquePointer?): COpaquePointer? =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_posixBasename((path?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun posixBasename(path: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuPosixBasename(path.rawAddress))
 
-public actual fun gnuBasename(path: String?): COpaquePointer? =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_gnuBasename(path).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun gnuBasename(path: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuGnuBasename(path.rawAddress))
 
-public actual fun dlmopen(lmid: LmidT, filename: String?, flag: CInt): COpaquePointer? =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_dlmopen(lmid, filename, flag).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun dlmopen(lmid: LmidT, filename: ConstPtr<CChar>, flag: CInt): MutPtr<CVoid> =
+    MutPtr(UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuDlmopen(lmid, filename.rawAddress, flag))
 
-public actual fun dlinfo(handle: COpaquePointer?, request: CInt, info: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_dlinfo((handle?.value ?: 0L), request, (info?.value ?: 0L))
+public actual fun dlinfo(handle: MutPtr<CVoid>, request: CInt, info: MutPtr<CVoid>): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuDlinfo(handle.rawAddress, request, info.rawAddress)
 
-public actual fun dladdr1(addr: COpaquePointer?, info: COpaquePointer?, extraInfo: COpaquePointer?, flags: CInt): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_dladdr1((addr?.value ?: 0L), (info?.value ?: 0L), (extraInfo?.value ?: 0L), flags)
+public actual fun dladdr1(addr: ConstPtr<CVoid>, info: MutPtr<DlInfo>, extraInfo: MutPtr<MutPtr<CVoid>>, flags: CInt): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuDladdr1(addr.rawAddress, info.rawAddress, extraInfo.rawAddress, flags)
 
-public actual fun dlvsym(handle: COpaquePointer?, symbol: String?, version: String?): COpaquePointer? =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_dlvsym((handle?.value ?: 0L), symbol, version).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun dlvsym(handle: MutPtr<CVoid>, symbol: ConstPtr<CChar>, version: ConstPtr<CChar>): MutPtr<CVoid> =
+    MutPtr(UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuDlvsym(handle.rawAddress, symbol.rawAddress, version.rawAddress))
 
 public actual fun mallocTrim(pad: SizeT): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_mallocTrim(pad.toLong())
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuMallocTrim(pad.toLong())
 
-public actual fun gnuGetLibcRelease(): COpaquePointer? =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_gnuGetLibcRelease().let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun gnuGetLibcRelease(): ConstPtr<CChar> =
+    ConstPtr(UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuGnuGetLibcRelease())
 
-public actual fun gnuGetLibcVersion(): COpaquePointer? =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_gnuGetLibcVersion().let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun gnuGetLibcVersion(): ConstPtr<CChar> =
+    ConstPtr(UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuGnuGetLibcVersion())
 
-public actual fun posixSpawnFileActionsAddchdirNp(actions: COpaquePointer?, path: String?): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_posixSpawnFileActionsAddchdirNp((actions?.value ?: 0L), path)
+public actual fun posixSpawnFileActionsAddchdirNp(actions: MutPtr<PosixSpawnFileActionsT>, path: ConstPtr<CChar>): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuPosixSpawnFileActionsAddchdirNp(actions.rawAddress, path.rawAddress)
 
-public actual fun posixSpawnFileActionsAddfchdirNp(actions: COpaquePointer?, fd: CInt): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_posixSpawnFileActionsAddfchdirNp((actions?.value ?: 0L), fd)
+public actual fun posixSpawnFileActionsAddfchdirNp(actions: MutPtr<PosixSpawnFileActionsT>, fd: CInt): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuPosixSpawnFileActionsAddfchdirNp(actions.rawAddress, fd)
 
-public actual fun posixSpawnFileActionsAddclosefromNp(actions: COpaquePointer?, from: CInt): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_posixSpawnFileActionsAddclosefromNp((actions?.value ?: 0L), from)
+public actual fun posixSpawnFileActionsAddclosefromNp(actions: MutPtr<PosixSpawnFileActionsT>, from: CInt): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuPosixSpawnFileActionsAddclosefromNp(actions.rawAddress, from)
 
-public actual fun posixSpawnFileActionsAddtcsetpgrpNp(actions: COpaquePointer?, tcfd: CInt): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_posixSpawnFileActionsAddtcsetpgrpNp((actions?.value ?: 0L), tcfd)
+public actual fun posixSpawnFileActionsAddtcsetpgrpNp(actions: MutPtr<PosixSpawnFileActionsT>, tcfd: CInt): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuPosixSpawnFileActionsAddtcsetpgrpNp(actions.rawAddress, tcfd)
 
-public actual fun getmntentR(stream: FILE?, mntbuf: COpaquePointer?, buf: COpaquePointer?, buflen: CInt): COpaquePointer? =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_getmntentR((stream?.handle ?: 0L), (mntbuf?.value ?: 0L), (buf?.value ?: 0L), buflen).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getmntentR(stream: MutPtr<FILE>, mntbuf: MutPtr<Mntent>, buf: MutPtr<CChar>, buflen: CInt): MutPtr<Mntent> =
+    MutPtr(UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuGetmntentR(stream.rawAddress, mntbuf.rawAddress, buf.rawAddress, buflen))
 
-public actual fun execveat(dirfd: CInt, pathname: String?, argv: COpaquePointer?, envp: COpaquePointer?, flags: CInt): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_execveat(dirfd, pathname, (argv?.value ?: 0L), (envp?.value ?: 0L), flags)
+public actual fun execveat(dirfd: CInt, pathname: ConstPtr<CChar>, argv: ConstPtr<MutPtr<CChar>>, envp: ConstPtr<MutPtr<CChar>>, flags: CInt): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuExecveat(dirfd, pathname.rawAddress, argv.rawAddress, envp.rawAddress, flags)
 
 public actual fun closeRange(first: CUint, last: CUint, flags: CInt): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_closeRange(first.toInt(), last.toInt(), flags)
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuCloseRange(first.toInt(), last.toInt(), flags)
 
-public actual fun mqNotify(mqdes: MqdT, sevp: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_mqNotify(mqdes.toLong(), (sevp?.value ?: 0L))
+public actual fun mqNotify(mqdes: MqdT, sevp: ConstPtr<Sigevent>): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuMqNotify(mqdes.toLong(), sevp.rawAddress)
 
-public actual fun epollPwait2(epfd: CInt, events: COpaquePointer?, maxevents: CInt, timeout: COpaquePointer?, sigmask: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_epollPwait2(epfd, (events?.value ?: 0L), maxevents, (timeout?.value ?: 0L), (sigmask?.value ?: 0L))
+public actual fun epollPwait2(epfd: CInt, events: MutPtr<EpollEvent>, maxevents: CInt, timeout: ConstPtr<Timespec>, sigmask: ConstPtr<SigsetT>): CInt =
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuEpollPwait2(epfd, events.rawAddress, maxevents, timeout.rawAddress, sigmask.rawAddress)
 
-public actual fun mempcpy(dest: COpaquePointer?, src: COpaquePointer?, n: SizeT): COpaquePointer? =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_mempcpy((dest?.value ?: 0L), (src?.value ?: 0L), n.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun mempcpy(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, n: SizeT): MutPtr<CVoid> =
+    MutPtr(UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuMempcpy(dest.rawAddress, src.rawAddress, n.toLong()))
 
 public actual fun tgkill(tgid: PidT, tid: PidT, sig: CInt): CInt =
-    UnixLinuxlikeLinuxGnuJniBridge.libc_unix_linuxlike_linux_gnu_tgkill(tgid, tid, sig)
+    UnixLinuxlikeLinuxGnuJniBridge.libcUnixLinuxlikeLinuxGnuTgkill(tgid, tid, sig)

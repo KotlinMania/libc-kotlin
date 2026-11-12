@@ -9,18 +9,18 @@
 extern "C" {
 #endif
 
-int32_t libc_unix_newlib_horizon_pthreadCreate(void* native, void* attr, void* f, void* value);
-int32_t libc_unix_newlib_horizon_pthreadAttrGetschedparam(void* attr, void* param);
-int32_t libc_unix_newlib_horizon_pthreadAttrSetschedparam(void* attr, void* param);
-int32_t libc_unix_newlib_horizon_pthreadAttrGetprocessoridNp(void* attr, void* processor_id);
-int32_t libc_unix_newlib_horizon_pthreadAttrSetprocessoridNp(void* attr, int32_t processor_id);
-int32_t libc_unix_newlib_horizon_pthreadGetschedparam(void* native, void* policy, void* param);
-int32_t libc_unix_newlib_horizon_pthreadSetschedparam(void* native, int32_t policy, void* param);
-int32_t libc_unix_newlib_horizon_pthreadCondattrGetclock(void* attr, void* clock_id);
-int32_t libc_unix_newlib_horizon_pthreadCondattrSetclock(void* attr, uint64_t clock_id);
-int32_t libc_unix_newlib_horizon_pthreadGetprocessoridNp(void);
-int64_t libc_unix_newlib_horizon_getrandom(void* buf, uint64_t buflen, uint32_t flags);
-int64_t libc_unix_newlib_horizon_gethostid(void);
+int32_t libcUnixNewlibHorizonPthreadCreate(void* native, void* attr, void* f, void* value);
+int32_t libcUnixNewlibHorizonPthreadAttrGetschedparam(void* attr, void* param);
+int32_t libcUnixNewlibHorizonPthreadAttrSetschedparam(void* attr, void* param);
+int32_t libcUnixNewlibHorizonPthreadAttrGetprocessoridNp(void* attr, void* processorId);
+int32_t libcUnixNewlibHorizonPthreadAttrSetprocessoridNp(void* attr, int32_t processorId);
+int32_t libcUnixNewlibHorizonPthreadGetschedparam(void* native, void* policy, void* param);
+int32_t libcUnixNewlibHorizonPthreadSetschedparam(void* native, int32_t policy, void* param);
+int32_t libcUnixNewlibHorizonPthreadCondattrGetclock(void* attr, void* clockId);
+int32_t libcUnixNewlibHorizonPthreadCondattrSetclock(void* attr, uint64_t clockId);
+int32_t libcUnixNewlibHorizonPthreadGetprocessoridNp(void);
+int64_t libcUnixNewlibHorizonGetrandom(void* buf, uint64_t buflen, uint32_t flags);
+int64_t libcUnixNewlibHorizonGethostid(void);
 
 #ifdef __cplusplus
 }

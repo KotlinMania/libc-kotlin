@@ -3,7 +3,8 @@
 package io.github.kotlinmania.libc.new.qurt.errno
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 private object NewQurtErrnoJniBridge {
     init {
@@ -11,8 +12,8 @@ private object NewQurtErrnoJniBridge {
     }
 
     @JvmStatic
-    external fun libc_new_qurt_errno_errnoLocation(): Long
+    external fun libcNewQurtErrnoErrnoLocation(): Long
 }
 
-public actual fun errnoLocation(): COpaquePointer? =
-    NewQurtErrnoJniBridge.libc_new_qurt_errno_errnoLocation().let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun errnoLocation(): MutPtr<CInt> =
+    MutPtr(NewQurtErrnoJniBridge.libcNewQurtErrnoErrnoLocation())

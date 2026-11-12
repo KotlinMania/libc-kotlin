@@ -22,27 +22,27 @@
 #endif
 #endif
 
-int32_t libc_wasi_p2_socket(int32_t domain, int32_t type_, int32_t protocol) {
-    return (int32_t)socket(domain, type_, protocol);
+int32_t libcWasiP2Socket(int32_t domain, int32_t type, int32_t protocol) {
+    return (int32_t)socket(domain, type, protocol);
 }
 
-int32_t libc_wasi_p2_connect(int32_t fd, void* name, uint32_t addrlen) {
+int32_t libcWasiP2Connect(int32_t fd, void* name, uint32_t addrlen) {
     return (int32_t)connect(fd, name, addrlen);
 }
 
-int32_t libc_wasi_p2_bind(int32_t arg_0_socket, void* addr, uint32_t addrlen) {
-    return (int32_t)bind(arg_0_socket, addr, addrlen);
+int32_t libcWasiP2Bind(int32_t arg0Socket, void* addr, uint32_t addrlen) {
+    return (int32_t)bind(arg0Socket, addr, addrlen);
 }
 
-int32_t libc_wasi_p2_listen(int32_t arg_0_socket, int32_t backlog) {
-    return (int32_t)listen(arg_0_socket, backlog);
+int32_t libcWasiP2Listen(int32_t arg0Socket, int32_t backlog) {
+    return (int32_t)listen(arg0Socket, backlog);
 }
 
-int32_t libc_wasi_p2_accept(int32_t arg_0_socket, void* addr, void* addrlen) {
-    return (int32_t)accept(arg_0_socket, addr, addrlen);
+int32_t libcWasiP2Accept(int32_t arg0Socket, void* addr, void* addrlen) {
+    return (int32_t)accept(arg0Socket, addr, addrlen);
 }
 
-int32_t libc_wasi_p2_accept4(int32_t arg_0_socket, void* addr, void* addrlen, int32_t flags) {
+int32_t libcWasiP2Accept4(int32_t arg0Socket, void* addr, void* addrlen, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -64,37 +64,37 @@ int32_t libc_wasi_p2_accept4(int32_t arg_0_socket, void* addr, void* addrlen, in
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_socket, addr, addrlen, flags);
+        return km_fn_ptr(arg0Socket, addr, addrlen, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_wasi_p2_getsockname(int32_t arg_0_socket, void* addr, void* addrlen) {
-    return (int32_t)getsockname(arg_0_socket, addr, addrlen);
+int32_t libcWasiP2Getsockname(int32_t arg0Socket, void* addr, void* addrlen) {
+    return (int32_t)getsockname(arg0Socket, addr, addrlen);
 }
 
-int32_t libc_wasi_p2_getpeername(int32_t arg_0_socket, void* addr, void* addrlen) {
-    return (int32_t)getpeername(arg_0_socket, addr, addrlen);
+int32_t libcWasiP2Getpeername(int32_t arg0Socket, void* addr, void* addrlen) {
+    return (int32_t)getpeername(arg0Socket, addr, addrlen);
 }
 
-int64_t libc_wasi_p2_sendto(int32_t arg_0_socket, void* buffer, uint64_t length, int32_t flags, void* addr, uint32_t addrlen) {
-    return (int64_t)sendto(arg_0_socket, buffer, length, flags, addr, addrlen);
+int64_t libcWasiP2Sendto(int32_t arg0Socket, void* buffer, uint64_t length, int32_t flags, void* addr, uint32_t addrlen) {
+    return (int64_t)sendto(arg0Socket, buffer, length, flags, addr, addrlen);
 }
 
-int64_t libc_wasi_p2_recvfrom(int32_t arg_0_socket, void* buffer, uint64_t length, int32_t flags, void* addr, void* addrlen) {
-    return (int64_t)recvfrom(arg_0_socket, buffer, length, flags, addr, addrlen);
+int64_t libcWasiP2Recvfrom(int32_t arg0Socket, void* buffer, uint64_t length, int32_t flags, void* addr, void* addrlen) {
+    return (int64_t)recvfrom(arg0Socket, buffer, length, flags, addr, addrlen);
 }
 
-int32_t libc_wasi_p2_getsockopt(int32_t sockfd, int32_t level, int32_t optname, void* optval, void* optlen) {
+int32_t libcWasiP2Getsockopt(int32_t sockfd, int32_t level, int32_t optname, void* optval, void* optlen) {
     return (int32_t)getsockopt(sockfd, level, optname, optval, optlen);
 }
 
-int32_t libc_wasi_p2_setsockopt(int32_t sockfd, int32_t level, int32_t optname, void* optval, uint32_t optlen) {
+int32_t libcWasiP2Setsockopt(int32_t sockfd, int32_t level, int32_t optname, void* optval, uint32_t optlen) {
     return (int32_t)setsockopt(sockfd, level, optname, optval, optlen);
 }
 
-int32_t libc_wasi_p2_getaddrinfo(const char* host, const char* serv, void* hint, void* res) {
+int32_t libcWasiP2Getaddrinfo(const char* host, const char* serv, void* hint, void* res) {
     typedef int32_t (*km_fn_t)(const char*, const char*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -122,7 +122,7 @@ int32_t libc_wasi_p2_getaddrinfo(const char* host, const char* serv, void* hint,
     return -1;
 }
 
-void libc_wasi_p2_freeaddrinfo(void* p) {
+void libcWasiP2Freeaddrinfo(void* p) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -150,7 +150,7 @@ void libc_wasi_p2_freeaddrinfo(void* p) {
     errno = ENOSYS;
 }
 
-const char* libc_wasi_p2_gaiStrerror(int32_t ecode) {
+const char* libcWasiP2GaiStrerror(int32_t ecode) {
     typedef const char* (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

@@ -9,12 +9,12 @@
 extern "C" {
 #endif
 
-int32_t libc_new_qurt_semaphore_semInit(void* sem, int32_t pshared, uint32_t value);
-int32_t libc_new_qurt_semaphore_semDestroy(void* sem);
-int32_t libc_new_qurt_semaphore_semWait(void* sem);
-int32_t libc_new_qurt_semaphore_semTrywait(void* sem);
-int32_t libc_new_qurt_semaphore_semPost(void* sem);
-int32_t libc_new_qurt_semaphore_semGetvalue(void* sem, void* sval);
+int32_t libcNewQurtSemaphoreSemInit(void* sem, int32_t pshared, uint32_t value);
+int32_t libcNewQurtSemaphoreSemDestroy(void* sem);
+int32_t libcNewQurtSemaphoreSemWait(void* sem);
+int32_t libcNewQurtSemaphoreSemTrywait(void* sem);
+int32_t libcNewQurtSemaphoreSemPost(void* sem);
+int32_t libcNewQurtSemaphoreSemGetvalue(void* sem, void* sval);
 
 #ifdef __cplusplus
 }

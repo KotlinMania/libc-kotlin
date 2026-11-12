@@ -4,3 +4,4 @@ headerFilter = unix_nuttx_wrapper.h
 compilerOpts = -Isrc/native/interop/cinterop
 staticLibraries = unix_nuttx_wrapper.a
 linkerOpts.mingw = -lws2_32
+noStringConversion = libcUnixNuttxPthreadSetnameNp

@@ -51,7 +51,7 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_unix_redox_errnoLocation_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxErrnoLocation_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -81,7 +81,7 @@ static Napi::Value libc_unix_redox_errnoLocation_napi(const Napi::CallbackInfo& 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_redox_strerrorR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxStrerrorR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t errnum = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -116,7 +116,7 @@ static Napi::Value libc_unix_redox_strerrorR_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_redox_dirfd_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxDirfd_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* dirp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -149,7 +149,7 @@ static Napi::Value libc_unix_redox_dirfd_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_redox_pipe2_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxPipe2_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* fds = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -183,7 +183,7 @@ static Napi::Value libc_unix_redox_pipe2_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_redox_getdtablesize_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxGetdtablesize_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -215,7 +215,7 @@ static Napi::Value libc_unix_redox_getdtablesize_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_redox_getresgid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxGetresgid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* rgid = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* egid = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -250,7 +250,7 @@ static Napi::Value libc_unix_redox_getresgid_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_redox_getresuid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxGetresuid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ruid = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* euid = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -285,7 +285,7 @@ static Napi::Value libc_unix_redox_getresuid_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_redox_setresgid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxSetresgid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t rgid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t egid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -320,7 +320,7 @@ static Napi::Value libc_unix_redox_setresgid_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_redox_setresuid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxSetresuid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t ruid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t euid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -355,7 +355,7 @@ static Napi::Value libc_unix_redox_setresuid_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_redox_getgrent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxGetgrent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -387,7 +387,7 @@ static Napi::Value libc_unix_redox_getgrent_napi(const Napi::CallbackInfo& km_in
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_redox_setgrent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxSetgrent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -417,7 +417,7 @@ static Napi::Value libc_unix_redox_setgrent_napi(const Napi::CallbackInfo& km_in
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_redox_endgrent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxEndgrent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -447,7 +447,7 @@ static Napi::Value libc_unix_redox_endgrent_napi(const Napi::CallbackInfo& km_in
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_redox_getgrgid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxGetgrgid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t gid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void* (*km_fn_t)(int32_t);
@@ -480,7 +480,7 @@ static Napi::Value libc_unix_redox_getgrgid_napi(const Napi::CallbackInfo& km_in
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_redox_getgrgidR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxGetgrgidR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t gid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* grp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -517,11 +517,9 @@ static Napi::Value libc_unix_redox_getgrgidR_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_redox_getgrnam_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxGetgrnam_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -552,11 +550,9 @@ static Napi::Value libc_unix_redox_getgrnam_napi(const Napi::CallbackInfo& km_in
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_redox_getgrnamR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxGetgrnamR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* grp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint64_t buflen = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
@@ -591,11 +587,9 @@ static Napi::Value libc_unix_redox_getgrnamR_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_redox_getgrouplist_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxGetgrouplist_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool user_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string user_str = user_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* user = user_null ? nullptr : user_str.c_str();
+    const char* user = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t group = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     void* groups = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* ngroups = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
@@ -629,7 +623,7 @@ static Napi::Value libc_unix_redox_getgrouplist_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_redox_memalign_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxMemalign_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t align = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -663,7 +657,7 @@ static Napi::Value libc_unix_redox_memalign_napi(const Napi::CallbackInfo& km_in
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_redox_getnameinfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxGetnameinfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t addrlen = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -702,7 +696,7 @@ static Napi::Value libc_unix_redox_getnameinfo_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_redox_pthreadAtfork_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxPthreadAtfork_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* prepare = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* parent = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -737,7 +731,7 @@ static Napi::Value libc_unix_redox_pthreadAtfork_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_redox_pthreadCreate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxPthreadCreate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* tid = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -773,10 +767,10 @@ static Napi::Value libc_unix_redox_pthreadCreate_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_redox_pthreadCondattrSetclock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxPthreadCondattrSetclock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    int32_t clock_id = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t clockId = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -799,7 +793,7 @@ static Napi::Value libc_unix_redox_pthreadCondattrSetclock_napi(const Napi::Call
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(attr, clock_id);
+        km_res = km_fn_ptr(attr, clockId);
     } else {
         errno = ENOSYS;
         km_res = ENOSYS;
@@ -807,7 +801,7 @@ static Napi::Value libc_unix_redox_pthreadCondattrSetclock_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_redox_openpty_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxOpenpty_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* amaster = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* aslave = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -844,7 +838,7 @@ static Napi::Value libc_unix_redox_openpty_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_redox_getpwent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxGetpwent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -876,7 +870,7 @@ static Napi::Value libc_unix_redox_getpwent_napi(const Napi::CallbackInfo& km_in
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_redox_setpwent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxSetpwent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -906,7 +900,7 @@ static Napi::Value libc_unix_redox_setpwent_napi(const Napi::CallbackInfo& km_in
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_redox_endpwent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxEndpwent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -936,11 +930,9 @@ static Napi::Value libc_unix_redox_endpwent_napi(const Napi::CallbackInfo& km_in
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_redox_getpwnamR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxGetpwnamR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* pwd = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint64_t buflen = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
@@ -975,7 +967,7 @@ static Napi::Value libc_unix_redox_getpwnamR_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_redox_getpwuidR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxGetpwuidR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t uid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* pwd = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1012,7 +1004,7 @@ static Napi::Value libc_unix_redox_getpwuidR_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_redox_pthreadSigmask_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxPthreadSigmask_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t how = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1047,7 +1039,7 @@ static Napi::Value libc_unix_redox_pthreadSigmask_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_redox_pthreadCancel_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxPthreadCancel_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* thread = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -1080,7 +1072,7 @@ static Napi::Value libc_unix_redox_pthreadCancel_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_redox_pthreadKill_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxPthreadKill_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* thread = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t sig = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1114,7 +1106,7 @@ static Napi::Value libc_unix_redox_pthreadKill_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_redox_sigtimedwait_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxSigtimedwait_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* sig = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1149,7 +1141,7 @@ static Napi::Value libc_unix_redox_sigtimedwait_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_redox_sigwait_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxSigwait_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* sig = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1183,7 +1175,7 @@ static Napi::Value libc_unix_redox_sigwait_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_redox_getsubopt_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxGetsubopt_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* optionp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* tokens = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1218,9 +1210,9 @@ static Napi::Value libc_unix_redox_getsubopt_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_redox_mkostemp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxMkostemp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    char* arg_0_template = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    char* arg0Template = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1244,7 +1236,7 @@ static Napi::Value libc_unix_redox_mkostemp_napi(const Napi::CallbackInfo& km_in
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_template, flags);
+        km_res = km_fn_ptr(arg0Template, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1252,9 +1244,9 @@ static Napi::Value libc_unix_redox_mkostemp_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_redox_mkostemps_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxMkostemps_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    char* arg_0_template = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    char* arg0Template = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t suffixlen = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     int32_t flags = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(char*, int32_t, int32_t);
@@ -1279,7 +1271,7 @@ static Napi::Value libc_unix_redox_mkostemps_napi(const Napi::CallbackInfo& km_i
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_template, suffixlen, flags);
+        km_res = km_fn_ptr(arg0Template, suffixlen, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1287,7 +1279,7 @@ static Napi::Value libc_unix_redox_mkostemps_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_redox_reallocarray_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxReallocarray_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t nmemb = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1322,16 +1314,12 @@ static Napi::Value libc_unix_redox_reallocarray_napi(const Napi::CallbackInfo& k
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_redox_renameat2_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxRenameat2_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t olddirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool oldpath_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string oldpath_str = oldpath_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* oldpath = oldpath_null ? nullptr : oldpath_str.c_str();
+    const char* oldpath = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t newdirfd = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    bool newpath_null = (km_info.Length() <= 3 || km_info[3].IsNull() || km_info[3].IsUndefined());
-    std::string newpath_str = newpath_null ? std::string() : km_info[3].ToString().Utf8Value();
-    const char* newpath = newpath_null ? nullptr : newpath_str.c_str();
+    const char* newpath = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     uint32_t flags = static_cast<uint32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, const char*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1363,7 +1351,7 @@ static Napi::Value libc_unix_redox_renameat2_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_redox_explicitBzero_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxExplicitBzero_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* p = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1395,12 +1383,10 @@ static Napi::Value libc_unix_redox_explicitBzero_napi(const Napi::CallbackInfo& 
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_redox_strlcat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxStrlcat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* dst = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool src_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string src_str = src_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* src = src_null ? nullptr : src_str.c_str();
+    const char* src = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t siz = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef uint64_t (*km_fn_t)(char*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1432,12 +1418,10 @@ static Napi::Value libc_unix_redox_strlcat_napi(const Napi::CallbackInfo& km_inf
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_redox_strlcpy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxStrlcpy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* dst = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool src_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string src_str = src_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* src = src_null ? nullptr : src_str.c_str();
+    const char* src = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t siz = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef uint64_t (*km_fn_t)(char*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1469,7 +1453,7 @@ static Napi::Value libc_unix_redox_strlcpy_napi(const Napi::CallbackInfo& km_inf
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_redox_epollCreate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxEpollCreate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t size = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -1502,7 +1486,7 @@ static Napi::Value libc_unix_redox_epollCreate_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_redox_epollCreate1_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxEpollCreate1_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t flags = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -1535,7 +1519,7 @@ static Napi::Value libc_unix_redox_epollCreate1_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_redox_epollWait_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxEpollWait_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t epfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* events = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1571,7 +1555,7 @@ static Napi::Value libc_unix_redox_epollWait_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_redox_epollCtl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxEpollCtl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t epfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t op = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1607,7 +1591,7 @@ static Napi::Value libc_unix_redox_epollCtl_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_redox_ioctl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxIoctl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint64_t request = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1651,7 +1635,7 @@ static Napi::Value libc_unix_redox_ioctl_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_redox_madvise_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxMadvise_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1686,7 +1670,7 @@ static Napi::Value libc_unix_redox_madvise_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_redox_msync_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxMsync_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1721,7 +1705,7 @@ static Napi::Value libc_unix_redox_msync_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_redox_mprotect_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxMprotect_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1756,11 +1740,9 @@ static Napi::Value libc_unix_redox_mprotect_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_redox_shmOpen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxShmOpen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t oflag = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     int32_t mode = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, int32_t, int32_t);
@@ -1793,11 +1775,9 @@ static Napi::Value libc_unix_redox_shmOpen_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_redox_shmUnlink_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxShmUnlink_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1828,7 +1808,7 @@ static Napi::Value libc_unix_redox_shmUnlink_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_redox_getpriority_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxGetpriority_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t which = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t who = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1862,7 +1842,7 @@ static Napi::Value libc_unix_redox_getpriority_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_redox_setpriority_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxSetpriority_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t which = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t who = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1897,7 +1877,7 @@ static Napi::Value libc_unix_redox_setpriority_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_redox_getrlimit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxGetrlimit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t resource = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* rlim = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1931,7 +1911,7 @@ static Napi::Value libc_unix_redox_getrlimit_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_redox_setrlimit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxSetrlimit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t resource = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* rlim = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1965,7 +1945,7 @@ static Napi::Value libc_unix_redox_setrlimit_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_redox_cmsgData_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxCmsgData_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cmsg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -1998,7 +1978,7 @@ static Napi::Value libc_unix_redox_cmsgData_napi(const Napi::CallbackInfo& km_in
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_redox_cmsgFirsthdr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxCmsgFirsthdr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mhdr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -2031,7 +2011,7 @@ static Napi::Value libc_unix_redox_cmsgFirsthdr_napi(const Napi::CallbackInfo& k
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_redox_cmsgNxthdr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxCmsgNxthdr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mhdr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* cmsg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2065,11 +2045,11 @@ static Napi::Value libc_unix_redox_cmsgNxthdr_napi(const Napi::CallbackInfo& km_
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_redox_bind_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxBind_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t arg0Socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* address = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint32_t address_len = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    uint32_t addressLen = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2092,7 +2072,7 @@ static Napi::Value libc_unix_redox_bind_napi(const Napi::CallbackInfo& km_info) 
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_socket, address, address_len);
+        km_res = km_fn_ptr(arg0Socket, address, addressLen);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2100,9 +2080,9 @@ static Napi::Value libc_unix_redox_bind_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_redox_recvfrom_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxRecvfrom_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t arg0Socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t len = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     int32_t flags = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
@@ -2130,7 +2110,7 @@ static Napi::Value libc_unix_redox_recvfrom_napi(const Napi::CallbackInfo& km_in
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_socket, buf, len, flags, addr, addrlen);
+        km_res = km_fn_ptr(arg0Socket, buf, len, flags, addr, addrlen);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2138,9 +2118,9 @@ static Napi::Value libc_unix_redox_recvfrom_napi(const Napi::CallbackInfo& km_in
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_redox_recvmsg_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxRecvmsg_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t arg0Socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* msg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t);
@@ -2165,7 +2145,7 @@ static Napi::Value libc_unix_redox_recvmsg_napi(const Napi::CallbackInfo& km_inf
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_socket, msg, flags);
+        km_res = km_fn_ptr(arg0Socket, msg, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2173,9 +2153,9 @@ static Napi::Value libc_unix_redox_recvmsg_napi(const Napi::CallbackInfo& km_inf
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_redox_sendmsg_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxSendmsg_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t arg0Socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* msg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t);
@@ -2200,7 +2180,7 @@ static Napi::Value libc_unix_redox_sendmsg_napi(const Napi::CallbackInfo& km_inf
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_socket, msg, flags);
+        km_res = km_fn_ptr(arg0Socket, msg, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2208,7 +2188,7 @@ static Napi::Value libc_unix_redox_sendmsg_napi(const Napi::CallbackInfo& km_inf
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_redox_futimens_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxFutimens_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* times = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2242,7 +2222,7 @@ static Napi::Value libc_unix_redox_futimens_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_redox_preadv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxPreadv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2278,7 +2258,7 @@ static Napi::Value libc_unix_redox_preadv_napi(const Napi::CallbackInfo& km_info
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_redox_pwritev_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxPwritev_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2314,7 +2294,7 @@ static Napi::Value libc_unix_redox_pwritev_napi(const Napi::CallbackInfo& km_inf
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_redox_readv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxReadv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2349,7 +2329,7 @@ static Napi::Value libc_unix_redox_readv_napi(const Napi::CallbackInfo& km_info)
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_redox_writev_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxWritev_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2384,7 +2364,7 @@ static Napi::Value libc_unix_redox_writev_napi(const Napi::CallbackInfo& km_info
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_redox_uname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxUname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* utsname = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -2417,7 +2397,7 @@ static Napi::Value libc_unix_redox_uname_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_redox_gettimeofday_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxGettimeofday_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* tp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* tz = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2451,9 +2431,9 @@ static Napi::Value libc_unix_redox_gettimeofday_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_redox_clockGettime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxClockGettime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t clk_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t clkId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* tp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2477,7 +2457,7 @@ static Napi::Value libc_unix_redox_clockGettime_napi(const Napi::CallbackInfo& k
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(clk_id, tp);
+        km_res = km_fn_ptr(clkId, tp);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2485,13 +2465,11 @@ static Napi::Value libc_unix_redox_clockGettime_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_redox_strftime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxStrftime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* s = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t max = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
-    bool format_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string format_str = format_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* format = format_null ? nullptr : format_str.c_str();
+    const char* format = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* tm = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef uint64_t (*km_fn_t)(char*, uint64_t, const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2523,7 +2501,7 @@ static Napi::Value libc_unix_redox_strftime_napi(const Napi::CallbackInfo& km_in
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_redox_loginTty_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixRedoxLoginTty_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -2557,78 +2535,78 @@ static Napi::Value libc_unix_redox_loginTty_napi(const Napi::CallbackInfo& km_in
 }
 
 static void register_unix_redox_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_unix_redox_errnoLocation", Napi::Function::New(env, libc_unix_redox_errnoLocation_napi));
-    exports.Set("libc_unix_redox_strerrorR", Napi::Function::New(env, libc_unix_redox_strerrorR_napi));
-    exports.Set("libc_unix_redox_dirfd", Napi::Function::New(env, libc_unix_redox_dirfd_napi));
-    exports.Set("libc_unix_redox_pipe2", Napi::Function::New(env, libc_unix_redox_pipe2_napi));
-    exports.Set("libc_unix_redox_getdtablesize", Napi::Function::New(env, libc_unix_redox_getdtablesize_napi));
-    exports.Set("libc_unix_redox_getresgid", Napi::Function::New(env, libc_unix_redox_getresgid_napi));
-    exports.Set("libc_unix_redox_getresuid", Napi::Function::New(env, libc_unix_redox_getresuid_napi));
-    exports.Set("libc_unix_redox_setresgid", Napi::Function::New(env, libc_unix_redox_setresgid_napi));
-    exports.Set("libc_unix_redox_setresuid", Napi::Function::New(env, libc_unix_redox_setresuid_napi));
-    exports.Set("libc_unix_redox_getgrent", Napi::Function::New(env, libc_unix_redox_getgrent_napi));
-    exports.Set("libc_unix_redox_setgrent", Napi::Function::New(env, libc_unix_redox_setgrent_napi));
-    exports.Set("libc_unix_redox_endgrent", Napi::Function::New(env, libc_unix_redox_endgrent_napi));
-    exports.Set("libc_unix_redox_getgrgid", Napi::Function::New(env, libc_unix_redox_getgrgid_napi));
-    exports.Set("libc_unix_redox_getgrgidR", Napi::Function::New(env, libc_unix_redox_getgrgidR_napi));
-    exports.Set("libc_unix_redox_getgrnam", Napi::Function::New(env, libc_unix_redox_getgrnam_napi));
-    exports.Set("libc_unix_redox_getgrnamR", Napi::Function::New(env, libc_unix_redox_getgrnamR_napi));
-    exports.Set("libc_unix_redox_getgrouplist", Napi::Function::New(env, libc_unix_redox_getgrouplist_napi));
-    exports.Set("libc_unix_redox_memalign", Napi::Function::New(env, libc_unix_redox_memalign_napi));
-    exports.Set("libc_unix_redox_getnameinfo", Napi::Function::New(env, libc_unix_redox_getnameinfo_napi));
-    exports.Set("libc_unix_redox_pthreadAtfork", Napi::Function::New(env, libc_unix_redox_pthreadAtfork_napi));
-    exports.Set("libc_unix_redox_pthreadCreate", Napi::Function::New(env, libc_unix_redox_pthreadCreate_napi));
-    exports.Set("libc_unix_redox_pthreadCondattrSetclock", Napi::Function::New(env, libc_unix_redox_pthreadCondattrSetclock_napi));
-    exports.Set("libc_unix_redox_openpty", Napi::Function::New(env, libc_unix_redox_openpty_napi));
-    exports.Set("libc_unix_redox_getpwent", Napi::Function::New(env, libc_unix_redox_getpwent_napi));
-    exports.Set("libc_unix_redox_setpwent", Napi::Function::New(env, libc_unix_redox_setpwent_napi));
-    exports.Set("libc_unix_redox_endpwent", Napi::Function::New(env, libc_unix_redox_endpwent_napi));
-    exports.Set("libc_unix_redox_getpwnamR", Napi::Function::New(env, libc_unix_redox_getpwnamR_napi));
-    exports.Set("libc_unix_redox_getpwuidR", Napi::Function::New(env, libc_unix_redox_getpwuidR_napi));
-    exports.Set("libc_unix_redox_pthreadSigmask", Napi::Function::New(env, libc_unix_redox_pthreadSigmask_napi));
-    exports.Set("libc_unix_redox_pthreadCancel", Napi::Function::New(env, libc_unix_redox_pthreadCancel_napi));
-    exports.Set("libc_unix_redox_pthreadKill", Napi::Function::New(env, libc_unix_redox_pthreadKill_napi));
-    exports.Set("libc_unix_redox_sigtimedwait", Napi::Function::New(env, libc_unix_redox_sigtimedwait_napi));
-    exports.Set("libc_unix_redox_sigwait", Napi::Function::New(env, libc_unix_redox_sigwait_napi));
-    exports.Set("libc_unix_redox_getsubopt", Napi::Function::New(env, libc_unix_redox_getsubopt_napi));
-    exports.Set("libc_unix_redox_mkostemp", Napi::Function::New(env, libc_unix_redox_mkostemp_napi));
-    exports.Set("libc_unix_redox_mkostemps", Napi::Function::New(env, libc_unix_redox_mkostemps_napi));
-    exports.Set("libc_unix_redox_reallocarray", Napi::Function::New(env, libc_unix_redox_reallocarray_napi));
-    exports.Set("libc_unix_redox_renameat2", Napi::Function::New(env, libc_unix_redox_renameat2_napi));
-    exports.Set("libc_unix_redox_explicitBzero", Napi::Function::New(env, libc_unix_redox_explicitBzero_napi));
-    exports.Set("libc_unix_redox_strlcat", Napi::Function::New(env, libc_unix_redox_strlcat_napi));
-    exports.Set("libc_unix_redox_strlcpy", Napi::Function::New(env, libc_unix_redox_strlcpy_napi));
-    exports.Set("libc_unix_redox_epollCreate", Napi::Function::New(env, libc_unix_redox_epollCreate_napi));
-    exports.Set("libc_unix_redox_epollCreate1", Napi::Function::New(env, libc_unix_redox_epollCreate1_napi));
-    exports.Set("libc_unix_redox_epollWait", Napi::Function::New(env, libc_unix_redox_epollWait_napi));
-    exports.Set("libc_unix_redox_epollCtl", Napi::Function::New(env, libc_unix_redox_epollCtl_napi));
-    exports.Set("libc_unix_redox_ioctl", Napi::Function::New(env, libc_unix_redox_ioctl_napi));
-    exports.Set("libc_unix_redox_madvise", Napi::Function::New(env, libc_unix_redox_madvise_napi));
-    exports.Set("libc_unix_redox_msync", Napi::Function::New(env, libc_unix_redox_msync_napi));
-    exports.Set("libc_unix_redox_mprotect", Napi::Function::New(env, libc_unix_redox_mprotect_napi));
-    exports.Set("libc_unix_redox_shmOpen", Napi::Function::New(env, libc_unix_redox_shmOpen_napi));
-    exports.Set("libc_unix_redox_shmUnlink", Napi::Function::New(env, libc_unix_redox_shmUnlink_napi));
-    exports.Set("libc_unix_redox_getpriority", Napi::Function::New(env, libc_unix_redox_getpriority_napi));
-    exports.Set("libc_unix_redox_setpriority", Napi::Function::New(env, libc_unix_redox_setpriority_napi));
-    exports.Set("libc_unix_redox_getrlimit", Napi::Function::New(env, libc_unix_redox_getrlimit_napi));
-    exports.Set("libc_unix_redox_setrlimit", Napi::Function::New(env, libc_unix_redox_setrlimit_napi));
-    exports.Set("libc_unix_redox_cmsgData", Napi::Function::New(env, libc_unix_redox_cmsgData_napi));
-    exports.Set("libc_unix_redox_cmsgFirsthdr", Napi::Function::New(env, libc_unix_redox_cmsgFirsthdr_napi));
-    exports.Set("libc_unix_redox_cmsgNxthdr", Napi::Function::New(env, libc_unix_redox_cmsgNxthdr_napi));
-    exports.Set("libc_unix_redox_bind", Napi::Function::New(env, libc_unix_redox_bind_napi));
-    exports.Set("libc_unix_redox_recvfrom", Napi::Function::New(env, libc_unix_redox_recvfrom_napi));
-    exports.Set("libc_unix_redox_recvmsg", Napi::Function::New(env, libc_unix_redox_recvmsg_napi));
-    exports.Set("libc_unix_redox_sendmsg", Napi::Function::New(env, libc_unix_redox_sendmsg_napi));
-    exports.Set("libc_unix_redox_futimens", Napi::Function::New(env, libc_unix_redox_futimens_napi));
-    exports.Set("libc_unix_redox_preadv", Napi::Function::New(env, libc_unix_redox_preadv_napi));
-    exports.Set("libc_unix_redox_pwritev", Napi::Function::New(env, libc_unix_redox_pwritev_napi));
-    exports.Set("libc_unix_redox_readv", Napi::Function::New(env, libc_unix_redox_readv_napi));
-    exports.Set("libc_unix_redox_writev", Napi::Function::New(env, libc_unix_redox_writev_napi));
-    exports.Set("libc_unix_redox_uname", Napi::Function::New(env, libc_unix_redox_uname_napi));
-    exports.Set("libc_unix_redox_gettimeofday", Napi::Function::New(env, libc_unix_redox_gettimeofday_napi));
-    exports.Set("libc_unix_redox_clockGettime", Napi::Function::New(env, libc_unix_redox_clockGettime_napi));
-    exports.Set("libc_unix_redox_strftime", Napi::Function::New(env, libc_unix_redox_strftime_napi));
-    exports.Set("libc_unix_redox_loginTty", Napi::Function::New(env, libc_unix_redox_loginTty_napi));
+    exports.Set("libcUnixRedoxErrnoLocation", Napi::Function::New(env, libcUnixRedoxErrnoLocation_napi));
+    exports.Set("libcUnixRedoxStrerrorR", Napi::Function::New(env, libcUnixRedoxStrerrorR_napi));
+    exports.Set("libcUnixRedoxDirfd", Napi::Function::New(env, libcUnixRedoxDirfd_napi));
+    exports.Set("libcUnixRedoxPipe2", Napi::Function::New(env, libcUnixRedoxPipe2_napi));
+    exports.Set("libcUnixRedoxGetdtablesize", Napi::Function::New(env, libcUnixRedoxGetdtablesize_napi));
+    exports.Set("libcUnixRedoxGetresgid", Napi::Function::New(env, libcUnixRedoxGetresgid_napi));
+    exports.Set("libcUnixRedoxGetresuid", Napi::Function::New(env, libcUnixRedoxGetresuid_napi));
+    exports.Set("libcUnixRedoxSetresgid", Napi::Function::New(env, libcUnixRedoxSetresgid_napi));
+    exports.Set("libcUnixRedoxSetresuid", Napi::Function::New(env, libcUnixRedoxSetresuid_napi));
+    exports.Set("libcUnixRedoxGetgrent", Napi::Function::New(env, libcUnixRedoxGetgrent_napi));
+    exports.Set("libcUnixRedoxSetgrent", Napi::Function::New(env, libcUnixRedoxSetgrent_napi));
+    exports.Set("libcUnixRedoxEndgrent", Napi::Function::New(env, libcUnixRedoxEndgrent_napi));
+    exports.Set("libcUnixRedoxGetgrgid", Napi::Function::New(env, libcUnixRedoxGetgrgid_napi));
+    exports.Set("libcUnixRedoxGetgrgidR", Napi::Function::New(env, libcUnixRedoxGetgrgidR_napi));
+    exports.Set("libcUnixRedoxGetgrnam", Napi::Function::New(env, libcUnixRedoxGetgrnam_napi));
+    exports.Set("libcUnixRedoxGetgrnamR", Napi::Function::New(env, libcUnixRedoxGetgrnamR_napi));
+    exports.Set("libcUnixRedoxGetgrouplist", Napi::Function::New(env, libcUnixRedoxGetgrouplist_napi));
+    exports.Set("libcUnixRedoxMemalign", Napi::Function::New(env, libcUnixRedoxMemalign_napi));
+    exports.Set("libcUnixRedoxGetnameinfo", Napi::Function::New(env, libcUnixRedoxGetnameinfo_napi));
+    exports.Set("libcUnixRedoxPthreadAtfork", Napi::Function::New(env, libcUnixRedoxPthreadAtfork_napi));
+    exports.Set("libcUnixRedoxPthreadCreate", Napi::Function::New(env, libcUnixRedoxPthreadCreate_napi));
+    exports.Set("libcUnixRedoxPthreadCondattrSetclock", Napi::Function::New(env, libcUnixRedoxPthreadCondattrSetclock_napi));
+    exports.Set("libcUnixRedoxOpenpty", Napi::Function::New(env, libcUnixRedoxOpenpty_napi));
+    exports.Set("libcUnixRedoxGetpwent", Napi::Function::New(env, libcUnixRedoxGetpwent_napi));
+    exports.Set("libcUnixRedoxSetpwent", Napi::Function::New(env, libcUnixRedoxSetpwent_napi));
+    exports.Set("libcUnixRedoxEndpwent", Napi::Function::New(env, libcUnixRedoxEndpwent_napi));
+    exports.Set("libcUnixRedoxGetpwnamR", Napi::Function::New(env, libcUnixRedoxGetpwnamR_napi));
+    exports.Set("libcUnixRedoxGetpwuidR", Napi::Function::New(env, libcUnixRedoxGetpwuidR_napi));
+    exports.Set("libcUnixRedoxPthreadSigmask", Napi::Function::New(env, libcUnixRedoxPthreadSigmask_napi));
+    exports.Set("libcUnixRedoxPthreadCancel", Napi::Function::New(env, libcUnixRedoxPthreadCancel_napi));
+    exports.Set("libcUnixRedoxPthreadKill", Napi::Function::New(env, libcUnixRedoxPthreadKill_napi));
+    exports.Set("libcUnixRedoxSigtimedwait", Napi::Function::New(env, libcUnixRedoxSigtimedwait_napi));
+    exports.Set("libcUnixRedoxSigwait", Napi::Function::New(env, libcUnixRedoxSigwait_napi));
+    exports.Set("libcUnixRedoxGetsubopt", Napi::Function::New(env, libcUnixRedoxGetsubopt_napi));
+    exports.Set("libcUnixRedoxMkostemp", Napi::Function::New(env, libcUnixRedoxMkostemp_napi));
+    exports.Set("libcUnixRedoxMkostemps", Napi::Function::New(env, libcUnixRedoxMkostemps_napi));
+    exports.Set("libcUnixRedoxReallocarray", Napi::Function::New(env, libcUnixRedoxReallocarray_napi));
+    exports.Set("libcUnixRedoxRenameat2", Napi::Function::New(env, libcUnixRedoxRenameat2_napi));
+    exports.Set("libcUnixRedoxExplicitBzero", Napi::Function::New(env, libcUnixRedoxExplicitBzero_napi));
+    exports.Set("libcUnixRedoxStrlcat", Napi::Function::New(env, libcUnixRedoxStrlcat_napi));
+    exports.Set("libcUnixRedoxStrlcpy", Napi::Function::New(env, libcUnixRedoxStrlcpy_napi));
+    exports.Set("libcUnixRedoxEpollCreate", Napi::Function::New(env, libcUnixRedoxEpollCreate_napi));
+    exports.Set("libcUnixRedoxEpollCreate1", Napi::Function::New(env, libcUnixRedoxEpollCreate1_napi));
+    exports.Set("libcUnixRedoxEpollWait", Napi::Function::New(env, libcUnixRedoxEpollWait_napi));
+    exports.Set("libcUnixRedoxEpollCtl", Napi::Function::New(env, libcUnixRedoxEpollCtl_napi));
+    exports.Set("libcUnixRedoxIoctl", Napi::Function::New(env, libcUnixRedoxIoctl_napi));
+    exports.Set("libcUnixRedoxMadvise", Napi::Function::New(env, libcUnixRedoxMadvise_napi));
+    exports.Set("libcUnixRedoxMsync", Napi::Function::New(env, libcUnixRedoxMsync_napi));
+    exports.Set("libcUnixRedoxMprotect", Napi::Function::New(env, libcUnixRedoxMprotect_napi));
+    exports.Set("libcUnixRedoxShmOpen", Napi::Function::New(env, libcUnixRedoxShmOpen_napi));
+    exports.Set("libcUnixRedoxShmUnlink", Napi::Function::New(env, libcUnixRedoxShmUnlink_napi));
+    exports.Set("libcUnixRedoxGetpriority", Napi::Function::New(env, libcUnixRedoxGetpriority_napi));
+    exports.Set("libcUnixRedoxSetpriority", Napi::Function::New(env, libcUnixRedoxSetpriority_napi));
+    exports.Set("libcUnixRedoxGetrlimit", Napi::Function::New(env, libcUnixRedoxGetrlimit_napi));
+    exports.Set("libcUnixRedoxSetrlimit", Napi::Function::New(env, libcUnixRedoxSetrlimit_napi));
+    exports.Set("libcUnixRedoxCmsgData", Napi::Function::New(env, libcUnixRedoxCmsgData_napi));
+    exports.Set("libcUnixRedoxCmsgFirsthdr", Napi::Function::New(env, libcUnixRedoxCmsgFirsthdr_napi));
+    exports.Set("libcUnixRedoxCmsgNxthdr", Napi::Function::New(env, libcUnixRedoxCmsgNxthdr_napi));
+    exports.Set("libcUnixRedoxBind", Napi::Function::New(env, libcUnixRedoxBind_napi));
+    exports.Set("libcUnixRedoxRecvfrom", Napi::Function::New(env, libcUnixRedoxRecvfrom_napi));
+    exports.Set("libcUnixRedoxRecvmsg", Napi::Function::New(env, libcUnixRedoxRecvmsg_napi));
+    exports.Set("libcUnixRedoxSendmsg", Napi::Function::New(env, libcUnixRedoxSendmsg_napi));
+    exports.Set("libcUnixRedoxFutimens", Napi::Function::New(env, libcUnixRedoxFutimens_napi));
+    exports.Set("libcUnixRedoxPreadv", Napi::Function::New(env, libcUnixRedoxPreadv_napi));
+    exports.Set("libcUnixRedoxPwritev", Napi::Function::New(env, libcUnixRedoxPwritev_napi));
+    exports.Set("libcUnixRedoxReadv", Napi::Function::New(env, libcUnixRedoxReadv_napi));
+    exports.Set("libcUnixRedoxWritev", Napi::Function::New(env, libcUnixRedoxWritev_napi));
+    exports.Set("libcUnixRedoxUname", Napi::Function::New(env, libcUnixRedoxUname_napi));
+    exports.Set("libcUnixRedoxGettimeofday", Napi::Function::New(env, libcUnixRedoxGettimeofday_napi));
+    exports.Set("libcUnixRedoxClockGettime", Napi::Function::New(env, libcUnixRedoxClockGettime_napi));
+    exports.Set("libcUnixRedoxStrftime", Napi::Function::New(env, libcUnixRedoxStrftime_napi));
+    exports.Set("libcUnixRedoxLoginTty", Napi::Function::New(env, libcUnixRedoxLoginTty_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_unix_redox_napi, nullptr };

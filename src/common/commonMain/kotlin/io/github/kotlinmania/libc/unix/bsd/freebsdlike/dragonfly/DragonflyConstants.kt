@@ -1293,4 +1293,4 @@ public val RTAX_MPLS3: CInt = 10
 
 public val RTAX_MAX: CInt = 11
 
-public val CPU_SETSIZE: SizeT = 8uL * 8uL
+public val CPU_SETSIZE: SizeT = sizeOf<CpumaskT>(typeLayoutT = CpumaskT.typeLayout()) * 8uL

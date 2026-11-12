@@ -3,170 +3,181 @@
 package io.github.kotlinmania.libc.new.qurt.pthread
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.new.qurt.ClockidT
+import io.github.kotlinmania.libc.new.qurt.PthreadAttrT
+import io.github.kotlinmania.libc.new.qurt.PthreadCondT
+import io.github.kotlinmania.libc.new.qurt.PthreadCondattrT
 import io.github.kotlinmania.libc.new.qurt.PthreadKeyT
+import io.github.kotlinmania.libc.new.qurt.PthreadMutexT
+import io.github.kotlinmania.libc.new.qurt.PthreadMutexattrT
+import io.github.kotlinmania.libc.new.qurt.PthreadOnceT
 import io.github.kotlinmania.libc.new.qurt.PthreadT
 import io.github.kotlinmania.libc.new.qurt.SizeT
-import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_posixMemalign
-import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_pthreadAttrDestroy
-import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_pthreadAttrGetaffinityNp
-import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_pthreadAttrGetdetachstate
-import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_pthreadAttrGetstacksize
-import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_pthreadAttrInit
-import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_pthreadAttrSetaffinityNp
-import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_pthreadAttrSetdetachstate
-import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_pthreadAttrSetstacksize
-import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_pthreadCondBroadcast
-import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_pthreadCondDestroy
-import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_pthreadCondInit
-import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_pthreadCondSignal
-import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_pthreadCondTimedwait
-import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_pthreadCondWait
-import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_pthreadCondattrDestroy
-import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_pthreadCondattrInit
-import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_pthreadCondattrSetclock
-import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_pthreadCreate
-import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_pthreadDetach
-import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_pthreadEqual
-import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_pthreadExit
-import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_pthreadGetnameNp
-import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_pthreadGetspecific
-import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_pthreadJoin
-import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_pthreadKeyCreate
-import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_pthreadKeyDelete
-import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_pthreadMutexDestroy
-import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_pthreadMutexInit
-import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_pthreadMutexLock
-import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_pthreadMutexTrylock
-import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_pthreadMutexUnlock
-import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_pthreadMutexattrDestroy
-import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_pthreadMutexattrGettype
-import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_pthreadMutexattrInit
-import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_pthreadMutexattrSettype
-import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_pthreadOnce
-import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_pthreadSelf
-import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libc_new_qurt_pthread_pthreadSetspecific
+import io.github.kotlinmania.libc.new.qurt.Timespec
+import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libcNewQurtPthreadPosixMemalign
+import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libcNewQurtPthreadPthreadAttrDestroy
+import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libcNewQurtPthreadPthreadAttrGetaffinityNp
+import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libcNewQurtPthreadPthreadAttrGetdetachstate
+import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libcNewQurtPthreadPthreadAttrGetstacksize
+import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libcNewQurtPthreadPthreadAttrInit
+import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libcNewQurtPthreadPthreadAttrSetaffinityNp
+import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libcNewQurtPthreadPthreadAttrSetdetachstate
+import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libcNewQurtPthreadPthreadAttrSetstacksize
+import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libcNewQurtPthreadPthreadCondBroadcast
+import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libcNewQurtPthreadPthreadCondDestroy
+import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libcNewQurtPthreadPthreadCondInit
+import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libcNewQurtPthreadPthreadCondSignal
+import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libcNewQurtPthreadPthreadCondTimedwait
+import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libcNewQurtPthreadPthreadCondWait
+import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libcNewQurtPthreadPthreadCondattrDestroy
+import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libcNewQurtPthreadPthreadCondattrInit
+import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libcNewQurtPthreadPthreadCondattrSetclock
+import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libcNewQurtPthreadPthreadCreate
+import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libcNewQurtPthreadPthreadDetach
+import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libcNewQurtPthreadPthreadEqual
+import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libcNewQurtPthreadPthreadExit
+import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libcNewQurtPthreadPthreadGetnameNp
+import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libcNewQurtPthreadPthreadGetspecific
+import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libcNewQurtPthreadPthreadJoin
+import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libcNewQurtPthreadPthreadKeyCreate
+import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libcNewQurtPthreadPthreadKeyDelete
+import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libcNewQurtPthreadPthreadMutexDestroy
+import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libcNewQurtPthreadPthreadMutexInit
+import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libcNewQurtPthreadPthreadMutexLock
+import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libcNewQurtPthreadPthreadMutexTrylock
+import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libcNewQurtPthreadPthreadMutexUnlock
+import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libcNewQurtPthreadPthreadMutexattrDestroy
+import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libcNewQurtPthreadPthreadMutexattrGettype
+import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libcNewQurtPthreadPthreadMutexattrInit
+import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libcNewQurtPthreadPthreadMutexattrSettype
+import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libcNewQurtPthreadPthreadOnce
+import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libcNewQurtPthreadPthreadSelf
+import io.github.kotlinmania.libc.new.qurt.pthread.cinterop.libcNewQurtPthreadPthreadSetspecific
+import io.github.kotlinmania.libc.new.qurt.sys.types.CpuSetT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
 
-public actual fun pthreadCreate(thread: COpaquePointer?, attr: COpaquePointer?, startRoutine: PthreadCreateStartRoutineCallback, arg: COpaquePointer?): CInt =
-    libc_new_qurt_pthread_pthreadCreate(thread?.value?.toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), arg?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCreate(thread: MutPtr<PthreadT>, attr: ConstPtr<PthreadAttrT>, startRoutine: PthreadCreateStartRoutineCallback, arg: MutPtr<CVoid>): CInt =
+    libcNewQurtPthreadPthreadCreate(thread.rawAddress.toCPointer<ByteVar>(), attr.rawAddress.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), arg.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadJoin(thread: PthreadT, retval: COpaquePointer?): CInt =
-    libc_new_qurt_pthread_pthreadJoin(thread.toLong().toCPointer<ByteVar>(), retval?.value?.toCPointer<ByteVar>())
+public actual fun pthreadJoin(thread: PthreadT, retval: MutPtr<MutPtr<CVoid>>): CInt =
+    libcNewQurtPthreadPthreadJoin(thread.toLong().toCPointer<ByteVar>(), retval.rawAddress.toCPointer<ByteVar>())
 
 public actual fun pthreadDetach(thread: PthreadT): CInt =
-    libc_new_qurt_pthread_pthreadDetach(thread.toLong().toCPointer<ByteVar>())
+    libcNewQurtPthreadPthreadDetach(thread.toLong().toCPointer<ByteVar>())
 
-public actual fun pthreadExit(retval: COpaquePointer?): Nothing {
-    libc_new_qurt_pthread_pthreadExit(retval?.value?.toCPointer<ByteVar>())
+public actual fun pthreadExit(retval: MutPtr<CVoid>): Nothing {
+    libcNewQurtPthreadPthreadExit(retval.rawAddress.toCPointer<ByteVar>())
     error("Unreachable noreturn C function pthreadExit")
 }
 
 public actual fun pthreadSelf(): PthreadT =
-    (libc_new_qurt_pthread_pthreadSelf()?.toLong() ?: 0L).toUInt()
+    (libcNewQurtPthreadPthreadSelf()?.toLong() ?: 0L).toUInt()
 
 public actual fun pthreadEqual(t1: PthreadT, t2: PthreadT): CInt =
-    libc_new_qurt_pthread_pthreadEqual(t1.toLong().toCPointer<ByteVar>(), t2.toLong().toCPointer<ByteVar>())
+    libcNewQurtPthreadPthreadEqual(t1.toLong().toCPointer<ByteVar>(), t2.toLong().toCPointer<ByteVar>())
 
-public actual fun pthreadAttrInit(attr: COpaquePointer?): CInt =
-    libc_new_qurt_pthread_pthreadAttrInit(attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadAttrInit(attr: MutPtr<PthreadAttrT>): CInt =
+    libcNewQurtPthreadPthreadAttrInit(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrDestroy(attr: COpaquePointer?): CInt =
-    libc_new_qurt_pthread_pthreadAttrDestroy(attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadAttrDestroy(attr: MutPtr<PthreadAttrT>): CInt =
+    libcNewQurtPthreadPthreadAttrDestroy(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrSetstacksize(attr: COpaquePointer?, stacksize: SizeT): CInt =
-    libc_new_qurt_pthread_pthreadAttrSetstacksize(attr?.value?.toCPointer<ByteVar>(), stacksize)
+public actual fun pthreadAttrSetstacksize(attr: MutPtr<PthreadAttrT>, stacksize: SizeT): CInt =
+    libcNewQurtPthreadPthreadAttrSetstacksize(attr.rawAddress.toCPointer<ByteVar>(), stacksize)
 
-public actual fun pthreadAttrGetstacksize(attr: COpaquePointer?, stacksize: COpaquePointer?): CInt =
-    libc_new_qurt_pthread_pthreadAttrGetstacksize(attr?.value?.toCPointer<ByteVar>(), stacksize?.value?.toCPointer<ByteVar>())
+public actual fun pthreadAttrGetstacksize(attr: ConstPtr<PthreadAttrT>, stacksize: MutPtr<SizeT>): CInt =
+    libcNewQurtPthreadPthreadAttrGetstacksize(attr.rawAddress.toCPointer<ByteVar>(), stacksize.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrSetdetachstate(attr: COpaquePointer?, detachstate: CInt): CInt =
-    libc_new_qurt_pthread_pthreadAttrSetdetachstate(attr?.value?.toCPointer<ByteVar>(), detachstate)
+public actual fun pthreadAttrSetdetachstate(attr: MutPtr<PthreadAttrT>, detachstate: CInt): CInt =
+    libcNewQurtPthreadPthreadAttrSetdetachstate(attr.rawAddress.toCPointer<ByteVar>(), detachstate)
 
-public actual fun pthreadAttrGetdetachstate(attr: COpaquePointer?, detachstate: COpaquePointer?): CInt =
-    libc_new_qurt_pthread_pthreadAttrGetdetachstate(attr?.value?.toCPointer<ByteVar>(), detachstate?.value?.toCPointer<ByteVar>())
+public actual fun pthreadAttrGetdetachstate(attr: ConstPtr<PthreadAttrT>, detachstate: MutPtr<CInt>): CInt =
+    libcNewQurtPthreadPthreadAttrGetdetachstate(attr.rawAddress.toCPointer<ByteVar>(), detachstate.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexInit(mutex: COpaquePointer?, attr: COpaquePointer?): CInt =
-    libc_new_qurt_pthread_pthreadMutexInit(mutex?.value?.toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexInit(mutex: MutPtr<PthreadMutexT>, attr: ConstPtr<PthreadMutexattrT>): CInt =
+    libcNewQurtPthreadPthreadMutexInit(mutex.rawAddress.toCPointer<ByteVar>(), attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexDestroy(mutex: COpaquePointer?): CInt =
-    libc_new_qurt_pthread_pthreadMutexDestroy(mutex?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexDestroy(mutex: MutPtr<PthreadMutexT>): CInt =
+    libcNewQurtPthreadPthreadMutexDestroy(mutex.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexLock(mutex: COpaquePointer?): CInt =
-    libc_new_qurt_pthread_pthreadMutexLock(mutex?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexLock(mutex: MutPtr<PthreadMutexT>): CInt =
+    libcNewQurtPthreadPthreadMutexLock(mutex.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexTrylock(mutex: COpaquePointer?): CInt =
-    libc_new_qurt_pthread_pthreadMutexTrylock(mutex?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexTrylock(mutex: MutPtr<PthreadMutexT>): CInt =
+    libcNewQurtPthreadPthreadMutexTrylock(mutex.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexUnlock(mutex: COpaquePointer?): CInt =
-    libc_new_qurt_pthread_pthreadMutexUnlock(mutex?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexUnlock(mutex: MutPtr<PthreadMutexT>): CInt =
+    libcNewQurtPthreadPthreadMutexUnlock(mutex.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexattrInit(attr: COpaquePointer?): CInt =
-    libc_new_qurt_pthread_pthreadMutexattrInit(attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexattrInit(attr: MutPtr<PthreadMutexattrT>): CInt =
+    libcNewQurtPthreadPthreadMutexattrInit(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexattrDestroy(attr: COpaquePointer?): CInt =
-    libc_new_qurt_pthread_pthreadMutexattrDestroy(attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexattrDestroy(attr: MutPtr<PthreadMutexattrT>): CInt =
+    libcNewQurtPthreadPthreadMutexattrDestroy(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexattrSettype(attr: COpaquePointer?, kind: CInt): CInt =
-    libc_new_qurt_pthread_pthreadMutexattrSettype(attr?.value?.toCPointer<ByteVar>(), kind)
+public actual fun pthreadMutexattrSettype(attr: MutPtr<PthreadMutexattrT>, kind: CInt): CInt =
+    libcNewQurtPthreadPthreadMutexattrSettype(attr.rawAddress.toCPointer<ByteVar>(), kind)
 
-public actual fun pthreadMutexattrGettype(attr: COpaquePointer?, kind: COpaquePointer?): CInt =
-    libc_new_qurt_pthread_pthreadMutexattrGettype(attr?.value?.toCPointer<ByteVar>(), kind?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexattrGettype(attr: ConstPtr<PthreadMutexattrT>, kind: MutPtr<CInt>): CInt =
+    libcNewQurtPthreadPthreadMutexattrGettype(attr.rawAddress.toCPointer<ByteVar>(), kind.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondInit(cond: COpaquePointer?, attr: COpaquePointer?): CInt =
-    libc_new_qurt_pthread_pthreadCondInit(cond?.value?.toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCondInit(cond: MutPtr<PthreadCondT>, attr: ConstPtr<PthreadCondattrT>): CInt =
+    libcNewQurtPthreadPthreadCondInit(cond.rawAddress.toCPointer<ByteVar>(), attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondDestroy(cond: COpaquePointer?): CInt =
-    libc_new_qurt_pthread_pthreadCondDestroy(cond?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCondDestroy(cond: MutPtr<PthreadCondT>): CInt =
+    libcNewQurtPthreadPthreadCondDestroy(cond.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondWait(cond: COpaquePointer?, mutex: COpaquePointer?): CInt =
-    libc_new_qurt_pthread_pthreadCondWait(cond?.value?.toCPointer<ByteVar>(), mutex?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCondWait(cond: MutPtr<PthreadCondT>, mutex: MutPtr<PthreadMutexT>): CInt =
+    libcNewQurtPthreadPthreadCondWait(cond.rawAddress.toCPointer<ByteVar>(), mutex.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondTimedwait(cond: COpaquePointer?, mutex: COpaquePointer?, abstime: COpaquePointer?): CInt =
-    libc_new_qurt_pthread_pthreadCondTimedwait(cond?.value?.toCPointer<ByteVar>(), mutex?.value?.toCPointer<ByteVar>(), abstime?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCondTimedwait(cond: MutPtr<PthreadCondT>, mutex: MutPtr<PthreadMutexT>, abstime: ConstPtr<Timespec>): CInt =
+    libcNewQurtPthreadPthreadCondTimedwait(cond.rawAddress.toCPointer<ByteVar>(), mutex.rawAddress.toCPointer<ByteVar>(), abstime.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondSignal(cond: COpaquePointer?): CInt =
-    libc_new_qurt_pthread_pthreadCondSignal(cond?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCondSignal(cond: MutPtr<PthreadCondT>): CInt =
+    libcNewQurtPthreadPthreadCondSignal(cond.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondBroadcast(cond: COpaquePointer?): CInt =
-    libc_new_qurt_pthread_pthreadCondBroadcast(cond?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCondBroadcast(cond: MutPtr<PthreadCondT>): CInt =
+    libcNewQurtPthreadPthreadCondBroadcast(cond.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondattrInit(attr: COpaquePointer?): CInt =
-    libc_new_qurt_pthread_pthreadCondattrInit(attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCondattrInit(attr: MutPtr<PthreadCondattrT>): CInt =
+    libcNewQurtPthreadPthreadCondattrInit(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondattrDestroy(attr: COpaquePointer?): CInt =
-    libc_new_qurt_pthread_pthreadCondattrDestroy(attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCondattrDestroy(attr: MutPtr<PthreadCondattrT>): CInt =
+    libcNewQurtPthreadPthreadCondattrDestroy(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondattrSetclock(attr: COpaquePointer?, clockId: ClockidT): CInt =
-    libc_new_qurt_pthread_pthreadCondattrSetclock(attr?.value?.toCPointer<ByteVar>(), clockId)
+public actual fun pthreadCondattrSetclock(attr: MutPtr<PthreadCondattrT>, clockId: ClockidT): CInt =
+    libcNewQurtPthreadPthreadCondattrSetclock(attr.rawAddress.toCPointer<ByteVar>(), clockId)
 
-public actual fun pthreadKeyCreate(key: COpaquePointer?, destructor: PthreadKeyCreateDestructorCallback?): CInt =
-    libc_new_qurt_pthread_pthreadKeyCreate(key?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
+public actual fun pthreadKeyCreate(key: MutPtr<PthreadKeyT>, destructor: PthreadKeyCreateDestructorCallback?): CInt =
+    libcNewQurtPthreadPthreadKeyCreate(key.rawAddress.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
 
 public actual fun pthreadKeyDelete(key: PthreadKeyT): CInt =
-    libc_new_qurt_pthread_pthreadKeyDelete(key)
+    libcNewQurtPthreadPthreadKeyDelete(key)
 
-public actual fun pthreadGetspecific(key: PthreadKeyT): COpaquePointer? =
-    libc_new_qurt_pthread_pthreadGetspecific(key)?.let { COpaquePointer(it.toLong()) }
+public actual fun pthreadGetspecific(key: PthreadKeyT): MutPtr<CVoid> =
+    MutPtr(libcNewQurtPthreadPthreadGetspecific(key)?.toLong() ?: 0L)
 
-public actual fun pthreadSetspecific(key: PthreadKeyT, value: COpaquePointer?): CInt =
-    libc_new_qurt_pthread_pthreadSetspecific(key, value?.value?.toCPointer<ByteVar>())
+public actual fun pthreadSetspecific(key: PthreadKeyT, value: ConstPtr<CVoid>): CInt =
+    libcNewQurtPthreadPthreadSetspecific(key, value.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadOnce(onceControl: COpaquePointer?, initRoutine: PthreadOnceInitRoutineCallback): CInt =
-    libc_new_qurt_pthread_pthreadOnce(onceControl?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
+public actual fun pthreadOnce(onceControl: MutPtr<PthreadOnceT>, initRoutine: PthreadOnceInitRoutineCallback): CInt =
+    libcNewQurtPthreadPthreadOnce(onceControl.rawAddress.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
 
-public actual fun pthreadGetnameNp(thread: PthreadT, name: COpaquePointer?, len: SizeT): CInt =
-    libc_new_qurt_pthread_pthreadGetnameNp(thread.toLong().toCPointer<ByteVar>(), name?.value?.toCPointer<ByteVar>(), len)
+public actual fun pthreadGetnameNp(thread: PthreadT, name: MutPtr<CChar>, len: SizeT): CInt =
+    libcNewQurtPthreadPthreadGetnameNp(thread.toLong().toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>(), len)
 
-public actual fun pthreadAttrSetaffinityNp(attr: COpaquePointer?, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
-    libc_new_qurt_pthread_pthreadAttrSetaffinityNp(attr?.value?.toCPointer<ByteVar>(), cpusetsize, cpuset?.value?.toCPointer<ByteVar>())
+public actual fun pthreadAttrSetaffinityNp(attr: MutPtr<PthreadAttrT>, cpusetsize: SizeT, cpuset: ConstPtr<CpuSetT>): CInt =
+    libcNewQurtPthreadPthreadAttrSetaffinityNp(attr.rawAddress.toCPointer<ByteVar>(), cpusetsize, cpuset.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrGetaffinityNp(attr: COpaquePointer?, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
-    libc_new_qurt_pthread_pthreadAttrGetaffinityNp(attr?.value?.toCPointer<ByteVar>(), cpusetsize, cpuset?.value?.toCPointer<ByteVar>())
+public actual fun pthreadAttrGetaffinityNp(attr: MutPtr<PthreadAttrT>, cpusetsize: SizeT, cpuset: MutPtr<CpuSetT>): CInt =
+    libcNewQurtPthreadPthreadAttrGetaffinityNp(attr.rawAddress.toCPointer<ByteVar>(), cpusetsize, cpuset.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixMemalign(memptr: COpaquePointer?, alignment: SizeT, size: SizeT): CInt =
-    libc_new_qurt_pthread_posixMemalign(memptr?.value?.toCPointer<ByteVar>(), alignment, size)
+public actual fun posixMemalign(memptr: MutPtr<MutPtr<CVoid>>, alignment: SizeT, size: SizeT): CInt =
+    libcNewQurtPthreadPosixMemalign(memptr.rawAddress.toCPointer<ByteVar>(), alignment, size)

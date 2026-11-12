@@ -3,12 +3,20 @@
 package io.github.kotlinmania.libc.unix.haiku
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLonglong
-import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.PidT
+import io.github.kotlinmania.libc.unix.Rusage
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.Timeval
+import io.github.kotlinmania.libc.unix.Winsize
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 private object UnixHaikuBsdJniBridge {
     init {
@@ -16,150 +24,150 @@ private object UnixHaikuBsdJniBridge {
     }
 
     @JvmStatic
-    external fun libc_unix_haiku_bsd_daemon(nochdir: Int, noclose: Int): Int
+    external fun libcUnixHaikuBsdDaemon(nochdir: Int, noclose: Int): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_bsd_getprogname(): Long
+    external fun libcUnixHaikuBsdGetprogname(): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_bsd_setprogname(progname: String?)
+    external fun libcUnixHaikuBsdSetprogname(progname: Long)
 
     @JvmStatic
-    external fun libc_unix_haiku_bsd_arc4random(): Int
+    external fun libcUnixHaikuBsdArc4random(): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_bsd_arc4randomUniform(upperBound: Int): Int
+    external fun libcUnixHaikuBsdArc4randomUniform(upperBound: Int): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_bsd_arc4randomBuf(buf: Long, n: Long)
+    external fun libcUnixHaikuBsdArc4randomBuf(buf: Long, n: Long)
 
     @JvmStatic
-    external fun libc_unix_haiku_bsd_mkstemps(template: Long, suffixlen: Int): Int
+    external fun libcUnixHaikuBsdMkstemps(template: Long, suffixlen: Int): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_bsd_strtonum(nptr: String?, minval: Long, maxval: Long, errstr: Long): Long
+    external fun libcUnixHaikuBsdStrtonum(nptr: Long, minval: Long, maxval: Long, errstr: Long): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_bsd_openpty(amaster: Long, aslave: Long, name: Long, termp: Long, winp: Long): Int
+    external fun libcUnixHaikuBsdOpenpty(amaster: Long, aslave: Long, name: Long, termp: Long, winp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_bsd_loginTty(fd: Int): Int
+    external fun libcUnixHaikuBsdLoginTty(fd: Int): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_bsd_forkpty(amaster: Long, name: Long, termp: Long, winp: Long): Int
+    external fun libcUnixHaikuBsdForkpty(amaster: Long, name: Long, termp: Long, winp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_bsd_strsep(string: Long, delimiters: String?): Long
+    external fun libcUnixHaikuBsdStrsep(string: Long, delimiters: Long): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_bsd_explicitBzero(buf: Long, len: Long)
+    external fun libcUnixHaikuBsdExplicitBzero(buf: Long, len: Long)
 
     @JvmStatic
-    external fun libc_unix_haiku_bsd_slInit(): Long
+    external fun libcUnixHaikuBsdSlInit(): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_bsd_slAdd(sl: Long, n: Long): Int
+    external fun libcUnixHaikuBsdSlAdd(sl: Long, n: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_bsd_slFree(sl: Long, i: Int)
+    external fun libcUnixHaikuBsdSlFree(sl: Long, i: Int)
 
     @JvmStatic
-    external fun libc_unix_haiku_bsd_slFind(sl: Long, n: Long): Long
+    external fun libcUnixHaikuBsdSlFind(sl: Long, n: Long): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_bsd_kqueue(): Int
+    external fun libcUnixHaikuBsdKqueue(): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_bsd_kevent(kq: Int, changelist: Long, nchanges: Int, eventlist: Long, nevents: Int, timeout: Long): Int
+    external fun libcUnixHaikuBsdKevent(kq: Int, changelist: Long, nchanges: Int, eventlist: Long, nevents: Int, timeout: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_bsd_dlIteratePhdr(callback: Long, data: Long): Int
+    external fun libcUnixHaikuBsdDlIteratePhdr(callback: Long, data: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_bsd_lutimes(file: String?, times: Long): Int
+    external fun libcUnixHaikuBsdLutimes(file: Long, times: Long): Int
 
     @JvmStatic
-    external fun libc_unix_haiku_bsd_preadv(fd: Int, iov: Long, iovcnt: Int, offset: Long): Long
+    external fun libcUnixHaikuBsdPreadv(fd: Int, iov: Long, iovcnt: Int, offset: Long): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_bsd_pwritev(fd: Int, iov: Long, iovcnt: Int, offset: Long): Long
+    external fun libcUnixHaikuBsdPwritev(fd: Int, iov: Long, iovcnt: Int, offset: Long): Long
 
     @JvmStatic
-    external fun libc_unix_haiku_bsd_wait4(pid: Int, status: Long, options: Int, rusage: Long): Int
+    external fun libcUnixHaikuBsdWait4(pid: Int, status: Long, options: Int, rusage: Long): Int
 }
 
 public actual fun daemon(nochdir: CInt, noclose: CInt): CInt =
-    UnixHaikuBsdJniBridge.libc_unix_haiku_bsd_daemon(nochdir, noclose)
+    UnixHaikuBsdJniBridge.libcUnixHaikuBsdDaemon(nochdir, noclose)
 
-public actual fun getprogname(): COpaquePointer? =
-    UnixHaikuBsdJniBridge.libc_unix_haiku_bsd_getprogname().let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getprogname(): ConstPtr<CChar> =
+    ConstPtr(UnixHaikuBsdJniBridge.libcUnixHaikuBsdGetprogname())
 
-public actual fun setprogname(progname: String?) {
-    UnixHaikuBsdJniBridge.libc_unix_haiku_bsd_setprogname(progname)
+public actual fun setprogname(progname: ConstPtr<CChar>) {
+    UnixHaikuBsdJniBridge.libcUnixHaikuBsdSetprogname(progname.rawAddress)
 }
 
 public actual fun arc4random(): UInt =
-    UnixHaikuBsdJniBridge.libc_unix_haiku_bsd_arc4random().toUInt()
+    UnixHaikuBsdJniBridge.libcUnixHaikuBsdArc4random().toUInt()
 
 public actual fun arc4randomUniform(upperBound: UInt): UInt =
-    UnixHaikuBsdJniBridge.libc_unix_haiku_bsd_arc4randomUniform(upperBound.toInt()).toUInt()
+    UnixHaikuBsdJniBridge.libcUnixHaikuBsdArc4randomUniform(upperBound.toInt()).toUInt()
 
-public actual fun arc4randomBuf(buf: COpaquePointer?, n: SizeT) {
-    UnixHaikuBsdJniBridge.libc_unix_haiku_bsd_arc4randomBuf((buf?.value ?: 0L), n.toLong())
+public actual fun arc4randomBuf(buf: MutPtr<CVoid>, n: SizeT) {
+    UnixHaikuBsdJniBridge.libcUnixHaikuBsdArc4randomBuf(buf.rawAddress, n.toLong())
 }
 
-public actual fun mkstemps(template: COpaquePointer?, suffixlen: CInt): CInt =
-    UnixHaikuBsdJniBridge.libc_unix_haiku_bsd_mkstemps((template?.value ?: 0L), suffixlen)
+public actual fun mkstemps(template: MutPtr<CChar>, suffixlen: CInt): CInt =
+    UnixHaikuBsdJniBridge.libcUnixHaikuBsdMkstemps(template.rawAddress, suffixlen)
 
-public actual fun strtonum(nptr: String?, minval: CLonglong, maxval: CLonglong, errstr: COpaquePointer?): CLonglong =
-    UnixHaikuBsdJniBridge.libc_unix_haiku_bsd_strtonum(nptr, minval, maxval, (errstr?.value ?: 0L))
+public actual fun strtonum(nptr: ConstPtr<CChar>, minval: CLonglong, maxval: CLonglong, errstr: MutPtr<ConstPtr<CChar>>): CLonglong =
+    UnixHaikuBsdJniBridge.libcUnixHaikuBsdStrtonum(nptr.rawAddress, minval, maxval, errstr.rawAddress)
 
-public actual fun openpty(amaster: COpaquePointer?, aslave: COpaquePointer?, name: COpaquePointer?, termp: COpaquePointer?, winp: COpaquePointer?): CInt =
-    UnixHaikuBsdJniBridge.libc_unix_haiku_bsd_openpty((amaster?.value ?: 0L), (aslave?.value ?: 0L), (name?.value ?: 0L), (termp?.value ?: 0L), (winp?.value ?: 0L))
+public actual fun openpty(amaster: MutPtr<CInt>, aslave: MutPtr<CInt>, name: MutPtr<CChar>, termp: MutPtr<Termios>, winp: MutPtr<Winsize>): CInt =
+    UnixHaikuBsdJniBridge.libcUnixHaikuBsdOpenpty(amaster.rawAddress, aslave.rawAddress, name.rawAddress, termp.rawAddress, winp.rawAddress)
 
 public actual fun loginTty(fd: CInt): CInt =
-    UnixHaikuBsdJniBridge.libc_unix_haiku_bsd_loginTty(fd)
+    UnixHaikuBsdJniBridge.libcUnixHaikuBsdLoginTty(fd)
 
-public actual fun forkpty(amaster: COpaquePointer?, name: COpaquePointer?, termp: COpaquePointer?, winp: COpaquePointer?): PidT =
-    UnixHaikuBsdJniBridge.libc_unix_haiku_bsd_forkpty((amaster?.value ?: 0L), (name?.value ?: 0L), (termp?.value ?: 0L), (winp?.value ?: 0L))
+public actual fun forkpty(amaster: MutPtr<CInt>, name: MutPtr<CChar>, termp: MutPtr<Termios>, winp: MutPtr<Winsize>): PidT =
+    UnixHaikuBsdJniBridge.libcUnixHaikuBsdForkpty(amaster.rawAddress, name.rawAddress, termp.rawAddress, winp.rawAddress)
 
-public actual fun strsep(string: COpaquePointer?, delimiters: String?): COpaquePointer? =
-    UnixHaikuBsdJniBridge.libc_unix_haiku_bsd_strsep((string?.value ?: 0L), delimiters).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun strsep(string: MutPtr<MutPtr<CChar>>, delimiters: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(UnixHaikuBsdJniBridge.libcUnixHaikuBsdStrsep(string.rawAddress, delimiters.rawAddress))
 
-public actual fun explicitBzero(buf: COpaquePointer?, len: SizeT) {
-    UnixHaikuBsdJniBridge.libc_unix_haiku_bsd_explicitBzero((buf?.value ?: 0L), len.toLong())
+public actual fun explicitBzero(buf: MutPtr<CVoid>, len: SizeT) {
+    UnixHaikuBsdJniBridge.libcUnixHaikuBsdExplicitBzero(buf.rawAddress, len.toLong())
 }
 
-public actual fun slInit(): COpaquePointer? =
-    UnixHaikuBsdJniBridge.libc_unix_haiku_bsd_slInit().let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun slInit(): MutPtr<StringList> =
+    MutPtr(UnixHaikuBsdJniBridge.libcUnixHaikuBsdSlInit())
 
-public actual fun slAdd(sl: COpaquePointer?, n: COpaquePointer?): CInt =
-    UnixHaikuBsdJniBridge.libc_unix_haiku_bsd_slAdd((sl?.value ?: 0L), (n?.value ?: 0L))
+public actual fun slAdd(sl: MutPtr<StringList>, n: MutPtr<CChar>): CInt =
+    UnixHaikuBsdJniBridge.libcUnixHaikuBsdSlAdd(sl.rawAddress, n.rawAddress)
 
-public actual fun slFree(sl: COpaquePointer?, i: CInt) {
-    UnixHaikuBsdJniBridge.libc_unix_haiku_bsd_slFree((sl?.value ?: 0L), i)
+public actual fun slFree(sl: MutPtr<StringList>, i: CInt) {
+    UnixHaikuBsdJniBridge.libcUnixHaikuBsdSlFree(sl.rawAddress, i)
 }
 
-public actual fun slFind(sl: COpaquePointer?, n: COpaquePointer?): COpaquePointer? =
-    UnixHaikuBsdJniBridge.libc_unix_haiku_bsd_slFind((sl?.value ?: 0L), (n?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun slFind(sl: MutPtr<StringList>, n: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(UnixHaikuBsdJniBridge.libcUnixHaikuBsdSlFind(sl.rawAddress, n.rawAddress))
 
 public actual fun kqueue(): CInt =
-    UnixHaikuBsdJniBridge.libc_unix_haiku_bsd_kqueue()
+    UnixHaikuBsdJniBridge.libcUnixHaikuBsdKqueue()
 
-public actual fun kevent(kq: CInt, changelist: COpaquePointer?, nchanges: CInt, eventlist: COpaquePointer?, nevents: CInt, timeout: COpaquePointer?): CInt =
-    UnixHaikuBsdJniBridge.libc_unix_haiku_bsd_kevent(kq, (changelist?.value ?: 0L), nchanges, (eventlist?.value ?: 0L), nevents, (timeout?.value ?: 0L))
+public actual fun kevent(kq: CInt, changelist: ConstPtr<Kevent>, nchanges: CInt, eventlist: MutPtr<Kevent>, nevents: CInt, timeout: ConstPtr<Timespec>): CInt =
+    UnixHaikuBsdJniBridge.libcUnixHaikuBsdKevent(kq, changelist.rawAddress, nchanges, eventlist.rawAddress, nevents, timeout.rawAddress)
 
-public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt =
-    UnixHaikuBsdJniBridge.libc_unix_haiku_bsd_dlIteratePhdr(0L, (data?.value ?: 0L))
+public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: MutPtr<CVoid>): CInt =
+    UnixHaikuBsdJniBridge.libcUnixHaikuBsdDlIteratePhdr(0L, data.rawAddress)
 
-public actual fun lutimes(file: String?, times: COpaquePointer?): CInt =
-    UnixHaikuBsdJniBridge.libc_unix_haiku_bsd_lutimes(file, (times?.value ?: 0L))
+public actual fun lutimes(file: ConstPtr<CChar>, times: ConstPtr<Timeval>): CInt =
+    UnixHaikuBsdJniBridge.libcUnixHaikuBsdLutimes(file.rawAddress, times.rawAddress)
 
-public actual fun preadv(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: OffT): SsizeT =
-    UnixHaikuBsdJniBridge.libc_unix_haiku_bsd_preadv(fd, (iov?.value ?: 0L), iovcnt, offset)
+public actual fun preadv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT =
+    UnixHaikuBsdJniBridge.libcUnixHaikuBsdPreadv(fd, iov.rawAddress, iovcnt, offset)
 
-public actual fun pwritev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: OffT): SsizeT =
-    UnixHaikuBsdJniBridge.libc_unix_haiku_bsd_pwritev(fd, (iov?.value ?: 0L), iovcnt, offset)
+public actual fun pwritev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT =
+    UnixHaikuBsdJniBridge.libcUnixHaikuBsdPwritev(fd, iov.rawAddress, iovcnt, offset)
 
-public actual fun wait4(pid: PidT, status: COpaquePointer?, options: CInt, rusage: COpaquePointer?): PidT =
-    UnixHaikuBsdJniBridge.libc_unix_haiku_bsd_wait4(pid, (status?.value ?: 0L), options, (rusage?.value ?: 0L))
+public actual fun wait4(pid: PidT, status: MutPtr<CInt>, options: CInt, rusage: MutPtr<Rusage>): PidT =
+    UnixHaikuBsdJniBridge.libcUnixHaikuBsdWait4(pid, status.rawAddress, options, rusage.rawAddress)

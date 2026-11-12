@@ -19,7 +19,7 @@
 #endif
 #endif
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1iopl(JNIEnv* km_env, jclass km_clazz, jint level) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedIopl(JNIEnv* km_env, jclass km_clazz, jint level) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -52,7 +52,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1ioperm(JNIEnv* km_env, jclass km_clazz, jlong from, jlong num, jint turn_on) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedIoperm(JNIEnv* km_env, jclass km_clazz, jlong from, jlong num, jint turnOn) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(uint64_t, uint64_t, int32_t);
@@ -77,7 +77,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((uint64_t)from, (uint64_t)num, (int32_t)turn_on);
+        km_res = km_fn_ptr((uint64_t)from, (uint64_t)num, (int32_t)turnOn);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -85,7 +85,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1aioRead(JNIEnv* km_env, jclass km_clazz, jlong aiocbp) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedAioRead(JNIEnv* km_env, jclass km_clazz, jlong aiocbp) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -118,7 +118,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1aioWrite(JNIEnv* km_env, jclass km_clazz, jlong aiocbp) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedAioWrite(JNIEnv* km_env, jclass km_clazz, jlong aiocbp) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -151,7 +151,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1aioFsync(JNIEnv* km_env, jclass km_clazz, jint op, jlong aiocbp) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedAioFsync(JNIEnv* km_env, jclass km_clazz, jint op, jlong aiocbp) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -184,7 +184,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1aioError(JNIEnv* km_env, jclass km_clazz, jlong aiocbp) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedAioError(JNIEnv* km_env, jclass km_clazz, jlong aiocbp) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -217,7 +217,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1aioReturn(JNIEnv* km_env, jclass km_clazz, jlong aiocbp) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedAioReturn(JNIEnv* km_env, jclass km_clazz, jlong aiocbp) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(void*);
@@ -250,7 +250,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinux
     return (jlong)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1aioSuspend(JNIEnv* km_env, jclass km_clazz, jlong aiocb_list, jint nitems, jlong timeout) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedAioSuspend(JNIEnv* km_env, jclass km_clazz, jlong aiocbList, jint nitems, jlong timeout) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t, void*);
@@ -275,7 +275,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)aiocb_list, (int32_t)nitems, (void*)(uintptr_t)timeout);
+        km_res = km_fn_ptr((void*)(uintptr_t)aiocbList, (int32_t)nitems, (void*)(uintptr_t)timeout);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -283,7 +283,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1aioCancel(JNIEnv* km_env, jclass km_clazz, jint fd, jlong aiocbp) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedAioCancel(JNIEnv* km_env, jclass km_clazz, jint fd, jlong aiocbp) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -316,7 +316,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1lioListio(JNIEnv* km_env, jclass km_clazz, jint mode, jlong aiocb_list, jint nitems, jlong sevp) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedLioListio(JNIEnv* km_env, jclass km_clazz, jint mode, jlong aiocbList, jint nitems, jlong sevp) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t, void*);
@@ -341,7 +341,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)mode, (void*)(uintptr_t)aiocb_list, (int32_t)nitems, (void*)(uintptr_t)sevp);
+        km_res = km_fn_ptr((int32_t)mode, (void*)(uintptr_t)aiocbList, (int32_t)nitems, (void*)(uintptr_t)sevp);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -349,7 +349,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1pwritev(JNIEnv* km_env, jclass km_clazz, jint fd, jlong iov, jint iovcnt, jlong offset) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedPwritev(JNIEnv* km_env, jclass km_clazz, jint fd, jlong iov, jint iovcnt, jlong offset) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, int64_t);
@@ -382,7 +382,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinux
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1preadv(JNIEnv* km_env, jclass km_clazz, jint fd, jlong iov, jint iovcnt, jlong offset) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedPreadv(JNIEnv* km_env, jclass km_clazz, jint fd, jlong iov, jint iovcnt, jlong offset) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, int64_t);
@@ -415,7 +415,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinux
     return (jlong)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1getnameinfo(JNIEnv* km_env, jclass km_clazz, jlong sa, jint salen, jlong host, jint hostlen, jlong serv, jint servlen, jint flags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedGetnameinfo(JNIEnv* km_env, jclass km_clazz, jlong sa, jint salen, jlong host, jint hostlen, jlong serv, jint servlen, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint32_t, char*, uint32_t, char*, uint32_t, int32_t);
@@ -448,7 +448,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1getloadavg(JNIEnv* km_env, jclass km_clazz, jlong loadavg, jint nelem) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedGetloadavg(JNIEnv* km_env, jclass km_clazz, jlong loadavg, jint nelem) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t);
@@ -481,7 +481,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1processVmReadv(JNIEnv* km_env, jclass km_clazz, jint pid, jlong local_iov, jlong liovcnt, jlong remote_iov, jlong riovcnt, jlong flags) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedProcessVmReadv(JNIEnv* km_env, jclass km_clazz, jint pid, jlong localIov, jlong liovcnt, jlong remoteIov, jlong riovcnt, jlong flags) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, void*, uint64_t, uint64_t);
@@ -506,7 +506,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinux
 #endif
     int64_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)pid, (void*)(uintptr_t)local_iov, (uint64_t)liovcnt, (void*)(uintptr_t)remote_iov, (uint64_t)riovcnt, (uint64_t)flags);
+        km_res = km_fn_ptr((int32_t)pid, (void*)(uintptr_t)localIov, (uint64_t)liovcnt, (void*)(uintptr_t)remoteIov, (uint64_t)riovcnt, (uint64_t)flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -514,7 +514,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinux
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1processVmWritev(JNIEnv* km_env, jclass km_clazz, jint pid, jlong local_iov, jlong liovcnt, jlong remote_iov, jlong riovcnt, jlong flags) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedProcessVmWritev(JNIEnv* km_env, jclass km_clazz, jint pid, jlong localIov, jlong liovcnt, jlong remoteIov, jlong riovcnt, jlong flags) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, void*, uint64_t, uint64_t);
@@ -539,7 +539,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinux
 #endif
     int64_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)pid, (void*)(uintptr_t)local_iov, (uint64_t)liovcnt, (void*)(uintptr_t)remote_iov, (uint64_t)riovcnt, (uint64_t)flags);
+        km_res = km_fn_ptr((int32_t)pid, (void*)(uintptr_t)localIov, (uint64_t)liovcnt, (void*)(uintptr_t)remoteIov, (uint64_t)riovcnt, (uint64_t)flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -547,7 +547,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinux
     return (jlong)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1futimes(JNIEnv* km_env, jclass km_clazz, jint fd, jlong times) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedFutimes(JNIEnv* km_env, jclass km_clazz, jint fd, jlong times) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -580,7 +580,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1strerrorR(JNIEnv* km_env, jclass km_clazz, jint errnum, jlong buf, jlong buflen) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedStrerrorR(JNIEnv* km_env, jclass km_clazz, jint errnum, jlong buf, jlong buflen) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, char*, uint64_t);
@@ -613,7 +613,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1abs(JNIEnv* km_env, jclass km_clazz, jint i) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedAbs(JNIEnv* km_env, jclass km_clazz, jint i) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -646,7 +646,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1labs(JNIEnv* km_env, jclass km_clazz, jlong i) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedLabs(JNIEnv* km_env, jclass km_clazz, jlong i) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int64_t);
@@ -679,7 +679,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinux
     return (jlong)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1rand(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedRand(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -712,7 +712,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1srand(JNIEnv* km_env, jclass km_clazz, jint seed) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedSrand(JNIEnv* km_env, jclass km_clazz, jint seed) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(uint32_t);
@@ -742,7 +742,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     }
 }
 
-JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1drand48(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedDrand48(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef double (*km_fn_t)(void);
@@ -775,7 +775,7 @@ JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLin
     return (jdouble)km_res;
 }
 
-JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1erand48(JNIEnv* km_env, jclass km_clazz, jlong xseed) {
+JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedErand48(JNIEnv* km_env, jclass km_clazz, jlong xseed) {
     (void)km_env;
     (void)km_clazz;
     typedef double (*km_fn_t)(void*);
@@ -808,7 +808,7 @@ JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLin
     return (jdouble)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1lrand48(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedLrand48(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(void);
@@ -841,7 +841,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinux
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1nrand48(JNIEnv* km_env, jclass km_clazz, jlong xseed) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedNrand48(JNIEnv* km_env, jclass km_clazz, jlong xseed) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(void*);
@@ -874,7 +874,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinux
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1jrand48(JNIEnv* km_env, jclass km_clazz, jlong xseed) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedJrand48(JNIEnv* km_env, jclass km_clazz, jlong xseed) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(void*);
@@ -907,7 +907,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinux
     return (jlong)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1srand48(JNIEnv* km_env, jclass km_clazz, jlong seed) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedSrand48(JNIEnv* km_env, jclass km_clazz, jlong seed) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(int64_t);
@@ -937,7 +937,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1setpwent(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedSetpwent(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void);
@@ -967,7 +967,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1endpwent(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedEndpwent(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void);
@@ -997,7 +997,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     }
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1getpwent(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedGetpwent(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void);
@@ -1030,7 +1030,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinux
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1setgrent(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedSetgrent(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void);
@@ -1060,7 +1060,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1endgrent(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedEndgrent(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void);
@@ -1090,7 +1090,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     }
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1getgrent(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedGetgrent(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void);
@@ -1123,7 +1123,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinux
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1setspent(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedSetspent(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void);
@@ -1153,7 +1153,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1endspent(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedEndspent(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void);
@@ -1183,7 +1183,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     }
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1getspent(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedGetspent(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void);
@@ -1216,10 +1216,9 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinux
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1getspnam(JNIEnv* km_env, jclass km_clazz, jstring name) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedGetspnam(JNIEnv* km_env, jclass km_clazz, jlong name) {
     (void)km_env;
     (void)km_clazz;
-    const char* name_utf = (name != NULL) ? (*km_env)->GetStringUTFChars(km_env, name, NULL) : NULL;
     typedef void* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1242,16 +1241,15 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinux
 #endif
     void* km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(name_utf);
+        km_res = km_fn_ptr((const char*)(uintptr_t)name);
     } else {
         errno = ENOSYS;
         km_res = NULL;
     }
-    if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1shmget(JNIEnv* km_env, jclass km_clazz, jint key, jlong size, jint shmflg) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedShmget(JNIEnv* km_env, jclass km_clazz, jint key, jlong size, jint shmflg) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, uint64_t, int32_t);
@@ -1284,7 +1282,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1shmat(JNIEnv* km_env, jclass km_clazz, jint shmid, jlong shmaddr, jint shmflg) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedShmat(JNIEnv* km_env, jclass km_clazz, jint shmid, jlong shmaddr, jint shmflg) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(int32_t, void*, int32_t);
@@ -1317,7 +1315,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinux
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1shmdt(JNIEnv* km_env, jclass km_clazz, jlong shmaddr) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedShmdt(JNIEnv* km_env, jclass km_clazz, jlong shmaddr) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -1350,7 +1348,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1shmctl(JNIEnv* km_env, jclass km_clazz, jint shmid, jint cmd, jlong buf) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedShmctl(JNIEnv* km_env, jclass km_clazz, jint shmid, jint cmd, jlong buf) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
@@ -1383,7 +1381,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1mprotect(JNIEnv* km_env, jclass km_clazz, jlong addr, jlong len, jint prot) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedMprotect(JNIEnv* km_env, jclass km_clazz, jlong addr, jlong len, jint prot) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint64_t, int32_t);
@@ -1416,7 +1414,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1errnoLocation(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedErrnoLocation(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void);
@@ -1447,7 +1445,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinux
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1mremap(JNIEnv* km_env, jclass km_clazz, jlong addr, jlong len, jlong new_len, jint flags, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedMremap(JNIEnv* km_env, jclass km_clazz, jlong addr, jlong len, jlong newLen, jint flags, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void*, uint64_t, uint64_t, int32_t, ...);
@@ -1473,11 +1471,11 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinux
     void* km_res = NULL;
     if (km_fn_ptr != NULL) {
         switch (km_vac) {
-            case 0: km_res = km_fn_ptr((void*)(uintptr_t)addr, (uint64_t)len, (uint64_t)new_len, (int32_t)flags); break;
-            case 1: km_res = km_fn_ptr((void*)(uintptr_t)addr, (uint64_t)len, (uint64_t)new_len, (int32_t)flags, (intptr_t)km_va0); break;
-            case 2: km_res = km_fn_ptr((void*)(uintptr_t)addr, (uint64_t)len, (uint64_t)new_len, (int32_t)flags, (intptr_t)km_va0, (intptr_t)km_va1); break;
-            case 3: km_res = km_fn_ptr((void*)(uintptr_t)addr, (uint64_t)len, (uint64_t)new_len, (int32_t)flags, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2); break;
-            default: km_res = km_fn_ptr((void*)(uintptr_t)addr, (uint64_t)len, (uint64_t)new_len, (int32_t)flags, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3); break;
+            case 0: km_res = km_fn_ptr((void*)(uintptr_t)addr, (uint64_t)len, (uint64_t)newLen, (int32_t)flags); break;
+            case 1: km_res = km_fn_ptr((void*)(uintptr_t)addr, (uint64_t)len, (uint64_t)newLen, (int32_t)flags, (intptr_t)km_va0); break;
+            case 2: km_res = km_fn_ptr((void*)(uintptr_t)addr, (uint64_t)len, (uint64_t)newLen, (int32_t)flags, (intptr_t)km_va0, (intptr_t)km_va1); break;
+            case 3: km_res = km_fn_ptr((void*)(uintptr_t)addr, (uint64_t)len, (uint64_t)newLen, (int32_t)flags, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2); break;
+            default: km_res = km_fn_ptr((void*)(uintptr_t)addr, (uint64_t)len, (uint64_t)newLen, (int32_t)flags, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3); break;
         }
     } else {
         errno = ENOSYS;
@@ -1485,10 +1483,9 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinux
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1glob(JNIEnv* km_env, jclass km_clazz, jstring pattern, jint flags, jlong errfunc, jlong pglob) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedGlob(JNIEnv* km_env, jclass km_clazz, jlong pattern, jint flags, jlong errfunc, jlong pglob) {
     (void)km_env;
     (void)km_clazz;
-    const char* pattern_utf = (pattern != NULL) ? (*km_env)->GetStringUTFChars(km_env, pattern, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1511,16 +1508,15 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(pattern_utf, (int32_t)flags, (void*)(uintptr_t)errfunc, (void*)(uintptr_t)pglob);
+        km_res = km_fn_ptr((const char*)(uintptr_t)pattern, (int32_t)flags, (void*)(uintptr_t)errfunc, (void*)(uintptr_t)pglob);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (pattern != NULL && pattern_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, pattern, pattern_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1globfree(JNIEnv* km_env, jclass km_clazz, jlong pglob) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedGlobfree(JNIEnv* km_env, jclass km_clazz, jlong pglob) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void*);
@@ -1550,7 +1546,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1seekdir(JNIEnv* km_env, jclass km_clazz, jlong dirp, jlong loc) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedSeekdir(JNIEnv* km_env, jclass km_clazz, jlong dirp, jlong loc) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void*, int64_t);
@@ -1580,7 +1576,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     }
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1telldir(JNIEnv* km_env, jclass km_clazz, jlong dirp) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedTelldir(JNIEnv* km_env, jclass km_clazz, jlong dirp) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(void*);
@@ -1613,7 +1609,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinux
     return (jlong)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1madvise(JNIEnv* km_env, jclass km_clazz, jlong addr, jlong len, jint advice) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedMadvise(JNIEnv* km_env, jclass km_clazz, jlong addr, jlong len, jint advice) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint64_t, int32_t);
@@ -1646,7 +1642,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1msync(JNIEnv* km_env, jclass km_clazz, jlong addr, jlong len, jint flags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedMsync(JNIEnv* km_env, jclass km_clazz, jlong addr, jlong len, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint64_t, int32_t);
@@ -1679,7 +1675,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1recvfrom(JNIEnv* km_env, jclass km_clazz, jint arg_0_socket, jlong buf, jlong len, jint flags, jlong addr, jlong addrlen) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedRecvfrom(JNIEnv* km_env, jclass km_clazz, jint arg0Socket, jlong buf, jlong len, jint flags, jlong addr, jlong addrlen) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, int32_t, void*, void*);
@@ -1704,7 +1700,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinux
 #endif
     int64_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)arg_0_socket, (void*)(uintptr_t)buf, (uint64_t)len, (int32_t)flags, (void*)(uintptr_t)addr, (void*)(uintptr_t)addrlen);
+        km_res = km_fn_ptr((int32_t)arg0Socket, (void*)(uintptr_t)buf, (uint64_t)len, (int32_t)flags, (void*)(uintptr_t)addr, (void*)(uintptr_t)addrlen);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1712,7 +1708,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinux
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1nlLanginfo(JNIEnv* km_env, jclass km_clazz, jint item) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedNlLanginfo(JNIEnv* km_env, jclass km_clazz, jint item) {
     (void)km_env;
     (void)km_clazz;
     typedef char* (*km_fn_t)(int32_t);
@@ -1745,7 +1741,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinux
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1nlLanginfoL(JNIEnv* km_env, jclass km_clazz, jint item, jlong locale) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedNlLanginfoL(JNIEnv* km_env, jclass km_clazz, jint item, jlong locale) {
     (void)km_env;
     (void)km_clazz;
     typedef char* (*km_fn_t)(int32_t, void*);
@@ -1778,7 +1774,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinux
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1schedGetaffinity(JNIEnv* km_env, jclass km_clazz, jint pid, jlong cpusetsize, jlong cpuset) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedSchedGetaffinity(JNIEnv* km_env, jclass km_clazz, jint pid, jlong cpusetsize, jlong cpuset) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, uint64_t, void*);
@@ -1811,7 +1807,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1schedGetPriorityMax(JNIEnv* km_env, jclass km_clazz, jint policy) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedSchedGetPriorityMax(JNIEnv* km_env, jclass km_clazz, jint policy) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -1844,7 +1840,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1settimeofday(JNIEnv* km_env, jclass km_clazz, jlong tv, jlong tz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedSettimeofday(JNIEnv* km_env, jclass km_clazz, jlong tv, jlong tz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -1877,7 +1873,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1semTimedwait(JNIEnv* km_env, jclass km_clazz, jlong sem, jlong abstime) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedSemTimedwait(JNIEnv* km_env, jclass km_clazz, jlong sem, jlong abstime) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -1910,7 +1906,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1semGetvalue(JNIEnv* km_env, jclass km_clazz, jlong sem, jlong sval) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedSemGetvalue(JNIEnv* km_env, jclass km_clazz, jlong sem, jlong sval) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -1943,12 +1939,9 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1mount(JNIEnv* km_env, jclass km_clazz, jstring src, jstring target, jstring fstype, jlong flags, jlong data) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedMount(JNIEnv* km_env, jclass km_clazz, jlong src, jlong target, jlong fstype, jlong flags, jlong data) {
     (void)km_env;
     (void)km_clazz;
-    const char* src_utf = (src != NULL) ? (*km_env)->GetStringUTFChars(km_env, src, NULL) : NULL;
-    const char* target_utf = (target != NULL) ? (*km_env)->GetStringUTFChars(km_env, target, NULL) : NULL;
-    const char* fstype_utf = (fstype != NULL) ? (*km_env)->GetStringUTFChars(km_env, fstype, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, const char*, const char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1971,18 +1964,15 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(src_utf, target_utf, fstype_utf, (uint64_t)flags, (void*)(uintptr_t)data);
+        km_res = km_fn_ptr((const char*)(uintptr_t)src, (const char*)(uintptr_t)target, (const char*)(uintptr_t)fstype, (uint64_t)flags, (void*)(uintptr_t)data);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (src != NULL && src_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, src, src_utf);
-    if (target != NULL && target_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, target, target_utf);
-    if (fstype != NULL && fstype_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, fstype, fstype_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1prctl(JNIEnv* km_env, jclass km_clazz, jint option, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedPrctl(JNIEnv* km_env, jclass km_clazz, jint option, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, ...);
@@ -2020,7 +2010,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1ppoll(JNIEnv* km_env, jclass km_clazz, jlong fds, jlong nfds, jlong timeout, jlong sigmask) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedPpoll(JNIEnv* km_env, jclass km_clazz, jlong fds, jlong nfds, jlong timeout, jlong sigmask) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint64_t, void*, void*);
@@ -2053,10 +2043,9 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1sethostname(JNIEnv* km_env, jclass km_clazz, jstring name, jlong len) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedSethostname(JNIEnv* km_env, jclass km_clazz, jlong name, jlong len) {
     (void)km_env;
     (void)km_clazz;
-    const char* name_utf = (name != NULL) ? (*km_env)->GetStringUTFChars(km_env, name, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2079,16 +2068,15 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(name_utf, (uint64_t)len);
+        km_res = km_fn_ptr((const char*)(uintptr_t)name, (uint64_t)len);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1schedGetPriorityMin(JNIEnv* km_env, jclass km_clazz, jint policy) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedSchedGetPriorityMin(JNIEnv* km_env, jclass km_clazz, jint policy) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -2121,7 +2109,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1sysinfo(JNIEnv* km_env, jclass km_clazz, jlong info) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedSysinfo(JNIEnv* km_env, jclass km_clazz, jlong info) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -2154,7 +2142,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1sigsuspend(JNIEnv* km_env, jclass km_clazz, jlong mask) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedSigsuspend(JNIEnv* km_env, jclass km_clazz, jlong mask) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -2187,7 +2175,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1getgrgidR(JNIEnv* km_env, jclass km_clazz, jshort gid, jlong grp, jlong buf, jlong buflen, jlong result) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedGetgrgidR(JNIEnv* km_env, jclass km_clazz, jshort gid, jlong grp, jlong buf, jlong buflen, jlong result) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(uint16_t, void*, char*, uint64_t, void*);
@@ -2220,7 +2208,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1semClose(JNIEnv* km_env, jclass km_clazz, jlong sem) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedSemClose(JNIEnv* km_env, jclass km_clazz, jlong sem) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -2253,10 +2241,9 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1getgrnamR(JNIEnv* km_env, jclass km_clazz, jstring name, jlong grp, jlong buf, jlong buflen, jlong result) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedGetgrnamR(JNIEnv* km_env, jclass km_clazz, jlong name, jlong grp, jlong buf, jlong buflen, jlong result) {
     (void)km_env;
     (void)km_clazz;
-    const char* name_utf = (name != NULL) ? (*km_env)->GetStringUTFChars(km_env, name, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2279,19 +2266,17 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(name_utf, (void*)(uintptr_t)grp, (char*)(uintptr_t)buf, (uint64_t)buflen, (void*)(uintptr_t)result);
+        km_res = km_fn_ptr((const char*)(uintptr_t)name, (void*)(uintptr_t)grp, (char*)(uintptr_t)buf, (uint64_t)buflen, (void*)(uintptr_t)result);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1initgroups(JNIEnv* km_env, jclass km_clazz, jstring user, jshort group) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedInitgroups(JNIEnv* km_env, jclass km_clazz, jlong user, jshort group) {
     (void)km_env;
     (void)km_clazz;
-    const char* user_utf = (user != NULL) ? (*km_env)->GetStringUTFChars(km_env, user, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, uint16_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2314,19 +2299,17 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(user_utf, (uint16_t)group);
+        km_res = km_fn_ptr((const char*)(uintptr_t)user, (uint16_t)group);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (user != NULL && user_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, user, user_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1semOpen(JNIEnv* km_env, jclass km_clazz, jstring name, jint oflag, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedSemOpen(JNIEnv* km_env, jclass km_clazz, jlong name, jint oflag, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
     (void)km_env;
     (void)km_clazz;
-    const char* name_utf = (name != NULL) ? (*km_env)->GetStringUTFChars(km_env, name, NULL) : NULL;
     typedef void* (*km_fn_t)(const char*, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2350,23 +2333,21 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinux
     void* km_res = NULL;
     if (km_fn_ptr != NULL) {
         switch (km_vac) {
-            case 0: km_res = km_fn_ptr(name_utf, (int32_t)oflag); break;
-            case 1: km_res = km_fn_ptr(name_utf, (int32_t)oflag, (intptr_t)km_va0); break;
-            case 2: km_res = km_fn_ptr(name_utf, (int32_t)oflag, (intptr_t)km_va0, (intptr_t)km_va1); break;
-            case 3: km_res = km_fn_ptr(name_utf, (int32_t)oflag, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2); break;
-            default: km_res = km_fn_ptr(name_utf, (int32_t)oflag, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3); break;
+            case 0: km_res = km_fn_ptr((const char*)(uintptr_t)name, (int32_t)oflag); break;
+            case 1: km_res = km_fn_ptr((const char*)(uintptr_t)name, (int32_t)oflag, (intptr_t)km_va0); break;
+            case 2: km_res = km_fn_ptr((const char*)(uintptr_t)name, (int32_t)oflag, (intptr_t)km_va0, (intptr_t)km_va1); break;
+            case 3: km_res = km_fn_ptr((const char*)(uintptr_t)name, (int32_t)oflag, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2); break;
+            default: km_res = km_fn_ptr((const char*)(uintptr_t)name, (int32_t)oflag, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3); break;
         }
     } else {
         errno = ENOSYS;
     }
-    if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1getgrnam(JNIEnv* km_env, jclass km_clazz, jstring name) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedGetgrnam(JNIEnv* km_env, jclass km_clazz, jlong name) {
     (void)km_env;
     (void)km_clazz;
-    const char* name_utf = (name != NULL) ? (*km_env)->GetStringUTFChars(km_env, name, NULL) : NULL;
     typedef void* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2389,19 +2370,17 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinux
 #endif
     void* km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(name_utf);
+        km_res = km_fn_ptr((const char*)(uintptr_t)name);
     } else {
         errno = ENOSYS;
         km_res = NULL;
     }
-    if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1semUnlink(JNIEnv* km_env, jclass km_clazz, jstring name) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedSemUnlink(JNIEnv* km_env, jclass km_clazz, jlong name) {
     (void)km_env;
     (void)km_clazz;
-    const char* name_utf = (name != NULL) ? (*km_env)->GetStringUTFChars(km_env, name, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2424,16 +2403,15 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(name_utf);
+        km_res = km_fn_ptr((const char*)(uintptr_t)name);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1daemon(JNIEnv* km_env, jclass km_clazz, jint nochdir, jint noclose) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedDaemon(JNIEnv* km_env, jclass km_clazz, jint nochdir, jint noclose) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
@@ -2466,7 +2444,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1sigwait(JNIEnv* km_env, jclass km_clazz, jlong set, jlong sig) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedSigwait(JNIEnv* km_env, jclass km_clazz, jlong set, jlong sig) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -2499,7 +2477,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1getgrgid(JNIEnv* km_env, jclass km_clazz, jshort gid) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedGetgrgid(JNIEnv* km_env, jclass km_clazz, jshort gid) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(uint16_t);
@@ -2532,11 +2510,9 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinux
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1popen(JNIEnv* km_env, jclass km_clazz, jstring command, jstring mode) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedPopen(JNIEnv* km_env, jclass km_clazz, jlong command, jlong mode) {
     (void)km_env;
     (void)km_clazz;
-    const char* command_utf = (command != NULL) ? (*km_env)->GetStringUTFChars(km_env, command, NULL) : NULL;
-    const char* mode_utf = (mode != NULL) ? (*km_env)->GetStringUTFChars(km_env, mode, NULL) : NULL;
     typedef void* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2559,20 +2535,17 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinux
 #endif
     void* km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(command_utf, mode_utf);
+        km_res = km_fn_ptr((const char*)(uintptr_t)command, (const char*)(uintptr_t)mode);
     } else {
         errno = ENOSYS;
         km_res = NULL;
     }
-    if (command != NULL && command_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, command, command_utf);
-    if (mode != NULL && mode_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, mode, mode_utf);
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1faccessat(JNIEnv* km_env, jclass km_clazz, jint dirfd, jstring pathname, jint mode, jint flags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedFaccessat(JNIEnv* km_env, jclass km_clazz, jint dirfd, jlong pathname, jint mode, jint flags) {
     (void)km_env;
     (void)km_clazz;
-    const char* pathname_utf = (pathname != NULL) ? (*km_env)->GetStringUTFChars(km_env, pathname, NULL) : NULL;
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2595,16 +2568,15 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)dirfd, pathname_utf, (int32_t)mode, (int32_t)flags);
+        km_res = km_fn_ptr((int32_t)dirfd, (const char*)(uintptr_t)pathname, (int32_t)mode, (int32_t)flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (pathname != NULL && pathname_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, pathname, pathname_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1dlIteratePhdr(JNIEnv* km_env, jclass km_clazz, jlong callback, jlong data) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedDlIteratePhdr(JNIEnv* km_env, jclass km_clazz, jlong callback, jlong data) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -2637,11 +2609,9 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1setmntent(JNIEnv* km_env, jclass km_clazz, jstring filename, jstring ty) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedSetmntent(JNIEnv* km_env, jclass km_clazz, jlong filename, jlong ty) {
     (void)km_env;
     (void)km_clazz;
-    const char* filename_utf = (filename != NULL) ? (*km_env)->GetStringUTFChars(km_env, filename, NULL) : NULL;
-    const char* ty_utf = (ty != NULL) ? (*km_env)->GetStringUTFChars(km_env, ty, NULL) : NULL;
     typedef void* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2664,17 +2634,15 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinux
 #endif
     void* km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(filename_utf, ty_utf);
+        km_res = km_fn_ptr((const char*)(uintptr_t)filename, (const char*)(uintptr_t)ty);
     } else {
         errno = ENOSYS;
         km_res = NULL;
     }
-    if (filename != NULL && filename_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, filename, filename_utf);
-    if (ty != NULL && ty_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, ty, ty_utf);
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1getmntent(JNIEnv* km_env, jclass km_clazz, jlong stream) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedGetmntent(JNIEnv* km_env, jclass km_clazz, jlong stream) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void*);
@@ -2707,7 +2675,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinux
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1addmntent(JNIEnv* km_env, jclass km_clazz, jlong stream, jlong mnt) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedAddmntent(JNIEnv* km_env, jclass km_clazz, jlong stream, jlong mnt) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -2740,7 +2708,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1endmntent(JNIEnv* km_env, jclass km_clazz, jlong streamp) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedEndmntent(JNIEnv* km_env, jclass km_clazz, jlong streamp) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -2773,10 +2741,9 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1hasmntopt(JNIEnv* km_env, jclass km_clazz, jlong mnt, jstring opt) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedHasmntopt(JNIEnv* km_env, jclass km_clazz, jlong mnt, jlong opt) {
     (void)km_env;
     (void)km_clazz;
-    const char* opt_utf = (opt != NULL) ? (*km_env)->GetStringUTFChars(km_env, opt, NULL) : NULL;
     typedef char* (*km_fn_t)(void*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2799,19 +2766,17 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinux
 #endif
     char* km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)mnt, opt_utf);
+        km_res = km_fn_ptr((void*)(uintptr_t)mnt, (const char*)(uintptr_t)opt);
     } else {
         errno = ENOSYS;
         km_res = NULL;
     }
-    if (opt != NULL && opt_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, opt, opt_utf);
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1regcomp(JNIEnv* km_env, jclass km_clazz, jlong preg, jstring pattern, jint cflags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedRegcomp(JNIEnv* km_env, jclass km_clazz, jlong preg, jlong pattern, jint cflags) {
     (void)km_env;
     (void)km_clazz;
-    const char* pattern_utf = (pattern != NULL) ? (*km_env)->GetStringUTFChars(km_env, pattern, NULL) : NULL;
     typedef int32_t (*km_fn_t)(void*, const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2834,19 +2799,17 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)preg, pattern_utf, (int32_t)cflags);
+        km_res = km_fn_ptr((void*)(uintptr_t)preg, (const char*)(uintptr_t)pattern, (int32_t)cflags);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (pattern != NULL && pattern_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, pattern, pattern_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1regexec(JNIEnv* km_env, jclass km_clazz, jlong preg, jstring input, jlong nmatch, jlong pmatch, jint eflags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedRegexec(JNIEnv* km_env, jclass km_clazz, jlong preg, jlong input, jlong nmatch, jlong pmatch, jint eflags) {
     (void)km_env;
     (void)km_clazz;
-    const char* input_utf = (input != NULL) ? (*km_env)->GetStringUTFChars(km_env, input, NULL) : NULL;
     typedef int32_t (*km_fn_t)(void*, const char*, uint64_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2869,16 +2832,15 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)preg, input_utf, (uint64_t)nmatch, (void*)(uintptr_t)pmatch, (int32_t)eflags);
+        km_res = km_fn_ptr((void*)(uintptr_t)preg, (const char*)(uintptr_t)input, (uint64_t)nmatch, (void*)(uintptr_t)pmatch, (int32_t)eflags);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (input != NULL && input_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, input, input_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1regerror(JNIEnv* km_env, jclass km_clazz, jint errcode, jlong preg, jlong errbuf, jlong errbuf_size) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedRegerror(JNIEnv* km_env, jclass km_clazz, jint errcode, jlong preg, jlong errbuf, jlong errbufSize) {
     (void)km_env;
     (void)km_clazz;
     typedef uint64_t (*km_fn_t)(int32_t, void*, char*, uint64_t);
@@ -2903,7 +2865,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinux
 #endif
     uint64_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)errcode, (void*)(uintptr_t)preg, (char*)(uintptr_t)errbuf, (uint64_t)errbuf_size);
+        km_res = km_fn_ptr((int32_t)errcode, (void*)(uintptr_t)preg, (char*)(uintptr_t)errbuf, (uint64_t)errbufSize);
     } else {
         errno = ENOSYS;
         km_res = 0;
@@ -2911,7 +2873,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinux
     return (jlong)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1regfree(JNIEnv* km_env, jclass km_clazz, jlong preg) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedRegfree(JNIEnv* km_env, jclass km_clazz, jlong preg) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void*);
@@ -2941,11 +2903,9 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     }
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1iconvOpen(JNIEnv* km_env, jclass km_clazz, jstring tocode, jstring fromcode) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedIconvOpen(JNIEnv* km_env, jclass km_clazz, jlong tocode, jlong fromcode) {
     (void)km_env;
     (void)km_clazz;
-    const char* tocode_utf = (tocode != NULL) ? (*km_env)->GetStringUTFChars(km_env, tocode, NULL) : NULL;
-    const char* fromcode_utf = (fromcode != NULL) ? (*km_env)->GetStringUTFChars(km_env, fromcode, NULL) : NULL;
     typedef void* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2968,17 +2928,15 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinux
 #endif
     void* km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(tocode_utf, fromcode_utf);
+        km_res = km_fn_ptr((const char*)(uintptr_t)tocode, (const char*)(uintptr_t)fromcode);
     } else {
         errno = ENOSYS;
         km_res = NULL;
     }
-    if (tocode != NULL && tocode_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, tocode, tocode_utf);
-    if (fromcode != NULL && fromcode_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, fromcode, fromcode_utf);
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1iconv(JNIEnv* km_env, jclass km_clazz, jlong cd, jlong inbuf, jlong inbytesleft, jlong outbuf, jlong outbytesleft) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedIconv(JNIEnv* km_env, jclass km_clazz, jlong cd, jlong inbuf, jlong inbytesleft, jlong outbuf, jlong outbytesleft) {
     (void)km_env;
     (void)km_clazz;
     typedef uint64_t (*km_fn_t)(void*, void*, void*, void*, void*);
@@ -3011,7 +2969,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinux
     return (jlong)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1iconvClose(JNIEnv* km_env, jclass km_clazz, jlong cd) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedIconvClose(JNIEnv* km_env, jclass km_clazz, jlong cd) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -3044,7 +3002,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1gettid(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedGettid(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -3077,7 +3035,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1timerCreate(JNIEnv* km_env, jclass km_clazz, jint clockid, jlong sevp, jlong timerid) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedTimerCreate(JNIEnv* km_env, jclass km_clazz, jint clockid, jlong sevp, jlong timerid) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
@@ -3110,7 +3068,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1timerDelete(JNIEnv* km_env, jclass km_clazz, jlong timerid) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedTimerDelete(JNIEnv* km_env, jclass km_clazz, jlong timerid) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -3143,7 +3101,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1timerGetoverrun(JNIEnv* km_env, jclass km_clazz, jlong timerid) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedTimerGetoverrun(JNIEnv* km_env, jclass km_clazz, jlong timerid) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -3176,7 +3134,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1timerGettime(JNIEnv* km_env, jclass km_clazz, jlong timerid, jlong curr_value) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedTimerGettime(JNIEnv* km_env, jclass km_clazz, jlong timerid, jlong currValue) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -3201,7 +3159,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)timerid, (void*)(uintptr_t)curr_value);
+        km_res = km_fn_ptr((void*)(uintptr_t)timerid, (void*)(uintptr_t)currValue);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3209,7 +3167,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1timerSettime(JNIEnv* km_env, jclass km_clazz, jlong timerid, jint flags, jlong new_value, jlong old_value) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedTimerSettime(JNIEnv* km_env, jclass km_clazz, jlong timerid, jint flags, jlong newValue, jlong oldValue) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t, void*, void*);
@@ -3234,7 +3192,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)timerid, (int32_t)flags, (void*)(uintptr_t)new_value, (void*)(uintptr_t)old_value);
+        km_res = km_fn_ptr((void*)(uintptr_t)timerid, (int32_t)flags, (void*)(uintptr_t)newValue, (void*)(uintptr_t)oldValue);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3242,7 +3200,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1memmem(JNIEnv* km_env, jclass km_clazz, jlong haystack, jlong haystacklen, jlong needle, jlong needlelen) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedMemmem(JNIEnv* km_env, jclass km_clazz, jlong haystack, jlong haystacklen, jlong needle, jlong needlelen) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void*, uint64_t, void*, uint64_t);
@@ -3275,7 +3233,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinux
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1schedGetcpu(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedSchedGetcpu(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -3308,10 +3266,9 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1getoptLong(JNIEnv* km_env, jclass km_clazz, jint argc, jlong argv, jstring optstring, jlong longopts, jlong longindex) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedGetoptLong(JNIEnv* km_env, jclass km_clazz, jint argc, jlong argv, jlong optstring, jlong longopts, jlong longindex) {
     (void)km_env;
     (void)km_clazz;
-    const char* optstring_utf = (optstring != NULL) ? (*km_env)->GetStringUTFChars(km_env, optstring, NULL) : NULL;
     typedef int32_t (*km_fn_t)(int32_t, void*, const char*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3334,16 +3291,15 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)argc, (void*)(uintptr_t)argv, optstring_utf, (void*)(uintptr_t)longopts, (void*)(uintptr_t)longindex);
+        km_res = km_fn_ptr((int32_t)argc, (void*)(uintptr_t)argv, (const char*)(uintptr_t)optstring, (void*)(uintptr_t)longopts, (void*)(uintptr_t)longindex);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (optstring != NULL && optstring_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, optstring, optstring_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1copyFileRange(JNIEnv* km_env, jclass km_clazz, jint fd_in, jlong off_in, jint fd_out, jlong off_out, jlong len, jint flags) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedCopyFileRange(JNIEnv* km_env, jclass km_clazz, jint fdIn, jlong offIn, jint fdOut, jlong offOut, jlong len, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, void*, uint64_t, uint32_t);
@@ -3368,7 +3324,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinux
 #endif
     int64_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)fd_in, (void*)(uintptr_t)off_in, (int32_t)fd_out, (void*)(uintptr_t)off_out, (uint64_t)len, (uint32_t)flags);
+        km_res = km_fn_ptr((int32_t)fdIn, (void*)(uintptr_t)offIn, (int32_t)fdOut, (void*)(uintptr_t)offOut, (uint64_t)len, (uint32_t)flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3376,11 +3332,9 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinux
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1freopen64(JNIEnv* km_env, jclass km_clazz, jstring filename, jstring mode, jlong file) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedFreopen64(JNIEnv* km_env, jclass km_clazz, jlong filename, jlong mode, jlong file) {
     (void)km_env;
     (void)km_clazz;
-    const char* filename_utf = (filename != NULL) ? (*km_env)->GetStringUTFChars(km_env, filename, NULL) : NULL;
-    const char* mode_utf = (mode != NULL) ? (*km_env)->GetStringUTFChars(km_env, mode, NULL) : NULL;
     typedef void* (*km_fn_t)(const char*, const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3408,17 +3362,15 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinux
 #endif
     void* km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(filename_utf, mode_utf, (void*)(uintptr_t)file);
+        km_res = km_fn_ptr((const char*)(uintptr_t)filename, (const char*)(uintptr_t)mode, (void*)(uintptr_t)file);
     } else {
         errno = ENOSYS;
         km_res = NULL;
     }
-    if (filename != NULL && filename_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, filename, filename_utf);
-    if (mode != NULL && mode_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, mode, mode_utf);
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1fseeko64(JNIEnv* km_env, jclass km_clazz, jlong stream, jlong offset, jint whence) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedFseeko64(JNIEnv* km_env, jclass km_clazz, jlong stream, jlong offset, jint whence) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int64_t, int32_t);
@@ -3456,7 +3408,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1fsetpos64(JNIEnv* km_env, jclass km_clazz, jlong stream, jlong ptr) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedFsetpos64(JNIEnv* km_env, jclass km_clazz, jlong stream, jlong ptr) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -3494,7 +3446,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxl
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libc_1unix_1linuxlike_1linux_1l4re_1shared_1ftello64(JNIEnv* km_env, jclass km_clazz, jlong stream) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_UnixLinuxlikeLinuxL4reSharedJniBridge_libcUnixLinuxlikeLinuxL4reSharedFtello64(JNIEnv* km_env, jclass km_clazz, jlong stream) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(void*);

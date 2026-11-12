@@ -18,7 +18,7 @@
 #endif
 #endif
 
-void* libc_unix_bsd_freebsdlike_dragonfly_errnoLocation(void) {
+void* libcUnixBsdFreebsdlikeDragonflyErrnoLocation(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -44,7 +44,7 @@ void* libc_unix_bsd_freebsdlike_dragonfly_errnoLocation(void) {
     return NULL;
 }
 
-void libc_unix_bsd_freebsdlike_dragonfly_setgrent(void) {
+void libcUnixBsdFreebsdlikeDragonflySetgrent(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -72,7 +72,7 @@ void libc_unix_bsd_freebsdlike_dragonfly_setgrent(void) {
     errno = ENOSYS;
 }
 
-int32_t libc_unix_bsd_freebsdlike_dragonfly_mprotect(void* addr, uint64_t len, int32_t prot) {
+int32_t libcUnixBsdFreebsdlikeDragonflyMprotect(void* addr, uint64_t len, int32_t prot) {
 #if !defined(_WIN32)
     return (int32_t)mprotect(addr, len, prot);
 #else
@@ -84,7 +84,7 @@ int32_t libc_unix_bsd_freebsdlike_dragonfly_mprotect(void* addr, uint64_t len, i
 #endif
 }
 
-int32_t libc_unix_bsd_freebsdlike_dragonfly_setutxdb(uint32_t arg_0_type, char* file) {
+int32_t libcUnixBsdFreebsdlikeDragonflySetutxdb(uint32_t type, char* file) {
     typedef int32_t (*km_fn_t)(uint32_t, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -106,13 +106,13 @@ int32_t libc_unix_bsd_freebsdlike_dragonfly_setutxdb(uint32_t arg_0_type, char* 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_type, file);
+        return km_fn_ptr(type, file);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_bsd_freebsdlike_dragonfly_aioWaitcomplete(void* iocbp, void* timeout) {
+int32_t libcUnixBsdFreebsdlikeDragonflyAioWaitcomplete(void* iocbp, void* timeout) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -140,7 +140,7 @@ int32_t libc_unix_bsd_freebsdlike_dragonfly_aioWaitcomplete(void* iocbp, void* t
     return -1;
 }
 
-char* libc_unix_bsd_freebsdlike_dragonfly_devnameR(uint32_t dev, uint16_t mode, char* buf, uint64_t len) {
+char* libcUnixBsdFreebsdlikeDragonflyDevnameR(uint32_t dev, uint16_t mode, char* buf, uint64_t len) {
     typedef char* (*km_fn_t)(uint32_t, uint16_t, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -168,7 +168,7 @@ char* libc_unix_bsd_freebsdlike_dragonfly_devnameR(uint32_t dev, uint16_t mode, 
     return NULL;
 }
 
-int32_t libc_unix_bsd_freebsdlike_dragonfly_waitid(uint32_t idtype, int64_t id, void* infop, int32_t options) {
+int32_t libcUnixBsdFreebsdlikeDragonflyWaitid(uint32_t idtype, int64_t id, void* infop, int32_t options) {
     typedef int32_t (*km_fn_t)(uint32_t, int64_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -196,7 +196,7 @@ int32_t libc_unix_bsd_freebsdlike_dragonfly_waitid(uint32_t idtype, int64_t id, 
     return -1;
 }
 
-void libc_unix_bsd_freebsdlike_dragonfly_freelocale(void* loc) {
+void libcUnixBsdFreebsdlikeDragonflyFreelocale(void* loc) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -224,7 +224,7 @@ void libc_unix_bsd_freebsdlike_dragonfly_freelocale(void* loc) {
     errno = ENOSYS;
 }
 
-int32_t libc_unix_bsd_freebsdlike_dragonfly_lwpRtprio(int32_t function, int32_t pid, int32_t lwpid, void* rtp) {
+int32_t libcUnixBsdFreebsdlikeDragonflyLwpRtprio(int32_t function, int32_t pid, int32_t lwpid, void* rtp) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -252,7 +252,7 @@ int32_t libc_unix_bsd_freebsdlike_dragonfly_lwpRtprio(int32_t function, int32_t 
     return -1;
 }
 
-int32_t libc_unix_bsd_freebsdlike_dragonfly_statfs(const char* path, void* buf) {
+int32_t libcUnixBsdFreebsdlikeDragonflyStatfs(const char* path, void* buf) {
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -280,7 +280,7 @@ int32_t libc_unix_bsd_freebsdlike_dragonfly_statfs(const char* path, void* buf) 
     return -1;
 }
 
-int32_t libc_unix_bsd_freebsdlike_dragonfly_fstatfs(int32_t fd, void* buf) {
+int32_t libcUnixBsdFreebsdlikeDragonflyFstatfs(int32_t fd, void* buf) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -308,7 +308,7 @@ int32_t libc_unix_bsd_freebsdlike_dragonfly_fstatfs(int32_t fd, void* buf) {
     return -1;
 }
 
-int32_t libc_unix_bsd_freebsdlike_dragonfly_uname(void* buf) {
+int32_t libcUnixBsdFreebsdlikeDragonflyUname(void* buf) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -336,7 +336,7 @@ int32_t libc_unix_bsd_freebsdlike_dragonfly_uname(void* buf) {
     return -1;
 }
 
-void* libc_unix_bsd_freebsdlike_dragonfly_memmem(void* haystack, uint64_t haystacklen, void* needle, uint64_t needlelen) {
+void* libcUnixBsdFreebsdlikeDragonflyMemmem(void* haystack, uint64_t haystacklen, void* needle, uint64_t needlelen) {
     typedef void* (*km_fn_t)(void*, uint64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -364,7 +364,7 @@ void* libc_unix_bsd_freebsdlike_dragonfly_memmem(void* haystack, uint64_t haysta
     return NULL;
 }
 
-int32_t libc_unix_bsd_freebsdlike_dragonfly_pthreadSpinInit(void* lock, int32_t pshared) {
+int32_t libcUnixBsdFreebsdlikeDragonflyPthreadSpinInit(void* lock, int32_t pshared) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -392,7 +392,7 @@ int32_t libc_unix_bsd_freebsdlike_dragonfly_pthreadSpinInit(void* lock, int32_t 
     return ENOSYS;
 }
 
-int32_t libc_unix_bsd_freebsdlike_dragonfly_pthreadSpinDestroy(void* lock) {
+int32_t libcUnixBsdFreebsdlikeDragonflyPthreadSpinDestroy(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -420,7 +420,7 @@ int32_t libc_unix_bsd_freebsdlike_dragonfly_pthreadSpinDestroy(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_unix_bsd_freebsdlike_dragonfly_pthreadSpinLock(void* lock) {
+int32_t libcUnixBsdFreebsdlikeDragonflyPthreadSpinLock(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -448,7 +448,7 @@ int32_t libc_unix_bsd_freebsdlike_dragonfly_pthreadSpinLock(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_unix_bsd_freebsdlike_dragonfly_pthreadSpinTrylock(void* lock) {
+int32_t libcUnixBsdFreebsdlikeDragonflyPthreadSpinTrylock(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -476,7 +476,7 @@ int32_t libc_unix_bsd_freebsdlike_dragonfly_pthreadSpinTrylock(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_unix_bsd_freebsdlike_dragonfly_pthreadSpinUnlock(void* lock) {
+int32_t libcUnixBsdFreebsdlikeDragonflyPthreadSpinUnlock(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -504,7 +504,7 @@ int32_t libc_unix_bsd_freebsdlike_dragonfly_pthreadSpinUnlock(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_unix_bsd_freebsdlike_dragonfly_schedGetaffinity(int32_t pid, uint64_t cpusetsize, void* mask) {
+int32_t libcUnixBsdFreebsdlikeDragonflySchedGetaffinity(int32_t pid, uint64_t cpusetsize, void* mask) {
     typedef int32_t (*km_fn_t)(int32_t, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -532,7 +532,7 @@ int32_t libc_unix_bsd_freebsdlike_dragonfly_schedGetaffinity(int32_t pid, uint64
     return -1;
 }
 
-int32_t libc_unix_bsd_freebsdlike_dragonfly_schedSetaffinity(int32_t pid, uint64_t cpusetsize, void* mask) {
+int32_t libcUnixBsdFreebsdlikeDragonflySchedSetaffinity(int32_t pid, uint64_t cpusetsize, void* mask) {
     typedef int32_t (*km_fn_t)(int32_t, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -560,7 +560,7 @@ int32_t libc_unix_bsd_freebsdlike_dragonfly_schedSetaffinity(int32_t pid, uint64
     return -1;
 }
 
-int32_t libc_unix_bsd_freebsdlike_dragonfly_schedGetcpu(void) {
+int32_t libcUnixBsdFreebsdlikeDragonflySchedGetcpu(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -588,7 +588,7 @@ int32_t libc_unix_bsd_freebsdlike_dragonfly_schedGetcpu(void) {
     return -1;
 }
 
-void libc_unix_bsd_freebsdlike_dragonfly_setproctitle(const char* fmt, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+void libcUnixBsdFreebsdlikeDragonflySetproctitle(const char* fmt, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef void (*km_fn_t)(const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -622,7 +622,7 @@ void libc_unix_bsd_freebsdlike_dragonfly_setproctitle(const char* fmt, int32_t k
     errno = ENOSYS;
 }
 
-int32_t libc_unix_bsd_freebsdlike_dragonfly_shmget(int64_t key, uint64_t size, int32_t shmflg) {
+int32_t libcUnixBsdFreebsdlikeDragonflyShmget(int64_t key, uint64_t size, int32_t shmflg) {
     typedef int32_t (*km_fn_t)(int64_t, uint64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -650,7 +650,7 @@ int32_t libc_unix_bsd_freebsdlike_dragonfly_shmget(int64_t key, uint64_t size, i
     return -1;
 }
 
-void* libc_unix_bsd_freebsdlike_dragonfly_shmat(int32_t shmid, void* shmaddr, int32_t shmflg) {
+void* libcUnixBsdFreebsdlikeDragonflyShmat(int32_t shmid, void* shmaddr, int32_t shmflg) {
     typedef void* (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -678,7 +678,7 @@ void* libc_unix_bsd_freebsdlike_dragonfly_shmat(int32_t shmid, void* shmaddr, in
     return NULL;
 }
 
-int32_t libc_unix_bsd_freebsdlike_dragonfly_shmdt(void* shmaddr) {
+int32_t libcUnixBsdFreebsdlikeDragonflyShmdt(void* shmaddr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -706,7 +706,7 @@ int32_t libc_unix_bsd_freebsdlike_dragonfly_shmdt(void* shmaddr) {
     return -1;
 }
 
-int32_t libc_unix_bsd_freebsdlike_dragonfly_shmctl(int32_t shmid, int32_t cmd, void* buf) {
+int32_t libcUnixBsdFreebsdlikeDragonflyShmctl(int32_t shmid, int32_t cmd, void* buf) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -734,7 +734,7 @@ int32_t libc_unix_bsd_freebsdlike_dragonfly_shmctl(int32_t shmid, int32_t cmd, v
     return -1;
 }
 
-int32_t libc_unix_bsd_freebsdlike_dragonfly_procctl(uint32_t idtype, int64_t id, int32_t cmd, void* data) {
+int32_t libcUnixBsdFreebsdlikeDragonflyProcctl(uint32_t idtype, int64_t id, int32_t cmd, void* data) {
     typedef int32_t (*km_fn_t)(uint32_t, int64_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -762,7 +762,7 @@ int32_t libc_unix_bsd_freebsdlike_dragonfly_procctl(uint32_t idtype, int64_t id,
     return -1;
 }
 
-int32_t libc_unix_bsd_freebsdlike_dragonfly_updwtmpx(const char* file, void* ut) {
+int32_t libcUnixBsdFreebsdlikeDragonflyUpdwtmpx(const char* file, void* ut) {
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -790,7 +790,7 @@ int32_t libc_unix_bsd_freebsdlike_dragonfly_updwtmpx(const char* file, void* ut)
     return -1;
 }
 
-void* libc_unix_bsd_freebsdlike_dragonfly_getlastlogx(const char* fname, uint16_t uid, void* ll) {
+void* libcUnixBsdFreebsdlikeDragonflyGetlastlogx(const char* fname, uint16_t uid, void* ll) {
     typedef void* (*km_fn_t)(const char*, uint16_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -818,7 +818,7 @@ void* libc_unix_bsd_freebsdlike_dragonfly_getlastlogx(const char* fname, uint16_
     return NULL;
 }
 
-int32_t libc_unix_bsd_freebsdlike_dragonfly_updlastlogx(const char* fname, uint16_t uid, void* ll) {
+int32_t libcUnixBsdFreebsdlikeDragonflyUpdlastlogx(const char* fname, uint16_t uid, void* ll) {
     typedef int32_t (*km_fn_t)(const char*, uint16_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -846,7 +846,7 @@ int32_t libc_unix_bsd_freebsdlike_dragonfly_updlastlogx(const char* fname, uint1
     return -1;
 }
 
-int32_t libc_unix_bsd_freebsdlike_dragonfly_utmpxname(const char* file) {
+int32_t libcUnixBsdFreebsdlikeDragonflyUtmpxname(const char* file) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -874,7 +874,7 @@ int32_t libc_unix_bsd_freebsdlike_dragonfly_utmpxname(const char* file) {
     return -1;
 }
 
-int32_t libc_unix_bsd_freebsdlike_dragonfly_sysCheckpoint(int32_t tpe, int32_t fd, int32_t pid, int32_t retval) {
+int32_t libcUnixBsdFreebsdlikeDragonflySysCheckpoint(int32_t tpe, int32_t fd, int32_t pid, int32_t retval) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -902,7 +902,7 @@ int32_t libc_unix_bsd_freebsdlike_dragonfly_sysCheckpoint(int32_t tpe, int32_t f
     return -1;
 }
 
-int32_t libc_unix_bsd_freebsdlike_dragonfly_umtxSleep(void* ptr, int32_t value, int32_t timeout) {
+int32_t libcUnixBsdFreebsdlikeDragonflyUmtxSleep(void* ptr, int32_t value, int32_t timeout) {
     typedef int32_t (*km_fn_t)(void*, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -930,7 +930,7 @@ int32_t libc_unix_bsd_freebsdlike_dragonfly_umtxSleep(void* ptr, int32_t value, 
     return -1;
 }
 
-int32_t libc_unix_bsd_freebsdlike_dragonfly_umtxWakeup(void* ptr, int32_t count) {
+int32_t libcUnixBsdFreebsdlikeDragonflyUmtxWakeup(void* ptr, int32_t count) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -958,7 +958,7 @@ int32_t libc_unix_bsd_freebsdlike_dragonfly_umtxWakeup(void* ptr, int32_t count)
     return -1;
 }
 
-char* libc_unix_bsd_freebsdlike_dragonfly_dirname(char* path) {
+char* libcUnixBsdFreebsdlikeDragonflyDirname(char* path) {
     typedef char* (*km_fn_t)(char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -986,7 +986,7 @@ char* libc_unix_bsd_freebsdlike_dragonfly_dirname(char* path) {
     return NULL;
 }
 
-char* libc_unix_bsd_freebsdlike_dragonfly_basename(char* path) {
+char* libcUnixBsdFreebsdlikeDragonflyBasename(char* path) {
     typedef char* (*km_fn_t)(char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1014,7 +1014,7 @@ char* libc_unix_bsd_freebsdlike_dragonfly_basename(char* path) {
     return NULL;
 }
 
-int32_t libc_unix_bsd_freebsdlike_dragonfly_getmntinfo(void* mntbufp, int32_t flags) {
+int32_t libcUnixBsdFreebsdlikeDragonflyGetmntinfo(void* mntbufp, int32_t flags) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1042,7 +1042,7 @@ int32_t libc_unix_bsd_freebsdlike_dragonfly_getmntinfo(void* mntbufp, int32_t fl
     return -1;
 }
 
-int32_t libc_unix_bsd_freebsdlike_dragonfly_getmntvinfo(void* mntbufp, void* mntvbufp, int32_t flags) {
+int32_t libcUnixBsdFreebsdlikeDragonflyGetmntvinfo(void* mntbufp, void* mntvbufp, int32_t flags) {
     typedef int32_t (*km_fn_t)(void*, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1070,7 +1070,7 @@ int32_t libc_unix_bsd_freebsdlike_dragonfly_getmntvinfo(void* mntbufp, void* mnt
     return -1;
 }
 
-int32_t libc_unix_bsd_freebsdlike_dragonfly_closefrom(int32_t lowfd) {
+int32_t libcUnixBsdFreebsdlikeDragonflyClosefrom(int32_t lowfd) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1098,7 +1098,7 @@ int32_t libc_unix_bsd_freebsdlike_dragonfly_closefrom(int32_t lowfd) {
     return -1;
 }
 
-int32_t libc_unix_bsd_freebsdlike_dragonfly_aioCancel(int32_t fd, void* aiocbp) {
+int32_t libcUnixBsdFreebsdlikeDragonflyAioCancel(int32_t fd, void* aiocbp) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1126,7 +1126,7 @@ int32_t libc_unix_bsd_freebsdlike_dragonfly_aioCancel(int32_t fd, void* aiocbp) 
     return -1;
 }
 
-int32_t libc_unix_bsd_freebsdlike_dragonfly_aioError(void* aiocbp) {
+int32_t libcUnixBsdFreebsdlikeDragonflyAioError(void* aiocbp) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1154,7 +1154,7 @@ int32_t libc_unix_bsd_freebsdlike_dragonfly_aioError(void* aiocbp) {
     return -1;
 }
 
-int32_t libc_unix_bsd_freebsdlike_dragonfly_aioFsync(int32_t op, void* aiocbp) {
+int32_t libcUnixBsdFreebsdlikeDragonflyAioFsync(int32_t op, void* aiocbp) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1182,7 +1182,7 @@ int32_t libc_unix_bsd_freebsdlike_dragonfly_aioFsync(int32_t op, void* aiocbp) {
     return -1;
 }
 
-int32_t libc_unix_bsd_freebsdlike_dragonfly_aioRead(void* aiocbp) {
+int32_t libcUnixBsdFreebsdlikeDragonflyAioRead(void* aiocbp) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1210,7 +1210,7 @@ int32_t libc_unix_bsd_freebsdlike_dragonfly_aioRead(void* aiocbp) {
     return -1;
 }
 
-int64_t libc_unix_bsd_freebsdlike_dragonfly_aioReturn(void* aiocbp) {
+int64_t libcUnixBsdFreebsdlikeDragonflyAioReturn(void* aiocbp) {
     typedef int64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1238,7 +1238,7 @@ int64_t libc_unix_bsd_freebsdlike_dragonfly_aioReturn(void* aiocbp) {
     return -1;
 }
 
-int32_t libc_unix_bsd_freebsdlike_dragonfly_aioSuspend(void* aiocb_list, int32_t nitems, void* timeout) {
+int32_t libcUnixBsdFreebsdlikeDragonflyAioSuspend(void* aiocbList, int32_t nitems, void* timeout) {
     typedef int32_t (*km_fn_t)(void*, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1260,13 +1260,13 @@ int32_t libc_unix_bsd_freebsdlike_dragonfly_aioSuspend(void* aiocb_list, int32_t
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(aiocb_list, nitems, timeout);
+        return km_fn_ptr(aiocbList, nitems, timeout);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_bsd_freebsdlike_dragonfly_aioWrite(void* aiocbp) {
+int32_t libcUnixBsdFreebsdlikeDragonflyAioWrite(void* aiocbp) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1294,7 +1294,7 @@ int32_t libc_unix_bsd_freebsdlike_dragonfly_aioWrite(void* aiocbp) {
     return -1;
 }
 
-int32_t libc_unix_bsd_freebsdlike_dragonfly_lioListio(int32_t mode, void* aiocb_list, int32_t nitems, void* sevp) {
+int32_t libcUnixBsdFreebsdlikeDragonflyLioListio(int32_t mode, void* aiocbList, int32_t nitems, void* sevp) {
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1316,13 +1316,13 @@ int32_t libc_unix_bsd_freebsdlike_dragonfly_lioListio(int32_t mode, void* aiocb_
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(mode, aiocb_list, nitems, sevp);
+        return km_fn_ptr(mode, aiocbList, nitems, sevp);
     }
     errno = ENOSYS;
     return -1;
 }
 
-void* libc_unix_bsd_freebsdlike_dragonfly_reallocf(void* ptr, uint64_t size) {
+void* libcUnixBsdFreebsdlikeDragonflyReallocf(void* ptr, uint64_t size) {
     typedef void* (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1350,7 +1350,7 @@ void* libc_unix_bsd_freebsdlike_dragonfly_reallocf(void* ptr, uint64_t size) {
     return NULL;
 }
 
-void libc_unix_bsd_freebsdlike_dragonfly_freezero(void* ptr, uint64_t size) {
+void libcUnixBsdFreebsdlikeDragonflyFreezero(void* ptr, uint64_t size) {
     typedef void (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1378,7 +1378,7 @@ void libc_unix_bsd_freebsdlike_dragonfly_freezero(void* ptr, uint64_t size) {
     errno = ENOSYS;
 }
 
-void* libc_unix_bsd_freebsdlike_dragonfly_kvmVmMapEntryFirst(void* kvm, void* map, void* entry) {
+void* libcUnixBsdFreebsdlikeDragonflyKvmVmMapEntryFirst(void* kvm, void* map, void* entry) {
     typedef void* (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1427,7 +1427,7 @@ void* libc_unix_bsd_freebsdlike_dragonfly_kvmVmMapEntryFirst(void* kvm, void* ma
     return NULL;
 }
 
-void* libc_unix_bsd_freebsdlike_dragonfly_kvmVmMapEntryNext(void* kvm, void* map, void* entry) {
+void* libcUnixBsdFreebsdlikeDragonflyKvmVmMapEntryNext(void* kvm, void* map, void* entry) {
     typedef void* (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

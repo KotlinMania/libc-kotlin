@@ -19,7 +19,7 @@
 #endif
 #endif
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_gnu_b32_x86_UnixLinuxlikeLinuxGnuB32X86JniBridge_libc_1unix_1linuxlike_1linux_1gnu_1b32_1x86_1getcontext(JNIEnv* km_env, jclass km_clazz, jlong ucp) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_gnu_b32_x86_UnixLinuxlikeLinuxGnuB32X86JniBridge_libcUnixLinuxlikeLinuxGnuB32X86Getcontext(JNIEnv* km_env, jclass km_clazz, jlong ucp) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -52,7 +52,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_gnu_
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_gnu_b32_x86_UnixLinuxlikeLinuxGnuB32X86JniBridge_libc_1unix_1linuxlike_1linux_1gnu_1b32_1x86_1setcontext(JNIEnv* km_env, jclass km_clazz, jlong ucp) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_gnu_b32_x86_UnixLinuxlikeLinuxGnuB32X86JniBridge_libcUnixLinuxlikeLinuxGnuB32X86Setcontext(JNIEnv* km_env, jclass km_clazz, jlong ucp) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -85,7 +85,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_gnu_
     return (jint)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_gnu_b32_x86_UnixLinuxlikeLinuxGnuB32X86JniBridge_libc_1unix_1linuxlike_1linux_1gnu_1b32_1x86_1makecontext(JNIEnv* km_env, jclass km_clazz, jlong ucp, jlong func, jint argc, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_gnu_b32_x86_UnixLinuxlikeLinuxGnuB32X86JniBridge_libcUnixLinuxlikeLinuxGnuB32X86Makecontext(JNIEnv* km_env, jclass km_clazz, jlong ucp, jlong func, jint argc, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void*, void*, int32_t, ...);
@@ -121,7 +121,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_gnu_
     }
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_gnu_b32_x86_UnixLinuxlikeLinuxGnuB32X86JniBridge_libc_1unix_1linuxlike_1linux_1gnu_1b32_1x86_1swapcontext(JNIEnv* km_env, jclass km_clazz, jlong uocp, jlong ucp) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_gnu_b32_x86_UnixLinuxlikeLinuxGnuB32X86JniBridge_libcUnixLinuxlikeLinuxGnuB32X86Swapcontext(JNIEnv* km_env, jclass km_clazz, jlong uocp, jlong ucp) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);

@@ -3,8 +3,11 @@
 package io.github.kotlinmania.libc.new.qurt.sys.stat
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.libc.new.qurt.Stat
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 private object NewQurtSysStatJniBridge {
     init {
@@ -12,14 +15,14 @@ private object NewQurtSysStatJniBridge {
     }
 
     @JvmStatic
-    external fun libc_new_qurt_sys_stat_stat(pathname: String?, statbuf: Long): Int
+    external fun libcNewQurtSysStatStat(pathname: Long, statbuf: Long): Int
 
     @JvmStatic
-    external fun libc_new_qurt_sys_stat_fstat(fd: Int, statbuf: Long): Int
+    external fun libcNewQurtSysStatFstat(fd: Int, statbuf: Long): Int
 }
 
-public actual fun stat(pathname: String?, statbuf: COpaquePointer?): CInt =
-    NewQurtSysStatJniBridge.libc_new_qurt_sys_stat_stat(pathname, (statbuf?.value ?: 0L))
+public actual fun stat(pathname: ConstPtr<CChar>, statbuf: MutPtr<Stat>): CInt =
+    NewQurtSysStatJniBridge.libcNewQurtSysStatStat(pathname.rawAddress, statbuf.rawAddress)
 
-public actual fun fstat(fd: CInt, statbuf: COpaquePointer?): CInt =
-    NewQurtSysStatJniBridge.libc_new_qurt_sys_stat_fstat(fd, (statbuf?.value ?: 0L))
+public actual fun fstat(fd: CInt, statbuf: MutPtr<Stat>): CInt =
+    NewQurtSysStatJniBridge.libcNewQurtSysStatFstat(fd, statbuf.rawAddress)

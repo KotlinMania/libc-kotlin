@@ -19,7 +19,7 @@
 #endif
 #endif
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtSignalJniBridge_libc_1new_1qurt_1signal_1signal(JNIEnv* km_env, jclass km_clazz, jint sig, jlong handler) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtSignalJniBridge_libcNewQurtSignalSignal(JNIEnv* km_env, jclass km_clazz, jint sig, jlong handler) {
     (void)km_env;
     (void)km_clazz;
     typedef uint64_t (*km_fn_t)(int32_t, uint64_t);
@@ -52,7 +52,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtS
     return (jlong)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtSignalJniBridge_libc_1new_1qurt_1signal_1kill(JNIEnv* km_env, jclass km_clazz, jint pid, jint sig) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtSignalJniBridge_libcNewQurtSignalKill(JNIEnv* km_env, jclass km_clazz, jint pid, jint sig) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
@@ -85,7 +85,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtSi
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtSignalJniBridge_libc_1new_1qurt_1signal_1raise(JNIEnv* km_env, jclass km_clazz, jint sig) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtSignalJniBridge_libcNewQurtSignalRaise(JNIEnv* km_env, jclass km_clazz, jint sig) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -118,7 +118,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtSi
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtSignalJniBridge_libc_1new_1qurt_1signal_1alarm(JNIEnv* km_env, jclass km_clazz, jint seconds) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtSignalJniBridge_libcNewQurtSignalAlarm(JNIEnv* km_env, jclass km_clazz, jint seconds) {
     (void)km_env;
     (void)km_clazz;
     typedef uint32_t (*km_fn_t)(uint32_t);
@@ -151,7 +151,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtSi
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtSignalJniBridge_libc_1new_1qurt_1signal_1pause(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtSignalJniBridge_libcNewQurtSignalPause(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -184,7 +184,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtSi
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtSignalJniBridge_libc_1new_1qurt_1signal_1sigemptyset(JNIEnv* km_env, jclass km_clazz, jlong set) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtSignalJniBridge_libcNewQurtSignalSigemptyset(JNIEnv* km_env, jclass km_clazz, jlong set) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -217,7 +217,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtSi
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtSignalJniBridge_libc_1new_1qurt_1signal_1sigfillset(JNIEnv* km_env, jclass km_clazz, jlong set) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtSignalJniBridge_libcNewQurtSignalSigfillset(JNIEnv* km_env, jclass km_clazz, jlong set) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -250,7 +250,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtSi
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtSignalJniBridge_libc_1new_1qurt_1signal_1sigaddset(JNIEnv* km_env, jclass km_clazz, jlong set, jint signum) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtSignalJniBridge_libcNewQurtSignalSigaddset(JNIEnv* km_env, jclass km_clazz, jlong set, jint signum) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t);
@@ -283,7 +283,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtSi
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtSignalJniBridge_libc_1new_1qurt_1signal_1sigdelset(JNIEnv* km_env, jclass km_clazz, jlong set, jint signum) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtSignalJniBridge_libcNewQurtSignalSigdelset(JNIEnv* km_env, jclass km_clazz, jlong set, jint signum) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t);
@@ -316,7 +316,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtSi
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtSignalJniBridge_libc_1new_1qurt_1signal_1sigismember(JNIEnv* km_env, jclass km_clazz, jlong set, jint signum) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtSignalJniBridge_libcNewQurtSignalSigismember(JNIEnv* km_env, jclass km_clazz, jlong set, jint signum) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t);
@@ -349,7 +349,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtSi
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtSignalJniBridge_libc_1new_1qurt_1signal_1sigprocmask(JNIEnv* km_env, jclass km_clazz, jint how, jlong set, jlong oldset) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtSignalJniBridge_libcNewQurtSignalSigprocmask(JNIEnv* km_env, jclass km_clazz, jint how, jlong set, jlong oldset) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
@@ -382,7 +382,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtSi
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtSignalJniBridge_libc_1new_1qurt_1signal_1sigpending(JNIEnv* km_env, jclass km_clazz, jlong set) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtSignalJniBridge_libcNewQurtSignalSigpending(JNIEnv* km_env, jclass km_clazz, jlong set) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -415,7 +415,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtSi
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtSignalJniBridge_libc_1new_1qurt_1signal_1sigsuspend(JNIEnv* km_env, jclass km_clazz, jlong mask) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtSignalJniBridge_libcNewQurtSignalSigsuspend(JNIEnv* km_env, jclass km_clazz, jlong mask) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -448,7 +448,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtSi
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtSignalJniBridge_libc_1new_1qurt_1signal_1sigwait(JNIEnv* km_env, jclass km_clazz, jlong set, jlong sig) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtSignalJniBridge_libcNewQurtSignalSigwait(JNIEnv* km_env, jclass km_clazz, jlong set, jlong sig) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -481,7 +481,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtSi
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtSignalJniBridge_libc_1new_1qurt_1signal_1sigaction(JNIEnv* km_env, jclass km_clazz, jint sig, jlong act, jlong oact) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtSignalJniBridge_libcNewQurtSignalSigaction(JNIEnv* km_env, jclass km_clazz, jint sig, jlong act, jlong oact) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
@@ -512,7 +512,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtSi
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtSignalJniBridge_libc_1new_1qurt_1signal_1sigtimedwait(JNIEnv* km_env, jclass km_clazz, jlong set, jlong info, jlong timeout) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_signal_NewQurtSignalJniBridge_libcNewQurtSignalSigtimedwait(JNIEnv* km_env, jclass km_clazz, jlong set, jlong info, jlong timeout) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, void*);

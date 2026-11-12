@@ -2,59 +2,69 @@
 
 package io.github.kotlinmania.libc.unix.linuxlike.l4re.uclibc
 
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUlong
+import io.github.kotlinmania.libc.unix.Iovec
+import io.github.kotlinmania.libc.unix.Rlimit
 import io.github.kotlinmania.libc.unix.SsizeT
+import io.github.kotlinmania.libc.unix.Timeval
+import io.github.kotlinmania.libc.unix.Winsize
+import io.github.kotlinmania.libc.unix.linuxlike.Rlimit64
+import io.github.kotlinmania.libc.unix.linuxlike.Sockaddr
+import io.github.kotlinmania.libc.unix.linuxlike.Timezone
 import io.github.kotlinmania.libc.unix.linuxlike.l4re.Off64T
 import io.github.kotlinmania.libc.unix.linuxlike.l4re.SocklenT
-import io.github.kotlinmania.libc.unix.linuxlike.l4re.uclibc.cinterop.libc_unix_linuxlike_l4re_uclibc_getauxval
-import io.github.kotlinmania.libc.unix.linuxlike.l4re.uclibc.cinterop.libc_unix_linuxlike_l4re_uclibc_getnameinfo
-import io.github.kotlinmania.libc.unix.linuxlike.l4re.uclibc.cinterop.libc_unix_linuxlike_l4re_uclibc_getrlimit
-import io.github.kotlinmania.libc.unix.linuxlike.l4re.uclibc.cinterop.libc_unix_linuxlike_l4re_uclibc_getrlimit64
-import io.github.kotlinmania.libc.unix.linuxlike.l4re.uclibc.cinterop.libc_unix_linuxlike_l4re_uclibc_gettimeofday
-import io.github.kotlinmania.libc.unix.linuxlike.l4re.uclibc.cinterop.libc_unix_linuxlike_l4re_uclibc_openpty
-import io.github.kotlinmania.libc.unix.linuxlike.l4re.uclibc.cinterop.libc_unix_linuxlike_l4re_uclibc_preadv
-import io.github.kotlinmania.libc.unix.linuxlike.l4re.uclibc.cinterop.libc_unix_linuxlike_l4re_uclibc_pthreadRwlockattrGetkindNp
-import io.github.kotlinmania.libc.unix.linuxlike.l4re.uclibc.cinterop.libc_unix_linuxlike_l4re_uclibc_pthreadRwlockattrSetkindNp
-import io.github.kotlinmania.libc.unix.linuxlike.l4re.uclibc.cinterop.libc_unix_linuxlike_l4re_uclibc_pwritev
-import io.github.kotlinmania.libc.unix.linuxlike.l4re.uclibc.cinterop.libc_unix_linuxlike_l4re_uclibc_setrlimit
-import io.github.kotlinmania.libc.unix.linuxlike.l4re.uclibc.cinterop.libc_unix_linuxlike_l4re_uclibc_setrlimit64
+import io.github.kotlinmania.libc.unix.linuxlike.l4re.uclibc.aarch64.Termios
+import io.github.kotlinmania.libc.unix.linuxlike.l4re.uclibc.cinterop.libcUnixLinuxlikeL4reUclibcGetauxval
+import io.github.kotlinmania.libc.unix.linuxlike.l4re.uclibc.cinterop.libcUnixLinuxlikeL4reUclibcGetnameinfo
+import io.github.kotlinmania.libc.unix.linuxlike.l4re.uclibc.cinterop.libcUnixLinuxlikeL4reUclibcGetrlimit
+import io.github.kotlinmania.libc.unix.linuxlike.l4re.uclibc.cinterop.libcUnixLinuxlikeL4reUclibcGetrlimit64
+import io.github.kotlinmania.libc.unix.linuxlike.l4re.uclibc.cinterop.libcUnixLinuxlikeL4reUclibcGettimeofday
+import io.github.kotlinmania.libc.unix.linuxlike.l4re.uclibc.cinterop.libcUnixLinuxlikeL4reUclibcOpenpty
+import io.github.kotlinmania.libc.unix.linuxlike.l4re.uclibc.cinterop.libcUnixLinuxlikeL4reUclibcPreadv
+import io.github.kotlinmania.libc.unix.linuxlike.l4re.uclibc.cinterop.libcUnixLinuxlikeL4reUclibcPthreadRwlockattrGetkindNp
+import io.github.kotlinmania.libc.unix.linuxlike.l4re.uclibc.cinterop.libcUnixLinuxlikeL4reUclibcPthreadRwlockattrSetkindNp
+import io.github.kotlinmania.libc.unix.linuxlike.l4re.uclibc.cinterop.libcUnixLinuxlikeL4reUclibcPwritev
+import io.github.kotlinmania.libc.unix.linuxlike.l4re.uclibc.cinterop.libcUnixLinuxlikeL4reUclibcSetrlimit
+import io.github.kotlinmania.libc.unix.linuxlike.l4re.uclibc.cinterop.libcUnixLinuxlikeL4reUclibcSetrlimit64
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 
-public actual fun gettimeofday(tp: COpaquePointer?, tz: COpaquePointer?): CInt =
-    libc_unix_linuxlike_l4re_uclibc_gettimeofday(tp?.value?.toCPointer<ByteVar>(), tz?.value?.toCPointer<ByteVar>())
+public actual fun gettimeofday(tp: MutPtr<Timeval>, tz: MutPtr<Timezone>): CInt =
+    libcUnixLinuxlikeL4reUclibcGettimeofday(tp.rawAddress.toCPointer<ByteVar>(), tz.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadRwlockattrGetkindNp(attr: COpaquePointer?, value: COpaquePointer?): CInt =
-    libc_unix_linuxlike_l4re_uclibc_pthreadRwlockattrGetkindNp(attr?.value?.toCPointer<ByteVar>(), value?.value?.toCPointer<ByteVar>())
+public actual fun pthreadRwlockattrGetkindNp(attr: ConstPtr<PthreadRwlockattrT>, value: MutPtr<CInt>): CInt =
+    libcUnixLinuxlikeL4reUclibcPthreadRwlockattrGetkindNp(attr.rawAddress.toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadRwlockattrSetkindNp(attr: COpaquePointer?, value: CInt): CInt =
-    libc_unix_linuxlike_l4re_uclibc_pthreadRwlockattrSetkindNp(attr?.value?.toCPointer<ByteVar>(), value)
+public actual fun pthreadRwlockattrSetkindNp(attr: MutPtr<PthreadRwlockattrT>, value: CInt): CInt =
+    libcUnixLinuxlikeL4reUclibcPthreadRwlockattrSetkindNp(attr.rawAddress.toCPointer<ByteVar>(), value)
 
-public actual fun openpty(amaster: COpaquePointer?, aslave: COpaquePointer?, name: COpaquePointer?, termp: COpaquePointer?, winp: COpaquePointer?): CInt =
-    libc_unix_linuxlike_l4re_uclibc_openpty(amaster?.value?.toCPointer<ByteVar>(), aslave?.value?.toCPointer<ByteVar>(), name?.value?.toCPointer<ByteVar>(), termp?.value?.toCPointer<ByteVar>(), winp?.value?.toCPointer<ByteVar>())
+public actual fun openpty(amaster: MutPtr<CInt>, aslave: MutPtr<CInt>, name: MutPtr<CChar>, termp: MutPtr<Termios>, winp: MutPtr<Winsize>): CInt =
+    libcUnixLinuxlikeL4reUclibcOpenpty(amaster.rawAddress.toCPointer<ByteVar>(), aslave.rawAddress.toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>(), termp.rawAddress.toCPointer<ByteVar>(), winp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getnameinfo(sa: COpaquePointer?, salen: SocklenT, host: COpaquePointer?, hostlen: SocklenT, serv: COpaquePointer?, servlen: SocklenT, flags: CInt): CInt =
-    libc_unix_linuxlike_l4re_uclibc_getnameinfo(sa?.value?.toCPointer<ByteVar>(), salen, host?.value?.toCPointer<ByteVar>(), hostlen, serv?.value?.toCPointer<ByteVar>(), servlen, flags)
+public actual fun getnameinfo(sa: ConstPtr<Sockaddr>, salen: SocklenT, host: MutPtr<CChar>, hostlen: SocklenT, serv: MutPtr<CChar>, servlen: SocklenT, flags: CInt): CInt =
+    libcUnixLinuxlikeL4reUclibcGetnameinfo(sa.rawAddress.toCPointer<ByteVar>(), salen, host.rawAddress.toCPointer<ByteVar>(), hostlen, serv.rawAddress.toCPointer<ByteVar>(), servlen, flags)
 
-public actual fun pwritev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: Off64T): SsizeT =
-    libc_unix_linuxlike_l4re_uclibc_pwritev(fd, iov?.value?.toCPointer<ByteVar>(), iovcnt, offset)
+public actual fun pwritev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: Off64T): SsizeT =
+    libcUnixLinuxlikeL4reUclibcPwritev(fd, iov.rawAddress.toCPointer<ByteVar>(), iovcnt, offset)
 
-public actual fun preadv(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: Off64T): SsizeT =
-    libc_unix_linuxlike_l4re_uclibc_preadv(fd, iov?.value?.toCPointer<ByteVar>(), iovcnt, offset)
+public actual fun preadv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: Off64T): SsizeT =
+    libcUnixLinuxlikeL4reUclibcPreadv(fd, iov.rawAddress.toCPointer<ByteVar>(), iovcnt, offset)
 
-public actual fun getrlimit64(resource: RlimitResourceT, rlim: COpaquePointer?): CInt =
-    libc_unix_linuxlike_l4re_uclibc_getrlimit64(resource, rlim?.value?.toCPointer<ByteVar>())
+public actual fun getrlimit64(resource: RlimitResourceT, rlim: MutPtr<Rlimit64>): CInt =
+    libcUnixLinuxlikeL4reUclibcGetrlimit64(resource, rlim.rawAddress.toCPointer<ByteVar>())
 
-public actual fun setrlimit64(resource: RlimitResourceT, rlim: COpaquePointer?): CInt =
-    libc_unix_linuxlike_l4re_uclibc_setrlimit64(resource, rlim?.value?.toCPointer<ByteVar>())
+public actual fun setrlimit64(resource: RlimitResourceT, rlim: ConstPtr<Rlimit64>): CInt =
+    libcUnixLinuxlikeL4reUclibcSetrlimit64(resource, rlim.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getrlimit(resource: RlimitResourceT, rlim: COpaquePointer?): CInt =
-    libc_unix_linuxlike_l4re_uclibc_getrlimit(resource, rlim?.value?.toCPointer<ByteVar>())
+public actual fun getrlimit(resource: RlimitResourceT, rlim: MutPtr<Rlimit>): CInt =
+    libcUnixLinuxlikeL4reUclibcGetrlimit(resource, rlim.rawAddress.toCPointer<ByteVar>())
 
-public actual fun setrlimit(resource: RlimitResourceT, rlim: COpaquePointer?): CInt =
-    libc_unix_linuxlike_l4re_uclibc_setrlimit(resource, rlim?.value?.toCPointer<ByteVar>())
+public actual fun setrlimit(resource: RlimitResourceT, rlim: ConstPtr<Rlimit>): CInt =
+    libcUnixLinuxlikeL4reUclibcSetrlimit(resource, rlim.rawAddress.toCPointer<ByteVar>())
 
 public actual fun getauxval(type: CUlong): CUlong =
-    libc_unix_linuxlike_l4re_uclibc_getauxval(type)
+    libcUnixLinuxlikeL4reUclibcGetauxval(type)

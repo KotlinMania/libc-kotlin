@@ -51,14 +51,10 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_unix_bsd_apple_b64_exchangedata_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdAppleB64Exchangedata_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path1_str = path1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path1 = path1_null ? nullptr : path1_str.c_str();
-    bool path2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string path2_str = path2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* path2 = path2_null ? nullptr : path2_str.c_str();
+    const char* path1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* path2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint32_t options = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, const char*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -91,7 +87,7 @@ static Napi::Value libc_unix_bsd_apple_b64_exchangedata_napi(const Napi::Callbac
 }
 
 static void register_unix_bsd_apple_b64_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_unix_bsd_apple_b64_exchangedata", Napi::Function::New(env, libc_unix_bsd_apple_b64_exchangedata_napi));
+    exports.Set("libcUnixBsdAppleB64Exchangedata", Napi::Function::New(env, libcUnixBsdAppleB64Exchangedata_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_unix_bsd_apple_b64_napi, nullptr };

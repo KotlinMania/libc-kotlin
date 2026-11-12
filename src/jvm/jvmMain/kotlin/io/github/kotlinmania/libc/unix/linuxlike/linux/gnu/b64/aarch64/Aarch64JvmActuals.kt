@@ -4,42 +4,95 @@ package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.unix.SizeT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 private object UnixLinuxlikeLinuxGnuB64Aarch64JniBridge {
     init {
+        loadNativeLibrary()
+    }
+
+    private fun loadNativeLibrary() {
+        val osRaw = System.getProperty("os.name", "").lowercase()
+        val archRaw = System.getProperty("os.arch", "").lowercase()
+        val hostPlatform =
+            when {
+                osRaw.contains("win") -> "windows"
+                osRaw.contains("mac") || osRaw.contains("darwin") -> "macos"
+                else -> "linux"
+            }
+        val hostArch =
+            when {
+                archRaw == "aarch64" || archRaw == "arm64" -> "aarch64"
+                archRaw == "amd64" || archRaw == "x86_64" -> "x86_64"
+                else -> archRaw
+            }
+        val libFileName =
+            when (hostPlatform) {
+                "windows" -> "libc_jni.dll"
+                "macos" -> "liblibc_jni.dylib"
+                else -> "liblibc_jni.so"
+            }
+        val pathSep = System.getProperty("path.separator", ":")
+        val libPathProp = System.getProperty("java.library.path", "")
+        for (dirEntry in libPathProp.split(pathSep)) {
+            if (dirEntry.isEmpty()) continue
+            val candidate = java.io.File(dirEntry, libFileName)
+            if (candidate.isFile) {
+                System.load(candidate.absolutePath)
+                return
+            }
+        }
+        val resourcePath = "io/github/kotlinmania/libc/native/$hostPlatform-$hostArch/$libFileName"
+        val stream = UnixLinuxlikeLinuxGnuB64Aarch64JniBridge::class.java.classLoader?.getResourceAsStream(resourcePath)
+        if (stream != null) {
+            val suffix = "." + libFileName.substringAfterLast('.')
+            val extracted =
+                java.nio.file.Files
+                    .createTempFile("libc_jni-", suffix)
+                    .toFile()
+            extracted.deleteOnExit()
+            stream.use { input ->
+                extracted.outputStream().use { output ->
+                    input.copyTo(output)
+                }
+            }
+            System.load(extracted.absolutePath)
+            return
+        }
         System.loadLibrary("libc_jni")
     }
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_b64_aarch64_sysctl(name: Long, namelen: Int, oldp: Long, oldlenp: Long, newp: Long, newlen: Long): Int
+    external fun libcUnixLinuxlikeLinuxGnuB64Aarch64Sysctl(name: Long, namelen: Int, oldp: Long, oldlenp: Long, newp: Long, newlen: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_b64_aarch64_getcontext(ucp: Long): Int
+    external fun libcUnixLinuxlikeLinuxGnuB64Aarch64Getcontext(ucp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_b64_aarch64_setcontext(ucp: Long): Int
+    external fun libcUnixLinuxlikeLinuxGnuB64Aarch64Setcontext(ucp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_b64_aarch64_makecontext(ucp: Long, func: Long, argc: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long)
+    external fun libcUnixLinuxlikeLinuxGnuB64Aarch64Makecontext(ucp: Long, func: Long, argc: Int, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long)
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_gnu_b64_aarch64_swapcontext(uocp: Long, ucp: Long): Int
+    external fun libcUnixLinuxlikeLinuxGnuB64Aarch64Swapcontext(uocp: Long, ucp: Long): Int
 }
 
-public actual fun sysctl(name: COpaquePointer?, namelen: CInt, oldp: COpaquePointer?, oldlenp: COpaquePointer?, newp: COpaquePointer?, newlen: SizeT): CInt =
-    UnixLinuxlikeLinuxGnuB64Aarch64JniBridge.libc_unix_linuxlike_linux_gnu_b64_aarch64_sysctl((name?.value ?: 0L), namelen, (oldp?.value ?: 0L), (oldlenp?.value ?: 0L), (newp?.value ?: 0L), newlen.toLong())
+public actual fun sysctl(name: MutPtr<CInt>, namelen: CInt, oldp: MutPtr<CVoid>, oldlenp: MutPtr<SizeT>, newp: MutPtr<CVoid>, newlen: SizeT): CInt =
+    UnixLinuxlikeLinuxGnuB64Aarch64JniBridge.libcUnixLinuxlikeLinuxGnuB64Aarch64Sysctl(name.rawAddress, namelen, oldp.rawAddress, oldlenp.rawAddress, newp.rawAddress, newlen.toLong())
 
-public actual fun getcontext(ucp: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxGnuB64Aarch64JniBridge.libc_unix_linuxlike_linux_gnu_b64_aarch64_getcontext((ucp?.value ?: 0L))
+public actual fun getcontext(ucp: MutPtr<UcontextT>): CInt =
+    UnixLinuxlikeLinuxGnuB64Aarch64JniBridge.libcUnixLinuxlikeLinuxGnuB64Aarch64Getcontext(ucp.rawAddress)
 
-public actual fun setcontext(ucp: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxGnuB64Aarch64JniBridge.libc_unix_linuxlike_linux_gnu_b64_aarch64_setcontext((ucp?.value ?: 0L))
+public actual fun setcontext(ucp: ConstPtr<UcontextT>): CInt =
+    UnixLinuxlikeLinuxGnuB64Aarch64JniBridge.libcUnixLinuxlikeLinuxGnuB64Aarch64Setcontext(ucp.rawAddress)
 
-public actual fun makecontext(ucp: COpaquePointer?, func: SigactionSaRestorerCallback, argc: CInt, vararg variadicArgs: Long) {
-    UnixLinuxlikeLinuxGnuB64Aarch64JniBridge.libc_unix_linuxlike_linux_gnu_b64_aarch64_makecontext((ucp?.value ?: 0L), 0L, argc, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun makecontext(ucp: MutPtr<UcontextT>, func: SigactionSaRestorerCallback, argc: CInt, vararg variadicArgs: Long) {
+    UnixLinuxlikeLinuxGnuB64Aarch64JniBridge.libcUnixLinuxlikeLinuxGnuB64Aarch64Makecontext(ucp.rawAddress, 0L, argc, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 }
 
-public actual fun swapcontext(uocp: COpaquePointer?, ucp: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxGnuB64Aarch64JniBridge.libc_unix_linuxlike_linux_gnu_b64_aarch64_swapcontext((uocp?.value ?: 0L), (ucp?.value ?: 0L))
+public actual fun swapcontext(uocp: MutPtr<UcontextT>, ucp: ConstPtr<UcontextT>): CInt =
+    UnixLinuxlikeLinuxGnuB64Aarch64JniBridge.libcUnixLinuxlikeLinuxGnuB64Aarch64Swapcontext(uocp.rawAddress, ucp.rawAddress)

@@ -3,28 +3,30 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.s390x
 
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.unix.SizeT
-import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.s390x.cinterop.libc_unix_linuxlike_linux_gnu_b64_s390x_getcontext
-import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.s390x.cinterop.libc_unix_linuxlike_linux_gnu_b64_s390x_makecontext
-import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.s390x.cinterop.libc_unix_linuxlike_linux_gnu_b64_s390x_setcontext
-import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.s390x.cinterop.libc_unix_linuxlike_linux_gnu_b64_s390x_swapcontext
-import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.s390x.cinterop.libc_unix_linuxlike_linux_gnu_b64_s390x_sysctl
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.s390x.cinterop.libcUnixLinuxlikeLinuxGnuB64S390xGetcontext
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.s390x.cinterop.libcUnixLinuxlikeLinuxGnuB64S390xMakecontext
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.s390x.cinterop.libcUnixLinuxlikeLinuxGnuB64S390xSetcontext
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.s390x.cinterop.libcUnixLinuxlikeLinuxGnuB64S390xSwapcontext
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.s390x.cinterop.libcUnixLinuxlikeLinuxGnuB64S390xSysctl
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 
-public actual fun sysctl(name: COpaquePointer?, namelen: CInt, oldp: COpaquePointer?, oldlenp: COpaquePointer?, newp: COpaquePointer?, newlen: SizeT): CInt =
-    libc_unix_linuxlike_linux_gnu_b64_s390x_sysctl(name?.value?.toCPointer<ByteVar>(), namelen, oldp?.value?.toCPointer<ByteVar>(), oldlenp?.value?.toCPointer<ByteVar>(), newp?.value?.toCPointer<ByteVar>(), newlen)
+public actual fun sysctl(name: MutPtr<CInt>, namelen: CInt, oldp: MutPtr<CVoid>, oldlenp: MutPtr<SizeT>, newp: MutPtr<CVoid>, newlen: SizeT): CInt =
+    libcUnixLinuxlikeLinuxGnuB64S390xSysctl(name.rawAddress.toCPointer<ByteVar>(), namelen, oldp.rawAddress.toCPointer<ByteVar>(), oldlenp.rawAddress.toCPointer<ByteVar>(), newp.rawAddress.toCPointer<ByteVar>(), newlen)
 
-public actual fun getcontext(ucp: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_gnu_b64_s390x_getcontext(ucp?.value?.toCPointer<ByteVar>())
+public actual fun getcontext(ucp: MutPtr<UcontextT>): CInt =
+    libcUnixLinuxlikeLinuxGnuB64S390xGetcontext(ucp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun setcontext(ucp: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_gnu_b64_s390x_setcontext(ucp?.value?.toCPointer<ByteVar>())
+public actual fun setcontext(ucp: ConstPtr<UcontextT>): CInt =
+    libcUnixLinuxlikeLinuxGnuB64S390xSetcontext(ucp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun makecontext(ucp: COpaquePointer?, func: SigactionSaRestorerCallback, argc: CInt, vararg variadicArgs: Long) {
-    libc_unix_linuxlike_linux_gnu_b64_s390x_makecontext(ucp?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), argc, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun makecontext(ucp: MutPtr<UcontextT>, func: SigactionSaRestorerCallback, argc: CInt, vararg variadicArgs: Long) {
+    libcUnixLinuxlikeLinuxGnuB64S390xMakecontext(ucp.rawAddress.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), argc, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 }
 
-public actual fun swapcontext(uocp: COpaquePointer?, ucp: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_gnu_b64_s390x_swapcontext(uocp?.value?.toCPointer<ByteVar>(), ucp?.value?.toCPointer<ByteVar>())
+public actual fun swapcontext(uocp: MutPtr<UcontextT>, ucp: ConstPtr<UcontextT>): CInt =
+    libcUnixLinuxlikeLinuxGnuB64S390xSwapcontext(uocp.rawAddress.toCPointer<ByteVar>(), ucp.rawAddress.toCPointer<ByteVar>())

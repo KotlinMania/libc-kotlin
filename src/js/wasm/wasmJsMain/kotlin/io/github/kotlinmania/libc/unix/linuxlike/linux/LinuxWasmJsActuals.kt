@@ -3,783 +3,802 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
+import io.github.kotlinmania.libc.CUshort
 import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.GidT
+import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.PidT
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.Timeval
 import io.github.kotlinmania.libc.unix.UidT
 import io.github.kotlinmania.libc.unix.linuxlike.ClockidT
+import io.github.kotlinmania.libc.unix.linuxlike.CpuSetT
+import io.github.kotlinmania.libc.unix.linuxlike.EpollEvent
+import io.github.kotlinmania.libc.unix.linuxlike.Fpos64T
+import io.github.kotlinmania.libc.unix.linuxlike.Itimerspec
 import io.github.kotlinmania.libc.unix.linuxlike.KeyT
+import io.github.kotlinmania.libc.unix.linuxlike.SchedParam
+import io.github.kotlinmania.libc.unix.linuxlike.Sembuf
+import io.github.kotlinmania.libc.unix.linuxlike.Sockaddr
+import io.github.kotlinmania.libc.unix.linuxlike.Spwd
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.MsqidDs
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.OffT
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.SigsetT
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.SiginfoT
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.StackT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 @JsFun("() => { if (typeof globalThis.__km_napi_libc !== 'undefined') return globalThis.__km_napi_libc !== null; if (typeof process === 'undefined' || !process.versions || !process.versions.node) { globalThis.__km_napi_libc = null; return false; } var mod = process.getBuiltinModule ? process.getBuiltinModule('module') : (process.mainModule && process.mainModule.constructor); var req = (mod && mod.createRequire) ? mod.createRequire((process.cwd ? process.cwd() : '.') + '/package.json') : (process.mainModule ? process.mainModule.require : null); if (!req) { globalThis.__km_napi_libc = null; return false; } try { globalThis.__km_napi_libc = req('@kotlinmania/libc-native-bindings'); return true; } catch (_) {} var fs = req('fs'); var path = req('path'); var dir = process.cwd ? process.cwd() : '.'; var rels = ['libc_native.node', 'build/node-ffi/libc_native.node', 'build/node-ffi/release/libc_native.node', 'build/node-ffi/debug/libc_native.node', 'src/js/node-libc/build/Release/libc_native.node', 'src/js/node-libc/build/Debug/libc_native.node', 'src/js/node-libc/dist/build/Release/libc_native.node', 'src/js/node-libc/dist/build/Debug/libc_native.node', 'c_native.node', 'build/node-ffi/c_native.node', 'build/node-ffi/release/c_native.node', 'build/node-ffi/debug/c_native.node', 'src/js/node-libc/build/Release/c_native.node', 'src/js/node-libc/build/Debug/c_native.node', 'src/js/node-libc/dist/build/Release/c_native.node', 'src/js/node-libc/dist/build/Debug/c_native.node']; for (var d = 0; d < 8; d++) { for (var i = 0; i < rels.length; i++) { var c = path.resolve(dir, rels[i]); if (fs.existsSync(c)) { globalThis.__km_napi_libc = req(c); return true; } } var parent = path.dirname(dir); if (parent === dir) break; dir = parent; } globalThis.__km_napi_libc = null; return false; }")
-private external fun _initUnixLinuxlikeLinuxNapiAddon(): Boolean
+private external fun initUnixLinuxlikeLinuxNapiAddon(): Boolean
 
-private val _unixLinuxlikeLinuxNapiAvailable: Boolean = _initUnixLinuxlikeLinuxNapiAddon()
+private val unixLinuxlikeLinuxNapiAvailable: Boolean = initUnixLinuxlikeLinuxNapiAddon()
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_getspnamR(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_unix_linuxlike_linux_getspnamR(p0: String?, p1: String, p2: String, p3: String, p4: String): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxGetspnamR(p0, p1, p2, p3, p4)")
+private external fun wasmLibcUnixLinuxlikeLinuxGetspnamR(p0: String, p1: String, p2: String, p3: String, p4: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_mqOpen(p0, p1, p2, p3, p4, p5, p6)")
-private external fun _wasm_libc_unix_linuxlike_linux_mqOpen(p0: String?, p1: Int, p2: Int, p3: String, p4: String, p5: String, p6: String): String
+@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxMqOpen(p0, p1, p2, p3, p4, p5, p6)")
+private external fun wasmLibcUnixLinuxlikeLinuxMqOpen(p0: String, p1: Int, p2: Int, p3: String, p4: String, p5: String, p6: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_mqClose(p0)")
-private external fun _wasm_libc_unix_linuxlike_linux_mqClose(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxMqClose(p0)")
+private external fun wasmLibcUnixLinuxlikeLinuxMqClose(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_mqUnlink(p0)")
-private external fun _wasm_libc_unix_linuxlike_linux_mqUnlink(p0: String?): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxMqUnlink(p0)")
+private external fun wasmLibcUnixLinuxlikeLinuxMqUnlink(p0: String): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_mqReceive(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_linuxlike_linux_mqReceive(p0: String, p1: String, p2: String, p3: String): String
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxMqReceive(p0, p1, p2, p3)")
+private external fun wasmLibcUnixLinuxlikeLinuxMqReceive(p0: String, p1: String, p2: String, p3: String): String
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_mqTimedreceive(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_unix_linuxlike_linux_mqTimedreceive(p0: String, p1: String, p2: String, p3: String, p4: String): String
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxMqTimedreceive(p0, p1, p2, p3, p4)")
+private external fun wasmLibcUnixLinuxlikeLinuxMqTimedreceive(p0: String, p1: String, p2: String, p3: String, p4: String): String
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_mqSend(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_linuxlike_linux_mqSend(p0: String, p1: String?, p2: String, p3: Int): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxMqSend(p0, p1, p2, p3)")
+private external fun wasmLibcUnixLinuxlikeLinuxMqSend(p0: String, p1: String, p2: String, p3: Int): Int
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_mqTimedsend(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_unix_linuxlike_linux_mqTimedsend(p0: String, p1: String?, p2: String, p3: Int, p4: String): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxMqTimedsend(p0, p1, p2, p3, p4)")
+private external fun wasmLibcUnixLinuxlikeLinuxMqTimedsend(p0: String, p1: String, p2: String, p3: Int, p4: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_mqGetattr(p0, p1)")
-private external fun _wasm_libc_unix_linuxlike_linux_mqGetattr(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxMqGetattr(p0, p1)")
+private external fun wasmLibcUnixLinuxlikeLinuxMqGetattr(p0: String, p1: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_mqSetattr(p0, p1, p2)")
-private external fun _wasm_libc_unix_linuxlike_linux_mqSetattr(p0: String, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxMqSetattr(p0, p1, p2)")
+private external fun wasmLibcUnixLinuxlikeLinuxMqSetattr(p0: String, p1: String, p2: String): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_mrand48()")
-private external fun _wasm_libc_unix_linuxlike_linux_mrand48(): String
+@JsFun("() => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxMrand48()")
+private external fun wasmLibcUnixLinuxlikeLinuxMrand48(): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_seed48(p0)")
-private external fun _wasm_libc_unix_linuxlike_linux_seed48(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxSeed48(p0)")
+private external fun wasmLibcUnixLinuxlikeLinuxSeed48(p0: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_lcong48(p0)")
-private external fun _wasm_libc_unix_linuxlike_linux_lcong48(p0: String)
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxLcong48(p0)")
+private external fun wasmLibcUnixLinuxlikeLinuxLcong48(p0: String)
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_lutimes(p0, p1)")
-private external fun _wasm_libc_unix_linuxlike_linux_lutimes(p0: String?, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxLutimes(p0, p1)")
+private external fun wasmLibcUnixLinuxlikeLinuxLutimes(p0: String, p1: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_shmOpen(p0, p1, p2)")
-private external fun _wasm_libc_unix_linuxlike_linux_shmOpen(p0: String?, p1: Int, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxShmOpen(p0, p1, p2)")
+private external fun wasmLibcUnixLinuxlikeLinuxShmOpen(p0: String, p1: Int, p2: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_shmUnlink(p0)")
-private external fun _wasm_libc_unix_linuxlike_linux_shmUnlink(p0: String?): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxShmUnlink(p0)")
+private external fun wasmLibcUnixLinuxlikeLinuxShmUnlink(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_ftok(p0, p1)")
-private external fun _wasm_libc_unix_linuxlike_linux_ftok(p0: String?, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxFtok(p0, p1)")
+private external fun wasmLibcUnixLinuxlikeLinuxFtok(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_semget(p0, p1, p2)")
-private external fun _wasm_libc_unix_linuxlike_linux_semget(p0: Int, p1: Int, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxSemget(p0, p1, p2)")
+private external fun wasmLibcUnixLinuxlikeLinuxSemget(p0: Int, p1: Int, p2: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_semop(p0, p1, p2)")
-private external fun _wasm_libc_unix_linuxlike_linux_semop(p0: Int, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxSemop(p0, p1, p2)")
+private external fun wasmLibcUnixLinuxlikeLinuxSemop(p0: Int, p1: String, p2: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5, p6, p7) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_semctl(p0, p1, p2, p3, p4, p5, p6, p7)")
-private external fun _wasm_libc_unix_linuxlike_linux_semctl(p0: Int, p1: Int, p2: Int, p3: Int, p4: String, p5: String, p6: String, p7: String): Int
+@JsFun("(p0, p1, p2, p3, p4, p5, p6, p7) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxSemctl(p0, p1, p2, p3, p4, p5, p6, p7)")
+private external fun wasmLibcUnixLinuxlikeLinuxSemctl(p0: Int, p1: Int, p2: Int, p3: Int, p4: String, p5: String, p6: String, p7: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_msgctl(p0, p1, p2)")
-private external fun _wasm_libc_unix_linuxlike_linux_msgctl(p0: Int, p1: Int, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxMsgctl(p0, p1, p2)")
+private external fun wasmLibcUnixLinuxlikeLinuxMsgctl(p0: Int, p1: Int, p2: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_msgget(p0, p1)")
-private external fun _wasm_libc_unix_linuxlike_linux_msgget(p0: Int, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxMsgget(p0, p1)")
+private external fun wasmLibcUnixLinuxlikeLinuxMsgget(p0: Int, p1: Int): Int
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_msgrcv(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_unix_linuxlike_linux_msgrcv(p0: Int, p1: String, p2: String, p3: String, p4: Int): String
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxMsgrcv(p0, p1, p2, p3, p4)")
+private external fun wasmLibcUnixLinuxlikeLinuxMsgrcv(p0: Int, p1: String, p2: String, p3: String, p4: Int): String
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_msgsnd(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_linuxlike_linux_msgsnd(p0: Int, p1: String, p2: String, p3: Int): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxMsgsnd(p0, p1, p2, p3)")
+private external fun wasmLibcUnixLinuxlikeLinuxMsgsnd(p0: Int, p1: String, p2: String, p3: Int): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_fallocate(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_linuxlike_linux_fallocate(p0: Int, p1: Int, p2: String, p3: String): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxFallocate(p0, p1, p2, p3)")
+private external fun wasmLibcUnixLinuxlikeLinuxFallocate(p0: Int, p1: Int, p2: String, p3: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_posixFallocate(p0, p1, p2)")
-private external fun _wasm_libc_unix_linuxlike_linux_posixFallocate(p0: Int, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxPosixFallocate(p0, p1, p2)")
+private external fun wasmLibcUnixLinuxlikeLinuxPosixFallocate(p0: Int, p1: String, p2: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_readahead(p0, p1, p2)")
-private external fun _wasm_libc_unix_linuxlike_linux_readahead(p0: Int, p1: String, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxReadahead(p0, p1, p2)")
+private external fun wasmLibcUnixLinuxlikeLinuxReadahead(p0: Int, p1: String, p2: String): String
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_getxattr(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_linuxlike_linux_getxattr(p0: String?, p1: String?, p2: String, p3: String): String
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxGetxattr(p0, p1, p2, p3)")
+private external fun wasmLibcUnixLinuxlikeLinuxGetxattr(p0: String, p1: String, p2: String, p3: String): String
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_lgetxattr(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_linuxlike_linux_lgetxattr(p0: String?, p1: String?, p2: String, p3: String): String
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxLgetxattr(p0, p1, p2, p3)")
+private external fun wasmLibcUnixLinuxlikeLinuxLgetxattr(p0: String, p1: String, p2: String, p3: String): String
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_fgetxattr(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_linuxlike_linux_fgetxattr(p0: Int, p1: String?, p2: String, p3: String): String
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxFgetxattr(p0, p1, p2, p3)")
+private external fun wasmLibcUnixLinuxlikeLinuxFgetxattr(p0: Int, p1: String, p2: String, p3: String): String
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_setxattr(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_unix_linuxlike_linux_setxattr(p0: String?, p1: String?, p2: String, p3: String, p4: Int): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxSetxattr(p0, p1, p2, p3, p4)")
+private external fun wasmLibcUnixLinuxlikeLinuxSetxattr(p0: String, p1: String, p2: String, p3: String, p4: Int): Int
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_lsetxattr(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_unix_linuxlike_linux_lsetxattr(p0: String?, p1: String?, p2: String, p3: String, p4: Int): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxLsetxattr(p0, p1, p2, p3, p4)")
+private external fun wasmLibcUnixLinuxlikeLinuxLsetxattr(p0: String, p1: String, p2: String, p3: String, p4: Int): Int
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_fsetxattr(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_unix_linuxlike_linux_fsetxattr(p0: Int, p1: String?, p2: String, p3: String, p4: Int): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxFsetxattr(p0, p1, p2, p3, p4)")
+private external fun wasmLibcUnixLinuxlikeLinuxFsetxattr(p0: Int, p1: String, p2: String, p3: String, p4: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_listxattr(p0, p1, p2)")
-private external fun _wasm_libc_unix_linuxlike_linux_listxattr(p0: String?, p1: String, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxListxattr(p0, p1, p2)")
+private external fun wasmLibcUnixLinuxlikeLinuxListxattr(p0: String, p1: String, p2: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_llistxattr(p0, p1, p2)")
-private external fun _wasm_libc_unix_linuxlike_linux_llistxattr(p0: String?, p1: String, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxLlistxattr(p0, p1, p2)")
+private external fun wasmLibcUnixLinuxlikeLinuxLlistxattr(p0: String, p1: String, p2: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_flistxattr(p0, p1, p2)")
-private external fun _wasm_libc_unix_linuxlike_linux_flistxattr(p0: Int, p1: String, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxFlistxattr(p0, p1, p2)")
+private external fun wasmLibcUnixLinuxlikeLinuxFlistxattr(p0: Int, p1: String, p2: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_removexattr(p0, p1)")
-private external fun _wasm_libc_unix_linuxlike_linux_removexattr(p0: String?, p1: String?): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxRemovexattr(p0, p1)")
+private external fun wasmLibcUnixLinuxlikeLinuxRemovexattr(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_lremovexattr(p0, p1)")
-private external fun _wasm_libc_unix_linuxlike_linux_lremovexattr(p0: String?, p1: String?): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxLremovexattr(p0, p1)")
+private external fun wasmLibcUnixLinuxlikeLinuxLremovexattr(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_fremovexattr(p0, p1)")
-private external fun _wasm_libc_unix_linuxlike_linux_fremovexattr(p0: Int, p1: String?): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxFremovexattr(p0, p1)")
+private external fun wasmLibcUnixLinuxlikeLinuxFremovexattr(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_signalfd(p0, p1, p2)")
-private external fun _wasm_libc_unix_linuxlike_linux_signalfd(p0: Int, p1: String, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxSignalfd(p0, p1, p2)")
+private external fun wasmLibcUnixLinuxlikeLinuxSignalfd(p0: Int, p1: String, p2: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_timerfdCreate(p0, p1)")
-private external fun _wasm_libc_unix_linuxlike_linux_timerfdCreate(p0: Int, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxTimerfdCreate(p0, p1)")
+private external fun wasmLibcUnixLinuxlikeLinuxTimerfdCreate(p0: Int, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_timerfdGettime(p0, p1)")
-private external fun _wasm_libc_unix_linuxlike_linux_timerfdGettime(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxTimerfdGettime(p0, p1)")
+private external fun wasmLibcUnixLinuxlikeLinuxTimerfdGettime(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_timerfdSettime(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_linuxlike_linux_timerfdSettime(p0: Int, p1: Int, p2: String, p3: String): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxTimerfdSettime(p0, p1, p2, p3)")
+private external fun wasmLibcUnixLinuxlikeLinuxTimerfdSettime(p0: Int, p1: Int, p2: String, p3: String): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_quotactl(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_linuxlike_linux_quotactl(p0: Int, p1: String?, p2: Int, p3: String): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxQuotactl(p0, p1, p2, p3)")
+private external fun wasmLibcUnixLinuxlikeLinuxQuotactl(p0: Int, p1: String, p2: Int, p3: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_epollPwait(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_unix_linuxlike_linux_epollPwait(p0: Int, p1: String, p2: Int, p3: Int, p4: String): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxEpollPwait(p0, p1, p2, p3, p4)")
+private external fun wasmLibcUnixLinuxlikeLinuxEpollPwait(p0: Int, p1: String, p2: Int, p3: Int, p4: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_dup3(p0, p1, p2)")
-private external fun _wasm_libc_unix_linuxlike_linux_dup3(p0: Int, p1: Int, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxDup3(p0, p1, p2)")
+private external fun wasmLibcUnixLinuxlikeLinuxDup3(p0: Int, p1: Int, p2: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_sigtimedwait(p0, p1, p2)")
-private external fun _wasm_libc_unix_linuxlike_linux_sigtimedwait(p0: String, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxSigtimedwait(p0, p1, p2)")
+private external fun wasmLibcUnixLinuxlikeLinuxSigtimedwait(p0: String, p1: String, p2: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_sigwaitinfo(p0, p1)")
-private external fun _wasm_libc_unix_linuxlike_linux_sigwaitinfo(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxSigwaitinfo(p0, p1)")
+private external fun wasmLibcUnixLinuxlikeLinuxSigwaitinfo(p0: String, p1: String): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_accept4(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_linuxlike_linux_accept4(p0: Int, p1: String, p2: String, p3: Int): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxAccept4(p0, p1, p2, p3)")
+private external fun wasmLibcUnixLinuxlikeLinuxAccept4(p0: Int, p1: String, p2: String, p3: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_reboot(p0)")
-private external fun _wasm_libc_unix_linuxlike_linux_reboot(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxReboot(p0)")
+private external fun wasmLibcUnixLinuxlikeLinuxReboot(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_setfsgid(p0)")
-private external fun _wasm_libc_unix_linuxlike_linux_setfsgid(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxSetfsgid(p0)")
+private external fun wasmLibcUnixLinuxlikeLinuxSetfsgid(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_setfsuid(p0)")
-private external fun _wasm_libc_unix_linuxlike_linux_setfsuid(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxSetfsuid(p0)")
+private external fun wasmLibcUnixLinuxlikeLinuxSetfsuid(p0: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_mkfifoat(p0, p1, p2)")
-private external fun _wasm_libc_unix_linuxlike_linux_mkfifoat(p0: Int, p1: String?, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxMkfifoat(p0, p1, p2)")
+private external fun wasmLibcUnixLinuxlikeLinuxMkfifoat(p0: Int, p1: String, p2: Int): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_syncFileRange(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_linuxlike_linux_syncFileRange(p0: Int, p1: String, p2: String, p3: Int): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxSyncFileRange(p0, p1, p2, p3)")
+private external fun wasmLibcUnixLinuxlikeLinuxSyncFileRange(p0: Int, p1: String, p2: String, p3: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_posixMadvise(p0, p1, p2)")
-private external fun _wasm_libc_unix_linuxlike_linux_posixMadvise(p0: String, p1: String, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxPosixMadvise(p0, p1, p2)")
+private external fun wasmLibcUnixLinuxlikeLinuxPosixMadvise(p0: String, p1: String, p2: Int): Int
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_remapFilePages(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_unix_linuxlike_linux_remapFilePages(p0: String, p1: String, p2: Int, p3: String, p4: Int): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxRemapFilePages(p0, p1, p2, p3, p4)")
+private external fun wasmLibcUnixLinuxlikeLinuxRemapFilePages(p0: String, p1: String, p2: Int, p3: String, p4: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_mkstemps(p0, p1)")
-private external fun _wasm_libc_unix_linuxlike_linux_mkstemps(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxMkstemps(p0, p1)")
+private external fun wasmLibcUnixLinuxlikeLinuxMkstemps(p0: String, p1: Int): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_vhangup()")
-private external fun _wasm_libc_unix_linuxlike_linux_vhangup(): Int
+@JsFun("() => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxVhangup()")
+private external fun wasmLibcUnixLinuxlikeLinuxVhangup(): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_sync()")
-private external fun _wasm_libc_unix_linuxlike_linux_sync()
+@JsFun("() => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxSync()")
+private external fun wasmLibcUnixLinuxlikeLinuxSync()
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_syncfs(p0)")
-private external fun _wasm_libc_unix_linuxlike_linux_syncfs(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxSyncfs(p0)")
+private external fun wasmLibcUnixLinuxlikeLinuxSyncfs(p0: Int): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_syscall(p0, p1, p2, p3, p4, p5)")
-private external fun _wasm_libc_unix_linuxlike_linux_syscall(p0: String, p1: Int, p2: String, p3: String, p4: String, p5: String): String
+@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxSyscall(p0, p1, p2, p3, p4, p5)")
+private external fun wasmLibcUnixLinuxlikeLinuxSyscall(p0: String, p1: Int, p2: String, p3: String, p4: String, p5: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_schedSetaffinity(p0, p1, p2)")
-private external fun _wasm_libc_unix_linuxlike_linux_schedSetaffinity(p0: Int, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxSchedSetaffinity(p0, p1, p2)")
+private external fun wasmLibcUnixLinuxlikeLinuxSchedSetaffinity(p0: Int, p1: String, p2: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_epollCreate(p0)")
-private external fun _wasm_libc_unix_linuxlike_linux_epollCreate(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxEpollCreate(p0)")
+private external fun wasmLibcUnixLinuxlikeLinuxEpollCreate(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_epollCreate1(p0)")
-private external fun _wasm_libc_unix_linuxlike_linux_epollCreate1(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxEpollCreate1(p0)")
+private external fun wasmLibcUnixLinuxlikeLinuxEpollCreate1(p0: Int): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_epollWait(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_linuxlike_linux_epollWait(p0: Int, p1: String, p2: Int, p3: Int): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxEpollWait(p0, p1, p2, p3)")
+private external fun wasmLibcUnixLinuxlikeLinuxEpollWait(p0: Int, p1: String, p2: Int, p3: Int): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_epollCtl(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_linuxlike_linux_epollCtl(p0: Int, p1: Int, p2: Int, p3: String): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxEpollCtl(p0, p1, p2, p3)")
+private external fun wasmLibcUnixLinuxlikeLinuxEpollCtl(p0: Int, p1: Int, p2: Int, p3: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_unshare(p0)")
-private external fun _wasm_libc_unix_linuxlike_linux_unshare(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxUnshare(p0)")
+private external fun wasmLibcUnixLinuxlikeLinuxUnshare(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_umount(p0)")
-private external fun _wasm_libc_unix_linuxlike_linux_umount(p0: String?): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxUmount(p0)")
+private external fun wasmLibcUnixLinuxlikeLinuxUmount(p0: String): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_tee(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_linuxlike_linux_tee(p0: Int, p1: Int, p2: String, p3: Int): String
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxTee(p0, p1, p2, p3)")
+private external fun wasmLibcUnixLinuxlikeLinuxTee(p0: Int, p1: Int, p2: String, p3: Int): String
 
-@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_splice(p0, p1, p2, p3, p4, p5)")
-private external fun _wasm_libc_unix_linuxlike_linux_splice(p0: Int, p1: String, p2: Int, p3: String, p4: String, p5: Int): String
+@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxSplice(p0, p1, p2, p3, p4, p5)")
+private external fun wasmLibcUnixLinuxlikeLinuxSplice(p0: Int, p1: String, p2: Int, p3: String, p4: String, p5: Int): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_eventfd(p0, p1)")
-private external fun _wasm_libc_unix_linuxlike_linux_eventfd(p0: Int, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxEventfd(p0, p1)")
+private external fun wasmLibcUnixLinuxlikeLinuxEventfd(p0: Int, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_eventfdRead(p0, p1)")
-private external fun _wasm_libc_unix_linuxlike_linux_eventfdRead(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxEventfdRead(p0, p1)")
+private external fun wasmLibcUnixLinuxlikeLinuxEventfdRead(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_eventfdWrite(p0, p1)")
-private external fun _wasm_libc_unix_linuxlike_linux_eventfdWrite(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxEventfdWrite(p0, p1)")
+private external fun wasmLibcUnixLinuxlikeLinuxEventfdWrite(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_schedRrGetInterval(p0, p1)")
-private external fun _wasm_libc_unix_linuxlike_linux_schedRrGetInterval(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxSchedRrGetInterval(p0, p1)")
+private external fun wasmLibcUnixLinuxlikeLinuxSchedRrGetInterval(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_schedSetparam(p0, p1)")
-private external fun _wasm_libc_unix_linuxlike_linux_schedSetparam(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxSchedSetparam(p0, p1)")
+private external fun wasmLibcUnixLinuxlikeLinuxSchedSetparam(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_setns(p0, p1)")
-private external fun _wasm_libc_unix_linuxlike_linux_setns(p0: Int, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxSetns(p0, p1)")
+private external fun wasmLibcUnixLinuxlikeLinuxSetns(p0: Int, p1: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_swapoff(p0)")
-private external fun _wasm_libc_unix_linuxlike_linux_swapoff(p0: String?): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxSwapoff(p0)")
+private external fun wasmLibcUnixLinuxlikeLinuxSwapoff(p0: String): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_vmsplice(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_linuxlike_linux_vmsplice(p0: Int, p1: String, p2: String, p3: Int): String
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxVmsplice(p0, p1, p2, p3)")
+private external fun wasmLibcUnixLinuxlikeLinuxVmsplice(p0: Int, p1: String, p2: String, p3: Int): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_personality(p0)")
-private external fun _wasm_libc_unix_linuxlike_linux_personality(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxPersonality(p0)")
+private external fun wasmLibcUnixLinuxlikeLinuxPersonality(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_schedGetparam(p0, p1)")
-private external fun _wasm_libc_unix_linuxlike_linux_schedGetparam(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxSchedGetparam(p0, p1)")
+private external fun wasmLibcUnixLinuxlikeLinuxSchedGetparam(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5, p6, p7, p8) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_clone(p0, p1, p2, p3, p4, p5, p6, p7, p8)")
-private external fun _wasm_libc_unix_linuxlike_linux_clone(p0: String, p1: String, p2: Int, p3: String, p4: Int, p5: String, p6: String, p7: String, p8: String): Int
+@JsFun("(p0, p1, p2, p3, p4, p5, p6, p7, p8) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxClone(p0, p1, p2, p3, p4, p5, p6, p7, p8)")
+private external fun wasmLibcUnixLinuxlikeLinuxClone(p0: String, p1: String, p2: Int, p3: String, p4: Int, p5: String, p6: String, p7: String, p8: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_schedGetscheduler(p0)")
-private external fun _wasm_libc_unix_linuxlike_linux_schedGetscheduler(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxSchedGetscheduler(p0)")
+private external fun wasmLibcUnixLinuxlikeLinuxSchedGetscheduler(p0: Int): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_clockNanosleep(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_linuxlike_linux_clockNanosleep(p0: Int, p1: Int, p2: String, p3: String): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxClockNanosleep(p0, p1, p2, p3)")
+private external fun wasmLibcUnixLinuxlikeLinuxClockNanosleep(p0: Int, p1: Int, p2: String, p3: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_umount2(p0, p1)")
-private external fun _wasm_libc_unix_linuxlike_linux_umount2(p0: String?, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxUmount2(p0, p1)")
+private external fun wasmLibcUnixLinuxlikeLinuxUmount2(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_swapon(p0, p1)")
-private external fun _wasm_libc_unix_linuxlike_linux_swapon(p0: String?, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxSwapon(p0, p1)")
+private external fun wasmLibcUnixLinuxlikeLinuxSwapon(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_schedSetscheduler(p0, p1, p2)")
-private external fun _wasm_libc_unix_linuxlike_linux_schedSetscheduler(p0: Int, p1: Int, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxSchedSetscheduler(p0, p1, p2)")
+private external fun wasmLibcUnixLinuxlikeLinuxSchedSetscheduler(p0: Int, p1: Int, p2: String): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_sendfile(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_linuxlike_linux_sendfile(p0: Int, p1: Int, p2: String, p3: String): String
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxSendfile(p0, p1, p2, p3)")
+private external fun wasmLibcUnixLinuxlikeLinuxSendfile(p0: Int, p1: Int, p2: String, p3: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_sigaltstack(p0, p1)")
-private external fun _wasm_libc_unix_linuxlike_linux_sigaltstack(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxSigaltstack(p0, p1)")
+private external fun wasmLibcUnixLinuxlikeLinuxSigaltstack(p0: String, p1: String): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_getdtablesize()")
-private external fun _wasm_libc_unix_linuxlike_linux_getdtablesize(): Int
+@JsFun("() => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxGetdtablesize()")
+private external fun wasmLibcUnixLinuxlikeLinuxGetdtablesize(): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_getgrouplist(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_linuxlike_linux_getgrouplist(p0: String?, p1: Int, p2: String, p3: String): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxGetgrouplist(p0, p1, p2, p3)")
+private external fun wasmLibcUnixLinuxlikeLinuxGetgrouplist(p0: String, p1: Int, p2: String, p3: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_posixSpawn(p0, p1, p2, p3, p4, p5)")
-private external fun _wasm_libc_unix_linuxlike_linux_posixSpawn(p0: String, p1: String?, p2: String, p3: String, p4: String, p5: String): Int
+@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxPosixSpawn(p0, p1, p2, p3, p4, p5)")
+private external fun wasmLibcUnixLinuxlikeLinuxPosixSpawn(p0: String, p1: String, p2: String, p3: String, p4: String, p5: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_posixSpawnp(p0, p1, p2, p3, p4, p5)")
-private external fun _wasm_libc_unix_linuxlike_linux_posixSpawnp(p0: String, p1: String?, p2: String, p3: String, p4: String, p5: String): Int
+@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxPosixSpawnp(p0, p1, p2, p3, p4, p5)")
+private external fun wasmLibcUnixLinuxlikeLinuxPosixSpawnp(p0: String, p1: String, p2: String, p3: String, p4: String, p5: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_posixSpawnattrInit(p0)")
-private external fun _wasm_libc_unix_linuxlike_linux_posixSpawnattrInit(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxPosixSpawnattrInit(p0)")
+private external fun wasmLibcUnixLinuxlikeLinuxPosixSpawnattrInit(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_posixSpawnattrDestroy(p0)")
-private external fun _wasm_libc_unix_linuxlike_linux_posixSpawnattrDestroy(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxPosixSpawnattrDestroy(p0)")
+private external fun wasmLibcUnixLinuxlikeLinuxPosixSpawnattrDestroy(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_posixSpawnattrGetsigdefault(p0, p1)")
-private external fun _wasm_libc_unix_linuxlike_linux_posixSpawnattrGetsigdefault(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxPosixSpawnattrGetsigdefault(p0, p1)")
+private external fun wasmLibcUnixLinuxlikeLinuxPosixSpawnattrGetsigdefault(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_posixSpawnattrSetsigdefault(p0, p1)")
-private external fun _wasm_libc_unix_linuxlike_linux_posixSpawnattrSetsigdefault(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxPosixSpawnattrSetsigdefault(p0, p1)")
+private external fun wasmLibcUnixLinuxlikeLinuxPosixSpawnattrSetsigdefault(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_posixSpawnattrGetsigmask(p0, p1)")
-private external fun _wasm_libc_unix_linuxlike_linux_posixSpawnattrGetsigmask(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxPosixSpawnattrGetsigmask(p0, p1)")
+private external fun wasmLibcUnixLinuxlikeLinuxPosixSpawnattrGetsigmask(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_posixSpawnattrSetsigmask(p0, p1)")
-private external fun _wasm_libc_unix_linuxlike_linux_posixSpawnattrSetsigmask(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxPosixSpawnattrSetsigmask(p0, p1)")
+private external fun wasmLibcUnixLinuxlikeLinuxPosixSpawnattrSetsigmask(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_posixSpawnattrGetflags(p0, p1)")
-private external fun _wasm_libc_unix_linuxlike_linux_posixSpawnattrGetflags(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxPosixSpawnattrGetflags(p0, p1)")
+private external fun wasmLibcUnixLinuxlikeLinuxPosixSpawnattrGetflags(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_posixSpawnattrSetflags(p0, p1)")
-private external fun _wasm_libc_unix_linuxlike_linux_posixSpawnattrSetflags(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxPosixSpawnattrSetflags(p0, p1)")
+private external fun wasmLibcUnixLinuxlikeLinuxPosixSpawnattrSetflags(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_posixSpawnattrGetpgroup(p0, p1)")
-private external fun _wasm_libc_unix_linuxlike_linux_posixSpawnattrGetpgroup(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxPosixSpawnattrGetpgroup(p0, p1)")
+private external fun wasmLibcUnixLinuxlikeLinuxPosixSpawnattrGetpgroup(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_posixSpawnattrSetpgroup(p0, p1)")
-private external fun _wasm_libc_unix_linuxlike_linux_posixSpawnattrSetpgroup(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxPosixSpawnattrSetpgroup(p0, p1)")
+private external fun wasmLibcUnixLinuxlikeLinuxPosixSpawnattrSetpgroup(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_posixSpawnattrGetschedpolicy(p0, p1)")
-private external fun _wasm_libc_unix_linuxlike_linux_posixSpawnattrGetschedpolicy(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxPosixSpawnattrGetschedpolicy(p0, p1)")
+private external fun wasmLibcUnixLinuxlikeLinuxPosixSpawnattrGetschedpolicy(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_posixSpawnattrSetschedpolicy(p0, p1)")
-private external fun _wasm_libc_unix_linuxlike_linux_posixSpawnattrSetschedpolicy(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxPosixSpawnattrSetschedpolicy(p0, p1)")
+private external fun wasmLibcUnixLinuxlikeLinuxPosixSpawnattrSetschedpolicy(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_posixSpawnattrGetschedparam(p0, p1)")
-private external fun _wasm_libc_unix_linuxlike_linux_posixSpawnattrGetschedparam(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxPosixSpawnattrGetschedparam(p0, p1)")
+private external fun wasmLibcUnixLinuxlikeLinuxPosixSpawnattrGetschedparam(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_posixSpawnattrSetschedparam(p0, p1)")
-private external fun _wasm_libc_unix_linuxlike_linux_posixSpawnattrSetschedparam(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxPosixSpawnattrSetschedparam(p0, p1)")
+private external fun wasmLibcUnixLinuxlikeLinuxPosixSpawnattrSetschedparam(p0: String, p1: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_posixSpawnFileActionsInit(p0)")
-private external fun _wasm_libc_unix_linuxlike_linux_posixSpawnFileActionsInit(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxPosixSpawnFileActionsInit(p0)")
+private external fun wasmLibcUnixLinuxlikeLinuxPosixSpawnFileActionsInit(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_posixSpawnFileActionsDestroy(p0)")
-private external fun _wasm_libc_unix_linuxlike_linux_posixSpawnFileActionsDestroy(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxPosixSpawnFileActionsDestroy(p0)")
+private external fun wasmLibcUnixLinuxlikeLinuxPosixSpawnFileActionsDestroy(p0: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_posixSpawnFileActionsAddopen(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_unix_linuxlike_linux_posixSpawnFileActionsAddopen(p0: String, p1: Int, p2: String?, p3: Int, p4: Int): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxPosixSpawnFileActionsAddopen(p0, p1, p2, p3, p4)")
+private external fun wasmLibcUnixLinuxlikeLinuxPosixSpawnFileActionsAddopen(p0: String, p1: Int, p2: String, p3: Int, p4: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_posixSpawnFileActionsAddclose(p0, p1)")
-private external fun _wasm_libc_unix_linuxlike_linux_posixSpawnFileActionsAddclose(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxPosixSpawnFileActionsAddclose(p0, p1)")
+private external fun wasmLibcUnixLinuxlikeLinuxPosixSpawnFileActionsAddclose(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_posixSpawnFileActionsAdddup2(p0, p1, p2)")
-private external fun _wasm_libc_unix_linuxlike_linux_posixSpawnFileActionsAdddup2(p0: String, p1: Int, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxPosixSpawnFileActionsAdddup2(p0, p1, p2)")
+private external fun wasmLibcUnixLinuxlikeLinuxPosixSpawnFileActionsAdddup2(p0: String, p1: Int, p2: Int): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_freadUnlocked(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_linuxlike_linux_freadUnlocked(p0: String, p1: String, p2: String, p3: String): String
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxFreadUnlocked(p0, p1, p2, p3)")
+private external fun wasmLibcUnixLinuxlikeLinuxFreadUnlocked(p0: String, p1: String, p2: String, p3: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_inotifyRmWatch(p0, p1)")
-private external fun _wasm_libc_unix_linuxlike_linux_inotifyRmWatch(p0: Int, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxInotifyRmWatch(p0, p1)")
+private external fun wasmLibcUnixLinuxlikeLinuxInotifyRmWatch(p0: Int, p1: Int): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_inotifyInit()")
-private external fun _wasm_libc_unix_linuxlike_linux_inotifyInit(): Int
+@JsFun("() => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxInotifyInit()")
+private external fun wasmLibcUnixLinuxlikeLinuxInotifyInit(): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_inotifyInit1(p0)")
-private external fun _wasm_libc_unix_linuxlike_linux_inotifyInit1(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxInotifyInit1(p0)")
+private external fun wasmLibcUnixLinuxlikeLinuxInotifyInit1(p0: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_inotifyAddWatch(p0, p1, p2)")
-private external fun _wasm_libc_unix_linuxlike_linux_inotifyAddWatch(p0: Int, p1: String?, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxInotifyAddWatch(p0, p1, p2)")
+private external fun wasmLibcUnixLinuxlikeLinuxInotifyAddWatch(p0: Int, p1: String, p2: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_fanotifyInit(p0, p1)")
-private external fun _wasm_libc_unix_linuxlike_linux_fanotifyInit(p0: Int, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxFanotifyInit(p0, p1)")
+private external fun wasmLibcUnixLinuxlikeLinuxFanotifyInit(p0: Int, p1: Int): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_gethostid()")
-private external fun _wasm_libc_unix_linuxlike_linux_gethostid(): String
+@JsFun("() => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxGethostid()")
+private external fun wasmLibcUnixLinuxlikeLinuxGethostid(): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_klogctl(p0, p1, p2)")
-private external fun _wasm_libc_unix_linuxlike_linux_klogctl(p0: Int, p1: String, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxKlogctl(p0, p1, p2)")
+private external fun wasmLibcUnixLinuxlikeLinuxKlogctl(p0: Int, p1: String, p2: Int): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_fallocate64(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_linuxlike_linux_fallocate64(p0: Int, p1: Int, p2: String, p3: String): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxFallocate64(p0, p1, p2, p3)")
+private external fun wasmLibcUnixLinuxlikeLinuxFallocate64(p0: Int, p1: Int, p2: String, p3: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_fgetpos64(p0, p1)")
-private external fun _wasm_libc_unix_linuxlike_linux_fgetpos64(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxFgetpos64(p0, p1)")
+private external fun wasmLibcUnixLinuxlikeLinuxFgetpos64(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_fopen64(p0, p1)")
-private external fun _wasm_libc_unix_linuxlike_linux_fopen64(p0: String?, p1: String?): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxFopen64(p0, p1)")
+private external fun wasmLibcUnixLinuxlikeLinuxFopen64(p0: String, p1: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_posixFallocate64(p0, p1, p2)")
-private external fun _wasm_libc_unix_linuxlike_linux_posixFallocate64(p0: Int, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxPosixFallocate64(p0, p1, p2)")
+private external fun wasmLibcUnixLinuxlikeLinuxPosixFallocate64(p0: Int, p1: String, p2: String): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_sendfile64(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_linuxlike_linux_sendfile64(p0: Int, p1: Int, p2: String, p3: String): String
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxSendfile64(p0, p1, p2, p3)")
+private external fun wasmLibcUnixLinuxlikeLinuxSendfile64(p0: Int, p1: Int, p2: String, p3: String): String
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_linuxlike_linux_tmpfile64()")
-private external fun _wasm_libc_unix_linuxlike_linux_tmpfile64(): String
+@JsFun("() => globalThis.__km_napi_libc.libcUnixLinuxlikeLinuxTmpfile64()")
+private external fun wasmLibcUnixLinuxlikeLinuxTmpfile64(): String
 
-public actual fun getspnamR(name: String?, spbuf: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, spbufp: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_getspnamR(name, (spbuf?.value ?: 0L).toString(), (buf?.value ?: 0L).toString(), buflen.toString(), (spbufp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getspnamR(name: ConstPtr<CChar>, spbuf: MutPtr<Spwd>, buf: MutPtr<CChar>, buflen: SizeT, spbufp: MutPtr<MutPtr<Spwd>>): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxGetspnamR(name.rawAddress.toString(), spbuf.rawAddress.toString(), buf.rawAddress.toString(), buflen.toString(), spbufp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_mqOpen(name, oflag, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()).toLong().toInt() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mqOpen(name: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): MqdT =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxMqOpen(name.rawAddress.toString(), oflag, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()).toLong().toInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun mqClose(mqd: MqdT): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_mqClose(mqd.toLong().toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxMqClose(mqd.toLong().toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mqUnlink(name: String?): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_mqUnlink(name) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mqUnlink(name: ConstPtr<CChar>): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxMqUnlink(name.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mqReceive(mqd: MqdT, msgPtr: COpaquePointer?, msgLen: SizeT, msgPrio: COpaquePointer?): SsizeT =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_mqReceive(mqd.toLong().toString(), (msgPtr?.value ?: 0L).toString(), msgLen.toString(), (msgPrio?.value ?: 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mqReceive(mqd: MqdT, msgPtr: MutPtr<CChar>, msgLen: SizeT, msgPrio: MutPtr<CUint>): SsizeT =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxMqReceive(mqd.toLong().toString(), msgPtr.rawAddress.toString(), msgLen.toString(), msgPrio.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mqTimedreceive(mqd: MqdT, msgPtr: COpaquePointer?, msgLen: SizeT, msgPrio: COpaquePointer?, absTimeout: COpaquePointer?): SsizeT =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_mqTimedreceive(mqd.toLong().toString(), (msgPtr?.value ?: 0L).toString(), msgLen.toString(), (msgPrio?.value ?: 0L).toString(), (absTimeout?.value ?: 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mqTimedreceive(mqd: MqdT, msgPtr: MutPtr<CChar>, msgLen: SizeT, msgPrio: MutPtr<CUint>, absTimeout: ConstPtr<Timespec>): SsizeT =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxMqTimedreceive(mqd.toLong().toString(), msgPtr.rawAddress.toString(), msgLen.toString(), msgPrio.rawAddress.toString(), absTimeout.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mqSend(mqd: MqdT, msgPtr: String?, msgLen: SizeT, msgPrio: CUint): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_mqSend(mqd.toLong().toString(), msgPtr, msgLen.toString(), msgPrio.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mqSend(mqd: MqdT, msgPtr: ConstPtr<CChar>, msgLen: SizeT, msgPrio: CUint): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxMqSend(mqd.toLong().toString(), msgPtr.rawAddress.toString(), msgLen.toString(), msgPrio.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mqTimedsend(mqd: MqdT, msgPtr: String?, msgLen: SizeT, msgPrio: CUint, absTimeout: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_mqTimedsend(mqd.toLong().toString(), msgPtr, msgLen.toString(), msgPrio.toInt(), (absTimeout?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mqTimedsend(mqd: MqdT, msgPtr: ConstPtr<CChar>, msgLen: SizeT, msgPrio: CUint, absTimeout: ConstPtr<Timespec>): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxMqTimedsend(mqd.toLong().toString(), msgPtr.rawAddress.toString(), msgLen.toString(), msgPrio.toInt(), absTimeout.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mqGetattr(mqd: MqdT, attr: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_mqGetattr(mqd.toLong().toString(), (attr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mqGetattr(mqd: MqdT, attr: MutPtr<MqAttr>): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxMqGetattr(mqd.toLong().toString(), attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mqSetattr(mqd: MqdT, newattr: COpaquePointer?, oldattr: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_mqSetattr(mqd.toLong().toString(), (newattr?.value ?: 0L).toString(), (oldattr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mqSetattr(mqd: MqdT, newattr: ConstPtr<MqAttr>, oldattr: MutPtr<MqAttr>): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxMqSetattr(mqd.toLong().toString(), newattr.rawAddress.toString(), oldattr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun mrand48(): CLong =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_mrand48().toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxMrand48().toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun seed48(xseed: COpaquePointer?): COpaquePointer? =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_seed48((xseed?.value ?: 0L).toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun seed48(xseed: MutPtr<CUshort>): MutPtr<CUshort> =
+    if (unixLinuxlikeLinuxNapiAvailable) MutPtr(wasmLibcUnixLinuxlikeLinuxSeed48(xseed.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun lcong48(p: COpaquePointer?) {
-    if (_unixLinuxlikeLinuxNapiAvailable) {
-        _wasm_libc_unix_linuxlike_linux_lcong48((p?.value ?: 0L).toString())
+public actual fun lcong48(p: MutPtr<CUshort>) {
+    if (unixLinuxlikeLinuxNapiAvailable) {
+        wasmLibcUnixLinuxlikeLinuxLcong48(p.rawAddress.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun lutimes(file: String?, times: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_lutimes(file, (times?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun lutimes(file: ConstPtr<CChar>, times: ConstPtr<Timeval>): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxLutimes(file.rawAddress.toString(), times.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun shmOpen(name: String?, oflag: CInt, mode: ModeT): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_shmOpen(name, oflag, mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun shmOpen(name: ConstPtr<CChar>, oflag: CInt, mode: ModeT): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxShmOpen(name.rawAddress.toString(), oflag, mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun shmUnlink(name: String?): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_shmUnlink(name) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun shmUnlink(name: ConstPtr<CChar>): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxShmUnlink(name.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ftok(pathname: String?, projId: CInt): KeyT =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_ftok(pathname, projId) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ftok(pathname: ConstPtr<CChar>, projId: CInt): KeyT =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxFtok(pathname.rawAddress.toString(), projId) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun semget(key: KeyT, nsems: CInt, semflag: CInt): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_semget(key, nsems, semflag) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxSemget(key, nsems, semflag) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semop(semid: CInt, sops: COpaquePointer?, nsops: SizeT): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_semop(semid, (sops?.value ?: 0L).toString(), nsops.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun semop(semid: CInt, sops: MutPtr<Sembuf>, nsops: SizeT): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxSemop(semid, sops.rawAddress.toString(), nsops.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_semctl(semid, semnum, cmd, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxSemctl(semid, semnum, cmd, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgctl(msqid: CInt, cmd: CInt, buf: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_msgctl(msqid, cmd, (buf?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun msgctl(msqid: CInt, cmd: CInt, buf: MutPtr<MsqidDs>): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxMsgctl(msqid, cmd, buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun msgget(key: KeyT, msgflg: CInt): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_msgget(key, msgflg) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxMsgget(key, msgflg) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgrcv(msqid: CInt, msgp: COpaquePointer?, msgsz: SizeT, msgtyp: CLong, msgflg: CInt): SsizeT =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_msgrcv(msqid, (msgp?.value ?: 0L).toString(), msgsz.toString(), msgtyp.toString(), msgflg).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun msgrcv(msqid: CInt, msgp: MutPtr<CVoid>, msgsz: SizeT, msgtyp: CLong, msgflg: CInt): SsizeT =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxMsgrcv(msqid, msgp.rawAddress.toString(), msgsz.toString(), msgtyp.toString(), msgflg).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgsnd(msqid: CInt, msgp: COpaquePointer?, msgsz: SizeT, msgflg: CInt): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_msgsnd(msqid, (msgp?.value ?: 0L).toString(), msgsz.toString(), msgflg) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun msgsnd(msqid: CInt, msgp: ConstPtr<CVoid>, msgsz: SizeT, msgflg: CInt): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxMsgsnd(msqid, msgp.rawAddress.toString(), msgsz.toString(), msgflg) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun fallocate(fd: CInt, mode: CInt, offset: OffT, len: OffT): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_fallocate(fd, mode, offset.toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxFallocate(fd, mode, offset.toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_posixFallocate(fd, offset.toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxPosixFallocate(fd, offset.toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun readahead(fd: CInt, offset: Off64T, count: SizeT): SsizeT =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_readahead(fd, offset.toString(), count.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxReadahead(fd, offset.toString(), count.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getxattr(path: String?, name: String?, value: COpaquePointer?, size: SizeT): SsizeT =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_getxattr(path, name, (value?.value ?: 0L).toString(), size.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getxattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>, value: MutPtr<CVoid>, size: SizeT): SsizeT =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxGetxattr(path.rawAddress.toString(), name.rawAddress.toString(), value.rawAddress.toString(), size.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun lgetxattr(path: String?, name: String?, value: COpaquePointer?, size: SizeT): SsizeT =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_lgetxattr(path, name, (value?.value ?: 0L).toString(), size.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun lgetxattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>, value: MutPtr<CVoid>, size: SizeT): SsizeT =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxLgetxattr(path.rawAddress.toString(), name.rawAddress.toString(), value.rawAddress.toString(), size.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fgetxattr(filedes: CInt, name: String?, value: COpaquePointer?, size: SizeT): SsizeT =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_fgetxattr(filedes, name, (value?.value ?: 0L).toString(), size.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fgetxattr(filedes: CInt, name: ConstPtr<CChar>, value: MutPtr<CVoid>, size: SizeT): SsizeT =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxFgetxattr(filedes, name.rawAddress.toString(), value.rawAddress.toString(), size.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setxattr(path: String?, name: String?, value: COpaquePointer?, size: SizeT, flags: CInt): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_setxattr(path, name, (value?.value ?: 0L).toString(), size.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun setxattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>, value: ConstPtr<CVoid>, size: SizeT, flags: CInt): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxSetxattr(path.rawAddress.toString(), name.rawAddress.toString(), value.rawAddress.toString(), size.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun lsetxattr(path: String?, name: String?, value: COpaquePointer?, size: SizeT, flags: CInt): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_lsetxattr(path, name, (value?.value ?: 0L).toString(), size.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun lsetxattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>, value: ConstPtr<CVoid>, size: SizeT, flags: CInt): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxLsetxattr(path.rawAddress.toString(), name.rawAddress.toString(), value.rawAddress.toString(), size.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fsetxattr(filedes: CInt, name: String?, value: COpaquePointer?, size: SizeT, flags: CInt): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_fsetxattr(filedes, name, (value?.value ?: 0L).toString(), size.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fsetxattr(filedes: CInt, name: ConstPtr<CChar>, value: ConstPtr<CVoid>, size: SizeT, flags: CInt): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxFsetxattr(filedes, name.rawAddress.toString(), value.rawAddress.toString(), size.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun listxattr(path: String?, list: COpaquePointer?, size: SizeT): SsizeT =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_listxattr(path, (list?.value ?: 0L).toString(), size.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun listxattr(path: ConstPtr<CChar>, list: MutPtr<CChar>, size: SizeT): SsizeT =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxListxattr(path.rawAddress.toString(), list.rawAddress.toString(), size.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun llistxattr(path: String?, list: COpaquePointer?, size: SizeT): SsizeT =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_llistxattr(path, (list?.value ?: 0L).toString(), size.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun llistxattr(path: ConstPtr<CChar>, list: MutPtr<CChar>, size: SizeT): SsizeT =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxLlistxattr(path.rawAddress.toString(), list.rawAddress.toString(), size.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun flistxattr(filedes: CInt, list: COpaquePointer?, size: SizeT): SsizeT =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_flistxattr(filedes, (list?.value ?: 0L).toString(), size.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun flistxattr(filedes: CInt, list: MutPtr<CChar>, size: SizeT): SsizeT =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxFlistxattr(filedes, list.rawAddress.toString(), size.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun removexattr(path: String?, name: String?): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_removexattr(path, name) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun removexattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxRemovexattr(path.rawAddress.toString(), name.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun lremovexattr(path: String?, name: String?): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_lremovexattr(path, name) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun lremovexattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxLremovexattr(path.rawAddress.toString(), name.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fremovexattr(filedes: CInt, name: String?): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_fremovexattr(filedes, name) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fremovexattr(filedes: CInt, name: ConstPtr<CChar>): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxFremovexattr(filedes, name.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun signalfd(fd: CInt, mask: COpaquePointer?, flags: CInt): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_signalfd(fd, (mask?.value ?: 0L).toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun signalfd(fd: CInt, mask: ConstPtr<SigsetT>, flags: CInt): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxSignalfd(fd, mask.rawAddress.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun timerfdCreate(clockid: ClockidT, flags: CInt): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_timerfdCreate(clockid, flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxTimerfdCreate(clockid, flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun timerfdGettime(fd: CInt, currValue: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_timerfdGettime(fd, (currValue?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun timerfdGettime(fd: CInt, currValue: MutPtr<Itimerspec>): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxTimerfdGettime(fd, currValue.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun timerfdSettime(fd: CInt, flags: CInt, newValue: COpaquePointer?, oldValue: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_timerfdSettime(fd, flags, (newValue?.value ?: 0L).toString(), (oldValue?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun timerfdSettime(fd: CInt, flags: CInt, newValue: ConstPtr<Itimerspec>, oldValue: MutPtr<Itimerspec>): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxTimerfdSettime(fd, flags, newValue.rawAddress.toString(), oldValue.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun quotactl(cmd: CInt, special: String?, id: CInt, data: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_quotactl(cmd, special, id, (data?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun quotactl(cmd: CInt, special: ConstPtr<CChar>, id: CInt, data: MutPtr<CChar>): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxQuotactl(cmd, special.rawAddress.toString(), id, data.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun epollPwait(epfd: CInt, events: COpaquePointer?, maxevents: CInt, timeout: CInt, sigmask: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_epollPwait(epfd, (events?.value ?: 0L).toString(), maxevents, timeout, (sigmask?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun epollPwait(epfd: CInt, events: MutPtr<EpollEvent>, maxevents: CInt, timeout: CInt, sigmask: ConstPtr<SigsetT>): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxEpollPwait(epfd, events.rawAddress.toString(), maxevents, timeout, sigmask.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun dup3(oldfd: CInt, newfd: CInt, flags: CInt): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_dup3(oldfd, newfd, flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxDup3(oldfd, newfd, flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigtimedwait(set: COpaquePointer?, info: COpaquePointer?, timeout: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_sigtimedwait((set?.value ?: 0L).toString(), (info?.value ?: 0L).toString(), (timeout?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sigtimedwait(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>, timeout: ConstPtr<Timespec>): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxSigtimedwait(set.rawAddress.toString(), info.rawAddress.toString(), timeout.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigwaitinfo(set: COpaquePointer?, info: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_sigwaitinfo((set?.value ?: 0L).toString(), (info?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sigwaitinfo(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxSigwaitinfo(set.rawAddress.toString(), info.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun accept4(fd: CInt, addr: COpaquePointer?, len: COpaquePointer?, flg: CInt): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_accept4(fd, (addr?.value ?: 0L).toString(), (len?.value ?: 0L).toString(), flg) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun accept4(fd: CInt, addr: MutPtr<Sockaddr>, len: MutPtr<SocklenT>, flg: CInt): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxAccept4(fd, addr.rawAddress.toString(), len.rawAddress.toString(), flg) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun reboot(howTo: CInt): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_reboot(howTo) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxReboot(howTo) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun setfsgid(gid: GidT): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_setfsgid(gid.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxSetfsgid(gid.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun setfsuid(uid: UidT): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_setfsuid(uid.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxSetfsuid(uid.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_mkfifoat(dirfd, pathname, mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mkfifoat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxMkfifoat(dirfd, pathname.rawAddress.toString(), mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun syncFileRange(fd: CInt, offset: Off64T, nbytes: Off64T, flags: CUint): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_syncFileRange(fd, offset.toString(), nbytes.toString(), flags.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxSyncFileRange(fd, offset.toString(), nbytes.toString(), flags.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixMadvise(addr: COpaquePointer?, len: SizeT, advice: CInt): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_posixMadvise((addr?.value ?: 0L).toString(), len.toString(), advice) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixMadvise(addr: MutPtr<CVoid>, len: SizeT, advice: CInt): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxPosixMadvise(addr.rawAddress.toString(), len.toString(), advice) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun remapFilePages(addr: COpaquePointer?, size: SizeT, prot: CInt, pgoff: SizeT, flags: CInt): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_remapFilePages((addr?.value ?: 0L).toString(), size.toString(), prot, pgoff.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun remapFilePages(addr: MutPtr<CVoid>, size: SizeT, prot: CInt, pgoff: SizeT, flags: CInt): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxRemapFilePages(addr.rawAddress.toString(), size.toString(), prot, pgoff.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mkstemps(template: COpaquePointer?, suffixlen: CInt): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_mkstemps((template?.value ?: 0L).toString(), suffixlen) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mkstemps(template: MutPtr<CChar>, suffixlen: CInt): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxMkstemps(template.rawAddress.toString(), suffixlen) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun vhangup(): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_vhangup() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxVhangup() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sync() {
-    if (_unixLinuxlikeLinuxNapiAvailable) {
-        _wasm_libc_unix_linuxlike_linux_sync()
+    if (unixLinuxlikeLinuxNapiAvailable) {
+        wasmLibcUnixLinuxlikeLinuxSync()
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
 public actual fun syncfs(fd: CInt): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_syncfs(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxSyncfs(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun syscall(num: CLong, vararg variadicArgs: Long): CLong =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_syscall(num.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxSyscall(num.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun schedSetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_schedSetaffinity(pid, cpusetsize.toString(), (cpuset?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun schedSetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: ConstPtr<CpuSetT>): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxSchedSetaffinity(pid, cpusetsize.toString(), cpuset.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun epollCreate(size: CInt): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_epollCreate(size) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxEpollCreate(size) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun epollCreate1(flags: CInt): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_epollCreate1(flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxEpollCreate1(flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun epollWait(epfd: CInt, events: COpaquePointer?, maxevents: CInt, timeout: CInt): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_epollWait(epfd, (events?.value ?: 0L).toString(), maxevents, timeout) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun epollWait(epfd: CInt, events: MutPtr<EpollEvent>, maxevents: CInt, timeout: CInt): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxEpollWait(epfd, events.rawAddress.toString(), maxevents, timeout) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun epollCtl(epfd: CInt, op: CInt, fd: CInt, event: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_epollCtl(epfd, op, fd, (event?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun epollCtl(epfd: CInt, op: CInt, fd: CInt, event: MutPtr<EpollEvent>): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxEpollCtl(epfd, op, fd, event.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun unshare(flags: CInt): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_unshare(flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxUnshare(flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun umount(target: String?): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_umount(target) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun umount(target: ConstPtr<CChar>): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxUmount(target.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun tee(fdIn: CInt, fdOut: CInt, len: SizeT, flags: CUint): SsizeT =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_tee(fdIn, fdOut, len.toString(), flags.toInt()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxTee(fdIn, fdOut, len.toString(), flags.toInt()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun splice(fdIn: CInt, offIn: COpaquePointer?, fdOut: CInt, offOut: COpaquePointer?, len: SizeT, flags: CUint): SsizeT =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_splice(fdIn, (offIn?.value ?: 0L).toString(), fdOut, (offOut?.value ?: 0L).toString(), len.toString(), flags.toInt()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun splice(fdIn: CInt, offIn: MutPtr<LoffT>, fdOut: CInt, offOut: MutPtr<LoffT>, len: SizeT, flags: CUint): SsizeT =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxSplice(fdIn, offIn.rawAddress.toString(), fdOut, offOut.rawAddress.toString(), len.toString(), flags.toInt()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun eventfd(initval: CUint, flags: CInt): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_eventfd(initval.toInt(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxEventfd(initval.toInt(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun eventfdRead(fd: CInt, value: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_eventfdRead(fd, (value?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun eventfdRead(fd: CInt, value: MutPtr<EventfdT>): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxEventfdRead(fd, value.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun eventfdWrite(fd: CInt, value: EventfdT): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_eventfdWrite(fd, value.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxEventfdWrite(fd, value.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun schedRrGetInterval(pid: PidT, tp: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_schedRrGetInterval(pid, (tp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun schedRrGetInterval(pid: PidT, tp: MutPtr<Timespec>): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxSchedRrGetInterval(pid, tp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun schedSetparam(pid: PidT, param: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_schedSetparam(pid, (param?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun schedSetparam(pid: PidT, param: ConstPtr<SchedParam>): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxSchedSetparam(pid, param.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun setns(fd: CInt, nstype: CInt): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_setns(fd, nstype) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxSetns(fd, nstype) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun swapoff(path: String?): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_swapoff(path) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun swapoff(path: ConstPtr<CChar>): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxSwapoff(path.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun vmsplice(fd: CInt, iov: COpaquePointer?, nrSegs: SizeT, flags: CUint): SsizeT =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_vmsplice(fd, (iov?.value ?: 0L).toString(), nrSegs.toString(), flags.toInt()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun vmsplice(fd: CInt, iov: ConstPtr<Iovec>, nrSegs: SizeT, flags: CUint): SsizeT =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxVmsplice(fd, iov.rawAddress.toString(), nrSegs.toString(), flags.toInt()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun personality(persona: CUlong): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_personality(persona.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxPersonality(persona.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun schedGetparam(pid: PidT, param: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_schedGetparam(pid, (param?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun schedGetparam(pid: PidT, param: MutPtr<SchedParam>): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxSchedGetparam(pid, param.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun clone(cb: CloneCbCallback, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, vararg variadicArgs: Long): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_clone(0L.toString(), (childStack?.value ?: 0L).toString(), flags, (arg?.value ?: 0L).toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun clone(cb: CloneCbCallback, childStack: MutPtr<CVoid>, flags: CInt, arg: MutPtr<CVoid>, vararg variadicArgs: Long): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxClone(0L.toString(), childStack.rawAddress.toString(), flags, arg.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun schedGetscheduler(pid: PidT): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_schedGetscheduler(pid) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxSchedGetscheduler(pid) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: COpaquePointer?, rmtp: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_clockNanosleep(clkId, flags, (rqtp?.value ?: 0L).toString(), (rmtp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: ConstPtr<Timespec>, rmtp: MutPtr<Timespec>): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxClockNanosleep(clkId, flags, rqtp.rawAddress.toString(), rmtp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun umount2(target: String?, flags: CInt): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_umount2(target, flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun umount2(target: ConstPtr<CChar>, flags: CInt): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxUmount2(target.rawAddress.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun swapon(path: String?, swapflags: CInt): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_swapon(path, swapflags) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun swapon(path: ConstPtr<CChar>, swapflags: CInt): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxSwapon(path.rawAddress.toString(), swapflags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun schedSetscheduler(pid: PidT, policy: CInt, param: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_schedSetscheduler(pid, policy, (param?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun schedSetscheduler(pid: PidT, policy: CInt, param: ConstPtr<SchedParam>): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxSchedSetscheduler(pid, policy, param.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sendfile(outFd: CInt, inFd: CInt, offset: COpaquePointer?, count: SizeT): SsizeT =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_sendfile(outFd, inFd, (offset?.value ?: 0L).toString(), count.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sendfile(outFd: CInt, inFd: CInt, offset: MutPtr<OffT>, count: SizeT): SsizeT =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxSendfile(outFd, inFd, offset.rawAddress.toString(), count.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigaltstack(ss: COpaquePointer?, oss: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_sigaltstack((ss?.value ?: 0L).toString(), (oss?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sigaltstack(ss: ConstPtr<StackT>, oss: MutPtr<StackT>): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxSigaltstack(ss.rawAddress.toString(), oss.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun getdtablesize(): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_getdtablesize() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxGetdtablesize() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getgrouplist(user: String?, group: GidT, groups: COpaquePointer?, ngroups: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_getgrouplist(user, group.toInt(), (groups?.value ?: 0L).toString(), (ngroups?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getgrouplist(user: ConstPtr<CChar>, group: GidT, groups: MutPtr<GidT>, ngroups: MutPtr<CInt>): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxGetgrouplist(user.rawAddress.toString(), group.toInt(), groups.rawAddress.toString(), ngroups.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawn(pid: COpaquePointer?, path: String?, fileActions: COpaquePointer?, attrp: COpaquePointer?, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_posixSpawn((pid?.value ?: 0L).toString(), path, (fileActions?.value ?: 0L).toString(), (attrp?.value ?: 0L).toString(), (argv?.value ?: 0L).toString(), (envp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawn(pid: MutPtr<PidT>, path: ConstPtr<CChar>, fileActions: ConstPtr<PosixSpawnFileActionsT>, attrp: ConstPtr<PosixSpawnattrT>, argv: ConstPtr<MutPtr<CChar>>, envp: ConstPtr<MutPtr<CChar>>): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxPosixSpawn(pid.rawAddress.toString(), path.rawAddress.toString(), fileActions.rawAddress.toString(), attrp.rawAddress.toString(), argv.rawAddress.toString(), envp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnp(pid: COpaquePointer?, file: String?, fileActions: COpaquePointer?, attrp: COpaquePointer?, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_posixSpawnp((pid?.value ?: 0L).toString(), file, (fileActions?.value ?: 0L).toString(), (attrp?.value ?: 0L).toString(), (argv?.value ?: 0L).toString(), (envp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnp(pid: MutPtr<PidT>, file: ConstPtr<CChar>, fileActions: ConstPtr<PosixSpawnFileActionsT>, attrp: ConstPtr<PosixSpawnattrT>, argv: ConstPtr<MutPtr<CChar>>, envp: ConstPtr<MutPtr<CChar>>): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxPosixSpawnp(pid.rawAddress.toString(), file.rawAddress.toString(), fileActions.rawAddress.toString(), attrp.rawAddress.toString(), argv.rawAddress.toString(), envp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrInit(attr: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_posixSpawnattrInit((attr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrInit(attr: MutPtr<PosixSpawnattrT>): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxPosixSpawnattrInit(attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrDestroy(attr: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_posixSpawnattrDestroy((attr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrDestroy(attr: MutPtr<PosixSpawnattrT>): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxPosixSpawnattrDestroy(attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrGetsigdefault(attr: COpaquePointer?, default: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_posixSpawnattrGetsigdefault((attr?.value ?: 0L).toString(), (default?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrGetsigdefault(attr: ConstPtr<PosixSpawnattrT>, default: MutPtr<SigsetT>): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxPosixSpawnattrGetsigdefault(attr.rawAddress.toString(), default.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrSetsigdefault(attr: COpaquePointer?, default: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_posixSpawnattrSetsigdefault((attr?.value ?: 0L).toString(), (default?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrSetsigdefault(attr: MutPtr<PosixSpawnattrT>, default: ConstPtr<SigsetT>): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxPosixSpawnattrSetsigdefault(attr.rawAddress.toString(), default.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrGetsigmask(attr: COpaquePointer?, default: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_posixSpawnattrGetsigmask((attr?.value ?: 0L).toString(), (default?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrGetsigmask(attr: ConstPtr<PosixSpawnattrT>, default: MutPtr<SigsetT>): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxPosixSpawnattrGetsigmask(attr.rawAddress.toString(), default.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrSetsigmask(attr: COpaquePointer?, default: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_posixSpawnattrSetsigmask((attr?.value ?: 0L).toString(), (default?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrSetsigmask(attr: MutPtr<PosixSpawnattrT>, default: ConstPtr<SigsetT>): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxPosixSpawnattrSetsigmask(attr.rawAddress.toString(), default.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrGetflags(attr: COpaquePointer?, flags: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_posixSpawnattrGetflags((attr?.value ?: 0L).toString(), (flags?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrGetflags(attr: ConstPtr<PosixSpawnattrT>, flags: MutPtr<CShort>): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxPosixSpawnattrGetflags(attr.rawAddress.toString(), flags.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrSetflags(attr: COpaquePointer?, flags: CShort): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_posixSpawnattrSetflags((attr?.value ?: 0L).toString(), flags.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrSetflags(attr: MutPtr<PosixSpawnattrT>, flags: CShort): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxPosixSpawnattrSetflags(attr.rawAddress.toString(), flags.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrGetpgroup(attr: COpaquePointer?, flags: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_posixSpawnattrGetpgroup((attr?.value ?: 0L).toString(), (flags?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrGetpgroup(attr: ConstPtr<PosixSpawnattrT>, flags: MutPtr<PidT>): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxPosixSpawnattrGetpgroup(attr.rawAddress.toString(), flags.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrSetpgroup(attr: COpaquePointer?, flags: PidT): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_posixSpawnattrSetpgroup((attr?.value ?: 0L).toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrSetpgroup(attr: MutPtr<PosixSpawnattrT>, flags: PidT): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxPosixSpawnattrSetpgroup(attr.rawAddress.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrGetschedpolicy(attr: COpaquePointer?, flags: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_posixSpawnattrGetschedpolicy((attr?.value ?: 0L).toString(), (flags?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrGetschedpolicy(attr: ConstPtr<PosixSpawnattrT>, flags: MutPtr<CInt>): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxPosixSpawnattrGetschedpolicy(attr.rawAddress.toString(), flags.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrSetschedpolicy(attr: COpaquePointer?, flags: CInt): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_posixSpawnattrSetschedpolicy((attr?.value ?: 0L).toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrSetschedpolicy(attr: MutPtr<PosixSpawnattrT>, flags: CInt): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxPosixSpawnattrSetschedpolicy(attr.rawAddress.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrGetschedparam(attr: COpaquePointer?, param: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_posixSpawnattrGetschedparam((attr?.value ?: 0L).toString(), (param?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrGetschedparam(attr: ConstPtr<PosixSpawnattrT>, param: MutPtr<SchedParam>): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxPosixSpawnattrGetschedparam(attr.rawAddress.toString(), param.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrSetschedparam(attr: COpaquePointer?, param: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_posixSpawnattrSetschedparam((attr?.value ?: 0L).toString(), (param?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrSetschedparam(attr: MutPtr<PosixSpawnattrT>, param: ConstPtr<SchedParam>): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxPosixSpawnattrSetschedparam(attr.rawAddress.toString(), param.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnFileActionsInit(actions: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_posixSpawnFileActionsInit((actions?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnFileActionsInit(actions: MutPtr<PosixSpawnFileActionsT>): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxPosixSpawnFileActionsInit(actions.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnFileActionsDestroy(actions: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_posixSpawnFileActionsDestroy((actions?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnFileActionsDestroy(actions: MutPtr<PosixSpawnFileActionsT>): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxPosixSpawnFileActionsDestroy(actions.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnFileActionsAddopen(actions: COpaquePointer?, fd: CInt, path: String?, oflag: CInt, mode: ModeT): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_posixSpawnFileActionsAddopen((actions?.value ?: 0L).toString(), fd, path, oflag, mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnFileActionsAddopen(actions: MutPtr<PosixSpawnFileActionsT>, fd: CInt, path: ConstPtr<CChar>, oflag: CInt, mode: ModeT): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxPosixSpawnFileActionsAddopen(actions.rawAddress.toString(), fd, path.rawAddress.toString(), oflag, mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnFileActionsAddclose(actions: COpaquePointer?, fd: CInt): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_posixSpawnFileActionsAddclose((actions?.value ?: 0L).toString(), fd) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnFileActionsAddclose(actions: MutPtr<PosixSpawnFileActionsT>, fd: CInt): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxPosixSpawnFileActionsAddclose(actions.rawAddress.toString(), fd) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnFileActionsAdddup2(actions: COpaquePointer?, fd: CInt, newfd: CInt): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_posixSpawnFileActionsAdddup2((actions?.value ?: 0L).toString(), fd, newfd) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnFileActionsAdddup2(actions: MutPtr<PosixSpawnFileActionsT>, fd: CInt, newfd: CInt): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxPosixSpawnFileActionsAdddup2(actions.rawAddress.toString(), fd, newfd) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun freadUnlocked(buf: COpaquePointer?, size: SizeT, nobj: SizeT, stream: FILE?): SizeT =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_freadUnlocked((buf?.value ?: 0L).toString(), size.toString(), nobj.toString(), (stream?.handle ?: 0L).toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun freadUnlocked(buf: MutPtr<CVoid>, size: SizeT, nobj: SizeT, stream: MutPtr<FILE>): SizeT =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxFreadUnlocked(buf.rawAddress.toString(), size.toString(), nobj.toString(), stream.rawAddress.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun inotifyRmWatch(fd: CInt, wd: CInt): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_inotifyRmWatch(fd, wd) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxInotifyRmWatch(fd, wd) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun inotifyInit(): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_inotifyInit() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxInotifyInit() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun inotifyInit1(flags: CInt): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_inotifyInit1(flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxInotifyInit1(flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun inotifyAddWatch(fd: CInt, path: String?, mask: UInt): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_inotifyAddWatch(fd, path, mask.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun inotifyAddWatch(fd: CInt, path: ConstPtr<CChar>, mask: UInt): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxInotifyAddWatch(fd, path.rawAddress.toString(), mask.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun fanotifyInit(flags: CUint, eventFFlags: CUint): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_fanotifyInit(flags.toInt(), eventFFlags.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxFanotifyInit(flags.toInt(), eventFFlags.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun gethostid(): CLong =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_gethostid().toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxGethostid().toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun klogctl(syslogType: CInt, bufp: COpaquePointer?, len: CInt): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_klogctl(syslogType, (bufp?.value ?: 0L).toString(), len) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun klogctl(syslogType: CInt, bufp: MutPtr<CChar>, len: CInt): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxKlogctl(syslogType, bufp.rawAddress.toString(), len) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun fallocate64(fd: CInt, mode: CInt, offset: Off64T, len: Off64T): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_fallocate64(fd, mode, offset.toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxFallocate64(fd, mode, offset.toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fgetpos64(stream: FILE?, ptr: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_fgetpos64((stream?.handle ?: 0L).toString(), (ptr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fgetpos64(stream: MutPtr<FILE>, ptr: MutPtr<Fpos64T>): CInt =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxFgetpos64(stream.rawAddress.toString(), ptr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fopen64(filename: String?, mode: String?): FILE? =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_fopen64(filename, mode).toLong().let { if (it == 0L) null else FILE(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fopen64(filename: ConstPtr<CChar>, mode: ConstPtr<CChar>): MutPtr<FILE> =
+    if (unixLinuxlikeLinuxNapiAvailable) MutPtr(wasmLibcUnixLinuxlikeLinuxFopen64(filename.rawAddress.toString(), mode.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun posixFallocate64(fd: CInt, offset: Off64T, len: Off64T): CInt =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_posixFallocate64(fd, offset.toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxPosixFallocate64(fd, offset.toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sendfile64(outFd: CInt, inFd: CInt, offset: COpaquePointer?, count: SizeT): SsizeT =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_sendfile64(outFd, inFd, (offset?.value ?: 0L).toString(), count.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sendfile64(outFd: CInt, inFd: CInt, offset: MutPtr<Off64T>, count: SizeT): SsizeT =
+    if (unixLinuxlikeLinuxNapiAvailable) wasmLibcUnixLinuxlikeLinuxSendfile64(outFd, inFd, offset.rawAddress.toString(), count.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun tmpfile64(): FILE? =
-    if (_unixLinuxlikeLinuxNapiAvailable) _wasm_libc_unix_linuxlike_linux_tmpfile64().toLong().let { if (it == 0L) null else FILE(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun tmpfile64(): MutPtr<FILE> =
+    if (unixLinuxlikeLinuxNapiAvailable) MutPtr(wasmLibcUnixLinuxlikeLinuxTmpfile64().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")

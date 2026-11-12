@@ -4,26 +4,27 @@ package io.github.kotlinmania.libc.new.qurt.semaphore
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
+import io.github.kotlinmania.libc.new.qurt.SemT
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
-private val _newQurtSemaphoreNapiAddon: dynamic =
+private val newQurtSemaphoreNapiAddon: dynamic =
     js("(function() { if (typeof globalThis !== 'undefined' && typeof globalThis.__km_napi_libc !== 'undefined') return globalThis.__km_napi_libc; if (typeof process === 'undefined' || !process.versions || !process.versions.node) return null; var mod = process.getBuiltinModule ? process.getBuiltinModule('module') : (process.mainModule && process.mainModule.constructor); var req = (mod && mod.createRequire) ? mod.createRequire((process.cwd ? process.cwd() : '.') + '/package.json') : (process.mainModule ? process.mainModule.require : null); if (!req) return null; try { var pkg = req('@kotlinmania/libc-native-bindings'); if (typeof globalThis !== 'undefined') globalThis.__km_napi_libc = pkg; return pkg; } catch (_) {} var fs = req('fs'); var path = req('path'); var dir = process.cwd ? process.cwd() : '.'; var rels = ['libc_native.node', 'build/node-ffi/libc_native.node', 'build/node-ffi/release/libc_native.node', 'build/node-ffi/debug/libc_native.node', 'src/js/node-libc/build/Release/libc_native.node', 'src/js/node-libc/build/Debug/libc_native.node', 'src/js/node-libc/dist/build/Release/libc_native.node', 'src/js/node-libc/dist/build/Debug/libc_native.node', 'c_native.node', 'build/node-ffi/c_native.node', 'build/node-ffi/release/c_native.node', 'build/node-ffi/debug/c_native.node', 'src/js/node-libc/build/Release/c_native.node', 'src/js/node-libc/build/Debug/c_native.node', 'src/js/node-libc/dist/build/Release/c_native.node', 'src/js/node-libc/dist/build/Debug/c_native.node']; for (var d = 0; d < 8; d++) { for (var i = 0; i < rels.length; i++) { var c = path.resolve(dir, rels[i]); if (fs.existsSync(c)) { var loaded = req(c); if (typeof globalThis !== 'undefined') globalThis.__km_napi_libc = loaded; return loaded; } } var parent = path.dirname(dir); if (parent === dir) break; dir = parent; } if (typeof globalThis !== 'undefined') globalThis.__km_napi_libc = null; return null; })()")
 
-public actual fun semInit(sem: COpaquePointer?, pshared: CInt, value: CUint): CInt =
-    if (_newQurtSemaphoreNapiAddon != null) (_newQurtSemaphoreNapiAddon.libc_new_qurt_semaphore_semInit((sem?.value ?: 0L).toString(), pshared, value.toInt()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun semInit(sem: MutPtr<SemT>, pshared: CInt, value: CUint): CInt =
+    if (newQurtSemaphoreNapiAddon != null) (newQurtSemaphoreNapiAddon.libcNewQurtSemaphoreSemInit(sem.rawAddress.toString(), pshared, value.toInt()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semDestroy(sem: COpaquePointer?): CInt =
-    if (_newQurtSemaphoreNapiAddon != null) (_newQurtSemaphoreNapiAddon.libc_new_qurt_semaphore_semDestroy((sem?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun semDestroy(sem: MutPtr<SemT>): CInt =
+    if (newQurtSemaphoreNapiAddon != null) (newQurtSemaphoreNapiAddon.libcNewQurtSemaphoreSemDestroy(sem.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semWait(sem: COpaquePointer?): CInt =
-    if (_newQurtSemaphoreNapiAddon != null) (_newQurtSemaphoreNapiAddon.libc_new_qurt_semaphore_semWait((sem?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun semWait(sem: MutPtr<SemT>): CInt =
+    if (newQurtSemaphoreNapiAddon != null) (newQurtSemaphoreNapiAddon.libcNewQurtSemaphoreSemWait(sem.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semTrywait(sem: COpaquePointer?): CInt =
-    if (_newQurtSemaphoreNapiAddon != null) (_newQurtSemaphoreNapiAddon.libc_new_qurt_semaphore_semTrywait((sem?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun semTrywait(sem: MutPtr<SemT>): CInt =
+    if (newQurtSemaphoreNapiAddon != null) (newQurtSemaphoreNapiAddon.libcNewQurtSemaphoreSemTrywait(sem.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semPost(sem: COpaquePointer?): CInt =
-    if (_newQurtSemaphoreNapiAddon != null) (_newQurtSemaphoreNapiAddon.libc_new_qurt_semaphore_semPost((sem?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun semPost(sem: MutPtr<SemT>): CInt =
+    if (newQurtSemaphoreNapiAddon != null) (newQurtSemaphoreNapiAddon.libcNewQurtSemaphoreSemPost(sem.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semGetvalue(sem: COpaquePointer?, sval: COpaquePointer?): CInt =
-    if (_newQurtSemaphoreNapiAddon != null) (_newQurtSemaphoreNapiAddon.libc_new_qurt_semaphore_semGetvalue((sem?.value ?: 0L).toString(), (sval?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun semGetvalue(sem: MutPtr<SemT>, sval: MutPtr<CInt>): CInt =
+    if (newQurtSemaphoreNapiAddon != null) (newQurtSemaphoreNapiAddon.libcNewQurtSemaphoreSemGetvalue(sem.rawAddress.toString(), sval.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")

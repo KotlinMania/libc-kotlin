@@ -51,7 +51,7 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_new_qurt_stdlib_malloc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtStdlibMalloc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t size = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     typedef void* (*km_fn_t)(uint64_t);
@@ -84,7 +84,7 @@ static Napi::Value libc_new_qurt_stdlib_malloc_napi(const Napi::CallbackInfo& km
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_new_qurt_stdlib_calloc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtStdlibCalloc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t nmemb = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -118,7 +118,7 @@ static Napi::Value libc_new_qurt_stdlib_calloc_napi(const Napi::CallbackInfo& km
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_new_qurt_stdlib_realloc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtStdlibRealloc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -152,7 +152,7 @@ static Napi::Value libc_new_qurt_stdlib_realloc_napi(const Napi::CallbackInfo& k
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_new_qurt_stdlib_free_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtStdlibFree_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -183,7 +183,7 @@ static Napi::Value libc_new_qurt_stdlib_free_napi(const Napi::CallbackInfo& km_i
     return km_env.Undefined();
 }
 
-static Napi::Value libc_new_qurt_stdlib_abort_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtStdlibAbort_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -213,7 +213,7 @@ static Napi::Value libc_new_qurt_stdlib_abort_napi(const Napi::CallbackInfo& km_
     return km_env.Undefined();
 }
 
-static Napi::Value libc_new_qurt_stdlib_exit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtStdlibExit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t status = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(int32_t);
@@ -244,7 +244,7 @@ static Napi::Value libc_new_qurt_stdlib_exit_napi(const Napi::CallbackInfo& km_i
     return km_env.Undefined();
 }
 
-static Napi::Value libc_new_qurt_stdlib_atexit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtStdlibAtexit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* function = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     if (function == nullptr) {
@@ -286,11 +286,9 @@ static Napi::Value libc_new_qurt_stdlib_atexit_napi(const Napi::CallbackInfo& km
 #endif
 }
 
-static Napi::Value libc_new_qurt_stdlib_getenv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtStdlibGetenv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef char* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -321,14 +319,10 @@ static Napi::Value libc_new_qurt_stdlib_getenv_napi(const Napi::CallbackInfo& km
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_new_qurt_stdlib_setenv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtStdlibSetenv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
-    bool value_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string value_str = value_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* value = value_null ? nullptr : value_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* value = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t overwrite = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -360,11 +354,9 @@ static Napi::Value libc_new_qurt_stdlib_setenv_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_stdlib_unsetenv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtStdlibUnsetenv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -395,11 +387,9 @@ static Napi::Value libc_new_qurt_stdlib_unsetenv_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_stdlib_atoi_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtStdlibAtoi_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool nptr_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string nptr_str = nptr_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* nptr = nptr_null ? nullptr : nptr_str.c_str();
+    const char* nptr = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -430,11 +420,9 @@ static Napi::Value libc_new_qurt_stdlib_atoi_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_stdlib_atol_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtStdlibAtol_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool nptr_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string nptr_str = nptr_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* nptr = nptr_null ? nullptr : nptr_str.c_str();
+    const char* nptr = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -465,11 +453,9 @@ static Napi::Value libc_new_qurt_stdlib_atol_napi(const Napi::CallbackInfo& km_i
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_new_qurt_stdlib_atoll_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtStdlibAtoll_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool nptr_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string nptr_str = nptr_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* nptr = nptr_null ? nullptr : nptr_str.c_str();
+    const char* nptr = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -500,11 +486,9 @@ static Napi::Value libc_new_qurt_stdlib_atoll_napi(const Napi::CallbackInfo& km_
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_new_qurt_stdlib_strtol_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtStdlibStrtol_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool nptr_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string nptr_str = nptr_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* nptr = nptr_null ? nullptr : nptr_str.c_str();
+    const char* nptr = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* endptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t base = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(const char*, void*, int32_t);
@@ -537,11 +521,9 @@ static Napi::Value libc_new_qurt_stdlib_strtol_napi(const Napi::CallbackInfo& km
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_new_qurt_stdlib_strtoul_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtStdlibStrtoul_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool nptr_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string nptr_str = nptr_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* nptr = nptr_null ? nullptr : nptr_str.c_str();
+    const char* nptr = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* endptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t base = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef uint64_t (*km_fn_t)(const char*, void*, int32_t);
@@ -574,11 +556,9 @@ static Napi::Value libc_new_qurt_stdlib_strtoul_napi(const Napi::CallbackInfo& k
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_new_qurt_stdlib_strtoll_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtStdlibStrtoll_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool nptr_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string nptr_str = nptr_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* nptr = nptr_null ? nullptr : nptr_str.c_str();
+    const char* nptr = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* endptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t base = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(const char*, void*, int32_t);
@@ -611,11 +591,9 @@ static Napi::Value libc_new_qurt_stdlib_strtoll_napi(const Napi::CallbackInfo& k
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_new_qurt_stdlib_strtoull_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtStdlibStrtoull_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool nptr_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string nptr_str = nptr_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* nptr = nptr_null ? nullptr : nptr_str.c_str();
+    const char* nptr = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* endptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t base = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef uint64_t (*km_fn_t)(const char*, void*, int32_t);
@@ -648,11 +626,9 @@ static Napi::Value libc_new_qurt_stdlib_strtoull_napi(const Napi::CallbackInfo& 
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_new_qurt_stdlib_strtod_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtStdlibStrtod_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool nptr_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string nptr_str = nptr_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* nptr = nptr_null ? nullptr : nptr_str.c_str();
+    const char* nptr = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* endptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef double (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -684,11 +660,9 @@ static Napi::Value libc_new_qurt_stdlib_strtod_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
-static Napi::Value libc_new_qurt_stdlib_strtof_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtStdlibStrtof_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool nptr_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string nptr_str = nptr_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* nptr = nptr_null ? nullptr : nptr_str.c_str();
+    const char* nptr = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* endptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef float (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -720,7 +694,7 @@ static Napi::Value libc_new_qurt_stdlib_strtof_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
-static Napi::Value libc_new_qurt_stdlib_rand_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtStdlibRand_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -752,7 +726,7 @@ static Napi::Value libc_new_qurt_stdlib_rand_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_stdlib_srand_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtStdlibSrand_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t seed = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(uint32_t);
@@ -783,7 +757,7 @@ static Napi::Value libc_new_qurt_stdlib_srand_napi(const Napi::CallbackInfo& km_
     return km_env.Undefined();
 }
 
-static Napi::Value libc_new_qurt_stdlib_qsort_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtStdlibQsort_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* base = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t nmemb = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -817,7 +791,7 @@ static Napi::Value libc_new_qurt_stdlib_qsort_napi(const Napi::CallbackInfo& km_
     return km_env.Undefined();
 }
 
-static Napi::Value libc_new_qurt_stdlib_bsearch_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtStdlibBsearch_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* key = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* base = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -854,7 +828,7 @@ static Napi::Value libc_new_qurt_stdlib_bsearch_napi(const Napi::CallbackInfo& k
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_new_qurt_stdlib_abs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtStdlibAbs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t j = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -887,7 +861,7 @@ static Napi::Value libc_new_qurt_stdlib_abs_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_stdlib_labs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtStdlibLabs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int64_t j = km_info.Length() > 0 ? km_napi_arg_i64(km_info[0]) : 0;
     typedef int64_t (*km_fn_t)(int64_t);
@@ -920,7 +894,7 @@ static Napi::Value libc_new_qurt_stdlib_labs_napi(const Napi::CallbackInfo& km_i
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_new_qurt_stdlib_llabs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtStdlibLlabs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int64_t j = km_info.Length() > 0 ? km_napi_arg_i64(km_info[0]) : 0;
     typedef int64_t (*km_fn_t)(int64_t);
@@ -954,32 +928,32 @@ static Napi::Value libc_new_qurt_stdlib_llabs_napi(const Napi::CallbackInfo& km_
 }
 
 static void register_new_qurt_stdlib_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_new_qurt_stdlib_malloc", Napi::Function::New(env, libc_new_qurt_stdlib_malloc_napi));
-    exports.Set("libc_new_qurt_stdlib_calloc", Napi::Function::New(env, libc_new_qurt_stdlib_calloc_napi));
-    exports.Set("libc_new_qurt_stdlib_realloc", Napi::Function::New(env, libc_new_qurt_stdlib_realloc_napi));
-    exports.Set("libc_new_qurt_stdlib_free", Napi::Function::New(env, libc_new_qurt_stdlib_free_napi));
-    exports.Set("libc_new_qurt_stdlib_abort", Napi::Function::New(env, libc_new_qurt_stdlib_abort_napi));
-    exports.Set("libc_new_qurt_stdlib_exit", Napi::Function::New(env, libc_new_qurt_stdlib_exit_napi));
-    exports.Set("libc_new_qurt_stdlib_atexit", Napi::Function::New(env, libc_new_qurt_stdlib_atexit_napi));
-    exports.Set("libc_new_qurt_stdlib_getenv", Napi::Function::New(env, libc_new_qurt_stdlib_getenv_napi));
-    exports.Set("libc_new_qurt_stdlib_setenv", Napi::Function::New(env, libc_new_qurt_stdlib_setenv_napi));
-    exports.Set("libc_new_qurt_stdlib_unsetenv", Napi::Function::New(env, libc_new_qurt_stdlib_unsetenv_napi));
-    exports.Set("libc_new_qurt_stdlib_atoi", Napi::Function::New(env, libc_new_qurt_stdlib_atoi_napi));
-    exports.Set("libc_new_qurt_stdlib_atol", Napi::Function::New(env, libc_new_qurt_stdlib_atol_napi));
-    exports.Set("libc_new_qurt_stdlib_atoll", Napi::Function::New(env, libc_new_qurt_stdlib_atoll_napi));
-    exports.Set("libc_new_qurt_stdlib_strtol", Napi::Function::New(env, libc_new_qurt_stdlib_strtol_napi));
-    exports.Set("libc_new_qurt_stdlib_strtoul", Napi::Function::New(env, libc_new_qurt_stdlib_strtoul_napi));
-    exports.Set("libc_new_qurt_stdlib_strtoll", Napi::Function::New(env, libc_new_qurt_stdlib_strtoll_napi));
-    exports.Set("libc_new_qurt_stdlib_strtoull", Napi::Function::New(env, libc_new_qurt_stdlib_strtoull_napi));
-    exports.Set("libc_new_qurt_stdlib_strtod", Napi::Function::New(env, libc_new_qurt_stdlib_strtod_napi));
-    exports.Set("libc_new_qurt_stdlib_strtof", Napi::Function::New(env, libc_new_qurt_stdlib_strtof_napi));
-    exports.Set("libc_new_qurt_stdlib_rand", Napi::Function::New(env, libc_new_qurt_stdlib_rand_napi));
-    exports.Set("libc_new_qurt_stdlib_srand", Napi::Function::New(env, libc_new_qurt_stdlib_srand_napi));
-    exports.Set("libc_new_qurt_stdlib_qsort", Napi::Function::New(env, libc_new_qurt_stdlib_qsort_napi));
-    exports.Set("libc_new_qurt_stdlib_bsearch", Napi::Function::New(env, libc_new_qurt_stdlib_bsearch_napi));
-    exports.Set("libc_new_qurt_stdlib_abs", Napi::Function::New(env, libc_new_qurt_stdlib_abs_napi));
-    exports.Set("libc_new_qurt_stdlib_labs", Napi::Function::New(env, libc_new_qurt_stdlib_labs_napi));
-    exports.Set("libc_new_qurt_stdlib_llabs", Napi::Function::New(env, libc_new_qurt_stdlib_llabs_napi));
+    exports.Set("libcNewQurtStdlibMalloc", Napi::Function::New(env, libcNewQurtStdlibMalloc_napi));
+    exports.Set("libcNewQurtStdlibCalloc", Napi::Function::New(env, libcNewQurtStdlibCalloc_napi));
+    exports.Set("libcNewQurtStdlibRealloc", Napi::Function::New(env, libcNewQurtStdlibRealloc_napi));
+    exports.Set("libcNewQurtStdlibFree", Napi::Function::New(env, libcNewQurtStdlibFree_napi));
+    exports.Set("libcNewQurtStdlibAbort", Napi::Function::New(env, libcNewQurtStdlibAbort_napi));
+    exports.Set("libcNewQurtStdlibExit", Napi::Function::New(env, libcNewQurtStdlibExit_napi));
+    exports.Set("libcNewQurtStdlibAtexit", Napi::Function::New(env, libcNewQurtStdlibAtexit_napi));
+    exports.Set("libcNewQurtStdlibGetenv", Napi::Function::New(env, libcNewQurtStdlibGetenv_napi));
+    exports.Set("libcNewQurtStdlibSetenv", Napi::Function::New(env, libcNewQurtStdlibSetenv_napi));
+    exports.Set("libcNewQurtStdlibUnsetenv", Napi::Function::New(env, libcNewQurtStdlibUnsetenv_napi));
+    exports.Set("libcNewQurtStdlibAtoi", Napi::Function::New(env, libcNewQurtStdlibAtoi_napi));
+    exports.Set("libcNewQurtStdlibAtol", Napi::Function::New(env, libcNewQurtStdlibAtol_napi));
+    exports.Set("libcNewQurtStdlibAtoll", Napi::Function::New(env, libcNewQurtStdlibAtoll_napi));
+    exports.Set("libcNewQurtStdlibStrtol", Napi::Function::New(env, libcNewQurtStdlibStrtol_napi));
+    exports.Set("libcNewQurtStdlibStrtoul", Napi::Function::New(env, libcNewQurtStdlibStrtoul_napi));
+    exports.Set("libcNewQurtStdlibStrtoll", Napi::Function::New(env, libcNewQurtStdlibStrtoll_napi));
+    exports.Set("libcNewQurtStdlibStrtoull", Napi::Function::New(env, libcNewQurtStdlibStrtoull_napi));
+    exports.Set("libcNewQurtStdlibStrtod", Napi::Function::New(env, libcNewQurtStdlibStrtod_napi));
+    exports.Set("libcNewQurtStdlibStrtof", Napi::Function::New(env, libcNewQurtStdlibStrtof_napi));
+    exports.Set("libcNewQurtStdlibRand", Napi::Function::New(env, libcNewQurtStdlibRand_napi));
+    exports.Set("libcNewQurtStdlibSrand", Napi::Function::New(env, libcNewQurtStdlibSrand_napi));
+    exports.Set("libcNewQurtStdlibQsort", Napi::Function::New(env, libcNewQurtStdlibQsort_napi));
+    exports.Set("libcNewQurtStdlibBsearch", Napi::Function::New(env, libcNewQurtStdlibBsearch_napi));
+    exports.Set("libcNewQurtStdlibAbs", Napi::Function::New(env, libcNewQurtStdlibAbs_napi));
+    exports.Set("libcNewQurtStdlibLabs", Napi::Function::New(env, libcNewQurtStdlibLabs_napi));
+    exports.Set("libcNewQurtStdlibLlabs", Napi::Function::New(env, libcNewQurtStdlibLlabs_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_new_qurt_stdlib_napi, nullptr };

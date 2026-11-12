@@ -51,7 +51,7 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_unix_newlib_vita_futimens_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNewlibVitaFutimens_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* times = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -85,7 +85,7 @@ static Napi::Value libc_unix_newlib_vita_futimens_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_newlib_vita_writev_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNewlibVitaWritev_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -120,7 +120,7 @@ static Napi::Value libc_unix_newlib_vita_writev_napi(const Napi::CallbackInfo& k
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_newlib_vita_readv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNewlibVitaReadv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -155,7 +155,7 @@ static Napi::Value libc_unix_newlib_vita_readv_napi(const Napi::CallbackInfo& km
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_newlib_vita_sendmsg_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNewlibVitaSendmsg_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t s = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* msg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -190,7 +190,7 @@ static Napi::Value libc_unix_newlib_vita_sendmsg_napi(const Napi::CallbackInfo& 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_newlib_vita_recvmsg_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNewlibVitaRecvmsg_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t s = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* msg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -225,7 +225,7 @@ static Napi::Value libc_unix_newlib_vita_recvmsg_napi(const Napi::CallbackInfo& 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_newlib_vita_pthreadCreate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNewlibVitaPthreadCreate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* native = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -261,7 +261,7 @@ static Napi::Value libc_unix_newlib_vita_pthreadCreate_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_newlib_vita_pthreadAttrGetschedparam_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNewlibVitaPthreadAttrGetschedparam_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* param = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -295,7 +295,7 @@ static Napi::Value libc_unix_newlib_vita_pthreadAttrGetschedparam_napi(const Nap
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_newlib_vita_pthreadAttrSetschedparam_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNewlibVitaPthreadAttrSetschedparam_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* param = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -329,10 +329,10 @@ static Napi::Value libc_unix_newlib_vita_pthreadAttrSetschedparam_napi(const Nap
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_newlib_vita_pthreadAttrGetprocessoridNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNewlibVitaPthreadAttrGetprocessoridNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* processor_id = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* processorId = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -355,7 +355,7 @@ static Napi::Value libc_unix_newlib_vita_pthreadAttrGetprocessoridNp_napi(const 
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(attr, processor_id);
+        km_res = km_fn_ptr(attr, processorId);
     } else {
         errno = ENOSYS;
         km_res = ENOSYS;
@@ -363,10 +363,10 @@ static Napi::Value libc_unix_newlib_vita_pthreadAttrGetprocessoridNp_napi(const 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_newlib_vita_pthreadAttrSetprocessoridNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNewlibVitaPthreadAttrSetprocessoridNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    int32_t processor_id = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t processorId = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -389,7 +389,7 @@ static Napi::Value libc_unix_newlib_vita_pthreadAttrSetprocessoridNp_napi(const 
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(attr, processor_id);
+        km_res = km_fn_ptr(attr, processorId);
     } else {
         errno = ENOSYS;
         km_res = ENOSYS;
@@ -397,7 +397,7 @@ static Napi::Value libc_unix_newlib_vita_pthreadAttrSetprocessoridNp_napi(const 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_newlib_vita_pthreadGetschedparam_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNewlibVitaPthreadGetschedparam_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* native = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* policy = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -432,7 +432,7 @@ static Napi::Value libc_unix_newlib_vita_pthreadGetschedparam_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_newlib_vita_pthreadSetschedparam_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNewlibVitaPthreadSetschedparam_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* native = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t policy = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -467,10 +467,10 @@ static Napi::Value libc_unix_newlib_vita_pthreadSetschedparam_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_newlib_vita_pthreadCondattrGetclock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNewlibVitaPthreadCondattrGetclock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* clock_id = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* clockId = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -493,7 +493,7 @@ static Napi::Value libc_unix_newlib_vita_pthreadCondattrGetclock_napi(const Napi
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(attr, clock_id);
+        km_res = km_fn_ptr(attr, clockId);
     } else {
         errno = ENOSYS;
         km_res = ENOSYS;
@@ -501,10 +501,10 @@ static Napi::Value libc_unix_newlib_vita_pthreadCondattrGetclock_napi(const Napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_newlib_vita_pthreadCondattrSetclock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNewlibVitaPthreadCondattrSetclock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    uint64_t clock_id = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
+    uint64_t clockId = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
     typedef int32_t (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -527,7 +527,7 @@ static Napi::Value libc_unix_newlib_vita_pthreadCondattrSetclock_napi(const Napi
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(attr, clock_id);
+        km_res = km_fn_ptr(attr, clockId);
     } else {
         errno = ENOSYS;
         km_res = ENOSYS;
@@ -535,7 +535,7 @@ static Napi::Value libc_unix_newlib_vita_pthreadCondattrSetclock_napi(const Napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_newlib_vita_pthreadGetprocessoridNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNewlibVitaPthreadGetprocessoridNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -567,7 +567,7 @@ static Napi::Value libc_unix_newlib_vita_pthreadGetprocessoridNp_napi(const Napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_newlib_vita_getentropy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNewlibVitaGetentropy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t buflen = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -601,7 +601,7 @@ static Napi::Value libc_unix_newlib_vita_getentropy_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_newlib_vita_pipe2_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNewlibVitaPipe2_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* fds = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -636,23 +636,23 @@ static Napi::Value libc_unix_newlib_vita_pipe2_napi(const Napi::CallbackInfo& km
 }
 
 static void register_unix_newlib_vita_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_unix_newlib_vita_futimens", Napi::Function::New(env, libc_unix_newlib_vita_futimens_napi));
-    exports.Set("libc_unix_newlib_vita_writev", Napi::Function::New(env, libc_unix_newlib_vita_writev_napi));
-    exports.Set("libc_unix_newlib_vita_readv", Napi::Function::New(env, libc_unix_newlib_vita_readv_napi));
-    exports.Set("libc_unix_newlib_vita_sendmsg", Napi::Function::New(env, libc_unix_newlib_vita_sendmsg_napi));
-    exports.Set("libc_unix_newlib_vita_recvmsg", Napi::Function::New(env, libc_unix_newlib_vita_recvmsg_napi));
-    exports.Set("libc_unix_newlib_vita_pthreadCreate", Napi::Function::New(env, libc_unix_newlib_vita_pthreadCreate_napi));
-    exports.Set("libc_unix_newlib_vita_pthreadAttrGetschedparam", Napi::Function::New(env, libc_unix_newlib_vita_pthreadAttrGetschedparam_napi));
-    exports.Set("libc_unix_newlib_vita_pthreadAttrSetschedparam", Napi::Function::New(env, libc_unix_newlib_vita_pthreadAttrSetschedparam_napi));
-    exports.Set("libc_unix_newlib_vita_pthreadAttrGetprocessoridNp", Napi::Function::New(env, libc_unix_newlib_vita_pthreadAttrGetprocessoridNp_napi));
-    exports.Set("libc_unix_newlib_vita_pthreadAttrSetprocessoridNp", Napi::Function::New(env, libc_unix_newlib_vita_pthreadAttrSetprocessoridNp_napi));
-    exports.Set("libc_unix_newlib_vita_pthreadGetschedparam", Napi::Function::New(env, libc_unix_newlib_vita_pthreadGetschedparam_napi));
-    exports.Set("libc_unix_newlib_vita_pthreadSetschedparam", Napi::Function::New(env, libc_unix_newlib_vita_pthreadSetschedparam_napi));
-    exports.Set("libc_unix_newlib_vita_pthreadCondattrGetclock", Napi::Function::New(env, libc_unix_newlib_vita_pthreadCondattrGetclock_napi));
-    exports.Set("libc_unix_newlib_vita_pthreadCondattrSetclock", Napi::Function::New(env, libc_unix_newlib_vita_pthreadCondattrSetclock_napi));
-    exports.Set("libc_unix_newlib_vita_pthreadGetprocessoridNp", Napi::Function::New(env, libc_unix_newlib_vita_pthreadGetprocessoridNp_napi));
-    exports.Set("libc_unix_newlib_vita_getentropy", Napi::Function::New(env, libc_unix_newlib_vita_getentropy_napi));
-    exports.Set("libc_unix_newlib_vita_pipe2", Napi::Function::New(env, libc_unix_newlib_vita_pipe2_napi));
+    exports.Set("libcUnixNewlibVitaFutimens", Napi::Function::New(env, libcUnixNewlibVitaFutimens_napi));
+    exports.Set("libcUnixNewlibVitaWritev", Napi::Function::New(env, libcUnixNewlibVitaWritev_napi));
+    exports.Set("libcUnixNewlibVitaReadv", Napi::Function::New(env, libcUnixNewlibVitaReadv_napi));
+    exports.Set("libcUnixNewlibVitaSendmsg", Napi::Function::New(env, libcUnixNewlibVitaSendmsg_napi));
+    exports.Set("libcUnixNewlibVitaRecvmsg", Napi::Function::New(env, libcUnixNewlibVitaRecvmsg_napi));
+    exports.Set("libcUnixNewlibVitaPthreadCreate", Napi::Function::New(env, libcUnixNewlibVitaPthreadCreate_napi));
+    exports.Set("libcUnixNewlibVitaPthreadAttrGetschedparam", Napi::Function::New(env, libcUnixNewlibVitaPthreadAttrGetschedparam_napi));
+    exports.Set("libcUnixNewlibVitaPthreadAttrSetschedparam", Napi::Function::New(env, libcUnixNewlibVitaPthreadAttrSetschedparam_napi));
+    exports.Set("libcUnixNewlibVitaPthreadAttrGetprocessoridNp", Napi::Function::New(env, libcUnixNewlibVitaPthreadAttrGetprocessoridNp_napi));
+    exports.Set("libcUnixNewlibVitaPthreadAttrSetprocessoridNp", Napi::Function::New(env, libcUnixNewlibVitaPthreadAttrSetprocessoridNp_napi));
+    exports.Set("libcUnixNewlibVitaPthreadGetschedparam", Napi::Function::New(env, libcUnixNewlibVitaPthreadGetschedparam_napi));
+    exports.Set("libcUnixNewlibVitaPthreadSetschedparam", Napi::Function::New(env, libcUnixNewlibVitaPthreadSetschedparam_napi));
+    exports.Set("libcUnixNewlibVitaPthreadCondattrGetclock", Napi::Function::New(env, libcUnixNewlibVitaPthreadCondattrGetclock_napi));
+    exports.Set("libcUnixNewlibVitaPthreadCondattrSetclock", Napi::Function::New(env, libcUnixNewlibVitaPthreadCondattrSetclock_napi));
+    exports.Set("libcUnixNewlibVitaPthreadGetprocessoridNp", Napi::Function::New(env, libcUnixNewlibVitaPthreadGetprocessoridNp_napi));
+    exports.Set("libcUnixNewlibVitaGetentropy", Napi::Function::New(env, libcUnixNewlibVitaGetentropy_napi));
+    exports.Set("libcUnixNewlibVitaPipe2", Napi::Function::New(env, libcUnixNewlibVitaPipe2_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_unix_newlib_vita_napi, nullptr };

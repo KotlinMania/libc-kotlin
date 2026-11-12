@@ -2,859 +2,871 @@
 
 package io.github.kotlinmania.libc.unix.nto
 
+import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.unix.DIR
 import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.GidT
+import io.github.kotlinmania.libc.unix.Group
+import io.github.kotlinmania.libc.unix.Iovec
+import io.github.kotlinmania.libc.unix.Itimerval
 import io.github.kotlinmania.libc.unix.PidT
+import io.github.kotlinmania.libc.unix.Rlimit
+import io.github.kotlinmania.libc.unix.Rusage
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.Timeval
 import io.github.kotlinmania.libc.unix.UidT
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_abs
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_aioCancel
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_aioError
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_aioFsync
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_aioRead
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_aioReturn
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_aioSuspend
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_aioWrite
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_bind
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_clearenv
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_clockGetcpuclockid
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_clockGetres
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_clockGettime
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_clockNanosleep
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_clockSettime
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_ctermid
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_daemon
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_dircntl
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_dirfd
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_dlIteratePhdr
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_endgrent
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_endpwent
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_endspent
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_execvpe
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_faccessat
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_fdatasync
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_forkpty
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_freeifaddrs
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_ftok
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_futimens
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_getErrnoPtr
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_get_SYSPAGE_PTR
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_getdomainname
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_getdtablesize
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_getgrent
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_getgrgid
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_getgrgidR
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_getgrnam
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_getgrnamR
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_getgrouplist
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_getifaddrs
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_getitimer
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_getnameinfo
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_getpeereid
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_getpriority
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_getpwent
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_getpwentR
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_getpwnamR
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_getpwuidR
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_getrlimit
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_gettid
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_gettimeofday
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_glob
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_globfree
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_ifFreenameindex
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_ifNameindex
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_initgroups
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_inotifyAddWatch
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_inotifyInit
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_inotifyRmWatch
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_ioctl
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_labs
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_lioListio
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_loginTty
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_mallopt
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_memalign
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_memsetS
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_mkfifoat
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_mknodat
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_mkostemp
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_mkostemps
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_mkstemps
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_mount
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_mprotect
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_mqClose
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_mqGetattr
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_mqNotify
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_mqOpen
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_mqReceive
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_mqSend
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_mqSetattr
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_mqTimedreceive
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_mqTimedsend
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_mqUnlink
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_msync
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_myThreadExit
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_nlLanginfo
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_openpty
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_popen
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_posixFadvise
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_posixFallocate
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_posixMadvise
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_posixSpawn
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_posixSpawnFileActionsAddclose
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_posixSpawnFileActionsAdddup2
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_posixSpawnFileActionsAddopen
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_posixSpawnFileActionsDestroy
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_posixSpawnFileActionsInit
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_posixSpawnattrDestroy
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_posixSpawnattrGetflags
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_posixSpawnattrGetpgroup
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_posixSpawnattrGetschedparam
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_posixSpawnattrGetschedpolicy
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_posixSpawnattrGetsigdefault
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_posixSpawnattrGetsigmask
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_posixSpawnattrInit
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_posixSpawnattrSetflags
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_posixSpawnattrSetpgroup
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_posixSpawnattrSetschedparam
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_posixSpawnattrSetschedpolicy
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_posixSpawnattrSetsigdefault
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_posixSpawnattrSetsigmask
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_posixSpawnp
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_pthreadAtfork
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_pthreadAttrGetguardsize
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_pthreadAttrGetstack
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_pthreadAttrSetguardsize
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_pthreadBarrierDestroy
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_pthreadBarrierInit
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_pthreadBarrierWait
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_pthreadBarrierattrDestroy
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_pthreadBarrierattrGetpshared
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_pthreadBarrierattrInit
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_pthreadBarrierattrSetpshared
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_pthreadCancel
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_pthreadCondattrGetclock
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_pthreadCondattrGetpshared
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_pthreadCondattrSetclock
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_pthreadCondattrSetpshared
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_pthreadCreate
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_pthreadGetcpuclockid
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_pthreadGetnameNp
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_pthreadGetschedparam
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_pthreadKill
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_pthreadMutexConsistent
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_pthreadMutexTimedlock
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_pthreadMutexattrGetpshared
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_pthreadMutexattrGetrobust
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_pthreadMutexattrSetpshared
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_pthreadMutexattrSetrobust
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_pthreadRwlockattrGetpshared
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_pthreadRwlockattrSetpshared
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_pthreadSetnameNp
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_pthreadSetschedparam
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_pthreadSetschedprio
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_pthreadSigmask
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_pthreadSpinDestroy
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_pthreadSpinInit
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_pthreadSpinLock
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_pthreadSpinTrylock
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_pthreadSpinUnlock
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_ptsnameR
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_rand
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_readv
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_recvfrom
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_recvmmsg
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_recvmsg
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_regcomp
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_regerror
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_regexec
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_regfree
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_schedGetPriorityMax
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_schedGetPriorityMin
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_schedGetparam
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_schedGetscheduler
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_schedRrGetInterval
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_schedSetparam
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_schedSetscheduler
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_seekdir
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_semClose
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_semDestroy
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_semGetvalue
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_semInit
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_semOpen
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_semTimedwait
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_semUnlink
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_sendmmsg
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_sendmsg
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_set_SYSPAGE_PTR
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_setdomainname
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_setgrent
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_setgroups
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_sethostname
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_setitimer
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_setpriority
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_setpwent
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_setrlimit
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_setspent
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_settimeofday
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_shmOpen
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_shmUnlink
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_sigsuspend
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_sigtimedwait
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_sigwait
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_sigwaitinfo
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_srand
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_strerrorR
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_sync
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_sysctl
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_telldir
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_umount
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_uname
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_utimensat
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_wait4
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_waitid
-import io.github.kotlinmania.libc.unix.nto.cinterop.libc_unix_nto_writev
+import io.github.kotlinmania.libc.unix.Winsize
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoAbs
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoAioCancel
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoAioError
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoAioFsync
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoAioRead
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoAioReturn
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoAioSuspend
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoAioWrite
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoBind
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoClearenv
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoClockGetcpuclockid
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoClockGetres
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoClockGettime
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoClockNanosleep
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoClockSettime
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoCtermid
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoDaemon
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoDircntl
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoDirfd
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoDlIteratePhdr
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoEndgrent
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoEndpwent
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoEndspent
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoExecvpe
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoFaccessat
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoFdatasync
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoForkpty
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoFreeifaddrs
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoFtok
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoFutimens
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoGetErrnoPtr
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoGetSYSPAGEPTR
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoGetdomainname
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoGetdtablesize
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoGetgrent
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoGetgrgid
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoGetgrgidR
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoGetgrnam
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoGetgrnamR
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoGetgrouplist
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoGetifaddrs
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoGetitimer
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoGetnameinfo
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoGetpeereid
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoGetpriority
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoGetpwent
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoGetpwentR
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoGetpwnamR
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoGetpwuidR
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoGetrlimit
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoGettid
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoGettimeofday
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoGlob
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoGlobfree
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoIfFreenameindex
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoIfNameindex
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoInitgroups
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoInotifyAddWatch
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoInotifyInit
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoInotifyRmWatch
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoIoctl
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoLabs
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoLioListio
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoLoginTty
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoMallopt
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoMemalign
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoMemsetS
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoMkfifoat
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoMknodat
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoMkostemp
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoMkostemps
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoMkstemps
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoMount
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoMprotect
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoMqClose
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoMqGetattr
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoMqNotify
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoMqOpen
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoMqReceive
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoMqSend
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoMqSetattr
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoMqTimedreceive
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoMqTimedsend
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoMqUnlink
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoMsync
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoMyThreadExit
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoNlLanginfo
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoOpenpty
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPopen
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPosixFadvise
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPosixFallocate
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPosixMadvise
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPosixSpawn
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPosixSpawnFileActionsAddclose
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPosixSpawnFileActionsAdddup2
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPosixSpawnFileActionsAddopen
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPosixSpawnFileActionsDestroy
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPosixSpawnFileActionsInit
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPosixSpawnattrDestroy
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPosixSpawnattrGetflags
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPosixSpawnattrGetpgroup
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPosixSpawnattrGetschedparam
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPosixSpawnattrGetschedpolicy
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPosixSpawnattrGetsigdefault
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPosixSpawnattrGetsigmask
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPosixSpawnattrInit
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPosixSpawnattrSetflags
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPosixSpawnattrSetpgroup
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPosixSpawnattrSetschedparam
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPosixSpawnattrSetschedpolicy
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPosixSpawnattrSetsigdefault
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPosixSpawnattrSetsigmask
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPosixSpawnp
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPthreadAtfork
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPthreadAttrGetguardsize
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPthreadAttrGetstack
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPthreadAttrSetguardsize
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPthreadBarrierDestroy
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPthreadBarrierInit
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPthreadBarrierWait
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPthreadBarrierattrDestroy
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPthreadBarrierattrGetpshared
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPthreadBarrierattrInit
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPthreadBarrierattrSetpshared
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPthreadCancel
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPthreadCondattrGetclock
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPthreadCondattrGetpshared
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPthreadCondattrSetclock
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPthreadCondattrSetpshared
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPthreadCreate
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPthreadGetcpuclockid
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPthreadGetnameNp
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPthreadGetschedparam
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPthreadKill
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPthreadMutexConsistent
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPthreadMutexTimedlock
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPthreadMutexattrGetpshared
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPthreadMutexattrGetrobust
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPthreadMutexattrSetpshared
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPthreadMutexattrSetrobust
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPthreadRwlockattrGetpshared
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPthreadRwlockattrSetpshared
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPthreadSetnameNp
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPthreadSetschedparam
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPthreadSetschedprio
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPthreadSigmask
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPthreadSpinDestroy
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPthreadSpinInit
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPthreadSpinLock
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPthreadSpinTrylock
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPthreadSpinUnlock
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoPtsnameR
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoRand
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoReadv
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoRecvfrom
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoRecvmmsg
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoRecvmsg
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoRegcomp
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoRegerror
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoRegexec
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoRegfree
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoSchedGetPriorityMax
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoSchedGetPriorityMin
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoSchedGetparam
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoSchedGetscheduler
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoSchedRrGetInterval
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoSchedSetparam
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoSchedSetscheduler
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoSeekdir
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoSemClose
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoSemDestroy
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoSemGetvalue
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoSemInit
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoSemOpen
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoSemTimedwait
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoSemUnlink
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoSendmmsg
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoSendmsg
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoSetSYSPAGEPTR
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoSetdomainname
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoSetgrent
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoSetgroups
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoSethostname
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoSetitimer
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoSetpriority
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoSetpwent
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoSetrlimit
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoSetspent
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoSettimeofday
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoShmOpen
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoShmUnlink
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoSigsuspend
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoSigtimedwait
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoSigwait
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoSigwaitinfo
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoSrand
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoStrerrorR
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoSync
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoSysctl
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoTelldir
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoUmount
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoUname
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoUtimensat
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoWait4
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoWaitid
+import io.github.kotlinmania.libc.unix.nto.cinterop.libcUnixNtoWritev
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
 
-public actual var SYSPAGE_PTR: COpaquePointer?
-    get() = libc_unix_nto_get_SYSPAGE_PTR()?.let { COpaquePointer(it.toLong()) }
+public actual var SYSPAGE_PTR: MutPtr<SyspageEntry>
+    get() = MutPtr(libcUnixNtoGetSYSPAGEPTR()?.toLong() ?: 0L)
     set(value) {
-        libc_unix_nto_set_SYSPAGE_PTR(value?.value?.toCPointer<ByteVar>())
+        libcUnixNtoSetSYSPAGEPTR(value.rawAddress.toCPointer<ByteVar>())
     }
 
-public actual fun sendmmsg(sockfd: CInt, msgvec: COpaquePointer?, vlen: CUint, flags: CUint): CInt =
-    libc_unix_nto_sendmmsg(sockfd, msgvec?.value?.toCPointer<ByteVar>(), vlen, flags)
+public actual fun sendmmsg(sockfd: CInt, msgvec: MutPtr<Mmsghdr>, vlen: CUint, flags: CUint): CInt =
+    libcUnixNtoSendmmsg(sockfd, msgvec.rawAddress.toCPointer<ByteVar>(), vlen, flags)
 
-public actual fun recvmmsg(sockfd: CInt, msgvec: COpaquePointer?, vlen: CUint, flags: CUint, timeout: COpaquePointer?): CInt =
-    libc_unix_nto_recvmmsg(sockfd, msgvec?.value?.toCPointer<ByteVar>(), vlen, flags, timeout?.value?.toCPointer<ByteVar>())
+public actual fun recvmmsg(sockfd: CInt, msgvec: MutPtr<Mmsghdr>, vlen: CUint, flags: CUint, timeout: MutPtr<Timespec>): CInt =
+    libcUnixNtoRecvmmsg(sockfd, msgvec.rawAddress.toCPointer<ByteVar>(), vlen, flags, timeout.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semDestroy(sem: COpaquePointer?): CInt =
-    libc_unix_nto_semDestroy(sem?.value?.toCPointer<ByteVar>())
+public actual fun semDestroy(sem: MutPtr<SemT>): CInt =
+    libcUnixNtoSemDestroy(sem.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semInit(sem: COpaquePointer?, pshared: CInt, value: CUint): CInt =
-    libc_unix_nto_semInit(sem?.value?.toCPointer<ByteVar>(), pshared, value)
+public actual fun semInit(sem: MutPtr<SemT>, pshared: CInt, value: CUint): CInt =
+    libcUnixNtoSemInit(sem.rawAddress.toCPointer<ByteVar>(), pshared, value)
 
 public actual fun fdatasync(fd: CInt): CInt =
-    libc_unix_nto_fdatasync(fd)
+    libcUnixNtoFdatasync(fd)
 
 public actual fun getpriority(which: CInt, who: IdT): CInt =
-    libc_unix_nto_getpriority(which, who)
+    libcUnixNtoGetpriority(which, who)
 
 public actual fun setpriority(which: CInt, who: IdT, prio: CInt): CInt =
-    libc_unix_nto_setpriority(which, who, prio)
+    libcUnixNtoSetpriority(which, who, prio)
 
-public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
-    libc_unix_nto_mkfifoat(dirfd, pathname, mode)
+public actual fun mkfifoat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT): CInt =
+    libcUnixNtoMkfifoat(dirfd, pathname.rawAddress.toCPointer<ByteVar>(), mode)
 
-public actual fun mknodat(fd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt =
-    libc_unix_nto_mknodat(fd, pathname, mode, dev)
+public actual fun mknodat(fd: CInt, pathname: ConstPtr<CChar>, mode: ModeT, dev: DevT): CInt =
+    libcUnixNtoMknodat(fd, pathname.rawAddress.toCPointer<ByteVar>(), mode, dev)
 
-public actual fun clockGetres(clkId: ClockidT, tp: COpaquePointer?): CInt =
-    libc_unix_nto_clockGetres(clkId, tp?.value?.toCPointer<ByteVar>())
+public actual fun clockGetres(clkId: ClockidT, tp: MutPtr<Timespec>): CInt =
+    libcUnixNtoClockGetres(clkId, tp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun clockGettime(clkId: ClockidT, tp: COpaquePointer?): CInt =
-    libc_unix_nto_clockGettime(clkId, tp?.value?.toCPointer<ByteVar>())
+public actual fun clockGettime(clkId: ClockidT, tp: MutPtr<Timespec>): CInt =
+    libcUnixNtoClockGettime(clkId, tp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun clockSettime(clkId: ClockidT, tp: COpaquePointer?): CInt =
-    libc_unix_nto_clockSettime(clkId, tp?.value?.toCPointer<ByteVar>())
+public actual fun clockSettime(clkId: ClockidT, tp: ConstPtr<Timespec>): CInt =
+    libcUnixNtoClockSettime(clkId, tp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun clockGetcpuclockid(pid: PidT, clkId: COpaquePointer?): CInt =
-    libc_unix_nto_clockGetcpuclockid(pid, clkId?.value?.toCPointer<ByteVar>())
+public actual fun clockGetcpuclockid(pid: PidT, clkId: MutPtr<ClockidT>): CInt =
+    libcUnixNtoClockGetcpuclockid(pid, clkId.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrGetstack(attr: COpaquePointer?, stackaddr: COpaquePointer?, stacksize: COpaquePointer?): CInt =
-    libc_unix_nto_pthreadAttrGetstack(attr?.value?.toCPointer<ByteVar>(), stackaddr?.value?.toCPointer<ByteVar>(), stacksize?.value?.toCPointer<ByteVar>())
+public actual fun pthreadAttrGetstack(attr: ConstPtr<PthreadAttrT>, stackaddr: MutPtr<MutPtr<CVoid>>, stacksize: MutPtr<SizeT>): CInt =
+    libcUnixNtoPthreadAttrGetstack(attr.rawAddress.toCPointer<ByteVar>(), stackaddr.rawAddress.toCPointer<ByteVar>(), stacksize.rawAddress.toCPointer<ByteVar>())
 
-public actual fun memalign(align: SizeT, size: SizeT): COpaquePointer? =
-    libc_unix_nto_memalign(align, size)?.let { COpaquePointer(it.toLong()) }
+public actual fun memalign(align: SizeT, size: SizeT): MutPtr<CVoid> =
+    MutPtr(libcUnixNtoMemalign(align, size)?.toLong() ?: 0L)
 
-public actual fun setgroups(ngroups: CInt, ptr: COpaquePointer?): CInt =
-    libc_unix_nto_setgroups(ngroups, ptr?.value?.toCPointer<ByteVar>())
+public actual fun setgroups(ngroups: CInt, ptr: ConstPtr<GidT>): CInt =
+    libcUnixNtoSetgroups(ngroups, ptr.rawAddress.toCPointer<ByteVar>())
 
 public actual fun posixFadvise(fd: CInt, offset: OffT, len: OffT, advise: CInt): CInt =
-    libc_unix_nto_posixFadvise(fd, offset, len, advise)
+    libcUnixNtoPosixFadvise(fd, offset, len, advise)
 
-public actual fun futimens(fd: CInt, times: COpaquePointer?): CInt =
-    libc_unix_nto_futimens(fd, times?.value?.toCPointer<ByteVar>())
+public actual fun futimens(fd: CInt, times: ConstPtr<Timespec>): CInt =
+    libcUnixNtoFutimens(fd, times.rawAddress.toCPointer<ByteVar>())
 
-public actual fun nlLanginfo(item: NlItem): COpaquePointer? =
-    libc_unix_nto_nlLanginfo(item)?.let { COpaquePointer(it.toLong()) }
+public actual fun nlLanginfo(item: NlItem): MutPtr<CChar> =
+    MutPtr(libcUnixNtoNlLanginfo(item)?.toLong() ?: 0L)
 
-public actual fun utimensat(dirfd: CInt, path: String?, times: COpaquePointer?, flag: CInt): CInt =
-    libc_unix_nto_utimensat(dirfd, path, times?.value?.toCPointer<ByteVar>(), flag)
+public actual fun utimensat(dirfd: CInt, path: ConstPtr<CChar>, times: ConstPtr<Timespec>, flag: CInt): CInt =
+    libcUnixNtoUtimensat(dirfd, path.rawAddress.toCPointer<ByteVar>(), times.rawAddress.toCPointer<ByteVar>(), flag)
 
-public actual fun pthreadCondattrGetclock(attr: COpaquePointer?, clockId: COpaquePointer?): CInt =
-    libc_unix_nto_pthreadCondattrGetclock(attr?.value?.toCPointer<ByteVar>(), clockId?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCondattrGetclock(attr: ConstPtr<PthreadCondattrT>, clockId: MutPtr<ClockidT>): CInt =
+    libcUnixNtoPthreadCondattrGetclock(attr.rawAddress.toCPointer<ByteVar>(), clockId.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondattrSetclock(attr: COpaquePointer?, clockId: ClockidT): CInt =
-    libc_unix_nto_pthreadCondattrSetclock(attr?.value?.toCPointer<ByteVar>(), clockId)
+public actual fun pthreadCondattrSetclock(attr: MutPtr<PthreadCondattrT>, clockId: ClockidT): CInt =
+    libcUnixNtoPthreadCondattrSetclock(attr.rawAddress.toCPointer<ByteVar>(), clockId)
 
-public actual fun pthreadCondattrSetpshared(attr: COpaquePointer?, pshared: CInt): CInt =
-    libc_unix_nto_pthreadCondattrSetpshared(attr?.value?.toCPointer<ByteVar>(), pshared)
+public actual fun pthreadCondattrSetpshared(attr: MutPtr<PthreadCondattrT>, pshared: CInt): CInt =
+    libcUnixNtoPthreadCondattrSetpshared(attr.rawAddress.toCPointer<ByteVar>(), pshared)
 
-public actual fun pthreadMutexattrSetpshared(attr: COpaquePointer?, pshared: CInt): CInt =
-    libc_unix_nto_pthreadMutexattrSetpshared(attr?.value?.toCPointer<ByteVar>(), pshared)
+public actual fun pthreadMutexattrSetpshared(attr: MutPtr<PthreadMutexattrT>, pshared: CInt): CInt =
+    libcUnixNtoPthreadMutexattrSetpshared(attr.rawAddress.toCPointer<ByteVar>(), pshared)
 
-public actual fun pthreadRwlockattrGetpshared(attr: COpaquePointer?, value: COpaquePointer?): CInt =
-    libc_unix_nto_pthreadRwlockattrGetpshared(attr?.value?.toCPointer<ByteVar>(), value?.value?.toCPointer<ByteVar>())
+public actual fun pthreadRwlockattrGetpshared(attr: ConstPtr<PthreadRwlockattrT>, value: MutPtr<CInt>): CInt =
+    libcUnixNtoPthreadRwlockattrGetpshared(attr.rawAddress.toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadRwlockattrSetpshared(attr: COpaquePointer?, value: CInt): CInt =
-    libc_unix_nto_pthreadRwlockattrSetpshared(attr?.value?.toCPointer<ByteVar>(), value)
+public actual fun pthreadRwlockattrSetpshared(attr: MutPtr<PthreadRwlockattrT>, value: CInt): CInt =
+    libcUnixNtoPthreadRwlockattrSetpshared(attr.rawAddress.toCPointer<ByteVar>(), value)
 
-public actual fun ptsnameR(fd: CInt, buf: COpaquePointer?, buflen: SizeT): COpaquePointer? =
-    libc_unix_nto_ptsnameR(fd, buf?.value?.toCPointer<ByteVar>(), buflen)?.let { COpaquePointer(it.toLong()) }
+public actual fun ptsnameR(fd: CInt, buf: MutPtr<CChar>, buflen: SizeT): MutPtr<CChar> =
+    MutPtr(libcUnixNtoPtsnameR(fd, buf.rawAddress.toCPointer<ByteVar>(), buflen)?.toLong() ?: 0L)
 
 public actual fun clearenv(): CInt =
-    libc_unix_nto_clearenv()
+    libcUnixNtoClearenv()
 
-public actual fun waitid(idtype: IdtypeT, id: IdT, infop: COpaquePointer?, options: CInt): CInt =
-    libc_unix_nto_waitid(idtype, id, infop?.value?.toCPointer<ByteVar>(), options)
+public actual fun waitid(idtype: IdtypeT, id: IdT, infop: MutPtr<SiginfoT>, options: CInt): CInt =
+    libcUnixNtoWaitid(idtype, id, infop.rawAddress.toCPointer<ByteVar>(), options)
 
-public actual fun wait4(pid: PidT, status: COpaquePointer?, options: CInt, rusage: COpaquePointer?): PidT =
-    libc_unix_nto_wait4(pid, status?.value?.toCPointer<ByteVar>(), options, rusage?.value?.toCPointer<ByteVar>())
+public actual fun wait4(pid: PidT, status: MutPtr<CInt>, options: CInt, rusage: MutPtr<Rusage>): PidT =
+    libcUnixNtoWait4(pid, status.rawAddress.toCPointer<ByteVar>(), options, rusage.rawAddress.toCPointer<ByteVar>())
 
-public actual fun execvpe(file: String?, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
-    libc_unix_nto_execvpe(file, argv?.value?.toCPointer<ByteVar>(), envp?.value?.toCPointer<ByteVar>())
+public actual fun execvpe(file: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>, envp: ConstPtr<ConstPtr<CChar>>): CInt =
+    libcUnixNtoExecvpe(file.rawAddress.toCPointer<ByteVar>(), argv.rawAddress.toCPointer<ByteVar>(), envp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getifaddrs(ifap: COpaquePointer?): CInt =
-    libc_unix_nto_getifaddrs(ifap?.value?.toCPointer<ByteVar>())
+public actual fun getifaddrs(ifap: MutPtr<MutPtr<Ifaddrs>>): CInt =
+    libcUnixNtoGetifaddrs(ifap.rawAddress.toCPointer<ByteVar>())
 
-public actual fun freeifaddrs(ifa: COpaquePointer?) {
-    libc_unix_nto_freeifaddrs(ifa?.value?.toCPointer<ByteVar>())
+public actual fun freeifaddrs(ifa: MutPtr<Ifaddrs>) {
+    libcUnixNtoFreeifaddrs(ifa.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun bind(socket: CInt, address: COpaquePointer?, addressLen: SocklenT): CInt =
-    libc_unix_nto_bind(socket, address?.value?.toCPointer<ByteVar>(), addressLen)
+public actual fun bind(socket: CInt, address: ConstPtr<Sockaddr>, addressLen: SocklenT): CInt =
+    libcUnixNtoBind(socket, address.rawAddress.toCPointer<ByteVar>(), addressLen)
 
-public actual fun writev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT =
-    libc_unix_nto_writev(fd, iov?.value?.toCPointer<ByteVar>(), iovcnt)
+public actual fun writev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+    libcUnixNtoWritev(fd, iov.rawAddress.toCPointer<ByteVar>(), iovcnt)
 
-public actual fun readv(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT =
-    libc_unix_nto_readv(fd, iov?.value?.toCPointer<ByteVar>(), iovcnt)
+public actual fun readv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+    libcUnixNtoReadv(fd, iov.rawAddress.toCPointer<ByteVar>(), iovcnt)
 
-public actual fun sendmsg(fd: CInt, msg: COpaquePointer?, flags: CInt): SsizeT =
-    libc_unix_nto_sendmsg(fd, msg?.value?.toCPointer<ByteVar>(), flags)
+public actual fun sendmsg(fd: CInt, msg: ConstPtr<Msghdr>, flags: CInt): SsizeT =
+    libcUnixNtoSendmsg(fd, msg.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun recvmsg(fd: CInt, msg: COpaquePointer?, flags: CInt): SsizeT =
-    libc_unix_nto_recvmsg(fd, msg?.value?.toCPointer<ByteVar>(), flags)
+public actual fun recvmsg(fd: CInt, msg: MutPtr<Msghdr>, flags: CInt): SsizeT =
+    libcUnixNtoRecvmsg(fd, msg.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun openpty(amaster: COpaquePointer?, aslave: COpaquePointer?, name: COpaquePointer?, termp: COpaquePointer?, winp: COpaquePointer?): CInt =
-    libc_unix_nto_openpty(amaster?.value?.toCPointer<ByteVar>(), aslave?.value?.toCPointer<ByteVar>(), name?.value?.toCPointer<ByteVar>(), termp?.value?.toCPointer<ByteVar>(), winp?.value?.toCPointer<ByteVar>())
+public actual fun openpty(amaster: MutPtr<CInt>, aslave: MutPtr<CInt>, name: MutPtr<CChar>, termp: MutPtr<Termios>, winp: MutPtr<Winsize>): CInt =
+    libcUnixNtoOpenpty(amaster.rawAddress.toCPointer<ByteVar>(), aslave.rawAddress.toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>(), termp.rawAddress.toCPointer<ByteVar>(), winp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun forkpty(amaster: COpaquePointer?, name: COpaquePointer?, termp: COpaquePointer?, winp: COpaquePointer?): PidT =
-    libc_unix_nto_forkpty(amaster?.value?.toCPointer<ByteVar>(), name?.value?.toCPointer<ByteVar>(), termp?.value?.toCPointer<ByteVar>(), winp?.value?.toCPointer<ByteVar>())
+public actual fun forkpty(amaster: MutPtr<CInt>, name: MutPtr<CChar>, termp: MutPtr<Termios>, winp: MutPtr<Winsize>): PidT =
+    libcUnixNtoForkpty(amaster.rawAddress.toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>(), termp.rawAddress.toCPointer<ByteVar>(), winp.rawAddress.toCPointer<ByteVar>())
 
 public actual fun loginTty(fd: CInt): CInt =
-    libc_unix_nto_loginTty(fd)
+    libcUnixNtoLoginTty(fd)
 
-public actual fun uname(buf: COpaquePointer?): CInt =
-    libc_unix_nto_uname(buf?.value?.toCPointer<ByteVar>())
+public actual fun uname(buf: MutPtr<Utsname>): CInt =
+    libcUnixNtoUname(buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getpeereid(socket: CInt, euid: COpaquePointer?, egid: COpaquePointer?): CInt =
-    libc_unix_nto_getpeereid(socket, euid?.value?.toCPointer<ByteVar>(), egid?.value?.toCPointer<ByteVar>())
+public actual fun getpeereid(socket: CInt, euid: MutPtr<UidT>, egid: MutPtr<GidT>): CInt =
+    libcUnixNtoGetpeereid(socket, euid.rawAddress.toCPointer<ByteVar>(), egid.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strerrorR(errnum: CInt, buf: COpaquePointer?, buflen: SizeT): CInt =
-    libc_unix_nto_strerrorR(errnum, buf?.value?.toCPointer<ByteVar>(), buflen)
+public actual fun strerrorR(errnum: CInt, buf: MutPtr<CChar>, buflen: SizeT): CInt =
+    libcUnixNtoStrerrorR(errnum, buf.rawAddress.toCPointer<ByteVar>(), buflen)
 
 public actual fun abs(i: CInt): CInt =
-    libc_unix_nto_abs(i)
+    libcUnixNtoAbs(i)
 
 public actual fun labs(i: CLong): CLong =
-    libc_unix_nto_labs(i)
+    libcUnixNtoLabs(i)
 
 public actual fun rand(): CInt =
-    libc_unix_nto_rand()
+    libcUnixNtoRand()
 
 public actual fun srand(seed: CUint) {
-    libc_unix_nto_srand(seed)
+    libcUnixNtoSrand(seed)
 }
 
 public actual fun setpwent() {
-    libc_unix_nto_setpwent()
+    libcUnixNtoSetpwent()
 }
 
 public actual fun endpwent() {
-    libc_unix_nto_endpwent()
+    libcUnixNtoEndpwent()
 }
 
-public actual fun getpwent(): COpaquePointer? =
-    libc_unix_nto_getpwent()?.let { COpaquePointer(it.toLong()) }
+public actual fun getpwent(): MutPtr<Passwd> =
+    MutPtr(libcUnixNtoGetpwent()?.toLong() ?: 0L)
 
 public actual fun setgrent() {
-    libc_unix_nto_setgrent()
+    libcUnixNtoSetgrent()
 }
 
 public actual fun endgrent() {
-    libc_unix_nto_endgrent()
+    libcUnixNtoEndgrent()
 }
 
-public actual fun getgrent(): COpaquePointer? =
-    libc_unix_nto_getgrent()?.let { COpaquePointer(it.toLong()) }
+public actual fun getgrent(): MutPtr<Group> =
+    MutPtr(libcUnixNtoGetgrent()?.toLong() ?: 0L)
 
 public actual fun setspent() {
-    libc_unix_nto_setspent()
+    libcUnixNtoSetspent()
 }
 
 public actual fun endspent() {
-    libc_unix_nto_endspent()
+    libcUnixNtoEndspent()
 }
 
-public actual fun shmOpen(name: String?, oflag: CInt, mode: ModeT): CInt =
-    libc_unix_nto_shmOpen(name, oflag, mode)
+public actual fun shmOpen(name: ConstPtr<CChar>, oflag: CInt, mode: ModeT): CInt =
+    libcUnixNtoShmOpen(name.rawAddress.toCPointer<ByteVar>(), oflag, mode)
 
-public actual fun ftok(pathname: String?, projId: CInt): KeyT =
-    libc_unix_nto_ftok(pathname, projId)
+public actual fun ftok(pathname: ConstPtr<CChar>, projId: CInt): KeyT =
+    libcUnixNtoFtok(pathname.rawAddress.toCPointer<ByteVar>(), projId)
 
-public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt =
-    libc_unix_nto_mprotect(addr?.value?.toCPointer<ByteVar>(), len, prot)
+public actual fun mprotect(addr: MutPtr<CVoid>, len: SizeT, prot: CInt): CInt =
+    libcUnixNtoMprotect(addr.rawAddress.toCPointer<ByteVar>(), len, prot)
 
 public actual fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt =
-    libc_unix_nto_posixFallocate(fd, offset, len)
+    libcUnixNtoPosixFallocate(fd, offset, len)
 
-public actual fun mkostemp(template: COpaquePointer?, flags: CInt): CInt =
-    libc_unix_nto_mkostemp(template?.value?.toCPointer<ByteVar>(), flags)
+public actual fun mkostemp(template: MutPtr<CChar>, flags: CInt): CInt =
+    libcUnixNtoMkostemp(template.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun mkostemps(template: COpaquePointer?, suffixlen: CInt, flags: CInt): CInt =
-    libc_unix_nto_mkostemps(template?.value?.toCPointer<ByteVar>(), suffixlen, flags)
+public actual fun mkostemps(template: MutPtr<CChar>, suffixlen: CInt, flags: CInt): CInt =
+    libcUnixNtoMkostemps(template.rawAddress.toCPointer<ByteVar>(), suffixlen, flags)
 
-public actual fun sigtimedwait(set: COpaquePointer?, info: COpaquePointer?, timeout: COpaquePointer?): CInt =
-    libc_unix_nto_sigtimedwait(set?.value?.toCPointer<ByteVar>(), info?.value?.toCPointer<ByteVar>(), timeout?.value?.toCPointer<ByteVar>())
+public actual fun sigtimedwait(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>, timeout: ConstPtr<Timespec>): CInt =
+    libcUnixNtoSigtimedwait(set.rawAddress.toCPointer<ByteVar>(), info.rawAddress.toCPointer<ByteVar>(), timeout.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sigwaitinfo(set: COpaquePointer?, info: COpaquePointer?): CInt =
-    libc_unix_nto_sigwaitinfo(set?.value?.toCPointer<ByteVar>(), info?.value?.toCPointer<ByteVar>())
+public actual fun sigwaitinfo(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>): CInt =
+    libcUnixNtoSigwaitinfo(set.rawAddress.toCPointer<ByteVar>(), info.rawAddress.toCPointer<ByteVar>())
 
 public actual fun pthreadSetschedprio(native: PthreadT, priority: CInt): CInt =
-    libc_unix_nto_pthreadSetschedprio(native.toLong().toCPointer<ByteVar>(), priority)
+    libcUnixNtoPthreadSetschedprio(native.toLong().toCPointer<ByteVar>(), priority)
 
-public actual fun ifNameindex(): COpaquePointer? =
-    libc_unix_nto_ifNameindex()?.let { COpaquePointer(it.toLong()) }
+public actual fun ifNameindex(): MutPtr<IfNameindex> =
+    MutPtr(libcUnixNtoIfNameindex()?.toLong() ?: 0L)
 
-public actual fun ifFreenameindex(ptr: COpaquePointer?) {
-    libc_unix_nto_ifFreenameindex(ptr?.value?.toCPointer<ByteVar>())
+public actual fun ifFreenameindex(ptr: MutPtr<IfNameindex>) {
+    libcUnixNtoIfFreenameindex(ptr.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun glob(pattern: String?, flags: CInt, errfunc: GlobTGlErrfuncCallback?, pglob: COpaquePointer?): CInt =
-    libc_unix_nto_glob(pattern, flags, 0L.toCPointer<ByteVar>(), pglob?.value?.toCPointer<ByteVar>())
+public actual fun glob(pattern: ConstPtr<CChar>, flags: CInt, errfunc: GlobTGlErrfuncCallback?, pglob: MutPtr<GlobT>): CInt =
+    libcUnixNtoGlob(pattern.rawAddress.toCPointer<ByteVar>(), flags, 0L.toCPointer<ByteVar>(), pglob.rawAddress.toCPointer<ByteVar>())
 
-public actual fun globfree(pglob: COpaquePointer?) {
-    libc_unix_nto_globfree(pglob?.value?.toCPointer<ByteVar>())
+public actual fun globfree(pglob: MutPtr<GlobT>) {
+    libcUnixNtoGlobfree(pglob.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun posixMadvise(addr: COpaquePointer?, len: SizeT, advice: CInt): CInt =
-    libc_unix_nto_posixMadvise(addr?.value?.toCPointer<ByteVar>(), len, advice)
+public actual fun posixMadvise(addr: MutPtr<CVoid>, len: SizeT, advice: CInt): CInt =
+    libcUnixNtoPosixMadvise(addr.rawAddress.toCPointer<ByteVar>(), len, advice)
 
-public actual fun shmUnlink(name: String?): CInt =
-    libc_unix_nto_shmUnlink(name)
+public actual fun shmUnlink(name: ConstPtr<CChar>): CInt =
+    libcUnixNtoShmUnlink(name.rawAddress.toCPointer<ByteVar>())
 
-public actual fun seekdir(dirp: DIR?, loc: CLong) {
-    libc_unix_nto_seekdir(dirp?.handle?.toCPointer<ByteVar>(), loc)
+public actual fun seekdir(dirp: MutPtr<DIR>, loc: CLong) {
+    libcUnixNtoSeekdir(dirp.rawAddress.toCPointer<ByteVar>(), loc)
 }
 
-public actual fun telldir(dirp: DIR?): CLong =
-    libc_unix_nto_telldir(dirp?.handle?.toCPointer<ByteVar>())
+public actual fun telldir(dirp: MutPtr<DIR>): CLong =
+    libcUnixNtoTelldir(dirp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun msync(addr: COpaquePointer?, len: SizeT, flags: CInt): CInt =
-    libc_unix_nto_msync(addr?.value?.toCPointer<ByteVar>(), len, flags)
+public actual fun msync(addr: MutPtr<CVoid>, len: SizeT, flags: CInt): CInt =
+    libcUnixNtoMsync(addr.rawAddress.toCPointer<ByteVar>(), len, flags)
 
-public actual fun recvfrom(socket: CInt, buf: COpaquePointer?, len: SizeT, flags: CInt, addr: COpaquePointer?, addrlen: COpaquePointer?): SsizeT =
-    libc_unix_nto_recvfrom(socket, buf?.value?.toCPointer<ByteVar>(), len, flags, addr?.value?.toCPointer<ByteVar>(), addrlen?.value?.toCPointer<ByteVar>())
+public actual fun recvfrom(socket: CInt, buf: MutPtr<CVoid>, len: SizeT, flags: CInt, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): SsizeT =
+    libcUnixNtoRecvfrom(socket, buf.rawAddress.toCPointer<ByteVar>(), len, flags, addr.rawAddress.toCPointer<ByteVar>(), addrlen.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mkstemps(template: COpaquePointer?, suffixlen: CInt): CInt =
-    libc_unix_nto_mkstemps(template?.value?.toCPointer<ByteVar>(), suffixlen)
+public actual fun mkstemps(template: MutPtr<CChar>, suffixlen: CInt): CInt =
+    libcUnixNtoMkstemps(template.rawAddress.toCPointer<ByteVar>(), suffixlen)
 
-public actual fun getdomainname(name: COpaquePointer?, len: SizeT): CInt =
-    libc_unix_nto_getdomainname(name?.value?.toCPointer<ByteVar>(), len)
+public actual fun getdomainname(name: MutPtr<CChar>, len: SizeT): CInt =
+    libcUnixNtoGetdomainname(name.rawAddress.toCPointer<ByteVar>(), len)
 
-public actual fun setdomainname(name: String?, len: SizeT): CInt =
-    libc_unix_nto_setdomainname(name, len)
+public actual fun setdomainname(name: ConstPtr<CChar>, len: SizeT): CInt =
+    libcUnixNtoSetdomainname(name.rawAddress.toCPointer<ByteVar>(), len)
 
 public actual fun sync() {
-    libc_unix_nto_sync()
+    libcUnixNtoSync()
 }
 
-public actual fun pthreadGetschedparam(native: PthreadT, policy: COpaquePointer?, param: COpaquePointer?): CInt =
-    libc_unix_nto_pthreadGetschedparam(native.toLong().toCPointer<ByteVar>(), policy?.value?.toCPointer<ByteVar>(), param?.value?.toCPointer<ByteVar>())
+public actual fun pthreadGetschedparam(native: PthreadT, policy: MutPtr<CInt>, param: MutPtr<SchedParam>): CInt =
+    libcUnixNtoPthreadGetschedparam(native.toLong().toCPointer<ByteVar>(), policy.rawAddress.toCPointer<ByteVar>(), param.rawAddress.toCPointer<ByteVar>())
 
-public actual fun umount(target: String?, flags: CInt): CInt =
-    libc_unix_nto_umount(target, flags)
+public actual fun umount(target: ConstPtr<CChar>, flags: CInt): CInt =
+    libcUnixNtoUmount(target.rawAddress.toCPointer<ByteVar>(), flags)
 
 public actual fun schedGetPriorityMax(policy: CInt): CInt =
-    libc_unix_nto_schedGetPriorityMax(policy)
+    libcUnixNtoSchedGetPriorityMax(policy)
 
-public actual fun settimeofday(tv: COpaquePointer?, tz: COpaquePointer?): CInt =
-    libc_unix_nto_settimeofday(tv?.value?.toCPointer<ByteVar>(), tz?.value?.toCPointer<ByteVar>())
+public actual fun settimeofday(tv: ConstPtr<Timeval>, tz: ConstPtr<CVoid>): CInt =
+    libcUnixNtoSettimeofday(tv.rawAddress.toCPointer<ByteVar>(), tz.rawAddress.toCPointer<ByteVar>())
 
-public actual fun schedRrGetInterval(pid: PidT, tp: COpaquePointer?): CInt =
-    libc_unix_nto_schedRrGetInterval(pid, tp?.value?.toCPointer<ByteVar>())
+public actual fun schedRrGetInterval(pid: PidT, tp: MutPtr<Timespec>): CInt =
+    libcUnixNtoSchedRrGetInterval(pid, tp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semTimedwait(sem: COpaquePointer?, abstime: COpaquePointer?): CInt =
-    libc_unix_nto_semTimedwait(sem?.value?.toCPointer<ByteVar>(), abstime?.value?.toCPointer<ByteVar>())
+public actual fun semTimedwait(sem: MutPtr<SemT>, abstime: ConstPtr<Timespec>): CInt =
+    libcUnixNtoSemTimedwait(sem.rawAddress.toCPointer<ByteVar>(), abstime.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semGetvalue(sem: COpaquePointer?, sval: COpaquePointer?): CInt =
-    libc_unix_nto_semGetvalue(sem?.value?.toCPointer<ByteVar>(), sval?.value?.toCPointer<ByteVar>())
+public actual fun semGetvalue(sem: MutPtr<SemT>, sval: MutPtr<CInt>): CInt =
+    libcUnixNtoSemGetvalue(sem.rawAddress.toCPointer<ByteVar>(), sval.rawAddress.toCPointer<ByteVar>())
 
-public actual fun schedSetparam(pid: PidT, param: COpaquePointer?): CInt =
-    libc_unix_nto_schedSetparam(pid, param?.value?.toCPointer<ByteVar>())
+public actual fun schedSetparam(pid: PidT, param: ConstPtr<SchedParam>): CInt =
+    libcUnixNtoSchedSetparam(pid, param.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mount(specialDevice: String?, mountDirectory: String?, flags: CInt, mountType: String?, mountData: COpaquePointer?, mountDatalen: CInt): CInt =
-    libc_unix_nto_mount(specialDevice, mountDirectory, flags, mountType, mountData?.value?.toCPointer<ByteVar>(), mountDatalen)
+public actual fun mount(specialDevice: ConstPtr<CChar>, mountDirectory: ConstPtr<CChar>, flags: CInt, mountType: ConstPtr<CChar>, mountData: ConstPtr<CVoid>, mountDatalen: CInt): CInt =
+    libcUnixNtoMount(specialDevice.rawAddress.toCPointer<ByteVar>(), mountDirectory.rawAddress.toCPointer<ByteVar>(), flags, mountType.rawAddress.toCPointer<ByteVar>(), mountData.rawAddress.toCPointer<ByteVar>(), mountDatalen)
 
-public actual fun schedGetparam(pid: PidT, param: COpaquePointer?): CInt =
-    libc_unix_nto_schedGetparam(pid, param?.value?.toCPointer<ByteVar>())
+public actual fun schedGetparam(pid: PidT, param: MutPtr<SchedParam>): CInt =
+    libcUnixNtoSchedGetparam(pid, param.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexConsistent(mutex: COpaquePointer?): CInt =
-    libc_unix_nto_pthreadMutexConsistent(mutex?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexConsistent(mutex: MutPtr<PthreadMutexT>): CInt =
+    libcUnixNtoPthreadMutexConsistent(mutex.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexTimedlock(lock: COpaquePointer?, abstime: COpaquePointer?): CInt =
-    libc_unix_nto_pthreadMutexTimedlock(lock?.value?.toCPointer<ByteVar>(), abstime?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexTimedlock(lock: MutPtr<PthreadMutexT>, abstime: ConstPtr<Timespec>): CInt =
+    libcUnixNtoPthreadMutexTimedlock(lock.rawAddress.toCPointer<ByteVar>(), abstime.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadSpinInit(lock: COpaquePointer?, pshared: CInt): CInt =
-    libc_unix_nto_pthreadSpinInit(lock?.value?.toCPointer<ByteVar>(), pshared)
+public actual fun pthreadSpinInit(lock: MutPtr<PthreadSpinlockT>, pshared: CInt): CInt =
+    libcUnixNtoPthreadSpinInit(lock.rawAddress.toCPointer<ByteVar>(), pshared)
 
-public actual fun pthreadSpinDestroy(lock: COpaquePointer?): CInt =
-    libc_unix_nto_pthreadSpinDestroy(lock?.value?.toCPointer<ByteVar>())
+public actual fun pthreadSpinDestroy(lock: MutPtr<PthreadSpinlockT>): CInt =
+    libcUnixNtoPthreadSpinDestroy(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadSpinLock(lock: COpaquePointer?): CInt =
-    libc_unix_nto_pthreadSpinLock(lock?.value?.toCPointer<ByteVar>())
+public actual fun pthreadSpinLock(lock: MutPtr<PthreadSpinlockT>): CInt =
+    libcUnixNtoPthreadSpinLock(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadSpinTrylock(lock: COpaquePointer?): CInt =
-    libc_unix_nto_pthreadSpinTrylock(lock?.value?.toCPointer<ByteVar>())
+public actual fun pthreadSpinTrylock(lock: MutPtr<PthreadSpinlockT>): CInt =
+    libcUnixNtoPthreadSpinTrylock(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadSpinUnlock(lock: COpaquePointer?): CInt =
-    libc_unix_nto_pthreadSpinUnlock(lock?.value?.toCPointer<ByteVar>())
+public actual fun pthreadSpinUnlock(lock: MutPtr<PthreadSpinlockT>): CInt =
+    libcUnixNtoPthreadSpinUnlock(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadBarrierattrInit(attr: COpaquePointer?): CInt =
-    libc_unix_nto_pthreadBarrierattrInit(attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadBarrierattrInit(attr: MutPtr<PthreadBarrierattrT>): CInt =
+    libcUnixNtoPthreadBarrierattrInit(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadBarrierattrDestroy(attr: COpaquePointer?): CInt =
-    libc_unix_nto_pthreadBarrierattrDestroy(attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadBarrierattrDestroy(attr: MutPtr<PthreadBarrierattrT>): CInt =
+    libcUnixNtoPthreadBarrierattrDestroy(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadBarrierattrGetpshared(attr: COpaquePointer?, pshared: COpaquePointer?): CInt =
-    libc_unix_nto_pthreadBarrierattrGetpshared(attr?.value?.toCPointer<ByteVar>(), pshared?.value?.toCPointer<ByteVar>())
+public actual fun pthreadBarrierattrGetpshared(attr: ConstPtr<PthreadBarrierattrT>, pshared: MutPtr<CInt>): CInt =
+    libcUnixNtoPthreadBarrierattrGetpshared(attr.rawAddress.toCPointer<ByteVar>(), pshared.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadBarrierattrSetpshared(attr: COpaquePointer?, pshared: CInt): CInt =
-    libc_unix_nto_pthreadBarrierattrSetpshared(attr?.value?.toCPointer<ByteVar>(), pshared)
+public actual fun pthreadBarrierattrSetpshared(attr: MutPtr<PthreadBarrierattrT>, pshared: CInt): CInt =
+    libcUnixNtoPthreadBarrierattrSetpshared(attr.rawAddress.toCPointer<ByteVar>(), pshared)
 
-public actual fun pthreadBarrierInit(barrier: COpaquePointer?, attr: COpaquePointer?, count: CUint): CInt =
-    libc_unix_nto_pthreadBarrierInit(barrier?.value?.toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>(), count)
+public actual fun pthreadBarrierInit(barrier: MutPtr<PthreadBarrierT>, attr: ConstPtr<PthreadBarrierattrT>, count: CUint): CInt =
+    libcUnixNtoPthreadBarrierInit(barrier.rawAddress.toCPointer<ByteVar>(), attr.rawAddress.toCPointer<ByteVar>(), count)
 
-public actual fun pthreadBarrierDestroy(barrier: COpaquePointer?): CInt =
-    libc_unix_nto_pthreadBarrierDestroy(barrier?.value?.toCPointer<ByteVar>())
+public actual fun pthreadBarrierDestroy(barrier: MutPtr<PthreadBarrierT>): CInt =
+    libcUnixNtoPthreadBarrierDestroy(barrier.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadBarrierWait(barrier: COpaquePointer?): CInt =
-    libc_unix_nto_pthreadBarrierWait(barrier?.value?.toCPointer<ByteVar>())
+public actual fun pthreadBarrierWait(barrier: MutPtr<PthreadBarrierT>): CInt =
+    libcUnixNtoPthreadBarrierWait(barrier.rawAddress.toCPointer<ByteVar>())
 
 public actual fun schedGetscheduler(pid: PidT): CInt =
-    libc_unix_nto_schedGetscheduler(pid)
+    libcUnixNtoSchedGetscheduler(pid)
 
-public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: COpaquePointer?, rmtp: COpaquePointer?): CInt =
-    libc_unix_nto_clockNanosleep(clkId, flags, rqtp?.value?.toCPointer<ByteVar>(), rmtp?.value?.toCPointer<ByteVar>())
+public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: ConstPtr<Timespec>, rmtp: MutPtr<Timespec>): CInt =
+    libcUnixNtoClockNanosleep(clkId, flags, rqtp.rawAddress.toCPointer<ByteVar>(), rmtp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrGetguardsize(attr: COpaquePointer?, guardsize: COpaquePointer?): CInt =
-    libc_unix_nto_pthreadAttrGetguardsize(attr?.value?.toCPointer<ByteVar>(), guardsize?.value?.toCPointer<ByteVar>())
+public actual fun pthreadAttrGetguardsize(attr: ConstPtr<PthreadAttrT>, guardsize: MutPtr<SizeT>): CInt =
+    libcUnixNtoPthreadAttrGetguardsize(attr.rawAddress.toCPointer<ByteVar>(), guardsize.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrSetguardsize(attr: COpaquePointer?, guardsize: SizeT): CInt =
-    libc_unix_nto_pthreadAttrSetguardsize(attr?.value?.toCPointer<ByteVar>(), guardsize)
+public actual fun pthreadAttrSetguardsize(attr: MutPtr<PthreadAttrT>, guardsize: SizeT): CInt =
+    libcUnixNtoPthreadAttrSetguardsize(attr.rawAddress.toCPointer<ByteVar>(), guardsize)
 
-public actual fun sethostname(name: String?, len: SizeT): CInt =
-    libc_unix_nto_sethostname(name, len)
+public actual fun sethostname(name: ConstPtr<CChar>, len: SizeT): CInt =
+    libcUnixNtoSethostname(name.rawAddress.toCPointer<ByteVar>(), len)
 
 public actual fun schedGetPriorityMin(policy: CInt): CInt =
-    libc_unix_nto_schedGetPriorityMin(policy)
+    libcUnixNtoSchedGetPriorityMin(policy)
 
-public actual fun pthreadCondattrGetpshared(attr: COpaquePointer?, pshared: COpaquePointer?): CInt =
-    libc_unix_nto_pthreadCondattrGetpshared(attr?.value?.toCPointer<ByteVar>(), pshared?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCondattrGetpshared(attr: ConstPtr<PthreadCondattrT>, pshared: MutPtr<CInt>): CInt =
+    libcUnixNtoPthreadCondattrGetpshared(attr.rawAddress.toCPointer<ByteVar>(), pshared.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: COpaquePointer?): CInt =
-    libc_unix_nto_pthreadSetschedparam(native.toLong().toCPointer<ByteVar>(), policy, param?.value?.toCPointer<ByteVar>())
+public actual fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: ConstPtr<SchedParam>): CInt =
+    libcUnixNtoPthreadSetschedparam(native.toLong().toCPointer<ByteVar>(), policy, param.rawAddress.toCPointer<ByteVar>())
 
-public actual fun schedSetscheduler(pid: PidT, policy: CInt, param: COpaquePointer?): CInt =
-    libc_unix_nto_schedSetscheduler(pid, policy, param?.value?.toCPointer<ByteVar>())
+public actual fun schedSetscheduler(pid: PidT, policy: CInt, param: ConstPtr<SchedParam>): CInt =
+    libcUnixNtoSchedSetscheduler(pid, policy, param.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sigsuspend(mask: COpaquePointer?): CInt =
-    libc_unix_nto_sigsuspend(mask?.value?.toCPointer<ByteVar>())
+public actual fun sigsuspend(mask: ConstPtr<SigsetT>): CInt =
+    libcUnixNtoSigsuspend(mask.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getgrgidR(gid: GidT, grp: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    libc_unix_nto_getgrgidR(gid, grp?.value?.toCPointer<ByteVar>(), buf?.value?.toCPointer<ByteVar>(), buflen, result?.value?.toCPointer<ByteVar>())
+public actual fun getgrgidR(gid: GidT, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+    libcUnixNtoGetgrgidR(gid, grp.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>(), buflen, result.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semClose(sem: COpaquePointer?): CInt =
-    libc_unix_nto_semClose(sem?.value?.toCPointer<ByteVar>())
+public actual fun semClose(sem: MutPtr<SemT>): CInt =
+    libcUnixNtoSemClose(sem.rawAddress.toCPointer<ByteVar>())
 
 public actual fun getdtablesize(): CInt =
-    libc_unix_nto_getdtablesize()
+    libcUnixNtoGetdtablesize()
 
-public actual fun getgrnamR(name: String?, grp: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    libc_unix_nto_getgrnamR(name, grp?.value?.toCPointer<ByteVar>(), buf?.value?.toCPointer<ByteVar>(), buflen, result?.value?.toCPointer<ByteVar>())
+public actual fun getgrnamR(name: ConstPtr<CChar>, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+    libcUnixNtoGetgrnamR(name.rawAddress.toCPointer<ByteVar>(), grp.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>(), buflen, result.rawAddress.toCPointer<ByteVar>())
 
-public actual fun initgroups(user: String?, group: GidT): CInt =
-    libc_unix_nto_initgroups(user, group)
+public actual fun initgroups(user: ConstPtr<CChar>, group: GidT): CInt =
+    libcUnixNtoInitgroups(user.rawAddress.toCPointer<ByteVar>(), group)
 
-public actual fun pthreadSigmask(how: CInt, set: COpaquePointer?, oldset: COpaquePointer?): CInt =
-    libc_unix_nto_pthreadSigmask(how, set?.value?.toCPointer<ByteVar>(), oldset?.value?.toCPointer<ByteVar>())
+public actual fun pthreadSigmask(how: CInt, set: ConstPtr<SigsetT>, oldset: MutPtr<SigsetT>): CInt =
+    libcUnixNtoPthreadSigmask(how, set.rawAddress.toCPointer<ByteVar>(), oldset.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    libc_unix_nto_semOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.let { COpaquePointer(it.toLong()) }
+public actual fun semOpen(name: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): MutPtr<SemT> =
+    MutPtr(libcUnixNtoSemOpen(name.rawAddress.toCPointer<ByteVar>(), oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.toLong() ?: 0L)
 
-public actual fun getgrnam(name: String?): COpaquePointer? =
-    libc_unix_nto_getgrnam(name)?.let { COpaquePointer(it.toLong()) }
+public actual fun getgrnam(name: ConstPtr<CChar>): MutPtr<Group> =
+    MutPtr(libcUnixNtoGetgrnam(name.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun pthreadCancel(thread: PthreadT): CInt =
-    libc_unix_nto_pthreadCancel(thread.toLong().toCPointer<ByteVar>())
+    libcUnixNtoPthreadCancel(thread.toLong().toCPointer<ByteVar>())
 
 public actual fun pthreadKill(thread: PthreadT, sig: CInt): CInt =
-    libc_unix_nto_pthreadKill(thread.toLong().toCPointer<ByteVar>(), sig)
+    libcUnixNtoPthreadKill(thread.toLong().toCPointer<ByteVar>(), sig)
 
-public actual fun semUnlink(name: String?): CInt =
-    libc_unix_nto_semUnlink(name)
+public actual fun semUnlink(name: ConstPtr<CChar>): CInt =
+    libcUnixNtoSemUnlink(name.rawAddress.toCPointer<ByteVar>())
 
 public actual fun daemon(nochdir: CInt, noclose: CInt): CInt =
-    libc_unix_nto_daemon(nochdir, noclose)
+    libcUnixNtoDaemon(nochdir, noclose)
 
-public actual fun getpwnamR(name: String?, pwd: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    libc_unix_nto_getpwnamR(name, pwd?.value?.toCPointer<ByteVar>(), buf?.value?.toCPointer<ByteVar>(), buflen, result?.value?.toCPointer<ByteVar>())
+public actual fun getpwnamR(name: ConstPtr<CChar>, pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt =
+    libcUnixNtoGetpwnamR(name.rawAddress.toCPointer<ByteVar>(), pwd.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>(), buflen, result.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getpwuidR(uid: UidT, pwd: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    libc_unix_nto_getpwuidR(uid, pwd?.value?.toCPointer<ByteVar>(), buf?.value?.toCPointer<ByteVar>(), buflen, result?.value?.toCPointer<ByteVar>())
+public actual fun getpwuidR(uid: UidT, pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt =
+    libcUnixNtoGetpwuidR(uid, pwd.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>(), buflen, result.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sigwait(set: COpaquePointer?, sig: COpaquePointer?): CInt =
-    libc_unix_nto_sigwait(set?.value?.toCPointer<ByteVar>(), sig?.value?.toCPointer<ByteVar>())
+public actual fun sigwait(set: ConstPtr<SigsetT>, sig: MutPtr<CInt>): CInt =
+    libcUnixNtoSigwait(set.rawAddress.toCPointer<ByteVar>(), sig.rawAddress.toCPointer<ByteVar>())
 
 public actual fun pthreadAtfork(prepare: PthreadAtforkPrepareCallback?, parent: PthreadAtforkPrepareCallback?, child: PthreadAtforkPrepareCallback?): CInt =
-    libc_unix_nto_pthreadAtfork(0L.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
+    libcUnixNtoPthreadAtfork(0L.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
 
-public actual fun getgrgid(gid: GidT): COpaquePointer? =
-    libc_unix_nto_getgrgid(gid)?.let { COpaquePointer(it.toLong()) }
+public actual fun getgrgid(gid: GidT): MutPtr<Group> =
+    MutPtr(libcUnixNtoGetgrgid(gid)?.toLong() ?: 0L)
 
-public actual fun getgrouplist(user: String?, group: GidT, groups: COpaquePointer?, ngroups: COpaquePointer?): CInt =
-    libc_unix_nto_getgrouplist(user, group, groups?.value?.toCPointer<ByteVar>(), ngroups?.value?.toCPointer<ByteVar>())
+public actual fun getgrouplist(user: ConstPtr<CChar>, group: GidT, groups: MutPtr<GidT>, ngroups: MutPtr<CInt>): CInt =
+    libcUnixNtoGetgrouplist(user.rawAddress.toCPointer<ByteVar>(), group, groups.rawAddress.toCPointer<ByteVar>(), ngroups.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexattrGetpshared(attr: COpaquePointer?, pshared: COpaquePointer?): CInt =
-    libc_unix_nto_pthreadMutexattrGetpshared(attr?.value?.toCPointer<ByteVar>(), pshared?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexattrGetpshared(attr: ConstPtr<PthreadMutexattrT>, pshared: MutPtr<CInt>): CInt =
+    libcUnixNtoPthreadMutexattrGetpshared(attr.rawAddress.toCPointer<ByteVar>(), pshared.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexattrGetrobust(attr: COpaquePointer?, robustness: COpaquePointer?): CInt =
-    libc_unix_nto_pthreadMutexattrGetrobust(attr?.value?.toCPointer<ByteVar>(), robustness?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexattrGetrobust(attr: ConstPtr<PthreadMutexattrT>, robustness: MutPtr<CInt>): CInt =
+    libcUnixNtoPthreadMutexattrGetrobust(attr.rawAddress.toCPointer<ByteVar>(), robustness.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexattrSetrobust(attr: COpaquePointer?, robustness: CInt): CInt =
-    libc_unix_nto_pthreadMutexattrSetrobust(attr?.value?.toCPointer<ByteVar>(), robustness)
+public actual fun pthreadMutexattrSetrobust(attr: MutPtr<PthreadMutexattrT>, robustness: CInt): CInt =
+    libcUnixNtoPthreadMutexattrSetrobust(attr.rawAddress.toCPointer<ByteVar>(), robustness)
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
-    libc_unix_nto_pthreadCreate(native?.value?.toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), value?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCreate(native: MutPtr<PthreadT>, attr: ConstPtr<PthreadAttrT>, f: PthreadCreateFCallback, value: MutPtr<CVoid>): CInt =
+    libcUnixNtoPthreadCreate(native.rawAddress.toCPointer<ByteVar>(), attr.rawAddress.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getitimer(which: CInt, currValue: COpaquePointer?): CInt =
-    libc_unix_nto_getitimer(which, currValue?.value?.toCPointer<ByteVar>())
+public actual fun getitimer(which: CInt, currValue: MutPtr<Itimerval>): CInt =
+    libcUnixNtoGetitimer(which, currValue.rawAddress.toCPointer<ByteVar>())
 
-public actual fun setitimer(which: CInt, value: COpaquePointer?, ovalue: COpaquePointer?): CInt =
-    libc_unix_nto_setitimer(which, value?.value?.toCPointer<ByteVar>(), ovalue?.value?.toCPointer<ByteVar>())
+public actual fun setitimer(which: CInt, value: ConstPtr<Itimerval>, ovalue: MutPtr<Itimerval>): CInt =
+    libcUnixNtoSetitimer(which, value.rawAddress.toCPointer<ByteVar>(), ovalue.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawn(pid: COpaquePointer?, path: String?, fileActions: COpaquePointer?, attrp: COpaquePointer?, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
-    libc_unix_nto_posixSpawn(pid?.value?.toCPointer<ByteVar>(), path, fileActions?.value?.toCPointer<ByteVar>(), attrp?.value?.toCPointer<ByteVar>(), argv?.value?.toCPointer<ByteVar>(), envp?.value?.toCPointer<ByteVar>())
+public actual fun posixSpawn(pid: MutPtr<PidT>, path: ConstPtr<CChar>, fileActions: ConstPtr<PosixSpawnFileActionsT>, attrp: ConstPtr<PosixSpawnattrT>, argv: ConstPtr<MutPtr<CChar>>, envp: ConstPtr<MutPtr<CChar>>): CInt =
+    libcUnixNtoPosixSpawn(pid.rawAddress.toCPointer<ByteVar>(), path.rawAddress.toCPointer<ByteVar>(), fileActions.rawAddress.toCPointer<ByteVar>(), attrp.rawAddress.toCPointer<ByteVar>(), argv.rawAddress.toCPointer<ByteVar>(), envp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnp(pid: COpaquePointer?, file: String?, fileActions: COpaquePointer?, attrp: COpaquePointer?, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
-    libc_unix_nto_posixSpawnp(pid?.value?.toCPointer<ByteVar>(), file, fileActions?.value?.toCPointer<ByteVar>(), attrp?.value?.toCPointer<ByteVar>(), argv?.value?.toCPointer<ByteVar>(), envp?.value?.toCPointer<ByteVar>())
+public actual fun posixSpawnp(pid: MutPtr<PidT>, file: ConstPtr<CChar>, fileActions: ConstPtr<PosixSpawnFileActionsT>, attrp: ConstPtr<PosixSpawnattrT>, argv: ConstPtr<MutPtr<CChar>>, envp: ConstPtr<MutPtr<CChar>>): CInt =
+    libcUnixNtoPosixSpawnp(pid.rawAddress.toCPointer<ByteVar>(), file.rawAddress.toCPointer<ByteVar>(), fileActions.rawAddress.toCPointer<ByteVar>(), attrp.rawAddress.toCPointer<ByteVar>(), argv.rawAddress.toCPointer<ByteVar>(), envp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrInit(attr: COpaquePointer?): CInt =
-    libc_unix_nto_posixSpawnattrInit(attr?.value?.toCPointer<ByteVar>())
+public actual fun posixSpawnattrInit(attr: MutPtr<PosixSpawnattrT>): CInt =
+    libcUnixNtoPosixSpawnattrInit(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrDestroy(attr: COpaquePointer?): CInt =
-    libc_unix_nto_posixSpawnattrDestroy(attr?.value?.toCPointer<ByteVar>())
+public actual fun posixSpawnattrDestroy(attr: MutPtr<PosixSpawnattrT>): CInt =
+    libcUnixNtoPosixSpawnattrDestroy(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrGetsigdefault(attr: COpaquePointer?, default: COpaquePointer?): CInt =
-    libc_unix_nto_posixSpawnattrGetsigdefault(attr?.value?.toCPointer<ByteVar>(), default?.value?.toCPointer<ByteVar>())
+public actual fun posixSpawnattrGetsigdefault(attr: ConstPtr<PosixSpawnattrT>, default: MutPtr<SigsetT>): CInt =
+    libcUnixNtoPosixSpawnattrGetsigdefault(attr.rawAddress.toCPointer<ByteVar>(), default.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrSetsigdefault(attr: COpaquePointer?, default: COpaquePointer?): CInt =
-    libc_unix_nto_posixSpawnattrSetsigdefault(attr?.value?.toCPointer<ByteVar>(), default?.value?.toCPointer<ByteVar>())
+public actual fun posixSpawnattrSetsigdefault(attr: MutPtr<PosixSpawnattrT>, default: ConstPtr<SigsetT>): CInt =
+    libcUnixNtoPosixSpawnattrSetsigdefault(attr.rawAddress.toCPointer<ByteVar>(), default.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrGetsigmask(attr: COpaquePointer?, default: COpaquePointer?): CInt =
-    libc_unix_nto_posixSpawnattrGetsigmask(attr?.value?.toCPointer<ByteVar>(), default?.value?.toCPointer<ByteVar>())
+public actual fun posixSpawnattrGetsigmask(attr: ConstPtr<PosixSpawnattrT>, default: MutPtr<SigsetT>): CInt =
+    libcUnixNtoPosixSpawnattrGetsigmask(attr.rawAddress.toCPointer<ByteVar>(), default.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrSetsigmask(attr: COpaquePointer?, default: COpaquePointer?): CInt =
-    libc_unix_nto_posixSpawnattrSetsigmask(attr?.value?.toCPointer<ByteVar>(), default?.value?.toCPointer<ByteVar>())
+public actual fun posixSpawnattrSetsigmask(attr: MutPtr<PosixSpawnattrT>, default: ConstPtr<SigsetT>): CInt =
+    libcUnixNtoPosixSpawnattrSetsigmask(attr.rawAddress.toCPointer<ByteVar>(), default.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrGetflags(attr: COpaquePointer?, flags: COpaquePointer?): CInt =
-    libc_unix_nto_posixSpawnattrGetflags(attr?.value?.toCPointer<ByteVar>(), flags?.value?.toCPointer<ByteVar>())
+public actual fun posixSpawnattrGetflags(attr: ConstPtr<PosixSpawnattrT>, flags: MutPtr<CShort>): CInt =
+    libcUnixNtoPosixSpawnattrGetflags(attr.rawAddress.toCPointer<ByteVar>(), flags.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrSetflags(attr: COpaquePointer?, flags: CShort): CInt =
-    libc_unix_nto_posixSpawnattrSetflags(attr?.value?.toCPointer<ByteVar>(), flags)
+public actual fun posixSpawnattrSetflags(attr: MutPtr<PosixSpawnattrT>, flags: CShort): CInt =
+    libcUnixNtoPosixSpawnattrSetflags(attr.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun posixSpawnattrGetpgroup(attr: COpaquePointer?, flags: COpaquePointer?): CInt =
-    libc_unix_nto_posixSpawnattrGetpgroup(attr?.value?.toCPointer<ByteVar>(), flags?.value?.toCPointer<ByteVar>())
+public actual fun posixSpawnattrGetpgroup(attr: ConstPtr<PosixSpawnattrT>, flags: MutPtr<PidT>): CInt =
+    libcUnixNtoPosixSpawnattrGetpgroup(attr.rawAddress.toCPointer<ByteVar>(), flags.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrSetpgroup(attr: COpaquePointer?, flags: PidT): CInt =
-    libc_unix_nto_posixSpawnattrSetpgroup(attr?.value?.toCPointer<ByteVar>(), flags)
+public actual fun posixSpawnattrSetpgroup(attr: MutPtr<PosixSpawnattrT>, flags: PidT): CInt =
+    libcUnixNtoPosixSpawnattrSetpgroup(attr.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun posixSpawnattrGetschedpolicy(attr: COpaquePointer?, flags: COpaquePointer?): CInt =
-    libc_unix_nto_posixSpawnattrGetschedpolicy(attr?.value?.toCPointer<ByteVar>(), flags?.value?.toCPointer<ByteVar>())
+public actual fun posixSpawnattrGetschedpolicy(attr: ConstPtr<PosixSpawnattrT>, flags: MutPtr<CInt>): CInt =
+    libcUnixNtoPosixSpawnattrGetschedpolicy(attr.rawAddress.toCPointer<ByteVar>(), flags.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrSetschedpolicy(attr: COpaquePointer?, flags: CInt): CInt =
-    libc_unix_nto_posixSpawnattrSetschedpolicy(attr?.value?.toCPointer<ByteVar>(), flags)
+public actual fun posixSpawnattrSetschedpolicy(attr: MutPtr<PosixSpawnattrT>, flags: CInt): CInt =
+    libcUnixNtoPosixSpawnattrSetschedpolicy(attr.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun posixSpawnattrGetschedparam(attr: COpaquePointer?, param: COpaquePointer?): CInt =
-    libc_unix_nto_posixSpawnattrGetschedparam(attr?.value?.toCPointer<ByteVar>(), param?.value?.toCPointer<ByteVar>())
+public actual fun posixSpawnattrGetschedparam(attr: ConstPtr<PosixSpawnattrT>, param: MutPtr<SchedParam>): CInt =
+    libcUnixNtoPosixSpawnattrGetschedparam(attr.rawAddress.toCPointer<ByteVar>(), param.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrSetschedparam(attr: COpaquePointer?, param: COpaquePointer?): CInt =
-    libc_unix_nto_posixSpawnattrSetschedparam(attr?.value?.toCPointer<ByteVar>(), param?.value?.toCPointer<ByteVar>())
+public actual fun posixSpawnattrSetschedparam(attr: MutPtr<PosixSpawnattrT>, param: ConstPtr<SchedParam>): CInt =
+    libcUnixNtoPosixSpawnattrSetschedparam(attr.rawAddress.toCPointer<ByteVar>(), param.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnFileActionsInit(actions: COpaquePointer?): CInt =
-    libc_unix_nto_posixSpawnFileActionsInit(actions?.value?.toCPointer<ByteVar>())
+public actual fun posixSpawnFileActionsInit(actions: MutPtr<PosixSpawnFileActionsT>): CInt =
+    libcUnixNtoPosixSpawnFileActionsInit(actions.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnFileActionsDestroy(actions: COpaquePointer?): CInt =
-    libc_unix_nto_posixSpawnFileActionsDestroy(actions?.value?.toCPointer<ByteVar>())
+public actual fun posixSpawnFileActionsDestroy(actions: MutPtr<PosixSpawnFileActionsT>): CInt =
+    libcUnixNtoPosixSpawnFileActionsDestroy(actions.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnFileActionsAddopen(actions: COpaquePointer?, fd: CInt, path: String?, oflag: CInt, mode: ModeT): CInt =
-    libc_unix_nto_posixSpawnFileActionsAddopen(actions?.value?.toCPointer<ByteVar>(), fd, path, oflag, mode)
+public actual fun posixSpawnFileActionsAddopen(actions: MutPtr<PosixSpawnFileActionsT>, fd: CInt, path: ConstPtr<CChar>, oflag: CInt, mode: ModeT): CInt =
+    libcUnixNtoPosixSpawnFileActionsAddopen(actions.rawAddress.toCPointer<ByteVar>(), fd, path.rawAddress.toCPointer<ByteVar>(), oflag, mode)
 
-public actual fun posixSpawnFileActionsAddclose(actions: COpaquePointer?, fd: CInt): CInt =
-    libc_unix_nto_posixSpawnFileActionsAddclose(actions?.value?.toCPointer<ByteVar>(), fd)
+public actual fun posixSpawnFileActionsAddclose(actions: MutPtr<PosixSpawnFileActionsT>, fd: CInt): CInt =
+    libcUnixNtoPosixSpawnFileActionsAddclose(actions.rawAddress.toCPointer<ByteVar>(), fd)
 
-public actual fun posixSpawnFileActionsAdddup2(actions: COpaquePointer?, fd: CInt, newfd: CInt): CInt =
-    libc_unix_nto_posixSpawnFileActionsAdddup2(actions?.value?.toCPointer<ByteVar>(), fd, newfd)
+public actual fun posixSpawnFileActionsAdddup2(actions: MutPtr<PosixSpawnFileActionsT>, fd: CInt, newfd: CInt): CInt =
+    libcUnixNtoPosixSpawnFileActionsAdddup2(actions.rawAddress.toCPointer<ByteVar>(), fd, newfd)
 
-public actual fun popen(command: String?, mode: String?): FILE? =
-    libc_unix_nto_popen(command, mode)?.let { FILE(it.toLong()) }
+public actual fun popen(command: ConstPtr<CChar>, mode: ConstPtr<CChar>): MutPtr<FILE> =
+    MutPtr(libcUnixNtoPopen(command.rawAddress.toCPointer<ByteVar>(), mode.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt =
-    libc_unix_nto_faccessat(dirfd, pathname, mode, flags)
+public actual fun faccessat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: CInt, flags: CInt): CInt =
+    libcUnixNtoFaccessat(dirfd, pathname.rawAddress.toCPointer<ByteVar>(), mode, flags)
 
 public actual fun inotifyRmWatch(fd: CInt, wd: CInt): CInt =
-    libc_unix_nto_inotifyRmWatch(fd, wd)
+    libcUnixNtoInotifyRmWatch(fd, wd)
 
 public actual fun inotifyInit(): CInt =
-    libc_unix_nto_inotifyInit()
+    libcUnixNtoInotifyInit()
 
-public actual fun inotifyAddWatch(fd: CInt, path: String?, mask: UInt): CInt =
-    libc_unix_nto_inotifyAddWatch(fd, path, mask)
+public actual fun inotifyAddWatch(fd: CInt, path: ConstPtr<CChar>, mask: UInt): CInt =
+    libcUnixNtoInotifyAddWatch(fd, path.rawAddress.toCPointer<ByteVar>(), mask)
 
 public actual fun gettid(): PidT =
-    libc_unix_nto_gettid()
+    libcUnixNtoGettid()
 
-public actual fun pthreadGetcpuclockid(thread: PthreadT, clkId: COpaquePointer?): CInt =
-    libc_unix_nto_pthreadGetcpuclockid(thread.toLong().toCPointer<ByteVar>(), clkId?.value?.toCPointer<ByteVar>())
+public actual fun pthreadGetcpuclockid(thread: PthreadT, clkId: MutPtr<ClockidT>): CInt =
+    libcUnixNtoPthreadGetcpuclockid(thread.toLong().toCPointer<ByteVar>(), clkId.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getnameinfo(sa: COpaquePointer?, salen: SocklenT, host: COpaquePointer?, hostlen: SocklenT, serv: COpaquePointer?, servlen: SocklenT, flags: CInt): CInt =
-    libc_unix_nto_getnameinfo(sa?.value?.toCPointer<ByteVar>(), salen, host?.value?.toCPointer<ByteVar>(), hostlen, serv?.value?.toCPointer<ByteVar>(), servlen, flags)
+public actual fun getnameinfo(sa: ConstPtr<Sockaddr>, salen: SocklenT, host: MutPtr<CChar>, hostlen: SocklenT, serv: MutPtr<CChar>, servlen: SocklenT, flags: CInt): CInt =
+    libcUnixNtoGetnameinfo(sa.rawAddress.toCPointer<ByteVar>(), salen, host.rawAddress.toCPointer<ByteVar>(), hostlen, serv.rawAddress.toCPointer<ByteVar>(), servlen, flags)
 
 public actual fun mallopt(param: CInt, value: Long): CInt =
-    libc_unix_nto_mallopt(param, value)
+    libcUnixNtoMallopt(param, value)
 
-public actual fun gettimeofday(tp: COpaquePointer?, tz: COpaquePointer?): CInt =
-    libc_unix_nto_gettimeofday(tp?.value?.toCPointer<ByteVar>(), tz?.value?.toCPointer<ByteVar>())
+public actual fun gettimeofday(tp: MutPtr<Timeval>, tz: MutPtr<CVoid>): CInt =
+    libcUnixNtoGettimeofday(tp.rawAddress.toCPointer<ByteVar>(), tz.rawAddress.toCPointer<ByteVar>())
 
-public actual fun ctermid(s: COpaquePointer?): COpaquePointer? =
-    libc_unix_nto_ctermid(s?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun ctermid(s: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcUnixNtoCtermid(s.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun ioctl(fd: CInt, request: CInt, vararg variadicArgs: Long): CInt =
-    libc_unix_nto_ioctl(fd, request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+    libcUnixNtoIoctl(fd, request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun mallinfo(): Mallinfo =
     Mallinfo()
 
-public actual fun getpwentR(pwd: COpaquePointer?, buf: COpaquePointer?, bufsize: CInt, result: COpaquePointer?): CInt =
-    libc_unix_nto_getpwentR(pwd?.value?.toCPointer<ByteVar>(), buf?.value?.toCPointer<ByteVar>(), bufsize, result?.value?.toCPointer<ByteVar>())
+public actual fun getpwentR(pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, bufsize: CInt, result: MutPtr<MutPtr<Passwd>>): CInt =
+    libcUnixNtoGetpwentR(pwd.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>(), bufsize, result.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadGetnameNp(thread: PthreadT, name: COpaquePointer?, len: CInt): CInt =
-    libc_unix_nto_pthreadGetnameNp(thread.toLong().toCPointer<ByteVar>(), name?.value?.toCPointer<ByteVar>(), len)
+public actual fun pthreadGetnameNp(thread: PthreadT, name: MutPtr<CChar>, len: CInt): CInt =
+    libcUnixNtoPthreadGetnameNp(thread.toLong().toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>(), len)
 
-public actual fun pthreadSetnameNp(thread: PthreadT, name: String?): CInt =
-    libc_unix_nto_pthreadSetnameNp(thread.toLong().toCPointer<ByteVar>(), name)
+public actual fun pthreadSetnameNp(thread: PthreadT, name: ConstPtr<CChar>): CInt =
+    libcUnixNtoPthreadSetnameNp(thread.toLong().toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sysctl(arg0: COpaquePointer?, arg1: CUint, arg2: COpaquePointer?, arg3: COpaquePointer?, arg4: COpaquePointer?, arg5: SizeT): CInt =
-    libc_unix_nto_sysctl(arg0?.value?.toCPointer<ByteVar>(), arg1, arg2?.value?.toCPointer<ByteVar>(), arg3?.value?.toCPointer<ByteVar>(), arg4?.value?.toCPointer<ByteVar>(), arg5)
+public actual fun sysctl(arg0: ConstPtr<CInt>, arg1: CUint, arg2: MutPtr<CVoid>, arg3: MutPtr<SizeT>, arg4: ConstPtr<CVoid>, arg5: SizeT): CInt =
+    libcUnixNtoSysctl(arg0.rawAddress.toCPointer<ByteVar>(), arg1, arg2.rawAddress.toCPointer<ByteVar>(), arg3.rawAddress.toCPointer<ByteVar>(), arg4.rawAddress.toCPointer<ByteVar>(), arg5)
 
-public actual fun getrlimit(resource: CInt, rlim: COpaquePointer?): CInt =
-    libc_unix_nto_getrlimit(resource, rlim?.value?.toCPointer<ByteVar>())
+public actual fun getrlimit(resource: CInt, rlim: MutPtr<Rlimit>): CInt =
+    libcUnixNtoGetrlimit(resource, rlim.rawAddress.toCPointer<ByteVar>())
 
-public actual fun setrlimit(resource: CInt, rlp: COpaquePointer?): CInt =
-    libc_unix_nto_setrlimit(resource, rlp?.value?.toCPointer<ByteVar>())
+public actual fun setrlimit(resource: CInt, rlp: ConstPtr<Rlimit>): CInt =
+    libcUnixNtoSetrlimit(resource, rlp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun lioListio(mode: CInt, list: COpaquePointer?, nent: CInt, sig: COpaquePointer?): CInt =
-    libc_unix_nto_lioListio(mode, list?.value?.toCPointer<ByteVar>(), nent, sig?.value?.toCPointer<ByteVar>())
+public actual fun lioListio(mode: CInt, list: ConstPtr<MutPtr<Aiocb>>, nent: CInt, sig: MutPtr<Sigevent>): CInt =
+    libcUnixNtoLioListio(mode, list.rawAddress.toCPointer<ByteVar>(), nent, sig.rawAddress.toCPointer<ByteVar>())
 
-public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt =
-    libc_unix_nto_dlIteratePhdr(0L.toCPointer<ByteVar>(), data?.value?.toCPointer<ByteVar>())
+public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: MutPtr<CVoid>): CInt =
+    libcUnixNtoDlIteratePhdr(0L.toCPointer<ByteVar>(), data.rawAddress.toCPointer<ByteVar>())
 
-public actual fun memsetS(s: COpaquePointer?, smax: SizeT, c: CInt, n: SizeT): CInt =
-    libc_unix_nto_memsetS(s?.value?.toCPointer<ByteVar>(), smax, c, n)
+public actual fun memsetS(s: MutPtr<CVoid>, smax: SizeT, c: CInt, n: SizeT): CInt =
+    libcUnixNtoMemsetS(s.rawAddress.toCPointer<ByteVar>(), smax, c, n)
 
-public actual fun regcomp(preg: COpaquePointer?, pattern: String?, cflags: CInt): CInt =
-    libc_unix_nto_regcomp(preg?.value?.toCPointer<ByteVar>(), pattern, cflags)
+public actual fun regcomp(preg: MutPtr<RegexT>, pattern: ConstPtr<CChar>, cflags: CInt): CInt =
+    libcUnixNtoRegcomp(preg.rawAddress.toCPointer<ByteVar>(), pattern.rawAddress.toCPointer<ByteVar>(), cflags)
 
-public actual fun regexec(preg: COpaquePointer?, str: String?, nmatch: SizeT, pmatch: COpaquePointer?, eflags: CInt): CInt =
-    libc_unix_nto_regexec(preg?.value?.toCPointer<ByteVar>(), str, nmatch, pmatch?.value?.toCPointer<ByteVar>(), eflags)
+public actual fun regexec(preg: ConstPtr<RegexT>, str: ConstPtr<CChar>, nmatch: SizeT, pmatch: MutPtr<RegmatchT>, eflags: CInt): CInt =
+    libcUnixNtoRegexec(preg.rawAddress.toCPointer<ByteVar>(), str.rawAddress.toCPointer<ByteVar>(), nmatch, pmatch.rawAddress.toCPointer<ByteVar>(), eflags)
 
-public actual fun regerror(errcode: CInt, preg: COpaquePointer?, errbuf: COpaquePointer?, errbufSize: SizeT): SizeT =
-    libc_unix_nto_regerror(errcode, preg?.value?.toCPointer<ByteVar>(), errbuf?.value?.toCPointer<ByteVar>(), errbufSize)
+public actual fun regerror(errcode: CInt, preg: ConstPtr<RegexT>, errbuf: MutPtr<CChar>, errbufSize: SizeT): SizeT =
+    libcUnixNtoRegerror(errcode, preg.rawAddress.toCPointer<ByteVar>(), errbuf.rawAddress.toCPointer<ByteVar>(), errbufSize)
 
-public actual fun regfree(preg: COpaquePointer?) {
-    libc_unix_nto_regfree(preg?.value?.toCPointer<ByteVar>())
+public actual fun regfree(preg: MutPtr<RegexT>) {
+    libcUnixNtoRegfree(preg.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun dirfd(dirp: DIR?): CInt =
-    libc_unix_nto_dirfd(dirp?.handle?.toCPointer<ByteVar>())
+public actual fun dirfd(dirp: MutPtr<DIR>): CInt =
+    libcUnixNtoDirfd(dirp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun dircntl(dir: DIR?, cmd: CInt, vararg variadicArgs: Long): CInt =
-    libc_unix_nto_dircntl(dir?.handle?.toCPointer<ByteVar>(), cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun dircntl(dir: MutPtr<DIR>, cmd: CInt, vararg variadicArgs: Long): CInt =
+    libcUnixNtoDircntl(dir.rawAddress.toCPointer<ByteVar>(), cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun aioCancel(fd: CInt, aiocbp: COpaquePointer?): CInt =
-    libc_unix_nto_aioCancel(fd, aiocbp?.value?.toCPointer<ByteVar>())
+public actual fun aioCancel(fd: CInt, aiocbp: MutPtr<Aiocb>): CInt =
+    libcUnixNtoAioCancel(fd, aiocbp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun aioError(aiocbp: COpaquePointer?): CInt =
-    libc_unix_nto_aioError(aiocbp?.value?.toCPointer<ByteVar>())
+public actual fun aioError(aiocbp: ConstPtr<Aiocb>): CInt =
+    libcUnixNtoAioError(aiocbp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun aioFsync(operation: CInt, aiocbp: COpaquePointer?): CInt =
-    libc_unix_nto_aioFsync(operation, aiocbp?.value?.toCPointer<ByteVar>())
+public actual fun aioFsync(operation: CInt, aiocbp: MutPtr<Aiocb>): CInt =
+    libcUnixNtoAioFsync(operation, aiocbp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun aioRead(aiocbp: COpaquePointer?): CInt =
-    libc_unix_nto_aioRead(aiocbp?.value?.toCPointer<ByteVar>())
+public actual fun aioRead(aiocbp: MutPtr<Aiocb>): CInt =
+    libcUnixNtoAioRead(aiocbp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun aioReturn(aiocpb: COpaquePointer?): SsizeT =
-    libc_unix_nto_aioReturn(aiocpb?.value?.toCPointer<ByteVar>())
+public actual fun aioReturn(aiocpb: MutPtr<Aiocb>): SsizeT =
+    libcUnixNtoAioReturn(aiocpb.rawAddress.toCPointer<ByteVar>())
 
-public actual fun aioSuspend(list: COpaquePointer?, nent: CInt, timeout: COpaquePointer?): CInt =
-    libc_unix_nto_aioSuspend(list?.value?.toCPointer<ByteVar>(), nent, timeout?.value?.toCPointer<ByteVar>())
+public actual fun aioSuspend(list: ConstPtr<ConstPtr<Aiocb>>, nent: CInt, timeout: ConstPtr<Timespec>): CInt =
+    libcUnixNtoAioSuspend(list.rawAddress.toCPointer<ByteVar>(), nent, timeout.rawAddress.toCPointer<ByteVar>())
 
-public actual fun aioWrite(aiocpb: COpaquePointer?): CInt =
-    libc_unix_nto_aioWrite(aiocpb?.value?.toCPointer<ByteVar>())
+public actual fun aioWrite(aiocpb: MutPtr<Aiocb>): CInt =
+    libcUnixNtoAioWrite(aiocpb.rawAddress.toCPointer<ByteVar>())
 
 public actual fun mqClose(mqdes: MqdT): CInt =
-    libc_unix_nto_mqClose(mqdes.toLong().toCPointer<ByteVar>())
+    libcUnixNtoMqClose(mqdes.toLong().toCPointer<ByteVar>())
 
-public actual fun mqGetattr(mqdes: MqdT, mqstat: COpaquePointer?): CInt =
-    libc_unix_nto_mqGetattr(mqdes.toLong().toCPointer<ByteVar>(), mqstat?.value?.toCPointer<ByteVar>())
+public actual fun mqGetattr(mqdes: MqdT, mqstat: MutPtr<MqAttr>): CInt =
+    libcUnixNtoMqGetattr(mqdes.toLong().toCPointer<ByteVar>(), mqstat.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mqNotify(mqdes: MqdT, notification: COpaquePointer?): CInt =
-    libc_unix_nto_mqNotify(mqdes.toLong().toCPointer<ByteVar>(), notification?.value?.toCPointer<ByteVar>())
+public actual fun mqNotify(mqdes: MqdT, notification: ConstPtr<Sigevent>): CInt =
+    libcUnixNtoMqNotify(mqdes.toLong().toCPointer<ByteVar>(), notification.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
-    (libc_unix_nto_mqOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.toLong() ?: 0L).toInt()
+public actual fun mqOpen(name: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): MqdT =
+    (libcUnixNtoMqOpen(name.rawAddress.toCPointer<ByteVar>(), oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.toLong() ?: 0L).toInt()
 
-public actual fun mqReceive(mqdes: MqdT, msgPtr: COpaquePointer?, msgLen: SizeT, msgPrio: COpaquePointer?): SsizeT =
-    libc_unix_nto_mqReceive(mqdes.toLong().toCPointer<ByteVar>(), msgPtr?.value?.toCPointer<ByteVar>(), msgLen, msgPrio?.value?.toCPointer<ByteVar>())
+public actual fun mqReceive(mqdes: MqdT, msgPtr: MutPtr<CChar>, msgLen: SizeT, msgPrio: MutPtr<CUint>): SsizeT =
+    libcUnixNtoMqReceive(mqdes.toLong().toCPointer<ByteVar>(), msgPtr.rawAddress.toCPointer<ByteVar>(), msgLen, msgPrio.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mqSend(mqdes: MqdT, msgPtr: String?, msgLen: SizeT, msgPrio: CUint): CInt =
-    libc_unix_nto_mqSend(mqdes.toLong().toCPointer<ByteVar>(), msgPtr, msgLen, msgPrio)
+public actual fun mqSend(mqdes: MqdT, msgPtr: ConstPtr<CChar>, msgLen: SizeT, msgPrio: CUint): CInt =
+    libcUnixNtoMqSend(mqdes.toLong().toCPointer<ByteVar>(), msgPtr.rawAddress.toCPointer<ByteVar>(), msgLen, msgPrio)
 
-public actual fun mqSetattr(mqdes: MqdT, mqstat: COpaquePointer?, omqstat: COpaquePointer?): CInt =
-    libc_unix_nto_mqSetattr(mqdes.toLong().toCPointer<ByteVar>(), mqstat?.value?.toCPointer<ByteVar>(), omqstat?.value?.toCPointer<ByteVar>())
+public actual fun mqSetattr(mqdes: MqdT, mqstat: ConstPtr<MqAttr>, omqstat: MutPtr<MqAttr>): CInt =
+    libcUnixNtoMqSetattr(mqdes.toLong().toCPointer<ByteVar>(), mqstat.rawAddress.toCPointer<ByteVar>(), omqstat.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mqTimedreceive(mqdes: MqdT, msgPtr: COpaquePointer?, msgLen: SizeT, msgPrio: COpaquePointer?, absTimeout: COpaquePointer?): SsizeT =
-    libc_unix_nto_mqTimedreceive(mqdes.toLong().toCPointer<ByteVar>(), msgPtr?.value?.toCPointer<ByteVar>(), msgLen, msgPrio?.value?.toCPointer<ByteVar>(), absTimeout?.value?.toCPointer<ByteVar>())
+public actual fun mqTimedreceive(mqdes: MqdT, msgPtr: MutPtr<CChar>, msgLen: SizeT, msgPrio: MutPtr<CUint>, absTimeout: ConstPtr<Timespec>): SsizeT =
+    libcUnixNtoMqTimedreceive(mqdes.toLong().toCPointer<ByteVar>(), msgPtr.rawAddress.toCPointer<ByteVar>(), msgLen, msgPrio.rawAddress.toCPointer<ByteVar>(), absTimeout.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mqTimedsend(mqdes: MqdT, msgPtr: String?, msgLen: SizeT, msgPrio: CUint, absTimeout: COpaquePointer?): CInt =
-    libc_unix_nto_mqTimedsend(mqdes.toLong().toCPointer<ByteVar>(), msgPtr, msgLen, msgPrio, absTimeout?.value?.toCPointer<ByteVar>())
+public actual fun mqTimedsend(mqdes: MqdT, msgPtr: ConstPtr<CChar>, msgLen: SizeT, msgPrio: CUint, absTimeout: ConstPtr<Timespec>): CInt =
+    libcUnixNtoMqTimedsend(mqdes.toLong().toCPointer<ByteVar>(), msgPtr.rawAddress.toCPointer<ByteVar>(), msgLen, msgPrio, absTimeout.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mqUnlink(name: String?): CInt =
-    libc_unix_nto_mqUnlink(name)
+public actual fun mqUnlink(name: ConstPtr<CChar>): CInt =
+    libcUnixNtoMqUnlink(name.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getErrnoPtr(): COpaquePointer? =
-    libc_unix_nto_getErrnoPtr()?.let { COpaquePointer(it.toLong()) }
+public actual fun getErrnoPtr(): MutPtr<CInt> =
+    MutPtr(libcUnixNtoGetErrnoPtr()?.toLong() ?: 0L)
 
-public actual fun myThreadExit(valuePtr: COpaquePointer?) {
-    libc_unix_nto_myThreadExit(valuePtr?.value?.toCPointer<ByteVar>())
+public actual fun myThreadExit(valuePtr: MutPtr<ConstPtr<CVoid>>) {
+    libcUnixNtoMyThreadExit(valuePtr.rawAddress.toCPointer<ByteVar>())
 }

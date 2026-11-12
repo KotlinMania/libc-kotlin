@@ -3,3 +3,4 @@ headers = unix_bsd_freebsdlike_freebsd_freebsd11_wrapper.h
 headerFilter = unix_bsd_freebsdlike_freebsd_freebsd11_wrapper.h
 compilerOpts = -Isrc/native/interop/cinterop
 staticLibraries = unix_bsd_freebsdlike_freebsd_freebsd11_wrapper.a
+noStringConversion = libcUnixBsdFreebsdlikeFreebsdFreebsd11Dirname libcUnixBsdFreebsdlikeFreebsdFreebsd11Basename

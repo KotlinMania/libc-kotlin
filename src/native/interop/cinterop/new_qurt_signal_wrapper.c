@@ -16,7 +16,7 @@
 #endif
 #endif
 
-uint64_t libc_new_qurt_signal_signal(int32_t sig, uint64_t handler) {
+uint64_t libcNewQurtSignalSignal(int32_t sig, uint64_t handler) {
     typedef uint64_t (*km_fn_t)(int32_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -44,7 +44,7 @@ uint64_t libc_new_qurt_signal_signal(int32_t sig, uint64_t handler) {
     return 0;
 }
 
-int32_t libc_new_qurt_signal_kill(int32_t pid, int32_t sig) {
+int32_t libcNewQurtSignalKill(int32_t pid, int32_t sig) {
 #if !defined(_WIN32)
     return (int32_t)kill(pid, sig);
 #else
@@ -55,11 +55,11 @@ int32_t libc_new_qurt_signal_kill(int32_t pid, int32_t sig) {
 #endif
 }
 
-int32_t libc_new_qurt_signal_raise(int32_t sig) {
+int32_t libcNewQurtSignalRaise(int32_t sig) {
     return (int32_t)raise(sig);
 }
 
-uint32_t libc_new_qurt_signal_alarm(uint32_t seconds) {
+uint32_t libcNewQurtSignalAlarm(uint32_t seconds) {
     typedef uint32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -87,7 +87,7 @@ uint32_t libc_new_qurt_signal_alarm(uint32_t seconds) {
     return 0;
 }
 
-int32_t libc_new_qurt_signal_pause(void) {
+int32_t libcNewQurtSignalPause(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -115,7 +115,7 @@ int32_t libc_new_qurt_signal_pause(void) {
     return -1;
 }
 
-int32_t libc_new_qurt_signal_sigemptyset(void* set) {
+int32_t libcNewQurtSignalSigemptyset(void* set) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -143,7 +143,7 @@ int32_t libc_new_qurt_signal_sigemptyset(void* set) {
     return -1;
 }
 
-int32_t libc_new_qurt_signal_sigfillset(void* set) {
+int32_t libcNewQurtSignalSigfillset(void* set) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -171,7 +171,7 @@ int32_t libc_new_qurt_signal_sigfillset(void* set) {
     return -1;
 }
 
-int32_t libc_new_qurt_signal_sigaddset(void* set, int32_t signum) {
+int32_t libcNewQurtSignalSigaddset(void* set, int32_t signum) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -199,7 +199,7 @@ int32_t libc_new_qurt_signal_sigaddset(void* set, int32_t signum) {
     return -1;
 }
 
-int32_t libc_new_qurt_signal_sigdelset(void* set, int32_t signum) {
+int32_t libcNewQurtSignalSigdelset(void* set, int32_t signum) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -227,7 +227,7 @@ int32_t libc_new_qurt_signal_sigdelset(void* set, int32_t signum) {
     return -1;
 }
 
-int32_t libc_new_qurt_signal_sigismember(void* set, int32_t signum) {
+int32_t libcNewQurtSignalSigismember(void* set, int32_t signum) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -255,7 +255,7 @@ int32_t libc_new_qurt_signal_sigismember(void* set, int32_t signum) {
     return -1;
 }
 
-int32_t libc_new_qurt_signal_sigprocmask(int32_t how, void* set, void* oldset) {
+int32_t libcNewQurtSignalSigprocmask(int32_t how, void* set, void* oldset) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -283,7 +283,7 @@ int32_t libc_new_qurt_signal_sigprocmask(int32_t how, void* set, void* oldset) {
     return -1;
 }
 
-int32_t libc_new_qurt_signal_sigpending(void* set) {
+int32_t libcNewQurtSignalSigpending(void* set) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -311,7 +311,7 @@ int32_t libc_new_qurt_signal_sigpending(void* set) {
     return -1;
 }
 
-int32_t libc_new_qurt_signal_sigsuspend(void* mask) {
+int32_t libcNewQurtSignalSigsuspend(void* mask) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -339,7 +339,7 @@ int32_t libc_new_qurt_signal_sigsuspend(void* mask) {
     return -1;
 }
 
-int32_t libc_new_qurt_signal_sigwait(void* set, void* sig) {
+int32_t libcNewQurtSignalSigwait(void* set, void* sig) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -367,7 +367,7 @@ int32_t libc_new_qurt_signal_sigwait(void* set, void* sig) {
     return -1;
 }
 
-int32_t libc_new_qurt_signal_sigaction(int32_t sig, void* act, void* oact) {
+int32_t libcNewQurtSignalSigaction(int32_t sig, void* act, void* oact) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -393,7 +393,7 @@ int32_t libc_new_qurt_signal_sigaction(int32_t sig, void* act, void* oact) {
     return -1;
 }
 
-int32_t libc_new_qurt_signal_sigtimedwait(void* set, void* info, void* timeout) {
+int32_t libcNewQurtSignalSigtimedwait(void* set, void* info, void* timeout) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

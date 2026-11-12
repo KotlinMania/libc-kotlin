@@ -5,7 +5,6 @@ package io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b32.mips
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUshort
 import io.github.kotlinmania.libc.unix.GidT
@@ -26,6 +25,10 @@ import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.OffT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.TimeT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b32.BlksizeT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b32.NlinkT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+import io.github.kotlinmania.rustlang.core.mem.TypeLayout
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public class Stat(
     public var stDev: DevT = 0uL,
@@ -61,11 +64,80 @@ public data class CAnonymousTimespec32(
     public var tvNsec: CLong = 0L,
 )
 
-public data class StackT(
-    public var ssSp: COpaquePointer? = null,
-    public var ssSize: SizeT = 0uL,
-    public var ssFlags: CInt = 0,
-)
+public class StackT internal constructor(
+    ssSpCtorArg: MutPtr<CVoid>,
+    public var ssSize: SizeT,
+    public var ssFlags: CInt,
+) {
+    public var ssSp: MutPtr<CVoid> = ssSpCtorArg
+        internal set
+
+    public constructor() : this(
+        ssSpCtorArg = MutPtr(0L),
+        ssSize = 0uL,
+        ssFlags = 0,
+    )
+
+    public operator fun component1(): MutPtr<CVoid> = this.ssSp
+
+    public operator fun component2(): SizeT = this.ssSize
+
+    public operator fun component3(): CInt = this.ssFlags
+
+    public fun copy(ssSp: MutPtr<CVoid> = this.ssSp, ssSize: SizeT = this.ssSize, ssFlags: CInt = this.ssFlags): StackT = StackT(ssSpCtorArg = ssSp, ssSize = ssSize, ssFlags = ssFlags)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is StackT) return false
+        if (this.ssSp != other.ssSp) return false
+        if (this.ssSize != other.ssSize) return false
+        if (this.ssFlags != other.ssFlags) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.ssSp.hashCode()
+        result = 31 * result + this.ssSize.hashCode()
+        result = 31 * result + this.ssFlags.hashCode()
+        return result
+    }
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<StackT> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<StackT> {
+                override val sizeBytes: Long = 24L
+                override val alignBytes: Long = 8L
+                override fun readNative(addr: Long): StackT =
+                    StackT(
+                        (
+                            io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+                                .mutPtrLayout<CVoid>(64)
+                        ).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.USIZE64).readNative(addr + 8L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 16L),
+                    )
+                override fun writeNative(addr: Long, value: StackT) {
+                    (
+                        io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+                            .mutPtrLayout<CVoid>(64)
+                    ).writeNative(addr, value.ssSp)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.USIZE64).writeNative(addr + 8L, value.ssSize)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 16L, value.ssFlags)
+                }
+            }
+
+        public operator fun invoke(
+            ssSp: MutPtr<CVoid> = MutPtr(0L),
+            ssSize: SizeT = 0uL,
+            ssFlags: CInt = 0,
+        ): StackT =
+            StackT(
+                ssSpCtorArg = ssSp,
+                ssSize = ssSize,
+                ssFlags = ssFlags,
+            )
+    }
+}
 
 public data class IpcPerm(
     public var key: KeyT = 0,
@@ -228,4 +300,25 @@ public data class MaxAlignT(
     }
 
     override fun hashCode(): Int = this.priv.contentHashCode()
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<MaxAlignT> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<MaxAlignT> {
+                override val sizeBytes: Long = 16L
+                override val alignBytes: Long = 8L
+                override fun readNative(addr: Long): MaxAlignT =
+                    MaxAlignT(
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.F32, (4).toInt())
+                        ).readNative(addr),
+                    )
+                override fun writeNative(addr: Long, value: MaxAlignT) {
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.F32, (4).toInt())
+                    ).writeNative(addr, value.priv)
+                }
+            }
+    }
 }

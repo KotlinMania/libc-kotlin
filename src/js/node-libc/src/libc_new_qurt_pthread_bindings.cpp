@@ -51,11 +51,11 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_new_qurt_pthread_pthreadCreate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtPthreadPthreadCreate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* thread = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* start_routine = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* startRoutine = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* arg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -79,7 +79,7 @@ static Napi::Value libc_new_qurt_pthread_pthreadCreate_napi(const Napi::Callback
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(thread, attr, start_routine, arg);
+        km_res = km_fn_ptr(thread, attr, startRoutine, arg);
     } else {
         errno = ENOSYS;
         km_res = ENOSYS;
@@ -87,7 +87,7 @@ static Napi::Value libc_new_qurt_pthread_pthreadCreate_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_pthread_pthreadJoin_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtPthreadPthreadJoin_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* thread = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* retval = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -121,7 +121,7 @@ static Napi::Value libc_new_qurt_pthread_pthreadJoin_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_pthread_pthreadDetach_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtPthreadPthreadDetach_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* thread = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -154,7 +154,7 @@ static Napi::Value libc_new_qurt_pthread_pthreadDetach_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_pthread_pthreadExit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtPthreadPthreadExit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* retval = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -185,7 +185,7 @@ static Napi::Value libc_new_qurt_pthread_pthreadExit_napi(const Napi::CallbackIn
     return km_env.Undefined();
 }
 
-static Napi::Value libc_new_qurt_pthread_pthreadSelf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtPthreadPthreadSelf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -217,7 +217,7 @@ static Napi::Value libc_new_qurt_pthread_pthreadSelf_napi(const Napi::CallbackIn
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_new_qurt_pthread_pthreadEqual_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtPthreadPthreadEqual_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* t1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* t2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -251,7 +251,7 @@ static Napi::Value libc_new_qurt_pthread_pthreadEqual_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_pthread_pthreadAttrInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtPthreadPthreadAttrInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -284,7 +284,7 @@ static Napi::Value libc_new_qurt_pthread_pthreadAttrInit_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_pthread_pthreadAttrDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtPthreadPthreadAttrDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -317,7 +317,7 @@ static Napi::Value libc_new_qurt_pthread_pthreadAttrDestroy_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_pthread_pthreadAttrSetstacksize_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtPthreadPthreadAttrSetstacksize_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t stacksize = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -351,7 +351,7 @@ static Napi::Value libc_new_qurt_pthread_pthreadAttrSetstacksize_napi(const Napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_pthread_pthreadAttrGetstacksize_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtPthreadPthreadAttrGetstacksize_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* stacksize = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -385,7 +385,7 @@ static Napi::Value libc_new_qurt_pthread_pthreadAttrGetstacksize_napi(const Napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_pthread_pthreadAttrSetdetachstate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtPthreadPthreadAttrSetdetachstate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t detachstate = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -419,7 +419,7 @@ static Napi::Value libc_new_qurt_pthread_pthreadAttrSetdetachstate_napi(const Na
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_pthread_pthreadAttrGetdetachstate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtPthreadPthreadAttrGetdetachstate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* detachstate = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -453,7 +453,7 @@ static Napi::Value libc_new_qurt_pthread_pthreadAttrGetdetachstate_napi(const Na
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_pthread_pthreadMutexInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtPthreadPthreadMutexInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mutex = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -487,7 +487,7 @@ static Napi::Value libc_new_qurt_pthread_pthreadMutexInit_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_pthread_pthreadMutexDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtPthreadPthreadMutexDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mutex = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -520,7 +520,7 @@ static Napi::Value libc_new_qurt_pthread_pthreadMutexDestroy_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_pthread_pthreadMutexLock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtPthreadPthreadMutexLock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mutex = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -553,7 +553,7 @@ static Napi::Value libc_new_qurt_pthread_pthreadMutexLock_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_pthread_pthreadMutexTrylock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtPthreadPthreadMutexTrylock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mutex = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -586,7 +586,7 @@ static Napi::Value libc_new_qurt_pthread_pthreadMutexTrylock_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_pthread_pthreadMutexUnlock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtPthreadPthreadMutexUnlock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mutex = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -619,7 +619,7 @@ static Napi::Value libc_new_qurt_pthread_pthreadMutexUnlock_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_pthread_pthreadMutexattrInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtPthreadPthreadMutexattrInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -652,7 +652,7 @@ static Napi::Value libc_new_qurt_pthread_pthreadMutexattrInit_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_pthread_pthreadMutexattrDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtPthreadPthreadMutexattrDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -685,7 +685,7 @@ static Napi::Value libc_new_qurt_pthread_pthreadMutexattrDestroy_napi(const Napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_pthread_pthreadMutexattrSettype_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtPthreadPthreadMutexattrSettype_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t kind = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -719,7 +719,7 @@ static Napi::Value libc_new_qurt_pthread_pthreadMutexattrSettype_napi(const Napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_pthread_pthreadMutexattrGettype_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtPthreadPthreadMutexattrGettype_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* kind = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -753,7 +753,7 @@ static Napi::Value libc_new_qurt_pthread_pthreadMutexattrGettype_napi(const Napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_pthread_pthreadCondInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtPthreadPthreadCondInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cond = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -787,7 +787,7 @@ static Napi::Value libc_new_qurt_pthread_pthreadCondInit_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_pthread_pthreadCondDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtPthreadPthreadCondDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cond = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -820,7 +820,7 @@ static Napi::Value libc_new_qurt_pthread_pthreadCondDestroy_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_pthread_pthreadCondWait_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtPthreadPthreadCondWait_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cond = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* mutex = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -854,7 +854,7 @@ static Napi::Value libc_new_qurt_pthread_pthreadCondWait_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_pthread_pthreadCondTimedwait_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtPthreadPthreadCondTimedwait_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cond = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* mutex = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -889,7 +889,7 @@ static Napi::Value libc_new_qurt_pthread_pthreadCondTimedwait_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_pthread_pthreadCondSignal_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtPthreadPthreadCondSignal_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cond = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -922,7 +922,7 @@ static Napi::Value libc_new_qurt_pthread_pthreadCondSignal_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_pthread_pthreadCondBroadcast_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtPthreadPthreadCondBroadcast_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cond = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -955,7 +955,7 @@ static Napi::Value libc_new_qurt_pthread_pthreadCondBroadcast_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_pthread_pthreadCondattrInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtPthreadPthreadCondattrInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -988,7 +988,7 @@ static Napi::Value libc_new_qurt_pthread_pthreadCondattrInit_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_pthread_pthreadCondattrDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtPthreadPthreadCondattrDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -1021,10 +1021,10 @@ static Napi::Value libc_new_qurt_pthread_pthreadCondattrDestroy_napi(const Napi:
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_pthread_pthreadCondattrSetclock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtPthreadPthreadCondattrSetclock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    int32_t clock_id = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t clockId = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1047,7 +1047,7 @@ static Napi::Value libc_new_qurt_pthread_pthreadCondattrSetclock_napi(const Napi
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(attr, clock_id);
+        km_res = km_fn_ptr(attr, clockId);
     } else {
         errno = ENOSYS;
         km_res = ENOSYS;
@@ -1055,7 +1055,7 @@ static Napi::Value libc_new_qurt_pthread_pthreadCondattrSetclock_napi(const Napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_pthread_pthreadKeyCreate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtPthreadPthreadKeyCreate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* key = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* destructor = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1089,7 +1089,7 @@ static Napi::Value libc_new_qurt_pthread_pthreadKeyCreate_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_pthread_pthreadKeyDelete_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtPthreadPthreadKeyDelete_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t key = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -1122,7 +1122,7 @@ static Napi::Value libc_new_qurt_pthread_pthreadKeyDelete_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_pthread_pthreadGetspecific_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtPthreadPthreadGetspecific_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t key = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void* (*km_fn_t)(int32_t);
@@ -1155,7 +1155,7 @@ static Napi::Value libc_new_qurt_pthread_pthreadGetspecific_napi(const Napi::Cal
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_new_qurt_pthread_pthreadSetspecific_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtPthreadPthreadSetspecific_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t key = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1189,10 +1189,10 @@ static Napi::Value libc_new_qurt_pthread_pthreadSetspecific_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_pthread_pthreadOnce_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtPthreadPthreadOnce_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* once_control = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* init_routine = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* onceControl = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* initRoutine = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1215,7 +1215,7 @@ static Napi::Value libc_new_qurt_pthread_pthreadOnce_napi(const Napi::CallbackIn
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(once_control, init_routine);
+        km_res = km_fn_ptr(onceControl, initRoutine);
     } else {
         errno = ENOSYS;
         km_res = ENOSYS;
@@ -1223,7 +1223,7 @@ static Napi::Value libc_new_qurt_pthread_pthreadOnce_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_pthread_pthreadGetnameNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtPthreadPthreadGetnameNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* thread = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* name = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1258,7 +1258,7 @@ static Napi::Value libc_new_qurt_pthread_pthreadGetnameNp_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_pthread_pthreadAttrSetaffinityNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtPthreadPthreadAttrSetaffinityNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t cpusetsize = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1293,7 +1293,7 @@ static Napi::Value libc_new_qurt_pthread_pthreadAttrSetaffinityNp_napi(const Nap
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_pthread_pthreadAttrGetaffinityNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtPthreadPthreadAttrGetaffinityNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t cpusetsize = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1328,7 +1328,7 @@ static Napi::Value libc_new_qurt_pthread_pthreadAttrGetaffinityNp_napi(const Nap
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_pthread_posixMemalign_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtPthreadPosixMemalign_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* memptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t alignment = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1364,45 +1364,45 @@ static Napi::Value libc_new_qurt_pthread_posixMemalign_napi(const Napi::Callback
 }
 
 static void register_new_qurt_pthread_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_new_qurt_pthread_pthreadCreate", Napi::Function::New(env, libc_new_qurt_pthread_pthreadCreate_napi));
-    exports.Set("libc_new_qurt_pthread_pthreadJoin", Napi::Function::New(env, libc_new_qurt_pthread_pthreadJoin_napi));
-    exports.Set("libc_new_qurt_pthread_pthreadDetach", Napi::Function::New(env, libc_new_qurt_pthread_pthreadDetach_napi));
-    exports.Set("libc_new_qurt_pthread_pthreadExit", Napi::Function::New(env, libc_new_qurt_pthread_pthreadExit_napi));
-    exports.Set("libc_new_qurt_pthread_pthreadSelf", Napi::Function::New(env, libc_new_qurt_pthread_pthreadSelf_napi));
-    exports.Set("libc_new_qurt_pthread_pthreadEqual", Napi::Function::New(env, libc_new_qurt_pthread_pthreadEqual_napi));
-    exports.Set("libc_new_qurt_pthread_pthreadAttrInit", Napi::Function::New(env, libc_new_qurt_pthread_pthreadAttrInit_napi));
-    exports.Set("libc_new_qurt_pthread_pthreadAttrDestroy", Napi::Function::New(env, libc_new_qurt_pthread_pthreadAttrDestroy_napi));
-    exports.Set("libc_new_qurt_pthread_pthreadAttrSetstacksize", Napi::Function::New(env, libc_new_qurt_pthread_pthreadAttrSetstacksize_napi));
-    exports.Set("libc_new_qurt_pthread_pthreadAttrGetstacksize", Napi::Function::New(env, libc_new_qurt_pthread_pthreadAttrGetstacksize_napi));
-    exports.Set("libc_new_qurt_pthread_pthreadAttrSetdetachstate", Napi::Function::New(env, libc_new_qurt_pthread_pthreadAttrSetdetachstate_napi));
-    exports.Set("libc_new_qurt_pthread_pthreadAttrGetdetachstate", Napi::Function::New(env, libc_new_qurt_pthread_pthreadAttrGetdetachstate_napi));
-    exports.Set("libc_new_qurt_pthread_pthreadMutexInit", Napi::Function::New(env, libc_new_qurt_pthread_pthreadMutexInit_napi));
-    exports.Set("libc_new_qurt_pthread_pthreadMutexDestroy", Napi::Function::New(env, libc_new_qurt_pthread_pthreadMutexDestroy_napi));
-    exports.Set("libc_new_qurt_pthread_pthreadMutexLock", Napi::Function::New(env, libc_new_qurt_pthread_pthreadMutexLock_napi));
-    exports.Set("libc_new_qurt_pthread_pthreadMutexTrylock", Napi::Function::New(env, libc_new_qurt_pthread_pthreadMutexTrylock_napi));
-    exports.Set("libc_new_qurt_pthread_pthreadMutexUnlock", Napi::Function::New(env, libc_new_qurt_pthread_pthreadMutexUnlock_napi));
-    exports.Set("libc_new_qurt_pthread_pthreadMutexattrInit", Napi::Function::New(env, libc_new_qurt_pthread_pthreadMutexattrInit_napi));
-    exports.Set("libc_new_qurt_pthread_pthreadMutexattrDestroy", Napi::Function::New(env, libc_new_qurt_pthread_pthreadMutexattrDestroy_napi));
-    exports.Set("libc_new_qurt_pthread_pthreadMutexattrSettype", Napi::Function::New(env, libc_new_qurt_pthread_pthreadMutexattrSettype_napi));
-    exports.Set("libc_new_qurt_pthread_pthreadMutexattrGettype", Napi::Function::New(env, libc_new_qurt_pthread_pthreadMutexattrGettype_napi));
-    exports.Set("libc_new_qurt_pthread_pthreadCondInit", Napi::Function::New(env, libc_new_qurt_pthread_pthreadCondInit_napi));
-    exports.Set("libc_new_qurt_pthread_pthreadCondDestroy", Napi::Function::New(env, libc_new_qurt_pthread_pthreadCondDestroy_napi));
-    exports.Set("libc_new_qurt_pthread_pthreadCondWait", Napi::Function::New(env, libc_new_qurt_pthread_pthreadCondWait_napi));
-    exports.Set("libc_new_qurt_pthread_pthreadCondTimedwait", Napi::Function::New(env, libc_new_qurt_pthread_pthreadCondTimedwait_napi));
-    exports.Set("libc_new_qurt_pthread_pthreadCondSignal", Napi::Function::New(env, libc_new_qurt_pthread_pthreadCondSignal_napi));
-    exports.Set("libc_new_qurt_pthread_pthreadCondBroadcast", Napi::Function::New(env, libc_new_qurt_pthread_pthreadCondBroadcast_napi));
-    exports.Set("libc_new_qurt_pthread_pthreadCondattrInit", Napi::Function::New(env, libc_new_qurt_pthread_pthreadCondattrInit_napi));
-    exports.Set("libc_new_qurt_pthread_pthreadCondattrDestroy", Napi::Function::New(env, libc_new_qurt_pthread_pthreadCondattrDestroy_napi));
-    exports.Set("libc_new_qurt_pthread_pthreadCondattrSetclock", Napi::Function::New(env, libc_new_qurt_pthread_pthreadCondattrSetclock_napi));
-    exports.Set("libc_new_qurt_pthread_pthreadKeyCreate", Napi::Function::New(env, libc_new_qurt_pthread_pthreadKeyCreate_napi));
-    exports.Set("libc_new_qurt_pthread_pthreadKeyDelete", Napi::Function::New(env, libc_new_qurt_pthread_pthreadKeyDelete_napi));
-    exports.Set("libc_new_qurt_pthread_pthreadGetspecific", Napi::Function::New(env, libc_new_qurt_pthread_pthreadGetspecific_napi));
-    exports.Set("libc_new_qurt_pthread_pthreadSetspecific", Napi::Function::New(env, libc_new_qurt_pthread_pthreadSetspecific_napi));
-    exports.Set("libc_new_qurt_pthread_pthreadOnce", Napi::Function::New(env, libc_new_qurt_pthread_pthreadOnce_napi));
-    exports.Set("libc_new_qurt_pthread_pthreadGetnameNp", Napi::Function::New(env, libc_new_qurt_pthread_pthreadGetnameNp_napi));
-    exports.Set("libc_new_qurt_pthread_pthreadAttrSetaffinityNp", Napi::Function::New(env, libc_new_qurt_pthread_pthreadAttrSetaffinityNp_napi));
-    exports.Set("libc_new_qurt_pthread_pthreadAttrGetaffinityNp", Napi::Function::New(env, libc_new_qurt_pthread_pthreadAttrGetaffinityNp_napi));
-    exports.Set("libc_new_qurt_pthread_posixMemalign", Napi::Function::New(env, libc_new_qurt_pthread_posixMemalign_napi));
+    exports.Set("libcNewQurtPthreadPthreadCreate", Napi::Function::New(env, libcNewQurtPthreadPthreadCreate_napi));
+    exports.Set("libcNewQurtPthreadPthreadJoin", Napi::Function::New(env, libcNewQurtPthreadPthreadJoin_napi));
+    exports.Set("libcNewQurtPthreadPthreadDetach", Napi::Function::New(env, libcNewQurtPthreadPthreadDetach_napi));
+    exports.Set("libcNewQurtPthreadPthreadExit", Napi::Function::New(env, libcNewQurtPthreadPthreadExit_napi));
+    exports.Set("libcNewQurtPthreadPthreadSelf", Napi::Function::New(env, libcNewQurtPthreadPthreadSelf_napi));
+    exports.Set("libcNewQurtPthreadPthreadEqual", Napi::Function::New(env, libcNewQurtPthreadPthreadEqual_napi));
+    exports.Set("libcNewQurtPthreadPthreadAttrInit", Napi::Function::New(env, libcNewQurtPthreadPthreadAttrInit_napi));
+    exports.Set("libcNewQurtPthreadPthreadAttrDestroy", Napi::Function::New(env, libcNewQurtPthreadPthreadAttrDestroy_napi));
+    exports.Set("libcNewQurtPthreadPthreadAttrSetstacksize", Napi::Function::New(env, libcNewQurtPthreadPthreadAttrSetstacksize_napi));
+    exports.Set("libcNewQurtPthreadPthreadAttrGetstacksize", Napi::Function::New(env, libcNewQurtPthreadPthreadAttrGetstacksize_napi));
+    exports.Set("libcNewQurtPthreadPthreadAttrSetdetachstate", Napi::Function::New(env, libcNewQurtPthreadPthreadAttrSetdetachstate_napi));
+    exports.Set("libcNewQurtPthreadPthreadAttrGetdetachstate", Napi::Function::New(env, libcNewQurtPthreadPthreadAttrGetdetachstate_napi));
+    exports.Set("libcNewQurtPthreadPthreadMutexInit", Napi::Function::New(env, libcNewQurtPthreadPthreadMutexInit_napi));
+    exports.Set("libcNewQurtPthreadPthreadMutexDestroy", Napi::Function::New(env, libcNewQurtPthreadPthreadMutexDestroy_napi));
+    exports.Set("libcNewQurtPthreadPthreadMutexLock", Napi::Function::New(env, libcNewQurtPthreadPthreadMutexLock_napi));
+    exports.Set("libcNewQurtPthreadPthreadMutexTrylock", Napi::Function::New(env, libcNewQurtPthreadPthreadMutexTrylock_napi));
+    exports.Set("libcNewQurtPthreadPthreadMutexUnlock", Napi::Function::New(env, libcNewQurtPthreadPthreadMutexUnlock_napi));
+    exports.Set("libcNewQurtPthreadPthreadMutexattrInit", Napi::Function::New(env, libcNewQurtPthreadPthreadMutexattrInit_napi));
+    exports.Set("libcNewQurtPthreadPthreadMutexattrDestroy", Napi::Function::New(env, libcNewQurtPthreadPthreadMutexattrDestroy_napi));
+    exports.Set("libcNewQurtPthreadPthreadMutexattrSettype", Napi::Function::New(env, libcNewQurtPthreadPthreadMutexattrSettype_napi));
+    exports.Set("libcNewQurtPthreadPthreadMutexattrGettype", Napi::Function::New(env, libcNewQurtPthreadPthreadMutexattrGettype_napi));
+    exports.Set("libcNewQurtPthreadPthreadCondInit", Napi::Function::New(env, libcNewQurtPthreadPthreadCondInit_napi));
+    exports.Set("libcNewQurtPthreadPthreadCondDestroy", Napi::Function::New(env, libcNewQurtPthreadPthreadCondDestroy_napi));
+    exports.Set("libcNewQurtPthreadPthreadCondWait", Napi::Function::New(env, libcNewQurtPthreadPthreadCondWait_napi));
+    exports.Set("libcNewQurtPthreadPthreadCondTimedwait", Napi::Function::New(env, libcNewQurtPthreadPthreadCondTimedwait_napi));
+    exports.Set("libcNewQurtPthreadPthreadCondSignal", Napi::Function::New(env, libcNewQurtPthreadPthreadCondSignal_napi));
+    exports.Set("libcNewQurtPthreadPthreadCondBroadcast", Napi::Function::New(env, libcNewQurtPthreadPthreadCondBroadcast_napi));
+    exports.Set("libcNewQurtPthreadPthreadCondattrInit", Napi::Function::New(env, libcNewQurtPthreadPthreadCondattrInit_napi));
+    exports.Set("libcNewQurtPthreadPthreadCondattrDestroy", Napi::Function::New(env, libcNewQurtPthreadPthreadCondattrDestroy_napi));
+    exports.Set("libcNewQurtPthreadPthreadCondattrSetclock", Napi::Function::New(env, libcNewQurtPthreadPthreadCondattrSetclock_napi));
+    exports.Set("libcNewQurtPthreadPthreadKeyCreate", Napi::Function::New(env, libcNewQurtPthreadPthreadKeyCreate_napi));
+    exports.Set("libcNewQurtPthreadPthreadKeyDelete", Napi::Function::New(env, libcNewQurtPthreadPthreadKeyDelete_napi));
+    exports.Set("libcNewQurtPthreadPthreadGetspecific", Napi::Function::New(env, libcNewQurtPthreadPthreadGetspecific_napi));
+    exports.Set("libcNewQurtPthreadPthreadSetspecific", Napi::Function::New(env, libcNewQurtPthreadPthreadSetspecific_napi));
+    exports.Set("libcNewQurtPthreadPthreadOnce", Napi::Function::New(env, libcNewQurtPthreadPthreadOnce_napi));
+    exports.Set("libcNewQurtPthreadPthreadGetnameNp", Napi::Function::New(env, libcNewQurtPthreadPthreadGetnameNp_napi));
+    exports.Set("libcNewQurtPthreadPthreadAttrSetaffinityNp", Napi::Function::New(env, libcNewQurtPthreadPthreadAttrSetaffinityNp_napi));
+    exports.Set("libcNewQurtPthreadPthreadAttrGetaffinityNp", Napi::Function::New(env, libcNewQurtPthreadPthreadAttrGetaffinityNp_napi));
+    exports.Set("libcNewQurtPthreadPosixMemalign", Napi::Function::New(env, libcNewQurtPthreadPosixMemalign_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_new_qurt_pthread_napi, nullptr };

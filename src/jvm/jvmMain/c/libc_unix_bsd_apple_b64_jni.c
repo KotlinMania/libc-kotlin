@@ -19,11 +19,9 @@
 #endif
 #endif
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_apple_b64_UnixBsdAppleB64JniBridge_libc_1unix_1bsd_1apple_1b64_1exchangedata(JNIEnv* km_env, jclass km_clazz, jstring path1, jstring path2, jint options) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_apple_b64_UnixBsdAppleB64JniBridge_libcUnixBsdAppleB64Exchangedata(JNIEnv* km_env, jclass km_clazz, jlong path1, jlong path2, jint options) {
     (void)km_env;
     (void)km_clazz;
-    const char* path1_utf = (path1 != NULL) ? (*km_env)->GetStringUTFChars(km_env, path1, NULL) : NULL;
-    const char* path2_utf = (path2 != NULL) ? (*km_env)->GetStringUTFChars(km_env, path2, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, const char*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -46,13 +44,11 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_apple_b64_UnixBs
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(path1_utf, path2_utf, (uint32_t)options);
+        km_res = km_fn_ptr((const char*)(uintptr_t)path1, (const char*)(uintptr_t)path2, (uint32_t)options);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (path1 != NULL && path1_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path1, path1_utf);
-    if (path2 != NULL && path2_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path2, path2_utf);
     return (jint)km_res;
 }
 

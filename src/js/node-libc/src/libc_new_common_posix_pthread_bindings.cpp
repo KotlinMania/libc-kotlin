@@ -51,7 +51,7 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_new_common_posix_pthread_pthreadAtfork_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonPosixPthreadPthreadAtfork_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* prepare = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* parent = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -86,7 +86,7 @@ static Napi::Value libc_new_common_posix_pthread_pthreadAtfork_napi(const Napi::
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_posix_pthread_pthreadAttrGetguardsize_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonPosixPthreadPthreadAttrGetguardsize_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* guardsize = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -120,7 +120,7 @@ static Napi::Value libc_new_common_posix_pthread_pthreadAttrGetguardsize_napi(co
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_posix_pthread_pthreadAttrGetinheritsched_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonPosixPthreadPthreadAttrGetinheritsched_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* inheritsched = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -154,7 +154,7 @@ static Napi::Value libc_new_common_posix_pthread_pthreadAttrGetinheritsched_napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_posix_pthread_pthreadAttrGetschedparam_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonPosixPthreadPthreadAttrGetschedparam_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* param = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -188,7 +188,7 @@ static Napi::Value libc_new_common_posix_pthread_pthreadAttrGetschedparam_napi(c
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_posix_pthread_pthreadAttrGetschedpolicy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonPosixPthreadPthreadAttrGetschedpolicy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* policy = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -222,7 +222,7 @@ static Napi::Value libc_new_common_posix_pthread_pthreadAttrGetschedpolicy_napi(
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_posix_pthread_pthreadAttrGetstack_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonPosixPthreadPthreadAttrGetstack_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* stackaddr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -257,7 +257,7 @@ static Napi::Value libc_new_common_posix_pthread_pthreadAttrGetstack_napi(const 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_posix_pthread_pthreadAttrSetguardsize_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonPosixPthreadPthreadAttrSetguardsize_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t guardsize = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -291,7 +291,7 @@ static Napi::Value libc_new_common_posix_pthread_pthreadAttrSetguardsize_napi(co
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_posix_pthread_pthreadAttrSetinheritsched_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonPosixPthreadPthreadAttrSetinheritsched_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t inheritsched = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -325,7 +325,7 @@ static Napi::Value libc_new_common_posix_pthread_pthreadAttrSetinheritsched_napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_posix_pthread_pthreadAttrSetschedparam_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonPosixPthreadPthreadAttrSetschedparam_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* param = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -359,7 +359,7 @@ static Napi::Value libc_new_common_posix_pthread_pthreadAttrSetschedparam_napi(c
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_posix_pthread_pthreadAttrSetschedpolicy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonPosixPthreadPthreadAttrSetschedpolicy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t policy = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -393,7 +393,7 @@ static Napi::Value libc_new_common_posix_pthread_pthreadAttrSetschedpolicy_napi(
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_posix_pthread_pthreadAttrSetstack_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonPosixPthreadPthreadAttrSetstack_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* stackaddr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -428,7 +428,7 @@ static Napi::Value libc_new_common_posix_pthread_pthreadAttrSetstack_napi(const 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_posix_pthread_pthreadBarrierDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonPosixPthreadPthreadBarrierDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* barrier = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -461,7 +461,7 @@ static Napi::Value libc_new_common_posix_pthread_pthreadBarrierDestroy_napi(cons
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_posix_pthread_pthreadBarrierInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonPosixPthreadPthreadBarrierInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* barrier = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -496,7 +496,7 @@ static Napi::Value libc_new_common_posix_pthread_pthreadBarrierInit_napi(const N
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_posix_pthread_pthreadBarrierWait_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonPosixPthreadPthreadBarrierWait_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* barrier = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -529,7 +529,7 @@ static Napi::Value libc_new_common_posix_pthread_pthreadBarrierWait_napi(const N
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_posix_pthread_pthreadBarrierattrDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonPosixPthreadPthreadBarrierattrDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -562,7 +562,7 @@ static Napi::Value libc_new_common_posix_pthread_pthreadBarrierattrDestroy_napi(
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_posix_pthread_pthreadBarrierattrGetpshared_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonPosixPthreadPthreadBarrierattrGetpshared_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* shared = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -596,7 +596,7 @@ static Napi::Value libc_new_common_posix_pthread_pthreadBarrierattrGetpshared_na
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_posix_pthread_pthreadBarrierattrInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonPosixPthreadPthreadBarrierattrInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -629,7 +629,7 @@ static Napi::Value libc_new_common_posix_pthread_pthreadBarrierattrInit_napi(con
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_posix_pthread_pthreadBarrierattrSetpshared_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonPosixPthreadPthreadBarrierattrSetpshared_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t shared = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -663,7 +663,7 @@ static Napi::Value libc_new_common_posix_pthread_pthreadBarrierattrSetpshared_na
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_posix_pthread_pthreadCancel_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonPosixPthreadPthreadCancel_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* thread = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -696,10 +696,10 @@ static Napi::Value libc_new_common_posix_pthread_pthreadCancel_napi(const Napi::
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_posix_pthread_pthreadCondattrGetclock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonPosixPthreadPthreadCondattrGetclock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* clock_id = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* clockId = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -722,7 +722,7 @@ static Napi::Value libc_new_common_posix_pthread_pthreadCondattrGetclock_napi(co
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(attr, clock_id);
+        km_res = km_fn_ptr(attr, clockId);
     } else {
         errno = ENOSYS;
         km_res = ENOSYS;
@@ -730,7 +730,7 @@ static Napi::Value libc_new_common_posix_pthread_pthreadCondattrGetclock_napi(co
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_posix_pthread_pthreadCondattrGetpshared_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonPosixPthreadPthreadCondattrGetpshared_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* pshared = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -764,10 +764,10 @@ static Napi::Value libc_new_common_posix_pthread_pthreadCondattrGetpshared_napi(
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_posix_pthread_pthreadCondattrSetclock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonPosixPthreadPthreadCondattrSetclock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    int32_t clock_id = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t clockId = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -790,7 +790,7 @@ static Napi::Value libc_new_common_posix_pthread_pthreadCondattrSetclock_napi(co
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(attr, clock_id);
+        km_res = km_fn_ptr(attr, clockId);
     } else {
         errno = ENOSYS;
         km_res = ENOSYS;
@@ -798,7 +798,7 @@ static Napi::Value libc_new_common_posix_pthread_pthreadCondattrSetclock_napi(co
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_posix_pthread_pthreadCondattrSetpshared_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonPosixPthreadPthreadCondattrSetpshared_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t pshared = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -832,7 +832,7 @@ static Napi::Value libc_new_common_posix_pthread_pthreadCondattrSetpshared_napi(
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_posix_pthread_pthreadCreate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonPosixPthreadPthreadCreate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* native = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -868,10 +868,10 @@ static Napi::Value libc_new_common_posix_pthread_pthreadCreate_napi(const Napi::
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_posix_pthread_pthreadGetcpuclockid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonPosixPthreadPthreadGetcpuclockid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* thread = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* clk_id = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* clkId = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -894,7 +894,7 @@ static Napi::Value libc_new_common_posix_pthread_pthreadGetcpuclockid_napi(const
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(thread, clk_id);
+        km_res = km_fn_ptr(thread, clkId);
     } else {
         errno = ENOSYS;
         km_res = ENOSYS;
@@ -902,7 +902,7 @@ static Napi::Value libc_new_common_posix_pthread_pthreadGetcpuclockid_napi(const
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_posix_pthread_pthreadGetschedparam_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonPosixPthreadPthreadGetschedparam_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* native = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* policy = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -937,7 +937,7 @@ static Napi::Value libc_new_common_posix_pthread_pthreadGetschedparam_napi(const
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_posix_pthread_pthreadKill_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonPosixPthreadPthreadKill_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* thread = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t sig = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -971,7 +971,7 @@ static Napi::Value libc_new_common_posix_pthread_pthreadKill_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_posix_pthread_pthreadMutexConsistent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonPosixPthreadPthreadMutexConsistent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mutex = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -1004,7 +1004,7 @@ static Napi::Value libc_new_common_posix_pthread_pthreadMutexConsistent_napi(con
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_posix_pthread_pthreadMutexTimedlock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonPosixPthreadPthreadMutexTimedlock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* abstime = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1038,7 +1038,7 @@ static Napi::Value libc_new_common_posix_pthread_pthreadMutexTimedlock_napi(cons
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_posix_pthread_pthreadMutexattrGetprotocol_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonPosixPthreadPthreadMutexattrGetprotocol_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* protocol = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1072,7 +1072,7 @@ static Napi::Value libc_new_common_posix_pthread_pthreadMutexattrGetprotocol_nap
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_posix_pthread_pthreadMutexattrGetpshared_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonPosixPthreadPthreadMutexattrGetpshared_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* pshared = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1106,7 +1106,7 @@ static Napi::Value libc_new_common_posix_pthread_pthreadMutexattrGetpshared_napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_posix_pthread_pthreadMutexattrGetrobust_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonPosixPthreadPthreadMutexattrGetrobust_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* robustness = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1140,7 +1140,7 @@ static Napi::Value libc_new_common_posix_pthread_pthreadMutexattrGetrobust_napi(
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_posix_pthread_pthreadMutexattrSetprotocol_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonPosixPthreadPthreadMutexattrSetprotocol_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t protocol = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1174,7 +1174,7 @@ static Napi::Value libc_new_common_posix_pthread_pthreadMutexattrSetprotocol_nap
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_posix_pthread_pthreadMutexattrSetpshared_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonPosixPthreadPthreadMutexattrSetpshared_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t pshared = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1208,7 +1208,7 @@ static Napi::Value libc_new_common_posix_pthread_pthreadMutexattrSetpshared_napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_posix_pthread_pthreadMutexattrSetrobust_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonPosixPthreadPthreadMutexattrSetrobust_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t robustness = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1242,7 +1242,7 @@ static Napi::Value libc_new_common_posix_pthread_pthreadMutexattrSetrobust_napi(
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_posix_pthread_pthreadRwlockattrGetpshared_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonPosixPthreadPthreadRwlockattrGetpshared_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* val = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1276,7 +1276,7 @@ static Napi::Value libc_new_common_posix_pthread_pthreadRwlockattrGetpshared_nap
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_posix_pthread_pthreadRwlockattrSetpshared_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonPosixPthreadPthreadRwlockattrSetpshared_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t val = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1310,7 +1310,7 @@ static Napi::Value libc_new_common_posix_pthread_pthreadRwlockattrSetpshared_nap
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_posix_pthread_pthreadOnce_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonPosixPthreadPthreadOnce_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* control = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* routine = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1344,7 +1344,7 @@ static Napi::Value libc_new_common_posix_pthread_pthreadOnce_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_posix_pthread_pthreadSetschedparam_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonPosixPthreadPthreadSetschedparam_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* native = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t policy = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1379,7 +1379,7 @@ static Napi::Value libc_new_common_posix_pthread_pthreadSetschedparam_napi(const
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_posix_pthread_pthreadSetschedprio_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonPosixPthreadPthreadSetschedprio_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* native = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t priority = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1413,7 +1413,7 @@ static Napi::Value libc_new_common_posix_pthread_pthreadSetschedprio_napi(const 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_posix_pthread_pthreadSigmask_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonPosixPthreadPthreadSigmask_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t how = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1448,7 +1448,7 @@ static Napi::Value libc_new_common_posix_pthread_pthreadSigmask_napi(const Napi:
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_posix_pthread_pthreadSpinDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonPosixPthreadPthreadSpinDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -1481,7 +1481,7 @@ static Napi::Value libc_new_common_posix_pthread_pthreadSpinDestroy_napi(const N
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_posix_pthread_pthreadSpinInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonPosixPthreadPthreadSpinInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t pshared = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1515,7 +1515,7 @@ static Napi::Value libc_new_common_posix_pthread_pthreadSpinInit_napi(const Napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_posix_pthread_pthreadSpinLock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonPosixPthreadPthreadSpinLock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -1548,7 +1548,7 @@ static Napi::Value libc_new_common_posix_pthread_pthreadSpinLock_napi(const Napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_posix_pthread_pthreadSpinTrylock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonPosixPthreadPthreadSpinTrylock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -1581,7 +1581,7 @@ static Napi::Value libc_new_common_posix_pthread_pthreadSpinTrylock_napi(const N
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_posix_pthread_pthreadSpinUnlock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonPosixPthreadPthreadSpinUnlock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -1615,52 +1615,52 @@ static Napi::Value libc_new_common_posix_pthread_pthreadSpinUnlock_napi(const Na
 }
 
 static void register_new_common_posix_pthread_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_new_common_posix_pthread_pthreadAtfork", Napi::Function::New(env, libc_new_common_posix_pthread_pthreadAtfork_napi));
-    exports.Set("libc_new_common_posix_pthread_pthreadAttrGetguardsize", Napi::Function::New(env, libc_new_common_posix_pthread_pthreadAttrGetguardsize_napi));
-    exports.Set("libc_new_common_posix_pthread_pthreadAttrGetinheritsched", Napi::Function::New(env, libc_new_common_posix_pthread_pthreadAttrGetinheritsched_napi));
-    exports.Set("libc_new_common_posix_pthread_pthreadAttrGetschedparam", Napi::Function::New(env, libc_new_common_posix_pthread_pthreadAttrGetschedparam_napi));
-    exports.Set("libc_new_common_posix_pthread_pthreadAttrGetschedpolicy", Napi::Function::New(env, libc_new_common_posix_pthread_pthreadAttrGetschedpolicy_napi));
-    exports.Set("libc_new_common_posix_pthread_pthreadAttrGetstack", Napi::Function::New(env, libc_new_common_posix_pthread_pthreadAttrGetstack_napi));
-    exports.Set("libc_new_common_posix_pthread_pthreadAttrSetguardsize", Napi::Function::New(env, libc_new_common_posix_pthread_pthreadAttrSetguardsize_napi));
-    exports.Set("libc_new_common_posix_pthread_pthreadAttrSetinheritsched", Napi::Function::New(env, libc_new_common_posix_pthread_pthreadAttrSetinheritsched_napi));
-    exports.Set("libc_new_common_posix_pthread_pthreadAttrSetschedparam", Napi::Function::New(env, libc_new_common_posix_pthread_pthreadAttrSetschedparam_napi));
-    exports.Set("libc_new_common_posix_pthread_pthreadAttrSetschedpolicy", Napi::Function::New(env, libc_new_common_posix_pthread_pthreadAttrSetschedpolicy_napi));
-    exports.Set("libc_new_common_posix_pthread_pthreadAttrSetstack", Napi::Function::New(env, libc_new_common_posix_pthread_pthreadAttrSetstack_napi));
-    exports.Set("libc_new_common_posix_pthread_pthreadBarrierDestroy", Napi::Function::New(env, libc_new_common_posix_pthread_pthreadBarrierDestroy_napi));
-    exports.Set("libc_new_common_posix_pthread_pthreadBarrierInit", Napi::Function::New(env, libc_new_common_posix_pthread_pthreadBarrierInit_napi));
-    exports.Set("libc_new_common_posix_pthread_pthreadBarrierWait", Napi::Function::New(env, libc_new_common_posix_pthread_pthreadBarrierWait_napi));
-    exports.Set("libc_new_common_posix_pthread_pthreadBarrierattrDestroy", Napi::Function::New(env, libc_new_common_posix_pthread_pthreadBarrierattrDestroy_napi));
-    exports.Set("libc_new_common_posix_pthread_pthreadBarrierattrGetpshared", Napi::Function::New(env, libc_new_common_posix_pthread_pthreadBarrierattrGetpshared_napi));
-    exports.Set("libc_new_common_posix_pthread_pthreadBarrierattrInit", Napi::Function::New(env, libc_new_common_posix_pthread_pthreadBarrierattrInit_napi));
-    exports.Set("libc_new_common_posix_pthread_pthreadBarrierattrSetpshared", Napi::Function::New(env, libc_new_common_posix_pthread_pthreadBarrierattrSetpshared_napi));
-    exports.Set("libc_new_common_posix_pthread_pthreadCancel", Napi::Function::New(env, libc_new_common_posix_pthread_pthreadCancel_napi));
-    exports.Set("libc_new_common_posix_pthread_pthreadCondattrGetclock", Napi::Function::New(env, libc_new_common_posix_pthread_pthreadCondattrGetclock_napi));
-    exports.Set("libc_new_common_posix_pthread_pthreadCondattrGetpshared", Napi::Function::New(env, libc_new_common_posix_pthread_pthreadCondattrGetpshared_napi));
-    exports.Set("libc_new_common_posix_pthread_pthreadCondattrSetclock", Napi::Function::New(env, libc_new_common_posix_pthread_pthreadCondattrSetclock_napi));
-    exports.Set("libc_new_common_posix_pthread_pthreadCondattrSetpshared", Napi::Function::New(env, libc_new_common_posix_pthread_pthreadCondattrSetpshared_napi));
-    exports.Set("libc_new_common_posix_pthread_pthreadCreate", Napi::Function::New(env, libc_new_common_posix_pthread_pthreadCreate_napi));
-    exports.Set("libc_new_common_posix_pthread_pthreadGetcpuclockid", Napi::Function::New(env, libc_new_common_posix_pthread_pthreadGetcpuclockid_napi));
-    exports.Set("libc_new_common_posix_pthread_pthreadGetschedparam", Napi::Function::New(env, libc_new_common_posix_pthread_pthreadGetschedparam_napi));
-    exports.Set("libc_new_common_posix_pthread_pthreadKill", Napi::Function::New(env, libc_new_common_posix_pthread_pthreadKill_napi));
-    exports.Set("libc_new_common_posix_pthread_pthreadMutexConsistent", Napi::Function::New(env, libc_new_common_posix_pthread_pthreadMutexConsistent_napi));
-    exports.Set("libc_new_common_posix_pthread_pthreadMutexTimedlock", Napi::Function::New(env, libc_new_common_posix_pthread_pthreadMutexTimedlock_napi));
-    exports.Set("libc_new_common_posix_pthread_pthreadMutexattrGetprotocol", Napi::Function::New(env, libc_new_common_posix_pthread_pthreadMutexattrGetprotocol_napi));
-    exports.Set("libc_new_common_posix_pthread_pthreadMutexattrGetpshared", Napi::Function::New(env, libc_new_common_posix_pthread_pthreadMutexattrGetpshared_napi));
-    exports.Set("libc_new_common_posix_pthread_pthreadMutexattrGetrobust", Napi::Function::New(env, libc_new_common_posix_pthread_pthreadMutexattrGetrobust_napi));
-    exports.Set("libc_new_common_posix_pthread_pthreadMutexattrSetprotocol", Napi::Function::New(env, libc_new_common_posix_pthread_pthreadMutexattrSetprotocol_napi));
-    exports.Set("libc_new_common_posix_pthread_pthreadMutexattrSetpshared", Napi::Function::New(env, libc_new_common_posix_pthread_pthreadMutexattrSetpshared_napi));
-    exports.Set("libc_new_common_posix_pthread_pthreadMutexattrSetrobust", Napi::Function::New(env, libc_new_common_posix_pthread_pthreadMutexattrSetrobust_napi));
-    exports.Set("libc_new_common_posix_pthread_pthreadRwlockattrGetpshared", Napi::Function::New(env, libc_new_common_posix_pthread_pthreadRwlockattrGetpshared_napi));
-    exports.Set("libc_new_common_posix_pthread_pthreadRwlockattrSetpshared", Napi::Function::New(env, libc_new_common_posix_pthread_pthreadRwlockattrSetpshared_napi));
-    exports.Set("libc_new_common_posix_pthread_pthreadOnce", Napi::Function::New(env, libc_new_common_posix_pthread_pthreadOnce_napi));
-    exports.Set("libc_new_common_posix_pthread_pthreadSetschedparam", Napi::Function::New(env, libc_new_common_posix_pthread_pthreadSetschedparam_napi));
-    exports.Set("libc_new_common_posix_pthread_pthreadSetschedprio", Napi::Function::New(env, libc_new_common_posix_pthread_pthreadSetschedprio_napi));
-    exports.Set("libc_new_common_posix_pthread_pthreadSigmask", Napi::Function::New(env, libc_new_common_posix_pthread_pthreadSigmask_napi));
-    exports.Set("libc_new_common_posix_pthread_pthreadSpinDestroy", Napi::Function::New(env, libc_new_common_posix_pthread_pthreadSpinDestroy_napi));
-    exports.Set("libc_new_common_posix_pthread_pthreadSpinInit", Napi::Function::New(env, libc_new_common_posix_pthread_pthreadSpinInit_napi));
-    exports.Set("libc_new_common_posix_pthread_pthreadSpinLock", Napi::Function::New(env, libc_new_common_posix_pthread_pthreadSpinLock_napi));
-    exports.Set("libc_new_common_posix_pthread_pthreadSpinTrylock", Napi::Function::New(env, libc_new_common_posix_pthread_pthreadSpinTrylock_napi));
-    exports.Set("libc_new_common_posix_pthread_pthreadSpinUnlock", Napi::Function::New(env, libc_new_common_posix_pthread_pthreadSpinUnlock_napi));
+    exports.Set("libcNewCommonPosixPthreadPthreadAtfork", Napi::Function::New(env, libcNewCommonPosixPthreadPthreadAtfork_napi));
+    exports.Set("libcNewCommonPosixPthreadPthreadAttrGetguardsize", Napi::Function::New(env, libcNewCommonPosixPthreadPthreadAttrGetguardsize_napi));
+    exports.Set("libcNewCommonPosixPthreadPthreadAttrGetinheritsched", Napi::Function::New(env, libcNewCommonPosixPthreadPthreadAttrGetinheritsched_napi));
+    exports.Set("libcNewCommonPosixPthreadPthreadAttrGetschedparam", Napi::Function::New(env, libcNewCommonPosixPthreadPthreadAttrGetschedparam_napi));
+    exports.Set("libcNewCommonPosixPthreadPthreadAttrGetschedpolicy", Napi::Function::New(env, libcNewCommonPosixPthreadPthreadAttrGetschedpolicy_napi));
+    exports.Set("libcNewCommonPosixPthreadPthreadAttrGetstack", Napi::Function::New(env, libcNewCommonPosixPthreadPthreadAttrGetstack_napi));
+    exports.Set("libcNewCommonPosixPthreadPthreadAttrSetguardsize", Napi::Function::New(env, libcNewCommonPosixPthreadPthreadAttrSetguardsize_napi));
+    exports.Set("libcNewCommonPosixPthreadPthreadAttrSetinheritsched", Napi::Function::New(env, libcNewCommonPosixPthreadPthreadAttrSetinheritsched_napi));
+    exports.Set("libcNewCommonPosixPthreadPthreadAttrSetschedparam", Napi::Function::New(env, libcNewCommonPosixPthreadPthreadAttrSetschedparam_napi));
+    exports.Set("libcNewCommonPosixPthreadPthreadAttrSetschedpolicy", Napi::Function::New(env, libcNewCommonPosixPthreadPthreadAttrSetschedpolicy_napi));
+    exports.Set("libcNewCommonPosixPthreadPthreadAttrSetstack", Napi::Function::New(env, libcNewCommonPosixPthreadPthreadAttrSetstack_napi));
+    exports.Set("libcNewCommonPosixPthreadPthreadBarrierDestroy", Napi::Function::New(env, libcNewCommonPosixPthreadPthreadBarrierDestroy_napi));
+    exports.Set("libcNewCommonPosixPthreadPthreadBarrierInit", Napi::Function::New(env, libcNewCommonPosixPthreadPthreadBarrierInit_napi));
+    exports.Set("libcNewCommonPosixPthreadPthreadBarrierWait", Napi::Function::New(env, libcNewCommonPosixPthreadPthreadBarrierWait_napi));
+    exports.Set("libcNewCommonPosixPthreadPthreadBarrierattrDestroy", Napi::Function::New(env, libcNewCommonPosixPthreadPthreadBarrierattrDestroy_napi));
+    exports.Set("libcNewCommonPosixPthreadPthreadBarrierattrGetpshared", Napi::Function::New(env, libcNewCommonPosixPthreadPthreadBarrierattrGetpshared_napi));
+    exports.Set("libcNewCommonPosixPthreadPthreadBarrierattrInit", Napi::Function::New(env, libcNewCommonPosixPthreadPthreadBarrierattrInit_napi));
+    exports.Set("libcNewCommonPosixPthreadPthreadBarrierattrSetpshared", Napi::Function::New(env, libcNewCommonPosixPthreadPthreadBarrierattrSetpshared_napi));
+    exports.Set("libcNewCommonPosixPthreadPthreadCancel", Napi::Function::New(env, libcNewCommonPosixPthreadPthreadCancel_napi));
+    exports.Set("libcNewCommonPosixPthreadPthreadCondattrGetclock", Napi::Function::New(env, libcNewCommonPosixPthreadPthreadCondattrGetclock_napi));
+    exports.Set("libcNewCommonPosixPthreadPthreadCondattrGetpshared", Napi::Function::New(env, libcNewCommonPosixPthreadPthreadCondattrGetpshared_napi));
+    exports.Set("libcNewCommonPosixPthreadPthreadCondattrSetclock", Napi::Function::New(env, libcNewCommonPosixPthreadPthreadCondattrSetclock_napi));
+    exports.Set("libcNewCommonPosixPthreadPthreadCondattrSetpshared", Napi::Function::New(env, libcNewCommonPosixPthreadPthreadCondattrSetpshared_napi));
+    exports.Set("libcNewCommonPosixPthreadPthreadCreate", Napi::Function::New(env, libcNewCommonPosixPthreadPthreadCreate_napi));
+    exports.Set("libcNewCommonPosixPthreadPthreadGetcpuclockid", Napi::Function::New(env, libcNewCommonPosixPthreadPthreadGetcpuclockid_napi));
+    exports.Set("libcNewCommonPosixPthreadPthreadGetschedparam", Napi::Function::New(env, libcNewCommonPosixPthreadPthreadGetschedparam_napi));
+    exports.Set("libcNewCommonPosixPthreadPthreadKill", Napi::Function::New(env, libcNewCommonPosixPthreadPthreadKill_napi));
+    exports.Set("libcNewCommonPosixPthreadPthreadMutexConsistent", Napi::Function::New(env, libcNewCommonPosixPthreadPthreadMutexConsistent_napi));
+    exports.Set("libcNewCommonPosixPthreadPthreadMutexTimedlock", Napi::Function::New(env, libcNewCommonPosixPthreadPthreadMutexTimedlock_napi));
+    exports.Set("libcNewCommonPosixPthreadPthreadMutexattrGetprotocol", Napi::Function::New(env, libcNewCommonPosixPthreadPthreadMutexattrGetprotocol_napi));
+    exports.Set("libcNewCommonPosixPthreadPthreadMutexattrGetpshared", Napi::Function::New(env, libcNewCommonPosixPthreadPthreadMutexattrGetpshared_napi));
+    exports.Set("libcNewCommonPosixPthreadPthreadMutexattrGetrobust", Napi::Function::New(env, libcNewCommonPosixPthreadPthreadMutexattrGetrobust_napi));
+    exports.Set("libcNewCommonPosixPthreadPthreadMutexattrSetprotocol", Napi::Function::New(env, libcNewCommonPosixPthreadPthreadMutexattrSetprotocol_napi));
+    exports.Set("libcNewCommonPosixPthreadPthreadMutexattrSetpshared", Napi::Function::New(env, libcNewCommonPosixPthreadPthreadMutexattrSetpshared_napi));
+    exports.Set("libcNewCommonPosixPthreadPthreadMutexattrSetrobust", Napi::Function::New(env, libcNewCommonPosixPthreadPthreadMutexattrSetrobust_napi));
+    exports.Set("libcNewCommonPosixPthreadPthreadRwlockattrGetpshared", Napi::Function::New(env, libcNewCommonPosixPthreadPthreadRwlockattrGetpshared_napi));
+    exports.Set("libcNewCommonPosixPthreadPthreadRwlockattrSetpshared", Napi::Function::New(env, libcNewCommonPosixPthreadPthreadRwlockattrSetpshared_napi));
+    exports.Set("libcNewCommonPosixPthreadPthreadOnce", Napi::Function::New(env, libcNewCommonPosixPthreadPthreadOnce_napi));
+    exports.Set("libcNewCommonPosixPthreadPthreadSetschedparam", Napi::Function::New(env, libcNewCommonPosixPthreadPthreadSetschedparam_napi));
+    exports.Set("libcNewCommonPosixPthreadPthreadSetschedprio", Napi::Function::New(env, libcNewCommonPosixPthreadPthreadSetschedprio_napi));
+    exports.Set("libcNewCommonPosixPthreadPthreadSigmask", Napi::Function::New(env, libcNewCommonPosixPthreadPthreadSigmask_napi));
+    exports.Set("libcNewCommonPosixPthreadPthreadSpinDestroy", Napi::Function::New(env, libcNewCommonPosixPthreadPthreadSpinDestroy_napi));
+    exports.Set("libcNewCommonPosixPthreadPthreadSpinInit", Napi::Function::New(env, libcNewCommonPosixPthreadPthreadSpinInit_napi));
+    exports.Set("libcNewCommonPosixPthreadPthreadSpinLock", Napi::Function::New(env, libcNewCommonPosixPthreadPthreadSpinLock_napi));
+    exports.Set("libcNewCommonPosixPthreadPthreadSpinTrylock", Napi::Function::New(env, libcNewCommonPosixPthreadPthreadSpinTrylock_napi));
+    exports.Set("libcNewCommonPosixPthreadPthreadSpinUnlock", Napi::Function::New(env, libcNewCommonPosixPthreadPthreadSpinUnlock_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_new_common_posix_pthread_napi, nullptr };

@@ -2,11 +2,12 @@ package io.github.kotlinmania.libc.unix.hurd
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.unix.SizeT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 // spawn.h
 public val POSIX_SPAWN_USEVFORK: CInt = 64
@@ -1196,18 +1197,18 @@ public val SHUT_WR: CInt = 1
 
 public val SHUT_RDWR: CInt = 2
 
-public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(lock = PTHREAD_SPIN_LOCK_INITIALIZER, queue = null, attr = null, wrefs = 0u, data = null)
+public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(lock = PTHREAD_SPIN_LOCK_INITIALIZER, queue = MutPtr<Pthread>(0L), attr = MutPtr<PthreadCondattr>(0L), wrefs = 0u, data = MutPtr<CVoid>(0L))
 
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(held = PTHREAD_SPIN_LOCK_INITIALIZER, lock = PTHREAD_SPIN_LOCK_INITIALIZER, readers = 0, readerqueue = null, writerqueue = null, attr = null, data = null)
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(held = PTHREAD_SPIN_LOCK_INITIALIZER, lock = PTHREAD_SPIN_LOCK_INITIALIZER, readers = 0, readerqueue = MutPtr<Pthread>(0L), writerqueue = MutPtr<Pthread>(0L), attr = MutPtr<PthreadRwlockattr>(0L), data = MutPtr<CVoid>(0L))
 
 public val PTHREAD_STACK_MIN: SizeT = 0uL
 
 // Non-public helper constants
 public val UTSNAME_LENGTH: Int = 1024
 
-public val SEM_FAILED: SemT? = null
+public val SEM_FAILED: MutPtr<SemT> = MutPtr(0L)
 
 // dlfcn.h
-public val RTLD_DEFAULT: COpaquePointer? = null
+public val RTLD_DEFAULT: MutPtr<CVoid> = MutPtr(0L)
 
 public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(lock = 0u, ownerId = 0u, cnt = 0u, shpid = 0, type = PTHREAD_MUTEX_TIMED.toInt(), flags = 0, reserved1 = 0u, reserved2 = 0u)

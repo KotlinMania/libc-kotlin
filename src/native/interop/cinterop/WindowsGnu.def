@@ -3,3 +3,4 @@ headers = windows_gnu_wrapper.h
 headerFilter = windows_gnu_wrapper.h
 compilerOpts = -Isrc/native/interop/cinterop
 staticLibraries = windows_gnu_wrapper.a
+noStringConversion = libcWindowsGnuStrcasecmp libcWindowsGnuStrncasecmp

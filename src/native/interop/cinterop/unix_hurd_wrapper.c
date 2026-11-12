@@ -32,7 +32,7 @@
 #endif
 #endif
 
-int32_t libc_unix_hurd_lutimes(const char* file, void* times) {
+int32_t libcUnixHurdLutimes(const char* file, void* times) {
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -60,7 +60,7 @@ int32_t libc_unix_hurd_lutimes(const char* file, void* times) {
     return -1;
 }
 
-int32_t libc_unix_hurd_futimes(int32_t fd, void* times) {
+int32_t libcUnixHurdFutimes(int32_t fd, void* times) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -88,7 +88,7 @@ int32_t libc_unix_hurd_futimes(int32_t fd, void* times) {
     return -1;
 }
 
-int32_t libc_unix_hurd_futimens(int32_t arg_0_fd, void* arg_1_times) {
+int32_t libcUnixHurdFutimens(int32_t fd, void* times) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -110,13 +110,13 @@ int32_t libc_unix_hurd_futimens(int32_t arg_0_fd, void* arg_1_times) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_fd, arg_1_times);
+        return km_fn_ptr(fd, times);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_hurd_utimensat(int32_t dirfd, const char* path, void* times, int32_t flag) {
+int32_t libcUnixHurdUtimensat(int32_t dirfd, const char* path, void* times, int32_t flag) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -144,7 +144,7 @@ int32_t libc_unix_hurd_utimensat(int32_t dirfd, const char* path, void* times, i
     return -1;
 }
 
-int32_t libc_unix_hurd_mkfifoat(int32_t arg_0_fd, const char* arg_1_path, uint32_t arg_2_mode) {
+int32_t libcUnixHurdMkfifoat(int32_t fd, const char* path, uint32_t mode) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -166,13 +166,13 @@ int32_t libc_unix_hurd_mkfifoat(int32_t arg_0_fd, const char* arg_1_path, uint32
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_fd, arg_1_path, arg_2_mode);
+        return km_fn_ptr(fd, path, mode);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_hurd_mknodat(int32_t dirfd, const char* pathname, uint32_t mode, uint64_t dev) {
+int32_t libcUnixHurdMknodat(int32_t dirfd, const char* pathname, uint32_t mode, uint64_t dev) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, uint32_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -200,7 +200,7 @@ int32_t libc_unix_hurd_mknodat(int32_t dirfd, const char* pathname, uint32_t mod
     return -1;
 }
 
-int32_t libc_unix_hurd_libcCurrentSigrtmin(void) {
+int32_t libcUnixHurdLibcCurrentSigrtmin(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -226,7 +226,7 @@ int32_t libc_unix_hurd_libcCurrentSigrtmin(void) {
     return -1;
 }
 
-int32_t libc_unix_hurd_libcCurrentSigrtmax(void) {
+int32_t libcUnixHurdLibcCurrentSigrtmax(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -252,7 +252,7 @@ int32_t libc_unix_hurd_libcCurrentSigrtmax(void) {
     return -1;
 }
 
-int32_t libc_unix_hurd_wait4(int32_t pid, void* status, int32_t options, void* rusage) {
+int32_t libcUnixHurdWait4(int32_t pid, void* status, int32_t options, void* rusage) {
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -280,7 +280,7 @@ int32_t libc_unix_hurd_wait4(int32_t pid, void* status, int32_t options, void* r
     return -1;
 }
 
-int32_t libc_unix_hurd_waitid(uint32_t idtype, uint32_t id, void* infop, int32_t options) {
+int32_t libcUnixHurdWaitid(uint32_t idtype, uint32_t id, void* infop, int32_t options) {
     typedef int32_t (*km_fn_t)(uint32_t, uint32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -308,7 +308,7 @@ int32_t libc_unix_hurd_waitid(uint32_t idtype, uint32_t id, void* infop, int32_t
     return -1;
 }
 
-int32_t libc_unix_hurd_sigwait(void* arg_0_set, void* arg_1_sig) {
+int32_t libcUnixHurdSigwait(void* set, void* sig) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -330,13 +330,13 @@ int32_t libc_unix_hurd_sigwait(void* arg_0_set, void* arg_1_sig) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_set, arg_1_sig);
+        return km_fn_ptr(set, sig);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_hurd_sigsuspend(void* mask) {
+int32_t libcUnixHurdSigsuspend(void* mask) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -364,7 +364,7 @@ int32_t libc_unix_hurd_sigsuspend(void* mask) {
     return -1;
 }
 
-int32_t libc_unix_hurd_sigtimedwait(void* set, void* info, void* timeout) {
+int32_t libcUnixHurdSigtimedwait(void* set, void* info, void* timeout) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -392,7 +392,7 @@ int32_t libc_unix_hurd_sigtimedwait(void* set, void* info, void* timeout) {
     return -1;
 }
 
-int32_t libc_unix_hurd_sigwaitinfo(void* set, void* info) {
+int32_t libcUnixHurdSigwaitinfo(void* set, void* info) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -420,7 +420,7 @@ int32_t libc_unix_hurd_sigwaitinfo(void* set, void* info) {
     return -1;
 }
 
-int32_t libc_unix_hurd_sigaltstack(void* ss, void* oss) {
+int32_t libcUnixHurdSigaltstack(void* ss, void* oss) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -448,7 +448,7 @@ int32_t libc_unix_hurd_sigaltstack(void* ss, void* oss) {
     return -1;
 }
 
-int32_t libc_unix_hurd_ioctl(int32_t arg_0_fd, uint64_t arg_1_request, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcUnixHurdIoctl(int32_t fd, uint64_t request, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(int32_t, uint64_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -471,18 +471,18 @@ int32_t libc_unix_hurd_ioctl(int32_t arg_0_fd, uint64_t arg_1_request, int32_t k
 #endif
     if (km_fn_ptr != NULL) {
         switch (km_vac) {
-            case 0: return km_fn_ptr(arg_0_fd, arg_1_request);
-            case 1: return km_fn_ptr(arg_0_fd, arg_1_request, (intptr_t)km_va0);
-            case 2: return km_fn_ptr(arg_0_fd, arg_1_request, (intptr_t)km_va0, (intptr_t)km_va1);
-            case 3: return km_fn_ptr(arg_0_fd, arg_1_request, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2);
-            default: return km_fn_ptr(arg_0_fd, arg_1_request, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3);
+            case 0: return km_fn_ptr(fd, request);
+            case 1: return km_fn_ptr(fd, request, (intptr_t)km_va0);
+            case 2: return km_fn_ptr(fd, request, (intptr_t)km_va0, (intptr_t)km_va1);
+            case 3: return km_fn_ptr(fd, request, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2);
+            default: return km_fn_ptr(fd, request, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3);
         }
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_hurd_pipe2(void* fds, int32_t flags) {
+int32_t libcUnixHurdPipe2(void* fds, int32_t flags) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -510,7 +510,7 @@ int32_t libc_unix_hurd_pipe2(void* fds, int32_t flags) {
     return -1;
 }
 
-int32_t libc_unix_hurd_dup3(int32_t oldfd, int32_t newfd, int32_t flags) {
+int32_t libcUnixHurdDup3(int32_t oldfd, int32_t newfd, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -538,7 +538,7 @@ int32_t libc_unix_hurd_dup3(int32_t oldfd, int32_t newfd, int32_t flags) {
     return -1;
 }
 
-int64_t libc_unix_hurd_pread64(int32_t fd, void* buf, uint64_t count, int64_t offset) {
+int64_t libcUnixHurdPread64(int32_t fd, void* buf, uint64_t count, int64_t offset) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -571,7 +571,7 @@ int64_t libc_unix_hurd_pread64(int32_t fd, void* buf, uint64_t count, int64_t of
     return -1;
 }
 
-int64_t libc_unix_hurd_pwrite64(int32_t fd, void* buf, uint64_t count, int64_t offset) {
+int64_t libcUnixHurdPwrite64(int32_t fd, void* buf, uint64_t count, int64_t offset) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -604,7 +604,7 @@ int64_t libc_unix_hurd_pwrite64(int32_t fd, void* buf, uint64_t count, int64_t o
     return -1;
 }
 
-int64_t libc_unix_hurd_readv(int32_t arg_0_fd, void* arg_1_iovec, int32_t arg_2_count) {
+int64_t libcUnixHurdReadv(int32_t fd, void* iovec, int32_t count) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -626,13 +626,13 @@ int64_t libc_unix_hurd_readv(int32_t arg_0_fd, void* arg_1_iovec, int32_t arg_2_
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_fd, arg_1_iovec, arg_2_count);
+        return km_fn_ptr(fd, iovec, count);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_unix_hurd_writev(int32_t arg_0_fd, void* arg_1_iovec, int32_t arg_2_count) {
+int64_t libcUnixHurdWritev(int32_t fd, void* iovec, int32_t count) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -654,13 +654,13 @@ int64_t libc_unix_hurd_writev(int32_t arg_0_fd, void* arg_1_iovec, int32_t arg_2
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_fd, arg_1_iovec, arg_2_count);
+        return km_fn_ptr(fd, iovec, count);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_unix_hurd_preadv(int32_t arg_0_fd, void* arg_1_iovec, int32_t arg_2_count, int64_t arg_3_offset) {
+int64_t libcUnixHurdPreadv(int32_t fd, void* iovec, int32_t count, int64_t offset) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -682,13 +682,13 @@ int64_t libc_unix_hurd_preadv(int32_t arg_0_fd, void* arg_1_iovec, int32_t arg_2
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_fd, arg_1_iovec, arg_2_count, arg_3_offset);
+        return km_fn_ptr(fd, iovec, count, offset);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_unix_hurd_pwritev(int32_t arg_0_fd, void* arg_1_iovec, int32_t arg_2_count, int64_t arg_3_offset) {
+int64_t libcUnixHurdPwritev(int32_t fd, void* iovec, int32_t count, int64_t offset) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -710,13 +710,13 @@ int64_t libc_unix_hurd_pwritev(int32_t arg_0_fd, void* arg_1_iovec, int32_t arg_
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_fd, arg_1_iovec, arg_2_count, arg_3_offset);
+        return km_fn_ptr(fd, iovec, count, offset);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_unix_hurd_preadv64(int32_t fd, void* iov, int32_t iovcnt, int64_t offset) {
+int64_t libcUnixHurdPreadv64(int32_t fd, void* iov, int32_t iovcnt, int64_t offset) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -749,7 +749,7 @@ int64_t libc_unix_hurd_preadv64(int32_t fd, void* iov, int32_t iovcnt, int64_t o
     return -1;
 }
 
-int64_t libc_unix_hurd_pwritev64(int32_t fd, void* iov, int32_t iovcnt, int64_t offset) {
+int64_t libcUnixHurdPwritev64(int32_t fd, void* iov, int32_t iovcnt, int64_t offset) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -782,7 +782,7 @@ int64_t libc_unix_hurd_pwritev64(int32_t fd, void* iov, int32_t iovcnt, int64_t 
     return -1;
 }
 
-uint64_t libc_unix_hurd_freadUnlocked(void* buf, uint64_t size, uint64_t nobj, void* stream) {
+uint64_t libcUnixHurdFreadUnlocked(void* buf, uint64_t size, uint64_t nobj, void* stream) {
     typedef uint64_t (*km_fn_t)(void*, uint64_t, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -810,7 +810,7 @@ uint64_t libc_unix_hurd_freadUnlocked(void* buf, uint64_t size, uint64_t nobj, v
     return 0;
 }
 
-int32_t libc_unix_hurd_aioRead(void* aiocbp) {
+int32_t libcUnixHurdAioRead(void* aiocbp) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -838,7 +838,7 @@ int32_t libc_unix_hurd_aioRead(void* aiocbp) {
     return -1;
 }
 
-int32_t libc_unix_hurd_aioWrite(void* aiocbp) {
+int32_t libcUnixHurdAioWrite(void* aiocbp) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -866,7 +866,7 @@ int32_t libc_unix_hurd_aioWrite(void* aiocbp) {
     return -1;
 }
 
-int32_t libc_unix_hurd_aioFsync(int32_t op, void* aiocbp) {
+int32_t libcUnixHurdAioFsync(int32_t op, void* aiocbp) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -894,7 +894,7 @@ int32_t libc_unix_hurd_aioFsync(int32_t op, void* aiocbp) {
     return -1;
 }
 
-int32_t libc_unix_hurd_aioError(void* aiocbp) {
+int32_t libcUnixHurdAioError(void* aiocbp) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -922,7 +922,7 @@ int32_t libc_unix_hurd_aioError(void* aiocbp) {
     return -1;
 }
 
-int64_t libc_unix_hurd_aioReturn(void* aiocbp) {
+int64_t libcUnixHurdAioReturn(void* aiocbp) {
     typedef int64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -950,7 +950,7 @@ int64_t libc_unix_hurd_aioReturn(void* aiocbp) {
     return -1;
 }
 
-int32_t libc_unix_hurd_aioSuspend(void* aiocb_list, int32_t nitems, void* timeout) {
+int32_t libcUnixHurdAioSuspend(void* aiocbList, int32_t nitems, void* timeout) {
     typedef int32_t (*km_fn_t)(void*, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -972,13 +972,13 @@ int32_t libc_unix_hurd_aioSuspend(void* aiocb_list, int32_t nitems, void* timeou
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(aiocb_list, nitems, timeout);
+        return km_fn_ptr(aiocbList, nitems, timeout);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_hurd_aioCancel(int32_t fd, void* aiocbp) {
+int32_t libcUnixHurdAioCancel(int32_t fd, void* aiocbp) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1006,7 +1006,7 @@ int32_t libc_unix_hurd_aioCancel(int32_t fd, void* aiocbp) {
     return -1;
 }
 
-int32_t libc_unix_hurd_lioListio(int32_t mode, void* aiocb_list, int32_t nitems, void* sevp) {
+int32_t libcUnixHurdLioListio(int32_t mode, void* aiocbList, int32_t nitems, void* sevp) {
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1028,13 +1028,13 @@ int32_t libc_unix_hurd_lioListio(int32_t mode, void* aiocb_list, int32_t nitems,
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(mode, aiocb_list, nitems, sevp);
+        return km_fn_ptr(mode, aiocbList, nitems, sevp);
     }
     errno = ENOSYS;
     return -1;
 }
 
-void* libc_unix_hurd_mqOpen(const char* name, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+void* libcUnixHurdMqOpen(const char* name, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef void* (*km_fn_t)(const char*, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1068,7 +1068,7 @@ void* libc_unix_hurd_mqOpen(const char* name, int32_t oflag, int32_t km_vac, int
     return NULL;
 }
 
-int32_t libc_unix_hurd_mqClose(void* mqd) {
+int32_t libcUnixHurdMqClose(void* mqd) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1096,7 +1096,7 @@ int32_t libc_unix_hurd_mqClose(void* mqd) {
     return -1;
 }
 
-int32_t libc_unix_hurd_mqUnlink(const char* name) {
+int32_t libcUnixHurdMqUnlink(const char* name) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1124,7 +1124,7 @@ int32_t libc_unix_hurd_mqUnlink(const char* name) {
     return -1;
 }
 
-int64_t libc_unix_hurd_mqReceive(void* mqd, char* msg_ptr, uint64_t msg_len, void* msg_prio) {
+int64_t libcUnixHurdMqReceive(void* mqd, char* msgPtr, uint64_t msgLen, void* msgPrio) {
     typedef int64_t (*km_fn_t)(void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1146,13 +1146,13 @@ int64_t libc_unix_hurd_mqReceive(void* mqd, char* msg_ptr, uint64_t msg_len, voi
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(mqd, msg_ptr, msg_len, msg_prio);
+        return km_fn_ptr(mqd, msgPtr, msgLen, msgPrio);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_unix_hurd_mqTimedreceive(void* mqd, char* msg_ptr, uint64_t msg_len, void* msg_prio, void* abs_timeout) {
+int64_t libcUnixHurdMqTimedreceive(void* mqd, char* msgPtr, uint64_t msgLen, void* msgPrio, void* absTimeout) {
     typedef int64_t (*km_fn_t)(void*, char*, uint64_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1174,13 +1174,13 @@ int64_t libc_unix_hurd_mqTimedreceive(void* mqd, char* msg_ptr, uint64_t msg_len
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(mqd, msg_ptr, msg_len, msg_prio, abs_timeout);
+        return km_fn_ptr(mqd, msgPtr, msgLen, msgPrio, absTimeout);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_hurd_mqSend(void* mqd, const char* msg_ptr, uint64_t msg_len, uint32_t msg_prio) {
+int32_t libcUnixHurdMqSend(void* mqd, const char* msgPtr, uint64_t msgLen, uint32_t msgPrio) {
     typedef int32_t (*km_fn_t)(void*, const char*, uint64_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1202,13 +1202,13 @@ int32_t libc_unix_hurd_mqSend(void* mqd, const char* msg_ptr, uint64_t msg_len, 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(mqd, msg_ptr, msg_len, msg_prio);
+        return km_fn_ptr(mqd, msgPtr, msgLen, msgPrio);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_hurd_mqTimedsend(void* mqd, const char* msg_ptr, uint64_t msg_len, uint32_t msg_prio, void* abs_timeout) {
+int32_t libcUnixHurdMqTimedsend(void* mqd, const char* msgPtr, uint64_t msgLen, uint32_t msgPrio, void* absTimeout) {
     typedef int32_t (*km_fn_t)(void*, const char*, uint64_t, uint32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1230,13 +1230,13 @@ int32_t libc_unix_hurd_mqTimedsend(void* mqd, const char* msg_ptr, uint64_t msg_
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(mqd, msg_ptr, msg_len, msg_prio, abs_timeout);
+        return km_fn_ptr(mqd, msgPtr, msgLen, msgPrio, absTimeout);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_hurd_mqGetattr(void* mqd, void* attr) {
+int32_t libcUnixHurdMqGetattr(void* mqd, void* attr) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1264,7 +1264,7 @@ int32_t libc_unix_hurd_mqGetattr(void* mqd, void* attr) {
     return -1;
 }
 
-int32_t libc_unix_hurd_mqSetattr(void* mqd, void* newattr, void* oldattr) {
+int32_t libcUnixHurdMqSetattr(void* mqd, void* newattr, void* oldattr) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1292,7 +1292,7 @@ int32_t libc_unix_hurd_mqSetattr(void* mqd, void* newattr, void* oldattr) {
     return -1;
 }
 
-int64_t libc_unix_hurd_lseek64(int32_t arg_0_fd, int64_t arg_1_offset, int32_t arg_2_whence) {
+int64_t libcUnixHurdLseek64(int32_t fd, int64_t offset, int32_t whence) {
     typedef int64_t (*km_fn_t)(int32_t, int64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1319,17 +1319,17 @@ int64_t libc_unix_hurd_lseek64(int32_t arg_0_fd, int64_t arg_1_offset, int32_t a
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_fd, arg_1_offset, arg_2_whence);
+        return km_fn_ptr(fd, offset, whence);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_unix_hurd_lseek(int32_t arg_0_fd, int64_t arg_1_offset, int32_t arg_2_whence) {
-    return (int64_t)lseek(arg_0_fd, arg_1_offset, arg_2_whence);
+int64_t libcUnixHurdLseek(int32_t fd, int64_t offset, int32_t whence) {
+    return (int64_t)lseek(fd, offset, whence);
 }
 
-int32_t libc_unix_hurd_fgetpos64(void* stream, void* ptr) {
+int32_t libcUnixHurdFgetpos64(void* stream, void* ptr) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1362,7 +1362,7 @@ int32_t libc_unix_hurd_fgetpos64(void* stream, void* ptr) {
     return -1;
 }
 
-int32_t libc_unix_hurd_fseeko64(void* stream, int64_t offset, int32_t whence) {
+int32_t libcUnixHurdFseeko64(void* stream, int64_t offset, int32_t whence) {
     typedef int32_t (*km_fn_t)(void*, int64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1395,7 +1395,7 @@ int32_t libc_unix_hurd_fseeko64(void* stream, int64_t offset, int32_t whence) {
     return -1;
 }
 
-int32_t libc_unix_hurd_fsetpos64(void* stream, void* ptr) {
+int32_t libcUnixHurdFsetpos64(void* stream, void* ptr) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1428,7 +1428,7 @@ int32_t libc_unix_hurd_fsetpos64(void* stream, void* ptr) {
     return -1;
 }
 
-int64_t libc_unix_hurd_ftello64(void* stream) {
+int64_t libcUnixHurdFtello64(void* stream) {
     typedef int64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1461,11 +1461,11 @@ int64_t libc_unix_hurd_ftello64(void* stream) {
     return -1;
 }
 
-int32_t libc_unix_hurd_bind(int32_t arg_0_fd, void* arg_1_addr, uint32_t arg_2_len) {
-    return (int32_t)bind(arg_0_fd, arg_1_addr, arg_2_len);
+int32_t libcUnixHurdBind(int32_t fd, void* addr, uint32_t len) {
+    return (int32_t)bind(fd, addr, len);
 }
 
-int32_t libc_unix_hurd_accept4(int32_t fd, void* addr, void* len, int32_t flg) {
+int32_t libcUnixHurdAccept4(int32_t fd, void* addr, void* len, int32_t flg) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1493,7 +1493,7 @@ int32_t libc_unix_hurd_accept4(int32_t fd, void* addr, void* len, int32_t flg) {
     return -1;
 }
 
-int32_t libc_unix_hurd_ppoll(void* fds, uint64_t nfds, void* timeout, void* sigmask) {
+int32_t libcUnixHurdPpoll(void* fds, uint64_t nfds, void* timeout, void* sigmask) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1521,7 +1521,7 @@ int32_t libc_unix_hurd_ppoll(void* fds, uint64_t nfds, void* timeout, void* sigm
     return -1;
 }
 
-int64_t libc_unix_hurd_recvmsg(int32_t arg_0_fd, void* arg_1_message, int32_t arg_2_flags) {
+int64_t libcUnixHurdRecvmsg(int32_t fd, void* message, int32_t flags) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1543,13 +1543,13 @@ int64_t libc_unix_hurd_recvmsg(int32_t arg_0_fd, void* arg_1_message, int32_t ar
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_fd, arg_1_message, arg_2_flags);
+        return km_fn_ptr(fd, message, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_unix_hurd_sendmsg(int32_t arg_0_fd, void* arg_1_message, int32_t arg_2_flags) {
+int64_t libcUnixHurdSendmsg(int32_t fd, void* message, int32_t flags) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1571,17 +1571,17 @@ int64_t libc_unix_hurd_sendmsg(int32_t arg_0_fd, void* arg_1_message, int32_t ar
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_fd, arg_1_message, arg_2_flags);
+        return km_fn_ptr(fd, message, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_unix_hurd_recvfrom(int32_t arg_0_socket, void* buf, uint64_t len, int32_t flags, void* addr, void* addrlen) {
-    return (int64_t)recvfrom(arg_0_socket, buf, len, flags, addr, addrlen);
+int64_t libcUnixHurdRecvfrom(int32_t arg0Socket, void* buf, uint64_t len, int32_t flags, void* addr, void* addrlen) {
+    return (int64_t)recvfrom(arg0Socket, buf, len, flags, addr, addrlen);
 }
 
-int64_t libc_unix_hurd_sendfile(int32_t out_fd, int32_t in_fd, void* offset, uint64_t count) {
+int64_t libcUnixHurdSendfile(int32_t outFd, int32_t inFd, void* offset, uint64_t count) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1603,13 +1603,13 @@ int64_t libc_unix_hurd_sendfile(int32_t out_fd, int32_t in_fd, void* offset, uin
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(out_fd, in_fd, offset, count);
+        return km_fn_ptr(outFd, inFd, offset, count);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_unix_hurd_sendfile64(int32_t out_fd, int32_t in_fd, void* offset, uint64_t count) {
+int64_t libcUnixHurdSendfile64(int32_t outFd, int32_t inFd, void* offset, uint64_t count) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1636,17 +1636,17 @@ int64_t libc_unix_hurd_sendfile64(int32_t out_fd, int32_t in_fd, void* offset, u
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(out_fd, in_fd, offset, count);
+        return km_fn_ptr(outFd, inFd, offset, count);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_hurd_shutdown(int32_t arg_0_fd, int32_t arg_1_how) {
-    return (int32_t)shutdown(arg_0_fd, arg_1_how);
+int32_t libcUnixHurdShutdown(int32_t fd, int32_t how) {
+    return (int32_t)shutdown(fd, how);
 }
 
-int32_t libc_unix_hurd_sethostname(const char* name, uint64_t len) {
+int32_t libcUnixHurdSethostname(const char* name, uint64_t len) {
     typedef int32_t (*km_fn_t)(const char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1674,7 +1674,7 @@ int32_t libc_unix_hurd_sethostname(const char* name, uint64_t len) {
     return -1;
 }
 
-int32_t libc_unix_hurd_getdomainname(char* name, uint64_t len) {
+int32_t libcUnixHurdGetdomainname(char* name, uint64_t len) {
     typedef int32_t (*km_fn_t)(char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1702,7 +1702,7 @@ int32_t libc_unix_hurd_getdomainname(char* name, uint64_t len) {
     return -1;
 }
 
-int32_t libc_unix_hurd_setdomainname(const char* name, uint64_t len) {
+int32_t libcUnixHurdSetdomainname(const char* name, uint64_t len) {
     typedef int32_t (*km_fn_t)(const char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1730,7 +1730,7 @@ int32_t libc_unix_hurd_setdomainname(const char* name, uint64_t len) {
     return -1;
 }
 
-void* libc_unix_hurd_ifNameindex(void) {
+void* libcUnixHurdIfNameindex(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1758,7 +1758,7 @@ void* libc_unix_hurd_ifNameindex(void) {
     return NULL;
 }
 
-void libc_unix_hurd_ifFreenameindex(void* ptr) {
+void libcUnixHurdIfFreenameindex(void* ptr) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1786,7 +1786,7 @@ void libc_unix_hurd_ifFreenameindex(void* ptr) {
     errno = ENOSYS;
 }
 
-int32_t libc_unix_hurd_getnameinfo(void* sa, uint32_t salen, char* host, uint32_t hostlen, char* serv, uint32_t servlen, int32_t flags) {
+int32_t libcUnixHurdGetnameinfo(void* sa, uint32_t salen, char* host, uint32_t hostlen, char* serv, uint32_t servlen, int32_t flags) {
     typedef int32_t (*km_fn_t)(void*, uint32_t, char*, uint32_t, char*, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1814,7 +1814,7 @@ int32_t libc_unix_hurd_getnameinfo(void* sa, uint32_t salen, char* host, uint32_
     return -1;
 }
 
-int32_t libc_unix_hurd_getifaddrs(void* ifap) {
+int32_t libcUnixHurdGetifaddrs(void* ifap) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1842,7 +1842,7 @@ int32_t libc_unix_hurd_getifaddrs(void* ifap) {
     return -1;
 }
 
-void libc_unix_hurd_freeifaddrs(void* ifa) {
+void libcUnixHurdFreeifaddrs(void* ifa) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1870,7 +1870,7 @@ void libc_unix_hurd_freeifaddrs(void* ifa) {
     errno = ENOSYS;
 }
 
-int32_t libc_unix_hurd_uname(void* buf) {
+int32_t libcUnixHurdUname(void* buf) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1898,7 +1898,7 @@ int32_t libc_unix_hurd_uname(void* buf) {
     return -1;
 }
 
-int64_t libc_unix_hurd_gethostid(void) {
+int64_t libcUnixHurdGethostid(void) {
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1926,7 +1926,7 @@ int64_t libc_unix_hurd_gethostid(void) {
     return -1;
 }
 
-int32_t libc_unix_hurd_sethostid(int64_t hostid) {
+int32_t libcUnixHurdSethostid(int64_t hostid) {
     typedef int32_t (*km_fn_t)(int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1954,7 +1954,7 @@ int32_t libc_unix_hurd_sethostid(int64_t hostid) {
     return -1;
 }
 
-void libc_unix_hurd_setpwent(void) {
+void libcUnixHurdSetpwent(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1982,7 +1982,7 @@ void libc_unix_hurd_setpwent(void) {
     errno = ENOSYS;
 }
 
-void libc_unix_hurd_endpwent(void) {
+void libcUnixHurdEndpwent(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2010,7 +2010,7 @@ void libc_unix_hurd_endpwent(void) {
     errno = ENOSYS;
 }
 
-void* libc_unix_hurd_getpwent(void) {
+void* libcUnixHurdGetpwent(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2038,7 +2038,7 @@ void* libc_unix_hurd_getpwent(void) {
     return NULL;
 }
 
-void libc_unix_hurd_setgrent(void) {
+void libcUnixHurdSetgrent(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2066,7 +2066,7 @@ void libc_unix_hurd_setgrent(void) {
     errno = ENOSYS;
 }
 
-void libc_unix_hurd_endgrent(void) {
+void libcUnixHurdEndgrent(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2094,7 +2094,7 @@ void libc_unix_hurd_endgrent(void) {
     errno = ENOSYS;
 }
 
-void* libc_unix_hurd_getgrent(void) {
+void* libcUnixHurdGetgrent(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2122,7 +2122,7 @@ void* libc_unix_hurd_getgrent(void) {
     return NULL;
 }
 
-void libc_unix_hurd_setspent(void) {
+void libcUnixHurdSetspent(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2150,7 +2150,7 @@ void libc_unix_hurd_setspent(void) {
     errno = ENOSYS;
 }
 
-void libc_unix_hurd_endspent(void) {
+void libcUnixHurdEndspent(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2178,7 +2178,7 @@ void libc_unix_hurd_endspent(void) {
     errno = ENOSYS;
 }
 
-void* libc_unix_hurd_getspent(void) {
+void* libcUnixHurdGetspent(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2206,7 +2206,7 @@ void* libc_unix_hurd_getspent(void) {
     return NULL;
 }
 
-void* libc_unix_hurd_getspnam(const char* name) {
+void* libcUnixHurdGetspnam(const char* name) {
     typedef void* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2234,7 +2234,7 @@ void* libc_unix_hurd_getspnam(const char* name) {
     return NULL;
 }
 
-int32_t libc_unix_hurd_getpwentR(void* pwd, char* buf, uint64_t buflen, void* result) {
+int32_t libcUnixHurdGetpwentR(void* pwd, char* buf, uint64_t buflen, void* result) {
     typedef int32_t (*km_fn_t)(void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2262,7 +2262,7 @@ int32_t libc_unix_hurd_getpwentR(void* pwd, char* buf, uint64_t buflen, void* re
     return -1;
 }
 
-int32_t libc_unix_hurd_getgrentR(void* grp, char* buf, uint64_t buflen, void* result) {
+int32_t libcUnixHurdGetgrentR(void* grp, char* buf, uint64_t buflen, void* result) {
     typedef int32_t (*km_fn_t)(void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2290,7 +2290,7 @@ int32_t libc_unix_hurd_getgrentR(void* grp, char* buf, uint64_t buflen, void* re
     return -1;
 }
 
-int32_t libc_unix_hurd_fgetpwentR(void* stream, void* pwd, char* buf, uint64_t buflen, void* result) {
+int32_t libcUnixHurdFgetpwentR(void* stream, void* pwd, char* buf, uint64_t buflen, void* result) {
     typedef int32_t (*km_fn_t)(void*, void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2318,7 +2318,7 @@ int32_t libc_unix_hurd_fgetpwentR(void* stream, void* pwd, char* buf, uint64_t b
     return -1;
 }
 
-int32_t libc_unix_hurd_fgetgrentR(void* stream, void* grp, char* buf, uint64_t buflen, void* result) {
+int32_t libcUnixHurdFgetgrentR(void* stream, void* grp, char* buf, uint64_t buflen, void* result) {
     typedef int32_t (*km_fn_t)(void*, void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2346,7 +2346,7 @@ int32_t libc_unix_hurd_fgetgrentR(void* stream, void* grp, char* buf, uint64_t b
     return -1;
 }
 
-int32_t libc_unix_hurd_putpwent(void* p, void* stream) {
+int32_t libcUnixHurdPutpwent(void* p, void* stream) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2374,7 +2374,7 @@ int32_t libc_unix_hurd_putpwent(void* p, void* stream) {
     return -1;
 }
 
-int32_t libc_unix_hurd_putgrent(void* grp, void* stream) {
+int32_t libcUnixHurdPutgrent(void* grp, void* stream) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2402,7 +2402,7 @@ int32_t libc_unix_hurd_putgrent(void* grp, void* stream) {
     return -1;
 }
 
-int32_t libc_unix_hurd_getpwnamR(const char* name, void* pwd, char* buf, uint64_t buflen, void* result) {
+int32_t libcUnixHurdGetpwnamR(const char* name, void* pwd, char* buf, uint64_t buflen, void* result) {
     typedef int32_t (*km_fn_t)(const char*, void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2430,7 +2430,7 @@ int32_t libc_unix_hurd_getpwnamR(const char* name, void* pwd, char* buf, uint64_
     return -1;
 }
 
-int32_t libc_unix_hurd_getpwuidR(uint32_t uid, void* pwd, char* buf, uint64_t buflen, void* result) {
+int32_t libcUnixHurdGetpwuidR(uint32_t uid, void* pwd, char* buf, uint64_t buflen, void* result) {
     typedef int32_t (*km_fn_t)(uint32_t, void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2458,7 +2458,7 @@ int32_t libc_unix_hurd_getpwuidR(uint32_t uid, void* pwd, char* buf, uint64_t bu
     return -1;
 }
 
-int32_t libc_unix_hurd_fgetspentR(void* fp, void* spbuf, char* buf, uint64_t buflen, void* spbufp) {
+int32_t libcUnixHurdFgetspentR(void* fp, void* spbuf, char* buf, uint64_t buflen, void* spbufp) {
     typedef int32_t (*km_fn_t)(void*, void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2486,7 +2486,7 @@ int32_t libc_unix_hurd_fgetspentR(void* fp, void* spbuf, char* buf, uint64_t buf
     return -1;
 }
 
-int32_t libc_unix_hurd_sgetspentR(const char* s, void* spbuf, char* buf, uint64_t buflen, void* spbufp) {
+int32_t libcUnixHurdSgetspentR(const char* s, void* spbuf, char* buf, uint64_t buflen, void* spbufp) {
     typedef int32_t (*km_fn_t)(const char*, void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2514,7 +2514,7 @@ int32_t libc_unix_hurd_sgetspentR(const char* s, void* spbuf, char* buf, uint64_
     return -1;
 }
 
-int32_t libc_unix_hurd_getspentR(void* spbuf, char* buf, uint64_t buflen, void* spbufp) {
+int32_t libcUnixHurdGetspentR(void* spbuf, char* buf, uint64_t buflen, void* spbufp) {
     typedef int32_t (*km_fn_t)(void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2542,7 +2542,7 @@ int32_t libc_unix_hurd_getspentR(void* spbuf, char* buf, uint64_t buflen, void* 
     return -1;
 }
 
-int32_t libc_unix_hurd_getspnamR(const char* name, void* spbuf, char* buf, uint64_t buflen, void* spbufp) {
+int32_t libcUnixHurdGetspnamR(const char* name, void* spbuf, char* buf, uint64_t buflen, void* spbufp) {
     typedef int32_t (*km_fn_t)(const char*, void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2570,7 +2570,7 @@ int32_t libc_unix_hurd_getspnamR(const char* name, void* spbuf, char* buf, uint6
     return -1;
 }
 
-void* libc_unix_hurd_getmntentR(void* stream, void* mntbuf, char* buf, int32_t buflen) {
+void* libcUnixHurdGetmntentR(void* stream, void* mntbuf, char* buf, int32_t buflen) {
     typedef void* (*km_fn_t)(void*, void*, char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2598,7 +2598,7 @@ void* libc_unix_hurd_getmntentR(void* stream, void* mntbuf, char* buf, int32_t b
     return NULL;
 }
 
-int32_t libc_unix_hurd_utmpname(const char* file) {
+int32_t libcUnixHurdUtmpname(const char* file) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2626,7 +2626,7 @@ int32_t libc_unix_hurd_utmpname(const char* file) {
     return -1;
 }
 
-int32_t libc_unix_hurd_utmpxname(const char* file) {
+int32_t libcUnixHurdUtmpxname(const char* file) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2654,7 +2654,7 @@ int32_t libc_unix_hurd_utmpxname(const char* file) {
     return -1;
 }
 
-void* libc_unix_hurd_getutxent(void) {
+void* libcUnixHurdGetutxent(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2682,7 +2682,7 @@ void* libc_unix_hurd_getutxent(void) {
     return NULL;
 }
 
-void* libc_unix_hurd_getutxid(void* ut) {
+void* libcUnixHurdGetutxid(void* ut) {
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2710,7 +2710,7 @@ void* libc_unix_hurd_getutxid(void* ut) {
     return NULL;
 }
 
-void* libc_unix_hurd_getutxline(void* ut) {
+void* libcUnixHurdGetutxline(void* ut) {
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2738,7 +2738,7 @@ void* libc_unix_hurd_getutxline(void* ut) {
     return NULL;
 }
 
-void* libc_unix_hurd_pututxline(void* ut) {
+void* libcUnixHurdPututxline(void* ut) {
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2766,7 +2766,7 @@ void* libc_unix_hurd_pututxline(void* ut) {
     return NULL;
 }
 
-void libc_unix_hurd_setutxent(void) {
+void libcUnixHurdSetutxent(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2794,7 +2794,7 @@ void libc_unix_hurd_setutxent(void) {
     errno = ENOSYS;
 }
 
-void libc_unix_hurd_endutxent(void) {
+void libcUnixHurdEndutxent(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2822,7 +2822,7 @@ void libc_unix_hurd_endutxent(void) {
     errno = ENOSYS;
 }
 
-int32_t libc_unix_hurd_getresuid(void* ruid, void* euid, void* suid) {
+int32_t libcUnixHurdGetresuid(void* ruid, void* euid, void* suid) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2850,7 +2850,7 @@ int32_t libc_unix_hurd_getresuid(void* ruid, void* euid, void* suid) {
     return -1;
 }
 
-int32_t libc_unix_hurd_getresgid(void* rgid, void* egid, void* sgid) {
+int32_t libcUnixHurdGetresgid(void* rgid, void* egid, void* sgid) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2878,7 +2878,7 @@ int32_t libc_unix_hurd_getresgid(void* rgid, void* egid, void* sgid) {
     return -1;
 }
 
-int32_t libc_unix_hurd_setresuid(uint32_t ruid, uint32_t euid, uint32_t suid) {
+int32_t libcUnixHurdSetresuid(uint32_t ruid, uint32_t euid, uint32_t suid) {
     typedef int32_t (*km_fn_t)(uint32_t, uint32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2906,7 +2906,7 @@ int32_t libc_unix_hurd_setresuid(uint32_t ruid, uint32_t euid, uint32_t suid) {
     return -1;
 }
 
-int32_t libc_unix_hurd_setresgid(uint32_t rgid, uint32_t egid, uint32_t sgid) {
+int32_t libcUnixHurdSetresgid(uint32_t rgid, uint32_t egid, uint32_t sgid) {
     typedef int32_t (*km_fn_t)(uint32_t, uint32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2934,7 +2934,7 @@ int32_t libc_unix_hurd_setresgid(uint32_t rgid, uint32_t egid, uint32_t sgid) {
     return -1;
 }
 
-int32_t libc_unix_hurd_initgroups(const char* user, uint32_t group) {
+int32_t libcUnixHurdInitgroups(const char* user, uint32_t group) {
     typedef int32_t (*km_fn_t)(const char*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2962,7 +2962,7 @@ int32_t libc_unix_hurd_initgroups(const char* user, uint32_t group) {
     return -1;
 }
 
-void* libc_unix_hurd_getgrgid(uint32_t gid) {
+void* libcUnixHurdGetgrgid(uint32_t gid) {
     typedef void* (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2990,7 +2990,7 @@ void* libc_unix_hurd_getgrgid(uint32_t gid) {
     return NULL;
 }
 
-int32_t libc_unix_hurd_getgrgidR(uint32_t gid, void* grp, char* buf, uint64_t buflen, void* result) {
+int32_t libcUnixHurdGetgrgidR(uint32_t gid, void* grp, char* buf, uint64_t buflen, void* result) {
     typedef int32_t (*km_fn_t)(uint32_t, void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3018,7 +3018,7 @@ int32_t libc_unix_hurd_getgrgidR(uint32_t gid, void* grp, char* buf, uint64_t bu
     return -1;
 }
 
-void* libc_unix_hurd_getgrnam(const char* name) {
+void* libcUnixHurdGetgrnam(const char* name) {
     typedef void* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3046,7 +3046,7 @@ void* libc_unix_hurd_getgrnam(const char* name) {
     return NULL;
 }
 
-int32_t libc_unix_hurd_getgrnamR(const char* name, void* grp, char* buf, uint64_t buflen, void* result) {
+int32_t libcUnixHurdGetgrnamR(const char* name, void* grp, char* buf, uint64_t buflen, void* result) {
     typedef int32_t (*km_fn_t)(const char*, void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3074,7 +3074,7 @@ int32_t libc_unix_hurd_getgrnamR(const char* name, void* grp, char* buf, uint64_
     return -1;
 }
 
-int32_t libc_unix_hurd_getgrouplist(const char* user, uint32_t group, void* groups, void* ngroups) {
+int32_t libcUnixHurdGetgrouplist(const char* user, uint32_t group, void* groups, void* ngroups) {
     typedef int32_t (*km_fn_t)(const char*, uint32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3102,7 +3102,7 @@ int32_t libc_unix_hurd_getgrouplist(const char* user, uint32_t group, void* grou
     return -1;
 }
 
-int32_t libc_unix_hurd_setgroups(uint64_t ngroups, void* ptr) {
+int32_t libcUnixHurdSetgroups(uint64_t ngroups, void* ptr) {
     typedef int32_t (*km_fn_t)(uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3130,7 +3130,7 @@ int32_t libc_unix_hurd_setgroups(uint64_t ngroups, void* ptr) {
     return -1;
 }
 
-int32_t libc_unix_hurd_acct(const char* filename) {
+int32_t libcUnixHurdAcct(const char* filename) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3158,7 +3158,7 @@ int32_t libc_unix_hurd_acct(const char* filename) {
     return -1;
 }
 
-void* libc_unix_hurd_setmntent(const char* filename, const char* ty) {
+void* libcUnixHurdSetmntent(const char* filename, const char* ty) {
     typedef void* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3186,7 +3186,7 @@ void* libc_unix_hurd_setmntent(const char* filename, const char* ty) {
     return NULL;
 }
 
-void* libc_unix_hurd_getmntent(void* stream) {
+void* libcUnixHurdGetmntent(void* stream) {
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3214,7 +3214,7 @@ void* libc_unix_hurd_getmntent(void* stream) {
     return NULL;
 }
 
-int32_t libc_unix_hurd_addmntent(void* stream, void* mnt) {
+int32_t libcUnixHurdAddmntent(void* stream, void* mnt) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3242,7 +3242,7 @@ int32_t libc_unix_hurd_addmntent(void* stream, void* mnt) {
     return -1;
 }
 
-int32_t libc_unix_hurd_endmntent(void* streamp) {
+int32_t libcUnixHurdEndmntent(void* streamp) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3270,7 +3270,7 @@ int32_t libc_unix_hurd_endmntent(void* streamp) {
     return -1;
 }
 
-char* libc_unix_hurd_hasmntopt(void* mnt, const char* opt) {
+char* libcUnixHurdHasmntopt(void* mnt, const char* opt) {
     typedef char* (*km_fn_t)(void*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3298,7 +3298,7 @@ char* libc_unix_hurd_hasmntopt(void* mnt, const char* opt) {
     return NULL;
 }
 
-int32_t libc_unix_hurd_pthreadCreate(void* native, void* attr, void* f, void* value) {
+int32_t libcUnixHurdPthreadCreate(void* native, void* attr, void* f, void* value) {
     typedef int32_t (*km_fn_t)(void*, void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3326,7 +3326,7 @@ int32_t libc_unix_hurd_pthreadCreate(void* native, void* attr, void* f, void* va
     return ENOSYS;
 }
 
-int32_t libc_unix_hurd_pthreadKill(void* arg_0_threadid, int32_t arg_1_signo) {
+int32_t libcUnixHurdPthreadKill(void* threadid, int32_t signo) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3348,13 +3348,13 @@ int32_t libc_unix_hurd_pthreadKill(void* arg_0_threadid, int32_t arg_1_signo) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_threadid, arg_1_signo);
+        return km_fn_ptr(threadid, signo);
     }
     errno = ENOSYS;
     return ENOSYS;
 }
 
-int32_t libc_unix_hurd_pthreadCancel(void* thread) {
+int32_t libcUnixHurdPthreadCancel(void* thread) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3382,7 +3382,7 @@ int32_t libc_unix_hurd_pthreadCancel(void* thread) {
     return ENOSYS;
 }
 
-int32_t libc_unix_hurd_pthreadEqual(void* arg_0_t1, void* arg_1_t2) {
+int32_t libcUnixHurdPthreadEqual(void* t1, void* t2) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3402,13 +3402,13 @@ int32_t libc_unix_hurd_pthreadEqual(void* arg_0_t1, void* arg_1_t2) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_t1, arg_1_t2);
+        return km_fn_ptr(t1, t2);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_hurd_pthreadGetattrNp(void* arg_0_thr, void* arg_1_attr) {
+int32_t libcUnixHurdPthreadGetattrNp(void* thr, void* attr) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3430,13 +3430,13 @@ int32_t libc_unix_hurd_pthreadGetattrNp(void* arg_0_thr, void* arg_1_attr) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_thr, arg_1_attr);
+        return km_fn_ptr(thr, attr);
     }
     errno = ENOSYS;
     return ENOSYS;
 }
 
-int32_t libc_unix_hurd_pthreadAttrGetguardsize(void* arg_0_attr, void* arg_1_guardsize) {
+int32_t libcUnixHurdPthreadAttrGetguardsize(void* attr, void* guardsize) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3458,13 +3458,13 @@ int32_t libc_unix_hurd_pthreadAttrGetguardsize(void* arg_0_attr, void* arg_1_gua
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_attr, arg_1_guardsize);
+        return km_fn_ptr(attr, guardsize);
     }
     errno = ENOSYS;
     return ENOSYS;
 }
 
-int32_t libc_unix_hurd_pthreadAttrSetguardsize(void* attr, uint64_t guardsize) {
+int32_t libcUnixHurdPthreadAttrSetguardsize(void* attr, uint64_t guardsize) {
     typedef int32_t (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3492,7 +3492,7 @@ int32_t libc_unix_hurd_pthreadAttrSetguardsize(void* attr, uint64_t guardsize) {
     return ENOSYS;
 }
 
-int32_t libc_unix_hurd_pthreadAttrGetstack(void* arg_0_attr, void* arg_1_stackaddr, void* arg_2_stacksize) {
+int32_t libcUnixHurdPthreadAttrGetstack(void* attr, void* stackaddr, void* stacksize) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3514,13 +3514,13 @@ int32_t libc_unix_hurd_pthreadAttrGetstack(void* arg_0_attr, void* arg_1_stackad
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_attr, arg_1_stackaddr, arg_2_stacksize);
+        return km_fn_ptr(attr, stackaddr, stacksize);
     }
     errno = ENOSYS;
     return ENOSYS;
 }
 
-int32_t libc_unix_hurd_pthreadMutexattrGetpshared(void* attr, void* pshared) {
+int32_t libcUnixHurdPthreadMutexattrGetpshared(void* attr, void* pshared) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3548,7 +3548,7 @@ int32_t libc_unix_hurd_pthreadMutexattrGetpshared(void* attr, void* pshared) {
     return ENOSYS;
 }
 
-int32_t libc_unix_hurd_pthreadMutexattrSetpshared(void* attr, int32_t pshared) {
+int32_t libcUnixHurdPthreadMutexattrSetpshared(void* attr, int32_t pshared) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3576,7 +3576,7 @@ int32_t libc_unix_hurd_pthreadMutexattrSetpshared(void* attr, int32_t pshared) {
     return ENOSYS;
 }
 
-int32_t libc_unix_hurd_pthreadMutexTimedlock(void* lock, void* abstime) {
+int32_t libcUnixHurdPthreadMutexTimedlock(void* lock, void* abstime) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3604,7 +3604,7 @@ int32_t libc_unix_hurd_pthreadMutexTimedlock(void* lock, void* abstime) {
     return ENOSYS;
 }
 
-int32_t libc_unix_hurd_pthreadRwlockattrGetpshared(void* attr, void* val) {
+int32_t libcUnixHurdPthreadRwlockattrGetpshared(void* attr, void* val) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3632,7 +3632,7 @@ int32_t libc_unix_hurd_pthreadRwlockattrGetpshared(void* attr, void* val) {
     return ENOSYS;
 }
 
-int32_t libc_unix_hurd_pthreadRwlockattrSetpshared(void* attr, int32_t val) {
+int32_t libcUnixHurdPthreadRwlockattrSetpshared(void* attr, int32_t val) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3660,7 +3660,7 @@ int32_t libc_unix_hurd_pthreadRwlockattrSetpshared(void* attr, int32_t val) {
     return ENOSYS;
 }
 
-int32_t libc_unix_hurd_pthreadCondattrGetclock(void* attr, void* clock_id) {
+int32_t libcUnixHurdPthreadCondattrGetclock(void* attr, void* clockId) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3682,13 +3682,13 @@ int32_t libc_unix_hurd_pthreadCondattrGetclock(void* attr, void* clock_id) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(attr, clock_id);
+        return km_fn_ptr(attr, clockId);
     }
     errno = ENOSYS;
     return ENOSYS;
 }
 
-int32_t libc_unix_hurd_pthreadCondattrSetclock(void* arg_0_attr, int32_t arg_1_clock_id) {
+int32_t libcUnixHurdPthreadCondattrSetclock(void* attr, int32_t clockId) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3710,13 +3710,13 @@ int32_t libc_unix_hurd_pthreadCondattrSetclock(void* arg_0_attr, int32_t arg_1_c
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_attr, arg_1_clock_id);
+        return km_fn_ptr(attr, clockId);
     }
     errno = ENOSYS;
     return ENOSYS;
 }
 
-int32_t libc_unix_hurd_pthreadCondattrGetpshared(void* attr, void* pshared) {
+int32_t libcUnixHurdPthreadCondattrGetpshared(void* attr, void* pshared) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3744,7 +3744,7 @@ int32_t libc_unix_hurd_pthreadCondattrGetpshared(void* attr, void* pshared) {
     return ENOSYS;
 }
 
-int32_t libc_unix_hurd_pthreadCondattrSetpshared(void* attr, int32_t pshared) {
+int32_t libcUnixHurdPthreadCondattrSetpshared(void* attr, int32_t pshared) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3772,7 +3772,7 @@ int32_t libc_unix_hurd_pthreadCondattrSetpshared(void* attr, int32_t pshared) {
     return ENOSYS;
 }
 
-int32_t libc_unix_hurd_pthreadOnce(void* control, void* routine) {
+int32_t libcUnixHurdPthreadOnce(void* control, void* routine) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3800,7 +3800,7 @@ int32_t libc_unix_hurd_pthreadOnce(void* control, void* routine) {
     return ENOSYS;
 }
 
-int32_t libc_unix_hurd_pthreadBarrierattrInit(void* attr) {
+int32_t libcUnixHurdPthreadBarrierattrInit(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3828,7 +3828,7 @@ int32_t libc_unix_hurd_pthreadBarrierattrInit(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_unix_hurd_pthreadBarrierattrDestroy(void* attr) {
+int32_t libcUnixHurdPthreadBarrierattrDestroy(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3856,7 +3856,7 @@ int32_t libc_unix_hurd_pthreadBarrierattrDestroy(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_unix_hurd_pthreadBarrierattrGetpshared(void* attr, void* shared) {
+int32_t libcUnixHurdPthreadBarrierattrGetpshared(void* attr, void* shared) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3884,7 +3884,7 @@ int32_t libc_unix_hurd_pthreadBarrierattrGetpshared(void* attr, void* shared) {
     return ENOSYS;
 }
 
-int32_t libc_unix_hurd_pthreadBarrierattrSetpshared(void* attr, int32_t shared) {
+int32_t libcUnixHurdPthreadBarrierattrSetpshared(void* attr, int32_t shared) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3912,7 +3912,7 @@ int32_t libc_unix_hurd_pthreadBarrierattrSetpshared(void* attr, int32_t shared) 
     return ENOSYS;
 }
 
-int32_t libc_unix_hurd_pthreadBarrierInit(void* barrier, void* attr, uint32_t count) {
+int32_t libcUnixHurdPthreadBarrierInit(void* barrier, void* attr, uint32_t count) {
     typedef int32_t (*km_fn_t)(void*, void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3940,7 +3940,7 @@ int32_t libc_unix_hurd_pthreadBarrierInit(void* barrier, void* attr, uint32_t co
     return ENOSYS;
 }
 
-int32_t libc_unix_hurd_pthreadBarrierDestroy(void* barrier) {
+int32_t libcUnixHurdPthreadBarrierDestroy(void* barrier) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3968,7 +3968,7 @@ int32_t libc_unix_hurd_pthreadBarrierDestroy(void* barrier) {
     return ENOSYS;
 }
 
-int32_t libc_unix_hurd_pthreadBarrierWait(void* barrier) {
+int32_t libcUnixHurdPthreadBarrierWait(void* barrier) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3996,7 +3996,7 @@ int32_t libc_unix_hurd_pthreadBarrierWait(void* barrier) {
     return ENOSYS;
 }
 
-int32_t libc_unix_hurd_pthreadSpinInit(void* lock, int32_t pshared) {
+int32_t libcUnixHurdPthreadSpinInit(void* lock, int32_t pshared) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4024,7 +4024,7 @@ int32_t libc_unix_hurd_pthreadSpinInit(void* lock, int32_t pshared) {
     return ENOSYS;
 }
 
-int32_t libc_unix_hurd_pthreadSpinDestroy(void* lock) {
+int32_t libcUnixHurdPthreadSpinDestroy(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4052,7 +4052,7 @@ int32_t libc_unix_hurd_pthreadSpinDestroy(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_unix_hurd_pthreadSpinLock(void* lock) {
+int32_t libcUnixHurdPthreadSpinLock(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4080,7 +4080,7 @@ int32_t libc_unix_hurd_pthreadSpinLock(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_unix_hurd_pthreadSpinTrylock(void* lock) {
+int32_t libcUnixHurdPthreadSpinTrylock(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4108,7 +4108,7 @@ int32_t libc_unix_hurd_pthreadSpinTrylock(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_unix_hurd_pthreadSpinUnlock(void* lock) {
+int32_t libcUnixHurdPthreadSpinUnlock(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4136,7 +4136,7 @@ int32_t libc_unix_hurd_pthreadSpinUnlock(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_unix_hurd_pthreadAtfork(void* prepare, void* parent, void* child) {
+int32_t libcUnixHurdPthreadAtfork(void* prepare, void* parent, void* child) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4164,7 +4164,7 @@ int32_t libc_unix_hurd_pthreadAtfork(void* prepare, void* parent, void* child) {
     return ENOSYS;
 }
 
-int32_t libc_unix_hurd_pthreadSigmask(int32_t arg_0_how, void* arg_1_newmask, void* arg_2_oldmask) {
+int32_t libcUnixHurdPthreadSigmask(int32_t how, void* newmask, void* oldmask) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4186,13 +4186,13 @@ int32_t libc_unix_hurd_pthreadSigmask(int32_t arg_0_how, void* arg_1_newmask, vo
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_how, arg_1_newmask, arg_2_oldmask);
+        return km_fn_ptr(how, newmask, oldmask);
     }
     errno = ENOSYS;
     return ENOSYS;
 }
 
-int32_t libc_unix_hurd_schedGetparam(int32_t pid, void* param) {
+int32_t libcUnixHurdSchedGetparam(int32_t pid, void* param) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4220,7 +4220,7 @@ int32_t libc_unix_hurd_schedGetparam(int32_t pid, void* param) {
     return -1;
 }
 
-int32_t libc_unix_hurd_schedSetparam(int32_t pid, void* param) {
+int32_t libcUnixHurdSchedSetparam(int32_t pid, void* param) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4248,7 +4248,7 @@ int32_t libc_unix_hurd_schedSetparam(int32_t pid, void* param) {
     return -1;
 }
 
-int32_t libc_unix_hurd_schedGetscheduler(int32_t pid) {
+int32_t libcUnixHurdSchedGetscheduler(int32_t pid) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4276,7 +4276,7 @@ int32_t libc_unix_hurd_schedGetscheduler(int32_t pid) {
     return -1;
 }
 
-int32_t libc_unix_hurd_schedSetscheduler(int32_t pid, int32_t policy, void* param) {
+int32_t libcUnixHurdSchedSetscheduler(int32_t pid, int32_t policy, void* param) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4304,7 +4304,7 @@ int32_t libc_unix_hurd_schedSetscheduler(int32_t pid, int32_t policy, void* para
     return -1;
 }
 
-int32_t libc_unix_hurd_pthreadGetschedparam(void* native, void* policy, void* param) {
+int32_t libcUnixHurdPthreadGetschedparam(void* native, void* policy, void* param) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4332,7 +4332,7 @@ int32_t libc_unix_hurd_pthreadGetschedparam(void* native, void* policy, void* pa
     return ENOSYS;
 }
 
-int32_t libc_unix_hurd_pthreadSetschedparam(void* native, int32_t policy, void* param) {
+int32_t libcUnixHurdPthreadSetschedparam(void* native, int32_t policy, void* param) {
     typedef int32_t (*km_fn_t)(void*, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4360,7 +4360,7 @@ int32_t libc_unix_hurd_pthreadSetschedparam(void* native, int32_t policy, void* 
     return ENOSYS;
 }
 
-int32_t libc_unix_hurd_pthreadGetcpuclockid(void* thread, void* clk_id) {
+int32_t libcUnixHurdPthreadGetcpuclockid(void* thread, void* clkId) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4382,13 +4382,13 @@ int32_t libc_unix_hurd_pthreadGetcpuclockid(void* thread, void* clk_id) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(thread, clk_id);
+        return km_fn_ptr(thread, clkId);
     }
     errno = ENOSYS;
     return ENOSYS;
 }
 
-int32_t libc_unix_hurd_semInit(void* sem, int32_t pshared, uint32_t value) {
+int32_t libcUnixHurdSemInit(void* sem, int32_t pshared, uint32_t value) {
     typedef int32_t (*km_fn_t)(void*, int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4416,7 +4416,7 @@ int32_t libc_unix_hurd_semInit(void* sem, int32_t pshared, uint32_t value) {
     return -1;
 }
 
-int32_t libc_unix_hurd_semDestroy(void* sem) {
+int32_t libcUnixHurdSemDestroy(void* sem) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4444,7 +4444,7 @@ int32_t libc_unix_hurd_semDestroy(void* sem) {
     return -1;
 }
 
-int32_t libc_unix_hurd_semTimedwait(void* sem, void* abstime) {
+int32_t libcUnixHurdSemTimedwait(void* sem, void* abstime) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4472,7 +4472,7 @@ int32_t libc_unix_hurd_semTimedwait(void* sem, void* abstime) {
     return -1;
 }
 
-int32_t libc_unix_hurd_semGetvalue(void* sem, void* sval) {
+int32_t libcUnixHurdSemGetvalue(void* sem, void* sval) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4500,7 +4500,7 @@ int32_t libc_unix_hurd_semGetvalue(void* sem, void* sval) {
     return -1;
 }
 
-int32_t libc_unix_hurd_clockGetres(int32_t arg_0_clock_id, void* arg_1_res) {
+int32_t libcUnixHurdClockGetres(int32_t clockId, void* res) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4522,13 +4522,13 @@ int32_t libc_unix_hurd_clockGetres(int32_t arg_0_clock_id, void* arg_1_res) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_clock_id, arg_1_res);
+        return km_fn_ptr(clockId, res);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_hurd_clockGettime(int32_t arg_0_clock_id, void* arg_1_tp) {
+int32_t libcUnixHurdClockGettime(int32_t clockId, void* tp) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4550,13 +4550,13 @@ int32_t libc_unix_hurd_clockGettime(int32_t arg_0_clock_id, void* arg_1_tp) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_clock_id, arg_1_tp);
+        return km_fn_ptr(clockId, tp);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_hurd_clockSettime(int32_t arg_0_clock_id, void* arg_1_tp) {
+int32_t libcUnixHurdClockSettime(int32_t clockId, void* tp) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4578,13 +4578,13 @@ int32_t libc_unix_hurd_clockSettime(int32_t arg_0_clock_id, void* arg_1_tp) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_clock_id, arg_1_tp);
+        return km_fn_ptr(clockId, tp);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_hurd_clockGetcpuclockid(int32_t pid, void* clk_id) {
+int32_t libcUnixHurdClockGetcpuclockid(int32_t pid, void* clkId) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4606,13 +4606,13 @@ int32_t libc_unix_hurd_clockGetcpuclockid(int32_t pid, void* clk_id) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(pid, clk_id);
+        return km_fn_ptr(pid, clkId);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_hurd_clockNanosleep(int32_t clk_id, int32_t flags, void* rqtp, void* rmtp) {
+int32_t libcUnixHurdClockNanosleep(int32_t clkId, int32_t flags, void* rqtp, void* rmtp) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4634,13 +4634,13 @@ int32_t libc_unix_hurd_clockNanosleep(int32_t clk_id, int32_t flags, void* rqtp,
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(clk_id, flags, rqtp, rmtp);
+        return km_fn_ptr(clkId, flags, rqtp, rmtp);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_hurd_gettimeofday(void* tp, void* tz) {
+int32_t libcUnixHurdGettimeofday(void* tp, void* tz) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4668,7 +4668,7 @@ int32_t libc_unix_hurd_gettimeofday(void* tp, void* tz) {
     return -1;
 }
 
-int32_t libc_unix_hurd_settimeofday(void* tv, void* tz) {
+int32_t libcUnixHurdSettimeofday(void* tv, void* tz) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4696,7 +4696,7 @@ int32_t libc_unix_hurd_settimeofday(void* tv, void* tz) {
     return -1;
 }
 
-char* libc_unix_hurd_asctimeR(void* tm, char* buf) {
+char* libcUnixHurdAsctimeR(void* tm, char* buf) {
     typedef char* (*km_fn_t)(void*, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4724,7 +4724,7 @@ char* libc_unix_hurd_asctimeR(void* tm, char* buf) {
     return NULL;
 }
 
-char* libc_unix_hurd_ctimeR(void* timep, char* buf) {
+char* libcUnixHurdCtimeR(void* timep, char* buf) {
     typedef char* (*km_fn_t)(void*, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4752,11 +4752,11 @@ char* libc_unix_hurd_ctimeR(void* timep, char* buf) {
     return NULL;
 }
 
-uint64_t libc_unix_hurd_strftime(char* s, uint64_t max, const char* format, void* tm) {
+uint64_t libcUnixHurdStrftime(char* s, uint64_t max, const char* format, void* tm) {
     return (uint64_t)strftime(s, max, format, tm);
 }
 
-char* libc_unix_hurd_strptime(const char* s, const char* format, void* tm) {
+char* libcUnixHurdStrptime(const char* s, const char* format, void* tm) {
     typedef char* (*km_fn_t)(const char*, const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4784,7 +4784,7 @@ char* libc_unix_hurd_strptime(const char* s, const char* format, void* tm) {
     return NULL;
 }
 
-int32_t libc_unix_hurd_timerCreate(int32_t clockid, void* sevp, void* timerid) {
+int32_t libcUnixHurdTimerCreate(int32_t clockid, void* sevp, void* timerid) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4812,7 +4812,7 @@ int32_t libc_unix_hurd_timerCreate(int32_t clockid, void* sevp, void* timerid) {
     return -1;
 }
 
-int32_t libc_unix_hurd_timerDelete(void* timerid) {
+int32_t libcUnixHurdTimerDelete(void* timerid) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4840,7 +4840,7 @@ int32_t libc_unix_hurd_timerDelete(void* timerid) {
     return -1;
 }
 
-int32_t libc_unix_hurd_timerGetoverrun(void* timerid) {
+int32_t libcUnixHurdTimerGetoverrun(void* timerid) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4868,7 +4868,7 @@ int32_t libc_unix_hurd_timerGetoverrun(void* timerid) {
     return -1;
 }
 
-int32_t libc_unix_hurd_timerGettime(void* timerid, void* curr_value) {
+int32_t libcUnixHurdTimerGettime(void* timerid, void* currValue) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4890,13 +4890,13 @@ int32_t libc_unix_hurd_timerGettime(void* timerid, void* curr_value) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(timerid, curr_value);
+        return km_fn_ptr(timerid, currValue);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_hurd_timerSettime(void* timerid, int32_t flags, void* new_value, void* old_value) {
+int32_t libcUnixHurdTimerSettime(void* timerid, int32_t flags, void* newValue, void* oldValue) {
     typedef int32_t (*km_fn_t)(void*, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4918,17 +4918,17 @@ int32_t libc_unix_hurd_timerSettime(void* timerid, int32_t flags, void* new_valu
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(timerid, flags, new_value, old_value);
+        return km_fn_ptr(timerid, flags, newValue, oldValue);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_hurd_fstat(int32_t arg_0_fd, void* arg_1_buf) {
-    return (int32_t)fstat(arg_0_fd, arg_1_buf);
+int32_t libcUnixHurdFstat(int32_t fd, void* buf) {
+    return (int32_t)fstat(fd, buf);
 }
 
-int32_t libc_unix_hurd_fstat64(int32_t arg_0_fd, void* arg_1_buf) {
+int32_t libcUnixHurdFstat64(int32_t fd, void* buf) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4955,13 +4955,13 @@ int32_t libc_unix_hurd_fstat64(int32_t arg_0_fd, void* arg_1_buf) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_fd, arg_1_buf);
+        return km_fn_ptr(fd, buf);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_hurd_fstatat(int32_t arg_0_fd, const char* arg_1_file, void* arg_2_buf, int32_t arg_3_flag) {
+int32_t libcUnixHurdFstatat(int32_t fd, const char* file, void* buf, int32_t flag) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4983,13 +4983,13 @@ int32_t libc_unix_hurd_fstatat(int32_t arg_0_fd, const char* arg_1_file, void* a
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_fd, arg_1_file, arg_2_buf, arg_3_flag);
+        return km_fn_ptr(fd, file, buf, flag);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_hurd_fstatat64(int32_t arg_0_fd, const char* arg_1_file, void* arg_2_buf, int32_t arg_3_flag) {
+int32_t libcUnixHurdFstatat64(int32_t fd, const char* file, void* buf, int32_t flag) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5016,13 +5016,13 @@ int32_t libc_unix_hurd_fstatat64(int32_t arg_0_fd, const char* arg_1_file, void*
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_fd, arg_1_file, arg_2_buf, arg_3_flag);
+        return km_fn_ptr(fd, file, buf, flag);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_hurd_statx(int32_t dirfd, const char* pathname, int32_t flags, uint32_t mask, void* statxbuf) {
+int32_t libcUnixHurdStatx(int32_t dirfd, const char* pathname, int32_t flags, uint32_t mask, void* statxbuf) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, uint32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5050,18 +5050,18 @@ int32_t libc_unix_hurd_statx(int32_t dirfd, const char* pathname, int32_t flags,
     return -1;
 }
 
-int32_t libc_unix_hurd_ftruncate(int32_t arg_0_fd, int64_t arg_1_length) {
+int32_t libcUnixHurdFtruncate(int32_t fd, int64_t length) {
 #if !defined(_WIN32)
-    return (int32_t)ftruncate(arg_0_fd, arg_1_length);
+    return (int32_t)ftruncate(fd, length);
 #else
-    (void)arg_0_fd;
-    (void)arg_1_length;
+    (void)fd;
+    (void)length;
     errno = ENOSYS;
     return -1;
 #endif
 }
 
-int32_t libc_unix_hurd_ftruncate64(int32_t arg_0_fd, int64_t arg_1_length) {
+int32_t libcUnixHurdFtruncate64(int32_t fd, int64_t length) {
     typedef int32_t (*km_fn_t)(int32_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5088,13 +5088,13 @@ int32_t libc_unix_hurd_ftruncate64(int32_t arg_0_fd, int64_t arg_1_length) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_fd, arg_1_length);
+        return km_fn_ptr(fd, length);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_hurd_truncate64(const char* arg_0_file, int64_t arg_1_length) {
+int32_t libcUnixHurdTruncate64(const char* file, int64_t length) {
     typedef int32_t (*km_fn_t)(const char*, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5121,24 +5121,24 @@ int32_t libc_unix_hurd_truncate64(const char* arg_0_file, int64_t arg_1_length) 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_file, arg_1_length);
+        return km_fn_ptr(file, length);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_hurd_lstat(const char* arg_0_file, void* arg_1_buf) {
+int32_t libcUnixHurdLstat(const char* file, void* buf) {
 #if !defined(_WIN32)
-    return (int32_t)lstat(arg_0_file, arg_1_buf);
+    return (int32_t)lstat(file, buf);
 #else
-    (void)arg_0_file;
-    (void)arg_1_buf;
+    (void)file;
+    (void)buf;
     errno = ENOSYS;
     return -1;
 #endif
 }
 
-int32_t libc_unix_hurd_lstat64(const char* arg_0_file, void* arg_1_buf) {
+int32_t libcUnixHurdLstat64(const char* file, void* buf) {
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5165,13 +5165,13 @@ int32_t libc_unix_hurd_lstat64(const char* arg_0_file, void* arg_1_buf) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_file, arg_1_buf);
+        return km_fn_ptr(file, buf);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_hurd_statfs(const char* path, void* buf) {
+int32_t libcUnixHurdStatfs(const char* path, void* buf) {
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5199,7 +5199,7 @@ int32_t libc_unix_hurd_statfs(const char* path, void* buf) {
     return -1;
 }
 
-int32_t libc_unix_hurd_statfs64(const char* arg_0_file, void* arg_1_buf) {
+int32_t libcUnixHurdStatfs64(const char* file, void* buf) {
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5226,13 +5226,13 @@ int32_t libc_unix_hurd_statfs64(const char* arg_0_file, void* arg_1_buf) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_file, arg_1_buf);
+        return km_fn_ptr(file, buf);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_hurd_fstatfs(int32_t fd, void* buf) {
+int32_t libcUnixHurdFstatfs(int32_t fd, void* buf) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5260,7 +5260,7 @@ int32_t libc_unix_hurd_fstatfs(int32_t fd, void* buf) {
     return -1;
 }
 
-int32_t libc_unix_hurd_fstatfs64(int32_t arg_0_fildes, void* arg_1_buf) {
+int32_t libcUnixHurdFstatfs64(int32_t fildes, void* buf) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5287,13 +5287,13 @@ int32_t libc_unix_hurd_fstatfs64(int32_t arg_0_fildes, void* arg_1_buf) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_fildes, arg_1_buf);
+        return km_fn_ptr(fildes, buf);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_hurd_statvfs(const char* arg_0_file, void* arg_1_buf) {
+int32_t libcUnixHurdStatvfs(const char* file, void* buf) {
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5315,13 +5315,13 @@ int32_t libc_unix_hurd_statvfs(const char* arg_0_file, void* arg_1_buf) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_file, arg_1_buf);
+        return km_fn_ptr(file, buf);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_hurd_statvfs64(const char* arg_0_file, void* arg_1_buf) {
+int32_t libcUnixHurdStatvfs64(const char* file, void* buf) {
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5348,13 +5348,13 @@ int32_t libc_unix_hurd_statvfs64(const char* arg_0_file, void* arg_1_buf) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_file, arg_1_buf);
+        return km_fn_ptr(file, buf);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_hurd_fstatvfs(int32_t arg_0_fildes, void* arg_1_buf) {
+int32_t libcUnixHurdFstatvfs(int32_t fildes, void* buf) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5376,13 +5376,13 @@ int32_t libc_unix_hurd_fstatvfs(int32_t arg_0_fildes, void* arg_1_buf) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_fildes, arg_1_buf);
+        return km_fn_ptr(fildes, buf);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_hurd_fstatvfs64(int32_t arg_0_fildes, void* arg_1_buf) {
+int32_t libcUnixHurdFstatvfs64(int32_t fildes, void* buf) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5409,13 +5409,13 @@ int32_t libc_unix_hurd_fstatvfs64(int32_t arg_0_fildes, void* arg_1_buf) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_fildes, arg_1_buf);
+        return km_fn_ptr(fildes, buf);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_hurd_open(const char* arg_0_file, int32_t arg_1_oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcUnixHurdOpen(const char* file, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(const char*, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5438,18 +5438,18 @@ int32_t libc_unix_hurd_open(const char* arg_0_file, int32_t arg_1_oflag, int32_t
 #endif
     if (km_fn_ptr != NULL) {
         switch (km_vac) {
-            case 0: return km_fn_ptr(arg_0_file, arg_1_oflag);
-            case 1: return km_fn_ptr(arg_0_file, arg_1_oflag, (intptr_t)km_va0);
-            case 2: return km_fn_ptr(arg_0_file, arg_1_oflag, (intptr_t)km_va0, (intptr_t)km_va1);
-            case 3: return km_fn_ptr(arg_0_file, arg_1_oflag, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2);
-            default: return km_fn_ptr(arg_0_file, arg_1_oflag, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3);
+            case 0: return km_fn_ptr(file, oflag);
+            case 1: return km_fn_ptr(file, oflag, (intptr_t)km_va0);
+            case 2: return km_fn_ptr(file, oflag, (intptr_t)km_va0, (intptr_t)km_va1);
+            case 3: return km_fn_ptr(file, oflag, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2);
+            default: return km_fn_ptr(file, oflag, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3);
         }
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_hurd_open64(const char* arg_0_file, int32_t arg_1_oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcUnixHurdOpen64(const char* file, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(const char*, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5477,18 +5477,18 @@ int32_t libc_unix_hurd_open64(const char* arg_0_file, int32_t arg_1_oflag, int32
 #endif
     if (km_fn_ptr != NULL) {
         switch (km_vac) {
-            case 0: return km_fn_ptr(arg_0_file, arg_1_oflag);
-            case 1: return km_fn_ptr(arg_0_file, arg_1_oflag, (intptr_t)km_va0);
-            case 2: return km_fn_ptr(arg_0_file, arg_1_oflag, (intptr_t)km_va0, (intptr_t)km_va1);
-            case 3: return km_fn_ptr(arg_0_file, arg_1_oflag, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2);
-            default: return km_fn_ptr(arg_0_file, arg_1_oflag, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3);
+            case 0: return km_fn_ptr(file, oflag);
+            case 1: return km_fn_ptr(file, oflag, (intptr_t)km_va0);
+            case 2: return km_fn_ptr(file, oflag, (intptr_t)km_va0, (intptr_t)km_va1);
+            case 3: return km_fn_ptr(file, oflag, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2);
+            default: return km_fn_ptr(file, oflag, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3);
         }
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_hurd_openat(int32_t arg_0_fd, const char* arg_1_file, int32_t arg_2_oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcUnixHurdOpenat(int32_t fd, const char* file, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5511,18 +5511,18 @@ int32_t libc_unix_hurd_openat(int32_t arg_0_fd, const char* arg_1_file, int32_t 
 #endif
     if (km_fn_ptr != NULL) {
         switch (km_vac) {
-            case 0: return km_fn_ptr(arg_0_fd, arg_1_file, arg_2_oflag);
-            case 1: return km_fn_ptr(arg_0_fd, arg_1_file, arg_2_oflag, (intptr_t)km_va0);
-            case 2: return km_fn_ptr(arg_0_fd, arg_1_file, arg_2_oflag, (intptr_t)km_va0, (intptr_t)km_va1);
-            case 3: return km_fn_ptr(arg_0_fd, arg_1_file, arg_2_oflag, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2);
-            default: return km_fn_ptr(arg_0_fd, arg_1_file, arg_2_oflag, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3);
+            case 0: return km_fn_ptr(fd, file, oflag);
+            case 1: return km_fn_ptr(fd, file, oflag, (intptr_t)km_va0);
+            case 2: return km_fn_ptr(fd, file, oflag, (intptr_t)km_va0, (intptr_t)km_va1);
+            case 3: return km_fn_ptr(fd, file, oflag, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2);
+            default: return km_fn_ptr(fd, file, oflag, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3);
         }
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_hurd_openat64(int32_t arg_0_fd, const char* arg_1_file, int32_t arg_2_oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcUnixHurdOpenat64(int32_t fd, const char* file, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5550,18 +5550,18 @@ int32_t libc_unix_hurd_openat64(int32_t arg_0_fd, const char* arg_1_file, int32_
 #endif
     if (km_fn_ptr != NULL) {
         switch (km_vac) {
-            case 0: return km_fn_ptr(arg_0_fd, arg_1_file, arg_2_oflag);
-            case 1: return km_fn_ptr(arg_0_fd, arg_1_file, arg_2_oflag, (intptr_t)km_va0);
-            case 2: return km_fn_ptr(arg_0_fd, arg_1_file, arg_2_oflag, (intptr_t)km_va0, (intptr_t)km_va1);
-            case 3: return km_fn_ptr(arg_0_fd, arg_1_file, arg_2_oflag, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2);
-            default: return km_fn_ptr(arg_0_fd, arg_1_file, arg_2_oflag, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3);
+            case 0: return km_fn_ptr(fd, file, oflag);
+            case 1: return km_fn_ptr(fd, file, oflag, (intptr_t)km_va0);
+            case 2: return km_fn_ptr(fd, file, oflag, (intptr_t)km_va0, (intptr_t)km_va1);
+            case 3: return km_fn_ptr(fd, file, oflag, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2);
+            default: return km_fn_ptr(fd, file, oflag, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3);
         }
     }
     errno = ENOSYS;
     return -1;
 }
 
-void* libc_unix_hurd_fopen64(const char* filename, const char* mode) {
+void* libcUnixHurdFopen64(const char* filename, const char* mode) {
     typedef void* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5594,7 +5594,7 @@ void* libc_unix_hurd_fopen64(const char* filename, const char* mode) {
     return NULL;
 }
 
-void* libc_unix_hurd_freopen64(const char* filename, const char* mode, void* file) {
+void* libcUnixHurdFreopen64(const char* filename, const char* mode, void* file) {
     typedef void* (*km_fn_t)(const char*, const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5627,7 +5627,7 @@ void* libc_unix_hurd_freopen64(const char* filename, const char* mode, void* fil
     return NULL;
 }
 
-int32_t libc_unix_hurd_creat64(const char* path, uint32_t mode) {
+int32_t libcUnixHurdCreat64(const char* path, uint32_t mode) {
     typedef int32_t (*km_fn_t)(const char*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5660,7 +5660,7 @@ int32_t libc_unix_hurd_creat64(const char* path, uint32_t mode) {
     return -1;
 }
 
-int32_t libc_unix_hurd_mkostemp(char* arg_0_template, int32_t flags) {
+int32_t libcUnixHurdMkostemp(char* arg0Template, int32_t flags) {
     typedef int32_t (*km_fn_t)(char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5682,13 +5682,13 @@ int32_t libc_unix_hurd_mkostemp(char* arg_0_template, int32_t flags) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_template, flags);
+        return km_fn_ptr(arg0Template, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_hurd_mkostemps(char* arg_0_template, int32_t suffixlen, int32_t flags) {
+int32_t libcUnixHurdMkostemps(char* arg0Template, int32_t suffixlen, int32_t flags) {
     typedef int32_t (*km_fn_t)(char*, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5710,13 +5710,13 @@ int32_t libc_unix_hurd_mkostemps(char* arg_0_template, int32_t suffixlen, int32_
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_template, suffixlen, flags);
+        return km_fn_ptr(arg0Template, suffixlen, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_hurd_mkstemps(char* arg_0_template, int32_t suffixlen) {
+int32_t libcUnixHurdMkstemps(char* arg0Template, int32_t suffixlen) {
     typedef int32_t (*km_fn_t)(char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5738,13 +5738,13 @@ int32_t libc_unix_hurd_mkstemps(char* arg_0_template, int32_t suffixlen) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_template, suffixlen);
+        return km_fn_ptr(arg0Template, suffixlen);
     }
     errno = ENOSYS;
     return -1;
 }
 
-void* libc_unix_hurd_tmpfile64(void) {
+void* libcUnixHurdTmpfile64(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5777,7 +5777,7 @@ void* libc_unix_hurd_tmpfile64(void) {
     return NULL;
 }
 
-void* libc_unix_hurd_popen(const char* command, const char* mode) {
+void* libcUnixHurdPopen(const char* command, const char* mode) {
     typedef void* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5805,7 +5805,7 @@ void* libc_unix_hurd_popen(const char* command, const char* mode) {
     return NULL;
 }
 
-int32_t libc_unix_hurd_getdtablesize(void) {
+int32_t libcUnixHurdGetdtablesize(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5833,7 +5833,7 @@ int32_t libc_unix_hurd_getdtablesize(void) {
     return -1;
 }
 
-int32_t libc_unix_hurd_closeRange(uint32_t first, uint32_t last, int32_t flags) {
+int32_t libcUnixHurdCloseRange(uint32_t first, uint32_t last, int32_t flags) {
     typedef int32_t (*km_fn_t)(uint32_t, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5861,7 +5861,7 @@ int32_t libc_unix_hurd_closeRange(uint32_t first, uint32_t last, int32_t flags) 
     return -1;
 }
 
-int32_t libc_unix_hurd_openpty(void* arg_0_amaster, void* arg_1_aslave, char* arg_2_name, void* arg_3_termp, void* arg_4_winp) {
+int32_t libcUnixHurdOpenpty(void* amaster, void* aslave, char* name, void* termp, void* winp) {
     typedef int32_t (*km_fn_t)(void*, void*, char*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5883,13 +5883,13 @@ int32_t libc_unix_hurd_openpty(void* arg_0_amaster, void* arg_1_aslave, char* ar
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_amaster, arg_1_aslave, arg_2_name, arg_3_termp, arg_4_winp);
+        return km_fn_ptr(amaster, aslave, name, termp, winp);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_hurd_forkpty(void* arg_0_amaster, char* arg_1_name, void* arg_2_termp, void* arg_3_winp) {
+int32_t libcUnixHurdForkpty(void* amaster, char* name, void* termp, void* winp) {
     typedef int32_t (*km_fn_t)(void*, char*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5911,13 +5911,13 @@ int32_t libc_unix_hurd_forkpty(void* arg_0_amaster, char* arg_1_name, void* arg_
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_amaster, arg_1_name, arg_2_termp, arg_3_winp);
+        return km_fn_ptr(amaster, name, termp, winp);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_hurd_getpt(void) {
+int32_t libcUnixHurdGetpt(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5945,7 +5945,7 @@ int32_t libc_unix_hurd_getpt(void) {
     return -1;
 }
 
-int32_t libc_unix_hurd_ptsnameR(int32_t fd, char* buf, uint64_t buflen) {
+int32_t libcUnixHurdPtsnameR(int32_t fd, char* buf, uint64_t buflen) {
     typedef int32_t (*km_fn_t)(int32_t, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5973,7 +5973,7 @@ int32_t libc_unix_hurd_ptsnameR(int32_t fd, char* buf, uint64_t buflen) {
     return -1;
 }
 
-int32_t libc_unix_hurd_loginTty(int32_t fd) {
+int32_t libcUnixHurdLoginTty(int32_t fd) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6001,7 +6001,7 @@ int32_t libc_unix_hurd_loginTty(int32_t fd) {
     return -1;
 }
 
-char* libc_unix_hurd_ctermid(char* s) {
+char* libcUnixHurdCtermid(char* s) {
     typedef char* (*km_fn_t)(char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6029,7 +6029,7 @@ char* libc_unix_hurd_ctermid(char* s) {
     return NULL;
 }
 
-int32_t libc_unix_hurd_clearenv(void) {
+int32_t libcUnixHurdClearenv(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6057,7 +6057,7 @@ int32_t libc_unix_hurd_clearenv(void) {
     return -1;
 }
 
-int32_t libc_unix_hurd_execveat(int32_t dirfd, const char* pathname, void* argv, void* envp, int32_t flags) {
+int32_t libcUnixHurdExecveat(int32_t dirfd, const char* pathname, void* argv, void* envp, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, void*, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6085,7 +6085,7 @@ int32_t libc_unix_hurd_execveat(int32_t dirfd, const char* pathname, void* argv,
     return -1;
 }
 
-int32_t libc_unix_hurd_execvpe(const char* file, void* argv, void* envp) {
+int32_t libcUnixHurdExecvpe(const char* file, void* argv, void* envp) {
     typedef int32_t (*km_fn_t)(const char*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6113,7 +6113,7 @@ int32_t libc_unix_hurd_execvpe(const char* file, void* argv, void* envp) {
     return -1;
 }
 
-int32_t libc_unix_hurd_fexecve(int32_t fd, void* argv, void* envp) {
+int32_t libcUnixHurdFexecve(int32_t fd, void* argv, void* envp) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6141,7 +6141,7 @@ int32_t libc_unix_hurd_fexecve(int32_t fd, void* argv, void* envp) {
     return -1;
 }
 
-int32_t libc_unix_hurd_daemon(int32_t nochdir, int32_t noclose) {
+int32_t libcUnixHurdDaemon(int32_t nochdir, int32_t noclose) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6169,7 +6169,7 @@ int32_t libc_unix_hurd_daemon(int32_t nochdir, int32_t noclose) {
     return -1;
 }
 
-int32_t libc_unix_hurd_posixSpawn(void* pid, const char* path, void* file_actions, void* attrp, void* argv, void* envp) {
+int32_t libcUnixHurdPosixSpawn(void* pid, const char* path, void* fileActions, void* attrp, void* argv, void* envp) {
     typedef int32_t (*km_fn_t)(void*, const char*, void*, void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6191,13 +6191,13 @@ int32_t libc_unix_hurd_posixSpawn(void* pid, const char* path, void* file_action
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(pid, path, file_actions, attrp, argv, envp);
+        return km_fn_ptr(pid, path, fileActions, attrp, argv, envp);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_hurd_posixSpawnp(void* pid, const char* file, void* file_actions, void* attrp, void* argv, void* envp) {
+int32_t libcUnixHurdPosixSpawnp(void* pid, const char* file, void* fileActions, void* attrp, void* argv, void* envp) {
     typedef int32_t (*km_fn_t)(void*, const char*, void*, void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6219,13 +6219,13 @@ int32_t libc_unix_hurd_posixSpawnp(void* pid, const char* file, void* file_actio
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(pid, file, file_actions, attrp, argv, envp);
+        return km_fn_ptr(pid, file, fileActions, attrp, argv, envp);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_hurd_posixSpawnattrInit(void* attr) {
+int32_t libcUnixHurdPosixSpawnattrInit(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6253,7 +6253,7 @@ int32_t libc_unix_hurd_posixSpawnattrInit(void* attr) {
     return -1;
 }
 
-int32_t libc_unix_hurd_posixSpawnattrDestroy(void* attr) {
+int32_t libcUnixHurdPosixSpawnattrDestroy(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6281,7 +6281,7 @@ int32_t libc_unix_hurd_posixSpawnattrDestroy(void* attr) {
     return -1;
 }
 
-int32_t libc_unix_hurd_posixSpawnattrGetsigdefault(void* attr, void* arg_1_default) {
+int32_t libcUnixHurdPosixSpawnattrGetsigdefault(void* attr, void* arg1Default) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6303,13 +6303,13 @@ int32_t libc_unix_hurd_posixSpawnattrGetsigdefault(void* attr, void* arg_1_defau
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(attr, arg_1_default);
+        return km_fn_ptr(attr, arg1Default);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_hurd_posixSpawnattrSetsigdefault(void* attr, void* arg_1_default) {
+int32_t libcUnixHurdPosixSpawnattrSetsigdefault(void* attr, void* arg1Default) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6331,13 +6331,13 @@ int32_t libc_unix_hurd_posixSpawnattrSetsigdefault(void* attr, void* arg_1_defau
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(attr, arg_1_default);
+        return km_fn_ptr(attr, arg1Default);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_hurd_posixSpawnattrGetsigmask(void* attr, void* arg_1_default) {
+int32_t libcUnixHurdPosixSpawnattrGetsigmask(void* attr, void* arg1Default) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6359,13 +6359,13 @@ int32_t libc_unix_hurd_posixSpawnattrGetsigmask(void* attr, void* arg_1_default)
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(attr, arg_1_default);
+        return km_fn_ptr(attr, arg1Default);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_hurd_posixSpawnattrSetsigmask(void* attr, void* arg_1_default) {
+int32_t libcUnixHurdPosixSpawnattrSetsigmask(void* attr, void* arg1Default) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6387,13 +6387,13 @@ int32_t libc_unix_hurd_posixSpawnattrSetsigmask(void* attr, void* arg_1_default)
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(attr, arg_1_default);
+        return km_fn_ptr(attr, arg1Default);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_hurd_posixSpawnattrGetflags(void* attr, void* flags) {
+int32_t libcUnixHurdPosixSpawnattrGetflags(void* attr, void* flags) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6421,7 +6421,7 @@ int32_t libc_unix_hurd_posixSpawnattrGetflags(void* attr, void* flags) {
     return -1;
 }
 
-int32_t libc_unix_hurd_posixSpawnattrSetflags(void* attr, int16_t flags) {
+int32_t libcUnixHurdPosixSpawnattrSetflags(void* attr, int16_t flags) {
     typedef int32_t (*km_fn_t)(void*, int16_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6449,7 +6449,7 @@ int32_t libc_unix_hurd_posixSpawnattrSetflags(void* attr, int16_t flags) {
     return -1;
 }
 
-int32_t libc_unix_hurd_posixSpawnattrGetpgroup(void* attr, void* flags) {
+int32_t libcUnixHurdPosixSpawnattrGetpgroup(void* attr, void* flags) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6477,7 +6477,7 @@ int32_t libc_unix_hurd_posixSpawnattrGetpgroup(void* attr, void* flags) {
     return -1;
 }
 
-int32_t libc_unix_hurd_posixSpawnattrSetpgroup(void* attr, int32_t flags) {
+int32_t libcUnixHurdPosixSpawnattrSetpgroup(void* attr, int32_t flags) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6505,7 +6505,7 @@ int32_t libc_unix_hurd_posixSpawnattrSetpgroup(void* attr, int32_t flags) {
     return -1;
 }
 
-int32_t libc_unix_hurd_posixSpawnattrGetschedpolicy(void* attr, void* flags) {
+int32_t libcUnixHurdPosixSpawnattrGetschedpolicy(void* attr, void* flags) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6533,7 +6533,7 @@ int32_t libc_unix_hurd_posixSpawnattrGetschedpolicy(void* attr, void* flags) {
     return -1;
 }
 
-int32_t libc_unix_hurd_posixSpawnattrSetschedpolicy(void* attr, int32_t flags) {
+int32_t libcUnixHurdPosixSpawnattrSetschedpolicy(void* attr, int32_t flags) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6561,7 +6561,7 @@ int32_t libc_unix_hurd_posixSpawnattrSetschedpolicy(void* attr, int32_t flags) {
     return -1;
 }
 
-int32_t libc_unix_hurd_posixSpawnattrGetschedparam(void* attr, void* param) {
+int32_t libcUnixHurdPosixSpawnattrGetschedparam(void* attr, void* param) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6589,7 +6589,7 @@ int32_t libc_unix_hurd_posixSpawnattrGetschedparam(void* attr, void* param) {
     return -1;
 }
 
-int32_t libc_unix_hurd_posixSpawnattrSetschedparam(void* attr, void* param) {
+int32_t libcUnixHurdPosixSpawnattrSetschedparam(void* attr, void* param) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6617,7 +6617,7 @@ int32_t libc_unix_hurd_posixSpawnattrSetschedparam(void* attr, void* param) {
     return -1;
 }
 
-int32_t libc_unix_hurd_posixSpawnFileActionsInit(void* actions) {
+int32_t libcUnixHurdPosixSpawnFileActionsInit(void* actions) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6645,7 +6645,7 @@ int32_t libc_unix_hurd_posixSpawnFileActionsInit(void* actions) {
     return -1;
 }
 
-int32_t libc_unix_hurd_posixSpawnFileActionsDestroy(void* actions) {
+int32_t libcUnixHurdPosixSpawnFileActionsDestroy(void* actions) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6673,7 +6673,7 @@ int32_t libc_unix_hurd_posixSpawnFileActionsDestroy(void* actions) {
     return -1;
 }
 
-int32_t libc_unix_hurd_posixSpawnFileActionsAddopen(void* actions, int32_t fd, const char* path, int32_t oflag, uint32_t mode) {
+int32_t libcUnixHurdPosixSpawnFileActionsAddopen(void* actions, int32_t fd, const char* path, int32_t oflag, uint32_t mode) {
     typedef int32_t (*km_fn_t)(void*, int32_t, const char*, int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6701,7 +6701,7 @@ int32_t libc_unix_hurd_posixSpawnFileActionsAddopen(void* actions, int32_t fd, c
     return -1;
 }
 
-int32_t libc_unix_hurd_posixSpawnFileActionsAddclose(void* actions, int32_t fd) {
+int32_t libcUnixHurdPosixSpawnFileActionsAddclose(void* actions, int32_t fd) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6729,7 +6729,7 @@ int32_t libc_unix_hurd_posixSpawnFileActionsAddclose(void* actions, int32_t fd) 
     return -1;
 }
 
-int32_t libc_unix_hurd_posixSpawnFileActionsAdddup2(void* actions, int32_t fd, int32_t newfd) {
+int32_t libcUnixHurdPosixSpawnFileActionsAdddup2(void* actions, int32_t fd, int32_t newfd) {
     typedef int32_t (*km_fn_t)(void*, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6757,7 +6757,7 @@ int32_t libc_unix_hurd_posixSpawnFileActionsAdddup2(void* actions, int32_t fd, i
     return -1;
 }
 
-int32_t libc_unix_hurd_posixSpawnFileActionsAddchdirNp(void* actions, const char* path) {
+int32_t libcUnixHurdPosixSpawnFileActionsAddchdirNp(void* actions, const char* path) {
     typedef int32_t (*km_fn_t)(void*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6785,7 +6785,7 @@ int32_t libc_unix_hurd_posixSpawnFileActionsAddchdirNp(void* actions, const char
     return -1;
 }
 
-int32_t libc_unix_hurd_posixSpawnFileActionsAddfchdirNp(void* actions, int32_t fd) {
+int32_t libcUnixHurdPosixSpawnFileActionsAddfchdirNp(void* actions, int32_t fd) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6813,7 +6813,7 @@ int32_t libc_unix_hurd_posixSpawnFileActionsAddfchdirNp(void* actions, int32_t f
     return -1;
 }
 
-int32_t libc_unix_hurd_posixSpawnFileActionsAddclosefromNp(void* actions, int32_t from) {
+int32_t libcUnixHurdPosixSpawnFileActionsAddclosefromNp(void* actions, int32_t from) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6841,7 +6841,7 @@ int32_t libc_unix_hurd_posixSpawnFileActionsAddclosefromNp(void* actions, int32_
     return -1;
 }
 
-int32_t libc_unix_hurd_posixSpawnFileActionsAddtcsetpgrpNp(void* actions, int32_t tcfd) {
+int32_t libcUnixHurdPosixSpawnFileActionsAddtcsetpgrpNp(void* actions, int32_t tcfd) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6869,7 +6869,7 @@ int32_t libc_unix_hurd_posixSpawnFileActionsAddtcsetpgrpNp(void* actions, int32_
     return -1;
 }
 
-int32_t libc_unix_hurd_shmOpen(const char* name, int32_t oflag, uint32_t mode) {
+int32_t libcUnixHurdShmOpen(const char* name, int32_t oflag, uint32_t mode) {
     typedef int32_t (*km_fn_t)(const char*, int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6897,7 +6897,7 @@ int32_t libc_unix_hurd_shmOpen(const char* name, int32_t oflag, uint32_t mode) {
     return -1;
 }
 
-int32_t libc_unix_hurd_shmUnlink(const char* name) {
+int32_t libcUnixHurdShmUnlink(const char* name) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6925,7 +6925,7 @@ int32_t libc_unix_hurd_shmUnlink(const char* name) {
     return -1;
 }
 
-int32_t libc_unix_hurd_euidaccess(const char* pathname, int32_t mode) {
+int32_t libcUnixHurdEuidaccess(const char* pathname, int32_t mode) {
     typedef int32_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6953,7 +6953,7 @@ int32_t libc_unix_hurd_euidaccess(const char* pathname, int32_t mode) {
     return -1;
 }
 
-int32_t libc_unix_hurd_eaccess(const char* pathname, int32_t mode) {
+int32_t libcUnixHurdEaccess(const char* pathname, int32_t mode) {
     typedef int32_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6981,7 +6981,7 @@ int32_t libc_unix_hurd_eaccess(const char* pathname, int32_t mode) {
     return -1;
 }
 
-int32_t libc_unix_hurd_faccessat(int32_t dirfd, const char* pathname, int32_t mode, int32_t flags) {
+int32_t libcUnixHurdFaccessat(int32_t dirfd, const char* pathname, int32_t mode, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7009,11 +7009,11 @@ int32_t libc_unix_hurd_faccessat(int32_t dirfd, const char* pathname, int32_t mo
     return -1;
 }
 
-int32_t libc_unix_hurd_stat(const char* arg_0_file, void* arg_1_buf) {
-    return (int32_t)stat(arg_0_file, arg_1_buf);
+int32_t libcUnixHurdStat(const char* file, void* buf) {
+    return (int32_t)stat(file, buf);
 }
 
-int32_t libc_unix_hurd_stat64(const char* arg_0_file, void* arg_1_buf) {
+int32_t libcUnixHurdStat64(const char* file, void* buf) {
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7040,13 +7040,13 @@ int32_t libc_unix_hurd_stat64(const char* arg_0_file, void* arg_1_buf) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_file, arg_1_buf);
+        return km_fn_ptr(file, buf);
     }
     errno = ENOSYS;
     return -1;
 }
 
-void* libc_unix_hurd_readdir(void* dirp) {
+void* libcUnixHurdReaddir(void* dirp) {
 #if !defined(_WIN32)
     return (void*)readdir((DIR*)dirp);
 #else
@@ -7056,7 +7056,7 @@ void* libc_unix_hurd_readdir(void* dirp) {
 #endif
 }
 
-void* libc_unix_hurd_readdir64(void* dirp) {
+void* libcUnixHurdReaddir64(void* dirp) {
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7089,7 +7089,7 @@ void* libc_unix_hurd_readdir64(void* dirp) {
     return NULL;
 }
 
-int32_t libc_unix_hurd_readdirR(void* dirp, void* entry, void* result) {
+int32_t libcUnixHurdReaddirR(void* dirp, void* entry, void* result) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7117,7 +7117,7 @@ int32_t libc_unix_hurd_readdirR(void* dirp, void* entry, void* result) {
     return -1;
 }
 
-int32_t libc_unix_hurd_readdir64R(void* dirp, void* entry, void* result) {
+int32_t libcUnixHurdReaddir64R(void* dirp, void* entry, void* result) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7145,7 +7145,7 @@ int32_t libc_unix_hurd_readdir64R(void* dirp, void* entry, void* result) {
     return -1;
 }
 
-void libc_unix_hurd_seekdir(void* dirp, int64_t loc) {
+void libcUnixHurdSeekdir(void* dirp, int64_t loc) {
     typedef void (*km_fn_t)(void*, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7173,7 +7173,7 @@ void libc_unix_hurd_seekdir(void* dirp, int64_t loc) {
     errno = ENOSYS;
 }
 
-int64_t libc_unix_hurd_telldir(void* dirp) {
+int64_t libcUnixHurdTelldir(void* dirp) {
     typedef int64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7201,7 +7201,7 @@ int64_t libc_unix_hurd_telldir(void* dirp) {
     return -1;
 }
 
-int32_t libc_unix_hurd_dirfd(void* dirp) {
+int32_t libcUnixHurdDirfd(void* dirp) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7229,7 +7229,7 @@ int32_t libc_unix_hurd_dirfd(void* dirp) {
     return -1;
 }
 
-int32_t libc_unix_hurd_strerrorR(int32_t arg_0_errnum, char* arg_1_buf, uint64_t arg_2_buflen) {
+int32_t libcUnixHurdStrerrorR(int32_t errnum, char* buf, uint64_t buflen) {
     typedef int32_t (*km_fn_t)(int32_t, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7249,13 +7249,13 @@ int32_t libc_unix_hurd_strerrorR(int32_t arg_0_errnum, char* arg_1_buf, uint64_t
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_errnum, arg_1_buf, arg_2_buflen);
+        return km_fn_ptr(errnum, buf, buflen);
     }
     errno = ENOSYS;
     return -1;
 }
 
-void* libc_unix_hurd_errnoLocation(void) {
+void* libcUnixHurdErrnoLocation(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7281,7 +7281,7 @@ void* libc_unix_hurd_errnoLocation(void) {
     return NULL;
 }
 
-void* libc_unix_hurd_mmap64(void* arg_0_addr, uint64_t arg_1_len, int32_t arg_2_prot, int32_t arg_3_flags, int32_t arg_4_fd, int64_t arg_5_offset) {
+void* libcUnixHurdMmap64(void* addr, uint64_t len, int32_t prot, int32_t flags, int32_t fd, int64_t offset) {
     typedef void* (*km_fn_t)(void*, uint64_t, int32_t, int32_t, int32_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7308,13 +7308,13 @@ void* libc_unix_hurd_mmap64(void* arg_0_addr, uint64_t arg_1_len, int32_t arg_2_
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_addr, arg_1_len, arg_2_prot, arg_3_flags, arg_4_fd, arg_5_offset);
+        return km_fn_ptr(addr, len, prot, flags, fd, offset);
     }
     errno = ENOSYS;
     return NULL;
 }
 
-void* libc_unix_hurd_mremap(void* addr, uint64_t len, uint64_t new_len, int32_t flags, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+void* libcUnixHurdMremap(void* addr, uint64_t len, uint64_t newLen, int32_t flags, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef void* (*km_fn_t)(void*, uint64_t, uint64_t, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7337,42 +7337,42 @@ void* libc_unix_hurd_mremap(void* addr, uint64_t len, uint64_t new_len, int32_t 
 #endif
     if (km_fn_ptr != NULL) {
         switch (km_vac) {
-            case 0: return km_fn_ptr(addr, len, new_len, flags);
-            case 1: return km_fn_ptr(addr, len, new_len, flags, (intptr_t)km_va0);
-            case 2: return km_fn_ptr(addr, len, new_len, flags, (intptr_t)km_va0, (intptr_t)km_va1);
-            case 3: return km_fn_ptr(addr, len, new_len, flags, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2);
-            default: return km_fn_ptr(addr, len, new_len, flags, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3);
+            case 0: return km_fn_ptr(addr, len, newLen, flags);
+            case 1: return km_fn_ptr(addr, len, newLen, flags, (intptr_t)km_va0);
+            case 2: return km_fn_ptr(addr, len, newLen, flags, (intptr_t)km_va0, (intptr_t)km_va1);
+            case 3: return km_fn_ptr(addr, len, newLen, flags, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2);
+            default: return km_fn_ptr(addr, len, newLen, flags, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3);
         }
     }
     errno = ENOSYS;
     return NULL;
 }
 
-int32_t libc_unix_hurd_mprotect(void* arg_0_addr, uint64_t arg_1_len, int32_t arg_2_prot) {
+int32_t libcUnixHurdMprotect(void* addr, uint64_t len, int32_t prot) {
 #if !defined(_WIN32)
-    return (int32_t)mprotect(arg_0_addr, arg_1_len, arg_2_prot);
+    return (int32_t)mprotect(addr, len, prot);
 #else
-    (void)arg_0_addr;
-    (void)arg_1_len;
-    (void)arg_2_prot;
+    (void)addr;
+    (void)len;
+    (void)prot;
     errno = ENOSYS;
     return -1;
 #endif
 }
 
-int32_t libc_unix_hurd_msync(void* arg_0_addr, uint64_t arg_1_len, int32_t arg_2_flags) {
+int32_t libcUnixHurdMsync(void* addr, uint64_t len, int32_t flags) {
 #if !defined(_WIN32)
-    return (int32_t)msync(arg_0_addr, arg_1_len, arg_2_flags);
+    return (int32_t)msync(addr, len, flags);
 #else
-    (void)arg_0_addr;
-    (void)arg_1_len;
-    (void)arg_2_flags;
+    (void)addr;
+    (void)len;
+    (void)flags;
     errno = ENOSYS;
     return -1;
 #endif
 }
 
-void libc_unix_hurd_sync(void) {
+void libcUnixHurdSync(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7400,7 +7400,7 @@ void libc_unix_hurd_sync(void) {
     errno = ENOSYS;
 }
 
-int32_t libc_unix_hurd_syncfs(int32_t fd) {
+int32_t libcUnixHurdSyncfs(int32_t fd) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7428,7 +7428,7 @@ int32_t libc_unix_hurd_syncfs(int32_t fd) {
     return -1;
 }
 
-int32_t libc_unix_hurd_fdatasync(int32_t fd) {
+int32_t libcUnixHurdFdatasync(int32_t fd) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7456,7 +7456,7 @@ int32_t libc_unix_hurd_fdatasync(int32_t fd) {
     return -1;
 }
 
-int32_t libc_unix_hurd_fallocate64(int32_t fd, int32_t mode, int64_t offset, int64_t len) {
+int32_t libcUnixHurdFallocate64(int32_t fd, int32_t mode, int64_t offset, int64_t len) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int64_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7489,7 +7489,7 @@ int32_t libc_unix_hurd_fallocate64(int32_t fd, int32_t mode, int64_t offset, int
     return -1;
 }
 
-int32_t libc_unix_hurd_posixFallocate(int32_t fd, int64_t offset, int64_t len) {
+int32_t libcUnixHurdPosixFallocate(int32_t fd, int64_t offset, int64_t len) {
     typedef int32_t (*km_fn_t)(int32_t, int64_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7517,7 +7517,7 @@ int32_t libc_unix_hurd_posixFallocate(int32_t fd, int64_t offset, int64_t len) {
     return -1;
 }
 
-int32_t libc_unix_hurd_posixFallocate64(int32_t fd, int64_t offset, int64_t len) {
+int32_t libcUnixHurdPosixFallocate64(int32_t fd, int64_t offset, int64_t len) {
     typedef int32_t (*km_fn_t)(int32_t, int64_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7550,7 +7550,7 @@ int32_t libc_unix_hurd_posixFallocate64(int32_t fd, int64_t offset, int64_t len)
     return -1;
 }
 
-int32_t libc_unix_hurd_posixFadvise(int32_t fd, int64_t offset, int64_t len, int32_t advise) {
+int32_t libcUnixHurdPosixFadvise(int32_t fd, int64_t offset, int64_t len, int32_t advise) {
     typedef int32_t (*km_fn_t)(int32_t, int64_t, int64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7578,7 +7578,7 @@ int32_t libc_unix_hurd_posixFadvise(int32_t fd, int64_t offset, int64_t len, int
     return -1;
 }
 
-int32_t libc_unix_hurd_posixFadvise64(int32_t fd, int64_t offset, int64_t len, int32_t advise) {
+int32_t libcUnixHurdPosixFadvise64(int32_t fd, int64_t offset, int64_t len, int32_t advise) {
     typedef int32_t (*km_fn_t)(int32_t, int64_t, int64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7611,7 +7611,7 @@ int32_t libc_unix_hurd_posixFadvise64(int32_t fd, int64_t offset, int64_t len, i
     return -1;
 }
 
-int32_t libc_unix_hurd_madvise(void* arg_0_addr, uint64_t arg_1_len, int32_t arg_2_advice) {
+int32_t libcUnixHurdMadvise(void* addr, uint64_t len, int32_t advice) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7633,13 +7633,13 @@ int32_t libc_unix_hurd_madvise(void* arg_0_addr, uint64_t arg_1_len, int32_t arg
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_addr, arg_1_len, arg_2_advice);
+        return km_fn_ptr(addr, len, advice);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_hurd_posixMadvise(void* addr, uint64_t len, int32_t advice) {
+int32_t libcUnixHurdPosixMadvise(void* addr, uint64_t len, int32_t advice) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7667,7 +7667,7 @@ int32_t libc_unix_hurd_posixMadvise(void* addr, uint64_t len, int32_t advice) {
     return -1;
 }
 
-int32_t libc_unix_hurd_getrlimit(uint32_t resource, void* rlim) {
+int32_t libcUnixHurdGetrlimit(uint32_t resource, void* rlim) {
     typedef int32_t (*km_fn_t)(uint32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7695,7 +7695,7 @@ int32_t libc_unix_hurd_getrlimit(uint32_t resource, void* rlim) {
     return -1;
 }
 
-int32_t libc_unix_hurd_getrlimit64(uint32_t resource, void* rlim) {
+int32_t libcUnixHurdGetrlimit64(uint32_t resource, void* rlim) {
     typedef int32_t (*km_fn_t)(uint32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7728,7 +7728,7 @@ int32_t libc_unix_hurd_getrlimit64(uint32_t resource, void* rlim) {
     return -1;
 }
 
-int32_t libc_unix_hurd_setrlimit(uint32_t resource, void* rlim) {
+int32_t libcUnixHurdSetrlimit(uint32_t resource, void* rlim) {
     typedef int32_t (*km_fn_t)(uint32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7756,7 +7756,7 @@ int32_t libc_unix_hurd_setrlimit(uint32_t resource, void* rlim) {
     return -1;
 }
 
-int32_t libc_unix_hurd_setrlimit64(uint32_t resource, void* rlim) {
+int32_t libcUnixHurdSetrlimit64(uint32_t resource, void* rlim) {
     typedef int32_t (*km_fn_t)(uint32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7789,7 +7789,7 @@ int32_t libc_unix_hurd_setrlimit64(uint32_t resource, void* rlim) {
     return -1;
 }
 
-int32_t libc_unix_hurd_getpriority(uint32_t which, uint32_t who) {
+int32_t libcUnixHurdGetpriority(uint32_t which, uint32_t who) {
     typedef int32_t (*km_fn_t)(uint32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7817,7 +7817,7 @@ int32_t libc_unix_hurd_getpriority(uint32_t which, uint32_t who) {
     return -1;
 }
 
-int32_t libc_unix_hurd_setpriority(uint32_t which, uint32_t who, int32_t prio) {
+int32_t libcUnixHurdSetpriority(uint32_t which, uint32_t who, int32_t prio) {
     typedef int32_t (*km_fn_t)(uint32_t, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7845,7 +7845,7 @@ int32_t libc_unix_hurd_setpriority(uint32_t which, uint32_t who, int32_t prio) {
     return -1;
 }
 
-int64_t libc_unix_hurd_getrandom(void* arg_0_buffer, uint64_t arg_1_length, uint32_t arg_2_flags) {
+int64_t libcUnixHurdGetrandom(void* buffer, uint64_t length, uint32_t flags) {
     typedef int64_t (*km_fn_t)(void*, uint64_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7867,13 +7867,13 @@ int64_t libc_unix_hurd_getrandom(void* arg_0_buffer, uint64_t arg_1_length, uint
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_buffer, arg_1_length, arg_2_flags);
+        return km_fn_ptr(buffer, length, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_hurd_getentropy(void* arg_0_buffer, uint64_t arg_1_length) {
+int32_t libcUnixHurdGetentropy(void* buffer, uint64_t length) {
     typedef int32_t (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7895,13 +7895,13 @@ int32_t libc_unix_hurd_getentropy(void* arg_0_buffer, uint64_t arg_1_length) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_buffer, arg_1_length);
+        return km_fn_ptr(buffer, length);
     }
     errno = ENOSYS;
     return -1;
 }
 
-void* libc_unix_hurd_memrchr(void* cx, int32_t c, uint64_t n) {
+void* libcUnixHurdMemrchr(void* cx, int32_t c, uint64_t n) {
     typedef void* (*km_fn_t)(void*, int32_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7929,7 +7929,7 @@ void* libc_unix_hurd_memrchr(void* cx, int32_t c, uint64_t n) {
     return NULL;
 }
 
-void* libc_unix_hurd_memmem(void* haystack, uint64_t haystacklen, void* needle, uint64_t needlelen) {
+void* libcUnixHurdMemmem(void* haystack, uint64_t haystacklen, void* needle, uint64_t needlelen) {
     typedef void* (*km_fn_t)(void*, uint64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7957,7 +7957,7 @@ void* libc_unix_hurd_memmem(void* haystack, uint64_t haystacklen, void* needle, 
     return NULL;
 }
 
-char* libc_unix_hurd_strchrnul(const char* s, int32_t c) {
+char* libcUnixHurdStrchrnul(const char* s, int32_t c) {
     typedef char* (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7985,11 +7985,11 @@ char* libc_unix_hurd_strchrnul(const char* s, int32_t c) {
     return NULL;
 }
 
-int32_t libc_unix_hurd_abs(int32_t i) {
+int32_t libcUnixHurdAbs(int32_t i) {
     return (int32_t)abs(i);
 }
 
-int64_t libc_unix_hurd_labs(int64_t i) {
+int64_t libcUnixHurdLabs(int64_t i) {
     typedef int64_t (*km_fn_t)(int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8017,15 +8017,15 @@ int64_t libc_unix_hurd_labs(int64_t i) {
     return -1;
 }
 
-int32_t libc_unix_hurd_rand(void) {
+int32_t libcUnixHurdRand(void) {
     return (int32_t)rand();
 }
 
-void libc_unix_hurd_srand(uint32_t seed) {
+void libcUnixHurdSrand(uint32_t seed) {
     srand(seed);
 }
 
-double libc_unix_hurd_drand48(void) {
+double libcUnixHurdDrand48(void) {
     typedef double (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8053,7 +8053,7 @@ double libc_unix_hurd_drand48(void) {
     return 0.0;
 }
 
-double libc_unix_hurd_erand48(void* xseed) {
+double libcUnixHurdErand48(void* xseed) {
     typedef double (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8081,7 +8081,7 @@ double libc_unix_hurd_erand48(void* xseed) {
     return 0.0;
 }
 
-int64_t libc_unix_hurd_lrand48(void) {
+int64_t libcUnixHurdLrand48(void) {
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8109,7 +8109,7 @@ int64_t libc_unix_hurd_lrand48(void) {
     return -1;
 }
 
-int64_t libc_unix_hurd_nrand48(void* xseed) {
+int64_t libcUnixHurdNrand48(void* xseed) {
     typedef int64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8137,7 +8137,7 @@ int64_t libc_unix_hurd_nrand48(void* xseed) {
     return -1;
 }
 
-int64_t libc_unix_hurd_mrand48(void) {
+int64_t libcUnixHurdMrand48(void) {
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8165,7 +8165,7 @@ int64_t libc_unix_hurd_mrand48(void) {
     return -1;
 }
 
-int64_t libc_unix_hurd_jrand48(void* xseed) {
+int64_t libcUnixHurdJrand48(void* xseed) {
     typedef int64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8193,7 +8193,7 @@ int64_t libc_unix_hurd_jrand48(void* xseed) {
     return -1;
 }
 
-void libc_unix_hurd_srand48(int64_t seed) {
+void libcUnixHurdSrand48(int64_t seed) {
     typedef void (*km_fn_t)(int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8221,7 +8221,7 @@ void libc_unix_hurd_srand48(int64_t seed) {
     errno = ENOSYS;
 }
 
-void* libc_unix_hurd_seed48(void* xseed) {
+void* libcUnixHurdSeed48(void* xseed) {
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8249,7 +8249,7 @@ void* libc_unix_hurd_seed48(void* xseed) {
     return NULL;
 }
 
-void libc_unix_hurd_lcong48(void* p) {
+void libcUnixHurdLcong48(void* p) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8277,7 +8277,7 @@ void libc_unix_hurd_lcong48(void* p) {
     errno = ENOSYS;
 }
 
-void libc_unix_hurd_qsortR(void* base, uint64_t num, uint64_t size, void* compar, void* arg) {
+void libcUnixHurdQsortR(void* base, uint64_t num, uint64_t size, void* compar, void* arg) {
     typedef void (*km_fn_t)(void*, uint64_t, uint64_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8305,7 +8305,7 @@ void libc_unix_hurd_qsortR(void* base, uint64_t num, uint64_t size, void* compar
     errno = ENOSYS;
 }
 
-int32_t libc_unix_hurd_brk(void* addr) {
+int32_t libcUnixHurdBrk(void* addr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8333,7 +8333,7 @@ int32_t libc_unix_hurd_brk(void* addr) {
     return -1;
 }
 
-void* libc_unix_hurd_sbrk(int64_t increment) {
+void* libcUnixHurdSbrk(int64_t increment) {
     typedef void* (*km_fn_t)(int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8361,7 +8361,7 @@ void* libc_unix_hurd_sbrk(int64_t increment) {
     return NULL;
 }
 
-void* libc_unix_hurd_memalign(uint64_t align, uint64_t size) {
+void* libcUnixHurdMemalign(uint64_t align, uint64_t size) {
     typedef void* (*km_fn_t)(uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8389,7 +8389,7 @@ void* libc_unix_hurd_memalign(uint64_t align, uint64_t size) {
     return NULL;
 }
 
-int32_t libc_unix_hurd_mallopt(int32_t param, int32_t value) {
+int32_t libcUnixHurdMallopt(int32_t param, int32_t value) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8417,7 +8417,7 @@ int32_t libc_unix_hurd_mallopt(int32_t param, int32_t value) {
     return -1;
 }
 
-int32_t libc_unix_hurd_mallocInfo(int32_t options, void* stream) {
+int32_t libcUnixHurdMallocInfo(int32_t options, void* stream) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8445,7 +8445,7 @@ int32_t libc_unix_hurd_mallocInfo(int32_t options, void* stream) {
     return -1;
 }
 
-uint64_t libc_unix_hurd_mallocUsableSize(void* ptr) {
+uint64_t libcUnixHurdMallocUsableSize(void* ptr) {
     typedef uint64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8473,7 +8473,7 @@ uint64_t libc_unix_hurd_mallocUsableSize(void* ptr) {
     return 0;
 }
 
-int32_t libc_unix_hurd_mallocTrim(uint64_t arg_0_pad) {
+int32_t libcUnixHurdMallocTrim(uint64_t pad) {
     typedef int32_t (*km_fn_t)(uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8495,13 +8495,13 @@ int32_t libc_unix_hurd_mallocTrim(uint64_t arg_0_pad) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_pad);
+        return km_fn_ptr(pad);
     }
     errno = ENOSYS;
     return -1;
 }
 
-void* libc_unix_hurd_iconvOpen(const char* tocode, const char* fromcode) {
+void* libcUnixHurdIconvOpen(const char* tocode, const char* fromcode) {
     typedef void* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8529,7 +8529,7 @@ void* libc_unix_hurd_iconvOpen(const char* tocode, const char* fromcode) {
     return NULL;
 }
 
-uint64_t libc_unix_hurd_iconv(void* cd, void* inbuf, void* inbytesleft, void* outbuf, void* outbytesleft) {
+uint64_t libcUnixHurdIconv(void* cd, void* inbuf, void* inbytesleft, void* outbuf, void* outbytesleft) {
     typedef uint64_t (*km_fn_t)(void*, void*, void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8557,7 +8557,7 @@ uint64_t libc_unix_hurd_iconv(void* cd, void* inbuf, void* inbytesleft, void* ou
     return 0;
 }
 
-int32_t libc_unix_hurd_iconvClose(void* cd) {
+int32_t libcUnixHurdIconvClose(void* cd) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8585,7 +8585,7 @@ int32_t libc_unix_hurd_iconvClose(void* cd) {
     return -1;
 }
 
-int32_t libc_unix_hurd_getoptLong(int32_t argc, void* argv, const char* optstring, void* longopts, void* longindex) {
+int32_t libcUnixHurdGetoptLong(int32_t argc, void* argv, const char* optstring, void* longopts, void* longindex) {
     typedef int32_t (*km_fn_t)(int32_t, void*, const char*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8613,7 +8613,7 @@ int32_t libc_unix_hurd_getoptLong(int32_t argc, void* argv, const char* optstrin
     return -1;
 }
 
-int32_t libc_unix_hurd_backtrace(void* buf, int32_t sz) {
+int32_t libcUnixHurdBacktrace(void* buf, int32_t sz) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8641,7 +8641,7 @@ int32_t libc_unix_hurd_backtrace(void* buf, int32_t sz) {
     return -1;
 }
 
-int32_t libc_unix_hurd_reboot(int32_t how_to) {
+int32_t libcUnixHurdReboot(int32_t howTo) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8663,13 +8663,13 @@ int32_t libc_unix_hurd_reboot(int32_t how_to) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(how_to);
+        return km_fn_ptr(howTo);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_hurd_getloadavg(void* loadavg, int32_t nelem) {
+int32_t libcUnixHurdGetloadavg(void* loadavg, int32_t nelem) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8697,7 +8697,7 @@ int32_t libc_unix_hurd_getloadavg(void* loadavg, int32_t nelem) {
     return -1;
 }
 
-int32_t libc_unix_hurd_regexec(void* preg, const char* input, uint64_t nmatch, void* pmatch, int32_t eflags) {
+int32_t libcUnixHurdRegexec(void* preg, const char* input, uint64_t nmatch, void* pmatch, int32_t eflags) {
     typedef int32_t (*km_fn_t)(void*, const char*, uint64_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8725,7 +8725,7 @@ int32_t libc_unix_hurd_regexec(void* preg, const char* input, uint64_t nmatch, v
     return -1;
 }
 
-uint64_t libc_unix_hurd_regerror(int32_t errcode, void* preg, char* errbuf, uint64_t errbuf_size) {
+uint64_t libcUnixHurdRegerror(int32_t errcode, void* preg, char* errbuf, uint64_t errbufSize) {
     typedef uint64_t (*km_fn_t)(int32_t, void*, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8747,13 +8747,13 @@ uint64_t libc_unix_hurd_regerror(int32_t errcode, void* preg, char* errbuf, uint
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(errcode, preg, errbuf, errbuf_size);
+        return km_fn_ptr(errcode, preg, errbuf, errbufSize);
     }
     errno = ENOSYS;
     return 0;
 }
 
-void libc_unix_hurd_regfree(void* preg) {
+void libcUnixHurdRegfree(void* preg) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8781,7 +8781,7 @@ void libc_unix_hurd_regfree(void* preg) {
     errno = ENOSYS;
 }
 
-int32_t libc_unix_hurd_glob(const char* pattern, int32_t flags, void* errfunc, void* pglob) {
+int32_t libcUnixHurdGlob(const char* pattern, int32_t flags, void* errfunc, void* pglob) {
     typedef int32_t (*km_fn_t)(const char*, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8809,7 +8809,7 @@ int32_t libc_unix_hurd_glob(const char* pattern, int32_t flags, void* errfunc, v
     return -1;
 }
 
-void libc_unix_hurd_globfree(void* pglob) {
+void libcUnixHurdGlobfree(void* pglob) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8837,7 +8837,7 @@ void libc_unix_hurd_globfree(void* pglob) {
     errno = ENOSYS;
 }
 
-int32_t libc_unix_hurd_glob64(const char* pattern, int32_t flags, void* errfunc, void* pglob) {
+int32_t libcUnixHurdGlob64(const char* pattern, int32_t flags, void* errfunc, void* pglob) {
     typedef int32_t (*km_fn_t)(const char*, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8870,7 +8870,7 @@ int32_t libc_unix_hurd_glob64(const char* pattern, int32_t flags, void* errfunc,
     return -1;
 }
 
-void libc_unix_hurd_globfree64(void* pglob) {
+void libcUnixHurdGlobfree64(void* pglob) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8903,7 +8903,7 @@ void libc_unix_hurd_globfree64(void* pglob) {
     errno = ENOSYS;
 }
 
-int64_t libc_unix_hurd_getxattr(const char* path, const char* name, void* value, uint64_t size) {
+int64_t libcUnixHurdGetxattr(const char* path, const char* name, void* value, uint64_t size) {
     typedef int64_t (*km_fn_t)(const char*, const char*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8931,7 +8931,7 @@ int64_t libc_unix_hurd_getxattr(const char* path, const char* name, void* value,
     return -1;
 }
 
-int64_t libc_unix_hurd_lgetxattr(const char* path, const char* name, void* value, uint64_t size) {
+int64_t libcUnixHurdLgetxattr(const char* path, const char* name, void* value, uint64_t size) {
     typedef int64_t (*km_fn_t)(const char*, const char*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8959,7 +8959,7 @@ int64_t libc_unix_hurd_lgetxattr(const char* path, const char* name, void* value
     return -1;
 }
 
-int64_t libc_unix_hurd_fgetxattr(int32_t filedes, const char* name, void* value, uint64_t size) {
+int64_t libcUnixHurdFgetxattr(int32_t filedes, const char* name, void* value, uint64_t size) {
     typedef int64_t (*km_fn_t)(int32_t, const char*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8987,7 +8987,7 @@ int64_t libc_unix_hurd_fgetxattr(int32_t filedes, const char* name, void* value,
     return -1;
 }
 
-int32_t libc_unix_hurd_setxattr(const char* path, const char* name, void* value, uint64_t size, int32_t flags) {
+int32_t libcUnixHurdSetxattr(const char* path, const char* name, void* value, uint64_t size, int32_t flags) {
     typedef int32_t (*km_fn_t)(const char*, const char*, void*, uint64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9015,7 +9015,7 @@ int32_t libc_unix_hurd_setxattr(const char* path, const char* name, void* value,
     return -1;
 }
 
-int32_t libc_unix_hurd_lsetxattr(const char* path, const char* name, void* value, uint64_t size, int32_t flags) {
+int32_t libcUnixHurdLsetxattr(const char* path, const char* name, void* value, uint64_t size, int32_t flags) {
     typedef int32_t (*km_fn_t)(const char*, const char*, void*, uint64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9043,7 +9043,7 @@ int32_t libc_unix_hurd_lsetxattr(const char* path, const char* name, void* value
     return -1;
 }
 
-int32_t libc_unix_hurd_fsetxattr(int32_t filedes, const char* name, void* value, uint64_t size, int32_t flags) {
+int32_t libcUnixHurdFsetxattr(int32_t filedes, const char* name, void* value, uint64_t size, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, void*, uint64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9071,7 +9071,7 @@ int32_t libc_unix_hurd_fsetxattr(int32_t filedes, const char* name, void* value,
     return -1;
 }
 
-int64_t libc_unix_hurd_listxattr(const char* path, char* list, uint64_t size) {
+int64_t libcUnixHurdListxattr(const char* path, char* list, uint64_t size) {
     typedef int64_t (*km_fn_t)(const char*, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9099,7 +9099,7 @@ int64_t libc_unix_hurd_listxattr(const char* path, char* list, uint64_t size) {
     return -1;
 }
 
-int64_t libc_unix_hurd_llistxattr(const char* path, char* list, uint64_t size) {
+int64_t libcUnixHurdLlistxattr(const char* path, char* list, uint64_t size) {
     typedef int64_t (*km_fn_t)(const char*, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9127,7 +9127,7 @@ int64_t libc_unix_hurd_llistxattr(const char* path, char* list, uint64_t size) {
     return -1;
 }
 
-int64_t libc_unix_hurd_flistxattr(int32_t filedes, char* list, uint64_t size) {
+int64_t libcUnixHurdFlistxattr(int32_t filedes, char* list, uint64_t size) {
     typedef int64_t (*km_fn_t)(int32_t, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9155,7 +9155,7 @@ int64_t libc_unix_hurd_flistxattr(int32_t filedes, char* list, uint64_t size) {
     return -1;
 }
 
-int32_t libc_unix_hurd_removexattr(const char* path, const char* name) {
+int32_t libcUnixHurdRemovexattr(const char* path, const char* name) {
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9183,7 +9183,7 @@ int32_t libc_unix_hurd_removexattr(const char* path, const char* name) {
     return -1;
 }
 
-int32_t libc_unix_hurd_lremovexattr(const char* path, const char* name) {
+int32_t libcUnixHurdLremovexattr(const char* path, const char* name) {
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9211,7 +9211,7 @@ int32_t libc_unix_hurd_lremovexattr(const char* path, const char* name) {
     return -1;
 }
 
-int32_t libc_unix_hurd_fremovexattr(int32_t filedes, const char* name) {
+int32_t libcUnixHurdFremovexattr(int32_t filedes, const char* name) {
     typedef int32_t (*km_fn_t)(int32_t, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9239,7 +9239,7 @@ int32_t libc_unix_hurd_fremovexattr(int32_t filedes, const char* name) {
     return -1;
 }
 
-char* libc_unix_hurd_dirname(char* path) {
+char* libcUnixHurdDirname(char* path) {
     typedef char* (*km_fn_t)(char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9267,7 +9267,7 @@ char* libc_unix_hurd_dirname(char* path) {
     return NULL;
 }
 
-char* libc_unix_hurd_posixBasename(char* path) {
+char* libcUnixHurdPosixBasename(char* path) {
     typedef char* (*km_fn_t)(char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9293,7 +9293,7 @@ char* libc_unix_hurd_posixBasename(char* path) {
     return NULL;
 }
 
-char* libc_unix_hurd_gnuBasename(const char* path) {
+char* libcUnixHurdGnuBasename(const char* path) {
     typedef char* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9321,7 +9321,7 @@ char* libc_unix_hurd_gnuBasename(const char* path) {
     return NULL;
 }
 
-void* libc_unix_hurd_dlmopen(int64_t lmid, const char* filename, int32_t flag) {
+void* libcUnixHurdDlmopen(int64_t lmid, const char* filename, int32_t flag) {
     typedef void* (*km_fn_t)(int64_t, const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9349,7 +9349,7 @@ void* libc_unix_hurd_dlmopen(int64_t lmid, const char* filename, int32_t flag) {
     return NULL;
 }
 
-int32_t libc_unix_hurd_dlinfo(void* handle, int32_t request, void* info) {
+int32_t libcUnixHurdDlinfo(void* handle, int32_t request, void* info) {
     typedef int32_t (*km_fn_t)(void*, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9377,7 +9377,7 @@ int32_t libc_unix_hurd_dlinfo(void* handle, int32_t request, void* info) {
     return -1;
 }
 
-int32_t libc_unix_hurd_dladdr1(void* addr, void* info, void* extra_info, int32_t flags) {
+int32_t libcUnixHurdDladdr1(void* addr, void* info, void* extraInfo, int32_t flags) {
     typedef int32_t (*km_fn_t)(void*, void*, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9399,13 +9399,13 @@ int32_t libc_unix_hurd_dladdr1(void* addr, void* info, void* extra_info, int32_t
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(addr, info, extra_info, flags);
+        return km_fn_ptr(addr, info, extraInfo, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-void* libc_unix_hurd_duplocale(void* base) {
+void* libcUnixHurdDuplocale(void* base) {
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9433,7 +9433,7 @@ void* libc_unix_hurd_duplocale(void* base) {
     return NULL;
 }
 
-void libc_unix_hurd_freelocale(void* loc) {
+void libcUnixHurdFreelocale(void* loc) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9461,7 +9461,7 @@ void libc_unix_hurd_freelocale(void* loc) {
     errno = ENOSYS;
 }
 
-void* libc_unix_hurd_newlocale(int32_t mask, const char* locale, void* base) {
+void* libcUnixHurdNewlocale(int32_t mask, const char* locale, void* base) {
     typedef void* (*km_fn_t)(int32_t, const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9489,7 +9489,7 @@ void* libc_unix_hurd_newlocale(int32_t mask, const char* locale, void* base) {
     return NULL;
 }
 
-void* libc_unix_hurd_uselocale(void* loc) {
+void* libcUnixHurdUselocale(void* loc) {
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9517,7 +9517,7 @@ void* libc_unix_hurd_uselocale(void* loc) {
     return NULL;
 }
 
-char* libc_unix_hurd_nlLanginfo(int32_t item) {
+char* libcUnixHurdNlLanginfo(int32_t item) {
     typedef char* (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9545,7 +9545,7 @@ char* libc_unix_hurd_nlLanginfo(int32_t item) {
     return NULL;
 }
 
-char* libc_unix_hurd_nlLanginfoL(int32_t item, void* locale) {
+char* libcUnixHurdNlLanginfoL(int32_t item, void* locale) {
     typedef char* (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9573,7 +9573,7 @@ char* libc_unix_hurd_nlLanginfoL(int32_t item, void* locale) {
     return NULL;
 }
 
-int32_t libc_unix_hurd_dlIteratePhdr(void* callback, void* data) {
+int32_t libcUnixHurdDlIteratePhdr(void* callback, void* data) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9601,7 +9601,7 @@ int32_t libc_unix_hurd_dlIteratePhdr(void* callback, void* data) {
     return -1;
 }
 
-const char* libc_unix_hurd_gnuGetLibcRelease(void) {
+const char* libcUnixHurdGnuGetLibcRelease(void) {
     typedef const char* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9629,7 +9629,7 @@ const char* libc_unix_hurd_gnuGetLibcRelease(void) {
     return NULL;
 }
 
-const char* libc_unix_hurd_gnuGetLibcVersion(void) {
+const char* libcUnixHurdGnuGetLibcVersion(void) {
     typedef const char* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

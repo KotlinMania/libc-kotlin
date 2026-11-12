@@ -19,11 +19,9 @@
 #endif
 #endif
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_windows_msvc_WindowsMsvcJniBridge_libc_1windows_1msvc_1stricmp(JNIEnv* km_env, jclass km_clazz, jstring s1, jstring s2) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_windows_msvc_WindowsMsvcJniBridge_libcWindowsMsvcStricmp(JNIEnv* km_env, jclass km_clazz, jlong s1, jlong s2) {
     (void)km_env;
     (void)km_clazz;
-    const char* s1_utf = (s1 != NULL) ? (*km_env)->GetStringUTFChars(km_env, s1, NULL) : NULL;
-    const char* s2_utf = (s2 != NULL) ? (*km_env)->GetStringUTFChars(km_env, s2, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -44,21 +42,17 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_windows_msvc_WindowsMsvcJ
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(s1_utf, s2_utf);
+        km_res = km_fn_ptr((const char*)(uintptr_t)s1, (const char*)(uintptr_t)s2);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (s1 != NULL && s1_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, s1, s1_utf);
-    if (s2 != NULL && s2_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, s2, s2_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_windows_msvc_WindowsMsvcJniBridge_libc_1windows_1msvc_1strnicmp(JNIEnv* km_env, jclass km_clazz, jstring s1, jstring s2, jlong n) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_windows_msvc_WindowsMsvcJniBridge_libcWindowsMsvcStrnicmp(JNIEnv* km_env, jclass km_clazz, jlong s1, jlong s2, jlong n) {
     (void)km_env;
     (void)km_clazz;
-    const char* s1_utf = (s1 != NULL) ? (*km_env)->GetStringUTFChars(km_env, s1, NULL) : NULL;
-    const char* s2_utf = (s2 != NULL) ? (*km_env)->GetStringUTFChars(km_env, s2, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -79,17 +73,15 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_windows_msvc_WindowsMsvcJ
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(s1_utf, s2_utf, (uint64_t)n);
+        km_res = km_fn_ptr((const char*)(uintptr_t)s1, (const char*)(uintptr_t)s2, (uint64_t)n);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (s1 != NULL && s1_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, s1, s1_utf);
-    if (s2 != NULL && s2_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, s2, s2_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_windows_msvc_WindowsMsvcJniBridge_libc_1windows_1msvc_1memccpy(JNIEnv* km_env, jclass km_clazz, jlong dest, jlong src, jint c, jlong count) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_windows_msvc_WindowsMsvcJniBridge_libcWindowsMsvcMemccpy(JNIEnv* km_env, jclass km_clazz, jlong dest, jlong src, jint c, jlong count) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void*, void*, int32_t, uint64_t);

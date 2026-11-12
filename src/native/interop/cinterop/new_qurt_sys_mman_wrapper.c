@@ -18,7 +18,7 @@
 #endif
 #endif
 
-void* libc_new_qurt_sys_mman_mmap(void* addr, uint64_t len, int32_t prot, int32_t flags, int32_t fd, int64_t offset) {
+void* libcNewQurtSysMmanMmap(void* addr, uint64_t len, int32_t prot, int32_t flags, int32_t fd, int64_t offset) {
 #if !defined(_WIN32)
     return (void*)mmap(addr, len, prot, flags, fd, offset);
 #else
@@ -33,7 +33,7 @@ void* libc_new_qurt_sys_mman_mmap(void* addr, uint64_t len, int32_t prot, int32_
 #endif
 }
 
-int32_t libc_new_qurt_sys_mman_munmap(void* addr, uint64_t len) {
+int32_t libcNewQurtSysMmanMunmap(void* addr, uint64_t len) {
 #if !defined(_WIN32)
     return (int32_t)munmap(addr, len);
 #else
@@ -44,7 +44,7 @@ int32_t libc_new_qurt_sys_mman_munmap(void* addr, uint64_t len) {
 #endif
 }
 
-int32_t libc_new_qurt_sys_mman_mprotect(void* addr, uint64_t len, int32_t prot) {
+int32_t libcNewQurtSysMmanMprotect(void* addr, uint64_t len, int32_t prot) {
 #if !defined(_WIN32)
     return (int32_t)mprotect(addr, len, prot);
 #else
@@ -56,7 +56,7 @@ int32_t libc_new_qurt_sys_mman_mprotect(void* addr, uint64_t len, int32_t prot) 
 #endif
 }
 
-int32_t libc_new_qurt_sys_mman_mlock(void* addr, uint64_t len) {
+int32_t libcNewQurtSysMmanMlock(void* addr, uint64_t len) {
 #if !defined(_WIN32)
     return (int32_t)mlock(addr, len);
 #else
@@ -67,7 +67,7 @@ int32_t libc_new_qurt_sys_mman_mlock(void* addr, uint64_t len) {
 #endif
 }
 
-int32_t libc_new_qurt_sys_mman_munlock(void* addr, uint64_t len) {
+int32_t libcNewQurtSysMmanMunlock(void* addr, uint64_t len) {
 #if !defined(_WIN32)
     return (int32_t)munlock(addr, len);
 #else
@@ -78,7 +78,7 @@ int32_t libc_new_qurt_sys_mman_munlock(void* addr, uint64_t len) {
 #endif
 }
 
-int32_t libc_new_qurt_sys_mman_mlockall(int32_t flags) {
+int32_t libcNewQurtSysMmanMlockall(int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -106,7 +106,7 @@ int32_t libc_new_qurt_sys_mman_mlockall(int32_t flags) {
     return -1;
 }
 
-int32_t libc_new_qurt_sys_mman_munlockall(void) {
+int32_t libcNewQurtSysMmanMunlockall(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -134,7 +134,7 @@ int32_t libc_new_qurt_sys_mman_munlockall(void) {
     return -1;
 }
 
-int32_t libc_new_qurt_sys_mman_msync(void* addr, uint64_t len, int32_t flags) {
+int32_t libcNewQurtSysMmanMsync(void* addr, uint64_t len, int32_t flags) {
 #if !defined(_WIN32)
     return (int32_t)msync(addr, len, flags);
 #else

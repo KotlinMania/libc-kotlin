@@ -3,22 +3,23 @@
 package io.github.kotlinmania.libc.new.apple.libpthread.pthread.qos
 
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
-import io.github.kotlinmania.libc.new.apple.libpthread.pthread.qos.cinterop.libc_new_apple_libpthread_pthread_qos_pthreadAttrGetQosClassNp
-import io.github.kotlinmania.libc.new.apple.libpthread.pthread.qos.cinterop.libc_new_apple_libpthread_pthread_qos_pthreadGetQosClassNp
+import io.github.kotlinmania.libc.new.apple.libpthread.pthread.qos.cinterop.libcNewAppleLibpthreadPthreadQosPthreadAttrGetQosClassNp
+import io.github.kotlinmania.libc.new.apple.libpthread.pthread.qos.cinterop.libcNewAppleLibpthreadPthreadQosPthreadGetQosClassNp
+import io.github.kotlinmania.libc.new.apple.libpthread.sys.pthread.pthreadtypes.PthreadAttrT
 import io.github.kotlinmania.libc.new.apple.libpthread.sys.qos.QosClassT
 import io.github.kotlinmania.libc.new.qurt.PthreadT
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 
-public actual fun pthreadAttrSetQosClassNp(attr: COpaquePointer?, cls: QosClassT, priority: CInt): CInt =
+public actual fun pthreadAttrSetQosClassNp(attr: MutPtr<PthreadAttrT>, cls: QosClassT, priority: CInt): CInt =
     0
 
-public actual fun pthreadAttrGetQosClassNp(attr: COpaquePointer?, cls: COpaquePointer?, priority: COpaquePointer?): CInt =
-    libc_new_apple_libpthread_pthread_qos_pthreadAttrGetQosClassNp(attr?.value?.toCPointer<ByteVar>(), cls?.value?.toCPointer<ByteVar>(), priority?.value?.toCPointer<ByteVar>())
+public actual fun pthreadAttrGetQosClassNp(attr: MutPtr<PthreadAttrT>, cls: MutPtr<QosClassT>, priority: MutPtr<CInt>): CInt =
+    libcNewAppleLibpthreadPthreadQosPthreadAttrGetQosClassNp(attr.rawAddress.toCPointer<ByteVar>(), cls.rawAddress.toCPointer<ByteVar>(), priority.rawAddress.toCPointer<ByteVar>())
 
 public actual fun pthreadSetQosClassSelfNp(cls: QosClassT, priority: CInt): CInt =
     0
 
-public actual fun pthreadGetQosClassNp(thread: PthreadT, cls: COpaquePointer?, priority: COpaquePointer?): CInt =
-    libc_new_apple_libpthread_pthread_qos_pthreadGetQosClassNp(thread.toLong().toCPointer<ByteVar>(), cls?.value?.toCPointer<ByteVar>(), priority?.value?.toCPointer<ByteVar>())
+public actual fun pthreadGetQosClassNp(thread: PthreadT, cls: MutPtr<QosClassT>, priority: MutPtr<CInt>): CInt =
+    libcNewAppleLibpthreadPthreadQosPthreadGetQosClassNp(thread.toLong().toCPointer<ByteVar>(), cls.rawAddress.toCPointer<ByteVar>(), priority.rawAddress.toCPointer<ByteVar>())

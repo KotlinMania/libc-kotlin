@@ -15,7 +15,7 @@
 #endif
 #endif
 
-int32_t libc_unix_haiku_native_createArea(const char* name, void* startAddress, uint32_t addressSpec, uint64_t size, uint32_t lock, uint32_t protection) {
+int32_t libcUnixHaikuNativeCreateArea(const char* name, void* startAddress, uint32_t addressSpec, uint64_t size, uint32_t lock, uint32_t protection) {
     typedef int32_t (*km_fn_t)(const char*, void*, uint32_t, uint64_t, uint32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -43,7 +43,7 @@ int32_t libc_unix_haiku_native_createArea(const char* name, void* startAddress, 
     return -1;
 }
 
-int32_t libc_unix_haiku_native_cloneArea(const char* name, void* destAddress, uint32_t addressSpec, uint32_t protection, int32_t source) {
+int32_t libcUnixHaikuNativeCloneArea(const char* name, void* destAddress, uint32_t addressSpec, uint32_t protection, int32_t source) {
     typedef int32_t (*km_fn_t)(const char*, void*, uint32_t, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -71,7 +71,7 @@ int32_t libc_unix_haiku_native_cloneArea(const char* name, void* destAddress, ui
     return -1;
 }
 
-int32_t libc_unix_haiku_native_findArea(const char* name) {
+int32_t libcUnixHaikuNativeFindArea(const char* name) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -99,7 +99,7 @@ int32_t libc_unix_haiku_native_findArea(const char* name) {
     return -1;
 }
 
-int32_t libc_unix_haiku_native_areaFor(void* address) {
+int32_t libcUnixHaikuNativeAreaFor(void* address) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -127,7 +127,7 @@ int32_t libc_unix_haiku_native_areaFor(void* address) {
     return -1;
 }
 
-int32_t libc_unix_haiku_native_deleteArea(int32_t id) {
+int32_t libcUnixHaikuNativeDeleteArea(int32_t id) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -155,7 +155,7 @@ int32_t libc_unix_haiku_native_deleteArea(int32_t id) {
     return -1;
 }
 
-int32_t libc_unix_haiku_native_resizeArea(int32_t id, uint64_t newSize) {
+int32_t libcUnixHaikuNativeResizeArea(int32_t id, uint64_t newSize) {
     typedef int32_t (*km_fn_t)(int32_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -183,7 +183,7 @@ int32_t libc_unix_haiku_native_resizeArea(int32_t id, uint64_t newSize) {
     return -1;
 }
 
-int32_t libc_unix_haiku_native_setAreaProtection(int32_t id, uint32_t newProtection) {
+int32_t libcUnixHaikuNativeSetAreaProtection(int32_t id, uint32_t newProtection) {
     typedef int32_t (*km_fn_t)(int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -211,7 +211,7 @@ int32_t libc_unix_haiku_native_setAreaProtection(int32_t id, uint32_t newProtect
     return -1;
 }
 
-int32_t libc_unix_haiku_native_getAreaInfo(int32_t id, void* areaInfo, uint64_t size) {
+int32_t libcUnixHaikuNativeGetAreaInfo(int32_t id, void* areaInfo, uint64_t size) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -237,7 +237,7 @@ int32_t libc_unix_haiku_native_getAreaInfo(int32_t id, void* areaInfo, uint64_t 
     return -1;
 }
 
-int32_t libc_unix_haiku_native_getNextAreaInfo(int32_t team, void* cookie, void* areaInfo, uint64_t size) {
+int32_t libcUnixHaikuNativeGetNextAreaInfo(int32_t team, void* cookie, void* areaInfo, uint64_t size) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -263,7 +263,7 @@ int32_t libc_unix_haiku_native_getNextAreaInfo(int32_t team, void* cookie, void*
     return -1;
 }
 
-int32_t libc_unix_haiku_native_createPort(int32_t capacity, const char* name) {
+int32_t libcUnixHaikuNativeCreatePort(int32_t capacity, const char* name) {
     typedef int32_t (*km_fn_t)(int32_t, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -291,7 +291,7 @@ int32_t libc_unix_haiku_native_createPort(int32_t capacity, const char* name) {
     return -1;
 }
 
-int32_t libc_unix_haiku_native_findPort(const char* name) {
+int32_t libcUnixHaikuNativeFindPort(const char* name) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -319,7 +319,7 @@ int32_t libc_unix_haiku_native_findPort(const char* name) {
     return -1;
 }
 
-int64_t libc_unix_haiku_native_readPort(int32_t port, void* code, void* buffer, uint64_t bufferSize) {
+int64_t libcUnixHaikuNativeReadPort(int32_t port, void* code, void* buffer, uint64_t bufferSize) {
     typedef int64_t (*km_fn_t)(int32_t, void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -347,7 +347,7 @@ int64_t libc_unix_haiku_native_readPort(int32_t port, void* code, void* buffer, 
     return -1;
 }
 
-int64_t libc_unix_haiku_native_readPortEtc(int32_t port, void* code, void* buffer, uint64_t bufferSize, uint32_t flags, int64_t timeout) {
+int64_t libcUnixHaikuNativeReadPortEtc(int32_t port, void* code, void* buffer, uint64_t bufferSize, uint32_t flags, int64_t timeout) {
     typedef int64_t (*km_fn_t)(int32_t, void*, void*, uint64_t, uint32_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -375,7 +375,7 @@ int64_t libc_unix_haiku_native_readPortEtc(int32_t port, void* code, void* buffe
     return -1;
 }
 
-int32_t libc_unix_haiku_native_writePort(int32_t port, int32_t code, void* buffer, uint64_t bufferSize) {
+int32_t libcUnixHaikuNativeWritePort(int32_t port, int32_t code, void* buffer, uint64_t bufferSize) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -403,7 +403,7 @@ int32_t libc_unix_haiku_native_writePort(int32_t port, int32_t code, void* buffe
     return -1;
 }
 
-int32_t libc_unix_haiku_native_writePortEtc(int32_t port, int32_t code, void* buffer, uint64_t bufferSize, uint32_t flags, int64_t timeout) {
+int32_t libcUnixHaikuNativeWritePortEtc(int32_t port, int32_t code, void* buffer, uint64_t bufferSize, uint32_t flags, int64_t timeout) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*, uint64_t, uint32_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -431,7 +431,7 @@ int32_t libc_unix_haiku_native_writePortEtc(int32_t port, int32_t code, void* bu
     return -1;
 }
 
-int32_t libc_unix_haiku_native_closePort(int32_t port) {
+int32_t libcUnixHaikuNativeClosePort(int32_t port) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -459,7 +459,7 @@ int32_t libc_unix_haiku_native_closePort(int32_t port) {
     return -1;
 }
 
-int32_t libc_unix_haiku_native_deletePort(int32_t port) {
+int32_t libcUnixHaikuNativeDeletePort(int32_t port) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -487,7 +487,7 @@ int32_t libc_unix_haiku_native_deletePort(int32_t port) {
     return -1;
 }
 
-int64_t libc_unix_haiku_native_portBufferSize(int32_t port) {
+int64_t libcUnixHaikuNativePortBufferSize(int32_t port) {
     typedef int64_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -515,7 +515,7 @@ int64_t libc_unix_haiku_native_portBufferSize(int32_t port) {
     return -1;
 }
 
-int64_t libc_unix_haiku_native_portBufferSizeEtc(int32_t port, uint32_t flags, int64_t timeout) {
+int64_t libcUnixHaikuNativePortBufferSizeEtc(int32_t port, uint32_t flags, int64_t timeout) {
     typedef int64_t (*km_fn_t)(int32_t, uint32_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -543,7 +543,7 @@ int64_t libc_unix_haiku_native_portBufferSizeEtc(int32_t port, uint32_t flags, i
     return -1;
 }
 
-int64_t libc_unix_haiku_native_portCount(int32_t port) {
+int64_t libcUnixHaikuNativePortCount(int32_t port) {
     typedef int64_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -571,7 +571,7 @@ int64_t libc_unix_haiku_native_portCount(int32_t port) {
     return -1;
 }
 
-int32_t libc_unix_haiku_native_setPortOwner(int32_t port, int32_t team) {
+int32_t libcUnixHaikuNativeSetPortOwner(int32_t port, int32_t team) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -599,7 +599,7 @@ int32_t libc_unix_haiku_native_setPortOwner(int32_t port, int32_t team) {
     return -1;
 }
 
-int32_t libc_unix_haiku_native_getPortInfo(int32_t port, void* buf, uint64_t portInfoSize) {
+int32_t libcUnixHaikuNativeGetPortInfo(int32_t port, void* buf, uint64_t portInfoSize) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -625,7 +625,7 @@ int32_t libc_unix_haiku_native_getPortInfo(int32_t port, void* buf, uint64_t por
     return -1;
 }
 
-int32_t libc_unix_haiku_native_getNextPortInfo(int32_t port, void* cookie, void* portInfo, uint64_t portInfoSize) {
+int32_t libcUnixHaikuNativeGetNextPortInfo(int32_t port, void* cookie, void* portInfo, uint64_t portInfoSize) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -651,7 +651,7 @@ int32_t libc_unix_haiku_native_getNextPortInfo(int32_t port, void* cookie, void*
     return -1;
 }
 
-int32_t libc_unix_haiku_native_getPortMessageInfoEtc(int32_t port, void* info, uint64_t infoSize, uint32_t flags, int64_t timeout) {
+int32_t libcUnixHaikuNativeGetPortMessageInfoEtc(int32_t port, void* info, uint64_t infoSize, uint32_t flags, int64_t timeout) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint64_t, uint32_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -677,7 +677,7 @@ int32_t libc_unix_haiku_native_getPortMessageInfoEtc(int32_t port, void* info, u
     return -1;
 }
 
-int32_t libc_unix_haiku_native_createSem(int32_t count, const char* name) {
+int32_t libcUnixHaikuNativeCreateSem(int32_t count, const char* name) {
     typedef int32_t (*km_fn_t)(int32_t, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -705,7 +705,7 @@ int32_t libc_unix_haiku_native_createSem(int32_t count, const char* name) {
     return -1;
 }
 
-int32_t libc_unix_haiku_native_deleteSem(int32_t id) {
+int32_t libcUnixHaikuNativeDeleteSem(int32_t id) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -733,7 +733,7 @@ int32_t libc_unix_haiku_native_deleteSem(int32_t id) {
     return -1;
 }
 
-int32_t libc_unix_haiku_native_acquireSem(int32_t id) {
+int32_t libcUnixHaikuNativeAcquireSem(int32_t id) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -761,7 +761,7 @@ int32_t libc_unix_haiku_native_acquireSem(int32_t id) {
     return -1;
 }
 
-int32_t libc_unix_haiku_native_acquireSemEtc(int32_t id, int32_t count, uint32_t flags, int64_t timeout) {
+int32_t libcUnixHaikuNativeAcquireSemEtc(int32_t id, int32_t count, uint32_t flags, int64_t timeout) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, uint32_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -789,7 +789,7 @@ int32_t libc_unix_haiku_native_acquireSemEtc(int32_t id, int32_t count, uint32_t
     return -1;
 }
 
-int32_t libc_unix_haiku_native_releaseSem(int32_t id) {
+int32_t libcUnixHaikuNativeReleaseSem(int32_t id) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -817,7 +817,7 @@ int32_t libc_unix_haiku_native_releaseSem(int32_t id) {
     return -1;
 }
 
-int32_t libc_unix_haiku_native_releaseSemEtc(int32_t id, int32_t count, uint32_t flags) {
+int32_t libcUnixHaikuNativeReleaseSemEtc(int32_t id, int32_t count, uint32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -845,7 +845,7 @@ int32_t libc_unix_haiku_native_releaseSemEtc(int32_t id, int32_t count, uint32_t
     return -1;
 }
 
-int32_t libc_unix_haiku_native_switchSem(int32_t semToBeReleased, int32_t id) {
+int32_t libcUnixHaikuNativeSwitchSem(int32_t semToBeReleased, int32_t id) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -873,7 +873,7 @@ int32_t libc_unix_haiku_native_switchSem(int32_t semToBeReleased, int32_t id) {
     return -1;
 }
 
-int32_t libc_unix_haiku_native_switchSemEtc(int32_t semToBeReleased, int32_t id, int32_t count, uint32_t flags, int64_t timeout) {
+int32_t libcUnixHaikuNativeSwitchSemEtc(int32_t semToBeReleased, int32_t id, int32_t count, uint32_t flags, int64_t timeout) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, uint32_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -901,7 +901,7 @@ int32_t libc_unix_haiku_native_switchSemEtc(int32_t semToBeReleased, int32_t id,
     return -1;
 }
 
-int32_t libc_unix_haiku_native_getSemCount(int32_t id, void* threadCount) {
+int32_t libcUnixHaikuNativeGetSemCount(int32_t id, void* threadCount) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -929,7 +929,7 @@ int32_t libc_unix_haiku_native_getSemCount(int32_t id, void* threadCount) {
     return -1;
 }
 
-int32_t libc_unix_haiku_native_setSemOwner(int32_t id, int32_t team) {
+int32_t libcUnixHaikuNativeSetSemOwner(int32_t id, int32_t team) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -957,7 +957,7 @@ int32_t libc_unix_haiku_native_setSemOwner(int32_t id, int32_t team) {
     return -1;
 }
 
-int32_t libc_unix_haiku_native_getSemInfo(int32_t id, void* info, uint64_t infoSize) {
+int32_t libcUnixHaikuNativeGetSemInfo(int32_t id, void* info, uint64_t infoSize) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -983,7 +983,7 @@ int32_t libc_unix_haiku_native_getSemInfo(int32_t id, void* info, uint64_t infoS
     return -1;
 }
 
-int32_t libc_unix_haiku_native_getNextSemInfo(int32_t team, void* cookie, void* info, uint64_t infoSize) {
+int32_t libcUnixHaikuNativeGetNextSemInfo(int32_t team, void* cookie, void* info, uint64_t infoSize) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1009,7 +1009,7 @@ int32_t libc_unix_haiku_native_getNextSemInfo(int32_t team, void* cookie, void* 
     return -1;
 }
 
-int32_t libc_unix_haiku_native_killTeam(int32_t team) {
+int32_t libcUnixHaikuNativeKillTeam(int32_t team) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1037,7 +1037,7 @@ int32_t libc_unix_haiku_native_killTeam(int32_t team) {
     return -1;
 }
 
-int32_t libc_unix_haiku_native_getTeamInfo(int32_t team, void* info, uint64_t size) {
+int32_t libcUnixHaikuNativeGetTeamInfo(int32_t team, void* info, uint64_t size) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1063,7 +1063,7 @@ int32_t libc_unix_haiku_native_getTeamInfo(int32_t team, void* info, uint64_t si
     return -1;
 }
 
-int32_t libc_unix_haiku_native_getNextTeamInfo(void* cookie, void* info, uint64_t size) {
+int32_t libcUnixHaikuNativeGetNextTeamInfo(void* cookie, void* info, uint64_t size) {
     typedef int32_t (*km_fn_t)(void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1089,7 +1089,7 @@ int32_t libc_unix_haiku_native_getNextTeamInfo(void* cookie, void* info, uint64_
     return -1;
 }
 
-int32_t libc_unix_haiku_native_spawnThread(void* func, const char* name, int32_t priority, void* data) {
+int32_t libcUnixHaikuNativeSpawnThread(void* func, const char* name, int32_t priority, void* data) {
     typedef int32_t (*km_fn_t)(void*, const char*, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1117,7 +1117,7 @@ int32_t libc_unix_haiku_native_spawnThread(void* func, const char* name, int32_t
     return -1;
 }
 
-int32_t libc_unix_haiku_native_killThread(int32_t thread) {
+int32_t libcUnixHaikuNativeKillThread(int32_t thread) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1145,7 +1145,7 @@ int32_t libc_unix_haiku_native_killThread(int32_t thread) {
     return -1;
 }
 
-int32_t libc_unix_haiku_native_resumeThread(int32_t thread) {
+int32_t libcUnixHaikuNativeResumeThread(int32_t thread) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1173,7 +1173,7 @@ int32_t libc_unix_haiku_native_resumeThread(int32_t thread) {
     return -1;
 }
 
-int32_t libc_unix_haiku_native_suspendThread(int32_t thread) {
+int32_t libcUnixHaikuNativeSuspendThread(int32_t thread) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1201,7 +1201,7 @@ int32_t libc_unix_haiku_native_suspendThread(int32_t thread) {
     return -1;
 }
 
-int32_t libc_unix_haiku_native_renameThread(int32_t thread, const char* newName) {
+int32_t libcUnixHaikuNativeRenameThread(int32_t thread, const char* newName) {
     typedef int32_t (*km_fn_t)(int32_t, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1229,7 +1229,7 @@ int32_t libc_unix_haiku_native_renameThread(int32_t thread, const char* newName)
     return -1;
 }
 
-int32_t libc_unix_haiku_native_setThreadPriority(int32_t thread, int32_t newPriority) {
+int32_t libcUnixHaikuNativeSetThreadPriority(int32_t thread, int32_t newPriority) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1257,7 +1257,7 @@ int32_t libc_unix_haiku_native_setThreadPriority(int32_t thread, int32_t newPrio
     return -1;
 }
 
-int32_t libc_unix_haiku_native_suggestThreadPriority(uint32_t what, int32_t period, int64_t jitter, int64_t length) {
+int32_t libcUnixHaikuNativeSuggestThreadPriority(uint32_t what, int32_t period, int64_t jitter, int64_t length) {
     typedef int32_t (*km_fn_t)(uint32_t, int32_t, int64_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1285,7 +1285,7 @@ int32_t libc_unix_haiku_native_suggestThreadPriority(uint32_t what, int32_t peri
     return -1;
 }
 
-int64_t libc_unix_haiku_native_estimateMaxSchedulingLatency(int32_t th) {
+int64_t libcUnixHaikuNativeEstimateMaxSchedulingLatency(int32_t th) {
     typedef int64_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1313,7 +1313,7 @@ int64_t libc_unix_haiku_native_estimateMaxSchedulingLatency(int32_t th) {
     return -1;
 }
 
-void libc_unix_haiku_native_exitThread(int32_t status) {
+void libcUnixHaikuNativeExitThread(int32_t status) {
     typedef void (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1341,7 +1341,7 @@ void libc_unix_haiku_native_exitThread(int32_t status) {
     errno = ENOSYS;
 }
 
-int32_t libc_unix_haiku_native_waitForThread(int32_t thread, void* returnValue) {
+int32_t libcUnixHaikuNativeWaitForThread(int32_t thread, void* returnValue) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1369,7 +1369,7 @@ int32_t libc_unix_haiku_native_waitForThread(int32_t thread, void* returnValue) 
     return -1;
 }
 
-int32_t libc_unix_haiku_native_onExitThread(void* callback, void* data) {
+int32_t libcUnixHaikuNativeOnExitThread(void* callback, void* data) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1397,7 +1397,7 @@ int32_t libc_unix_haiku_native_onExitThread(void* callback, void* data) {
     return -1;
 }
 
-int32_t libc_unix_haiku_native_findThread(const char* name) {
+int32_t libcUnixHaikuNativeFindThread(const char* name) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1425,7 +1425,7 @@ int32_t libc_unix_haiku_native_findThread(const char* name) {
     return -1;
 }
 
-int32_t libc_unix_haiku_native_getSchedulerMode(void) {
+int32_t libcUnixHaikuNativeGetSchedulerMode(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1453,7 +1453,7 @@ int32_t libc_unix_haiku_native_getSchedulerMode(void) {
     return -1;
 }
 
-int32_t libc_unix_haiku_native_setSchedulerMode(int32_t mode) {
+int32_t libcUnixHaikuNativeSetSchedulerMode(int32_t mode) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1481,7 +1481,7 @@ int32_t libc_unix_haiku_native_setSchedulerMode(int32_t mode) {
     return -1;
 }
 
-int32_t libc_unix_haiku_native_sendData(int32_t thread, int32_t code, void* buffer, uint64_t bufferSize) {
+int32_t libcUnixHaikuNativeSendData(int32_t thread, int32_t code, void* buffer, uint64_t bufferSize) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1509,7 +1509,7 @@ int32_t libc_unix_haiku_native_sendData(int32_t thread, int32_t code, void* buff
     return -1;
 }
 
-int32_t libc_unix_haiku_native_receiveData(void* sender, void* buffer, uint64_t bufferSize) {
+int32_t libcUnixHaikuNativeReceiveData(void* sender, void* buffer, uint64_t bufferSize) {
     typedef int32_t (*km_fn_t)(void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1537,7 +1537,7 @@ int32_t libc_unix_haiku_native_receiveData(void* sender, void* buffer, uint64_t 
     return -1;
 }
 
-bool libc_unix_haiku_native_hasData(int32_t thread) {
+bool libcUnixHaikuNativeHasData(int32_t thread) {
     typedef bool (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1565,7 +1565,7 @@ bool libc_unix_haiku_native_hasData(int32_t thread) {
     return false;
 }
 
-int32_t libc_unix_haiku_native_snooze(int64_t amount) {
+int32_t libcUnixHaikuNativeSnooze(int64_t amount) {
     typedef int32_t (*km_fn_t)(int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1593,7 +1593,7 @@ int32_t libc_unix_haiku_native_snooze(int64_t amount) {
     return -1;
 }
 
-int32_t libc_unix_haiku_native_snoozeEtc(int64_t amount, int32_t timeBase, uint32_t flags) {
+int32_t libcUnixHaikuNativeSnoozeEtc(int64_t amount, int32_t timeBase, uint32_t flags) {
     typedef int32_t (*km_fn_t)(int64_t, int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1621,7 +1621,7 @@ int32_t libc_unix_haiku_native_snoozeEtc(int64_t amount, int32_t timeBase, uint3
     return -1;
 }
 
-int32_t libc_unix_haiku_native_snoozeUntil(int64_t arg_0_time, int32_t timeBase) {
+int32_t libcUnixHaikuNativeSnoozeUntil(int64_t arg0Time, int32_t timeBase) {
     typedef int32_t (*km_fn_t)(int64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1643,13 +1643,13 @@ int32_t libc_unix_haiku_native_snoozeUntil(int64_t arg_0_time, int32_t timeBase)
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_time, timeBase);
+        return km_fn_ptr(arg0Time, timeBase);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_haiku_native_getThreadInfo(int32_t id, void* info, uint64_t size) {
+int32_t libcUnixHaikuNativeGetThreadInfo(int32_t id, void* info, uint64_t size) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1675,7 +1675,7 @@ int32_t libc_unix_haiku_native_getThreadInfo(int32_t id, void* info, uint64_t si
     return -1;
 }
 
-int32_t libc_unix_haiku_native_getNextThreadInfo(int32_t team, void* cookie, void* info, uint64_t size) {
+int32_t libcUnixHaikuNativeGetNextThreadInfo(int32_t team, void* cookie, void* info, uint64_t size) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1701,7 +1701,7 @@ int32_t libc_unix_haiku_native_getNextThreadInfo(int32_t team, void* cookie, voi
     return -1;
 }
 
-int32_t libc_unix_haiku_native_getPthreadThreadId(void* thread) {
+int32_t libcUnixHaikuNativeGetPthreadThreadId(void* thread) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1729,7 +1729,7 @@ int32_t libc_unix_haiku_native_getPthreadThreadId(void* thread) {
     return -1;
 }
 
-int32_t libc_unix_haiku_native_getTeamUsageInfo(int32_t team, int32_t who, void* info, uint64_t size) {
+int32_t libcUnixHaikuNativeGetTeamUsageInfo(int32_t team, int32_t who, void* info, uint64_t size) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1755,7 +1755,7 @@ int32_t libc_unix_haiku_native_getTeamUsageInfo(int32_t team, int32_t who, void*
     return -1;
 }
 
-uint64_t libc_unix_haiku_native_realTimeClock(void) {
+uint64_t libcUnixHaikuNativeRealTimeClock(void) {
     typedef uint64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1783,7 +1783,7 @@ uint64_t libc_unix_haiku_native_realTimeClock(void) {
     return 0;
 }
 
-void libc_unix_haiku_native_setRealTimeClock(uint64_t secsSinceJan1st1970) {
+void libcUnixHaikuNativeSetRealTimeClock(uint64_t secsSinceJan1st1970) {
     typedef void (*km_fn_t)(uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1811,7 +1811,7 @@ void libc_unix_haiku_native_setRealTimeClock(uint64_t secsSinceJan1st1970) {
     errno = ENOSYS;
 }
 
-int64_t libc_unix_haiku_native_realTimeClockUsecs(void) {
+int64_t libcUnixHaikuNativeRealTimeClockUsecs(void) {
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1839,7 +1839,7 @@ int64_t libc_unix_haiku_native_realTimeClockUsecs(void) {
     return -1;
 }
 
-int64_t libc_unix_haiku_native_systemTime(void) {
+int64_t libcUnixHaikuNativeSystemTime(void) {
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1867,7 +1867,7 @@ int64_t libc_unix_haiku_native_systemTime(void) {
     return -1;
 }
 
-int64_t libc_unix_haiku_native_systemTimeNsecs(void) {
+int64_t libcUnixHaikuNativeSystemTimeNsecs(void) {
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1895,7 +1895,7 @@ int64_t libc_unix_haiku_native_systemTimeNsecs(void) {
     return -1;
 }
 
-int64_t libc_unix_haiku_native_setAlarm(int64_t when, uint32_t flags) {
+int64_t libcUnixHaikuNativeSetAlarm(int64_t when, uint32_t flags) {
     typedef int64_t (*km_fn_t)(int64_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1923,7 +1923,7 @@ int64_t libc_unix_haiku_native_setAlarm(int64_t when, uint32_t flags) {
     return -1;
 }
 
-void libc_unix_haiku_native_debugger(const char* message) {
+void libcUnixHaikuNativeDebugger(const char* message) {
     typedef void (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1951,7 +1951,7 @@ void libc_unix_haiku_native_debugger(const char* message) {
     errno = ENOSYS;
 }
 
-int32_t libc_unix_haiku_native_disableDebugger(int32_t state) {
+int32_t libcUnixHaikuNativeDisableDebugger(int32_t state) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1979,7 +1979,7 @@ int32_t libc_unix_haiku_native_disableDebugger(int32_t state) {
     return -1;
 }
 
-int32_t libc_unix_haiku_native_getSystemInfo(void* info) {
+int32_t libcUnixHaikuNativeGetSystemInfo(void* info) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2007,7 +2007,7 @@ int32_t libc_unix_haiku_native_getSystemInfo(void* info) {
     return -1;
 }
 
-int32_t libc_unix_haiku_native_getCpuInfoEtc(uint32_t firstCPU, uint32_t cpuCount, void* info, uint64_t size) {
+int32_t libcUnixHaikuNativeGetCpuInfoEtc(uint32_t firstCPU, uint32_t cpuCount, void* info, uint64_t size) {
     typedef int32_t (*km_fn_t)(uint32_t, uint32_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2033,7 +2033,7 @@ int32_t libc_unix_haiku_native_getCpuInfoEtc(uint32_t firstCPU, uint32_t cpuCoun
     return -1;
 }
 
-int32_t libc_unix_haiku_native_getCpuTopologyInfo(void* topologyInfos, void* topologyInfoCount) {
+int32_t libcUnixHaikuNativeGetCpuTopologyInfo(void* topologyInfos, void* topologyInfoCount) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2061,7 +2061,7 @@ int32_t libc_unix_haiku_native_getCpuTopologyInfo(void* topologyInfos, void* top
     return -1;
 }
 
-int32_t libc_unix_haiku_native_isComputerOn(void) {
+int32_t libcUnixHaikuNativeIsComputerOn(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2089,7 +2089,7 @@ int32_t libc_unix_haiku_native_isComputerOn(void) {
     return -1;
 }
 
-double libc_unix_haiku_native_isComputerOnFire(void) {
+double libcUnixHaikuNativeIsComputerOnFire(void) {
     typedef double (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2117,7 +2117,7 @@ double libc_unix_haiku_native_isComputerOnFire(void) {
     return 0.0;
 }
 
-int32_t libc_unix_haiku_native_sendSignal(int32_t threadID, uint32_t signal) {
+int32_t libcUnixHaikuNativeSendSignal(int32_t threadID, uint32_t signal) {
     typedef int32_t (*km_fn_t)(int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2145,7 +2145,7 @@ int32_t libc_unix_haiku_native_sendSignal(int32_t threadID, uint32_t signal) {
     return -1;
 }
 
-void libc_unix_haiku_native_setSignalStack(void* base, uint64_t size) {
+void libcUnixHaikuNativeSetSignalStack(void* base, uint64_t size) {
     typedef void (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2173,7 +2173,7 @@ void libc_unix_haiku_native_setSignalStack(void* base, uint64_t size) {
     errno = ENOSYS;
 }
 
-int64_t libc_unix_haiku_native_waitForObjects(void* infos, int32_t numInfos) {
+int64_t libcUnixHaikuNativeWaitForObjects(void* infos, int32_t numInfos) {
     typedef int64_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2201,7 +2201,7 @@ int64_t libc_unix_haiku_native_waitForObjects(void* infos, int32_t numInfos) {
     return -1;
 }
 
-int64_t libc_unix_haiku_native_waitForObjectsEtc(void* infos, int32_t numInfos, uint32_t flags, int64_t timeout) {
+int64_t libcUnixHaikuNativeWaitForObjectsEtc(void* infos, int32_t numInfos, uint32_t flags, int64_t timeout) {
     typedef int64_t (*km_fn_t)(void*, int32_t, uint32_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2229,7 +2229,7 @@ int64_t libc_unix_haiku_native_waitForObjectsEtc(void* infos, int32_t numInfos, 
     return -1;
 }
 
-int64_t libc_unix_haiku_native_fsReadAttr(int32_t fd, const char* attribute, uint32_t type_, int64_t pos, void* buffer, uint64_t readBytes) {
+int64_t libcUnixHaikuNativeFsReadAttr(int32_t fd, const char* attribute, uint32_t type, int64_t pos, void* buffer, uint64_t readBytes) {
     typedef int64_t (*km_fn_t)(int32_t, const char*, uint32_t, int64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2251,13 +2251,13 @@ int64_t libc_unix_haiku_native_fsReadAttr(int32_t fd, const char* attribute, uin
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(fd, attribute, type_, pos, buffer, readBytes);
+        return km_fn_ptr(fd, attribute, type, pos, buffer, readBytes);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_unix_haiku_native_fsWriteAttr(int32_t fd, const char* attribute, uint32_t type_, int64_t pos, void* buffer, uint64_t writeBytes) {
+int64_t libcUnixHaikuNativeFsWriteAttr(int32_t fd, const char* attribute, uint32_t type, int64_t pos, void* buffer, uint64_t writeBytes) {
     typedef int64_t (*km_fn_t)(int32_t, const char*, uint32_t, int64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2279,13 +2279,13 @@ int64_t libc_unix_haiku_native_fsWriteAttr(int32_t fd, const char* attribute, ui
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(fd, attribute, type_, pos, buffer, writeBytes);
+        return km_fn_ptr(fd, attribute, type, pos, buffer, writeBytes);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_haiku_native_fsRemoveAttr(int32_t fd, const char* attribute) {
+int32_t libcUnixHaikuNativeFsRemoveAttr(int32_t fd, const char* attribute) {
     typedef int32_t (*km_fn_t)(int32_t, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2313,7 +2313,7 @@ int32_t libc_unix_haiku_native_fsRemoveAttr(int32_t fd, const char* attribute) {
     return -1;
 }
 
-int32_t libc_unix_haiku_native_fsStatAttr(int32_t fd, const char* attribute, void* attrInfo) {
+int32_t libcUnixHaikuNativeFsStatAttr(int32_t fd, const char* attribute, void* attrInfo) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2341,7 +2341,7 @@ int32_t libc_unix_haiku_native_fsStatAttr(int32_t fd, const char* attribute, voi
     return -1;
 }
 
-int32_t libc_unix_haiku_native_fsOpenAttr(const char* path, const char* attribute, uint32_t type_, int32_t openMode) {
+int32_t libcUnixHaikuNativeFsOpenAttr(const char* path, const char* attribute, uint32_t type, int32_t openMode) {
     typedef int32_t (*km_fn_t)(const char*, const char*, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2363,13 +2363,13 @@ int32_t libc_unix_haiku_native_fsOpenAttr(const char* path, const char* attribut
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(path, attribute, type_, openMode);
+        return km_fn_ptr(path, attribute, type, openMode);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_haiku_native_fsFopenAttr(int32_t fd, const char* attribute, uint32_t type_, int32_t openMode) {
+int32_t libcUnixHaikuNativeFsFopenAttr(int32_t fd, const char* attribute, uint32_t type, int32_t openMode) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2391,13 +2391,13 @@ int32_t libc_unix_haiku_native_fsFopenAttr(int32_t fd, const char* attribute, ui
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(fd, attribute, type_, openMode);
+        return km_fn_ptr(fd, attribute, type, openMode);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_haiku_native_fsCloseAttr(int32_t fd) {
+int32_t libcUnixHaikuNativeFsCloseAttr(int32_t fd) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2425,7 +2425,7 @@ int32_t libc_unix_haiku_native_fsCloseAttr(int32_t fd) {
     return -1;
 }
 
-void* libc_unix_haiku_native_fsOpenAttrDir(const char* path) {
+void* libcUnixHaikuNativeFsOpenAttrDir(const char* path) {
     typedef void* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2453,7 +2453,7 @@ void* libc_unix_haiku_native_fsOpenAttrDir(const char* path) {
     return NULL;
 }
 
-void* libc_unix_haiku_native_fsLopenAttrDir(const char* path) {
+void* libcUnixHaikuNativeFsLopenAttrDir(const char* path) {
     typedef void* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2481,7 +2481,7 @@ void* libc_unix_haiku_native_fsLopenAttrDir(const char* path) {
     return NULL;
 }
 
-void* libc_unix_haiku_native_fsFopenAttrDir(int32_t fd) {
+void* libcUnixHaikuNativeFsFopenAttrDir(int32_t fd) {
     typedef void* (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2509,7 +2509,7 @@ void* libc_unix_haiku_native_fsFopenAttrDir(int32_t fd) {
     return NULL;
 }
 
-int32_t libc_unix_haiku_native_fsCloseAttrDir(void* dir) {
+int32_t libcUnixHaikuNativeFsCloseAttrDir(void* dir) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2537,7 +2537,7 @@ int32_t libc_unix_haiku_native_fsCloseAttrDir(void* dir) {
     return -1;
 }
 
-void* libc_unix_haiku_native_fsReadAttrDir(void* dir) {
+void* libcUnixHaikuNativeFsReadAttrDir(void* dir) {
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2565,7 +2565,7 @@ void* libc_unix_haiku_native_fsReadAttrDir(void* dir) {
     return NULL;
 }
 
-void libc_unix_haiku_native_fsRewindAttrDir(void* dir) {
+void libcUnixHaikuNativeFsRewindAttrDir(void* dir) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2593,7 +2593,7 @@ void libc_unix_haiku_native_fsRewindAttrDir(void* dir) {
     errno = ENOSYS;
 }
 
-int32_t libc_unix_haiku_native_fsCreateIndex(int32_t device, const char* name, uint32_t type_, uint32_t flags) {
+int32_t libcUnixHaikuNativeFsCreateIndex(int32_t device, const char* name, uint32_t type, uint32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, uint32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2615,13 +2615,13 @@ int32_t libc_unix_haiku_native_fsCreateIndex(int32_t device, const char* name, u
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(device, name, type_, flags);
+        return km_fn_ptr(device, name, type, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_haiku_native_fsRemoveIndex(int32_t device, const char* name) {
+int32_t libcUnixHaikuNativeFsRemoveIndex(int32_t device, const char* name) {
     typedef int32_t (*km_fn_t)(int32_t, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2649,7 +2649,7 @@ int32_t libc_unix_haiku_native_fsRemoveIndex(int32_t device, const char* name) {
     return -1;
 }
 
-int32_t libc_unix_haiku_native_fsStatIndex(int32_t device, const char* name, void* indexInfo) {
+int32_t libcUnixHaikuNativeFsStatIndex(int32_t device, const char* name, void* indexInfo) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2677,7 +2677,7 @@ int32_t libc_unix_haiku_native_fsStatIndex(int32_t device, const char* name, voi
     return -1;
 }
 
-void* libc_unix_haiku_native_fsOpenIndexDir(int32_t device) {
+void* libcUnixHaikuNativeFsOpenIndexDir(int32_t device) {
     typedef void* (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2705,7 +2705,7 @@ void* libc_unix_haiku_native_fsOpenIndexDir(int32_t device) {
     return NULL;
 }
 
-int32_t libc_unix_haiku_native_fsCloseIndexDir(void* indexDirectory) {
+int32_t libcUnixHaikuNativeFsCloseIndexDir(void* indexDirectory) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2733,7 +2733,7 @@ int32_t libc_unix_haiku_native_fsCloseIndexDir(void* indexDirectory) {
     return -1;
 }
 
-void* libc_unix_haiku_native_fsReadIndexDir(void* indexDirectory) {
+void* libcUnixHaikuNativeFsReadIndexDir(void* indexDirectory) {
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2761,7 +2761,7 @@ void* libc_unix_haiku_native_fsReadIndexDir(void* indexDirectory) {
     return NULL;
 }
 
-void libc_unix_haiku_native_fsRewindIndexDir(void* indexDirectory) {
+void libcUnixHaikuNativeFsRewindIndexDir(void* indexDirectory) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2789,7 +2789,7 @@ void libc_unix_haiku_native_fsRewindIndexDir(void* indexDirectory) {
     errno = ENOSYS;
 }
 
-int32_t libc_unix_haiku_native_devForPath(const char* path) {
+int32_t libcUnixHaikuNativeDevForPath(const char* path) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2817,7 +2817,7 @@ int32_t libc_unix_haiku_native_devForPath(const char* path) {
     return -1;
 }
 
-int32_t libc_unix_haiku_native_nextDev(void* pos) {
+int32_t libcUnixHaikuNativeNextDev(void* pos) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2845,7 +2845,7 @@ int32_t libc_unix_haiku_native_nextDev(void* pos) {
     return -1;
 }
 
-int32_t libc_unix_haiku_native_fsStatDev(int32_t dev, void* info) {
+int32_t libcUnixHaikuNativeFsStatDev(int32_t dev, void* info) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2873,7 +2873,7 @@ int32_t libc_unix_haiku_native_fsStatDev(int32_t dev, void* info) {
     return -1;
 }
 
-void* libc_unix_haiku_native_fsOpenQuery(int32_t device, const char* query, uint32_t flags) {
+void* libcUnixHaikuNativeFsOpenQuery(int32_t device, const char* query, uint32_t flags) {
     typedef void* (*km_fn_t)(int32_t, const char*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2901,7 +2901,7 @@ void* libc_unix_haiku_native_fsOpenQuery(int32_t device, const char* query, uint
     return NULL;
 }
 
-void* libc_unix_haiku_native_fsOpenLiveQuery(int32_t device, const char* query, uint32_t flags, int32_t port, int32_t token) {
+void* libcUnixHaikuNativeFsOpenLiveQuery(int32_t device, const char* query, uint32_t flags, int32_t port, int32_t token) {
     typedef void* (*km_fn_t)(int32_t, const char*, uint32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2929,7 +2929,7 @@ void* libc_unix_haiku_native_fsOpenLiveQuery(int32_t device, const char* query, 
     return NULL;
 }
 
-int32_t libc_unix_haiku_native_fsCloseQuery(void* d) {
+int32_t libcUnixHaikuNativeFsCloseQuery(void* d) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2957,7 +2957,7 @@ int32_t libc_unix_haiku_native_fsCloseQuery(void* d) {
     return -1;
 }
 
-void* libc_unix_haiku_native_fsReadQuery(void* d) {
+void* libcUnixHaikuNativeFsReadQuery(void* d) {
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2985,7 +2985,7 @@ void* libc_unix_haiku_native_fsReadQuery(void* d) {
     return NULL;
 }
 
-int32_t libc_unix_haiku_native_getPathForDirent(void* dent, char* buf, uint64_t len) {
+int32_t libcUnixHaikuNativeGetPathForDirent(void* dent, char* buf, uint64_t len) {
     typedef int32_t (*km_fn_t)(void*, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3013,7 +3013,7 @@ int32_t libc_unix_haiku_native_getPathForDirent(void* dent, char* buf, uint64_t 
     return -1;
 }
 
-int32_t libc_unix_haiku_native_fsMountVolume(const char* where_, const char* device, const char* filesystem, uint32_t flags, const char* parameters) {
+int32_t libcUnixHaikuNativeFsMountVolume(const char* where, const char* device, const char* filesystem, uint32_t flags, const char* parameters) {
     typedef int32_t (*km_fn_t)(const char*, const char*, const char*, uint32_t, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3035,13 +3035,13 @@ int32_t libc_unix_haiku_native_fsMountVolume(const char* where_, const char* dev
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(where_, device, filesystem, flags, parameters);
+        return km_fn_ptr(where, device, filesystem, flags, parameters);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_haiku_native_fsUnmountVolume(const char* path, uint32_t flags) {
+int32_t libcUnixHaikuNativeFsUnmountVolume(const char* path, uint32_t flags) {
     typedef int32_t (*km_fn_t)(const char*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3069,7 +3069,7 @@ int32_t libc_unix_haiku_native_fsUnmountVolume(const char* path, uint32_t flags)
     return -1;
 }
 
-int32_t libc_unix_haiku_native_loadImage(int32_t argc, void* argv, void* arg_2_environ) {
+int32_t libcUnixHaikuNativeLoadImage(int32_t argc, void* argv, void* arg2Environ) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3091,13 +3091,13 @@ int32_t libc_unix_haiku_native_loadImage(int32_t argc, void* argv, void* arg_2_e
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(argc, argv, arg_2_environ);
+        return km_fn_ptr(argc, argv, arg2Environ);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_haiku_native_loadAddOn(const char* path) {
+int32_t libcUnixHaikuNativeLoadAddOn(const char* path) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3125,7 +3125,7 @@ int32_t libc_unix_haiku_native_loadAddOn(const char* path) {
     return -1;
 }
 
-int32_t libc_unix_haiku_native_unloadAddOn(int32_t image) {
+int32_t libcUnixHaikuNativeUnloadAddOn(int32_t image) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3153,7 +3153,7 @@ int32_t libc_unix_haiku_native_unloadAddOn(int32_t image) {
     return -1;
 }
 
-int32_t libc_unix_haiku_native_getImageSymbol(int32_t image, const char* name, int32_t symbolType, void* symbolLocation) {
+int32_t libcUnixHaikuNativeGetImageSymbol(int32_t image, const char* name, int32_t symbolType, void* symbolLocation) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3181,7 +3181,7 @@ int32_t libc_unix_haiku_native_getImageSymbol(int32_t image, const char* name, i
     return -1;
 }
 
-int32_t libc_unix_haiku_native_getNthImageSymbol(int32_t image, int32_t n, char* nameBuffer, void* nameLength, void* symbolType, void* symbolLocation) {
+int32_t libcUnixHaikuNativeGetNthImageSymbol(int32_t image, int32_t n, char* nameBuffer, void* nameLength, void* symbolType, void* symbolLocation) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, char*, void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3209,7 +3209,7 @@ int32_t libc_unix_haiku_native_getNthImageSymbol(int32_t image, int32_t n, char*
     return -1;
 }
 
-void libc_unix_haiku_native_clearCaches(void* address, uint64_t length, uint32_t flags) {
+void libcUnixHaikuNativeClearCaches(void* address, uint64_t length, uint32_t flags) {
     typedef void (*km_fn_t)(void*, uint64_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3237,7 +3237,7 @@ void libc_unix_haiku_native_clearCaches(void* address, uint64_t length, uint32_t
     errno = ENOSYS;
 }
 
-int32_t libc_unix_haiku_native_getImageInfo(int32_t image, void* info, uint64_t size) {
+int32_t libcUnixHaikuNativeGetImageInfo(int32_t image, void* info, uint64_t size) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3263,7 +3263,7 @@ int32_t libc_unix_haiku_native_getImageInfo(int32_t image, void* info, uint64_t 
     return -1;
 }
 
-int32_t libc_unix_haiku_native_getNextImageInfo(int32_t team, void* cookie, void* info, uint64_t size) {
+int32_t libcUnixHaikuNativeGetNextImageInfo(int32_t team, void* cookie, void* info, uint64_t size) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3289,7 +3289,7 @@ int32_t libc_unix_haiku_native_getNextImageInfo(int32_t team, void* cookie, void
     return -1;
 }
 
-int32_t libc_unix_haiku_native_findPath(void* codePointer, int32_t baseDirectory, const char* subPath, char* pathBuffer, uint64_t bufferSize) {
+int32_t libcUnixHaikuNativeFindPath(void* codePointer, int32_t baseDirectory, const char* subPath, char* pathBuffer, uint64_t bufferSize) {
     typedef int32_t (*km_fn_t)(void*, int32_t, const char*, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3317,7 +3317,7 @@ int32_t libc_unix_haiku_native_findPath(void* codePointer, int32_t baseDirectory
     return -1;
 }
 
-int32_t libc_unix_haiku_native_findPathEtc(void* codePointer, const char* dependency, const char* architecture, int32_t baseDirectory, const char* subPath, uint32_t flags, char* pathBuffer, uint64_t bufferSize) {
+int32_t libcUnixHaikuNativeFindPathEtc(void* codePointer, const char* dependency, const char* architecture, int32_t baseDirectory, const char* subPath, uint32_t flags, char* pathBuffer, uint64_t bufferSize) {
     typedef int32_t (*km_fn_t)(void*, const char*, const char*, int32_t, const char*, uint32_t, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3345,7 +3345,7 @@ int32_t libc_unix_haiku_native_findPathEtc(void* codePointer, const char* depend
     return -1;
 }
 
-int32_t libc_unix_haiku_native_findPathForPath(const char* path, int32_t baseDirectory, const char* subPath, char* pathBuffer, uint64_t bufferSize) {
+int32_t libcUnixHaikuNativeFindPathForPath(const char* path, int32_t baseDirectory, const char* subPath, char* pathBuffer, uint64_t bufferSize) {
     typedef int32_t (*km_fn_t)(const char*, int32_t, const char*, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3373,7 +3373,7 @@ int32_t libc_unix_haiku_native_findPathForPath(const char* path, int32_t baseDir
     return -1;
 }
 
-int32_t libc_unix_haiku_native_findPathForPathEtc(const char* path, const char* dependency, const char* architecture, int32_t baseDirectory, const char* subPath, uint32_t flags, char* pathBuffer, uint64_t bufferSize) {
+int32_t libcUnixHaikuNativeFindPathForPathEtc(const char* path, const char* dependency, const char* architecture, int32_t baseDirectory, const char* subPath, uint32_t flags, char* pathBuffer, uint64_t bufferSize) {
     typedef int32_t (*km_fn_t)(const char*, const char*, const char*, int32_t, const char*, uint32_t, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3401,7 +3401,7 @@ int32_t libc_unix_haiku_native_findPathForPathEtc(const char* path, const char* 
     return -1;
 }
 
-int32_t libc_unix_haiku_native_findPaths(int32_t baseDirectory, const char* subPath, void* arg_2_paths, void* pathCount) {
+int32_t libcUnixHaikuNativeFindPaths(int32_t baseDirectory, const char* subPath, void* paths, void* pathCount) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3423,13 +3423,13 @@ int32_t libc_unix_haiku_native_findPaths(int32_t baseDirectory, const char* subP
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(baseDirectory, subPath, arg_2_paths, pathCount);
+        return km_fn_ptr(baseDirectory, subPath, paths, pathCount);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_haiku_native_findPathsEtc(const char* architecture, int32_t baseDirectory, const char* subPath, uint32_t flags, void* arg_4_paths, void* pathCount) {
+int32_t libcUnixHaikuNativeFindPathsEtc(const char* architecture, int32_t baseDirectory, const char* subPath, uint32_t flags, void* paths, void* pathCount) {
     typedef int32_t (*km_fn_t)(const char*, int32_t, const char*, uint32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3451,13 +3451,13 @@ int32_t libc_unix_haiku_native_findPathsEtc(const char* architecture, int32_t ba
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(architecture, baseDirectory, subPath, flags, arg_4_paths, pathCount);
+        return km_fn_ptr(architecture, baseDirectory, subPath, flags, paths, pathCount);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_haiku_native_findDirectory(int32_t which, int32_t volume, bool createIt, char* pathString, int32_t length) {
+int32_t libcUnixHaikuNativeFindDirectory(int32_t which, int32_t volume, bool createIt, char* pathString, int32_t length) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, bool, char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3485,7 +3485,7 @@ int32_t libc_unix_haiku_native_findDirectory(int32_t which, int32_t volume, bool
     return -1;
 }
 
-int32_t libc_unix_haiku_native_getCpuid(void* info, uint32_t eaxRegister, uint32_t cpuNum) {
+int32_t libcUnixHaikuNativeGetCpuid(void* info, uint32_t eaxRegister, uint32_t cpuNum) {
     typedef int32_t (*km_fn_t)(void*, uint32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

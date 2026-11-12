@@ -18,7 +18,7 @@
 #endif
 #endif
 
-int32_t libc_unix_solarish_illumos_eventfd(uint32_t initval, int32_t flags) {
+int32_t libcUnixSolarishIllumosEventfd(uint32_t initval, int32_t flags) {
     typedef int32_t (*km_fn_t)(uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -46,7 +46,7 @@ int32_t libc_unix_solarish_illumos_eventfd(uint32_t initval, int32_t flags) {
     return -1;
 }
 
-int32_t libc_unix_solarish_illumos_epollPwait(int32_t epfd, void* events, int32_t maxevents, int32_t timeout, void* sigmask) {
+int32_t libcUnixSolarishIllumosEpollPwait(int32_t epfd, void* events, int32_t maxevents, int32_t timeout, void* sigmask) {
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -74,7 +74,7 @@ int32_t libc_unix_solarish_illumos_epollPwait(int32_t epfd, void* events, int32_
     return -1;
 }
 
-int32_t libc_unix_solarish_illumos_epollCreate(int32_t size) {
+int32_t libcUnixSolarishIllumosEpollCreate(int32_t size) {
 #if defined(__linux__)
     return (int32_t)epoll_create(size);
 #else
@@ -84,7 +84,7 @@ int32_t libc_unix_solarish_illumos_epollCreate(int32_t size) {
 #endif
 }
 
-int32_t libc_unix_solarish_illumos_epollCreate1(int32_t flags) {
+int32_t libcUnixSolarishIllumosEpollCreate1(int32_t flags) {
 #if defined(__linux__)
     return (int32_t)epoll_create1(flags);
 #else
@@ -94,7 +94,7 @@ int32_t libc_unix_solarish_illumos_epollCreate1(int32_t flags) {
 #endif
 }
 
-int32_t libc_unix_solarish_illumos_epollWait(int32_t epfd, void* events, int32_t maxevents, int32_t timeout) {
+int32_t libcUnixSolarishIllumosEpollWait(int32_t epfd, void* events, int32_t maxevents, int32_t timeout) {
 #if defined(__linux__)
     return (int32_t)epoll_wait(epfd, events, maxevents, timeout);
 #else
@@ -107,7 +107,7 @@ int32_t libc_unix_solarish_illumos_epollWait(int32_t epfd, void* events, int32_t
 #endif
 }
 
-int32_t libc_unix_solarish_illumos_epollCtl(int32_t epfd, int32_t op, int32_t fd, void* event) {
+int32_t libcUnixSolarishIllumosEpollCtl(int32_t epfd, int32_t op, int32_t fd, void* event) {
 #if defined(__linux__)
     return (int32_t)epoll_ctl(epfd, op, fd, event);
 #else
@@ -120,7 +120,7 @@ int32_t libc_unix_solarish_illumos_epollCtl(int32_t epfd, int32_t op, int32_t fd
 #endif
 }
 
-int32_t libc_unix_solarish_illumos_mincore(char* addr, uint64_t len, char* vec) {
+int32_t libcUnixSolarishIllumosMincore(char* addr, uint64_t len, char* vec) {
     typedef int32_t (*km_fn_t)(char*, uint64_t, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -148,7 +148,7 @@ int32_t libc_unix_solarish_illumos_mincore(char* addr, uint64_t len, char* vec) 
     return -1;
 }
 
-int32_t libc_unix_solarish_illumos_psetBindLwp(int32_t pset, int32_t id, int32_t pid, void* opset) {
+int32_t libcUnixSolarishIllumosPsetBindLwp(int32_t pset, int32_t id, int32_t pid, void* opset) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -176,7 +176,7 @@ int32_t libc_unix_solarish_illumos_psetBindLwp(int32_t pset, int32_t id, int32_t
     return -1;
 }
 
-int32_t libc_unix_solarish_illumos_psetGetloadavg(int32_t pset, void* load, int32_t num) {
+int32_t libcUnixSolarishIllumosPsetGetloadavg(int32_t pset, void* load, int32_t num) {
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -204,7 +204,7 @@ int32_t libc_unix_solarish_illumos_psetGetloadavg(int32_t pset, void* load, int3
     return -1;
 }
 
-int32_t libc_unix_solarish_illumos_pthreadAttrGetNp(void* thread, void* attr) {
+int32_t libcUnixSolarishIllumosPthreadAttrGetNp(void* thread, void* attr) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -232,7 +232,7 @@ int32_t libc_unix_solarish_illumos_pthreadAttrGetNp(void* thread, void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_unix_solarish_illumos_pthreadAttrGetstackaddr(void* attr, void* stackaddr) {
+int32_t libcUnixSolarishIllumosPthreadAttrGetstackaddr(void* attr, void* stackaddr) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -260,7 +260,7 @@ int32_t libc_unix_solarish_illumos_pthreadAttrGetstackaddr(void* attr, void* sta
     return ENOSYS;
 }
 
-int32_t libc_unix_solarish_illumos_pthreadAttrSetstack(void* attr, void* stackaddr, uint64_t stacksize) {
+int32_t libcUnixSolarishIllumosPthreadAttrSetstack(void* attr, void* stackaddr, uint64_t stacksize) {
     typedef int32_t (*km_fn_t)(void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -288,7 +288,7 @@ int32_t libc_unix_solarish_illumos_pthreadAttrSetstack(void* attr, void* stackad
     return ENOSYS;
 }
 
-int32_t libc_unix_solarish_illumos_pthreadAttrSetstackaddr(void* attr, void* stackaddr) {
+int32_t libcUnixSolarishIllumosPthreadAttrSetstackaddr(void* attr, void* stackaddr) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -316,7 +316,7 @@ int32_t libc_unix_solarish_illumos_pthreadAttrSetstackaddr(void* attr, void* sta
     return ENOSYS;
 }
 
-int32_t libc_unix_solarish_illumos_posixFadvise(int32_t fd, int64_t offset, int64_t len, int32_t advice) {
+int32_t libcUnixSolarishIllumosPosixFadvise(int32_t fd, int64_t offset, int64_t len, int32_t advice) {
     typedef int32_t (*km_fn_t)(int32_t, int64_t, int64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -344,7 +344,7 @@ int32_t libc_unix_solarish_illumos_posixFadvise(int32_t fd, int64_t offset, int6
     return -1;
 }
 
-int64_t libc_unix_solarish_illumos_preadv(int32_t fd, void* iov, int32_t iovcnt, int64_t offset) {
+int64_t libcUnixSolarishIllumosPreadv(int32_t fd, void* iov, int32_t iovcnt, int64_t offset) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -372,7 +372,7 @@ int64_t libc_unix_solarish_illumos_preadv(int32_t fd, void* iov, int32_t iovcnt,
     return -1;
 }
 
-int64_t libc_unix_solarish_illumos_pwritev(int32_t fd, void* iov, int32_t iovcnt, int64_t offset) {
+int64_t libcUnixSolarishIllumosPwritev(int32_t fd, void* iov, int32_t iovcnt, int64_t offset) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -400,7 +400,7 @@ int64_t libc_unix_solarish_illumos_pwritev(int32_t fd, void* iov, int32_t iovcnt
     return -1;
 }
 
-int32_t libc_unix_solarish_illumos_getpagesizes2(void* pagesize, int32_t nelem) {
+int32_t libcUnixSolarishIllumosGetpagesizes2(void* pagesize, int32_t nelem) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -428,7 +428,7 @@ int32_t libc_unix_solarish_illumos_getpagesizes2(void* pagesize, int32_t nelem) 
     return -1;
 }
 
-int32_t libc_unix_solarish_illumos_posixSpawnFileActionsAddfchdirNp(void* file_actions, int32_t fd) {
+int32_t libcUnixSolarishIllumosPosixSpawnFileActionsAddfchdirNp(void* fileActions, int32_t fd) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -450,13 +450,13 @@ int32_t libc_unix_solarish_illumos_posixSpawnFileActionsAddfchdirNp(void* file_a
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(file_actions, fd);
+        return km_fn_ptr(fileActions, fd);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_solarish_illumos_ptsnameR(int32_t fildes, char* name, uint64_t namelen) {
+int32_t libcUnixSolarishIllumosPtsnameR(int32_t fildes, char* name, uint64_t namelen) {
     typedef int32_t (*km_fn_t)(int32_t, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -484,7 +484,7 @@ int32_t libc_unix_solarish_illumos_ptsnameR(int32_t fildes, char* name, uint64_t
     return -1;
 }
 
-int32_t libc_unix_solarish_illumos_syncfs(int32_t fd) {
+int32_t libcUnixSolarishIllumosSyncfs(int32_t fd) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -512,7 +512,7 @@ int32_t libc_unix_solarish_illumos_syncfs(int32_t fd) {
     return -1;
 }
 
-int32_t libc_unix_solarish_illumos_strcasecmpL(const char* s1, const char* s2, void* loc) {
+int32_t libcUnixSolarishIllumosStrcasecmpL(const char* s1, const char* s2, void* loc) {
     typedef int32_t (*km_fn_t)(const char*, const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -540,7 +540,7 @@ int32_t libc_unix_solarish_illumos_strcasecmpL(const char* s1, const char* s2, v
     return -1;
 }
 
-int32_t libc_unix_solarish_illumos_strncasecmpL(const char* s1, const char* s2, uint64_t n, void* loc) {
+int32_t libcUnixSolarishIllumosStrncasecmpL(const char* s1, const char* s2, uint64_t n, void* loc) {
     typedef int32_t (*km_fn_t)(const char*, const char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -568,7 +568,7 @@ int32_t libc_unix_solarish_illumos_strncasecmpL(const char* s1, const char* s2, 
     return -1;
 }
 
-int32_t libc_unix_solarish_illumos_timerfdCreate(int32_t clockid, int32_t flags) {
+int32_t libcUnixSolarishIllumosTimerfdCreate(int32_t clockid, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -596,7 +596,7 @@ int32_t libc_unix_solarish_illumos_timerfdCreate(int32_t clockid, int32_t flags)
     return -1;
 }
 
-int32_t libc_unix_solarish_illumos_timerfdGettime(int32_t fd, void* curr_value) {
+int32_t libcUnixSolarishIllumosTimerfdGettime(int32_t fd, void* currValue) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -618,13 +618,13 @@ int32_t libc_unix_solarish_illumos_timerfdGettime(int32_t fd, void* curr_value) 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(fd, curr_value);
+        return km_fn_ptr(fd, currValue);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_solarish_illumos_timerfdSettime(int32_t fd, int32_t flags, void* new_value, void* old_value) {
+int32_t libcUnixSolarishIllumosTimerfdSettime(int32_t fd, int32_t flags, void* newValue, void* oldValue) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -646,7 +646,7 @@ int32_t libc_unix_solarish_illumos_timerfdSettime(int32_t fd, int32_t flags, voi
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(fd, flags, new_value, old_value);
+        return km_fn_ptr(fd, flags, newValue, oldValue);
     }
     errno = ENOSYS;
     return -1;

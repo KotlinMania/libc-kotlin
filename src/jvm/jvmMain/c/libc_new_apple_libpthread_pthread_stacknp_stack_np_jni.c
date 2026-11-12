@@ -19,7 +19,7 @@
 #endif
 #endif
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_apple_libpthread_pthread_stacknp_NewAppleLibpthreadPthreadStacknpStackNpJniBridge_libc_1new_1apple_1libpthread_1pthread_1stacknp_1stack_1np_1pthreadStackFrameDecodeNp(JNIEnv* km_env, jclass km_clazz, jlong frame_addr, jlong return_addr) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_apple_libpthread_pthread_stacknp_NewAppleLibpthreadPthreadStacknpStackNpJniBridge_libcNewAppleLibpthreadPthreadStacknpStackNpPthreadStackFrameDecodeNp(JNIEnv* km_env, jclass km_clazz, jlong frameAddr, jlong returnAddr) {
     (void)km_env;
     (void)km_clazz;
     typedef uint64_t (*km_fn_t)(uint64_t, void*);
@@ -44,7 +44,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_apple_libpthread_pth
 #endif
     uint64_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((uint64_t)frame_addr, (void*)(uintptr_t)return_addr);
+        km_res = km_fn_ptr((uint64_t)frameAddr, (void*)(uintptr_t)returnAddr);
     } else {
         errno = ENOSYS;
         km_res = 0;

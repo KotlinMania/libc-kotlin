@@ -24,7 +24,7 @@
 #endif
 #endif
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_iopl(int32_t level) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedIopl(int32_t level) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -52,7 +52,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_iopl(int32_t level) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_ioperm(uint64_t from, uint64_t num, int32_t turn_on) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedIoperm(uint64_t from, uint64_t num, int32_t turnOn) {
     typedef int32_t (*km_fn_t)(uint64_t, uint64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -74,13 +74,13 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_ioperm(uint64_t from, uint64_t num
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(from, num, turn_on);
+        return km_fn_ptr(from, num, turnOn);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_aioRead(void* aiocbp) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedAioRead(void* aiocbp) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -108,7 +108,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_aioRead(void* aiocbp) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_aioWrite(void* aiocbp) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedAioWrite(void* aiocbp) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -136,7 +136,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_aioWrite(void* aiocbp) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_aioFsync(int32_t op, void* aiocbp) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedAioFsync(int32_t op, void* aiocbp) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -164,7 +164,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_aioFsync(int32_t op, void* aiocbp)
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_aioError(void* aiocbp) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedAioError(void* aiocbp) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -192,7 +192,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_aioError(void* aiocbp) {
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_l4re_shared_aioReturn(void* aiocbp) {
+int64_t libcUnixLinuxlikeLinuxL4reSharedAioReturn(void* aiocbp) {
     typedef int64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -220,7 +220,7 @@ int64_t libc_unix_linuxlike_linux_l4re_shared_aioReturn(void* aiocbp) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_aioSuspend(void* aiocb_list, int32_t nitems, void* timeout) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedAioSuspend(void* aiocbList, int32_t nitems, void* timeout) {
     typedef int32_t (*km_fn_t)(void*, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -242,13 +242,13 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_aioSuspend(void* aiocb_list, int32
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(aiocb_list, nitems, timeout);
+        return km_fn_ptr(aiocbList, nitems, timeout);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_aioCancel(int32_t fd, void* aiocbp) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedAioCancel(int32_t fd, void* aiocbp) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -276,7 +276,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_aioCancel(int32_t fd, void* aiocbp
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_lioListio(int32_t mode, void* aiocb_list, int32_t nitems, void* sevp) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedLioListio(int32_t mode, void* aiocbList, int32_t nitems, void* sevp) {
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -298,13 +298,13 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_lioListio(int32_t mode, void* aioc
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(mode, aiocb_list, nitems, sevp);
+        return km_fn_ptr(mode, aiocbList, nitems, sevp);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_l4re_shared_pwritev(int32_t fd, void* iov, int32_t iovcnt, int64_t offset) {
+int64_t libcUnixLinuxlikeLinuxL4reSharedPwritev(int32_t fd, void* iov, int32_t iovcnt, int64_t offset) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -332,7 +332,7 @@ int64_t libc_unix_linuxlike_linux_l4re_shared_pwritev(int32_t fd, void* iov, int
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_l4re_shared_preadv(int32_t fd, void* iov, int32_t iovcnt, int64_t offset) {
+int64_t libcUnixLinuxlikeLinuxL4reSharedPreadv(int32_t fd, void* iov, int32_t iovcnt, int64_t offset) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -360,7 +360,7 @@ int64_t libc_unix_linuxlike_linux_l4re_shared_preadv(int32_t fd, void* iov, int3
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_getnameinfo(void* sa, uint32_t salen, char* host, uint32_t hostlen, char* serv, uint32_t servlen, int32_t flags) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedGetnameinfo(void* sa, uint32_t salen, char* host, uint32_t hostlen, char* serv, uint32_t servlen, int32_t flags) {
     typedef int32_t (*km_fn_t)(void*, uint32_t, char*, uint32_t, char*, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -388,7 +388,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_getnameinfo(void* sa, uint32_t sal
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_getloadavg(void* loadavg, int32_t nelem) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedGetloadavg(void* loadavg, int32_t nelem) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -416,7 +416,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_getloadavg(void* loadavg, int32_t 
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_l4re_shared_processVmReadv(int32_t pid, void* local_iov, uint64_t liovcnt, void* remote_iov, uint64_t riovcnt, uint64_t flags) {
+int64_t libcUnixLinuxlikeLinuxL4reSharedProcessVmReadv(int32_t pid, void* localIov, uint64_t liovcnt, void* remoteIov, uint64_t riovcnt, uint64_t flags) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, void*, uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -438,13 +438,13 @@ int64_t libc_unix_linuxlike_linux_l4re_shared_processVmReadv(int32_t pid, void* 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(pid, local_iov, liovcnt, remote_iov, riovcnt, flags);
+        return km_fn_ptr(pid, localIov, liovcnt, remoteIov, riovcnt, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_l4re_shared_processVmWritev(int32_t pid, void* local_iov, uint64_t liovcnt, void* remote_iov, uint64_t riovcnt, uint64_t flags) {
+int64_t libcUnixLinuxlikeLinuxL4reSharedProcessVmWritev(int32_t pid, void* localIov, uint64_t liovcnt, void* remoteIov, uint64_t riovcnt, uint64_t flags) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, void*, uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -466,13 +466,13 @@ int64_t libc_unix_linuxlike_linux_l4re_shared_processVmWritev(int32_t pid, void*
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(pid, local_iov, liovcnt, remote_iov, riovcnt, flags);
+        return km_fn_ptr(pid, localIov, liovcnt, remoteIov, riovcnt, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_futimes(int32_t fd, void* times) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedFutimes(int32_t fd, void* times) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -500,7 +500,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_futimes(int32_t fd, void* times) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_strerrorR(int32_t errnum, char* buf, uint64_t buflen) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedStrerrorR(int32_t errnum, char* buf, uint64_t buflen) {
     typedef int32_t (*km_fn_t)(int32_t, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -528,11 +528,11 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_strerrorR(int32_t errnum, char* bu
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_abs(int32_t i) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedAbs(int32_t i) {
     return (int32_t)abs(i);
 }
 
-int64_t libc_unix_linuxlike_linux_l4re_shared_labs(int64_t i) {
+int64_t libcUnixLinuxlikeLinuxL4reSharedLabs(int64_t i) {
     typedef int64_t (*km_fn_t)(int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -560,15 +560,15 @@ int64_t libc_unix_linuxlike_linux_l4re_shared_labs(int64_t i) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_rand(void) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedRand(void) {
     return (int32_t)rand();
 }
 
-void libc_unix_linuxlike_linux_l4re_shared_srand(uint32_t seed) {
+void libcUnixLinuxlikeLinuxL4reSharedSrand(uint32_t seed) {
     srand(seed);
 }
 
-double libc_unix_linuxlike_linux_l4re_shared_drand48(void) {
+double libcUnixLinuxlikeLinuxL4reSharedDrand48(void) {
     typedef double (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -596,7 +596,7 @@ double libc_unix_linuxlike_linux_l4re_shared_drand48(void) {
     return 0.0;
 }
 
-double libc_unix_linuxlike_linux_l4re_shared_erand48(void* xseed) {
+double libcUnixLinuxlikeLinuxL4reSharedErand48(void* xseed) {
     typedef double (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -624,7 +624,7 @@ double libc_unix_linuxlike_linux_l4re_shared_erand48(void* xseed) {
     return 0.0;
 }
 
-int64_t libc_unix_linuxlike_linux_l4re_shared_lrand48(void) {
+int64_t libcUnixLinuxlikeLinuxL4reSharedLrand48(void) {
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -652,7 +652,7 @@ int64_t libc_unix_linuxlike_linux_l4re_shared_lrand48(void) {
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_l4re_shared_nrand48(void* xseed) {
+int64_t libcUnixLinuxlikeLinuxL4reSharedNrand48(void* xseed) {
     typedef int64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -680,7 +680,7 @@ int64_t libc_unix_linuxlike_linux_l4re_shared_nrand48(void* xseed) {
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_l4re_shared_jrand48(void* xseed) {
+int64_t libcUnixLinuxlikeLinuxL4reSharedJrand48(void* xseed) {
     typedef int64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -708,7 +708,7 @@ int64_t libc_unix_linuxlike_linux_l4re_shared_jrand48(void* xseed) {
     return -1;
 }
 
-void libc_unix_linuxlike_linux_l4re_shared_srand48(int64_t seed) {
+void libcUnixLinuxlikeLinuxL4reSharedSrand48(int64_t seed) {
     typedef void (*km_fn_t)(int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -736,7 +736,7 @@ void libc_unix_linuxlike_linux_l4re_shared_srand48(int64_t seed) {
     errno = ENOSYS;
 }
 
-void libc_unix_linuxlike_linux_l4re_shared_setpwent(void) {
+void libcUnixLinuxlikeLinuxL4reSharedSetpwent(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -764,7 +764,7 @@ void libc_unix_linuxlike_linux_l4re_shared_setpwent(void) {
     errno = ENOSYS;
 }
 
-void libc_unix_linuxlike_linux_l4re_shared_endpwent(void) {
+void libcUnixLinuxlikeLinuxL4reSharedEndpwent(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -792,7 +792,7 @@ void libc_unix_linuxlike_linux_l4re_shared_endpwent(void) {
     errno = ENOSYS;
 }
 
-void* libc_unix_linuxlike_linux_l4re_shared_getpwent(void) {
+void* libcUnixLinuxlikeLinuxL4reSharedGetpwent(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -820,7 +820,7 @@ void* libc_unix_linuxlike_linux_l4re_shared_getpwent(void) {
     return NULL;
 }
 
-void libc_unix_linuxlike_linux_l4re_shared_setgrent(void) {
+void libcUnixLinuxlikeLinuxL4reSharedSetgrent(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -848,7 +848,7 @@ void libc_unix_linuxlike_linux_l4re_shared_setgrent(void) {
     errno = ENOSYS;
 }
 
-void libc_unix_linuxlike_linux_l4re_shared_endgrent(void) {
+void libcUnixLinuxlikeLinuxL4reSharedEndgrent(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -876,7 +876,7 @@ void libc_unix_linuxlike_linux_l4re_shared_endgrent(void) {
     errno = ENOSYS;
 }
 
-void* libc_unix_linuxlike_linux_l4re_shared_getgrent(void) {
+void* libcUnixLinuxlikeLinuxL4reSharedGetgrent(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -904,7 +904,7 @@ void* libc_unix_linuxlike_linux_l4re_shared_getgrent(void) {
     return NULL;
 }
 
-void libc_unix_linuxlike_linux_l4re_shared_setspent(void) {
+void libcUnixLinuxlikeLinuxL4reSharedSetspent(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -932,7 +932,7 @@ void libc_unix_linuxlike_linux_l4re_shared_setspent(void) {
     errno = ENOSYS;
 }
 
-void libc_unix_linuxlike_linux_l4re_shared_endspent(void) {
+void libcUnixLinuxlikeLinuxL4reSharedEndspent(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -960,7 +960,7 @@ void libc_unix_linuxlike_linux_l4re_shared_endspent(void) {
     errno = ENOSYS;
 }
 
-void* libc_unix_linuxlike_linux_l4re_shared_getspent(void) {
+void* libcUnixLinuxlikeLinuxL4reSharedGetspent(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -988,7 +988,7 @@ void* libc_unix_linuxlike_linux_l4re_shared_getspent(void) {
     return NULL;
 }
 
-void* libc_unix_linuxlike_linux_l4re_shared_getspnam(const char* name) {
+void* libcUnixLinuxlikeLinuxL4reSharedGetspnam(const char* name) {
     typedef void* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1016,7 +1016,7 @@ void* libc_unix_linuxlike_linux_l4re_shared_getspnam(const char* name) {
     return NULL;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_shmget(int32_t key, uint64_t size, int32_t shmflg) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedShmget(int32_t key, uint64_t size, int32_t shmflg) {
     typedef int32_t (*km_fn_t)(int32_t, uint64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1044,7 +1044,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_shmget(int32_t key, uint64_t size,
     return -1;
 }
 
-void* libc_unix_linuxlike_linux_l4re_shared_shmat(int32_t shmid, void* shmaddr, int32_t shmflg) {
+void* libcUnixLinuxlikeLinuxL4reSharedShmat(int32_t shmid, void* shmaddr, int32_t shmflg) {
     typedef void* (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1072,7 +1072,7 @@ void* libc_unix_linuxlike_linux_l4re_shared_shmat(int32_t shmid, void* shmaddr, 
     return NULL;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_shmdt(void* shmaddr) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedShmdt(void* shmaddr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1100,7 +1100,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_shmdt(void* shmaddr) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_shmctl(int32_t shmid, int32_t cmd, void* buf) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedShmctl(int32_t shmid, int32_t cmd, void* buf) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1128,7 +1128,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_shmctl(int32_t shmid, int32_t cmd,
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_mprotect(void* addr, uint64_t len, int32_t prot) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedMprotect(void* addr, uint64_t len, int32_t prot) {
 #if !defined(_WIN32)
     return (int32_t)mprotect(addr, len, prot);
 #else
@@ -1140,7 +1140,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_mprotect(void* addr, uint64_t len,
 #endif
 }
 
-void* libc_unix_linuxlike_linux_l4re_shared_errnoLocation(void) {
+void* libcUnixLinuxlikeLinuxL4reSharedErrnoLocation(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1166,7 +1166,7 @@ void* libc_unix_linuxlike_linux_l4re_shared_errnoLocation(void) {
     return NULL;
 }
 
-void* libc_unix_linuxlike_linux_l4re_shared_mremap(void* addr, uint64_t len, uint64_t new_len, int32_t flags, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+void* libcUnixLinuxlikeLinuxL4reSharedMremap(void* addr, uint64_t len, uint64_t newLen, int32_t flags, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef void* (*km_fn_t)(void*, uint64_t, uint64_t, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1189,18 +1189,18 @@ void* libc_unix_linuxlike_linux_l4re_shared_mremap(void* addr, uint64_t len, uin
 #endif
     if (km_fn_ptr != NULL) {
         switch (km_vac) {
-            case 0: return km_fn_ptr(addr, len, new_len, flags);
-            case 1: return km_fn_ptr(addr, len, new_len, flags, (intptr_t)km_va0);
-            case 2: return km_fn_ptr(addr, len, new_len, flags, (intptr_t)km_va0, (intptr_t)km_va1);
-            case 3: return km_fn_ptr(addr, len, new_len, flags, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2);
-            default: return km_fn_ptr(addr, len, new_len, flags, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3);
+            case 0: return km_fn_ptr(addr, len, newLen, flags);
+            case 1: return km_fn_ptr(addr, len, newLen, flags, (intptr_t)km_va0);
+            case 2: return km_fn_ptr(addr, len, newLen, flags, (intptr_t)km_va0, (intptr_t)km_va1);
+            case 3: return km_fn_ptr(addr, len, newLen, flags, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2);
+            default: return km_fn_ptr(addr, len, newLen, flags, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3);
         }
     }
     errno = ENOSYS;
     return NULL;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_glob(const char* pattern, int32_t flags, void* errfunc, void* pglob) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedGlob(const char* pattern, int32_t flags, void* errfunc, void* pglob) {
     typedef int32_t (*km_fn_t)(const char*, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1228,7 +1228,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_glob(const char* pattern, int32_t 
     return -1;
 }
 
-void libc_unix_linuxlike_linux_l4re_shared_globfree(void* pglob) {
+void libcUnixLinuxlikeLinuxL4reSharedGlobfree(void* pglob) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1256,7 +1256,7 @@ void libc_unix_linuxlike_linux_l4re_shared_globfree(void* pglob) {
     errno = ENOSYS;
 }
 
-void libc_unix_linuxlike_linux_l4re_shared_seekdir(void* dirp, int64_t loc) {
+void libcUnixLinuxlikeLinuxL4reSharedSeekdir(void* dirp, int64_t loc) {
     typedef void (*km_fn_t)(void*, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1284,7 +1284,7 @@ void libc_unix_linuxlike_linux_l4re_shared_seekdir(void* dirp, int64_t loc) {
     errno = ENOSYS;
 }
 
-int64_t libc_unix_linuxlike_linux_l4re_shared_telldir(void* dirp) {
+int64_t libcUnixLinuxlikeLinuxL4reSharedTelldir(void* dirp) {
     typedef int64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1312,7 +1312,7 @@ int64_t libc_unix_linuxlike_linux_l4re_shared_telldir(void* dirp) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_madvise(void* addr, uint64_t len, int32_t advice) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedMadvise(void* addr, uint64_t len, int32_t advice) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1340,7 +1340,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_madvise(void* addr, uint64_t len, 
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_msync(void* addr, uint64_t len, int32_t flags) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedMsync(void* addr, uint64_t len, int32_t flags) {
 #if !defined(_WIN32)
     return (int32_t)msync(addr, len, flags);
 #else
@@ -1352,11 +1352,11 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_msync(void* addr, uint64_t len, in
 #endif
 }
 
-int64_t libc_unix_linuxlike_linux_l4re_shared_recvfrom(int32_t arg_0_socket, void* buf, uint64_t len, int32_t flags, void* addr, void* addrlen) {
-    return (int64_t)recvfrom(arg_0_socket, buf, len, flags, addr, addrlen);
+int64_t libcUnixLinuxlikeLinuxL4reSharedRecvfrom(int32_t arg0Socket, void* buf, uint64_t len, int32_t flags, void* addr, void* addrlen) {
+    return (int64_t)recvfrom(arg0Socket, buf, len, flags, addr, addrlen);
 }
 
-char* libc_unix_linuxlike_linux_l4re_shared_nlLanginfo(int32_t item) {
+char* libcUnixLinuxlikeLinuxL4reSharedNlLanginfo(int32_t item) {
     typedef char* (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1384,7 +1384,7 @@ char* libc_unix_linuxlike_linux_l4re_shared_nlLanginfo(int32_t item) {
     return NULL;
 }
 
-char* libc_unix_linuxlike_linux_l4re_shared_nlLanginfoL(int32_t item, void* locale) {
+char* libcUnixLinuxlikeLinuxL4reSharedNlLanginfoL(int32_t item, void* locale) {
     typedef char* (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1412,7 +1412,7 @@ char* libc_unix_linuxlike_linux_l4re_shared_nlLanginfoL(int32_t item, void* loca
     return NULL;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_schedGetaffinity(int32_t pid, uint64_t cpusetsize, void* cpuset) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedSchedGetaffinity(int32_t pid, uint64_t cpusetsize, void* cpuset) {
     typedef int32_t (*km_fn_t)(int32_t, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1440,7 +1440,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_schedGetaffinity(int32_t pid, uint
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_schedGetPriorityMax(int32_t policy) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedSchedGetPriorityMax(int32_t policy) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1468,7 +1468,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_schedGetPriorityMax(int32_t policy
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_settimeofday(void* tv, void* tz) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedSettimeofday(void* tv, void* tz) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1496,7 +1496,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_settimeofday(void* tv, void* tz) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_semTimedwait(void* sem, void* abstime) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedSemTimedwait(void* sem, void* abstime) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1524,7 +1524,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_semTimedwait(void* sem, void* abst
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_semGetvalue(void* sem, void* sval) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedSemGetvalue(void* sem, void* sval) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1552,7 +1552,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_semGetvalue(void* sem, void* sval)
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_mount(const char* src, const char* target, const char* fstype, uint64_t flags, void* data) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedMount(const char* src, const char* target, const char* fstype, uint64_t flags, void* data) {
     typedef int32_t (*km_fn_t)(const char*, const char*, const char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1580,7 +1580,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_mount(const char* src, const char*
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_prctl(int32_t option, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedPrctl(int32_t option, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1614,7 +1614,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_prctl(int32_t option, int32_t km_v
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_ppoll(void* fds, uint64_t nfds, void* timeout, void* sigmask) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedPpoll(void* fds, uint64_t nfds, void* timeout, void* sigmask) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1642,7 +1642,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_ppoll(void* fds, uint64_t nfds, vo
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_sethostname(const char* name, uint64_t len) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedSethostname(const char* name, uint64_t len) {
     typedef int32_t (*km_fn_t)(const char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1670,7 +1670,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_sethostname(const char* name, uint
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_schedGetPriorityMin(int32_t policy) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedSchedGetPriorityMin(int32_t policy) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1698,7 +1698,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_schedGetPriorityMin(int32_t policy
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_sysinfo(void* info) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedSysinfo(void* info) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1726,7 +1726,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_sysinfo(void* info) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_sigsuspend(void* mask) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedSigsuspend(void* mask) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1754,7 +1754,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_sigsuspend(void* mask) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_getgrgidR(uint16_t gid, void* grp, char* buf, uint64_t buflen, void* result) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedGetgrgidR(uint16_t gid, void* grp, char* buf, uint64_t buflen, void* result) {
     typedef int32_t (*km_fn_t)(uint16_t, void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1782,7 +1782,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_getgrgidR(uint16_t gid, void* grp,
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_semClose(void* sem) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedSemClose(void* sem) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1810,7 +1810,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_semClose(void* sem) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_getgrnamR(const char* name, void* grp, char* buf, uint64_t buflen, void* result) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedGetgrnamR(const char* name, void* grp, char* buf, uint64_t buflen, void* result) {
     typedef int32_t (*km_fn_t)(const char*, void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1838,7 +1838,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_getgrnamR(const char* name, void* 
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_initgroups(const char* user, uint16_t group) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedInitgroups(const char* user, uint16_t group) {
     typedef int32_t (*km_fn_t)(const char*, uint16_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1866,7 +1866,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_initgroups(const char* user, uint1
     return -1;
 }
 
-void* libc_unix_linuxlike_linux_l4re_shared_semOpen(const char* name, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+void* libcUnixLinuxlikeLinuxL4reSharedSemOpen(const char* name, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef void* (*km_fn_t)(const char*, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1900,7 +1900,7 @@ void* libc_unix_linuxlike_linux_l4re_shared_semOpen(const char* name, int32_t of
     return NULL;
 }
 
-void* libc_unix_linuxlike_linux_l4re_shared_getgrnam(const char* name) {
+void* libcUnixLinuxlikeLinuxL4reSharedGetgrnam(const char* name) {
     typedef void* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1928,7 +1928,7 @@ void* libc_unix_linuxlike_linux_l4re_shared_getgrnam(const char* name) {
     return NULL;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_semUnlink(const char* name) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedSemUnlink(const char* name) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1956,7 +1956,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_semUnlink(const char* name) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_daemon(int32_t nochdir, int32_t noclose) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedDaemon(int32_t nochdir, int32_t noclose) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1984,7 +1984,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_daemon(int32_t nochdir, int32_t no
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_sigwait(void* set, void* sig) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedSigwait(void* set, void* sig) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2012,7 +2012,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_sigwait(void* set, void* sig) {
     return -1;
 }
 
-void* libc_unix_linuxlike_linux_l4re_shared_getgrgid(uint16_t gid) {
+void* libcUnixLinuxlikeLinuxL4reSharedGetgrgid(uint16_t gid) {
     typedef void* (*km_fn_t)(uint16_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2040,7 +2040,7 @@ void* libc_unix_linuxlike_linux_l4re_shared_getgrgid(uint16_t gid) {
     return NULL;
 }
 
-void* libc_unix_linuxlike_linux_l4re_shared_popen(const char* command, const char* mode) {
+void* libcUnixLinuxlikeLinuxL4reSharedPopen(const char* command, const char* mode) {
     typedef void* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2068,7 +2068,7 @@ void* libc_unix_linuxlike_linux_l4re_shared_popen(const char* command, const cha
     return NULL;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_faccessat(int32_t dirfd, const char* pathname, int32_t mode, int32_t flags) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedFaccessat(int32_t dirfd, const char* pathname, int32_t mode, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2096,7 +2096,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_faccessat(int32_t dirfd, const cha
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_dlIteratePhdr(void* callback, void* data) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedDlIteratePhdr(void* callback, void* data) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2124,7 +2124,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_dlIteratePhdr(void* callback, void
     return -1;
 }
 
-void* libc_unix_linuxlike_linux_l4re_shared_setmntent(const char* filename, const char* ty) {
+void* libcUnixLinuxlikeLinuxL4reSharedSetmntent(const char* filename, const char* ty) {
     typedef void* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2152,7 +2152,7 @@ void* libc_unix_linuxlike_linux_l4re_shared_setmntent(const char* filename, cons
     return NULL;
 }
 
-void* libc_unix_linuxlike_linux_l4re_shared_getmntent(void* stream) {
+void* libcUnixLinuxlikeLinuxL4reSharedGetmntent(void* stream) {
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2180,7 +2180,7 @@ void* libc_unix_linuxlike_linux_l4re_shared_getmntent(void* stream) {
     return NULL;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_addmntent(void* stream, void* mnt) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedAddmntent(void* stream, void* mnt) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2208,7 +2208,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_addmntent(void* stream, void* mnt)
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_endmntent(void* streamp) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedEndmntent(void* streamp) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2236,7 +2236,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_endmntent(void* streamp) {
     return -1;
 }
 
-char* libc_unix_linuxlike_linux_l4re_shared_hasmntopt(void* mnt, const char* opt) {
+char* libcUnixLinuxlikeLinuxL4reSharedHasmntopt(void* mnt, const char* opt) {
     typedef char* (*km_fn_t)(void*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2264,7 +2264,7 @@ char* libc_unix_linuxlike_linux_l4re_shared_hasmntopt(void* mnt, const char* opt
     return NULL;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_regcomp(void* preg, const char* pattern, int32_t cflags) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedRegcomp(void* preg, const char* pattern, int32_t cflags) {
     typedef int32_t (*km_fn_t)(void*, const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2292,7 +2292,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_regcomp(void* preg, const char* pa
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_regexec(void* preg, const char* input, uint64_t nmatch, void* pmatch, int32_t eflags) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedRegexec(void* preg, const char* input, uint64_t nmatch, void* pmatch, int32_t eflags) {
     typedef int32_t (*km_fn_t)(void*, const char*, uint64_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2320,7 +2320,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_regexec(void* preg, const char* in
     return -1;
 }
 
-uint64_t libc_unix_linuxlike_linux_l4re_shared_regerror(int32_t errcode, void* preg, char* errbuf, uint64_t errbuf_size) {
+uint64_t libcUnixLinuxlikeLinuxL4reSharedRegerror(int32_t errcode, void* preg, char* errbuf, uint64_t errbufSize) {
     typedef uint64_t (*km_fn_t)(int32_t, void*, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2342,13 +2342,13 @@ uint64_t libc_unix_linuxlike_linux_l4re_shared_regerror(int32_t errcode, void* p
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(errcode, preg, errbuf, errbuf_size);
+        return km_fn_ptr(errcode, preg, errbuf, errbufSize);
     }
     errno = ENOSYS;
     return 0;
 }
 
-void libc_unix_linuxlike_linux_l4re_shared_regfree(void* preg) {
+void libcUnixLinuxlikeLinuxL4reSharedRegfree(void* preg) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2376,7 +2376,7 @@ void libc_unix_linuxlike_linux_l4re_shared_regfree(void* preg) {
     errno = ENOSYS;
 }
 
-void* libc_unix_linuxlike_linux_l4re_shared_iconvOpen(const char* tocode, const char* fromcode) {
+void* libcUnixLinuxlikeLinuxL4reSharedIconvOpen(const char* tocode, const char* fromcode) {
     typedef void* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2404,7 +2404,7 @@ void* libc_unix_linuxlike_linux_l4re_shared_iconvOpen(const char* tocode, const 
     return NULL;
 }
 
-uint64_t libc_unix_linuxlike_linux_l4re_shared_iconv(void* cd, void* inbuf, void* inbytesleft, void* outbuf, void* outbytesleft) {
+uint64_t libcUnixLinuxlikeLinuxL4reSharedIconv(void* cd, void* inbuf, void* inbytesleft, void* outbuf, void* outbytesleft) {
     typedef uint64_t (*km_fn_t)(void*, void*, void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2432,7 +2432,7 @@ uint64_t libc_unix_linuxlike_linux_l4re_shared_iconv(void* cd, void* inbuf, void
     return 0;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_iconvClose(void* cd) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedIconvClose(void* cd) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2460,7 +2460,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_iconvClose(void* cd) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_gettid(void) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedGettid(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2488,7 +2488,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_gettid(void) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_timerCreate(int32_t clockid, void* sevp, void* timerid) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedTimerCreate(int32_t clockid, void* sevp, void* timerid) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2516,7 +2516,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_timerCreate(int32_t clockid, void*
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_timerDelete(void* timerid) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedTimerDelete(void* timerid) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2544,7 +2544,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_timerDelete(void* timerid) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_timerGetoverrun(void* timerid) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedTimerGetoverrun(void* timerid) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2572,7 +2572,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_timerGetoverrun(void* timerid) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_timerGettime(void* timerid, void* curr_value) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedTimerGettime(void* timerid, void* currValue) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2594,13 +2594,13 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_timerGettime(void* timerid, void* 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(timerid, curr_value);
+        return km_fn_ptr(timerid, currValue);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_timerSettime(void* timerid, int32_t flags, void* new_value, void* old_value) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedTimerSettime(void* timerid, int32_t flags, void* newValue, void* oldValue) {
     typedef int32_t (*km_fn_t)(void*, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2622,13 +2622,13 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_timerSettime(void* timerid, int32_
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(timerid, flags, new_value, old_value);
+        return km_fn_ptr(timerid, flags, newValue, oldValue);
     }
     errno = ENOSYS;
     return -1;
 }
 
-void* libc_unix_linuxlike_linux_l4re_shared_memmem(void* haystack, uint64_t haystacklen, void* needle, uint64_t needlelen) {
+void* libcUnixLinuxlikeLinuxL4reSharedMemmem(void* haystack, uint64_t haystacklen, void* needle, uint64_t needlelen) {
     typedef void* (*km_fn_t)(void*, uint64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2656,7 +2656,7 @@ void* libc_unix_linuxlike_linux_l4re_shared_memmem(void* haystack, uint64_t hays
     return NULL;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_schedGetcpu(void) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedSchedGetcpu(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2684,7 +2684,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_schedGetcpu(void) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_getoptLong(int32_t argc, void* argv, const char* optstring, void* longopts, void* longindex) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedGetoptLong(int32_t argc, void* argv, const char* optstring, void* longopts, void* longindex) {
     typedef int32_t (*km_fn_t)(int32_t, void*, const char*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2712,7 +2712,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_getoptLong(int32_t argc, void* arg
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_l4re_shared_copyFileRange(int32_t fd_in, void* off_in, int32_t fd_out, void* off_out, uint64_t len, uint32_t flags) {
+int64_t libcUnixLinuxlikeLinuxL4reSharedCopyFileRange(int32_t fdIn, void* offIn, int32_t fdOut, void* offOut, uint64_t len, uint32_t flags) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, void*, uint64_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2734,13 +2734,13 @@ int64_t libc_unix_linuxlike_linux_l4re_shared_copyFileRange(int32_t fd_in, void*
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(fd_in, off_in, fd_out, off_out, len, flags);
+        return km_fn_ptr(fdIn, offIn, fdOut, offOut, len, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-void* libc_unix_linuxlike_linux_l4re_shared_freopen64(const char* filename, const char* mode, void* file) {
+void* libcUnixLinuxlikeLinuxL4reSharedFreopen64(const char* filename, const char* mode, void* file) {
     typedef void* (*km_fn_t)(const char*, const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2773,7 +2773,7 @@ void* libc_unix_linuxlike_linux_l4re_shared_freopen64(const char* filename, cons
     return NULL;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_fseeko64(void* stream, int64_t offset, int32_t whence) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedFseeko64(void* stream, int64_t offset, int32_t whence) {
     typedef int32_t (*km_fn_t)(void*, int64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2806,7 +2806,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_fseeko64(void* stream, int64_t off
     return -1;
 }
 
-int32_t libc_unix_linuxlike_linux_l4re_shared_fsetpos64(void* stream, void* ptr) {
+int32_t libcUnixLinuxlikeLinuxL4reSharedFsetpos64(void* stream, void* ptr) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2839,7 +2839,7 @@ int32_t libc_unix_linuxlike_linux_l4re_shared_fsetpos64(void* stream, void* ptr)
     return -1;
 }
 
-int64_t libc_unix_linuxlike_linux_l4re_shared_ftello64(void* stream) {
+int64_t libcUnixLinuxlikeLinuxL4reSharedFtello64(void* stream) {
     typedef int64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

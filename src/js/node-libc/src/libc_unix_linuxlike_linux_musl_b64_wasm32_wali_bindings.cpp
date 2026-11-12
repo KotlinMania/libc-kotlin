@@ -51,7 +51,7 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRead_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRead_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -86,7 +86,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRead
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysWrite_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysWrite_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -121,7 +121,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysWrit
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysOpen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysOpen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -156,7 +156,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysOpen
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysClose_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysClose_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(int32_t);
@@ -189,7 +189,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysClos
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysStat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysStat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -223,7 +223,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysStat
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFstat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFstat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -257,7 +257,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFsta
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysLstat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysLstat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -291,7 +291,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysLsta
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPoll_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysPoll_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t a2 = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -326,7 +326,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPoll
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysLseek_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysLseek_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int64_t a2 = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
@@ -361,7 +361,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysLsee
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMmap_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysMmap_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t a2 = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -399,7 +399,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMmap
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMprotect_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysMprotect_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t a2 = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -434,7 +434,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMpro
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMunmap_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysMunmap_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t a2 = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -468,7 +468,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMunm
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysBrk_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysBrk_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(int32_t);
@@ -501,7 +501,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysBrk_
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRtSigaction_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRtSigaction_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -537,7 +537,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRtSi
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRtSigprocmask_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRtSigprocmask_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -573,7 +573,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRtSi
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRtSigreturn_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRtSigreturn_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int64_t a1 = km_info.Length() > 0 ? km_napi_arg_i64(km_info[0]) : 0;
     typedef int64_t (*km_fn_t)(int64_t);
@@ -606,7 +606,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRtSi
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysIoctl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysIoctl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -641,7 +641,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysIoct
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPread64_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysPread64_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -682,7 +682,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPrea
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPwrite64_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysPwrite64_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -723,7 +723,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPwri
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysReadv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysReadv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -758,7 +758,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRead
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysWritev_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysWritev_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -793,7 +793,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysWrit
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysAccess_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysAccess_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -827,7 +827,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysAcce
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPipe_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysPipe_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(int32_t);
@@ -860,7 +860,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPipe
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSelect_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSelect_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -897,7 +897,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSele
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSchedYield_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSchedYield_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -929,7 +929,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSche
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMremap_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysMremap_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t a2 = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -966,7 +966,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMrem
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMsync_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysMsync_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t a2 = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1001,7 +1001,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMsyn
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMadvise_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysMadvise_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t a2 = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1036,7 +1036,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMadv
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysDup_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysDup_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(int32_t);
@@ -1069,7 +1069,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysDup_
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysDup2_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysDup2_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1103,7 +1103,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysDup2
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysNanosleep_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysNanosleep_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1137,7 +1137,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysNano
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysAlarm_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysAlarm_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(int32_t);
@@ -1170,7 +1170,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysAlar
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetitimer_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetitimer_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1205,7 +1205,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSeti
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetpid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetpid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1237,7 +1237,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetp
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSocket_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSocket_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1272,7 +1272,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSock
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysConnect_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysConnect_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1307,7 +1307,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysConn
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysAccept_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysAccept_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1342,7 +1342,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysAcce
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSendto_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSendto_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1380,7 +1380,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSend
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRecvfrom_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRecvfrom_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1418,7 +1418,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRecv
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSendmsg_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSendmsg_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1453,7 +1453,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSend
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRecvmsg_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRecvmsg_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1488,7 +1488,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRecv
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysShutdown_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysShutdown_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1522,7 +1522,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysShut
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysBind_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysBind_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1557,7 +1557,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysBind
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysListen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysListen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1591,7 +1591,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysList
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetsockname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetsockname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1626,7 +1626,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGets
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetpeername_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetpeername_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1661,7 +1661,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetp
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSocketpair_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSocketpair_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1697,7 +1697,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSock
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetsockopt_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetsockopt_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1734,7 +1734,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSets
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetsockopt_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetsockopt_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1771,7 +1771,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGets
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFork_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFork_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1803,7 +1803,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFork
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysExecve_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysExecve_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1838,7 +1838,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysExec
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysExit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysExit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(int32_t);
@@ -1871,7 +1871,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysExit
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysWait4_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysWait4_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1907,7 +1907,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysWait
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysKill_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysKill_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1941,7 +1941,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysKill
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysUname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysUname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(int32_t);
@@ -1974,7 +1974,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysUnam
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFcntl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFcntl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -2009,7 +2009,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFcnt
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFlock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFlock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -2043,7 +2043,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFloc
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFsync_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFsync_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(int32_t);
@@ -2076,7 +2076,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFsyn
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFdatasync_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFdatasync_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(int32_t);
@@ -2109,7 +2109,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFdat
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFtruncate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFtruncate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int64_t a2 = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
@@ -2143,7 +2143,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFtru
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetdents_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetdents_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -2178,7 +2178,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetd
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetcwd_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetcwd_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t a2 = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -2212,7 +2212,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetc
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysChdir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysChdir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(int32_t);
@@ -2245,7 +2245,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysChdi
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFchdir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFchdir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(int32_t);
@@ -2278,7 +2278,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFchd
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRename_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRename_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -2312,7 +2312,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRena
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMkdir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysMkdir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -2346,7 +2346,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMkdi
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRmdir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRmdir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(int32_t);
@@ -2379,7 +2379,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRmdi
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysLink_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysLink_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -2413,7 +2413,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysLink
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysUnlink_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysUnlink_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(int32_t);
@@ -2446,7 +2446,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysUnli
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSymlink_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSymlink_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -2480,7 +2480,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSyml
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysReadlink_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysReadlink_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -2515,7 +2515,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRead
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysChmod_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysChmod_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -2549,7 +2549,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysChmo
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFchmod_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFchmod_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -2583,7 +2583,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFchm
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysChown_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysChown_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -2618,7 +2618,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysChow
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFchown_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFchown_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -2653,7 +2653,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFcho
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysUmask_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysUmask_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(int32_t);
@@ -2686,7 +2686,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysUmas
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetrlimit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetrlimit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -2720,7 +2720,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetr
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetrusage_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetrusage_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -2754,7 +2754,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetr
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSysinfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSysinfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(int32_t);
@@ -2787,7 +2787,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSysi
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetuid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetuid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2819,7 +2819,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetu
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetgid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetgid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2851,7 +2851,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetg
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetuid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetuid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(int32_t);
@@ -2884,7 +2884,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetu
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetgid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetgid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(int32_t);
@@ -2917,7 +2917,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetg
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGeteuid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGeteuid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2949,7 +2949,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGete
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetegid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetegid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2981,7 +2981,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGete
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetpgid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetpgid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3015,7 +3015,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetp
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetppid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetppid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3047,7 +3047,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetp
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetsid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetsid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3079,7 +3079,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSets
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetreuid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetreuid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3113,7 +3113,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetr
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetregid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetregid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3147,7 +3147,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetr
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetgroups_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetgroups_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t a1 = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3181,7 +3181,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetg
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetgroups_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetgroups_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t a1 = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3215,7 +3215,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetg
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetresuid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetresuid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3250,7 +3250,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetr
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetresgid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetresgid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3285,7 +3285,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetr
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetpgid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetpgid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(int32_t);
@@ -3318,7 +3318,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetp
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetsid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetsid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(int32_t);
@@ -3351,7 +3351,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGets
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRtSigpending_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRtSigpending_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t a2 = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3385,7 +3385,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRtSi
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRtSigsuspend_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRtSigsuspend_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t a2 = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3419,7 +3419,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRtSi
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSigaltstack_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSigaltstack_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3453,7 +3453,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSiga
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysUtime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysUtime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3487,7 +3487,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysUtim
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysStatfs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysStatfs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3521,7 +3521,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysStat
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFstatfs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFstatfs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3555,7 +3555,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFsta
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPrctl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysPrctl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint64_t a2 = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -3592,7 +3592,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPrct
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetrlimit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetrlimit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3626,7 +3626,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetr
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysChroot_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysChroot_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(int32_t);
@@ -3659,7 +3659,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysChro
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGettid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGettid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3691,7 +3691,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGett
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysTkill_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysTkill_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3725,7 +3725,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysTkil
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFutex_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFutex_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3763,7 +3763,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFute
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSchedGetaffinity_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSchedGetaffinity_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t a2 = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3798,7 +3798,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSche
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetdents64_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetdents64_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3838,7 +3838,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetd
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetTidAddress_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetTidAddress_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(int32_t);
@@ -3871,7 +3871,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetT
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFadvise_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFadvise_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int64_t a2 = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
@@ -3907,7 +3907,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFadv
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysClockGettime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysClockGettime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3941,7 +3941,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysCloc
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysClockGetres_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysClockGetres_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3975,7 +3975,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysCloc
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysClockNanosleep_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysClockNanosleep_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4011,7 +4011,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysCloc
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysExitGroup_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysExitGroup_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(int32_t);
@@ -4044,7 +4044,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysExit
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysEpollCtl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysEpollCtl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4080,7 +4080,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysEpol
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysOpenat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysOpenat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4116,7 +4116,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysOpen
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMkdirat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysMkdirat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4151,7 +4151,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMkdi
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFchownat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFchownat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4188,7 +4188,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFcho
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFstatat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFstatat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4224,7 +4224,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFsta
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysUnlinkat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysUnlinkat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4259,7 +4259,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysUnli
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysLinkat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysLinkat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4296,7 +4296,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysLink
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSymlinkat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSymlinkat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4331,7 +4331,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSyml
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysReadlinkat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysReadlinkat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4367,7 +4367,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRead
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFchmodat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFchmodat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4403,7 +4403,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFchm
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFaccessat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFaccessat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4439,7 +4439,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFacc
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPselect6_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysPselect6_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4477,7 +4477,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPsel
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPpoll_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysPpoll_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t a2 = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4514,7 +4514,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPpol
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysUtimensat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysUtimensat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4550,7 +4550,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysUtim
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysEpollPwait_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysEpollPwait_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4588,7 +4588,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysEpol
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysEventfd_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysEventfd_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(int32_t);
@@ -4621,7 +4621,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysEven
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysAccept4_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysAccept4_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4657,7 +4657,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysAcce
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysEventfd2_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysEventfd2_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4691,7 +4691,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysEven
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysEpollCreate1_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysEpollCreate1_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(int32_t);
@@ -4724,7 +4724,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysEpol
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysDup3_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysDup3_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4759,7 +4759,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysDup3
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPipe2_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysPipe2_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4793,7 +4793,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPipe
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPrlimit64_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysPrlimit64_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4834,7 +4834,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPrli
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRenameat2_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRenameat2_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4871,7 +4871,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRena
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetrandom_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetrandom_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t a2 = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4906,7 +4906,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetr
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysStatx_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysStatx_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4943,7 +4943,7 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysStat
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFaccessat2_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFaccessat2_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t a2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4980,148 +4980,148 @@ static Napi::Value libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFacc
 }
 
 static void register_unix_linuxlike_linux_musl_b64_wasm32_wali_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRead", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRead_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysWrite", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysWrite_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysOpen", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysOpen_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysClose", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysClose_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysStat", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysStat_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFstat", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFstat_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysLstat", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysLstat_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPoll", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPoll_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysLseek", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysLseek_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMmap", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMmap_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMprotect", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMprotect_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMunmap", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMunmap_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysBrk", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysBrk_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRtSigaction", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRtSigaction_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRtSigprocmask", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRtSigprocmask_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRtSigreturn", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRtSigreturn_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysIoctl", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysIoctl_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPread64", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPread64_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPwrite64", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPwrite64_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysReadv", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysReadv_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysWritev", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysWritev_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysAccess", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysAccess_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPipe", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPipe_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSelect", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSelect_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSchedYield", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSchedYield_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMremap", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMremap_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMsync", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMsync_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMadvise", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMadvise_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysDup", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysDup_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysDup2", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysDup2_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysNanosleep", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysNanosleep_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysAlarm", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysAlarm_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetitimer", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetitimer_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetpid", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetpid_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSocket", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSocket_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysConnect", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysConnect_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysAccept", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysAccept_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSendto", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSendto_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRecvfrom", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRecvfrom_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSendmsg", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSendmsg_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRecvmsg", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRecvmsg_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysShutdown", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysShutdown_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysBind", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysBind_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysListen", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysListen_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetsockname", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetsockname_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetpeername", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetpeername_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSocketpair", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSocketpair_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetsockopt", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetsockopt_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetsockopt", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetsockopt_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFork", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFork_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysExecve", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysExecve_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysExit", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysExit_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysWait4", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysWait4_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysKill", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysKill_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysUname", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysUname_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFcntl", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFcntl_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFlock", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFlock_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFsync", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFsync_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFdatasync", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFdatasync_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFtruncate", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFtruncate_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetdents", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetdents_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetcwd", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetcwd_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysChdir", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysChdir_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFchdir", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFchdir_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRename", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRename_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMkdir", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMkdir_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRmdir", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRmdir_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysLink", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysLink_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysUnlink", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysUnlink_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSymlink", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSymlink_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysReadlink", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysReadlink_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysChmod", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysChmod_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFchmod", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFchmod_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysChown", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysChown_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFchown", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFchown_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysUmask", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysUmask_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetrlimit", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetrlimit_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetrusage", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetrusage_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSysinfo", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSysinfo_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetuid", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetuid_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetgid", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetgid_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetuid", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetuid_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetgid", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetgid_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGeteuid", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGeteuid_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetegid", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetegid_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetpgid", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetpgid_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetppid", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetppid_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetsid", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetsid_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetreuid", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetreuid_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetregid", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetregid_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetgroups", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetgroups_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetgroups", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetgroups_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetresuid", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetresuid_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetresgid", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetresgid_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetpgid", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetpgid_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetsid", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetsid_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRtSigpending", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRtSigpending_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRtSigsuspend", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRtSigsuspend_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSigaltstack", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSigaltstack_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysUtime", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysUtime_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysStatfs", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysStatfs_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFstatfs", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFstatfs_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPrctl", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPrctl_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetrlimit", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetrlimit_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysChroot", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysChroot_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGettid", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGettid_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysTkill", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysTkill_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFutex", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFutex_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSchedGetaffinity", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSchedGetaffinity_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetdents64", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetdents64_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetTidAddress", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSetTidAddress_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFadvise", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFadvise_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysClockGettime", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysClockGettime_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysClockGetres", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysClockGetres_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysClockNanosleep", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysClockNanosleep_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysExitGroup", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysExitGroup_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysEpollCtl", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysEpollCtl_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysOpenat", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysOpenat_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMkdirat", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysMkdirat_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFchownat", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFchownat_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFstatat", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFstatat_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysUnlinkat", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysUnlinkat_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysLinkat", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysLinkat_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSymlinkat", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysSymlinkat_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysReadlinkat", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysReadlinkat_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFchmodat", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFchmodat_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFaccessat", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFaccessat_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPselect6", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPselect6_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPpoll", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPpoll_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysUtimensat", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysUtimensat_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysEpollPwait", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysEpollPwait_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysEventfd", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysEventfd_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysAccept4", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysAccept4_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysEventfd2", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysEventfd2_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysEpollCreate1", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysEpollCreate1_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysDup3", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysDup3_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPipe2", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPipe2_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPrlimit64", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysPrlimit64_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRenameat2", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysRenameat2_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetrandom", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysGetrandom_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysStatx", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysStatx_napi));
-    exports.Set("libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFaccessat2", Napi::Function::New(env, libc_unix_linuxlike_linux_musl_b64_wasm32_wali_syscallSysFaccessat2_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRead", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRead_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysWrite", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysWrite_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysOpen", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysOpen_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysClose", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysClose_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysStat", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysStat_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFstat", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFstat_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysLstat", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysLstat_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysPoll", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysPoll_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysLseek", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysLseek_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysMmap", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysMmap_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysMprotect", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysMprotect_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysMunmap", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysMunmap_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysBrk", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysBrk_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRtSigaction", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRtSigaction_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRtSigprocmask", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRtSigprocmask_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRtSigreturn", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRtSigreturn_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysIoctl", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysIoctl_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysPread64", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysPread64_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysPwrite64", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysPwrite64_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysReadv", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysReadv_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysWritev", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysWritev_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysAccess", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysAccess_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysPipe", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysPipe_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSelect", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSelect_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSchedYield", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSchedYield_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysMremap", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysMremap_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysMsync", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysMsync_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysMadvise", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysMadvise_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysDup", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysDup_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysDup2", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysDup2_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysNanosleep", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysNanosleep_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysAlarm", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysAlarm_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetitimer", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetitimer_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetpid", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetpid_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSocket", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSocket_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysConnect", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysConnect_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysAccept", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysAccept_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSendto", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSendto_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRecvfrom", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRecvfrom_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSendmsg", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSendmsg_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRecvmsg", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRecvmsg_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysShutdown", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysShutdown_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysBind", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysBind_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysListen", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysListen_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetsockname", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetsockname_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetpeername", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetpeername_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSocketpair", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSocketpair_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetsockopt", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetsockopt_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetsockopt", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetsockopt_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFork", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFork_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysExecve", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysExecve_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysExit", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysExit_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysWait4", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysWait4_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysKill", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysKill_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysUname", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysUname_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFcntl", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFcntl_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFlock", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFlock_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFsync", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFsync_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFdatasync", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFdatasync_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFtruncate", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFtruncate_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetdents", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetdents_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetcwd", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetcwd_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysChdir", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysChdir_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFchdir", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFchdir_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRename", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRename_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysMkdir", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysMkdir_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRmdir", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRmdir_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysLink", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysLink_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysUnlink", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysUnlink_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSymlink", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSymlink_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysReadlink", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysReadlink_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysChmod", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysChmod_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFchmod", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFchmod_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysChown", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysChown_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFchown", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFchown_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysUmask", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysUmask_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetrlimit", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetrlimit_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetrusage", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetrusage_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSysinfo", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSysinfo_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetuid", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetuid_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetgid", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetgid_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetuid", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetuid_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetgid", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetgid_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGeteuid", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGeteuid_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetegid", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetegid_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetpgid", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetpgid_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetppid", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetppid_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetsid", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetsid_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetreuid", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetreuid_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetregid", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetregid_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetgroups", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetgroups_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetgroups", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetgroups_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetresuid", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetresuid_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetresgid", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetresgid_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetpgid", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetpgid_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetsid", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetsid_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRtSigpending", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRtSigpending_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRtSigsuspend", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRtSigsuspend_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSigaltstack", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSigaltstack_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysUtime", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysUtime_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysStatfs", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysStatfs_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFstatfs", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFstatfs_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysPrctl", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysPrctl_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetrlimit", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetrlimit_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysChroot", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysChroot_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGettid", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGettid_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysTkill", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysTkill_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFutex", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFutex_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSchedGetaffinity", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSchedGetaffinity_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetdents64", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetdents64_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetTidAddress", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetTidAddress_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFadvise", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFadvise_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysClockGettime", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysClockGettime_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysClockGetres", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysClockGetres_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysClockNanosleep", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysClockNanosleep_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysExitGroup", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysExitGroup_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysEpollCtl", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysEpollCtl_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysOpenat", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysOpenat_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysMkdirat", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysMkdirat_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFchownat", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFchownat_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFstatat", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFstatat_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysUnlinkat", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysUnlinkat_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysLinkat", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysLinkat_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSymlinkat", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSymlinkat_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysReadlinkat", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysReadlinkat_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFchmodat", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFchmodat_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFaccessat", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFaccessat_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysPselect6", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysPselect6_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysPpoll", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysPpoll_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysUtimensat", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysUtimensat_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysEpollPwait", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysEpollPwait_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysEventfd", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysEventfd_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysAccept4", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysAccept4_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysEventfd2", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysEventfd2_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysEpollCreate1", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysEpollCreate1_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysDup3", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysDup3_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysPipe2", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysPipe2_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysPrlimit64", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysPrlimit64_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRenameat2", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRenameat2_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetrandom", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetrandom_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysStatx", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysStatx_napi));
+    exports.Set("libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFaccessat2", Napi::Function::New(env, libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFaccessat2_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_unix_linuxlike_linux_musl_b64_wasm32_wali_napi, nullptr };

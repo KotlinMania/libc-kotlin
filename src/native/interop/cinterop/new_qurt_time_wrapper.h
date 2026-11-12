@@ -9,22 +9,22 @@
 extern "C" {
 #endif
 
-int64_t libc_new_qurt_time_time(void* tloc);
-int64_t libc_new_qurt_time_clock(void);
-double libc_new_qurt_time_difftime(int64_t time1, int64_t time0);
-int64_t libc_new_qurt_time_mktime(void* tm);
-void* libc_new_qurt_time_gmtime(void* timep);
-void* libc_new_qurt_time_gmtimeR(void* timep, void* result);
-void* libc_new_qurt_time_localtime(void* timep);
-void* libc_new_qurt_time_localtimeR(void* timep, void* result);
-char* libc_new_qurt_time_asctime(void* tm);
-char* libc_new_qurt_time_asctimeR(void* tm, char* buf);
-char* libc_new_qurt_time_ctime(void* timep);
-char* libc_new_qurt_time_ctimeR(void* timep, char* buf);
-uint64_t libc_new_qurt_time_strftime(char* s, uint64_t maxsize, const char* format, void* timeptr);
-char* libc_new_qurt_time_strptime(const char* s, const char* format, void* tm);
-int32_t libc_new_qurt_time_clockGettime(int32_t clk_id, void* tp);
-int32_t libc_new_qurt_time_nanosleep(void* req, void* rem);
+int64_t libcNewQurtTimeTime(void* tloc);
+int64_t libcNewQurtTimeClock(void);
+double libcNewQurtTimeDifftime(int64_t time1, int64_t time0);
+int64_t libcNewQurtTimeMktime(void* tm);
+void* libcNewQurtTimeGmtime(void* timep);
+void* libcNewQurtTimeGmtimeR(void* timep, void* result);
+void* libcNewQurtTimeLocaltime(void* timep);
+void* libcNewQurtTimeLocaltimeR(void* timep, void* result);
+char* libcNewQurtTimeAsctime(void* tm);
+char* libcNewQurtTimeAsctimeR(void* tm, char* buf);
+char* libcNewQurtTimeCtime(void* timep);
+char* libcNewQurtTimeCtimeR(void* timep, char* buf);
+uint64_t libcNewQurtTimeStrftime(char* s, uint64_t maxsize, const char* format, void* timeptr);
+char* libcNewQurtTimeStrptime(const char* s, const char* format, void* tm);
+int32_t libcNewQurtTimeClockGettime(int32_t clkId, void* tp);
+int32_t libcNewQurtTimeNanosleep(void* req, void* rem);
 
 #ifdef __cplusplus
 }

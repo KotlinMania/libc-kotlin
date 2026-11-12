@@ -19,10 +19,9 @@
 #endif
 #endif
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_fcntl_NewQurtFcntlJniBridge_libc_1new_1qurt_1fcntl_1open(JNIEnv* km_env, jclass km_clazz, jstring pathname, jint flags, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_fcntl_NewQurtFcntlJniBridge_libcNewQurtFcntlOpen(JNIEnv* km_env, jclass km_clazz, jlong pathname, jint flags, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
     (void)km_env;
     (void)km_clazz;
-    const char* pathname_utf = (pathname != NULL) ? (*km_env)->GetStringUTFChars(km_env, pathname, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -46,23 +45,21 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_fcntl_NewQurtFcn
     int32_t km_res = -1;
     if (km_fn_ptr != NULL) {
         switch (km_vac) {
-            case 0: km_res = km_fn_ptr(pathname_utf, (int32_t)flags); break;
-            case 1: km_res = km_fn_ptr(pathname_utf, (int32_t)flags, (intptr_t)km_va0); break;
-            case 2: km_res = km_fn_ptr(pathname_utf, (int32_t)flags, (intptr_t)km_va0, (intptr_t)km_va1); break;
-            case 3: km_res = km_fn_ptr(pathname_utf, (int32_t)flags, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2); break;
-            default: km_res = km_fn_ptr(pathname_utf, (int32_t)flags, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3); break;
+            case 0: km_res = km_fn_ptr((const char*)(uintptr_t)pathname, (int32_t)flags); break;
+            case 1: km_res = km_fn_ptr((const char*)(uintptr_t)pathname, (int32_t)flags, (intptr_t)km_va0); break;
+            case 2: km_res = km_fn_ptr((const char*)(uintptr_t)pathname, (int32_t)flags, (intptr_t)km_va0, (intptr_t)km_va1); break;
+            case 3: km_res = km_fn_ptr((const char*)(uintptr_t)pathname, (int32_t)flags, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2); break;
+            default: km_res = km_fn_ptr((const char*)(uintptr_t)pathname, (int32_t)flags, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3); break;
         }
     } else {
         errno = ENOSYS;
     }
-    if (pathname != NULL && pathname_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, pathname, pathname_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_fcntl_NewQurtFcntlJniBridge_libc_1new_1qurt_1fcntl_1creat(JNIEnv* km_env, jclass km_clazz, jstring pathname, jint mode) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_fcntl_NewQurtFcntlJniBridge_libcNewQurtFcntlCreat(JNIEnv* km_env, jclass km_clazz, jlong pathname, jint mode) {
     (void)km_env;
     (void)km_clazz;
-    const char* pathname_utf = (pathname != NULL) ? (*km_env)->GetStringUTFChars(km_env, pathname, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -85,16 +82,15 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_fcntl_NewQurtFcn
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(pathname_utf, (uint32_t)mode);
+        km_res = km_fn_ptr((const char*)(uintptr_t)pathname, (uint32_t)mode);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (pathname != NULL && pathname_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, pathname, pathname_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_fcntl_NewQurtFcntlJniBridge_libc_1new_1qurt_1fcntl_1fcntl(JNIEnv* km_env, jclass km_clazz, jint fd, jint cmd, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_fcntl_NewQurtFcntlJniBridge_libcNewQurtFcntlFcntl(JNIEnv* km_env, jclass km_clazz, jint fd, jint cmd, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, ...);

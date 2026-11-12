@@ -15,7 +15,7 @@
 #endif
 #endif
 
-int32_t libc_psp_sceAudioChRelease(int32_t channel) {
+int32_t libcPspSceAudioChRelease(int32_t channel) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -43,7 +43,7 @@ int32_t libc_psp_sceAudioChRelease(int32_t channel) {
     return -1;
 }
 
-int32_t libc_psp_sceAudioOutput(int32_t channel, int32_t vol, void* buf) {
+int32_t libcPspSceAudioOutput(int32_t channel, int32_t vol, void* buf) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -71,7 +71,7 @@ int32_t libc_psp_sceAudioOutput(int32_t channel, int32_t vol, void* buf) {
     return -1;
 }
 
-int32_t libc_psp_sceAudioOutputBlocking(int32_t channel, int32_t vol, void* buf) {
+int32_t libcPspSceAudioOutputBlocking(int32_t channel, int32_t vol, void* buf) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -99,7 +99,7 @@ int32_t libc_psp_sceAudioOutputBlocking(int32_t channel, int32_t vol, void* buf)
     return -1;
 }
 
-int32_t libc_psp_sceAudioOutputPanned(int32_t channel, int32_t left_vol, int32_t right_vol, void* buf) {
+int32_t libcPspSceAudioOutputPanned(int32_t channel, int32_t leftVol, int32_t rightVol, void* buf) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -121,13 +121,13 @@ int32_t libc_psp_sceAudioOutputPanned(int32_t channel, int32_t left_vol, int32_t
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(channel, left_vol, right_vol, buf);
+        return km_fn_ptr(channel, leftVol, rightVol, buf);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceAudioOutputPannedBlocking(int32_t channel, int32_t left_vol, int32_t right_vol, void* buf) {
+int32_t libcPspSceAudioOutputPannedBlocking(int32_t channel, int32_t leftVol, int32_t rightVol, void* buf) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -149,13 +149,13 @@ int32_t libc_psp_sceAudioOutputPannedBlocking(int32_t channel, int32_t left_vol,
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(channel, left_vol, right_vol, buf);
+        return km_fn_ptr(channel, leftVol, rightVol, buf);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceAudioGetChannelRestLen(int32_t channel) {
+int32_t libcPspSceAudioGetChannelRestLen(int32_t channel) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -183,7 +183,7 @@ int32_t libc_psp_sceAudioGetChannelRestLen(int32_t channel) {
     return -1;
 }
 
-int32_t libc_psp_sceAudioGetChannelRestLength(int32_t channel) {
+int32_t libcPspSceAudioGetChannelRestLength(int32_t channel) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -211,7 +211,7 @@ int32_t libc_psp_sceAudioGetChannelRestLength(int32_t channel) {
     return -1;
 }
 
-int32_t libc_psp_sceAudioSetChannelDataLen(int32_t channel, int32_t sample_count) {
+int32_t libcPspSceAudioSetChannelDataLen(int32_t channel, int32_t sampleCount) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -233,13 +233,13 @@ int32_t libc_psp_sceAudioSetChannelDataLen(int32_t channel, int32_t sample_count
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(channel, sample_count);
+        return km_fn_ptr(channel, sampleCount);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceAudioChangeChannelVolume(int32_t channel, int32_t left_vol, int32_t right_vol) {
+int32_t libcPspSceAudioChangeChannelVolume(int32_t channel, int32_t leftVol, int32_t rightVol) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -261,13 +261,13 @@ int32_t libc_psp_sceAudioChangeChannelVolume(int32_t channel, int32_t left_vol, 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(channel, left_vol, right_vol);
+        return km_fn_ptr(channel, leftVol, rightVol);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceAudioOutput2Reserve(int32_t sample_count) {
+int32_t libcPspSceAudioOutput2Reserve(int32_t sampleCount) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -289,13 +289,13 @@ int32_t libc_psp_sceAudioOutput2Reserve(int32_t sample_count) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(sample_count);
+        return km_fn_ptr(sampleCount);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceAudioOutput2Release(void) {
+int32_t libcPspSceAudioOutput2Release(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -323,7 +323,7 @@ int32_t libc_psp_sceAudioOutput2Release(void) {
     return -1;
 }
 
-int32_t libc_psp_sceAudioOutput2ChangeLength(int32_t sample_count) {
+int32_t libcPspSceAudioOutput2ChangeLength(int32_t sampleCount) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -345,13 +345,13 @@ int32_t libc_psp_sceAudioOutput2ChangeLength(int32_t sample_count) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(sample_count);
+        return km_fn_ptr(sampleCount);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceAudioOutput2OutputBlocking(int32_t vol, void* buf) {
+int32_t libcPspSceAudioOutput2OutputBlocking(int32_t vol, void* buf) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -379,7 +379,7 @@ int32_t libc_psp_sceAudioOutput2OutputBlocking(int32_t vol, void* buf) {
     return -1;
 }
 
-int32_t libc_psp_sceAudioOutput2GetRestSample(void) {
+int32_t libcPspSceAudioOutput2GetRestSample(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -407,7 +407,7 @@ int32_t libc_psp_sceAudioOutput2GetRestSample(void) {
     return -1;
 }
 
-int32_t libc_psp_sceAudioSRCChRelease(void) {
+int32_t libcPspSceAudioSRCChRelease(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -435,7 +435,7 @@ int32_t libc_psp_sceAudioSRCChRelease(void) {
     return -1;
 }
 
-int32_t libc_psp_sceAudioSRCOutputBlocking(int32_t vol, void* buf) {
+int32_t libcPspSceAudioSRCOutputBlocking(int32_t vol, void* buf) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -463,7 +463,7 @@ int32_t libc_psp_sceAudioSRCOutputBlocking(int32_t vol, void* buf) {
     return -1;
 }
 
-int32_t libc_psp_sceAudioInputInit(int32_t unknown1, int32_t gain, int32_t unknown2) {
+int32_t libcPspSceAudioInputInit(int32_t unknown1, int32_t gain, int32_t unknown2) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -491,7 +491,7 @@ int32_t libc_psp_sceAudioInputInit(int32_t unknown1, int32_t gain, int32_t unkno
     return -1;
 }
 
-int32_t libc_psp_sceAudioInputInitEx(void* params) {
+int32_t libcPspSceAudioInputInitEx(void* params) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -519,7 +519,7 @@ int32_t libc_psp_sceAudioInputInitEx(void* params) {
     return -1;
 }
 
-int32_t libc_psp_sceAudioGetInputLength(void) {
+int32_t libcPspSceAudioGetInputLength(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -547,7 +547,7 @@ int32_t libc_psp_sceAudioGetInputLength(void) {
     return -1;
 }
 
-int32_t libc_psp_sceAudioWaitInputEnd(void) {
+int32_t libcPspSceAudioWaitInputEnd(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -575,7 +575,7 @@ int32_t libc_psp_sceAudioWaitInputEnd(void) {
     return -1;
 }
 
-int32_t libc_psp_sceAudioPollInputEnd(void) {
+int32_t libcPspSceAudioPollInputEnd(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -603,7 +603,7 @@ int32_t libc_psp_sceAudioPollInputEnd(void) {
     return -1;
 }
 
-int32_t libc_psp_sceAtracGetAtracID(uint32_t ui_codec_type) {
+int32_t libcPspSceAtracGetAtracID(uint32_t uiCodecType) {
     typedef int32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -625,13 +625,13 @@ int32_t libc_psp_sceAtracGetAtracID(uint32_t ui_codec_type) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(ui_codec_type);
+        return km_fn_ptr(uiCodecType);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceAtracSetDataAndGetID(void* buf, uint64_t bufsize) {
+int32_t libcPspSceAtracSetDataAndGetID(void* buf, uint64_t bufsize) {
     typedef int32_t (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -659,7 +659,7 @@ int32_t libc_psp_sceAtracSetDataAndGetID(void* buf, uint64_t bufsize) {
     return -1;
 }
 
-int32_t libc_psp_sceAtracDecodeData(int32_t atrac_id, void* out_samples, void* out_n, void* out_end, void* out_remain_frame) {
+int32_t libcPspSceAtracDecodeData(int32_t atracId, void* outSamples, void* outN, void* outEnd, void* outRemainFrame) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -681,13 +681,13 @@ int32_t libc_psp_sceAtracDecodeData(int32_t atrac_id, void* out_samples, void* o
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(atrac_id, out_samples, out_n, out_end, out_remain_frame);
+        return km_fn_ptr(atracId, outSamples, outN, outEnd, outRemainFrame);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceAtracGetRemainFrame(int32_t atrac_id, void* out_remain_frame) {
+int32_t libcPspSceAtracGetRemainFrame(int32_t atracId, void* outRemainFrame) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -709,13 +709,13 @@ int32_t libc_psp_sceAtracGetRemainFrame(int32_t atrac_id, void* out_remain_frame
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(atrac_id, out_remain_frame);
+        return km_fn_ptr(atracId, outRemainFrame);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceAtracGetStreamDataInfo(int32_t atrac_id, void* write_pointer, void* available_bytes, void* read_offset) {
+int32_t libcPspSceAtracGetStreamDataInfo(int32_t atracId, void* writePointer, void* availableBytes, void* readOffset) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -737,13 +737,13 @@ int32_t libc_psp_sceAtracGetStreamDataInfo(int32_t atrac_id, void* write_pointer
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(atrac_id, write_pointer, available_bytes, read_offset);
+        return km_fn_ptr(atracId, writePointer, availableBytes, readOffset);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceAtracAddStreamData(int32_t atrac_id, uint32_t bytes_to_add) {
+int32_t libcPspSceAtracAddStreamData(int32_t atracId, uint32_t bytesToAdd) {
     typedef int32_t (*km_fn_t)(int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -765,13 +765,13 @@ int32_t libc_psp_sceAtracAddStreamData(int32_t atrac_id, uint32_t bytes_to_add) 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(atrac_id, bytes_to_add);
+        return km_fn_ptr(atracId, bytesToAdd);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceAtracGetBitrate(int32_t atrac_id, void* out_bitrate) {
+int32_t libcPspSceAtracGetBitrate(int32_t atracId, void* outBitrate) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -793,13 +793,13 @@ int32_t libc_psp_sceAtracGetBitrate(int32_t atrac_id, void* out_bitrate) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(atrac_id, out_bitrate);
+        return km_fn_ptr(atracId, outBitrate);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceAtracSetLoopNum(int32_t atrac_id, int32_t nloops) {
+int32_t libcPspSceAtracSetLoopNum(int32_t atracId, int32_t nloops) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -821,13 +821,13 @@ int32_t libc_psp_sceAtracSetLoopNum(int32_t atrac_id, int32_t nloops) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(atrac_id, nloops);
+        return km_fn_ptr(atracId, nloops);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceAtracReleaseAtracID(int32_t atrac_id) {
+int32_t libcPspSceAtracReleaseAtracID(int32_t atracId) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -849,13 +849,13 @@ int32_t libc_psp_sceAtracReleaseAtracID(int32_t atrac_id) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(atrac_id);
+        return km_fn_ptr(atracId);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceAtracGetNextSample(int32_t atrac_id, void* out_n) {
+int32_t libcPspSceAtracGetNextSample(int32_t atracId, void* outN) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -877,13 +877,13 @@ int32_t libc_psp_sceAtracGetNextSample(int32_t atrac_id, void* out_n) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(atrac_id, out_n);
+        return km_fn_ptr(atracId, outN);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceAtracGetMaxSample(int32_t atrac_id, void* out_max) {
+int32_t libcPspSceAtracGetMaxSample(int32_t atracId, void* outMax) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -905,13 +905,13 @@ int32_t libc_psp_sceAtracGetMaxSample(int32_t atrac_id, void* out_max) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(atrac_id, out_max);
+        return km_fn_ptr(atracId, outMax);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceAtracGetBufferInfoForReseting(int32_t atrac_id, uint32_t ui_sample, void* pbuffer_info) {
+int32_t libcPspSceAtracGetBufferInfoForReseting(int32_t atracId, uint32_t uiSample, void* pbufferInfo) {
     typedef int32_t (*km_fn_t)(int32_t, uint32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -933,13 +933,13 @@ int32_t libc_psp_sceAtracGetBufferInfoForReseting(int32_t atrac_id, uint32_t ui_
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(atrac_id, ui_sample, pbuffer_info);
+        return km_fn_ptr(atracId, uiSample, pbufferInfo);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceAtracGetChannel(int32_t atrac_id, void* pui_channel) {
+int32_t libcPspSceAtracGetChannel(int32_t atracId, void* puiChannel) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -961,13 +961,13 @@ int32_t libc_psp_sceAtracGetChannel(int32_t atrac_id, void* pui_channel) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(atrac_id, pui_channel);
+        return km_fn_ptr(atracId, puiChannel);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceAtracGetInternalErrorInfo(int32_t atrac_id, void* pi_result) {
+int32_t libcPspSceAtracGetInternalErrorInfo(int32_t atracId, void* piResult) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -989,13 +989,13 @@ int32_t libc_psp_sceAtracGetInternalErrorInfo(int32_t atrac_id, void* pi_result)
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(atrac_id, pi_result);
+        return km_fn_ptr(atracId, piResult);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceAtracGetLoopStatus(int32_t atrac_id, void* pi_loop_num, void* pui_loop_status) {
+int32_t libcPspSceAtracGetLoopStatus(int32_t atracId, void* piLoopNum, void* puiLoopStatus) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1017,13 +1017,13 @@ int32_t libc_psp_sceAtracGetLoopStatus(int32_t atrac_id, void* pi_loop_num, void
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(atrac_id, pi_loop_num, pui_loop_status);
+        return km_fn_ptr(atracId, piLoopNum, puiLoopStatus);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceAtracGetNextDecodePosition(int32_t atrac_id, void* pui_sample_position) {
+int32_t libcPspSceAtracGetNextDecodePosition(int32_t atracId, void* puiSamplePosition) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1045,13 +1045,13 @@ int32_t libc_psp_sceAtracGetNextDecodePosition(int32_t atrac_id, void* pui_sampl
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(atrac_id, pui_sample_position);
+        return km_fn_ptr(atracId, puiSamplePosition);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceAtracGetSecondBufferInfo(int32_t atrac_id, void* pui_position, void* pui_data_byte) {
+int32_t libcPspSceAtracGetSecondBufferInfo(int32_t atracId, void* puiPosition, void* puiDataByte) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1073,13 +1073,13 @@ int32_t libc_psp_sceAtracGetSecondBufferInfo(int32_t atrac_id, void* pui_positio
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(atrac_id, pui_position, pui_data_byte);
+        return km_fn_ptr(atracId, puiPosition, puiDataByte);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceAtracGetSoundSample(int32_t atrac_id, void* pi_end_sample, void* pi_loop_start_sample, void* pi_loop_end_sample) {
+int32_t libcPspSceAtracGetSoundSample(int32_t atracId, void* piEndSample, void* piLoopStartSample, void* piLoopEndSample) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1101,13 +1101,13 @@ int32_t libc_psp_sceAtracGetSoundSample(int32_t atrac_id, void* pi_end_sample, v
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(atrac_id, pi_end_sample, pi_loop_start_sample, pi_loop_end_sample);
+        return km_fn_ptr(atracId, piEndSample, piLoopStartSample, piLoopEndSample);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceAtracResetPlayPosition(int32_t atrac_id, uint32_t ui_sample, uint32_t ui_write_byte_first_buf, uint32_t ui_write_byte_second_buf) {
+int32_t libcPspSceAtracResetPlayPosition(int32_t atracId, uint32_t uiSample, uint32_t uiWriteByteFirstBuf, uint32_t uiWriteByteSecondBuf) {
     typedef int32_t (*km_fn_t)(int32_t, uint32_t, uint32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1129,13 +1129,13 @@ int32_t libc_psp_sceAtracResetPlayPosition(int32_t atrac_id, uint32_t ui_sample,
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(atrac_id, ui_sample, ui_write_byte_first_buf, ui_write_byte_second_buf);
+        return km_fn_ptr(atracId, uiSample, uiWriteByteFirstBuf, uiWriteByteSecondBuf);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceAtracSetData(int32_t atrac_id, void* puc_buffer_addr, uint32_t ui_buffer_byte) {
+int32_t libcPspSceAtracSetData(int32_t atracId, void* pucBufferAddr, uint32_t uiBufferByte) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1157,13 +1157,13 @@ int32_t libc_psp_sceAtracSetData(int32_t atrac_id, void* puc_buffer_addr, uint32
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(atrac_id, puc_buffer_addr, ui_buffer_byte);
+        return km_fn_ptr(atracId, pucBufferAddr, uiBufferByte);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceAtracSetHalfwayBuffer(int32_t atrac_id, void* puc_buffer_addr, uint32_t ui_read_byte, uint32_t ui_buffer_byte) {
+int32_t libcPspSceAtracSetHalfwayBuffer(int32_t atracId, void* pucBufferAddr, uint32_t uiReadByte, uint32_t uiBufferByte) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1185,13 +1185,13 @@ int32_t libc_psp_sceAtracSetHalfwayBuffer(int32_t atrac_id, void* puc_buffer_add
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(atrac_id, puc_buffer_addr, ui_read_byte, ui_buffer_byte);
+        return km_fn_ptr(atracId, pucBufferAddr, uiReadByte, uiBufferByte);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceAtracSetHalfwayBufferAndGetID(void* puc_buffer_addr, uint32_t ui_read_byte, uint32_t ui_buffer_byte) {
+int32_t libcPspSceAtracSetHalfwayBufferAndGetID(void* pucBufferAddr, uint32_t uiReadByte, uint32_t uiBufferByte) {
     typedef int32_t (*km_fn_t)(void*, uint32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1213,13 +1213,13 @@ int32_t libc_psp_sceAtracSetHalfwayBufferAndGetID(void* puc_buffer_addr, uint32_
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(puc_buffer_addr, ui_read_byte, ui_buffer_byte);
+        return km_fn_ptr(pucBufferAddr, uiReadByte, uiBufferByte);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceAtracSetSecondBuffer(int32_t atrac_id, void* puc_second_buffer_addr, uint32_t ui_second_buffer_byte) {
+int32_t libcPspSceAtracSetSecondBuffer(int32_t atracId, void* pucSecondBufferAddr, uint32_t uiSecondBufferByte) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1241,13 +1241,13 @@ int32_t libc_psp_sceAtracSetSecondBuffer(int32_t atrac_id, void* puc_second_buff
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(atrac_id, puc_second_buffer_addr, ui_second_buffer_byte);
+        return km_fn_ptr(atracId, pucSecondBufferAddr, uiSecondBufferByte);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceCtrlSetSamplingCycle(int32_t cycle) {
+int32_t libcPspSceCtrlSetSamplingCycle(int32_t cycle) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1275,7 +1275,7 @@ int32_t libc_psp_sceCtrlSetSamplingCycle(int32_t cycle) {
     return -1;
 }
 
-int32_t libc_psp_sceCtrlGetSamplingCycle(void* pcycle) {
+int32_t libcPspSceCtrlGetSamplingCycle(void* pcycle) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1303,7 +1303,7 @@ int32_t libc_psp_sceCtrlGetSamplingCycle(void* pcycle) {
     return -1;
 }
 
-int32_t libc_psp_sceCtrlGetSamplingMode(void* pmode) {
+int32_t libcPspSceCtrlGetSamplingMode(void* pmode) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1331,7 +1331,7 @@ int32_t libc_psp_sceCtrlGetSamplingMode(void* pmode) {
     return -1;
 }
 
-int32_t libc_psp_sceCtrlPeekBufferPositive(void* pad_data, int32_t count) {
+int32_t libcPspSceCtrlPeekBufferPositive(void* padData, int32_t count) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1353,13 +1353,13 @@ int32_t libc_psp_sceCtrlPeekBufferPositive(void* pad_data, int32_t count) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(pad_data, count);
+        return km_fn_ptr(padData, count);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceCtrlPeekBufferNegative(void* pad_data, int32_t count) {
+int32_t libcPspSceCtrlPeekBufferNegative(void* padData, int32_t count) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1381,13 +1381,13 @@ int32_t libc_psp_sceCtrlPeekBufferNegative(void* pad_data, int32_t count) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(pad_data, count);
+        return km_fn_ptr(padData, count);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceCtrlReadBufferPositive(void* pad_data, int32_t count) {
+int32_t libcPspSceCtrlReadBufferPositive(void* padData, int32_t count) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1409,13 +1409,13 @@ int32_t libc_psp_sceCtrlReadBufferPositive(void* pad_data, int32_t count) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(pad_data, count);
+        return km_fn_ptr(padData, count);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceCtrlReadBufferNegative(void* pad_data, int32_t count) {
+int32_t libcPspSceCtrlReadBufferNegative(void* padData, int32_t count) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1437,13 +1437,13 @@ int32_t libc_psp_sceCtrlReadBufferNegative(void* pad_data, int32_t count) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(pad_data, count);
+        return km_fn_ptr(padData, count);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceCtrlPeekLatch(void* latch_data) {
+int32_t libcPspSceCtrlPeekLatch(void* latchData) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1465,13 +1465,13 @@ int32_t libc_psp_sceCtrlPeekLatch(void* latch_data) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(latch_data);
+        return km_fn_ptr(latchData);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceCtrlReadLatch(void* latch_data) {
+int32_t libcPspSceCtrlReadLatch(void* latchData) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1493,13 +1493,13 @@ int32_t libc_psp_sceCtrlReadLatch(void* latch_data) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(latch_data);
+        return km_fn_ptr(latchData);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceCtrlSetIdleCancelThreshold(int32_t idlereset, int32_t idleback) {
+int32_t libcPspSceCtrlSetIdleCancelThreshold(int32_t idlereset, int32_t idleback) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1527,7 +1527,7 @@ int32_t libc_psp_sceCtrlSetIdleCancelThreshold(int32_t idlereset, int32_t idleba
     return -1;
 }
 
-int32_t libc_psp_sceCtrlGetIdleCancelThreshold(void* idlereset, void* idleback) {
+int32_t libcPspSceCtrlGetIdleCancelThreshold(void* idlereset, void* idleback) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1555,7 +1555,7 @@ int32_t libc_psp_sceCtrlGetIdleCancelThreshold(void* idlereset, void* idleback) 
     return -1;
 }
 
-int32_t libc_psp_sceDisplayGetMode(void* pmode, void* pwidth, void* pheight) {
+int32_t libcPspSceDisplayGetMode(void* pmode, void* pwidth, void* pheight) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1583,7 +1583,7 @@ int32_t libc_psp_sceDisplayGetMode(void* pmode, void* pwidth, void* pheight) {
     return -1;
 }
 
-uint32_t libc_psp_sceDisplayGetVcount(void) {
+uint32_t libcPspSceDisplayGetVcount(void) {
     typedef uint32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1611,7 +1611,7 @@ uint32_t libc_psp_sceDisplayGetVcount(void) {
     return 0;
 }
 
-int32_t libc_psp_sceDisplayWaitVblank(void) {
+int32_t libcPspSceDisplayWaitVblank(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1639,7 +1639,7 @@ int32_t libc_psp_sceDisplayWaitVblank(void) {
     return -1;
 }
 
-int32_t libc_psp_sceDisplayWaitVblankCB(void) {
+int32_t libcPspSceDisplayWaitVblankCB(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1667,7 +1667,7 @@ int32_t libc_psp_sceDisplayWaitVblankCB(void) {
     return -1;
 }
 
-int32_t libc_psp_sceDisplayWaitVblankStart(void) {
+int32_t libcPspSceDisplayWaitVblankStart(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1695,7 +1695,7 @@ int32_t libc_psp_sceDisplayWaitVblankStart(void) {
     return -1;
 }
 
-int32_t libc_psp_sceDisplayWaitVblankStartCB(void) {
+int32_t libcPspSceDisplayWaitVblankStartCB(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1723,7 +1723,7 @@ int32_t libc_psp_sceDisplayWaitVblankStartCB(void) {
     return -1;
 }
 
-int32_t libc_psp_sceDisplayGetAccumulatedHcount(void) {
+int32_t libcPspSceDisplayGetAccumulatedHcount(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1751,7 +1751,7 @@ int32_t libc_psp_sceDisplayGetAccumulatedHcount(void) {
     return -1;
 }
 
-int32_t libc_psp_sceDisplayGetCurrentHcount(void) {
+int32_t libcPspSceDisplayGetCurrentHcount(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1779,7 +1779,7 @@ int32_t libc_psp_sceDisplayGetCurrentHcount(void) {
     return -1;
 }
 
-float libc_psp_sceDisplayGetFramePerSec(void) {
+float libcPspSceDisplayGetFramePerSec(void) {
     typedef float (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1807,7 +1807,7 @@ float libc_psp_sceDisplayGetFramePerSec(void) {
     return 0.0f;
 }
 
-int32_t libc_psp_sceDisplayIsForeground(void) {
+int32_t libcPspSceDisplayIsForeground(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1835,7 +1835,7 @@ int32_t libc_psp_sceDisplayIsForeground(void) {
     return -1;
 }
 
-int32_t libc_psp_sceDisplayIsVblank(void) {
+int32_t libcPspSceDisplayIsVblank(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1863,7 +1863,7 @@ int32_t libc_psp_sceDisplayIsVblank(void) {
     return -1;
 }
 
-uint32_t libc_psp_sceGeEdramGetSize(void) {
+uint32_t libcPspSceGeEdramGetSize(void) {
     typedef uint32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1891,7 +1891,7 @@ uint32_t libc_psp_sceGeEdramGetSize(void) {
     return 0;
 }
 
-void* libc_psp_sceGeEdramGetAddr(void) {
+void* libcPspSceGeEdramGetAddr(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1919,7 +1919,7 @@ void* libc_psp_sceGeEdramGetAddr(void) {
     return NULL;
 }
 
-int32_t libc_psp_sceGeEdramSetAddrTranslation(int32_t width) {
+int32_t libcPspSceGeEdramSetAddrTranslation(int32_t width) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1947,7 +1947,7 @@ int32_t libc_psp_sceGeEdramSetAddrTranslation(int32_t width) {
     return -1;
 }
 
-uint32_t libc_psp_sceGeGetCmd(int32_t cmd) {
+uint32_t libcPspSceGeGetCmd(int32_t cmd) {
     typedef uint32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1975,7 +1975,7 @@ uint32_t libc_psp_sceGeGetCmd(int32_t cmd) {
     return 0;
 }
 
-int32_t libc_psp_sceGeGetStack(int32_t stack_id, void* stack) {
+int32_t libcPspSceGeGetStack(int32_t stackId, void* stack) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1997,13 +1997,13 @@ int32_t libc_psp_sceGeGetStack(int32_t stack_id, void* stack) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(stack_id, stack);
+        return km_fn_ptr(stackId, stack);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceGeSaveContext(void* context) {
+int32_t libcPspSceGeSaveContext(void* context) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2031,7 +2031,7 @@ int32_t libc_psp_sceGeSaveContext(void* context) {
     return -1;
 }
 
-int32_t libc_psp_sceGeRestoreContext(void* context) {
+int32_t libcPspSceGeRestoreContext(void* context) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2059,7 +2059,7 @@ int32_t libc_psp_sceGeRestoreContext(void* context) {
     return -1;
 }
 
-int32_t libc_psp_sceGeListEnQueue(void* list, void* stall, int32_t cbid, void* arg) {
+int32_t libcPspSceGeListEnQueue(void* list, void* stall, int32_t cbid, void* arg) {
     typedef int32_t (*km_fn_t)(void*, void*, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2087,7 +2087,7 @@ int32_t libc_psp_sceGeListEnQueue(void* list, void* stall, int32_t cbid, void* a
     return -1;
 }
 
-int32_t libc_psp_sceGeListEnQueueHead(void* list, void* stall, int32_t cbid, void* arg) {
+int32_t libcPspSceGeListEnQueueHead(void* list, void* stall, int32_t cbid, void* arg) {
     typedef int32_t (*km_fn_t)(void*, void*, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2115,7 +2115,7 @@ int32_t libc_psp_sceGeListEnQueueHead(void* list, void* stall, int32_t cbid, voi
     return -1;
 }
 
-int32_t libc_psp_sceGeListDeQueue(int32_t qid) {
+int32_t libcPspSceGeListDeQueue(int32_t qid) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2143,7 +2143,7 @@ int32_t libc_psp_sceGeListDeQueue(int32_t qid) {
     return -1;
 }
 
-int32_t libc_psp_sceGeListUpdateStallAddr(int32_t qid, void* stall) {
+int32_t libcPspSceGeListUpdateStallAddr(int32_t qid, void* stall) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2171,7 +2171,7 @@ int32_t libc_psp_sceGeListUpdateStallAddr(int32_t qid, void* stall) {
     return -1;
 }
 
-int32_t libc_psp_sceGeBreak(int32_t mode, void* p_param) {
+int32_t libcPspSceGeBreak(int32_t mode, void* pParam) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2193,13 +2193,13 @@ int32_t libc_psp_sceGeBreak(int32_t mode, void* p_param) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(mode, p_param);
+        return km_fn_ptr(mode, pParam);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceGeContinue(void) {
+int32_t libcPspSceGeContinue(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2227,7 +2227,7 @@ int32_t libc_psp_sceGeContinue(void) {
     return -1;
 }
 
-int32_t libc_psp_sceGeSetCallback(void* cb) {
+int32_t libcPspSceGeSetCallback(void* cb) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2255,7 +2255,7 @@ int32_t libc_psp_sceGeSetCallback(void* cb) {
     return -1;
 }
 
-int32_t libc_psp_sceGeUnsetCallback(int32_t cbid) {
+int32_t libcPspSceGeUnsetCallback(int32_t cbid) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2283,7 +2283,7 @@ int32_t libc_psp_sceGeUnsetCallback(int32_t cbid) {
     return -1;
 }
 
-void libc_psp_sceKernelExitGame(void) {
+void libcPspSceKernelExitGame(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2311,7 +2311,7 @@ void libc_psp_sceKernelExitGame(void) {
     errno = ENOSYS;
 }
 
-int32_t libc_psp_sceKernelLoadExec(void* file, void* param) {
+int32_t libcPspSceKernelLoadExec(void* file, void* param) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2339,7 +2339,7 @@ int32_t libc_psp_sceKernelLoadExec(void* file, void* param) {
     return -1;
 }
 
-uint64_t libc_psp_sceKernelTotalFreeMemSize(void) {
+uint64_t libcPspSceKernelTotalFreeMemSize(void) {
     typedef uint64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2367,7 +2367,7 @@ uint64_t libc_psp_sceKernelTotalFreeMemSize(void) {
     return 0;
 }
 
-uint64_t libc_psp_sceKernelMaxFreeMemSize(void) {
+uint64_t libcPspSceKernelMaxFreeMemSize(void) {
     typedef uint64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2395,7 +2395,7 @@ uint64_t libc_psp_sceKernelMaxFreeMemSize(void) {
     return 0;
 }
 
-uint32_t libc_psp_sceKernelDevkitVersion(void) {
+uint32_t libcPspSceKernelDevkitVersion(void) {
     typedef uint32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2423,7 +2423,7 @@ uint32_t libc_psp_sceKernelDevkitVersion(void) {
     return 0;
 }
 
-int32_t libc_psp_sceKernelSetCompiledSdkVersion(uint32_t version) {
+int32_t libcPspSceKernelSetCompiledSdkVersion(uint32_t version) {
     typedef int32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2451,7 +2451,7 @@ int32_t libc_psp_sceKernelSetCompiledSdkVersion(uint32_t version) {
     return -1;
 }
 
-uint32_t libc_psp_sceKernelGetCompiledSdkVersion(void) {
+uint32_t libcPspSceKernelGetCompiledSdkVersion(void) {
     typedef uint32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2479,7 +2479,7 @@ uint32_t libc_psp_sceKernelGetCompiledSdkVersion(void) {
     return 0;
 }
 
-int32_t libc_psp_sceKernelLibcTime(void* t) {
+int32_t libcPspSceKernelLibcTime(void* t) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2507,7 +2507,7 @@ int32_t libc_psp_sceKernelLibcTime(void* t) {
     return -1;
 }
 
-uint32_t libc_psp_sceKernelLibcClock(void) {
+uint32_t libcPspSceKernelLibcClock(void) {
     typedef uint32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2535,7 +2535,7 @@ uint32_t libc_psp_sceKernelLibcClock(void) {
     return 0;
 }
 
-int32_t libc_psp_sceKernelLibcGettimeofday(void* tp, void* tzp) {
+int32_t libcPspSceKernelLibcGettimeofday(void* tp, void* tzp) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2563,7 +2563,7 @@ int32_t libc_psp_sceKernelLibcGettimeofday(void* tp, void* tzp) {
     return -1;
 }
 
-void libc_psp_sceKernelDcacheWritebackAll(void) {
+void libcPspSceKernelDcacheWritebackAll(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2591,7 +2591,7 @@ void libc_psp_sceKernelDcacheWritebackAll(void) {
     errno = ENOSYS;
 }
 
-void libc_psp_sceKernelDcacheWritebackInvalidateAll(void) {
+void libcPspSceKernelDcacheWritebackInvalidateAll(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2619,7 +2619,7 @@ void libc_psp_sceKernelDcacheWritebackInvalidateAll(void) {
     errno = ENOSYS;
 }
 
-void libc_psp_sceKernelDcacheWritebackRange(void* p, uint32_t size) {
+void libcPspSceKernelDcacheWritebackRange(void* p, uint32_t size) {
     typedef void (*km_fn_t)(void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2647,7 +2647,7 @@ void libc_psp_sceKernelDcacheWritebackRange(void* p, uint32_t size) {
     errno = ENOSYS;
 }
 
-void libc_psp_sceKernelDcacheWritebackInvalidateRange(void* p, uint32_t size) {
+void libcPspSceKernelDcacheWritebackInvalidateRange(void* p, uint32_t size) {
     typedef void (*km_fn_t)(void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2675,7 +2675,7 @@ void libc_psp_sceKernelDcacheWritebackInvalidateRange(void* p, uint32_t size) {
     errno = ENOSYS;
 }
 
-void libc_psp_sceKernelDcacheInvalidateRange(void* p, uint32_t size) {
+void libcPspSceKernelDcacheInvalidateRange(void* p, uint32_t size) {
     typedef void (*km_fn_t)(void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2703,7 +2703,7 @@ void libc_psp_sceKernelDcacheInvalidateRange(void* p, uint32_t size) {
     errno = ENOSYS;
 }
 
-void libc_psp_sceKernelIcacheInvalidateAll(void) {
+void libcPspSceKernelIcacheInvalidateAll(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2731,7 +2731,7 @@ void libc_psp_sceKernelIcacheInvalidateAll(void) {
     errno = ENOSYS;
 }
 
-void libc_psp_sceKernelIcacheInvalidateRange(void* p, uint32_t size) {
+void libcPspSceKernelIcacheInvalidateRange(void* p, uint32_t size) {
     typedef void (*km_fn_t)(void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2759,7 +2759,7 @@ void libc_psp_sceKernelIcacheInvalidateRange(void* p, uint32_t size) {
     errno = ENOSYS;
 }
 
-int32_t libc_psp_sceKernelUtilsMt19937Init(void* ctx, uint32_t seed) {
+int32_t libcPspSceKernelUtilsMt19937Init(void* ctx, uint32_t seed) {
     typedef int32_t (*km_fn_t)(void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2787,7 +2787,7 @@ int32_t libc_psp_sceKernelUtilsMt19937Init(void* ctx, uint32_t seed) {
     return -1;
 }
 
-uint32_t libc_psp_sceKernelUtilsMt19937UInt(void* ctx) {
+uint32_t libcPspSceKernelUtilsMt19937UInt(void* ctx) {
     typedef uint32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2815,7 +2815,7 @@ uint32_t libc_psp_sceKernelUtilsMt19937UInt(void* ctx) {
     return 0;
 }
 
-int32_t libc_psp_sceKernelUtilsMd5Digest(void* data, uint32_t size, void* digest) {
+int32_t libcPspSceKernelUtilsMd5Digest(void* data, uint32_t size, void* digest) {
     typedef int32_t (*km_fn_t)(void*, uint32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2843,7 +2843,7 @@ int32_t libc_psp_sceKernelUtilsMd5Digest(void* data, uint32_t size, void* digest
     return -1;
 }
 
-int32_t libc_psp_sceKernelUtilsMd5BlockInit(void* ctx) {
+int32_t libcPspSceKernelUtilsMd5BlockInit(void* ctx) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2871,7 +2871,7 @@ int32_t libc_psp_sceKernelUtilsMd5BlockInit(void* ctx) {
     return -1;
 }
 
-int32_t libc_psp_sceKernelUtilsMd5BlockUpdate(void* ctx, void* data, uint32_t size) {
+int32_t libcPspSceKernelUtilsMd5BlockUpdate(void* ctx, void* data, uint32_t size) {
     typedef int32_t (*km_fn_t)(void*, void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2899,7 +2899,7 @@ int32_t libc_psp_sceKernelUtilsMd5BlockUpdate(void* ctx, void* data, uint32_t si
     return -1;
 }
 
-int32_t libc_psp_sceKernelUtilsMd5BlockResult(void* ctx, void* digest) {
+int32_t libcPspSceKernelUtilsMd5BlockResult(void* ctx, void* digest) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2927,7 +2927,7 @@ int32_t libc_psp_sceKernelUtilsMd5BlockResult(void* ctx, void* digest) {
     return -1;
 }
 
-int32_t libc_psp_sceKernelUtilsSha1Digest(void* data, uint32_t size, void* digest) {
+int32_t libcPspSceKernelUtilsSha1Digest(void* data, uint32_t size, void* digest) {
     typedef int32_t (*km_fn_t)(void*, uint32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2955,7 +2955,7 @@ int32_t libc_psp_sceKernelUtilsSha1Digest(void* data, uint32_t size, void* diges
     return -1;
 }
 
-int32_t libc_psp_sceKernelUtilsSha1BlockInit(void* ctx) {
+int32_t libcPspSceKernelUtilsSha1BlockInit(void* ctx) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2983,7 +2983,7 @@ int32_t libc_psp_sceKernelUtilsSha1BlockInit(void* ctx) {
     return -1;
 }
 
-int32_t libc_psp_sceKernelUtilsSha1BlockUpdate(void* ctx, void* data, uint32_t size) {
+int32_t libcPspSceKernelUtilsSha1BlockUpdate(void* ctx, void* data, uint32_t size) {
     typedef int32_t (*km_fn_t)(void*, void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3011,7 +3011,7 @@ int32_t libc_psp_sceKernelUtilsSha1BlockUpdate(void* ctx, void* data, uint32_t s
     return -1;
 }
 
-int32_t libc_psp_sceKernelUtilsSha1BlockResult(void* ctx, void* digest) {
+int32_t libcPspSceKernelUtilsSha1BlockResult(void* ctx, void* digest) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3039,7 +3039,7 @@ int32_t libc_psp_sceKernelUtilsSha1BlockResult(void* ctx, void* digest) {
     return -1;
 }
 
-int32_t libc_psp_sceKernelRegisterSubIntrHandler(int32_t int_no, int32_t no, void* handler, void* arg) {
+int32_t libcPspSceKernelRegisterSubIntrHandler(int32_t intNo, int32_t no, void* handler, void* arg) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3061,13 +3061,13 @@ int32_t libc_psp_sceKernelRegisterSubIntrHandler(int32_t int_no, int32_t no, voi
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(int_no, no, handler, arg);
+        return km_fn_ptr(intNo, no, handler, arg);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceKernelReleaseSubIntrHandler(int32_t int_no, int32_t no) {
+int32_t libcPspSceKernelReleaseSubIntrHandler(int32_t intNo, int32_t no) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3089,13 +3089,13 @@ int32_t libc_psp_sceKernelReleaseSubIntrHandler(int32_t int_no, int32_t no) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(int_no, no);
+        return km_fn_ptr(intNo, no);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceKernelEnableSubIntr(int32_t int_no, int32_t no) {
+int32_t libcPspSceKernelEnableSubIntr(int32_t intNo, int32_t no) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3117,13 +3117,13 @@ int32_t libc_psp_sceKernelEnableSubIntr(int32_t int_no, int32_t no) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(int_no, no);
+        return km_fn_ptr(intNo, no);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceKernelDisableSubIntr(int32_t int_no, int32_t no) {
+int32_t libcPspSceKernelDisableSubIntr(int32_t intNo, int32_t no) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3145,13 +3145,13 @@ int32_t libc_psp_sceKernelDisableSubIntr(int32_t int_no, int32_t no) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(int_no, no);
+        return km_fn_ptr(intNo, no);
     }
     errno = ENOSYS;
     return -1;
 }
 
-uint32_t libc_psp_sceKernelCpuSuspendIntr(void) {
+uint32_t libcPspSceKernelCpuSuspendIntr(void) {
     typedef uint32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3179,7 +3179,7 @@ uint32_t libc_psp_sceKernelCpuSuspendIntr(void) {
     return 0;
 }
 
-void libc_psp_sceKernelCpuResumeIntr(uint32_t flags) {
+void libcPspSceKernelCpuResumeIntr(uint32_t flags) {
     typedef void (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3207,7 +3207,7 @@ void libc_psp_sceKernelCpuResumeIntr(uint32_t flags) {
     errno = ENOSYS;
 }
 
-void libc_psp_sceKernelCpuResumeIntrWithSync(uint32_t flags) {
+void libcPspSceKernelCpuResumeIntrWithSync(uint32_t flags) {
     typedef void (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3235,7 +3235,7 @@ void libc_psp_sceKernelCpuResumeIntrWithSync(uint32_t flags) {
     errno = ENOSYS;
 }
 
-int32_t libc_psp_sceKernelIsCpuIntrSuspended(uint32_t flags) {
+int32_t libcPspSceKernelIsCpuIntrSuspended(uint32_t flags) {
     typedef int32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3263,7 +3263,7 @@ int32_t libc_psp_sceKernelIsCpuIntrSuspended(uint32_t flags) {
     return -1;
 }
 
-int32_t libc_psp_sceKernelIsCpuIntrEnable(void) {
+int32_t libcPspSceKernelIsCpuIntrEnable(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3291,7 +3291,7 @@ int32_t libc_psp_sceKernelIsCpuIntrEnable(void) {
     return -1;
 }
 
-int32_t libc_psp_sceKernelSelfStopUnloadModule(int32_t unknown, uint64_t arg_size, void* argp) {
+int32_t libcPspSceKernelSelfStopUnloadModule(int32_t unknown, uint64_t argSize, void* argp) {
     typedef int32_t (*km_fn_t)(int32_t, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3313,13 +3313,13 @@ int32_t libc_psp_sceKernelSelfStopUnloadModule(int32_t unknown, uint64_t arg_siz
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(unknown, arg_size, argp);
+        return km_fn_ptr(unknown, argSize, argp);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceKernelStopUnloadSelfModule(uint64_t arg_size, void* argp, void* status, void* option) {
+int32_t libcPspSceKernelStopUnloadSelfModule(uint64_t argSize, void* argp, void* status, void* option) {
     typedef int32_t (*km_fn_t)(uint64_t, void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3341,13 +3341,13 @@ int32_t libc_psp_sceKernelStopUnloadSelfModule(uint64_t arg_size, void* argp, vo
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_size, argp, status, option);
+        return km_fn_ptr(argSize, argp, status, option);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceKernelGetModuleIdList(void* read_buf, int32_t read_buf_size, void* id_count) {
+int32_t libcPspSceKernelGetModuleIdList(void* readBuf, int32_t readBufSize, void* idCount) {
     typedef int32_t (*km_fn_t)(void*, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3369,13 +3369,13 @@ int32_t libc_psp_sceKernelGetModuleIdList(void* read_buf, int32_t read_buf_size,
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(read_buf, read_buf_size, id_count);
+        return km_fn_ptr(readBuf, readBufSize, idCount);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceKernelVolatileMemLock(int32_t unk, void* ptr, void* size) {
+int32_t libcPspSceKernelVolatileMemLock(int32_t unk, void* ptr, void* size) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3403,7 +3403,7 @@ int32_t libc_psp_sceKernelVolatileMemLock(int32_t unk, void* ptr, void* size) {
     return -1;
 }
 
-int32_t libc_psp_sceKernelVolatileMemTryLock(int32_t unk, void* ptr, void* size) {
+int32_t libcPspSceKernelVolatileMemTryLock(int32_t unk, void* ptr, void* size) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3431,7 +3431,7 @@ int32_t libc_psp_sceKernelVolatileMemTryLock(int32_t unk, void* ptr, void* size)
     return -1;
 }
 
-int32_t libc_psp_sceKernelVolatileMemUnlock(int32_t unk) {
+int32_t libcPspSceKernelVolatileMemUnlock(int32_t unk) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3459,7 +3459,7 @@ int32_t libc_psp_sceKernelVolatileMemUnlock(int32_t unk) {
     return -1;
 }
 
-int32_t libc_psp_sceKernelExitThread(int32_t status) {
+int32_t libcPspSceKernelExitThread(int32_t status) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3487,7 +3487,7 @@ int32_t libc_psp_sceKernelExitThread(int32_t status) {
     return -1;
 }
 
-int32_t libc_psp_sceKernelExitDeleteThread(int32_t status) {
+int32_t libcPspSceKernelExitDeleteThread(int32_t status) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3515,7 +3515,7 @@ int32_t libc_psp_sceKernelExitDeleteThread(int32_t status) {
     return -1;
 }
 
-int32_t libc_psp_sceKernelSuspendDispatchThread(void) {
+int32_t libcPspSceKernelSuspendDispatchThread(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3543,7 +3543,7 @@ int32_t libc_psp_sceKernelSuspendDispatchThread(void) {
     return -1;
 }
 
-int32_t libc_psp_sceKernelResumeDispatchThread(int32_t state) {
+int32_t libcPspSceKernelResumeDispatchThread(int32_t state) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3571,7 +3571,7 @@ int32_t libc_psp_sceKernelResumeDispatchThread(int32_t state) {
     return -1;
 }
 
-int32_t libc_psp_sceKernelSleepThread(void) {
+int32_t libcPspSceKernelSleepThread(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3599,7 +3599,7 @@ int32_t libc_psp_sceKernelSleepThread(void) {
     return -1;
 }
 
-int32_t libc_psp_sceKernelSleepThreadCB(void) {
+int32_t libcPspSceKernelSleepThreadCB(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3627,7 +3627,7 @@ int32_t libc_psp_sceKernelSleepThreadCB(void) {
     return -1;
 }
 
-int32_t libc_psp_sceKernelDelayThread(uint32_t delay) {
+int32_t libcPspSceKernelDelayThread(uint32_t delay) {
     typedef int32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3655,7 +3655,7 @@ int32_t libc_psp_sceKernelDelayThread(uint32_t delay) {
     return -1;
 }
 
-int32_t libc_psp_sceKernelDelayThreadCB(uint32_t delay) {
+int32_t libcPspSceKernelDelayThreadCB(uint32_t delay) {
     typedef int32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3683,7 +3683,7 @@ int32_t libc_psp_sceKernelDelayThreadCB(uint32_t delay) {
     return -1;
 }
 
-int32_t libc_psp_sceKernelDelaySysClockThread(void* delay) {
+int32_t libcPspSceKernelDelaySysClockThread(void* delay) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3711,7 +3711,7 @@ int32_t libc_psp_sceKernelDelaySysClockThread(void* delay) {
     return -1;
 }
 
-int32_t libc_psp_sceKernelDelaySysClockThreadCB(void* delay) {
+int32_t libcPspSceKernelDelaySysClockThreadCB(void* delay) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3739,7 +3739,7 @@ int32_t libc_psp_sceKernelDelaySysClockThreadCB(void* delay) {
     return -1;
 }
 
-int32_t libc_psp_sceKernelChangeCurrentThreadAttr(int32_t unknown, int32_t attr) {
+int32_t libcPspSceKernelChangeCurrentThreadAttr(int32_t unknown, int32_t attr) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3767,7 +3767,7 @@ int32_t libc_psp_sceKernelChangeCurrentThreadAttr(int32_t unknown, int32_t attr)
     return -1;
 }
 
-int32_t libc_psp_sceKernelRotateThreadReadyQueue(int32_t priority) {
+int32_t libcPspSceKernelRotateThreadReadyQueue(int32_t priority) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3795,7 +3795,7 @@ int32_t libc_psp_sceKernelRotateThreadReadyQueue(int32_t priority) {
     return -1;
 }
 
-int32_t libc_psp_sceKernelGetThreadId(void) {
+int32_t libcPspSceKernelGetThreadId(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3823,7 +3823,7 @@ int32_t libc_psp_sceKernelGetThreadId(void) {
     return -1;
 }
 
-int32_t libc_psp_sceKernelGetThreadCurrentPriority(void) {
+int32_t libcPspSceKernelGetThreadCurrentPriority(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3851,7 +3851,7 @@ int32_t libc_psp_sceKernelGetThreadCurrentPriority(void) {
     return -1;
 }
 
-int32_t libc_psp_sceKernelCheckThreadStack(void) {
+int32_t libcPspSceKernelCheckThreadStack(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3879,7 +3879,7 @@ int32_t libc_psp_sceKernelCheckThreadStack(void) {
     return -1;
 }
 
-int32_t libc_psp_sceKernelCheckCallback(void) {
+int32_t libcPspSceKernelCheckCallback(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3907,7 +3907,7 @@ int32_t libc_psp_sceKernelCheckCallback(void) {
     return -1;
 }
 
-int32_t libc_psp_sceKernelReferSystemStatus(void* status) {
+int32_t libcPspSceKernelReferSystemStatus(void* status) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3935,7 +3935,7 @@ int32_t libc_psp_sceKernelReferSystemStatus(void* status) {
     return -1;
 }
 
-int32_t libc_psp_sceKernelCreateFpl(void* name, int32_t part, int32_t attr, uint32_t size, uint32_t blocks, void* opt) {
+int32_t libcPspSceKernelCreateFpl(void* name, int32_t part, int32_t attr, uint32_t size, uint32_t blocks, void* opt) {
     typedef int32_t (*km_fn_t)(void*, int32_t, int32_t, uint32_t, uint32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3963,7 +3963,7 @@ int32_t libc_psp_sceKernelCreateFpl(void* name, int32_t part, int32_t attr, uint
     return -1;
 }
 
-int32_t libc_psp_sceKernelUSec2SysClock(uint32_t usec, void* clock) {
+int32_t libcPspSceKernelUSec2SysClock(uint32_t usec, void* clock) {
     typedef int32_t (*km_fn_t)(uint32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3991,7 +3991,7 @@ int32_t libc_psp_sceKernelUSec2SysClock(uint32_t usec, void* clock) {
     return -1;
 }
 
-int64_t libc_psp_sceKernelUSec2SysClockWide(uint32_t usec) {
+int64_t libcPspSceKernelUSec2SysClockWide(uint32_t usec) {
     typedef int64_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4019,7 +4019,7 @@ int64_t libc_psp_sceKernelUSec2SysClockWide(uint32_t usec) {
     return -1;
 }
 
-int32_t libc_psp_sceKernelSysClock2USec(void* clock, void* low, void* high) {
+int32_t libcPspSceKernelSysClock2USec(void* clock, void* low, void* high) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4047,7 +4047,7 @@ int32_t libc_psp_sceKernelSysClock2USec(void* clock, void* low, void* high) {
     return -1;
 }
 
-int32_t libc_psp_sceKernelSysClock2USecWide(int64_t clock, void* low, void* high) {
+int32_t libcPspSceKernelSysClock2USecWide(int64_t clock, void* low, void* high) {
     typedef int32_t (*km_fn_t)(int64_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4075,7 +4075,7 @@ int32_t libc_psp_sceKernelSysClock2USecWide(int64_t clock, void* low, void* high
     return -1;
 }
 
-int32_t libc_psp_sceKernelGetSystemTime(void* arg_0_time) {
+int32_t libcPspSceKernelGetSystemTime(void* arg0Time) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4097,13 +4097,13 @@ int32_t libc_psp_sceKernelGetSystemTime(void* arg_0_time) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_time);
+        return km_fn_ptr(arg0Time);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_psp_sceKernelGetSystemTimeWide(void) {
+int64_t libcPspSceKernelGetSystemTimeWide(void) {
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4131,7 +4131,7 @@ int64_t libc_psp_sceKernelGetSystemTimeWide(void) {
     return -1;
 }
 
-uint32_t libc_psp_sceKernelGetSystemTimeLow(void) {
+uint32_t libcPspSceKernelGetSystemTimeLow(void) {
     typedef uint32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4159,7 +4159,7 @@ uint32_t libc_psp_sceKernelGetSystemTimeLow(void) {
     return 0;
 }
 
-void* libc_psp_sceKernelReferThreadProfiler(void) {
+void* libcPspSceKernelReferThreadProfiler(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4187,7 +4187,7 @@ void* libc_psp_sceKernelReferThreadProfiler(void) {
     return NULL;
 }
 
-void* libc_psp_sceKernelReferGlobalProfiler(void) {
+void* libcPspSceKernelReferGlobalProfiler(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4215,7 +4215,7 @@ void* libc_psp_sceKernelReferGlobalProfiler(void) {
     return NULL;
 }
 
-int32_t libc_psp_sceUsbStart(void* driver_name, int32_t size, void* args) {
+int32_t libcPspSceUsbStart(void* driverName, int32_t size, void* args) {
     typedef int32_t (*km_fn_t)(void*, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4237,13 +4237,13 @@ int32_t libc_psp_sceUsbStart(void* driver_name, int32_t size, void* args) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(driver_name, size, args);
+        return km_fn_ptr(driverName, size, args);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceUsbStop(void* driver_name, int32_t size, void* args) {
+int32_t libcPspSceUsbStop(void* driverName, int32_t size, void* args) {
     typedef int32_t (*km_fn_t)(void*, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4265,13 +4265,13 @@ int32_t libc_psp_sceUsbStop(void* driver_name, int32_t size, void* args) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(driver_name, size, args);
+        return km_fn_ptr(driverName, size, args);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceUsbActivate(uint32_t pid) {
+int32_t libcPspSceUsbActivate(uint32_t pid) {
     typedef int32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4299,7 +4299,7 @@ int32_t libc_psp_sceUsbActivate(uint32_t pid) {
     return -1;
 }
 
-int32_t libc_psp_sceUsbDeactivate(uint32_t pid) {
+int32_t libcPspSceUsbDeactivate(uint32_t pid) {
     typedef int32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4327,7 +4327,7 @@ int32_t libc_psp_sceUsbDeactivate(uint32_t pid) {
     return -1;
 }
 
-int32_t libc_psp_sceUsbGetState(void) {
+int32_t libcPspSceUsbGetState(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4355,7 +4355,7 @@ int32_t libc_psp_sceUsbGetState(void) {
     return -1;
 }
 
-int32_t libc_psp_sceUsbGetDrvState(void* driver_name) {
+int32_t libcPspSceUsbGetDrvState(void* driverName) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4377,13 +4377,13 @@ int32_t libc_psp_sceUsbGetDrvState(void* driver_name) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(driver_name);
+        return km_fn_ptr(driverName);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceUsbCamSetupStill(void* param) {
+int32_t libcPspSceUsbCamSetupStill(void* param) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4411,7 +4411,7 @@ int32_t libc_psp_sceUsbCamSetupStill(void* param) {
     return -1;
 }
 
-int32_t libc_psp_sceUsbCamSetupStillEx(void* param) {
+int32_t libcPspSceUsbCamSetupStillEx(void* param) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4439,7 +4439,7 @@ int32_t libc_psp_sceUsbCamSetupStillEx(void* param) {
     return -1;
 }
 
-int32_t libc_psp_sceUsbCamStillInputBlocking(void* buf, uint64_t size) {
+int32_t libcPspSceUsbCamStillInputBlocking(void* buf, uint64_t size) {
     typedef int32_t (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4467,7 +4467,7 @@ int32_t libc_psp_sceUsbCamStillInputBlocking(void* buf, uint64_t size) {
     return -1;
 }
 
-int32_t libc_psp_sceUsbCamStillInput(void* buf, uint64_t size) {
+int32_t libcPspSceUsbCamStillInput(void* buf, uint64_t size) {
     typedef int32_t (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4495,7 +4495,7 @@ int32_t libc_psp_sceUsbCamStillInput(void* buf, uint64_t size) {
     return -1;
 }
 
-int32_t libc_psp_sceUsbCamStillWaitInputEnd(void) {
+int32_t libcPspSceUsbCamStillWaitInputEnd(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4523,7 +4523,7 @@ int32_t libc_psp_sceUsbCamStillWaitInputEnd(void) {
     return -1;
 }
 
-int32_t libc_psp_sceUsbCamStillPollInputEnd(void) {
+int32_t libcPspSceUsbCamStillPollInputEnd(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4551,7 +4551,7 @@ int32_t libc_psp_sceUsbCamStillPollInputEnd(void) {
     return -1;
 }
 
-int32_t libc_psp_sceUsbCamStillCancelInput(void) {
+int32_t libcPspSceUsbCamStillCancelInput(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4579,7 +4579,7 @@ int32_t libc_psp_sceUsbCamStillCancelInput(void) {
     return -1;
 }
 
-int32_t libc_psp_sceUsbCamStillGetInputLength(void) {
+int32_t libcPspSceUsbCamStillGetInputLength(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4607,7 +4607,7 @@ int32_t libc_psp_sceUsbCamStillGetInputLength(void) {
     return -1;
 }
 
-int32_t libc_psp_sceUsbCamSetupVideo(void* param, void* work_area, int32_t work_area_size) {
+int32_t libcPspSceUsbCamSetupVideo(void* param, void* workArea, int32_t workAreaSize) {
     typedef int32_t (*km_fn_t)(void*, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4629,13 +4629,13 @@ int32_t libc_psp_sceUsbCamSetupVideo(void* param, void* work_area, int32_t work_
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(param, work_area, work_area_size);
+        return km_fn_ptr(param, workArea, workAreaSize);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceUsbCamSetupVideoEx(void* param, void* work_area, int32_t work_area_size) {
+int32_t libcPspSceUsbCamSetupVideoEx(void* param, void* workArea, int32_t workAreaSize) {
     typedef int32_t (*km_fn_t)(void*, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4657,13 +4657,13 @@ int32_t libc_psp_sceUsbCamSetupVideoEx(void* param, void* work_area, int32_t wor
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(param, work_area, work_area_size);
+        return km_fn_ptr(param, workArea, workAreaSize);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceUsbCamStartVideo(void) {
+int32_t libcPspSceUsbCamStartVideo(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4691,7 +4691,7 @@ int32_t libc_psp_sceUsbCamStartVideo(void) {
     return -1;
 }
 
-int32_t libc_psp_sceUsbCamStopVideo(void) {
+int32_t libcPspSceUsbCamStopVideo(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4719,7 +4719,7 @@ int32_t libc_psp_sceUsbCamStopVideo(void) {
     return -1;
 }
 
-int32_t libc_psp_sceUsbCamReadVideoFrameBlocking(void* buf, uint64_t size) {
+int32_t libcPspSceUsbCamReadVideoFrameBlocking(void* buf, uint64_t size) {
     typedef int32_t (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4747,7 +4747,7 @@ int32_t libc_psp_sceUsbCamReadVideoFrameBlocking(void* buf, uint64_t size) {
     return -1;
 }
 
-int32_t libc_psp_sceUsbCamReadVideoFrame(void* buf, uint64_t size) {
+int32_t libcPspSceUsbCamReadVideoFrame(void* buf, uint64_t size) {
     typedef int32_t (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4775,7 +4775,7 @@ int32_t libc_psp_sceUsbCamReadVideoFrame(void* buf, uint64_t size) {
     return -1;
 }
 
-int32_t libc_psp_sceUsbCamWaitReadVideoFrameEnd(void) {
+int32_t libcPspSceUsbCamWaitReadVideoFrameEnd(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4803,7 +4803,7 @@ int32_t libc_psp_sceUsbCamWaitReadVideoFrameEnd(void) {
     return -1;
 }
 
-int32_t libc_psp_sceUsbCamPollReadVideoFrameEnd(void) {
+int32_t libcPspSceUsbCamPollReadVideoFrameEnd(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4831,7 +4831,7 @@ int32_t libc_psp_sceUsbCamPollReadVideoFrameEnd(void) {
     return -1;
 }
 
-int32_t libc_psp_sceUsbCamGetReadVideoFrameSize(void) {
+int32_t libcPspSceUsbCamGetReadVideoFrameSize(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4859,7 +4859,7 @@ int32_t libc_psp_sceUsbCamGetReadVideoFrameSize(void) {
     return -1;
 }
 
-int32_t libc_psp_sceUsbCamSetSaturation(int32_t saturation) {
+int32_t libcPspSceUsbCamSetSaturation(int32_t saturation) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4887,7 +4887,7 @@ int32_t libc_psp_sceUsbCamSetSaturation(int32_t saturation) {
     return -1;
 }
 
-int32_t libc_psp_sceUsbCamSetBrightness(int32_t brightness) {
+int32_t libcPspSceUsbCamSetBrightness(int32_t brightness) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4915,7 +4915,7 @@ int32_t libc_psp_sceUsbCamSetBrightness(int32_t brightness) {
     return -1;
 }
 
-int32_t libc_psp_sceUsbCamSetContrast(int32_t contrast) {
+int32_t libcPspSceUsbCamSetContrast(int32_t contrast) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4943,7 +4943,7 @@ int32_t libc_psp_sceUsbCamSetContrast(int32_t contrast) {
     return -1;
 }
 
-int32_t libc_psp_sceUsbCamSetSharpness(int32_t sharpness) {
+int32_t libcPspSceUsbCamSetSharpness(int32_t sharpness) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4971,7 +4971,7 @@ int32_t libc_psp_sceUsbCamSetSharpness(int32_t sharpness) {
     return -1;
 }
 
-int32_t libc_psp_sceUsbCamSetReverseMode(int32_t reverse_flags) {
+int32_t libcPspSceUsbCamSetReverseMode(int32_t reverseFlags) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4993,13 +4993,13 @@ int32_t libc_psp_sceUsbCamSetReverseMode(int32_t reverse_flags) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(reverse_flags);
+        return km_fn_ptr(reverseFlags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceUsbCamSetZoom(int32_t zoom) {
+int32_t libcPspSceUsbCamSetZoom(int32_t zoom) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5027,7 +5027,7 @@ int32_t libc_psp_sceUsbCamSetZoom(int32_t zoom) {
     return -1;
 }
 
-int32_t libc_psp_sceUsbCamGetSaturation(void* saturation) {
+int32_t libcPspSceUsbCamGetSaturation(void* saturation) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5055,7 +5055,7 @@ int32_t libc_psp_sceUsbCamGetSaturation(void* saturation) {
     return -1;
 }
 
-int32_t libc_psp_sceUsbCamGetBrightness(void* brightness) {
+int32_t libcPspSceUsbCamGetBrightness(void* brightness) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5083,7 +5083,7 @@ int32_t libc_psp_sceUsbCamGetBrightness(void* brightness) {
     return -1;
 }
 
-int32_t libc_psp_sceUsbCamGetContrast(void* contrast) {
+int32_t libcPspSceUsbCamGetContrast(void* contrast) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5111,7 +5111,7 @@ int32_t libc_psp_sceUsbCamGetContrast(void* contrast) {
     return -1;
 }
 
-int32_t libc_psp_sceUsbCamGetSharpness(void* sharpness) {
+int32_t libcPspSceUsbCamGetSharpness(void* sharpness) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5139,7 +5139,7 @@ int32_t libc_psp_sceUsbCamGetSharpness(void* sharpness) {
     return -1;
 }
 
-int32_t libc_psp_sceUsbCamGetImageEffectMode(void* effect_mode) {
+int32_t libcPspSceUsbCamGetImageEffectMode(void* effectMode) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5161,13 +5161,13 @@ int32_t libc_psp_sceUsbCamGetImageEffectMode(void* effect_mode) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(effect_mode);
+        return km_fn_ptr(effectMode);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceUsbCamGetEvLevel(void* exposure_level) {
+int32_t libcPspSceUsbCamGetEvLevel(void* exposureLevel) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5189,13 +5189,13 @@ int32_t libc_psp_sceUsbCamGetEvLevel(void* exposure_level) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(exposure_level);
+        return km_fn_ptr(exposureLevel);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceUsbCamGetReverseMode(void* reverse_flags) {
+int32_t libcPspSceUsbCamGetReverseMode(void* reverseFlags) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5217,13 +5217,13 @@ int32_t libc_psp_sceUsbCamGetReverseMode(void* reverse_flags) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(reverse_flags);
+        return km_fn_ptr(reverseFlags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceUsbCamGetZoom(void* zoom) {
+int32_t libcPspSceUsbCamGetZoom(void* zoom) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5251,7 +5251,7 @@ int32_t libc_psp_sceUsbCamGetZoom(void* zoom) {
     return -1;
 }
 
-int32_t libc_psp_sceUsbCamAutoImageReverseSW(int32_t on) {
+int32_t libcPspSceUsbCamAutoImageReverseSW(int32_t on) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5279,7 +5279,7 @@ int32_t libc_psp_sceUsbCamAutoImageReverseSW(int32_t on) {
     return -1;
 }
 
-int32_t libc_psp_sceUsbCamGetAutoImageReverseState(void) {
+int32_t libcPspSceUsbCamGetAutoImageReverseState(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5307,7 +5307,7 @@ int32_t libc_psp_sceUsbCamGetAutoImageReverseState(void) {
     return -1;
 }
 
-int32_t libc_psp_sceUsbCamGetLensDirection(void) {
+int32_t libcPspSceUsbCamGetLensDirection(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5335,7 +5335,7 @@ int32_t libc_psp_sceUsbCamGetLensDirection(void) {
     return -1;
 }
 
-int32_t libc_psp_sceUsbstorBootUnregisterNotify(uint32_t event_flag) {
+int32_t libcPspSceUsbstorBootUnregisterNotify(uint32_t eventFlag) {
     typedef int32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5357,13 +5357,13 @@ int32_t libc_psp_sceUsbstorBootUnregisterNotify(uint32_t event_flag) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(event_flag);
+        return km_fn_ptr(eventFlag);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceUsbstorBootSetCapacity(uint32_t size) {
+int32_t libcPspSceUsbstorBootSetCapacity(uint32_t size) {
     typedef int32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5391,7 +5391,7 @@ int32_t libc_psp_sceUsbstorBootSetCapacity(uint32_t size) {
     return -1;
 }
 
-int32_t libc_psp_scePowerUnregisterCallback(int32_t slot) {
+int32_t libcPspScePowerUnregisterCallback(int32_t slot) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5419,7 +5419,7 @@ int32_t libc_psp_scePowerUnregisterCallback(int32_t slot) {
     return -1;
 }
 
-int32_t libc_psp_scePowerIsPowerOnline(void) {
+int32_t libcPspScePowerIsPowerOnline(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5447,7 +5447,7 @@ int32_t libc_psp_scePowerIsPowerOnline(void) {
     return -1;
 }
 
-int32_t libc_psp_scePowerIsBatteryExist(void) {
+int32_t libcPspScePowerIsBatteryExist(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5475,7 +5475,7 @@ int32_t libc_psp_scePowerIsBatteryExist(void) {
     return -1;
 }
 
-int32_t libc_psp_scePowerIsBatteryCharging(void) {
+int32_t libcPspScePowerIsBatteryCharging(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5503,7 +5503,7 @@ int32_t libc_psp_scePowerIsBatteryCharging(void) {
     return -1;
 }
 
-int32_t libc_psp_scePowerGetBatteryChargingStatus(void) {
+int32_t libcPspScePowerGetBatteryChargingStatus(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5531,7 +5531,7 @@ int32_t libc_psp_scePowerGetBatteryChargingStatus(void) {
     return -1;
 }
 
-int32_t libc_psp_scePowerIsLowBattery(void) {
+int32_t libcPspScePowerIsLowBattery(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5559,7 +5559,7 @@ int32_t libc_psp_scePowerIsLowBattery(void) {
     return -1;
 }
 
-int32_t libc_psp_scePowerGetBatteryLifePercent(void) {
+int32_t libcPspScePowerGetBatteryLifePercent(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5587,7 +5587,7 @@ int32_t libc_psp_scePowerGetBatteryLifePercent(void) {
     return -1;
 }
 
-int32_t libc_psp_scePowerGetBatteryLifeTime(void) {
+int32_t libcPspScePowerGetBatteryLifeTime(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5615,7 +5615,7 @@ int32_t libc_psp_scePowerGetBatteryLifeTime(void) {
     return -1;
 }
 
-int32_t libc_psp_scePowerGetBatteryTemp(void) {
+int32_t libcPspScePowerGetBatteryTemp(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5643,7 +5643,7 @@ int32_t libc_psp_scePowerGetBatteryTemp(void) {
     return -1;
 }
 
-int32_t libc_psp_scePowerGetBatteryElec(void) {
+int32_t libcPspScePowerGetBatteryElec(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5671,7 +5671,7 @@ int32_t libc_psp_scePowerGetBatteryElec(void) {
     return -1;
 }
 
-int32_t libc_psp_scePowerGetBatteryVolt(void) {
+int32_t libcPspScePowerGetBatteryVolt(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5699,7 +5699,7 @@ int32_t libc_psp_scePowerGetBatteryVolt(void) {
     return -1;
 }
 
-int32_t libc_psp_scePowerSetCpuClockFrequency(int32_t cpufreq) {
+int32_t libcPspScePowerSetCpuClockFrequency(int32_t cpufreq) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5727,7 +5727,7 @@ int32_t libc_psp_scePowerSetCpuClockFrequency(int32_t cpufreq) {
     return -1;
 }
 
-int32_t libc_psp_scePowerSetBusClockFrequency(int32_t busfreq) {
+int32_t libcPspScePowerSetBusClockFrequency(int32_t busfreq) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5755,7 +5755,7 @@ int32_t libc_psp_scePowerSetBusClockFrequency(int32_t busfreq) {
     return -1;
 }
 
-int32_t libc_psp_scePowerGetCpuClockFrequency(void) {
+int32_t libcPspScePowerGetCpuClockFrequency(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5783,7 +5783,7 @@ int32_t libc_psp_scePowerGetCpuClockFrequency(void) {
     return -1;
 }
 
-int32_t libc_psp_scePowerGetCpuClockFrequencyInt(void) {
+int32_t libcPspScePowerGetCpuClockFrequencyInt(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5811,7 +5811,7 @@ int32_t libc_psp_scePowerGetCpuClockFrequencyInt(void) {
     return -1;
 }
 
-float libc_psp_scePowerGetCpuClockFrequencyFloat(void) {
+float libcPspScePowerGetCpuClockFrequencyFloat(void) {
     typedef float (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5839,7 +5839,7 @@ float libc_psp_scePowerGetCpuClockFrequencyFloat(void) {
     return 0.0f;
 }
 
-int32_t libc_psp_scePowerGetBusClockFrequency(void) {
+int32_t libcPspScePowerGetBusClockFrequency(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5867,7 +5867,7 @@ int32_t libc_psp_scePowerGetBusClockFrequency(void) {
     return -1;
 }
 
-int32_t libc_psp_scePowerGetBusClockFrequencyInt(void) {
+int32_t libcPspScePowerGetBusClockFrequencyInt(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5895,7 +5895,7 @@ int32_t libc_psp_scePowerGetBusClockFrequencyInt(void) {
     return -1;
 }
 
-float libc_psp_scePowerGetBusClockFrequencyFloat(void) {
+float libcPspScePowerGetBusClockFrequencyFloat(void) {
     typedef float (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5923,7 +5923,7 @@ float libc_psp_scePowerGetBusClockFrequencyFloat(void) {
     return 0.0f;
 }
 
-int32_t libc_psp_scePowerSetClockFrequency(int32_t pllfreq, int32_t cpufreq, int32_t busfreq) {
+int32_t libcPspScePowerSetClockFrequency(int32_t pllfreq, int32_t cpufreq, int32_t busfreq) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5951,7 +5951,7 @@ int32_t libc_psp_scePowerSetClockFrequency(int32_t pllfreq, int32_t cpufreq, int
     return -1;
 }
 
-int32_t libc_psp_scePowerLock(int32_t unknown) {
+int32_t libcPspScePowerLock(int32_t unknown) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5979,7 +5979,7 @@ int32_t libc_psp_scePowerLock(int32_t unknown) {
     return -1;
 }
 
-int32_t libc_psp_scePowerUnlock(int32_t unknown) {
+int32_t libcPspScePowerUnlock(int32_t unknown) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6007,7 +6007,7 @@ int32_t libc_psp_scePowerUnlock(int32_t unknown) {
     return -1;
 }
 
-int32_t libc_psp_scePowerGetIdleTimer(void) {
+int32_t libcPspScePowerGetIdleTimer(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6035,7 +6035,7 @@ int32_t libc_psp_scePowerGetIdleTimer(void) {
     return -1;
 }
 
-int32_t libc_psp_scePowerIdleTimerEnable(int32_t unknown) {
+int32_t libcPspScePowerIdleTimerEnable(int32_t unknown) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6063,7 +6063,7 @@ int32_t libc_psp_scePowerIdleTimerEnable(int32_t unknown) {
     return -1;
 }
 
-int32_t libc_psp_scePowerIdleTimerDisable(int32_t unknown) {
+int32_t libcPspScePowerIdleTimerDisable(int32_t unknown) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6091,7 +6091,7 @@ int32_t libc_psp_scePowerIdleTimerDisable(int32_t unknown) {
     return -1;
 }
 
-int32_t libc_psp_scePowerRequestStandby(void) {
+int32_t libcPspScePowerRequestStandby(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6119,7 +6119,7 @@ int32_t libc_psp_scePowerRequestStandby(void) {
     return -1;
 }
 
-int32_t libc_psp_scePowerRequestSuspend(void) {
+int32_t libcPspScePowerRequestSuspend(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6147,7 +6147,7 @@ int32_t libc_psp_scePowerRequestSuspend(void) {
     return -1;
 }
 
-int32_t libc_psp_sceWlanDevIsPowerOn(void) {
+int32_t libcPspSceWlanDevIsPowerOn(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6175,7 +6175,7 @@ int32_t libc_psp_sceWlanDevIsPowerOn(void) {
     return -1;
 }
 
-int32_t libc_psp_sceWlanGetSwitchState(void) {
+int32_t libcPspSceWlanGetSwitchState(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6203,7 +6203,7 @@ int32_t libc_psp_sceWlanGetSwitchState(void) {
     return -1;
 }
 
-int32_t libc_psp_sceWlanGetEtherAddr(void* ether_addr) {
+int32_t libcPspSceWlanGetEtherAddr(void* etherAddr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6225,13 +6225,13 @@ int32_t libc_psp_sceWlanGetEtherAddr(void* ether_addr) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(ether_addr);
+        return km_fn_ptr(etherAddr);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceWlanDevAttach(void) {
+int32_t libcPspSceWlanDevAttach(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6259,7 +6259,7 @@ int32_t libc_psp_sceWlanDevAttach(void) {
     return -1;
 }
 
-int32_t libc_psp_sceWlanDevDetach(void) {
+int32_t libcPspSceWlanDevDetach(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6287,7 +6287,7 @@ int32_t libc_psp_sceWlanDevDetach(void) {
     return -1;
 }
 
-uint32_t libc_psp_sceRtcGetTickResolution(void) {
+uint32_t libcPspSceRtcGetTickResolution(void) {
     typedef uint32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6315,7 +6315,7 @@ uint32_t libc_psp_sceRtcGetTickResolution(void) {
     return 0;
 }
 
-int32_t libc_psp_sceRtcGetCurrentTick(void* tick) {
+int32_t libcPspSceRtcGetCurrentTick(void* tick) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6343,7 +6343,7 @@ int32_t libc_psp_sceRtcGetCurrentTick(void* tick) {
     return -1;
 }
 
-int32_t libc_psp_sceRtcGetCurrentClock(void* tm, int32_t tz) {
+int32_t libcPspSceRtcGetCurrentClock(void* tm, int32_t tz) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6371,7 +6371,7 @@ int32_t libc_psp_sceRtcGetCurrentClock(void* tm, int32_t tz) {
     return -1;
 }
 
-int32_t libc_psp_sceRtcGetCurrentClockLocalTime(void* tm) {
+int32_t libcPspSceRtcGetCurrentClockLocalTime(void* tm) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6399,7 +6399,7 @@ int32_t libc_psp_sceRtcGetCurrentClockLocalTime(void* tm) {
     return -1;
 }
 
-int32_t libc_psp_sceRtcConvertUtcToLocalTime(void* tick_utc, void* tick_local) {
+int32_t libcPspSceRtcConvertUtcToLocalTime(void* tickUtc, void* tickLocal) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6421,13 +6421,13 @@ int32_t libc_psp_sceRtcConvertUtcToLocalTime(void* tick_utc, void* tick_local) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(tick_utc, tick_local);
+        return km_fn_ptr(tickUtc, tickLocal);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceRtcConvertLocalTimeToUTC(void* tick_local, void* tick_utc) {
+int32_t libcPspSceRtcConvertLocalTimeToUTC(void* tickLocal, void* tickUtc) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6449,13 +6449,13 @@ int32_t libc_psp_sceRtcConvertLocalTimeToUTC(void* tick_local, void* tick_utc) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(tick_local, tick_utc);
+        return km_fn_ptr(tickLocal, tickUtc);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceRtcIsLeapYear(int32_t year) {
+int32_t libcPspSceRtcIsLeapYear(int32_t year) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6483,7 +6483,7 @@ int32_t libc_psp_sceRtcIsLeapYear(int32_t year) {
     return -1;
 }
 
-int32_t libc_psp_sceRtcGetDaysInMonth(int32_t year, int32_t month) {
+int32_t libcPspSceRtcGetDaysInMonth(int32_t year, int32_t month) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6511,7 +6511,7 @@ int32_t libc_psp_sceRtcGetDaysInMonth(int32_t year, int32_t month) {
     return -1;
 }
 
-int32_t libc_psp_sceRtcGetDayOfWeek(int32_t year, int32_t month, int32_t day) {
+int32_t libcPspSceRtcGetDayOfWeek(int32_t year, int32_t month, int32_t day) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6539,7 +6539,7 @@ int32_t libc_psp_sceRtcGetDayOfWeek(int32_t year, int32_t month, int32_t day) {
     return -1;
 }
 
-int32_t libc_psp_sceRtcCheckValid(void* date) {
+int32_t libcPspSceRtcCheckValid(void* date) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6567,7 +6567,7 @@ int32_t libc_psp_sceRtcCheckValid(void* date) {
     return -1;
 }
 
-int32_t libc_psp_sceRtcSetTick(void* date, void* tick) {
+int32_t libcPspSceRtcSetTick(void* date, void* tick) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6595,7 +6595,7 @@ int32_t libc_psp_sceRtcSetTick(void* date, void* tick) {
     return -1;
 }
 
-int32_t libc_psp_sceRtcGetTick(void* date, void* tick) {
+int32_t libcPspSceRtcGetTick(void* date, void* tick) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6623,7 +6623,7 @@ int32_t libc_psp_sceRtcGetTick(void* date, void* tick) {
     return -1;
 }
 
-int32_t libc_psp_sceRtcCompareTick(void* tick1, void* tick2) {
+int32_t libcPspSceRtcCompareTick(void* tick1, void* tick2) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6651,7 +6651,7 @@ int32_t libc_psp_sceRtcCompareTick(void* tick1, void* tick2) {
     return -1;
 }
 
-int32_t libc_psp_sceRtcTickAddTicks(void* dest_tick, void* src_tick, uint64_t num_ticks) {
+int32_t libcPspSceRtcTickAddTicks(void* destTick, void* srcTick, uint64_t numTicks) {
     typedef int32_t (*km_fn_t)(void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6673,13 +6673,13 @@ int32_t libc_psp_sceRtcTickAddTicks(void* dest_tick, void* src_tick, uint64_t nu
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(dest_tick, src_tick, num_ticks);
+        return km_fn_ptr(destTick, srcTick, numTicks);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceRtcTickAddMicroseconds(void* dest_tick, void* src_tick, uint64_t num_ms) {
+int32_t libcPspSceRtcTickAddMicroseconds(void* destTick, void* srcTick, uint64_t numMs) {
     typedef int32_t (*km_fn_t)(void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6701,13 +6701,13 @@ int32_t libc_psp_sceRtcTickAddMicroseconds(void* dest_tick, void* src_tick, uint
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(dest_tick, src_tick, num_ms);
+        return km_fn_ptr(destTick, srcTick, numMs);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceRtcTickAddSeconds(void* dest_tick, void* src_tick, uint64_t num_seconds) {
+int32_t libcPspSceRtcTickAddSeconds(void* destTick, void* srcTick, uint64_t numSeconds) {
     typedef int32_t (*km_fn_t)(void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6729,13 +6729,13 @@ int32_t libc_psp_sceRtcTickAddSeconds(void* dest_tick, void* src_tick, uint64_t 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(dest_tick, src_tick, num_seconds);
+        return km_fn_ptr(destTick, srcTick, numSeconds);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceRtcTickAddMinutes(void* dest_tick, void* src_tick, uint64_t num_minutes) {
+int32_t libcPspSceRtcTickAddMinutes(void* destTick, void* srcTick, uint64_t numMinutes) {
     typedef int32_t (*km_fn_t)(void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6757,13 +6757,13 @@ int32_t libc_psp_sceRtcTickAddMinutes(void* dest_tick, void* src_tick, uint64_t 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(dest_tick, src_tick, num_minutes);
+        return km_fn_ptr(destTick, srcTick, numMinutes);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceRtcTickAddHours(void* dest_tick, void* src_tick, uint64_t num_hours) {
+int32_t libcPspSceRtcTickAddHours(void* destTick, void* srcTick, uint64_t numHours) {
     typedef int32_t (*km_fn_t)(void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6785,13 +6785,13 @@ int32_t libc_psp_sceRtcTickAddHours(void* dest_tick, void* src_tick, uint64_t nu
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(dest_tick, src_tick, num_hours);
+        return km_fn_ptr(destTick, srcTick, numHours);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceRtcTickAddDays(void* dest_tick, void* src_tick, uint64_t num_days) {
+int32_t libcPspSceRtcTickAddDays(void* destTick, void* srcTick, uint64_t numDays) {
     typedef int32_t (*km_fn_t)(void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6813,13 +6813,13 @@ int32_t libc_psp_sceRtcTickAddDays(void* dest_tick, void* src_tick, uint64_t num
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(dest_tick, src_tick, num_days);
+        return km_fn_ptr(destTick, srcTick, numDays);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceRtcTickAddWeeks(void* dest_tick, void* src_tick, uint64_t num_weeks) {
+int32_t libcPspSceRtcTickAddWeeks(void* destTick, void* srcTick, uint64_t numWeeks) {
     typedef int32_t (*km_fn_t)(void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6841,13 +6841,13 @@ int32_t libc_psp_sceRtcTickAddWeeks(void* dest_tick, void* src_tick, uint64_t nu
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(dest_tick, src_tick, num_weeks);
+        return km_fn_ptr(destTick, srcTick, numWeeks);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceRtcTickAddMonths(void* dest_tick, void* src_tick, uint64_t num_months) {
+int32_t libcPspSceRtcTickAddMonths(void* destTick, void* srcTick, uint64_t numMonths) {
     typedef int32_t (*km_fn_t)(void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6869,13 +6869,13 @@ int32_t libc_psp_sceRtcTickAddMonths(void* dest_tick, void* src_tick, uint64_t n
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(dest_tick, src_tick, num_months);
+        return km_fn_ptr(destTick, srcTick, numMonths);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceRtcTickAddYears(void* dest_tick, void* src_tick, uint64_t num_years) {
+int32_t libcPspSceRtcTickAddYears(void* destTick, void* srcTick, uint64_t numYears) {
     typedef int32_t (*km_fn_t)(void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6897,13 +6897,13 @@ int32_t libc_psp_sceRtcTickAddYears(void* dest_tick, void* src_tick, uint64_t nu
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(dest_tick, src_tick, num_years);
+        return km_fn_ptr(destTick, srcTick, numYears);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceRtcSetTimeT(void* date, uint32_t arg_1_time) {
+int32_t libcPspSceRtcSetTimeT(void* date, uint32_t arg1Time) {
     typedef int32_t (*km_fn_t)(void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6925,13 +6925,13 @@ int32_t libc_psp_sceRtcSetTimeT(void* date, uint32_t arg_1_time) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(date, arg_1_time);
+        return km_fn_ptr(date, arg1Time);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceRtcGetTimeT(void* date, void* arg_1_time) {
+int32_t libcPspSceRtcGetTimeT(void* date, void* arg1Time) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6953,13 +6953,13 @@ int32_t libc_psp_sceRtcGetTimeT(void* date, void* arg_1_time) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(date, arg_1_time);
+        return km_fn_ptr(date, arg1Time);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceRtcSetTime64T(void* date, uint64_t arg_1_time) {
+int32_t libcPspSceRtcSetTime64T(void* date, uint64_t arg1Time) {
     typedef int32_t (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6981,13 +6981,13 @@ int32_t libc_psp_sceRtcSetTime64T(void* date, uint64_t arg_1_time) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(date, arg_1_time);
+        return km_fn_ptr(date, arg1Time);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceRtcGetTime64T(void* date, void* arg_1_time) {
+int32_t libcPspSceRtcGetTime64T(void* date, void* arg1Time) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7009,13 +7009,13 @@ int32_t libc_psp_sceRtcGetTime64T(void* date, void* arg_1_time) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(date, arg_1_time);
+        return km_fn_ptr(date, arg1Time);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceRtcSetDosTime(void* date, uint32_t dos_time) {
+int32_t libcPspSceRtcSetDosTime(void* date, uint32_t dosTime) {
     typedef int32_t (*km_fn_t)(void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7037,13 +7037,13 @@ int32_t libc_psp_sceRtcSetDosTime(void* date, uint32_t dos_time) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(date, dos_time);
+        return km_fn_ptr(date, dosTime);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceRtcGetDosTime(void* date, uint32_t dos_time) {
+int32_t libcPspSceRtcGetDosTime(void* date, uint32_t dosTime) {
     typedef int32_t (*km_fn_t)(void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7065,13 +7065,13 @@ int32_t libc_psp_sceRtcGetDosTime(void* date, uint32_t dos_time) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(date, dos_time);
+        return km_fn_ptr(date, dosTime);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceRtcSetWin32FileTime(void* date, void* arg_1_time) {
+int32_t libcPspSceRtcSetWin32FileTime(void* date, void* arg1Time) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7093,13 +7093,13 @@ int32_t libc_psp_sceRtcSetWin32FileTime(void* date, void* arg_1_time) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(date, arg_1_time);
+        return km_fn_ptr(date, arg1Time);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceRtcGetWin32FileTime(void* date, void* arg_1_time) {
+int32_t libcPspSceRtcGetWin32FileTime(void* date, void* arg1Time) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7121,13 +7121,13 @@ int32_t libc_psp_sceRtcGetWin32FileTime(void* date, void* arg_1_time) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(date, arg_1_time);
+        return km_fn_ptr(date, arg1Time);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceRtcParseDateTime(void* dest_tick, void* date_string) {
+int32_t libcPspSceRtcParseDateTime(void* destTick, void* dateString) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7149,13 +7149,13 @@ int32_t libc_psp_sceRtcParseDateTime(void* dest_tick, void* date_string) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(dest_tick, date_string);
+        return km_fn_ptr(destTick, dateString);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceRtcFormatRFC3339(char* psz_date_time, void* p_utc, int32_t time_zone_minutes) {
+int32_t libcPspSceRtcFormatRFC3339(char* pszDateTime, void* pUtc, int32_t timeZoneMinutes) {
     typedef int32_t (*km_fn_t)(char*, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7177,13 +7177,13 @@ int32_t libc_psp_sceRtcFormatRFC3339(char* psz_date_time, void* p_utc, int32_t t
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(psz_date_time, p_utc, time_zone_minutes);
+        return km_fn_ptr(pszDateTime, pUtc, timeZoneMinutes);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceRtcFormatRFC3339LocalTime(char* psz_date_time, void* p_utc) {
+int32_t libcPspSceRtcFormatRFC3339LocalTime(char* pszDateTime, void* pUtc) {
     typedef int32_t (*km_fn_t)(char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7205,13 +7205,13 @@ int32_t libc_psp_sceRtcFormatRFC3339LocalTime(char* psz_date_time, void* p_utc) 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(psz_date_time, p_utc);
+        return km_fn_ptr(pszDateTime, pUtc);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceRtcParseRFC3339(void* p_utc, void* psz_date_time) {
+int32_t libcPspSceRtcParseRFC3339(void* pUtc, void* pszDateTime) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7233,13 +7233,13 @@ int32_t libc_psp_sceRtcParseRFC3339(void* p_utc, void* psz_date_time) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(p_utc, psz_date_time);
+        return km_fn_ptr(pUtc, pszDateTime);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceRtcFormatRFC2822(char* psz_date_time, void* p_utc, int32_t time_zone_minutes) {
+int32_t libcPspSceRtcFormatRFC2822(char* pszDateTime, void* pUtc, int32_t timeZoneMinutes) {
     typedef int32_t (*km_fn_t)(char*, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7261,13 +7261,13 @@ int32_t libc_psp_sceRtcFormatRFC2822(char* psz_date_time, void* p_utc, int32_t t
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(psz_date_time, p_utc, time_zone_minutes);
+        return km_fn_ptr(pszDateTime, pUtc, timeZoneMinutes);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceRtcFormatRFC2822LocalTime(char* psz_date_time, void* p_utc) {
+int32_t libcPspSceRtcFormatRFC2822LocalTime(char* pszDateTime, void* pUtc) {
     typedef int32_t (*km_fn_t)(char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7289,13 +7289,13 @@ int32_t libc_psp_sceRtcFormatRFC2822LocalTime(char* psz_date_time, void* p_utc) 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(psz_date_time, p_utc);
+        return km_fn_ptr(pszDateTime, pUtc);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceIoRemove(void* file) {
+int32_t libcPspSceIoRemove(void* file) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7323,7 +7323,7 @@ int32_t libc_psp_sceIoRemove(void* file) {
     return -1;
 }
 
-int32_t libc_psp_sceIoMkdir(void* dir, int32_t mode) {
+int32_t libcPspSceIoMkdir(void* dir, int32_t mode) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7351,7 +7351,7 @@ int32_t libc_psp_sceIoMkdir(void* dir, int32_t mode) {
     return -1;
 }
 
-int32_t libc_psp_sceIoRmdir(void* path) {
+int32_t libcPspSceIoRmdir(void* path) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7379,7 +7379,7 @@ int32_t libc_psp_sceIoRmdir(void* path) {
     return -1;
 }
 
-int32_t libc_psp_sceIoChdir(void* path) {
+int32_t libcPspSceIoChdir(void* path) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7407,7 +7407,7 @@ int32_t libc_psp_sceIoChdir(void* path) {
     return -1;
 }
 
-int32_t libc_psp_sceIoRename(void* oldname, void* newname) {
+int32_t libcPspSceIoRename(void* oldname, void* newname) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7435,7 +7435,7 @@ int32_t libc_psp_sceIoRename(void* oldname, void* newname) {
     return -1;
 }
 
-int32_t libc_psp_sceIoDevctl(void* dev, uint32_t cmd, void* indata, int32_t inlen, void* outdata, int32_t outlen) {
+int32_t libcPspSceIoDevctl(void* dev, uint32_t cmd, void* indata, int32_t inlen, void* outdata, int32_t outlen) {
     typedef int32_t (*km_fn_t)(void*, uint32_t, void*, int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7463,7 +7463,7 @@ int32_t libc_psp_sceIoDevctl(void* dev, uint32_t cmd, void* indata, int32_t inle
     return -1;
 }
 
-int32_t libc_psp_sceIoUnassign(void* dev) {
+int32_t libcPspSceIoUnassign(void* dev) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7491,7 +7491,7 @@ int32_t libc_psp_sceIoUnassign(void* dev) {
     return -1;
 }
 
-int32_t libc_psp_sceIoGetstat(void* file, void* arg_1_stat) {
+int32_t libcPspSceIoGetstat(void* file, void* arg1Stat) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7513,13 +7513,13 @@ int32_t libc_psp_sceIoGetstat(void* file, void* arg_1_stat) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(file, arg_1_stat);
+        return km_fn_ptr(file, arg1Stat);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceIoChstat(void* file, void* arg_1_stat, int32_t bits) {
+int32_t libcPspSceIoChstat(void* file, void* arg1Stat, int32_t bits) {
     typedef int32_t (*km_fn_t)(void*, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7541,13 +7541,13 @@ int32_t libc_psp_sceIoChstat(void* file, void* arg_1_stat, int32_t bits) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(file, arg_1_stat, bits);
+        return km_fn_ptr(file, arg1Stat, bits);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceIoSync(void* device, uint32_t unk) {
+int32_t libcPspSceIoSync(void* device, uint32_t unk) {
     typedef int32_t (*km_fn_t)(void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7575,7 +7575,7 @@ int32_t libc_psp_sceIoSync(void* device, uint32_t unk) {
     return -1;
 }
 
-int32_t libc_psp_sceJpegInitMJpeg(void) {
+int32_t libcPspSceJpegInitMJpeg(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7603,7 +7603,7 @@ int32_t libc_psp_sceJpegInitMJpeg(void) {
     return -1;
 }
 
-int32_t libc_psp_sceJpegFinishMJpeg(void) {
+int32_t libcPspSceJpegFinishMJpeg(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7631,7 +7631,7 @@ int32_t libc_psp_sceJpegFinishMJpeg(void) {
     return -1;
 }
 
-int32_t libc_psp_sceJpegCreateMJpeg(int32_t width, int32_t height) {
+int32_t libcPspSceJpegCreateMJpeg(int32_t width, int32_t height) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7659,7 +7659,7 @@ int32_t libc_psp_sceJpegCreateMJpeg(int32_t width, int32_t height) {
     return -1;
 }
 
-int32_t libc_psp_sceJpegDeleteMJpeg(void) {
+int32_t libcPspSceJpegDeleteMJpeg(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7687,7 +7687,7 @@ int32_t libc_psp_sceJpegDeleteMJpeg(void) {
     return -1;
 }
 
-int32_t libc_psp_sceJpegDecodeMJpeg(void* jpeg_buf, uint64_t size, void* rgba, uint32_t unk) {
+int32_t libcPspSceJpegDecodeMJpeg(void* jpegBuf, uint64_t size, void* rgba, uint32_t unk) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7709,13 +7709,13 @@ int32_t libc_psp_sceJpegDecodeMJpeg(void* jpeg_buf, uint64_t size, void* rgba, u
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(jpeg_buf, size, rgba, unk);
+        return km_fn_ptr(jpegBuf, size, rgba, unk);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceUmdCheckMedium(void) {
+int32_t libcPspSceUmdCheckMedium(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7743,7 +7743,7 @@ int32_t libc_psp_sceUmdCheckMedium(void) {
     return -1;
 }
 
-int32_t libc_psp_sceUmdGetDiscInfo(void* info) {
+int32_t libcPspSceUmdGetDiscInfo(void* info) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7771,7 +7771,7 @@ int32_t libc_psp_sceUmdGetDiscInfo(void* info) {
     return -1;
 }
 
-int32_t libc_psp_sceUmdActivate(int32_t unit, void* drive) {
+int32_t libcPspSceUmdActivate(int32_t unit, void* drive) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7799,7 +7799,7 @@ int32_t libc_psp_sceUmdActivate(int32_t unit, void* drive) {
     return -1;
 }
 
-int32_t libc_psp_sceUmdDeactivate(int32_t unit, void* drive) {
+int32_t libcPspSceUmdDeactivate(int32_t unit, void* drive) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7827,7 +7827,7 @@ int32_t libc_psp_sceUmdDeactivate(int32_t unit, void* drive) {
     return -1;
 }
 
-int32_t libc_psp_sceUmdWaitDriveStat(int32_t state) {
+int32_t libcPspSceUmdWaitDriveStat(int32_t state) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7855,7 +7855,7 @@ int32_t libc_psp_sceUmdWaitDriveStat(int32_t state) {
     return -1;
 }
 
-int32_t libc_psp_sceUmdWaitDriveStatWithTimer(int32_t state, uint32_t timeout) {
+int32_t libcPspSceUmdWaitDriveStatWithTimer(int32_t state, uint32_t timeout) {
     typedef int32_t (*km_fn_t)(int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7883,7 +7883,7 @@ int32_t libc_psp_sceUmdWaitDriveStatWithTimer(int32_t state, uint32_t timeout) {
     return -1;
 }
 
-int32_t libc_psp_sceUmdWaitDriveStatCB(int32_t state, uint32_t timeout) {
+int32_t libcPspSceUmdWaitDriveStatCB(int32_t state, uint32_t timeout) {
     typedef int32_t (*km_fn_t)(int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7911,7 +7911,7 @@ int32_t libc_psp_sceUmdWaitDriveStatCB(int32_t state, uint32_t timeout) {
     return -1;
 }
 
-int32_t libc_psp_sceUmdCancelWaitDriveStat(void) {
+int32_t libcPspSceUmdCancelWaitDriveStat(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7939,7 +7939,7 @@ int32_t libc_psp_sceUmdCancelWaitDriveStat(void) {
     return -1;
 }
 
-int32_t libc_psp_sceUmdGetDriveStat(void) {
+int32_t libcPspSceUmdGetDriveStat(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7967,7 +7967,7 @@ int32_t libc_psp_sceUmdGetDriveStat(void) {
     return -1;
 }
 
-int32_t libc_psp_sceUmdGetErrorStat(void) {
+int32_t libcPspSceUmdGetErrorStat(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7995,7 +7995,7 @@ int32_t libc_psp_sceUmdGetErrorStat(void) {
     return -1;
 }
 
-int32_t libc_psp_sceUmdRegisterUMDCallBack(int32_t cbid) {
+int32_t libcPspSceUmdRegisterUMDCallBack(int32_t cbid) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8023,7 +8023,7 @@ int32_t libc_psp_sceUmdRegisterUMDCallBack(int32_t cbid) {
     return -1;
 }
 
-int32_t libc_psp_sceUmdUnRegisterUMDCallBack(int32_t cbid) {
+int32_t libcPspSceUmdUnRegisterUMDCallBack(int32_t cbid) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8051,7 +8051,7 @@ int32_t libc_psp_sceUmdUnRegisterUMDCallBack(int32_t cbid) {
     return -1;
 }
 
-int32_t libc_psp_sceUmdReplacePermit(void) {
+int32_t libcPspSceUmdReplacePermit(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8079,7 +8079,7 @@ int32_t libc_psp_sceUmdReplacePermit(void) {
     return -1;
 }
 
-int32_t libc_psp_sceUmdReplaceProhibit(void) {
+int32_t libcPspSceUmdReplaceProhibit(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8107,7 +8107,7 @@ int32_t libc_psp_sceUmdReplaceProhibit(void) {
     return -1;
 }
 
-int32_t libc_psp_sceMpegInit(void) {
+int32_t libcPspSceMpegInit(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8135,7 +8135,7 @@ int32_t libc_psp_sceMpegInit(void) {
     return -1;
 }
 
-void libc_psp_sceMpegFinish(void) {
+void libcPspSceMpegFinish(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8163,7 +8163,7 @@ void libc_psp_sceMpegFinish(void) {
     errno = ENOSYS;
 }
 
-int32_t libc_psp_sceMpegRingbufferQueryMemSize(int32_t packets) {
+int32_t libcPspSceMpegRingbufferQueryMemSize(int32_t packets) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8191,7 +8191,7 @@ int32_t libc_psp_sceMpegRingbufferQueryMemSize(int32_t packets) {
     return -1;
 }
 
-int32_t libc_psp_sceMpegRingbufferConstruct(void* ringbuffer, int32_t packets, void* data, int32_t size, void* callback, void* cb_param) {
+int32_t libcPspSceMpegRingbufferConstruct(void* ringbuffer, int32_t packets, void* data, int32_t size, void* callback, void* cbParam) {
     typedef int32_t (*km_fn_t)(void*, int32_t, void*, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8213,13 +8213,13 @@ int32_t libc_psp_sceMpegRingbufferConstruct(void* ringbuffer, int32_t packets, v
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(ringbuffer, packets, data, size, callback, cb_param);
+        return km_fn_ptr(ringbuffer, packets, data, size, callback, cbParam);
     }
     errno = ENOSYS;
     return -1;
 }
 
-void libc_psp_sceMpegRingbufferDestruct(void* ringbuffer) {
+void libcPspSceMpegRingbufferDestruct(void* ringbuffer) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8247,7 +8247,7 @@ void libc_psp_sceMpegRingbufferDestruct(void* ringbuffer) {
     errno = ENOSYS;
 }
 
-int32_t libc_psp_sceMpegRingbufferAvailableSize(void* ringbuffer) {
+int32_t libcPspSceMpegRingbufferAvailableSize(void* ringbuffer) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8275,7 +8275,7 @@ int32_t libc_psp_sceMpegRingbufferAvailableSize(void* ringbuffer) {
     return -1;
 }
 
-int32_t libc_psp_sceMpegRingbufferPut(void* ringbuffer, int32_t num_packets, int32_t available) {
+int32_t libcPspSceMpegRingbufferPut(void* ringbuffer, int32_t numPackets, int32_t available) {
     typedef int32_t (*km_fn_t)(void*, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8297,13 +8297,13 @@ int32_t libc_psp_sceMpegRingbufferPut(void* ringbuffer, int32_t num_packets, int
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(ringbuffer, num_packets, available);
+        return km_fn_ptr(ringbuffer, numPackets, available);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceMpegQueryMemSize(int32_t unk) {
+int32_t libcPspSceMpegQueryMemSize(int32_t unk) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8331,7 +8331,7 @@ int32_t libc_psp_sceMpegQueryMemSize(int32_t unk) {
     return -1;
 }
 
-int32_t libc_psp_sceMpegQueryStreamSize(void* buffer, void* size) {
+int32_t libcPspSceMpegQueryStreamSize(void* buffer, void* size) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8359,7 +8359,7 @@ int32_t libc_psp_sceMpegQueryStreamSize(void* buffer, void* size) {
     return -1;
 }
 
-int32_t libc_psp_sceMpegBaseYCrCbCopyVme(void* yuv_buffer, void* buffer, int32_t type_) {
+int32_t libcPspSceMpegBaseYCrCbCopyVme(void* yuvBuffer, void* buffer, int32_t type) {
     typedef int32_t (*km_fn_t)(void*, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8381,13 +8381,13 @@ int32_t libc_psp_sceMpegBaseYCrCbCopyVme(void* yuv_buffer, void* buffer, int32_t
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(yuv_buffer, buffer, type_);
+        return km_fn_ptr(yuvBuffer, buffer, type);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceMpegBaseCscInit(int32_t width) {
+int32_t libcPspSceMpegBaseCscInit(int32_t width) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8415,7 +8415,7 @@ int32_t libc_psp_sceMpegBaseCscInit(int32_t width) {
     return -1;
 }
 
-int32_t libc_psp_sceMpegBaseCscVme(void* rgb_buffer, void* rgb_buffer2, int32_t width, void* y_cr_cb_buffer) {
+int32_t libcPspSceMpegBaseCscVme(void* rgbBuffer, void* rgbBuffer2, int32_t width, void* yCrCbBuffer) {
     typedef int32_t (*km_fn_t)(void*, void*, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8437,13 +8437,13 @@ int32_t libc_psp_sceMpegBaseCscVme(void* rgb_buffer, void* rgb_buffer2, int32_t 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(rgb_buffer, rgb_buffer2, width, y_cr_cb_buffer);
+        return km_fn_ptr(rgbBuffer, rgbBuffer2, width, yCrCbBuffer);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceMpegbaseBea18f91(void* lli) {
+int32_t libcPspSceMpegbaseBea18f91(void* lli) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8471,7 +8471,7 @@ int32_t libc_psp_sceMpegbaseBea18f91(void* lli) {
     return -1;
 }
 
-int32_t libc_psp_sceHprmPeekCurrentKey(void* key) {
+int32_t libcPspSceHprmPeekCurrentKey(void* key) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8499,7 +8499,7 @@ int32_t libc_psp_sceHprmPeekCurrentKey(void* key) {
     return -1;
 }
 
-int32_t libc_psp_sceHprmPeekLatch(void* latch) {
+int32_t libcPspSceHprmPeekLatch(void* latch) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8527,7 +8527,7 @@ int32_t libc_psp_sceHprmPeekLatch(void* latch) {
     return -1;
 }
 
-int32_t libc_psp_sceHprmReadLatch(void* latch) {
+int32_t libcPspSceHprmReadLatch(void* latch) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8555,7 +8555,7 @@ int32_t libc_psp_sceHprmReadLatch(void* latch) {
     return -1;
 }
 
-int32_t libc_psp_sceHprmIsHeadphoneExist(void) {
+int32_t libcPspSceHprmIsHeadphoneExist(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8583,7 +8583,7 @@ int32_t libc_psp_sceHprmIsHeadphoneExist(void) {
     return -1;
 }
 
-int32_t libc_psp_sceHprmIsRemoteExist(void) {
+int32_t libcPspSceHprmIsRemoteExist(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8611,7 +8611,7 @@ int32_t libc_psp_sceHprmIsRemoteExist(void) {
     return -1;
 }
 
-int32_t libc_psp_sceHprmIsMicrophoneExist(void) {
+int32_t libcPspSceHprmIsMicrophoneExist(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8639,7 +8639,7 @@ int32_t libc_psp_sceHprmIsMicrophoneExist(void) {
     return -1;
 }
 
-void libc_psp_sceGuDepthBuffer(void* zbp, int32_t zbw) {
+void libcPspSceGuDepthBuffer(void* zbp, int32_t zbw) {
     typedef void (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8667,7 +8667,7 @@ void libc_psp_sceGuDepthBuffer(void* zbp, int32_t zbw) {
     errno = ENOSYS;
 }
 
-void libc_psp_sceGuDispBuffer(int32_t width, int32_t height, void* dispbp, int32_t dispbw) {
+void libcPspSceGuDispBuffer(int32_t width, int32_t height, void* dispbp, int32_t dispbw) {
     typedef void (*km_fn_t)(int32_t, int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8695,7 +8695,7 @@ void libc_psp_sceGuDispBuffer(int32_t width, int32_t height, void* dispbp, int32
     errno = ENOSYS;
 }
 
-bool libc_psp_sceGuDisplay(bool state) {
+bool libcPspSceGuDisplay(bool state) {
     typedef bool (*km_fn_t)(bool);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8723,7 +8723,7 @@ bool libc_psp_sceGuDisplay(bool state) {
     return false;
 }
 
-void libc_psp_sceGuDepthMask(int32_t mask) {
+void libcPspSceGuDepthMask(int32_t mask) {
     typedef void (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8751,7 +8751,7 @@ void libc_psp_sceGuDepthMask(int32_t mask) {
     errno = ENOSYS;
 }
 
-void libc_psp_sceGuDepthOffset(int32_t offset) {
+void libcPspSceGuDepthOffset(int32_t offset) {
     typedef void (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8779,7 +8779,7 @@ void libc_psp_sceGuDepthOffset(int32_t offset) {
     errno = ENOSYS;
 }
 
-void libc_psp_sceGuDepthRange(int32_t arg_0_near, int32_t arg_1_far) {
+void libcPspSceGuDepthRange(int32_t arg0Near, int32_t arg1Far) {
     typedef void (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8801,13 +8801,13 @@ void libc_psp_sceGuDepthRange(int32_t arg_0_near, int32_t arg_1_far) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        km_fn_ptr(arg_0_near, arg_1_far);
+        km_fn_ptr(arg0Near, arg1Far);
         return;
     }
     errno = ENOSYS;
 }
 
-void libc_psp_sceGuFog(float arg_0_near, float arg_1_far, uint32_t color) {
+void libcPspSceGuFog(float arg0Near, float arg1Far, uint32_t color) {
     typedef void (*km_fn_t)(float, float, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8829,13 +8829,13 @@ void libc_psp_sceGuFog(float arg_0_near, float arg_1_far, uint32_t color) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        km_fn_ptr(arg_0_near, arg_1_far, color);
+        km_fn_ptr(arg0Near, arg1Far, color);
         return;
     }
     errno = ENOSYS;
 }
 
-void libc_psp_sceGuInit(void) {
+void libcPspSceGuInit(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8863,7 +8863,7 @@ void libc_psp_sceGuInit(void) {
     errno = ENOSYS;
 }
 
-void libc_psp_sceGuTerm(void) {
+void libcPspSceGuTerm(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8891,7 +8891,7 @@ void libc_psp_sceGuTerm(void) {
     errno = ENOSYS;
 }
 
-void libc_psp_sceGuBreak(int32_t mode) {
+void libcPspSceGuBreak(int32_t mode) {
     typedef void (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8919,7 +8919,7 @@ void libc_psp_sceGuBreak(int32_t mode) {
     errno = ENOSYS;
 }
 
-void libc_psp_sceGuContinue(void) {
+void libcPspSceGuContinue(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8947,7 +8947,7 @@ void libc_psp_sceGuContinue(void) {
     errno = ENOSYS;
 }
 
-void* libc_psp_sceGuGetMemory(int32_t size) {
+void* libcPspSceGuGetMemory(int32_t size) {
     typedef void* (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8975,7 +8975,7 @@ void* libc_psp_sceGuGetMemory(int32_t size) {
     return NULL;
 }
 
-int32_t libc_psp_sceGuFinish(void) {
+int32_t libcPspSceGuFinish(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9003,7 +9003,7 @@ int32_t libc_psp_sceGuFinish(void) {
     return -1;
 }
 
-int32_t libc_psp_sceGuFinishId(uint32_t id) {
+int32_t libcPspSceGuFinishId(uint32_t id) {
     typedef int32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9031,7 +9031,7 @@ int32_t libc_psp_sceGuFinishId(uint32_t id) {
     return -1;
 }
 
-void libc_psp_sceGuCallList(void* list) {
+void libcPspSceGuCallList(void* list) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9059,7 +9059,7 @@ void libc_psp_sceGuCallList(void* list) {
     errno = ENOSYS;
 }
 
-void libc_psp_sceGuCallMode(int32_t mode) {
+void libcPspSceGuCallMode(int32_t mode) {
     typedef void (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9087,7 +9087,7 @@ void libc_psp_sceGuCallMode(int32_t mode) {
     errno = ENOSYS;
 }
 
-int32_t libc_psp_sceGuCheckList(void) {
+int32_t libcPspSceGuCheckList(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9115,7 +9115,7 @@ int32_t libc_psp_sceGuCheckList(void) {
     return -1;
 }
 
-void* libc_psp_sceGuSwapBuffers(void) {
+void* libcPspSceGuSwapBuffers(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9143,7 +9143,7 @@ void* libc_psp_sceGuSwapBuffers(void) {
     return NULL;
 }
 
-void libc_psp_sceGuBeginObject(int32_t vtype, int32_t count, void* indices, void* vertices) {
+void libcPspSceGuBeginObject(int32_t vtype, int32_t count, void* indices, void* vertices) {
     typedef void (*km_fn_t)(int32_t, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9171,7 +9171,7 @@ void libc_psp_sceGuBeginObject(int32_t vtype, int32_t count, void* indices, void
     errno = ENOSYS;
 }
 
-void libc_psp_sceGuEndObject(void) {
+void libcPspSceGuEndObject(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9199,7 +9199,7 @@ void libc_psp_sceGuEndObject(void) {
     errno = ENOSYS;
 }
 
-void libc_psp_sceGuSetAllStatus(int32_t status) {
+void libcPspSceGuSetAllStatus(int32_t status) {
     typedef void (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9227,7 +9227,7 @@ void libc_psp_sceGuSetAllStatus(int32_t status) {
     errno = ENOSYS;
 }
 
-int32_t libc_psp_sceGuGetAllStatus(void) {
+int32_t libcPspSceGuGetAllStatus(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9255,7 +9255,7 @@ int32_t libc_psp_sceGuGetAllStatus(void) {
     return -1;
 }
 
-void libc_psp_sceGuLightAtt(int32_t light, float atten0, float atten1, float atten2) {
+void libcPspSceGuLightAtt(int32_t light, float atten0, float atten1, float atten2) {
     typedef void (*km_fn_t)(int32_t, float, float, float);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9283,7 +9283,7 @@ void libc_psp_sceGuLightAtt(int32_t light, float atten0, float atten1, float att
     errno = ENOSYS;
 }
 
-void libc_psp_sceGuLightColor(int32_t light, int32_t component, uint32_t color) {
+void libcPspSceGuLightColor(int32_t light, int32_t component, uint32_t color) {
     typedef void (*km_fn_t)(int32_t, int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9311,7 +9311,7 @@ void libc_psp_sceGuLightColor(int32_t light, int32_t component, uint32_t color) 
     errno = ENOSYS;
 }
 
-void libc_psp_sceGuClear(int32_t flags) {
+void libcPspSceGuClear(int32_t flags) {
     typedef void (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9339,7 +9339,7 @@ void libc_psp_sceGuClear(int32_t flags) {
     errno = ENOSYS;
 }
 
-void libc_psp_sceGuClearColor(uint32_t color) {
+void libcPspSceGuClearColor(uint32_t color) {
     typedef void (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9367,7 +9367,7 @@ void libc_psp_sceGuClearColor(uint32_t color) {
     errno = ENOSYS;
 }
 
-void libc_psp_sceGuClearDepth(uint32_t depth) {
+void libcPspSceGuClearDepth(uint32_t depth) {
     typedef void (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9395,7 +9395,7 @@ void libc_psp_sceGuClearDepth(uint32_t depth) {
     errno = ENOSYS;
 }
 
-void libc_psp_sceGuClearStencil(uint32_t stencil) {
+void libcPspSceGuClearStencil(uint32_t stencil) {
     typedef void (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9423,7 +9423,7 @@ void libc_psp_sceGuClearStencil(uint32_t stencil) {
     errno = ENOSYS;
 }
 
-void libc_psp_sceGuPixelMask(uint32_t mask) {
+void libcPspSceGuPixelMask(uint32_t mask) {
     typedef void (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9451,7 +9451,7 @@ void libc_psp_sceGuPixelMask(uint32_t mask) {
     errno = ENOSYS;
 }
 
-void libc_psp_sceGuColor(uint32_t color) {
+void libcPspSceGuColor(uint32_t color) {
     typedef void (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9479,7 +9479,7 @@ void libc_psp_sceGuColor(uint32_t color) {
     errno = ENOSYS;
 }
 
-void libc_psp_sceGuColorMaterial(int32_t components) {
+void libcPspSceGuColorMaterial(int32_t components) {
     typedef void (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9507,7 +9507,7 @@ void libc_psp_sceGuColorMaterial(int32_t components) {
     errno = ENOSYS;
 }
 
-void libc_psp_sceGuAmbient(uint32_t color) {
+void libcPspSceGuAmbient(uint32_t color) {
     typedef void (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9535,7 +9535,7 @@ void libc_psp_sceGuAmbient(uint32_t color) {
     errno = ENOSYS;
 }
 
-void libc_psp_sceGuAmbientColor(uint32_t color) {
+void libcPspSceGuAmbientColor(uint32_t color) {
     typedef void (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9563,7 +9563,7 @@ void libc_psp_sceGuAmbientColor(uint32_t color) {
     errno = ENOSYS;
 }
 
-void libc_psp_sceGuMaterial(int32_t components, uint32_t color) {
+void libcPspSceGuMaterial(int32_t components, uint32_t color) {
     typedef void (*km_fn_t)(int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9591,7 +9591,7 @@ void libc_psp_sceGuMaterial(int32_t components, uint32_t color) {
     errno = ENOSYS;
 }
 
-void libc_psp_sceGuModelColor(uint32_t emissive, uint32_t ambient, uint32_t diffuse, uint32_t specular) {
+void libcPspSceGuModelColor(uint32_t emissive, uint32_t ambient, uint32_t diffuse, uint32_t specular) {
     typedef void (*km_fn_t)(uint32_t, uint32_t, uint32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9619,7 +9619,7 @@ void libc_psp_sceGuModelColor(uint32_t emissive, uint32_t ambient, uint32_t diff
     errno = ENOSYS;
 }
 
-void libc_psp_sceGuSpecular(float power) {
+void libcPspSceGuSpecular(float power) {
     typedef void (*km_fn_t)(float);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9647,7 +9647,7 @@ void libc_psp_sceGuSpecular(float power) {
     errno = ENOSYS;
 }
 
-void libc_psp_sceGuTexEnvColor(uint32_t color) {
+void libcPspSceGuTexEnvColor(uint32_t color) {
     typedef void (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9675,7 +9675,7 @@ void libc_psp_sceGuTexEnvColor(uint32_t color) {
     errno = ENOSYS;
 }
 
-void libc_psp_sceGuTexFlush(void) {
+void libcPspSceGuTexFlush(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9703,7 +9703,7 @@ void libc_psp_sceGuTexFlush(void) {
     errno = ENOSYS;
 }
 
-void libc_psp_sceGuTexOffset(float u, float v) {
+void libcPspSceGuTexOffset(float u, float v) {
     typedef void (*km_fn_t)(float, float);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9731,7 +9731,7 @@ void libc_psp_sceGuTexOffset(float u, float v) {
     errno = ENOSYS;
 }
 
-void libc_psp_sceGuTexScale(float u, float v) {
+void libcPspSceGuTexScale(float u, float v) {
     typedef void (*km_fn_t)(float, float);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9759,7 +9759,7 @@ void libc_psp_sceGuTexScale(float u, float v) {
     errno = ENOSYS;
 }
 
-void libc_psp_sceGuTexSlope(float slope) {
+void libcPspSceGuTexSlope(float slope) {
     typedef void (*km_fn_t)(float);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9787,7 +9787,7 @@ void libc_psp_sceGuTexSlope(float slope) {
     errno = ENOSYS;
 }
 
-void libc_psp_sceGuTexSync(void) {
+void libcPspSceGuTexSync(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9815,7 +9815,7 @@ void libc_psp_sceGuTexSync(void) {
     errno = ENOSYS;
 }
 
-void libc_psp_sceGuClutLoad(int32_t num_blocks, void* cbp) {
+void libcPspSceGuClutLoad(int32_t numBlocks, void* cbp) {
     typedef void (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9837,13 +9837,13 @@ void libc_psp_sceGuClutLoad(int32_t num_blocks, void* cbp) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        km_fn_ptr(num_blocks, cbp);
+        km_fn_ptr(numBlocks, cbp);
         return;
     }
     errno = ENOSYS;
 }
 
-void libc_psp_sceGuOffset(uint32_t x, uint32_t y) {
+void libcPspSceGuOffset(uint32_t x, uint32_t y) {
     typedef void (*km_fn_t)(uint32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9871,7 +9871,7 @@ void libc_psp_sceGuOffset(uint32_t x, uint32_t y) {
     errno = ENOSYS;
 }
 
-void libc_psp_sceGuScissor(int32_t x, int32_t y, int32_t w, int32_t h) {
+void libcPspSceGuScissor(int32_t x, int32_t y, int32_t w, int32_t h) {
     typedef void (*km_fn_t)(int32_t, int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9899,7 +9899,7 @@ void libc_psp_sceGuScissor(int32_t x, int32_t y, int32_t w, int32_t h) {
     errno = ENOSYS;
 }
 
-void libc_psp_sceGuViewport(int32_t cx, int32_t cy, int32_t width, int32_t height) {
+void libcPspSceGuViewport(int32_t cx, int32_t cy, int32_t width, int32_t height) {
     typedef void (*km_fn_t)(int32_t, int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9927,7 +9927,7 @@ void libc_psp_sceGuViewport(int32_t cx, int32_t cy, int32_t width, int32_t heigh
     errno = ENOSYS;
 }
 
-void libc_psp_sceGuDrawBezier(int32_t v_type, int32_t u_count, int32_t v_count, void* indices, void* vertices) {
+void libcPspSceGuDrawBezier(int32_t vType, int32_t uCount, int32_t vCount, void* indices, void* vertices) {
     typedef void (*km_fn_t)(int32_t, int32_t, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9949,13 +9949,13 @@ void libc_psp_sceGuDrawBezier(int32_t v_type, int32_t u_count, int32_t v_count, 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        km_fn_ptr(v_type, u_count, v_count, indices, vertices);
+        km_fn_ptr(vType, uCount, vCount, indices, vertices);
         return;
     }
     errno = ENOSYS;
 }
 
-void libc_psp_sceGuPatchDivide(uint32_t ulevel, uint32_t vlevel) {
+void libcPspSceGuPatchDivide(uint32_t ulevel, uint32_t vlevel) {
     typedef void (*km_fn_t)(uint32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9983,7 +9983,7 @@ void libc_psp_sceGuPatchDivide(uint32_t ulevel, uint32_t vlevel) {
     errno = ENOSYS;
 }
 
-void libc_psp_sceGuPatchFrontFace(uint32_t a0) {
+void libcPspSceGuPatchFrontFace(uint32_t a0) {
     typedef void (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10011,7 +10011,7 @@ void libc_psp_sceGuPatchFrontFace(uint32_t a0) {
     errno = ENOSYS;
 }
 
-void libc_psp_sceGuDrawSpline(int32_t v_type, int32_t u_count, int32_t v_count, int32_t u_edge, int32_t v_edge, void* indices, void* vertices) {
+void libcPspSceGuDrawSpline(int32_t vType, int32_t uCount, int32_t vCount, int32_t uEdge, int32_t vEdge, void* indices, void* vertices) {
     typedef void (*km_fn_t)(int32_t, int32_t, int32_t, int32_t, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10033,13 +10033,13 @@ void libc_psp_sceGuDrawSpline(int32_t v_type, int32_t u_count, int32_t v_count, 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        km_fn_ptr(v_type, u_count, v_count, u_edge, v_edge, indices, vertices);
+        km_fn_ptr(vType, uCount, vCount, uEdge, vEdge, indices, vertices);
         return;
     }
     errno = ENOSYS;
 }
 
-void libc_psp_sceGuMorphWeight(int32_t arg_0_index, float weight) {
+void libcPspSceGuMorphWeight(int32_t arg0Index, float weight) {
     typedef void (*km_fn_t)(int32_t, float);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10061,13 +10061,13 @@ void libc_psp_sceGuMorphWeight(int32_t arg_0_index, float weight) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        km_fn_ptr(arg_0_index, weight);
+        km_fn_ptr(arg0Index, weight);
         return;
     }
     errno = ENOSYS;
 }
 
-void libc_psp_sceGumDrawBezier(int32_t v_type, int32_t u_count, int32_t v_count, void* indices, void* vertices) {
+void libcPspSceGumDrawBezier(int32_t vType, int32_t uCount, int32_t vCount, void* indices, void* vertices) {
     typedef void (*km_fn_t)(int32_t, int32_t, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10089,13 +10089,13 @@ void libc_psp_sceGumDrawBezier(int32_t v_type, int32_t u_count, int32_t v_count,
     }
 #endif
     if (km_fn_ptr != NULL) {
-        km_fn_ptr(v_type, u_count, v_count, indices, vertices);
+        km_fn_ptr(vType, uCount, vCount, indices, vertices);
         return;
     }
     errno = ENOSYS;
 }
 
-void libc_psp_sceGumDrawSpline(int32_t v_type, int32_t u_count, int32_t v_count, int32_t u_edge, int32_t v_edge, void* indices, void* vertices) {
+void libcPspSceGumDrawSpline(int32_t vType, int32_t uCount, int32_t vCount, int32_t uEdge, int32_t vEdge, void* indices, void* vertices) {
     typedef void (*km_fn_t)(int32_t, int32_t, int32_t, int32_t, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10117,13 +10117,13 @@ void libc_psp_sceGumDrawSpline(int32_t v_type, int32_t u_count, int32_t v_count,
     }
 #endif
     if (km_fn_ptr != NULL) {
-        km_fn_ptr(v_type, u_count, v_count, u_edge, v_edge, indices, vertices);
+        km_fn_ptr(vType, uCount, vCount, uEdge, vEdge, indices, vertices);
         return;
     }
     errno = ENOSYS;
 }
 
-void libc_psp_sceGumFastInverse(void) {
+void libcPspSceGumFastInverse(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10151,7 +10151,7 @@ void libc_psp_sceGumFastInverse(void) {
     errno = ENOSYS;
 }
 
-void libc_psp_sceGumFullInverse(void) {
+void libcPspSceGumFullInverse(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10179,7 +10179,7 @@ void libc_psp_sceGumFullInverse(void) {
     errno = ENOSYS;
 }
 
-void libc_psp_sceGumLoadIdentity(void) {
+void libcPspSceGumLoadIdentity(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10207,7 +10207,7 @@ void libc_psp_sceGumLoadIdentity(void) {
     errno = ENOSYS;
 }
 
-void libc_psp_sceGumOrtho(float left, float right, float bottom, float top, float arg_4_near, float arg_5_far) {
+void libcPspSceGumOrtho(float left, float right, float bottom, float top, float arg4Near, float arg5Far) {
     typedef void (*km_fn_t)(float, float, float, float, float, float);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10229,13 +10229,13 @@ void libc_psp_sceGumOrtho(float left, float right, float bottom, float top, floa
     }
 #endif
     if (km_fn_ptr != NULL) {
-        km_fn_ptr(left, right, bottom, top, arg_4_near, arg_5_far);
+        km_fn_ptr(left, right, bottom, top, arg4Near, arg5Far);
         return;
     }
     errno = ENOSYS;
 }
 
-void libc_psp_sceGumPerspective(float fovy, float aspect, float arg_2_near, float arg_3_far) {
+void libcPspSceGumPerspective(float fovy, float aspect, float arg2Near, float arg3Far) {
     typedef void (*km_fn_t)(float, float, float, float);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10257,13 +10257,13 @@ void libc_psp_sceGumPerspective(float fovy, float aspect, float arg_2_near, floa
     }
 #endif
     if (km_fn_ptr != NULL) {
-        km_fn_ptr(fovy, aspect, arg_2_near, arg_3_far);
+        km_fn_ptr(fovy, aspect, arg2Near, arg3Far);
         return;
     }
     errno = ENOSYS;
 }
 
-void libc_psp_sceGumPopMatrix(void) {
+void libcPspSceGumPopMatrix(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10291,7 +10291,7 @@ void libc_psp_sceGumPopMatrix(void) {
     errno = ENOSYS;
 }
 
-void libc_psp_sceGumPushMatrix(void) {
+void libcPspSceGumPushMatrix(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10319,7 +10319,7 @@ void libc_psp_sceGumPushMatrix(void) {
     errno = ENOSYS;
 }
 
-void libc_psp_sceGumRotateX(float angle) {
+void libcPspSceGumRotateX(float angle) {
     typedef void (*km_fn_t)(float);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10347,7 +10347,7 @@ void libc_psp_sceGumRotateX(float angle) {
     errno = ENOSYS;
 }
 
-void libc_psp_sceGumRotateY(float angle) {
+void libcPspSceGumRotateY(float angle) {
     typedef void (*km_fn_t)(float);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10375,7 +10375,7 @@ void libc_psp_sceGumRotateY(float angle) {
     errno = ENOSYS;
 }
 
-void libc_psp_sceGumRotateZ(float angle) {
+void libcPspSceGumRotateZ(float angle) {
     typedef void (*km_fn_t)(float);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10403,7 +10403,7 @@ void libc_psp_sceGumRotateZ(float angle) {
     errno = ENOSYS;
 }
 
-void libc_psp_sceGumUpdateMatrix(void) {
+void libcPspSceGumUpdateMatrix(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10431,7 +10431,7 @@ void libc_psp_sceGumUpdateMatrix(void) {
     errno = ENOSYS;
 }
 
-int32_t libc_psp_sceMp3ReserveMp3Handle(void* args) {
+int32_t libcPspSceMp3ReserveMp3Handle(void* args) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10459,7 +10459,7 @@ int32_t libc_psp_sceMp3ReserveMp3Handle(void* args) {
     return -1;
 }
 
-int32_t libc_psp_sceMp3InitResource(void) {
+int32_t libcPspSceMp3InitResource(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10487,7 +10487,7 @@ int32_t libc_psp_sceMp3InitResource(void) {
     return -1;
 }
 
-int32_t libc_psp_sceMp3TermResource(void) {
+int32_t libcPspSceMp3TermResource(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10515,7 +10515,7 @@ int32_t libc_psp_sceMp3TermResource(void) {
     return -1;
 }
 
-int32_t libc_psp_sceRegOpenRegistry(void* reg, int32_t mode, void* handle) {
+int32_t libcPspSceRegOpenRegistry(void* reg, int32_t mode, void* handle) {
     typedef int32_t (*km_fn_t)(void*, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10543,7 +10543,7 @@ int32_t libc_psp_sceRegOpenRegistry(void* reg, int32_t mode, void* handle) {
     return -1;
 }
 
-int32_t libc_psp_sceRegRemoveRegistry(void* key) {
+int32_t libcPspSceRegRemoveRegistry(void* key) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10571,7 +10571,7 @@ int32_t libc_psp_sceRegRemoveRegistry(void* key) {
     return -1;
 }
 
-int32_t libc_psp_sceOpenPSIDGetOpenPSID(void* openpsid) {
+int32_t libcPspSceOpenPSIDGetOpenPSID(void* openpsid) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10599,7 +10599,7 @@ int32_t libc_psp_sceOpenPSIDGetOpenPSID(void* openpsid) {
     return -1;
 }
 
-int32_t libc_psp_sceUtilityMsgDialogInitStart(void* params) {
+int32_t libcPspSceUtilityMsgDialogInitStart(void* params) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10627,7 +10627,7 @@ int32_t libc_psp_sceUtilityMsgDialogInitStart(void* params) {
     return -1;
 }
 
-void libc_psp_sceUtilityMsgDialogShutdownStart(void) {
+void libcPspSceUtilityMsgDialogShutdownStart(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10655,7 +10655,7 @@ void libc_psp_sceUtilityMsgDialogShutdownStart(void) {
     errno = ENOSYS;
 }
 
-int32_t libc_psp_sceUtilityMsgDialogGetStatus(void) {
+int32_t libcPspSceUtilityMsgDialogGetStatus(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10683,7 +10683,7 @@ int32_t libc_psp_sceUtilityMsgDialogGetStatus(void) {
     return -1;
 }
 
-void libc_psp_sceUtilityMsgDialogUpdate(int32_t n) {
+void libcPspSceUtilityMsgDialogUpdate(int32_t n) {
     typedef void (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10711,7 +10711,7 @@ void libc_psp_sceUtilityMsgDialogUpdate(int32_t n) {
     errno = ENOSYS;
 }
 
-int32_t libc_psp_sceUtilityMsgDialogAbort(void) {
+int32_t libcPspSceUtilityMsgDialogAbort(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10739,7 +10739,7 @@ int32_t libc_psp_sceUtilityMsgDialogAbort(void) {
     return -1;
 }
 
-int32_t libc_psp_sceUtilityNetconfInitStart(void* data) {
+int32_t libcPspSceUtilityNetconfInitStart(void* data) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10767,7 +10767,7 @@ int32_t libc_psp_sceUtilityNetconfInitStart(void* data) {
     return -1;
 }
 
-int32_t libc_psp_sceUtilityNetconfShutdownStart(void) {
+int32_t libcPspSceUtilityNetconfShutdownStart(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10795,7 +10795,7 @@ int32_t libc_psp_sceUtilityNetconfShutdownStart(void) {
     return -1;
 }
 
-int32_t libc_psp_sceUtilityNetconfUpdate(int32_t unknown) {
+int32_t libcPspSceUtilityNetconfUpdate(int32_t unknown) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10823,7 +10823,7 @@ int32_t libc_psp_sceUtilityNetconfUpdate(int32_t unknown) {
     return -1;
 }
 
-int32_t libc_psp_sceUtilityNetconfGetStatus(void) {
+int32_t libcPspSceUtilityNetconfGetStatus(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10851,7 +10851,7 @@ int32_t libc_psp_sceUtilityNetconfGetStatus(void) {
     return -1;
 }
 
-int32_t libc_psp_sceUtilityCheckNetParam(int32_t id) {
+int32_t libcPspSceUtilityCheckNetParam(int32_t id) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10879,7 +10879,7 @@ int32_t libc_psp_sceUtilityCheckNetParam(int32_t id) {
     return -1;
 }
 
-int32_t libc_psp_sceUtilitySavedataInitStart(void* params) {
+int32_t libcPspSceUtilitySavedataInitStart(void* params) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10907,7 +10907,7 @@ int32_t libc_psp_sceUtilitySavedataInitStart(void* params) {
     return -1;
 }
 
-int32_t libc_psp_sceUtilitySavedataGetStatus(void) {
+int32_t libcPspSceUtilitySavedataGetStatus(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10935,7 +10935,7 @@ int32_t libc_psp_sceUtilitySavedataGetStatus(void) {
     return -1;
 }
 
-int32_t libc_psp_sceUtilitySavedataShutdownStart(void) {
+int32_t libcPspSceUtilitySavedataShutdownStart(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10963,7 +10963,7 @@ int32_t libc_psp_sceUtilitySavedataShutdownStart(void) {
     return -1;
 }
 
-void libc_psp_sceUtilitySavedataUpdate(int32_t unknown) {
+void libcPspSceUtilitySavedataUpdate(int32_t unknown) {
     typedef void (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10991,7 +10991,7 @@ void libc_psp_sceUtilitySavedataUpdate(int32_t unknown) {
     errno = ENOSYS;
 }
 
-int32_t libc_psp_sceUtilityGameSharingInitStart(void* params) {
+int32_t libcPspSceUtilityGameSharingInitStart(void* params) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -11019,7 +11019,7 @@ int32_t libc_psp_sceUtilityGameSharingInitStart(void* params) {
     return -1;
 }
 
-void libc_psp_sceUtilityGameSharingShutdownStart(void) {
+void libcPspSceUtilityGameSharingShutdownStart(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -11047,7 +11047,7 @@ void libc_psp_sceUtilityGameSharingShutdownStart(void) {
     errno = ENOSYS;
 }
 
-int32_t libc_psp_sceUtilityGameSharingGetStatus(void) {
+int32_t libcPspSceUtilityGameSharingGetStatus(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -11075,7 +11075,7 @@ int32_t libc_psp_sceUtilityGameSharingGetStatus(void) {
     return -1;
 }
 
-void libc_psp_sceUtilityGameSharingUpdate(int32_t n) {
+void libcPspSceUtilityGameSharingUpdate(int32_t n) {
     typedef void (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -11103,7 +11103,7 @@ void libc_psp_sceUtilityGameSharingUpdate(int32_t n) {
     errno = ENOSYS;
 }
 
-int32_t libc_psp_sceUtilityHtmlViewerInitStart(void* params) {
+int32_t libcPspSceUtilityHtmlViewerInitStart(void* params) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -11131,7 +11131,7 @@ int32_t libc_psp_sceUtilityHtmlViewerInitStart(void* params) {
     return -1;
 }
 
-int32_t libc_psp_sceUtilityHtmlViewerShutdownStart(void) {
+int32_t libcPspSceUtilityHtmlViewerShutdownStart(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -11159,7 +11159,7 @@ int32_t libc_psp_sceUtilityHtmlViewerShutdownStart(void) {
     return -1;
 }
 
-int32_t libc_psp_sceUtilityHtmlViewerUpdate(int32_t n) {
+int32_t libcPspSceUtilityHtmlViewerUpdate(int32_t n) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -11187,7 +11187,7 @@ int32_t libc_psp_sceUtilityHtmlViewerUpdate(int32_t n) {
     return -1;
 }
 
-int32_t libc_psp_sceUtilityHtmlViewerGetStatus(void) {
+int32_t libcPspSceUtilityHtmlViewerGetStatus(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -11215,7 +11215,7 @@ int32_t libc_psp_sceUtilityHtmlViewerGetStatus(void) {
     return -1;
 }
 
-int32_t libc_psp_sceUtilityOskInitStart(void* params) {
+int32_t libcPspSceUtilityOskInitStart(void* params) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -11243,7 +11243,7 @@ int32_t libc_psp_sceUtilityOskInitStart(void* params) {
     return -1;
 }
 
-int32_t libc_psp_sceUtilityOskShutdownStart(void) {
+int32_t libcPspSceUtilityOskShutdownStart(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -11271,7 +11271,7 @@ int32_t libc_psp_sceUtilityOskShutdownStart(void) {
     return -1;
 }
 
-int32_t libc_psp_sceUtilityOskUpdate(int32_t n) {
+int32_t libcPspSceUtilityOskUpdate(int32_t n) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -11299,7 +11299,7 @@ int32_t libc_psp_sceUtilityOskUpdate(int32_t n) {
     return -1;
 }
 
-int32_t libc_psp_sceUtilityOskGetStatus(void) {
+int32_t libcPspSceUtilityOskGetStatus(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -11327,7 +11327,7 @@ int32_t libc_psp_sceUtilityOskGetStatus(void) {
     return -1;
 }
 
-int32_t libc_psp_sceUtilityCreateNetParam(int32_t conf) {
+int32_t libcPspSceUtilityCreateNetParam(int32_t conf) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -11355,7 +11355,7 @@ int32_t libc_psp_sceUtilityCreateNetParam(int32_t conf) {
     return -1;
 }
 
-int32_t libc_psp_sceUtilityCopyNetParam(int32_t src, int32_t dest) {
+int32_t libcPspSceUtilityCopyNetParam(int32_t src, int32_t dest) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -11383,7 +11383,7 @@ int32_t libc_psp_sceUtilityCopyNetParam(int32_t src, int32_t dest) {
     return -1;
 }
 
-int32_t libc_psp_sceUtilityDeleteNetParam(int32_t conf) {
+int32_t libcPspSceUtilityDeleteNetParam(int32_t conf) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -11411,7 +11411,7 @@ int32_t libc_psp_sceUtilityDeleteNetParam(int32_t conf) {
     return -1;
 }
 
-int32_t libc_psp_sceNetInit(int32_t poolsize, int32_t calloutprio, int32_t calloutstack, int32_t netintrprio, int32_t netintrstack) {
+int32_t libcPspSceNetInit(int32_t poolsize, int32_t calloutprio, int32_t calloutstack, int32_t netintrprio, int32_t netintrstack) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -11439,7 +11439,7 @@ int32_t libc_psp_sceNetInit(int32_t poolsize, int32_t calloutprio, int32_t callo
     return -1;
 }
 
-int32_t libc_psp_sceNetTerm(void) {
+int32_t libcPspSceNetTerm(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -11467,7 +11467,7 @@ int32_t libc_psp_sceNetTerm(void) {
     return -1;
 }
 
-int32_t libc_psp_sceNetFreeThreadinfo(int32_t thid) {
+int32_t libcPspSceNetFreeThreadinfo(int32_t thid) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -11495,7 +11495,7 @@ int32_t libc_psp_sceNetFreeThreadinfo(int32_t thid) {
     return -1;
 }
 
-int32_t libc_psp_sceNetThreadAbort(int32_t thid) {
+int32_t libcPspSceNetThreadAbort(int32_t thid) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -11523,7 +11523,7 @@ int32_t libc_psp_sceNetThreadAbort(int32_t thid) {
     return -1;
 }
 
-void libc_psp_sceNetEtherStrton(void* name, void* mac) {
+void libcPspSceNetEtherStrton(void* name, void* mac) {
     typedef void (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -11551,7 +11551,7 @@ void libc_psp_sceNetEtherStrton(void* name, void* mac) {
     errno = ENOSYS;
 }
 
-void libc_psp_sceNetEtherNtostr(void* mac, void* name) {
+void libcPspSceNetEtherNtostr(void* mac, void* name) {
     typedef void (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -11579,7 +11579,7 @@ void libc_psp_sceNetEtherNtostr(void* mac, void* name) {
     errno = ENOSYS;
 }
 
-int32_t libc_psp_sceNetGetLocalEtherAddr(void* mac) {
+int32_t libcPspSceNetGetLocalEtherAddr(void* mac) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -11607,7 +11607,7 @@ int32_t libc_psp_sceNetGetLocalEtherAddr(void* mac) {
     return -1;
 }
 
-int32_t libc_psp_sceNetGetMallocStat(void* arg_0_stat) {
+int32_t libcPspSceNetGetMallocStat(void* arg0Stat) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -11629,13 +11629,13 @@ int32_t libc_psp_sceNetGetMallocStat(void* arg_0_stat) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_stat);
+        return km_fn_ptr(arg0Stat);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocctlInit(int32_t stacksize, int32_t priority, void* adhoc_id) {
+int32_t libcPspSceNetAdhocctlInit(int32_t stacksize, int32_t priority, void* adhocId) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -11657,13 +11657,13 @@ int32_t libc_psp_sceNetAdhocctlInit(int32_t stacksize, int32_t priority, void* a
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(stacksize, priority, adhoc_id);
+        return km_fn_ptr(stacksize, priority, adhocId);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocctlTerm(void) {
+int32_t libcPspSceNetAdhocctlTerm(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -11691,7 +11691,7 @@ int32_t libc_psp_sceNetAdhocctlTerm(void) {
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocctlConnect(void* name) {
+int32_t libcPspSceNetAdhocctlConnect(void* name) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -11719,7 +11719,7 @@ int32_t libc_psp_sceNetAdhocctlConnect(void* name) {
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocctlDisconnect(void) {
+int32_t libcPspSceNetAdhocctlDisconnect(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -11747,7 +11747,7 @@ int32_t libc_psp_sceNetAdhocctlDisconnect(void) {
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocctlGetState(void* event) {
+int32_t libcPspSceNetAdhocctlGetState(void* event) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -11775,7 +11775,7 @@ int32_t libc_psp_sceNetAdhocctlGetState(void* event) {
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocctlCreate(void* name) {
+int32_t libcPspSceNetAdhocctlCreate(void* name) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -11803,7 +11803,7 @@ int32_t libc_psp_sceNetAdhocctlCreate(void* name) {
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocctlJoin(void* scaninfo) {
+int32_t libcPspSceNetAdhocctlJoin(void* scaninfo) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -11831,7 +11831,7 @@ int32_t libc_psp_sceNetAdhocctlJoin(void* scaninfo) {
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocctlGetAdhocId(void* id) {
+int32_t libcPspSceNetAdhocctlGetAdhocId(void* id) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -11859,7 +11859,7 @@ int32_t libc_psp_sceNetAdhocctlGetAdhocId(void* id) {
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocctlCreateEnterGameMode(void* name, int32_t unknown, int32_t num, void* macs, uint32_t timeout, int32_t unknown2) {
+int32_t libcPspSceNetAdhocctlCreateEnterGameMode(void* name, int32_t unknown, int32_t num, void* macs, uint32_t timeout, int32_t unknown2) {
     typedef int32_t (*km_fn_t)(void*, int32_t, int32_t, void*, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -11887,7 +11887,7 @@ int32_t libc_psp_sceNetAdhocctlCreateEnterGameMode(void* name, int32_t unknown, 
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocctlJoinEnterGameMode(void* name, void* hostmac, uint32_t timeout, int32_t unknown) {
+int32_t libcPspSceNetAdhocctlJoinEnterGameMode(void* name, void* hostmac, uint32_t timeout, int32_t unknown) {
     typedef int32_t (*km_fn_t)(void*, void*, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -11915,7 +11915,7 @@ int32_t libc_psp_sceNetAdhocctlJoinEnterGameMode(void* name, void* hostmac, uint
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocctlGetGameModeInfo(void* gamemodeinfo) {
+int32_t libcPspSceNetAdhocctlGetGameModeInfo(void* gamemodeinfo) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -11943,7 +11943,7 @@ int32_t libc_psp_sceNetAdhocctlGetGameModeInfo(void* gamemodeinfo) {
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocctlExitGameMode(void) {
+int32_t libcPspSceNetAdhocctlExitGameMode(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -11971,7 +11971,7 @@ int32_t libc_psp_sceNetAdhocctlExitGameMode(void) {
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocctlGetPeerList(void* length, void* buf) {
+int32_t libcPspSceNetAdhocctlGetPeerList(void* length, void* buf) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -11999,7 +11999,7 @@ int32_t libc_psp_sceNetAdhocctlGetPeerList(void* length, void* buf) {
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocctlGetPeerInfo(void* mac, int32_t size, void* peerinfo) {
+int32_t libcPspSceNetAdhocctlGetPeerInfo(void* mac, int32_t size, void* peerinfo) {
     typedef int32_t (*km_fn_t)(void*, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -12027,7 +12027,7 @@ int32_t libc_psp_sceNetAdhocctlGetPeerInfo(void* mac, int32_t size, void* peerin
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocctlScan(void) {
+int32_t libcPspSceNetAdhocctlScan(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -12055,7 +12055,7 @@ int32_t libc_psp_sceNetAdhocctlScan(void) {
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocctlGetScanInfo(void* length, void* buf) {
+int32_t libcPspSceNetAdhocctlGetScanInfo(void* length, void* buf) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -12083,7 +12083,7 @@ int32_t libc_psp_sceNetAdhocctlGetScanInfo(void* length, void* buf) {
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocctlAddHandler(void* handler, void* unknown) {
+int32_t libcPspSceNetAdhocctlAddHandler(void* handler, void* unknown) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -12111,7 +12111,7 @@ int32_t libc_psp_sceNetAdhocctlAddHandler(void* handler, void* unknown) {
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocctlDelHandler(int32_t id) {
+int32_t libcPspSceNetAdhocctlDelHandler(int32_t id) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -12139,7 +12139,7 @@ int32_t libc_psp_sceNetAdhocctlDelHandler(int32_t id) {
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocctlGetNameByAddr(void* mac, void* nickname) {
+int32_t libcPspSceNetAdhocctlGetNameByAddr(void* mac, void* nickname) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -12167,7 +12167,7 @@ int32_t libc_psp_sceNetAdhocctlGetNameByAddr(void* mac, void* nickname) {
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocctlGetAddrByName(void* nickname, void* length, void* buf) {
+int32_t libcPspSceNetAdhocctlGetAddrByName(void* nickname, void* length, void* buf) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -12195,7 +12195,7 @@ int32_t libc_psp_sceNetAdhocctlGetAddrByName(void* nickname, void* length, void*
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocctlGetParameter(void* params) {
+int32_t libcPspSceNetAdhocctlGetParameter(void* params) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -12223,7 +12223,7 @@ int32_t libc_psp_sceNetAdhocctlGetParameter(void* params) {
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocInit(void) {
+int32_t libcPspSceNetAdhocInit(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -12251,7 +12251,7 @@ int32_t libc_psp_sceNetAdhocInit(void) {
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocTerm(void) {
+int32_t libcPspSceNetAdhocTerm(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -12279,7 +12279,7 @@ int32_t libc_psp_sceNetAdhocTerm(void) {
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocPdpCreate(void* mac, uint16_t port, uint32_t buf_size, int32_t unk1) {
+int32_t libcPspSceNetAdhocPdpCreate(void* mac, uint16_t port, uint32_t bufSize, int32_t unk1) {
     typedef int32_t (*km_fn_t)(void*, uint16_t, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -12301,13 +12301,13 @@ int32_t libc_psp_sceNetAdhocPdpCreate(void* mac, uint16_t port, uint32_t buf_siz
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(mac, port, buf_size, unk1);
+        return km_fn_ptr(mac, port, bufSize, unk1);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocPdpDelete(int32_t id, int32_t unk1) {
+int32_t libcPspSceNetAdhocPdpDelete(int32_t id, int32_t unk1) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -12335,7 +12335,7 @@ int32_t libc_psp_sceNetAdhocPdpDelete(int32_t id, int32_t unk1) {
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocPdpSend(int32_t id, void* dest_mac_addr, uint16_t port, void* data, uint32_t len, uint32_t timeout, int32_t nonblock) {
+int32_t libcPspSceNetAdhocPdpSend(int32_t id, void* destMacAddr, uint16_t port, void* data, uint32_t len, uint32_t timeout, int32_t nonblock) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint16_t, void*, uint32_t, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -12357,13 +12357,13 @@ int32_t libc_psp_sceNetAdhocPdpSend(int32_t id, void* dest_mac_addr, uint16_t po
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(id, dest_mac_addr, port, data, len, timeout, nonblock);
+        return km_fn_ptr(id, destMacAddr, port, data, len, timeout, nonblock);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocPdpRecv(int32_t id, void* src_mac_addr, void* port, void* data, void* data_length, uint32_t timeout, int32_t nonblock) {
+int32_t libcPspSceNetAdhocPdpRecv(int32_t id, void* srcMacAddr, void* port, void* data, void* dataLength, uint32_t timeout, int32_t nonblock) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, void*, void*, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -12385,13 +12385,13 @@ int32_t libc_psp_sceNetAdhocPdpRecv(int32_t id, void* src_mac_addr, void* port, 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(id, src_mac_addr, port, data, data_length, timeout, nonblock);
+        return km_fn_ptr(id, srcMacAddr, port, data, dataLength, timeout, nonblock);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocGetPdpStat(void* size, void* arg_1_stat) {
+int32_t libcPspSceNetAdhocGetPdpStat(void* size, void* arg1Stat) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -12413,13 +12413,13 @@ int32_t libc_psp_sceNetAdhocGetPdpStat(void* size, void* arg_1_stat) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(size, arg_1_stat);
+        return km_fn_ptr(size, arg1Stat);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocGameModeCreateMaster(void* data, int32_t size) {
+int32_t libcPspSceNetAdhocGameModeCreateMaster(void* data, int32_t size) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -12447,7 +12447,7 @@ int32_t libc_psp_sceNetAdhocGameModeCreateMaster(void* data, int32_t size) {
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocGameModeCreateReplica(void* mac, void* data, int32_t size) {
+int32_t libcPspSceNetAdhocGameModeCreateReplica(void* mac, void* data, int32_t size) {
     typedef int32_t (*km_fn_t)(void*, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -12475,7 +12475,7 @@ int32_t libc_psp_sceNetAdhocGameModeCreateReplica(void* mac, void* data, int32_t
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocGameModeUpdateMaster(void) {
+int32_t libcPspSceNetAdhocGameModeUpdateMaster(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -12503,7 +12503,7 @@ int32_t libc_psp_sceNetAdhocGameModeUpdateMaster(void) {
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocGameModeUpdateReplica(int32_t id, int32_t unk1) {
+int32_t libcPspSceNetAdhocGameModeUpdateReplica(int32_t id, int32_t unk1) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -12531,7 +12531,7 @@ int32_t libc_psp_sceNetAdhocGameModeUpdateReplica(int32_t id, int32_t unk1) {
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocGameModeDeleteMaster(void) {
+int32_t libcPspSceNetAdhocGameModeDeleteMaster(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -12559,7 +12559,7 @@ int32_t libc_psp_sceNetAdhocGameModeDeleteMaster(void) {
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocGameModeDeleteReplica(int32_t id) {
+int32_t libcPspSceNetAdhocGameModeDeleteReplica(int32_t id) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -12587,7 +12587,7 @@ int32_t libc_psp_sceNetAdhocGameModeDeleteReplica(int32_t id) {
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocPtpOpen(void* srcmac, uint16_t srcport, void* destmac, uint16_t destport, uint32_t buf_size, uint32_t delay, int32_t count, int32_t unk1) {
+int32_t libcPspSceNetAdhocPtpOpen(void* srcmac, uint16_t srcport, void* destmac, uint16_t destport, uint32_t bufSize, uint32_t delay, int32_t count, int32_t unk1) {
     typedef int32_t (*km_fn_t)(void*, uint16_t, void*, uint16_t, uint32_t, uint32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -12609,13 +12609,13 @@ int32_t libc_psp_sceNetAdhocPtpOpen(void* srcmac, uint16_t srcport, void* destma
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(srcmac, srcport, destmac, destport, buf_size, delay, count, unk1);
+        return km_fn_ptr(srcmac, srcport, destmac, destport, bufSize, delay, count, unk1);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocPtpConnect(int32_t id, uint32_t timeout, int32_t nonblock) {
+int32_t libcPspSceNetAdhocPtpConnect(int32_t id, uint32_t timeout, int32_t nonblock) {
     typedef int32_t (*km_fn_t)(int32_t, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -12643,7 +12643,7 @@ int32_t libc_psp_sceNetAdhocPtpConnect(int32_t id, uint32_t timeout, int32_t non
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocPtpListen(void* srcmac, uint16_t srcport, uint32_t buf_size, uint32_t delay, int32_t count, int32_t queue, int32_t unk1) {
+int32_t libcPspSceNetAdhocPtpListen(void* srcmac, uint16_t srcport, uint32_t bufSize, uint32_t delay, int32_t count, int32_t queue, int32_t unk1) {
     typedef int32_t (*km_fn_t)(void*, uint16_t, uint32_t, uint32_t, int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -12665,13 +12665,13 @@ int32_t libc_psp_sceNetAdhocPtpListen(void* srcmac, uint16_t srcport, uint32_t b
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(srcmac, srcport, buf_size, delay, count, queue, unk1);
+        return km_fn_ptr(srcmac, srcport, bufSize, delay, count, queue, unk1);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocPtpAccept(int32_t id, void* mac, void* port, uint32_t timeout, int32_t nonblock) {
+int32_t libcPspSceNetAdhocPtpAccept(int32_t id, void* mac, void* port, uint32_t timeout, int32_t nonblock) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -12699,7 +12699,7 @@ int32_t libc_psp_sceNetAdhocPtpAccept(int32_t id, void* mac, void* port, uint32_
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocPtpSend(int32_t id, void* data, void* data_size, uint32_t timeout, int32_t nonblock) {
+int32_t libcPspSceNetAdhocPtpSend(int32_t id, void* data, void* dataSize, uint32_t timeout, int32_t nonblock) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -12721,13 +12721,13 @@ int32_t libc_psp_sceNetAdhocPtpSend(int32_t id, void* data, void* data_size, uin
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(id, data, data_size, timeout, nonblock);
+        return km_fn_ptr(id, data, dataSize, timeout, nonblock);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocPtpRecv(int32_t id, void* data, void* data_size, uint32_t timeout, int32_t nonblock) {
+int32_t libcPspSceNetAdhocPtpRecv(int32_t id, void* data, void* dataSize, uint32_t timeout, int32_t nonblock) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -12749,13 +12749,13 @@ int32_t libc_psp_sceNetAdhocPtpRecv(int32_t id, void* data, void* data_size, uin
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(id, data, data_size, timeout, nonblock);
+        return km_fn_ptr(id, data, dataSize, timeout, nonblock);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocPtpFlush(int32_t id, uint32_t timeout, int32_t nonblock) {
+int32_t libcPspSceNetAdhocPtpFlush(int32_t id, uint32_t timeout, int32_t nonblock) {
     typedef int32_t (*km_fn_t)(int32_t, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -12783,7 +12783,7 @@ int32_t libc_psp_sceNetAdhocPtpFlush(int32_t id, uint32_t timeout, int32_t nonbl
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocPtpClose(int32_t id, int32_t unk1) {
+int32_t libcPspSceNetAdhocPtpClose(int32_t id, int32_t unk1) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -12811,7 +12811,7 @@ int32_t libc_psp_sceNetAdhocPtpClose(int32_t id, int32_t unk1) {
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocGetPtpStat(void* size, void* arg_1_stat) {
+int32_t libcPspSceNetAdhocGetPtpStat(void* size, void* arg1Stat) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -12833,13 +12833,13 @@ int32_t libc_psp_sceNetAdhocGetPtpStat(void* size, void* arg_1_stat) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(size, arg_1_stat);
+        return km_fn_ptr(size, arg1Stat);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocMatchingInit(int32_t memsize) {
+int32_t libcPspSceNetAdhocMatchingInit(int32_t memsize) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -12867,7 +12867,7 @@ int32_t libc_psp_sceNetAdhocMatchingInit(int32_t memsize) {
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocMatchingTerm(void) {
+int32_t libcPspSceNetAdhocMatchingTerm(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -12895,7 +12895,7 @@ int32_t libc_psp_sceNetAdhocMatchingTerm(void) {
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocMatchingDelete(int32_t matching_id) {
+int32_t libcPspSceNetAdhocMatchingDelete(int32_t matchingId) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -12917,13 +12917,13 @@ int32_t libc_psp_sceNetAdhocMatchingDelete(int32_t matching_id) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(matching_id);
+        return km_fn_ptr(matchingId);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocMatchingStart(int32_t matching_id, int32_t evth_pri, int32_t evth_stack, int32_t inth_pri, int32_t inth_stack, int32_t opt_len, void* opt_data) {
+int32_t libcPspSceNetAdhocMatchingStart(int32_t matchingId, int32_t evthPri, int32_t evthStack, int32_t inthPri, int32_t inthStack, int32_t optLen, void* optData) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -12945,13 +12945,13 @@ int32_t libc_psp_sceNetAdhocMatchingStart(int32_t matching_id, int32_t evth_pri,
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(matching_id, evth_pri, evth_stack, inth_pri, inth_stack, opt_len, opt_data);
+        return km_fn_ptr(matchingId, evthPri, evthStack, inthPri, inthStack, optLen, optData);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocMatchingStop(int32_t matching_id) {
+int32_t libcPspSceNetAdhocMatchingStop(int32_t matchingId) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -12973,13 +12973,13 @@ int32_t libc_psp_sceNetAdhocMatchingStop(int32_t matching_id) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(matching_id);
+        return km_fn_ptr(matchingId);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocMatchingSelectTarget(int32_t matching_id, void* mac, int32_t opt_len, void* opt_data) {
+int32_t libcPspSceNetAdhocMatchingSelectTarget(int32_t matchingId, void* mac, int32_t optLen, void* optData) {
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -13001,13 +13001,13 @@ int32_t libc_psp_sceNetAdhocMatchingSelectTarget(int32_t matching_id, void* mac,
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(matching_id, mac, opt_len, opt_data);
+        return km_fn_ptr(matchingId, mac, optLen, optData);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocMatchingCancelTarget(int32_t matching_id, void* mac) {
+int32_t libcPspSceNetAdhocMatchingCancelTarget(int32_t matchingId, void* mac) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -13029,13 +13029,13 @@ int32_t libc_psp_sceNetAdhocMatchingCancelTarget(int32_t matching_id, void* mac)
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(matching_id, mac);
+        return km_fn_ptr(matchingId, mac);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocMatchingCancelTargetWithOpt(int32_t matching_id, void* mac, int32_t opt_len, void* opt_data) {
+int32_t libcPspSceNetAdhocMatchingCancelTargetWithOpt(int32_t matchingId, void* mac, int32_t optLen, void* optData) {
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -13057,13 +13057,13 @@ int32_t libc_psp_sceNetAdhocMatchingCancelTargetWithOpt(int32_t matching_id, voi
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(matching_id, mac, opt_len, opt_data);
+        return km_fn_ptr(matchingId, mac, optLen, optData);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocMatchingSendData(int32_t matching_id, void* mac, int32_t data_len, void* data) {
+int32_t libcPspSceNetAdhocMatchingSendData(int32_t matchingId, void* mac, int32_t dataLen, void* data) {
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -13085,13 +13085,13 @@ int32_t libc_psp_sceNetAdhocMatchingSendData(int32_t matching_id, void* mac, int
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(matching_id, mac, data_len, data);
+        return km_fn_ptr(matchingId, mac, dataLen, data);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocMatchingAbortSendData(int32_t matching_id, void* mac) {
+int32_t libcPspSceNetAdhocMatchingAbortSendData(int32_t matchingId, void* mac) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -13113,13 +13113,13 @@ int32_t libc_psp_sceNetAdhocMatchingAbortSendData(int32_t matching_id, void* mac
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(matching_id, mac);
+        return km_fn_ptr(matchingId, mac);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocMatchingSetHelloOpt(int32_t matching_id, int32_t opt_len, void* opt_data) {
+int32_t libcPspSceNetAdhocMatchingSetHelloOpt(int32_t matchingId, int32_t optLen, void* optData) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -13141,13 +13141,13 @@ int32_t libc_psp_sceNetAdhocMatchingSetHelloOpt(int32_t matching_id, int32_t opt
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(matching_id, opt_len, opt_data);
+        return km_fn_ptr(matchingId, optLen, optData);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocMatchingGetHelloOpt(int32_t matching_id, void* opt_len, void* opt_data) {
+int32_t libcPspSceNetAdhocMatchingGetHelloOpt(int32_t matchingId, void* optLen, void* optData) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -13169,13 +13169,13 @@ int32_t libc_psp_sceNetAdhocMatchingGetHelloOpt(int32_t matching_id, void* opt_l
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(matching_id, opt_len, opt_data);
+        return km_fn_ptr(matchingId, optLen, optData);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocMatchingGetMembers(int32_t matching_id, void* length, void* buf) {
+int32_t libcPspSceNetAdhocMatchingGetMembers(int32_t matchingId, void* length, void* buf) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -13197,13 +13197,13 @@ int32_t libc_psp_sceNetAdhocMatchingGetMembers(int32_t matching_id, void* length
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(matching_id, length, buf);
+        return km_fn_ptr(matchingId, length, buf);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocMatchingGetPoolMaxAlloc(void) {
+int32_t libcPspSceNetAdhocMatchingGetPoolMaxAlloc(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -13231,7 +13231,7 @@ int32_t libc_psp_sceNetAdhocMatchingGetPoolMaxAlloc(void) {
     return -1;
 }
 
-int32_t libc_psp_sceNetAdhocMatchingGetPoolStat(void* poolstat) {
+int32_t libcPspSceNetAdhocMatchingGetPoolStat(void* poolstat) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -13259,7 +13259,7 @@ int32_t libc_psp_sceNetAdhocMatchingGetPoolStat(void* poolstat) {
     return -1;
 }
 
-int32_t libc_psp_sceNetApctlInit(int32_t stack_size, int32_t init_priority) {
+int32_t libcPspSceNetApctlInit(int32_t stackSize, int32_t initPriority) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -13281,13 +13281,13 @@ int32_t libc_psp_sceNetApctlInit(int32_t stack_size, int32_t init_priority) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(stack_size, init_priority);
+        return km_fn_ptr(stackSize, initPriority);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceNetApctlTerm(void) {
+int32_t libcPspSceNetApctlTerm(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -13315,7 +13315,7 @@ int32_t libc_psp_sceNetApctlTerm(void) {
     return -1;
 }
 
-int32_t libc_psp_sceNetApctlAddHandler(void* handler, void* parg) {
+int32_t libcPspSceNetApctlAddHandler(void* handler, void* parg) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -13343,7 +13343,7 @@ int32_t libc_psp_sceNetApctlAddHandler(void* handler, void* parg) {
     return -1;
 }
 
-int32_t libc_psp_sceNetApctlDelHandler(int32_t handler_id) {
+int32_t libcPspSceNetApctlDelHandler(int32_t handlerId) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -13365,13 +13365,13 @@ int32_t libc_psp_sceNetApctlDelHandler(int32_t handler_id) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(handler_id);
+        return km_fn_ptr(handlerId);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceNetApctlConnect(int32_t conn_index) {
+int32_t libcPspSceNetApctlConnect(int32_t connIndex) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -13393,13 +13393,13 @@ int32_t libc_psp_sceNetApctlConnect(int32_t conn_index) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(conn_index);
+        return km_fn_ptr(connIndex);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceNetApctlDisconnect(void) {
+int32_t libcPspSceNetApctlDisconnect(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -13427,7 +13427,7 @@ int32_t libc_psp_sceNetApctlDisconnect(void) {
     return -1;
 }
 
-int32_t libc_psp_sceNetApctlGetState(void* pstate) {
+int32_t libcPspSceNetApctlGetState(void* pstate) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -13455,7 +13455,7 @@ int32_t libc_psp_sceNetApctlGetState(void* pstate) {
     return -1;
 }
 
-int32_t libc_psp_sceNetInetInit(void) {
+int32_t libcPspSceNetInetInit(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -13483,7 +13483,7 @@ int32_t libc_psp_sceNetInetInit(void) {
     return -1;
 }
 
-int32_t libc_psp_sceNetInetTerm(void) {
+int32_t libcPspSceNetInetTerm(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -13511,7 +13511,7 @@ int32_t libc_psp_sceNetInetTerm(void) {
     return -1;
 }
 
-int32_t libc_psp_sceNetInetAccept(int32_t s, void* addr, void* addr_len) {
+int32_t libcPspSceNetInetAccept(int32_t s, void* addr, void* addrLen) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -13533,13 +13533,13 @@ int32_t libc_psp_sceNetInetAccept(int32_t s, void* addr, void* addr_len) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(s, addr, addr_len);
+        return km_fn_ptr(s, addr, addrLen);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceNetInetBind(int32_t s, void* my_addr, uint32_t addr_len) {
+int32_t libcPspSceNetInetBind(int32_t s, void* myAddr, uint32_t addrLen) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -13561,13 +13561,13 @@ int32_t libc_psp_sceNetInetBind(int32_t s, void* my_addr, uint32_t addr_len) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(s, my_addr, addr_len);
+        return km_fn_ptr(s, myAddr, addrLen);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceNetInetConnect(int32_t s, void* serv_addr, uint32_t addr_len) {
+int32_t libcPspSceNetInetConnect(int32_t s, void* servAddr, uint32_t addrLen) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -13589,13 +13589,13 @@ int32_t libc_psp_sceNetInetConnect(int32_t s, void* serv_addr, uint32_t addr_len
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(s, serv_addr, addr_len);
+        return km_fn_ptr(s, servAddr, addrLen);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceNetInetGetsockopt(int32_t s, int32_t level, int32_t opt_name, void* opt_val, void* optl_en) {
+int32_t libcPspSceNetInetGetsockopt(int32_t s, int32_t level, int32_t optName, void* optVal, void* optlEn) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -13617,13 +13617,13 @@ int32_t libc_psp_sceNetInetGetsockopt(int32_t s, int32_t level, int32_t opt_name
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(s, level, opt_name, opt_val, optl_en);
+        return km_fn_ptr(s, level, optName, optVal, optlEn);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceNetInetListen(int32_t s, int32_t backlog) {
+int32_t libcPspSceNetInetListen(int32_t s, int32_t backlog) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -13651,7 +13651,7 @@ int32_t libc_psp_sceNetInetListen(int32_t s, int32_t backlog) {
     return -1;
 }
 
-uint64_t libc_psp_sceNetInetRecv(int32_t s, void* buf, uint64_t len, int32_t flags) {
+uint64_t libcPspSceNetInetRecv(int32_t s, void* buf, uint64_t len, int32_t flags) {
     typedef uint64_t (*km_fn_t)(int32_t, void*, uint64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -13679,7 +13679,7 @@ uint64_t libc_psp_sceNetInetRecv(int32_t s, void* buf, uint64_t len, int32_t fla
     return 0;
 }
 
-uint64_t libc_psp_sceNetInetRecvfrom(int32_t s, void* buf, uint64_t flags, int32_t arg1, void* from, void* from_len) {
+uint64_t libcPspSceNetInetRecvfrom(int32_t s, void* buf, uint64_t flags, int32_t arg1, void* from, void* fromLen) {
     typedef uint64_t (*km_fn_t)(int32_t, void*, uint64_t, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -13701,13 +13701,13 @@ uint64_t libc_psp_sceNetInetRecvfrom(int32_t s, void* buf, uint64_t flags, int32
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(s, buf, flags, arg1, from, from_len);
+        return km_fn_ptr(s, buf, flags, arg1, from, fromLen);
     }
     errno = ENOSYS;
     return 0;
 }
 
-uint64_t libc_psp_sceNetInetSend(int32_t s, void* buf, uint64_t len, int32_t flags) {
+uint64_t libcPspSceNetInetSend(int32_t s, void* buf, uint64_t len, int32_t flags) {
     typedef uint64_t (*km_fn_t)(int32_t, void*, uint64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -13735,7 +13735,7 @@ uint64_t libc_psp_sceNetInetSend(int32_t s, void* buf, uint64_t len, int32_t fla
     return 0;
 }
 
-uint64_t libc_psp_sceNetInetSendto(int32_t s, void* buf, uint64_t len, int32_t flags, void* to, uint32_t to_len) {
+uint64_t libcPspSceNetInetSendto(int32_t s, void* buf, uint64_t len, int32_t flags, void* to, uint32_t toLen) {
     typedef uint64_t (*km_fn_t)(int32_t, void*, uint64_t, int32_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -13757,13 +13757,13 @@ uint64_t libc_psp_sceNetInetSendto(int32_t s, void* buf, uint64_t len, int32_t f
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(s, buf, len, flags, to, to_len);
+        return km_fn_ptr(s, buf, len, flags, to, toLen);
     }
     errno = ENOSYS;
     return 0;
 }
 
-int32_t libc_psp_sceNetInetSetsockopt(int32_t s, int32_t level, int32_t opt_name, void* opt_val, uint32_t opt_len) {
+int32_t libcPspSceNetInetSetsockopt(int32_t s, int32_t level, int32_t optName, void* optVal, uint32_t optLen) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -13785,13 +13785,13 @@ int32_t libc_psp_sceNetInetSetsockopt(int32_t s, int32_t level, int32_t opt_name
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(s, level, opt_name, opt_val, opt_len);
+        return km_fn_ptr(s, level, optName, optVal, optLen);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceNetInetShutdown(int32_t s, int32_t how) {
+int32_t libcPspSceNetInetShutdown(int32_t s, int32_t how) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -13819,7 +13819,7 @@ int32_t libc_psp_sceNetInetShutdown(int32_t s, int32_t how) {
     return -1;
 }
 
-int32_t libc_psp_sceNetInetSocket(int32_t domain, int32_t type_, int32_t protocol) {
+int32_t libcPspSceNetInetSocket(int32_t domain, int32_t type, int32_t protocol) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -13841,13 +13841,13 @@ int32_t libc_psp_sceNetInetSocket(int32_t domain, int32_t type_, int32_t protoco
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(domain, type_, protocol);
+        return km_fn_ptr(domain, type, protocol);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceNetInetClose(int32_t s) {
+int32_t libcPspSceNetInetClose(int32_t s) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -13875,7 +13875,7 @@ int32_t libc_psp_sceNetInetClose(int32_t s) {
     return -1;
 }
 
-int32_t libc_psp_sceNetInetGetErrno(void) {
+int32_t libcPspSceNetInetGetErrno(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -13903,7 +13903,7 @@ int32_t libc_psp_sceNetInetGetErrno(void) {
     return -1;
 }
 
-int32_t libc_psp_sceSslInit(int32_t unknown1) {
+int32_t libcPspSceSslInit(int32_t unknown1) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -13931,7 +13931,7 @@ int32_t libc_psp_sceSslInit(int32_t unknown1) {
     return -1;
 }
 
-int32_t libc_psp_sceSslEnd(void) {
+int32_t libcPspSceSslEnd(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -13959,7 +13959,7 @@ int32_t libc_psp_sceSslEnd(void) {
     return -1;
 }
 
-int32_t libc_psp_sceSslGetUsedMemoryMax(void* memory) {
+int32_t libcPspSceSslGetUsedMemoryMax(void* memory) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -13987,7 +13987,7 @@ int32_t libc_psp_sceSslGetUsedMemoryMax(void* memory) {
     return -1;
 }
 
-int32_t libc_psp_sceSslGetUsedMemoryCurrent(void* memory) {
+int32_t libcPspSceSslGetUsedMemoryCurrent(void* memory) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -14015,7 +14015,7 @@ int32_t libc_psp_sceSslGetUsedMemoryCurrent(void* memory) {
     return -1;
 }
 
-int32_t libc_psp_sceHttpInit(uint32_t unknown1) {
+int32_t libcPspSceHttpInit(uint32_t unknown1) {
     typedef int32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -14043,7 +14043,7 @@ int32_t libc_psp_sceHttpInit(uint32_t unknown1) {
     return -1;
 }
 
-int32_t libc_psp_sceHttpEnd(void) {
+int32_t libcPspSceHttpEnd(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -14071,7 +14071,7 @@ int32_t libc_psp_sceHttpEnd(void) {
     return -1;
 }
 
-int32_t libc_psp_sceHttpCreateTemplate(void* agent, int32_t unknown1, int32_t unknown2) {
+int32_t libcPspSceHttpCreateTemplate(void* agent, int32_t unknown1, int32_t unknown2) {
     typedef int32_t (*km_fn_t)(void*, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -14099,7 +14099,7 @@ int32_t libc_psp_sceHttpCreateTemplate(void* agent, int32_t unknown1, int32_t un
     return -1;
 }
 
-int32_t libc_psp_sceHttpDeleteTemplate(int32_t templateid) {
+int32_t libcPspSceHttpDeleteTemplate(int32_t templateid) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -14127,7 +14127,7 @@ int32_t libc_psp_sceHttpDeleteTemplate(int32_t templateid) {
     return -1;
 }
 
-int32_t libc_psp_sceHttpCreateConnection(int32_t templateid, void* host, void* unknown1, uint16_t port, int32_t unknown2) {
+int32_t libcPspSceHttpCreateConnection(int32_t templateid, void* host, void* unknown1, uint16_t port, int32_t unknown2) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, uint16_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -14155,7 +14155,7 @@ int32_t libc_psp_sceHttpCreateConnection(int32_t templateid, void* host, void* u
     return -1;
 }
 
-int32_t libc_psp_sceHttpCreateConnectionWithURL(int32_t templateid, void* url, int32_t unknown1) {
+int32_t libcPspSceHttpCreateConnectionWithURL(int32_t templateid, void* url, int32_t unknown1) {
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -14183,7 +14183,7 @@ int32_t libc_psp_sceHttpCreateConnectionWithURL(int32_t templateid, void* url, i
     return -1;
 }
 
-int32_t libc_psp_sceHttpDeleteConnection(int32_t connection_id) {
+int32_t libcPspSceHttpDeleteConnection(int32_t connectionId) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -14205,13 +14205,13 @@ int32_t libc_psp_sceHttpDeleteConnection(int32_t connection_id) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(connection_id);
+        return km_fn_ptr(connectionId);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceHttpDeleteRequest(int32_t request_id) {
+int32_t libcPspSceHttpDeleteRequest(int32_t requestId) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -14233,13 +14233,13 @@ int32_t libc_psp_sceHttpDeleteRequest(int32_t request_id) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(request_id);
+        return km_fn_ptr(requestId);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceHttpSendRequest(int32_t request_id, void* data, uint32_t data_size) {
+int32_t libcPspSceHttpSendRequest(int32_t requestId, void* data, uint32_t dataSize) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -14261,13 +14261,13 @@ int32_t libc_psp_sceHttpSendRequest(int32_t request_id, void* data, uint32_t dat
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(request_id, data, data_size);
+        return km_fn_ptr(requestId, data, dataSize);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceHttpAbortRequest(int32_t request_id) {
+int32_t libcPspSceHttpAbortRequest(int32_t requestId) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -14289,13 +14289,13 @@ int32_t libc_psp_sceHttpAbortRequest(int32_t request_id) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(request_id);
+        return km_fn_ptr(requestId);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceHttpReadData(int32_t request_id, void* data, uint32_t data_size) {
+int32_t libcPspSceHttpReadData(int32_t requestId, void* data, uint32_t dataSize) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -14317,13 +14317,13 @@ int32_t libc_psp_sceHttpReadData(int32_t request_id, void* data, uint32_t data_s
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(request_id, data, data_size);
+        return km_fn_ptr(requestId, data, dataSize);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceHttpGetContentLength(int32_t request_id, void* content_length) {
+int32_t libcPspSceHttpGetContentLength(int32_t requestId, void* contentLength) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -14345,13 +14345,13 @@ int32_t libc_psp_sceHttpGetContentLength(int32_t request_id, void* content_lengt
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(request_id, content_length);
+        return km_fn_ptr(requestId, contentLength);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceHttpGetStatusCode(int32_t request_id, void* status_code) {
+int32_t libcPspSceHttpGetStatusCode(int32_t requestId, void* statusCode) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -14373,13 +14373,13 @@ int32_t libc_psp_sceHttpGetStatusCode(int32_t request_id, void* status_code) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(request_id, status_code);
+        return km_fn_ptr(requestId, statusCode);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceHttpSetResolveTimeOut(int32_t id, uint32_t timeout) {
+int32_t libcPspSceHttpSetResolveTimeOut(int32_t id, uint32_t timeout) {
     typedef int32_t (*km_fn_t)(int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -14407,7 +14407,7 @@ int32_t libc_psp_sceHttpSetResolveTimeOut(int32_t id, uint32_t timeout) {
     return -1;
 }
 
-int32_t libc_psp_sceHttpSetResolveRetry(int32_t id, int32_t count) {
+int32_t libcPspSceHttpSetResolveRetry(int32_t id, int32_t count) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -14435,7 +14435,7 @@ int32_t libc_psp_sceHttpSetResolveRetry(int32_t id, int32_t count) {
     return -1;
 }
 
-int32_t libc_psp_sceHttpSetConnectTimeOut(int32_t id, uint32_t timeout) {
+int32_t libcPspSceHttpSetConnectTimeOut(int32_t id, uint32_t timeout) {
     typedef int32_t (*km_fn_t)(int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -14463,7 +14463,7 @@ int32_t libc_psp_sceHttpSetConnectTimeOut(int32_t id, uint32_t timeout) {
     return -1;
 }
 
-int32_t libc_psp_sceHttpSetSendTimeOut(int32_t id, uint32_t timeout) {
+int32_t libcPspSceHttpSetSendTimeOut(int32_t id, uint32_t timeout) {
     typedef int32_t (*km_fn_t)(int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -14491,7 +14491,7 @@ int32_t libc_psp_sceHttpSetSendTimeOut(int32_t id, uint32_t timeout) {
     return -1;
 }
 
-int32_t libc_psp_sceHttpSetRecvTimeOut(int32_t id, uint32_t timeout) {
+int32_t libcPspSceHttpSetRecvTimeOut(int32_t id, uint32_t timeout) {
     typedef int32_t (*km_fn_t)(int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -14519,7 +14519,7 @@ int32_t libc_psp_sceHttpSetRecvTimeOut(int32_t id, uint32_t timeout) {
     return -1;
 }
 
-int32_t libc_psp_sceHttpEnableKeepAlive(int32_t id) {
+int32_t libcPspSceHttpEnableKeepAlive(int32_t id) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -14547,7 +14547,7 @@ int32_t libc_psp_sceHttpEnableKeepAlive(int32_t id) {
     return -1;
 }
 
-int32_t libc_psp_sceHttpDisableKeepAlive(int32_t id) {
+int32_t libcPspSceHttpDisableKeepAlive(int32_t id) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -14575,7 +14575,7 @@ int32_t libc_psp_sceHttpDisableKeepAlive(int32_t id) {
     return -1;
 }
 
-int32_t libc_psp_sceHttpEnableRedirect(int32_t id) {
+int32_t libcPspSceHttpEnableRedirect(int32_t id) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -14603,7 +14603,7 @@ int32_t libc_psp_sceHttpEnableRedirect(int32_t id) {
     return -1;
 }
 
-int32_t libc_psp_sceHttpDisableRedirect(int32_t id) {
+int32_t libcPspSceHttpDisableRedirect(int32_t id) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -14631,7 +14631,7 @@ int32_t libc_psp_sceHttpDisableRedirect(int32_t id) {
     return -1;
 }
 
-int32_t libc_psp_sceHttpEnableCookie(int32_t id) {
+int32_t libcPspSceHttpEnableCookie(int32_t id) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -14659,7 +14659,7 @@ int32_t libc_psp_sceHttpEnableCookie(int32_t id) {
     return -1;
 }
 
-int32_t libc_psp_sceHttpDisableCookie(int32_t id) {
+int32_t libcPspSceHttpDisableCookie(int32_t id) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -14687,7 +14687,7 @@ int32_t libc_psp_sceHttpDisableCookie(int32_t id) {
     return -1;
 }
 
-int32_t libc_psp_sceHttpSaveSystemCookie(void) {
+int32_t libcPspSceHttpSaveSystemCookie(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -14715,7 +14715,7 @@ int32_t libc_psp_sceHttpSaveSystemCookie(void) {
     return -1;
 }
 
-int32_t libc_psp_sceHttpLoadSystemCookie(void) {
+int32_t libcPspSceHttpLoadSystemCookie(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -14743,7 +14743,7 @@ int32_t libc_psp_sceHttpLoadSystemCookie(void) {
     return -1;
 }
 
-int32_t libc_psp_sceHttpAddExtraHeader(int32_t id, void* name, void* value, int32_t unknown1) {
+int32_t libcPspSceHttpAddExtraHeader(int32_t id, void* name, void* value, int32_t unknown1) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -14771,7 +14771,7 @@ int32_t libc_psp_sceHttpAddExtraHeader(int32_t id, void* name, void* value, int3
     return -1;
 }
 
-int32_t libc_psp_sceHttpDeleteHeader(int32_t id, void* name) {
+int32_t libcPspSceHttpDeleteHeader(int32_t id, void* name) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -14799,7 +14799,7 @@ int32_t libc_psp_sceHttpDeleteHeader(int32_t id, void* name) {
     return -1;
 }
 
-int32_t libc_psp_sceHttpsInit(int32_t unknown1, int32_t unknown2, int32_t unknown3, int32_t unknown4) {
+int32_t libcPspSceHttpsInit(int32_t unknown1, int32_t unknown2, int32_t unknown3, int32_t unknown4) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -14827,7 +14827,7 @@ int32_t libc_psp_sceHttpsInit(int32_t unknown1, int32_t unknown2, int32_t unknow
     return -1;
 }
 
-int32_t libc_psp_sceHttpsEnd(void) {
+int32_t libcPspSceHttpsEnd(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -14855,7 +14855,7 @@ int32_t libc_psp_sceHttpsEnd(void) {
     return -1;
 }
 
-int32_t libc_psp_sceHttpsLoadDefaultCert(int32_t unknown1, int32_t unknown2) {
+int32_t libcPspSceHttpsLoadDefaultCert(int32_t unknown1, int32_t unknown2) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -14883,7 +14883,7 @@ int32_t libc_psp_sceHttpsLoadDefaultCert(int32_t unknown1, int32_t unknown2) {
     return -1;
 }
 
-int32_t libc_psp_sceHttpDisableAuth(int32_t id) {
+int32_t libcPspSceHttpDisableAuth(int32_t id) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -14911,7 +14911,7 @@ int32_t libc_psp_sceHttpDisableAuth(int32_t id) {
     return -1;
 }
 
-int32_t libc_psp_sceHttpDisableCache(int32_t id) {
+int32_t libcPspSceHttpDisableCache(int32_t id) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -14939,7 +14939,7 @@ int32_t libc_psp_sceHttpDisableCache(int32_t id) {
     return -1;
 }
 
-int32_t libc_psp_sceHttpEnableAuth(int32_t id) {
+int32_t libcPspSceHttpEnableAuth(int32_t id) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -14967,7 +14967,7 @@ int32_t libc_psp_sceHttpEnableAuth(int32_t id) {
     return -1;
 }
 
-int32_t libc_psp_sceHttpEnableCache(int32_t id) {
+int32_t libcPspSceHttpEnableCache(int32_t id) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -14995,7 +14995,7 @@ int32_t libc_psp_sceHttpEnableCache(int32_t id) {
     return -1;
 }
 
-int32_t libc_psp_sceHttpEndCache(void) {
+int32_t libcPspSceHttpEndCache(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -15023,7 +15023,7 @@ int32_t libc_psp_sceHttpEndCache(void) {
     return -1;
 }
 
-int32_t libc_psp_sceHttpGetAllHeader(int32_t request, void* header, void* header_size) {
+int32_t libcPspSceHttpGetAllHeader(int32_t request, void* header, void* headerSize) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -15045,13 +15045,13 @@ int32_t libc_psp_sceHttpGetAllHeader(int32_t request, void* header, void* header
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(request, header, header_size);
+        return km_fn_ptr(request, header, headerSize);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceHttpGetNetworkErrno(int32_t request, void* err_num) {
+int32_t libcPspSceHttpGetNetworkErrno(int32_t request, void* errNum) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -15073,13 +15073,13 @@ int32_t libc_psp_sceHttpGetNetworkErrno(int32_t request, void* err_num) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(request, err_num);
+        return km_fn_ptr(request, errNum);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceHttpGetProxy(int32_t id, void* activate_flag, void* mode, void* proxy_host, uint64_t len, void* proxy_port) {
+int32_t libcPspSceHttpGetProxy(int32_t id, void* activateFlag, void* mode, void* proxyHost, uint64_t len, void* proxyPort) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, void*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -15101,13 +15101,13 @@ int32_t libc_psp_sceHttpGetProxy(int32_t id, void* activate_flag, void* mode, vo
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(id, activate_flag, mode, proxy_host, len, proxy_port);
+        return km_fn_ptr(id, activateFlag, mode, proxyHost, len, proxyPort);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceHttpInitCache(uint64_t max_size) {
+int32_t libcPspSceHttpInitCache(uint64_t maxSize) {
     typedef int32_t (*km_fn_t)(uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -15129,13 +15129,13 @@ int32_t libc_psp_sceHttpInitCache(uint64_t max_size) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(max_size);
+        return km_fn_ptr(maxSize);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceHttpSetAuthInfoCB(int32_t id, void* cbfunc) {
+int32_t libcPspSceHttpSetAuthInfoCB(int32_t id, void* cbfunc) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -15163,7 +15163,7 @@ int32_t libc_psp_sceHttpSetAuthInfoCB(int32_t id, void* cbfunc) {
     return -1;
 }
 
-int32_t libc_psp_sceHttpSetProxy(int32_t id, int32_t activate_flag, int32_t mode, void* new_proxy_host, uint16_t new_proxy_port) {
+int32_t libcPspSceHttpSetProxy(int32_t id, int32_t activateFlag, int32_t mode, void* newProxyHost, uint16_t newProxyPort) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, void*, uint16_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -15185,13 +15185,13 @@ int32_t libc_psp_sceHttpSetProxy(int32_t id, int32_t activate_flag, int32_t mode
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(id, activate_flag, mode, new_proxy_host, new_proxy_port);
+        return km_fn_ptr(id, activateFlag, mode, newProxyHost, newProxyPort);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceHttpSetResHeaderMaxSize(int32_t id, uint32_t header_size) {
+int32_t libcPspSceHttpSetResHeaderMaxSize(int32_t id, uint32_t headerSize) {
     typedef int32_t (*km_fn_t)(int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -15213,13 +15213,13 @@ int32_t libc_psp_sceHttpSetResHeaderMaxSize(int32_t id, uint32_t header_size) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(id, header_size);
+        return km_fn_ptr(id, headerSize);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceHttpSetMallocFunction(void* malloc_func, void* free_func, void* realloc_func) {
+int32_t libcPspSceHttpSetMallocFunction(void* mallocFunc, void* freeFunc, void* reallocFunc) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -15241,13 +15241,13 @@ int32_t libc_psp_sceHttpSetMallocFunction(void* malloc_func, void* free_func, vo
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(malloc_func, free_func, realloc_func);
+        return km_fn_ptr(mallocFunc, freeFunc, reallocFunc);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceNetResolverInit(void) {
+int32_t libcPspSceNetResolverInit(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -15275,7 +15275,7 @@ int32_t libc_psp_sceNetResolverInit(void) {
     return -1;
 }
 
-int32_t libc_psp_sceNetResolverCreate(void* rid, void* buf, uint32_t buf_length) {
+int32_t libcPspSceNetResolverCreate(void* rid, void* buf, uint32_t bufLength) {
     typedef int32_t (*km_fn_t)(void*, void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -15297,13 +15297,13 @@ int32_t libc_psp_sceNetResolverCreate(void* rid, void* buf, uint32_t buf_length)
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(rid, buf, buf_length);
+        return km_fn_ptr(rid, buf, bufLength);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceNetResolverDelete(int32_t rid) {
+int32_t libcPspSceNetResolverDelete(int32_t rid) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -15331,7 +15331,7 @@ int32_t libc_psp_sceNetResolverDelete(int32_t rid) {
     return -1;
 }
 
-int32_t libc_psp_sceNetResolverStartNtoA(int32_t rid, void* hostname, void* addr, uint32_t timeout, int32_t retry) {
+int32_t libcPspSceNetResolverStartNtoA(int32_t rid, void* hostname, void* addr, uint32_t timeout, int32_t retry) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -15359,7 +15359,7 @@ int32_t libc_psp_sceNetResolverStartNtoA(int32_t rid, void* hostname, void* addr
     return -1;
 }
 
-int32_t libc_psp_sceNetResolverStartAtoN(int32_t rid, void* addr, void* hostname, uint32_t hostname_len, uint32_t timeout, int32_t retry) {
+int32_t libcPspSceNetResolverStartAtoN(int32_t rid, void* addr, void* hostname, uint32_t hostnameLen, uint32_t timeout, int32_t retry) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, uint32_t, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -15381,13 +15381,13 @@ int32_t libc_psp_sceNetResolverStartAtoN(int32_t rid, void* addr, void* hostname
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(rid, addr, hostname, hostname_len, timeout, retry);
+        return km_fn_ptr(rid, addr, hostname, hostnameLen, timeout, retry);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_psp_sceNetResolverStop(int32_t rid) {
+int32_t libcPspSceNetResolverStop(int32_t rid) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -15415,7 +15415,7 @@ int32_t libc_psp_sceNetResolverStop(int32_t rid) {
     return -1;
 }
 
-int32_t libc_psp_sceNetResolverTerm(void) {
+int32_t libcPspSceNetResolverTerm(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

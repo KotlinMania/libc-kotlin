@@ -9,8 +9,8 @@
 extern "C" {
 #endif
 
-int32_t libc_new_apple_libpthread_pthread_qos_pthreadAttrGetQosClassNp(void* attr, void* arg_1_class, void* priority);
-int32_t libc_new_apple_libpthread_pthread_qos_pthreadGetQosClassNp(void* thread, void* arg_1_class, void* priority);
+int32_t libcNewAppleLibpthreadPthreadQosPthreadAttrGetQosClassNp(void* attr, void* arg1Class, void* priority);
+int32_t libcNewAppleLibpthreadPthreadQosPthreadGetQosClassNp(void* thread, void* arg1Class, void* priority);
 
 #ifdef __cplusplus
 }

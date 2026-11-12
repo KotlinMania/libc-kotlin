@@ -3,16 +3,27 @@
 package io.github.kotlinmania.libc.unix.linuxlike.emscripten
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
+import io.github.kotlinmania.libc.CDouble
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.unix.DIR
 import io.github.kotlinmania.libc.unix.GidT
+import io.github.kotlinmania.libc.unix.Group
+import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.LocaleT
+import io.github.kotlinmania.libc.unix.Rlimit
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.Timeval
 import io.github.kotlinmania.libc.unix.linuxlike.IdT
+import io.github.kotlinmania.libc.unix.linuxlike.Mmsghdr
+import io.github.kotlinmania.libc.unix.linuxlike.Sockaddr
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 private object UnixLinuxlikeEmscriptenJniBridge {
     init {
@@ -20,284 +31,284 @@ private object UnixLinuxlikeEmscriptenJniBridge {
     }
 
     @JvmStatic
-    external fun libc_unix_linuxlike_emscripten_getrlimit(resource: Int, rlim: Long): Int
+    external fun libcUnixLinuxlikeEmscriptenGetrlimit(resource: Int, rlim: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_emscripten_setrlimit(resource: Int, rlim: Long): Int
+    external fun libcUnixLinuxlikeEmscriptenSetrlimit(resource: Int, rlim: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_emscripten_strerrorR(errnum: Int, buf: Long, buflen: Long): Int
+    external fun libcUnixLinuxlikeEmscriptenStrerrorR(errnum: Int, buf: Long, buflen: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_emscripten_abs(i: Int): Int
+    external fun libcUnixLinuxlikeEmscriptenAbs(i: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_emscripten_labs(i: Long): Long
+    external fun libcUnixLinuxlikeEmscriptenLabs(i: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_emscripten_rand(): Int
+    external fun libcUnixLinuxlikeEmscriptenRand(): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_emscripten_srand(seed: Int)
+    external fun libcUnixLinuxlikeEmscriptenSrand(seed: Int)
 
     @JvmStatic
-    external fun libc_unix_linuxlike_emscripten_gettimeofday(tp: Long, tz: Long): Int
+    external fun libcUnixLinuxlikeEmscriptenGettimeofday(tp: Long, tz: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_emscripten_setpwent()
+    external fun libcUnixLinuxlikeEmscriptenSetpwent()
 
     @JvmStatic
-    external fun libc_unix_linuxlike_emscripten_endpwent()
+    external fun libcUnixLinuxlikeEmscriptenEndpwent()
 
     @JvmStatic
-    external fun libc_unix_linuxlike_emscripten_getpwent(): Long
+    external fun libcUnixLinuxlikeEmscriptenGetpwent(): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_emscripten_shmOpen(name: String?, oflag: Int, mode: Int): Int
+    external fun libcUnixLinuxlikeEmscriptenShmOpen(name: Long, oflag: Int, mode: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_emscripten_mprotect(addr: Long, len: Long, prot: Int): Int
+    external fun libcUnixLinuxlikeEmscriptenMprotect(addr: Long, len: Long, prot: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_emscripten_errnoLocation(): Long
+    external fun libcUnixLinuxlikeEmscriptenErrnoLocation(): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_emscripten_posixFallocate(fd: Int, offset: Long, len: Long): Int
+    external fun libcUnixLinuxlikeEmscriptenPosixFallocate(fd: Int, offset: Long, len: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_emscripten_pwritev(fd: Int, iov: Long, iovcnt: Int, offset: Long): Long
+    external fun libcUnixLinuxlikeEmscriptenPwritev(fd: Int, iov: Long, iovcnt: Int, offset: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_emscripten_preadv(fd: Int, iov: Long, iovcnt: Int, offset: Long): Long
+    external fun libcUnixLinuxlikeEmscriptenPreadv(fd: Int, iov: Long, iovcnt: Int, offset: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_emscripten_dup3(oldfd: Int, newfd: Int, flags: Int): Int
+    external fun libcUnixLinuxlikeEmscriptenDup3(oldfd: Int, newfd: Int, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_emscripten_nlLanginfoL(item: Int, locale: Long): Long
+    external fun libcUnixLinuxlikeEmscriptenNlLanginfoL(item: Int, locale: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_emscripten_accept4(fd: Int, addr: Long, len: Long, flg: Int): Int
+    external fun libcUnixLinuxlikeEmscriptenAccept4(fd: Int, addr: Long, len: Long, flg: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_emscripten_getnameinfo(sa: Long, salen: Int, host: Long, hostlen: Int, serv: Long, servlen: Int, flags: Int): Int
+    external fun libcUnixLinuxlikeEmscriptenGetnameinfo(sa: Long, salen: Int, host: Long, hostlen: Int, serv: Long, servlen: Int, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_emscripten_getloadavg(loadavg: Long, nelem: Int): Int
+    external fun libcUnixLinuxlikeEmscriptenGetloadavg(loadavg: Long, nelem: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_emscripten_mkfifoat(dirfd: Int, pathname: String?, mode: Int): Int
+    external fun libcUnixLinuxlikeEmscriptenMkfifoat(dirfd: Int, pathname: Long, mode: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_emscripten_mremap(addr: Long, len: Long, newLen: Long, flags: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
+    external fun libcUnixLinuxlikeEmscriptenMremap(addr: Long, len: Long, newLen: Long, flags: Int, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_emscripten_glob(pattern: String?, flags: Int, errfunc: Long, pglob: Long): Int
+    external fun libcUnixLinuxlikeEmscriptenGlob(pattern: Long, flags: Int, errfunc: Long, pglob: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_emscripten_globfree(pglob: Long)
+    external fun libcUnixLinuxlikeEmscriptenGlobfree(pglob: Long)
 
     @JvmStatic
-    external fun libc_unix_linuxlike_emscripten_posixMadvise(addr: Long, len: Long, advice: Int): Int
+    external fun libcUnixLinuxlikeEmscriptenPosixMadvise(addr: Long, len: Long, advice: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_emscripten_shmUnlink(name: String?): Int
+    external fun libcUnixLinuxlikeEmscriptenShmUnlink(name: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_emscripten_seekdir(dirp: Long, loc: Long)
+    external fun libcUnixLinuxlikeEmscriptenSeekdir(dirp: Long, loc: Long)
 
     @JvmStatic
-    external fun libc_unix_linuxlike_emscripten_telldir(dirp: Long): Long
+    external fun libcUnixLinuxlikeEmscriptenTelldir(dirp: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_emscripten_madvise(addr: Long, len: Long, advice: Int): Int
+    external fun libcUnixLinuxlikeEmscriptenMadvise(addr: Long, len: Long, advice: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_emscripten_msync(addr: Long, len: Long, flags: Int): Int
+    external fun libcUnixLinuxlikeEmscriptenMsync(addr: Long, len: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_emscripten_recvfrom(socket: Int, buf: Long, len: Long, flags: Int, addr: Long, addrlen: Long): Long
+    external fun libcUnixLinuxlikeEmscriptenRecvfrom(socket: Int, buf: Long, len: Long, flags: Int, addr: Long, addrlen: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_emscripten_mkstemps(template: Long, suffixlen: Int): Int
+    external fun libcUnixLinuxlikeEmscriptenMkstemps(template: Long, suffixlen: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_emscripten_nlLanginfo(item: Int): Long
+    external fun libcUnixLinuxlikeEmscriptenNlLanginfo(item: Int): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_emscripten_sendmmsg(sockfd: Int, msgvec: Long, vlen: Int, flags: Int): Int
+    external fun libcUnixLinuxlikeEmscriptenSendmmsg(sockfd: Int, msgvec: Long, vlen: Int, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_emscripten_recvmmsg(sockfd: Int, msgvec: Long, vlen: Int, flags: Int, timeout: Long): Int
+    external fun libcUnixLinuxlikeEmscriptenRecvmmsg(sockfd: Int, msgvec: Long, vlen: Int, flags: Int, timeout: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_emscripten_sync()
+    external fun libcUnixLinuxlikeEmscriptenSync()
 
     @JvmStatic
-    external fun libc_unix_linuxlike_emscripten_ioctl(fd: Int, request: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcUnixLinuxlikeEmscriptenIoctl(fd: Int, request: Int, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_emscripten_getpriority(which: Int, who: Int): Int
+    external fun libcUnixLinuxlikeEmscriptenGetpriority(which: Int, who: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_emscripten_setpriority(which: Int, who: Int, prio: Int): Int
+    external fun libcUnixLinuxlikeEmscriptenSetpriority(which: Int, who: Int, prio: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_emscripten_getentropy(buf: Long, buflen: Long): Int
+    external fun libcUnixLinuxlikeEmscriptenGetentropy(buf: Long, buflen: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_emscripten_getgrgid(gid: Short): Long
+    external fun libcUnixLinuxlikeEmscriptenGetgrgid(gid: Short): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_emscripten_getgrnam(name: String?): Long
+    external fun libcUnixLinuxlikeEmscriptenGetgrnam(name: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_emscripten_getgrnamR(name: String?, grp: Long, buf: Long, buflen: Long, result: Long): Int
+    external fun libcUnixLinuxlikeEmscriptenGetgrnamR(name: Long, grp: Long, buf: Long, buflen: Long, result: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_emscripten_getgrgidR(gid: Short, grp: Long, buf: Long, buflen: Long, result: Long): Int
+    external fun libcUnixLinuxlikeEmscriptenGetgrgidR(gid: Short, grp: Long, buf: Long, buflen: Long, result: Long): Int
 }
 
-public actual fun getrlimit(resource: CInt, rlim: COpaquePointer?): CInt =
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_getrlimit(resource, (rlim?.value ?: 0L))
+public actual fun getrlimit(resource: CInt, rlim: MutPtr<Rlimit>): CInt =
+    UnixLinuxlikeEmscriptenJniBridge.libcUnixLinuxlikeEmscriptenGetrlimit(resource, rlim.rawAddress)
 
-public actual fun setrlimit(resource: CInt, rlim: COpaquePointer?): CInt =
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_setrlimit(resource, (rlim?.value ?: 0L))
+public actual fun setrlimit(resource: CInt, rlim: ConstPtr<Rlimit>): CInt =
+    UnixLinuxlikeEmscriptenJniBridge.libcUnixLinuxlikeEmscriptenSetrlimit(resource, rlim.rawAddress)
 
-public actual fun strerrorR(errnum: CInt, buf: COpaquePointer?, buflen: SizeT): CInt =
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_strerrorR(errnum, (buf?.value ?: 0L), buflen.toLong())
+public actual fun strerrorR(errnum: CInt, buf: MutPtr<CChar>, buflen: SizeT): CInt =
+    UnixLinuxlikeEmscriptenJniBridge.libcUnixLinuxlikeEmscriptenStrerrorR(errnum, buf.rawAddress, buflen.toLong())
 
 public actual fun abs(i: CInt): CInt =
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_abs(i)
+    UnixLinuxlikeEmscriptenJniBridge.libcUnixLinuxlikeEmscriptenAbs(i)
 
 public actual fun labs(i: CLong): CLong =
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_labs(i)
+    UnixLinuxlikeEmscriptenJniBridge.libcUnixLinuxlikeEmscriptenLabs(i)
 
 public actual fun rand(): CInt =
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_rand()
+    UnixLinuxlikeEmscriptenJniBridge.libcUnixLinuxlikeEmscriptenRand()
 
 public actual fun srand(seed: CUint) {
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_srand(seed.toInt())
+    UnixLinuxlikeEmscriptenJniBridge.libcUnixLinuxlikeEmscriptenSrand(seed.toInt())
 }
 
-public actual fun gettimeofday(tp: COpaquePointer?, tz: COpaquePointer?): CInt =
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_gettimeofday((tp?.value ?: 0L), (tz?.value ?: 0L))
+public actual fun gettimeofday(tp: MutPtr<Timeval>, tz: MutPtr<CVoid>): CInt =
+    UnixLinuxlikeEmscriptenJniBridge.libcUnixLinuxlikeEmscriptenGettimeofday(tp.rawAddress, tz.rawAddress)
 
 public actual fun setpwent() {
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_setpwent()
+    UnixLinuxlikeEmscriptenJniBridge.libcUnixLinuxlikeEmscriptenSetpwent()
 }
 
 public actual fun endpwent() {
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_endpwent()
+    UnixLinuxlikeEmscriptenJniBridge.libcUnixLinuxlikeEmscriptenEndpwent()
 }
 
-public actual fun getpwent(): COpaquePointer? =
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_getpwent().let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getpwent(): MutPtr<Passwd> =
+    MutPtr(UnixLinuxlikeEmscriptenJniBridge.libcUnixLinuxlikeEmscriptenGetpwent())
 
-public actual fun shmOpen(name: String?, oflag: CInt, mode: ModeT): CInt =
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_shmOpen(name, oflag, mode.toInt())
+public actual fun shmOpen(name: ConstPtr<CChar>, oflag: CInt, mode: ModeT): CInt =
+    UnixLinuxlikeEmscriptenJniBridge.libcUnixLinuxlikeEmscriptenShmOpen(name.rawAddress, oflag, mode.toInt())
 
-public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt =
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_mprotect((addr?.value ?: 0L), len.toLong(), prot)
+public actual fun mprotect(addr: MutPtr<CVoid>, len: SizeT, prot: CInt): CInt =
+    UnixLinuxlikeEmscriptenJniBridge.libcUnixLinuxlikeEmscriptenMprotect(addr.rawAddress, len.toLong(), prot)
 
-public actual fun errnoLocation(): COpaquePointer? =
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_errnoLocation().let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun errnoLocation(): MutPtr<CInt> =
+    MutPtr(UnixLinuxlikeEmscriptenJniBridge.libcUnixLinuxlikeEmscriptenErrnoLocation())
 
 public actual fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt =
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_posixFallocate(fd, offset, len)
+    UnixLinuxlikeEmscriptenJniBridge.libcUnixLinuxlikeEmscriptenPosixFallocate(fd, offset, len)
 
-public actual fun pwritev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: OffT): SsizeT =
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_pwritev(fd, (iov?.value ?: 0L), iovcnt, offset)
+public actual fun pwritev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT =
+    UnixLinuxlikeEmscriptenJniBridge.libcUnixLinuxlikeEmscriptenPwritev(fd, iov.rawAddress, iovcnt, offset)
 
-public actual fun preadv(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: OffT): SsizeT =
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_preadv(fd, (iov?.value ?: 0L), iovcnt, offset)
+public actual fun preadv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT =
+    UnixLinuxlikeEmscriptenJniBridge.libcUnixLinuxlikeEmscriptenPreadv(fd, iov.rawAddress, iovcnt, offset)
 
 public actual fun dup3(oldfd: CInt, newfd: CInt, flags: CInt): CInt =
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_dup3(oldfd, newfd, flags)
+    UnixLinuxlikeEmscriptenJniBridge.libcUnixLinuxlikeEmscriptenDup3(oldfd, newfd, flags)
 
-public actual fun nlLanginfoL(item: NlItem, locale: LocaleT): COpaquePointer? =
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_nlLanginfoL(item, (locale?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun nlLanginfoL(item: NlItem, locale: LocaleT): MutPtr<CChar> =
+    MutPtr(UnixLinuxlikeEmscriptenJniBridge.libcUnixLinuxlikeEmscriptenNlLanginfoL(item, locale.rawAddress))
 
-public actual fun accept4(fd: CInt, addr: COpaquePointer?, len: COpaquePointer?, flg: CInt): CInt =
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_accept4(fd, (addr?.value ?: 0L), (len?.value ?: 0L), flg)
+public actual fun accept4(fd: CInt, addr: MutPtr<Sockaddr>, len: MutPtr<SocklenT>, flg: CInt): CInt =
+    UnixLinuxlikeEmscriptenJniBridge.libcUnixLinuxlikeEmscriptenAccept4(fd, addr.rawAddress, len.rawAddress, flg)
 
-public actual fun getnameinfo(sa: COpaquePointer?, salen: SocklenT, host: COpaquePointer?, hostlen: SocklenT, serv: COpaquePointer?, servlen: SocklenT, flags: CInt): CInt =
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_getnameinfo((sa?.value ?: 0L), salen.toInt(), (host?.value ?: 0L), hostlen.toInt(), (serv?.value ?: 0L), servlen.toInt(), flags)
+public actual fun getnameinfo(sa: ConstPtr<Sockaddr>, salen: SocklenT, host: MutPtr<CChar>, hostlen: SocklenT, serv: MutPtr<CChar>, servlen: SocklenT, flags: CInt): CInt =
+    UnixLinuxlikeEmscriptenJniBridge.libcUnixLinuxlikeEmscriptenGetnameinfo(sa.rawAddress, salen.toInt(), host.rawAddress, hostlen.toInt(), serv.rawAddress, servlen.toInt(), flags)
 
-public actual fun getloadavg(loadavg: COpaquePointer?, nelem: CInt): CInt =
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_getloadavg((loadavg?.value ?: 0L), nelem)
+public actual fun getloadavg(loadavg: MutPtr<CDouble>, nelem: CInt): CInt =
+    UnixLinuxlikeEmscriptenJniBridge.libcUnixLinuxlikeEmscriptenGetloadavg(loadavg.rawAddress, nelem)
 
-public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_mkfifoat(dirfd, pathname, mode.toInt())
+public actual fun mkfifoat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT): CInt =
+    UnixLinuxlikeEmscriptenJniBridge.libcUnixLinuxlikeEmscriptenMkfifoat(dirfd, pathname.rawAddress, mode.toInt())
 
-public actual fun mremap(addr: COpaquePointer?, len: SizeT, newLen: SizeT, flags: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_mremap((addr?.value ?: 0L), len.toLong(), newLen.toLong(), flags, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun mremap(addr: MutPtr<CVoid>, len: SizeT, newLen: SizeT, flags: CInt, vararg variadicArgs: Long): MutPtr<CVoid> =
+    MutPtr(UnixLinuxlikeEmscriptenJniBridge.libcUnixLinuxlikeEmscriptenMremap(addr.rawAddress, len.toLong(), newLen.toLong(), flags, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L))
 
-public actual fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt =
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_glob(pattern, flags, 0L, (pglob?.value ?: 0L))
+public actual fun glob(pattern: ConstPtr<CChar>, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: MutPtr<GlobT>): CInt =
+    UnixLinuxlikeEmscriptenJniBridge.libcUnixLinuxlikeEmscriptenGlob(pattern.rawAddress, flags, 0L, pglob.rawAddress)
 
-public actual fun globfree(pglob: COpaquePointer?) {
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_globfree((pglob?.value ?: 0L))
+public actual fun globfree(pglob: MutPtr<GlobT>) {
+    UnixLinuxlikeEmscriptenJniBridge.libcUnixLinuxlikeEmscriptenGlobfree(pglob.rawAddress)
 }
 
-public actual fun posixMadvise(addr: COpaquePointer?, len: SizeT, advice: CInt): CInt =
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_posixMadvise((addr?.value ?: 0L), len.toLong(), advice)
+public actual fun posixMadvise(addr: MutPtr<CVoid>, len: SizeT, advice: CInt): CInt =
+    UnixLinuxlikeEmscriptenJniBridge.libcUnixLinuxlikeEmscriptenPosixMadvise(addr.rawAddress, len.toLong(), advice)
 
-public actual fun shmUnlink(name: String?): CInt =
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_shmUnlink(name)
+public actual fun shmUnlink(name: ConstPtr<CChar>): CInt =
+    UnixLinuxlikeEmscriptenJniBridge.libcUnixLinuxlikeEmscriptenShmUnlink(name.rawAddress)
 
-public actual fun seekdir(dirp: DIR?, loc: CLong) {
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_seekdir((dirp?.handle ?: 0L), loc)
+public actual fun seekdir(dirp: MutPtr<DIR>, loc: CLong) {
+    UnixLinuxlikeEmscriptenJniBridge.libcUnixLinuxlikeEmscriptenSeekdir(dirp.rawAddress, loc)
 }
 
-public actual fun telldir(dirp: DIR?): CLong =
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_telldir((dirp?.handle ?: 0L))
+public actual fun telldir(dirp: MutPtr<DIR>): CLong =
+    UnixLinuxlikeEmscriptenJniBridge.libcUnixLinuxlikeEmscriptenTelldir(dirp.rawAddress)
 
-public actual fun madvise(addr: COpaquePointer?, len: SizeT, advice: CInt): CInt =
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_madvise((addr?.value ?: 0L), len.toLong(), advice)
+public actual fun madvise(addr: MutPtr<CVoid>, len: SizeT, advice: CInt): CInt =
+    UnixLinuxlikeEmscriptenJniBridge.libcUnixLinuxlikeEmscriptenMadvise(addr.rawAddress, len.toLong(), advice)
 
-public actual fun msync(addr: COpaquePointer?, len: SizeT, flags: CInt): CInt =
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_msync((addr?.value ?: 0L), len.toLong(), flags)
+public actual fun msync(addr: MutPtr<CVoid>, len: SizeT, flags: CInt): CInt =
+    UnixLinuxlikeEmscriptenJniBridge.libcUnixLinuxlikeEmscriptenMsync(addr.rawAddress, len.toLong(), flags)
 
-public actual fun recvfrom(socket: CInt, buf: COpaquePointer?, len: SizeT, flags: CInt, addr: COpaquePointer?, addrlen: COpaquePointer?): SsizeT =
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_recvfrom(socket, (buf?.value ?: 0L), len.toLong(), flags, (addr?.value ?: 0L), (addrlen?.value ?: 0L))
+public actual fun recvfrom(socket: CInt, buf: MutPtr<CVoid>, len: SizeT, flags: CInt, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): SsizeT =
+    UnixLinuxlikeEmscriptenJniBridge.libcUnixLinuxlikeEmscriptenRecvfrom(socket, buf.rawAddress, len.toLong(), flags, addr.rawAddress, addrlen.rawAddress)
 
-public actual fun mkstemps(template: COpaquePointer?, suffixlen: CInt): CInt =
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_mkstemps((template?.value ?: 0L), suffixlen)
+public actual fun mkstemps(template: MutPtr<CChar>, suffixlen: CInt): CInt =
+    UnixLinuxlikeEmscriptenJniBridge.libcUnixLinuxlikeEmscriptenMkstemps(template.rawAddress, suffixlen)
 
-public actual fun nlLanginfo(item: NlItem): COpaquePointer? =
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_nlLanginfo(item).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun nlLanginfo(item: NlItem): MutPtr<CChar> =
+    MutPtr(UnixLinuxlikeEmscriptenJniBridge.libcUnixLinuxlikeEmscriptenNlLanginfo(item))
 
-public actual fun sendmmsg(sockfd: CInt, msgvec: COpaquePointer?, vlen: CUint, flags: CUint): CInt =
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_sendmmsg(sockfd, (msgvec?.value ?: 0L), vlen.toInt(), flags.toInt())
+public actual fun sendmmsg(sockfd: CInt, msgvec: MutPtr<Mmsghdr>, vlen: CUint, flags: CUint): CInt =
+    UnixLinuxlikeEmscriptenJniBridge.libcUnixLinuxlikeEmscriptenSendmmsg(sockfd, msgvec.rawAddress, vlen.toInt(), flags.toInt())
 
-public actual fun recvmmsg(sockfd: CInt, msgvec: COpaquePointer?, vlen: CUint, flags: CUint, timeout: COpaquePointer?): CInt =
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_recvmmsg(sockfd, (msgvec?.value ?: 0L), vlen.toInt(), flags.toInt(), (timeout?.value ?: 0L))
+public actual fun recvmmsg(sockfd: CInt, msgvec: MutPtr<Mmsghdr>, vlen: CUint, flags: CUint, timeout: MutPtr<Timespec>): CInt =
+    UnixLinuxlikeEmscriptenJniBridge.libcUnixLinuxlikeEmscriptenRecvmmsg(sockfd, msgvec.rawAddress, vlen.toInt(), flags.toInt(), timeout.rawAddress)
 
 public actual fun sync() {
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_sync()
+    UnixLinuxlikeEmscriptenJniBridge.libcUnixLinuxlikeEmscriptenSync()
 }
 
 public actual fun ioctl(fd: CInt, request: CInt, vararg variadicArgs: Long): CInt =
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_ioctl(fd, request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+    UnixLinuxlikeEmscriptenJniBridge.libcUnixLinuxlikeEmscriptenIoctl(fd, request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun getpriority(which: CInt, who: IdT): CInt =
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_getpriority(which, who.toInt())
+    UnixLinuxlikeEmscriptenJniBridge.libcUnixLinuxlikeEmscriptenGetpriority(which, who.toInt())
 
 public actual fun setpriority(which: CInt, who: IdT, prio: CInt): CInt =
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_setpriority(which, who.toInt(), prio)
+    UnixLinuxlikeEmscriptenJniBridge.libcUnixLinuxlikeEmscriptenSetpriority(which, who.toInt(), prio)
 
-public actual fun getentropy(buf: COpaquePointer?, buflen: SizeT): CInt =
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_getentropy((buf?.value ?: 0L), buflen.toLong())
+public actual fun getentropy(buf: MutPtr<CVoid>, buflen: SizeT): CInt =
+    UnixLinuxlikeEmscriptenJniBridge.libcUnixLinuxlikeEmscriptenGetentropy(buf.rawAddress, buflen.toLong())
 
-public actual fun getgrgid(gid: GidT): COpaquePointer? =
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_getgrgid(gid.toShort()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getgrgid(gid: GidT): MutPtr<Group> =
+    MutPtr(UnixLinuxlikeEmscriptenJniBridge.libcUnixLinuxlikeEmscriptenGetgrgid(gid.toShort()))
 
-public actual fun getgrnam(name: String?): COpaquePointer? =
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_getgrnam(name).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getgrnam(name: ConstPtr<CChar>): MutPtr<Group> =
+    MutPtr(UnixLinuxlikeEmscriptenJniBridge.libcUnixLinuxlikeEmscriptenGetgrnam(name.rawAddress))
 
-public actual fun getgrnamR(name: String?, grp: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_getgrnamR(name, (grp?.value ?: 0L), (buf?.value ?: 0L), buflen.toLong(), (result?.value ?: 0L))
+public actual fun getgrnamR(name: ConstPtr<CChar>, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+    UnixLinuxlikeEmscriptenJniBridge.libcUnixLinuxlikeEmscriptenGetgrnamR(name.rawAddress, grp.rawAddress, buf.rawAddress, buflen.toLong(), result.rawAddress)
 
-public actual fun getgrgidR(gid: GidT, grp: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    UnixLinuxlikeEmscriptenJniBridge.libc_unix_linuxlike_emscripten_getgrgidR(gid.toShort(), (grp?.value ?: 0L), (buf?.value ?: 0L), buflen.toLong(), (result?.value ?: 0L))
+public actual fun getgrgidR(gid: GidT, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+    UnixLinuxlikeEmscriptenJniBridge.libcUnixLinuxlikeEmscriptenGetgrgidR(gid.toShort(), grp.rawAddress, buf.rawAddress, buflen.toLong(), result.rawAddress)

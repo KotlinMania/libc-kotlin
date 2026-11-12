@@ -19,7 +19,7 @@
 #endif
 #endif
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1setgrent(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSetgrent(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void);
@@ -49,7 +49,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1endgrent(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidEndgrent(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void);
@@ -79,7 +79,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     }
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1getgrent(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidGetgrent(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void);
@@ -112,7 +112,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1getrlimit64(JNIEnv* km_env, jclass km_clazz, jint resource, jlong rlim) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidGetrlimit64(JNIEnv* km_env, jclass km_clazz, jint resource, jlong rlim) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -150,7 +150,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1setrlimit64(JNIEnv* km_env, jclass km_clazz, jint resource, jlong rlim) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSetrlimit64(JNIEnv* km_env, jclass km_clazz, jint resource, jlong rlim) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -188,7 +188,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1getrlimit(JNIEnv* km_env, jclass km_clazz, jint resource, jlong rlim) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidGetrlimit(JNIEnv* km_env, jclass km_clazz, jint resource, jlong rlim) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -221,7 +221,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1setrlimit(JNIEnv* km_env, jclass km_clazz, jint resource, jlong rlim) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSetrlimit(JNIEnv* km_env, jclass km_clazz, jint resource, jlong rlim) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -254,7 +254,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1prlimit(JNIEnv* km_env, jclass km_clazz, jint pid, jint resource, jlong new_limit, jlong old_limit) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidPrlimit(JNIEnv* km_env, jclass km_clazz, jint pid, jint resource, jlong newLimit, jlong oldLimit) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*, void*);
@@ -279,7 +279,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)pid, (int32_t)resource, (void*)(uintptr_t)new_limit, (void*)(uintptr_t)old_limit);
+        km_res = km_fn_ptr((int32_t)pid, (int32_t)resource, (void*)(uintptr_t)newLimit, (void*)(uintptr_t)oldLimit);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -287,7 +287,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1prlimit64(JNIEnv* km_env, jclass km_clazz, jint pid, jint resource, jlong new_limit, jlong old_limit) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidPrlimit64(JNIEnv* km_env, jclass km_clazz, jint pid, jint resource, jlong newLimit, jlong oldLimit) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*, void*);
@@ -317,7 +317,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)pid, (int32_t)resource, (void*)(uintptr_t)new_limit, (void*)(uintptr_t)old_limit);
+        km_res = km_fn_ptr((int32_t)pid, (int32_t)resource, (void*)(uintptr_t)newLimit, (void*)(uintptr_t)oldLimit);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -325,7 +325,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1strerrorR(JNIEnv* km_env, jclass km_clazz, jint errnum, jlong buf, jlong buflen) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidStrerrorR(JNIEnv* km_env, jclass km_clazz, jint errnum, jlong buf, jlong buflen) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, char*, uint64_t);
@@ -358,7 +358,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1gettimeofday(JNIEnv* km_env, jclass km_clazz, jlong tp, jlong tz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidGettimeofday(JNIEnv* km_env, jclass km_clazz, jlong tp, jlong tz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -391,7 +391,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1mlock2(JNIEnv* km_env, jclass km_clazz, jlong addr, jlong len, jint flags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidMlock2(JNIEnv* km_env, jclass km_clazz, jlong addr, jlong len, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint64_t, int32_t);
@@ -424,7 +424,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1madvise(JNIEnv* km_env, jclass km_clazz, jlong addr, jlong len, jint advice) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidMadvise(JNIEnv* km_env, jclass km_clazz, jlong addr, jlong len, jint advice) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint64_t, int32_t);
@@ -457,7 +457,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1msync(JNIEnv* km_env, jclass km_clazz, jlong addr, jlong len, jint flags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidMsync(JNIEnv* km_env, jclass km_clazz, jlong addr, jlong len, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint64_t, int32_t);
@@ -490,7 +490,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1mprotect(JNIEnv* km_env, jclass km_clazz, jlong addr, jlong len, jint prot) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidMprotect(JNIEnv* km_env, jclass km_clazz, jlong addr, jlong len, jint prot) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint64_t, int32_t);
@@ -523,7 +523,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1getnameinfo(JNIEnv* km_env, jclass km_clazz, jlong sa, jint salen, jlong host, jlong hostlen, jlong serv, jlong servlen, jint flags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidGetnameinfo(JNIEnv* km_env, jclass km_clazz, jlong sa, jint salen, jlong host, jlong hostlen, jlong serv, jlong servlen, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint32_t, char*, uint64_t, char*, uint64_t, int32_t);
@@ -556,7 +556,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1preadv(JNIEnv* km_env, jclass km_clazz, jint fd, jlong iov, jint count, jlong offset) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidPreadv(JNIEnv* km_env, jclass km_clazz, jint fd, jlong iov, jint count, jlong offset) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, int64_t);
@@ -589,7 +589,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1pwritev(JNIEnv* km_env, jclass km_clazz, jint fd, jlong iov, jint count, jlong offset) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidPwritev(JNIEnv* km_env, jclass km_clazz, jint fd, jlong iov, jint count, jlong offset) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, int64_t);
@@ -622,7 +622,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1processVmReadv(JNIEnv* km_env, jclass km_clazz, jint pid, jlong local_iov, jlong local_iov_count, jlong remote_iov, jlong remote_iov_count, jlong flags) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidProcessVmReadv(JNIEnv* km_env, jclass km_clazz, jint pid, jlong localIov, jlong localIovCount, jlong remoteIov, jlong remoteIovCount, jlong flags) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, void*, uint64_t, uint64_t);
@@ -647,7 +647,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
 #endif
     int64_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)pid, (void*)(uintptr_t)local_iov, (uint64_t)local_iov_count, (void*)(uintptr_t)remote_iov, (uint64_t)remote_iov_count, (uint64_t)flags);
+        km_res = km_fn_ptr((int32_t)pid, (void*)(uintptr_t)localIov, (uint64_t)localIovCount, (void*)(uintptr_t)remoteIov, (uint64_t)remoteIovCount, (uint64_t)flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -655,7 +655,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1processVmWritev(JNIEnv* km_env, jclass km_clazz, jint pid, jlong local_iov, jlong local_iov_count, jlong remote_iov, jlong remote_iov_count, jlong flags) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidProcessVmWritev(JNIEnv* km_env, jclass km_clazz, jint pid, jlong localIov, jlong localIovCount, jlong remoteIov, jlong remoteIovCount, jlong flags) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, void*, uint64_t, uint64_t);
@@ -680,7 +680,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
 #endif
     int64_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)pid, (void*)(uintptr_t)local_iov, (uint64_t)local_iov_count, (void*)(uintptr_t)remote_iov, (uint64_t)remote_iov_count, (uint64_t)flags);
+        km_res = km_fn_ptr((int32_t)pid, (void*)(uintptr_t)localIov, (uint64_t)localIovCount, (void*)(uintptr_t)remoteIov, (uint64_t)remoteIovCount, (uint64_t)flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -688,7 +688,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1ptrace(JNIEnv* km_env, jclass km_clazz, jint request, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidPtrace(JNIEnv* km_env, jclass km_clazz, jint request, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, ...);
@@ -726,7 +726,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
     return (jlong)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1getpriority(JNIEnv* km_env, jclass km_clazz, jint which, jint who) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidGetpriority(JNIEnv* km_env, jclass km_clazz, jint which, jint who) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, uint32_t);
@@ -759,7 +759,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1setpriority(JNIEnv* km_env, jclass km_clazz, jint which, jint who, jint prio) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSetpriority(JNIEnv* km_env, jclass km_clazz, jint which, jint who, jint prio) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, uint32_t, int32_t);
@@ -792,7 +792,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1schedCpualloc(JNIEnv* km_env, jclass km_clazz, jlong count) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSchedCpualloc(JNIEnv* km_env, jclass km_clazz, jlong count) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(uint64_t);
@@ -823,7 +823,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1schedCpufree(JNIEnv* km_env, jclass km_clazz, jlong set) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSchedCpufree(JNIEnv* km_env, jclass km_clazz, jlong set) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void*);
@@ -851,7 +851,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     }
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1schedCpucount(JNIEnv* km_env, jclass km_clazz, jlong setsize, jlong set) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSchedCpucount(JNIEnv* km_env, jclass km_clazz, jlong setsize, jlong set) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(uint64_t, void*);
@@ -882,7 +882,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1schedGetcpu(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSchedGetcpu(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -915,7 +915,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1mallocInfo(JNIEnv* km_env, jclass km_clazz, jint options, jlong stream) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidMallocInfo(JNIEnv* km_env, jclass km_clazz, jint options, jlong stream) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -948,7 +948,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1mallocUsableSize(JNIEnv* km_env, jclass km_clazz, jlong ptr) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidMallocUsableSize(JNIEnv* km_env, jclass km_clazz, jlong ptr) {
     (void)km_env;
     (void)km_clazz;
     typedef uint64_t (*km_fn_t)(void*);
@@ -981,10 +981,9 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
     return (jlong)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1utmpname(JNIEnv* km_env, jclass km_clazz, jstring name) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidUtmpname(JNIEnv* km_env, jclass km_clazz, jlong name) {
     (void)km_env;
     (void)km_clazz;
-    const char* name_utf = (name != NULL) ? (*km_env)->GetStringUTFChars(km_env, name, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1007,16 +1006,15 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(name_utf);
+        km_res = km_fn_ptr((const char*)(uintptr_t)name);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1setutent(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSetutent(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void);
@@ -1046,7 +1044,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     }
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1getutent(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidGetutent(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void);
@@ -1079,7 +1077,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1seekdir(JNIEnv* km_env, jclass km_clazz, jlong dirp, jlong loc) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSeekdir(JNIEnv* km_env, jclass km_clazz, jlong dirp, jlong loc) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void*, int64_t);
@@ -1109,7 +1107,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     }
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1telldir(JNIEnv* km_env, jclass km_clazz, jlong dirp) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidTelldir(JNIEnv* km_env, jclass km_clazz, jlong dirp) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(void*);
@@ -1142,7 +1140,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
     return (jlong)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1fallocate(JNIEnv* km_env, jclass km_clazz, jint fd, jint mode, jlong offset, jlong len) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidFallocate(JNIEnv* km_env, jclass km_clazz, jint fd, jint mode, jlong offset, jlong len) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int64_t, int64_t);
@@ -1175,7 +1173,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1fallocate64(JNIEnv* km_env, jclass km_clazz, jint fd, jint mode, jlong offset, jlong len) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidFallocate64(JNIEnv* km_env, jclass km_clazz, jint fd, jint mode, jlong offset, jlong len) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int64_t, int64_t);
@@ -1213,7 +1211,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1posixFallocate(JNIEnv* km_env, jclass km_clazz, jint fd, jlong offset, jlong len) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidPosixFallocate(JNIEnv* km_env, jclass km_clazz, jint fd, jlong offset, jlong len) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int64_t, int64_t);
@@ -1246,7 +1244,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1posixFallocate64(JNIEnv* km_env, jclass km_clazz, jint fd, jlong offset, jlong len) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidPosixFallocate64(JNIEnv* km_env, jclass km_clazz, jint fd, jlong offset, jlong len) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int64_t, int64_t);
@@ -1284,11 +1282,9 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1getxattr(JNIEnv* km_env, jclass km_clazz, jstring path, jstring name, jlong value, jlong size) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidGetxattr(JNIEnv* km_env, jclass km_clazz, jlong path, jlong name, jlong value, jlong size) {
     (void)km_env;
     (void)km_clazz;
-    const char* path_utf = (path != NULL) ? (*km_env)->GetStringUTFChars(km_env, path, NULL) : NULL;
-    const char* name_utf = (name != NULL) ? (*km_env)->GetStringUTFChars(km_env, name, NULL) : NULL;
     typedef int64_t (*km_fn_t)(const char*, const char*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1311,21 +1307,17 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
 #endif
     int64_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(path_utf, name_utf, (void*)(uintptr_t)value, (uint64_t)size);
+        km_res = km_fn_ptr((const char*)(uintptr_t)path, (const char*)(uintptr_t)name, (void*)(uintptr_t)value, (uint64_t)size);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
-    if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1lgetxattr(JNIEnv* km_env, jclass km_clazz, jstring path, jstring name, jlong value, jlong size) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidLgetxattr(JNIEnv* km_env, jclass km_clazz, jlong path, jlong name, jlong value, jlong size) {
     (void)km_env;
     (void)km_clazz;
-    const char* path_utf = (path != NULL) ? (*km_env)->GetStringUTFChars(km_env, path, NULL) : NULL;
-    const char* name_utf = (name != NULL) ? (*km_env)->GetStringUTFChars(km_env, name, NULL) : NULL;
     typedef int64_t (*km_fn_t)(const char*, const char*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1348,20 +1340,17 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
 #endif
     int64_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(path_utf, name_utf, (void*)(uintptr_t)value, (uint64_t)size);
+        km_res = km_fn_ptr((const char*)(uintptr_t)path, (const char*)(uintptr_t)name, (void*)(uintptr_t)value, (uint64_t)size);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
-    if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1fgetxattr(JNIEnv* km_env, jclass km_clazz, jint filedes, jstring name, jlong value, jlong size) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidFgetxattr(JNIEnv* km_env, jclass km_clazz, jint filedes, jlong name, jlong value, jlong size) {
     (void)km_env;
     (void)km_clazz;
-    const char* name_utf = (name != NULL) ? (*km_env)->GetStringUTFChars(km_env, name, NULL) : NULL;
     typedef int64_t (*km_fn_t)(int32_t, const char*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1384,20 +1373,17 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
 #endif
     int64_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)filedes, name_utf, (void*)(uintptr_t)value, (uint64_t)size);
+        km_res = km_fn_ptr((int32_t)filedes, (const char*)(uintptr_t)name, (void*)(uintptr_t)value, (uint64_t)size);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jlong)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1setxattr(JNIEnv* km_env, jclass km_clazz, jstring path, jstring name, jlong value, jlong size, jint flags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSetxattr(JNIEnv* km_env, jclass km_clazz, jlong path, jlong name, jlong value, jlong size, jint flags) {
     (void)km_env;
     (void)km_clazz;
-    const char* path_utf = (path != NULL) ? (*km_env)->GetStringUTFChars(km_env, path, NULL) : NULL;
-    const char* name_utf = (name != NULL) ? (*km_env)->GetStringUTFChars(km_env, name, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, const char*, void*, uint64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1420,21 +1406,17 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(path_utf, name_utf, (void*)(uintptr_t)value, (uint64_t)size, (int32_t)flags);
+        km_res = km_fn_ptr((const char*)(uintptr_t)path, (const char*)(uintptr_t)name, (void*)(uintptr_t)value, (uint64_t)size, (int32_t)flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
-    if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1lsetxattr(JNIEnv* km_env, jclass km_clazz, jstring path, jstring name, jlong value, jlong size, jint flags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidLsetxattr(JNIEnv* km_env, jclass km_clazz, jlong path, jlong name, jlong value, jlong size, jint flags) {
     (void)km_env;
     (void)km_clazz;
-    const char* path_utf = (path != NULL) ? (*km_env)->GetStringUTFChars(km_env, path, NULL) : NULL;
-    const char* name_utf = (name != NULL) ? (*km_env)->GetStringUTFChars(km_env, name, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, const char*, void*, uint64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1457,20 +1439,17 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(path_utf, name_utf, (void*)(uintptr_t)value, (uint64_t)size, (int32_t)flags);
+        km_res = km_fn_ptr((const char*)(uintptr_t)path, (const char*)(uintptr_t)name, (void*)(uintptr_t)value, (uint64_t)size, (int32_t)flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
-    if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1fsetxattr(JNIEnv* km_env, jclass km_clazz, jint filedes, jstring name, jlong value, jlong size, jint flags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidFsetxattr(JNIEnv* km_env, jclass km_clazz, jint filedes, jlong name, jlong value, jlong size, jint flags) {
     (void)km_env;
     (void)km_clazz;
-    const char* name_utf = (name != NULL) ? (*km_env)->GetStringUTFChars(km_env, name, NULL) : NULL;
     typedef int32_t (*km_fn_t)(int32_t, const char*, void*, uint64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1493,19 +1472,17 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)filedes, name_utf, (void*)(uintptr_t)value, (uint64_t)size, (int32_t)flags);
+        km_res = km_fn_ptr((int32_t)filedes, (const char*)(uintptr_t)name, (void*)(uintptr_t)value, (uint64_t)size, (int32_t)flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1listxattr(JNIEnv* km_env, jclass km_clazz, jstring path, jlong list, jlong size) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidListxattr(JNIEnv* km_env, jclass km_clazz, jlong path, jlong list, jlong size) {
     (void)km_env;
     (void)km_clazz;
-    const char* path_utf = (path != NULL) ? (*km_env)->GetStringUTFChars(km_env, path, NULL) : NULL;
     typedef int64_t (*km_fn_t)(const char*, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1528,19 +1505,17 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
 #endif
     int64_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(path_utf, (char*)(uintptr_t)list, (uint64_t)size);
+        km_res = km_fn_ptr((const char*)(uintptr_t)path, (char*)(uintptr_t)list, (uint64_t)size);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1llistxattr(JNIEnv* km_env, jclass km_clazz, jstring path, jlong list, jlong size) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidLlistxattr(JNIEnv* km_env, jclass km_clazz, jlong path, jlong list, jlong size) {
     (void)km_env;
     (void)km_clazz;
-    const char* path_utf = (path != NULL) ? (*km_env)->GetStringUTFChars(km_env, path, NULL) : NULL;
     typedef int64_t (*km_fn_t)(const char*, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1563,16 +1538,15 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
 #endif
     int64_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(path_utf, (char*)(uintptr_t)list, (uint64_t)size);
+        km_res = km_fn_ptr((const char*)(uintptr_t)path, (char*)(uintptr_t)list, (uint64_t)size);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1flistxattr(JNIEnv* km_env, jclass km_clazz, jint filedes, jlong list, jlong size) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidFlistxattr(JNIEnv* km_env, jclass km_clazz, jint filedes, jlong list, jlong size) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, char*, uint64_t);
@@ -1605,11 +1579,9 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
     return (jlong)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1removexattr(JNIEnv* km_env, jclass km_clazz, jstring path, jstring name) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidRemovexattr(JNIEnv* km_env, jclass km_clazz, jlong path, jlong name) {
     (void)km_env;
     (void)km_clazz;
-    const char* path_utf = (path != NULL) ? (*km_env)->GetStringUTFChars(km_env, path, NULL) : NULL;
-    const char* name_utf = (name != NULL) ? (*km_env)->GetStringUTFChars(km_env, name, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1632,21 +1604,17 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(path_utf, name_utf);
+        km_res = km_fn_ptr((const char*)(uintptr_t)path, (const char*)(uintptr_t)name);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
-    if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1lremovexattr(JNIEnv* km_env, jclass km_clazz, jstring path, jstring name) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidLremovexattr(JNIEnv* km_env, jclass km_clazz, jlong path, jlong name) {
     (void)km_env;
     (void)km_clazz;
-    const char* path_utf = (path != NULL) ? (*km_env)->GetStringUTFChars(km_env, path, NULL) : NULL;
-    const char* name_utf = (name != NULL) ? (*km_env)->GetStringUTFChars(km_env, name, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1669,20 +1637,17 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(path_utf, name_utf);
+        km_res = km_fn_ptr((const char*)(uintptr_t)path, (const char*)(uintptr_t)name);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
-    if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1fremovexattr(JNIEnv* km_env, jclass km_clazz, jint filedes, jstring name) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidFremovexattr(JNIEnv* km_env, jclass km_clazz, jint filedes, jlong name) {
     (void)km_env;
     (void)km_clazz;
-    const char* name_utf = (name != NULL) ? (*km_env)->GetStringUTFChars(km_env, name, NULL) : NULL;
     typedef int32_t (*km_fn_t)(int32_t, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1705,16 +1670,15 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)filedes, name_utf);
+        km_res = km_fn_ptr((int32_t)filedes, (const char*)(uintptr_t)name);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1signalfd(JNIEnv* km_env, jclass km_clazz, jint fd, jlong mask, jint flags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSignalfd(JNIEnv* km_env, jclass km_clazz, jint fd, jlong mask, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t);
@@ -1747,7 +1711,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1timerfdCreate(JNIEnv* km_env, jclass km_clazz, jint clock, jint flags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidTimerfdCreate(JNIEnv* km_env, jclass km_clazz, jint clock, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
@@ -1780,7 +1744,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1timerfdGettime(JNIEnv* km_env, jclass km_clazz, jint fd, jlong current_value) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidTimerfdGettime(JNIEnv* km_env, jclass km_clazz, jint fd, jlong currentValue) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -1805,7 +1769,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)fd, (void*)(uintptr_t)current_value);
+        km_res = km_fn_ptr((int32_t)fd, (void*)(uintptr_t)currentValue);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1813,7 +1777,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1timerfdSettime(JNIEnv* km_env, jclass km_clazz, jint fd, jint flags, jlong new_value, jlong old_value) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidTimerfdSettime(JNIEnv* km_env, jclass km_clazz, jint fd, jint flags, jlong newValue, jlong oldValue) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*, void*);
@@ -1838,7 +1802,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)fd, (int32_t)flags, (void*)(uintptr_t)new_value, (void*)(uintptr_t)old_value);
+        km_res = km_fn_ptr((int32_t)fd, (int32_t)flags, (void*)(uintptr_t)newValue, (void*)(uintptr_t)oldValue);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1846,7 +1810,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1syscall(JNIEnv* km_env, jclass km_clazz, jlong num, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSyscall(JNIEnv* km_env, jclass km_clazz, jlong num, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int64_t, ...);
@@ -1884,7 +1848,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
     return (jlong)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1schedGetaffinity(JNIEnv* km_env, jclass km_clazz, jint pid, jlong cpusetsize, jlong cpuset) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSchedGetaffinity(JNIEnv* km_env, jclass km_clazz, jint pid, jlong cpusetsize, jlong cpuset) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, uint64_t, void*);
@@ -1917,7 +1881,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1schedSetaffinity(JNIEnv* km_env, jclass km_clazz, jint pid, jlong cpusetsize, jlong cpuset) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSchedSetaffinity(JNIEnv* km_env, jclass km_clazz, jint pid, jlong cpusetsize, jlong cpuset) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, uint64_t, void*);
@@ -1950,7 +1914,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1epollCreate(JNIEnv* km_env, jclass km_clazz, jint size) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidEpollCreate(JNIEnv* km_env, jclass km_clazz, jint size) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -1983,7 +1947,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1epollCreate1(JNIEnv* km_env, jclass km_clazz, jint flags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidEpollCreate1(JNIEnv* km_env, jclass km_clazz, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -2016,7 +1980,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1epollWait(JNIEnv* km_env, jclass km_clazz, jint epfd, jlong events, jint maxevents, jint timeout) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidEpollWait(JNIEnv* km_env, jclass km_clazz, jint epfd, jlong events, jint maxevents, jint timeout) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t, int32_t);
@@ -2049,7 +2013,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1epollCtl(JNIEnv* km_env, jclass km_clazz, jint epfd, jint op, jint fd, jlong event) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidEpollCtl(JNIEnv* km_env, jclass km_clazz, jint epfd, jint op, jint fd, jlong event) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, void*);
@@ -2082,7 +2046,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1unshare(JNIEnv* km_env, jclass km_clazz, jint flags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidUnshare(JNIEnv* km_env, jclass km_clazz, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -2115,10 +2079,9 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1umount(JNIEnv* km_env, jclass km_clazz, jstring target) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidUmount(JNIEnv* km_env, jclass km_clazz, jlong target) {
     (void)km_env;
     (void)km_clazz;
-    const char* target_utf = (target != NULL) ? (*km_env)->GetStringUTFChars(km_env, target, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2141,16 +2104,15 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(target_utf);
+        km_res = km_fn_ptr((const char*)(uintptr_t)target);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (target != NULL && target_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, target, target_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1schedGetPriorityMax(JNIEnv* km_env, jclass km_clazz, jint policy) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSchedGetPriorityMax(JNIEnv* km_env, jclass km_clazz, jint policy) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -2183,7 +2145,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1tee(JNIEnv* km_env, jclass km_clazz, jint fd_in, jint fd_out, jlong len, jint flags) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidTee(JNIEnv* km_env, jclass km_clazz, jint fdIn, jint fdOut, jlong len, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, uint64_t, uint32_t);
@@ -2208,7 +2170,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
 #endif
     int64_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)fd_in, (int32_t)fd_out, (uint64_t)len, (uint32_t)flags);
+        km_res = km_fn_ptr((int32_t)fdIn, (int32_t)fdOut, (uint64_t)len, (uint32_t)flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2216,7 +2178,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
     return (jlong)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1settimeofday(JNIEnv* km_env, jclass km_clazz, jlong tv, jlong tz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSettimeofday(JNIEnv* km_env, jclass km_clazz, jlong tv, jlong tz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -2249,7 +2211,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1splice(JNIEnv* km_env, jclass km_clazz, jint fd_in, jlong off_in, jint fd_out, jlong off_out, jlong len, jint flags) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSplice(JNIEnv* km_env, jclass km_clazz, jint fdIn, jlong offIn, jint fdOut, jlong offOut, jlong len, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, void*, uint64_t, uint32_t);
@@ -2274,7 +2236,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
 #endif
     int64_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)fd_in, (void*)(uintptr_t)off_in, (int32_t)fd_out, (void*)(uintptr_t)off_out, (uint64_t)len, (uint32_t)flags);
+        km_res = km_fn_ptr((int32_t)fdIn, (void*)(uintptr_t)offIn, (int32_t)fdOut, (void*)(uintptr_t)offOut, (uint64_t)len, (uint32_t)flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2282,7 +2244,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
     return (jlong)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1eventfd(JNIEnv* km_env, jclass km_clazz, jint initval, jint flags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidEventfd(JNIEnv* km_env, jclass km_clazz, jint initval, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(uint32_t, int32_t);
@@ -2315,7 +2277,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1eventfdRead(JNIEnv* km_env, jclass km_clazz, jint fd, jlong value) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidEventfdRead(JNIEnv* km_env, jclass km_clazz, jint fd, jlong value) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -2348,7 +2310,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1eventfdWrite(JNIEnv* km_env, jclass km_clazz, jint fd, jlong value) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidEventfdWrite(JNIEnv* km_env, jclass km_clazz, jint fd, jlong value) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, uint64_t);
@@ -2381,7 +2343,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1schedRrGetInterval(JNIEnv* km_env, jclass km_clazz, jint pid, jlong tp) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSchedRrGetInterval(JNIEnv* km_env, jclass km_clazz, jint pid, jlong tp) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -2414,7 +2376,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1semTimedwait(JNIEnv* km_env, jclass km_clazz, jlong sem, jlong abstime) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSemTimedwait(JNIEnv* km_env, jclass km_clazz, jlong sem, jlong abstime) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -2447,7 +2409,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1semGetvalue(JNIEnv* km_env, jclass km_clazz, jlong sem, jlong sval) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSemGetvalue(JNIEnv* km_env, jclass km_clazz, jlong sem, jlong sval) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -2480,7 +2442,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1schedSetparam(JNIEnv* km_env, jclass km_clazz, jint pid, jlong param) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSchedSetparam(JNIEnv* km_env, jclass km_clazz, jint pid, jlong param) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -2513,7 +2475,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1setns(JNIEnv* km_env, jclass km_clazz, jint fd, jint nstype) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSetns(JNIEnv* km_env, jclass km_clazz, jint fd, jint nstype) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
@@ -2546,10 +2508,9 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1swapoff(JNIEnv* km_env, jclass km_clazz, jstring puath) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSwapoff(JNIEnv* km_env, jclass km_clazz, jlong puath) {
     (void)km_env;
     (void)km_clazz;
-    const char* puath_utf = (puath != NULL) ? (*km_env)->GetStringUTFChars(km_env, puath, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2572,16 +2533,15 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(puath_utf);
+        km_res = km_fn_ptr((const char*)(uintptr_t)puath);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (puath != NULL && puath_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, puath, puath_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1vmsplice(JNIEnv* km_env, jclass km_clazz, jint fd, jlong iov, jlong nr_segs, jint flags) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidVmsplice(JNIEnv* km_env, jclass km_clazz, jint fd, jlong iov, jlong nrSegs, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, uint32_t);
@@ -2606,7 +2566,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
 #endif
     int64_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)fd, (void*)(uintptr_t)iov, (uint64_t)nr_segs, (uint32_t)flags);
+        km_res = km_fn_ptr((int32_t)fd, (void*)(uintptr_t)iov, (uint64_t)nrSegs, (uint32_t)flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2614,12 +2574,9 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
     return (jlong)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1mount(JNIEnv* km_env, jclass km_clazz, jstring src, jstring target, jstring fstype, jlong flags, jlong data) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidMount(JNIEnv* km_env, jclass km_clazz, jlong src, jlong target, jlong fstype, jlong flags, jlong data) {
     (void)km_env;
     (void)km_clazz;
-    const char* src_utf = (src != NULL) ? (*km_env)->GetStringUTFChars(km_env, src, NULL) : NULL;
-    const char* target_utf = (target != NULL) ? (*km_env)->GetStringUTFChars(km_env, target, NULL) : NULL;
-    const char* fstype_utf = (fstype != NULL) ? (*km_env)->GetStringUTFChars(km_env, fstype, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, const char*, const char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2642,18 +2599,15 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(src_utf, target_utf, fstype_utf, (uint64_t)flags, (void*)(uintptr_t)data);
+        km_res = km_fn_ptr((const char*)(uintptr_t)src, (const char*)(uintptr_t)target, (const char*)(uintptr_t)fstype, (uint64_t)flags, (void*)(uintptr_t)data);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (src != NULL && src_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, src, src_utf);
-    if (target != NULL && target_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, target, target_utf);
-    if (fstype != NULL && fstype_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, fstype, fstype_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1personality(JNIEnv* km_env, jclass km_clazz, jint persona) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidPersonality(JNIEnv* km_env, jclass km_clazz, jint persona) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -2686,7 +2640,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1prctl(JNIEnv* km_env, jclass km_clazz, jint option, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidPrctl(JNIEnv* km_env, jclass km_clazz, jint option, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, ...);
@@ -2724,7 +2678,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1schedGetparam(JNIEnv* km_env, jclass km_clazz, jint pid, jlong param) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSchedGetparam(JNIEnv* km_env, jclass km_clazz, jint pid, jlong param) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -2757,7 +2711,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1ppoll(JNIEnv* km_env, jclass km_clazz, jlong fds, jint nfds, jlong timeout, jlong sigmask) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidPpoll(JNIEnv* km_env, jclass km_clazz, jlong fds, jint nfds, jlong timeout, jlong sigmask) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint32_t, void*, void*);
@@ -2790,7 +2744,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1clone(JNIEnv* km_env, jclass km_clazz, jlong cb, jlong child_stack, jint flags, jlong arg, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidClone(JNIEnv* km_env, jclass km_clazz, jlong cb, jlong childStack, jint flags, jlong arg, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, int32_t, void*, ...);
@@ -2816,11 +2770,11 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     int32_t km_res = -1;
     if (km_fn_ptr != NULL) {
         switch (km_vac) {
-            case 0: km_res = km_fn_ptr((void*)(uintptr_t)cb, (void*)(uintptr_t)child_stack, (int32_t)flags, (void*)(uintptr_t)arg); break;
-            case 1: km_res = km_fn_ptr((void*)(uintptr_t)cb, (void*)(uintptr_t)child_stack, (int32_t)flags, (void*)(uintptr_t)arg, (intptr_t)km_va0); break;
-            case 2: km_res = km_fn_ptr((void*)(uintptr_t)cb, (void*)(uintptr_t)child_stack, (int32_t)flags, (void*)(uintptr_t)arg, (intptr_t)km_va0, (intptr_t)km_va1); break;
-            case 3: km_res = km_fn_ptr((void*)(uintptr_t)cb, (void*)(uintptr_t)child_stack, (int32_t)flags, (void*)(uintptr_t)arg, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2); break;
-            default: km_res = km_fn_ptr((void*)(uintptr_t)cb, (void*)(uintptr_t)child_stack, (int32_t)flags, (void*)(uintptr_t)arg, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3); break;
+            case 0: km_res = km_fn_ptr((void*)(uintptr_t)cb, (void*)(uintptr_t)childStack, (int32_t)flags, (void*)(uintptr_t)arg); break;
+            case 1: km_res = km_fn_ptr((void*)(uintptr_t)cb, (void*)(uintptr_t)childStack, (int32_t)flags, (void*)(uintptr_t)arg, (intptr_t)km_va0); break;
+            case 2: km_res = km_fn_ptr((void*)(uintptr_t)cb, (void*)(uintptr_t)childStack, (int32_t)flags, (void*)(uintptr_t)arg, (intptr_t)km_va0, (intptr_t)km_va1); break;
+            case 3: km_res = km_fn_ptr((void*)(uintptr_t)cb, (void*)(uintptr_t)childStack, (int32_t)flags, (void*)(uintptr_t)arg, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2); break;
+            default: km_res = km_fn_ptr((void*)(uintptr_t)cb, (void*)(uintptr_t)childStack, (int32_t)flags, (void*)(uintptr_t)arg, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3); break;
         }
     } else {
         errno = ENOSYS;
@@ -2828,7 +2782,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1schedGetscheduler(JNIEnv* km_env, jclass km_clazz, jint pid) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSchedGetscheduler(JNIEnv* km_env, jclass km_clazz, jint pid) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -2861,7 +2815,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1clockNanosleep(JNIEnv* km_env, jclass km_clazz, jint clk_id, jint flags, jlong rqtp, jlong rmtp) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidClockNanosleep(JNIEnv* km_env, jclass km_clazz, jint clkId, jint flags, jlong rqtp, jlong rmtp) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*, void*);
@@ -2886,7 +2840,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)clk_id, (int32_t)flags, (void*)(uintptr_t)rqtp, (void*)(uintptr_t)rmtp);
+        km_res = km_fn_ptr((int32_t)clkId, (int32_t)flags, (void*)(uintptr_t)rqtp, (void*)(uintptr_t)rmtp);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2894,10 +2848,9 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1sethostname(JNIEnv* km_env, jclass km_clazz, jstring name, jlong len) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSethostname(JNIEnv* km_env, jclass km_clazz, jlong name, jlong len) {
     (void)km_env;
     (void)km_clazz;
-    const char* name_utf = (name != NULL) ? (*km_env)->GetStringUTFChars(km_env, name, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2920,16 +2873,15 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(name_utf, (uint64_t)len);
+        km_res = km_fn_ptr((const char*)(uintptr_t)name, (uint64_t)len);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1schedGetPriorityMin(JNIEnv* km_env, jclass km_clazz, jint policy) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSchedGetPriorityMin(JNIEnv* km_env, jclass km_clazz, jint policy) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -2962,7 +2914,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1sysinfo(JNIEnv* km_env, jclass km_clazz, jlong info) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSysinfo(JNIEnv* km_env, jclass km_clazz, jlong info) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -2995,10 +2947,9 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1umount2(JNIEnv* km_env, jclass km_clazz, jstring target, jint flags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidUmount2(JNIEnv* km_env, jclass km_clazz, jlong target, jint flags) {
     (void)km_env;
     (void)km_clazz;
-    const char* target_utf = (target != NULL) ? (*km_env)->GetStringUTFChars(km_env, target, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3021,19 +2972,17 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(target_utf, (int32_t)flags);
+        km_res = km_fn_ptr((const char*)(uintptr_t)target, (int32_t)flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (target != NULL && target_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, target, target_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1swapon(JNIEnv* km_env, jclass km_clazz, jstring path, jint swapflags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSwapon(JNIEnv* km_env, jclass km_clazz, jlong path, jint swapflags) {
     (void)km_env;
     (void)km_clazz;
-    const char* path_utf = (path != NULL) ? (*km_env)->GetStringUTFChars(km_env, path, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3056,16 +3005,15 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(path_utf, (int32_t)swapflags);
+        km_res = km_fn_ptr((const char*)(uintptr_t)path, (int32_t)swapflags);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1schedSetscheduler(JNIEnv* km_env, jclass km_clazz, jint pid, jint policy, jlong param) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSchedSetscheduler(JNIEnv* km_env, jclass km_clazz, jint pid, jint policy, jlong param) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
@@ -3098,7 +3046,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1sendfile(JNIEnv* km_env, jclass km_clazz, jint out_fd, jint in_fd, jlong offset, jlong count) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSendfile(JNIEnv* km_env, jclass km_clazz, jint outFd, jint inFd, jlong offset, jlong count) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, void*, uint64_t);
@@ -3123,7 +3071,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
 #endif
     int64_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)out_fd, (int32_t)in_fd, (void*)(uintptr_t)offset, (uint64_t)count);
+        km_res = km_fn_ptr((int32_t)outFd, (int32_t)inFd, (void*)(uintptr_t)offset, (uint64_t)count);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3131,7 +3079,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1sendfile64(JNIEnv* km_env, jclass km_clazz, jint out_fd, jint in_fd, jlong offset, jlong count) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSendfile64(JNIEnv* km_env, jclass km_clazz, jint outFd, jint inFd, jlong offset, jlong count) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, void*, uint64_t);
@@ -3161,7 +3109,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
 #endif
     int64_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)out_fd, (int32_t)in_fd, (void*)(uintptr_t)offset, (uint64_t)count);
+        km_res = km_fn_ptr((int32_t)outFd, (int32_t)inFd, (void*)(uintptr_t)offset, (uint64_t)count);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3169,7 +3117,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
     return (jlong)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1setfsgid(JNIEnv* km_env, jclass km_clazz, jshort gid) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSetfsgid(JNIEnv* km_env, jclass km_clazz, jshort gid) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(uint16_t);
@@ -3202,7 +3150,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1setfsuid(JNIEnv* km_env, jclass km_clazz, jshort uid) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSetfsuid(JNIEnv* km_env, jclass km_clazz, jshort uid) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(uint16_t);
@@ -3235,7 +3183,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1sigsuspend(JNIEnv* km_env, jclass km_clazz, jlong mask) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSigsuspend(JNIEnv* km_env, jclass km_clazz, jlong mask) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -3268,7 +3216,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1getgrgidR(JNIEnv* km_env, jclass km_clazz, jshort gid, jlong grp, jlong buf, jlong buflen, jlong result) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidGetgrgidR(JNIEnv* km_env, jclass km_clazz, jshort gid, jlong grp, jlong buf, jlong buflen, jlong result) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(uint16_t, void*, char*, uint64_t, void*);
@@ -3301,7 +3249,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1sigaltstack(JNIEnv* km_env, jclass km_clazz, jlong ss, jlong oss) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSigaltstack(JNIEnv* km_env, jclass km_clazz, jlong ss, jlong oss) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -3334,7 +3282,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1semClose(JNIEnv* km_env, jclass km_clazz, jlong sem) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSemClose(JNIEnv* km_env, jclass km_clazz, jlong sem) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -3367,10 +3315,9 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1getgrnamR(JNIEnv* km_env, jclass km_clazz, jstring name, jlong grp, jlong buf, jlong buflen, jlong result) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidGetgrnamR(JNIEnv* km_env, jclass km_clazz, jlong name, jlong grp, jlong buf, jlong buflen, jlong result) {
     (void)km_env;
     (void)km_clazz;
-    const char* name_utf = (name != NULL) ? (*km_env)->GetStringUTFChars(km_env, name, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3393,19 +3340,17 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(name_utf, (void*)(uintptr_t)grp, (char*)(uintptr_t)buf, (uint64_t)buflen, (void*)(uintptr_t)result);
+        km_res = km_fn_ptr((const char*)(uintptr_t)name, (void*)(uintptr_t)grp, (char*)(uintptr_t)buf, (uint64_t)buflen, (void*)(uintptr_t)result);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1semOpen(JNIEnv* km_env, jclass km_clazz, jstring name, jint oflag, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSemOpen(JNIEnv* km_env, jclass km_clazz, jlong name, jint oflag, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
     (void)km_env;
     (void)km_clazz;
-    const char* name_utf = (name != NULL) ? (*km_env)->GetStringUTFChars(km_env, name, NULL) : NULL;
     typedef void* (*km_fn_t)(const char*, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3429,23 +3374,21 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
     void* km_res = NULL;
     if (km_fn_ptr != NULL) {
         switch (km_vac) {
-            case 0: km_res = km_fn_ptr(name_utf, (int32_t)oflag); break;
-            case 1: km_res = km_fn_ptr(name_utf, (int32_t)oflag, (intptr_t)km_va0); break;
-            case 2: km_res = km_fn_ptr(name_utf, (int32_t)oflag, (intptr_t)km_va0, (intptr_t)km_va1); break;
-            case 3: km_res = km_fn_ptr(name_utf, (int32_t)oflag, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2); break;
-            default: km_res = km_fn_ptr(name_utf, (int32_t)oflag, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3); break;
+            case 0: km_res = km_fn_ptr((const char*)(uintptr_t)name, (int32_t)oflag); break;
+            case 1: km_res = km_fn_ptr((const char*)(uintptr_t)name, (int32_t)oflag, (intptr_t)km_va0); break;
+            case 2: km_res = km_fn_ptr((const char*)(uintptr_t)name, (int32_t)oflag, (intptr_t)km_va0, (intptr_t)km_va1); break;
+            case 3: km_res = km_fn_ptr((const char*)(uintptr_t)name, (int32_t)oflag, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2); break;
+            default: km_res = km_fn_ptr((const char*)(uintptr_t)name, (int32_t)oflag, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3); break;
         }
     } else {
         errno = ENOSYS;
     }
-    if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1getgrnam(JNIEnv* km_env, jclass km_clazz, jstring name) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidGetgrnam(JNIEnv* km_env, jclass km_clazz, jlong name) {
     (void)km_env;
     (void)km_clazz;
-    const char* name_utf = (name != NULL) ? (*km_env)->GetStringUTFChars(km_env, name, NULL) : NULL;
     typedef void* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3468,19 +3411,17 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
 #endif
     void* km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(name_utf);
+        km_res = km_fn_ptr((const char*)(uintptr_t)name);
     } else {
         errno = ENOSYS;
         km_res = NULL;
     }
-    if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1semUnlink(JNIEnv* km_env, jclass km_clazz, jstring name) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSemUnlink(JNIEnv* km_env, jclass km_clazz, jlong name) {
     (void)km_env;
     (void)km_clazz;
-    const char* name_utf = (name != NULL) ? (*km_env)->GetStringUTFChars(km_env, name, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3503,16 +3444,15 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(name_utf);
+        km_res = km_fn_ptr((const char*)(uintptr_t)name);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1daemon(JNIEnv* km_env, jclass km_clazz, jint nochdir, jint noclose) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidDaemon(JNIEnv* km_env, jclass km_clazz, jint nochdir, jint noclose) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
@@ -3545,7 +3485,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1sigtimedwait(JNIEnv* km_env, jclass km_clazz, jlong set, jlong info, jlong timeout) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSigtimedwait(JNIEnv* km_env, jclass km_clazz, jlong set, jlong info, jlong timeout) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, void*);
@@ -3578,7 +3518,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1sigwait(JNIEnv* km_env, jclass km_clazz, jlong set, jlong sig) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSigwait(JNIEnv* km_env, jclass km_clazz, jlong set, jlong sig) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -3611,7 +3551,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1getgrgid(JNIEnv* km_env, jclass km_clazz, jshort gid) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidGetgrgid(JNIEnv* km_env, jclass km_clazz, jshort gid) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(uint16_t);
@@ -3644,10 +3584,9 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1getgrouplist(JNIEnv* km_env, jclass km_clazz, jstring user, jshort group, jlong groups, jlong ngroups) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidGetgrouplist(JNIEnv* km_env, jclass km_clazz, jlong user, jshort group, jlong groups, jlong ngroups) {
     (void)km_env;
     (void)km_clazz;
-    const char* user_utf = (user != NULL) ? (*km_env)->GetStringUTFChars(km_env, user, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, uint16_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3670,19 +3609,17 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(user_utf, (uint16_t)group, (void*)(uintptr_t)groups, (void*)(uintptr_t)ngroups);
+        km_res = km_fn_ptr((const char*)(uintptr_t)user, (uint16_t)group, (void*)(uintptr_t)groups, (void*)(uintptr_t)ngroups);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (user != NULL && user_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, user, user_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1initgroups(JNIEnv* km_env, jclass km_clazz, jstring user, jshort group) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidInitgroups(JNIEnv* km_env, jclass km_clazz, jlong user, jshort group) {
     (void)km_env;
     (void)km_clazz;
-    const char* user_utf = (user != NULL) ? (*km_env)->GetStringUTFChars(km_env, user, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, uint16_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3705,20 +3642,17 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(user_utf, (uint16_t)group);
+        km_res = km_fn_ptr((const char*)(uintptr_t)user, (uint16_t)group);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (user != NULL && user_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, user, user_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1popen(JNIEnv* km_env, jclass km_clazz, jstring command, jstring mode) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidPopen(JNIEnv* km_env, jclass km_clazz, jlong command, jlong mode) {
     (void)km_env;
     (void)km_clazz;
-    const char* command_utf = (command != NULL) ? (*km_env)->GetStringUTFChars(km_env, command, NULL) : NULL;
-    const char* mode_utf = (mode != NULL) ? (*km_env)->GetStringUTFChars(km_env, mode, NULL) : NULL;
     typedef void* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3741,20 +3675,17 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
 #endif
     void* km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(command_utf, mode_utf);
+        km_res = km_fn_ptr((const char*)(uintptr_t)command, (const char*)(uintptr_t)mode);
     } else {
         errno = ENOSYS;
         km_res = NULL;
     }
-    if (command != NULL && command_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, command, command_utf);
-    if (mode != NULL && mode_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, mode, mode_utf);
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1faccessat(JNIEnv* km_env, jclass km_clazz, jint dirfd, jstring pathname, jint mode, jint flags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidFaccessat(JNIEnv* km_env, jclass km_clazz, jint dirfd, jlong pathname, jint mode, jint flags) {
     (void)km_env;
     (void)km_clazz;
-    const char* pathname_utf = (pathname != NULL) ? (*km_env)->GetStringUTFChars(km_env, pathname, NULL) : NULL;
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3777,16 +3708,15 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)dirfd, pathname_utf, (int32_t)mode, (int32_t)flags);
+        km_res = km_fn_ptr((int32_t)dirfd, (const char*)(uintptr_t)pathname, (int32_t)mode, (int32_t)flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (pathname != NULL && pathname_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, pathname, pathname_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1errno(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidErrno(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void);
@@ -3817,7 +3747,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1inotifyRmWatch(JNIEnv* km_env, jclass km_clazz, jint fd, jint wd) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidInotifyRmWatch(JNIEnv* km_env, jclass km_clazz, jint fd, jint wd) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, uint32_t);
@@ -3850,7 +3780,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1inotifyInit(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidInotifyInit(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -3883,7 +3813,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1inotifyInit1(JNIEnv* km_env, jclass km_clazz, jint flags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidInotifyInit1(JNIEnv* km_env, jclass km_clazz, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -3916,10 +3846,9 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1inotifyAddWatch(JNIEnv* km_env, jclass km_clazz, jint fd, jstring path, jint mask) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidInotifyAddWatch(JNIEnv* km_env, jclass km_clazz, jint fd, jlong path, jint mask) {
     (void)km_env;
     (void)km_clazz;
-    const char* path_utf = (path != NULL) ? (*km_env)->GetStringUTFChars(km_env, path, NULL) : NULL;
     typedef int32_t (*km_fn_t)(int32_t, const char*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3942,19 +3871,17 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)fd, path_utf, (uint32_t)mask);
+        km_res = km_fn_ptr((int32_t)fd, (const char*)(uintptr_t)path, (uint32_t)mask);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1regcomp(JNIEnv* km_env, jclass km_clazz, jlong preg, jstring pattern, jint cflags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidRegcomp(JNIEnv* km_env, jclass km_clazz, jlong preg, jlong pattern, jint cflags) {
     (void)km_env;
     (void)km_clazz;
-    const char* pattern_utf = (pattern != NULL) ? (*km_env)->GetStringUTFChars(km_env, pattern, NULL) : NULL;
     typedef int32_t (*km_fn_t)(void*, const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3977,19 +3904,17 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)preg, pattern_utf, (int32_t)cflags);
+        km_res = km_fn_ptr((void*)(uintptr_t)preg, (const char*)(uintptr_t)pattern, (int32_t)cflags);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (pattern != NULL && pattern_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, pattern, pattern_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1regexec(JNIEnv* km_env, jclass km_clazz, jlong preg, jstring input, jlong nmatch, jlong pmatch, jint eflags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidRegexec(JNIEnv* km_env, jclass km_clazz, jlong preg, jlong input, jlong nmatch, jlong pmatch, jint eflags) {
     (void)km_env;
     (void)km_clazz;
-    const char* input_utf = (input != NULL) ? (*km_env)->GetStringUTFChars(km_env, input, NULL) : NULL;
     typedef int32_t (*km_fn_t)(void*, const char*, uint64_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4012,16 +3937,15 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)preg, input_utf, (uint64_t)nmatch, (void*)(uintptr_t)pmatch, (int32_t)eflags);
+        km_res = km_fn_ptr((void*)(uintptr_t)preg, (const char*)(uintptr_t)input, (uint64_t)nmatch, (void*)(uintptr_t)pmatch, (int32_t)eflags);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (input != NULL && input_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, input, input_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1regerror(JNIEnv* km_env, jclass km_clazz, jint errcode, jlong preg, jlong errbuf, jlong errbuf_size) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidRegerror(JNIEnv* km_env, jclass km_clazz, jint errcode, jlong preg, jlong errbuf, jlong errbufSize) {
     (void)km_env;
     (void)km_clazz;
     typedef uint64_t (*km_fn_t)(int32_t, void*, char*, uint64_t);
@@ -4046,7 +3970,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
 #endif
     uint64_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)errcode, (void*)(uintptr_t)preg, (char*)(uintptr_t)errbuf, (uint64_t)errbuf_size);
+        km_res = km_fn_ptr((int32_t)errcode, (void*)(uintptr_t)preg, (char*)(uintptr_t)errbuf, (uint64_t)errbufSize);
     } else {
         errno = ENOSYS;
         km_res = 0;
@@ -4054,7 +3978,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
     return (jlong)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1regfree(JNIEnv* km_env, jclass km_clazz, jlong preg) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidRegfree(JNIEnv* km_env, jclass km_clazz, jlong preg) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void*);
@@ -4084,10 +4008,9 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1androidSetAbortMessage(JNIEnv* km_env, jclass km_clazz, jstring msg) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidAndroidSetAbortMessage(JNIEnv* km_env, jclass km_clazz, jlong msg) {
     (void)km_env;
     (void)km_clazz;
-    const char* msg_utf = (msg != NULL) ? (*km_env)->GetStringUTFChars(km_env, msg, NULL) : NULL;
     typedef void (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4109,14 +4032,13 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     }
 #endif
     if (km_fn_ptr != NULL) {
-        km_fn_ptr(msg_utf);
+        km_fn_ptr((const char*)(uintptr_t)msg);
     } else {
         errno = ENOSYS;
     }
-    if (msg != NULL && msg_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, msg, msg_utf);
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1gettid(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidGettid(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -4149,7 +4071,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1tgkill(JNIEnv* km_env, jclass km_clazz, jint tgid, jint tid, jint sig) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidTgkill(JNIEnv* km_env, jclass km_clazz, jint tgid, jint tid, jint sig) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t);
@@ -4182,7 +4104,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1getauxval(JNIEnv* km_env, jclass km_clazz, jlong type_) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidGetauxval(JNIEnv* km_env, jclass km_clazz, jlong type) {
     (void)km_env;
     (void)km_clazz;
     typedef uint64_t (*km_fn_t)(uint64_t);
@@ -4207,7 +4129,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
 #endif
     uint64_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((uint64_t)type_);
+        km_res = km_fn_ptr((uint64_t)type);
     } else {
         errno = ENOSYS;
         km_res = 0;
@@ -4215,7 +4137,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1getrandom(JNIEnv* km_env, jclass km_clazz, jlong buf, jlong buflen, jint flags) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidGetrandom(JNIEnv* km_env, jclass km_clazz, jlong buf, jlong buflen, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(void*, uint64_t, uint32_t);
@@ -4248,7 +4170,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
     return (jlong)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1getentropy(JNIEnv* km_env, jclass km_clazz, jlong buf, jlong buflen) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidGetentropy(JNIEnv* km_env, jclass km_clazz, jlong buf, jlong buflen) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint64_t);
@@ -4281,11 +4203,9 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1systemPropertySet(JNIEnv* km_env, jclass km_clazz, jstring arg_0_name, jstring arg_1_value) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSystemPropertySet(JNIEnv* km_env, jclass km_clazz, jlong name, jlong value) {
     (void)km_env;
     (void)km_clazz;
-    const char* arg_0_name_utf = (arg_0_name != NULL) ? (*km_env)->GetStringUTFChars(km_env, arg_0_name, NULL) : NULL;
-    const char* arg_1_value_utf = (arg_1_value != NULL) ? (*km_env)->GetStringUTFChars(km_env, arg_1_value, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4306,20 +4226,17 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(arg_0_name_utf, arg_1_value_utf);
+        km_res = km_fn_ptr((const char*)(uintptr_t)name, (const char*)(uintptr_t)value);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (arg_0_name != NULL && arg_0_name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, arg_0_name, arg_0_name_utf);
-    if (arg_1_value != NULL && arg_1_value_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, arg_1_value, arg_1_value_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1systemPropertyGet(JNIEnv* km_env, jclass km_clazz, jstring arg_0_name, jlong arg_1_value) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSystemPropertyGet(JNIEnv* km_env, jclass km_clazz, jlong name, jlong value) {
     (void)km_env;
     (void)km_clazz;
-    const char* arg_0_name_utf = (arg_0_name != NULL) ? (*km_env)->GetStringUTFChars(km_env, arg_0_name, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4340,19 +4257,17 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(arg_0_name_utf, (char*)(uintptr_t)arg_1_value);
+        km_res = km_fn_ptr((const char*)(uintptr_t)name, (char*)(uintptr_t)value);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (arg_0_name != NULL && arg_0_name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, arg_0_name, arg_0_name_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1systemPropertyFind(JNIEnv* km_env, jclass km_clazz, jstring arg_0_name) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSystemPropertyFind(JNIEnv* km_env, jclass km_clazz, jlong name) {
     (void)km_env;
     (void)km_clazz;
-    const char* arg_0_name_utf = (arg_0_name != NULL) ? (*km_env)->GetStringUTFChars(km_env, arg_0_name, NULL) : NULL;
     typedef void* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4373,16 +4288,15 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
 #endif
     void* km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(arg_0_name_utf);
+        km_res = km_fn_ptr((const char*)(uintptr_t)name);
     } else {
         errno = ENOSYS;
         km_res = NULL;
     }
-    if (arg_0_name != NULL && arg_0_name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, arg_0_name, arg_0_name_utf);
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1systemPropertyFindNth(JNIEnv* km_env, jclass km_clazz, jint arg_0_n) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSystemPropertyFindNth(JNIEnv* km_env, jclass km_clazz, jint n) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(uint32_t);
@@ -4405,7 +4319,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
 #endif
     void* km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((uint32_t)arg_0_n);
+        km_res = km_fn_ptr((uint32_t)n);
     } else {
         errno = ENOSYS;
         km_res = NULL;
@@ -4413,7 +4327,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1systemPropertyForeach(JNIEnv* km_env, jclass km_clazz, jlong arg_0_callback, jlong arg_1_cookie) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSystemPropertyForeach(JNIEnv* km_env, jclass km_clazz, jlong callback, jlong cookie) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -4436,7 +4350,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)arg_0_callback, (void*)(uintptr_t)arg_1_cookie);
+        km_res = km_fn_ptr((void*)(uintptr_t)callback, (void*)(uintptr_t)cookie);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4444,7 +4358,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1dlIteratePhdr(JNIEnv* km_env, jclass km_clazz, jlong callback, jlong data) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidDlIteratePhdr(JNIEnv* km_env, jclass km_clazz, jlong callback, jlong data) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -4477,7 +4391,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1arc4random(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidArc4random(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef uint32_t (*km_fn_t)(void);
@@ -4510,7 +4424,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1arc4randomUniform(JNIEnv* km_env, jclass km_clazz, jint arg_0_upper_bound) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidArc4randomUniform(JNIEnv* km_env, jclass km_clazz, jint upperBound) {
     (void)km_env;
     (void)km_clazz;
     typedef uint32_t (*km_fn_t)(uint32_t);
@@ -4535,7 +4449,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
 #endif
     uint32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((uint32_t)arg_0_upper_bound);
+        km_res = km_fn_ptr((uint32_t)upperBound);
     } else {
         errno = ENOSYS;
         km_res = 0;
@@ -4543,7 +4457,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1arc4randomBuf(JNIEnv* km_env, jclass km_clazz, jlong arg_0_buf, jlong arg_1_n) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidArc4randomBuf(JNIEnv* km_env, jclass km_clazz, jlong buf, jlong n) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void*, uint64_t);
@@ -4567,13 +4481,13 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     }
 #endif
     if (km_fn_ptr != NULL) {
-        km_fn_ptr((void*)(uintptr_t)arg_0_buf, (uint64_t)arg_1_n);
+        km_fn_ptr((void*)(uintptr_t)buf, (uint64_t)n);
     } else {
         errno = ENOSYS;
     }
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1reallocarray(JNIEnv* km_env, jclass km_clazz, jlong ptr, jlong nmemb, jlong size) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidReallocarray(JNIEnv* km_env, jclass km_clazz, jlong ptr, jlong nmemb, jlong size) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void*, uint64_t, uint64_t);
@@ -4606,10 +4520,9 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1dirname(JNIEnv* km_env, jclass km_clazz, jstring path) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidDirname(JNIEnv* km_env, jclass km_clazz, jlong path) {
     (void)km_env;
     (void)km_clazz;
-    const char* path_utf = (path != NULL) ? (*km_env)->GetStringUTFChars(km_env, path, NULL) : NULL;
     typedef char* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4632,19 +4545,17 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
 #endif
     char* km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(path_utf);
+        km_res = km_fn_ptr((const char*)(uintptr_t)path);
     } else {
         errno = ENOSYS;
         km_res = NULL;
     }
-    if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1basename(JNIEnv* km_env, jclass km_clazz, jstring path) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidBasename(JNIEnv* km_env, jclass km_clazz, jlong path) {
     (void)km_env;
     (void)km_clazz;
-    const char* path_utf = (path != NULL) ? (*km_env)->GetStringUTFChars(km_env, path, NULL) : NULL;
     typedef char* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4667,19 +4578,17 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
 #endif
     char* km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(path_utf);
+        km_res = km_fn_ptr((const char*)(uintptr_t)path);
     } else {
         errno = ENOSYS;
         km_res = NULL;
     }
-    if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1getoptLong(JNIEnv* km_env, jclass km_clazz, jint argc, jlong argv, jstring optstring, jlong longopts, jlong longindex) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidGetoptLong(JNIEnv* km_env, jclass km_clazz, jint argc, jlong argv, jlong optstring, jlong longopts, jlong longindex) {
     (void)km_env;
     (void)km_clazz;
-    const char* optstring_utf = (optstring != NULL) ? (*km_env)->GetStringUTFChars(km_env, optstring, NULL) : NULL;
     typedef int32_t (*km_fn_t)(int32_t, void*, const char*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4702,16 +4611,15 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)argc, (void*)(uintptr_t)argv, optstring_utf, (void*)(uintptr_t)longopts, (void*)(uintptr_t)longindex);
+        km_res = km_fn_ptr((int32_t)argc, (void*)(uintptr_t)argv, (const char*)(uintptr_t)optstring, (void*)(uintptr_t)longopts, (void*)(uintptr_t)longindex);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (optstring != NULL && optstring_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, optstring, optstring_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1sync(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSync(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void);
@@ -4741,7 +4649,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     }
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1syncfs(JNIEnv* km_env, jclass km_clazz, jint fd) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidSyncfs(JNIEnv* km_env, jclass km_clazz, jint fd) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -4774,7 +4682,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1memmem(JNIEnv* km_env, jclass km_clazz, jlong haystack, jlong haystacklen, jlong needle, jlong needlelen) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidMemmem(JNIEnv* km_env, jclass km_clazz, jlong haystack, jlong haystacklen, jlong needle, jlong needlelen) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void*, uint64_t, void*, uint64_t);
@@ -4807,7 +4715,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1freadUnlocked(JNIEnv* km_env, jclass km_clazz, jlong buf, jlong size, jlong nobj, jlong stream) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidFreadUnlocked(JNIEnv* km_env, jclass km_clazz, jlong buf, jlong size, jlong nobj, jlong stream) {
     (void)km_env;
     (void)km_clazz;
     typedef uint64_t (*km_fn_t)(void*, uint64_t, uint64_t, void*);
@@ -4840,7 +4748,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1fwriteUnlocked(JNIEnv* km_env, jclass km_clazz, jlong buf, jlong size, jlong nobj, jlong stream) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidFwriteUnlocked(JNIEnv* km_env, jclass km_clazz, jlong buf, jlong size, jlong nobj, jlong stream) {
     (void)km_env;
     (void)km_clazz;
     typedef uint64_t (*km_fn_t)(void*, uint64_t, uint64_t, void*);
@@ -4873,7 +4781,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
     return (jlong)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1fflushUnlocked(JNIEnv* km_env, jclass km_clazz, jlong stream) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidFflushUnlocked(JNIEnv* km_env, jclass km_clazz, jlong stream) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -4906,7 +4814,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1fgetsUnlocked(JNIEnv* km_env, jclass km_clazz, jlong buf, jint size, jlong stream) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidFgetsUnlocked(JNIEnv* km_env, jclass km_clazz, jlong buf, jint size, jlong stream) {
     (void)km_env;
     (void)km_clazz;
     typedef char* (*km_fn_t)(char*, int32_t, void*);
@@ -4939,7 +4847,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_U
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1klogctl(JNIEnv* km_env, jclass km_clazz, jint syslog_type, jlong bufp, jint len) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidKlogctl(JNIEnv* km_env, jclass km_clazz, jint syslogType, jlong bufp, jint len) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, char*, int32_t);
@@ -4964,7 +4872,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)syslog_type, (char*)(uintptr_t)bufp, (int32_t)len);
+        km_res = km_fn_ptr((int32_t)syslogType, (char*)(uintptr_t)bufp, (int32_t)len);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4972,10 +4880,9 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1memfdCreate(JNIEnv* km_env, jclass km_clazz, jstring name, jint flags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidMemfdCreate(JNIEnv* km_env, jclass km_clazz, jlong name, jint flags) {
     (void)km_env;
     (void)km_clazz;
-    const char* name_utf = (name != NULL) ? (*km_env)->GetStringUTFChars(km_env, name, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4998,20 +4905,17 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(name_utf, (uint32_t)flags);
+        km_res = km_fn_ptr((const char*)(uintptr_t)name, (uint32_t)flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libc_1unix_1linuxlike_1android_1renameat2(JNIEnv* km_env, jclass km_clazz, jint olddirfd, jstring oldpath, jint newdirfd, jstring newpath, jint flags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_UnixLinuxlikeAndroidJniBridge_libcUnixLinuxlikeAndroidRenameat2(JNIEnv* km_env, jclass km_clazz, jint olddirfd, jlong oldpath, jint newdirfd, jlong newpath, jint flags) {
     (void)km_env;
     (void)km_clazz;
-    const char* oldpath_utf = (oldpath != NULL) ? (*km_env)->GetStringUTFChars(km_env, oldpath, NULL) : NULL;
-    const char* newpath_utf = (newpath != NULL) ? (*km_env)->GetStringUTFChars(km_env, newpath, NULL) : NULL;
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, const char*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5034,13 +4938,11 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_Un
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)olddirfd, oldpath_utf, (int32_t)newdirfd, newpath_utf, (uint32_t)flags);
+        km_res = km_fn_ptr((int32_t)olddirfd, (const char*)(uintptr_t)oldpath, (int32_t)newdirfd, (const char*)(uintptr_t)newpath, (uint32_t)flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (oldpath != NULL && oldpath_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, oldpath, oldpath_utf);
-    if (newpath != NULL && newpath_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, newpath, newpath_utf);
     return (jint)km_res;
 }
 

@@ -4,59 +4,63 @@ package io.github.kotlinmania.libc.unix.newlib.horizon
 
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
 import io.github.kotlinmania.libc.unix.newlib.ClockidT
+import io.github.kotlinmania.libc.unix.newlib.PthreadAttrT
+import io.github.kotlinmania.libc.unix.newlib.PthreadCondattrT
 import io.github.kotlinmania.libc.unix.newlib.PthreadT
-import io.github.kotlinmania.libc.unix.newlib.horizon.cinterop.libc_unix_newlib_horizon_gethostid
-import io.github.kotlinmania.libc.unix.newlib.horizon.cinterop.libc_unix_newlib_horizon_getrandom
-import io.github.kotlinmania.libc.unix.newlib.horizon.cinterop.libc_unix_newlib_horizon_pthreadAttrGetprocessoridNp
-import io.github.kotlinmania.libc.unix.newlib.horizon.cinterop.libc_unix_newlib_horizon_pthreadAttrGetschedparam
-import io.github.kotlinmania.libc.unix.newlib.horizon.cinterop.libc_unix_newlib_horizon_pthreadAttrSetprocessoridNp
-import io.github.kotlinmania.libc.unix.newlib.horizon.cinterop.libc_unix_newlib_horizon_pthreadAttrSetschedparam
-import io.github.kotlinmania.libc.unix.newlib.horizon.cinterop.libc_unix_newlib_horizon_pthreadCondattrGetclock
-import io.github.kotlinmania.libc.unix.newlib.horizon.cinterop.libc_unix_newlib_horizon_pthreadCondattrSetclock
-import io.github.kotlinmania.libc.unix.newlib.horizon.cinterop.libc_unix_newlib_horizon_pthreadCreate
-import io.github.kotlinmania.libc.unix.newlib.horizon.cinterop.libc_unix_newlib_horizon_pthreadGetprocessoridNp
-import io.github.kotlinmania.libc.unix.newlib.horizon.cinterop.libc_unix_newlib_horizon_pthreadGetschedparam
-import io.github.kotlinmania.libc.unix.newlib.horizon.cinterop.libc_unix_newlib_horizon_pthreadSetschedparam
+import io.github.kotlinmania.libc.unix.newlib.horizon.cinterop.libcUnixNewlibHorizonGethostid
+import io.github.kotlinmania.libc.unix.newlib.horizon.cinterop.libcUnixNewlibHorizonGetrandom
+import io.github.kotlinmania.libc.unix.newlib.horizon.cinterop.libcUnixNewlibHorizonPthreadAttrGetprocessoridNp
+import io.github.kotlinmania.libc.unix.newlib.horizon.cinterop.libcUnixNewlibHorizonPthreadAttrGetschedparam
+import io.github.kotlinmania.libc.unix.newlib.horizon.cinterop.libcUnixNewlibHorizonPthreadAttrSetprocessoridNp
+import io.github.kotlinmania.libc.unix.newlib.horizon.cinterop.libcUnixNewlibHorizonPthreadAttrSetschedparam
+import io.github.kotlinmania.libc.unix.newlib.horizon.cinterop.libcUnixNewlibHorizonPthreadCondattrGetclock
+import io.github.kotlinmania.libc.unix.newlib.horizon.cinterop.libcUnixNewlibHorizonPthreadCondattrSetclock
+import io.github.kotlinmania.libc.unix.newlib.horizon.cinterop.libcUnixNewlibHorizonPthreadCreate
+import io.github.kotlinmania.libc.unix.newlib.horizon.cinterop.libcUnixNewlibHorizonPthreadGetprocessoridNp
+import io.github.kotlinmania.libc.unix.newlib.horizon.cinterop.libcUnixNewlibHorizonPthreadGetschedparam
+import io.github.kotlinmania.libc.unix.newlib.horizon.cinterop.libcUnixNewlibHorizonPthreadSetschedparam
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
-    libc_unix_newlib_horizon_pthreadCreate(native?.value?.toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), value?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCreate(native: MutPtr<PthreadT>, attr: ConstPtr<PthreadAttrT>, f: PthreadCreateFCallback, value: MutPtr<CVoid>): CInt =
+    libcUnixNewlibHorizonPthreadCreate(native.rawAddress.toCPointer<ByteVar>(), attr.rawAddress.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrGetschedparam(attr: COpaquePointer?, param: COpaquePointer?): CInt =
-    libc_unix_newlib_horizon_pthreadAttrGetschedparam(attr?.value?.toCPointer<ByteVar>(), param?.value?.toCPointer<ByteVar>())
+public actual fun pthreadAttrGetschedparam(attr: ConstPtr<PthreadAttrT>, param: MutPtr<SchedParam>): CInt =
+    libcUnixNewlibHorizonPthreadAttrGetschedparam(attr.rawAddress.toCPointer<ByteVar>(), param.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrSetschedparam(attr: COpaquePointer?, param: COpaquePointer?): CInt =
-    libc_unix_newlib_horizon_pthreadAttrSetschedparam(attr?.value?.toCPointer<ByteVar>(), param?.value?.toCPointer<ByteVar>())
+public actual fun pthreadAttrSetschedparam(attr: MutPtr<PthreadAttrT>, param: ConstPtr<SchedParam>): CInt =
+    libcUnixNewlibHorizonPthreadAttrSetschedparam(attr.rawAddress.toCPointer<ByteVar>(), param.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrGetprocessoridNp(attr: COpaquePointer?, processorId: COpaquePointer?): CInt =
-    libc_unix_newlib_horizon_pthreadAttrGetprocessoridNp(attr?.value?.toCPointer<ByteVar>(), processorId?.value?.toCPointer<ByteVar>())
+public actual fun pthreadAttrGetprocessoridNp(attr: ConstPtr<PthreadAttrT>, processorId: MutPtr<CInt>): CInt =
+    libcUnixNewlibHorizonPthreadAttrGetprocessoridNp(attr.rawAddress.toCPointer<ByteVar>(), processorId.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrSetprocessoridNp(attr: COpaquePointer?, processorId: CInt): CInt =
-    libc_unix_newlib_horizon_pthreadAttrSetprocessoridNp(attr?.value?.toCPointer<ByteVar>(), processorId)
+public actual fun pthreadAttrSetprocessoridNp(attr: MutPtr<PthreadAttrT>, processorId: CInt): CInt =
+    libcUnixNewlibHorizonPthreadAttrSetprocessoridNp(attr.rawAddress.toCPointer<ByteVar>(), processorId)
 
-public actual fun pthreadGetschedparam(native: PthreadT, policy: COpaquePointer?, param: COpaquePointer?): CInt =
-    libc_unix_newlib_horizon_pthreadGetschedparam(native.toLong().toCPointer<ByteVar>(), policy?.value?.toCPointer<ByteVar>(), param?.value?.toCPointer<ByteVar>())
+public actual fun pthreadGetschedparam(native: PthreadT, policy: MutPtr<CInt>, param: MutPtr<SchedParam>): CInt =
+    libcUnixNewlibHorizonPthreadGetschedparam(native.toLong().toCPointer<ByteVar>(), policy.rawAddress.toCPointer<ByteVar>(), param.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: COpaquePointer?): CInt =
-    libc_unix_newlib_horizon_pthreadSetschedparam(native.toLong().toCPointer<ByteVar>(), policy, param?.value?.toCPointer<ByteVar>())
+public actual fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: ConstPtr<SchedParam>): CInt =
+    libcUnixNewlibHorizonPthreadSetschedparam(native.toLong().toCPointer<ByteVar>(), policy, param.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondattrGetclock(attr: COpaquePointer?, clockId: COpaquePointer?): CInt =
-    libc_unix_newlib_horizon_pthreadCondattrGetclock(attr?.value?.toCPointer<ByteVar>(), clockId?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCondattrGetclock(attr: ConstPtr<PthreadCondattrT>, clockId: MutPtr<ClockidT>): CInt =
+    libcUnixNewlibHorizonPthreadCondattrGetclock(attr.rawAddress.toCPointer<ByteVar>(), clockId.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondattrSetclock(attr: COpaquePointer?, clockId: ClockidT): CInt =
-    libc_unix_newlib_horizon_pthreadCondattrSetclock(attr?.value?.toCPointer<ByteVar>(), clockId)
+public actual fun pthreadCondattrSetclock(attr: MutPtr<PthreadCondattrT>, clockId: ClockidT): CInt =
+    libcUnixNewlibHorizonPthreadCondattrSetclock(attr.rawAddress.toCPointer<ByteVar>(), clockId)
 
 public actual fun pthreadGetprocessoridNp(): CInt =
-    libc_unix_newlib_horizon_pthreadGetprocessoridNp()
+    libcUnixNewlibHorizonPthreadGetprocessoridNp()
 
-public actual fun getrandom(buf: COpaquePointer?, buflen: SizeT, flags: CUint): SsizeT =
-    libc_unix_newlib_horizon_getrandom(buf?.value?.toCPointer<ByteVar>(), buflen, flags)
+public actual fun getrandom(buf: MutPtr<CVoid>, buflen: SizeT, flags: CUint): SsizeT =
+    libcUnixNewlibHorizonGetrandom(buf.rawAddress.toCPointer<ByteVar>(), buflen, flags)
 
 public actual fun gethostid(): CLong =
-    libc_unix_newlib_horizon_gethostid()
+    libcUnixNewlibHorizonGethostid()

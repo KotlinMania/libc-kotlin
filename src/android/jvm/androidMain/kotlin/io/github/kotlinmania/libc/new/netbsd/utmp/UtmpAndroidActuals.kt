@@ -3,8 +3,10 @@
 package io.github.kotlinmania.libc.new.netbsd.utmp
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 private object NewNetbsdUtmpJniBridge {
     init {
@@ -12,28 +14,28 @@ private object NewNetbsdUtmpJniBridge {
     }
 
     @JvmStatic
-    external fun libc_new_netbsd_utmp_utmpname(file: String?): Int
+    external fun libcNewNetbsdUtmpUtmpname(file: Long): Int
 
     @JvmStatic
-    external fun libc_new_netbsd_utmp_setutent()
+    external fun libcNewNetbsdUtmpSetutent()
 
     @JvmStatic
-    external fun libc_new_netbsd_utmp_getutent(): Long
+    external fun libcNewNetbsdUtmpGetutent(): Long
 
     @JvmStatic
-    external fun libc_new_netbsd_utmp_endutent()
+    external fun libcNewNetbsdUtmpEndutent()
 }
 
-public actual fun utmpname(file: String?): CInt =
-    NewNetbsdUtmpJniBridge.libc_new_netbsd_utmp_utmpname(file)
+public actual fun utmpname(file: ConstPtr<CChar>): CInt =
+    NewNetbsdUtmpJniBridge.libcNewNetbsdUtmpUtmpname(file.rawAddress)
 
 public actual fun setutent() {
-    NewNetbsdUtmpJniBridge.libc_new_netbsd_utmp_setutent()
+    NewNetbsdUtmpJniBridge.libcNewNetbsdUtmpSetutent()
 }
 
-public actual fun getutent(): COpaquePointer? =
-    NewNetbsdUtmpJniBridge.libc_new_netbsd_utmp_getutent().let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getutent(): MutPtr<Utmp> =
+    MutPtr(NewNetbsdUtmpJniBridge.libcNewNetbsdUtmpGetutent())
 
 public actual fun endutent() {
-    NewNetbsdUtmpJniBridge.libc_new_netbsd_utmp_endutent()
+    NewNetbsdUtmpJniBridge.libcNewNetbsdUtmpEndutent()
 }

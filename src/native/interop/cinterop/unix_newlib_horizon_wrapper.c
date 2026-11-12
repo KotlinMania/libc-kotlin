@@ -15,7 +15,7 @@
 #endif
 #endif
 
-int32_t libc_unix_newlib_horizon_pthreadCreate(void* native, void* attr, void* f, void* value) {
+int32_t libcUnixNewlibHorizonPthreadCreate(void* native, void* attr, void* f, void* value) {
     typedef int32_t (*km_fn_t)(void*, void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -43,7 +43,7 @@ int32_t libc_unix_newlib_horizon_pthreadCreate(void* native, void* attr, void* f
     return ENOSYS;
 }
 
-int32_t libc_unix_newlib_horizon_pthreadAttrGetschedparam(void* attr, void* param) {
+int32_t libcUnixNewlibHorizonPthreadAttrGetschedparam(void* attr, void* param) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -71,7 +71,7 @@ int32_t libc_unix_newlib_horizon_pthreadAttrGetschedparam(void* attr, void* para
     return ENOSYS;
 }
 
-int32_t libc_unix_newlib_horizon_pthreadAttrSetschedparam(void* attr, void* param) {
+int32_t libcUnixNewlibHorizonPthreadAttrSetschedparam(void* attr, void* param) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -99,7 +99,7 @@ int32_t libc_unix_newlib_horizon_pthreadAttrSetschedparam(void* attr, void* para
     return ENOSYS;
 }
 
-int32_t libc_unix_newlib_horizon_pthreadAttrGetprocessoridNp(void* attr, void* processor_id) {
+int32_t libcUnixNewlibHorizonPthreadAttrGetprocessoridNp(void* attr, void* processorId) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -121,13 +121,13 @@ int32_t libc_unix_newlib_horizon_pthreadAttrGetprocessoridNp(void* attr, void* p
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(attr, processor_id);
+        return km_fn_ptr(attr, processorId);
     }
     errno = ENOSYS;
     return ENOSYS;
 }
 
-int32_t libc_unix_newlib_horizon_pthreadAttrSetprocessoridNp(void* attr, int32_t processor_id) {
+int32_t libcUnixNewlibHorizonPthreadAttrSetprocessoridNp(void* attr, int32_t processorId) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -149,13 +149,13 @@ int32_t libc_unix_newlib_horizon_pthreadAttrSetprocessoridNp(void* attr, int32_t
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(attr, processor_id);
+        return km_fn_ptr(attr, processorId);
     }
     errno = ENOSYS;
     return ENOSYS;
 }
 
-int32_t libc_unix_newlib_horizon_pthreadGetschedparam(void* native, void* policy, void* param) {
+int32_t libcUnixNewlibHorizonPthreadGetschedparam(void* native, void* policy, void* param) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -183,7 +183,7 @@ int32_t libc_unix_newlib_horizon_pthreadGetschedparam(void* native, void* policy
     return ENOSYS;
 }
 
-int32_t libc_unix_newlib_horizon_pthreadSetschedparam(void* native, int32_t policy, void* param) {
+int32_t libcUnixNewlibHorizonPthreadSetschedparam(void* native, int32_t policy, void* param) {
     typedef int32_t (*km_fn_t)(void*, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -211,7 +211,7 @@ int32_t libc_unix_newlib_horizon_pthreadSetschedparam(void* native, int32_t poli
     return ENOSYS;
 }
 
-int32_t libc_unix_newlib_horizon_pthreadCondattrGetclock(void* attr, void* clock_id) {
+int32_t libcUnixNewlibHorizonPthreadCondattrGetclock(void* attr, void* clockId) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -233,13 +233,13 @@ int32_t libc_unix_newlib_horizon_pthreadCondattrGetclock(void* attr, void* clock
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(attr, clock_id);
+        return km_fn_ptr(attr, clockId);
     }
     errno = ENOSYS;
     return ENOSYS;
 }
 
-int32_t libc_unix_newlib_horizon_pthreadCondattrSetclock(void* attr, uint64_t clock_id) {
+int32_t libcUnixNewlibHorizonPthreadCondattrSetclock(void* attr, uint64_t clockId) {
     typedef int32_t (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -261,13 +261,13 @@ int32_t libc_unix_newlib_horizon_pthreadCondattrSetclock(void* attr, uint64_t cl
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(attr, clock_id);
+        return km_fn_ptr(attr, clockId);
     }
     errno = ENOSYS;
     return ENOSYS;
 }
 
-int32_t libc_unix_newlib_horizon_pthreadGetprocessoridNp(void) {
+int32_t libcUnixNewlibHorizonPthreadGetprocessoridNp(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -295,7 +295,7 @@ int32_t libc_unix_newlib_horizon_pthreadGetprocessoridNp(void) {
     return ENOSYS;
 }
 
-int64_t libc_unix_newlib_horizon_getrandom(void* buf, uint64_t buflen, uint32_t flags) {
+int64_t libcUnixNewlibHorizonGetrandom(void* buf, uint64_t buflen, uint32_t flags) {
     typedef int64_t (*km_fn_t)(void*, uint64_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -323,7 +323,7 @@ int64_t libc_unix_newlib_horizon_getrandom(void* buf, uint64_t buflen, uint32_t 
     return -1;
 }
 
-int64_t libc_unix_newlib_horizon_gethostid(void) {
+int64_t libcUnixNewlibHorizonGethostid(void) {
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

@@ -4,9 +4,11 @@
 package io.github.kotlinmania.libc.new.netbsd.utmp
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.aarch64.TimeT
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 // Header: `utmp.h`
 //
@@ -65,10 +67,10 @@ public data class Utmp(
     }
 }
 
-public expect fun utmpname(file: String?): CInt
+public expect fun utmpname(file: ConstPtr<CChar>): CInt
 
 public expect fun setutent()
 
-public expect fun getutent(): COpaquePointer?
+public expect fun getutent(): MutPtr<Utmp>
 
 public expect fun endutent()

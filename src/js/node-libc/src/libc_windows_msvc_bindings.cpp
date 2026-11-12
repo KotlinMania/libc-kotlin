@@ -51,14 +51,10 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_windows_msvc_stricmp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWindowsMsvcStricmp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s1_str = s1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s1 = s1_null ? nullptr : s1_str.c_str();
-    bool s2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string s2_str = s2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* s2 = s2_null ? nullptr : s2_str.c_str();
+    const char* s1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* s2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -87,14 +83,10 @@ static Napi::Value libc_windows_msvc_stricmp_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_windows_msvc_strnicmp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWindowsMsvcStrnicmp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s1_str = s1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s1 = s1_null ? nullptr : s1_str.c_str();
-    bool s2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string s2_str = s2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* s2 = s2_null ? nullptr : s2_str.c_str();
+    const char* s1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* s2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t n = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef int32_t (*km_fn_t)(const char*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -124,7 +116,7 @@ static Napi::Value libc_windows_msvc_strnicmp_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_windows_msvc_memccpy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWindowsMsvcMemccpy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* dest = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* src = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -159,9 +151,9 @@ static Napi::Value libc_windows_msvc_memccpy_napi(const Napi::CallbackInfo& km_i
 }
 
 static void register_windows_msvc_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_windows_msvc_stricmp", Napi::Function::New(env, libc_windows_msvc_stricmp_napi));
-    exports.Set("libc_windows_msvc_strnicmp", Napi::Function::New(env, libc_windows_msvc_strnicmp_napi));
-    exports.Set("libc_windows_msvc_memccpy", Napi::Function::New(env, libc_windows_msvc_memccpy_napi));
+    exports.Set("libcWindowsMsvcStricmp", Napi::Function::New(env, libcWindowsMsvcStricmp_napi));
+    exports.Set("libcWindowsMsvcStrnicmp", Napi::Function::New(env, libcWindowsMsvcStrnicmp_napi));
+    exports.Set("libcWindowsMsvcMemccpy", Napi::Function::New(env, libcWindowsMsvcMemccpy_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_windows_msvc_napi, nullptr };

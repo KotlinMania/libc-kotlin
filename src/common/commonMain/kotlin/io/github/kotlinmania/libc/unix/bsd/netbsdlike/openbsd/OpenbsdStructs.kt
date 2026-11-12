@@ -6,7 +6,6 @@ import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
@@ -33,6 +32,13 @@ import io.github.kotlinmania.libc.unix.bsd.netbsdlike.InoT
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.ModeT
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.NlinkT
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.TimeT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.mem.ObjectSlotLayout
+import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+import io.github.kotlinmania.rustlang.core.mem.TypeLayout
+import io.github.kotlinmania.rustlang.core.mem.constPtrFromRustCast
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public class DebugStruct(
     private val out: StringBuilder,
@@ -65,129 +71,998 @@ public data class IpMreqn(
     public var imrIfindex: CInt = 0,
 )
 
-public data class GlobT(
-    public var glPathc: SizeT = 0uL,
-    public var glMatchc: SizeT = 0uL,
-    public var glOffs: SizeT = 0uL,
-    public var glFlags: CInt = 0,
-    public var glPathv: COpaquePointer? = null,
-    public var unused1: COpaquePointer? = null,
-    public var unused2: COpaquePointer? = null,
-    public var unused3: COpaquePointer? = null,
-    public var unused4: COpaquePointer? = null,
-    public var unused5: COpaquePointer? = null,
-    public var unused6: COpaquePointer? = null,
-    public var unused7: COpaquePointer? = null,
-)
+public class GlobT internal constructor(
+    public var glPathc: SizeT,
+    public var glMatchc: SizeT,
+    public var glOffs: SizeT,
+    public var glFlags: CInt,
+    glPathvCtorArg: MutPtr<MutPtr<CChar>>,
+    unused1CtorArg: MutPtr<CVoid>,
+    unused2CtorArg: MutPtr<CVoid>,
+    unused3CtorArg: MutPtr<CVoid>,
+    unused4CtorArg: MutPtr<CVoid>,
+    unused5CtorArg: MutPtr<CVoid>,
+    unused6CtorArg: MutPtr<CVoid>,
+    unused7CtorArg: MutPtr<CVoid>,
+) {
+    public var glPathv: MutPtr<MutPtr<CChar>> = glPathvCtorArg
+        internal set
 
-public data class Tm(
-    public var tmSec: CInt = 0,
-    public var tmMin: CInt = 0,
-    public var tmHour: CInt = 0,
-    public var tmMday: CInt = 0,
-    public var tmMon: CInt = 0,
-    public var tmYear: CInt = 0,
-    public var tmWday: CInt = 0,
-    public var tmYday: CInt = 0,
-    public var tmIsdst: CInt = 0,
-    public var tmGmtoff: CLong = 0L,
-    public var tmZone: COpaquePointer? = null,
-)
+    public var unused1: MutPtr<CVoid> = unused1CtorArg
+        internal set
 
-public class Lconv(
-    public var decimalPoint: COpaquePointer? = null,
-    public var thousandsSep: COpaquePointer? = null,
-    public var grouping: COpaquePointer? = null,
-    public var intCurrSymbol: COpaquePointer? = null,
-    public var currencySymbol: COpaquePointer? = null,
-    public var monDecimalPoint: COpaquePointer? = null,
-    public var monThousandsSep: COpaquePointer? = null,
-    public var monGrouping: COpaquePointer? = null,
-    public var positiveSign: COpaquePointer? = null,
-    public var negativeSign: COpaquePointer? = null,
-    public var intFracDigits: CChar = 0u,
-    public var fracDigits: CChar = 0u,
-    public var pCsPrecedes: CChar = 0u,
-    public var pSepBySpace: CChar = 0u,
-    public var nCsPrecedes: CChar = 0u,
-    public var nSepBySpace: CChar = 0u,
-    public var pSignPosn: CChar = 0u,
-    public var nSignPosn: CChar = 0u,
-    public var intPCsPrecedes: CChar = 0u,
-    public var intPSepBySpace: CChar = 0u,
-    public var intNCsPrecedes: CChar = 0u,
-    public var intNSepBySpace: CChar = 0u,
-    public var intPSignPosn: CChar = 0u,
-    public var intNSignPosn: CChar = 0u,
-)
+    public var unused2: MutPtr<CVoid> = unused2CtorArg
+        internal set
 
-public data class UfsArgs(
-    public var fspec: COpaquePointer? = null,
-    public var exportInfo: ExportArgs = ExportArgs(),
-)
+    public var unused3: MutPtr<CVoid> = unused3CtorArg
+        internal set
 
-public data class MfsArgs(
-    public var fspec: COpaquePointer? = null,
-    public var exportInfo: ExportArgs = ExportArgs(),
+    public var unused4: MutPtr<CVoid> = unused4CtorArg
+        internal set
+
+    public var unused5: MutPtr<CVoid> = unused5CtorArg
+        internal set
+
+    public var unused6: MutPtr<CVoid> = unused6CtorArg
+        internal set
+
+    public var unused7: MutPtr<CVoid> = unused7CtorArg
+        internal set
+
+    public constructor() : this(
+        glPathc = 0uL,
+        glMatchc = 0uL,
+        glOffs = 0uL,
+        glFlags = 0,
+        glPathvCtorArg = MutPtr(0L),
+        unused1CtorArg = MutPtr(0L),
+        unused2CtorArg = MutPtr(0L),
+        unused3CtorArg = MutPtr(0L),
+        unused4CtorArg = MutPtr(0L),
+        unused5CtorArg = MutPtr(0L),
+        unused6CtorArg = MutPtr(0L),
+        unused7CtorArg = MutPtr(0L),
+    )
+
+    public operator fun component1(): SizeT = this.glPathc
+
+    public operator fun component2(): SizeT = this.glMatchc
+
+    public operator fun component3(): SizeT = this.glOffs
+
+    public operator fun component4(): CInt = this.glFlags
+
+    public operator fun component5(): MutPtr<MutPtr<CChar>> = this.glPathv
+
+    public operator fun component6(): MutPtr<CVoid> = this.unused1
+
+    public operator fun component7(): MutPtr<CVoid> = this.unused2
+
+    public operator fun component8(): MutPtr<CVoid> = this.unused3
+
+    public operator fun component9(): MutPtr<CVoid> = this.unused4
+
+    public operator fun component10(): MutPtr<CVoid> = this.unused5
+
+    public operator fun component11(): MutPtr<CVoid> = this.unused6
+
+    public operator fun component12(): MutPtr<CVoid> = this.unused7
+
+    public fun copy(glPathc: SizeT = this.glPathc, glMatchc: SizeT = this.glMatchc, glOffs: SizeT = this.glOffs, glFlags: CInt = this.glFlags, glPathv: MutPtr<MutPtr<CChar>> = this.glPathv, unused1: MutPtr<CVoid> = this.unused1, unused2: MutPtr<CVoid> = this.unused2, unused3: MutPtr<CVoid> = this.unused3, unused4: MutPtr<CVoid> = this.unused4, unused5: MutPtr<CVoid> = this.unused5, unused6: MutPtr<CVoid> = this.unused6, unused7: MutPtr<CVoid> = this.unused7): GlobT = GlobT(glPathc = glPathc, glMatchc = glMatchc, glOffs = glOffs, glFlags = glFlags, glPathvCtorArg = glPathv, unused1CtorArg = unused1, unused2CtorArg = unused2, unused3CtorArg = unused3, unused4CtorArg = unused4, unused5CtorArg = unused5, unused6CtorArg = unused6, unused7CtorArg = unused7)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is GlobT) return false
+        if (this.glPathc != other.glPathc) return false
+        if (this.glMatchc != other.glMatchc) return false
+        if (this.glOffs != other.glOffs) return false
+        if (this.glFlags != other.glFlags) return false
+        if (this.glPathv != other.glPathv) return false
+        if (this.unused1 != other.unused1) return false
+        if (this.unused2 != other.unused2) return false
+        if (this.unused3 != other.unused3) return false
+        if (this.unused4 != other.unused4) return false
+        if (this.unused5 != other.unused5) return false
+        if (this.unused6 != other.unused6) return false
+        if (this.unused7 != other.unused7) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.glPathc.hashCode()
+        result = 31 * result + this.glMatchc.hashCode()
+        result = 31 * result + this.glOffs.hashCode()
+        result = 31 * result + this.glFlags.hashCode()
+        result = 31 * result + this.glPathv.hashCode()
+        result = 31 * result + this.unused1.hashCode()
+        result = 31 * result + this.unused2.hashCode()
+        result = 31 * result + this.unused3.hashCode()
+        result = 31 * result + this.unused4.hashCode()
+        result = 31 * result + this.unused5.hashCode()
+        result = 31 * result + this.unused6.hashCode()
+        result = 31 * result + this.unused7.hashCode()
+        return result
+    }
+
+    public companion object {
+        public operator fun invoke(
+            glPathc: SizeT = 0uL,
+            glMatchc: SizeT = 0uL,
+            glOffs: SizeT = 0uL,
+            glFlags: CInt = 0,
+            glPathv: MutPtr<MutPtr<CChar>> = MutPtr(0L),
+            unused1: MutPtr<CVoid> = MutPtr(0L),
+            unused2: MutPtr<CVoid> = MutPtr(0L),
+            unused3: MutPtr<CVoid> = MutPtr(0L),
+            unused4: MutPtr<CVoid> = MutPtr(0L),
+            unused5: MutPtr<CVoid> = MutPtr(0L),
+            unused6: MutPtr<CVoid> = MutPtr(0L),
+            unused7: MutPtr<CVoid> = MutPtr(0L),
+        ): GlobT = GlobT(
+            glPathc = glPathc,
+            glMatchc = glMatchc,
+            glOffs = glOffs,
+            glFlags = glFlags,
+            glPathvCtorArg = glPathv,
+            unused1CtorArg = unused1,
+            unused2CtorArg = unused2,
+            unused3CtorArg = unused3,
+            unused4CtorArg = unused4,
+            unused5CtorArg = unused5,
+            unused6CtorArg = unused6,
+            unused7CtorArg = unused7,
+        )
+    }
+}
+
+public class Tm internal constructor(
+    public var tmSec: CInt,
+    public var tmMin: CInt,
+    public var tmHour: CInt,
+    public var tmMday: CInt,
+    public var tmMon: CInt,
+    public var tmYear: CInt,
+    public var tmWday: CInt,
+    public var tmYday: CInt,
+    public var tmIsdst: CInt,
+    public var tmGmtoff: CLong,
+    tmZoneCtorArg: ConstPtr<CChar>,
+) {
+    public var tmZone: ConstPtr<CChar> = tmZoneCtorArg
+        internal set
+
+    public constructor() : this(
+        tmSec = 0,
+        tmMin = 0,
+        tmHour = 0,
+        tmMday = 0,
+        tmMon = 0,
+        tmYear = 0,
+        tmWday = 0,
+        tmYday = 0,
+        tmIsdst = 0,
+        tmGmtoff = 0L,
+        tmZoneCtorArg = ConstPtr(0L),
+    )
+
+    public operator fun component1(): CInt = this.tmSec
+
+    public operator fun component2(): CInt = this.tmMin
+
+    public operator fun component3(): CInt = this.tmHour
+
+    public operator fun component4(): CInt = this.tmMday
+
+    public operator fun component5(): CInt = this.tmMon
+
+    public operator fun component6(): CInt = this.tmYear
+
+    public operator fun component7(): CInt = this.tmWday
+
+    public operator fun component8(): CInt = this.tmYday
+
+    public operator fun component9(): CInt = this.tmIsdst
+
+    public operator fun component10(): CLong = this.tmGmtoff
+
+    public operator fun component11(): ConstPtr<CChar> = this.tmZone
+
+    public fun copy(tmSec: CInt = this.tmSec, tmMin: CInt = this.tmMin, tmHour: CInt = this.tmHour, tmMday: CInt = this.tmMday, tmMon: CInt = this.tmMon, tmYear: CInt = this.tmYear, tmWday: CInt = this.tmWday, tmYday: CInt = this.tmYday, tmIsdst: CInt = this.tmIsdst, tmGmtoff: CLong = this.tmGmtoff, tmZone: ConstPtr<CChar> = this.tmZone): Tm = Tm(tmSec = tmSec, tmMin = tmMin, tmHour = tmHour, tmMday = tmMday, tmMon = tmMon, tmYear = tmYear, tmWday = tmWday, tmYday = tmYday, tmIsdst = tmIsdst, tmGmtoff = tmGmtoff, tmZoneCtorArg = tmZone)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Tm) return false
+        if (this.tmSec != other.tmSec) return false
+        if (this.tmMin != other.tmMin) return false
+        if (this.tmHour != other.tmHour) return false
+        if (this.tmMday != other.tmMday) return false
+        if (this.tmMon != other.tmMon) return false
+        if (this.tmYear != other.tmYear) return false
+        if (this.tmWday != other.tmWday) return false
+        if (this.tmYday != other.tmYday) return false
+        if (this.tmIsdst != other.tmIsdst) return false
+        if (this.tmGmtoff != other.tmGmtoff) return false
+        if (this.tmZone != other.tmZone) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.tmSec.hashCode()
+        result = 31 * result + this.tmMin.hashCode()
+        result = 31 * result + this.tmHour.hashCode()
+        result = 31 * result + this.tmMday.hashCode()
+        result = 31 * result + this.tmMon.hashCode()
+        result = 31 * result + this.tmYear.hashCode()
+        result = 31 * result + this.tmWday.hashCode()
+        result = 31 * result + this.tmYday.hashCode()
+        result = 31 * result + this.tmIsdst.hashCode()
+        result = 31 * result + this.tmGmtoff.hashCode()
+        result = 31 * result + this.tmZone.hashCode()
+        return result
+    }
+
+    public companion object {
+        public operator fun invoke(
+            tmSec: CInt = 0,
+            tmMin: CInt = 0,
+            tmHour: CInt = 0,
+            tmMday: CInt = 0,
+            tmMon: CInt = 0,
+            tmYear: CInt = 0,
+            tmWday: CInt = 0,
+            tmYday: CInt = 0,
+            tmIsdst: CInt = 0,
+            tmGmtoff: CLong = 0L,
+            tmZone: ConstPtr<CChar> = ConstPtr(0L),
+        ): Tm = Tm(
+            tmSec = tmSec,
+            tmMin = tmMin,
+            tmHour = tmHour,
+            tmMday = tmMday,
+            tmMon = tmMon,
+            tmYear = tmYear,
+            tmWday = tmWday,
+            tmYday = tmYday,
+            tmIsdst = tmIsdst,
+            tmGmtoff = tmGmtoff,
+            tmZoneCtorArg = tmZone,
+        )
+    }
+}
+
+public class Lconv internal constructor(
+    decimalPointCtorArg: MutPtr<CChar>,
+    thousandsSepCtorArg: MutPtr<CChar>,
+    groupingCtorArg: MutPtr<CChar>,
+    intCurrSymbolCtorArg: MutPtr<CChar>,
+    currencySymbolCtorArg: MutPtr<CChar>,
+    monDecimalPointCtorArg: MutPtr<CChar>,
+    monThousandsSepCtorArg: MutPtr<CChar>,
+    monGroupingCtorArg: MutPtr<CChar>,
+    positiveSignCtorArg: MutPtr<CChar>,
+    negativeSignCtorArg: MutPtr<CChar>,
+    public var intFracDigits: CChar,
+    public var fracDigits: CChar,
+    public var pCsPrecedes: CChar,
+    public var pSepBySpace: CChar,
+    public var nCsPrecedes: CChar,
+    public var nSepBySpace: CChar,
+    public var pSignPosn: CChar,
+    public var nSignPosn: CChar,
+    public var intPCsPrecedes: CChar,
+    public var intPSepBySpace: CChar,
+    public var intNCsPrecedes: CChar,
+    public var intNSepBySpace: CChar,
+    public var intPSignPosn: CChar,
+    public var intNSignPosn: CChar,
+) {
+    public var decimalPoint: MutPtr<CChar> = decimalPointCtorArg
+        internal set
+
+    public var thousandsSep: MutPtr<CChar> = thousandsSepCtorArg
+        internal set
+
+    public var grouping: MutPtr<CChar> = groupingCtorArg
+        internal set
+
+    public var intCurrSymbol: MutPtr<CChar> = intCurrSymbolCtorArg
+        internal set
+
+    public var currencySymbol: MutPtr<CChar> = currencySymbolCtorArg
+        internal set
+
+    public var monDecimalPoint: MutPtr<CChar> = monDecimalPointCtorArg
+        internal set
+
+    public var monThousandsSep: MutPtr<CChar> = monThousandsSepCtorArg
+        internal set
+
+    public var monGrouping: MutPtr<CChar> = monGroupingCtorArg
+        internal set
+
+    public var positiveSign: MutPtr<CChar> = positiveSignCtorArg
+        internal set
+
+    public var negativeSign: MutPtr<CChar> = negativeSignCtorArg
+        internal set
+
+    public constructor() : this(
+        decimalPointCtorArg = MutPtr(0L),
+        thousandsSepCtorArg = MutPtr(0L),
+        groupingCtorArg = MutPtr(0L),
+        intCurrSymbolCtorArg = MutPtr(0L),
+        currencySymbolCtorArg = MutPtr(0L),
+        monDecimalPointCtorArg = MutPtr(0L),
+        monThousandsSepCtorArg = MutPtr(0L),
+        monGroupingCtorArg = MutPtr(0L),
+        positiveSignCtorArg = MutPtr(0L),
+        negativeSignCtorArg = MutPtr(0L),
+        intFracDigits = 0u,
+        fracDigits = 0u,
+        pCsPrecedes = 0u,
+        pSepBySpace = 0u,
+        nCsPrecedes = 0u,
+        nSepBySpace = 0u,
+        pSignPosn = 0u,
+        nSignPosn = 0u,
+        intPCsPrecedes = 0u,
+        intPSepBySpace = 0u,
+        intNCsPrecedes = 0u,
+        intNSepBySpace = 0u,
+        intPSignPosn = 0u,
+        intNSignPosn = 0u,
+    )
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<Lconv> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<Lconv> {
+                override val sizeBytes: Long = 96L
+                override val alignBytes: Long = 8L
+                override fun readNative(addr: Long): Lconv =
+                    Lconv(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.mutPtrLayout<CChar>(64)).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.mutPtrLayout<CChar>(64)).readNative(addr + 8L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.mutPtrLayout<CChar>(64)).readNative(addr + 16L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.mutPtrLayout<CChar>(64)).readNative(addr + 24L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.mutPtrLayout<CChar>(64)).readNative(addr + 32L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.mutPtrLayout<CChar>(64)).readNative(addr + 40L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.mutPtrLayout<CChar>(64)).readNative(addr + 48L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.mutPtrLayout<CChar>(64)).readNative(addr + 56L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.mutPtrLayout<CChar>(64)).readNative(addr + 64L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.mutPtrLayout<CChar>(64)).readNative(addr + 72L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).readNative(addr + 80L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).readNative(addr + 81L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).readNative(addr + 82L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).readNative(addr + 83L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).readNative(addr + 84L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).readNative(addr + 85L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).readNative(addr + 86L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).readNative(addr + 87L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).readNative(addr + 88L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).readNative(addr + 89L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).readNative(addr + 90L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).readNative(addr + 91L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).readNative(addr + 92L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).readNative(addr + 93L),
+                    )
+                override fun writeNative(addr: Long, value: Lconv) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.mutPtrLayout<CChar>(64)).writeNative(addr, value.decimalPoint)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.mutPtrLayout<CChar>(64)).writeNative(addr + 8L, value.thousandsSep)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.mutPtrLayout<CChar>(64)).writeNative(addr + 16L, value.grouping)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.mutPtrLayout<CChar>(64)).writeNative(addr + 24L, value.intCurrSymbol)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.mutPtrLayout<CChar>(64)).writeNative(addr + 32L, value.currencySymbol)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.mutPtrLayout<CChar>(64)).writeNative(addr + 40L, value.monDecimalPoint)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.mutPtrLayout<CChar>(64)).writeNative(addr + 48L, value.monThousandsSep)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.mutPtrLayout<CChar>(64)).writeNative(addr + 56L, value.monGrouping)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.mutPtrLayout<CChar>(64)).writeNative(addr + 64L, value.positiveSign)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.mutPtrLayout<CChar>(64)).writeNative(addr + 72L, value.negativeSign)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).writeNative(addr + 80L, value.intFracDigits)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).writeNative(addr + 81L, value.fracDigits)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).writeNative(addr + 82L, value.pCsPrecedes)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).writeNative(addr + 83L, value.pSepBySpace)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).writeNative(addr + 84L, value.nCsPrecedes)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).writeNative(addr + 85L, value.nSepBySpace)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).writeNative(addr + 86L, value.pSignPosn)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).writeNative(addr + 87L, value.nSignPosn)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).writeNative(addr + 88L, value.intPCsPrecedes)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).writeNative(addr + 89L, value.intPSepBySpace)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).writeNative(addr + 90L, value.intNCsPrecedes)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).writeNative(addr + 91L, value.intNSepBySpace)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).writeNative(addr + 92L, value.intPSignPosn)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).writeNative(addr + 93L, value.intNSignPosn)
+                }
+            }
+
+        public operator fun invoke(
+            decimalPoint: MutPtr<CChar> = MutPtr(0L),
+            thousandsSep: MutPtr<CChar> = MutPtr(0L),
+            grouping: MutPtr<CChar> = MutPtr(0L),
+            intCurrSymbol: MutPtr<CChar> = MutPtr(0L),
+            currencySymbol: MutPtr<CChar> = MutPtr(0L),
+            monDecimalPoint: MutPtr<CChar> = MutPtr(0L),
+            monThousandsSep: MutPtr<CChar> = MutPtr(0L),
+            monGrouping: MutPtr<CChar> = MutPtr(0L),
+            positiveSign: MutPtr<CChar> = MutPtr(0L),
+            negativeSign: MutPtr<CChar> = MutPtr(0L),
+            intFracDigits: CChar = 0u,
+            fracDigits: CChar = 0u,
+            pCsPrecedes: CChar = 0u,
+            pSepBySpace: CChar = 0u,
+            nCsPrecedes: CChar = 0u,
+            nSepBySpace: CChar = 0u,
+            pSignPosn: CChar = 0u,
+            nSignPosn: CChar = 0u,
+            intPCsPrecedes: CChar = 0u,
+            intPSepBySpace: CChar = 0u,
+            intNCsPrecedes: CChar = 0u,
+            intNSepBySpace: CChar = 0u,
+            intPSignPosn: CChar = 0u,
+            intNSignPosn: CChar = 0u,
+        ): Lconv = Lconv(
+            decimalPointCtorArg = decimalPoint,
+            thousandsSepCtorArg = thousandsSep,
+            groupingCtorArg = grouping,
+            intCurrSymbolCtorArg = intCurrSymbol,
+            currencySymbolCtorArg = currencySymbol,
+            monDecimalPointCtorArg = monDecimalPoint,
+            monThousandsSepCtorArg = monThousandsSep,
+            monGroupingCtorArg = monGrouping,
+            positiveSignCtorArg = positiveSign,
+            negativeSignCtorArg = negativeSign,
+            intFracDigits = intFracDigits,
+            fracDigits = fracDigits,
+            pCsPrecedes = pCsPrecedes,
+            pSepBySpace = pSepBySpace,
+            nCsPrecedes = nCsPrecedes,
+            nSepBySpace = nSepBySpace,
+            pSignPosn = pSignPosn,
+            nSignPosn = nSignPosn,
+            intPCsPrecedes = intPCsPrecedes,
+            intPSepBySpace = intPSepBySpace,
+            intNCsPrecedes = intNCsPrecedes,
+            intNSepBySpace = intNSepBySpace,
+            intPSignPosn = intPSignPosn,
+            intNSignPosn = intNSignPosn,
+        )
+    }
+}
+
+public class UfsArgs internal constructor(
+    fspecCtorArg: MutPtr<CChar>,
+    public var exportInfo: ExportArgs,
+) {
+    public var fspec: MutPtr<CChar> = fspecCtorArg
+        internal set
+
+    public constructor() : this(
+        fspecCtorArg = MutPtr(0L),
+        exportInfo = ExportArgs(),
+    )
+
+    public operator fun component1(): MutPtr<CChar> = this.fspec
+
+    public operator fun component2(): ExportArgs = this.exportInfo
+
+    public fun copy(fspec: MutPtr<CChar> = this.fspec, exportInfo: ExportArgs = this.exportInfo): UfsArgs = UfsArgs(fspecCtorArg = fspec, exportInfo = exportInfo)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is UfsArgs) return false
+        if (this.fspec != other.fspec) return false
+        if (this.exportInfo != other.exportInfo) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.fspec.hashCode()
+        result = 31 * result + this.exportInfo.hashCode()
+        return result
+    }
+
+    public companion object {
+        public operator fun invoke(
+            fspec: MutPtr<CChar> = MutPtr(0L),
+            exportInfo: ExportArgs = ExportArgs(),
+        ): UfsArgs = UfsArgs(
+            fspecCtorArg = fspec,
+            exportInfo = exportInfo,
+        )
+    }
+}
+
+public class MfsArgs internal constructor(
+    fspecCtorArg: MutPtr<CChar>,
+    public var exportInfo: ExportArgs,
+    baseCtorArg: MutPtr<CChar>,
+    public var size: CUlong,
+) {
+    public var fspec: MutPtr<CChar> = fspecCtorArg
+        internal set
+
     // https://github.com/openbsd/src/blob/HEAD/sys/sys/types.h#L134
-    public var base: COpaquePointer? = null,
-    public var size: CUlong = 0uL,
-)
+    public var base: MutPtr<CChar> = baseCtorArg
+        internal set
 
-public data class IsoArgs(
-    public var fspec: COpaquePointer? = null,
-    public var exportInfo: ExportArgs = ExportArgs(),
-    public var flags: CInt = 0,
-    public var sess: CInt = 0,
-)
+    public constructor() : this(
+        fspecCtorArg = MutPtr(0L),
+        exportInfo = ExportArgs(),
+        baseCtorArg = MutPtr(0L),
+        size = 0uL,
+    )
 
-public class NfsArgs(
-    public var version: CInt = 0,
-    public var addr: Sockaddr? = null,
-    public var addrlen: CInt = 0,
-    public var sotype: CInt = 0,
-    public var proto: CInt = 0,
-    public var fh: COpaquePointer? = null,
-    public var fhsize: CInt = 0,
-    public var flags: CInt = 0,
-    public var wsize: CInt = 0,
-    public var rsize: CInt = 0,
-    public var readdirsize: CInt = 0,
-    public var timeo: CInt = 0,
-    public var retrans: CInt = 0,
-    public var maxgrouplist: CInt = 0,
-    public var readahead: CInt = 0,
-    public var leaseterm: CInt = 0,
-    public var deadthresh: CInt = 0,
-    public var hostname: COpaquePointer? = null,
-    public var acregmin: CInt = 0,
-    public var acregmax: CInt = 0,
-    public var acdirmin: CInt = 0,
-    public var acdirmax: CInt = 0,
-)
+    public operator fun component1(): MutPtr<CChar> = this.fspec
 
-public data class MsdosfsArgs(
-    public var fspec: COpaquePointer? = null,
-    public var exportInfo: ExportArgs = ExportArgs(),
-    public var uid: UidT = 0u,
-    public var gid: GidT = 0u,
-    public var mask: ModeT = 0u,
-    public var flags: CInt = 0,
-)
+    public operator fun component2(): ExportArgs = this.exportInfo
 
-public data class NtfsArgs(
-    public var fspec: COpaquePointer? = null,
-    public var exportInfo: ExportArgs = ExportArgs(),
-    public var uid: UidT = 0u,
-    public var gid: GidT = 0u,
-    public var mode: ModeT = 0u,
-    public var flag: CUlong = 0uL,
-)
+    public operator fun component3(): MutPtr<CChar> = this.base
 
-public data class UdfArgs(
-    public var fspec: COpaquePointer? = null,
-    public var lastblock: UInt = 0u,
-)
+    public operator fun component4(): CUlong = this.size
+
+    public fun copy(fspec: MutPtr<CChar> = this.fspec, exportInfo: ExportArgs = this.exportInfo, base: MutPtr<CChar> = this.base, size: CUlong = this.size): MfsArgs = MfsArgs(fspecCtorArg = fspec, exportInfo = exportInfo, baseCtorArg = base, size = size)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is MfsArgs) return false
+        if (this.fspec != other.fspec) return false
+        if (this.exportInfo != other.exportInfo) return false
+        if (this.base != other.base) return false
+        if (this.size != other.size) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.fspec.hashCode()
+        result = 31 * result + this.exportInfo.hashCode()
+        result = 31 * result + this.base.hashCode()
+        result = 31 * result + this.size.hashCode()
+        return result
+    }
+
+    public companion object {
+        public operator fun invoke(
+            fspec: MutPtr<CChar> = MutPtr(0L),
+            exportInfo: ExportArgs = ExportArgs(),
+            base: MutPtr<CChar> = MutPtr(0L),
+            size: CUlong = 0uL,
+        ): MfsArgs = MfsArgs(
+            fspecCtorArg = fspec,
+            exportInfo = exportInfo,
+            baseCtorArg = base,
+            size = size,
+        )
+    }
+}
+
+public class IsoArgs internal constructor(
+    fspecCtorArg: MutPtr<CChar>,
+    public var exportInfo: ExportArgs,
+    public var flags: CInt,
+    public var sess: CInt,
+) {
+    public var fspec: MutPtr<CChar> = fspecCtorArg
+        internal set
+
+    public constructor() : this(
+        fspecCtorArg = MutPtr(0L),
+        exportInfo = ExportArgs(),
+        flags = 0,
+        sess = 0,
+    )
+
+    public operator fun component1(): MutPtr<CChar> = this.fspec
+
+    public operator fun component2(): ExportArgs = this.exportInfo
+
+    public operator fun component3(): CInt = this.flags
+
+    public operator fun component4(): CInt = this.sess
+
+    public fun copy(fspec: MutPtr<CChar> = this.fspec, exportInfo: ExportArgs = this.exportInfo, flags: CInt = this.flags, sess: CInt = this.sess): IsoArgs = IsoArgs(fspecCtorArg = fspec, exportInfo = exportInfo, flags = flags, sess = sess)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is IsoArgs) return false
+        if (this.fspec != other.fspec) return false
+        if (this.exportInfo != other.exportInfo) return false
+        if (this.flags != other.flags) return false
+        if (this.sess != other.sess) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.fspec.hashCode()
+        result = 31 * result + this.exportInfo.hashCode()
+        result = 31 * result + this.flags.hashCode()
+        result = 31 * result + this.sess.hashCode()
+        return result
+    }
+
+    public companion object {
+        public operator fun invoke(
+            fspec: MutPtr<CChar> = MutPtr(0L),
+            exportInfo: ExportArgs = ExportArgs(),
+            flags: CInt = 0,
+            sess: CInt = 0,
+        ): IsoArgs = IsoArgs(
+            fspecCtorArg = fspec,
+            exportInfo = exportInfo,
+            flags = flags,
+            sess = sess,
+        )
+    }
+}
+
+public class NfsArgs internal constructor(
+    public var version: CInt,
+    addrCtorArg: MutPtr<Sockaddr>,
+    public var addrlen: CInt,
+    public var sotype: CInt,
+    public var proto: CInt,
+    fhCtorArg: MutPtr<CUchar>,
+    public var fhsize: CInt,
+    public var flags: CInt,
+    public var wsize: CInt,
+    public var rsize: CInt,
+    public var readdirsize: CInt,
+    public var timeo: CInt,
+    public var retrans: CInt,
+    public var maxgrouplist: CInt,
+    public var readahead: CInt,
+    public var leaseterm: CInt,
+    public var deadthresh: CInt,
+    hostnameCtorArg: MutPtr<CChar>,
+    public var acregmin: CInt,
+    public var acregmax: CInt,
+    public var acdirmin: CInt,
+    public var acdirmax: CInt,
+) {
+    public var addr: MutPtr<Sockaddr> = addrCtorArg
+        internal set
+
+    public var fh: MutPtr<CUchar> = fhCtorArg
+        internal set
+
+    public var hostname: MutPtr<CChar> = hostnameCtorArg
+        internal set
+
+    public constructor() : this(
+        version = 0,
+        addrCtorArg = MutPtr(0L),
+        addrlen = 0,
+        sotype = 0,
+        proto = 0,
+        fhCtorArg = MutPtr(0L),
+        fhsize = 0,
+        flags = 0,
+        wsize = 0,
+        rsize = 0,
+        readdirsize = 0,
+        timeo = 0,
+        retrans = 0,
+        maxgrouplist = 0,
+        readahead = 0,
+        leaseterm = 0,
+        deadthresh = 0,
+        hostnameCtorArg = MutPtr(0L),
+        acregmin = 0,
+        acregmax = 0,
+        acdirmin = 0,
+        acdirmax = 0,
+    )
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<NfsArgs> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<NfsArgs> {
+                override val sizeBytes: Long = 112L
+                override val alignBytes: Long = 8L
+                override fun readNative(addr: Long): NfsArgs =
+                    NfsArgs(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.mutPtrLayout<Sockaddr>(64)).readNative(addr + 8L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 16L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 20L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 24L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.mutPtrLayout<CUchar>(64)).readNative(addr + 32L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 40L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 44L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 48L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 52L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 56L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 60L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 64L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 68L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 72L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 76L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 80L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.mutPtrLayout<CChar>(64)).readNative(addr + 88L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 96L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 100L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 104L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 108L),
+                    )
+                override fun writeNative(addr: Long, value: NfsArgs) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr, value.version)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.mutPtrLayout<Sockaddr>(64)).writeNative(addr + 8L, value.addr)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 16L, value.addrlen)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 20L, value.sotype)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 24L, value.proto)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.mutPtrLayout<CUchar>(64)).writeNative(addr + 32L, value.fh)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 40L, value.fhsize)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 44L, value.flags)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 48L, value.wsize)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 52L, value.rsize)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 56L, value.readdirsize)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 60L, value.timeo)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 64L, value.retrans)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 68L, value.maxgrouplist)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 72L, value.readahead)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 76L, value.leaseterm)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 80L, value.deadthresh)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.mutPtrLayout<CChar>(64)).writeNative(addr + 88L, value.hostname)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 96L, value.acregmin)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 100L, value.acregmax)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 104L, value.acdirmin)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 108L, value.acdirmax)
+                }
+            }
+
+        public operator fun invoke(
+            version: CInt = 0,
+            addr: MutPtr<Sockaddr> = MutPtr(0L),
+            addrlen: CInt = 0,
+            sotype: CInt = 0,
+            proto: CInt = 0,
+            fh: MutPtr<CUchar> = MutPtr(0L),
+            fhsize: CInt = 0,
+            flags: CInt = 0,
+            wsize: CInt = 0,
+            rsize: CInt = 0,
+            readdirsize: CInt = 0,
+            timeo: CInt = 0,
+            retrans: CInt = 0,
+            maxgrouplist: CInt = 0,
+            readahead: CInt = 0,
+            leaseterm: CInt = 0,
+            deadthresh: CInt = 0,
+            hostname: MutPtr<CChar> = MutPtr(0L),
+            acregmin: CInt = 0,
+            acregmax: CInt = 0,
+            acdirmin: CInt = 0,
+            acdirmax: CInt = 0,
+        ): NfsArgs = NfsArgs(
+            version = version,
+            addrCtorArg = addr,
+            addrlen = addrlen,
+            sotype = sotype,
+            proto = proto,
+            fhCtorArg = fh,
+            fhsize = fhsize,
+            flags = flags,
+            wsize = wsize,
+            rsize = rsize,
+            readdirsize = readdirsize,
+            timeo = timeo,
+            retrans = retrans,
+            maxgrouplist = maxgrouplist,
+            readahead = readahead,
+            leaseterm = leaseterm,
+            deadthresh = deadthresh,
+            hostnameCtorArg = hostname,
+            acregmin = acregmin,
+            acregmax = acregmax,
+            acdirmin = acdirmin,
+            acdirmax = acdirmax,
+        )
+    }
+}
+
+public class MsdosfsArgs internal constructor(
+    fspecCtorArg: MutPtr<CChar>,
+    public var exportInfo: ExportArgs,
+    public var uid: UidT,
+    public var gid: GidT,
+    public var mask: ModeT,
+    public var flags: CInt,
+) {
+    public var fspec: MutPtr<CChar> = fspecCtorArg
+        internal set
+
+    public constructor() : this(
+        fspecCtorArg = MutPtr(0L),
+        exportInfo = ExportArgs(),
+        uid = 0u,
+        gid = 0u,
+        mask = 0u,
+        flags = 0,
+    )
+
+    public operator fun component1(): MutPtr<CChar> = this.fspec
+
+    public operator fun component2(): ExportArgs = this.exportInfo
+
+    public operator fun component3(): UidT = this.uid
+
+    public operator fun component4(): GidT = this.gid
+
+    public operator fun component5(): ModeT = this.mask
+
+    public operator fun component6(): CInt = this.flags
+
+    public fun copy(fspec: MutPtr<CChar> = this.fspec, exportInfo: ExportArgs = this.exportInfo, uid: UidT = this.uid, gid: GidT = this.gid, mask: ModeT = this.mask, flags: CInt = this.flags): MsdosfsArgs = MsdosfsArgs(fspecCtorArg = fspec, exportInfo = exportInfo, uid = uid, gid = gid, mask = mask, flags = flags)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is MsdosfsArgs) return false
+        if (this.fspec != other.fspec) return false
+        if (this.exportInfo != other.exportInfo) return false
+        if (this.uid != other.uid) return false
+        if (this.gid != other.gid) return false
+        if (this.mask != other.mask) return false
+        if (this.flags != other.flags) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.fspec.hashCode()
+        result = 31 * result + this.exportInfo.hashCode()
+        result = 31 * result + this.uid.hashCode()
+        result = 31 * result + this.gid.hashCode()
+        result = 31 * result + this.mask.hashCode()
+        result = 31 * result + this.flags.hashCode()
+        return result
+    }
+
+    public companion object {
+        public operator fun invoke(
+            fspec: MutPtr<CChar> = MutPtr(0L),
+            exportInfo: ExportArgs = ExportArgs(),
+            uid: UidT = 0u,
+            gid: GidT = 0u,
+            mask: ModeT = 0u,
+            flags: CInt = 0,
+        ): MsdosfsArgs = MsdosfsArgs(
+            fspecCtorArg = fspec,
+            exportInfo = exportInfo,
+            uid = uid,
+            gid = gid,
+            mask = mask,
+            flags = flags,
+        )
+    }
+}
+
+public class NtfsArgs internal constructor(
+    fspecCtorArg: MutPtr<CChar>,
+    public var exportInfo: ExportArgs,
+    public var uid: UidT,
+    public var gid: GidT,
+    public var mode: ModeT,
+    public var flag: CUlong,
+) {
+    public var fspec: MutPtr<CChar> = fspecCtorArg
+        internal set
+
+    public constructor() : this(
+        fspecCtorArg = MutPtr(0L),
+        exportInfo = ExportArgs(),
+        uid = 0u,
+        gid = 0u,
+        mode = 0u,
+        flag = 0uL,
+    )
+
+    public operator fun component1(): MutPtr<CChar> = this.fspec
+
+    public operator fun component2(): ExportArgs = this.exportInfo
+
+    public operator fun component3(): UidT = this.uid
+
+    public operator fun component4(): GidT = this.gid
+
+    public operator fun component5(): ModeT = this.mode
+
+    public operator fun component6(): CUlong = this.flag
+
+    public fun copy(fspec: MutPtr<CChar> = this.fspec, exportInfo: ExportArgs = this.exportInfo, uid: UidT = this.uid, gid: GidT = this.gid, mode: ModeT = this.mode, flag: CUlong = this.flag): NtfsArgs = NtfsArgs(fspecCtorArg = fspec, exportInfo = exportInfo, uid = uid, gid = gid, mode = mode, flag = flag)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is NtfsArgs) return false
+        if (this.fspec != other.fspec) return false
+        if (this.exportInfo != other.exportInfo) return false
+        if (this.uid != other.uid) return false
+        if (this.gid != other.gid) return false
+        if (this.mode != other.mode) return false
+        if (this.flag != other.flag) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.fspec.hashCode()
+        result = 31 * result + this.exportInfo.hashCode()
+        result = 31 * result + this.uid.hashCode()
+        result = 31 * result + this.gid.hashCode()
+        result = 31 * result + this.mode.hashCode()
+        result = 31 * result + this.flag.hashCode()
+        return result
+    }
+
+    public companion object {
+        public operator fun invoke(
+            fspec: MutPtr<CChar> = MutPtr(0L),
+            exportInfo: ExportArgs = ExportArgs(),
+            uid: UidT = 0u,
+            gid: GidT = 0u,
+            mode: ModeT = 0u,
+            flag: CUlong = 0uL,
+        ): NtfsArgs = NtfsArgs(
+            fspecCtorArg = fspec,
+            exportInfo = exportInfo,
+            uid = uid,
+            gid = gid,
+            mode = mode,
+            flag = flag,
+        )
+    }
+}
+
+public class UdfArgs internal constructor(
+    fspecCtorArg: MutPtr<CChar>,
+    public var lastblock: UInt,
+) {
+    public var fspec: MutPtr<CChar> = fspecCtorArg
+        internal set
+
+    public constructor() : this(
+        fspecCtorArg = MutPtr(0L),
+        lastblock = 0u,
+    )
+
+    public operator fun component1(): MutPtr<CChar> = this.fspec
+
+    public operator fun component2(): UInt = this.lastblock
+
+    public fun copy(fspec: MutPtr<CChar> = this.fspec, lastblock: UInt = this.lastblock): UdfArgs = UdfArgs(fspecCtorArg = fspec, lastblock = lastblock)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is UdfArgs) return false
+        if (this.fspec != other.fspec) return false
+        if (this.lastblock != other.lastblock) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.fspec.hashCode()
+        result = 31 * result + this.lastblock.hashCode()
+        return result
+    }
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<UdfArgs> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<UdfArgs> {
+                override val sizeBytes: Long = 16L
+                override val alignBytes: Long = 8L
+                override fun readNative(addr: Long): UdfArgs =
+                    UdfArgs(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.mutPtrLayout<CChar>(64)).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 8L),
+                    )
+                override fun writeNative(addr: Long, value: UdfArgs) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.mutPtrLayout<CChar>(64)).writeNative(addr, value.fspec)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 8L, value.lastblock)
+                }
+            }
+
+        public operator fun invoke(
+            fspec: MutPtr<CChar> = MutPtr(0L),
+            lastblock: UInt = 0u,
+        ): UdfArgs = UdfArgs(
+            fspecCtorArg = fspec,
+            lastblock = lastblock,
+        )
+    }
+}
 
 public data class TmpfsArgs(
     public var taVersion: CInt = 0,
@@ -198,12 +1073,83 @@ public data class TmpfsArgs(
     public var taRootMode: ModeT = 0u,
 )
 
-public data class FusefsArgs(
-    public var name: COpaquePointer? = null,
-    public var fd: CInt = 0,
-    public var maxRead: CInt = 0,
-    public var allowOther: CInt = 0,
-)
+public class FusefsArgs internal constructor(
+    nameCtorArg: MutPtr<CChar>,
+    public var fd: CInt,
+    public var maxRead: CInt,
+    public var allowOther: CInt,
+) {
+    public var name: MutPtr<CChar> = nameCtorArg
+        internal set
+
+    public constructor() : this(
+        nameCtorArg = MutPtr(0L),
+        fd = 0,
+        maxRead = 0,
+        allowOther = 0,
+    )
+
+    public operator fun component1(): MutPtr<CChar> = this.name
+
+    public operator fun component2(): CInt = this.fd
+
+    public operator fun component3(): CInt = this.maxRead
+
+    public operator fun component4(): CInt = this.allowOther
+
+    public fun copy(name: MutPtr<CChar> = this.name, fd: CInt = this.fd, maxRead: CInt = this.maxRead, allowOther: CInt = this.allowOther): FusefsArgs = FusefsArgs(nameCtorArg = name, fd = fd, maxRead = maxRead, allowOther = allowOther)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is FusefsArgs) return false
+        if (this.name != other.name) return false
+        if (this.fd != other.fd) return false
+        if (this.maxRead != other.maxRead) return false
+        if (this.allowOther != other.allowOther) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.name.hashCode()
+        result = 31 * result + this.fd.hashCode()
+        result = 31 * result + this.maxRead.hashCode()
+        result = 31 * result + this.allowOther.hashCode()
+        return result
+    }
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<FusefsArgs> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<FusefsArgs> {
+                override val sizeBytes: Long = 24L
+                override val alignBytes: Long = 8L
+                override fun readNative(addr: Long): FusefsArgs =
+                    FusefsArgs(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.mutPtrLayout<CChar>(64)).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 8L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 12L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 16L),
+                    )
+                override fun writeNative(addr: Long, value: FusefsArgs) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.mutPtrLayout<CChar>(64)).writeNative(addr, value.name)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 8L, value.fd)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 12L, value.maxRead)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 16L, value.allowOther)
+                }
+            }
+
+        public operator fun invoke(
+            name: MutPtr<CChar> = MutPtr(0L),
+            fd: CInt = 0,
+            maxRead: CInt = 0,
+            allowOther: CInt = 0,
+        ): FusefsArgs = FusefsArgs(
+            nameCtorArg = name,
+            fd = fd,
+            maxRead = maxRead,
+            allowOther = allowOther,
+        )
+    }
+}
 
 public data class Xucred(
     public var crUid: UidT = 0u,
@@ -231,15 +1177,91 @@ public data class Xucred(
     }
 }
 
-public data class ExportArgs(
-    public var exFlags: CInt = 0,
-    public var exRoot: UidT = 0u,
-    public var exAnon: Xucred = Xucred(),
-    public var exAddr: Sockaddr? = null,
-    public var exAddrlen: CInt = 0,
-    public var exMask: Sockaddr? = null,
-    public var exMasklen: CInt = 0,
-)
+public class ExportArgs internal constructor(
+    public var exFlags: CInt,
+    public var exRoot: UidT,
+    public var exAnon: Xucred,
+    exAddrCtorArg: MutPtr<Sockaddr>,
+    public var exAddrlen: CInt,
+    exMaskCtorArg: MutPtr<Sockaddr>,
+    public var exMasklen: CInt,
+) {
+    public var exAddr: MutPtr<Sockaddr> = exAddrCtorArg
+        internal set
+
+    public var exMask: MutPtr<Sockaddr> = exMaskCtorArg
+        internal set
+
+    public constructor() : this(
+        exFlags = 0,
+        exRoot = 0u,
+        exAnon = Xucred(),
+        exAddrCtorArg = MutPtr(0L),
+        exAddrlen = 0,
+        exMaskCtorArg = MutPtr(0L),
+        exMasklen = 0,
+    )
+
+    public operator fun component1(): CInt = this.exFlags
+
+    public operator fun component2(): UidT = this.exRoot
+
+    public operator fun component3(): Xucred = this.exAnon
+
+    public operator fun component4(): MutPtr<Sockaddr> = this.exAddr
+
+    public operator fun component5(): CInt = this.exAddrlen
+
+    public operator fun component6(): MutPtr<Sockaddr> = this.exMask
+
+    public operator fun component7(): CInt = this.exMasklen
+
+    public fun copy(exFlags: CInt = this.exFlags, exRoot: UidT = this.exRoot, exAnon: Xucred = this.exAnon, exAddr: MutPtr<Sockaddr> = this.exAddr, exAddrlen: CInt = this.exAddrlen, exMask: MutPtr<Sockaddr> = this.exMask, exMasklen: CInt = this.exMasklen): ExportArgs = ExportArgs(exFlags = exFlags, exRoot = exRoot, exAnon = exAnon, exAddrCtorArg = exAddr, exAddrlen = exAddrlen, exMaskCtorArg = exMask, exMasklen = exMasklen)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is ExportArgs) return false
+        if (this.exFlags != other.exFlags) return false
+        if (this.exRoot != other.exRoot) return false
+        if (this.exAnon != other.exAnon) return false
+        if (this.exAddr != other.exAddr) return false
+        if (this.exAddrlen != other.exAddrlen) return false
+        if (this.exMask != other.exMask) return false
+        if (this.exMasklen != other.exMasklen) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.exFlags.hashCode()
+        result = 31 * result + this.exRoot.hashCode()
+        result = 31 * result + this.exAnon.hashCode()
+        result = 31 * result + this.exAddr.hashCode()
+        result = 31 * result + this.exAddrlen.hashCode()
+        result = 31 * result + this.exMask.hashCode()
+        result = 31 * result + this.exMasklen.hashCode()
+        return result
+    }
+
+    public companion object {
+        public operator fun invoke(
+            exFlags: CInt = 0,
+            exRoot: UidT = 0u,
+            exAnon: Xucred = Xucred(),
+            exAddr: MutPtr<Sockaddr> = MutPtr(0L),
+            exAddrlen: CInt = 0,
+            exMask: MutPtr<Sockaddr> = MutPtr(0L),
+            exMasklen: CInt = 0,
+        ): ExportArgs = ExportArgs(
+            exFlags = exFlags,
+            exRoot = exRoot,
+            exAnon = exAnon,
+            exAddrCtorArg = exAddr,
+            exAddrlen = exAddrlen,
+            exMaskCtorArg = exMask,
+            exMasklen = exMasklen,
+        )
+    }
+}
 
 public data class IpMreq(
     public var imrMultiaddr: InAddr = InAddr(),
@@ -284,14 +1306,103 @@ public data class Splice(
     public var spIdle: Timeval = Timeval(),
 )
 
-public data class Kevent(
-    public var ident: UintptrT = 0uL,
-    public var filter: CShort = 0,
-    public var flags: CUshort = 0u,
-    public var fflags: CUint = 0u,
-    public var data: Long = 0L,
-    public var udata: COpaquePointer? = null,
-)
+public class Kevent internal constructor(
+    public var ident: UintptrT,
+    public var filter: CShort,
+    public var flags: CUshort,
+    public var fflags: CUint,
+    public var data: Long,
+    udataCtorArg: MutPtr<CVoid>,
+) {
+    public var udata: MutPtr<CVoid> = udataCtorArg
+        internal set
+
+    public constructor() : this(
+        ident = 0uL,
+        filter = 0,
+        flags = 0u,
+        fflags = 0u,
+        data = 0L,
+        udataCtorArg = MutPtr(0L),
+    )
+
+    public operator fun component1(): UintptrT = this.ident
+
+    public operator fun component2(): CShort = this.filter
+
+    public operator fun component3(): CUshort = this.flags
+
+    public operator fun component4(): CUint = this.fflags
+
+    public operator fun component5(): Long = this.data
+
+    public operator fun component6(): MutPtr<CVoid> = this.udata
+
+    public fun copy(ident: UintptrT = this.ident, filter: CShort = this.filter, flags: CUshort = this.flags, fflags: CUint = this.fflags, data: Long = this.data, udata: MutPtr<CVoid> = this.udata): Kevent = Kevent(ident = ident, filter = filter, flags = flags, fflags = fflags, data = data, udataCtorArg = udata)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Kevent) return false
+        if (this.ident != other.ident) return false
+        if (this.filter != other.filter) return false
+        if (this.flags != other.flags) return false
+        if (this.fflags != other.fflags) return false
+        if (this.data != other.data) return false
+        if (this.udata != other.udata) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.ident.hashCode()
+        result = 31 * result + this.filter.hashCode()
+        result = 31 * result + this.flags.hashCode()
+        result = 31 * result + this.fflags.hashCode()
+        result = 31 * result + this.data.hashCode()
+        result = 31 * result + this.udata.hashCode()
+        return result
+    }
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<Kevent> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<Kevent> {
+                override val sizeBytes: Long = 32L
+                override val alignBytes: Long = 8L
+                override fun readNative(addr: Long): Kevent =
+                    Kevent(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.USIZE64).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I16).readNative(addr + 8L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr + 10L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 12L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).readNative(addr + 16L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.mutPtrLayout<CVoid>(64)).readNative(addr + 24L),
+                    )
+                override fun writeNative(addr: Long, value: Kevent) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.USIZE64).writeNative(addr, value.ident)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I16).writeNative(addr + 8L, value.filter)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr + 10L, value.flags)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 12L, value.fflags)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).writeNative(addr + 16L, value.data)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.mutPtrLayout<CVoid>(64)).writeNative(addr + 24L, value.udata)
+                }
+            }
+
+        public operator fun invoke(
+            ident: UintptrT = 0uL,
+            filter: CShort = 0,
+            flags: CUshort = 0u,
+            fflags: CUint = 0u,
+            data: Long = 0L,
+            udata: MutPtr<CVoid> = MutPtr(0L),
+        ): Kevent = Kevent(
+            ident = ident,
+            filter = filter,
+            flags = flags,
+            fflags = fflags,
+            data = data,
+            udataCtorArg = udata,
+        )
+    }
+}
 
 public class Stat(
     public var stMode: ModeT = 0u,
@@ -330,23 +1441,189 @@ public data class Statvfs(
     public var fNamemax: CUlong = 0uL,
 )
 
-public data class Addrinfo(
-    public var aiFlags: CInt = 0,
-    public var aiFamily: CInt = 0,
-    public var aiSocktype: CInt = 0,
-    public var aiProtocol: CInt = 0,
-    public var aiAddrlen: SocklenT = 0u,
-    public var aiAddr: Sockaddr? = null,
-    public var aiCanonname: COpaquePointer? = null,
-    public var aiNext: Addrinfo? = null,
-)
+public class Addrinfo internal constructor(
+    public var aiFlags: CInt,
+    public var aiFamily: CInt,
+    public var aiSocktype: CInt,
+    public var aiProtocol: CInt,
+    public var aiAddrlen: SocklenT,
+    aiAddrCtorArg: MutPtr<Sockaddr>,
+    aiCanonnameCtorArg: MutPtr<CChar>,
+    aiNextCtorArg: MutPtr<Addrinfo>,
+) {
+    public var aiAddr: MutPtr<Sockaddr> = aiAddrCtorArg
+        internal set
 
-public data class DlInfo(
-    public var dliFname: COpaquePointer? = null,
-    public var dliFbase: COpaquePointer? = null,
-    public var dliSname: COpaquePointer? = null,
-    public var dliSaddr: COpaquePointer? = null,
-)
+    public var aiCanonname: MutPtr<CChar> = aiCanonnameCtorArg
+        internal set
+
+    public var aiNext: MutPtr<Addrinfo> = aiNextCtorArg
+        internal set
+
+    public constructor() : this(
+        aiFlags = 0,
+        aiFamily = 0,
+        aiSocktype = 0,
+        aiProtocol = 0,
+        aiAddrlen = 0u,
+        aiAddrCtorArg = MutPtr(0L),
+        aiCanonnameCtorArg = MutPtr(0L),
+        aiNextCtorArg = MutPtr(0L),
+    )
+
+    public operator fun component1(): CInt = this.aiFlags
+
+    public operator fun component2(): CInt = this.aiFamily
+
+    public operator fun component3(): CInt = this.aiSocktype
+
+    public operator fun component4(): CInt = this.aiProtocol
+
+    public operator fun component5(): SocklenT = this.aiAddrlen
+
+    public operator fun component6(): MutPtr<Sockaddr> = this.aiAddr
+
+    public operator fun component7(): MutPtr<CChar> = this.aiCanonname
+
+    public operator fun component8(): MutPtr<Addrinfo> = this.aiNext
+
+    public fun copy(aiFlags: CInt = this.aiFlags, aiFamily: CInt = this.aiFamily, aiSocktype: CInt = this.aiSocktype, aiProtocol: CInt = this.aiProtocol, aiAddrlen: SocklenT = this.aiAddrlen, aiAddr: MutPtr<Sockaddr> = this.aiAddr, aiCanonname: MutPtr<CChar> = this.aiCanonname, aiNext: MutPtr<Addrinfo> = this.aiNext): Addrinfo = Addrinfo(aiFlags = aiFlags, aiFamily = aiFamily, aiSocktype = aiSocktype, aiProtocol = aiProtocol, aiAddrlen = aiAddrlen, aiAddrCtorArg = aiAddr, aiCanonnameCtorArg = aiCanonname, aiNextCtorArg = aiNext)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Addrinfo) return false
+        if (this.aiFlags != other.aiFlags) return false
+        if (this.aiFamily != other.aiFamily) return false
+        if (this.aiSocktype != other.aiSocktype) return false
+        if (this.aiProtocol != other.aiProtocol) return false
+        if (this.aiAddrlen != other.aiAddrlen) return false
+        if (this.aiAddr != other.aiAddr) return false
+        if (this.aiCanonname != other.aiCanonname) return false
+        if (this.aiNext != other.aiNext) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.aiFlags.hashCode()
+        result = 31 * result + this.aiFamily.hashCode()
+        result = 31 * result + this.aiSocktype.hashCode()
+        result = 31 * result + this.aiProtocol.hashCode()
+        result = 31 * result + this.aiAddrlen.hashCode()
+        result = 31 * result + this.aiAddr.hashCode()
+        result = 31 * result + this.aiCanonname.hashCode()
+        result = 31 * result + this.aiNext.hashCode()
+        return result
+    }
+
+    public companion object {
+        public operator fun invoke(
+            aiFlags: CInt = 0,
+            aiFamily: CInt = 0,
+            aiSocktype: CInt = 0,
+            aiProtocol: CInt = 0,
+            aiAddrlen: SocklenT = 0u,
+            aiAddr: MutPtr<Sockaddr> = MutPtr(0L),
+            aiCanonname: MutPtr<CChar> = MutPtr(0L),
+            aiNext: MutPtr<Addrinfo> = MutPtr(0L),
+        ): Addrinfo = Addrinfo(
+            aiFlags = aiFlags,
+            aiFamily = aiFamily,
+            aiSocktype = aiSocktype,
+            aiProtocol = aiProtocol,
+            aiAddrlen = aiAddrlen,
+            aiAddrCtorArg = aiAddr,
+            aiCanonnameCtorArg = aiCanonname,
+            aiNextCtorArg = aiNext,
+        )
+    }
+}
+
+public class DlInfo internal constructor(
+    dliFnameCtorArg: ConstPtr<CChar>,
+    dliFbaseCtorArg: MutPtr<CVoid>,
+    dliSnameCtorArg: ConstPtr<CChar>,
+    dliSaddrCtorArg: MutPtr<CVoid>,
+) {
+    public var dliFname: ConstPtr<CChar> = dliFnameCtorArg
+        internal set
+
+    public var dliFbase: MutPtr<CVoid> = dliFbaseCtorArg
+        internal set
+
+    public var dliSname: ConstPtr<CChar> = dliSnameCtorArg
+        internal set
+
+    public var dliSaddr: MutPtr<CVoid> = dliSaddrCtorArg
+        internal set
+
+    public constructor() : this(
+        dliFnameCtorArg = ConstPtr(0L),
+        dliFbaseCtorArg = MutPtr(0L),
+        dliSnameCtorArg = ConstPtr(0L),
+        dliSaddrCtorArg = MutPtr(0L),
+    )
+
+    public operator fun component1(): ConstPtr<CChar> = this.dliFname
+
+    public operator fun component2(): MutPtr<CVoid> = this.dliFbase
+
+    public operator fun component3(): ConstPtr<CChar> = this.dliSname
+
+    public operator fun component4(): MutPtr<CVoid> = this.dliSaddr
+
+    public fun copy(dliFname: ConstPtr<CChar> = this.dliFname, dliFbase: MutPtr<CVoid> = this.dliFbase, dliSname: ConstPtr<CChar> = this.dliSname, dliSaddr: MutPtr<CVoid> = this.dliSaddr): DlInfo = DlInfo(dliFnameCtorArg = dliFname, dliFbaseCtorArg = dliFbase, dliSnameCtorArg = dliSname, dliSaddrCtorArg = dliSaddr)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is DlInfo) return false
+        if (this.dliFname != other.dliFname) return false
+        if (this.dliFbase != other.dliFbase) return false
+        if (this.dliSname != other.dliSname) return false
+        if (this.dliSaddr != other.dliSaddr) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.dliFname.hashCode()
+        result = 31 * result + this.dliFbase.hashCode()
+        result = 31 * result + this.dliSname.hashCode()
+        result = 31 * result + this.dliSaddr.hashCode()
+        return result
+    }
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<DlInfo> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<DlInfo> {
+                override val sizeBytes: Long = 32L
+                override val alignBytes: Long = 8L
+                override fun readNative(addr: Long): DlInfo =
+                    DlInfo(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.constPtrLayout<CChar>(64)).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.mutPtrLayout<CVoid>(64)).readNative(addr + 8L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.constPtrLayout<CChar>(64)).readNative(addr + 16L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.mutPtrLayout<CVoid>(64)).readNative(addr + 24L),
+                    )
+                override fun writeNative(addr: Long, value: DlInfo) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.constPtrLayout<CChar>(64)).writeNative(addr, value.dliFname)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.mutPtrLayout<CVoid>(64)).writeNative(addr + 8L, value.dliFbase)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.constPtrLayout<CChar>(64)).writeNative(addr + 16L, value.dliSname)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.mutPtrLayout<CVoid>(64)).writeNative(addr + 24L, value.dliSaddr)
+                }
+            }
+
+        public operator fun invoke(
+            dliFname: ConstPtr<CChar> = ConstPtr(0L),
+            dliFbase: MutPtr<CVoid> = MutPtr(0L),
+            dliSname: ConstPtr<CChar> = ConstPtr(0L),
+            dliSaddr: MutPtr<CVoid> = MutPtr(0L),
+        ): DlInfo = DlInfo(
+            dliFnameCtorArg = dliFname,
+            dliFbaseCtorArg = dliFbase,
+            dliSnameCtorArg = dliSname,
+            dliSaddrCtorArg = dliSaddr,
+        )
+    }
+}
 
 public class IfData(
     public var ifiType: CUchar = 0u,
@@ -423,6 +1700,35 @@ public data class SockaddrDl(
         result = 31 * result + this.sdlData.contentHashCode()
         return result
     }
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<SockaddrDl> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<SockaddrDl> {
+                override val sizeBytes: Long = 32L
+                override val alignBytes: Long = 2L
+                override fun readNative(addr: Long): SockaddrDl =
+                    SockaddrDl(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).readNative(addr + 1L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr + 2L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).readNative(addr + 4L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).readNative(addr + 5L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).readNative(addr + 6L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).readNative(addr + 7L),
+                        (io.github.kotlinmania.rustlang.core.mem.FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8, (24).toInt())).readNative(addr + 8L),
+                    )
+                override fun writeNative(addr: Long, value: SockaddrDl) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).writeNative(addr, value.sdlLen)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).writeNative(addr + 1L, value.sdlFamily)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr + 2L, value.sdlIndex)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).writeNative(addr + 4L, value.sdlType)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).writeNative(addr + 5L, value.sdlNlen)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).writeNative(addr + 6L, value.sdlAlen)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).writeNative(addr + 7L, value.sdlSlen)
+                    (io.github.kotlinmania.rustlang.core.mem.FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8, (24).toInt())).writeNative(addr + 8L, value.sdlData)
+                }
+            }
+    }
 }
 
 public data class Sockpeercred(
@@ -437,22 +1743,153 @@ public data class Arphdr(
     public var arHln: UByte = 0u,
     public var arPln: UByte = 0u,
     public var arOp: UShort = 0u,
-)
+) {
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<Arphdr> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<Arphdr> {
+                override val sizeBytes: Long = 8L
+                override val alignBytes: Long = 2L
+                override fun readNative(addr: Long): Arphdr =
+                    Arphdr(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr + 2L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).readNative(addr + 4L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).readNative(addr + 5L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr + 6L),
+                    )
+                override fun writeNative(addr: Long, value: Arphdr) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr, value.arHrd)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr + 2L, value.arPro)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).writeNative(addr + 4L, value.arHln)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).writeNative(addr + 5L, value.arPln)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr + 6L, value.arOp)
+                }
+            }
+    }
+}
 
-public data class ShmidDs(
-    public var shmPerm: IpcPerm = IpcPerm(),
-    public var shmSegsz: CInt = 0,
-    public var shmLpid: PidT = 0,
-    public var shmCpid: PidT = 0,
-    public var shmNattch: CShort = 0,
-    public var shmAtime: TimeT = 0L,
-    public var shmAtimensec: CLong = 0L,
-    public var shmDtime: TimeT = 0L,
-    public var shmDtimensec: CLong = 0L,
-    public var shmCtime: TimeT = 0L,
-    public var shmCtimensec: CLong = 0L,
-    public var shmInternal: COpaquePointer? = null,
-)
+public class ShmidDs internal constructor(
+    public var shmPerm: IpcPerm,
+    public var shmSegsz: CInt,
+    public var shmLpid: PidT,
+    public var shmCpid: PidT,
+    public var shmNattch: CShort,
+    public var shmAtime: TimeT,
+    public var shmAtimensec: CLong,
+    public var shmDtime: TimeT,
+    public var shmDtimensec: CLong,
+    public var shmCtime: TimeT,
+    public var shmCtimensec: CLong,
+    shmInternalCtorArg: MutPtr<CVoid>,
+) {
+    public var shmInternal: MutPtr<CVoid> = shmInternalCtorArg
+        internal set
+
+    public constructor() : this(
+        shmPerm = IpcPerm(),
+        shmSegsz = 0,
+        shmLpid = 0,
+        shmCpid = 0,
+        shmNattch = 0,
+        shmAtime = 0L,
+        shmAtimensec = 0L,
+        shmDtime = 0L,
+        shmDtimensec = 0L,
+        shmCtime = 0L,
+        shmCtimensec = 0L,
+        shmInternalCtorArg = MutPtr(0L),
+    )
+
+    public operator fun component1(): IpcPerm = this.shmPerm
+
+    public operator fun component2(): CInt = this.shmSegsz
+
+    public operator fun component3(): PidT = this.shmLpid
+
+    public operator fun component4(): PidT = this.shmCpid
+
+    public operator fun component5(): CShort = this.shmNattch
+
+    public operator fun component6(): TimeT = this.shmAtime
+
+    public operator fun component7(): CLong = this.shmAtimensec
+
+    public operator fun component8(): TimeT = this.shmDtime
+
+    public operator fun component9(): CLong = this.shmDtimensec
+
+    public operator fun component10(): TimeT = this.shmCtime
+
+    public operator fun component11(): CLong = this.shmCtimensec
+
+    public operator fun component12(): MutPtr<CVoid> = this.shmInternal
+
+    public fun copy(shmPerm: IpcPerm = this.shmPerm, shmSegsz: CInt = this.shmSegsz, shmLpid: PidT = this.shmLpid, shmCpid: PidT = this.shmCpid, shmNattch: CShort = this.shmNattch, shmAtime: TimeT = this.shmAtime, shmAtimensec: CLong = this.shmAtimensec, shmDtime: TimeT = this.shmDtime, shmDtimensec: CLong = this.shmDtimensec, shmCtime: TimeT = this.shmCtime, shmCtimensec: CLong = this.shmCtimensec, shmInternal: MutPtr<CVoid> = this.shmInternal): ShmidDs = ShmidDs(shmPerm = shmPerm, shmSegsz = shmSegsz, shmLpid = shmLpid, shmCpid = shmCpid, shmNattch = shmNattch, shmAtime = shmAtime, shmAtimensec = shmAtimensec, shmDtime = shmDtime, shmDtimensec = shmDtimensec, shmCtime = shmCtime, shmCtimensec = shmCtimensec, shmInternalCtorArg = shmInternal)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is ShmidDs) return false
+        if (this.shmPerm != other.shmPerm) return false
+        if (this.shmSegsz != other.shmSegsz) return false
+        if (this.shmLpid != other.shmLpid) return false
+        if (this.shmCpid != other.shmCpid) return false
+        if (this.shmNattch != other.shmNattch) return false
+        if (this.shmAtime != other.shmAtime) return false
+        if (this.shmAtimensec != other.shmAtimensec) return false
+        if (this.shmDtime != other.shmDtime) return false
+        if (this.shmDtimensec != other.shmDtimensec) return false
+        if (this.shmCtime != other.shmCtime) return false
+        if (this.shmCtimensec != other.shmCtimensec) return false
+        if (this.shmInternal != other.shmInternal) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.shmPerm.hashCode()
+        result = 31 * result + this.shmSegsz.hashCode()
+        result = 31 * result + this.shmLpid.hashCode()
+        result = 31 * result + this.shmCpid.hashCode()
+        result = 31 * result + this.shmNattch.hashCode()
+        result = 31 * result + this.shmAtime.hashCode()
+        result = 31 * result + this.shmAtimensec.hashCode()
+        result = 31 * result + this.shmDtime.hashCode()
+        result = 31 * result + this.shmDtimensec.hashCode()
+        result = 31 * result + this.shmCtime.hashCode()
+        result = 31 * result + this.shmCtimensec.hashCode()
+        result = 31 * result + this.shmInternal.hashCode()
+        return result
+    }
+
+    public companion object {
+        public operator fun invoke(
+            shmPerm: IpcPerm = IpcPerm(),
+            shmSegsz: CInt = 0,
+            shmLpid: PidT = 0,
+            shmCpid: PidT = 0,
+            shmNattch: CShort = 0,
+            shmAtime: TimeT = 0L,
+            shmAtimensec: CLong = 0L,
+            shmDtime: TimeT = 0L,
+            shmDtimensec: CLong = 0L,
+            shmCtime: TimeT = 0L,
+            shmCtimensec: CLong = 0L,
+            shmInternal: MutPtr<CVoid> = MutPtr(0L),
+        ): ShmidDs = ShmidDs(
+            shmPerm = shmPerm,
+            shmSegsz = shmSegsz,
+            shmLpid = shmLpid,
+            shmCpid = shmCpid,
+            shmNattch = shmNattch,
+            shmAtime = shmAtime,
+            shmAtimensec = shmAtimensec,
+            shmDtime = shmDtime,
+            shmDtimensec = shmDtimensec,
+            shmCtime = shmCtime,
+            shmCtimensec = shmCtimensec,
+            shmInternalCtorArg = shmInternal,
+        )
+    }
+}
 
 // elf.h
 public data class Elf32Phdr(
@@ -464,7 +1901,36 @@ public data class Elf32Phdr(
     public var pMemsz: Elf32Word = 0u,
     public var pFlags: Elf32Word = 0u,
     public var pAlign: Elf32Word = 0u,
-)
+) {
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<Elf32Phdr> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<Elf32Phdr> {
+                override val sizeBytes: Long = 32L
+                override val alignBytes: Long = 4L
+                override fun readNative(addr: Long): Elf32Phdr =
+                    Elf32Phdr(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 4L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 8L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 12L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 16L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 20L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 24L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 28L),
+                    )
+                override fun writeNative(addr: Long, value: Elf32Phdr) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr, value.pType)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 4L, value.pOffset)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 8L, value.pVaddr)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 12L, value.pPaddr)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 16L, value.pFilesz)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 20L, value.pMemsz)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 24L, value.pFlags)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 28L, value.pAlign)
+                }
+            }
+    }
+}
 
 public data class Elf64Phdr(
     public var pType: Elf64Word = 0u,
@@ -475,15 +1941,118 @@ public data class Elf64Phdr(
     public var pFilesz: Elf64Xword = 0uL,
     public var pMemsz: Elf64Xword = 0uL,
     public var pAlign: Elf64Xword = 0uL,
-)
+) {
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<Elf64Phdr> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<Elf64Phdr> {
+                override val sizeBytes: Long = 56L
+                override val alignBytes: Long = 8L
+                override fun readNative(addr: Long): Elf64Phdr =
+                    Elf64Phdr(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 4L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 8L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 16L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 24L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 32L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 40L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 48L),
+                    )
+                override fun writeNative(addr: Long, value: Elf64Phdr) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr, value.pType)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 4L, value.pFlags)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 8L, value.pOffset)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 16L, value.pVaddr)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 24L, value.pPaddr)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 32L, value.pFilesz)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 40L, value.pMemsz)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 48L, value.pAlign)
+                }
+            }
+    }
+}
 
 // link.h
-public data class DlPhdrInfo(
-    public var dlpiAddr: ElfAddr = 0u,
-    public var dlpiName: COpaquePointer? = null,
-    public var dlpiPhdr: Elf64Phdr? = null,
-    public var dlpiPhnum: ElfHalf = 0u,
-)
+public class DlPhdrInfo internal constructor(
+    public var dlpiAddr: ElfAddr,
+    dlpiNameCtorArg: ConstPtr<CChar>,
+    dlpiPhdrCtorArg: ConstPtr<ElfPhdr>,
+    public var dlpiPhnum: ElfHalf,
+) {
+    public var dlpiName: ConstPtr<CChar> = dlpiNameCtorArg
+        internal set
+
+    public var dlpiPhdr: ConstPtr<ElfPhdr> = dlpiPhdrCtorArg
+        internal set
+
+    public constructor() : this(
+        dlpiAddr = 0u,
+        dlpiNameCtorArg = ConstPtr(0L),
+        dlpiPhdrCtorArg = ConstPtr(0L),
+        dlpiPhnum = 0u,
+    )
+
+    public operator fun component1(): ElfAddr = this.dlpiAddr
+
+    public operator fun component2(): ConstPtr<CChar> = this.dlpiName
+
+    public operator fun component3(): ConstPtr<ElfPhdr> = this.dlpiPhdr
+
+    public operator fun component4(): ElfHalf = this.dlpiPhnum
+
+    public fun copy(dlpiAddr: ElfAddr = this.dlpiAddr, dlpiName: ConstPtr<CChar> = this.dlpiName, dlpiPhdr: ConstPtr<ElfPhdr> = this.dlpiPhdr, dlpiPhnum: ElfHalf = this.dlpiPhnum): DlPhdrInfo = DlPhdrInfo(dlpiAddr = dlpiAddr, dlpiNameCtorArg = dlpiName, dlpiPhdrCtorArg = dlpiPhdr, dlpiPhnum = dlpiPhnum)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is DlPhdrInfo) return false
+        if (this.dlpiAddr != other.dlpiAddr) return false
+        if (this.dlpiName != other.dlpiName) return false
+        if (this.dlpiPhdr != other.dlpiPhdr) return false
+        if (this.dlpiPhnum != other.dlpiPhnum) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.dlpiAddr.hashCode()
+        result = 31 * result + this.dlpiName.hashCode()
+        result = 31 * result + this.dlpiPhdr.hashCode()
+        result = 31 * result + this.dlpiPhnum.hashCode()
+        return result
+    }
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<DlPhdrInfo> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<DlPhdrInfo> {
+                override val sizeBytes: Long = 32L
+                override val alignBytes: Long = 8L
+                override fun readNative(addr: Long): DlPhdrInfo =
+                    DlPhdrInfo(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.constPtrLayout<CChar>(64)).readNative(addr + 8L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.constPtrLayout<ElfPhdr>(64)).readNative(addr + 16L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr + 24L),
+                    )
+                override fun writeNative(addr: Long, value: DlPhdrInfo) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr, value.dlpiAddr)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.constPtrLayout<CChar>(64)).writeNative(addr + 8L, value.dlpiName)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.constPtrLayout<ElfPhdr>(64)).writeNative(addr + 16L, value.dlpiPhdr)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr + 24L, value.dlpiPhnum)
+                }
+            }
+
+        public operator fun invoke(
+            dlpiAddr: ElfAddr = 0u,
+            dlpiName: ConstPtr<CChar> = ConstPtr(0L),
+            dlpiPhdr: ConstPtr<ElfPhdr> = ConstPtr(0L),
+            dlpiPhnum: ElfHalf = 0u,
+        ): DlPhdrInfo = DlPhdrInfo(
+            dlpiAddr = dlpiAddr,
+            dlpiNameCtorArg = dlpiName,
+            dlpiPhdrCtorArg = dlpiPhdr,
+            dlpiPhnum = dlpiPhnum,
+        )
+    }
+}
 
 // sys/sysctl.h
 public class KinfoProc {
@@ -676,6 +2245,209 @@ public class KinfoProc {
     public var pPledge: ULong = 0uL
 
     public var pName: UByteArray = UByteArray(KI_MAXCOMLEN)
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<KinfoProc> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<KinfoProc> {
+                override val sizeBytes: Long = io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + ((KI_EMULNAMELEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), maxOf(maxOf(maxOf(8L, 4L), 2L), 1L))
+                override val alignBytes: Long = maxOf(maxOf(maxOf(8L, 4L), 2L), 1L)
+                override fun readNative(addr: Long): KinfoProc =
+                    KinfoProc(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 8L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 16L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 24L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 32L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 40L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 48L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 56L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 64L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 72L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 80L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 88L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 96L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 100L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 104L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 108L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 112L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 116L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 120L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 124L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 128L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 132L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 136L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 140L),
+                        (io.github.kotlinmania.rustlang.core.mem.FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32, (KI_NGROUPS).toInt())).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I16).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I16).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L)),
+                        (io.github.kotlinmania.rustlang.core.mem.FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8, (KI_MAXCOMLEN).toInt())).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L)),
+                        (io.github.kotlinmania.rustlang.core.mem.FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8, (KI_WMESGLEN).toInt())).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L)),
+                        (io.github.kotlinmania.rustlang.core.mem.FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8, (KI_MAXLOGNAME).toInt())).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L)),
+                        (io.github.kotlinmania.rustlang.core.mem.FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8, (KI_EMULNAMELEN).toInt())).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + ((KI_EMULNAMELEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + ((KI_EMULNAMELEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 8L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + ((KI_EMULNAMELEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 8L) + 8L), 8L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + ((KI_EMULNAMELEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + ((KI_EMULNAMELEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L)),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + ((KI_EMULNAMELEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 8L)),
+                        (io.github.kotlinmania.rustlang.core.mem.FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8, (KI_MAXCOMLEN).toInt())).readNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + ((KI_EMULNAMELEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 1L)),
+                    )
+                override fun writeNative(addr: Long, value: KinfoProc) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr, value.pForw)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 8L, value.pBack)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 16L, value.pPaddr)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 24L, value.pAddr)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 32L, value.pFd)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 40L, value.pStats)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 48L, value.pLimit)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 56L, value.pVmspace)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 64L, value.pSigacts)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 72L, value.pSess)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 80L, value.pTsess)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 88L, value.pRu)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 96L, value.pEflag)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 100L, value.pExitsig)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 104L, value.pFlag)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 108L, value.pPid)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 112L, value.pPpid)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 116L, value.pSid)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 120L, value.pPgid)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 124L, value.pTpgid)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 128L, value.pUid)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 132L, value.pRuid)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 136L, value.pGid)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 140L, value.pRgid)
+                    (io.github.kotlinmania.rustlang.core.mem.FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32, (KI_NGROUPS).toInt())).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L), value.pGroups)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I16).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L), value.pNgroups)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I16).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L), value.pJobc)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L), value.pTdev)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L), value.pEstcpu)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L), value.pRtimeSec)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L), value.pRtimeUsec)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L), value.pCpticks)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L), value.pPctcpu)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L), value.pSwtime)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L), value.pSlptime)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L), value.pSchedflags)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L), value.pUticks)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L), value.pSticks)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L), value.pIticks)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L), value.pTracep)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L), value.pTraceflag)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L), value.pHoldcnt)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L), value.pSiglist)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L), value.pSigmask)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L), value.pSigignore)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L), value.pSigcatch)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L), value.pStat)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L), value.pPriority)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L), value.pUsrpri)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L), value.pNice)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L), value.pXstat)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L), value.pSpare)
+                    (io.github.kotlinmania.rustlang.core.mem.FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8, (KI_MAXCOMLEN).toInt())).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L), value.pComm)
+                    (io.github.kotlinmania.rustlang.core.mem.FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8, (KI_WMESGLEN).toInt())).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L), value.pWmesg)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L), value.pWchan)
+                    (io.github.kotlinmania.rustlang.core.mem.FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8, (KI_MAXLOGNAME).toInt())).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L), value.pLogin)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L), value.pVmRssize)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L), value.pVmTsize)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L), value.pVmDsize)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L), value.pVmSsize)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L), value.pUvalid)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L), value.pUstartSec)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L), value.pUstartUsec)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L), value.pUutimeSec)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L), value.pUutimeUsec)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L), value.pUstimeSec)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L), value.pUstimeUsec)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L), value.pUruMaxrss)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L), value.pUruIxrss)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L), value.pUruIdrss)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L), value.pUruIsrss)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L), value.pUruMinflt)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L), value.pUruMajflt)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L), value.pUruNswap)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L), value.pUruInblock)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L), value.pUruOublock)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L), value.pUruMsgsnd)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L), value.pUruMsgrcv)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L), value.pUruNsignals)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L), value.pUruNvcsw)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L), value.pUruNivcsw)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L), value.pUctimeSec)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L), value.pUctimeUsec)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L), value.pPsflags)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L), value.pAcflag)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L), value.pSvuid)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L), value.pSvgid)
+                    (io.github.kotlinmania.rustlang.core.mem.FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8, (KI_EMULNAMELEN).toInt())).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L), value.pEmul)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + ((KI_EMULNAMELEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L), value.pRlimRssCur)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + ((KI_EMULNAMELEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 8L), value.pCpuid)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + ((KI_EMULNAMELEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 8L) + 8L), 8L), value.pVmMapSize)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + ((KI_EMULNAMELEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L), value.pTid)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + ((KI_EMULNAMELEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L), value.pRtableid)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + ((KI_EMULNAMELEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 8L), value.pPledge)
+                    (io.github.kotlinmania.rustlang.core.mem.FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8, (KI_MAXCOMLEN).toInt())).writeNative(addr + io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes((io.github.kotlinmania.rustlang.core.mem.alignUpBytes(144L, 4L) + ((KI_NGROUPS).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).strideBytes)), 2L) + 2L), 2L) + 2L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 1L) + 1L), 2L) + 2L), 2L) + 2L), 1L) + ((KI_MAXCOMLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 1L) + ((KI_WMESGLEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 1L) + ((KI_MAXLOGNAME).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 4L) + 4L), 1L) + ((KI_EMULNAMELEN).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I8).strideBytes)), 8L) + 8L), 8L) + 8L), 8L) + 8L), 4L) + 4L), 4L) + 4L), 8L) + 8L), 1L), value.pName)
+                }
+            }
+    }
 }
 
 public data class KinfoVmentry(
@@ -720,10 +2492,66 @@ public data class PtraceThreadState(
 }
 
 // search.h
-public data class Entry(
-    public var key: COpaquePointer? = null,
-    public var data: COpaquePointer? = null,
-)
+public class Entry internal constructor(
+    keyCtorArg: MutPtr<CChar>,
+    dataCtorArg: MutPtr<CVoid>,
+) {
+    public var key: MutPtr<CChar> = keyCtorArg
+        internal set
+
+    public var data: MutPtr<CVoid> = dataCtorArg
+        internal set
+
+    public constructor() : this(
+        keyCtorArg = MutPtr(0L),
+        dataCtorArg = MutPtr(0L),
+    )
+
+    public operator fun component1(): MutPtr<CChar> = this.key
+
+    public operator fun component2(): MutPtr<CVoid> = this.data
+
+    public fun copy(key: MutPtr<CChar> = this.key, data: MutPtr<CVoid> = this.data): Entry = Entry(keyCtorArg = key, dataCtorArg = data)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Entry) return false
+        if (this.key != other.key) return false
+        if (this.data != other.data) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.key.hashCode()
+        result = 31 * result + this.data.hashCode()
+        return result
+    }
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<Entry> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<Entry> {
+                override val sizeBytes: Long = 16L
+                override val alignBytes: Long = 8L
+                override fun readNative(addr: Long): Entry =
+                    Entry(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.mutPtrLayout<CChar>(64)).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.mutPtrLayout<CVoid>(64)).readNative(addr + 8L),
+                    )
+                override fun writeNative(addr: Long, value: Entry) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.mutPtrLayout<CChar>(64)).writeNative(addr, value.key)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.mutPtrLayout<CVoid>(64)).writeNative(addr + 8L, value.data)
+                }
+            }
+
+        public operator fun invoke(
+            key: MutPtr<CChar> = MutPtr(0L),
+            data: MutPtr<CVoid> = MutPtr(0L),
+        ): Entry = Entry(
+            keyCtorArg = key,
+            dataCtorArg = data,
+        )
+    }
+}
 
 public data class Ifreq(
     public var ifrName: UByteArray = UByteArray(IFNAMSIZ.toInt()),
@@ -804,7 +2632,138 @@ public class TcpInfo(
     public var tcpiSoSndSbHiwat: UInt = 0u,
     public var tcpiSoSndSbLowat: UInt = 0u,
     public var tcpiSoSndSbWat: UInt = 0u,
-)
+) {
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<TcpInfo> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<TcpInfo> {
+                override val sizeBytes: Long = 212L
+                override val alignBytes: Long = 4L
+                override fun readNative(addr: Long): TcpInfo =
+                    TcpInfo(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).readNative(addr + 1L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).readNative(addr + 2L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).readNative(addr + 3L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).readNative(addr + 4L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).readNative(addr + 5L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).readNative(addr + 6L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).readNative(addr + 7L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 8L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 12L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 16L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 20L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 24L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 28L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 32L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 36L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 40L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 44L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 48L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 52L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 56L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 60L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 64L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 68L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 72L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 76L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 80L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 84L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 88L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 92L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 96L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 100L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 104L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 108L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 112L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 116L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 120L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 124L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 128L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 132L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 136L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 140L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 144L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 148L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 152L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 156L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 160L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 164L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 168L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 172L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 176L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 180L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 184L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 188L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 192L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 196L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 200L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 204L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 208L),
+                    )
+                override fun writeNative(addr: Long, value: TcpInfo) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).writeNative(addr, value.tcpiState)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).writeNative(addr + 1L, value.tcpiCaState)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).writeNative(addr + 2L, value.tcpiRetransmits)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).writeNative(addr + 3L, value.tcpiProbes)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).writeNative(addr + 4L, value.tcpiBackoff)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).writeNative(addr + 5L, value.tcpiOptions)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).writeNative(addr + 6L, value.tcpiSndWscale)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).writeNative(addr + 7L, value.tcpiRcvWscale)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 8L, value.tcpiRto)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 12L, value.tcpiAto)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 16L, value.tcpiSndMss)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 20L, value.tcpiRcvMss)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 24L, value.tcpiUnacked)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 28L, value.tcpiSacked)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 32L, value.tcpiLost)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 36L, value.tcpiRetrans)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 40L, value.tcpiFackets)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 44L, value.tcpiLastDataSent)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 48L, value.tcpiLastAckSent)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 52L, value.tcpiLastDataRecv)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 56L, value.tcpiLastAckRecv)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 60L, value.tcpiPmtu)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 64L, value.tcpiRcvSsthresh)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 68L, value.tcpiRtt)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 72L, value.tcpiRttvar)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 76L, value.tcpiSndSsthresh)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 80L, value.tcpiSndCwnd)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 84L, value.tcpiAdvmss)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 88L, value.tcpiReordering)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 92L, value.tcpiRcvRtt)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 96L, value.tcpiRcvSpace)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 100L, value.tcpiSndWnd)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 104L, value.tcpiSndNxt)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 108L, value.tcpiRcvNxt)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 112L, value.tcpiToeTid)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 116L, value.tcpiSndRexmitpack)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 120L, value.tcpiRcvOoopack)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 124L, value.tcpiSndZerowin)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 128L, value.tcpiRttmin)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 132L, value.tcpiMaxSndwnd)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 136L, value.tcpiRcvAdv)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 140L, value.tcpiRcvUp)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 144L, value.tcpiSndUna)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 148L, value.tcpiSndUp)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 152L, value.tcpiSndWl1)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 156L, value.tcpiSndWl2)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 160L, value.tcpiSndMax)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 164L, value.tcpiTsRecent)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 168L, value.tcpiTsRecentAge)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 172L, value.tcpiRfbufCnt)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 176L, value.tcpiRfbufTs)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 180L, value.tcpiSoRcvSbCc)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 184L, value.tcpiSoRcvSbHiwat)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 188L, value.tcpiSoRcvSbLowat)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 192L, value.tcpiSoRcvSbWat)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 196L, value.tcpiSoSndSbCc)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 200L, value.tcpiSoSndSbHiwat)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 204L, value.tcpiSoSndSbLowat)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 208L, value.tcpiSoSndSbWat)
+                }
+            }
+    }
+}
 
 public data class Dirent(
     public var dFileno: InoT = 0uL,
@@ -868,13 +2827,36 @@ public data class SockaddrStorage(
     }
 }
 
-public data class SiginfoT(
-    public var siSigno: CInt = 0,
-    public var siCode: CInt = 0,
-    public var siErrno: CInt = 0,
-    public var siAddr: COpaquePointer? = null,
-    public var pad: UByteArray = UByteArray(108),
+public class SiginfoT internal constructor(
+    public var siSigno: CInt,
+    public var siCode: CInt,
+    public var siErrno: CInt,
+    siAddrCtorArg: MutPtr<CChar>,
+    public var pad: UByteArray,
 ) {
+    public var siAddr: MutPtr<CChar> = siAddrCtorArg
+        internal set
+
+    public constructor() : this(
+        siSigno = 0,
+        siCode = 0,
+        siErrno = 0,
+        siAddrCtorArg = MutPtr(0L),
+        pad = UByteArray(108),
+    )
+
+    public operator fun component1(): CInt = this.siSigno
+
+    public operator fun component2(): CInt = this.siCode
+
+    public operator fun component3(): CInt = this.siErrno
+
+    public operator fun component4(): MutPtr<CChar> = this.siAddr
+
+    public operator fun component5(): UByteArray = this.pad
+
+    public fun copy(siSigno: CInt = this.siSigno, siCode: CInt = this.siCode, siErrno: CInt = this.siErrno, siAddr: MutPtr<CChar> = this.siAddr, pad: UByteArray = this.pad): SiginfoT = SiginfoT(siSigno = siSigno, siCode = siCode, siErrno = siErrno, siAddrCtorArg = siAddr, pad = pad)
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is SiginfoT) return false
@@ -923,7 +2905,7 @@ public data class SiginfoT(
                 return result
             }
         }
-        return (((((this as Any?) as SiginfoT?)) as Any?) as SiginfoTimer?)!!.pid
+        return (ObjectSlotLayout<SiginfoTimer>()).readNative((ConstPtr<SiginfoTimer>(((constPtrFromRustCast<SiginfoT>(this))).rawAddress)).rawAddress).pid
     }
 
     public fun siUid(): UidT {
@@ -957,7 +2939,7 @@ public data class SiginfoT(
                 return result
             }
         }
-        return (((((this as Any?) as SiginfoT?)) as Any?) as SiginfoTimer?)!!.uid
+        return (ObjectSlotLayout<SiginfoTimer>()).readNative((ConstPtr<SiginfoTimer>(((constPtrFromRustCast<SiginfoT>(this))).rawAddress)).rawAddress).uid
     }
 
     public fun siValue(): Sigval {
@@ -994,7 +2976,7 @@ public data class SiginfoT(
                 return result
             }
         }
-        return (((((this as Any?) as SiginfoT?)) as Any?) as SiginfoTimer?)!!.value
+        return (ObjectSlotLayout<SiginfoTimer>()).readNative((ConstPtr<SiginfoTimer>(((constPtrFromRustCast<SiginfoT>(this))).rawAddress)).rawAddress).value
     }
 
     public fun siStatus(): CInt {
@@ -1037,7 +3019,23 @@ public data class SiginfoT(
                 return result
             }
         }
-        return (((((this as Any?) as SiginfoT?) as Any?) as SiginfoProc?))!!.status
+        return (ObjectSlotLayout<SiginfoProc>()).readNative(((ConstPtr<SiginfoProc>((constPtrFromRustCast<SiginfoT>(this)).rawAddress, (constPtrFromRustCast<SiginfoT>(this)).rawMeta))).rawAddress).status
+    }
+
+    public companion object {
+        public operator fun invoke(
+            siSigno: CInt = 0,
+            siCode: CInt = 0,
+            siErrno: CInt = 0,
+            siAddr: MutPtr<CChar> = MutPtr(0L),
+            pad: UByteArray = UByteArray(108),
+        ): SiginfoT = SiginfoT(
+            siSigno = siSigno,
+            siCode = siCode,
+            siErrno = siErrno,
+            siAddrCtorArg = siAddr,
+            pad = pad,
+        )
     }
 }
 
@@ -1156,36 +3154,107 @@ public data class MountInfo(
     public fun eq(other: MountInfo): Boolean = (this.align.zip(other.align)).all({ (a, b) -> a == b })
 }
 
-public data class CAnonymousIfrIfru(
-    public var ifruAddr: Sockaddr = Sockaddr(),
-    public var ifruDstaddr: Sockaddr = Sockaddr(),
-    public var ifruBroadaddr: Sockaddr = Sockaddr(),
-    public var ifruFlags: CShort = 0,
-    public var ifruMetric: CInt = 0,
-    public var ifruVnetid: Long = 0L,
-    public var ifruMedia: ULong = 0uL,
-    public var ifruData: CaddrT = null,
-    public var ifruIndex: CUint = 0u,
+public class CAnonymousIfrIfru internal constructor(
+    public var ifruAddr: Sockaddr,
+    public var ifruDstaddr: Sockaddr,
+    public var ifruBroadaddr: Sockaddr,
+    public var ifruFlags: CShort,
+    public var ifruMetric: CInt,
+    public var ifruVnetid: Long,
+    public var ifruMedia: ULong,
+    ifruDataCtorArg: CaddrT,
+    public var ifruIndex: CUint,
 ) {
+    public var ifruData: CaddrT = ifruDataCtorArg
+        internal set
+
+    public constructor() : this(
+        ifruAddr = Sockaddr(),
+        ifruDstaddr = Sockaddr(),
+        ifruBroadaddr = Sockaddr(),
+        ifruFlags = 0,
+        ifruMetric = 0,
+        ifruVnetid = 0L,
+        ifruMedia = 0uL,
+        ifruDataCtorArg = MutPtr(0L),
+        ifruIndex = 0u,
+    )
+
+    public operator fun component1(): Sockaddr = this.ifruAddr
+
+    public operator fun component2(): Sockaddr = this.ifruDstaddr
+
+    public operator fun component3(): Sockaddr = this.ifruBroadaddr
+
+    public operator fun component4(): CShort = this.ifruFlags
+
+    public operator fun component5(): CInt = this.ifruMetric
+
+    public operator fun component6(): Long = this.ifruVnetid
+
+    public operator fun component7(): ULong = this.ifruMedia
+
+    public operator fun component8(): CaddrT = this.ifruData
+
+    public operator fun component9(): CUint = this.ifruIndex
+
+    public fun copy(ifruAddr: Sockaddr = this.ifruAddr, ifruDstaddr: Sockaddr = this.ifruDstaddr, ifruBroadaddr: Sockaddr = this.ifruBroadaddr, ifruFlags: CShort = this.ifruFlags, ifruMetric: CInt = this.ifruMetric, ifruVnetid: Long = this.ifruVnetid, ifruMedia: ULong = this.ifruMedia, ifruData: CaddrT = this.ifruData, ifruIndex: CUint = this.ifruIndex): CAnonymousIfrIfru = CAnonymousIfrIfru(ifruAddr = ifruAddr, ifruDstaddr = ifruDstaddr, ifruBroadaddr = ifruBroadaddr, ifruFlags = ifruFlags, ifruMetric = ifruMetric, ifruVnetid = ifruVnetid, ifruMedia = ifruMedia, ifruDataCtorArg = ifruData, ifruIndex = ifruIndex)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is CAnonymousIfrIfru) return false
+        if (this.ifruAddr != other.ifruAddr) return false
+        if (this.ifruDstaddr != other.ifruDstaddr) return false
+        if (this.ifruBroadaddr != other.ifruBroadaddr) return false
+        if (this.ifruFlags != other.ifruFlags) return false
+        if (this.ifruMetric != other.ifruMetric) return false
+        if (this.ifruVnetid != other.ifruVnetid) return false
+        if (this.ifruMedia != other.ifruMedia) return false
+        if (this.ifruData != other.ifruData) return false
+        if (this.ifruIndex != other.ifruIndex) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.ifruAddr.hashCode()
+        result = 31 * result + this.ifruDstaddr.hashCode()
+        result = 31 * result + this.ifruBroadaddr.hashCode()
+        result = 31 * result + this.ifruFlags.hashCode()
+        result = 31 * result + this.ifruMetric.hashCode()
+        result = 31 * result + this.ifruVnetid.hashCode()
+        result = 31 * result + this.ifruMedia.hashCode()
+        result = 31 * result + this.ifruData.hashCode()
+        result = 31 * result + this.ifruIndex.hashCode()
+        return result
+    }
+
     public fun fmt(f: StringBuilder) {
         DebugStruct(f, "__c_anonymous_ifr_ifru").finishNonExhaustive()
     }
 
     public fun eq(other: CAnonymousIfrIfru): Boolean = this.ifruAddr == other.ifruAddr && this.ifruDstaddr == other.ifruDstaddr && this.ifruBroadaddr == other.ifruBroadaddr && this.ifruFlags == other.ifruFlags && this.ifruMetric == other.ifruMetric && this.ifruVnetid == other.ifruVnetid && this.ifruMedia == other.ifruMedia && this.ifruData == other.ifruData && this.ifruIndex == other.ifruIndex
 
-    public override fun hashCode(): Int {
-        var state = 0
-        run {
-            state = 31 * state + (this.ifruAddr).hashCode()
-            state = 31 * state + (this.ifruDstaddr).hashCode()
-            state = 31 * state + (this.ifruBroadaddr).hashCode()
-            state = 31 * state + (this.ifruFlags).hashCode()
-            state = 31 * state + (this.ifruMetric).hashCode()
-            state = 31 * state + (this.ifruVnetid).hashCode()
-            state = 31 * state + (this.ifruMedia).hashCode()
-            state = 31 * state + (this.ifruData).hashCode()
-            state = 31 * state + (this.ifruIndex).hashCode()
-        }
-        return state
+    public companion object {
+        public operator fun invoke(
+            ifruAddr: Sockaddr = Sockaddr(),
+            ifruDstaddr: Sockaddr = Sockaddr(),
+            ifruBroadaddr: Sockaddr = Sockaddr(),
+            ifruFlags: CShort = 0,
+            ifruMetric: CInt = 0,
+            ifruVnetid: Long = 0L,
+            ifruMedia: ULong = 0uL,
+            ifruData: CaddrT = MutPtr(0L),
+            ifruIndex: CUint = 0u,
+        ): CAnonymousIfrIfru = CAnonymousIfrIfru(
+            ifruAddr = ifruAddr,
+            ifruDstaddr = ifruDstaddr,
+            ifruBroadaddr = ifruBroadaddr,
+            ifruFlags = ifruFlags,
+            ifruMetric = ifruMetric,
+            ifruVnetid = ifruVnetid,
+            ifruMedia = ifruMedia,
+            ifruDataCtorArg = ifruData,
+            ifruIndex = ifruIndex,
+        )
     }
 }

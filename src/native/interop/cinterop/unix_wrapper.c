@@ -41,63 +41,63 @@
 #endif
 #endif
 
-int32_t libc_unix_isalnum(int32_t c) {
+int32_t libcUnixIsalnum(int32_t c) {
     return (int32_t)isalnum(c);
 }
 
-int32_t libc_unix_isalpha(int32_t c) {
+int32_t libcUnixIsalpha(int32_t c) {
     return (int32_t)isalpha(c);
 }
 
-int32_t libc_unix_iscntrl(int32_t c) {
+int32_t libcUnixIscntrl(int32_t c) {
     return (int32_t)iscntrl(c);
 }
 
-int32_t libc_unix_isdigit(int32_t c) {
+int32_t libcUnixIsdigit(int32_t c) {
     return (int32_t)isdigit(c);
 }
 
-int32_t libc_unix_isgraph(int32_t c) {
+int32_t libcUnixIsgraph(int32_t c) {
     return (int32_t)isgraph(c);
 }
 
-int32_t libc_unix_islower(int32_t c) {
+int32_t libcUnixIslower(int32_t c) {
     return (int32_t)islower(c);
 }
 
-int32_t libc_unix_isprint(int32_t c) {
+int32_t libcUnixIsprint(int32_t c) {
     return (int32_t)isprint(c);
 }
 
-int32_t libc_unix_ispunct(int32_t c) {
+int32_t libcUnixIspunct(int32_t c) {
     return (int32_t)ispunct(c);
 }
 
-int32_t libc_unix_isspace(int32_t c) {
+int32_t libcUnixIsspace(int32_t c) {
     return (int32_t)isspace(c);
 }
 
-int32_t libc_unix_isupper(int32_t c) {
+int32_t libcUnixIsupper(int32_t c) {
     return (int32_t)isupper(c);
 }
 
-int32_t libc_unix_isxdigit(int32_t c) {
+int32_t libcUnixIsxdigit(int32_t c) {
     return (int32_t)isxdigit(c);
 }
 
-int32_t libc_unix_isblank(int32_t c) {
+int32_t libcUnixIsblank(int32_t c) {
     return (int32_t)isblank(c);
 }
 
-int32_t libc_unix_tolower(int32_t c) {
+int32_t libcUnixTolower(int32_t c) {
     return (int32_t)tolower(c);
 }
 
-int32_t libc_unix_toupper(int32_t c) {
+int32_t libcUnixToupper(int32_t c) {
     return (int32_t)toupper(c);
 }
 
-void libc_unix_qsort(void* base, uint64_t num, uint64_t size, void* compar) {
+void libcUnixQsort(void* base, uint64_t num, uint64_t size, void* compar) {
     typedef void (*km_fn_t)(void*, uint64_t, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -125,7 +125,7 @@ void libc_unix_qsort(void* base, uint64_t num, uint64_t size, void* compar) {
     errno = ENOSYS;
 }
 
-void* libc_unix_bsearch(void* key, void* base, uint64_t num, uint64_t size, void* compar) {
+void* libcUnixBsearch(void* key, void* base, uint64_t num, uint64_t size, void* compar) {
     typedef void* (*km_fn_t)(void*, void*, uint64_t, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -153,95 +153,95 @@ void* libc_unix_bsearch(void* key, void* base, uint64_t num, uint64_t size, void
     return NULL;
 }
 
-void* libc_unix_fopen(const char* filename, const char* mode) {
+void* libcUnixFopen(const char* filename, const char* mode) {
     return (void*)fopen(filename, mode);
 }
 
-void* libc_unix_freopen(const char* filename, const char* mode, void* file) {
+void* libcUnixFreopen(const char* filename, const char* mode, void* file) {
     return (void*)freopen(filename, mode, (FILE*)file);
 }
 
-int32_t libc_unix_fflush(void* file) {
+int32_t libcUnixFflush(void* file) {
     return (int32_t)fflush((FILE*)file);
 }
 
-int32_t libc_unix_fclose(void* file) {
+int32_t libcUnixFclose(void* file) {
     return (int32_t)fclose((FILE*)file);
 }
 
-int32_t libc_unix_remove(const char* filename) {
+int32_t libcUnixRemove(const char* filename) {
     return (int32_t)remove(filename);
 }
 
-int32_t libc_unix_rename(const char* oldname, const char* newname) {
+int32_t libcUnixRename(const char* oldname, const char* newname) {
     return (int32_t)rename(oldname, newname);
 }
 
-void* libc_unix_tmpfile(void) {
+void* libcUnixTmpfile(void) {
     return (void*)tmpfile();
 }
 
-int32_t libc_unix_setvbuf(void* stream, char* buffer, int32_t mode, uint64_t size) {
+int32_t libcUnixSetvbuf(void* stream, char* buffer, int32_t mode, uint64_t size) {
     return (int32_t)setvbuf((FILE*)stream, buffer, mode, size);
 }
 
-void libc_unix_setbuf(void* stream, char* buf) {
+void libcUnixSetbuf(void* stream, char* buf) {
     setbuf((FILE*)stream, buf);
 }
 
-int32_t libc_unix_getchar(void) {
+int32_t libcUnixGetchar(void) {
     return (int32_t)getchar();
 }
 
-int32_t libc_unix_putchar(int32_t c) {
+int32_t libcUnixPutchar(int32_t c) {
     return (int32_t)putchar(c);
 }
 
-int32_t libc_unix_fgetc(void* stream) {
+int32_t libcUnixFgetc(void* stream) {
     return (int32_t)fgetc((FILE*)stream);
 }
 
-char* libc_unix_fgets(char* buf, int32_t n, void* stream) {
+char* libcUnixFgets(char* buf, int32_t n, void* stream) {
     return (char*)fgets(buf, n, (FILE*)stream);
 }
 
-int32_t libc_unix_fputc(int32_t c, void* stream) {
+int32_t libcUnixFputc(int32_t c, void* stream) {
     return (int32_t)fputc(c, (FILE*)stream);
 }
 
-int32_t libc_unix_fputs(const char* s, void* stream) {
+int32_t libcUnixFputs(const char* s, void* stream) {
     return (int32_t)fputs(s, (FILE*)stream);
 }
 
-int32_t libc_unix_puts(const char* s) {
+int32_t libcUnixPuts(const char* s) {
     return (int32_t)puts(s);
 }
 
-int32_t libc_unix_ungetc(int32_t c, void* stream) {
+int32_t libcUnixUngetc(int32_t c, void* stream) {
     return (int32_t)ungetc(c, (FILE*)stream);
 }
 
-uint64_t libc_unix_fread(void* ptr, uint64_t size, uint64_t nobj, void* stream) {
+uint64_t libcUnixFread(void* ptr, uint64_t size, uint64_t nobj, void* stream) {
     return (uint64_t)fread(ptr, size, nobj, (FILE*)stream);
 }
 
-uint64_t libc_unix_fwrite(void* ptr, uint64_t size, uint64_t nobj, void* stream) {
+uint64_t libcUnixFwrite(void* ptr, uint64_t size, uint64_t nobj, void* stream) {
     return (uint64_t)fwrite(ptr, size, nobj, (FILE*)stream);
 }
 
-int32_t libc_unix_fseek(void* stream, int64_t offset, int32_t whence) {
+int32_t libcUnixFseek(void* stream, int64_t offset, int32_t whence) {
     return (int32_t)fseek((FILE*)stream, offset, whence);
 }
 
-int64_t libc_unix_ftell(void* stream) {
+int64_t libcUnixFtell(void* stream) {
     return (int64_t)ftell((FILE*)stream);
 }
 
-void libc_unix_rewind(void* stream) {
+void libcUnixRewind(void* stream) {
     rewind((FILE*)stream);
 }
 
-int32_t libc_unix_fgetpos(void* stream, void* ptr) {
+int32_t libcUnixFgetpos(void* stream, void* ptr) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -269,7 +269,7 @@ int32_t libc_unix_fgetpos(void* stream, void* ptr) {
     return -1;
 }
 
-int32_t libc_unix_fsetpos(void* stream, void* ptr) {
+int32_t libcUnixFsetpos(void* stream, void* ptr) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -297,87 +297,87 @@ int32_t libc_unix_fsetpos(void* stream, void* ptr) {
     return -1;
 }
 
-int32_t libc_unix_feof(void* stream) {
+int32_t libcUnixFeof(void* stream) {
     return (int32_t)feof((FILE*)stream);
 }
 
-int32_t libc_unix_ferror(void* stream) {
+int32_t libcUnixFerror(void* stream) {
     return (int32_t)ferror((FILE*)stream);
 }
 
-void libc_unix_clearerr(void* stream) {
+void libcUnixClearerr(void* stream) {
     clearerr((FILE*)stream);
 }
 
-void libc_unix_perror(const char* s) {
+void libcUnixPerror(const char* s) {
     perror(s);
 }
 
-double libc_unix_atof(const char* s) {
+double libcUnixAtof(const char* s) {
     return (double)atof(s);
 }
 
-int32_t libc_unix_atoi(const char* s) {
+int32_t libcUnixAtoi(const char* s) {
     return (int32_t)atoi(s);
 }
 
-int64_t libc_unix_atol(const char* s) {
+int64_t libcUnixAtol(const char* s) {
     return (int64_t)atol(s);
 }
 
-int64_t libc_unix_atoll(const char* s) {
+int64_t libcUnixAtoll(const char* s) {
     return (int64_t)atoll(s);
 }
 
-double libc_unix_strtod(const char* s, void* endp) {
+double libcUnixStrtod(const char* s, void* endp) {
     return (double)strtod(s, endp);
 }
 
-float libc_unix_strtof(const char* s, void* endp) {
+float libcUnixStrtof(const char* s, void* endp) {
     return (float)strtof(s, endp);
 }
 
-int64_t libc_unix_strtol(const char* s, void* endp, int32_t base) {
+int64_t libcUnixStrtol(const char* s, void* endp, int32_t base) {
     return (int64_t)strtol(s, endp, base);
 }
 
-int64_t libc_unix_strtoll(const char* s, void* endp, int32_t base) {
+int64_t libcUnixStrtoll(const char* s, void* endp, int32_t base) {
     return (int64_t)strtoll(s, endp, base);
 }
 
-uint64_t libc_unix_strtoul(const char* s, void* endp, int32_t base) {
+uint64_t libcUnixStrtoul(const char* s, void* endp, int32_t base) {
     return (uint64_t)strtoul(s, endp, base);
 }
 
-uint64_t libc_unix_strtoull(const char* s, void* endp, int32_t base) {
+uint64_t libcUnixStrtoull(const char* s, void* endp, int32_t base) {
     return (uint64_t)strtoull(s, endp, base);
 }
 
-void* libc_unix_calloc(uint64_t nobj, uint64_t size) {
+void* libcUnixCalloc(uint64_t nobj, uint64_t size) {
     return (void*)calloc(nobj, size);
 }
 
-void* libc_unix_malloc(uint64_t size) {
+void* libcUnixMalloc(uint64_t size) {
     return (void*)malloc(size);
 }
 
-void* libc_unix_realloc(void* p, uint64_t size) {
+void* libcUnixRealloc(void* p, uint64_t size) {
     return (void*)realloc(p, size);
 }
 
-void libc_unix_free(void* p) {
+void libcUnixFree(void* p) {
     free(p);
 }
 
-void libc_unix_abort(void) {
+void libcUnixAbort(void) {
     abort();
 }
 
-void libc_unix_exit(int32_t status) {
+void libcUnixExit(int32_t status) {
     exit(status);
 }
 
-int32_t libc_unix_system(const char* s) {
+int32_t libcUnixSystem(const char* s) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -405,19 +405,19 @@ int32_t libc_unix_system(const char* s) {
     return -1;
 }
 
-char* libc_unix_getenv(const char* s) {
+char* libcUnixGetenv(const char* s) {
     return (char*)getenv(s);
 }
 
-char* libc_unix_strcpy(char* dst, const char* src) {
+char* libcUnixStrcpy(char* dst, const char* src) {
     return (char*)strcpy(dst, src);
 }
 
-char* libc_unix_strncpy(char* dst, const char* src, uint64_t n) {
+char* libcUnixStrncpy(char* dst, const char* src, uint64_t n) {
     return (char*)strncpy(dst, src, n);
 }
 
-char* libc_unix_stpcpy(char* dst, const char* src) {
+char* libcUnixStpcpy(char* dst, const char* src) {
     typedef char* (*km_fn_t)(char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -445,47 +445,47 @@ char* libc_unix_stpcpy(char* dst, const char* src) {
     return NULL;
 }
 
-char* libc_unix_strcat(char* s, const char* ct) {
+char* libcUnixStrcat(char* s, const char* ct) {
     return (char*)strcat(s, ct);
 }
 
-char* libc_unix_strncat(char* s, const char* ct, uint64_t n) {
+char* libcUnixStrncat(char* s, const char* ct, uint64_t n) {
     return (char*)strncat(s, ct, n);
 }
 
-int32_t libc_unix_strcmp(const char* cs, const char* ct) {
+int32_t libcUnixStrcmp(const char* cs, const char* ct) {
     return (int32_t)strcmp(cs, ct);
 }
 
-int32_t libc_unix_strncmp(const char* cs, const char* ct, uint64_t n) {
+int32_t libcUnixStrncmp(const char* cs, const char* ct, uint64_t n) {
     return (int32_t)strncmp(cs, ct, n);
 }
 
-int32_t libc_unix_strcoll(const char* cs, const char* ct) {
+int32_t libcUnixStrcoll(const char* cs, const char* ct) {
     return (int32_t)strcoll(cs, ct);
 }
 
-char* libc_unix_strchr(const char* cs, int32_t c) {
+char* libcUnixStrchr(const char* cs, int32_t c) {
     return (char*)strchr(cs, c);
 }
 
-char* libc_unix_strrchr(const char* cs, int32_t c) {
+char* libcUnixStrrchr(const char* cs, int32_t c) {
     return (char*)strrchr(cs, c);
 }
 
-uint64_t libc_unix_strspn(const char* cs, const char* ct) {
+uint64_t libcUnixStrspn(const char* cs, const char* ct) {
     return (uint64_t)strspn(cs, ct);
 }
 
-uint64_t libc_unix_strcspn(const char* cs, const char* ct) {
+uint64_t libcUnixStrcspn(const char* cs, const char* ct) {
     return (uint64_t)strcspn(cs, ct);
 }
 
-char* libc_unix_strdup(const char* cs) {
+char* libcUnixStrdup(const char* cs) {
     return (char*)strdup(cs);
 }
 
-char* libc_unix_strndup(const char* cs, uint64_t n) {
+char* libcUnixStrndup(const char* cs, uint64_t n) {
 #if !defined(_WIN32)
     return (char*)strndup(cs, n);
 #else
@@ -496,15 +496,15 @@ char* libc_unix_strndup(const char* cs, uint64_t n) {
 #endif
 }
 
-char* libc_unix_strpbrk(const char* cs, const char* ct) {
+char* libcUnixStrpbrk(const char* cs, const char* ct) {
     return (char*)strpbrk(cs, ct);
 }
 
-char* libc_unix_strstr(const char* cs, const char* ct) {
+char* libcUnixStrstr(const char* cs, const char* ct) {
     return (char*)strstr(cs, ct);
 }
 
-int32_t libc_unix_strcasecmp(const char* s1, const char* s2) {
+int32_t libcUnixStrcasecmp(const char* s1, const char* s2) {
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -532,7 +532,7 @@ int32_t libc_unix_strcasecmp(const char* s1, const char* s2) {
     return -1;
 }
 
-int32_t libc_unix_strncasecmp(const char* s1, const char* s2, uint64_t n) {
+int32_t libcUnixStrncasecmp(const char* s1, const char* s2, uint64_t n) {
     typedef int32_t (*km_fn_t)(const char*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -560,23 +560,23 @@ int32_t libc_unix_strncasecmp(const char* s1, const char* s2, uint64_t n) {
     return -1;
 }
 
-uint64_t libc_unix_strlen(const char* cs) {
+uint64_t libcUnixStrlen(const char* cs) {
     return (uint64_t)strlen(cs);
 }
 
-uint64_t libc_unix_strnlen(const char* cs, uint64_t maxlen) {
+uint64_t libcUnixStrnlen(const char* cs, uint64_t maxlen) {
     return (uint64_t)strnlen(cs, maxlen);
 }
 
-char* libc_unix_strerror(int32_t n) {
+char* libcUnixStrerror(int32_t n) {
     return (char*)strerror(n);
 }
 
-char* libc_unix_strtok(char* s, const char* t) {
+char* libcUnixStrtok(char* s, const char* t) {
     return (char*)strtok(s, t);
 }
 
-char* libc_unix_strtokR(char* s, const char* t, void* p) {
+char* libcUnixStrtokR(char* s, const char* t, void* p) {
     typedef char* (*km_fn_t)(char*, const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -604,11 +604,11 @@ char* libc_unix_strtokR(char* s, const char* t, void* p) {
     return NULL;
 }
 
-uint64_t libc_unix_strxfrm(char* s, const char* ct, uint64_t n) {
+uint64_t libcUnixStrxfrm(char* s, const char* ct, uint64_t n) {
     return (uint64_t)strxfrm(s, ct, n);
 }
 
-char* libc_unix_strsignal(int32_t sig) {
+char* libcUnixStrsignal(int32_t sig) {
     typedef char* (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -636,7 +636,7 @@ char* libc_unix_strsignal(int32_t sig) {
     return NULL;
 }
 
-uint64_t libc_unix_wcslen(void* buf) {
+uint64_t libcUnixWcslen(void* buf) {
     typedef uint64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -664,7 +664,7 @@ uint64_t libc_unix_wcslen(void* buf) {
     return 0;
 }
 
-uint64_t libc_unix_wcstombs(char* dest, void* src, uint64_t n) {
+uint64_t libcUnixWcstombs(char* dest, void* src, uint64_t n) {
     typedef uint64_t (*km_fn_t)(char*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -692,11 +692,11 @@ uint64_t libc_unix_wcstombs(char* dest, void* src, uint64_t n) {
     return 0;
 }
 
-void* libc_unix_memchr(void* cx, int32_t c, uint64_t n) {
+void* libcUnixMemchr(void* cx, int32_t c, uint64_t n) {
     return (void*)memchr(cx, c, n);
 }
 
-void* libc_unix_wmemchr(void* cx, uint32_t c, uint64_t n) {
+void* libcUnixWmemchr(void* cx, uint32_t c, uint64_t n) {
     typedef void* (*km_fn_t)(void*, uint32_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -724,23 +724,23 @@ void* libc_unix_wmemchr(void* cx, uint32_t c, uint64_t n) {
     return NULL;
 }
 
-int32_t libc_unix_memcmp(void* cx, void* ct, uint64_t n) {
+int32_t libcUnixMemcmp(void* cx, void* ct, uint64_t n) {
     return (int32_t)memcmp(cx, ct, n);
 }
 
-void* libc_unix_memcpy(void* dest, void* src, uint64_t n) {
+void* libcUnixMemcpy(void* dest, void* src, uint64_t n) {
     return (void*)memcpy(dest, src, n);
 }
 
-void* libc_unix_memmove(void* dest, void* src, uint64_t n) {
+void* libcUnixMemmove(void* dest, void* src, uint64_t n) {
     return (void*)memmove(dest, src, n);
 }
 
-void* libc_unix_memset(void* dest, int32_t c, uint64_t n) {
+void* libcUnixMemset(void* dest, int32_t c, uint64_t n) {
     return (void*)memset(dest, c, n);
 }
 
-void* libc_unix_memccpy(void* dest, void* src, int32_t c, uint64_t n) {
+void* libcUnixMemccpy(void* dest, void* src, int32_t c, uint64_t n) {
     typedef void* (*km_fn_t)(void*, void*, int32_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -768,7 +768,7 @@ void* libc_unix_memccpy(void* dest, void* src, int32_t c, uint64_t n) {
     return NULL;
 }
 
-void* libc_unix_getpwnam(const char* name) {
+void* libcUnixGetpwnam(const char* name) {
     typedef void* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -796,7 +796,7 @@ void* libc_unix_getpwnam(const char* name) {
     return NULL;
 }
 
-void* libc_unix_getpwuid(uint16_t uid) {
+void* libcUnixGetpwuid(uint16_t uid) {
     typedef void* (*km_fn_t)(uint16_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -824,7 +824,7 @@ void* libc_unix_getpwuid(uint16_t uid) {
     return NULL;
 }
 
-int32_t libc_unix_fprintf(void* stream, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcUnixFprintf(void* stream, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(void*, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -858,7 +858,7 @@ int32_t libc_unix_fprintf(void* stream, const char* format, int32_t km_vac, int6
     return -1;
 }
 
-int32_t libc_unix_printf(const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcUnixPrintf(const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -892,7 +892,7 @@ int32_t libc_unix_printf(const char* format, int32_t km_vac, int64_t km_va0, int
     return -1;
 }
 
-int32_t libc_unix_snprintf(char* s, uint64_t n, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcUnixSnprintf(char* s, uint64_t n, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(char*, uint64_t, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -926,7 +926,7 @@ int32_t libc_unix_snprintf(char* s, uint64_t n, const char* format, int32_t km_v
     return -1;
 }
 
-int32_t libc_unix_sprintf(char* s, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcUnixSprintf(char* s, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(char*, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -960,7 +960,7 @@ int32_t libc_unix_sprintf(char* s, const char* format, int32_t km_vac, int64_t k
     return -1;
 }
 
-int32_t libc_unix_fscanf(void* stream, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcUnixFscanf(void* stream, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(void*, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -994,7 +994,7 @@ int32_t libc_unix_fscanf(void* stream, const char* format, int32_t km_vac, int64
     return -1;
 }
 
-int32_t libc_unix_scanf(const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcUnixScanf(const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1028,7 +1028,7 @@ int32_t libc_unix_scanf(const char* format, int32_t km_vac, int64_t km_va0, int6
     return -1;
 }
 
-int32_t libc_unix_sscanf(const char* s, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcUnixSscanf(const char* s, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(const char*, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1062,7 +1062,7 @@ int32_t libc_unix_sscanf(const char* s, const char* format, int32_t km_vac, int6
     return -1;
 }
 
-int32_t libc_unix_getcharUnlocked(void) {
+int32_t libcUnixGetcharUnlocked(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1090,7 +1090,7 @@ int32_t libc_unix_getcharUnlocked(void) {
     return -1;
 }
 
-int32_t libc_unix_putcharUnlocked(int32_t c) {
+int32_t libcUnixPutcharUnlocked(int32_t c) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1118,56 +1118,56 @@ int32_t libc_unix_putcharUnlocked(int32_t c) {
     return -1;
 }
 
-int32_t libc_unix_socket(int32_t domain, int32_t ty, int32_t protocol) {
+int32_t libcUnixSocket(int32_t domain, int32_t ty, int32_t protocol) {
     return (int32_t)socket(domain, ty, protocol);
 }
 
-int32_t libc_unix_connect(int32_t arg_0_socket, void* address, uint32_t len) {
-    return (int32_t)connect(arg_0_socket, address, len);
+int32_t libcUnixConnect(int32_t arg0Socket, void* address, uint32_t len) {
+    return (int32_t)connect(arg0Socket, address, len);
 }
 
-int32_t libc_unix_listen(int32_t arg_0_socket, int32_t backlog) {
-    return (int32_t)listen(arg_0_socket, backlog);
+int32_t libcUnixListen(int32_t arg0Socket, int32_t backlog) {
+    return (int32_t)listen(arg0Socket, backlog);
 }
 
-int32_t libc_unix_accept(int32_t arg_0_socket, void* address, void* address_len) {
-    return (int32_t)accept(arg_0_socket, address, address_len);
+int32_t libcUnixAccept(int32_t arg0Socket, void* address, void* addressLen) {
+    return (int32_t)accept(arg0Socket, address, addressLen);
 }
 
-int32_t libc_unix_getpeername(int32_t arg_0_socket, void* address, void* address_len) {
-    return (int32_t)getpeername(arg_0_socket, address, address_len);
+int32_t libcUnixGetpeername(int32_t arg0Socket, void* address, void* addressLen) {
+    return (int32_t)getpeername(arg0Socket, address, addressLen);
 }
 
-int32_t libc_unix_getsockname(int32_t arg_0_socket, void* address, void* address_len) {
-    return (int32_t)getsockname(arg_0_socket, address, address_len);
+int32_t libcUnixGetsockname(int32_t arg0Socket, void* address, void* addressLen) {
+    return (int32_t)getsockname(arg0Socket, address, addressLen);
 }
 
-int32_t libc_unix_setsockopt(int32_t arg_0_socket, int32_t level, int32_t name, void* value, uint32_t option_len) {
-    return (int32_t)setsockopt(arg_0_socket, level, name, value, option_len);
+int32_t libcUnixSetsockopt(int32_t arg0Socket, int32_t level, int32_t name, void* value, uint32_t optionLen) {
+    return (int32_t)setsockopt(arg0Socket, level, name, value, optionLen);
 }
 
-int32_t libc_unix_socketpair(int32_t domain, int32_t type_, int32_t protocol, void* socket_vector) {
+int32_t libcUnixSocketpair(int32_t domain, int32_t type, int32_t protocol, void* socketVector) {
 #if !defined(_WIN32)
-    return (int32_t)socketpair(domain, type_, protocol, socket_vector);
+    return (int32_t)socketpair(domain, type, protocol, socketVector);
 #else
     (void)domain;
-    (void)type_;
+    (void)type;
     (void)protocol;
-    (void)socket_vector;
+    (void)socketVector;
     errno = ENOSYS;
     return -1;
 #endif
 }
 
-int64_t libc_unix_sendto(int32_t arg_0_socket, void* buf, uint64_t len, int32_t flags, void* addr, uint32_t addrlen) {
-    return (int64_t)sendto(arg_0_socket, buf, len, flags, addr, addrlen);
+int64_t libcUnixSendto(int32_t arg0Socket, void* buf, uint64_t len, int32_t flags, void* addr, uint32_t addrlen) {
+    return (int64_t)sendto(arg0Socket, buf, len, flags, addr, addrlen);
 }
 
-int32_t libc_unix_shutdown(int32_t arg_0_socket, int32_t how) {
-    return (int32_t)shutdown(arg_0_socket, how);
+int32_t libcUnixShutdown(int32_t arg0Socket, int32_t how) {
+    return (int32_t)shutdown(arg0Socket, how);
 }
 
-int32_t libc_unix_chmod(const char* path, uint32_t mode) {
+int32_t libcUnixChmod(const char* path, uint32_t mode) {
 #if !defined(_WIN32)
     return (int32_t)chmod(path, mode);
 #else
@@ -1178,7 +1178,7 @@ int32_t libc_unix_chmod(const char* path, uint32_t mode) {
 #endif
 }
 
-int32_t libc_unix_fchmod(int32_t fd, uint32_t mode) {
+int32_t libcUnixFchmod(int32_t fd, uint32_t mode) {
 #if !defined(_WIN32)
     return (int32_t)fchmod(fd, mode);
 #else
@@ -1189,11 +1189,11 @@ int32_t libc_unix_fchmod(int32_t fd, uint32_t mode) {
 #endif
 }
 
-int32_t libc_unix_fstat(int32_t fildes, void* buf) {
+int32_t libcUnixFstat(int32_t fildes, void* buf) {
     return (int32_t)fstat(fildes, buf);
 }
 
-int32_t libc_unix_mkdir(const char* path, uint32_t mode) {
+int32_t libcUnixMkdir(const char* path, uint32_t mode) {
     typedef int32_t (*km_fn_t)(const char*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1221,11 +1221,11 @@ int32_t libc_unix_mkdir(const char* path, uint32_t mode) {
     return -1;
 }
 
-int32_t libc_unix_stat(const char* path, void* buf) {
+int32_t libcUnixStat(const char* path, void* buf) {
     return (int32_t)stat(path, buf);
 }
 
-int32_t libc_unix_pclose(void* stream) {
+int32_t libcUnixPclose(void* stream) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1253,7 +1253,7 @@ int32_t libc_unix_pclose(void* stream) {
     return -1;
 }
 
-void* libc_unix_fdopen(int32_t fd, const char* mode) {
+void* libcUnixFdopen(int32_t fd, const char* mode) {
     typedef void* (*km_fn_t)(int32_t, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1281,7 +1281,7 @@ void* libc_unix_fdopen(int32_t fd, const char* mode) {
     return NULL;
 }
 
-int32_t libc_unix_fileno(void* stream) {
+int32_t libcUnixFileno(void* stream) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1309,7 +1309,7 @@ int32_t libc_unix_fileno(void* stream) {
     return -1;
 }
 
-int32_t libc_unix_open(const char* path, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcUnixOpen(const char* path, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(const char*, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1343,11 +1343,11 @@ int32_t libc_unix_open(const char* path, int32_t oflag, int32_t km_vac, int64_t 
     return -1;
 }
 
-int32_t libc_unix_creat(const char* path, uint32_t mode) {
+int32_t libcUnixCreat(const char* path, uint32_t mode) {
     return (int32_t)creat(path, mode);
 }
 
-int32_t libc_unix_fcntl(int32_t fd, int32_t cmd, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcUnixFcntl(int32_t fd, int32_t cmd, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1381,7 +1381,7 @@ int32_t libc_unix_fcntl(int32_t fd, int32_t cmd, int32_t km_vac, int64_t km_va0,
     return -1;
 }
 
-void* libc_unix_opendir(const char* dirname) {
+void* libcUnixOpendir(const char* dirname) {
 #if !defined(_WIN32)
     return (void*)opendir(dirname);
 #else
@@ -1391,7 +1391,7 @@ void* libc_unix_opendir(const char* dirname) {
 #endif
 }
 
-void* libc_unix_readdir(void* dirp) {
+void* libcUnixReaddir(void* dirp) {
 #if !defined(_WIN32)
     return (void*)readdir((DIR*)dirp);
 #else
@@ -1401,7 +1401,7 @@ void* libc_unix_readdir(void* dirp) {
 #endif
 }
 
-int32_t libc_unix_closedir(void* dirp) {
+int32_t libcUnixClosedir(void* dirp) {
 #if !defined(_WIN32)
     return (int32_t)closedir((DIR*)dirp);
 #else
@@ -1411,7 +1411,7 @@ int32_t libc_unix_closedir(void* dirp) {
 #endif
 }
 
-void libc_unix_rewinddir(void* dirp) {
+void libcUnixRewinddir(void* dirp) {
 #if !defined(_WIN32)
     rewinddir((DIR*)dirp);
 #else
@@ -1420,7 +1420,7 @@ void libc_unix_rewinddir(void* dirp) {
 #endif
 }
 
-int32_t libc_unix_fchmodat(int32_t dirfd, const char* pathname, uint32_t mode, int32_t flags) {
+int32_t libcUnixFchmodat(int32_t dirfd, const char* pathname, uint32_t mode, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1448,7 +1448,7 @@ int32_t libc_unix_fchmodat(int32_t dirfd, const char* pathname, uint32_t mode, i
     return -1;
 }
 
-int32_t libc_unix_fchown(int32_t fd, uint16_t owner, uint16_t group) {
+int32_t libcUnixFchown(int32_t fd, uint16_t owner, uint16_t group) {
 #if !defined(_WIN32)
     return (int32_t)fchown(fd, owner, group);
 #else
@@ -1460,7 +1460,7 @@ int32_t libc_unix_fchown(int32_t fd, uint16_t owner, uint16_t group) {
 #endif
 }
 
-int32_t libc_unix_fchownat(int32_t dirfd, const char* pathname, uint16_t owner, uint16_t group, int32_t flags) {
+int32_t libcUnixFchownat(int32_t dirfd, const char* pathname, uint16_t owner, uint16_t group, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, uint16_t, uint16_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1488,7 +1488,7 @@ int32_t libc_unix_fchownat(int32_t dirfd, const char* pathname, uint16_t owner, 
     return -1;
 }
 
-int32_t libc_unix_fstatat(int32_t dirfd, const char* pathname, void* buf, int32_t flags) {
+int32_t libcUnixFstatat(int32_t dirfd, const char* pathname, void* buf, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1516,7 +1516,7 @@ int32_t libc_unix_fstatat(int32_t dirfd, const char* pathname, void* buf, int32_
     return -1;
 }
 
-int32_t libc_unix_linkat(int32_t olddirfd, const char* oldpath, int32_t newdirfd, const char* newpath, int32_t flags) {
+int32_t libcUnixLinkat(int32_t olddirfd, const char* oldpath, int32_t newdirfd, const char* newpath, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1544,7 +1544,7 @@ int32_t libc_unix_linkat(int32_t olddirfd, const char* oldpath, int32_t newdirfd
     return -1;
 }
 
-int32_t libc_unix_renameat(int32_t olddirfd, const char* oldpath, int32_t newdirfd, const char* newpath) {
+int32_t libcUnixRenameat(int32_t olddirfd, const char* oldpath, int32_t newdirfd, const char* newpath) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1572,7 +1572,7 @@ int32_t libc_unix_renameat(int32_t olddirfd, const char* oldpath, int32_t newdir
     return -1;
 }
 
-int32_t libc_unix_symlinkat(const char* target, int32_t newdirfd, const char* linkpath) {
+int32_t libcUnixSymlinkat(const char* target, int32_t newdirfd, const char* linkpath) {
     typedef int32_t (*km_fn_t)(const char*, int32_t, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1600,7 +1600,7 @@ int32_t libc_unix_symlinkat(const char* target, int32_t newdirfd, const char* li
     return -1;
 }
 
-int32_t libc_unix_unlinkat(int32_t dirfd, const char* pathname, int32_t flags) {
+int32_t libcUnixUnlinkat(int32_t dirfd, const char* pathname, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1628,11 +1628,11 @@ int32_t libc_unix_unlinkat(int32_t dirfd, const char* pathname, int32_t flags) {
     return -1;
 }
 
-int32_t libc_unix_access(const char* path, int32_t amode) {
+int32_t libcUnixAccess(const char* path, int32_t amode) {
     return (int32_t)access(path, amode);
 }
 
-uint32_t libc_unix_alarm(uint32_t seconds) {
+uint32_t libcUnixAlarm(uint32_t seconds) {
     typedef uint32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1660,11 +1660,11 @@ uint32_t libc_unix_alarm(uint32_t seconds) {
     return 0;
 }
 
-int32_t libc_unix_chdir(const char* dir) {
+int32_t libcUnixChdir(const char* dir) {
     return (int32_t)chdir(dir);
 }
 
-int32_t libc_unix_fchdir(int32_t dirfd) {
+int32_t libcUnixFchdir(int32_t dirfd) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1692,7 +1692,7 @@ int32_t libc_unix_fchdir(int32_t dirfd) {
     return -1;
 }
 
-int32_t libc_unix_chown(const char* path, uint16_t uid, uint16_t gid) {
+int32_t libcUnixChown(const char* path, uint16_t uid, uint16_t gid) {
 #if !defined(_WIN32)
     return (int32_t)chown(path, uid, gid);
 #else
@@ -1704,7 +1704,7 @@ int32_t libc_unix_chown(const char* path, uint16_t uid, uint16_t gid) {
 #endif
 }
 
-int32_t libc_unix_lchown(const char* path, uint16_t uid, uint16_t gid) {
+int32_t libcUnixLchown(const char* path, uint16_t uid, uint16_t gid) {
     typedef int32_t (*km_fn_t)(const char*, uint16_t, uint16_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1732,19 +1732,19 @@ int32_t libc_unix_lchown(const char* path, uint16_t uid, uint16_t gid) {
     return -1;
 }
 
-int32_t libc_unix_close(int32_t fd) {
+int32_t libcUnixClose(int32_t fd) {
     return (int32_t)close(fd);
 }
 
-int32_t libc_unix_dup(int32_t fd) {
+int32_t libcUnixDup(int32_t fd) {
     return (int32_t)dup(fd);
 }
 
-int32_t libc_unix_dup2(int32_t src, int32_t dst) {
+int32_t libcUnixDup2(int32_t src, int32_t dst) {
     return (int32_t)dup2(src, dst);
 }
 
-int32_t libc_unix_execl(const char* path, const char* arg0, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcUnixExecl(const char* path, const char* arg0, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(const char*, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1778,7 +1778,7 @@ int32_t libc_unix_execl(const char* path, const char* arg0, int32_t km_vac, int6
     return -1;
 }
 
-int32_t libc_unix_execle(const char* path, const char* arg0, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcUnixExecle(const char* path, const char* arg0, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(const char*, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1812,7 +1812,7 @@ int32_t libc_unix_execle(const char* path, const char* arg0, int32_t km_vac, int
     return -1;
 }
 
-int32_t libc_unix_execlp(const char* file, const char* arg0, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcUnixExeclp(const char* file, const char* arg0, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(const char*, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1846,7 +1846,7 @@ int32_t libc_unix_execlp(const char* file, const char* arg0, int32_t km_vac, int
     return -1;
 }
 
-int32_t libc_unix_execv(const char* prog, void* argv) {
+int32_t libcUnixExecv(const char* prog, void* argv) {
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1874,7 +1874,7 @@ int32_t libc_unix_execv(const char* prog, void* argv) {
     return -1;
 }
 
-int32_t libc_unix_execve(const char* prog, void* argv, void* envp) {
+int32_t libcUnixExecve(const char* prog, void* argv, void* envp) {
     typedef int32_t (*km_fn_t)(const char*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1902,7 +1902,7 @@ int32_t libc_unix_execve(const char* prog, void* argv, void* envp) {
     return -1;
 }
 
-int32_t libc_unix_execvp(const char* c, void* argv) {
+int32_t libcUnixExecvp(const char* c, void* argv) {
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1930,7 +1930,7 @@ int32_t libc_unix_execvp(const char* c, void* argv) {
     return -1;
 }
 
-int32_t libc_unix_fork(void) {
+int32_t libcUnixFork(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1958,7 +1958,7 @@ int32_t libc_unix_fork(void) {
     return -1;
 }
 
-int64_t libc_unix_fpathconf(int32_t filedes, int32_t name) {
+int64_t libcUnixFpathconf(int32_t filedes, int32_t name) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1986,11 +1986,11 @@ int64_t libc_unix_fpathconf(int32_t filedes, int32_t name) {
     return -1;
 }
 
-char* libc_unix_getcwd(char* buf, uint64_t size) {
+char* libcUnixGetcwd(char* buf, uint64_t size) {
     return (char*)getcwd(buf, size);
 }
 
-uint16_t libc_unix_getegid(void) {
+uint16_t libcUnixGetegid(void) {
 #if !defined(_WIN32)
     return (uint16_t)getegid();
 #else
@@ -1999,7 +1999,7 @@ uint16_t libc_unix_getegid(void) {
 #endif
 }
 
-uint16_t libc_unix_geteuid(void) {
+uint16_t libcUnixGeteuid(void) {
 #if !defined(_WIN32)
     return (uint16_t)geteuid();
 #else
@@ -2008,7 +2008,7 @@ uint16_t libc_unix_geteuid(void) {
 #endif
 }
 
-uint16_t libc_unix_getgid(void) {
+uint16_t libcUnixGetgid(void) {
 #if !defined(_WIN32)
     return (uint16_t)getgid();
 #else
@@ -2017,7 +2017,7 @@ uint16_t libc_unix_getgid(void) {
 #endif
 }
 
-int32_t libc_unix_getgroups(int32_t ngroups_max, void* groups) {
+int32_t libcUnixGetgroups(int32_t ngroupsMax, void* groups) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2039,13 +2039,13 @@ int32_t libc_unix_getgroups(int32_t ngroups_max, void* groups) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(ngroups_max, groups);
+        return km_fn_ptr(ngroupsMax, groups);
     }
     errno = ENOSYS;
     return -1;
 }
 
-char* libc_unix_getlogin(void) {
+char* libcUnixGetlogin(void) {
     typedef char* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2073,7 +2073,7 @@ char* libc_unix_getlogin(void) {
     return NULL;
 }
 
-int32_t libc_unix_getopt(int32_t argc, void* argv, const char* optstr) {
+int32_t libcUnixGetopt(int32_t argc, void* argv, const char* optstr) {
     typedef int32_t (*km_fn_t)(int32_t, void*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2101,7 +2101,7 @@ int32_t libc_unix_getopt(int32_t argc, void* argv, const char* optstr) {
     return -1;
 }
 
-int32_t libc_unix_getpgid(int32_t pid) {
+int32_t libcUnixGetpgid(int32_t pid) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2129,7 +2129,7 @@ int32_t libc_unix_getpgid(int32_t pid) {
     return -1;
 }
 
-int32_t libc_unix_getpgrp(void) {
+int32_t libcUnixGetpgrp(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2157,11 +2157,11 @@ int32_t libc_unix_getpgrp(void) {
     return -1;
 }
 
-int32_t libc_unix_getpid(void) {
+int32_t libcUnixGetpid(void) {
     return (int32_t)getpid();
 }
 
-int32_t libc_unix_getppid(void) {
+int32_t libcUnixGetppid(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2189,7 +2189,7 @@ int32_t libc_unix_getppid(void) {
     return -1;
 }
 
-uint16_t libc_unix_getuid(void) {
+uint16_t libcUnixGetuid(void) {
 #if !defined(_WIN32)
     return (uint16_t)getuid();
 #else
@@ -2198,11 +2198,11 @@ uint16_t libc_unix_getuid(void) {
 #endif
 }
 
-int32_t libc_unix_isatty(int32_t fd) {
+int32_t libcUnixIsatty(int32_t fd) {
     return (int32_t)isatty(fd);
 }
 
-int32_t libc_unix_link(const char* src, const char* dst) {
+int32_t libcUnixLink(const char* src, const char* dst) {
 #if !defined(_WIN32)
     return (int32_t)link(src, dst);
 #else
@@ -2213,11 +2213,11 @@ int32_t libc_unix_link(const char* src, const char* dst) {
 #endif
 }
 
-int64_t libc_unix_lseek(int32_t fd, int64_t offset, int32_t whence) {
+int64_t libcUnixLseek(int32_t fd, int64_t offset, int32_t whence) {
     return (int64_t)lseek(fd, offset, whence);
 }
 
-int64_t libc_unix_pathconf(const char* path, int32_t name) {
+int64_t libcUnixPathconf(const char* path, int32_t name) {
     typedef int64_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2245,7 +2245,7 @@ int64_t libc_unix_pathconf(const char* path, int32_t name) {
     return -1;
 }
 
-int32_t libc_unix_pipe(void* fds) {
+int32_t libcUnixPipe(void* fds) {
 #if !defined(_WIN32)
     return (int32_t)pipe(fds);
 #else
@@ -2255,7 +2255,7 @@ int32_t libc_unix_pipe(void* fds) {
 #endif
 }
 
-int32_t libc_unix_posixMemalign(void* memptr, uint64_t align, uint64_t size) {
+int32_t libcUnixPosixMemalign(void* memptr, uint64_t align, uint64_t size) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2283,7 +2283,7 @@ int32_t libc_unix_posixMemalign(void* memptr, uint64_t align, uint64_t size) {
     return -1;
 }
 
-void* libc_unix_alignedAlloc(uint64_t alignment, uint64_t size) {
+void* libcUnixAlignedAlloc(uint64_t alignment, uint64_t size) {
     typedef void* (*km_fn_t)(uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2311,15 +2311,15 @@ void* libc_unix_alignedAlloc(uint64_t alignment, uint64_t size) {
     return NULL;
 }
 
-int64_t libc_unix_read(int32_t fd, void* buf, uint64_t count) {
+int64_t libcUnixRead(int32_t fd, void* buf, uint64_t count) {
     return (int64_t)read(fd, buf, count);
 }
 
-int32_t libc_unix_rmdir(const char* path) {
+int32_t libcUnixRmdir(const char* path) {
     return (int32_t)rmdir(path);
 }
 
-int32_t libc_unix_seteuid(uint16_t uid) {
+int32_t libcUnixSeteuid(uint16_t uid) {
     typedef int32_t (*km_fn_t)(uint16_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2347,7 +2347,7 @@ int32_t libc_unix_seteuid(uint16_t uid) {
     return -1;
 }
 
-int32_t libc_unix_setegid(uint16_t gid) {
+int32_t libcUnixSetegid(uint16_t gid) {
     typedef int32_t (*km_fn_t)(uint16_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2375,7 +2375,7 @@ int32_t libc_unix_setegid(uint16_t gid) {
     return -1;
 }
 
-int32_t libc_unix_setgid(uint16_t gid) {
+int32_t libcUnixSetgid(uint16_t gid) {
     typedef int32_t (*km_fn_t)(uint16_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2403,7 +2403,7 @@ int32_t libc_unix_setgid(uint16_t gid) {
     return -1;
 }
 
-int32_t libc_unix_setpgid(int32_t pid, int32_t pgid) {
+int32_t libcUnixSetpgid(int32_t pid, int32_t pgid) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2431,7 +2431,7 @@ int32_t libc_unix_setpgid(int32_t pid, int32_t pgid) {
     return -1;
 }
 
-int32_t libc_unix_setsid(void) {
+int32_t libcUnixSetsid(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2459,7 +2459,7 @@ int32_t libc_unix_setsid(void) {
     return -1;
 }
 
-int32_t libc_unix_setuid(uint16_t uid) {
+int32_t libcUnixSetuid(uint16_t uid) {
     typedef int32_t (*km_fn_t)(uint16_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2487,7 +2487,7 @@ int32_t libc_unix_setuid(uint16_t uid) {
     return -1;
 }
 
-int32_t libc_unix_setreuid(uint16_t ruid, uint16_t euid) {
+int32_t libcUnixSetreuid(uint16_t ruid, uint16_t euid) {
     typedef int32_t (*km_fn_t)(uint16_t, uint16_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2515,7 +2515,7 @@ int32_t libc_unix_setreuid(uint16_t ruid, uint16_t euid) {
     return -1;
 }
 
-int32_t libc_unix_setregid(uint16_t rgid, uint16_t egid) {
+int32_t libcUnixSetregid(uint16_t rgid, uint16_t egid) {
     typedef int32_t (*km_fn_t)(uint16_t, uint16_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2543,7 +2543,7 @@ int32_t libc_unix_setregid(uint16_t rgid, uint16_t egid) {
     return -1;
 }
 
-uint32_t libc_unix_sleep(uint32_t secs) {
+uint32_t libcUnixSleep(uint32_t secs) {
 #if !defined(_WIN32)
     return (uint32_t)sleep(secs);
 #else
@@ -2553,7 +2553,7 @@ uint32_t libc_unix_sleep(uint32_t secs) {
 #endif
 }
 
-int32_t libc_unix_nanosleep(void* rqtp, void* rmtp) {
+int32_t libcUnixNanosleep(void* rqtp, void* rmtp) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2581,7 +2581,7 @@ int32_t libc_unix_nanosleep(void* rqtp, void* rmtp) {
     return -1;
 }
 
-int32_t libc_unix_tcgetpgrp(int32_t fd) {
+int32_t libcUnixTcgetpgrp(int32_t fd) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2609,7 +2609,7 @@ int32_t libc_unix_tcgetpgrp(int32_t fd) {
     return -1;
 }
 
-int32_t libc_unix_tcsetpgrp(int32_t fd, int32_t pgrp) {
+int32_t libcUnixTcsetpgrp(int32_t fd, int32_t pgrp) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2637,7 +2637,7 @@ int32_t libc_unix_tcsetpgrp(int32_t fd, int32_t pgrp) {
     return -1;
 }
 
-char* libc_unix_ttyname(int32_t fd) {
+char* libcUnixTtyname(int32_t fd) {
     typedef char* (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2665,7 +2665,7 @@ char* libc_unix_ttyname(int32_t fd) {
     return NULL;
 }
 
-int32_t libc_unix_ttynameR(int32_t fd, char* buf, uint64_t buflen) {
+int32_t libcUnixTtynameR(int32_t fd, char* buf, uint64_t buflen) {
     typedef int32_t (*km_fn_t)(int32_t, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2693,11 +2693,11 @@ int32_t libc_unix_ttynameR(int32_t fd, char* buf, uint64_t buflen) {
     return -1;
 }
 
-int32_t libc_unix_unlink(const char* c) {
+int32_t libcUnixUnlink(const char* c) {
     return (int32_t)unlink(c);
 }
 
-int32_t libc_unix_wait(void* status) {
+int32_t libcUnixWait(void* status) {
 #if !defined(_WIN32)
     return (int32_t)wait(status);
 #else
@@ -2707,7 +2707,7 @@ int32_t libc_unix_wait(void* status) {
 #endif
 }
 
-int32_t libc_unix_waitpid(int32_t pid, void* status, int32_t options) {
+int32_t libcUnixWaitpid(int32_t pid, void* status, int32_t options) {
 #if !defined(_WIN32)
     return (int32_t)waitpid(pid, status, options);
 #else
@@ -2719,11 +2719,11 @@ int32_t libc_unix_waitpid(int32_t pid, void* status, int32_t options) {
 #endif
 }
 
-int64_t libc_unix_write(int32_t fd, void* buf, uint64_t count) {
+int64_t libcUnixWrite(int32_t fd, void* buf, uint64_t count) {
     return (int64_t)write(fd, buf, count);
 }
 
-int64_t libc_unix_pread(int32_t fd, void* buf, uint64_t count, int64_t offset) {
+int64_t libcUnixPread(int32_t fd, void* buf, uint64_t count, int64_t offset) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2751,7 +2751,7 @@ int64_t libc_unix_pread(int32_t fd, void* buf, uint64_t count, int64_t offset) {
     return -1;
 }
 
-int64_t libc_unix_pwrite(int32_t fd, void* buf, uint64_t count, int64_t offset) {
+int64_t libcUnixPwrite(int32_t fd, void* buf, uint64_t count, int64_t offset) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2779,11 +2779,11 @@ int64_t libc_unix_pwrite(int32_t fd, void* buf, uint64_t count, int64_t offset) 
     return -1;
 }
 
-uint32_t libc_unix_umask(uint32_t mask) {
+uint32_t libcUnixUmask(uint32_t mask) {
     return (uint32_t)umask(mask);
 }
 
-int32_t libc_unix_utime(const char* file, void* buf) {
+int32_t libcUnixUtime(const char* file, void* buf) {
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2811,7 +2811,7 @@ int32_t libc_unix_utime(const char* file, void* buf) {
     return -1;
 }
 
-int32_t libc_unix_kill(int32_t pid, int32_t sig) {
+int32_t libcUnixKill(int32_t pid, int32_t sig) {
 #if !defined(_WIN32)
     return (int32_t)kill(pid, sig);
 #else
@@ -2822,7 +2822,7 @@ int32_t libc_unix_kill(int32_t pid, int32_t sig) {
 #endif
 }
 
-int32_t libc_unix_killpg(int32_t pgrp, int32_t sig) {
+int32_t libcUnixKillpg(int32_t pgrp, int32_t sig) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2850,7 +2850,7 @@ int32_t libc_unix_killpg(int32_t pgrp, int32_t sig) {
     return -1;
 }
 
-int32_t libc_unix_mlock(void* addr, uint64_t len) {
+int32_t libcUnixMlock(void* addr, uint64_t len) {
 #if !defined(_WIN32)
     return (int32_t)mlock(addr, len);
 #else
@@ -2861,7 +2861,7 @@ int32_t libc_unix_mlock(void* addr, uint64_t len) {
 #endif
 }
 
-int32_t libc_unix_munlock(void* addr, uint64_t len) {
+int32_t libcUnixMunlock(void* addr, uint64_t len) {
 #if !defined(_WIN32)
     return (int32_t)munlock(addr, len);
 #else
@@ -2872,7 +2872,7 @@ int32_t libc_unix_munlock(void* addr, uint64_t len) {
 #endif
 }
 
-int32_t libc_unix_mlockall(int32_t flags) {
+int32_t libcUnixMlockall(int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2900,7 +2900,7 @@ int32_t libc_unix_mlockall(int32_t flags) {
     return -1;
 }
 
-int32_t libc_unix_munlockall(void) {
+int32_t libcUnixMunlockall(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2928,7 +2928,7 @@ int32_t libc_unix_munlockall(void) {
     return -1;
 }
 
-void* libc_unix_mmap(void* addr, uint64_t len, int32_t prot, int32_t flags, int32_t fd, int64_t offset) {
+void* libcUnixMmap(void* addr, uint64_t len, int32_t prot, int32_t flags, int32_t fd, int64_t offset) {
 #if !defined(_WIN32)
     return (void*)mmap(addr, len, prot, flags, fd, offset);
 #else
@@ -2943,7 +2943,7 @@ void* libc_unix_mmap(void* addr, uint64_t len, int32_t prot, int32_t flags, int3
 #endif
 }
 
-int32_t libc_unix_munmap(void* addr, uint64_t len) {
+int32_t libcUnixMunmap(void* addr, uint64_t len) {
 #if !defined(_WIN32)
     return (int32_t)munmap(addr, len);
 #else
@@ -2954,7 +2954,7 @@ int32_t libc_unix_munmap(void* addr, uint64_t len) {
 #endif
 }
 
-uint32_t libc_unix_ifNametoindex(const char* ifname) {
+uint32_t libcUnixIfNametoindex(const char* ifname) {
     typedef uint32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2982,7 +2982,7 @@ uint32_t libc_unix_ifNametoindex(const char* ifname) {
     return 0;
 }
 
-char* libc_unix_ifIndextoname(uint32_t ifindex, char* ifname) {
+char* libcUnixIfIndextoname(uint32_t ifindex, char* ifname) {
     typedef char* (*km_fn_t)(uint32_t, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3010,7 +3010,7 @@ char* libc_unix_ifIndextoname(uint32_t ifindex, char* ifname) {
     return NULL;
 }
 
-int32_t libc_unix_lstat(const char* path, void* buf) {
+int32_t libcUnixLstat(const char* path, void* buf) {
 #if !defined(_WIN32)
     return (int32_t)lstat(path, buf);
 #else
@@ -3021,7 +3021,7 @@ int32_t libc_unix_lstat(const char* path, void* buf) {
 #endif
 }
 
-int32_t libc_unix_fsync(int32_t fd) {
+int32_t libcUnixFsync(int32_t fd) {
 #if !defined(_WIN32)
     return (int32_t)fsync(fd);
 #else
@@ -3031,7 +3031,7 @@ int32_t libc_unix_fsync(int32_t fd) {
 #endif
 }
 
-int32_t libc_unix_setenv(const char* name, const char* val, int32_t overwrite) {
+int32_t libcUnixSetenv(const char* name, const char* val, int32_t overwrite) {
 #if !defined(_WIN32)
     return (int32_t)setenv(name, val, overwrite);
 #else
@@ -3043,7 +3043,7 @@ int32_t libc_unix_setenv(const char* name, const char* val, int32_t overwrite) {
 #endif
 }
 
-int32_t libc_unix_unsetenv(const char* name) {
+int32_t libcUnixUnsetenv(const char* name) {
 #if !defined(_WIN32)
     return (int32_t)unsetenv(name);
 #else
@@ -3053,7 +3053,7 @@ int32_t libc_unix_unsetenv(const char* name) {
 #endif
 }
 
-int32_t libc_unix_symlink(const char* path1, const char* path2) {
+int32_t libcUnixSymlink(const char* path1, const char* path2) {
 #if !defined(_WIN32)
     return (int32_t)symlink(path1, path2);
 #else
@@ -3064,7 +3064,7 @@ int32_t libc_unix_symlink(const char* path1, const char* path2) {
 #endif
 }
 
-int32_t libc_unix_truncate(const char* path, int64_t length) {
+int32_t libcUnixTruncate(const char* path, int64_t length) {
 #if !defined(_WIN32)
     return (int32_t)truncate(path, length);
 #else
@@ -3075,7 +3075,7 @@ int32_t libc_unix_truncate(const char* path, int64_t length) {
 #endif
 }
 
-int32_t libc_unix_ftruncate(int32_t fd, int64_t length) {
+int32_t libcUnixFtruncate(int32_t fd, int64_t length) {
 #if !defined(_WIN32)
     return (int32_t)ftruncate(fd, length);
 #else
@@ -3086,7 +3086,7 @@ int32_t libc_unix_ftruncate(int32_t fd, int64_t length) {
 #endif
 }
 
-uint64_t libc_unix_signal(int32_t signum, uint64_t handler) {
+uint64_t libcUnixSignal(int32_t signum, uint64_t handler) {
     typedef uint64_t (*km_fn_t)(int32_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3114,7 +3114,7 @@ uint64_t libc_unix_signal(int32_t signum, uint64_t handler) {
     return 0;
 }
 
-int32_t libc_unix_getrusage(int32_t resource, void* usage) {
+int32_t libcUnixGetrusage(int32_t resource, void* usage) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3142,7 +3142,7 @@ int32_t libc_unix_getrusage(int32_t resource, void* usage) {
     return -1;
 }
 
-char* libc_unix_realpath(const char* pathname, char* resolved) {
+char* libcUnixRealpath(const char* pathname, char* resolved) {
     typedef char* (*km_fn_t)(const char*, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3170,7 +3170,7 @@ char* libc_unix_realpath(const char* pathname, char* resolved) {
     return NULL;
 }
 
-int32_t libc_unix_times(void* buf) {
+int32_t libcUnixTimes(void* buf) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3198,7 +3198,7 @@ int32_t libc_unix_times(void* buf) {
     return -1;
 }
 
-void* libc_unix_pthreadSelf(void) {
+void* libcUnixPthreadSelf(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3226,7 +3226,7 @@ void* libc_unix_pthreadSelf(void) {
     return NULL;
 }
 
-int32_t libc_unix_pthreadEqual(void* t1, void* t2) {
+int32_t libcUnixPthreadEqual(void* t1, void* t2) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3254,7 +3254,7 @@ int32_t libc_unix_pthreadEqual(void* t1, void* t2) {
     return -1;
 }
 
-int32_t libc_unix_pthreadJoin(void* native, void* value) {
+int32_t libcUnixPthreadJoin(void* native, void* value) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3282,7 +3282,7 @@ int32_t libc_unix_pthreadJoin(void* native, void* value) {
     return ENOSYS;
 }
 
-void libc_unix_pthreadExit(void* value) {
+void libcUnixPthreadExit(void* value) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3310,7 +3310,7 @@ void libc_unix_pthreadExit(void* value) {
     errno = ENOSYS;
 }
 
-int32_t libc_unix_pthreadAttrInit(void* attr) {
+int32_t libcUnixPthreadAttrInit(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3338,7 +3338,7 @@ int32_t libc_unix_pthreadAttrInit(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_unix_pthreadAttrDestroy(void* attr) {
+int32_t libcUnixPthreadAttrDestroy(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3366,7 +3366,7 @@ int32_t libc_unix_pthreadAttrDestroy(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_unix_pthreadAttrGetstacksize(void* attr, void* stacksize) {
+int32_t libcUnixPthreadAttrGetstacksize(void* attr, void* stacksize) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3394,7 +3394,7 @@ int32_t libc_unix_pthreadAttrGetstacksize(void* attr, void* stacksize) {
     return ENOSYS;
 }
 
-int32_t libc_unix_pthreadAttrSetstacksize(void* attr, uint64_t stack_size) {
+int32_t libcUnixPthreadAttrSetstacksize(void* attr, uint64_t stackSize) {
     typedef int32_t (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3416,13 +3416,13 @@ int32_t libc_unix_pthreadAttrSetstacksize(void* attr, uint64_t stack_size) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(attr, stack_size);
+        return km_fn_ptr(attr, stackSize);
     }
     errno = ENOSYS;
     return ENOSYS;
 }
 
-int32_t libc_unix_pthreadAttrSetdetachstate(void* attr, int32_t state) {
+int32_t libcUnixPthreadAttrSetdetachstate(void* attr, int32_t state) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3450,7 +3450,7 @@ int32_t libc_unix_pthreadAttrSetdetachstate(void* attr, int32_t state) {
     return ENOSYS;
 }
 
-int32_t libc_unix_pthreadDetach(void* thread) {
+int32_t libcUnixPthreadDetach(void* thread) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3478,7 +3478,7 @@ int32_t libc_unix_pthreadDetach(void* thread) {
     return ENOSYS;
 }
 
-int32_t libc_unix_schedYield(void) {
+int32_t libcUnixSchedYield(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3506,7 +3506,7 @@ int32_t libc_unix_schedYield(void) {
     return -1;
 }
 
-int32_t libc_unix_pthreadKeyCreate(void* key, void* dtor) {
+int32_t libcUnixPthreadKeyCreate(void* key, void* dtor) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3534,7 +3534,7 @@ int32_t libc_unix_pthreadKeyCreate(void* key, void* dtor) {
     return ENOSYS;
 }
 
-int32_t libc_unix_pthreadKeyDelete(int32_t key) {
+int32_t libcUnixPthreadKeyDelete(int32_t key) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3562,7 +3562,7 @@ int32_t libc_unix_pthreadKeyDelete(int32_t key) {
     return ENOSYS;
 }
 
-void* libc_unix_pthreadGetspecific(int32_t key) {
+void* libcUnixPthreadGetspecific(int32_t key) {
     typedef void* (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3590,7 +3590,7 @@ void* libc_unix_pthreadGetspecific(int32_t key) {
     return NULL;
 }
 
-int32_t libc_unix_pthreadSetspecific(int32_t key, void* value) {
+int32_t libcUnixPthreadSetspecific(int32_t key, void* value) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3618,7 +3618,7 @@ int32_t libc_unix_pthreadSetspecific(int32_t key, void* value) {
     return ENOSYS;
 }
 
-int32_t libc_unix_pthreadMutexInit(void* lock, void* attr) {
+int32_t libcUnixPthreadMutexInit(void* lock, void* attr) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3646,7 +3646,7 @@ int32_t libc_unix_pthreadMutexInit(void* lock, void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_unix_pthreadMutexDestroy(void* lock) {
+int32_t libcUnixPthreadMutexDestroy(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3674,7 +3674,7 @@ int32_t libc_unix_pthreadMutexDestroy(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_unix_pthreadMutexLock(void* lock) {
+int32_t libcUnixPthreadMutexLock(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3702,7 +3702,7 @@ int32_t libc_unix_pthreadMutexLock(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_unix_pthreadMutexTrylock(void* lock) {
+int32_t libcUnixPthreadMutexTrylock(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3730,7 +3730,7 @@ int32_t libc_unix_pthreadMutexTrylock(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_unix_pthreadMutexUnlock(void* lock) {
+int32_t libcUnixPthreadMutexUnlock(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3758,7 +3758,7 @@ int32_t libc_unix_pthreadMutexUnlock(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_unix_pthreadMutexattrInit(void* attr) {
+int32_t libcUnixPthreadMutexattrInit(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3786,7 +3786,7 @@ int32_t libc_unix_pthreadMutexattrInit(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_unix_pthreadMutexattrDestroy(void* attr) {
+int32_t libcUnixPthreadMutexattrDestroy(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3814,7 +3814,7 @@ int32_t libc_unix_pthreadMutexattrDestroy(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_unix_pthreadMutexattrSettype(void* attr, int32_t arg_1_type) {
+int32_t libcUnixPthreadMutexattrSettype(void* attr, int32_t type) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3836,13 +3836,13 @@ int32_t libc_unix_pthreadMutexattrSettype(void* attr, int32_t arg_1_type) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(attr, arg_1_type);
+        return km_fn_ptr(attr, type);
     }
     errno = ENOSYS;
     return ENOSYS;
 }
 
-int32_t libc_unix_pthreadCondInit(void* cond, void* attr) {
+int32_t libcUnixPthreadCondInit(void* cond, void* attr) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3870,7 +3870,7 @@ int32_t libc_unix_pthreadCondInit(void* cond, void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_unix_pthreadCondWait(void* cond, void* lock) {
+int32_t libcUnixPthreadCondWait(void* cond, void* lock) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3898,7 +3898,7 @@ int32_t libc_unix_pthreadCondWait(void* cond, void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_unix_pthreadCondTimedwait(void* cond, void* lock, void* abstime) {
+int32_t libcUnixPthreadCondTimedwait(void* cond, void* lock, void* abstime) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3926,7 +3926,7 @@ int32_t libc_unix_pthreadCondTimedwait(void* cond, void* lock, void* abstime) {
     return ENOSYS;
 }
 
-int32_t libc_unix_pthreadCondSignal(void* cond) {
+int32_t libcUnixPthreadCondSignal(void* cond) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3954,7 +3954,7 @@ int32_t libc_unix_pthreadCondSignal(void* cond) {
     return ENOSYS;
 }
 
-int32_t libc_unix_pthreadCondBroadcast(void* cond) {
+int32_t libcUnixPthreadCondBroadcast(void* cond) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3982,7 +3982,7 @@ int32_t libc_unix_pthreadCondBroadcast(void* cond) {
     return ENOSYS;
 }
 
-int32_t libc_unix_pthreadCondDestroy(void* cond) {
+int32_t libcUnixPthreadCondDestroy(void* cond) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4010,7 +4010,7 @@ int32_t libc_unix_pthreadCondDestroy(void* cond) {
     return ENOSYS;
 }
 
-int32_t libc_unix_pthreadCondattrInit(void* attr) {
+int32_t libcUnixPthreadCondattrInit(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4038,7 +4038,7 @@ int32_t libc_unix_pthreadCondattrInit(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_unix_pthreadCondattrDestroy(void* attr) {
+int32_t libcUnixPthreadCondattrDestroy(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4066,7 +4066,7 @@ int32_t libc_unix_pthreadCondattrDestroy(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_unix_pthreadRwlockInit(void* lock, void* attr) {
+int32_t libcUnixPthreadRwlockInit(void* lock, void* attr) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4094,7 +4094,7 @@ int32_t libc_unix_pthreadRwlockInit(void* lock, void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_unix_pthreadRwlockDestroy(void* lock) {
+int32_t libcUnixPthreadRwlockDestroy(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4122,7 +4122,7 @@ int32_t libc_unix_pthreadRwlockDestroy(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_unix_pthreadRwlockRdlock(void* lock) {
+int32_t libcUnixPthreadRwlockRdlock(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4150,7 +4150,7 @@ int32_t libc_unix_pthreadRwlockRdlock(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_unix_pthreadRwlockTryrdlock(void* lock) {
+int32_t libcUnixPthreadRwlockTryrdlock(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4178,7 +4178,7 @@ int32_t libc_unix_pthreadRwlockTryrdlock(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_unix_pthreadRwlockWrlock(void* lock) {
+int32_t libcUnixPthreadRwlockWrlock(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4206,7 +4206,7 @@ int32_t libc_unix_pthreadRwlockWrlock(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_unix_pthreadRwlockTrywrlock(void* lock) {
+int32_t libcUnixPthreadRwlockTrywrlock(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4234,7 +4234,7 @@ int32_t libc_unix_pthreadRwlockTrywrlock(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_unix_pthreadRwlockUnlock(void* lock) {
+int32_t libcUnixPthreadRwlockUnlock(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4262,7 +4262,7 @@ int32_t libc_unix_pthreadRwlockUnlock(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_unix_pthreadRwlockattrInit(void* attr) {
+int32_t libcUnixPthreadRwlockattrInit(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4290,7 +4290,7 @@ int32_t libc_unix_pthreadRwlockattrInit(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_unix_pthreadRwlockattrDestroy(void* attr) {
+int32_t libcUnixPthreadRwlockattrDestroy(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4318,15 +4318,15 @@ int32_t libc_unix_pthreadRwlockattrDestroy(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_unix_getsockopt(int32_t sockfd, int32_t level, int32_t optname, void* optval, void* optlen) {
+int32_t libcUnixGetsockopt(int32_t sockfd, int32_t level, int32_t optname, void* optval, void* optlen) {
     return (int32_t)getsockopt(sockfd, level, optname, optval, optlen);
 }
 
-int32_t libc_unix_raise(int32_t signum) {
+int32_t libcUnixRaise(int32_t signum) {
     return (int32_t)raise(signum);
 }
 
-int32_t libc_unix_utimes(const char* filename, void* times) {
+int32_t libcUnixUtimes(const char* filename, void* times) {
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4354,7 +4354,7 @@ int32_t libc_unix_utimes(const char* filename, void* times) {
     return -1;
 }
 
-void* libc_unix_dlopen(const char* filename, int32_t flag) {
+void* libcUnixDlopen(const char* filename, int32_t flag) {
 #if !defined(_WIN32)
     return (void*)dlopen(filename, flag);
 #else
@@ -4365,7 +4365,7 @@ void* libc_unix_dlopen(const char* filename, int32_t flag) {
 #endif
 }
 
-char* libc_unix_dlerror(void) {
+char* libcUnixDlerror(void) {
 #if !defined(_WIN32)
     return (char*)dlerror();
 #else
@@ -4374,7 +4374,7 @@ char* libc_unix_dlerror(void) {
 #endif
 }
 
-void* libc_unix_dlsym(void* handle, const char* symbol) {
+void* libcUnixDlsym(void* handle, const char* symbol) {
 #if !defined(_WIN32)
     return (void*)dlsym(handle, symbol);
 #else
@@ -4385,7 +4385,7 @@ void* libc_unix_dlsym(void* handle, const char* symbol) {
 #endif
 }
 
-int32_t libc_unix_dlclose(void* handle) {
+int32_t libcUnixDlclose(void* handle) {
 #if !defined(_WIN32)
     return (int32_t)dlclose(handle);
 #else
@@ -4395,7 +4395,7 @@ int32_t libc_unix_dlclose(void* handle) {
 #endif
 }
 
-int32_t libc_unix_getaddrinfo(const char* node, const char* service, void* hints, void* res) {
+int32_t libcUnixGetaddrinfo(const char* node, const char* service, void* hints, void* res) {
     typedef int32_t (*km_fn_t)(const char*, const char*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4423,7 +4423,7 @@ int32_t libc_unix_getaddrinfo(const char* node, const char* service, void* hints
     return -1;
 }
 
-void libc_unix_freeaddrinfo(void* res) {
+void libcUnixFreeaddrinfo(void* res) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4451,7 +4451,7 @@ void libc_unix_freeaddrinfo(void* res) {
     errno = ENOSYS;
 }
 
-const char* libc_unix_hstrerror(int32_t errcode) {
+const char* libcUnixHstrerror(int32_t errcode) {
     typedef const char* (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4479,7 +4479,7 @@ const char* libc_unix_hstrerror(int32_t errcode) {
     return NULL;
 }
 
-const char* libc_unix_gaiStrerror(int32_t errcode) {
+const char* libcUnixGaiStrerror(int32_t errcode) {
     typedef const char* (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4507,7 +4507,7 @@ const char* libc_unix_gaiStrerror(int32_t errcode) {
     return NULL;
 }
 
-int32_t libc_unix_resInit(void) {
+int32_t libcUnixResInit(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4535,7 +4535,7 @@ int32_t libc_unix_resInit(void) {
     return -1;
 }
 
-void* libc_unix_gmtimeR(void* time_p, void* result) {
+void* libcUnixGmtimeR(void* timeP, void* result) {
     typedef void* (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4557,13 +4557,13 @@ void* libc_unix_gmtimeR(void* time_p, void* result) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(time_p, result);
+        return km_fn_ptr(timeP, result);
     }
     errno = ENOSYS;
     return NULL;
 }
 
-void* libc_unix_localtimeR(void* time_p, void* result) {
+void* libcUnixLocaltimeR(void* timeP, void* result) {
     typedef void* (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4585,33 +4585,33 @@ void* libc_unix_localtimeR(void* time_p, void* result) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(time_p, result);
+        return km_fn_ptr(timeP, result);
     }
     errno = ENOSYS;
     return NULL;
 }
 
-int64_t libc_unix_mktime(void* tm) {
+int64_t libcUnixMktime(void* tm) {
     return (int64_t)mktime(tm);
 }
 
-int64_t libc_unix_time(void* arg_0_time) {
-    return (int64_t)time(arg_0_time);
+int64_t libcUnixTime(void* arg0Time) {
+    return (int64_t)time(arg0Time);
 }
 
-void* libc_unix_gmtime(void* time_p) {
-    return (void*)gmtime(time_p);
+void* libcUnixGmtime(void* timeP) {
+    return (void*)gmtime(timeP);
 }
 
-void* libc_unix_localtime(void* time_p) {
-    return (void*)localtime(time_p);
+void* libcUnixLocaltime(void* timeP) {
+    return (void*)localtime(timeP);
 }
 
-double libc_unix_difftime(int64_t time1, int64_t time0) {
+double libcUnixDifftime(int64_t time1, int64_t time0) {
     return (double)difftime(time1, time0);
 }
 
-int64_t libc_unix_timegm(void* tm) {
+int64_t libcUnixTimegm(void* tm) {
     typedef int64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4639,7 +4639,7 @@ int64_t libc_unix_timegm(void* tm) {
     return -1;
 }
 
-int32_t libc_unix_mknod(const char* pathname, uint32_t mode, int32_t dev) {
+int32_t libcUnixMknod(const char* pathname, uint32_t mode, int32_t dev) {
 #if !defined(_WIN32)
     return (int32_t)mknod(pathname, mode, dev);
 #else
@@ -4651,7 +4651,7 @@ int32_t libc_unix_mknod(const char* pathname, uint32_t mode, int32_t dev) {
 #endif
 }
 
-int32_t libc_unix_gethostname(char* name, uint64_t len) {
+int32_t libcUnixGethostname(char* name, uint64_t len) {
     typedef int32_t (*km_fn_t)(char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4679,7 +4679,7 @@ int32_t libc_unix_gethostname(char* name, uint64_t len) {
     return -1;
 }
 
-void libc_unix_endservent(void) {
+void libcUnixEndservent(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4707,7 +4707,7 @@ void libc_unix_endservent(void) {
     errno = ENOSYS;
 }
 
-void* libc_unix_getservbyname(const char* name, const char* proto) {
+void* libcUnixGetservbyname(const char* name, const char* proto) {
     typedef void* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4735,7 +4735,7 @@ void* libc_unix_getservbyname(const char* name, const char* proto) {
     return NULL;
 }
 
-void* libc_unix_getservbyport(int32_t port, const char* proto) {
+void* libcUnixGetservbyport(int32_t port, const char* proto) {
     typedef void* (*km_fn_t)(int32_t, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4763,7 +4763,7 @@ void* libc_unix_getservbyport(int32_t port, const char* proto) {
     return NULL;
 }
 
-void* libc_unix_getservent(void) {
+void* libcUnixGetservent(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4791,7 +4791,7 @@ void* libc_unix_getservent(void) {
     return NULL;
 }
 
-void libc_unix_setservent(int32_t stayopen) {
+void libcUnixSetservent(int32_t stayopen) {
     typedef void (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4819,7 +4819,7 @@ void libc_unix_setservent(int32_t stayopen) {
     errno = ENOSYS;
 }
 
-void* libc_unix_getprotobyname(const char* name) {
+void* libcUnixGetprotobyname(const char* name) {
     typedef void* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4847,7 +4847,7 @@ void* libc_unix_getprotobyname(const char* name) {
     return NULL;
 }
 
-void* libc_unix_getprotobynumber(int32_t proto) {
+void* libcUnixGetprotobynumber(int32_t proto) {
     typedef void* (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4875,7 +4875,7 @@ void* libc_unix_getprotobynumber(int32_t proto) {
     return NULL;
 }
 
-int32_t libc_unix_chroot(const char* name) {
+int32_t libcUnixChroot(const char* name) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4903,7 +4903,7 @@ int32_t libc_unix_chroot(const char* name) {
     return -1;
 }
 
-int32_t libc_unix_usleep(uint32_t secs) {
+int32_t libcUnixUsleep(uint32_t secs) {
 #if !defined(_WIN32)
     return (int32_t)usleep(secs);
 #else
@@ -4913,15 +4913,15 @@ int32_t libc_unix_usleep(uint32_t secs) {
 #endif
 }
 
-int64_t libc_unix_send(int32_t arg_0_socket, void* buf, uint64_t len, int32_t flags) {
-    return (int64_t)send(arg_0_socket, buf, len, flags);
+int64_t libcUnixSend(int32_t arg0Socket, void* buf, uint64_t len, int32_t flags) {
+    return (int64_t)send(arg0Socket, buf, len, flags);
 }
 
-int64_t libc_unix_recv(int32_t arg_0_socket, void* buf, uint64_t len, int32_t flags) {
-    return (int64_t)recv(arg_0_socket, buf, len, flags);
+int64_t libcUnixRecv(int32_t arg0Socket, void* buf, uint64_t len, int32_t flags) {
+    return (int64_t)recv(arg0Socket, buf, len, flags);
 }
 
-int32_t libc_unix_putenv(char* string) {
+int32_t libcUnixPutenv(char* string) {
     typedef int32_t (*km_fn_t)(char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4949,7 +4949,7 @@ int32_t libc_unix_putenv(char* string) {
     return -1;
 }
 
-int32_t libc_unix_poll(void* fds, uint64_t nfds, int32_t timeout) {
+int32_t libcUnixPoll(void* fds, uint64_t nfds, int32_t timeout) {
 #if !defined(_WIN32)
     return (int32_t)poll(fds, nfds, timeout);
 #else
@@ -4961,7 +4961,7 @@ int32_t libc_unix_poll(void* fds, uint64_t nfds, int32_t timeout) {
 #endif
 }
 
-int32_t libc_unix_select(int32_t nfds, void* readfds, void* writefds, void* errorfds, void* timeout) {
+int32_t libcUnixSelect(int32_t nfds, void* readfds, void* writefds, void* errorfds, void* timeout) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4989,15 +4989,15 @@ int32_t libc_unix_select(int32_t nfds, void* readfds, void* writefds, void* erro
     return -1;
 }
 
-char* libc_unix_setlocale(int32_t category, const char* locale) {
+char* libcUnixSetlocale(int32_t category, const char* locale) {
     return (char*)setlocale(category, locale);
 }
 
-void* libc_unix_localeconv(void) {
+void* libcUnixLocaleconv(void) {
     return (void*)localeconv();
 }
 
-int32_t libc_unix_semWait(void* sem) {
+int32_t libcUnixSemWait(void* sem) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5025,7 +5025,7 @@ int32_t libc_unix_semWait(void* sem) {
     return -1;
 }
 
-int32_t libc_unix_semTrywait(void* sem) {
+int32_t libcUnixSemTrywait(void* sem) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5053,7 +5053,7 @@ int32_t libc_unix_semTrywait(void* sem) {
     return -1;
 }
 
-int32_t libc_unix_semPost(void* sem) {
+int32_t libcUnixSemPost(void* sem) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5081,7 +5081,7 @@ int32_t libc_unix_semPost(void* sem) {
     return -1;
 }
 
-int32_t libc_unix_statvfs(const char* path, void* buf) {
+int32_t libcUnixStatvfs(const char* path, void* buf) {
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5109,7 +5109,7 @@ int32_t libc_unix_statvfs(const char* path, void* buf) {
     return -1;
 }
 
-int32_t libc_unix_fstatvfs(int32_t fd, void* buf) {
+int32_t libcUnixFstatvfs(int32_t fd, void* buf) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5137,7 +5137,7 @@ int32_t libc_unix_fstatvfs(int32_t fd, void* buf) {
     return -1;
 }
 
-int32_t libc_unix_sigemptyset(void* set) {
+int32_t libcUnixSigemptyset(void* set) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5165,7 +5165,7 @@ int32_t libc_unix_sigemptyset(void* set) {
     return -1;
 }
 
-int32_t libc_unix_sigaddset(void* set, int32_t signum) {
+int32_t libcUnixSigaddset(void* set, int32_t signum) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5193,7 +5193,7 @@ int32_t libc_unix_sigaddset(void* set, int32_t signum) {
     return -1;
 }
 
-int32_t libc_unix_sigfillset(void* set) {
+int32_t libcUnixSigfillset(void* set) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5221,7 +5221,7 @@ int32_t libc_unix_sigfillset(void* set) {
     return -1;
 }
 
-int32_t libc_unix_sigdelset(void* set, int32_t signum) {
+int32_t libcUnixSigdelset(void* set, int32_t signum) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5249,7 +5249,7 @@ int32_t libc_unix_sigdelset(void* set, int32_t signum) {
     return -1;
 }
 
-int32_t libc_unix_sigismember(void* set, int32_t signum) {
+int32_t libcUnixSigismember(void* set, int32_t signum) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5277,7 +5277,7 @@ int32_t libc_unix_sigismember(void* set, int32_t signum) {
     return -1;
 }
 
-int32_t libc_unix_sigprocmask(int32_t how, void* set, void* oldset) {
+int32_t libcUnixSigprocmask(int32_t how, void* set, void* oldset) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5305,7 +5305,7 @@ int32_t libc_unix_sigprocmask(int32_t how, void* set, void* oldset) {
     return -1;
 }
 
-int32_t libc_unix_sigpending(void* set) {
+int32_t libcUnixSigpending(void* set) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5333,7 +5333,7 @@ int32_t libc_unix_sigpending(void* set) {
     return -1;
 }
 
-int64_t libc_unix_sysconf(int32_t name) {
+int64_t libcUnixSysconf(int32_t name) {
 #if !defined(_WIN32)
     return (int64_t)sysconf(name);
 #else
@@ -5343,7 +5343,7 @@ int64_t libc_unix_sysconf(int32_t name) {
 #endif
 }
 
-int32_t libc_unix_mkfifo(const char* path, uint32_t mode) {
+int32_t libcUnixMkfifo(const char* path, uint32_t mode) {
 #if !defined(_WIN32)
     return (int32_t)mkfifo(path, mode);
 #else
@@ -5354,7 +5354,7 @@ int32_t libc_unix_mkfifo(const char* path, uint32_t mode) {
 #endif
 }
 
-int32_t libc_unix_fseeko(void* stream, int64_t offset, int32_t whence) {
+int32_t libcUnixFseeko(void* stream, int64_t offset, int32_t whence) {
     typedef int32_t (*km_fn_t)(void*, int64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5382,7 +5382,7 @@ int32_t libc_unix_fseeko(void* stream, int64_t offset, int32_t whence) {
     return -1;
 }
 
-int64_t libc_unix_ftello(void* stream) {
+int64_t libcUnixFtello(void* stream) {
     typedef int64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5410,7 +5410,7 @@ int64_t libc_unix_ftello(void* stream) {
     return -1;
 }
 
-int32_t libc_unix_tcdrain(int32_t fd) {
+int32_t libcUnixTcdrain(int32_t fd) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5438,7 +5438,7 @@ int32_t libc_unix_tcdrain(int32_t fd) {
     return -1;
 }
 
-uint32_t libc_unix_cfgetispeed(void* termios) {
+uint32_t libcUnixCfgetispeed(void* termios) {
     typedef uint32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5466,7 +5466,7 @@ uint32_t libc_unix_cfgetispeed(void* termios) {
     return 0;
 }
 
-uint32_t libc_unix_cfgetospeed(void* termios) {
+uint32_t libcUnixCfgetospeed(void* termios) {
     typedef uint32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5494,7 +5494,7 @@ uint32_t libc_unix_cfgetospeed(void* termios) {
     return 0;
 }
 
-int32_t libc_unix_cfsetispeed(void* termios, uint32_t speed) {
+int32_t libcUnixCfsetispeed(void* termios, uint32_t speed) {
     typedef int32_t (*km_fn_t)(void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5522,7 +5522,7 @@ int32_t libc_unix_cfsetispeed(void* termios, uint32_t speed) {
     return -1;
 }
 
-int32_t libc_unix_cfsetospeed(void* termios, uint32_t speed) {
+int32_t libcUnixCfsetospeed(void* termios, uint32_t speed) {
     typedef int32_t (*km_fn_t)(void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5550,7 +5550,7 @@ int32_t libc_unix_cfsetospeed(void* termios, uint32_t speed) {
     return -1;
 }
 
-int32_t libc_unix_tcgetattr(int32_t fd, void* termios) {
+int32_t libcUnixTcgetattr(int32_t fd, void* termios) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5578,7 +5578,7 @@ int32_t libc_unix_tcgetattr(int32_t fd, void* termios) {
     return -1;
 }
 
-int32_t libc_unix_tcsetattr(int32_t fd, int32_t optional_actions, void* termios) {
+int32_t libcUnixTcsetattr(int32_t fd, int32_t optionalActions, void* termios) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5600,13 +5600,13 @@ int32_t libc_unix_tcsetattr(int32_t fd, int32_t optional_actions, void* termios)
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(fd, optional_actions, termios);
+        return km_fn_ptr(fd, optionalActions, termios);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_tcflow(int32_t fd, int32_t action) {
+int32_t libcUnixTcflow(int32_t fd, int32_t action) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5634,7 +5634,7 @@ int32_t libc_unix_tcflow(int32_t fd, int32_t action) {
     return -1;
 }
 
-int32_t libc_unix_tcflush(int32_t fd, int32_t action) {
+int32_t libcUnixTcflush(int32_t fd, int32_t action) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5662,7 +5662,7 @@ int32_t libc_unix_tcflush(int32_t fd, int32_t action) {
     return -1;
 }
 
-int32_t libc_unix_tcgetsid(int32_t fd) {
+int32_t libcUnixTcgetsid(int32_t fd) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5690,7 +5690,7 @@ int32_t libc_unix_tcgetsid(int32_t fd) {
     return -1;
 }
 
-int32_t libc_unix_tcsendbreak(int32_t fd, int32_t duration) {
+int32_t libcUnixTcsendbreak(int32_t fd, int32_t duration) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5718,7 +5718,7 @@ int32_t libc_unix_tcsendbreak(int32_t fd, int32_t duration) {
     return -1;
 }
 
-int32_t libc_unix_mkstemp(char* arg_0_template) {
+int32_t libcUnixMkstemp(char* arg0Template) {
     typedef int32_t (*km_fn_t)(char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5740,13 +5740,13 @@ int32_t libc_unix_mkstemp(char* arg_0_template) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_template);
+        return km_fn_ptr(arg0Template);
     }
     errno = ENOSYS;
     return -1;
 }
 
-char* libc_unix_mkdtemp(char* arg_0_template) {
+char* libcUnixMkdtemp(char* arg0Template) {
     typedef char* (*km_fn_t)(char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5768,13 +5768,13 @@ char* libc_unix_mkdtemp(char* arg_0_template) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_template);
+        return km_fn_ptr(arg0Template);
     }
     errno = ENOSYS;
     return NULL;
 }
 
-char* libc_unix_tmpnam(char* ptr) {
+char* libcUnixTmpnam(char* ptr) {
     typedef char* (*km_fn_t)(char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5802,7 +5802,7 @@ char* libc_unix_tmpnam(char* ptr) {
     return NULL;
 }
 
-void libc_unix_openlog(const char* ident, int32_t logopt, int32_t facility) {
+void libcUnixOpenlog(const char* ident, int32_t logopt, int32_t facility) {
     typedef void (*km_fn_t)(const char*, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5830,7 +5830,7 @@ void libc_unix_openlog(const char* ident, int32_t logopt, int32_t facility) {
     errno = ENOSYS;
 }
 
-void libc_unix_closelog(void) {
+void libcUnixCloselog(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5858,7 +5858,7 @@ void libc_unix_closelog(void) {
     errno = ENOSYS;
 }
 
-int32_t libc_unix_setlogmask(int32_t maskpri) {
+int32_t libcUnixSetlogmask(int32_t maskpri) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5886,7 +5886,7 @@ int32_t libc_unix_setlogmask(int32_t maskpri) {
     return -1;
 }
 
-void libc_unix_syslog(int32_t priority, const char* message, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+void libcUnixSyslog(int32_t priority, const char* message, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef void (*km_fn_t)(int32_t, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5920,7 +5920,7 @@ void libc_unix_syslog(int32_t priority, const char* message, int32_t km_vac, int
     errno = ENOSYS;
 }
 
-int32_t libc_unix_nice(int32_t incr) {
+int32_t libcUnixNice(int32_t incr) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5948,7 +5948,7 @@ int32_t libc_unix_nice(int32_t incr) {
     return -1;
 }
 
-int32_t libc_unix_grantpt(int32_t fd) {
+int32_t libcUnixGrantpt(int32_t fd) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5976,7 +5976,7 @@ int32_t libc_unix_grantpt(int32_t fd) {
     return -1;
 }
 
-int32_t libc_unix_posixOpenpt(int32_t flags) {
+int32_t libcUnixPosixOpenpt(int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6004,7 +6004,7 @@ int32_t libc_unix_posixOpenpt(int32_t flags) {
     return -1;
 }
 
-char* libc_unix_ptsname(int32_t fd) {
+char* libcUnixPtsname(int32_t fd) {
     typedef char* (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6032,7 +6032,7 @@ char* libc_unix_ptsname(int32_t fd) {
     return NULL;
 }
 
-int32_t libc_unix_unlockpt(int32_t fd) {
+int32_t libcUnixUnlockpt(int32_t fd) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6060,7 +6060,7 @@ int32_t libc_unix_unlockpt(int32_t fd) {
     return -1;
 }
 
-char* libc_unix_strcasestr(const char* cs, const char* ct) {
+char* libcUnixStrcasestr(const char* cs, const char* ct) {
     typedef char* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6088,7 +6088,7 @@ char* libc_unix_strcasestr(const char* cs, const char* ct) {
     return NULL;
 }
 
-int64_t libc_unix_getline(void* lineptr, void* n, void* stream) {
+int64_t libcUnixGetline(void* lineptr, void* n, void* stream) {
     typedef int64_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6116,7 +6116,7 @@ int64_t libc_unix_getline(void* lineptr, void* n, void* stream) {
     return -1;
 }
 
-int32_t libc_unix_lockf(int32_t fd, int32_t cmd, int64_t len) {
+int32_t libcUnixLockf(int32_t fd, int32_t cmd, int64_t len) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6144,7 +6144,7 @@ int32_t libc_unix_lockf(int32_t fd, int32_t cmd, int64_t len) {
     return -1;
 }
 
-int32_t libc_unix_adjtime(void* delta, void* olddelta) {
+int32_t libcUnixAdjtime(void* delta, void* olddelta) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6172,7 +6172,7 @@ int32_t libc_unix_adjtime(void* delta, void* olddelta) {
     return -1;
 }
 
-char* libc_unix_stpncpy(char* dst, const char* src, uint64_t n) {
+char* libcUnixStpncpy(char* dst, const char* src, uint64_t n) {
     typedef char* (*km_fn_t)(char*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6200,7 +6200,7 @@ char* libc_unix_stpncpy(char* dst, const char* src, uint64_t n) {
     return NULL;
 }
 
-uint64_t libc_unix_confstr(int32_t name, char* buf, uint64_t len) {
+uint64_t libcUnixConfstr(int32_t name, char* buf, uint64_t len) {
     typedef uint64_t (*km_fn_t)(int32_t, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6228,7 +6228,7 @@ uint64_t libc_unix_confstr(int32_t name, char* buf, uint64_t len) {
     return 0;
 }
 
-int32_t libc_unix_dladdr(void* addr, void* info) {
+int32_t libcUnixDladdr(void* addr, void* info) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6256,7 +6256,7 @@ int32_t libc_unix_dladdr(void* addr, void* info) {
     return -1;
 }
 
-int32_t libc_unix_flock(int32_t fd, int32_t operation) {
+int32_t libcUnixFlock(int32_t fd, int32_t operation) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6284,7 +6284,7 @@ int32_t libc_unix_flock(int32_t fd, int32_t operation) {
     return -1;
 }
 
-void* libc_unix_openWmemstream(void* ptr, void* sizeloc) {
+void* libcUnixOpenWmemstream(void* ptr, void* sizeloc) {
     typedef void* (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6312,7 +6312,7 @@ void* libc_unix_openWmemstream(void* ptr, void* sizeloc) {
     return NULL;
 }
 
-int32_t libc_unix_getsid(int32_t pid) {
+int32_t libcUnixGetsid(int32_t pid) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6340,7 +6340,7 @@ int32_t libc_unix_getsid(int32_t pid) {
     return -1;
 }
 
-int32_t libc_unix_pause(void) {
+int32_t libcUnixPause(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6368,7 +6368,7 @@ int32_t libc_unix_pause(void) {
     return -1;
 }
 
-int32_t libc_unix_mkdirat(int32_t dirfd, const char* pathname, uint32_t mode) {
+int32_t libcUnixMkdirat(int32_t dirfd, const char* pathname, uint32_t mode) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6396,7 +6396,7 @@ int32_t libc_unix_mkdirat(int32_t dirfd, const char* pathname, uint32_t mode) {
     return -1;
 }
 
-int32_t libc_unix_openat(int32_t dirfd, const char* pathname, int32_t flags, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcUnixOpenat(int32_t dirfd, const char* pathname, int32_t flags, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6430,7 +6430,7 @@ int32_t libc_unix_openat(int32_t dirfd, const char* pathname, int32_t flags, int
     return -1;
 }
 
-void* libc_unix_fdopendir(int32_t fd) {
+void* libcUnixFdopendir(int32_t fd) {
     typedef void* (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6458,7 +6458,7 @@ void* libc_unix_fdopendir(int32_t fd) {
     return NULL;
 }
 
-int32_t libc_unix_readdirR(void* dirp, void* entry, void* result) {
+int32_t libcUnixReaddirR(void* dirp, void* entry, void* result) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6486,7 +6486,7 @@ int32_t libc_unix_readdirR(void* dirp, void* entry, void* result) {
     return -1;
 }
 
-int32_t libc_unix_readlinkat(int32_t dirfd, const char* pathname, char* buf, uint64_t bufsiz) {
+int32_t libcUnixReadlinkat(int32_t dirfd, const char* pathname, char* buf, uint64_t bufsiz) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6514,7 +6514,7 @@ int32_t libc_unix_readlinkat(int32_t dirfd, const char* pathname, char* buf, uin
     return -1;
 }
 
-int32_t libc_unix_readlink(const char* path, char* buf, uint64_t bufsz) {
+int32_t libcUnixReadlink(const char* path, char* buf, uint64_t bufsz) {
 #if !defined(_WIN32)
     return (int32_t)readlink(path, buf, bufsz);
 #else
@@ -6526,7 +6526,7 @@ int32_t libc_unix_readlink(const char* path, char* buf, uint64_t bufsz) {
 #endif
 }
 
-int32_t libc_unix_pselect(int32_t nfds, void* readfds, void* writefds, void* errorfds, void* timeout, void* sigmask) {
+int32_t libcUnixPselect(int32_t nfds, void* readfds, void* writefds, void* errorfds, void* timeout, void* sigmask) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6554,7 +6554,7 @@ int32_t libc_unix_pselect(int32_t nfds, void* readfds, void* writefds, void* err
     return -1;
 }
 
-int32_t libc_unix_sigaction(int32_t signum, void* act, void* oldact) {
+int32_t libcUnixSigaction(int32_t signum, void* act, void* oldact) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6582,7 +6582,7 @@ int32_t libc_unix_sigaction(int32_t signum, void* act, void* oldact) {
     return -1;
 }
 
-void* libc_unix_fmemopen(void* buf, uint64_t size, const char* mode) {
+void* libcUnixFmemopen(void* buf, uint64_t size, const char* mode) {
     typedef void* (*km_fn_t)(void*, uint64_t, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6610,7 +6610,7 @@ void* libc_unix_fmemopen(void* buf, uint64_t size, const char* mode) {
     return NULL;
 }
 
-void* libc_unix_openMemstream(void* ptr, void* sizeloc) {
+void* libcUnixOpenMemstream(void* ptr, void* sizeloc) {
     typedef void* (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6638,7 +6638,7 @@ void* libc_unix_openMemstream(void* ptr, void* sizeloc) {
     return NULL;
 }
 
-int32_t libc_unix_atexit(void* cb) {
+int32_t libcUnixAtexit(void* cb) {
     if (cb == NULL) {
         errno = EINVAL;
         return -1;
@@ -6674,7 +6674,7 @@ int32_t libc_unix_atexit(void* cb) {
 #endif
 }
 
-int32_t libc_unix_cfmakeraw(void* termios) {
+int32_t libcUnixCfmakeraw(void* termios) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6702,7 +6702,7 @@ int32_t libc_unix_cfmakeraw(void* termios) {
     return -1;
 }
 
-int32_t libc_unix_cfsetspeed(void* termios, uint32_t speed) {
+int32_t libcUnixCfsetspeed(void* termios, uint32_t speed) {
     typedef int32_t (*km_fn_t)(void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6730,7 +6730,7 @@ int32_t libc_unix_cfsetspeed(void* termios, uint32_t speed) {
     return -1;
 }
 
-int32_t libc_unix_fnmatch(const char* pattern, const char* name, int32_t flags) {
+int32_t libcUnixFnmatch(const char* pattern, const char* name, int32_t flags) {
     typedef int32_t (*km_fn_t)(const char*, const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

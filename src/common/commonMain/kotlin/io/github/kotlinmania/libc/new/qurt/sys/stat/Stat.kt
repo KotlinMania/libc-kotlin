@@ -2,9 +2,12 @@
 package io.github.kotlinmania.libc.new.qurt.sys.stat
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.new.qurt.ModeT
+import io.github.kotlinmania.libc.new.qurt.Stat
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 // Header: `sys / stat.h`
 
@@ -56,6 +59,6 @@ public val S_IWOTH: ModeT = 2u
 
 public val S_IXOTH: ModeT = 1u
 
-public expect fun stat(pathname: String?, statbuf: COpaquePointer?): CInt
+public expect fun stat(pathname: ConstPtr<CChar>, statbuf: MutPtr<Stat>): CInt
 
-public expect fun fstat(fd: CInt, statbuf: COpaquePointer?): CInt
+public expect fun fstat(fd: CInt, statbuf: MutPtr<Stat>): CInt

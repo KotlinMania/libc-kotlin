@@ -3,7 +3,6 @@ package io.github.kotlinmania.libc.unix.bsd.freebsdlike
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
@@ -20,6 +19,9 @@ import io.github.kotlinmania.libc.unix.bsd.POLLRDNORM
 import io.github.kotlinmania.libc.unix.bsd.POLLWRBAND
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.ClockidT
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.SemT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.mem.ObjectSlotLayout
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public val AIO_LISTIO_MAX: CInt = 16
 
@@ -335,7 +337,7 @@ public val MAP_ANON: CInt = 0x1000
 
 public val MAP_ANONYMOUS: CInt = MAP_ANON
 
-public val MAP_FAILED: COpaquePointer? = COpaquePointer((0.inv()).toLong())
+public val MAP_FAILED: MutPtr<CVoid> = MutPtr<CVoid>((0.inv()).toLong())
 
 public val MCL_CURRENT: CInt = 0x0001
 
@@ -1644,7 +1646,7 @@ public val CMGROUP_MAX: Int = 16
 public val EUI64_LEN: Int = 8
 
 // Non-public helper constant
-public val SIZEOF_LONG: Int = 8
+public val SIZEOF_LONG: Int = sizeOf<CLong>(typeLayoutT = ObjectSlotLayout<CLong>())
 
 // https://github.com/freebsd/freebsd/blob/HEAD/sys/net/bpf.h
 public val BPF_ALIGNMENT: Int = SIZEOF_LONG
@@ -1868,10 +1870,10 @@ public val POSIX_SPAWN_SETSIGDEF: CInt = 0x10
 
 public val POSIX_SPAWN_SETSIGMASK: CInt = 0x20
 
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = null
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = MutPtr(0L)
 
-public val PTHREAD_COND_INITIALIZER: PthreadCondT = null
+public val PTHREAD_COND_INITIALIZER: PthreadCondT = MutPtr(0L)
 
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = null
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = MutPtr(0L)
 
-public val SEM_FAILED: SemT? = null
+public val SEM_FAILED: MutPtr<SemT> = MutPtr(0L)

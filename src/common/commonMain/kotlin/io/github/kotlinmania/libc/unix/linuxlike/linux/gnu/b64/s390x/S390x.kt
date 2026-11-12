@@ -7,7 +7,6 @@ import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CDouble
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
@@ -35,6 +34,11 @@ import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.OffT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.ShmattT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.SigsetT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.TimeT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+import io.github.kotlinmania.rustlang.core.mem.TypeLayout
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 // s390x
 
@@ -157,11 +161,80 @@ public data class SiginfoT(
     }
 }
 
-public data class StackT(
-    public var ssSp: COpaquePointer? = null,
-    public var ssFlags: CInt = 0,
-    public var ssSize: SizeT = 0uL,
-)
+public class StackT internal constructor(
+    ssSpCtorArg: MutPtr<CVoid>,
+    public var ssFlags: CInt,
+    public var ssSize: SizeT,
+) {
+    public var ssSp: MutPtr<CVoid> = ssSpCtorArg
+        internal set
+
+    public constructor() : this(
+        ssSpCtorArg = MutPtr(0L),
+        ssFlags = 0,
+        ssSize = 0uL,
+    )
+
+    public operator fun component1(): MutPtr<CVoid> = this.ssSp
+
+    public operator fun component2(): CInt = this.ssFlags
+
+    public operator fun component3(): SizeT = this.ssSize
+
+    public fun copy(ssSp: MutPtr<CVoid> = this.ssSp, ssFlags: CInt = this.ssFlags, ssSize: SizeT = this.ssSize): StackT = StackT(ssSpCtorArg = ssSp, ssFlags = ssFlags, ssSize = ssSize)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is StackT) return false
+        if (this.ssSp != other.ssSp) return false
+        if (this.ssFlags != other.ssFlags) return false
+        if (this.ssSize != other.ssSize) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.ssSp.hashCode()
+        result = 31 * result + this.ssFlags.hashCode()
+        result = 31 * result + this.ssSize.hashCode()
+        return result
+    }
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<StackT> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<StackT> {
+                override val sizeBytes: Long = 24L
+                override val alignBytes: Long = 8L
+                override fun readNative(addr: Long): StackT =
+                    StackT(
+                        (
+                            io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+                                .mutPtrLayout<CVoid>(64)
+                        ).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 8L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.USIZE64).readNative(addr + 16L),
+                    )
+                override fun writeNative(addr: Long, value: StackT) {
+                    (
+                        io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+                            .mutPtrLayout<CVoid>(64)
+                    ).writeNative(addr, value.ssSp)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 8L, value.ssFlags)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.USIZE64).writeNative(addr + 16L, value.ssSize)
+                }
+            }
+
+        public operator fun invoke(
+            ssSp: MutPtr<CVoid> = MutPtr(0L),
+            ssFlags: CInt = 0,
+            ssSize: SizeT = 0uL,
+        ): StackT =
+            StackT(
+                ssSpCtorArg = ssSp,
+                ssFlags = ssFlags,
+                ssSize = ssSize,
+            )
+    }
+}
 
 public class Stat(
     public var stDev: DevT = 0uL,
@@ -296,7 +369,24 @@ public data class Statvfs(
 public data class PswT(
     public var mask: ULong = 0uL,
     public var addr: ULong = 0uL,
-)
+) {
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<PswT> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<PswT> {
+                override val sizeBytes: Long = 16L
+                override val alignBytes: Long = 8L
+                override fun readNative(addr: Long): PswT =
+                    PswT(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 8L),
+                    )
+                override fun writeNative(addr: Long, value: PswT) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr, value.mask)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 8L, value.addr)
+                }
+            }
+    }
+}
 
 public data class FpregsetT(
     public var fpc: UInt = 0u,
@@ -329,13 +419,76 @@ public data class McontextT(
     }
 }
 
-public data class UcontextT(
-    public var ucFlags: CUlong = 0uL,
-    public var ucLink: UcontextT? = null,
-    public var ucStack: StackT = StackT(),
-    public var ucMcontext: McontextT = McontextT(),
-    public var ucSigmask: SigsetT = SigsetT(),
-)
+public class UcontextT internal constructor(
+    public var ucFlags: CUlong,
+    ucLinkCtorArg: MutPtr<UcontextT>,
+    public var ucStack: StackT,
+    ucMcontextCtorArg: McontextT,
+    public var ucSigmask: SigsetT,
+) {
+    public var ucLink: MutPtr<UcontextT> = ucLinkCtorArg
+        internal set
+
+    public var ucMcontext: McontextT = ucMcontextCtorArg
+        internal set
+
+    public constructor() : this(
+        ucFlags = 0uL,
+        ucLinkCtorArg = MutPtr(0L),
+        ucStack = StackT(),
+        ucMcontextCtorArg = McontextT(),
+        ucSigmask = SigsetT(),
+    )
+
+    public operator fun component1(): CUlong = this.ucFlags
+
+    public operator fun component2(): MutPtr<UcontextT> = this.ucLink
+
+    public operator fun component3(): StackT = this.ucStack
+
+    public operator fun component4(): McontextT = this.ucMcontext
+
+    public operator fun component5(): SigsetT = this.ucSigmask
+
+    public fun copy(ucFlags: CUlong = this.ucFlags, ucLink: MutPtr<UcontextT> = this.ucLink, ucStack: StackT = this.ucStack, ucMcontext: McontextT = this.ucMcontext, ucSigmask: SigsetT = this.ucSigmask): UcontextT = UcontextT(ucFlags = ucFlags, ucLinkCtorArg = ucLink, ucStack = ucStack, ucMcontextCtorArg = ucMcontext, ucSigmask = ucSigmask)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is UcontextT) return false
+        if (this.ucFlags != other.ucFlags) return false
+        if (this.ucLink != other.ucLink) return false
+        if (this.ucStack != other.ucStack) return false
+        if (this.ucMcontext != other.ucMcontext) return false
+        if (this.ucSigmask != other.ucSigmask) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.ucFlags.hashCode()
+        result = 31 * result + this.ucLink.hashCode()
+        result = 31 * result + this.ucStack.hashCode()
+        result = 31 * result + this.ucMcontext.hashCode()
+        result = 31 * result + this.ucSigmask.hashCode()
+        return result
+    }
+
+    public companion object {
+        public operator fun invoke(
+            ucFlags: CUlong = 0uL,
+            ucLink: MutPtr<UcontextT> = MutPtr(0L),
+            ucStack: StackT = StackT(),
+            ucMcontext: McontextT = McontextT(),
+            ucSigmask: SigsetT = SigsetT(),
+        ): UcontextT =
+            UcontextT(
+                ucFlags = ucFlags,
+                ucLinkCtorArg = ucLink,
+                ucStack = ucStack,
+                ucMcontextCtorArg = ucMcontext,
+                ucSigmask = ucSigmask,
+            )
+    }
+}
 
 public data class Statfs64(
     public var fType: CUint = 0u,
@@ -446,6 +599,21 @@ public data class FpregT(
         val d: ULong = this.d.toRawBits().toULong()
         state = 31 * state + (d).hashCode()
         return state
+    }
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<FpregT> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<FpregT> {
+                override val sizeBytes: Long = 8L
+                override val alignBytes: Long = 8L
+                override fun readNative(addr: Long): FpregT =
+                    FpregT(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.F64).readNative(addr),
+                    )
+                override fun writeNative(addr: Long, value: FpregT) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.F64).writeNative(addr, value.d)
+                }
+            }
     }
 }
 
@@ -1748,12 +1916,12 @@ public val SYS_SET_MEMPOLICY_HOME_NODE: CLong = 450L
 
 public val SYS_MSEAL: CLong = 462L
 
-public expect fun sysctl(name: COpaquePointer?, namelen: CInt, oldp: COpaquePointer?, oldlenp: COpaquePointer?, newp: COpaquePointer?, newlen: SizeT): CInt
+public expect fun sysctl(name: MutPtr<CInt>, namelen: CInt, oldp: MutPtr<CVoid>, oldlenp: MutPtr<SizeT>, newp: MutPtr<CVoid>, newlen: SizeT): CInt
 
-public expect fun getcontext(ucp: COpaquePointer?): CInt
+public expect fun getcontext(ucp: MutPtr<UcontextT>): CInt
 
-public expect fun setcontext(ucp: COpaquePointer?): CInt
+public expect fun setcontext(ucp: ConstPtr<UcontextT>): CInt
 
-public expect fun makecontext(ucp: COpaquePointer?, func: SigactionSaRestorerCallback, argc: CInt, vararg variadicArgs: Long)
+public expect fun makecontext(ucp: MutPtr<UcontextT>, func: SigactionSaRestorerCallback, argc: CInt, vararg variadicArgs: Long)
 
-public expect fun swapcontext(uocp: COpaquePointer?, ucp: COpaquePointer?): CInt
+public expect fun swapcontext(uocp: MutPtr<UcontextT>, ucp: ConstPtr<UcontextT>): CInt

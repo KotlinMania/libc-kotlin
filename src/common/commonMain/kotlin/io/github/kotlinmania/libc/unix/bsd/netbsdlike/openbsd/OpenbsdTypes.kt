@@ -1,10 +1,12 @@
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.unix.UintptrT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public typealias ClockT = Long
 
@@ -22,23 +24,23 @@ public typealias FsfilcntT = ULong
 
 public typealias IdtypeT = CUint
 
-public typealias PthreadAttrT = COpaquePointer?
+public typealias PthreadAttrT = MutPtr<CVoid>
 
-public typealias PthreadMutexT = COpaquePointer?
+public typealias PthreadMutexT = MutPtr<CVoid>
 
-public typealias PthreadMutexattrT = COpaquePointer?
+public typealias PthreadMutexattrT = MutPtr<CVoid>
 
-public typealias PthreadCondT = COpaquePointer?
+public typealias PthreadCondT = MutPtr<CVoid>
 
-public typealias PthreadCondattrT = COpaquePointer?
+public typealias PthreadCondattrT = MutPtr<CVoid>
 
-public typealias PthreadRwlockT = COpaquePointer?
+public typealias PthreadRwlockT = MutPtr<CVoid>
 
-public typealias PthreadRwlockattrT = COpaquePointer?
+public typealias PthreadRwlockattrT = MutPtr<CVoid>
 
 public typealias PthreadSpinlockT = UintptrT
 
-public typealias CaddrT = COpaquePointer?
+public typealias CaddrT = MutPtr<CChar>
 
 // elf.h
 public typealias Elf32Addr = UInt
@@ -72,9 +74,9 @@ public typealias Elf64Xword = ULong
 public typealias Action = CUint
 
 // spawn.h
-public typealias PosixSpawnattrT = COpaquePointer?
+public typealias PosixSpawnattrT = MutPtr<CVoid>
 
-public typealias PosixSpawnFileActionsT = COpaquePointer?
+public typealias PosixSpawnFileActionsT = MutPtr<CVoid>
 
 public typealias ElfAddr = Elf64Addr
 

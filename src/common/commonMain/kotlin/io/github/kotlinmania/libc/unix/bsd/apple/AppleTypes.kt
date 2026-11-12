@@ -3,17 +3,20 @@
 package io.github.kotlinmania.libc.unix.bsd.apple
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
 import io.github.kotlinmania.libc.CUshort
 import io.github.kotlinmania.libc.unix.UintptrT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public fun interface FnCallback {
-    public operator fun invoke(ctx: COpaquePointer?): CInt
+    public operator fun invoke(ctx: MutPtr<CVoid>): CInt
 }
 
 public typealias WcharT = Int
@@ -70,13 +73,13 @@ public typealias KernReturnT = CInt
 
 public typealias UuidT = UByteArray
 
-public typealias TaskInfoT = COpaquePointer?
+public typealias TaskInfoT = MutPtr<IntegerT>
 
-public typealias HostInfoT = COpaquePointer?
+public typealias HostInfoT = MutPtr<IntegerT>
 
 public typealias TaskFlavorT = NaturalT
 
-public typealias RusageInfoT = COpaquePointer?
+public typealias RusageInfoT = MutPtr<CVoid>
 
 public typealias VmOffsetT = UintptrT
 
@@ -88,9 +91,9 @@ public typealias QuadT = Long
 
 public typealias UQuadT = ULong
 
-public typealias PosixSpawnattrT = COpaquePointer?
+public typealias PosixSpawnattrT = MutPtr<CVoid>
 
-public typealias PosixSpawnFileActionsT = COpaquePointer?
+public typealias PosixSpawnFileActionsT = MutPtr<CVoid>
 
 public typealias KeyT = CInt
 
@@ -106,7 +109,7 @@ public typealias HostT = CUint
 
 public typealias HostFlavorT = IntegerT
 
-public typealias HostInfo64T = COpaquePointer?
+public typealias HostInfo64T = MutPtr<IntegerT>
 
 public typealias ProcessorFlavorT = CInt
 
@@ -116,7 +119,7 @@ public typealias ThreadInspectT = MachPortT
 
 public typealias ThreadActT = MachPortT
 
-public typealias ThreadActArrayT = COpaquePointer?
+public typealias ThreadActArrayT = MutPtr<ThreadActT>
 
 public typealias PolicyT = CInt
 
@@ -142,55 +145,55 @@ public typealias VmProtT = CInt
 
 public typealias LedgerT = MachPortT
 
-public typealias LedgerArrayT = COpaquePointer?
+public typealias LedgerArrayT = MutPtr<LedgerT>
 
-public typealias IconvT = COpaquePointer?
+public typealias IconvT = MutPtr<CVoid>
 
 // mach/hostInfo.h
-public typealias HostCpuLoadInfoT = HostCpuLoadInfo?
+public typealias HostCpuLoadInfoT = MutPtr<HostCpuLoadInfo>
 
 public typealias HostCpuLoadInfoDataT = HostCpuLoadInfo
 
 // mach/processorInfo.h
-public typealias ProcessorCpuLoadInfoT = ProcessorCpuLoadInfo?
+public typealias ProcessorCpuLoadInfoT = MutPtr<ProcessorCpuLoadInfo>
 
 public typealias ProcessorCpuLoadInfoDataT = ProcessorCpuLoadInfo
 
-public typealias ProcessorBasicInfoT = ProcessorBasicInfo?
+public typealias ProcessorBasicInfoT = MutPtr<ProcessorBasicInfo>
 
 public typealias ProcessorBasicInfoDataT = ProcessorBasicInfo
 
 public typealias ProcessorSetBasicInfoDataT = ProcessorSetBasicInfo
 
-public typealias ProcessorSetBasicInfoT = ProcessorSetBasicInfo?
+public typealias ProcessorSetBasicInfoT = MutPtr<ProcessorSetBasicInfo>
 
 public typealias ProcessorSetLoadInfoDataT = ProcessorSetLoadInfo
 
-public typealias ProcessorSetLoadInfoT = ProcessorSetLoadInfo?
+public typealias ProcessorSetLoadInfoT = MutPtr<ProcessorSetLoadInfo>
 
-public typealias ProcessorInfoT = CInt?
+public typealias ProcessorInfoT = MutPtr<IntegerT>
 
-public typealias ProcessorInfoArrayT = COpaquePointer?
+public typealias ProcessorInfoArrayT = MutPtr<IntegerT>
 
 public typealias MachTaskBasicInfoDataT = MachTaskBasicInfo
 
-public typealias MachTaskBasicInfoT = MachTaskBasicInfo?
+public typealias MachTaskBasicInfoT = MutPtr<MachTaskBasicInfo>
 
 public typealias TaskThreadTimesInfoDataT = TaskThreadTimesInfo
 
-public typealias TaskThreadTimesInfoT = TaskThreadTimesInfo?
+public typealias TaskThreadTimesInfoT = MutPtr<TaskThreadTimesInfo>
 
-public typealias ThreadInfoT = COpaquePointer?
+public typealias ThreadInfoT = MutPtr<IntegerT>
 
-public typealias ThreadBasicInfoT = ThreadBasicInfo?
+public typealias ThreadBasicInfoT = MutPtr<ThreadBasicInfo>
 
 public typealias ThreadBasicInfoDataT = ThreadBasicInfo
 
-public typealias ThreadIdentifierInfoT = ThreadIdentifierInfo?
+public typealias ThreadIdentifierInfoT = MutPtr<ThreadIdentifierInfo>
 
 public typealias ThreadIdentifierInfoDataT = ThreadIdentifierInfo
 
-public typealias ThreadExtendedInfoT = ThreadExtendedInfo?
+public typealias ThreadExtendedInfoT = MutPtr<ThreadExtendedInfo>
 
 public typealias ThreadExtendedInfoDataT = ThreadExtendedInfo
 
@@ -198,7 +201,7 @@ public typealias ThreadT = MachPortT
 
 public typealias ThreadPolicyFlavorT = NaturalT
 
-public typealias ThreadPolicyT = COpaquePointer?
+public typealias ThreadPolicyT = MutPtr<IntegerT>
 
 public typealias ThreadLatencyQosT = IntegerT
 
@@ -206,38 +209,38 @@ public typealias ThreadThroughputQosT = IntegerT
 
 public typealias ThreadStandardPolicyDataT = ThreadStandardPolicy
 
-public typealias ThreadStandardPolicyT = ThreadStandardPolicy?
+public typealias ThreadStandardPolicyT = MutPtr<ThreadStandardPolicy>
 
 public typealias ThreadExtendedPolicyDataT = ThreadExtendedPolicy
 
-public typealias ThreadExtendedPolicyT = ThreadExtendedPolicy?
+public typealias ThreadExtendedPolicyT = MutPtr<ThreadExtendedPolicy>
 
 public typealias ThreadTimeConstraintPolicyDataT = ThreadTimeConstraintPolicy
 
-public typealias ThreadTimeConstraintPolicyT = ThreadTimeConstraintPolicy?
+public typealias ThreadTimeConstraintPolicyT = MutPtr<ThreadTimeConstraintPolicy>
 
 public typealias ThreadPrecedencePolicyDataT = ThreadPrecedencePolicy
 
-public typealias ThreadPrecedencePolicyT = ThreadPrecedencePolicy?
+public typealias ThreadPrecedencePolicyT = MutPtr<ThreadPrecedencePolicy>
 
 public typealias ThreadAffinityPolicyDataT = ThreadAffinityPolicy
 
-public typealias ThreadAffinityPolicyT = ThreadAffinityPolicy?
+public typealias ThreadAffinityPolicyT = MutPtr<ThreadAffinityPolicy>
 
 public typealias ThreadBackgroundPolicyDataT = ThreadBackgroundPolicy
 
-public typealias ThreadBackgroundPolicyT = ThreadBackgroundPolicy?
+public typealias ThreadBackgroundPolicyT = MutPtr<ThreadBackgroundPolicy>
 
 public typealias ThreadLatencyQosPolicyDataT = ThreadLatencyQosPolicy
 
-public typealias ThreadLatencyQosPolicyT = ThreadLatencyQosPolicy?
+public typealias ThreadLatencyQosPolicyT = MutPtr<ThreadLatencyQosPolicy>
 
 public typealias ThreadThroughputQosPolicyDataT = ThreadThroughputQosPolicy
 
-public typealias ThreadThroughputQosPolicyT = ThreadThroughputQosPolicy?
+public typealias ThreadThroughputQosPolicyT = MutPtr<ThreadThroughputQosPolicy>
 
 public fun interface PthreadJitWriteCallbackTFn {
-    public operator fun invoke(ctx: COpaquePointer?): CInt
+    public operator fun invoke(ctx: MutPtr<CVoid>): CInt
 }
 
 public typealias PthreadJitWriteCallbackT = PthreadJitWriteCallbackTFn?
@@ -250,9 +253,9 @@ public typealias OsSyncWakeByAddressFlagsT = UInt
 
 public typealias OsUnfairLock = OsUnfairLockS
 
-public typealias OsUnfairLockT = COpaquePointer?
+public typealias OsUnfairLockT = MutPtr<OsUnfairLock>
 
-public typealias OsLogT = COpaquePointer?
+public typealias OsLogT = MutPtr<CVoid>
 
 public typealias OsLogTypeT = UByte
 
@@ -260,11 +263,11 @@ public typealias OsSignpostIdT = ULong
 
 public typealias OsSignpostTypeT = UByte
 
-public typealias VmStatisticsT = VmStatistics?
+public typealias VmStatisticsT = MutPtr<VmStatistics>
 
 public typealias VmStatisticsDataT = VmStatistics
 
-public typealias VmStatistics64T = VmStatistics64?
+public typealias VmStatistics64T = MutPtr<VmStatistics64>
 
 public typealias VmStatistics64DataT = VmStatistics64
 
@@ -280,12 +283,12 @@ public typealias CCCryptorStatus = Int
 
 public typealias CCRNGStatus = CCCryptorStatus
 
-public typealias CopyfileStateT = COpaquePointer?
+public typealias CopyfileStateT = MutPtr<CVoid>
 
 public typealias CopyfileFlagsT = UInt
 
 public fun interface CopyfileCallbackTFn {
-    public operator fun invoke(arg0: CInt, arg1: CInt, arg2: CopyfileStateT, arg3: COpaquePointer?, arg4: COpaquePointer?, arg5: COpaquePointer?): CInt
+    public operator fun invoke(arg0: CInt, arg1: CInt, arg2: CopyfileStateT, arg3: ConstPtr<CChar>, arg4: ConstPtr<CChar>, arg5: MutPtr<CVoid>): CInt
 }
 
 public typealias CopyfileCallbackT = CopyfileCallbackTFn?

@@ -51,7 +51,7 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_unix_aix_powerpc64_getsystemcfg_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixAixPowerpc64Getsystemcfg_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t label = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef uint64_t (*km_fn_t)(int32_t);
@@ -85,7 +85,7 @@ static Napi::Value libc_unix_aix_powerpc64_getsystemcfg_napi(const Napi::Callbac
 }
 
 static void register_unix_aix_powerpc64_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_unix_aix_powerpc64_getsystemcfg", Napi::Function::New(env, libc_unix_aix_powerpc64_getsystemcfg_napi));
+    exports.Set("libcUnixAixPowerpc64Getsystemcfg", Napi::Function::New(env, libcUnixAixPowerpc64Getsystemcfg_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_unix_aix_powerpc64_napi, nullptr };

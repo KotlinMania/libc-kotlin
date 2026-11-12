@@ -3,11 +3,16 @@
 package io.github.kotlinmania.libc.teeos
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
+import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.U128
+import io.github.kotlinmania.rustlang.core.mem.ObjectSlotLayout
+import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+import io.github.kotlinmania.rustlang.core.mem.TypeLayout
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 
 public data class ClongDouble(
     public var value: U128 = U128(),
@@ -17,6 +22,27 @@ public data class ClongDouble(
         set(v) {
             value = v
         }
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<ClongDouble> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<ClongDouble> {
+                override val sizeBytes: Long = 16L
+                override val alignBytes: Long = 16L
+                override fun readNative(addr: Long): ClongDouble =
+                    ClongDouble(
+                        (
+                            io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+                                .u128Layout(::U128, { it.high }, { it.low })
+                        ).readNative(addr),
+                    )
+                override fun writeNative(addr: Long, value: ClongDouble) {
+                    (
+                        io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+                            .u128Layout(::U128, { it.high }, { it.low })
+                    ).writeNative(addr, value.value)
+                }
+            }
+    }
 }
 
 public data class PthreadCondT(
@@ -30,6 +56,29 @@ public data class PthreadCondT(
     }
 
     override fun hashCode(): Int = this.size.contentHashCode()
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<PthreadCondT> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<PthreadCondT> {
+                override val sizeBytes: Long =
+                    io.github.kotlinmania.rustlang.core.mem
+                        .alignUpBytes(((SIZEOF_PTHREAD_COND_T).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).strideBytes), maxOf(8L, 1L))
+                override val alignBytes: Long = maxOf(8L, 1L)
+                override fun readNative(addr: Long): PthreadCondT =
+                    PthreadCondT(
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_COND_T).toInt())
+                        ).readNative(addr),
+                    )
+                override fun writeNative(addr: Long, value: PthreadCondT) {
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_COND_T).toInt())
+                    ).writeNative(addr, value.size)
+                }
+            }
+    }
 }
 
 public data class PthreadMutexT(
@@ -43,6 +92,29 @@ public data class PthreadMutexT(
     }
 
     override fun hashCode(): Int = this.size.contentHashCode()
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<PthreadMutexT> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<PthreadMutexT> {
+                override val sizeBytes: Long =
+                    io.github.kotlinmania.rustlang.core.mem
+                        .alignUpBytes(((SIZEOF_PTHREAD_MUTEX_T).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).strideBytes), maxOf(8L, 1L))
+                override val alignBytes: Long = maxOf(8L, 1L)
+                override fun readNative(addr: Long): PthreadMutexT =
+                    PthreadMutexT(
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_MUTEX_T).toInt())
+                        ).readNative(addr),
+                    )
+                override fun writeNative(addr: Long, value: PthreadMutexT) {
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_MUTEX_T).toInt())
+                    ).writeNative(addr, value.size)
+                }
+            }
+    }
 }
 
 public data class PthreadMutexattrT(
@@ -56,6 +128,29 @@ public data class PthreadMutexattrT(
     }
 
     override fun hashCode(): Int = this.size.contentHashCode()
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<PthreadMutexattrT> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<PthreadMutexattrT> {
+                override val sizeBytes: Long =
+                    io.github.kotlinmania.rustlang.core.mem
+                        .alignUpBytes(((SIZEOF_PTHREAD_MUTEXATTR_T).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).strideBytes), maxOf(4L, 1L))
+                override val alignBytes: Long = maxOf(4L, 1L)
+                override fun readNative(addr: Long): PthreadMutexattrT =
+                    PthreadMutexattrT(
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_MUTEXATTR_T).toInt())
+                        ).readNative(addr),
+                    )
+                override fun writeNative(addr: Long, value: PthreadMutexattrT) {
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_MUTEXATTR_T).toInt())
+                    ).writeNative(addr, value.size)
+                }
+            }
+    }
 }
 
 public data class PthreadCondattrT(
@@ -69,6 +164,29 @@ public data class PthreadCondattrT(
     }
 
     override fun hashCode(): Int = this.size.contentHashCode()
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<PthreadCondattrT> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<PthreadCondattrT> {
+                override val sizeBytes: Long =
+                    io.github.kotlinmania.rustlang.core.mem
+                        .alignUpBytes(((SIZEOF_PTHREAD_CONDATTR_T).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8).strideBytes), maxOf(4L, 1L))
+                override val alignBytes: Long = maxOf(4L, 1L)
+                override fun readNative(addr: Long): PthreadCondattrT =
+                    PthreadCondattrT(
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_CONDATTR_T).toInt())
+                        ).readNative(addr),
+                    )
+                override fun writeNative(addr: Long, value: PthreadCondattrT) {
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U8, (SIZEOF_PTHREAD_CONDATTR_T).toInt())
+                    ).writeNative(addr, value.size)
+                }
+            }
+    }
 }
 
 public data class PthreadAttrT(
@@ -82,10 +200,31 @@ public data class PthreadAttrT(
     }
 
     override fun hashCode(): Int = this.size.contentHashCode()
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<PthreadAttrT> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<PthreadAttrT> {
+                override val sizeBytes: Long = 56L
+                override val alignBytes: Long = 8L
+                override fun readNative(addr: Long): PthreadAttrT =
+                    PthreadAttrT(
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64, (7).toInt())
+                        ).readNative(addr),
+                    )
+                override fun writeNative(addr: Long, value: PthreadAttrT) {
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64, (7).toInt())
+                    ).writeNative(addr, value.size)
+                }
+            }
+    }
 }
 
 public data class CpuSetT(
-    public var bits: ULongArray = ULongArray(128 / 8),
+    public var bits: ULongArray = ULongArray(128 / sizeOf<CUlong>(typeLayoutT = ObjectSlotLayout<CUlong>())),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -107,27 +246,146 @@ public data class Timeval(
     public var tvUsec: SusecondsT = 0L,
 )
 
-public data class Tm(
-    public var tmSec: CInt = 0,
-    public var tmMin: CInt = 0,
-    public var tmHour: CInt = 0,
-    public var tmMday: CInt = 0,
-    public var tmMon: CInt = 0,
-    public var tmYear: CInt = 0,
-    public var tmWday: CInt = 0,
-    public var tmYday: CInt = 0,
-    public var tmIsdst: CInt = 0,
-    public var tmGmtoff: CLong = 0L,
-    public var tmZone: COpaquePointer? = null,
-)
+public class Tm internal constructor(
+    public var tmSec: CInt,
+    public var tmMin: CInt,
+    public var tmHour: CInt,
+    public var tmMday: CInt,
+    public var tmMon: CInt,
+    public var tmYear: CInt,
+    public var tmWday: CInt,
+    public var tmYday: CInt,
+    public var tmIsdst: CInt,
+    public var tmGmtoff: CLong,
+    tmZoneCtorArg: ConstPtr<CChar>,
+) {
+    public var tmZone: ConstPtr<CChar> = tmZoneCtorArg
+        internal set
+
+    public constructor() : this(
+        tmSec = 0,
+        tmMin = 0,
+        tmHour = 0,
+        tmMday = 0,
+        tmMon = 0,
+        tmYear = 0,
+        tmWday = 0,
+        tmYday = 0,
+        tmIsdst = 0,
+        tmGmtoff = 0L,
+        tmZoneCtorArg = ConstPtr(0L),
+    )
+
+    public operator fun component1(): CInt = this.tmSec
+
+    public operator fun component2(): CInt = this.tmMin
+
+    public operator fun component3(): CInt = this.tmHour
+
+    public operator fun component4(): CInt = this.tmMday
+
+    public operator fun component5(): CInt = this.tmMon
+
+    public operator fun component6(): CInt = this.tmYear
+
+    public operator fun component7(): CInt = this.tmWday
+
+    public operator fun component8(): CInt = this.tmYday
+
+    public operator fun component9(): CInt = this.tmIsdst
+
+    public operator fun component10(): CLong = this.tmGmtoff
+
+    public operator fun component11(): ConstPtr<CChar> = this.tmZone
+
+    public fun copy(tmSec: CInt = this.tmSec, tmMin: CInt = this.tmMin, tmHour: CInt = this.tmHour, tmMday: CInt = this.tmMday, tmMon: CInt = this.tmMon, tmYear: CInt = this.tmYear, tmWday: CInt = this.tmWday, tmYday: CInt = this.tmYday, tmIsdst: CInt = this.tmIsdst, tmGmtoff: CLong = this.tmGmtoff, tmZone: ConstPtr<CChar> = this.tmZone): Tm = Tm(tmSec = tmSec, tmMin = tmMin, tmHour = tmHour, tmMday = tmMday, tmMon = tmMon, tmYear = tmYear, tmWday = tmWday, tmYday = tmYday, tmIsdst = tmIsdst, tmGmtoff = tmGmtoff, tmZoneCtorArg = tmZone)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Tm) return false
+        if (this.tmSec != other.tmSec) return false
+        if (this.tmMin != other.tmMin) return false
+        if (this.tmHour != other.tmHour) return false
+        if (this.tmMday != other.tmMday) return false
+        if (this.tmMon != other.tmMon) return false
+        if (this.tmYear != other.tmYear) return false
+        if (this.tmWday != other.tmWday) return false
+        if (this.tmYday != other.tmYday) return false
+        if (this.tmIsdst != other.tmIsdst) return false
+        if (this.tmGmtoff != other.tmGmtoff) return false
+        if (this.tmZone != other.tmZone) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.tmSec.hashCode()
+        result = 31 * result + this.tmMin.hashCode()
+        result = 31 * result + this.tmHour.hashCode()
+        result = 31 * result + this.tmMday.hashCode()
+        result = 31 * result + this.tmMon.hashCode()
+        result = 31 * result + this.tmYear.hashCode()
+        result = 31 * result + this.tmWday.hashCode()
+        result = 31 * result + this.tmYday.hashCode()
+        result = 31 * result + this.tmIsdst.hashCode()
+        result = 31 * result + this.tmGmtoff.hashCode()
+        result = 31 * result + this.tmZone.hashCode()
+        return result
+    }
+
+    public companion object {
+        public operator fun invoke(
+            tmSec: CInt = 0,
+            tmMin: CInt = 0,
+            tmHour: CInt = 0,
+            tmMday: CInt = 0,
+            tmMon: CInt = 0,
+            tmYear: CInt = 0,
+            tmWday: CInt = 0,
+            tmYday: CInt = 0,
+            tmIsdst: CInt = 0,
+            tmGmtoff: CLong = 0L,
+            tmZone: ConstPtr<CChar> = ConstPtr(0L),
+        ): Tm =
+            Tm(
+                tmSec = tmSec,
+                tmMin = tmMin,
+                tmHour = tmHour,
+                tmMday = tmMday,
+                tmMon = tmMon,
+                tmYear = tmYear,
+                tmWday = tmWday,
+                tmYday = tmYday,
+                tmIsdst = tmIsdst,
+                tmGmtoff = tmGmtoff,
+                tmZoneCtorArg = tmZone,
+            )
+    }
+}
 
 public data class MbstateT(
     public var opaque1: CUint = 0u,
     public var opaque2: CUint = 0u,
-)
+) {
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<MbstateT> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<MbstateT> {
+                override val sizeBytes: Long = 8L
+                override val alignBytes: Long = 4L
+                override fun readNative(addr: Long): MbstateT =
+                    MbstateT(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 4L),
+                    )
+                override fun writeNative(addr: Long, value: MbstateT) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr, value.opaque1)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 4L, value.opaque2)
+                }
+            }
+    }
+}
 
 public data class SemT(
-    public var value: IntArray = IntArray(4 * 8 / 8),
+    public var value: IntArray = IntArray(4 * sizeOf<CLong>(typeLayoutT = ObjectSlotLayout<CLong>()) / sizeOf<CInt>(typeLayoutT = ObjectSlotLayout<CInt>())),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -137,9 +395,49 @@ public data class SemT(
     }
 
     override fun hashCode(): Int = this.value.contentHashCode()
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<SemT> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<SemT> {
+                override val sizeBytes: Long =
+                    io.github.kotlinmania.rustlang.core.mem
+                        .alignUpBytes(((4 * sizeOf<CLong>(typeLayoutT = ObjectSlotLayout<CLong>()) / sizeOf<CInt>(typeLayoutT = ObjectSlotLayout<CInt>())).toLong() * (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).strideBytes), 4L)
+                override val alignBytes: Long = 4L
+                override fun readNative(addr: Long): SemT =
+                    SemT(
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (4 * sizeOf<CLong>(typeLayoutT = ObjectSlotLayout<CLong>()) / sizeOf<CInt>(typeLayoutT = ObjectSlotLayout<CInt>())).toInt())
+                        ).readNative(addr),
+                    )
+                override fun writeNative(addr: Long, value: SemT) {
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (4 * sizeOf<CLong>(typeLayoutT = ObjectSlotLayout<CLong>()) / sizeOf<CInt>(typeLayoutT = ObjectSlotLayout<CInt>())).toInt())
+                    ).writeNative(addr, value.value)
+                }
+            }
+    }
 }
 
 public data class DivT(
     public var quot: CInt = 0,
     public var rem: CInt = 0,
-)
+) {
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<DivT> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<DivT> {
+                override val sizeBytes: Long = 8L
+                override val alignBytes: Long = 4L
+                override fun readNative(addr: Long): DivT =
+                    DivT(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 4L),
+                    )
+                override fun writeNative(addr: Long, value: DivT) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr, value.quot)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 4L, value.rem)
+                }
+            }
+    }
+}

@@ -15,7 +15,7 @@
 #endif
 #endif
 
-int32_t libc_unix_newlib_vita_futimens(int32_t fd, void* times) {
+int32_t libcUnixNewlibVitaFutimens(int32_t fd, void* times) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -43,7 +43,7 @@ int32_t libc_unix_newlib_vita_futimens(int32_t fd, void* times) {
     return -1;
 }
 
-int64_t libc_unix_newlib_vita_writev(int32_t fd, void* iov, int32_t iovcnt) {
+int64_t libcUnixNewlibVitaWritev(int32_t fd, void* iov, int32_t iovcnt) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -71,7 +71,7 @@ int64_t libc_unix_newlib_vita_writev(int32_t fd, void* iov, int32_t iovcnt) {
     return -1;
 }
 
-int64_t libc_unix_newlib_vita_readv(int32_t fd, void* iov, int32_t iovcnt) {
+int64_t libcUnixNewlibVitaReadv(int32_t fd, void* iov, int32_t iovcnt) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -99,7 +99,7 @@ int64_t libc_unix_newlib_vita_readv(int32_t fd, void* iov, int32_t iovcnt) {
     return -1;
 }
 
-int64_t libc_unix_newlib_vita_sendmsg(int32_t s, void* msg, int32_t flags) {
+int64_t libcUnixNewlibVitaSendmsg(int32_t s, void* msg, int32_t flags) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -127,7 +127,7 @@ int64_t libc_unix_newlib_vita_sendmsg(int32_t s, void* msg, int32_t flags) {
     return -1;
 }
 
-int64_t libc_unix_newlib_vita_recvmsg(int32_t s, void* msg, int32_t flags) {
+int64_t libcUnixNewlibVitaRecvmsg(int32_t s, void* msg, int32_t flags) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -155,7 +155,7 @@ int64_t libc_unix_newlib_vita_recvmsg(int32_t s, void* msg, int32_t flags) {
     return -1;
 }
 
-int32_t libc_unix_newlib_vita_pthreadCreate(void* native, void* attr, void* f, void* value) {
+int32_t libcUnixNewlibVitaPthreadCreate(void* native, void* attr, void* f, void* value) {
     typedef int32_t (*km_fn_t)(void*, void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -183,7 +183,7 @@ int32_t libc_unix_newlib_vita_pthreadCreate(void* native, void* attr, void* f, v
     return ENOSYS;
 }
 
-int32_t libc_unix_newlib_vita_pthreadAttrGetschedparam(void* attr, void* param) {
+int32_t libcUnixNewlibVitaPthreadAttrGetschedparam(void* attr, void* param) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -211,7 +211,7 @@ int32_t libc_unix_newlib_vita_pthreadAttrGetschedparam(void* attr, void* param) 
     return ENOSYS;
 }
 
-int32_t libc_unix_newlib_vita_pthreadAttrSetschedparam(void* attr, void* param) {
+int32_t libcUnixNewlibVitaPthreadAttrSetschedparam(void* attr, void* param) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -239,7 +239,7 @@ int32_t libc_unix_newlib_vita_pthreadAttrSetschedparam(void* attr, void* param) 
     return ENOSYS;
 }
 
-int32_t libc_unix_newlib_vita_pthreadAttrGetprocessoridNp(void* attr, void* processor_id) {
+int32_t libcUnixNewlibVitaPthreadAttrGetprocessoridNp(void* attr, void* processorId) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -261,13 +261,13 @@ int32_t libc_unix_newlib_vita_pthreadAttrGetprocessoridNp(void* attr, void* proc
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(attr, processor_id);
+        return km_fn_ptr(attr, processorId);
     }
     errno = ENOSYS;
     return ENOSYS;
 }
 
-int32_t libc_unix_newlib_vita_pthreadAttrSetprocessoridNp(void* attr, int32_t processor_id) {
+int32_t libcUnixNewlibVitaPthreadAttrSetprocessoridNp(void* attr, int32_t processorId) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -289,13 +289,13 @@ int32_t libc_unix_newlib_vita_pthreadAttrSetprocessoridNp(void* attr, int32_t pr
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(attr, processor_id);
+        return km_fn_ptr(attr, processorId);
     }
     errno = ENOSYS;
     return ENOSYS;
 }
 
-int32_t libc_unix_newlib_vita_pthreadGetschedparam(void* native, void* policy, void* param) {
+int32_t libcUnixNewlibVitaPthreadGetschedparam(void* native, void* policy, void* param) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -323,7 +323,7 @@ int32_t libc_unix_newlib_vita_pthreadGetschedparam(void* native, void* policy, v
     return ENOSYS;
 }
 
-int32_t libc_unix_newlib_vita_pthreadSetschedparam(void* native, int32_t policy, void* param) {
+int32_t libcUnixNewlibVitaPthreadSetschedparam(void* native, int32_t policy, void* param) {
     typedef int32_t (*km_fn_t)(void*, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -351,7 +351,7 @@ int32_t libc_unix_newlib_vita_pthreadSetschedparam(void* native, int32_t policy,
     return ENOSYS;
 }
 
-int32_t libc_unix_newlib_vita_pthreadCondattrGetclock(void* attr, void* clock_id) {
+int32_t libcUnixNewlibVitaPthreadCondattrGetclock(void* attr, void* clockId) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -373,13 +373,13 @@ int32_t libc_unix_newlib_vita_pthreadCondattrGetclock(void* attr, void* clock_id
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(attr, clock_id);
+        return km_fn_ptr(attr, clockId);
     }
     errno = ENOSYS;
     return ENOSYS;
 }
 
-int32_t libc_unix_newlib_vita_pthreadCondattrSetclock(void* attr, uint64_t clock_id) {
+int32_t libcUnixNewlibVitaPthreadCondattrSetclock(void* attr, uint64_t clockId) {
     typedef int32_t (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -401,13 +401,13 @@ int32_t libc_unix_newlib_vita_pthreadCondattrSetclock(void* attr, uint64_t clock
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(attr, clock_id);
+        return km_fn_ptr(attr, clockId);
     }
     errno = ENOSYS;
     return ENOSYS;
 }
 
-int32_t libc_unix_newlib_vita_pthreadGetprocessoridNp(void) {
+int32_t libcUnixNewlibVitaPthreadGetprocessoridNp(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -435,7 +435,7 @@ int32_t libc_unix_newlib_vita_pthreadGetprocessoridNp(void) {
     return ENOSYS;
 }
 
-int32_t libc_unix_newlib_vita_getentropy(void* buf, uint64_t buflen) {
+int32_t libcUnixNewlibVitaGetentropy(void* buf, uint64_t buflen) {
     typedef int32_t (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -463,7 +463,7 @@ int32_t libc_unix_newlib_vita_getentropy(void* buf, uint64_t buflen) {
     return -1;
 }
 
-int32_t libc_unix_newlib_vita_pipe2(void* fds, int32_t flags) {
+int32_t libcUnixNewlibVitaPipe2(void* fds, int32_t flags) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

@@ -11,6 +11,8 @@ import io.github.kotlinmania.libc.U128
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.StackT
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.PT_FIRSTMACH
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.SigsetT
+import io.github.kotlinmania.rustlang.core.mem.ObjectSlotLayout
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public typealias GregT = ULong
 
@@ -44,13 +46,76 @@ public data class McontextT(
     }
 }
 
-public data class UcontextT(
-    public var ucFlags: CUint = 0u,
-    public var ucLink: UcontextT? = null,
-    public var ucSigmask: SigsetT = SigsetT(),
-    public var ucStack: StackT = StackT(),
-    public var ucMcontext: McontextT = McontextT(),
-)
+public class UcontextT internal constructor(
+    public var ucFlags: CUint,
+    ucLinkCtorArg: MutPtr<UcontextT>,
+    public var ucSigmask: SigsetT,
+    public var ucStack: StackT,
+    ucMcontextCtorArg: McontextT,
+) {
+    public var ucLink: MutPtr<UcontextT> = ucLinkCtorArg
+        internal set
+
+    public var ucMcontext: McontextT = ucMcontextCtorArg
+        internal set
+
+    public constructor() : this(
+        ucFlags = 0u,
+        ucLinkCtorArg = MutPtr(0L),
+        ucSigmask = SigsetT(),
+        ucStack = StackT(),
+        ucMcontextCtorArg = McontextT(),
+    )
+
+    public operator fun component1(): CUint = this.ucFlags
+
+    public operator fun component2(): MutPtr<UcontextT> = this.ucLink
+
+    public operator fun component3(): SigsetT = this.ucSigmask
+
+    public operator fun component4(): StackT = this.ucStack
+
+    public operator fun component5(): McontextT = this.ucMcontext
+
+    public fun copy(ucFlags: CUint = this.ucFlags, ucLink: MutPtr<UcontextT> = this.ucLink, ucSigmask: SigsetT = this.ucSigmask, ucStack: StackT = this.ucStack, ucMcontext: McontextT = this.ucMcontext): UcontextT = UcontextT(ucFlags = ucFlags, ucLinkCtorArg = ucLink, ucSigmask = ucSigmask, ucStack = ucStack, ucMcontextCtorArg = ucMcontext)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is UcontextT) return false
+        if (this.ucFlags != other.ucFlags) return false
+        if (this.ucLink != other.ucLink) return false
+        if (this.ucSigmask != other.ucSigmask) return false
+        if (this.ucStack != other.ucStack) return false
+        if (this.ucMcontext != other.ucMcontext) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.ucFlags.hashCode()
+        result = 31 * result + this.ucLink.hashCode()
+        result = 31 * result + this.ucSigmask.hashCode()
+        result = 31 * result + this.ucStack.hashCode()
+        result = 31 * result + this.ucMcontext.hashCode()
+        return result
+    }
+
+    public companion object {
+        public operator fun invoke(
+            ucFlags: CUint = 0u,
+            ucLink: MutPtr<UcontextT> = MutPtr(0L),
+            ucSigmask: SigsetT = SigsetT(),
+            ucStack: StackT = StackT(),
+            ucMcontext: McontextT = McontextT(),
+        ): UcontextT =
+            UcontextT(
+                ucFlags = ucFlags,
+                ucLinkCtorArg = ucLink,
+                ucSigmask = ucSigmask,
+                ucStack = ucStack,
+                ucMcontextCtorArg = ucMcontext,
+            )
+    }
+}
 
 public data class CAnonymousFreg(
     public var b8: UByteArray = UByteArray(16),
@@ -204,4 +269,4 @@ public val REG_SP: CInt = REG_X31
 
 public val REG_PC: CInt = REG_ELR
 
-internal val ALIGNBYTES: Int = 8 - 1
+internal val ALIGNBYTES: Int = sizeOf<CInt>(typeLayoutT = ObjectSlotLayout<CInt>()) - 1

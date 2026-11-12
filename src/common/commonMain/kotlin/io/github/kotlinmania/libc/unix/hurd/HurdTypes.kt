@@ -1,9 +1,9 @@
 package io.github.kotlinmania.libc.unix.hurd
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CSchar
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUchar
@@ -17,6 +17,8 @@ import io.github.kotlinmania.libc.unix.hurd.b64.SquadType
 import io.github.kotlinmania.libc.unix.hurd.b64.SwordType
 import io.github.kotlinmania.libc.unix.hurd.b64.UquadType
 import io.github.kotlinmania.libc.unix.hurd.b64.UwordType
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 // types
 public typealias S16Type = CShort
@@ -139,7 +141,7 @@ public typealias CpuMask = UlongwordType
 
 public typealias LoffT = Off64T
 
-public typealias CaddrT = COpaquePointer?
+public typealias CaddrT = MutPtr<CChar>
 
 public typealias IntptrT = SwordType
 
@@ -165,7 +167,7 @@ public typealias Float32x = Double
 
 public typealias Float64x = Double
 
-public typealias LocaleT = COpaquePointer?
+public typealias LocaleT = MutPtr<LocaleStruct>
 
 public typealias Ulong = CUlong
 
@@ -285,7 +287,7 @@ public typealias RegoffT = CInt
 
 public typealias NlItem = CInt
 
-public typealias IconvT = COpaquePointer?
+public typealias IconvT = MutPtr<CVoid>
 
 // structs
 // functions

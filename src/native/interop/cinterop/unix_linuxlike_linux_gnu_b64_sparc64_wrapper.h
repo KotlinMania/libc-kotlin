@@ -9,7 +9,7 @@
 extern "C" {
 #endif
 
-int32_t libc_unix_linuxlike_linux_gnu_b64_sparc64_sysctl(void* name, int32_t namelen, void* oldp, void* oldlenp, void* newp, uint64_t newlen);
+int32_t libcUnixLinuxlikeLinuxGnuB64Sparc64Sysctl(void* name, int32_t namelen, void* oldp, void* oldlenp, void* newp, uint64_t newlen);
 
 #ifdef __cplusplus
 }

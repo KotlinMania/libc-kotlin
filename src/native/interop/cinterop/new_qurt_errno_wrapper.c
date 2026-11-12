@@ -16,7 +16,7 @@
 #endif
 #endif
 
-void* libc_new_qurt_errno_errnoLocation(void) {
+void* libcNewQurtErrnoErrnoLocation(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

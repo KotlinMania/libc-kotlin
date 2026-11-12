@@ -51,10 +51,10 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_new_apple_libpthread_pthread_spawn_posixSpawnattrGetQosClassNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewAppleLibpthreadPthreadSpawnPosixSpawnattrGetQosClassNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* qos_class = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* qosClass = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -77,7 +77,7 @@ static Napi::Value libc_new_apple_libpthread_pthread_spawn_posixSpawnattrGetQosC
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(attr, qos_class);
+        km_res = km_fn_ptr(attr, qosClass);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -86,7 +86,7 @@ static Napi::Value libc_new_apple_libpthread_pthread_spawn_posixSpawnattrGetQosC
 }
 
 static void register_new_apple_libpthread_pthread_spawn_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_new_apple_libpthread_pthread_spawn_posixSpawnattrGetQosClassNp", Napi::Function::New(env, libc_new_apple_libpthread_pthread_spawn_posixSpawnattrGetQosClassNp_napi));
+    exports.Set("libcNewAppleLibpthreadPthreadSpawnPosixSpawnattrGetQosClassNp", Napi::Function::New(env, libcNewAppleLibpthreadPthreadSpawnPosixSpawnattrGetQosClassNp_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_new_apple_libpthread_pthread_spawn_napi, nullptr };

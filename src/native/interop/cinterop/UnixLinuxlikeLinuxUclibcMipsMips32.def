@@ -3,3 +3,4 @@ headers = unix_linuxlike_linux_uclibc_mips_mips32_wrapper.h
 headerFilter = unix_linuxlike_linux_uclibc_mips_mips32_wrapper.h
 compilerOpts = -Isrc/native/interop/cinterop
 staticLibraries = unix_linuxlike_linux_uclibc_mips_mips32_wrapper.a
+noStringConversion = libcUnixLinuxlikeLinuxUclibcMipsMips32Glob64

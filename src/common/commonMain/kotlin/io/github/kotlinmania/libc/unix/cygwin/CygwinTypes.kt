@@ -1,15 +1,17 @@
 package io.github.kotlinmania.libc.unix.cygwin
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CLonglong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUshort
 import io.github.kotlinmania.libc.unix.IntptrT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public typealias WcharT = CUshort
 
@@ -41,7 +43,7 @@ public typealias Off64T = CLonglong
 
 public typealias LoffT = Off64T
 
-public typealias IconvT = COpaquePointer?
+public typealias IconvT = MutPtr<CVoid>
 
 public typealias ClockT = CUlong
 
@@ -69,21 +71,21 @@ public typealias SigsetT = CUlong
 
 public typealias FdMask = CUlong
 
-public typealias PthreadT = COpaquePointer?
+public typealias PthreadT = MutPtr<CVoid>
 
-public typealias PthreadMutexT = COpaquePointer?
+public typealias PthreadMutexT = MutPtr<CVoid>
 
 // Must be Int due to libstd/sysCommon/threadLocal.rs,
 // should technically be *mut cVoid
 public typealias PthreadKeyT = ULong
 
-public typealias PthreadAttrT = COpaquePointer?
+public typealias PthreadAttrT = MutPtr<CVoid>
 
-public typealias PthreadMutexattrT = COpaquePointer?
+public typealias PthreadMutexattrT = MutPtr<CVoid>
 
-public typealias PthreadCondattrT = COpaquePointer?
+public typealias PthreadCondattrT = MutPtr<CVoid>
 
-public typealias PthreadCondT = COpaquePointer?
+public typealias PthreadCondT = MutPtr<CVoid>
 
 // The following ones should be *mut cVoid
 public typealias PthreadBarrierattrT = ULong
@@ -92,9 +94,9 @@ public typealias PthreadBarrierT = ULong
 
 public typealias PthreadSpinlockT = ULong
 
-public typealias PthreadRwlockT = COpaquePointer?
+public typealias PthreadRwlockT = MutPtr<CVoid>
 
-public typealias PthreadRwlockattrT = COpaquePointer?
+public typealias PthreadRwlockattrT = MutPtr<CVoid>
 
 public typealias RegisterT = IntptrT
 
@@ -106,7 +108,7 @@ public typealias ULong = CUlong
 
 public typealias UInt = CUint
 
-public typealias CaddrT = COpaquePointer?
+public typealias CaddrT = MutPtr<CChar>
 
 public typealias VmSizeT = CUlong
 
@@ -114,7 +116,7 @@ public typealias RlimT = CUlong
 
 public typealias NfdsT = CUint
 
-public typealias SemT = COpaquePointer?
+public typealias SemT = MutPtr<Sem>
 
 public class Sem(
     public val handle: Long = -1L,
@@ -128,6 +130,6 @@ public typealias SpeedT = CUint
 
 public typealias VmOffsetT = CUlong
 
-public typealias PosixSpawnFileActionsT = COpaquePointer?
+public typealias PosixSpawnFileActionsT = MutPtr<CVoid>
 
-public typealias PosixSpawnattrT = COpaquePointer?
+public typealias PosixSpawnattrT = MutPtr<CVoid>

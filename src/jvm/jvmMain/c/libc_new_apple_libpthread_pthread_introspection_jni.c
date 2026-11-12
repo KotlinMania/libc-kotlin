@@ -19,7 +19,7 @@
 #endif
 #endif
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_apple_libpthread_pthread_introspection_NewAppleLibpthreadPthreadIntrospectionJniBridge_libc_1new_1apple_1libpthread_1pthread_1introspection_1pthreadIntrospectionHookInstall(JNIEnv* km_env, jclass km_clazz, jlong hook) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_apple_libpthread_pthread_introspection_NewAppleLibpthreadPthreadIntrospectionJniBridge_libcNewAppleLibpthreadPthreadIntrospectionPthreadIntrospectionHookInstall(JNIEnv* km_env, jclass km_clazz, jlong hook) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void*);
@@ -52,7 +52,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_apple_libpthread_pth
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_apple_libpthread_pthread_introspection_NewAppleLibpthreadPthreadIntrospectionJniBridge_libc_1new_1apple_1libpthread_1pthread_1introspection_1pthreadIntrospectionSetspecificNp(JNIEnv* km_env, jclass km_clazz, jlong thread, jlong key, jlong value) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_apple_libpthread_pthread_introspection_NewAppleLibpthreadPthreadIntrospectionJniBridge_libcNewAppleLibpthreadPthreadIntrospectionPthreadIntrospectionSetspecificNp(JNIEnv* km_env, jclass km_clazz, jlong thread, jlong key, jlong value) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint64_t, void*);
@@ -85,7 +85,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_apple_libpthread_pthr
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_apple_libpthread_pthread_introspection_NewAppleLibpthreadPthreadIntrospectionJniBridge_libc_1new_1apple_1libpthread_1pthread_1introspection_1pthreadIntrospectionGetspecificNp(JNIEnv* km_env, jclass km_clazz, jlong thread, jlong key) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_apple_libpthread_pthread_introspection_NewAppleLibpthreadPthreadIntrospectionJniBridge_libcNewAppleLibpthreadPthreadIntrospectionPthreadIntrospectionGetspecificNp(JNIEnv* km_env, jclass km_clazz, jlong thread, jlong key) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void*, uint64_t);

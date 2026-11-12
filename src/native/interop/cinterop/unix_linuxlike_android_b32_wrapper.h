@@ -9,7 +9,7 @@
 extern "C" {
 #endif
 
-int64_t libc_unix_linuxlike_android_b32_timegm64(void* tm);
+int64_t libcUnixLinuxlikeAndroidB32Timegm64(void* tm);
 
 #ifdef __cplusplus
 }

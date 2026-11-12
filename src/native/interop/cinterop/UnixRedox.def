@@ -4,3 +4,4 @@ headerFilter = unix_redox_wrapper.h
 compilerOpts = -Isrc/native/interop/cinterop
 staticLibraries = unix_redox_wrapper.a
 linkerOpts.mingw = -lws2_32
+noStringConversion = libcUnixRedoxGetgrnam libcUnixRedoxGetgrnamR libcUnixRedoxGetgrouplist libcUnixRedoxGetpwnamR libcUnixRedoxRenameat2 libcUnixRedoxStrlcat libcUnixRedoxStrlcpy libcUnixRedoxShmOpen libcUnixRedoxShmUnlink libcUnixRedoxStrftime

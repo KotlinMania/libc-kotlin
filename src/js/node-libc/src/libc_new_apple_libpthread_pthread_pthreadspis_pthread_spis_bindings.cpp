@@ -51,7 +51,7 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_new_apple_libpthread_pthread_pthreadspis_pthread_spis_pthreadCreateFromMachThread_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewAppleLibpthreadPthreadPthreadspisPthreadSpisPthreadCreateFromMachThread_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* thread = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -88,7 +88,7 @@ static Napi::Value libc_new_apple_libpthread_pthread_pthreadspis_pthread_spis_pt
 }
 
 static void register_new_apple_libpthread_pthread_pthreadspis_pthread_spis_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_new_apple_libpthread_pthread_pthreadspis_pthread_spis_pthreadCreateFromMachThread", Napi::Function::New(env, libc_new_apple_libpthread_pthread_pthreadspis_pthread_spis_pthreadCreateFromMachThread_napi));
+    exports.Set("libcNewAppleLibpthreadPthreadPthreadspisPthreadSpisPthreadCreateFromMachThread", Napi::Function::New(env, libcNewAppleLibpthreadPthreadPthreadspisPthreadSpisPthreadCreateFromMachThread_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_new_apple_libpthread_pthread_pthreadspis_pthread_spis_napi, nullptr };

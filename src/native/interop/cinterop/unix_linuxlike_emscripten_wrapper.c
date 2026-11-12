@@ -24,7 +24,7 @@
 #endif
 #endif
 
-int32_t libc_unix_linuxlike_emscripten_getrlimit(int32_t resource, void* rlim) {
+int32_t libcUnixLinuxlikeEmscriptenGetrlimit(int32_t resource, void* rlim) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -52,7 +52,7 @@ int32_t libc_unix_linuxlike_emscripten_getrlimit(int32_t resource, void* rlim) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_emscripten_setrlimit(int32_t resource, void* rlim) {
+int32_t libcUnixLinuxlikeEmscriptenSetrlimit(int32_t resource, void* rlim) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -80,7 +80,7 @@ int32_t libc_unix_linuxlike_emscripten_setrlimit(int32_t resource, void* rlim) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_emscripten_strerrorR(int32_t errnum, char* buf, uint64_t buflen) {
+int32_t libcUnixLinuxlikeEmscriptenStrerrorR(int32_t errnum, char* buf, uint64_t buflen) {
     typedef int32_t (*km_fn_t)(int32_t, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -108,11 +108,11 @@ int32_t libc_unix_linuxlike_emscripten_strerrorR(int32_t errnum, char* buf, uint
     return -1;
 }
 
-int32_t libc_unix_linuxlike_emscripten_abs(int32_t i) {
+int32_t libcUnixLinuxlikeEmscriptenAbs(int32_t i) {
     return (int32_t)abs(i);
 }
 
-int64_t libc_unix_linuxlike_emscripten_labs(int64_t i) {
+int64_t libcUnixLinuxlikeEmscriptenLabs(int64_t i) {
     typedef int64_t (*km_fn_t)(int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -140,15 +140,15 @@ int64_t libc_unix_linuxlike_emscripten_labs(int64_t i) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_emscripten_rand(void) {
+int32_t libcUnixLinuxlikeEmscriptenRand(void) {
     return (int32_t)rand();
 }
 
-void libc_unix_linuxlike_emscripten_srand(uint32_t seed) {
+void libcUnixLinuxlikeEmscriptenSrand(uint32_t seed) {
     srand(seed);
 }
 
-int32_t libc_unix_linuxlike_emscripten_gettimeofday(void* tp, void* tz) {
+int32_t libcUnixLinuxlikeEmscriptenGettimeofday(void* tp, void* tz) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -176,7 +176,7 @@ int32_t libc_unix_linuxlike_emscripten_gettimeofday(void* tp, void* tz) {
     return -1;
 }
 
-void libc_unix_linuxlike_emscripten_setpwent(void) {
+void libcUnixLinuxlikeEmscriptenSetpwent(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -204,7 +204,7 @@ void libc_unix_linuxlike_emscripten_setpwent(void) {
     errno = ENOSYS;
 }
 
-void libc_unix_linuxlike_emscripten_endpwent(void) {
+void libcUnixLinuxlikeEmscriptenEndpwent(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -232,7 +232,7 @@ void libc_unix_linuxlike_emscripten_endpwent(void) {
     errno = ENOSYS;
 }
 
-void* libc_unix_linuxlike_emscripten_getpwent(void) {
+void* libcUnixLinuxlikeEmscriptenGetpwent(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -260,7 +260,7 @@ void* libc_unix_linuxlike_emscripten_getpwent(void) {
     return NULL;
 }
 
-int32_t libc_unix_linuxlike_emscripten_shmOpen(const char* name, int32_t oflag, uint32_t mode) {
+int32_t libcUnixLinuxlikeEmscriptenShmOpen(const char* name, int32_t oflag, uint32_t mode) {
     typedef int32_t (*km_fn_t)(const char*, int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -288,7 +288,7 @@ int32_t libc_unix_linuxlike_emscripten_shmOpen(const char* name, int32_t oflag, 
     return -1;
 }
 
-int32_t libc_unix_linuxlike_emscripten_mprotect(void* addr, uint64_t len, int32_t prot) {
+int32_t libcUnixLinuxlikeEmscriptenMprotect(void* addr, uint64_t len, int32_t prot) {
 #if !defined(_WIN32)
     return (int32_t)mprotect(addr, len, prot);
 #else
@@ -300,7 +300,7 @@ int32_t libc_unix_linuxlike_emscripten_mprotect(void* addr, uint64_t len, int32_
 #endif
 }
 
-void* libc_unix_linuxlike_emscripten_errnoLocation(void) {
+void* libcUnixLinuxlikeEmscriptenErrnoLocation(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -326,7 +326,7 @@ void* libc_unix_linuxlike_emscripten_errnoLocation(void) {
     return NULL;
 }
 
-int32_t libc_unix_linuxlike_emscripten_posixFallocate(int32_t fd, int64_t offset, int64_t len) {
+int32_t libcUnixLinuxlikeEmscriptenPosixFallocate(int32_t fd, int64_t offset, int64_t len) {
     typedef int32_t (*km_fn_t)(int32_t, int64_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -354,7 +354,7 @@ int32_t libc_unix_linuxlike_emscripten_posixFallocate(int32_t fd, int64_t offset
     return -1;
 }
 
-int64_t libc_unix_linuxlike_emscripten_pwritev(int32_t fd, void* iov, int32_t iovcnt, int64_t offset) {
+int64_t libcUnixLinuxlikeEmscriptenPwritev(int32_t fd, void* iov, int32_t iovcnt, int64_t offset) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -382,7 +382,7 @@ int64_t libc_unix_linuxlike_emscripten_pwritev(int32_t fd, void* iov, int32_t io
     return -1;
 }
 
-int64_t libc_unix_linuxlike_emscripten_preadv(int32_t fd, void* iov, int32_t iovcnt, int64_t offset) {
+int64_t libcUnixLinuxlikeEmscriptenPreadv(int32_t fd, void* iov, int32_t iovcnt, int64_t offset) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -410,7 +410,7 @@ int64_t libc_unix_linuxlike_emscripten_preadv(int32_t fd, void* iov, int32_t iov
     return -1;
 }
 
-int32_t libc_unix_linuxlike_emscripten_dup3(int32_t oldfd, int32_t newfd, int32_t flags) {
+int32_t libcUnixLinuxlikeEmscriptenDup3(int32_t oldfd, int32_t newfd, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -438,7 +438,7 @@ int32_t libc_unix_linuxlike_emscripten_dup3(int32_t oldfd, int32_t newfd, int32_
     return -1;
 }
 
-char* libc_unix_linuxlike_emscripten_nlLanginfoL(int32_t item, void* locale) {
+char* libcUnixLinuxlikeEmscriptenNlLanginfoL(int32_t item, void* locale) {
     typedef char* (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -466,7 +466,7 @@ char* libc_unix_linuxlike_emscripten_nlLanginfoL(int32_t item, void* locale) {
     return NULL;
 }
 
-int32_t libc_unix_linuxlike_emscripten_accept4(int32_t fd, void* addr, void* len, int32_t flg) {
+int32_t libcUnixLinuxlikeEmscriptenAccept4(int32_t fd, void* addr, void* len, int32_t flg) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -494,7 +494,7 @@ int32_t libc_unix_linuxlike_emscripten_accept4(int32_t fd, void* addr, void* len
     return -1;
 }
 
-int32_t libc_unix_linuxlike_emscripten_getnameinfo(void* sa, uint32_t salen, char* host, uint32_t hostlen, char* serv, uint32_t servlen, int32_t flags) {
+int32_t libcUnixLinuxlikeEmscriptenGetnameinfo(void* sa, uint32_t salen, char* host, uint32_t hostlen, char* serv, uint32_t servlen, int32_t flags) {
     typedef int32_t (*km_fn_t)(void*, uint32_t, char*, uint32_t, char*, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -522,7 +522,7 @@ int32_t libc_unix_linuxlike_emscripten_getnameinfo(void* sa, uint32_t salen, cha
     return -1;
 }
 
-int32_t libc_unix_linuxlike_emscripten_getloadavg(void* loadavg, int32_t nelem) {
+int32_t libcUnixLinuxlikeEmscriptenGetloadavg(void* loadavg, int32_t nelem) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -550,7 +550,7 @@ int32_t libc_unix_linuxlike_emscripten_getloadavg(void* loadavg, int32_t nelem) 
     return -1;
 }
 
-int32_t libc_unix_linuxlike_emscripten_mkfifoat(int32_t dirfd, const char* pathname, uint32_t mode) {
+int32_t libcUnixLinuxlikeEmscriptenMkfifoat(int32_t dirfd, const char* pathname, uint32_t mode) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -578,7 +578,7 @@ int32_t libc_unix_linuxlike_emscripten_mkfifoat(int32_t dirfd, const char* pathn
     return -1;
 }
 
-void* libc_unix_linuxlike_emscripten_mremap(void* addr, uint64_t len, uint64_t new_len, int32_t flags, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+void* libcUnixLinuxlikeEmscriptenMremap(void* addr, uint64_t len, uint64_t newLen, int32_t flags, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef void* (*km_fn_t)(void*, uint64_t, uint64_t, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -601,18 +601,18 @@ void* libc_unix_linuxlike_emscripten_mremap(void* addr, uint64_t len, uint64_t n
 #endif
     if (km_fn_ptr != NULL) {
         switch (km_vac) {
-            case 0: return km_fn_ptr(addr, len, new_len, flags);
-            case 1: return km_fn_ptr(addr, len, new_len, flags, (intptr_t)km_va0);
-            case 2: return km_fn_ptr(addr, len, new_len, flags, (intptr_t)km_va0, (intptr_t)km_va1);
-            case 3: return km_fn_ptr(addr, len, new_len, flags, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2);
-            default: return km_fn_ptr(addr, len, new_len, flags, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3);
+            case 0: return km_fn_ptr(addr, len, newLen, flags);
+            case 1: return km_fn_ptr(addr, len, newLen, flags, (intptr_t)km_va0);
+            case 2: return km_fn_ptr(addr, len, newLen, flags, (intptr_t)km_va0, (intptr_t)km_va1);
+            case 3: return km_fn_ptr(addr, len, newLen, flags, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2);
+            default: return km_fn_ptr(addr, len, newLen, flags, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3);
         }
     }
     errno = ENOSYS;
     return NULL;
 }
 
-int32_t libc_unix_linuxlike_emscripten_glob(const char* pattern, int32_t flags, void* errfunc, void* pglob) {
+int32_t libcUnixLinuxlikeEmscriptenGlob(const char* pattern, int32_t flags, void* errfunc, void* pglob) {
     typedef int32_t (*km_fn_t)(const char*, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -640,7 +640,7 @@ int32_t libc_unix_linuxlike_emscripten_glob(const char* pattern, int32_t flags, 
     return -1;
 }
 
-void libc_unix_linuxlike_emscripten_globfree(void* pglob) {
+void libcUnixLinuxlikeEmscriptenGlobfree(void* pglob) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -668,7 +668,7 @@ void libc_unix_linuxlike_emscripten_globfree(void* pglob) {
     errno = ENOSYS;
 }
 
-int32_t libc_unix_linuxlike_emscripten_posixMadvise(void* addr, uint64_t len, int32_t advice) {
+int32_t libcUnixLinuxlikeEmscriptenPosixMadvise(void* addr, uint64_t len, int32_t advice) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -696,7 +696,7 @@ int32_t libc_unix_linuxlike_emscripten_posixMadvise(void* addr, uint64_t len, in
     return -1;
 }
 
-int32_t libc_unix_linuxlike_emscripten_shmUnlink(const char* name) {
+int32_t libcUnixLinuxlikeEmscriptenShmUnlink(const char* name) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -724,7 +724,7 @@ int32_t libc_unix_linuxlike_emscripten_shmUnlink(const char* name) {
     return -1;
 }
 
-void libc_unix_linuxlike_emscripten_seekdir(void* dirp, int64_t loc) {
+void libcUnixLinuxlikeEmscriptenSeekdir(void* dirp, int64_t loc) {
     typedef void (*km_fn_t)(void*, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -752,7 +752,7 @@ void libc_unix_linuxlike_emscripten_seekdir(void* dirp, int64_t loc) {
     errno = ENOSYS;
 }
 
-int64_t libc_unix_linuxlike_emscripten_telldir(void* dirp) {
+int64_t libcUnixLinuxlikeEmscriptenTelldir(void* dirp) {
     typedef int64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -780,7 +780,7 @@ int64_t libc_unix_linuxlike_emscripten_telldir(void* dirp) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_emscripten_madvise(void* addr, uint64_t len, int32_t advice) {
+int32_t libcUnixLinuxlikeEmscriptenMadvise(void* addr, uint64_t len, int32_t advice) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -808,7 +808,7 @@ int32_t libc_unix_linuxlike_emscripten_madvise(void* addr, uint64_t len, int32_t
     return -1;
 }
 
-int32_t libc_unix_linuxlike_emscripten_msync(void* addr, uint64_t len, int32_t flags) {
+int32_t libcUnixLinuxlikeEmscriptenMsync(void* addr, uint64_t len, int32_t flags) {
 #if !defined(_WIN32)
     return (int32_t)msync(addr, len, flags);
 #else
@@ -820,11 +820,11 @@ int32_t libc_unix_linuxlike_emscripten_msync(void* addr, uint64_t len, int32_t f
 #endif
 }
 
-int64_t libc_unix_linuxlike_emscripten_recvfrom(int32_t arg_0_socket, void* buf, uint64_t len, int32_t flags, void* addr, void* addrlen) {
-    return (int64_t)recvfrom(arg_0_socket, buf, len, flags, addr, addrlen);
+int64_t libcUnixLinuxlikeEmscriptenRecvfrom(int32_t arg0Socket, void* buf, uint64_t len, int32_t flags, void* addr, void* addrlen) {
+    return (int64_t)recvfrom(arg0Socket, buf, len, flags, addr, addrlen);
 }
 
-int32_t libc_unix_linuxlike_emscripten_mkstemps(char* arg_0_template, int32_t suffixlen) {
+int32_t libcUnixLinuxlikeEmscriptenMkstemps(char* arg0Template, int32_t suffixlen) {
     typedef int32_t (*km_fn_t)(char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -846,13 +846,13 @@ int32_t libc_unix_linuxlike_emscripten_mkstemps(char* arg_0_template, int32_t su
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_template, suffixlen);
+        return km_fn_ptr(arg0Template, suffixlen);
     }
     errno = ENOSYS;
     return -1;
 }
 
-char* libc_unix_linuxlike_emscripten_nlLanginfo(int32_t item) {
+char* libcUnixLinuxlikeEmscriptenNlLanginfo(int32_t item) {
     typedef char* (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -880,7 +880,7 @@ char* libc_unix_linuxlike_emscripten_nlLanginfo(int32_t item) {
     return NULL;
 }
 
-int32_t libc_unix_linuxlike_emscripten_sendmmsg(int32_t sockfd, void* msgvec, uint32_t vlen, uint32_t flags) {
+int32_t libcUnixLinuxlikeEmscriptenSendmmsg(int32_t sockfd, void* msgvec, uint32_t vlen, uint32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -908,7 +908,7 @@ int32_t libc_unix_linuxlike_emscripten_sendmmsg(int32_t sockfd, void* msgvec, ui
     return -1;
 }
 
-int32_t libc_unix_linuxlike_emscripten_recvmmsg(int32_t sockfd, void* msgvec, uint32_t vlen, uint32_t flags, void* timeout) {
+int32_t libcUnixLinuxlikeEmscriptenRecvmmsg(int32_t sockfd, void* msgvec, uint32_t vlen, uint32_t flags, void* timeout) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t, uint32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -936,7 +936,7 @@ int32_t libc_unix_linuxlike_emscripten_recvmmsg(int32_t sockfd, void* msgvec, ui
     return -1;
 }
 
-void libc_unix_linuxlike_emscripten_sync(void) {
+void libcUnixLinuxlikeEmscriptenSync(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -964,7 +964,7 @@ void libc_unix_linuxlike_emscripten_sync(void) {
     errno = ENOSYS;
 }
 
-int32_t libc_unix_linuxlike_emscripten_ioctl(int32_t fd, int32_t request, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcUnixLinuxlikeEmscriptenIoctl(int32_t fd, int32_t request, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -998,7 +998,7 @@ int32_t libc_unix_linuxlike_emscripten_ioctl(int32_t fd, int32_t request, int32_
     return -1;
 }
 
-int32_t libc_unix_linuxlike_emscripten_getpriority(int32_t which, uint32_t who) {
+int32_t libcUnixLinuxlikeEmscriptenGetpriority(int32_t which, uint32_t who) {
     typedef int32_t (*km_fn_t)(int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1026,7 +1026,7 @@ int32_t libc_unix_linuxlike_emscripten_getpriority(int32_t which, uint32_t who) 
     return -1;
 }
 
-int32_t libc_unix_linuxlike_emscripten_setpriority(int32_t which, uint32_t who, int32_t prio) {
+int32_t libcUnixLinuxlikeEmscriptenSetpriority(int32_t which, uint32_t who, int32_t prio) {
     typedef int32_t (*km_fn_t)(int32_t, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1054,7 +1054,7 @@ int32_t libc_unix_linuxlike_emscripten_setpriority(int32_t which, uint32_t who, 
     return -1;
 }
 
-int32_t libc_unix_linuxlike_emscripten_getentropy(void* buf, uint64_t buflen) {
+int32_t libcUnixLinuxlikeEmscriptenGetentropy(void* buf, uint64_t buflen) {
     typedef int32_t (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1082,7 +1082,7 @@ int32_t libc_unix_linuxlike_emscripten_getentropy(void* buf, uint64_t buflen) {
     return -1;
 }
 
-void* libc_unix_linuxlike_emscripten_getgrgid(uint16_t gid) {
+void* libcUnixLinuxlikeEmscriptenGetgrgid(uint16_t gid) {
     typedef void* (*km_fn_t)(uint16_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1110,7 +1110,7 @@ void* libc_unix_linuxlike_emscripten_getgrgid(uint16_t gid) {
     return NULL;
 }
 
-void* libc_unix_linuxlike_emscripten_getgrnam(const char* name) {
+void* libcUnixLinuxlikeEmscriptenGetgrnam(const char* name) {
     typedef void* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1138,7 +1138,7 @@ void* libc_unix_linuxlike_emscripten_getgrnam(const char* name) {
     return NULL;
 }
 
-int32_t libc_unix_linuxlike_emscripten_getgrnamR(const char* name, void* grp, char* buf, uint64_t buflen, void* result) {
+int32_t libcUnixLinuxlikeEmscriptenGetgrnamR(const char* name, void* grp, char* buf, uint64_t buflen, void* result) {
     typedef int32_t (*km_fn_t)(const char*, void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1166,7 +1166,7 @@ int32_t libc_unix_linuxlike_emscripten_getgrnamR(const char* name, void* grp, ch
     return -1;
 }
 
-int32_t libc_unix_linuxlike_emscripten_getgrgidR(uint16_t gid, void* grp, char* buf, uint64_t buflen, void* result) {
+int32_t libcUnixLinuxlikeEmscriptenGetgrgidR(uint16_t gid, void* grp, char* buf, uint64_t buflen, void* result) {
     typedef int32_t (*km_fn_t)(uint16_t, void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

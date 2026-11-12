@@ -3,453 +3,514 @@
 package io.github.kotlinmania.libc.unix.redox
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.unix.DIR
+import io.github.kotlinmania.libc.unix.Group
+import io.github.kotlinmania.libc.unix.Iovec
+import io.github.kotlinmania.libc.unix.Rlimit
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.Timeval
+import io.github.kotlinmania.libc.unix.Winsize
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 private object UnixRedoxJniBridge {
     init {
+        loadNativeLibrary()
+    }
+
+    private fun loadNativeLibrary() {
+        val osRaw = System.getProperty("os.name", "").lowercase()
+        val archRaw = System.getProperty("os.arch", "").lowercase()
+        val hostPlatform =
+            when {
+                osRaw.contains("win") -> "windows"
+                osRaw.contains("mac") || osRaw.contains("darwin") -> "macos"
+                else -> "linux"
+            }
+        val hostArch =
+            when {
+                archRaw == "aarch64" || archRaw == "arm64" -> "aarch64"
+                archRaw == "amd64" || archRaw == "x86_64" -> "x86_64"
+                else -> archRaw
+            }
+        val libFileName =
+            when (hostPlatform) {
+                "windows" -> "libc_jni.dll"
+                "macos" -> "liblibc_jni.dylib"
+                else -> "liblibc_jni.so"
+            }
+        val pathSep = System.getProperty("path.separator", ":")
+        val libPathProp = System.getProperty("java.library.path", "")
+        for (dirEntry in libPathProp.split(pathSep)) {
+            if (dirEntry.isEmpty()) continue
+            val candidate = java.io.File(dirEntry, libFileName)
+            if (candidate.isFile) {
+                System.load(candidate.absolutePath)
+                return
+            }
+        }
+        val resourcePath = "io/github/kotlinmania/libc/native/$hostPlatform-$hostArch/$libFileName"
+        val stream = UnixRedoxJniBridge::class.java.classLoader?.getResourceAsStream(resourcePath)
+        if (stream != null) {
+            val suffix = "." + libFileName.substringAfterLast('.')
+            val extracted =
+                java.nio.file.Files
+                    .createTempFile("libc_jni-", suffix)
+                    .toFile()
+            extracted.deleteOnExit()
+            stream.use { input ->
+                extracted.outputStream().use { output ->
+                    input.copyTo(output)
+                }
+            }
+            System.load(extracted.absolutePath)
+            return
+        }
         System.loadLibrary("libc_jni")
     }
 
     @JvmStatic
-    external fun libc_unix_redox_errnoLocation(): Long
+    external fun libcUnixRedoxErrnoLocation(): Long
 
     @JvmStatic
-    external fun libc_unix_redox_strerrorR(errnum: Int, buf: Long, buflen: Long): Int
+    external fun libcUnixRedoxStrerrorR(errnum: Int, buf: Long, buflen: Long): Int
 
     @JvmStatic
-    external fun libc_unix_redox_dirfd(dirp: Long): Int
+    external fun libcUnixRedoxDirfd(dirp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_redox_pipe2(fds: Long, flags: Int): Int
+    external fun libcUnixRedoxPipe2(fds: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_redox_getdtablesize(): Int
+    external fun libcUnixRedoxGetdtablesize(): Int
 
     @JvmStatic
-    external fun libc_unix_redox_getresgid(rgid: Long, egid: Long, sgid: Long): Int
+    external fun libcUnixRedoxGetresgid(rgid: Long, egid: Long, sgid: Long): Int
 
     @JvmStatic
-    external fun libc_unix_redox_getresuid(ruid: Long, euid: Long, suid: Long): Int
+    external fun libcUnixRedoxGetresuid(ruid: Long, euid: Long, suid: Long): Int
 
     @JvmStatic
-    external fun libc_unix_redox_setresgid(rgid: Int, egid: Int, sgid: Int): Int
+    external fun libcUnixRedoxSetresgid(rgid: Int, egid: Int, sgid: Int): Int
 
     @JvmStatic
-    external fun libc_unix_redox_setresuid(ruid: Int, euid: Int, suid: Int): Int
+    external fun libcUnixRedoxSetresuid(ruid: Int, euid: Int, suid: Int): Int
 
     @JvmStatic
-    external fun libc_unix_redox_getgrent(): Long
+    external fun libcUnixRedoxGetgrent(): Long
 
     @JvmStatic
-    external fun libc_unix_redox_setgrent()
+    external fun libcUnixRedoxSetgrent()
 
     @JvmStatic
-    external fun libc_unix_redox_endgrent()
+    external fun libcUnixRedoxEndgrent()
 
     @JvmStatic
-    external fun libc_unix_redox_getgrgid(gid: Int): Long
+    external fun libcUnixRedoxGetgrgid(gid: Int): Long
 
     @JvmStatic
-    external fun libc_unix_redox_getgrgidR(gid: Int, grp: Long, buf: Long, buflen: Long, result: Long): Int
+    external fun libcUnixRedoxGetgrgidR(gid: Int, grp: Long, buf: Long, buflen: Long, result: Long): Int
 
     @JvmStatic
-    external fun libc_unix_redox_getgrnam(name: String?): Long
+    external fun libcUnixRedoxGetgrnam(name: Long): Long
 
     @JvmStatic
-    external fun libc_unix_redox_getgrnamR(name: String?, grp: Long, buf: Long, buflen: Long, result: Long): Int
+    external fun libcUnixRedoxGetgrnamR(name: Long, grp: Long, buf: Long, buflen: Long, result: Long): Int
 
     @JvmStatic
-    external fun libc_unix_redox_getgrouplist(user: String?, group: Int, groups: Long, ngroups: Long): Int
+    external fun libcUnixRedoxGetgrouplist(user: Long, group: Int, groups: Long, ngroups: Long): Int
 
     @JvmStatic
-    external fun libc_unix_redox_memalign(align: Long, size: Long): Long
+    external fun libcUnixRedoxMemalign(align: Long, size: Long): Long
 
     @JvmStatic
-    external fun libc_unix_redox_getnameinfo(addr: Long, addrlen: Int, host: Long, hostlen: Int, serv: Long, servlen: Int, flags: Int): Int
+    external fun libcUnixRedoxGetnameinfo(addr: Long, addrlen: Int, host: Long, hostlen: Int, serv: Long, servlen: Int, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_redox_pthreadAtfork(prepare: Long, parent: Long, child: Long): Int
+    external fun libcUnixRedoxPthreadAtfork(prepare: Long, parent: Long, child: Long): Int
 
     @JvmStatic
-    external fun libc_unix_redox_pthreadCreate(tid: Long, attr: Long, start: Long, arg: Long): Int
+    external fun libcUnixRedoxPthreadCreate(tid: Long, attr: Long, start: Long, arg: Long): Int
 
     @JvmStatic
-    external fun libc_unix_redox_pthreadCondattrSetclock(attr: Long, clockId: Int): Int
+    external fun libcUnixRedoxPthreadCondattrSetclock(attr: Long, clockId: Int): Int
 
     @JvmStatic
-    external fun libc_unix_redox_openpty(amaster: Long, aslave: Long, name: Long, termp: Long, winp: Long): Int
+    external fun libcUnixRedoxOpenpty(amaster: Long, aslave: Long, name: Long, termp: Long, winp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_redox_getpwent(): Long
+    external fun libcUnixRedoxGetpwent(): Long
 
     @JvmStatic
-    external fun libc_unix_redox_setpwent()
+    external fun libcUnixRedoxSetpwent()
 
     @JvmStatic
-    external fun libc_unix_redox_endpwent()
+    external fun libcUnixRedoxEndpwent()
 
     @JvmStatic
-    external fun libc_unix_redox_getpwnamR(name: String?, pwd: Long, buf: Long, buflen: Long, result: Long): Int
+    external fun libcUnixRedoxGetpwnamR(name: Long, pwd: Long, buf: Long, buflen: Long, result: Long): Int
 
     @JvmStatic
-    external fun libc_unix_redox_getpwuidR(uid: Int, pwd: Long, buf: Long, buflen: Long, result: Long): Int
+    external fun libcUnixRedoxGetpwuidR(uid: Int, pwd: Long, buf: Long, buflen: Long, result: Long): Int
 
     @JvmStatic
-    external fun libc_unix_redox_pthreadSigmask(how: Int, set: Long, oldset: Long): Int
+    external fun libcUnixRedoxPthreadSigmask(how: Int, set: Long, oldset: Long): Int
 
     @JvmStatic
-    external fun libc_unix_redox_pthreadCancel(thread: Long): Int
+    external fun libcUnixRedoxPthreadCancel(thread: Long): Int
 
     @JvmStatic
-    external fun libc_unix_redox_pthreadKill(thread: Long, sig: Int): Int
+    external fun libcUnixRedoxPthreadKill(thread: Long, sig: Int): Int
 
     @JvmStatic
-    external fun libc_unix_redox_sigtimedwait(set: Long, sig: Long, timeout: Long): Int
+    external fun libcUnixRedoxSigtimedwait(set: Long, sig: Long, timeout: Long): Int
 
     @JvmStatic
-    external fun libc_unix_redox_sigwait(set: Long, sig: Long): Int
+    external fun libcUnixRedoxSigwait(set: Long, sig: Long): Int
 
     @JvmStatic
-    external fun libc_unix_redox_getsubopt(optionp: Long, tokens: Long, valuep: Long): Int
+    external fun libcUnixRedoxGetsubopt(optionp: Long, tokens: Long, valuep: Long): Int
 
     @JvmStatic
-    external fun libc_unix_redox_mkostemp(template: Long, flags: Int): Int
+    external fun libcUnixRedoxMkostemp(template: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_redox_mkostemps(template: Long, suffixlen: Int, flags: Int): Int
+    external fun libcUnixRedoxMkostemps(template: Long, suffixlen: Int, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_redox_reallocarray(ptr: Long, nmemb: Long, size: Long): Long
+    external fun libcUnixRedoxReallocarray(ptr: Long, nmemb: Long, size: Long): Long
 
     @JvmStatic
-    external fun libc_unix_redox_renameat2(olddirfd: Int, oldpath: String?, newdirfd: Int, newpath: String?, flags: Int): Int
+    external fun libcUnixRedoxRenameat2(olddirfd: Int, oldpath: Long, newdirfd: Int, newpath: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_redox_explicitBzero(p: Long, len: Long)
+    external fun libcUnixRedoxExplicitBzero(p: Long, len: Long)
 
     @JvmStatic
-    external fun libc_unix_redox_strlcat(dst: Long, src: String?, siz: Long): Long
+    external fun libcUnixRedoxStrlcat(dst: Long, src: Long, siz: Long): Long
 
     @JvmStatic
-    external fun libc_unix_redox_strlcpy(dst: Long, src: String?, siz: Long): Long
+    external fun libcUnixRedoxStrlcpy(dst: Long, src: Long, siz: Long): Long
 
     @JvmStatic
-    external fun libc_unix_redox_epollCreate(size: Int): Int
+    external fun libcUnixRedoxEpollCreate(size: Int): Int
 
     @JvmStatic
-    external fun libc_unix_redox_epollCreate1(flags: Int): Int
+    external fun libcUnixRedoxEpollCreate1(flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_redox_epollWait(epfd: Int, events: Long, maxevents: Int, timeout: Int): Int
+    external fun libcUnixRedoxEpollWait(epfd: Int, events: Long, maxevents: Int, timeout: Int): Int
 
     @JvmStatic
-    external fun libc_unix_redox_epollCtl(epfd: Int, op: Int, fd: Int, event: Long): Int
+    external fun libcUnixRedoxEpollCtl(epfd: Int, op: Int, fd: Int, event: Long): Int
 
     @JvmStatic
-    external fun libc_unix_redox_ioctl(fd: Int, request: Long, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcUnixRedoxIoctl(fd: Int, request: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_unix_redox_madvise(addr: Long, len: Long, advice: Int): Int
+    external fun libcUnixRedoxMadvise(addr: Long, len: Long, advice: Int): Int
 
     @JvmStatic
-    external fun libc_unix_redox_msync(addr: Long, len: Long, flags: Int): Int
+    external fun libcUnixRedoxMsync(addr: Long, len: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_redox_mprotect(addr: Long, len: Long, prot: Int): Int
+    external fun libcUnixRedoxMprotect(addr: Long, len: Long, prot: Int): Int
 
     @JvmStatic
-    external fun libc_unix_redox_shmOpen(name: String?, oflag: Int, mode: Int): Int
+    external fun libcUnixRedoxShmOpen(name: Long, oflag: Int, mode: Int): Int
 
     @JvmStatic
-    external fun libc_unix_redox_shmUnlink(name: String?): Int
+    external fun libcUnixRedoxShmUnlink(name: Long): Int
 
     @JvmStatic
-    external fun libc_unix_redox_getpriority(which: Int, who: Int): Int
+    external fun libcUnixRedoxGetpriority(which: Int, who: Int): Int
 
     @JvmStatic
-    external fun libc_unix_redox_setpriority(which: Int, who: Int, prio: Int): Int
+    external fun libcUnixRedoxSetpriority(which: Int, who: Int, prio: Int): Int
 
     @JvmStatic
-    external fun libc_unix_redox_getrlimit(resource: Int, rlim: Long): Int
+    external fun libcUnixRedoxGetrlimit(resource: Int, rlim: Long): Int
 
     @JvmStatic
-    external fun libc_unix_redox_setrlimit(resource: Int, rlim: Long): Int
+    external fun libcUnixRedoxSetrlimit(resource: Int, rlim: Long): Int
 
     @JvmStatic
-    external fun libc_unix_redox_cmsgData(cmsg: Long): Long
+    external fun libcUnixRedoxCmsgData(cmsg: Long): Long
 
     @JvmStatic
-    external fun libc_unix_redox_cmsgFirsthdr(mhdr: Long): Long
+    external fun libcUnixRedoxCmsgFirsthdr(mhdr: Long): Long
 
     @JvmStatic
-    external fun libc_unix_redox_cmsgNxthdr(mhdr: Long, cmsg: Long): Long
+    external fun libcUnixRedoxCmsgNxthdr(mhdr: Long, cmsg: Long): Long
 
     @JvmStatic
-    external fun libc_unix_redox_bind(socket: Int, address: Long, addressLen: Int): Int
+    external fun libcUnixRedoxBind(socket: Int, address: Long, addressLen: Int): Int
 
     @JvmStatic
-    external fun libc_unix_redox_recvfrom(socket: Int, buf: Long, len: Long, flags: Int, addr: Long, addrlen: Long): Long
+    external fun libcUnixRedoxRecvfrom(socket: Int, buf: Long, len: Long, flags: Int, addr: Long, addrlen: Long): Long
 
     @JvmStatic
-    external fun libc_unix_redox_recvmsg(socket: Int, msg: Long, flags: Int): Long
+    external fun libcUnixRedoxRecvmsg(socket: Int, msg: Long, flags: Int): Long
 
     @JvmStatic
-    external fun libc_unix_redox_sendmsg(socket: Int, msg: Long, flags: Int): Long
+    external fun libcUnixRedoxSendmsg(socket: Int, msg: Long, flags: Int): Long
 
     @JvmStatic
-    external fun libc_unix_redox_futimens(fd: Int, times: Long): Int
+    external fun libcUnixRedoxFutimens(fd: Int, times: Long): Int
 
     @JvmStatic
-    external fun libc_unix_redox_preadv(fd: Int, iov: Long, iovcnt: Int, offset: Long): Long
+    external fun libcUnixRedoxPreadv(fd: Int, iov: Long, iovcnt: Int, offset: Long): Long
 
     @JvmStatic
-    external fun libc_unix_redox_pwritev(fd: Int, iov: Long, iovcnt: Int, offset: Long): Long
+    external fun libcUnixRedoxPwritev(fd: Int, iov: Long, iovcnt: Int, offset: Long): Long
 
     @JvmStatic
-    external fun libc_unix_redox_readv(fd: Int, iov: Long, iovcnt: Int): Long
+    external fun libcUnixRedoxReadv(fd: Int, iov: Long, iovcnt: Int): Long
 
     @JvmStatic
-    external fun libc_unix_redox_writev(fd: Int, iov: Long, iovcnt: Int): Long
+    external fun libcUnixRedoxWritev(fd: Int, iov: Long, iovcnt: Int): Long
 
     @JvmStatic
-    external fun libc_unix_redox_uname(utsname: Long): Int
+    external fun libcUnixRedoxUname(utsname: Long): Int
 
     @JvmStatic
-    external fun libc_unix_redox_gettimeofday(tp: Long, tz: Long): Int
+    external fun libcUnixRedoxGettimeofday(tp: Long, tz: Long): Int
 
     @JvmStatic
-    external fun libc_unix_redox_clockGettime(clkId: Int, tp: Long): Int
+    external fun libcUnixRedoxClockGettime(clkId: Int, tp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_redox_strftime(s: Long, max: Long, format: String?, tm: Long): Long
+    external fun libcUnixRedoxStrftime(s: Long, max: Long, format: Long, tm: Long): Long
 
     @JvmStatic
-    external fun libc_unix_redox_loginTty(fd: Int): Int
+    external fun libcUnixRedoxLoginTty(fd: Int): Int
 }
 
-public actual fun errnoLocation(): COpaquePointer? =
-    UnixRedoxJniBridge.libc_unix_redox_errnoLocation().let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun errnoLocation(): MutPtr<CInt> =
+    MutPtr(UnixRedoxJniBridge.libcUnixRedoxErrnoLocation())
 
-public actual fun strerrorR(errnum: CInt, buf: COpaquePointer?, buflen: SizeT): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_strerrorR(errnum, (buf?.value ?: 0L), buflen.toLong())
+public actual fun strerrorR(errnum: CInt, buf: MutPtr<CChar>, buflen: SizeT): CInt =
+    UnixRedoxJniBridge.libcUnixRedoxStrerrorR(errnum, buf.rawAddress, buflen.toLong())
 
-public actual fun dirfd(dirp: DIR?): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_dirfd((dirp?.handle ?: 0L))
+public actual fun dirfd(dirp: MutPtr<DIR>): CInt =
+    UnixRedoxJniBridge.libcUnixRedoxDirfd(dirp.rawAddress)
 
-public actual fun pipe2(fds: COpaquePointer?, flags: CInt): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_pipe2((fds?.value ?: 0L), flags)
+public actual fun pipe2(fds: MutPtr<CInt>, flags: CInt): CInt =
+    UnixRedoxJniBridge.libcUnixRedoxPipe2(fds.rawAddress, flags)
 
 public actual fun getdtablesize(): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_getdtablesize()
+    UnixRedoxJniBridge.libcUnixRedoxGetdtablesize()
 
-public actual fun getresgid(rgid: COpaquePointer?, egid: COpaquePointer?, sgid: COpaquePointer?): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_getresgid((rgid?.value ?: 0L), (egid?.value ?: 0L), (sgid?.value ?: 0L))
+public actual fun getresgid(rgid: MutPtr<GidT>, egid: MutPtr<GidT>, sgid: MutPtr<GidT>): CInt =
+    UnixRedoxJniBridge.libcUnixRedoxGetresgid(rgid.rawAddress, egid.rawAddress, sgid.rawAddress)
 
-public actual fun getresuid(ruid: COpaquePointer?, euid: COpaquePointer?, suid: COpaquePointer?): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_getresuid((ruid?.value ?: 0L), (euid?.value ?: 0L), (suid?.value ?: 0L))
+public actual fun getresuid(ruid: MutPtr<UidT>, euid: MutPtr<UidT>, suid: MutPtr<UidT>): CInt =
+    UnixRedoxJniBridge.libcUnixRedoxGetresuid(ruid.rawAddress, euid.rawAddress, suid.rawAddress)
 
 public actual fun setresgid(rgid: GidT, egid: GidT, sgid: GidT): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_setresgid(rgid, egid, sgid)
+    UnixRedoxJniBridge.libcUnixRedoxSetresgid(rgid, egid, sgid)
 
 public actual fun setresuid(ruid: UidT, euid: UidT, suid: UidT): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_setresuid(ruid, euid, suid)
+    UnixRedoxJniBridge.libcUnixRedoxSetresuid(ruid, euid, suid)
 
-public actual fun getgrent(): COpaquePointer? =
-    UnixRedoxJniBridge.libc_unix_redox_getgrent().let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getgrent(): MutPtr<Group> =
+    MutPtr(UnixRedoxJniBridge.libcUnixRedoxGetgrent())
 
 public actual fun setgrent() {
-    UnixRedoxJniBridge.libc_unix_redox_setgrent()
+    UnixRedoxJniBridge.libcUnixRedoxSetgrent()
 }
 
 public actual fun endgrent() {
-    UnixRedoxJniBridge.libc_unix_redox_endgrent()
+    UnixRedoxJniBridge.libcUnixRedoxEndgrent()
 }
 
-public actual fun getgrgid(gid: GidT): COpaquePointer? =
-    UnixRedoxJniBridge.libc_unix_redox_getgrgid(gid).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getgrgid(gid: GidT): MutPtr<Group> =
+    MutPtr(UnixRedoxJniBridge.libcUnixRedoxGetgrgid(gid))
 
-public actual fun getgrgidR(gid: GidT, grp: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_getgrgidR(gid, (grp?.value ?: 0L), (buf?.value ?: 0L), buflen.toLong(), (result?.value ?: 0L))
+public actual fun getgrgidR(gid: GidT, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+    UnixRedoxJniBridge.libcUnixRedoxGetgrgidR(gid, grp.rawAddress, buf.rawAddress, buflen.toLong(), result.rawAddress)
 
-public actual fun getgrnam(name: String?): COpaquePointer? =
-    UnixRedoxJniBridge.libc_unix_redox_getgrnam(name).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getgrnam(name: ConstPtr<CChar>): MutPtr<Group> =
+    MutPtr(UnixRedoxJniBridge.libcUnixRedoxGetgrnam(name.rawAddress))
 
-public actual fun getgrnamR(name: String?, grp: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_getgrnamR(name, (grp?.value ?: 0L), (buf?.value ?: 0L), buflen.toLong(), (result?.value ?: 0L))
+public actual fun getgrnamR(name: ConstPtr<CChar>, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+    UnixRedoxJniBridge.libcUnixRedoxGetgrnamR(name.rawAddress, grp.rawAddress, buf.rawAddress, buflen.toLong(), result.rawAddress)
 
-public actual fun getgrouplist(user: String?, group: GidT, groups: COpaquePointer?, ngroups: COpaquePointer?): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_getgrouplist(user, group, (groups?.value ?: 0L), (ngroups?.value ?: 0L))
+public actual fun getgrouplist(user: ConstPtr<CChar>, group: GidT, groups: MutPtr<GidT>, ngroups: MutPtr<CInt>): CInt =
+    UnixRedoxJniBridge.libcUnixRedoxGetgrouplist(user.rawAddress, group, groups.rawAddress, ngroups.rawAddress)
 
-public actual fun memalign(align: SizeT, size: SizeT): COpaquePointer? =
-    UnixRedoxJniBridge.libc_unix_redox_memalign(align.toLong(), size.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun memalign(align: SizeT, size: SizeT): MutPtr<CVoid> =
+    MutPtr(UnixRedoxJniBridge.libcUnixRedoxMemalign(align.toLong(), size.toLong()))
 
-public actual fun getnameinfo(addr: COpaquePointer?, addrlen: SocklenT, host: COpaquePointer?, hostlen: SocklenT, serv: COpaquePointer?, servlen: SocklenT, flags: CInt): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_getnameinfo((addr?.value ?: 0L), addrlen.toInt(), (host?.value ?: 0L), hostlen.toInt(), (serv?.value ?: 0L), servlen.toInt(), flags)
+public actual fun getnameinfo(addr: ConstPtr<Sockaddr>, addrlen: SocklenT, host: MutPtr<CChar>, hostlen: SocklenT, serv: MutPtr<CChar>, servlen: SocklenT, flags: CInt): CInt =
+    UnixRedoxJniBridge.libcUnixRedoxGetnameinfo(addr.rawAddress, addrlen.toInt(), host.rawAddress, hostlen.toInt(), serv.rawAddress, servlen.toInt(), flags)
 
 public actual fun pthreadAtfork(prepare: SigactionSaRestorerCallback?, parent: SigactionSaRestorerCallback?, child: SigactionSaRestorerCallback?): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_pthreadAtfork(0L, 0L, 0L)
+    UnixRedoxJniBridge.libcUnixRedoxPthreadAtfork(0L, 0L, 0L)
 
-public actual fun pthreadCreate(tid: COpaquePointer?, attr: COpaquePointer?, start: PthreadCreateStartCallback, arg: COpaquePointer?): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_pthreadCreate((tid?.value ?: 0L), (attr?.value ?: 0L), 0L, (arg?.value ?: 0L))
+public actual fun pthreadCreate(tid: MutPtr<PthreadT>, attr: ConstPtr<PthreadAttrT>, start: PthreadCreateStartCallback, arg: MutPtr<CVoid>): CInt =
+    UnixRedoxJniBridge.libcUnixRedoxPthreadCreate(tid.rawAddress, attr.rawAddress, 0L, arg.rawAddress)
 
-public actual fun pthreadCondattrSetclock(attr: COpaquePointer?, clockId: ClockidT): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_pthreadCondattrSetclock((attr?.value ?: 0L), clockId)
+public actual fun pthreadCondattrSetclock(attr: MutPtr<PthreadCondattrT>, clockId: ClockidT): CInt =
+    UnixRedoxJniBridge.libcUnixRedoxPthreadCondattrSetclock(attr.rawAddress, clockId)
 
-public actual fun openpty(amaster: COpaquePointer?, aslave: COpaquePointer?, name: COpaquePointer?, termp: COpaquePointer?, winp: COpaquePointer?): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_openpty((amaster?.value ?: 0L), (aslave?.value ?: 0L), (name?.value ?: 0L), (termp?.value ?: 0L), (winp?.value ?: 0L))
+public actual fun openpty(amaster: MutPtr<CInt>, aslave: MutPtr<CInt>, name: MutPtr<CChar>, termp: ConstPtr<Termios>, winp: ConstPtr<Winsize>): CInt =
+    UnixRedoxJniBridge.libcUnixRedoxOpenpty(amaster.rawAddress, aslave.rawAddress, name.rawAddress, termp.rawAddress, winp.rawAddress)
 
-public actual fun getpwent(): COpaquePointer? =
-    UnixRedoxJniBridge.libc_unix_redox_getpwent().let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getpwent(): MutPtr<Passwd> =
+    MutPtr(UnixRedoxJniBridge.libcUnixRedoxGetpwent())
 
 public actual fun setpwent() {
-    UnixRedoxJniBridge.libc_unix_redox_setpwent()
+    UnixRedoxJniBridge.libcUnixRedoxSetpwent()
 }
 
 public actual fun endpwent() {
-    UnixRedoxJniBridge.libc_unix_redox_endpwent()
+    UnixRedoxJniBridge.libcUnixRedoxEndpwent()
 }
 
-public actual fun getpwnamR(name: String?, pwd: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_getpwnamR(name, (pwd?.value ?: 0L), (buf?.value ?: 0L), buflen.toLong(), (result?.value ?: 0L))
+public actual fun getpwnamR(name: ConstPtr<CChar>, pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt =
+    UnixRedoxJniBridge.libcUnixRedoxGetpwnamR(name.rawAddress, pwd.rawAddress, buf.rawAddress, buflen.toLong(), result.rawAddress)
 
-public actual fun getpwuidR(uid: UidT, pwd: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_getpwuidR(uid, (pwd?.value ?: 0L), (buf?.value ?: 0L), buflen.toLong(), (result?.value ?: 0L))
+public actual fun getpwuidR(uid: UidT, pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt =
+    UnixRedoxJniBridge.libcUnixRedoxGetpwuidR(uid, pwd.rawAddress, buf.rawAddress, buflen.toLong(), result.rawAddress)
 
-public actual fun pthreadSigmask(how: CInt, set: COpaquePointer?, oldset: COpaquePointer?): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_pthreadSigmask(how, (set?.value ?: 0L), (oldset?.value ?: 0L))
+public actual fun pthreadSigmask(how: CInt, set: ConstPtr<SigsetT>, oldset: MutPtr<SigsetT>): CInt =
+    UnixRedoxJniBridge.libcUnixRedoxPthreadSigmask(how, set.rawAddress, oldset.rawAddress)
 
 public actual fun pthreadCancel(thread: PthreadT): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_pthreadCancel((thread?.value ?: 0L))
+    UnixRedoxJniBridge.libcUnixRedoxPthreadCancel(thread.rawAddress)
 
 public actual fun pthreadKill(thread: PthreadT, sig: CInt): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_pthreadKill((thread?.value ?: 0L), sig)
+    UnixRedoxJniBridge.libcUnixRedoxPthreadKill(thread.rawAddress, sig)
 
-public actual fun sigtimedwait(set: COpaquePointer?, sig: COpaquePointer?, timeout: COpaquePointer?): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_sigtimedwait((set?.value ?: 0L), (sig?.value ?: 0L), (timeout?.value ?: 0L))
+public actual fun sigtimedwait(set: ConstPtr<SigsetT>, sig: MutPtr<SiginfoT>, timeout: ConstPtr<Timespec>): CInt =
+    UnixRedoxJniBridge.libcUnixRedoxSigtimedwait(set.rawAddress, sig.rawAddress, timeout.rawAddress)
 
-public actual fun sigwait(set: COpaquePointer?, sig: COpaquePointer?): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_sigwait((set?.value ?: 0L), (sig?.value ?: 0L))
+public actual fun sigwait(set: ConstPtr<SigsetT>, sig: MutPtr<CInt>): CInt =
+    UnixRedoxJniBridge.libcUnixRedoxSigwait(set.rawAddress, sig.rawAddress)
 
-public actual fun getsubopt(optionp: COpaquePointer?, tokens: COpaquePointer?, valuep: COpaquePointer?): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_getsubopt((optionp?.value ?: 0L), (tokens?.value ?: 0L), (valuep?.value ?: 0L))
+public actual fun getsubopt(optionp: MutPtr<MutPtr<CChar>>, tokens: ConstPtr<MutPtr<CChar>>, valuep: MutPtr<MutPtr<CChar>>): CInt =
+    UnixRedoxJniBridge.libcUnixRedoxGetsubopt(optionp.rawAddress, tokens.rawAddress, valuep.rawAddress)
 
-public actual fun mkostemp(template: COpaquePointer?, flags: CInt): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_mkostemp((template?.value ?: 0L), flags)
+public actual fun mkostemp(template: MutPtr<CChar>, flags: CInt): CInt =
+    UnixRedoxJniBridge.libcUnixRedoxMkostemp(template.rawAddress, flags)
 
-public actual fun mkostemps(template: COpaquePointer?, suffixlen: CInt, flags: CInt): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_mkostemps((template?.value ?: 0L), suffixlen, flags)
+public actual fun mkostemps(template: MutPtr<CChar>, suffixlen: CInt, flags: CInt): CInt =
+    UnixRedoxJniBridge.libcUnixRedoxMkostemps(template.rawAddress, suffixlen, flags)
 
-public actual fun reallocarray(ptr: COpaquePointer?, nmemb: SizeT, size: SizeT): COpaquePointer? =
-    UnixRedoxJniBridge.libc_unix_redox_reallocarray((ptr?.value ?: 0L), nmemb.toLong(), size.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun reallocarray(ptr: MutPtr<CVoid>, nmemb: SizeT, size: SizeT): MutPtr<CVoid> =
+    MutPtr(UnixRedoxJniBridge.libcUnixRedoxReallocarray(ptr.rawAddress, nmemb.toLong(), size.toLong()))
 
-public actual fun renameat2(olddirfd: CInt, oldpath: String?, newdirfd: CInt, newpath: String?, flags: CUint): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_renameat2(olddirfd, oldpath, newdirfd, newpath, flags.toInt())
+public actual fun renameat2(olddirfd: CInt, oldpath: ConstPtr<CChar>, newdirfd: CInt, newpath: ConstPtr<CChar>, flags: CUint): CInt =
+    UnixRedoxJniBridge.libcUnixRedoxRenameat2(olddirfd, oldpath.rawAddress, newdirfd, newpath.rawAddress, flags.toInt())
 
-public actual fun explicitBzero(p: COpaquePointer?, len: SizeT) {
-    UnixRedoxJniBridge.libc_unix_redox_explicitBzero((p?.value ?: 0L), len.toLong())
+public actual fun explicitBzero(p: MutPtr<CVoid>, len: SizeT) {
+    UnixRedoxJniBridge.libcUnixRedoxExplicitBzero(p.rawAddress, len.toLong())
 }
 
-public actual fun strlcat(dst: COpaquePointer?, src: String?, siz: SizeT): SizeT =
-    UnixRedoxJniBridge.libc_unix_redox_strlcat((dst?.value ?: 0L), src, siz.toLong()).toULong()
+public actual fun strlcat(dst: MutPtr<CChar>, src: ConstPtr<CChar>, siz: SizeT): SizeT =
+    UnixRedoxJniBridge.libcUnixRedoxStrlcat(dst.rawAddress, src.rawAddress, siz.toLong()).toULong()
 
-public actual fun strlcpy(dst: COpaquePointer?, src: String?, siz: SizeT): SizeT =
-    UnixRedoxJniBridge.libc_unix_redox_strlcpy((dst?.value ?: 0L), src, siz.toLong()).toULong()
+public actual fun strlcpy(dst: MutPtr<CChar>, src: ConstPtr<CChar>, siz: SizeT): SizeT =
+    UnixRedoxJniBridge.libcUnixRedoxStrlcpy(dst.rawAddress, src.rawAddress, siz.toLong()).toULong()
 
 public actual fun epollCreate(size: CInt): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_epollCreate(size)
+    UnixRedoxJniBridge.libcUnixRedoxEpollCreate(size)
 
 public actual fun epollCreate1(flags: CInt): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_epollCreate1(flags)
+    UnixRedoxJniBridge.libcUnixRedoxEpollCreate1(flags)
 
-public actual fun epollWait(epfd: CInt, events: COpaquePointer?, maxevents: CInt, timeout: CInt): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_epollWait(epfd, (events?.value ?: 0L), maxevents, timeout)
+public actual fun epollWait(epfd: CInt, events: MutPtr<EpollEvent>, maxevents: CInt, timeout: CInt): CInt =
+    UnixRedoxJniBridge.libcUnixRedoxEpollWait(epfd, events.rawAddress, maxevents, timeout)
 
-public actual fun epollCtl(epfd: CInt, op: CInt, fd: CInt, event: COpaquePointer?): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_epollCtl(epfd, op, fd, (event?.value ?: 0L))
+public actual fun epollCtl(epfd: CInt, op: CInt, fd: CInt, event: MutPtr<EpollEvent>): CInt =
+    UnixRedoxJniBridge.libcUnixRedoxEpollCtl(epfd, op, fd, event.rawAddress)
 
 public actual fun ioctl(fd: CInt, request: CUlong, vararg variadicArgs: Long): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_ioctl(fd, request.toLong(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+    UnixRedoxJniBridge.libcUnixRedoxIoctl(fd, request.toLong(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun madvise(addr: COpaquePointer?, len: SizeT, advice: CInt): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_madvise((addr?.value ?: 0L), len.toLong(), advice)
+public actual fun madvise(addr: MutPtr<CVoid>, len: SizeT, advice: CInt): CInt =
+    UnixRedoxJniBridge.libcUnixRedoxMadvise(addr.rawAddress, len.toLong(), advice)
 
-public actual fun msync(addr: COpaquePointer?, len: SizeT, flags: CInt): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_msync((addr?.value ?: 0L), len.toLong(), flags)
+public actual fun msync(addr: MutPtr<CVoid>, len: SizeT, flags: CInt): CInt =
+    UnixRedoxJniBridge.libcUnixRedoxMsync(addr.rawAddress, len.toLong(), flags)
 
-public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_mprotect((addr?.value ?: 0L), len.toLong(), prot)
+public actual fun mprotect(addr: MutPtr<CVoid>, len: SizeT, prot: CInt): CInt =
+    UnixRedoxJniBridge.libcUnixRedoxMprotect(addr.rawAddress, len.toLong(), prot)
 
-public actual fun shmOpen(name: String?, oflag: CInt, mode: ModeT): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_shmOpen(name, oflag, mode)
+public actual fun shmOpen(name: ConstPtr<CChar>, oflag: CInt, mode: ModeT): CInt =
+    UnixRedoxJniBridge.libcUnixRedoxShmOpen(name.rawAddress, oflag, mode)
 
-public actual fun shmUnlink(name: String?): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_shmUnlink(name)
+public actual fun shmUnlink(name: ConstPtr<CChar>): CInt =
+    UnixRedoxJniBridge.libcUnixRedoxShmUnlink(name.rawAddress)
 
 public actual fun getpriority(which: CInt, who: IdT): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_getpriority(which, who.toInt())
+    UnixRedoxJniBridge.libcUnixRedoxGetpriority(which, who.toInt())
 
 public actual fun setpriority(which: CInt, who: IdT, prio: CInt): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_setpriority(which, who.toInt(), prio)
+    UnixRedoxJniBridge.libcUnixRedoxSetpriority(which, who.toInt(), prio)
 
-public actual fun getrlimit(resource: CInt, rlim: COpaquePointer?): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_getrlimit(resource, (rlim?.value ?: 0L))
+public actual fun getrlimit(resource: CInt, rlim: MutPtr<Rlimit>): CInt =
+    UnixRedoxJniBridge.libcUnixRedoxGetrlimit(resource, rlim.rawAddress)
 
-public actual fun setrlimit(resource: CInt, rlim: COpaquePointer?): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_setrlimit(resource, (rlim?.value ?: 0L))
+public actual fun setrlimit(resource: CInt, rlim: ConstPtr<Rlimit>): CInt =
+    UnixRedoxJniBridge.libcUnixRedoxSetrlimit(resource, rlim.rawAddress)
 
-public actual fun cmsgData(cmsg: COpaquePointer?): COpaquePointer? =
-    UnixRedoxJniBridge.libc_unix_redox_cmsgData((cmsg?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun cmsgData(cmsg: ConstPtr<Cmsghdr>): MutPtr<CUchar> =
+    MutPtr(UnixRedoxJniBridge.libcUnixRedoxCmsgData(cmsg.rawAddress))
 
-public actual fun cmsgFirsthdr(mhdr: COpaquePointer?): COpaquePointer? =
-    UnixRedoxJniBridge.libc_unix_redox_cmsgFirsthdr((mhdr?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun cmsgFirsthdr(mhdr: ConstPtr<Msghdr>): MutPtr<Cmsghdr> =
+    MutPtr(UnixRedoxJniBridge.libcUnixRedoxCmsgFirsthdr(mhdr.rawAddress))
 
-public actual fun cmsgNxthdr(mhdr: COpaquePointer?, cmsg: COpaquePointer?): COpaquePointer? =
-    UnixRedoxJniBridge.libc_unix_redox_cmsgNxthdr((mhdr?.value ?: 0L), (cmsg?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun cmsgNxthdr(mhdr: ConstPtr<Msghdr>, cmsg: ConstPtr<Cmsghdr>): MutPtr<Cmsghdr> =
+    MutPtr(UnixRedoxJniBridge.libcUnixRedoxCmsgNxthdr(mhdr.rawAddress, cmsg.rawAddress))
 
-public actual fun bind(socket: CInt, address: COpaquePointer?, addressLen: SocklenT): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_bind(socket, (address?.value ?: 0L), addressLen.toInt())
+public actual fun bind(socket: CInt, address: ConstPtr<Sockaddr>, addressLen: SocklenT): CInt =
+    UnixRedoxJniBridge.libcUnixRedoxBind(socket, address.rawAddress, addressLen.toInt())
 
-public actual fun recvfrom(socket: CInt, buf: COpaquePointer?, len: SizeT, flags: CInt, addr: COpaquePointer?, addrlen: COpaquePointer?): SsizeT =
-    UnixRedoxJniBridge.libc_unix_redox_recvfrom(socket, (buf?.value ?: 0L), len.toLong(), flags, (addr?.value ?: 0L), (addrlen?.value ?: 0L))
+public actual fun recvfrom(socket: CInt, buf: MutPtr<CVoid>, len: SizeT, flags: CInt, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): SsizeT =
+    UnixRedoxJniBridge.libcUnixRedoxRecvfrom(socket, buf.rawAddress, len.toLong(), flags, addr.rawAddress, addrlen.rawAddress)
 
-public actual fun recvmsg(socket: CInt, msg: COpaquePointer?, flags: CInt): SsizeT =
-    UnixRedoxJniBridge.libc_unix_redox_recvmsg(socket, (msg?.value ?: 0L), flags)
+public actual fun recvmsg(socket: CInt, msg: MutPtr<Msghdr>, flags: CInt): SsizeT =
+    UnixRedoxJniBridge.libcUnixRedoxRecvmsg(socket, msg.rawAddress, flags)
 
-public actual fun sendmsg(socket: CInt, msg: COpaquePointer?, flags: CInt): SsizeT =
-    UnixRedoxJniBridge.libc_unix_redox_sendmsg(socket, (msg?.value ?: 0L), flags)
+public actual fun sendmsg(socket: CInt, msg: ConstPtr<Msghdr>, flags: CInt): SsizeT =
+    UnixRedoxJniBridge.libcUnixRedoxSendmsg(socket, msg.rawAddress, flags)
 
-public actual fun futimens(fd: CInt, times: COpaquePointer?): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_futimens(fd, (times?.value ?: 0L))
+public actual fun futimens(fd: CInt, times: ConstPtr<Timespec>): CInt =
+    UnixRedoxJniBridge.libcUnixRedoxFutimens(fd, times.rawAddress)
 
-public actual fun preadv(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: OffT): SsizeT =
-    UnixRedoxJniBridge.libc_unix_redox_preadv(fd, (iov?.value ?: 0L), iovcnt, offset)
+public actual fun preadv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT =
+    UnixRedoxJniBridge.libcUnixRedoxPreadv(fd, iov.rawAddress, iovcnt, offset)
 
-public actual fun pwritev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: OffT): SsizeT =
-    UnixRedoxJniBridge.libc_unix_redox_pwritev(fd, (iov?.value ?: 0L), iovcnt, offset)
+public actual fun pwritev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT =
+    UnixRedoxJniBridge.libcUnixRedoxPwritev(fd, iov.rawAddress, iovcnt, offset)
 
-public actual fun readv(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT =
-    UnixRedoxJniBridge.libc_unix_redox_readv(fd, (iov?.value ?: 0L), iovcnt)
+public actual fun readv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+    UnixRedoxJniBridge.libcUnixRedoxReadv(fd, iov.rawAddress, iovcnt)
 
-public actual fun writev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT =
-    UnixRedoxJniBridge.libc_unix_redox_writev(fd, (iov?.value ?: 0L), iovcnt)
+public actual fun writev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+    UnixRedoxJniBridge.libcUnixRedoxWritev(fd, iov.rawAddress, iovcnt)
 
-public actual fun uname(utsname: COpaquePointer?): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_uname((utsname?.value ?: 0L))
+public actual fun uname(utsname: MutPtr<Utsname>): CInt =
+    UnixRedoxJniBridge.libcUnixRedoxUname(utsname.rawAddress)
 
-public actual fun gettimeofday(tp: COpaquePointer?, tz: COpaquePointer?): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_gettimeofday((tp?.value ?: 0L), (tz?.value ?: 0L))
+public actual fun gettimeofday(tp: MutPtr<Timeval>, tz: MutPtr<Timezone>): CInt =
+    UnixRedoxJniBridge.libcUnixRedoxGettimeofday(tp.rawAddress, tz.rawAddress)
 
-public actual fun clockGettime(clkId: ClockidT, tp: COpaquePointer?): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_clockGettime(clkId, (tp?.value ?: 0L))
+public actual fun clockGettime(clkId: ClockidT, tp: MutPtr<Timespec>): CInt =
+    UnixRedoxJniBridge.libcUnixRedoxClockGettime(clkId, tp.rawAddress)
 
-public actual fun strftime(s: COpaquePointer?, max: SizeT, format: String?, tm: COpaquePointer?): SizeT =
-    UnixRedoxJniBridge.libc_unix_redox_strftime((s?.value ?: 0L), max.toLong(), format, (tm?.value ?: 0L)).toULong()
+public actual fun strftime(s: MutPtr<CChar>, max: SizeT, format: ConstPtr<CChar>, tm: ConstPtr<Tm>): SizeT =
+    UnixRedoxJniBridge.libcUnixRedoxStrftime(s.rawAddress, max.toLong(), format.rawAddress, tm.rawAddress).toULong()
 
 public actual fun loginTty(fd: CInt): CInt =
-    UnixRedoxJniBridge.libc_unix_redox_loginTty(fd)
+    UnixRedoxJniBridge.libcUnixRedoxLoginTty(fd)

@@ -51,10 +51,10 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_wasi_p2_socket_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiP2Socket_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t domain = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t type_ = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t type = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     int32_t protocol = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -78,7 +78,7 @@ static Napi::Value libc_wasi_p2_socket_napi(const Napi::CallbackInfo& km_info) {
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(domain, type_, protocol);
+        km_res = km_fn_ptr(domain, type, protocol);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -86,7 +86,7 @@ static Napi::Value libc_wasi_p2_socket_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_p2_connect_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiP2Connect_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* name = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -121,9 +121,9 @@ static Napi::Value libc_wasi_p2_connect_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_p2_bind_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiP2Bind_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t arg0Socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint32_t addrlen = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t);
@@ -148,7 +148,7 @@ static Napi::Value libc_wasi_p2_bind_napi(const Napi::CallbackInfo& km_info) {
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_socket, addr, addrlen);
+        km_res = km_fn_ptr(arg0Socket, addr, addrlen);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -156,9 +156,9 @@ static Napi::Value libc_wasi_p2_bind_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_p2_listen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiP2Listen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t arg0Socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t backlog = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -182,7 +182,7 @@ static Napi::Value libc_wasi_p2_listen_napi(const Napi::CallbackInfo& km_info) {
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_socket, backlog);
+        km_res = km_fn_ptr(arg0Socket, backlog);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -190,9 +190,9 @@ static Napi::Value libc_wasi_p2_listen_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_p2_accept_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiP2Accept_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t arg0Socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* addrlen = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
@@ -217,7 +217,7 @@ static Napi::Value libc_wasi_p2_accept_napi(const Napi::CallbackInfo& km_info) {
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_socket, addr, addrlen);
+        km_res = km_fn_ptr(arg0Socket, addr, addrlen);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -225,9 +225,9 @@ static Napi::Value libc_wasi_p2_accept_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_p2_accept4_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiP2Accept4_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t arg0Socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* addrlen = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
@@ -253,7 +253,7 @@ static Napi::Value libc_wasi_p2_accept4_napi(const Napi::CallbackInfo& km_info) 
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_socket, addr, addrlen, flags);
+        km_res = km_fn_ptr(arg0Socket, addr, addrlen, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -261,9 +261,9 @@ static Napi::Value libc_wasi_p2_accept4_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_p2_getsockname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiP2Getsockname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t arg0Socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* addrlen = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
@@ -288,7 +288,7 @@ static Napi::Value libc_wasi_p2_getsockname_napi(const Napi::CallbackInfo& km_in
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_socket, addr, addrlen);
+        km_res = km_fn_ptr(arg0Socket, addr, addrlen);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -296,9 +296,9 @@ static Napi::Value libc_wasi_p2_getsockname_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_p2_getpeername_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiP2Getpeername_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t arg0Socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* addrlen = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
@@ -323,7 +323,7 @@ static Napi::Value libc_wasi_p2_getpeername_napi(const Napi::CallbackInfo& km_in
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_socket, addr, addrlen);
+        km_res = km_fn_ptr(arg0Socket, addr, addrlen);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -331,9 +331,9 @@ static Napi::Value libc_wasi_p2_getpeername_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_p2_sendto_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiP2Sendto_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t arg0Socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buffer = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t length = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     int32_t flags = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
@@ -361,7 +361,7 @@ static Napi::Value libc_wasi_p2_sendto_napi(const Napi::CallbackInfo& km_info) {
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_socket, buffer, length, flags, addr, addrlen);
+        km_res = km_fn_ptr(arg0Socket, buffer, length, flags, addr, addrlen);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -369,9 +369,9 @@ static Napi::Value libc_wasi_p2_sendto_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_wasi_p2_recvfrom_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiP2Recvfrom_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t arg0Socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buffer = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t length = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     int32_t flags = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
@@ -399,7 +399,7 @@ static Napi::Value libc_wasi_p2_recvfrom_napi(const Napi::CallbackInfo& km_info)
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_socket, buffer, length, flags, addr, addrlen);
+        km_res = km_fn_ptr(arg0Socket, buffer, length, flags, addr, addrlen);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -407,7 +407,7 @@ static Napi::Value libc_wasi_p2_recvfrom_napi(const Napi::CallbackInfo& km_info)
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_wasi_p2_getsockopt_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiP2Getsockopt_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t sockfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t level = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -444,7 +444,7 @@ static Napi::Value libc_wasi_p2_getsockopt_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_p2_setsockopt_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiP2Setsockopt_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t sockfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t level = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -481,14 +481,10 @@ static Napi::Value libc_wasi_p2_setsockopt_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_p2_getaddrinfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiP2Getaddrinfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool host_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string host_str = host_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* host = host_null ? nullptr : host_str.c_str();
-    bool serv_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string serv_str = serv_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* serv = serv_null ? nullptr : serv_str.c_str();
+    const char* host = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* serv = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* hint = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* res = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(const char*, const char*, void*, void*);
@@ -521,7 +517,7 @@ static Napi::Value libc_wasi_p2_getaddrinfo_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_p2_freeaddrinfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiP2Freeaddrinfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* p = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -552,7 +548,7 @@ static Napi::Value libc_wasi_p2_freeaddrinfo_napi(const Napi::CallbackInfo& km_i
     return km_env.Undefined();
 }
 
-static Napi::Value libc_wasi_p2_gaiStrerror_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiP2GaiStrerror_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t ecode = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef const char* (*km_fn_t)(int32_t);
@@ -586,21 +582,21 @@ static Napi::Value libc_wasi_p2_gaiStrerror_napi(const Napi::CallbackInfo& km_in
 }
 
 static void register_wasi_p2_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_wasi_p2_socket", Napi::Function::New(env, libc_wasi_p2_socket_napi));
-    exports.Set("libc_wasi_p2_connect", Napi::Function::New(env, libc_wasi_p2_connect_napi));
-    exports.Set("libc_wasi_p2_bind", Napi::Function::New(env, libc_wasi_p2_bind_napi));
-    exports.Set("libc_wasi_p2_listen", Napi::Function::New(env, libc_wasi_p2_listen_napi));
-    exports.Set("libc_wasi_p2_accept", Napi::Function::New(env, libc_wasi_p2_accept_napi));
-    exports.Set("libc_wasi_p2_accept4", Napi::Function::New(env, libc_wasi_p2_accept4_napi));
-    exports.Set("libc_wasi_p2_getsockname", Napi::Function::New(env, libc_wasi_p2_getsockname_napi));
-    exports.Set("libc_wasi_p2_getpeername", Napi::Function::New(env, libc_wasi_p2_getpeername_napi));
-    exports.Set("libc_wasi_p2_sendto", Napi::Function::New(env, libc_wasi_p2_sendto_napi));
-    exports.Set("libc_wasi_p2_recvfrom", Napi::Function::New(env, libc_wasi_p2_recvfrom_napi));
-    exports.Set("libc_wasi_p2_getsockopt", Napi::Function::New(env, libc_wasi_p2_getsockopt_napi));
-    exports.Set("libc_wasi_p2_setsockopt", Napi::Function::New(env, libc_wasi_p2_setsockopt_napi));
-    exports.Set("libc_wasi_p2_getaddrinfo", Napi::Function::New(env, libc_wasi_p2_getaddrinfo_napi));
-    exports.Set("libc_wasi_p2_freeaddrinfo", Napi::Function::New(env, libc_wasi_p2_freeaddrinfo_napi));
-    exports.Set("libc_wasi_p2_gaiStrerror", Napi::Function::New(env, libc_wasi_p2_gaiStrerror_napi));
+    exports.Set("libcWasiP2Socket", Napi::Function::New(env, libcWasiP2Socket_napi));
+    exports.Set("libcWasiP2Connect", Napi::Function::New(env, libcWasiP2Connect_napi));
+    exports.Set("libcWasiP2Bind", Napi::Function::New(env, libcWasiP2Bind_napi));
+    exports.Set("libcWasiP2Listen", Napi::Function::New(env, libcWasiP2Listen_napi));
+    exports.Set("libcWasiP2Accept", Napi::Function::New(env, libcWasiP2Accept_napi));
+    exports.Set("libcWasiP2Accept4", Napi::Function::New(env, libcWasiP2Accept4_napi));
+    exports.Set("libcWasiP2Getsockname", Napi::Function::New(env, libcWasiP2Getsockname_napi));
+    exports.Set("libcWasiP2Getpeername", Napi::Function::New(env, libcWasiP2Getpeername_napi));
+    exports.Set("libcWasiP2Sendto", Napi::Function::New(env, libcWasiP2Sendto_napi));
+    exports.Set("libcWasiP2Recvfrom", Napi::Function::New(env, libcWasiP2Recvfrom_napi));
+    exports.Set("libcWasiP2Getsockopt", Napi::Function::New(env, libcWasiP2Getsockopt_napi));
+    exports.Set("libcWasiP2Setsockopt", Napi::Function::New(env, libcWasiP2Setsockopt_napi));
+    exports.Set("libcWasiP2Getaddrinfo", Napi::Function::New(env, libcWasiP2Getaddrinfo_napi));
+    exports.Set("libcWasiP2Freeaddrinfo", Napi::Function::New(env, libcWasiP2Freeaddrinfo_napi));
+    exports.Set("libcWasiP2GaiStrerror", Napi::Function::New(env, libcWasiP2GaiStrerror_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_wasi_p2_napi, nullptr };

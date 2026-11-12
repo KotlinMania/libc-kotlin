@@ -9,10 +9,10 @@
 extern "C" {
 #endif
 
-int32_t libc_new_netbsd_utmp_utmpname(const char* file);
-void libc_new_netbsd_utmp_setutent(void);
-void* libc_new_netbsd_utmp_getutent(void);
-void libc_new_netbsd_utmp_endutent(void);
+int32_t libcNewNetbsdUtmpUtmpname(const char* file);
+void libcNewNetbsdUtmpSetutent(void);
+void* libcNewNetbsdUtmpGetutent(void);
+void libcNewNetbsdUtmpEndutent(void);
 
 #ifdef __cplusplus
 }

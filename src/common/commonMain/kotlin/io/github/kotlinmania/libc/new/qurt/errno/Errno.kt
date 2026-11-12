@@ -3,7 +3,8 @@ package io.github.kotlinmania.libc.new.qurt.errno
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.rustlang.core.mem.ObjectSlotLayout
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 // Header: `errno.h`
 
@@ -277,10 +278,10 @@ public val ERFKILL: CInt = 132
 public val EHWPOISON: CInt = 133
 
 // Error number access
-public expect fun errnoLocation(): COpaquePointer?
+public expect fun errnoLocation(): MutPtr<CInt>
 
-public fun errno(): CInt = (errnoLocation()?.rawValue ?: 0L).toInt()
+public fun errno(): CInt = (ObjectSlotLayout<CInt>()).readNative((errnoLocation()).rawAddress)
 
 public fun setErrno(value: CInt) {
-    errnoLocation()
+    (ObjectSlotLayout<CInt>()).writeNative((errnoLocation()).rawAddress, value)
 }

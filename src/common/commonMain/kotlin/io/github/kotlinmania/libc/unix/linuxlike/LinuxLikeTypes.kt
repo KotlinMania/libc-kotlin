@@ -2,8 +2,9 @@ package io.github.kotlinmania.libc.unix.linuxlike
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public typealias SaFamilyT = UShort
 
@@ -13,7 +14,7 @@ public typealias TcflagT = CUint
 
 public typealias ClockidT = CInt
 
-public typealias TimerT = COpaquePointer?
+public typealias TimerT = MutPtr<CVoid>
 
 public typealias UsecondsT = UInt
 

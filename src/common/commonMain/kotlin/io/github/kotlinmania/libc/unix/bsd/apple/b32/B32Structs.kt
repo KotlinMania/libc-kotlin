@@ -6,6 +6,8 @@ import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUshort
 import io.github.kotlinmania.libc.unix.Timeval
+import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+import io.github.kotlinmania.rustlang.core.mem.TypeLayout
 
 public class IfData(
     public var ifiType: CUchar = 0u,
@@ -57,6 +59,27 @@ public data class MallocZoneT(
     }
 
     override fun hashCode(): Int = this.private.contentHashCode()
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<MallocZoneT> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<MallocZoneT> {
+                override val sizeBytes: Long = 144L
+                override val alignBytes: Long = 8L
+                override fun readNative(addr: Long): MallocZoneT =
+                    MallocZoneT(
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.USIZE64, (18).toInt())
+                        ).readNative(addr),
+                    )
+                override fun writeNative(addr: Long, value: MallocZoneT) {
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.USIZE64, (18).toInt())
+                    ).writeNative(addr, value.private)
+                }
+            }
+    }
 }
 
 public data class MaxAlignT(
@@ -70,4 +93,25 @@ public data class MaxAlignT(
     }
 
     override fun hashCode(): Int = this.priv.contentHashCode()
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<MaxAlignT> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<MaxAlignT> {
+                override val sizeBytes: Long = 16L
+                override val alignBytes: Long = 16L
+                override fun readNative(addr: Long): MaxAlignT =
+                    MaxAlignT(
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.F64, (2).toInt())
+                        ).readNative(addr),
+                    )
+                override fun writeNative(addr: Long, value: MaxAlignT) {
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.F64, (2).toInt())
+                    ).writeNative(addr, value.priv)
+                }
+            }
+    }
 }

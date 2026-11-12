@@ -51,7 +51,7 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_unix_haiku_getrlimit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuGetrlimit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t resource = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* rlim = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -85,7 +85,7 @@ static Napi::Value libc_unix_haiku_getrlimit_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_setrlimit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuSetrlimit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t resource = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* rlim = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -119,7 +119,7 @@ static Napi::Value libc_unix_haiku_setrlimit_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_getpriority_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuGetpriority_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t which = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t who = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -153,7 +153,7 @@ static Napi::Value libc_unix_haiku_getpriority_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_setpriority_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuSetpriority_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t which = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t who = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -188,7 +188,7 @@ static Napi::Value libc_unix_haiku_setpriority_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_endusershell_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuEndusershell_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -218,11 +218,9 @@ static Napi::Value libc_unix_haiku_endusershell_napi(const Napi::CallbackInfo& k
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_haiku_getpass_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuGetpass_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool prompt_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string prompt_str = prompt_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* prompt = prompt_null ? nullptr : prompt_str.c_str();
+    const char* prompt = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef char* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -253,7 +251,7 @@ static Napi::Value libc_unix_haiku_getpass_napi(const Napi::CallbackInfo& km_inf
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_haiku_getusershell_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuGetusershell_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef char* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -285,7 +283,7 @@ static Napi::Value libc_unix_haiku_getusershell_napi(const Napi::CallbackInfo& k
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_haiku_issetugid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuIssetugid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -317,7 +315,7 @@ static Napi::Value libc_unix_haiku_issetugid_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_setusershell_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuSetusershell_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -347,12 +345,10 @@ static Napi::Value libc_unix_haiku_setusershell_napi(const Napi::CallbackInfo& k
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_haiku_utimensat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuUtimensat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool path_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* times = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     int32_t flag = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, const char*, void*, int32_t);
@@ -385,7 +381,7 @@ static Napi::Value libc_unix_haiku_utimensat_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_futimens_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuFutimens_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* times = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -419,7 +415,7 @@ static Napi::Value libc_unix_haiku_futimens_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_strerrorR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuStrerrorR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t errnum = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -454,7 +450,7 @@ static Napi::Value libc_unix_haiku_strerrorR_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_errnop_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuErrnop_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -484,7 +480,7 @@ static Napi::Value libc_unix_haiku_errnop_napi(const Napi::CallbackInfo& km_info
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_haiku_abs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuAbs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t i = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -517,7 +513,7 @@ static Napi::Value libc_unix_haiku_abs_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_labs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuLabs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int64_t i = km_info.Length() > 0 ? km_napi_arg_i64(km_info[0]) : 0;
     typedef int64_t (*km_fn_t)(int64_t);
@@ -550,7 +546,7 @@ static Napi::Value libc_unix_haiku_labs_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_haiku_rand_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuRand_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -582,7 +578,7 @@ static Napi::Value libc_unix_haiku_rand_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_srand_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuSrand_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t seed = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(uint32_t);
@@ -613,7 +609,7 @@ static Napi::Value libc_unix_haiku_srand_napi(const Napi::CallbackInfo& km_info)
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_haiku_getifaddrs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuGetifaddrs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ifap = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -646,7 +642,7 @@ static Napi::Value libc_unix_haiku_getifaddrs_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_freeifaddrs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuFreeifaddrs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ifa = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -677,7 +673,7 @@ static Napi::Value libc_unix_haiku_freeifaddrs_napi(const Napi::CallbackInfo& km
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_haiku_ppoll_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuPpoll_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* fds = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t numfds = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -713,7 +709,7 @@ static Napi::Value libc_unix_haiku_ppoll_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_getspent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuGetspent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -745,7 +741,7 @@ static Napi::Value libc_unix_haiku_getspent_napi(const Napi::CallbackInfo& km_in
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_haiku_getspentR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuGetspentR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* pwd = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -781,7 +777,7 @@ static Napi::Value libc_unix_haiku_getspentR_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_setspent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuSetspent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -811,7 +807,7 @@ static Napi::Value libc_unix_haiku_setspent_napi(const Napi::CallbackInfo& km_in
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_haiku_endspent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuEndspent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -841,11 +837,9 @@ static Napi::Value libc_unix_haiku_endspent_napi(const Napi::CallbackInfo& km_in
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_haiku_getspnam_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuGetspnam_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -876,11 +870,9 @@ static Napi::Value libc_unix_haiku_getspnam_napi(const Napi::CallbackInfo& km_in
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_haiku_getspnamR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuGetspnamR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* spwd = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     char* buffer = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint64_t bufferSize = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
@@ -915,11 +907,9 @@ static Napi::Value libc_unix_haiku_getspnamR_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_sgetspent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuSgetspent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool line_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string line_str = line_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* line = line_null ? nullptr : line_str.c_str();
+    const char* line = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -950,11 +940,9 @@ static Napi::Value libc_unix_haiku_sgetspent_napi(const Napi::CallbackInfo& km_i
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_haiku_sgetspentR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuSgetspentR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool line_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string line_str = line_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* line = line_null ? nullptr : line_str.c_str();
+    const char* line = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* spwd = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     char* buffer = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint64_t bufferSize = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
@@ -989,7 +977,7 @@ static Napi::Value libc_unix_haiku_sgetspentR_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_fgetspent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuFgetspent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* file = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -1022,7 +1010,7 @@ static Napi::Value libc_unix_haiku_fgetspent_napi(const Napi::CallbackInfo& km_i
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_haiku_fgetspentR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuFgetspentR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* file = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* spwd = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1059,12 +1047,10 @@ static Napi::Value libc_unix_haiku_fgetspentR_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_mkfifoat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuMkfifoat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t dirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool pathname_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string pathname_str = pathname_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* pathname = pathname_null ? nullptr : pathname_str.c_str();
+    const char* pathname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint32_t mode = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, const char*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1096,12 +1082,10 @@ static Napi::Value libc_unix_haiku_mkfifoat_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_mknodat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuMknodat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t dirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool pathname_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string pathname_str = pathname_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* pathname = pathname_null ? nullptr : pathname_str.c_str();
+    const char* pathname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint32_t mode = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     int32_t dev = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, const char*, uint32_t, int32_t);
@@ -1134,7 +1118,7 @@ static Napi::Value libc_unix_haiku_mknodat_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_semDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuSemDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* sem = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -1167,7 +1151,7 @@ static Napi::Value libc_unix_haiku_semDestroy_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_semInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuSemInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* sem = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t pshared = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1202,9 +1186,9 @@ static Napi::Value libc_unix_haiku_semInit_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_clockGetres_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuClockGetres_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t clk_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t clkId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* tp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1228,7 +1212,7 @@ static Napi::Value libc_unix_haiku_clockGetres_napi(const Napi::CallbackInfo& km
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(clk_id, tp);
+        km_res = km_fn_ptr(clkId, tp);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1236,9 +1220,9 @@ static Napi::Value libc_unix_haiku_clockGetres_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_clockGettime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuClockGettime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t clk_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t clkId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* tp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1262,7 +1246,7 @@ static Napi::Value libc_unix_haiku_clockGettime_napi(const Napi::CallbackInfo& k
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(clk_id, tp);
+        km_res = km_fn_ptr(clkId, tp);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1270,9 +1254,9 @@ static Napi::Value libc_unix_haiku_clockGettime_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_clockSettime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuClockSettime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t clk_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t clkId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* tp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1296,7 +1280,7 @@ static Napi::Value libc_unix_haiku_clockSettime_napi(const Napi::CallbackInfo& k
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(clk_id, tp);
+        km_res = km_fn_ptr(clkId, tp);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1304,10 +1288,10 @@ static Napi::Value libc_unix_haiku_clockSettime_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_clockGetcpuclockid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuClockGetcpuclockid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* clk_id = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* clkId = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1330,7 +1314,7 @@ static Napi::Value libc_unix_haiku_clockGetcpuclockid_napi(const Napi::CallbackI
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(pid, clk_id);
+        km_res = km_fn_ptr(pid, clkId);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1338,7 +1322,7 @@ static Napi::Value libc_unix_haiku_clockGetcpuclockid_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_pthreadCreate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuPthreadCreate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* thread = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1374,7 +1358,7 @@ static Napi::Value libc_unix_haiku_pthreadCreate_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_pthreadAttrGetguardsize_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuPthreadAttrGetguardsize_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* guardsize = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1408,7 +1392,7 @@ static Napi::Value libc_unix_haiku_pthreadAttrGetguardsize_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_pthreadAttrSetguardsize_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuPthreadAttrSetguardsize_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t guardsize = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1442,7 +1426,7 @@ static Napi::Value libc_unix_haiku_pthreadAttrSetguardsize_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_pthreadAttrGetstack_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuPthreadAttrGetstack_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* stackaddr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1477,10 +1461,10 @@ static Napi::Value libc_unix_haiku_pthreadAttrGetstack_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_pthreadCondattrGetclock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuPthreadCondattrGetclock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* clock_id = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* clockId = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1503,7 +1487,7 @@ static Napi::Value libc_unix_haiku_pthreadCondattrGetclock_napi(const Napi::Call
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(attr, clock_id);
+        km_res = km_fn_ptr(attr, clockId);
     } else {
         errno = ENOSYS;
         km_res = ENOSYS;
@@ -1511,10 +1495,10 @@ static Napi::Value libc_unix_haiku_pthreadCondattrGetclock_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_pthreadCondattrSetclock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuPthreadCondattrSetclock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    int32_t clock_id = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t clockId = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1537,7 +1521,7 @@ static Napi::Value libc_unix_haiku_pthreadCondattrSetclock_napi(const Napi::Call
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(attr, clock_id);
+        km_res = km_fn_ptr(attr, clockId);
     } else {
         errno = ENOSYS;
         km_res = ENOSYS;
@@ -1545,7 +1529,7 @@ static Napi::Value libc_unix_haiku_pthreadCondattrSetclock_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_valloc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuValloc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t numBytes = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     typedef void* (*km_fn_t)(uint64_t);
@@ -1578,7 +1562,7 @@ static Napi::Value libc_unix_haiku_valloc_napi(const Napi::CallbackInfo& km_info
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_haiku_mallocUsableSize_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuMallocUsableSize_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef uint64_t (*km_fn_t)(void*);
@@ -1611,7 +1595,7 @@ static Napi::Value libc_unix_haiku_mallocUsableSize_napi(const Napi::CallbackInf
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_haiku_memalign_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuMemalign_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t align = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1645,7 +1629,7 @@ static Napi::Value libc_unix_haiku_memalign_napi(const Napi::CallbackInfo& km_in
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_haiku_setgroups_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuSetgroups_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t ngroups = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* ptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1679,11 +1663,9 @@ static Napi::Value libc_unix_haiku_setgroups_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_initgroups_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuInitgroups_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint16_t basegid = static_cast<uint16_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, uint16_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1715,7 +1697,7 @@ static Napi::Value libc_unix_haiku_initgroups_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_ioctl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuIoctl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint64_t request = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1759,7 +1741,7 @@ static Napi::Value libc_unix_haiku_ioctl_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_mprotect_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuMprotect_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1794,7 +1776,7 @@ static Napi::Value libc_unix_haiku_mprotect_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_dirfd_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuDirfd_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* dirp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -1827,7 +1809,7 @@ static Napi::Value libc_unix_haiku_dirfd_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_getnameinfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuGetnameinfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* sa = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t salen = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1866,7 +1848,7 @@ static Napi::Value libc_unix_haiku_getnameinfo_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_pthreadMutexTimedlock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuPthreadMutexTimedlock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* abstime = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1900,7 +1882,7 @@ static Napi::Value libc_unix_haiku_pthreadMutexTimedlock_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_pthreadSpinInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuPthreadSpinInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t pshared = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1934,7 +1916,7 @@ static Napi::Value libc_unix_haiku_pthreadSpinInit_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_pthreadSpinDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuPthreadSpinDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -1967,7 +1949,7 @@ static Napi::Value libc_unix_haiku_pthreadSpinDestroy_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_pthreadSpinLock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuPthreadSpinLock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -2000,7 +1982,7 @@ static Napi::Value libc_unix_haiku_pthreadSpinLock_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_pthreadSpinTrylock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuPthreadSpinTrylock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -2033,7 +2015,7 @@ static Napi::Value libc_unix_haiku_pthreadSpinTrylock_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_pthreadSpinUnlock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuPthreadSpinUnlock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -2066,7 +2048,7 @@ static Napi::Value libc_unix_haiku_pthreadSpinUnlock_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_waitid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuWaitid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t idtype = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t id = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -2102,11 +2084,9 @@ static Napi::Value libc_unix_haiku_waitid_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_glob_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuGlob_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool pattern_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string pattern_str = pattern_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* pattern = pattern_null ? nullptr : pattern_str.c_str();
+    const char* pattern = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     void* errfunc = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* pglob = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
@@ -2140,7 +2120,7 @@ static Napi::Value libc_unix_haiku_glob_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_globfree_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuGlobfree_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* pglob = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -2171,7 +2151,7 @@ static Napi::Value libc_unix_haiku_globfree_napi(const Napi::CallbackInfo& km_in
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_haiku_gettimeofday_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuGettimeofday_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* tp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* tz = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2205,7 +2185,7 @@ static Napi::Value libc_unix_haiku_gettimeofday_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_posixMadvise_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuPosixMadvise_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -2240,7 +2220,7 @@ static Napi::Value libc_unix_haiku_posixMadvise_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_posixFadvise_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuPosixFadvise_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int64_t offset = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
@@ -2276,7 +2256,7 @@ static Napi::Value libc_unix_haiku_posixFadvise_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_posixFallocate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuPosixFallocate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int64_t offset = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
@@ -2311,11 +2291,9 @@ static Napi::Value libc_unix_haiku_posixFallocate_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_shmOpen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuShmOpen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t oflag = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     uint32_t mode = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, int32_t, uint32_t);
@@ -2348,11 +2326,9 @@ static Napi::Value libc_unix_haiku_shmOpen_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_shmUnlink_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuShmUnlink_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2383,7 +2359,7 @@ static Napi::Value libc_unix_haiku_shmUnlink_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_seekdir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuSeekdir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* dirp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int64_t loc = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
@@ -2415,7 +2391,7 @@ static Napi::Value libc_unix_haiku_seekdir_napi(const Napi::CallbackInfo& km_inf
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_haiku_telldir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuTelldir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* dirp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(void*);
@@ -2448,7 +2424,7 @@ static Napi::Value libc_unix_haiku_telldir_napi(const Napi::CallbackInfo& km_inf
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_haiku_madvise_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuMadvise_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -2483,7 +2459,7 @@ static Napi::Value libc_unix_haiku_madvise_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_msync_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuMsync_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -2518,9 +2494,9 @@ static Napi::Value libc_unix_haiku_msync_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_recvfrom_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuRecvfrom_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t arg0Socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t len = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     int32_t flags = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
@@ -2548,7 +2524,7 @@ static Napi::Value libc_unix_haiku_recvfrom_napi(const Napi::CallbackInfo& km_in
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_socket, buf, len, flags, addr, addrlen);
+        km_res = km_fn_ptr(arg0Socket, buf, len, flags, addr, addrlen);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2556,7 +2532,7 @@ static Napi::Value libc_unix_haiku_recvfrom_napi(const Napi::CallbackInfo& km_in
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_haiku_nlLanginfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuNlLanginfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t item = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef char* (*km_fn_t)(int32_t);
@@ -2589,11 +2565,11 @@ static Napi::Value libc_unix_haiku_nlLanginfo_napi(const Napi::CallbackInfo& km_
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_haiku_bind_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuBind_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t arg0Socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* address = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint32_t address_len = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    uint32_t addressLen = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2616,7 +2592,7 @@ static Napi::Value libc_unix_haiku_bind_napi(const Napi::CallbackInfo& km_info) 
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_socket, address, address_len);
+        km_res = km_fn_ptr(arg0Socket, address, addressLen);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2624,9 +2600,9 @@ static Napi::Value libc_unix_haiku_bind_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_accept4_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuAccept4_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t arg0Socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* address = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* addressLength = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
@@ -2652,7 +2628,7 @@ static Napi::Value libc_unix_haiku_accept4_napi(const Napi::CallbackInfo& km_inf
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_socket, address, addressLength, flags);
+        km_res = km_fn_ptr(arg0Socket, address, addressLength, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2660,7 +2636,7 @@ static Napi::Value libc_unix_haiku_accept4_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_writev_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuWritev_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2695,7 +2671,7 @@ static Napi::Value libc_unix_haiku_writev_napi(const Napi::CallbackInfo& km_info
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_haiku_readv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuReadv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2730,7 +2706,7 @@ static Napi::Value libc_unix_haiku_readv_napi(const Napi::CallbackInfo& km_info)
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_haiku_sendmsg_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuSendmsg_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* msg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2765,7 +2741,7 @@ static Napi::Value libc_unix_haiku_sendmsg_napi(const Napi::CallbackInfo& km_inf
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_haiku_recvmsg_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuRecvmsg_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* msg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2800,11 +2776,9 @@ static Napi::Value libc_unix_haiku_recvmsg_napi(const Napi::CallbackInfo& km_inf
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_haiku_execvpe_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuExecvpe_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool file_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string file_str = file_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* file = file_null ? nullptr : file_str.c_str();
+    const char* file = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* argv = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* environment = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(const char*, void*, void*);
@@ -2837,7 +2811,7 @@ static Napi::Value libc_unix_haiku_execvpe_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_getgrgidR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuGetgrgidR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint16_t gid = static_cast<uint16_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* grp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2874,11 +2848,9 @@ static Napi::Value libc_unix_haiku_getgrgidR_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_getgrouplist_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuGetgrouplist_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool user_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string user_str = user_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* user = user_null ? nullptr : user_str.c_str();
+    const char* user = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint16_t basegroup = static_cast<uint16_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     void* grouplist = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* groupcount = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
@@ -2912,7 +2884,7 @@ static Napi::Value libc_unix_haiku_getgrouplist_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_sigaltstack_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuSigaltstack_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ss = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* oss = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2946,7 +2918,7 @@ static Napi::Value libc_unix_haiku_sigaltstack_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_sigsuspend_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuSigsuspend_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mask = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -2979,7 +2951,7 @@ static Napi::Value libc_unix_haiku_sigsuspend_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_semClose_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuSemClose_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* sem = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -3012,7 +2984,7 @@ static Napi::Value libc_unix_haiku_semClose_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_getdtablesize_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuGetdtablesize_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3044,11 +3016,9 @@ static Napi::Value libc_unix_haiku_getdtablesize_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_getgrnamR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuGetgrnamR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* grp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint64_t buflen = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
@@ -3083,7 +3053,7 @@ static Napi::Value libc_unix_haiku_getgrnamR_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_pthreadSigmask_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuPthreadSigmask_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t how = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3118,11 +3088,9 @@ static Napi::Value libc_unix_haiku_pthreadSigmask_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_semOpen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuSemOpen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t oflag = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     int32_t km_vac = km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
@@ -3164,11 +3132,9 @@ static Napi::Value libc_unix_haiku_semOpen_napi(const Napi::CallbackInfo& km_inf
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_haiku_getgrnam_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuGetgrnam_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3199,7 +3165,7 @@ static Napi::Value libc_unix_haiku_getgrnam_napi(const Napi::CallbackInfo& km_in
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_haiku_pthreadKill_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuPthreadKill_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* thread = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t sig = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3233,11 +3199,9 @@ static Napi::Value libc_unix_haiku_pthreadKill_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_semUnlink_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuSemUnlink_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3268,11 +3232,9 @@ static Napi::Value libc_unix_haiku_semUnlink_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_getpwnamR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuGetpwnamR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* pwd = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint64_t buflen = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
@@ -3307,7 +3269,7 @@ static Napi::Value libc_unix_haiku_getpwnamR_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_getpwuidR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuGetpwuidR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint16_t uid = static_cast<uint16_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* pwd = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3344,7 +3306,7 @@ static Napi::Value libc_unix_haiku_getpwuidR_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_getpwent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuGetpwent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3376,7 +3338,7 @@ static Napi::Value libc_unix_haiku_getpwent_napi(const Napi::CallbackInfo& km_in
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_haiku_setpwent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuSetpwent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3406,7 +3368,7 @@ static Napi::Value libc_unix_haiku_setpwent_napi(const Napi::CallbackInfo& km_in
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_haiku_endpwent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuEndpwent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3436,7 +3398,7 @@ static Napi::Value libc_unix_haiku_endpwent_napi(const Napi::CallbackInfo& km_in
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_haiku_endgrent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuEndgrent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3466,7 +3428,7 @@ static Napi::Value libc_unix_haiku_endgrent_napi(const Napi::CallbackInfo& km_in
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_haiku_getgrent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuGetgrent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3498,7 +3460,7 @@ static Napi::Value libc_unix_haiku_getgrent_napi(const Napi::CallbackInfo& km_in
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_haiku_setgrent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuSetgrent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3528,7 +3490,7 @@ static Napi::Value libc_unix_haiku_setgrent_napi(const Napi::CallbackInfo& km_in
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_haiku_sigwait_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuSigwait_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* sig = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3562,7 +3524,7 @@ static Napi::Value libc_unix_haiku_sigwait_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_pthreadAtfork_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuPthreadAtfork_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* prepare = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* parent = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3597,7 +3559,7 @@ static Napi::Value libc_unix_haiku_pthreadAtfork_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_getgrgid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuGetgrgid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint16_t gid = static_cast<uint16_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void* (*km_fn_t)(uint16_t);
@@ -3630,14 +3592,10 @@ static Napi::Value libc_unix_haiku_getgrgid_napi(const Napi::CallbackInfo& km_in
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_haiku_popen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuPopen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool command_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string command_str = command_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* command = command_null ? nullptr : command_str.c_str();
-    bool mode_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string mode_str = mode_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* mode = mode_null ? nullptr : mode_str.c_str();
+    const char* command = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* mode = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef void* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3668,11 +3626,9 @@ static Napi::Value libc_unix_haiku_popen_napi(const Napi::CallbackInfo& km_info)
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_haiku_sethostname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuSethostname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
     typedef int32_t (*km_fn_t)(const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3704,7 +3660,7 @@ static Napi::Value libc_unix_haiku_sethostname_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_uname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuUname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -3737,7 +3693,7 @@ static Napi::Value libc_unix_haiku_uname_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_getutxent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuGetutxent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3769,7 +3725,7 @@ static Napi::Value libc_unix_haiku_getutxent_napi(const Napi::CallbackInfo& km_i
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_haiku_getutxid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuGetutxid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ut = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -3802,7 +3758,7 @@ static Napi::Value libc_unix_haiku_getutxid_napi(const Napi::CallbackInfo& km_in
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_haiku_getutxline_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuGetutxline_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ut = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -3835,7 +3791,7 @@ static Napi::Value libc_unix_haiku_getutxline_napi(const Napi::CallbackInfo& km_
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_haiku_pututxline_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuPututxline_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ut = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -3868,7 +3824,7 @@ static Napi::Value libc_unix_haiku_pututxline_napi(const Napi::CallbackInfo& km_
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_haiku_setutxent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuSetutxent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3898,7 +3854,7 @@ static Napi::Value libc_unix_haiku_setutxent_napi(const Napi::CallbackInfo& km_i
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_haiku_endutxent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuEndutxent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3928,12 +3884,10 @@ static Napi::Value libc_unix_haiku_endutxent_napi(const Napi::CallbackInfo& km_i
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_haiku_faccessat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuFaccessat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t dirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool pathname_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string pathname_str = pathname_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* pathname = pathname_null ? nullptr : pathname_str.c_str();
+    const char* pathname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t mode = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     int32_t flags = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, int32_t);
@@ -3966,7 +3920,7 @@ static Napi::Value libc_unix_haiku_faccessat_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_sigtimedwait_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuSigtimedwait_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -4001,7 +3955,7 @@ static Napi::Value libc_unix_haiku_sigtimedwait_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_sigwaitinfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuSigwaitinfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -4035,10 +3989,10 @@ static Napi::Value libc_unix_haiku_sigwaitinfo_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_getitimer_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuGetitimer_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t which = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* curr_value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* currValue = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4061,7 +4015,7 @@ static Napi::Value libc_unix_haiku_getitimer_napi(const Napi::CallbackInfo& km_i
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(which, curr_value);
+        km_res = km_fn_ptr(which, currValue);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4069,11 +4023,11 @@ static Napi::Value libc_unix_haiku_getitimer_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_setitimer_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuSetitimer_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t which = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* new_value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* old_value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* newValue = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* oldValue = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4096,7 +4050,7 @@ static Napi::Value libc_unix_haiku_setitimer_napi(const Napi::CallbackInfo& km_i
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(which, new_value, old_value);
+        km_res = km_fn_ptr(which, newValue, oldValue);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4104,12 +4058,10 @@ static Napi::Value libc_unix_haiku_setitimer_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_regcomp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuRegcomp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* preg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool pattern_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string pattern_str = pattern_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* pattern = pattern_null ? nullptr : pattern_str.c_str();
+    const char* pattern = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t cflags = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4141,12 +4093,10 @@ static Napi::Value libc_unix_haiku_regcomp_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_regexec_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuRegexec_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* preg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool input_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string input_str = input_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* input = input_null ? nullptr : input_str.c_str();
+    const char* input = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t nmatch = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     void* pmatch = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     int32_t eflags = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
@@ -4180,12 +4130,12 @@ static Napi::Value libc_unix_haiku_regexec_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_regerror_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuRegerror_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t errcode = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* preg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     char* errbuf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    uint64_t errbuf_size = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
+    uint64_t errbufSize = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
     typedef uint64_t (*km_fn_t)(int32_t, void*, char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4208,7 +4158,7 @@ static Napi::Value libc_unix_haiku_regerror_napi(const Napi::CallbackInfo& km_in
 #endif
     uint64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(errcode, preg, errbuf, errbuf_size);
+        km_res = km_fn_ptr(errcode, preg, errbuf, errbufSize);
     } else {
         errno = ENOSYS;
         km_res = 0;
@@ -4216,7 +4166,7 @@ static Napi::Value libc_unix_haiku_regerror_napi(const Napi::CallbackInfo& km_in
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_haiku_regfree_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuRegfree_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* preg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -4247,7 +4197,7 @@ static Napi::Value libc_unix_haiku_regfree_napi(const Napi::CallbackInfo& km_inf
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_haiku_msgctl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuMsgctl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t msqid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t cmd = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4282,7 +4232,7 @@ static Napi::Value libc_unix_haiku_msgctl_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_msgget_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuMsgget_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t key = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t msgflg = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4316,7 +4266,7 @@ static Napi::Value libc_unix_haiku_msgget_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_msgrcv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuMsgrcv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t msqid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* msgp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -4353,7 +4303,7 @@ static Napi::Value libc_unix_haiku_msgrcv_napi(const Napi::CallbackInfo& km_info
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_haiku_msgsnd_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuMsgsnd_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t msqid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* msgp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -4389,7 +4339,7 @@ static Napi::Value libc_unix_haiku_msgsnd_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_semget_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuSemget_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t key = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t nsems = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4424,7 +4374,7 @@ static Napi::Value libc_unix_haiku_semget_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_semctl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuSemctl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t semid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t semnum = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4469,7 +4419,7 @@ static Napi::Value libc_unix_haiku_semctl_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_semop_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuSemop_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t semid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* sops = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -4504,12 +4454,10 @@ static Napi::Value libc_unix_haiku_semop_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_ftok_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuFtok_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool pathname_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string pathname_str = pathname_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* pathname = pathname_null ? nullptr : pathname_str.c_str();
-    int32_t proj_id = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    const char* pathname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    int32_t projId = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4532,7 +4480,7 @@ static Napi::Value libc_unix_haiku_ftok_napi(const Napi::CallbackInfo& km_info) 
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(pathname, proj_id);
+        km_res = km_fn_ptr(pathname, projId);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4540,7 +4488,7 @@ static Napi::Value libc_unix_haiku_ftok_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_memrchr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuMemrchr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cx = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t c = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4575,7 +4523,7 @@ static Napi::Value libc_unix_haiku_memrchr_napi(const Napi::CallbackInfo& km_inf
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_haiku_lsearch_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuLsearch_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* key = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* base = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -4612,7 +4560,7 @@ static Napi::Value libc_unix_haiku_lsearch_napi(const Napi::CallbackInfo& km_inf
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_haiku_lfind_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuLfind_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* key = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* base = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -4649,7 +4597,7 @@ static Napi::Value libc_unix_haiku_lfind_napi(const Napi::CallbackInfo& km_info)
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_haiku_hcreate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuHcreate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t nelt = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     typedef int32_t (*km_fn_t)(uint64_t);
@@ -4682,7 +4630,7 @@ static Napi::Value libc_unix_haiku_hcreate_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_hdestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuHdestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4712,7 +4660,7 @@ static Napi::Value libc_unix_haiku_hdestroy_napi(const Napi::CallbackInfo& km_in
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_haiku_drand48_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuDrand48_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef double (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4744,7 +4692,7 @@ static Napi::Value libc_unix_haiku_drand48_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_erand48_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuErand48_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* xseed = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef double (*km_fn_t)(void*);
@@ -4777,7 +4725,7 @@ static Napi::Value libc_unix_haiku_erand48_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_lrand48_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuLrand48_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4809,7 +4757,7 @@ static Napi::Value libc_unix_haiku_lrand48_napi(const Napi::CallbackInfo& km_inf
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_haiku_nrand48_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuNrand48_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* xseed = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(void*);
@@ -4842,7 +4790,7 @@ static Napi::Value libc_unix_haiku_nrand48_napi(const Napi::CallbackInfo& km_inf
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_haiku_mrand48_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuMrand48_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4874,7 +4822,7 @@ static Napi::Value libc_unix_haiku_mrand48_napi(const Napi::CallbackInfo& km_inf
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_haiku_jrand48_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuJrand48_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* xseed = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(void*);
@@ -4907,7 +4855,7 @@ static Napi::Value libc_unix_haiku_jrand48_napi(const Napi::CallbackInfo& km_inf
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_haiku_srand48_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuSrand48_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int64_t seed = km_info.Length() > 0 ? km_napi_arg_i64(km_info[0]) : 0;
     typedef void (*km_fn_t)(int64_t);
@@ -4938,7 +4886,7 @@ static Napi::Value libc_unix_haiku_srand48_napi(const Napi::CallbackInfo& km_inf
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_haiku_seed48_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuSeed48_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* xseed = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -4971,7 +4919,7 @@ static Napi::Value libc_unix_haiku_seed48_napi(const Napi::CallbackInfo& km_info
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_haiku_lcong48_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuLcong48_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* p = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -5002,7 +4950,7 @@ static Napi::Value libc_unix_haiku_lcong48_napi(const Napi::CallbackInfo& km_inf
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_haiku_clearenv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuClearenv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5034,7 +4982,7 @@ static Napi::Value libc_unix_haiku_clearenv_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_ctermid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuCtermid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* s = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef char* (*km_fn_t)(char*);
@@ -5067,7 +5015,7 @@ static Napi::Value libc_unix_haiku_ctermid_napi(const Napi::CallbackInfo& km_inf
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_haiku_sync_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuSync_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5097,7 +5045,7 @@ static Napi::Value libc_unix_haiku_sync_napi(const Napi::CallbackInfo& km_info) 
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_haiku_getpagesize_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuGetpagesize_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5129,7 +5077,7 @@ static Napi::Value libc_unix_haiku_getpagesize_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_brk_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuBrk_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -5162,7 +5110,7 @@ static Napi::Value libc_unix_haiku_brk_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_sbrk_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuSbrk_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int64_t increment = km_info.Length() > 0 ? km_napi_arg_i64(km_info[0]) : 0;
     typedef void* (*km_fn_t)(int64_t);
@@ -5195,13 +5143,11 @@ static Napi::Value libc_unix_haiku_sbrk_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_haiku_posixSpawn_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuPosixSpawn_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* pid = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool path_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
-    void* file_actions = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* fileActions = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* attrp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     void* argv = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
     void* envp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 5 ? km_napi_arg_u64(km_info[5]) : 0));
@@ -5227,7 +5173,7 @@ static Napi::Value libc_unix_haiku_posixSpawn_napi(const Napi::CallbackInfo& km_
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(pid, path, file_actions, attrp, argv, envp);
+        km_res = km_fn_ptr(pid, path, fileActions, attrp, argv, envp);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5235,13 +5181,11 @@ static Napi::Value libc_unix_haiku_posixSpawn_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_posixSpawnp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuPosixSpawnp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* pid = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool file_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string file_str = file_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* file = file_null ? nullptr : file_str.c_str();
-    void* file_actions = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    const char* file = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* fileActions = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* attrp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     void* argv = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
     void* envp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 5 ? km_napi_arg_u64(km_info[5]) : 0));
@@ -5267,7 +5211,7 @@ static Napi::Value libc_unix_haiku_posixSpawnp_napi(const Napi::CallbackInfo& km
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(pid, file, file_actions, attrp, argv, envp);
+        km_res = km_fn_ptr(pid, file, fileActions, attrp, argv, envp);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5275,9 +5219,9 @@ static Napi::Value libc_unix_haiku_posixSpawnp_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_posixSpawnFileActionsInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuPosixSpawnFileActionsInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* file_actions = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* fileActions = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5300,7 +5244,7 @@ static Napi::Value libc_unix_haiku_posixSpawnFileActionsInit_napi(const Napi::Ca
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(file_actions);
+        km_res = km_fn_ptr(fileActions);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5308,9 +5252,9 @@ static Napi::Value libc_unix_haiku_posixSpawnFileActionsInit_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_posixSpawnFileActionsDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuPosixSpawnFileActionsDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* file_actions = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* fileActions = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5333,7 +5277,7 @@ static Napi::Value libc_unix_haiku_posixSpawnFileActionsDestroy_napi(const Napi:
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(file_actions);
+        km_res = km_fn_ptr(fileActions);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5341,13 +5285,11 @@ static Napi::Value libc_unix_haiku_posixSpawnFileActionsDestroy_napi(const Napi:
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_posixSpawnFileActionsAddopen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuPosixSpawnFileActionsAddopen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* file_actions = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* fileActions = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t fildes = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    bool path_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     int32_t oflag = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     uint32_t mode = static_cast<uint32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, int32_t, const char*, int32_t, uint32_t);
@@ -5372,7 +5314,7 @@ static Napi::Value libc_unix_haiku_posixSpawnFileActionsAddopen_napi(const Napi:
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(file_actions, fildes, path, oflag, mode);
+        km_res = km_fn_ptr(fileActions, fildes, path, oflag, mode);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5380,9 +5322,9 @@ static Napi::Value libc_unix_haiku_posixSpawnFileActionsAddopen_napi(const Napi:
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_posixSpawnFileActionsAddclose_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuPosixSpawnFileActionsAddclose_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* file_actions = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* fileActions = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t fildes = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5406,7 +5348,7 @@ static Napi::Value libc_unix_haiku_posixSpawnFileActionsAddclose_napi(const Napi
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(file_actions, fildes);
+        km_res = km_fn_ptr(fileActions, fildes);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5414,9 +5356,9 @@ static Napi::Value libc_unix_haiku_posixSpawnFileActionsAddclose_napi(const Napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_posixSpawnFileActionsAdddup2_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuPosixSpawnFileActionsAdddup2_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* file_actions = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* fileActions = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t fildes = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     int32_t newfildes = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, int32_t, int32_t);
@@ -5441,7 +5383,7 @@ static Napi::Value libc_unix_haiku_posixSpawnFileActionsAdddup2_napi(const Napi:
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(file_actions, fildes, newfildes);
+        km_res = km_fn_ptr(fileActions, fildes, newfildes);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5449,7 +5391,7 @@ static Napi::Value libc_unix_haiku_posixSpawnFileActionsAdddup2_napi(const Napi:
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_posixSpawnattrInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuPosixSpawnattrInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -5482,7 +5424,7 @@ static Napi::Value libc_unix_haiku_posixSpawnattrInit_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_posixSpawnattrDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuPosixSpawnattrDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -5515,10 +5457,10 @@ static Napi::Value libc_unix_haiku_posixSpawnattrDestroy_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_posixSpawnattrGetflags_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuPosixSpawnattrGetflags_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* arg_1_flags = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* flags = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5541,7 +5483,7 @@ static Napi::Value libc_unix_haiku_posixSpawnattrGetflags_napi(const Napi::Callb
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(attr, arg_1_flags);
+        km_res = km_fn_ptr(attr, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5549,7 +5491,7 @@ static Napi::Value libc_unix_haiku_posixSpawnattrGetflags_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_posixSpawnattrSetflags_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuPosixSpawnattrSetflags_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int16_t flags = static_cast<int16_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -5583,10 +5525,10 @@ static Napi::Value libc_unix_haiku_posixSpawnattrSetflags_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_posixSpawnattrGetpgroup_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuPosixSpawnattrGetpgroup_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* arg_1_pgroup = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* pgroup = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5609,7 +5551,7 @@ static Napi::Value libc_unix_haiku_posixSpawnattrGetpgroup_napi(const Napi::Call
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(attr, arg_1_pgroup);
+        km_res = km_fn_ptr(attr, pgroup);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5617,7 +5559,7 @@ static Napi::Value libc_unix_haiku_posixSpawnattrGetpgroup_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_posixSpawnattrSetpgroup_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuPosixSpawnattrSetpgroup_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t pgroup = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -5651,7 +5593,7 @@ static Napi::Value libc_unix_haiku_posixSpawnattrSetpgroup_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_posixSpawnattrGetsigdefault_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuPosixSpawnattrGetsigdefault_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* sigdefault = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -5685,7 +5627,7 @@ static Napi::Value libc_unix_haiku_posixSpawnattrGetsigdefault_napi(const Napi::
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_posixSpawnattrSetsigdefault_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuPosixSpawnattrSetsigdefault_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* sigdefault = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -5719,10 +5661,10 @@ static Napi::Value libc_unix_haiku_posixSpawnattrSetsigdefault_napi(const Napi::
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_posixSpawnattrGetsigmask_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuPosixSpawnattrGetsigmask_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* arg_1_sigmask = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* sigmask = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5745,7 +5687,7 @@ static Napi::Value libc_unix_haiku_posixSpawnattrGetsigmask_napi(const Napi::Cal
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(attr, arg_1_sigmask);
+        km_res = km_fn_ptr(attr, sigmask);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5753,7 +5695,7 @@ static Napi::Value libc_unix_haiku_posixSpawnattrGetsigmask_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_posixSpawnattrSetsigmask_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuPosixSpawnattrSetsigmask_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* sigmask = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -5787,13 +5729,11 @@ static Napi::Value libc_unix_haiku_posixSpawnattrSetsigmask_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_getoptLong_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuGetoptLong_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t argc = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* argv = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    bool optstring_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string optstring_str = optstring_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* optstring = optstring_null ? nullptr : optstring_str.c_str();
+    const char* optstring = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* longopts = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     void* longindex = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, const char*, void*, void*);
@@ -5826,14 +5766,10 @@ static Napi::Value libc_unix_haiku_getoptLong_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_strcasecmpL_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuStrcasecmpL_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool string1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string string1_str = string1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* string1 = string1_null ? nullptr : string1_str.c_str();
-    bool string2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string string2_str = string2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* string2 = string2_null ? nullptr : string2_str.c_str();
+    const char* string1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* string2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* locale = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(const char*, const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5865,14 +5801,10 @@ static Napi::Value libc_unix_haiku_strcasecmpL_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_strncasecmpL_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuStrncasecmpL_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool string1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string string1_str = string1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* string1 = string1_null ? nullptr : string1_str.c_str();
-    bool string2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string string2_str = string2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* string2 = string2_null ? nullptr : string2_str.c_str();
+    const char* string1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* string2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t length = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     void* locale = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(const char*, const char*, uint64_t, void*);
@@ -5905,7 +5837,7 @@ static Napi::Value libc_unix_haiku_strncasecmpL_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_getentropy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuGetentropy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t buflen = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -5939,7 +5871,7 @@ static Napi::Value libc_unix_haiku_getentropy_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_memmem_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuMemmem_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* source = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t sourceLength = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -5996,7 +5928,7 @@ static Napi::Value libc_unix_haiku_memmem_napi(const Napi::CallbackInfo& km_info
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_haiku_pthreadGetattrNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuPthreadGetattrNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* thread = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -6051,7 +5983,7 @@ static Napi::Value libc_unix_haiku_pthreadGetattrNp_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_pthreadGetnameNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuPthreadGetnameNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* thread = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* buffer = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -6107,12 +6039,10 @@ static Napi::Value libc_unix_haiku_pthreadGetnameNp_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_haiku_pthreadSetnameNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixHaikuPthreadSetnameNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* thread = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool name_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6165,181 +6095,181 @@ static Napi::Value libc_unix_haiku_pthreadSetnameNp_napi(const Napi::CallbackInf
 }
 
 static void register_unix_haiku_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_unix_haiku_getrlimit", Napi::Function::New(env, libc_unix_haiku_getrlimit_napi));
-    exports.Set("libc_unix_haiku_setrlimit", Napi::Function::New(env, libc_unix_haiku_setrlimit_napi));
-    exports.Set("libc_unix_haiku_getpriority", Napi::Function::New(env, libc_unix_haiku_getpriority_napi));
-    exports.Set("libc_unix_haiku_setpriority", Napi::Function::New(env, libc_unix_haiku_setpriority_napi));
-    exports.Set("libc_unix_haiku_endusershell", Napi::Function::New(env, libc_unix_haiku_endusershell_napi));
-    exports.Set("libc_unix_haiku_getpass", Napi::Function::New(env, libc_unix_haiku_getpass_napi));
-    exports.Set("libc_unix_haiku_getusershell", Napi::Function::New(env, libc_unix_haiku_getusershell_napi));
-    exports.Set("libc_unix_haiku_issetugid", Napi::Function::New(env, libc_unix_haiku_issetugid_napi));
-    exports.Set("libc_unix_haiku_setusershell", Napi::Function::New(env, libc_unix_haiku_setusershell_napi));
-    exports.Set("libc_unix_haiku_utimensat", Napi::Function::New(env, libc_unix_haiku_utimensat_napi));
-    exports.Set("libc_unix_haiku_futimens", Napi::Function::New(env, libc_unix_haiku_futimens_napi));
-    exports.Set("libc_unix_haiku_strerrorR", Napi::Function::New(env, libc_unix_haiku_strerrorR_napi));
-    exports.Set("libc_unix_haiku_errnop", Napi::Function::New(env, libc_unix_haiku_errnop_napi));
-    exports.Set("libc_unix_haiku_abs", Napi::Function::New(env, libc_unix_haiku_abs_napi));
-    exports.Set("libc_unix_haiku_labs", Napi::Function::New(env, libc_unix_haiku_labs_napi));
-    exports.Set("libc_unix_haiku_rand", Napi::Function::New(env, libc_unix_haiku_rand_napi));
-    exports.Set("libc_unix_haiku_srand", Napi::Function::New(env, libc_unix_haiku_srand_napi));
-    exports.Set("libc_unix_haiku_getifaddrs", Napi::Function::New(env, libc_unix_haiku_getifaddrs_napi));
-    exports.Set("libc_unix_haiku_freeifaddrs", Napi::Function::New(env, libc_unix_haiku_freeifaddrs_napi));
-    exports.Set("libc_unix_haiku_ppoll", Napi::Function::New(env, libc_unix_haiku_ppoll_napi));
-    exports.Set("libc_unix_haiku_getspent", Napi::Function::New(env, libc_unix_haiku_getspent_napi));
-    exports.Set("libc_unix_haiku_getspentR", Napi::Function::New(env, libc_unix_haiku_getspentR_napi));
-    exports.Set("libc_unix_haiku_setspent", Napi::Function::New(env, libc_unix_haiku_setspent_napi));
-    exports.Set("libc_unix_haiku_endspent", Napi::Function::New(env, libc_unix_haiku_endspent_napi));
-    exports.Set("libc_unix_haiku_getspnam", Napi::Function::New(env, libc_unix_haiku_getspnam_napi));
-    exports.Set("libc_unix_haiku_getspnamR", Napi::Function::New(env, libc_unix_haiku_getspnamR_napi));
-    exports.Set("libc_unix_haiku_sgetspent", Napi::Function::New(env, libc_unix_haiku_sgetspent_napi));
-    exports.Set("libc_unix_haiku_sgetspentR", Napi::Function::New(env, libc_unix_haiku_sgetspentR_napi));
-    exports.Set("libc_unix_haiku_fgetspent", Napi::Function::New(env, libc_unix_haiku_fgetspent_napi));
-    exports.Set("libc_unix_haiku_fgetspentR", Napi::Function::New(env, libc_unix_haiku_fgetspentR_napi));
-    exports.Set("libc_unix_haiku_mkfifoat", Napi::Function::New(env, libc_unix_haiku_mkfifoat_napi));
-    exports.Set("libc_unix_haiku_mknodat", Napi::Function::New(env, libc_unix_haiku_mknodat_napi));
-    exports.Set("libc_unix_haiku_semDestroy", Napi::Function::New(env, libc_unix_haiku_semDestroy_napi));
-    exports.Set("libc_unix_haiku_semInit", Napi::Function::New(env, libc_unix_haiku_semInit_napi));
-    exports.Set("libc_unix_haiku_clockGetres", Napi::Function::New(env, libc_unix_haiku_clockGetres_napi));
-    exports.Set("libc_unix_haiku_clockGettime", Napi::Function::New(env, libc_unix_haiku_clockGettime_napi));
-    exports.Set("libc_unix_haiku_clockSettime", Napi::Function::New(env, libc_unix_haiku_clockSettime_napi));
-    exports.Set("libc_unix_haiku_clockGetcpuclockid", Napi::Function::New(env, libc_unix_haiku_clockGetcpuclockid_napi));
-    exports.Set("libc_unix_haiku_pthreadCreate", Napi::Function::New(env, libc_unix_haiku_pthreadCreate_napi));
-    exports.Set("libc_unix_haiku_pthreadAttrGetguardsize", Napi::Function::New(env, libc_unix_haiku_pthreadAttrGetguardsize_napi));
-    exports.Set("libc_unix_haiku_pthreadAttrSetguardsize", Napi::Function::New(env, libc_unix_haiku_pthreadAttrSetguardsize_napi));
-    exports.Set("libc_unix_haiku_pthreadAttrGetstack", Napi::Function::New(env, libc_unix_haiku_pthreadAttrGetstack_napi));
-    exports.Set("libc_unix_haiku_pthreadCondattrGetclock", Napi::Function::New(env, libc_unix_haiku_pthreadCondattrGetclock_napi));
-    exports.Set("libc_unix_haiku_pthreadCondattrSetclock", Napi::Function::New(env, libc_unix_haiku_pthreadCondattrSetclock_napi));
-    exports.Set("libc_unix_haiku_valloc", Napi::Function::New(env, libc_unix_haiku_valloc_napi));
-    exports.Set("libc_unix_haiku_mallocUsableSize", Napi::Function::New(env, libc_unix_haiku_mallocUsableSize_napi));
-    exports.Set("libc_unix_haiku_memalign", Napi::Function::New(env, libc_unix_haiku_memalign_napi));
-    exports.Set("libc_unix_haiku_setgroups", Napi::Function::New(env, libc_unix_haiku_setgroups_napi));
-    exports.Set("libc_unix_haiku_initgroups", Napi::Function::New(env, libc_unix_haiku_initgroups_napi));
-    exports.Set("libc_unix_haiku_ioctl", Napi::Function::New(env, libc_unix_haiku_ioctl_napi));
-    exports.Set("libc_unix_haiku_mprotect", Napi::Function::New(env, libc_unix_haiku_mprotect_napi));
-    exports.Set("libc_unix_haiku_dirfd", Napi::Function::New(env, libc_unix_haiku_dirfd_napi));
-    exports.Set("libc_unix_haiku_getnameinfo", Napi::Function::New(env, libc_unix_haiku_getnameinfo_napi));
-    exports.Set("libc_unix_haiku_pthreadMutexTimedlock", Napi::Function::New(env, libc_unix_haiku_pthreadMutexTimedlock_napi));
-    exports.Set("libc_unix_haiku_pthreadSpinInit", Napi::Function::New(env, libc_unix_haiku_pthreadSpinInit_napi));
-    exports.Set("libc_unix_haiku_pthreadSpinDestroy", Napi::Function::New(env, libc_unix_haiku_pthreadSpinDestroy_napi));
-    exports.Set("libc_unix_haiku_pthreadSpinLock", Napi::Function::New(env, libc_unix_haiku_pthreadSpinLock_napi));
-    exports.Set("libc_unix_haiku_pthreadSpinTrylock", Napi::Function::New(env, libc_unix_haiku_pthreadSpinTrylock_napi));
-    exports.Set("libc_unix_haiku_pthreadSpinUnlock", Napi::Function::New(env, libc_unix_haiku_pthreadSpinUnlock_napi));
-    exports.Set("libc_unix_haiku_waitid", Napi::Function::New(env, libc_unix_haiku_waitid_napi));
-    exports.Set("libc_unix_haiku_glob", Napi::Function::New(env, libc_unix_haiku_glob_napi));
-    exports.Set("libc_unix_haiku_globfree", Napi::Function::New(env, libc_unix_haiku_globfree_napi));
-    exports.Set("libc_unix_haiku_gettimeofday", Napi::Function::New(env, libc_unix_haiku_gettimeofday_napi));
-    exports.Set("libc_unix_haiku_posixMadvise", Napi::Function::New(env, libc_unix_haiku_posixMadvise_napi));
-    exports.Set("libc_unix_haiku_posixFadvise", Napi::Function::New(env, libc_unix_haiku_posixFadvise_napi));
-    exports.Set("libc_unix_haiku_posixFallocate", Napi::Function::New(env, libc_unix_haiku_posixFallocate_napi));
-    exports.Set("libc_unix_haiku_shmOpen", Napi::Function::New(env, libc_unix_haiku_shmOpen_napi));
-    exports.Set("libc_unix_haiku_shmUnlink", Napi::Function::New(env, libc_unix_haiku_shmUnlink_napi));
-    exports.Set("libc_unix_haiku_seekdir", Napi::Function::New(env, libc_unix_haiku_seekdir_napi));
-    exports.Set("libc_unix_haiku_telldir", Napi::Function::New(env, libc_unix_haiku_telldir_napi));
-    exports.Set("libc_unix_haiku_madvise", Napi::Function::New(env, libc_unix_haiku_madvise_napi));
-    exports.Set("libc_unix_haiku_msync", Napi::Function::New(env, libc_unix_haiku_msync_napi));
-    exports.Set("libc_unix_haiku_recvfrom", Napi::Function::New(env, libc_unix_haiku_recvfrom_napi));
-    exports.Set("libc_unix_haiku_nlLanginfo", Napi::Function::New(env, libc_unix_haiku_nlLanginfo_napi));
-    exports.Set("libc_unix_haiku_bind", Napi::Function::New(env, libc_unix_haiku_bind_napi));
-    exports.Set("libc_unix_haiku_accept4", Napi::Function::New(env, libc_unix_haiku_accept4_napi));
-    exports.Set("libc_unix_haiku_writev", Napi::Function::New(env, libc_unix_haiku_writev_napi));
-    exports.Set("libc_unix_haiku_readv", Napi::Function::New(env, libc_unix_haiku_readv_napi));
-    exports.Set("libc_unix_haiku_sendmsg", Napi::Function::New(env, libc_unix_haiku_sendmsg_napi));
-    exports.Set("libc_unix_haiku_recvmsg", Napi::Function::New(env, libc_unix_haiku_recvmsg_napi));
-    exports.Set("libc_unix_haiku_execvpe", Napi::Function::New(env, libc_unix_haiku_execvpe_napi));
-    exports.Set("libc_unix_haiku_getgrgidR", Napi::Function::New(env, libc_unix_haiku_getgrgidR_napi));
-    exports.Set("libc_unix_haiku_getgrouplist", Napi::Function::New(env, libc_unix_haiku_getgrouplist_napi));
-    exports.Set("libc_unix_haiku_sigaltstack", Napi::Function::New(env, libc_unix_haiku_sigaltstack_napi));
-    exports.Set("libc_unix_haiku_sigsuspend", Napi::Function::New(env, libc_unix_haiku_sigsuspend_napi));
-    exports.Set("libc_unix_haiku_semClose", Napi::Function::New(env, libc_unix_haiku_semClose_napi));
-    exports.Set("libc_unix_haiku_getdtablesize", Napi::Function::New(env, libc_unix_haiku_getdtablesize_napi));
-    exports.Set("libc_unix_haiku_getgrnamR", Napi::Function::New(env, libc_unix_haiku_getgrnamR_napi));
-    exports.Set("libc_unix_haiku_pthreadSigmask", Napi::Function::New(env, libc_unix_haiku_pthreadSigmask_napi));
-    exports.Set("libc_unix_haiku_semOpen", Napi::Function::New(env, libc_unix_haiku_semOpen_napi));
-    exports.Set("libc_unix_haiku_getgrnam", Napi::Function::New(env, libc_unix_haiku_getgrnam_napi));
-    exports.Set("libc_unix_haiku_pthreadKill", Napi::Function::New(env, libc_unix_haiku_pthreadKill_napi));
-    exports.Set("libc_unix_haiku_semUnlink", Napi::Function::New(env, libc_unix_haiku_semUnlink_napi));
-    exports.Set("libc_unix_haiku_getpwnamR", Napi::Function::New(env, libc_unix_haiku_getpwnamR_napi));
-    exports.Set("libc_unix_haiku_getpwuidR", Napi::Function::New(env, libc_unix_haiku_getpwuidR_napi));
-    exports.Set("libc_unix_haiku_getpwent", Napi::Function::New(env, libc_unix_haiku_getpwent_napi));
-    exports.Set("libc_unix_haiku_setpwent", Napi::Function::New(env, libc_unix_haiku_setpwent_napi));
-    exports.Set("libc_unix_haiku_endpwent", Napi::Function::New(env, libc_unix_haiku_endpwent_napi));
-    exports.Set("libc_unix_haiku_endgrent", Napi::Function::New(env, libc_unix_haiku_endgrent_napi));
-    exports.Set("libc_unix_haiku_getgrent", Napi::Function::New(env, libc_unix_haiku_getgrent_napi));
-    exports.Set("libc_unix_haiku_setgrent", Napi::Function::New(env, libc_unix_haiku_setgrent_napi));
-    exports.Set("libc_unix_haiku_sigwait", Napi::Function::New(env, libc_unix_haiku_sigwait_napi));
-    exports.Set("libc_unix_haiku_pthreadAtfork", Napi::Function::New(env, libc_unix_haiku_pthreadAtfork_napi));
-    exports.Set("libc_unix_haiku_getgrgid", Napi::Function::New(env, libc_unix_haiku_getgrgid_napi));
-    exports.Set("libc_unix_haiku_popen", Napi::Function::New(env, libc_unix_haiku_popen_napi));
-    exports.Set("libc_unix_haiku_sethostname", Napi::Function::New(env, libc_unix_haiku_sethostname_napi));
-    exports.Set("libc_unix_haiku_uname", Napi::Function::New(env, libc_unix_haiku_uname_napi));
-    exports.Set("libc_unix_haiku_getutxent", Napi::Function::New(env, libc_unix_haiku_getutxent_napi));
-    exports.Set("libc_unix_haiku_getutxid", Napi::Function::New(env, libc_unix_haiku_getutxid_napi));
-    exports.Set("libc_unix_haiku_getutxline", Napi::Function::New(env, libc_unix_haiku_getutxline_napi));
-    exports.Set("libc_unix_haiku_pututxline", Napi::Function::New(env, libc_unix_haiku_pututxline_napi));
-    exports.Set("libc_unix_haiku_setutxent", Napi::Function::New(env, libc_unix_haiku_setutxent_napi));
-    exports.Set("libc_unix_haiku_endutxent", Napi::Function::New(env, libc_unix_haiku_endutxent_napi));
-    exports.Set("libc_unix_haiku_faccessat", Napi::Function::New(env, libc_unix_haiku_faccessat_napi));
-    exports.Set("libc_unix_haiku_sigtimedwait", Napi::Function::New(env, libc_unix_haiku_sigtimedwait_napi));
-    exports.Set("libc_unix_haiku_sigwaitinfo", Napi::Function::New(env, libc_unix_haiku_sigwaitinfo_napi));
-    exports.Set("libc_unix_haiku_getitimer", Napi::Function::New(env, libc_unix_haiku_getitimer_napi));
-    exports.Set("libc_unix_haiku_setitimer", Napi::Function::New(env, libc_unix_haiku_setitimer_napi));
-    exports.Set("libc_unix_haiku_regcomp", Napi::Function::New(env, libc_unix_haiku_regcomp_napi));
-    exports.Set("libc_unix_haiku_regexec", Napi::Function::New(env, libc_unix_haiku_regexec_napi));
-    exports.Set("libc_unix_haiku_regerror", Napi::Function::New(env, libc_unix_haiku_regerror_napi));
-    exports.Set("libc_unix_haiku_regfree", Napi::Function::New(env, libc_unix_haiku_regfree_napi));
-    exports.Set("libc_unix_haiku_msgctl", Napi::Function::New(env, libc_unix_haiku_msgctl_napi));
-    exports.Set("libc_unix_haiku_msgget", Napi::Function::New(env, libc_unix_haiku_msgget_napi));
-    exports.Set("libc_unix_haiku_msgrcv", Napi::Function::New(env, libc_unix_haiku_msgrcv_napi));
-    exports.Set("libc_unix_haiku_msgsnd", Napi::Function::New(env, libc_unix_haiku_msgsnd_napi));
-    exports.Set("libc_unix_haiku_semget", Napi::Function::New(env, libc_unix_haiku_semget_napi));
-    exports.Set("libc_unix_haiku_semctl", Napi::Function::New(env, libc_unix_haiku_semctl_napi));
-    exports.Set("libc_unix_haiku_semop", Napi::Function::New(env, libc_unix_haiku_semop_napi));
-    exports.Set("libc_unix_haiku_ftok", Napi::Function::New(env, libc_unix_haiku_ftok_napi));
-    exports.Set("libc_unix_haiku_memrchr", Napi::Function::New(env, libc_unix_haiku_memrchr_napi));
-    exports.Set("libc_unix_haiku_lsearch", Napi::Function::New(env, libc_unix_haiku_lsearch_napi));
-    exports.Set("libc_unix_haiku_lfind", Napi::Function::New(env, libc_unix_haiku_lfind_napi));
-    exports.Set("libc_unix_haiku_hcreate", Napi::Function::New(env, libc_unix_haiku_hcreate_napi));
-    exports.Set("libc_unix_haiku_hdestroy", Napi::Function::New(env, libc_unix_haiku_hdestroy_napi));
-    exports.Set("libc_unix_haiku_drand48", Napi::Function::New(env, libc_unix_haiku_drand48_napi));
-    exports.Set("libc_unix_haiku_erand48", Napi::Function::New(env, libc_unix_haiku_erand48_napi));
-    exports.Set("libc_unix_haiku_lrand48", Napi::Function::New(env, libc_unix_haiku_lrand48_napi));
-    exports.Set("libc_unix_haiku_nrand48", Napi::Function::New(env, libc_unix_haiku_nrand48_napi));
-    exports.Set("libc_unix_haiku_mrand48", Napi::Function::New(env, libc_unix_haiku_mrand48_napi));
-    exports.Set("libc_unix_haiku_jrand48", Napi::Function::New(env, libc_unix_haiku_jrand48_napi));
-    exports.Set("libc_unix_haiku_srand48", Napi::Function::New(env, libc_unix_haiku_srand48_napi));
-    exports.Set("libc_unix_haiku_seed48", Napi::Function::New(env, libc_unix_haiku_seed48_napi));
-    exports.Set("libc_unix_haiku_lcong48", Napi::Function::New(env, libc_unix_haiku_lcong48_napi));
-    exports.Set("libc_unix_haiku_clearenv", Napi::Function::New(env, libc_unix_haiku_clearenv_napi));
-    exports.Set("libc_unix_haiku_ctermid", Napi::Function::New(env, libc_unix_haiku_ctermid_napi));
-    exports.Set("libc_unix_haiku_sync", Napi::Function::New(env, libc_unix_haiku_sync_napi));
-    exports.Set("libc_unix_haiku_getpagesize", Napi::Function::New(env, libc_unix_haiku_getpagesize_napi));
-    exports.Set("libc_unix_haiku_brk", Napi::Function::New(env, libc_unix_haiku_brk_napi));
-    exports.Set("libc_unix_haiku_sbrk", Napi::Function::New(env, libc_unix_haiku_sbrk_napi));
-    exports.Set("libc_unix_haiku_posixSpawn", Napi::Function::New(env, libc_unix_haiku_posixSpawn_napi));
-    exports.Set("libc_unix_haiku_posixSpawnp", Napi::Function::New(env, libc_unix_haiku_posixSpawnp_napi));
-    exports.Set("libc_unix_haiku_posixSpawnFileActionsInit", Napi::Function::New(env, libc_unix_haiku_posixSpawnFileActionsInit_napi));
-    exports.Set("libc_unix_haiku_posixSpawnFileActionsDestroy", Napi::Function::New(env, libc_unix_haiku_posixSpawnFileActionsDestroy_napi));
-    exports.Set("libc_unix_haiku_posixSpawnFileActionsAddopen", Napi::Function::New(env, libc_unix_haiku_posixSpawnFileActionsAddopen_napi));
-    exports.Set("libc_unix_haiku_posixSpawnFileActionsAddclose", Napi::Function::New(env, libc_unix_haiku_posixSpawnFileActionsAddclose_napi));
-    exports.Set("libc_unix_haiku_posixSpawnFileActionsAdddup2", Napi::Function::New(env, libc_unix_haiku_posixSpawnFileActionsAdddup2_napi));
-    exports.Set("libc_unix_haiku_posixSpawnattrInit", Napi::Function::New(env, libc_unix_haiku_posixSpawnattrInit_napi));
-    exports.Set("libc_unix_haiku_posixSpawnattrDestroy", Napi::Function::New(env, libc_unix_haiku_posixSpawnattrDestroy_napi));
-    exports.Set("libc_unix_haiku_posixSpawnattrGetflags", Napi::Function::New(env, libc_unix_haiku_posixSpawnattrGetflags_napi));
-    exports.Set("libc_unix_haiku_posixSpawnattrSetflags", Napi::Function::New(env, libc_unix_haiku_posixSpawnattrSetflags_napi));
-    exports.Set("libc_unix_haiku_posixSpawnattrGetpgroup", Napi::Function::New(env, libc_unix_haiku_posixSpawnattrGetpgroup_napi));
-    exports.Set("libc_unix_haiku_posixSpawnattrSetpgroup", Napi::Function::New(env, libc_unix_haiku_posixSpawnattrSetpgroup_napi));
-    exports.Set("libc_unix_haiku_posixSpawnattrGetsigdefault", Napi::Function::New(env, libc_unix_haiku_posixSpawnattrGetsigdefault_napi));
-    exports.Set("libc_unix_haiku_posixSpawnattrSetsigdefault", Napi::Function::New(env, libc_unix_haiku_posixSpawnattrSetsigdefault_napi));
-    exports.Set("libc_unix_haiku_posixSpawnattrGetsigmask", Napi::Function::New(env, libc_unix_haiku_posixSpawnattrGetsigmask_napi));
-    exports.Set("libc_unix_haiku_posixSpawnattrSetsigmask", Napi::Function::New(env, libc_unix_haiku_posixSpawnattrSetsigmask_napi));
-    exports.Set("libc_unix_haiku_getoptLong", Napi::Function::New(env, libc_unix_haiku_getoptLong_napi));
-    exports.Set("libc_unix_haiku_strcasecmpL", Napi::Function::New(env, libc_unix_haiku_strcasecmpL_napi));
-    exports.Set("libc_unix_haiku_strncasecmpL", Napi::Function::New(env, libc_unix_haiku_strncasecmpL_napi));
-    exports.Set("libc_unix_haiku_getentropy", Napi::Function::New(env, libc_unix_haiku_getentropy_napi));
-    exports.Set("libc_unix_haiku_memmem", Napi::Function::New(env, libc_unix_haiku_memmem_napi));
-    exports.Set("libc_unix_haiku_pthreadGetattrNp", Napi::Function::New(env, libc_unix_haiku_pthreadGetattrNp_napi));
-    exports.Set("libc_unix_haiku_pthreadGetnameNp", Napi::Function::New(env, libc_unix_haiku_pthreadGetnameNp_napi));
-    exports.Set("libc_unix_haiku_pthreadSetnameNp", Napi::Function::New(env, libc_unix_haiku_pthreadSetnameNp_napi));
+    exports.Set("libcUnixHaikuGetrlimit", Napi::Function::New(env, libcUnixHaikuGetrlimit_napi));
+    exports.Set("libcUnixHaikuSetrlimit", Napi::Function::New(env, libcUnixHaikuSetrlimit_napi));
+    exports.Set("libcUnixHaikuGetpriority", Napi::Function::New(env, libcUnixHaikuGetpriority_napi));
+    exports.Set("libcUnixHaikuSetpriority", Napi::Function::New(env, libcUnixHaikuSetpriority_napi));
+    exports.Set("libcUnixHaikuEndusershell", Napi::Function::New(env, libcUnixHaikuEndusershell_napi));
+    exports.Set("libcUnixHaikuGetpass", Napi::Function::New(env, libcUnixHaikuGetpass_napi));
+    exports.Set("libcUnixHaikuGetusershell", Napi::Function::New(env, libcUnixHaikuGetusershell_napi));
+    exports.Set("libcUnixHaikuIssetugid", Napi::Function::New(env, libcUnixHaikuIssetugid_napi));
+    exports.Set("libcUnixHaikuSetusershell", Napi::Function::New(env, libcUnixHaikuSetusershell_napi));
+    exports.Set("libcUnixHaikuUtimensat", Napi::Function::New(env, libcUnixHaikuUtimensat_napi));
+    exports.Set("libcUnixHaikuFutimens", Napi::Function::New(env, libcUnixHaikuFutimens_napi));
+    exports.Set("libcUnixHaikuStrerrorR", Napi::Function::New(env, libcUnixHaikuStrerrorR_napi));
+    exports.Set("libcUnixHaikuErrnop", Napi::Function::New(env, libcUnixHaikuErrnop_napi));
+    exports.Set("libcUnixHaikuAbs", Napi::Function::New(env, libcUnixHaikuAbs_napi));
+    exports.Set("libcUnixHaikuLabs", Napi::Function::New(env, libcUnixHaikuLabs_napi));
+    exports.Set("libcUnixHaikuRand", Napi::Function::New(env, libcUnixHaikuRand_napi));
+    exports.Set("libcUnixHaikuSrand", Napi::Function::New(env, libcUnixHaikuSrand_napi));
+    exports.Set("libcUnixHaikuGetifaddrs", Napi::Function::New(env, libcUnixHaikuGetifaddrs_napi));
+    exports.Set("libcUnixHaikuFreeifaddrs", Napi::Function::New(env, libcUnixHaikuFreeifaddrs_napi));
+    exports.Set("libcUnixHaikuPpoll", Napi::Function::New(env, libcUnixHaikuPpoll_napi));
+    exports.Set("libcUnixHaikuGetspent", Napi::Function::New(env, libcUnixHaikuGetspent_napi));
+    exports.Set("libcUnixHaikuGetspentR", Napi::Function::New(env, libcUnixHaikuGetspentR_napi));
+    exports.Set("libcUnixHaikuSetspent", Napi::Function::New(env, libcUnixHaikuSetspent_napi));
+    exports.Set("libcUnixHaikuEndspent", Napi::Function::New(env, libcUnixHaikuEndspent_napi));
+    exports.Set("libcUnixHaikuGetspnam", Napi::Function::New(env, libcUnixHaikuGetspnam_napi));
+    exports.Set("libcUnixHaikuGetspnamR", Napi::Function::New(env, libcUnixHaikuGetspnamR_napi));
+    exports.Set("libcUnixHaikuSgetspent", Napi::Function::New(env, libcUnixHaikuSgetspent_napi));
+    exports.Set("libcUnixHaikuSgetspentR", Napi::Function::New(env, libcUnixHaikuSgetspentR_napi));
+    exports.Set("libcUnixHaikuFgetspent", Napi::Function::New(env, libcUnixHaikuFgetspent_napi));
+    exports.Set("libcUnixHaikuFgetspentR", Napi::Function::New(env, libcUnixHaikuFgetspentR_napi));
+    exports.Set("libcUnixHaikuMkfifoat", Napi::Function::New(env, libcUnixHaikuMkfifoat_napi));
+    exports.Set("libcUnixHaikuMknodat", Napi::Function::New(env, libcUnixHaikuMknodat_napi));
+    exports.Set("libcUnixHaikuSemDestroy", Napi::Function::New(env, libcUnixHaikuSemDestroy_napi));
+    exports.Set("libcUnixHaikuSemInit", Napi::Function::New(env, libcUnixHaikuSemInit_napi));
+    exports.Set("libcUnixHaikuClockGetres", Napi::Function::New(env, libcUnixHaikuClockGetres_napi));
+    exports.Set("libcUnixHaikuClockGettime", Napi::Function::New(env, libcUnixHaikuClockGettime_napi));
+    exports.Set("libcUnixHaikuClockSettime", Napi::Function::New(env, libcUnixHaikuClockSettime_napi));
+    exports.Set("libcUnixHaikuClockGetcpuclockid", Napi::Function::New(env, libcUnixHaikuClockGetcpuclockid_napi));
+    exports.Set("libcUnixHaikuPthreadCreate", Napi::Function::New(env, libcUnixHaikuPthreadCreate_napi));
+    exports.Set("libcUnixHaikuPthreadAttrGetguardsize", Napi::Function::New(env, libcUnixHaikuPthreadAttrGetguardsize_napi));
+    exports.Set("libcUnixHaikuPthreadAttrSetguardsize", Napi::Function::New(env, libcUnixHaikuPthreadAttrSetguardsize_napi));
+    exports.Set("libcUnixHaikuPthreadAttrGetstack", Napi::Function::New(env, libcUnixHaikuPthreadAttrGetstack_napi));
+    exports.Set("libcUnixHaikuPthreadCondattrGetclock", Napi::Function::New(env, libcUnixHaikuPthreadCondattrGetclock_napi));
+    exports.Set("libcUnixHaikuPthreadCondattrSetclock", Napi::Function::New(env, libcUnixHaikuPthreadCondattrSetclock_napi));
+    exports.Set("libcUnixHaikuValloc", Napi::Function::New(env, libcUnixHaikuValloc_napi));
+    exports.Set("libcUnixHaikuMallocUsableSize", Napi::Function::New(env, libcUnixHaikuMallocUsableSize_napi));
+    exports.Set("libcUnixHaikuMemalign", Napi::Function::New(env, libcUnixHaikuMemalign_napi));
+    exports.Set("libcUnixHaikuSetgroups", Napi::Function::New(env, libcUnixHaikuSetgroups_napi));
+    exports.Set("libcUnixHaikuInitgroups", Napi::Function::New(env, libcUnixHaikuInitgroups_napi));
+    exports.Set("libcUnixHaikuIoctl", Napi::Function::New(env, libcUnixHaikuIoctl_napi));
+    exports.Set("libcUnixHaikuMprotect", Napi::Function::New(env, libcUnixHaikuMprotect_napi));
+    exports.Set("libcUnixHaikuDirfd", Napi::Function::New(env, libcUnixHaikuDirfd_napi));
+    exports.Set("libcUnixHaikuGetnameinfo", Napi::Function::New(env, libcUnixHaikuGetnameinfo_napi));
+    exports.Set("libcUnixHaikuPthreadMutexTimedlock", Napi::Function::New(env, libcUnixHaikuPthreadMutexTimedlock_napi));
+    exports.Set("libcUnixHaikuPthreadSpinInit", Napi::Function::New(env, libcUnixHaikuPthreadSpinInit_napi));
+    exports.Set("libcUnixHaikuPthreadSpinDestroy", Napi::Function::New(env, libcUnixHaikuPthreadSpinDestroy_napi));
+    exports.Set("libcUnixHaikuPthreadSpinLock", Napi::Function::New(env, libcUnixHaikuPthreadSpinLock_napi));
+    exports.Set("libcUnixHaikuPthreadSpinTrylock", Napi::Function::New(env, libcUnixHaikuPthreadSpinTrylock_napi));
+    exports.Set("libcUnixHaikuPthreadSpinUnlock", Napi::Function::New(env, libcUnixHaikuPthreadSpinUnlock_napi));
+    exports.Set("libcUnixHaikuWaitid", Napi::Function::New(env, libcUnixHaikuWaitid_napi));
+    exports.Set("libcUnixHaikuGlob", Napi::Function::New(env, libcUnixHaikuGlob_napi));
+    exports.Set("libcUnixHaikuGlobfree", Napi::Function::New(env, libcUnixHaikuGlobfree_napi));
+    exports.Set("libcUnixHaikuGettimeofday", Napi::Function::New(env, libcUnixHaikuGettimeofday_napi));
+    exports.Set("libcUnixHaikuPosixMadvise", Napi::Function::New(env, libcUnixHaikuPosixMadvise_napi));
+    exports.Set("libcUnixHaikuPosixFadvise", Napi::Function::New(env, libcUnixHaikuPosixFadvise_napi));
+    exports.Set("libcUnixHaikuPosixFallocate", Napi::Function::New(env, libcUnixHaikuPosixFallocate_napi));
+    exports.Set("libcUnixHaikuShmOpen", Napi::Function::New(env, libcUnixHaikuShmOpen_napi));
+    exports.Set("libcUnixHaikuShmUnlink", Napi::Function::New(env, libcUnixHaikuShmUnlink_napi));
+    exports.Set("libcUnixHaikuSeekdir", Napi::Function::New(env, libcUnixHaikuSeekdir_napi));
+    exports.Set("libcUnixHaikuTelldir", Napi::Function::New(env, libcUnixHaikuTelldir_napi));
+    exports.Set("libcUnixHaikuMadvise", Napi::Function::New(env, libcUnixHaikuMadvise_napi));
+    exports.Set("libcUnixHaikuMsync", Napi::Function::New(env, libcUnixHaikuMsync_napi));
+    exports.Set("libcUnixHaikuRecvfrom", Napi::Function::New(env, libcUnixHaikuRecvfrom_napi));
+    exports.Set("libcUnixHaikuNlLanginfo", Napi::Function::New(env, libcUnixHaikuNlLanginfo_napi));
+    exports.Set("libcUnixHaikuBind", Napi::Function::New(env, libcUnixHaikuBind_napi));
+    exports.Set("libcUnixHaikuAccept4", Napi::Function::New(env, libcUnixHaikuAccept4_napi));
+    exports.Set("libcUnixHaikuWritev", Napi::Function::New(env, libcUnixHaikuWritev_napi));
+    exports.Set("libcUnixHaikuReadv", Napi::Function::New(env, libcUnixHaikuReadv_napi));
+    exports.Set("libcUnixHaikuSendmsg", Napi::Function::New(env, libcUnixHaikuSendmsg_napi));
+    exports.Set("libcUnixHaikuRecvmsg", Napi::Function::New(env, libcUnixHaikuRecvmsg_napi));
+    exports.Set("libcUnixHaikuExecvpe", Napi::Function::New(env, libcUnixHaikuExecvpe_napi));
+    exports.Set("libcUnixHaikuGetgrgidR", Napi::Function::New(env, libcUnixHaikuGetgrgidR_napi));
+    exports.Set("libcUnixHaikuGetgrouplist", Napi::Function::New(env, libcUnixHaikuGetgrouplist_napi));
+    exports.Set("libcUnixHaikuSigaltstack", Napi::Function::New(env, libcUnixHaikuSigaltstack_napi));
+    exports.Set("libcUnixHaikuSigsuspend", Napi::Function::New(env, libcUnixHaikuSigsuspend_napi));
+    exports.Set("libcUnixHaikuSemClose", Napi::Function::New(env, libcUnixHaikuSemClose_napi));
+    exports.Set("libcUnixHaikuGetdtablesize", Napi::Function::New(env, libcUnixHaikuGetdtablesize_napi));
+    exports.Set("libcUnixHaikuGetgrnamR", Napi::Function::New(env, libcUnixHaikuGetgrnamR_napi));
+    exports.Set("libcUnixHaikuPthreadSigmask", Napi::Function::New(env, libcUnixHaikuPthreadSigmask_napi));
+    exports.Set("libcUnixHaikuSemOpen", Napi::Function::New(env, libcUnixHaikuSemOpen_napi));
+    exports.Set("libcUnixHaikuGetgrnam", Napi::Function::New(env, libcUnixHaikuGetgrnam_napi));
+    exports.Set("libcUnixHaikuPthreadKill", Napi::Function::New(env, libcUnixHaikuPthreadKill_napi));
+    exports.Set("libcUnixHaikuSemUnlink", Napi::Function::New(env, libcUnixHaikuSemUnlink_napi));
+    exports.Set("libcUnixHaikuGetpwnamR", Napi::Function::New(env, libcUnixHaikuGetpwnamR_napi));
+    exports.Set("libcUnixHaikuGetpwuidR", Napi::Function::New(env, libcUnixHaikuGetpwuidR_napi));
+    exports.Set("libcUnixHaikuGetpwent", Napi::Function::New(env, libcUnixHaikuGetpwent_napi));
+    exports.Set("libcUnixHaikuSetpwent", Napi::Function::New(env, libcUnixHaikuSetpwent_napi));
+    exports.Set("libcUnixHaikuEndpwent", Napi::Function::New(env, libcUnixHaikuEndpwent_napi));
+    exports.Set("libcUnixHaikuEndgrent", Napi::Function::New(env, libcUnixHaikuEndgrent_napi));
+    exports.Set("libcUnixHaikuGetgrent", Napi::Function::New(env, libcUnixHaikuGetgrent_napi));
+    exports.Set("libcUnixHaikuSetgrent", Napi::Function::New(env, libcUnixHaikuSetgrent_napi));
+    exports.Set("libcUnixHaikuSigwait", Napi::Function::New(env, libcUnixHaikuSigwait_napi));
+    exports.Set("libcUnixHaikuPthreadAtfork", Napi::Function::New(env, libcUnixHaikuPthreadAtfork_napi));
+    exports.Set("libcUnixHaikuGetgrgid", Napi::Function::New(env, libcUnixHaikuGetgrgid_napi));
+    exports.Set("libcUnixHaikuPopen", Napi::Function::New(env, libcUnixHaikuPopen_napi));
+    exports.Set("libcUnixHaikuSethostname", Napi::Function::New(env, libcUnixHaikuSethostname_napi));
+    exports.Set("libcUnixHaikuUname", Napi::Function::New(env, libcUnixHaikuUname_napi));
+    exports.Set("libcUnixHaikuGetutxent", Napi::Function::New(env, libcUnixHaikuGetutxent_napi));
+    exports.Set("libcUnixHaikuGetutxid", Napi::Function::New(env, libcUnixHaikuGetutxid_napi));
+    exports.Set("libcUnixHaikuGetutxline", Napi::Function::New(env, libcUnixHaikuGetutxline_napi));
+    exports.Set("libcUnixHaikuPututxline", Napi::Function::New(env, libcUnixHaikuPututxline_napi));
+    exports.Set("libcUnixHaikuSetutxent", Napi::Function::New(env, libcUnixHaikuSetutxent_napi));
+    exports.Set("libcUnixHaikuEndutxent", Napi::Function::New(env, libcUnixHaikuEndutxent_napi));
+    exports.Set("libcUnixHaikuFaccessat", Napi::Function::New(env, libcUnixHaikuFaccessat_napi));
+    exports.Set("libcUnixHaikuSigtimedwait", Napi::Function::New(env, libcUnixHaikuSigtimedwait_napi));
+    exports.Set("libcUnixHaikuSigwaitinfo", Napi::Function::New(env, libcUnixHaikuSigwaitinfo_napi));
+    exports.Set("libcUnixHaikuGetitimer", Napi::Function::New(env, libcUnixHaikuGetitimer_napi));
+    exports.Set("libcUnixHaikuSetitimer", Napi::Function::New(env, libcUnixHaikuSetitimer_napi));
+    exports.Set("libcUnixHaikuRegcomp", Napi::Function::New(env, libcUnixHaikuRegcomp_napi));
+    exports.Set("libcUnixHaikuRegexec", Napi::Function::New(env, libcUnixHaikuRegexec_napi));
+    exports.Set("libcUnixHaikuRegerror", Napi::Function::New(env, libcUnixHaikuRegerror_napi));
+    exports.Set("libcUnixHaikuRegfree", Napi::Function::New(env, libcUnixHaikuRegfree_napi));
+    exports.Set("libcUnixHaikuMsgctl", Napi::Function::New(env, libcUnixHaikuMsgctl_napi));
+    exports.Set("libcUnixHaikuMsgget", Napi::Function::New(env, libcUnixHaikuMsgget_napi));
+    exports.Set("libcUnixHaikuMsgrcv", Napi::Function::New(env, libcUnixHaikuMsgrcv_napi));
+    exports.Set("libcUnixHaikuMsgsnd", Napi::Function::New(env, libcUnixHaikuMsgsnd_napi));
+    exports.Set("libcUnixHaikuSemget", Napi::Function::New(env, libcUnixHaikuSemget_napi));
+    exports.Set("libcUnixHaikuSemctl", Napi::Function::New(env, libcUnixHaikuSemctl_napi));
+    exports.Set("libcUnixHaikuSemop", Napi::Function::New(env, libcUnixHaikuSemop_napi));
+    exports.Set("libcUnixHaikuFtok", Napi::Function::New(env, libcUnixHaikuFtok_napi));
+    exports.Set("libcUnixHaikuMemrchr", Napi::Function::New(env, libcUnixHaikuMemrchr_napi));
+    exports.Set("libcUnixHaikuLsearch", Napi::Function::New(env, libcUnixHaikuLsearch_napi));
+    exports.Set("libcUnixHaikuLfind", Napi::Function::New(env, libcUnixHaikuLfind_napi));
+    exports.Set("libcUnixHaikuHcreate", Napi::Function::New(env, libcUnixHaikuHcreate_napi));
+    exports.Set("libcUnixHaikuHdestroy", Napi::Function::New(env, libcUnixHaikuHdestroy_napi));
+    exports.Set("libcUnixHaikuDrand48", Napi::Function::New(env, libcUnixHaikuDrand48_napi));
+    exports.Set("libcUnixHaikuErand48", Napi::Function::New(env, libcUnixHaikuErand48_napi));
+    exports.Set("libcUnixHaikuLrand48", Napi::Function::New(env, libcUnixHaikuLrand48_napi));
+    exports.Set("libcUnixHaikuNrand48", Napi::Function::New(env, libcUnixHaikuNrand48_napi));
+    exports.Set("libcUnixHaikuMrand48", Napi::Function::New(env, libcUnixHaikuMrand48_napi));
+    exports.Set("libcUnixHaikuJrand48", Napi::Function::New(env, libcUnixHaikuJrand48_napi));
+    exports.Set("libcUnixHaikuSrand48", Napi::Function::New(env, libcUnixHaikuSrand48_napi));
+    exports.Set("libcUnixHaikuSeed48", Napi::Function::New(env, libcUnixHaikuSeed48_napi));
+    exports.Set("libcUnixHaikuLcong48", Napi::Function::New(env, libcUnixHaikuLcong48_napi));
+    exports.Set("libcUnixHaikuClearenv", Napi::Function::New(env, libcUnixHaikuClearenv_napi));
+    exports.Set("libcUnixHaikuCtermid", Napi::Function::New(env, libcUnixHaikuCtermid_napi));
+    exports.Set("libcUnixHaikuSync", Napi::Function::New(env, libcUnixHaikuSync_napi));
+    exports.Set("libcUnixHaikuGetpagesize", Napi::Function::New(env, libcUnixHaikuGetpagesize_napi));
+    exports.Set("libcUnixHaikuBrk", Napi::Function::New(env, libcUnixHaikuBrk_napi));
+    exports.Set("libcUnixHaikuSbrk", Napi::Function::New(env, libcUnixHaikuSbrk_napi));
+    exports.Set("libcUnixHaikuPosixSpawn", Napi::Function::New(env, libcUnixHaikuPosixSpawn_napi));
+    exports.Set("libcUnixHaikuPosixSpawnp", Napi::Function::New(env, libcUnixHaikuPosixSpawnp_napi));
+    exports.Set("libcUnixHaikuPosixSpawnFileActionsInit", Napi::Function::New(env, libcUnixHaikuPosixSpawnFileActionsInit_napi));
+    exports.Set("libcUnixHaikuPosixSpawnFileActionsDestroy", Napi::Function::New(env, libcUnixHaikuPosixSpawnFileActionsDestroy_napi));
+    exports.Set("libcUnixHaikuPosixSpawnFileActionsAddopen", Napi::Function::New(env, libcUnixHaikuPosixSpawnFileActionsAddopen_napi));
+    exports.Set("libcUnixHaikuPosixSpawnFileActionsAddclose", Napi::Function::New(env, libcUnixHaikuPosixSpawnFileActionsAddclose_napi));
+    exports.Set("libcUnixHaikuPosixSpawnFileActionsAdddup2", Napi::Function::New(env, libcUnixHaikuPosixSpawnFileActionsAdddup2_napi));
+    exports.Set("libcUnixHaikuPosixSpawnattrInit", Napi::Function::New(env, libcUnixHaikuPosixSpawnattrInit_napi));
+    exports.Set("libcUnixHaikuPosixSpawnattrDestroy", Napi::Function::New(env, libcUnixHaikuPosixSpawnattrDestroy_napi));
+    exports.Set("libcUnixHaikuPosixSpawnattrGetflags", Napi::Function::New(env, libcUnixHaikuPosixSpawnattrGetflags_napi));
+    exports.Set("libcUnixHaikuPosixSpawnattrSetflags", Napi::Function::New(env, libcUnixHaikuPosixSpawnattrSetflags_napi));
+    exports.Set("libcUnixHaikuPosixSpawnattrGetpgroup", Napi::Function::New(env, libcUnixHaikuPosixSpawnattrGetpgroup_napi));
+    exports.Set("libcUnixHaikuPosixSpawnattrSetpgroup", Napi::Function::New(env, libcUnixHaikuPosixSpawnattrSetpgroup_napi));
+    exports.Set("libcUnixHaikuPosixSpawnattrGetsigdefault", Napi::Function::New(env, libcUnixHaikuPosixSpawnattrGetsigdefault_napi));
+    exports.Set("libcUnixHaikuPosixSpawnattrSetsigdefault", Napi::Function::New(env, libcUnixHaikuPosixSpawnattrSetsigdefault_napi));
+    exports.Set("libcUnixHaikuPosixSpawnattrGetsigmask", Napi::Function::New(env, libcUnixHaikuPosixSpawnattrGetsigmask_napi));
+    exports.Set("libcUnixHaikuPosixSpawnattrSetsigmask", Napi::Function::New(env, libcUnixHaikuPosixSpawnattrSetsigmask_napi));
+    exports.Set("libcUnixHaikuGetoptLong", Napi::Function::New(env, libcUnixHaikuGetoptLong_napi));
+    exports.Set("libcUnixHaikuStrcasecmpL", Napi::Function::New(env, libcUnixHaikuStrcasecmpL_napi));
+    exports.Set("libcUnixHaikuStrncasecmpL", Napi::Function::New(env, libcUnixHaikuStrncasecmpL_napi));
+    exports.Set("libcUnixHaikuGetentropy", Napi::Function::New(env, libcUnixHaikuGetentropy_napi));
+    exports.Set("libcUnixHaikuMemmem", Napi::Function::New(env, libcUnixHaikuMemmem_napi));
+    exports.Set("libcUnixHaikuPthreadGetattrNp", Napi::Function::New(env, libcUnixHaikuPthreadGetattrNp_napi));
+    exports.Set("libcUnixHaikuPthreadGetnameNp", Napi::Function::New(env, libcUnixHaikuPthreadGetnameNp_napi));
+    exports.Set("libcUnixHaikuPthreadSetnameNp", Napi::Function::New(env, libcUnixHaikuPthreadSetnameNp_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_unix_haiku_napi, nullptr };

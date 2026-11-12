@@ -18,7 +18,7 @@
 #endif
 #endif
 
-void libc_new_netbsd_utmpx_setutxent(void) {
+void libcNewNetbsdUtmpxSetutxent(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -67,7 +67,7 @@ void libc_new_netbsd_utmpx_setutxent(void) {
     errno = ENOSYS;
 }
 
-void libc_new_netbsd_utmpx_endutxent(void) {
+void libcNewNetbsdUtmpxEndutxent(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -116,7 +116,7 @@ void libc_new_netbsd_utmpx_endutxent(void) {
     errno = ENOSYS;
 }
 
-void* libc_new_netbsd_utmpx_getutxent(void) {
+void* libcNewNetbsdUtmpxGetutxent(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -163,7 +163,7 @@ void* libc_new_netbsd_utmpx_getutxent(void) {
     return NULL;
 }
 
-void* libc_new_netbsd_utmpx_getutxid(void* ut) {
+void* libcNewNetbsdUtmpxGetutxid(void* ut) {
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -210,7 +210,7 @@ void* libc_new_netbsd_utmpx_getutxid(void* ut) {
     return NULL;
 }
 
-void* libc_new_netbsd_utmpx_getutxline(void* ut) {
+void* libcNewNetbsdUtmpxGetutxline(void* ut) {
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -257,7 +257,7 @@ void* libc_new_netbsd_utmpx_getutxline(void* ut) {
     return NULL;
 }
 
-void* libc_new_netbsd_utmpx_pututxline(void* ut) {
+void* libcNewNetbsdUtmpxPututxline(void* ut) {
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -304,7 +304,7 @@ void* libc_new_netbsd_utmpx_pututxline(void* ut) {
     return NULL;
 }
 
-int32_t libc_new_netbsd_utmpx_updwtmpx(const char* file, void* ut) {
+int32_t libcNewNetbsdUtmpxUpdwtmpx(const char* file, void* ut) {
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -351,7 +351,7 @@ int32_t libc_new_netbsd_utmpx_updwtmpx(const char* file, void* ut) {
     return -1;
 }
 
-void* libc_new_netbsd_utmpx_getlastlogx(const char* fname, uint32_t uid, void* ll) {
+void* libcNewNetbsdUtmpxGetlastlogx(const char* fname, uint32_t uid, void* ll) {
     typedef void* (*km_fn_t)(const char*, uint32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -398,7 +398,7 @@ void* libc_new_netbsd_utmpx_getlastlogx(const char* fname, uint32_t uid, void* l
     return NULL;
 }
 
-int32_t libc_new_netbsd_utmpx_updlastlogx(const char* fname, uint32_t uid, void* ll) {
+int32_t libcNewNetbsdUtmpxUpdlastlogx(const char* fname, uint32_t uid, void* ll) {
     typedef int32_t (*km_fn_t)(const char*, uint32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -445,7 +445,7 @@ int32_t libc_new_netbsd_utmpx_updlastlogx(const char* fname, uint32_t uid, void*
     return -1;
 }
 
-void libc_new_netbsd_utmpx_getutmp(void* ux, void* u) {
+void libcNewNetbsdUtmpxGetutmp(void* ux, void* u) {
     typedef void (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -492,7 +492,7 @@ void libc_new_netbsd_utmpx_getutmp(void* ux, void* u) {
     errno = ENOSYS;
 }
 
-void libc_new_netbsd_utmpx_getutmpx(void* u, void* ux) {
+void libcNewNetbsdUtmpxGetutmpx(void* u, void* ux) {
     typedef void (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -539,7 +539,7 @@ void libc_new_netbsd_utmpx_getutmpx(void* u, void* ux) {
     errno = ENOSYS;
 }
 
-int32_t libc_new_netbsd_utmpx_utmpxname(const char* file) {
+int32_t libcNewNetbsdUtmpxUtmpxname(const char* file) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

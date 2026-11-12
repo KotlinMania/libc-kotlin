@@ -51,11 +51,9 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_new_qurt_dlfcn_dlopen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtDlfcnDlopen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool filename_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string filename_str = filename_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* filename = filename_null ? nullptr : filename_str.c_str();
+    const char* filename = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t flag = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef void* (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -87,7 +85,7 @@ static Napi::Value libc_new_qurt_dlfcn_dlopen_napi(const Napi::CallbackInfo& km_
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_new_qurt_dlfcn_dlclose_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtDlfcnDlclose_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* handle = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -120,12 +118,10 @@ static Napi::Value libc_new_qurt_dlfcn_dlclose_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_dlfcn_dlsym_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtDlfcnDlsym_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* handle = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool symbol_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string symbol_str = symbol_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* symbol = symbol_null ? nullptr : symbol_str.c_str();
+    const char* symbol = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef void* (*km_fn_t)(void*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -156,7 +152,7 @@ static Napi::Value libc_new_qurt_dlfcn_dlsym_napi(const Napi::CallbackInfo& km_i
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_new_qurt_dlfcn_dlerror_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtDlfcnDlerror_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef char* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -189,10 +185,10 @@ static Napi::Value libc_new_qurt_dlfcn_dlerror_napi(const Napi::CallbackInfo& km
 }
 
 static void register_new_qurt_dlfcn_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_new_qurt_dlfcn_dlopen", Napi::Function::New(env, libc_new_qurt_dlfcn_dlopen_napi));
-    exports.Set("libc_new_qurt_dlfcn_dlclose", Napi::Function::New(env, libc_new_qurt_dlfcn_dlclose_napi));
-    exports.Set("libc_new_qurt_dlfcn_dlsym", Napi::Function::New(env, libc_new_qurt_dlfcn_dlsym_napi));
-    exports.Set("libc_new_qurt_dlfcn_dlerror", Napi::Function::New(env, libc_new_qurt_dlfcn_dlerror_napi));
+    exports.Set("libcNewQurtDlfcnDlopen", Napi::Function::New(env, libcNewQurtDlfcnDlopen_napi));
+    exports.Set("libcNewQurtDlfcnDlclose", Napi::Function::New(env, libcNewQurtDlfcnDlclose_napi));
+    exports.Set("libcNewQurtDlfcnDlsym", Napi::Function::New(env, libcNewQurtDlfcnDlsym_napi));
+    exports.Set("libcNewQurtDlfcnDlerror", Napi::Function::New(env, libcNewQurtDlfcnDlerror_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_new_qurt_dlfcn_napi, nullptr };

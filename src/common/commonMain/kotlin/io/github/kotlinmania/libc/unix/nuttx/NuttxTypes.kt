@@ -1,7 +1,7 @@
 package io.github.kotlinmania.libc.unix.nuttx
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public typealias NlinkT = UShort
 
@@ -19,7 +19,7 @@ public typealias DevT = Int
 
 public typealias FsblkcntT = ULong
 
-public typealias LocaleT = COpaquePointer?
+public typealias LocaleT = MutPtr<Byte>
 
 public typealias ModeT = UInt
 

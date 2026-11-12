@@ -1,17 +1,23 @@
 package io.github.kotlinmania.libc.unix.linuxlike
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.unix.DIR
 import io.github.kotlinmania.libc.unix.GidT
 import io.github.kotlinmania.libc.unix.IntptrT
+import io.github.kotlinmania.libc.unix.Iovec
+import io.github.kotlinmania.libc.unix.Itimerval
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.PidT
+import io.github.kotlinmania.libc.unix.Rusage
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
+import io.github.kotlinmania.libc.unix.Timespec
 import io.github.kotlinmania.libc.unix.UidT
+import io.github.kotlinmania.libc.unix.Winsize
 import io.github.kotlinmania.libc.unix.linuxlike.android.b64.ModeT
 import io.github.kotlinmania.libc.unix.linuxlike.android.b64.Off64T
 import io.github.kotlinmania.libc.unix.linuxlike.android.b64.SocklenT
@@ -21,6 +27,19 @@ import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.Cmsghdr
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.Ioctl
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.Msghdr
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.OffT
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.SiginfoT
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.Stat64
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.Statfs
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.Statfs64
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.Statvfs64
+import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b64.SemT
+import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b64.powerpc64.Termios
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.mem.ObjectSlotLayout
+import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+import io.github.kotlinmania.rustlang.core.mem.TypeLayout
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 // intentionally not public, only used for fdSet
 // https://github.com/search?q=repo%3Atorvalds%2Flinux+%22%23define+_IOC_NONE%22&type=code
@@ -50,58 +69,58 @@ public fun io(ty: UInt, nr: UInt): Ioctl = ioc(IOC_NONE, ty, nr, 0)
 /**
  * Build an ioctl number for an read-only ioctl.
  */
-public fun <T> ior(ty: UInt, nr: UInt): Ioctl = ioc(IOC_READ, ty, nr, 8)
+public fun <T> ior(ty: UInt, nr: UInt, typeLayoutT: TypeLayout<T>): Ioctl = ioc(IOC_READ, ty, nr, sizeOf<T>(typeLayoutT = typeLayoutT))
 
 /**
  * Build an ioctl number for an write-only ioctl.
  */
-public fun <T> iow(ty: UInt, nr: UInt): Ioctl = ioc(IOC_WRITE, ty, nr, 8)
+public fun <T> iow(ty: UInt, nr: UInt, typeLayoutT: TypeLayout<T>): Ioctl = ioc(IOC_WRITE, ty, nr, sizeOf<T>(typeLayoutT = typeLayoutT))
 
 /**
  * Build an ioctl number for a read-write ioctl.
  */
-public fun <T> iowr(ty: UInt, nr: UInt): Ioctl = ioc(IOC_READ or IOC_WRITE, ty, nr, 8)
+public fun <T> iowr(ty: UInt, nr: UInt, typeLayoutT: TypeLayout<T>): Ioctl = ioc(IOC_READ or IOC_WRITE, ty, nr, sizeOf<T>(typeLayoutT = typeLayoutT))
 
 public expect fun ioctl(fd: CInt, request: Ioctl, vararg variadicArgs: Long): CInt
 
-public fun cmsgAlign(len: Int): Int = (len + 8 - 1) and (8 - 1).inv()
+public fun cmsgAlign(len: Int): Int = (len + sizeOf<Int>(typeLayoutT = PrimitiveLayouts.USIZE64) - 1) and (sizeOf<Int>(typeLayoutT = PrimitiveLayouts.USIZE64) - 1).inv()
 
-public fun cmsgFirsthdr(mhdr: Msghdr?): Cmsghdr? =
-    if ((mhdr!!.msgControllen).toInt() >= 8) {
-        ((mhdr.msgControl as Any?) as Cmsghdr?)
+public fun cmsgFirsthdr(mhdr: ConstPtr<Msghdr>): MutPtr<Cmsghdr> =
+    if (((ObjectSlotLayout<Msghdr>()).readNative((mhdr).rawAddress).msgControllen).toInt() >= sizeOf<Cmsghdr>(typeLayoutT = ObjectSlotLayout<Cmsghdr>())) {
+        MutPtr<Cmsghdr>(((ObjectSlotLayout<Msghdr>()).readNative((mhdr).rawAddress).msgControl).rawAddress)
     } else {
-        null
+        MutPtr<Cmsghdr>(0L)
     }
 
-public fun cmsgData(cmsg: Cmsghdr?): COpaquePointer? = COpaquePointer((cmsg).hashCode().toLong() + 1.toLong())
+public fun cmsgData(cmsg: ConstPtr<Cmsghdr>): MutPtr<CUchar> = MutPtr<CUchar>(ConstPtr((cmsg).rawAddress + ((1).toLong() * (ObjectSlotLayout<Cmsghdr>()).strideBytes)).rawAddress, ConstPtr((cmsg).rawAddress + ((1).toLong() * (ObjectSlotLayout<Cmsghdr>()).strideBytes)).rawMeta)
 
-public fun cmsgSpace(length: CUint): CUint = (cmsgAlign(length.toInt()) + cmsgAlign(8)).toUInt()
+public fun cmsgSpace(length: CUint): CUint = (cmsgAlign(length.toInt()) + cmsgAlign(sizeOf<Cmsghdr>(typeLayoutT = ObjectSlotLayout<Cmsghdr>()))).toUInt()
 
-public fun cmsgLen(length: CUint): CUint = cmsgAlign(8).toUInt() + length
+public fun cmsgLen(length: CUint): CUint = cmsgAlign(sizeOf<Cmsghdr>(typeLayoutT = ObjectSlotLayout<Cmsghdr>())).toUInt() + length
 
-public fun fdClr(fd: CInt, set: FdSet?) {
+public fun fdClr(fd: CInt, set: MutPtr<FdSet>) {
     val fd1 = fd
-    val size = 8 * 8
-    set!!.fdsBits[fd1 / size] = set.fdsBits[fd1 / size] and (1uL shl (fd1 % size)).inv()
+    val size = sizeOfVal((ObjectSlotLayout<FdSet>()).readNative((set).rawAddress).fdsBits[0]) * 8
+    (ObjectSlotLayout<FdSet>()).readNative((set).rawAddress).fdsBits[fd1 / size] = (ObjectSlotLayout<FdSet>()).readNative((set).rawAddress).fdsBits[fd1 / size] and (1uL shl (fd1 % size)).inv()
     return
 }
 
-public fun fdIsset(fd: CInt, set: FdSet?): Boolean {
+public fun fdIsset(fd: CInt, set: ConstPtr<FdSet>): Boolean {
     val fd1 = fd
-    val size = 8 * 8
-    return (set!!.fdsBits[fd1 / size] and (1uL shl (fd1 % size))) != 0uL
+    val size = sizeOfVal((ObjectSlotLayout<FdSet>()).readNative((set).rawAddress).fdsBits[0]) * 8
+    return ((ObjectSlotLayout<FdSet>()).readNative((set).rawAddress).fdsBits[fd1 / size] and (1uL shl (fd1 % size))) != 0uL
 }
 
-public fun fdSet(fd: CInt, set: FdSet?) {
+public fun fdSet(fd: CInt, set: MutPtr<FdSet>) {
     val fd1 = fd
-    val size = 8 * 8
-    set!!.fdsBits[fd1 / size] = set.fdsBits[fd1 / size] or (1uL shl (fd1 % size))
+    val size = sizeOfVal((ObjectSlotLayout<FdSet>()).readNative((set).rawAddress).fdsBits[0]) * 8
+    (ObjectSlotLayout<FdSet>()).readNative((set).rawAddress).fdsBits[fd1 / size] = (ObjectSlotLayout<FdSet>()).readNative((set).rawAddress).fdsBits[fd1 / size] or (1uL shl (fd1 % size))
     return
 }
 
-public fun fdZero(set: FdSet?) {
-    for (idx in (set!!.fdsBits).indices) {
-        (set.fdsBits)[idx] = 0uL
+public fun fdZero(set: MutPtr<FdSet>) {
+    for (idx in ((ObjectSlotLayout<FdSet>()).readNative((set).rawAddress).fdsBits).indices) {
+        ((ObjectSlotLayout<FdSet>()).readNative((set).rawAddress).fdsBits)[idx] = 0uL
     }
 }
 
@@ -151,71 +170,71 @@ public expect fun libcCurrentSigrtmax(): CInt
 
 public expect fun libcCurrentSigrtmin(): CInt
 
-public expect fun semDestroy(sem: COpaquePointer?): CInt
+public expect fun semDestroy(sem: MutPtr<SemT>): CInt
 
-public expect fun semInit(sem: COpaquePointer?, pshared: CInt, value: CUint): CInt
+public expect fun semInit(sem: MutPtr<SemT>, pshared: CInt, value: CUint): CInt
 
 public expect fun fdatasync(fd: CInt): CInt
 
-public expect fun mincore(addr: COpaquePointer?, len: SizeT, vec: COpaquePointer?): CInt
+public expect fun mincore(addr: MutPtr<CVoid>, len: SizeT, vec: MutPtr<CUchar>): CInt
 
-public expect fun clockGetres(clkId: ClockidT, tp: COpaquePointer?): CInt
+public expect fun clockGetres(clkId: ClockidT, tp: MutPtr<Timespec>): CInt
 
-public expect fun clockGettime(clkId: ClockidT, tp: COpaquePointer?): CInt
+public expect fun clockGettime(clkId: ClockidT, tp: MutPtr<Timespec>): CInt
 
-public expect fun clockSettime(clkId: ClockidT, tp: COpaquePointer?): CInt
+public expect fun clockSettime(clkId: ClockidT, tp: ConstPtr<Timespec>): CInt
 
-public expect fun clockGetcpuclockid(pid: PidT, clkId: COpaquePointer?): CInt
+public expect fun clockGetcpuclockid(pid: PidT, clkId: MutPtr<ClockidT>): CInt
 
-public expect fun getitimer(which: CInt, currValue: COpaquePointer?): CInt
+public expect fun getitimer(which: CInt, currValue: MutPtr<Itimerval>): CInt
 
-public expect fun setitimer(which: CInt, newValue: COpaquePointer?, oldValue: COpaquePointer?): CInt
+public expect fun setitimer(which: CInt, newValue: ConstPtr<Itimerval>, oldValue: MutPtr<Itimerval>): CInt
 
-public expect fun dirfd(dirp: DIR?): CInt
+public expect fun dirfd(dirp: MutPtr<DIR>): CInt
 
-public expect fun memalign(align: SizeT, size: SizeT): COpaquePointer?
+public expect fun memalign(align: SizeT, size: SizeT): MutPtr<CVoid>
 
-public expect fun setgroups(ngroups: SizeT, ptr: COpaquePointer?): CInt
+public expect fun setgroups(ngroups: SizeT, ptr: ConstPtr<GidT>): CInt
 
-public expect fun pipe2(fds: COpaquePointer?, flags: CInt): CInt
+public expect fun pipe2(fds: MutPtr<CInt>, flags: CInt): CInt
 
-public expect fun statfs(path: String?, buf: COpaquePointer?): CInt
+public expect fun statfs(path: ConstPtr<CChar>, buf: MutPtr<Statfs>): CInt
 
-public expect fun fstatfs(fd: CInt, buf: COpaquePointer?): CInt
+public expect fun fstatfs(fd: CInt, buf: MutPtr<Statfs>): CInt
 
-public expect fun memrchr(cx: COpaquePointer?, c: CInt, n: SizeT): COpaquePointer?
+public expect fun memrchr(cx: ConstPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid>
 
 public expect fun posixFadvise(fd: CInt, offset: OffT, len: OffT, advise: CInt): CInt
 
-public expect fun futimens(fd: CInt, times: COpaquePointer?): CInt
+public expect fun futimens(fd: CInt, times: ConstPtr<Timespec>): CInt
 
-public expect fun utimensat(dirfd: CInt, path: String?, times: COpaquePointer?, flag: CInt): CInt
+public expect fun utimensat(dirfd: CInt, path: ConstPtr<CChar>, times: ConstPtr<Timespec>, flag: CInt): CInt
 
 public expect fun duplocale(base: LocaleT): LocaleT
 
 public expect fun freelocale(loc: LocaleT)
 
-public expect fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT
+public expect fun newlocale(mask: CInt, locale: ConstPtr<CChar>, base: LocaleT): LocaleT
 
 public expect fun uselocale(loc: LocaleT): LocaleT
 
-public expect fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt
+public expect fun mknodat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT, dev: DevT): CInt
 
-public expect fun ptsnameR(fd: CInt, buf: COpaquePointer?, buflen: SizeT): CInt
+public expect fun ptsnameR(fd: CInt, buf: MutPtr<CChar>, buflen: SizeT): CInt
 
 public expect fun clearenv(): CInt
 
-public expect fun waitid(idtype: IdtypeT, id: IdT, infop: COpaquePointer?, options: CInt): CInt
+public expect fun waitid(idtype: IdtypeT, id: IdT, infop: MutPtr<SiginfoT>, options: CInt): CInt
 
-public expect fun getresuid(ruid: COpaquePointer?, euid: COpaquePointer?, suid: COpaquePointer?): CInt
+public expect fun getresuid(ruid: MutPtr<UidT>, euid: MutPtr<UidT>, suid: MutPtr<UidT>): CInt
 
-public expect fun getresgid(rgid: COpaquePointer?, egid: COpaquePointer?, sgid: COpaquePointer?): CInt
+public expect fun getresgid(rgid: MutPtr<GidT>, egid: MutPtr<GidT>, sgid: MutPtr<GidT>): CInt
 
-public expect fun acct(filename: String?): CInt
+public expect fun acct(filename: ConstPtr<CChar>): CInt
 
-public expect fun brk(addr: COpaquePointer?): CInt
+public expect fun brk(addr: MutPtr<CVoid>): CInt
 
-public expect fun sbrk(increment: IntptrT): COpaquePointer?
+public expect fun sbrk(increment: IntptrT): MutPtr<CVoid>
 
 public expect fun vfork(): PidT
 
@@ -223,103 +242,103 @@ public expect fun setresgid(rgid: GidT, egid: GidT, sgid: GidT): CInt
 
 public expect fun setresuid(ruid: UidT, euid: UidT, suid: UidT): CInt
 
-public expect fun wait4(pid: PidT, status: COpaquePointer?, options: CInt, rusage: COpaquePointer?): PidT
+public expect fun wait4(pid: PidT, status: MutPtr<CInt>, options: CInt, rusage: MutPtr<Rusage>): PidT
 
 public expect fun loginTty(fd: CInt): CInt
 
 // DIFF(main): changed to `* const *` in e77f551de9
-public expect fun execvpe(file: String?, argv: COpaquePointer?, envp: COpaquePointer?): CInt
+public expect fun execvpe(file: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>, envp: ConstPtr<ConstPtr<CChar>>): CInt
 
-public expect fun fexecve(fd: CInt, argv: COpaquePointer?, envp: COpaquePointer?): CInt
+public expect fun fexecve(fd: CInt, argv: ConstPtr<ConstPtr<CChar>>, envp: ConstPtr<ConstPtr<CChar>>): CInt
 
-public expect fun getifaddrs(ifap: COpaquePointer?): CInt
+public expect fun getifaddrs(ifap: MutPtr<MutPtr<Ifaddrs>>): CInt
 
-public expect fun freeifaddrs(ifa: COpaquePointer?)
+public expect fun freeifaddrs(ifa: MutPtr<Ifaddrs>)
 
-public expect fun bind(socket: CInt, address: COpaquePointer?, addressLen: SocklenT): CInt
+public expect fun bind(socket: CInt, address: ConstPtr<Sockaddr>, addressLen: SocklenT): CInt
 
-public expect fun writev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT
+public expect fun writev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT
 
-public expect fun readv(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT
+public expect fun readv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT
 
-public expect fun sendmsg(fd: CInt, msg: COpaquePointer?, flags: CInt): SsizeT
+public expect fun sendmsg(fd: CInt, msg: ConstPtr<Msghdr>, flags: CInt): SsizeT
 
-public expect fun recvmsg(fd: CInt, msg: COpaquePointer?, flags: CInt): SsizeT
+public expect fun recvmsg(fd: CInt, msg: MutPtr<Msghdr>, flags: CInt): SsizeT
 
-public expect fun uname(buf: COpaquePointer?): CInt
+public expect fun uname(buf: MutPtr<Utsname>): CInt
 
-public expect fun strchrnul(s: String?, c: CInt): COpaquePointer?
+public expect fun strchrnul(s: ConstPtr<CChar>, c: CInt): MutPtr<CChar>
 
-public expect fun strftime(s: COpaquePointer?, max: SizeT, format: String?, tm: COpaquePointer?): SizeT
+public expect fun strftime(s: MutPtr<CChar>, max: SizeT, format: ConstPtr<CChar>, tm: ConstPtr<Tm>): SizeT
 
-public expect fun strftimeL(s: COpaquePointer?, max: SizeT, format: String?, tm: COpaquePointer?, locale: LocaleT): SizeT
+public expect fun strftimeL(s: MutPtr<CChar>, max: SizeT, format: ConstPtr<CChar>, tm: ConstPtr<Tm>, locale: LocaleT): SizeT
 
-public expect fun strptime(s: String?, format: String?, tm: COpaquePointer?): COpaquePointer?
+public expect fun strptime(s: ConstPtr<CChar>, format: ConstPtr<CChar>, tm: MutPtr<Tm>): MutPtr<CChar>
 
-public expect fun mkostemp(template: COpaquePointer?, flags: CInt): CInt
+public expect fun mkostemp(template: MutPtr<CChar>, flags: CInt): CInt
 
-public expect fun mkostemps(template: COpaquePointer?, suffixlen: CInt, flags: CInt): CInt
+public expect fun mkostemps(template: MutPtr<CChar>, suffixlen: CInt, flags: CInt): CInt
 
-public expect fun getdomainname(name: COpaquePointer?, len: SizeT): CInt
+public expect fun getdomainname(name: MutPtr<CChar>, len: SizeT): CInt
 
-public expect fun setdomainname(name: String?, len: SizeT): CInt
+public expect fun setdomainname(name: ConstPtr<CChar>, len: SizeT): CInt
 
-public expect fun ifNameindex(): COpaquePointer?
+public expect fun ifNameindex(): MutPtr<IfNameindex>
 
-public expect fun ifFreenameindex(ptr: COpaquePointer?)
+public expect fun ifFreenameindex(ptr: MutPtr<IfNameindex>)
 
-public expect fun getpwnamR(name: String?, pwd: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt
+public expect fun getpwnamR(name: ConstPtr<CChar>, pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt
 
-public expect fun getpwuidR(uid: UidT, pwd: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt
+public expect fun getpwuidR(uid: UidT, pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt
 
-public expect fun fstatfs64(fd: CInt, buf: COpaquePointer?): CInt
+public expect fun fstatfs64(fd: CInt, buf: MutPtr<Statfs64>): CInt
 
-public expect fun statvfs64(path: String?, buf: COpaquePointer?): CInt
+public expect fun statvfs64(path: ConstPtr<CChar>, buf: MutPtr<Statvfs64>): CInt
 
-public expect fun fstatvfs64(fd: CInt, buf: COpaquePointer?): CInt
+public expect fun fstatvfs64(fd: CInt, buf: MutPtr<Statvfs64>): CInt
 
-public expect fun statfs64(path: String?, buf: COpaquePointer?): CInt
+public expect fun statfs64(path: ConstPtr<CChar>, buf: MutPtr<Statfs64>): CInt
 
-public expect fun creat64(path: String?, mode: ModeT): CInt
+public expect fun creat64(path: ConstPtr<CChar>, mode: ModeT): CInt
 
-public expect fun fstat64(fildes: CInt, buf: COpaquePointer?): CInt
+public expect fun fstat64(fildes: CInt, buf: MutPtr<Stat64>): CInt
 
-public expect fun fstatat64(dirfd: CInt, pathname: String?, buf: COpaquePointer?, flags: CInt): CInt
+public expect fun fstatat64(dirfd: CInt, pathname: ConstPtr<CChar>, buf: MutPtr<Stat64>, flags: CInt): CInt
 
 public expect fun ftruncate64(fd: CInt, length: Off64T): CInt
 
 public expect fun lseek64(fd: CInt, offset: Off64T, whence: CInt): Off64T
 
-public expect fun lstat64(path: String?, buf: COpaquePointer?): CInt
+public expect fun lstat64(path: ConstPtr<CChar>, buf: MutPtr<Stat64>): CInt
 
-public expect fun mmap64(addr: COpaquePointer?, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: Off64T): COpaquePointer?
+public expect fun mmap64(addr: MutPtr<CVoid>, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: Off64T): MutPtr<CVoid>
 
-public expect fun open64(path: String?, oflag: CInt, vararg variadicArgs: Long): CInt
+public expect fun open64(path: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): CInt
 
-public expect fun openat64(fd: CInt, path: String?, oflag: CInt, vararg variadicArgs: Long): CInt
+public expect fun openat64(fd: CInt, path: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): CInt
 
 public expect fun posixFadvise64(fd: CInt, offset: Off64T, len: Off64T, advise: CInt): CInt
 
-public expect fun pread64(fd: CInt, buf: COpaquePointer?, count: SizeT, offset: Off64T): SsizeT
+public expect fun pread64(fd: CInt, buf: MutPtr<CVoid>, count: SizeT, offset: Off64T): SsizeT
 
-public expect fun pwrite64(fd: CInt, buf: COpaquePointer?, count: SizeT, offset: Off64T): SsizeT
+public expect fun pwrite64(fd: CInt, buf: ConstPtr<CVoid>, count: SizeT, offset: Off64T): SsizeT
 
-public expect fun readdir64(dirp: DIR?): COpaquePointer?
+public expect fun readdir64(dirp: MutPtr<DIR>): MutPtr<Dirent64>
 
-public expect fun readdir64R(dirp: DIR?, entry: COpaquePointer?, result: COpaquePointer?): CInt
+public expect fun readdir64R(dirp: MutPtr<DIR>, entry: MutPtr<Dirent64>, result: MutPtr<MutPtr<Dirent64>>): CInt
 
-public expect fun stat64(path: String?, buf: COpaquePointer?): CInt
+public expect fun stat64(path: ConstPtr<CChar>, buf: MutPtr<Stat64>): CInt
 
-public expect fun truncate64(path: String?, length: Off64T): CInt
+public expect fun truncate64(path: ConstPtr<CChar>, length: Off64T): CInt
 
-public expect fun preadv64(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: Off64T): SsizeT
+public expect fun preadv64(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: Off64T): SsizeT
 
-public expect fun pwritev64(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: Off64T): SsizeT
-
-// uclibc has separate non-const version of this function
-public expect fun forkpty(amaster: COpaquePointer?, name: COpaquePointer?, termp: COpaquePointer?, winp: COpaquePointer?): PidT
+public expect fun pwritev64(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: Off64T): SsizeT
 
 // uclibc has separate non-const version of this function
-public expect fun openpty(amaster: COpaquePointer?, aslave: COpaquePointer?, name: COpaquePointer?, termp: COpaquePointer?, winp: COpaquePointer?): CInt
+public expect fun forkpty(amaster: MutPtr<CInt>, name: MutPtr<CChar>, termp: ConstPtr<Termios>, winp: ConstPtr<Winsize>): PidT
 
-public expect fun statx(dirfd: CInt, pathname: String?, flags: CInt, mask: CUint, statxbuf: COpaquePointer?): CInt
+// uclibc has separate non-const version of this function
+public expect fun openpty(amaster: MutPtr<CInt>, aslave: MutPtr<CInt>, name: MutPtr<CChar>, termp: ConstPtr<Termios>, winp: ConstPtr<Winsize>): CInt
+
+public expect fun statx(dirfd: CInt, pathname: ConstPtr<CChar>, flags: CInt, mask: CUint, statxbuf: MutPtr<Statx>): CInt

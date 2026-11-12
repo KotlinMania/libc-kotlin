@@ -15,6 +15,8 @@ import io.github.kotlinmania.libc.unix.linuxlike.linux.DevT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.ModeT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.Timeval
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b32.csky.IpcPerm
+import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+import io.github.kotlinmania.rustlang.core.mem.TypeLayout
 
 public class Stat(
     public var stDev: DevT = 0uL,
@@ -105,6 +107,27 @@ public data class PthreadAttrT(
     }
 
     override fun hashCode(): Int = this.size.contentHashCode()
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<PthreadAttrT> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<PthreadAttrT> {
+                override val sizeBytes: Long = 36L
+                override val alignBytes: Long = 4L
+                override fun readNative(addr: Long): PthreadAttrT =
+                    PthreadAttrT(
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32, (9).toInt())
+                        ).readNative(addr),
+                    )
+                override fun writeNative(addr: Long, value: PthreadAttrT) {
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32, (9).toInt())
+                    ).writeNative(addr, value.size)
+                }
+            }
+    }
 }
 
 public data class SigsetT(

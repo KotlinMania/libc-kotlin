@@ -2,21 +2,24 @@
 
 package io.github.kotlinmania.libc.windows.msvc
 
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.windows.SizeT
-import io.github.kotlinmania.libc.windows.msvc.cinterop.libc_windows_msvc_memccpy
-import io.github.kotlinmania.libc.windows.msvc.cinterop.libc_windows_msvc_stricmp
-import io.github.kotlinmania.libc.windows.msvc.cinterop.libc_windows_msvc_strnicmp
+import io.github.kotlinmania.libc.windows.msvc.cinterop.libcWindowsMsvcMemccpy
+import io.github.kotlinmania.libc.windows.msvc.cinterop.libcWindowsMsvcStricmp
+import io.github.kotlinmania.libc.windows.msvc.cinterop.libcWindowsMsvcStrnicmp
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
 
-public actual fun stricmp(s1: String?, s2: String?): CInt =
-    libc_windows_msvc_stricmp(s1, s2)
+public actual fun stricmp(s1: ConstPtr<CChar>, s2: ConstPtr<CChar>): CInt =
+    libcWindowsMsvcStricmp(s1.rawAddress.toCPointer<ByteVar>(), s2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strnicmp(s1: String?, s2: String?, n: SizeT): CInt =
-    libc_windows_msvc_strnicmp(s1, s2, n)
+public actual fun strnicmp(s1: ConstPtr<CChar>, s2: ConstPtr<CChar>, n: SizeT): CInt =
+    libcWindowsMsvcStrnicmp(s1.rawAddress.toCPointer<ByteVar>(), s2.rawAddress.toCPointer<ByteVar>(), n)
 
-public actual fun memccpy(dest: COpaquePointer?, src: COpaquePointer?, c: CInt, count: SizeT): COpaquePointer? =
-    libc_windows_msvc_memccpy(dest?.value?.toCPointer<ByteVar>(), src?.value?.toCPointer<ByteVar>(), c, count)?.let { COpaquePointer(it.toLong()) }
+public actual fun memccpy(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, c: CInt, count: SizeT): MutPtr<CVoid> =
+    MutPtr(libcWindowsMsvcMemccpy(dest.rawAddress.toCPointer<ByteVar>(), src.rawAddress.toCPointer<ByteVar>(), c, count)?.toLong() ?: 0L)

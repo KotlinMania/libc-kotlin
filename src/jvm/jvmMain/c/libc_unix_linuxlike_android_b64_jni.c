@@ -19,7 +19,7 @@
 #endif
 #endif
 
-JNIEXPORT jboolean JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_b64_UnixLinuxlikeAndroidB64JniBridge_libc_1unix_1linuxlike_1android_1b64_1systemPropertyWait(JNIEnv* km_env, jclass km_clazz, jlong pi, jint arg_1_old_serial, jlong arg_2_new_serial_ptr, jlong arg_3_relative_timeout) {
+JNIEXPORT jboolean JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_android_b64_UnixLinuxlikeAndroidB64JniBridge_libcUnixLinuxlikeAndroidB64SystemPropertyWait(JNIEnv* km_env, jclass km_clazz, jlong pi, jint oldSerial, jlong newSerialPtr, jlong relativeTimeout) {
     (void)km_env;
     (void)km_clazz;
     typedef bool (*km_fn_t)(void*, uint32_t, void*, void*);
@@ -42,7 +42,7 @@ JNIEXPORT jboolean JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_androi
 #endif
     bool km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)pi, (uint32_t)arg_1_old_serial, (void*)(uintptr_t)arg_2_new_serial_ptr, (void*)(uintptr_t)arg_3_relative_timeout);
+        km_res = km_fn_ptr((void*)(uintptr_t)pi, (uint32_t)oldSerial, (void*)(uintptr_t)newSerialPtr, (void*)(uintptr_t)relativeTimeout);
     } else {
         errno = ENOSYS;
         km_res = false;

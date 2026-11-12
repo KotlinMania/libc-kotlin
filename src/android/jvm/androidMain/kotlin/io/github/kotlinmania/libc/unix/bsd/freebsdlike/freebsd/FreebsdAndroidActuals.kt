@@ -3,22 +3,44 @@
 package io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CLonglong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
+import io.github.kotlinmania.libc.CUshort
+import io.github.kotlinmania.libc.unix.GidT
+import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.PidT
+import io.github.kotlinmania.libc.unix.Rlimit
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.bsd.OffT
 import io.github.kotlinmania.libc.unix.bsd.PthreadT
 import io.github.kotlinmania.libc.unix.bsd.SaFamilyT
+import io.github.kotlinmania.libc.unix.bsd.Sockaddr
 import io.github.kotlinmania.libc.unix.bsd.SocklenT
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.IdT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.InAddr
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.KeyT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.KvmT
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.ModeT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.PthreadMutexT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.PthreadMutexattrT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.Rtprio
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.SiginfoT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.Termios
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd11.DevT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd11.KinfoProc
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd11.ShmidDs
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd11.Statfs
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd11.Vnstat
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd11.b64.Stat
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 private object UnixBsdFreebsdlikeFreebsdJniBridge {
     init {
@@ -26,1500 +48,1500 @@ private object UnixBsdFreebsdlikeFreebsdJniBridge {
     }
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_fhlink(fhp: Long, to: String?): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdFhlink(fhp: Long, to: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_fhlinkat(fhp: Long, tofd: Int, to: String?): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdFhlinkat(fhp: Long, tofd: Int, to: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_fhreadlink(fhp: Long, buf: Long, bufsize: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdFhreadlink(fhp: Long, buf: Long, bufsize: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_getfhat(fd: Int, path: Long, fhp: Long, flag: Int): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdGetfhat(fd: Int, path: Long, fhp: Long, flag: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_error(): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdError(): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_aioCancel(fd: Int, aiocbp: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdAioCancel(fd: Int, aiocbp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_aioError(aiocbp: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdAioError(aiocbp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_aioFsync(op: Int, aiocbp: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdAioFsync(op: Int, aiocbp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_aioRead(aiocbp: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdAioRead(aiocbp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_aioReadv(aiocbp: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdAioReadv(aiocbp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_aioReturn(aiocbp: Long): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdAioReturn(aiocbp: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_aioSuspend(aiocbList: Long, nitems: Int, timeout: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdAioSuspend(aiocbList: Long, nitems: Int, timeout: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_aioWrite(aiocbp: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdAioWrite(aiocbp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_aioWritev(aiocbp: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdAioWritev(aiocbp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_copyFileRange(infd: Int, inoffp: Long, outfd: Int, outoffp: Long, len: Long, flags: Int): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdCopyFileRange(infd: Int, inoffp: Long, outfd: Int, outoffp: Long, len: Long, flags: Int): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_devnameR(dev: Int, mode: Short, buf: Long, len: Int): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdDevnameR(dev: Int, mode: Short, buf: Long, len: Int): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_extattrDeleteFd(fd: Int, attrnamespace: Int, attrname: String?): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdExtattrDeleteFd(fd: Int, attrnamespace: Int, attrname: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_extattrDeleteFile(path: String?, attrnamespace: Int, attrname: String?): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdExtattrDeleteFile(path: Long, attrnamespace: Int, attrname: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_extattrDeleteLink(path: String?, attrnamespace: Int, attrname: String?): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdExtattrDeleteLink(path: Long, attrnamespace: Int, attrname: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_extattrGetFd(fd: Int, attrnamespace: Int, attrname: String?, data: Long, nbytes: Long): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdExtattrGetFd(fd: Int, attrnamespace: Int, attrname: Long, data: Long, nbytes: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_extattrGetFile(path: String?, attrnamespace: Int, attrname: String?, data: Long, nbytes: Long): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdExtattrGetFile(path: Long, attrnamespace: Int, attrname: Long, data: Long, nbytes: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_extattrGetLink(path: String?, attrnamespace: Int, attrname: String?, data: Long, nbytes: Long): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdExtattrGetLink(path: Long, attrnamespace: Int, attrname: Long, data: Long, nbytes: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_extattrListFd(fd: Int, attrnamespace: Int, data: Long, nbytes: Long): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdExtattrListFd(fd: Int, attrnamespace: Int, data: Long, nbytes: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_extattrListFile(path: String?, attrnamespace: Int, data: Long, nbytes: Long): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdExtattrListFile(path: Long, attrnamespace: Int, data: Long, nbytes: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_extattrListLink(path: String?, attrnamespace: Int, data: Long, nbytes: Long): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdExtattrListLink(path: Long, attrnamespace: Int, data: Long, nbytes: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_extattrSetFd(fd: Int, attrnamespace: Int, attrname: String?, data: Long, nbytes: Long): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdExtattrSetFd(fd: Int, attrnamespace: Int, attrname: Long, data: Long, nbytes: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_extattrSetFile(path: String?, attrnamespace: Int, attrname: String?, data: Long, nbytes: Long): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdExtattrSetFile(path: Long, attrnamespace: Int, attrname: Long, data: Long, nbytes: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_extattrSetLink(path: String?, attrnamespace: Int, attrname: String?, data: Long, nbytes: Long): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdExtattrSetLink(path: Long, attrnamespace: Int, attrname: Long, data: Long, nbytes: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_fspacectl(fd: Int, cmd: Int, rqsr: Long, flags: Int, rmsr: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdFspacectl(fd: Int, cmd: Int, rqsr: Long, flags: Int, rmsr: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_jail(jail: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdJail(jail: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_jailAttach(jid: Int): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdJailAttach(jid: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_jailRemove(jid: Int): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdJailRemove(jid: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_jailGet(iov: Long, niov: Int, flags: Int): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdJailGet(iov: Long, niov: Int, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_jailSet(iov: Long, niov: Int, flags: Int): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdJailSet(iov: Long, niov: Int, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_lioListio(mode: Int, aiocbList: Long, nitems: Int, sevp: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdLioListio(mode: Int, aiocbList: Long, nitems: Int, sevp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_getutxuser(user: String?): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdGetutxuser(user: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_setutxdb(type: Int, file: String?): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdSetutxdb(type: Int, file: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_aioWaitcomplete(iocbp: Long, timeout: Long): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdAioWaitcomplete(iocbp: Long, timeout: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_mqGetfdNp(mqd: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdMqGetfdNp(mqd: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_waitid(idtype: Int, id: Long, infop: Long, options: Int): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdWaitid(idtype: Int, id: Long, infop: Long, options: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_ptsnameR(fd: Int, buf: Long, buflen: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdPtsnameR(fd: Int, buf: Long, buflen: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_ftok(pathname: String?, projId: Int): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdFtok(pathname: Long, projId: Int): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_shmget(key: Long, size: Long, shmflg: Int): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdShmget(key: Long, size: Long, shmflg: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_shmat(shmid: Int, shmaddr: Long, shmflg: Int): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdShmat(shmid: Int, shmaddr: Long, shmflg: Int): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_shmdt(shmaddr: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdShmdt(shmaddr: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_shmctl(shmid: Int, cmd: Int, buf: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdShmctl(shmid: Int, cmd: Int, buf: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_semget(key: Long, nsems: Int, semflg: Int): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdSemget(key: Long, nsems: Int, semflg: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_semctl(semid: Int, semnum: Int, cmd: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdSemctl(semid: Int, semnum: Int, cmd: Int, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_semop(semid: Int, sops: Long, nsops: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdSemop(semid: Int, sops: Long, nsops: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_msgctl(msqid: Int, cmd: Int, buf: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdMsgctl(msqid: Int, cmd: Int, buf: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_msgget(key: Long, msgflg: Int): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdMsgget(key: Long, msgflg: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_msgsnd(msqid: Int, msgp: Long, msgsz: Long, msgflg: Int): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdMsgsnd(msqid: Int, msgp: Long, msgsz: Long, msgflg: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_cfmakesane(termios: Long)
+    external fun libcUnixBsdFreebsdlikeFreebsdCfmakesane(termios: Long)
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_pdfork(fdp: Long, flags: Int): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdPdfork(fdp: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_pdgetpid(fd: Int, pidp: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdPdgetpid(fd: Int, pidp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_pdkill(fd: Int, signum: Int): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdPdkill(fd: Int, signum: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_rtprioThread(function: Int, lwpid: Int, rtp: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdRtprioThread(function: Int, lwpid: Int, rtp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_uuidgen(store: Long, count: Int): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdUuidgen(store: Long, count: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_thrKill(id: Long, sig: Int): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdThrKill(id: Long, sig: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_thrKill2(pid: Int, id: Long, sig: Int): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdThrKill2(pid: Int, id: Long, sig: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_thrSelf(tid: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdThrSelf(tid: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_pthreadGetthreadidNp(): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdPthreadGetthreadidNp(): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_pthreadGetaffinityNp(td: Long, cpusetsize: Long, cpusetp: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdPthreadGetaffinityNp(td: Long, cpusetsize: Long, cpusetp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_pthreadSetaffinityNp(td: Long, cpusetsize: Long, cpusetp: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdPthreadSetaffinityNp(td: Long, cpusetsize: Long, cpusetp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_schedGetaffinity(pid: Int, cpusetsz: Long, cpuset: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdSchedGetaffinity(pid: Int, cpusetsz: Long, cpuset: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_schedSetaffinity(pid: Int, cpusetsz: Long, cpuset: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdSchedSetaffinity(pid: Int, cpusetsz: Long, cpuset: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_schedGetcpu(): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdSchedGetcpu(): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_pthreadMutexConsistent(mutex: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdPthreadMutexConsistent(mutex: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_pthreadMutexattrGetrobust(attr: Long, robust: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdPthreadMutexattrGetrobust(attr: Long, robust: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_pthreadMutexattrSetrobust(attr: Long, robust: Int): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdPthreadMutexattrSetrobust(attr: Long, robust: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_pthreadSpinInit(lock: Long, pshared: Int): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdPthreadSpinInit(lock: Long, pshared: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_pthreadSpinDestroy(lock: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdPthreadSpinDestroy(lock: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_pthreadSpinLock(lock: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdPthreadSpinLock(lock: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_pthreadSpinTrylock(lock: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdPthreadSpinTrylock(lock: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_pthreadSpinUnlock(lock: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdPthreadSpinUnlock(lock: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_pthreadTimedjoinNp(thread: Long, retval: Long, abstime: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdPthreadTimedjoinNp(thread: Long, retval: Long, abstime: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_statfs(path: String?, buf: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdStatfs(path: Long, buf: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_fstatfs(fd: Int, buf: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdFstatfs(fd: Int, buf: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_dup3(src: Int, dst: Int, flags: Int): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdDup3(src: Int, dst: Int, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_xuname(nmln: Int, buf: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdXuname(nmln: Int, buf: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_sendmmsg(sockfd: Int, msgvec: Long, vlen: Long, flags: Int): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdSendmmsg(sockfd: Int, msgvec: Long, vlen: Long, flags: Int): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_recvmmsg(sockfd: Int, msgvec: Long, vlen: Long, flags: Int, timeout: Long): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdRecvmmsg(sockfd: Int, msgvec: Long, vlen: Long, flags: Int, timeout: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_memmem(haystack: Long, haystacklen: Long, needle: Long, needlelen: Long): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdMemmem(haystack: Long, haystacklen: Long, needle: Long, needlelen: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_fhopen(fhp: Long, flags: Int): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdFhopen(fhp: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_fhstat(fhp: Long, buf: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdFhstat(fhp: Long, buf: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_fhstatfs(fhp: Long, buf: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdFhstatfs(fhp: Long, buf: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_getfh(path: String?, fhp: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdGetfh(path: Long, fhp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_lgetfh(path: String?, fhp: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdLgetfh(path: Long, fhp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_getfsstat(buf: Long, bufsize: Long, mode: Int): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdGetfsstat(buf: Long, bufsize: Long, mode: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_getmntinfo(mntbufp: Long, mode: Int): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdGetmntinfo(mntbufp: Long, mode: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_mount(type: String?, dir: String?, flags: Int, data: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdMount(type: Long, dir: Long, flags: Int, data: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_nmount(iov: Long, niov: Int, flags: Int): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdNmount(iov: Long, niov: Int, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_setproctitle(fmt: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long)
+    external fun libcUnixBsdFreebsdlikeFreebsdSetproctitle(fmt: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long)
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_rfork(flags: Int): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdRfork(flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_cpusetGetaffinity(level: Int, which: Int, id: Long, setsize: Long, mask: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdCpusetGetaffinity(level: Int, which: Int, id: Long, setsize: Long, mask: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_cpusetSetaffinity(level: Int, which: Int, id: Long, setsize: Long, mask: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdCpusetSetaffinity(level: Int, which: Int, id: Long, setsize: Long, mask: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_cpuset(setid: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdCpuset(setid: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_cpusetGetid(level: Int, which: Int, id: Long, setid: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdCpusetGetid(level: Int, which: Int, id: Long, setid: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_cpusetSetid(which: Int, id: Long, setid: Int): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdCpusetSetid(which: Int, id: Long, setid: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_capEnter(): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdCapEnter(): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_capGetmode(modep: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdCapGetmode(modep: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_capFcntlsGet(fd: Int, fcntlrightsp: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdCapFcntlsGet(fd: Int, fcntlrightsp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_capFcntlsLimit(fd: Int, fcntlrights: Int): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdCapFcntlsLimit(fd: Int, fcntlrights: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_capIoctlsGet(fd: Int, cmds: Long, maxcmds: Long): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdCapIoctlsGet(fd: Int, cmds: Long, maxcmds: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_capIoctlsLimit(fd: Int, cmds: Long, ncmds: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdCapIoctlsLimit(fd: Int, cmds: Long, ncmds: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_capRightsInit(version: Int, rights: Long, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdCapRightsInit(version: Int, rights: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_capRightsGet(version: Int, fd: Int, rightsp: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdCapRightsGet(version: Int, fd: Int, rightsp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_capRightsSet(rights: Long, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdCapRightsSet(rights: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_capRightsClear(rights: Long, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdCapRightsClear(rights: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_capRightsIsSet(rights: Long, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Boolean
+    external fun libcUnixBsdFreebsdlikeFreebsdCapRightsIsSet(rights: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Boolean
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_capRightsIsValid(rights: Long): Boolean
+    external fun libcUnixBsdFreebsdlikeFreebsdCapRightsIsValid(rights: Long): Boolean
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_capRightsLimit(fd: Int, rights: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdCapRightsLimit(fd: Int, rights: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_capRightsMerge(dst: Long, src: Long): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdCapRightsMerge(dst: Long, src: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_capRightsRemove(dst: Long, src: Long): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdCapRightsRemove(dst: Long, src: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_capRightsContains(big: Long, little: Long): Boolean
+    external fun libcUnixBsdFreebsdlikeFreebsdCapRightsContains(big: Long, little: Long): Boolean
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_capSandboxed(): Boolean
+    external fun libcUnixBsdFreebsdlikeFreebsdCapSandboxed(): Boolean
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_reallocarray(ptr: Long, nmemb: Long, size: Long): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdReallocarray(ptr: Long, nmemb: Long, size: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_ffs(value: Int): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdFfs(value: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_ffsl(value: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdFfsl(value: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_ffsll(value: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdFfsll(value: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_fls(value: Int): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdFls(value: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_flsl(value: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdFlsl(value: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_flsll(value: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdFlsll(value: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_mallocStatsPrint(writeCb: Long, cbopaque: Long, opt: String?)
+    external fun libcUnixBsdFreebsdlikeFreebsdMallocStatsPrint(writeCb: Long, cbopaque: Long, opt: Long)
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_mallctl(name: String?, oldp: Long, oldlenp: Long, newp: Long, newlen: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdMallctl(name: Long, oldp: Long, oldlenp: Long, newp: Long, newlen: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_mallctlnametomib(name: String?, mibp: Long, miplen: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdMallctlnametomib(name: Long, mibp: Long, miplen: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_mallctlbymib(mib: Long, mible: Long, oldp: Long, oldlenp: Long, newp: Long, newlen: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdMallctlbymib(mib: Long, mible: Long, oldp: Long, oldlenp: Long, newp: Long, newlen: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_mallocx(size: Long, flags: Int): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdMallocx(size: Long, flags: Int): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_rallocx(ptr: Long, size: Long, flags: Int): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdRallocx(ptr: Long, size: Long, flags: Int): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_xallocx(ptr: Long, size: Long, extra: Long, flags: Int): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdXallocx(ptr: Long, size: Long, extra: Long, flags: Int): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_sallocx(ptr: Long, flags: Int): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdSallocx(ptr: Long, flags: Int): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_dallocx(ptr: Long, flags: Int)
+    external fun libcUnixBsdFreebsdlikeFreebsdDallocx(ptr: Long, flags: Int)
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_sdallocx(ptr: Long, size: Long, flags: Int)
+    external fun libcUnixBsdFreebsdlikeFreebsdSdallocx(ptr: Long, size: Long, flags: Int)
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_nallocx(size: Long, flags: Int): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdNallocx(size: Long, flags: Int): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_procctl(idtype: Int, id: Long, cmd: Int, data: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdProcctl(idtype: Int, id: Long, cmd: Int, data: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_getpagesize(): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdGetpagesize(): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_getpagesizes(pagesize: Long, nelem: Int): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdGetpagesizes(pagesize: Long, nelem: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_clockGetcpuclockid2(arg1: Long, arg2: Int, arg3: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdClockGetcpuclockid2(arg1: Long, arg2: Int, arg3: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_strchrnul(s: String?, c: Int): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdStrchrnul(s: Long, c: Int): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_shmCreateLargepage(path: String?, flags: Int, psind: Int, allocPolicy: Int, mode: Short): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdShmCreateLargepage(path: Long, flags: Int, psind: Int, allocPolicy: Int, mode: Short): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_shmRename(pathFrom: String?, pathTo: String?, flags: Int): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdShmRename(pathFrom: Long, pathTo: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_memfdCreate(name: String?, flags: Int): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdMemfdCreate(name: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_setaudit(auditinfo: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdSetaudit(auditinfo: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_eventfd(initval: Int, flags: Int): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdEventfd(initval: Int, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_eventfdRead(fd: Int, value: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdEventfdRead(fd: Int, value: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_eventfdWrite(fd: Int, value: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdEventfdWrite(fd: Int, value: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_fdatasync(fd: Int): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdFdatasync(fd: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_elfAuxInfo(aux: Int, buf: Long, buflen: Int): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdElfAuxInfo(aux: Int, buf: Long, buflen: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_setproctitleFast(fmt: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long)
+    external fun libcUnixBsdFreebsdlikeFreebsdSetproctitleFast(fmt: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long)
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_timingsafeBcmp(a: Long, b: Long, len: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdTimingsafeBcmp(a: Long, b: Long, len: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_timingsafeMemcmp(a: Long, b: Long, len: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdTimingsafeMemcmp(a: Long, b: Long, len: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_umtxOp(obj: Long, op: Int, value: Long, uaddr: Long, uaddr2: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdUmtxOp(obj: Long, op: Int, value: Long, uaddr: Long, uaddr2: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_sctpPeeloff(s: Int, id: Int): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdSctpPeeloff(s: Int, id: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_sctpBindx(s: Int, addrs: Long, num: Int, tpe: Int): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdSctpBindx(s: Int, addrs: Long, num: Int, tpe: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_sctpConnectx(s: Int, addrs: Long, addrcnt: Int, id: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdSctpConnectx(s: Int, addrs: Long, addrcnt: Int, id: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_sctpGetaddrlen(family: Byte): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdSctpGetaddrlen(family: Byte): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_sctpGetpaddrs(s: Int, asocid: Int, addrs: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdSctpGetpaddrs(s: Int, asocid: Int, addrs: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_sctpFreepaddrs(addrs: Long)
+    external fun libcUnixBsdFreebsdlikeFreebsdSctpFreepaddrs(addrs: Long)
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_sctpGetladdrs(s: Int, asocid: Int, addrs: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdSctpGetladdrs(s: Int, asocid: Int, addrs: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_sctpFreeladdrs(addrs: Long)
+    external fun libcUnixBsdFreebsdlikeFreebsdSctpFreeladdrs(addrs: Long)
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_sctpOptInfo(s: Int, id: Int, opt: Int, arg: Long, size: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdSctpOptInfo(s: Int, id: Int, opt: Int, arg: Long, size: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_sctpSendv(sd: Int, iov: Long, iovcnt: Int, addrs: Long, addrcnt: Int, info: Long, infolen: Int, infotype: Int, flags: Int): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdSctpSendv(sd: Int, iov: Long, iovcnt: Int, addrs: Long, addrcnt: Int, info: Long, infolen: Int, infotype: Int, flags: Int): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_sctpRecvv(sd: Int, iov: Long, iovcnt: Int, from: Long, fromlen: Long, info: Long, infolen: Long, infotype: Long, flags: Long): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdSctpRecvv(sd: Int, iov: Long, iovcnt: Int, from: Long, fromlen: Long, info: Long, infolen: Long, infotype: Long, flags: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_timerfdCreate(clockid: Int, flags: Int): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdTimerfdCreate(clockid: Int, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_timerfdGettime(fd: Int, currValue: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdTimerfdGettime(fd: Int, currValue: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_timerfdSettime(fd: Int, flags: Int, newValue: Long, oldValue: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdTimerfdSettime(fd: Int, flags: Int, newValue: Long, oldValue: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_closefrom(lowfd: Int)
+    external fun libcUnixBsdFreebsdlikeFreebsdClosefrom(lowfd: Int)
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_closeRange(lowfd: Int, highfd: Int, flags: Int): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdCloseRange(lowfd: Int, highfd: Int, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_execvpe(file: String?, argv: Long, envp: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdExecvpe(file: Long, argv: Long, envp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_kcmp(pid1: Int, pid2: Int, type: Int, idx1: Long, idx2: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdKcmp(pid1: Int, pid2: Int, type: Int, idx1: Long, idx2: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_dlvsym(handle: Long, symbol: String?, version: String?): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdDlvsym(handle: Long, symbol: Long, version: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_memstatStrerror(error: Int): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdMemstatStrerror(error: Int): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_memstatMtlAlloc(): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdMemstatMtlAlloc(): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_memstatMtlFirst(list: Long): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdMemstatMtlFirst(list: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_memstatMtlNext(mtp: Long): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdMemstatMtlNext(mtp: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_memstatMtlFind(list: Long, allocator: Int, name: String?): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdMemstatMtlFind(list: Long, allocator: Int, name: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_memstatMtlFree(list: Long)
+    external fun libcUnixBsdFreebsdlikeFreebsdMemstatMtlFree(list: Long)
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_memstatMtlGeterror(list: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdMemstatMtlGeterror(list: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_memstatGetName(mtp: Long): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdMemstatGetName(mtp: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_kvmDpcpuSetcpu(kd: Long, cpu: Int): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdKvmDpcpuSetcpu(kd: Long, cpu: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_kvmGetargv(kd: Long, p: Long, nchr: Int): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdKvmGetargv(kd: Long, p: Long, nchr: Int): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_kvmGetcptime(kd: Long, cpTime: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdKvmGetcptime(kd: Long, cpTime: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_kvmGetenvv(kd: Long, p: Long, nchr: Int): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdKvmGetenvv(kd: Long, p: Long, nchr: Int): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_kvmGeterr(kd: Long): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdKvmGeterr(kd: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_kvmGetmaxcpu(kd: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdKvmGetmaxcpu(kd: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_kvmGetncpus(kd: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdKvmGetncpus(kd: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_kvmGetpcpu(kd: Long, cpu: Int): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdKvmGetpcpu(kd: Long, cpu: Int): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_kvmCounterU64Fetch(kd: Long, base: Long): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdKvmCounterU64Fetch(kd: Long, base: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_kvmGetswapinfo(kd: Long, info: Long, maxswap: Int, flags: Int): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdKvmGetswapinfo(kd: Long, info: Long, maxswap: Int, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_kvmNative(kd: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdKvmNative(kd: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_kvmNlist(kd: Long, nl: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdKvmNlist(kd: Long, nl: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_kvmNlist2(kd: Long, nl: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdKvmNlist2(kd: Long, nl: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_kvmReadZpcpu(kd: Long, base: Long, buf: Long, size: Long, cpu: Int): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdKvmReadZpcpu(kd: Long, base: Long, buf: Long, size: Long, cpu: Int): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_kvmRead2(kd: Long, addr: Long, buf: Long, nbytes: Long): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdKvmRead2(kd: Long, addr: Long, buf: Long, nbytes: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_extattrNamespaceToString(attrnamespace: Int, string: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdExtattrNamespaceToString(attrnamespace: Int, string: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_extattrStringToNamespace(string: String?, attrnamespace: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdExtattrStringToNamespace(string: Long, attrnamespace: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_realhostname(host: Long, hsize: Long, ip: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdRealhostname(host: Long, hsize: Long, ip: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_realhostnameSa(host: Long, hsize: Long, addr: Long, addrlen: Int): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdRealhostnameSa(host: Long, hsize: Long, addr: Long, addrlen: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_kldIsloaded(name: String?): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdKldIsloaded(name: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_kldLoad(name: String?): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdKldLoad(name: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_kinfoGetvmmap(pid: Int, cntp: Long): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdKinfoGetvmmap(pid: Int, cntp: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_hexdump(ptr: Long, length: Int, hdr: String?, flags: Int)
+    external fun libcUnixBsdFreebsdlikeFreebsdHexdump(ptr: Long, length: Int, hdr: Long, flags: Int)
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_humanizeNumber(buf: Long, len: Long, number: Long, suffix: String?, scale: Int, flags: Int): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdHumanizeNumber(buf: Long, len: Long, number: Long, suffix: Long, scale: Int, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_flopen(path: String?, flags: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdFlopen(path: Long, flags: Int, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_flopenat(fd: Int, path: String?, flags: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdFlopenat(fd: Int, path: Long, flags: Int, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_getlocalbase(): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdGetlocalbase(): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_pidfileOpen(path: String?, mode: Short, pidptr: Long): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdPidfileOpen(path: Long, mode: Short, pidptr: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_pidfileWrite(path: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdPidfileWrite(path: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_pidfileClose(path: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdPidfileClose(path: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_pidfileRemove(path: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdPidfileRemove(path: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_pidfileFileno(path: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdPidfileFileno(path: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_procstatOpenSysctl(): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdProcstatOpenSysctl(): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_procstatGetfiles(procstat: Long, kp: Long, mmapped: Int): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdProcstatGetfiles(procstat: Long, kp: Long, mmapped: Int): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_procstatFreefiles(procstat: Long, head: Long)
+    external fun libcUnixBsdFreebsdlikeFreebsdProcstatFreefiles(procstat: Long, head: Long)
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_procstatGetprocs(procstat: Long, what: Int, arg: Int, count: Long): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdProcstatGetprocs(procstat: Long, what: Int, arg: Int, count: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_procstatFreeprocs(procstat: Long, p: Long)
+    external fun libcUnixBsdFreebsdlikeFreebsdProcstatFreeprocs(procstat: Long, p: Long)
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_procstatGetvmmap(procstat: Long, kp: Long, count: Long): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdProcstatGetvmmap(procstat: Long, kp: Long, count: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_procstatFreevmmap(procstat: Long, vmmap: Long)
+    external fun libcUnixBsdFreebsdlikeFreebsdProcstatFreevmmap(procstat: Long, vmmap: Long)
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_procstatClose(procstat: Long)
+    external fun libcUnixBsdFreebsdlikeFreebsdProcstatClose(procstat: Long)
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_procstatFreeargv(procstat: Long)
+    external fun libcUnixBsdFreebsdlikeFreebsdProcstatFreeargv(procstat: Long)
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_procstatFreeenvv(procstat: Long)
+    external fun libcUnixBsdFreebsdlikeFreebsdProcstatFreeenvv(procstat: Long)
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_procstatFreegroups(procstat: Long, groups: Long)
+    external fun libcUnixBsdFreebsdlikeFreebsdProcstatFreegroups(procstat: Long, groups: Long)
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_procstatFreeptlwpinfo(procstat: Long, pl: Long)
+    external fun libcUnixBsdFreebsdlikeFreebsdProcstatFreeptlwpinfo(procstat: Long, pl: Long)
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_procstatGetargv(procstat: Long, kp: Long, nchr: Long): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdProcstatGetargv(procstat: Long, kp: Long, nchr: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_procstatGetenvv(procstat: Long, kp: Long, nchr: Long): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdProcstatGetenvv(procstat: Long, kp: Long, nchr: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_procstatGetgroups(procstat: Long, kp: Long, count: Long): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdProcstatGetgroups(procstat: Long, kp: Long, count: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_procstatGetosrel(procstat: Long, kp: Long, osrelp: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdProcstatGetosrel(procstat: Long, kp: Long, osrelp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_procstatGetpathname(procstat: Long, kp: Long, pathname: Long, maxlen: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdProcstatGetpathname(procstat: Long, kp: Long, pathname: Long, maxlen: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_procstatGetrlimit(procstat: Long, kp: Long, which: Int, rlimit: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdProcstatGetrlimit(procstat: Long, kp: Long, which: Int, rlimit: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_procstatGetumask(procstat: Long, kp: Long, maskp: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdProcstatGetumask(procstat: Long, kp: Long, maskp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_procstatOpenCore(filename: String?): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdProcstatOpenCore(filename: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_procstatOpenKvm(nlistf: String?, memf: String?): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdProcstatOpenKvm(nlistf: Long, memf: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_procstatGetSocketInfo(proc: Long, fst: Long, sock: Long, errbuf: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdProcstatGetSocketInfo(proc: Long, fst: Long, sock: Long, errbuf: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_procstatGetVnodeInfo(proc: Long, fst: Long, vn: Long, errbuf: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdProcstatGetVnodeInfo(proc: Long, fst: Long, vn: Long, errbuf: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_procstatGetPtsInfo(proc: Long, fst: Long, pts: Long, errbuf: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdProcstatGetPtsInfo(proc: Long, fst: Long, pts: Long, errbuf: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_procstatGetShmInfo(proc: Long, fst: Long, shm: Long, errbuf: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdProcstatGetShmInfo(proc: Long, fst: Long, shm: Long, errbuf: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_timerCreate(clockId: Int, evp: Long, timerid: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdTimerCreate(clockId: Int, evp: Long, timerid: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_timerDelete(timerid: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdTimerDelete(timerid: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_timerGetoverrun(timerid: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdTimerGetoverrun(timerid: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_timerGettime(timerid: Long, value: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdTimerGettime(timerid: Long, value: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_timerSettime(timerid: Long, flags: Int, value: Long, ovalue: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdTimerSettime(timerid: Long, flags: Int, value: Long, ovalue: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_devstatGetnumdevs(kd: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdDevstatGetnumdevs(kd: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_devstatGetgeneration(kd: Long): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdDevstatGetgeneration(kd: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_devstatGetversion(kd: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdDevstatGetversion(kd: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_devstatCheckversion(kd: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdDevstatCheckversion(kd: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_devstatBuildmatch(matchStr: Long, matches: Long, numMatches: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdDevstatBuildmatch(matchStr: Long, matches: Long, numMatches: Long): Int
 }
 
-public actual fun fhlink(fhp: COpaquePointer?, to: String?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_fhlink((fhp?.value ?: 0L), to)
+public actual fun fhlink(fhp: MutPtr<FhandleT>, to: ConstPtr<CChar>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdFhlink(fhp.rawAddress, to.rawAddress)
 
-public actual fun fhlinkat(fhp: COpaquePointer?, tofd: CInt, to: String?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_fhlinkat((fhp?.value ?: 0L), tofd, to)
+public actual fun fhlinkat(fhp: MutPtr<FhandleT>, tofd: CInt, to: ConstPtr<CChar>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdFhlinkat(fhp.rawAddress, tofd, to.rawAddress)
 
-public actual fun fhreadlink(fhp: COpaquePointer?, buf: COpaquePointer?, bufsize: SizeT): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_fhreadlink((fhp?.value ?: 0L), (buf?.value ?: 0L), bufsize.toLong())
+public actual fun fhreadlink(fhp: MutPtr<FhandleT>, buf: MutPtr<CChar>, bufsize: SizeT): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdFhreadlink(fhp.rawAddress, buf.rawAddress, bufsize.toLong())
 
-public actual fun getfhat(fd: CInt, path: COpaquePointer?, fhp: COpaquePointer?, flag: CInt): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_getfhat(fd, (path?.value ?: 0L), (fhp?.value ?: 0L), flag)
+public actual fun getfhat(fd: CInt, path: MutPtr<CChar>, fhp: MutPtr<Fhandle>, flag: CInt): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdGetfhat(fd, path.rawAddress, fhp.rawAddress, flag)
 
-public actual fun error(): COpaquePointer? =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_error().let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun error(): MutPtr<CInt> =
+    MutPtr(UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdError())
 
-public actual fun aioCancel(fd: CInt, aiocbp: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_aioCancel(fd, (aiocbp?.value ?: 0L))
+public actual fun aioCancel(fd: CInt, aiocbp: MutPtr<Aiocb>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdAioCancel(fd, aiocbp.rawAddress)
 
-public actual fun aioError(aiocbp: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_aioError((aiocbp?.value ?: 0L))
+public actual fun aioError(aiocbp: ConstPtr<Aiocb>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdAioError(aiocbp.rawAddress)
 
-public actual fun aioFsync(op: CInt, aiocbp: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_aioFsync(op, (aiocbp?.value ?: 0L))
+public actual fun aioFsync(op: CInt, aiocbp: MutPtr<Aiocb>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdAioFsync(op, aiocbp.rawAddress)
 
-public actual fun aioRead(aiocbp: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_aioRead((aiocbp?.value ?: 0L))
+public actual fun aioRead(aiocbp: MutPtr<Aiocb>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdAioRead(aiocbp.rawAddress)
 
-public actual fun aioReadv(aiocbp: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_aioReadv((aiocbp?.value ?: 0L))
+public actual fun aioReadv(aiocbp: MutPtr<Aiocb>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdAioReadv(aiocbp.rawAddress)
 
-public actual fun aioReturn(aiocbp: COpaquePointer?): SsizeT =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_aioReturn((aiocbp?.value ?: 0L))
+public actual fun aioReturn(aiocbp: MutPtr<Aiocb>): SsizeT =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdAioReturn(aiocbp.rawAddress)
 
-public actual fun aioSuspend(aiocbList: COpaquePointer?, nitems: CInt, timeout: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_aioSuspend((aiocbList?.value ?: 0L), nitems, (timeout?.value ?: 0L))
+public actual fun aioSuspend(aiocbList: ConstPtr<ConstPtr<Aiocb>>, nitems: CInt, timeout: ConstPtr<Timespec>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdAioSuspend(aiocbList.rawAddress, nitems, timeout.rawAddress)
 
-public actual fun aioWrite(aiocbp: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_aioWrite((aiocbp?.value ?: 0L))
+public actual fun aioWrite(aiocbp: MutPtr<Aiocb>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdAioWrite(aiocbp.rawAddress)
 
-public actual fun aioWritev(aiocbp: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_aioWritev((aiocbp?.value ?: 0L))
+public actual fun aioWritev(aiocbp: MutPtr<Aiocb>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdAioWritev(aiocbp.rawAddress)
 
-public actual fun copyFileRange(infd: CInt, inoffp: COpaquePointer?, outfd: CInt, outoffp: COpaquePointer?, len: SizeT, flags: CUint): SsizeT =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_copyFileRange(infd, (inoffp?.value ?: 0L), outfd, (outoffp?.value ?: 0L), len.toLong(), flags.toInt())
+public actual fun copyFileRange(infd: CInt, inoffp: MutPtr<OffT>, outfd: CInt, outoffp: MutPtr<OffT>, len: SizeT, flags: CUint): SsizeT =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdCopyFileRange(infd, inoffp.rawAddress, outfd, outoffp.rawAddress, len.toLong(), flags.toInt())
 
-public actual fun devnameR(dev: DevT, mode: ModeT, buf: COpaquePointer?, len: CInt): COpaquePointer? =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_devnameR(dev.toInt(), mode.toShort(), (buf?.value ?: 0L), len).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun devnameR(dev: DevT, mode: ModeT, buf: MutPtr<CChar>, len: CInt): MutPtr<CChar> =
+    MutPtr(UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdDevnameR(dev.toInt(), mode.toShort(), buf.rawAddress, len))
 
-public actual fun extattrDeleteFd(fd: CInt, attrnamespace: CInt, attrname: String?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_extattrDeleteFd(fd, attrnamespace, attrname)
+public actual fun extattrDeleteFd(fd: CInt, attrnamespace: CInt, attrname: ConstPtr<CChar>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdExtattrDeleteFd(fd, attrnamespace, attrname.rawAddress)
 
-public actual fun extattrDeleteFile(path: String?, attrnamespace: CInt, attrname: String?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_extattrDeleteFile(path, attrnamespace, attrname)
+public actual fun extattrDeleteFile(path: ConstPtr<CChar>, attrnamespace: CInt, attrname: ConstPtr<CChar>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdExtattrDeleteFile(path.rawAddress, attrnamespace, attrname.rawAddress)
 
-public actual fun extattrDeleteLink(path: String?, attrnamespace: CInt, attrname: String?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_extattrDeleteLink(path, attrnamespace, attrname)
+public actual fun extattrDeleteLink(path: ConstPtr<CChar>, attrnamespace: CInt, attrname: ConstPtr<CChar>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdExtattrDeleteLink(path.rawAddress, attrnamespace, attrname.rawAddress)
 
-public actual fun extattrGetFd(fd: CInt, attrnamespace: CInt, attrname: String?, data: COpaquePointer?, nbytes: SizeT): SsizeT =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_extattrGetFd(fd, attrnamespace, attrname, (data?.value ?: 0L), nbytes.toLong())
+public actual fun extattrGetFd(fd: CInt, attrnamespace: CInt, attrname: ConstPtr<CChar>, data: MutPtr<CVoid>, nbytes: SizeT): SsizeT =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdExtattrGetFd(fd, attrnamespace, attrname.rawAddress, data.rawAddress, nbytes.toLong())
 
-public actual fun extattrGetFile(path: String?, attrnamespace: CInt, attrname: String?, data: COpaquePointer?, nbytes: SizeT): SsizeT =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_extattrGetFile(path, attrnamespace, attrname, (data?.value ?: 0L), nbytes.toLong())
+public actual fun extattrGetFile(path: ConstPtr<CChar>, attrnamespace: CInt, attrname: ConstPtr<CChar>, data: MutPtr<CVoid>, nbytes: SizeT): SsizeT =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdExtattrGetFile(path.rawAddress, attrnamespace, attrname.rawAddress, data.rawAddress, nbytes.toLong())
 
-public actual fun extattrGetLink(path: String?, attrnamespace: CInt, attrname: String?, data: COpaquePointer?, nbytes: SizeT): SsizeT =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_extattrGetLink(path, attrnamespace, attrname, (data?.value ?: 0L), nbytes.toLong())
+public actual fun extattrGetLink(path: ConstPtr<CChar>, attrnamespace: CInt, attrname: ConstPtr<CChar>, data: MutPtr<CVoid>, nbytes: SizeT): SsizeT =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdExtattrGetLink(path.rawAddress, attrnamespace, attrname.rawAddress, data.rawAddress, nbytes.toLong())
 
-public actual fun extattrListFd(fd: CInt, attrnamespace: CInt, data: COpaquePointer?, nbytes: SizeT): SsizeT =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_extattrListFd(fd, attrnamespace, (data?.value ?: 0L), nbytes.toLong())
+public actual fun extattrListFd(fd: CInt, attrnamespace: CInt, data: MutPtr<CVoid>, nbytes: SizeT): SsizeT =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdExtattrListFd(fd, attrnamespace, data.rawAddress, nbytes.toLong())
 
-public actual fun extattrListFile(path: String?, attrnamespace: CInt, data: COpaquePointer?, nbytes: SizeT): SsizeT =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_extattrListFile(path, attrnamespace, (data?.value ?: 0L), nbytes.toLong())
+public actual fun extattrListFile(path: ConstPtr<CChar>, attrnamespace: CInt, data: MutPtr<CVoid>, nbytes: SizeT): SsizeT =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdExtattrListFile(path.rawAddress, attrnamespace, data.rawAddress, nbytes.toLong())
 
-public actual fun extattrListLink(path: String?, attrnamespace: CInt, data: COpaquePointer?, nbytes: SizeT): SsizeT =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_extattrListLink(path, attrnamespace, (data?.value ?: 0L), nbytes.toLong())
+public actual fun extattrListLink(path: ConstPtr<CChar>, attrnamespace: CInt, data: MutPtr<CVoid>, nbytes: SizeT): SsizeT =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdExtattrListLink(path.rawAddress, attrnamespace, data.rawAddress, nbytes.toLong())
 
-public actual fun extattrSetFd(fd: CInt, attrnamespace: CInt, attrname: String?, data: COpaquePointer?, nbytes: SizeT): SsizeT =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_extattrSetFd(fd, attrnamespace, attrname, (data?.value ?: 0L), nbytes.toLong())
+public actual fun extattrSetFd(fd: CInt, attrnamespace: CInt, attrname: ConstPtr<CChar>, data: ConstPtr<CVoid>, nbytes: SizeT): SsizeT =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdExtattrSetFd(fd, attrnamespace, attrname.rawAddress, data.rawAddress, nbytes.toLong())
 
-public actual fun extattrSetFile(path: String?, attrnamespace: CInt, attrname: String?, data: COpaquePointer?, nbytes: SizeT): SsizeT =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_extattrSetFile(path, attrnamespace, attrname, (data?.value ?: 0L), nbytes.toLong())
+public actual fun extattrSetFile(path: ConstPtr<CChar>, attrnamespace: CInt, attrname: ConstPtr<CChar>, data: ConstPtr<CVoid>, nbytes: SizeT): SsizeT =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdExtattrSetFile(path.rawAddress, attrnamespace, attrname.rawAddress, data.rawAddress, nbytes.toLong())
 
-public actual fun extattrSetLink(path: String?, attrnamespace: CInt, attrname: String?, data: COpaquePointer?, nbytes: SizeT): SsizeT =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_extattrSetLink(path, attrnamespace, attrname, (data?.value ?: 0L), nbytes.toLong())
+public actual fun extattrSetLink(path: ConstPtr<CChar>, attrnamespace: CInt, attrname: ConstPtr<CChar>, data: ConstPtr<CVoid>, nbytes: SizeT): SsizeT =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdExtattrSetLink(path.rawAddress, attrnamespace, attrname.rawAddress, data.rawAddress, nbytes.toLong())
 
-public actual fun fspacectl(fd: CInt, cmd: CInt, rqsr: COpaquePointer?, flags: CInt, rmsr: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_fspacectl(fd, cmd, (rqsr?.value ?: 0L), flags, (rmsr?.value ?: 0L))
+public actual fun fspacectl(fd: CInt, cmd: CInt, rqsr: ConstPtr<SpacectlRange>, flags: CInt, rmsr: MutPtr<SpacectlRange>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdFspacectl(fd, cmd, rqsr.rawAddress, flags, rmsr.rawAddress)
 
-public actual fun jail(jail: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_jail((jail?.value ?: 0L))
+public actual fun jail(jail: MutPtr<Jail>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdJail(jail.rawAddress)
 
 public actual fun jailAttach(jid: CInt): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_jailAttach(jid)
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdJailAttach(jid)
 
 public actual fun jailRemove(jid: CInt): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_jailRemove(jid)
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdJailRemove(jid)
 
-public actual fun jailGet(iov: COpaquePointer?, niov: CUint, flags: CInt): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_jailGet((iov?.value ?: 0L), niov.toInt(), flags)
+public actual fun jailGet(iov: MutPtr<Iovec>, niov: CUint, flags: CInt): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdJailGet(iov.rawAddress, niov.toInt(), flags)
 
-public actual fun jailSet(iov: COpaquePointer?, niov: CUint, flags: CInt): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_jailSet((iov?.value ?: 0L), niov.toInt(), flags)
+public actual fun jailSet(iov: MutPtr<Iovec>, niov: CUint, flags: CInt): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdJailSet(iov.rawAddress, niov.toInt(), flags)
 
-public actual fun lioListio(mode: CInt, aiocbList: COpaquePointer?, nitems: CInt, sevp: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_lioListio(mode, (aiocbList?.value ?: 0L), nitems, (sevp?.value ?: 0L))
+public actual fun lioListio(mode: CInt, aiocbList: ConstPtr<MutPtr<Aiocb>>, nitems: CInt, sevp: MutPtr<Sigevent>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdLioListio(mode, aiocbList.rawAddress, nitems, sevp.rawAddress)
 
-public actual fun getutxuser(user: String?): COpaquePointer? =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_getutxuser(user).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getutxuser(user: ConstPtr<CChar>): MutPtr<Utmpx> =
+    MutPtr(UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdGetutxuser(user.rawAddress))
 
-public actual fun setutxdb(type: CInt, file: String?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_setutxdb(type, file)
+public actual fun setutxdb(type: CInt, file: ConstPtr<CChar>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdSetutxdb(type, file.rawAddress)
 
-public actual fun aioWaitcomplete(iocbp: COpaquePointer?, timeout: COpaquePointer?): SsizeT =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_aioWaitcomplete((iocbp?.value ?: 0L), (timeout?.value ?: 0L))
+public actual fun aioWaitcomplete(iocbp: MutPtr<MutPtr<Aiocb>>, timeout: MutPtr<Timespec>): SsizeT =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdAioWaitcomplete(iocbp.rawAddress, timeout.rawAddress)
 
 public actual fun mqGetfdNp(mqd: MqdT): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_mqGetfdNp((mqd?.value ?: 0L))
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdMqGetfdNp(mqd.rawAddress)
 
-public actual fun waitid(idtype: IdtypeT, id: IdT, infop: COpaquePointer?, options: CInt): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_waitid(idtype.toInt(), id, (infop?.value ?: 0L), options)
+public actual fun waitid(idtype: IdtypeT, id: IdT, infop: MutPtr<SiginfoT>, options: CInt): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdWaitid(idtype.toInt(), id, infop.rawAddress, options)
 
-public actual fun ptsnameR(fd: CInt, buf: COpaquePointer?, buflen: SizeT): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_ptsnameR(fd, (buf?.value ?: 0L), buflen.toLong())
+public actual fun ptsnameR(fd: CInt, buf: MutPtr<CChar>, buflen: SizeT): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdPtsnameR(fd, buf.rawAddress, buflen.toLong())
 
-public actual fun ftok(pathname: String?, projId: CInt): KeyT =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_ftok(pathname, projId)
+public actual fun ftok(pathname: ConstPtr<CChar>, projId: CInt): KeyT =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdFtok(pathname.rawAddress, projId)
 
 public actual fun shmget(key: KeyT, size: SizeT, shmflg: CInt): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_shmget(key, size.toLong(), shmflg)
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdShmget(key, size.toLong(), shmflg)
 
-public actual fun shmat(shmid: CInt, shmaddr: COpaquePointer?, shmflg: CInt): COpaquePointer? =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_shmat(shmid, (shmaddr?.value ?: 0L), shmflg).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun shmat(shmid: CInt, shmaddr: ConstPtr<CVoid>, shmflg: CInt): MutPtr<CVoid> =
+    MutPtr(UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdShmat(shmid, shmaddr.rawAddress, shmflg))
 
-public actual fun shmdt(shmaddr: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_shmdt((shmaddr?.value ?: 0L))
+public actual fun shmdt(shmaddr: ConstPtr<CVoid>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdShmdt(shmaddr.rawAddress)
 
-public actual fun shmctl(shmid: CInt, cmd: CInt, buf: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_shmctl(shmid, cmd, (buf?.value ?: 0L))
+public actual fun shmctl(shmid: CInt, cmd: CInt, buf: MutPtr<ShmidDs>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdShmctl(shmid, cmd, buf.rawAddress)
 
 public actual fun semget(key: KeyT, nsems: CInt, semflg: CInt): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_semget(key, nsems, semflg)
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdSemget(key, nsems, semflg)
 
 public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_semctl(semid, semnum, cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdSemctl(semid, semnum, cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun semop(semid: CInt, sops: COpaquePointer?, nsops: SizeT): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_semop(semid, (sops?.value ?: 0L), nsops.toLong())
+public actual fun semop(semid: CInt, sops: MutPtr<Sembuf>, nsops: SizeT): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdSemop(semid, sops.rawAddress, nsops.toLong())
 
-public actual fun msgctl(msqid: CInt, cmd: CInt, buf: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_msgctl(msqid, cmd, (buf?.value ?: 0L))
+public actual fun msgctl(msqid: CInt, cmd: CInt, buf: MutPtr<MsqidDs>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdMsgctl(msqid, cmd, buf.rawAddress)
 
 public actual fun msgget(key: KeyT, msgflg: CInt): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_msgget(key, msgflg)
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdMsgget(key, msgflg)
 
-public actual fun msgsnd(msqid: CInt, msgp: COpaquePointer?, msgsz: SizeT, msgflg: CInt): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_msgsnd(msqid, (msgp?.value ?: 0L), msgsz.toLong(), msgflg)
+public actual fun msgsnd(msqid: CInt, msgp: ConstPtr<CVoid>, msgsz: SizeT, msgflg: CInt): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdMsgsnd(msqid, msgp.rawAddress, msgsz.toLong(), msgflg)
 
-public actual fun cfmakesane(termios: COpaquePointer?) {
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_cfmakesane((termios?.value ?: 0L))
+public actual fun cfmakesane(termios: MutPtr<Termios>) {
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdCfmakesane(termios.rawAddress)
 }
 
-public actual fun pdfork(fdp: COpaquePointer?, flags: CInt): PidT =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_pdfork((fdp?.value ?: 0L), flags)
+public actual fun pdfork(fdp: MutPtr<CInt>, flags: CInt): PidT =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdPdfork(fdp.rawAddress, flags)
 
-public actual fun pdgetpid(fd: CInt, pidp: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_pdgetpid(fd, (pidp?.value ?: 0L))
+public actual fun pdgetpid(fd: CInt, pidp: MutPtr<PidT>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdPdgetpid(fd, pidp.rawAddress)
 
 public actual fun pdkill(fd: CInt, signum: CInt): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_pdkill(fd, signum)
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdPdkill(fd, signum)
 
-public actual fun rtprioThread(function: CInt, lwpid: LwpidT, rtp: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_rtprioThread(function, lwpid, (rtp?.value ?: 0L))
+public actual fun rtprioThread(function: CInt, lwpid: LwpidT, rtp: MutPtr<Rtprio>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdRtprioThread(function, lwpid, rtp.rawAddress)
 
-public actual fun uuidgen(store: COpaquePointer?, count: CInt): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_uuidgen((store?.value ?: 0L), count)
+public actual fun uuidgen(store: MutPtr<Uuid>, count: CInt): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdUuidgen(store.rawAddress, count)
 
 public actual fun thrKill(id: CLong, sig: CInt): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_thrKill(id, sig)
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdThrKill(id, sig)
 
 public actual fun thrKill2(pid: PidT, id: CLong, sig: CInt): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_thrKill2(pid, id, sig)
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdThrKill2(pid, id, sig)
 
-public actual fun thrSelf(tid: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_thrSelf((tid?.value ?: 0L))
+public actual fun thrSelf(tid: MutPtr<CLong>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdThrSelf(tid.rawAddress)
 
 public actual fun pthreadGetthreadidNp(): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_pthreadGetthreadidNp()
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdPthreadGetthreadidNp()
 
-public actual fun pthreadGetaffinityNp(td: PthreadT, cpusetsize: SizeT, cpusetp: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_pthreadGetaffinityNp(td.toLong(), cpusetsize.toLong(), (cpusetp?.value ?: 0L))
+public actual fun pthreadGetaffinityNp(td: PthreadT, cpusetsize: SizeT, cpusetp: MutPtr<CpusetT>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdPthreadGetaffinityNp(td.toLong(), cpusetsize.toLong(), cpusetp.rawAddress)
 
-public actual fun pthreadSetaffinityNp(td: PthreadT, cpusetsize: SizeT, cpusetp: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_pthreadSetaffinityNp(td.toLong(), cpusetsize.toLong(), (cpusetp?.value ?: 0L))
+public actual fun pthreadSetaffinityNp(td: PthreadT, cpusetsize: SizeT, cpusetp: ConstPtr<CpusetT>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdPthreadSetaffinityNp(td.toLong(), cpusetsize.toLong(), cpusetp.rawAddress)
 
-public actual fun schedGetaffinity(pid: PidT, cpusetsz: SizeT, cpuset: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_schedGetaffinity(pid, cpusetsz.toLong(), (cpuset?.value ?: 0L))
+public actual fun schedGetaffinity(pid: PidT, cpusetsz: SizeT, cpuset: MutPtr<CpusetT>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdSchedGetaffinity(pid, cpusetsz.toLong(), cpuset.rawAddress)
 
-public actual fun schedSetaffinity(pid: PidT, cpusetsz: SizeT, cpuset: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_schedSetaffinity(pid, cpusetsz.toLong(), (cpuset?.value ?: 0L))
+public actual fun schedSetaffinity(pid: PidT, cpusetsz: SizeT, cpuset: ConstPtr<CpusetT>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdSchedSetaffinity(pid, cpusetsz.toLong(), cpuset.rawAddress)
 
 public actual fun schedGetcpu(): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_schedGetcpu()
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdSchedGetcpu()
 
-public actual fun pthreadMutexConsistent(mutex: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_pthreadMutexConsistent((mutex?.value ?: 0L))
+public actual fun pthreadMutexConsistent(mutex: MutPtr<PthreadMutexT>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdPthreadMutexConsistent(mutex.rawAddress)
 
-public actual fun pthreadMutexattrGetrobust(attr: COpaquePointer?, robust: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_pthreadMutexattrGetrobust((attr?.value ?: 0L), (robust?.value ?: 0L))
+public actual fun pthreadMutexattrGetrobust(attr: MutPtr<PthreadMutexattrT>, robust: MutPtr<CInt>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdPthreadMutexattrGetrobust(attr.rawAddress, robust.rawAddress)
 
-public actual fun pthreadMutexattrSetrobust(attr: COpaquePointer?, robust: CInt): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_pthreadMutexattrSetrobust((attr?.value ?: 0L), robust)
+public actual fun pthreadMutexattrSetrobust(attr: MutPtr<PthreadMutexattrT>, robust: CInt): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdPthreadMutexattrSetrobust(attr.rawAddress, robust)
 
-public actual fun pthreadSpinInit(lock: COpaquePointer?, pshared: CInt): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_pthreadSpinInit((lock?.value ?: 0L), pshared)
+public actual fun pthreadSpinInit(lock: MutPtr<PthreadSpinlockT>, pshared: CInt): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdPthreadSpinInit(lock.rawAddress, pshared)
 
-public actual fun pthreadSpinDestroy(lock: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_pthreadSpinDestroy((lock?.value ?: 0L))
+public actual fun pthreadSpinDestroy(lock: MutPtr<PthreadSpinlockT>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdPthreadSpinDestroy(lock.rawAddress)
 
-public actual fun pthreadSpinLock(lock: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_pthreadSpinLock((lock?.value ?: 0L))
+public actual fun pthreadSpinLock(lock: MutPtr<PthreadSpinlockT>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdPthreadSpinLock(lock.rawAddress)
 
-public actual fun pthreadSpinTrylock(lock: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_pthreadSpinTrylock((lock?.value ?: 0L))
+public actual fun pthreadSpinTrylock(lock: MutPtr<PthreadSpinlockT>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdPthreadSpinTrylock(lock.rawAddress)
 
-public actual fun pthreadSpinUnlock(lock: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_pthreadSpinUnlock((lock?.value ?: 0L))
+public actual fun pthreadSpinUnlock(lock: MutPtr<PthreadSpinlockT>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdPthreadSpinUnlock(lock.rawAddress)
 
-public actual fun pthreadTimedjoinNp(thread: PthreadT, retval: COpaquePointer?, abstime: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_pthreadTimedjoinNp(thread.toLong(), (retval?.value ?: 0L), (abstime?.value ?: 0L))
+public actual fun pthreadTimedjoinNp(thread: PthreadT, retval: MutPtr<MutPtr<CVoid>>, abstime: ConstPtr<Timespec>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdPthreadTimedjoinNp(thread.toLong(), retval.rawAddress, abstime.rawAddress)
 
-public actual fun statfs(path: String?, buf: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_statfs(path, (buf?.value ?: 0L))
+public actual fun statfs(path: ConstPtr<CChar>, buf: MutPtr<Statfs>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdStatfs(path.rawAddress, buf.rawAddress)
 
-public actual fun fstatfs(fd: CInt, buf: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_fstatfs(fd, (buf?.value ?: 0L))
+public actual fun fstatfs(fd: CInt, buf: MutPtr<Statfs>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdFstatfs(fd, buf.rawAddress)
 
 public actual fun dup3(src: CInt, dst: CInt, flags: CInt): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_dup3(src, dst, flags)
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdDup3(src, dst, flags)
 
-public actual fun xuname(nmln: CInt, buf: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_xuname(nmln, (buf?.value ?: 0L))
+public actual fun xuname(nmln: CInt, buf: MutPtr<CVoid>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdXuname(nmln, buf.rawAddress)
 
-public actual fun sendmmsg(sockfd: CInt, msgvec: COpaquePointer?, vlen: SizeT, flags: CInt): SsizeT =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_sendmmsg(sockfd, (msgvec?.value ?: 0L), vlen.toLong(), flags)
+public actual fun sendmmsg(sockfd: CInt, msgvec: MutPtr<Mmsghdr>, vlen: SizeT, flags: CInt): SsizeT =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdSendmmsg(sockfd, msgvec.rawAddress, vlen.toLong(), flags)
 
-public actual fun recvmmsg(sockfd: CInt, msgvec: COpaquePointer?, vlen: SizeT, flags: CInt, timeout: COpaquePointer?): SsizeT =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_recvmmsg(sockfd, (msgvec?.value ?: 0L), vlen.toLong(), flags, (timeout?.value ?: 0L))
+public actual fun recvmmsg(sockfd: CInt, msgvec: MutPtr<Mmsghdr>, vlen: SizeT, flags: CInt, timeout: ConstPtr<Timespec>): SsizeT =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdRecvmmsg(sockfd, msgvec.rawAddress, vlen.toLong(), flags, timeout.rawAddress)
 
-public actual fun memmem(haystack: COpaquePointer?, haystacklen: SizeT, needle: COpaquePointer?, needlelen: SizeT): COpaquePointer? =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_memmem((haystack?.value ?: 0L), haystacklen.toLong(), (needle?.value ?: 0L), needlelen.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun memmem(haystack: ConstPtr<CVoid>, haystacklen: SizeT, needle: ConstPtr<CVoid>, needlelen: SizeT): MutPtr<CVoid> =
+    MutPtr(UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdMemmem(haystack.rawAddress, haystacklen.toLong(), needle.rawAddress, needlelen.toLong()))
 
-public actual fun fhopen(fhp: COpaquePointer?, flags: CInt): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_fhopen((fhp?.value ?: 0L), flags)
+public actual fun fhopen(fhp: ConstPtr<FhandleT>, flags: CInt): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdFhopen(fhp.rawAddress, flags)
 
-public actual fun fhstat(fhp: COpaquePointer?, buf: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_fhstat((fhp?.value ?: 0L), (buf?.value ?: 0L))
+public actual fun fhstat(fhp: ConstPtr<Fhandle>, buf: MutPtr<Stat>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdFhstat(fhp.rawAddress, buf.rawAddress)
 
-public actual fun fhstatfs(fhp: COpaquePointer?, buf: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_fhstatfs((fhp?.value ?: 0L), (buf?.value ?: 0L))
+public actual fun fhstatfs(fhp: ConstPtr<FhandleT>, buf: MutPtr<Statfs>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdFhstatfs(fhp.rawAddress, buf.rawAddress)
 
-public actual fun getfh(path: String?, fhp: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_getfh(path, (fhp?.value ?: 0L))
+public actual fun getfh(path: ConstPtr<CChar>, fhp: MutPtr<FhandleT>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdGetfh(path.rawAddress, fhp.rawAddress)
 
-public actual fun lgetfh(path: String?, fhp: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_lgetfh(path, (fhp?.value ?: 0L))
+public actual fun lgetfh(path: ConstPtr<CChar>, fhp: MutPtr<FhandleT>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdLgetfh(path.rawAddress, fhp.rawAddress)
 
-public actual fun getfsstat(buf: COpaquePointer?, bufsize: CLong, mode: CInt): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_getfsstat((buf?.value ?: 0L), bufsize, mode)
+public actual fun getfsstat(buf: MutPtr<Statfs>, bufsize: CLong, mode: CInt): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdGetfsstat(buf.rawAddress, bufsize, mode)
 
-public actual fun getmntinfo(mntbufp: COpaquePointer?, mode: CInt): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_getmntinfo((mntbufp?.value ?: 0L), mode)
+public actual fun getmntinfo(mntbufp: MutPtr<MutPtr<Statfs>>, mode: CInt): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdGetmntinfo(mntbufp.rawAddress, mode)
 
-public actual fun mount(type: String?, dir: String?, flags: CInt, data: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_mount(type, dir, flags, (data?.value ?: 0L))
+public actual fun mount(type: ConstPtr<CChar>, dir: ConstPtr<CChar>, flags: CInt, data: MutPtr<CVoid>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdMount(type.rawAddress, dir.rawAddress, flags, data.rawAddress)
 
-public actual fun nmount(iov: COpaquePointer?, niov: CUint, flags: CInt): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_nmount((iov?.value ?: 0L), niov.toInt(), flags)
+public actual fun nmount(iov: MutPtr<Iovec>, niov: CUint, flags: CInt): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdNmount(iov.rawAddress, niov.toInt(), flags)
 
-public actual fun setproctitle(fmt: String?, vararg variadicArgs: Long) {
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_setproctitle(fmt, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun setproctitle(fmt: ConstPtr<CChar>, vararg variadicArgs: Long) {
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdSetproctitle(fmt.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 }
 
 public actual fun rfork(flags: CInt): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_rfork(flags)
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdRfork(flags)
 
-public actual fun cpusetGetaffinity(level: CpulevelT, which: CpuwhichT, id: IdT, setsize: SizeT, mask: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_cpusetGetaffinity(level, which, id, setsize.toLong(), (mask?.value ?: 0L))
+public actual fun cpusetGetaffinity(level: CpulevelT, which: CpuwhichT, id: IdT, setsize: SizeT, mask: MutPtr<CpusetT>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdCpusetGetaffinity(level, which, id, setsize.toLong(), mask.rawAddress)
 
-public actual fun cpusetSetaffinity(level: CpulevelT, which: CpuwhichT, id: IdT, setsize: SizeT, mask: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_cpusetSetaffinity(level, which, id, setsize.toLong(), (mask?.value ?: 0L))
+public actual fun cpusetSetaffinity(level: CpulevelT, which: CpuwhichT, id: IdT, setsize: SizeT, mask: ConstPtr<CpusetT>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdCpusetSetaffinity(level, which, id, setsize.toLong(), mask.rawAddress)
 
-public actual fun cpuset(setid: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_cpuset((setid?.value ?: 0L))
+public actual fun cpuset(setid: MutPtr<CpusetidT>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdCpuset(setid.rawAddress)
 
-public actual fun cpusetGetid(level: CpulevelT, which: CpuwhichT, id: IdT, setid: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_cpusetGetid(level, which, id, (setid?.value ?: 0L))
+public actual fun cpusetGetid(level: CpulevelT, which: CpuwhichT, id: IdT, setid: MutPtr<CpusetidT>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdCpusetGetid(level, which, id, setid.rawAddress)
 
 public actual fun cpusetSetid(which: CpuwhichT, id: IdT, setid: CpusetidT): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_cpusetSetid(which, id, setid)
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdCpusetSetid(which, id, setid)
 
 public actual fun capEnter(): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_capEnter()
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdCapEnter()
 
-public actual fun capGetmode(modep: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_capGetmode((modep?.value ?: 0L))
+public actual fun capGetmode(modep: MutPtr<CUint>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdCapGetmode(modep.rawAddress)
 
-public actual fun capFcntlsGet(fd: CInt, fcntlrightsp: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_capFcntlsGet(fd, (fcntlrightsp?.value ?: 0L))
+public actual fun capFcntlsGet(fd: CInt, fcntlrightsp: MutPtr<UInt>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdCapFcntlsGet(fd, fcntlrightsp.rawAddress)
 
 public actual fun capFcntlsLimit(fd: CInt, fcntlrights: UInt): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_capFcntlsLimit(fd, fcntlrights.toInt())
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdCapFcntlsLimit(fd, fcntlrights.toInt())
 
-public actual fun capIoctlsGet(fd: CInt, cmds: COpaquePointer?, maxcmds: ULong): Long =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_capIoctlsGet(fd, (cmds?.value ?: 0L), maxcmds.toLong())
+public actual fun capIoctlsGet(fd: CInt, cmds: MutPtr<ULong>, maxcmds: ULong): Long =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdCapIoctlsGet(fd, cmds.rawAddress, maxcmds.toLong())
 
-public actual fun capIoctlsLimit(fd: CInt, cmds: COpaquePointer?, ncmds: ULong): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_capIoctlsLimit(fd, (cmds?.value ?: 0L), ncmds.toLong())
+public actual fun capIoctlsLimit(fd: CInt, cmds: ConstPtr<ULong>, ncmds: ULong): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdCapIoctlsLimit(fd, cmds.rawAddress, ncmds.toLong())
 
-public actual fun capRightsInit(version: CInt, rights: COpaquePointer?, vararg variadicArgs: Long): COpaquePointer? =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_capRightsInit(version, (rights?.value ?: 0L), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun capRightsInit(version: CInt, rights: MutPtr<CapRightsT>, vararg variadicArgs: Long): MutPtr<CapRightsT> =
+    MutPtr(UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdCapRightsInit(version, rights.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L))
 
-public actual fun capRightsGet(version: CInt, fd: CInt, rightsp: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_capRightsGet(version, fd, (rightsp?.value ?: 0L))
+public actual fun capRightsGet(version: CInt, fd: CInt, rightsp: MutPtr<CapRightsT>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdCapRightsGet(version, fd, rightsp.rawAddress)
 
-public actual fun capRightsSet(rights: COpaquePointer?, vararg variadicArgs: Long): COpaquePointer? =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_capRightsSet((rights?.value ?: 0L), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun capRightsSet(rights: MutPtr<CapRightsT>, vararg variadicArgs: Long): MutPtr<CapRightsT> =
+    MutPtr(UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdCapRightsSet(rights.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L))
 
-public actual fun capRightsClear(rights: COpaquePointer?, vararg variadicArgs: Long): COpaquePointer? =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_capRightsClear((rights?.value ?: 0L), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun capRightsClear(rights: MutPtr<CapRightsT>, vararg variadicArgs: Long): MutPtr<CapRightsT> =
+    MutPtr(UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdCapRightsClear(rights.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L))
 
-public actual fun capRightsIsSet(rights: COpaquePointer?, vararg variadicArgs: Long): Boolean =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_capRightsIsSet((rights?.value ?: 0L), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun capRightsIsSet(rights: ConstPtr<CapRightsT>, vararg variadicArgs: Long): Boolean =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdCapRightsIsSet(rights.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun capRightsIsValid(rights: COpaquePointer?): Boolean =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_capRightsIsValid((rights?.value ?: 0L))
+public actual fun capRightsIsValid(rights: ConstPtr<CapRightsT>): Boolean =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdCapRightsIsValid(rights.rawAddress)
 
-public actual fun capRightsLimit(fd: CInt, rights: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_capRightsLimit(fd, (rights?.value ?: 0L))
+public actual fun capRightsLimit(fd: CInt, rights: ConstPtr<CapRightsT>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdCapRightsLimit(fd, rights.rawAddress)
 
-public actual fun capRightsMerge(dst: COpaquePointer?, src: COpaquePointer?): COpaquePointer? =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_capRightsMerge((dst?.value ?: 0L), (src?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun capRightsMerge(dst: MutPtr<CapRightsT>, src: ConstPtr<CapRightsT>): MutPtr<CapRightsT> =
+    MutPtr(UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdCapRightsMerge(dst.rawAddress, src.rawAddress))
 
-public actual fun capRightsRemove(dst: COpaquePointer?, src: COpaquePointer?): COpaquePointer? =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_capRightsRemove((dst?.value ?: 0L), (src?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun capRightsRemove(dst: MutPtr<CapRightsT>, src: ConstPtr<CapRightsT>): MutPtr<CapRightsT> =
+    MutPtr(UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdCapRightsRemove(dst.rawAddress, src.rawAddress))
 
-public actual fun capRightsContains(big: COpaquePointer?, little: COpaquePointer?): Boolean =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_capRightsContains((big?.value ?: 0L), (little?.value ?: 0L))
+public actual fun capRightsContains(big: ConstPtr<CapRightsT>, little: ConstPtr<CapRightsT>): Boolean =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdCapRightsContains(big.rawAddress, little.rawAddress)
 
 public actual fun capSandboxed(): Boolean =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_capSandboxed()
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdCapSandboxed()
 
-public actual fun reallocarray(ptr: COpaquePointer?, nmemb: SizeT, size: SizeT): COpaquePointer? =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_reallocarray((ptr?.value ?: 0L), nmemb.toLong(), size.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun reallocarray(ptr: MutPtr<CVoid>, nmemb: SizeT, size: SizeT): MutPtr<CVoid> =
+    MutPtr(UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdReallocarray(ptr.rawAddress, nmemb.toLong(), size.toLong()))
 
 public actual fun ffs(value: CInt): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_ffs(value)
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdFfs(value)
 
 public actual fun ffsl(value: CLong): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_ffsl(value)
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdFfsl(value)
 
 public actual fun ffsll(value: CLonglong): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_ffsll(value)
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdFfsll(value)
 
 public actual fun fls(value: CInt): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_fls(value)
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdFls(value)
 
 public actual fun flsl(value: CLong): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_flsl(value)
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdFlsl(value)
 
 public actual fun flsll(value: CLonglong): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_flsll(value)
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdFlsll(value)
 
-public actual fun mallocStatsPrint(writeCb: MallocStatsPrintWriteCbCallback, cbopaque: COpaquePointer?, opt: String?) {
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_mallocStatsPrint(0L, (cbopaque?.value ?: 0L), opt)
+public actual fun mallocStatsPrint(writeCb: MallocStatsPrintWriteCbCallback, cbopaque: MutPtr<CVoid>, opt: ConstPtr<CChar>) {
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdMallocStatsPrint(0L, cbopaque.rawAddress, opt.rawAddress)
 }
 
-public actual fun mallctl(name: String?, oldp: COpaquePointer?, oldlenp: COpaquePointer?, newp: COpaquePointer?, newlen: SizeT): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_mallctl(name, (oldp?.value ?: 0L), (oldlenp?.value ?: 0L), (newp?.value ?: 0L), newlen.toLong())
+public actual fun mallctl(name: ConstPtr<CChar>, oldp: MutPtr<CVoid>, oldlenp: MutPtr<SizeT>, newp: MutPtr<CVoid>, newlen: SizeT): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdMallctl(name.rawAddress, oldp.rawAddress, oldlenp.rawAddress, newp.rawAddress, newlen.toLong())
 
-public actual fun mallctlnametomib(name: String?, mibp: COpaquePointer?, miplen: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_mallctlnametomib(name, (mibp?.value ?: 0L), (miplen?.value ?: 0L))
+public actual fun mallctlnametomib(name: ConstPtr<CChar>, mibp: MutPtr<SizeT>, miplen: MutPtr<SizeT>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdMallctlnametomib(name.rawAddress, mibp.rawAddress, miplen.rawAddress)
 
-public actual fun mallctlbymib(mib: COpaquePointer?, mible: SizeT, oldp: COpaquePointer?, oldlenp: COpaquePointer?, newp: COpaquePointer?, newlen: SizeT): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_mallctlbymib((mib?.value ?: 0L), mible.toLong(), (oldp?.value ?: 0L), (oldlenp?.value ?: 0L), (newp?.value ?: 0L), newlen.toLong())
+public actual fun mallctlbymib(mib: ConstPtr<SizeT>, mible: SizeT, oldp: MutPtr<CVoid>, oldlenp: MutPtr<SizeT>, newp: MutPtr<CVoid>, newlen: SizeT): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdMallctlbymib(mib.rawAddress, mible.toLong(), oldp.rawAddress, oldlenp.rawAddress, newp.rawAddress, newlen.toLong())
 
-public actual fun mallocx(size: SizeT, flags: CInt): COpaquePointer? =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_mallocx(size.toLong(), flags).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun mallocx(size: SizeT, flags: CInt): MutPtr<CVoid> =
+    MutPtr(UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdMallocx(size.toLong(), flags))
 
-public actual fun rallocx(ptr: COpaquePointer?, size: SizeT, flags: CInt): COpaquePointer? =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_rallocx((ptr?.value ?: 0L), size.toLong(), flags).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun rallocx(ptr: MutPtr<CVoid>, size: SizeT, flags: CInt): MutPtr<CVoid> =
+    MutPtr(UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdRallocx(ptr.rawAddress, size.toLong(), flags))
 
-public actual fun xallocx(ptr: COpaquePointer?, size: SizeT, extra: SizeT, flags: CInt): SizeT =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_xallocx((ptr?.value ?: 0L), size.toLong(), extra.toLong(), flags).toULong()
+public actual fun xallocx(ptr: MutPtr<CVoid>, size: SizeT, extra: SizeT, flags: CInt): SizeT =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdXallocx(ptr.rawAddress, size.toLong(), extra.toLong(), flags).toULong()
 
-public actual fun sallocx(ptr: COpaquePointer?, flags: CInt): SizeT =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_sallocx((ptr?.value ?: 0L), flags).toULong()
+public actual fun sallocx(ptr: ConstPtr<CVoid>, flags: CInt): SizeT =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdSallocx(ptr.rawAddress, flags).toULong()
 
-public actual fun dallocx(ptr: COpaquePointer?, flags: CInt) {
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_dallocx((ptr?.value ?: 0L), flags)
+public actual fun dallocx(ptr: MutPtr<CVoid>, flags: CInt) {
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdDallocx(ptr.rawAddress, flags)
 }
 
-public actual fun sdallocx(ptr: COpaquePointer?, size: SizeT, flags: CInt) {
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_sdallocx((ptr?.value ?: 0L), size.toLong(), flags)
+public actual fun sdallocx(ptr: MutPtr<CVoid>, size: SizeT, flags: CInt) {
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdSdallocx(ptr.rawAddress, size.toLong(), flags)
 }
 
 public actual fun nallocx(size: SizeT, flags: CInt): SizeT =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_nallocx(size.toLong(), flags).toULong()
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdNallocx(size.toLong(), flags).toULong()
 
-public actual fun procctl(idtype: IdtypeT, id: IdT, cmd: CInt, data: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_procctl(idtype.toInt(), id, cmd, (data?.value ?: 0L))
+public actual fun procctl(idtype: IdtypeT, id: IdT, cmd: CInt, data: MutPtr<CVoid>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdProcctl(idtype.toInt(), id, cmd, data.rawAddress)
 
 public actual fun getpagesize(): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_getpagesize()
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdGetpagesize()
 
-public actual fun getpagesizes(pagesize: COpaquePointer?, nelem: CInt): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_getpagesizes((pagesize?.value ?: 0L), nelem)
+public actual fun getpagesizes(pagesize: MutPtr<SizeT>, nelem: CInt): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdGetpagesizes(pagesize.rawAddress, nelem)
 
-public actual fun clockGetcpuclockid2(arg1: IdT, arg2: CInt, arg3: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_clockGetcpuclockid2(arg1, arg2, (arg3?.value ?: 0L))
+public actual fun clockGetcpuclockid2(arg1: IdT, arg2: CInt, arg3: MutPtr<ClockidT>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdClockGetcpuclockid2(arg1, arg2, arg3.rawAddress)
 
-public actual fun strchrnul(s: String?, c: CInt): COpaquePointer? =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_strchrnul(s, c).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun strchrnul(s: ConstPtr<CChar>, c: CInt): MutPtr<CChar> =
+    MutPtr(UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdStrchrnul(s.rawAddress, c))
 
-public actual fun shmCreateLargepage(path: String?, flags: CInt, psind: CInt, allocPolicy: CInt, mode: ModeT): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_shmCreateLargepage(path, flags, psind, allocPolicy, mode.toShort())
+public actual fun shmCreateLargepage(path: ConstPtr<CChar>, flags: CInt, psind: CInt, allocPolicy: CInt, mode: ModeT): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdShmCreateLargepage(path.rawAddress, flags, psind, allocPolicy, mode.toShort())
 
-public actual fun shmRename(pathFrom: String?, pathTo: String?, flags: CInt): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_shmRename(pathFrom, pathTo, flags)
+public actual fun shmRename(pathFrom: ConstPtr<CChar>, pathTo: ConstPtr<CChar>, flags: CInt): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdShmRename(pathFrom.rawAddress, pathTo.rawAddress, flags)
 
-public actual fun memfdCreate(name: String?, flags: CUint): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_memfdCreate(name, flags.toInt())
+public actual fun memfdCreate(name: ConstPtr<CChar>, flags: CUint): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdMemfdCreate(name.rawAddress, flags.toInt())
 
-public actual fun setaudit(auditinfo: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_setaudit((auditinfo?.value ?: 0L))
+public actual fun setaudit(auditinfo: ConstPtr<AuditinfoT>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdSetaudit(auditinfo.rawAddress)
 
 public actual fun eventfd(initval: CUint, flags: CInt): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_eventfd(initval.toInt(), flags)
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdEventfd(initval.toInt(), flags)
 
-public actual fun eventfdRead(fd: CInt, value: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_eventfdRead(fd, (value?.value ?: 0L))
+public actual fun eventfdRead(fd: CInt, value: MutPtr<EventfdT>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdEventfdRead(fd, value.rawAddress)
 
 public actual fun eventfdWrite(fd: CInt, value: EventfdT): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_eventfdWrite(fd, value.toLong())
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdEventfdWrite(fd, value.toLong())
 
 public actual fun fdatasync(fd: CInt): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_fdatasync(fd)
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdFdatasync(fd)
 
-public actual fun elfAuxInfo(aux: CInt, buf: COpaquePointer?, buflen: CInt): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_elfAuxInfo(aux, (buf?.value ?: 0L), buflen)
+public actual fun elfAuxInfo(aux: CInt, buf: MutPtr<CVoid>, buflen: CInt): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdElfAuxInfo(aux, buf.rawAddress, buflen)
 
-public actual fun setproctitleFast(fmt: String?, vararg variadicArgs: Long) {
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_setproctitleFast(fmt, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun setproctitleFast(fmt: ConstPtr<CChar>, vararg variadicArgs: Long) {
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdSetproctitleFast(fmt.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 }
 
-public actual fun timingsafeBcmp(a: COpaquePointer?, b: COpaquePointer?, len: SizeT): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_timingsafeBcmp((a?.value ?: 0L), (b?.value ?: 0L), len.toLong())
+public actual fun timingsafeBcmp(a: ConstPtr<CVoid>, b: ConstPtr<CVoid>, len: SizeT): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdTimingsafeBcmp(a.rawAddress, b.rawAddress, len.toLong())
 
-public actual fun timingsafeMemcmp(a: COpaquePointer?, b: COpaquePointer?, len: SizeT): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_timingsafeMemcmp((a?.value ?: 0L), (b?.value ?: 0L), len.toLong())
+public actual fun timingsafeMemcmp(a: ConstPtr<CVoid>, b: ConstPtr<CVoid>, len: SizeT): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdTimingsafeMemcmp(a.rawAddress, b.rawAddress, len.toLong())
 
-public actual fun umtxOp(obj: COpaquePointer?, op: CInt, value: CUlong, uaddr: COpaquePointer?, uaddr2: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_umtxOp((obj?.value ?: 0L), op, value.toLong(), (uaddr?.value ?: 0L), (uaddr2?.value ?: 0L))
+public actual fun umtxOp(obj: MutPtr<CVoid>, op: CInt, value: CUlong, uaddr: MutPtr<CVoid>, uaddr2: MutPtr<CVoid>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdUmtxOp(obj.rawAddress, op, value.toLong(), uaddr.rawAddress, uaddr2.rawAddress)
 
 public actual fun sctpPeeloff(s: CInt, id: SctpAssocT): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_sctpPeeloff(s, id.toInt())
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdSctpPeeloff(s, id.toInt())
 
-public actual fun sctpBindx(s: CInt, addrs: COpaquePointer?, num: CInt, tpe: CInt): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_sctpBindx(s, (addrs?.value ?: 0L), num, tpe)
+public actual fun sctpBindx(s: CInt, addrs: MutPtr<Sockaddr>, num: CInt, tpe: CInt): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdSctpBindx(s, addrs.rawAddress, num, tpe)
 
-public actual fun sctpConnectx(s: CInt, addrs: COpaquePointer?, addrcnt: CInt, id: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_sctpConnectx(s, (addrs?.value ?: 0L), addrcnt, (id?.value ?: 0L))
+public actual fun sctpConnectx(s: CInt, addrs: ConstPtr<Sockaddr>, addrcnt: CInt, id: MutPtr<SctpAssocT>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdSctpConnectx(s, addrs.rawAddress, addrcnt, id.rawAddress)
 
 public actual fun sctpGetaddrlen(family: SaFamilyT): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_sctpGetaddrlen(family.toByte())
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdSctpGetaddrlen(family.toByte())
 
-public actual fun sctpGetpaddrs(s: CInt, asocid: SctpAssocT, addrs: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_sctpGetpaddrs(s, asocid.toInt(), (addrs?.value ?: 0L))
+public actual fun sctpGetpaddrs(s: CInt, asocid: SctpAssocT, addrs: MutPtr<MutPtr<Sockaddr>>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdSctpGetpaddrs(s, asocid.toInt(), addrs.rawAddress)
 
-public actual fun sctpFreepaddrs(addrs: COpaquePointer?) {
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_sctpFreepaddrs((addrs?.value ?: 0L))
+public actual fun sctpFreepaddrs(addrs: MutPtr<Sockaddr>) {
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdSctpFreepaddrs(addrs.rawAddress)
 }
 
-public actual fun sctpGetladdrs(s: CInt, asocid: SctpAssocT, addrs: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_sctpGetladdrs(s, asocid.toInt(), (addrs?.value ?: 0L))
+public actual fun sctpGetladdrs(s: CInt, asocid: SctpAssocT, addrs: MutPtr<MutPtr<Sockaddr>>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdSctpGetladdrs(s, asocid.toInt(), addrs.rawAddress)
 
-public actual fun sctpFreeladdrs(addrs: COpaquePointer?) {
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_sctpFreeladdrs((addrs?.value ?: 0L))
+public actual fun sctpFreeladdrs(addrs: MutPtr<Sockaddr>) {
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdSctpFreeladdrs(addrs.rawAddress)
 }
 
-public actual fun sctpOptInfo(s: CInt, id: SctpAssocT, opt: CInt, arg: COpaquePointer?, size: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_sctpOptInfo(s, id.toInt(), opt, (arg?.value ?: 0L), (size?.value ?: 0L))
+public actual fun sctpOptInfo(s: CInt, id: SctpAssocT, opt: CInt, arg: MutPtr<CVoid>, size: MutPtr<SocklenT>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdSctpOptInfo(s, id.toInt(), opt, arg.rawAddress, size.rawAddress)
 
-public actual fun sctpSendv(sd: CInt, iov: COpaquePointer?, iovcnt: CInt, addrs: COpaquePointer?, addrcnt: CInt, info: COpaquePointer?, infolen: SocklenT, infotype: CUint, flags: CInt): SsizeT =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_sctpSendv(sd, (iov?.value ?: 0L), iovcnt, (addrs?.value ?: 0L), addrcnt, (info?.value ?: 0L), infolen.toInt(), infotype.toInt(), flags)
+public actual fun sctpSendv(sd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, addrs: MutPtr<Sockaddr>, addrcnt: CInt, info: MutPtr<CVoid>, infolen: SocklenT, infotype: CUint, flags: CInt): SsizeT =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdSctpSendv(sd, iov.rawAddress, iovcnt, addrs.rawAddress, addrcnt, info.rawAddress, infolen.toInt(), infotype.toInt(), flags)
 
-public actual fun sctpRecvv(sd: CInt, iov: COpaquePointer?, iovcnt: CInt, from: COpaquePointer?, fromlen: COpaquePointer?, info: COpaquePointer?, infolen: COpaquePointer?, infotype: COpaquePointer?, flags: COpaquePointer?): SsizeT =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_sctpRecvv(sd, (iov?.value ?: 0L), iovcnt, (from?.value ?: 0L), (fromlen?.value ?: 0L), (info?.value ?: 0L), (infolen?.value ?: 0L), (infotype?.value ?: 0L), (flags?.value ?: 0L))
+public actual fun sctpRecvv(sd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, from: MutPtr<Sockaddr>, fromlen: MutPtr<SocklenT>, info: MutPtr<CVoid>, infolen: MutPtr<SocklenT>, infotype: MutPtr<CUint>, flags: MutPtr<CInt>): SsizeT =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdSctpRecvv(sd, iov.rawAddress, iovcnt, from.rawAddress, fromlen.rawAddress, info.rawAddress, infolen.rawAddress, infotype.rawAddress, flags.rawAddress)
 
 public actual fun timerfdCreate(clockid: CInt, flags: CInt): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_timerfdCreate(clockid, flags)
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdTimerfdCreate(clockid, flags)
 
-public actual fun timerfdGettime(fd: CInt, currValue: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_timerfdGettime(fd, (currValue?.value ?: 0L))
+public actual fun timerfdGettime(fd: CInt, currValue: MutPtr<Itimerspec>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdTimerfdGettime(fd, currValue.rawAddress)
 
-public actual fun timerfdSettime(fd: CInt, flags: CInt, newValue: COpaquePointer?, oldValue: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_timerfdSettime(fd, flags, (newValue?.value ?: 0L), (oldValue?.value ?: 0L))
+public actual fun timerfdSettime(fd: CInt, flags: CInt, newValue: ConstPtr<Itimerspec>, oldValue: MutPtr<Itimerspec>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdTimerfdSettime(fd, flags, newValue.rawAddress, oldValue.rawAddress)
 
 public actual fun closefrom(lowfd: CInt) {
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_closefrom(lowfd)
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdClosefrom(lowfd)
 }
 
 public actual fun closeRange(lowfd: CUint, highfd: CUint, flags: CInt): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_closeRange(lowfd.toInt(), highfd.toInt(), flags)
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdCloseRange(lowfd.toInt(), highfd.toInt(), flags)
 
-public actual fun execvpe(file: String?, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_execvpe(file, (argv?.value ?: 0L), (envp?.value ?: 0L))
+public actual fun execvpe(file: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>, envp: ConstPtr<ConstPtr<CChar>>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdExecvpe(file.rawAddress, argv.rawAddress, envp.rawAddress)
 
 public actual fun kcmp(pid1: PidT, pid2: PidT, type: CInt, idx1: CUlong, idx2: CUlong): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_kcmp(pid1, pid2, type, idx1.toLong(), idx2.toLong())
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdKcmp(pid1, pid2, type, idx1.toLong(), idx2.toLong())
 
-public actual fun dlvsym(handle: COpaquePointer?, symbol: String?, version: String?): COpaquePointer? =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_dlvsym((handle?.value ?: 0L), symbol, version).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun dlvsym(handle: MutPtr<CVoid>, symbol: ConstPtr<CChar>, version: ConstPtr<CChar>): MutPtr<CVoid> =
+    MutPtr(UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdDlvsym(handle.rawAddress, symbol.rawAddress, version.rawAddress))
 
-public actual fun memstatStrerror(error: CInt): COpaquePointer? =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_memstatStrerror(error).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun memstatStrerror(error: CInt): ConstPtr<CChar> =
+    ConstPtr(UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdMemstatStrerror(error))
 
-public actual fun memstatMtlAlloc(): COpaquePointer? =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_memstatMtlAlloc().let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun memstatMtlAlloc(): MutPtr<MemoryTypeList> =
+    MutPtr(UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdMemstatMtlAlloc())
 
-public actual fun memstatMtlFirst(list: COpaquePointer?): COpaquePointer? =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_memstatMtlFirst((list?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun memstatMtlFirst(list: MutPtr<MemoryTypeList>): MutPtr<MemoryType> =
+    MutPtr(UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdMemstatMtlFirst(list.rawAddress))
 
-public actual fun memstatMtlNext(mtp: COpaquePointer?): COpaquePointer? =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_memstatMtlNext((mtp?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun memstatMtlNext(mtp: MutPtr<MemoryType>): MutPtr<MemoryType> =
+    MutPtr(UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdMemstatMtlNext(mtp.rawAddress))
 
-public actual fun memstatMtlFind(list: COpaquePointer?, allocator: CInt, name: String?): COpaquePointer? =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_memstatMtlFind((list?.value ?: 0L), allocator, name).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun memstatMtlFind(list: MutPtr<MemoryTypeList>, allocator: CInt, name: ConstPtr<CChar>): MutPtr<MemoryType> =
+    MutPtr(UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdMemstatMtlFind(list.rawAddress, allocator, name.rawAddress))
 
-public actual fun memstatMtlFree(list: COpaquePointer?) {
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_memstatMtlFree((list?.value ?: 0L))
+public actual fun memstatMtlFree(list: MutPtr<MemoryTypeList>) {
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdMemstatMtlFree(list.rawAddress)
 }
 
-public actual fun memstatMtlGeterror(list: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_memstatMtlGeterror((list?.value ?: 0L))
+public actual fun memstatMtlGeterror(list: MutPtr<MemoryTypeList>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdMemstatMtlGeterror(list.rawAddress)
 
-public actual fun memstatGetName(mtp: COpaquePointer?): COpaquePointer? =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_memstatGetName((mtp?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun memstatGetName(mtp: ConstPtr<MemoryType>): ConstPtr<CChar> =
+    ConstPtr(UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdMemstatGetName(mtp.rawAddress))
 
-public actual fun kvmDpcpuSetcpu(kd: COpaquePointer?, cpu: CUint): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_kvmDpcpuSetcpu((kd?.value ?: 0L), cpu.toInt())
+public actual fun kvmDpcpuSetcpu(kd: MutPtr<KvmT>, cpu: CUint): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdKvmDpcpuSetcpu(kd.rawAddress, cpu.toInt())
 
-public actual fun kvmGetargv(kd: COpaquePointer?, p: COpaquePointer?, nchr: CInt): COpaquePointer? =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_kvmGetargv((kd?.value ?: 0L), (p?.value ?: 0L), nchr).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun kvmGetargv(kd: MutPtr<KvmT>, p: ConstPtr<KinfoProc>, nchr: CInt): MutPtr<MutPtr<CChar>> =
+    MutPtr(UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdKvmGetargv(kd.rawAddress, p.rawAddress, nchr))
 
-public actual fun kvmGetcptime(kd: COpaquePointer?, cpTime: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_kvmGetcptime((kd?.value ?: 0L), (cpTime?.value ?: 0L))
+public actual fun kvmGetcptime(kd: MutPtr<KvmT>, cpTime: MutPtr<CLong>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdKvmGetcptime(kd.rawAddress, cpTime.rawAddress)
 
-public actual fun kvmGetenvv(kd: COpaquePointer?, p: COpaquePointer?, nchr: CInt): COpaquePointer? =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_kvmGetenvv((kd?.value ?: 0L), (p?.value ?: 0L), nchr).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun kvmGetenvv(kd: MutPtr<KvmT>, p: ConstPtr<KinfoProc>, nchr: CInt): MutPtr<MutPtr<CChar>> =
+    MutPtr(UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdKvmGetenvv(kd.rawAddress, p.rawAddress, nchr))
 
-public actual fun kvmGeterr(kd: COpaquePointer?): COpaquePointer? =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_kvmGeterr((kd?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun kvmGeterr(kd: MutPtr<KvmT>): MutPtr<CChar> =
+    MutPtr(UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdKvmGeterr(kd.rawAddress))
 
-public actual fun kvmGetmaxcpu(kd: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_kvmGetmaxcpu((kd?.value ?: 0L))
+public actual fun kvmGetmaxcpu(kd: MutPtr<KvmT>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdKvmGetmaxcpu(kd.rawAddress)
 
-public actual fun kvmGetncpus(kd: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_kvmGetncpus((kd?.value ?: 0L))
+public actual fun kvmGetncpus(kd: MutPtr<KvmT>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdKvmGetncpus(kd.rawAddress)
 
-public actual fun kvmGetpcpu(kd: COpaquePointer?, cpu: CInt): COpaquePointer? =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_kvmGetpcpu((kd?.value ?: 0L), cpu).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun kvmGetpcpu(kd: MutPtr<KvmT>, cpu: CInt): MutPtr<CVoid> =
+    MutPtr(UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdKvmGetpcpu(kd.rawAddress, cpu))
 
-public actual fun kvmCounterU64Fetch(kd: COpaquePointer?, base: CUlong): ULong =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_kvmCounterU64Fetch((kd?.value ?: 0L), base.toLong()).toULong()
+public actual fun kvmCounterU64Fetch(kd: MutPtr<KvmT>, base: CUlong): ULong =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdKvmCounterU64Fetch(kd.rawAddress, base.toLong()).toULong()
 
-public actual fun kvmGetswapinfo(kd: COpaquePointer?, info: COpaquePointer?, maxswap: CInt, flags: CInt): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_kvmGetswapinfo((kd?.value ?: 0L), (info?.value ?: 0L), maxswap, flags)
+public actual fun kvmGetswapinfo(kd: MutPtr<KvmT>, info: MutPtr<KvmSwap>, maxswap: CInt, flags: CInt): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdKvmGetswapinfo(kd.rawAddress, info.rawAddress, maxswap, flags)
 
-public actual fun kvmNative(kd: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_kvmNative((kd?.value ?: 0L))
+public actual fun kvmNative(kd: MutPtr<KvmT>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdKvmNative(kd.rawAddress)
 
-public actual fun kvmNlist(kd: COpaquePointer?, nl: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_kvmNlist((kd?.value ?: 0L), (nl?.value ?: 0L))
+public actual fun kvmNlist(kd: MutPtr<KvmT>, nl: MutPtr<Nlist>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdKvmNlist(kd.rawAddress, nl.rawAddress)
 
-public actual fun kvmNlist2(kd: COpaquePointer?, nl: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_kvmNlist2((kd?.value ?: 0L), (nl?.value ?: 0L))
+public actual fun kvmNlist2(kd: MutPtr<KvmT>, nl: MutPtr<KvmNlist>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdKvmNlist2(kd.rawAddress, nl.rawAddress)
 
-public actual fun kvmReadZpcpu(kd: COpaquePointer?, base: CUlong, buf: COpaquePointer?, size: SizeT, cpu: CInt): SsizeT =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_kvmReadZpcpu((kd?.value ?: 0L), base.toLong(), (buf?.value ?: 0L), size.toLong(), cpu)
+public actual fun kvmReadZpcpu(kd: MutPtr<KvmT>, base: CUlong, buf: MutPtr<CVoid>, size: SizeT, cpu: CInt): SsizeT =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdKvmReadZpcpu(kd.rawAddress, base.toLong(), buf.rawAddress, size.toLong(), cpu)
 
-public actual fun kvmRead2(kd: COpaquePointer?, addr: KvaddrT, buf: COpaquePointer?, nbytes: SizeT): SsizeT =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_kvmRead2((kd?.value ?: 0L), addr.toLong(), (buf?.value ?: 0L), nbytes.toLong())
+public actual fun kvmRead2(kd: MutPtr<KvmT>, addr: KvaddrT, buf: MutPtr<CVoid>, nbytes: SizeT): SsizeT =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdKvmRead2(kd.rawAddress, addr.toLong(), buf.rawAddress, nbytes.toLong())
 
-public actual fun extattrNamespaceToString(attrnamespace: CInt, string: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_extattrNamespaceToString(attrnamespace, (string?.value ?: 0L))
+public actual fun extattrNamespaceToString(attrnamespace: CInt, string: MutPtr<MutPtr<CChar>>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdExtattrNamespaceToString(attrnamespace, string.rawAddress)
 
-public actual fun extattrStringToNamespace(string: String?, attrnamespace: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_extattrStringToNamespace(string, (attrnamespace?.value ?: 0L))
+public actual fun extattrStringToNamespace(string: ConstPtr<CChar>, attrnamespace: MutPtr<CInt>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdExtattrStringToNamespace(string.rawAddress, attrnamespace.rawAddress)
 
-public actual fun realhostname(host: COpaquePointer?, hsize: SizeT, ip: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_realhostname((host?.value ?: 0L), hsize.toLong(), (ip?.value ?: 0L))
+public actual fun realhostname(host: MutPtr<CChar>, hsize: SizeT, ip: ConstPtr<InAddr>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdRealhostname(host.rawAddress, hsize.toLong(), ip.rawAddress)
 
-public actual fun realhostnameSa(host: COpaquePointer?, hsize: SizeT, addr: COpaquePointer?, addrlen: CInt): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_realhostnameSa((host?.value ?: 0L), hsize.toLong(), (addr?.value ?: 0L), addrlen)
+public actual fun realhostnameSa(host: MutPtr<CChar>, hsize: SizeT, addr: MutPtr<Sockaddr>, addrlen: CInt): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdRealhostnameSa(host.rawAddress, hsize.toLong(), addr.rawAddress, addrlen)
 
-public actual fun kldIsloaded(name: String?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_kldIsloaded(name)
+public actual fun kldIsloaded(name: ConstPtr<CChar>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdKldIsloaded(name.rawAddress)
 
-public actual fun kldLoad(name: String?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_kldLoad(name)
+public actual fun kldLoad(name: ConstPtr<CChar>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdKldLoad(name.rawAddress)
 
-public actual fun kinfoGetvmmap(pid: PidT, cntp: COpaquePointer?): COpaquePointer? =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_kinfoGetvmmap(pid, (cntp?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun kinfoGetvmmap(pid: PidT, cntp: MutPtr<CInt>): MutPtr<KinfoVmentry> =
+    MutPtr(UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdKinfoGetvmmap(pid, cntp.rawAddress))
 
-public actual fun hexdump(ptr: COpaquePointer?, length: CInt, hdr: String?, flags: CInt) {
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_hexdump((ptr?.value ?: 0L), length, hdr, flags)
+public actual fun hexdump(ptr: ConstPtr<CVoid>, length: CInt, hdr: ConstPtr<CChar>, flags: CInt) {
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdHexdump(ptr.rawAddress, length, hdr.rawAddress, flags)
 }
 
-public actual fun humanizeNumber(buf: COpaquePointer?, len: SizeT, number: Long, suffix: String?, scale: CInt, flags: CInt): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_humanizeNumber((buf?.value ?: 0L), len.toLong(), number, suffix, scale, flags)
+public actual fun humanizeNumber(buf: MutPtr<CChar>, len: SizeT, number: Long, suffix: ConstPtr<CChar>, scale: CInt, flags: CInt): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdHumanizeNumber(buf.rawAddress, len.toLong(), number, suffix.rawAddress, scale, flags)
 
-public actual fun flopen(path: String?, flags: CInt, vararg variadicArgs: Long): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_flopen(path, flags, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun flopen(path: ConstPtr<CChar>, flags: CInt, vararg variadicArgs: Long): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdFlopen(path.rawAddress, flags, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun flopenat(fd: CInt, path: String?, flags: CInt, vararg variadicArgs: Long): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_flopenat(fd, path, flags, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun flopenat(fd: CInt, path: ConstPtr<CChar>, flags: CInt, vararg variadicArgs: Long): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdFlopenat(fd, path.rawAddress, flags, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun getlocalbase(): COpaquePointer? =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_getlocalbase().let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getlocalbase(): ConstPtr<CChar> =
+    ConstPtr(UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdGetlocalbase())
 
-public actual fun pidfileOpen(path: String?, mode: ModeT, pidptr: COpaquePointer?): COpaquePointer? =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_pidfileOpen(path, mode.toShort(), (pidptr?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun pidfileOpen(path: ConstPtr<CChar>, mode: ModeT, pidptr: MutPtr<PidT>): MutPtr<Pidfh> =
+    MutPtr(UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdPidfileOpen(path.rawAddress, mode.toShort(), pidptr.rawAddress))
 
-public actual fun pidfileWrite(path: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_pidfileWrite((path?.value ?: 0L))
+public actual fun pidfileWrite(path: MutPtr<Pidfh>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdPidfileWrite(path.rawAddress)
 
-public actual fun pidfileClose(path: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_pidfileClose((path?.value ?: 0L))
+public actual fun pidfileClose(path: MutPtr<Pidfh>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdPidfileClose(path.rawAddress)
 
-public actual fun pidfileRemove(path: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_pidfileRemove((path?.value ?: 0L))
+public actual fun pidfileRemove(path: MutPtr<Pidfh>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdPidfileRemove(path.rawAddress)
 
-public actual fun pidfileFileno(path: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_pidfileFileno((path?.value ?: 0L))
+public actual fun pidfileFileno(path: ConstPtr<Pidfh>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdPidfileFileno(path.rawAddress)
 
-public actual fun procstatOpenSysctl(): COpaquePointer? =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_procstatOpenSysctl().let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun procstatOpenSysctl(): MutPtr<Procstat> =
+    MutPtr(UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdProcstatOpenSysctl())
 
-public actual fun procstatGetfiles(procstat: COpaquePointer?, kp: COpaquePointer?, mmapped: CInt): COpaquePointer? =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_procstatGetfiles((procstat?.value ?: 0L), (kp?.value ?: 0L), mmapped).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun procstatGetfiles(procstat: MutPtr<Procstat>, kp: MutPtr<KinfoProc>, mmapped: CInt): MutPtr<FilestatList> =
+    MutPtr(UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdProcstatGetfiles(procstat.rawAddress, kp.rawAddress, mmapped))
 
-public actual fun procstatFreefiles(procstat: COpaquePointer?, head: COpaquePointer?) {
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_procstatFreefiles((procstat?.value ?: 0L), (head?.value ?: 0L))
+public actual fun procstatFreefiles(procstat: MutPtr<Procstat>, head: MutPtr<FilestatList>) {
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdProcstatFreefiles(procstat.rawAddress, head.rawAddress)
 }
 
-public actual fun procstatGetprocs(procstat: COpaquePointer?, what: CInt, arg: CInt, count: COpaquePointer?): COpaquePointer? =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_procstatGetprocs((procstat?.value ?: 0L), what, arg, (count?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun procstatGetprocs(procstat: MutPtr<Procstat>, what: CInt, arg: CInt, count: MutPtr<CUint>): MutPtr<KinfoProc> =
+    MutPtr(UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdProcstatGetprocs(procstat.rawAddress, what, arg, count.rawAddress))
 
-public actual fun procstatFreeprocs(procstat: COpaquePointer?, p: COpaquePointer?) {
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_procstatFreeprocs((procstat?.value ?: 0L), (p?.value ?: 0L))
+public actual fun procstatFreeprocs(procstat: MutPtr<Procstat>, p: MutPtr<KinfoProc>) {
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdProcstatFreeprocs(procstat.rawAddress, p.rawAddress)
 }
 
-public actual fun procstatGetvmmap(procstat: COpaquePointer?, kp: COpaquePointer?, count: COpaquePointer?): COpaquePointer? =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_procstatGetvmmap((procstat?.value ?: 0L), (kp?.value ?: 0L), (count?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun procstatGetvmmap(procstat: MutPtr<Procstat>, kp: MutPtr<KinfoProc>, count: MutPtr<CUint>): MutPtr<KinfoVmentry> =
+    MutPtr(UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdProcstatGetvmmap(procstat.rawAddress, kp.rawAddress, count.rawAddress))
 
-public actual fun procstatFreevmmap(procstat: COpaquePointer?, vmmap: COpaquePointer?) {
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_procstatFreevmmap((procstat?.value ?: 0L), (vmmap?.value ?: 0L))
+public actual fun procstatFreevmmap(procstat: MutPtr<Procstat>, vmmap: MutPtr<KinfoVmentry>) {
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdProcstatFreevmmap(procstat.rawAddress, vmmap.rawAddress)
 }
 
-public actual fun procstatClose(procstat: COpaquePointer?) {
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_procstatClose((procstat?.value ?: 0L))
+public actual fun procstatClose(procstat: MutPtr<Procstat>) {
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdProcstatClose(procstat.rawAddress)
 }
 
-public actual fun procstatFreeargv(procstat: COpaquePointer?) {
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_procstatFreeargv((procstat?.value ?: 0L))
+public actual fun procstatFreeargv(procstat: MutPtr<Procstat>) {
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdProcstatFreeargv(procstat.rawAddress)
 }
 
-public actual fun procstatFreeenvv(procstat: COpaquePointer?) {
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_procstatFreeenvv((procstat?.value ?: 0L))
+public actual fun procstatFreeenvv(procstat: MutPtr<Procstat>) {
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdProcstatFreeenvv(procstat.rawAddress)
 }
 
-public actual fun procstatFreegroups(procstat: COpaquePointer?, groups: COpaquePointer?) {
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_procstatFreegroups((procstat?.value ?: 0L), (groups?.value ?: 0L))
+public actual fun procstatFreegroups(procstat: MutPtr<Procstat>, groups: MutPtr<GidT>) {
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdProcstatFreegroups(procstat.rawAddress, groups.rawAddress)
 }
 
-public actual fun procstatFreeptlwpinfo(procstat: COpaquePointer?, pl: COpaquePointer?) {
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_procstatFreeptlwpinfo((procstat?.value ?: 0L), (pl?.value ?: 0L))
+public actual fun procstatFreeptlwpinfo(procstat: MutPtr<Procstat>, pl: MutPtr<PtraceLwpinfo>) {
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdProcstatFreeptlwpinfo(procstat.rawAddress, pl.rawAddress)
 }
 
-public actual fun procstatGetargv(procstat: COpaquePointer?, kp: COpaquePointer?, nchr: SizeT): COpaquePointer? =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_procstatGetargv((procstat?.value ?: 0L), (kp?.value ?: 0L), nchr.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun procstatGetargv(procstat: MutPtr<Procstat>, kp: MutPtr<KinfoProc>, nchr: SizeT): MutPtr<MutPtr<CChar>> =
+    MutPtr(UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdProcstatGetargv(procstat.rawAddress, kp.rawAddress, nchr.toLong()))
 
-public actual fun procstatGetenvv(procstat: COpaquePointer?, kp: COpaquePointer?, nchr: SizeT): COpaquePointer? =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_procstatGetenvv((procstat?.value ?: 0L), (kp?.value ?: 0L), nchr.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun procstatGetenvv(procstat: MutPtr<Procstat>, kp: MutPtr<KinfoProc>, nchr: SizeT): MutPtr<MutPtr<CChar>> =
+    MutPtr(UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdProcstatGetenvv(procstat.rawAddress, kp.rawAddress, nchr.toLong()))
 
-public actual fun procstatGetgroups(procstat: COpaquePointer?, kp: COpaquePointer?, count: COpaquePointer?): COpaquePointer? =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_procstatGetgroups((procstat?.value ?: 0L), (kp?.value ?: 0L), (count?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun procstatGetgroups(procstat: MutPtr<Procstat>, kp: MutPtr<KinfoProc>, count: MutPtr<CUint>): MutPtr<GidT> =
+    MutPtr(UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdProcstatGetgroups(procstat.rawAddress, kp.rawAddress, count.rawAddress))
 
-public actual fun procstatGetosrel(procstat: COpaquePointer?, kp: COpaquePointer?, osrelp: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_procstatGetosrel((procstat?.value ?: 0L), (kp?.value ?: 0L), (osrelp?.value ?: 0L))
+public actual fun procstatGetosrel(procstat: MutPtr<Procstat>, kp: MutPtr<KinfoProc>, osrelp: MutPtr<CInt>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdProcstatGetosrel(procstat.rawAddress, kp.rawAddress, osrelp.rawAddress)
 
-public actual fun procstatGetpathname(procstat: COpaquePointer?, kp: COpaquePointer?, pathname: COpaquePointer?, maxlen: SizeT): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_procstatGetpathname((procstat?.value ?: 0L), (kp?.value ?: 0L), (pathname?.value ?: 0L), maxlen.toLong())
+public actual fun procstatGetpathname(procstat: MutPtr<Procstat>, kp: MutPtr<KinfoProc>, pathname: MutPtr<CChar>, maxlen: SizeT): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdProcstatGetpathname(procstat.rawAddress, kp.rawAddress, pathname.rawAddress, maxlen.toLong())
 
-public actual fun procstatGetrlimit(procstat: COpaquePointer?, kp: COpaquePointer?, which: CInt, rlimit: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_procstatGetrlimit((procstat?.value ?: 0L), (kp?.value ?: 0L), which, (rlimit?.value ?: 0L))
+public actual fun procstatGetrlimit(procstat: MutPtr<Procstat>, kp: MutPtr<KinfoProc>, which: CInt, rlimit: MutPtr<Rlimit>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdProcstatGetrlimit(procstat.rawAddress, kp.rawAddress, which, rlimit.rawAddress)
 
-public actual fun procstatGetumask(procstat: COpaquePointer?, kp: COpaquePointer?, maskp: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_procstatGetumask((procstat?.value ?: 0L), (kp?.value ?: 0L), (maskp?.value ?: 0L))
+public actual fun procstatGetumask(procstat: MutPtr<Procstat>, kp: MutPtr<KinfoProc>, maskp: MutPtr<CUshort>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdProcstatGetumask(procstat.rawAddress, kp.rawAddress, maskp.rawAddress)
 
-public actual fun procstatOpenCore(filename: String?): COpaquePointer? =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_procstatOpenCore(filename).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun procstatOpenCore(filename: ConstPtr<CChar>): MutPtr<Procstat> =
+    MutPtr(UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdProcstatOpenCore(filename.rawAddress))
 
-public actual fun procstatOpenKvm(nlistf: String?, memf: String?): COpaquePointer? =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_procstatOpenKvm(nlistf, memf).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun procstatOpenKvm(nlistf: ConstPtr<CChar>, memf: ConstPtr<CChar>): MutPtr<Procstat> =
+    MutPtr(UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdProcstatOpenKvm(nlistf.rawAddress, memf.rawAddress))
 
-public actual fun procstatGetSocketInfo(proc: COpaquePointer?, fst: COpaquePointer?, sock: COpaquePointer?, errbuf: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_procstatGetSocketInfo((proc?.value ?: 0L), (fst?.value ?: 0L), (sock?.value ?: 0L), (errbuf?.value ?: 0L))
+public actual fun procstatGetSocketInfo(proc: MutPtr<Procstat>, fst: MutPtr<Filestat>, sock: MutPtr<Sockstat>, errbuf: MutPtr<CChar>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdProcstatGetSocketInfo(proc.rawAddress, fst.rawAddress, sock.rawAddress, errbuf.rawAddress)
 
-public actual fun procstatGetVnodeInfo(proc: COpaquePointer?, fst: COpaquePointer?, vn: COpaquePointer?, errbuf: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_procstatGetVnodeInfo((proc?.value ?: 0L), (fst?.value ?: 0L), (vn?.value ?: 0L), (errbuf?.value ?: 0L))
+public actual fun procstatGetVnodeInfo(proc: MutPtr<Procstat>, fst: MutPtr<Filestat>, vn: MutPtr<Vnstat>, errbuf: MutPtr<CChar>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdProcstatGetVnodeInfo(proc.rawAddress, fst.rawAddress, vn.rawAddress, errbuf.rawAddress)
 
-public actual fun procstatGetPtsInfo(proc: COpaquePointer?, fst: COpaquePointer?, pts: COpaquePointer?, errbuf: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_procstatGetPtsInfo((proc?.value ?: 0L), (fst?.value ?: 0L), (pts?.value ?: 0L), (errbuf?.value ?: 0L))
+public actual fun procstatGetPtsInfo(proc: MutPtr<Procstat>, fst: MutPtr<Filestat>, pts: MutPtr<Ptsstat>, errbuf: MutPtr<CChar>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdProcstatGetPtsInfo(proc.rawAddress, fst.rawAddress, pts.rawAddress, errbuf.rawAddress)
 
-public actual fun procstatGetShmInfo(proc: COpaquePointer?, fst: COpaquePointer?, shm: COpaquePointer?, errbuf: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_procstatGetShmInfo((proc?.value ?: 0L), (fst?.value ?: 0L), (shm?.value ?: 0L), (errbuf?.value ?: 0L))
+public actual fun procstatGetShmInfo(proc: MutPtr<Procstat>, fst: MutPtr<Filestat>, shm: MutPtr<Shmstat>, errbuf: MutPtr<CChar>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdProcstatGetShmInfo(proc.rawAddress, fst.rawAddress, shm.rawAddress, errbuf.rawAddress)
 
-public actual fun timerCreate(clockId: ClockidT, evp: COpaquePointer?, timerid: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_timerCreate(clockId, (evp?.value ?: 0L), (timerid?.value ?: 0L))
+public actual fun timerCreate(clockId: ClockidT, evp: MutPtr<Sigevent>, timerid: MutPtr<TimerT>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdTimerCreate(clockId, evp.rawAddress, timerid.rawAddress)
 
 public actual fun timerDelete(timerid: TimerT): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_timerDelete((timerid?.value ?: 0L))
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdTimerDelete(timerid.rawAddress)
 
 public actual fun timerGetoverrun(timerid: TimerT): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_timerGetoverrun((timerid?.value ?: 0L))
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdTimerGetoverrun(timerid.rawAddress)
 
-public actual fun timerGettime(timerid: TimerT, value: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_timerGettime((timerid?.value ?: 0L), (value?.value ?: 0L))
+public actual fun timerGettime(timerid: TimerT, value: MutPtr<Itimerspec>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdTimerGettime(timerid.rawAddress, value.rawAddress)
 
-public actual fun timerSettime(timerid: TimerT, flags: CInt, value: COpaquePointer?, ovalue: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_timerSettime((timerid?.value ?: 0L), flags, (value?.value ?: 0L), (ovalue?.value ?: 0L))
+public actual fun timerSettime(timerid: TimerT, flags: CInt, value: ConstPtr<Itimerspec>, ovalue: MutPtr<Itimerspec>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdTimerSettime(timerid.rawAddress, flags, value.rawAddress, ovalue.rawAddress)
 
-public actual fun devstatGetnumdevs(kd: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_devstatGetnumdevs((kd?.value ?: 0L))
+public actual fun devstatGetnumdevs(kd: MutPtr<KvmT>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdDevstatGetnumdevs(kd.rawAddress)
 
-public actual fun devstatGetgeneration(kd: COpaquePointer?): CLong =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_devstatGetgeneration((kd?.value ?: 0L))
+public actual fun devstatGetgeneration(kd: MutPtr<KvmT>): CLong =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdDevstatGetgeneration(kd.rawAddress)
 
-public actual fun devstatGetversion(kd: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_devstatGetversion((kd?.value ?: 0L))
+public actual fun devstatGetversion(kd: MutPtr<KvmT>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdDevstatGetversion(kd.rawAddress)
 
-public actual fun devstatCheckversion(kd: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_devstatCheckversion((kd?.value ?: 0L))
+public actual fun devstatCheckversion(kd: MutPtr<KvmT>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdDevstatCheckversion(kd.rawAddress)
 
-public actual fun devstatSelectdevs(devSelect: COpaquePointer?, numSelected: COpaquePointer?, numSelections: COpaquePointer?, selectGeneration: COpaquePointer?, currentGeneration: CLong, devices: COpaquePointer?, numdevs: CInt, matches: COpaquePointer?, numMatches: CInt, devSelections: COpaquePointer?, numDevSelections: CInt, selectMode: DevstatSelectMode, maxshowdevs: CInt, perfSelect: CInt): CInt =
+public actual fun devstatSelectdevs(devSelect: MutPtr<MutPtr<DeviceSelection>>, numSelected: MutPtr<CInt>, numSelections: MutPtr<CInt>, selectGeneration: MutPtr<CLong>, currentGeneration: CLong, devices: MutPtr<Devstat>, numdevs: CInt, matches: MutPtr<DevstatMatch>, numMatches: CInt, devSelections: MutPtr<MutPtr<CChar>>, numDevSelections: CInt, selectMode: DevstatSelectMode, maxshowdevs: CInt, perfSelect: CInt): CInt =
     0
 
-public actual fun devstatBuildmatch(matchStr: COpaquePointer?, matches: COpaquePointer?, numMatches: COpaquePointer?): CInt =
-    UnixBsdFreebsdlikeFreebsdJniBridge.libc_unix_bsd_freebsdlike_freebsd_devstatBuildmatch((matchStr?.value ?: 0L), (matches?.value ?: 0L), (numMatches?.value ?: 0L))
+public actual fun devstatBuildmatch(matchStr: MutPtr<CChar>, matches: MutPtr<MutPtr<DevstatMatch>>, numMatches: MutPtr<CInt>): CInt =
+    UnixBsdFreebsdlikeFreebsdJniBridge.libcUnixBsdFreebsdlikeFreebsdDevstatBuildmatch(matchStr.rawAddress, matches.rawAddress, numMatches.rawAddress)

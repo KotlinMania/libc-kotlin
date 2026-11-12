@@ -1,17 +1,19 @@
 package io.github.kotlinmania.libc.unix.aix
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CLonglong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
-public typealias CaddrT = COpaquePointer?
+public typealias CaddrT = MutPtr<CChar>
 
 public typealias ClockidT = CLonglong
 
@@ -103,19 +105,19 @@ public typealias PollsetT = CInt
 
 public typealias SctpAssocT = CUint
 
-public typealias PthreadRwlockattrT = COpaquePointer?
+public typealias PthreadRwlockattrT = MutPtr<CVoid>
 
-public typealias PthreadCondattrT = COpaquePointer?
+public typealias PthreadCondattrT = MutPtr<CVoid>
 
-public typealias PthreadMutexattrT = COpaquePointer?
+public typealias PthreadMutexattrT = MutPtr<CVoid>
 
-public typealias PthreadAttrT = COpaquePointer?
+public typealias PthreadAttrT = MutPtr<CVoid>
 
-public typealias PthreadBarrierattrT = COpaquePointer?
+public typealias PthreadBarrierattrT = MutPtr<CVoid>
 
-public typealias PosixSpawnFileActionsT = COpaquePointer?
+public typealias PosixSpawnFileActionsT = MutPtr<CChar>
 
-public typealias IconvT = COpaquePointer?
+public typealias IconvT = MutPtr<CVoid>
 
 public enum class UioRw(
     public val value: UInt,

@@ -2,523 +2,542 @@
 
 package io.github.kotlinmania.libc.unix.linuxlike.linux
 
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
+import io.github.kotlinmania.libc.CUshort
 import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.GidT
+import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.PidT
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.Timeval
 import io.github.kotlinmania.libc.unix.UidT
 import io.github.kotlinmania.libc.unix.linuxlike.ClockidT
+import io.github.kotlinmania.libc.unix.linuxlike.CpuSetT
+import io.github.kotlinmania.libc.unix.linuxlike.EpollEvent
+import io.github.kotlinmania.libc.unix.linuxlike.Fpos64T
+import io.github.kotlinmania.libc.unix.linuxlike.Itimerspec
 import io.github.kotlinmania.libc.unix.linuxlike.KeyT
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_accept4
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_clockNanosleep
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_clone
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_dup3
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_epollCreate
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_epollCreate1
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_epollCtl
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_epollPwait
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_epollWait
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_eventfd
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_eventfdRead
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_eventfdWrite
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_fallocate
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_fallocate64
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_fanotifyInit
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_fgetpos64
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_fgetxattr
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_flistxattr
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_fopen64
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_freadUnlocked
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_fremovexattr
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_fsetxattr
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_ftok
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_getdtablesize
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_getgrouplist
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_gethostid
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_getspnamR
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_getxattr
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_inotifyAddWatch
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_inotifyInit
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_inotifyInit1
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_inotifyRmWatch
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_klogctl
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_lcong48
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_lgetxattr
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_listxattr
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_llistxattr
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_lremovexattr
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_lsetxattr
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_lutimes
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_mkfifoat
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_mkstemps
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_mqClose
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_mqGetattr
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_mqOpen
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_mqReceive
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_mqSend
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_mqSetattr
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_mqTimedreceive
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_mqTimedsend
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_mqUnlink
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_mrand48
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_msgctl
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_msgget
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_msgrcv
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_msgsnd
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_personality
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_posixFallocate
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_posixFallocate64
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_posixMadvise
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_posixSpawn
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_posixSpawnFileActionsAddclose
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_posixSpawnFileActionsAdddup2
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_posixSpawnFileActionsAddopen
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_posixSpawnFileActionsDestroy
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_posixSpawnFileActionsInit
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_posixSpawnattrDestroy
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_posixSpawnattrGetflags
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_posixSpawnattrGetpgroup
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_posixSpawnattrGetschedparam
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_posixSpawnattrGetschedpolicy
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_posixSpawnattrGetsigdefault
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_posixSpawnattrGetsigmask
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_posixSpawnattrInit
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_posixSpawnattrSetflags
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_posixSpawnattrSetpgroup
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_posixSpawnattrSetschedparam
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_posixSpawnattrSetschedpolicy
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_posixSpawnattrSetsigdefault
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_posixSpawnattrSetsigmask
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_posixSpawnp
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_quotactl
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_readahead
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_reboot
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_remapFilePages
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_removexattr
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_schedGetparam
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_schedGetscheduler
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_schedRrGetInterval
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_schedSetaffinity
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_schedSetparam
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_schedSetscheduler
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_seed48
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_semctl
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_semget
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_semop
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_sendfile
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_sendfile64
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_setfsgid
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_setfsuid
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_setns
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_setxattr
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_shmOpen
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_shmUnlink
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_sigaltstack
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_signalfd
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_sigtimedwait
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_sigwaitinfo
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_splice
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_swapoff
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_swapon
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_sync
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_syncFileRange
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_syncfs
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_syscall
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_tee
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_timerfdCreate
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_timerfdGettime
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_timerfdSettime
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_tmpfile64
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_umount
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_umount2
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_unshare
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_vhangup
-import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libc_unix_linuxlike_linux_vmsplice
+import io.github.kotlinmania.libc.unix.linuxlike.SchedParam
+import io.github.kotlinmania.libc.unix.linuxlike.Sembuf
+import io.github.kotlinmania.libc.unix.linuxlike.Sockaddr
+import io.github.kotlinmania.libc.unix.linuxlike.Spwd
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxAccept4
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxClockNanosleep
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxClone
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxDup3
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxEpollCreate
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxEpollCreate1
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxEpollCtl
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxEpollPwait
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxEpollWait
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxEventfd
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxEventfdRead
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxEventfdWrite
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxFallocate
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxFallocate64
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxFanotifyInit
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxFgetpos64
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxFgetxattr
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxFlistxattr
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxFopen64
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxFreadUnlocked
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxFremovexattr
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxFsetxattr
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxFtok
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxGetdtablesize
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxGetgrouplist
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxGethostid
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxGetspnamR
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxGetxattr
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxInotifyAddWatch
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxInotifyInit
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxInotifyInit1
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxInotifyRmWatch
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxKlogctl
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxLcong48
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxLgetxattr
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxListxattr
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxLlistxattr
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxLremovexattr
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxLsetxattr
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxLutimes
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxMkfifoat
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxMkstemps
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxMqClose
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxMqGetattr
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxMqOpen
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxMqReceive
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxMqSend
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxMqSetattr
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxMqTimedreceive
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxMqTimedsend
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxMqUnlink
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxMrand48
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxMsgctl
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxMsgget
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxMsgrcv
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxMsgsnd
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxPersonality
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxPosixFallocate
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxPosixFallocate64
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxPosixMadvise
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxPosixSpawn
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxPosixSpawnFileActionsAddclose
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxPosixSpawnFileActionsAdddup2
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxPosixSpawnFileActionsAddopen
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxPosixSpawnFileActionsDestroy
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxPosixSpawnFileActionsInit
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxPosixSpawnattrDestroy
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxPosixSpawnattrGetflags
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxPosixSpawnattrGetpgroup
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxPosixSpawnattrGetschedparam
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxPosixSpawnattrGetschedpolicy
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxPosixSpawnattrGetsigdefault
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxPosixSpawnattrGetsigmask
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxPosixSpawnattrInit
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxPosixSpawnattrSetflags
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxPosixSpawnattrSetpgroup
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxPosixSpawnattrSetschedparam
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxPosixSpawnattrSetschedpolicy
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxPosixSpawnattrSetsigdefault
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxPosixSpawnattrSetsigmask
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxPosixSpawnp
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxQuotactl
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxReadahead
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxReboot
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxRemapFilePages
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxRemovexattr
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxSchedGetparam
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxSchedGetscheduler
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxSchedRrGetInterval
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxSchedSetaffinity
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxSchedSetparam
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxSchedSetscheduler
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxSeed48
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxSemctl
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxSemget
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxSemop
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxSendfile
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxSendfile64
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxSetfsgid
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxSetfsuid
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxSetns
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxSetxattr
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxShmOpen
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxShmUnlink
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxSigaltstack
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxSignalfd
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxSigtimedwait
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxSigwaitinfo
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxSplice
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxSwapoff
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxSwapon
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxSync
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxSyncFileRange
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxSyncfs
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxSyscall
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxTee
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxTimerfdCreate
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxTimerfdGettime
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxTimerfdSettime
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxTmpfile64
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxUmount
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxUmount2
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxUnshare
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxVhangup
+import io.github.kotlinmania.libc.unix.linuxlike.linux.cinterop.libcUnixLinuxlikeLinuxVmsplice
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.MsqidDs
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.OffT
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.SigsetT
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.SiginfoT
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.StackT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
 
-public actual fun getspnamR(name: String?, spbuf: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, spbufp: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_getspnamR(name, spbuf?.value?.toCPointer<ByteVar>(), buf?.value?.toCPointer<ByteVar>(), buflen, spbufp?.value?.toCPointer<ByteVar>())
+public actual fun getspnamR(name: ConstPtr<CChar>, spbuf: MutPtr<Spwd>, buf: MutPtr<CChar>, buflen: SizeT, spbufp: MutPtr<MutPtr<Spwd>>): CInt =
+    libcUnixLinuxlikeLinuxGetspnamR(name.rawAddress.toCPointer<ByteVar>(), spbuf.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>(), buflen, spbufp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
-    (libc_unix_linuxlike_linux_mqOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.toLong() ?: 0L).toInt()
+public actual fun mqOpen(name: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): MqdT =
+    (libcUnixLinuxlikeLinuxMqOpen(name.rawAddress.toCPointer<ByteVar>(), oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.toLong() ?: 0L).toInt()
 
 public actual fun mqClose(mqd: MqdT): CInt =
-    libc_unix_linuxlike_linux_mqClose(mqd.toLong().toCPointer<ByteVar>())
+    libcUnixLinuxlikeLinuxMqClose(mqd.toLong().toCPointer<ByteVar>())
 
-public actual fun mqUnlink(name: String?): CInt =
-    libc_unix_linuxlike_linux_mqUnlink(name)
+public actual fun mqUnlink(name: ConstPtr<CChar>): CInt =
+    libcUnixLinuxlikeLinuxMqUnlink(name.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mqReceive(mqd: MqdT, msgPtr: COpaquePointer?, msgLen: SizeT, msgPrio: COpaquePointer?): SsizeT =
-    libc_unix_linuxlike_linux_mqReceive(mqd.toLong().toCPointer<ByteVar>(), msgPtr?.value?.toCPointer<ByteVar>(), msgLen, msgPrio?.value?.toCPointer<ByteVar>())
+public actual fun mqReceive(mqd: MqdT, msgPtr: MutPtr<CChar>, msgLen: SizeT, msgPrio: MutPtr<CUint>): SsizeT =
+    libcUnixLinuxlikeLinuxMqReceive(mqd.toLong().toCPointer<ByteVar>(), msgPtr.rawAddress.toCPointer<ByteVar>(), msgLen, msgPrio.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mqTimedreceive(mqd: MqdT, msgPtr: COpaquePointer?, msgLen: SizeT, msgPrio: COpaquePointer?, absTimeout: COpaquePointer?): SsizeT =
-    libc_unix_linuxlike_linux_mqTimedreceive(mqd.toLong().toCPointer<ByteVar>(), msgPtr?.value?.toCPointer<ByteVar>(), msgLen, msgPrio?.value?.toCPointer<ByteVar>(), absTimeout?.value?.toCPointer<ByteVar>())
+public actual fun mqTimedreceive(mqd: MqdT, msgPtr: MutPtr<CChar>, msgLen: SizeT, msgPrio: MutPtr<CUint>, absTimeout: ConstPtr<Timespec>): SsizeT =
+    libcUnixLinuxlikeLinuxMqTimedreceive(mqd.toLong().toCPointer<ByteVar>(), msgPtr.rawAddress.toCPointer<ByteVar>(), msgLen, msgPrio.rawAddress.toCPointer<ByteVar>(), absTimeout.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mqSend(mqd: MqdT, msgPtr: String?, msgLen: SizeT, msgPrio: CUint): CInt =
-    libc_unix_linuxlike_linux_mqSend(mqd.toLong().toCPointer<ByteVar>(), msgPtr, msgLen, msgPrio)
+public actual fun mqSend(mqd: MqdT, msgPtr: ConstPtr<CChar>, msgLen: SizeT, msgPrio: CUint): CInt =
+    libcUnixLinuxlikeLinuxMqSend(mqd.toLong().toCPointer<ByteVar>(), msgPtr.rawAddress.toCPointer<ByteVar>(), msgLen, msgPrio)
 
-public actual fun mqTimedsend(mqd: MqdT, msgPtr: String?, msgLen: SizeT, msgPrio: CUint, absTimeout: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_mqTimedsend(mqd.toLong().toCPointer<ByteVar>(), msgPtr, msgLen, msgPrio, absTimeout?.value?.toCPointer<ByteVar>())
+public actual fun mqTimedsend(mqd: MqdT, msgPtr: ConstPtr<CChar>, msgLen: SizeT, msgPrio: CUint, absTimeout: ConstPtr<Timespec>): CInt =
+    libcUnixLinuxlikeLinuxMqTimedsend(mqd.toLong().toCPointer<ByteVar>(), msgPtr.rawAddress.toCPointer<ByteVar>(), msgLen, msgPrio, absTimeout.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mqGetattr(mqd: MqdT, attr: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_mqGetattr(mqd.toLong().toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>())
+public actual fun mqGetattr(mqd: MqdT, attr: MutPtr<MqAttr>): CInt =
+    libcUnixLinuxlikeLinuxMqGetattr(mqd.toLong().toCPointer<ByteVar>(), attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mqSetattr(mqd: MqdT, newattr: COpaquePointer?, oldattr: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_mqSetattr(mqd.toLong().toCPointer<ByteVar>(), newattr?.value?.toCPointer<ByteVar>(), oldattr?.value?.toCPointer<ByteVar>())
+public actual fun mqSetattr(mqd: MqdT, newattr: ConstPtr<MqAttr>, oldattr: MutPtr<MqAttr>): CInt =
+    libcUnixLinuxlikeLinuxMqSetattr(mqd.toLong().toCPointer<ByteVar>(), newattr.rawAddress.toCPointer<ByteVar>(), oldattr.rawAddress.toCPointer<ByteVar>())
 
 public actual fun mrand48(): CLong =
-    libc_unix_linuxlike_linux_mrand48()
+    libcUnixLinuxlikeLinuxMrand48()
 
-public actual fun seed48(xseed: COpaquePointer?): COpaquePointer? =
-    libc_unix_linuxlike_linux_seed48(xseed?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun seed48(xseed: MutPtr<CUshort>): MutPtr<CUshort> =
+    MutPtr(libcUnixLinuxlikeLinuxSeed48(xseed.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun lcong48(p: COpaquePointer?) {
-    libc_unix_linuxlike_linux_lcong48(p?.value?.toCPointer<ByteVar>())
+public actual fun lcong48(p: MutPtr<CUshort>) {
+    libcUnixLinuxlikeLinuxLcong48(p.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun lutimes(file: String?, times: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_lutimes(file, times?.value?.toCPointer<ByteVar>())
+public actual fun lutimes(file: ConstPtr<CChar>, times: ConstPtr<Timeval>): CInt =
+    libcUnixLinuxlikeLinuxLutimes(file.rawAddress.toCPointer<ByteVar>(), times.rawAddress.toCPointer<ByteVar>())
 
-public actual fun shmOpen(name: String?, oflag: CInt, mode: ModeT): CInt =
-    libc_unix_linuxlike_linux_shmOpen(name, oflag, mode)
+public actual fun shmOpen(name: ConstPtr<CChar>, oflag: CInt, mode: ModeT): CInt =
+    libcUnixLinuxlikeLinuxShmOpen(name.rawAddress.toCPointer<ByteVar>(), oflag, mode)
 
-public actual fun shmUnlink(name: String?): CInt =
-    libc_unix_linuxlike_linux_shmUnlink(name)
+public actual fun shmUnlink(name: ConstPtr<CChar>): CInt =
+    libcUnixLinuxlikeLinuxShmUnlink(name.rawAddress.toCPointer<ByteVar>())
 
-public actual fun ftok(pathname: String?, projId: CInt): KeyT =
-    libc_unix_linuxlike_linux_ftok(pathname, projId)
+public actual fun ftok(pathname: ConstPtr<CChar>, projId: CInt): KeyT =
+    libcUnixLinuxlikeLinuxFtok(pathname.rawAddress.toCPointer<ByteVar>(), projId)
 
 public actual fun semget(key: KeyT, nsems: CInt, semflag: CInt): CInt =
-    libc_unix_linuxlike_linux_semget(key, nsems, semflag)
+    libcUnixLinuxlikeLinuxSemget(key, nsems, semflag)
 
-public actual fun semop(semid: CInt, sops: COpaquePointer?, nsops: SizeT): CInt =
-    libc_unix_linuxlike_linux_semop(semid, sops?.value?.toCPointer<ByteVar>(), nsops)
+public actual fun semop(semid: CInt, sops: MutPtr<Sembuf>, nsops: SizeT): CInt =
+    libcUnixLinuxlikeLinuxSemop(semid, sops.rawAddress.toCPointer<ByteVar>(), nsops)
 
 public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
-    libc_unix_linuxlike_linux_semctl(semid, semnum, cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+    libcUnixLinuxlikeLinuxSemctl(semid, semnum, cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun msgctl(msqid: CInt, cmd: CInt, buf: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_msgctl(msqid, cmd, buf?.value?.toCPointer<ByteVar>())
+public actual fun msgctl(msqid: CInt, cmd: CInt, buf: MutPtr<MsqidDs>): CInt =
+    libcUnixLinuxlikeLinuxMsgctl(msqid, cmd, buf.rawAddress.toCPointer<ByteVar>())
 
 public actual fun msgget(key: KeyT, msgflg: CInt): CInt =
-    libc_unix_linuxlike_linux_msgget(key, msgflg)
+    libcUnixLinuxlikeLinuxMsgget(key, msgflg)
 
-public actual fun msgrcv(msqid: CInt, msgp: COpaquePointer?, msgsz: SizeT, msgtyp: CLong, msgflg: CInt): SsizeT =
-    libc_unix_linuxlike_linux_msgrcv(msqid, msgp?.value?.toCPointer<ByteVar>(), msgsz, msgtyp, msgflg)
+public actual fun msgrcv(msqid: CInt, msgp: MutPtr<CVoid>, msgsz: SizeT, msgtyp: CLong, msgflg: CInt): SsizeT =
+    libcUnixLinuxlikeLinuxMsgrcv(msqid, msgp.rawAddress.toCPointer<ByteVar>(), msgsz, msgtyp, msgflg)
 
-public actual fun msgsnd(msqid: CInt, msgp: COpaquePointer?, msgsz: SizeT, msgflg: CInt): CInt =
-    libc_unix_linuxlike_linux_msgsnd(msqid, msgp?.value?.toCPointer<ByteVar>(), msgsz, msgflg)
+public actual fun msgsnd(msqid: CInt, msgp: ConstPtr<CVoid>, msgsz: SizeT, msgflg: CInt): CInt =
+    libcUnixLinuxlikeLinuxMsgsnd(msqid, msgp.rawAddress.toCPointer<ByteVar>(), msgsz, msgflg)
 
 public actual fun fallocate(fd: CInt, mode: CInt, offset: OffT, len: OffT): CInt =
-    libc_unix_linuxlike_linux_fallocate(fd, mode, offset, len)
+    libcUnixLinuxlikeLinuxFallocate(fd, mode, offset, len)
 
 public actual fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt =
-    libc_unix_linuxlike_linux_posixFallocate(fd, offset, len)
+    libcUnixLinuxlikeLinuxPosixFallocate(fd, offset, len)
 
 public actual fun readahead(fd: CInt, offset: Off64T, count: SizeT): SsizeT =
-    libc_unix_linuxlike_linux_readahead(fd, offset, count)
+    libcUnixLinuxlikeLinuxReadahead(fd, offset, count)
 
-public actual fun getxattr(path: String?, name: String?, value: COpaquePointer?, size: SizeT): SsizeT =
-    libc_unix_linuxlike_linux_getxattr(path, name, value?.value?.toCPointer<ByteVar>(), size)
+public actual fun getxattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>, value: MutPtr<CVoid>, size: SizeT): SsizeT =
+    libcUnixLinuxlikeLinuxGetxattr(path.rawAddress.toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>(), size)
 
-public actual fun lgetxattr(path: String?, name: String?, value: COpaquePointer?, size: SizeT): SsizeT =
-    libc_unix_linuxlike_linux_lgetxattr(path, name, value?.value?.toCPointer<ByteVar>(), size)
+public actual fun lgetxattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>, value: MutPtr<CVoid>, size: SizeT): SsizeT =
+    libcUnixLinuxlikeLinuxLgetxattr(path.rawAddress.toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>(), size)
 
-public actual fun fgetxattr(filedes: CInt, name: String?, value: COpaquePointer?, size: SizeT): SsizeT =
-    libc_unix_linuxlike_linux_fgetxattr(filedes, name, value?.value?.toCPointer<ByteVar>(), size)
+public actual fun fgetxattr(filedes: CInt, name: ConstPtr<CChar>, value: MutPtr<CVoid>, size: SizeT): SsizeT =
+    libcUnixLinuxlikeLinuxFgetxattr(filedes, name.rawAddress.toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>(), size)
 
-public actual fun setxattr(path: String?, name: String?, value: COpaquePointer?, size: SizeT, flags: CInt): CInt =
-    libc_unix_linuxlike_linux_setxattr(path, name, value?.value?.toCPointer<ByteVar>(), size, flags)
+public actual fun setxattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>, value: ConstPtr<CVoid>, size: SizeT, flags: CInt): CInt =
+    libcUnixLinuxlikeLinuxSetxattr(path.rawAddress.toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>(), size, flags)
 
-public actual fun lsetxattr(path: String?, name: String?, value: COpaquePointer?, size: SizeT, flags: CInt): CInt =
-    libc_unix_linuxlike_linux_lsetxattr(path, name, value?.value?.toCPointer<ByteVar>(), size, flags)
+public actual fun lsetxattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>, value: ConstPtr<CVoid>, size: SizeT, flags: CInt): CInt =
+    libcUnixLinuxlikeLinuxLsetxattr(path.rawAddress.toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>(), size, flags)
 
-public actual fun fsetxattr(filedes: CInt, name: String?, value: COpaquePointer?, size: SizeT, flags: CInt): CInt =
-    libc_unix_linuxlike_linux_fsetxattr(filedes, name, value?.value?.toCPointer<ByteVar>(), size, flags)
+public actual fun fsetxattr(filedes: CInt, name: ConstPtr<CChar>, value: ConstPtr<CVoid>, size: SizeT, flags: CInt): CInt =
+    libcUnixLinuxlikeLinuxFsetxattr(filedes, name.rawAddress.toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>(), size, flags)
 
-public actual fun listxattr(path: String?, list: COpaquePointer?, size: SizeT): SsizeT =
-    libc_unix_linuxlike_linux_listxattr(path, list?.value?.toCPointer<ByteVar>(), size)
+public actual fun listxattr(path: ConstPtr<CChar>, list: MutPtr<CChar>, size: SizeT): SsizeT =
+    libcUnixLinuxlikeLinuxListxattr(path.rawAddress.toCPointer<ByteVar>(), list.rawAddress.toCPointer<ByteVar>(), size)
 
-public actual fun llistxattr(path: String?, list: COpaquePointer?, size: SizeT): SsizeT =
-    libc_unix_linuxlike_linux_llistxattr(path, list?.value?.toCPointer<ByteVar>(), size)
+public actual fun llistxattr(path: ConstPtr<CChar>, list: MutPtr<CChar>, size: SizeT): SsizeT =
+    libcUnixLinuxlikeLinuxLlistxattr(path.rawAddress.toCPointer<ByteVar>(), list.rawAddress.toCPointer<ByteVar>(), size)
 
-public actual fun flistxattr(filedes: CInt, list: COpaquePointer?, size: SizeT): SsizeT =
-    libc_unix_linuxlike_linux_flistxattr(filedes, list?.value?.toCPointer<ByteVar>(), size)
+public actual fun flistxattr(filedes: CInt, list: MutPtr<CChar>, size: SizeT): SsizeT =
+    libcUnixLinuxlikeLinuxFlistxattr(filedes, list.rawAddress.toCPointer<ByteVar>(), size)
 
-public actual fun removexattr(path: String?, name: String?): CInt =
-    libc_unix_linuxlike_linux_removexattr(path, name)
+public actual fun removexattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>): CInt =
+    libcUnixLinuxlikeLinuxRemovexattr(path.rawAddress.toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>())
 
-public actual fun lremovexattr(path: String?, name: String?): CInt =
-    libc_unix_linuxlike_linux_lremovexattr(path, name)
+public actual fun lremovexattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>): CInt =
+    libcUnixLinuxlikeLinuxLremovexattr(path.rawAddress.toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fremovexattr(filedes: CInt, name: String?): CInt =
-    libc_unix_linuxlike_linux_fremovexattr(filedes, name)
+public actual fun fremovexattr(filedes: CInt, name: ConstPtr<CChar>): CInt =
+    libcUnixLinuxlikeLinuxFremovexattr(filedes, name.rawAddress.toCPointer<ByteVar>())
 
-public actual fun signalfd(fd: CInt, mask: COpaquePointer?, flags: CInt): CInt =
-    libc_unix_linuxlike_linux_signalfd(fd, mask?.value?.toCPointer<ByteVar>(), flags)
+public actual fun signalfd(fd: CInt, mask: ConstPtr<SigsetT>, flags: CInt): CInt =
+    libcUnixLinuxlikeLinuxSignalfd(fd, mask.rawAddress.toCPointer<ByteVar>(), flags)
 
 public actual fun timerfdCreate(clockid: ClockidT, flags: CInt): CInt =
-    libc_unix_linuxlike_linux_timerfdCreate(clockid, flags)
+    libcUnixLinuxlikeLinuxTimerfdCreate(clockid, flags)
 
-public actual fun timerfdGettime(fd: CInt, currValue: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_timerfdGettime(fd, currValue?.value?.toCPointer<ByteVar>())
+public actual fun timerfdGettime(fd: CInt, currValue: MutPtr<Itimerspec>): CInt =
+    libcUnixLinuxlikeLinuxTimerfdGettime(fd, currValue.rawAddress.toCPointer<ByteVar>())
 
-public actual fun timerfdSettime(fd: CInt, flags: CInt, newValue: COpaquePointer?, oldValue: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_timerfdSettime(fd, flags, newValue?.value?.toCPointer<ByteVar>(), oldValue?.value?.toCPointer<ByteVar>())
+public actual fun timerfdSettime(fd: CInt, flags: CInt, newValue: ConstPtr<Itimerspec>, oldValue: MutPtr<Itimerspec>): CInt =
+    libcUnixLinuxlikeLinuxTimerfdSettime(fd, flags, newValue.rawAddress.toCPointer<ByteVar>(), oldValue.rawAddress.toCPointer<ByteVar>())
 
-public actual fun quotactl(cmd: CInt, special: String?, id: CInt, data: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_quotactl(cmd, special, id, data?.value?.toCPointer<ByteVar>())
+public actual fun quotactl(cmd: CInt, special: ConstPtr<CChar>, id: CInt, data: MutPtr<CChar>): CInt =
+    libcUnixLinuxlikeLinuxQuotactl(cmd, special.rawAddress.toCPointer<ByteVar>(), id, data.rawAddress.toCPointer<ByteVar>())
 
-public actual fun epollPwait(epfd: CInt, events: COpaquePointer?, maxevents: CInt, timeout: CInt, sigmask: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_epollPwait(epfd, events?.value?.toCPointer<ByteVar>(), maxevents, timeout, sigmask?.value?.toCPointer<ByteVar>())
+public actual fun epollPwait(epfd: CInt, events: MutPtr<EpollEvent>, maxevents: CInt, timeout: CInt, sigmask: ConstPtr<SigsetT>): CInt =
+    libcUnixLinuxlikeLinuxEpollPwait(epfd, events.rawAddress.toCPointer<ByteVar>(), maxevents, timeout, sigmask.rawAddress.toCPointer<ByteVar>())
 
 public actual fun dup3(oldfd: CInt, newfd: CInt, flags: CInt): CInt =
-    libc_unix_linuxlike_linux_dup3(oldfd, newfd, flags)
+    libcUnixLinuxlikeLinuxDup3(oldfd, newfd, flags)
 
-public actual fun sigtimedwait(set: COpaquePointer?, info: COpaquePointer?, timeout: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_sigtimedwait(set?.value?.toCPointer<ByteVar>(), info?.value?.toCPointer<ByteVar>(), timeout?.value?.toCPointer<ByteVar>())
+public actual fun sigtimedwait(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>, timeout: ConstPtr<Timespec>): CInt =
+    libcUnixLinuxlikeLinuxSigtimedwait(set.rawAddress.toCPointer<ByteVar>(), info.rawAddress.toCPointer<ByteVar>(), timeout.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sigwaitinfo(set: COpaquePointer?, info: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_sigwaitinfo(set?.value?.toCPointer<ByteVar>(), info?.value?.toCPointer<ByteVar>())
+public actual fun sigwaitinfo(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>): CInt =
+    libcUnixLinuxlikeLinuxSigwaitinfo(set.rawAddress.toCPointer<ByteVar>(), info.rawAddress.toCPointer<ByteVar>())
 
-public actual fun accept4(fd: CInt, addr: COpaquePointer?, len: COpaquePointer?, flg: CInt): CInt =
-    libc_unix_linuxlike_linux_accept4(fd, addr?.value?.toCPointer<ByteVar>(), len?.value?.toCPointer<ByteVar>(), flg)
+public actual fun accept4(fd: CInt, addr: MutPtr<Sockaddr>, len: MutPtr<SocklenT>, flg: CInt): CInt =
+    libcUnixLinuxlikeLinuxAccept4(fd, addr.rawAddress.toCPointer<ByteVar>(), len.rawAddress.toCPointer<ByteVar>(), flg)
 
 public actual fun reboot(howTo: CInt): CInt =
-    libc_unix_linuxlike_linux_reboot(howTo)
+    libcUnixLinuxlikeLinuxReboot(howTo)
 
 public actual fun setfsgid(gid: GidT): CInt =
-    libc_unix_linuxlike_linux_setfsgid(gid)
+    libcUnixLinuxlikeLinuxSetfsgid(gid)
 
 public actual fun setfsuid(uid: UidT): CInt =
-    libc_unix_linuxlike_linux_setfsuid(uid)
+    libcUnixLinuxlikeLinuxSetfsuid(uid)
 
-public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
-    libc_unix_linuxlike_linux_mkfifoat(dirfd, pathname, mode)
+public actual fun mkfifoat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT): CInt =
+    libcUnixLinuxlikeLinuxMkfifoat(dirfd, pathname.rawAddress.toCPointer<ByteVar>(), mode)
 
 public actual fun syncFileRange(fd: CInt, offset: Off64T, nbytes: Off64T, flags: CUint): CInt =
-    libc_unix_linuxlike_linux_syncFileRange(fd, offset, nbytes, flags)
+    libcUnixLinuxlikeLinuxSyncFileRange(fd, offset, nbytes, flags)
 
-public actual fun posixMadvise(addr: COpaquePointer?, len: SizeT, advice: CInt): CInt =
-    libc_unix_linuxlike_linux_posixMadvise(addr?.value?.toCPointer<ByteVar>(), len, advice)
+public actual fun posixMadvise(addr: MutPtr<CVoid>, len: SizeT, advice: CInt): CInt =
+    libcUnixLinuxlikeLinuxPosixMadvise(addr.rawAddress.toCPointer<ByteVar>(), len, advice)
 
-public actual fun remapFilePages(addr: COpaquePointer?, size: SizeT, prot: CInt, pgoff: SizeT, flags: CInt): CInt =
-    libc_unix_linuxlike_linux_remapFilePages(addr?.value?.toCPointer<ByteVar>(), size, prot, pgoff, flags)
+public actual fun remapFilePages(addr: MutPtr<CVoid>, size: SizeT, prot: CInt, pgoff: SizeT, flags: CInt): CInt =
+    libcUnixLinuxlikeLinuxRemapFilePages(addr.rawAddress.toCPointer<ByteVar>(), size, prot, pgoff, flags)
 
-public actual fun mkstemps(template: COpaquePointer?, suffixlen: CInt): CInt =
-    libc_unix_linuxlike_linux_mkstemps(template?.value?.toCPointer<ByteVar>(), suffixlen)
+public actual fun mkstemps(template: MutPtr<CChar>, suffixlen: CInt): CInt =
+    libcUnixLinuxlikeLinuxMkstemps(template.rawAddress.toCPointer<ByteVar>(), suffixlen)
 
 public actual fun vhangup(): CInt =
-    libc_unix_linuxlike_linux_vhangup()
+    libcUnixLinuxlikeLinuxVhangup()
 
 public actual fun sync() {
-    libc_unix_linuxlike_linux_sync()
+    libcUnixLinuxlikeLinuxSync()
 }
 
 public actual fun syncfs(fd: CInt): CInt =
-    libc_unix_linuxlike_linux_syncfs(fd)
+    libcUnixLinuxlikeLinuxSyncfs(fd)
 
 public actual fun syscall(num: CLong, vararg variadicArgs: Long): CLong =
-    libc_unix_linuxlike_linux_syscall(num, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+    libcUnixLinuxlikeLinuxSyscall(num, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun schedSetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_schedSetaffinity(pid, cpusetsize, cpuset?.value?.toCPointer<ByteVar>())
+public actual fun schedSetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: ConstPtr<CpuSetT>): CInt =
+    libcUnixLinuxlikeLinuxSchedSetaffinity(pid, cpusetsize, cpuset.rawAddress.toCPointer<ByteVar>())
 
 public actual fun epollCreate(size: CInt): CInt =
-    libc_unix_linuxlike_linux_epollCreate(size)
+    libcUnixLinuxlikeLinuxEpollCreate(size)
 
 public actual fun epollCreate1(flags: CInt): CInt =
-    libc_unix_linuxlike_linux_epollCreate1(flags)
+    libcUnixLinuxlikeLinuxEpollCreate1(flags)
 
-public actual fun epollWait(epfd: CInt, events: COpaquePointer?, maxevents: CInt, timeout: CInt): CInt =
-    libc_unix_linuxlike_linux_epollWait(epfd, events?.value?.toCPointer<ByteVar>(), maxevents, timeout)
+public actual fun epollWait(epfd: CInt, events: MutPtr<EpollEvent>, maxevents: CInt, timeout: CInt): CInt =
+    libcUnixLinuxlikeLinuxEpollWait(epfd, events.rawAddress.toCPointer<ByteVar>(), maxevents, timeout)
 
-public actual fun epollCtl(epfd: CInt, op: CInt, fd: CInt, event: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_epollCtl(epfd, op, fd, event?.value?.toCPointer<ByteVar>())
+public actual fun epollCtl(epfd: CInt, op: CInt, fd: CInt, event: MutPtr<EpollEvent>): CInt =
+    libcUnixLinuxlikeLinuxEpollCtl(epfd, op, fd, event.rawAddress.toCPointer<ByteVar>())
 
 public actual fun unshare(flags: CInt): CInt =
-    libc_unix_linuxlike_linux_unshare(flags)
+    libcUnixLinuxlikeLinuxUnshare(flags)
 
-public actual fun umount(target: String?): CInt =
-    libc_unix_linuxlike_linux_umount(target)
+public actual fun umount(target: ConstPtr<CChar>): CInt =
+    libcUnixLinuxlikeLinuxUmount(target.rawAddress.toCPointer<ByteVar>())
 
 public actual fun tee(fdIn: CInt, fdOut: CInt, len: SizeT, flags: CUint): SsizeT =
-    libc_unix_linuxlike_linux_tee(fdIn, fdOut, len, flags)
+    libcUnixLinuxlikeLinuxTee(fdIn, fdOut, len, flags)
 
-public actual fun splice(fdIn: CInt, offIn: COpaquePointer?, fdOut: CInt, offOut: COpaquePointer?, len: SizeT, flags: CUint): SsizeT =
-    libc_unix_linuxlike_linux_splice(fdIn, offIn?.value?.toCPointer<ByteVar>(), fdOut, offOut?.value?.toCPointer<ByteVar>(), len, flags)
+public actual fun splice(fdIn: CInt, offIn: MutPtr<LoffT>, fdOut: CInt, offOut: MutPtr<LoffT>, len: SizeT, flags: CUint): SsizeT =
+    libcUnixLinuxlikeLinuxSplice(fdIn, offIn.rawAddress.toCPointer<ByteVar>(), fdOut, offOut.rawAddress.toCPointer<ByteVar>(), len, flags)
 
 public actual fun eventfd(initval: CUint, flags: CInt): CInt =
-    libc_unix_linuxlike_linux_eventfd(initval, flags)
+    libcUnixLinuxlikeLinuxEventfd(initval, flags)
 
-public actual fun eventfdRead(fd: CInt, value: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_eventfdRead(fd, value?.value?.toCPointer<ByteVar>())
+public actual fun eventfdRead(fd: CInt, value: MutPtr<EventfdT>): CInt =
+    libcUnixLinuxlikeLinuxEventfdRead(fd, value.rawAddress.toCPointer<ByteVar>())
 
 public actual fun eventfdWrite(fd: CInt, value: EventfdT): CInt =
-    libc_unix_linuxlike_linux_eventfdWrite(fd, value)
+    libcUnixLinuxlikeLinuxEventfdWrite(fd, value)
 
-public actual fun schedRrGetInterval(pid: PidT, tp: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_schedRrGetInterval(pid, tp?.value?.toCPointer<ByteVar>())
+public actual fun schedRrGetInterval(pid: PidT, tp: MutPtr<Timespec>): CInt =
+    libcUnixLinuxlikeLinuxSchedRrGetInterval(pid, tp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun schedSetparam(pid: PidT, param: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_schedSetparam(pid, param?.value?.toCPointer<ByteVar>())
+public actual fun schedSetparam(pid: PidT, param: ConstPtr<SchedParam>): CInt =
+    libcUnixLinuxlikeLinuxSchedSetparam(pid, param.rawAddress.toCPointer<ByteVar>())
 
 public actual fun setns(fd: CInt, nstype: CInt): CInt =
-    libc_unix_linuxlike_linux_setns(fd, nstype)
+    libcUnixLinuxlikeLinuxSetns(fd, nstype)
 
-public actual fun swapoff(path: String?): CInt =
-    libc_unix_linuxlike_linux_swapoff(path)
+public actual fun swapoff(path: ConstPtr<CChar>): CInt =
+    libcUnixLinuxlikeLinuxSwapoff(path.rawAddress.toCPointer<ByteVar>())
 
-public actual fun vmsplice(fd: CInt, iov: COpaquePointer?, nrSegs: SizeT, flags: CUint): SsizeT =
-    libc_unix_linuxlike_linux_vmsplice(fd, iov?.value?.toCPointer<ByteVar>(), nrSegs, flags)
+public actual fun vmsplice(fd: CInt, iov: ConstPtr<Iovec>, nrSegs: SizeT, flags: CUint): SsizeT =
+    libcUnixLinuxlikeLinuxVmsplice(fd, iov.rawAddress.toCPointer<ByteVar>(), nrSegs, flags)
 
 public actual fun personality(persona: CUlong): CInt =
-    libc_unix_linuxlike_linux_personality(persona)
+    libcUnixLinuxlikeLinuxPersonality(persona)
 
-public actual fun schedGetparam(pid: PidT, param: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_schedGetparam(pid, param?.value?.toCPointer<ByteVar>())
+public actual fun schedGetparam(pid: PidT, param: MutPtr<SchedParam>): CInt =
+    libcUnixLinuxlikeLinuxSchedGetparam(pid, param.rawAddress.toCPointer<ByteVar>())
 
-public actual fun clone(cb: CloneCbCallback, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, vararg variadicArgs: Long): CInt =
-    libc_unix_linuxlike_linux_clone(0L.toCPointer<ByteVar>(), childStack?.value?.toCPointer<ByteVar>(), flags, arg?.value?.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun clone(cb: CloneCbCallback, childStack: MutPtr<CVoid>, flags: CInt, arg: MutPtr<CVoid>, vararg variadicArgs: Long): CInt =
+    libcUnixLinuxlikeLinuxClone(0L.toCPointer<ByteVar>(), childStack.rawAddress.toCPointer<ByteVar>(), flags, arg.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun schedGetscheduler(pid: PidT): CInt =
-    libc_unix_linuxlike_linux_schedGetscheduler(pid)
+    libcUnixLinuxlikeLinuxSchedGetscheduler(pid)
 
-public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: COpaquePointer?, rmtp: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_clockNanosleep(clkId, flags, rqtp?.value?.toCPointer<ByteVar>(), rmtp?.value?.toCPointer<ByteVar>())
+public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: ConstPtr<Timespec>, rmtp: MutPtr<Timespec>): CInt =
+    libcUnixLinuxlikeLinuxClockNanosleep(clkId, flags, rqtp.rawAddress.toCPointer<ByteVar>(), rmtp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun umount2(target: String?, flags: CInt): CInt =
-    libc_unix_linuxlike_linux_umount2(target, flags)
+public actual fun umount2(target: ConstPtr<CChar>, flags: CInt): CInt =
+    libcUnixLinuxlikeLinuxUmount2(target.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun swapon(path: String?, swapflags: CInt): CInt =
-    libc_unix_linuxlike_linux_swapon(path, swapflags)
+public actual fun swapon(path: ConstPtr<CChar>, swapflags: CInt): CInt =
+    libcUnixLinuxlikeLinuxSwapon(path.rawAddress.toCPointer<ByteVar>(), swapflags)
 
-public actual fun schedSetscheduler(pid: PidT, policy: CInt, param: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_schedSetscheduler(pid, policy, param?.value?.toCPointer<ByteVar>())
+public actual fun schedSetscheduler(pid: PidT, policy: CInt, param: ConstPtr<SchedParam>): CInt =
+    libcUnixLinuxlikeLinuxSchedSetscheduler(pid, policy, param.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sendfile(outFd: CInt, inFd: CInt, offset: COpaquePointer?, count: SizeT): SsizeT =
-    libc_unix_linuxlike_linux_sendfile(outFd, inFd, offset?.value?.toCPointer<ByteVar>(), count)
+public actual fun sendfile(outFd: CInt, inFd: CInt, offset: MutPtr<OffT>, count: SizeT): SsizeT =
+    libcUnixLinuxlikeLinuxSendfile(outFd, inFd, offset.rawAddress.toCPointer<ByteVar>(), count)
 
-public actual fun sigaltstack(ss: COpaquePointer?, oss: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_sigaltstack(ss?.value?.toCPointer<ByteVar>(), oss?.value?.toCPointer<ByteVar>())
+public actual fun sigaltstack(ss: ConstPtr<StackT>, oss: MutPtr<StackT>): CInt =
+    libcUnixLinuxlikeLinuxSigaltstack(ss.rawAddress.toCPointer<ByteVar>(), oss.rawAddress.toCPointer<ByteVar>())
 
 public actual fun getdtablesize(): CInt =
-    libc_unix_linuxlike_linux_getdtablesize()
+    libcUnixLinuxlikeLinuxGetdtablesize()
 
-public actual fun getgrouplist(user: String?, group: GidT, groups: COpaquePointer?, ngroups: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_getgrouplist(user, group, groups?.value?.toCPointer<ByteVar>(), ngroups?.value?.toCPointer<ByteVar>())
+public actual fun getgrouplist(user: ConstPtr<CChar>, group: GidT, groups: MutPtr<GidT>, ngroups: MutPtr<CInt>): CInt =
+    libcUnixLinuxlikeLinuxGetgrouplist(user.rawAddress.toCPointer<ByteVar>(), group, groups.rawAddress.toCPointer<ByteVar>(), ngroups.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawn(pid: COpaquePointer?, path: String?, fileActions: COpaquePointer?, attrp: COpaquePointer?, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_posixSpawn(pid?.value?.toCPointer<ByteVar>(), path, fileActions?.value?.toCPointer<ByteVar>(), attrp?.value?.toCPointer<ByteVar>(), argv?.value?.toCPointer<ByteVar>(), envp?.value?.toCPointer<ByteVar>())
+public actual fun posixSpawn(pid: MutPtr<PidT>, path: ConstPtr<CChar>, fileActions: ConstPtr<PosixSpawnFileActionsT>, attrp: ConstPtr<PosixSpawnattrT>, argv: ConstPtr<MutPtr<CChar>>, envp: ConstPtr<MutPtr<CChar>>): CInt =
+    libcUnixLinuxlikeLinuxPosixSpawn(pid.rawAddress.toCPointer<ByteVar>(), path.rawAddress.toCPointer<ByteVar>(), fileActions.rawAddress.toCPointer<ByteVar>(), attrp.rawAddress.toCPointer<ByteVar>(), argv.rawAddress.toCPointer<ByteVar>(), envp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnp(pid: COpaquePointer?, file: String?, fileActions: COpaquePointer?, attrp: COpaquePointer?, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_posixSpawnp(pid?.value?.toCPointer<ByteVar>(), file, fileActions?.value?.toCPointer<ByteVar>(), attrp?.value?.toCPointer<ByteVar>(), argv?.value?.toCPointer<ByteVar>(), envp?.value?.toCPointer<ByteVar>())
+public actual fun posixSpawnp(pid: MutPtr<PidT>, file: ConstPtr<CChar>, fileActions: ConstPtr<PosixSpawnFileActionsT>, attrp: ConstPtr<PosixSpawnattrT>, argv: ConstPtr<MutPtr<CChar>>, envp: ConstPtr<MutPtr<CChar>>): CInt =
+    libcUnixLinuxlikeLinuxPosixSpawnp(pid.rawAddress.toCPointer<ByteVar>(), file.rawAddress.toCPointer<ByteVar>(), fileActions.rawAddress.toCPointer<ByteVar>(), attrp.rawAddress.toCPointer<ByteVar>(), argv.rawAddress.toCPointer<ByteVar>(), envp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrInit(attr: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_posixSpawnattrInit(attr?.value?.toCPointer<ByteVar>())
+public actual fun posixSpawnattrInit(attr: MutPtr<PosixSpawnattrT>): CInt =
+    libcUnixLinuxlikeLinuxPosixSpawnattrInit(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrDestroy(attr: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_posixSpawnattrDestroy(attr?.value?.toCPointer<ByteVar>())
+public actual fun posixSpawnattrDestroy(attr: MutPtr<PosixSpawnattrT>): CInt =
+    libcUnixLinuxlikeLinuxPosixSpawnattrDestroy(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrGetsigdefault(attr: COpaquePointer?, default: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_posixSpawnattrGetsigdefault(attr?.value?.toCPointer<ByteVar>(), default?.value?.toCPointer<ByteVar>())
+public actual fun posixSpawnattrGetsigdefault(attr: ConstPtr<PosixSpawnattrT>, default: MutPtr<SigsetT>): CInt =
+    libcUnixLinuxlikeLinuxPosixSpawnattrGetsigdefault(attr.rawAddress.toCPointer<ByteVar>(), default.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrSetsigdefault(attr: COpaquePointer?, default: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_posixSpawnattrSetsigdefault(attr?.value?.toCPointer<ByteVar>(), default?.value?.toCPointer<ByteVar>())
+public actual fun posixSpawnattrSetsigdefault(attr: MutPtr<PosixSpawnattrT>, default: ConstPtr<SigsetT>): CInt =
+    libcUnixLinuxlikeLinuxPosixSpawnattrSetsigdefault(attr.rawAddress.toCPointer<ByteVar>(), default.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrGetsigmask(attr: COpaquePointer?, default: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_posixSpawnattrGetsigmask(attr?.value?.toCPointer<ByteVar>(), default?.value?.toCPointer<ByteVar>())
+public actual fun posixSpawnattrGetsigmask(attr: ConstPtr<PosixSpawnattrT>, default: MutPtr<SigsetT>): CInt =
+    libcUnixLinuxlikeLinuxPosixSpawnattrGetsigmask(attr.rawAddress.toCPointer<ByteVar>(), default.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrSetsigmask(attr: COpaquePointer?, default: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_posixSpawnattrSetsigmask(attr?.value?.toCPointer<ByteVar>(), default?.value?.toCPointer<ByteVar>())
+public actual fun posixSpawnattrSetsigmask(attr: MutPtr<PosixSpawnattrT>, default: ConstPtr<SigsetT>): CInt =
+    libcUnixLinuxlikeLinuxPosixSpawnattrSetsigmask(attr.rawAddress.toCPointer<ByteVar>(), default.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrGetflags(attr: COpaquePointer?, flags: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_posixSpawnattrGetflags(attr?.value?.toCPointer<ByteVar>(), flags?.value?.toCPointer<ByteVar>())
+public actual fun posixSpawnattrGetflags(attr: ConstPtr<PosixSpawnattrT>, flags: MutPtr<CShort>): CInt =
+    libcUnixLinuxlikeLinuxPosixSpawnattrGetflags(attr.rawAddress.toCPointer<ByteVar>(), flags.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrSetflags(attr: COpaquePointer?, flags: CShort): CInt =
-    libc_unix_linuxlike_linux_posixSpawnattrSetflags(attr?.value?.toCPointer<ByteVar>(), flags)
+public actual fun posixSpawnattrSetflags(attr: MutPtr<PosixSpawnattrT>, flags: CShort): CInt =
+    libcUnixLinuxlikeLinuxPosixSpawnattrSetflags(attr.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun posixSpawnattrGetpgroup(attr: COpaquePointer?, flags: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_posixSpawnattrGetpgroup(attr?.value?.toCPointer<ByteVar>(), flags?.value?.toCPointer<ByteVar>())
+public actual fun posixSpawnattrGetpgroup(attr: ConstPtr<PosixSpawnattrT>, flags: MutPtr<PidT>): CInt =
+    libcUnixLinuxlikeLinuxPosixSpawnattrGetpgroup(attr.rawAddress.toCPointer<ByteVar>(), flags.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrSetpgroup(attr: COpaquePointer?, flags: PidT): CInt =
-    libc_unix_linuxlike_linux_posixSpawnattrSetpgroup(attr?.value?.toCPointer<ByteVar>(), flags)
+public actual fun posixSpawnattrSetpgroup(attr: MutPtr<PosixSpawnattrT>, flags: PidT): CInt =
+    libcUnixLinuxlikeLinuxPosixSpawnattrSetpgroup(attr.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun posixSpawnattrGetschedpolicy(attr: COpaquePointer?, flags: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_posixSpawnattrGetschedpolicy(attr?.value?.toCPointer<ByteVar>(), flags?.value?.toCPointer<ByteVar>())
+public actual fun posixSpawnattrGetschedpolicy(attr: ConstPtr<PosixSpawnattrT>, flags: MutPtr<CInt>): CInt =
+    libcUnixLinuxlikeLinuxPosixSpawnattrGetschedpolicy(attr.rawAddress.toCPointer<ByteVar>(), flags.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrSetschedpolicy(attr: COpaquePointer?, flags: CInt): CInt =
-    libc_unix_linuxlike_linux_posixSpawnattrSetschedpolicy(attr?.value?.toCPointer<ByteVar>(), flags)
+public actual fun posixSpawnattrSetschedpolicy(attr: MutPtr<PosixSpawnattrT>, flags: CInt): CInt =
+    libcUnixLinuxlikeLinuxPosixSpawnattrSetschedpolicy(attr.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun posixSpawnattrGetschedparam(attr: COpaquePointer?, param: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_posixSpawnattrGetschedparam(attr?.value?.toCPointer<ByteVar>(), param?.value?.toCPointer<ByteVar>())
+public actual fun posixSpawnattrGetschedparam(attr: ConstPtr<PosixSpawnattrT>, param: MutPtr<SchedParam>): CInt =
+    libcUnixLinuxlikeLinuxPosixSpawnattrGetschedparam(attr.rawAddress.toCPointer<ByteVar>(), param.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrSetschedparam(attr: COpaquePointer?, param: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_posixSpawnattrSetschedparam(attr?.value?.toCPointer<ByteVar>(), param?.value?.toCPointer<ByteVar>())
+public actual fun posixSpawnattrSetschedparam(attr: MutPtr<PosixSpawnattrT>, param: ConstPtr<SchedParam>): CInt =
+    libcUnixLinuxlikeLinuxPosixSpawnattrSetschedparam(attr.rawAddress.toCPointer<ByteVar>(), param.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnFileActionsInit(actions: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_posixSpawnFileActionsInit(actions?.value?.toCPointer<ByteVar>())
+public actual fun posixSpawnFileActionsInit(actions: MutPtr<PosixSpawnFileActionsT>): CInt =
+    libcUnixLinuxlikeLinuxPosixSpawnFileActionsInit(actions.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnFileActionsDestroy(actions: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_posixSpawnFileActionsDestroy(actions?.value?.toCPointer<ByteVar>())
+public actual fun posixSpawnFileActionsDestroy(actions: MutPtr<PosixSpawnFileActionsT>): CInt =
+    libcUnixLinuxlikeLinuxPosixSpawnFileActionsDestroy(actions.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnFileActionsAddopen(actions: COpaquePointer?, fd: CInt, path: String?, oflag: CInt, mode: ModeT): CInt =
-    libc_unix_linuxlike_linux_posixSpawnFileActionsAddopen(actions?.value?.toCPointer<ByteVar>(), fd, path, oflag, mode)
+public actual fun posixSpawnFileActionsAddopen(actions: MutPtr<PosixSpawnFileActionsT>, fd: CInt, path: ConstPtr<CChar>, oflag: CInt, mode: ModeT): CInt =
+    libcUnixLinuxlikeLinuxPosixSpawnFileActionsAddopen(actions.rawAddress.toCPointer<ByteVar>(), fd, path.rawAddress.toCPointer<ByteVar>(), oflag, mode)
 
-public actual fun posixSpawnFileActionsAddclose(actions: COpaquePointer?, fd: CInt): CInt =
-    libc_unix_linuxlike_linux_posixSpawnFileActionsAddclose(actions?.value?.toCPointer<ByteVar>(), fd)
+public actual fun posixSpawnFileActionsAddclose(actions: MutPtr<PosixSpawnFileActionsT>, fd: CInt): CInt =
+    libcUnixLinuxlikeLinuxPosixSpawnFileActionsAddclose(actions.rawAddress.toCPointer<ByteVar>(), fd)
 
-public actual fun posixSpawnFileActionsAdddup2(actions: COpaquePointer?, fd: CInt, newfd: CInt): CInt =
-    libc_unix_linuxlike_linux_posixSpawnFileActionsAdddup2(actions?.value?.toCPointer<ByteVar>(), fd, newfd)
+public actual fun posixSpawnFileActionsAdddup2(actions: MutPtr<PosixSpawnFileActionsT>, fd: CInt, newfd: CInt): CInt =
+    libcUnixLinuxlikeLinuxPosixSpawnFileActionsAdddup2(actions.rawAddress.toCPointer<ByteVar>(), fd, newfd)
 
-public actual fun freadUnlocked(buf: COpaquePointer?, size: SizeT, nobj: SizeT, stream: FILE?): SizeT =
-    libc_unix_linuxlike_linux_freadUnlocked(buf?.value?.toCPointer<ByteVar>(), size, nobj, stream?.handle?.toCPointer<ByteVar>())
+public actual fun freadUnlocked(buf: MutPtr<CVoid>, size: SizeT, nobj: SizeT, stream: MutPtr<FILE>): SizeT =
+    libcUnixLinuxlikeLinuxFreadUnlocked(buf.rawAddress.toCPointer<ByteVar>(), size, nobj, stream.rawAddress.toCPointer<ByteVar>())
 
 public actual fun inotifyRmWatch(fd: CInt, wd: CInt): CInt =
-    libc_unix_linuxlike_linux_inotifyRmWatch(fd, wd)
+    libcUnixLinuxlikeLinuxInotifyRmWatch(fd, wd)
 
 public actual fun inotifyInit(): CInt =
-    libc_unix_linuxlike_linux_inotifyInit()
+    libcUnixLinuxlikeLinuxInotifyInit()
 
 public actual fun inotifyInit1(flags: CInt): CInt =
-    libc_unix_linuxlike_linux_inotifyInit1(flags)
+    libcUnixLinuxlikeLinuxInotifyInit1(flags)
 
-public actual fun inotifyAddWatch(fd: CInt, path: String?, mask: UInt): CInt =
-    libc_unix_linuxlike_linux_inotifyAddWatch(fd, path, mask)
+public actual fun inotifyAddWatch(fd: CInt, path: ConstPtr<CChar>, mask: UInt): CInt =
+    libcUnixLinuxlikeLinuxInotifyAddWatch(fd, path.rawAddress.toCPointer<ByteVar>(), mask)
 
 public actual fun fanotifyInit(flags: CUint, eventFFlags: CUint): CInt =
-    libc_unix_linuxlike_linux_fanotifyInit(flags, eventFFlags)
+    libcUnixLinuxlikeLinuxFanotifyInit(flags, eventFFlags)
 
 public actual fun gethostid(): CLong =
-    libc_unix_linuxlike_linux_gethostid()
+    libcUnixLinuxlikeLinuxGethostid()
 
-public actual fun klogctl(syslogType: CInt, bufp: COpaquePointer?, len: CInt): CInt =
-    libc_unix_linuxlike_linux_klogctl(syslogType, bufp?.value?.toCPointer<ByteVar>(), len)
+public actual fun klogctl(syslogType: CInt, bufp: MutPtr<CChar>, len: CInt): CInt =
+    libcUnixLinuxlikeLinuxKlogctl(syslogType, bufp.rawAddress.toCPointer<ByteVar>(), len)
 
 public actual fun fallocate64(fd: CInt, mode: CInt, offset: Off64T, len: Off64T): CInt =
-    libc_unix_linuxlike_linux_fallocate64(fd, mode, offset, len)
+    libcUnixLinuxlikeLinuxFallocate64(fd, mode, offset, len)
 
-public actual fun fgetpos64(stream: FILE?, ptr: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_fgetpos64(stream?.handle?.toCPointer<ByteVar>(), ptr?.value?.toCPointer<ByteVar>())
+public actual fun fgetpos64(stream: MutPtr<FILE>, ptr: MutPtr<Fpos64T>): CInt =
+    libcUnixLinuxlikeLinuxFgetpos64(stream.rawAddress.toCPointer<ByteVar>(), ptr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fopen64(filename: String?, mode: String?): FILE? =
-    libc_unix_linuxlike_linux_fopen64(filename, mode)?.let { FILE(it.toLong()) }
+public actual fun fopen64(filename: ConstPtr<CChar>, mode: ConstPtr<CChar>): MutPtr<FILE> =
+    MutPtr(libcUnixLinuxlikeLinuxFopen64(filename.rawAddress.toCPointer<ByteVar>(), mode.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun posixFallocate64(fd: CInt, offset: Off64T, len: Off64T): CInt =
-    libc_unix_linuxlike_linux_posixFallocate64(fd, offset, len)
+    libcUnixLinuxlikeLinuxPosixFallocate64(fd, offset, len)
 
-public actual fun sendfile64(outFd: CInt, inFd: CInt, offset: COpaquePointer?, count: SizeT): SsizeT =
-    libc_unix_linuxlike_linux_sendfile64(outFd, inFd, offset?.value?.toCPointer<ByteVar>(), count)
+public actual fun sendfile64(outFd: CInt, inFd: CInt, offset: MutPtr<Off64T>, count: SizeT): SsizeT =
+    libcUnixLinuxlikeLinuxSendfile64(outFd, inFd, offset.rawAddress.toCPointer<ByteVar>(), count)
 
-public actual fun tmpfile64(): FILE? =
-    libc_unix_linuxlike_linux_tmpfile64()?.let { FILE(it.toLong()) }
+public actual fun tmpfile64(): MutPtr<FILE> =
+    MutPtr(libcUnixLinuxlikeLinuxTmpfile64()?.toLong() ?: 0L)

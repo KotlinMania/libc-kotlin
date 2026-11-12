@@ -2,9 +2,10 @@ package io.github.kotlinmania.libc.unix.bsd.netbsdlike
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public val D_T_FMT: NlItem = 0L
 
@@ -252,7 +253,7 @@ public val MAP_ANON: CInt = 0x1000
 
 public val MAP_ANONYMOUS: CInt = MAP_ANON
 
-public val MAP_FAILED: COpaquePointer? = COpaquePointer((0.inv()).toLong())
+public val MAP_FAILED: MutPtr<CVoid> = MutPtr<CVoid>((0.inv()).toLong())
 
 public val IPC_CREAT: CInt = 512
 
@@ -1020,4 +1021,4 @@ public val RB_AUTOBOOT: CInt = 0
 
 public val TCP_INFO: CInt = 9
 
-public val SEM_FAILED: COpaquePointer? = null
+public val SEM_FAILED: MutPtr<SemT> = MutPtr(0L)

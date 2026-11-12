@@ -51,10 +51,10 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_new_apple_libpthread_pthread_stacknp_stack_np_pthreadStackFrameDecodeNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewAppleLibpthreadPthreadStacknpStackNpPthreadStackFrameDecodeNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint64_t frame_addr = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
-    void* return_addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t frameAddr = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
+    void* returnAddr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef uint64_t (*km_fn_t)(uint64_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -77,7 +77,7 @@ static Napi::Value libc_new_apple_libpthread_pthread_stacknp_stack_np_pthreadSta
 #endif
     uint64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(frame_addr, return_addr);
+        km_res = km_fn_ptr(frameAddr, returnAddr);
     } else {
         errno = ENOSYS;
         km_res = 0;
@@ -86,7 +86,7 @@ static Napi::Value libc_new_apple_libpthread_pthread_stacknp_stack_np_pthreadSta
 }
 
 static void register_new_apple_libpthread_pthread_stacknp_stack_np_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_new_apple_libpthread_pthread_stacknp_stack_np_pthreadStackFrameDecodeNp", Napi::Function::New(env, libc_new_apple_libpthread_pthread_stacknp_stack_np_pthreadStackFrameDecodeNp_napi));
+    exports.Set("libcNewAppleLibpthreadPthreadStacknpStackNpPthreadStackFrameDecodeNp", Napi::Function::New(env, libcNewAppleLibpthreadPthreadStacknpStackNpPthreadStackFrameDecodeNp_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_new_apple_libpthread_pthread_stacknp_stack_np_napi, nullptr };

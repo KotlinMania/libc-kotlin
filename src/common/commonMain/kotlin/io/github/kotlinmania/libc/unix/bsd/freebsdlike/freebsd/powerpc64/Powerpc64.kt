@@ -5,8 +5,12 @@ package io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.powerpc64
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.unix.SizeT
+import io.github.kotlinmania.rustlang.core.mem.ObjectSlotLayout
+import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+import io.github.kotlinmania.rustlang.core.mem.TypeLayout
 
 public typealias ClockT = UInt
 
@@ -56,6 +60,67 @@ public data class McontextT(
         result = 31 * result + this.mcVsxfpreg.contentHashCode()
         return result
     }
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<McontextT> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<McontextT> {
+                override val sizeBytes: Long = 1392L
+                override val alignBytes: Long = 16L
+                override fun readNative(addr: Long): McontextT =
+                    McontextT(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 4L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 8L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 12L),
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64, (64).toInt())
+                        ).readNative(addr + 16L),
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32, (2).toInt())
+                        ).readNative(addr + 528L),
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64, (42).toInt())
+                        ).readNative(addr + 536L),
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64, (33).toInt())
+                        ).readNative(addr + 872L),
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64, (32).toInt())
+                        ).readNative(addr + 1136L),
+                    )
+                override fun writeNative(addr: Long, value: McontextT) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr, value.mcVers)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 4L, value.mcFlags)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 8L, value.mcOnstack)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 12L, value.mcLen)
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64, (64).toInt())
+                    ).writeNative(addr + 16L, value.mcAvec)
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32, (2).toInt())
+                    ).writeNative(addr + 528L, value.mcAv)
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64, (42).toInt())
+                    ).writeNative(addr + 536L, value.mcFrame)
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64, (33).toInt())
+                    ).writeNative(addr + 872L, value.mcFpreg)
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64, (32).toInt())
+                    ).writeNative(addr + 1136L, value.mcVsxfpreg)
+                }
+            }
+    }
 }
 
 public val BIOCSRTIMEOUT: CUlong = 0x8010426duL
@@ -69,4 +134,4 @@ public val MINSIGSTKSZ: SizeT = 2048uL
 // 512 * 4
 public val TIOCTIMESTAMP: CUlong = 0x40107459uL
 
-internal val ALIGNBYTES: Int = 8 - 1
+internal val ALIGNBYTES: Int = sizeOf<CLong>(typeLayoutT = ObjectSlotLayout<CLong>()) - 1

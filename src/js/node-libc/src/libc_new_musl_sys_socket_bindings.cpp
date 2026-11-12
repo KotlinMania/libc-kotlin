@@ -51,7 +51,7 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_new_musl_sys_socket_sendmmsg_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewMuslSysSocketSendmmsg_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t sockfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* msgvec = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -87,7 +87,7 @@ static Napi::Value libc_new_musl_sys_socket_sendmmsg_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_musl_sys_socket_recvmmsg_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewMuslSysSocketRecvmmsg_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t sockfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* msgvec = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -125,8 +125,8 @@ static Napi::Value libc_new_musl_sys_socket_recvmmsg_napi(const Napi::CallbackIn
 }
 
 static void register_new_musl_sys_socket_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_new_musl_sys_socket_sendmmsg", Napi::Function::New(env, libc_new_musl_sys_socket_sendmmsg_napi));
-    exports.Set("libc_new_musl_sys_socket_recvmmsg", Napi::Function::New(env, libc_new_musl_sys_socket_recvmmsg_napi));
+    exports.Set("libcNewMuslSysSocketSendmmsg", Napi::Function::New(env, libcNewMuslSysSocketSendmmsg_napi));
+    exports.Set("libcNewMuslSysSocketRecvmmsg", Napi::Function::New(env, libcNewMuslSysSocketRecvmmsg_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_new_musl_sys_socket_napi, nullptr };

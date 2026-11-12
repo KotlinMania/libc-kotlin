@@ -26,23 +26,23 @@
 #endif
 #endif
 
-void* libc_trusty_calloc(uint64_t nobj, uint64_t size) {
+void* libcTrustyCalloc(uint64_t nobj, uint64_t size) {
     return (void*)calloc(nobj, size);
 }
 
-void* libc_trusty_malloc(uint64_t size) {
+void* libcTrustyMalloc(uint64_t size) {
     return (void*)malloc(size);
 }
 
-void* libc_trusty_realloc(void* p, uint64_t size) {
+void* libcTrustyRealloc(void* p, uint64_t size) {
     return (void*)realloc(p, size);
 }
 
-void libc_trusty_free(void* p) {
+void libcTrustyFree(void* p) {
     free(p);
 }
 
-void* libc_trusty_memalign(uint64_t align, uint64_t size) {
+void* libcTrustyMemalign(uint64_t align, uint64_t size) {
     typedef void* (*km_fn_t)(uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -70,7 +70,7 @@ void* libc_trusty_memalign(uint64_t align, uint64_t size) {
     return NULL;
 }
 
-int32_t libc_trusty_posixMemalign(void* memptr, uint64_t align, uint64_t size) {
+int32_t libcTrustyPosixMemalign(void* memptr, uint64_t align, uint64_t size) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -98,11 +98,11 @@ int32_t libc_trusty_posixMemalign(void* memptr, uint64_t align, uint64_t size) {
     return -1;
 }
 
-int64_t libc_trusty_write(int32_t fd, void* buf, uint64_t count) {
+int64_t libcTrustyWrite(int32_t fd, void* buf, uint64_t count) {
     return (int64_t)write(fd, buf, count);
 }
 
-int64_t libc_trusty_writev(int32_t fd, void* iov, int32_t iovcnt) {
+int64_t libcTrustyWritev(int32_t fd, void* iov, int32_t iovcnt) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -130,15 +130,15 @@ int64_t libc_trusty_writev(int32_t fd, void* iov, int32_t iovcnt) {
     return -1;
 }
 
-int32_t libc_trusty_close(int32_t fd) {
+int32_t libcTrustyClose(int32_t fd) {
     return (int32_t)close(fd);
 }
 
-uint64_t libc_trusty_strlen(const char* cs) {
+uint64_t libcTrustyStrlen(const char* cs) {
     return (uint64_t)strlen(cs);
 }
 
-uint64_t libc_trusty_getauxval(uint64_t type_) {
+uint64_t libcTrustyGetauxval(uint64_t type) {
     typedef uint64_t (*km_fn_t)(uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -160,13 +160,13 @@ uint64_t libc_trusty_getauxval(uint64_t type_) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(type_);
+        return km_fn_ptr(type);
     }
     errno = ENOSYS;
     return 0;
 }
 
-void* libc_trusty_mmap(void* addr, uint64_t len, int32_t prot, int32_t flags, int32_t fd, int64_t offset) {
+void* libcTrustyMmap(void* addr, uint64_t len, int32_t prot, int32_t flags, int32_t fd, int64_t offset) {
 #if !defined(_WIN32)
     return (void*)mmap(addr, len, prot, flags, fd, offset);
 #else
@@ -181,7 +181,7 @@ void* libc_trusty_mmap(void* addr, uint64_t len, int32_t prot, int32_t flags, in
 #endif
 }
 
-int32_t libc_trusty_munmap(void* addr, uint64_t len) {
+int32_t libcTrustyMunmap(void* addr, uint64_t len) {
 #if !defined(_WIN32)
     return (int32_t)munmap(addr, len);
 #else
@@ -192,7 +192,7 @@ int32_t libc_trusty_munmap(void* addr, uint64_t len) {
 #endif
 }
 
-int32_t libc_trusty_clockGettime(int32_t clk_id, void* tp) {
+int32_t libcTrustyClockGettime(int32_t clkId, void* tp) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -214,13 +214,13 @@ int32_t libc_trusty_clockGettime(int32_t clk_id, void* tp) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(clk_id, tp);
+        return km_fn_ptr(clkId, tp);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_trusty_nanosleep(void* rqtp, void* rmtp) {
+int32_t libcTrustyNanosleep(void* rqtp, void* rmtp) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

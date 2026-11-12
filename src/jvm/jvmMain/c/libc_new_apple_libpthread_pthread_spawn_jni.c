@@ -19,7 +19,7 @@
 #endif
 #endif
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_apple_libpthread_pthread_spawn_NewAppleLibpthreadPthreadSpawnJniBridge_libc_1new_1apple_1libpthread_1pthread_1spawn_1posixSpawnattrGetQosClassNp(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong qos_class) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_apple_libpthread_pthread_spawn_NewAppleLibpthreadPthreadSpawnJniBridge_libcNewAppleLibpthreadPthreadSpawnPosixSpawnattrGetQosClassNp(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong qosClass) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -44,7 +44,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_apple_libpthread_pthr
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)attr, (void*)(uintptr_t)qos_class);
+        km_res = km_fn_ptr((void*)(uintptr_t)attr, (void*)(uintptr_t)qosClass);
     } else {
         errno = ENOSYS;
         km_res = -1;

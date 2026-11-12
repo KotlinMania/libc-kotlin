@@ -51,12 +51,12 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_unix_linuxlike_android_b64_systemPropertyWait_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidB64SystemPropertyWait_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* pi = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    uint32_t arg_1_old_serial = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    void* arg_2_new_serial_ptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    void* arg_3_relative_timeout = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    uint32_t oldSerial = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    void* newSerialPtr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* relativeTimeout = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef bool (*km_fn_t)(void*, uint32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -77,7 +77,7 @@ static Napi::Value libc_unix_linuxlike_android_b64_systemPropertyWait_napi(const
 #endif
     bool km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(pi, arg_1_old_serial, arg_2_new_serial_ptr, arg_3_relative_timeout);
+        km_res = km_fn_ptr(pi, oldSerial, newSerialPtr, relativeTimeout);
     } else {
         errno = ENOSYS;
         km_res = false;
@@ -86,7 +86,7 @@ static Napi::Value libc_unix_linuxlike_android_b64_systemPropertyWait_napi(const
 }
 
 static void register_unix_linuxlike_android_b64_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_unix_linuxlike_android_b64_systemPropertyWait", Napi::Function::New(env, libc_unix_linuxlike_android_b64_systemPropertyWait_napi));
+    exports.Set("libcUnixLinuxlikeAndroidB64SystemPropertyWait", Napi::Function::New(env, libcUnixLinuxlikeAndroidB64SystemPropertyWait_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_unix_linuxlike_android_b64_napi, nullptr };

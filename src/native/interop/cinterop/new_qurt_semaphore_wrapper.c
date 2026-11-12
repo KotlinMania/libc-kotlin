@@ -18,7 +18,7 @@
 #endif
 #endif
 
-int32_t libc_new_qurt_semaphore_semInit(void* sem, int32_t pshared, uint32_t value) {
+int32_t libcNewQurtSemaphoreSemInit(void* sem, int32_t pshared, uint32_t value) {
     typedef int32_t (*km_fn_t)(void*, int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -46,7 +46,7 @@ int32_t libc_new_qurt_semaphore_semInit(void* sem, int32_t pshared, uint32_t val
     return -1;
 }
 
-int32_t libc_new_qurt_semaphore_semDestroy(void* sem) {
+int32_t libcNewQurtSemaphoreSemDestroy(void* sem) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -74,7 +74,7 @@ int32_t libc_new_qurt_semaphore_semDestroy(void* sem) {
     return -1;
 }
 
-int32_t libc_new_qurt_semaphore_semWait(void* sem) {
+int32_t libcNewQurtSemaphoreSemWait(void* sem) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -102,7 +102,7 @@ int32_t libc_new_qurt_semaphore_semWait(void* sem) {
     return -1;
 }
 
-int32_t libc_new_qurt_semaphore_semTrywait(void* sem) {
+int32_t libcNewQurtSemaphoreSemTrywait(void* sem) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -130,7 +130,7 @@ int32_t libc_new_qurt_semaphore_semTrywait(void* sem) {
     return -1;
 }
 
-int32_t libc_new_qurt_semaphore_semPost(void* sem) {
+int32_t libcNewQurtSemaphoreSemPost(void* sem) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -158,7 +158,7 @@ int32_t libc_new_qurt_semaphore_semPost(void* sem) {
     return -1;
 }
 
-int32_t libc_new_qurt_semaphore_semGetvalue(void* sem, void* sval) {
+int32_t libcNewQurtSemaphoreSemGetvalue(void* sem, void* sval) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

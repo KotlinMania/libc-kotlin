@@ -15,7 +15,7 @@
 #endif
 #endif
 
-int32_t libc_unix_nto_neutrino_channelCreate(uint32_t arg_0_flags) {
+int32_t libcUnixNtoNeutrinoChannelCreate(uint32_t flags) {
     typedef int32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -37,13 +37,13 @@ int32_t libc_unix_nto_neutrino_channelCreate(uint32_t arg_0_flags) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_flags);
+        return km_fn_ptr(flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_channelCreateR(uint32_t arg_0_flags) {
+int32_t libcUnixNtoNeutrinoChannelCreateR(uint32_t flags) {
     typedef int32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -65,13 +65,13 @@ int32_t libc_unix_nto_neutrino_channelCreateR(uint32_t arg_0_flags) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_flags);
+        return km_fn_ptr(flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_channelCreatePulsePool(uint32_t arg_0_flags, void* arg_1_config) {
+int32_t libcUnixNtoNeutrinoChannelCreatePulsePool(uint32_t flags, void* config) {
     typedef int32_t (*km_fn_t)(uint32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -93,13 +93,13 @@ int32_t libc_unix_nto_neutrino_channelCreatePulsePool(uint32_t arg_0_flags, void
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_flags, arg_1_config);
+        return km_fn_ptr(flags, config);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_channelCreateExt(uint32_t arg_0_flags, uint32_t arg_1_mode, uint64_t arg_2_bufsize, uint32_t arg_3_maxnumbuf, void* arg_4_ev, void* arg_5_cred) {
+int32_t libcUnixNtoNeutrinoChannelCreateExt(uint32_t flags, uint32_t mode, uint64_t bufsize, uint32_t maxnumbuf, void* ev, void* cred) {
     typedef int32_t (*km_fn_t)(uint32_t, uint32_t, uint64_t, uint32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -121,13 +121,13 @@ int32_t libc_unix_nto_neutrino_channelCreateExt(uint32_t arg_0_flags, uint32_t a
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_flags, arg_1_mode, arg_2_bufsize, arg_3_maxnumbuf, arg_4_ev, arg_5_cred);
+        return km_fn_ptr(flags, mode, bufsize, maxnumbuf, ev, cred);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_channelDestroy(int32_t arg_0_chid) {
+int32_t libcUnixNtoNeutrinoChannelDestroy(int32_t chid) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -149,13 +149,13 @@ int32_t libc_unix_nto_neutrino_channelDestroy(int32_t arg_0_chid) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_chid);
+        return km_fn_ptr(chid);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_channelDestroyR(int32_t arg_0_chid) {
+int32_t libcUnixNtoNeutrinoChannelDestroyR(int32_t chid) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -177,13 +177,13 @@ int32_t libc_unix_nto_neutrino_channelDestroyR(int32_t arg_0_chid) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_chid);
+        return km_fn_ptr(chid);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_connectAttach(uint32_t arg_0_nd, int32_t arg_1_pid, int32_t arg_2_chid, uint32_t arg_3_index, int32_t arg_4_flags) {
+int32_t libcUnixNtoNeutrinoConnectAttach(uint32_t nd, int32_t pid, int32_t chid, uint32_t arg3Index, int32_t flags) {
     typedef int32_t (*km_fn_t)(uint32_t, int32_t, int32_t, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -205,13 +205,13 @@ int32_t libc_unix_nto_neutrino_connectAttach(uint32_t arg_0_nd, int32_t arg_1_pi
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_nd, arg_1_pid, arg_2_chid, arg_3_index, arg_4_flags);
+        return km_fn_ptr(nd, pid, chid, arg3Index, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_connectAttachR(uint32_t arg_0_nd, int32_t arg_1_pid, int32_t arg_2_chid, uint32_t arg_3_index, int32_t arg_4_flags) {
+int32_t libcUnixNtoNeutrinoConnectAttachR(uint32_t nd, int32_t pid, int32_t chid, uint32_t arg3Index, int32_t flags) {
     typedef int32_t (*km_fn_t)(uint32_t, int32_t, int32_t, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -233,13 +233,13 @@ int32_t libc_unix_nto_neutrino_connectAttachR(uint32_t arg_0_nd, int32_t arg_1_p
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_nd, arg_1_pid, arg_2_chid, arg_3_index, arg_4_flags);
+        return km_fn_ptr(nd, pid, chid, arg3Index, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_connectDetach(int32_t arg_0_coid) {
+int32_t libcUnixNtoNeutrinoConnectDetach(int32_t coid) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -261,13 +261,13 @@ int32_t libc_unix_nto_neutrino_connectDetach(int32_t arg_0_coid) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_coid);
+        return km_fn_ptr(coid);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_connectDetachR(int32_t arg_0_coid) {
+int32_t libcUnixNtoNeutrinoConnectDetachR(int32_t coid) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -289,13 +289,13 @@ int32_t libc_unix_nto_neutrino_connectDetachR(int32_t arg_0_coid) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_coid);
+        return km_fn_ptr(coid);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_connectServerInfo(int32_t arg_0_pid, int32_t arg_1_coid, void* arg_2_info) {
+int32_t libcUnixNtoNeutrinoConnectServerInfo(int32_t pid, int32_t coid, void* info) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -317,13 +317,13 @@ int32_t libc_unix_nto_neutrino_connectServerInfo(int32_t arg_0_pid, int32_t arg_
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_pid, arg_1_coid, arg_2_info);
+        return km_fn_ptr(pid, coid, info);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_connectServerInfoR(int32_t arg_0_pid, int32_t arg_1_coid, void* arg_2_info) {
+int32_t libcUnixNtoNeutrinoConnectServerInfoR(int32_t pid, int32_t coid, void* info) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -345,13 +345,13 @@ int32_t libc_unix_nto_neutrino_connectServerInfoR(int32_t arg_0_pid, int32_t arg
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_pid, arg_1_coid, arg_2_info);
+        return km_fn_ptr(pid, coid, info);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_connectClientInfoExtraArgs(int32_t arg_0_scoid, void* arg_1_info_pp, int32_t arg_2_ngroups, void* arg_3_abilities, int32_t arg_4_nable, void* arg_5_type_id) {
+int32_t libcUnixNtoNeutrinoConnectClientInfoExtraArgs(int32_t scoid, void* infoPp, int32_t ngroups, void* abilities, int32_t nable, void* typeId) {
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t, void*, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -373,13 +373,13 @@ int32_t libc_unix_nto_neutrino_connectClientInfoExtraArgs(int32_t arg_0_scoid, v
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_scoid, arg_1_info_pp, arg_2_ngroups, arg_3_abilities, arg_4_nable, arg_5_type_id);
+        return km_fn_ptr(scoid, infoPp, ngroups, abilities, nable, typeId);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_connectClientInfoExtraArgsR(int32_t arg_0_scoid, void* arg_1_info_pp, int32_t arg_2_ngroups, void* arg_3_abilities, int32_t arg_4_nable, void* arg_5_type_id) {
+int32_t libcUnixNtoNeutrinoConnectClientInfoExtraArgsR(int32_t scoid, void* infoPp, int32_t ngroups, void* abilities, int32_t nable, void* typeId) {
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t, void*, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -401,13 +401,13 @@ int32_t libc_unix_nto_neutrino_connectClientInfoExtraArgsR(int32_t arg_0_scoid, 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_scoid, arg_1_info_pp, arg_2_ngroups, arg_3_abilities, arg_4_nable, arg_5_type_id);
+        return km_fn_ptr(scoid, infoPp, ngroups, abilities, nable, typeId);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_connectClientInfo(int32_t arg_0_scoid, void* arg_1_info, int32_t arg_2_ngroups) {
+int32_t libcUnixNtoNeutrinoConnectClientInfo(int32_t scoid, void* info, int32_t ngroups) {
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -429,13 +429,13 @@ int32_t libc_unix_nto_neutrino_connectClientInfo(int32_t arg_0_scoid, void* arg_
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_scoid, arg_1_info, arg_2_ngroups);
+        return km_fn_ptr(scoid, info, ngroups);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_connectClientInfoR(int32_t arg_0_scoid, void* arg_1_info, int32_t arg_2_ngroups) {
+int32_t libcUnixNtoNeutrinoConnectClientInfoR(int32_t scoid, void* info, int32_t ngroups) {
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -457,13 +457,13 @@ int32_t libc_unix_nto_neutrino_connectClientInfoR(int32_t arg_0_scoid, void* arg
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_scoid, arg_1_info, arg_2_ngroups);
+        return km_fn_ptr(scoid, info, ngroups);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_connectClientInfoExt(int32_t arg_0_scoid, void* arg_1_info_pp, int32_t flags) {
+int32_t libcUnixNtoNeutrinoConnectClientInfoExt(int32_t scoid, void* infoPp, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -485,13 +485,13 @@ int32_t libc_unix_nto_neutrino_connectClientInfoExt(int32_t arg_0_scoid, void* a
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_scoid, arg_1_info_pp, flags);
+        return km_fn_ptr(scoid, infoPp, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_clientInfoExtFree(void* arg_0_info_pp) {
+int32_t libcUnixNtoNeutrinoClientInfoExtFree(void* infoPp) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -513,13 +513,13 @@ int32_t libc_unix_nto_neutrino_clientInfoExtFree(void* arg_0_info_pp) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_info_pp);
+        return km_fn_ptr(infoPp);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_connectClientInfoAble(int32_t arg_0_scoid, void* arg_1_info_pp, int32_t flags, void* abilities, int32_t nable) {
+int32_t libcUnixNtoNeutrinoConnectClientInfoAble(int32_t scoid, void* infoPp, int32_t flags, void* abilities, int32_t nable) {
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -541,13 +541,13 @@ int32_t libc_unix_nto_neutrino_connectClientInfoAble(int32_t arg_0_scoid, void* 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_scoid, arg_1_info_pp, flags, abilities, nable);
+        return km_fn_ptr(scoid, infoPp, flags, abilities, nable);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_connectFlags(int32_t arg_0_pid, int32_t arg_1_coid, uint32_t arg_2_mask, uint32_t arg_3_bits) {
+int32_t libcUnixNtoNeutrinoConnectFlags(int32_t pid, int32_t coid, uint32_t mask, uint32_t bits) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, uint32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -569,13 +569,13 @@ int32_t libc_unix_nto_neutrino_connectFlags(int32_t arg_0_pid, int32_t arg_1_coi
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_pid, arg_1_coid, arg_2_mask, arg_3_bits);
+        return km_fn_ptr(pid, coid, mask, bits);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_connectFlagsR(int32_t arg_0_pid, int32_t arg_1_coid, uint32_t arg_2_mask, uint32_t arg_3_bits) {
+int32_t libcUnixNtoNeutrinoConnectFlagsR(int32_t pid, int32_t coid, uint32_t mask, uint32_t bits) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, uint32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -597,13 +597,13 @@ int32_t libc_unix_nto_neutrino_connectFlagsR(int32_t arg_0_pid, int32_t arg_1_co
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_pid, arg_1_coid, arg_2_mask, arg_3_bits);
+        return km_fn_ptr(pid, coid, mask, bits);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_channelConnectAttr(uint32_t arg_0_id, void* arg_1_old_attr, void* arg_2_new_attr, uint32_t arg_3_flags) {
+int32_t libcUnixNtoNeutrinoChannelConnectAttr(uint32_t id, void* oldAttr, void* newAttr, uint32_t flags) {
     typedef int32_t (*km_fn_t)(uint32_t, void*, void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -625,13 +625,13 @@ int32_t libc_unix_nto_neutrino_channelConnectAttr(uint32_t arg_0_id, void* arg_1
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_id, arg_1_old_attr, arg_2_new_attr, arg_3_flags);
+        return km_fn_ptr(id, oldAttr, newAttr, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_unix_nto_neutrino_msgSend(int32_t arg_0_coid, void* arg_1_smsg, uint64_t arg_2_sbytes, void* arg_3_rmsg, uint64_t arg_4_rbytes) {
+int64_t libcUnixNtoNeutrinoMsgSend(int32_t coid, void* smsg, uint64_t sbytes, void* rmsg, uint64_t rbytes) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -653,13 +653,13 @@ int64_t libc_unix_nto_neutrino_msgSend(int32_t arg_0_coid, void* arg_1_smsg, uin
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_coid, arg_1_smsg, arg_2_sbytes, arg_3_rmsg, arg_4_rbytes);
+        return km_fn_ptr(coid, smsg, sbytes, rmsg, rbytes);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_unix_nto_neutrino_msgSendR(int32_t arg_0_coid, void* arg_1_smsg, uint64_t arg_2_sbytes, void* arg_3_rmsg, uint64_t arg_4_rbytes) {
+int64_t libcUnixNtoNeutrinoMsgSendR(int32_t coid, void* smsg, uint64_t sbytes, void* rmsg, uint64_t rbytes) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -681,13 +681,13 @@ int64_t libc_unix_nto_neutrino_msgSendR(int32_t arg_0_coid, void* arg_1_smsg, ui
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_coid, arg_1_smsg, arg_2_sbytes, arg_3_rmsg, arg_4_rbytes);
+        return km_fn_ptr(coid, smsg, sbytes, rmsg, rbytes);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_unix_nto_neutrino_msgSendnc(int32_t arg_0_coid, void* arg_1_smsg, uint64_t arg_2_sbytes, void* arg_3_rmsg, uint64_t arg_4_rbytes) {
+int64_t libcUnixNtoNeutrinoMsgSendnc(int32_t coid, void* smsg, uint64_t sbytes, void* rmsg, uint64_t rbytes) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -709,13 +709,13 @@ int64_t libc_unix_nto_neutrino_msgSendnc(int32_t arg_0_coid, void* arg_1_smsg, u
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_coid, arg_1_smsg, arg_2_sbytes, arg_3_rmsg, arg_4_rbytes);
+        return km_fn_ptr(coid, smsg, sbytes, rmsg, rbytes);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_unix_nto_neutrino_msgSendncR(int32_t arg_0_coid, void* arg_1_smsg, uint64_t arg_2_sbytes, void* arg_3_rmsg, uint64_t arg_4_rbytes) {
+int64_t libcUnixNtoNeutrinoMsgSendncR(int32_t coid, void* smsg, uint64_t sbytes, void* rmsg, uint64_t rbytes) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -737,13 +737,13 @@ int64_t libc_unix_nto_neutrino_msgSendncR(int32_t arg_0_coid, void* arg_1_smsg, 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_coid, arg_1_smsg, arg_2_sbytes, arg_3_rmsg, arg_4_rbytes);
+        return km_fn_ptr(coid, smsg, sbytes, rmsg, rbytes);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_unix_nto_neutrino_msgSendsv(int32_t arg_0_coid, void* arg_1_smsg, uint64_t arg_2_sbytes, void* arg_3_riov, uint64_t arg_4_rparts) {
+int64_t libcUnixNtoNeutrinoMsgSendsv(int32_t coid, void* smsg, uint64_t sbytes, void* riov, uint64_t rparts) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -765,13 +765,13 @@ int64_t libc_unix_nto_neutrino_msgSendsv(int32_t arg_0_coid, void* arg_1_smsg, u
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_coid, arg_1_smsg, arg_2_sbytes, arg_3_riov, arg_4_rparts);
+        return km_fn_ptr(coid, smsg, sbytes, riov, rparts);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_unix_nto_neutrino_msgSendsvR(int32_t arg_0_coid, void* arg_1_smsg, uint64_t arg_2_sbytes, void* arg_3_riov, uint64_t arg_4_rparts) {
+int64_t libcUnixNtoNeutrinoMsgSendsvR(int32_t coid, void* smsg, uint64_t sbytes, void* riov, uint64_t rparts) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -793,13 +793,13 @@ int64_t libc_unix_nto_neutrino_msgSendsvR(int32_t arg_0_coid, void* arg_1_smsg, 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_coid, arg_1_smsg, arg_2_sbytes, arg_3_riov, arg_4_rparts);
+        return km_fn_ptr(coid, smsg, sbytes, riov, rparts);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_unix_nto_neutrino_msgSendsvnc(int32_t arg_0_coid, void* arg_1_smsg, uint64_t arg_2_sbytes, void* arg_3_riov, uint64_t arg_4_rparts) {
+int64_t libcUnixNtoNeutrinoMsgSendsvnc(int32_t coid, void* smsg, uint64_t sbytes, void* riov, uint64_t rparts) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -821,13 +821,13 @@ int64_t libc_unix_nto_neutrino_msgSendsvnc(int32_t arg_0_coid, void* arg_1_smsg,
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_coid, arg_1_smsg, arg_2_sbytes, arg_3_riov, arg_4_rparts);
+        return km_fn_ptr(coid, smsg, sbytes, riov, rparts);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_unix_nto_neutrino_msgSendsvncR(int32_t arg_0_coid, void* arg_1_smsg, uint64_t arg_2_sbytes, void* arg_3_riov, uint64_t arg_4_rparts) {
+int64_t libcUnixNtoNeutrinoMsgSendsvncR(int32_t coid, void* smsg, uint64_t sbytes, void* riov, uint64_t rparts) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -849,13 +849,13 @@ int64_t libc_unix_nto_neutrino_msgSendsvncR(int32_t arg_0_coid, void* arg_1_smsg
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_coid, arg_1_smsg, arg_2_sbytes, arg_3_riov, arg_4_rparts);
+        return km_fn_ptr(coid, smsg, sbytes, riov, rparts);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_unix_nto_neutrino_msgSendvs(int32_t arg_0_coid, void* arg_1_siov, uint64_t arg_2_sparts, void* arg_3_rmsg, uint64_t arg_4_rbytes) {
+int64_t libcUnixNtoNeutrinoMsgSendvs(int32_t coid, void* siov, uint64_t sparts, void* rmsg, uint64_t rbytes) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -877,13 +877,13 @@ int64_t libc_unix_nto_neutrino_msgSendvs(int32_t arg_0_coid, void* arg_1_siov, u
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_coid, arg_1_siov, arg_2_sparts, arg_3_rmsg, arg_4_rbytes);
+        return km_fn_ptr(coid, siov, sparts, rmsg, rbytes);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_unix_nto_neutrino_msgSendvsR(int32_t arg_0_coid, void* arg_1_siov, uint64_t arg_2_sparts, void* arg_3_rmsg, uint64_t arg_4_rbytes) {
+int64_t libcUnixNtoNeutrinoMsgSendvsR(int32_t coid, void* siov, uint64_t sparts, void* rmsg, uint64_t rbytes) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -905,13 +905,13 @@ int64_t libc_unix_nto_neutrino_msgSendvsR(int32_t arg_0_coid, void* arg_1_siov, 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_coid, arg_1_siov, arg_2_sparts, arg_3_rmsg, arg_4_rbytes);
+        return km_fn_ptr(coid, siov, sparts, rmsg, rbytes);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_unix_nto_neutrino_msgSendvsnc(int32_t arg_0_coid, void* arg_1_siov, uint64_t arg_2_sparts, void* arg_3_rmsg, uint64_t arg_4_rbytes) {
+int64_t libcUnixNtoNeutrinoMsgSendvsnc(int32_t coid, void* siov, uint64_t sparts, void* rmsg, uint64_t rbytes) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -933,13 +933,13 @@ int64_t libc_unix_nto_neutrino_msgSendvsnc(int32_t arg_0_coid, void* arg_1_siov,
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_coid, arg_1_siov, arg_2_sparts, arg_3_rmsg, arg_4_rbytes);
+        return km_fn_ptr(coid, siov, sparts, rmsg, rbytes);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_unix_nto_neutrino_msgSendvsncR(int32_t arg_0_coid, void* arg_1_siov, uint64_t arg_2_sparts, void* arg_3_rmsg, uint64_t arg_4_rbytes) {
+int64_t libcUnixNtoNeutrinoMsgSendvsncR(int32_t coid, void* siov, uint64_t sparts, void* rmsg, uint64_t rbytes) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -961,13 +961,13 @@ int64_t libc_unix_nto_neutrino_msgSendvsncR(int32_t arg_0_coid, void* arg_1_siov
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_coid, arg_1_siov, arg_2_sparts, arg_3_rmsg, arg_4_rbytes);
+        return km_fn_ptr(coid, siov, sparts, rmsg, rbytes);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_unix_nto_neutrino_msgSendv(int32_t arg_0_coid, void* arg_1_siov, uint64_t arg_2_sparts, void* arg_3_riov, uint64_t arg_4_rparts) {
+int64_t libcUnixNtoNeutrinoMsgSendv(int32_t coid, void* siov, uint64_t sparts, void* riov, uint64_t rparts) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -989,13 +989,13 @@ int64_t libc_unix_nto_neutrino_msgSendv(int32_t arg_0_coid, void* arg_1_siov, ui
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_coid, arg_1_siov, arg_2_sparts, arg_3_riov, arg_4_rparts);
+        return km_fn_ptr(coid, siov, sparts, riov, rparts);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_unix_nto_neutrino_msgSendvR(int32_t arg_0_coid, void* arg_1_siov, uint64_t arg_2_sparts, void* arg_3_riov, uint64_t arg_4_rparts) {
+int64_t libcUnixNtoNeutrinoMsgSendvR(int32_t coid, void* siov, uint64_t sparts, void* riov, uint64_t rparts) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1017,13 +1017,13 @@ int64_t libc_unix_nto_neutrino_msgSendvR(int32_t arg_0_coid, void* arg_1_siov, u
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_coid, arg_1_siov, arg_2_sparts, arg_3_riov, arg_4_rparts);
+        return km_fn_ptr(coid, siov, sparts, riov, rparts);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_unix_nto_neutrino_msgSendvnc(int32_t arg_0_coid, void* arg_1_siov, uint64_t arg_2_sparts, void* arg_3_riov, uint64_t arg_4_rparts) {
+int64_t libcUnixNtoNeutrinoMsgSendvnc(int32_t coid, void* siov, uint64_t sparts, void* riov, uint64_t rparts) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1045,13 +1045,13 @@ int64_t libc_unix_nto_neutrino_msgSendvnc(int32_t arg_0_coid, void* arg_1_siov, 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_coid, arg_1_siov, arg_2_sparts, arg_3_riov, arg_4_rparts);
+        return km_fn_ptr(coid, siov, sparts, riov, rparts);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_unix_nto_neutrino_msgSendvncR(int32_t arg_0_coid, void* arg_1_siov, uint64_t arg_2_sparts, void* arg_3_riov, uint64_t arg_4_rparts) {
+int64_t libcUnixNtoNeutrinoMsgSendvncR(int32_t coid, void* siov, uint64_t sparts, void* riov, uint64_t rparts) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1073,13 +1073,13 @@ int64_t libc_unix_nto_neutrino_msgSendvncR(int32_t arg_0_coid, void* arg_1_siov,
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_coid, arg_1_siov, arg_2_sparts, arg_3_riov, arg_4_rparts);
+        return km_fn_ptr(coid, siov, sparts, riov, rparts);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_msgReceive(int32_t arg_0_chid, void* arg_1_msg, uint64_t arg_2_bytes, void* arg_3_info) {
+int32_t libcUnixNtoNeutrinoMsgReceive(int32_t chid, void* msg, uint64_t bytes, void* info) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1101,13 +1101,13 @@ int32_t libc_unix_nto_neutrino_msgReceive(int32_t arg_0_chid, void* arg_1_msg, u
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_chid, arg_1_msg, arg_2_bytes, arg_3_info);
+        return km_fn_ptr(chid, msg, bytes, info);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_msgReceiveR(int32_t arg_0_chid, void* arg_1_msg, uint64_t arg_2_bytes, void* arg_3_info) {
+int32_t libcUnixNtoNeutrinoMsgReceiveR(int32_t chid, void* msg, uint64_t bytes, void* info) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1129,13 +1129,13 @@ int32_t libc_unix_nto_neutrino_msgReceiveR(int32_t arg_0_chid, void* arg_1_msg, 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_chid, arg_1_msg, arg_2_bytes, arg_3_info);
+        return km_fn_ptr(chid, msg, bytes, info);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_msgReceivev(int32_t arg_0_chid, void* arg_1_iov, uint64_t arg_2_parts, void* arg_3_info) {
+int32_t libcUnixNtoNeutrinoMsgReceivev(int32_t chid, void* iov, uint64_t parts, void* info) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1157,13 +1157,13 @@ int32_t libc_unix_nto_neutrino_msgReceivev(int32_t arg_0_chid, void* arg_1_iov, 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_chid, arg_1_iov, arg_2_parts, arg_3_info);
+        return km_fn_ptr(chid, iov, parts, info);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_msgReceivevR(int32_t arg_0_chid, void* arg_1_iov, uint64_t arg_2_parts, void* arg_3_info) {
+int32_t libcUnixNtoNeutrinoMsgReceivevR(int32_t chid, void* iov, uint64_t parts, void* info) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1185,13 +1185,13 @@ int32_t libc_unix_nto_neutrino_msgReceivevR(int32_t arg_0_chid, void* arg_1_iov,
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_chid, arg_1_iov, arg_2_parts, arg_3_info);
+        return km_fn_ptr(chid, iov, parts, info);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_msgReceivePulse(int32_t arg_0_chid, void* arg_1_pulse, uint64_t arg_2_bytes, void* arg_3_info) {
+int32_t libcUnixNtoNeutrinoMsgReceivePulse(int32_t chid, void* pulse, uint64_t bytes, void* info) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1213,13 +1213,13 @@ int32_t libc_unix_nto_neutrino_msgReceivePulse(int32_t arg_0_chid, void* arg_1_p
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_chid, arg_1_pulse, arg_2_bytes, arg_3_info);
+        return km_fn_ptr(chid, pulse, bytes, info);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_msgReceivePulseR(int32_t arg_0_chid, void* arg_1_pulse, uint64_t arg_2_bytes, void* arg_3_info) {
+int32_t libcUnixNtoNeutrinoMsgReceivePulseR(int32_t chid, void* pulse, uint64_t bytes, void* info) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1241,13 +1241,13 @@ int32_t libc_unix_nto_neutrino_msgReceivePulseR(int32_t arg_0_chid, void* arg_1_
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_chid, arg_1_pulse, arg_2_bytes, arg_3_info);
+        return km_fn_ptr(chid, pulse, bytes, info);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_msgReceivePulsev(int32_t arg_0_chid, void* arg_1_iov, uint64_t arg_2_parts, void* arg_3_info) {
+int32_t libcUnixNtoNeutrinoMsgReceivePulsev(int32_t chid, void* iov, uint64_t parts, void* info) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1269,13 +1269,13 @@ int32_t libc_unix_nto_neutrino_msgReceivePulsev(int32_t arg_0_chid, void* arg_1_
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_chid, arg_1_iov, arg_2_parts, arg_3_info);
+        return km_fn_ptr(chid, iov, parts, info);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_msgReceivePulsevR(int32_t arg_0_chid, void* arg_1_iov, uint64_t arg_2_parts, void* arg_3_info) {
+int32_t libcUnixNtoNeutrinoMsgReceivePulsevR(int32_t chid, void* iov, uint64_t parts, void* info) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1297,13 +1297,13 @@ int32_t libc_unix_nto_neutrino_msgReceivePulsevR(int32_t arg_0_chid, void* arg_1
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_chid, arg_1_iov, arg_2_parts, arg_3_info);
+        return km_fn_ptr(chid, iov, parts, info);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_msgReply(int32_t arg_0_rcvid, int64_t arg_1_status, void* arg_2_msg, uint64_t arg_3_bytes) {
+int32_t libcUnixNtoNeutrinoMsgReply(int32_t rcvid, int64_t status, void* msg, uint64_t bytes) {
     typedef int32_t (*km_fn_t)(int32_t, int64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1325,13 +1325,13 @@ int32_t libc_unix_nto_neutrino_msgReply(int32_t arg_0_rcvid, int64_t arg_1_statu
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_rcvid, arg_1_status, arg_2_msg, arg_3_bytes);
+        return km_fn_ptr(rcvid, status, msg, bytes);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_msgReplyR(int32_t arg_0_rcvid, int64_t arg_1_status, void* arg_2_msg, uint64_t arg_3_bytes) {
+int32_t libcUnixNtoNeutrinoMsgReplyR(int32_t rcvid, int64_t status, void* msg, uint64_t bytes) {
     typedef int32_t (*km_fn_t)(int32_t, int64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1353,13 +1353,13 @@ int32_t libc_unix_nto_neutrino_msgReplyR(int32_t arg_0_rcvid, int64_t arg_1_stat
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_rcvid, arg_1_status, arg_2_msg, arg_3_bytes);
+        return km_fn_ptr(rcvid, status, msg, bytes);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_msgReplyv(int32_t arg_0_rcvid, int64_t arg_1_status, void* arg_2_iov, uint64_t arg_3_parts) {
+int32_t libcUnixNtoNeutrinoMsgReplyv(int32_t rcvid, int64_t status, void* iov, uint64_t parts) {
     typedef int32_t (*km_fn_t)(int32_t, int64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1381,13 +1381,13 @@ int32_t libc_unix_nto_neutrino_msgReplyv(int32_t arg_0_rcvid, int64_t arg_1_stat
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_rcvid, arg_1_status, arg_2_iov, arg_3_parts);
+        return km_fn_ptr(rcvid, status, iov, parts);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_msgReplyvR(int32_t arg_0_rcvid, int64_t arg_1_status, void* arg_2_iov, uint64_t arg_3_parts) {
+int32_t libcUnixNtoNeutrinoMsgReplyvR(int32_t rcvid, int64_t status, void* iov, uint64_t parts) {
     typedef int32_t (*km_fn_t)(int32_t, int64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1409,13 +1409,13 @@ int32_t libc_unix_nto_neutrino_msgReplyvR(int32_t arg_0_rcvid, int64_t arg_1_sta
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_rcvid, arg_1_status, arg_2_iov, arg_3_parts);
+        return km_fn_ptr(rcvid, status, iov, parts);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_unix_nto_neutrino_msgReadiov(int32_t arg_0_rcvid, void* arg_1_iov, uint64_t arg_2_parts, uint64_t arg_3_offset, int32_t arg_4_flags) {
+int64_t libcUnixNtoNeutrinoMsgReadiov(int32_t rcvid, void* iov, uint64_t parts, uint64_t offset, int32_t flags) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, uint64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1437,13 +1437,13 @@ int64_t libc_unix_nto_neutrino_msgReadiov(int32_t arg_0_rcvid, void* arg_1_iov, 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_rcvid, arg_1_iov, arg_2_parts, arg_3_offset, arg_4_flags);
+        return km_fn_ptr(rcvid, iov, parts, offset, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_unix_nto_neutrino_msgReadiovR(int32_t arg_0_rcvid, void* arg_1_iov, uint64_t arg_2_parts, uint64_t arg_3_offset, int32_t arg_4_flags) {
+int64_t libcUnixNtoNeutrinoMsgReadiovR(int32_t rcvid, void* iov, uint64_t parts, uint64_t offset, int32_t flags) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, uint64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1465,13 +1465,13 @@ int64_t libc_unix_nto_neutrino_msgReadiovR(int32_t arg_0_rcvid, void* arg_1_iov,
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_rcvid, arg_1_iov, arg_2_parts, arg_3_offset, arg_4_flags);
+        return km_fn_ptr(rcvid, iov, parts, offset, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_unix_nto_neutrino_msgRead(int32_t arg_0_rcvid, void* arg_1_msg, uint64_t arg_2_bytes, uint64_t arg_3_offset) {
+int64_t libcUnixNtoNeutrinoMsgRead(int32_t rcvid, void* msg, uint64_t bytes, uint64_t offset) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1493,13 +1493,13 @@ int64_t libc_unix_nto_neutrino_msgRead(int32_t arg_0_rcvid, void* arg_1_msg, uin
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_rcvid, arg_1_msg, arg_2_bytes, arg_3_offset);
+        return km_fn_ptr(rcvid, msg, bytes, offset);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_unix_nto_neutrino_msgReadR(int32_t arg_0_rcvid, void* arg_1_msg, uint64_t arg_2_bytes, uint64_t arg_3_offset) {
+int64_t libcUnixNtoNeutrinoMsgReadR(int32_t rcvid, void* msg, uint64_t bytes, uint64_t offset) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1521,13 +1521,13 @@ int64_t libc_unix_nto_neutrino_msgReadR(int32_t arg_0_rcvid, void* arg_1_msg, ui
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_rcvid, arg_1_msg, arg_2_bytes, arg_3_offset);
+        return km_fn_ptr(rcvid, msg, bytes, offset);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_unix_nto_neutrino_msgReadv(int32_t arg_0_rcvid, void* arg_1_iov, uint64_t arg_2_parts, uint64_t arg_3_offset) {
+int64_t libcUnixNtoNeutrinoMsgReadv(int32_t rcvid, void* iov, uint64_t parts, uint64_t offset) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1549,13 +1549,13 @@ int64_t libc_unix_nto_neutrino_msgReadv(int32_t arg_0_rcvid, void* arg_1_iov, ui
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_rcvid, arg_1_iov, arg_2_parts, arg_3_offset);
+        return km_fn_ptr(rcvid, iov, parts, offset);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_unix_nto_neutrino_msgReadvR(int32_t arg_0_rcvid, void* arg_1_iov, uint64_t arg_2_parts, uint64_t arg_3_offset) {
+int64_t libcUnixNtoNeutrinoMsgReadvR(int32_t rcvid, void* iov, uint64_t parts, uint64_t offset) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1577,13 +1577,13 @@ int64_t libc_unix_nto_neutrino_msgReadvR(int32_t arg_0_rcvid, void* arg_1_iov, u
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_rcvid, arg_1_iov, arg_2_parts, arg_3_offset);
+        return km_fn_ptr(rcvid, iov, parts, offset);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_unix_nto_neutrino_msgWrite(int32_t arg_0_rcvid, void* arg_1_msg, uint64_t arg_2_bytes, uint64_t arg_3_offset) {
+int64_t libcUnixNtoNeutrinoMsgWrite(int32_t rcvid, void* msg, uint64_t bytes, uint64_t offset) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1605,13 +1605,13 @@ int64_t libc_unix_nto_neutrino_msgWrite(int32_t arg_0_rcvid, void* arg_1_msg, ui
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_rcvid, arg_1_msg, arg_2_bytes, arg_3_offset);
+        return km_fn_ptr(rcvid, msg, bytes, offset);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_unix_nto_neutrino_msgWriteR(int32_t arg_0_rcvid, void* arg_1_msg, uint64_t arg_2_bytes, uint64_t arg_3_offset) {
+int64_t libcUnixNtoNeutrinoMsgWriteR(int32_t rcvid, void* msg, uint64_t bytes, uint64_t offset) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1633,13 +1633,13 @@ int64_t libc_unix_nto_neutrino_msgWriteR(int32_t arg_0_rcvid, void* arg_1_msg, u
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_rcvid, arg_1_msg, arg_2_bytes, arg_3_offset);
+        return km_fn_ptr(rcvid, msg, bytes, offset);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_unix_nto_neutrino_msgWritev(int32_t arg_0_rcvid, void* arg_1_iov, uint64_t arg_2_parts, uint64_t arg_3_offset) {
+int64_t libcUnixNtoNeutrinoMsgWritev(int32_t rcvid, void* iov, uint64_t parts, uint64_t offset) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1661,13 +1661,13 @@ int64_t libc_unix_nto_neutrino_msgWritev(int32_t arg_0_rcvid, void* arg_1_iov, u
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_rcvid, arg_1_iov, arg_2_parts, arg_3_offset);
+        return km_fn_ptr(rcvid, iov, parts, offset);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_unix_nto_neutrino_msgWritevR(int32_t arg_0_rcvid, void* arg_1_iov, uint64_t arg_2_parts, uint64_t arg_3_offset) {
+int64_t libcUnixNtoNeutrinoMsgWritevR(int32_t rcvid, void* iov, uint64_t parts, uint64_t offset) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1689,13 +1689,13 @@ int64_t libc_unix_nto_neutrino_msgWritevR(int32_t arg_0_rcvid, void* arg_1_iov, 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_rcvid, arg_1_iov, arg_2_parts, arg_3_offset);
+        return km_fn_ptr(rcvid, iov, parts, offset);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_msgSendPulse(int32_t arg_0_coid, int32_t arg_1_priority, int32_t arg_2_code, int32_t arg_3_value) {
+int32_t libcUnixNtoNeutrinoMsgSendPulse(int32_t coid, int32_t priority, int32_t code, int32_t value) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1717,13 +1717,13 @@ int32_t libc_unix_nto_neutrino_msgSendPulse(int32_t arg_0_coid, int32_t arg_1_pr
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_coid, arg_1_priority, arg_2_code, arg_3_value);
+        return km_fn_ptr(coid, priority, code, value);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_msgSendPulseR(int32_t arg_0_coid, int32_t arg_1_priority, int32_t arg_2_code, int32_t arg_3_value) {
+int32_t libcUnixNtoNeutrinoMsgSendPulseR(int32_t coid, int32_t priority, int32_t code, int32_t value) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1745,13 +1745,13 @@ int32_t libc_unix_nto_neutrino_msgSendPulseR(int32_t arg_0_coid, int32_t arg_1_p
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_coid, arg_1_priority, arg_2_code, arg_3_value);
+        return km_fn_ptr(coid, priority, code, value);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_msgSendPulsePtr(int32_t arg_0_coid, int32_t arg_1_priority, int32_t arg_2_code, void* arg_3_value) {
+int32_t libcUnixNtoNeutrinoMsgSendPulsePtr(int32_t coid, int32_t priority, int32_t code, void* value) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1773,13 +1773,13 @@ int32_t libc_unix_nto_neutrino_msgSendPulsePtr(int32_t arg_0_coid, int32_t arg_1
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_coid, arg_1_priority, arg_2_code, arg_3_value);
+        return km_fn_ptr(coid, priority, code, value);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_msgSendPulsePtrR(int32_t arg_0_coid, int32_t arg_1_priority, int32_t arg_2_code, void* arg_3_value) {
+int32_t libcUnixNtoNeutrinoMsgSendPulsePtrR(int32_t coid, int32_t priority, int32_t code, void* value) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1801,13 +1801,13 @@ int32_t libc_unix_nto_neutrino_msgSendPulsePtrR(int32_t arg_0_coid, int32_t arg_
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_coid, arg_1_priority, arg_2_code, arg_3_value);
+        return km_fn_ptr(coid, priority, code, value);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_msgDeliverEvent(int32_t arg_0_rcvid, void* arg_1_event) {
+int32_t libcUnixNtoNeutrinoMsgDeliverEvent(int32_t rcvid, void* event) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1829,13 +1829,13 @@ int32_t libc_unix_nto_neutrino_msgDeliverEvent(int32_t arg_0_rcvid, void* arg_1_
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_rcvid, arg_1_event);
+        return km_fn_ptr(rcvid, event);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_msgDeliverEventR(int32_t arg_0_rcvid, void* arg_1_event) {
+int32_t libcUnixNtoNeutrinoMsgDeliverEventR(int32_t rcvid, void* event) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1857,13 +1857,13 @@ int32_t libc_unix_nto_neutrino_msgDeliverEventR(int32_t arg_0_rcvid, void* arg_1
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_rcvid, arg_1_event);
+        return km_fn_ptr(rcvid, event);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_msgVerifyEvent(int32_t arg_0_rcvid, void* arg_1_event) {
+int32_t libcUnixNtoNeutrinoMsgVerifyEvent(int32_t rcvid, void* event) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1885,13 +1885,13 @@ int32_t libc_unix_nto_neutrino_msgVerifyEvent(int32_t arg_0_rcvid, void* arg_1_e
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_rcvid, arg_1_event);
+        return km_fn_ptr(rcvid, event);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_msgVerifyEventR(int32_t arg_0_rcvid, void* arg_1_event) {
+int32_t libcUnixNtoNeutrinoMsgVerifyEventR(int32_t rcvid, void* event) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1913,13 +1913,13 @@ int32_t libc_unix_nto_neutrino_msgVerifyEventR(int32_t arg_0_rcvid, void* arg_1_
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_rcvid, arg_1_event);
+        return km_fn_ptr(rcvid, event);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_msgRegisterEvent(void* arg_0_event, int32_t arg_1_coid) {
+int32_t libcUnixNtoNeutrinoMsgRegisterEvent(void* event, int32_t coid) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1941,13 +1941,13 @@ int32_t libc_unix_nto_neutrino_msgRegisterEvent(void* arg_0_event, int32_t arg_1
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_event, arg_1_coid);
+        return km_fn_ptr(event, coid);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_msgRegisterEventR(void* arg_0_event, int32_t arg_1_coid) {
+int32_t libcUnixNtoNeutrinoMsgRegisterEventR(void* event, int32_t coid) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1969,13 +1969,13 @@ int32_t libc_unix_nto_neutrino_msgRegisterEventR(void* arg_0_event, int32_t arg_
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_event, arg_1_coid);
+        return km_fn_ptr(event, coid);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_msgUnregisterEvent(void* arg_0_event) {
+int32_t libcUnixNtoNeutrinoMsgUnregisterEvent(void* event) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1997,13 +1997,13 @@ int32_t libc_unix_nto_neutrino_msgUnregisterEvent(void* arg_0_event) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_event);
+        return km_fn_ptr(event);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_msgUnregisterEventR(void* arg_0_event) {
+int32_t libcUnixNtoNeutrinoMsgUnregisterEventR(void* event) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2025,13 +2025,13 @@ int32_t libc_unix_nto_neutrino_msgUnregisterEventR(void* arg_0_event) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_event);
+        return km_fn_ptr(event);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_msgInfo(int32_t arg_0_rcvid, void* arg_1_info) {
+int32_t libcUnixNtoNeutrinoMsgInfo(int32_t rcvid, void* info) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2053,13 +2053,13 @@ int32_t libc_unix_nto_neutrino_msgInfo(int32_t arg_0_rcvid, void* arg_1_info) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_rcvid, arg_1_info);
+        return km_fn_ptr(rcvid, info);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_msgInfoR(int32_t arg_0_rcvid, void* arg_1_info) {
+int32_t libcUnixNtoNeutrinoMsgInfoR(int32_t rcvid, void* info) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2081,13 +2081,13 @@ int32_t libc_unix_nto_neutrino_msgInfoR(int32_t arg_0_rcvid, void* arg_1_info) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_rcvid, arg_1_info);
+        return km_fn_ptr(rcvid, info);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_msgKeyData(int32_t arg_0_rcvid, int32_t arg_1_oper, uint32_t arg_2_key, void* arg_3_newkey, void* arg_4_iov, int32_t arg_5_parts) {
+int32_t libcUnixNtoNeutrinoMsgKeyData(int32_t rcvid, int32_t oper, uint32_t key, void* newkey, void* iov, int32_t parts) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, uint32_t, void*, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2109,13 +2109,13 @@ int32_t libc_unix_nto_neutrino_msgKeyData(int32_t arg_0_rcvid, int32_t arg_1_ope
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_rcvid, arg_1_oper, arg_2_key, arg_3_newkey, arg_4_iov, arg_5_parts);
+        return km_fn_ptr(rcvid, oper, key, newkey, iov, parts);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_msgKeyDataR(int32_t arg_0_rcvid, int32_t arg_1_oper, uint32_t arg_2_key, void* arg_3_newkey, void* arg_4_iov, int32_t arg_5_parts) {
+int32_t libcUnixNtoNeutrinoMsgKeyDataR(int32_t rcvid, int32_t oper, uint32_t key, void* newkey, void* iov, int32_t parts) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, uint32_t, void*, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2137,13 +2137,13 @@ int32_t libc_unix_nto_neutrino_msgKeyDataR(int32_t arg_0_rcvid, int32_t arg_1_op
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_rcvid, arg_1_oper, arg_2_key, arg_3_newkey, arg_4_iov, arg_5_parts);
+        return km_fn_ptr(rcvid, oper, key, newkey, iov, parts);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_msgError(int32_t arg_0_rcvid, int32_t arg_1_err) {
+int32_t libcUnixNtoNeutrinoMsgError(int32_t rcvid, int32_t err) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2165,13 +2165,13 @@ int32_t libc_unix_nto_neutrino_msgError(int32_t arg_0_rcvid, int32_t arg_1_err) 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_rcvid, arg_1_err);
+        return km_fn_ptr(rcvid, err);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_msgErrorR(int32_t arg_0_rcvid, int32_t arg_1_err) {
+int32_t libcUnixNtoNeutrinoMsgErrorR(int32_t rcvid, int32_t err) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2193,13 +2193,13 @@ int32_t libc_unix_nto_neutrino_msgErrorR(int32_t arg_0_rcvid, int32_t arg_1_err)
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_rcvid, arg_1_err);
+        return km_fn_ptr(rcvid, err);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_msgCurrent(int32_t arg_0_rcvid) {
+int32_t libcUnixNtoNeutrinoMsgCurrent(int32_t rcvid) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2221,13 +2221,13 @@ int32_t libc_unix_nto_neutrino_msgCurrent(int32_t arg_0_rcvid) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_rcvid);
+        return km_fn_ptr(rcvid);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_msgCurrentR(int32_t arg_0_rcvid) {
+int32_t libcUnixNtoNeutrinoMsgCurrentR(int32_t rcvid) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2249,13 +2249,13 @@ int32_t libc_unix_nto_neutrino_msgCurrentR(int32_t arg_0_rcvid) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_rcvid);
+        return km_fn_ptr(rcvid);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_msgSendAsyncGbl(int32_t arg_0_coid, void* arg_1_smsg, uint64_t arg_2_sbytes, uint32_t arg_3_msg_prio) {
+int32_t libcUnixNtoNeutrinoMsgSendAsyncGbl(int32_t coid, void* smsg, uint64_t sbytes, uint32_t msgPrio) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint64_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2277,13 +2277,13 @@ int32_t libc_unix_nto_neutrino_msgSendAsyncGbl(int32_t arg_0_coid, void* arg_1_s
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_coid, arg_1_smsg, arg_2_sbytes, arg_3_msg_prio);
+        return km_fn_ptr(coid, smsg, sbytes, msgPrio);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_msgSendAsync(int32_t arg_0_coid) {
+int32_t libcUnixNtoNeutrinoMsgSendAsync(int32_t coid) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2305,13 +2305,13 @@ int32_t libc_unix_nto_neutrino_msgSendAsync(int32_t arg_0_coid) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_coid);
+        return km_fn_ptr(coid);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_msgReceiveAsyncGbl(int32_t arg_0_chid, void* arg_1_rmsg, uint64_t arg_2_rbytes, void* arg_3_info, int32_t arg_4_coid) {
+int32_t libcUnixNtoNeutrinoMsgReceiveAsyncGbl(int32_t chid, void* rmsg, uint64_t rbytes, void* info, int32_t coid) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint64_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2333,13 +2333,13 @@ int32_t libc_unix_nto_neutrino_msgReceiveAsyncGbl(int32_t arg_0_chid, void* arg_
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_chid, arg_1_rmsg, arg_2_rbytes, arg_3_info, arg_4_coid);
+        return km_fn_ptr(chid, rmsg, rbytes, info, coid);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_msgReceiveAsync(int32_t arg_0_chid, void* arg_1_iov, uint32_t arg_2_parts) {
+int32_t libcUnixNtoNeutrinoMsgReceiveAsync(int32_t chid, void* iov, uint32_t parts) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2361,13 +2361,13 @@ int32_t libc_unix_nto_neutrino_msgReceiveAsync(int32_t arg_0_chid, void* arg_1_i
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_chid, arg_1_iov, arg_2_parts);
+        return km_fn_ptr(chid, iov, parts);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_msgPause(int32_t arg_0_rcvid, uint32_t arg_1_cookie) {
+int32_t libcUnixNtoNeutrinoMsgPause(int32_t rcvid, uint32_t cookie) {
     typedef int32_t (*km_fn_t)(int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2389,13 +2389,13 @@ int32_t libc_unix_nto_neutrino_msgPause(int32_t arg_0_rcvid, uint32_t arg_1_cook
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_rcvid, arg_1_cookie);
+        return km_fn_ptr(rcvid, cookie);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_msgPauseR(int32_t arg_0_rcvid, uint32_t arg_1_cookie) {
+int32_t libcUnixNtoNeutrinoMsgPauseR(int32_t rcvid, uint32_t cookie) {
     typedef int32_t (*km_fn_t)(int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2417,13 +2417,13 @@ int32_t libc_unix_nto_neutrino_msgPauseR(int32_t arg_0_rcvid, uint32_t arg_1_coo
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_rcvid, arg_1_cookie);
+        return km_fn_ptr(rcvid, cookie);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_signalKill(uint32_t arg_0_nd, int32_t arg_1_pid, int32_t arg_2_tid, int32_t arg_3_signo, int32_t arg_4_code, int32_t arg_5_value) {
+int32_t libcUnixNtoNeutrinoSignalKill(uint32_t nd, int32_t pid, int32_t tid, int32_t signo, int32_t code, int32_t value) {
     typedef int32_t (*km_fn_t)(uint32_t, int32_t, int32_t, int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2445,13 +2445,13 @@ int32_t libc_unix_nto_neutrino_signalKill(uint32_t arg_0_nd, int32_t arg_1_pid, 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_nd, arg_1_pid, arg_2_tid, arg_3_signo, arg_4_code, arg_5_value);
+        return km_fn_ptr(nd, pid, tid, signo, code, value);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_signalKillR(uint32_t arg_0_nd, int32_t arg_1_pid, int32_t arg_2_tid, int32_t arg_3_signo, int32_t arg_4_code, int32_t arg_5_value) {
+int32_t libcUnixNtoNeutrinoSignalKillR(uint32_t nd, int32_t pid, int32_t tid, int32_t signo, int32_t code, int32_t value) {
     typedef int32_t (*km_fn_t)(uint32_t, int32_t, int32_t, int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2473,13 +2473,13 @@ int32_t libc_unix_nto_neutrino_signalKillR(uint32_t arg_0_nd, int32_t arg_1_pid,
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_nd, arg_1_pid, arg_2_tid, arg_3_signo, arg_4_code, arg_5_value);
+        return km_fn_ptr(nd, pid, tid, signo, code, value);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_signalKillSigval(uint32_t arg_0_nd, int32_t arg_1_pid, int32_t arg_2_tid, int32_t arg_3_signo, int32_t arg_4_code, void* arg_5_value) {
+int32_t libcUnixNtoNeutrinoSignalKillSigval(uint32_t nd, int32_t pid, int32_t tid, int32_t signo, int32_t code, void* value) {
     typedef int32_t (*km_fn_t)(uint32_t, int32_t, int32_t, int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2501,13 +2501,13 @@ int32_t libc_unix_nto_neutrino_signalKillSigval(uint32_t arg_0_nd, int32_t arg_1
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_nd, arg_1_pid, arg_2_tid, arg_3_signo, arg_4_code, arg_5_value);
+        return km_fn_ptr(nd, pid, tid, signo, code, value);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_signalKillSigvalR(uint32_t arg_0_nd, int32_t arg_1_pid, int32_t arg_2_tid, int32_t arg_3_signo, int32_t arg_4_code, void* arg_5_value) {
+int32_t libcUnixNtoNeutrinoSignalKillSigvalR(uint32_t nd, int32_t pid, int32_t tid, int32_t signo, int32_t code, void* value) {
     typedef int32_t (*km_fn_t)(uint32_t, int32_t, int32_t, int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2529,13 +2529,13 @@ int32_t libc_unix_nto_neutrino_signalKillSigvalR(uint32_t arg_0_nd, int32_t arg_
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_nd, arg_1_pid, arg_2_tid, arg_3_signo, arg_4_code, arg_5_value);
+        return km_fn_ptr(nd, pid, tid, signo, code, value);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_signalReturn(void* arg_0_info) {
+int32_t libcUnixNtoNeutrinoSignalReturn(void* info) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2557,13 +2557,13 @@ int32_t libc_unix_nto_neutrino_signalReturn(void* arg_0_info) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_info);
+        return km_fn_ptr(info);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_signalFault(uint32_t arg_0_sigcode, void* arg_1_regs, uint64_t arg_2_refaddr) {
+int32_t libcUnixNtoNeutrinoSignalFault(uint32_t sigcode, void* regs, uint64_t refaddr) {
     typedef int32_t (*km_fn_t)(uint32_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2585,13 +2585,13 @@ int32_t libc_unix_nto_neutrino_signalFault(uint32_t arg_0_sigcode, void* arg_1_r
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_sigcode, arg_1_regs, arg_2_refaddr);
+        return km_fn_ptr(sigcode, regs, refaddr);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_signalAction(int32_t arg_0_pid, void* arg_1_sigstub, int32_t arg_2_signo, void* arg_3_act, void* arg_4_oact) {
+int32_t libcUnixNtoNeutrinoSignalAction(int32_t pid, void* sigstub, int32_t signo, void* act, void* oact) {
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2613,13 +2613,13 @@ int32_t libc_unix_nto_neutrino_signalAction(int32_t arg_0_pid, void* arg_1_sigst
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_pid, arg_1_sigstub, arg_2_signo, arg_3_act, arg_4_oact);
+        return km_fn_ptr(pid, sigstub, signo, act, oact);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_signalActionR(int32_t arg_0_pid, void* arg_1_sigstub, int32_t arg_2_signo, void* arg_3_act, void* arg_4_oact) {
+int32_t libcUnixNtoNeutrinoSignalActionR(int32_t pid, void* sigstub, int32_t signo, void* act, void* oact) {
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2641,13 +2641,13 @@ int32_t libc_unix_nto_neutrino_signalActionR(int32_t arg_0_pid, void* arg_1_sigs
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_pid, arg_1_sigstub, arg_2_signo, arg_3_act, arg_4_oact);
+        return km_fn_ptr(pid, sigstub, signo, act, oact);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_signalProcmask(int32_t arg_0_pid, int32_t arg_1_tid, int32_t arg_2_how, void* arg_3_set, void* arg_4_oldset) {
+int32_t libcUnixNtoNeutrinoSignalProcmask(int32_t pid, int32_t tid, int32_t how, void* set, void* oldset) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2669,13 +2669,13 @@ int32_t libc_unix_nto_neutrino_signalProcmask(int32_t arg_0_pid, int32_t arg_1_t
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_pid, arg_1_tid, arg_2_how, arg_3_set, arg_4_oldset);
+        return km_fn_ptr(pid, tid, how, set, oldset);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_signalProcmaskR(int32_t arg_0_pid, int32_t arg_1_tid, int32_t arg_2_how, void* arg_3_set, void* arg_4_oldset) {
+int32_t libcUnixNtoNeutrinoSignalProcmaskR(int32_t pid, int32_t tid, int32_t how, void* set, void* oldset) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2697,13 +2697,13 @@ int32_t libc_unix_nto_neutrino_signalProcmaskR(int32_t arg_0_pid, int32_t arg_1_
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_pid, arg_1_tid, arg_2_how, arg_3_set, arg_4_oldset);
+        return km_fn_ptr(pid, tid, how, set, oldset);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_signalSuspend(void* arg_0_set) {
+int32_t libcUnixNtoNeutrinoSignalSuspend(void* set) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2725,13 +2725,13 @@ int32_t libc_unix_nto_neutrino_signalSuspend(void* arg_0_set) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_set);
+        return km_fn_ptr(set);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_signalSuspendR(void* arg_0_set) {
+int32_t libcUnixNtoNeutrinoSignalSuspendR(void* set) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2753,13 +2753,13 @@ int32_t libc_unix_nto_neutrino_signalSuspendR(void* arg_0_set) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_set);
+        return km_fn_ptr(set);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_signalWaitinfo(void* arg_0_set, void* arg_1_info) {
+int32_t libcUnixNtoNeutrinoSignalWaitinfo(void* set, void* info) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2781,13 +2781,13 @@ int32_t libc_unix_nto_neutrino_signalWaitinfo(void* arg_0_set, void* arg_1_info)
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_set, arg_1_info);
+        return km_fn_ptr(set, info);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_signalWaitinfoR(void* arg_0_set, void* arg_1_info) {
+int32_t libcUnixNtoNeutrinoSignalWaitinfoR(void* set, void* info) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2809,13 +2809,13 @@ int32_t libc_unix_nto_neutrino_signalWaitinfoR(void* arg_0_set, void* arg_1_info
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_set, arg_1_info);
+        return km_fn_ptr(set, info);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_signalWaitinfoMask(void* arg_0_set, void* arg_1_info, void* arg_2_mask) {
+int32_t libcUnixNtoNeutrinoSignalWaitinfoMask(void* set, void* info, void* mask) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2837,13 +2837,13 @@ int32_t libc_unix_nto_neutrino_signalWaitinfoMask(void* arg_0_set, void* arg_1_i
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_set, arg_1_info, arg_2_mask);
+        return km_fn_ptr(set, info, mask);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_signalWaitinfoMaskR(void* arg_0_set, void* arg_1_info, void* arg_2_mask) {
+int32_t libcUnixNtoNeutrinoSignalWaitinfoMaskR(void* set, void* info, void* mask) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2865,13 +2865,13 @@ int32_t libc_unix_nto_neutrino_signalWaitinfoMaskR(void* arg_0_set, void* arg_1_
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_set, arg_1_info, arg_2_mask);
+        return km_fn_ptr(set, info, mask);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_threadCreate(int32_t arg_0_pid, void* arg_1_func, void* arg_2_arg, void* arg_3_attr) {
+int32_t libcUnixNtoNeutrinoThreadCreate(int32_t pid, void* func, void* arg, void* attr) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2893,13 +2893,13 @@ int32_t libc_unix_nto_neutrino_threadCreate(int32_t arg_0_pid, void* arg_1_func,
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_pid, arg_1_func, arg_2_arg, arg_3_attr);
+        return km_fn_ptr(pid, func, arg, attr);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_threadCreateR(int32_t arg_0_pid, void* arg_1_func, void* arg_2_arg, void* arg_3_attr) {
+int32_t libcUnixNtoNeutrinoThreadCreateR(int32_t pid, void* func, void* arg, void* attr) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2921,13 +2921,13 @@ int32_t libc_unix_nto_neutrino_threadCreateR(int32_t arg_0_pid, void* arg_1_func
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_pid, arg_1_func, arg_2_arg, arg_3_attr);
+        return km_fn_ptr(pid, func, arg, attr);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_threadDestroy(int32_t arg_0_tid, int32_t arg_1_priority, void* arg_2_status) {
+int32_t libcUnixNtoNeutrinoThreadDestroy(int32_t tid, int32_t priority, void* status) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2949,13 +2949,13 @@ int32_t libc_unix_nto_neutrino_threadDestroy(int32_t arg_0_tid, int32_t arg_1_pr
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_tid, arg_1_priority, arg_2_status);
+        return km_fn_ptr(tid, priority, status);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_threadDestroyR(int32_t arg_0_tid, int32_t arg_1_priority, void* arg_2_status) {
+int32_t libcUnixNtoNeutrinoThreadDestroyR(int32_t tid, int32_t priority, void* status) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2977,13 +2977,13 @@ int32_t libc_unix_nto_neutrino_threadDestroyR(int32_t arg_0_tid, int32_t arg_1_p
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_tid, arg_1_priority, arg_2_status);
+        return km_fn_ptr(tid, priority, status);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_threadDetach(int32_t arg_0_tid) {
+int32_t libcUnixNtoNeutrinoThreadDetach(int32_t tid) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3005,13 +3005,13 @@ int32_t libc_unix_nto_neutrino_threadDetach(int32_t arg_0_tid) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_tid);
+        return km_fn_ptr(tid);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_threadDetachR(int32_t arg_0_tid) {
+int32_t libcUnixNtoNeutrinoThreadDetachR(int32_t tid) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3033,13 +3033,13 @@ int32_t libc_unix_nto_neutrino_threadDetachR(int32_t arg_0_tid) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_tid);
+        return km_fn_ptr(tid);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_threadJoin(int32_t arg_0_tid, void* arg_1_status) {
+int32_t libcUnixNtoNeutrinoThreadJoin(int32_t tid, void* status) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3061,13 +3061,13 @@ int32_t libc_unix_nto_neutrino_threadJoin(int32_t arg_0_tid, void* arg_1_status)
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_tid, arg_1_status);
+        return km_fn_ptr(tid, status);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_threadJoinR(int32_t arg_0_tid, void* arg_1_status) {
+int32_t libcUnixNtoNeutrinoThreadJoinR(int32_t tid, void* status) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3089,13 +3089,13 @@ int32_t libc_unix_nto_neutrino_threadJoinR(int32_t arg_0_tid, void* arg_1_status
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_tid, arg_1_status);
+        return km_fn_ptr(tid, status);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_threadCancel(int32_t arg_0_tid, void* arg_1_canstub) {
+int32_t libcUnixNtoNeutrinoThreadCancel(int32_t tid, void* canstub) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3117,13 +3117,13 @@ int32_t libc_unix_nto_neutrino_threadCancel(int32_t arg_0_tid, void* arg_1_canst
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_tid, arg_1_canstub);
+        return km_fn_ptr(tid, canstub);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_threadCancelR(int32_t arg_0_tid, void* arg_1_canstub) {
+int32_t libcUnixNtoNeutrinoThreadCancelR(int32_t tid, void* canstub) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3145,13 +3145,13 @@ int32_t libc_unix_nto_neutrino_threadCancelR(int32_t arg_0_tid, void* arg_1_cans
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_tid, arg_1_canstub);
+        return km_fn_ptr(tid, canstub);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_threadCtl(int32_t arg_0_cmd, void* arg_1_data) {
+int32_t libcUnixNtoNeutrinoThreadCtl(int32_t cmd, void* data) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3173,13 +3173,13 @@ int32_t libc_unix_nto_neutrino_threadCtl(int32_t arg_0_cmd, void* arg_1_data) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_cmd, arg_1_data);
+        return km_fn_ptr(cmd, data);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_threadCtlR(int32_t arg_0_cmd, void* arg_1_data) {
+int32_t libcUnixNtoNeutrinoThreadCtlR(int32_t cmd, void* data) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3201,13 +3201,13 @@ int32_t libc_unix_nto_neutrino_threadCtlR(int32_t arg_0_cmd, void* arg_1_data) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_cmd, arg_1_data);
+        return km_fn_ptr(cmd, data);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_threadCtlExt(int32_t arg_0_pid, int32_t arg_1_tid, int32_t arg_2_cmd, void* arg_3_data) {
+int32_t libcUnixNtoNeutrinoThreadCtlExt(int32_t pid, int32_t tid, int32_t cmd, void* data) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3229,13 +3229,13 @@ int32_t libc_unix_nto_neutrino_threadCtlExt(int32_t arg_0_pid, int32_t arg_1_tid
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_pid, arg_1_tid, arg_2_cmd, arg_3_data);
+        return km_fn_ptr(pid, tid, cmd, data);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_threadCtlExtR(int32_t arg_0_pid, int32_t arg_1_tid, int32_t arg_2_cmd, void* arg_3_data) {
+int32_t libcUnixNtoNeutrinoThreadCtlExtR(int32_t pid, int32_t tid, int32_t cmd, void* data) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3257,13 +3257,13 @@ int32_t libc_unix_nto_neutrino_threadCtlExtR(int32_t arg_0_pid, int32_t arg_1_ti
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_pid, arg_1_tid, arg_2_cmd, arg_3_data);
+        return km_fn_ptr(pid, tid, cmd, data);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_interruptHookTrace(void* arg_0_handler, uint32_t arg_1_flags) {
+int32_t libcUnixNtoNeutrinoInterruptHookTrace(void* handler, uint32_t flags) {
     typedef int32_t (*km_fn_t)(void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3285,13 +3285,13 @@ int32_t libc_unix_nto_neutrino_interruptHookTrace(void* arg_0_handler, uint32_t 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_handler, arg_1_flags);
+        return km_fn_ptr(handler, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_interruptHookIdle(void* arg_0_handler, uint32_t arg_1_flags) {
+int32_t libcUnixNtoNeutrinoInterruptHookIdle(void* handler, uint32_t flags) {
     typedef int32_t (*km_fn_t)(void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3313,13 +3313,13 @@ int32_t libc_unix_nto_neutrino_interruptHookIdle(void* arg_0_handler, uint32_t a
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_handler, arg_1_flags);
+        return km_fn_ptr(handler, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_interruptHookIdle2(void* arg_0_handler, uint32_t arg_1_flags) {
+int32_t libcUnixNtoNeutrinoInterruptHookIdle2(void* handler, uint32_t flags) {
     typedef int32_t (*km_fn_t)(void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3341,13 +3341,13 @@ int32_t libc_unix_nto_neutrino_interruptHookIdle2(void* arg_0_handler, uint32_t 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_handler, arg_1_flags);
+        return km_fn_ptr(handler, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_interruptHookOverdriveEvent(void* arg_0_event, uint32_t arg_1_flags) {
+int32_t libcUnixNtoNeutrinoInterruptHookOverdriveEvent(void* event, uint32_t flags) {
     typedef int32_t (*km_fn_t)(void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3369,13 +3369,13 @@ int32_t libc_unix_nto_neutrino_interruptHookOverdriveEvent(void* arg_0_event, ui
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_event, arg_1_flags);
+        return km_fn_ptr(event, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_interruptAttachEvent(int32_t arg_0_intr, void* arg_1_event, uint32_t arg_2_flags) {
+int32_t libcUnixNtoNeutrinoInterruptAttachEvent(int32_t intr, void* event, uint32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3397,13 +3397,13 @@ int32_t libc_unix_nto_neutrino_interruptAttachEvent(int32_t arg_0_intr, void* ar
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_intr, arg_1_event, arg_2_flags);
+        return km_fn_ptr(intr, event, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_interruptAttachEventR(int32_t arg_0_intr, void* arg_1_event, uint32_t arg_2_flags) {
+int32_t libcUnixNtoNeutrinoInterruptAttachEventR(int32_t intr, void* event, uint32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3425,13 +3425,13 @@ int32_t libc_unix_nto_neutrino_interruptAttachEventR(int32_t arg_0_intr, void* a
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_intr, arg_1_event, arg_2_flags);
+        return km_fn_ptr(intr, event, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_interruptAttach(int32_t arg_0_intr, void* arg_1_handler, void* arg_2_area, int32_t arg_3_size, uint32_t arg_4_flags) {
+int32_t libcUnixNtoNeutrinoInterruptAttach(int32_t intr, void* handler, void* area, int32_t size, uint32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3453,13 +3453,13 @@ int32_t libc_unix_nto_neutrino_interruptAttach(int32_t arg_0_intr, void* arg_1_h
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_intr, arg_1_handler, arg_2_area, arg_3_size, arg_4_flags);
+        return km_fn_ptr(intr, handler, area, size, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_interruptAttachR(int32_t arg_0_intr, void* arg_1_handler, void* arg_2_area, int32_t arg_3_size, uint32_t arg_4_flags) {
+int32_t libcUnixNtoNeutrinoInterruptAttachR(int32_t intr, void* handler, void* area, int32_t size, uint32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3481,13 +3481,13 @@ int32_t libc_unix_nto_neutrino_interruptAttachR(int32_t arg_0_intr, void* arg_1_
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_intr, arg_1_handler, arg_2_area, arg_3_size, arg_4_flags);
+        return km_fn_ptr(intr, handler, area, size, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_interruptAttachArray(int32_t arg_0_intr, void* arg_1_handler, void* arg_2_area, int32_t arg_3_size, uint32_t arg_4_flags) {
+int32_t libcUnixNtoNeutrinoInterruptAttachArray(int32_t intr, void* handler, void* area, int32_t size, uint32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3509,13 +3509,13 @@ int32_t libc_unix_nto_neutrino_interruptAttachArray(int32_t arg_0_intr, void* ar
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_intr, arg_1_handler, arg_2_area, arg_3_size, arg_4_flags);
+        return km_fn_ptr(intr, handler, area, size, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_interruptAttachArrayR(int32_t arg_0_intr, void* arg_1_handler, void* arg_2_area, int32_t arg_3_size, uint32_t arg_4_flags) {
+int32_t libcUnixNtoNeutrinoInterruptAttachArrayR(int32_t intr, void* handler, void* area, int32_t size, uint32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3537,13 +3537,13 @@ int32_t libc_unix_nto_neutrino_interruptAttachArrayR(int32_t arg_0_intr, void* a
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_intr, arg_1_handler, arg_2_area, arg_3_size, arg_4_flags);
+        return km_fn_ptr(intr, handler, area, size, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_interruptDetach(int32_t arg_0_id) {
+int32_t libcUnixNtoNeutrinoInterruptDetach(int32_t id) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3565,13 +3565,13 @@ int32_t libc_unix_nto_neutrino_interruptDetach(int32_t arg_0_id) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_id);
+        return km_fn_ptr(id);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_interruptDetachR(int32_t arg_0_id) {
+int32_t libcUnixNtoNeutrinoInterruptDetachR(int32_t id) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3593,13 +3593,13 @@ int32_t libc_unix_nto_neutrino_interruptDetachR(int32_t arg_0_id) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_id);
+        return km_fn_ptr(id);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_interruptWait(int32_t arg_0_flags, void* arg_1_timeout) {
+int32_t libcUnixNtoNeutrinoInterruptWait(int32_t flags, void* timeout) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3621,13 +3621,13 @@ int32_t libc_unix_nto_neutrino_interruptWait(int32_t arg_0_flags, void* arg_1_ti
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_flags, arg_1_timeout);
+        return km_fn_ptr(flags, timeout);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_interruptWaitR(int32_t arg_0_flags, void* arg_1_timeout) {
+int32_t libcUnixNtoNeutrinoInterruptWaitR(int32_t flags, void* timeout) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3649,13 +3649,13 @@ int32_t libc_unix_nto_neutrino_interruptWaitR(int32_t arg_0_flags, void* arg_1_t
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_flags, arg_1_timeout);
+        return km_fn_ptr(flags, timeout);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_interruptCharacteristic(int32_t arg_0_type, int32_t arg_1_id, void* arg_2_new, void* arg_3_old) {
+int32_t libcUnixNtoNeutrinoInterruptCharacteristic(int32_t type, int32_t id, void* arg2New, void* old) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3677,13 +3677,13 @@ int32_t libc_unix_nto_neutrino_interruptCharacteristic(int32_t arg_0_type, int32
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_type, arg_1_id, arg_2_new, arg_3_old);
+        return km_fn_ptr(type, id, arg2New, old);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_interruptCharacteristicR(int32_t arg_0_type, int32_t arg_1_id, void* arg_2_new, void* arg_3_old) {
+int32_t libcUnixNtoNeutrinoInterruptCharacteristicR(int32_t type, int32_t id, void* arg2New, void* old) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3705,13 +3705,13 @@ int32_t libc_unix_nto_neutrino_interruptCharacteristicR(int32_t arg_0_type, int3
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_type, arg_1_id, arg_2_new, arg_3_old);
+        return km_fn_ptr(type, id, arg2New, old);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_schedGet(int32_t arg_0_pid, int32_t arg_1_tid, void* arg_2_param) {
+int32_t libcUnixNtoNeutrinoSchedGet(int32_t pid, int32_t tid, void* param) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3733,13 +3733,13 @@ int32_t libc_unix_nto_neutrino_schedGet(int32_t arg_0_pid, int32_t arg_1_tid, vo
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_pid, arg_1_tid, arg_2_param);
+        return km_fn_ptr(pid, tid, param);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_schedGetR(int32_t arg_0_pid, int32_t arg_1_tid, void* arg_2_param) {
+int32_t libcUnixNtoNeutrinoSchedGetR(int32_t pid, int32_t tid, void* param) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3761,13 +3761,13 @@ int32_t libc_unix_nto_neutrino_schedGetR(int32_t arg_0_pid, int32_t arg_1_tid, v
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_pid, arg_1_tid, arg_2_param);
+        return km_fn_ptr(pid, tid, param);
     }
     errno = ENOSYS;
     return -1;
 }
 
-uint32_t libc_unix_nto_neutrino_schedGetCpuNum(void) {
+uint32_t libcUnixNtoNeutrinoSchedGetCpuNum(void) {
     typedef uint32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3795,7 +3795,7 @@ uint32_t libc_unix_nto_neutrino_schedGetCpuNum(void) {
     return 0;
 }
 
-int32_t libc_unix_nto_neutrino_schedSet(int32_t arg_0_pid, int32_t arg_1_tid, int32_t arg_2_algorithm, void* arg_3_param) {
+int32_t libcUnixNtoNeutrinoSchedSet(int32_t pid, int32_t tid, int32_t algorithm, void* param) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3817,13 +3817,13 @@ int32_t libc_unix_nto_neutrino_schedSet(int32_t arg_0_pid, int32_t arg_1_tid, in
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_pid, arg_1_tid, arg_2_algorithm, arg_3_param);
+        return km_fn_ptr(pid, tid, algorithm, param);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_schedSetR(int32_t arg_0_pid, int32_t arg_1_tid, int32_t arg_2_algorithm, void* arg_3_param) {
+int32_t libcUnixNtoNeutrinoSchedSetR(int32_t pid, int32_t tid, int32_t algorithm, void* param) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3845,13 +3845,13 @@ int32_t libc_unix_nto_neutrino_schedSetR(int32_t arg_0_pid, int32_t arg_1_tid, i
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_pid, arg_1_tid, arg_2_algorithm, arg_3_param);
+        return km_fn_ptr(pid, tid, algorithm, param);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_schedInfo(int32_t arg_0_pid, int32_t arg_1_algorithm, void* arg_2_info) {
+int32_t libcUnixNtoNeutrinoSchedInfo(int32_t pid, int32_t algorithm, void* info) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3873,13 +3873,13 @@ int32_t libc_unix_nto_neutrino_schedInfo(int32_t arg_0_pid, int32_t arg_1_algori
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_pid, arg_1_algorithm, arg_2_info);
+        return km_fn_ptr(pid, algorithm, info);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_schedInfoR(int32_t arg_0_pid, int32_t arg_1_algorithm, void* arg_2_info) {
+int32_t libcUnixNtoNeutrinoSchedInfoR(int32_t pid, int32_t algorithm, void* info) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3901,13 +3901,13 @@ int32_t libc_unix_nto_neutrino_schedInfoR(int32_t arg_0_pid, int32_t arg_1_algor
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_pid, arg_1_algorithm, arg_2_info);
+        return km_fn_ptr(pid, algorithm, info);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_schedYield(void) {
+int32_t libcUnixNtoNeutrinoSchedYield(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3935,7 +3935,7 @@ int32_t libc_unix_nto_neutrino_schedYield(void) {
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_schedYieldR(void) {
+int32_t libcUnixNtoNeutrinoSchedYieldR(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3963,7 +3963,7 @@ int32_t libc_unix_nto_neutrino_schedYieldR(void) {
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_schedCtl(int32_t arg_0_cmd, void* arg_1_data, uint64_t arg_2_length) {
+int32_t libcUnixNtoNeutrinoSchedCtl(int32_t cmd, void* data, uint64_t length) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3985,13 +3985,13 @@ int32_t libc_unix_nto_neutrino_schedCtl(int32_t arg_0_cmd, void* arg_1_data, uin
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_cmd, arg_1_data, arg_2_length);
+        return km_fn_ptr(cmd, data, length);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_schedCtlR(int32_t arg_0_cmd, void* arg_1_data, uint64_t arg_2_length) {
+int32_t libcUnixNtoNeutrinoSchedCtlR(int32_t cmd, void* data, uint64_t length) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4013,13 +4013,13 @@ int32_t libc_unix_nto_neutrino_schedCtlR(int32_t arg_0_cmd, void* arg_1_data, ui
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_cmd, arg_1_data, arg_2_length);
+        return km_fn_ptr(cmd, data, length);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_schedJobCreate(void* arg_0_job) {
+int32_t libcUnixNtoNeutrinoSchedJobCreate(void* job) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4041,13 +4041,13 @@ int32_t libc_unix_nto_neutrino_schedJobCreate(void* arg_0_job) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_job);
+        return km_fn_ptr(job);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_schedJobCreateR(void* arg_0_job) {
+int32_t libcUnixNtoNeutrinoSchedJobCreateR(void* job) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4069,13 +4069,13 @@ int32_t libc_unix_nto_neutrino_schedJobCreateR(void* arg_0_job) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_job);
+        return km_fn_ptr(job);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_schedJobDestroy(void* arg_0_job) {
+int32_t libcUnixNtoNeutrinoSchedJobDestroy(void* job) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4097,13 +4097,13 @@ int32_t libc_unix_nto_neutrino_schedJobDestroy(void* arg_0_job) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_job);
+        return km_fn_ptr(job);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_schedJobDestroyR(void* arg_0_job) {
+int32_t libcUnixNtoNeutrinoSchedJobDestroyR(void* job) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4125,13 +4125,13 @@ int32_t libc_unix_nto_neutrino_schedJobDestroyR(void* arg_0_job) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_job);
+        return km_fn_ptr(job);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_schedWaypoint(void* arg_0_job, void* arg_1_new, void* arg_2_max, void* arg_3_old) {
+int32_t libcUnixNtoNeutrinoSchedWaypoint(void* job, void* arg1New, void* max, void* old) {
     typedef int32_t (*km_fn_t)(void*, void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4153,13 +4153,13 @@ int32_t libc_unix_nto_neutrino_schedWaypoint(void* arg_0_job, void* arg_1_new, v
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_job, arg_1_new, arg_2_max, arg_3_old);
+        return km_fn_ptr(job, arg1New, max, old);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_schedWaypointR(void* arg_0_job, void* arg_1_new, void* arg_2_max, void* arg_3_old) {
+int32_t libcUnixNtoNeutrinoSchedWaypointR(void* job, void* arg1New, void* max, void* old) {
     typedef int32_t (*km_fn_t)(void*, void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4181,13 +4181,13 @@ int32_t libc_unix_nto_neutrino_schedWaypointR(void* arg_0_job, void* arg_1_new, 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_job, arg_1_new, arg_2_max, arg_3_old);
+        return km_fn_ptr(job, arg1New, max, old);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_timerCreate(int32_t arg_0_id, void* arg_1_notify) {
+int32_t libcUnixNtoNeutrinoTimerCreate(int32_t id, void* notify) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4209,13 +4209,13 @@ int32_t libc_unix_nto_neutrino_timerCreate(int32_t arg_0_id, void* arg_1_notify)
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_id, arg_1_notify);
+        return km_fn_ptr(id, notify);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_timerCreateR(int32_t arg_0_id, void* arg_1_notify) {
+int32_t libcUnixNtoNeutrinoTimerCreateR(int32_t id, void* notify) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4237,13 +4237,13 @@ int32_t libc_unix_nto_neutrino_timerCreateR(int32_t arg_0_id, void* arg_1_notify
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_id, arg_1_notify);
+        return km_fn_ptr(id, notify);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_timerDestroy(void* arg_0_id) {
+int32_t libcUnixNtoNeutrinoTimerDestroy(void* id) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4265,13 +4265,13 @@ int32_t libc_unix_nto_neutrino_timerDestroy(void* arg_0_id) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_id);
+        return km_fn_ptr(id);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_timerDestroyR(void* arg_0_id) {
+int32_t libcUnixNtoNeutrinoTimerDestroyR(void* id) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4293,13 +4293,13 @@ int32_t libc_unix_nto_neutrino_timerDestroyR(void* arg_0_id) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_id);
+        return km_fn_ptr(id);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_timerSettime(void* arg_0_id, int32_t arg_1_flags, void* arg_2_itime, void* arg_3_oitime) {
+int32_t libcUnixNtoNeutrinoTimerSettime(void* id, int32_t flags, void* itime, void* oitime) {
     typedef int32_t (*km_fn_t)(void*, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4321,13 +4321,13 @@ int32_t libc_unix_nto_neutrino_timerSettime(void* arg_0_id, int32_t arg_1_flags,
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_id, arg_1_flags, arg_2_itime, arg_3_oitime);
+        return km_fn_ptr(id, flags, itime, oitime);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_timerSettimeR(void* arg_0_id, int32_t arg_1_flags, void* arg_2_itime, void* arg_3_oitime) {
+int32_t libcUnixNtoNeutrinoTimerSettimeR(void* id, int32_t flags, void* itime, void* oitime) {
     typedef int32_t (*km_fn_t)(void*, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4349,13 +4349,13 @@ int32_t libc_unix_nto_neutrino_timerSettimeR(void* arg_0_id, int32_t arg_1_flags
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_id, arg_1_flags, arg_2_itime, arg_3_oitime);
+        return km_fn_ptr(id, flags, itime, oitime);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_timerInfo(int32_t arg_0_pid, void* arg_1_id, int32_t arg_2_flags, void* arg_3_info) {
+int32_t libcUnixNtoNeutrinoTimerInfo(int32_t pid, void* id, int32_t flags, void* info) {
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4377,13 +4377,13 @@ int32_t libc_unix_nto_neutrino_timerInfo(int32_t arg_0_pid, void* arg_1_id, int3
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_pid, arg_1_id, arg_2_flags, arg_3_info);
+        return km_fn_ptr(pid, id, flags, info);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_timerInfoR(int32_t arg_0_pid, void* arg_1_id, int32_t arg_2_flags, void* arg_3_info) {
+int32_t libcUnixNtoNeutrinoTimerInfoR(int32_t pid, void* id, int32_t flags, void* info) {
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4405,13 +4405,13 @@ int32_t libc_unix_nto_neutrino_timerInfoR(int32_t arg_0_pid, void* arg_1_id, int
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_pid, arg_1_id, arg_2_flags, arg_3_info);
+        return km_fn_ptr(pid, id, flags, info);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_timerAlarm(int32_t arg_0_id, void* arg_1_itime, void* arg_2_otime) {
+int32_t libcUnixNtoNeutrinoTimerAlarm(int32_t id, void* itime, void* otime) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4433,13 +4433,13 @@ int32_t libc_unix_nto_neutrino_timerAlarm(int32_t arg_0_id, void* arg_1_itime, v
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_id, arg_1_itime, arg_2_otime);
+        return km_fn_ptr(id, itime, otime);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_timerAlarmR(int32_t arg_0_id, void* arg_1_itime, void* arg_2_otime) {
+int32_t libcUnixNtoNeutrinoTimerAlarmR(int32_t id, void* itime, void* otime) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4461,13 +4461,13 @@ int32_t libc_unix_nto_neutrino_timerAlarmR(int32_t arg_0_id, void* arg_1_itime, 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_id, arg_1_itime, arg_2_otime);
+        return km_fn_ptr(id, itime, otime);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_timerTimeout(int32_t arg_0_id, int32_t arg_1_flags, void* arg_2_notify, void* arg_3_ntime, void* arg_4_otime) {
+int32_t libcUnixNtoNeutrinoTimerTimeout(int32_t id, int32_t flags, void* notify, void* ntime, void* otime) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4489,13 +4489,13 @@ int32_t libc_unix_nto_neutrino_timerTimeout(int32_t arg_0_id, int32_t arg_1_flag
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_id, arg_1_flags, arg_2_notify, arg_3_ntime, arg_4_otime);
+        return km_fn_ptr(id, flags, notify, ntime, otime);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_timerTimeoutR(int32_t arg_0_id, int32_t arg_1_flags, void* arg_2_notify, void* arg_3_ntime, void* arg_4_otime) {
+int32_t libcUnixNtoNeutrinoTimerTimeoutR(int32_t id, int32_t flags, void* notify, void* ntime, void* otime) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4517,13 +4517,13 @@ int32_t libc_unix_nto_neutrino_timerTimeoutR(int32_t arg_0_id, int32_t arg_1_fla
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_id, arg_1_flags, arg_2_notify, arg_3_ntime, arg_4_otime);
+        return km_fn_ptr(id, flags, notify, ntime, otime);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_syncTypeCreate(uint32_t arg_0_type, void* arg_1_sync, void* arg_2_attr) {
+int32_t libcUnixNtoNeutrinoSyncTypeCreate(uint32_t type, void* sync, void* attr) {
     typedef int32_t (*km_fn_t)(uint32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4545,13 +4545,13 @@ int32_t libc_unix_nto_neutrino_syncTypeCreate(uint32_t arg_0_type, void* arg_1_s
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_type, arg_1_sync, arg_2_attr);
+        return km_fn_ptr(type, sync, attr);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_syncTypeCreateR(uint32_t arg_0_type, void* arg_1_sync, void* arg_2_attr) {
+int32_t libcUnixNtoNeutrinoSyncTypeCreateR(uint32_t type, void* sync, void* attr) {
     typedef int32_t (*km_fn_t)(uint32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4573,13 +4573,13 @@ int32_t libc_unix_nto_neutrino_syncTypeCreateR(uint32_t arg_0_type, void* arg_1_
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_type, arg_1_sync, arg_2_attr);
+        return km_fn_ptr(type, sync, attr);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_syncDestroy(void* arg_0_sync) {
+int32_t libcUnixNtoNeutrinoSyncDestroy(void* sync) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4601,13 +4601,13 @@ int32_t libc_unix_nto_neutrino_syncDestroy(void* arg_0_sync) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_sync);
+        return km_fn_ptr(sync);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_syncDestroyR(void* arg_0_sync) {
+int32_t libcUnixNtoNeutrinoSyncDestroyR(void* sync) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4629,13 +4629,13 @@ int32_t libc_unix_nto_neutrino_syncDestroyR(void* arg_0_sync) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_sync);
+        return km_fn_ptr(sync);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_syncCtl(int32_t arg_0_cmd, void* arg_1_sync, void* arg_2_data) {
+int32_t libcUnixNtoNeutrinoSyncCtl(int32_t cmd, void* sync, void* data) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4657,13 +4657,13 @@ int32_t libc_unix_nto_neutrino_syncCtl(int32_t arg_0_cmd, void* arg_1_sync, void
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_cmd, arg_1_sync, arg_2_data);
+        return km_fn_ptr(cmd, sync, data);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_syncCtlR(int32_t arg_0_cmd, void* arg_1_sync, void* arg_2_data) {
+int32_t libcUnixNtoNeutrinoSyncCtlR(int32_t cmd, void* sync, void* data) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4685,13 +4685,13 @@ int32_t libc_unix_nto_neutrino_syncCtlR(int32_t arg_0_cmd, void* arg_1_sync, voi
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_cmd, arg_1_sync, arg_2_data);
+        return km_fn_ptr(cmd, sync, data);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_syncMutexEvent(void* arg_0_sync, void* event) {
+int32_t libcUnixNtoNeutrinoSyncMutexEvent(void* sync, void* event) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4713,13 +4713,13 @@ int32_t libc_unix_nto_neutrino_syncMutexEvent(void* arg_0_sync, void* event) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_sync, event);
+        return km_fn_ptr(sync, event);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_syncMutexEventR(void* arg_0_sync, void* event) {
+int32_t libcUnixNtoNeutrinoSyncMutexEventR(void* sync, void* event) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4741,13 +4741,13 @@ int32_t libc_unix_nto_neutrino_syncMutexEventR(void* arg_0_sync, void* event) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_sync, event);
+        return km_fn_ptr(sync, event);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_syncMutexLock(void* arg_0_sync) {
+int32_t libcUnixNtoNeutrinoSyncMutexLock(void* sync) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4769,13 +4769,13 @@ int32_t libc_unix_nto_neutrino_syncMutexLock(void* arg_0_sync) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_sync);
+        return km_fn_ptr(sync);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_syncMutexLockR(void* arg_0_sync) {
+int32_t libcUnixNtoNeutrinoSyncMutexLockR(void* sync) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4797,13 +4797,13 @@ int32_t libc_unix_nto_neutrino_syncMutexLockR(void* arg_0_sync) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_sync);
+        return km_fn_ptr(sync);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_syncMutexUnlock(void* arg_0_sync) {
+int32_t libcUnixNtoNeutrinoSyncMutexUnlock(void* sync) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4825,13 +4825,13 @@ int32_t libc_unix_nto_neutrino_syncMutexUnlock(void* arg_0_sync) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_sync);
+        return km_fn_ptr(sync);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_syncMutexUnlockR(void* arg_0_sync) {
+int32_t libcUnixNtoNeutrinoSyncMutexUnlockR(void* sync) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4853,13 +4853,13 @@ int32_t libc_unix_nto_neutrino_syncMutexUnlockR(void* arg_0_sync) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_sync);
+        return km_fn_ptr(sync);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_syncMutexRevive(void* arg_0_sync) {
+int32_t libcUnixNtoNeutrinoSyncMutexRevive(void* sync) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4881,13 +4881,13 @@ int32_t libc_unix_nto_neutrino_syncMutexRevive(void* arg_0_sync) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_sync);
+        return km_fn_ptr(sync);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_syncMutexReviveR(void* arg_0_sync) {
+int32_t libcUnixNtoNeutrinoSyncMutexReviveR(void* sync) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4909,13 +4909,13 @@ int32_t libc_unix_nto_neutrino_syncMutexReviveR(void* arg_0_sync) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_sync);
+        return km_fn_ptr(sync);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_syncCondvarWait(void* arg_0_sync, void* arg_1_mutex) {
+int32_t libcUnixNtoNeutrinoSyncCondvarWait(void* sync, void* mutex) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4937,13 +4937,13 @@ int32_t libc_unix_nto_neutrino_syncCondvarWait(void* arg_0_sync, void* arg_1_mut
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_sync, arg_1_mutex);
+        return km_fn_ptr(sync, mutex);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_syncCondvarWaitR(void* arg_0_sync, void* arg_1_mutex) {
+int32_t libcUnixNtoNeutrinoSyncCondvarWaitR(void* sync, void* mutex) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4965,13 +4965,13 @@ int32_t libc_unix_nto_neutrino_syncCondvarWaitR(void* arg_0_sync, void* arg_1_mu
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_sync, arg_1_mutex);
+        return km_fn_ptr(sync, mutex);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_syncCondvarSignal(void* arg_0_sync, int32_t arg_1_all) {
+int32_t libcUnixNtoNeutrinoSyncCondvarSignal(void* sync, int32_t all) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4993,13 +4993,13 @@ int32_t libc_unix_nto_neutrino_syncCondvarSignal(void* arg_0_sync, int32_t arg_1
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_sync, arg_1_all);
+        return km_fn_ptr(sync, all);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_syncCondvarSignalR(void* arg_0_sync, int32_t arg_1_all) {
+int32_t libcUnixNtoNeutrinoSyncCondvarSignalR(void* sync, int32_t all) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5021,13 +5021,13 @@ int32_t libc_unix_nto_neutrino_syncCondvarSignalR(void* arg_0_sync, int32_t arg_
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_sync, arg_1_all);
+        return km_fn_ptr(sync, all);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_syncSemPost(void* arg_0_sync) {
+int32_t libcUnixNtoNeutrinoSyncSemPost(void* sync) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5049,13 +5049,13 @@ int32_t libc_unix_nto_neutrino_syncSemPost(void* arg_0_sync) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_sync);
+        return km_fn_ptr(sync);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_syncSemPostR(void* arg_0_sync) {
+int32_t libcUnixNtoNeutrinoSyncSemPostR(void* sync) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5077,13 +5077,13 @@ int32_t libc_unix_nto_neutrino_syncSemPostR(void* arg_0_sync) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_sync);
+        return km_fn_ptr(sync);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_syncSemWait(void* arg_0_sync, int32_t arg_1_tryto) {
+int32_t libcUnixNtoNeutrinoSyncSemWait(void* sync, int32_t tryto) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5105,13 +5105,13 @@ int32_t libc_unix_nto_neutrino_syncSemWait(void* arg_0_sync, int32_t arg_1_tryto
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_sync, arg_1_tryto);
+        return km_fn_ptr(sync, tryto);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_syncSemWaitR(void* arg_0_sync, int32_t arg_1_tryto) {
+int32_t libcUnixNtoNeutrinoSyncSemWaitR(void* sync, int32_t tryto) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5133,13 +5133,13 @@ int32_t libc_unix_nto_neutrino_syncSemWaitR(void* arg_0_sync, int32_t arg_1_tryt
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_sync, arg_1_tryto);
+        return km_fn_ptr(sync, tryto);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_clockTime(int32_t arg_0_id, void* arg_1_new, void* arg_2_old) {
+int32_t libcUnixNtoNeutrinoClockTime(int32_t id, void* arg1New, void* old) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5161,13 +5161,13 @@ int32_t libc_unix_nto_neutrino_clockTime(int32_t arg_0_id, void* arg_1_new, void
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_id, arg_1_new, arg_2_old);
+        return km_fn_ptr(id, arg1New, old);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_clockTimeR(int32_t arg_0_id, void* arg_1_new, void* arg_2_old) {
+int32_t libcUnixNtoNeutrinoClockTimeR(int32_t id, void* arg1New, void* old) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5189,13 +5189,13 @@ int32_t libc_unix_nto_neutrino_clockTimeR(int32_t arg_0_id, void* arg_1_new, voi
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_id, arg_1_new, arg_2_old);
+        return km_fn_ptr(id, arg1New, old);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_clockAdjust(int32_t arg_0_id, void* arg_1_new, void* arg_2_old) {
+int32_t libcUnixNtoNeutrinoClockAdjust(int32_t id, void* arg1New, void* old) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5217,13 +5217,13 @@ int32_t libc_unix_nto_neutrino_clockAdjust(int32_t arg_0_id, void* arg_1_new, vo
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_id, arg_1_new, arg_2_old);
+        return km_fn_ptr(id, arg1New, old);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_clockAdjustR(int32_t arg_0_id, void* arg_1_new, void* arg_2_old) {
+int32_t libcUnixNtoNeutrinoClockAdjustR(int32_t id, void* arg1New, void* old) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5245,13 +5245,13 @@ int32_t libc_unix_nto_neutrino_clockAdjustR(int32_t arg_0_id, void* arg_1_new, v
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_id, arg_1_new, arg_2_old);
+        return km_fn_ptr(id, arg1New, old);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_clockPeriod(int32_t arg_0_id, void* arg_1_new, void* arg_2_old, int32_t arg_3_reserved) {
+int32_t libcUnixNtoNeutrinoClockPeriod(int32_t id, void* arg1New, void* old, int32_t reserved) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5273,13 +5273,13 @@ int32_t libc_unix_nto_neutrino_clockPeriod(int32_t arg_0_id, void* arg_1_new, vo
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_id, arg_1_new, arg_2_old, arg_3_reserved);
+        return km_fn_ptr(id, arg1New, old, reserved);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_clockPeriodR(int32_t arg_0_id, void* arg_1_new, void* arg_2_old, int32_t arg_3_reserved) {
+int32_t libcUnixNtoNeutrinoClockPeriodR(int32_t id, void* arg1New, void* old, int32_t reserved) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5301,13 +5301,13 @@ int32_t libc_unix_nto_neutrino_clockPeriodR(int32_t arg_0_id, void* arg_1_new, v
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_id, arg_1_new, arg_2_old, arg_3_reserved);
+        return km_fn_ptr(id, arg1New, old, reserved);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_clockId(int32_t arg_0_pid, int32_t arg_1_tid) {
+int32_t libcUnixNtoNeutrinoClockId(int32_t pid, int32_t tid) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5329,13 +5329,13 @@ int32_t libc_unix_nto_neutrino_clockId(int32_t arg_0_pid, int32_t arg_1_tid) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_pid, arg_1_tid);
+        return km_fn_ptr(pid, tid);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_clockIdR(int32_t arg_0_pid, int32_t arg_1_tid) {
+int32_t libcUnixNtoNeutrinoClockIdR(int32_t pid, int32_t tid) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5357,13 +5357,13 @@ int32_t libc_unix_nto_neutrino_clockIdR(int32_t arg_0_pid, int32_t arg_1_tid) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_pid, arg_1_tid);
+        return km_fn_ptr(pid, tid);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_interruptMask(int32_t arg_0_intr, int32_t arg_1_id) {
+int32_t libcUnixNtoNeutrinoInterruptMask(int32_t intr, int32_t id) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5385,13 +5385,13 @@ int32_t libc_unix_nto_neutrino_interruptMask(int32_t arg_0_intr, int32_t arg_1_i
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_intr, arg_1_id);
+        return km_fn_ptr(intr, id);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_nto_neutrino_interruptUnmask(int32_t arg_0_intr, int32_t arg_1_id) {
+int32_t libcUnixNtoNeutrinoInterruptUnmask(int32_t intr, int32_t id) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5413,7 +5413,7 @@ int32_t libc_unix_nto_neutrino_interruptUnmask(int32_t arg_0_intr, int32_t arg_1
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_intr, arg_1_id);
+        return km_fn_ptr(intr, id);
     }
     errno = ENOSYS;
     return -1;

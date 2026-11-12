@@ -51,7 +51,7 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_freebsd_freebsd12_setgrent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeFreebsdFreebsd12Setgrent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -81,7 +81,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_freebsd_freebsd12_setgrent_napi(con
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_freebsd_freebsd12_mprotect_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeFreebsdFreebsd12Mprotect_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -116,7 +116,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_freebsd_freebsd12_mprotect_napi(con
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_freebsd_freebsd12_freelocale_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeFreebsdFreebsd12Freelocale_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* loc = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -147,7 +147,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_freebsd_freebsd12_freelocale_napi(c
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_freebsd_freebsd12_msgrcv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeFreebsdFreebsd12Msgrcv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t msqid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* msgp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -184,7 +184,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_freebsd_freebsd12_msgrcv_napi(const
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_freebsd_freebsd12_dirname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeFreebsdFreebsd12Dirname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* path = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef char* (*km_fn_t)(char*);
@@ -217,7 +217,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_freebsd_freebsd12_dirname_napi(cons
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_freebsd_freebsd12_basename_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeFreebsdFreebsd12Basename_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* path = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef char* (*km_fn_t)(char*);
@@ -250,7 +250,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_freebsd_freebsd12_basename_napi(con
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_freebsd_freebsd12_qsortR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeFreebsdFreebsd12QsortR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* base = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t num = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -286,13 +286,13 @@ static Napi::Value libc_unix_bsd_freebsdlike_freebsd_freebsd12_qsortR_napi(const
 }
 
 static void register_unix_bsd_freebsdlike_freebsd_freebsd12_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_unix_bsd_freebsdlike_freebsd_freebsd12_setgrent", Napi::Function::New(env, libc_unix_bsd_freebsdlike_freebsd_freebsd12_setgrent_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_freebsd_freebsd12_mprotect", Napi::Function::New(env, libc_unix_bsd_freebsdlike_freebsd_freebsd12_mprotect_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_freebsd_freebsd12_freelocale", Napi::Function::New(env, libc_unix_bsd_freebsdlike_freebsd_freebsd12_freelocale_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_freebsd_freebsd12_msgrcv", Napi::Function::New(env, libc_unix_bsd_freebsdlike_freebsd_freebsd12_msgrcv_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_freebsd_freebsd12_dirname", Napi::Function::New(env, libc_unix_bsd_freebsdlike_freebsd_freebsd12_dirname_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_freebsd_freebsd12_basename", Napi::Function::New(env, libc_unix_bsd_freebsdlike_freebsd_freebsd12_basename_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_freebsd_freebsd12_qsortR", Napi::Function::New(env, libc_unix_bsd_freebsdlike_freebsd_freebsd12_qsortR_napi));
+    exports.Set("libcUnixBsdFreebsdlikeFreebsdFreebsd12Setgrent", Napi::Function::New(env, libcUnixBsdFreebsdlikeFreebsdFreebsd12Setgrent_napi));
+    exports.Set("libcUnixBsdFreebsdlikeFreebsdFreebsd12Mprotect", Napi::Function::New(env, libcUnixBsdFreebsdlikeFreebsdFreebsd12Mprotect_napi));
+    exports.Set("libcUnixBsdFreebsdlikeFreebsdFreebsd12Freelocale", Napi::Function::New(env, libcUnixBsdFreebsdlikeFreebsdFreebsd12Freelocale_napi));
+    exports.Set("libcUnixBsdFreebsdlikeFreebsdFreebsd12Msgrcv", Napi::Function::New(env, libcUnixBsdFreebsdlikeFreebsdFreebsd12Msgrcv_napi));
+    exports.Set("libcUnixBsdFreebsdlikeFreebsdFreebsd12Dirname", Napi::Function::New(env, libcUnixBsdFreebsdlikeFreebsdFreebsd12Dirname_napi));
+    exports.Set("libcUnixBsdFreebsdlikeFreebsdFreebsd12Basename", Napi::Function::New(env, libcUnixBsdFreebsdlikeFreebsdFreebsd12Basename_napi));
+    exports.Set("libcUnixBsdFreebsdlikeFreebsdFreebsd12QsortR", Napi::Function::New(env, libcUnixBsdFreebsdlikeFreebsdFreebsd12QsortR_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_unix_bsd_freebsdlike_freebsd_freebsd12_napi, nullptr };

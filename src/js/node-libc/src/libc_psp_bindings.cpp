@@ -51,7 +51,7 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_psp_sceAudioChRelease_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceAudioChRelease_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t channel = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -84,7 +84,7 @@ static Napi::Value libc_psp_sceAudioChRelease_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceAudioOutput_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceAudioOutput_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t channel = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t vol = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -119,7 +119,7 @@ static Napi::Value libc_psp_sceAudioOutput_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceAudioOutputBlocking_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceAudioOutputBlocking_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t channel = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t vol = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -154,11 +154,11 @@ static Napi::Value libc_psp_sceAudioOutputBlocking_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceAudioOutputPanned_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceAudioOutputPanned_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t channel = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t left_vol = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    int32_t right_vol = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    int32_t leftVol = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t rightVol = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -182,7 +182,7 @@ static Napi::Value libc_psp_sceAudioOutputPanned_napi(const Napi::CallbackInfo& 
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(channel, left_vol, right_vol, buf);
+        km_res = km_fn_ptr(channel, leftVol, rightVol, buf);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -190,11 +190,11 @@ static Napi::Value libc_psp_sceAudioOutputPanned_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceAudioOutputPannedBlocking_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceAudioOutputPannedBlocking_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t channel = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t left_vol = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    int32_t right_vol = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    int32_t leftVol = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t rightVol = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -218,7 +218,7 @@ static Napi::Value libc_psp_sceAudioOutputPannedBlocking_napi(const Napi::Callba
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(channel, left_vol, right_vol, buf);
+        km_res = km_fn_ptr(channel, leftVol, rightVol, buf);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -226,7 +226,7 @@ static Napi::Value libc_psp_sceAudioOutputPannedBlocking_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceAudioGetChannelRestLen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceAudioGetChannelRestLen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t channel = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -259,7 +259,7 @@ static Napi::Value libc_psp_sceAudioGetChannelRestLen_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceAudioGetChannelRestLength_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceAudioGetChannelRestLength_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t channel = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -292,10 +292,10 @@ static Napi::Value libc_psp_sceAudioGetChannelRestLength_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceAudioSetChannelDataLen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceAudioSetChannelDataLen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t channel = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t sample_count = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t sampleCount = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -318,7 +318,7 @@ static Napi::Value libc_psp_sceAudioSetChannelDataLen_napi(const Napi::CallbackI
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(channel, sample_count);
+        km_res = km_fn_ptr(channel, sampleCount);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -326,11 +326,11 @@ static Napi::Value libc_psp_sceAudioSetChannelDataLen_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceAudioChangeChannelVolume_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceAudioChangeChannelVolume_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t channel = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t left_vol = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    int32_t right_vol = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    int32_t leftVol = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t rightVol = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -353,7 +353,7 @@ static Napi::Value libc_psp_sceAudioChangeChannelVolume_napi(const Napi::Callbac
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(channel, left_vol, right_vol);
+        km_res = km_fn_ptr(channel, leftVol, rightVol);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -361,9 +361,9 @@ static Napi::Value libc_psp_sceAudioChangeChannelVolume_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceAudioOutput2Reserve_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceAudioOutput2Reserve_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t sample_count = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t sampleCount = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -386,7 +386,7 @@ static Napi::Value libc_psp_sceAudioOutput2Reserve_napi(const Napi::CallbackInfo
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(sample_count);
+        km_res = km_fn_ptr(sampleCount);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -394,7 +394,7 @@ static Napi::Value libc_psp_sceAudioOutput2Reserve_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceAudioOutput2Release_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceAudioOutput2Release_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -426,9 +426,9 @@ static Napi::Value libc_psp_sceAudioOutput2Release_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceAudioOutput2ChangeLength_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceAudioOutput2ChangeLength_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t sample_count = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t sampleCount = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -451,7 +451,7 @@ static Napi::Value libc_psp_sceAudioOutput2ChangeLength_napi(const Napi::Callbac
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(sample_count);
+        km_res = km_fn_ptr(sampleCount);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -459,7 +459,7 @@ static Napi::Value libc_psp_sceAudioOutput2ChangeLength_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceAudioOutput2OutputBlocking_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceAudioOutput2OutputBlocking_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t vol = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -493,7 +493,7 @@ static Napi::Value libc_psp_sceAudioOutput2OutputBlocking_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceAudioOutput2GetRestSample_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceAudioOutput2GetRestSample_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -525,7 +525,7 @@ static Napi::Value libc_psp_sceAudioOutput2GetRestSample_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceAudioSRCChRelease_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceAudioSRCChRelease_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -557,7 +557,7 @@ static Napi::Value libc_psp_sceAudioSRCChRelease_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceAudioSRCOutputBlocking_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceAudioSRCOutputBlocking_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t vol = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -591,7 +591,7 @@ static Napi::Value libc_psp_sceAudioSRCOutputBlocking_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceAudioInputInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceAudioInputInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t unknown1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t gain = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -626,7 +626,7 @@ static Napi::Value libc_psp_sceAudioInputInit_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceAudioInputInitEx_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceAudioInputInitEx_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* params = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -659,7 +659,7 @@ static Napi::Value libc_psp_sceAudioInputInitEx_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceAudioGetInputLength_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceAudioGetInputLength_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -691,7 +691,7 @@ static Napi::Value libc_psp_sceAudioGetInputLength_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceAudioWaitInputEnd_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceAudioWaitInputEnd_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -723,7 +723,7 @@ static Napi::Value libc_psp_sceAudioWaitInputEnd_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceAudioPollInputEnd_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceAudioPollInputEnd_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -755,9 +755,9 @@ static Napi::Value libc_psp_sceAudioPollInputEnd_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceAtracGetAtracID_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceAtracGetAtracID_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint32_t ui_codec_type = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    uint32_t uiCodecType = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -780,7 +780,7 @@ static Napi::Value libc_psp_sceAtracGetAtracID_napi(const Napi::CallbackInfo& km
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(ui_codec_type);
+        km_res = km_fn_ptr(uiCodecType);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -788,7 +788,7 @@ static Napi::Value libc_psp_sceAtracGetAtracID_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceAtracSetDataAndGetID_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceAtracSetDataAndGetID_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t bufsize = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -822,13 +822,13 @@ static Napi::Value libc_psp_sceAtracSetDataAndGetID_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceAtracDecodeData_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceAtracDecodeData_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t atrac_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* out_samples = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* out_n = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    void* out_end = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
-    void* out_remain_frame = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
+    int32_t atracId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* outSamples = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* outN = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* outEnd = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    void* outRemainFrame = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -851,7 +851,7 @@ static Napi::Value libc_psp_sceAtracDecodeData_napi(const Napi::CallbackInfo& km
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(atrac_id, out_samples, out_n, out_end, out_remain_frame);
+        km_res = km_fn_ptr(atracId, outSamples, outN, outEnd, outRemainFrame);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -859,10 +859,10 @@ static Napi::Value libc_psp_sceAtracDecodeData_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceAtracGetRemainFrame_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceAtracGetRemainFrame_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t atrac_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* out_remain_frame = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    int32_t atracId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* outRemainFrame = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -885,7 +885,7 @@ static Napi::Value libc_psp_sceAtracGetRemainFrame_napi(const Napi::CallbackInfo
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(atrac_id, out_remain_frame);
+        km_res = km_fn_ptr(atracId, outRemainFrame);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -893,12 +893,12 @@ static Napi::Value libc_psp_sceAtracGetRemainFrame_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceAtracGetStreamDataInfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceAtracGetStreamDataInfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t atrac_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* write_pointer = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* available_bytes = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    void* read_offset = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    int32_t atracId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* writePointer = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* availableBytes = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* readOffset = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -921,7 +921,7 @@ static Napi::Value libc_psp_sceAtracGetStreamDataInfo_napi(const Napi::CallbackI
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(atrac_id, write_pointer, available_bytes, read_offset);
+        km_res = km_fn_ptr(atracId, writePointer, availableBytes, readOffset);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -929,10 +929,10 @@ static Napi::Value libc_psp_sceAtracGetStreamDataInfo_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceAtracAddStreamData_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceAtracAddStreamData_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t atrac_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    uint32_t bytes_to_add = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t atracId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    uint32_t bytesToAdd = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -955,7 +955,7 @@ static Napi::Value libc_psp_sceAtracAddStreamData_napi(const Napi::CallbackInfo&
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(atrac_id, bytes_to_add);
+        km_res = km_fn_ptr(atracId, bytesToAdd);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -963,10 +963,10 @@ static Napi::Value libc_psp_sceAtracAddStreamData_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceAtracGetBitrate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceAtracGetBitrate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t atrac_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* out_bitrate = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    int32_t atracId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* outBitrate = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -989,7 +989,7 @@ static Napi::Value libc_psp_sceAtracGetBitrate_napi(const Napi::CallbackInfo& km
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(atrac_id, out_bitrate);
+        km_res = km_fn_ptr(atracId, outBitrate);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -997,9 +997,9 @@ static Napi::Value libc_psp_sceAtracGetBitrate_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceAtracSetLoopNum_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceAtracSetLoopNum_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t atrac_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t atracId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t nloops = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1023,7 +1023,7 @@ static Napi::Value libc_psp_sceAtracSetLoopNum_napi(const Napi::CallbackInfo& km
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(atrac_id, nloops);
+        km_res = km_fn_ptr(atracId, nloops);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1031,9 +1031,9 @@ static Napi::Value libc_psp_sceAtracSetLoopNum_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceAtracReleaseAtracID_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceAtracReleaseAtracID_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t atrac_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t atracId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1056,7 +1056,7 @@ static Napi::Value libc_psp_sceAtracReleaseAtracID_napi(const Napi::CallbackInfo
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(atrac_id);
+        km_res = km_fn_ptr(atracId);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1064,10 +1064,10 @@ static Napi::Value libc_psp_sceAtracReleaseAtracID_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceAtracGetNextSample_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceAtracGetNextSample_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t atrac_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* out_n = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    int32_t atracId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* outN = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1090,7 +1090,7 @@ static Napi::Value libc_psp_sceAtracGetNextSample_napi(const Napi::CallbackInfo&
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(atrac_id, out_n);
+        km_res = km_fn_ptr(atracId, outN);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1098,10 +1098,10 @@ static Napi::Value libc_psp_sceAtracGetNextSample_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceAtracGetMaxSample_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceAtracGetMaxSample_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t atrac_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* out_max = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    int32_t atracId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* outMax = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1124,7 +1124,7 @@ static Napi::Value libc_psp_sceAtracGetMaxSample_napi(const Napi::CallbackInfo& 
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(atrac_id, out_max);
+        km_res = km_fn_ptr(atracId, outMax);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1132,11 +1132,11 @@ static Napi::Value libc_psp_sceAtracGetMaxSample_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceAtracGetBufferInfoForReseting_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceAtracGetBufferInfoForReseting_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t atrac_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    uint32_t ui_sample = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    void* pbuffer_info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    int32_t atracId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    uint32_t uiSample = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    void* pbufferInfo = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, uint32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1159,7 +1159,7 @@ static Napi::Value libc_psp_sceAtracGetBufferInfoForReseting_napi(const Napi::Ca
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(atrac_id, ui_sample, pbuffer_info);
+        km_res = km_fn_ptr(atracId, uiSample, pbufferInfo);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1167,10 +1167,10 @@ static Napi::Value libc_psp_sceAtracGetBufferInfoForReseting_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceAtracGetChannel_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceAtracGetChannel_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t atrac_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* pui_channel = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    int32_t atracId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* puiChannel = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1193,7 +1193,7 @@ static Napi::Value libc_psp_sceAtracGetChannel_napi(const Napi::CallbackInfo& km
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(atrac_id, pui_channel);
+        km_res = km_fn_ptr(atracId, puiChannel);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1201,10 +1201,10 @@ static Napi::Value libc_psp_sceAtracGetChannel_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceAtracGetInternalErrorInfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceAtracGetInternalErrorInfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t atrac_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* pi_result = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    int32_t atracId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* piResult = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1227,7 +1227,7 @@ static Napi::Value libc_psp_sceAtracGetInternalErrorInfo_napi(const Napi::Callba
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(atrac_id, pi_result);
+        km_res = km_fn_ptr(atracId, piResult);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1235,11 +1235,11 @@ static Napi::Value libc_psp_sceAtracGetInternalErrorInfo_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceAtracGetLoopStatus_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceAtracGetLoopStatus_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t atrac_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* pi_loop_num = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* pui_loop_status = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    int32_t atracId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* piLoopNum = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* puiLoopStatus = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1262,7 +1262,7 @@ static Napi::Value libc_psp_sceAtracGetLoopStatus_napi(const Napi::CallbackInfo&
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(atrac_id, pi_loop_num, pui_loop_status);
+        km_res = km_fn_ptr(atracId, piLoopNum, puiLoopStatus);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1270,10 +1270,10 @@ static Napi::Value libc_psp_sceAtracGetLoopStatus_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceAtracGetNextDecodePosition_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceAtracGetNextDecodePosition_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t atrac_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* pui_sample_position = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    int32_t atracId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* puiSamplePosition = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1296,7 +1296,7 @@ static Napi::Value libc_psp_sceAtracGetNextDecodePosition_napi(const Napi::Callb
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(atrac_id, pui_sample_position);
+        km_res = km_fn_ptr(atracId, puiSamplePosition);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1304,11 +1304,11 @@ static Napi::Value libc_psp_sceAtracGetNextDecodePosition_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceAtracGetSecondBufferInfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceAtracGetSecondBufferInfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t atrac_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* pui_position = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* pui_data_byte = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    int32_t atracId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* puiPosition = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* puiDataByte = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1331,7 +1331,7 @@ static Napi::Value libc_psp_sceAtracGetSecondBufferInfo_napi(const Napi::Callbac
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(atrac_id, pui_position, pui_data_byte);
+        km_res = km_fn_ptr(atracId, puiPosition, puiDataByte);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1339,12 +1339,12 @@ static Napi::Value libc_psp_sceAtracGetSecondBufferInfo_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceAtracGetSoundSample_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceAtracGetSoundSample_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t atrac_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* pi_end_sample = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* pi_loop_start_sample = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    void* pi_loop_end_sample = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    int32_t atracId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* piEndSample = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* piLoopStartSample = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* piLoopEndSample = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1367,7 +1367,7 @@ static Napi::Value libc_psp_sceAtracGetSoundSample_napi(const Napi::CallbackInfo
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(atrac_id, pi_end_sample, pi_loop_start_sample, pi_loop_end_sample);
+        km_res = km_fn_ptr(atracId, piEndSample, piLoopStartSample, piLoopEndSample);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1375,12 +1375,12 @@ static Napi::Value libc_psp_sceAtracGetSoundSample_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceAtracResetPlayPosition_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceAtracResetPlayPosition_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t atrac_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    uint32_t ui_sample = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    uint32_t ui_write_byte_first_buf = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    uint32_t ui_write_byte_second_buf = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
+    int32_t atracId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    uint32_t uiSample = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    uint32_t uiWriteByteFirstBuf = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    uint32_t uiWriteByteSecondBuf = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, uint32_t, uint32_t, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1403,7 +1403,7 @@ static Napi::Value libc_psp_sceAtracResetPlayPosition_napi(const Napi::CallbackI
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(atrac_id, ui_sample, ui_write_byte_first_buf, ui_write_byte_second_buf);
+        km_res = km_fn_ptr(atracId, uiSample, uiWriteByteFirstBuf, uiWriteByteSecondBuf);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1411,11 +1411,11 @@ static Napi::Value libc_psp_sceAtracResetPlayPosition_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceAtracSetData_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceAtracSetData_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t atrac_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* puc_buffer_addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint32_t ui_buffer_byte = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    int32_t atracId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* pucBufferAddr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint32_t uiBufferByte = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1438,7 +1438,7 @@ static Napi::Value libc_psp_sceAtracSetData_napi(const Napi::CallbackInfo& km_in
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(atrac_id, puc_buffer_addr, ui_buffer_byte);
+        km_res = km_fn_ptr(atracId, pucBufferAddr, uiBufferByte);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1446,12 +1446,12 @@ static Napi::Value libc_psp_sceAtracSetData_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceAtracSetHalfwayBuffer_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceAtracSetHalfwayBuffer_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t atrac_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* puc_buffer_addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint32_t ui_read_byte = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    uint32_t ui_buffer_byte = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
+    int32_t atracId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* pucBufferAddr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint32_t uiReadByte = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    uint32_t uiBufferByte = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1474,7 +1474,7 @@ static Napi::Value libc_psp_sceAtracSetHalfwayBuffer_napi(const Napi::CallbackIn
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(atrac_id, puc_buffer_addr, ui_read_byte, ui_buffer_byte);
+        km_res = km_fn_ptr(atracId, pucBufferAddr, uiReadByte, uiBufferByte);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1482,11 +1482,11 @@ static Napi::Value libc_psp_sceAtracSetHalfwayBuffer_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceAtracSetHalfwayBufferAndGetID_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceAtracSetHalfwayBufferAndGetID_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* puc_buffer_addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    uint32_t ui_read_byte = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    uint32_t ui_buffer_byte = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    void* pucBufferAddr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    uint32_t uiReadByte = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    uint32_t uiBufferByte = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, uint32_t, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1509,7 +1509,7 @@ static Napi::Value libc_psp_sceAtracSetHalfwayBufferAndGetID_napi(const Napi::Ca
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(puc_buffer_addr, ui_read_byte, ui_buffer_byte);
+        km_res = km_fn_ptr(pucBufferAddr, uiReadByte, uiBufferByte);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1517,11 +1517,11 @@ static Napi::Value libc_psp_sceAtracSetHalfwayBufferAndGetID_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceAtracSetSecondBuffer_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceAtracSetSecondBuffer_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t atrac_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* puc_second_buffer_addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint32_t ui_second_buffer_byte = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    int32_t atracId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* pucSecondBufferAddr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint32_t uiSecondBufferByte = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1544,7 +1544,7 @@ static Napi::Value libc_psp_sceAtracSetSecondBuffer_napi(const Napi::CallbackInf
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(atrac_id, puc_second_buffer_addr, ui_second_buffer_byte);
+        km_res = km_fn_ptr(atracId, pucSecondBufferAddr, uiSecondBufferByte);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1552,7 +1552,7 @@ static Napi::Value libc_psp_sceAtracSetSecondBuffer_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceCtrlSetSamplingCycle_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceCtrlSetSamplingCycle_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t cycle = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -1585,7 +1585,7 @@ static Napi::Value libc_psp_sceCtrlSetSamplingCycle_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceCtrlGetSamplingCycle_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceCtrlGetSamplingCycle_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* pcycle = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -1618,7 +1618,7 @@ static Napi::Value libc_psp_sceCtrlGetSamplingCycle_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceCtrlGetSamplingMode_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceCtrlGetSamplingMode_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* pmode = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -1651,9 +1651,9 @@ static Napi::Value libc_psp_sceCtrlGetSamplingMode_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceCtrlPeekBufferPositive_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceCtrlPeekBufferPositive_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* pad_data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* padData = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t count = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1677,7 +1677,7 @@ static Napi::Value libc_psp_sceCtrlPeekBufferPositive_napi(const Napi::CallbackI
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(pad_data, count);
+        km_res = km_fn_ptr(padData, count);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1685,9 +1685,9 @@ static Napi::Value libc_psp_sceCtrlPeekBufferPositive_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceCtrlPeekBufferNegative_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceCtrlPeekBufferNegative_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* pad_data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* padData = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t count = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1711,7 +1711,7 @@ static Napi::Value libc_psp_sceCtrlPeekBufferNegative_napi(const Napi::CallbackI
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(pad_data, count);
+        km_res = km_fn_ptr(padData, count);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1719,9 +1719,9 @@ static Napi::Value libc_psp_sceCtrlPeekBufferNegative_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceCtrlReadBufferPositive_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceCtrlReadBufferPositive_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* pad_data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* padData = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t count = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1745,7 +1745,7 @@ static Napi::Value libc_psp_sceCtrlReadBufferPositive_napi(const Napi::CallbackI
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(pad_data, count);
+        km_res = km_fn_ptr(padData, count);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1753,9 +1753,9 @@ static Napi::Value libc_psp_sceCtrlReadBufferPositive_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceCtrlReadBufferNegative_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceCtrlReadBufferNegative_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* pad_data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* padData = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t count = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1779,7 +1779,7 @@ static Napi::Value libc_psp_sceCtrlReadBufferNegative_napi(const Napi::CallbackI
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(pad_data, count);
+        km_res = km_fn_ptr(padData, count);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1787,9 +1787,9 @@ static Napi::Value libc_psp_sceCtrlReadBufferNegative_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceCtrlPeekLatch_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceCtrlPeekLatch_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* latch_data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* latchData = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1812,7 +1812,7 @@ static Napi::Value libc_psp_sceCtrlPeekLatch_napi(const Napi::CallbackInfo& km_i
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(latch_data);
+        km_res = km_fn_ptr(latchData);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1820,9 +1820,9 @@ static Napi::Value libc_psp_sceCtrlPeekLatch_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceCtrlReadLatch_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceCtrlReadLatch_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* latch_data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* latchData = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1845,7 +1845,7 @@ static Napi::Value libc_psp_sceCtrlReadLatch_napi(const Napi::CallbackInfo& km_i
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(latch_data);
+        km_res = km_fn_ptr(latchData);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1853,7 +1853,7 @@ static Napi::Value libc_psp_sceCtrlReadLatch_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceCtrlSetIdleCancelThreshold_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceCtrlSetIdleCancelThreshold_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t idlereset = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t idleback = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1887,7 +1887,7 @@ static Napi::Value libc_psp_sceCtrlSetIdleCancelThreshold_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceCtrlGetIdleCancelThreshold_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceCtrlGetIdleCancelThreshold_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* idlereset = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* idleback = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1921,7 +1921,7 @@ static Napi::Value libc_psp_sceCtrlGetIdleCancelThreshold_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceDisplayGetMode_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceDisplayGetMode_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* pmode = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* pwidth = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1956,7 +1956,7 @@ static Napi::Value libc_psp_sceDisplayGetMode_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceDisplayGetVcount_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceDisplayGetVcount_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef uint32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1988,7 +1988,7 @@ static Napi::Value libc_psp_sceDisplayGetVcount_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceDisplayWaitVblank_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceDisplayWaitVblank_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2020,7 +2020,7 @@ static Napi::Value libc_psp_sceDisplayWaitVblank_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceDisplayWaitVblankCB_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceDisplayWaitVblankCB_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2052,7 +2052,7 @@ static Napi::Value libc_psp_sceDisplayWaitVblankCB_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceDisplayWaitVblankStart_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceDisplayWaitVblankStart_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2084,7 +2084,7 @@ static Napi::Value libc_psp_sceDisplayWaitVblankStart_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceDisplayWaitVblankStartCB_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceDisplayWaitVblankStartCB_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2116,7 +2116,7 @@ static Napi::Value libc_psp_sceDisplayWaitVblankStartCB_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceDisplayGetAccumulatedHcount_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceDisplayGetAccumulatedHcount_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2148,7 +2148,7 @@ static Napi::Value libc_psp_sceDisplayGetAccumulatedHcount_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceDisplayGetCurrentHcount_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceDisplayGetCurrentHcount_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2180,7 +2180,7 @@ static Napi::Value libc_psp_sceDisplayGetCurrentHcount_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceDisplayGetFramePerSec_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceDisplayGetFramePerSec_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef float (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2212,7 +2212,7 @@ static Napi::Value libc_psp_sceDisplayGetFramePerSec_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
-static Napi::Value libc_psp_sceDisplayIsForeground_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceDisplayIsForeground_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2244,7 +2244,7 @@ static Napi::Value libc_psp_sceDisplayIsForeground_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceDisplayIsVblank_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceDisplayIsVblank_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2276,7 +2276,7 @@ static Napi::Value libc_psp_sceDisplayIsVblank_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceGeEdramGetSize_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGeEdramGetSize_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef uint32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2308,7 +2308,7 @@ static Napi::Value libc_psp_sceGeEdramGetSize_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceGeEdramGetAddr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGeEdramGetAddr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2340,7 +2340,7 @@ static Napi::Value libc_psp_sceGeEdramGetAddr_napi(const Napi::CallbackInfo& km_
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_psp_sceGeEdramSetAddrTranslation_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGeEdramSetAddrTranslation_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t width = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -2373,7 +2373,7 @@ static Napi::Value libc_psp_sceGeEdramSetAddrTranslation_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceGeGetCmd_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGeGetCmd_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t cmd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef uint32_t (*km_fn_t)(int32_t);
@@ -2406,9 +2406,9 @@ static Napi::Value libc_psp_sceGeGetCmd_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceGeGetStack_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGeGetStack_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t stack_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t stackId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* stack = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2432,7 +2432,7 @@ static Napi::Value libc_psp_sceGeGetStack_napi(const Napi::CallbackInfo& km_info
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(stack_id, stack);
+        km_res = km_fn_ptr(stackId, stack);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2440,7 +2440,7 @@ static Napi::Value libc_psp_sceGeGetStack_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceGeSaveContext_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGeSaveContext_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* context = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -2473,7 +2473,7 @@ static Napi::Value libc_psp_sceGeSaveContext_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceGeRestoreContext_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGeRestoreContext_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* context = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -2506,7 +2506,7 @@ static Napi::Value libc_psp_sceGeRestoreContext_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceGeListEnQueue_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGeListEnQueue_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* list = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* stall = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2542,7 +2542,7 @@ static Napi::Value libc_psp_sceGeListEnQueue_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceGeListEnQueueHead_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGeListEnQueueHead_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* list = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* stall = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2578,7 +2578,7 @@ static Napi::Value libc_psp_sceGeListEnQueueHead_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceGeListDeQueue_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGeListDeQueue_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t qid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -2611,7 +2611,7 @@ static Napi::Value libc_psp_sceGeListDeQueue_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceGeListUpdateStallAddr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGeListUpdateStallAddr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t qid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* stall = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2645,10 +2645,10 @@ static Napi::Value libc_psp_sceGeListUpdateStallAddr_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceGeBreak_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGeBreak_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t mode = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* p_param = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* pParam = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2671,7 +2671,7 @@ static Napi::Value libc_psp_sceGeBreak_napi(const Napi::CallbackInfo& km_info) {
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(mode, p_param);
+        km_res = km_fn_ptr(mode, pParam);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2679,7 +2679,7 @@ static Napi::Value libc_psp_sceGeBreak_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceGeContinue_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGeContinue_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2711,7 +2711,7 @@ static Napi::Value libc_psp_sceGeContinue_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceGeSetCallback_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGeSetCallback_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cb = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -2744,7 +2744,7 @@ static Napi::Value libc_psp_sceGeSetCallback_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceGeUnsetCallback_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGeUnsetCallback_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t cbid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -2777,7 +2777,7 @@ static Napi::Value libc_psp_sceGeUnsetCallback_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelExitGame_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelExitGame_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2807,7 +2807,7 @@ static Napi::Value libc_psp_sceKernelExitGame_napi(const Napi::CallbackInfo& km_
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceKernelLoadExec_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelLoadExec_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* file = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* param = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2841,7 +2841,7 @@ static Napi::Value libc_psp_sceKernelLoadExec_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelTotalFreeMemSize_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelTotalFreeMemSize_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef uint64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2873,7 +2873,7 @@ static Napi::Value libc_psp_sceKernelTotalFreeMemSize_napi(const Napi::CallbackI
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_psp_sceKernelMaxFreeMemSize_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelMaxFreeMemSize_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef uint64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2905,7 +2905,7 @@ static Napi::Value libc_psp_sceKernelMaxFreeMemSize_napi(const Napi::CallbackInf
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_psp_sceKernelDevkitVersion_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelDevkitVersion_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef uint32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2937,7 +2937,7 @@ static Napi::Value libc_psp_sceKernelDevkitVersion_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelSetCompiledSdkVersion_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelSetCompiledSdkVersion_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t version = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -2970,7 +2970,7 @@ static Napi::Value libc_psp_sceKernelSetCompiledSdkVersion_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelGetCompiledSdkVersion_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelGetCompiledSdkVersion_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef uint32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3002,7 +3002,7 @@ static Napi::Value libc_psp_sceKernelGetCompiledSdkVersion_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelLibcTime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelLibcTime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* t = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -3035,7 +3035,7 @@ static Napi::Value libc_psp_sceKernelLibcTime_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelLibcClock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelLibcClock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef uint32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3067,7 +3067,7 @@ static Napi::Value libc_psp_sceKernelLibcClock_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelLibcGettimeofday_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelLibcGettimeofday_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* tp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* tzp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3101,7 +3101,7 @@ static Napi::Value libc_psp_sceKernelLibcGettimeofday_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelDcacheWritebackAll_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelDcacheWritebackAll_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3131,7 +3131,7 @@ static Napi::Value libc_psp_sceKernelDcacheWritebackAll_napi(const Napi::Callbac
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceKernelDcacheWritebackInvalidateAll_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelDcacheWritebackInvalidateAll_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3161,7 +3161,7 @@ static Napi::Value libc_psp_sceKernelDcacheWritebackInvalidateAll_napi(const Nap
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceKernelDcacheWritebackRange_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelDcacheWritebackRange_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* p = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t size = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3193,7 +3193,7 @@ static Napi::Value libc_psp_sceKernelDcacheWritebackRange_napi(const Napi::Callb
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceKernelDcacheWritebackInvalidateRange_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelDcacheWritebackInvalidateRange_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* p = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t size = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3225,7 +3225,7 @@ static Napi::Value libc_psp_sceKernelDcacheWritebackInvalidateRange_napi(const N
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceKernelDcacheInvalidateRange_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelDcacheInvalidateRange_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* p = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t size = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3257,7 +3257,7 @@ static Napi::Value libc_psp_sceKernelDcacheInvalidateRange_napi(const Napi::Call
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceKernelIcacheInvalidateAll_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelIcacheInvalidateAll_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3287,7 +3287,7 @@ static Napi::Value libc_psp_sceKernelIcacheInvalidateAll_napi(const Napi::Callba
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceKernelIcacheInvalidateRange_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelIcacheInvalidateRange_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* p = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t size = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3319,7 +3319,7 @@ static Napi::Value libc_psp_sceKernelIcacheInvalidateRange_napi(const Napi::Call
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceKernelUtilsMt19937Init_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelUtilsMt19937Init_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ctx = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t seed = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3353,7 +3353,7 @@ static Napi::Value libc_psp_sceKernelUtilsMt19937Init_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelUtilsMt19937UInt_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelUtilsMt19937UInt_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ctx = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef uint32_t (*km_fn_t)(void*);
@@ -3386,7 +3386,7 @@ static Napi::Value libc_psp_sceKernelUtilsMt19937UInt_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelUtilsMd5Digest_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelUtilsMd5Digest_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t size = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3421,7 +3421,7 @@ static Napi::Value libc_psp_sceKernelUtilsMd5Digest_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelUtilsMd5BlockInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelUtilsMd5BlockInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ctx = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -3454,7 +3454,7 @@ static Napi::Value libc_psp_sceKernelUtilsMd5BlockInit_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelUtilsMd5BlockUpdate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelUtilsMd5BlockUpdate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ctx = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3489,7 +3489,7 @@ static Napi::Value libc_psp_sceKernelUtilsMd5BlockUpdate_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelUtilsMd5BlockResult_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelUtilsMd5BlockResult_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ctx = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* digest = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3523,7 +3523,7 @@ static Napi::Value libc_psp_sceKernelUtilsMd5BlockResult_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelUtilsSha1Digest_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelUtilsSha1Digest_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t size = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3558,7 +3558,7 @@ static Napi::Value libc_psp_sceKernelUtilsSha1Digest_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelUtilsSha1BlockInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelUtilsSha1BlockInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ctx = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -3591,7 +3591,7 @@ static Napi::Value libc_psp_sceKernelUtilsSha1BlockInit_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelUtilsSha1BlockUpdate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelUtilsSha1BlockUpdate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ctx = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3626,7 +3626,7 @@ static Napi::Value libc_psp_sceKernelUtilsSha1BlockUpdate_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelUtilsSha1BlockResult_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelUtilsSha1BlockResult_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ctx = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* digest = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3660,9 +3660,9 @@ static Napi::Value libc_psp_sceKernelUtilsSha1BlockResult_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelRegisterSubIntrHandler_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelRegisterSubIntrHandler_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t int_no = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t intNo = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t no = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     void* handler = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* arg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
@@ -3688,7 +3688,7 @@ static Napi::Value libc_psp_sceKernelRegisterSubIntrHandler_napi(const Napi::Cal
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(int_no, no, handler, arg);
+        km_res = km_fn_ptr(intNo, no, handler, arg);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3696,9 +3696,9 @@ static Napi::Value libc_psp_sceKernelRegisterSubIntrHandler_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelReleaseSubIntrHandler_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelReleaseSubIntrHandler_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t int_no = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t intNo = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t no = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3722,7 +3722,7 @@ static Napi::Value libc_psp_sceKernelReleaseSubIntrHandler_napi(const Napi::Call
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(int_no, no);
+        km_res = km_fn_ptr(intNo, no);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3730,9 +3730,9 @@ static Napi::Value libc_psp_sceKernelReleaseSubIntrHandler_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelEnableSubIntr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelEnableSubIntr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t int_no = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t intNo = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t no = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3756,7 +3756,7 @@ static Napi::Value libc_psp_sceKernelEnableSubIntr_napi(const Napi::CallbackInfo
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(int_no, no);
+        km_res = km_fn_ptr(intNo, no);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3764,9 +3764,9 @@ static Napi::Value libc_psp_sceKernelEnableSubIntr_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelDisableSubIntr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelDisableSubIntr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t int_no = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t intNo = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t no = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3790,7 +3790,7 @@ static Napi::Value libc_psp_sceKernelDisableSubIntr_napi(const Napi::CallbackInf
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(int_no, no);
+        km_res = km_fn_ptr(intNo, no);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3798,7 +3798,7 @@ static Napi::Value libc_psp_sceKernelDisableSubIntr_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelCpuSuspendIntr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelCpuSuspendIntr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef uint32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3830,7 +3830,7 @@ static Napi::Value libc_psp_sceKernelCpuSuspendIntr_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelCpuResumeIntr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelCpuResumeIntr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t flags = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(uint32_t);
@@ -3861,7 +3861,7 @@ static Napi::Value libc_psp_sceKernelCpuResumeIntr_napi(const Napi::CallbackInfo
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceKernelCpuResumeIntrWithSync_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelCpuResumeIntrWithSync_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t flags = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(uint32_t);
@@ -3892,7 +3892,7 @@ static Napi::Value libc_psp_sceKernelCpuResumeIntrWithSync_napi(const Napi::Call
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceKernelIsCpuIntrSuspended_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelIsCpuIntrSuspended_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t flags = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -3925,7 +3925,7 @@ static Napi::Value libc_psp_sceKernelIsCpuIntrSuspended_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelIsCpuIntrEnable_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelIsCpuIntrEnable_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3957,10 +3957,10 @@ static Napi::Value libc_psp_sceKernelIsCpuIntrEnable_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelSelfStopUnloadModule_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelSelfStopUnloadModule_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t unknown = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    uint64_t arg_size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
+    uint64_t argSize = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
     void* argp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, uint64_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3984,7 +3984,7 @@ static Napi::Value libc_psp_sceKernelSelfStopUnloadModule_napi(const Napi::Callb
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(unknown, arg_size, argp);
+        km_res = km_fn_ptr(unknown, argSize, argp);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3992,9 +3992,9 @@ static Napi::Value libc_psp_sceKernelSelfStopUnloadModule_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelStopUnloadSelfModule_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelStopUnloadSelfModule_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint64_t arg_size = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
+    uint64_t argSize = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     void* argp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* status = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* option = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
@@ -4020,7 +4020,7 @@ static Napi::Value libc_psp_sceKernelStopUnloadSelfModule_napi(const Napi::Callb
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_size, argp, status, option);
+        km_res = km_fn_ptr(argSize, argp, status, option);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4028,11 +4028,11 @@ static Napi::Value libc_psp_sceKernelStopUnloadSelfModule_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelGetModuleIdList_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelGetModuleIdList_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* read_buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    int32_t read_buf_size = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    void* id_count = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* readBuf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    int32_t readBufSize = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    void* idCount = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(void*, int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4055,7 +4055,7 @@ static Napi::Value libc_psp_sceKernelGetModuleIdList_napi(const Napi::CallbackIn
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(read_buf, read_buf_size, id_count);
+        km_res = km_fn_ptr(readBuf, readBufSize, idCount);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4063,7 +4063,7 @@ static Napi::Value libc_psp_sceKernelGetModuleIdList_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelVolatileMemLock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelVolatileMemLock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t unk = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* ptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -4098,7 +4098,7 @@ static Napi::Value libc_psp_sceKernelVolatileMemLock_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelVolatileMemTryLock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelVolatileMemTryLock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t unk = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* ptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -4133,7 +4133,7 @@ static Napi::Value libc_psp_sceKernelVolatileMemTryLock_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelVolatileMemUnlock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelVolatileMemUnlock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t unk = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -4166,7 +4166,7 @@ static Napi::Value libc_psp_sceKernelVolatileMemUnlock_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelExitThread_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelExitThread_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t status = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -4199,7 +4199,7 @@ static Napi::Value libc_psp_sceKernelExitThread_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelExitDeleteThread_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelExitDeleteThread_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t status = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -4232,7 +4232,7 @@ static Napi::Value libc_psp_sceKernelExitDeleteThread_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelSuspendDispatchThread_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelSuspendDispatchThread_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4264,7 +4264,7 @@ static Napi::Value libc_psp_sceKernelSuspendDispatchThread_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelResumeDispatchThread_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelResumeDispatchThread_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t state = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -4297,7 +4297,7 @@ static Napi::Value libc_psp_sceKernelResumeDispatchThread_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelSleepThread_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelSleepThread_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4329,7 +4329,7 @@ static Napi::Value libc_psp_sceKernelSleepThread_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelSleepThreadCB_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelSleepThreadCB_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4361,7 +4361,7 @@ static Napi::Value libc_psp_sceKernelSleepThreadCB_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelDelayThread_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelDelayThread_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t delay = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -4394,7 +4394,7 @@ static Napi::Value libc_psp_sceKernelDelayThread_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelDelayThreadCB_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelDelayThreadCB_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t delay = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -4427,7 +4427,7 @@ static Napi::Value libc_psp_sceKernelDelayThreadCB_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelDelaySysClockThread_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelDelaySysClockThread_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* delay = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -4460,7 +4460,7 @@ static Napi::Value libc_psp_sceKernelDelaySysClockThread_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelDelaySysClockThreadCB_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelDelaySysClockThreadCB_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* delay = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -4493,7 +4493,7 @@ static Napi::Value libc_psp_sceKernelDelaySysClockThreadCB_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelChangeCurrentThreadAttr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelChangeCurrentThreadAttr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t unknown = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t attr = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4527,7 +4527,7 @@ static Napi::Value libc_psp_sceKernelChangeCurrentThreadAttr_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelRotateThreadReadyQueue_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelRotateThreadReadyQueue_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t priority = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -4560,7 +4560,7 @@ static Napi::Value libc_psp_sceKernelRotateThreadReadyQueue_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelGetThreadId_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelGetThreadId_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4592,7 +4592,7 @@ static Napi::Value libc_psp_sceKernelGetThreadId_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelGetThreadCurrentPriority_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelGetThreadCurrentPriority_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4624,7 +4624,7 @@ static Napi::Value libc_psp_sceKernelGetThreadCurrentPriority_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelCheckThreadStack_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelCheckThreadStack_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4656,7 +4656,7 @@ static Napi::Value libc_psp_sceKernelCheckThreadStack_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelCheckCallback_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelCheckCallback_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4688,7 +4688,7 @@ static Napi::Value libc_psp_sceKernelCheckCallback_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelReferSystemStatus_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelReferSystemStatus_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* status = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -4721,7 +4721,7 @@ static Napi::Value libc_psp_sceKernelReferSystemStatus_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelCreateFpl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelCreateFpl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* name = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t part = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4759,7 +4759,7 @@ static Napi::Value libc_psp_sceKernelCreateFpl_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelUSec2SysClock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelUSec2SysClock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t usec = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* clock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -4793,7 +4793,7 @@ static Napi::Value libc_psp_sceKernelUSec2SysClock_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelUSec2SysClockWide_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelUSec2SysClockWide_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t usec = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(uint32_t);
@@ -4826,7 +4826,7 @@ static Napi::Value libc_psp_sceKernelUSec2SysClockWide_napi(const Napi::Callback
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_psp_sceKernelSysClock2USec_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelSysClock2USec_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* clock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* low = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -4861,7 +4861,7 @@ static Napi::Value libc_psp_sceKernelSysClock2USec_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelSysClock2USecWide_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelSysClock2USecWide_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int64_t clock = km_info.Length() > 0 ? km_napi_arg_i64(km_info[0]) : 0;
     void* low = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -4896,9 +4896,9 @@ static Napi::Value libc_psp_sceKernelSysClock2USecWide_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelGetSystemTime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelGetSystemTime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_time = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* arg0Time = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4921,7 +4921,7 @@ static Napi::Value libc_psp_sceKernelGetSystemTime_napi(const Napi::CallbackInfo
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_time);
+        km_res = km_fn_ptr(arg0Time);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4929,7 +4929,7 @@ static Napi::Value libc_psp_sceKernelGetSystemTime_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelGetSystemTimeWide_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelGetSystemTimeWide_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4961,7 +4961,7 @@ static Napi::Value libc_psp_sceKernelGetSystemTimeWide_napi(const Napi::Callback
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_psp_sceKernelGetSystemTimeLow_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelGetSystemTimeLow_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef uint32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4993,7 +4993,7 @@ static Napi::Value libc_psp_sceKernelGetSystemTimeLow_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceKernelReferThreadProfiler_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelReferThreadProfiler_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5025,7 +5025,7 @@ static Napi::Value libc_psp_sceKernelReferThreadProfiler_napi(const Napi::Callba
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_psp_sceKernelReferGlobalProfiler_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceKernelReferGlobalProfiler_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5057,9 +5057,9 @@ static Napi::Value libc_psp_sceKernelReferGlobalProfiler_napi(const Napi::Callba
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_psp_sceUsbStart_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUsbStart_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* driver_name = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* driverName = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t size = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     void* args = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(void*, int32_t, void*);
@@ -5084,7 +5084,7 @@ static Napi::Value libc_psp_sceUsbStart_napi(const Napi::CallbackInfo& km_info) 
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(driver_name, size, args);
+        km_res = km_fn_ptr(driverName, size, args);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5092,9 +5092,9 @@ static Napi::Value libc_psp_sceUsbStart_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUsbStop_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUsbStop_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* driver_name = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* driverName = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t size = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     void* args = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(void*, int32_t, void*);
@@ -5119,7 +5119,7 @@ static Napi::Value libc_psp_sceUsbStop_napi(const Napi::CallbackInfo& km_info) {
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(driver_name, size, args);
+        km_res = km_fn_ptr(driverName, size, args);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5127,7 +5127,7 @@ static Napi::Value libc_psp_sceUsbStop_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUsbActivate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUsbActivate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t pid = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -5160,7 +5160,7 @@ static Napi::Value libc_psp_sceUsbActivate_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUsbDeactivate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUsbDeactivate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t pid = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -5193,7 +5193,7 @@ static Napi::Value libc_psp_sceUsbDeactivate_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUsbGetState_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUsbGetState_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5225,9 +5225,9 @@ static Napi::Value libc_psp_sceUsbGetState_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUsbGetDrvState_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUsbGetDrvState_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* driver_name = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* driverName = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5250,7 +5250,7 @@ static Napi::Value libc_psp_sceUsbGetDrvState_napi(const Napi::CallbackInfo& km_
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(driver_name);
+        km_res = km_fn_ptr(driverName);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5258,7 +5258,7 @@ static Napi::Value libc_psp_sceUsbGetDrvState_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUsbCamSetupStill_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUsbCamSetupStill_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* param = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -5291,7 +5291,7 @@ static Napi::Value libc_psp_sceUsbCamSetupStill_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUsbCamSetupStillEx_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUsbCamSetupStillEx_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* param = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -5324,7 +5324,7 @@ static Napi::Value libc_psp_sceUsbCamSetupStillEx_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUsbCamStillInputBlocking_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUsbCamStillInputBlocking_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -5358,7 +5358,7 @@ static Napi::Value libc_psp_sceUsbCamStillInputBlocking_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUsbCamStillInput_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUsbCamStillInput_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -5392,7 +5392,7 @@ static Napi::Value libc_psp_sceUsbCamStillInput_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUsbCamStillWaitInputEnd_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUsbCamStillWaitInputEnd_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5424,7 +5424,7 @@ static Napi::Value libc_psp_sceUsbCamStillWaitInputEnd_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUsbCamStillPollInputEnd_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUsbCamStillPollInputEnd_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5456,7 +5456,7 @@ static Napi::Value libc_psp_sceUsbCamStillPollInputEnd_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUsbCamStillCancelInput_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUsbCamStillCancelInput_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5488,7 +5488,7 @@ static Napi::Value libc_psp_sceUsbCamStillCancelInput_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUsbCamStillGetInputLength_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUsbCamStillGetInputLength_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5520,11 +5520,11 @@ static Napi::Value libc_psp_sceUsbCamStillGetInputLength_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUsbCamSetupVideo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUsbCamSetupVideo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* param = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* work_area = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    int32_t work_area_size = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    void* workArea = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    int32_t workAreaSize = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, void*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5547,7 +5547,7 @@ static Napi::Value libc_psp_sceUsbCamSetupVideo_napi(const Napi::CallbackInfo& k
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(param, work_area, work_area_size);
+        km_res = km_fn_ptr(param, workArea, workAreaSize);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5555,11 +5555,11 @@ static Napi::Value libc_psp_sceUsbCamSetupVideo_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUsbCamSetupVideoEx_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUsbCamSetupVideoEx_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* param = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* work_area = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    int32_t work_area_size = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    void* workArea = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    int32_t workAreaSize = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, void*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5582,7 +5582,7 @@ static Napi::Value libc_psp_sceUsbCamSetupVideoEx_napi(const Napi::CallbackInfo&
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(param, work_area, work_area_size);
+        km_res = km_fn_ptr(param, workArea, workAreaSize);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5590,7 +5590,7 @@ static Napi::Value libc_psp_sceUsbCamSetupVideoEx_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUsbCamStartVideo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUsbCamStartVideo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5622,7 +5622,7 @@ static Napi::Value libc_psp_sceUsbCamStartVideo_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUsbCamStopVideo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUsbCamStopVideo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5654,7 +5654,7 @@ static Napi::Value libc_psp_sceUsbCamStopVideo_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUsbCamReadVideoFrameBlocking_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUsbCamReadVideoFrameBlocking_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -5688,7 +5688,7 @@ static Napi::Value libc_psp_sceUsbCamReadVideoFrameBlocking_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUsbCamReadVideoFrame_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUsbCamReadVideoFrame_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -5722,7 +5722,7 @@ static Napi::Value libc_psp_sceUsbCamReadVideoFrame_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUsbCamWaitReadVideoFrameEnd_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUsbCamWaitReadVideoFrameEnd_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5754,7 +5754,7 @@ static Napi::Value libc_psp_sceUsbCamWaitReadVideoFrameEnd_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUsbCamPollReadVideoFrameEnd_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUsbCamPollReadVideoFrameEnd_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5786,7 +5786,7 @@ static Napi::Value libc_psp_sceUsbCamPollReadVideoFrameEnd_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUsbCamGetReadVideoFrameSize_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUsbCamGetReadVideoFrameSize_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5818,7 +5818,7 @@ static Napi::Value libc_psp_sceUsbCamGetReadVideoFrameSize_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUsbCamSetSaturation_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUsbCamSetSaturation_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t saturation = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -5851,7 +5851,7 @@ static Napi::Value libc_psp_sceUsbCamSetSaturation_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUsbCamSetBrightness_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUsbCamSetBrightness_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t brightness = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -5884,7 +5884,7 @@ static Napi::Value libc_psp_sceUsbCamSetBrightness_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUsbCamSetContrast_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUsbCamSetContrast_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t contrast = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -5917,7 +5917,7 @@ static Napi::Value libc_psp_sceUsbCamSetContrast_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUsbCamSetSharpness_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUsbCamSetSharpness_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t sharpness = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -5950,9 +5950,9 @@ static Napi::Value libc_psp_sceUsbCamSetSharpness_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUsbCamSetReverseMode_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUsbCamSetReverseMode_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t reverse_flags = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t reverseFlags = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5975,7 +5975,7 @@ static Napi::Value libc_psp_sceUsbCamSetReverseMode_napi(const Napi::CallbackInf
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(reverse_flags);
+        km_res = km_fn_ptr(reverseFlags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5983,7 +5983,7 @@ static Napi::Value libc_psp_sceUsbCamSetReverseMode_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUsbCamSetZoom_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUsbCamSetZoom_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t zoom = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -6016,7 +6016,7 @@ static Napi::Value libc_psp_sceUsbCamSetZoom_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUsbCamGetSaturation_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUsbCamGetSaturation_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* saturation = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -6049,7 +6049,7 @@ static Napi::Value libc_psp_sceUsbCamGetSaturation_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUsbCamGetBrightness_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUsbCamGetBrightness_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* brightness = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -6082,7 +6082,7 @@ static Napi::Value libc_psp_sceUsbCamGetBrightness_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUsbCamGetContrast_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUsbCamGetContrast_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* contrast = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -6115,7 +6115,7 @@ static Napi::Value libc_psp_sceUsbCamGetContrast_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUsbCamGetSharpness_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUsbCamGetSharpness_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* sharpness = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -6148,9 +6148,9 @@ static Napi::Value libc_psp_sceUsbCamGetSharpness_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUsbCamGetImageEffectMode_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUsbCamGetImageEffectMode_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* effect_mode = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* effectMode = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6173,7 +6173,7 @@ static Napi::Value libc_psp_sceUsbCamGetImageEffectMode_napi(const Napi::Callbac
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(effect_mode);
+        km_res = km_fn_ptr(effectMode);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -6181,9 +6181,9 @@ static Napi::Value libc_psp_sceUsbCamGetImageEffectMode_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUsbCamGetEvLevel_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUsbCamGetEvLevel_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* exposure_level = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* exposureLevel = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6206,7 +6206,7 @@ static Napi::Value libc_psp_sceUsbCamGetEvLevel_napi(const Napi::CallbackInfo& k
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(exposure_level);
+        km_res = km_fn_ptr(exposureLevel);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -6214,9 +6214,9 @@ static Napi::Value libc_psp_sceUsbCamGetEvLevel_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUsbCamGetReverseMode_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUsbCamGetReverseMode_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* reverse_flags = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* reverseFlags = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6239,7 +6239,7 @@ static Napi::Value libc_psp_sceUsbCamGetReverseMode_napi(const Napi::CallbackInf
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(reverse_flags);
+        km_res = km_fn_ptr(reverseFlags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -6247,7 +6247,7 @@ static Napi::Value libc_psp_sceUsbCamGetReverseMode_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUsbCamGetZoom_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUsbCamGetZoom_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* zoom = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -6280,7 +6280,7 @@ static Napi::Value libc_psp_sceUsbCamGetZoom_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUsbCamAutoImageReverseSW_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUsbCamAutoImageReverseSW_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t on = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -6313,7 +6313,7 @@ static Napi::Value libc_psp_sceUsbCamAutoImageReverseSW_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUsbCamGetAutoImageReverseState_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUsbCamGetAutoImageReverseState_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -6345,7 +6345,7 @@ static Napi::Value libc_psp_sceUsbCamGetAutoImageReverseState_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUsbCamGetLensDirection_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUsbCamGetLensDirection_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -6377,9 +6377,9 @@ static Napi::Value libc_psp_sceUsbCamGetLensDirection_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUsbstorBootUnregisterNotify_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUsbstorBootUnregisterNotify_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint32_t event_flag = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    uint32_t eventFlag = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6402,7 +6402,7 @@ static Napi::Value libc_psp_sceUsbstorBootUnregisterNotify_napi(const Napi::Call
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(event_flag);
+        km_res = km_fn_ptr(eventFlag);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -6410,7 +6410,7 @@ static Napi::Value libc_psp_sceUsbstorBootUnregisterNotify_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUsbstorBootSetCapacity_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUsbstorBootSetCapacity_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t size = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -6443,7 +6443,7 @@ static Napi::Value libc_psp_sceUsbstorBootSetCapacity_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_scePowerUnregisterCallback_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspScePowerUnregisterCallback_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t slot = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -6476,7 +6476,7 @@ static Napi::Value libc_psp_scePowerUnregisterCallback_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_scePowerIsPowerOnline_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspScePowerIsPowerOnline_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -6508,7 +6508,7 @@ static Napi::Value libc_psp_scePowerIsPowerOnline_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_scePowerIsBatteryExist_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspScePowerIsBatteryExist_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -6540,7 +6540,7 @@ static Napi::Value libc_psp_scePowerIsBatteryExist_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_scePowerIsBatteryCharging_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspScePowerIsBatteryCharging_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -6572,7 +6572,7 @@ static Napi::Value libc_psp_scePowerIsBatteryCharging_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_scePowerGetBatteryChargingStatus_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspScePowerGetBatteryChargingStatus_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -6604,7 +6604,7 @@ static Napi::Value libc_psp_scePowerGetBatteryChargingStatus_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_scePowerIsLowBattery_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspScePowerIsLowBattery_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -6636,7 +6636,7 @@ static Napi::Value libc_psp_scePowerIsLowBattery_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_scePowerGetBatteryLifePercent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspScePowerGetBatteryLifePercent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -6668,7 +6668,7 @@ static Napi::Value libc_psp_scePowerGetBatteryLifePercent_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_scePowerGetBatteryLifeTime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspScePowerGetBatteryLifeTime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -6700,7 +6700,7 @@ static Napi::Value libc_psp_scePowerGetBatteryLifeTime_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_scePowerGetBatteryTemp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspScePowerGetBatteryTemp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -6732,7 +6732,7 @@ static Napi::Value libc_psp_scePowerGetBatteryTemp_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_scePowerGetBatteryElec_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspScePowerGetBatteryElec_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -6764,7 +6764,7 @@ static Napi::Value libc_psp_scePowerGetBatteryElec_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_scePowerGetBatteryVolt_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspScePowerGetBatteryVolt_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -6796,7 +6796,7 @@ static Napi::Value libc_psp_scePowerGetBatteryVolt_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_scePowerSetCpuClockFrequency_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspScePowerSetCpuClockFrequency_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t cpufreq = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -6829,7 +6829,7 @@ static Napi::Value libc_psp_scePowerSetCpuClockFrequency_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_scePowerSetBusClockFrequency_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspScePowerSetBusClockFrequency_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t busfreq = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -6862,7 +6862,7 @@ static Napi::Value libc_psp_scePowerSetBusClockFrequency_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_scePowerGetCpuClockFrequency_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspScePowerGetCpuClockFrequency_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -6894,7 +6894,7 @@ static Napi::Value libc_psp_scePowerGetCpuClockFrequency_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_scePowerGetCpuClockFrequencyInt_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspScePowerGetCpuClockFrequencyInt_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -6926,7 +6926,7 @@ static Napi::Value libc_psp_scePowerGetCpuClockFrequencyInt_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_scePowerGetCpuClockFrequencyFloat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspScePowerGetCpuClockFrequencyFloat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef float (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -6958,7 +6958,7 @@ static Napi::Value libc_psp_scePowerGetCpuClockFrequencyFloat_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
-static Napi::Value libc_psp_scePowerGetBusClockFrequency_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspScePowerGetBusClockFrequency_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -6990,7 +6990,7 @@ static Napi::Value libc_psp_scePowerGetBusClockFrequency_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_scePowerGetBusClockFrequencyInt_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspScePowerGetBusClockFrequencyInt_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -7022,7 +7022,7 @@ static Napi::Value libc_psp_scePowerGetBusClockFrequencyInt_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_scePowerGetBusClockFrequencyFloat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspScePowerGetBusClockFrequencyFloat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef float (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -7054,7 +7054,7 @@ static Napi::Value libc_psp_scePowerGetBusClockFrequencyFloat_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
-static Napi::Value libc_psp_scePowerSetClockFrequency_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspScePowerSetClockFrequency_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pllfreq = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t cpufreq = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -7089,7 +7089,7 @@ static Napi::Value libc_psp_scePowerSetClockFrequency_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_scePowerLock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspScePowerLock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t unknown = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -7122,7 +7122,7 @@ static Napi::Value libc_psp_scePowerLock_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_scePowerUnlock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspScePowerUnlock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t unknown = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -7155,7 +7155,7 @@ static Napi::Value libc_psp_scePowerUnlock_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_scePowerGetIdleTimer_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspScePowerGetIdleTimer_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -7187,7 +7187,7 @@ static Napi::Value libc_psp_scePowerGetIdleTimer_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_scePowerIdleTimerEnable_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspScePowerIdleTimerEnable_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t unknown = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -7220,7 +7220,7 @@ static Napi::Value libc_psp_scePowerIdleTimerEnable_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_scePowerIdleTimerDisable_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspScePowerIdleTimerDisable_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t unknown = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -7253,7 +7253,7 @@ static Napi::Value libc_psp_scePowerIdleTimerDisable_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_scePowerRequestStandby_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspScePowerRequestStandby_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -7285,7 +7285,7 @@ static Napi::Value libc_psp_scePowerRequestStandby_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_scePowerRequestSuspend_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspScePowerRequestSuspend_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -7317,7 +7317,7 @@ static Napi::Value libc_psp_scePowerRequestSuspend_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceWlanDevIsPowerOn_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceWlanDevIsPowerOn_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -7349,7 +7349,7 @@ static Napi::Value libc_psp_sceWlanDevIsPowerOn_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceWlanGetSwitchState_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceWlanGetSwitchState_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -7381,9 +7381,9 @@ static Napi::Value libc_psp_sceWlanGetSwitchState_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceWlanGetEtherAddr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceWlanGetEtherAddr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* ether_addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* etherAddr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -7406,7 +7406,7 @@ static Napi::Value libc_psp_sceWlanGetEtherAddr_napi(const Napi::CallbackInfo& k
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(ether_addr);
+        km_res = km_fn_ptr(etherAddr);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -7414,7 +7414,7 @@ static Napi::Value libc_psp_sceWlanGetEtherAddr_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceWlanDevAttach_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceWlanDevAttach_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -7446,7 +7446,7 @@ static Napi::Value libc_psp_sceWlanDevAttach_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceWlanDevDetach_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceWlanDevDetach_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -7478,7 +7478,7 @@ static Napi::Value libc_psp_sceWlanDevDetach_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceRtcGetTickResolution_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceRtcGetTickResolution_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef uint32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -7510,7 +7510,7 @@ static Napi::Value libc_psp_sceRtcGetTickResolution_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceRtcGetCurrentTick_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceRtcGetCurrentTick_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* tick = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -7543,7 +7543,7 @@ static Napi::Value libc_psp_sceRtcGetCurrentTick_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceRtcGetCurrentClock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceRtcGetCurrentClock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* tm = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t tz = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -7577,7 +7577,7 @@ static Napi::Value libc_psp_sceRtcGetCurrentClock_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceRtcGetCurrentClockLocalTime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceRtcGetCurrentClockLocalTime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* tm = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -7610,10 +7610,10 @@ static Napi::Value libc_psp_sceRtcGetCurrentClockLocalTime_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceRtcConvertUtcToLocalTime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceRtcConvertUtcToLocalTime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* tick_utc = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* tick_local = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* tickUtc = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* tickLocal = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -7636,7 +7636,7 @@ static Napi::Value libc_psp_sceRtcConvertUtcToLocalTime_napi(const Napi::Callbac
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(tick_utc, tick_local);
+        km_res = km_fn_ptr(tickUtc, tickLocal);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -7644,10 +7644,10 @@ static Napi::Value libc_psp_sceRtcConvertUtcToLocalTime_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceRtcConvertLocalTimeToUTC_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceRtcConvertLocalTimeToUTC_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* tick_local = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* tick_utc = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* tickLocal = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* tickUtc = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -7670,7 +7670,7 @@ static Napi::Value libc_psp_sceRtcConvertLocalTimeToUTC_napi(const Napi::Callbac
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(tick_local, tick_utc);
+        km_res = km_fn_ptr(tickLocal, tickUtc);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -7678,7 +7678,7 @@ static Napi::Value libc_psp_sceRtcConvertLocalTimeToUTC_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceRtcIsLeapYear_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceRtcIsLeapYear_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t year = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -7711,7 +7711,7 @@ static Napi::Value libc_psp_sceRtcIsLeapYear_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceRtcGetDaysInMonth_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceRtcGetDaysInMonth_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t year = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t month = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -7745,7 +7745,7 @@ static Napi::Value libc_psp_sceRtcGetDaysInMonth_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceRtcGetDayOfWeek_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceRtcGetDayOfWeek_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t year = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t month = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -7780,7 +7780,7 @@ static Napi::Value libc_psp_sceRtcGetDayOfWeek_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceRtcCheckValid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceRtcCheckValid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* date = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -7813,7 +7813,7 @@ static Napi::Value libc_psp_sceRtcCheckValid_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceRtcSetTick_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceRtcSetTick_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* date = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* tick = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -7847,7 +7847,7 @@ static Napi::Value libc_psp_sceRtcSetTick_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceRtcGetTick_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceRtcGetTick_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* date = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* tick = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -7881,7 +7881,7 @@ static Napi::Value libc_psp_sceRtcGetTick_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceRtcCompareTick_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceRtcCompareTick_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* tick1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* tick2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -7915,11 +7915,11 @@ static Napi::Value libc_psp_sceRtcCompareTick_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceRtcTickAddTicks_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceRtcTickAddTicks_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* dest_tick = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* src_tick = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t num_ticks = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    void* destTick = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* srcTick = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t numTicks = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef int32_t (*km_fn_t)(void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -7942,7 +7942,7 @@ static Napi::Value libc_psp_sceRtcTickAddTicks_napi(const Napi::CallbackInfo& km
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(dest_tick, src_tick, num_ticks);
+        km_res = km_fn_ptr(destTick, srcTick, numTicks);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -7950,11 +7950,11 @@ static Napi::Value libc_psp_sceRtcTickAddTicks_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceRtcTickAddMicroseconds_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceRtcTickAddMicroseconds_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* dest_tick = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* src_tick = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t num_ms = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    void* destTick = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* srcTick = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t numMs = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef int32_t (*km_fn_t)(void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -7977,7 +7977,7 @@ static Napi::Value libc_psp_sceRtcTickAddMicroseconds_napi(const Napi::CallbackI
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(dest_tick, src_tick, num_ms);
+        km_res = km_fn_ptr(destTick, srcTick, numMs);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -7985,11 +7985,11 @@ static Napi::Value libc_psp_sceRtcTickAddMicroseconds_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceRtcTickAddSeconds_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceRtcTickAddSeconds_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* dest_tick = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* src_tick = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t num_seconds = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    void* destTick = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* srcTick = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t numSeconds = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef int32_t (*km_fn_t)(void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -8012,7 +8012,7 @@ static Napi::Value libc_psp_sceRtcTickAddSeconds_napi(const Napi::CallbackInfo& 
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(dest_tick, src_tick, num_seconds);
+        km_res = km_fn_ptr(destTick, srcTick, numSeconds);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8020,11 +8020,11 @@ static Napi::Value libc_psp_sceRtcTickAddSeconds_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceRtcTickAddMinutes_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceRtcTickAddMinutes_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* dest_tick = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* src_tick = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t num_minutes = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    void* destTick = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* srcTick = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t numMinutes = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef int32_t (*km_fn_t)(void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -8047,7 +8047,7 @@ static Napi::Value libc_psp_sceRtcTickAddMinutes_napi(const Napi::CallbackInfo& 
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(dest_tick, src_tick, num_minutes);
+        km_res = km_fn_ptr(destTick, srcTick, numMinutes);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8055,11 +8055,11 @@ static Napi::Value libc_psp_sceRtcTickAddMinutes_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceRtcTickAddHours_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceRtcTickAddHours_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* dest_tick = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* src_tick = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t num_hours = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    void* destTick = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* srcTick = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t numHours = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef int32_t (*km_fn_t)(void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -8082,7 +8082,7 @@ static Napi::Value libc_psp_sceRtcTickAddHours_napi(const Napi::CallbackInfo& km
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(dest_tick, src_tick, num_hours);
+        km_res = km_fn_ptr(destTick, srcTick, numHours);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8090,11 +8090,11 @@ static Napi::Value libc_psp_sceRtcTickAddHours_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceRtcTickAddDays_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceRtcTickAddDays_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* dest_tick = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* src_tick = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t num_days = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    void* destTick = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* srcTick = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t numDays = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef int32_t (*km_fn_t)(void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -8117,7 +8117,7 @@ static Napi::Value libc_psp_sceRtcTickAddDays_napi(const Napi::CallbackInfo& km_
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(dest_tick, src_tick, num_days);
+        km_res = km_fn_ptr(destTick, srcTick, numDays);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8125,11 +8125,11 @@ static Napi::Value libc_psp_sceRtcTickAddDays_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceRtcTickAddWeeks_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceRtcTickAddWeeks_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* dest_tick = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* src_tick = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t num_weeks = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    void* destTick = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* srcTick = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t numWeeks = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef int32_t (*km_fn_t)(void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -8152,7 +8152,7 @@ static Napi::Value libc_psp_sceRtcTickAddWeeks_napi(const Napi::CallbackInfo& km
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(dest_tick, src_tick, num_weeks);
+        km_res = km_fn_ptr(destTick, srcTick, numWeeks);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8160,11 +8160,11 @@ static Napi::Value libc_psp_sceRtcTickAddWeeks_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceRtcTickAddMonths_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceRtcTickAddMonths_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* dest_tick = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* src_tick = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t num_months = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    void* destTick = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* srcTick = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t numMonths = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef int32_t (*km_fn_t)(void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -8187,7 +8187,7 @@ static Napi::Value libc_psp_sceRtcTickAddMonths_napi(const Napi::CallbackInfo& k
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(dest_tick, src_tick, num_months);
+        km_res = km_fn_ptr(destTick, srcTick, numMonths);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8195,11 +8195,11 @@ static Napi::Value libc_psp_sceRtcTickAddMonths_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceRtcTickAddYears_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceRtcTickAddYears_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* dest_tick = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* src_tick = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t num_years = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    void* destTick = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* srcTick = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t numYears = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef int32_t (*km_fn_t)(void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -8222,7 +8222,7 @@ static Napi::Value libc_psp_sceRtcTickAddYears_napi(const Napi::CallbackInfo& km
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(dest_tick, src_tick, num_years);
+        km_res = km_fn_ptr(destTick, srcTick, numYears);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8230,10 +8230,10 @@ static Napi::Value libc_psp_sceRtcTickAddYears_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceRtcSetTimeT_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceRtcSetTimeT_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* date = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    uint32_t arg_1_time = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    uint32_t arg1Time = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -8256,7 +8256,7 @@ static Napi::Value libc_psp_sceRtcSetTimeT_napi(const Napi::CallbackInfo& km_inf
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(date, arg_1_time);
+        km_res = km_fn_ptr(date, arg1Time);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8264,10 +8264,10 @@ static Napi::Value libc_psp_sceRtcSetTimeT_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceRtcGetTimeT_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceRtcGetTimeT_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* date = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* arg_1_time = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* arg1Time = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -8290,7 +8290,7 @@ static Napi::Value libc_psp_sceRtcGetTimeT_napi(const Napi::CallbackInfo& km_inf
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(date, arg_1_time);
+        km_res = km_fn_ptr(date, arg1Time);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8298,10 +8298,10 @@ static Napi::Value libc_psp_sceRtcGetTimeT_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceRtcSetTime64T_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceRtcSetTime64T_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* date = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    uint64_t arg_1_time = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
+    uint64_t arg1Time = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
     typedef int32_t (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -8324,7 +8324,7 @@ static Napi::Value libc_psp_sceRtcSetTime64T_napi(const Napi::CallbackInfo& km_i
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(date, arg_1_time);
+        km_res = km_fn_ptr(date, arg1Time);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8332,10 +8332,10 @@ static Napi::Value libc_psp_sceRtcSetTime64T_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceRtcGetTime64T_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceRtcGetTime64T_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* date = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* arg_1_time = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* arg1Time = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -8358,7 +8358,7 @@ static Napi::Value libc_psp_sceRtcGetTime64T_napi(const Napi::CallbackInfo& km_i
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(date, arg_1_time);
+        km_res = km_fn_ptr(date, arg1Time);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8366,10 +8366,10 @@ static Napi::Value libc_psp_sceRtcGetTime64T_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceRtcSetDosTime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceRtcSetDosTime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* date = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    uint32_t dos_time = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    uint32_t dosTime = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -8392,7 +8392,7 @@ static Napi::Value libc_psp_sceRtcSetDosTime_napi(const Napi::CallbackInfo& km_i
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(date, dos_time);
+        km_res = km_fn_ptr(date, dosTime);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8400,10 +8400,10 @@ static Napi::Value libc_psp_sceRtcSetDosTime_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceRtcGetDosTime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceRtcGetDosTime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* date = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    uint32_t dos_time = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    uint32_t dosTime = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -8426,7 +8426,7 @@ static Napi::Value libc_psp_sceRtcGetDosTime_napi(const Napi::CallbackInfo& km_i
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(date, dos_time);
+        km_res = km_fn_ptr(date, dosTime);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8434,10 +8434,10 @@ static Napi::Value libc_psp_sceRtcGetDosTime_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceRtcSetWin32FileTime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceRtcSetWin32FileTime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* date = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* arg_1_time = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* arg1Time = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -8460,7 +8460,7 @@ static Napi::Value libc_psp_sceRtcSetWin32FileTime_napi(const Napi::CallbackInfo
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(date, arg_1_time);
+        km_res = km_fn_ptr(date, arg1Time);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8468,10 +8468,10 @@ static Napi::Value libc_psp_sceRtcSetWin32FileTime_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceRtcGetWin32FileTime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceRtcGetWin32FileTime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* date = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* arg_1_time = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* arg1Time = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -8494,7 +8494,7 @@ static Napi::Value libc_psp_sceRtcGetWin32FileTime_napi(const Napi::CallbackInfo
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(date, arg_1_time);
+        km_res = km_fn_ptr(date, arg1Time);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8502,10 +8502,10 @@ static Napi::Value libc_psp_sceRtcGetWin32FileTime_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceRtcParseDateTime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceRtcParseDateTime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* dest_tick = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* date_string = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* destTick = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* dateString = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -8528,7 +8528,7 @@ static Napi::Value libc_psp_sceRtcParseDateTime_napi(const Napi::CallbackInfo& k
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(dest_tick, date_string);
+        km_res = km_fn_ptr(destTick, dateString);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8536,11 +8536,11 @@ static Napi::Value libc_psp_sceRtcParseDateTime_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceRtcFormatRFC3339_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceRtcFormatRFC3339_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    char* psz_date_time = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* p_utc = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    int32_t time_zone_minutes = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    char* pszDateTime = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* pUtc = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    int32_t timeZoneMinutes = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(char*, void*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -8563,7 +8563,7 @@ static Napi::Value libc_psp_sceRtcFormatRFC3339_napi(const Napi::CallbackInfo& k
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(psz_date_time, p_utc, time_zone_minutes);
+        km_res = km_fn_ptr(pszDateTime, pUtc, timeZoneMinutes);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8571,10 +8571,10 @@ static Napi::Value libc_psp_sceRtcFormatRFC3339_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceRtcFormatRFC3339LocalTime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceRtcFormatRFC3339LocalTime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    char* psz_date_time = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* p_utc = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    char* pszDateTime = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* pUtc = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -8597,7 +8597,7 @@ static Napi::Value libc_psp_sceRtcFormatRFC3339LocalTime_napi(const Napi::Callba
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(psz_date_time, p_utc);
+        km_res = km_fn_ptr(pszDateTime, pUtc);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8605,10 +8605,10 @@ static Napi::Value libc_psp_sceRtcFormatRFC3339LocalTime_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceRtcParseRFC3339_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceRtcParseRFC3339_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* p_utc = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* psz_date_time = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* pUtc = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* pszDateTime = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -8631,7 +8631,7 @@ static Napi::Value libc_psp_sceRtcParseRFC3339_napi(const Napi::CallbackInfo& km
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(p_utc, psz_date_time);
+        km_res = km_fn_ptr(pUtc, pszDateTime);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8639,11 +8639,11 @@ static Napi::Value libc_psp_sceRtcParseRFC3339_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceRtcFormatRFC2822_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceRtcFormatRFC2822_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    char* psz_date_time = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* p_utc = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    int32_t time_zone_minutes = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    char* pszDateTime = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* pUtc = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    int32_t timeZoneMinutes = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(char*, void*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -8666,7 +8666,7 @@ static Napi::Value libc_psp_sceRtcFormatRFC2822_napi(const Napi::CallbackInfo& k
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(psz_date_time, p_utc, time_zone_minutes);
+        km_res = km_fn_ptr(pszDateTime, pUtc, timeZoneMinutes);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8674,10 +8674,10 @@ static Napi::Value libc_psp_sceRtcFormatRFC2822_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceRtcFormatRFC2822LocalTime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceRtcFormatRFC2822LocalTime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    char* psz_date_time = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* p_utc = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    char* pszDateTime = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* pUtc = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -8700,7 +8700,7 @@ static Napi::Value libc_psp_sceRtcFormatRFC2822LocalTime_napi(const Napi::Callba
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(psz_date_time, p_utc);
+        km_res = km_fn_ptr(pszDateTime, pUtc);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8708,7 +8708,7 @@ static Napi::Value libc_psp_sceRtcFormatRFC2822LocalTime_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceIoRemove_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceIoRemove_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* file = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -8741,7 +8741,7 @@ static Napi::Value libc_psp_sceIoRemove_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceIoMkdir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceIoMkdir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* dir = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t mode = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -8775,7 +8775,7 @@ static Napi::Value libc_psp_sceIoMkdir_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceIoRmdir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceIoRmdir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* path = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -8808,7 +8808,7 @@ static Napi::Value libc_psp_sceIoRmdir_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceIoChdir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceIoChdir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* path = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -8841,7 +8841,7 @@ static Napi::Value libc_psp_sceIoChdir_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceIoRename_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceIoRename_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* oldname = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* newname = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -8875,7 +8875,7 @@ static Napi::Value libc_psp_sceIoRename_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceIoDevctl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceIoDevctl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* dev = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t cmd = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -8913,7 +8913,7 @@ static Napi::Value libc_psp_sceIoDevctl_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceIoUnassign_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceIoUnassign_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* dev = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -8946,10 +8946,10 @@ static Napi::Value libc_psp_sceIoUnassign_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceIoGetstat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceIoGetstat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* file = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* arg_1_stat = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* arg1Stat = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -8972,7 +8972,7 @@ static Napi::Value libc_psp_sceIoGetstat_napi(const Napi::CallbackInfo& km_info)
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(file, arg_1_stat);
+        km_res = km_fn_ptr(file, arg1Stat);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8980,10 +8980,10 @@ static Napi::Value libc_psp_sceIoGetstat_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceIoChstat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceIoChstat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* file = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* arg_1_stat = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* arg1Stat = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t bits = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, void*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -9007,7 +9007,7 @@ static Napi::Value libc_psp_sceIoChstat_napi(const Napi::CallbackInfo& km_info) 
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(file, arg_1_stat, bits);
+        km_res = km_fn_ptr(file, arg1Stat, bits);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -9015,7 +9015,7 @@ static Napi::Value libc_psp_sceIoChstat_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceIoSync_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceIoSync_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* device = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t unk = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -9049,7 +9049,7 @@ static Napi::Value libc_psp_sceIoSync_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceJpegInitMJpeg_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceJpegInitMJpeg_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -9081,7 +9081,7 @@ static Napi::Value libc_psp_sceJpegInitMJpeg_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceJpegFinishMJpeg_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceJpegFinishMJpeg_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -9113,7 +9113,7 @@ static Napi::Value libc_psp_sceJpegFinishMJpeg_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceJpegCreateMJpeg_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceJpegCreateMJpeg_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t width = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t height = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -9147,7 +9147,7 @@ static Napi::Value libc_psp_sceJpegCreateMJpeg_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceJpegDeleteMJpeg_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceJpegDeleteMJpeg_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -9179,9 +9179,9 @@ static Napi::Value libc_psp_sceJpegDeleteMJpeg_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceJpegDecodeMJpeg_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceJpegDecodeMJpeg_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* jpeg_buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* jpegBuf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
     void* rgba = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint32_t unk = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
@@ -9207,7 +9207,7 @@ static Napi::Value libc_psp_sceJpegDecodeMJpeg_napi(const Napi::CallbackInfo& km
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(jpeg_buf, size, rgba, unk);
+        km_res = km_fn_ptr(jpegBuf, size, rgba, unk);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -9215,7 +9215,7 @@ static Napi::Value libc_psp_sceJpegDecodeMJpeg_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUmdCheckMedium_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUmdCheckMedium_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -9247,7 +9247,7 @@ static Napi::Value libc_psp_sceUmdCheckMedium_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUmdGetDiscInfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUmdGetDiscInfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -9280,7 +9280,7 @@ static Napi::Value libc_psp_sceUmdGetDiscInfo_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUmdActivate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUmdActivate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t unit = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* drive = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -9314,7 +9314,7 @@ static Napi::Value libc_psp_sceUmdActivate_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUmdDeactivate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUmdDeactivate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t unit = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* drive = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -9348,7 +9348,7 @@ static Napi::Value libc_psp_sceUmdDeactivate_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUmdWaitDriveStat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUmdWaitDriveStat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t state = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -9381,7 +9381,7 @@ static Napi::Value libc_psp_sceUmdWaitDriveStat_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUmdWaitDriveStatWithTimer_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUmdWaitDriveStatWithTimer_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t state = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t timeout = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -9415,7 +9415,7 @@ static Napi::Value libc_psp_sceUmdWaitDriveStatWithTimer_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUmdWaitDriveStatCB_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUmdWaitDriveStatCB_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t state = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t timeout = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -9449,7 +9449,7 @@ static Napi::Value libc_psp_sceUmdWaitDriveStatCB_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUmdCancelWaitDriveStat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUmdCancelWaitDriveStat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -9481,7 +9481,7 @@ static Napi::Value libc_psp_sceUmdCancelWaitDriveStat_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUmdGetDriveStat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUmdGetDriveStat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -9513,7 +9513,7 @@ static Napi::Value libc_psp_sceUmdGetDriveStat_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUmdGetErrorStat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUmdGetErrorStat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -9545,7 +9545,7 @@ static Napi::Value libc_psp_sceUmdGetErrorStat_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUmdRegisterUMDCallBack_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUmdRegisterUMDCallBack_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t cbid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -9578,7 +9578,7 @@ static Napi::Value libc_psp_sceUmdRegisterUMDCallBack_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUmdUnRegisterUMDCallBack_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUmdUnRegisterUMDCallBack_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t cbid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -9611,7 +9611,7 @@ static Napi::Value libc_psp_sceUmdUnRegisterUMDCallBack_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUmdReplacePermit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUmdReplacePermit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -9643,7 +9643,7 @@ static Napi::Value libc_psp_sceUmdReplacePermit_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUmdReplaceProhibit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUmdReplaceProhibit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -9675,7 +9675,7 @@ static Napi::Value libc_psp_sceUmdReplaceProhibit_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceMpegInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceMpegInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -9707,7 +9707,7 @@ static Napi::Value libc_psp_sceMpegInit_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceMpegFinish_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceMpegFinish_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -9737,7 +9737,7 @@ static Napi::Value libc_psp_sceMpegFinish_napi(const Napi::CallbackInfo& km_info
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceMpegRingbufferQueryMemSize_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceMpegRingbufferQueryMemSize_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t packets = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -9770,14 +9770,14 @@ static Napi::Value libc_psp_sceMpegRingbufferQueryMemSize_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceMpegRingbufferConstruct_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceMpegRingbufferConstruct_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ringbuffer = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t packets = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     void* data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     int32_t size = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     void* callback = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
-    void* cb_param = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 5 ? km_napi_arg_u64(km_info[5]) : 0));
+    void* cbParam = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 5 ? km_napi_arg_u64(km_info[5]) : 0));
     typedef int32_t (*km_fn_t)(void*, int32_t, void*, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -9800,7 +9800,7 @@ static Napi::Value libc_psp_sceMpegRingbufferConstruct_napi(const Napi::Callback
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(ringbuffer, packets, data, size, callback, cb_param);
+        km_res = km_fn_ptr(ringbuffer, packets, data, size, callback, cbParam);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -9808,7 +9808,7 @@ static Napi::Value libc_psp_sceMpegRingbufferConstruct_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceMpegRingbufferDestruct_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceMpegRingbufferDestruct_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ringbuffer = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -9839,7 +9839,7 @@ static Napi::Value libc_psp_sceMpegRingbufferDestruct_napi(const Napi::CallbackI
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceMpegRingbufferAvailableSize_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceMpegRingbufferAvailableSize_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ringbuffer = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -9872,10 +9872,10 @@ static Napi::Value libc_psp_sceMpegRingbufferAvailableSize_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceMpegRingbufferPut_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceMpegRingbufferPut_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ringbuffer = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    int32_t num_packets = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t numPackets = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     int32_t available = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, int32_t, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -9899,7 +9899,7 @@ static Napi::Value libc_psp_sceMpegRingbufferPut_napi(const Napi::CallbackInfo& 
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(ringbuffer, num_packets, available);
+        km_res = km_fn_ptr(ringbuffer, numPackets, available);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -9907,7 +9907,7 @@ static Napi::Value libc_psp_sceMpegRingbufferPut_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceMpegQueryMemSize_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceMpegQueryMemSize_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t unk = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -9940,7 +9940,7 @@ static Napi::Value libc_psp_sceMpegQueryMemSize_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceMpegQueryStreamSize_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceMpegQueryStreamSize_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buffer = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* size = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -9974,11 +9974,11 @@ static Napi::Value libc_psp_sceMpegQueryStreamSize_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceMpegBaseYCrCbCopyVme_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceMpegBaseYCrCbCopyVme_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* yuv_buffer = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* yuvBuffer = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* buffer = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    int32_t type_ = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    int32_t type = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, void*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -10001,7 +10001,7 @@ static Napi::Value libc_psp_sceMpegBaseYCrCbCopyVme_napi(const Napi::CallbackInf
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(yuv_buffer, buffer, type_);
+        km_res = km_fn_ptr(yuvBuffer, buffer, type);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -10009,7 +10009,7 @@ static Napi::Value libc_psp_sceMpegBaseYCrCbCopyVme_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceMpegBaseCscInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceMpegBaseCscInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t width = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -10042,12 +10042,12 @@ static Napi::Value libc_psp_sceMpegBaseCscInit_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceMpegBaseCscVme_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceMpegBaseCscVme_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* rgb_buffer = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* rgb_buffer2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* rgbBuffer = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* rgbBuffer2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t width = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    void* y_cr_cb_buffer = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    void* yCrCbBuffer = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*, int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -10070,7 +10070,7 @@ static Napi::Value libc_psp_sceMpegBaseCscVme_napi(const Napi::CallbackInfo& km_
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(rgb_buffer, rgb_buffer2, width, y_cr_cb_buffer);
+        km_res = km_fn_ptr(rgbBuffer, rgbBuffer2, width, yCrCbBuffer);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -10078,7 +10078,7 @@ static Napi::Value libc_psp_sceMpegBaseCscVme_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceMpegbaseBea18f91_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceMpegbaseBea18f91_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lli = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -10111,7 +10111,7 @@ static Napi::Value libc_psp_sceMpegbaseBea18f91_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHprmPeekCurrentKey_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHprmPeekCurrentKey_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* key = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -10144,7 +10144,7 @@ static Napi::Value libc_psp_sceHprmPeekCurrentKey_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHprmPeekLatch_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHprmPeekLatch_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* latch = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -10177,7 +10177,7 @@ static Napi::Value libc_psp_sceHprmPeekLatch_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHprmReadLatch_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHprmReadLatch_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* latch = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -10210,7 +10210,7 @@ static Napi::Value libc_psp_sceHprmReadLatch_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHprmIsHeadphoneExist_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHprmIsHeadphoneExist_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -10242,7 +10242,7 @@ static Napi::Value libc_psp_sceHprmIsHeadphoneExist_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHprmIsRemoteExist_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHprmIsRemoteExist_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -10274,7 +10274,7 @@ static Napi::Value libc_psp_sceHprmIsRemoteExist_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHprmIsMicrophoneExist_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHprmIsMicrophoneExist_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -10306,7 +10306,7 @@ static Napi::Value libc_psp_sceHprmIsMicrophoneExist_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceGuDepthBuffer_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuDepthBuffer_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* zbp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t zbw = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -10338,7 +10338,7 @@ static Napi::Value libc_psp_sceGuDepthBuffer_napi(const Napi::CallbackInfo& km_i
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGuDispBuffer_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuDispBuffer_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t width = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t height = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -10372,7 +10372,7 @@ static Napi::Value libc_psp_sceGuDispBuffer_napi(const Napi::CallbackInfo& km_in
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGuDisplay_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuDisplay_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     bool state = km_info.Length() > 0 ? km_info[0].ToBoolean().Value() : false;
     typedef bool (*km_fn_t)(bool);
@@ -10405,7 +10405,7 @@ static Napi::Value libc_psp_sceGuDisplay_napi(const Napi::CallbackInfo& km_info)
     return Napi::Boolean::New(km_env, km_res);
 }
 
-static Napi::Value libc_psp_sceGuDepthMask_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuDepthMask_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t mask = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(int32_t);
@@ -10436,7 +10436,7 @@ static Napi::Value libc_psp_sceGuDepthMask_napi(const Napi::CallbackInfo& km_inf
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGuDepthOffset_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuDepthOffset_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t offset = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(int32_t);
@@ -10467,10 +10467,10 @@ static Napi::Value libc_psp_sceGuDepthOffset_napi(const Napi::CallbackInfo& km_i
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGuDepthRange_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuDepthRange_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_near = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t arg_1_far = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t arg0Near = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t arg1Far = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -10492,17 +10492,17 @@ static Napi::Value libc_psp_sceGuDepthRange_napi(const Napi::CallbackInfo& km_in
     }
 #endif
     if (km_fn_ptr != nullptr) {
-        km_fn_ptr(arg_0_near, arg_1_far);
+        km_fn_ptr(arg0Near, arg1Far);
     } else {
         errno = ENOSYS;
     }
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGuFog_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuFog_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    float arg_0_near = km_info.Length() > 0 ? km_info[0].ToNumber().FloatValue() : 0.0f;
-    float arg_1_far = km_info.Length() > 1 ? km_info[1].ToNumber().FloatValue() : 0.0f;
+    float arg0Near = km_info.Length() > 0 ? km_info[0].ToNumber().FloatValue() : 0.0f;
+    float arg1Far = km_info.Length() > 1 ? km_info[1].ToNumber().FloatValue() : 0.0f;
     uint32_t color = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(float, float, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -10525,14 +10525,14 @@ static Napi::Value libc_psp_sceGuFog_napi(const Napi::CallbackInfo& km_info) {
     }
 #endif
     if (km_fn_ptr != nullptr) {
-        km_fn_ptr(arg_0_near, arg_1_far, color);
+        km_fn_ptr(arg0Near, arg1Far, color);
     } else {
         errno = ENOSYS;
     }
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGuInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -10562,7 +10562,7 @@ static Napi::Value libc_psp_sceGuInit_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGuTerm_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuTerm_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -10592,7 +10592,7 @@ static Napi::Value libc_psp_sceGuTerm_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGuBreak_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuBreak_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t mode = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(int32_t);
@@ -10623,7 +10623,7 @@ static Napi::Value libc_psp_sceGuBreak_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGuContinue_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuContinue_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -10653,7 +10653,7 @@ static Napi::Value libc_psp_sceGuContinue_napi(const Napi::CallbackInfo& km_info
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGuGetMemory_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuGetMemory_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t size = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void* (*km_fn_t)(int32_t);
@@ -10686,7 +10686,7 @@ static Napi::Value libc_psp_sceGuGetMemory_napi(const Napi::CallbackInfo& km_inf
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_psp_sceGuFinish_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuFinish_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -10718,7 +10718,7 @@ static Napi::Value libc_psp_sceGuFinish_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceGuFinishId_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuFinishId_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t id = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -10751,7 +10751,7 @@ static Napi::Value libc_psp_sceGuFinishId_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceGuCallList_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuCallList_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* list = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -10782,7 +10782,7 @@ static Napi::Value libc_psp_sceGuCallList_napi(const Napi::CallbackInfo& km_info
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGuCallMode_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuCallMode_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t mode = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(int32_t);
@@ -10813,7 +10813,7 @@ static Napi::Value libc_psp_sceGuCallMode_napi(const Napi::CallbackInfo& km_info
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGuCheckList_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuCheckList_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -10845,7 +10845,7 @@ static Napi::Value libc_psp_sceGuCheckList_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceGuSwapBuffers_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuSwapBuffers_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -10877,7 +10877,7 @@ static Napi::Value libc_psp_sceGuSwapBuffers_napi(const Napi::CallbackInfo& km_i
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_psp_sceGuBeginObject_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuBeginObject_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t vtype = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t count = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -10911,7 +10911,7 @@ static Napi::Value libc_psp_sceGuBeginObject_napi(const Napi::CallbackInfo& km_i
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGuEndObject_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuEndObject_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -10941,7 +10941,7 @@ static Napi::Value libc_psp_sceGuEndObject_napi(const Napi::CallbackInfo& km_inf
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGuSetAllStatus_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuSetAllStatus_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t status = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(int32_t);
@@ -10972,7 +10972,7 @@ static Napi::Value libc_psp_sceGuSetAllStatus_napi(const Napi::CallbackInfo& km_
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGuGetAllStatus_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuGetAllStatus_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -11004,7 +11004,7 @@ static Napi::Value libc_psp_sceGuGetAllStatus_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceGuLightAtt_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuLightAtt_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t light = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     float atten0 = km_info.Length() > 1 ? km_info[1].ToNumber().FloatValue() : 0.0f;
@@ -11038,7 +11038,7 @@ static Napi::Value libc_psp_sceGuLightAtt_napi(const Napi::CallbackInfo& km_info
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGuLightColor_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuLightColor_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t light = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t component = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -11071,7 +11071,7 @@ static Napi::Value libc_psp_sceGuLightColor_napi(const Napi::CallbackInfo& km_in
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGuClear_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuClear_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t flags = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(int32_t);
@@ -11102,7 +11102,7 @@ static Napi::Value libc_psp_sceGuClear_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGuClearColor_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuClearColor_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t color = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(uint32_t);
@@ -11133,7 +11133,7 @@ static Napi::Value libc_psp_sceGuClearColor_napi(const Napi::CallbackInfo& km_in
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGuClearDepth_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuClearDepth_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t depth = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(uint32_t);
@@ -11164,7 +11164,7 @@ static Napi::Value libc_psp_sceGuClearDepth_napi(const Napi::CallbackInfo& km_in
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGuClearStencil_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuClearStencil_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t stencil = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(uint32_t);
@@ -11195,7 +11195,7 @@ static Napi::Value libc_psp_sceGuClearStencil_napi(const Napi::CallbackInfo& km_
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGuPixelMask_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuPixelMask_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t mask = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(uint32_t);
@@ -11226,7 +11226,7 @@ static Napi::Value libc_psp_sceGuPixelMask_napi(const Napi::CallbackInfo& km_inf
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGuColor_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuColor_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t color = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(uint32_t);
@@ -11257,7 +11257,7 @@ static Napi::Value libc_psp_sceGuColor_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGuColorMaterial_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuColorMaterial_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t components = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(int32_t);
@@ -11288,7 +11288,7 @@ static Napi::Value libc_psp_sceGuColorMaterial_napi(const Napi::CallbackInfo& km
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGuAmbient_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuAmbient_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t color = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(uint32_t);
@@ -11319,7 +11319,7 @@ static Napi::Value libc_psp_sceGuAmbient_napi(const Napi::CallbackInfo& km_info)
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGuAmbientColor_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuAmbientColor_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t color = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(uint32_t);
@@ -11350,7 +11350,7 @@ static Napi::Value libc_psp_sceGuAmbientColor_napi(const Napi::CallbackInfo& km_
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGuMaterial_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuMaterial_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t components = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t color = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -11382,7 +11382,7 @@ static Napi::Value libc_psp_sceGuMaterial_napi(const Napi::CallbackInfo& km_info
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGuModelColor_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuModelColor_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t emissive = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t ambient = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -11416,7 +11416,7 @@ static Napi::Value libc_psp_sceGuModelColor_napi(const Napi::CallbackInfo& km_in
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGuSpecular_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuSpecular_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     float power = km_info.Length() > 0 ? km_info[0].ToNumber().FloatValue() : 0.0f;
     typedef void (*km_fn_t)(float);
@@ -11447,7 +11447,7 @@ static Napi::Value libc_psp_sceGuSpecular_napi(const Napi::CallbackInfo& km_info
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGuTexEnvColor_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuTexEnvColor_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t color = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(uint32_t);
@@ -11478,7 +11478,7 @@ static Napi::Value libc_psp_sceGuTexEnvColor_napi(const Napi::CallbackInfo& km_i
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGuTexFlush_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuTexFlush_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -11508,7 +11508,7 @@ static Napi::Value libc_psp_sceGuTexFlush_napi(const Napi::CallbackInfo& km_info
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGuTexOffset_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuTexOffset_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     float u = km_info.Length() > 0 ? km_info[0].ToNumber().FloatValue() : 0.0f;
     float v = km_info.Length() > 1 ? km_info[1].ToNumber().FloatValue() : 0.0f;
@@ -11540,7 +11540,7 @@ static Napi::Value libc_psp_sceGuTexOffset_napi(const Napi::CallbackInfo& km_inf
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGuTexScale_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuTexScale_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     float u = km_info.Length() > 0 ? km_info[0].ToNumber().FloatValue() : 0.0f;
     float v = km_info.Length() > 1 ? km_info[1].ToNumber().FloatValue() : 0.0f;
@@ -11572,7 +11572,7 @@ static Napi::Value libc_psp_sceGuTexScale_napi(const Napi::CallbackInfo& km_info
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGuTexSlope_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuTexSlope_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     float slope = km_info.Length() > 0 ? km_info[0].ToNumber().FloatValue() : 0.0f;
     typedef void (*km_fn_t)(float);
@@ -11603,7 +11603,7 @@ static Napi::Value libc_psp_sceGuTexSlope_napi(const Napi::CallbackInfo& km_info
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGuTexSync_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuTexSync_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -11633,9 +11633,9 @@ static Napi::Value libc_psp_sceGuTexSync_napi(const Napi::CallbackInfo& km_info)
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGuClutLoad_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuClutLoad_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t num_blocks = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t numBlocks = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* cbp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef void (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -11658,14 +11658,14 @@ static Napi::Value libc_psp_sceGuClutLoad_napi(const Napi::CallbackInfo& km_info
     }
 #endif
     if (km_fn_ptr != nullptr) {
-        km_fn_ptr(num_blocks, cbp);
+        km_fn_ptr(numBlocks, cbp);
     } else {
         errno = ENOSYS;
     }
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGuOffset_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuOffset_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t x = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t y = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -11697,7 +11697,7 @@ static Napi::Value libc_psp_sceGuOffset_napi(const Napi::CallbackInfo& km_info) 
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGuScissor_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuScissor_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t x = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t y = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -11731,7 +11731,7 @@ static Napi::Value libc_psp_sceGuScissor_napi(const Napi::CallbackInfo& km_info)
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGuViewport_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuViewport_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t cx = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t cy = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -11765,11 +11765,11 @@ static Napi::Value libc_psp_sceGuViewport_napi(const Napi::CallbackInfo& km_info
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGuDrawBezier_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuDrawBezier_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t v_type = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t u_count = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    int32_t v_count = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    int32_t vType = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t uCount = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t vCount = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     void* indices = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     void* vertices = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
     typedef void (*km_fn_t)(int32_t, int32_t, int32_t, void*, void*);
@@ -11793,14 +11793,14 @@ static Napi::Value libc_psp_sceGuDrawBezier_napi(const Napi::CallbackInfo& km_in
     }
 #endif
     if (km_fn_ptr != nullptr) {
-        km_fn_ptr(v_type, u_count, v_count, indices, vertices);
+        km_fn_ptr(vType, uCount, vCount, indices, vertices);
     } else {
         errno = ENOSYS;
     }
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGuPatchDivide_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuPatchDivide_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t ulevel = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t vlevel = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -11832,7 +11832,7 @@ static Napi::Value libc_psp_sceGuPatchDivide_napi(const Napi::CallbackInfo& km_i
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGuPatchFrontFace_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuPatchFrontFace_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t a0 = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(uint32_t);
@@ -11863,13 +11863,13 @@ static Napi::Value libc_psp_sceGuPatchFrontFace_napi(const Napi::CallbackInfo& k
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGuDrawSpline_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuDrawSpline_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t v_type = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t u_count = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    int32_t v_count = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    int32_t u_edge = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
-    int32_t v_edge = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
+    int32_t vType = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t uCount = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t vCount = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    int32_t uEdge = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
+    int32_t vEdge = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
     void* indices = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 5 ? km_napi_arg_u64(km_info[5]) : 0));
     void* vertices = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 6 ? km_napi_arg_u64(km_info[6]) : 0));
     typedef void (*km_fn_t)(int32_t, int32_t, int32_t, int32_t, int32_t, void*, void*);
@@ -11893,16 +11893,16 @@ static Napi::Value libc_psp_sceGuDrawSpline_napi(const Napi::CallbackInfo& km_in
     }
 #endif
     if (km_fn_ptr != nullptr) {
-        km_fn_ptr(v_type, u_count, v_count, u_edge, v_edge, indices, vertices);
+        km_fn_ptr(vType, uCount, vCount, uEdge, vEdge, indices, vertices);
     } else {
         errno = ENOSYS;
     }
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGuMorphWeight_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGuMorphWeight_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_index = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t arg0Index = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     float weight = km_info.Length() > 1 ? km_info[1].ToNumber().FloatValue() : 0.0f;
     typedef void (*km_fn_t)(int32_t, float);
     static km_fn_t km_fn_ptr = nullptr;
@@ -11925,18 +11925,18 @@ static Napi::Value libc_psp_sceGuMorphWeight_napi(const Napi::CallbackInfo& km_i
     }
 #endif
     if (km_fn_ptr != nullptr) {
-        km_fn_ptr(arg_0_index, weight);
+        km_fn_ptr(arg0Index, weight);
     } else {
         errno = ENOSYS;
     }
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGumDrawBezier_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGumDrawBezier_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t v_type = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t u_count = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    int32_t v_count = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    int32_t vType = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t uCount = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t vCount = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     void* indices = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     void* vertices = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
     typedef void (*km_fn_t)(int32_t, int32_t, int32_t, void*, void*);
@@ -11960,20 +11960,20 @@ static Napi::Value libc_psp_sceGumDrawBezier_napi(const Napi::CallbackInfo& km_i
     }
 #endif
     if (km_fn_ptr != nullptr) {
-        km_fn_ptr(v_type, u_count, v_count, indices, vertices);
+        km_fn_ptr(vType, uCount, vCount, indices, vertices);
     } else {
         errno = ENOSYS;
     }
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGumDrawSpline_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGumDrawSpline_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t v_type = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t u_count = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    int32_t v_count = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    int32_t u_edge = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
-    int32_t v_edge = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
+    int32_t vType = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t uCount = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t vCount = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    int32_t uEdge = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
+    int32_t vEdge = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
     void* indices = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 5 ? km_napi_arg_u64(km_info[5]) : 0));
     void* vertices = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 6 ? km_napi_arg_u64(km_info[6]) : 0));
     typedef void (*km_fn_t)(int32_t, int32_t, int32_t, int32_t, int32_t, void*, void*);
@@ -11997,14 +11997,14 @@ static Napi::Value libc_psp_sceGumDrawSpline_napi(const Napi::CallbackInfo& km_i
     }
 #endif
     if (km_fn_ptr != nullptr) {
-        km_fn_ptr(v_type, u_count, v_count, u_edge, v_edge, indices, vertices);
+        km_fn_ptr(vType, uCount, vCount, uEdge, vEdge, indices, vertices);
     } else {
         errno = ENOSYS;
     }
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGumFastInverse_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGumFastInverse_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -12034,7 +12034,7 @@ static Napi::Value libc_psp_sceGumFastInverse_napi(const Napi::CallbackInfo& km_
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGumFullInverse_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGumFullInverse_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -12064,7 +12064,7 @@ static Napi::Value libc_psp_sceGumFullInverse_napi(const Napi::CallbackInfo& km_
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGumLoadIdentity_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGumLoadIdentity_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -12094,14 +12094,14 @@ static Napi::Value libc_psp_sceGumLoadIdentity_napi(const Napi::CallbackInfo& km
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGumOrtho_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGumOrtho_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     float left = km_info.Length() > 0 ? km_info[0].ToNumber().FloatValue() : 0.0f;
     float right = km_info.Length() > 1 ? km_info[1].ToNumber().FloatValue() : 0.0f;
     float bottom = km_info.Length() > 2 ? km_info[2].ToNumber().FloatValue() : 0.0f;
     float top = km_info.Length() > 3 ? km_info[3].ToNumber().FloatValue() : 0.0f;
-    float arg_4_near = km_info.Length() > 4 ? km_info[4].ToNumber().FloatValue() : 0.0f;
-    float arg_5_far = km_info.Length() > 5 ? km_info[5].ToNumber().FloatValue() : 0.0f;
+    float arg4Near = km_info.Length() > 4 ? km_info[4].ToNumber().FloatValue() : 0.0f;
+    float arg5Far = km_info.Length() > 5 ? km_info[5].ToNumber().FloatValue() : 0.0f;
     typedef void (*km_fn_t)(float, float, float, float, float, float);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -12123,19 +12123,19 @@ static Napi::Value libc_psp_sceGumOrtho_napi(const Napi::CallbackInfo& km_info) 
     }
 #endif
     if (km_fn_ptr != nullptr) {
-        km_fn_ptr(left, right, bottom, top, arg_4_near, arg_5_far);
+        km_fn_ptr(left, right, bottom, top, arg4Near, arg5Far);
     } else {
         errno = ENOSYS;
     }
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGumPerspective_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGumPerspective_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     float fovy = km_info.Length() > 0 ? km_info[0].ToNumber().FloatValue() : 0.0f;
     float aspect = km_info.Length() > 1 ? km_info[1].ToNumber().FloatValue() : 0.0f;
-    float arg_2_near = km_info.Length() > 2 ? km_info[2].ToNumber().FloatValue() : 0.0f;
-    float arg_3_far = km_info.Length() > 3 ? km_info[3].ToNumber().FloatValue() : 0.0f;
+    float arg2Near = km_info.Length() > 2 ? km_info[2].ToNumber().FloatValue() : 0.0f;
+    float arg3Far = km_info.Length() > 3 ? km_info[3].ToNumber().FloatValue() : 0.0f;
     typedef void (*km_fn_t)(float, float, float, float);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -12157,14 +12157,14 @@ static Napi::Value libc_psp_sceGumPerspective_napi(const Napi::CallbackInfo& km_
     }
 #endif
     if (km_fn_ptr != nullptr) {
-        km_fn_ptr(fovy, aspect, arg_2_near, arg_3_far);
+        km_fn_ptr(fovy, aspect, arg2Near, arg3Far);
     } else {
         errno = ENOSYS;
     }
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGumPopMatrix_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGumPopMatrix_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -12194,7 +12194,7 @@ static Napi::Value libc_psp_sceGumPopMatrix_napi(const Napi::CallbackInfo& km_in
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGumPushMatrix_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGumPushMatrix_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -12224,7 +12224,7 @@ static Napi::Value libc_psp_sceGumPushMatrix_napi(const Napi::CallbackInfo& km_i
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGumRotateX_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGumRotateX_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     float angle = km_info.Length() > 0 ? km_info[0].ToNumber().FloatValue() : 0.0f;
     typedef void (*km_fn_t)(float);
@@ -12255,7 +12255,7 @@ static Napi::Value libc_psp_sceGumRotateX_napi(const Napi::CallbackInfo& km_info
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGumRotateY_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGumRotateY_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     float angle = km_info.Length() > 0 ? km_info[0].ToNumber().FloatValue() : 0.0f;
     typedef void (*km_fn_t)(float);
@@ -12286,7 +12286,7 @@ static Napi::Value libc_psp_sceGumRotateY_napi(const Napi::CallbackInfo& km_info
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGumRotateZ_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGumRotateZ_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     float angle = km_info.Length() > 0 ? km_info[0].ToNumber().FloatValue() : 0.0f;
     typedef void (*km_fn_t)(float);
@@ -12317,7 +12317,7 @@ static Napi::Value libc_psp_sceGumRotateZ_napi(const Napi::CallbackInfo& km_info
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceGumUpdateMatrix_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceGumUpdateMatrix_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -12347,7 +12347,7 @@ static Napi::Value libc_psp_sceGumUpdateMatrix_napi(const Napi::CallbackInfo& km
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceMp3ReserveMp3Handle_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceMp3ReserveMp3Handle_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* args = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -12380,7 +12380,7 @@ static Napi::Value libc_psp_sceMp3ReserveMp3Handle_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceMp3InitResource_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceMp3InitResource_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -12412,7 +12412,7 @@ static Napi::Value libc_psp_sceMp3InitResource_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceMp3TermResource_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceMp3TermResource_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -12444,7 +12444,7 @@ static Napi::Value libc_psp_sceMp3TermResource_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceRegOpenRegistry_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceRegOpenRegistry_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* reg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t mode = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -12479,7 +12479,7 @@ static Napi::Value libc_psp_sceRegOpenRegistry_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceRegRemoveRegistry_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceRegRemoveRegistry_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* key = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -12512,7 +12512,7 @@ static Napi::Value libc_psp_sceRegRemoveRegistry_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceOpenPSIDGetOpenPSID_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceOpenPSIDGetOpenPSID_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* openpsid = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -12545,7 +12545,7 @@ static Napi::Value libc_psp_sceOpenPSIDGetOpenPSID_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUtilityMsgDialogInitStart_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUtilityMsgDialogInitStart_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* params = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -12578,7 +12578,7 @@ static Napi::Value libc_psp_sceUtilityMsgDialogInitStart_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUtilityMsgDialogShutdownStart_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUtilityMsgDialogShutdownStart_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -12608,7 +12608,7 @@ static Napi::Value libc_psp_sceUtilityMsgDialogShutdownStart_napi(const Napi::Ca
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceUtilityMsgDialogGetStatus_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUtilityMsgDialogGetStatus_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -12640,7 +12640,7 @@ static Napi::Value libc_psp_sceUtilityMsgDialogGetStatus_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUtilityMsgDialogUpdate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUtilityMsgDialogUpdate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t n = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(int32_t);
@@ -12671,7 +12671,7 @@ static Napi::Value libc_psp_sceUtilityMsgDialogUpdate_napi(const Napi::CallbackI
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceUtilityMsgDialogAbort_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUtilityMsgDialogAbort_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -12703,7 +12703,7 @@ static Napi::Value libc_psp_sceUtilityMsgDialogAbort_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUtilityNetconfInitStart_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUtilityNetconfInitStart_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -12736,7 +12736,7 @@ static Napi::Value libc_psp_sceUtilityNetconfInitStart_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUtilityNetconfShutdownStart_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUtilityNetconfShutdownStart_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -12768,7 +12768,7 @@ static Napi::Value libc_psp_sceUtilityNetconfShutdownStart_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUtilityNetconfUpdate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUtilityNetconfUpdate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t unknown = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -12801,7 +12801,7 @@ static Napi::Value libc_psp_sceUtilityNetconfUpdate_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUtilityNetconfGetStatus_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUtilityNetconfGetStatus_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -12833,7 +12833,7 @@ static Napi::Value libc_psp_sceUtilityNetconfGetStatus_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUtilityCheckNetParam_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUtilityCheckNetParam_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -12866,7 +12866,7 @@ static Napi::Value libc_psp_sceUtilityCheckNetParam_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUtilitySavedataInitStart_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUtilitySavedataInitStart_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* params = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -12899,7 +12899,7 @@ static Napi::Value libc_psp_sceUtilitySavedataInitStart_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUtilitySavedataGetStatus_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUtilitySavedataGetStatus_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -12931,7 +12931,7 @@ static Napi::Value libc_psp_sceUtilitySavedataGetStatus_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUtilitySavedataShutdownStart_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUtilitySavedataShutdownStart_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -12963,7 +12963,7 @@ static Napi::Value libc_psp_sceUtilitySavedataShutdownStart_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUtilitySavedataUpdate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUtilitySavedataUpdate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t unknown = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(int32_t);
@@ -12994,7 +12994,7 @@ static Napi::Value libc_psp_sceUtilitySavedataUpdate_napi(const Napi::CallbackIn
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceUtilityGameSharingInitStart_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUtilityGameSharingInitStart_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* params = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -13027,7 +13027,7 @@ static Napi::Value libc_psp_sceUtilityGameSharingInitStart_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUtilityGameSharingShutdownStart_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUtilityGameSharingShutdownStart_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -13057,7 +13057,7 @@ static Napi::Value libc_psp_sceUtilityGameSharingShutdownStart_napi(const Napi::
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceUtilityGameSharingGetStatus_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUtilityGameSharingGetStatus_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -13089,7 +13089,7 @@ static Napi::Value libc_psp_sceUtilityGameSharingGetStatus_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUtilityGameSharingUpdate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUtilityGameSharingUpdate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t n = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(int32_t);
@@ -13120,7 +13120,7 @@ static Napi::Value libc_psp_sceUtilityGameSharingUpdate_napi(const Napi::Callbac
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceUtilityHtmlViewerInitStart_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUtilityHtmlViewerInitStart_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* params = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -13153,7 +13153,7 @@ static Napi::Value libc_psp_sceUtilityHtmlViewerInitStart_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUtilityHtmlViewerShutdownStart_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUtilityHtmlViewerShutdownStart_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -13185,7 +13185,7 @@ static Napi::Value libc_psp_sceUtilityHtmlViewerShutdownStart_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUtilityHtmlViewerUpdate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUtilityHtmlViewerUpdate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t n = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -13218,7 +13218,7 @@ static Napi::Value libc_psp_sceUtilityHtmlViewerUpdate_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUtilityHtmlViewerGetStatus_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUtilityHtmlViewerGetStatus_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -13250,7 +13250,7 @@ static Napi::Value libc_psp_sceUtilityHtmlViewerGetStatus_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUtilityOskInitStart_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUtilityOskInitStart_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* params = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -13283,7 +13283,7 @@ static Napi::Value libc_psp_sceUtilityOskInitStart_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUtilityOskShutdownStart_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUtilityOskShutdownStart_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -13315,7 +13315,7 @@ static Napi::Value libc_psp_sceUtilityOskShutdownStart_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUtilityOskUpdate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUtilityOskUpdate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t n = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -13348,7 +13348,7 @@ static Napi::Value libc_psp_sceUtilityOskUpdate_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUtilityOskGetStatus_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUtilityOskGetStatus_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -13380,7 +13380,7 @@ static Napi::Value libc_psp_sceUtilityOskGetStatus_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUtilityCreateNetParam_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUtilityCreateNetParam_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t conf = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -13413,7 +13413,7 @@ static Napi::Value libc_psp_sceUtilityCreateNetParam_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUtilityCopyNetParam_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUtilityCopyNetParam_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t src = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t dest = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -13447,7 +13447,7 @@ static Napi::Value libc_psp_sceUtilityCopyNetParam_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceUtilityDeleteNetParam_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceUtilityDeleteNetParam_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t conf = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -13480,7 +13480,7 @@ static Napi::Value libc_psp_sceUtilityDeleteNetParam_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t poolsize = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t calloutprio = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -13517,7 +13517,7 @@ static Napi::Value libc_psp_sceNetInit_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetTerm_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetTerm_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -13549,7 +13549,7 @@ static Napi::Value libc_psp_sceNetTerm_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetFreeThreadinfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetFreeThreadinfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t thid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -13582,7 +13582,7 @@ static Napi::Value libc_psp_sceNetFreeThreadinfo_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetThreadAbort_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetThreadAbort_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t thid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -13615,7 +13615,7 @@ static Napi::Value libc_psp_sceNetThreadAbort_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetEtherStrton_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetEtherStrton_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* name = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* mac = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -13647,7 +13647,7 @@ static Napi::Value libc_psp_sceNetEtherStrton_napi(const Napi::CallbackInfo& km_
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceNetEtherNtostr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetEtherNtostr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mac = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* name = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -13679,7 +13679,7 @@ static Napi::Value libc_psp_sceNetEtherNtostr_napi(const Napi::CallbackInfo& km_
     return km_env.Undefined();
 }
 
-static Napi::Value libc_psp_sceNetGetLocalEtherAddr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetGetLocalEtherAddr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mac = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -13712,9 +13712,9 @@ static Napi::Value libc_psp_sceNetGetLocalEtherAddr_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetGetMallocStat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetGetMallocStat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_stat = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* arg0Stat = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -13737,7 +13737,7 @@ static Napi::Value libc_psp_sceNetGetMallocStat_napi(const Napi::CallbackInfo& k
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_stat);
+        km_res = km_fn_ptr(arg0Stat);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -13745,11 +13745,11 @@ static Napi::Value libc_psp_sceNetGetMallocStat_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocctlInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocctlInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t stacksize = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t priority = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    void* adhoc_id = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* adhocId = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -13772,7 +13772,7 @@ static Napi::Value libc_psp_sceNetAdhocctlInit_napi(const Napi::CallbackInfo& km
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(stacksize, priority, adhoc_id);
+        km_res = km_fn_ptr(stacksize, priority, adhocId);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -13780,7 +13780,7 @@ static Napi::Value libc_psp_sceNetAdhocctlInit_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocctlTerm_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocctlTerm_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -13812,7 +13812,7 @@ static Napi::Value libc_psp_sceNetAdhocctlTerm_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocctlConnect_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocctlConnect_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* name = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -13845,7 +13845,7 @@ static Napi::Value libc_psp_sceNetAdhocctlConnect_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocctlDisconnect_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocctlDisconnect_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -13877,7 +13877,7 @@ static Napi::Value libc_psp_sceNetAdhocctlDisconnect_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocctlGetState_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocctlGetState_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* event = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -13910,7 +13910,7 @@ static Napi::Value libc_psp_sceNetAdhocctlGetState_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocctlCreate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocctlCreate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* name = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -13943,7 +13943,7 @@ static Napi::Value libc_psp_sceNetAdhocctlCreate_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocctlJoin_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocctlJoin_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* scaninfo = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -13976,7 +13976,7 @@ static Napi::Value libc_psp_sceNetAdhocctlJoin_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocctlGetAdhocId_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocctlGetAdhocId_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* id = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -14009,7 +14009,7 @@ static Napi::Value libc_psp_sceNetAdhocctlGetAdhocId_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocctlCreateEnterGameMode_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocctlCreateEnterGameMode_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* name = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t unknown = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -14047,7 +14047,7 @@ static Napi::Value libc_psp_sceNetAdhocctlCreateEnterGameMode_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocctlJoinEnterGameMode_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocctlJoinEnterGameMode_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* name = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* hostmac = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -14083,7 +14083,7 @@ static Napi::Value libc_psp_sceNetAdhocctlJoinEnterGameMode_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocctlGetGameModeInfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocctlGetGameModeInfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* gamemodeinfo = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -14116,7 +14116,7 @@ static Napi::Value libc_psp_sceNetAdhocctlGetGameModeInfo_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocctlExitGameMode_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocctlExitGameMode_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -14148,7 +14148,7 @@ static Napi::Value libc_psp_sceNetAdhocctlExitGameMode_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocctlGetPeerList_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocctlGetPeerList_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* length = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -14182,7 +14182,7 @@ static Napi::Value libc_psp_sceNetAdhocctlGetPeerList_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocctlGetPeerInfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocctlGetPeerInfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mac = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t size = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -14217,7 +14217,7 @@ static Napi::Value libc_psp_sceNetAdhocctlGetPeerInfo_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocctlScan_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocctlScan_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -14249,7 +14249,7 @@ static Napi::Value libc_psp_sceNetAdhocctlScan_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocctlGetScanInfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocctlGetScanInfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* length = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -14283,7 +14283,7 @@ static Napi::Value libc_psp_sceNetAdhocctlGetScanInfo_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocctlAddHandler_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocctlAddHandler_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* handler = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* unknown = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -14317,7 +14317,7 @@ static Napi::Value libc_psp_sceNetAdhocctlAddHandler_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocctlDelHandler_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocctlDelHandler_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -14350,7 +14350,7 @@ static Napi::Value libc_psp_sceNetAdhocctlDelHandler_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocctlGetNameByAddr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocctlGetNameByAddr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mac = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* nickname = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -14384,7 +14384,7 @@ static Napi::Value libc_psp_sceNetAdhocctlGetNameByAddr_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocctlGetAddrByName_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocctlGetAddrByName_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* nickname = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* length = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -14419,7 +14419,7 @@ static Napi::Value libc_psp_sceNetAdhocctlGetAddrByName_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocctlGetParameter_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocctlGetParameter_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* params = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -14452,7 +14452,7 @@ static Napi::Value libc_psp_sceNetAdhocctlGetParameter_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -14484,7 +14484,7 @@ static Napi::Value libc_psp_sceNetAdhocInit_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocTerm_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocTerm_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -14516,11 +14516,11 @@ static Napi::Value libc_psp_sceNetAdhocTerm_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocPdpCreate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocPdpCreate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mac = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint16_t port = static_cast<uint16_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    uint32_t buf_size = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    uint32_t bufSize = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     int32_t unk1 = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, uint16_t, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -14544,7 +14544,7 @@ static Napi::Value libc_psp_sceNetAdhocPdpCreate_napi(const Napi::CallbackInfo& 
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(mac, port, buf_size, unk1);
+        km_res = km_fn_ptr(mac, port, bufSize, unk1);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -14552,7 +14552,7 @@ static Napi::Value libc_psp_sceNetAdhocPdpCreate_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocPdpDelete_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocPdpDelete_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t unk1 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -14586,10 +14586,10 @@ static Napi::Value libc_psp_sceNetAdhocPdpDelete_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocPdpSend_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocPdpSend_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* dest_mac_addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* destMacAddr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint16_t port = static_cast<uint16_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     void* data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     uint32_t len = static_cast<uint32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
@@ -14617,7 +14617,7 @@ static Napi::Value libc_psp_sceNetAdhocPdpSend_napi(const Napi::CallbackInfo& km
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(id, dest_mac_addr, port, data, len, timeout, nonblock);
+        km_res = km_fn_ptr(id, destMacAddr, port, data, len, timeout, nonblock);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -14625,13 +14625,13 @@ static Napi::Value libc_psp_sceNetAdhocPdpSend_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocPdpRecv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocPdpRecv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* src_mac_addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* srcMacAddr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* port = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
-    void* data_length = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
+    void* dataLength = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
     uint32_t timeout = static_cast<uint32_t>(km_info.Length() > 5 ? km_info[5].ToNumber().Int32Value() : 0);
     int32_t nonblock = static_cast<int32_t>(km_info.Length() > 6 ? km_info[6].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, void*, void*, uint32_t, int32_t);
@@ -14656,7 +14656,7 @@ static Napi::Value libc_psp_sceNetAdhocPdpRecv_napi(const Napi::CallbackInfo& km
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(id, src_mac_addr, port, data, data_length, timeout, nonblock);
+        km_res = km_fn_ptr(id, srcMacAddr, port, data, dataLength, timeout, nonblock);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -14664,10 +14664,10 @@ static Napi::Value libc_psp_sceNetAdhocPdpRecv_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocGetPdpStat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocGetPdpStat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* size = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* arg_1_stat = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* arg1Stat = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -14690,7 +14690,7 @@ static Napi::Value libc_psp_sceNetAdhocGetPdpStat_napi(const Napi::CallbackInfo&
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(size, arg_1_stat);
+        km_res = km_fn_ptr(size, arg1Stat);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -14698,7 +14698,7 @@ static Napi::Value libc_psp_sceNetAdhocGetPdpStat_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocGameModeCreateMaster_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocGameModeCreateMaster_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t size = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -14732,7 +14732,7 @@ static Napi::Value libc_psp_sceNetAdhocGameModeCreateMaster_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocGameModeCreateReplica_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocGameModeCreateReplica_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mac = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -14767,7 +14767,7 @@ static Napi::Value libc_psp_sceNetAdhocGameModeCreateReplica_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocGameModeUpdateMaster_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocGameModeUpdateMaster_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -14799,7 +14799,7 @@ static Napi::Value libc_psp_sceNetAdhocGameModeUpdateMaster_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocGameModeUpdateReplica_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocGameModeUpdateReplica_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t unk1 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -14833,7 +14833,7 @@ static Napi::Value libc_psp_sceNetAdhocGameModeUpdateReplica_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocGameModeDeleteMaster_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocGameModeDeleteMaster_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -14865,7 +14865,7 @@ static Napi::Value libc_psp_sceNetAdhocGameModeDeleteMaster_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocGameModeDeleteReplica_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocGameModeDeleteReplica_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -14898,13 +14898,13 @@ static Napi::Value libc_psp_sceNetAdhocGameModeDeleteReplica_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocPtpOpen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocPtpOpen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* srcmac = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint16_t srcport = static_cast<uint16_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     void* destmac = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint16_t destport = static_cast<uint16_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
-    uint32_t buf_size = static_cast<uint32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
+    uint32_t bufSize = static_cast<uint32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
     uint32_t delay = static_cast<uint32_t>(km_info.Length() > 5 ? km_info[5].ToNumber().Int32Value() : 0);
     int32_t count = static_cast<int32_t>(km_info.Length() > 6 ? km_info[6].ToNumber().Int32Value() : 0);
     int32_t unk1 = static_cast<int32_t>(km_info.Length() > 7 ? km_info[7].ToNumber().Int32Value() : 0);
@@ -14930,7 +14930,7 @@ static Napi::Value libc_psp_sceNetAdhocPtpOpen_napi(const Napi::CallbackInfo& km
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(srcmac, srcport, destmac, destport, buf_size, delay, count, unk1);
+        km_res = km_fn_ptr(srcmac, srcport, destmac, destport, bufSize, delay, count, unk1);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -14938,7 +14938,7 @@ static Napi::Value libc_psp_sceNetAdhocPtpOpen_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocPtpConnect_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocPtpConnect_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t timeout = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -14973,11 +14973,11 @@ static Napi::Value libc_psp_sceNetAdhocPtpConnect_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocPtpListen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocPtpListen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* srcmac = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint16_t srcport = static_cast<uint16_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    uint32_t buf_size = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    uint32_t bufSize = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     uint32_t delay = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     int32_t count = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
     int32_t queue = static_cast<int32_t>(km_info.Length() > 5 ? km_info[5].ToNumber().Int32Value() : 0);
@@ -15004,7 +15004,7 @@ static Napi::Value libc_psp_sceNetAdhocPtpListen_napi(const Napi::CallbackInfo& 
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(srcmac, srcport, buf_size, delay, count, queue, unk1);
+        km_res = km_fn_ptr(srcmac, srcport, bufSize, delay, count, queue, unk1);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -15012,7 +15012,7 @@ static Napi::Value libc_psp_sceNetAdhocPtpListen_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocPtpAccept_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocPtpAccept_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* mac = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -15049,11 +15049,11 @@ static Napi::Value libc_psp_sceNetAdhocPtpAccept_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocPtpSend_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocPtpSend_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* data_size = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* dataSize = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint32_t timeout = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     int32_t nonblock = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, uint32_t, int32_t);
@@ -15078,7 +15078,7 @@ static Napi::Value libc_psp_sceNetAdhocPtpSend_napi(const Napi::CallbackInfo& km
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(id, data, data_size, timeout, nonblock);
+        km_res = km_fn_ptr(id, data, dataSize, timeout, nonblock);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -15086,11 +15086,11 @@ static Napi::Value libc_psp_sceNetAdhocPtpSend_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocPtpRecv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocPtpRecv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* data_size = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* dataSize = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint32_t timeout = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     int32_t nonblock = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, uint32_t, int32_t);
@@ -15115,7 +15115,7 @@ static Napi::Value libc_psp_sceNetAdhocPtpRecv_napi(const Napi::CallbackInfo& km
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(id, data, data_size, timeout, nonblock);
+        km_res = km_fn_ptr(id, data, dataSize, timeout, nonblock);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -15123,7 +15123,7 @@ static Napi::Value libc_psp_sceNetAdhocPtpRecv_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocPtpFlush_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocPtpFlush_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t timeout = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -15158,7 +15158,7 @@ static Napi::Value libc_psp_sceNetAdhocPtpFlush_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocPtpClose_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocPtpClose_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t unk1 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -15192,10 +15192,10 @@ static Napi::Value libc_psp_sceNetAdhocPtpClose_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocGetPtpStat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocGetPtpStat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* size = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* arg_1_stat = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* arg1Stat = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -15218,7 +15218,7 @@ static Napi::Value libc_psp_sceNetAdhocGetPtpStat_napi(const Napi::CallbackInfo&
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(size, arg_1_stat);
+        km_res = km_fn_ptr(size, arg1Stat);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -15226,7 +15226,7 @@ static Napi::Value libc_psp_sceNetAdhocGetPtpStat_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocMatchingInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocMatchingInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t memsize = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -15259,7 +15259,7 @@ static Napi::Value libc_psp_sceNetAdhocMatchingInit_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocMatchingTerm_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocMatchingTerm_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -15291,9 +15291,9 @@ static Napi::Value libc_psp_sceNetAdhocMatchingTerm_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocMatchingDelete_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocMatchingDelete_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t matching_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t matchingId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -15316,7 +15316,7 @@ static Napi::Value libc_psp_sceNetAdhocMatchingDelete_napi(const Napi::CallbackI
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(matching_id);
+        km_res = km_fn_ptr(matchingId);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -15324,15 +15324,15 @@ static Napi::Value libc_psp_sceNetAdhocMatchingDelete_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocMatchingStart_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocMatchingStart_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t matching_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t evth_pri = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    int32_t evth_stack = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    int32_t inth_pri = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
-    int32_t inth_stack = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
-    int32_t opt_len = static_cast<int32_t>(km_info.Length() > 5 ? km_info[5].ToNumber().Int32Value() : 0);
-    void* opt_data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 6 ? km_napi_arg_u64(km_info[6]) : 0));
+    int32_t matchingId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t evthPri = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t evthStack = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    int32_t inthPri = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
+    int32_t inthStack = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
+    int32_t optLen = static_cast<int32_t>(km_info.Length() > 5 ? km_info[5].ToNumber().Int32Value() : 0);
+    void* optData = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 6 ? km_napi_arg_u64(km_info[6]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -15355,7 +15355,7 @@ static Napi::Value libc_psp_sceNetAdhocMatchingStart_napi(const Napi::CallbackIn
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(matching_id, evth_pri, evth_stack, inth_pri, inth_stack, opt_len, opt_data);
+        km_res = km_fn_ptr(matchingId, evthPri, evthStack, inthPri, inthStack, optLen, optData);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -15363,9 +15363,9 @@ static Napi::Value libc_psp_sceNetAdhocMatchingStart_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocMatchingStop_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocMatchingStop_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t matching_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t matchingId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -15388,7 +15388,7 @@ static Napi::Value libc_psp_sceNetAdhocMatchingStop_napi(const Napi::CallbackInf
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(matching_id);
+        km_res = km_fn_ptr(matchingId);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -15396,12 +15396,12 @@ static Napi::Value libc_psp_sceNetAdhocMatchingStop_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocMatchingSelectTarget_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocMatchingSelectTarget_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t matching_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t matchingId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* mac = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    int32_t opt_len = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    void* opt_data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    int32_t optLen = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    void* optData = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -15424,7 +15424,7 @@ static Napi::Value libc_psp_sceNetAdhocMatchingSelectTarget_napi(const Napi::Cal
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(matching_id, mac, opt_len, opt_data);
+        km_res = km_fn_ptr(matchingId, mac, optLen, optData);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -15432,9 +15432,9 @@ static Napi::Value libc_psp_sceNetAdhocMatchingSelectTarget_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocMatchingCancelTarget_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocMatchingCancelTarget_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t matching_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t matchingId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* mac = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -15458,7 +15458,7 @@ static Napi::Value libc_psp_sceNetAdhocMatchingCancelTarget_napi(const Napi::Cal
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(matching_id, mac);
+        km_res = km_fn_ptr(matchingId, mac);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -15466,12 +15466,12 @@ static Napi::Value libc_psp_sceNetAdhocMatchingCancelTarget_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocMatchingCancelTargetWithOpt_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocMatchingCancelTargetWithOpt_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t matching_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t matchingId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* mac = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    int32_t opt_len = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    void* opt_data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    int32_t optLen = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    void* optData = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -15494,7 +15494,7 @@ static Napi::Value libc_psp_sceNetAdhocMatchingCancelTargetWithOpt_napi(const Na
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(matching_id, mac, opt_len, opt_data);
+        km_res = km_fn_ptr(matchingId, mac, optLen, optData);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -15502,11 +15502,11 @@ static Napi::Value libc_psp_sceNetAdhocMatchingCancelTargetWithOpt_napi(const Na
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocMatchingSendData_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocMatchingSendData_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t matching_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t matchingId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* mac = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    int32_t data_len = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    int32_t dataLen = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     void* data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -15530,7 +15530,7 @@ static Napi::Value libc_psp_sceNetAdhocMatchingSendData_napi(const Napi::Callbac
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(matching_id, mac, data_len, data);
+        km_res = km_fn_ptr(matchingId, mac, dataLen, data);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -15538,9 +15538,9 @@ static Napi::Value libc_psp_sceNetAdhocMatchingSendData_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocMatchingAbortSendData_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocMatchingAbortSendData_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t matching_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t matchingId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* mac = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -15564,7 +15564,7 @@ static Napi::Value libc_psp_sceNetAdhocMatchingAbortSendData_napi(const Napi::Ca
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(matching_id, mac);
+        km_res = km_fn_ptr(matchingId, mac);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -15572,11 +15572,11 @@ static Napi::Value libc_psp_sceNetAdhocMatchingAbortSendData_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocMatchingSetHelloOpt_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocMatchingSetHelloOpt_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t matching_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t opt_len = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    void* opt_data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    int32_t matchingId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t optLen = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    void* optData = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -15599,7 +15599,7 @@ static Napi::Value libc_psp_sceNetAdhocMatchingSetHelloOpt_napi(const Napi::Call
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(matching_id, opt_len, opt_data);
+        km_res = km_fn_ptr(matchingId, optLen, optData);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -15607,11 +15607,11 @@ static Napi::Value libc_psp_sceNetAdhocMatchingSetHelloOpt_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocMatchingGetHelloOpt_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocMatchingGetHelloOpt_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t matching_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* opt_len = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* opt_data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    int32_t matchingId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* optLen = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* optData = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -15634,7 +15634,7 @@ static Napi::Value libc_psp_sceNetAdhocMatchingGetHelloOpt_napi(const Napi::Call
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(matching_id, opt_len, opt_data);
+        km_res = km_fn_ptr(matchingId, optLen, optData);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -15642,9 +15642,9 @@ static Napi::Value libc_psp_sceNetAdhocMatchingGetHelloOpt_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocMatchingGetMembers_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocMatchingGetMembers_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t matching_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t matchingId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* length = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
@@ -15669,7 +15669,7 @@ static Napi::Value libc_psp_sceNetAdhocMatchingGetMembers_napi(const Napi::Callb
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(matching_id, length, buf);
+        km_res = km_fn_ptr(matchingId, length, buf);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -15677,7 +15677,7 @@ static Napi::Value libc_psp_sceNetAdhocMatchingGetMembers_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocMatchingGetPoolMaxAlloc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocMatchingGetPoolMaxAlloc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -15709,7 +15709,7 @@ static Napi::Value libc_psp_sceNetAdhocMatchingGetPoolMaxAlloc_napi(const Napi::
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetAdhocMatchingGetPoolStat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetAdhocMatchingGetPoolStat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* poolstat = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -15742,10 +15742,10 @@ static Napi::Value libc_psp_sceNetAdhocMatchingGetPoolStat_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetApctlInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetApctlInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t stack_size = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t init_priority = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t stackSize = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t initPriority = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -15768,7 +15768,7 @@ static Napi::Value libc_psp_sceNetApctlInit_napi(const Napi::CallbackInfo& km_in
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(stack_size, init_priority);
+        km_res = km_fn_ptr(stackSize, initPriority);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -15776,7 +15776,7 @@ static Napi::Value libc_psp_sceNetApctlInit_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetApctlTerm_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetApctlTerm_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -15808,7 +15808,7 @@ static Napi::Value libc_psp_sceNetApctlTerm_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetApctlAddHandler_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetApctlAddHandler_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* handler = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* parg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -15842,9 +15842,9 @@ static Napi::Value libc_psp_sceNetApctlAddHandler_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetApctlDelHandler_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetApctlDelHandler_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t handler_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t handlerId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -15867,7 +15867,7 @@ static Napi::Value libc_psp_sceNetApctlDelHandler_napi(const Napi::CallbackInfo&
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(handler_id);
+        km_res = km_fn_ptr(handlerId);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -15875,9 +15875,9 @@ static Napi::Value libc_psp_sceNetApctlDelHandler_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetApctlConnect_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetApctlConnect_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t conn_index = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t connIndex = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -15900,7 +15900,7 @@ static Napi::Value libc_psp_sceNetApctlConnect_napi(const Napi::CallbackInfo& km
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(conn_index);
+        km_res = km_fn_ptr(connIndex);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -15908,7 +15908,7 @@ static Napi::Value libc_psp_sceNetApctlConnect_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetApctlDisconnect_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetApctlDisconnect_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -15940,7 +15940,7 @@ static Napi::Value libc_psp_sceNetApctlDisconnect_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetApctlGetState_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetApctlGetState_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* pstate = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -15973,7 +15973,7 @@ static Napi::Value libc_psp_sceNetApctlGetState_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetInetInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetInetInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -16005,7 +16005,7 @@ static Napi::Value libc_psp_sceNetInetInit_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetInetTerm_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetInetTerm_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -16037,11 +16037,11 @@ static Napi::Value libc_psp_sceNetInetTerm_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetInetAccept_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetInetAccept_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t s = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* addr_len = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* addrLen = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -16064,7 +16064,7 @@ static Napi::Value libc_psp_sceNetInetAccept_napi(const Napi::CallbackInfo& km_i
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(s, addr, addr_len);
+        km_res = km_fn_ptr(s, addr, addrLen);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -16072,11 +16072,11 @@ static Napi::Value libc_psp_sceNetInetAccept_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetInetBind_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetInetBind_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t s = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* my_addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint32_t addr_len = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    void* myAddr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint32_t addrLen = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -16099,7 +16099,7 @@ static Napi::Value libc_psp_sceNetInetBind_napi(const Napi::CallbackInfo& km_inf
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(s, my_addr, addr_len);
+        km_res = km_fn_ptr(s, myAddr, addrLen);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -16107,11 +16107,11 @@ static Napi::Value libc_psp_sceNetInetBind_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetInetConnect_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetInetConnect_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t s = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* serv_addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint32_t addr_len = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    void* servAddr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint32_t addrLen = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -16134,7 +16134,7 @@ static Napi::Value libc_psp_sceNetInetConnect_napi(const Napi::CallbackInfo& km_
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(s, serv_addr, addr_len);
+        km_res = km_fn_ptr(s, servAddr, addrLen);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -16142,13 +16142,13 @@ static Napi::Value libc_psp_sceNetInetConnect_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetInetGetsockopt_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetInetGetsockopt_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t s = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t level = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    int32_t opt_name = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    void* opt_val = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
-    void* optl_en = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
+    int32_t optName = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    void* optVal = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    void* optlEn = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -16171,7 +16171,7 @@ static Napi::Value libc_psp_sceNetInetGetsockopt_napi(const Napi::CallbackInfo& 
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(s, level, opt_name, opt_val, optl_en);
+        km_res = km_fn_ptr(s, level, optName, optVal, optlEn);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -16179,7 +16179,7 @@ static Napi::Value libc_psp_sceNetInetGetsockopt_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetInetListen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetInetListen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t s = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t backlog = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -16213,7 +16213,7 @@ static Napi::Value libc_psp_sceNetInetListen_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetInetRecv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetInetRecv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t s = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -16249,14 +16249,14 @@ static Napi::Value libc_psp_sceNetInetRecv_napi(const Napi::CallbackInfo& km_inf
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_psp_sceNetInetRecvfrom_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetInetRecvfrom_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t s = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t flags = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     int32_t arg1 = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     void* from = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
-    void* from_len = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 5 ? km_napi_arg_u64(km_info[5]) : 0));
+    void* fromLen = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 5 ? km_napi_arg_u64(km_info[5]) : 0));
     typedef uint64_t (*km_fn_t)(int32_t, void*, uint64_t, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -16279,7 +16279,7 @@ static Napi::Value libc_psp_sceNetInetRecvfrom_napi(const Napi::CallbackInfo& km
 #endif
     uint64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(s, buf, flags, arg1, from, from_len);
+        km_res = km_fn_ptr(s, buf, flags, arg1, from, fromLen);
     } else {
         errno = ENOSYS;
         km_res = 0;
@@ -16287,7 +16287,7 @@ static Napi::Value libc_psp_sceNetInetRecvfrom_napi(const Napi::CallbackInfo& km
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_psp_sceNetInetSend_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetInetSend_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t s = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -16323,14 +16323,14 @@ static Napi::Value libc_psp_sceNetInetSend_napi(const Napi::CallbackInfo& km_inf
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_psp_sceNetInetSendto_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetInetSendto_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t s = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t len = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     int32_t flags = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     void* to = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
-    uint32_t to_len = static_cast<uint32_t>(km_info.Length() > 5 ? km_info[5].ToNumber().Int32Value() : 0);
+    uint32_t toLen = static_cast<uint32_t>(km_info.Length() > 5 ? km_info[5].ToNumber().Int32Value() : 0);
     typedef uint64_t (*km_fn_t)(int32_t, void*, uint64_t, int32_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -16353,7 +16353,7 @@ static Napi::Value libc_psp_sceNetInetSendto_napi(const Napi::CallbackInfo& km_i
 #endif
     uint64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(s, buf, len, flags, to, to_len);
+        km_res = km_fn_ptr(s, buf, len, flags, to, toLen);
     } else {
         errno = ENOSYS;
         km_res = 0;
@@ -16361,13 +16361,13 @@ static Napi::Value libc_psp_sceNetInetSendto_napi(const Napi::CallbackInfo& km_i
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_psp_sceNetInetSetsockopt_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetInetSetsockopt_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t s = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t level = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    int32_t opt_name = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    void* opt_val = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
-    uint32_t opt_len = static_cast<uint32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
+    int32_t optName = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    void* optVal = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    uint32_t optLen = static_cast<uint32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -16390,7 +16390,7 @@ static Napi::Value libc_psp_sceNetInetSetsockopt_napi(const Napi::CallbackInfo& 
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(s, level, opt_name, opt_val, opt_len);
+        km_res = km_fn_ptr(s, level, optName, optVal, optLen);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -16398,7 +16398,7 @@ static Napi::Value libc_psp_sceNetInetSetsockopt_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetInetShutdown_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetInetShutdown_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t s = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t how = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -16432,10 +16432,10 @@ static Napi::Value libc_psp_sceNetInetShutdown_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetInetSocket_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetInetSocket_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t domain = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t type_ = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t type = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     int32_t protocol = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -16459,7 +16459,7 @@ static Napi::Value libc_psp_sceNetInetSocket_napi(const Napi::CallbackInfo& km_i
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(domain, type_, protocol);
+        km_res = km_fn_ptr(domain, type, protocol);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -16467,7 +16467,7 @@ static Napi::Value libc_psp_sceNetInetSocket_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetInetClose_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetInetClose_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t s = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -16500,7 +16500,7 @@ static Napi::Value libc_psp_sceNetInetClose_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetInetGetErrno_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetInetGetErrno_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -16532,7 +16532,7 @@ static Napi::Value libc_psp_sceNetInetGetErrno_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceSslInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceSslInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t unknown1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -16565,7 +16565,7 @@ static Napi::Value libc_psp_sceSslInit_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceSslEnd_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceSslEnd_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -16597,7 +16597,7 @@ static Napi::Value libc_psp_sceSslEnd_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceSslGetUsedMemoryMax_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceSslGetUsedMemoryMax_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* memory = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -16630,7 +16630,7 @@ static Napi::Value libc_psp_sceSslGetUsedMemoryMax_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceSslGetUsedMemoryCurrent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceSslGetUsedMemoryCurrent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* memory = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -16663,7 +16663,7 @@ static Napi::Value libc_psp_sceSslGetUsedMemoryCurrent_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHttpInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHttpInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t unknown1 = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -16696,7 +16696,7 @@ static Napi::Value libc_psp_sceHttpInit_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHttpEnd_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHttpEnd_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -16728,7 +16728,7 @@ static Napi::Value libc_psp_sceHttpEnd_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHttpCreateTemplate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHttpCreateTemplate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* agent = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t unknown1 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -16763,7 +16763,7 @@ static Napi::Value libc_psp_sceHttpCreateTemplate_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHttpDeleteTemplate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHttpDeleteTemplate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t templateid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -16796,7 +16796,7 @@ static Napi::Value libc_psp_sceHttpDeleteTemplate_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHttpCreateConnection_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHttpCreateConnection_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t templateid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* host = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -16833,7 +16833,7 @@ static Napi::Value libc_psp_sceHttpCreateConnection_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHttpCreateConnectionWithURL_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHttpCreateConnectionWithURL_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t templateid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* url = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -16868,9 +16868,9 @@ static Napi::Value libc_psp_sceHttpCreateConnectionWithURL_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHttpDeleteConnection_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHttpDeleteConnection_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t connection_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t connectionId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -16893,7 +16893,7 @@ static Napi::Value libc_psp_sceHttpDeleteConnection_napi(const Napi::CallbackInf
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(connection_id);
+        km_res = km_fn_ptr(connectionId);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -16901,9 +16901,9 @@ static Napi::Value libc_psp_sceHttpDeleteConnection_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHttpDeleteRequest_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHttpDeleteRequest_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t request_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t requestId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -16926,7 +16926,7 @@ static Napi::Value libc_psp_sceHttpDeleteRequest_napi(const Napi::CallbackInfo& 
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(request_id);
+        km_res = km_fn_ptr(requestId);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -16934,11 +16934,11 @@ static Napi::Value libc_psp_sceHttpDeleteRequest_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHttpSendRequest_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHttpSendRequest_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t request_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t requestId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint32_t data_size = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    uint32_t dataSize = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -16961,7 +16961,7 @@ static Napi::Value libc_psp_sceHttpSendRequest_napi(const Napi::CallbackInfo& km
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(request_id, data, data_size);
+        km_res = km_fn_ptr(requestId, data, dataSize);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -16969,9 +16969,9 @@ static Napi::Value libc_psp_sceHttpSendRequest_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHttpAbortRequest_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHttpAbortRequest_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t request_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t requestId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -16994,7 +16994,7 @@ static Napi::Value libc_psp_sceHttpAbortRequest_napi(const Napi::CallbackInfo& k
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(request_id);
+        km_res = km_fn_ptr(requestId);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -17002,11 +17002,11 @@ static Napi::Value libc_psp_sceHttpAbortRequest_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHttpReadData_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHttpReadData_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t request_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t requestId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint32_t data_size = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    uint32_t dataSize = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -17029,7 +17029,7 @@ static Napi::Value libc_psp_sceHttpReadData_napi(const Napi::CallbackInfo& km_in
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(request_id, data, data_size);
+        km_res = km_fn_ptr(requestId, data, dataSize);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -17037,10 +17037,10 @@ static Napi::Value libc_psp_sceHttpReadData_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHttpGetContentLength_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHttpGetContentLength_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t request_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* content_length = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    int32_t requestId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* contentLength = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -17063,7 +17063,7 @@ static Napi::Value libc_psp_sceHttpGetContentLength_napi(const Napi::CallbackInf
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(request_id, content_length);
+        km_res = km_fn_ptr(requestId, contentLength);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -17071,10 +17071,10 @@ static Napi::Value libc_psp_sceHttpGetContentLength_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHttpGetStatusCode_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHttpGetStatusCode_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t request_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* status_code = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    int32_t requestId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* statusCode = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -17097,7 +17097,7 @@ static Napi::Value libc_psp_sceHttpGetStatusCode_napi(const Napi::CallbackInfo& 
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(request_id, status_code);
+        km_res = km_fn_ptr(requestId, statusCode);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -17105,7 +17105,7 @@ static Napi::Value libc_psp_sceHttpGetStatusCode_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHttpSetResolveTimeOut_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHttpSetResolveTimeOut_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t timeout = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -17139,7 +17139,7 @@ static Napi::Value libc_psp_sceHttpSetResolveTimeOut_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHttpSetResolveRetry_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHttpSetResolveRetry_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t count = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -17173,7 +17173,7 @@ static Napi::Value libc_psp_sceHttpSetResolveRetry_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHttpSetConnectTimeOut_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHttpSetConnectTimeOut_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t timeout = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -17207,7 +17207,7 @@ static Napi::Value libc_psp_sceHttpSetConnectTimeOut_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHttpSetSendTimeOut_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHttpSetSendTimeOut_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t timeout = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -17241,7 +17241,7 @@ static Napi::Value libc_psp_sceHttpSetSendTimeOut_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHttpSetRecvTimeOut_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHttpSetRecvTimeOut_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t timeout = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -17275,7 +17275,7 @@ static Napi::Value libc_psp_sceHttpSetRecvTimeOut_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHttpEnableKeepAlive_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHttpEnableKeepAlive_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -17308,7 +17308,7 @@ static Napi::Value libc_psp_sceHttpEnableKeepAlive_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHttpDisableKeepAlive_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHttpDisableKeepAlive_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -17341,7 +17341,7 @@ static Napi::Value libc_psp_sceHttpDisableKeepAlive_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHttpEnableRedirect_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHttpEnableRedirect_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -17374,7 +17374,7 @@ static Napi::Value libc_psp_sceHttpEnableRedirect_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHttpDisableRedirect_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHttpDisableRedirect_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -17407,7 +17407,7 @@ static Napi::Value libc_psp_sceHttpDisableRedirect_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHttpEnableCookie_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHttpEnableCookie_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -17440,7 +17440,7 @@ static Napi::Value libc_psp_sceHttpEnableCookie_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHttpDisableCookie_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHttpDisableCookie_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -17473,7 +17473,7 @@ static Napi::Value libc_psp_sceHttpDisableCookie_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHttpSaveSystemCookie_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHttpSaveSystemCookie_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -17505,7 +17505,7 @@ static Napi::Value libc_psp_sceHttpSaveSystemCookie_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHttpLoadSystemCookie_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHttpLoadSystemCookie_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -17537,7 +17537,7 @@ static Napi::Value libc_psp_sceHttpLoadSystemCookie_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHttpAddExtraHeader_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHttpAddExtraHeader_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* name = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -17573,7 +17573,7 @@ static Napi::Value libc_psp_sceHttpAddExtraHeader_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHttpDeleteHeader_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHttpDeleteHeader_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* name = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -17607,7 +17607,7 @@ static Napi::Value libc_psp_sceHttpDeleteHeader_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHttpsInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHttpsInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t unknown1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t unknown2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -17643,7 +17643,7 @@ static Napi::Value libc_psp_sceHttpsInit_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHttpsEnd_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHttpsEnd_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -17675,7 +17675,7 @@ static Napi::Value libc_psp_sceHttpsEnd_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHttpsLoadDefaultCert_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHttpsLoadDefaultCert_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t unknown1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t unknown2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -17709,7 +17709,7 @@ static Napi::Value libc_psp_sceHttpsLoadDefaultCert_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHttpDisableAuth_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHttpDisableAuth_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -17742,7 +17742,7 @@ static Napi::Value libc_psp_sceHttpDisableAuth_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHttpDisableCache_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHttpDisableCache_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -17775,7 +17775,7 @@ static Napi::Value libc_psp_sceHttpDisableCache_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHttpEnableAuth_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHttpEnableAuth_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -17808,7 +17808,7 @@ static Napi::Value libc_psp_sceHttpEnableAuth_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHttpEnableCache_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHttpEnableCache_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -17841,7 +17841,7 @@ static Napi::Value libc_psp_sceHttpEnableCache_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHttpEndCache_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHttpEndCache_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -17873,11 +17873,11 @@ static Napi::Value libc_psp_sceHttpEndCache_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHttpGetAllHeader_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHttpGetAllHeader_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t request = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* header = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* header_size = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* headerSize = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -17900,7 +17900,7 @@ static Napi::Value libc_psp_sceHttpGetAllHeader_napi(const Napi::CallbackInfo& k
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(request, header, header_size);
+        km_res = km_fn_ptr(request, header, headerSize);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -17908,10 +17908,10 @@ static Napi::Value libc_psp_sceHttpGetAllHeader_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHttpGetNetworkErrno_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHttpGetNetworkErrno_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t request = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* err_num = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* errNum = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -17934,7 +17934,7 @@ static Napi::Value libc_psp_sceHttpGetNetworkErrno_napi(const Napi::CallbackInfo
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(request, err_num);
+        km_res = km_fn_ptr(request, errNum);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -17942,14 +17942,14 @@ static Napi::Value libc_psp_sceHttpGetNetworkErrno_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHttpGetProxy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHttpGetProxy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* activate_flag = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* activateFlag = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* mode = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    void* proxy_host = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    void* proxyHost = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     uint64_t len = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
-    void* proxy_port = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 5 ? km_napi_arg_u64(km_info[5]) : 0));
+    void* proxyPort = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 5 ? km_napi_arg_u64(km_info[5]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, void*, uint64_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -17972,7 +17972,7 @@ static Napi::Value libc_psp_sceHttpGetProxy_napi(const Napi::CallbackInfo& km_in
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(id, activate_flag, mode, proxy_host, len, proxy_port);
+        km_res = km_fn_ptr(id, activateFlag, mode, proxyHost, len, proxyPort);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -17980,9 +17980,9 @@ static Napi::Value libc_psp_sceHttpGetProxy_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHttpInitCache_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHttpInitCache_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint64_t max_size = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
+    uint64_t maxSize = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     typedef int32_t (*km_fn_t)(uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -18005,7 +18005,7 @@ static Napi::Value libc_psp_sceHttpInitCache_napi(const Napi::CallbackInfo& km_i
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(max_size);
+        km_res = km_fn_ptr(maxSize);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -18013,7 +18013,7 @@ static Napi::Value libc_psp_sceHttpInitCache_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHttpSetAuthInfoCB_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHttpSetAuthInfoCB_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* cbfunc = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -18047,13 +18047,13 @@ static Napi::Value libc_psp_sceHttpSetAuthInfoCB_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHttpSetProxy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHttpSetProxy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t activate_flag = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t activateFlag = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     int32_t mode = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    void* new_proxy_host = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
-    uint16_t new_proxy_port = static_cast<uint16_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
+    void* newProxyHost = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    uint16_t newProxyPort = static_cast<uint16_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, void*, uint16_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -18076,7 +18076,7 @@ static Napi::Value libc_psp_sceHttpSetProxy_napi(const Napi::CallbackInfo& km_in
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(id, activate_flag, mode, new_proxy_host, new_proxy_port);
+        km_res = km_fn_ptr(id, activateFlag, mode, newProxyHost, newProxyPort);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -18084,10 +18084,10 @@ static Napi::Value libc_psp_sceHttpSetProxy_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHttpSetResHeaderMaxSize_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHttpSetResHeaderMaxSize_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    uint32_t header_size = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    uint32_t headerSize = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -18110,7 +18110,7 @@ static Napi::Value libc_psp_sceHttpSetResHeaderMaxSize_napi(const Napi::Callback
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(id, header_size);
+        km_res = km_fn_ptr(id, headerSize);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -18118,11 +18118,11 @@ static Napi::Value libc_psp_sceHttpSetResHeaderMaxSize_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceHttpSetMallocFunction_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceHttpSetMallocFunction_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* malloc_func = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* free_func = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* realloc_func = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* mallocFunc = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* freeFunc = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* reallocFunc = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -18145,7 +18145,7 @@ static Napi::Value libc_psp_sceHttpSetMallocFunction_napi(const Napi::CallbackIn
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(malloc_func, free_func, realloc_func);
+        km_res = km_fn_ptr(mallocFunc, freeFunc, reallocFunc);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -18153,7 +18153,7 @@ static Napi::Value libc_psp_sceHttpSetMallocFunction_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetResolverInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetResolverInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -18185,11 +18185,11 @@ static Napi::Value libc_psp_sceNetResolverInit_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetResolverCreate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetResolverCreate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* rid = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint32_t buf_length = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    uint32_t bufLength = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, void*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -18212,7 +18212,7 @@ static Napi::Value libc_psp_sceNetResolverCreate_napi(const Napi::CallbackInfo& 
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(rid, buf, buf_length);
+        km_res = km_fn_ptr(rid, buf, bufLength);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -18220,7 +18220,7 @@ static Napi::Value libc_psp_sceNetResolverCreate_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetResolverDelete_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetResolverDelete_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t rid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -18253,7 +18253,7 @@ static Napi::Value libc_psp_sceNetResolverDelete_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetResolverStartNtoA_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetResolverStartNtoA_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t rid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* hostname = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -18290,12 +18290,12 @@ static Napi::Value libc_psp_sceNetResolverStartNtoA_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetResolverStartAtoN_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetResolverStartAtoN_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t rid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* hostname = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    uint32_t hostname_len = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
+    uint32_t hostnameLen = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     uint32_t timeout = static_cast<uint32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
     int32_t retry = static_cast<int32_t>(km_info.Length() > 5 ? km_info[5].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, uint32_t, uint32_t, int32_t);
@@ -18320,7 +18320,7 @@ static Napi::Value libc_psp_sceNetResolverStartAtoN_napi(const Napi::CallbackInf
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(rid, addr, hostname, hostname_len, timeout, retry);
+        km_res = km_fn_ptr(rid, addr, hostname, hostnameLen, timeout, retry);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -18328,7 +18328,7 @@ static Napi::Value libc_psp_sceNetResolverStartAtoN_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetResolverStop_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetResolverStop_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t rid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -18361,7 +18361,7 @@ static Napi::Value libc_psp_sceNetResolverStop_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_psp_sceNetResolverTerm_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcPspSceNetResolverTerm_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -18394,557 +18394,557 @@ static Napi::Value libc_psp_sceNetResolverTerm_napi(const Napi::CallbackInfo& km
 }
 
 static void register_psp_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_psp_sceAudioChRelease", Napi::Function::New(env, libc_psp_sceAudioChRelease_napi));
-    exports.Set("libc_psp_sceAudioOutput", Napi::Function::New(env, libc_psp_sceAudioOutput_napi));
-    exports.Set("libc_psp_sceAudioOutputBlocking", Napi::Function::New(env, libc_psp_sceAudioOutputBlocking_napi));
-    exports.Set("libc_psp_sceAudioOutputPanned", Napi::Function::New(env, libc_psp_sceAudioOutputPanned_napi));
-    exports.Set("libc_psp_sceAudioOutputPannedBlocking", Napi::Function::New(env, libc_psp_sceAudioOutputPannedBlocking_napi));
-    exports.Set("libc_psp_sceAudioGetChannelRestLen", Napi::Function::New(env, libc_psp_sceAudioGetChannelRestLen_napi));
-    exports.Set("libc_psp_sceAudioGetChannelRestLength", Napi::Function::New(env, libc_psp_sceAudioGetChannelRestLength_napi));
-    exports.Set("libc_psp_sceAudioSetChannelDataLen", Napi::Function::New(env, libc_psp_sceAudioSetChannelDataLen_napi));
-    exports.Set("libc_psp_sceAudioChangeChannelVolume", Napi::Function::New(env, libc_psp_sceAudioChangeChannelVolume_napi));
-    exports.Set("libc_psp_sceAudioOutput2Reserve", Napi::Function::New(env, libc_psp_sceAudioOutput2Reserve_napi));
-    exports.Set("libc_psp_sceAudioOutput2Release", Napi::Function::New(env, libc_psp_sceAudioOutput2Release_napi));
-    exports.Set("libc_psp_sceAudioOutput2ChangeLength", Napi::Function::New(env, libc_psp_sceAudioOutput2ChangeLength_napi));
-    exports.Set("libc_psp_sceAudioOutput2OutputBlocking", Napi::Function::New(env, libc_psp_sceAudioOutput2OutputBlocking_napi));
-    exports.Set("libc_psp_sceAudioOutput2GetRestSample", Napi::Function::New(env, libc_psp_sceAudioOutput2GetRestSample_napi));
-    exports.Set("libc_psp_sceAudioSRCChRelease", Napi::Function::New(env, libc_psp_sceAudioSRCChRelease_napi));
-    exports.Set("libc_psp_sceAudioSRCOutputBlocking", Napi::Function::New(env, libc_psp_sceAudioSRCOutputBlocking_napi));
-    exports.Set("libc_psp_sceAudioInputInit", Napi::Function::New(env, libc_psp_sceAudioInputInit_napi));
-    exports.Set("libc_psp_sceAudioInputInitEx", Napi::Function::New(env, libc_psp_sceAudioInputInitEx_napi));
-    exports.Set("libc_psp_sceAudioGetInputLength", Napi::Function::New(env, libc_psp_sceAudioGetInputLength_napi));
-    exports.Set("libc_psp_sceAudioWaitInputEnd", Napi::Function::New(env, libc_psp_sceAudioWaitInputEnd_napi));
-    exports.Set("libc_psp_sceAudioPollInputEnd", Napi::Function::New(env, libc_psp_sceAudioPollInputEnd_napi));
-    exports.Set("libc_psp_sceAtracGetAtracID", Napi::Function::New(env, libc_psp_sceAtracGetAtracID_napi));
-    exports.Set("libc_psp_sceAtracSetDataAndGetID", Napi::Function::New(env, libc_psp_sceAtracSetDataAndGetID_napi));
-    exports.Set("libc_psp_sceAtracDecodeData", Napi::Function::New(env, libc_psp_sceAtracDecodeData_napi));
-    exports.Set("libc_psp_sceAtracGetRemainFrame", Napi::Function::New(env, libc_psp_sceAtracGetRemainFrame_napi));
-    exports.Set("libc_psp_sceAtracGetStreamDataInfo", Napi::Function::New(env, libc_psp_sceAtracGetStreamDataInfo_napi));
-    exports.Set("libc_psp_sceAtracAddStreamData", Napi::Function::New(env, libc_psp_sceAtracAddStreamData_napi));
-    exports.Set("libc_psp_sceAtracGetBitrate", Napi::Function::New(env, libc_psp_sceAtracGetBitrate_napi));
-    exports.Set("libc_psp_sceAtracSetLoopNum", Napi::Function::New(env, libc_psp_sceAtracSetLoopNum_napi));
-    exports.Set("libc_psp_sceAtracReleaseAtracID", Napi::Function::New(env, libc_psp_sceAtracReleaseAtracID_napi));
-    exports.Set("libc_psp_sceAtracGetNextSample", Napi::Function::New(env, libc_psp_sceAtracGetNextSample_napi));
-    exports.Set("libc_psp_sceAtracGetMaxSample", Napi::Function::New(env, libc_psp_sceAtracGetMaxSample_napi));
-    exports.Set("libc_psp_sceAtracGetBufferInfoForReseting", Napi::Function::New(env, libc_psp_sceAtracGetBufferInfoForReseting_napi));
-    exports.Set("libc_psp_sceAtracGetChannel", Napi::Function::New(env, libc_psp_sceAtracGetChannel_napi));
-    exports.Set("libc_psp_sceAtracGetInternalErrorInfo", Napi::Function::New(env, libc_psp_sceAtracGetInternalErrorInfo_napi));
-    exports.Set("libc_psp_sceAtracGetLoopStatus", Napi::Function::New(env, libc_psp_sceAtracGetLoopStatus_napi));
-    exports.Set("libc_psp_sceAtracGetNextDecodePosition", Napi::Function::New(env, libc_psp_sceAtracGetNextDecodePosition_napi));
-    exports.Set("libc_psp_sceAtracGetSecondBufferInfo", Napi::Function::New(env, libc_psp_sceAtracGetSecondBufferInfo_napi));
-    exports.Set("libc_psp_sceAtracGetSoundSample", Napi::Function::New(env, libc_psp_sceAtracGetSoundSample_napi));
-    exports.Set("libc_psp_sceAtracResetPlayPosition", Napi::Function::New(env, libc_psp_sceAtracResetPlayPosition_napi));
-    exports.Set("libc_psp_sceAtracSetData", Napi::Function::New(env, libc_psp_sceAtracSetData_napi));
-    exports.Set("libc_psp_sceAtracSetHalfwayBuffer", Napi::Function::New(env, libc_psp_sceAtracSetHalfwayBuffer_napi));
-    exports.Set("libc_psp_sceAtracSetHalfwayBufferAndGetID", Napi::Function::New(env, libc_psp_sceAtracSetHalfwayBufferAndGetID_napi));
-    exports.Set("libc_psp_sceAtracSetSecondBuffer", Napi::Function::New(env, libc_psp_sceAtracSetSecondBuffer_napi));
-    exports.Set("libc_psp_sceCtrlSetSamplingCycle", Napi::Function::New(env, libc_psp_sceCtrlSetSamplingCycle_napi));
-    exports.Set("libc_psp_sceCtrlGetSamplingCycle", Napi::Function::New(env, libc_psp_sceCtrlGetSamplingCycle_napi));
-    exports.Set("libc_psp_sceCtrlGetSamplingMode", Napi::Function::New(env, libc_psp_sceCtrlGetSamplingMode_napi));
-    exports.Set("libc_psp_sceCtrlPeekBufferPositive", Napi::Function::New(env, libc_psp_sceCtrlPeekBufferPositive_napi));
-    exports.Set("libc_psp_sceCtrlPeekBufferNegative", Napi::Function::New(env, libc_psp_sceCtrlPeekBufferNegative_napi));
-    exports.Set("libc_psp_sceCtrlReadBufferPositive", Napi::Function::New(env, libc_psp_sceCtrlReadBufferPositive_napi));
-    exports.Set("libc_psp_sceCtrlReadBufferNegative", Napi::Function::New(env, libc_psp_sceCtrlReadBufferNegative_napi));
-    exports.Set("libc_psp_sceCtrlPeekLatch", Napi::Function::New(env, libc_psp_sceCtrlPeekLatch_napi));
-    exports.Set("libc_psp_sceCtrlReadLatch", Napi::Function::New(env, libc_psp_sceCtrlReadLatch_napi));
-    exports.Set("libc_psp_sceCtrlSetIdleCancelThreshold", Napi::Function::New(env, libc_psp_sceCtrlSetIdleCancelThreshold_napi));
-    exports.Set("libc_psp_sceCtrlGetIdleCancelThreshold", Napi::Function::New(env, libc_psp_sceCtrlGetIdleCancelThreshold_napi));
-    exports.Set("libc_psp_sceDisplayGetMode", Napi::Function::New(env, libc_psp_sceDisplayGetMode_napi));
-    exports.Set("libc_psp_sceDisplayGetVcount", Napi::Function::New(env, libc_psp_sceDisplayGetVcount_napi));
-    exports.Set("libc_psp_sceDisplayWaitVblank", Napi::Function::New(env, libc_psp_sceDisplayWaitVblank_napi));
-    exports.Set("libc_psp_sceDisplayWaitVblankCB", Napi::Function::New(env, libc_psp_sceDisplayWaitVblankCB_napi));
-    exports.Set("libc_psp_sceDisplayWaitVblankStart", Napi::Function::New(env, libc_psp_sceDisplayWaitVblankStart_napi));
-    exports.Set("libc_psp_sceDisplayWaitVblankStartCB", Napi::Function::New(env, libc_psp_sceDisplayWaitVblankStartCB_napi));
-    exports.Set("libc_psp_sceDisplayGetAccumulatedHcount", Napi::Function::New(env, libc_psp_sceDisplayGetAccumulatedHcount_napi));
-    exports.Set("libc_psp_sceDisplayGetCurrentHcount", Napi::Function::New(env, libc_psp_sceDisplayGetCurrentHcount_napi));
-    exports.Set("libc_psp_sceDisplayGetFramePerSec", Napi::Function::New(env, libc_psp_sceDisplayGetFramePerSec_napi));
-    exports.Set("libc_psp_sceDisplayIsForeground", Napi::Function::New(env, libc_psp_sceDisplayIsForeground_napi));
-    exports.Set("libc_psp_sceDisplayIsVblank", Napi::Function::New(env, libc_psp_sceDisplayIsVblank_napi));
-    exports.Set("libc_psp_sceGeEdramGetSize", Napi::Function::New(env, libc_psp_sceGeEdramGetSize_napi));
-    exports.Set("libc_psp_sceGeEdramGetAddr", Napi::Function::New(env, libc_psp_sceGeEdramGetAddr_napi));
-    exports.Set("libc_psp_sceGeEdramSetAddrTranslation", Napi::Function::New(env, libc_psp_sceGeEdramSetAddrTranslation_napi));
-    exports.Set("libc_psp_sceGeGetCmd", Napi::Function::New(env, libc_psp_sceGeGetCmd_napi));
-    exports.Set("libc_psp_sceGeGetStack", Napi::Function::New(env, libc_psp_sceGeGetStack_napi));
-    exports.Set("libc_psp_sceGeSaveContext", Napi::Function::New(env, libc_psp_sceGeSaveContext_napi));
-    exports.Set("libc_psp_sceGeRestoreContext", Napi::Function::New(env, libc_psp_sceGeRestoreContext_napi));
-    exports.Set("libc_psp_sceGeListEnQueue", Napi::Function::New(env, libc_psp_sceGeListEnQueue_napi));
-    exports.Set("libc_psp_sceGeListEnQueueHead", Napi::Function::New(env, libc_psp_sceGeListEnQueueHead_napi));
-    exports.Set("libc_psp_sceGeListDeQueue", Napi::Function::New(env, libc_psp_sceGeListDeQueue_napi));
-    exports.Set("libc_psp_sceGeListUpdateStallAddr", Napi::Function::New(env, libc_psp_sceGeListUpdateStallAddr_napi));
-    exports.Set("libc_psp_sceGeBreak", Napi::Function::New(env, libc_psp_sceGeBreak_napi));
-    exports.Set("libc_psp_sceGeContinue", Napi::Function::New(env, libc_psp_sceGeContinue_napi));
-    exports.Set("libc_psp_sceGeSetCallback", Napi::Function::New(env, libc_psp_sceGeSetCallback_napi));
-    exports.Set("libc_psp_sceGeUnsetCallback", Napi::Function::New(env, libc_psp_sceGeUnsetCallback_napi));
-    exports.Set("libc_psp_sceKernelExitGame", Napi::Function::New(env, libc_psp_sceKernelExitGame_napi));
-    exports.Set("libc_psp_sceKernelLoadExec", Napi::Function::New(env, libc_psp_sceKernelLoadExec_napi));
-    exports.Set("libc_psp_sceKernelTotalFreeMemSize", Napi::Function::New(env, libc_psp_sceKernelTotalFreeMemSize_napi));
-    exports.Set("libc_psp_sceKernelMaxFreeMemSize", Napi::Function::New(env, libc_psp_sceKernelMaxFreeMemSize_napi));
-    exports.Set("libc_psp_sceKernelDevkitVersion", Napi::Function::New(env, libc_psp_sceKernelDevkitVersion_napi));
-    exports.Set("libc_psp_sceKernelSetCompiledSdkVersion", Napi::Function::New(env, libc_psp_sceKernelSetCompiledSdkVersion_napi));
-    exports.Set("libc_psp_sceKernelGetCompiledSdkVersion", Napi::Function::New(env, libc_psp_sceKernelGetCompiledSdkVersion_napi));
-    exports.Set("libc_psp_sceKernelLibcTime", Napi::Function::New(env, libc_psp_sceKernelLibcTime_napi));
-    exports.Set("libc_psp_sceKernelLibcClock", Napi::Function::New(env, libc_psp_sceKernelLibcClock_napi));
-    exports.Set("libc_psp_sceKernelLibcGettimeofday", Napi::Function::New(env, libc_psp_sceKernelLibcGettimeofday_napi));
-    exports.Set("libc_psp_sceKernelDcacheWritebackAll", Napi::Function::New(env, libc_psp_sceKernelDcacheWritebackAll_napi));
-    exports.Set("libc_psp_sceKernelDcacheWritebackInvalidateAll", Napi::Function::New(env, libc_psp_sceKernelDcacheWritebackInvalidateAll_napi));
-    exports.Set("libc_psp_sceKernelDcacheWritebackRange", Napi::Function::New(env, libc_psp_sceKernelDcacheWritebackRange_napi));
-    exports.Set("libc_psp_sceKernelDcacheWritebackInvalidateRange", Napi::Function::New(env, libc_psp_sceKernelDcacheWritebackInvalidateRange_napi));
-    exports.Set("libc_psp_sceKernelDcacheInvalidateRange", Napi::Function::New(env, libc_psp_sceKernelDcacheInvalidateRange_napi));
-    exports.Set("libc_psp_sceKernelIcacheInvalidateAll", Napi::Function::New(env, libc_psp_sceKernelIcacheInvalidateAll_napi));
-    exports.Set("libc_psp_sceKernelIcacheInvalidateRange", Napi::Function::New(env, libc_psp_sceKernelIcacheInvalidateRange_napi));
-    exports.Set("libc_psp_sceKernelUtilsMt19937Init", Napi::Function::New(env, libc_psp_sceKernelUtilsMt19937Init_napi));
-    exports.Set("libc_psp_sceKernelUtilsMt19937UInt", Napi::Function::New(env, libc_psp_sceKernelUtilsMt19937UInt_napi));
-    exports.Set("libc_psp_sceKernelUtilsMd5Digest", Napi::Function::New(env, libc_psp_sceKernelUtilsMd5Digest_napi));
-    exports.Set("libc_psp_sceKernelUtilsMd5BlockInit", Napi::Function::New(env, libc_psp_sceKernelUtilsMd5BlockInit_napi));
-    exports.Set("libc_psp_sceKernelUtilsMd5BlockUpdate", Napi::Function::New(env, libc_psp_sceKernelUtilsMd5BlockUpdate_napi));
-    exports.Set("libc_psp_sceKernelUtilsMd5BlockResult", Napi::Function::New(env, libc_psp_sceKernelUtilsMd5BlockResult_napi));
-    exports.Set("libc_psp_sceKernelUtilsSha1Digest", Napi::Function::New(env, libc_psp_sceKernelUtilsSha1Digest_napi));
-    exports.Set("libc_psp_sceKernelUtilsSha1BlockInit", Napi::Function::New(env, libc_psp_sceKernelUtilsSha1BlockInit_napi));
-    exports.Set("libc_psp_sceKernelUtilsSha1BlockUpdate", Napi::Function::New(env, libc_psp_sceKernelUtilsSha1BlockUpdate_napi));
-    exports.Set("libc_psp_sceKernelUtilsSha1BlockResult", Napi::Function::New(env, libc_psp_sceKernelUtilsSha1BlockResult_napi));
-    exports.Set("libc_psp_sceKernelRegisterSubIntrHandler", Napi::Function::New(env, libc_psp_sceKernelRegisterSubIntrHandler_napi));
-    exports.Set("libc_psp_sceKernelReleaseSubIntrHandler", Napi::Function::New(env, libc_psp_sceKernelReleaseSubIntrHandler_napi));
-    exports.Set("libc_psp_sceKernelEnableSubIntr", Napi::Function::New(env, libc_psp_sceKernelEnableSubIntr_napi));
-    exports.Set("libc_psp_sceKernelDisableSubIntr", Napi::Function::New(env, libc_psp_sceKernelDisableSubIntr_napi));
-    exports.Set("libc_psp_sceKernelCpuSuspendIntr", Napi::Function::New(env, libc_psp_sceKernelCpuSuspendIntr_napi));
-    exports.Set("libc_psp_sceKernelCpuResumeIntr", Napi::Function::New(env, libc_psp_sceKernelCpuResumeIntr_napi));
-    exports.Set("libc_psp_sceKernelCpuResumeIntrWithSync", Napi::Function::New(env, libc_psp_sceKernelCpuResumeIntrWithSync_napi));
-    exports.Set("libc_psp_sceKernelIsCpuIntrSuspended", Napi::Function::New(env, libc_psp_sceKernelIsCpuIntrSuspended_napi));
-    exports.Set("libc_psp_sceKernelIsCpuIntrEnable", Napi::Function::New(env, libc_psp_sceKernelIsCpuIntrEnable_napi));
-    exports.Set("libc_psp_sceKernelSelfStopUnloadModule", Napi::Function::New(env, libc_psp_sceKernelSelfStopUnloadModule_napi));
-    exports.Set("libc_psp_sceKernelStopUnloadSelfModule", Napi::Function::New(env, libc_psp_sceKernelStopUnloadSelfModule_napi));
-    exports.Set("libc_psp_sceKernelGetModuleIdList", Napi::Function::New(env, libc_psp_sceKernelGetModuleIdList_napi));
-    exports.Set("libc_psp_sceKernelVolatileMemLock", Napi::Function::New(env, libc_psp_sceKernelVolatileMemLock_napi));
-    exports.Set("libc_psp_sceKernelVolatileMemTryLock", Napi::Function::New(env, libc_psp_sceKernelVolatileMemTryLock_napi));
-    exports.Set("libc_psp_sceKernelVolatileMemUnlock", Napi::Function::New(env, libc_psp_sceKernelVolatileMemUnlock_napi));
-    exports.Set("libc_psp_sceKernelExitThread", Napi::Function::New(env, libc_psp_sceKernelExitThread_napi));
-    exports.Set("libc_psp_sceKernelExitDeleteThread", Napi::Function::New(env, libc_psp_sceKernelExitDeleteThread_napi));
-    exports.Set("libc_psp_sceKernelSuspendDispatchThread", Napi::Function::New(env, libc_psp_sceKernelSuspendDispatchThread_napi));
-    exports.Set("libc_psp_sceKernelResumeDispatchThread", Napi::Function::New(env, libc_psp_sceKernelResumeDispatchThread_napi));
-    exports.Set("libc_psp_sceKernelSleepThread", Napi::Function::New(env, libc_psp_sceKernelSleepThread_napi));
-    exports.Set("libc_psp_sceKernelSleepThreadCB", Napi::Function::New(env, libc_psp_sceKernelSleepThreadCB_napi));
-    exports.Set("libc_psp_sceKernelDelayThread", Napi::Function::New(env, libc_psp_sceKernelDelayThread_napi));
-    exports.Set("libc_psp_sceKernelDelayThreadCB", Napi::Function::New(env, libc_psp_sceKernelDelayThreadCB_napi));
-    exports.Set("libc_psp_sceKernelDelaySysClockThread", Napi::Function::New(env, libc_psp_sceKernelDelaySysClockThread_napi));
-    exports.Set("libc_psp_sceKernelDelaySysClockThreadCB", Napi::Function::New(env, libc_psp_sceKernelDelaySysClockThreadCB_napi));
-    exports.Set("libc_psp_sceKernelChangeCurrentThreadAttr", Napi::Function::New(env, libc_psp_sceKernelChangeCurrentThreadAttr_napi));
-    exports.Set("libc_psp_sceKernelRotateThreadReadyQueue", Napi::Function::New(env, libc_psp_sceKernelRotateThreadReadyQueue_napi));
-    exports.Set("libc_psp_sceKernelGetThreadId", Napi::Function::New(env, libc_psp_sceKernelGetThreadId_napi));
-    exports.Set("libc_psp_sceKernelGetThreadCurrentPriority", Napi::Function::New(env, libc_psp_sceKernelGetThreadCurrentPriority_napi));
-    exports.Set("libc_psp_sceKernelCheckThreadStack", Napi::Function::New(env, libc_psp_sceKernelCheckThreadStack_napi));
-    exports.Set("libc_psp_sceKernelCheckCallback", Napi::Function::New(env, libc_psp_sceKernelCheckCallback_napi));
-    exports.Set("libc_psp_sceKernelReferSystemStatus", Napi::Function::New(env, libc_psp_sceKernelReferSystemStatus_napi));
-    exports.Set("libc_psp_sceKernelCreateFpl", Napi::Function::New(env, libc_psp_sceKernelCreateFpl_napi));
-    exports.Set("libc_psp_sceKernelUSec2SysClock", Napi::Function::New(env, libc_psp_sceKernelUSec2SysClock_napi));
-    exports.Set("libc_psp_sceKernelUSec2SysClockWide", Napi::Function::New(env, libc_psp_sceKernelUSec2SysClockWide_napi));
-    exports.Set("libc_psp_sceKernelSysClock2USec", Napi::Function::New(env, libc_psp_sceKernelSysClock2USec_napi));
-    exports.Set("libc_psp_sceKernelSysClock2USecWide", Napi::Function::New(env, libc_psp_sceKernelSysClock2USecWide_napi));
-    exports.Set("libc_psp_sceKernelGetSystemTime", Napi::Function::New(env, libc_psp_sceKernelGetSystemTime_napi));
-    exports.Set("libc_psp_sceKernelGetSystemTimeWide", Napi::Function::New(env, libc_psp_sceKernelGetSystemTimeWide_napi));
-    exports.Set("libc_psp_sceKernelGetSystemTimeLow", Napi::Function::New(env, libc_psp_sceKernelGetSystemTimeLow_napi));
-    exports.Set("libc_psp_sceKernelReferThreadProfiler", Napi::Function::New(env, libc_psp_sceKernelReferThreadProfiler_napi));
-    exports.Set("libc_psp_sceKernelReferGlobalProfiler", Napi::Function::New(env, libc_psp_sceKernelReferGlobalProfiler_napi));
-    exports.Set("libc_psp_sceUsbStart", Napi::Function::New(env, libc_psp_sceUsbStart_napi));
-    exports.Set("libc_psp_sceUsbStop", Napi::Function::New(env, libc_psp_sceUsbStop_napi));
-    exports.Set("libc_psp_sceUsbActivate", Napi::Function::New(env, libc_psp_sceUsbActivate_napi));
-    exports.Set("libc_psp_sceUsbDeactivate", Napi::Function::New(env, libc_psp_sceUsbDeactivate_napi));
-    exports.Set("libc_psp_sceUsbGetState", Napi::Function::New(env, libc_psp_sceUsbGetState_napi));
-    exports.Set("libc_psp_sceUsbGetDrvState", Napi::Function::New(env, libc_psp_sceUsbGetDrvState_napi));
-    exports.Set("libc_psp_sceUsbCamSetupStill", Napi::Function::New(env, libc_psp_sceUsbCamSetupStill_napi));
-    exports.Set("libc_psp_sceUsbCamSetupStillEx", Napi::Function::New(env, libc_psp_sceUsbCamSetupStillEx_napi));
-    exports.Set("libc_psp_sceUsbCamStillInputBlocking", Napi::Function::New(env, libc_psp_sceUsbCamStillInputBlocking_napi));
-    exports.Set("libc_psp_sceUsbCamStillInput", Napi::Function::New(env, libc_psp_sceUsbCamStillInput_napi));
-    exports.Set("libc_psp_sceUsbCamStillWaitInputEnd", Napi::Function::New(env, libc_psp_sceUsbCamStillWaitInputEnd_napi));
-    exports.Set("libc_psp_sceUsbCamStillPollInputEnd", Napi::Function::New(env, libc_psp_sceUsbCamStillPollInputEnd_napi));
-    exports.Set("libc_psp_sceUsbCamStillCancelInput", Napi::Function::New(env, libc_psp_sceUsbCamStillCancelInput_napi));
-    exports.Set("libc_psp_sceUsbCamStillGetInputLength", Napi::Function::New(env, libc_psp_sceUsbCamStillGetInputLength_napi));
-    exports.Set("libc_psp_sceUsbCamSetupVideo", Napi::Function::New(env, libc_psp_sceUsbCamSetupVideo_napi));
-    exports.Set("libc_psp_sceUsbCamSetupVideoEx", Napi::Function::New(env, libc_psp_sceUsbCamSetupVideoEx_napi));
-    exports.Set("libc_psp_sceUsbCamStartVideo", Napi::Function::New(env, libc_psp_sceUsbCamStartVideo_napi));
-    exports.Set("libc_psp_sceUsbCamStopVideo", Napi::Function::New(env, libc_psp_sceUsbCamStopVideo_napi));
-    exports.Set("libc_psp_sceUsbCamReadVideoFrameBlocking", Napi::Function::New(env, libc_psp_sceUsbCamReadVideoFrameBlocking_napi));
-    exports.Set("libc_psp_sceUsbCamReadVideoFrame", Napi::Function::New(env, libc_psp_sceUsbCamReadVideoFrame_napi));
-    exports.Set("libc_psp_sceUsbCamWaitReadVideoFrameEnd", Napi::Function::New(env, libc_psp_sceUsbCamWaitReadVideoFrameEnd_napi));
-    exports.Set("libc_psp_sceUsbCamPollReadVideoFrameEnd", Napi::Function::New(env, libc_psp_sceUsbCamPollReadVideoFrameEnd_napi));
-    exports.Set("libc_psp_sceUsbCamGetReadVideoFrameSize", Napi::Function::New(env, libc_psp_sceUsbCamGetReadVideoFrameSize_napi));
-    exports.Set("libc_psp_sceUsbCamSetSaturation", Napi::Function::New(env, libc_psp_sceUsbCamSetSaturation_napi));
-    exports.Set("libc_psp_sceUsbCamSetBrightness", Napi::Function::New(env, libc_psp_sceUsbCamSetBrightness_napi));
-    exports.Set("libc_psp_sceUsbCamSetContrast", Napi::Function::New(env, libc_psp_sceUsbCamSetContrast_napi));
-    exports.Set("libc_psp_sceUsbCamSetSharpness", Napi::Function::New(env, libc_psp_sceUsbCamSetSharpness_napi));
-    exports.Set("libc_psp_sceUsbCamSetReverseMode", Napi::Function::New(env, libc_psp_sceUsbCamSetReverseMode_napi));
-    exports.Set("libc_psp_sceUsbCamSetZoom", Napi::Function::New(env, libc_psp_sceUsbCamSetZoom_napi));
-    exports.Set("libc_psp_sceUsbCamGetSaturation", Napi::Function::New(env, libc_psp_sceUsbCamGetSaturation_napi));
-    exports.Set("libc_psp_sceUsbCamGetBrightness", Napi::Function::New(env, libc_psp_sceUsbCamGetBrightness_napi));
-    exports.Set("libc_psp_sceUsbCamGetContrast", Napi::Function::New(env, libc_psp_sceUsbCamGetContrast_napi));
-    exports.Set("libc_psp_sceUsbCamGetSharpness", Napi::Function::New(env, libc_psp_sceUsbCamGetSharpness_napi));
-    exports.Set("libc_psp_sceUsbCamGetImageEffectMode", Napi::Function::New(env, libc_psp_sceUsbCamGetImageEffectMode_napi));
-    exports.Set("libc_psp_sceUsbCamGetEvLevel", Napi::Function::New(env, libc_psp_sceUsbCamGetEvLevel_napi));
-    exports.Set("libc_psp_sceUsbCamGetReverseMode", Napi::Function::New(env, libc_psp_sceUsbCamGetReverseMode_napi));
-    exports.Set("libc_psp_sceUsbCamGetZoom", Napi::Function::New(env, libc_psp_sceUsbCamGetZoom_napi));
-    exports.Set("libc_psp_sceUsbCamAutoImageReverseSW", Napi::Function::New(env, libc_psp_sceUsbCamAutoImageReverseSW_napi));
-    exports.Set("libc_psp_sceUsbCamGetAutoImageReverseState", Napi::Function::New(env, libc_psp_sceUsbCamGetAutoImageReverseState_napi));
-    exports.Set("libc_psp_sceUsbCamGetLensDirection", Napi::Function::New(env, libc_psp_sceUsbCamGetLensDirection_napi));
-    exports.Set("libc_psp_sceUsbstorBootUnregisterNotify", Napi::Function::New(env, libc_psp_sceUsbstorBootUnregisterNotify_napi));
-    exports.Set("libc_psp_sceUsbstorBootSetCapacity", Napi::Function::New(env, libc_psp_sceUsbstorBootSetCapacity_napi));
-    exports.Set("libc_psp_scePowerUnregisterCallback", Napi::Function::New(env, libc_psp_scePowerUnregisterCallback_napi));
-    exports.Set("libc_psp_scePowerIsPowerOnline", Napi::Function::New(env, libc_psp_scePowerIsPowerOnline_napi));
-    exports.Set("libc_psp_scePowerIsBatteryExist", Napi::Function::New(env, libc_psp_scePowerIsBatteryExist_napi));
-    exports.Set("libc_psp_scePowerIsBatteryCharging", Napi::Function::New(env, libc_psp_scePowerIsBatteryCharging_napi));
-    exports.Set("libc_psp_scePowerGetBatteryChargingStatus", Napi::Function::New(env, libc_psp_scePowerGetBatteryChargingStatus_napi));
-    exports.Set("libc_psp_scePowerIsLowBattery", Napi::Function::New(env, libc_psp_scePowerIsLowBattery_napi));
-    exports.Set("libc_psp_scePowerGetBatteryLifePercent", Napi::Function::New(env, libc_psp_scePowerGetBatteryLifePercent_napi));
-    exports.Set("libc_psp_scePowerGetBatteryLifeTime", Napi::Function::New(env, libc_psp_scePowerGetBatteryLifeTime_napi));
-    exports.Set("libc_psp_scePowerGetBatteryTemp", Napi::Function::New(env, libc_psp_scePowerGetBatteryTemp_napi));
-    exports.Set("libc_psp_scePowerGetBatteryElec", Napi::Function::New(env, libc_psp_scePowerGetBatteryElec_napi));
-    exports.Set("libc_psp_scePowerGetBatteryVolt", Napi::Function::New(env, libc_psp_scePowerGetBatteryVolt_napi));
-    exports.Set("libc_psp_scePowerSetCpuClockFrequency", Napi::Function::New(env, libc_psp_scePowerSetCpuClockFrequency_napi));
-    exports.Set("libc_psp_scePowerSetBusClockFrequency", Napi::Function::New(env, libc_psp_scePowerSetBusClockFrequency_napi));
-    exports.Set("libc_psp_scePowerGetCpuClockFrequency", Napi::Function::New(env, libc_psp_scePowerGetCpuClockFrequency_napi));
-    exports.Set("libc_psp_scePowerGetCpuClockFrequencyInt", Napi::Function::New(env, libc_psp_scePowerGetCpuClockFrequencyInt_napi));
-    exports.Set("libc_psp_scePowerGetCpuClockFrequencyFloat", Napi::Function::New(env, libc_psp_scePowerGetCpuClockFrequencyFloat_napi));
-    exports.Set("libc_psp_scePowerGetBusClockFrequency", Napi::Function::New(env, libc_psp_scePowerGetBusClockFrequency_napi));
-    exports.Set("libc_psp_scePowerGetBusClockFrequencyInt", Napi::Function::New(env, libc_psp_scePowerGetBusClockFrequencyInt_napi));
-    exports.Set("libc_psp_scePowerGetBusClockFrequencyFloat", Napi::Function::New(env, libc_psp_scePowerGetBusClockFrequencyFloat_napi));
-    exports.Set("libc_psp_scePowerSetClockFrequency", Napi::Function::New(env, libc_psp_scePowerSetClockFrequency_napi));
-    exports.Set("libc_psp_scePowerLock", Napi::Function::New(env, libc_psp_scePowerLock_napi));
-    exports.Set("libc_psp_scePowerUnlock", Napi::Function::New(env, libc_psp_scePowerUnlock_napi));
-    exports.Set("libc_psp_scePowerGetIdleTimer", Napi::Function::New(env, libc_psp_scePowerGetIdleTimer_napi));
-    exports.Set("libc_psp_scePowerIdleTimerEnable", Napi::Function::New(env, libc_psp_scePowerIdleTimerEnable_napi));
-    exports.Set("libc_psp_scePowerIdleTimerDisable", Napi::Function::New(env, libc_psp_scePowerIdleTimerDisable_napi));
-    exports.Set("libc_psp_scePowerRequestStandby", Napi::Function::New(env, libc_psp_scePowerRequestStandby_napi));
-    exports.Set("libc_psp_scePowerRequestSuspend", Napi::Function::New(env, libc_psp_scePowerRequestSuspend_napi));
-    exports.Set("libc_psp_sceWlanDevIsPowerOn", Napi::Function::New(env, libc_psp_sceWlanDevIsPowerOn_napi));
-    exports.Set("libc_psp_sceWlanGetSwitchState", Napi::Function::New(env, libc_psp_sceWlanGetSwitchState_napi));
-    exports.Set("libc_psp_sceWlanGetEtherAddr", Napi::Function::New(env, libc_psp_sceWlanGetEtherAddr_napi));
-    exports.Set("libc_psp_sceWlanDevAttach", Napi::Function::New(env, libc_psp_sceWlanDevAttach_napi));
-    exports.Set("libc_psp_sceWlanDevDetach", Napi::Function::New(env, libc_psp_sceWlanDevDetach_napi));
-    exports.Set("libc_psp_sceRtcGetTickResolution", Napi::Function::New(env, libc_psp_sceRtcGetTickResolution_napi));
-    exports.Set("libc_psp_sceRtcGetCurrentTick", Napi::Function::New(env, libc_psp_sceRtcGetCurrentTick_napi));
-    exports.Set("libc_psp_sceRtcGetCurrentClock", Napi::Function::New(env, libc_psp_sceRtcGetCurrentClock_napi));
-    exports.Set("libc_psp_sceRtcGetCurrentClockLocalTime", Napi::Function::New(env, libc_psp_sceRtcGetCurrentClockLocalTime_napi));
-    exports.Set("libc_psp_sceRtcConvertUtcToLocalTime", Napi::Function::New(env, libc_psp_sceRtcConvertUtcToLocalTime_napi));
-    exports.Set("libc_psp_sceRtcConvertLocalTimeToUTC", Napi::Function::New(env, libc_psp_sceRtcConvertLocalTimeToUTC_napi));
-    exports.Set("libc_psp_sceRtcIsLeapYear", Napi::Function::New(env, libc_psp_sceRtcIsLeapYear_napi));
-    exports.Set("libc_psp_sceRtcGetDaysInMonth", Napi::Function::New(env, libc_psp_sceRtcGetDaysInMonth_napi));
-    exports.Set("libc_psp_sceRtcGetDayOfWeek", Napi::Function::New(env, libc_psp_sceRtcGetDayOfWeek_napi));
-    exports.Set("libc_psp_sceRtcCheckValid", Napi::Function::New(env, libc_psp_sceRtcCheckValid_napi));
-    exports.Set("libc_psp_sceRtcSetTick", Napi::Function::New(env, libc_psp_sceRtcSetTick_napi));
-    exports.Set("libc_psp_sceRtcGetTick", Napi::Function::New(env, libc_psp_sceRtcGetTick_napi));
-    exports.Set("libc_psp_sceRtcCompareTick", Napi::Function::New(env, libc_psp_sceRtcCompareTick_napi));
-    exports.Set("libc_psp_sceRtcTickAddTicks", Napi::Function::New(env, libc_psp_sceRtcTickAddTicks_napi));
-    exports.Set("libc_psp_sceRtcTickAddMicroseconds", Napi::Function::New(env, libc_psp_sceRtcTickAddMicroseconds_napi));
-    exports.Set("libc_psp_sceRtcTickAddSeconds", Napi::Function::New(env, libc_psp_sceRtcTickAddSeconds_napi));
-    exports.Set("libc_psp_sceRtcTickAddMinutes", Napi::Function::New(env, libc_psp_sceRtcTickAddMinutes_napi));
-    exports.Set("libc_psp_sceRtcTickAddHours", Napi::Function::New(env, libc_psp_sceRtcTickAddHours_napi));
-    exports.Set("libc_psp_sceRtcTickAddDays", Napi::Function::New(env, libc_psp_sceRtcTickAddDays_napi));
-    exports.Set("libc_psp_sceRtcTickAddWeeks", Napi::Function::New(env, libc_psp_sceRtcTickAddWeeks_napi));
-    exports.Set("libc_psp_sceRtcTickAddMonths", Napi::Function::New(env, libc_psp_sceRtcTickAddMonths_napi));
-    exports.Set("libc_psp_sceRtcTickAddYears", Napi::Function::New(env, libc_psp_sceRtcTickAddYears_napi));
-    exports.Set("libc_psp_sceRtcSetTimeT", Napi::Function::New(env, libc_psp_sceRtcSetTimeT_napi));
-    exports.Set("libc_psp_sceRtcGetTimeT", Napi::Function::New(env, libc_psp_sceRtcGetTimeT_napi));
-    exports.Set("libc_psp_sceRtcSetTime64T", Napi::Function::New(env, libc_psp_sceRtcSetTime64T_napi));
-    exports.Set("libc_psp_sceRtcGetTime64T", Napi::Function::New(env, libc_psp_sceRtcGetTime64T_napi));
-    exports.Set("libc_psp_sceRtcSetDosTime", Napi::Function::New(env, libc_psp_sceRtcSetDosTime_napi));
-    exports.Set("libc_psp_sceRtcGetDosTime", Napi::Function::New(env, libc_psp_sceRtcGetDosTime_napi));
-    exports.Set("libc_psp_sceRtcSetWin32FileTime", Napi::Function::New(env, libc_psp_sceRtcSetWin32FileTime_napi));
-    exports.Set("libc_psp_sceRtcGetWin32FileTime", Napi::Function::New(env, libc_psp_sceRtcGetWin32FileTime_napi));
-    exports.Set("libc_psp_sceRtcParseDateTime", Napi::Function::New(env, libc_psp_sceRtcParseDateTime_napi));
-    exports.Set("libc_psp_sceRtcFormatRFC3339", Napi::Function::New(env, libc_psp_sceRtcFormatRFC3339_napi));
-    exports.Set("libc_psp_sceRtcFormatRFC3339LocalTime", Napi::Function::New(env, libc_psp_sceRtcFormatRFC3339LocalTime_napi));
-    exports.Set("libc_psp_sceRtcParseRFC3339", Napi::Function::New(env, libc_psp_sceRtcParseRFC3339_napi));
-    exports.Set("libc_psp_sceRtcFormatRFC2822", Napi::Function::New(env, libc_psp_sceRtcFormatRFC2822_napi));
-    exports.Set("libc_psp_sceRtcFormatRFC2822LocalTime", Napi::Function::New(env, libc_psp_sceRtcFormatRFC2822LocalTime_napi));
-    exports.Set("libc_psp_sceIoRemove", Napi::Function::New(env, libc_psp_sceIoRemove_napi));
-    exports.Set("libc_psp_sceIoMkdir", Napi::Function::New(env, libc_psp_sceIoMkdir_napi));
-    exports.Set("libc_psp_sceIoRmdir", Napi::Function::New(env, libc_psp_sceIoRmdir_napi));
-    exports.Set("libc_psp_sceIoChdir", Napi::Function::New(env, libc_psp_sceIoChdir_napi));
-    exports.Set("libc_psp_sceIoRename", Napi::Function::New(env, libc_psp_sceIoRename_napi));
-    exports.Set("libc_psp_sceIoDevctl", Napi::Function::New(env, libc_psp_sceIoDevctl_napi));
-    exports.Set("libc_psp_sceIoUnassign", Napi::Function::New(env, libc_psp_sceIoUnassign_napi));
-    exports.Set("libc_psp_sceIoGetstat", Napi::Function::New(env, libc_psp_sceIoGetstat_napi));
-    exports.Set("libc_psp_sceIoChstat", Napi::Function::New(env, libc_psp_sceIoChstat_napi));
-    exports.Set("libc_psp_sceIoSync", Napi::Function::New(env, libc_psp_sceIoSync_napi));
-    exports.Set("libc_psp_sceJpegInitMJpeg", Napi::Function::New(env, libc_psp_sceJpegInitMJpeg_napi));
-    exports.Set("libc_psp_sceJpegFinishMJpeg", Napi::Function::New(env, libc_psp_sceJpegFinishMJpeg_napi));
-    exports.Set("libc_psp_sceJpegCreateMJpeg", Napi::Function::New(env, libc_psp_sceJpegCreateMJpeg_napi));
-    exports.Set("libc_psp_sceJpegDeleteMJpeg", Napi::Function::New(env, libc_psp_sceJpegDeleteMJpeg_napi));
-    exports.Set("libc_psp_sceJpegDecodeMJpeg", Napi::Function::New(env, libc_psp_sceJpegDecodeMJpeg_napi));
-    exports.Set("libc_psp_sceUmdCheckMedium", Napi::Function::New(env, libc_psp_sceUmdCheckMedium_napi));
-    exports.Set("libc_psp_sceUmdGetDiscInfo", Napi::Function::New(env, libc_psp_sceUmdGetDiscInfo_napi));
-    exports.Set("libc_psp_sceUmdActivate", Napi::Function::New(env, libc_psp_sceUmdActivate_napi));
-    exports.Set("libc_psp_sceUmdDeactivate", Napi::Function::New(env, libc_psp_sceUmdDeactivate_napi));
-    exports.Set("libc_psp_sceUmdWaitDriveStat", Napi::Function::New(env, libc_psp_sceUmdWaitDriveStat_napi));
-    exports.Set("libc_psp_sceUmdWaitDriveStatWithTimer", Napi::Function::New(env, libc_psp_sceUmdWaitDriveStatWithTimer_napi));
-    exports.Set("libc_psp_sceUmdWaitDriveStatCB", Napi::Function::New(env, libc_psp_sceUmdWaitDriveStatCB_napi));
-    exports.Set("libc_psp_sceUmdCancelWaitDriveStat", Napi::Function::New(env, libc_psp_sceUmdCancelWaitDriveStat_napi));
-    exports.Set("libc_psp_sceUmdGetDriveStat", Napi::Function::New(env, libc_psp_sceUmdGetDriveStat_napi));
-    exports.Set("libc_psp_sceUmdGetErrorStat", Napi::Function::New(env, libc_psp_sceUmdGetErrorStat_napi));
-    exports.Set("libc_psp_sceUmdRegisterUMDCallBack", Napi::Function::New(env, libc_psp_sceUmdRegisterUMDCallBack_napi));
-    exports.Set("libc_psp_sceUmdUnRegisterUMDCallBack", Napi::Function::New(env, libc_psp_sceUmdUnRegisterUMDCallBack_napi));
-    exports.Set("libc_psp_sceUmdReplacePermit", Napi::Function::New(env, libc_psp_sceUmdReplacePermit_napi));
-    exports.Set("libc_psp_sceUmdReplaceProhibit", Napi::Function::New(env, libc_psp_sceUmdReplaceProhibit_napi));
-    exports.Set("libc_psp_sceMpegInit", Napi::Function::New(env, libc_psp_sceMpegInit_napi));
-    exports.Set("libc_psp_sceMpegFinish", Napi::Function::New(env, libc_psp_sceMpegFinish_napi));
-    exports.Set("libc_psp_sceMpegRingbufferQueryMemSize", Napi::Function::New(env, libc_psp_sceMpegRingbufferQueryMemSize_napi));
-    exports.Set("libc_psp_sceMpegRingbufferConstruct", Napi::Function::New(env, libc_psp_sceMpegRingbufferConstruct_napi));
-    exports.Set("libc_psp_sceMpegRingbufferDestruct", Napi::Function::New(env, libc_psp_sceMpegRingbufferDestruct_napi));
-    exports.Set("libc_psp_sceMpegRingbufferAvailableSize", Napi::Function::New(env, libc_psp_sceMpegRingbufferAvailableSize_napi));
-    exports.Set("libc_psp_sceMpegRingbufferPut", Napi::Function::New(env, libc_psp_sceMpegRingbufferPut_napi));
-    exports.Set("libc_psp_sceMpegQueryMemSize", Napi::Function::New(env, libc_psp_sceMpegQueryMemSize_napi));
-    exports.Set("libc_psp_sceMpegQueryStreamSize", Napi::Function::New(env, libc_psp_sceMpegQueryStreamSize_napi));
-    exports.Set("libc_psp_sceMpegBaseYCrCbCopyVme", Napi::Function::New(env, libc_psp_sceMpegBaseYCrCbCopyVme_napi));
-    exports.Set("libc_psp_sceMpegBaseCscInit", Napi::Function::New(env, libc_psp_sceMpegBaseCscInit_napi));
-    exports.Set("libc_psp_sceMpegBaseCscVme", Napi::Function::New(env, libc_psp_sceMpegBaseCscVme_napi));
-    exports.Set("libc_psp_sceMpegbaseBea18f91", Napi::Function::New(env, libc_psp_sceMpegbaseBea18f91_napi));
-    exports.Set("libc_psp_sceHprmPeekCurrentKey", Napi::Function::New(env, libc_psp_sceHprmPeekCurrentKey_napi));
-    exports.Set("libc_psp_sceHprmPeekLatch", Napi::Function::New(env, libc_psp_sceHprmPeekLatch_napi));
-    exports.Set("libc_psp_sceHprmReadLatch", Napi::Function::New(env, libc_psp_sceHprmReadLatch_napi));
-    exports.Set("libc_psp_sceHprmIsHeadphoneExist", Napi::Function::New(env, libc_psp_sceHprmIsHeadphoneExist_napi));
-    exports.Set("libc_psp_sceHprmIsRemoteExist", Napi::Function::New(env, libc_psp_sceHprmIsRemoteExist_napi));
-    exports.Set("libc_psp_sceHprmIsMicrophoneExist", Napi::Function::New(env, libc_psp_sceHprmIsMicrophoneExist_napi));
-    exports.Set("libc_psp_sceGuDepthBuffer", Napi::Function::New(env, libc_psp_sceGuDepthBuffer_napi));
-    exports.Set("libc_psp_sceGuDispBuffer", Napi::Function::New(env, libc_psp_sceGuDispBuffer_napi));
-    exports.Set("libc_psp_sceGuDisplay", Napi::Function::New(env, libc_psp_sceGuDisplay_napi));
-    exports.Set("libc_psp_sceGuDepthMask", Napi::Function::New(env, libc_psp_sceGuDepthMask_napi));
-    exports.Set("libc_psp_sceGuDepthOffset", Napi::Function::New(env, libc_psp_sceGuDepthOffset_napi));
-    exports.Set("libc_psp_sceGuDepthRange", Napi::Function::New(env, libc_psp_sceGuDepthRange_napi));
-    exports.Set("libc_psp_sceGuFog", Napi::Function::New(env, libc_psp_sceGuFog_napi));
-    exports.Set("libc_psp_sceGuInit", Napi::Function::New(env, libc_psp_sceGuInit_napi));
-    exports.Set("libc_psp_sceGuTerm", Napi::Function::New(env, libc_psp_sceGuTerm_napi));
-    exports.Set("libc_psp_sceGuBreak", Napi::Function::New(env, libc_psp_sceGuBreak_napi));
-    exports.Set("libc_psp_sceGuContinue", Napi::Function::New(env, libc_psp_sceGuContinue_napi));
-    exports.Set("libc_psp_sceGuGetMemory", Napi::Function::New(env, libc_psp_sceGuGetMemory_napi));
-    exports.Set("libc_psp_sceGuFinish", Napi::Function::New(env, libc_psp_sceGuFinish_napi));
-    exports.Set("libc_psp_sceGuFinishId", Napi::Function::New(env, libc_psp_sceGuFinishId_napi));
-    exports.Set("libc_psp_sceGuCallList", Napi::Function::New(env, libc_psp_sceGuCallList_napi));
-    exports.Set("libc_psp_sceGuCallMode", Napi::Function::New(env, libc_psp_sceGuCallMode_napi));
-    exports.Set("libc_psp_sceGuCheckList", Napi::Function::New(env, libc_psp_sceGuCheckList_napi));
-    exports.Set("libc_psp_sceGuSwapBuffers", Napi::Function::New(env, libc_psp_sceGuSwapBuffers_napi));
-    exports.Set("libc_psp_sceGuBeginObject", Napi::Function::New(env, libc_psp_sceGuBeginObject_napi));
-    exports.Set("libc_psp_sceGuEndObject", Napi::Function::New(env, libc_psp_sceGuEndObject_napi));
-    exports.Set("libc_psp_sceGuSetAllStatus", Napi::Function::New(env, libc_psp_sceGuSetAllStatus_napi));
-    exports.Set("libc_psp_sceGuGetAllStatus", Napi::Function::New(env, libc_psp_sceGuGetAllStatus_napi));
-    exports.Set("libc_psp_sceGuLightAtt", Napi::Function::New(env, libc_psp_sceGuLightAtt_napi));
-    exports.Set("libc_psp_sceGuLightColor", Napi::Function::New(env, libc_psp_sceGuLightColor_napi));
-    exports.Set("libc_psp_sceGuClear", Napi::Function::New(env, libc_psp_sceGuClear_napi));
-    exports.Set("libc_psp_sceGuClearColor", Napi::Function::New(env, libc_psp_sceGuClearColor_napi));
-    exports.Set("libc_psp_sceGuClearDepth", Napi::Function::New(env, libc_psp_sceGuClearDepth_napi));
-    exports.Set("libc_psp_sceGuClearStencil", Napi::Function::New(env, libc_psp_sceGuClearStencil_napi));
-    exports.Set("libc_psp_sceGuPixelMask", Napi::Function::New(env, libc_psp_sceGuPixelMask_napi));
-    exports.Set("libc_psp_sceGuColor", Napi::Function::New(env, libc_psp_sceGuColor_napi));
-    exports.Set("libc_psp_sceGuColorMaterial", Napi::Function::New(env, libc_psp_sceGuColorMaterial_napi));
-    exports.Set("libc_psp_sceGuAmbient", Napi::Function::New(env, libc_psp_sceGuAmbient_napi));
-    exports.Set("libc_psp_sceGuAmbientColor", Napi::Function::New(env, libc_psp_sceGuAmbientColor_napi));
-    exports.Set("libc_psp_sceGuMaterial", Napi::Function::New(env, libc_psp_sceGuMaterial_napi));
-    exports.Set("libc_psp_sceGuModelColor", Napi::Function::New(env, libc_psp_sceGuModelColor_napi));
-    exports.Set("libc_psp_sceGuSpecular", Napi::Function::New(env, libc_psp_sceGuSpecular_napi));
-    exports.Set("libc_psp_sceGuTexEnvColor", Napi::Function::New(env, libc_psp_sceGuTexEnvColor_napi));
-    exports.Set("libc_psp_sceGuTexFlush", Napi::Function::New(env, libc_psp_sceGuTexFlush_napi));
-    exports.Set("libc_psp_sceGuTexOffset", Napi::Function::New(env, libc_psp_sceGuTexOffset_napi));
-    exports.Set("libc_psp_sceGuTexScale", Napi::Function::New(env, libc_psp_sceGuTexScale_napi));
-    exports.Set("libc_psp_sceGuTexSlope", Napi::Function::New(env, libc_psp_sceGuTexSlope_napi));
-    exports.Set("libc_psp_sceGuTexSync", Napi::Function::New(env, libc_psp_sceGuTexSync_napi));
-    exports.Set("libc_psp_sceGuClutLoad", Napi::Function::New(env, libc_psp_sceGuClutLoad_napi));
-    exports.Set("libc_psp_sceGuOffset", Napi::Function::New(env, libc_psp_sceGuOffset_napi));
-    exports.Set("libc_psp_sceGuScissor", Napi::Function::New(env, libc_psp_sceGuScissor_napi));
-    exports.Set("libc_psp_sceGuViewport", Napi::Function::New(env, libc_psp_sceGuViewport_napi));
-    exports.Set("libc_psp_sceGuDrawBezier", Napi::Function::New(env, libc_psp_sceGuDrawBezier_napi));
-    exports.Set("libc_psp_sceGuPatchDivide", Napi::Function::New(env, libc_psp_sceGuPatchDivide_napi));
-    exports.Set("libc_psp_sceGuPatchFrontFace", Napi::Function::New(env, libc_psp_sceGuPatchFrontFace_napi));
-    exports.Set("libc_psp_sceGuDrawSpline", Napi::Function::New(env, libc_psp_sceGuDrawSpline_napi));
-    exports.Set("libc_psp_sceGuMorphWeight", Napi::Function::New(env, libc_psp_sceGuMorphWeight_napi));
-    exports.Set("libc_psp_sceGumDrawBezier", Napi::Function::New(env, libc_psp_sceGumDrawBezier_napi));
-    exports.Set("libc_psp_sceGumDrawSpline", Napi::Function::New(env, libc_psp_sceGumDrawSpline_napi));
-    exports.Set("libc_psp_sceGumFastInverse", Napi::Function::New(env, libc_psp_sceGumFastInverse_napi));
-    exports.Set("libc_psp_sceGumFullInverse", Napi::Function::New(env, libc_psp_sceGumFullInverse_napi));
-    exports.Set("libc_psp_sceGumLoadIdentity", Napi::Function::New(env, libc_psp_sceGumLoadIdentity_napi));
-    exports.Set("libc_psp_sceGumOrtho", Napi::Function::New(env, libc_psp_sceGumOrtho_napi));
-    exports.Set("libc_psp_sceGumPerspective", Napi::Function::New(env, libc_psp_sceGumPerspective_napi));
-    exports.Set("libc_psp_sceGumPopMatrix", Napi::Function::New(env, libc_psp_sceGumPopMatrix_napi));
-    exports.Set("libc_psp_sceGumPushMatrix", Napi::Function::New(env, libc_psp_sceGumPushMatrix_napi));
-    exports.Set("libc_psp_sceGumRotateX", Napi::Function::New(env, libc_psp_sceGumRotateX_napi));
-    exports.Set("libc_psp_sceGumRotateY", Napi::Function::New(env, libc_psp_sceGumRotateY_napi));
-    exports.Set("libc_psp_sceGumRotateZ", Napi::Function::New(env, libc_psp_sceGumRotateZ_napi));
-    exports.Set("libc_psp_sceGumUpdateMatrix", Napi::Function::New(env, libc_psp_sceGumUpdateMatrix_napi));
-    exports.Set("libc_psp_sceMp3ReserveMp3Handle", Napi::Function::New(env, libc_psp_sceMp3ReserveMp3Handle_napi));
-    exports.Set("libc_psp_sceMp3InitResource", Napi::Function::New(env, libc_psp_sceMp3InitResource_napi));
-    exports.Set("libc_psp_sceMp3TermResource", Napi::Function::New(env, libc_psp_sceMp3TermResource_napi));
-    exports.Set("libc_psp_sceRegOpenRegistry", Napi::Function::New(env, libc_psp_sceRegOpenRegistry_napi));
-    exports.Set("libc_psp_sceRegRemoveRegistry", Napi::Function::New(env, libc_psp_sceRegRemoveRegistry_napi));
-    exports.Set("libc_psp_sceOpenPSIDGetOpenPSID", Napi::Function::New(env, libc_psp_sceOpenPSIDGetOpenPSID_napi));
-    exports.Set("libc_psp_sceUtilityMsgDialogInitStart", Napi::Function::New(env, libc_psp_sceUtilityMsgDialogInitStart_napi));
-    exports.Set("libc_psp_sceUtilityMsgDialogShutdownStart", Napi::Function::New(env, libc_psp_sceUtilityMsgDialogShutdownStart_napi));
-    exports.Set("libc_psp_sceUtilityMsgDialogGetStatus", Napi::Function::New(env, libc_psp_sceUtilityMsgDialogGetStatus_napi));
-    exports.Set("libc_psp_sceUtilityMsgDialogUpdate", Napi::Function::New(env, libc_psp_sceUtilityMsgDialogUpdate_napi));
-    exports.Set("libc_psp_sceUtilityMsgDialogAbort", Napi::Function::New(env, libc_psp_sceUtilityMsgDialogAbort_napi));
-    exports.Set("libc_psp_sceUtilityNetconfInitStart", Napi::Function::New(env, libc_psp_sceUtilityNetconfInitStart_napi));
-    exports.Set("libc_psp_sceUtilityNetconfShutdownStart", Napi::Function::New(env, libc_psp_sceUtilityNetconfShutdownStart_napi));
-    exports.Set("libc_psp_sceUtilityNetconfUpdate", Napi::Function::New(env, libc_psp_sceUtilityNetconfUpdate_napi));
-    exports.Set("libc_psp_sceUtilityNetconfGetStatus", Napi::Function::New(env, libc_psp_sceUtilityNetconfGetStatus_napi));
-    exports.Set("libc_psp_sceUtilityCheckNetParam", Napi::Function::New(env, libc_psp_sceUtilityCheckNetParam_napi));
-    exports.Set("libc_psp_sceUtilitySavedataInitStart", Napi::Function::New(env, libc_psp_sceUtilitySavedataInitStart_napi));
-    exports.Set("libc_psp_sceUtilitySavedataGetStatus", Napi::Function::New(env, libc_psp_sceUtilitySavedataGetStatus_napi));
-    exports.Set("libc_psp_sceUtilitySavedataShutdownStart", Napi::Function::New(env, libc_psp_sceUtilitySavedataShutdownStart_napi));
-    exports.Set("libc_psp_sceUtilitySavedataUpdate", Napi::Function::New(env, libc_psp_sceUtilitySavedataUpdate_napi));
-    exports.Set("libc_psp_sceUtilityGameSharingInitStart", Napi::Function::New(env, libc_psp_sceUtilityGameSharingInitStart_napi));
-    exports.Set("libc_psp_sceUtilityGameSharingShutdownStart", Napi::Function::New(env, libc_psp_sceUtilityGameSharingShutdownStart_napi));
-    exports.Set("libc_psp_sceUtilityGameSharingGetStatus", Napi::Function::New(env, libc_psp_sceUtilityGameSharingGetStatus_napi));
-    exports.Set("libc_psp_sceUtilityGameSharingUpdate", Napi::Function::New(env, libc_psp_sceUtilityGameSharingUpdate_napi));
-    exports.Set("libc_psp_sceUtilityHtmlViewerInitStart", Napi::Function::New(env, libc_psp_sceUtilityHtmlViewerInitStart_napi));
-    exports.Set("libc_psp_sceUtilityHtmlViewerShutdownStart", Napi::Function::New(env, libc_psp_sceUtilityHtmlViewerShutdownStart_napi));
-    exports.Set("libc_psp_sceUtilityHtmlViewerUpdate", Napi::Function::New(env, libc_psp_sceUtilityHtmlViewerUpdate_napi));
-    exports.Set("libc_psp_sceUtilityHtmlViewerGetStatus", Napi::Function::New(env, libc_psp_sceUtilityHtmlViewerGetStatus_napi));
-    exports.Set("libc_psp_sceUtilityOskInitStart", Napi::Function::New(env, libc_psp_sceUtilityOskInitStart_napi));
-    exports.Set("libc_psp_sceUtilityOskShutdownStart", Napi::Function::New(env, libc_psp_sceUtilityOskShutdownStart_napi));
-    exports.Set("libc_psp_sceUtilityOskUpdate", Napi::Function::New(env, libc_psp_sceUtilityOskUpdate_napi));
-    exports.Set("libc_psp_sceUtilityOskGetStatus", Napi::Function::New(env, libc_psp_sceUtilityOskGetStatus_napi));
-    exports.Set("libc_psp_sceUtilityCreateNetParam", Napi::Function::New(env, libc_psp_sceUtilityCreateNetParam_napi));
-    exports.Set("libc_psp_sceUtilityCopyNetParam", Napi::Function::New(env, libc_psp_sceUtilityCopyNetParam_napi));
-    exports.Set("libc_psp_sceUtilityDeleteNetParam", Napi::Function::New(env, libc_psp_sceUtilityDeleteNetParam_napi));
-    exports.Set("libc_psp_sceNetInit", Napi::Function::New(env, libc_psp_sceNetInit_napi));
-    exports.Set("libc_psp_sceNetTerm", Napi::Function::New(env, libc_psp_sceNetTerm_napi));
-    exports.Set("libc_psp_sceNetFreeThreadinfo", Napi::Function::New(env, libc_psp_sceNetFreeThreadinfo_napi));
-    exports.Set("libc_psp_sceNetThreadAbort", Napi::Function::New(env, libc_psp_sceNetThreadAbort_napi));
-    exports.Set("libc_psp_sceNetEtherStrton", Napi::Function::New(env, libc_psp_sceNetEtherStrton_napi));
-    exports.Set("libc_psp_sceNetEtherNtostr", Napi::Function::New(env, libc_psp_sceNetEtherNtostr_napi));
-    exports.Set("libc_psp_sceNetGetLocalEtherAddr", Napi::Function::New(env, libc_psp_sceNetGetLocalEtherAddr_napi));
-    exports.Set("libc_psp_sceNetGetMallocStat", Napi::Function::New(env, libc_psp_sceNetGetMallocStat_napi));
-    exports.Set("libc_psp_sceNetAdhocctlInit", Napi::Function::New(env, libc_psp_sceNetAdhocctlInit_napi));
-    exports.Set("libc_psp_sceNetAdhocctlTerm", Napi::Function::New(env, libc_psp_sceNetAdhocctlTerm_napi));
-    exports.Set("libc_psp_sceNetAdhocctlConnect", Napi::Function::New(env, libc_psp_sceNetAdhocctlConnect_napi));
-    exports.Set("libc_psp_sceNetAdhocctlDisconnect", Napi::Function::New(env, libc_psp_sceNetAdhocctlDisconnect_napi));
-    exports.Set("libc_psp_sceNetAdhocctlGetState", Napi::Function::New(env, libc_psp_sceNetAdhocctlGetState_napi));
-    exports.Set("libc_psp_sceNetAdhocctlCreate", Napi::Function::New(env, libc_psp_sceNetAdhocctlCreate_napi));
-    exports.Set("libc_psp_sceNetAdhocctlJoin", Napi::Function::New(env, libc_psp_sceNetAdhocctlJoin_napi));
-    exports.Set("libc_psp_sceNetAdhocctlGetAdhocId", Napi::Function::New(env, libc_psp_sceNetAdhocctlGetAdhocId_napi));
-    exports.Set("libc_psp_sceNetAdhocctlCreateEnterGameMode", Napi::Function::New(env, libc_psp_sceNetAdhocctlCreateEnterGameMode_napi));
-    exports.Set("libc_psp_sceNetAdhocctlJoinEnterGameMode", Napi::Function::New(env, libc_psp_sceNetAdhocctlJoinEnterGameMode_napi));
-    exports.Set("libc_psp_sceNetAdhocctlGetGameModeInfo", Napi::Function::New(env, libc_psp_sceNetAdhocctlGetGameModeInfo_napi));
-    exports.Set("libc_psp_sceNetAdhocctlExitGameMode", Napi::Function::New(env, libc_psp_sceNetAdhocctlExitGameMode_napi));
-    exports.Set("libc_psp_sceNetAdhocctlGetPeerList", Napi::Function::New(env, libc_psp_sceNetAdhocctlGetPeerList_napi));
-    exports.Set("libc_psp_sceNetAdhocctlGetPeerInfo", Napi::Function::New(env, libc_psp_sceNetAdhocctlGetPeerInfo_napi));
-    exports.Set("libc_psp_sceNetAdhocctlScan", Napi::Function::New(env, libc_psp_sceNetAdhocctlScan_napi));
-    exports.Set("libc_psp_sceNetAdhocctlGetScanInfo", Napi::Function::New(env, libc_psp_sceNetAdhocctlGetScanInfo_napi));
-    exports.Set("libc_psp_sceNetAdhocctlAddHandler", Napi::Function::New(env, libc_psp_sceNetAdhocctlAddHandler_napi));
-    exports.Set("libc_psp_sceNetAdhocctlDelHandler", Napi::Function::New(env, libc_psp_sceNetAdhocctlDelHandler_napi));
-    exports.Set("libc_psp_sceNetAdhocctlGetNameByAddr", Napi::Function::New(env, libc_psp_sceNetAdhocctlGetNameByAddr_napi));
-    exports.Set("libc_psp_sceNetAdhocctlGetAddrByName", Napi::Function::New(env, libc_psp_sceNetAdhocctlGetAddrByName_napi));
-    exports.Set("libc_psp_sceNetAdhocctlGetParameter", Napi::Function::New(env, libc_psp_sceNetAdhocctlGetParameter_napi));
-    exports.Set("libc_psp_sceNetAdhocInit", Napi::Function::New(env, libc_psp_sceNetAdhocInit_napi));
-    exports.Set("libc_psp_sceNetAdhocTerm", Napi::Function::New(env, libc_psp_sceNetAdhocTerm_napi));
-    exports.Set("libc_psp_sceNetAdhocPdpCreate", Napi::Function::New(env, libc_psp_sceNetAdhocPdpCreate_napi));
-    exports.Set("libc_psp_sceNetAdhocPdpDelete", Napi::Function::New(env, libc_psp_sceNetAdhocPdpDelete_napi));
-    exports.Set("libc_psp_sceNetAdhocPdpSend", Napi::Function::New(env, libc_psp_sceNetAdhocPdpSend_napi));
-    exports.Set("libc_psp_sceNetAdhocPdpRecv", Napi::Function::New(env, libc_psp_sceNetAdhocPdpRecv_napi));
-    exports.Set("libc_psp_sceNetAdhocGetPdpStat", Napi::Function::New(env, libc_psp_sceNetAdhocGetPdpStat_napi));
-    exports.Set("libc_psp_sceNetAdhocGameModeCreateMaster", Napi::Function::New(env, libc_psp_sceNetAdhocGameModeCreateMaster_napi));
-    exports.Set("libc_psp_sceNetAdhocGameModeCreateReplica", Napi::Function::New(env, libc_psp_sceNetAdhocGameModeCreateReplica_napi));
-    exports.Set("libc_psp_sceNetAdhocGameModeUpdateMaster", Napi::Function::New(env, libc_psp_sceNetAdhocGameModeUpdateMaster_napi));
-    exports.Set("libc_psp_sceNetAdhocGameModeUpdateReplica", Napi::Function::New(env, libc_psp_sceNetAdhocGameModeUpdateReplica_napi));
-    exports.Set("libc_psp_sceNetAdhocGameModeDeleteMaster", Napi::Function::New(env, libc_psp_sceNetAdhocGameModeDeleteMaster_napi));
-    exports.Set("libc_psp_sceNetAdhocGameModeDeleteReplica", Napi::Function::New(env, libc_psp_sceNetAdhocGameModeDeleteReplica_napi));
-    exports.Set("libc_psp_sceNetAdhocPtpOpen", Napi::Function::New(env, libc_psp_sceNetAdhocPtpOpen_napi));
-    exports.Set("libc_psp_sceNetAdhocPtpConnect", Napi::Function::New(env, libc_psp_sceNetAdhocPtpConnect_napi));
-    exports.Set("libc_psp_sceNetAdhocPtpListen", Napi::Function::New(env, libc_psp_sceNetAdhocPtpListen_napi));
-    exports.Set("libc_psp_sceNetAdhocPtpAccept", Napi::Function::New(env, libc_psp_sceNetAdhocPtpAccept_napi));
-    exports.Set("libc_psp_sceNetAdhocPtpSend", Napi::Function::New(env, libc_psp_sceNetAdhocPtpSend_napi));
-    exports.Set("libc_psp_sceNetAdhocPtpRecv", Napi::Function::New(env, libc_psp_sceNetAdhocPtpRecv_napi));
-    exports.Set("libc_psp_sceNetAdhocPtpFlush", Napi::Function::New(env, libc_psp_sceNetAdhocPtpFlush_napi));
-    exports.Set("libc_psp_sceNetAdhocPtpClose", Napi::Function::New(env, libc_psp_sceNetAdhocPtpClose_napi));
-    exports.Set("libc_psp_sceNetAdhocGetPtpStat", Napi::Function::New(env, libc_psp_sceNetAdhocGetPtpStat_napi));
-    exports.Set("libc_psp_sceNetAdhocMatchingInit", Napi::Function::New(env, libc_psp_sceNetAdhocMatchingInit_napi));
-    exports.Set("libc_psp_sceNetAdhocMatchingTerm", Napi::Function::New(env, libc_psp_sceNetAdhocMatchingTerm_napi));
-    exports.Set("libc_psp_sceNetAdhocMatchingDelete", Napi::Function::New(env, libc_psp_sceNetAdhocMatchingDelete_napi));
-    exports.Set("libc_psp_sceNetAdhocMatchingStart", Napi::Function::New(env, libc_psp_sceNetAdhocMatchingStart_napi));
-    exports.Set("libc_psp_sceNetAdhocMatchingStop", Napi::Function::New(env, libc_psp_sceNetAdhocMatchingStop_napi));
-    exports.Set("libc_psp_sceNetAdhocMatchingSelectTarget", Napi::Function::New(env, libc_psp_sceNetAdhocMatchingSelectTarget_napi));
-    exports.Set("libc_psp_sceNetAdhocMatchingCancelTarget", Napi::Function::New(env, libc_psp_sceNetAdhocMatchingCancelTarget_napi));
-    exports.Set("libc_psp_sceNetAdhocMatchingCancelTargetWithOpt", Napi::Function::New(env, libc_psp_sceNetAdhocMatchingCancelTargetWithOpt_napi));
-    exports.Set("libc_psp_sceNetAdhocMatchingSendData", Napi::Function::New(env, libc_psp_sceNetAdhocMatchingSendData_napi));
-    exports.Set("libc_psp_sceNetAdhocMatchingAbortSendData", Napi::Function::New(env, libc_psp_sceNetAdhocMatchingAbortSendData_napi));
-    exports.Set("libc_psp_sceNetAdhocMatchingSetHelloOpt", Napi::Function::New(env, libc_psp_sceNetAdhocMatchingSetHelloOpt_napi));
-    exports.Set("libc_psp_sceNetAdhocMatchingGetHelloOpt", Napi::Function::New(env, libc_psp_sceNetAdhocMatchingGetHelloOpt_napi));
-    exports.Set("libc_psp_sceNetAdhocMatchingGetMembers", Napi::Function::New(env, libc_psp_sceNetAdhocMatchingGetMembers_napi));
-    exports.Set("libc_psp_sceNetAdhocMatchingGetPoolMaxAlloc", Napi::Function::New(env, libc_psp_sceNetAdhocMatchingGetPoolMaxAlloc_napi));
-    exports.Set("libc_psp_sceNetAdhocMatchingGetPoolStat", Napi::Function::New(env, libc_psp_sceNetAdhocMatchingGetPoolStat_napi));
-    exports.Set("libc_psp_sceNetApctlInit", Napi::Function::New(env, libc_psp_sceNetApctlInit_napi));
-    exports.Set("libc_psp_sceNetApctlTerm", Napi::Function::New(env, libc_psp_sceNetApctlTerm_napi));
-    exports.Set("libc_psp_sceNetApctlAddHandler", Napi::Function::New(env, libc_psp_sceNetApctlAddHandler_napi));
-    exports.Set("libc_psp_sceNetApctlDelHandler", Napi::Function::New(env, libc_psp_sceNetApctlDelHandler_napi));
-    exports.Set("libc_psp_sceNetApctlConnect", Napi::Function::New(env, libc_psp_sceNetApctlConnect_napi));
-    exports.Set("libc_psp_sceNetApctlDisconnect", Napi::Function::New(env, libc_psp_sceNetApctlDisconnect_napi));
-    exports.Set("libc_psp_sceNetApctlGetState", Napi::Function::New(env, libc_psp_sceNetApctlGetState_napi));
-    exports.Set("libc_psp_sceNetInetInit", Napi::Function::New(env, libc_psp_sceNetInetInit_napi));
-    exports.Set("libc_psp_sceNetInetTerm", Napi::Function::New(env, libc_psp_sceNetInetTerm_napi));
-    exports.Set("libc_psp_sceNetInetAccept", Napi::Function::New(env, libc_psp_sceNetInetAccept_napi));
-    exports.Set("libc_psp_sceNetInetBind", Napi::Function::New(env, libc_psp_sceNetInetBind_napi));
-    exports.Set("libc_psp_sceNetInetConnect", Napi::Function::New(env, libc_psp_sceNetInetConnect_napi));
-    exports.Set("libc_psp_sceNetInetGetsockopt", Napi::Function::New(env, libc_psp_sceNetInetGetsockopt_napi));
-    exports.Set("libc_psp_sceNetInetListen", Napi::Function::New(env, libc_psp_sceNetInetListen_napi));
-    exports.Set("libc_psp_sceNetInetRecv", Napi::Function::New(env, libc_psp_sceNetInetRecv_napi));
-    exports.Set("libc_psp_sceNetInetRecvfrom", Napi::Function::New(env, libc_psp_sceNetInetRecvfrom_napi));
-    exports.Set("libc_psp_sceNetInetSend", Napi::Function::New(env, libc_psp_sceNetInetSend_napi));
-    exports.Set("libc_psp_sceNetInetSendto", Napi::Function::New(env, libc_psp_sceNetInetSendto_napi));
-    exports.Set("libc_psp_sceNetInetSetsockopt", Napi::Function::New(env, libc_psp_sceNetInetSetsockopt_napi));
-    exports.Set("libc_psp_sceNetInetShutdown", Napi::Function::New(env, libc_psp_sceNetInetShutdown_napi));
-    exports.Set("libc_psp_sceNetInetSocket", Napi::Function::New(env, libc_psp_sceNetInetSocket_napi));
-    exports.Set("libc_psp_sceNetInetClose", Napi::Function::New(env, libc_psp_sceNetInetClose_napi));
-    exports.Set("libc_psp_sceNetInetGetErrno", Napi::Function::New(env, libc_psp_sceNetInetGetErrno_napi));
-    exports.Set("libc_psp_sceSslInit", Napi::Function::New(env, libc_psp_sceSslInit_napi));
-    exports.Set("libc_psp_sceSslEnd", Napi::Function::New(env, libc_psp_sceSslEnd_napi));
-    exports.Set("libc_psp_sceSslGetUsedMemoryMax", Napi::Function::New(env, libc_psp_sceSslGetUsedMemoryMax_napi));
-    exports.Set("libc_psp_sceSslGetUsedMemoryCurrent", Napi::Function::New(env, libc_psp_sceSslGetUsedMemoryCurrent_napi));
-    exports.Set("libc_psp_sceHttpInit", Napi::Function::New(env, libc_psp_sceHttpInit_napi));
-    exports.Set("libc_psp_sceHttpEnd", Napi::Function::New(env, libc_psp_sceHttpEnd_napi));
-    exports.Set("libc_psp_sceHttpCreateTemplate", Napi::Function::New(env, libc_psp_sceHttpCreateTemplate_napi));
-    exports.Set("libc_psp_sceHttpDeleteTemplate", Napi::Function::New(env, libc_psp_sceHttpDeleteTemplate_napi));
-    exports.Set("libc_psp_sceHttpCreateConnection", Napi::Function::New(env, libc_psp_sceHttpCreateConnection_napi));
-    exports.Set("libc_psp_sceHttpCreateConnectionWithURL", Napi::Function::New(env, libc_psp_sceHttpCreateConnectionWithURL_napi));
-    exports.Set("libc_psp_sceHttpDeleteConnection", Napi::Function::New(env, libc_psp_sceHttpDeleteConnection_napi));
-    exports.Set("libc_psp_sceHttpDeleteRequest", Napi::Function::New(env, libc_psp_sceHttpDeleteRequest_napi));
-    exports.Set("libc_psp_sceHttpSendRequest", Napi::Function::New(env, libc_psp_sceHttpSendRequest_napi));
-    exports.Set("libc_psp_sceHttpAbortRequest", Napi::Function::New(env, libc_psp_sceHttpAbortRequest_napi));
-    exports.Set("libc_psp_sceHttpReadData", Napi::Function::New(env, libc_psp_sceHttpReadData_napi));
-    exports.Set("libc_psp_sceHttpGetContentLength", Napi::Function::New(env, libc_psp_sceHttpGetContentLength_napi));
-    exports.Set("libc_psp_sceHttpGetStatusCode", Napi::Function::New(env, libc_psp_sceHttpGetStatusCode_napi));
-    exports.Set("libc_psp_sceHttpSetResolveTimeOut", Napi::Function::New(env, libc_psp_sceHttpSetResolveTimeOut_napi));
-    exports.Set("libc_psp_sceHttpSetResolveRetry", Napi::Function::New(env, libc_psp_sceHttpSetResolveRetry_napi));
-    exports.Set("libc_psp_sceHttpSetConnectTimeOut", Napi::Function::New(env, libc_psp_sceHttpSetConnectTimeOut_napi));
-    exports.Set("libc_psp_sceHttpSetSendTimeOut", Napi::Function::New(env, libc_psp_sceHttpSetSendTimeOut_napi));
-    exports.Set("libc_psp_sceHttpSetRecvTimeOut", Napi::Function::New(env, libc_psp_sceHttpSetRecvTimeOut_napi));
-    exports.Set("libc_psp_sceHttpEnableKeepAlive", Napi::Function::New(env, libc_psp_sceHttpEnableKeepAlive_napi));
-    exports.Set("libc_psp_sceHttpDisableKeepAlive", Napi::Function::New(env, libc_psp_sceHttpDisableKeepAlive_napi));
-    exports.Set("libc_psp_sceHttpEnableRedirect", Napi::Function::New(env, libc_psp_sceHttpEnableRedirect_napi));
-    exports.Set("libc_psp_sceHttpDisableRedirect", Napi::Function::New(env, libc_psp_sceHttpDisableRedirect_napi));
-    exports.Set("libc_psp_sceHttpEnableCookie", Napi::Function::New(env, libc_psp_sceHttpEnableCookie_napi));
-    exports.Set("libc_psp_sceHttpDisableCookie", Napi::Function::New(env, libc_psp_sceHttpDisableCookie_napi));
-    exports.Set("libc_psp_sceHttpSaveSystemCookie", Napi::Function::New(env, libc_psp_sceHttpSaveSystemCookie_napi));
-    exports.Set("libc_psp_sceHttpLoadSystemCookie", Napi::Function::New(env, libc_psp_sceHttpLoadSystemCookie_napi));
-    exports.Set("libc_psp_sceHttpAddExtraHeader", Napi::Function::New(env, libc_psp_sceHttpAddExtraHeader_napi));
-    exports.Set("libc_psp_sceHttpDeleteHeader", Napi::Function::New(env, libc_psp_sceHttpDeleteHeader_napi));
-    exports.Set("libc_psp_sceHttpsInit", Napi::Function::New(env, libc_psp_sceHttpsInit_napi));
-    exports.Set("libc_psp_sceHttpsEnd", Napi::Function::New(env, libc_psp_sceHttpsEnd_napi));
-    exports.Set("libc_psp_sceHttpsLoadDefaultCert", Napi::Function::New(env, libc_psp_sceHttpsLoadDefaultCert_napi));
-    exports.Set("libc_psp_sceHttpDisableAuth", Napi::Function::New(env, libc_psp_sceHttpDisableAuth_napi));
-    exports.Set("libc_psp_sceHttpDisableCache", Napi::Function::New(env, libc_psp_sceHttpDisableCache_napi));
-    exports.Set("libc_psp_sceHttpEnableAuth", Napi::Function::New(env, libc_psp_sceHttpEnableAuth_napi));
-    exports.Set("libc_psp_sceHttpEnableCache", Napi::Function::New(env, libc_psp_sceHttpEnableCache_napi));
-    exports.Set("libc_psp_sceHttpEndCache", Napi::Function::New(env, libc_psp_sceHttpEndCache_napi));
-    exports.Set("libc_psp_sceHttpGetAllHeader", Napi::Function::New(env, libc_psp_sceHttpGetAllHeader_napi));
-    exports.Set("libc_psp_sceHttpGetNetworkErrno", Napi::Function::New(env, libc_psp_sceHttpGetNetworkErrno_napi));
-    exports.Set("libc_psp_sceHttpGetProxy", Napi::Function::New(env, libc_psp_sceHttpGetProxy_napi));
-    exports.Set("libc_psp_sceHttpInitCache", Napi::Function::New(env, libc_psp_sceHttpInitCache_napi));
-    exports.Set("libc_psp_sceHttpSetAuthInfoCB", Napi::Function::New(env, libc_psp_sceHttpSetAuthInfoCB_napi));
-    exports.Set("libc_psp_sceHttpSetProxy", Napi::Function::New(env, libc_psp_sceHttpSetProxy_napi));
-    exports.Set("libc_psp_sceHttpSetResHeaderMaxSize", Napi::Function::New(env, libc_psp_sceHttpSetResHeaderMaxSize_napi));
-    exports.Set("libc_psp_sceHttpSetMallocFunction", Napi::Function::New(env, libc_psp_sceHttpSetMallocFunction_napi));
-    exports.Set("libc_psp_sceNetResolverInit", Napi::Function::New(env, libc_psp_sceNetResolverInit_napi));
-    exports.Set("libc_psp_sceNetResolverCreate", Napi::Function::New(env, libc_psp_sceNetResolverCreate_napi));
-    exports.Set("libc_psp_sceNetResolverDelete", Napi::Function::New(env, libc_psp_sceNetResolverDelete_napi));
-    exports.Set("libc_psp_sceNetResolverStartNtoA", Napi::Function::New(env, libc_psp_sceNetResolverStartNtoA_napi));
-    exports.Set("libc_psp_sceNetResolverStartAtoN", Napi::Function::New(env, libc_psp_sceNetResolverStartAtoN_napi));
-    exports.Set("libc_psp_sceNetResolverStop", Napi::Function::New(env, libc_psp_sceNetResolverStop_napi));
-    exports.Set("libc_psp_sceNetResolverTerm", Napi::Function::New(env, libc_psp_sceNetResolverTerm_napi));
+    exports.Set("libcPspSceAudioChRelease", Napi::Function::New(env, libcPspSceAudioChRelease_napi));
+    exports.Set("libcPspSceAudioOutput", Napi::Function::New(env, libcPspSceAudioOutput_napi));
+    exports.Set("libcPspSceAudioOutputBlocking", Napi::Function::New(env, libcPspSceAudioOutputBlocking_napi));
+    exports.Set("libcPspSceAudioOutputPanned", Napi::Function::New(env, libcPspSceAudioOutputPanned_napi));
+    exports.Set("libcPspSceAudioOutputPannedBlocking", Napi::Function::New(env, libcPspSceAudioOutputPannedBlocking_napi));
+    exports.Set("libcPspSceAudioGetChannelRestLen", Napi::Function::New(env, libcPspSceAudioGetChannelRestLen_napi));
+    exports.Set("libcPspSceAudioGetChannelRestLength", Napi::Function::New(env, libcPspSceAudioGetChannelRestLength_napi));
+    exports.Set("libcPspSceAudioSetChannelDataLen", Napi::Function::New(env, libcPspSceAudioSetChannelDataLen_napi));
+    exports.Set("libcPspSceAudioChangeChannelVolume", Napi::Function::New(env, libcPspSceAudioChangeChannelVolume_napi));
+    exports.Set("libcPspSceAudioOutput2Reserve", Napi::Function::New(env, libcPspSceAudioOutput2Reserve_napi));
+    exports.Set("libcPspSceAudioOutput2Release", Napi::Function::New(env, libcPspSceAudioOutput2Release_napi));
+    exports.Set("libcPspSceAudioOutput2ChangeLength", Napi::Function::New(env, libcPspSceAudioOutput2ChangeLength_napi));
+    exports.Set("libcPspSceAudioOutput2OutputBlocking", Napi::Function::New(env, libcPspSceAudioOutput2OutputBlocking_napi));
+    exports.Set("libcPspSceAudioOutput2GetRestSample", Napi::Function::New(env, libcPspSceAudioOutput2GetRestSample_napi));
+    exports.Set("libcPspSceAudioSRCChRelease", Napi::Function::New(env, libcPspSceAudioSRCChRelease_napi));
+    exports.Set("libcPspSceAudioSRCOutputBlocking", Napi::Function::New(env, libcPspSceAudioSRCOutputBlocking_napi));
+    exports.Set("libcPspSceAudioInputInit", Napi::Function::New(env, libcPspSceAudioInputInit_napi));
+    exports.Set("libcPspSceAudioInputInitEx", Napi::Function::New(env, libcPspSceAudioInputInitEx_napi));
+    exports.Set("libcPspSceAudioGetInputLength", Napi::Function::New(env, libcPspSceAudioGetInputLength_napi));
+    exports.Set("libcPspSceAudioWaitInputEnd", Napi::Function::New(env, libcPspSceAudioWaitInputEnd_napi));
+    exports.Set("libcPspSceAudioPollInputEnd", Napi::Function::New(env, libcPspSceAudioPollInputEnd_napi));
+    exports.Set("libcPspSceAtracGetAtracID", Napi::Function::New(env, libcPspSceAtracGetAtracID_napi));
+    exports.Set("libcPspSceAtracSetDataAndGetID", Napi::Function::New(env, libcPspSceAtracSetDataAndGetID_napi));
+    exports.Set("libcPspSceAtracDecodeData", Napi::Function::New(env, libcPspSceAtracDecodeData_napi));
+    exports.Set("libcPspSceAtracGetRemainFrame", Napi::Function::New(env, libcPspSceAtracGetRemainFrame_napi));
+    exports.Set("libcPspSceAtracGetStreamDataInfo", Napi::Function::New(env, libcPspSceAtracGetStreamDataInfo_napi));
+    exports.Set("libcPspSceAtracAddStreamData", Napi::Function::New(env, libcPspSceAtracAddStreamData_napi));
+    exports.Set("libcPspSceAtracGetBitrate", Napi::Function::New(env, libcPspSceAtracGetBitrate_napi));
+    exports.Set("libcPspSceAtracSetLoopNum", Napi::Function::New(env, libcPspSceAtracSetLoopNum_napi));
+    exports.Set("libcPspSceAtracReleaseAtracID", Napi::Function::New(env, libcPspSceAtracReleaseAtracID_napi));
+    exports.Set("libcPspSceAtracGetNextSample", Napi::Function::New(env, libcPspSceAtracGetNextSample_napi));
+    exports.Set("libcPspSceAtracGetMaxSample", Napi::Function::New(env, libcPspSceAtracGetMaxSample_napi));
+    exports.Set("libcPspSceAtracGetBufferInfoForReseting", Napi::Function::New(env, libcPspSceAtracGetBufferInfoForReseting_napi));
+    exports.Set("libcPspSceAtracGetChannel", Napi::Function::New(env, libcPspSceAtracGetChannel_napi));
+    exports.Set("libcPspSceAtracGetInternalErrorInfo", Napi::Function::New(env, libcPspSceAtracGetInternalErrorInfo_napi));
+    exports.Set("libcPspSceAtracGetLoopStatus", Napi::Function::New(env, libcPspSceAtracGetLoopStatus_napi));
+    exports.Set("libcPspSceAtracGetNextDecodePosition", Napi::Function::New(env, libcPspSceAtracGetNextDecodePosition_napi));
+    exports.Set("libcPspSceAtracGetSecondBufferInfo", Napi::Function::New(env, libcPspSceAtracGetSecondBufferInfo_napi));
+    exports.Set("libcPspSceAtracGetSoundSample", Napi::Function::New(env, libcPspSceAtracGetSoundSample_napi));
+    exports.Set("libcPspSceAtracResetPlayPosition", Napi::Function::New(env, libcPspSceAtracResetPlayPosition_napi));
+    exports.Set("libcPspSceAtracSetData", Napi::Function::New(env, libcPspSceAtracSetData_napi));
+    exports.Set("libcPspSceAtracSetHalfwayBuffer", Napi::Function::New(env, libcPspSceAtracSetHalfwayBuffer_napi));
+    exports.Set("libcPspSceAtracSetHalfwayBufferAndGetID", Napi::Function::New(env, libcPspSceAtracSetHalfwayBufferAndGetID_napi));
+    exports.Set("libcPspSceAtracSetSecondBuffer", Napi::Function::New(env, libcPspSceAtracSetSecondBuffer_napi));
+    exports.Set("libcPspSceCtrlSetSamplingCycle", Napi::Function::New(env, libcPspSceCtrlSetSamplingCycle_napi));
+    exports.Set("libcPspSceCtrlGetSamplingCycle", Napi::Function::New(env, libcPspSceCtrlGetSamplingCycle_napi));
+    exports.Set("libcPspSceCtrlGetSamplingMode", Napi::Function::New(env, libcPspSceCtrlGetSamplingMode_napi));
+    exports.Set("libcPspSceCtrlPeekBufferPositive", Napi::Function::New(env, libcPspSceCtrlPeekBufferPositive_napi));
+    exports.Set("libcPspSceCtrlPeekBufferNegative", Napi::Function::New(env, libcPspSceCtrlPeekBufferNegative_napi));
+    exports.Set("libcPspSceCtrlReadBufferPositive", Napi::Function::New(env, libcPspSceCtrlReadBufferPositive_napi));
+    exports.Set("libcPspSceCtrlReadBufferNegative", Napi::Function::New(env, libcPspSceCtrlReadBufferNegative_napi));
+    exports.Set("libcPspSceCtrlPeekLatch", Napi::Function::New(env, libcPspSceCtrlPeekLatch_napi));
+    exports.Set("libcPspSceCtrlReadLatch", Napi::Function::New(env, libcPspSceCtrlReadLatch_napi));
+    exports.Set("libcPspSceCtrlSetIdleCancelThreshold", Napi::Function::New(env, libcPspSceCtrlSetIdleCancelThreshold_napi));
+    exports.Set("libcPspSceCtrlGetIdleCancelThreshold", Napi::Function::New(env, libcPspSceCtrlGetIdleCancelThreshold_napi));
+    exports.Set("libcPspSceDisplayGetMode", Napi::Function::New(env, libcPspSceDisplayGetMode_napi));
+    exports.Set("libcPspSceDisplayGetVcount", Napi::Function::New(env, libcPspSceDisplayGetVcount_napi));
+    exports.Set("libcPspSceDisplayWaitVblank", Napi::Function::New(env, libcPspSceDisplayWaitVblank_napi));
+    exports.Set("libcPspSceDisplayWaitVblankCB", Napi::Function::New(env, libcPspSceDisplayWaitVblankCB_napi));
+    exports.Set("libcPspSceDisplayWaitVblankStart", Napi::Function::New(env, libcPspSceDisplayWaitVblankStart_napi));
+    exports.Set("libcPspSceDisplayWaitVblankStartCB", Napi::Function::New(env, libcPspSceDisplayWaitVblankStartCB_napi));
+    exports.Set("libcPspSceDisplayGetAccumulatedHcount", Napi::Function::New(env, libcPspSceDisplayGetAccumulatedHcount_napi));
+    exports.Set("libcPspSceDisplayGetCurrentHcount", Napi::Function::New(env, libcPspSceDisplayGetCurrentHcount_napi));
+    exports.Set("libcPspSceDisplayGetFramePerSec", Napi::Function::New(env, libcPspSceDisplayGetFramePerSec_napi));
+    exports.Set("libcPspSceDisplayIsForeground", Napi::Function::New(env, libcPspSceDisplayIsForeground_napi));
+    exports.Set("libcPspSceDisplayIsVblank", Napi::Function::New(env, libcPspSceDisplayIsVblank_napi));
+    exports.Set("libcPspSceGeEdramGetSize", Napi::Function::New(env, libcPspSceGeEdramGetSize_napi));
+    exports.Set("libcPspSceGeEdramGetAddr", Napi::Function::New(env, libcPspSceGeEdramGetAddr_napi));
+    exports.Set("libcPspSceGeEdramSetAddrTranslation", Napi::Function::New(env, libcPspSceGeEdramSetAddrTranslation_napi));
+    exports.Set("libcPspSceGeGetCmd", Napi::Function::New(env, libcPspSceGeGetCmd_napi));
+    exports.Set("libcPspSceGeGetStack", Napi::Function::New(env, libcPspSceGeGetStack_napi));
+    exports.Set("libcPspSceGeSaveContext", Napi::Function::New(env, libcPspSceGeSaveContext_napi));
+    exports.Set("libcPspSceGeRestoreContext", Napi::Function::New(env, libcPspSceGeRestoreContext_napi));
+    exports.Set("libcPspSceGeListEnQueue", Napi::Function::New(env, libcPspSceGeListEnQueue_napi));
+    exports.Set("libcPspSceGeListEnQueueHead", Napi::Function::New(env, libcPspSceGeListEnQueueHead_napi));
+    exports.Set("libcPspSceGeListDeQueue", Napi::Function::New(env, libcPspSceGeListDeQueue_napi));
+    exports.Set("libcPspSceGeListUpdateStallAddr", Napi::Function::New(env, libcPspSceGeListUpdateStallAddr_napi));
+    exports.Set("libcPspSceGeBreak", Napi::Function::New(env, libcPspSceGeBreak_napi));
+    exports.Set("libcPspSceGeContinue", Napi::Function::New(env, libcPspSceGeContinue_napi));
+    exports.Set("libcPspSceGeSetCallback", Napi::Function::New(env, libcPspSceGeSetCallback_napi));
+    exports.Set("libcPspSceGeUnsetCallback", Napi::Function::New(env, libcPspSceGeUnsetCallback_napi));
+    exports.Set("libcPspSceKernelExitGame", Napi::Function::New(env, libcPspSceKernelExitGame_napi));
+    exports.Set("libcPspSceKernelLoadExec", Napi::Function::New(env, libcPspSceKernelLoadExec_napi));
+    exports.Set("libcPspSceKernelTotalFreeMemSize", Napi::Function::New(env, libcPspSceKernelTotalFreeMemSize_napi));
+    exports.Set("libcPspSceKernelMaxFreeMemSize", Napi::Function::New(env, libcPspSceKernelMaxFreeMemSize_napi));
+    exports.Set("libcPspSceKernelDevkitVersion", Napi::Function::New(env, libcPspSceKernelDevkitVersion_napi));
+    exports.Set("libcPspSceKernelSetCompiledSdkVersion", Napi::Function::New(env, libcPspSceKernelSetCompiledSdkVersion_napi));
+    exports.Set("libcPspSceKernelGetCompiledSdkVersion", Napi::Function::New(env, libcPspSceKernelGetCompiledSdkVersion_napi));
+    exports.Set("libcPspSceKernelLibcTime", Napi::Function::New(env, libcPspSceKernelLibcTime_napi));
+    exports.Set("libcPspSceKernelLibcClock", Napi::Function::New(env, libcPspSceKernelLibcClock_napi));
+    exports.Set("libcPspSceKernelLibcGettimeofday", Napi::Function::New(env, libcPspSceKernelLibcGettimeofday_napi));
+    exports.Set("libcPspSceKernelDcacheWritebackAll", Napi::Function::New(env, libcPspSceKernelDcacheWritebackAll_napi));
+    exports.Set("libcPspSceKernelDcacheWritebackInvalidateAll", Napi::Function::New(env, libcPspSceKernelDcacheWritebackInvalidateAll_napi));
+    exports.Set("libcPspSceKernelDcacheWritebackRange", Napi::Function::New(env, libcPspSceKernelDcacheWritebackRange_napi));
+    exports.Set("libcPspSceKernelDcacheWritebackInvalidateRange", Napi::Function::New(env, libcPspSceKernelDcacheWritebackInvalidateRange_napi));
+    exports.Set("libcPspSceKernelDcacheInvalidateRange", Napi::Function::New(env, libcPspSceKernelDcacheInvalidateRange_napi));
+    exports.Set("libcPspSceKernelIcacheInvalidateAll", Napi::Function::New(env, libcPspSceKernelIcacheInvalidateAll_napi));
+    exports.Set("libcPspSceKernelIcacheInvalidateRange", Napi::Function::New(env, libcPspSceKernelIcacheInvalidateRange_napi));
+    exports.Set("libcPspSceKernelUtilsMt19937Init", Napi::Function::New(env, libcPspSceKernelUtilsMt19937Init_napi));
+    exports.Set("libcPspSceKernelUtilsMt19937UInt", Napi::Function::New(env, libcPspSceKernelUtilsMt19937UInt_napi));
+    exports.Set("libcPspSceKernelUtilsMd5Digest", Napi::Function::New(env, libcPspSceKernelUtilsMd5Digest_napi));
+    exports.Set("libcPspSceKernelUtilsMd5BlockInit", Napi::Function::New(env, libcPspSceKernelUtilsMd5BlockInit_napi));
+    exports.Set("libcPspSceKernelUtilsMd5BlockUpdate", Napi::Function::New(env, libcPspSceKernelUtilsMd5BlockUpdate_napi));
+    exports.Set("libcPspSceKernelUtilsMd5BlockResult", Napi::Function::New(env, libcPspSceKernelUtilsMd5BlockResult_napi));
+    exports.Set("libcPspSceKernelUtilsSha1Digest", Napi::Function::New(env, libcPspSceKernelUtilsSha1Digest_napi));
+    exports.Set("libcPspSceKernelUtilsSha1BlockInit", Napi::Function::New(env, libcPspSceKernelUtilsSha1BlockInit_napi));
+    exports.Set("libcPspSceKernelUtilsSha1BlockUpdate", Napi::Function::New(env, libcPspSceKernelUtilsSha1BlockUpdate_napi));
+    exports.Set("libcPspSceKernelUtilsSha1BlockResult", Napi::Function::New(env, libcPspSceKernelUtilsSha1BlockResult_napi));
+    exports.Set("libcPspSceKernelRegisterSubIntrHandler", Napi::Function::New(env, libcPspSceKernelRegisterSubIntrHandler_napi));
+    exports.Set("libcPspSceKernelReleaseSubIntrHandler", Napi::Function::New(env, libcPspSceKernelReleaseSubIntrHandler_napi));
+    exports.Set("libcPspSceKernelEnableSubIntr", Napi::Function::New(env, libcPspSceKernelEnableSubIntr_napi));
+    exports.Set("libcPspSceKernelDisableSubIntr", Napi::Function::New(env, libcPspSceKernelDisableSubIntr_napi));
+    exports.Set("libcPspSceKernelCpuSuspendIntr", Napi::Function::New(env, libcPspSceKernelCpuSuspendIntr_napi));
+    exports.Set("libcPspSceKernelCpuResumeIntr", Napi::Function::New(env, libcPspSceKernelCpuResumeIntr_napi));
+    exports.Set("libcPspSceKernelCpuResumeIntrWithSync", Napi::Function::New(env, libcPspSceKernelCpuResumeIntrWithSync_napi));
+    exports.Set("libcPspSceKernelIsCpuIntrSuspended", Napi::Function::New(env, libcPspSceKernelIsCpuIntrSuspended_napi));
+    exports.Set("libcPspSceKernelIsCpuIntrEnable", Napi::Function::New(env, libcPspSceKernelIsCpuIntrEnable_napi));
+    exports.Set("libcPspSceKernelSelfStopUnloadModule", Napi::Function::New(env, libcPspSceKernelSelfStopUnloadModule_napi));
+    exports.Set("libcPspSceKernelStopUnloadSelfModule", Napi::Function::New(env, libcPspSceKernelStopUnloadSelfModule_napi));
+    exports.Set("libcPspSceKernelGetModuleIdList", Napi::Function::New(env, libcPspSceKernelGetModuleIdList_napi));
+    exports.Set("libcPspSceKernelVolatileMemLock", Napi::Function::New(env, libcPspSceKernelVolatileMemLock_napi));
+    exports.Set("libcPspSceKernelVolatileMemTryLock", Napi::Function::New(env, libcPspSceKernelVolatileMemTryLock_napi));
+    exports.Set("libcPspSceKernelVolatileMemUnlock", Napi::Function::New(env, libcPspSceKernelVolatileMemUnlock_napi));
+    exports.Set("libcPspSceKernelExitThread", Napi::Function::New(env, libcPspSceKernelExitThread_napi));
+    exports.Set("libcPspSceKernelExitDeleteThread", Napi::Function::New(env, libcPspSceKernelExitDeleteThread_napi));
+    exports.Set("libcPspSceKernelSuspendDispatchThread", Napi::Function::New(env, libcPspSceKernelSuspendDispatchThread_napi));
+    exports.Set("libcPspSceKernelResumeDispatchThread", Napi::Function::New(env, libcPspSceKernelResumeDispatchThread_napi));
+    exports.Set("libcPspSceKernelSleepThread", Napi::Function::New(env, libcPspSceKernelSleepThread_napi));
+    exports.Set("libcPspSceKernelSleepThreadCB", Napi::Function::New(env, libcPspSceKernelSleepThreadCB_napi));
+    exports.Set("libcPspSceKernelDelayThread", Napi::Function::New(env, libcPspSceKernelDelayThread_napi));
+    exports.Set("libcPspSceKernelDelayThreadCB", Napi::Function::New(env, libcPspSceKernelDelayThreadCB_napi));
+    exports.Set("libcPspSceKernelDelaySysClockThread", Napi::Function::New(env, libcPspSceKernelDelaySysClockThread_napi));
+    exports.Set("libcPspSceKernelDelaySysClockThreadCB", Napi::Function::New(env, libcPspSceKernelDelaySysClockThreadCB_napi));
+    exports.Set("libcPspSceKernelChangeCurrentThreadAttr", Napi::Function::New(env, libcPspSceKernelChangeCurrentThreadAttr_napi));
+    exports.Set("libcPspSceKernelRotateThreadReadyQueue", Napi::Function::New(env, libcPspSceKernelRotateThreadReadyQueue_napi));
+    exports.Set("libcPspSceKernelGetThreadId", Napi::Function::New(env, libcPspSceKernelGetThreadId_napi));
+    exports.Set("libcPspSceKernelGetThreadCurrentPriority", Napi::Function::New(env, libcPspSceKernelGetThreadCurrentPriority_napi));
+    exports.Set("libcPspSceKernelCheckThreadStack", Napi::Function::New(env, libcPspSceKernelCheckThreadStack_napi));
+    exports.Set("libcPspSceKernelCheckCallback", Napi::Function::New(env, libcPspSceKernelCheckCallback_napi));
+    exports.Set("libcPspSceKernelReferSystemStatus", Napi::Function::New(env, libcPspSceKernelReferSystemStatus_napi));
+    exports.Set("libcPspSceKernelCreateFpl", Napi::Function::New(env, libcPspSceKernelCreateFpl_napi));
+    exports.Set("libcPspSceKernelUSec2SysClock", Napi::Function::New(env, libcPspSceKernelUSec2SysClock_napi));
+    exports.Set("libcPspSceKernelUSec2SysClockWide", Napi::Function::New(env, libcPspSceKernelUSec2SysClockWide_napi));
+    exports.Set("libcPspSceKernelSysClock2USec", Napi::Function::New(env, libcPspSceKernelSysClock2USec_napi));
+    exports.Set("libcPspSceKernelSysClock2USecWide", Napi::Function::New(env, libcPspSceKernelSysClock2USecWide_napi));
+    exports.Set("libcPspSceKernelGetSystemTime", Napi::Function::New(env, libcPspSceKernelGetSystemTime_napi));
+    exports.Set("libcPspSceKernelGetSystemTimeWide", Napi::Function::New(env, libcPspSceKernelGetSystemTimeWide_napi));
+    exports.Set("libcPspSceKernelGetSystemTimeLow", Napi::Function::New(env, libcPspSceKernelGetSystemTimeLow_napi));
+    exports.Set("libcPspSceKernelReferThreadProfiler", Napi::Function::New(env, libcPspSceKernelReferThreadProfiler_napi));
+    exports.Set("libcPspSceKernelReferGlobalProfiler", Napi::Function::New(env, libcPspSceKernelReferGlobalProfiler_napi));
+    exports.Set("libcPspSceUsbStart", Napi::Function::New(env, libcPspSceUsbStart_napi));
+    exports.Set("libcPspSceUsbStop", Napi::Function::New(env, libcPspSceUsbStop_napi));
+    exports.Set("libcPspSceUsbActivate", Napi::Function::New(env, libcPspSceUsbActivate_napi));
+    exports.Set("libcPspSceUsbDeactivate", Napi::Function::New(env, libcPspSceUsbDeactivate_napi));
+    exports.Set("libcPspSceUsbGetState", Napi::Function::New(env, libcPspSceUsbGetState_napi));
+    exports.Set("libcPspSceUsbGetDrvState", Napi::Function::New(env, libcPspSceUsbGetDrvState_napi));
+    exports.Set("libcPspSceUsbCamSetupStill", Napi::Function::New(env, libcPspSceUsbCamSetupStill_napi));
+    exports.Set("libcPspSceUsbCamSetupStillEx", Napi::Function::New(env, libcPspSceUsbCamSetupStillEx_napi));
+    exports.Set("libcPspSceUsbCamStillInputBlocking", Napi::Function::New(env, libcPspSceUsbCamStillInputBlocking_napi));
+    exports.Set("libcPspSceUsbCamStillInput", Napi::Function::New(env, libcPspSceUsbCamStillInput_napi));
+    exports.Set("libcPspSceUsbCamStillWaitInputEnd", Napi::Function::New(env, libcPspSceUsbCamStillWaitInputEnd_napi));
+    exports.Set("libcPspSceUsbCamStillPollInputEnd", Napi::Function::New(env, libcPspSceUsbCamStillPollInputEnd_napi));
+    exports.Set("libcPspSceUsbCamStillCancelInput", Napi::Function::New(env, libcPspSceUsbCamStillCancelInput_napi));
+    exports.Set("libcPspSceUsbCamStillGetInputLength", Napi::Function::New(env, libcPspSceUsbCamStillGetInputLength_napi));
+    exports.Set("libcPspSceUsbCamSetupVideo", Napi::Function::New(env, libcPspSceUsbCamSetupVideo_napi));
+    exports.Set("libcPspSceUsbCamSetupVideoEx", Napi::Function::New(env, libcPspSceUsbCamSetupVideoEx_napi));
+    exports.Set("libcPspSceUsbCamStartVideo", Napi::Function::New(env, libcPspSceUsbCamStartVideo_napi));
+    exports.Set("libcPspSceUsbCamStopVideo", Napi::Function::New(env, libcPspSceUsbCamStopVideo_napi));
+    exports.Set("libcPspSceUsbCamReadVideoFrameBlocking", Napi::Function::New(env, libcPspSceUsbCamReadVideoFrameBlocking_napi));
+    exports.Set("libcPspSceUsbCamReadVideoFrame", Napi::Function::New(env, libcPspSceUsbCamReadVideoFrame_napi));
+    exports.Set("libcPspSceUsbCamWaitReadVideoFrameEnd", Napi::Function::New(env, libcPspSceUsbCamWaitReadVideoFrameEnd_napi));
+    exports.Set("libcPspSceUsbCamPollReadVideoFrameEnd", Napi::Function::New(env, libcPspSceUsbCamPollReadVideoFrameEnd_napi));
+    exports.Set("libcPspSceUsbCamGetReadVideoFrameSize", Napi::Function::New(env, libcPspSceUsbCamGetReadVideoFrameSize_napi));
+    exports.Set("libcPspSceUsbCamSetSaturation", Napi::Function::New(env, libcPspSceUsbCamSetSaturation_napi));
+    exports.Set("libcPspSceUsbCamSetBrightness", Napi::Function::New(env, libcPspSceUsbCamSetBrightness_napi));
+    exports.Set("libcPspSceUsbCamSetContrast", Napi::Function::New(env, libcPspSceUsbCamSetContrast_napi));
+    exports.Set("libcPspSceUsbCamSetSharpness", Napi::Function::New(env, libcPspSceUsbCamSetSharpness_napi));
+    exports.Set("libcPspSceUsbCamSetReverseMode", Napi::Function::New(env, libcPspSceUsbCamSetReverseMode_napi));
+    exports.Set("libcPspSceUsbCamSetZoom", Napi::Function::New(env, libcPspSceUsbCamSetZoom_napi));
+    exports.Set("libcPspSceUsbCamGetSaturation", Napi::Function::New(env, libcPspSceUsbCamGetSaturation_napi));
+    exports.Set("libcPspSceUsbCamGetBrightness", Napi::Function::New(env, libcPspSceUsbCamGetBrightness_napi));
+    exports.Set("libcPspSceUsbCamGetContrast", Napi::Function::New(env, libcPspSceUsbCamGetContrast_napi));
+    exports.Set("libcPspSceUsbCamGetSharpness", Napi::Function::New(env, libcPspSceUsbCamGetSharpness_napi));
+    exports.Set("libcPspSceUsbCamGetImageEffectMode", Napi::Function::New(env, libcPspSceUsbCamGetImageEffectMode_napi));
+    exports.Set("libcPspSceUsbCamGetEvLevel", Napi::Function::New(env, libcPspSceUsbCamGetEvLevel_napi));
+    exports.Set("libcPspSceUsbCamGetReverseMode", Napi::Function::New(env, libcPspSceUsbCamGetReverseMode_napi));
+    exports.Set("libcPspSceUsbCamGetZoom", Napi::Function::New(env, libcPspSceUsbCamGetZoom_napi));
+    exports.Set("libcPspSceUsbCamAutoImageReverseSW", Napi::Function::New(env, libcPspSceUsbCamAutoImageReverseSW_napi));
+    exports.Set("libcPspSceUsbCamGetAutoImageReverseState", Napi::Function::New(env, libcPspSceUsbCamGetAutoImageReverseState_napi));
+    exports.Set("libcPspSceUsbCamGetLensDirection", Napi::Function::New(env, libcPspSceUsbCamGetLensDirection_napi));
+    exports.Set("libcPspSceUsbstorBootUnregisterNotify", Napi::Function::New(env, libcPspSceUsbstorBootUnregisterNotify_napi));
+    exports.Set("libcPspSceUsbstorBootSetCapacity", Napi::Function::New(env, libcPspSceUsbstorBootSetCapacity_napi));
+    exports.Set("libcPspScePowerUnregisterCallback", Napi::Function::New(env, libcPspScePowerUnregisterCallback_napi));
+    exports.Set("libcPspScePowerIsPowerOnline", Napi::Function::New(env, libcPspScePowerIsPowerOnline_napi));
+    exports.Set("libcPspScePowerIsBatteryExist", Napi::Function::New(env, libcPspScePowerIsBatteryExist_napi));
+    exports.Set("libcPspScePowerIsBatteryCharging", Napi::Function::New(env, libcPspScePowerIsBatteryCharging_napi));
+    exports.Set("libcPspScePowerGetBatteryChargingStatus", Napi::Function::New(env, libcPspScePowerGetBatteryChargingStatus_napi));
+    exports.Set("libcPspScePowerIsLowBattery", Napi::Function::New(env, libcPspScePowerIsLowBattery_napi));
+    exports.Set("libcPspScePowerGetBatteryLifePercent", Napi::Function::New(env, libcPspScePowerGetBatteryLifePercent_napi));
+    exports.Set("libcPspScePowerGetBatteryLifeTime", Napi::Function::New(env, libcPspScePowerGetBatteryLifeTime_napi));
+    exports.Set("libcPspScePowerGetBatteryTemp", Napi::Function::New(env, libcPspScePowerGetBatteryTemp_napi));
+    exports.Set("libcPspScePowerGetBatteryElec", Napi::Function::New(env, libcPspScePowerGetBatteryElec_napi));
+    exports.Set("libcPspScePowerGetBatteryVolt", Napi::Function::New(env, libcPspScePowerGetBatteryVolt_napi));
+    exports.Set("libcPspScePowerSetCpuClockFrequency", Napi::Function::New(env, libcPspScePowerSetCpuClockFrequency_napi));
+    exports.Set("libcPspScePowerSetBusClockFrequency", Napi::Function::New(env, libcPspScePowerSetBusClockFrequency_napi));
+    exports.Set("libcPspScePowerGetCpuClockFrequency", Napi::Function::New(env, libcPspScePowerGetCpuClockFrequency_napi));
+    exports.Set("libcPspScePowerGetCpuClockFrequencyInt", Napi::Function::New(env, libcPspScePowerGetCpuClockFrequencyInt_napi));
+    exports.Set("libcPspScePowerGetCpuClockFrequencyFloat", Napi::Function::New(env, libcPspScePowerGetCpuClockFrequencyFloat_napi));
+    exports.Set("libcPspScePowerGetBusClockFrequency", Napi::Function::New(env, libcPspScePowerGetBusClockFrequency_napi));
+    exports.Set("libcPspScePowerGetBusClockFrequencyInt", Napi::Function::New(env, libcPspScePowerGetBusClockFrequencyInt_napi));
+    exports.Set("libcPspScePowerGetBusClockFrequencyFloat", Napi::Function::New(env, libcPspScePowerGetBusClockFrequencyFloat_napi));
+    exports.Set("libcPspScePowerSetClockFrequency", Napi::Function::New(env, libcPspScePowerSetClockFrequency_napi));
+    exports.Set("libcPspScePowerLock", Napi::Function::New(env, libcPspScePowerLock_napi));
+    exports.Set("libcPspScePowerUnlock", Napi::Function::New(env, libcPspScePowerUnlock_napi));
+    exports.Set("libcPspScePowerGetIdleTimer", Napi::Function::New(env, libcPspScePowerGetIdleTimer_napi));
+    exports.Set("libcPspScePowerIdleTimerEnable", Napi::Function::New(env, libcPspScePowerIdleTimerEnable_napi));
+    exports.Set("libcPspScePowerIdleTimerDisable", Napi::Function::New(env, libcPspScePowerIdleTimerDisable_napi));
+    exports.Set("libcPspScePowerRequestStandby", Napi::Function::New(env, libcPspScePowerRequestStandby_napi));
+    exports.Set("libcPspScePowerRequestSuspend", Napi::Function::New(env, libcPspScePowerRequestSuspend_napi));
+    exports.Set("libcPspSceWlanDevIsPowerOn", Napi::Function::New(env, libcPspSceWlanDevIsPowerOn_napi));
+    exports.Set("libcPspSceWlanGetSwitchState", Napi::Function::New(env, libcPspSceWlanGetSwitchState_napi));
+    exports.Set("libcPspSceWlanGetEtherAddr", Napi::Function::New(env, libcPspSceWlanGetEtherAddr_napi));
+    exports.Set("libcPspSceWlanDevAttach", Napi::Function::New(env, libcPspSceWlanDevAttach_napi));
+    exports.Set("libcPspSceWlanDevDetach", Napi::Function::New(env, libcPspSceWlanDevDetach_napi));
+    exports.Set("libcPspSceRtcGetTickResolution", Napi::Function::New(env, libcPspSceRtcGetTickResolution_napi));
+    exports.Set("libcPspSceRtcGetCurrentTick", Napi::Function::New(env, libcPspSceRtcGetCurrentTick_napi));
+    exports.Set("libcPspSceRtcGetCurrentClock", Napi::Function::New(env, libcPspSceRtcGetCurrentClock_napi));
+    exports.Set("libcPspSceRtcGetCurrentClockLocalTime", Napi::Function::New(env, libcPspSceRtcGetCurrentClockLocalTime_napi));
+    exports.Set("libcPspSceRtcConvertUtcToLocalTime", Napi::Function::New(env, libcPspSceRtcConvertUtcToLocalTime_napi));
+    exports.Set("libcPspSceRtcConvertLocalTimeToUTC", Napi::Function::New(env, libcPspSceRtcConvertLocalTimeToUTC_napi));
+    exports.Set("libcPspSceRtcIsLeapYear", Napi::Function::New(env, libcPspSceRtcIsLeapYear_napi));
+    exports.Set("libcPspSceRtcGetDaysInMonth", Napi::Function::New(env, libcPspSceRtcGetDaysInMonth_napi));
+    exports.Set("libcPspSceRtcGetDayOfWeek", Napi::Function::New(env, libcPspSceRtcGetDayOfWeek_napi));
+    exports.Set("libcPspSceRtcCheckValid", Napi::Function::New(env, libcPspSceRtcCheckValid_napi));
+    exports.Set("libcPspSceRtcSetTick", Napi::Function::New(env, libcPspSceRtcSetTick_napi));
+    exports.Set("libcPspSceRtcGetTick", Napi::Function::New(env, libcPspSceRtcGetTick_napi));
+    exports.Set("libcPspSceRtcCompareTick", Napi::Function::New(env, libcPspSceRtcCompareTick_napi));
+    exports.Set("libcPspSceRtcTickAddTicks", Napi::Function::New(env, libcPspSceRtcTickAddTicks_napi));
+    exports.Set("libcPspSceRtcTickAddMicroseconds", Napi::Function::New(env, libcPspSceRtcTickAddMicroseconds_napi));
+    exports.Set("libcPspSceRtcTickAddSeconds", Napi::Function::New(env, libcPspSceRtcTickAddSeconds_napi));
+    exports.Set("libcPspSceRtcTickAddMinutes", Napi::Function::New(env, libcPspSceRtcTickAddMinutes_napi));
+    exports.Set("libcPspSceRtcTickAddHours", Napi::Function::New(env, libcPspSceRtcTickAddHours_napi));
+    exports.Set("libcPspSceRtcTickAddDays", Napi::Function::New(env, libcPspSceRtcTickAddDays_napi));
+    exports.Set("libcPspSceRtcTickAddWeeks", Napi::Function::New(env, libcPspSceRtcTickAddWeeks_napi));
+    exports.Set("libcPspSceRtcTickAddMonths", Napi::Function::New(env, libcPspSceRtcTickAddMonths_napi));
+    exports.Set("libcPspSceRtcTickAddYears", Napi::Function::New(env, libcPspSceRtcTickAddYears_napi));
+    exports.Set("libcPspSceRtcSetTimeT", Napi::Function::New(env, libcPspSceRtcSetTimeT_napi));
+    exports.Set("libcPspSceRtcGetTimeT", Napi::Function::New(env, libcPspSceRtcGetTimeT_napi));
+    exports.Set("libcPspSceRtcSetTime64T", Napi::Function::New(env, libcPspSceRtcSetTime64T_napi));
+    exports.Set("libcPspSceRtcGetTime64T", Napi::Function::New(env, libcPspSceRtcGetTime64T_napi));
+    exports.Set("libcPspSceRtcSetDosTime", Napi::Function::New(env, libcPspSceRtcSetDosTime_napi));
+    exports.Set("libcPspSceRtcGetDosTime", Napi::Function::New(env, libcPspSceRtcGetDosTime_napi));
+    exports.Set("libcPspSceRtcSetWin32FileTime", Napi::Function::New(env, libcPspSceRtcSetWin32FileTime_napi));
+    exports.Set("libcPspSceRtcGetWin32FileTime", Napi::Function::New(env, libcPspSceRtcGetWin32FileTime_napi));
+    exports.Set("libcPspSceRtcParseDateTime", Napi::Function::New(env, libcPspSceRtcParseDateTime_napi));
+    exports.Set("libcPspSceRtcFormatRFC3339", Napi::Function::New(env, libcPspSceRtcFormatRFC3339_napi));
+    exports.Set("libcPspSceRtcFormatRFC3339LocalTime", Napi::Function::New(env, libcPspSceRtcFormatRFC3339LocalTime_napi));
+    exports.Set("libcPspSceRtcParseRFC3339", Napi::Function::New(env, libcPspSceRtcParseRFC3339_napi));
+    exports.Set("libcPspSceRtcFormatRFC2822", Napi::Function::New(env, libcPspSceRtcFormatRFC2822_napi));
+    exports.Set("libcPspSceRtcFormatRFC2822LocalTime", Napi::Function::New(env, libcPspSceRtcFormatRFC2822LocalTime_napi));
+    exports.Set("libcPspSceIoRemove", Napi::Function::New(env, libcPspSceIoRemove_napi));
+    exports.Set("libcPspSceIoMkdir", Napi::Function::New(env, libcPspSceIoMkdir_napi));
+    exports.Set("libcPspSceIoRmdir", Napi::Function::New(env, libcPspSceIoRmdir_napi));
+    exports.Set("libcPspSceIoChdir", Napi::Function::New(env, libcPspSceIoChdir_napi));
+    exports.Set("libcPspSceIoRename", Napi::Function::New(env, libcPspSceIoRename_napi));
+    exports.Set("libcPspSceIoDevctl", Napi::Function::New(env, libcPspSceIoDevctl_napi));
+    exports.Set("libcPspSceIoUnassign", Napi::Function::New(env, libcPspSceIoUnassign_napi));
+    exports.Set("libcPspSceIoGetstat", Napi::Function::New(env, libcPspSceIoGetstat_napi));
+    exports.Set("libcPspSceIoChstat", Napi::Function::New(env, libcPspSceIoChstat_napi));
+    exports.Set("libcPspSceIoSync", Napi::Function::New(env, libcPspSceIoSync_napi));
+    exports.Set("libcPspSceJpegInitMJpeg", Napi::Function::New(env, libcPspSceJpegInitMJpeg_napi));
+    exports.Set("libcPspSceJpegFinishMJpeg", Napi::Function::New(env, libcPspSceJpegFinishMJpeg_napi));
+    exports.Set("libcPspSceJpegCreateMJpeg", Napi::Function::New(env, libcPspSceJpegCreateMJpeg_napi));
+    exports.Set("libcPspSceJpegDeleteMJpeg", Napi::Function::New(env, libcPspSceJpegDeleteMJpeg_napi));
+    exports.Set("libcPspSceJpegDecodeMJpeg", Napi::Function::New(env, libcPspSceJpegDecodeMJpeg_napi));
+    exports.Set("libcPspSceUmdCheckMedium", Napi::Function::New(env, libcPspSceUmdCheckMedium_napi));
+    exports.Set("libcPspSceUmdGetDiscInfo", Napi::Function::New(env, libcPspSceUmdGetDiscInfo_napi));
+    exports.Set("libcPspSceUmdActivate", Napi::Function::New(env, libcPspSceUmdActivate_napi));
+    exports.Set("libcPspSceUmdDeactivate", Napi::Function::New(env, libcPspSceUmdDeactivate_napi));
+    exports.Set("libcPspSceUmdWaitDriveStat", Napi::Function::New(env, libcPspSceUmdWaitDriveStat_napi));
+    exports.Set("libcPspSceUmdWaitDriveStatWithTimer", Napi::Function::New(env, libcPspSceUmdWaitDriveStatWithTimer_napi));
+    exports.Set("libcPspSceUmdWaitDriveStatCB", Napi::Function::New(env, libcPspSceUmdWaitDriveStatCB_napi));
+    exports.Set("libcPspSceUmdCancelWaitDriveStat", Napi::Function::New(env, libcPspSceUmdCancelWaitDriveStat_napi));
+    exports.Set("libcPspSceUmdGetDriveStat", Napi::Function::New(env, libcPspSceUmdGetDriveStat_napi));
+    exports.Set("libcPspSceUmdGetErrorStat", Napi::Function::New(env, libcPspSceUmdGetErrorStat_napi));
+    exports.Set("libcPspSceUmdRegisterUMDCallBack", Napi::Function::New(env, libcPspSceUmdRegisterUMDCallBack_napi));
+    exports.Set("libcPspSceUmdUnRegisterUMDCallBack", Napi::Function::New(env, libcPspSceUmdUnRegisterUMDCallBack_napi));
+    exports.Set("libcPspSceUmdReplacePermit", Napi::Function::New(env, libcPspSceUmdReplacePermit_napi));
+    exports.Set("libcPspSceUmdReplaceProhibit", Napi::Function::New(env, libcPspSceUmdReplaceProhibit_napi));
+    exports.Set("libcPspSceMpegInit", Napi::Function::New(env, libcPspSceMpegInit_napi));
+    exports.Set("libcPspSceMpegFinish", Napi::Function::New(env, libcPspSceMpegFinish_napi));
+    exports.Set("libcPspSceMpegRingbufferQueryMemSize", Napi::Function::New(env, libcPspSceMpegRingbufferQueryMemSize_napi));
+    exports.Set("libcPspSceMpegRingbufferConstruct", Napi::Function::New(env, libcPspSceMpegRingbufferConstruct_napi));
+    exports.Set("libcPspSceMpegRingbufferDestruct", Napi::Function::New(env, libcPspSceMpegRingbufferDestruct_napi));
+    exports.Set("libcPspSceMpegRingbufferAvailableSize", Napi::Function::New(env, libcPspSceMpegRingbufferAvailableSize_napi));
+    exports.Set("libcPspSceMpegRingbufferPut", Napi::Function::New(env, libcPspSceMpegRingbufferPut_napi));
+    exports.Set("libcPspSceMpegQueryMemSize", Napi::Function::New(env, libcPspSceMpegQueryMemSize_napi));
+    exports.Set("libcPspSceMpegQueryStreamSize", Napi::Function::New(env, libcPspSceMpegQueryStreamSize_napi));
+    exports.Set("libcPspSceMpegBaseYCrCbCopyVme", Napi::Function::New(env, libcPspSceMpegBaseYCrCbCopyVme_napi));
+    exports.Set("libcPspSceMpegBaseCscInit", Napi::Function::New(env, libcPspSceMpegBaseCscInit_napi));
+    exports.Set("libcPspSceMpegBaseCscVme", Napi::Function::New(env, libcPspSceMpegBaseCscVme_napi));
+    exports.Set("libcPspSceMpegbaseBea18f91", Napi::Function::New(env, libcPspSceMpegbaseBea18f91_napi));
+    exports.Set("libcPspSceHprmPeekCurrentKey", Napi::Function::New(env, libcPspSceHprmPeekCurrentKey_napi));
+    exports.Set("libcPspSceHprmPeekLatch", Napi::Function::New(env, libcPspSceHprmPeekLatch_napi));
+    exports.Set("libcPspSceHprmReadLatch", Napi::Function::New(env, libcPspSceHprmReadLatch_napi));
+    exports.Set("libcPspSceHprmIsHeadphoneExist", Napi::Function::New(env, libcPspSceHprmIsHeadphoneExist_napi));
+    exports.Set("libcPspSceHprmIsRemoteExist", Napi::Function::New(env, libcPspSceHprmIsRemoteExist_napi));
+    exports.Set("libcPspSceHprmIsMicrophoneExist", Napi::Function::New(env, libcPspSceHprmIsMicrophoneExist_napi));
+    exports.Set("libcPspSceGuDepthBuffer", Napi::Function::New(env, libcPspSceGuDepthBuffer_napi));
+    exports.Set("libcPspSceGuDispBuffer", Napi::Function::New(env, libcPspSceGuDispBuffer_napi));
+    exports.Set("libcPspSceGuDisplay", Napi::Function::New(env, libcPspSceGuDisplay_napi));
+    exports.Set("libcPspSceGuDepthMask", Napi::Function::New(env, libcPspSceGuDepthMask_napi));
+    exports.Set("libcPspSceGuDepthOffset", Napi::Function::New(env, libcPspSceGuDepthOffset_napi));
+    exports.Set("libcPspSceGuDepthRange", Napi::Function::New(env, libcPspSceGuDepthRange_napi));
+    exports.Set("libcPspSceGuFog", Napi::Function::New(env, libcPspSceGuFog_napi));
+    exports.Set("libcPspSceGuInit", Napi::Function::New(env, libcPspSceGuInit_napi));
+    exports.Set("libcPspSceGuTerm", Napi::Function::New(env, libcPspSceGuTerm_napi));
+    exports.Set("libcPspSceGuBreak", Napi::Function::New(env, libcPspSceGuBreak_napi));
+    exports.Set("libcPspSceGuContinue", Napi::Function::New(env, libcPspSceGuContinue_napi));
+    exports.Set("libcPspSceGuGetMemory", Napi::Function::New(env, libcPspSceGuGetMemory_napi));
+    exports.Set("libcPspSceGuFinish", Napi::Function::New(env, libcPspSceGuFinish_napi));
+    exports.Set("libcPspSceGuFinishId", Napi::Function::New(env, libcPspSceGuFinishId_napi));
+    exports.Set("libcPspSceGuCallList", Napi::Function::New(env, libcPspSceGuCallList_napi));
+    exports.Set("libcPspSceGuCallMode", Napi::Function::New(env, libcPspSceGuCallMode_napi));
+    exports.Set("libcPspSceGuCheckList", Napi::Function::New(env, libcPspSceGuCheckList_napi));
+    exports.Set("libcPspSceGuSwapBuffers", Napi::Function::New(env, libcPspSceGuSwapBuffers_napi));
+    exports.Set("libcPspSceGuBeginObject", Napi::Function::New(env, libcPspSceGuBeginObject_napi));
+    exports.Set("libcPspSceGuEndObject", Napi::Function::New(env, libcPspSceGuEndObject_napi));
+    exports.Set("libcPspSceGuSetAllStatus", Napi::Function::New(env, libcPspSceGuSetAllStatus_napi));
+    exports.Set("libcPspSceGuGetAllStatus", Napi::Function::New(env, libcPspSceGuGetAllStatus_napi));
+    exports.Set("libcPspSceGuLightAtt", Napi::Function::New(env, libcPspSceGuLightAtt_napi));
+    exports.Set("libcPspSceGuLightColor", Napi::Function::New(env, libcPspSceGuLightColor_napi));
+    exports.Set("libcPspSceGuClear", Napi::Function::New(env, libcPspSceGuClear_napi));
+    exports.Set("libcPspSceGuClearColor", Napi::Function::New(env, libcPspSceGuClearColor_napi));
+    exports.Set("libcPspSceGuClearDepth", Napi::Function::New(env, libcPspSceGuClearDepth_napi));
+    exports.Set("libcPspSceGuClearStencil", Napi::Function::New(env, libcPspSceGuClearStencil_napi));
+    exports.Set("libcPspSceGuPixelMask", Napi::Function::New(env, libcPspSceGuPixelMask_napi));
+    exports.Set("libcPspSceGuColor", Napi::Function::New(env, libcPspSceGuColor_napi));
+    exports.Set("libcPspSceGuColorMaterial", Napi::Function::New(env, libcPspSceGuColorMaterial_napi));
+    exports.Set("libcPspSceGuAmbient", Napi::Function::New(env, libcPspSceGuAmbient_napi));
+    exports.Set("libcPspSceGuAmbientColor", Napi::Function::New(env, libcPspSceGuAmbientColor_napi));
+    exports.Set("libcPspSceGuMaterial", Napi::Function::New(env, libcPspSceGuMaterial_napi));
+    exports.Set("libcPspSceGuModelColor", Napi::Function::New(env, libcPspSceGuModelColor_napi));
+    exports.Set("libcPspSceGuSpecular", Napi::Function::New(env, libcPspSceGuSpecular_napi));
+    exports.Set("libcPspSceGuTexEnvColor", Napi::Function::New(env, libcPspSceGuTexEnvColor_napi));
+    exports.Set("libcPspSceGuTexFlush", Napi::Function::New(env, libcPspSceGuTexFlush_napi));
+    exports.Set("libcPspSceGuTexOffset", Napi::Function::New(env, libcPspSceGuTexOffset_napi));
+    exports.Set("libcPspSceGuTexScale", Napi::Function::New(env, libcPspSceGuTexScale_napi));
+    exports.Set("libcPspSceGuTexSlope", Napi::Function::New(env, libcPspSceGuTexSlope_napi));
+    exports.Set("libcPspSceGuTexSync", Napi::Function::New(env, libcPspSceGuTexSync_napi));
+    exports.Set("libcPspSceGuClutLoad", Napi::Function::New(env, libcPspSceGuClutLoad_napi));
+    exports.Set("libcPspSceGuOffset", Napi::Function::New(env, libcPspSceGuOffset_napi));
+    exports.Set("libcPspSceGuScissor", Napi::Function::New(env, libcPspSceGuScissor_napi));
+    exports.Set("libcPspSceGuViewport", Napi::Function::New(env, libcPspSceGuViewport_napi));
+    exports.Set("libcPspSceGuDrawBezier", Napi::Function::New(env, libcPspSceGuDrawBezier_napi));
+    exports.Set("libcPspSceGuPatchDivide", Napi::Function::New(env, libcPspSceGuPatchDivide_napi));
+    exports.Set("libcPspSceGuPatchFrontFace", Napi::Function::New(env, libcPspSceGuPatchFrontFace_napi));
+    exports.Set("libcPspSceGuDrawSpline", Napi::Function::New(env, libcPspSceGuDrawSpline_napi));
+    exports.Set("libcPspSceGuMorphWeight", Napi::Function::New(env, libcPspSceGuMorphWeight_napi));
+    exports.Set("libcPspSceGumDrawBezier", Napi::Function::New(env, libcPspSceGumDrawBezier_napi));
+    exports.Set("libcPspSceGumDrawSpline", Napi::Function::New(env, libcPspSceGumDrawSpline_napi));
+    exports.Set("libcPspSceGumFastInverse", Napi::Function::New(env, libcPspSceGumFastInverse_napi));
+    exports.Set("libcPspSceGumFullInverse", Napi::Function::New(env, libcPspSceGumFullInverse_napi));
+    exports.Set("libcPspSceGumLoadIdentity", Napi::Function::New(env, libcPspSceGumLoadIdentity_napi));
+    exports.Set("libcPspSceGumOrtho", Napi::Function::New(env, libcPspSceGumOrtho_napi));
+    exports.Set("libcPspSceGumPerspective", Napi::Function::New(env, libcPspSceGumPerspective_napi));
+    exports.Set("libcPspSceGumPopMatrix", Napi::Function::New(env, libcPspSceGumPopMatrix_napi));
+    exports.Set("libcPspSceGumPushMatrix", Napi::Function::New(env, libcPspSceGumPushMatrix_napi));
+    exports.Set("libcPspSceGumRotateX", Napi::Function::New(env, libcPspSceGumRotateX_napi));
+    exports.Set("libcPspSceGumRotateY", Napi::Function::New(env, libcPspSceGumRotateY_napi));
+    exports.Set("libcPspSceGumRotateZ", Napi::Function::New(env, libcPspSceGumRotateZ_napi));
+    exports.Set("libcPspSceGumUpdateMatrix", Napi::Function::New(env, libcPspSceGumUpdateMatrix_napi));
+    exports.Set("libcPspSceMp3ReserveMp3Handle", Napi::Function::New(env, libcPspSceMp3ReserveMp3Handle_napi));
+    exports.Set("libcPspSceMp3InitResource", Napi::Function::New(env, libcPspSceMp3InitResource_napi));
+    exports.Set("libcPspSceMp3TermResource", Napi::Function::New(env, libcPspSceMp3TermResource_napi));
+    exports.Set("libcPspSceRegOpenRegistry", Napi::Function::New(env, libcPspSceRegOpenRegistry_napi));
+    exports.Set("libcPspSceRegRemoveRegistry", Napi::Function::New(env, libcPspSceRegRemoveRegistry_napi));
+    exports.Set("libcPspSceOpenPSIDGetOpenPSID", Napi::Function::New(env, libcPspSceOpenPSIDGetOpenPSID_napi));
+    exports.Set("libcPspSceUtilityMsgDialogInitStart", Napi::Function::New(env, libcPspSceUtilityMsgDialogInitStart_napi));
+    exports.Set("libcPspSceUtilityMsgDialogShutdownStart", Napi::Function::New(env, libcPspSceUtilityMsgDialogShutdownStart_napi));
+    exports.Set("libcPspSceUtilityMsgDialogGetStatus", Napi::Function::New(env, libcPspSceUtilityMsgDialogGetStatus_napi));
+    exports.Set("libcPspSceUtilityMsgDialogUpdate", Napi::Function::New(env, libcPspSceUtilityMsgDialogUpdate_napi));
+    exports.Set("libcPspSceUtilityMsgDialogAbort", Napi::Function::New(env, libcPspSceUtilityMsgDialogAbort_napi));
+    exports.Set("libcPspSceUtilityNetconfInitStart", Napi::Function::New(env, libcPspSceUtilityNetconfInitStart_napi));
+    exports.Set("libcPspSceUtilityNetconfShutdownStart", Napi::Function::New(env, libcPspSceUtilityNetconfShutdownStart_napi));
+    exports.Set("libcPspSceUtilityNetconfUpdate", Napi::Function::New(env, libcPspSceUtilityNetconfUpdate_napi));
+    exports.Set("libcPspSceUtilityNetconfGetStatus", Napi::Function::New(env, libcPspSceUtilityNetconfGetStatus_napi));
+    exports.Set("libcPspSceUtilityCheckNetParam", Napi::Function::New(env, libcPspSceUtilityCheckNetParam_napi));
+    exports.Set("libcPspSceUtilitySavedataInitStart", Napi::Function::New(env, libcPspSceUtilitySavedataInitStart_napi));
+    exports.Set("libcPspSceUtilitySavedataGetStatus", Napi::Function::New(env, libcPspSceUtilitySavedataGetStatus_napi));
+    exports.Set("libcPspSceUtilitySavedataShutdownStart", Napi::Function::New(env, libcPspSceUtilitySavedataShutdownStart_napi));
+    exports.Set("libcPspSceUtilitySavedataUpdate", Napi::Function::New(env, libcPspSceUtilitySavedataUpdate_napi));
+    exports.Set("libcPspSceUtilityGameSharingInitStart", Napi::Function::New(env, libcPspSceUtilityGameSharingInitStart_napi));
+    exports.Set("libcPspSceUtilityGameSharingShutdownStart", Napi::Function::New(env, libcPspSceUtilityGameSharingShutdownStart_napi));
+    exports.Set("libcPspSceUtilityGameSharingGetStatus", Napi::Function::New(env, libcPspSceUtilityGameSharingGetStatus_napi));
+    exports.Set("libcPspSceUtilityGameSharingUpdate", Napi::Function::New(env, libcPspSceUtilityGameSharingUpdate_napi));
+    exports.Set("libcPspSceUtilityHtmlViewerInitStart", Napi::Function::New(env, libcPspSceUtilityHtmlViewerInitStart_napi));
+    exports.Set("libcPspSceUtilityHtmlViewerShutdownStart", Napi::Function::New(env, libcPspSceUtilityHtmlViewerShutdownStart_napi));
+    exports.Set("libcPspSceUtilityHtmlViewerUpdate", Napi::Function::New(env, libcPspSceUtilityHtmlViewerUpdate_napi));
+    exports.Set("libcPspSceUtilityHtmlViewerGetStatus", Napi::Function::New(env, libcPspSceUtilityHtmlViewerGetStatus_napi));
+    exports.Set("libcPspSceUtilityOskInitStart", Napi::Function::New(env, libcPspSceUtilityOskInitStart_napi));
+    exports.Set("libcPspSceUtilityOskShutdownStart", Napi::Function::New(env, libcPspSceUtilityOskShutdownStart_napi));
+    exports.Set("libcPspSceUtilityOskUpdate", Napi::Function::New(env, libcPspSceUtilityOskUpdate_napi));
+    exports.Set("libcPspSceUtilityOskGetStatus", Napi::Function::New(env, libcPspSceUtilityOskGetStatus_napi));
+    exports.Set("libcPspSceUtilityCreateNetParam", Napi::Function::New(env, libcPspSceUtilityCreateNetParam_napi));
+    exports.Set("libcPspSceUtilityCopyNetParam", Napi::Function::New(env, libcPspSceUtilityCopyNetParam_napi));
+    exports.Set("libcPspSceUtilityDeleteNetParam", Napi::Function::New(env, libcPspSceUtilityDeleteNetParam_napi));
+    exports.Set("libcPspSceNetInit", Napi::Function::New(env, libcPspSceNetInit_napi));
+    exports.Set("libcPspSceNetTerm", Napi::Function::New(env, libcPspSceNetTerm_napi));
+    exports.Set("libcPspSceNetFreeThreadinfo", Napi::Function::New(env, libcPspSceNetFreeThreadinfo_napi));
+    exports.Set("libcPspSceNetThreadAbort", Napi::Function::New(env, libcPspSceNetThreadAbort_napi));
+    exports.Set("libcPspSceNetEtherStrton", Napi::Function::New(env, libcPspSceNetEtherStrton_napi));
+    exports.Set("libcPspSceNetEtherNtostr", Napi::Function::New(env, libcPspSceNetEtherNtostr_napi));
+    exports.Set("libcPspSceNetGetLocalEtherAddr", Napi::Function::New(env, libcPspSceNetGetLocalEtherAddr_napi));
+    exports.Set("libcPspSceNetGetMallocStat", Napi::Function::New(env, libcPspSceNetGetMallocStat_napi));
+    exports.Set("libcPspSceNetAdhocctlInit", Napi::Function::New(env, libcPspSceNetAdhocctlInit_napi));
+    exports.Set("libcPspSceNetAdhocctlTerm", Napi::Function::New(env, libcPspSceNetAdhocctlTerm_napi));
+    exports.Set("libcPspSceNetAdhocctlConnect", Napi::Function::New(env, libcPspSceNetAdhocctlConnect_napi));
+    exports.Set("libcPspSceNetAdhocctlDisconnect", Napi::Function::New(env, libcPspSceNetAdhocctlDisconnect_napi));
+    exports.Set("libcPspSceNetAdhocctlGetState", Napi::Function::New(env, libcPspSceNetAdhocctlGetState_napi));
+    exports.Set("libcPspSceNetAdhocctlCreate", Napi::Function::New(env, libcPspSceNetAdhocctlCreate_napi));
+    exports.Set("libcPspSceNetAdhocctlJoin", Napi::Function::New(env, libcPspSceNetAdhocctlJoin_napi));
+    exports.Set("libcPspSceNetAdhocctlGetAdhocId", Napi::Function::New(env, libcPspSceNetAdhocctlGetAdhocId_napi));
+    exports.Set("libcPspSceNetAdhocctlCreateEnterGameMode", Napi::Function::New(env, libcPspSceNetAdhocctlCreateEnterGameMode_napi));
+    exports.Set("libcPspSceNetAdhocctlJoinEnterGameMode", Napi::Function::New(env, libcPspSceNetAdhocctlJoinEnterGameMode_napi));
+    exports.Set("libcPspSceNetAdhocctlGetGameModeInfo", Napi::Function::New(env, libcPspSceNetAdhocctlGetGameModeInfo_napi));
+    exports.Set("libcPspSceNetAdhocctlExitGameMode", Napi::Function::New(env, libcPspSceNetAdhocctlExitGameMode_napi));
+    exports.Set("libcPspSceNetAdhocctlGetPeerList", Napi::Function::New(env, libcPspSceNetAdhocctlGetPeerList_napi));
+    exports.Set("libcPspSceNetAdhocctlGetPeerInfo", Napi::Function::New(env, libcPspSceNetAdhocctlGetPeerInfo_napi));
+    exports.Set("libcPspSceNetAdhocctlScan", Napi::Function::New(env, libcPspSceNetAdhocctlScan_napi));
+    exports.Set("libcPspSceNetAdhocctlGetScanInfo", Napi::Function::New(env, libcPspSceNetAdhocctlGetScanInfo_napi));
+    exports.Set("libcPspSceNetAdhocctlAddHandler", Napi::Function::New(env, libcPspSceNetAdhocctlAddHandler_napi));
+    exports.Set("libcPspSceNetAdhocctlDelHandler", Napi::Function::New(env, libcPspSceNetAdhocctlDelHandler_napi));
+    exports.Set("libcPspSceNetAdhocctlGetNameByAddr", Napi::Function::New(env, libcPspSceNetAdhocctlGetNameByAddr_napi));
+    exports.Set("libcPspSceNetAdhocctlGetAddrByName", Napi::Function::New(env, libcPspSceNetAdhocctlGetAddrByName_napi));
+    exports.Set("libcPspSceNetAdhocctlGetParameter", Napi::Function::New(env, libcPspSceNetAdhocctlGetParameter_napi));
+    exports.Set("libcPspSceNetAdhocInit", Napi::Function::New(env, libcPspSceNetAdhocInit_napi));
+    exports.Set("libcPspSceNetAdhocTerm", Napi::Function::New(env, libcPspSceNetAdhocTerm_napi));
+    exports.Set("libcPspSceNetAdhocPdpCreate", Napi::Function::New(env, libcPspSceNetAdhocPdpCreate_napi));
+    exports.Set("libcPspSceNetAdhocPdpDelete", Napi::Function::New(env, libcPspSceNetAdhocPdpDelete_napi));
+    exports.Set("libcPspSceNetAdhocPdpSend", Napi::Function::New(env, libcPspSceNetAdhocPdpSend_napi));
+    exports.Set("libcPspSceNetAdhocPdpRecv", Napi::Function::New(env, libcPspSceNetAdhocPdpRecv_napi));
+    exports.Set("libcPspSceNetAdhocGetPdpStat", Napi::Function::New(env, libcPspSceNetAdhocGetPdpStat_napi));
+    exports.Set("libcPspSceNetAdhocGameModeCreateMaster", Napi::Function::New(env, libcPspSceNetAdhocGameModeCreateMaster_napi));
+    exports.Set("libcPspSceNetAdhocGameModeCreateReplica", Napi::Function::New(env, libcPspSceNetAdhocGameModeCreateReplica_napi));
+    exports.Set("libcPspSceNetAdhocGameModeUpdateMaster", Napi::Function::New(env, libcPspSceNetAdhocGameModeUpdateMaster_napi));
+    exports.Set("libcPspSceNetAdhocGameModeUpdateReplica", Napi::Function::New(env, libcPspSceNetAdhocGameModeUpdateReplica_napi));
+    exports.Set("libcPspSceNetAdhocGameModeDeleteMaster", Napi::Function::New(env, libcPspSceNetAdhocGameModeDeleteMaster_napi));
+    exports.Set("libcPspSceNetAdhocGameModeDeleteReplica", Napi::Function::New(env, libcPspSceNetAdhocGameModeDeleteReplica_napi));
+    exports.Set("libcPspSceNetAdhocPtpOpen", Napi::Function::New(env, libcPspSceNetAdhocPtpOpen_napi));
+    exports.Set("libcPspSceNetAdhocPtpConnect", Napi::Function::New(env, libcPspSceNetAdhocPtpConnect_napi));
+    exports.Set("libcPspSceNetAdhocPtpListen", Napi::Function::New(env, libcPspSceNetAdhocPtpListen_napi));
+    exports.Set("libcPspSceNetAdhocPtpAccept", Napi::Function::New(env, libcPspSceNetAdhocPtpAccept_napi));
+    exports.Set("libcPspSceNetAdhocPtpSend", Napi::Function::New(env, libcPspSceNetAdhocPtpSend_napi));
+    exports.Set("libcPspSceNetAdhocPtpRecv", Napi::Function::New(env, libcPspSceNetAdhocPtpRecv_napi));
+    exports.Set("libcPspSceNetAdhocPtpFlush", Napi::Function::New(env, libcPspSceNetAdhocPtpFlush_napi));
+    exports.Set("libcPspSceNetAdhocPtpClose", Napi::Function::New(env, libcPspSceNetAdhocPtpClose_napi));
+    exports.Set("libcPspSceNetAdhocGetPtpStat", Napi::Function::New(env, libcPspSceNetAdhocGetPtpStat_napi));
+    exports.Set("libcPspSceNetAdhocMatchingInit", Napi::Function::New(env, libcPspSceNetAdhocMatchingInit_napi));
+    exports.Set("libcPspSceNetAdhocMatchingTerm", Napi::Function::New(env, libcPspSceNetAdhocMatchingTerm_napi));
+    exports.Set("libcPspSceNetAdhocMatchingDelete", Napi::Function::New(env, libcPspSceNetAdhocMatchingDelete_napi));
+    exports.Set("libcPspSceNetAdhocMatchingStart", Napi::Function::New(env, libcPspSceNetAdhocMatchingStart_napi));
+    exports.Set("libcPspSceNetAdhocMatchingStop", Napi::Function::New(env, libcPspSceNetAdhocMatchingStop_napi));
+    exports.Set("libcPspSceNetAdhocMatchingSelectTarget", Napi::Function::New(env, libcPspSceNetAdhocMatchingSelectTarget_napi));
+    exports.Set("libcPspSceNetAdhocMatchingCancelTarget", Napi::Function::New(env, libcPspSceNetAdhocMatchingCancelTarget_napi));
+    exports.Set("libcPspSceNetAdhocMatchingCancelTargetWithOpt", Napi::Function::New(env, libcPspSceNetAdhocMatchingCancelTargetWithOpt_napi));
+    exports.Set("libcPspSceNetAdhocMatchingSendData", Napi::Function::New(env, libcPspSceNetAdhocMatchingSendData_napi));
+    exports.Set("libcPspSceNetAdhocMatchingAbortSendData", Napi::Function::New(env, libcPspSceNetAdhocMatchingAbortSendData_napi));
+    exports.Set("libcPspSceNetAdhocMatchingSetHelloOpt", Napi::Function::New(env, libcPspSceNetAdhocMatchingSetHelloOpt_napi));
+    exports.Set("libcPspSceNetAdhocMatchingGetHelloOpt", Napi::Function::New(env, libcPspSceNetAdhocMatchingGetHelloOpt_napi));
+    exports.Set("libcPspSceNetAdhocMatchingGetMembers", Napi::Function::New(env, libcPspSceNetAdhocMatchingGetMembers_napi));
+    exports.Set("libcPspSceNetAdhocMatchingGetPoolMaxAlloc", Napi::Function::New(env, libcPspSceNetAdhocMatchingGetPoolMaxAlloc_napi));
+    exports.Set("libcPspSceNetAdhocMatchingGetPoolStat", Napi::Function::New(env, libcPspSceNetAdhocMatchingGetPoolStat_napi));
+    exports.Set("libcPspSceNetApctlInit", Napi::Function::New(env, libcPspSceNetApctlInit_napi));
+    exports.Set("libcPspSceNetApctlTerm", Napi::Function::New(env, libcPspSceNetApctlTerm_napi));
+    exports.Set("libcPspSceNetApctlAddHandler", Napi::Function::New(env, libcPspSceNetApctlAddHandler_napi));
+    exports.Set("libcPspSceNetApctlDelHandler", Napi::Function::New(env, libcPspSceNetApctlDelHandler_napi));
+    exports.Set("libcPspSceNetApctlConnect", Napi::Function::New(env, libcPspSceNetApctlConnect_napi));
+    exports.Set("libcPspSceNetApctlDisconnect", Napi::Function::New(env, libcPspSceNetApctlDisconnect_napi));
+    exports.Set("libcPspSceNetApctlGetState", Napi::Function::New(env, libcPspSceNetApctlGetState_napi));
+    exports.Set("libcPspSceNetInetInit", Napi::Function::New(env, libcPspSceNetInetInit_napi));
+    exports.Set("libcPspSceNetInetTerm", Napi::Function::New(env, libcPspSceNetInetTerm_napi));
+    exports.Set("libcPspSceNetInetAccept", Napi::Function::New(env, libcPspSceNetInetAccept_napi));
+    exports.Set("libcPspSceNetInetBind", Napi::Function::New(env, libcPspSceNetInetBind_napi));
+    exports.Set("libcPspSceNetInetConnect", Napi::Function::New(env, libcPspSceNetInetConnect_napi));
+    exports.Set("libcPspSceNetInetGetsockopt", Napi::Function::New(env, libcPspSceNetInetGetsockopt_napi));
+    exports.Set("libcPspSceNetInetListen", Napi::Function::New(env, libcPspSceNetInetListen_napi));
+    exports.Set("libcPspSceNetInetRecv", Napi::Function::New(env, libcPspSceNetInetRecv_napi));
+    exports.Set("libcPspSceNetInetRecvfrom", Napi::Function::New(env, libcPspSceNetInetRecvfrom_napi));
+    exports.Set("libcPspSceNetInetSend", Napi::Function::New(env, libcPspSceNetInetSend_napi));
+    exports.Set("libcPspSceNetInetSendto", Napi::Function::New(env, libcPspSceNetInetSendto_napi));
+    exports.Set("libcPspSceNetInetSetsockopt", Napi::Function::New(env, libcPspSceNetInetSetsockopt_napi));
+    exports.Set("libcPspSceNetInetShutdown", Napi::Function::New(env, libcPspSceNetInetShutdown_napi));
+    exports.Set("libcPspSceNetInetSocket", Napi::Function::New(env, libcPspSceNetInetSocket_napi));
+    exports.Set("libcPspSceNetInetClose", Napi::Function::New(env, libcPspSceNetInetClose_napi));
+    exports.Set("libcPspSceNetInetGetErrno", Napi::Function::New(env, libcPspSceNetInetGetErrno_napi));
+    exports.Set("libcPspSceSslInit", Napi::Function::New(env, libcPspSceSslInit_napi));
+    exports.Set("libcPspSceSslEnd", Napi::Function::New(env, libcPspSceSslEnd_napi));
+    exports.Set("libcPspSceSslGetUsedMemoryMax", Napi::Function::New(env, libcPspSceSslGetUsedMemoryMax_napi));
+    exports.Set("libcPspSceSslGetUsedMemoryCurrent", Napi::Function::New(env, libcPspSceSslGetUsedMemoryCurrent_napi));
+    exports.Set("libcPspSceHttpInit", Napi::Function::New(env, libcPspSceHttpInit_napi));
+    exports.Set("libcPspSceHttpEnd", Napi::Function::New(env, libcPspSceHttpEnd_napi));
+    exports.Set("libcPspSceHttpCreateTemplate", Napi::Function::New(env, libcPspSceHttpCreateTemplate_napi));
+    exports.Set("libcPspSceHttpDeleteTemplate", Napi::Function::New(env, libcPspSceHttpDeleteTemplate_napi));
+    exports.Set("libcPspSceHttpCreateConnection", Napi::Function::New(env, libcPspSceHttpCreateConnection_napi));
+    exports.Set("libcPspSceHttpCreateConnectionWithURL", Napi::Function::New(env, libcPspSceHttpCreateConnectionWithURL_napi));
+    exports.Set("libcPspSceHttpDeleteConnection", Napi::Function::New(env, libcPspSceHttpDeleteConnection_napi));
+    exports.Set("libcPspSceHttpDeleteRequest", Napi::Function::New(env, libcPspSceHttpDeleteRequest_napi));
+    exports.Set("libcPspSceHttpSendRequest", Napi::Function::New(env, libcPspSceHttpSendRequest_napi));
+    exports.Set("libcPspSceHttpAbortRequest", Napi::Function::New(env, libcPspSceHttpAbortRequest_napi));
+    exports.Set("libcPspSceHttpReadData", Napi::Function::New(env, libcPspSceHttpReadData_napi));
+    exports.Set("libcPspSceHttpGetContentLength", Napi::Function::New(env, libcPspSceHttpGetContentLength_napi));
+    exports.Set("libcPspSceHttpGetStatusCode", Napi::Function::New(env, libcPspSceHttpGetStatusCode_napi));
+    exports.Set("libcPspSceHttpSetResolveTimeOut", Napi::Function::New(env, libcPspSceHttpSetResolveTimeOut_napi));
+    exports.Set("libcPspSceHttpSetResolveRetry", Napi::Function::New(env, libcPspSceHttpSetResolveRetry_napi));
+    exports.Set("libcPspSceHttpSetConnectTimeOut", Napi::Function::New(env, libcPspSceHttpSetConnectTimeOut_napi));
+    exports.Set("libcPspSceHttpSetSendTimeOut", Napi::Function::New(env, libcPspSceHttpSetSendTimeOut_napi));
+    exports.Set("libcPspSceHttpSetRecvTimeOut", Napi::Function::New(env, libcPspSceHttpSetRecvTimeOut_napi));
+    exports.Set("libcPspSceHttpEnableKeepAlive", Napi::Function::New(env, libcPspSceHttpEnableKeepAlive_napi));
+    exports.Set("libcPspSceHttpDisableKeepAlive", Napi::Function::New(env, libcPspSceHttpDisableKeepAlive_napi));
+    exports.Set("libcPspSceHttpEnableRedirect", Napi::Function::New(env, libcPspSceHttpEnableRedirect_napi));
+    exports.Set("libcPspSceHttpDisableRedirect", Napi::Function::New(env, libcPspSceHttpDisableRedirect_napi));
+    exports.Set("libcPspSceHttpEnableCookie", Napi::Function::New(env, libcPspSceHttpEnableCookie_napi));
+    exports.Set("libcPspSceHttpDisableCookie", Napi::Function::New(env, libcPspSceHttpDisableCookie_napi));
+    exports.Set("libcPspSceHttpSaveSystemCookie", Napi::Function::New(env, libcPspSceHttpSaveSystemCookie_napi));
+    exports.Set("libcPspSceHttpLoadSystemCookie", Napi::Function::New(env, libcPspSceHttpLoadSystemCookie_napi));
+    exports.Set("libcPspSceHttpAddExtraHeader", Napi::Function::New(env, libcPspSceHttpAddExtraHeader_napi));
+    exports.Set("libcPspSceHttpDeleteHeader", Napi::Function::New(env, libcPspSceHttpDeleteHeader_napi));
+    exports.Set("libcPspSceHttpsInit", Napi::Function::New(env, libcPspSceHttpsInit_napi));
+    exports.Set("libcPspSceHttpsEnd", Napi::Function::New(env, libcPspSceHttpsEnd_napi));
+    exports.Set("libcPspSceHttpsLoadDefaultCert", Napi::Function::New(env, libcPspSceHttpsLoadDefaultCert_napi));
+    exports.Set("libcPspSceHttpDisableAuth", Napi::Function::New(env, libcPspSceHttpDisableAuth_napi));
+    exports.Set("libcPspSceHttpDisableCache", Napi::Function::New(env, libcPspSceHttpDisableCache_napi));
+    exports.Set("libcPspSceHttpEnableAuth", Napi::Function::New(env, libcPspSceHttpEnableAuth_napi));
+    exports.Set("libcPspSceHttpEnableCache", Napi::Function::New(env, libcPspSceHttpEnableCache_napi));
+    exports.Set("libcPspSceHttpEndCache", Napi::Function::New(env, libcPspSceHttpEndCache_napi));
+    exports.Set("libcPspSceHttpGetAllHeader", Napi::Function::New(env, libcPspSceHttpGetAllHeader_napi));
+    exports.Set("libcPspSceHttpGetNetworkErrno", Napi::Function::New(env, libcPspSceHttpGetNetworkErrno_napi));
+    exports.Set("libcPspSceHttpGetProxy", Napi::Function::New(env, libcPspSceHttpGetProxy_napi));
+    exports.Set("libcPspSceHttpInitCache", Napi::Function::New(env, libcPspSceHttpInitCache_napi));
+    exports.Set("libcPspSceHttpSetAuthInfoCB", Napi::Function::New(env, libcPspSceHttpSetAuthInfoCB_napi));
+    exports.Set("libcPspSceHttpSetProxy", Napi::Function::New(env, libcPspSceHttpSetProxy_napi));
+    exports.Set("libcPspSceHttpSetResHeaderMaxSize", Napi::Function::New(env, libcPspSceHttpSetResHeaderMaxSize_napi));
+    exports.Set("libcPspSceHttpSetMallocFunction", Napi::Function::New(env, libcPspSceHttpSetMallocFunction_napi));
+    exports.Set("libcPspSceNetResolverInit", Napi::Function::New(env, libcPspSceNetResolverInit_napi));
+    exports.Set("libcPspSceNetResolverCreate", Napi::Function::New(env, libcPspSceNetResolverCreate_napi));
+    exports.Set("libcPspSceNetResolverDelete", Napi::Function::New(env, libcPspSceNetResolverDelete_napi));
+    exports.Set("libcPspSceNetResolverStartNtoA", Napi::Function::New(env, libcPspSceNetResolverStartNtoA_napi));
+    exports.Set("libcPspSceNetResolverStartAtoN", Napi::Function::New(env, libcPspSceNetResolverStartAtoN_napi));
+    exports.Set("libcPspSceNetResolverStop", Napi::Function::New(env, libcPspSceNetResolverStop_napi));
+    exports.Set("libcPspSceNetResolverTerm", Napi::Function::New(env, libcPspSceNetResolverTerm_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_psp_napi, nullptr };

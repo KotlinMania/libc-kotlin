@@ -5,7 +5,6 @@ package io.github.kotlinmania.libc.new.netbsd.net.ifbranch
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
@@ -14,6 +13,10 @@ import io.github.kotlinmania.libc.new.qurt.Timespec
 import io.github.kotlinmania.libc.unix.IFNAMSIZ
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.SockaddrStorage
 import io.github.kotlinmania.libc.unix.newlib.aarch64.Sockaddr
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+import io.github.kotlinmania.rustlang.core.mem.TypeLayout
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 // Header: `net / if.h`
 //
@@ -124,33 +127,244 @@ public data class Ifreq(
     }
 }
 
-public data class CAnonymousIfrIfru(
-    public var ifruAddr: Sockaddr = Sockaddr(),
-    public var ifruDstaddr: Sockaddr = Sockaddr(),
-    public var ifruBroadaddr: Sockaddr = Sockaddr(),
-    public var space: SockaddrStorage = SockaddrStorage(),
-    public var ifruFlags: CShort = 0,
-    public var ifruAddrflags: CInt = 0,
-    public var ifruMetrics: CInt = 0,
-    public var ifruMtu: CInt = 0,
-    public var ifruDlt: CInt = 0,
-    public var ifruValue: CUint = 0u,
-    public var ifruData: COpaquePointer? = null,
+public class CAnonymousIfrIfru internal constructor(
+    public var ifruAddr: Sockaddr,
+    public var ifruDstaddr: Sockaddr,
+    public var ifruBroadaddr: Sockaddr,
+    public var space: SockaddrStorage,
+    public var ifruFlags: CShort,
+    public var ifruAddrflags: CInt,
+    public var ifruMetrics: CInt,
+    public var ifruMtu: CInt,
+    public var ifruDlt: CInt,
+    public var ifruValue: CUint,
+    ifruDataCtorArg: MutPtr<CVoid>,
     // buf and buflen are deprecated but they contribute to union size
-    public var ifruB: CAnonymousIfrIfruIfruB = CAnonymousIfrIfruIfruB(),
-)
+    public var ifruB: CAnonymousIfrIfruIfruB,
+) {
+    public var ifruData: MutPtr<CVoid> = ifruDataCtorArg
+        internal set
 
-public data class CAnonymousIfrIfruIfruB(
-    public var bBuflen: UInt = 0u,
-    public var bBuf: COpaquePointer? = null,
-)
+    public constructor() : this(
+        ifruAddr = Sockaddr(),
+        ifruDstaddr = Sockaddr(),
+        ifruBroadaddr = Sockaddr(),
+        space = SockaddrStorage(),
+        ifruFlags = 0,
+        ifruAddrflags = 0,
+        ifruMetrics = 0,
+        ifruMtu = 0,
+        ifruDlt = 0,
+        ifruValue = 0u,
+        ifruDataCtorArg = MutPtr(0L),
+        ifruB = CAnonymousIfrIfruIfruB(),
+    )
+
+    public operator fun component1(): Sockaddr = this.ifruAddr
+
+    public operator fun component2(): Sockaddr = this.ifruDstaddr
+
+    public operator fun component3(): Sockaddr = this.ifruBroadaddr
+
+    public operator fun component4(): SockaddrStorage = this.space
+
+    public operator fun component5(): CShort = this.ifruFlags
+
+    public operator fun component6(): CInt = this.ifruAddrflags
+
+    public operator fun component7(): CInt = this.ifruMetrics
+
+    public operator fun component8(): CInt = this.ifruMtu
+
+    public operator fun component9(): CInt = this.ifruDlt
+
+    public operator fun component10(): CUint = this.ifruValue
+
+    public operator fun component11(): MutPtr<CVoid> = this.ifruData
+
+    public operator fun component12(): CAnonymousIfrIfruIfruB = this.ifruB
+
+    public fun copy(ifruAddr: Sockaddr = this.ifruAddr, ifruDstaddr: Sockaddr = this.ifruDstaddr, ifruBroadaddr: Sockaddr = this.ifruBroadaddr, space: SockaddrStorage = this.space, ifruFlags: CShort = this.ifruFlags, ifruAddrflags: CInt = this.ifruAddrflags, ifruMetrics: CInt = this.ifruMetrics, ifruMtu: CInt = this.ifruMtu, ifruDlt: CInt = this.ifruDlt, ifruValue: CUint = this.ifruValue, ifruData: MutPtr<CVoid> = this.ifruData, ifruB: CAnonymousIfrIfruIfruB = this.ifruB): CAnonymousIfrIfru = CAnonymousIfrIfru(ifruAddr = ifruAddr, ifruDstaddr = ifruDstaddr, ifruBroadaddr = ifruBroadaddr, space = space, ifruFlags = ifruFlags, ifruAddrflags = ifruAddrflags, ifruMetrics = ifruMetrics, ifruMtu = ifruMtu, ifruDlt = ifruDlt, ifruValue = ifruValue, ifruDataCtorArg = ifruData, ifruB = ifruB)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is CAnonymousIfrIfru) return false
+        if (this.ifruAddr != other.ifruAddr) return false
+        if (this.ifruDstaddr != other.ifruDstaddr) return false
+        if (this.ifruBroadaddr != other.ifruBroadaddr) return false
+        if (this.space != other.space) return false
+        if (this.ifruFlags != other.ifruFlags) return false
+        if (this.ifruAddrflags != other.ifruAddrflags) return false
+        if (this.ifruMetrics != other.ifruMetrics) return false
+        if (this.ifruMtu != other.ifruMtu) return false
+        if (this.ifruDlt != other.ifruDlt) return false
+        if (this.ifruValue != other.ifruValue) return false
+        if (this.ifruData != other.ifruData) return false
+        if (this.ifruB != other.ifruB) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.ifruAddr.hashCode()
+        result = 31 * result + this.ifruDstaddr.hashCode()
+        result = 31 * result + this.ifruBroadaddr.hashCode()
+        result = 31 * result + this.space.hashCode()
+        result = 31 * result + this.ifruFlags.hashCode()
+        result = 31 * result + this.ifruAddrflags.hashCode()
+        result = 31 * result + this.ifruMetrics.hashCode()
+        result = 31 * result + this.ifruMtu.hashCode()
+        result = 31 * result + this.ifruDlt.hashCode()
+        result = 31 * result + this.ifruValue.hashCode()
+        result = 31 * result + this.ifruData.hashCode()
+        result = 31 * result + this.ifruB.hashCode()
+        return result
+    }
+
+    public companion object {
+        public operator fun invoke(
+            ifruAddr: Sockaddr = Sockaddr(),
+            ifruDstaddr: Sockaddr = Sockaddr(),
+            ifruBroadaddr: Sockaddr = Sockaddr(),
+            space: SockaddrStorage = SockaddrStorage(),
+            ifruFlags: CShort = 0,
+            ifruAddrflags: CInt = 0,
+            ifruMetrics: CInt = 0,
+            ifruMtu: CInt = 0,
+            ifruDlt: CInt = 0,
+            ifruValue: CUint = 0u,
+            ifruData: MutPtr<CVoid> = MutPtr(0L),
+            ifruB: CAnonymousIfrIfruIfruB = CAnonymousIfrIfruIfruB(),
+        ): CAnonymousIfrIfru =
+            CAnonymousIfrIfru(
+                ifruAddr = ifruAddr,
+                ifruDstaddr = ifruDstaddr,
+                ifruBroadaddr = ifruBroadaddr,
+                space = space,
+                ifruFlags = ifruFlags,
+                ifruAddrflags = ifruAddrflags,
+                ifruMetrics = ifruMetrics,
+                ifruMtu = ifruMtu,
+                ifruDlt = ifruDlt,
+                ifruValue = ifruValue,
+                ifruDataCtorArg = ifruData,
+                ifruB = ifruB,
+            )
+    }
+}
+
+public class CAnonymousIfrIfruIfruB internal constructor(
+    public var bBuflen: UInt,
+    bBufCtorArg: MutPtr<CVoid>,
+) {
+    public var bBuf: MutPtr<CVoid> = bBufCtorArg
+        internal set
+
+    public constructor() : this(
+        bBuflen = 0u,
+        bBufCtorArg = MutPtr(0L),
+    )
+
+    public operator fun component1(): UInt = this.bBuflen
+
+    public operator fun component2(): MutPtr<CVoid> = this.bBuf
+
+    public fun copy(bBuflen: UInt = this.bBuflen, bBuf: MutPtr<CVoid> = this.bBuf): CAnonymousIfrIfruIfruB = CAnonymousIfrIfruIfruB(bBuflen = bBuflen, bBufCtorArg = bBuf)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is CAnonymousIfrIfruIfruB) return false
+        if (this.bBuflen != other.bBuflen) return false
+        if (this.bBuf != other.bBuf) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.bBuflen.hashCode()
+        result = 31 * result + this.bBuf.hashCode()
+        return result
+    }
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<CAnonymousIfrIfruIfruB> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<CAnonymousIfrIfruIfruB> {
+                override val sizeBytes: Long = 16L
+                override val alignBytes: Long = 8L
+                override fun readNative(addr: Long): CAnonymousIfrIfruIfruB =
+                    CAnonymousIfrIfruIfruB(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr),
+                        (
+                            io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+                                .mutPtrLayout<CVoid>(64)
+                        ).readNative(addr + 8L),
+                    )
+                override fun writeNative(addr: Long, value: CAnonymousIfrIfruIfruB) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr, value.bBuflen)
+                    (
+                        io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+                            .mutPtrLayout<CVoid>(64)
+                    ).writeNative(addr + 8L, value.bBuf)
+                }
+            }
+
+        public operator fun invoke(
+            bBuflen: UInt = 0u,
+            bBuf: MutPtr<CVoid> = MutPtr(0L),
+        ): CAnonymousIfrIfruIfruB =
+            CAnonymousIfrIfruIfruB(
+                bBuflen = bBuflen,
+                bBufCtorArg = bBuf,
+            )
+    }
+}
 
 public data class Ifconf(
     public var ifcLen: CInt = 0,
     public var ifcIfcu: CAnonymousIfcIfcu = CAnonymousIfcIfcu(),
 )
 
-public data class CAnonymousIfcIfcu(
-    public var ifcuBuf: COpaquePointer? = null,
-    public var ifcuReq: Ifreq? = null,
-)
+public class CAnonymousIfcIfcu internal constructor(
+    ifcuBufCtorArg: MutPtr<CVoid>,
+    ifcuReqCtorArg: MutPtr<Ifreq>,
+) {
+    public var ifcuBuf: MutPtr<CVoid> = ifcuBufCtorArg
+        internal set
+
+    public var ifcuReq: MutPtr<Ifreq> = ifcuReqCtorArg
+        internal set
+
+    public constructor() : this(
+        ifcuBufCtorArg = MutPtr(0L),
+        ifcuReqCtorArg = MutPtr(0L),
+    )
+
+    public operator fun component1(): MutPtr<CVoid> = this.ifcuBuf
+
+    public operator fun component2(): MutPtr<Ifreq> = this.ifcuReq
+
+    public fun copy(ifcuBuf: MutPtr<CVoid> = this.ifcuBuf, ifcuReq: MutPtr<Ifreq> = this.ifcuReq): CAnonymousIfcIfcu = CAnonymousIfcIfcu(ifcuBufCtorArg = ifcuBuf, ifcuReqCtorArg = ifcuReq)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is CAnonymousIfcIfcu) return false
+        if (this.ifcuBuf != other.ifcuBuf) return false
+        if (this.ifcuReq != other.ifcuReq) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.ifcuBuf.hashCode()
+        result = 31 * result + this.ifcuReq.hashCode()
+        return result
+    }
+
+    public companion object {
+        public operator fun invoke(
+            ifcuBuf: MutPtr<CVoid> = MutPtr(0L),
+            ifcuReq: MutPtr<Ifreq> = MutPtr(0L),
+        ): CAnonymousIfcIfcu =
+            CAnonymousIfcIfcu(
+                ifcuBufCtorArg = ifcuBuf,
+                ifcuReqCtorArg = ifcuReq,
+            )
+    }
+}

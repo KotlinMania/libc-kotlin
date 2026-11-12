@@ -3,3 +3,4 @@ headers = new_netbsd_utmp_wrapper.h
 headerFilter = new_netbsd_utmp_wrapper.h
 compilerOpts = -Isrc/native/interop/cinterop
 staticLibraries = new_netbsd_utmp_wrapper.a
+noStringConversion = libcNewNetbsdUtmpUtmpname

@@ -3,1189 +3,1192 @@
 package io.github.kotlinmania.libc.wasi
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CDouble
 import io.github.kotlinmania.libc.CFloat
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CLonglong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_abort
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_abs
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_access
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_alignedAlloc
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_arc4random
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_arc4randomBuf
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_arc4randomUniform
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_asctimeR
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_atQuickExit
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_atexit
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_atof
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_atoi
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_atol
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_atoll
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_calloc
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_chdir
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_chmod
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_clearenv
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_clearerr
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_clock
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_close
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_closedir
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_creat
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_ctimeR
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_difftime
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_dirfd
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_duplocale
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_errnoLocation
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_exit
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_faccessat
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_fchmod
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_fclose
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_fcntl
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_fdatasync
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_fdopen
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_fdopendir
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_feof
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_ferror
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_fflush
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_fgetc
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_fgetpos
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_fgets
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_fileno
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_fopen
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_fpathconf
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_fprintf
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_fputc
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_fputs
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_fread
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_free
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_freelocale
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_freopen
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_fscanf
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_fseek
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_fseeko
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_fsetpos
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_fstat
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_fstatat
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_fsync
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_ftell
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_ftello
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_ftruncate
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_futimens
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_fwrite
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_get_CLOCK_MONOTONIC1
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_get_CLOCK_REALTIME1
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_get_ENVIRON
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_getc
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_getchar
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_getcharUnlocked
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_getcwd
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_getentropy
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_getenv
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_getline
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_getopt
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_getrusage
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_gettimeofday
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_gmtime
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_gmtimeR
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_ioctl
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_isalnum
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_isalpha
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_isatty
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_isblank
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_iscntrl
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_isdigit
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_isgraph
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_islower
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_isprint
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_ispunct
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_isspace
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_isupper
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_isxdigit
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_labs
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_link
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_linkat
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_localeconv
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_localtime
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_localtimeR
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_lseek
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_lstat
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_malloc
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_mallocUsableSize
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_memchr
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_memcmp
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_memcpy
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_memmove
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_memrchr
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_memset
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_mkdir
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_mkdirat
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_mktime
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_nanosleep
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_newlocale
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_nlLanginfo
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_nlLanginfoL
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_open
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_openat
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_opendir
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pathconf
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_perror
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_poll
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_posixFadvise
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_posixFallocate
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_posixMemalign
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pread
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_preadv
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_printf
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadAttrDestroy
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadAttrGetstacksize
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadAttrInit
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadAttrSetdetachstate
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadAttrSetstacksize
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadCondBroadcast
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadCondDestroy
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadCondInit
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadCondSignal
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadCondTimedwait
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadCondWait
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadCondattrDestroy
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadCondattrInit
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadCreate
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadDetach
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadEqual
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadGetspecific
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadJoin
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadKeyCreate
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadKeyDelete
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadMutexDestroy
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadMutexInit
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadMutexLock
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadMutexTrylock
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadMutexUnlock
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadMutexattrDestroy
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadMutexattrInit
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadMutexattrSettype
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadRwlockDestroy
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadRwlockInit
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadRwlockRdlock
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadRwlockTryrdlock
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadRwlockTrywrlock
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadRwlockUnlock
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadRwlockWrlock
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadRwlockattrDestroy
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadRwlockattrInit
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadSelf
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pthreadSetspecific
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_putc
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_putchar
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_putcharUnlocked
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_putenv
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_puts
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pwrite
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_pwritev
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_quickExit
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_rand
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_randR
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_random
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_read
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_readdir
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_readlink
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_readlinkat
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_readv
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_realloc
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_realpath
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_recv
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_remove
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_rename
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_renameat
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_rewind
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_rewinddir
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_rmdir
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_sbrk
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_scanf
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_schedYield
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_seekdir
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_select
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_send
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_set_ENVIRON
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_setbuf
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_setenv
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_setlocale
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_setvbuf
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_shutdown
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_sleep
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_snprintf
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_sprintf
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_srand
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_srandom
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_sscanf
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_stat
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_strcasecmp
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_strcasestr
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_strcat
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_strchr
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_strcmp
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_strcoll
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_strcpy
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_strcspn
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_strdup
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_strerror
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_strerrorR
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_strftime
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_strlen
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_strncasecmp
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_strncat
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_strncmp
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_strncpy
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_strndup
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_strnlen
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_strpbrk
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_strrchr
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_strspn
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_strstr
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_strtod
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_strtof
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_strtok
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_strtol
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_strtoll
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_strtoul
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_strtoull
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_strxfrm
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_symlink
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_symlinkat
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_sysconf
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_telldir
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_time
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_timegm
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_times
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_tolower
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_toupper
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_truncate
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_ungetc
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_unlink
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_unlinkat
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_unsetenv
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_uselocale
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_usleep
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_utimensat
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_wasilibcAccess
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_wasilibcFdRenumber
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_wasilibcFindRelpath
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_wasilibcLink
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_wasilibcLinkNewat
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_wasilibcLinkOldat
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_wasilibcNocwdFaccessat
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_wasilibcNocwdFstatat
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_wasilibcNocwdLinkat
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_wasilibcNocwdMkdiratNomode
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_wasilibcNocwdOpenatNomode
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_wasilibcNocwdOpendirat
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_wasilibcNocwdReadlinkat
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_wasilibcNocwdRenameat
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_wasilibcNocwdSymlinkat
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_wasilibcNocwdUtimensat
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_wasilibcNocwdWasilibcRmdirat
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_wasilibcNocwdWasilibcUnlinkat
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_wasilibcRegisterPreopenedFd
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_wasilibcRenameNewat
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_wasilibcRenameOldat
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_wasilibcRmdirat
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_wasilibcStat
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_wasilibcTell
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_wasilibcUnlinkat
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_wasilibcUtimens
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_write
-import io.github.kotlinmania.libc.wasi.cinterop.libc_wasi_writev
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiAbort
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiAbs
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiAccess
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiAlignedAlloc
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiArc4random
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiArc4randomBuf
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiArc4randomUniform
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiAsctimeR
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiAtQuickExit
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiAtexit
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiAtof
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiAtoi
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiAtol
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiAtoll
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiCalloc
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiChdir
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiChmod
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiClearenv
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiClearerr
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiClock
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiClose
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiClosedir
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiCreat
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiCtimeR
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiDifftime
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiDirfd
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiDuplocale
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiErrnoLocation
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiExit
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiFaccessat
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiFchmod
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiFclose
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiFcntl
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiFdatasync
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiFdopen
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiFdopendir
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiFeof
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiFerror
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiFflush
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiFgetc
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiFgetpos
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiFgets
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiFileno
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiFopen
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiFpathconf
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiFprintf
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiFputc
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiFputs
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiFread
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiFree
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiFreelocale
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiFreopen
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiFscanf
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiFseek
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiFseeko
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiFsetpos
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiFstat
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiFstatat
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiFsync
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiFtell
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiFtello
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiFtruncate
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiFutimens
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiFwrite
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiGetCLOCKMONOTONIC1
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiGetCLOCKREALTIME1
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiGetENVIRON
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiGetc
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiGetchar
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiGetcharUnlocked
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiGetcwd
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiGetentropy
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiGetenv
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiGetline
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiGetopt
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiGetrusage
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiGettimeofday
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiGmtime
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiGmtimeR
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiIoctl
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiIsalnum
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiIsalpha
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiIsatty
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiIsblank
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiIscntrl
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiIsdigit
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiIsgraph
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiIslower
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiIsprint
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiIspunct
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiIsspace
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiIsupper
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiIsxdigit
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiLabs
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiLink
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiLinkat
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiLocaleconv
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiLocaltime
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiLocaltimeR
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiLseek
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiLstat
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiMalloc
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiMallocUsableSize
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiMemchr
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiMemcmp
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiMemcpy
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiMemmove
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiMemrchr
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiMemset
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiMkdir
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiMkdirat
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiMktime
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiNanosleep
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiNewlocale
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiNlLanginfo
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiNlLanginfoL
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiOpen
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiOpenat
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiOpendir
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPathconf
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPerror
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPoll
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPosixFadvise
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPosixFallocate
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPosixMemalign
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPread
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPreadv
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPrintf
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPthreadAttrDestroy
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPthreadAttrGetstacksize
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPthreadAttrInit
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPthreadAttrSetdetachstate
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPthreadAttrSetstacksize
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPthreadCondBroadcast
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPthreadCondDestroy
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPthreadCondInit
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPthreadCondSignal
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPthreadCondTimedwait
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPthreadCondWait
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPthreadCondattrDestroy
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPthreadCondattrInit
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPthreadCreate
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPthreadDetach
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPthreadEqual
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPthreadGetspecific
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPthreadJoin
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPthreadKeyCreate
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPthreadKeyDelete
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPthreadMutexDestroy
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPthreadMutexInit
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPthreadMutexLock
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPthreadMutexTrylock
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPthreadMutexUnlock
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPthreadMutexattrDestroy
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPthreadMutexattrInit
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPthreadMutexattrSettype
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPthreadRwlockDestroy
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPthreadRwlockInit
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPthreadRwlockRdlock
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPthreadRwlockTryrdlock
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPthreadRwlockTrywrlock
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPthreadRwlockUnlock
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPthreadRwlockWrlock
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPthreadRwlockattrDestroy
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPthreadRwlockattrInit
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPthreadSelf
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPthreadSetspecific
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPutc
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPutchar
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPutcharUnlocked
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPutenv
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPuts
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPwrite
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiPwritev
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiQuickExit
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiRand
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiRandR
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiRandom
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiRead
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiReaddir
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiReadlink
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiReadlinkat
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiReadv
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiRealloc
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiRealpath
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiRecv
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiRemove
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiRename
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiRenameat
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiRewind
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiRewinddir
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiRmdir
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiSbrk
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiScanf
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiSchedYield
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiSeekdir
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiSelect
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiSend
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiSetENVIRON
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiSetbuf
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiSetenv
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiSetlocale
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiSetvbuf
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiShutdown
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiSleep
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiSnprintf
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiSprintf
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiSrand
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiSrandom
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiSscanf
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiStat
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiStrcasecmp
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiStrcasestr
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiStrcat
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiStrchr
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiStrcmp
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiStrcoll
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiStrcpy
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiStrcspn
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiStrdup
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiStrerror
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiStrerrorR
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiStrftime
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiStrlen
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiStrncasecmp
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiStrncat
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiStrncmp
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiStrncpy
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiStrndup
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiStrnlen
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiStrpbrk
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiStrrchr
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiStrspn
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiStrstr
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiStrtod
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiStrtof
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiStrtok
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiStrtol
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiStrtoll
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiStrtoul
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiStrtoull
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiStrxfrm
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiSymlink
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiSymlinkat
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiSysconf
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiTelldir
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiTime
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiTimegm
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiTimes
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiTolower
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiToupper
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiTruncate
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiUngetc
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiUnlink
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiUnlinkat
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiUnsetenv
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiUselocale
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiUsleep
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiUtimensat
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiWasilibcAccess
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiWasilibcFdRenumber
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiWasilibcFindRelpath
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiWasilibcLink
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiWasilibcLinkNewat
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiWasilibcLinkOldat
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiWasilibcNocwdFaccessat
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiWasilibcNocwdFstatat
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiWasilibcNocwdLinkat
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiWasilibcNocwdMkdiratNomode
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiWasilibcNocwdOpenatNomode
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiWasilibcNocwdOpendirat
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiWasilibcNocwdReadlinkat
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiWasilibcNocwdRenameat
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiWasilibcNocwdSymlinkat
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiWasilibcNocwdUtimensat
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiWasilibcNocwdWasilibcRmdirat
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiWasilibcNocwdWasilibcUnlinkat
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiWasilibcRegisterPreopenedFd
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiWasilibcRenameNewat
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiWasilibcRenameOldat
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiWasilibcRmdirat
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiWasilibcStat
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiWasilibcTell
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiWasilibcUnlinkat
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiWasilibcUtimens
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiWrite
+import io.github.kotlinmania.libc.wasi.cinterop.libcWasiWritev
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
 
-public actual var ENVIRON: COpaquePointer?
-    get() = libc_wasi_get_ENVIRON()?.let { COpaquePointer(it.toLong()) }
+public actual var ENVIRON: MutPtr<MutPtr<CChar>>
+    get() = MutPtr(libcWasiGetENVIRON()?.toLong() ?: 0L)
     set(value) {
-        libc_wasi_set_ENVIRON(value?.value?.toCPointer<ByteVar>())
+        libcWasiSetENVIRON(value.rawAddress.toCPointer<ByteVar>())
     }
 
 public actual val CLOCK_MONOTONIC1: UByte
-    get() = libc_wasi_get_CLOCK_MONOTONIC1()
+    get() = libcWasiGetCLOCKMONOTONIC1()
 
 public actual val CLOCK_REALTIME1: UByte
-    get() = libc_wasi_get_CLOCK_REALTIME1()
+    get() = libcWasiGetCLOCKREALTIME1()
 
 public actual fun exit(code: CInt): Nothing {
-    libc_wasi_exit(code)
+    libcWasiExit(code)
     error("Unreachable noreturn C function exit")
 }
 
 public actual fun abort(): Nothing {
-    libc_wasi_abort()
+    libcWasiAbort()
     error("Unreachable noreturn C function abort")
 }
 
-public actual fun alignedAlloc(a: SizeT, b: SizeT): COpaquePointer? =
-    libc_wasi_alignedAlloc(a, b)?.let { COpaquePointer(it.toLong()) }
+public actual fun alignedAlloc(a: SizeT, b: SizeT): MutPtr<CVoid> =
+    MutPtr(libcWasiAlignedAlloc(a, b)?.toLong() ?: 0L)
 
-public actual fun calloc(amt: SizeT, amt2: SizeT): COpaquePointer? =
-    libc_wasi_calloc(amt, amt2)?.let { COpaquePointer(it.toLong()) }
+public actual fun calloc(amt: SizeT, amt2: SizeT): MutPtr<CVoid> =
+    MutPtr(libcWasiCalloc(amt, amt2)?.toLong() ?: 0L)
 
-public actual fun free(ptr: COpaquePointer?) {
-    libc_wasi_free(ptr?.value?.toCPointer<ByteVar>())
+public actual fun free(ptr: MutPtr<CVoid>) {
+    libcWasiFree(ptr.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun getenv(s: String?): COpaquePointer? =
-    libc_wasi_getenv(s)?.let { COpaquePointer(it.toLong()) }
+public actual fun getenv(s: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcWasiGetenv(s.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun malloc(amt: SizeT): COpaquePointer? =
-    libc_wasi_malloc(amt)?.let { COpaquePointer(it.toLong()) }
+public actual fun malloc(amt: SizeT): MutPtr<CVoid> =
+    MutPtr(libcWasiMalloc(amt)?.toLong() ?: 0L)
 
-public actual fun mallocUsableSize(ptr: COpaquePointer?): SizeT =
-    libc_wasi_mallocUsableSize(ptr?.value?.toCPointer<ByteVar>())
+public actual fun mallocUsableSize(ptr: MutPtr<CVoid>): SizeT =
+    libcWasiMallocUsableSize(ptr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sbrk(increment: IntptrT): COpaquePointer? =
-    libc_wasi_sbrk(increment)?.let { COpaquePointer(it.toLong()) }
+public actual fun sbrk(increment: IntptrT): MutPtr<CVoid> =
+    MutPtr(libcWasiSbrk(increment)?.toLong() ?: 0L)
 
 public actual fun rand(): CInt =
-    libc_wasi_rand()
+    libcWasiRand()
 
-public actual fun read(fd: CInt, ptr: COpaquePointer?, size: SizeT): SsizeT =
-    libc_wasi_read(fd, ptr?.value?.toCPointer<ByteVar>(), size)
+public actual fun read(fd: CInt, ptr: MutPtr<CVoid>, size: SizeT): SsizeT =
+    libcWasiRead(fd, ptr.rawAddress.toCPointer<ByteVar>(), size)
 
-public actual fun realloc(ptr: COpaquePointer?, amt: SizeT): COpaquePointer? =
-    libc_wasi_realloc(ptr?.value?.toCPointer<ByteVar>(), amt)?.let { COpaquePointer(it.toLong()) }
+public actual fun realloc(ptr: MutPtr<CVoid>, amt: SizeT): MutPtr<CVoid> =
+    MutPtr(libcWasiRealloc(ptr.rawAddress.toCPointer<ByteVar>(), amt)?.toLong() ?: 0L)
 
-public actual fun setenv(k: String?, v: String?, a: CInt): CInt =
-    libc_wasi_setenv(k, v, a)
+public actual fun setenv(k: ConstPtr<CChar>, v: ConstPtr<CChar>, a: CInt): CInt =
+    libcWasiSetenv(k.rawAddress.toCPointer<ByteVar>(), v.rawAddress.toCPointer<ByteVar>(), a)
 
-public actual fun unsetenv(k: String?): CInt =
-    libc_wasi_unsetenv(k)
+public actual fun unsetenv(k: ConstPtr<CChar>): CInt =
+    libcWasiUnsetenv(k.rawAddress.toCPointer<ByteVar>())
 
 public actual fun clearenv(): CInt =
-    libc_wasi_clearenv()
+    libcWasiClearenv()
 
-public actual fun write(fd: CInt, ptr: COpaquePointer?, size: SizeT): SsizeT =
-    libc_wasi_write(fd, ptr?.value?.toCPointer<ByteVar>(), size)
+public actual fun write(fd: CInt, ptr: ConstPtr<CVoid>, size: SizeT): SsizeT =
+    libcWasiWrite(fd, ptr.rawAddress.toCPointer<ByteVar>(), size)
 
-public actual fun fopen(a: String?, b: String?): FILE? =
-    libc_wasi_fopen(a, b)?.let { FILE(it.toLong()) }
+public actual fun fopen(a: ConstPtr<CChar>, b: ConstPtr<CChar>): MutPtr<FILE> =
+    MutPtr(libcWasiFopen(a.rawAddress.toCPointer<ByteVar>(), b.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun freopen(a: String?, b: String?, f: FILE?): FILE? =
-    libc_wasi_freopen(a, b, f?.handle?.toCPointer<ByteVar>())?.let { FILE(it.toLong()) }
+public actual fun freopen(a: ConstPtr<CChar>, b: ConstPtr<CChar>, f: MutPtr<FILE>): MutPtr<FILE> =
+    MutPtr(libcWasiFreopen(a.rawAddress.toCPointer<ByteVar>(), b.rawAddress.toCPointer<ByteVar>(), f.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun fclose(f: FILE?): CInt =
-    libc_wasi_fclose(f?.handle?.toCPointer<ByteVar>())
+public actual fun fclose(f: MutPtr<FILE>): CInt =
+    libcWasiFclose(f.rawAddress.toCPointer<ByteVar>())
 
-public actual fun remove(a: String?): CInt =
-    libc_wasi_remove(a)
+public actual fun remove(a: ConstPtr<CChar>): CInt =
+    libcWasiRemove(a.rawAddress.toCPointer<ByteVar>())
 
-public actual fun rename(a: String?, b: String?): CInt =
-    libc_wasi_rename(a, b)
+public actual fun rename(a: ConstPtr<CChar>, b: ConstPtr<CChar>): CInt =
+    libcWasiRename(a.rawAddress.toCPointer<ByteVar>(), b.rawAddress.toCPointer<ByteVar>())
 
-public actual fun feof(f: FILE?): CInt =
-    libc_wasi_feof(f?.handle?.toCPointer<ByteVar>())
+public actual fun feof(f: MutPtr<FILE>): CInt =
+    libcWasiFeof(f.rawAddress.toCPointer<ByteVar>())
 
-public actual fun ferror(f: FILE?): CInt =
-    libc_wasi_ferror(f?.handle?.toCPointer<ByteVar>())
+public actual fun ferror(f: MutPtr<FILE>): CInt =
+    libcWasiFerror(f.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fflush(f: FILE?): CInt =
-    libc_wasi_fflush(f?.handle?.toCPointer<ByteVar>())
+public actual fun fflush(f: MutPtr<FILE>): CInt =
+    libcWasiFflush(f.rawAddress.toCPointer<ByteVar>())
 
-public actual fun clearerr(f: FILE?) {
-    libc_wasi_clearerr(f?.handle?.toCPointer<ByteVar>())
+public actual fun clearerr(f: MutPtr<FILE>) {
+    libcWasiClearerr(f.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun fseek(f: FILE?, b: CLong, c: CInt): CInt =
-    libc_wasi_fseek(f?.handle?.toCPointer<ByteVar>(), b, c)
+public actual fun fseek(f: MutPtr<FILE>, b: CLong, c: CInt): CInt =
+    libcWasiFseek(f.rawAddress.toCPointer<ByteVar>(), b, c)
 
-public actual fun ftell(f: FILE?): CLong =
-    libc_wasi_ftell(f?.handle?.toCPointer<ByteVar>())
+public actual fun ftell(f: MutPtr<FILE>): CLong =
+    libcWasiFtell(f.rawAddress.toCPointer<ByteVar>())
 
-public actual fun rewind(f: FILE?) {
-    libc_wasi_rewind(f?.handle?.toCPointer<ByteVar>())
+public actual fun rewind(f: MutPtr<FILE>) {
+    libcWasiRewind(f.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun fgetpos(f: FILE?, pos: COpaquePointer?): CInt =
-    libc_wasi_fgetpos(f?.handle?.toCPointer<ByteVar>(), pos?.value?.toCPointer<ByteVar>())
+public actual fun fgetpos(f: MutPtr<FILE>, pos: MutPtr<FposT>): CInt =
+    libcWasiFgetpos(f.rawAddress.toCPointer<ByteVar>(), pos.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fsetpos(f: FILE?, pos: COpaquePointer?): CInt =
-    libc_wasi_fsetpos(f?.handle?.toCPointer<ByteVar>(), pos?.value?.toCPointer<ByteVar>())
+public actual fun fsetpos(f: MutPtr<FILE>, pos: ConstPtr<FposT>): CInt =
+    libcWasiFsetpos(f.rawAddress.toCPointer<ByteVar>(), pos.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fread(buf: COpaquePointer?, a: SizeT, b: SizeT, f: FILE?): SizeT =
-    libc_wasi_fread(buf?.value?.toCPointer<ByteVar>(), a, b, f?.handle?.toCPointer<ByteVar>())
+public actual fun fread(buf: MutPtr<CVoid>, a: SizeT, b: SizeT, f: MutPtr<FILE>): SizeT =
+    libcWasiFread(buf.rawAddress.toCPointer<ByteVar>(), a, b, f.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fwrite(buf: COpaquePointer?, a: SizeT, b: SizeT, f: FILE?): SizeT =
-    libc_wasi_fwrite(buf?.value?.toCPointer<ByteVar>(), a, b, f?.handle?.toCPointer<ByteVar>())
+public actual fun fwrite(buf: ConstPtr<CVoid>, a: SizeT, b: SizeT, f: MutPtr<FILE>): SizeT =
+    libcWasiFwrite(buf.rawAddress.toCPointer<ByteVar>(), a, b, f.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fgetc(f: FILE?): CInt =
-    libc_wasi_fgetc(f?.handle?.toCPointer<ByteVar>())
+public actual fun fgetc(f: MutPtr<FILE>): CInt =
+    libcWasiFgetc(f.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getc(f: FILE?): CInt =
-    libc_wasi_getc(f?.handle?.toCPointer<ByteVar>())
+public actual fun getc(f: MutPtr<FILE>): CInt =
+    libcWasiGetc(f.rawAddress.toCPointer<ByteVar>())
 
 public actual fun getchar(): CInt =
-    libc_wasi_getchar()
+    libcWasiGetchar()
 
-public actual fun ungetc(a: CInt, f: FILE?): CInt =
-    libc_wasi_ungetc(a, f?.handle?.toCPointer<ByteVar>())
+public actual fun ungetc(a: CInt, f: MutPtr<FILE>): CInt =
+    libcWasiUngetc(a, f.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fputc(a: CInt, f: FILE?): CInt =
-    libc_wasi_fputc(a, f?.handle?.toCPointer<ByteVar>())
+public actual fun fputc(a: CInt, f: MutPtr<FILE>): CInt =
+    libcWasiFputc(a, f.rawAddress.toCPointer<ByteVar>())
 
-public actual fun putc(a: CInt, f: FILE?): CInt =
-    libc_wasi_putc(a, f?.handle?.toCPointer<ByteVar>())
+public actual fun putc(a: CInt, f: MutPtr<FILE>): CInt =
+    libcWasiPutc(a, f.rawAddress.toCPointer<ByteVar>())
 
 public actual fun putchar(a: CInt): CInt =
-    libc_wasi_putchar(a)
+    libcWasiPutchar(a)
 
-public actual fun fputs(a: String?, f: FILE?): CInt =
-    libc_wasi_fputs(a, f?.handle?.toCPointer<ByteVar>())
+public actual fun fputs(a: ConstPtr<CChar>, f: MutPtr<FILE>): CInt =
+    libcWasiFputs(a.rawAddress.toCPointer<ByteVar>(), f.rawAddress.toCPointer<ByteVar>())
 
-public actual fun puts(a: String?): CInt =
-    libc_wasi_puts(a)
+public actual fun puts(a: ConstPtr<CChar>): CInt =
+    libcWasiPuts(a.rawAddress.toCPointer<ByteVar>())
 
-public actual fun perror(a: String?) {
-    libc_wasi_perror(a)
+public actual fun perror(a: ConstPtr<CChar>) {
+    libcWasiPerror(a.rawAddress.toCPointer<ByteVar>())
 }
 
 public actual fun srand(a: CUint) {
-    libc_wasi_srand(a)
+    libcWasiSrand(a)
 }
 
 public actual fun atexit(a: AtexitACallback): CInt =
-    libc_wasi_atexit(0L.toCPointer<ByteVar>())
+    libcWasiAtexit(0L.toCPointer<ByteVar>())
 
 public actual fun atQuickExit(a: AtexitACallback): CInt =
-    libc_wasi_atQuickExit(0L.toCPointer<ByteVar>())
+    libcWasiAtQuickExit(0L.toCPointer<ByteVar>())
 
 public actual fun quickExit(a: CInt): Nothing {
-    libc_wasi_quickExit(a)
+    libcWasiQuickExit(a)
     error("Unreachable noreturn C function quickExit")
 }
 
-public actual fun posixMemalign(a: COpaquePointer?, b: SizeT, c: SizeT): CInt =
-    libc_wasi_posixMemalign(a?.value?.toCPointer<ByteVar>(), b, c)
+public actual fun posixMemalign(a: MutPtr<MutPtr<CVoid>>, b: SizeT, c: SizeT): CInt =
+    libcWasiPosixMemalign(a.rawAddress.toCPointer<ByteVar>(), b, c)
 
-public actual fun randR(a: COpaquePointer?): CInt =
-    libc_wasi_randR(a?.value?.toCPointer<ByteVar>())
+public actual fun randR(a: MutPtr<CUint>): CInt =
+    libcWasiRandR(a.rawAddress.toCPointer<ByteVar>())
 
 public actual fun random(): CLong =
-    libc_wasi_random()
+    libcWasiRandom()
 
 public actual fun srandom(a: CUint) {
-    libc_wasi_srandom(a)
+    libcWasiSrandom(a)
 }
 
-public actual fun putenv(a: COpaquePointer?): CInt =
-    libc_wasi_putenv(a?.value?.toCPointer<ByteVar>())
+public actual fun putenv(a: MutPtr<CChar>): CInt =
+    libcWasiPutenv(a.rawAddress.toCPointer<ByteVar>())
 
 public actual fun clock(): ClockT =
-    libc_wasi_clock()
+    libcWasiClock()
 
-public actual fun time(a: COpaquePointer?): TimeT =
-    libc_wasi_time(a?.value?.toCPointer<ByteVar>())
+public actual fun time(a: MutPtr<TimeT>): TimeT =
+    libcWasiTime(a.rawAddress.toCPointer<ByteVar>())
 
 public actual fun difftime(a: TimeT, b: TimeT): CDouble =
-    libc_wasi_difftime(a, b)
+    libcWasiDifftime(a, b)
 
-public actual fun mktime(a: COpaquePointer?): TimeT =
-    libc_wasi_mktime(a?.value?.toCPointer<ByteVar>())
+public actual fun mktime(a: MutPtr<Tm>): TimeT =
+    libcWasiMktime(a.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strftime(a: COpaquePointer?, b: SizeT, c: String?, d: COpaquePointer?): SizeT =
-    libc_wasi_strftime(a?.value?.toCPointer<ByteVar>(), b, c, d?.value?.toCPointer<ByteVar>())
+public actual fun strftime(a: MutPtr<CChar>, b: SizeT, c: ConstPtr<CChar>, d: ConstPtr<Tm>): SizeT =
+    libcWasiStrftime(a.rawAddress.toCPointer<ByteVar>(), b, c.rawAddress.toCPointer<ByteVar>(), d.rawAddress.toCPointer<ByteVar>())
 
-public actual fun gmtime(a: COpaquePointer?): COpaquePointer? =
-    libc_wasi_gmtime(a?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun gmtime(a: ConstPtr<TimeT>): MutPtr<Tm> =
+    MutPtr(libcWasiGmtime(a.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun gmtimeR(a: COpaquePointer?, b: COpaquePointer?): COpaquePointer? =
-    libc_wasi_gmtimeR(a?.value?.toCPointer<ByteVar>(), b?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun gmtimeR(a: ConstPtr<TimeT>, b: MutPtr<Tm>): MutPtr<Tm> =
+    MutPtr(libcWasiGmtimeR(a.rawAddress.toCPointer<ByteVar>(), b.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun localtime(a: COpaquePointer?): COpaquePointer? =
-    libc_wasi_localtime(a?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun localtime(a: ConstPtr<TimeT>): MutPtr<Tm> =
+    MutPtr(libcWasiLocaltime(a.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun localtimeR(a: COpaquePointer?, b: COpaquePointer?): COpaquePointer? =
-    libc_wasi_localtimeR(a?.value?.toCPointer<ByteVar>(), b?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun localtimeR(a: ConstPtr<TimeT>, b: MutPtr<Tm>): MutPtr<Tm> =
+    MutPtr(libcWasiLocaltimeR(a.rawAddress.toCPointer<ByteVar>(), b.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun asctimeR(a: COpaquePointer?, b: COpaquePointer?): COpaquePointer? =
-    libc_wasi_asctimeR(a?.value?.toCPointer<ByteVar>(), b?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun asctimeR(a: ConstPtr<Tm>, b: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcWasiAsctimeR(a.rawAddress.toCPointer<ByteVar>(), b.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun ctimeR(a: COpaquePointer?, b: COpaquePointer?): COpaquePointer? =
-    libc_wasi_ctimeR(a?.value?.toCPointer<ByteVar>(), b?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun ctimeR(a: ConstPtr<TimeT>, b: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcWasiCtimeR(a.rawAddress.toCPointer<ByteVar>(), b.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun nanosleep(a: COpaquePointer?, b: COpaquePointer?): CInt =
-    libc_wasi_nanosleep(a?.value?.toCPointer<ByteVar>(), b?.value?.toCPointer<ByteVar>())
+public actual fun nanosleep(a: ConstPtr<Timespec>, b: MutPtr<Timespec>): CInt =
+    libcWasiNanosleep(a.rawAddress.toCPointer<ByteVar>(), b.rawAddress.toCPointer<ByteVar>())
 
-public actual fun clockGetres(a: ClockidT, b: COpaquePointer?): CInt =
+public actual fun clockGetres(a: ClockidT, b: MutPtr<Timespec>): CInt =
     0
 
-public actual fun clockGettime(a: ClockidT, b: COpaquePointer?): CInt =
+public actual fun clockGettime(a: ClockidT, b: MutPtr<Timespec>): CInt =
     0
 
-public actual fun clockNanosleep(a: ClockidT, a2: CInt, b: COpaquePointer?, c: COpaquePointer?): CInt =
+public actual fun clockNanosleep(a: ClockidT, a2: CInt, b: ConstPtr<Timespec>, c: MutPtr<Timespec>): CInt =
     0
 
 public actual fun isalnum(c: CInt): CInt =
-    libc_wasi_isalnum(c)
+    libcWasiIsalnum(c)
 
 public actual fun isalpha(c: CInt): CInt =
-    libc_wasi_isalpha(c)
+    libcWasiIsalpha(c)
 
 public actual fun iscntrl(c: CInt): CInt =
-    libc_wasi_iscntrl(c)
+    libcWasiIscntrl(c)
 
 public actual fun isdigit(c: CInt): CInt =
-    libc_wasi_isdigit(c)
+    libcWasiIsdigit(c)
 
 public actual fun isgraph(c: CInt): CInt =
-    libc_wasi_isgraph(c)
+    libcWasiIsgraph(c)
 
 public actual fun islower(c: CInt): CInt =
-    libc_wasi_islower(c)
+    libcWasiIslower(c)
 
 public actual fun isprint(c: CInt): CInt =
-    libc_wasi_isprint(c)
+    libcWasiIsprint(c)
 
 public actual fun ispunct(c: CInt): CInt =
-    libc_wasi_ispunct(c)
+    libcWasiIspunct(c)
 
 public actual fun isspace(c: CInt): CInt =
-    libc_wasi_isspace(c)
+    libcWasiIsspace(c)
 
 public actual fun isupper(c: CInt): CInt =
-    libc_wasi_isupper(c)
+    libcWasiIsupper(c)
 
 public actual fun isxdigit(c: CInt): CInt =
-    libc_wasi_isxdigit(c)
+    libcWasiIsxdigit(c)
 
 public actual fun isblank(c: CInt): CInt =
-    libc_wasi_isblank(c)
+    libcWasiIsblank(c)
 
 public actual fun tolower(c: CInt): CInt =
-    libc_wasi_tolower(c)
+    libcWasiTolower(c)
 
 public actual fun toupper(c: CInt): CInt =
-    libc_wasi_toupper(c)
+    libcWasiToupper(c)
 
-public actual fun setvbuf(stream: FILE?, buffer: COpaquePointer?, mode: CInt, size: SizeT): CInt =
-    libc_wasi_setvbuf(stream?.handle?.toCPointer<ByteVar>(), buffer?.value?.toCPointer<ByteVar>(), mode, size)
+public actual fun setvbuf(stream: MutPtr<FILE>, buffer: MutPtr<CChar>, mode: CInt, size: SizeT): CInt =
+    libcWasiSetvbuf(stream.rawAddress.toCPointer<ByteVar>(), buffer.rawAddress.toCPointer<ByteVar>(), mode, size)
 
-public actual fun setbuf(stream: FILE?, buf: COpaquePointer?) {
-    libc_wasi_setbuf(stream?.handle?.toCPointer<ByteVar>(), buf?.value?.toCPointer<ByteVar>())
+public actual fun setbuf(stream: MutPtr<FILE>, buf: MutPtr<CChar>) {
+    libcWasiSetbuf(stream.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun fgets(buf: COpaquePointer?, n: CInt, stream: FILE?): COpaquePointer? =
-    libc_wasi_fgets(buf?.value?.toCPointer<ByteVar>(), n, stream?.handle?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun fgets(buf: MutPtr<CChar>, n: CInt, stream: MutPtr<FILE>): MutPtr<CChar> =
+    MutPtr(libcWasiFgets(buf.rawAddress.toCPointer<ByteVar>(), n, stream.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun atof(s: String?): CDouble =
-    libc_wasi_atof(s)
+public actual fun atof(s: ConstPtr<CChar>): CDouble =
+    libcWasiAtof(s.rawAddress.toCPointer<ByteVar>())
 
-public actual fun atoi(s: String?): CInt =
-    libc_wasi_atoi(s)
+public actual fun atoi(s: ConstPtr<CChar>): CInt =
+    libcWasiAtoi(s.rawAddress.toCPointer<ByteVar>())
 
-public actual fun atol(s: String?): CLong =
-    libc_wasi_atol(s)
+public actual fun atol(s: ConstPtr<CChar>): CLong =
+    libcWasiAtol(s.rawAddress.toCPointer<ByteVar>())
 
-public actual fun atoll(s: String?): CLonglong =
-    libc_wasi_atoll(s)
+public actual fun atoll(s: ConstPtr<CChar>): CLonglong =
+    libcWasiAtoll(s.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strtod(s: String?, endp: COpaquePointer?): CDouble =
-    libc_wasi_strtod(s, endp?.value?.toCPointer<ByteVar>())
+public actual fun strtod(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>): CDouble =
+    libcWasiStrtod(s.rawAddress.toCPointer<ByteVar>(), endp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strtof(s: String?, endp: COpaquePointer?): CFloat =
-    libc_wasi_strtof(s, endp?.value?.toCPointer<ByteVar>())
+public actual fun strtof(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>): CFloat =
+    libcWasiStrtof(s.rawAddress.toCPointer<ByteVar>(), endp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strtol(s: String?, endp: COpaquePointer?, base: CInt): CLong =
-    libc_wasi_strtol(s, endp?.value?.toCPointer<ByteVar>(), base)
+public actual fun strtol(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CLong =
+    libcWasiStrtol(s.rawAddress.toCPointer<ByteVar>(), endp.rawAddress.toCPointer<ByteVar>(), base)
 
-public actual fun strtoll(s: String?, endp: COpaquePointer?, base: CInt): CLonglong =
-    libc_wasi_strtoll(s, endp?.value?.toCPointer<ByteVar>(), base)
+public actual fun strtoll(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CLonglong =
+    libcWasiStrtoll(s.rawAddress.toCPointer<ByteVar>(), endp.rawAddress.toCPointer<ByteVar>(), base)
 
-public actual fun strtoul(s: String?, endp: COpaquePointer?, base: CInt): CUlong =
-    libc_wasi_strtoul(s, endp?.value?.toCPointer<ByteVar>(), base)
+public actual fun strtoul(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CUlong =
+    libcWasiStrtoul(s.rawAddress.toCPointer<ByteVar>(), endp.rawAddress.toCPointer<ByteVar>(), base)
 
-public actual fun strtoull(s: String?, endp: COpaquePointer?, base: CInt): CUlonglong =
-    libc_wasi_strtoull(s, endp?.value?.toCPointer<ByteVar>(), base)
+public actual fun strtoull(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CUlonglong =
+    libcWasiStrtoull(s.rawAddress.toCPointer<ByteVar>(), endp.rawAddress.toCPointer<ByteVar>(), base)
 
-public actual fun strcpy(dst: COpaquePointer?, src: String?): COpaquePointer? =
-    libc_wasi_strcpy(dst?.value?.toCPointer<ByteVar>(), src)?.let { COpaquePointer(it.toLong()) }
+public actual fun strcpy(dst: MutPtr<CChar>, src: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcWasiStrcpy(dst.rawAddress.toCPointer<ByteVar>(), src.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strncpy(dst: COpaquePointer?, src: String?, n: SizeT): COpaquePointer? =
-    libc_wasi_strncpy(dst?.value?.toCPointer<ByteVar>(), src, n)?.let { COpaquePointer(it.toLong()) }
+public actual fun strncpy(dst: MutPtr<CChar>, src: ConstPtr<CChar>, n: SizeT): MutPtr<CChar> =
+    MutPtr(libcWasiStrncpy(dst.rawAddress.toCPointer<ByteVar>(), src.rawAddress.toCPointer<ByteVar>(), n)?.toLong() ?: 0L)
 
-public actual fun strcat(s: COpaquePointer?, ct: String?): COpaquePointer? =
-    libc_wasi_strcat(s?.value?.toCPointer<ByteVar>(), ct)?.let { COpaquePointer(it.toLong()) }
+public actual fun strcat(s: MutPtr<CChar>, ct: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcWasiStrcat(s.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strncat(s: COpaquePointer?, ct: String?, n: SizeT): COpaquePointer? =
-    libc_wasi_strncat(s?.value?.toCPointer<ByteVar>(), ct, n)?.let { COpaquePointer(it.toLong()) }
+public actual fun strncat(s: MutPtr<CChar>, ct: ConstPtr<CChar>, n: SizeT): MutPtr<CChar> =
+    MutPtr(libcWasiStrncat(s.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>(), n)?.toLong() ?: 0L)
 
-public actual fun strcmp(cs: String?, ct: String?): CInt =
-    libc_wasi_strcmp(cs, ct)
+public actual fun strcmp(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): CInt =
+    libcWasiStrcmp(cs.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strncmp(cs: String?, ct: String?, n: SizeT): CInt =
-    libc_wasi_strncmp(cs, ct, n)
+public actual fun strncmp(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>, n: SizeT): CInt =
+    libcWasiStrncmp(cs.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>(), n)
 
-public actual fun strcoll(cs: String?, ct: String?): CInt =
-    libc_wasi_strcoll(cs, ct)
+public actual fun strcoll(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): CInt =
+    libcWasiStrcoll(cs.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strchr(cs: String?, c: CInt): COpaquePointer? =
-    libc_wasi_strchr(cs, c)?.let { COpaquePointer(it.toLong()) }
+public actual fun strchr(cs: ConstPtr<CChar>, c: CInt): MutPtr<CChar> =
+    MutPtr(libcWasiStrchr(cs.rawAddress.toCPointer<ByteVar>(), c)?.toLong() ?: 0L)
 
-public actual fun strrchr(cs: String?, c: CInt): COpaquePointer? =
-    libc_wasi_strrchr(cs, c)?.let { COpaquePointer(it.toLong()) }
+public actual fun strrchr(cs: ConstPtr<CChar>, c: CInt): MutPtr<CChar> =
+    MutPtr(libcWasiStrrchr(cs.rawAddress.toCPointer<ByteVar>(), c)?.toLong() ?: 0L)
 
-public actual fun strspn(cs: String?, ct: String?): SizeT =
-    libc_wasi_strspn(cs, ct)
+public actual fun strspn(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): SizeT =
+    libcWasiStrspn(cs.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strcspn(cs: String?, ct: String?): SizeT =
-    libc_wasi_strcspn(cs, ct)
+public actual fun strcspn(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): SizeT =
+    libcWasiStrcspn(cs.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strdup(cs: String?): COpaquePointer? =
-    libc_wasi_strdup(cs)?.let { COpaquePointer(it.toLong()) }
+public actual fun strdup(cs: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcWasiStrdup(cs.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strndup(cs: String?, n: SizeT): COpaquePointer? =
-    libc_wasi_strndup(cs, n)?.let { COpaquePointer(it.toLong()) }
+public actual fun strndup(cs: ConstPtr<CChar>, n: SizeT): MutPtr<CChar> =
+    MutPtr(libcWasiStrndup(cs.rawAddress.toCPointer<ByteVar>(), n)?.toLong() ?: 0L)
 
-public actual fun strpbrk(cs: String?, ct: String?): COpaquePointer? =
-    libc_wasi_strpbrk(cs, ct)?.let { COpaquePointer(it.toLong()) }
+public actual fun strpbrk(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcWasiStrpbrk(cs.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strstr(cs: String?, ct: String?): COpaquePointer? =
-    libc_wasi_strstr(cs, ct)?.let { COpaquePointer(it.toLong()) }
+public actual fun strstr(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcWasiStrstr(cs.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strcasecmp(s1: String?, s2: String?): CInt =
-    libc_wasi_strcasecmp(s1, s2)
+public actual fun strcasecmp(s1: ConstPtr<CChar>, s2: ConstPtr<CChar>): CInt =
+    libcWasiStrcasecmp(s1.rawAddress.toCPointer<ByteVar>(), s2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strncasecmp(s1: String?, s2: String?, n: SizeT): CInt =
-    libc_wasi_strncasecmp(s1, s2, n)
+public actual fun strncasecmp(s1: ConstPtr<CChar>, s2: ConstPtr<CChar>, n: SizeT): CInt =
+    libcWasiStrncasecmp(s1.rawAddress.toCPointer<ByteVar>(), s2.rawAddress.toCPointer<ByteVar>(), n)
 
-public actual fun strlen(cs: String?): SizeT =
-    libc_wasi_strlen(cs)
+public actual fun strlen(cs: ConstPtr<CChar>): SizeT =
+    libcWasiStrlen(cs.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strnlen(cs: String?, maxlen: SizeT): SizeT =
-    libc_wasi_strnlen(cs, maxlen)
+public actual fun strnlen(cs: ConstPtr<CChar>, maxlen: SizeT): SizeT =
+    libcWasiStrnlen(cs.rawAddress.toCPointer<ByteVar>(), maxlen)
 
-public actual fun strerror(n: CInt): COpaquePointer? =
-    libc_wasi_strerror(n)?.let { COpaquePointer(it.toLong()) }
+public actual fun strerror(n: CInt): MutPtr<CChar> =
+    MutPtr(libcWasiStrerror(n)?.toLong() ?: 0L)
 
-public actual fun strtok(s: COpaquePointer?, t: String?): COpaquePointer? =
-    libc_wasi_strtok(s?.value?.toCPointer<ByteVar>(), t)?.let { COpaquePointer(it.toLong()) }
+public actual fun strtok(s: MutPtr<CChar>, t: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcWasiStrtok(s.rawAddress.toCPointer<ByteVar>(), t.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strxfrm(s: COpaquePointer?, ct: String?, n: SizeT): SizeT =
-    libc_wasi_strxfrm(s?.value?.toCPointer<ByteVar>(), ct, n)
+public actual fun strxfrm(s: MutPtr<CChar>, ct: ConstPtr<CChar>, n: SizeT): SizeT =
+    libcWasiStrxfrm(s.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>(), n)
 
-public actual fun memchr(cx: COpaquePointer?, c: CInt, n: SizeT): COpaquePointer? =
-    libc_wasi_memchr(cx?.value?.toCPointer<ByteVar>(), c, n)?.let { COpaquePointer(it.toLong()) }
+public actual fun memchr(cx: ConstPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+    MutPtr(libcWasiMemchr(cx.rawAddress.toCPointer<ByteVar>(), c, n)?.toLong() ?: 0L)
 
-public actual fun memcmp(cx: COpaquePointer?, ct: COpaquePointer?, n: SizeT): CInt =
-    libc_wasi_memcmp(cx?.value?.toCPointer<ByteVar>(), ct?.value?.toCPointer<ByteVar>(), n)
+public actual fun memcmp(cx: ConstPtr<CVoid>, ct: ConstPtr<CVoid>, n: SizeT): CInt =
+    libcWasiMemcmp(cx.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>(), n)
 
-public actual fun memcpy(dest: COpaquePointer?, src: COpaquePointer?, n: SizeT): COpaquePointer? =
-    libc_wasi_memcpy(dest?.value?.toCPointer<ByteVar>(), src?.value?.toCPointer<ByteVar>(), n)?.let { COpaquePointer(it.toLong()) }
+public actual fun memcpy(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, n: SizeT): MutPtr<CVoid> =
+    MutPtr(libcWasiMemcpy(dest.rawAddress.toCPointer<ByteVar>(), src.rawAddress.toCPointer<ByteVar>(), n)?.toLong() ?: 0L)
 
-public actual fun memmove(dest: COpaquePointer?, src: COpaquePointer?, n: SizeT): COpaquePointer? =
-    libc_wasi_memmove(dest?.value?.toCPointer<ByteVar>(), src?.value?.toCPointer<ByteVar>(), n)?.let { COpaquePointer(it.toLong()) }
+public actual fun memmove(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, n: SizeT): MutPtr<CVoid> =
+    MutPtr(libcWasiMemmove(dest.rawAddress.toCPointer<ByteVar>(), src.rawAddress.toCPointer<ByteVar>(), n)?.toLong() ?: 0L)
 
-public actual fun memset(dest: COpaquePointer?, c: CInt, n: SizeT): COpaquePointer? =
-    libc_wasi_memset(dest?.value?.toCPointer<ByteVar>(), c, n)?.let { COpaquePointer(it.toLong()) }
+public actual fun memset(dest: MutPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+    MutPtr(libcWasiMemset(dest.rawAddress.toCPointer<ByteVar>(), c, n)?.toLong() ?: 0L)
 
-public actual fun fprintf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
-    libc_wasi_fprintf(stream?.handle?.toCPointer<ByteVar>(), format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun fprintf(stream: MutPtr<FILE>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    libcWasiFprintf(stream.rawAddress.toCPointer<ByteVar>(), format.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun printf(format: String?, vararg variadicArgs: Long): CInt =
-    libc_wasi_printf(format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun printf(format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    libcWasiPrintf(format.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun snprintf(s: COpaquePointer?, n: SizeT, format: String?, vararg variadicArgs: Long): CInt =
-    libc_wasi_snprintf(s?.value?.toCPointer<ByteVar>(), n, format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun snprintf(s: MutPtr<CChar>, n: SizeT, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    libcWasiSnprintf(s.rawAddress.toCPointer<ByteVar>(), n, format.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun sprintf(s: COpaquePointer?, format: String?, vararg variadicArgs: Long): CInt =
-    libc_wasi_sprintf(s?.value?.toCPointer<ByteVar>(), format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun sprintf(s: MutPtr<CChar>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    libcWasiSprintf(s.rawAddress.toCPointer<ByteVar>(), format.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun fscanf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
-    libc_wasi_fscanf(stream?.handle?.toCPointer<ByteVar>(), format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun fscanf(stream: MutPtr<FILE>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    libcWasiFscanf(stream.rawAddress.toCPointer<ByteVar>(), format.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun scanf(format: String?, vararg variadicArgs: Long): CInt =
-    libc_wasi_scanf(format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun scanf(format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    libcWasiScanf(format.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun sscanf(s: String?, format: String?, vararg variadicArgs: Long): CInt =
-    libc_wasi_sscanf(s, format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun sscanf(s: ConstPtr<CChar>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    libcWasiSscanf(s.rawAddress.toCPointer<ByteVar>(), format.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun getcharUnlocked(): CInt =
-    libc_wasi_getcharUnlocked()
+    libcWasiGetcharUnlocked()
 
 public actual fun putcharUnlocked(c: CInt): CInt =
-    libc_wasi_putcharUnlocked(c)
+    libcWasiPutcharUnlocked(c)
 
 public actual fun shutdown(socket: CInt, how: CInt): CInt =
-    libc_wasi_shutdown(socket, how)
+    libcWasiShutdown(socket, how)
 
-public actual fun fstat(fildes: CInt, buf: COpaquePointer?): CInt =
-    libc_wasi_fstat(fildes, buf?.value?.toCPointer<ByteVar>())
+public actual fun fstat(fildes: CInt, buf: MutPtr<Stat>): CInt =
+    libcWasiFstat(fildes, buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mkdir(path: String?, mode: ModeT): CInt =
-    libc_wasi_mkdir(path, mode)
+public actual fun mkdir(path: ConstPtr<CChar>, mode: ModeT): CInt =
+    libcWasiMkdir(path.rawAddress.toCPointer<ByteVar>(), mode)
 
-public actual fun stat(path: String?, buf: COpaquePointer?): CInt =
-    libc_wasi_stat(path, buf?.value?.toCPointer<ByteVar>())
+public actual fun stat(path: ConstPtr<CChar>, buf: MutPtr<Stat>): CInt =
+    libcWasiStat(path.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fdopen(fd: CInt, mode: String?): FILE? =
-    libc_wasi_fdopen(fd, mode)?.let { FILE(it.toLong()) }
+public actual fun fdopen(fd: CInt, mode: ConstPtr<CChar>): MutPtr<FILE> =
+    MutPtr(libcWasiFdopen(fd, mode.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun fileno(stream: FILE?): CInt =
-    libc_wasi_fileno(stream?.handle?.toCPointer<ByteVar>())
+public actual fun fileno(stream: MutPtr<FILE>): CInt =
+    libcWasiFileno(stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun open(path: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
-    libc_wasi_open(path, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun open(path: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): CInt =
+    libcWasiOpen(path.rawAddress.toCPointer<ByteVar>(), oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun creat(path: String?, mode: ModeT): CInt =
-    libc_wasi_creat(path, mode)
+public actual fun creat(path: ConstPtr<CChar>, mode: ModeT): CInt =
+    libcWasiCreat(path.rawAddress.toCPointer<ByteVar>(), mode)
 
 public actual fun fcntl(fd: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
-    libc_wasi_fcntl(fd, cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+    libcWasiFcntl(fd, cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun opendir(dirname: String?): DIR? =
-    libc_wasi_opendir(dirname)?.let { DIR(it.toLong()) }
+public actual fun opendir(dirname: ConstPtr<CChar>): MutPtr<DIR> =
+    MutPtr(libcWasiOpendir(dirname.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun fdopendir(fd: CInt): DIR? =
-    libc_wasi_fdopendir(fd)?.let { DIR(it.toLong()) }
+public actual fun fdopendir(fd: CInt): MutPtr<DIR> =
+    MutPtr(libcWasiFdopendir(fd)?.toLong() ?: 0L)
 
-public actual fun readdir(dirp: DIR?): COpaquePointer? =
-    libc_wasi_readdir(dirp?.handle?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun readdir(dirp: MutPtr<DIR>): MutPtr<Dirent> =
+    MutPtr(libcWasiReaddir(dirp.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun closedir(dirp: DIR?): CInt =
-    libc_wasi_closedir(dirp?.handle?.toCPointer<ByteVar>())
+public actual fun closedir(dirp: MutPtr<DIR>): CInt =
+    libcWasiClosedir(dirp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun rewinddir(dirp: DIR?) {
-    libc_wasi_rewinddir(dirp?.handle?.toCPointer<ByteVar>())
+public actual fun rewinddir(dirp: MutPtr<DIR>) {
+    libcWasiRewinddir(dirp.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun dirfd(dirp: DIR?): CInt =
-    libc_wasi_dirfd(dirp?.handle?.toCPointer<ByteVar>())
+public actual fun dirfd(dirp: MutPtr<DIR>): CInt =
+    libcWasiDirfd(dirp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun seekdir(dirp: DIR?, loc: CLong) {
-    libc_wasi_seekdir(dirp?.handle?.toCPointer<ByteVar>(), loc)
+public actual fun seekdir(dirp: MutPtr<DIR>, loc: CLong) {
+    libcWasiSeekdir(dirp.rawAddress.toCPointer<ByteVar>(), loc)
 }
 
-public actual fun telldir(dirp: DIR?): CLong =
-    libc_wasi_telldir(dirp?.handle?.toCPointer<ByteVar>())
+public actual fun telldir(dirp: MutPtr<DIR>): CLong =
+    libcWasiTelldir(dirp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun openat(dirfd: CInt, pathname: String?, flags: CInt, vararg variadicArgs: Long): CInt =
-    libc_wasi_openat(dirfd, pathname, flags, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun openat(dirfd: CInt, pathname: ConstPtr<CChar>, flags: CInt, vararg variadicArgs: Long): CInt =
+    libcWasiOpenat(dirfd, pathname.rawAddress.toCPointer<ByteVar>(), flags, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun fstatat(dirfd: CInt, pathname: String?, buf: COpaquePointer?, flags: CInt): CInt =
-    libc_wasi_fstatat(dirfd, pathname, buf?.value?.toCPointer<ByteVar>(), flags)
+public actual fun fstatat(dirfd: CInt, pathname: ConstPtr<CChar>, buf: MutPtr<Stat>, flags: CInt): CInt =
+    libcWasiFstatat(dirfd, pathname.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun linkat(olddirfd: CInt, oldpath: String?, newdirfd: CInt, newpath: String?, flags: CInt): CInt =
-    libc_wasi_linkat(olddirfd, oldpath, newdirfd, newpath, flags)
+public actual fun linkat(olddirfd: CInt, oldpath: ConstPtr<CChar>, newdirfd: CInt, newpath: ConstPtr<CChar>, flags: CInt): CInt =
+    libcWasiLinkat(olddirfd, oldpath.rawAddress.toCPointer<ByteVar>(), newdirfd, newpath.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun mkdirat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
-    libc_wasi_mkdirat(dirfd, pathname, mode)
+public actual fun mkdirat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT): CInt =
+    libcWasiMkdirat(dirfd, pathname.rawAddress.toCPointer<ByteVar>(), mode)
 
-public actual fun readlinkat(dirfd: CInt, pathname: String?, buf: COpaquePointer?, bufsiz: SizeT): SsizeT =
-    libc_wasi_readlinkat(dirfd, pathname, buf?.value?.toCPointer<ByteVar>(), bufsiz)
+public actual fun readlinkat(dirfd: CInt, pathname: ConstPtr<CChar>, buf: MutPtr<CChar>, bufsiz: SizeT): SsizeT =
+    libcWasiReadlinkat(dirfd, pathname.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>(), bufsiz)
 
-public actual fun renameat(olddirfd: CInt, oldpath: String?, newdirfd: CInt, newpath: String?): CInt =
-    libc_wasi_renameat(olddirfd, oldpath, newdirfd, newpath)
+public actual fun renameat(olddirfd: CInt, oldpath: ConstPtr<CChar>, newdirfd: CInt, newpath: ConstPtr<CChar>): CInt =
+    libcWasiRenameat(olddirfd, oldpath.rawAddress.toCPointer<ByteVar>(), newdirfd, newpath.rawAddress.toCPointer<ByteVar>())
 
-public actual fun symlinkat(target: String?, newdirfd: CInt, linkpath: String?): CInt =
-    libc_wasi_symlinkat(target, newdirfd, linkpath)
+public actual fun symlinkat(target: ConstPtr<CChar>, newdirfd: CInt, linkpath: ConstPtr<CChar>): CInt =
+    libcWasiSymlinkat(target.rawAddress.toCPointer<ByteVar>(), newdirfd, linkpath.rawAddress.toCPointer<ByteVar>())
 
-public actual fun unlinkat(dirfd: CInt, pathname: String?, flags: CInt): CInt =
-    libc_wasi_unlinkat(dirfd, pathname, flags)
+public actual fun unlinkat(dirfd: CInt, pathname: ConstPtr<CChar>, flags: CInt): CInt =
+    libcWasiUnlinkat(dirfd, pathname.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun access(path: String?, amode: CInt): CInt =
-    libc_wasi_access(path, amode)
+public actual fun access(path: ConstPtr<CChar>, amode: CInt): CInt =
+    libcWasiAccess(path.rawAddress.toCPointer<ByteVar>(), amode)
 
 public actual fun close(fd: CInt): CInt =
-    libc_wasi_close(fd)
+    libcWasiClose(fd)
 
 public actual fun fpathconf(filedes: CInt, name: CInt): CLong =
-    libc_wasi_fpathconf(filedes, name)
+    libcWasiFpathconf(filedes, name)
 
-public actual fun getopt(argc: CInt, argv: COpaquePointer?, optstr: String?): CInt =
-    libc_wasi_getopt(argc, argv?.value?.toCPointer<ByteVar>(), optstr)
+public actual fun getopt(argc: CInt, argv: ConstPtr<MutPtr<CChar>>, optstr: ConstPtr<CChar>): CInt =
+    libcWasiGetopt(argc, argv.rawAddress.toCPointer<ByteVar>(), optstr.rawAddress.toCPointer<ByteVar>())
 
 public actual fun isatty(fd: CInt): CInt =
-    libc_wasi_isatty(fd)
+    libcWasiIsatty(fd)
 
-public actual fun link(src: String?, dst: String?): CInt =
-    libc_wasi_link(src, dst)
+public actual fun link(src: ConstPtr<CChar>, dst: ConstPtr<CChar>): CInt =
+    libcWasiLink(src.rawAddress.toCPointer<ByteVar>(), dst.rawAddress.toCPointer<ByteVar>())
 
 public actual fun lseek(fd: CInt, offset: OffT, whence: CInt): OffT =
-    libc_wasi_lseek(fd, offset, whence)
+    libcWasiLseek(fd, offset, whence)
 
-public actual fun pathconf(path: String?, name: CInt): CLong =
-    libc_wasi_pathconf(path, name)
+public actual fun pathconf(path: ConstPtr<CChar>, name: CInt): CLong =
+    libcWasiPathconf(path.rawAddress.toCPointer<ByteVar>(), name)
 
-public actual fun rmdir(path: String?): CInt =
-    libc_wasi_rmdir(path)
+public actual fun rmdir(path: ConstPtr<CChar>): CInt =
+    libcWasiRmdir(path.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sleep(secs: CUint): CUint =
-    libc_wasi_sleep(secs)
+    libcWasiSleep(secs)
 
-public actual fun unlink(c: String?): CInt =
-    libc_wasi_unlink(c)
+public actual fun unlink(c: ConstPtr<CChar>): CInt =
+    libcWasiUnlink(c.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pread(fd: CInt, buf: COpaquePointer?, count: SizeT, offset: OffT): SsizeT =
-    libc_wasi_pread(fd, buf?.value?.toCPointer<ByteVar>(), count, offset)
+public actual fun pread(fd: CInt, buf: MutPtr<CVoid>, count: SizeT, offset: OffT): SsizeT =
+    libcWasiPread(fd, buf.rawAddress.toCPointer<ByteVar>(), count, offset)
 
-public actual fun pwrite(fd: CInt, buf: COpaquePointer?, count: SizeT, offset: OffT): SsizeT =
-    libc_wasi_pwrite(fd, buf?.value?.toCPointer<ByteVar>(), count, offset)
+public actual fun pwrite(fd: CInt, buf: ConstPtr<CVoid>, count: SizeT, offset: OffT): SsizeT =
+    libcWasiPwrite(fd, buf.rawAddress.toCPointer<ByteVar>(), count, offset)
 
-public actual fun lstat(path: String?, buf: COpaquePointer?): CInt =
-    libc_wasi_lstat(path, buf?.value?.toCPointer<ByteVar>())
+public actual fun lstat(path: ConstPtr<CChar>, buf: MutPtr<Stat>): CInt =
+    libcWasiLstat(path.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>())
 
 public actual fun fsync(fd: CInt): CInt =
-    libc_wasi_fsync(fd)
+    libcWasiFsync(fd)
 
 public actual fun fdatasync(fd: CInt): CInt =
-    libc_wasi_fdatasync(fd)
+    libcWasiFdatasync(fd)
 
-public actual fun symlink(path1: String?, path2: String?): CInt =
-    libc_wasi_symlink(path1, path2)
+public actual fun symlink(path1: ConstPtr<CChar>, path2: ConstPtr<CChar>): CInt =
+    libcWasiSymlink(path1.rawAddress.toCPointer<ByteVar>(), path2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun truncate(path: String?, length: OffT): CInt =
-    libc_wasi_truncate(path, length)
+public actual fun truncate(path: ConstPtr<CChar>, length: OffT): CInt =
+    libcWasiTruncate(path.rawAddress.toCPointer<ByteVar>(), length)
 
 public actual fun ftruncate(fd: CInt, length: OffT): CInt =
-    libc_wasi_ftruncate(fd, length)
+    libcWasiFtruncate(fd, length)
 
-public actual fun getrusage(resource: CInt, usage: COpaquePointer?): CInt =
-    libc_wasi_getrusage(resource, usage?.value?.toCPointer<ByteVar>())
+public actual fun getrusage(resource: CInt, usage: MutPtr<Rusage>): CInt =
+    libcWasiGetrusage(resource, usage.rawAddress.toCPointer<ByteVar>())
 
-public actual fun gettimeofday(tp: COpaquePointer?, tz: COpaquePointer?): CInt =
-    libc_wasi_gettimeofday(tp?.value?.toCPointer<ByteVar>(), tz?.value?.toCPointer<ByteVar>())
+public actual fun gettimeofday(tp: MutPtr<Timeval>, tz: MutPtr<CVoid>): CInt =
+    libcWasiGettimeofday(tp.rawAddress.toCPointer<ByteVar>(), tz.rawAddress.toCPointer<ByteVar>())
 
-public actual fun times(buf: COpaquePointer?): ClockT =
-    libc_wasi_times(buf?.value?.toCPointer<ByteVar>())
+public actual fun times(buf: MutPtr<Tms>): ClockT =
+    libcWasiTimes(buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strerrorR(errnum: CInt, buf: COpaquePointer?, buflen: SizeT): CInt =
-    libc_wasi_strerrorR(errnum, buf?.value?.toCPointer<ByteVar>(), buflen)
+public actual fun strerrorR(errnum: CInt, buf: MutPtr<CChar>, buflen: SizeT): CInt =
+    libcWasiStrerrorR(errnum, buf.rawAddress.toCPointer<ByteVar>(), buflen)
 
 public actual fun usleep(secs: CUint): CInt =
-    libc_wasi_usleep(secs)
+    libcWasiUsleep(secs)
 
-public actual fun send(socket: CInt, buf: COpaquePointer?, len: SizeT, flags: CInt): SsizeT =
-    libc_wasi_send(socket, buf?.value?.toCPointer<ByteVar>(), len, flags)
+public actual fun send(socket: CInt, buf: ConstPtr<CVoid>, len: SizeT, flags: CInt): SsizeT =
+    libcWasiSend(socket, buf.rawAddress.toCPointer<ByteVar>(), len, flags)
 
-public actual fun recv(socket: CInt, buf: COpaquePointer?, len: SizeT, flags: CInt): SsizeT =
-    libc_wasi_recv(socket, buf?.value?.toCPointer<ByteVar>(), len, flags)
+public actual fun recv(socket: CInt, buf: MutPtr<CVoid>, len: SizeT, flags: CInt): SsizeT =
+    libcWasiRecv(socket, buf.rawAddress.toCPointer<ByteVar>(), len, flags)
 
-public actual fun poll(fds: COpaquePointer?, nfds: NfdsT, timeout: CInt): CInt =
-    libc_wasi_poll(fds?.value?.toCPointer<ByteVar>(), nfds, timeout)
+public actual fun poll(fds: MutPtr<Pollfd>, nfds: NfdsT, timeout: CInt): CInt =
+    libcWasiPoll(fds.rawAddress.toCPointer<ByteVar>(), nfds, timeout)
 
-public actual fun setlocale(category: CInt, locale: String?): COpaquePointer? =
-    libc_wasi_setlocale(category, locale)?.let { COpaquePointer(it.toLong()) }
+public actual fun setlocale(category: CInt, locale: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcWasiSetlocale(category, locale.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun localeconv(): COpaquePointer? =
-    libc_wasi_localeconv()?.let { COpaquePointer(it.toLong()) }
+public actual fun localeconv(): MutPtr<Lconv> =
+    MutPtr(libcWasiLocaleconv()?.toLong() ?: 0L)
 
-public actual fun readlink(path: String?, buf: COpaquePointer?, bufsz: SizeT): SsizeT =
-    libc_wasi_readlink(path, buf?.value?.toCPointer<ByteVar>(), bufsz)
+public actual fun readlink(path: ConstPtr<CChar>, buf: MutPtr<CChar>, bufsz: SizeT): SsizeT =
+    libcWasiReadlink(path.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>(), bufsz)
 
-public actual fun timegm(tm: COpaquePointer?): TimeT =
-    libc_wasi_timegm(tm?.value?.toCPointer<ByteVar>())
+public actual fun timegm(tm: MutPtr<Tm>): TimeT =
+    libcWasiTimegm(tm.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sysconf(name: CInt): CLong =
-    libc_wasi_sysconf(name)
+    libcWasiSysconf(name)
 
 public actual fun ioctl(fd: CInt, request: CInt, vararg variadicArgs: Long): CInt =
-    libc_wasi_ioctl(fd, request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+    libcWasiIoctl(fd, request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun fseeko(stream: FILE?, offset: OffT, whence: CInt): CInt =
-    libc_wasi_fseeko(stream?.handle?.toCPointer<ByteVar>(), offset, whence)
+public actual fun fseeko(stream: MutPtr<FILE>, offset: OffT, whence: CInt): CInt =
+    libcWasiFseeko(stream.rawAddress.toCPointer<ByteVar>(), offset, whence)
 
-public actual fun ftello(stream: FILE?): OffT =
-    libc_wasi_ftello(stream?.handle?.toCPointer<ByteVar>())
+public actual fun ftello(stream: MutPtr<FILE>): OffT =
+    libcWasiFtello(stream.rawAddress.toCPointer<ByteVar>())
 
 public actual fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt =
-    libc_wasi_posixFallocate(fd, offset, len)
+    libcWasiPosixFallocate(fd, offset, len)
 
-public actual fun strcasestr(cs: String?, ct: String?): COpaquePointer? =
-    libc_wasi_strcasestr(cs, ct)?.let { COpaquePointer(it.toLong()) }
+public actual fun strcasestr(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcWasiStrcasestr(cs.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun getline(lineptr: COpaquePointer?, n: COpaquePointer?, stream: FILE?): SsizeT =
-    libc_wasi_getline(lineptr?.value?.toCPointer<ByteVar>(), n?.value?.toCPointer<ByteVar>(), stream?.handle?.toCPointer<ByteVar>())
+public actual fun getline(lineptr: MutPtr<MutPtr<CChar>>, n: MutPtr<SizeT>, stream: MutPtr<FILE>): SsizeT =
+    libcWasiGetline(lineptr.rawAddress.toCPointer<ByteVar>(), n.rawAddress.toCPointer<ByteVar>(), stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt =
-    libc_wasi_faccessat(dirfd, pathname, mode, flags)
+public actual fun faccessat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: CInt, flags: CInt): CInt =
+    libcWasiFaccessat(dirfd, pathname.rawAddress.toCPointer<ByteVar>(), mode, flags)
 
-public actual fun writev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT =
-    libc_wasi_writev(fd, iov?.value?.toCPointer<ByteVar>(), iovcnt)
+public actual fun writev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+    libcWasiWritev(fd, iov.rawAddress.toCPointer<ByteVar>(), iovcnt)
 
-public actual fun readv(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT =
-    libc_wasi_readv(fd, iov?.value?.toCPointer<ByteVar>(), iovcnt)
+public actual fun readv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+    libcWasiReadv(fd, iov.rawAddress.toCPointer<ByteVar>(), iovcnt)
 
-public actual fun pwritev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: OffT): SsizeT =
-    libc_wasi_pwritev(fd, iov?.value?.toCPointer<ByteVar>(), iovcnt, offset)
+public actual fun pwritev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT =
+    libcWasiPwritev(fd, iov.rawAddress.toCPointer<ByteVar>(), iovcnt, offset)
 
-public actual fun preadv(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: OffT): SsizeT =
-    libc_wasi_preadv(fd, iov?.value?.toCPointer<ByteVar>(), iovcnt, offset)
+public actual fun preadv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT =
+    libcWasiPreadv(fd, iov.rawAddress.toCPointer<ByteVar>(), iovcnt, offset)
 
 public actual fun posixFadvise(fd: CInt, offset: OffT, len: OffT, advise: CInt): CInt =
-    libc_wasi_posixFadvise(fd, offset, len, advise)
+    libcWasiPosixFadvise(fd, offset, len, advise)
 
-public actual fun futimens(fd: CInt, times: COpaquePointer?): CInt =
-    libc_wasi_futimens(fd, times?.value?.toCPointer<ByteVar>())
+public actual fun futimens(fd: CInt, times: ConstPtr<Timespec>): CInt =
+    libcWasiFutimens(fd, times.rawAddress.toCPointer<ByteVar>())
 
-public actual fun utimensat(dirfd: CInt, path: String?, times: COpaquePointer?, flag: CInt): CInt =
-    libc_wasi_utimensat(dirfd, path, times?.value?.toCPointer<ByteVar>(), flag)
+public actual fun utimensat(dirfd: CInt, path: ConstPtr<CChar>, times: ConstPtr<Timespec>, flag: CInt): CInt =
+    libcWasiUtimensat(dirfd, path.rawAddress.toCPointer<ByteVar>(), times.rawAddress.toCPointer<ByteVar>(), flag)
 
-public actual fun getentropy(buf: COpaquePointer?, buflen: SizeT): CInt =
-    libc_wasi_getentropy(buf?.value?.toCPointer<ByteVar>(), buflen)
+public actual fun getentropy(buf: MutPtr<CVoid>, buflen: SizeT): CInt =
+    libcWasiGetentropy(buf.rawAddress.toCPointer<ByteVar>(), buflen)
 
-public actual fun memrchr(cx: COpaquePointer?, c: CInt, n: SizeT): COpaquePointer? =
-    libc_wasi_memrchr(cx?.value?.toCPointer<ByteVar>(), c, n)?.let { COpaquePointer(it.toLong()) }
+public actual fun memrchr(cx: ConstPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+    MutPtr(libcWasiMemrchr(cx.rawAddress.toCPointer<ByteVar>(), c, n)?.toLong() ?: 0L)
 
 public actual fun abs(i: CInt): CInt =
-    libc_wasi_abs(i)
+    libcWasiAbs(i)
 
 public actual fun labs(i: CLong): CLong =
-    libc_wasi_labs(i)
+    libcWasiLabs(i)
 
 public actual fun duplocale(base: LocaleT): LocaleT =
-    libc_wasi_duplocale(base?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+    MutPtr(libcWasiDuplocale(base.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun freelocale(loc: LocaleT) {
-    libc_wasi_freelocale(loc?.value?.toCPointer<ByteVar>())
+    libcWasiFreelocale(loc.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
-    libc_wasi_newlocale(mask, locale, base?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun newlocale(mask: CInt, locale: ConstPtr<CChar>, base: LocaleT): LocaleT =
+    MutPtr(libcWasiNewlocale(mask, locale.rawAddress.toCPointer<ByteVar>(), base.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
-    libc_wasi_uselocale(loc?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+    MutPtr(libcWasiUselocale(loc.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun schedYield(): CInt =
-    libc_wasi_schedYield()
+    libcWasiSchedYield()
 
-public actual fun getcwd(buf: COpaquePointer?, size: SizeT): COpaquePointer? =
-    libc_wasi_getcwd(buf?.value?.toCPointer<ByteVar>(), size)?.let { COpaquePointer(it.toLong()) }
+public actual fun getcwd(buf: MutPtr<CChar>, size: SizeT): MutPtr<CChar> =
+    MutPtr(libcWasiGetcwd(buf.rawAddress.toCPointer<ByteVar>(), size)?.toLong() ?: 0L)
 
-public actual fun chdir(dir: String?): CInt =
-    libc_wasi_chdir(dir)
+public actual fun chdir(dir: ConstPtr<CChar>): CInt =
+    libcWasiChdir(dir.rawAddress.toCPointer<ByteVar>())
 
-public actual fun nlLanginfo(item: NlItem): COpaquePointer? =
-    libc_wasi_nlLanginfo(item)?.let { COpaquePointer(it.toLong()) }
+public actual fun nlLanginfo(item: NlItem): MutPtr<CChar> =
+    MutPtr(libcWasiNlLanginfo(item)?.toLong() ?: 0L)
 
-public actual fun nlLanginfoL(item: NlItem, loc: LocaleT): COpaquePointer? =
-    libc_wasi_nlLanginfoL(item, loc?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun nlLanginfoL(item: NlItem, loc: LocaleT): MutPtr<CChar> =
+    MutPtr(libcWasiNlLanginfoL(item, loc.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun select(nfds: CInt, readfds: COpaquePointer?, writefds: COpaquePointer?, errorfds: COpaquePointer?, timeout: COpaquePointer?): CInt =
-    libc_wasi_select(nfds, readfds?.value?.toCPointer<ByteVar>(), writefds?.value?.toCPointer<ByteVar>(), errorfds?.value?.toCPointer<ByteVar>(), timeout?.value?.toCPointer<ByteVar>())
+public actual fun select(nfds: CInt, readfds: MutPtr<FdSet>, writefds: MutPtr<FdSet>, errorfds: MutPtr<FdSet>, timeout: ConstPtr<Timeval>): CInt =
+    libcWasiSelect(nfds, readfds.rawAddress.toCPointer<ByteVar>(), writefds.rawAddress.toCPointer<ByteVar>(), errorfds.rawAddress.toCPointer<ByteVar>(), timeout.rawAddress.toCPointer<ByteVar>())
 
-public actual fun wasilibcRegisterPreopenedFd(fd: CInt, path: String?): CInt =
-    libc_wasi_wasilibcRegisterPreopenedFd(fd, path)
+public actual fun wasilibcRegisterPreopenedFd(fd: CInt, path: ConstPtr<CChar>): CInt =
+    libcWasiWasilibcRegisterPreopenedFd(fd, path.rawAddress.toCPointer<ByteVar>())
 
 public actual fun wasilibcFdRenumber(fd: CInt, newfd: CInt): CInt =
-    libc_wasi_wasilibcFdRenumber(fd, newfd)
+    libcWasiWasilibcFdRenumber(fd, newfd)
 
-public actual fun wasilibcUnlinkat(fd: CInt, path: String?): CInt =
-    libc_wasi_wasilibcUnlinkat(fd, path)
+public actual fun wasilibcUnlinkat(fd: CInt, path: ConstPtr<CChar>): CInt =
+    libcWasiWasilibcUnlinkat(fd, path.rawAddress.toCPointer<ByteVar>())
 
-public actual fun wasilibcRmdirat(fd: CInt, path: String?): CInt =
-    libc_wasi_wasilibcRmdirat(fd, path)
+public actual fun wasilibcRmdirat(fd: CInt, path: ConstPtr<CChar>): CInt =
+    libcWasiWasilibcRmdirat(fd, path.rawAddress.toCPointer<ByteVar>())
 
-public actual fun wasilibcFindRelpath(path: String?, absPrefix: COpaquePointer?, relativePath: COpaquePointer?, relativePathLen: ULong): CInt =
-    libc_wasi_wasilibcFindRelpath(path, absPrefix?.value?.toCPointer<ByteVar>(), relativePath?.value?.toCPointer<ByteVar>(), relativePathLen)
+public actual fun wasilibcFindRelpath(path: ConstPtr<CChar>, absPrefix: MutPtr<ConstPtr<CChar>>, relativePath: MutPtr<MutPtr<CChar>>, relativePathLen: ULong): CInt =
+    libcWasiWasilibcFindRelpath(path.rawAddress.toCPointer<ByteVar>(), absPrefix.rawAddress.toCPointer<ByteVar>(), relativePath.rawAddress.toCPointer<ByteVar>(), relativePathLen)
 
 public actual fun wasilibcTell(fd: CInt): OffT =
-    libc_wasi_wasilibcTell(fd)
+    libcWasiWasilibcTell(fd)
 
-public actual fun wasilibcNocwdWasilibcUnlinkat(dirfd: CInt, path: String?): CInt =
-    libc_wasi_wasilibcNocwdWasilibcUnlinkat(dirfd, path)
+public actual fun wasilibcNocwdWasilibcUnlinkat(dirfd: CInt, path: ConstPtr<CChar>): CInt =
+    libcWasiWasilibcNocwdWasilibcUnlinkat(dirfd, path.rawAddress.toCPointer<ByteVar>())
 
-public actual fun wasilibcNocwdWasilibcRmdirat(dirfd: CInt, path: String?): CInt =
-    libc_wasi_wasilibcNocwdWasilibcRmdirat(dirfd, path)
+public actual fun wasilibcNocwdWasilibcRmdirat(dirfd: CInt, path: ConstPtr<CChar>): CInt =
+    libcWasiWasilibcNocwdWasilibcRmdirat(dirfd, path.rawAddress.toCPointer<ByteVar>())
 
-public actual fun wasilibcNocwdLinkat(olddirfd: CInt, oldpath: String?, newdirfd: CInt, newpath: String?, flags: CInt): CInt =
-    libc_wasi_wasilibcNocwdLinkat(olddirfd, oldpath, newdirfd, newpath, flags)
+public actual fun wasilibcNocwdLinkat(olddirfd: CInt, oldpath: ConstPtr<CChar>, newdirfd: CInt, newpath: ConstPtr<CChar>, flags: CInt): CInt =
+    libcWasiWasilibcNocwdLinkat(olddirfd, oldpath.rawAddress.toCPointer<ByteVar>(), newdirfd, newpath.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun wasilibcNocwdSymlinkat(target: String?, dirfd: CInt, path: String?): CInt =
-    libc_wasi_wasilibcNocwdSymlinkat(target, dirfd, path)
+public actual fun wasilibcNocwdSymlinkat(target: ConstPtr<CChar>, dirfd: CInt, path: ConstPtr<CChar>): CInt =
+    libcWasiWasilibcNocwdSymlinkat(target.rawAddress.toCPointer<ByteVar>(), dirfd, path.rawAddress.toCPointer<ByteVar>())
 
-public actual fun wasilibcNocwdReadlinkat(dirfd: CInt, path: String?, buf: COpaquePointer?, bufsize: ULong): Long =
-    libc_wasi_wasilibcNocwdReadlinkat(dirfd, path, buf?.value?.toCPointer<ByteVar>(), bufsize)
+public actual fun wasilibcNocwdReadlinkat(dirfd: CInt, path: ConstPtr<CChar>, buf: MutPtr<CChar>, bufsize: ULong): Long =
+    libcWasiWasilibcNocwdReadlinkat(dirfd, path.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>(), bufsize)
 
-public actual fun wasilibcNocwdFaccessat(dirfd: CInt, path: String?, mode: CInt, flags: CInt): CInt =
-    libc_wasi_wasilibcNocwdFaccessat(dirfd, path, mode, flags)
+public actual fun wasilibcNocwdFaccessat(dirfd: CInt, path: ConstPtr<CChar>, mode: CInt, flags: CInt): CInt =
+    libcWasiWasilibcNocwdFaccessat(dirfd, path.rawAddress.toCPointer<ByteVar>(), mode, flags)
 
-public actual fun wasilibcNocwdRenameat(olddirfd: CInt, oldpath: String?, newdirfd: CInt, newpath: String?): CInt =
-    libc_wasi_wasilibcNocwdRenameat(olddirfd, oldpath, newdirfd, newpath)
+public actual fun wasilibcNocwdRenameat(olddirfd: CInt, oldpath: ConstPtr<CChar>, newdirfd: CInt, newpath: ConstPtr<CChar>): CInt =
+    libcWasiWasilibcNocwdRenameat(olddirfd, oldpath.rawAddress.toCPointer<ByteVar>(), newdirfd, newpath.rawAddress.toCPointer<ByteVar>())
 
-public actual fun wasilibcNocwdOpenatNomode(dirfd: CInt, path: String?, flags: CInt): CInt =
-    libc_wasi_wasilibcNocwdOpenatNomode(dirfd, path, flags)
+public actual fun wasilibcNocwdOpenatNomode(dirfd: CInt, path: ConstPtr<CChar>, flags: CInt): CInt =
+    libcWasiWasilibcNocwdOpenatNomode(dirfd, path.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun wasilibcNocwdFstatat(dirfd: CInt, path: String?, buf: COpaquePointer?, flags: CInt): CInt =
-    libc_wasi_wasilibcNocwdFstatat(dirfd, path, buf?.value?.toCPointer<ByteVar>(), flags)
+public actual fun wasilibcNocwdFstatat(dirfd: CInt, path: ConstPtr<CChar>, buf: MutPtr<Stat>, flags: CInt): CInt =
+    libcWasiWasilibcNocwdFstatat(dirfd, path.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun wasilibcNocwdMkdiratNomode(dirfd: CInt, path: String?): CInt =
-    libc_wasi_wasilibcNocwdMkdiratNomode(dirfd, path)
+public actual fun wasilibcNocwdMkdiratNomode(dirfd: CInt, path: ConstPtr<CChar>): CInt =
+    libcWasiWasilibcNocwdMkdiratNomode(dirfd, path.rawAddress.toCPointer<ByteVar>())
 
-public actual fun wasilibcNocwdUtimensat(dirfd: CInt, path: String?, times: COpaquePointer?, flags: CInt): CInt =
-    libc_wasi_wasilibcNocwdUtimensat(dirfd, path, times?.value?.toCPointer<ByteVar>(), flags)
+public actual fun wasilibcNocwdUtimensat(dirfd: CInt, path: ConstPtr<CChar>, times: ConstPtr<Timespec>, flags: CInt): CInt =
+    libcWasiWasilibcNocwdUtimensat(dirfd, path.rawAddress.toCPointer<ByteVar>(), times.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun wasilibcNocwdOpendirat(dirfd: CInt, path: String?): DIR? =
-    libc_wasi_wasilibcNocwdOpendirat(dirfd, path)?.let { DIR(it.toLong()) }
+public actual fun wasilibcNocwdOpendirat(dirfd: CInt, path: ConstPtr<CChar>): MutPtr<DIR> =
+    MutPtr(libcWasiWasilibcNocwdOpendirat(dirfd, path.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun wasilibcAccess(pathname: String?, mode: CInt, flags: CInt): CInt =
-    libc_wasi_wasilibcAccess(pathname, mode, flags)
+public actual fun wasilibcAccess(pathname: ConstPtr<CChar>, mode: CInt, flags: CInt): CInt =
+    libcWasiWasilibcAccess(pathname.rawAddress.toCPointer<ByteVar>(), mode, flags)
 
-public actual fun wasilibcStat(pathname: String?, buf: COpaquePointer?, flags: CInt): CInt =
-    libc_wasi_wasilibcStat(pathname, buf?.value?.toCPointer<ByteVar>(), flags)
+public actual fun wasilibcStat(pathname: ConstPtr<CChar>, buf: MutPtr<Stat>, flags: CInt): CInt =
+    libcWasiWasilibcStat(pathname.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun wasilibcUtimens(pathname: String?, times: COpaquePointer?, flags: CInt): CInt =
-    libc_wasi_wasilibcUtimens(pathname, times?.value?.toCPointer<ByteVar>(), flags)
+public actual fun wasilibcUtimens(pathname: ConstPtr<CChar>, times: ConstPtr<Timespec>, flags: CInt): CInt =
+    libcWasiWasilibcUtimens(pathname.rawAddress.toCPointer<ByteVar>(), times.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun wasilibcLink(oldpath: String?, newpath: String?, flags: CInt): CInt =
-    libc_wasi_wasilibcLink(oldpath, newpath, flags)
+public actual fun wasilibcLink(oldpath: ConstPtr<CChar>, newpath: ConstPtr<CChar>, flags: CInt): CInt =
+    libcWasiWasilibcLink(oldpath.rawAddress.toCPointer<ByteVar>(), newpath.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun wasilibcLinkOldat(olddirfd: CInt, oldpath: String?, newpath: String?, flags: CInt): CInt =
-    libc_wasi_wasilibcLinkOldat(olddirfd, oldpath, newpath, flags)
+public actual fun wasilibcLinkOldat(olddirfd: CInt, oldpath: ConstPtr<CChar>, newpath: ConstPtr<CChar>, flags: CInt): CInt =
+    libcWasiWasilibcLinkOldat(olddirfd, oldpath.rawAddress.toCPointer<ByteVar>(), newpath.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun wasilibcLinkNewat(oldpath: String?, newdirfd: CInt, newpath: String?, flags: CInt): CInt =
-    libc_wasi_wasilibcLinkNewat(oldpath, newdirfd, newpath, flags)
+public actual fun wasilibcLinkNewat(oldpath: ConstPtr<CChar>, newdirfd: CInt, newpath: ConstPtr<CChar>, flags: CInt): CInt =
+    libcWasiWasilibcLinkNewat(oldpath.rawAddress.toCPointer<ByteVar>(), newdirfd, newpath.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun wasilibcRenameOldat(olddirfd: CInt, oldpath: String?, newpath: String?): CInt =
-    libc_wasi_wasilibcRenameOldat(olddirfd, oldpath, newpath)
+public actual fun wasilibcRenameOldat(olddirfd: CInt, oldpath: ConstPtr<CChar>, newpath: ConstPtr<CChar>): CInt =
+    libcWasiWasilibcRenameOldat(olddirfd, oldpath.rawAddress.toCPointer<ByteVar>(), newpath.rawAddress.toCPointer<ByteVar>())
 
-public actual fun wasilibcRenameNewat(oldpath: String?, newdirfd: CInt, newpath: String?): CInt =
-    libc_wasi_wasilibcRenameNewat(oldpath, newdirfd, newpath)
+public actual fun wasilibcRenameNewat(oldpath: ConstPtr<CChar>, newdirfd: CInt, newpath: ConstPtr<CChar>): CInt =
+    libcWasiWasilibcRenameNewat(oldpath.rawAddress.toCPointer<ByteVar>(), newdirfd, newpath.rawAddress.toCPointer<ByteVar>())
 
 public actual fun arc4random(): UInt =
-    libc_wasi_arc4random()
+    libcWasiArc4random()
 
-public actual fun arc4randomBuf(a: COpaquePointer?, b: SizeT) {
-    libc_wasi_arc4randomBuf(a?.value?.toCPointer<ByteVar>(), b)
+public actual fun arc4randomBuf(a: MutPtr<CVoid>, b: SizeT) {
+    libcWasiArc4randomBuf(a.rawAddress.toCPointer<ByteVar>(), b)
 }
 
 public actual fun arc4randomUniform(a: UInt): UInt =
-    libc_wasi_arc4randomUniform(a)
+    libcWasiArc4randomUniform(a)
 
-public actual fun errnoLocation(): COpaquePointer? =
-    libc_wasi_errnoLocation()?.let { COpaquePointer(it.toLong()) }
+public actual fun errnoLocation(): MutPtr<CInt> =
+    MutPtr(libcWasiErrnoLocation()?.toLong() ?: 0L)
 
-public actual fun chmod(path: String?, mode: ModeT): CInt =
-    libc_wasi_chmod(path, mode)
+public actual fun chmod(path: ConstPtr<CChar>, mode: ModeT): CInt =
+    libcWasiChmod(path.rawAddress.toCPointer<ByteVar>(), mode)
 
 public actual fun fchmod(fd: CInt, mode: ModeT): CInt =
-    libc_wasi_fchmod(fd, mode)
+    libcWasiFchmod(fd, mode)
 
-public actual fun realpath(pathname: String?, resolved: COpaquePointer?): COpaquePointer? =
-    libc_wasi_realpath(pathname, resolved?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun realpath(pathname: ConstPtr<CChar>, resolved: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcWasiRealpath(pathname.rawAddress.toCPointer<ByteVar>(), resolved.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun pthreadSelf(): PthreadT =
-    libc_wasi_pthreadSelf()?.let { COpaquePointer(it.toLong()) }
+    MutPtr(libcWasiPthreadSelf()?.toLong() ?: 0L)
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
-    libc_wasi_pthreadCreate(native?.value?.toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), value?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCreate(native: MutPtr<PthreadT>, attr: ConstPtr<PthreadAttrT>, f: PthreadCreateFCallback, value: MutPtr<CVoid>): CInt =
+    libcWasiPthreadCreate(native.rawAddress.toCPointer<ByteVar>(), attr.rawAddress.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>())
 
 public actual fun pthreadEqual(t1: PthreadT, t2: PthreadT): CInt =
-    libc_wasi_pthreadEqual(t1?.value?.toCPointer<ByteVar>(), t2?.value?.toCPointer<ByteVar>())
+    libcWasiPthreadEqual(t1.rawAddress.toCPointer<ByteVar>(), t2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadJoin(native: PthreadT, value: COpaquePointer?): CInt =
-    libc_wasi_pthreadJoin(native?.value?.toCPointer<ByteVar>(), value?.value?.toCPointer<ByteVar>())
+public actual fun pthreadJoin(native: PthreadT, value: MutPtr<MutPtr<CVoid>>): CInt =
+    libcWasiPthreadJoin(native.rawAddress.toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrInit(attr: COpaquePointer?): CInt =
-    libc_wasi_pthreadAttrInit(attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadAttrInit(attr: MutPtr<PthreadAttrT>): CInt =
+    libcWasiPthreadAttrInit(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrDestroy(attr: COpaquePointer?): CInt =
-    libc_wasi_pthreadAttrDestroy(attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadAttrDestroy(attr: MutPtr<PthreadAttrT>): CInt =
+    libcWasiPthreadAttrDestroy(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrGetstacksize(attr: COpaquePointer?, stacksize: COpaquePointer?): CInt =
-    libc_wasi_pthreadAttrGetstacksize(attr?.value?.toCPointer<ByteVar>(), stacksize?.value?.toCPointer<ByteVar>())
+public actual fun pthreadAttrGetstacksize(attr: ConstPtr<PthreadAttrT>, stacksize: MutPtr<SizeT>): CInt =
+    libcWasiPthreadAttrGetstacksize(attr.rawAddress.toCPointer<ByteVar>(), stacksize.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrSetstacksize(attr: COpaquePointer?, stackSize: SizeT): CInt =
-    libc_wasi_pthreadAttrSetstacksize(attr?.value?.toCPointer<ByteVar>(), stackSize)
+public actual fun pthreadAttrSetstacksize(attr: MutPtr<PthreadAttrT>, stackSize: SizeT): CInt =
+    libcWasiPthreadAttrSetstacksize(attr.rawAddress.toCPointer<ByteVar>(), stackSize)
 
-public actual fun pthreadAttrSetdetachstate(attr: COpaquePointer?, state: CInt): CInt =
-    libc_wasi_pthreadAttrSetdetachstate(attr?.value?.toCPointer<ByteVar>(), state)
+public actual fun pthreadAttrSetdetachstate(attr: MutPtr<PthreadAttrT>, state: CInt): CInt =
+    libcWasiPthreadAttrSetdetachstate(attr.rawAddress.toCPointer<ByteVar>(), state)
 
 public actual fun pthreadDetach(thread: PthreadT): CInt =
-    libc_wasi_pthreadDetach(thread?.value?.toCPointer<ByteVar>())
+    libcWasiPthreadDetach(thread.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadKeyCreate(key: COpaquePointer?, dtor: PthreadKeyCreateDtorCallback?): CInt =
-    libc_wasi_pthreadKeyCreate(key?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
+public actual fun pthreadKeyCreate(key: MutPtr<PthreadKeyT>, dtor: PthreadKeyCreateDtorCallback?): CInt =
+    libcWasiPthreadKeyCreate(key.rawAddress.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
 
 public actual fun pthreadKeyDelete(key: PthreadKeyT): CInt =
-    libc_wasi_pthreadKeyDelete(key)
+    libcWasiPthreadKeyDelete(key)
 
-public actual fun pthreadGetspecific(key: PthreadKeyT): COpaquePointer? =
-    libc_wasi_pthreadGetspecific(key)?.let { COpaquePointer(it.toLong()) }
+public actual fun pthreadGetspecific(key: PthreadKeyT): MutPtr<CVoid> =
+    MutPtr(libcWasiPthreadGetspecific(key)?.toLong() ?: 0L)
 
-public actual fun pthreadSetspecific(key: PthreadKeyT, value: COpaquePointer?): CInt =
-    libc_wasi_pthreadSetspecific(key, value?.value?.toCPointer<ByteVar>())
+public actual fun pthreadSetspecific(key: PthreadKeyT, value: ConstPtr<CVoid>): CInt =
+    libcWasiPthreadSetspecific(key, value.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexInit(lock: COpaquePointer?, attr: COpaquePointer?): CInt =
-    libc_wasi_pthreadMutexInit(lock?.value?.toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexInit(lock: MutPtr<PthreadMutexT>, attr: ConstPtr<PthreadMutexattrT>): CInt =
+    libcWasiPthreadMutexInit(lock.rawAddress.toCPointer<ByteVar>(), attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexDestroy(lock: COpaquePointer?): CInt =
-    libc_wasi_pthreadMutexDestroy(lock?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexDestroy(lock: MutPtr<PthreadMutexT>): CInt =
+    libcWasiPthreadMutexDestroy(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexLock(lock: COpaquePointer?): CInt =
-    libc_wasi_pthreadMutexLock(lock?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexLock(lock: MutPtr<PthreadMutexT>): CInt =
+    libcWasiPthreadMutexLock(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexTrylock(lock: COpaquePointer?): CInt =
-    libc_wasi_pthreadMutexTrylock(lock?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexTrylock(lock: MutPtr<PthreadMutexT>): CInt =
+    libcWasiPthreadMutexTrylock(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexUnlock(lock: COpaquePointer?): CInt =
-    libc_wasi_pthreadMutexUnlock(lock?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexUnlock(lock: MutPtr<PthreadMutexT>): CInt =
+    libcWasiPthreadMutexUnlock(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexattrInit(attr: COpaquePointer?): CInt =
-    libc_wasi_pthreadMutexattrInit(attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexattrInit(attr: MutPtr<PthreadMutexattrT>): CInt =
+    libcWasiPthreadMutexattrInit(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexattrDestroy(attr: COpaquePointer?): CInt =
-    libc_wasi_pthreadMutexattrDestroy(attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexattrDestroy(attr: MutPtr<PthreadMutexattrT>): CInt =
+    libcWasiPthreadMutexattrDestroy(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexattrSettype(attr: COpaquePointer?, type: CInt): CInt =
-    libc_wasi_pthreadMutexattrSettype(attr?.value?.toCPointer<ByteVar>(), type)
+public actual fun pthreadMutexattrSettype(attr: MutPtr<PthreadMutexattrT>, type: CInt): CInt =
+    libcWasiPthreadMutexattrSettype(attr.rawAddress.toCPointer<ByteVar>(), type)
 
-public actual fun pthreadCondInit(cond: COpaquePointer?, attr: COpaquePointer?): CInt =
-    libc_wasi_pthreadCondInit(cond?.value?.toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCondInit(cond: MutPtr<PthreadCondT>, attr: ConstPtr<PthreadCondattrT>): CInt =
+    libcWasiPthreadCondInit(cond.rawAddress.toCPointer<ByteVar>(), attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondWait(cond: COpaquePointer?, lock: COpaquePointer?): CInt =
-    libc_wasi_pthreadCondWait(cond?.value?.toCPointer<ByteVar>(), lock?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCondWait(cond: MutPtr<PthreadCondT>, lock: MutPtr<PthreadMutexT>): CInt =
+    libcWasiPthreadCondWait(cond.rawAddress.toCPointer<ByteVar>(), lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondTimedwait(cond: COpaquePointer?, lock: COpaquePointer?, abstime: COpaquePointer?): CInt =
-    libc_wasi_pthreadCondTimedwait(cond?.value?.toCPointer<ByteVar>(), lock?.value?.toCPointer<ByteVar>(), abstime?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCondTimedwait(cond: MutPtr<PthreadCondT>, lock: MutPtr<PthreadMutexT>, abstime: ConstPtr<Timespec>): CInt =
+    libcWasiPthreadCondTimedwait(cond.rawAddress.toCPointer<ByteVar>(), lock.rawAddress.toCPointer<ByteVar>(), abstime.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondSignal(cond: COpaquePointer?): CInt =
-    libc_wasi_pthreadCondSignal(cond?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCondSignal(cond: MutPtr<PthreadCondT>): CInt =
+    libcWasiPthreadCondSignal(cond.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondBroadcast(cond: COpaquePointer?): CInt =
-    libc_wasi_pthreadCondBroadcast(cond?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCondBroadcast(cond: MutPtr<PthreadCondT>): CInt =
+    libcWasiPthreadCondBroadcast(cond.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondDestroy(cond: COpaquePointer?): CInt =
-    libc_wasi_pthreadCondDestroy(cond?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCondDestroy(cond: MutPtr<PthreadCondT>): CInt =
+    libcWasiPthreadCondDestroy(cond.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondattrInit(attr: COpaquePointer?): CInt =
-    libc_wasi_pthreadCondattrInit(attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCondattrInit(attr: MutPtr<PthreadCondattrT>): CInt =
+    libcWasiPthreadCondattrInit(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondattrDestroy(attr: COpaquePointer?): CInt =
-    libc_wasi_pthreadCondattrDestroy(attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCondattrDestroy(attr: MutPtr<PthreadCondattrT>): CInt =
+    libcWasiPthreadCondattrDestroy(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadRwlockInit(lock: COpaquePointer?, attr: COpaquePointer?): CInt =
-    libc_wasi_pthreadRwlockInit(lock?.value?.toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadRwlockInit(lock: MutPtr<PthreadRwlockT>, attr: ConstPtr<PthreadRwlockattrT>): CInt =
+    libcWasiPthreadRwlockInit(lock.rawAddress.toCPointer<ByteVar>(), attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadRwlockDestroy(lock: COpaquePointer?): CInt =
-    libc_wasi_pthreadRwlockDestroy(lock?.value?.toCPointer<ByteVar>())
+public actual fun pthreadRwlockDestroy(lock: MutPtr<PthreadRwlockT>): CInt =
+    libcWasiPthreadRwlockDestroy(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadRwlockRdlock(lock: COpaquePointer?): CInt =
-    libc_wasi_pthreadRwlockRdlock(lock?.value?.toCPointer<ByteVar>())
+public actual fun pthreadRwlockRdlock(lock: MutPtr<PthreadRwlockT>): CInt =
+    libcWasiPthreadRwlockRdlock(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadRwlockTryrdlock(lock: COpaquePointer?): CInt =
-    libc_wasi_pthreadRwlockTryrdlock(lock?.value?.toCPointer<ByteVar>())
+public actual fun pthreadRwlockTryrdlock(lock: MutPtr<PthreadRwlockT>): CInt =
+    libcWasiPthreadRwlockTryrdlock(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadRwlockWrlock(lock: COpaquePointer?): CInt =
-    libc_wasi_pthreadRwlockWrlock(lock?.value?.toCPointer<ByteVar>())
+public actual fun pthreadRwlockWrlock(lock: MutPtr<PthreadRwlockT>): CInt =
+    libcWasiPthreadRwlockWrlock(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadRwlockTrywrlock(lock: COpaquePointer?): CInt =
-    libc_wasi_pthreadRwlockTrywrlock(lock?.value?.toCPointer<ByteVar>())
+public actual fun pthreadRwlockTrywrlock(lock: MutPtr<PthreadRwlockT>): CInt =
+    libcWasiPthreadRwlockTrywrlock(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadRwlockUnlock(lock: COpaquePointer?): CInt =
-    libc_wasi_pthreadRwlockUnlock(lock?.value?.toCPointer<ByteVar>())
+public actual fun pthreadRwlockUnlock(lock: MutPtr<PthreadRwlockT>): CInt =
+    libcWasiPthreadRwlockUnlock(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadRwlockattrInit(attr: COpaquePointer?): CInt =
-    libc_wasi_pthreadRwlockattrInit(attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadRwlockattrInit(attr: MutPtr<PthreadRwlockattrT>): CInt =
+    libcWasiPthreadRwlockattrInit(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadRwlockattrDestroy(attr: COpaquePointer?): CInt =
-    libc_wasi_pthreadRwlockattrDestroy(attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadRwlockattrDestroy(attr: MutPtr<PthreadRwlockattrT>): CInt =
+    libcWasiPthreadRwlockattrDestroy(attr.rawAddress.toCPointer<ByteVar>())

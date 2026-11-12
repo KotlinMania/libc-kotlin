@@ -22,7 +22,7 @@
 #endif
 #endif
 
-void* libc_unix_nuttx_errno(void) {
+void* libcUnixNuttxErrno(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -48,11 +48,11 @@ void* libc_unix_nuttx_errno(void) {
     return NULL;
 }
 
-int32_t libc_unix_nuttx_bind(int32_t sockfd, void* addr, uint32_t addrlen) {
+int32_t libcUnixNuttxBind(int32_t sockfd, void* addr, uint32_t addrlen) {
     return (int32_t)bind(sockfd, addr, addrlen);
 }
 
-int32_t libc_unix_nuttx_ioctl(int32_t fd, int32_t request, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcUnixNuttxIoctl(int32_t fd, int32_t request, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -86,7 +86,7 @@ int32_t libc_unix_nuttx_ioctl(int32_t fd, int32_t request, int32_t km_vac, int64
     return -1;
 }
 
-int32_t libc_unix_nuttx_dirfd(void* dirp) {
+int32_t libcUnixNuttxDirfd(void* dirp) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -114,11 +114,11 @@ int32_t libc_unix_nuttx_dirfd(void* dirp) {
     return -1;
 }
 
-int32_t libc_unix_nuttx_recvfrom(int32_t sockfd, void* buf, uint64_t len, int32_t flags, void* src_addr, void* addrlen) {
-    return (int32_t)recvfrom(sockfd, buf, len, flags, src_addr, addrlen);
+int32_t libcUnixNuttxRecvfrom(int32_t sockfd, void* buf, uint64_t len, int32_t flags, void* srcAddr, void* addrlen) {
+    return (int32_t)recvfrom(sockfd, buf, len, flags, srcAddr, addrlen);
 }
 
-int32_t libc_unix_nuttx_pthreadCreate(void* thread, void* attr, void* start_routine, void* arg) {
+int32_t libcUnixNuttxPthreadCreate(void* thread, void* attr, void* startRoutine, void* arg) {
     typedef int32_t (*km_fn_t)(void*, void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -140,13 +140,13 @@ int32_t libc_unix_nuttx_pthreadCreate(void* thread, void* attr, void* start_rout
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(thread, attr, start_routine, arg);
+        return km_fn_ptr(thread, attr, startRoutine, arg);
     }
     errno = ENOSYS;
     return ENOSYS;
 }
 
-int32_t libc_unix_nuttx_clockGettime(int32_t clockid, void* tp) {
+int32_t libcUnixNuttxClockGettime(int32_t clockid, void* tp) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -174,7 +174,7 @@ int32_t libc_unix_nuttx_clockGettime(int32_t clockid, void* tp) {
     return -1;
 }
 
-int32_t libc_unix_nuttx_futimens(int32_t fd, void* times) {
+int32_t libcUnixNuttxFutimens(int32_t fd, void* times) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -202,7 +202,7 @@ int32_t libc_unix_nuttx_futimens(int32_t fd, void* times) {
     return -1;
 }
 
-int32_t libc_unix_nuttx_pthreadCondattrSetclock(void* attr, int32_t clock_id) {
+int32_t libcUnixNuttxPthreadCondattrSetclock(void* attr, int32_t clockId) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -224,13 +224,13 @@ int32_t libc_unix_nuttx_pthreadCondattrSetclock(void* attr, int32_t clock_id) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(attr, clock_id);
+        return km_fn_ptr(attr, clockId);
     }
     errno = ENOSYS;
     return ENOSYS;
 }
 
-int32_t libc_unix_nuttx_pthreadSetnameNp(void* thread, const char* name) {
+int32_t libcUnixNuttxPthreadSetnameNp(void* thread, const char* name) {
     typedef int32_t (*km_fn_t)(void*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -258,7 +258,7 @@ int32_t libc_unix_nuttx_pthreadSetnameNp(void* thread, const char* name) {
     return ENOSYS;
 }
 
-int32_t libc_unix_nuttx_pthreadGetnameNp(void* thread, char* name, uint64_t len) {
+int32_t libcUnixNuttxPthreadGetnameNp(void* thread, char* name, uint64_t len) {
     typedef int32_t (*km_fn_t)(void*, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -286,7 +286,7 @@ int32_t libc_unix_nuttx_pthreadGetnameNp(void* thread, char* name, uint64_t len)
     return ENOSYS;
 }
 
-int64_t libc_unix_nuttx_getrandom(void* buf, uint64_t buflen, uint32_t flags) {
+int64_t libcUnixNuttxGetrandom(void* buf, uint64_t buflen, uint32_t flags) {
     typedef int64_t (*km_fn_t)(void*, uint64_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -314,7 +314,7 @@ int64_t libc_unix_nuttx_getrandom(void* buf, uint64_t buflen, uint32_t flags) {
     return -1;
 }
 
-uint32_t libc_unix_nuttx_arc4random(void) {
+uint32_t libcUnixNuttxArc4random(void) {
     typedef uint32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -342,7 +342,7 @@ uint32_t libc_unix_nuttx_arc4random(void) {
     return 0;
 }
 
-void libc_unix_nuttx_arc4randomBuf(void* bytes, uint64_t nbytes) {
+void libcUnixNuttxArc4randomBuf(void* bytes, uint64_t nbytes) {
     typedef void (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

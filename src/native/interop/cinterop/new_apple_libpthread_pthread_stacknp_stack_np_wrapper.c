@@ -18,7 +18,7 @@
 #endif
 #endif
 
-uint64_t libc_new_apple_libpthread_pthread_stacknp_stack_np_pthreadStackFrameDecodeNp(uint64_t frame_addr, void* return_addr) {
+uint64_t libcNewAppleLibpthreadPthreadStacknpStackNpPthreadStackFrameDecodeNp(uint64_t frameAddr, void* returnAddr) {
     typedef uint64_t (*km_fn_t)(uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -40,7 +40,7 @@ uint64_t libc_new_apple_libpthread_pthread_stacknp_stack_np_pthreadStackFrameDec
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(frame_addr, return_addr);
+        return km_fn_ptr(frameAddr, returnAddr);
     }
     errno = ENOSYS;
     return 0;

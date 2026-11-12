@@ -3,3 +3,4 @@ headers = new_qurt_wrapper.h
 headerFilter = new_qurt_wrapper.h
 compilerOpts = -Isrc/native/interop/cinterop
 staticLibraries = new_qurt_wrapper.a
+noStringConversion = libcNewQurtOpendir libcNewQurtMkdir libcNewQurtSemOpen libcNewQurtSemUnlink libcNewQurtStrlen libcNewQurtStrcpy libcNewQurtStrncpy libcNewQurtStrcat libcNewQurtStrncat libcNewQurtStrcmp libcNewQurtStrncmp libcNewQurtStrcoll libcNewQurtStrxfrm libcNewQurtStrchr libcNewQurtStrrchr libcNewQurtStrspn libcNewQurtStrcspn libcNewQurtStrpbrk libcNewQurtStrstr libcNewQurtStrtok libcNewQurtExecve

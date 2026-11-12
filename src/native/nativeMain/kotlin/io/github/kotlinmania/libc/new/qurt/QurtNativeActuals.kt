@@ -2,200 +2,203 @@
 
 package io.github.kotlinmania.libc.new.qurt
 
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_alignedAlloc
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_clockGetcpuclockid
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_closedir
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_execve
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_fork
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_isalnum
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_isalpha
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_iscntrl
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_isdigit
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_isgraph
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_islower
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_isprint
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_ispunct
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_isspace
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_isupper
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_isxdigit
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_memchr
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_memcmp
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_memcpy
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_memmove
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_memset
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_mkdir
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_opendir
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_pthreadAttrGetstack
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_pthreadAttrSetstack
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_readdir
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_semClose
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_semOpen
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_semUnlink
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_strcat
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_strchr
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_strcmp
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_strcoll
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_strcpy
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_strcspn
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_strerror
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_strlen
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_strncat
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_strncmp
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_strncpy
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_strpbrk
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_strrchr
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_strspn
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_strstr
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_strtok
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_strxfrm
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_tolower
-import io.github.kotlinmania.libc.new.qurt.cinterop.libc_new_qurt_toupper
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtAlignedAlloc
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtClockGetcpuclockid
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtClosedir
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtExecve
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtFork
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtIsalnum
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtIsalpha
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtIscntrl
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtIsdigit
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtIsgraph
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtIslower
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtIsprint
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtIspunct
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtIsspace
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtIsupper
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtIsxdigit
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtMemchr
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtMemcmp
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtMemcpy
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtMemmove
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtMemset
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtMkdir
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtOpendir
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtPthreadAttrGetstack
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtPthreadAttrSetstack
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtReaddir
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtSemClose
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtSemOpen
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtSemUnlink
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtStrcat
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtStrchr
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtStrcmp
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtStrcoll
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtStrcpy
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtStrcspn
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtStrerror
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtStrlen
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtStrncat
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtStrncmp
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtStrncpy
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtStrpbrk
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtStrrchr
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtStrspn
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtStrstr
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtStrtok
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtStrxfrm
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtTolower
+import io.github.kotlinmania.libc.new.qurt.cinterop.libcNewQurtToupper
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
 
-public actual fun opendir(name: String?): DIR? =
-    libc_new_qurt_opendir(name)?.let { DIR(it.toLong()) }
+public actual fun opendir(name: ConstPtr<CChar>): MutPtr<DIR> =
+    MutPtr(libcNewQurtOpendir(name.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun readdir(dirp: DIR?): COpaquePointer? =
-    libc_new_qurt_readdir(dirp?.handle?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun readdir(dirp: MutPtr<DIR>): MutPtr<Dirent> =
+    MutPtr(libcNewQurtReaddir(dirp.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun closedir(dirp: DIR?): CInt =
-    libc_new_qurt_closedir(dirp?.handle?.toCPointer<ByteVar>())
+public actual fun closedir(dirp: ConstPtr<DIR>): CInt =
+    libcNewQurtClosedir(dirp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mkdir(path: String?, mode: ModeT): CInt =
-    libc_new_qurt_mkdir(path, mode)
+public actual fun mkdir(path: ConstPtr<CChar>, mode: ModeT): CInt =
+    libcNewQurtMkdir(path.rawAddress.toCPointer<ByteVar>(), mode)
 
-public actual fun pthreadAttrGetstack(attr: COpaquePointer?, stackaddr: COpaquePointer?, stacksize: COpaquePointer?): CInt =
-    libc_new_qurt_pthreadAttrGetstack(attr?.value?.toCPointer<ByteVar>(), stackaddr?.value?.toCPointer<ByteVar>(), stacksize?.value?.toCPointer<ByteVar>())
+public actual fun pthreadAttrGetstack(attr: ConstPtr<PthreadAttrT>, stackaddr: MutPtr<MutPtr<CVoid>>, stacksize: MutPtr<SizeT>): CInt =
+    libcNewQurtPthreadAttrGetstack(attr.rawAddress.toCPointer<ByteVar>(), stackaddr.rawAddress.toCPointer<ByteVar>(), stacksize.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrSetstack(attr: COpaquePointer?, stackaddr: COpaquePointer?, stacksize: SizeT): CInt =
-    libc_new_qurt_pthreadAttrSetstack(attr?.value?.toCPointer<ByteVar>(), stackaddr?.value?.toCPointer<ByteVar>(), stacksize)
+public actual fun pthreadAttrSetstack(attr: MutPtr<PthreadAttrT>, stackaddr: MutPtr<CVoid>, stacksize: SizeT): CInt =
+    libcNewQurtPthreadAttrSetstack(attr.rawAddress.toCPointer<ByteVar>(), stackaddr.rawAddress.toCPointer<ByteVar>(), stacksize)
 
-public actual fun clockGetcpuclockid(pid: PidT, clockId: COpaquePointer?): CInt =
-    libc_new_qurt_clockGetcpuclockid(pid, clockId?.value?.toCPointer<ByteVar>())
+public actual fun clockGetcpuclockid(pid: PidT, clockId: MutPtr<ClockidT>): CInt =
+    libcNewQurtClockGetcpuclockid(pid, clockId.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    libc_new_qurt_semOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.let { COpaquePointer(it.toLong()) }
+public actual fun semOpen(name: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): MutPtr<SemT> =
+    MutPtr(libcNewQurtSemOpen(name.rawAddress.toCPointer<ByteVar>(), oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.toLong() ?: 0L)
 
-public actual fun semClose(sem: COpaquePointer?): CInt =
-    libc_new_qurt_semClose(sem?.value?.toCPointer<ByteVar>())
+public actual fun semClose(sem: MutPtr<SemT>): CInt =
+    libcNewQurtSemClose(sem.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semUnlink(name: String?): CInt =
-    libc_new_qurt_semUnlink(name)
+public actual fun semUnlink(name: ConstPtr<CChar>): CInt =
+    libcNewQurtSemUnlink(name.rawAddress.toCPointer<ByteVar>())
 
-public actual fun alignedAlloc(alignment: SizeT, size: SizeT): COpaquePointer? =
-    libc_new_qurt_alignedAlloc(alignment, size)?.let { COpaquePointer(it.toLong()) }
+public actual fun alignedAlloc(alignment: SizeT, size: SizeT): MutPtr<CVoid> =
+    MutPtr(libcNewQurtAlignedAlloc(alignment, size)?.toLong() ?: 0L)
 
-public actual fun strlen(s: String?): SizeT =
-    libc_new_qurt_strlen(s)
+public actual fun strlen(s: ConstPtr<CChar>): SizeT =
+    libcNewQurtStrlen(s.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strcpy(dest: COpaquePointer?, src: String?): COpaquePointer? =
-    libc_new_qurt_strcpy(dest?.value?.toCPointer<ByteVar>(), src)?.let { COpaquePointer(it.toLong()) }
+public actual fun strcpy(dest: MutPtr<CChar>, src: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcNewQurtStrcpy(dest.rawAddress.toCPointer<ByteVar>(), src.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strncpy(dest: COpaquePointer?, src: String?, n: SizeT): COpaquePointer? =
-    libc_new_qurt_strncpy(dest?.value?.toCPointer<ByteVar>(), src, n)?.let { COpaquePointer(it.toLong()) }
+public actual fun strncpy(dest: MutPtr<CChar>, src: ConstPtr<CChar>, n: SizeT): MutPtr<CChar> =
+    MutPtr(libcNewQurtStrncpy(dest.rawAddress.toCPointer<ByteVar>(), src.rawAddress.toCPointer<ByteVar>(), n)?.toLong() ?: 0L)
 
-public actual fun strcat(dest: COpaquePointer?, src: String?): COpaquePointer? =
-    libc_new_qurt_strcat(dest?.value?.toCPointer<ByteVar>(), src)?.let { COpaquePointer(it.toLong()) }
+public actual fun strcat(dest: MutPtr<CChar>, src: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcNewQurtStrcat(dest.rawAddress.toCPointer<ByteVar>(), src.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strncat(dest: COpaquePointer?, src: String?, n: SizeT): COpaquePointer? =
-    libc_new_qurt_strncat(dest?.value?.toCPointer<ByteVar>(), src, n)?.let { COpaquePointer(it.toLong()) }
+public actual fun strncat(dest: MutPtr<CChar>, src: ConstPtr<CChar>, n: SizeT): MutPtr<CChar> =
+    MutPtr(libcNewQurtStrncat(dest.rawAddress.toCPointer<ByteVar>(), src.rawAddress.toCPointer<ByteVar>(), n)?.toLong() ?: 0L)
 
-public actual fun strcmp(s1: String?, s2: String?): CInt =
-    libc_new_qurt_strcmp(s1, s2)
+public actual fun strcmp(s1: ConstPtr<CChar>, s2: ConstPtr<CChar>): CInt =
+    libcNewQurtStrcmp(s1.rawAddress.toCPointer<ByteVar>(), s2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strncmp(s1: String?, s2: String?, n: SizeT): CInt =
-    libc_new_qurt_strncmp(s1, s2, n)
+public actual fun strncmp(s1: ConstPtr<CChar>, s2: ConstPtr<CChar>, n: SizeT): CInt =
+    libcNewQurtStrncmp(s1.rawAddress.toCPointer<ByteVar>(), s2.rawAddress.toCPointer<ByteVar>(), n)
 
-public actual fun strcoll(s1: String?, s2: String?): CInt =
-    libc_new_qurt_strcoll(s1, s2)
+public actual fun strcoll(s1: ConstPtr<CChar>, s2: ConstPtr<CChar>): CInt =
+    libcNewQurtStrcoll(s1.rawAddress.toCPointer<ByteVar>(), s2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strxfrm(dest: COpaquePointer?, src: String?, n: SizeT): SizeT =
-    libc_new_qurt_strxfrm(dest?.value?.toCPointer<ByteVar>(), src, n)
+public actual fun strxfrm(dest: MutPtr<CChar>, src: ConstPtr<CChar>, n: SizeT): SizeT =
+    libcNewQurtStrxfrm(dest.rawAddress.toCPointer<ByteVar>(), src.rawAddress.toCPointer<ByteVar>(), n)
 
-public actual fun strchr(s: String?, c: CInt): COpaquePointer? =
-    libc_new_qurt_strchr(s, c)?.let { COpaquePointer(it.toLong()) }
+public actual fun strchr(s: ConstPtr<CChar>, c: CInt): MutPtr<CChar> =
+    MutPtr(libcNewQurtStrchr(s.rawAddress.toCPointer<ByteVar>(), c)?.toLong() ?: 0L)
 
-public actual fun strrchr(s: String?, c: CInt): COpaquePointer? =
-    libc_new_qurt_strrchr(s, c)?.let { COpaquePointer(it.toLong()) }
+public actual fun strrchr(s: ConstPtr<CChar>, c: CInt): MutPtr<CChar> =
+    MutPtr(libcNewQurtStrrchr(s.rawAddress.toCPointer<ByteVar>(), c)?.toLong() ?: 0L)
 
-public actual fun strspn(s: String?, accept: String?): SizeT =
-    libc_new_qurt_strspn(s, accept)
+public actual fun strspn(s: ConstPtr<CChar>, accept: ConstPtr<CChar>): SizeT =
+    libcNewQurtStrspn(s.rawAddress.toCPointer<ByteVar>(), accept.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strcspn(s: String?, reject: String?): SizeT =
-    libc_new_qurt_strcspn(s, reject)
+public actual fun strcspn(s: ConstPtr<CChar>, reject: ConstPtr<CChar>): SizeT =
+    libcNewQurtStrcspn(s.rawAddress.toCPointer<ByteVar>(), reject.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strpbrk(s: String?, accept: String?): COpaquePointer? =
-    libc_new_qurt_strpbrk(s, accept)?.let { COpaquePointer(it.toLong()) }
+public actual fun strpbrk(s: ConstPtr<CChar>, accept: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcNewQurtStrpbrk(s.rawAddress.toCPointer<ByteVar>(), accept.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strstr(haystack: String?, needle: String?): COpaquePointer? =
-    libc_new_qurt_strstr(haystack, needle)?.let { COpaquePointer(it.toLong()) }
+public actual fun strstr(haystack: ConstPtr<CChar>, needle: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcNewQurtStrstr(haystack.rawAddress.toCPointer<ByteVar>(), needle.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strtok(s: COpaquePointer?, delim: String?): COpaquePointer? =
-    libc_new_qurt_strtok(s?.value?.toCPointer<ByteVar>(), delim)?.let { COpaquePointer(it.toLong()) }
+public actual fun strtok(s: MutPtr<CChar>, delim: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcNewQurtStrtok(s.rawAddress.toCPointer<ByteVar>(), delim.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strerror(errnum: CInt): COpaquePointer? =
-    libc_new_qurt_strerror(errnum)?.let { COpaquePointer(it.toLong()) }
+public actual fun strerror(errnum: CInt): MutPtr<CChar> =
+    MutPtr(libcNewQurtStrerror(errnum)?.toLong() ?: 0L)
 
-public actual fun memchr(s: COpaquePointer?, c: CInt, n: SizeT): COpaquePointer? =
-    libc_new_qurt_memchr(s?.value?.toCPointer<ByteVar>(), c, n)?.let { COpaquePointer(it.toLong()) }
+public actual fun memchr(s: ConstPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+    MutPtr(libcNewQurtMemchr(s.rawAddress.toCPointer<ByteVar>(), c, n)?.toLong() ?: 0L)
 
-public actual fun memcmp(s1: COpaquePointer?, s2: COpaquePointer?, n: SizeT): CInt =
-    libc_new_qurt_memcmp(s1?.value?.toCPointer<ByteVar>(), s2?.value?.toCPointer<ByteVar>(), n)
+public actual fun memcmp(s1: ConstPtr<CVoid>, s2: ConstPtr<CVoid>, n: SizeT): CInt =
+    libcNewQurtMemcmp(s1.rawAddress.toCPointer<ByteVar>(), s2.rawAddress.toCPointer<ByteVar>(), n)
 
-public actual fun memcpy(dest: COpaquePointer?, src: COpaquePointer?, n: SizeT): COpaquePointer? =
-    libc_new_qurt_memcpy(dest?.value?.toCPointer<ByteVar>(), src?.value?.toCPointer<ByteVar>(), n)?.let { COpaquePointer(it.toLong()) }
+public actual fun memcpy(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, n: SizeT): MutPtr<CVoid> =
+    MutPtr(libcNewQurtMemcpy(dest.rawAddress.toCPointer<ByteVar>(), src.rawAddress.toCPointer<ByteVar>(), n)?.toLong() ?: 0L)
 
-public actual fun memmove(dest: COpaquePointer?, src: COpaquePointer?, n: SizeT): COpaquePointer? =
-    libc_new_qurt_memmove(dest?.value?.toCPointer<ByteVar>(), src?.value?.toCPointer<ByteVar>(), n)?.let { COpaquePointer(it.toLong()) }
+public actual fun memmove(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, n: SizeT): MutPtr<CVoid> =
+    MutPtr(libcNewQurtMemmove(dest.rawAddress.toCPointer<ByteVar>(), src.rawAddress.toCPointer<ByteVar>(), n)?.toLong() ?: 0L)
 
-public actual fun memset(s: COpaquePointer?, c: CInt, n: SizeT): COpaquePointer? =
-    libc_new_qurt_memset(s?.value?.toCPointer<ByteVar>(), c, n)?.let { COpaquePointer(it.toLong()) }
+public actual fun memset(s: MutPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+    MutPtr(libcNewQurtMemset(s.rawAddress.toCPointer<ByteVar>(), c, n)?.toLong() ?: 0L)
 
 public actual fun fork(): PidT =
-    libc_new_qurt_fork()
+    libcNewQurtFork()
 
-public actual fun execve(filename: String?, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
-    libc_new_qurt_execve(filename, argv?.value?.toCPointer<ByteVar>(), envp?.value?.toCPointer<ByteVar>())
+public actual fun execve(filename: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>, envp: ConstPtr<ConstPtr<CChar>>): CInt =
+    libcNewQurtExecve(filename.rawAddress.toCPointer<ByteVar>(), argv.rawAddress.toCPointer<ByteVar>(), envp.rawAddress.toCPointer<ByteVar>())
 
 public actual fun isalnum(c: CInt): CInt =
-    libc_new_qurt_isalnum(c)
+    libcNewQurtIsalnum(c)
 
 public actual fun isalpha(c: CInt): CInt =
-    libc_new_qurt_isalpha(c)
+    libcNewQurtIsalpha(c)
 
 public actual fun iscntrl(c: CInt): CInt =
-    libc_new_qurt_iscntrl(c)
+    libcNewQurtIscntrl(c)
 
 public actual fun isdigit(c: CInt): CInt =
-    libc_new_qurt_isdigit(c)
+    libcNewQurtIsdigit(c)
 
 public actual fun isgraph(c: CInt): CInt =
-    libc_new_qurt_isgraph(c)
+    libcNewQurtIsgraph(c)
 
 public actual fun islower(c: CInt): CInt =
-    libc_new_qurt_islower(c)
+    libcNewQurtIslower(c)
 
 public actual fun isprint(c: CInt): CInt =
-    libc_new_qurt_isprint(c)
+    libcNewQurtIsprint(c)
 
 public actual fun ispunct(c: CInt): CInt =
-    libc_new_qurt_ispunct(c)
+    libcNewQurtIspunct(c)
 
 public actual fun isspace(c: CInt): CInt =
-    libc_new_qurt_isspace(c)
+    libcNewQurtIsspace(c)
 
 public actual fun isupper(c: CInt): CInt =
-    libc_new_qurt_isupper(c)
+    libcNewQurtIsupper(c)
 
 public actual fun isxdigit(c: CInt): CInt =
-    libc_new_qurt_isxdigit(c)
+    libcNewQurtIsxdigit(c)
 
 public actual fun tolower(c: CInt): CInt =
-    libc_new_qurt_tolower(c)
+    libcNewQurtTolower(c)
 
 public actual fun toupper(c: CInt): CInt =
-    libc_new_qurt_toupper(c)
+    libcNewQurtToupper(c)

@@ -5,7 +5,6 @@ package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.x8664
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLonglong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
@@ -33,6 +32,10 @@ import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.OffT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.ShmattT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.SigsetT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.TimeT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+import io.github.kotlinmania.rustlang.core.mem.TypeLayout
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public fun interface SigactionSaRestorerCallback {
     public operator fun invoke()
@@ -134,13 +137,117 @@ public data class SiginfoT(
         result = 31 * result + this.align.contentHashCode()
         return result
     }
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<SiginfoT> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<SiginfoT> {
+                override val sizeBytes: Long = 128L
+                override val alignBytes: Long = 8L
+                override fun readNative(addr: Long): SiginfoT =
+                    SiginfoT(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 4L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 8L),
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (29).toInt())
+                        ).readNative(addr + 12L),
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64, (0).toInt())
+                        ).readNative(addr + 128L),
+                    )
+                override fun writeNative(addr: Long, value: SiginfoT) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr, value.siSigno)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 4L, value.siErrno)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 8L, value.siCode)
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32, (29).toInt())
+                    ).writeNative(addr + 12L, value.pad)
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64, (0).toInt())
+                    ).writeNative(addr + 128L, value.align)
+                }
+            }
+    }
 }
 
-public data class StackT(
-    public var ssSp: COpaquePointer? = null,
-    public var ssFlags: CInt = 0,
-    public var ssSize: SizeT = 0uL,
-)
+public class StackT internal constructor(
+    ssSpCtorArg: MutPtr<CVoid>,
+    public var ssFlags: CInt,
+    public var ssSize: SizeT,
+) {
+    public var ssSp: MutPtr<CVoid> = ssSpCtorArg
+        internal set
+
+    public constructor() : this(
+        ssSpCtorArg = MutPtr(0L),
+        ssFlags = 0,
+        ssSize = 0uL,
+    )
+
+    public operator fun component1(): MutPtr<CVoid> = this.ssSp
+
+    public operator fun component2(): CInt = this.ssFlags
+
+    public operator fun component3(): SizeT = this.ssSize
+
+    public fun copy(ssSp: MutPtr<CVoid> = this.ssSp, ssFlags: CInt = this.ssFlags, ssSize: SizeT = this.ssSize): StackT = StackT(ssSpCtorArg = ssSp, ssFlags = ssFlags, ssSize = ssSize)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is StackT) return false
+        if (this.ssSp != other.ssSp) return false
+        if (this.ssFlags != other.ssFlags) return false
+        if (this.ssSize != other.ssSize) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.ssSp.hashCode()
+        result = 31 * result + this.ssFlags.hashCode()
+        result = 31 * result + this.ssSize.hashCode()
+        return result
+    }
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<StackT> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<StackT> {
+                override val sizeBytes: Long = 24L
+                override val alignBytes: Long = 8L
+                override fun readNative(addr: Long): StackT =
+                    StackT(
+                        (
+                            io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+                                .mutPtrLayout<CVoid>(64)
+                        ).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr + 8L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.USIZE64).readNative(addr + 16L),
+                    )
+                override fun writeNative(addr: Long, value: StackT) {
+                    (
+                        io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+                            .mutPtrLayout<CVoid>(64)
+                    ).writeNative(addr, value.ssSp)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr + 8L, value.ssFlags)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.USIZE64).writeNative(addr + 16L, value.ssSize)
+                }
+            }
+
+        public operator fun invoke(
+            ssSp: MutPtr<CVoid> = MutPtr(0L),
+            ssFlags: CInt = 0,
+            ssSize: SizeT = 0uL,
+        ): StackT =
+            StackT(
+                ssSpCtorArg = ssSp,
+                ssFlags = ssFlags,
+                ssSize = ssSize,
+            )
+    }
+}
 
 public class Stat(
     public var stDev: DevT = 0uL,
@@ -293,6 +400,27 @@ public data class PthreadAttrT(
     }
 
     override fun hashCode(): Int = this.size.contentHashCode()
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<PthreadAttrT> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<PthreadAttrT> {
+                override val sizeBytes: Long = 56L
+                override val alignBytes: Long = 8L
+                override fun readNative(addr: Long): PthreadAttrT =
+                    PthreadAttrT(
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64, (7).toInt())
+                        ).readNative(addr),
+                    )
+                override fun writeNative(addr: Long, value: PthreadAttrT) {
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64, (7).toInt())
+                    ).writeNative(addr, value.size)
+                }
+            }
+    }
 }
 
 public data class LibcFpxreg(
@@ -315,6 +443,37 @@ public data class LibcFpxreg(
         result = 31 * result + this.private.contentHashCode()
         return result
     }
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<LibcFpxreg> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<LibcFpxreg> {
+                override val sizeBytes: Long = 16L
+                override val alignBytes: Long = 2L
+                override fun readNative(addr: Long): LibcFpxreg =
+                    LibcFpxreg(
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16, (4).toInt())
+                        ).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr + 8L),
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16, (3).toInt())
+                        ).readNative(addr + 10L),
+                    )
+                override fun writeNative(addr: Long, value: LibcFpxreg) {
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16, (4).toInt())
+                    ).writeNative(addr, value.significand)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr + 8L, value.exponent)
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16, (3).toInt())
+                    ).writeNative(addr + 10L, value.private)
+                }
+            }
+    }
 }
 
 public data class LibcXmmreg(
@@ -328,6 +487,27 @@ public data class LibcXmmreg(
     }
 
     override fun hashCode(): Int = this.element.contentHashCode()
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<LibcXmmreg> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<LibcXmmreg> {
+                override val sizeBytes: Long = 16L
+                override val alignBytes: Long = 4L
+                override fun readNative(addr: Long): LibcXmmreg =
+                    LibcXmmreg(
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32, (4).toInt())
+                        ).readNative(addr),
+                    )
+                override fun writeNative(addr: Long, value: LibcXmmreg) {
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32, (4).toInt())
+                    ).writeNative(addr, value.element)
+                }
+            }
+    }
 }
 
 public data class LibcFpstate(
@@ -374,6 +554,59 @@ public data class LibcFpstate(
         result = 31 * result + this.private.contentHashCode()
         return result
     }
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<LibcFpstate> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<LibcFpstate> {
+                override val sizeBytes: Long = 512L
+                override val alignBytes: Long = 8L
+                override fun readNative(addr: Long): LibcFpstate =
+                    LibcFpstate(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr + 2L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr + 4L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr + 6L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 8L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 16L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 24L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 28L),
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(LibcFpxreg.typeLayout(), (8).toInt())
+                        ).readNative(addr + 32L),
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(LibcXmmreg.typeLayout(), (16).toInt())
+                        ).readNative(addr + 160L),
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64, (12).toInt())
+                        ).readNative(addr + 416L),
+                    )
+                override fun writeNative(addr: Long, value: LibcFpstate) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr, value.cwd)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr + 2L, value.swd)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr + 4L, value.ftw)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr + 6L, value.fop)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 8L, value.rip)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 16L, value.rdp)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 24L, value.mxcsr)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 28L, value.mxcrMask)
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(LibcFpxreg.typeLayout(), (8).toInt())
+                    ).writeNative(addr + 32L, value.st)
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(LibcXmmreg.typeLayout(), (16).toInt())
+                    ).writeNative(addr + 160L, value.xmm)
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64, (12).toInt())
+                    ).writeNative(addr + 416L, value.private)
+                }
+            }
+    }
 }
 
 public class UserRegsStruct(
@@ -404,25 +637,148 @@ public class UserRegsStruct(
     public var es: CUlonglong = 0uL,
     public var fs: CUlonglong = 0uL,
     public var gs: CUlonglong = 0uL,
-)
-
-public data class User(
-    public var regs: UserRegsStruct = UserRegsStruct(),
-    public var uFpvalid: CInt = 0,
-    public var i387: UserFpregsStruct = UserFpregsStruct(),
-    public var uTsize: CUlonglong = 0uL,
-    public var uDsize: CUlonglong = 0uL,
-    public var uSsize: CUlonglong = 0uL,
-    public var startCode: CUlonglong = 0uL,
-    public var startStack: CUlonglong = 0uL,
-    public var signal: CLonglong = 0L,
-    public var reserved: CInt = 0,
-    public var uAr0: UserRegsStruct? = null,
-    public var uFpstate: UserFpregsStruct? = null,
-    public var magic: CUlonglong = 0uL,
-    public var uComm: UByteArray = UByteArray(32),
-    public var uDebugreg: ULongArray = ULongArray(8),
 ) {
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<UserRegsStruct> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<UserRegsStruct> {
+                override val sizeBytes: Long = 216L
+                override val alignBytes: Long = 8L
+                override fun readNative(addr: Long): UserRegsStruct =
+                    UserRegsStruct(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 8L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 16L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 24L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 32L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 40L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 48L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 56L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 64L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 72L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 80L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 88L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 96L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 104L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 112L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 120L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 128L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 136L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 144L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 152L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 160L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 168L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 176L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 184L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 192L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 200L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 208L),
+                    )
+                override fun writeNative(addr: Long, value: UserRegsStruct) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr, value.r15)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 8L, value.r14)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 16L, value.r13)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 24L, value.r12)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 32L, value.rbp)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 40L, value.rbx)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 48L, value.r11)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 56L, value.r10)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 64L, value.r9)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 72L, value.r8)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 80L, value.rax)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 88L, value.rcx)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 96L, value.rdx)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 104L, value.rsi)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 112L, value.rdi)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 120L, value.origRax)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 128L, value.rip)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 136L, value.cs)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 144L, value.eflags)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 152L, value.rsp)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 160L, value.ss)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 168L, value.fsBase)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 176L, value.gsBase)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 184L, value.ds)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 192L, value.es)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 200L, value.fs)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 208L, value.gs)
+                }
+            }
+    }
+}
+
+public class User internal constructor(
+    public var regs: UserRegsStruct,
+    public var uFpvalid: CInt,
+    public var i387: UserFpregsStruct,
+    public var uTsize: CUlonglong,
+    public var uDsize: CUlonglong,
+    public var uSsize: CUlonglong,
+    public var startCode: CUlonglong,
+    public var startStack: CUlonglong,
+    public var signal: CLonglong,
+    public var reserved: CInt,
+    uAr0CtorArg: MutPtr<UserRegsStruct>,
+    uFpstateCtorArg: MutPtr<UserFpregsStruct>,
+    public var magic: CUlonglong,
+    public var uComm: UByteArray,
+    public var uDebugreg: ULongArray,
+) {
+    public var uAr0: MutPtr<UserRegsStruct> = uAr0CtorArg
+        internal set
+
+    public var uFpstate: MutPtr<UserFpregsStruct> = uFpstateCtorArg
+        internal set
+
+    public constructor() : this(
+        regs = UserRegsStruct(),
+        uFpvalid = 0,
+        i387 = UserFpregsStruct(),
+        uTsize = 0uL,
+        uDsize = 0uL,
+        uSsize = 0uL,
+        startCode = 0uL,
+        startStack = 0uL,
+        signal = 0L,
+        reserved = 0,
+        uAr0CtorArg = MutPtr(0L),
+        uFpstateCtorArg = MutPtr(0L),
+        magic = 0uL,
+        uComm = UByteArray(32),
+        uDebugreg = ULongArray(8),
+    )
+
+    public operator fun component1(): UserRegsStruct = this.regs
+
+    public operator fun component2(): CInt = this.uFpvalid
+
+    public operator fun component3(): UserFpregsStruct = this.i387
+
+    public operator fun component4(): CUlonglong = this.uTsize
+
+    public operator fun component5(): CUlonglong = this.uDsize
+
+    public operator fun component6(): CUlonglong = this.uSsize
+
+    public operator fun component7(): CUlonglong = this.startCode
+
+    public operator fun component8(): CUlonglong = this.startStack
+
+    public operator fun component9(): CLonglong = this.signal
+
+    public operator fun component10(): CInt = this.reserved
+
+    public operator fun component11(): MutPtr<UserRegsStruct> = this.uAr0
+
+    public operator fun component12(): MutPtr<UserFpregsStruct> = this.uFpstate
+
+    public operator fun component13(): CUlonglong = this.magic
+
+    public operator fun component14(): UByteArray = this.uComm
+
+    public operator fun component15(): ULongArray = this.uDebugreg
+
+    public fun copy(regs: UserRegsStruct = this.regs, uFpvalid: CInt = this.uFpvalid, i387: UserFpregsStruct = this.i387, uTsize: CUlonglong = this.uTsize, uDsize: CUlonglong = this.uDsize, uSsize: CUlonglong = this.uSsize, startCode: CUlonglong = this.startCode, startStack: CUlonglong = this.startStack, signal: CLonglong = this.signal, reserved: CInt = this.reserved, uAr0: MutPtr<UserRegsStruct> = this.uAr0, uFpstate: MutPtr<UserFpregsStruct> = this.uFpstate, magic: CUlonglong = this.magic, uComm: UByteArray = this.uComm, uDebugreg: ULongArray = this.uDebugreg): User = User(regs = regs, uFpvalid = uFpvalid, i387 = i387, uTsize = uTsize, uDsize = uDsize, uSsize = uSsize, startCode = startCode, startStack = startStack, signal = signal, reserved = reserved, uAr0CtorArg = uAr0, uFpstateCtorArg = uFpstate, magic = magic, uComm = uComm, uDebugreg = uDebugreg)
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is User) return false
@@ -462,13 +818,67 @@ public data class User(
         result = 31 * result + this.uDebugreg.contentHashCode()
         return result
     }
+
+    public companion object {
+        public operator fun invoke(
+            regs: UserRegsStruct = UserRegsStruct(),
+            uFpvalid: CInt = 0,
+            i387: UserFpregsStruct = UserFpregsStruct(),
+            uTsize: CUlonglong = 0uL,
+            uDsize: CUlonglong = 0uL,
+            uSsize: CUlonglong = 0uL,
+            startCode: CUlonglong = 0uL,
+            startStack: CUlonglong = 0uL,
+            signal: CLonglong = 0L,
+            reserved: CInt = 0,
+            uAr0: MutPtr<UserRegsStruct> = MutPtr(0L),
+            uFpstate: MutPtr<UserFpregsStruct> = MutPtr(0L),
+            magic: CUlonglong = 0uL,
+            uComm: UByteArray = UByteArray(32),
+            uDebugreg: ULongArray = ULongArray(8),
+        ): User =
+            User(
+                regs = regs,
+                uFpvalid = uFpvalid,
+                i387 = i387,
+                uTsize = uTsize,
+                uDsize = uDsize,
+                uSsize = uSsize,
+                startCode = startCode,
+                startStack = startStack,
+                signal = signal,
+                reserved = reserved,
+                uAr0CtorArg = uAr0,
+                uFpstateCtorArg = uFpstate,
+                magic = magic,
+                uComm = uComm,
+                uDebugreg = uDebugreg,
+            )
+    }
 }
 
-public data class McontextT(
-    public var gregs: LongArray = LongArray(23),
-    public var fpregs: LibcFpstate? = null,
-    public var private: ULongArray = ULongArray(8),
+public class McontextT internal constructor(
+    public var gregs: LongArray,
+    fpregsCtorArg: MutPtr<LibcFpstate>,
+    public var private: ULongArray,
 ) {
+    public var fpregs: MutPtr<LibcFpstate> = fpregsCtorArg
+        internal set
+
+    public constructor() : this(
+        gregs = LongArray(23),
+        fpregsCtorArg = MutPtr(0L),
+        private = ULongArray(8),
+    )
+
+    public operator fun component1(): LongArray = this.gregs
+
+    public operator fun component2(): MutPtr<LibcFpstate> = this.fpregs
+
+    public operator fun component3(): ULongArray = this.private
+
+    public fun copy(gregs: LongArray = this.gregs, fpregs: MutPtr<LibcFpstate> = this.fpregs, private: ULongArray = this.private): McontextT = McontextT(gregs = gregs, fpregsCtorArg = fpregs, private = private)
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is McontextT) return false
@@ -483,6 +893,54 @@ public data class McontextT(
         result = 31 * result + this.fpregs.hashCode()
         result = 31 * result + this.private.contentHashCode()
         return result
+    }
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<McontextT> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<McontextT> {
+                override val sizeBytes: Long = 256L
+                override val alignBytes: Long = 8L
+                override fun readNative(addr: Long): McontextT =
+                    McontextT(
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64, (23).toInt())
+                        ).readNative(addr),
+                        (
+                            io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+                                .mutPtrLayout<LibcFpstate>(64)
+                        ).readNative(addr + 184L),
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64, (8).toInt())
+                        ).readNative(addr + 192L),
+                    )
+                override fun writeNative(addr: Long, value: McontextT) {
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I64, (23).toInt())
+                    ).writeNative(addr, value.gregs)
+                    (
+                        io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+                            .mutPtrLayout<LibcFpstate>(64)
+                    ).writeNative(addr + 184L, value.fpregs)
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64, (8).toInt())
+                    ).writeNative(addr + 192L, value.private)
+                }
+            }
+
+        public operator fun invoke(
+            gregs: LongArray = LongArray(23),
+            fpregs: MutPtr<LibcFpstate> = MutPtr(0L),
+            private: ULongArray = ULongArray(8),
+        ): McontextT =
+            McontextT(
+                gregs = gregs,
+                fpregsCtorArg = fpregs,
+                private = private,
+            )
     }
 }
 
@@ -533,7 +991,42 @@ public data class CloneArgs(
     public var setTid: CUlonglong = 0uL,
     public var setTidSize: CUlonglong = 0uL,
     public var cgroup: CUlonglong = 0uL,
-)
+) {
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<CloneArgs> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<CloneArgs> {
+                override val sizeBytes: Long = 88L
+                override val alignBytes: Long = 8L
+                override fun readNative(addr: Long): CloneArgs =
+                    CloneArgs(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 8L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 16L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 24L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 32L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 40L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 48L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 56L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 64L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 72L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).readNative(addr + 80L),
+                    )
+                override fun writeNative(addr: Long, value: CloneArgs) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr, value.flags)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 8L, value.pidfd)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 16L, value.childTid)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 24L, value.parentTid)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 32L, value.exitSignal)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 40L, value.stack)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 48L, value.stackSize)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 56L, value.tls)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 64L, value.setTid)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 72L, value.setTidSize)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64).writeNative(addr + 80L, value.cgroup)
+                }
+            }
+    }
+}
 
 public data class UserFpregsStruct(
     public var cwd: CUshort = 0u,
@@ -581,15 +1074,47 @@ public data class UserFpregsStruct(
     }
 }
 
-public data class UcontextT(
-    public var ucFlags: CUlong = 0uL,
-    public var ucLink: UcontextT? = null,
-    public var ucStack: StackT = StackT(),
-    public var ucMcontext: McontextT = McontextT(),
-    public var ucSigmask: SigsetT = SigsetT(),
-    public var private: UByteArray = UByteArray(512),
-    public var ssp: ULongArray = ULongArray(4),
+public class UcontextT internal constructor(
+    public var ucFlags: CUlong,
+    ucLinkCtorArg: MutPtr<UcontextT>,
+    public var ucStack: StackT,
+    ucMcontextCtorArg: McontextT,
+    public var ucSigmask: SigsetT,
+    public var private: UByteArray,
+    public var ssp: ULongArray,
 ) {
+    public var ucLink: MutPtr<UcontextT> = ucLinkCtorArg
+        internal set
+
+    public var ucMcontext: McontextT = ucMcontextCtorArg
+        internal set
+
+    public constructor() : this(
+        ucFlags = 0uL,
+        ucLinkCtorArg = MutPtr(0L),
+        ucStack = StackT(),
+        ucMcontextCtorArg = McontextT(),
+        ucSigmask = SigsetT(),
+        private = UByteArray(512),
+        ssp = ULongArray(4),
+    )
+
+    public operator fun component1(): CUlong = this.ucFlags
+
+    public operator fun component2(): MutPtr<UcontextT> = this.ucLink
+
+    public operator fun component3(): StackT = this.ucStack
+
+    public operator fun component4(): McontextT = this.ucMcontext
+
+    public operator fun component5(): SigsetT = this.ucSigmask
+
+    public operator fun component6(): UByteArray = this.private
+
+    public operator fun component7(): ULongArray = this.ssp
+
+    public fun copy(ucFlags: CUlong = this.ucFlags, ucLink: MutPtr<UcontextT> = this.ucLink, ucStack: StackT = this.ucStack, ucMcontext: McontextT = this.ucMcontext, ucSigmask: SigsetT = this.ucSigmask, private: UByteArray = this.private, ssp: ULongArray = this.ssp): UcontextT = UcontextT(ucFlags = ucFlags, ucLinkCtorArg = ucLink, ucStack = ucStack, ucMcontextCtorArg = ucMcontext, ucSigmask = ucSigmask, private = private, ssp = ssp)
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is UcontextT) return false
@@ -613,6 +1138,27 @@ public data class UcontextT(
         result = 31 * result + this.ssp.contentHashCode()
         return result
     }
+
+    public companion object {
+        public operator fun invoke(
+            ucFlags: CUlong = 0uL,
+            ucLink: MutPtr<UcontextT> = MutPtr(0L),
+            ucStack: StackT = StackT(),
+            ucMcontext: McontextT = McontextT(),
+            ucSigmask: SigsetT = SigsetT(),
+            private: UByteArray = UByteArray(512),
+            ssp: ULongArray = ULongArray(4),
+        ): UcontextT =
+            UcontextT(
+                ucFlags = ucFlags,
+                ucLinkCtorArg = ucLink,
+                ucStack = ucStack,
+                ucMcontextCtorArg = ucMcontext,
+                ucSigmask = ucSigmask,
+                private = private,
+                ssp = ssp,
+            )
+    }
 }
 
 public data class MaxAlignT(
@@ -626,4 +1172,25 @@ public data class MaxAlignT(
     }
 
     override fun hashCode(): Int = this.priv.contentHashCode()
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<MaxAlignT> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<MaxAlignT> {
+                override val sizeBytes: Long = 32L
+                override val alignBytes: Long = 16L
+                override fun readNative(addr: Long): MaxAlignT =
+                    MaxAlignT(
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.F64, (4).toInt())
+                        ).readNative(addr),
+                    )
+                override fun writeNative(addr: Long, value: MaxAlignT) {
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.F64, (4).toInt())
+                    ).writeNative(addr, value.priv)
+                }
+            }
+    }
 }

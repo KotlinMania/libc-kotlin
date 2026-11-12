@@ -3,7 +3,9 @@ package io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.arm
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.libc.CLonglong
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.PT_FIRSTMACH
+import io.github.kotlinmania.rustlang.core.mem.ObjectSlotLayout
 
 public typealias CpuSimpleLockNvT = CInt
 
@@ -129,4 +131,4 @@ public val REG_LR: CInt = REG_R14
 
 public val REG_PC: CInt = REG_R15
 
-internal val ALIGNBYTES: Int = 8 - 1
+internal val ALIGNBYTES: Int = sizeOf<CLonglong>(typeLayoutT = ObjectSlotLayout<CLonglong>()) - 1

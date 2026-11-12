@@ -22,6 +22,9 @@ import io.github.kotlinmania.libc.fuchsia.SizeT
 import io.github.kotlinmania.libc.fuchsia.StackT
 import io.github.kotlinmania.libc.fuchsia.TimeT
 import io.github.kotlinmania.libc.fuchsia.UidT
+import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+import io.github.kotlinmania.rustlang.core.mem.TypeLayout
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public typealias WcharT = Int
 
@@ -84,6 +87,27 @@ public data class McontextT(
     }
 
     override fun hashCode(): Int = this.private.contentHashCode()
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<McontextT> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<McontextT> {
+                override val sizeBytes: Long = 256L
+                override val alignBytes: Long = 8L
+                override fun readNative(addr: Long): McontextT =
+                    McontextT(
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64, (32).toInt())
+                        ).readNative(addr),
+                    )
+                override fun writeNative(addr: Long, value: McontextT) {
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U64, (32).toInt())
+                    ).writeNative(addr, value.private)
+                }
+            }
+    }
 }
 
 public data class IpcPerm(
@@ -98,14 +122,43 @@ public data class IpcPerm(
     public var unused2: CLong = 0L,
 )
 
-public data class UcontextT(
-    public var ucFlags: CUlong = 0uL,
-    public var ucLink: UcontextT? = null,
-    public var ucStack: StackT = StackT(),
-    public var ucMcontext: McontextT = McontextT(),
-    public var ucSigmask: SigsetT = SigsetT(),
-    public var private: UByteArray = UByteArray(512),
+public class UcontextT internal constructor(
+    public var ucFlags: CUlong,
+    ucLinkCtorArg: MutPtr<UcontextT>,
+    public var ucStack: StackT,
+    ucMcontextCtorArg: McontextT,
+    public var ucSigmask: SigsetT,
+    public var private: UByteArray,
 ) {
+    public var ucLink: MutPtr<UcontextT> = ucLinkCtorArg
+        internal set
+
+    public var ucMcontext: McontextT = ucMcontextCtorArg
+        internal set
+
+    public constructor() : this(
+        ucFlags = 0uL,
+        ucLinkCtorArg = MutPtr(0L),
+        ucStack = StackT(),
+        ucMcontextCtorArg = McontextT(),
+        ucSigmask = SigsetT(),
+        private = UByteArray(512),
+    )
+
+    public operator fun component1(): CUlong = this.ucFlags
+
+    public operator fun component2(): MutPtr<UcontextT> = this.ucLink
+
+    public operator fun component3(): StackT = this.ucStack
+
+    public operator fun component4(): McontextT = this.ucMcontext
+
+    public operator fun component5(): SigsetT = this.ucSigmask
+
+    public operator fun component6(): UByteArray = this.private
+
+    public fun copy(ucFlags: CUlong = this.ucFlags, ucLink: MutPtr<UcontextT> = this.ucLink, ucStack: StackT = this.ucStack, ucMcontext: McontextT = this.ucMcontext, ucSigmask: SigsetT = this.ucSigmask, private: UByteArray = this.private): UcontextT = UcontextT(ucFlags = ucFlags, ucLinkCtorArg = ucLink, ucStack = ucStack, ucMcontextCtorArg = ucMcontext, ucSigmask = ucSigmask, private = private)
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is UcontextT) return false
@@ -126,6 +179,25 @@ public data class UcontextT(
         result = 31 * result + this.ucSigmask.hashCode()
         result = 31 * result + this.private.contentHashCode()
         return result
+    }
+
+    public companion object {
+        public operator fun invoke(
+            ucFlags: CUlong = 0uL,
+            ucLink: MutPtr<UcontextT> = MutPtr(0L),
+            ucStack: StackT = StackT(),
+            ucMcontext: McontextT = McontextT(),
+            ucSigmask: SigsetT = SigsetT(),
+            private: UByteArray = UByteArray(512),
+        ): UcontextT =
+            UcontextT(
+                ucFlags = ucFlags,
+                ucLinkCtorArg = ucLink,
+                ucStack = ucStack,
+                ucMcontextCtorArg = ucMcontext,
+                ucSigmask = ucSigmask,
+                private = private,
+            )
     }
 }
 

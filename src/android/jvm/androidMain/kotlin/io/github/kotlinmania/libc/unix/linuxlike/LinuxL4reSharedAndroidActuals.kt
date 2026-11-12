@@ -3,24 +3,39 @@
 package io.github.kotlinmania.libc.unix.linuxlike
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CDouble
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
+import io.github.kotlinmania.libc.CUshort
 import io.github.kotlinmania.libc.unix.DIR
 import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.GidT
+import io.github.kotlinmania.libc.unix.Group
+import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.PidT
+import io.github.kotlinmania.libc.unix.Pollfd
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.Timeval
 import io.github.kotlinmania.libc.unix.linuxlike.android.b64.Off64T
 import io.github.kotlinmania.libc.unix.linuxlike.android.b64.SocklenT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.NfdsT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.NlItem
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.Aiocb
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.RegexT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.OffT
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.SigsetT
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.Sysinfo
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.ShmidDs
+import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.b64.SemT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 private object UnixLinuxlikeLinuxL4reSharedJniBridge {
     init {
@@ -28,643 +43,643 @@ private object UnixLinuxlikeLinuxL4reSharedJniBridge {
     }
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_iopl(level: Int): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedIopl(level: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_ioperm(from: Long, num: Long, turnOn: Int): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedIoperm(from: Long, num: Long, turnOn: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_aioRead(aiocbp: Long): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedAioRead(aiocbp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_aioWrite(aiocbp: Long): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedAioWrite(aiocbp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_aioFsync(op: Int, aiocbp: Long): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedAioFsync(op: Int, aiocbp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_aioError(aiocbp: Long): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedAioError(aiocbp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_aioReturn(aiocbp: Long): Long
+    external fun libcUnixLinuxlikeLinuxL4reSharedAioReturn(aiocbp: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_aioSuspend(aiocbList: Long, nitems: Int, timeout: Long): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedAioSuspend(aiocbList: Long, nitems: Int, timeout: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_aioCancel(fd: Int, aiocbp: Long): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedAioCancel(fd: Int, aiocbp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_lioListio(mode: Int, aiocbList: Long, nitems: Int, sevp: Long): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedLioListio(mode: Int, aiocbList: Long, nitems: Int, sevp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_pwritev(fd: Int, iov: Long, iovcnt: Int, offset: Long): Long
+    external fun libcUnixLinuxlikeLinuxL4reSharedPwritev(fd: Int, iov: Long, iovcnt: Int, offset: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_preadv(fd: Int, iov: Long, iovcnt: Int, offset: Long): Long
+    external fun libcUnixLinuxlikeLinuxL4reSharedPreadv(fd: Int, iov: Long, iovcnt: Int, offset: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_getnameinfo(sa: Long, salen: Int, host: Long, hostlen: Int, serv: Long, servlen: Int, flags: Int): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedGetnameinfo(sa: Long, salen: Int, host: Long, hostlen: Int, serv: Long, servlen: Int, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_getloadavg(loadavg: Long, nelem: Int): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedGetloadavg(loadavg: Long, nelem: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_processVmReadv(pid: Int, localIov: Long, liovcnt: Long, remoteIov: Long, riovcnt: Long, flags: Long): Long
+    external fun libcUnixLinuxlikeLinuxL4reSharedProcessVmReadv(pid: Int, localIov: Long, liovcnt: Long, remoteIov: Long, riovcnt: Long, flags: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_processVmWritev(pid: Int, localIov: Long, liovcnt: Long, remoteIov: Long, riovcnt: Long, flags: Long): Long
+    external fun libcUnixLinuxlikeLinuxL4reSharedProcessVmWritev(pid: Int, localIov: Long, liovcnt: Long, remoteIov: Long, riovcnt: Long, flags: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_futimes(fd: Int, times: Long): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedFutimes(fd: Int, times: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_strerrorR(errnum: Int, buf: Long, buflen: Long): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedStrerrorR(errnum: Int, buf: Long, buflen: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_abs(i: Int): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedAbs(i: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_labs(i: Long): Long
+    external fun libcUnixLinuxlikeLinuxL4reSharedLabs(i: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_rand(): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedRand(): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_srand(seed: Int)
+    external fun libcUnixLinuxlikeLinuxL4reSharedSrand(seed: Int)
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_drand48(): Double
+    external fun libcUnixLinuxlikeLinuxL4reSharedDrand48(): Double
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_erand48(xseed: Long): Double
+    external fun libcUnixLinuxlikeLinuxL4reSharedErand48(xseed: Long): Double
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_lrand48(): Long
+    external fun libcUnixLinuxlikeLinuxL4reSharedLrand48(): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_nrand48(xseed: Long): Long
+    external fun libcUnixLinuxlikeLinuxL4reSharedNrand48(xseed: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_jrand48(xseed: Long): Long
+    external fun libcUnixLinuxlikeLinuxL4reSharedJrand48(xseed: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_srand48(seed: Long)
+    external fun libcUnixLinuxlikeLinuxL4reSharedSrand48(seed: Long)
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_setpwent()
+    external fun libcUnixLinuxlikeLinuxL4reSharedSetpwent()
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_endpwent()
+    external fun libcUnixLinuxlikeLinuxL4reSharedEndpwent()
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_getpwent(): Long
+    external fun libcUnixLinuxlikeLinuxL4reSharedGetpwent(): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_setgrent()
+    external fun libcUnixLinuxlikeLinuxL4reSharedSetgrent()
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_endgrent()
+    external fun libcUnixLinuxlikeLinuxL4reSharedEndgrent()
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_getgrent(): Long
+    external fun libcUnixLinuxlikeLinuxL4reSharedGetgrent(): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_setspent()
+    external fun libcUnixLinuxlikeLinuxL4reSharedSetspent()
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_endspent()
+    external fun libcUnixLinuxlikeLinuxL4reSharedEndspent()
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_getspent(): Long
+    external fun libcUnixLinuxlikeLinuxL4reSharedGetspent(): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_getspnam(name: String?): Long
+    external fun libcUnixLinuxlikeLinuxL4reSharedGetspnam(name: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_shmget(key: Int, size: Long, shmflg: Int): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedShmget(key: Int, size: Long, shmflg: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_shmat(shmid: Int, shmaddr: Long, shmflg: Int): Long
+    external fun libcUnixLinuxlikeLinuxL4reSharedShmat(shmid: Int, shmaddr: Long, shmflg: Int): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_shmdt(shmaddr: Long): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedShmdt(shmaddr: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_shmctl(shmid: Int, cmd: Int, buf: Long): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedShmctl(shmid: Int, cmd: Int, buf: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_mprotect(addr: Long, len: Long, prot: Int): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedMprotect(addr: Long, len: Long, prot: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_errnoLocation(): Long
+    external fun libcUnixLinuxlikeLinuxL4reSharedErrnoLocation(): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_mremap(addr: Long, len: Long, newLen: Long, flags: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
+    external fun libcUnixLinuxlikeLinuxL4reSharedMremap(addr: Long, len: Long, newLen: Long, flags: Int, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_glob(pattern: String?, flags: Int, errfunc: Long, pglob: Long): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedGlob(pattern: Long, flags: Int, errfunc: Long, pglob: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_globfree(pglob: Long)
+    external fun libcUnixLinuxlikeLinuxL4reSharedGlobfree(pglob: Long)
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_seekdir(dirp: Long, loc: Long)
+    external fun libcUnixLinuxlikeLinuxL4reSharedSeekdir(dirp: Long, loc: Long)
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_telldir(dirp: Long): Long
+    external fun libcUnixLinuxlikeLinuxL4reSharedTelldir(dirp: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_madvise(addr: Long, len: Long, advice: Int): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedMadvise(addr: Long, len: Long, advice: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_msync(addr: Long, len: Long, flags: Int): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedMsync(addr: Long, len: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_recvfrom(socket: Int, buf: Long, len: Long, flags: Int, addr: Long, addrlen: Long): Long
+    external fun libcUnixLinuxlikeLinuxL4reSharedRecvfrom(socket: Int, buf: Long, len: Long, flags: Int, addr: Long, addrlen: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_nlLanginfo(item: Int): Long
+    external fun libcUnixLinuxlikeLinuxL4reSharedNlLanginfo(item: Int): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_nlLanginfoL(item: Int, locale: Long): Long
+    external fun libcUnixLinuxlikeLinuxL4reSharedNlLanginfoL(item: Int, locale: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_schedGetaffinity(pid: Int, cpusetsize: Long, cpuset: Long): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedSchedGetaffinity(pid: Int, cpusetsize: Long, cpuset: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_schedGetPriorityMax(policy: Int): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedSchedGetPriorityMax(policy: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_settimeofday(tv: Long, tz: Long): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedSettimeofday(tv: Long, tz: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_semTimedwait(sem: Long, abstime: Long): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedSemTimedwait(sem: Long, abstime: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_semGetvalue(sem: Long, sval: Long): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedSemGetvalue(sem: Long, sval: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_mount(src: String?, target: String?, fstype: String?, flags: Long, data: Long): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedMount(src: Long, target: Long, fstype: Long, flags: Long, data: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_prctl(option: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedPrctl(option: Int, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_ppoll(fds: Long, nfds: Long, timeout: Long, sigmask: Long): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedPpoll(fds: Long, nfds: Long, timeout: Long, sigmask: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_sethostname(name: String?, len: Long): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedSethostname(name: Long, len: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_schedGetPriorityMin(policy: Int): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedSchedGetPriorityMin(policy: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_sysinfo(info: Long): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedSysinfo(info: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_sigsuspend(mask: Long): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedSigsuspend(mask: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_getgrgidR(gid: Short, grp: Long, buf: Long, buflen: Long, result: Long): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedGetgrgidR(gid: Short, grp: Long, buf: Long, buflen: Long, result: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_semClose(sem: Long): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedSemClose(sem: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_getgrnamR(name: String?, grp: Long, buf: Long, buflen: Long, result: Long): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedGetgrnamR(name: Long, grp: Long, buf: Long, buflen: Long, result: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_initgroups(user: String?, group: Short): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedInitgroups(user: Long, group: Short): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_semOpen(name: String?, oflag: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
+    external fun libcUnixLinuxlikeLinuxL4reSharedSemOpen(name: Long, oflag: Int, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_getgrnam(name: String?): Long
+    external fun libcUnixLinuxlikeLinuxL4reSharedGetgrnam(name: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_semUnlink(name: String?): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedSemUnlink(name: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_daemon(nochdir: Int, noclose: Int): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedDaemon(nochdir: Int, noclose: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_sigwait(set: Long, sig: Long): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedSigwait(set: Long, sig: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_getgrgid(gid: Short): Long
+    external fun libcUnixLinuxlikeLinuxL4reSharedGetgrgid(gid: Short): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_popen(command: String?, mode: String?): Long
+    external fun libcUnixLinuxlikeLinuxL4reSharedPopen(command: Long, mode: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_faccessat(dirfd: Int, pathname: String?, mode: Int, flags: Int): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedFaccessat(dirfd: Int, pathname: Long, mode: Int, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_dlIteratePhdr(callback: Long, data: Long): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedDlIteratePhdr(callback: Long, data: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_setmntent(filename: String?, ty: String?): Long
+    external fun libcUnixLinuxlikeLinuxL4reSharedSetmntent(filename: Long, ty: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_getmntent(stream: Long): Long
+    external fun libcUnixLinuxlikeLinuxL4reSharedGetmntent(stream: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_addmntent(stream: Long, mnt: Long): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedAddmntent(stream: Long, mnt: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_endmntent(streamp: Long): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedEndmntent(streamp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_hasmntopt(mnt: Long, opt: String?): Long
+    external fun libcUnixLinuxlikeLinuxL4reSharedHasmntopt(mnt: Long, opt: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_regcomp(preg: Long, pattern: String?, cflags: Int): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedRegcomp(preg: Long, pattern: Long, cflags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_regexec(preg: Long, input: String?, nmatch: Long, pmatch: Long, eflags: Int): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedRegexec(preg: Long, input: Long, nmatch: Long, pmatch: Long, eflags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_regerror(errcode: Int, preg: Long, errbuf: Long, errbufSize: Long): Long
+    external fun libcUnixLinuxlikeLinuxL4reSharedRegerror(errcode: Int, preg: Long, errbuf: Long, errbufSize: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_regfree(preg: Long)
+    external fun libcUnixLinuxlikeLinuxL4reSharedRegfree(preg: Long)
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_iconvOpen(tocode: String?, fromcode: String?): Long
+    external fun libcUnixLinuxlikeLinuxL4reSharedIconvOpen(tocode: Long, fromcode: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_iconv(cd: Long, inbuf: Long, inbytesleft: Long, outbuf: Long, outbytesleft: Long): Long
+    external fun libcUnixLinuxlikeLinuxL4reSharedIconv(cd: Long, inbuf: Long, inbytesleft: Long, outbuf: Long, outbytesleft: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_iconvClose(cd: Long): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedIconvClose(cd: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_gettid(): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedGettid(): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_timerCreate(clockid: Int, sevp: Long, timerid: Long): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedTimerCreate(clockid: Int, sevp: Long, timerid: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_timerDelete(timerid: Long): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedTimerDelete(timerid: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_timerGetoverrun(timerid: Long): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedTimerGetoverrun(timerid: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_timerGettime(timerid: Long, currValue: Long): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedTimerGettime(timerid: Long, currValue: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_timerSettime(timerid: Long, flags: Int, newValue: Long, oldValue: Long): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedTimerSettime(timerid: Long, flags: Int, newValue: Long, oldValue: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_memmem(haystack: Long, haystacklen: Long, needle: Long, needlelen: Long): Long
+    external fun libcUnixLinuxlikeLinuxL4reSharedMemmem(haystack: Long, haystacklen: Long, needle: Long, needlelen: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_schedGetcpu(): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedSchedGetcpu(): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_getoptLong(argc: Int, argv: Long, optstring: String?, longopts: Long, longindex: Long): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedGetoptLong(argc: Int, argv: Long, optstring: Long, longopts: Long, longindex: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_copyFileRange(fdIn: Int, offIn: Long, fdOut: Int, offOut: Long, len: Long, flags: Int): Long
+    external fun libcUnixLinuxlikeLinuxL4reSharedCopyFileRange(fdIn: Int, offIn: Long, fdOut: Int, offOut: Long, len: Long, flags: Int): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_freopen64(filename: String?, mode: String?, file: Long): Long
+    external fun libcUnixLinuxlikeLinuxL4reSharedFreopen64(filename: Long, mode: Long, file: Long): Long
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_fseeko64(stream: Long, offset: Long, whence: Int): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedFseeko64(stream: Long, offset: Long, whence: Int): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_fsetpos64(stream: Long, ptr: Long): Int
+    external fun libcUnixLinuxlikeLinuxL4reSharedFsetpos64(stream: Long, ptr: Long): Int
 
     @JvmStatic
-    external fun libc_unix_linuxlike_linux_l4re_shared_ftello64(stream: Long): Long
+    external fun libcUnixLinuxlikeLinuxL4reSharedFtello64(stream: Long): Long
 }
 
 public actual fun iopl(level: CInt): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_iopl(level)
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedIopl(level)
 
 public actual fun ioperm(from: CUlong, num: CUlong, turnOn: CInt): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_ioperm(from.toLong(), num.toLong(), turnOn)
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedIoperm(from.toLong(), num.toLong(), turnOn)
 
-public actual fun aioRead(aiocbp: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_aioRead((aiocbp?.value ?: 0L))
+public actual fun aioRead(aiocbp: MutPtr<Aiocb>): CInt =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedAioRead(aiocbp.rawAddress)
 
-public actual fun aioWrite(aiocbp: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_aioWrite((aiocbp?.value ?: 0L))
+public actual fun aioWrite(aiocbp: MutPtr<Aiocb>): CInt =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedAioWrite(aiocbp.rawAddress)
 
-public actual fun aioFsync(op: CInt, aiocbp: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_aioFsync(op, (aiocbp?.value ?: 0L))
+public actual fun aioFsync(op: CInt, aiocbp: MutPtr<Aiocb>): CInt =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedAioFsync(op, aiocbp.rawAddress)
 
-public actual fun aioError(aiocbp: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_aioError((aiocbp?.value ?: 0L))
+public actual fun aioError(aiocbp: ConstPtr<Aiocb>): CInt =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedAioError(aiocbp.rawAddress)
 
-public actual fun aioReturn(aiocbp: COpaquePointer?): SsizeT =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_aioReturn((aiocbp?.value ?: 0L))
+public actual fun aioReturn(aiocbp: MutPtr<Aiocb>): SsizeT =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedAioReturn(aiocbp.rawAddress)
 
-public actual fun aioSuspend(aiocbList: COpaquePointer?, nitems: CInt, timeout: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_aioSuspend((aiocbList?.value ?: 0L), nitems, (timeout?.value ?: 0L))
+public actual fun aioSuspend(aiocbList: ConstPtr<ConstPtr<Aiocb>>, nitems: CInt, timeout: ConstPtr<Timespec>): CInt =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedAioSuspend(aiocbList.rawAddress, nitems, timeout.rawAddress)
 
-public actual fun aioCancel(fd: CInt, aiocbp: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_aioCancel(fd, (aiocbp?.value ?: 0L))
+public actual fun aioCancel(fd: CInt, aiocbp: MutPtr<Aiocb>): CInt =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedAioCancel(fd, aiocbp.rawAddress)
 
-public actual fun lioListio(mode: CInt, aiocbList: COpaquePointer?, nitems: CInt, sevp: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_lioListio(mode, (aiocbList?.value ?: 0L), nitems, (sevp?.value ?: 0L))
+public actual fun lioListio(mode: CInt, aiocbList: ConstPtr<MutPtr<Aiocb>>, nitems: CInt, sevp: MutPtr<Sigevent>): CInt =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedLioListio(mode, aiocbList.rawAddress, nitems, sevp.rawAddress)
 
-public actual fun pwritev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: OffT): SsizeT =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_pwritev(fd, (iov?.value ?: 0L), iovcnt, offset)
+public actual fun pwritev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedPwritev(fd, iov.rawAddress, iovcnt, offset)
 
-public actual fun preadv(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: OffT): SsizeT =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_preadv(fd, (iov?.value ?: 0L), iovcnt, offset)
+public actual fun preadv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedPreadv(fd, iov.rawAddress, iovcnt, offset)
 
-public actual fun getnameinfo(sa: COpaquePointer?, salen: SocklenT, host: COpaquePointer?, hostlen: SocklenT, serv: COpaquePointer?, servlen: SocklenT, flags: CInt): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_getnameinfo((sa?.value ?: 0L), salen.toInt(), (host?.value ?: 0L), hostlen.toInt(), (serv?.value ?: 0L), servlen.toInt(), flags)
+public actual fun getnameinfo(sa: ConstPtr<Sockaddr>, salen: SocklenT, host: MutPtr<CChar>, hostlen: SocklenT, serv: MutPtr<CChar>, servlen: SocklenT, flags: CInt): CInt =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedGetnameinfo(sa.rawAddress, salen.toInt(), host.rawAddress, hostlen.toInt(), serv.rawAddress, servlen.toInt(), flags)
 
-public actual fun getloadavg(loadavg: COpaquePointer?, nelem: CInt): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_getloadavg((loadavg?.value ?: 0L), nelem)
+public actual fun getloadavg(loadavg: MutPtr<CDouble>, nelem: CInt): CInt =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedGetloadavg(loadavg.rawAddress, nelem)
 
-public actual fun processVmReadv(pid: PidT, localIov: COpaquePointer?, liovcnt: CUlong, remoteIov: COpaquePointer?, riovcnt: CUlong, flags: CUlong): Long =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_processVmReadv(pid, (localIov?.value ?: 0L), liovcnt.toLong(), (remoteIov?.value ?: 0L), riovcnt.toLong(), flags.toLong())
+public actual fun processVmReadv(pid: PidT, localIov: ConstPtr<Iovec>, liovcnt: CUlong, remoteIov: ConstPtr<Iovec>, riovcnt: CUlong, flags: CUlong): Long =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedProcessVmReadv(pid, localIov.rawAddress, liovcnt.toLong(), remoteIov.rawAddress, riovcnt.toLong(), flags.toLong())
 
-public actual fun processVmWritev(pid: PidT, localIov: COpaquePointer?, liovcnt: CUlong, remoteIov: COpaquePointer?, riovcnt: CUlong, flags: CUlong): Long =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_processVmWritev(pid, (localIov?.value ?: 0L), liovcnt.toLong(), (remoteIov?.value ?: 0L), riovcnt.toLong(), flags.toLong())
+public actual fun processVmWritev(pid: PidT, localIov: ConstPtr<Iovec>, liovcnt: CUlong, remoteIov: ConstPtr<Iovec>, riovcnt: CUlong, flags: CUlong): Long =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedProcessVmWritev(pid, localIov.rawAddress, liovcnt.toLong(), remoteIov.rawAddress, riovcnt.toLong(), flags.toLong())
 
-public actual fun futimes(fd: CInt, times: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_futimes(fd, (times?.value ?: 0L))
+public actual fun futimes(fd: CInt, times: ConstPtr<Timeval>): CInt =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedFutimes(fd, times.rawAddress)
 
-public actual fun strerrorR(errnum: CInt, buf: COpaquePointer?, buflen: SizeT): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_strerrorR(errnum, (buf?.value ?: 0L), buflen.toLong())
+public actual fun strerrorR(errnum: CInt, buf: MutPtr<CChar>, buflen: SizeT): CInt =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedStrerrorR(errnum, buf.rawAddress, buflen.toLong())
 
 public actual fun abs(i: CInt): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_abs(i)
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedAbs(i)
 
 public actual fun labs(i: CLong): CLong =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_labs(i)
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedLabs(i)
 
 public actual fun rand(): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_rand()
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedRand()
 
 public actual fun srand(seed: CUint) {
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_srand(seed.toInt())
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedSrand(seed.toInt())
 }
 
 public actual fun drand48(): CDouble =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_drand48()
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedDrand48()
 
-public actual fun erand48(xseed: COpaquePointer?): CDouble =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_erand48((xseed?.value ?: 0L))
+public actual fun erand48(xseed: MutPtr<CUshort>): CDouble =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedErand48(xseed.rawAddress)
 
 public actual fun lrand48(): CLong =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_lrand48()
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedLrand48()
 
-public actual fun nrand48(xseed: COpaquePointer?): CLong =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_nrand48((xseed?.value ?: 0L))
+public actual fun nrand48(xseed: MutPtr<CUshort>): CLong =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedNrand48(xseed.rawAddress)
 
-public actual fun jrand48(xseed: COpaquePointer?): CLong =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_jrand48((xseed?.value ?: 0L))
+public actual fun jrand48(xseed: MutPtr<CUshort>): CLong =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedJrand48(xseed.rawAddress)
 
 public actual fun srand48(seed: CLong) {
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_srand48(seed)
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedSrand48(seed)
 }
 
 public actual fun setpwent() {
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_setpwent()
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedSetpwent()
 }
 
 public actual fun endpwent() {
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_endpwent()
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedEndpwent()
 }
 
-public actual fun getpwent(): COpaquePointer? =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_getpwent().let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getpwent(): MutPtr<Passwd> =
+    MutPtr(UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedGetpwent())
 
 public actual fun setgrent() {
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_setgrent()
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedSetgrent()
 }
 
 public actual fun endgrent() {
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_endgrent()
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedEndgrent()
 }
 
-public actual fun getgrent(): COpaquePointer? =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_getgrent().let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getgrent(): MutPtr<Group> =
+    MutPtr(UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedGetgrent())
 
 public actual fun setspent() {
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_setspent()
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedSetspent()
 }
 
 public actual fun endspent() {
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_endspent()
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedEndspent()
 }
 
-public actual fun getspent(): COpaquePointer? =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_getspent().let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getspent(): MutPtr<Spwd> =
+    MutPtr(UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedGetspent())
 
-public actual fun getspnam(name: String?): COpaquePointer? =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_getspnam(name).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getspnam(name: ConstPtr<CChar>): MutPtr<Spwd> =
+    MutPtr(UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedGetspnam(name.rawAddress))
 
 public actual fun shmget(key: KeyT, size: SizeT, shmflg: CInt): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_shmget(key, size.toLong(), shmflg)
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedShmget(key, size.toLong(), shmflg)
 
-public actual fun shmat(shmid: CInt, shmaddr: COpaquePointer?, shmflg: CInt): COpaquePointer? =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_shmat(shmid, (shmaddr?.value ?: 0L), shmflg).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun shmat(shmid: CInt, shmaddr: ConstPtr<CVoid>, shmflg: CInt): MutPtr<CVoid> =
+    MutPtr(UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedShmat(shmid, shmaddr.rawAddress, shmflg))
 
-public actual fun shmdt(shmaddr: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_shmdt((shmaddr?.value ?: 0L))
+public actual fun shmdt(shmaddr: ConstPtr<CVoid>): CInt =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedShmdt(shmaddr.rawAddress)
 
-public actual fun shmctl(shmid: CInt, cmd: CInt, buf: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_shmctl(shmid, cmd, (buf?.value ?: 0L))
+public actual fun shmctl(shmid: CInt, cmd: CInt, buf: MutPtr<ShmidDs>): CInt =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedShmctl(shmid, cmd, buf.rawAddress)
 
-public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_mprotect((addr?.value ?: 0L), len.toLong(), prot)
+public actual fun mprotect(addr: MutPtr<CVoid>, len: SizeT, prot: CInt): CInt =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedMprotect(addr.rawAddress, len.toLong(), prot)
 
-public actual fun errnoLocation(): COpaquePointer? =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_errnoLocation().let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun errnoLocation(): MutPtr<CInt> =
+    MutPtr(UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedErrnoLocation())
 
-public actual fun mremap(addr: COpaquePointer?, len: SizeT, newLen: SizeT, flags: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_mremap((addr?.value ?: 0L), len.toLong(), newLen.toLong(), flags, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun mremap(addr: MutPtr<CVoid>, len: SizeT, newLen: SizeT, flags: CInt, vararg variadicArgs: Long): MutPtr<CVoid> =
+    MutPtr(UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedMremap(addr.rawAddress, len.toLong(), newLen.toLong(), flags, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L))
 
-public actual fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_glob(pattern, flags, 0L, (pglob?.value ?: 0L))
+public actual fun glob(pattern: ConstPtr<CChar>, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: MutPtr<GlobT>): CInt =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedGlob(pattern.rawAddress, flags, 0L, pglob.rawAddress)
 
-public actual fun globfree(pglob: COpaquePointer?) {
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_globfree((pglob?.value ?: 0L))
+public actual fun globfree(pglob: MutPtr<GlobT>) {
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedGlobfree(pglob.rawAddress)
 }
 
-public actual fun seekdir(dirp: DIR?, loc: CLong) {
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_seekdir((dirp?.handle ?: 0L), loc)
+public actual fun seekdir(dirp: MutPtr<DIR>, loc: CLong) {
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedSeekdir(dirp.rawAddress, loc)
 }
 
-public actual fun telldir(dirp: DIR?): CLong =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_telldir((dirp?.handle ?: 0L))
+public actual fun telldir(dirp: MutPtr<DIR>): CLong =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedTelldir(dirp.rawAddress)
 
-public actual fun madvise(addr: COpaquePointer?, len: SizeT, advice: CInt): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_madvise((addr?.value ?: 0L), len.toLong(), advice)
+public actual fun madvise(addr: MutPtr<CVoid>, len: SizeT, advice: CInt): CInt =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedMadvise(addr.rawAddress, len.toLong(), advice)
 
-public actual fun msync(addr: COpaquePointer?, len: SizeT, flags: CInt): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_msync((addr?.value ?: 0L), len.toLong(), flags)
+public actual fun msync(addr: MutPtr<CVoid>, len: SizeT, flags: CInt): CInt =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedMsync(addr.rawAddress, len.toLong(), flags)
 
-public actual fun recvfrom(socket: CInt, buf: COpaquePointer?, len: SizeT, flags: CInt, addr: COpaquePointer?, addrlen: COpaquePointer?): SsizeT =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_recvfrom(socket, (buf?.value ?: 0L), len.toLong(), flags, (addr?.value ?: 0L), (addrlen?.value ?: 0L))
+public actual fun recvfrom(socket: CInt, buf: MutPtr<CVoid>, len: SizeT, flags: CInt, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): SsizeT =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedRecvfrom(socket, buf.rawAddress, len.toLong(), flags, addr.rawAddress, addrlen.rawAddress)
 
-public actual fun nlLanginfo(item: NlItem): COpaquePointer? =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_nlLanginfo(item).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun nlLanginfo(item: NlItem): MutPtr<CChar> =
+    MutPtr(UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedNlLanginfo(item))
 
-public actual fun nlLanginfoL(item: NlItem, locale: LocaleT): COpaquePointer? =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_nlLanginfoL(item, (locale?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun nlLanginfoL(item: NlItem, locale: LocaleT): MutPtr<CChar> =
+    MutPtr(UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedNlLanginfoL(item, locale.rawAddress))
 
-public actual fun schedGetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_schedGetaffinity(pid, cpusetsize.toLong(), (cpuset?.value ?: 0L))
+public actual fun schedGetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: MutPtr<CpuSetT>): CInt =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedSchedGetaffinity(pid, cpusetsize.toLong(), cpuset.rawAddress)
 
 public actual fun schedGetPriorityMax(policy: CInt): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_schedGetPriorityMax(policy)
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedSchedGetPriorityMax(policy)
 
-public actual fun settimeofday(tv: COpaquePointer?, tz: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_settimeofday((tv?.value ?: 0L), (tz?.value ?: 0L))
+public actual fun settimeofday(tv: ConstPtr<Timeval>, tz: ConstPtr<Timezone>): CInt =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedSettimeofday(tv.rawAddress, tz.rawAddress)
 
-public actual fun semTimedwait(sem: COpaquePointer?, abstime: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_semTimedwait((sem?.value ?: 0L), (abstime?.value ?: 0L))
+public actual fun semTimedwait(sem: MutPtr<SemT>, abstime: ConstPtr<Timespec>): CInt =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedSemTimedwait(sem.rawAddress, abstime.rawAddress)
 
-public actual fun semGetvalue(sem: COpaquePointer?, sval: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_semGetvalue((sem?.value ?: 0L), (sval?.value ?: 0L))
+public actual fun semGetvalue(sem: MutPtr<SemT>, sval: MutPtr<CInt>): CInt =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedSemGetvalue(sem.rawAddress, sval.rawAddress)
 
-public actual fun mount(src: String?, target: String?, fstype: String?, flags: CUlong, data: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_mount(src, target, fstype, flags.toLong(), (data?.value ?: 0L))
+public actual fun mount(src: ConstPtr<CChar>, target: ConstPtr<CChar>, fstype: ConstPtr<CChar>, flags: CUlong, data: ConstPtr<CVoid>): CInt =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedMount(src.rawAddress, target.rawAddress, fstype.rawAddress, flags.toLong(), data.rawAddress)
 
 public actual fun prctl(option: CInt, vararg variadicArgs: Long): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_prctl(option, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedPrctl(option, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun ppoll(fds: COpaquePointer?, nfds: NfdsT, timeout: COpaquePointer?, sigmask: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_ppoll((fds?.value ?: 0L), nfds.toLong(), (timeout?.value ?: 0L), (sigmask?.value ?: 0L))
+public actual fun ppoll(fds: MutPtr<Pollfd>, nfds: NfdsT, timeout: ConstPtr<Timespec>, sigmask: ConstPtr<SigsetT>): CInt =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedPpoll(fds.rawAddress, nfds.toLong(), timeout.rawAddress, sigmask.rawAddress)
 
-public actual fun sethostname(name: String?, len: SizeT): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_sethostname(name, len.toLong())
+public actual fun sethostname(name: ConstPtr<CChar>, len: SizeT): CInt =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedSethostname(name.rawAddress, len.toLong())
 
 public actual fun schedGetPriorityMin(policy: CInt): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_schedGetPriorityMin(policy)
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedSchedGetPriorityMin(policy)
 
-public actual fun sysinfo(info: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_sysinfo((info?.value ?: 0L))
+public actual fun sysinfo(info: MutPtr<Sysinfo>): CInt =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedSysinfo(info.rawAddress)
 
-public actual fun sigsuspend(mask: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_sigsuspend((mask?.value ?: 0L))
+public actual fun sigsuspend(mask: ConstPtr<SigsetT>): CInt =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedSigsuspend(mask.rawAddress)
 
-public actual fun getgrgidR(gid: GidT, grp: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_getgrgidR(gid.toShort(), (grp?.value ?: 0L), (buf?.value ?: 0L), buflen.toLong(), (result?.value ?: 0L))
+public actual fun getgrgidR(gid: GidT, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedGetgrgidR(gid.toShort(), grp.rawAddress, buf.rawAddress, buflen.toLong(), result.rawAddress)
 
-public actual fun semClose(sem: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_semClose((sem?.value ?: 0L))
+public actual fun semClose(sem: MutPtr<SemT>): CInt =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedSemClose(sem.rawAddress)
 
-public actual fun getgrnamR(name: String?, grp: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_getgrnamR(name, (grp?.value ?: 0L), (buf?.value ?: 0L), buflen.toLong(), (result?.value ?: 0L))
+public actual fun getgrnamR(name: ConstPtr<CChar>, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedGetgrnamR(name.rawAddress, grp.rawAddress, buf.rawAddress, buflen.toLong(), result.rawAddress)
 
-public actual fun initgroups(user: String?, group: GidT): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_initgroups(user, group.toShort())
+public actual fun initgroups(user: ConstPtr<CChar>, group: GidT): CInt =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedInitgroups(user.rawAddress, group.toShort())
 
-public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_semOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun semOpen(name: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): MutPtr<SemT> =
+    MutPtr(UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedSemOpen(name.rawAddress, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L))
 
-public actual fun getgrnam(name: String?): COpaquePointer? =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_getgrnam(name).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getgrnam(name: ConstPtr<CChar>): MutPtr<Group> =
+    MutPtr(UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedGetgrnam(name.rawAddress))
 
-public actual fun semUnlink(name: String?): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_semUnlink(name)
+public actual fun semUnlink(name: ConstPtr<CChar>): CInt =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedSemUnlink(name.rawAddress)
 
 public actual fun daemon(nochdir: CInt, noclose: CInt): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_daemon(nochdir, noclose)
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedDaemon(nochdir, noclose)
 
-public actual fun sigwait(set: COpaquePointer?, sig: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_sigwait((set?.value ?: 0L), (sig?.value ?: 0L))
+public actual fun sigwait(set: ConstPtr<SigsetT>, sig: MutPtr<CInt>): CInt =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedSigwait(set.rawAddress, sig.rawAddress)
 
-public actual fun getgrgid(gid: GidT): COpaquePointer? =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_getgrgid(gid.toShort()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getgrgid(gid: GidT): MutPtr<Group> =
+    MutPtr(UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedGetgrgid(gid.toShort()))
 
-public actual fun popen(command: String?, mode: String?): FILE? =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_popen(command, mode).let { if (it == 0L) null else FILE(it) }
+public actual fun popen(command: ConstPtr<CChar>, mode: ConstPtr<CChar>): MutPtr<FILE> =
+    MutPtr(UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedPopen(command.rawAddress, mode.rawAddress))
 
-public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_faccessat(dirfd, pathname, mode, flags)
+public actual fun faccessat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: CInt, flags: CInt): CInt =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedFaccessat(dirfd, pathname.rawAddress, mode, flags)
 
-public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_dlIteratePhdr(0L, (data?.value ?: 0L))
+public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: MutPtr<CVoid>): CInt =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedDlIteratePhdr(0L, data.rawAddress)
 
-public actual fun setmntent(filename: String?, ty: String?): FILE? =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_setmntent(filename, ty).let { if (it == 0L) null else FILE(it) }
+public actual fun setmntent(filename: ConstPtr<CChar>, ty: ConstPtr<CChar>): MutPtr<FILE> =
+    MutPtr(UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedSetmntent(filename.rawAddress, ty.rawAddress))
 
-public actual fun getmntent(stream: FILE?): COpaquePointer? =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_getmntent((stream?.handle ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getmntent(stream: MutPtr<FILE>): MutPtr<Mntent> =
+    MutPtr(UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedGetmntent(stream.rawAddress))
 
-public actual fun addmntent(stream: FILE?, mnt: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_addmntent((stream?.handle ?: 0L), (mnt?.value ?: 0L))
+public actual fun addmntent(stream: MutPtr<FILE>, mnt: ConstPtr<Mntent>): CInt =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedAddmntent(stream.rawAddress, mnt.rawAddress)
 
-public actual fun endmntent(streamp: FILE?): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_endmntent((streamp?.handle ?: 0L))
+public actual fun endmntent(streamp: MutPtr<FILE>): CInt =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedEndmntent(streamp.rawAddress)
 
-public actual fun hasmntopt(mnt: COpaquePointer?, opt: String?): COpaquePointer? =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_hasmntopt((mnt?.value ?: 0L), opt).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun hasmntopt(mnt: ConstPtr<Mntent>, opt: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedHasmntopt(mnt.rawAddress, opt.rawAddress))
 
-public actual fun regcomp(preg: COpaquePointer?, pattern: String?, cflags: CInt): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_regcomp((preg?.value ?: 0L), pattern, cflags)
+public actual fun regcomp(preg: MutPtr<RegexT>, pattern: ConstPtr<CChar>, cflags: CInt): CInt =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedRegcomp(preg.rawAddress, pattern.rawAddress, cflags)
 
-public actual fun regexec(preg: COpaquePointer?, input: String?, nmatch: SizeT, pmatch: COpaquePointer?, eflags: CInt): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_regexec((preg?.value ?: 0L), input, nmatch.toLong(), (pmatch?.value ?: 0L), eflags)
+public actual fun regexec(preg: ConstPtr<RegexT>, input: ConstPtr<CChar>, nmatch: SizeT, pmatch: MutPtr<RegmatchT>, eflags: CInt): CInt =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedRegexec(preg.rawAddress, input.rawAddress, nmatch.toLong(), pmatch.rawAddress, eflags)
 
-public actual fun regerror(errcode: CInt, preg: COpaquePointer?, errbuf: COpaquePointer?, errbufSize: SizeT): SizeT =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_regerror(errcode, (preg?.value ?: 0L), (errbuf?.value ?: 0L), errbufSize.toLong()).toULong()
+public actual fun regerror(errcode: CInt, preg: ConstPtr<RegexT>, errbuf: MutPtr<CChar>, errbufSize: SizeT): SizeT =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedRegerror(errcode, preg.rawAddress, errbuf.rawAddress, errbufSize.toLong()).toULong()
 
-public actual fun regfree(preg: COpaquePointer?) {
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_regfree((preg?.value ?: 0L))
+public actual fun regfree(preg: MutPtr<RegexT>) {
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedRegfree(preg.rawAddress)
 }
 
-public actual fun iconvOpen(tocode: String?, fromcode: String?): IconvT =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_iconvOpen(tocode, fromcode).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun iconvOpen(tocode: ConstPtr<CChar>, fromcode: ConstPtr<CChar>): IconvT =
+    MutPtr(UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedIconvOpen(tocode.rawAddress, fromcode.rawAddress))
 
-public actual fun iconv(cd: IconvT, inbuf: COpaquePointer?, inbytesleft: COpaquePointer?, outbuf: COpaquePointer?, outbytesleft: COpaquePointer?): SizeT =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_iconv((cd?.value ?: 0L), (inbuf?.value ?: 0L), (inbytesleft?.value ?: 0L), (outbuf?.value ?: 0L), (outbytesleft?.value ?: 0L)).toULong()
+public actual fun iconv(cd: IconvT, inbuf: MutPtr<MutPtr<CChar>>, inbytesleft: MutPtr<SizeT>, outbuf: MutPtr<MutPtr<CChar>>, outbytesleft: MutPtr<SizeT>): SizeT =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedIconv(cd.rawAddress, inbuf.rawAddress, inbytesleft.rawAddress, outbuf.rawAddress, outbytesleft.rawAddress).toULong()
 
 public actual fun iconvClose(cd: IconvT): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_iconvClose((cd?.value ?: 0L))
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedIconvClose(cd.rawAddress)
 
 public actual fun gettid(): PidT =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_gettid()
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedGettid()
 
-public actual fun timerCreate(clockid: ClockidT, sevp: COpaquePointer?, timerid: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_timerCreate(clockid, (sevp?.value ?: 0L), (timerid?.value ?: 0L))
+public actual fun timerCreate(clockid: ClockidT, sevp: MutPtr<Sigevent>, timerid: MutPtr<TimerT>): CInt =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedTimerCreate(clockid, sevp.rawAddress, timerid.rawAddress)
 
 public actual fun timerDelete(timerid: TimerT): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_timerDelete((timerid?.value ?: 0L))
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedTimerDelete(timerid.rawAddress)
 
 public actual fun timerGetoverrun(timerid: TimerT): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_timerGetoverrun((timerid?.value ?: 0L))
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedTimerGetoverrun(timerid.rawAddress)
 
-public actual fun timerGettime(timerid: TimerT, currValue: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_timerGettime((timerid?.value ?: 0L), (currValue?.value ?: 0L))
+public actual fun timerGettime(timerid: TimerT, currValue: MutPtr<Itimerspec>): CInt =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedTimerGettime(timerid.rawAddress, currValue.rawAddress)
 
-public actual fun timerSettime(timerid: TimerT, flags: CInt, newValue: COpaquePointer?, oldValue: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_timerSettime((timerid?.value ?: 0L), flags, (newValue?.value ?: 0L), (oldValue?.value ?: 0L))
+public actual fun timerSettime(timerid: TimerT, flags: CInt, newValue: ConstPtr<Itimerspec>, oldValue: MutPtr<Itimerspec>): CInt =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedTimerSettime(timerid.rawAddress, flags, newValue.rawAddress, oldValue.rawAddress)
 
-public actual fun memmem(haystack: COpaquePointer?, haystacklen: SizeT, needle: COpaquePointer?, needlelen: SizeT): COpaquePointer? =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_memmem((haystack?.value ?: 0L), haystacklen.toLong(), (needle?.value ?: 0L), needlelen.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun memmem(haystack: ConstPtr<CVoid>, haystacklen: SizeT, needle: ConstPtr<CVoid>, needlelen: SizeT): MutPtr<CVoid> =
+    MutPtr(UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedMemmem(haystack.rawAddress, haystacklen.toLong(), needle.rawAddress, needlelen.toLong()))
 
 public actual fun schedGetcpu(): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_schedGetcpu()
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedSchedGetcpu()
 
-public actual fun getoptLong(argc: CInt, argv: COpaquePointer?, optstring: String?, longopts: COpaquePointer?, longindex: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_getoptLong(argc, (argv?.value ?: 0L), optstring, (longopts?.value ?: 0L), (longindex?.value ?: 0L))
+public actual fun getoptLong(argc: CInt, argv: ConstPtr<MutPtr<CChar>>, optstring: ConstPtr<CChar>, longopts: ConstPtr<Option>, longindex: MutPtr<CInt>): CInt =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedGetoptLong(argc, argv.rawAddress, optstring.rawAddress, longopts.rawAddress, longindex.rawAddress)
 
-public actual fun copyFileRange(fdIn: CInt, offIn: COpaquePointer?, fdOut: CInt, offOut: COpaquePointer?, len: SizeT, flags: CUint): SsizeT =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_copyFileRange(fdIn, (offIn?.value ?: 0L), fdOut, (offOut?.value ?: 0L), len.toLong(), flags.toInt())
+public actual fun copyFileRange(fdIn: CInt, offIn: MutPtr<Off64T>, fdOut: CInt, offOut: MutPtr<Off64T>, len: SizeT, flags: CUint): SsizeT =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedCopyFileRange(fdIn, offIn.rawAddress, fdOut, offOut.rawAddress, len.toLong(), flags.toInt())
 
-public actual fun freopen64(filename: String?, mode: String?, file: FILE?): FILE? =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_freopen64(filename, mode, (file?.handle ?: 0L)).let { if (it == 0L) null else FILE(it) }
+public actual fun freopen64(filename: ConstPtr<CChar>, mode: ConstPtr<CChar>, file: MutPtr<FILE>): MutPtr<FILE> =
+    MutPtr(UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedFreopen64(filename.rawAddress, mode.rawAddress, file.rawAddress))
 
-public actual fun fseeko64(stream: FILE?, offset: Off64T, whence: CInt): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_fseeko64((stream?.handle ?: 0L), offset, whence)
+public actual fun fseeko64(stream: MutPtr<FILE>, offset: Off64T, whence: CInt): CInt =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedFseeko64(stream.rawAddress, offset, whence)
 
-public actual fun fsetpos64(stream: FILE?, ptr: COpaquePointer?): CInt =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_fsetpos64((stream?.handle ?: 0L), (ptr?.value ?: 0L))
+public actual fun fsetpos64(stream: MutPtr<FILE>, ptr: ConstPtr<Fpos64T>): CInt =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedFsetpos64(stream.rawAddress, ptr.rawAddress)
 
-public actual fun ftello64(stream: FILE?): Off64T =
-    UnixLinuxlikeLinuxL4reSharedJniBridge.libc_unix_linuxlike_linux_l4re_shared_ftello64((stream?.handle ?: 0L))
+public actual fun ftello64(stream: MutPtr<FILE>): Off64T =
+    UnixLinuxlikeLinuxL4reSharedJniBridge.libcUnixLinuxlikeLinuxL4reSharedFtello64(stream.rawAddress)

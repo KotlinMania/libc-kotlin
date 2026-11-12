@@ -2,168 +2,177 @@
 
 package io.github.kotlinmania.libc.unix.newlib
 
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.GidT
+import io.github.kotlinmania.libc.unix.Group
+import io.github.kotlinmania.libc.unix.Rlimit
 import io.github.kotlinmania.libc.unix.SizeT
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.Timeval
 import io.github.kotlinmania.libc.unix.UidT
-import io.github.kotlinmania.libc.unix.newlib.cinterop.libc_unix_newlib_abs
-import io.github.kotlinmania.libc.unix.newlib.cinterop.libc_unix_newlib_bind
-import io.github.kotlinmania.libc.unix.newlib.cinterop.libc_unix_newlib_clockGetres
-import io.github.kotlinmania.libc.unix.newlib.cinterop.libc_unix_newlib_clockGettime
-import io.github.kotlinmania.libc.unix.newlib.cinterop.libc_unix_newlib_clockSettime
-import io.github.kotlinmania.libc.unix.newlib.cinterop.libc_unix_newlib_closesocket
-import io.github.kotlinmania.libc.unix.newlib.cinterop.libc_unix_newlib_daemon
-import io.github.kotlinmania.libc.unix.newlib.cinterop.libc_unix_newlib_fexecve
-import io.github.kotlinmania.libc.unix.newlib.cinterop.libc_unix_newlib_getdtablesize
-import io.github.kotlinmania.libc.unix.newlib.cinterop.libc_unix_newlib_getgrgid
-import io.github.kotlinmania.libc.unix.newlib.cinterop.libc_unix_newlib_getgrgidR
-import io.github.kotlinmania.libc.unix.newlib.cinterop.libc_unix_newlib_getgrnam
-import io.github.kotlinmania.libc.unix.newlib.cinterop.libc_unix_newlib_getgrnamR
-import io.github.kotlinmania.libc.unix.newlib.cinterop.libc_unix_newlib_getnameinfo
-import io.github.kotlinmania.libc.unix.newlib.cinterop.libc_unix_newlib_getpwnamR
-import io.github.kotlinmania.libc.unix.newlib.cinterop.libc_unix_newlib_getpwuidR
-import io.github.kotlinmania.libc.unix.newlib.cinterop.libc_unix_newlib_getrlimit
-import io.github.kotlinmania.libc.unix.newlib.cinterop.libc_unix_newlib_gettimeofday
-import io.github.kotlinmania.libc.unix.newlib.cinterop.libc_unix_newlib_ioctl
-import io.github.kotlinmania.libc.unix.newlib.cinterop.libc_unix_newlib_labs
-import io.github.kotlinmania.libc.unix.newlib.cinterop.libc_unix_newlib_memalign
-import io.github.kotlinmania.libc.unix.newlib.cinterop.libc_unix_newlib_popen
-import io.github.kotlinmania.libc.unix.newlib.cinterop.libc_unix_newlib_pthreadAtfork
-import io.github.kotlinmania.libc.unix.newlib.cinterop.libc_unix_newlib_pthreadKill
-import io.github.kotlinmania.libc.unix.newlib.cinterop.libc_unix_newlib_pthreadSigmask
-import io.github.kotlinmania.libc.unix.newlib.cinterop.libc_unix_newlib_rand
-import io.github.kotlinmania.libc.unix.newlib.cinterop.libc_unix_newlib_recvfrom
-import io.github.kotlinmania.libc.unix.newlib.cinterop.libc_unix_newlib_semClose
-import io.github.kotlinmania.libc.unix.newlib.cinterop.libc_unix_newlib_semDestroy
-import io.github.kotlinmania.libc.unix.newlib.cinterop.libc_unix_newlib_semInit
-import io.github.kotlinmania.libc.unix.newlib.cinterop.libc_unix_newlib_semOpen
-import io.github.kotlinmania.libc.unix.newlib.cinterop.libc_unix_newlib_semUnlink
-import io.github.kotlinmania.libc.unix.newlib.cinterop.libc_unix_newlib_setrlimit
-import io.github.kotlinmania.libc.unix.newlib.cinterop.libc_unix_newlib_sigaltstack
-import io.github.kotlinmania.libc.unix.newlib.cinterop.libc_unix_newlib_sigwait
-import io.github.kotlinmania.libc.unix.newlib.cinterop.libc_unix_newlib_srand
-import io.github.kotlinmania.libc.unix.newlib.cinterop.libc_unix_newlib_strerrorR
-import io.github.kotlinmania.libc.unix.newlib.cinterop.libc_unix_newlib_uname
+import io.github.kotlinmania.libc.unix.newlib.aarch64.Sockaddr
+import io.github.kotlinmania.libc.unix.newlib.cinterop.libcUnixNewlibAbs
+import io.github.kotlinmania.libc.unix.newlib.cinterop.libcUnixNewlibBind
+import io.github.kotlinmania.libc.unix.newlib.cinterop.libcUnixNewlibClockGetres
+import io.github.kotlinmania.libc.unix.newlib.cinterop.libcUnixNewlibClockGettime
+import io.github.kotlinmania.libc.unix.newlib.cinterop.libcUnixNewlibClockSettime
+import io.github.kotlinmania.libc.unix.newlib.cinterop.libcUnixNewlibClosesocket
+import io.github.kotlinmania.libc.unix.newlib.cinterop.libcUnixNewlibDaemon
+import io.github.kotlinmania.libc.unix.newlib.cinterop.libcUnixNewlibFexecve
+import io.github.kotlinmania.libc.unix.newlib.cinterop.libcUnixNewlibGetdtablesize
+import io.github.kotlinmania.libc.unix.newlib.cinterop.libcUnixNewlibGetgrgid
+import io.github.kotlinmania.libc.unix.newlib.cinterop.libcUnixNewlibGetgrgidR
+import io.github.kotlinmania.libc.unix.newlib.cinterop.libcUnixNewlibGetgrnam
+import io.github.kotlinmania.libc.unix.newlib.cinterop.libcUnixNewlibGetgrnamR
+import io.github.kotlinmania.libc.unix.newlib.cinterop.libcUnixNewlibGetnameinfo
+import io.github.kotlinmania.libc.unix.newlib.cinterop.libcUnixNewlibGetpwnamR
+import io.github.kotlinmania.libc.unix.newlib.cinterop.libcUnixNewlibGetpwuidR
+import io.github.kotlinmania.libc.unix.newlib.cinterop.libcUnixNewlibGetrlimit
+import io.github.kotlinmania.libc.unix.newlib.cinterop.libcUnixNewlibGettimeofday
+import io.github.kotlinmania.libc.unix.newlib.cinterop.libcUnixNewlibIoctl
+import io.github.kotlinmania.libc.unix.newlib.cinterop.libcUnixNewlibLabs
+import io.github.kotlinmania.libc.unix.newlib.cinterop.libcUnixNewlibMemalign
+import io.github.kotlinmania.libc.unix.newlib.cinterop.libcUnixNewlibPopen
+import io.github.kotlinmania.libc.unix.newlib.cinterop.libcUnixNewlibPthreadAtfork
+import io.github.kotlinmania.libc.unix.newlib.cinterop.libcUnixNewlibPthreadKill
+import io.github.kotlinmania.libc.unix.newlib.cinterop.libcUnixNewlibPthreadSigmask
+import io.github.kotlinmania.libc.unix.newlib.cinterop.libcUnixNewlibRand
+import io.github.kotlinmania.libc.unix.newlib.cinterop.libcUnixNewlibRecvfrom
+import io.github.kotlinmania.libc.unix.newlib.cinterop.libcUnixNewlibSemClose
+import io.github.kotlinmania.libc.unix.newlib.cinterop.libcUnixNewlibSemDestroy
+import io.github.kotlinmania.libc.unix.newlib.cinterop.libcUnixNewlibSemInit
+import io.github.kotlinmania.libc.unix.newlib.cinterop.libcUnixNewlibSemOpen
+import io.github.kotlinmania.libc.unix.newlib.cinterop.libcUnixNewlibSemUnlink
+import io.github.kotlinmania.libc.unix.newlib.cinterop.libcUnixNewlibSetrlimit
+import io.github.kotlinmania.libc.unix.newlib.cinterop.libcUnixNewlibSigaltstack
+import io.github.kotlinmania.libc.unix.newlib.cinterop.libcUnixNewlibSigwait
+import io.github.kotlinmania.libc.unix.newlib.cinterop.libcUnixNewlibSrand
+import io.github.kotlinmania.libc.unix.newlib.cinterop.libcUnixNewlibStrerrorR
+import io.github.kotlinmania.libc.unix.newlib.cinterop.libcUnixNewlibUname
+import io.github.kotlinmania.libc.unix.newlib.generic.SigsetT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
 
-public actual fun getrlimit(resource: CInt, rlim: COpaquePointer?): CInt =
-    libc_unix_newlib_getrlimit(resource, rlim?.value?.toCPointer<ByteVar>())
+public actual fun getrlimit(resource: CInt, rlim: MutPtr<Rlimit>): CInt =
+    libcUnixNewlibGetrlimit(resource, rlim.rawAddress.toCPointer<ByteVar>())
 
-public actual fun setrlimit(resource: CInt, rlim: COpaquePointer?): CInt =
-    libc_unix_newlib_setrlimit(resource, rlim?.value?.toCPointer<ByteVar>())
+public actual fun setrlimit(resource: CInt, rlim: ConstPtr<Rlimit>): CInt =
+    libcUnixNewlibSetrlimit(resource, rlim.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strerrorR(errnum: CInt, buf: COpaquePointer?, buflen: SizeT): CInt =
-    libc_unix_newlib_strerrorR(errnum, buf?.value?.toCPointer<ByteVar>(), buflen)
+public actual fun strerrorR(errnum: CInt, buf: MutPtr<CChar>, buflen: SizeT): CInt =
+    libcUnixNewlibStrerrorR(errnum, buf.rawAddress.toCPointer<ByteVar>(), buflen)
 
-public actual fun semDestroy(sem: COpaquePointer?): CInt =
-    libc_unix_newlib_semDestroy(sem?.value?.toCPointer<ByteVar>())
+public actual fun semDestroy(sem: MutPtr<SemT>): CInt =
+    libcUnixNewlibSemDestroy(sem.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semInit(sem: COpaquePointer?, pshared: CInt, value: CUint): CInt =
-    libc_unix_newlib_semInit(sem?.value?.toCPointer<ByteVar>(), pshared, value)
+public actual fun semInit(sem: MutPtr<SemT>, pshared: CInt, value: CUint): CInt =
+    libcUnixNewlibSemInit(sem.rawAddress.toCPointer<ByteVar>(), pshared, value)
 
 public actual fun abs(i: CInt): CInt =
-    libc_unix_newlib_abs(i)
+    libcUnixNewlibAbs(i)
 
 public actual fun labs(i: CLong): CLong =
-    libc_unix_newlib_labs(i)
+    libcUnixNewlibLabs(i)
 
 public actual fun rand(): CInt =
-    libc_unix_newlib_rand()
+    libcUnixNewlibRand()
 
 public actual fun srand(seed: CUint) {
-    libc_unix_newlib_srand(seed)
+    libcUnixNewlibSrand(seed)
 }
 
-public actual fun bind(fd: CInt, addr: COpaquePointer?, len: SocklenT): CInt =
-    libc_unix_newlib_bind(fd, addr?.value?.toCPointer<ByteVar>(), len)
+public actual fun bind(fd: CInt, addr: ConstPtr<Sockaddr>, len: SocklenT): CInt =
+    libcUnixNewlibBind(fd, addr.rawAddress.toCPointer<ByteVar>(), len)
 
-public actual fun clockSettime(clockId: ClockidT, tp: COpaquePointer?): CInt =
-    libc_unix_newlib_clockSettime(clockId, tp?.value?.toCPointer<ByteVar>())
+public actual fun clockSettime(clockId: ClockidT, tp: ConstPtr<Timespec>): CInt =
+    libcUnixNewlibClockSettime(clockId, tp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun clockGettime(clockId: ClockidT, tp: COpaquePointer?): CInt =
-    libc_unix_newlib_clockGettime(clockId, tp?.value?.toCPointer<ByteVar>())
+public actual fun clockGettime(clockId: ClockidT, tp: MutPtr<Timespec>): CInt =
+    libcUnixNewlibClockGettime(clockId, tp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun clockGetres(clockId: ClockidT, res: COpaquePointer?): CInt =
-    libc_unix_newlib_clockGetres(clockId, res?.value?.toCPointer<ByteVar>())
+public actual fun clockGetres(clockId: ClockidT, res: MutPtr<Timespec>): CInt =
+    libcUnixNewlibClockGetres(clockId, res.rawAddress.toCPointer<ByteVar>())
 
 public actual fun closesocket(sockfd: CInt): CInt =
-    libc_unix_newlib_closesocket(sockfd)
+    libcUnixNewlibClosesocket(sockfd)
 
 public actual fun ioctl(fd: CInt, request: CUlong, vararg variadicArgs: Long): CInt =
-    libc_unix_newlib_ioctl(fd, request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+    libcUnixNewlibIoctl(fd, request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun recvfrom(fd: CInt, buf: COpaquePointer?, n: ULong, flags: CInt, addr: COpaquePointer?, addrLen: COpaquePointer?): Long =
-    libc_unix_newlib_recvfrom(fd, buf?.value?.toCPointer<ByteVar>(), n, flags, addr?.value?.toCPointer<ByteVar>(), addrLen?.value?.toCPointer<ByteVar>())
+public actual fun recvfrom(fd: CInt, buf: MutPtr<CVoid>, n: ULong, flags: CInt, addr: MutPtr<Sockaddr>, addrLen: MutPtr<SocklenT>): Long =
+    libcUnixNewlibRecvfrom(fd, buf.rawAddress.toCPointer<ByteVar>(), n, flags, addr.rawAddress.toCPointer<ByteVar>(), addrLen.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getnameinfo(sa: COpaquePointer?, salen: SocklenT, host: COpaquePointer?, hostlen: SocklenT, serv: COpaquePointer?, servlen: SocklenT, flags: CInt): CInt =
-    libc_unix_newlib_getnameinfo(sa?.value?.toCPointer<ByteVar>(), salen, host?.value?.toCPointer<ByteVar>(), hostlen, serv?.value?.toCPointer<ByteVar>(), servlen, flags)
+public actual fun getnameinfo(sa: ConstPtr<Sockaddr>, salen: SocklenT, host: MutPtr<CChar>, hostlen: SocklenT, serv: MutPtr<CChar>, servlen: SocklenT, flags: CInt): CInt =
+    libcUnixNewlibGetnameinfo(sa.rawAddress.toCPointer<ByteVar>(), salen, host.rawAddress.toCPointer<ByteVar>(), hostlen, serv.rawAddress.toCPointer<ByteVar>(), servlen, flags)
 
-public actual fun memalign(align: SizeT, size: SizeT): COpaquePointer? =
-    libc_unix_newlib_memalign(align, size)?.let { COpaquePointer(it.toLong()) }
+public actual fun memalign(align: SizeT, size: SizeT): MutPtr<CVoid> =
+    MutPtr(libcUnixNewlibMemalign(align, size)?.toLong() ?: 0L)
 
-public actual fun fexecve(fd: CInt, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
-    libc_unix_newlib_fexecve(fd, argv?.value?.toCPointer<ByteVar>(), envp?.value?.toCPointer<ByteVar>())
+public actual fun fexecve(fd: CInt, argv: ConstPtr<ConstPtr<CChar>>, envp: ConstPtr<ConstPtr<CChar>>): CInt =
+    libcUnixNewlibFexecve(fd, argv.rawAddress.toCPointer<ByteVar>(), envp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun gettimeofday(tp: COpaquePointer?, tz: COpaquePointer?): CInt =
-    libc_unix_newlib_gettimeofday(tp?.value?.toCPointer<ByteVar>(), tz?.value?.toCPointer<ByteVar>())
+public actual fun gettimeofday(tp: MutPtr<Timeval>, tz: MutPtr<CVoid>): CInt =
+    libcUnixNewlibGettimeofday(tp.rawAddress.toCPointer<ByteVar>(), tz.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getgrgidR(gid: GidT, grp: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    libc_unix_newlib_getgrgidR(gid, grp?.value?.toCPointer<ByteVar>(), buf?.value?.toCPointer<ByteVar>(), buflen, result?.value?.toCPointer<ByteVar>())
+public actual fun getgrgidR(gid: GidT, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+    libcUnixNewlibGetgrgidR(gid, grp.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>(), buflen, result.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sigaltstack(ss: COpaquePointer?, oss: COpaquePointer?): CInt =
-    libc_unix_newlib_sigaltstack(ss?.value?.toCPointer<ByteVar>(), oss?.value?.toCPointer<ByteVar>())
+public actual fun sigaltstack(ss: ConstPtr<StackT>, oss: MutPtr<StackT>): CInt =
+    libcUnixNewlibSigaltstack(ss.rawAddress.toCPointer<ByteVar>(), oss.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semClose(sem: COpaquePointer?): CInt =
-    libc_unix_newlib_semClose(sem?.value?.toCPointer<ByteVar>())
+public actual fun semClose(sem: MutPtr<SemT>): CInt =
+    libcUnixNewlibSemClose(sem.rawAddress.toCPointer<ByteVar>())
 
 public actual fun getdtablesize(): CInt =
-    libc_unix_newlib_getdtablesize()
+    libcUnixNewlibGetdtablesize()
 
-public actual fun getgrnamR(name: String?, grp: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    libc_unix_newlib_getgrnamR(name, grp?.value?.toCPointer<ByteVar>(), buf?.value?.toCPointer<ByteVar>(), buflen, result?.value?.toCPointer<ByteVar>())
+public actual fun getgrnamR(name: ConstPtr<CChar>, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+    libcUnixNewlibGetgrnamR(name.rawAddress.toCPointer<ByteVar>(), grp.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>(), buflen, result.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadSigmask(how: CInt, set: COpaquePointer?, oldset: COpaquePointer?): CInt =
-    libc_unix_newlib_pthreadSigmask(how, set?.value?.toCPointer<ByteVar>(), oldset?.value?.toCPointer<ByteVar>())
+public actual fun pthreadSigmask(how: CInt, set: ConstPtr<SigsetT>, oldset: MutPtr<SigsetT>): CInt =
+    libcUnixNewlibPthreadSigmask(how, set.rawAddress.toCPointer<ByteVar>(), oldset.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    libc_unix_newlib_semOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.let { COpaquePointer(it.toLong()) }
+public actual fun semOpen(name: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): MutPtr<SemT> =
+    MutPtr(libcUnixNewlibSemOpen(name.rawAddress.toCPointer<ByteVar>(), oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.toLong() ?: 0L)
 
-public actual fun getgrnam(name: String?): COpaquePointer? =
-    libc_unix_newlib_getgrnam(name)?.let { COpaquePointer(it.toLong()) }
+public actual fun getgrnam(name: ConstPtr<CChar>): MutPtr<Group> =
+    MutPtr(libcUnixNewlibGetgrnam(name.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun pthreadKill(thread: PthreadT, sig: CInt): CInt =
-    libc_unix_newlib_pthreadKill(thread.toLong().toCPointer<ByteVar>(), sig)
+    libcUnixNewlibPthreadKill(thread.toLong().toCPointer<ByteVar>(), sig)
 
-public actual fun semUnlink(name: String?): CInt =
-    libc_unix_newlib_semUnlink(name)
+public actual fun semUnlink(name: ConstPtr<CChar>): CInt =
+    libcUnixNewlibSemUnlink(name.rawAddress.toCPointer<ByteVar>())
 
 public actual fun daemon(nochdir: CInt, noclose: CInt): CInt =
-    libc_unix_newlib_daemon(nochdir, noclose)
+    libcUnixNewlibDaemon(nochdir, noclose)
 
-public actual fun getpwnamR(name: String?, pwd: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    libc_unix_newlib_getpwnamR(name, pwd?.value?.toCPointer<ByteVar>(), buf?.value?.toCPointer<ByteVar>(), buflen, result?.value?.toCPointer<ByteVar>())
+public actual fun getpwnamR(name: ConstPtr<CChar>, pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt =
+    libcUnixNewlibGetpwnamR(name.rawAddress.toCPointer<ByteVar>(), pwd.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>(), buflen, result.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getpwuidR(uid: UidT, pwd: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    libc_unix_newlib_getpwuidR(uid, pwd?.value?.toCPointer<ByteVar>(), buf?.value?.toCPointer<ByteVar>(), buflen, result?.value?.toCPointer<ByteVar>())
+public actual fun getpwuidR(uid: UidT, pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt =
+    libcUnixNewlibGetpwuidR(uid, pwd.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>(), buflen, result.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sigwait(set: COpaquePointer?, sig: COpaquePointer?): CInt =
-    libc_unix_newlib_sigwait(set?.value?.toCPointer<ByteVar>(), sig?.value?.toCPointer<ByteVar>())
+public actual fun sigwait(set: ConstPtr<SigsetT>, sig: MutPtr<CInt>): CInt =
+    libcUnixNewlibSigwait(set.rawAddress.toCPointer<ByteVar>(), sig.rawAddress.toCPointer<ByteVar>())
 
 public actual fun pthreadAtfork(prepare: PthreadAtforkPrepareCallback?, parent: PthreadAtforkPrepareCallback?, child: PthreadAtforkPrepareCallback?): CInt =
-    libc_unix_newlib_pthreadAtfork(0L.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
+    libcUnixNewlibPthreadAtfork(0L.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
 
-public actual fun getgrgid(gid: GidT): COpaquePointer? =
-    libc_unix_newlib_getgrgid(gid)?.let { COpaquePointer(it.toLong()) }
+public actual fun getgrgid(gid: GidT): MutPtr<Group> =
+    MutPtr(libcUnixNewlibGetgrgid(gid)?.toLong() ?: 0L)
 
-public actual fun popen(command: String?, mode: String?): FILE? =
-    libc_unix_newlib_popen(command, mode)?.let { FILE(it.toLong()) }
+public actual fun popen(command: ConstPtr<CChar>, mode: ConstPtr<CChar>): MutPtr<FILE> =
+    MutPtr(libcUnixNewlibPopen(command.rawAddress.toCPointer<ByteVar>(), mode.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun uname(buf: COpaquePointer?): CInt =
-    libc_unix_newlib_uname(buf?.value?.toCPointer<ByteVar>())
+public actual fun uname(buf: MutPtr<Utsname>): CInt =
+    libcUnixNewlibUname(buf.rawAddress.toCPointer<ByteVar>())

@@ -5,10 +5,11 @@ package io.github.kotlinmania.libc.fuchsia
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 // PUB_CONST
 public val INT_MIN: CInt = -2147483648.toInt()
@@ -380,7 +381,7 @@ public val MAP_PRIVATE: CInt = 0x0002
 
 public val MAP_FIXED: CInt = 0x0010
 
-public val MAP_FAILED: COpaquePointer? = COpaquePointer((0.inv()).toLong())
+public val MAP_FAILED: MutPtr<CVoid> = MutPtr<CVoid>((0.inv()).toLong())
 
 // MS_ flags for msync(2)
 public val MS_ASYNC: CInt = 0x0001
@@ -1790,7 +1791,7 @@ public val ST_NOATIME: CUlong = 1024uL
 
 public val ST_NODIRATIME: CUlong = 2048uL
 
-public val RTLD_NEXT: COpaquePointer? = COpaquePointer((-1L))
+public val RTLD_NEXT: MutPtr<CVoid> = MutPtr<CVoid>((-1L))
 
 public val RTLD_NODELETE: CInt = 0x1000
 

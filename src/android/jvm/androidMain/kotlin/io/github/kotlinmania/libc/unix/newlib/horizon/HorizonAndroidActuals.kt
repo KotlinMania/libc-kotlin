@@ -5,12 +5,16 @@ package io.github.kotlinmania.libc.unix.newlib.horizon
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
 import io.github.kotlinmania.libc.unix.newlib.ClockidT
+import io.github.kotlinmania.libc.unix.newlib.PthreadAttrT
+import io.github.kotlinmania.libc.unix.newlib.PthreadCondattrT
 import io.github.kotlinmania.libc.unix.newlib.PthreadT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 private object UnixNewlibHorizonJniBridge {
     init {
@@ -18,74 +22,74 @@ private object UnixNewlibHorizonJniBridge {
     }
 
     @JvmStatic
-    external fun libc_unix_newlib_horizon_pthreadCreate(native: Long, attr: Long, f: Long, value: Long): Int
+    external fun libcUnixNewlibHorizonPthreadCreate(native: Long, attr: Long, f: Long, value: Long): Int
 
     @JvmStatic
-    external fun libc_unix_newlib_horizon_pthreadAttrGetschedparam(attr: Long, param: Long): Int
+    external fun libcUnixNewlibHorizonPthreadAttrGetschedparam(attr: Long, param: Long): Int
 
     @JvmStatic
-    external fun libc_unix_newlib_horizon_pthreadAttrSetschedparam(attr: Long, param: Long): Int
+    external fun libcUnixNewlibHorizonPthreadAttrSetschedparam(attr: Long, param: Long): Int
 
     @JvmStatic
-    external fun libc_unix_newlib_horizon_pthreadAttrGetprocessoridNp(attr: Long, processorId: Long): Int
+    external fun libcUnixNewlibHorizonPthreadAttrGetprocessoridNp(attr: Long, processorId: Long): Int
 
     @JvmStatic
-    external fun libc_unix_newlib_horizon_pthreadAttrSetprocessoridNp(attr: Long, processorId: Int): Int
+    external fun libcUnixNewlibHorizonPthreadAttrSetprocessoridNp(attr: Long, processorId: Int): Int
 
     @JvmStatic
-    external fun libc_unix_newlib_horizon_pthreadGetschedparam(native: Long, policy: Long, param: Long): Int
+    external fun libcUnixNewlibHorizonPthreadGetschedparam(native: Long, policy: Long, param: Long): Int
 
     @JvmStatic
-    external fun libc_unix_newlib_horizon_pthreadSetschedparam(native: Long, policy: Int, param: Long): Int
+    external fun libcUnixNewlibHorizonPthreadSetschedparam(native: Long, policy: Int, param: Long): Int
 
     @JvmStatic
-    external fun libc_unix_newlib_horizon_pthreadCondattrGetclock(attr: Long, clockId: Long): Int
+    external fun libcUnixNewlibHorizonPthreadCondattrGetclock(attr: Long, clockId: Long): Int
 
     @JvmStatic
-    external fun libc_unix_newlib_horizon_pthreadCondattrSetclock(attr: Long, clockId: Long): Int
+    external fun libcUnixNewlibHorizonPthreadCondattrSetclock(attr: Long, clockId: Long): Int
 
     @JvmStatic
-    external fun libc_unix_newlib_horizon_pthreadGetprocessoridNp(): Int
+    external fun libcUnixNewlibHorizonPthreadGetprocessoridNp(): Int
 
     @JvmStatic
-    external fun libc_unix_newlib_horizon_getrandom(buf: Long, buflen: Long, flags: Int): Long
+    external fun libcUnixNewlibHorizonGetrandom(buf: Long, buflen: Long, flags: Int): Long
 
     @JvmStatic
-    external fun libc_unix_newlib_horizon_gethostid(): Long
+    external fun libcUnixNewlibHorizonGethostid(): Long
 }
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
-    UnixNewlibHorizonJniBridge.libc_unix_newlib_horizon_pthreadCreate((native?.value ?: 0L), (attr?.value ?: 0L), 0L, (value?.value ?: 0L))
+public actual fun pthreadCreate(native: MutPtr<PthreadT>, attr: ConstPtr<PthreadAttrT>, f: PthreadCreateFCallback, value: MutPtr<CVoid>): CInt =
+    UnixNewlibHorizonJniBridge.libcUnixNewlibHorizonPthreadCreate(native.rawAddress, attr.rawAddress, 0L, value.rawAddress)
 
-public actual fun pthreadAttrGetschedparam(attr: COpaquePointer?, param: COpaquePointer?): CInt =
-    UnixNewlibHorizonJniBridge.libc_unix_newlib_horizon_pthreadAttrGetschedparam((attr?.value ?: 0L), (param?.value ?: 0L))
+public actual fun pthreadAttrGetschedparam(attr: ConstPtr<PthreadAttrT>, param: MutPtr<SchedParam>): CInt =
+    UnixNewlibHorizonJniBridge.libcUnixNewlibHorizonPthreadAttrGetschedparam(attr.rawAddress, param.rawAddress)
 
-public actual fun pthreadAttrSetschedparam(attr: COpaquePointer?, param: COpaquePointer?): CInt =
-    UnixNewlibHorizonJniBridge.libc_unix_newlib_horizon_pthreadAttrSetschedparam((attr?.value ?: 0L), (param?.value ?: 0L))
+public actual fun pthreadAttrSetschedparam(attr: MutPtr<PthreadAttrT>, param: ConstPtr<SchedParam>): CInt =
+    UnixNewlibHorizonJniBridge.libcUnixNewlibHorizonPthreadAttrSetschedparam(attr.rawAddress, param.rawAddress)
 
-public actual fun pthreadAttrGetprocessoridNp(attr: COpaquePointer?, processorId: COpaquePointer?): CInt =
-    UnixNewlibHorizonJniBridge.libc_unix_newlib_horizon_pthreadAttrGetprocessoridNp((attr?.value ?: 0L), (processorId?.value ?: 0L))
+public actual fun pthreadAttrGetprocessoridNp(attr: ConstPtr<PthreadAttrT>, processorId: MutPtr<CInt>): CInt =
+    UnixNewlibHorizonJniBridge.libcUnixNewlibHorizonPthreadAttrGetprocessoridNp(attr.rawAddress, processorId.rawAddress)
 
-public actual fun pthreadAttrSetprocessoridNp(attr: COpaquePointer?, processorId: CInt): CInt =
-    UnixNewlibHorizonJniBridge.libc_unix_newlib_horizon_pthreadAttrSetprocessoridNp((attr?.value ?: 0L), processorId)
+public actual fun pthreadAttrSetprocessoridNp(attr: MutPtr<PthreadAttrT>, processorId: CInt): CInt =
+    UnixNewlibHorizonJniBridge.libcUnixNewlibHorizonPthreadAttrSetprocessoridNp(attr.rawAddress, processorId)
 
-public actual fun pthreadGetschedparam(native: PthreadT, policy: COpaquePointer?, param: COpaquePointer?): CInt =
-    UnixNewlibHorizonJniBridge.libc_unix_newlib_horizon_pthreadGetschedparam(native.toLong(), (policy?.value ?: 0L), (param?.value ?: 0L))
+public actual fun pthreadGetschedparam(native: PthreadT, policy: MutPtr<CInt>, param: MutPtr<SchedParam>): CInt =
+    UnixNewlibHorizonJniBridge.libcUnixNewlibHorizonPthreadGetschedparam(native.toLong(), policy.rawAddress, param.rawAddress)
 
-public actual fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: COpaquePointer?): CInt =
-    UnixNewlibHorizonJniBridge.libc_unix_newlib_horizon_pthreadSetschedparam(native.toLong(), policy, (param?.value ?: 0L))
+public actual fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: ConstPtr<SchedParam>): CInt =
+    UnixNewlibHorizonJniBridge.libcUnixNewlibHorizonPthreadSetschedparam(native.toLong(), policy, param.rawAddress)
 
-public actual fun pthreadCondattrGetclock(attr: COpaquePointer?, clockId: COpaquePointer?): CInt =
-    UnixNewlibHorizonJniBridge.libc_unix_newlib_horizon_pthreadCondattrGetclock((attr?.value ?: 0L), (clockId?.value ?: 0L))
+public actual fun pthreadCondattrGetclock(attr: ConstPtr<PthreadCondattrT>, clockId: MutPtr<ClockidT>): CInt =
+    UnixNewlibHorizonJniBridge.libcUnixNewlibHorizonPthreadCondattrGetclock(attr.rawAddress, clockId.rawAddress)
 
-public actual fun pthreadCondattrSetclock(attr: COpaquePointer?, clockId: ClockidT): CInt =
-    UnixNewlibHorizonJniBridge.libc_unix_newlib_horizon_pthreadCondattrSetclock((attr?.value ?: 0L), clockId.toLong())
+public actual fun pthreadCondattrSetclock(attr: MutPtr<PthreadCondattrT>, clockId: ClockidT): CInt =
+    UnixNewlibHorizonJniBridge.libcUnixNewlibHorizonPthreadCondattrSetclock(attr.rawAddress, clockId.toLong())
 
 public actual fun pthreadGetprocessoridNp(): CInt =
-    UnixNewlibHorizonJniBridge.libc_unix_newlib_horizon_pthreadGetprocessoridNp()
+    UnixNewlibHorizonJniBridge.libcUnixNewlibHorizonPthreadGetprocessoridNp()
 
-public actual fun getrandom(buf: COpaquePointer?, buflen: SizeT, flags: CUint): SsizeT =
-    UnixNewlibHorizonJniBridge.libc_unix_newlib_horizon_getrandom((buf?.value ?: 0L), buflen.toLong(), flags.toInt())
+public actual fun getrandom(buf: MutPtr<CVoid>, buflen: SizeT, flags: CUint): SsizeT =
+    UnixNewlibHorizonJniBridge.libcUnixNewlibHorizonGetrandom(buf.rawAddress, buflen.toLong(), flags.toInt())
 
 public actual fun gethostid(): CLong =
-    UnixNewlibHorizonJniBridge.libc_unix_newlib_horizon_gethostid()
+    UnixNewlibHorizonJniBridge.libcUnixNewlibHorizonGethostid()

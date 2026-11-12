@@ -3,768 +3,771 @@
 package io.github.kotlinmania.libc.windows
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CDouble
 import io.github.kotlinmania.libc.CFloat
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CLonglong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 @JsFun("() => { if (typeof globalThis.__km_napi_libc !== 'undefined') return globalThis.__km_napi_libc !== null; if (typeof process === 'undefined' || !process.versions || !process.versions.node) { globalThis.__km_napi_libc = null; return false; } var mod = process.getBuiltinModule ? process.getBuiltinModule('module') : (process.mainModule && process.mainModule.constructor); var req = (mod && mod.createRequire) ? mod.createRequire((process.cwd ? process.cwd() : '.') + '/package.json') : (process.mainModule ? process.mainModule.require : null); if (!req) { globalThis.__km_napi_libc = null; return false; } try { globalThis.__km_napi_libc = req('@kotlinmania/libc-native-bindings'); return true; } catch (_) {} var fs = req('fs'); var path = req('path'); var dir = process.cwd ? process.cwd() : '.'; var rels = ['libc_native.node', 'build/node-ffi/libc_native.node', 'build/node-ffi/release/libc_native.node', 'build/node-ffi/debug/libc_native.node', 'src/js/node-libc/build/Release/libc_native.node', 'src/js/node-libc/build/Debug/libc_native.node', 'src/js/node-libc/dist/build/Release/libc_native.node', 'src/js/node-libc/dist/build/Debug/libc_native.node', 'c_native.node', 'build/node-ffi/c_native.node', 'build/node-ffi/release/c_native.node', 'build/node-ffi/debug/c_native.node', 'src/js/node-libc/build/Release/c_native.node', 'src/js/node-libc/build/Debug/c_native.node', 'src/js/node-libc/dist/build/Release/c_native.node', 'src/js/node-libc/dist/build/Debug/c_native.node']; for (var d = 0; d < 8; d++) { for (var i = 0; i < rels.length; i++) { var c = path.resolve(dir, rels[i]); if (fs.existsSync(c)) { globalThis.__km_napi_libc = req(c); return true; } } var parent = path.dirname(dir); if (parent === dir) break; dir = parent; } globalThis.__km_napi_libc = null; return false; }")
-private external fun _initWindowsNapiAddon(): Boolean
+private external fun initWindowsNapiAddon(): Boolean
 
-private val _windowsNapiAvailable: Boolean = _initWindowsNapiAddon()
+private val windowsNapiAvailable: Boolean = initWindowsNapiAddon()
 
-@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libc_windows_printf(p0, p1, p2, p3, p4, p5)")
-private external fun _wasm_libc_windows_printf(p0: String?, p1: Int, p2: String, p3: String, p4: String, p5: String): Int
+@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libcWindowsPrintf(p0, p1, p2, p3, p4, p5)")
+private external fun wasmLibcWindowsPrintf(p0: String, p1: Int, p2: String, p3: String, p4: String, p5: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libc_windows_fprintf(p0, p1, p2, p3, p4, p5, p6)")
-private external fun _wasm_libc_windows_fprintf(p0: String, p1: String?, p2: Int, p3: String, p4: String, p5: String, p6: String): Int
+@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libcWindowsFprintf(p0, p1, p2, p3, p4, p5, p6)")
+private external fun wasmLibcWindowsFprintf(p0: String, p1: String, p2: Int, p3: String, p4: String, p5: String, p6: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_isalnum(p0)")
-private external fun _wasm_libc_windows_isalnum(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsIsalnum(p0)")
+private external fun wasmLibcWindowsIsalnum(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_isalpha(p0)")
-private external fun _wasm_libc_windows_isalpha(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsIsalpha(p0)")
+private external fun wasmLibcWindowsIsalpha(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_iscntrl(p0)")
-private external fun _wasm_libc_windows_iscntrl(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsIscntrl(p0)")
+private external fun wasmLibcWindowsIscntrl(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_isdigit(p0)")
-private external fun _wasm_libc_windows_isdigit(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsIsdigit(p0)")
+private external fun wasmLibcWindowsIsdigit(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_isgraph(p0)")
-private external fun _wasm_libc_windows_isgraph(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsIsgraph(p0)")
+private external fun wasmLibcWindowsIsgraph(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_islower(p0)")
-private external fun _wasm_libc_windows_islower(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsIslower(p0)")
+private external fun wasmLibcWindowsIslower(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_isprint(p0)")
-private external fun _wasm_libc_windows_isprint(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsIsprint(p0)")
+private external fun wasmLibcWindowsIsprint(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_ispunct(p0)")
-private external fun _wasm_libc_windows_ispunct(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsIspunct(p0)")
+private external fun wasmLibcWindowsIspunct(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_isspace(p0)")
-private external fun _wasm_libc_windows_isspace(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsIsspace(p0)")
+private external fun wasmLibcWindowsIsspace(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_isupper(p0)")
-private external fun _wasm_libc_windows_isupper(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsIsupper(p0)")
+private external fun wasmLibcWindowsIsupper(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_isxdigit(p0)")
-private external fun _wasm_libc_windows_isxdigit(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsIsxdigit(p0)")
+private external fun wasmLibcWindowsIsxdigit(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_isblank(p0)")
-private external fun _wasm_libc_windows_isblank(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsIsblank(p0)")
+private external fun wasmLibcWindowsIsblank(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_tolower(p0)")
-private external fun _wasm_libc_windows_tolower(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsTolower(p0)")
+private external fun wasmLibcWindowsTolower(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_toupper(p0)")
-private external fun _wasm_libc_windows_toupper(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsToupper(p0)")
+private external fun wasmLibcWindowsToupper(p0: Int): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_windows_qsort(p0, p1, p2, p3)")
-private external fun _wasm_libc_windows_qsort(p0: String, p1: String, p2: String, p3: String)
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcWindowsQsort(p0, p1, p2, p3)")
+private external fun wasmLibcWindowsQsort(p0: String, p1: String, p2: String, p3: String)
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_windows_qsortS(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_windows_qsortS(p0: String, p1: String, p2: String, p3: String, p4: String)
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcWindowsQsortS(p0, p1, p2, p3, p4)")
+private external fun wasmLibcWindowsQsortS(p0: String, p1: String, p2: String, p3: String, p4: String)
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_fopen(p0, p1)")
-private external fun _wasm_libc_windows_fopen(p0: String?, p1: String?): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsFopen(p0, p1)")
+private external fun wasmLibcWindowsFopen(p0: String, p1: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_windows_freopen(p0, p1, p2)")
-private external fun _wasm_libc_windows_freopen(p0: String?, p1: String?, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcWindowsFreopen(p0, p1, p2)")
+private external fun wasmLibcWindowsFreopen(p0: String, p1: String, p2: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_fflush(p0)")
-private external fun _wasm_libc_windows_fflush(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsFflush(p0)")
+private external fun wasmLibcWindowsFflush(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_fclose(p0)")
-private external fun _wasm_libc_windows_fclose(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsFclose(p0)")
+private external fun wasmLibcWindowsFclose(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_remove(p0)")
-private external fun _wasm_libc_windows_remove(p0: String?): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsRemove(p0)")
+private external fun wasmLibcWindowsRemove(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_rename(p0, p1)")
-private external fun _wasm_libc_windows_rename(p0: String?, p1: String?): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsRename(p0, p1)")
+private external fun wasmLibcWindowsRename(p0: String, p1: String): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_windows_tmpfile()")
-private external fun _wasm_libc_windows_tmpfile(): String
+@JsFun("() => globalThis.__km_napi_libc.libcWindowsTmpfile()")
+private external fun wasmLibcWindowsTmpfile(): String
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_windows_setvbuf(p0, p1, p2, p3)")
-private external fun _wasm_libc_windows_setvbuf(p0: String, p1: String, p2: Int, p3: String): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcWindowsSetvbuf(p0, p1, p2, p3)")
+private external fun wasmLibcWindowsSetvbuf(p0: String, p1: String, p2: Int, p3: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_setbuf(p0, p1)")
-private external fun _wasm_libc_windows_setbuf(p0: String, p1: String)
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsSetbuf(p0, p1)")
+private external fun wasmLibcWindowsSetbuf(p0: String, p1: String)
 
-@JsFun("() => globalThis.__km_napi_libc.libc_windows_getchar()")
-private external fun _wasm_libc_windows_getchar(): Int
+@JsFun("() => globalThis.__km_napi_libc.libcWindowsGetchar()")
+private external fun wasmLibcWindowsGetchar(): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_putchar(p0)")
-private external fun _wasm_libc_windows_putchar(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsPutchar(p0)")
+private external fun wasmLibcWindowsPutchar(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_fgetc(p0)")
-private external fun _wasm_libc_windows_fgetc(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsFgetc(p0)")
+private external fun wasmLibcWindowsFgetc(p0: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_windows_fgets(p0, p1, p2)")
-private external fun _wasm_libc_windows_fgets(p0: String, p1: Int, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcWindowsFgets(p0, p1, p2)")
+private external fun wasmLibcWindowsFgets(p0: String, p1: Int, p2: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_fputc(p0, p1)")
-private external fun _wasm_libc_windows_fputc(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsFputc(p0, p1)")
+private external fun wasmLibcWindowsFputc(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_fputs(p0, p1)")
-private external fun _wasm_libc_windows_fputs(p0: String?, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsFputs(p0, p1)")
+private external fun wasmLibcWindowsFputs(p0: String, p1: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_puts(p0)")
-private external fun _wasm_libc_windows_puts(p0: String?): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsPuts(p0)")
+private external fun wasmLibcWindowsPuts(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_ungetc(p0, p1)")
-private external fun _wasm_libc_windows_ungetc(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsUngetc(p0, p1)")
+private external fun wasmLibcWindowsUngetc(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_windows_fread(p0, p1, p2, p3)")
-private external fun _wasm_libc_windows_fread(p0: String, p1: String, p2: String, p3: String): String
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcWindowsFread(p0, p1, p2, p3)")
+private external fun wasmLibcWindowsFread(p0: String, p1: String, p2: String, p3: String): String
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_windows_fwrite(p0, p1, p2, p3)")
-private external fun _wasm_libc_windows_fwrite(p0: String, p1: String, p2: String, p3: String): String
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcWindowsFwrite(p0, p1, p2, p3)")
+private external fun wasmLibcWindowsFwrite(p0: String, p1: String, p2: String, p3: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_windows_fseek(p0, p1, p2)")
-private external fun _wasm_libc_windows_fseek(p0: String, p1: String, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcWindowsFseek(p0, p1, p2)")
+private external fun wasmLibcWindowsFseek(p0: String, p1: String, p2: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_ftell(p0)")
-private external fun _wasm_libc_windows_ftell(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsFtell(p0)")
+private external fun wasmLibcWindowsFtell(p0: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_rewind(p0)")
-private external fun _wasm_libc_windows_rewind(p0: String)
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsRewind(p0)")
+private external fun wasmLibcWindowsRewind(p0: String)
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_fgetpos(p0, p1)")
-private external fun _wasm_libc_windows_fgetpos(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsFgetpos(p0, p1)")
+private external fun wasmLibcWindowsFgetpos(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_fsetpos(p0, p1)")
-private external fun _wasm_libc_windows_fsetpos(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsFsetpos(p0, p1)")
+private external fun wasmLibcWindowsFsetpos(p0: String, p1: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_feof(p0)")
-private external fun _wasm_libc_windows_feof(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsFeof(p0)")
+private external fun wasmLibcWindowsFeof(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_ferror(p0)")
-private external fun _wasm_libc_windows_ferror(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsFerror(p0)")
+private external fun wasmLibcWindowsFerror(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_perror(p0)")
-private external fun _wasm_libc_windows_perror(p0: String?)
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsPerror(p0)")
+private external fun wasmLibcWindowsPerror(p0: String)
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_atof(p0)")
-private external fun _wasm_libc_windows_atof(p0: String?): Double
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsAtof(p0)")
+private external fun wasmLibcWindowsAtof(p0: String): Double
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_atoi(p0)")
-private external fun _wasm_libc_windows_atoi(p0: String?): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsAtoi(p0)")
+private external fun wasmLibcWindowsAtoi(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_atol(p0)")
-private external fun _wasm_libc_windows_atol(p0: String?): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsAtol(p0)")
+private external fun wasmLibcWindowsAtol(p0: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_atoll(p0)")
-private external fun _wasm_libc_windows_atoll(p0: String?): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsAtoll(p0)")
+private external fun wasmLibcWindowsAtoll(p0: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_strtod(p0, p1)")
-private external fun _wasm_libc_windows_strtod(p0: String?, p1: String): Double
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsStrtod(p0, p1)")
+private external fun wasmLibcWindowsStrtod(p0: String, p1: String): Double
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_strtof(p0, p1)")
-private external fun _wasm_libc_windows_strtof(p0: String?, p1: String): Double
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsStrtof(p0, p1)")
+private external fun wasmLibcWindowsStrtof(p0: String, p1: String): Double
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_windows_strtol(p0, p1, p2)")
-private external fun _wasm_libc_windows_strtol(p0: String?, p1: String, p2: Int): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcWindowsStrtol(p0, p1, p2)")
+private external fun wasmLibcWindowsStrtol(p0: String, p1: String, p2: Int): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_windows_strtoll(p0, p1, p2)")
-private external fun _wasm_libc_windows_strtoll(p0: String?, p1: String, p2: Int): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcWindowsStrtoll(p0, p1, p2)")
+private external fun wasmLibcWindowsStrtoll(p0: String, p1: String, p2: Int): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_windows_strtoul(p0, p1, p2)")
-private external fun _wasm_libc_windows_strtoul(p0: String?, p1: String, p2: Int): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcWindowsStrtoul(p0, p1, p2)")
+private external fun wasmLibcWindowsStrtoul(p0: String, p1: String, p2: Int): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_windows_strtoull(p0, p1, p2)")
-private external fun _wasm_libc_windows_strtoull(p0: String?, p1: String, p2: Int): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcWindowsStrtoull(p0, p1, p2)")
+private external fun wasmLibcWindowsStrtoull(p0: String, p1: String, p2: Int): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_calloc(p0, p1)")
-private external fun _wasm_libc_windows_calloc(p0: String, p1: String): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsCalloc(p0, p1)")
+private external fun wasmLibcWindowsCalloc(p0: String, p1: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_malloc(p0)")
-private external fun _wasm_libc_windows_malloc(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsMalloc(p0)")
+private external fun wasmLibcWindowsMalloc(p0: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_msize(p0)")
-private external fun _wasm_libc_windows_msize(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsMsize(p0)")
+private external fun wasmLibcWindowsMsize(p0: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_realloc(p0, p1)")
-private external fun _wasm_libc_windows_realloc(p0: String, p1: String): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsRealloc(p0, p1)")
+private external fun wasmLibcWindowsRealloc(p0: String, p1: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_free(p0)")
-private external fun _wasm_libc_windows_free(p0: String)
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsFree(p0)")
+private external fun wasmLibcWindowsFree(p0: String)
 
-@JsFun("() => globalThis.__km_napi_libc.libc_windows_abort()")
-private external fun _wasm_libc_windows_abort()
+@JsFun("() => globalThis.__km_napi_libc.libcWindowsAbort()")
+private external fun wasmLibcWindowsAbort()
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_exit(p0)")
-private external fun _wasm_libc_windows_exit(p0: Int)
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsExit(p0)")
+private external fun wasmLibcWindowsExit(p0: Int)
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_atexit(p0)")
-private external fun _wasm_libc_windows_atexit(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsAtexit(p0)")
+private external fun wasmLibcWindowsAtexit(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_system(p0)")
-private external fun _wasm_libc_windows_system(p0: String?): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsSystem(p0)")
+private external fun wasmLibcWindowsSystem(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_getenv(p0)")
-private external fun _wasm_libc_windows_getenv(p0: String?): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsGetenv(p0)")
+private external fun wasmLibcWindowsGetenv(p0: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_strcpy(p0, p1)")
-private external fun _wasm_libc_windows_strcpy(p0: String, p1: String?): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsStrcpy(p0, p1)")
+private external fun wasmLibcWindowsStrcpy(p0: String, p1: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_windows_strncpy(p0, p1, p2)")
-private external fun _wasm_libc_windows_strncpy(p0: String, p1: String?, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcWindowsStrncpy(p0, p1, p2)")
+private external fun wasmLibcWindowsStrncpy(p0: String, p1: String, p2: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_strcat(p0, p1)")
-private external fun _wasm_libc_windows_strcat(p0: String, p1: String?): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsStrcat(p0, p1)")
+private external fun wasmLibcWindowsStrcat(p0: String, p1: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_windows_strncat(p0, p1, p2)")
-private external fun _wasm_libc_windows_strncat(p0: String, p1: String?, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcWindowsStrncat(p0, p1, p2)")
+private external fun wasmLibcWindowsStrncat(p0: String, p1: String, p2: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_strcmp(p0, p1)")
-private external fun _wasm_libc_windows_strcmp(p0: String?, p1: String?): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsStrcmp(p0, p1)")
+private external fun wasmLibcWindowsStrcmp(p0: String, p1: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_windows_strncmp(p0, p1, p2)")
-private external fun _wasm_libc_windows_strncmp(p0: String?, p1: String?, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcWindowsStrncmp(p0, p1, p2)")
+private external fun wasmLibcWindowsStrncmp(p0: String, p1: String, p2: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_strcoll(p0, p1)")
-private external fun _wasm_libc_windows_strcoll(p0: String?, p1: String?): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsStrcoll(p0, p1)")
+private external fun wasmLibcWindowsStrcoll(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_strchr(p0, p1)")
-private external fun _wasm_libc_windows_strchr(p0: String?, p1: Int): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsStrchr(p0, p1)")
+private external fun wasmLibcWindowsStrchr(p0: String, p1: Int): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_strrchr(p0, p1)")
-private external fun _wasm_libc_windows_strrchr(p0: String?, p1: Int): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsStrrchr(p0, p1)")
+private external fun wasmLibcWindowsStrrchr(p0: String, p1: Int): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_strspn(p0, p1)")
-private external fun _wasm_libc_windows_strspn(p0: String?, p1: String?): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsStrspn(p0, p1)")
+private external fun wasmLibcWindowsStrspn(p0: String, p1: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_strcspn(p0, p1)")
-private external fun _wasm_libc_windows_strcspn(p0: String?, p1: String?): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsStrcspn(p0, p1)")
+private external fun wasmLibcWindowsStrcspn(p0: String, p1: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_strdup(p0)")
-private external fun _wasm_libc_windows_strdup(p0: String?): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsStrdup(p0)")
+private external fun wasmLibcWindowsStrdup(p0: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_strpbrk(p0, p1)")
-private external fun _wasm_libc_windows_strpbrk(p0: String?, p1: String?): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsStrpbrk(p0, p1)")
+private external fun wasmLibcWindowsStrpbrk(p0: String, p1: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_strstr(p0, p1)")
-private external fun _wasm_libc_windows_strstr(p0: String?, p1: String?): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsStrstr(p0, p1)")
+private external fun wasmLibcWindowsStrstr(p0: String, p1: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_strlen(p0)")
-private external fun _wasm_libc_windows_strlen(p0: String?): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsStrlen(p0)")
+private external fun wasmLibcWindowsStrlen(p0: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_strnlen(p0, p1)")
-private external fun _wasm_libc_windows_strnlen(p0: String?, p1: String): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsStrnlen(p0, p1)")
+private external fun wasmLibcWindowsStrnlen(p0: String, p1: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_strerror(p0)")
-private external fun _wasm_libc_windows_strerror(p0: Int): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsStrerror(p0)")
+private external fun wasmLibcWindowsStrerror(p0: Int): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_strtok(p0, p1)")
-private external fun _wasm_libc_windows_strtok(p0: String, p1: String?): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsStrtok(p0, p1)")
+private external fun wasmLibcWindowsStrtok(p0: String, p1: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_windows_strxfrm(p0, p1, p2)")
-private external fun _wasm_libc_windows_strxfrm(p0: String, p1: String?, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcWindowsStrxfrm(p0, p1, p2)")
+private external fun wasmLibcWindowsStrxfrm(p0: String, p1: String, p2: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_wcslen(p0)")
-private external fun _wasm_libc_windows_wcslen(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsWcslen(p0)")
+private external fun wasmLibcWindowsWcslen(p0: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_wcsnlen(p0, p1)")
-private external fun _wasm_libc_windows_wcsnlen(p0: String, p1: String): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsWcsnlen(p0, p1)")
+private external fun wasmLibcWindowsWcsnlen(p0: String, p1: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_windows_wcstombs(p0, p1, p2)")
-private external fun _wasm_libc_windows_wcstombs(p0: String, p1: String, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcWindowsWcstombs(p0, p1, p2)")
+private external fun wasmLibcWindowsWcstombs(p0: String, p1: String, p2: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_windows_memchr(p0, p1, p2)")
-private external fun _wasm_libc_windows_memchr(p0: String, p1: Int, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcWindowsMemchr(p0, p1, p2)")
+private external fun wasmLibcWindowsMemchr(p0: String, p1: Int, p2: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_windows_memcmp(p0, p1, p2)")
-private external fun _wasm_libc_windows_memcmp(p0: String, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcWindowsMemcmp(p0, p1, p2)")
+private external fun wasmLibcWindowsMemcmp(p0: String, p1: String, p2: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_windows_memcpy(p0, p1, p2)")
-private external fun _wasm_libc_windows_memcpy(p0: String, p1: String, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcWindowsMemcpy(p0, p1, p2)")
+private external fun wasmLibcWindowsMemcpy(p0: String, p1: String, p2: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_windows_memmove(p0, p1, p2)")
-private external fun _wasm_libc_windows_memmove(p0: String, p1: String, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcWindowsMemmove(p0, p1, p2)")
+private external fun wasmLibcWindowsMemmove(p0: String, p1: String, p2: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_windows_memset(p0, p1, p2)")
-private external fun _wasm_libc_windows_memset(p0: String, p1: Int, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcWindowsMemset(p0, p1, p2)")
+private external fun wasmLibcWindowsMemset(p0: String, p1: Int, p2: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_abs(p0)")
-private external fun _wasm_libc_windows_abs(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsAbs(p0)")
+private external fun wasmLibcWindowsAbs(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_labs(p0)")
-private external fun _wasm_libc_windows_labs(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsLabs(p0)")
+private external fun wasmLibcWindowsLabs(p0: String): String
 
-@JsFun("() => globalThis.__km_napi_libc.libc_windows_rand()")
-private external fun _wasm_libc_windows_rand(): Int
+@JsFun("() => globalThis.__km_napi_libc.libcWindowsRand()")
+private external fun wasmLibcWindowsRand(): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_srand(p0)")
-private external fun _wasm_libc_windows_srand(p0: Int)
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsSrand(p0)")
+private external fun wasmLibcWindowsSrand(p0: Int)
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_signal(p0, p1)")
-private external fun _wasm_libc_windows_signal(p0: Int, p1: String): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsSignal(p0, p1)")
+private external fun wasmLibcWindowsSignal(p0: Int, p1: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_raise(p0)")
-private external fun _wasm_libc_windows_raise(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsRaise(p0)")
+private external fun wasmLibcWindowsRaise(p0: Int): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_windows_clock()")
-private external fun _wasm_libc_windows_clock(): Int
+@JsFun("() => globalThis.__km_napi_libc.libcWindowsClock()")
+private external fun wasmLibcWindowsClock(): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_ctime(p0)")
-private external fun _wasm_libc_windows_ctime(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsCtime(p0)")
+private external fun wasmLibcWindowsCtime(p0: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_difftime(p0, p1)")
-private external fun _wasm_libc_windows_difftime(p0: String, p1: String): Double
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsDifftime(p0, p1)")
+private external fun wasmLibcWindowsDifftime(p0: String, p1: String): Double
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_gmtimeS(p0, p1)")
-private external fun _wasm_libc_windows_gmtimeS(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsGmtimeS(p0, p1)")
+private external fun wasmLibcWindowsGmtimeS(p0: String, p1: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_getDaylight(p0)")
-private external fun _wasm_libc_windows_getDaylight(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsGetDaylight(p0)")
+private external fun wasmLibcWindowsGetDaylight(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_getDstbias(p0)")
-private external fun _wasm_libc_windows_getDstbias(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsGetDstbias(p0)")
+private external fun wasmLibcWindowsGetDstbias(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_getTimezone(p0)")
-private external fun _wasm_libc_windows_getTimezone(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsGetTimezone(p0)")
+private external fun wasmLibcWindowsGetTimezone(p0: String): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_windows_getTzname(p0, p1, p2, p3)")
-private external fun _wasm_libc_windows_getTzname(p0: String, p1: String, p2: String, p3: Int): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcWindowsGetTzname(p0, p1, p2, p3)")
+private external fun wasmLibcWindowsGetTzname(p0: String, p1: String, p2: String, p3: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_localtimeS(p0, p1)")
-private external fun _wasm_libc_windows_localtimeS(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsLocaltimeS(p0, p1)")
+private external fun wasmLibcWindowsLocaltimeS(p0: String, p1: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_time(p0)")
-private external fun _wasm_libc_windows_time(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsTime(p0)")
+private external fun wasmLibcWindowsTime(p0: String): String
 
-@JsFun("() => globalThis.__km_napi_libc.libc_windows_tzset()")
-private external fun _wasm_libc_windows_tzset()
+@JsFun("() => globalThis.__km_napi_libc.libcWindowsTzset()")
+private external fun wasmLibcWindowsTzset()
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_chmod(p0, p1)")
-private external fun _wasm_libc_windows_chmod(p0: String?, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsChmod(p0, p1)")
+private external fun wasmLibcWindowsChmod(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_wchmod(p0, p1)")
-private external fun _wasm_libc_windows_wchmod(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsWchmod(p0, p1)")
+private external fun wasmLibcWindowsWchmod(p0: String, p1: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_mkdir(p0)")
-private external fun _wasm_libc_windows_mkdir(p0: String?): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsMkdir(p0)")
+private external fun wasmLibcWindowsMkdir(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_wrmdir(p0)")
-private external fun _wasm_libc_windows_wrmdir(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsWrmdir(p0)")
+private external fun wasmLibcWindowsWrmdir(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_fstat(p0, p1)")
-private external fun _wasm_libc_windows_fstat(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsFstat(p0, p1)")
+private external fun wasmLibcWindowsFstat(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_stat(p0, p1)")
-private external fun _wasm_libc_windows_stat(p0: String?, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsStat(p0, p1)")
+private external fun wasmLibcWindowsStat(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_wstat(p0, p1)")
-private external fun _wasm_libc_windows_wstat(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsWstat(p0, p1)")
+private external fun wasmLibcWindowsWstat(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_wutime(p0, p1)")
-private external fun _wasm_libc_windows_wutime(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsWutime(p0, p1)")
+private external fun wasmLibcWindowsWutime(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_popen(p0, p1)")
-private external fun _wasm_libc_windows_popen(p0: String?, p1: String?): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsPopen(p0, p1)")
+private external fun wasmLibcWindowsPopen(p0: String, p1: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_pclose(p0)")
-private external fun _wasm_libc_windows_pclose(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsPclose(p0)")
+private external fun wasmLibcWindowsPclose(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_fdopen(p0, p1)")
-private external fun _wasm_libc_windows_fdopen(p0: Int, p1: String?): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsFdopen(p0, p1)")
+private external fun wasmLibcWindowsFdopen(p0: Int, p1: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_fileno(p0)")
-private external fun _wasm_libc_windows_fileno(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsFileno(p0)")
+private external fun wasmLibcWindowsFileno(p0: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libc_windows_open(p0, p1, p2, p3, p4, p5, p6)")
-private external fun _wasm_libc_windows_open(p0: String?, p1: Int, p2: Int, p3: String, p4: String, p5: String, p6: String): Int
+@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libcWindowsOpen(p0, p1, p2, p3, p4, p5, p6)")
+private external fun wasmLibcWindowsOpen(p0: String, p1: Int, p2: Int, p3: String, p4: String, p5: String, p6: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libc_windows_wopen(p0, p1, p2, p3, p4, p5, p6)")
-private external fun _wasm_libc_windows_wopen(p0: String, p1: Int, p2: Int, p3: String, p4: String, p5: String, p6: String): Int
+@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libcWindowsWopen(p0, p1, p2, p3, p4, p5, p6)")
+private external fun wasmLibcWindowsWopen(p0: String, p1: Int, p2: Int, p3: String, p4: String, p5: String, p6: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_creat(p0, p1)")
-private external fun _wasm_libc_windows_creat(p0: String?, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsCreat(p0, p1)")
+private external fun wasmLibcWindowsCreat(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_access(p0, p1)")
-private external fun _wasm_libc_windows_access(p0: String?, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsAccess(p0, p1)")
+private external fun wasmLibcWindowsAccess(p0: String, p1: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_chdir(p0)")
-private external fun _wasm_libc_windows_chdir(p0: String?): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsChdir(p0)")
+private external fun wasmLibcWindowsChdir(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_close(p0)")
-private external fun _wasm_libc_windows_close(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsClose(p0)")
+private external fun wasmLibcWindowsClose(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_dup(p0)")
-private external fun _wasm_libc_windows_dup(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsDup(p0)")
+private external fun wasmLibcWindowsDup(p0: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_dup2(p0, p1)")
-private external fun _wasm_libc_windows_dup2(p0: Int, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsDup2(p0, p1)")
+private external fun wasmLibcWindowsDup2(p0: Int, p1: Int): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libc_windows_execl(p0, p1, p2, p3, p4, p5, p6)")
-private external fun _wasm_libc_windows_execl(p0: String?, p1: String?, p2: Int, p3: String, p4: String, p5: String, p6: String): String
+@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libcWindowsExecl(p0, p1, p2, p3, p4, p5, p6)")
+private external fun wasmLibcWindowsExecl(p0: String, p1: String, p2: Int, p3: String, p4: String, p5: String, p6: String): String
 
-@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libc_windows_wexecl(p0, p1, p2, p3, p4, p5, p6)")
-private external fun _wasm_libc_windows_wexecl(p0: String, p1: String, p2: Int, p3: String, p4: String, p5: String, p6: String): String
+@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libcWindowsWexecl(p0, p1, p2, p3, p4, p5, p6)")
+private external fun wasmLibcWindowsWexecl(p0: String, p1: String, p2: Int, p3: String, p4: String, p5: String, p6: String): String
 
-@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libc_windows_execle(p0, p1, p2, p3, p4, p5, p6)")
-private external fun _wasm_libc_windows_execle(p0: String?, p1: String?, p2: Int, p3: String, p4: String, p5: String, p6: String): String
+@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libcWindowsExecle(p0, p1, p2, p3, p4, p5, p6)")
+private external fun wasmLibcWindowsExecle(p0: String, p1: String, p2: Int, p3: String, p4: String, p5: String, p6: String): String
 
-@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libc_windows_wexecle(p0, p1, p2, p3, p4, p5, p6)")
-private external fun _wasm_libc_windows_wexecle(p0: String, p1: String, p2: Int, p3: String, p4: String, p5: String, p6: String): String
+@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libcWindowsWexecle(p0, p1, p2, p3, p4, p5, p6)")
+private external fun wasmLibcWindowsWexecle(p0: String, p1: String, p2: Int, p3: String, p4: String, p5: String, p6: String): String
 
-@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libc_windows_execlp(p0, p1, p2, p3, p4, p5, p6)")
-private external fun _wasm_libc_windows_execlp(p0: String?, p1: String?, p2: Int, p3: String, p4: String, p5: String, p6: String): String
+@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libcWindowsExeclp(p0, p1, p2, p3, p4, p5, p6)")
+private external fun wasmLibcWindowsExeclp(p0: String, p1: String, p2: Int, p3: String, p4: String, p5: String, p6: String): String
 
-@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libc_windows_wexeclp(p0, p1, p2, p3, p4, p5, p6)")
-private external fun _wasm_libc_windows_wexeclp(p0: String, p1: String, p2: Int, p3: String, p4: String, p5: String, p6: String): String
+@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libcWindowsWexeclp(p0, p1, p2, p3, p4, p5, p6)")
+private external fun wasmLibcWindowsWexeclp(p0: String, p1: String, p2: Int, p3: String, p4: String, p5: String, p6: String): String
 
-@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libc_windows_execlpe(p0, p1, p2, p3, p4, p5, p6)")
-private external fun _wasm_libc_windows_execlpe(p0: String?, p1: String?, p2: Int, p3: String, p4: String, p5: String, p6: String): String
+@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libcWindowsExeclpe(p0, p1, p2, p3, p4, p5, p6)")
+private external fun wasmLibcWindowsExeclpe(p0: String, p1: String, p2: Int, p3: String, p4: String, p5: String, p6: String): String
 
-@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libc_windows_wexeclpe(p0, p1, p2, p3, p4, p5, p6)")
-private external fun _wasm_libc_windows_wexeclpe(p0: String, p1: String, p2: Int, p3: String, p4: String, p5: String, p6: String): String
+@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libcWindowsWexeclpe(p0, p1, p2, p3, p4, p5, p6)")
+private external fun wasmLibcWindowsWexeclpe(p0: String, p1: String, p2: Int, p3: String, p4: String, p5: String, p6: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_execv(p0, p1)")
-private external fun _wasm_libc_windows_execv(p0: String?, p1: String): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsExecv(p0, p1)")
+private external fun wasmLibcWindowsExecv(p0: String, p1: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_windows_execve(p0, p1, p2)")
-private external fun _wasm_libc_windows_execve(p0: String?, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcWindowsExecve(p0, p1, p2)")
+private external fun wasmLibcWindowsExecve(p0: String, p1: String, p2: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_execvp(p0, p1)")
-private external fun _wasm_libc_windows_execvp(p0: String?, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsExecvp(p0, p1)")
+private external fun wasmLibcWindowsExecvp(p0: String, p1: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_windows_execvpe(p0, p1, p2)")
-private external fun _wasm_libc_windows_execvpe(p0: String?, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcWindowsExecvpe(p0, p1, p2)")
+private external fun wasmLibcWindowsExecvpe(p0: String, p1: String, p2: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_wexecv(p0, p1)")
-private external fun _wasm_libc_windows_wexecv(p0: String, p1: String): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsWexecv(p0, p1)")
+private external fun wasmLibcWindowsWexecv(p0: String, p1: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_windows_wexecve(p0, p1, p2)")
-private external fun _wasm_libc_windows_wexecve(p0: String, p1: String, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcWindowsWexecve(p0, p1, p2)")
+private external fun wasmLibcWindowsWexecve(p0: String, p1: String, p2: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_wexecvp(p0, p1)")
-private external fun _wasm_libc_windows_wexecvp(p0: String, p1: String): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsWexecvp(p0, p1)")
+private external fun wasmLibcWindowsWexecvp(p0: String, p1: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_windows_wexecvpe(p0, p1, p2)")
-private external fun _wasm_libc_windows_wexecvpe(p0: String, p1: String, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcWindowsWexecvpe(p0, p1, p2)")
+private external fun wasmLibcWindowsWexecvpe(p0: String, p1: String, p2: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_getcwd(p0, p1)")
-private external fun _wasm_libc_windows_getcwd(p0: String, p1: Int): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsGetcwd(p0, p1)")
+private external fun wasmLibcWindowsGetcwd(p0: String, p1: Int): String
 
-@JsFun("() => globalThis.__km_napi_libc.libc_windows_getpid()")
-private external fun _wasm_libc_windows_getpid(): Int
+@JsFun("() => globalThis.__km_napi_libc.libcWindowsGetpid()")
+private external fun wasmLibcWindowsGetpid(): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_isatty(p0)")
-private external fun _wasm_libc_windows_isatty(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsIsatty(p0)")
+private external fun wasmLibcWindowsIsatty(p0: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_windows_lseek(p0, p1, p2)")
-private external fun _wasm_libc_windows_lseek(p0: Int, p1: String, p2: Int): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcWindowsLseek(p0, p1, p2)")
+private external fun wasmLibcWindowsLseek(p0: Int, p1: String, p2: Int): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_windows_lseek64(p0, p1, p2)")
-private external fun _wasm_libc_windows_lseek64(p0: Int, p1: String, p2: Int): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcWindowsLseek64(p0, p1, p2)")
+private external fun wasmLibcWindowsLseek64(p0: Int, p1: String, p2: Int): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_windows_pipe(p0, p1, p2)")
-private external fun _wasm_libc_windows_pipe(p0: String, p1: Int, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcWindowsPipe(p0, p1, p2)")
+private external fun wasmLibcWindowsPipe(p0: String, p1: Int, p2: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_windows_read(p0, p1, p2)")
-private external fun _wasm_libc_windows_read(p0: Int, p1: String, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcWindowsRead(p0, p1, p2)")
+private external fun wasmLibcWindowsRead(p0: Int, p1: String, p2: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_rmdir(p0)")
-private external fun _wasm_libc_windows_rmdir(p0: String?): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsRmdir(p0)")
+private external fun wasmLibcWindowsRmdir(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_unlink(p0)")
-private external fun _wasm_libc_windows_unlink(p0: String?): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsUnlink(p0)")
+private external fun wasmLibcWindowsUnlink(p0: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_windows_write(p0, p1, p2)")
-private external fun _wasm_libc_windows_write(p0: Int, p1: String, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcWindowsWrite(p0, p1, p2)")
+private external fun wasmLibcWindowsWrite(p0: Int, p1: String, p2: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_commit(p0)")
-private external fun _wasm_libc_windows_commit(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsCommit(p0)")
+private external fun wasmLibcWindowsCommit(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_getOsfhandle(p0)")
-private external fun _wasm_libc_windows_getOsfhandle(p0: Int): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsGetOsfhandle(p0)")
+private external fun wasmLibcWindowsGetOsfhandle(p0: Int): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_openOsfhandle(p0, p1)")
-private external fun _wasm_libc_windows_openOsfhandle(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsOpenOsfhandle(p0, p1)")
+private external fun wasmLibcWindowsOpenOsfhandle(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_setlocale(p0, p1)")
-private external fun _wasm_libc_windows_setlocale(p0: Int, p1: String?): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsSetlocale(p0, p1)")
+private external fun wasmLibcWindowsSetlocale(p0: Int, p1: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_wsetlocale(p0, p1)")
-private external fun _wasm_libc_windows_wsetlocale(p0: Int, p1: String): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsWsetlocale(p0, p1)")
+private external fun wasmLibcWindowsWsetlocale(p0: Int, p1: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_alignedMalloc(p0, p1)")
-private external fun _wasm_libc_windows_alignedMalloc(p0: String, p1: String): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsAlignedMalloc(p0, p1)")
+private external fun wasmLibcWindowsAlignedMalloc(p0: String, p1: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_alignedFree(p0)")
-private external fun _wasm_libc_windows_alignedFree(p0: String)
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsAlignedFree(p0)")
+private external fun wasmLibcWindowsAlignedFree(p0: String)
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_windows_alignedRealloc(p0, p1, p2)")
-private external fun _wasm_libc_windows_alignedRealloc(p0: String, p1: String, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcWindowsAlignedRealloc(p0, p1, p2)")
+private external fun wasmLibcWindowsAlignedRealloc(p0: String, p1: String, p2: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_putenv(p0)")
-private external fun _wasm_libc_windows_putenv(p0: String?): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsPutenv(p0)")
+private external fun wasmLibcWindowsPutenv(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_windows_wputenv(p0)")
-private external fun _wasm_libc_windows_wputenv(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcWindowsWputenv(p0)")
+private external fun wasmLibcWindowsWputenv(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_putenvS(p0, p1)")
-private external fun _wasm_libc_windows_putenvS(p0: String?, p1: String?): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsPutenvS(p0, p1)")
+private external fun wasmLibcWindowsPutenvS(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_wputenvS(p0, p1)")
-private external fun _wasm_libc_windows_wputenvS(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsWputenvS(p0, p1)")
+private external fun wasmLibcWindowsWputenvS(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_windows_listen(p0, p1)")
-private external fun _wasm_libc_windows_listen(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcWindowsListen(p0, p1)")
+private external fun wasmLibcWindowsListen(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_windows_accept(p0, p1, p2)")
-private external fun _wasm_libc_windows_accept(p0: String, p1: String, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcWindowsAccept(p0, p1, p2)")
+private external fun wasmLibcWindowsAccept(p0: String, p1: String, p2: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_windows_bind(p0, p1, p2)")
-private external fun _wasm_libc_windows_bind(p0: String, p1: String, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcWindowsBind(p0, p1, p2)")
+private external fun wasmLibcWindowsBind(p0: String, p1: String, p2: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_windows_connect(p0, p1, p2)")
-private external fun _wasm_libc_windows_connect(p0: String, p1: String, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcWindowsConnect(p0, p1, p2)")
+private external fun wasmLibcWindowsConnect(p0: String, p1: String, p2: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_windows_getpeername(p0, p1, p2)")
-private external fun _wasm_libc_windows_getpeername(p0: String, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcWindowsGetpeername(p0, p1, p2)")
+private external fun wasmLibcWindowsGetpeername(p0: String, p1: String, p2: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_windows_getsockname(p0, p1, p2)")
-private external fun _wasm_libc_windows_getsockname(p0: String, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcWindowsGetsockname(p0, p1, p2)")
+private external fun wasmLibcWindowsGetsockname(p0: String, p1: String, p2: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_windows_getsockopt(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_windows_getsockopt(p0: String, p1: Int, p2: Int, p3: String, p4: String): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcWindowsGetsockopt(p0, p1, p2, p3, p4)")
+private external fun wasmLibcWindowsGetsockopt(p0: String, p1: Int, p2: Int, p3: String, p4: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libc_windows_recvfrom(p0, p1, p2, p3, p4, p5)")
-private external fun _wasm_libc_windows_recvfrom(p0: String, p1: String, p2: Int, p3: Int, p4: String, p5: String): Int
+@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libcWindowsRecvfrom(p0, p1, p2, p3, p4, p5)")
+private external fun wasmLibcWindowsRecvfrom(p0: String, p1: String, p2: Int, p3: Int, p4: String, p5: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libc_windows_sendto(p0, p1, p2, p3, p4, p5)")
-private external fun _wasm_libc_windows_sendto(p0: String, p1: String?, p2: Int, p3: Int, p4: String, p5: Int): Int
+@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libcWindowsSendto(p0, p1, p2, p3, p4, p5)")
+private external fun wasmLibcWindowsSendto(p0: String, p1: String, p2: Int, p3: Int, p4: String, p5: Int): Int
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_windows_setsockopt(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_windows_setsockopt(p0: String, p1: Int, p2: Int, p3: String?, p4: Int): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcWindowsSetsockopt(p0, p1, p2, p3, p4)")
+private external fun wasmLibcWindowsSetsockopt(p0: String, p1: Int, p2: Int, p3: String, p4: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_windows_socket(p0, p1, p2)")
-private external fun _wasm_libc_windows_socket(p0: Int, p1: Int, p2: Int): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcWindowsSocket(p0, p1, p2)")
+private external fun wasmLibcWindowsSocket(p0: Int, p1: Int, p2: Int): String
 
-public actual fun printf(format: String?, vararg variadicArgs: Long): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_printf(format, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun printf(format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsPrintf(format.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fprintf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_fprintf((stream?.handle ?: 0L).toString(), format, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fprintf(stream: MutPtr<FILE>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsFprintf(stream.rawAddress.toString(), format.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun isalnum(c: CInt): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_isalnum(c) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (windowsNapiAvailable) wasmLibcWindowsIsalnum(c) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun isalpha(c: CInt): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_isalpha(c) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (windowsNapiAvailable) wasmLibcWindowsIsalpha(c) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun iscntrl(c: CInt): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_iscntrl(c) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (windowsNapiAvailable) wasmLibcWindowsIscntrl(c) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun isdigit(c: CInt): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_isdigit(c) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (windowsNapiAvailable) wasmLibcWindowsIsdigit(c) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun isgraph(c: CInt): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_isgraph(c) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (windowsNapiAvailable) wasmLibcWindowsIsgraph(c) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun islower(c: CInt): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_islower(c) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (windowsNapiAvailable) wasmLibcWindowsIslower(c) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun isprint(c: CInt): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_isprint(c) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (windowsNapiAvailable) wasmLibcWindowsIsprint(c) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun ispunct(c: CInt): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_ispunct(c) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (windowsNapiAvailable) wasmLibcWindowsIspunct(c) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun isspace(c: CInt): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_isspace(c) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (windowsNapiAvailable) wasmLibcWindowsIsspace(c) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun isupper(c: CInt): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_isupper(c) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (windowsNapiAvailable) wasmLibcWindowsIsupper(c) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun isxdigit(c: CInt): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_isxdigit(c) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (windowsNapiAvailable) wasmLibcWindowsIsxdigit(c) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun isblank(c: CInt): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_isblank(c) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (windowsNapiAvailable) wasmLibcWindowsIsblank(c) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun tolower(c: CInt): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_tolower(c) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (windowsNapiAvailable) wasmLibcWindowsTolower(c) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun toupper(c: CInt): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_toupper(c) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (windowsNapiAvailable) wasmLibcWindowsToupper(c) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun qsort(base: COpaquePointer?, num: SizeT, size: SizeT, compar: QsortComparCallback?) {
-    if (_windowsNapiAvailable) {
-        _wasm_libc_windows_qsort((base?.value ?: 0L).toString(), num.toString(), size.toString(), 0L.toString())
+public actual fun qsort(base: MutPtr<CVoid>, num: SizeT, size: SizeT, compar: QsortComparCallback?) {
+    if (windowsNapiAvailable) {
+        wasmLibcWindowsQsort(base.rawAddress.toString(), num.toString(), size.toString(), 0L.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun qsortS(base: COpaquePointer?, num: SizeT, size: SizeT, compar: QsortSComparCallback?, arg: COpaquePointer?) {
-    if (_windowsNapiAvailable) {
-        _wasm_libc_windows_qsortS((base?.value ?: 0L).toString(), num.toString(), size.toString(), 0L.toString(), (arg?.value ?: 0L).toString())
+public actual fun qsortS(base: MutPtr<CVoid>, num: SizeT, size: SizeT, compar: QsortSComparCallback?, arg: MutPtr<CVoid>) {
+    if (windowsNapiAvailable) {
+        wasmLibcWindowsQsortS(base.rawAddress.toString(), num.toString(), size.toString(), 0L.toString(), arg.rawAddress.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun fopen(filename: String?, mode: String?): FILE? =
-    if (_windowsNapiAvailable) _wasm_libc_windows_fopen(filename, mode).toLong().let { if (it == 0L) null else FILE(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fopen(filename: ConstPtr<CChar>, mode: ConstPtr<CChar>): MutPtr<FILE> =
+    if (windowsNapiAvailable) MutPtr(wasmLibcWindowsFopen(filename.rawAddress.toString(), mode.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun freopen(filename: String?, mode: String?, file: FILE?): FILE? =
-    if (_windowsNapiAvailable) _wasm_libc_windows_freopen(filename, mode, (file?.handle ?: 0L).toString()).toLong().let { if (it == 0L) null else FILE(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun freopen(filename: ConstPtr<CChar>, mode: ConstPtr<CChar>, file: MutPtr<FILE>): MutPtr<FILE> =
+    if (windowsNapiAvailable) MutPtr(wasmLibcWindowsFreopen(filename.rawAddress.toString(), mode.rawAddress.toString(), file.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fflush(file: FILE?): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_fflush((file?.handle ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fflush(file: MutPtr<FILE>): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsFflush(file.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fclose(file: FILE?): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_fclose((file?.handle ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fclose(file: MutPtr<FILE>): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsFclose(file.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun remove(filename: String?): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_remove(filename) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun remove(filename: ConstPtr<CChar>): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsRemove(filename.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun rename(oldname: String?, newname: String?): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_rename(oldname, newname) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun rename(oldname: ConstPtr<CChar>, newname: ConstPtr<CChar>): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsRename(oldname.rawAddress.toString(), newname.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun tmpfile(): FILE? =
-    if (_windowsNapiAvailable) _wasm_libc_windows_tmpfile().toLong().let { if (it == 0L) null else FILE(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun tmpfile(): MutPtr<FILE> =
+    if (windowsNapiAvailable) MutPtr(wasmLibcWindowsTmpfile().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setvbuf(stream: FILE?, buffer: COpaquePointer?, mode: CInt, size: SizeT): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_setvbuf((stream?.handle ?: 0L).toString(), (buffer?.value ?: 0L).toString(), mode, size.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun setvbuf(stream: MutPtr<FILE>, buffer: MutPtr<CChar>, mode: CInt, size: SizeT): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsSetvbuf(stream.rawAddress.toString(), buffer.rawAddress.toString(), mode, size.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setbuf(stream: FILE?, buf: COpaquePointer?) {
-    if (_windowsNapiAvailable) {
-        _wasm_libc_windows_setbuf((stream?.handle ?: 0L).toString(), (buf?.value ?: 0L).toString())
+public actual fun setbuf(stream: MutPtr<FILE>, buf: MutPtr<CChar>) {
+    if (windowsNapiAvailable) {
+        wasmLibcWindowsSetbuf(stream.rawAddress.toString(), buf.rawAddress.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
 public actual fun getchar(): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_getchar() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (windowsNapiAvailable) wasmLibcWindowsGetchar() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun putchar(c: CInt): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_putchar(c) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (windowsNapiAvailable) wasmLibcWindowsPutchar(c) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fgetc(stream: FILE?): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_fgetc((stream?.handle ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fgetc(stream: MutPtr<FILE>): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsFgetc(stream.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fgets(buf: COpaquePointer?, n: CInt, stream: FILE?): COpaquePointer? =
-    if (_windowsNapiAvailable) _wasm_libc_windows_fgets((buf?.value ?: 0L).toString(), n, (stream?.handle ?: 0L).toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fgets(buf: MutPtr<CChar>, n: CInt, stream: MutPtr<FILE>): MutPtr<CChar> =
+    if (windowsNapiAvailable) MutPtr(wasmLibcWindowsFgets(buf.rawAddress.toString(), n, stream.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fputc(c: CInt, stream: FILE?): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_fputc(c, (stream?.handle ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fputc(c: CInt, stream: MutPtr<FILE>): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsFputc(c, stream.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fputs(s: String?, stream: FILE?): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_fputs(s, (stream?.handle ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fputs(s: ConstPtr<CChar>, stream: MutPtr<FILE>): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsFputs(s.rawAddress.toString(), stream.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun puts(s: String?): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_puts(s) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun puts(s: ConstPtr<CChar>): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsPuts(s.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ungetc(c: CInt, stream: FILE?): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_ungetc(c, (stream?.handle ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ungetc(c: CInt, stream: MutPtr<FILE>): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsUngetc(c, stream.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fread(ptr: COpaquePointer?, size: SizeT, nobj: SizeT, stream: FILE?): SizeT =
-    if (_windowsNapiAvailable) _wasm_libc_windows_fread((ptr?.value ?: 0L).toString(), size.toString(), nobj.toString(), (stream?.handle ?: 0L).toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fread(ptr: MutPtr<CVoid>, size: SizeT, nobj: SizeT, stream: MutPtr<FILE>): SizeT =
+    if (windowsNapiAvailable) wasmLibcWindowsFread(ptr.rawAddress.toString(), size.toString(), nobj.toString(), stream.rawAddress.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fwrite(ptr: COpaquePointer?, size: SizeT, nobj: SizeT, stream: FILE?): SizeT =
-    if (_windowsNapiAvailable) _wasm_libc_windows_fwrite((ptr?.value ?: 0L).toString(), size.toString(), nobj.toString(), (stream?.handle ?: 0L).toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fwrite(ptr: ConstPtr<CVoid>, size: SizeT, nobj: SizeT, stream: MutPtr<FILE>): SizeT =
+    if (windowsNapiAvailable) wasmLibcWindowsFwrite(ptr.rawAddress.toString(), size.toString(), nobj.toString(), stream.rawAddress.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fseek(stream: FILE?, offset: CLong, whence: CInt): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_fseek((stream?.handle ?: 0L).toString(), offset.toString(), whence) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fseek(stream: MutPtr<FILE>, offset: CLong, whence: CInt): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsFseek(stream.rawAddress.toString(), offset.toString(), whence) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ftell(stream: FILE?): CLong =
-    if (_windowsNapiAvailable) _wasm_libc_windows_ftell((stream?.handle ?: 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ftell(stream: MutPtr<FILE>): CLong =
+    if (windowsNapiAvailable) wasmLibcWindowsFtell(stream.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun rewind(stream: FILE?) {
-    if (_windowsNapiAvailable) {
-        _wasm_libc_windows_rewind((stream?.handle ?: 0L).toString())
+public actual fun rewind(stream: MutPtr<FILE>) {
+    if (windowsNapiAvailable) {
+        wasmLibcWindowsRewind(stream.rawAddress.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun fgetpos(stream: FILE?, ptr: COpaquePointer?): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_fgetpos((stream?.handle ?: 0L).toString(), (ptr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fgetpos(stream: MutPtr<FILE>, ptr: MutPtr<FposT>): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsFgetpos(stream.rawAddress.toString(), ptr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fsetpos(stream: FILE?, ptr: COpaquePointer?): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_fsetpos((stream?.handle ?: 0L).toString(), (ptr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fsetpos(stream: MutPtr<FILE>, ptr: ConstPtr<FposT>): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsFsetpos(stream.rawAddress.toString(), ptr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun feof(stream: FILE?): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_feof((stream?.handle ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun feof(stream: MutPtr<FILE>): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsFeof(stream.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ferror(stream: FILE?): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_ferror((stream?.handle ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ferror(stream: MutPtr<FILE>): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsFerror(stream.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun perror(s: String?) {
-    if (_windowsNapiAvailable) {
-        _wasm_libc_windows_perror(s)
+public actual fun perror(s: ConstPtr<CChar>) {
+    if (windowsNapiAvailable) {
+        wasmLibcWindowsPerror(s.rawAddress.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun atof(s: String?): CDouble =
-    if (_windowsNapiAvailable) _wasm_libc_windows_atof(s) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun atof(s: ConstPtr<CChar>): CDouble =
+    if (windowsNapiAvailable) wasmLibcWindowsAtof(s.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun atoi(s: String?): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_atoi(s) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun atoi(s: ConstPtr<CChar>): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsAtoi(s.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun atol(s: String?): CLong =
-    if (_windowsNapiAvailable) _wasm_libc_windows_atol(s).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun atol(s: ConstPtr<CChar>): CLong =
+    if (windowsNapiAvailable) wasmLibcWindowsAtol(s.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun atoll(s: String?): CLonglong =
-    if (_windowsNapiAvailable) _wasm_libc_windows_atoll(s).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun atoll(s: ConstPtr<CChar>): CLonglong =
+    if (windowsNapiAvailable) wasmLibcWindowsAtoll(s.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtod(s: String?, endp: COpaquePointer?): CDouble =
-    if (_windowsNapiAvailable) _wasm_libc_windows_strtod(s, (endp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strtod(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>): CDouble =
+    if (windowsNapiAvailable) wasmLibcWindowsStrtod(s.rawAddress.toString(), endp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtof(s: String?, endp: COpaquePointer?): CFloat =
-    if (_windowsNapiAvailable) _wasm_libc_windows_strtof(s, (endp?.value ?: 0L).toString()).toFloat() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strtof(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>): CFloat =
+    if (windowsNapiAvailable) wasmLibcWindowsStrtof(s.rawAddress.toString(), endp.rawAddress.toString()).toFloat() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtol(s: String?, endp: COpaquePointer?, base: CInt): CLong =
-    if (_windowsNapiAvailable) _wasm_libc_windows_strtol(s, (endp?.value ?: 0L).toString(), base).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strtol(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CLong =
+    if (windowsNapiAvailable) wasmLibcWindowsStrtol(s.rawAddress.toString(), endp.rawAddress.toString(), base).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtoll(s: String?, endp: COpaquePointer?, base: CInt): CLonglong =
-    if (_windowsNapiAvailable) _wasm_libc_windows_strtoll(s, (endp?.value ?: 0L).toString(), base).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strtoll(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CLonglong =
+    if (windowsNapiAvailable) wasmLibcWindowsStrtoll(s.rawAddress.toString(), endp.rawAddress.toString(), base).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtoul(s: String?, endp: COpaquePointer?, base: CInt): CUlong =
-    if (_windowsNapiAvailable) _wasm_libc_windows_strtoul(s, (endp?.value ?: 0L).toString(), base).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strtoul(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CUlong =
+    if (windowsNapiAvailable) wasmLibcWindowsStrtoul(s.rawAddress.toString(), endp.rawAddress.toString(), base).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtoull(s: String?, endp: COpaquePointer?, base: CInt): CUlonglong =
-    if (_windowsNapiAvailable) _wasm_libc_windows_strtoull(s, (endp?.value ?: 0L).toString(), base).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strtoull(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CUlonglong =
+    if (windowsNapiAvailable) wasmLibcWindowsStrtoull(s.rawAddress.toString(), endp.rawAddress.toString(), base).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun calloc(nobj: SizeT, size: SizeT): COpaquePointer? =
-    if (_windowsNapiAvailable) _wasm_libc_windows_calloc(nobj.toString(), size.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun calloc(nobj: SizeT, size: SizeT): MutPtr<CVoid> =
+    if (windowsNapiAvailable) MutPtr(wasmLibcWindowsCalloc(nobj.toString(), size.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun malloc(size: SizeT): COpaquePointer? =
-    if (_windowsNapiAvailable) _wasm_libc_windows_malloc(size.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun malloc(size: SizeT): MutPtr<CVoid> =
+    if (windowsNapiAvailable) MutPtr(wasmLibcWindowsMalloc(size.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msize(p: COpaquePointer?): SizeT =
-    if (_windowsNapiAvailable) _wasm_libc_windows_msize((p?.value ?: 0L).toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun msize(p: MutPtr<CVoid>): SizeT =
+    if (windowsNapiAvailable) wasmLibcWindowsMsize(p.rawAddress.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun realloc(p: COpaquePointer?, size: SizeT): COpaquePointer? =
-    if (_windowsNapiAvailable) _wasm_libc_windows_realloc((p?.value ?: 0L).toString(), size.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun realloc(p: MutPtr<CVoid>, size: SizeT): MutPtr<CVoid> =
+    if (windowsNapiAvailable) MutPtr(wasmLibcWindowsRealloc(p.rawAddress.toString(), size.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun free(p: COpaquePointer?) {
-    if (_windowsNapiAvailable) {
-        _wasm_libc_windows_free((p?.value ?: 0L).toString())
+public actual fun free(p: MutPtr<CVoid>) {
+    if (windowsNapiAvailable) {
+        wasmLibcWindowsFree(p.rawAddress.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
 public actual fun abort(): Nothing {
-    if (_windowsNapiAvailable) {
-        _wasm_libc_windows_abort()
+    if (windowsNapiAvailable) {
+        wasmLibcWindowsAbort()
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
@@ -772,8 +775,8 @@ public actual fun abort(): Nothing {
 }
 
 public actual fun exit(status: CInt): Nothing {
-    if (_windowsNapiAvailable) {
-        _wasm_libc_windows_exit(status)
+    if (windowsNapiAvailable) {
+        wasmLibcWindowsExit(status)
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
@@ -781,364 +784,364 @@ public actual fun exit(status: CInt): Nothing {
 }
 
 public actual fun atexit(cb: AtexitCbCallback): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_atexit(0L.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (windowsNapiAvailable) wasmLibcWindowsAtexit(0L.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun system(s: String?): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_system(s) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun system(s: ConstPtr<CChar>): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsSystem(s.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getenv(s: String?): COpaquePointer? =
-    if (_windowsNapiAvailable) _wasm_libc_windows_getenv(s).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getenv(s: ConstPtr<CChar>): MutPtr<CChar> =
+    if (windowsNapiAvailable) MutPtr(wasmLibcWindowsGetenv(s.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strcpy(dst: COpaquePointer?, src: String?): COpaquePointer? =
-    if (_windowsNapiAvailable) _wasm_libc_windows_strcpy((dst?.value ?: 0L).toString(), src).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strcpy(dst: MutPtr<CChar>, src: ConstPtr<CChar>): MutPtr<CChar> =
+    if (windowsNapiAvailable) MutPtr(wasmLibcWindowsStrcpy(dst.rawAddress.toString(), src.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strncpy(dst: COpaquePointer?, src: String?, n: SizeT): COpaquePointer? =
-    if (_windowsNapiAvailable) _wasm_libc_windows_strncpy((dst?.value ?: 0L).toString(), src, n.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strncpy(dst: MutPtr<CChar>, src: ConstPtr<CChar>, n: SizeT): MutPtr<CChar> =
+    if (windowsNapiAvailable) MutPtr(wasmLibcWindowsStrncpy(dst.rawAddress.toString(), src.rawAddress.toString(), n.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strcat(s: COpaquePointer?, ct: String?): COpaquePointer? =
-    if (_windowsNapiAvailable) _wasm_libc_windows_strcat((s?.value ?: 0L).toString(), ct).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strcat(s: MutPtr<CChar>, ct: ConstPtr<CChar>): MutPtr<CChar> =
+    if (windowsNapiAvailable) MutPtr(wasmLibcWindowsStrcat(s.rawAddress.toString(), ct.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strncat(s: COpaquePointer?, ct: String?, n: SizeT): COpaquePointer? =
-    if (_windowsNapiAvailable) _wasm_libc_windows_strncat((s?.value ?: 0L).toString(), ct, n.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strncat(s: MutPtr<CChar>, ct: ConstPtr<CChar>, n: SizeT): MutPtr<CChar> =
+    if (windowsNapiAvailable) MutPtr(wasmLibcWindowsStrncat(s.rawAddress.toString(), ct.rawAddress.toString(), n.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strcmp(cs: String?, ct: String?): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_strcmp(cs, ct) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strcmp(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsStrcmp(cs.rawAddress.toString(), ct.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strncmp(cs: String?, ct: String?, n: SizeT): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_strncmp(cs, ct, n.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strncmp(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>, n: SizeT): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsStrncmp(cs.rawAddress.toString(), ct.rawAddress.toString(), n.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strcoll(cs: String?, ct: String?): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_strcoll(cs, ct) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strcoll(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsStrcoll(cs.rawAddress.toString(), ct.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strchr(cs: String?, c: CInt): COpaquePointer? =
-    if (_windowsNapiAvailable) _wasm_libc_windows_strchr(cs, c).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strchr(cs: ConstPtr<CChar>, c: CInt): MutPtr<CChar> =
+    if (windowsNapiAvailable) MutPtr(wasmLibcWindowsStrchr(cs.rawAddress.toString(), c).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strrchr(cs: String?, c: CInt): COpaquePointer? =
-    if (_windowsNapiAvailable) _wasm_libc_windows_strrchr(cs, c).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strrchr(cs: ConstPtr<CChar>, c: CInt): MutPtr<CChar> =
+    if (windowsNapiAvailable) MutPtr(wasmLibcWindowsStrrchr(cs.rawAddress.toString(), c).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strspn(cs: String?, ct: String?): SizeT =
-    if (_windowsNapiAvailable) _wasm_libc_windows_strspn(cs, ct).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strspn(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): SizeT =
+    if (windowsNapiAvailable) wasmLibcWindowsStrspn(cs.rawAddress.toString(), ct.rawAddress.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strcspn(cs: String?, ct: String?): SizeT =
-    if (_windowsNapiAvailable) _wasm_libc_windows_strcspn(cs, ct).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strcspn(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): SizeT =
+    if (windowsNapiAvailable) wasmLibcWindowsStrcspn(cs.rawAddress.toString(), ct.rawAddress.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strdup(cs: String?): COpaquePointer? =
-    if (_windowsNapiAvailable) _wasm_libc_windows_strdup(cs).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strdup(cs: ConstPtr<CChar>): MutPtr<CChar> =
+    if (windowsNapiAvailable) MutPtr(wasmLibcWindowsStrdup(cs.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strpbrk(cs: String?, ct: String?): COpaquePointer? =
-    if (_windowsNapiAvailable) _wasm_libc_windows_strpbrk(cs, ct).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strpbrk(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): MutPtr<CChar> =
+    if (windowsNapiAvailable) MutPtr(wasmLibcWindowsStrpbrk(cs.rawAddress.toString(), ct.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strstr(cs: String?, ct: String?): COpaquePointer? =
-    if (_windowsNapiAvailable) _wasm_libc_windows_strstr(cs, ct).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strstr(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): MutPtr<CChar> =
+    if (windowsNapiAvailable) MutPtr(wasmLibcWindowsStrstr(cs.rawAddress.toString(), ct.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strlen(cs: String?): SizeT =
-    if (_windowsNapiAvailable) _wasm_libc_windows_strlen(cs).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strlen(cs: ConstPtr<CChar>): SizeT =
+    if (windowsNapiAvailable) wasmLibcWindowsStrlen(cs.rawAddress.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strnlen(cs: String?, maxlen: SizeT): SizeT =
-    if (_windowsNapiAvailable) _wasm_libc_windows_strnlen(cs, maxlen.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strnlen(cs: ConstPtr<CChar>, maxlen: SizeT): SizeT =
+    if (windowsNapiAvailable) wasmLibcWindowsStrnlen(cs.rawAddress.toString(), maxlen.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strerror(n: CInt): COpaquePointer? =
-    if (_windowsNapiAvailable) _wasm_libc_windows_strerror(n).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strerror(n: CInt): MutPtr<CChar> =
+    if (windowsNapiAvailable) MutPtr(wasmLibcWindowsStrerror(n).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtok(s: COpaquePointer?, t: String?): COpaquePointer? =
-    if (_windowsNapiAvailable) _wasm_libc_windows_strtok((s?.value ?: 0L).toString(), t).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strtok(s: MutPtr<CChar>, t: ConstPtr<CChar>): MutPtr<CChar> =
+    if (windowsNapiAvailable) MutPtr(wasmLibcWindowsStrtok(s.rawAddress.toString(), t.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strxfrm(s: COpaquePointer?, ct: String?, n: SizeT): SizeT =
-    if (_windowsNapiAvailable) _wasm_libc_windows_strxfrm((s?.value ?: 0L).toString(), ct, n.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strxfrm(s: MutPtr<CChar>, ct: ConstPtr<CChar>, n: SizeT): SizeT =
+    if (windowsNapiAvailable) wasmLibcWindowsStrxfrm(s.rawAddress.toString(), ct.rawAddress.toString(), n.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wcslen(buf: COpaquePointer?): SizeT =
-    if (_windowsNapiAvailable) _wasm_libc_windows_wcslen((buf?.value ?: 0L).toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wcslen(buf: ConstPtr<WcharT>): SizeT =
+    if (windowsNapiAvailable) wasmLibcWindowsWcslen(buf.rawAddress.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wcsnlen(str: COpaquePointer?, numberOfElements: SizeT): SizeT =
-    if (_windowsNapiAvailable) _wasm_libc_windows_wcsnlen((str?.value ?: 0L).toString(), numberOfElements.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wcsnlen(str: ConstPtr<WcharT>, numberOfElements: SizeT): SizeT =
+    if (windowsNapiAvailable) wasmLibcWindowsWcsnlen(str.rawAddress.toString(), numberOfElements.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wcstombs(dest: COpaquePointer?, src: COpaquePointer?, n: SizeT): SizeT =
-    if (_windowsNapiAvailable) _wasm_libc_windows_wcstombs((dest?.value ?: 0L).toString(), (src?.value ?: 0L).toString(), n.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wcstombs(dest: MutPtr<CChar>, src: ConstPtr<WcharT>, n: SizeT): SizeT =
+    if (windowsNapiAvailable) wasmLibcWindowsWcstombs(dest.rawAddress.toString(), src.rawAddress.toString(), n.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memchr(cx: COpaquePointer?, c: CInt, n: SizeT): COpaquePointer? =
-    if (_windowsNapiAvailable) _wasm_libc_windows_memchr((cx?.value ?: 0L).toString(), c, n.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun memchr(cx: ConstPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+    if (windowsNapiAvailable) MutPtr(wasmLibcWindowsMemchr(cx.rawAddress.toString(), c, n.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memcmp(cx: COpaquePointer?, ct: COpaquePointer?, n: SizeT): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_memcmp((cx?.value ?: 0L).toString(), (ct?.value ?: 0L).toString(), n.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun memcmp(cx: ConstPtr<CVoid>, ct: ConstPtr<CVoid>, n: SizeT): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsMemcmp(cx.rawAddress.toString(), ct.rawAddress.toString(), n.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memcpy(dest: COpaquePointer?, src: COpaquePointer?, n: SizeT): COpaquePointer? =
-    if (_windowsNapiAvailable) _wasm_libc_windows_memcpy((dest?.value ?: 0L).toString(), (src?.value ?: 0L).toString(), n.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun memcpy(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, n: SizeT): MutPtr<CVoid> =
+    if (windowsNapiAvailable) MutPtr(wasmLibcWindowsMemcpy(dest.rawAddress.toString(), src.rawAddress.toString(), n.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memmove(dest: COpaquePointer?, src: COpaquePointer?, n: SizeT): COpaquePointer? =
-    if (_windowsNapiAvailable) _wasm_libc_windows_memmove((dest?.value ?: 0L).toString(), (src?.value ?: 0L).toString(), n.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun memmove(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, n: SizeT): MutPtr<CVoid> =
+    if (windowsNapiAvailable) MutPtr(wasmLibcWindowsMemmove(dest.rawAddress.toString(), src.rawAddress.toString(), n.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memset(dest: COpaquePointer?, c: CInt, n: SizeT): COpaquePointer? =
-    if (_windowsNapiAvailable) _wasm_libc_windows_memset((dest?.value ?: 0L).toString(), c, n.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun memset(dest: MutPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+    if (windowsNapiAvailable) MutPtr(wasmLibcWindowsMemset(dest.rawAddress.toString(), c, n.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun abs(i: CInt): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_abs(i) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (windowsNapiAvailable) wasmLibcWindowsAbs(i) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun labs(i: CLong): CLong =
-    if (_windowsNapiAvailable) _wasm_libc_windows_labs(i.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (windowsNapiAvailable) wasmLibcWindowsLabs(i.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun rand(): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_rand() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (windowsNapiAvailable) wasmLibcWindowsRand() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun srand(seed: CUint) {
-    if (_windowsNapiAvailable) {
-        _wasm_libc_windows_srand(seed.toInt())
+    if (windowsNapiAvailable) {
+        wasmLibcWindowsSrand(seed.toInt())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
 public actual fun signal(signum: CInt, handler: SighandlerT): SighandlerT =
-    if (_windowsNapiAvailable) _wasm_libc_windows_signal(signum, handler.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (windowsNapiAvailable) wasmLibcWindowsSignal(signum, handler.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun raise(signum: CInt): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_raise(signum) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (windowsNapiAvailable) wasmLibcWindowsRaise(signum) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun clock(): ClockT =
-    if (_windowsNapiAvailable) _wasm_libc_windows_clock() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (windowsNapiAvailable) wasmLibcWindowsClock() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ctime(sourceTime: COpaquePointer?): COpaquePointer? =
-    if (_windowsNapiAvailable) _wasm_libc_windows_ctime((sourceTime?.value ?: 0L).toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ctime(sourceTime: ConstPtr<TimeT>): MutPtr<CChar> =
+    if (windowsNapiAvailable) MutPtr(wasmLibcWindowsCtime(sourceTime.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun difftime(timeEnd: TimeT, timeStart: TimeT): CDouble =
-    if (_windowsNapiAvailable) _wasm_libc_windows_difftime(timeEnd.toString(), timeStart.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (windowsNapiAvailable) wasmLibcWindowsDifftime(timeEnd.toString(), timeStart.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun gmtimeS(destTime: COpaquePointer?, srcTime: COpaquePointer?): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_gmtimeS((destTime?.value ?: 0L).toString(), (srcTime?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun gmtimeS(destTime: MutPtr<Tm>, srcTime: ConstPtr<TimeT>): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsGmtimeS(destTime.rawAddress.toString(), srcTime.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getDaylight(hours: COpaquePointer?): ErrnoT =
-    if (_windowsNapiAvailable) _wasm_libc_windows_getDaylight((hours?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getDaylight(hours: MutPtr<CInt>): ErrnoT =
+    if (windowsNapiAvailable) wasmLibcWindowsGetDaylight(hours.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getDstbias(seconds: COpaquePointer?): ErrnoT =
-    if (_windowsNapiAvailable) _wasm_libc_windows_getDstbias((seconds?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getDstbias(seconds: MutPtr<CLong>): ErrnoT =
+    if (windowsNapiAvailable) wasmLibcWindowsGetDstbias(seconds.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getTimezone(seconds: COpaquePointer?): ErrnoT =
-    if (_windowsNapiAvailable) _wasm_libc_windows_getTimezone((seconds?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getTimezone(seconds: MutPtr<CLong>): ErrnoT =
+    if (windowsNapiAvailable) wasmLibcWindowsGetTimezone(seconds.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getTzname(pReturnValue: COpaquePointer?, timeZoneName: COpaquePointer?, sizeInBytes: SizeT, index: CInt): ErrnoT =
-    if (_windowsNapiAvailable) _wasm_libc_windows_getTzname((pReturnValue?.value ?: 0L).toString(), (timeZoneName?.value ?: 0L).toString(), sizeInBytes.toString(), index) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getTzname(pReturnValue: MutPtr<SizeT>, timeZoneName: MutPtr<CChar>, sizeInBytes: SizeT, index: CInt): ErrnoT =
+    if (windowsNapiAvailable) wasmLibcWindowsGetTzname(pReturnValue.rawAddress.toString(), timeZoneName.rawAddress.toString(), sizeInBytes.toString(), index) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun localtimeS(tmDest: COpaquePointer?, sourceTime: COpaquePointer?): ErrnoT =
-    if (_windowsNapiAvailable) _wasm_libc_windows_localtimeS((tmDest?.value ?: 0L).toString(), (sourceTime?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun localtimeS(tmDest: MutPtr<Tm>, sourceTime: ConstPtr<TimeT>): ErrnoT =
+    if (windowsNapiAvailable) wasmLibcWindowsLocaltimeS(tmDest.rawAddress.toString(), sourceTime.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun time(destTime: COpaquePointer?): TimeT =
-    if (_windowsNapiAvailable) _wasm_libc_windows_time((destTime?.value ?: 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun time(destTime: MutPtr<TimeT>): TimeT =
+    if (windowsNapiAvailable) wasmLibcWindowsTime(destTime.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun tzset() {
-    if (_windowsNapiAvailable) {
-        _wasm_libc_windows_tzset()
+    if (windowsNapiAvailable) {
+        wasmLibcWindowsTzset()
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun chmod(path: String?, mode: CInt): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_chmod(path, mode) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun chmod(path: ConstPtr<CChar>, mode: CInt): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsChmod(path.rawAddress.toString(), mode) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wchmod(path: COpaquePointer?, mode: CInt): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_wchmod((path?.value ?: 0L).toString(), mode) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wchmod(path: ConstPtr<WcharT>, mode: CInt): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsWchmod(path.rawAddress.toString(), mode) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mkdir(path: String?): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_mkdir(path) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mkdir(path: ConstPtr<CChar>): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsMkdir(path.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wrmdir(path: COpaquePointer?): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_wrmdir((path?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wrmdir(path: ConstPtr<WcharT>): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsWrmdir(path.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fstat(fildes: CInt, buf: COpaquePointer?): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_fstat(fildes, (buf?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fstat(fildes: CInt, buf: MutPtr<Stat>): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsFstat(fildes, buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun stat(path: String?, buf: COpaquePointer?): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_stat(path, (buf?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun stat(path: ConstPtr<CChar>, buf: MutPtr<Stat>): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsStat(path.rawAddress.toString(), buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wstat(path: COpaquePointer?, buf: COpaquePointer?): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_wstat((path?.value ?: 0L).toString(), (buf?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wstat(path: ConstPtr<WcharT>, buf: MutPtr<Stat>): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsWstat(path.rawAddress.toString(), buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wutime(file: COpaquePointer?, buf: COpaquePointer?): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_wutime((file?.value ?: 0L).toString(), (buf?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wutime(file: ConstPtr<WcharT>, buf: MutPtr<Utimbuf>): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsWutime(file.rawAddress.toString(), buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun popen(command: String?, mode: String?): FILE? =
-    if (_windowsNapiAvailable) _wasm_libc_windows_popen(command, mode).toLong().let { if (it == 0L) null else FILE(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun popen(command: ConstPtr<CChar>, mode: ConstPtr<CChar>): MutPtr<FILE> =
+    if (windowsNapiAvailable) MutPtr(wasmLibcWindowsPopen(command.rawAddress.toString(), mode.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pclose(stream: FILE?): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_pclose((stream?.handle ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pclose(stream: MutPtr<FILE>): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsPclose(stream.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fdopen(fd: CInt, mode: String?): FILE? =
-    if (_windowsNapiAvailable) _wasm_libc_windows_fdopen(fd, mode).toLong().let { if (it == 0L) null else FILE(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fdopen(fd: CInt, mode: ConstPtr<CChar>): MutPtr<FILE> =
+    if (windowsNapiAvailable) MutPtr(wasmLibcWindowsFdopen(fd, mode.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fileno(stream: FILE?): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_fileno((stream?.handle ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fileno(stream: MutPtr<FILE>): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsFileno(stream.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun open(path: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_open(path, oflag, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun open(path: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsOpen(path.rawAddress.toString(), oflag, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wopen(path: COpaquePointer?, oflag: CInt, vararg variadicArgs: Long): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_wopen((path?.value ?: 0L).toString(), oflag, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wopen(path: ConstPtr<WcharT>, oflag: CInt, vararg variadicArgs: Long): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsWopen(path.rawAddress.toString(), oflag, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun creat(path: String?, mode: CInt): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_creat(path, mode) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun creat(path: ConstPtr<CChar>, mode: CInt): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsCreat(path.rawAddress.toString(), mode) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun access(path: String?, amode: CInt): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_access(path, amode) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun access(path: ConstPtr<CChar>, amode: CInt): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsAccess(path.rawAddress.toString(), amode) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun chdir(dir: String?): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_chdir(dir) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun chdir(dir: ConstPtr<CChar>): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsChdir(dir.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun close(fd: CInt): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_close(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (windowsNapiAvailable) wasmLibcWindowsClose(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun dup(fd: CInt): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_dup(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (windowsNapiAvailable) wasmLibcWindowsDup(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun dup2(src: CInt, dst: CInt): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_dup2(src, dst) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (windowsNapiAvailable) wasmLibcWindowsDup2(src, dst) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun execl(path: String?, arg0: String?, vararg variadicArgs: Long): IntptrT =
-    if (_windowsNapiAvailable) _wasm_libc_windows_execl(path, arg0, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun execl(path: ConstPtr<CChar>, arg0: ConstPtr<CChar>, vararg variadicArgs: Long): IntptrT =
+    if (windowsNapiAvailable) wasmLibcWindowsExecl(path.rawAddress.toString(), arg0.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wexecl(path: COpaquePointer?, arg0: COpaquePointer?, vararg variadicArgs: Long): IntptrT =
-    if (_windowsNapiAvailable) _wasm_libc_windows_wexecl((path?.value ?: 0L).toString(), (arg0?.value ?: 0L).toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wexecl(path: ConstPtr<WcharT>, arg0: ConstPtr<WcharT>, vararg variadicArgs: Long): IntptrT =
+    if (windowsNapiAvailable) wasmLibcWindowsWexecl(path.rawAddress.toString(), arg0.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun execle(path: String?, arg0: String?, vararg variadicArgs: Long): IntptrT =
-    if (_windowsNapiAvailable) _wasm_libc_windows_execle(path, arg0, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun execle(path: ConstPtr<CChar>, arg0: ConstPtr<CChar>, vararg variadicArgs: Long): IntptrT =
+    if (windowsNapiAvailable) wasmLibcWindowsExecle(path.rawAddress.toString(), arg0.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wexecle(path: COpaquePointer?, arg0: COpaquePointer?, vararg variadicArgs: Long): IntptrT =
-    if (_windowsNapiAvailable) _wasm_libc_windows_wexecle((path?.value ?: 0L).toString(), (arg0?.value ?: 0L).toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wexecle(path: ConstPtr<WcharT>, arg0: ConstPtr<WcharT>, vararg variadicArgs: Long): IntptrT =
+    if (windowsNapiAvailable) wasmLibcWindowsWexecle(path.rawAddress.toString(), arg0.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun execlp(path: String?, arg0: String?, vararg variadicArgs: Long): IntptrT =
-    if (_windowsNapiAvailable) _wasm_libc_windows_execlp(path, arg0, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun execlp(path: ConstPtr<CChar>, arg0: ConstPtr<CChar>, vararg variadicArgs: Long): IntptrT =
+    if (windowsNapiAvailable) wasmLibcWindowsExeclp(path.rawAddress.toString(), arg0.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wexeclp(path: COpaquePointer?, arg0: COpaquePointer?, vararg variadicArgs: Long): IntptrT =
-    if (_windowsNapiAvailable) _wasm_libc_windows_wexeclp((path?.value ?: 0L).toString(), (arg0?.value ?: 0L).toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wexeclp(path: ConstPtr<WcharT>, arg0: ConstPtr<WcharT>, vararg variadicArgs: Long): IntptrT =
+    if (windowsNapiAvailable) wasmLibcWindowsWexeclp(path.rawAddress.toString(), arg0.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun execlpe(path: String?, arg0: String?, vararg variadicArgs: Long): IntptrT =
-    if (_windowsNapiAvailable) _wasm_libc_windows_execlpe(path, arg0, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun execlpe(path: ConstPtr<CChar>, arg0: ConstPtr<CChar>, vararg variadicArgs: Long): IntptrT =
+    if (windowsNapiAvailable) wasmLibcWindowsExeclpe(path.rawAddress.toString(), arg0.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wexeclpe(path: COpaquePointer?, arg0: COpaquePointer?, vararg variadicArgs: Long): IntptrT =
-    if (_windowsNapiAvailable) _wasm_libc_windows_wexeclpe((path?.value ?: 0L).toString(), (arg0?.value ?: 0L).toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wexeclpe(path: ConstPtr<WcharT>, arg0: ConstPtr<WcharT>, vararg variadicArgs: Long): IntptrT =
+    if (windowsNapiAvailable) wasmLibcWindowsWexeclpe(path.rawAddress.toString(), arg0.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun execv(prog: String?, argv: COpaquePointer?): IntptrT =
-    if (_windowsNapiAvailable) _wasm_libc_windows_execv(prog, (argv?.value ?: 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun execv(prog: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>): IntptrT =
+    if (windowsNapiAvailable) wasmLibcWindowsExecv(prog.rawAddress.toString(), argv.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun execve(prog: String?, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_execve(prog, (argv?.value ?: 0L).toString(), (envp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun execve(prog: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>, envp: ConstPtr<ConstPtr<CChar>>): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsExecve(prog.rawAddress.toString(), argv.rawAddress.toString(), envp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun execvp(c: String?, argv: COpaquePointer?): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_execvp(c, (argv?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun execvp(c: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsExecvp(c.rawAddress.toString(), argv.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun execvpe(c: String?, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_execvpe(c, (argv?.value ?: 0L).toString(), (envp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun execvpe(c: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>, envp: ConstPtr<ConstPtr<CChar>>): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsExecvpe(c.rawAddress.toString(), argv.rawAddress.toString(), envp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wexecv(prog: COpaquePointer?, argv: COpaquePointer?): IntptrT =
-    if (_windowsNapiAvailable) _wasm_libc_windows_wexecv((prog?.value ?: 0L).toString(), (argv?.value ?: 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wexecv(prog: ConstPtr<WcharT>, argv: ConstPtr<ConstPtr<WcharT>>): IntptrT =
+    if (windowsNapiAvailable) wasmLibcWindowsWexecv(prog.rawAddress.toString(), argv.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wexecve(prog: COpaquePointer?, argv: COpaquePointer?, envp: COpaquePointer?): IntptrT =
-    if (_windowsNapiAvailable) _wasm_libc_windows_wexecve((prog?.value ?: 0L).toString(), (argv?.value ?: 0L).toString(), (envp?.value ?: 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wexecve(prog: ConstPtr<WcharT>, argv: ConstPtr<ConstPtr<WcharT>>, envp: ConstPtr<ConstPtr<WcharT>>): IntptrT =
+    if (windowsNapiAvailable) wasmLibcWindowsWexecve(prog.rawAddress.toString(), argv.rawAddress.toString(), envp.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wexecvp(c: COpaquePointer?, argv: COpaquePointer?): IntptrT =
-    if (_windowsNapiAvailable) _wasm_libc_windows_wexecvp((c?.value ?: 0L).toString(), (argv?.value ?: 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wexecvp(c: ConstPtr<WcharT>, argv: ConstPtr<ConstPtr<WcharT>>): IntptrT =
+    if (windowsNapiAvailable) wasmLibcWindowsWexecvp(c.rawAddress.toString(), argv.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wexecvpe(c: COpaquePointer?, argv: COpaquePointer?, envp: COpaquePointer?): IntptrT =
-    if (_windowsNapiAvailable) _wasm_libc_windows_wexecvpe((c?.value ?: 0L).toString(), (argv?.value ?: 0L).toString(), (envp?.value ?: 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wexecvpe(c: ConstPtr<WcharT>, argv: ConstPtr<ConstPtr<WcharT>>, envp: ConstPtr<ConstPtr<WcharT>>): IntptrT =
+    if (windowsNapiAvailable) wasmLibcWindowsWexecvpe(c.rawAddress.toString(), argv.rawAddress.toString(), envp.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getcwd(buf: COpaquePointer?, size: CInt): COpaquePointer? =
-    if (_windowsNapiAvailable) _wasm_libc_windows_getcwd((buf?.value ?: 0L).toString(), size).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getcwd(buf: MutPtr<CChar>, size: CInt): MutPtr<CChar> =
+    if (windowsNapiAvailable) MutPtr(wasmLibcWindowsGetcwd(buf.rawAddress.toString(), size).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun getpid(): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_getpid() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (windowsNapiAvailable) wasmLibcWindowsGetpid() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun isatty(fd: CInt): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_isatty(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (windowsNapiAvailable) wasmLibcWindowsIsatty(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun lseek(fd: CInt, offset: CLong, origin: CInt): CLong =
-    if (_windowsNapiAvailable) _wasm_libc_windows_lseek(fd, offset.toString(), origin).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (windowsNapiAvailable) wasmLibcWindowsLseek(fd, offset.toString(), origin).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun lseek64(fd: CInt, offset: CLonglong, origin: CInt): CLonglong =
-    if (_windowsNapiAvailable) _wasm_libc_windows_lseek64(fd, offset.toString(), origin).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (windowsNapiAvailable) wasmLibcWindowsLseek64(fd, offset.toString(), origin).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pipe(fds: COpaquePointer?, psize: CUint, textmode: CInt): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_pipe((fds?.value ?: 0L).toString(), psize.toInt(), textmode) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pipe(fds: MutPtr<CInt>, psize: CUint, textmode: CInt): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsPipe(fds.rawAddress.toString(), psize.toInt(), textmode) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun read(fd: CInt, buf: COpaquePointer?, count: CUint): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_read(fd, (buf?.value ?: 0L).toString(), count.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun read(fd: CInt, buf: MutPtr<CVoid>, count: CUint): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsRead(fd, buf.rawAddress.toString(), count.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun rmdir(path: String?): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_rmdir(path) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun rmdir(path: ConstPtr<CChar>): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsRmdir(path.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun unlink(c: String?): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_unlink(c) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun unlink(c: ConstPtr<CChar>): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsUnlink(c.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun write(fd: CInt, buf: COpaquePointer?, count: CUint): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_write(fd, (buf?.value ?: 0L).toString(), count.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun write(fd: CInt, buf: ConstPtr<CVoid>, count: CUint): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsWrite(fd, buf.rawAddress.toString(), count.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun commit(fd: CInt): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_commit(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (windowsNapiAvailable) wasmLibcWindowsCommit(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun getOsfhandle(fd: CInt): IntptrT =
-    if (_windowsNapiAvailable) _wasm_libc_windows_getOsfhandle(fd).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (windowsNapiAvailable) wasmLibcWindowsGetOsfhandle(fd).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun openOsfhandle(osfhandle: IntptrT, flags: CInt): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_openOsfhandle(osfhandle.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (windowsNapiAvailable) wasmLibcWindowsOpenOsfhandle(osfhandle.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setlocale(category: CInt, locale: String?): COpaquePointer? =
-    if (_windowsNapiAvailable) _wasm_libc_windows_setlocale(category, locale).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun setlocale(category: CInt, locale: ConstPtr<CChar>): MutPtr<CChar> =
+    if (windowsNapiAvailable) MutPtr(wasmLibcWindowsSetlocale(category, locale.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wsetlocale(category: CInt, locale: COpaquePointer?): COpaquePointer? =
-    if (_windowsNapiAvailable) _wasm_libc_windows_wsetlocale(category, (locale?.value ?: 0L).toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wsetlocale(category: CInt, locale: ConstPtr<WcharT>): MutPtr<WcharT> =
+    if (windowsNapiAvailable) MutPtr(wasmLibcWindowsWsetlocale(category, locale.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun alignedMalloc(size: SizeT, alignment: SizeT): COpaquePointer? =
-    if (_windowsNapiAvailable) _wasm_libc_windows_alignedMalloc(size.toString(), alignment.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun alignedMalloc(size: SizeT, alignment: SizeT): MutPtr<CVoid> =
+    if (windowsNapiAvailable) MutPtr(wasmLibcWindowsAlignedMalloc(size.toString(), alignment.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun alignedFree(ptr: COpaquePointer?) {
-    if (_windowsNapiAvailable) {
-        _wasm_libc_windows_alignedFree((ptr?.value ?: 0L).toString())
+public actual fun alignedFree(ptr: MutPtr<CVoid>) {
+    if (windowsNapiAvailable) {
+        wasmLibcWindowsAlignedFree(ptr.rawAddress.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun alignedRealloc(memblock: COpaquePointer?, size: SizeT, alignment: SizeT): COpaquePointer? =
-    if (_windowsNapiAvailable) _wasm_libc_windows_alignedRealloc((memblock?.value ?: 0L).toString(), size.toString(), alignment.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun alignedRealloc(memblock: MutPtr<CVoid>, size: SizeT, alignment: SizeT): MutPtr<CVoid> =
+    if (windowsNapiAvailable) MutPtr(wasmLibcWindowsAlignedRealloc(memblock.rawAddress.toString(), size.toString(), alignment.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun putenv(envstring: String?): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_putenv(envstring) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun putenv(envstring: ConstPtr<CChar>): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsPutenv(envstring.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wputenv(envstring: COpaquePointer?): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_wputenv((envstring?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wputenv(envstring: ConstPtr<WcharT>): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsWputenv(envstring.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun putenvS(envstring: String?, valueString: String?): ErrnoT =
-    if (_windowsNapiAvailable) _wasm_libc_windows_putenvS(envstring, valueString) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun putenvS(envstring: ConstPtr<CChar>, valueString: ConstPtr<CChar>): ErrnoT =
+    if (windowsNapiAvailable) wasmLibcWindowsPutenvS(envstring.rawAddress.toString(), valueString.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wputenvS(envstring: COpaquePointer?, valueString: COpaquePointer?): ErrnoT =
-    if (_windowsNapiAvailable) _wasm_libc_windows_wputenvS((envstring?.value ?: 0L).toString(), (valueString?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wputenvS(envstring: ConstPtr<WcharT>, valueString: ConstPtr<WcharT>): ErrnoT =
+    if (windowsNapiAvailable) wasmLibcWindowsWputenvS(envstring.rawAddress.toString(), valueString.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun listen(s: Socket, backlog: CInt): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_listen(s.toString(), backlog) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (windowsNapiAvailable) wasmLibcWindowsListen(s.toString(), backlog) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun accept(s: Socket, addr: COpaquePointer?, addrlen: COpaquePointer?): Socket =
-    if (_windowsNapiAvailable) _wasm_libc_windows_accept(s.toString(), (addr?.value ?: 0L).toString(), (addrlen?.value ?: 0L).toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun accept(s: Socket, addr: MutPtr<Sockaddr>, addrlen: MutPtr<CInt>): Socket =
+    if (windowsNapiAvailable) wasmLibcWindowsAccept(s.toString(), addr.rawAddress.toString(), addrlen.rawAddress.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun bind(s: Socket, name: COpaquePointer?, namelen: CInt): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_bind(s.toString(), (name?.value ?: 0L).toString(), namelen) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun bind(s: Socket, name: ConstPtr<Sockaddr>, namelen: CInt): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsBind(s.toString(), name.rawAddress.toString(), namelen) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun connect(s: Socket, name: COpaquePointer?, namelen: CInt): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_connect(s.toString(), (name?.value ?: 0L).toString(), namelen) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun connect(s: Socket, name: ConstPtr<Sockaddr>, namelen: CInt): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsConnect(s.toString(), name.rawAddress.toString(), namelen) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getpeername(s: Socket, name: COpaquePointer?, nameln: COpaquePointer?): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_getpeername(s.toString(), (name?.value ?: 0L).toString(), (nameln?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getpeername(s: Socket, name: MutPtr<Sockaddr>, nameln: MutPtr<CInt>): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsGetpeername(s.toString(), name.rawAddress.toString(), nameln.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getsockname(s: Socket, name: COpaquePointer?, nameln: COpaquePointer?): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_getsockname(s.toString(), (name?.value ?: 0L).toString(), (nameln?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getsockname(s: Socket, name: MutPtr<Sockaddr>, nameln: MutPtr<CInt>): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsGetsockname(s.toString(), name.rawAddress.toString(), nameln.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getsockopt(s: Socket, level: CInt, optname: CInt, optval: COpaquePointer?, optlen: COpaquePointer?): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_getsockopt(s.toString(), level, optname, (optval?.value ?: 0L).toString(), (optlen?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getsockopt(s: Socket, level: CInt, optname: CInt, optval: MutPtr<CChar>, optlen: MutPtr<CInt>): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsGetsockopt(s.toString(), level, optname, optval.rawAddress.toString(), optlen.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun recvfrom(s: Socket, buf: COpaquePointer?, len: CInt, flags: CInt, from: COpaquePointer?, fromlen: COpaquePointer?): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_recvfrom(s.toString(), (buf?.value ?: 0L).toString(), len, flags, (from?.value ?: 0L).toString(), (fromlen?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun recvfrom(s: Socket, buf: MutPtr<CChar>, len: CInt, flags: CInt, from: MutPtr<Sockaddr>, fromlen: MutPtr<CInt>): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsRecvfrom(s.toString(), buf.rawAddress.toString(), len, flags, from.rawAddress.toString(), fromlen.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sendto(s: Socket, buf: String?, len: CInt, flags: CInt, to: COpaquePointer?, tolen: CInt): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_sendto(s.toString(), buf, len, flags, (to?.value ?: 0L).toString(), tolen) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sendto(s: Socket, buf: ConstPtr<CChar>, len: CInt, flags: CInt, to: ConstPtr<Sockaddr>, tolen: CInt): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsSendto(s.toString(), buf.rawAddress.toString(), len, flags, to.rawAddress.toString(), tolen) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setsockopt(s: Socket, level: CInt, optname: CInt, optval: String?, optlen: CInt): CInt =
-    if (_windowsNapiAvailable) _wasm_libc_windows_setsockopt(s.toString(), level, optname, optval, optlen) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun setsockopt(s: Socket, level: CInt, optname: CInt, optval: ConstPtr<CChar>, optlen: CInt): CInt =
+    if (windowsNapiAvailable) wasmLibcWindowsSetsockopt(s.toString(), level, optname, optval.rawAddress.toString(), optlen) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun socket(af: CInt, socketType: CInt, protocol: CInt): Socket =
-    if (_windowsNapiAvailable) _wasm_libc_windows_socket(af, socketType, protocol).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (windowsNapiAvailable) wasmLibcWindowsSocket(af, socketType, protocol).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")

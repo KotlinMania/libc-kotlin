@@ -2,24 +2,28 @@
 
 package io.github.kotlinmania.libc.new.netbsd.utmp
 
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
-import io.github.kotlinmania.libc.new.netbsd.utmp.cinterop.libc_new_netbsd_utmp_endutent
-import io.github.kotlinmania.libc.new.netbsd.utmp.cinterop.libc_new_netbsd_utmp_getutent
-import io.github.kotlinmania.libc.new.netbsd.utmp.cinterop.libc_new_netbsd_utmp_setutent
-import io.github.kotlinmania.libc.new.netbsd.utmp.cinterop.libc_new_netbsd_utmp_utmpname
+import io.github.kotlinmania.libc.new.netbsd.utmp.cinterop.libcNewNetbsdUtmpEndutent
+import io.github.kotlinmania.libc.new.netbsd.utmp.cinterop.libcNewNetbsdUtmpGetutent
+import io.github.kotlinmania.libc.new.netbsd.utmp.cinterop.libcNewNetbsdUtmpSetutent
+import io.github.kotlinmania.libc.new.netbsd.utmp.cinterop.libcNewNetbsdUtmpUtmpname
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
+import kotlinx.cinterop.ByteVar
+import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
 
-public actual fun utmpname(file: String?): CInt =
-    libc_new_netbsd_utmp_utmpname(file)
+public actual fun utmpname(file: ConstPtr<CChar>): CInt =
+    libcNewNetbsdUtmpUtmpname(file.rawAddress.toCPointer<ByteVar>())
 
 public actual fun setutent() {
-    libc_new_netbsd_utmp_setutent()
+    libcNewNetbsdUtmpSetutent()
 }
 
-public actual fun getutent(): COpaquePointer? =
-    libc_new_netbsd_utmp_getutent()?.let { COpaquePointer(it.toLong()) }
+public actual fun getutent(): MutPtr<Utmp> =
+    MutPtr(libcNewNetbsdUtmpGetutent()?.toLong() ?: 0L)
 
 public actual fun endutent() {
-    libc_new_netbsd_utmp_endutent()
+    libcNewNetbsdUtmpEndutent()
 }

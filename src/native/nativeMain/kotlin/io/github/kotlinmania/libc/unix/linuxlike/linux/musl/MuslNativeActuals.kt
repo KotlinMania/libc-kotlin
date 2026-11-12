@@ -2,164 +2,173 @@
 
 package io.github.kotlinmania.libc.unix.linuxlike.linux.musl
 
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
+import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.PidT
+import io.github.kotlinmania.libc.unix.Rlimit
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.Timeval
 import io.github.kotlinmania.libc.unix.linuxlike.ClockidT
 import io.github.kotlinmania.libc.unix.linuxlike.IdT
-import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libc_unix_linuxlike_linux_musl_adjtimex
-import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libc_unix_linuxlike_linux_musl_asctimeR
-import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libc_unix_linuxlike_linux_musl_basename
-import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libc_unix_linuxlike_linux_musl_clockAdjtime
-import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libc_unix_linuxlike_linux_musl_ctermid
-import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libc_unix_linuxlike_linux_musl_dirname
-import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libc_unix_linuxlike_linux_musl_eaccess
-import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libc_unix_linuxlike_linux_musl_endutxent
-import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libc_unix_linuxlike_linux_musl_euidaccess
-import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libc_unix_linuxlike_linux_musl_explicitBzero
-import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libc_unix_linuxlike_linux_musl_fanotifyMark
-import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libc_unix_linuxlike_linux_musl_getauxval
-import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libc_unix_linuxlike_linux_musl_getpriority
-import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libc_unix_linuxlike_linux_musl_getrandom
-import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libc_unix_linuxlike_linux_musl_getrlimit
-import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libc_unix_linuxlike_linux_musl_gettimeofday
-import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libc_unix_linuxlike_linux_musl_getutxent
-import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libc_unix_linuxlike_linux_musl_getutxid
-import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libc_unix_linuxlike_linux_musl_getutxline
-import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libc_unix_linuxlike_linux_musl_mallocUsableSize
-import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libc_unix_linuxlike_linux_musl_memfdCreate
-import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libc_unix_linuxlike_linux_musl_mlock2
-import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libc_unix_linuxlike_linux_musl_posixSpawnFileActionsAddchdirNp
-import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libc_unix_linuxlike_linux_musl_posixSpawnFileActionsAddfchdirNp
-import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libc_unix_linuxlike_linux_musl_preadv2
-import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libc_unix_linuxlike_linux_musl_prlimit
-import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libc_unix_linuxlike_linux_musl_pthreadTimedjoinNp
-import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libc_unix_linuxlike_linux_musl_pthreadTryjoinNp
-import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libc_unix_linuxlike_linux_musl_ptrace
-import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libc_unix_linuxlike_linux_musl_pututxline
-import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libc_unix_linuxlike_linux_musl_pwritev2
-import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libc_unix_linuxlike_linux_musl_reallocarray
-import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libc_unix_linuxlike_linux_musl_setpriority
-import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libc_unix_linuxlike_linux_musl_setrlimit
-import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libc_unix_linuxlike_linux_musl_setutxent
-import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libc_unix_linuxlike_linux_musl_utmpxname
+import io.github.kotlinmania.libc.unix.linuxlike.Tm
+import io.github.kotlinmania.libc.unix.linuxlike.linux.PosixSpawnFileActionsT
+import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libcUnixLinuxlikeLinuxMuslAdjtimex
+import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libcUnixLinuxlikeLinuxMuslAsctimeR
+import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libcUnixLinuxlikeLinuxMuslBasename
+import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libcUnixLinuxlikeLinuxMuslClockAdjtime
+import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libcUnixLinuxlikeLinuxMuslCtermid
+import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libcUnixLinuxlikeLinuxMuslDirname
+import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libcUnixLinuxlikeLinuxMuslEaccess
+import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libcUnixLinuxlikeLinuxMuslEndutxent
+import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libcUnixLinuxlikeLinuxMuslEuidaccess
+import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libcUnixLinuxlikeLinuxMuslExplicitBzero
+import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libcUnixLinuxlikeLinuxMuslFanotifyMark
+import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libcUnixLinuxlikeLinuxMuslGetauxval
+import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libcUnixLinuxlikeLinuxMuslGetpriority
+import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libcUnixLinuxlikeLinuxMuslGetrandom
+import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libcUnixLinuxlikeLinuxMuslGetrlimit
+import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libcUnixLinuxlikeLinuxMuslGettimeofday
+import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libcUnixLinuxlikeLinuxMuslGetutxent
+import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libcUnixLinuxlikeLinuxMuslGetutxid
+import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libcUnixLinuxlikeLinuxMuslGetutxline
+import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libcUnixLinuxlikeLinuxMuslMallocUsableSize
+import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libcUnixLinuxlikeLinuxMuslMemfdCreate
+import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libcUnixLinuxlikeLinuxMuslMlock2
+import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libcUnixLinuxlikeLinuxMuslPosixSpawnFileActionsAddchdirNp
+import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libcUnixLinuxlikeLinuxMuslPosixSpawnFileActionsAddfchdirNp
+import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libcUnixLinuxlikeLinuxMuslPreadv2
+import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libcUnixLinuxlikeLinuxMuslPrlimit
+import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libcUnixLinuxlikeLinuxMuslPthreadTimedjoinNp
+import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libcUnixLinuxlikeLinuxMuslPthreadTryjoinNp
+import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libcUnixLinuxlikeLinuxMuslPtrace
+import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libcUnixLinuxlikeLinuxMuslPututxline
+import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libcUnixLinuxlikeLinuxMuslPwritev2
+import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libcUnixLinuxlikeLinuxMuslReallocarray
+import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libcUnixLinuxlikeLinuxMuslSetpriority
+import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libcUnixLinuxlikeLinuxMuslSetrlimit
+import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libcUnixLinuxlikeLinuxMuslSetutxent
+import io.github.kotlinmania.libc.unix.linuxlike.linux.musl.cinterop.libcUnixLinuxlikeLinuxMuslUtmpxname
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
 
-public actual fun getrlimit(resource: CInt, rlim: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_musl_getrlimit(resource, rlim?.value?.toCPointer<ByteVar>())
+public actual fun getrlimit(resource: CInt, rlim: MutPtr<Rlimit>): CInt =
+    libcUnixLinuxlikeLinuxMuslGetrlimit(resource, rlim.rawAddress.toCPointer<ByteVar>())
 
-public actual fun setrlimit(resource: CInt, rlim: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_musl_setrlimit(resource, rlim?.value?.toCPointer<ByteVar>())
+public actual fun setrlimit(resource: CInt, rlim: ConstPtr<Rlimit>): CInt =
+    libcUnixLinuxlikeLinuxMuslSetrlimit(resource, rlim.rawAddress.toCPointer<ByteVar>())
 
-public actual fun prlimit(pid: PidT, resource: CInt, newLimit: COpaquePointer?, oldLimit: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_musl_prlimit(pid, resource, newLimit?.value?.toCPointer<ByteVar>(), oldLimit?.value?.toCPointer<ByteVar>())
+public actual fun prlimit(pid: PidT, resource: CInt, newLimit: ConstPtr<Rlimit>, oldLimit: MutPtr<Rlimit>): CInt =
+    libcUnixLinuxlikeLinuxMuslPrlimit(pid, resource, newLimit.rawAddress.toCPointer<ByteVar>(), oldLimit.rawAddress.toCPointer<ByteVar>())
 
-public actual fun gettimeofday(tp: COpaquePointer?, tz: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_musl_gettimeofday(tp?.value?.toCPointer<ByteVar>(), tz?.value?.toCPointer<ByteVar>())
+public actual fun gettimeofday(tp: MutPtr<Timeval>, tz: MutPtr<CVoid>): CInt =
+    libcUnixLinuxlikeLinuxMuslGettimeofday(tp.rawAddress.toCPointer<ByteVar>(), tz.rawAddress.toCPointer<ByteVar>())
 
 public actual fun ptrace(request: CInt, vararg variadicArgs: Long): CLong =
-    libc_unix_linuxlike_linux_musl_ptrace(request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+    libcUnixLinuxlikeLinuxMuslPtrace(request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun getpriority(which: CInt, who: IdT): CInt =
-    libc_unix_linuxlike_linux_musl_getpriority(which, who)
+    libcUnixLinuxlikeLinuxMuslGetpriority(which, who)
 
 public actual fun setpriority(which: CInt, who: IdT, prio: CInt): CInt =
-    libc_unix_linuxlike_linux_musl_setpriority(which, who, prio)
+    libcUnixLinuxlikeLinuxMuslSetpriority(which, who, prio)
 
-public actual fun fanotifyMark(fd: CInt, flags: CUint, mask: CUlonglong, dirfd: CInt, path: String?): CInt =
-    libc_unix_linuxlike_linux_musl_fanotifyMark(fd, flags, mask, dirfd, path)
+public actual fun fanotifyMark(fd: CInt, flags: CUint, mask: CUlonglong, dirfd: CInt, path: ConstPtr<CChar>): CInt =
+    libcUnixLinuxlikeLinuxMuslFanotifyMark(fd, flags, mask, dirfd, path.rawAddress.toCPointer<ByteVar>())
 
-public actual fun preadv2(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: OffT, flags: CInt): SsizeT =
-    libc_unix_linuxlike_linux_musl_preadv2(fd, iov?.value?.toCPointer<ByteVar>(), iovcnt, offset, flags)
+public actual fun preadv2(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT, flags: CInt): SsizeT =
+    libcUnixLinuxlikeLinuxMuslPreadv2(fd, iov.rawAddress.toCPointer<ByteVar>(), iovcnt, offset, flags)
 
-public actual fun pwritev2(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: OffT, flags: CInt): SsizeT =
-    libc_unix_linuxlike_linux_musl_pwritev2(fd, iov?.value?.toCPointer<ByteVar>(), iovcnt, offset, flags)
+public actual fun pwritev2(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT, flags: CInt): SsizeT =
+    libcUnixLinuxlikeLinuxMuslPwritev2(fd, iov.rawAddress.toCPointer<ByteVar>(), iovcnt, offset, flags)
 
 public actual fun getauxval(type: CUlong): CUlong =
-    libc_unix_linuxlike_linux_musl_getauxval(type)
+    libcUnixLinuxlikeLinuxMuslGetauxval(type)
 
-public actual fun explicitBzero(s: COpaquePointer?, len: SizeT) {
-    libc_unix_linuxlike_linux_musl_explicitBzero(s?.value?.toCPointer<ByteVar>(), len)
+public actual fun explicitBzero(s: MutPtr<CVoid>, len: SizeT) {
+    libcUnixLinuxlikeLinuxMuslExplicitBzero(s.rawAddress.toCPointer<ByteVar>(), len)
 }
 
-public actual fun reallocarray(ptr: COpaquePointer?, nmemb: SizeT, size: SizeT): COpaquePointer? =
-    libc_unix_linuxlike_linux_musl_reallocarray(ptr?.value?.toCPointer<ByteVar>(), nmemb, size)?.let { COpaquePointer(it.toLong()) }
+public actual fun reallocarray(ptr: MutPtr<CVoid>, nmemb: SizeT, size: SizeT): MutPtr<CVoid> =
+    MutPtr(libcUnixLinuxlikeLinuxMuslReallocarray(ptr.rawAddress.toCPointer<ByteVar>(), nmemb, size)?.toLong() ?: 0L)
 
-public actual fun adjtimex(buf: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_musl_adjtimex(buf?.value?.toCPointer<ByteVar>())
+public actual fun adjtimex(buf: MutPtr<Timex>): CInt =
+    libcUnixLinuxlikeLinuxMuslAdjtimex(buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun clockAdjtime(clkId: ClockidT, buf: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_musl_clockAdjtime(clkId, buf?.value?.toCPointer<ByteVar>())
+public actual fun clockAdjtime(clkId: ClockidT, buf: MutPtr<Timex>): CInt =
+    libcUnixLinuxlikeLinuxMuslClockAdjtime(clkId, buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun ctermid(s: COpaquePointer?): COpaquePointer? =
-    libc_unix_linuxlike_linux_musl_ctermid(s?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun ctermid(s: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcUnixLinuxlikeLinuxMuslCtermid(s.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun memfdCreate(name: String?, flags: CUint): CInt =
-    libc_unix_linuxlike_linux_musl_memfdCreate(name, flags)
+public actual fun memfdCreate(name: ConstPtr<CChar>, flags: CUint): CInt =
+    libcUnixLinuxlikeLinuxMuslMemfdCreate(name.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun mlock2(addr: COpaquePointer?, len: SizeT, flags: CUint): CInt =
-    libc_unix_linuxlike_linux_musl_mlock2(addr?.value?.toCPointer<ByteVar>(), len, flags)
+public actual fun mlock2(addr: ConstPtr<CVoid>, len: SizeT, flags: CUint): CInt =
+    libcUnixLinuxlikeLinuxMuslMlock2(addr.rawAddress.toCPointer<ByteVar>(), len, flags)
 
-public actual fun mallocUsableSize(ptr: COpaquePointer?): SizeT =
-    libc_unix_linuxlike_linux_musl_mallocUsableSize(ptr?.value?.toCPointer<ByteVar>())
+public actual fun mallocUsableSize(ptr: MutPtr<CVoid>): SizeT =
+    libcUnixLinuxlikeLinuxMuslMallocUsableSize(ptr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun euidaccess(pathname: String?, mode: CInt): CInt =
-    libc_unix_linuxlike_linux_musl_euidaccess(pathname, mode)
+public actual fun euidaccess(pathname: ConstPtr<CChar>, mode: CInt): CInt =
+    libcUnixLinuxlikeLinuxMuslEuidaccess(pathname.rawAddress.toCPointer<ByteVar>(), mode)
 
-public actual fun eaccess(pathname: String?, mode: CInt): CInt =
-    libc_unix_linuxlike_linux_musl_eaccess(pathname, mode)
+public actual fun eaccess(pathname: ConstPtr<CChar>, mode: CInt): CInt =
+    libcUnixLinuxlikeLinuxMuslEaccess(pathname.rawAddress.toCPointer<ByteVar>(), mode)
 
-public actual fun asctimeR(tm: COpaquePointer?, buf: COpaquePointer?): COpaquePointer? =
-    libc_unix_linuxlike_linux_musl_asctimeR(tm?.value?.toCPointer<ByteVar>(), buf?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun asctimeR(tm: ConstPtr<Tm>, buf: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcUnixLinuxlikeLinuxMuslAsctimeR(tm.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun dirname(path: COpaquePointer?): COpaquePointer? =
-    libc_unix_linuxlike_linux_musl_dirname(path?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun dirname(path: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcUnixLinuxlikeLinuxMuslDirname(path.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun basename(path: COpaquePointer?): COpaquePointer? =
-    libc_unix_linuxlike_linux_musl_basename(path?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun basename(path: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcUnixLinuxlikeLinuxMuslBasename(path.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun getrandom(buf: COpaquePointer?, buflen: SizeT, flags: CUint): SsizeT =
-    libc_unix_linuxlike_linux_musl_getrandom(buf?.value?.toCPointer<ByteVar>(), buflen, flags)
+public actual fun getrandom(buf: MutPtr<CVoid>, buflen: SizeT, flags: CUint): SsizeT =
+    libcUnixLinuxlikeLinuxMuslGetrandom(buf.rawAddress.toCPointer<ByteVar>(), buflen, flags)
 
-public actual fun posixSpawnFileActionsAddchdirNp(actions: COpaquePointer?, path: String?): CInt =
-    libc_unix_linuxlike_linux_musl_posixSpawnFileActionsAddchdirNp(actions?.value?.toCPointer<ByteVar>(), path)
+public actual fun posixSpawnFileActionsAddchdirNp(actions: MutPtr<PosixSpawnFileActionsT>, path: ConstPtr<CChar>): CInt =
+    libcUnixLinuxlikeLinuxMuslPosixSpawnFileActionsAddchdirNp(actions.rawAddress.toCPointer<ByteVar>(), path.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnFileActionsAddfchdirNp(actions: COpaquePointer?, fd: CInt): CInt =
-    libc_unix_linuxlike_linux_musl_posixSpawnFileActionsAddfchdirNp(actions?.value?.toCPointer<ByteVar>(), fd)
+public actual fun posixSpawnFileActionsAddfchdirNp(actions: MutPtr<PosixSpawnFileActionsT>, fd: CInt): CInt =
+    libcUnixLinuxlikeLinuxMuslPosixSpawnFileActionsAddfchdirNp(actions.rawAddress.toCPointer<ByteVar>(), fd)
 
-public actual fun getutxent(): COpaquePointer? =
-    libc_unix_linuxlike_linux_musl_getutxent()?.let { COpaquePointer(it.toLong()) }
+public actual fun getutxent(): MutPtr<Utmpx> =
+    MutPtr(libcUnixLinuxlikeLinuxMuslGetutxent()?.toLong() ?: 0L)
 
-public actual fun getutxid(ut: COpaquePointer?): COpaquePointer? =
-    libc_unix_linuxlike_linux_musl_getutxid(ut?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun getutxid(ut: ConstPtr<Utmpx>): MutPtr<Utmpx> =
+    MutPtr(libcUnixLinuxlikeLinuxMuslGetutxid(ut.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun getutxline(ut: COpaquePointer?): COpaquePointer? =
-    libc_unix_linuxlike_linux_musl_getutxline(ut?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun getutxline(ut: ConstPtr<Utmpx>): MutPtr<Utmpx> =
+    MutPtr(libcUnixLinuxlikeLinuxMuslGetutxline(ut.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun pututxline(ut: COpaquePointer?): COpaquePointer? =
-    libc_unix_linuxlike_linux_musl_pututxline(ut?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun pututxline(ut: ConstPtr<Utmpx>): MutPtr<Utmpx> =
+    MutPtr(libcUnixLinuxlikeLinuxMuslPututxline(ut.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun setutxent() {
-    libc_unix_linuxlike_linux_musl_setutxent()
+    libcUnixLinuxlikeLinuxMuslSetutxent()
 }
 
 public actual fun endutxent() {
-    libc_unix_linuxlike_linux_musl_endutxent()
+    libcUnixLinuxlikeLinuxMuslEndutxent()
 }
 
-public actual fun utmpxname(file: String?): CInt =
-    libc_unix_linuxlike_linux_musl_utmpxname(file)
+public actual fun utmpxname(file: ConstPtr<CChar>): CInt =
+    libcUnixLinuxlikeLinuxMuslUtmpxname(file.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadTryjoinNp(thread: PthreadT, retval: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_musl_pthreadTryjoinNp(thread?.value?.toCPointer<ByteVar>(), retval?.value?.toCPointer<ByteVar>())
+public actual fun pthreadTryjoinNp(thread: PthreadT, retval: MutPtr<MutPtr<CVoid>>): CInt =
+    libcUnixLinuxlikeLinuxMuslPthreadTryjoinNp(thread.rawAddress.toCPointer<ByteVar>(), retval.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadTimedjoinNp(thread: PthreadT, retval: COpaquePointer?, abstime: COpaquePointer?): CInt =
-    libc_unix_linuxlike_linux_musl_pthreadTimedjoinNp(thread?.value?.toCPointer<ByteVar>(), retval?.value?.toCPointer<ByteVar>(), abstime?.value?.toCPointer<ByteVar>())
+public actual fun pthreadTimedjoinNp(thread: PthreadT, retval: MutPtr<MutPtr<CVoid>>, abstime: ConstPtr<Timespec>): CInt =
+    libcUnixLinuxlikeLinuxMuslPthreadTimedjoinNp(thread.rawAddress.toCPointer<ByteVar>(), retval.rawAddress.toCPointer<ByteVar>(), abstime.rawAddress.toCPointer<ByteVar>())

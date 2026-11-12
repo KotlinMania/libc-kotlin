@@ -4,12 +4,13 @@ package io.github.kotlinmania.libc.unix.redox
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.unix.CcT
 import io.github.kotlinmania.libc.unix.SizeT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public val PTHREAD_ATTR_SIZE: Int = 32
 
@@ -921,7 +922,7 @@ public val MAP_ANONYMOUS: CInt = MAP_ANON
 
 public val MAP_FIXED: CInt = 0x0004
 
-public val MAP_FAILED: COpaquePointer? = COpaquePointer((0.inv()).toLong())
+public val MAP_FAILED: MutPtr<CVoid> = MutPtr<CVoid>((0.inv()).toLong())
 
 public val MS_ASYNC: CInt = 0x0001
 
@@ -1515,4 +1516,4 @@ public val PRIO_USER: CInt = 2
 public val RENAME_NOREPLACE: CUint = 1u
 
 // Note(redox): relibc {
-public val RTLD_DEFAULT: COpaquePointer? = null
+public val RTLD_DEFAULT: MutPtr<CVoid> = MutPtr(0L)

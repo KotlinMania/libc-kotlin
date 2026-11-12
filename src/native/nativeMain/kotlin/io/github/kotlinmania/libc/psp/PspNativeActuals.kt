@@ -2,558 +2,562 @@
 
 package io.github.kotlinmania.libc.psp
 
-import io.github.kotlinmania.libc.COpaquePointer
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceAtracAddStreamData
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceAtracDecodeData
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceAtracGetAtracID
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceAtracGetBitrate
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceAtracGetBufferInfoForReseting
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceAtracGetChannel
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceAtracGetInternalErrorInfo
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceAtracGetLoopStatus
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceAtracGetMaxSample
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceAtracGetNextDecodePosition
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceAtracGetNextSample
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceAtracGetRemainFrame
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceAtracGetSecondBufferInfo
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceAtracGetSoundSample
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceAtracGetStreamDataInfo
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceAtracReleaseAtracID
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceAtracResetPlayPosition
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceAtracSetData
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceAtracSetDataAndGetID
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceAtracSetHalfwayBuffer
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceAtracSetHalfwayBufferAndGetID
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceAtracSetLoopNum
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceAtracSetSecondBuffer
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceAudioChRelease
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceAudioChangeChannelVolume
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceAudioGetChannelRestLen
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceAudioGetChannelRestLength
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceAudioGetInputLength
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceAudioInputInit
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceAudioInputInitEx
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceAudioOutput
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceAudioOutput2ChangeLength
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceAudioOutput2GetRestSample
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceAudioOutput2OutputBlocking
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceAudioOutput2Release
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceAudioOutput2Reserve
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceAudioOutputBlocking
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceAudioOutputPanned
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceAudioOutputPannedBlocking
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceAudioPollInputEnd
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceAudioSRCChRelease
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceAudioSRCOutputBlocking
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceAudioSetChannelDataLen
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceAudioWaitInputEnd
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceCtrlGetIdleCancelThreshold
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceCtrlGetSamplingCycle
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceCtrlGetSamplingMode
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceCtrlPeekBufferNegative
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceCtrlPeekBufferPositive
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceCtrlPeekLatch
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceCtrlReadBufferNegative
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceCtrlReadBufferPositive
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceCtrlReadLatch
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceCtrlSetIdleCancelThreshold
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceCtrlSetSamplingCycle
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceDisplayGetAccumulatedHcount
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceDisplayGetCurrentHcount
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceDisplayGetFramePerSec
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceDisplayGetMode
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceDisplayGetVcount
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceDisplayIsForeground
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceDisplayIsVblank
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceDisplayWaitVblank
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceDisplayWaitVblankCB
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceDisplayWaitVblankStart
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceDisplayWaitVblankStartCB
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGeBreak
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGeContinue
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGeEdramGetAddr
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGeEdramGetSize
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGeEdramSetAddrTranslation
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGeGetCmd
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGeGetStack
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGeListDeQueue
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGeListEnQueue
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGeListEnQueueHead
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGeListUpdateStallAddr
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGeRestoreContext
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGeSaveContext
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGeSetCallback
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGeUnsetCallback
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuAmbient
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuAmbientColor
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuBeginObject
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuBreak
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuCallList
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuCallMode
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuCheckList
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuClear
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuClearColor
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuClearDepth
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuClearStencil
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuClutLoad
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuColor
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuColorMaterial
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuContinue
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuDepthBuffer
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuDepthMask
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuDepthOffset
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuDepthRange
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuDispBuffer
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuDisplay
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuDrawBezier
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuDrawSpline
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuEndObject
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuFinish
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuFinishId
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuFog
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuGetAllStatus
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuGetMemory
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuInit
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuLightAtt
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuLightColor
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuMaterial
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuModelColor
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuMorphWeight
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuOffset
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuPatchDivide
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuPatchFrontFace
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuPixelMask
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuScissor
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuSetAllStatus
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuSpecular
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuSwapBuffers
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuTerm
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuTexEnvColor
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuTexFlush
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuTexOffset
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuTexScale
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuTexSlope
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuTexSync
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGuViewport
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGumDrawBezier
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGumDrawSpline
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGumFastInverse
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGumFullInverse
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGumLoadIdentity
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGumOrtho
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGumPerspective
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGumPopMatrix
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGumPushMatrix
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGumRotateX
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGumRotateY
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGumRotateZ
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceGumUpdateMatrix
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHprmIsHeadphoneExist
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHprmIsMicrophoneExist
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHprmIsRemoteExist
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHprmPeekCurrentKey
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHprmPeekLatch
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHprmReadLatch
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHttpAbortRequest
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHttpAddExtraHeader
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHttpCreateConnection
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHttpCreateConnectionWithURL
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHttpCreateTemplate
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHttpDeleteConnection
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHttpDeleteHeader
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHttpDeleteRequest
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHttpDeleteTemplate
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHttpDisableAuth
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHttpDisableCache
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHttpDisableCookie
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHttpDisableKeepAlive
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHttpDisableRedirect
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHttpEnableAuth
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHttpEnableCache
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHttpEnableCookie
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHttpEnableKeepAlive
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHttpEnableRedirect
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHttpEnd
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHttpEndCache
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHttpGetAllHeader
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHttpGetContentLength
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHttpGetNetworkErrno
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHttpGetProxy
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHttpGetStatusCode
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHttpInit
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHttpInitCache
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHttpLoadSystemCookie
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHttpReadData
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHttpSaveSystemCookie
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHttpSendRequest
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHttpSetAuthInfoCB
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHttpSetConnectTimeOut
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHttpSetMallocFunction
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHttpSetProxy
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHttpSetRecvTimeOut
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHttpSetResHeaderMaxSize
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHttpSetResolveRetry
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHttpSetResolveTimeOut
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHttpSetSendTimeOut
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHttpsEnd
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHttpsInit
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceHttpsLoadDefaultCert
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceIoChdir
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceIoChstat
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceIoDevctl
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceIoGetstat
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceIoMkdir
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceIoRemove
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceIoRename
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceIoRmdir
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceIoSync
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceIoUnassign
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceJpegCreateMJpeg
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceJpegDecodeMJpeg
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceJpegDeleteMJpeg
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceJpegFinishMJpeg
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceJpegInitMJpeg
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelChangeCurrentThreadAttr
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelCheckCallback
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelCheckThreadStack
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelCpuResumeIntr
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelCpuResumeIntrWithSync
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelCpuSuspendIntr
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelCreateFpl
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelDcacheInvalidateRange
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelDcacheWritebackAll
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelDcacheWritebackInvalidateAll
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelDcacheWritebackInvalidateRange
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelDcacheWritebackRange
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelDelaySysClockThread
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelDelaySysClockThreadCB
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelDelayThread
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelDelayThreadCB
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelDevkitVersion
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelDisableSubIntr
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelEnableSubIntr
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelExitDeleteThread
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelExitGame
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelExitThread
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelGetCompiledSdkVersion
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelGetModuleIdList
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelGetSystemTime
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelGetSystemTimeLow
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelGetSystemTimeWide
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelGetThreadCurrentPriority
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelGetThreadId
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelIcacheInvalidateAll
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelIcacheInvalidateRange
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelIsCpuIntrEnable
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelIsCpuIntrSuspended
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelLibcClock
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelLibcGettimeofday
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelLibcTime
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelLoadExec
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelMaxFreeMemSize
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelReferGlobalProfiler
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelReferSystemStatus
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelReferThreadProfiler
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelRegisterSubIntrHandler
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelReleaseSubIntrHandler
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelResumeDispatchThread
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelRotateThreadReadyQueue
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelSelfStopUnloadModule
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelSetCompiledSdkVersion
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelSleepThread
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelSleepThreadCB
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelStopUnloadSelfModule
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelSuspendDispatchThread
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelSysClock2USec
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelSysClock2USecWide
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelTotalFreeMemSize
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelUSec2SysClock
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelUSec2SysClockWide
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelUtilsMd5BlockInit
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelUtilsMd5BlockResult
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelUtilsMd5BlockUpdate
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelUtilsMd5Digest
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelUtilsMt19937Init
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelUtilsMt19937UInt
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelUtilsSha1BlockInit
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelUtilsSha1BlockResult
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelUtilsSha1BlockUpdate
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelUtilsSha1Digest
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelVolatileMemLock
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelVolatileMemTryLock
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceKernelVolatileMemUnlock
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceMp3InitResource
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceMp3ReserveMp3Handle
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceMp3TermResource
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceMpegBaseCscInit
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceMpegBaseCscVme
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceMpegBaseYCrCbCopyVme
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceMpegFinish
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceMpegInit
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceMpegQueryMemSize
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceMpegQueryStreamSize
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceMpegRingbufferAvailableSize
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceMpegRingbufferConstruct
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceMpegRingbufferDestruct
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceMpegRingbufferPut
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceMpegRingbufferQueryMemSize
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceMpegbaseBea18f91
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocGameModeCreateMaster
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocGameModeCreateReplica
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocGameModeDeleteMaster
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocGameModeDeleteReplica
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocGameModeUpdateMaster
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocGameModeUpdateReplica
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocGetPdpStat
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocGetPtpStat
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocInit
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocMatchingAbortSendData
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocMatchingCancelTarget
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocMatchingCancelTargetWithOpt
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocMatchingDelete
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocMatchingGetHelloOpt
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocMatchingGetMembers
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocMatchingGetPoolMaxAlloc
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocMatchingGetPoolStat
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocMatchingInit
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocMatchingSelectTarget
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocMatchingSendData
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocMatchingSetHelloOpt
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocMatchingStart
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocMatchingStop
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocMatchingTerm
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocPdpCreate
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocPdpDelete
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocPdpRecv
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocPdpSend
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocPtpAccept
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocPtpClose
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocPtpConnect
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocPtpFlush
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocPtpListen
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocPtpOpen
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocPtpRecv
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocPtpSend
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocTerm
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocctlAddHandler
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocctlConnect
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocctlCreate
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocctlCreateEnterGameMode
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocctlDelHandler
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocctlDisconnect
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocctlExitGameMode
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocctlGetAddrByName
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocctlGetAdhocId
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocctlGetGameModeInfo
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocctlGetNameByAddr
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocctlGetParameter
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocctlGetPeerInfo
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocctlGetPeerList
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocctlGetScanInfo
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocctlGetState
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocctlInit
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocctlJoin
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocctlJoinEnterGameMode
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocctlScan
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetAdhocctlTerm
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetApctlAddHandler
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetApctlConnect
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetApctlDelHandler
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetApctlDisconnect
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetApctlGetState
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetApctlInit
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetApctlTerm
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetEtherNtostr
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetEtherStrton
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetFreeThreadinfo
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetGetLocalEtherAddr
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetGetMallocStat
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetInetAccept
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetInetBind
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetInetClose
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetInetConnect
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetInetGetErrno
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetInetGetsockopt
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetInetInit
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetInetListen
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetInetRecv
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetInetRecvfrom
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetInetSend
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetInetSendto
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetInetSetsockopt
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetInetShutdown
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetInetSocket
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetInetTerm
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetInit
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetResolverCreate
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetResolverDelete
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetResolverInit
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetResolverStartAtoN
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetResolverStartNtoA
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetResolverStop
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetResolverTerm
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetTerm
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceNetThreadAbort
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceOpenPSIDGetOpenPSID
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_scePowerGetBatteryChargingStatus
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_scePowerGetBatteryElec
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_scePowerGetBatteryLifePercent
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_scePowerGetBatteryLifeTime
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_scePowerGetBatteryTemp
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_scePowerGetBatteryVolt
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_scePowerGetBusClockFrequency
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_scePowerGetBusClockFrequencyFloat
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_scePowerGetBusClockFrequencyInt
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_scePowerGetCpuClockFrequency
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_scePowerGetCpuClockFrequencyFloat
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_scePowerGetCpuClockFrequencyInt
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_scePowerGetIdleTimer
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_scePowerIdleTimerDisable
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_scePowerIdleTimerEnable
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_scePowerIsBatteryCharging
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_scePowerIsBatteryExist
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_scePowerIsLowBattery
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_scePowerIsPowerOnline
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_scePowerLock
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_scePowerRequestStandby
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_scePowerRequestSuspend
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_scePowerSetBusClockFrequency
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_scePowerSetClockFrequency
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_scePowerSetCpuClockFrequency
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_scePowerUnlock
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_scePowerUnregisterCallback
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceRegOpenRegistry
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceRegRemoveRegistry
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceRtcCheckValid
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceRtcCompareTick
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceRtcConvertLocalTimeToUTC
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceRtcConvertUtcToLocalTime
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceRtcFormatRFC2822
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceRtcFormatRFC2822LocalTime
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceRtcFormatRFC3339
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceRtcFormatRFC3339LocalTime
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceRtcGetCurrentClock
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceRtcGetCurrentClockLocalTime
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceRtcGetCurrentTick
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceRtcGetDayOfWeek
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceRtcGetDaysInMonth
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceRtcGetDosTime
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceRtcGetTick
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceRtcGetTickResolution
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceRtcGetTime64T
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceRtcGetTimeT
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceRtcGetWin32FileTime
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceRtcIsLeapYear
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceRtcParseDateTime
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceRtcParseRFC3339
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceRtcSetDosTime
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceRtcSetTick
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceRtcSetTime64T
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceRtcSetTimeT
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceRtcSetWin32FileTime
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceRtcTickAddDays
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceRtcTickAddHours
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceRtcTickAddMicroseconds
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceRtcTickAddMinutes
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceRtcTickAddMonths
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceRtcTickAddSeconds
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceRtcTickAddTicks
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceRtcTickAddWeeks
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceRtcTickAddYears
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceSslEnd
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceSslGetUsedMemoryCurrent
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceSslGetUsedMemoryMax
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceSslInit
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUmdActivate
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUmdCancelWaitDriveStat
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUmdCheckMedium
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUmdDeactivate
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUmdGetDiscInfo
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUmdGetDriveStat
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUmdGetErrorStat
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUmdRegisterUMDCallBack
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUmdReplacePermit
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUmdReplaceProhibit
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUmdUnRegisterUMDCallBack
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUmdWaitDriveStat
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUmdWaitDriveStatCB
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUmdWaitDriveStatWithTimer
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUsbActivate
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUsbCamAutoImageReverseSW
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUsbCamGetAutoImageReverseState
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUsbCamGetBrightness
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUsbCamGetContrast
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUsbCamGetEvLevel
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUsbCamGetImageEffectMode
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUsbCamGetLensDirection
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUsbCamGetReadVideoFrameSize
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUsbCamGetReverseMode
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUsbCamGetSaturation
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUsbCamGetSharpness
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUsbCamGetZoom
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUsbCamPollReadVideoFrameEnd
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUsbCamReadVideoFrame
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUsbCamReadVideoFrameBlocking
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUsbCamSetBrightness
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUsbCamSetContrast
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUsbCamSetReverseMode
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUsbCamSetSaturation
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUsbCamSetSharpness
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUsbCamSetZoom
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUsbCamSetupStill
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUsbCamSetupStillEx
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUsbCamSetupVideo
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUsbCamSetupVideoEx
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUsbCamStartVideo
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUsbCamStillCancelInput
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUsbCamStillGetInputLength
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUsbCamStillInput
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUsbCamStillInputBlocking
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUsbCamStillPollInputEnd
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUsbCamStillWaitInputEnd
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUsbCamStopVideo
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUsbCamWaitReadVideoFrameEnd
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUsbDeactivate
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUsbGetDrvState
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUsbGetState
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUsbStart
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUsbStop
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUsbstorBootSetCapacity
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUsbstorBootUnregisterNotify
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUtilityCheckNetParam
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUtilityCopyNetParam
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUtilityCreateNetParam
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUtilityDeleteNetParam
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUtilityGameSharingGetStatus
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUtilityGameSharingInitStart
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUtilityGameSharingShutdownStart
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUtilityGameSharingUpdate
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUtilityHtmlViewerGetStatus
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUtilityHtmlViewerInitStart
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUtilityHtmlViewerShutdownStart
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUtilityHtmlViewerUpdate
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUtilityMsgDialogAbort
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUtilityMsgDialogGetStatus
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUtilityMsgDialogInitStart
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUtilityMsgDialogShutdownStart
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUtilityMsgDialogUpdate
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUtilityNetconfGetStatus
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUtilityNetconfInitStart
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUtilityNetconfShutdownStart
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUtilityNetconfUpdate
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUtilityOskGetStatus
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUtilityOskInitStart
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUtilityOskShutdownStart
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUtilityOskUpdate
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUtilitySavedataGetStatus
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUtilitySavedataInitStart
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUtilitySavedataShutdownStart
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceUtilitySavedataUpdate
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceWlanDevAttach
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceWlanDevDetach
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceWlanDevIsPowerOn
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceWlanGetEtherAddr
-import io.github.kotlinmania.libc.psp.cinterop.libc_psp_sceWlanGetSwitchState
+import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceAtracAddStreamData
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceAtracDecodeData
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceAtracGetAtracID
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceAtracGetBitrate
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceAtracGetBufferInfoForReseting
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceAtracGetChannel
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceAtracGetInternalErrorInfo
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceAtracGetLoopStatus
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceAtracGetMaxSample
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceAtracGetNextDecodePosition
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceAtracGetNextSample
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceAtracGetRemainFrame
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceAtracGetSecondBufferInfo
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceAtracGetSoundSample
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceAtracGetStreamDataInfo
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceAtracReleaseAtracID
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceAtracResetPlayPosition
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceAtracSetData
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceAtracSetDataAndGetID
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceAtracSetHalfwayBuffer
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceAtracSetHalfwayBufferAndGetID
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceAtracSetLoopNum
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceAtracSetSecondBuffer
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceAudioChRelease
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceAudioChangeChannelVolume
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceAudioGetChannelRestLen
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceAudioGetChannelRestLength
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceAudioGetInputLength
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceAudioInputInit
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceAudioInputInitEx
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceAudioOutput
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceAudioOutput2ChangeLength
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceAudioOutput2GetRestSample
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceAudioOutput2OutputBlocking
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceAudioOutput2Release
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceAudioOutput2Reserve
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceAudioOutputBlocking
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceAudioOutputPanned
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceAudioOutputPannedBlocking
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceAudioPollInputEnd
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceAudioSRCChRelease
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceAudioSRCOutputBlocking
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceAudioSetChannelDataLen
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceAudioWaitInputEnd
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceCtrlGetIdleCancelThreshold
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceCtrlGetSamplingCycle
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceCtrlGetSamplingMode
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceCtrlPeekBufferNegative
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceCtrlPeekBufferPositive
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceCtrlPeekLatch
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceCtrlReadBufferNegative
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceCtrlReadBufferPositive
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceCtrlReadLatch
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceCtrlSetIdleCancelThreshold
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceCtrlSetSamplingCycle
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceDisplayGetAccumulatedHcount
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceDisplayGetCurrentHcount
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceDisplayGetFramePerSec
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceDisplayGetMode
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceDisplayGetVcount
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceDisplayIsForeground
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceDisplayIsVblank
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceDisplayWaitVblank
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceDisplayWaitVblankCB
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceDisplayWaitVblankStart
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceDisplayWaitVblankStartCB
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGeBreak
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGeContinue
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGeEdramGetAddr
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGeEdramGetSize
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGeEdramSetAddrTranslation
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGeGetCmd
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGeGetStack
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGeListDeQueue
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGeListEnQueue
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGeListEnQueueHead
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGeListUpdateStallAddr
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGeRestoreContext
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGeSaveContext
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGeSetCallback
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGeUnsetCallback
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuAmbient
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuAmbientColor
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuBeginObject
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuBreak
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuCallList
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuCallMode
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuCheckList
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuClear
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuClearColor
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuClearDepth
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuClearStencil
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuClutLoad
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuColor
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuColorMaterial
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuContinue
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuDepthBuffer
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuDepthMask
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuDepthOffset
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuDepthRange
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuDispBuffer
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuDisplay
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuDrawBezier
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuDrawSpline
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuEndObject
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuFinish
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuFinishId
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuFog
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuGetAllStatus
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuGetMemory
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuInit
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuLightAtt
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuLightColor
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuMaterial
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuModelColor
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuMorphWeight
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuOffset
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuPatchDivide
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuPatchFrontFace
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuPixelMask
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuScissor
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuSetAllStatus
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuSpecular
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuSwapBuffers
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuTerm
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuTexEnvColor
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuTexFlush
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuTexOffset
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuTexScale
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuTexSlope
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuTexSync
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGuViewport
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGumDrawBezier
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGumDrawSpline
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGumFastInverse
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGumFullInverse
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGumLoadIdentity
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGumOrtho
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGumPerspective
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGumPopMatrix
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGumPushMatrix
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGumRotateX
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGumRotateY
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGumRotateZ
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceGumUpdateMatrix
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHprmIsHeadphoneExist
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHprmIsMicrophoneExist
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHprmIsRemoteExist
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHprmPeekCurrentKey
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHprmPeekLatch
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHprmReadLatch
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHttpAbortRequest
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHttpAddExtraHeader
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHttpCreateConnection
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHttpCreateConnectionWithURL
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHttpCreateTemplate
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHttpDeleteConnection
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHttpDeleteHeader
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHttpDeleteRequest
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHttpDeleteTemplate
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHttpDisableAuth
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHttpDisableCache
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHttpDisableCookie
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHttpDisableKeepAlive
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHttpDisableRedirect
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHttpEnableAuth
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHttpEnableCache
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHttpEnableCookie
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHttpEnableKeepAlive
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHttpEnableRedirect
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHttpEnd
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHttpEndCache
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHttpGetAllHeader
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHttpGetContentLength
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHttpGetNetworkErrno
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHttpGetProxy
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHttpGetStatusCode
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHttpInit
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHttpInitCache
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHttpLoadSystemCookie
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHttpReadData
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHttpSaveSystemCookie
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHttpSendRequest
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHttpSetAuthInfoCB
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHttpSetConnectTimeOut
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHttpSetMallocFunction
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHttpSetProxy
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHttpSetRecvTimeOut
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHttpSetResHeaderMaxSize
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHttpSetResolveRetry
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHttpSetResolveTimeOut
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHttpSetSendTimeOut
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHttpsEnd
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHttpsInit
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceHttpsLoadDefaultCert
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceIoChdir
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceIoChstat
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceIoDevctl
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceIoGetstat
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceIoMkdir
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceIoRemove
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceIoRename
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceIoRmdir
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceIoSync
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceIoUnassign
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceJpegCreateMJpeg
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceJpegDecodeMJpeg
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceJpegDeleteMJpeg
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceJpegFinishMJpeg
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceJpegInitMJpeg
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelChangeCurrentThreadAttr
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelCheckCallback
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelCheckThreadStack
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelCpuResumeIntr
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelCpuResumeIntrWithSync
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelCpuSuspendIntr
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelCreateFpl
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelDcacheInvalidateRange
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelDcacheWritebackAll
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelDcacheWritebackInvalidateAll
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelDcacheWritebackInvalidateRange
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelDcacheWritebackRange
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelDelaySysClockThread
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelDelaySysClockThreadCB
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelDelayThread
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelDelayThreadCB
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelDevkitVersion
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelDisableSubIntr
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelEnableSubIntr
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelExitDeleteThread
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelExitGame
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelExitThread
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelGetCompiledSdkVersion
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelGetModuleIdList
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelGetSystemTime
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelGetSystemTimeLow
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelGetSystemTimeWide
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelGetThreadCurrentPriority
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelGetThreadId
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelIcacheInvalidateAll
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelIcacheInvalidateRange
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelIsCpuIntrEnable
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelIsCpuIntrSuspended
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelLibcClock
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelLibcGettimeofday
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelLibcTime
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelLoadExec
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelMaxFreeMemSize
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelReferGlobalProfiler
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelReferSystemStatus
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelReferThreadProfiler
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelRegisterSubIntrHandler
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelReleaseSubIntrHandler
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelResumeDispatchThread
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelRotateThreadReadyQueue
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelSelfStopUnloadModule
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelSetCompiledSdkVersion
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelSleepThread
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelSleepThreadCB
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelStopUnloadSelfModule
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelSuspendDispatchThread
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelSysClock2USec
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelSysClock2USecWide
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelTotalFreeMemSize
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelUSec2SysClock
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelUSec2SysClockWide
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelUtilsMd5BlockInit
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelUtilsMd5BlockResult
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelUtilsMd5BlockUpdate
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelUtilsMd5Digest
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelUtilsMt19937Init
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelUtilsMt19937UInt
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelUtilsSha1BlockInit
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelUtilsSha1BlockResult
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelUtilsSha1BlockUpdate
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelUtilsSha1Digest
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelVolatileMemLock
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelVolatileMemTryLock
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceKernelVolatileMemUnlock
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceMp3InitResource
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceMp3ReserveMp3Handle
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceMp3TermResource
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceMpegBaseCscInit
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceMpegBaseCscVme
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceMpegBaseYCrCbCopyVme
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceMpegFinish
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceMpegInit
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceMpegQueryMemSize
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceMpegQueryStreamSize
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceMpegRingbufferAvailableSize
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceMpegRingbufferConstruct
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceMpegRingbufferDestruct
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceMpegRingbufferPut
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceMpegRingbufferQueryMemSize
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceMpegbaseBea18f91
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocGameModeCreateMaster
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocGameModeCreateReplica
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocGameModeDeleteMaster
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocGameModeDeleteReplica
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocGameModeUpdateMaster
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocGameModeUpdateReplica
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocGetPdpStat
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocGetPtpStat
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocInit
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocMatchingAbortSendData
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocMatchingCancelTarget
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocMatchingCancelTargetWithOpt
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocMatchingDelete
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocMatchingGetHelloOpt
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocMatchingGetMembers
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocMatchingGetPoolMaxAlloc
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocMatchingGetPoolStat
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocMatchingInit
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocMatchingSelectTarget
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocMatchingSendData
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocMatchingSetHelloOpt
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocMatchingStart
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocMatchingStop
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocMatchingTerm
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocPdpCreate
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocPdpDelete
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocPdpRecv
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocPdpSend
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocPtpAccept
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocPtpClose
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocPtpConnect
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocPtpFlush
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocPtpListen
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocPtpOpen
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocPtpRecv
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocPtpSend
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocTerm
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocctlAddHandler
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocctlConnect
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocctlCreate
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocctlCreateEnterGameMode
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocctlDelHandler
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocctlDisconnect
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocctlExitGameMode
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocctlGetAddrByName
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocctlGetAdhocId
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocctlGetGameModeInfo
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocctlGetNameByAddr
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocctlGetParameter
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocctlGetPeerInfo
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocctlGetPeerList
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocctlGetScanInfo
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocctlGetState
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocctlInit
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocctlJoin
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocctlJoinEnterGameMode
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocctlScan
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetAdhocctlTerm
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetApctlAddHandler
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetApctlConnect
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetApctlDelHandler
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetApctlDisconnect
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetApctlGetState
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetApctlInit
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetApctlTerm
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetEtherNtostr
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetEtherStrton
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetFreeThreadinfo
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetGetLocalEtherAddr
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetGetMallocStat
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetInetAccept
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetInetBind
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetInetClose
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetInetConnect
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetInetGetErrno
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetInetGetsockopt
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetInetInit
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetInetListen
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetInetRecv
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetInetRecvfrom
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetInetSend
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetInetSendto
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetInetSetsockopt
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetInetShutdown
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetInetSocket
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetInetTerm
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetInit
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetResolverCreate
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetResolverDelete
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetResolverInit
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetResolverStartAtoN
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetResolverStartNtoA
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetResolverStop
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetResolverTerm
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetTerm
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceNetThreadAbort
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceOpenPSIDGetOpenPSID
+import io.github.kotlinmania.libc.psp.cinterop.libcPspScePowerGetBatteryChargingStatus
+import io.github.kotlinmania.libc.psp.cinterop.libcPspScePowerGetBatteryElec
+import io.github.kotlinmania.libc.psp.cinterop.libcPspScePowerGetBatteryLifePercent
+import io.github.kotlinmania.libc.psp.cinterop.libcPspScePowerGetBatteryLifeTime
+import io.github.kotlinmania.libc.psp.cinterop.libcPspScePowerGetBatteryTemp
+import io.github.kotlinmania.libc.psp.cinterop.libcPspScePowerGetBatteryVolt
+import io.github.kotlinmania.libc.psp.cinterop.libcPspScePowerGetBusClockFrequency
+import io.github.kotlinmania.libc.psp.cinterop.libcPspScePowerGetBusClockFrequencyFloat
+import io.github.kotlinmania.libc.psp.cinterop.libcPspScePowerGetBusClockFrequencyInt
+import io.github.kotlinmania.libc.psp.cinterop.libcPspScePowerGetCpuClockFrequency
+import io.github.kotlinmania.libc.psp.cinterop.libcPspScePowerGetCpuClockFrequencyFloat
+import io.github.kotlinmania.libc.psp.cinterop.libcPspScePowerGetCpuClockFrequencyInt
+import io.github.kotlinmania.libc.psp.cinterop.libcPspScePowerGetIdleTimer
+import io.github.kotlinmania.libc.psp.cinterop.libcPspScePowerIdleTimerDisable
+import io.github.kotlinmania.libc.psp.cinterop.libcPspScePowerIdleTimerEnable
+import io.github.kotlinmania.libc.psp.cinterop.libcPspScePowerIsBatteryCharging
+import io.github.kotlinmania.libc.psp.cinterop.libcPspScePowerIsBatteryExist
+import io.github.kotlinmania.libc.psp.cinterop.libcPspScePowerIsLowBattery
+import io.github.kotlinmania.libc.psp.cinterop.libcPspScePowerIsPowerOnline
+import io.github.kotlinmania.libc.psp.cinterop.libcPspScePowerLock
+import io.github.kotlinmania.libc.psp.cinterop.libcPspScePowerRequestStandby
+import io.github.kotlinmania.libc.psp.cinterop.libcPspScePowerRequestSuspend
+import io.github.kotlinmania.libc.psp.cinterop.libcPspScePowerSetBusClockFrequency
+import io.github.kotlinmania.libc.psp.cinterop.libcPspScePowerSetClockFrequency
+import io.github.kotlinmania.libc.psp.cinterop.libcPspScePowerSetCpuClockFrequency
+import io.github.kotlinmania.libc.psp.cinterop.libcPspScePowerUnlock
+import io.github.kotlinmania.libc.psp.cinterop.libcPspScePowerUnregisterCallback
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceRegOpenRegistry
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceRegRemoveRegistry
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceRtcCheckValid
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceRtcCompareTick
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceRtcConvertLocalTimeToUTC
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceRtcConvertUtcToLocalTime
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceRtcFormatRFC2822
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceRtcFormatRFC2822LocalTime
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceRtcFormatRFC3339
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceRtcFormatRFC3339LocalTime
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceRtcGetCurrentClock
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceRtcGetCurrentClockLocalTime
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceRtcGetCurrentTick
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceRtcGetDayOfWeek
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceRtcGetDaysInMonth
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceRtcGetDosTime
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceRtcGetTick
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceRtcGetTickResolution
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceRtcGetTime64T
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceRtcGetTimeT
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceRtcGetWin32FileTime
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceRtcIsLeapYear
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceRtcParseDateTime
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceRtcParseRFC3339
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceRtcSetDosTime
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceRtcSetTick
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceRtcSetTime64T
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceRtcSetTimeT
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceRtcSetWin32FileTime
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceRtcTickAddDays
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceRtcTickAddHours
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceRtcTickAddMicroseconds
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceRtcTickAddMinutes
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceRtcTickAddMonths
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceRtcTickAddSeconds
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceRtcTickAddTicks
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceRtcTickAddWeeks
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceRtcTickAddYears
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceSslEnd
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceSslGetUsedMemoryCurrent
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceSslGetUsedMemoryMax
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceSslInit
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUmdActivate
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUmdCancelWaitDriveStat
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUmdCheckMedium
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUmdDeactivate
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUmdGetDiscInfo
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUmdGetDriveStat
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUmdGetErrorStat
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUmdRegisterUMDCallBack
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUmdReplacePermit
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUmdReplaceProhibit
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUmdUnRegisterUMDCallBack
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUmdWaitDriveStat
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUmdWaitDriveStatCB
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUmdWaitDriveStatWithTimer
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUsbActivate
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUsbCamAutoImageReverseSW
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUsbCamGetAutoImageReverseState
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUsbCamGetBrightness
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUsbCamGetContrast
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUsbCamGetEvLevel
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUsbCamGetImageEffectMode
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUsbCamGetLensDirection
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUsbCamGetReadVideoFrameSize
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUsbCamGetReverseMode
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUsbCamGetSaturation
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUsbCamGetSharpness
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUsbCamGetZoom
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUsbCamPollReadVideoFrameEnd
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUsbCamReadVideoFrame
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUsbCamReadVideoFrameBlocking
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUsbCamSetBrightness
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUsbCamSetContrast
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUsbCamSetReverseMode
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUsbCamSetSaturation
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUsbCamSetSharpness
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUsbCamSetZoom
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUsbCamSetupStill
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUsbCamSetupStillEx
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUsbCamSetupVideo
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUsbCamSetupVideoEx
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUsbCamStartVideo
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUsbCamStillCancelInput
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUsbCamStillGetInputLength
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUsbCamStillInput
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUsbCamStillInputBlocking
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUsbCamStillPollInputEnd
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUsbCamStillWaitInputEnd
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUsbCamStopVideo
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUsbCamWaitReadVideoFrameEnd
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUsbDeactivate
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUsbGetDrvState
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUsbGetState
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUsbStart
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUsbStop
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUsbstorBootSetCapacity
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUsbstorBootUnregisterNotify
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUtilityCheckNetParam
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUtilityCopyNetParam
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUtilityCreateNetParam
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUtilityDeleteNetParam
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUtilityGameSharingGetStatus
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUtilityGameSharingInitStart
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUtilityGameSharingShutdownStart
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUtilityGameSharingUpdate
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUtilityHtmlViewerGetStatus
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUtilityHtmlViewerInitStart
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUtilityHtmlViewerShutdownStart
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUtilityHtmlViewerUpdate
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUtilityMsgDialogAbort
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUtilityMsgDialogGetStatus
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUtilityMsgDialogInitStart
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUtilityMsgDialogShutdownStart
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUtilityMsgDialogUpdate
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUtilityNetconfGetStatus
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUtilityNetconfInitStart
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUtilityNetconfShutdownStart
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUtilityNetconfUpdate
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUtilityOskGetStatus
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUtilityOskInitStart
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUtilityOskShutdownStart
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUtilityOskUpdate
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUtilitySavedataGetStatus
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUtilitySavedataInitStart
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUtilitySavedataShutdownStart
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceUtilitySavedataUpdate
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceWlanDevAttach
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceWlanDevDetach
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceWlanDevIsPowerOn
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceWlanGetEtherAddr
+import io.github.kotlinmania.libc.psp.cinterop.libcPspSceWlanGetSwitchState
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
@@ -562,262 +566,262 @@ public actual fun sceAudioChReserve(channel: Int, sampleCount: Int, format: Audi
     0
 
 public actual fun sceAudioChRelease(channel: Int): Int =
-    libc_psp_sceAudioChRelease(channel)
+    libcPspSceAudioChRelease(channel)
 
-public actual fun sceAudioOutput(channel: Int, vol: Int, buf: COpaquePointer?): Int =
-    libc_psp_sceAudioOutput(channel, vol, buf?.value?.toCPointer<ByteVar>())
+public actual fun sceAudioOutput(channel: Int, vol: Int, buf: MutPtr<CVoid>): Int =
+    libcPspSceAudioOutput(channel, vol, buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceAudioOutputBlocking(channel: Int, vol: Int, buf: COpaquePointer?): Int =
-    libc_psp_sceAudioOutputBlocking(channel, vol, buf?.value?.toCPointer<ByteVar>())
+public actual fun sceAudioOutputBlocking(channel: Int, vol: Int, buf: MutPtr<CVoid>): Int =
+    libcPspSceAudioOutputBlocking(channel, vol, buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceAudioOutputPanned(channel: Int, leftVol: Int, rightVol: Int, buf: COpaquePointer?): Int =
-    libc_psp_sceAudioOutputPanned(channel, leftVol, rightVol, buf?.value?.toCPointer<ByteVar>())
+public actual fun sceAudioOutputPanned(channel: Int, leftVol: Int, rightVol: Int, buf: MutPtr<CVoid>): Int =
+    libcPspSceAudioOutputPanned(channel, leftVol, rightVol, buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceAudioOutputPannedBlocking(channel: Int, leftVol: Int, rightVol: Int, buf: COpaquePointer?): Int =
-    libc_psp_sceAudioOutputPannedBlocking(channel, leftVol, rightVol, buf?.value?.toCPointer<ByteVar>())
+public actual fun sceAudioOutputPannedBlocking(channel: Int, leftVol: Int, rightVol: Int, buf: MutPtr<CVoid>): Int =
+    libcPspSceAudioOutputPannedBlocking(channel, leftVol, rightVol, buf.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceAudioGetChannelRestLen(channel: Int): Int =
-    libc_psp_sceAudioGetChannelRestLen(channel)
+    libcPspSceAudioGetChannelRestLen(channel)
 
 public actual fun sceAudioGetChannelRestLength(channel: Int): Int =
-    libc_psp_sceAudioGetChannelRestLength(channel)
+    libcPspSceAudioGetChannelRestLength(channel)
 
 public actual fun sceAudioSetChannelDataLen(channel: Int, sampleCount: Int): Int =
-    libc_psp_sceAudioSetChannelDataLen(channel, sampleCount)
+    libcPspSceAudioSetChannelDataLen(channel, sampleCount)
 
 public actual fun sceAudioChangeChannelConfig(channel: Int, format: AudioFormat): Int =
     0
 
 public actual fun sceAudioChangeChannelVolume(channel: Int, leftVol: Int, rightVol: Int): Int =
-    libc_psp_sceAudioChangeChannelVolume(channel, leftVol, rightVol)
+    libcPspSceAudioChangeChannelVolume(channel, leftVol, rightVol)
 
 public actual fun sceAudioOutput2Reserve(sampleCount: Int): Int =
-    libc_psp_sceAudioOutput2Reserve(sampleCount)
+    libcPspSceAudioOutput2Reserve(sampleCount)
 
 public actual fun sceAudioOutput2Release(): Int =
-    libc_psp_sceAudioOutput2Release()
+    libcPspSceAudioOutput2Release()
 
 public actual fun sceAudioOutput2ChangeLength(sampleCount: Int): Int =
-    libc_psp_sceAudioOutput2ChangeLength(sampleCount)
+    libcPspSceAudioOutput2ChangeLength(sampleCount)
 
-public actual fun sceAudioOutput2OutputBlocking(vol: Int, buf: COpaquePointer?): Int =
-    libc_psp_sceAudioOutput2OutputBlocking(vol, buf?.value?.toCPointer<ByteVar>())
+public actual fun sceAudioOutput2OutputBlocking(vol: Int, buf: MutPtr<CVoid>): Int =
+    libcPspSceAudioOutput2OutputBlocking(vol, buf.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceAudioOutput2GetRestSample(): Int =
-    libc_psp_sceAudioOutput2GetRestSample()
+    libcPspSceAudioOutput2GetRestSample()
 
 public actual fun sceAudioSRCChReserve(sampleCount: Int, freq: AudioOutputFrequency, channels: Int): Int =
     0
 
 public actual fun sceAudioSRCChRelease(): Int =
-    libc_psp_sceAudioSRCChRelease()
+    libcPspSceAudioSRCChRelease()
 
-public actual fun sceAudioSRCOutputBlocking(vol: Int, buf: COpaquePointer?): Int =
-    libc_psp_sceAudioSRCOutputBlocking(vol, buf?.value?.toCPointer<ByteVar>())
+public actual fun sceAudioSRCOutputBlocking(vol: Int, buf: MutPtr<CVoid>): Int =
+    libcPspSceAudioSRCOutputBlocking(vol, buf.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceAudioInputInit(unknown1: Int, gain: Int, unknown2: Int): Int =
-    libc_psp_sceAudioInputInit(unknown1, gain, unknown2)
+    libcPspSceAudioInputInit(unknown1, gain, unknown2)
 
-public actual fun sceAudioInputInitEx(params: COpaquePointer?): Int =
-    libc_psp_sceAudioInputInitEx(params?.value?.toCPointer<ByteVar>())
+public actual fun sceAudioInputInitEx(params: MutPtr<AudioInputParams>): Int =
+    libcPspSceAudioInputInitEx(params.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceAudioInputBlocking(sampleCount: Int, freq: AudioInputFrequency, buf: COpaquePointer?) {
+public actual fun sceAudioInputBlocking(sampleCount: Int, freq: AudioInputFrequency, buf: MutPtr<CVoid>) {
 }
 
-public actual fun sceAudioInput(sampleCount: Int, freq: AudioInputFrequency, buf: COpaquePointer?) {
+public actual fun sceAudioInput(sampleCount: Int, freq: AudioInputFrequency, buf: MutPtr<CVoid>) {
 }
 
 public actual fun sceAudioGetInputLength(): Int =
-    libc_psp_sceAudioGetInputLength()
+    libcPspSceAudioGetInputLength()
 
 public actual fun sceAudioWaitInputEnd(): Int =
-    libc_psp_sceAudioWaitInputEnd()
+    libcPspSceAudioWaitInputEnd()
 
 public actual fun sceAudioPollInputEnd(): Int =
-    libc_psp_sceAudioPollInputEnd()
+    libcPspSceAudioPollInputEnd()
 
 public actual fun sceAtracGetAtracID(uiCodecType: UInt): Int =
-    libc_psp_sceAtracGetAtracID(uiCodecType)
+    libcPspSceAtracGetAtracID(uiCodecType)
 
-public actual fun sceAtracSetDataAndGetID(buf: COpaquePointer?, bufsize: ULong): Int =
-    libc_psp_sceAtracSetDataAndGetID(buf?.value?.toCPointer<ByteVar>(), bufsize)
+public actual fun sceAtracSetDataAndGetID(buf: MutPtr<CVoid>, bufsize: ULong): Int =
+    libcPspSceAtracSetDataAndGetID(buf.rawAddress.toCPointer<ByteVar>(), bufsize)
 
-public actual fun sceAtracDecodeData(atracId: Int, outSamples: COpaquePointer?, outN: COpaquePointer?, outEnd: COpaquePointer?, outRemainFrame: COpaquePointer?): Int =
-    libc_psp_sceAtracDecodeData(atracId, outSamples?.value?.toCPointer<ByteVar>(), outN?.value?.toCPointer<ByteVar>(), outEnd?.value?.toCPointer<ByteVar>(), outRemainFrame?.value?.toCPointer<ByteVar>())
+public actual fun sceAtracDecodeData(atracId: Int, outSamples: MutPtr<UShort>, outN: MutPtr<Int>, outEnd: MutPtr<Int>, outRemainFrame: MutPtr<Int>): Int =
+    libcPspSceAtracDecodeData(atracId, outSamples.rawAddress.toCPointer<ByteVar>(), outN.rawAddress.toCPointer<ByteVar>(), outEnd.rawAddress.toCPointer<ByteVar>(), outRemainFrame.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceAtracGetRemainFrame(atracId: Int, outRemainFrame: COpaquePointer?): Int =
-    libc_psp_sceAtracGetRemainFrame(atracId, outRemainFrame?.value?.toCPointer<ByteVar>())
+public actual fun sceAtracGetRemainFrame(atracId: Int, outRemainFrame: MutPtr<Int>): Int =
+    libcPspSceAtracGetRemainFrame(atracId, outRemainFrame.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceAtracGetStreamDataInfo(atracId: Int, writePointer: COpaquePointer?, availableBytes: COpaquePointer?, readOffset: COpaquePointer?): Int =
-    libc_psp_sceAtracGetStreamDataInfo(atracId, writePointer?.value?.toCPointer<ByteVar>(), availableBytes?.value?.toCPointer<ByteVar>(), readOffset?.value?.toCPointer<ByteVar>())
+public actual fun sceAtracGetStreamDataInfo(atracId: Int, writePointer: MutPtr<MutPtr<UByte>>, availableBytes: MutPtr<UInt>, readOffset: MutPtr<UInt>): Int =
+    libcPspSceAtracGetStreamDataInfo(atracId, writePointer.rawAddress.toCPointer<ByteVar>(), availableBytes.rawAddress.toCPointer<ByteVar>(), readOffset.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceAtracAddStreamData(atracId: Int, bytesToAdd: UInt): Int =
-    libc_psp_sceAtracAddStreamData(atracId, bytesToAdd)
+    libcPspSceAtracAddStreamData(atracId, bytesToAdd)
 
-public actual fun sceAtracGetBitrate(atracId: Int, outBitrate: COpaquePointer?): Int =
-    libc_psp_sceAtracGetBitrate(atracId, outBitrate?.value?.toCPointer<ByteVar>())
+public actual fun sceAtracGetBitrate(atracId: Int, outBitrate: MutPtr<Int>): Int =
+    libcPspSceAtracGetBitrate(atracId, outBitrate.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceAtracSetLoopNum(atracId: Int, nloops: Int): Int =
-    libc_psp_sceAtracSetLoopNum(atracId, nloops)
+    libcPspSceAtracSetLoopNum(atracId, nloops)
 
 public actual fun sceAtracReleaseAtracID(atracId: Int): Int =
-    libc_psp_sceAtracReleaseAtracID(atracId)
+    libcPspSceAtracReleaseAtracID(atracId)
 
-public actual fun sceAtracGetNextSample(atracId: Int, outN: COpaquePointer?): Int =
-    libc_psp_sceAtracGetNextSample(atracId, outN?.value?.toCPointer<ByteVar>())
+public actual fun sceAtracGetNextSample(atracId: Int, outN: MutPtr<Int>): Int =
+    libcPspSceAtracGetNextSample(atracId, outN.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceAtracGetMaxSample(atracId: Int, outMax: COpaquePointer?): Int =
-    libc_psp_sceAtracGetMaxSample(atracId, outMax?.value?.toCPointer<ByteVar>())
+public actual fun sceAtracGetMaxSample(atracId: Int, outMax: MutPtr<Int>): Int =
+    libcPspSceAtracGetMaxSample(atracId, outMax.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceAtracGetBufferInfoForReseting(atracId: Int, uiSample: UInt, pbufferInfo: COpaquePointer?): Int =
-    libc_psp_sceAtracGetBufferInfoForReseting(atracId, uiSample, pbufferInfo?.value?.toCPointer<ByteVar>())
+public actual fun sceAtracGetBufferInfoForReseting(atracId: Int, uiSample: UInt, pbufferInfo: MutPtr<Atrac3BufferInfo>): Int =
+    libcPspSceAtracGetBufferInfoForReseting(atracId, uiSample, pbufferInfo.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceAtracGetChannel(atracId: Int, puiChannel: COpaquePointer?): Int =
-    libc_psp_sceAtracGetChannel(atracId, puiChannel?.value?.toCPointer<ByteVar>())
+public actual fun sceAtracGetChannel(atracId: Int, puiChannel: MutPtr<UInt>): Int =
+    libcPspSceAtracGetChannel(atracId, puiChannel.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceAtracGetInternalErrorInfo(atracId: Int, piResult: COpaquePointer?): Int =
-    libc_psp_sceAtracGetInternalErrorInfo(atracId, piResult?.value?.toCPointer<ByteVar>())
+public actual fun sceAtracGetInternalErrorInfo(atracId: Int, piResult: MutPtr<Int>): Int =
+    libcPspSceAtracGetInternalErrorInfo(atracId, piResult.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceAtracGetLoopStatus(atracId: Int, piLoopNum: COpaquePointer?, puiLoopStatus: COpaquePointer?): Int =
-    libc_psp_sceAtracGetLoopStatus(atracId, piLoopNum?.value?.toCPointer<ByteVar>(), puiLoopStatus?.value?.toCPointer<ByteVar>())
+public actual fun sceAtracGetLoopStatus(atracId: Int, piLoopNum: MutPtr<Int>, puiLoopStatus: MutPtr<UInt>): Int =
+    libcPspSceAtracGetLoopStatus(atracId, piLoopNum.rawAddress.toCPointer<ByteVar>(), puiLoopStatus.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceAtracGetNextDecodePosition(atracId: Int, puiSamplePosition: COpaquePointer?): Int =
-    libc_psp_sceAtracGetNextDecodePosition(atracId, puiSamplePosition?.value?.toCPointer<ByteVar>())
+public actual fun sceAtracGetNextDecodePosition(atracId: Int, puiSamplePosition: MutPtr<UInt>): Int =
+    libcPspSceAtracGetNextDecodePosition(atracId, puiSamplePosition.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceAtracGetSecondBufferInfo(atracId: Int, puiPosition: COpaquePointer?, puiDataByte: COpaquePointer?): Int =
-    libc_psp_sceAtracGetSecondBufferInfo(atracId, puiPosition?.value?.toCPointer<ByteVar>(), puiDataByte?.value?.toCPointer<ByteVar>())
+public actual fun sceAtracGetSecondBufferInfo(atracId: Int, puiPosition: MutPtr<UInt>, puiDataByte: MutPtr<UInt>): Int =
+    libcPspSceAtracGetSecondBufferInfo(atracId, puiPosition.rawAddress.toCPointer<ByteVar>(), puiDataByte.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceAtracGetSoundSample(atracId: Int, piEndSample: COpaquePointer?, piLoopStartSample: COpaquePointer?, piLoopEndSample: COpaquePointer?): Int =
-    libc_psp_sceAtracGetSoundSample(atracId, piEndSample?.value?.toCPointer<ByteVar>(), piLoopStartSample?.value?.toCPointer<ByteVar>(), piLoopEndSample?.value?.toCPointer<ByteVar>())
+public actual fun sceAtracGetSoundSample(atracId: Int, piEndSample: MutPtr<Int>, piLoopStartSample: MutPtr<Int>, piLoopEndSample: MutPtr<Int>): Int =
+    libcPspSceAtracGetSoundSample(atracId, piEndSample.rawAddress.toCPointer<ByteVar>(), piLoopStartSample.rawAddress.toCPointer<ByteVar>(), piLoopEndSample.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceAtracResetPlayPosition(atracId: Int, uiSample: UInt, uiWriteByteFirstBuf: UInt, uiWriteByteSecondBuf: UInt): Int =
-    libc_psp_sceAtracResetPlayPosition(atracId, uiSample, uiWriteByteFirstBuf, uiWriteByteSecondBuf)
+    libcPspSceAtracResetPlayPosition(atracId, uiSample, uiWriteByteFirstBuf, uiWriteByteSecondBuf)
 
-public actual fun sceAtracSetData(atracId: Int, pucBufferAddr: COpaquePointer?, uiBufferByte: UInt): Int =
-    libc_psp_sceAtracSetData(atracId, pucBufferAddr?.value?.toCPointer<ByteVar>(), uiBufferByte)
+public actual fun sceAtracSetData(atracId: Int, pucBufferAddr: MutPtr<UByte>, uiBufferByte: UInt): Int =
+    libcPspSceAtracSetData(atracId, pucBufferAddr.rawAddress.toCPointer<ByteVar>(), uiBufferByte)
 
-public actual fun sceAtracSetHalfwayBuffer(atracId: Int, pucBufferAddr: COpaquePointer?, uiReadByte: UInt, uiBufferByte: UInt): Int =
-    libc_psp_sceAtracSetHalfwayBuffer(atracId, pucBufferAddr?.value?.toCPointer<ByteVar>(), uiReadByte, uiBufferByte)
+public actual fun sceAtracSetHalfwayBuffer(atracId: Int, pucBufferAddr: MutPtr<UByte>, uiReadByte: UInt, uiBufferByte: UInt): Int =
+    libcPspSceAtracSetHalfwayBuffer(atracId, pucBufferAddr.rawAddress.toCPointer<ByteVar>(), uiReadByte, uiBufferByte)
 
-public actual fun sceAtracSetHalfwayBufferAndGetID(pucBufferAddr: COpaquePointer?, uiReadByte: UInt, uiBufferByte: UInt): Int =
-    libc_psp_sceAtracSetHalfwayBufferAndGetID(pucBufferAddr?.value?.toCPointer<ByteVar>(), uiReadByte, uiBufferByte)
+public actual fun sceAtracSetHalfwayBufferAndGetID(pucBufferAddr: MutPtr<UByte>, uiReadByte: UInt, uiBufferByte: UInt): Int =
+    libcPspSceAtracSetHalfwayBufferAndGetID(pucBufferAddr.rawAddress.toCPointer<ByteVar>(), uiReadByte, uiBufferByte)
 
-public actual fun sceAtracSetSecondBuffer(atracId: Int, pucSecondBufferAddr: COpaquePointer?, uiSecondBufferByte: UInt): Int =
-    libc_psp_sceAtracSetSecondBuffer(atracId, pucSecondBufferAddr?.value?.toCPointer<ByteVar>(), uiSecondBufferByte)
+public actual fun sceAtracSetSecondBuffer(atracId: Int, pucSecondBufferAddr: MutPtr<UByte>, uiSecondBufferByte: UInt): Int =
+    libcPspSceAtracSetSecondBuffer(atracId, pucSecondBufferAddr.rawAddress.toCPointer<ByteVar>(), uiSecondBufferByte)
 
 public actual fun sceCtrlSetSamplingCycle(cycle: Int): Int =
-    libc_psp_sceCtrlSetSamplingCycle(cycle)
+    libcPspSceCtrlSetSamplingCycle(cycle)
 
-public actual fun sceCtrlGetSamplingCycle(pcycle: COpaquePointer?): Int =
-    libc_psp_sceCtrlGetSamplingCycle(pcycle?.value?.toCPointer<ByteVar>())
+public actual fun sceCtrlGetSamplingCycle(pcycle: MutPtr<Int>): Int =
+    libcPspSceCtrlGetSamplingCycle(pcycle.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceCtrlSetSamplingMode(mode: CtrlMode): Int =
     0
 
-public actual fun sceCtrlGetSamplingMode(pmode: COpaquePointer?): Int =
-    libc_psp_sceCtrlGetSamplingMode(pmode?.value?.toCPointer<ByteVar>())
+public actual fun sceCtrlGetSamplingMode(pmode: MutPtr<Int>): Int =
+    libcPspSceCtrlGetSamplingMode(pmode.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceCtrlPeekBufferPositive(padData: COpaquePointer?, count: Int): Int =
-    libc_psp_sceCtrlPeekBufferPositive(padData?.value?.toCPointer<ByteVar>(), count)
+public actual fun sceCtrlPeekBufferPositive(padData: MutPtr<SceCtrlData>, count: Int): Int =
+    libcPspSceCtrlPeekBufferPositive(padData.rawAddress.toCPointer<ByteVar>(), count)
 
-public actual fun sceCtrlPeekBufferNegative(padData: COpaquePointer?, count: Int): Int =
-    libc_psp_sceCtrlPeekBufferNegative(padData?.value?.toCPointer<ByteVar>(), count)
+public actual fun sceCtrlPeekBufferNegative(padData: MutPtr<SceCtrlData>, count: Int): Int =
+    libcPspSceCtrlPeekBufferNegative(padData.rawAddress.toCPointer<ByteVar>(), count)
 
-public actual fun sceCtrlReadBufferPositive(padData: COpaquePointer?, count: Int): Int =
-    libc_psp_sceCtrlReadBufferPositive(padData?.value?.toCPointer<ByteVar>(), count)
+public actual fun sceCtrlReadBufferPositive(padData: MutPtr<SceCtrlData>, count: Int): Int =
+    libcPspSceCtrlReadBufferPositive(padData.rawAddress.toCPointer<ByteVar>(), count)
 
-public actual fun sceCtrlReadBufferNegative(padData: COpaquePointer?, count: Int): Int =
-    libc_psp_sceCtrlReadBufferNegative(padData?.value?.toCPointer<ByteVar>(), count)
+public actual fun sceCtrlReadBufferNegative(padData: MutPtr<SceCtrlData>, count: Int): Int =
+    libcPspSceCtrlReadBufferNegative(padData.rawAddress.toCPointer<ByteVar>(), count)
 
-public actual fun sceCtrlPeekLatch(latchData: COpaquePointer?): Int =
-    libc_psp_sceCtrlPeekLatch(latchData?.value?.toCPointer<ByteVar>())
+public actual fun sceCtrlPeekLatch(latchData: MutPtr<SceCtrlLatch>): Int =
+    libcPspSceCtrlPeekLatch(latchData.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceCtrlReadLatch(latchData: COpaquePointer?): Int =
-    libc_psp_sceCtrlReadLatch(latchData?.value?.toCPointer<ByteVar>())
+public actual fun sceCtrlReadLatch(latchData: MutPtr<SceCtrlLatch>): Int =
+    libcPspSceCtrlReadLatch(latchData.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceCtrlSetIdleCancelThreshold(idlereset: Int, idleback: Int): Int =
-    libc_psp_sceCtrlSetIdleCancelThreshold(idlereset, idleback)
+    libcPspSceCtrlSetIdleCancelThreshold(idlereset, idleback)
 
-public actual fun sceCtrlGetIdleCancelThreshold(idlereset: COpaquePointer?, idleback: COpaquePointer?): Int =
-    libc_psp_sceCtrlGetIdleCancelThreshold(idlereset?.value?.toCPointer<ByteVar>(), idleback?.value?.toCPointer<ByteVar>())
+public actual fun sceCtrlGetIdleCancelThreshold(idlereset: MutPtr<Int>, idleback: MutPtr<Int>): Int =
+    libcPspSceCtrlGetIdleCancelThreshold(idlereset.rawAddress.toCPointer<ByteVar>(), idleback.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceDisplaySetMode(mode: DisplayMode, width: ULong, height: ULong): UInt =
     0u
 
-public actual fun sceDisplayGetMode(pmode: COpaquePointer?, pwidth: COpaquePointer?, pheight: COpaquePointer?): Int =
-    libc_psp_sceDisplayGetMode(pmode?.value?.toCPointer<ByteVar>(), pwidth?.value?.toCPointer<ByteVar>(), pheight?.value?.toCPointer<ByteVar>())
+public actual fun sceDisplayGetMode(pmode: MutPtr<Int>, pwidth: MutPtr<Int>, pheight: MutPtr<Int>): Int =
+    libcPspSceDisplayGetMode(pmode.rawAddress.toCPointer<ByteVar>(), pwidth.rawAddress.toCPointer<ByteVar>(), pheight.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceDisplaySetFrameBuf(topAddr: COpaquePointer?, bufferWidth: ULong, pixelFormat: DisplayPixelFormat, sync: DisplaySetBufSync): UInt =
+public actual fun sceDisplaySetFrameBuf(topAddr: ConstPtr<UByte>, bufferWidth: ULong, pixelFormat: DisplayPixelFormat, sync: DisplaySetBufSync): UInt =
     0u
 
-public actual fun sceDisplayGetFrameBuf(topAddr: COpaquePointer?, bufferWidth: COpaquePointer?, pixelFormat: COpaquePointer?, sync: DisplaySetBufSync): Int =
+public actual fun sceDisplayGetFrameBuf(topAddr: MutPtr<MutPtr<CVoid>>, bufferWidth: MutPtr<ULong>, pixelFormat: MutPtr<DisplayPixelFormat>, sync: DisplaySetBufSync): Int =
     0
 
 public actual fun sceDisplayGetVcount(): UInt =
-    libc_psp_sceDisplayGetVcount()
+    libcPspSceDisplayGetVcount()
 
 public actual fun sceDisplayWaitVblank(): Int =
-    libc_psp_sceDisplayWaitVblank()
+    libcPspSceDisplayWaitVblank()
 
 public actual fun sceDisplayWaitVblankCB(): Int =
-    libc_psp_sceDisplayWaitVblankCB()
+    libcPspSceDisplayWaitVblankCB()
 
 public actual fun sceDisplayWaitVblankStart(): Int =
-    libc_psp_sceDisplayWaitVblankStart()
+    libcPspSceDisplayWaitVblankStart()
 
 public actual fun sceDisplayWaitVblankStartCB(): Int =
-    libc_psp_sceDisplayWaitVblankStartCB()
+    libcPspSceDisplayWaitVblankStartCB()
 
 public actual fun sceDisplayGetAccumulatedHcount(): Int =
-    libc_psp_sceDisplayGetAccumulatedHcount()
+    libcPspSceDisplayGetAccumulatedHcount()
 
 public actual fun sceDisplayGetCurrentHcount(): Int =
-    libc_psp_sceDisplayGetCurrentHcount()
+    libcPspSceDisplayGetCurrentHcount()
 
 public actual fun sceDisplayGetFramePerSec(): Float =
-    libc_psp_sceDisplayGetFramePerSec()
+    libcPspSceDisplayGetFramePerSec()
 
 public actual fun sceDisplayIsForeground(): Int =
-    libc_psp_sceDisplayIsForeground()
+    libcPspSceDisplayIsForeground()
 
 public actual fun sceDisplayIsVblank(): Int =
-    libc_psp_sceDisplayIsVblank()
+    libcPspSceDisplayIsVblank()
 
 public actual fun sceGeEdramGetSize(): UInt =
-    libc_psp_sceGeEdramGetSize()
+    libcPspSceGeEdramGetSize()
 
-public actual fun sceGeEdramGetAddr(): COpaquePointer? =
-    libc_psp_sceGeEdramGetAddr()?.let { COpaquePointer(it.toLong()) }
+public actual fun sceGeEdramGetAddr(): MutPtr<UByte> =
+    MutPtr(libcPspSceGeEdramGetAddr()?.toLong() ?: 0L)
 
 public actual fun sceGeEdramSetAddrTranslation(width: Int): Int =
-    libc_psp_sceGeEdramSetAddrTranslation(width)
+    libcPspSceGeEdramSetAddrTranslation(width)
 
 public actual fun sceGeGetCmd(cmd: Int): UInt =
-    libc_psp_sceGeGetCmd(cmd)
+    libcPspSceGeGetCmd(cmd)
 
-public actual fun sceGeGetMtx(type: GeMatrixType, matrix: COpaquePointer?): Int =
+public actual fun sceGeGetMtx(type: GeMatrixType, matrix: MutPtr<CVoid>): Int =
     0
 
-public actual fun sceGeGetStack(stackId: Int, stack: COpaquePointer?): Int =
-    libc_psp_sceGeGetStack(stackId, stack?.value?.toCPointer<ByteVar>())
+public actual fun sceGeGetStack(stackId: Int, stack: MutPtr<GeStack>): Int =
+    libcPspSceGeGetStack(stackId, stack.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceGeSaveContext(context: COpaquePointer?): Int =
-    libc_psp_sceGeSaveContext(context?.value?.toCPointer<ByteVar>())
+public actual fun sceGeSaveContext(context: MutPtr<GeContext>): Int =
+    libcPspSceGeSaveContext(context.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceGeRestoreContext(context: COpaquePointer?): Int =
-    libc_psp_sceGeRestoreContext(context?.value?.toCPointer<ByteVar>())
+public actual fun sceGeRestoreContext(context: ConstPtr<GeContext>): Int =
+    libcPspSceGeRestoreContext(context.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceGeListEnQueue(list: COpaquePointer?, stall: COpaquePointer?, cbid: Int, arg: COpaquePointer?): Int =
-    libc_psp_sceGeListEnQueue(list?.value?.toCPointer<ByteVar>(), stall?.value?.toCPointer<ByteVar>(), cbid, arg?.value?.toCPointer<ByteVar>())
+public actual fun sceGeListEnQueue(list: ConstPtr<CVoid>, stall: MutPtr<CVoid>, cbid: Int, arg: MutPtr<GeListArgs>): Int =
+    libcPspSceGeListEnQueue(list.rawAddress.toCPointer<ByteVar>(), stall.rawAddress.toCPointer<ByteVar>(), cbid, arg.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceGeListEnQueueHead(list: COpaquePointer?, stall: COpaquePointer?, cbid: Int, arg: COpaquePointer?): Int =
-    libc_psp_sceGeListEnQueueHead(list?.value?.toCPointer<ByteVar>(), stall?.value?.toCPointer<ByteVar>(), cbid, arg?.value?.toCPointer<ByteVar>())
+public actual fun sceGeListEnQueueHead(list: ConstPtr<CVoid>, stall: MutPtr<CVoid>, cbid: Int, arg: MutPtr<GeListArgs>): Int =
+    libcPspSceGeListEnQueueHead(list.rawAddress.toCPointer<ByteVar>(), stall.rawAddress.toCPointer<ByteVar>(), cbid, arg.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceGeListDeQueue(qid: Int): Int =
-    libc_psp_sceGeListDeQueue(qid)
+    libcPspSceGeListDeQueue(qid)
 
-public actual fun sceGeListUpdateStallAddr(qid: Int, stall: COpaquePointer?): Int =
-    libc_psp_sceGeListUpdateStallAddr(qid, stall?.value?.toCPointer<ByteVar>())
+public actual fun sceGeListUpdateStallAddr(qid: Int, stall: MutPtr<CVoid>): Int =
+    libcPspSceGeListUpdateStallAddr(qid, stall.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceGeListSync(qid: Int, syncType: Int): GeListState =
     GeListState.entries.first()
@@ -825,192 +829,192 @@ public actual fun sceGeListSync(qid: Int, syncType: Int): GeListState =
 public actual fun sceGeDrawSync(syncType: Int): GeListState =
     GeListState.entries.first()
 
-public actual fun sceGeBreak(mode: Int, pParam: COpaquePointer?): Int =
-    libc_psp_sceGeBreak(mode, pParam?.value?.toCPointer<ByteVar>())
+public actual fun sceGeBreak(mode: Int, pParam: MutPtr<GeBreakParam>): Int =
+    libcPspSceGeBreak(mode, pParam.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceGeContinue(): Int =
-    libc_psp_sceGeContinue()
+    libcPspSceGeContinue()
 
-public actual fun sceGeSetCallback(cb: COpaquePointer?): Int =
-    libc_psp_sceGeSetCallback(cb?.value?.toCPointer<ByteVar>())
+public actual fun sceGeSetCallback(cb: MutPtr<GeCallbackData>): Int =
+    libcPspSceGeSetCallback(cb.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceGeUnsetCallback(cbid: Int): Int =
-    libc_psp_sceGeUnsetCallback(cbid)
+    libcPspSceGeUnsetCallback(cbid)
 
 public actual fun sceKernelExitGame() {
-    libc_psp_sceKernelExitGame()
+    libcPspSceKernelExitGame()
 }
 
 public actual fun sceKernelRegisterExitCallback(id: SceUid): Int =
     0
 
-public actual fun sceKernelLoadExec(file: COpaquePointer?, param: COpaquePointer?): Int =
-    libc_psp_sceKernelLoadExec(file?.value?.toCPointer<ByteVar>(), param?.value?.toCPointer<ByteVar>())
+public actual fun sceKernelLoadExec(file: ConstPtr<UByte>, param: MutPtr<SceKernelLoadExecParam>): Int =
+    libcPspSceKernelLoadExec(file.rawAddress.toCPointer<ByteVar>(), param.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceKernelAllocPartitionMemory(partition: SceSysMemPartitionId, name: COpaquePointer?, type: SceSysMemBlockTypes, size: UInt, addr: COpaquePointer?): SceUid =
+public actual fun sceKernelAllocPartitionMemory(partition: SceSysMemPartitionId, name: ConstPtr<UByte>, type: SceSysMemBlockTypes, size: UInt, addr: MutPtr<CVoid>): SceUid =
     SceUid()
 
-public actual fun sceKernelGetBlockHeadAddr(blockid: SceUid): COpaquePointer? =
-    null
+public actual fun sceKernelGetBlockHeadAddr(blockid: SceUid): MutPtr<CVoid> =
+    MutPtr(0L)
 
 public actual fun sceKernelFreePartitionMemory(blockid: SceUid): Int =
     0
 
 public actual fun sceKernelTotalFreeMemSize(): ULong =
-    libc_psp_sceKernelTotalFreeMemSize()
+    libcPspSceKernelTotalFreeMemSize()
 
 public actual fun sceKernelMaxFreeMemSize(): ULong =
-    libc_psp_sceKernelMaxFreeMemSize()
+    libcPspSceKernelMaxFreeMemSize()
 
 public actual fun sceKernelDevkitVersion(): UInt =
-    libc_psp_sceKernelDevkitVersion()
+    libcPspSceKernelDevkitVersion()
 
 public actual fun sceKernelSetCompiledSdkVersion(version: UInt): Int =
-    libc_psp_sceKernelSetCompiledSdkVersion(version)
+    libcPspSceKernelSetCompiledSdkVersion(version)
 
 public actual fun sceKernelGetCompiledSdkVersion(): UInt =
-    libc_psp_sceKernelGetCompiledSdkVersion()
+    libcPspSceKernelGetCompiledSdkVersion()
 
-public actual fun sceKernelLibcTime(t: COpaquePointer?): Int =
-    libc_psp_sceKernelLibcTime(t?.value?.toCPointer<ByteVar>())
+public actual fun sceKernelLibcTime(t: MutPtr<Int>): Int =
+    libcPspSceKernelLibcTime(t.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceKernelLibcClock(): UInt =
-    libc_psp_sceKernelLibcClock()
+    libcPspSceKernelLibcClock()
 
-public actual fun sceKernelLibcGettimeofday(tp: COpaquePointer?, tzp: COpaquePointer?): Int =
-    libc_psp_sceKernelLibcGettimeofday(tp?.value?.toCPointer<ByteVar>(), tzp?.value?.toCPointer<ByteVar>())
+public actual fun sceKernelLibcGettimeofday(tp: MutPtr<Timeval>, tzp: MutPtr<Timezone>): Int =
+    libcPspSceKernelLibcGettimeofday(tp.rawAddress.toCPointer<ByteVar>(), tzp.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceKernelDcacheWritebackAll() {
-    libc_psp_sceKernelDcacheWritebackAll()
+    libcPspSceKernelDcacheWritebackAll()
 }
 
 public actual fun sceKernelDcacheWritebackInvalidateAll() {
-    libc_psp_sceKernelDcacheWritebackInvalidateAll()
+    libcPspSceKernelDcacheWritebackInvalidateAll()
 }
 
-public actual fun sceKernelDcacheWritebackRange(p: COpaquePointer?, size: UInt) {
-    libc_psp_sceKernelDcacheWritebackRange(p?.value?.toCPointer<ByteVar>(), size)
+public actual fun sceKernelDcacheWritebackRange(p: ConstPtr<CVoid>, size: UInt) {
+    libcPspSceKernelDcacheWritebackRange(p.rawAddress.toCPointer<ByteVar>(), size)
 }
 
-public actual fun sceKernelDcacheWritebackInvalidateRange(p: COpaquePointer?, size: UInt) {
-    libc_psp_sceKernelDcacheWritebackInvalidateRange(p?.value?.toCPointer<ByteVar>(), size)
+public actual fun sceKernelDcacheWritebackInvalidateRange(p: ConstPtr<CVoid>, size: UInt) {
+    libcPspSceKernelDcacheWritebackInvalidateRange(p.rawAddress.toCPointer<ByteVar>(), size)
 }
 
-public actual fun sceKernelDcacheInvalidateRange(p: COpaquePointer?, size: UInt) {
-    libc_psp_sceKernelDcacheInvalidateRange(p?.value?.toCPointer<ByteVar>(), size)
+public actual fun sceKernelDcacheInvalidateRange(p: ConstPtr<CVoid>, size: UInt) {
+    libcPspSceKernelDcacheInvalidateRange(p.rawAddress.toCPointer<ByteVar>(), size)
 }
 
 public actual fun sceKernelIcacheInvalidateAll() {
-    libc_psp_sceKernelIcacheInvalidateAll()
+    libcPspSceKernelIcacheInvalidateAll()
 }
 
-public actual fun sceKernelIcacheInvalidateRange(p: COpaquePointer?, size: UInt) {
-    libc_psp_sceKernelIcacheInvalidateRange(p?.value?.toCPointer<ByteVar>(), size)
+public actual fun sceKernelIcacheInvalidateRange(p: ConstPtr<CVoid>, size: UInt) {
+    libcPspSceKernelIcacheInvalidateRange(p.rawAddress.toCPointer<ByteVar>(), size)
 }
 
-public actual fun sceKernelUtilsMt19937Init(ctx: COpaquePointer?, seed: UInt): Int =
-    libc_psp_sceKernelUtilsMt19937Init(ctx?.value?.toCPointer<ByteVar>(), seed)
+public actual fun sceKernelUtilsMt19937Init(ctx: MutPtr<SceKernelUtilsMt19937Context>, seed: UInt): Int =
+    libcPspSceKernelUtilsMt19937Init(ctx.rawAddress.toCPointer<ByteVar>(), seed)
 
-public actual fun sceKernelUtilsMt19937UInt(ctx: COpaquePointer?): UInt =
-    libc_psp_sceKernelUtilsMt19937UInt(ctx?.value?.toCPointer<ByteVar>())
+public actual fun sceKernelUtilsMt19937UInt(ctx: MutPtr<SceKernelUtilsMt19937Context>): UInt =
+    libcPspSceKernelUtilsMt19937UInt(ctx.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceKernelUtilsMd5Digest(data: COpaquePointer?, size: UInt, digest: COpaquePointer?): Int =
-    libc_psp_sceKernelUtilsMd5Digest(data?.value?.toCPointer<ByteVar>(), size, digest?.value?.toCPointer<ByteVar>())
+public actual fun sceKernelUtilsMd5Digest(data: MutPtr<UByte>, size: UInt, digest: MutPtr<UByte>): Int =
+    libcPspSceKernelUtilsMd5Digest(data.rawAddress.toCPointer<ByteVar>(), size, digest.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceKernelUtilsMd5BlockInit(ctx: COpaquePointer?): Int =
-    libc_psp_sceKernelUtilsMd5BlockInit(ctx?.value?.toCPointer<ByteVar>())
+public actual fun sceKernelUtilsMd5BlockInit(ctx: MutPtr<SceKernelUtilsMd5Context>): Int =
+    libcPspSceKernelUtilsMd5BlockInit(ctx.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceKernelUtilsMd5BlockUpdate(ctx: COpaquePointer?, data: COpaquePointer?, size: UInt): Int =
-    libc_psp_sceKernelUtilsMd5BlockUpdate(ctx?.value?.toCPointer<ByteVar>(), data?.value?.toCPointer<ByteVar>(), size)
+public actual fun sceKernelUtilsMd5BlockUpdate(ctx: MutPtr<SceKernelUtilsMd5Context>, data: MutPtr<UByte>, size: UInt): Int =
+    libcPspSceKernelUtilsMd5BlockUpdate(ctx.rawAddress.toCPointer<ByteVar>(), data.rawAddress.toCPointer<ByteVar>(), size)
 
-public actual fun sceKernelUtilsMd5BlockResult(ctx: COpaquePointer?, digest: COpaquePointer?): Int =
-    libc_psp_sceKernelUtilsMd5BlockResult(ctx?.value?.toCPointer<ByteVar>(), digest?.value?.toCPointer<ByteVar>())
+public actual fun sceKernelUtilsMd5BlockResult(ctx: MutPtr<SceKernelUtilsMd5Context>, digest: MutPtr<UByte>): Int =
+    libcPspSceKernelUtilsMd5BlockResult(ctx.rawAddress.toCPointer<ByteVar>(), digest.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceKernelUtilsSha1Digest(data: COpaquePointer?, size: UInt, digest: COpaquePointer?): Int =
-    libc_psp_sceKernelUtilsSha1Digest(data?.value?.toCPointer<ByteVar>(), size, digest?.value?.toCPointer<ByteVar>())
+public actual fun sceKernelUtilsSha1Digest(data: MutPtr<UByte>, size: UInt, digest: MutPtr<UByte>): Int =
+    libcPspSceKernelUtilsSha1Digest(data.rawAddress.toCPointer<ByteVar>(), size, digest.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceKernelUtilsSha1BlockInit(ctx: COpaquePointer?): Int =
-    libc_psp_sceKernelUtilsSha1BlockInit(ctx?.value?.toCPointer<ByteVar>())
+public actual fun sceKernelUtilsSha1BlockInit(ctx: MutPtr<SceKernelUtilsSha1Context>): Int =
+    libcPspSceKernelUtilsSha1BlockInit(ctx.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceKernelUtilsSha1BlockUpdate(ctx: COpaquePointer?, data: COpaquePointer?, size: UInt): Int =
-    libc_psp_sceKernelUtilsSha1BlockUpdate(ctx?.value?.toCPointer<ByteVar>(), data?.value?.toCPointer<ByteVar>(), size)
+public actual fun sceKernelUtilsSha1BlockUpdate(ctx: MutPtr<SceKernelUtilsSha1Context>, data: MutPtr<UByte>, size: UInt): Int =
+    libcPspSceKernelUtilsSha1BlockUpdate(ctx.rawAddress.toCPointer<ByteVar>(), data.rawAddress.toCPointer<ByteVar>(), size)
 
-public actual fun sceKernelUtilsSha1BlockResult(ctx: COpaquePointer?, digest: COpaquePointer?): Int =
-    libc_psp_sceKernelUtilsSha1BlockResult(ctx?.value?.toCPointer<ByteVar>(), digest?.value?.toCPointer<ByteVar>())
+public actual fun sceKernelUtilsSha1BlockResult(ctx: MutPtr<SceKernelUtilsSha1Context>, digest: MutPtr<UByte>): Int =
+    libcPspSceKernelUtilsSha1BlockResult(ctx.rawAddress.toCPointer<ByteVar>(), digest.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceKernelRegisterSubIntrHandler(intNo: Int, no: Int, handler: COpaquePointer?, arg: COpaquePointer?): Int =
-    libc_psp_sceKernelRegisterSubIntrHandler(intNo, no, handler?.value?.toCPointer<ByteVar>(), arg?.value?.toCPointer<ByteVar>())
+public actual fun sceKernelRegisterSubIntrHandler(intNo: Int, no: Int, handler: MutPtr<CVoid>, arg: MutPtr<CVoid>): Int =
+    libcPspSceKernelRegisterSubIntrHandler(intNo, no, handler.rawAddress.toCPointer<ByteVar>(), arg.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceKernelReleaseSubIntrHandler(intNo: Int, no: Int): Int =
-    libc_psp_sceKernelReleaseSubIntrHandler(intNo, no)
+    libcPspSceKernelReleaseSubIntrHandler(intNo, no)
 
 public actual fun sceKernelEnableSubIntr(intNo: Int, no: Int): Int =
-    libc_psp_sceKernelEnableSubIntr(intNo, no)
+    libcPspSceKernelEnableSubIntr(intNo, no)
 
 public actual fun sceKernelDisableSubIntr(intNo: Int, no: Int): Int =
-    libc_psp_sceKernelDisableSubIntr(intNo, no)
+    libcPspSceKernelDisableSubIntr(intNo, no)
 
-public actual fun queryIntrHandlerInfo(intrCode: SceUid, subIntrCode: SceUid, data: COpaquePointer?): Int =
+public actual fun queryIntrHandlerInfo(intrCode: SceUid, subIntrCode: SceUid, data: MutPtr<IntrHandlerOptionParam>): Int =
     0
 
 public actual fun sceKernelCpuSuspendIntr(): UInt =
-    libc_psp_sceKernelCpuSuspendIntr()
+    libcPspSceKernelCpuSuspendIntr()
 
 public actual fun sceKernelCpuResumeIntr(flags: UInt) {
-    libc_psp_sceKernelCpuResumeIntr(flags)
+    libcPspSceKernelCpuResumeIntr(flags)
 }
 
 public actual fun sceKernelCpuResumeIntrWithSync(flags: UInt) {
-    libc_psp_sceKernelCpuResumeIntrWithSync(flags)
+    libcPspSceKernelCpuResumeIntrWithSync(flags)
 }
 
 public actual fun sceKernelIsCpuIntrSuspended(flags: UInt): Int =
-    libc_psp_sceKernelIsCpuIntrSuspended(flags)
+    libcPspSceKernelIsCpuIntrSuspended(flags)
 
 public actual fun sceKernelIsCpuIntrEnable(): Int =
-    libc_psp_sceKernelIsCpuIntrEnable()
+    libcPspSceKernelIsCpuIntrEnable()
 
-public actual fun sceKernelLoadModule(path: COpaquePointer?, flags: Int, option: COpaquePointer?): SceUid =
+public actual fun sceKernelLoadModule(path: ConstPtr<UByte>, flags: Int, option: MutPtr<SceKernelLMOption>): SceUid =
     SceUid()
 
-public actual fun sceKernelLoadModuleMs(path: COpaquePointer?, flags: Int, option: COpaquePointer?): SceUid =
+public actual fun sceKernelLoadModuleMs(path: ConstPtr<UByte>, flags: Int, option: MutPtr<SceKernelLMOption>): SceUid =
     SceUid()
 
-public actual fun sceKernelLoadModuleByID(fid: SceUid, flags: Int, option: COpaquePointer?): SceUid =
+public actual fun sceKernelLoadModuleByID(fid: SceUid, flags: Int, option: MutPtr<SceKernelLMOption>): SceUid =
     SceUid()
 
-public actual fun sceKernelLoadModuleBufferUsbWlan(bufSize: ULong, buf: COpaquePointer?, flags: Int, option: COpaquePointer?): SceUid =
+public actual fun sceKernelLoadModuleBufferUsbWlan(bufSize: ULong, buf: MutPtr<CVoid>, flags: Int, option: MutPtr<SceKernelLMOption>): SceUid =
     SceUid()
 
-public actual fun sceKernelStartModule(modId: SceUid, argSize: ULong, argp: COpaquePointer?, status: COpaquePointer?, option: COpaquePointer?): Int =
+public actual fun sceKernelStartModule(modId: SceUid, argSize: ULong, argp: MutPtr<CVoid>, status: MutPtr<Int>, option: MutPtr<SceKernelSMOption>): Int =
     0
 
-public actual fun sceKernelStopModule(modId: SceUid, argSize: ULong, argp: COpaquePointer?, status: COpaquePointer?, option: COpaquePointer?): Int =
+public actual fun sceKernelStopModule(modId: SceUid, argSize: ULong, argp: MutPtr<CVoid>, status: MutPtr<Int>, option: MutPtr<SceKernelSMOption>): Int =
     0
 
 public actual fun sceKernelUnloadModule(modId: SceUid): Int =
     0
 
-public actual fun sceKernelSelfStopUnloadModule(unknown: Int, argSize: ULong, argp: COpaquePointer?): Int =
-    libc_psp_sceKernelSelfStopUnloadModule(unknown, argSize, argp?.value?.toCPointer<ByteVar>())
+public actual fun sceKernelSelfStopUnloadModule(unknown: Int, argSize: ULong, argp: MutPtr<CVoid>): Int =
+    libcPspSceKernelSelfStopUnloadModule(unknown, argSize, argp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceKernelStopUnloadSelfModule(argSize: ULong, argp: COpaquePointer?, status: COpaquePointer?, option: COpaquePointer?): Int =
-    libc_psp_sceKernelStopUnloadSelfModule(argSize, argp?.value?.toCPointer<ByteVar>(), status?.value?.toCPointer<ByteVar>(), option?.value?.toCPointer<ByteVar>())
+public actual fun sceKernelStopUnloadSelfModule(argSize: ULong, argp: MutPtr<CVoid>, status: MutPtr<Int>, option: MutPtr<SceKernelSMOption>): Int =
+    libcPspSceKernelStopUnloadSelfModule(argSize, argp.rawAddress.toCPointer<ByteVar>(), status.rawAddress.toCPointer<ByteVar>(), option.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceKernelQueryModuleInfo(modId: SceUid, info: COpaquePointer?): Int =
+public actual fun sceKernelQueryModuleInfo(modId: SceUid, info: MutPtr<SceKernelModuleInfo>): Int =
     0
 
-public actual fun sceKernelGetModuleIdList(readBuf: COpaquePointer?, readBufSize: Int, idCount: COpaquePointer?): Int =
-    libc_psp_sceKernelGetModuleIdList(readBuf?.value?.toCPointer<ByteVar>(), readBufSize, idCount?.value?.toCPointer<ByteVar>())
+public actual fun sceKernelGetModuleIdList(readBuf: MutPtr<SceUid>, readBufSize: Int, idCount: MutPtr<Int>): Int =
+    libcPspSceKernelGetModuleIdList(readBuf.rawAddress.toCPointer<ByteVar>(), readBufSize, idCount.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceKernelVolatileMemLock(unk: Int, ptr: COpaquePointer?, size: COpaquePointer?): Int =
-    libc_psp_sceKernelVolatileMemLock(unk, ptr?.value?.toCPointer<ByteVar>(), size?.value?.toCPointer<ByteVar>())
+public actual fun sceKernelVolatileMemLock(unk: Int, ptr: MutPtr<MutPtr<CVoid>>, size: MutPtr<Int>): Int =
+    libcPspSceKernelVolatileMemLock(unk, ptr.rawAddress.toCPointer<ByteVar>(), size.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceKernelVolatileMemTryLock(unk: Int, ptr: COpaquePointer?, size: COpaquePointer?): Int =
-    libc_psp_sceKernelVolatileMemTryLock(unk, ptr?.value?.toCPointer<ByteVar>(), size?.value?.toCPointer<ByteVar>())
+public actual fun sceKernelVolatileMemTryLock(unk: Int, ptr: MutPtr<MutPtr<CVoid>>, size: MutPtr<Int>): Int =
+    libcPspSceKernelVolatileMemTryLock(unk, ptr.rawAddress.toCPointer<ByteVar>(), size.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceKernelVolatileMemUnlock(unk: Int): Int =
-    libc_psp_sceKernelVolatileMemUnlock(unk)
+    libcPspSceKernelVolatileMemUnlock(unk)
 
 public actual fun sceKernelStdin(): SceUid =
     SceUid()
@@ -1024,20 +1028,20 @@ public actual fun sceKernelStderr(): SceUid =
 public actual fun sceKernelGetThreadmanIdType(uid: SceUid): SceKernelIdListType =
     SceKernelIdListType.entries.first()
 
-public actual fun sceKernelCreateThread(name: COpaquePointer?, entry: SceKernelThreadEntry, initPriority: Int, stackSize: Int, attr: Int, option: COpaquePointer?): SceUid =
+public actual fun sceKernelCreateThread(name: ConstPtr<UByte>, entry: SceKernelThreadEntry, initPriority: Int, stackSize: Int, attr: Int, option: MutPtr<SceKernelThreadOptParam>): SceUid =
     SceUid()
 
 public actual fun sceKernelDeleteThread(thid: SceUid): Int =
     0
 
-public actual fun sceKernelStartThread(id: SceUid, argLen: ULong, argP: COpaquePointer?): Int =
+public actual fun sceKernelStartThread(id: SceUid, argLen: ULong, argP: MutPtr<CVoid>): Int =
     0
 
 public actual fun sceKernelExitThread(status: Int): Int =
-    libc_psp_sceKernelExitThread(status)
+    libcPspSceKernelExitThread(status)
 
 public actual fun sceKernelExitDeleteThread(status: Int): Int =
-    libc_psp_sceKernelExitDeleteThread(status)
+    libcPspSceKernelExitDeleteThread(status)
 
 public actual fun sceKernelTerminateThread(thid: SceUid): Int =
     0
@@ -1046,16 +1050,16 @@ public actual fun sceKernelTerminateDeleteThread(thid: SceUid): Int =
     0
 
 public actual fun sceKernelSuspendDispatchThread(): Int =
-    libc_psp_sceKernelSuspendDispatchThread()
+    libcPspSceKernelSuspendDispatchThread()
 
 public actual fun sceKernelResumeDispatchThread(state: Int): Int =
-    libc_psp_sceKernelResumeDispatchThread(state)
+    libcPspSceKernelResumeDispatchThread(state)
 
 public actual fun sceKernelSleepThread(): Int =
-    libc_psp_sceKernelSleepThread()
+    libcPspSceKernelSleepThread()
 
 public actual fun sceKernelSleepThreadCB(): Int =
-    libc_psp_sceKernelSleepThreadCB()
+    libcPspSceKernelSleepThreadCB()
 
 public actual fun sceKernelWakeupThread(thid: SceUid): Int =
     0
@@ -1069,58 +1073,58 @@ public actual fun sceKernelSuspendThread(thid: SceUid): Int =
 public actual fun sceKernelResumeThread(thid: SceUid): Int =
     0
 
-public actual fun sceKernelWaitThreadEnd(thid: SceUid, timeout: COpaquePointer?): Int =
+public actual fun sceKernelWaitThreadEnd(thid: SceUid, timeout: MutPtr<UInt>): Int =
     0
 
-public actual fun sceKernelWaitThreadEndCB(thid: SceUid, timeout: COpaquePointer?): Int =
+public actual fun sceKernelWaitThreadEndCB(thid: SceUid, timeout: MutPtr<UInt>): Int =
     0
 
 public actual fun sceKernelDelayThread(delay: UInt): Int =
-    libc_psp_sceKernelDelayThread(delay)
+    libcPspSceKernelDelayThread(delay)
 
 public actual fun sceKernelDelayThreadCB(delay: UInt): Int =
-    libc_psp_sceKernelDelayThreadCB(delay)
+    libcPspSceKernelDelayThreadCB(delay)
 
-public actual fun sceKernelDelaySysClockThread(delay: COpaquePointer?): Int =
-    libc_psp_sceKernelDelaySysClockThread(delay?.value?.toCPointer<ByteVar>())
+public actual fun sceKernelDelaySysClockThread(delay: MutPtr<SceKernelSysClock>): Int =
+    libcPspSceKernelDelaySysClockThread(delay.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceKernelDelaySysClockThreadCB(delay: COpaquePointer?): Int =
-    libc_psp_sceKernelDelaySysClockThreadCB(delay?.value?.toCPointer<ByteVar>())
+public actual fun sceKernelDelaySysClockThreadCB(delay: MutPtr<SceKernelSysClock>): Int =
+    libcPspSceKernelDelaySysClockThreadCB(delay.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceKernelChangeCurrentThreadAttr(unknown: Int, attr: Int): Int =
-    libc_psp_sceKernelChangeCurrentThreadAttr(unknown, attr)
+    libcPspSceKernelChangeCurrentThreadAttr(unknown, attr)
 
 public actual fun sceKernelChangeThreadPriority(thid: SceUid, priority: Int): Int =
     0
 
 public actual fun sceKernelRotateThreadReadyQueue(priority: Int): Int =
-    libc_psp_sceKernelRotateThreadReadyQueue(priority)
+    libcPspSceKernelRotateThreadReadyQueue(priority)
 
 public actual fun sceKernelReleaseWaitThread(thid: SceUid): Int =
     0
 
 public actual fun sceKernelGetThreadId(): Int =
-    libc_psp_sceKernelGetThreadId()
+    libcPspSceKernelGetThreadId()
 
 public actual fun sceKernelGetThreadCurrentPriority(): Int =
-    libc_psp_sceKernelGetThreadCurrentPriority()
+    libcPspSceKernelGetThreadCurrentPriority()
 
 public actual fun sceKernelGetThreadExitStatus(thid: SceUid): Int =
     0
 
 public actual fun sceKernelCheckThreadStack(): Int =
-    libc_psp_sceKernelCheckThreadStack()
+    libcPspSceKernelCheckThreadStack()
 
 public actual fun sceKernelGetThreadStackFreeSize(thid: SceUid): Int =
     0
 
-public actual fun sceKernelReferThreadStatus(thid: SceUid, info: COpaquePointer?): Int =
+public actual fun sceKernelReferThreadStatus(thid: SceUid, info: MutPtr<SceKernelThreadInfo>): Int =
     0
 
-public actual fun sceKernelReferThreadRunStatus(thid: SceUid, status: COpaquePointer?): Int =
+public actual fun sceKernelReferThreadRunStatus(thid: SceUid, status: MutPtr<SceKernelThreadRunStatus>): Int =
     0
 
-public actual fun sceKernelCreateSema(name: COpaquePointer?, attr: UInt, initVal: Int, maxVal: Int, option: COpaquePointer?): SceUid =
+public actual fun sceKernelCreateSema(name: ConstPtr<UByte>, attr: UInt, initVal: Int, maxVal: Int, option: MutPtr<SceKernelSemaOptParam>): SceUid =
     SceUid()
 
 public actual fun sceKernelDeleteSema(semaId: SceUid): Int =
@@ -1129,19 +1133,19 @@ public actual fun sceKernelDeleteSema(semaId: SceUid): Int =
 public actual fun sceKernelSignalSema(semaId: SceUid, signal: Int): Int =
     0
 
-public actual fun sceKernelWaitSema(semaId: SceUid, signal: Int, timeout: COpaquePointer?): Int =
+public actual fun sceKernelWaitSema(semaId: SceUid, signal: Int, timeout: MutPtr<UInt>): Int =
     0
 
-public actual fun sceKernelWaitSemaCB(semaId: SceUid, signal: Int, timeout: COpaquePointer?): Int =
+public actual fun sceKernelWaitSemaCB(semaId: SceUid, signal: Int, timeout: MutPtr<UInt>): Int =
     0
 
 public actual fun sceKernelPollSema(semaId: SceUid, signal: Int): Int =
     0
 
-public actual fun sceKernelReferSemaStatus(semaId: SceUid, info: COpaquePointer?): Int =
+public actual fun sceKernelReferSemaStatus(semaId: SceUid, info: MutPtr<SceKernelSemaInfo>): Int =
     0
 
-public actual fun sceKernelCreateEventFlag(name: COpaquePointer?, attr: Int, bits: Int, opt: COpaquePointer?): SceUid =
+public actual fun sceKernelCreateEventFlag(name: ConstPtr<UByte>, attr: Int, bits: Int, opt: MutPtr<SceKernelEventFlagOptParam>): SceUid =
     SceUid()
 
 public actual fun sceKernelSetEventFlag(evId: SceUid, bits: UInt): Int =
@@ -1150,61 +1154,61 @@ public actual fun sceKernelSetEventFlag(evId: SceUid, bits: UInt): Int =
 public actual fun sceKernelClearEventFlag(evId: SceUid, bits: UInt): Int =
     0
 
-public actual fun sceKernelPollEventFlag(evId: SceUid, bits: UInt, wait: Int, outBits: COpaquePointer?): Int =
+public actual fun sceKernelPollEventFlag(evId: SceUid, bits: UInt, wait: Int, outBits: MutPtr<UInt>): Int =
     0
 
-public actual fun sceKernelWaitEventFlag(evId: SceUid, bits: UInt, wait: Int, outBits: COpaquePointer?, timeout: COpaquePointer?): Int =
+public actual fun sceKernelWaitEventFlag(evId: SceUid, bits: UInt, wait: Int, outBits: MutPtr<UInt>, timeout: MutPtr<UInt>): Int =
     0
 
-public actual fun sceKernelWaitEventFlagCB(evId: SceUid, bits: UInt, wait: Int, outBits: COpaquePointer?, timeout: COpaquePointer?): Int =
+public actual fun sceKernelWaitEventFlagCB(evId: SceUid, bits: UInt, wait: Int, outBits: MutPtr<UInt>, timeout: MutPtr<UInt>): Int =
     0
 
 public actual fun sceKernelDeleteEventFlag(evId: SceUid): Int =
     0
 
-public actual fun sceKernelReferEventFlagStatus(event: SceUid, status: COpaquePointer?): Int =
+public actual fun sceKernelReferEventFlagStatus(event: SceUid, status: MutPtr<SceKernelEventFlagInfo>): Int =
     0
 
-public actual fun sceKernelCreateMbx(name: COpaquePointer?, attr: UInt, option: COpaquePointer?): SceUid =
+public actual fun sceKernelCreateMbx(name: ConstPtr<UByte>, attr: UInt, option: MutPtr<SceKernelMbxOptParam>): SceUid =
     SceUid()
 
 public actual fun sceKernelDeleteMbx(mbxId: SceUid): Int =
     0
 
-public actual fun sceKernelSendMbx(mbxId: SceUid, message: COpaquePointer?): Int =
+public actual fun sceKernelSendMbx(mbxId: SceUid, message: MutPtr<CVoid>): Int =
     0
 
-public actual fun sceKernelReceiveMbx(mbxId: SceUid, message: COpaquePointer?, timeout: COpaquePointer?): Int =
+public actual fun sceKernelReceiveMbx(mbxId: SceUid, message: MutPtr<MutPtr<CVoid>>, timeout: MutPtr<UInt>): Int =
     0
 
-public actual fun sceKernelReceiveMbxCB(mbxId: SceUid, message: COpaquePointer?, timeout: COpaquePointer?): Int =
+public actual fun sceKernelReceiveMbxCB(mbxId: SceUid, message: MutPtr<MutPtr<CVoid>>, timeout: MutPtr<UInt>): Int =
     0
 
-public actual fun sceKernelPollMbx(mbxId: SceUid, pmessage: COpaquePointer?): Int =
+public actual fun sceKernelPollMbx(mbxId: SceUid, pmessage: MutPtr<MutPtr<CVoid>>): Int =
     0
 
-public actual fun sceKernelCancelReceiveMbx(mbxId: SceUid, num: COpaquePointer?): Int =
+public actual fun sceKernelCancelReceiveMbx(mbxId: SceUid, num: MutPtr<Int>): Int =
     0
 
-public actual fun sceKernelReferMbxStatus(mbxId: SceUid, info: COpaquePointer?): Int =
+public actual fun sceKernelReferMbxStatus(mbxId: SceUid, info: MutPtr<SceKernelMbxInfo>): Int =
     0
 
-public actual fun sceKernelSetAlarm(clock: UInt, handler: SceKernelAlarmHandler, common: COpaquePointer?): SceUid =
+public actual fun sceKernelSetAlarm(clock: UInt, handler: SceKernelAlarmHandler, common: MutPtr<CVoid>): SceUid =
     SceUid()
 
-public actual fun sceKernelSetSysClockAlarm(clock: COpaquePointer?, handler: COpaquePointer?, common: COpaquePointer?): SceUid =
+public actual fun sceKernelSetSysClockAlarm(clock: MutPtr<SceKernelSysClock>, handler: MutPtr<SceKernelAlarmHandler>, common: MutPtr<CVoid>): SceUid =
     SceUid()
 
 public actual fun sceKernelCancelAlarm(alarmId: SceUid): Int =
     0
 
-public actual fun sceKernelReferAlarmStatus(alarmId: SceUid, info: COpaquePointer?): Int =
+public actual fun sceKernelReferAlarmStatus(alarmId: SceUid, info: MutPtr<SceKernelAlarmInfo>): Int =
     0
 
-public actual fun sceKernelCreateCallback(name: COpaquePointer?, func: SceKernelCallbackFunction, arg: COpaquePointer?): SceUid =
+public actual fun sceKernelCreateCallback(name: ConstPtr<UByte>, func: SceKernelCallbackFunction, arg: MutPtr<CVoid>): SceUid =
     SceUid()
 
-public actual fun sceKernelReferCallbackStatus(cb: SceUid, status: COpaquePointer?): Int =
+public actual fun sceKernelReferCallbackStatus(cb: SceUid, status: MutPtr<SceKernelCallbackInfo>): Int =
     0
 
 public actual fun sceKernelDeleteCallback(cb: SceUid): Int =
@@ -1220,132 +1224,132 @@ public actual fun sceKernelGetCallbackCount(cb: SceUid): Int =
     0
 
 public actual fun sceKernelCheckCallback(): Int =
-    libc_psp_sceKernelCheckCallback()
+    libcPspSceKernelCheckCallback()
 
-public actual fun sceKernelGetThreadmanIdList(type: SceKernelIdListType, readBuf: COpaquePointer?, readBufSize: Int, idCount: COpaquePointer?): Int =
+public actual fun sceKernelGetThreadmanIdList(type: SceKernelIdListType, readBuf: MutPtr<SceUid>, readBufSize: Int, idCount: MutPtr<Int>): Int =
     0
 
-public actual fun sceKernelReferSystemStatus(status: COpaquePointer?): Int =
-    libc_psp_sceKernelReferSystemStatus(status?.value?.toCPointer<ByteVar>())
+public actual fun sceKernelReferSystemStatus(status: MutPtr<SceKernelSystemStatus>): Int =
+    libcPspSceKernelReferSystemStatus(status.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceKernelCreateMsgPipe(name: COpaquePointer?, part: Int, attr: Int, unk1: COpaquePointer?, opt: COpaquePointer?): SceUid =
+public actual fun sceKernelCreateMsgPipe(name: ConstPtr<UByte>, part: Int, attr: Int, unk1: MutPtr<CVoid>, opt: MutPtr<CVoid>): SceUid =
     SceUid()
 
 public actual fun sceKernelDeleteMsgPipe(uid: SceUid): Int =
     0
 
-public actual fun sceKernelSendMsgPipe(uid: SceUid, message: COpaquePointer?, size: UInt, unk1: Int, unk2: COpaquePointer?, timeout: COpaquePointer?): Int =
+public actual fun sceKernelSendMsgPipe(uid: SceUid, message: MutPtr<CVoid>, size: UInt, unk1: Int, unk2: MutPtr<CVoid>, timeout: MutPtr<UInt>): Int =
     0
 
-public actual fun sceKernelSendMsgPipeCB(uid: SceUid, message: COpaquePointer?, size: UInt, unk1: Int, unk2: COpaquePointer?, timeout: COpaquePointer?): Int =
+public actual fun sceKernelSendMsgPipeCB(uid: SceUid, message: MutPtr<CVoid>, size: UInt, unk1: Int, unk2: MutPtr<CVoid>, timeout: MutPtr<UInt>): Int =
     0
 
-public actual fun sceKernelTrySendMsgPipe(uid: SceUid, message: COpaquePointer?, size: UInt, unk1: Int, unk2: COpaquePointer?): Int =
+public actual fun sceKernelTrySendMsgPipe(uid: SceUid, message: MutPtr<CVoid>, size: UInt, unk1: Int, unk2: MutPtr<CVoid>): Int =
     0
 
-public actual fun sceKernelReceiveMsgPipe(uid: SceUid, message: COpaquePointer?, size: UInt, unk1: Int, unk2: COpaquePointer?, timeout: COpaquePointer?): Int =
+public actual fun sceKernelReceiveMsgPipe(uid: SceUid, message: MutPtr<CVoid>, size: UInt, unk1: Int, unk2: MutPtr<CVoid>, timeout: MutPtr<UInt>): Int =
     0
 
-public actual fun sceKernelReceiveMsgPipeCB(uid: SceUid, message: COpaquePointer?, size: UInt, unk1: Int, unk2: COpaquePointer?, timeout: COpaquePointer?): Int =
+public actual fun sceKernelReceiveMsgPipeCB(uid: SceUid, message: MutPtr<CVoid>, size: UInt, unk1: Int, unk2: MutPtr<CVoid>, timeout: MutPtr<UInt>): Int =
     0
 
-public actual fun sceKernelTryReceiveMsgPipe(uid: SceUid, message: COpaquePointer?, size: UInt, unk1: Int, unk2: COpaquePointer?): Int =
+public actual fun sceKernelTryReceiveMsgPipe(uid: SceUid, message: MutPtr<CVoid>, size: UInt, unk1: Int, unk2: MutPtr<CVoid>): Int =
     0
 
-public actual fun sceKernelCancelMsgPipe(uid: SceUid, send: COpaquePointer?, recv: COpaquePointer?): Int =
+public actual fun sceKernelCancelMsgPipe(uid: SceUid, send: MutPtr<Int>, recv: MutPtr<Int>): Int =
     0
 
-public actual fun sceKernelReferMsgPipeStatus(uid: SceUid, info: COpaquePointer?): Int =
+public actual fun sceKernelReferMsgPipeStatus(uid: SceUid, info: MutPtr<SceKernelMppInfo>): Int =
     0
 
-public actual fun sceKernelCreateVpl(name: COpaquePointer?, part: Int, attr: Int, size: UInt, opt: COpaquePointer?): SceUid =
+public actual fun sceKernelCreateVpl(name: ConstPtr<UByte>, part: Int, attr: Int, size: UInt, opt: MutPtr<SceKernelVplOptParam>): SceUid =
     SceUid()
 
 public actual fun sceKernelDeleteVpl(uid: SceUid): Int =
     0
 
-public actual fun sceKernelAllocateVpl(uid: SceUid, size: UInt, data: COpaquePointer?, timeout: COpaquePointer?): Int =
+public actual fun sceKernelAllocateVpl(uid: SceUid, size: UInt, data: MutPtr<MutPtr<CVoid>>, timeout: MutPtr<UInt>): Int =
     0
 
-public actual fun sceKernelAllocateVplCB(uid: SceUid, size: UInt, data: COpaquePointer?, timeout: COpaquePointer?): Int =
+public actual fun sceKernelAllocateVplCB(uid: SceUid, size: UInt, data: MutPtr<MutPtr<CVoid>>, timeout: MutPtr<UInt>): Int =
     0
 
-public actual fun sceKernelTryAllocateVpl(uid: SceUid, size: UInt, data: COpaquePointer?): Int =
+public actual fun sceKernelTryAllocateVpl(uid: SceUid, size: UInt, data: MutPtr<MutPtr<CVoid>>): Int =
     0
 
-public actual fun sceKernelFreeVpl(uid: SceUid, data: COpaquePointer?): Int =
+public actual fun sceKernelFreeVpl(uid: SceUid, data: MutPtr<CVoid>): Int =
     0
 
-public actual fun sceKernelCancelVpl(uid: SceUid, num: COpaquePointer?): Int =
+public actual fun sceKernelCancelVpl(uid: SceUid, num: MutPtr<Int>): Int =
     0
 
-public actual fun sceKernelReferVplStatus(uid: SceUid, info: COpaquePointer?): Int =
+public actual fun sceKernelReferVplStatus(uid: SceUid, info: MutPtr<SceKernelVplInfo>): Int =
     0
 
-public actual fun sceKernelCreateFpl(name: COpaquePointer?, part: Int, attr: Int, size: UInt, blocks: UInt, opt: COpaquePointer?): Int =
-    libc_psp_sceKernelCreateFpl(name?.value?.toCPointer<ByteVar>(), part, attr, size, blocks, opt?.value?.toCPointer<ByteVar>())
+public actual fun sceKernelCreateFpl(name: ConstPtr<UByte>, part: Int, attr: Int, size: UInt, blocks: UInt, opt: MutPtr<SceKernelFplOptParam>): Int =
+    libcPspSceKernelCreateFpl(name.rawAddress.toCPointer<ByteVar>(), part, attr, size, blocks, opt.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceKernelDeleteFpl(uid: SceUid): Int =
     0
 
-public actual fun sceKernelAllocateFpl(uid: SceUid, data: COpaquePointer?, timeout: COpaquePointer?): Int =
+public actual fun sceKernelAllocateFpl(uid: SceUid, data: MutPtr<MutPtr<CVoid>>, timeout: MutPtr<UInt>): Int =
     0
 
-public actual fun sceKernelAllocateFplCB(uid: SceUid, data: COpaquePointer?, timeout: COpaquePointer?): Int =
+public actual fun sceKernelAllocateFplCB(uid: SceUid, data: MutPtr<MutPtr<CVoid>>, timeout: MutPtr<UInt>): Int =
     0
 
-public actual fun sceKernelTryAllocateFpl(uid: SceUid, data: COpaquePointer?): Int =
+public actual fun sceKernelTryAllocateFpl(uid: SceUid, data: MutPtr<MutPtr<CVoid>>): Int =
     0
 
-public actual fun sceKernelFreeFpl(uid: SceUid, data: COpaquePointer?): Int =
+public actual fun sceKernelFreeFpl(uid: SceUid, data: MutPtr<CVoid>): Int =
     0
 
-public actual fun sceKernelCancelFpl(uid: SceUid, pnum: COpaquePointer?): Int =
+public actual fun sceKernelCancelFpl(uid: SceUid, pnum: MutPtr<Int>): Int =
     0
 
-public actual fun sceKernelReferFplStatus(uid: SceUid, info: COpaquePointer?): Int =
+public actual fun sceKernelReferFplStatus(uid: SceUid, info: MutPtr<SceKernelFplInfo>): Int =
     0
 
-public actual fun sceKernelUSec2SysClock(usec: UInt, clock: COpaquePointer?): Int =
-    libc_psp_sceKernelUSec2SysClock(usec, clock?.value?.toCPointer<ByteVar>())
+public actual fun sceKernelUSec2SysClock(usec: UInt, clock: MutPtr<SceKernelSysClock>): Int =
+    libcPspSceKernelUSec2SysClock(usec, clock.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceKernelUSec2SysClockWide(usec: UInt): Long =
-    libc_psp_sceKernelUSec2SysClockWide(usec)
+    libcPspSceKernelUSec2SysClockWide(usec)
 
-public actual fun sceKernelSysClock2USec(clock: COpaquePointer?, low: COpaquePointer?, high: COpaquePointer?): Int =
-    libc_psp_sceKernelSysClock2USec(clock?.value?.toCPointer<ByteVar>(), low?.value?.toCPointer<ByteVar>(), high?.value?.toCPointer<ByteVar>())
+public actual fun sceKernelSysClock2USec(clock: MutPtr<SceKernelSysClock>, low: MutPtr<UInt>, high: MutPtr<UInt>): Int =
+    libcPspSceKernelSysClock2USec(clock.rawAddress.toCPointer<ByteVar>(), low.rawAddress.toCPointer<ByteVar>(), high.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceKernelSysClock2USecWide(clock: Long, low: COpaquePointer?, high: COpaquePointer?): Int =
-    libc_psp_sceKernelSysClock2USecWide(clock, low?.value?.toCPointer<ByteVar>(), high?.value?.toCPointer<ByteVar>())
+public actual fun sceKernelSysClock2USecWide(clock: Long, low: MutPtr<UInt>, high: MutPtr<UInt>): Int =
+    libcPspSceKernelSysClock2USecWide(clock, low.rawAddress.toCPointer<ByteVar>(), high.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceKernelGetSystemTime(time: COpaquePointer?): Int =
-    libc_psp_sceKernelGetSystemTime(time?.value?.toCPointer<ByteVar>())
+public actual fun sceKernelGetSystemTime(time: MutPtr<SceKernelSysClock>): Int =
+    libcPspSceKernelGetSystemTime(time.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceKernelGetSystemTimeWide(): Long =
-    libc_psp_sceKernelGetSystemTimeWide()
+    libcPspSceKernelGetSystemTimeWide()
 
 public actual fun sceKernelGetSystemTimeLow(): UInt =
-    libc_psp_sceKernelGetSystemTimeLow()
+    libcPspSceKernelGetSystemTimeLow()
 
-public actual fun sceKernelCreateVTimer(name: COpaquePointer?, opt: COpaquePointer?): SceUid =
+public actual fun sceKernelCreateVTimer(name: ConstPtr<UByte>, opt: MutPtr<SceKernelVTimerOptParam>): SceUid =
     SceUid()
 
 public actual fun sceKernelDeleteVTimer(uid: SceUid): Int =
     0
 
-public actual fun sceKernelGetVTimerBase(uid: SceUid, base: COpaquePointer?): Int =
+public actual fun sceKernelGetVTimerBase(uid: SceUid, base: MutPtr<SceKernelSysClock>): Int =
     0
 
 public actual fun sceKernelGetVTimerBaseWide(uid: SceUid): Long =
     0L
 
-public actual fun sceKernelGetVTimerTime(uid: SceUid, time: COpaquePointer?): Int =
+public actual fun sceKernelGetVTimerTime(uid: SceUid, time: MutPtr<SceKernelSysClock>): Int =
     0
 
 public actual fun sceKernelGetVTimerTimeWide(uid: SceUid): Long =
     0L
 
-public actual fun sceKernelSetVTimerTime(uid: SceUid, time: COpaquePointer?): Int =
+public actual fun sceKernelSetVTimerTime(uid: SceUid, time: MutPtr<SceKernelSysClock>): Int =
     0
 
 public actual fun sceKernelSetVTimerTimeWide(uid: SceUid, time: Long): Long =
@@ -1357,113 +1361,113 @@ public actual fun sceKernelStartVTimer(uid: SceUid): Int =
 public actual fun sceKernelStopVTimer(uid: SceUid): Int =
     0
 
-public actual fun sceKernelSetVTimerHandler(uid: SceUid, time: COpaquePointer?, handler: SceKernelVTimerHandler, common: COpaquePointer?): Int =
+public actual fun sceKernelSetVTimerHandler(uid: SceUid, time: MutPtr<SceKernelSysClock>, handler: SceKernelVTimerHandler, common: MutPtr<CVoid>): Int =
     0
 
-public actual fun sceKernelSetVTimerHandlerWide(uid: SceUid, time: Long, handler: SceKernelVTimerHandlerWide, common: COpaquePointer?): Int =
+public actual fun sceKernelSetVTimerHandlerWide(uid: SceUid, time: Long, handler: SceKernelVTimerHandlerWide, common: MutPtr<CVoid>): Int =
     0
 
 public actual fun sceKernelCancelVTimerHandler(uid: SceUid): Int =
     0
 
-public actual fun sceKernelReferVTimerStatus(uid: SceUid, info: COpaquePointer?): Int =
+public actual fun sceKernelReferVTimerStatus(uid: SceUid, info: MutPtr<SceKernelVTimerInfo>): Int =
     0
 
-public actual fun sceKernelRegisterThreadEventHandler(name: COpaquePointer?, threadId: SceUid, mask: Int, handler: SceKernelThreadEventHandler, common: COpaquePointer?): SceUid =
+public actual fun sceKernelRegisterThreadEventHandler(name: ConstPtr<UByte>, threadId: SceUid, mask: Int, handler: SceKernelThreadEventHandler, common: MutPtr<CVoid>): SceUid =
     SceUid()
 
 public actual fun sceKernelReleaseThreadEventHandler(uid: SceUid): Int =
     0
 
-public actual fun sceKernelReferThreadEventHandlerStatus(uid: SceUid, info: COpaquePointer?): Int =
+public actual fun sceKernelReferThreadEventHandlerStatus(uid: SceUid, info: MutPtr<SceKernelThreadEventHandlerInfo>): Int =
     0
 
-public actual fun sceKernelReferThreadProfiler(): COpaquePointer? =
-    libc_psp_sceKernelReferThreadProfiler()?.let { COpaquePointer(it.toLong()) }
+public actual fun sceKernelReferThreadProfiler(): MutPtr<DebugProfilerRegs> =
+    MutPtr(libcPspSceKernelReferThreadProfiler()?.toLong() ?: 0L)
 
-public actual fun sceKernelReferGlobalProfiler(): COpaquePointer? =
-    libc_psp_sceKernelReferGlobalProfiler()?.let { COpaquePointer(it.toLong()) }
+public actual fun sceKernelReferGlobalProfiler(): MutPtr<DebugProfilerRegs> =
+    MutPtr(libcPspSceKernelReferGlobalProfiler()?.toLong() ?: 0L)
 
-public actual fun sceUsbStart(driverName: COpaquePointer?, size: Int, args: COpaquePointer?): Int =
-    libc_psp_sceUsbStart(driverName?.value?.toCPointer<ByteVar>(), size, args?.value?.toCPointer<ByteVar>())
+public actual fun sceUsbStart(driverName: ConstPtr<UByte>, size: Int, args: MutPtr<CVoid>): Int =
+    libcPspSceUsbStart(driverName.rawAddress.toCPointer<ByteVar>(), size, args.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceUsbStop(driverName: COpaquePointer?, size: Int, args: COpaquePointer?): Int =
-    libc_psp_sceUsbStop(driverName?.value?.toCPointer<ByteVar>(), size, args?.value?.toCPointer<ByteVar>())
+public actual fun sceUsbStop(driverName: ConstPtr<UByte>, size: Int, args: MutPtr<CVoid>): Int =
+    libcPspSceUsbStop(driverName.rawAddress.toCPointer<ByteVar>(), size, args.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceUsbActivate(pid: UInt): Int =
-    libc_psp_sceUsbActivate(pid)
+    libcPspSceUsbActivate(pid)
 
 public actual fun sceUsbDeactivate(pid: UInt): Int =
-    libc_psp_sceUsbDeactivate(pid)
+    libcPspSceUsbDeactivate(pid)
 
 public actual fun sceUsbGetState(): Int =
-    libc_psp_sceUsbGetState()
+    libcPspSceUsbGetState()
 
-public actual fun sceUsbGetDrvState(driverName: COpaquePointer?): Int =
-    libc_psp_sceUsbGetDrvState(driverName?.value?.toCPointer<ByteVar>())
+public actual fun sceUsbGetDrvState(driverName: ConstPtr<UByte>): Int =
+    libcPspSceUsbGetDrvState(driverName.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceUsbCamSetupStill(param: COpaquePointer?): Int =
-    libc_psp_sceUsbCamSetupStill(param?.value?.toCPointer<ByteVar>())
+public actual fun sceUsbCamSetupStill(param: MutPtr<UsbCamSetupStillParam>): Int =
+    libcPspSceUsbCamSetupStill(param.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceUsbCamSetupStillEx(param: COpaquePointer?): Int =
-    libc_psp_sceUsbCamSetupStillEx(param?.value?.toCPointer<ByteVar>())
+public actual fun sceUsbCamSetupStillEx(param: MutPtr<UsbCamSetupStillExParam>): Int =
+    libcPspSceUsbCamSetupStillEx(param.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceUsbCamStillInputBlocking(buf: COpaquePointer?, size: ULong): Int =
-    libc_psp_sceUsbCamStillInputBlocking(buf?.value?.toCPointer<ByteVar>(), size)
+public actual fun sceUsbCamStillInputBlocking(buf: MutPtr<UByte>, size: ULong): Int =
+    libcPspSceUsbCamStillInputBlocking(buf.rawAddress.toCPointer<ByteVar>(), size)
 
-public actual fun sceUsbCamStillInput(buf: COpaquePointer?, size: ULong): Int =
-    libc_psp_sceUsbCamStillInput(buf?.value?.toCPointer<ByteVar>(), size)
+public actual fun sceUsbCamStillInput(buf: MutPtr<UByte>, size: ULong): Int =
+    libcPspSceUsbCamStillInput(buf.rawAddress.toCPointer<ByteVar>(), size)
 
 public actual fun sceUsbCamStillWaitInputEnd(): Int =
-    libc_psp_sceUsbCamStillWaitInputEnd()
+    libcPspSceUsbCamStillWaitInputEnd()
 
 public actual fun sceUsbCamStillPollInputEnd(): Int =
-    libc_psp_sceUsbCamStillPollInputEnd()
+    libcPspSceUsbCamStillPollInputEnd()
 
 public actual fun sceUsbCamStillCancelInput(): Int =
-    libc_psp_sceUsbCamStillCancelInput()
+    libcPspSceUsbCamStillCancelInput()
 
 public actual fun sceUsbCamStillGetInputLength(): Int =
-    libc_psp_sceUsbCamStillGetInputLength()
+    libcPspSceUsbCamStillGetInputLength()
 
-public actual fun sceUsbCamSetupVideo(param: COpaquePointer?, workArea: COpaquePointer?, workAreaSize: Int): Int =
-    libc_psp_sceUsbCamSetupVideo(param?.value?.toCPointer<ByteVar>(), workArea?.value?.toCPointer<ByteVar>(), workAreaSize)
+public actual fun sceUsbCamSetupVideo(param: MutPtr<UsbCamSetupVideoParam>, workArea: MutPtr<CVoid>, workAreaSize: Int): Int =
+    libcPspSceUsbCamSetupVideo(param.rawAddress.toCPointer<ByteVar>(), workArea.rawAddress.toCPointer<ByteVar>(), workAreaSize)
 
-public actual fun sceUsbCamSetupVideoEx(param: COpaquePointer?, workArea: COpaquePointer?, workAreaSize: Int): Int =
-    libc_psp_sceUsbCamSetupVideoEx(param?.value?.toCPointer<ByteVar>(), workArea?.value?.toCPointer<ByteVar>(), workAreaSize)
+public actual fun sceUsbCamSetupVideoEx(param: MutPtr<UsbCamSetupVideoExParam>, workArea: MutPtr<CVoid>, workAreaSize: Int): Int =
+    libcPspSceUsbCamSetupVideoEx(param.rawAddress.toCPointer<ByteVar>(), workArea.rawAddress.toCPointer<ByteVar>(), workAreaSize)
 
 public actual fun sceUsbCamStartVideo(): Int =
-    libc_psp_sceUsbCamStartVideo()
+    libcPspSceUsbCamStartVideo()
 
 public actual fun sceUsbCamStopVideo(): Int =
-    libc_psp_sceUsbCamStopVideo()
+    libcPspSceUsbCamStopVideo()
 
-public actual fun sceUsbCamReadVideoFrameBlocking(buf: COpaquePointer?, size: ULong): Int =
-    libc_psp_sceUsbCamReadVideoFrameBlocking(buf?.value?.toCPointer<ByteVar>(), size)
+public actual fun sceUsbCamReadVideoFrameBlocking(buf: MutPtr<UByte>, size: ULong): Int =
+    libcPspSceUsbCamReadVideoFrameBlocking(buf.rawAddress.toCPointer<ByteVar>(), size)
 
-public actual fun sceUsbCamReadVideoFrame(buf: COpaquePointer?, size: ULong): Int =
-    libc_psp_sceUsbCamReadVideoFrame(buf?.value?.toCPointer<ByteVar>(), size)
+public actual fun sceUsbCamReadVideoFrame(buf: MutPtr<UByte>, size: ULong): Int =
+    libcPspSceUsbCamReadVideoFrame(buf.rawAddress.toCPointer<ByteVar>(), size)
 
 public actual fun sceUsbCamWaitReadVideoFrameEnd(): Int =
-    libc_psp_sceUsbCamWaitReadVideoFrameEnd()
+    libcPspSceUsbCamWaitReadVideoFrameEnd()
 
 public actual fun sceUsbCamPollReadVideoFrameEnd(): Int =
-    libc_psp_sceUsbCamPollReadVideoFrameEnd()
+    libcPspSceUsbCamPollReadVideoFrameEnd()
 
 public actual fun sceUsbCamGetReadVideoFrameSize(): Int =
-    libc_psp_sceUsbCamGetReadVideoFrameSize()
+    libcPspSceUsbCamGetReadVideoFrameSize()
 
 public actual fun sceUsbCamSetSaturation(saturation: Int): Int =
-    libc_psp_sceUsbCamSetSaturation(saturation)
+    libcPspSceUsbCamSetSaturation(saturation)
 
 public actual fun sceUsbCamSetBrightness(brightness: Int): Int =
-    libc_psp_sceUsbCamSetBrightness(brightness)
+    libcPspSceUsbCamSetBrightness(brightness)
 
 public actual fun sceUsbCamSetContrast(contrast: Int): Int =
-    libc_psp_sceUsbCamSetContrast(contrast)
+    libcPspSceUsbCamSetContrast(contrast)
 
 public actual fun sceUsbCamSetSharpness(sharpness: Int): Int =
-    libc_psp_sceUsbCamSetSharpness(sharpness)
+    libcPspSceUsbCamSetSharpness(sharpness)
 
 public actual fun sceUsbCamSetImageEffectMode(effectMode: UsbCamEffectMode): Int =
     0
@@ -1472,267 +1476,267 @@ public actual fun sceUsbCamSetEvLevel(exposureLevel: UsbCamEvLevel): Int =
     0
 
 public actual fun sceUsbCamSetReverseMode(reverseFlags: Int): Int =
-    libc_psp_sceUsbCamSetReverseMode(reverseFlags)
+    libcPspSceUsbCamSetReverseMode(reverseFlags)
 
 public actual fun sceUsbCamSetZoom(zoom: Int): Int =
-    libc_psp_sceUsbCamSetZoom(zoom)
+    libcPspSceUsbCamSetZoom(zoom)
 
-public actual fun sceUsbCamGetSaturation(saturation: COpaquePointer?): Int =
-    libc_psp_sceUsbCamGetSaturation(saturation?.value?.toCPointer<ByteVar>())
+public actual fun sceUsbCamGetSaturation(saturation: MutPtr<Int>): Int =
+    libcPspSceUsbCamGetSaturation(saturation.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceUsbCamGetBrightness(brightness: COpaquePointer?): Int =
-    libc_psp_sceUsbCamGetBrightness(brightness?.value?.toCPointer<ByteVar>())
+public actual fun sceUsbCamGetBrightness(brightness: MutPtr<Int>): Int =
+    libcPspSceUsbCamGetBrightness(brightness.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceUsbCamGetContrast(contrast: COpaquePointer?): Int =
-    libc_psp_sceUsbCamGetContrast(contrast?.value?.toCPointer<ByteVar>())
+public actual fun sceUsbCamGetContrast(contrast: MutPtr<Int>): Int =
+    libcPspSceUsbCamGetContrast(contrast.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceUsbCamGetSharpness(sharpness: COpaquePointer?): Int =
-    libc_psp_sceUsbCamGetSharpness(sharpness?.value?.toCPointer<ByteVar>())
+public actual fun sceUsbCamGetSharpness(sharpness: MutPtr<Int>): Int =
+    libcPspSceUsbCamGetSharpness(sharpness.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceUsbCamGetImageEffectMode(effectMode: COpaquePointer?): Int =
-    libc_psp_sceUsbCamGetImageEffectMode(effectMode?.value?.toCPointer<ByteVar>())
+public actual fun sceUsbCamGetImageEffectMode(effectMode: MutPtr<UsbCamEffectMode>): Int =
+    libcPspSceUsbCamGetImageEffectMode(effectMode.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceUsbCamGetEvLevel(exposureLevel: COpaquePointer?): Int =
-    libc_psp_sceUsbCamGetEvLevel(exposureLevel?.value?.toCPointer<ByteVar>())
+public actual fun sceUsbCamGetEvLevel(exposureLevel: MutPtr<UsbCamEvLevel>): Int =
+    libcPspSceUsbCamGetEvLevel(exposureLevel.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceUsbCamGetReverseMode(reverseFlags: COpaquePointer?): Int =
-    libc_psp_sceUsbCamGetReverseMode(reverseFlags?.value?.toCPointer<ByteVar>())
+public actual fun sceUsbCamGetReverseMode(reverseFlags: MutPtr<Int>): Int =
+    libcPspSceUsbCamGetReverseMode(reverseFlags.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceUsbCamGetZoom(zoom: COpaquePointer?): Int =
-    libc_psp_sceUsbCamGetZoom(zoom?.value?.toCPointer<ByteVar>())
+public actual fun sceUsbCamGetZoom(zoom: MutPtr<Int>): Int =
+    libcPspSceUsbCamGetZoom(zoom.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceUsbCamAutoImageReverseSW(on: Int): Int =
-    libc_psp_sceUsbCamAutoImageReverseSW(on)
+    libcPspSceUsbCamAutoImageReverseSW(on)
 
 public actual fun sceUsbCamGetAutoImageReverseState(): Int =
-    libc_psp_sceUsbCamGetAutoImageReverseState()
+    libcPspSceUsbCamGetAutoImageReverseState()
 
 public actual fun sceUsbCamGetLensDirection(): Int =
-    libc_psp_sceUsbCamGetLensDirection()
+    libcPspSceUsbCamGetLensDirection()
 
 public actual fun sceUsbstorBootRegisterNotify(eventFlag: SceUid): Int =
     0
 
 public actual fun sceUsbstorBootUnregisterNotify(eventFlag: UInt): Int =
-    libc_psp_sceUsbstorBootUnregisterNotify(eventFlag)
+    libcPspSceUsbstorBootUnregisterNotify(eventFlag)
 
 public actual fun sceUsbstorBootSetCapacity(size: UInt): Int =
-    libc_psp_sceUsbstorBootSetCapacity(size)
+    libcPspSceUsbstorBootSetCapacity(size)
 
 public actual fun scePowerRegisterCallback(slot: Int, cbid: SceUid): Int =
     0
 
 public actual fun scePowerUnregisterCallback(slot: Int): Int =
-    libc_psp_scePowerUnregisterCallback(slot)
+    libcPspScePowerUnregisterCallback(slot)
 
 public actual fun scePowerIsPowerOnline(): Int =
-    libc_psp_scePowerIsPowerOnline()
+    libcPspScePowerIsPowerOnline()
 
 public actual fun scePowerIsBatteryExist(): Int =
-    libc_psp_scePowerIsBatteryExist()
+    libcPspScePowerIsBatteryExist()
 
 public actual fun scePowerIsBatteryCharging(): Int =
-    libc_psp_scePowerIsBatteryCharging()
+    libcPspScePowerIsBatteryCharging()
 
 public actual fun scePowerGetBatteryChargingStatus(): Int =
-    libc_psp_scePowerGetBatteryChargingStatus()
+    libcPspScePowerGetBatteryChargingStatus()
 
 public actual fun scePowerIsLowBattery(): Int =
-    libc_psp_scePowerIsLowBattery()
+    libcPspScePowerIsLowBattery()
 
 public actual fun scePowerGetBatteryLifePercent(): Int =
-    libc_psp_scePowerGetBatteryLifePercent()
+    libcPspScePowerGetBatteryLifePercent()
 
 public actual fun scePowerGetBatteryLifeTime(): Int =
-    libc_psp_scePowerGetBatteryLifeTime()
+    libcPspScePowerGetBatteryLifeTime()
 
 public actual fun scePowerGetBatteryTemp(): Int =
-    libc_psp_scePowerGetBatteryTemp()
+    libcPspScePowerGetBatteryTemp()
 
 public actual fun scePowerGetBatteryElec(): Int =
-    libc_psp_scePowerGetBatteryElec()
+    libcPspScePowerGetBatteryElec()
 
 public actual fun scePowerGetBatteryVolt(): Int =
-    libc_psp_scePowerGetBatteryVolt()
+    libcPspScePowerGetBatteryVolt()
 
 public actual fun scePowerSetCpuClockFrequency(cpufreq: Int): Int =
-    libc_psp_scePowerSetCpuClockFrequency(cpufreq)
+    libcPspScePowerSetCpuClockFrequency(cpufreq)
 
 public actual fun scePowerSetBusClockFrequency(busfreq: Int): Int =
-    libc_psp_scePowerSetBusClockFrequency(busfreq)
+    libcPspScePowerSetBusClockFrequency(busfreq)
 
 public actual fun scePowerGetCpuClockFrequency(): Int =
-    libc_psp_scePowerGetCpuClockFrequency()
+    libcPspScePowerGetCpuClockFrequency()
 
 public actual fun scePowerGetCpuClockFrequencyInt(): Int =
-    libc_psp_scePowerGetCpuClockFrequencyInt()
+    libcPspScePowerGetCpuClockFrequencyInt()
 
 public actual fun scePowerGetCpuClockFrequencyFloat(): Float =
-    libc_psp_scePowerGetCpuClockFrequencyFloat()
+    libcPspScePowerGetCpuClockFrequencyFloat()
 
 public actual fun scePowerGetBusClockFrequency(): Int =
-    libc_psp_scePowerGetBusClockFrequency()
+    libcPspScePowerGetBusClockFrequency()
 
 public actual fun scePowerGetBusClockFrequencyInt(): Int =
-    libc_psp_scePowerGetBusClockFrequencyInt()
+    libcPspScePowerGetBusClockFrequencyInt()
 
 public actual fun scePowerGetBusClockFrequencyFloat(): Float =
-    libc_psp_scePowerGetBusClockFrequencyFloat()
+    libcPspScePowerGetBusClockFrequencyFloat()
 
 public actual fun scePowerSetClockFrequency(pllfreq: Int, cpufreq: Int, busfreq: Int): Int =
-    libc_psp_scePowerSetClockFrequency(pllfreq, cpufreq, busfreq)
+    libcPspScePowerSetClockFrequency(pllfreq, cpufreq, busfreq)
 
 public actual fun scePowerLock(unknown: Int): Int =
-    libc_psp_scePowerLock(unknown)
+    libcPspScePowerLock(unknown)
 
 public actual fun scePowerUnlock(unknown: Int): Int =
-    libc_psp_scePowerUnlock(unknown)
+    libcPspScePowerUnlock(unknown)
 
 public actual fun scePowerTick(t: PowerTick): Int =
     0
 
 public actual fun scePowerGetIdleTimer(): Int =
-    libc_psp_scePowerGetIdleTimer()
+    libcPspScePowerGetIdleTimer()
 
 public actual fun scePowerIdleTimerEnable(unknown: Int): Int =
-    libc_psp_scePowerIdleTimerEnable(unknown)
+    libcPspScePowerIdleTimerEnable(unknown)
 
 public actual fun scePowerIdleTimerDisable(unknown: Int): Int =
-    libc_psp_scePowerIdleTimerDisable(unknown)
+    libcPspScePowerIdleTimerDisable(unknown)
 
 public actual fun scePowerRequestStandby(): Int =
-    libc_psp_scePowerRequestStandby()
+    libcPspScePowerRequestStandby()
 
 public actual fun scePowerRequestSuspend(): Int =
-    libc_psp_scePowerRequestSuspend()
+    libcPspScePowerRequestSuspend()
 
 public actual fun sceWlanDevIsPowerOn(): Int =
-    libc_psp_sceWlanDevIsPowerOn()
+    libcPspSceWlanDevIsPowerOn()
 
 public actual fun sceWlanGetSwitchState(): Int =
-    libc_psp_sceWlanGetSwitchState()
+    libcPspSceWlanGetSwitchState()
 
-public actual fun sceWlanGetEtherAddr(etherAddr: COpaquePointer?): Int =
-    libc_psp_sceWlanGetEtherAddr(etherAddr?.value?.toCPointer<ByteVar>())
+public actual fun sceWlanGetEtherAddr(etherAddr: MutPtr<UByte>): Int =
+    libcPspSceWlanGetEtherAddr(etherAddr.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceWlanDevAttach(): Int =
-    libc_psp_sceWlanDevAttach()
+    libcPspSceWlanDevAttach()
 
 public actual fun sceWlanDevDetach(): Int =
-    libc_psp_sceWlanDevDetach()
+    libcPspSceWlanDevDetach()
 
 public actual fun sceRtcGetTickResolution(): UInt =
-    libc_psp_sceRtcGetTickResolution()
+    libcPspSceRtcGetTickResolution()
 
-public actual fun sceRtcGetCurrentTick(tick: COpaquePointer?): Int =
-    libc_psp_sceRtcGetCurrentTick(tick?.value?.toCPointer<ByteVar>())
+public actual fun sceRtcGetCurrentTick(tick: MutPtr<ULong>): Int =
+    libcPspSceRtcGetCurrentTick(tick.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceRtcGetCurrentClock(tm: COpaquePointer?, tz: Int): Int =
-    libc_psp_sceRtcGetCurrentClock(tm?.value?.toCPointer<ByteVar>(), tz)
+public actual fun sceRtcGetCurrentClock(tm: MutPtr<ScePspDateTime>, tz: Int): Int =
+    libcPspSceRtcGetCurrentClock(tm.rawAddress.toCPointer<ByteVar>(), tz)
 
-public actual fun sceRtcGetCurrentClockLocalTime(tm: COpaquePointer?): Int =
-    libc_psp_sceRtcGetCurrentClockLocalTime(tm?.value?.toCPointer<ByteVar>())
+public actual fun sceRtcGetCurrentClockLocalTime(tm: MutPtr<ScePspDateTime>): Int =
+    libcPspSceRtcGetCurrentClockLocalTime(tm.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceRtcConvertUtcToLocalTime(tickUtc: COpaquePointer?, tickLocal: COpaquePointer?): Int =
-    libc_psp_sceRtcConvertUtcToLocalTime(tickUtc?.value?.toCPointer<ByteVar>(), tickLocal?.value?.toCPointer<ByteVar>())
+public actual fun sceRtcConvertUtcToLocalTime(tickUtc: ConstPtr<ULong>, tickLocal: MutPtr<ULong>): Int =
+    libcPspSceRtcConvertUtcToLocalTime(tickUtc.rawAddress.toCPointer<ByteVar>(), tickLocal.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceRtcConvertLocalTimeToUTC(tickLocal: COpaquePointer?, tickUtc: COpaquePointer?): Int =
-    libc_psp_sceRtcConvertLocalTimeToUTC(tickLocal?.value?.toCPointer<ByteVar>(), tickUtc?.value?.toCPointer<ByteVar>())
+public actual fun sceRtcConvertLocalTimeToUTC(tickLocal: ConstPtr<ULong>, tickUtc: MutPtr<ULong>): Int =
+    libcPspSceRtcConvertLocalTimeToUTC(tickLocal.rawAddress.toCPointer<ByteVar>(), tickUtc.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceRtcIsLeapYear(year: Int): Int =
-    libc_psp_sceRtcIsLeapYear(year)
+    libcPspSceRtcIsLeapYear(year)
 
 public actual fun sceRtcGetDaysInMonth(year: Int, month: Int): Int =
-    libc_psp_sceRtcGetDaysInMonth(year, month)
+    libcPspSceRtcGetDaysInMonth(year, month)
 
 public actual fun sceRtcGetDayOfWeek(year: Int, month: Int, day: Int): Int =
-    libc_psp_sceRtcGetDayOfWeek(year, month, day)
+    libcPspSceRtcGetDayOfWeek(year, month, day)
 
-public actual fun sceRtcCheckValid(date: COpaquePointer?): Int =
-    libc_psp_sceRtcCheckValid(date?.value?.toCPointer<ByteVar>())
+public actual fun sceRtcCheckValid(date: ConstPtr<ScePspDateTime>): Int =
+    libcPspSceRtcCheckValid(date.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceRtcSetTick(date: COpaquePointer?, tick: COpaquePointer?): Int =
-    libc_psp_sceRtcSetTick(date?.value?.toCPointer<ByteVar>(), tick?.value?.toCPointer<ByteVar>())
+public actual fun sceRtcSetTick(date: MutPtr<ScePspDateTime>, tick: ConstPtr<ULong>): Int =
+    libcPspSceRtcSetTick(date.rawAddress.toCPointer<ByteVar>(), tick.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceRtcGetTick(date: COpaquePointer?, tick: COpaquePointer?): Int =
-    libc_psp_sceRtcGetTick(date?.value?.toCPointer<ByteVar>(), tick?.value?.toCPointer<ByteVar>())
+public actual fun sceRtcGetTick(date: ConstPtr<ScePspDateTime>, tick: MutPtr<ULong>): Int =
+    libcPspSceRtcGetTick(date.rawAddress.toCPointer<ByteVar>(), tick.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceRtcCompareTick(tick1: COpaquePointer?, tick2: COpaquePointer?): Int =
-    libc_psp_sceRtcCompareTick(tick1?.value?.toCPointer<ByteVar>(), tick2?.value?.toCPointer<ByteVar>())
+public actual fun sceRtcCompareTick(tick1: ConstPtr<ULong>, tick2: ConstPtr<ULong>): Int =
+    libcPspSceRtcCompareTick(tick1.rawAddress.toCPointer<ByteVar>(), tick2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceRtcTickAddTicks(destTick: COpaquePointer?, srcTick: COpaquePointer?, numTicks: ULong): Int =
-    libc_psp_sceRtcTickAddTicks(destTick?.value?.toCPointer<ByteVar>(), srcTick?.value?.toCPointer<ByteVar>(), numTicks)
+public actual fun sceRtcTickAddTicks(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numTicks: ULong): Int =
+    libcPspSceRtcTickAddTicks(destTick.rawAddress.toCPointer<ByteVar>(), srcTick.rawAddress.toCPointer<ByteVar>(), numTicks)
 
-public actual fun sceRtcTickAddMicroseconds(destTick: COpaquePointer?, srcTick: COpaquePointer?, numMs: ULong): Int =
-    libc_psp_sceRtcTickAddMicroseconds(destTick?.value?.toCPointer<ByteVar>(), srcTick?.value?.toCPointer<ByteVar>(), numMs)
+public actual fun sceRtcTickAddMicroseconds(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numMs: ULong): Int =
+    libcPspSceRtcTickAddMicroseconds(destTick.rawAddress.toCPointer<ByteVar>(), srcTick.rawAddress.toCPointer<ByteVar>(), numMs)
 
-public actual fun sceRtcTickAddSeconds(destTick: COpaquePointer?, srcTick: COpaquePointer?, numSeconds: ULong): Int =
-    libc_psp_sceRtcTickAddSeconds(destTick?.value?.toCPointer<ByteVar>(), srcTick?.value?.toCPointer<ByteVar>(), numSeconds)
+public actual fun sceRtcTickAddSeconds(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numSeconds: ULong): Int =
+    libcPspSceRtcTickAddSeconds(destTick.rawAddress.toCPointer<ByteVar>(), srcTick.rawAddress.toCPointer<ByteVar>(), numSeconds)
 
-public actual fun sceRtcTickAddMinutes(destTick: COpaquePointer?, srcTick: COpaquePointer?, numMinutes: ULong): Int =
-    libc_psp_sceRtcTickAddMinutes(destTick?.value?.toCPointer<ByteVar>(), srcTick?.value?.toCPointer<ByteVar>(), numMinutes)
+public actual fun sceRtcTickAddMinutes(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numMinutes: ULong): Int =
+    libcPspSceRtcTickAddMinutes(destTick.rawAddress.toCPointer<ByteVar>(), srcTick.rawAddress.toCPointer<ByteVar>(), numMinutes)
 
-public actual fun sceRtcTickAddHours(destTick: COpaquePointer?, srcTick: COpaquePointer?, numHours: ULong): Int =
-    libc_psp_sceRtcTickAddHours(destTick?.value?.toCPointer<ByteVar>(), srcTick?.value?.toCPointer<ByteVar>(), numHours)
+public actual fun sceRtcTickAddHours(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numHours: ULong): Int =
+    libcPspSceRtcTickAddHours(destTick.rawAddress.toCPointer<ByteVar>(), srcTick.rawAddress.toCPointer<ByteVar>(), numHours)
 
-public actual fun sceRtcTickAddDays(destTick: COpaquePointer?, srcTick: COpaquePointer?, numDays: ULong): Int =
-    libc_psp_sceRtcTickAddDays(destTick?.value?.toCPointer<ByteVar>(), srcTick?.value?.toCPointer<ByteVar>(), numDays)
+public actual fun sceRtcTickAddDays(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numDays: ULong): Int =
+    libcPspSceRtcTickAddDays(destTick.rawAddress.toCPointer<ByteVar>(), srcTick.rawAddress.toCPointer<ByteVar>(), numDays)
 
-public actual fun sceRtcTickAddWeeks(destTick: COpaquePointer?, srcTick: COpaquePointer?, numWeeks: ULong): Int =
-    libc_psp_sceRtcTickAddWeeks(destTick?.value?.toCPointer<ByteVar>(), srcTick?.value?.toCPointer<ByteVar>(), numWeeks)
+public actual fun sceRtcTickAddWeeks(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numWeeks: ULong): Int =
+    libcPspSceRtcTickAddWeeks(destTick.rawAddress.toCPointer<ByteVar>(), srcTick.rawAddress.toCPointer<ByteVar>(), numWeeks)
 
-public actual fun sceRtcTickAddMonths(destTick: COpaquePointer?, srcTick: COpaquePointer?, numMonths: ULong): Int =
-    libc_psp_sceRtcTickAddMonths(destTick?.value?.toCPointer<ByteVar>(), srcTick?.value?.toCPointer<ByteVar>(), numMonths)
+public actual fun sceRtcTickAddMonths(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numMonths: ULong): Int =
+    libcPspSceRtcTickAddMonths(destTick.rawAddress.toCPointer<ByteVar>(), srcTick.rawAddress.toCPointer<ByteVar>(), numMonths)
 
-public actual fun sceRtcTickAddYears(destTick: COpaquePointer?, srcTick: COpaquePointer?, numYears: ULong): Int =
-    libc_psp_sceRtcTickAddYears(destTick?.value?.toCPointer<ByteVar>(), srcTick?.value?.toCPointer<ByteVar>(), numYears)
+public actual fun sceRtcTickAddYears(destTick: MutPtr<ULong>, srcTick: ConstPtr<ULong>, numYears: ULong): Int =
+    libcPspSceRtcTickAddYears(destTick.rawAddress.toCPointer<ByteVar>(), srcTick.rawAddress.toCPointer<ByteVar>(), numYears)
 
-public actual fun sceRtcSetTimeT(date: COpaquePointer?, time: UInt): Int =
-    libc_psp_sceRtcSetTimeT(date?.value?.toCPointer<ByteVar>(), time)
+public actual fun sceRtcSetTimeT(date: MutPtr<ScePspDateTime>, time: UInt): Int =
+    libcPspSceRtcSetTimeT(date.rawAddress.toCPointer<ByteVar>(), time)
 
-public actual fun sceRtcGetTimeT(date: COpaquePointer?, time: COpaquePointer?): Int =
-    libc_psp_sceRtcGetTimeT(date?.value?.toCPointer<ByteVar>(), time?.value?.toCPointer<ByteVar>())
+public actual fun sceRtcGetTimeT(date: ConstPtr<ScePspDateTime>, time: MutPtr<UInt>): Int =
+    libcPspSceRtcGetTimeT(date.rawAddress.toCPointer<ByteVar>(), time.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceRtcSetTime64T(date: COpaquePointer?, time: ULong): Int =
-    libc_psp_sceRtcSetTime64T(date?.value?.toCPointer<ByteVar>(), time)
+public actual fun sceRtcSetTime64T(date: MutPtr<ScePspDateTime>, time: ULong): Int =
+    libcPspSceRtcSetTime64T(date.rawAddress.toCPointer<ByteVar>(), time)
 
-public actual fun sceRtcGetTime64T(date: COpaquePointer?, time: COpaquePointer?): Int =
-    libc_psp_sceRtcGetTime64T(date?.value?.toCPointer<ByteVar>(), time?.value?.toCPointer<ByteVar>())
+public actual fun sceRtcGetTime64T(date: ConstPtr<ScePspDateTime>, time: MutPtr<ULong>): Int =
+    libcPspSceRtcGetTime64T(date.rawAddress.toCPointer<ByteVar>(), time.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceRtcSetDosTime(date: COpaquePointer?, dosTime: UInt): Int =
-    libc_psp_sceRtcSetDosTime(date?.value?.toCPointer<ByteVar>(), dosTime)
+public actual fun sceRtcSetDosTime(date: MutPtr<ScePspDateTime>, dosTime: UInt): Int =
+    libcPspSceRtcSetDosTime(date.rawAddress.toCPointer<ByteVar>(), dosTime)
 
-public actual fun sceRtcGetDosTime(date: COpaquePointer?, dosTime: UInt): Int =
-    libc_psp_sceRtcGetDosTime(date?.value?.toCPointer<ByteVar>(), dosTime)
+public actual fun sceRtcGetDosTime(date: MutPtr<ScePspDateTime>, dosTime: UInt): Int =
+    libcPspSceRtcGetDosTime(date.rawAddress.toCPointer<ByteVar>(), dosTime)
 
-public actual fun sceRtcSetWin32FileTime(date: COpaquePointer?, time: COpaquePointer?): Int =
-    libc_psp_sceRtcSetWin32FileTime(date?.value?.toCPointer<ByteVar>(), time?.value?.toCPointer<ByteVar>())
+public actual fun sceRtcSetWin32FileTime(date: MutPtr<ScePspDateTime>, time: MutPtr<ULong>): Int =
+    libcPspSceRtcSetWin32FileTime(date.rawAddress.toCPointer<ByteVar>(), time.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceRtcGetWin32FileTime(date: COpaquePointer?, time: COpaquePointer?): Int =
-    libc_psp_sceRtcGetWin32FileTime(date?.value?.toCPointer<ByteVar>(), time?.value?.toCPointer<ByteVar>())
+public actual fun sceRtcGetWin32FileTime(date: MutPtr<ScePspDateTime>, time: MutPtr<ULong>): Int =
+    libcPspSceRtcGetWin32FileTime(date.rawAddress.toCPointer<ByteVar>(), time.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceRtcParseDateTime(destTick: COpaquePointer?, dateString: COpaquePointer?): Int =
-    libc_psp_sceRtcParseDateTime(destTick?.value?.toCPointer<ByteVar>(), dateString?.value?.toCPointer<ByteVar>())
+public actual fun sceRtcParseDateTime(destTick: MutPtr<ULong>, dateString: ConstPtr<UByte>): Int =
+    libcPspSceRtcParseDateTime(destTick.rawAddress.toCPointer<ByteVar>(), dateString.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceRtcFormatRFC3339(pszDateTime: COpaquePointer?, pUtc: COpaquePointer?, timeZoneMinutes: Int): Int =
-    libc_psp_sceRtcFormatRFC3339(pszDateTime?.value?.toCPointer<ByteVar>(), pUtc?.value?.toCPointer<ByteVar>(), timeZoneMinutes)
+public actual fun sceRtcFormatRFC3339(pszDateTime: MutPtr<CChar>, pUtc: ConstPtr<ULong>, timeZoneMinutes: Int): Int =
+    libcPspSceRtcFormatRFC3339(pszDateTime.rawAddress.toCPointer<ByteVar>(), pUtc.rawAddress.toCPointer<ByteVar>(), timeZoneMinutes)
 
-public actual fun sceRtcFormatRFC3339LocalTime(pszDateTime: COpaquePointer?, pUtc: COpaquePointer?): Int =
-    libc_psp_sceRtcFormatRFC3339LocalTime(pszDateTime?.value?.toCPointer<ByteVar>(), pUtc?.value?.toCPointer<ByteVar>())
+public actual fun sceRtcFormatRFC3339LocalTime(pszDateTime: MutPtr<CChar>, pUtc: ConstPtr<ULong>): Int =
+    libcPspSceRtcFormatRFC3339LocalTime(pszDateTime.rawAddress.toCPointer<ByteVar>(), pUtc.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceRtcParseRFC3339(pUtc: COpaquePointer?, pszDateTime: COpaquePointer?): Int =
-    libc_psp_sceRtcParseRFC3339(pUtc?.value?.toCPointer<ByteVar>(), pszDateTime?.value?.toCPointer<ByteVar>())
+public actual fun sceRtcParseRFC3339(pUtc: MutPtr<ULong>, pszDateTime: ConstPtr<UByte>): Int =
+    libcPspSceRtcParseRFC3339(pUtc.rawAddress.toCPointer<ByteVar>(), pszDateTime.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceRtcFormatRFC2822(pszDateTime: COpaquePointer?, pUtc: COpaquePointer?, timeZoneMinutes: Int): Int =
-    libc_psp_sceRtcFormatRFC2822(pszDateTime?.value?.toCPointer<ByteVar>(), pUtc?.value?.toCPointer<ByteVar>(), timeZoneMinutes)
+public actual fun sceRtcFormatRFC2822(pszDateTime: MutPtr<CChar>, pUtc: ConstPtr<ULong>, timeZoneMinutes: Int): Int =
+    libcPspSceRtcFormatRFC2822(pszDateTime.rawAddress.toCPointer<ByteVar>(), pUtc.rawAddress.toCPointer<ByteVar>(), timeZoneMinutes)
 
-public actual fun sceRtcFormatRFC2822LocalTime(pszDateTime: COpaquePointer?, pUtc: COpaquePointer?): Int =
-    libc_psp_sceRtcFormatRFC2822LocalTime(pszDateTime?.value?.toCPointer<ByteVar>(), pUtc?.value?.toCPointer<ByteVar>())
+public actual fun sceRtcFormatRFC2822LocalTime(pszDateTime: MutPtr<CChar>, pUtc: ConstPtr<ULong>): Int =
+    libcPspSceRtcFormatRFC2822LocalTime(pszDateTime.rawAddress.toCPointer<ByteVar>(), pUtc.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceIoOpen(file: COpaquePointer?, flags: Int, permissions: IoPermissions): SceUid =
+public actual fun sceIoOpen(file: ConstPtr<UByte>, flags: Int, permissions: IoPermissions): SceUid =
     SceUid()
 
-public actual fun sceIoOpenAsync(file: COpaquePointer?, flags: Int, permissions: IoPermissions): SceUid =
+public actual fun sceIoOpenAsync(file: ConstPtr<UByte>, flags: Int, permissions: IoPermissions): SceUid =
     SceUid()
 
 public actual fun sceIoClose(fd: SceUid): Int =
@@ -1741,16 +1745,16 @@ public actual fun sceIoClose(fd: SceUid): Int =
 public actual fun sceIoCloseAsync(fd: SceUid): Int =
     0
 
-public actual fun sceIoRead(fd: SceUid, data: COpaquePointer?, size: UInt): Int =
+public actual fun sceIoRead(fd: SceUid, data: MutPtr<CVoid>, size: UInt): Int =
     0
 
-public actual fun sceIoReadAsync(fd: SceUid, data: COpaquePointer?, size: UInt): Int =
+public actual fun sceIoReadAsync(fd: SceUid, data: MutPtr<CVoid>, size: UInt): Int =
     0
 
-public actual fun sceIoWrite(fd: SceUid, data: COpaquePointer?, size: ULong): Int =
+public actual fun sceIoWrite(fd: SceUid, data: ConstPtr<CVoid>, size: ULong): Int =
     0
 
-public actual fun sceIoWriteAsync(fd: SceUid, data: COpaquePointer?, size: UInt): Int =
+public actual fun sceIoWriteAsync(fd: SceUid, data: ConstPtr<CVoid>, size: UInt): Int =
     0
 
 public actual fun sceIoLseek(fd: SceUid, offset: Long, whence: IoWhence): Long =
@@ -1765,64 +1769,64 @@ public actual fun sceIoLseek32(fd: SceUid, offset: Int, whence: IoWhence): Int =
 public actual fun sceIoLseek32Async(fd: SceUid, offset: Int, whence: IoWhence): Int =
     0
 
-public actual fun sceIoRemove(file: COpaquePointer?): Int =
-    libc_psp_sceIoRemove(file?.value?.toCPointer<ByteVar>())
+public actual fun sceIoRemove(file: ConstPtr<UByte>): Int =
+    libcPspSceIoRemove(file.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceIoMkdir(dir: COpaquePointer?, mode: IoPermissions): Int =
-    libc_psp_sceIoMkdir(dir?.value?.toCPointer<ByteVar>(), mode)
+public actual fun sceIoMkdir(dir: ConstPtr<UByte>, mode: IoPermissions): Int =
+    libcPspSceIoMkdir(dir.rawAddress.toCPointer<ByteVar>(), mode)
 
-public actual fun sceIoRmdir(path: COpaquePointer?): Int =
-    libc_psp_sceIoRmdir(path?.value?.toCPointer<ByteVar>())
+public actual fun sceIoRmdir(path: ConstPtr<UByte>): Int =
+    libcPspSceIoRmdir(path.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceIoChdir(path: COpaquePointer?): Int =
-    libc_psp_sceIoChdir(path?.value?.toCPointer<ByteVar>())
+public actual fun sceIoChdir(path: ConstPtr<UByte>): Int =
+    libcPspSceIoChdir(path.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceIoRename(oldname: COpaquePointer?, newname: COpaquePointer?): Int =
-    libc_psp_sceIoRename(oldname?.value?.toCPointer<ByteVar>(), newname?.value?.toCPointer<ByteVar>())
+public actual fun sceIoRename(oldname: ConstPtr<UByte>, newname: ConstPtr<UByte>): Int =
+    libcPspSceIoRename(oldname.rawAddress.toCPointer<ByteVar>(), newname.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceIoDopen(dirname: COpaquePointer?): SceUid =
+public actual fun sceIoDopen(dirname: ConstPtr<UByte>): SceUid =
     SceUid()
 
-public actual fun sceIoDread(fd: SceUid, dir: COpaquePointer?): Int =
+public actual fun sceIoDread(fd: SceUid, dir: MutPtr<SceIoDirent>): Int =
     0
 
 public actual fun sceIoDclose(fd: SceUid): Int =
     0
 
-public actual fun sceIoDevctl(dev: COpaquePointer?, cmd: UInt, indata: COpaquePointer?, inlen: Int, outdata: COpaquePointer?, outlen: Int): Int =
-    libc_psp_sceIoDevctl(dev?.value?.toCPointer<ByteVar>(), cmd, indata?.value?.toCPointer<ByteVar>(), inlen, outdata?.value?.toCPointer<ByteVar>(), outlen)
+public actual fun sceIoDevctl(dev: ConstPtr<UByte>, cmd: UInt, indata: MutPtr<CVoid>, inlen: Int, outdata: MutPtr<CVoid>, outlen: Int): Int =
+    libcPspSceIoDevctl(dev.rawAddress.toCPointer<ByteVar>(), cmd, indata.rawAddress.toCPointer<ByteVar>(), inlen, outdata.rawAddress.toCPointer<ByteVar>(), outlen)
 
-public actual fun sceIoAssign(dev1: COpaquePointer?, dev2: COpaquePointer?, dev3: COpaquePointer?, mode: IoAssignPerms, unk1: COpaquePointer?, unk2: Int): Int =
+public actual fun sceIoAssign(dev1: ConstPtr<UByte>, dev2: ConstPtr<UByte>, dev3: ConstPtr<UByte>, mode: IoAssignPerms, unk1: MutPtr<CVoid>, unk2: Int): Int =
     0
 
-public actual fun sceIoUnassign(dev: COpaquePointer?): Int =
-    libc_psp_sceIoUnassign(dev?.value?.toCPointer<ByteVar>())
+public actual fun sceIoUnassign(dev: ConstPtr<UByte>): Int =
+    libcPspSceIoUnassign(dev.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceIoGetstat(file: COpaquePointer?, stat: COpaquePointer?): Int =
-    libc_psp_sceIoGetstat(file?.value?.toCPointer<ByteVar>(), stat?.value?.toCPointer<ByteVar>())
+public actual fun sceIoGetstat(file: ConstPtr<UByte>, stat: MutPtr<SceIoStat>): Int =
+    libcPspSceIoGetstat(file.rawAddress.toCPointer<ByteVar>(), stat.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceIoChstat(file: COpaquePointer?, stat: COpaquePointer?, bits: Int): Int =
-    libc_psp_sceIoChstat(file?.value?.toCPointer<ByteVar>(), stat?.value?.toCPointer<ByteVar>(), bits)
+public actual fun sceIoChstat(file: ConstPtr<UByte>, stat: MutPtr<SceIoStat>, bits: Int): Int =
+    libcPspSceIoChstat(file.rawAddress.toCPointer<ByteVar>(), stat.rawAddress.toCPointer<ByteVar>(), bits)
 
-public actual fun sceIoIoctl(fd: SceUid, cmd: UInt, indata: COpaquePointer?, inlen: Int, outdata: COpaquePointer?, outlen: Int): Int =
+public actual fun sceIoIoctl(fd: SceUid, cmd: UInt, indata: MutPtr<CVoid>, inlen: Int, outdata: MutPtr<CVoid>, outlen: Int): Int =
     0
 
-public actual fun sceIoIoctlAsync(fd: SceUid, cmd: UInt, indata: COpaquePointer?, inlen: Int, outdata: COpaquePointer?, outlen: Int): Int =
+public actual fun sceIoIoctlAsync(fd: SceUid, cmd: UInt, indata: MutPtr<CVoid>, inlen: Int, outdata: MutPtr<CVoid>, outlen: Int): Int =
     0
 
-public actual fun sceIoSync(device: COpaquePointer?, unk: UInt): Int =
-    libc_psp_sceIoSync(device?.value?.toCPointer<ByteVar>(), unk)
+public actual fun sceIoSync(device: ConstPtr<UByte>, unk: UInt): Int =
+    libcPspSceIoSync(device.rawAddress.toCPointer<ByteVar>(), unk)
 
-public actual fun sceIoWaitAsync(fd: SceUid, res: COpaquePointer?): Int =
+public actual fun sceIoWaitAsync(fd: SceUid, res: MutPtr<Long>): Int =
     0
 
-public actual fun sceIoWaitAsyncCB(fd: SceUid, res: COpaquePointer?): Int =
+public actual fun sceIoWaitAsyncCB(fd: SceUid, res: MutPtr<Long>): Int =
     0
 
-public actual fun sceIoPollAsync(fd: SceUid, res: COpaquePointer?): Int =
+public actual fun sceIoPollAsync(fd: SceUid, res: MutPtr<Long>): Int =
     0
 
-public actual fun sceIoGetAsyncStat(fd: SceUid, poll: Int, res: COpaquePointer?): Int =
+public actual fun sceIoGetAsyncStat(fd: SceUid, poll: Int, res: MutPtr<Long>): Int =
     0
 
 public actual fun sceIoCancel(fd: SceUid): Int =
@@ -1834,103 +1838,103 @@ public actual fun sceIoGetDevType(fd: SceUid): Int =
 public actual fun sceIoChangeAsyncPriority(fd: SceUid, pri: Int): Int =
     0
 
-public actual fun sceIoSetAsyncCallback(fd: SceUid, cb: SceUid, argp: COpaquePointer?): Int =
+public actual fun sceIoSetAsyncCallback(fd: SceUid, cb: SceUid, argp: MutPtr<CVoid>): Int =
     0
 
 public actual fun sceJpegInitMJpeg(): Int =
-    libc_psp_sceJpegInitMJpeg()
+    libcPspSceJpegInitMJpeg()
 
 public actual fun sceJpegFinishMJpeg(): Int =
-    libc_psp_sceJpegFinishMJpeg()
+    libcPspSceJpegFinishMJpeg()
 
 public actual fun sceJpegCreateMJpeg(width: Int, height: Int): Int =
-    libc_psp_sceJpegCreateMJpeg(width, height)
+    libcPspSceJpegCreateMJpeg(width, height)
 
 public actual fun sceJpegDeleteMJpeg(): Int =
-    libc_psp_sceJpegDeleteMJpeg()
+    libcPspSceJpegDeleteMJpeg()
 
-public actual fun sceJpegDecodeMJpeg(jpegBuf: COpaquePointer?, size: ULong, rgba: COpaquePointer?, unk: UInt): Int =
-    libc_psp_sceJpegDecodeMJpeg(jpegBuf?.value?.toCPointer<ByteVar>(), size, rgba?.value?.toCPointer<ByteVar>(), unk)
+public actual fun sceJpegDecodeMJpeg(jpegBuf: MutPtr<UByte>, size: ULong, rgba: MutPtr<CVoid>, unk: UInt): Int =
+    libcPspSceJpegDecodeMJpeg(jpegBuf.rawAddress.toCPointer<ByteVar>(), size, rgba.rawAddress.toCPointer<ByteVar>(), unk)
 
 public actual fun sceUmdCheckMedium(): Int =
-    libc_psp_sceUmdCheckMedium()
+    libcPspSceUmdCheckMedium()
 
-public actual fun sceUmdGetDiscInfo(info: COpaquePointer?): Int =
-    libc_psp_sceUmdGetDiscInfo(info?.value?.toCPointer<ByteVar>())
+public actual fun sceUmdGetDiscInfo(info: MutPtr<UmdInfo>): Int =
+    libcPspSceUmdGetDiscInfo(info.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceUmdActivate(unit: Int, drive: COpaquePointer?): Int =
-    libc_psp_sceUmdActivate(unit, drive?.value?.toCPointer<ByteVar>())
+public actual fun sceUmdActivate(unit: Int, drive: ConstPtr<UByte>): Int =
+    libcPspSceUmdActivate(unit, drive.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceUmdDeactivate(unit: Int, drive: COpaquePointer?): Int =
-    libc_psp_sceUmdDeactivate(unit, drive?.value?.toCPointer<ByteVar>())
+public actual fun sceUmdDeactivate(unit: Int, drive: ConstPtr<UByte>): Int =
+    libcPspSceUmdDeactivate(unit, drive.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceUmdWaitDriveStat(state: Int): Int =
-    libc_psp_sceUmdWaitDriveStat(state)
+    libcPspSceUmdWaitDriveStat(state)
 
 public actual fun sceUmdWaitDriveStatWithTimer(state: Int, timeout: UInt): Int =
-    libc_psp_sceUmdWaitDriveStatWithTimer(state, timeout)
+    libcPspSceUmdWaitDriveStatWithTimer(state, timeout)
 
 public actual fun sceUmdWaitDriveStatCB(state: Int, timeout: UInt): Int =
-    libc_psp_sceUmdWaitDriveStatCB(state, timeout)
+    libcPspSceUmdWaitDriveStatCB(state, timeout)
 
 public actual fun sceUmdCancelWaitDriveStat(): Int =
-    libc_psp_sceUmdCancelWaitDriveStat()
+    libcPspSceUmdCancelWaitDriveStat()
 
 public actual fun sceUmdGetDriveStat(): Int =
-    libc_psp_sceUmdGetDriveStat()
+    libcPspSceUmdGetDriveStat()
 
 public actual fun sceUmdGetErrorStat(): Int =
-    libc_psp_sceUmdGetErrorStat()
+    libcPspSceUmdGetErrorStat()
 
 public actual fun sceUmdRegisterUMDCallBack(cbid: Int): Int =
-    libc_psp_sceUmdRegisterUMDCallBack(cbid)
+    libcPspSceUmdRegisterUMDCallBack(cbid)
 
 public actual fun sceUmdUnRegisterUMDCallBack(cbid: Int): Int =
-    libc_psp_sceUmdUnRegisterUMDCallBack(cbid)
+    libcPspSceUmdUnRegisterUMDCallBack(cbid)
 
 public actual fun sceUmdReplacePermit(): Int =
-    libc_psp_sceUmdReplacePermit()
+    libcPspSceUmdReplacePermit()
 
 public actual fun sceUmdReplaceProhibit(): Int =
-    libc_psp_sceUmdReplaceProhibit()
+    libcPspSceUmdReplaceProhibit()
 
 public actual fun sceMpegInit(): Int =
-    libc_psp_sceMpegInit()
+    libcPspSceMpegInit()
 
 public actual fun sceMpegFinish() {
-    libc_psp_sceMpegFinish()
+    libcPspSceMpegFinish()
 }
 
 public actual fun sceMpegRingbufferQueryMemSize(packets: Int): Int =
-    libc_psp_sceMpegRingbufferQueryMemSize(packets)
+    libcPspSceMpegRingbufferQueryMemSize(packets)
 
-public actual fun sceMpegRingbufferConstruct(ringbuffer: COpaquePointer?, packets: Int, data: COpaquePointer?, size: Int, callback: SceMpegRingbufferCb, cbParam: COpaquePointer?): Int =
-    libc_psp_sceMpegRingbufferConstruct(ringbuffer?.value?.toCPointer<ByteVar>(), packets, data?.value?.toCPointer<ByteVar>(), size, 0L.toCPointer<ByteVar>(), cbParam?.value?.toCPointer<ByteVar>())
+public actual fun sceMpegRingbufferConstruct(ringbuffer: MutPtr<SceMpegRingbuffer>, packets: Int, data: MutPtr<CVoid>, size: Int, callback: SceMpegRingbufferCb, cbParam: MutPtr<CVoid>): Int =
+    libcPspSceMpegRingbufferConstruct(ringbuffer.rawAddress.toCPointer<ByteVar>(), packets, data.rawAddress.toCPointer<ByteVar>(), size, 0L.toCPointer<ByteVar>(), cbParam.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceMpegRingbufferDestruct(ringbuffer: COpaquePointer?) {
-    libc_psp_sceMpegRingbufferDestruct(ringbuffer?.value?.toCPointer<ByteVar>())
+public actual fun sceMpegRingbufferDestruct(ringbuffer: MutPtr<SceMpegRingbuffer>) {
+    libcPspSceMpegRingbufferDestruct(ringbuffer.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun sceMpegRingbufferAvailableSize(ringbuffer: COpaquePointer?): Int =
-    libc_psp_sceMpegRingbufferAvailableSize(ringbuffer?.value?.toCPointer<ByteVar>())
+public actual fun sceMpegRingbufferAvailableSize(ringbuffer: MutPtr<SceMpegRingbuffer>): Int =
+    libcPspSceMpegRingbufferAvailableSize(ringbuffer.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceMpegRingbufferPut(ringbuffer: COpaquePointer?, numPackets: Int, available: Int): Int =
-    libc_psp_sceMpegRingbufferPut(ringbuffer?.value?.toCPointer<ByteVar>(), numPackets, available)
+public actual fun sceMpegRingbufferPut(ringbuffer: MutPtr<SceMpegRingbuffer>, numPackets: Int, available: Int): Int =
+    libcPspSceMpegRingbufferPut(ringbuffer.rawAddress.toCPointer<ByteVar>(), numPackets, available)
 
 public actual fun sceMpegQueryMemSize(unk: Int): Int =
-    libc_psp_sceMpegQueryMemSize(unk)
+    libcPspSceMpegQueryMemSize(unk)
 
-public actual fun sceMpegCreate(handle: SceMpeg, data: COpaquePointer?, size: Int, ringbuffer: COpaquePointer?, frameWidth: Int, unk1: Int, unk2: Int): Int =
+public actual fun sceMpegCreate(handle: SceMpeg, data: MutPtr<CVoid>, size: Int, ringbuffer: MutPtr<SceMpegRingbuffer>, frameWidth: Int, unk1: Int, unk2: Int): Int =
     0
 
 public actual fun sceMpegDelete(handle: SceMpeg) {
 }
 
-public actual fun sceMpegQueryStreamOffset(handle: SceMpeg, buffer: COpaquePointer?, offset: COpaquePointer?): Int =
+public actual fun sceMpegQueryStreamOffset(handle: SceMpeg, buffer: MutPtr<CVoid>, offset: MutPtr<Int>): Int =
     0
 
-public actual fun sceMpegQueryStreamSize(buffer: COpaquePointer?, size: COpaquePointer?): Int =
-    libc_psp_sceMpegQueryStreamSize(buffer?.value?.toCPointer<ByteVar>(), size?.value?.toCPointer<ByteVar>())
+public actual fun sceMpegQueryStreamSize(buffer: MutPtr<CVoid>, size: MutPtr<Int>): Int =
+    libcPspSceMpegQueryStreamSize(buffer.rawAddress.toCPointer<ByteVar>(), size.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceMpegRegistStream(handle: SceMpeg, streamId: Int, unk: Int): SceMpegStream =
     SceMpegStream()
@@ -1941,116 +1945,116 @@ public actual fun sceMpegUnRegistStream(handle: SceMpeg, stream: SceMpegStream) 
 public actual fun sceMpegFlushAllStream(handle: SceMpeg): Int =
     0
 
-public actual fun sceMpegMallocAvcEsBuf(handle: SceMpeg): COpaquePointer? =
-    null
+public actual fun sceMpegMallocAvcEsBuf(handle: SceMpeg): MutPtr<CVoid> =
+    MutPtr(0L)
 
-public actual fun sceMpegFreeAvcEsBuf(handle: SceMpeg, buf: COpaquePointer?) {
+public actual fun sceMpegFreeAvcEsBuf(handle: SceMpeg, buf: MutPtr<CVoid>) {
 }
 
-public actual fun sceMpegQueryAtracEsSize(handle: SceMpeg, esSize: COpaquePointer?, outSize: COpaquePointer?): Int =
+public actual fun sceMpegQueryAtracEsSize(handle: SceMpeg, esSize: MutPtr<Int>, outSize: MutPtr<Int>): Int =
     0
 
-public actual fun sceMpegInitAu(handle: SceMpeg, esBuffer: COpaquePointer?, au: COpaquePointer?): Int =
+public actual fun sceMpegInitAu(handle: SceMpeg, esBuffer: MutPtr<CVoid>, au: MutPtr<SceMpegAu>): Int =
     0
 
-public actual fun sceMpegGetAvcAu(handle: SceMpeg, stream: SceMpegStream, au: COpaquePointer?, unk: COpaquePointer?): Int =
+public actual fun sceMpegGetAvcAu(handle: SceMpeg, stream: SceMpegStream, au: MutPtr<SceMpegAu>, unk: MutPtr<Int>): Int =
     0
 
-public actual fun sceMpegAvcDecodeMode(handle: SceMpeg, mode: COpaquePointer?): Int =
+public actual fun sceMpegAvcDecodeMode(handle: SceMpeg, mode: MutPtr<SceMpegAvcMode>): Int =
     0
 
-public actual fun sceMpegAvcDecode(handle: SceMpeg, au: COpaquePointer?, iframeWidth: Int, buffer: COpaquePointer?, init: COpaquePointer?): Int =
+public actual fun sceMpegAvcDecode(handle: SceMpeg, au: MutPtr<SceMpegAu>, iframeWidth: Int, buffer: MutPtr<CVoid>, init: MutPtr<Int>): Int =
     0
 
-public actual fun sceMpegAvcDecodeStop(handle: SceMpeg, frameWidth: Int, buffer: COpaquePointer?, status: COpaquePointer?): Int =
+public actual fun sceMpegAvcDecodeStop(handle: SceMpeg, frameWidth: Int, buffer: MutPtr<CVoid>, status: MutPtr<Int>): Int =
     0
 
-public actual fun sceMpegGetAtracAu(handle: SceMpeg, stream: SceMpegStream, au: COpaquePointer?, unk: COpaquePointer?): Int =
+public actual fun sceMpegGetAtracAu(handle: SceMpeg, stream: SceMpegStream, au: MutPtr<SceMpegAu>, unk: MutPtr<CVoid>): Int =
     0
 
-public actual fun sceMpegAtracDecode(handle: SceMpeg, au: COpaquePointer?, buffer: COpaquePointer?, init: Int): Int =
+public actual fun sceMpegAtracDecode(handle: SceMpeg, au: MutPtr<SceMpegAu>, buffer: MutPtr<CVoid>, init: Int): Int =
     0
 
-public actual fun sceMpegBaseYCrCbCopyVme(yuvBuffer: COpaquePointer?, buffer: COpaquePointer?, type: Int): Int =
-    libc_psp_sceMpegBaseYCrCbCopyVme(yuvBuffer?.value?.toCPointer<ByteVar>(), buffer?.value?.toCPointer<ByteVar>(), type)
+public actual fun sceMpegBaseYCrCbCopyVme(yuvBuffer: MutPtr<CVoid>, buffer: MutPtr<Int>, type: Int): Int =
+    libcPspSceMpegBaseYCrCbCopyVme(yuvBuffer.rawAddress.toCPointer<ByteVar>(), buffer.rawAddress.toCPointer<ByteVar>(), type)
 
 public actual fun sceMpegBaseCscInit(width: Int): Int =
-    libc_psp_sceMpegBaseCscInit(width)
+    libcPspSceMpegBaseCscInit(width)
 
-public actual fun sceMpegBaseCscVme(rgbBuffer: COpaquePointer?, rgbBuffer2: COpaquePointer?, width: Int, yCrCbBuffer: COpaquePointer?): Int =
-    libc_psp_sceMpegBaseCscVme(rgbBuffer?.value?.toCPointer<ByteVar>(), rgbBuffer2?.value?.toCPointer<ByteVar>(), width, yCrCbBuffer?.value?.toCPointer<ByteVar>())
+public actual fun sceMpegBaseCscVme(rgbBuffer: MutPtr<CVoid>, rgbBuffer2: MutPtr<CVoid>, width: Int, yCrCbBuffer: MutPtr<SceMpegYCrCbBuffer>): Int =
+    libcPspSceMpegBaseCscVme(rgbBuffer.rawAddress.toCPointer<ByteVar>(), rgbBuffer2.rawAddress.toCPointer<ByteVar>(), width, yCrCbBuffer.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceMpegbaseBea18f91(lli: COpaquePointer?): Int =
-    libc_psp_sceMpegbaseBea18f91(lli?.value?.toCPointer<ByteVar>())
+public actual fun sceMpegbaseBea18f91(lli: MutPtr<SceMpegLLI>): Int =
+    libcPspSceMpegbaseBea18f91(lli.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceHprmPeekCurrentKey(key: COpaquePointer?): Int =
-    libc_psp_sceHprmPeekCurrentKey(key?.value?.toCPointer<ByteVar>())
+public actual fun sceHprmPeekCurrentKey(key: MutPtr<Int>): Int =
+    libcPspSceHprmPeekCurrentKey(key.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceHprmPeekLatch(latch: COpaquePointer?): Int =
-    libc_psp_sceHprmPeekLatch(latch?.value?.toCPointer<ByteVar>())
+public actual fun sceHprmPeekLatch(latch: MutPtr<UIntArray>): Int =
+    libcPspSceHprmPeekLatch(latch.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceHprmReadLatch(latch: COpaquePointer?): Int =
-    libc_psp_sceHprmReadLatch(latch?.value?.toCPointer<ByteVar>())
+public actual fun sceHprmReadLatch(latch: MutPtr<UIntArray>): Int =
+    libcPspSceHprmReadLatch(latch.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceHprmIsHeadphoneExist(): Int =
-    libc_psp_sceHprmIsHeadphoneExist()
+    libcPspSceHprmIsHeadphoneExist()
 
 public actual fun sceHprmIsRemoteExist(): Int =
-    libc_psp_sceHprmIsRemoteExist()
+    libcPspSceHprmIsRemoteExist()
 
 public actual fun sceHprmIsMicrophoneExist(): Int =
-    libc_psp_sceHprmIsMicrophoneExist()
+    libcPspSceHprmIsMicrophoneExist()
 
-public actual fun sceGuDepthBuffer(zbp: COpaquePointer?, zbw: Int) {
-    libc_psp_sceGuDepthBuffer(zbp?.value?.toCPointer<ByteVar>(), zbw)
+public actual fun sceGuDepthBuffer(zbp: MutPtr<CVoid>, zbw: Int) {
+    libcPspSceGuDepthBuffer(zbp.rawAddress.toCPointer<ByteVar>(), zbw)
 }
 
-public actual fun sceGuDispBuffer(width: Int, height: Int, dispbp: COpaquePointer?, dispbw: Int) {
-    libc_psp_sceGuDispBuffer(width, height, dispbp?.value?.toCPointer<ByteVar>(), dispbw)
+public actual fun sceGuDispBuffer(width: Int, height: Int, dispbp: MutPtr<CVoid>, dispbw: Int) {
+    libcPspSceGuDispBuffer(width, height, dispbp.rawAddress.toCPointer<ByteVar>(), dispbw)
 }
 
-public actual fun sceGuDrawBuffer(psm: DisplayPixelFormat, fbp: COpaquePointer?, fbw: Int) {
+public actual fun sceGuDrawBuffer(psm: DisplayPixelFormat, fbp: MutPtr<CVoid>, fbw: Int) {
 }
 
-public actual fun sceGuDrawBufferList(psm: DisplayPixelFormat, fbp: COpaquePointer?, fbw: Int) {
+public actual fun sceGuDrawBufferList(psm: DisplayPixelFormat, fbp: MutPtr<CVoid>, fbw: Int) {
 }
 
 public actual fun sceGuDisplay(state: Boolean): Boolean =
-    libc_psp_sceGuDisplay(state)
+    libcPspSceGuDisplay(state)
 
 public actual fun sceGuDepthFunc(function: DepthFunc) {
 }
 
 public actual fun sceGuDepthMask(mask: Int) {
-    libc_psp_sceGuDepthMask(mask)
+    libcPspSceGuDepthMask(mask)
 }
 
 public actual fun sceGuDepthOffset(offset: Int) {
-    libc_psp_sceGuDepthOffset(offset)
+    libcPspSceGuDepthOffset(offset)
 }
 
 public actual fun sceGuDepthRange(near: Int, far: Int) {
-    libc_psp_sceGuDepthRange(near, far)
+    libcPspSceGuDepthRange(near, far)
 }
 
 public actual fun sceGuFog(near: Float, far: Float, color: UInt) {
-    libc_psp_sceGuFog(near, far, color)
+    libcPspSceGuFog(near, far, color)
 }
 
 public actual fun sceGuInit() {
-    libc_psp_sceGuInit()
+    libcPspSceGuInit()
 }
 
 public actual fun sceGuTerm() {
-    libc_psp_sceGuTerm()
+    libcPspSceGuTerm()
 }
 
 public actual fun sceGuBreak(mode: Int) {
-    libc_psp_sceGuBreak(mode)
+    libcPspSceGuBreak(mode)
 }
 
 public actual fun sceGuContinue() {
-    libc_psp_sceGuContinue()
+    libcPspSceGuContinue()
 }
 
 public actual fun sceGuSetCallback(signal: GuCallbackId, callback: GuCallback): GuCallback =
@@ -2065,47 +2069,47 @@ public actual fun sceGuSendCommandf(cmd: GeCommand, argument: Float) {
 public actual fun sceGuSendCommandi(cmd: GeCommand, argument: Int) {
 }
 
-public actual fun sceGuGetMemory(size: Int): COpaquePointer? =
-    libc_psp_sceGuGetMemory(size)?.let { COpaquePointer(it.toLong()) }
+public actual fun sceGuGetMemory(size: Int): MutPtr<CVoid> =
+    MutPtr(libcPspSceGuGetMemory(size)?.toLong() ?: 0L)
 
-public actual fun sceGuStart(contextType: GuContextType, list: COpaquePointer?) {
+public actual fun sceGuStart(contextType: GuContextType, list: MutPtr<CVoid>) {
 }
 
 public actual fun sceGuFinish(): Int =
-    libc_psp_sceGuFinish()
+    libcPspSceGuFinish()
 
 public actual fun sceGuFinishId(id: UInt): Int =
-    libc_psp_sceGuFinishId(id)
+    libcPspSceGuFinishId(id)
 
-public actual fun sceGuCallList(list: COpaquePointer?) {
-    libc_psp_sceGuCallList(list?.value?.toCPointer<ByteVar>())
+public actual fun sceGuCallList(list: ConstPtr<CVoid>) {
+    libcPspSceGuCallList(list.rawAddress.toCPointer<ByteVar>())
 }
 
 public actual fun sceGuCallMode(mode: Int) {
-    libc_psp_sceGuCallMode(mode)
+    libcPspSceGuCallMode(mode)
 }
 
 public actual fun sceGuCheckList(): Int =
-    libc_psp_sceGuCheckList()
+    libcPspSceGuCheckList()
 
-public actual fun sceGuSendList(mode: GuQueueMode, list: COpaquePointer?, context: COpaquePointer?) {
+public actual fun sceGuSendList(mode: GuQueueMode, list: ConstPtr<CVoid>, context: MutPtr<GeContext>) {
 }
 
-public actual fun sceGuSwapBuffers(): COpaquePointer? =
-    libc_psp_sceGuSwapBuffers()?.let { COpaquePointer(it.toLong()) }
+public actual fun sceGuSwapBuffers(): MutPtr<CVoid> =
+    MutPtr(libcPspSceGuSwapBuffers()?.toLong() ?: 0L)
 
 public actual fun sceGuSync(mode: GuSyncMode, behavior: GuSyncBehavior): GeListState =
     GeListState.entries.first()
 
-public actual fun sceGuDrawArray(prim: GuPrimitive, vtype: Int, count: Int, indices: COpaquePointer?, vertices: COpaquePointer?) {
+public actual fun sceGuDrawArray(prim: GuPrimitive, vtype: Int, count: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>) {
 }
 
-public actual fun sceGuBeginObject(vtype: Int, count: Int, indices: COpaquePointer?, vertices: COpaquePointer?) {
-    libc_psp_sceGuBeginObject(vtype, count, indices?.value?.toCPointer<ByteVar>(), vertices?.value?.toCPointer<ByteVar>())
+public actual fun sceGuBeginObject(vtype: Int, count: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>) {
+    libcPspSceGuBeginObject(vtype, count, indices.rawAddress.toCPointer<ByteVar>(), vertices.rawAddress.toCPointer<ByteVar>())
 }
 
 public actual fun sceGuEndObject() {
-    libc_psp_sceGuEndObject()
+    libcPspSceGuEndObject()
 }
 
 public actual fun sceGuSetStatus(state: GuState, status: Int) {
@@ -2115,11 +2119,11 @@ public actual fun sceGuGetStatus(state: GuState): Boolean =
     false
 
 public actual fun sceGuSetAllStatus(status: Int) {
-    libc_psp_sceGuSetAllStatus(status)
+    libcPspSceGuSetAllStatus(status)
 }
 
 public actual fun sceGuGetAllStatus(): Int =
-    libc_psp_sceGuGetAllStatus()
+    libcPspSceGuGetAllStatus()
 
 public actual fun sceGuEnable(state: GuState) {
 }
@@ -2131,11 +2135,11 @@ public actual fun sceGuLight(light: Int, type: LightType, components: Int, posit
 }
 
 public actual fun sceGuLightAtt(light: Int, atten0: Float, atten1: Float, atten2: Float) {
-    libc_psp_sceGuLightAtt(light, atten0, atten1, atten2)
+    libcPspSceGuLightAtt(light, atten0, atten1, atten2)
 }
 
 public actual fun sceGuLightColor(light: Int, component: Int, color: UInt) {
-    libc_psp_sceGuLightColor(light, component, color)
+    libcPspSceGuLightColor(light, component, color)
 }
 
 public actual fun sceGuLightMode(mode: LightMode) {
@@ -2145,56 +2149,56 @@ public actual fun sceGuLightSpot(light: Int, direction: ScePspFVector3, exponent
 }
 
 public actual fun sceGuClear(flags: Int) {
-    libc_psp_sceGuClear(flags)
+    libcPspSceGuClear(flags)
 }
 
 public actual fun sceGuClearColor(color: UInt) {
-    libc_psp_sceGuClearColor(color)
+    libcPspSceGuClearColor(color)
 }
 
 public actual fun sceGuClearDepth(depth: UInt) {
-    libc_psp_sceGuClearDepth(depth)
+    libcPspSceGuClearDepth(depth)
 }
 
 public actual fun sceGuClearStencil(stencil: UInt) {
-    libc_psp_sceGuClearStencil(stencil)
+    libcPspSceGuClearStencil(stencil)
 }
 
 public actual fun sceGuPixelMask(mask: UInt) {
-    libc_psp_sceGuPixelMask(mask)
+    libcPspSceGuPixelMask(mask)
 }
 
 public actual fun sceGuColor(color: UInt) {
-    libc_psp_sceGuColor(color)
+    libcPspSceGuColor(color)
 }
 
 public actual fun sceGuColorFunc(func: ColorFunc, color: UInt, mask: UInt) {
 }
 
 public actual fun sceGuColorMaterial(components: Int) {
-    libc_psp_sceGuColorMaterial(components)
+    libcPspSceGuColorMaterial(components)
 }
 
 public actual fun sceGuAlphaFunc(func: AlphaFunc, value: Int, mask: Int) {
 }
 
 public actual fun sceGuAmbient(color: UInt) {
-    libc_psp_sceGuAmbient(color)
+    libcPspSceGuAmbient(color)
 }
 
 public actual fun sceGuAmbientColor(color: UInt) {
-    libc_psp_sceGuAmbientColor(color)
+    libcPspSceGuAmbientColor(color)
 }
 
 public actual fun sceGuBlendFunc(op: BlendOp, src: BlendSrc, dest: BlendDst, srcFix: UInt, destFix: UInt) {
 }
 
 public actual fun sceGuMaterial(components: Int, color: UInt) {
-    libc_psp_sceGuMaterial(components, color)
+    libcPspSceGuMaterial(components, color)
 }
 
 public actual fun sceGuModelColor(emissive: UInt, ambient: UInt, diffuse: UInt, specular: UInt) {
-    libc_psp_sceGuModelColor(emissive, ambient, diffuse, specular)
+    libcPspSceGuModelColor(emissive, ambient, diffuse, specular)
 }
 
 public actual fun sceGuStencilFunc(func: StencilFunc, ref: Int, mask: Int) {
@@ -2204,7 +2208,7 @@ public actual fun sceGuStencilOp(fail: StencilOperation, zfail: StencilOperation
 }
 
 public actual fun sceGuSpecular(power: Float) {
-    libc_psp_sceGuSpecular(power)
+    libcPspSceGuSpecular(power)
 }
 
 public actual fun sceGuFrontFace(order: FrontFaceDirection) {
@@ -2219,24 +2223,24 @@ public actual fun sceGuSetDither(matrix: ScePspIMatrix4) {
 public actual fun sceGuShadeModel(mode: ShadingModel) {
 }
 
-public actual fun sceGuCopyImage(psm: DisplayPixelFormat, sx: Int, sy: Int, width: Int, height: Int, srcw: Int, src: COpaquePointer?, dx: Int, dy: Int, destw: Int, dest: COpaquePointer?) {
+public actual fun sceGuCopyImage(psm: DisplayPixelFormat, sx: Int, sy: Int, width: Int, height: Int, srcw: Int, src: MutPtr<CVoid>, dx: Int, dy: Int, destw: Int, dest: MutPtr<CVoid>) {
 }
 
 public actual fun sceGuTexEnvColor(color: UInt) {
-    libc_psp_sceGuTexEnvColor(color)
+    libcPspSceGuTexEnvColor(color)
 }
 
 public actual fun sceGuTexFilter(min: TextureFilter, mag: TextureFilter) {
 }
 
 public actual fun sceGuTexFlush() {
-    libc_psp_sceGuTexFlush()
+    libcPspSceGuTexFlush()
 }
 
 public actual fun sceGuTexFunc(tfx: TextureEffect, tcc: TextureColorComponent) {
 }
 
-public actual fun sceGuTexImage(mipmap: MipmapLevel, width: Int, height: Int, tbw: Int, tbp: COpaquePointer?) {
+public actual fun sceGuTexImage(mipmap: MipmapLevel, width: Int, height: Int, tbw: Int, tbp: ConstPtr<CVoid>) {
 }
 
 public actual fun sceGuTexLevelMode(mode: TextureLevelMode, bias: Float) {
@@ -2249,63 +2253,63 @@ public actual fun sceGuTexMode(tpsm: TexturePixelFormat, maxmips: Int, a2: Int, 
 }
 
 public actual fun sceGuTexOffset(u: Float, v: Float) {
-    libc_psp_sceGuTexOffset(u, v)
+    libcPspSceGuTexOffset(u, v)
 }
 
 public actual fun sceGuTexProjMapMode(mode: TextureProjectionMapMode) {
 }
 
 public actual fun sceGuTexScale(u: Float, v: Float) {
-    libc_psp_sceGuTexScale(u, v)
+    libcPspSceGuTexScale(u, v)
 }
 
 public actual fun sceGuTexSlope(slope: Float) {
-    libc_psp_sceGuTexSlope(slope)
+    libcPspSceGuTexSlope(slope)
 }
 
 public actual fun sceGuTexSync() {
-    libc_psp_sceGuTexSync()
+    libcPspSceGuTexSync()
 }
 
 public actual fun sceGuTexWrap(u: GuTexWrapMode, v: GuTexWrapMode) {
 }
 
-public actual fun sceGuClutLoad(numBlocks: Int, cbp: COpaquePointer?) {
-    libc_psp_sceGuClutLoad(numBlocks, cbp?.value?.toCPointer<ByteVar>())
+public actual fun sceGuClutLoad(numBlocks: Int, cbp: ConstPtr<CVoid>) {
+    libcPspSceGuClutLoad(numBlocks, cbp.rawAddress.toCPointer<ByteVar>())
 }
 
 public actual fun sceGuClutMode(cpsm: ClutPixelFormat, shift: UInt, mask: UInt, a3: UInt) {
 }
 
 public actual fun sceGuOffset(x: UInt, y: UInt) {
-    libc_psp_sceGuOffset(x, y)
+    libcPspSceGuOffset(x, y)
 }
 
 public actual fun sceGuScissor(x: Int, y: Int, w: Int, h: Int) {
-    libc_psp_sceGuScissor(x, y, w, h)
+    libcPspSceGuScissor(x, y, w, h)
 }
 
 public actual fun sceGuViewport(cx: Int, cy: Int, width: Int, height: Int) {
-    libc_psp_sceGuViewport(cx, cy, width, height)
+    libcPspSceGuViewport(cx, cy, width, height)
 }
 
-public actual fun sceGuDrawBezier(vType: Int, uCount: Int, vCount: Int, indices: COpaquePointer?, vertices: COpaquePointer?) {
-    libc_psp_sceGuDrawBezier(vType, uCount, vCount, indices?.value?.toCPointer<ByteVar>(), vertices?.value?.toCPointer<ByteVar>())
+public actual fun sceGuDrawBezier(vType: Int, uCount: Int, vCount: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>) {
+    libcPspSceGuDrawBezier(vType, uCount, vCount, indices.rawAddress.toCPointer<ByteVar>(), vertices.rawAddress.toCPointer<ByteVar>())
 }
 
 public actual fun sceGuPatchDivide(ulevel: UInt, vlevel: UInt) {
-    libc_psp_sceGuPatchDivide(ulevel, vlevel)
+    libcPspSceGuPatchDivide(ulevel, vlevel)
 }
 
 public actual fun sceGuPatchFrontFace(a0: UInt) {
-    libc_psp_sceGuPatchFrontFace(a0)
+    libcPspSceGuPatchFrontFace(a0)
 }
 
 public actual fun sceGuPatchPrim(prim: PatchPrimitive) {
 }
 
-public actual fun sceGuDrawSpline(vType: Int, uCount: Int, vCount: Int, uEdge: Int, vEdge: Int, indices: COpaquePointer?, vertices: COpaquePointer?) {
-    libc_psp_sceGuDrawSpline(vType, uCount, vCount, uEdge, vEdge, indices?.value?.toCPointer<ByteVar>(), vertices?.value?.toCPointer<ByteVar>())
+public actual fun sceGuDrawSpline(vType: Int, uCount: Int, vCount: Int, uEdge: Int, vEdge: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>) {
+    libcPspSceGuDrawSpline(vType, uCount, vCount, uEdge, vEdge, indices.rawAddress.toCPointer<ByteVar>(), vertices.rawAddress.toCPointer<ByteVar>())
 }
 
 public actual fun sceGuSetMatrix(type: MatrixMode, matrix: ScePspFMatrix4) {
@@ -2315,36 +2319,36 @@ public actual fun sceGuBoneMatrix(index: UInt, matrix: ScePspFMatrix4) {
 }
 
 public actual fun sceGuMorphWeight(index: Int, weight: Float) {
-    libc_psp_sceGuMorphWeight(index, weight)
+    libcPspSceGuMorphWeight(index, weight)
 }
 
-public actual fun sceGuDrawArrayN(primitiveType: GuPrimitive, vType: Int, count: Int, a3: Int, indices: COpaquePointer?, vertices: COpaquePointer?) {
+public actual fun sceGuDrawArrayN(primitiveType: GuPrimitive, vType: Int, count: Int, a3: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>) {
 }
 
-public actual fun sceGumDrawArray(prim: GuPrimitive, vType: Int, count: Int, indices: COpaquePointer?, vertices: COpaquePointer?) {
+public actual fun sceGumDrawArray(prim: GuPrimitive, vType: Int, count: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>) {
 }
 
-public actual fun sceGumDrawArrayN(prim: GuPrimitive, vType: Int, count: Int, a3: Int, indices: COpaquePointer?, vertices: COpaquePointer?) {
+public actual fun sceGumDrawArrayN(prim: GuPrimitive, vType: Int, count: Int, a3: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>) {
 }
 
-public actual fun sceGumDrawBezier(vType: Int, uCount: Int, vCount: Int, indices: COpaquePointer?, vertices: COpaquePointer?) {
-    libc_psp_sceGumDrawBezier(vType, uCount, vCount, indices?.value?.toCPointer<ByteVar>(), vertices?.value?.toCPointer<ByteVar>())
+public actual fun sceGumDrawBezier(vType: Int, uCount: Int, vCount: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>) {
+    libcPspSceGumDrawBezier(vType, uCount, vCount, indices.rawAddress.toCPointer<ByteVar>(), vertices.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun sceGumDrawSpline(vType: Int, uCount: Int, vCount: Int, uEdge: Int, vEdge: Int, indices: COpaquePointer?, vertices: COpaquePointer?) {
-    libc_psp_sceGumDrawSpline(vType, uCount, vCount, uEdge, vEdge, indices?.value?.toCPointer<ByteVar>(), vertices?.value?.toCPointer<ByteVar>())
+public actual fun sceGumDrawSpline(vType: Int, uCount: Int, vCount: Int, uEdge: Int, vEdge: Int, indices: ConstPtr<CVoid>, vertices: ConstPtr<CVoid>) {
+    libcPspSceGumDrawSpline(vType, uCount, vCount, uEdge, vEdge, indices.rawAddress.toCPointer<ByteVar>(), vertices.rawAddress.toCPointer<ByteVar>())
 }
 
 public actual fun sceGumFastInverse() {
-    libc_psp_sceGumFastInverse()
+    libcPspSceGumFastInverse()
 }
 
 public actual fun sceGumFullInverse() {
-    libc_psp_sceGumFullInverse()
+    libcPspSceGumFullInverse()
 }
 
 public actual fun sceGumLoadIdentity() {
-    libc_psp_sceGumLoadIdentity()
+    libcPspSceGumLoadIdentity()
 }
 
 public actual fun sceGumLoadMatrix(m: ScePspFMatrix4) {
@@ -2360,31 +2364,31 @@ public actual fun sceGumMultMatrix(m: ScePspFMatrix4) {
 }
 
 public actual fun sceGumOrtho(left: Float, right: Float, bottom: Float, top: Float, near: Float, far: Float) {
-    libc_psp_sceGumOrtho(left, right, bottom, top, near, far)
+    libcPspSceGumOrtho(left, right, bottom, top, near, far)
 }
 
 public actual fun sceGumPerspective(fovy: Float, aspect: Float, near: Float, far: Float) {
-    libc_psp_sceGumPerspective(fovy, aspect, near, far)
+    libcPspSceGumPerspective(fovy, aspect, near, far)
 }
 
 public actual fun sceGumPopMatrix() {
-    libc_psp_sceGumPopMatrix()
+    libcPspSceGumPopMatrix()
 }
 
 public actual fun sceGumPushMatrix() {
-    libc_psp_sceGumPushMatrix()
+    libcPspSceGumPushMatrix()
 }
 
 public actual fun sceGumRotateX(angle: Float) {
-    libc_psp_sceGumRotateX(angle)
+    libcPspSceGumRotateX(angle)
 }
 
 public actual fun sceGumRotateY(angle: Float) {
-    libc_psp_sceGumRotateY(angle)
+    libcPspSceGumRotateY(angle)
 }
 
 public actual fun sceGumRotateZ(angle: Float) {
-    libc_psp_sceGumRotateZ(angle)
+    libcPspSceGumRotateZ(angle)
 }
 
 public actual fun sceGumRotateXYZ(v: ScePspFVector3) {
@@ -2403,28 +2407,28 @@ public actual fun sceGumTranslate(v: ScePspFVector3) {
 }
 
 public actual fun sceGumUpdateMatrix() {
-    libc_psp_sceGumUpdateMatrix()
+    libcPspSceGumUpdateMatrix()
 }
 
-public actual fun sceMp3ReserveMp3Handle(args: COpaquePointer?): Int =
-    libc_psp_sceMp3ReserveMp3Handle(args?.value?.toCPointer<ByteVar>())
+public actual fun sceMp3ReserveMp3Handle(args: MutPtr<SceMp3InitArg>): Int =
+    libcPspSceMp3ReserveMp3Handle(args.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceMp3ReleaseMp3Handle(handle: Mp3Handle): Int =
     0
 
 public actual fun sceMp3InitResource(): Int =
-    libc_psp_sceMp3InitResource()
+    libcPspSceMp3InitResource()
 
 public actual fun sceMp3TermResource(): Int =
-    libc_psp_sceMp3TermResource()
+    libcPspSceMp3TermResource()
 
 public actual fun sceMp3Init(handle: Mp3Handle): Int =
     0
 
-public actual fun sceMp3Decode(handle: Mp3Handle, dst: COpaquePointer?): Int =
+public actual fun sceMp3Decode(handle: Mp3Handle, dst: MutPtr<MutPtr<Short>>): Int =
     0
 
-public actual fun sceMp3GetInfoToAddStreamData(handle: Mp3Handle, dst: COpaquePointer?, toWrite: COpaquePointer?, srcPos: COpaquePointer?): Int =
+public actual fun sceMp3GetInfoToAddStreamData(handle: Mp3Handle, dst: MutPtr<MutPtr<UByte>>, toWrite: MutPtr<Int>, srcPos: MutPtr<Int>): Int =
     0
 
 public actual fun sceMp3NotifyAddStreamData(handle: Mp3Handle, size: Int): Int =
@@ -2457,8 +2461,8 @@ public actual fun sceMp3GetMp3ChannelNum(handle: Mp3Handle): Int =
 public actual fun sceMp3ResetPlayPosition(handle: Mp3Handle): Int =
     0
 
-public actual fun sceRegOpenRegistry(reg: COpaquePointer?, mode: Int, handle: COpaquePointer?): Int =
-    libc_psp_sceRegOpenRegistry(reg?.value?.toCPointer<ByteVar>(), mode, handle?.value?.toCPointer<ByteVar>())
+public actual fun sceRegOpenRegistry(reg: MutPtr<Key>, mode: Int, handle: MutPtr<RegHandle>): Int =
+    libcPspSceRegOpenRegistry(reg.rawAddress.toCPointer<ByteVar>(), mode, handle.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceRegFlushRegistry(handle: RegHandle): Int =
     0
@@ -2466,10 +2470,10 @@ public actual fun sceRegFlushRegistry(handle: RegHandle): Int =
 public actual fun sceRegCloseRegistry(handle: RegHandle): Int =
     0
 
-public actual fun sceRegOpenCategory(handle: RegHandle, name: COpaquePointer?, mode: Int, dirHandle: COpaquePointer?): Int =
+public actual fun sceRegOpenCategory(handle: RegHandle, name: ConstPtr<UByte>, mode: Int, dirHandle: MutPtr<RegHandle>): Int =
     0
 
-public actual fun sceRegRemoveCategory(handle: RegHandle, name: COpaquePointer?): Int =
+public actual fun sceRegRemoveCategory(handle: RegHandle, name: ConstPtr<UByte>): Int =
     0
 
 public actual fun sceRegCloseCategory(dirHandle: RegHandle): Int =
@@ -2478,133 +2482,133 @@ public actual fun sceRegCloseCategory(dirHandle: RegHandle): Int =
 public actual fun sceRegFlushCategory(dirHandle: RegHandle): Int =
     0
 
-public actual fun sceRegGetKeyInfo(dirHandle: RegHandle, name: COpaquePointer?, keyHandle: COpaquePointer?, type: COpaquePointer?, size: COpaquePointer?): Int =
+public actual fun sceRegGetKeyInfo(dirHandle: RegHandle, name: ConstPtr<UByte>, keyHandle: MutPtr<RegHandle>, type: MutPtr<KeyType>, size: MutPtr<ULong>): Int =
     0
 
-public actual fun sceRegGetKeyInfoByName(dirHandle: RegHandle, name: COpaquePointer?, type: COpaquePointer?, size: COpaquePointer?): Int =
+public actual fun sceRegGetKeyInfoByName(dirHandle: RegHandle, name: ConstPtr<UByte>, type: MutPtr<KeyType>, size: MutPtr<ULong>): Int =
     0
 
-public actual fun sceRegGetKeyValue(dirHandle: RegHandle, keyHandle: RegHandle, buf: COpaquePointer?, size: ULong): Int =
+public actual fun sceRegGetKeyValue(dirHandle: RegHandle, keyHandle: RegHandle, buf: MutPtr<CVoid>, size: ULong): Int =
     0
 
-public actual fun sceRegGetKeyValueByName(dirHandle: RegHandle, name: COpaquePointer?, buf: COpaquePointer?, size: ULong): Int =
+public actual fun sceRegGetKeyValueByName(dirHandle: RegHandle, name: ConstPtr<UByte>, buf: MutPtr<CVoid>, size: ULong): Int =
     0
 
-public actual fun sceRegSetKeyValue(dirHandle: RegHandle, name: COpaquePointer?, buf: COpaquePointer?, size: ULong): Int =
+public actual fun sceRegSetKeyValue(dirHandle: RegHandle, name: ConstPtr<UByte>, buf: ConstPtr<CVoid>, size: ULong): Int =
     0
 
-public actual fun sceRegGetKeysNum(dirHandle: RegHandle, num: COpaquePointer?): Int =
+public actual fun sceRegGetKeysNum(dirHandle: RegHandle, num: MutPtr<Int>): Int =
     0
 
-public actual fun sceRegGetKeys(dirHandle: RegHandle, buf: COpaquePointer?, num: Int): Int =
+public actual fun sceRegGetKeys(dirHandle: RegHandle, buf: MutPtr<UByte>, num: Int): Int =
     0
 
-public actual fun sceRegCreateKey(dirHandle: RegHandle, name: COpaquePointer?, type: Int, size: ULong): Int =
+public actual fun sceRegCreateKey(dirHandle: RegHandle, name: ConstPtr<UByte>, type: Int, size: ULong): Int =
     0
 
-public actual fun sceRegRemoveRegistry(key: COpaquePointer?): Int =
-    libc_psp_sceRegRemoveRegistry(key?.value?.toCPointer<ByteVar>())
+public actual fun sceRegRemoveRegistry(key: MutPtr<Key>): Int =
+    libcPspSceRegRemoveRegistry(key.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceOpenPSIDGetOpenPSID(openpsid: COpaquePointer?): Int =
-    libc_psp_sceOpenPSIDGetOpenPSID(openpsid?.value?.toCPointer<ByteVar>())
+public actual fun sceOpenPSIDGetOpenPSID(openpsid: MutPtr<OpenPSID>): Int =
+    libcPspSceOpenPSIDGetOpenPSID(openpsid.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceUtilityMsgDialogInitStart(params: COpaquePointer?): Int =
-    libc_psp_sceUtilityMsgDialogInitStart(params?.value?.toCPointer<ByteVar>())
+public actual fun sceUtilityMsgDialogInitStart(params: MutPtr<UtilityMsgDialogParams>): Int =
+    libcPspSceUtilityMsgDialogInitStart(params.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceUtilityMsgDialogShutdownStart() {
-    libc_psp_sceUtilityMsgDialogShutdownStart()
+    libcPspSceUtilityMsgDialogShutdownStart()
 }
 
 public actual fun sceUtilityMsgDialogGetStatus(): Int =
-    libc_psp_sceUtilityMsgDialogGetStatus()
+    libcPspSceUtilityMsgDialogGetStatus()
 
 public actual fun sceUtilityMsgDialogUpdate(n: Int) {
-    libc_psp_sceUtilityMsgDialogUpdate(n)
+    libcPspSceUtilityMsgDialogUpdate(n)
 }
 
 public actual fun sceUtilityMsgDialogAbort(): Int =
-    libc_psp_sceUtilityMsgDialogAbort()
+    libcPspSceUtilityMsgDialogAbort()
 
-public actual fun sceUtilityNetconfInitStart(data: COpaquePointer?): Int =
-    libc_psp_sceUtilityNetconfInitStart(data?.value?.toCPointer<ByteVar>())
+public actual fun sceUtilityNetconfInitStart(data: MutPtr<UtilityNetconfData>): Int =
+    libcPspSceUtilityNetconfInitStart(data.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceUtilityNetconfShutdownStart(): Int =
-    libc_psp_sceUtilityNetconfShutdownStart()
+    libcPspSceUtilityNetconfShutdownStart()
 
 public actual fun sceUtilityNetconfUpdate(unknown: Int): Int =
-    libc_psp_sceUtilityNetconfUpdate(unknown)
+    libcPspSceUtilityNetconfUpdate(unknown)
 
 public actual fun sceUtilityNetconfGetStatus(): Int =
-    libc_psp_sceUtilityNetconfGetStatus()
+    libcPspSceUtilityNetconfGetStatus()
 
 public actual fun sceUtilityCheckNetParam(id: Int): Int =
-    libc_psp_sceUtilityCheckNetParam(id)
+    libcPspSceUtilityCheckNetParam(id)
 
-public actual fun sceUtilityGetNetParam(conf: Int, param: NetParam, data: COpaquePointer?): Int =
+public actual fun sceUtilityGetNetParam(conf: Int, param: NetParam, data: MutPtr<UtilityNetData>): Int =
     0
 
-public actual fun sceUtilitySavedataInitStart(params: COpaquePointer?): Int =
-    libc_psp_sceUtilitySavedataInitStart(params?.value?.toCPointer<ByteVar>())
+public actual fun sceUtilitySavedataInitStart(params: MutPtr<SceUtilitySavedataParam>): Int =
+    libcPspSceUtilitySavedataInitStart(params.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceUtilitySavedataGetStatus(): Int =
-    libc_psp_sceUtilitySavedataGetStatus()
+    libcPspSceUtilitySavedataGetStatus()
 
 public actual fun sceUtilitySavedataShutdownStart(): Int =
-    libc_psp_sceUtilitySavedataShutdownStart()
+    libcPspSceUtilitySavedataShutdownStart()
 
 public actual fun sceUtilitySavedataUpdate(unknown: Int) {
-    libc_psp_sceUtilitySavedataUpdate(unknown)
+    libcPspSceUtilitySavedataUpdate(unknown)
 }
 
-public actual fun sceUtilityGameSharingInitStart(params: COpaquePointer?): Int =
-    libc_psp_sceUtilityGameSharingInitStart(params?.value?.toCPointer<ByteVar>())
+public actual fun sceUtilityGameSharingInitStart(params: MutPtr<UtilityGameSharingParams>): Int =
+    libcPspSceUtilityGameSharingInitStart(params.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceUtilityGameSharingShutdownStart() {
-    libc_psp_sceUtilityGameSharingShutdownStart()
+    libcPspSceUtilityGameSharingShutdownStart()
 }
 
 public actual fun sceUtilityGameSharingGetStatus(): Int =
-    libc_psp_sceUtilityGameSharingGetStatus()
+    libcPspSceUtilityGameSharingGetStatus()
 
 public actual fun sceUtilityGameSharingUpdate(n: Int) {
-    libc_psp_sceUtilityGameSharingUpdate(n)
+    libcPspSceUtilityGameSharingUpdate(n)
 }
 
-public actual fun sceUtilityHtmlViewerInitStart(params: COpaquePointer?): Int =
-    libc_psp_sceUtilityHtmlViewerInitStart(params?.value?.toCPointer<ByteVar>())
+public actual fun sceUtilityHtmlViewerInitStart(params: MutPtr<UtilityHtmlViewerParam>): Int =
+    libcPspSceUtilityHtmlViewerInitStart(params.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceUtilityHtmlViewerShutdownStart(): Int =
-    libc_psp_sceUtilityHtmlViewerShutdownStart()
+    libcPspSceUtilityHtmlViewerShutdownStart()
 
 public actual fun sceUtilityHtmlViewerUpdate(n: Int): Int =
-    libc_psp_sceUtilityHtmlViewerUpdate(n)
+    libcPspSceUtilityHtmlViewerUpdate(n)
 
 public actual fun sceUtilityHtmlViewerGetStatus(): Int =
-    libc_psp_sceUtilityHtmlViewerGetStatus()
+    libcPspSceUtilityHtmlViewerGetStatus()
 
 public actual fun sceUtilitySetSystemParamInt(id: SystemParamId, value: Int): Int =
     0
 
-public actual fun sceUtilitySetSystemParamString(id: SystemParamId, str: COpaquePointer?): Int =
+public actual fun sceUtilitySetSystemParamString(id: SystemParamId, str: ConstPtr<UByte>): Int =
     0
 
-public actual fun sceUtilityGetSystemParamInt(id: SystemParamId, value: COpaquePointer?): Int =
+public actual fun sceUtilityGetSystemParamInt(id: SystemParamId, value: MutPtr<Int>): Int =
     0
 
-public actual fun sceUtilityGetSystemParamString(id: SystemParamId, str: COpaquePointer?, len: Int): Int =
+public actual fun sceUtilityGetSystemParamString(id: SystemParamId, str: MutPtr<UByte>, len: Int): Int =
     0
 
-public actual fun sceUtilityOskInitStart(params: COpaquePointer?): Int =
-    libc_psp_sceUtilityOskInitStart(params?.value?.toCPointer<ByteVar>())
+public actual fun sceUtilityOskInitStart(params: MutPtr<SceUtilityOskParams>): Int =
+    libcPspSceUtilityOskInitStart(params.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceUtilityOskShutdownStart(): Int =
-    libc_psp_sceUtilityOskShutdownStart()
+    libcPspSceUtilityOskShutdownStart()
 
 public actual fun sceUtilityOskUpdate(n: Int): Int =
-    libc_psp_sceUtilityOskUpdate(n)
+    libcPspSceUtilityOskUpdate(n)
 
 public actual fun sceUtilityOskGetStatus(): Int =
-    libc_psp_sceUtilityOskGetStatus()
+    libcPspSceUtilityOskGetStatus()
 
 public actual fun sceUtilityLoadNetModule(module: NetModule): Int =
     0
@@ -2631,459 +2635,459 @@ public actual fun sceUtilityUnloadModule(module: Module): Int =
     0
 
 public actual fun sceUtilityCreateNetParam(conf: Int): Int =
-    libc_psp_sceUtilityCreateNetParam(conf)
+    libcPspSceUtilityCreateNetParam(conf)
 
-public actual fun sceUtilitySetNetParam(param: NetParam, value: COpaquePointer?): Int =
+public actual fun sceUtilitySetNetParam(param: NetParam, value: ConstPtr<CVoid>): Int =
     0
 
 public actual fun sceUtilityCopyNetParam(src: Int, dest: Int): Int =
-    libc_psp_sceUtilityCopyNetParam(src, dest)
+    libcPspSceUtilityCopyNetParam(src, dest)
 
 public actual fun sceUtilityDeleteNetParam(conf: Int): Int =
-    libc_psp_sceUtilityDeleteNetParam(conf)
+    libcPspSceUtilityDeleteNetParam(conf)
 
 public actual fun sceNetInit(poolsize: Int, calloutprio: Int, calloutstack: Int, netintrprio: Int, netintrstack: Int): Int =
-    libc_psp_sceNetInit(poolsize, calloutprio, calloutstack, netintrprio, netintrstack)
+    libcPspSceNetInit(poolsize, calloutprio, calloutstack, netintrprio, netintrstack)
 
 public actual fun sceNetTerm(): Int =
-    libc_psp_sceNetTerm()
+    libcPspSceNetTerm()
 
 public actual fun sceNetFreeThreadinfo(thid: Int): Int =
-    libc_psp_sceNetFreeThreadinfo(thid)
+    libcPspSceNetFreeThreadinfo(thid)
 
 public actual fun sceNetThreadAbort(thid: Int): Int =
-    libc_psp_sceNetThreadAbort(thid)
+    libcPspSceNetThreadAbort(thid)
 
-public actual fun sceNetEtherStrton(name: COpaquePointer?, mac: COpaquePointer?) {
-    libc_psp_sceNetEtherStrton(name?.value?.toCPointer<ByteVar>(), mac?.value?.toCPointer<ByteVar>())
+public actual fun sceNetEtherStrton(name: MutPtr<UByte>, mac: MutPtr<UByte>) {
+    libcPspSceNetEtherStrton(name.rawAddress.toCPointer<ByteVar>(), mac.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun sceNetEtherNtostr(mac: COpaquePointer?, name: COpaquePointer?) {
-    libc_psp_sceNetEtherNtostr(mac?.value?.toCPointer<ByteVar>(), name?.value?.toCPointer<ByteVar>())
+public actual fun sceNetEtherNtostr(mac: MutPtr<UByte>, name: MutPtr<UByte>) {
+    libcPspSceNetEtherNtostr(mac.rawAddress.toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun sceNetGetLocalEtherAddr(mac: COpaquePointer?): Int =
-    libc_psp_sceNetGetLocalEtherAddr(mac?.value?.toCPointer<ByteVar>())
+public actual fun sceNetGetLocalEtherAddr(mac: MutPtr<UByte>): Int =
+    libcPspSceNetGetLocalEtherAddr(mac.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceNetGetMallocStat(stat: COpaquePointer?): Int =
-    libc_psp_sceNetGetMallocStat(stat?.value?.toCPointer<ByteVar>())
+public actual fun sceNetGetMallocStat(stat: MutPtr<SceNetMallocStat>): Int =
+    libcPspSceNetGetMallocStat(stat.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceNetAdhocctlInit(stacksize: Int, priority: Int, adhocId: COpaquePointer?): Int =
-    libc_psp_sceNetAdhocctlInit(stacksize, priority, adhocId?.value?.toCPointer<ByteVar>())
+public actual fun sceNetAdhocctlInit(stacksize: Int, priority: Int, adhocId: MutPtr<SceNetAdhocctlAdhocId>): Int =
+    libcPspSceNetAdhocctlInit(stacksize, priority, adhocId.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceNetAdhocctlTerm(): Int =
-    libc_psp_sceNetAdhocctlTerm()
+    libcPspSceNetAdhocctlTerm()
 
-public actual fun sceNetAdhocctlConnect(name: COpaquePointer?): Int =
-    libc_psp_sceNetAdhocctlConnect(name?.value?.toCPointer<ByteVar>())
+public actual fun sceNetAdhocctlConnect(name: ConstPtr<UByte>): Int =
+    libcPspSceNetAdhocctlConnect(name.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceNetAdhocctlDisconnect(): Int =
-    libc_psp_sceNetAdhocctlDisconnect()
+    libcPspSceNetAdhocctlDisconnect()
 
-public actual fun sceNetAdhocctlGetState(event: COpaquePointer?): Int =
-    libc_psp_sceNetAdhocctlGetState(event?.value?.toCPointer<ByteVar>())
+public actual fun sceNetAdhocctlGetState(event: MutPtr<Int>): Int =
+    libcPspSceNetAdhocctlGetState(event.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceNetAdhocctlCreate(name: COpaquePointer?): Int =
-    libc_psp_sceNetAdhocctlCreate(name?.value?.toCPointer<ByteVar>())
+public actual fun sceNetAdhocctlCreate(name: ConstPtr<UByte>): Int =
+    libcPspSceNetAdhocctlCreate(name.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceNetAdhocctlJoin(scaninfo: COpaquePointer?): Int =
-    libc_psp_sceNetAdhocctlJoin(scaninfo?.value?.toCPointer<ByteVar>())
+public actual fun sceNetAdhocctlJoin(scaninfo: MutPtr<SceNetAdhocctlScanInfo>): Int =
+    libcPspSceNetAdhocctlJoin(scaninfo.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceNetAdhocctlGetAdhocId(id: COpaquePointer?): Int =
-    libc_psp_sceNetAdhocctlGetAdhocId(id?.value?.toCPointer<ByteVar>())
+public actual fun sceNetAdhocctlGetAdhocId(id: MutPtr<SceNetAdhocctlAdhocId>): Int =
+    libcPspSceNetAdhocctlGetAdhocId(id.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceNetAdhocctlCreateEnterGameMode(name: COpaquePointer?, unknown: Int, num: Int, macs: COpaquePointer?, timeout: UInt, unknown2: Int): Int =
-    libc_psp_sceNetAdhocctlCreateEnterGameMode(name?.value?.toCPointer<ByteVar>(), unknown, num, macs?.value?.toCPointer<ByteVar>(), timeout, unknown2)
+public actual fun sceNetAdhocctlCreateEnterGameMode(name: ConstPtr<UByte>, unknown: Int, num: Int, macs: MutPtr<UByte>, timeout: UInt, unknown2: Int): Int =
+    libcPspSceNetAdhocctlCreateEnterGameMode(name.rawAddress.toCPointer<ByteVar>(), unknown, num, macs.rawAddress.toCPointer<ByteVar>(), timeout, unknown2)
 
-public actual fun sceNetAdhocctlJoinEnterGameMode(name: COpaquePointer?, hostmac: COpaquePointer?, timeout: UInt, unknown: Int): Int =
-    libc_psp_sceNetAdhocctlJoinEnterGameMode(name?.value?.toCPointer<ByteVar>(), hostmac?.value?.toCPointer<ByteVar>(), timeout, unknown)
+public actual fun sceNetAdhocctlJoinEnterGameMode(name: ConstPtr<UByte>, hostmac: MutPtr<UByte>, timeout: UInt, unknown: Int): Int =
+    libcPspSceNetAdhocctlJoinEnterGameMode(name.rawAddress.toCPointer<ByteVar>(), hostmac.rawAddress.toCPointer<ByteVar>(), timeout, unknown)
 
-public actual fun sceNetAdhocctlGetGameModeInfo(gamemodeinfo: COpaquePointer?): Int =
-    libc_psp_sceNetAdhocctlGetGameModeInfo(gamemodeinfo?.value?.toCPointer<ByteVar>())
+public actual fun sceNetAdhocctlGetGameModeInfo(gamemodeinfo: MutPtr<SceNetAdhocctlGameModeInfo>): Int =
+    libcPspSceNetAdhocctlGetGameModeInfo(gamemodeinfo.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceNetAdhocctlExitGameMode(): Int =
-    libc_psp_sceNetAdhocctlExitGameMode()
+    libcPspSceNetAdhocctlExitGameMode()
 
-public actual fun sceNetAdhocctlGetPeerList(length: COpaquePointer?, buf: COpaquePointer?): Int =
-    libc_psp_sceNetAdhocctlGetPeerList(length?.value?.toCPointer<ByteVar>(), buf?.value?.toCPointer<ByteVar>())
+public actual fun sceNetAdhocctlGetPeerList(length: MutPtr<Int>, buf: MutPtr<CVoid>): Int =
+    libcPspSceNetAdhocctlGetPeerList(length.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceNetAdhocctlGetPeerInfo(mac: COpaquePointer?, size: Int, peerinfo: COpaquePointer?): Int =
-    libc_psp_sceNetAdhocctlGetPeerInfo(mac?.value?.toCPointer<ByteVar>(), size, peerinfo?.value?.toCPointer<ByteVar>())
+public actual fun sceNetAdhocctlGetPeerInfo(mac: MutPtr<UByte>, size: Int, peerinfo: MutPtr<SceNetAdhocctlPeerInfo>): Int =
+    libcPspSceNetAdhocctlGetPeerInfo(mac.rawAddress.toCPointer<ByteVar>(), size, peerinfo.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceNetAdhocctlScan(): Int =
-    libc_psp_sceNetAdhocctlScan()
+    libcPspSceNetAdhocctlScan()
 
-public actual fun sceNetAdhocctlGetScanInfo(length: COpaquePointer?, buf: COpaquePointer?): Int =
-    libc_psp_sceNetAdhocctlGetScanInfo(length?.value?.toCPointer<ByteVar>(), buf?.value?.toCPointer<ByteVar>())
+public actual fun sceNetAdhocctlGetScanInfo(length: MutPtr<Int>, buf: MutPtr<CVoid>): Int =
+    libcPspSceNetAdhocctlGetScanInfo(length.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceNetAdhocctlAddHandler(handler: SceNetAdhocctlHandler, unknown: COpaquePointer?): Int =
-    libc_psp_sceNetAdhocctlAddHandler(0L.toCPointer<ByteVar>(), unknown?.value?.toCPointer<ByteVar>())
+public actual fun sceNetAdhocctlAddHandler(handler: SceNetAdhocctlHandler, unknown: MutPtr<CVoid>): Int =
+    libcPspSceNetAdhocctlAddHandler(0L.toCPointer<ByteVar>(), unknown.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceNetAdhocctlDelHandler(id: Int): Int =
-    libc_psp_sceNetAdhocctlDelHandler(id)
+    libcPspSceNetAdhocctlDelHandler(id)
 
-public actual fun sceNetAdhocctlGetNameByAddr(mac: COpaquePointer?, nickname: COpaquePointer?): Int =
-    libc_psp_sceNetAdhocctlGetNameByAddr(mac?.value?.toCPointer<ByteVar>(), nickname?.value?.toCPointer<ByteVar>())
+public actual fun sceNetAdhocctlGetNameByAddr(mac: MutPtr<UByte>, nickname: MutPtr<UByte>): Int =
+    libcPspSceNetAdhocctlGetNameByAddr(mac.rawAddress.toCPointer<ByteVar>(), nickname.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceNetAdhocctlGetAddrByName(nickname: COpaquePointer?, length: COpaquePointer?, buf: COpaquePointer?): Int =
-    libc_psp_sceNetAdhocctlGetAddrByName(nickname?.value?.toCPointer<ByteVar>(), length?.value?.toCPointer<ByteVar>(), buf?.value?.toCPointer<ByteVar>())
+public actual fun sceNetAdhocctlGetAddrByName(nickname: MutPtr<UByte>, length: MutPtr<Int>, buf: MutPtr<CVoid>): Int =
+    libcPspSceNetAdhocctlGetAddrByName(nickname.rawAddress.toCPointer<ByteVar>(), length.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceNetAdhocctlGetParameter(params: COpaquePointer?): Int =
-    libc_psp_sceNetAdhocctlGetParameter(params?.value?.toCPointer<ByteVar>())
+public actual fun sceNetAdhocctlGetParameter(params: MutPtr<SceNetAdhocctlParams>): Int =
+    libcPspSceNetAdhocctlGetParameter(params.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceNetAdhocInit(): Int =
-    libc_psp_sceNetAdhocInit()
+    libcPspSceNetAdhocInit()
 
 public actual fun sceNetAdhocTerm(): Int =
-    libc_psp_sceNetAdhocTerm()
+    libcPspSceNetAdhocTerm()
 
-public actual fun sceNetAdhocPdpCreate(mac: COpaquePointer?, port: UShort, bufSize: UInt, unk1: Int): Int =
-    libc_psp_sceNetAdhocPdpCreate(mac?.value?.toCPointer<ByteVar>(), port, bufSize, unk1)
+public actual fun sceNetAdhocPdpCreate(mac: MutPtr<UByte>, port: UShort, bufSize: UInt, unk1: Int): Int =
+    libcPspSceNetAdhocPdpCreate(mac.rawAddress.toCPointer<ByteVar>(), port, bufSize, unk1)
 
 public actual fun sceNetAdhocPdpDelete(id: Int, unk1: Int): Int =
-    libc_psp_sceNetAdhocPdpDelete(id, unk1)
+    libcPspSceNetAdhocPdpDelete(id, unk1)
 
-public actual fun sceNetAdhocPdpSend(id: Int, destMacAddr: COpaquePointer?, port: UShort, data: COpaquePointer?, len: UInt, timeout: UInt, nonblock: Int): Int =
-    libc_psp_sceNetAdhocPdpSend(id, destMacAddr?.value?.toCPointer<ByteVar>(), port, data?.value?.toCPointer<ByteVar>(), len, timeout, nonblock)
+public actual fun sceNetAdhocPdpSend(id: Int, destMacAddr: MutPtr<UByte>, port: UShort, data: MutPtr<CVoid>, len: UInt, timeout: UInt, nonblock: Int): Int =
+    libcPspSceNetAdhocPdpSend(id, destMacAddr.rawAddress.toCPointer<ByteVar>(), port, data.rawAddress.toCPointer<ByteVar>(), len, timeout, nonblock)
 
-public actual fun sceNetAdhocPdpRecv(id: Int, srcMacAddr: COpaquePointer?, port: COpaquePointer?, data: COpaquePointer?, dataLength: COpaquePointer?, timeout: UInt, nonblock: Int): Int =
-    libc_psp_sceNetAdhocPdpRecv(id, srcMacAddr?.value?.toCPointer<ByteVar>(), port?.value?.toCPointer<ByteVar>(), data?.value?.toCPointer<ByteVar>(), dataLength?.value?.toCPointer<ByteVar>(), timeout, nonblock)
+public actual fun sceNetAdhocPdpRecv(id: Int, srcMacAddr: MutPtr<UByte>, port: MutPtr<UShort>, data: MutPtr<CVoid>, dataLength: MutPtr<CVoid>, timeout: UInt, nonblock: Int): Int =
+    libcPspSceNetAdhocPdpRecv(id, srcMacAddr.rawAddress.toCPointer<ByteVar>(), port.rawAddress.toCPointer<ByteVar>(), data.rawAddress.toCPointer<ByteVar>(), dataLength.rawAddress.toCPointer<ByteVar>(), timeout, nonblock)
 
-public actual fun sceNetAdhocGetPdpStat(size: COpaquePointer?, stat: COpaquePointer?): Int =
-    libc_psp_sceNetAdhocGetPdpStat(size?.value?.toCPointer<ByteVar>(), stat?.value?.toCPointer<ByteVar>())
+public actual fun sceNetAdhocGetPdpStat(size: MutPtr<Int>, stat: MutPtr<SceNetAdhocPdpStat>): Int =
+    libcPspSceNetAdhocGetPdpStat(size.rawAddress.toCPointer<ByteVar>(), stat.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceNetAdhocGameModeCreateMaster(data: COpaquePointer?, size: Int): Int =
-    libc_psp_sceNetAdhocGameModeCreateMaster(data?.value?.toCPointer<ByteVar>(), size)
+public actual fun sceNetAdhocGameModeCreateMaster(data: MutPtr<CVoid>, size: Int): Int =
+    libcPspSceNetAdhocGameModeCreateMaster(data.rawAddress.toCPointer<ByteVar>(), size)
 
-public actual fun sceNetAdhocGameModeCreateReplica(mac: COpaquePointer?, data: COpaquePointer?, size: Int): Int =
-    libc_psp_sceNetAdhocGameModeCreateReplica(mac?.value?.toCPointer<ByteVar>(), data?.value?.toCPointer<ByteVar>(), size)
+public actual fun sceNetAdhocGameModeCreateReplica(mac: MutPtr<UByte>, data: MutPtr<CVoid>, size: Int): Int =
+    libcPspSceNetAdhocGameModeCreateReplica(mac.rawAddress.toCPointer<ByteVar>(), data.rawAddress.toCPointer<ByteVar>(), size)
 
 public actual fun sceNetAdhocGameModeUpdateMaster(): Int =
-    libc_psp_sceNetAdhocGameModeUpdateMaster()
+    libcPspSceNetAdhocGameModeUpdateMaster()
 
 public actual fun sceNetAdhocGameModeUpdateReplica(id: Int, unk1: Int): Int =
-    libc_psp_sceNetAdhocGameModeUpdateReplica(id, unk1)
+    libcPspSceNetAdhocGameModeUpdateReplica(id, unk1)
 
 public actual fun sceNetAdhocGameModeDeleteMaster(): Int =
-    libc_psp_sceNetAdhocGameModeDeleteMaster()
+    libcPspSceNetAdhocGameModeDeleteMaster()
 
 public actual fun sceNetAdhocGameModeDeleteReplica(id: Int): Int =
-    libc_psp_sceNetAdhocGameModeDeleteReplica(id)
+    libcPspSceNetAdhocGameModeDeleteReplica(id)
 
-public actual fun sceNetAdhocPtpOpen(srcmac: COpaquePointer?, srcport: UShort, destmac: COpaquePointer?, destport: UShort, bufSize: UInt, delay: UInt, count: Int, unk1: Int): Int =
-    libc_psp_sceNetAdhocPtpOpen(srcmac?.value?.toCPointer<ByteVar>(), srcport, destmac?.value?.toCPointer<ByteVar>(), destport, bufSize, delay, count, unk1)
+public actual fun sceNetAdhocPtpOpen(srcmac: MutPtr<UByte>, srcport: UShort, destmac: MutPtr<UByte>, destport: UShort, bufSize: UInt, delay: UInt, count: Int, unk1: Int): Int =
+    libcPspSceNetAdhocPtpOpen(srcmac.rawAddress.toCPointer<ByteVar>(), srcport, destmac.rawAddress.toCPointer<ByteVar>(), destport, bufSize, delay, count, unk1)
 
 public actual fun sceNetAdhocPtpConnect(id: Int, timeout: UInt, nonblock: Int): Int =
-    libc_psp_sceNetAdhocPtpConnect(id, timeout, nonblock)
+    libcPspSceNetAdhocPtpConnect(id, timeout, nonblock)
 
-public actual fun sceNetAdhocPtpListen(srcmac: COpaquePointer?, srcport: UShort, bufSize: UInt, delay: UInt, count: Int, queue: Int, unk1: Int): Int =
-    libc_psp_sceNetAdhocPtpListen(srcmac?.value?.toCPointer<ByteVar>(), srcport, bufSize, delay, count, queue, unk1)
+public actual fun sceNetAdhocPtpListen(srcmac: MutPtr<UByte>, srcport: UShort, bufSize: UInt, delay: UInt, count: Int, queue: Int, unk1: Int): Int =
+    libcPspSceNetAdhocPtpListen(srcmac.rawAddress.toCPointer<ByteVar>(), srcport, bufSize, delay, count, queue, unk1)
 
-public actual fun sceNetAdhocPtpAccept(id: Int, mac: COpaquePointer?, port: COpaquePointer?, timeout: UInt, nonblock: Int): Int =
-    libc_psp_sceNetAdhocPtpAccept(id, mac?.value?.toCPointer<ByteVar>(), port?.value?.toCPointer<ByteVar>(), timeout, nonblock)
+public actual fun sceNetAdhocPtpAccept(id: Int, mac: MutPtr<UByte>, port: MutPtr<UShort>, timeout: UInt, nonblock: Int): Int =
+    libcPspSceNetAdhocPtpAccept(id, mac.rawAddress.toCPointer<ByteVar>(), port.rawAddress.toCPointer<ByteVar>(), timeout, nonblock)
 
-public actual fun sceNetAdhocPtpSend(id: Int, data: COpaquePointer?, dataSize: COpaquePointer?, timeout: UInt, nonblock: Int): Int =
-    libc_psp_sceNetAdhocPtpSend(id, data?.value?.toCPointer<ByteVar>(), dataSize?.value?.toCPointer<ByteVar>(), timeout, nonblock)
+public actual fun sceNetAdhocPtpSend(id: Int, data: MutPtr<CVoid>, dataSize: MutPtr<Int>, timeout: UInt, nonblock: Int): Int =
+    libcPspSceNetAdhocPtpSend(id, data.rawAddress.toCPointer<ByteVar>(), dataSize.rawAddress.toCPointer<ByteVar>(), timeout, nonblock)
 
-public actual fun sceNetAdhocPtpRecv(id: Int, data: COpaquePointer?, dataSize: COpaquePointer?, timeout: UInt, nonblock: Int): Int =
-    libc_psp_sceNetAdhocPtpRecv(id, data?.value?.toCPointer<ByteVar>(), dataSize?.value?.toCPointer<ByteVar>(), timeout, nonblock)
+public actual fun sceNetAdhocPtpRecv(id: Int, data: MutPtr<CVoid>, dataSize: MutPtr<Int>, timeout: UInt, nonblock: Int): Int =
+    libcPspSceNetAdhocPtpRecv(id, data.rawAddress.toCPointer<ByteVar>(), dataSize.rawAddress.toCPointer<ByteVar>(), timeout, nonblock)
 
 public actual fun sceNetAdhocPtpFlush(id: Int, timeout: UInt, nonblock: Int): Int =
-    libc_psp_sceNetAdhocPtpFlush(id, timeout, nonblock)
+    libcPspSceNetAdhocPtpFlush(id, timeout, nonblock)
 
 public actual fun sceNetAdhocPtpClose(id: Int, unk1: Int): Int =
-    libc_psp_sceNetAdhocPtpClose(id, unk1)
+    libcPspSceNetAdhocPtpClose(id, unk1)
 
-public actual fun sceNetAdhocGetPtpStat(size: COpaquePointer?, stat: COpaquePointer?): Int =
-    libc_psp_sceNetAdhocGetPtpStat(size?.value?.toCPointer<ByteVar>(), stat?.value?.toCPointer<ByteVar>())
+public actual fun sceNetAdhocGetPtpStat(size: MutPtr<Int>, stat: MutPtr<SceNetAdhocPtpStat>): Int =
+    libcPspSceNetAdhocGetPtpStat(size.rawAddress.toCPointer<ByteVar>(), stat.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceNetAdhocMatchingInit(memsize: Int): Int =
-    libc_psp_sceNetAdhocMatchingInit(memsize)
+    libcPspSceNetAdhocMatchingInit(memsize)
 
 public actual fun sceNetAdhocMatchingTerm(): Int =
-    libc_psp_sceNetAdhocMatchingTerm()
+    libcPspSceNetAdhocMatchingTerm()
 
 public actual fun sceNetAdhocMatchingCreate(mode: AdhocMatchingMode, maxPeers: Int, port: UShort, bufSize: Int, helloDelay: UInt, pingDelay: UInt, initCount: Int, msgDelay: UInt, callback: AdhocMatchingCallback): Int =
     0
 
 public actual fun sceNetAdhocMatchingDelete(matchingId: Int): Int =
-    libc_psp_sceNetAdhocMatchingDelete(matchingId)
+    libcPspSceNetAdhocMatchingDelete(matchingId)
 
-public actual fun sceNetAdhocMatchingStart(matchingId: Int, evthPri: Int, evthStack: Int, inthPri: Int, inthStack: Int, optLen: Int, optData: COpaquePointer?): Int =
-    libc_psp_sceNetAdhocMatchingStart(matchingId, evthPri, evthStack, inthPri, inthStack, optLen, optData?.value?.toCPointer<ByteVar>())
+public actual fun sceNetAdhocMatchingStart(matchingId: Int, evthPri: Int, evthStack: Int, inthPri: Int, inthStack: Int, optLen: Int, optData: MutPtr<CVoid>): Int =
+    libcPspSceNetAdhocMatchingStart(matchingId, evthPri, evthStack, inthPri, inthStack, optLen, optData.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceNetAdhocMatchingStop(matchingId: Int): Int =
-    libc_psp_sceNetAdhocMatchingStop(matchingId)
+    libcPspSceNetAdhocMatchingStop(matchingId)
 
-public actual fun sceNetAdhocMatchingSelectTarget(matchingId: Int, mac: COpaquePointer?, optLen: Int, optData: COpaquePointer?): Int =
-    libc_psp_sceNetAdhocMatchingSelectTarget(matchingId, mac?.value?.toCPointer<ByteVar>(), optLen, optData?.value?.toCPointer<ByteVar>())
+public actual fun sceNetAdhocMatchingSelectTarget(matchingId: Int, mac: MutPtr<UByte>, optLen: Int, optData: MutPtr<CVoid>): Int =
+    libcPspSceNetAdhocMatchingSelectTarget(matchingId, mac.rawAddress.toCPointer<ByteVar>(), optLen, optData.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceNetAdhocMatchingCancelTarget(matchingId: Int, mac: COpaquePointer?): Int =
-    libc_psp_sceNetAdhocMatchingCancelTarget(matchingId, mac?.value?.toCPointer<ByteVar>())
+public actual fun sceNetAdhocMatchingCancelTarget(matchingId: Int, mac: MutPtr<UByte>): Int =
+    libcPspSceNetAdhocMatchingCancelTarget(matchingId, mac.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceNetAdhocMatchingCancelTargetWithOpt(matchingId: Int, mac: COpaquePointer?, optLen: Int, optData: COpaquePointer?): Int =
-    libc_psp_sceNetAdhocMatchingCancelTargetWithOpt(matchingId, mac?.value?.toCPointer<ByteVar>(), optLen, optData?.value?.toCPointer<ByteVar>())
+public actual fun sceNetAdhocMatchingCancelTargetWithOpt(matchingId: Int, mac: MutPtr<UByte>, optLen: Int, optData: MutPtr<CVoid>): Int =
+    libcPspSceNetAdhocMatchingCancelTargetWithOpt(matchingId, mac.rawAddress.toCPointer<ByteVar>(), optLen, optData.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceNetAdhocMatchingSendData(matchingId: Int, mac: COpaquePointer?, dataLen: Int, data: COpaquePointer?): Int =
-    libc_psp_sceNetAdhocMatchingSendData(matchingId, mac?.value?.toCPointer<ByteVar>(), dataLen, data?.value?.toCPointer<ByteVar>())
+public actual fun sceNetAdhocMatchingSendData(matchingId: Int, mac: MutPtr<UByte>, dataLen: Int, data: MutPtr<CVoid>): Int =
+    libcPspSceNetAdhocMatchingSendData(matchingId, mac.rawAddress.toCPointer<ByteVar>(), dataLen, data.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceNetAdhocMatchingAbortSendData(matchingId: Int, mac: COpaquePointer?): Int =
-    libc_psp_sceNetAdhocMatchingAbortSendData(matchingId, mac?.value?.toCPointer<ByteVar>())
+public actual fun sceNetAdhocMatchingAbortSendData(matchingId: Int, mac: MutPtr<UByte>): Int =
+    libcPspSceNetAdhocMatchingAbortSendData(matchingId, mac.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceNetAdhocMatchingSetHelloOpt(matchingId: Int, optLen: Int, optData: COpaquePointer?): Int =
-    libc_psp_sceNetAdhocMatchingSetHelloOpt(matchingId, optLen, optData?.value?.toCPointer<ByteVar>())
+public actual fun sceNetAdhocMatchingSetHelloOpt(matchingId: Int, optLen: Int, optData: MutPtr<CVoid>): Int =
+    libcPspSceNetAdhocMatchingSetHelloOpt(matchingId, optLen, optData.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceNetAdhocMatchingGetHelloOpt(matchingId: Int, optLen: COpaquePointer?, optData: COpaquePointer?): Int =
-    libc_psp_sceNetAdhocMatchingGetHelloOpt(matchingId, optLen?.value?.toCPointer<ByteVar>(), optData?.value?.toCPointer<ByteVar>())
+public actual fun sceNetAdhocMatchingGetHelloOpt(matchingId: Int, optLen: MutPtr<Int>, optData: MutPtr<CVoid>): Int =
+    libcPspSceNetAdhocMatchingGetHelloOpt(matchingId, optLen.rawAddress.toCPointer<ByteVar>(), optData.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceNetAdhocMatchingGetMembers(matchingId: Int, length: COpaquePointer?, buf: COpaquePointer?): Int =
-    libc_psp_sceNetAdhocMatchingGetMembers(matchingId, length?.value?.toCPointer<ByteVar>(), buf?.value?.toCPointer<ByteVar>())
+public actual fun sceNetAdhocMatchingGetMembers(matchingId: Int, length: MutPtr<Int>, buf: MutPtr<CVoid>): Int =
+    libcPspSceNetAdhocMatchingGetMembers(matchingId, length.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceNetAdhocMatchingGetPoolMaxAlloc(): Int =
-    libc_psp_sceNetAdhocMatchingGetPoolMaxAlloc()
+    libcPspSceNetAdhocMatchingGetPoolMaxAlloc()
 
-public actual fun sceNetAdhocMatchingGetPoolStat(poolstat: COpaquePointer?): Int =
-    libc_psp_sceNetAdhocMatchingGetPoolStat(poolstat?.value?.toCPointer<ByteVar>())
+public actual fun sceNetAdhocMatchingGetPoolStat(poolstat: MutPtr<AdhocPoolStat>): Int =
+    libcPspSceNetAdhocMatchingGetPoolStat(poolstat.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceNetApctlInit(stackSize: Int, initPriority: Int): Int =
-    libc_psp_sceNetApctlInit(stackSize, initPriority)
+    libcPspSceNetApctlInit(stackSize, initPriority)
 
 public actual fun sceNetApctlTerm(): Int =
-    libc_psp_sceNetApctlTerm()
+    libcPspSceNetApctlTerm()
 
-public actual fun sceNetApctlGetInfo(code: ApctlInfo, pinfo: COpaquePointer?): Int =
+public actual fun sceNetApctlGetInfo(code: ApctlInfo, pinfo: MutPtr<SceNetApctlInfo>): Int =
     0
 
-public actual fun sceNetApctlAddHandler(handler: SceNetApctlHandler, parg: COpaquePointer?): Int =
-    libc_psp_sceNetApctlAddHandler(0L.toCPointer<ByteVar>(), parg?.value?.toCPointer<ByteVar>())
+public actual fun sceNetApctlAddHandler(handler: SceNetApctlHandler, parg: MutPtr<CVoid>): Int =
+    libcPspSceNetApctlAddHandler(0L.toCPointer<ByteVar>(), parg.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceNetApctlDelHandler(handlerId: Int): Int =
-    libc_psp_sceNetApctlDelHandler(handlerId)
+    libcPspSceNetApctlDelHandler(handlerId)
 
 public actual fun sceNetApctlConnect(connIndex: Int): Int =
-    libc_psp_sceNetApctlConnect(connIndex)
+    libcPspSceNetApctlConnect(connIndex)
 
 public actual fun sceNetApctlDisconnect(): Int =
-    libc_psp_sceNetApctlDisconnect()
+    libcPspSceNetApctlDisconnect()
 
-public actual fun sceNetApctlGetState(pstate: COpaquePointer?): Int =
-    libc_psp_sceNetApctlGetState(pstate?.value?.toCPointer<ByteVar>())
+public actual fun sceNetApctlGetState(pstate: MutPtr<ApctlState>): Int =
+    libcPspSceNetApctlGetState(pstate.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceNetInetInit(): Int =
-    libc_psp_sceNetInetInit()
+    libcPspSceNetInetInit()
 
 public actual fun sceNetInetTerm(): Int =
-    libc_psp_sceNetInetTerm()
+    libcPspSceNetInetTerm()
 
-public actual fun sceNetInetAccept(s: Int, addr: COpaquePointer?, addrLen: COpaquePointer?): Int =
-    libc_psp_sceNetInetAccept(s, addr?.value?.toCPointer<ByteVar>(), addrLen?.value?.toCPointer<ByteVar>())
+public actual fun sceNetInetAccept(s: Int, addr: MutPtr<Sockaddr>, addrLen: MutPtr<SocklenT>): Int =
+    libcPspSceNetInetAccept(s, addr.rawAddress.toCPointer<ByteVar>(), addrLen.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceNetInetBind(s: Int, myAddr: COpaquePointer?, addrLen: SocklenT): Int =
-    libc_psp_sceNetInetBind(s, myAddr?.value?.toCPointer<ByteVar>(), addrLen)
+public actual fun sceNetInetBind(s: Int, myAddr: ConstPtr<Sockaddr>, addrLen: SocklenT): Int =
+    libcPspSceNetInetBind(s, myAddr.rawAddress.toCPointer<ByteVar>(), addrLen)
 
-public actual fun sceNetInetConnect(s: Int, servAddr: COpaquePointer?, addrLen: SocklenT): Int =
-    libc_psp_sceNetInetConnect(s, servAddr?.value?.toCPointer<ByteVar>(), addrLen)
+public actual fun sceNetInetConnect(s: Int, servAddr: ConstPtr<Sockaddr>, addrLen: SocklenT): Int =
+    libcPspSceNetInetConnect(s, servAddr.rawAddress.toCPointer<ByteVar>(), addrLen)
 
-public actual fun sceNetInetGetsockopt(s: Int, level: Int, optName: Int, optVal: COpaquePointer?, optlEn: COpaquePointer?): Int =
-    libc_psp_sceNetInetGetsockopt(s, level, optName, optVal?.value?.toCPointer<ByteVar>(), optlEn?.value?.toCPointer<ByteVar>())
+public actual fun sceNetInetGetsockopt(s: Int, level: Int, optName: Int, optVal: MutPtr<CVoid>, optlEn: MutPtr<SocklenT>): Int =
+    libcPspSceNetInetGetsockopt(s, level, optName, optVal.rawAddress.toCPointer<ByteVar>(), optlEn.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceNetInetListen(s: Int, backlog: Int): Int =
-    libc_psp_sceNetInetListen(s, backlog)
+    libcPspSceNetInetListen(s, backlog)
 
-public actual fun sceNetInetRecv(s: Int, buf: COpaquePointer?, len: ULong, flags: Int): ULong =
-    libc_psp_sceNetInetRecv(s, buf?.value?.toCPointer<ByteVar>(), len, flags)
+public actual fun sceNetInetRecv(s: Int, buf: MutPtr<CVoid>, len: ULong, flags: Int): ULong =
+    libcPspSceNetInetRecv(s, buf.rawAddress.toCPointer<ByteVar>(), len, flags)
 
-public actual fun sceNetInetRecvfrom(s: Int, buf: COpaquePointer?, flags: ULong, arg1: Int, from: COpaquePointer?, fromLen: COpaquePointer?): ULong =
-    libc_psp_sceNetInetRecvfrom(s, buf?.value?.toCPointer<ByteVar>(), flags, arg1, from?.value?.toCPointer<ByteVar>(), fromLen?.value?.toCPointer<ByteVar>())
+public actual fun sceNetInetRecvfrom(s: Int, buf: MutPtr<CVoid>, flags: ULong, arg1: Int, from: MutPtr<Sockaddr>, fromLen: MutPtr<SocklenT>): ULong =
+    libcPspSceNetInetRecvfrom(s, buf.rawAddress.toCPointer<ByteVar>(), flags, arg1, from.rawAddress.toCPointer<ByteVar>(), fromLen.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceNetInetSend(s: Int, buf: COpaquePointer?, len: ULong, flags: Int): ULong =
-    libc_psp_sceNetInetSend(s, buf?.value?.toCPointer<ByteVar>(), len, flags)
+public actual fun sceNetInetSend(s: Int, buf: ConstPtr<CVoid>, len: ULong, flags: Int): ULong =
+    libcPspSceNetInetSend(s, buf.rawAddress.toCPointer<ByteVar>(), len, flags)
 
-public actual fun sceNetInetSendto(s: Int, buf: COpaquePointer?, len: ULong, flags: Int, to: COpaquePointer?, toLen: SocklenT): ULong =
-    libc_psp_sceNetInetSendto(s, buf?.value?.toCPointer<ByteVar>(), len, flags, to?.value?.toCPointer<ByteVar>(), toLen)
+public actual fun sceNetInetSendto(s: Int, buf: ConstPtr<CVoid>, len: ULong, flags: Int, to: ConstPtr<Sockaddr>, toLen: SocklenT): ULong =
+    libcPspSceNetInetSendto(s, buf.rawAddress.toCPointer<ByteVar>(), len, flags, to.rawAddress.toCPointer<ByteVar>(), toLen)
 
-public actual fun sceNetInetSetsockopt(s: Int, level: Int, optName: Int, optVal: COpaquePointer?, optLen: SocklenT): Int =
-    libc_psp_sceNetInetSetsockopt(s, level, optName, optVal?.value?.toCPointer<ByteVar>(), optLen)
+public actual fun sceNetInetSetsockopt(s: Int, level: Int, optName: Int, optVal: ConstPtr<CVoid>, optLen: SocklenT): Int =
+    libcPspSceNetInetSetsockopt(s, level, optName, optVal.rawAddress.toCPointer<ByteVar>(), optLen)
 
 public actual fun sceNetInetShutdown(s: Int, how: Int): Int =
-    libc_psp_sceNetInetShutdown(s, how)
+    libcPspSceNetInetShutdown(s, how)
 
 public actual fun sceNetInetSocket(domain: Int, type: Int, protocol: Int): Int =
-    libc_psp_sceNetInetSocket(domain, type, protocol)
+    libcPspSceNetInetSocket(domain, type, protocol)
 
 public actual fun sceNetInetClose(s: Int): Int =
-    libc_psp_sceNetInetClose(s)
+    libcPspSceNetInetClose(s)
 
 public actual fun sceNetInetGetErrno(): Int =
-    libc_psp_sceNetInetGetErrno()
+    libcPspSceNetInetGetErrno()
 
 public actual fun sceSslInit(unknown1: Int): Int =
-    libc_psp_sceSslInit(unknown1)
+    libcPspSceSslInit(unknown1)
 
 public actual fun sceSslEnd(): Int =
-    libc_psp_sceSslEnd()
+    libcPspSceSslEnd()
 
-public actual fun sceSslGetUsedMemoryMax(memory: COpaquePointer?): Int =
-    libc_psp_sceSslGetUsedMemoryMax(memory?.value?.toCPointer<ByteVar>())
+public actual fun sceSslGetUsedMemoryMax(memory: MutPtr<UInt>): Int =
+    libcPspSceSslGetUsedMemoryMax(memory.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceSslGetUsedMemoryCurrent(memory: COpaquePointer?): Int =
-    libc_psp_sceSslGetUsedMemoryCurrent(memory?.value?.toCPointer<ByteVar>())
+public actual fun sceSslGetUsedMemoryCurrent(memory: MutPtr<UInt>): Int =
+    libcPspSceSslGetUsedMemoryCurrent(memory.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceHttpInit(unknown1: UInt): Int =
-    libc_psp_sceHttpInit(unknown1)
+    libcPspSceHttpInit(unknown1)
 
 public actual fun sceHttpEnd(): Int =
-    libc_psp_sceHttpEnd()
+    libcPspSceHttpEnd()
 
-public actual fun sceHttpCreateTemplate(agent: COpaquePointer?, unknown1: Int, unknown2: Int): Int =
-    libc_psp_sceHttpCreateTemplate(agent?.value?.toCPointer<ByteVar>(), unknown1, unknown2)
+public actual fun sceHttpCreateTemplate(agent: MutPtr<UByte>, unknown1: Int, unknown2: Int): Int =
+    libcPspSceHttpCreateTemplate(agent.rawAddress.toCPointer<ByteVar>(), unknown1, unknown2)
 
 public actual fun sceHttpDeleteTemplate(templateid: Int): Int =
-    libc_psp_sceHttpDeleteTemplate(templateid)
+    libcPspSceHttpDeleteTemplate(templateid)
 
-public actual fun sceHttpCreateConnection(templateid: Int, host: COpaquePointer?, unknown1: COpaquePointer?, port: UShort, unknown2: Int): Int =
-    libc_psp_sceHttpCreateConnection(templateid, host?.value?.toCPointer<ByteVar>(), unknown1?.value?.toCPointer<ByteVar>(), port, unknown2)
+public actual fun sceHttpCreateConnection(templateid: Int, host: MutPtr<UByte>, unknown1: MutPtr<UByte>, port: UShort, unknown2: Int): Int =
+    libcPspSceHttpCreateConnection(templateid, host.rawAddress.toCPointer<ByteVar>(), unknown1.rawAddress.toCPointer<ByteVar>(), port, unknown2)
 
-public actual fun sceHttpCreateConnectionWithURL(templateid: Int, url: COpaquePointer?, unknown1: Int): Int =
-    libc_psp_sceHttpCreateConnectionWithURL(templateid, url?.value?.toCPointer<ByteVar>(), unknown1)
+public actual fun sceHttpCreateConnectionWithURL(templateid: Int, url: ConstPtr<UByte>, unknown1: Int): Int =
+    libcPspSceHttpCreateConnectionWithURL(templateid, url.rawAddress.toCPointer<ByteVar>(), unknown1)
 
 public actual fun sceHttpDeleteConnection(connectionId: Int): Int =
-    libc_psp_sceHttpDeleteConnection(connectionId)
+    libcPspSceHttpDeleteConnection(connectionId)
 
-public actual fun sceHttpCreateRequest(connectionId: Int, method: HttpMethod, path: COpaquePointer?, contentLength: ULong): Int =
+public actual fun sceHttpCreateRequest(connectionId: Int, method: HttpMethod, path: MutPtr<UByte>, contentLength: ULong): Int =
     0
 
-public actual fun sceHttpCreateRequestWithURL(connectionId: Int, method: HttpMethod, url: COpaquePointer?, contentLength: ULong): Int =
+public actual fun sceHttpCreateRequestWithURL(connectionId: Int, method: HttpMethod, url: MutPtr<UByte>, contentLength: ULong): Int =
     0
 
 public actual fun sceHttpDeleteRequest(requestId: Int): Int =
-    libc_psp_sceHttpDeleteRequest(requestId)
+    libcPspSceHttpDeleteRequest(requestId)
 
-public actual fun sceHttpSendRequest(requestId: Int, data: COpaquePointer?, dataSize: UInt): Int =
-    libc_psp_sceHttpSendRequest(requestId, data?.value?.toCPointer<ByteVar>(), dataSize)
+public actual fun sceHttpSendRequest(requestId: Int, data: MutPtr<CVoid>, dataSize: UInt): Int =
+    libcPspSceHttpSendRequest(requestId, data.rawAddress.toCPointer<ByteVar>(), dataSize)
 
 public actual fun sceHttpAbortRequest(requestId: Int): Int =
-    libc_psp_sceHttpAbortRequest(requestId)
+    libcPspSceHttpAbortRequest(requestId)
 
-public actual fun sceHttpReadData(requestId: Int, data: COpaquePointer?, dataSize: UInt): Int =
-    libc_psp_sceHttpReadData(requestId, data?.value?.toCPointer<ByteVar>(), dataSize)
+public actual fun sceHttpReadData(requestId: Int, data: MutPtr<CVoid>, dataSize: UInt): Int =
+    libcPspSceHttpReadData(requestId, data.rawAddress.toCPointer<ByteVar>(), dataSize)
 
-public actual fun sceHttpGetContentLength(requestId: Int, contentLength: COpaquePointer?): Int =
-    libc_psp_sceHttpGetContentLength(requestId, contentLength?.value?.toCPointer<ByteVar>())
+public actual fun sceHttpGetContentLength(requestId: Int, contentLength: MutPtr<ULong>): Int =
+    libcPspSceHttpGetContentLength(requestId, contentLength.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceHttpGetStatusCode(requestId: Int, statusCode: COpaquePointer?): Int =
-    libc_psp_sceHttpGetStatusCode(requestId, statusCode?.value?.toCPointer<ByteVar>())
+public actual fun sceHttpGetStatusCode(requestId: Int, statusCode: MutPtr<Int>): Int =
+    libcPspSceHttpGetStatusCode(requestId, statusCode.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceHttpSetResolveTimeOut(id: Int, timeout: UInt): Int =
-    libc_psp_sceHttpSetResolveTimeOut(id, timeout)
+    libcPspSceHttpSetResolveTimeOut(id, timeout)
 
 public actual fun sceHttpSetResolveRetry(id: Int, count: Int): Int =
-    libc_psp_sceHttpSetResolveRetry(id, count)
+    libcPspSceHttpSetResolveRetry(id, count)
 
 public actual fun sceHttpSetConnectTimeOut(id: Int, timeout: UInt): Int =
-    libc_psp_sceHttpSetConnectTimeOut(id, timeout)
+    libcPspSceHttpSetConnectTimeOut(id, timeout)
 
 public actual fun sceHttpSetSendTimeOut(id: Int, timeout: UInt): Int =
-    libc_psp_sceHttpSetSendTimeOut(id, timeout)
+    libcPspSceHttpSetSendTimeOut(id, timeout)
 
 public actual fun sceHttpSetRecvTimeOut(id: Int, timeout: UInt): Int =
-    libc_psp_sceHttpSetRecvTimeOut(id, timeout)
+    libcPspSceHttpSetRecvTimeOut(id, timeout)
 
 public actual fun sceHttpEnableKeepAlive(id: Int): Int =
-    libc_psp_sceHttpEnableKeepAlive(id)
+    libcPspSceHttpEnableKeepAlive(id)
 
 public actual fun sceHttpDisableKeepAlive(id: Int): Int =
-    libc_psp_sceHttpDisableKeepAlive(id)
+    libcPspSceHttpDisableKeepAlive(id)
 
 public actual fun sceHttpEnableRedirect(id: Int): Int =
-    libc_psp_sceHttpEnableRedirect(id)
+    libcPspSceHttpEnableRedirect(id)
 
 public actual fun sceHttpDisableRedirect(id: Int): Int =
-    libc_psp_sceHttpDisableRedirect(id)
+    libcPspSceHttpDisableRedirect(id)
 
 public actual fun sceHttpEnableCookie(id: Int): Int =
-    libc_psp_sceHttpEnableCookie(id)
+    libcPspSceHttpEnableCookie(id)
 
 public actual fun sceHttpDisableCookie(id: Int): Int =
-    libc_psp_sceHttpDisableCookie(id)
+    libcPspSceHttpDisableCookie(id)
 
 public actual fun sceHttpSaveSystemCookie(): Int =
-    libc_psp_sceHttpSaveSystemCookie()
+    libcPspSceHttpSaveSystemCookie()
 
 public actual fun sceHttpLoadSystemCookie(): Int =
-    libc_psp_sceHttpLoadSystemCookie()
+    libcPspSceHttpLoadSystemCookie()
 
-public actual fun sceHttpAddExtraHeader(id: Int, name: COpaquePointer?, value: COpaquePointer?, unknown1: Int): Int =
-    libc_psp_sceHttpAddExtraHeader(id, name?.value?.toCPointer<ByteVar>(), value?.value?.toCPointer<ByteVar>(), unknown1)
+public actual fun sceHttpAddExtraHeader(id: Int, name: MutPtr<UByte>, value: MutPtr<UByte>, unknown1: Int): Int =
+    libcPspSceHttpAddExtraHeader(id, name.rawAddress.toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>(), unknown1)
 
-public actual fun sceHttpDeleteHeader(id: Int, name: COpaquePointer?): Int =
-    libc_psp_sceHttpDeleteHeader(id, name?.value?.toCPointer<ByteVar>())
+public actual fun sceHttpDeleteHeader(id: Int, name: ConstPtr<UByte>): Int =
+    libcPspSceHttpDeleteHeader(id, name.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceHttpsInit(unknown1: Int, unknown2: Int, unknown3: Int, unknown4: Int): Int =
-    libc_psp_sceHttpsInit(unknown1, unknown2, unknown3, unknown4)
+    libcPspSceHttpsInit(unknown1, unknown2, unknown3, unknown4)
 
 public actual fun sceHttpsEnd(): Int =
-    libc_psp_sceHttpsEnd()
+    libcPspSceHttpsEnd()
 
 public actual fun sceHttpsLoadDefaultCert(unknown1: Int, unknown2: Int): Int =
-    libc_psp_sceHttpsLoadDefaultCert(unknown1, unknown2)
+    libcPspSceHttpsLoadDefaultCert(unknown1, unknown2)
 
 public actual fun sceHttpDisableAuth(id: Int): Int =
-    libc_psp_sceHttpDisableAuth(id)
+    libcPspSceHttpDisableAuth(id)
 
 public actual fun sceHttpDisableCache(id: Int): Int =
-    libc_psp_sceHttpDisableCache(id)
+    libcPspSceHttpDisableCache(id)
 
 public actual fun sceHttpEnableAuth(id: Int): Int =
-    libc_psp_sceHttpEnableAuth(id)
+    libcPspSceHttpEnableAuth(id)
 
 public actual fun sceHttpEnableCache(id: Int): Int =
-    libc_psp_sceHttpEnableCache(id)
+    libcPspSceHttpEnableCache(id)
 
 public actual fun sceHttpEndCache(): Int =
-    libc_psp_sceHttpEndCache()
+    libcPspSceHttpEndCache()
 
-public actual fun sceHttpGetAllHeader(request: Int, header: COpaquePointer?, headerSize: COpaquePointer?): Int =
-    libc_psp_sceHttpGetAllHeader(request, header?.value?.toCPointer<ByteVar>(), headerSize?.value?.toCPointer<ByteVar>())
+public actual fun sceHttpGetAllHeader(request: Int, header: MutPtr<MutPtr<UByte>>, headerSize: MutPtr<UInt>): Int =
+    libcPspSceHttpGetAllHeader(request, header.rawAddress.toCPointer<ByteVar>(), headerSize.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceHttpGetNetworkErrno(request: Int, errNum: COpaquePointer?): Int =
-    libc_psp_sceHttpGetNetworkErrno(request, errNum?.value?.toCPointer<ByteVar>())
+public actual fun sceHttpGetNetworkErrno(request: Int, errNum: MutPtr<Int>): Int =
+    libcPspSceHttpGetNetworkErrno(request, errNum.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sceHttpGetProxy(id: Int, activateFlag: COpaquePointer?, mode: COpaquePointer?, proxyHost: COpaquePointer?, len: ULong, proxyPort: COpaquePointer?): Int =
-    libc_psp_sceHttpGetProxy(id, activateFlag?.value?.toCPointer<ByteVar>(), mode?.value?.toCPointer<ByteVar>(), proxyHost?.value?.toCPointer<ByteVar>(), len, proxyPort?.value?.toCPointer<ByteVar>())
+public actual fun sceHttpGetProxy(id: Int, activateFlag: MutPtr<Int>, mode: MutPtr<Int>, proxyHost: MutPtr<UByte>, len: ULong, proxyPort: MutPtr<UShort>): Int =
+    libcPspSceHttpGetProxy(id, activateFlag.rawAddress.toCPointer<ByteVar>(), mode.rawAddress.toCPointer<ByteVar>(), proxyHost.rawAddress.toCPointer<ByteVar>(), len, proxyPort.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sceHttpInitCache(maxSize: ULong): Int =
-    libc_psp_sceHttpInitCache(maxSize)
+    libcPspSceHttpInitCache(maxSize)
 
 public actual fun sceHttpSetAuthInfoCB(id: Int, cbfunc: HttpPasswordCB): Int =
-    libc_psp_sceHttpSetAuthInfoCB(id, 0L.toCPointer<ByteVar>())
+    libcPspSceHttpSetAuthInfoCB(id, 0L.toCPointer<ByteVar>())
 
-public actual fun sceHttpSetProxy(id: Int, activateFlag: Int, mode: Int, newProxyHost: COpaquePointer?, newProxyPort: UShort): Int =
-    libc_psp_sceHttpSetProxy(id, activateFlag, mode, newProxyHost?.value?.toCPointer<ByteVar>(), newProxyPort)
+public actual fun sceHttpSetProxy(id: Int, activateFlag: Int, mode: Int, newProxyHost: ConstPtr<UByte>, newProxyPort: UShort): Int =
+    libcPspSceHttpSetProxy(id, activateFlag, mode, newProxyHost.rawAddress.toCPointer<ByteVar>(), newProxyPort)
 
 public actual fun sceHttpSetResHeaderMaxSize(id: Int, headerSize: UInt): Int =
-    libc_psp_sceHttpSetResHeaderMaxSize(id, headerSize)
+    libcPspSceHttpSetResHeaderMaxSize(id, headerSize)
 
 public actual fun sceHttpSetMallocFunction(mallocFunc: HttpMallocFunction, freeFunc: HttpFreeFunction, reallocFunc: HttpReallocFunction): Int =
-    libc_psp_sceHttpSetMallocFunction(0L.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
+    libcPspSceHttpSetMallocFunction(0L.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
 
 public actual fun sceNetResolverInit(): Int =
-    libc_psp_sceNetResolverInit()
+    libcPspSceNetResolverInit()
 
-public actual fun sceNetResolverCreate(rid: COpaquePointer?, buf: COpaquePointer?, bufLength: UInt): Int =
-    libc_psp_sceNetResolverCreate(rid?.value?.toCPointer<ByteVar>(), buf?.value?.toCPointer<ByteVar>(), bufLength)
+public actual fun sceNetResolverCreate(rid: MutPtr<Int>, buf: MutPtr<CVoid>, bufLength: UInt): Int =
+    libcPspSceNetResolverCreate(rid.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>(), bufLength)
 
 public actual fun sceNetResolverDelete(rid: Int): Int =
-    libc_psp_sceNetResolverDelete(rid)
+    libcPspSceNetResolverDelete(rid)
 
-public actual fun sceNetResolverStartNtoA(rid: Int, hostname: COpaquePointer?, addr: COpaquePointer?, timeout: UInt, retry: Int): Int =
-    libc_psp_sceNetResolverStartNtoA(rid, hostname?.value?.toCPointer<ByteVar>(), addr?.value?.toCPointer<ByteVar>(), timeout, retry)
+public actual fun sceNetResolverStartNtoA(rid: Int, hostname: ConstPtr<UByte>, addr: MutPtr<InAddr>, timeout: UInt, retry: Int): Int =
+    libcPspSceNetResolverStartNtoA(rid, hostname.rawAddress.toCPointer<ByteVar>(), addr.rawAddress.toCPointer<ByteVar>(), timeout, retry)
 
-public actual fun sceNetResolverStartAtoN(rid: Int, addr: COpaquePointer?, hostname: COpaquePointer?, hostnameLen: UInt, timeout: UInt, retry: Int): Int =
-    libc_psp_sceNetResolverStartAtoN(rid, addr?.value?.toCPointer<ByteVar>(), hostname?.value?.toCPointer<ByteVar>(), hostnameLen, timeout, retry)
+public actual fun sceNetResolverStartAtoN(rid: Int, addr: ConstPtr<InAddr>, hostname: MutPtr<UByte>, hostnameLen: UInt, timeout: UInt, retry: Int): Int =
+    libcPspSceNetResolverStartAtoN(rid, addr.rawAddress.toCPointer<ByteVar>(), hostname.rawAddress.toCPointer<ByteVar>(), hostnameLen, timeout, retry)
 
 public actual fun sceNetResolverStop(rid: Int): Int =
-    libc_psp_sceNetResolverStop(rid)
+    libcPspSceNetResolverStop(rid)
 
 public actual fun sceNetResolverTerm(): Int =
-    libc_psp_sceNetResolverTerm()
+    libcPspSceNetResolverTerm()

@@ -1,14 +1,16 @@
 package io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUshort
 import io.github.kotlinmania.libc.unix.PidT
 import io.github.kotlinmania.libc.unix.UidT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public typealias FflagsT = UInt
 
@@ -34,7 +36,7 @@ public typealias ClockidT = CInt
 
 public typealias SemT = Sem
 
-public typealias TimerT = COpaquePointer?
+public typealias TimerT = MutPtr<CAnonymousTimer>
 
 public typealias FsblkcntT = ULong
 
@@ -50,13 +52,13 @@ public typealias CpulevelT = CInt
 
 public typealias CpuwhichT = CInt
 
-public typealias MqdT = COpaquePointer?
+public typealias MqdT = MutPtr<CVoid>
 
-public typealias PthreadSpinlockT = COpaquePointer?
+public typealias PthreadSpinlockT = MutPtr<CAnonymousPthreadSpinlock>
 
-public typealias PthreadBarrierattrT = CAnonymousPthreadBarrierattr?
+public typealias PthreadBarrierattrT = MutPtr<CAnonymousPthreadBarrierattr>
 
-public typealias PthreadBarrierT = CAnonymousPthreadBarrier?
+public typealias PthreadBarrierT = MutPtr<CAnonymousPthreadBarrier>
 
 public typealias UuidT = Uuid
 
@@ -68,7 +70,7 @@ public typealias ULong = CUlong
 
 public typealias UShort = CUshort
 
-public typealias CaddrT = COpaquePointer?
+public typealias CaddrT = MutPtr<CChar>
 
 public typealias FhandleT = Fhandle
 

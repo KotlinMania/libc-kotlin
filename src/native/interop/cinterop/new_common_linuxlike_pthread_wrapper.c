@@ -15,7 +15,7 @@
 #endif
 #endif
 
-int32_t libc_new_common_linuxlike_pthread_pthreadGetaffinityNp(void* thread, uint64_t cpusetsize, void* cpuset) {
+int32_t libcNewCommonLinuxlikePthreadPthreadGetaffinityNp(void* thread, uint64_t cpusetsize, void* cpuset) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -43,7 +43,7 @@ int32_t libc_new_common_linuxlike_pthread_pthreadGetaffinityNp(void* thread, uin
     return ENOSYS;
 }
 
-int32_t libc_new_common_linuxlike_pthread_pthreadGetattrNp(void* native, void* attr) {
+int32_t libcNewCommonLinuxlikePthreadPthreadGetattrNp(void* native, void* attr) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -71,7 +71,7 @@ int32_t libc_new_common_linuxlike_pthread_pthreadGetattrNp(void* native, void* a
     return ENOSYS;
 }
 
-int32_t libc_new_common_linuxlike_pthread_pthreadGetnameNp(void* thread, char* name, uint64_t len) {
+int32_t libcNewCommonLinuxlikePthreadPthreadGetnameNp(void* thread, char* name, uint64_t len) {
     typedef int32_t (*km_fn_t)(void*, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -99,7 +99,7 @@ int32_t libc_new_common_linuxlike_pthread_pthreadGetnameNp(void* thread, char* n
     return ENOSYS;
 }
 
-int32_t libc_new_common_linuxlike_pthread_pthreadSetaffinityNp(void* thread, uint64_t cpusetsize, void* cpuset) {
+int32_t libcNewCommonLinuxlikePthreadPthreadSetaffinityNp(void* thread, uint64_t cpusetsize, void* cpuset) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -127,7 +127,7 @@ int32_t libc_new_common_linuxlike_pthread_pthreadSetaffinityNp(void* thread, uin
     return ENOSYS;
 }
 
-int32_t libc_new_common_linuxlike_pthread_pthreadSetnameNp(void* thread, const char* name) {
+int32_t libcNewCommonLinuxlikePthreadPthreadSetnameNp(void* thread, const char* name) {
     typedef int32_t (*km_fn_t)(void*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

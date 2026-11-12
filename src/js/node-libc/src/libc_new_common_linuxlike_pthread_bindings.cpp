@@ -51,7 +51,7 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_new_common_linuxlike_pthread_pthreadGetaffinityNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonLinuxlikePthreadPthreadGetaffinityNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* thread = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t cpusetsize = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -86,7 +86,7 @@ static Napi::Value libc_new_common_linuxlike_pthread_pthreadGetaffinityNp_napi(c
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_linuxlike_pthread_pthreadGetattrNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonLinuxlikePthreadPthreadGetattrNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* native = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -120,7 +120,7 @@ static Napi::Value libc_new_common_linuxlike_pthread_pthreadGetattrNp_napi(const
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_linuxlike_pthread_pthreadGetnameNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonLinuxlikePthreadPthreadGetnameNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* thread = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* name = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -155,7 +155,7 @@ static Napi::Value libc_new_common_linuxlike_pthread_pthreadGetnameNp_napi(const
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_linuxlike_pthread_pthreadSetaffinityNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonLinuxlikePthreadPthreadSetaffinityNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* thread = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t cpusetsize = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -190,12 +190,10 @@ static Napi::Value libc_new_common_linuxlike_pthread_pthreadSetaffinityNp_napi(c
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_common_linuxlike_pthread_pthreadSetnameNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewCommonLinuxlikePthreadPthreadSetnameNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* thread = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool name_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -227,11 +225,11 @@ static Napi::Value libc_new_common_linuxlike_pthread_pthreadSetnameNp_napi(const
 }
 
 static void register_new_common_linuxlike_pthread_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_new_common_linuxlike_pthread_pthreadGetaffinityNp", Napi::Function::New(env, libc_new_common_linuxlike_pthread_pthreadGetaffinityNp_napi));
-    exports.Set("libc_new_common_linuxlike_pthread_pthreadGetattrNp", Napi::Function::New(env, libc_new_common_linuxlike_pthread_pthreadGetattrNp_napi));
-    exports.Set("libc_new_common_linuxlike_pthread_pthreadGetnameNp", Napi::Function::New(env, libc_new_common_linuxlike_pthread_pthreadGetnameNp_napi));
-    exports.Set("libc_new_common_linuxlike_pthread_pthreadSetaffinityNp", Napi::Function::New(env, libc_new_common_linuxlike_pthread_pthreadSetaffinityNp_napi));
-    exports.Set("libc_new_common_linuxlike_pthread_pthreadSetnameNp", Napi::Function::New(env, libc_new_common_linuxlike_pthread_pthreadSetnameNp_napi));
+    exports.Set("libcNewCommonLinuxlikePthreadPthreadGetaffinityNp", Napi::Function::New(env, libcNewCommonLinuxlikePthreadPthreadGetaffinityNp_napi));
+    exports.Set("libcNewCommonLinuxlikePthreadPthreadGetattrNp", Napi::Function::New(env, libcNewCommonLinuxlikePthreadPthreadGetattrNp_napi));
+    exports.Set("libcNewCommonLinuxlikePthreadPthreadGetnameNp", Napi::Function::New(env, libcNewCommonLinuxlikePthreadPthreadGetnameNp_napi));
+    exports.Set("libcNewCommonLinuxlikePthreadPthreadSetaffinityNp", Napi::Function::New(env, libcNewCommonLinuxlikePthreadPthreadSetaffinityNp_napi));
+    exports.Set("libcNewCommonLinuxlikePthreadPthreadSetnameNp", Napi::Function::New(env, libcNewCommonLinuxlikePthreadPthreadSetnameNp_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_new_common_linuxlike_pthread_napi, nullptr };

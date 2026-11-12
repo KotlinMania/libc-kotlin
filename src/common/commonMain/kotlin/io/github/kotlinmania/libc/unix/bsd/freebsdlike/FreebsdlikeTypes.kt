@@ -3,27 +3,28 @@ package io.github.kotlinmania.libc.unix.bsd.freebsdlike
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.unix.UintptrT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public typealias ModeT = UShort
 
-public typealias PthreadAttrT = COpaquePointer?
+public typealias PthreadAttrT = MutPtr<CVoid>
 
 public typealias RlimT = Long
 
-public typealias PthreadMutexT = COpaquePointer?
+public typealias PthreadMutexT = MutPtr<CVoid>
 
-public typealias PthreadMutexattrT = COpaquePointer?
+public typealias PthreadMutexattrT = MutPtr<CVoid>
 
-public typealias PthreadCondT = COpaquePointer?
+public typealias PthreadCondT = MutPtr<CVoid>
 
-public typealias PthreadCondattrT = COpaquePointer?
+public typealias PthreadCondattrT = MutPtr<CVoid>
 
-public typealias PthreadRwlockT = COpaquePointer?
+public typealias PthreadRwlockT = MutPtr<CVoid>
 
-public typealias PthreadRwlockattrT = COpaquePointer?
+public typealias PthreadRwlockattrT = MutPtr<CVoid>
 
 public typealias PthreadKeyT = CInt
 
@@ -68,15 +69,15 @@ public typealias Elf64Word = UInt
 
 public typealias Elf64Xword = ULong
 
-public typealias IconvT = COpaquePointer?
+public typealias IconvT = MutPtr<CVoid>
 
 // It's an alias over "struct __kvm_t". However, its fields aren't supposed to be used directly,
 // making the type definition system dependent. Better not bind it exactly.
-public typealias KvmT = Unit
+public typealias KvmT = CVoid
 
-public typealias PosixSpawnattrT = COpaquePointer?
+public typealias PosixSpawnattrT = MutPtr<CVoid>
 
-public typealias PosixSpawnFileActionsT = COpaquePointer?
+public typealias PosixSpawnFileActionsT = MutPtr<CVoid>
 
 // link.h
 public typealias ElfAddr = Elf64Addr

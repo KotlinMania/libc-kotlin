@@ -51,7 +51,7 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_unix_solarish_getrlimit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishGetrlimit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t resource = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* rlim = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -85,7 +85,7 @@ static Napi::Value libc_unix_solarish_getrlimit_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_setrlimit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishSetrlimit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t resource = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* rlim = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -119,7 +119,7 @@ static Napi::Value libc_unix_solarish_setrlimit_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_strerrorR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishStrerrorR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t errnum = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -154,7 +154,7 @@ static Napi::Value libc_unix_solarish_strerrorR_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_semDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishSemDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* sem = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -187,7 +187,7 @@ static Napi::Value libc_unix_solarish_semDestroy_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_semInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishSemInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* sem = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t pshared = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -222,7 +222,7 @@ static Napi::Value libc_unix_solarish_semInit_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_abs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishAbs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t i = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -255,11 +255,9 @@ static Napi::Value libc_unix_solarish_abs_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_acct_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishAcct_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool filename_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string filename_str = filename_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* filename = filename_null ? nullptr : filename_str.c_str();
+    const char* filename = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -290,7 +288,7 @@ static Napi::Value libc_unix_solarish_acct_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_dirfd_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishDirfd_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* dirp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -323,7 +321,7 @@ static Napi::Value libc_unix_solarish_dirfd_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_labs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishLabs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int64_t i = km_info.Length() > 0 ? km_napi_arg_i64(km_info[0]) : 0;
     typedef int64_t (*km_fn_t)(int64_t);
@@ -356,7 +354,7 @@ static Napi::Value libc_unix_solarish_labs_napi(const Napi::CallbackInfo& km_inf
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_solarish_rand_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishRand_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -388,7 +386,7 @@ static Napi::Value libc_unix_solarish_rand_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_srand_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishSrand_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t seed = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(uint32_t);
@@ -419,7 +417,7 @@ static Napi::Value libc_unix_solarish_srand_napi(const Napi::CallbackInfo& km_in
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_solarish_getentropy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishGetentropy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t buflen = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -453,7 +451,7 @@ static Napi::Value libc_unix_solarish_getentropy_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_getrandom_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishGetrandom_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* bbuf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t buflen = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -488,7 +486,7 @@ static Napi::Value libc_unix_solarish_getrandom_napi(const Napi::CallbackInfo& k
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_solarish_gettimeofday_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishGettimeofday_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* tp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* tz = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -522,7 +520,7 @@ static Napi::Value libc_unix_solarish_gettimeofday_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_settimeofday_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishSettimeofday_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* tp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* tz = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -556,7 +554,7 @@ static Napi::Value libc_unix_solarish_settimeofday_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_getifaddrs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishGetifaddrs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ifap = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -589,7 +587,7 @@ static Napi::Value libc_unix_solarish_getifaddrs_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_freeifaddrs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishFreeifaddrs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ifa = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -620,7 +618,7 @@ static Napi::Value libc_unix_solarish_freeifaddrs_napi(const Napi::CallbackInfo&
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_solarish_stackGetbounds_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishStackGetbounds_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* sp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -653,11 +651,9 @@ static Napi::Value libc_unix_solarish_stackGetbounds_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_getgrouplist_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishGetgrouplist_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint16_t basegid = static_cast<uint16_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     void* groups = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* ngroups = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
@@ -691,11 +687,9 @@ static Napi::Value libc_unix_solarish_getgrouplist_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_initgroups_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishInitgroups_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint16_t basegid = static_cast<uint16_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, uint16_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -727,7 +721,7 @@ static Napi::Value libc_unix_solarish_initgroups_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_setgroups_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishSetgroups_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t ngroups = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* ptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -761,7 +755,7 @@ static Napi::Value libc_unix_solarish_setgroups_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_ioctl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishIoctl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fildes = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t request = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -805,7 +799,7 @@ static Napi::Value libc_unix_solarish_ioctl_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_mprotect_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishMprotect_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -840,7 +834,7 @@ static Napi::Value libc_unix_solarish_mprotect_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_errno_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishErrno_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -870,9 +864,9 @@ static Napi::Value libc_unix_solarish_errno_napi(const Napi::CallbackInfo& km_in
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_solarish_clockGetres_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishClockGetres_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t clk_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t clkId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* tp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -896,7 +890,7 @@ static Napi::Value libc_unix_solarish_clockGetres_napi(const Napi::CallbackInfo&
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(clk_id, tp);
+        km_res = km_fn_ptr(clkId, tp);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -904,9 +898,9 @@ static Napi::Value libc_unix_solarish_clockGetres_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_clockGettime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishClockGettime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t clk_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t clkId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* tp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -930,7 +924,7 @@ static Napi::Value libc_unix_solarish_clockGettime_napi(const Napi::CallbackInfo
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(clk_id, tp);
+        km_res = km_fn_ptr(clkId, tp);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -938,9 +932,9 @@ static Napi::Value libc_unix_solarish_clockGettime_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_clockNanosleep_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishClockNanosleep_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t clk_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t clkId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     void* rqtp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* rmtp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
@@ -966,7 +960,7 @@ static Napi::Value libc_unix_solarish_clockNanosleep_napi(const Napi::CallbackIn
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(clk_id, flags, rqtp, rmtp);
+        km_res = km_fn_ptr(clkId, flags, rqtp, rmtp);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -974,9 +968,9 @@ static Napi::Value libc_unix_solarish_clockNanosleep_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_clockSettime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishClockSettime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t clk_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t clkId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* tp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1000,7 +994,7 @@ static Napi::Value libc_unix_solarish_clockSettime_napi(const Napi::CallbackInfo
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(clk_id, tp);
+        km_res = km_fn_ptr(clkId, tp);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1008,7 +1002,7 @@ static Napi::Value libc_unix_solarish_clockSettime_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_getnameinfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishGetnameinfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* sa = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t salen = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1047,7 +1041,7 @@ static Napi::Value libc_unix_solarish_getnameinfo_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_setpwent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishSetpwent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1077,7 +1071,7 @@ static Napi::Value libc_unix_solarish_setpwent_napi(const Napi::CallbackInfo& km
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_solarish_endpwent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishEndpwent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1107,7 +1101,7 @@ static Napi::Value libc_unix_solarish_endpwent_napi(const Napi::CallbackInfo& km
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_solarish_getpwent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishGetpwent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1139,7 +1133,7 @@ static Napi::Value libc_unix_solarish_getpwent_napi(const Napi::CallbackInfo& km
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_solarish_fdatasync_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishFdatasync_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -1172,7 +1166,7 @@ static Napi::Value libc_unix_solarish_fdatasync_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_nlLanginfoL_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishNlLanginfoL_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t item = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* locale = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1206,7 +1200,7 @@ static Napi::Value libc_unix_solarish_nlLanginfoL_napi(const Napi::CallbackInfo&
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_solarish_duplocale_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishDuplocale_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* base = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -1239,7 +1233,7 @@ static Napi::Value libc_unix_solarish_duplocale_napi(const Napi::CallbackInfo& k
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_solarish_freelocale_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishFreelocale_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* loc = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -1270,12 +1264,10 @@ static Napi::Value libc_unix_solarish_freelocale_napi(const Napi::CallbackInfo& 
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_solarish_newlocale_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishNewlocale_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t mask = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool locale_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string locale_str = locale_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* locale = locale_null ? nullptr : locale_str.c_str();
+    const char* locale = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* base = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef void* (*km_fn_t)(int32_t, const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1307,7 +1299,7 @@ static Napi::Value libc_unix_solarish_newlocale_napi(const Napi::CallbackInfo& k
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_solarish_uselocale_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishUselocale_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* loc = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -1340,7 +1332,7 @@ static Napi::Value libc_unix_solarish_uselocale_napi(const Napi::CallbackInfo& k
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_solarish_getprogname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishGetprogname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef const char* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1372,11 +1364,9 @@ static Napi::Value libc_unix_solarish_getprogname_napi(const Napi::CallbackInfo&
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_solarish_setprogname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishSetprogname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1405,7 +1395,7 @@ static Napi::Value libc_unix_solarish_setprogname_napi(const Napi::CallbackInfo&
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_solarish_getloadavg_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishGetloadavg_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* loadavg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t nelem = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1439,7 +1429,7 @@ static Napi::Value libc_unix_solarish_getloadavg_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_getpriority_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishGetpriority_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t which = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t who = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1473,7 +1463,7 @@ static Napi::Value libc_unix_solarish_getpriority_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_setpriority_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishSetpriority_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t which = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t who = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1508,12 +1498,10 @@ static Napi::Value libc_unix_solarish_setpriority_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_mknodat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishMknodat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t dirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool pathname_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string pathname_str = pathname_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* pathname = pathname_null ? nullptr : pathname_str.c_str();
+    const char* pathname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint32_t mode = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     uint64_t dev = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
     typedef int32_t (*km_fn_t)(int32_t, const char*, uint32_t, uint64_t);
@@ -1546,12 +1534,10 @@ static Napi::Value libc_unix_solarish_mknodat_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_mkfifoat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishMkfifoat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t dirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool pathname_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string pathname_str = pathname_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* pathname = pathname_null ? nullptr : pathname_str.c_str();
+    const char* pathname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint32_t mode = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, const char*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1583,11 +1569,9 @@ static Napi::Value libc_unix_solarish_mkfifoat_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_sethostname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishSethostname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t len = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1619,7 +1603,7 @@ static Napi::Value libc_unix_solarish_sethostname_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_ifNameindex_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishIfNameindex_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1651,7 +1635,7 @@ static Napi::Value libc_unix_solarish_ifNameindex_napi(const Napi::CallbackInfo&
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_solarish_ifFreenameindex_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishIfFreenameindex_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -1682,7 +1666,7 @@ static Napi::Value libc_unix_solarish_ifFreenameindex_napi(const Napi::CallbackI
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_solarish_pthreadCreate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPthreadCreate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* native = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1718,7 +1702,7 @@ static Napi::Value libc_unix_solarish_pthreadCreate_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_pthreadAttrGetstack_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPthreadAttrGetstack_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* stackaddr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1753,10 +1737,10 @@ static Napi::Value libc_unix_solarish_pthreadAttrGetstack_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_pthreadCondattrGetclock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPthreadCondattrGetclock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* clock_id = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* clockId = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1779,7 +1763,7 @@ static Napi::Value libc_unix_solarish_pthreadCondattrGetclock_napi(const Napi::C
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(attr, clock_id);
+        km_res = km_fn_ptr(attr, clockId);
     } else {
         errno = ENOSYS;
         km_res = ENOSYS;
@@ -1787,10 +1771,10 @@ static Napi::Value libc_unix_solarish_pthreadCondattrGetclock_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_pthreadCondattrSetclock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPthreadCondattrSetclock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    int32_t clock_id = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t clockId = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1813,7 +1797,7 @@ static Napi::Value libc_unix_solarish_pthreadCondattrSetclock_napi(const Napi::C
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(attr, clock_id);
+        km_res = km_fn_ptr(attr, clockId);
     } else {
         errno = ENOSYS;
         km_res = ENOSYS;
@@ -1821,7 +1805,7 @@ static Napi::Value libc_unix_solarish_pthreadCondattrSetclock_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_semTimedwait_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishSemTimedwait_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* sem = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* abstime = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1855,7 +1839,7 @@ static Napi::Value libc_unix_solarish_semTimedwait_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_semGetvalue_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishSemGetvalue_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* sem = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* sval = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1889,7 +1873,7 @@ static Napi::Value libc_unix_solarish_semGetvalue_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_pthreadMutexTimedlock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPthreadMutexTimedlock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* abstime = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1923,7 +1907,7 @@ static Napi::Value libc_unix_solarish_pthreadMutexTimedlock_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_pthreadGetnameNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPthreadGetnameNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* tid = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* name = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1958,12 +1942,10 @@ static Napi::Value libc_unix_solarish_pthreadGetnameNp_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_pthreadSetnameNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPthreadSetnameNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* tid = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool name_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1994,7 +1976,7 @@ static Napi::Value libc_unix_solarish_pthreadSetnameNp_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_waitid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishWaitid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t idtype = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t id = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -2030,11 +2012,9 @@ static Napi::Value libc_unix_solarish_waitid_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_glob_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishGlob_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool pattern_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string pattern_str = pattern_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* pattern = pattern_null ? nullptr : pattern_str.c_str();
+    const char* pattern = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     void* errfunc = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* pglob = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
@@ -2068,7 +2048,7 @@ static Napi::Value libc_unix_solarish_glob_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_globfree_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishGlobfree_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* pglob = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -2099,7 +2079,7 @@ static Napi::Value libc_unix_solarish_globfree_napi(const Napi::CallbackInfo& km
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_solarish_posixFallocate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPosixFallocate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int64_t offset = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
@@ -2134,7 +2114,7 @@ static Napi::Value libc_unix_solarish_posixFallocate_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_posixMadvise_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPosixMadvise_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -2169,13 +2149,11 @@ static Napi::Value libc_unix_solarish_posixMadvise_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_posixSpawn_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPosixSpawn_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* pid = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool path_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
-    void* file_actions = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* fileActions = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* attrp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     void* argv = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
     void* envp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 5 ? km_napi_arg_u64(km_info[5]) : 0));
@@ -2201,7 +2179,7 @@ static Napi::Value libc_unix_solarish_posixSpawn_napi(const Napi::CallbackInfo& 
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(pid, path, file_actions, attrp, argv, envp);
+        km_res = km_fn_ptr(pid, path, fileActions, attrp, argv, envp);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2209,13 +2187,11 @@ static Napi::Value libc_unix_solarish_posixSpawn_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_posixSpawnp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPosixSpawnp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* pid = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool file_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string file_str = file_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* file = file_null ? nullptr : file_str.c_str();
-    void* file_actions = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    const char* file = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* fileActions = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* attrp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     void* argv = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
     void* envp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 5 ? km_napi_arg_u64(km_info[5]) : 0));
@@ -2241,7 +2217,7 @@ static Napi::Value libc_unix_solarish_posixSpawnp_napi(const Napi::CallbackInfo&
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(pid, file, file_actions, attrp, argv, envp);
+        km_res = km_fn_ptr(pid, file, fileActions, attrp, argv, envp);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2249,9 +2225,9 @@ static Napi::Value libc_unix_solarish_posixSpawnp_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_posixSpawnFileActionsInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPosixSpawnFileActionsInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* file_actions = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* fileActions = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2274,7 +2250,7 @@ static Napi::Value libc_unix_solarish_posixSpawnFileActionsInit_napi(const Napi:
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(file_actions);
+        km_res = km_fn_ptr(fileActions);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2282,9 +2258,9 @@ static Napi::Value libc_unix_solarish_posixSpawnFileActionsInit_napi(const Napi:
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_posixSpawnFileActionsDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPosixSpawnFileActionsDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* file_actions = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* fileActions = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2307,7 +2283,7 @@ static Napi::Value libc_unix_solarish_posixSpawnFileActionsDestroy_napi(const Na
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(file_actions);
+        km_res = km_fn_ptr(fileActions);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2315,13 +2291,11 @@ static Napi::Value libc_unix_solarish_posixSpawnFileActionsDestroy_napi(const Na
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_posixSpawnFileActionsAddopen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPosixSpawnFileActionsAddopen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* file_actions = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* fileActions = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t fildes = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    bool path_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     int32_t oflag = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     uint32_t mode = static_cast<uint32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, int32_t, const char*, int32_t, uint32_t);
@@ -2346,7 +2320,7 @@ static Napi::Value libc_unix_solarish_posixSpawnFileActionsAddopen_napi(const Na
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(file_actions, fildes, path, oflag, mode);
+        km_res = km_fn_ptr(fileActions, fildes, path, oflag, mode);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2354,9 +2328,9 @@ static Napi::Value libc_unix_solarish_posixSpawnFileActionsAddopen_napi(const Na
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_posixSpawnFileActionsAddclose_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPosixSpawnFileActionsAddclose_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* file_actions = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* fileActions = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t fildes = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2380,7 +2354,7 @@ static Napi::Value libc_unix_solarish_posixSpawnFileActionsAddclose_napi(const N
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(file_actions, fildes);
+        km_res = km_fn_ptr(fileActions, fildes);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2388,9 +2362,9 @@ static Napi::Value libc_unix_solarish_posixSpawnFileActionsAddclose_napi(const N
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_posixSpawnFileActionsAdddup2_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPosixSpawnFileActionsAdddup2_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* file_actions = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* fileActions = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t fildes = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     int32_t newfildes = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, int32_t, int32_t);
@@ -2415,7 +2389,7 @@ static Napi::Value libc_unix_solarish_posixSpawnFileActionsAdddup2_napi(const Na
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(file_actions, fildes, newfildes);
+        km_res = km_fn_ptr(fileActions, fildes, newfildes);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2423,9 +2397,9 @@ static Napi::Value libc_unix_solarish_posixSpawnFileActionsAdddup2_napi(const Na
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_posixSpawnFileActionsAddclosefromNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPosixSpawnFileActionsAddclosefromNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* file_actions = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* fileActions = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t lowfiledes = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2449,7 +2423,7 @@ static Napi::Value libc_unix_solarish_posixSpawnFileActionsAddclosefromNp_napi(c
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(file_actions, lowfiledes);
+        km_res = km_fn_ptr(fileActions, lowfiledes);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2457,12 +2431,10 @@ static Napi::Value libc_unix_solarish_posixSpawnFileActionsAddclosefromNp_napi(c
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_posixSpawnFileActionsAddchdir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPosixSpawnFileActionsAddchdir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* file_actions = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool path_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    void* fileActions = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2485,7 +2457,7 @@ static Napi::Value libc_unix_solarish_posixSpawnFileActionsAddchdir_napi(const N
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(file_actions, path);
+        km_res = km_fn_ptr(fileActions, path);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2493,12 +2465,10 @@ static Napi::Value libc_unix_solarish_posixSpawnFileActionsAddchdir_napi(const N
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_posixSpawnFileActionsAddchdirNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPosixSpawnFileActionsAddchdirNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* file_actions = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool path_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    void* fileActions = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2521,7 +2491,7 @@ static Napi::Value libc_unix_solarish_posixSpawnFileActionsAddchdirNp_napi(const
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(file_actions, path);
+        km_res = km_fn_ptr(fileActions, path);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2529,9 +2499,9 @@ static Napi::Value libc_unix_solarish_posixSpawnFileActionsAddchdirNp_napi(const
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_posixSpawnFileActionsAddfchdir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPosixSpawnFileActionsAddfchdir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* file_actions = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* fileActions = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t fd = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2555,7 +2525,7 @@ static Napi::Value libc_unix_solarish_posixSpawnFileActionsAddfchdir_napi(const 
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(file_actions, fd);
+        km_res = km_fn_ptr(fileActions, fd);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2563,7 +2533,7 @@ static Napi::Value libc_unix_solarish_posixSpawnFileActionsAddfchdir_napi(const 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_posixSpawnattrInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPosixSpawnattrInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -2596,7 +2566,7 @@ static Napi::Value libc_unix_solarish_posixSpawnattrInit_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_posixSpawnattrDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPosixSpawnattrDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -2629,7 +2599,7 @@ static Napi::Value libc_unix_solarish_posixSpawnattrDestroy_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_posixSpawnattrSetflags_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPosixSpawnattrSetflags_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int16_t flags = static_cast<int16_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -2663,7 +2633,7 @@ static Napi::Value libc_unix_solarish_posixSpawnattrSetflags_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_posixSpawnattrGetflags_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPosixSpawnattrGetflags_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* flags = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2697,7 +2667,7 @@ static Napi::Value libc_unix_solarish_posixSpawnattrGetflags_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_posixSpawnattrSetpgroup_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPosixSpawnattrSetpgroup_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t pgroup = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -2731,10 +2701,10 @@ static Napi::Value libc_unix_solarish_posixSpawnattrSetpgroup_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_posixSpawnattrGetpgroup_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPosixSpawnattrGetpgroup_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* arg_1_pgroup = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* pgroup = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2757,7 +2727,7 @@ static Napi::Value libc_unix_solarish_posixSpawnattrGetpgroup_napi(const Napi::C
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(attr, arg_1_pgroup);
+        km_res = km_fn_ptr(attr, pgroup);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2765,7 +2735,7 @@ static Napi::Value libc_unix_solarish_posixSpawnattrGetpgroup_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_posixSpawnattrSetschedparam_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPosixSpawnattrSetschedparam_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* param = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2799,7 +2769,7 @@ static Napi::Value libc_unix_solarish_posixSpawnattrSetschedparam_napi(const Nap
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_posixSpawnattrGetschedparam_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPosixSpawnattrGetschedparam_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* param = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2833,7 +2803,7 @@ static Napi::Value libc_unix_solarish_posixSpawnattrGetschedparam_napi(const Nap
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_posixSpawnattrSetschedpolicy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPosixSpawnattrSetschedpolicy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t policy = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -2867,10 +2837,10 @@ static Napi::Value libc_unix_solarish_posixSpawnattrSetschedpolicy_napi(const Na
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_posixSpawnattrGetschedpolicy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPosixSpawnattrGetschedpolicy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* arg_1_policy = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* policy = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2893,7 +2863,7 @@ static Napi::Value libc_unix_solarish_posixSpawnattrGetschedpolicy_napi(const Na
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(attr, arg_1_policy);
+        km_res = km_fn_ptr(attr, policy);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2901,7 +2871,7 @@ static Napi::Value libc_unix_solarish_posixSpawnattrGetschedpolicy_napi(const Na
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_posixSpawnattrSetsigdefault_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPosixSpawnattrSetsigdefault_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* sigdefault = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2935,7 +2905,7 @@ static Napi::Value libc_unix_solarish_posixSpawnattrSetsigdefault_napi(const Nap
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_posixSpawnattrGetsigdefault_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPosixSpawnattrGetsigdefault_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* sigdefault = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2969,7 +2939,7 @@ static Napi::Value libc_unix_solarish_posixSpawnattrGetsigdefault_napi(const Nap
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_posixSpawnattrSetsigignoreNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPosixSpawnattrSetsigignoreNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* sigignore = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3003,7 +2973,7 @@ static Napi::Value libc_unix_solarish_posixSpawnattrSetsigignoreNp_napi(const Na
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_posixSpawnattrGetsigignoreNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPosixSpawnattrGetsigignoreNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* sigignore = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3037,7 +3007,7 @@ static Napi::Value libc_unix_solarish_posixSpawnattrGetsigignoreNp_napi(const Na
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_posixSpawnattrSetsigmask_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPosixSpawnattrSetsigmask_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* sigmask = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3071,7 +3041,7 @@ static Napi::Value libc_unix_solarish_posixSpawnattrSetsigmask_napi(const Napi::
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_posixSpawnattrGetsigmask_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPosixSpawnattrGetsigmask_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* sigmask = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3105,7 +3075,7 @@ static Napi::Value libc_unix_solarish_posixSpawnattrGetsigmask_napi(const Napi::
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_shmat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishShmat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t shmid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* shmaddr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3140,7 +3110,7 @@ static Napi::Value libc_unix_solarish_shmat_napi(const Napi::CallbackInfo& km_in
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_solarish_shmctl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishShmctl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t shmid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t cmd = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3175,7 +3145,7 @@ static Napi::Value libc_unix_solarish_shmctl_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_shmdt_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishShmdt_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* shmaddr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -3208,7 +3178,7 @@ static Napi::Value libc_unix_solarish_shmdt_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_shmget_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishShmget_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t key = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -3243,11 +3213,9 @@ static Napi::Value libc_unix_solarish_shmget_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_shmOpen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishShmOpen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t oflag = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     uint32_t mode = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, int32_t, uint32_t);
@@ -3280,11 +3248,9 @@ static Napi::Value libc_unix_solarish_shmOpen_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_shmUnlink_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishShmUnlink_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3315,7 +3281,7 @@ static Napi::Value libc_unix_solarish_shmUnlink_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_seekdir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishSeekdir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* dirp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int64_t loc = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
@@ -3347,7 +3313,7 @@ static Napi::Value libc_unix_solarish_seekdir_napi(const Napi::CallbackInfo& km_
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_solarish_telldir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishTelldir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* dirp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(void*);
@@ -3380,7 +3346,7 @@ static Napi::Value libc_unix_solarish_telldir_napi(const Napi::CallbackInfo& km_
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_solarish_madvise_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishMadvise_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -3415,7 +3381,7 @@ static Napi::Value libc_unix_solarish_madvise_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_msync_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishMsync_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -3450,7 +3416,7 @@ static Napi::Value libc_unix_solarish_msync_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_memalign_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishMemalign_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t align = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -3484,9 +3450,9 @@ static Napi::Value libc_unix_solarish_memalign_napi(const Napi::CallbackInfo& km
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_solarish_recvfrom_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishRecvfrom_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t arg0Socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t len = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     int32_t flags = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
@@ -3514,7 +3480,7 @@ static Napi::Value libc_unix_solarish_recvfrom_napi(const Napi::CallbackInfo& km
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_socket, buf, len, flags, addr, addrlen);
+        km_res = km_fn_ptr(arg0Socket, buf, len, flags, addr, addrlen);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3522,9 +3488,9 @@ static Napi::Value libc_unix_solarish_recvfrom_napi(const Napi::CallbackInfo& km
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_solarish_mkstemps_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishMkstemps_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    char* arg_0_template = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    char* arg0Template = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t suffixlen = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3548,7 +3514,7 @@ static Napi::Value libc_unix_solarish_mkstemps_napi(const Napi::CallbackInfo& km
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_template, suffixlen);
+        km_res = km_fn_ptr(arg0Template, suffixlen);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3556,12 +3522,10 @@ static Napi::Value libc_unix_solarish_mkstemps_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_futimesat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishFutimesat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool path_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* times = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3593,7 +3557,7 @@ static Napi::Value libc_unix_solarish_futimesat_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_futimens_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishFutimens_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t dirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* times = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3627,12 +3591,10 @@ static Napi::Value libc_unix_solarish_futimens_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_utimensat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishUtimensat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t dirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool path_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* times = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     int32_t flag = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, const char*, void*, int32_t);
@@ -3665,7 +3627,7 @@ static Napi::Value libc_unix_solarish_utimensat_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_nlLanginfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishNlLanginfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t item = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef char* (*km_fn_t)(int32_t);
@@ -3698,11 +3660,11 @@ static Napi::Value libc_unix_solarish_nlLanginfo_napi(const Napi::CallbackInfo& 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_solarish_bind_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishBind_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t arg0Socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* address = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint32_t address_len = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    uint32_t addressLen = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3723,7 +3685,7 @@ static Napi::Value libc_unix_solarish_bind_napi(const Napi::CallbackInfo& km_inf
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_socket, address, address_len);
+        km_res = km_fn_ptr(arg0Socket, address, addressLen);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3731,7 +3693,7 @@ static Napi::Value libc_unix_solarish_bind_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_writev_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishWritev_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3766,7 +3728,7 @@ static Napi::Value libc_unix_solarish_writev_napi(const Napi::CallbackInfo& km_i
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_solarish_readv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishReadv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3801,7 +3763,7 @@ static Napi::Value libc_unix_solarish_readv_napi(const Napi::CallbackInfo& km_in
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_solarish_sendmsg_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishSendmsg_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* msg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3834,7 +3796,7 @@ static Napi::Value libc_unix_solarish_sendmsg_napi(const Napi::CallbackInfo& km_
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_solarish_recvmsg_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishRecvmsg_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* msg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3867,11 +3829,11 @@ static Napi::Value libc_unix_solarish_recvmsg_napi(const Napi::CallbackInfo& km_
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_solarish_accept4_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishAccept4_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* address = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* address_len = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* addressLen = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3895,7 +3857,7 @@ static Napi::Value libc_unix_solarish_accept4_napi(const Napi::CallbackInfo& km_
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(fd, address, address_len, flags);
+        km_res = km_fn_ptr(fd, address, addressLen, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3903,11 +3865,9 @@ static Napi::Value libc_unix_solarish_accept4_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_mqOpen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishMqOpen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t oflag = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     int32_t km_vac = km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
@@ -3949,7 +3909,7 @@ static Napi::Value libc_unix_solarish_mqOpen_napi(const Napi::CallbackInfo& km_i
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_solarish_mqClose_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishMqClose_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mqd = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -3982,11 +3942,9 @@ static Napi::Value libc_unix_solarish_mqClose_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_mqUnlink_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishMqUnlink_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4017,12 +3975,12 @@ static Napi::Value libc_unix_solarish_mqUnlink_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_mqReceive_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishMqReceive_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mqd = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    char* msg_ptr = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t msg_len = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    void* msg_prio = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    char* msgPtr = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t msgLen = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    void* msgPrio = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int64_t (*km_fn_t)(void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4045,7 +4003,7 @@ static Napi::Value libc_unix_solarish_mqReceive_napi(const Napi::CallbackInfo& k
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(mqd, msg_ptr, msg_len, msg_prio);
+        km_res = km_fn_ptr(mqd, msgPtr, msgLen, msgPrio);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4053,13 +4011,13 @@ static Napi::Value libc_unix_solarish_mqReceive_napi(const Napi::CallbackInfo& k
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_solarish_mqTimedreceive_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishMqTimedreceive_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mqd = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    char* msg_ptr = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t msg_len = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    void* msg_prio = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
-    void* abs_timeout = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
+    char* msgPtr = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t msgLen = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    void* msgPrio = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    void* absTimeout = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
     typedef int64_t (*km_fn_t)(void*, char*, uint64_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4082,7 +4040,7 @@ static Napi::Value libc_unix_solarish_mqTimedreceive_napi(const Napi::CallbackIn
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(mqd, msg_ptr, msg_len, msg_prio, abs_timeout);
+        km_res = km_fn_ptr(mqd, msgPtr, msgLen, msgPrio, absTimeout);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4090,14 +4048,12 @@ static Napi::Value libc_unix_solarish_mqTimedreceive_napi(const Napi::CallbackIn
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_solarish_mqSend_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishMqSend_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mqd = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool msg_ptr_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string msg_ptr_str = msg_ptr_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* msg_ptr = msg_ptr_null ? nullptr : msg_ptr_str.c_str();
-    uint64_t msg_len = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    uint32_t msg_prio = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
+    const char* msgPtr = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t msgLen = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    uint32_t msgPrio = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, const char*, uint64_t, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4120,7 +4076,7 @@ static Napi::Value libc_unix_solarish_mqSend_napi(const Napi::CallbackInfo& km_i
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(mqd, msg_ptr, msg_len, msg_prio);
+        km_res = km_fn_ptr(mqd, msgPtr, msgLen, msgPrio);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4128,15 +4084,13 @@ static Napi::Value libc_unix_solarish_mqSend_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_mqTimedsend_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishMqTimedsend_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mqd = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool msg_ptr_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string msg_ptr_str = msg_ptr_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* msg_ptr = msg_ptr_null ? nullptr : msg_ptr_str.c_str();
-    uint64_t msg_len = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    uint32_t msg_prio = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
-    void* abs_timeout = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
+    const char* msgPtr = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t msgLen = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    uint32_t msgPrio = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
+    void* absTimeout = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
     typedef int32_t (*km_fn_t)(void*, const char*, uint64_t, uint32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4159,7 +4113,7 @@ static Napi::Value libc_unix_solarish_mqTimedsend_napi(const Napi::CallbackInfo&
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(mqd, msg_ptr, msg_len, msg_prio, abs_timeout);
+        km_res = km_fn_ptr(mqd, msgPtr, msgLen, msgPrio, absTimeout);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4167,7 +4121,7 @@ static Napi::Value libc_unix_solarish_mqTimedsend_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_mqGetattr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishMqGetattr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mqd = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -4201,7 +4155,7 @@ static Napi::Value libc_unix_solarish_mqGetattr_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_mqSetattr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishMqSetattr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mqd = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* newattr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -4236,7 +4190,7 @@ static Napi::Value libc_unix_solarish_mqSetattr_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_portCreate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPortCreate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4268,7 +4222,7 @@ static Napi::Value libc_unix_solarish_portCreate_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_portAssociate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPortAssociate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t port = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t source = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4305,7 +4259,7 @@ static Napi::Value libc_unix_solarish_portAssociate_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_portDissociate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPortDissociate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t port = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t source = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4340,7 +4294,7 @@ static Napi::Value libc_unix_solarish_portDissociate_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_portGet_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPortGet_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t port = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* pe = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -4375,10 +4329,10 @@ static Napi::Value libc_unix_solarish_portGet_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_portGetn_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPortGetn_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t port = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* pe_list = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* peList = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint32_t max = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     void* nget = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     void* timeout = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
@@ -4404,7 +4358,7 @@ static Napi::Value libc_unix_solarish_portGetn_napi(const Napi::CallbackInfo& km
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(port, pe_list, max, nget, timeout);
+        km_res = km_fn_ptr(port, peList, max, nget, timeout);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4412,7 +4366,7 @@ static Napi::Value libc_unix_solarish_portGetn_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_portSend_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPortSend_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t port = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t events = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4447,10 +4401,10 @@ static Napi::Value libc_unix_solarish_portSend_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_portSendn_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPortSendn_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* port_list = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* error_list = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* portList = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* errorList = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint32_t nent = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     int32_t events = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     void* user = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
@@ -4476,7 +4430,7 @@ static Napi::Value libc_unix_solarish_portSendn_napi(const Napi::CallbackInfo& k
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(port_list, error_list, nent, events, user);
+        km_res = km_fn_ptr(portList, errorList, nent, events, user);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4484,7 +4438,7 @@ static Napi::Value libc_unix_solarish_portSendn_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_getgrgidR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishGetgrgidR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint16_t gid = static_cast<uint16_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* grp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -4521,7 +4475,7 @@ static Napi::Value libc_unix_solarish_getgrgidR_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_sigaltstack_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishSigaltstack_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ss = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* oss = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -4555,7 +4509,7 @@ static Napi::Value libc_unix_solarish_sigaltstack_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_sigsuspend_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishSigsuspend_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mask = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -4588,7 +4542,7 @@ static Napi::Value libc_unix_solarish_sigsuspend_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_semClose_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishSemClose_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* sem = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -4621,7 +4575,7 @@ static Napi::Value libc_unix_solarish_semClose_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_getdtablesize_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishGetdtablesize_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4653,11 +4607,9 @@ static Napi::Value libc_unix_solarish_getdtablesize_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_getgrnamR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishGetgrnamR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* grp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint64_t buflen = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
@@ -4692,7 +4644,7 @@ static Napi::Value libc_unix_solarish_getgrnamR_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_thrSelf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishThrSelf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4724,7 +4676,7 @@ static Napi::Value libc_unix_solarish_thrSelf_napi(const Napi::CallbackInfo& km_
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_solarish_pthreadSigmask_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPthreadSigmask_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t how = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -4759,11 +4711,9 @@ static Napi::Value libc_unix_solarish_pthreadSigmask_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_semOpen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishSemOpen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t oflag = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     int32_t km_vac = km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
@@ -4805,11 +4755,9 @@ static Napi::Value libc_unix_solarish_semOpen_napi(const Napi::CallbackInfo& km_
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_solarish_getgrnam_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishGetgrnam_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4840,7 +4788,7 @@ static Napi::Value libc_unix_solarish_getgrnam_napi(const Napi::CallbackInfo& km
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_solarish_pthreadKill_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPthreadKill_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* thread = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t sig = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4874,7 +4822,7 @@ static Napi::Value libc_unix_solarish_pthreadKill_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_schedGetPriorityMin_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishSchedGetPriorityMin_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t policy = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -4907,7 +4855,7 @@ static Napi::Value libc_unix_solarish_schedGetPriorityMin_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_schedGetPriorityMax_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishSchedGetPriorityMax_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t policy = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -4940,7 +4888,7 @@ static Napi::Value libc_unix_solarish_schedGetPriorityMax_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_schedGetparam_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishSchedGetparam_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* param = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -4974,7 +4922,7 @@ static Napi::Value libc_unix_solarish_schedGetparam_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_schedSetparam_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishSchedSetparam_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* param = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -5008,7 +4956,7 @@ static Napi::Value libc_unix_solarish_schedSetparam_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_schedGetscheduler_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishSchedGetscheduler_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -5041,7 +4989,7 @@ static Napi::Value libc_unix_solarish_schedGetscheduler_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_schedSetscheduler_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishSchedSetscheduler_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t policy = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -5076,11 +5024,9 @@ static Napi::Value libc_unix_solarish_schedSetscheduler_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_semUnlink_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishSemUnlink_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5111,7 +5057,7 @@ static Napi::Value libc_unix_solarish_semUnlink_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_daemon_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishDaemon_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t nochdir = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t noclose = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -5145,11 +5091,9 @@ static Napi::Value libc_unix_solarish_daemon_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_getpwnamR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishGetpwnamR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* pwd = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint64_t buflen = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
@@ -5184,7 +5128,7 @@ static Napi::Value libc_unix_solarish_getpwnamR_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_getpwuidR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishGetpwuidR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint16_t uid = static_cast<uint16_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* pwd = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -5221,7 +5165,7 @@ static Napi::Value libc_unix_solarish_getpwuidR_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_nativeGetpwentR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishNativeGetpwentR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* pwd = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -5256,7 +5200,7 @@ static Napi::Value libc_unix_solarish_nativeGetpwentR_napi(const Napi::CallbackI
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_solarish_nativeGetgrentR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishNativeGetgrentR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* grp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -5291,7 +5235,7 @@ static Napi::Value libc_unix_solarish_nativeGetgrentR_napi(const Napi::CallbackI
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_solarish_sigwait_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishSigwait_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* sig = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -5325,7 +5269,7 @@ static Napi::Value libc_unix_solarish_sigwait_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_pthreadAtfork_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPthreadAtfork_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* prepare = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* parent = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -5360,7 +5304,7 @@ static Napi::Value libc_unix_solarish_pthreadAtfork_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_getgrgid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishGetgrgid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint16_t gid = static_cast<uint16_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void* (*km_fn_t)(uint16_t);
@@ -5393,7 +5337,7 @@ static Napi::Value libc_unix_solarish_getgrgid_napi(const Napi::CallbackInfo& km
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_solarish_setgrent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishSetgrent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5423,7 +5367,7 @@ static Napi::Value libc_unix_solarish_setgrent_napi(const Napi::CallbackInfo& km
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_solarish_endgrent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishEndgrent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5453,7 +5397,7 @@ static Napi::Value libc_unix_solarish_endgrent_napi(const Napi::CallbackInfo& km
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_solarish_getgrent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishGetgrent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5485,14 +5429,10 @@ static Napi::Value libc_unix_solarish_getgrent_napi(const Napi::CallbackInfo& km
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_solarish_popen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPopen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool command_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string command_str = command_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* command = command_null ? nullptr : command_str.c_str();
-    bool mode_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string mode_str = mode_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* mode = mode_null ? nullptr : mode_str.c_str();
+    const char* command = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* mode = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef void* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5523,7 +5463,7 @@ static Napi::Value libc_unix_solarish_popen_napi(const Napi::CallbackInfo& km_in
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_solarish_dup3_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishDup3_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t src = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t dst = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -5558,7 +5498,7 @@ static Napi::Value libc_unix_solarish_dup3_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_uname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishUname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -5591,7 +5531,7 @@ static Napi::Value libc_unix_solarish_uname_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_pipe2_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPipe2_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* fds = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -5625,7 +5565,7 @@ static Napi::Value libc_unix_solarish_pipe2_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_makeutx_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishMakeutx_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ux = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -5658,7 +5598,7 @@ static Napi::Value libc_unix_solarish_makeutx_napi(const Napi::CallbackInfo& km_
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_solarish_modutx_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishModutx_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ux = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -5691,11 +5631,9 @@ static Napi::Value libc_unix_solarish_modutx_napi(const Napi::CallbackInfo& km_i
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_solarish_updwtmpx_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishUpdwtmpx_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool file_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string file_str = file_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* file = file_null ? nullptr : file_str.c_str();
+    const char* file = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* ut = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef void (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5725,11 +5663,9 @@ static Napi::Value libc_unix_solarish_updwtmpx_napi(const Napi::CallbackInfo& km
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_solarish_utmpxname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishUtmpxname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool file_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string file_str = file_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* file = file_null ? nullptr : file_str.c_str();
+    const char* file = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5760,7 +5696,7 @@ static Napi::Value libc_unix_solarish_utmpxname_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_getutxent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishGetutxent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5792,7 +5728,7 @@ static Napi::Value libc_unix_solarish_getutxent_napi(const Napi::CallbackInfo& k
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_solarish_getutxid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishGetutxid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ut = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -5825,7 +5761,7 @@ static Napi::Value libc_unix_solarish_getutxid_napi(const Napi::CallbackInfo& km
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_solarish_getutxline_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishGetutxline_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ut = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -5858,7 +5794,7 @@ static Napi::Value libc_unix_solarish_getutxline_napi(const Napi::CallbackInfo& 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_solarish_pututxline_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPututxline_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ut = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -5891,7 +5827,7 @@ static Napi::Value libc_unix_solarish_pututxline_napi(const Napi::CallbackInfo& 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_solarish_setutxent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishSetutxent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5921,7 +5857,7 @@ static Napi::Value libc_unix_solarish_setutxent_napi(const Napi::CallbackInfo& k
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_solarish_endutxent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishEndutxent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5951,7 +5887,7 @@ static Napi::Value libc_unix_solarish_endutxent_napi(const Napi::CallbackInfo& k
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_solarish_endutent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishEndutent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5981,7 +5917,7 @@ static Napi::Value libc_unix_solarish_endutent_napi(const Napi::CallbackInfo& km
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_solarish_getutent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishGetutent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -6013,7 +5949,7 @@ static Napi::Value libc_unix_solarish_getutent_napi(const Napi::CallbackInfo& km
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_solarish_getutid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishGetutid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* u = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -6046,7 +5982,7 @@ static Napi::Value libc_unix_solarish_getutid_napi(const Napi::CallbackInfo& km_
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_solarish_getutline_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishGetutline_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* u = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -6079,7 +6015,7 @@ static Napi::Value libc_unix_solarish_getutline_napi(const Napi::CallbackInfo& k
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_solarish_pututline_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPututline_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* u = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -6112,7 +6048,7 @@ static Napi::Value libc_unix_solarish_pututline_napi(const Napi::CallbackInfo& k
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_solarish_setutent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishSetutent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -6142,11 +6078,9 @@ static Napi::Value libc_unix_solarish_setutent_napi(const Napi::CallbackInfo& km
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_solarish_utmpname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishUtmpname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool file_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string file_str = file_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* file = file_null ? nullptr : file_str.c_str();
+    const char* file = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6177,7 +6111,7 @@ static Napi::Value libc_unix_solarish_utmpname_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_getutmp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishGetutmp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ux = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* u = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -6209,7 +6143,7 @@ static Napi::Value libc_unix_solarish_getutmp_napi(const Napi::CallbackInfo& km_
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_solarish_getutmpx_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishGetutmpx_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* u = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* ux = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -6241,11 +6175,9 @@ static Napi::Value libc_unix_solarish_getutmpx_napi(const Napi::CallbackInfo& km
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_solarish_updwtmp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishUpdwtmp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool file_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string file_str = file_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* file = file_null ? nullptr : file_str.c_str();
+    const char* file = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* u = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef void (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -6275,7 +6207,7 @@ static Napi::Value libc_unix_solarish_updwtmp_napi(const Napi::CallbackInfo& km_
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_solarish_ntpAdjtime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishNtpAdjtime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -6308,7 +6240,7 @@ static Napi::Value libc_unix_solarish_ntpAdjtime_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_ntpGettime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishNtpGettime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -6341,9 +6273,9 @@ static Napi::Value libc_unix_solarish_ntpGettime_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_timerCreate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishTimerCreate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t clock_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t clockId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* evp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* timerid = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
@@ -6368,7 +6300,7 @@ static Napi::Value libc_unix_solarish_timerCreate_napi(const Napi::CallbackInfo&
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(clock_id, evp, timerid);
+        km_res = km_fn_ptr(clockId, evp, timerid);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -6376,7 +6308,7 @@ static Napi::Value libc_unix_solarish_timerCreate_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_timerDelete_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishTimerDelete_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* timerid = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -6409,7 +6341,7 @@ static Napi::Value libc_unix_solarish_timerDelete_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_timerGetoverrun_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishTimerGetoverrun_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* timerid = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -6442,7 +6374,7 @@ static Napi::Value libc_unix_solarish_timerGetoverrun_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_timerGettime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishTimerGettime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* timerid = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -6476,7 +6408,7 @@ static Napi::Value libc_unix_solarish_timerGettime_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_timerSettime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishTimerSettime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* timerid = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -6512,7 +6444,7 @@ static Napi::Value libc_unix_solarish_timerSettime_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_ucredGet_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishUcredGet_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void* (*km_fn_t)(int32_t);
@@ -6545,7 +6477,7 @@ static Napi::Value libc_unix_solarish_ucredGet_napi(const Napi::CallbackInfo& km
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_solarish_getpeerucred_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishGetpeerucred_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* ucred = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -6579,7 +6511,7 @@ static Napi::Value libc_unix_solarish_getpeerucred_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_ucredFree_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishUcredFree_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ucred = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -6610,7 +6542,7 @@ static Napi::Value libc_unix_solarish_ucredFree_napi(const Napi::CallbackInfo& k
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_solarish_ucredGeteuid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishUcredGeteuid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ucred = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef uint16_t (*km_fn_t)(void*);
@@ -6643,7 +6575,7 @@ static Napi::Value libc_unix_solarish_ucredGeteuid_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_ucredGetruid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishUcredGetruid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ucred = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef uint16_t (*km_fn_t)(void*);
@@ -6676,7 +6608,7 @@ static Napi::Value libc_unix_solarish_ucredGetruid_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_ucredGetsuid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishUcredGetsuid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ucred = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef uint16_t (*km_fn_t)(void*);
@@ -6709,7 +6641,7 @@ static Napi::Value libc_unix_solarish_ucredGetsuid_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_ucredGetegid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishUcredGetegid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ucred = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef uint16_t (*km_fn_t)(void*);
@@ -6742,7 +6674,7 @@ static Napi::Value libc_unix_solarish_ucredGetegid_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_ucredGetrgid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishUcredGetrgid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ucred = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef uint16_t (*km_fn_t)(void*);
@@ -6775,7 +6707,7 @@ static Napi::Value libc_unix_solarish_ucredGetrgid_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_ucredGetsgid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishUcredGetsgid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ucred = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef uint16_t (*km_fn_t)(void*);
@@ -6808,7 +6740,7 @@ static Napi::Value libc_unix_solarish_ucredGetsgid_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_ucredGetgroups_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishUcredGetgroups_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ucred = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* groups = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -6842,7 +6774,7 @@ static Napi::Value libc_unix_solarish_ucredGetgroups_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_ucredGetpid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishUcredGetpid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ucred = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -6875,7 +6807,7 @@ static Napi::Value libc_unix_solarish_ucredGetpid_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_ucredGetprojid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishUcredGetprojid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ucred = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -6908,7 +6840,7 @@ static Napi::Value libc_unix_solarish_ucredGetprojid_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_ucredGetzoneid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishUcredGetzoneid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ucred = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -6941,7 +6873,7 @@ static Napi::Value libc_unix_solarish_ucredGetzoneid_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_ucredGetpflags_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishUcredGetpflags_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ucred = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t flags = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -6975,7 +6907,7 @@ static Napi::Value libc_unix_solarish_ucredGetpflags_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_ucredSize_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishUcredSize_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef uint64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -7007,7 +6939,7 @@ static Napi::Value libc_unix_solarish_ucredSize_napi(const Napi::CallbackInfo& k
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_solarish_psetCreate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPsetCreate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* newpset = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -7040,7 +6972,7 @@ static Napi::Value libc_unix_solarish_psetCreate_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_psetDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPsetDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pset = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -7073,7 +7005,7 @@ static Napi::Value libc_unix_solarish_psetDestroy_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_psetAssign_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPsetAssign_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pset = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t cpu = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -7108,7 +7040,7 @@ static Napi::Value libc_unix_solarish_psetAssign_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_psetInfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPsetInfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pset = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* tpe = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -7144,7 +7076,7 @@ static Napi::Value libc_unix_solarish_psetInfo_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_psetBind_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPsetBind_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pset = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t idtype = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -7180,7 +7112,7 @@ static Napi::Value libc_unix_solarish_psetBind_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_psetList_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPsetList_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* pset = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* numpsets = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -7214,7 +7146,7 @@ static Napi::Value libc_unix_solarish_psetList_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_psetSetattr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPsetSetattr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pset = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t attr = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -7248,7 +7180,7 @@ static Napi::Value libc_unix_solarish_psetSetattr_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_psetGetattr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPsetGetattr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pset = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -7282,12 +7214,12 @@ static Napi::Value libc_unix_solarish_psetGetattr_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_processorBind_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishProcessorBind_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t idtype = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t id = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    int32_t new_binding = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    void* old_binding = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    int32_t newBinding = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    void* oldBinding = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(uint32_t, int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -7310,7 +7242,7 @@ static Napi::Value libc_unix_solarish_processorBind_napi(const Napi::CallbackInf
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(idtype, id, new_binding, old_binding);
+        km_res = km_fn_ptr(idtype, id, newBinding, oldBinding);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -7318,7 +7250,7 @@ static Napi::Value libc_unix_solarish_processorBind_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_pOnline_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishPOnline_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t processorid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t flag = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -7352,7 +7284,7 @@ static Napi::Value libc_unix_solarish_pOnline_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_processorInfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishProcessorInfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t processorid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* infop = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -7386,7 +7318,7 @@ static Napi::Value libc_unix_solarish_processorInfo_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_getexecname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishGetexecname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef const char* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -7418,7 +7350,7 @@ static Napi::Value libc_unix_solarish_getexecname_napi(const Napi::CallbackInfo&
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_solarish_gethostid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishGethostid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -7450,7 +7382,7 @@ static Napi::Value libc_unix_solarish_gethostid_napi(const Napi::CallbackInfo& k
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_solarish_getpflags_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishGetpflags_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t flags = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef uint32_t (*km_fn_t)(uint32_t);
@@ -7483,7 +7415,7 @@ static Napi::Value libc_unix_solarish_getpflags_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_setpflags_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishSetpflags_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t flags = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t value = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -7517,7 +7449,7 @@ static Napi::Value libc_unix_solarish_setpflags_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_sysinfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishSysinfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t command = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -7552,12 +7484,10 @@ static Napi::Value libc_unix_solarish_sysinfo_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_faccessat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishFaccessat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool path_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t amode = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     int32_t flag = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, int32_t);
@@ -7590,7 +7520,7 @@ static Napi::Value libc_unix_solarish_faccessat_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_dlIteratePhdr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishDlIteratePhdr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* callback = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -7624,7 +7554,7 @@ static Napi::Value libc_unix_solarish_dlIteratePhdr_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_getpagesize_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishGetpagesize_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -7656,7 +7586,7 @@ static Napi::Value libc_unix_solarish_getpagesize_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_getpagesizes_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishGetpagesizes_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* pagesize = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t nelem = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -7690,7 +7620,7 @@ static Napi::Value libc_unix_solarish_getpagesizes_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_mmapobj_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishMmapobj_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t flags = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -7727,12 +7657,12 @@ static Napi::Value libc_unix_solarish_mmapobj_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_meminfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishMeminfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* inaddr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    int32_t addr_count = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    void* info_req = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    int32_t info_count = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
+    int32_t addrCount = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    void* infoReq = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    int32_t infoCount = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     void* outdata = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
     void* validity = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 5 ? km_napi_arg_u64(km_info[5]) : 0));
     typedef int32_t (*km_fn_t)(void*, int32_t, void*, int32_t, void*, void*);
@@ -7757,7 +7687,7 @@ static Napi::Value libc_unix_solarish_meminfo_napi(const Napi::CallbackInfo& km_
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(inaddr, addr_count, info_req, info_count, outdata, validity);
+        km_res = km_fn_ptr(inaddr, addrCount, infoReq, infoCount, outdata, validity);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -7765,12 +7695,10 @@ static Napi::Value libc_unix_solarish_meminfo_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_strsep_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishStrsep_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* string = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool delim_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string delim_str = delim_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* delim = delim_null ? nullptr : delim_str.c_str();
+    const char* delim = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef char* (*km_fn_t)(void*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -7801,7 +7729,7 @@ static Napi::Value libc_unix_solarish_strsep_napi(const Napi::CallbackInfo& km_i
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_solarish_getisax_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishGetisax_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* array = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t n = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -7835,7 +7763,7 @@ static Napi::Value libc_unix_solarish_getisax_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_backtrace_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishBacktrace_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buffer = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t size = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -7869,7 +7797,7 @@ static Napi::Value libc_unix_solarish_backtrace_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_backtraceSymbols_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishBacktraceSymbols_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buffer = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t size = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -7903,7 +7831,7 @@ static Napi::Value libc_unix_solarish_backtraceSymbols_napi(const Napi::Callback
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_solarish_backtraceSymbolsFd_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishBacktraceSymbolsFd_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buffer = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t size = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -7936,13 +7864,11 @@ static Napi::Value libc_unix_solarish_backtraceSymbolsFd_napi(const Napi::Callba
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_solarish_getoptLong_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishGetoptLong_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t argc = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* argv = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    bool optstring_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string optstring_str = optstring_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* optstring = optstring_null ? nullptr : optstring_str.c_str();
+    const char* optstring = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* longopts = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     void* longindex = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, const char*, void*, void*);
@@ -7975,7 +7901,7 @@ static Napi::Value libc_unix_solarish_getoptLong_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_sync_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishSync_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -8005,7 +7931,7 @@ static Napi::Value libc_unix_solarish_sync_napi(const Napi::CallbackInfo& km_inf
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_solarish_aioCancel_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishAioCancel_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* aiocbp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -8039,7 +7965,7 @@ static Napi::Value libc_unix_solarish_aioCancel_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_aioError_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishAioError_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* aiocbp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -8072,7 +7998,7 @@ static Napi::Value libc_unix_solarish_aioError_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_aioFsync_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishAioFsync_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t op = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* aiocbp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -8106,7 +8032,7 @@ static Napi::Value libc_unix_solarish_aioFsync_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_aioRead_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishAioRead_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* aiocbp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -8139,7 +8065,7 @@ static Napi::Value libc_unix_solarish_aioRead_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_aioReturn_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishAioReturn_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* aiocbp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(void*);
@@ -8172,9 +8098,9 @@ static Napi::Value libc_unix_solarish_aioReturn_napi(const Napi::CallbackInfo& k
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_solarish_aioSuspend_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishAioSuspend_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* aiocb_list = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* aiocbList = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t nitems = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     void* timeout = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(void*, int32_t, void*);
@@ -8199,7 +8125,7 @@ static Napi::Value libc_unix_solarish_aioSuspend_napi(const Napi::CallbackInfo& 
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(aiocb_list, nitems, timeout);
+        km_res = km_fn_ptr(aiocbList, nitems, timeout);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8207,9 +8133,9 @@ static Napi::Value libc_unix_solarish_aioSuspend_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_aioWaitn_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishAioWaitn_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* aiocb_list = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* aiocbList = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t nent = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     void* nwait = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* timeout = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
@@ -8235,7 +8161,7 @@ static Napi::Value libc_unix_solarish_aioWaitn_napi(const Napi::CallbackInfo& km
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(aiocb_list, nent, nwait, timeout);
+        km_res = km_fn_ptr(aiocbList, nent, nwait, timeout);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8243,7 +8169,7 @@ static Napi::Value libc_unix_solarish_aioWaitn_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_aioWrite_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishAioWrite_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* aiocbp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -8276,10 +8202,10 @@ static Napi::Value libc_unix_solarish_aioWrite_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_lioListio_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishLioListio_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t mode = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* aiocb_list = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* aiocbList = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t nitems = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     void* sevp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t, void*);
@@ -8304,7 +8230,7 @@ static Napi::Value libc_unix_solarish_lioListio_napi(const Napi::CallbackInfo& k
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(mode, aiocb_list, nitems, sevp);
+        km_res = km_fn_ptr(mode, aiocbList, nitems, sevp);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8312,7 +8238,7 @@ static Napi::Value libc_unix_solarish_lioListio_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_major_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishMajor_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t version = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint64_t devnum = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -8344,7 +8270,7 @@ static Napi::Value libc_unix_solarish_major_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_minor_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishMinor_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t version = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint64_t devnum = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -8376,7 +8302,7 @@ static Napi::Value libc_unix_solarish_minor_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_makedev_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishMakedev_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t version = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t majdev = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -8409,7 +8335,7 @@ static Napi::Value libc_unix_solarish_makedev_napi(const Napi::CallbackInfo& km_
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_solarish_arc4random_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishArc4random_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef uint32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -8441,7 +8367,7 @@ static Napi::Value libc_unix_solarish_arc4random_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_arc4randomBuf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishArc4randomBuf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t nbytes = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -8473,9 +8399,9 @@ static Napi::Value libc_unix_solarish_arc4randomBuf_napi(const Napi::CallbackInf
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_solarish_arc4randomUniform_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishArc4randomUniform_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint32_t upper_bound = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    uint32_t upperBound = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef uint32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -8498,7 +8424,7 @@ static Napi::Value libc_unix_solarish_arc4randomUniform_napi(const Napi::Callbac
 #endif
     uint32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(upper_bound);
+        km_res = km_fn_ptr(upperBound);
     } else {
         errno = ENOSYS;
         km_res = 0;
@@ -8506,11 +8432,9 @@ static Napi::Value libc_unix_solarish_arc4randomUniform_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_secureGetenv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishSecureGetenv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef char* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -8541,13 +8465,11 @@ static Napi::Value libc_unix_solarish_secureGetenv_napi(const Napi::CallbackInfo
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_solarish_strftime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishStrftime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* s = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t maxsize = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
-    bool format_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string format_str = format_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* format = format_null ? nullptr : format_str.c_str();
+    const char* format = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* timeptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef uint64_t (*km_fn_t)(char*, uint64_t, const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -8579,13 +8501,11 @@ static Napi::Value libc_unix_solarish_strftime_napi(const Napi::CallbackInfo& km
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_solarish_strftimeL_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishStrftimeL_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* s = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t maxsize = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
-    bool format_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string format_str = format_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* format = format_null ? nullptr : format_str.c_str();
+    const char* format = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* timeptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     void* loc = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
     typedef uint64_t (*km_fn_t)(char*, uint64_t, const char*, void*, void*);
@@ -8618,10 +8538,10 @@ static Napi::Value libc_unix_solarish_strftimeL_napi(const Napi::CallbackInfo& k
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_solarish_sendfile_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishSendfile_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t out_fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t in_fd = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t outFd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t inFd = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     void* off = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint64_t len = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, void*, uint64_t);
@@ -8667,7 +8587,7 @@ static Napi::Value libc_unix_solarish_sendfile_napi(const Napi::CallbackInfo& km
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(out_fd, in_fd, off, len);
+        km_res = km_fn_ptr(outFd, inFd, off, len);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -8675,7 +8595,7 @@ static Napi::Value libc_unix_solarish_sendfile_napi(const Napi::CallbackInfo& km
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_solarish_sendfilev_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishSendfilev_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fildes = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* vec = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -8732,7 +8652,7 @@ static Napi::Value libc_unix_solarish_sendfilev_napi(const Napi::CallbackInfo& k
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_solarish_lgrpInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishLgrpInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t view = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef uint64_t (*km_fn_t)(uint32_t);
@@ -8786,7 +8706,7 @@ static Napi::Value libc_unix_solarish_lgrpInit_napi(const Napi::CallbackInfo& km
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_solarish_lgrpFini_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishLgrpFini_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t cookie = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     typedef int32_t (*km_fn_t)(uint64_t);
@@ -8840,7 +8760,7 @@ static Napi::Value libc_unix_solarish_lgrpFini_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_lgrpAffinityGet_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishLgrpAffinityGet_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t idtype = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t id = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -8896,7 +8816,7 @@ static Napi::Value libc_unix_solarish_lgrpAffinityGet_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_lgrpAffinitySet_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishLgrpAffinitySet_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t idtype = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t id = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -8953,7 +8873,7 @@ static Napi::Value libc_unix_solarish_lgrpAffinitySet_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_lgrpCpus_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishLgrpCpus_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t cookie = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     int32_t lgrp = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -9011,7 +8931,7 @@ static Napi::Value libc_unix_solarish_lgrpCpus_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_lgrpMemSize_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishLgrpMemSize_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t cookie = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     int32_t lgrp = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -9068,7 +8988,7 @@ static Napi::Value libc_unix_solarish_lgrpMemSize_napi(const Napi::CallbackInfo&
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_solarish_lgrpNlgrps_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishLgrpNlgrps_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t cookie = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     typedef int32_t (*km_fn_t)(uint64_t);
@@ -9122,7 +9042,7 @@ static Napi::Value libc_unix_solarish_lgrpNlgrps_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_lgrpView_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishLgrpView_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t cookie = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     typedef uint32_t (*km_fn_t)(uint64_t);
@@ -9176,7 +9096,7 @@ static Napi::Value libc_unix_solarish_lgrpView_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_lgrpHome_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishLgrpHome_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t idtype = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t id = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -9231,7 +9151,7 @@ static Napi::Value libc_unix_solarish_lgrpHome_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_lgrpVersion_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishLgrpVersion_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t version = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -9285,7 +9205,7 @@ static Napi::Value libc_unix_solarish_lgrpVersion_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_lgrpResources_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishLgrpResources_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t cookie = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     int32_t lgrp = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -9343,7 +9263,7 @@ static Napi::Value libc_unix_solarish_lgrpResources_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_solarish_lgrpRoot_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixSolarishLgrpRoot_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t cookie = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     typedef int32_t (*km_fn_t)(uint64_t);
@@ -9398,270 +9318,270 @@ static Napi::Value libc_unix_solarish_lgrpRoot_napi(const Napi::CallbackInfo& km
 }
 
 static void register_unix_solarish_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_unix_solarish_getrlimit", Napi::Function::New(env, libc_unix_solarish_getrlimit_napi));
-    exports.Set("libc_unix_solarish_setrlimit", Napi::Function::New(env, libc_unix_solarish_setrlimit_napi));
-    exports.Set("libc_unix_solarish_strerrorR", Napi::Function::New(env, libc_unix_solarish_strerrorR_napi));
-    exports.Set("libc_unix_solarish_semDestroy", Napi::Function::New(env, libc_unix_solarish_semDestroy_napi));
-    exports.Set("libc_unix_solarish_semInit", Napi::Function::New(env, libc_unix_solarish_semInit_napi));
-    exports.Set("libc_unix_solarish_abs", Napi::Function::New(env, libc_unix_solarish_abs_napi));
-    exports.Set("libc_unix_solarish_acct", Napi::Function::New(env, libc_unix_solarish_acct_napi));
-    exports.Set("libc_unix_solarish_dirfd", Napi::Function::New(env, libc_unix_solarish_dirfd_napi));
-    exports.Set("libc_unix_solarish_labs", Napi::Function::New(env, libc_unix_solarish_labs_napi));
-    exports.Set("libc_unix_solarish_rand", Napi::Function::New(env, libc_unix_solarish_rand_napi));
-    exports.Set("libc_unix_solarish_srand", Napi::Function::New(env, libc_unix_solarish_srand_napi));
-    exports.Set("libc_unix_solarish_getentropy", Napi::Function::New(env, libc_unix_solarish_getentropy_napi));
-    exports.Set("libc_unix_solarish_getrandom", Napi::Function::New(env, libc_unix_solarish_getrandom_napi));
-    exports.Set("libc_unix_solarish_gettimeofday", Napi::Function::New(env, libc_unix_solarish_gettimeofday_napi));
-    exports.Set("libc_unix_solarish_settimeofday", Napi::Function::New(env, libc_unix_solarish_settimeofday_napi));
-    exports.Set("libc_unix_solarish_getifaddrs", Napi::Function::New(env, libc_unix_solarish_getifaddrs_napi));
-    exports.Set("libc_unix_solarish_freeifaddrs", Napi::Function::New(env, libc_unix_solarish_freeifaddrs_napi));
-    exports.Set("libc_unix_solarish_stackGetbounds", Napi::Function::New(env, libc_unix_solarish_stackGetbounds_napi));
-    exports.Set("libc_unix_solarish_getgrouplist", Napi::Function::New(env, libc_unix_solarish_getgrouplist_napi));
-    exports.Set("libc_unix_solarish_initgroups", Napi::Function::New(env, libc_unix_solarish_initgroups_napi));
-    exports.Set("libc_unix_solarish_setgroups", Napi::Function::New(env, libc_unix_solarish_setgroups_napi));
-    exports.Set("libc_unix_solarish_ioctl", Napi::Function::New(env, libc_unix_solarish_ioctl_napi));
-    exports.Set("libc_unix_solarish_mprotect", Napi::Function::New(env, libc_unix_solarish_mprotect_napi));
-    exports.Set("libc_unix_solarish_errno", Napi::Function::New(env, libc_unix_solarish_errno_napi));
-    exports.Set("libc_unix_solarish_clockGetres", Napi::Function::New(env, libc_unix_solarish_clockGetres_napi));
-    exports.Set("libc_unix_solarish_clockGettime", Napi::Function::New(env, libc_unix_solarish_clockGettime_napi));
-    exports.Set("libc_unix_solarish_clockNanosleep", Napi::Function::New(env, libc_unix_solarish_clockNanosleep_napi));
-    exports.Set("libc_unix_solarish_clockSettime", Napi::Function::New(env, libc_unix_solarish_clockSettime_napi));
-    exports.Set("libc_unix_solarish_getnameinfo", Napi::Function::New(env, libc_unix_solarish_getnameinfo_napi));
-    exports.Set("libc_unix_solarish_setpwent", Napi::Function::New(env, libc_unix_solarish_setpwent_napi));
-    exports.Set("libc_unix_solarish_endpwent", Napi::Function::New(env, libc_unix_solarish_endpwent_napi));
-    exports.Set("libc_unix_solarish_getpwent", Napi::Function::New(env, libc_unix_solarish_getpwent_napi));
-    exports.Set("libc_unix_solarish_fdatasync", Napi::Function::New(env, libc_unix_solarish_fdatasync_napi));
-    exports.Set("libc_unix_solarish_nlLanginfoL", Napi::Function::New(env, libc_unix_solarish_nlLanginfoL_napi));
-    exports.Set("libc_unix_solarish_duplocale", Napi::Function::New(env, libc_unix_solarish_duplocale_napi));
-    exports.Set("libc_unix_solarish_freelocale", Napi::Function::New(env, libc_unix_solarish_freelocale_napi));
-    exports.Set("libc_unix_solarish_newlocale", Napi::Function::New(env, libc_unix_solarish_newlocale_napi));
-    exports.Set("libc_unix_solarish_uselocale", Napi::Function::New(env, libc_unix_solarish_uselocale_napi));
-    exports.Set("libc_unix_solarish_getprogname", Napi::Function::New(env, libc_unix_solarish_getprogname_napi));
-    exports.Set("libc_unix_solarish_setprogname", Napi::Function::New(env, libc_unix_solarish_setprogname_napi));
-    exports.Set("libc_unix_solarish_getloadavg", Napi::Function::New(env, libc_unix_solarish_getloadavg_napi));
-    exports.Set("libc_unix_solarish_getpriority", Napi::Function::New(env, libc_unix_solarish_getpriority_napi));
-    exports.Set("libc_unix_solarish_setpriority", Napi::Function::New(env, libc_unix_solarish_setpriority_napi));
-    exports.Set("libc_unix_solarish_mknodat", Napi::Function::New(env, libc_unix_solarish_mknodat_napi));
-    exports.Set("libc_unix_solarish_mkfifoat", Napi::Function::New(env, libc_unix_solarish_mkfifoat_napi));
-    exports.Set("libc_unix_solarish_sethostname", Napi::Function::New(env, libc_unix_solarish_sethostname_napi));
-    exports.Set("libc_unix_solarish_ifNameindex", Napi::Function::New(env, libc_unix_solarish_ifNameindex_napi));
-    exports.Set("libc_unix_solarish_ifFreenameindex", Napi::Function::New(env, libc_unix_solarish_ifFreenameindex_napi));
-    exports.Set("libc_unix_solarish_pthreadCreate", Napi::Function::New(env, libc_unix_solarish_pthreadCreate_napi));
-    exports.Set("libc_unix_solarish_pthreadAttrGetstack", Napi::Function::New(env, libc_unix_solarish_pthreadAttrGetstack_napi));
-    exports.Set("libc_unix_solarish_pthreadCondattrGetclock", Napi::Function::New(env, libc_unix_solarish_pthreadCondattrGetclock_napi));
-    exports.Set("libc_unix_solarish_pthreadCondattrSetclock", Napi::Function::New(env, libc_unix_solarish_pthreadCondattrSetclock_napi));
-    exports.Set("libc_unix_solarish_semTimedwait", Napi::Function::New(env, libc_unix_solarish_semTimedwait_napi));
-    exports.Set("libc_unix_solarish_semGetvalue", Napi::Function::New(env, libc_unix_solarish_semGetvalue_napi));
-    exports.Set("libc_unix_solarish_pthreadMutexTimedlock", Napi::Function::New(env, libc_unix_solarish_pthreadMutexTimedlock_napi));
-    exports.Set("libc_unix_solarish_pthreadGetnameNp", Napi::Function::New(env, libc_unix_solarish_pthreadGetnameNp_napi));
-    exports.Set("libc_unix_solarish_pthreadSetnameNp", Napi::Function::New(env, libc_unix_solarish_pthreadSetnameNp_napi));
-    exports.Set("libc_unix_solarish_waitid", Napi::Function::New(env, libc_unix_solarish_waitid_napi));
-    exports.Set("libc_unix_solarish_glob", Napi::Function::New(env, libc_unix_solarish_glob_napi));
-    exports.Set("libc_unix_solarish_globfree", Napi::Function::New(env, libc_unix_solarish_globfree_napi));
-    exports.Set("libc_unix_solarish_posixFallocate", Napi::Function::New(env, libc_unix_solarish_posixFallocate_napi));
-    exports.Set("libc_unix_solarish_posixMadvise", Napi::Function::New(env, libc_unix_solarish_posixMadvise_napi));
-    exports.Set("libc_unix_solarish_posixSpawn", Napi::Function::New(env, libc_unix_solarish_posixSpawn_napi));
-    exports.Set("libc_unix_solarish_posixSpawnp", Napi::Function::New(env, libc_unix_solarish_posixSpawnp_napi));
-    exports.Set("libc_unix_solarish_posixSpawnFileActionsInit", Napi::Function::New(env, libc_unix_solarish_posixSpawnFileActionsInit_napi));
-    exports.Set("libc_unix_solarish_posixSpawnFileActionsDestroy", Napi::Function::New(env, libc_unix_solarish_posixSpawnFileActionsDestroy_napi));
-    exports.Set("libc_unix_solarish_posixSpawnFileActionsAddopen", Napi::Function::New(env, libc_unix_solarish_posixSpawnFileActionsAddopen_napi));
-    exports.Set("libc_unix_solarish_posixSpawnFileActionsAddclose", Napi::Function::New(env, libc_unix_solarish_posixSpawnFileActionsAddclose_napi));
-    exports.Set("libc_unix_solarish_posixSpawnFileActionsAdddup2", Napi::Function::New(env, libc_unix_solarish_posixSpawnFileActionsAdddup2_napi));
-    exports.Set("libc_unix_solarish_posixSpawnFileActionsAddclosefromNp", Napi::Function::New(env, libc_unix_solarish_posixSpawnFileActionsAddclosefromNp_napi));
-    exports.Set("libc_unix_solarish_posixSpawnFileActionsAddchdir", Napi::Function::New(env, libc_unix_solarish_posixSpawnFileActionsAddchdir_napi));
-    exports.Set("libc_unix_solarish_posixSpawnFileActionsAddchdirNp", Napi::Function::New(env, libc_unix_solarish_posixSpawnFileActionsAddchdirNp_napi));
-    exports.Set("libc_unix_solarish_posixSpawnFileActionsAddfchdir", Napi::Function::New(env, libc_unix_solarish_posixSpawnFileActionsAddfchdir_napi));
-    exports.Set("libc_unix_solarish_posixSpawnattrInit", Napi::Function::New(env, libc_unix_solarish_posixSpawnattrInit_napi));
-    exports.Set("libc_unix_solarish_posixSpawnattrDestroy", Napi::Function::New(env, libc_unix_solarish_posixSpawnattrDestroy_napi));
-    exports.Set("libc_unix_solarish_posixSpawnattrSetflags", Napi::Function::New(env, libc_unix_solarish_posixSpawnattrSetflags_napi));
-    exports.Set("libc_unix_solarish_posixSpawnattrGetflags", Napi::Function::New(env, libc_unix_solarish_posixSpawnattrGetflags_napi));
-    exports.Set("libc_unix_solarish_posixSpawnattrSetpgroup", Napi::Function::New(env, libc_unix_solarish_posixSpawnattrSetpgroup_napi));
-    exports.Set("libc_unix_solarish_posixSpawnattrGetpgroup", Napi::Function::New(env, libc_unix_solarish_posixSpawnattrGetpgroup_napi));
-    exports.Set("libc_unix_solarish_posixSpawnattrSetschedparam", Napi::Function::New(env, libc_unix_solarish_posixSpawnattrSetschedparam_napi));
-    exports.Set("libc_unix_solarish_posixSpawnattrGetschedparam", Napi::Function::New(env, libc_unix_solarish_posixSpawnattrGetschedparam_napi));
-    exports.Set("libc_unix_solarish_posixSpawnattrSetschedpolicy", Napi::Function::New(env, libc_unix_solarish_posixSpawnattrSetschedpolicy_napi));
-    exports.Set("libc_unix_solarish_posixSpawnattrGetschedpolicy", Napi::Function::New(env, libc_unix_solarish_posixSpawnattrGetschedpolicy_napi));
-    exports.Set("libc_unix_solarish_posixSpawnattrSetsigdefault", Napi::Function::New(env, libc_unix_solarish_posixSpawnattrSetsigdefault_napi));
-    exports.Set("libc_unix_solarish_posixSpawnattrGetsigdefault", Napi::Function::New(env, libc_unix_solarish_posixSpawnattrGetsigdefault_napi));
-    exports.Set("libc_unix_solarish_posixSpawnattrSetsigignoreNp", Napi::Function::New(env, libc_unix_solarish_posixSpawnattrSetsigignoreNp_napi));
-    exports.Set("libc_unix_solarish_posixSpawnattrGetsigignoreNp", Napi::Function::New(env, libc_unix_solarish_posixSpawnattrGetsigignoreNp_napi));
-    exports.Set("libc_unix_solarish_posixSpawnattrSetsigmask", Napi::Function::New(env, libc_unix_solarish_posixSpawnattrSetsigmask_napi));
-    exports.Set("libc_unix_solarish_posixSpawnattrGetsigmask", Napi::Function::New(env, libc_unix_solarish_posixSpawnattrGetsigmask_napi));
-    exports.Set("libc_unix_solarish_shmat", Napi::Function::New(env, libc_unix_solarish_shmat_napi));
-    exports.Set("libc_unix_solarish_shmctl", Napi::Function::New(env, libc_unix_solarish_shmctl_napi));
-    exports.Set("libc_unix_solarish_shmdt", Napi::Function::New(env, libc_unix_solarish_shmdt_napi));
-    exports.Set("libc_unix_solarish_shmget", Napi::Function::New(env, libc_unix_solarish_shmget_napi));
-    exports.Set("libc_unix_solarish_shmOpen", Napi::Function::New(env, libc_unix_solarish_shmOpen_napi));
-    exports.Set("libc_unix_solarish_shmUnlink", Napi::Function::New(env, libc_unix_solarish_shmUnlink_napi));
-    exports.Set("libc_unix_solarish_seekdir", Napi::Function::New(env, libc_unix_solarish_seekdir_napi));
-    exports.Set("libc_unix_solarish_telldir", Napi::Function::New(env, libc_unix_solarish_telldir_napi));
-    exports.Set("libc_unix_solarish_madvise", Napi::Function::New(env, libc_unix_solarish_madvise_napi));
-    exports.Set("libc_unix_solarish_msync", Napi::Function::New(env, libc_unix_solarish_msync_napi));
-    exports.Set("libc_unix_solarish_memalign", Napi::Function::New(env, libc_unix_solarish_memalign_napi));
-    exports.Set("libc_unix_solarish_recvfrom", Napi::Function::New(env, libc_unix_solarish_recvfrom_napi));
-    exports.Set("libc_unix_solarish_mkstemps", Napi::Function::New(env, libc_unix_solarish_mkstemps_napi));
-    exports.Set("libc_unix_solarish_futimesat", Napi::Function::New(env, libc_unix_solarish_futimesat_napi));
-    exports.Set("libc_unix_solarish_futimens", Napi::Function::New(env, libc_unix_solarish_futimens_napi));
-    exports.Set("libc_unix_solarish_utimensat", Napi::Function::New(env, libc_unix_solarish_utimensat_napi));
-    exports.Set("libc_unix_solarish_nlLanginfo", Napi::Function::New(env, libc_unix_solarish_nlLanginfo_napi));
-    exports.Set("libc_unix_solarish_bind", Napi::Function::New(env, libc_unix_solarish_bind_napi));
-    exports.Set("libc_unix_solarish_writev", Napi::Function::New(env, libc_unix_solarish_writev_napi));
-    exports.Set("libc_unix_solarish_readv", Napi::Function::New(env, libc_unix_solarish_readv_napi));
-    exports.Set("libc_unix_solarish_sendmsg", Napi::Function::New(env, libc_unix_solarish_sendmsg_napi));
-    exports.Set("libc_unix_solarish_recvmsg", Napi::Function::New(env, libc_unix_solarish_recvmsg_napi));
-    exports.Set("libc_unix_solarish_accept4", Napi::Function::New(env, libc_unix_solarish_accept4_napi));
-    exports.Set("libc_unix_solarish_mqOpen", Napi::Function::New(env, libc_unix_solarish_mqOpen_napi));
-    exports.Set("libc_unix_solarish_mqClose", Napi::Function::New(env, libc_unix_solarish_mqClose_napi));
-    exports.Set("libc_unix_solarish_mqUnlink", Napi::Function::New(env, libc_unix_solarish_mqUnlink_napi));
-    exports.Set("libc_unix_solarish_mqReceive", Napi::Function::New(env, libc_unix_solarish_mqReceive_napi));
-    exports.Set("libc_unix_solarish_mqTimedreceive", Napi::Function::New(env, libc_unix_solarish_mqTimedreceive_napi));
-    exports.Set("libc_unix_solarish_mqSend", Napi::Function::New(env, libc_unix_solarish_mqSend_napi));
-    exports.Set("libc_unix_solarish_mqTimedsend", Napi::Function::New(env, libc_unix_solarish_mqTimedsend_napi));
-    exports.Set("libc_unix_solarish_mqGetattr", Napi::Function::New(env, libc_unix_solarish_mqGetattr_napi));
-    exports.Set("libc_unix_solarish_mqSetattr", Napi::Function::New(env, libc_unix_solarish_mqSetattr_napi));
-    exports.Set("libc_unix_solarish_portCreate", Napi::Function::New(env, libc_unix_solarish_portCreate_napi));
-    exports.Set("libc_unix_solarish_portAssociate", Napi::Function::New(env, libc_unix_solarish_portAssociate_napi));
-    exports.Set("libc_unix_solarish_portDissociate", Napi::Function::New(env, libc_unix_solarish_portDissociate_napi));
-    exports.Set("libc_unix_solarish_portGet", Napi::Function::New(env, libc_unix_solarish_portGet_napi));
-    exports.Set("libc_unix_solarish_portGetn", Napi::Function::New(env, libc_unix_solarish_portGetn_napi));
-    exports.Set("libc_unix_solarish_portSend", Napi::Function::New(env, libc_unix_solarish_portSend_napi));
-    exports.Set("libc_unix_solarish_portSendn", Napi::Function::New(env, libc_unix_solarish_portSendn_napi));
-    exports.Set("libc_unix_solarish_getgrgidR", Napi::Function::New(env, libc_unix_solarish_getgrgidR_napi));
-    exports.Set("libc_unix_solarish_sigaltstack", Napi::Function::New(env, libc_unix_solarish_sigaltstack_napi));
-    exports.Set("libc_unix_solarish_sigsuspend", Napi::Function::New(env, libc_unix_solarish_sigsuspend_napi));
-    exports.Set("libc_unix_solarish_semClose", Napi::Function::New(env, libc_unix_solarish_semClose_napi));
-    exports.Set("libc_unix_solarish_getdtablesize", Napi::Function::New(env, libc_unix_solarish_getdtablesize_napi));
-    exports.Set("libc_unix_solarish_getgrnamR", Napi::Function::New(env, libc_unix_solarish_getgrnamR_napi));
-    exports.Set("libc_unix_solarish_thrSelf", Napi::Function::New(env, libc_unix_solarish_thrSelf_napi));
-    exports.Set("libc_unix_solarish_pthreadSigmask", Napi::Function::New(env, libc_unix_solarish_pthreadSigmask_napi));
-    exports.Set("libc_unix_solarish_semOpen", Napi::Function::New(env, libc_unix_solarish_semOpen_napi));
-    exports.Set("libc_unix_solarish_getgrnam", Napi::Function::New(env, libc_unix_solarish_getgrnam_napi));
-    exports.Set("libc_unix_solarish_pthreadKill", Napi::Function::New(env, libc_unix_solarish_pthreadKill_napi));
-    exports.Set("libc_unix_solarish_schedGetPriorityMin", Napi::Function::New(env, libc_unix_solarish_schedGetPriorityMin_napi));
-    exports.Set("libc_unix_solarish_schedGetPriorityMax", Napi::Function::New(env, libc_unix_solarish_schedGetPriorityMax_napi));
-    exports.Set("libc_unix_solarish_schedGetparam", Napi::Function::New(env, libc_unix_solarish_schedGetparam_napi));
-    exports.Set("libc_unix_solarish_schedSetparam", Napi::Function::New(env, libc_unix_solarish_schedSetparam_napi));
-    exports.Set("libc_unix_solarish_schedGetscheduler", Napi::Function::New(env, libc_unix_solarish_schedGetscheduler_napi));
-    exports.Set("libc_unix_solarish_schedSetscheduler", Napi::Function::New(env, libc_unix_solarish_schedSetscheduler_napi));
-    exports.Set("libc_unix_solarish_semUnlink", Napi::Function::New(env, libc_unix_solarish_semUnlink_napi));
-    exports.Set("libc_unix_solarish_daemon", Napi::Function::New(env, libc_unix_solarish_daemon_napi));
-    exports.Set("libc_unix_solarish_getpwnamR", Napi::Function::New(env, libc_unix_solarish_getpwnamR_napi));
-    exports.Set("libc_unix_solarish_getpwuidR", Napi::Function::New(env, libc_unix_solarish_getpwuidR_napi));
-    exports.Set("libc_unix_solarish_nativeGetpwentR", Napi::Function::New(env, libc_unix_solarish_nativeGetpwentR_napi));
-    exports.Set("libc_unix_solarish_nativeGetgrentR", Napi::Function::New(env, libc_unix_solarish_nativeGetgrentR_napi));
-    exports.Set("libc_unix_solarish_sigwait", Napi::Function::New(env, libc_unix_solarish_sigwait_napi));
-    exports.Set("libc_unix_solarish_pthreadAtfork", Napi::Function::New(env, libc_unix_solarish_pthreadAtfork_napi));
-    exports.Set("libc_unix_solarish_getgrgid", Napi::Function::New(env, libc_unix_solarish_getgrgid_napi));
-    exports.Set("libc_unix_solarish_setgrent", Napi::Function::New(env, libc_unix_solarish_setgrent_napi));
-    exports.Set("libc_unix_solarish_endgrent", Napi::Function::New(env, libc_unix_solarish_endgrent_napi));
-    exports.Set("libc_unix_solarish_getgrent", Napi::Function::New(env, libc_unix_solarish_getgrent_napi));
-    exports.Set("libc_unix_solarish_popen", Napi::Function::New(env, libc_unix_solarish_popen_napi));
-    exports.Set("libc_unix_solarish_dup3", Napi::Function::New(env, libc_unix_solarish_dup3_napi));
-    exports.Set("libc_unix_solarish_uname", Napi::Function::New(env, libc_unix_solarish_uname_napi));
-    exports.Set("libc_unix_solarish_pipe2", Napi::Function::New(env, libc_unix_solarish_pipe2_napi));
-    exports.Set("libc_unix_solarish_makeutx", Napi::Function::New(env, libc_unix_solarish_makeutx_napi));
-    exports.Set("libc_unix_solarish_modutx", Napi::Function::New(env, libc_unix_solarish_modutx_napi));
-    exports.Set("libc_unix_solarish_updwtmpx", Napi::Function::New(env, libc_unix_solarish_updwtmpx_napi));
-    exports.Set("libc_unix_solarish_utmpxname", Napi::Function::New(env, libc_unix_solarish_utmpxname_napi));
-    exports.Set("libc_unix_solarish_getutxent", Napi::Function::New(env, libc_unix_solarish_getutxent_napi));
-    exports.Set("libc_unix_solarish_getutxid", Napi::Function::New(env, libc_unix_solarish_getutxid_napi));
-    exports.Set("libc_unix_solarish_getutxline", Napi::Function::New(env, libc_unix_solarish_getutxline_napi));
-    exports.Set("libc_unix_solarish_pututxline", Napi::Function::New(env, libc_unix_solarish_pututxline_napi));
-    exports.Set("libc_unix_solarish_setutxent", Napi::Function::New(env, libc_unix_solarish_setutxent_napi));
-    exports.Set("libc_unix_solarish_endutxent", Napi::Function::New(env, libc_unix_solarish_endutxent_napi));
-    exports.Set("libc_unix_solarish_endutent", Napi::Function::New(env, libc_unix_solarish_endutent_napi));
-    exports.Set("libc_unix_solarish_getutent", Napi::Function::New(env, libc_unix_solarish_getutent_napi));
-    exports.Set("libc_unix_solarish_getutid", Napi::Function::New(env, libc_unix_solarish_getutid_napi));
-    exports.Set("libc_unix_solarish_getutline", Napi::Function::New(env, libc_unix_solarish_getutline_napi));
-    exports.Set("libc_unix_solarish_pututline", Napi::Function::New(env, libc_unix_solarish_pututline_napi));
-    exports.Set("libc_unix_solarish_setutent", Napi::Function::New(env, libc_unix_solarish_setutent_napi));
-    exports.Set("libc_unix_solarish_utmpname", Napi::Function::New(env, libc_unix_solarish_utmpname_napi));
-    exports.Set("libc_unix_solarish_getutmp", Napi::Function::New(env, libc_unix_solarish_getutmp_napi));
-    exports.Set("libc_unix_solarish_getutmpx", Napi::Function::New(env, libc_unix_solarish_getutmpx_napi));
-    exports.Set("libc_unix_solarish_updwtmp", Napi::Function::New(env, libc_unix_solarish_updwtmp_napi));
-    exports.Set("libc_unix_solarish_ntpAdjtime", Napi::Function::New(env, libc_unix_solarish_ntpAdjtime_napi));
-    exports.Set("libc_unix_solarish_ntpGettime", Napi::Function::New(env, libc_unix_solarish_ntpGettime_napi));
-    exports.Set("libc_unix_solarish_timerCreate", Napi::Function::New(env, libc_unix_solarish_timerCreate_napi));
-    exports.Set("libc_unix_solarish_timerDelete", Napi::Function::New(env, libc_unix_solarish_timerDelete_napi));
-    exports.Set("libc_unix_solarish_timerGetoverrun", Napi::Function::New(env, libc_unix_solarish_timerGetoverrun_napi));
-    exports.Set("libc_unix_solarish_timerGettime", Napi::Function::New(env, libc_unix_solarish_timerGettime_napi));
-    exports.Set("libc_unix_solarish_timerSettime", Napi::Function::New(env, libc_unix_solarish_timerSettime_napi));
-    exports.Set("libc_unix_solarish_ucredGet", Napi::Function::New(env, libc_unix_solarish_ucredGet_napi));
-    exports.Set("libc_unix_solarish_getpeerucred", Napi::Function::New(env, libc_unix_solarish_getpeerucred_napi));
-    exports.Set("libc_unix_solarish_ucredFree", Napi::Function::New(env, libc_unix_solarish_ucredFree_napi));
-    exports.Set("libc_unix_solarish_ucredGeteuid", Napi::Function::New(env, libc_unix_solarish_ucredGeteuid_napi));
-    exports.Set("libc_unix_solarish_ucredGetruid", Napi::Function::New(env, libc_unix_solarish_ucredGetruid_napi));
-    exports.Set("libc_unix_solarish_ucredGetsuid", Napi::Function::New(env, libc_unix_solarish_ucredGetsuid_napi));
-    exports.Set("libc_unix_solarish_ucredGetegid", Napi::Function::New(env, libc_unix_solarish_ucredGetegid_napi));
-    exports.Set("libc_unix_solarish_ucredGetrgid", Napi::Function::New(env, libc_unix_solarish_ucredGetrgid_napi));
-    exports.Set("libc_unix_solarish_ucredGetsgid", Napi::Function::New(env, libc_unix_solarish_ucredGetsgid_napi));
-    exports.Set("libc_unix_solarish_ucredGetgroups", Napi::Function::New(env, libc_unix_solarish_ucredGetgroups_napi));
-    exports.Set("libc_unix_solarish_ucredGetpid", Napi::Function::New(env, libc_unix_solarish_ucredGetpid_napi));
-    exports.Set("libc_unix_solarish_ucredGetprojid", Napi::Function::New(env, libc_unix_solarish_ucredGetprojid_napi));
-    exports.Set("libc_unix_solarish_ucredGetzoneid", Napi::Function::New(env, libc_unix_solarish_ucredGetzoneid_napi));
-    exports.Set("libc_unix_solarish_ucredGetpflags", Napi::Function::New(env, libc_unix_solarish_ucredGetpflags_napi));
-    exports.Set("libc_unix_solarish_ucredSize", Napi::Function::New(env, libc_unix_solarish_ucredSize_napi));
-    exports.Set("libc_unix_solarish_psetCreate", Napi::Function::New(env, libc_unix_solarish_psetCreate_napi));
-    exports.Set("libc_unix_solarish_psetDestroy", Napi::Function::New(env, libc_unix_solarish_psetDestroy_napi));
-    exports.Set("libc_unix_solarish_psetAssign", Napi::Function::New(env, libc_unix_solarish_psetAssign_napi));
-    exports.Set("libc_unix_solarish_psetInfo", Napi::Function::New(env, libc_unix_solarish_psetInfo_napi));
-    exports.Set("libc_unix_solarish_psetBind", Napi::Function::New(env, libc_unix_solarish_psetBind_napi));
-    exports.Set("libc_unix_solarish_psetList", Napi::Function::New(env, libc_unix_solarish_psetList_napi));
-    exports.Set("libc_unix_solarish_psetSetattr", Napi::Function::New(env, libc_unix_solarish_psetSetattr_napi));
-    exports.Set("libc_unix_solarish_psetGetattr", Napi::Function::New(env, libc_unix_solarish_psetGetattr_napi));
-    exports.Set("libc_unix_solarish_processorBind", Napi::Function::New(env, libc_unix_solarish_processorBind_napi));
-    exports.Set("libc_unix_solarish_pOnline", Napi::Function::New(env, libc_unix_solarish_pOnline_napi));
-    exports.Set("libc_unix_solarish_processorInfo", Napi::Function::New(env, libc_unix_solarish_processorInfo_napi));
-    exports.Set("libc_unix_solarish_getexecname", Napi::Function::New(env, libc_unix_solarish_getexecname_napi));
-    exports.Set("libc_unix_solarish_gethostid", Napi::Function::New(env, libc_unix_solarish_gethostid_napi));
-    exports.Set("libc_unix_solarish_getpflags", Napi::Function::New(env, libc_unix_solarish_getpflags_napi));
-    exports.Set("libc_unix_solarish_setpflags", Napi::Function::New(env, libc_unix_solarish_setpflags_napi));
-    exports.Set("libc_unix_solarish_sysinfo", Napi::Function::New(env, libc_unix_solarish_sysinfo_napi));
-    exports.Set("libc_unix_solarish_faccessat", Napi::Function::New(env, libc_unix_solarish_faccessat_napi));
-    exports.Set("libc_unix_solarish_dlIteratePhdr", Napi::Function::New(env, libc_unix_solarish_dlIteratePhdr_napi));
-    exports.Set("libc_unix_solarish_getpagesize", Napi::Function::New(env, libc_unix_solarish_getpagesize_napi));
-    exports.Set("libc_unix_solarish_getpagesizes", Napi::Function::New(env, libc_unix_solarish_getpagesizes_napi));
-    exports.Set("libc_unix_solarish_mmapobj", Napi::Function::New(env, libc_unix_solarish_mmapobj_napi));
-    exports.Set("libc_unix_solarish_meminfo", Napi::Function::New(env, libc_unix_solarish_meminfo_napi));
-    exports.Set("libc_unix_solarish_strsep", Napi::Function::New(env, libc_unix_solarish_strsep_napi));
-    exports.Set("libc_unix_solarish_getisax", Napi::Function::New(env, libc_unix_solarish_getisax_napi));
-    exports.Set("libc_unix_solarish_backtrace", Napi::Function::New(env, libc_unix_solarish_backtrace_napi));
-    exports.Set("libc_unix_solarish_backtraceSymbols", Napi::Function::New(env, libc_unix_solarish_backtraceSymbols_napi));
-    exports.Set("libc_unix_solarish_backtraceSymbolsFd", Napi::Function::New(env, libc_unix_solarish_backtraceSymbolsFd_napi));
-    exports.Set("libc_unix_solarish_getoptLong", Napi::Function::New(env, libc_unix_solarish_getoptLong_napi));
-    exports.Set("libc_unix_solarish_sync", Napi::Function::New(env, libc_unix_solarish_sync_napi));
-    exports.Set("libc_unix_solarish_aioCancel", Napi::Function::New(env, libc_unix_solarish_aioCancel_napi));
-    exports.Set("libc_unix_solarish_aioError", Napi::Function::New(env, libc_unix_solarish_aioError_napi));
-    exports.Set("libc_unix_solarish_aioFsync", Napi::Function::New(env, libc_unix_solarish_aioFsync_napi));
-    exports.Set("libc_unix_solarish_aioRead", Napi::Function::New(env, libc_unix_solarish_aioRead_napi));
-    exports.Set("libc_unix_solarish_aioReturn", Napi::Function::New(env, libc_unix_solarish_aioReturn_napi));
-    exports.Set("libc_unix_solarish_aioSuspend", Napi::Function::New(env, libc_unix_solarish_aioSuspend_napi));
-    exports.Set("libc_unix_solarish_aioWaitn", Napi::Function::New(env, libc_unix_solarish_aioWaitn_napi));
-    exports.Set("libc_unix_solarish_aioWrite", Napi::Function::New(env, libc_unix_solarish_aioWrite_napi));
-    exports.Set("libc_unix_solarish_lioListio", Napi::Function::New(env, libc_unix_solarish_lioListio_napi));
-    exports.Set("libc_unix_solarish_major", Napi::Function::New(env, libc_unix_solarish_major_napi));
-    exports.Set("libc_unix_solarish_minor", Napi::Function::New(env, libc_unix_solarish_minor_napi));
-    exports.Set("libc_unix_solarish_makedev", Napi::Function::New(env, libc_unix_solarish_makedev_napi));
-    exports.Set("libc_unix_solarish_arc4random", Napi::Function::New(env, libc_unix_solarish_arc4random_napi));
-    exports.Set("libc_unix_solarish_arc4randomBuf", Napi::Function::New(env, libc_unix_solarish_arc4randomBuf_napi));
-    exports.Set("libc_unix_solarish_arc4randomUniform", Napi::Function::New(env, libc_unix_solarish_arc4randomUniform_napi));
-    exports.Set("libc_unix_solarish_secureGetenv", Napi::Function::New(env, libc_unix_solarish_secureGetenv_napi));
-    exports.Set("libc_unix_solarish_strftime", Napi::Function::New(env, libc_unix_solarish_strftime_napi));
-    exports.Set("libc_unix_solarish_strftimeL", Napi::Function::New(env, libc_unix_solarish_strftimeL_napi));
-    exports.Set("libc_unix_solarish_sendfile", Napi::Function::New(env, libc_unix_solarish_sendfile_napi));
-    exports.Set("libc_unix_solarish_sendfilev", Napi::Function::New(env, libc_unix_solarish_sendfilev_napi));
-    exports.Set("libc_unix_solarish_lgrpInit", Napi::Function::New(env, libc_unix_solarish_lgrpInit_napi));
-    exports.Set("libc_unix_solarish_lgrpFini", Napi::Function::New(env, libc_unix_solarish_lgrpFini_napi));
-    exports.Set("libc_unix_solarish_lgrpAffinityGet", Napi::Function::New(env, libc_unix_solarish_lgrpAffinityGet_napi));
-    exports.Set("libc_unix_solarish_lgrpAffinitySet", Napi::Function::New(env, libc_unix_solarish_lgrpAffinitySet_napi));
-    exports.Set("libc_unix_solarish_lgrpCpus", Napi::Function::New(env, libc_unix_solarish_lgrpCpus_napi));
-    exports.Set("libc_unix_solarish_lgrpMemSize", Napi::Function::New(env, libc_unix_solarish_lgrpMemSize_napi));
-    exports.Set("libc_unix_solarish_lgrpNlgrps", Napi::Function::New(env, libc_unix_solarish_lgrpNlgrps_napi));
-    exports.Set("libc_unix_solarish_lgrpView", Napi::Function::New(env, libc_unix_solarish_lgrpView_napi));
-    exports.Set("libc_unix_solarish_lgrpHome", Napi::Function::New(env, libc_unix_solarish_lgrpHome_napi));
-    exports.Set("libc_unix_solarish_lgrpVersion", Napi::Function::New(env, libc_unix_solarish_lgrpVersion_napi));
-    exports.Set("libc_unix_solarish_lgrpResources", Napi::Function::New(env, libc_unix_solarish_lgrpResources_napi));
-    exports.Set("libc_unix_solarish_lgrpRoot", Napi::Function::New(env, libc_unix_solarish_lgrpRoot_napi));
+    exports.Set("libcUnixSolarishGetrlimit", Napi::Function::New(env, libcUnixSolarishGetrlimit_napi));
+    exports.Set("libcUnixSolarishSetrlimit", Napi::Function::New(env, libcUnixSolarishSetrlimit_napi));
+    exports.Set("libcUnixSolarishStrerrorR", Napi::Function::New(env, libcUnixSolarishStrerrorR_napi));
+    exports.Set("libcUnixSolarishSemDestroy", Napi::Function::New(env, libcUnixSolarishSemDestroy_napi));
+    exports.Set("libcUnixSolarishSemInit", Napi::Function::New(env, libcUnixSolarishSemInit_napi));
+    exports.Set("libcUnixSolarishAbs", Napi::Function::New(env, libcUnixSolarishAbs_napi));
+    exports.Set("libcUnixSolarishAcct", Napi::Function::New(env, libcUnixSolarishAcct_napi));
+    exports.Set("libcUnixSolarishDirfd", Napi::Function::New(env, libcUnixSolarishDirfd_napi));
+    exports.Set("libcUnixSolarishLabs", Napi::Function::New(env, libcUnixSolarishLabs_napi));
+    exports.Set("libcUnixSolarishRand", Napi::Function::New(env, libcUnixSolarishRand_napi));
+    exports.Set("libcUnixSolarishSrand", Napi::Function::New(env, libcUnixSolarishSrand_napi));
+    exports.Set("libcUnixSolarishGetentropy", Napi::Function::New(env, libcUnixSolarishGetentropy_napi));
+    exports.Set("libcUnixSolarishGetrandom", Napi::Function::New(env, libcUnixSolarishGetrandom_napi));
+    exports.Set("libcUnixSolarishGettimeofday", Napi::Function::New(env, libcUnixSolarishGettimeofday_napi));
+    exports.Set("libcUnixSolarishSettimeofday", Napi::Function::New(env, libcUnixSolarishSettimeofday_napi));
+    exports.Set("libcUnixSolarishGetifaddrs", Napi::Function::New(env, libcUnixSolarishGetifaddrs_napi));
+    exports.Set("libcUnixSolarishFreeifaddrs", Napi::Function::New(env, libcUnixSolarishFreeifaddrs_napi));
+    exports.Set("libcUnixSolarishStackGetbounds", Napi::Function::New(env, libcUnixSolarishStackGetbounds_napi));
+    exports.Set("libcUnixSolarishGetgrouplist", Napi::Function::New(env, libcUnixSolarishGetgrouplist_napi));
+    exports.Set("libcUnixSolarishInitgroups", Napi::Function::New(env, libcUnixSolarishInitgroups_napi));
+    exports.Set("libcUnixSolarishSetgroups", Napi::Function::New(env, libcUnixSolarishSetgroups_napi));
+    exports.Set("libcUnixSolarishIoctl", Napi::Function::New(env, libcUnixSolarishIoctl_napi));
+    exports.Set("libcUnixSolarishMprotect", Napi::Function::New(env, libcUnixSolarishMprotect_napi));
+    exports.Set("libcUnixSolarishErrno", Napi::Function::New(env, libcUnixSolarishErrno_napi));
+    exports.Set("libcUnixSolarishClockGetres", Napi::Function::New(env, libcUnixSolarishClockGetres_napi));
+    exports.Set("libcUnixSolarishClockGettime", Napi::Function::New(env, libcUnixSolarishClockGettime_napi));
+    exports.Set("libcUnixSolarishClockNanosleep", Napi::Function::New(env, libcUnixSolarishClockNanosleep_napi));
+    exports.Set("libcUnixSolarishClockSettime", Napi::Function::New(env, libcUnixSolarishClockSettime_napi));
+    exports.Set("libcUnixSolarishGetnameinfo", Napi::Function::New(env, libcUnixSolarishGetnameinfo_napi));
+    exports.Set("libcUnixSolarishSetpwent", Napi::Function::New(env, libcUnixSolarishSetpwent_napi));
+    exports.Set("libcUnixSolarishEndpwent", Napi::Function::New(env, libcUnixSolarishEndpwent_napi));
+    exports.Set("libcUnixSolarishGetpwent", Napi::Function::New(env, libcUnixSolarishGetpwent_napi));
+    exports.Set("libcUnixSolarishFdatasync", Napi::Function::New(env, libcUnixSolarishFdatasync_napi));
+    exports.Set("libcUnixSolarishNlLanginfoL", Napi::Function::New(env, libcUnixSolarishNlLanginfoL_napi));
+    exports.Set("libcUnixSolarishDuplocale", Napi::Function::New(env, libcUnixSolarishDuplocale_napi));
+    exports.Set("libcUnixSolarishFreelocale", Napi::Function::New(env, libcUnixSolarishFreelocale_napi));
+    exports.Set("libcUnixSolarishNewlocale", Napi::Function::New(env, libcUnixSolarishNewlocale_napi));
+    exports.Set("libcUnixSolarishUselocale", Napi::Function::New(env, libcUnixSolarishUselocale_napi));
+    exports.Set("libcUnixSolarishGetprogname", Napi::Function::New(env, libcUnixSolarishGetprogname_napi));
+    exports.Set("libcUnixSolarishSetprogname", Napi::Function::New(env, libcUnixSolarishSetprogname_napi));
+    exports.Set("libcUnixSolarishGetloadavg", Napi::Function::New(env, libcUnixSolarishGetloadavg_napi));
+    exports.Set("libcUnixSolarishGetpriority", Napi::Function::New(env, libcUnixSolarishGetpriority_napi));
+    exports.Set("libcUnixSolarishSetpriority", Napi::Function::New(env, libcUnixSolarishSetpriority_napi));
+    exports.Set("libcUnixSolarishMknodat", Napi::Function::New(env, libcUnixSolarishMknodat_napi));
+    exports.Set("libcUnixSolarishMkfifoat", Napi::Function::New(env, libcUnixSolarishMkfifoat_napi));
+    exports.Set("libcUnixSolarishSethostname", Napi::Function::New(env, libcUnixSolarishSethostname_napi));
+    exports.Set("libcUnixSolarishIfNameindex", Napi::Function::New(env, libcUnixSolarishIfNameindex_napi));
+    exports.Set("libcUnixSolarishIfFreenameindex", Napi::Function::New(env, libcUnixSolarishIfFreenameindex_napi));
+    exports.Set("libcUnixSolarishPthreadCreate", Napi::Function::New(env, libcUnixSolarishPthreadCreate_napi));
+    exports.Set("libcUnixSolarishPthreadAttrGetstack", Napi::Function::New(env, libcUnixSolarishPthreadAttrGetstack_napi));
+    exports.Set("libcUnixSolarishPthreadCondattrGetclock", Napi::Function::New(env, libcUnixSolarishPthreadCondattrGetclock_napi));
+    exports.Set("libcUnixSolarishPthreadCondattrSetclock", Napi::Function::New(env, libcUnixSolarishPthreadCondattrSetclock_napi));
+    exports.Set("libcUnixSolarishSemTimedwait", Napi::Function::New(env, libcUnixSolarishSemTimedwait_napi));
+    exports.Set("libcUnixSolarishSemGetvalue", Napi::Function::New(env, libcUnixSolarishSemGetvalue_napi));
+    exports.Set("libcUnixSolarishPthreadMutexTimedlock", Napi::Function::New(env, libcUnixSolarishPthreadMutexTimedlock_napi));
+    exports.Set("libcUnixSolarishPthreadGetnameNp", Napi::Function::New(env, libcUnixSolarishPthreadGetnameNp_napi));
+    exports.Set("libcUnixSolarishPthreadSetnameNp", Napi::Function::New(env, libcUnixSolarishPthreadSetnameNp_napi));
+    exports.Set("libcUnixSolarishWaitid", Napi::Function::New(env, libcUnixSolarishWaitid_napi));
+    exports.Set("libcUnixSolarishGlob", Napi::Function::New(env, libcUnixSolarishGlob_napi));
+    exports.Set("libcUnixSolarishGlobfree", Napi::Function::New(env, libcUnixSolarishGlobfree_napi));
+    exports.Set("libcUnixSolarishPosixFallocate", Napi::Function::New(env, libcUnixSolarishPosixFallocate_napi));
+    exports.Set("libcUnixSolarishPosixMadvise", Napi::Function::New(env, libcUnixSolarishPosixMadvise_napi));
+    exports.Set("libcUnixSolarishPosixSpawn", Napi::Function::New(env, libcUnixSolarishPosixSpawn_napi));
+    exports.Set("libcUnixSolarishPosixSpawnp", Napi::Function::New(env, libcUnixSolarishPosixSpawnp_napi));
+    exports.Set("libcUnixSolarishPosixSpawnFileActionsInit", Napi::Function::New(env, libcUnixSolarishPosixSpawnFileActionsInit_napi));
+    exports.Set("libcUnixSolarishPosixSpawnFileActionsDestroy", Napi::Function::New(env, libcUnixSolarishPosixSpawnFileActionsDestroy_napi));
+    exports.Set("libcUnixSolarishPosixSpawnFileActionsAddopen", Napi::Function::New(env, libcUnixSolarishPosixSpawnFileActionsAddopen_napi));
+    exports.Set("libcUnixSolarishPosixSpawnFileActionsAddclose", Napi::Function::New(env, libcUnixSolarishPosixSpawnFileActionsAddclose_napi));
+    exports.Set("libcUnixSolarishPosixSpawnFileActionsAdddup2", Napi::Function::New(env, libcUnixSolarishPosixSpawnFileActionsAdddup2_napi));
+    exports.Set("libcUnixSolarishPosixSpawnFileActionsAddclosefromNp", Napi::Function::New(env, libcUnixSolarishPosixSpawnFileActionsAddclosefromNp_napi));
+    exports.Set("libcUnixSolarishPosixSpawnFileActionsAddchdir", Napi::Function::New(env, libcUnixSolarishPosixSpawnFileActionsAddchdir_napi));
+    exports.Set("libcUnixSolarishPosixSpawnFileActionsAddchdirNp", Napi::Function::New(env, libcUnixSolarishPosixSpawnFileActionsAddchdirNp_napi));
+    exports.Set("libcUnixSolarishPosixSpawnFileActionsAddfchdir", Napi::Function::New(env, libcUnixSolarishPosixSpawnFileActionsAddfchdir_napi));
+    exports.Set("libcUnixSolarishPosixSpawnattrInit", Napi::Function::New(env, libcUnixSolarishPosixSpawnattrInit_napi));
+    exports.Set("libcUnixSolarishPosixSpawnattrDestroy", Napi::Function::New(env, libcUnixSolarishPosixSpawnattrDestroy_napi));
+    exports.Set("libcUnixSolarishPosixSpawnattrSetflags", Napi::Function::New(env, libcUnixSolarishPosixSpawnattrSetflags_napi));
+    exports.Set("libcUnixSolarishPosixSpawnattrGetflags", Napi::Function::New(env, libcUnixSolarishPosixSpawnattrGetflags_napi));
+    exports.Set("libcUnixSolarishPosixSpawnattrSetpgroup", Napi::Function::New(env, libcUnixSolarishPosixSpawnattrSetpgroup_napi));
+    exports.Set("libcUnixSolarishPosixSpawnattrGetpgroup", Napi::Function::New(env, libcUnixSolarishPosixSpawnattrGetpgroup_napi));
+    exports.Set("libcUnixSolarishPosixSpawnattrSetschedparam", Napi::Function::New(env, libcUnixSolarishPosixSpawnattrSetschedparam_napi));
+    exports.Set("libcUnixSolarishPosixSpawnattrGetschedparam", Napi::Function::New(env, libcUnixSolarishPosixSpawnattrGetschedparam_napi));
+    exports.Set("libcUnixSolarishPosixSpawnattrSetschedpolicy", Napi::Function::New(env, libcUnixSolarishPosixSpawnattrSetschedpolicy_napi));
+    exports.Set("libcUnixSolarishPosixSpawnattrGetschedpolicy", Napi::Function::New(env, libcUnixSolarishPosixSpawnattrGetschedpolicy_napi));
+    exports.Set("libcUnixSolarishPosixSpawnattrSetsigdefault", Napi::Function::New(env, libcUnixSolarishPosixSpawnattrSetsigdefault_napi));
+    exports.Set("libcUnixSolarishPosixSpawnattrGetsigdefault", Napi::Function::New(env, libcUnixSolarishPosixSpawnattrGetsigdefault_napi));
+    exports.Set("libcUnixSolarishPosixSpawnattrSetsigignoreNp", Napi::Function::New(env, libcUnixSolarishPosixSpawnattrSetsigignoreNp_napi));
+    exports.Set("libcUnixSolarishPosixSpawnattrGetsigignoreNp", Napi::Function::New(env, libcUnixSolarishPosixSpawnattrGetsigignoreNp_napi));
+    exports.Set("libcUnixSolarishPosixSpawnattrSetsigmask", Napi::Function::New(env, libcUnixSolarishPosixSpawnattrSetsigmask_napi));
+    exports.Set("libcUnixSolarishPosixSpawnattrGetsigmask", Napi::Function::New(env, libcUnixSolarishPosixSpawnattrGetsigmask_napi));
+    exports.Set("libcUnixSolarishShmat", Napi::Function::New(env, libcUnixSolarishShmat_napi));
+    exports.Set("libcUnixSolarishShmctl", Napi::Function::New(env, libcUnixSolarishShmctl_napi));
+    exports.Set("libcUnixSolarishShmdt", Napi::Function::New(env, libcUnixSolarishShmdt_napi));
+    exports.Set("libcUnixSolarishShmget", Napi::Function::New(env, libcUnixSolarishShmget_napi));
+    exports.Set("libcUnixSolarishShmOpen", Napi::Function::New(env, libcUnixSolarishShmOpen_napi));
+    exports.Set("libcUnixSolarishShmUnlink", Napi::Function::New(env, libcUnixSolarishShmUnlink_napi));
+    exports.Set("libcUnixSolarishSeekdir", Napi::Function::New(env, libcUnixSolarishSeekdir_napi));
+    exports.Set("libcUnixSolarishTelldir", Napi::Function::New(env, libcUnixSolarishTelldir_napi));
+    exports.Set("libcUnixSolarishMadvise", Napi::Function::New(env, libcUnixSolarishMadvise_napi));
+    exports.Set("libcUnixSolarishMsync", Napi::Function::New(env, libcUnixSolarishMsync_napi));
+    exports.Set("libcUnixSolarishMemalign", Napi::Function::New(env, libcUnixSolarishMemalign_napi));
+    exports.Set("libcUnixSolarishRecvfrom", Napi::Function::New(env, libcUnixSolarishRecvfrom_napi));
+    exports.Set("libcUnixSolarishMkstemps", Napi::Function::New(env, libcUnixSolarishMkstemps_napi));
+    exports.Set("libcUnixSolarishFutimesat", Napi::Function::New(env, libcUnixSolarishFutimesat_napi));
+    exports.Set("libcUnixSolarishFutimens", Napi::Function::New(env, libcUnixSolarishFutimens_napi));
+    exports.Set("libcUnixSolarishUtimensat", Napi::Function::New(env, libcUnixSolarishUtimensat_napi));
+    exports.Set("libcUnixSolarishNlLanginfo", Napi::Function::New(env, libcUnixSolarishNlLanginfo_napi));
+    exports.Set("libcUnixSolarishBind", Napi::Function::New(env, libcUnixSolarishBind_napi));
+    exports.Set("libcUnixSolarishWritev", Napi::Function::New(env, libcUnixSolarishWritev_napi));
+    exports.Set("libcUnixSolarishReadv", Napi::Function::New(env, libcUnixSolarishReadv_napi));
+    exports.Set("libcUnixSolarishSendmsg", Napi::Function::New(env, libcUnixSolarishSendmsg_napi));
+    exports.Set("libcUnixSolarishRecvmsg", Napi::Function::New(env, libcUnixSolarishRecvmsg_napi));
+    exports.Set("libcUnixSolarishAccept4", Napi::Function::New(env, libcUnixSolarishAccept4_napi));
+    exports.Set("libcUnixSolarishMqOpen", Napi::Function::New(env, libcUnixSolarishMqOpen_napi));
+    exports.Set("libcUnixSolarishMqClose", Napi::Function::New(env, libcUnixSolarishMqClose_napi));
+    exports.Set("libcUnixSolarishMqUnlink", Napi::Function::New(env, libcUnixSolarishMqUnlink_napi));
+    exports.Set("libcUnixSolarishMqReceive", Napi::Function::New(env, libcUnixSolarishMqReceive_napi));
+    exports.Set("libcUnixSolarishMqTimedreceive", Napi::Function::New(env, libcUnixSolarishMqTimedreceive_napi));
+    exports.Set("libcUnixSolarishMqSend", Napi::Function::New(env, libcUnixSolarishMqSend_napi));
+    exports.Set("libcUnixSolarishMqTimedsend", Napi::Function::New(env, libcUnixSolarishMqTimedsend_napi));
+    exports.Set("libcUnixSolarishMqGetattr", Napi::Function::New(env, libcUnixSolarishMqGetattr_napi));
+    exports.Set("libcUnixSolarishMqSetattr", Napi::Function::New(env, libcUnixSolarishMqSetattr_napi));
+    exports.Set("libcUnixSolarishPortCreate", Napi::Function::New(env, libcUnixSolarishPortCreate_napi));
+    exports.Set("libcUnixSolarishPortAssociate", Napi::Function::New(env, libcUnixSolarishPortAssociate_napi));
+    exports.Set("libcUnixSolarishPortDissociate", Napi::Function::New(env, libcUnixSolarishPortDissociate_napi));
+    exports.Set("libcUnixSolarishPortGet", Napi::Function::New(env, libcUnixSolarishPortGet_napi));
+    exports.Set("libcUnixSolarishPortGetn", Napi::Function::New(env, libcUnixSolarishPortGetn_napi));
+    exports.Set("libcUnixSolarishPortSend", Napi::Function::New(env, libcUnixSolarishPortSend_napi));
+    exports.Set("libcUnixSolarishPortSendn", Napi::Function::New(env, libcUnixSolarishPortSendn_napi));
+    exports.Set("libcUnixSolarishGetgrgidR", Napi::Function::New(env, libcUnixSolarishGetgrgidR_napi));
+    exports.Set("libcUnixSolarishSigaltstack", Napi::Function::New(env, libcUnixSolarishSigaltstack_napi));
+    exports.Set("libcUnixSolarishSigsuspend", Napi::Function::New(env, libcUnixSolarishSigsuspend_napi));
+    exports.Set("libcUnixSolarishSemClose", Napi::Function::New(env, libcUnixSolarishSemClose_napi));
+    exports.Set("libcUnixSolarishGetdtablesize", Napi::Function::New(env, libcUnixSolarishGetdtablesize_napi));
+    exports.Set("libcUnixSolarishGetgrnamR", Napi::Function::New(env, libcUnixSolarishGetgrnamR_napi));
+    exports.Set("libcUnixSolarishThrSelf", Napi::Function::New(env, libcUnixSolarishThrSelf_napi));
+    exports.Set("libcUnixSolarishPthreadSigmask", Napi::Function::New(env, libcUnixSolarishPthreadSigmask_napi));
+    exports.Set("libcUnixSolarishSemOpen", Napi::Function::New(env, libcUnixSolarishSemOpen_napi));
+    exports.Set("libcUnixSolarishGetgrnam", Napi::Function::New(env, libcUnixSolarishGetgrnam_napi));
+    exports.Set("libcUnixSolarishPthreadKill", Napi::Function::New(env, libcUnixSolarishPthreadKill_napi));
+    exports.Set("libcUnixSolarishSchedGetPriorityMin", Napi::Function::New(env, libcUnixSolarishSchedGetPriorityMin_napi));
+    exports.Set("libcUnixSolarishSchedGetPriorityMax", Napi::Function::New(env, libcUnixSolarishSchedGetPriorityMax_napi));
+    exports.Set("libcUnixSolarishSchedGetparam", Napi::Function::New(env, libcUnixSolarishSchedGetparam_napi));
+    exports.Set("libcUnixSolarishSchedSetparam", Napi::Function::New(env, libcUnixSolarishSchedSetparam_napi));
+    exports.Set("libcUnixSolarishSchedGetscheduler", Napi::Function::New(env, libcUnixSolarishSchedGetscheduler_napi));
+    exports.Set("libcUnixSolarishSchedSetscheduler", Napi::Function::New(env, libcUnixSolarishSchedSetscheduler_napi));
+    exports.Set("libcUnixSolarishSemUnlink", Napi::Function::New(env, libcUnixSolarishSemUnlink_napi));
+    exports.Set("libcUnixSolarishDaemon", Napi::Function::New(env, libcUnixSolarishDaemon_napi));
+    exports.Set("libcUnixSolarishGetpwnamR", Napi::Function::New(env, libcUnixSolarishGetpwnamR_napi));
+    exports.Set("libcUnixSolarishGetpwuidR", Napi::Function::New(env, libcUnixSolarishGetpwuidR_napi));
+    exports.Set("libcUnixSolarishNativeGetpwentR", Napi::Function::New(env, libcUnixSolarishNativeGetpwentR_napi));
+    exports.Set("libcUnixSolarishNativeGetgrentR", Napi::Function::New(env, libcUnixSolarishNativeGetgrentR_napi));
+    exports.Set("libcUnixSolarishSigwait", Napi::Function::New(env, libcUnixSolarishSigwait_napi));
+    exports.Set("libcUnixSolarishPthreadAtfork", Napi::Function::New(env, libcUnixSolarishPthreadAtfork_napi));
+    exports.Set("libcUnixSolarishGetgrgid", Napi::Function::New(env, libcUnixSolarishGetgrgid_napi));
+    exports.Set("libcUnixSolarishSetgrent", Napi::Function::New(env, libcUnixSolarishSetgrent_napi));
+    exports.Set("libcUnixSolarishEndgrent", Napi::Function::New(env, libcUnixSolarishEndgrent_napi));
+    exports.Set("libcUnixSolarishGetgrent", Napi::Function::New(env, libcUnixSolarishGetgrent_napi));
+    exports.Set("libcUnixSolarishPopen", Napi::Function::New(env, libcUnixSolarishPopen_napi));
+    exports.Set("libcUnixSolarishDup3", Napi::Function::New(env, libcUnixSolarishDup3_napi));
+    exports.Set("libcUnixSolarishUname", Napi::Function::New(env, libcUnixSolarishUname_napi));
+    exports.Set("libcUnixSolarishPipe2", Napi::Function::New(env, libcUnixSolarishPipe2_napi));
+    exports.Set("libcUnixSolarishMakeutx", Napi::Function::New(env, libcUnixSolarishMakeutx_napi));
+    exports.Set("libcUnixSolarishModutx", Napi::Function::New(env, libcUnixSolarishModutx_napi));
+    exports.Set("libcUnixSolarishUpdwtmpx", Napi::Function::New(env, libcUnixSolarishUpdwtmpx_napi));
+    exports.Set("libcUnixSolarishUtmpxname", Napi::Function::New(env, libcUnixSolarishUtmpxname_napi));
+    exports.Set("libcUnixSolarishGetutxent", Napi::Function::New(env, libcUnixSolarishGetutxent_napi));
+    exports.Set("libcUnixSolarishGetutxid", Napi::Function::New(env, libcUnixSolarishGetutxid_napi));
+    exports.Set("libcUnixSolarishGetutxline", Napi::Function::New(env, libcUnixSolarishGetutxline_napi));
+    exports.Set("libcUnixSolarishPututxline", Napi::Function::New(env, libcUnixSolarishPututxline_napi));
+    exports.Set("libcUnixSolarishSetutxent", Napi::Function::New(env, libcUnixSolarishSetutxent_napi));
+    exports.Set("libcUnixSolarishEndutxent", Napi::Function::New(env, libcUnixSolarishEndutxent_napi));
+    exports.Set("libcUnixSolarishEndutent", Napi::Function::New(env, libcUnixSolarishEndutent_napi));
+    exports.Set("libcUnixSolarishGetutent", Napi::Function::New(env, libcUnixSolarishGetutent_napi));
+    exports.Set("libcUnixSolarishGetutid", Napi::Function::New(env, libcUnixSolarishGetutid_napi));
+    exports.Set("libcUnixSolarishGetutline", Napi::Function::New(env, libcUnixSolarishGetutline_napi));
+    exports.Set("libcUnixSolarishPututline", Napi::Function::New(env, libcUnixSolarishPututline_napi));
+    exports.Set("libcUnixSolarishSetutent", Napi::Function::New(env, libcUnixSolarishSetutent_napi));
+    exports.Set("libcUnixSolarishUtmpname", Napi::Function::New(env, libcUnixSolarishUtmpname_napi));
+    exports.Set("libcUnixSolarishGetutmp", Napi::Function::New(env, libcUnixSolarishGetutmp_napi));
+    exports.Set("libcUnixSolarishGetutmpx", Napi::Function::New(env, libcUnixSolarishGetutmpx_napi));
+    exports.Set("libcUnixSolarishUpdwtmp", Napi::Function::New(env, libcUnixSolarishUpdwtmp_napi));
+    exports.Set("libcUnixSolarishNtpAdjtime", Napi::Function::New(env, libcUnixSolarishNtpAdjtime_napi));
+    exports.Set("libcUnixSolarishNtpGettime", Napi::Function::New(env, libcUnixSolarishNtpGettime_napi));
+    exports.Set("libcUnixSolarishTimerCreate", Napi::Function::New(env, libcUnixSolarishTimerCreate_napi));
+    exports.Set("libcUnixSolarishTimerDelete", Napi::Function::New(env, libcUnixSolarishTimerDelete_napi));
+    exports.Set("libcUnixSolarishTimerGetoverrun", Napi::Function::New(env, libcUnixSolarishTimerGetoverrun_napi));
+    exports.Set("libcUnixSolarishTimerGettime", Napi::Function::New(env, libcUnixSolarishTimerGettime_napi));
+    exports.Set("libcUnixSolarishTimerSettime", Napi::Function::New(env, libcUnixSolarishTimerSettime_napi));
+    exports.Set("libcUnixSolarishUcredGet", Napi::Function::New(env, libcUnixSolarishUcredGet_napi));
+    exports.Set("libcUnixSolarishGetpeerucred", Napi::Function::New(env, libcUnixSolarishGetpeerucred_napi));
+    exports.Set("libcUnixSolarishUcredFree", Napi::Function::New(env, libcUnixSolarishUcredFree_napi));
+    exports.Set("libcUnixSolarishUcredGeteuid", Napi::Function::New(env, libcUnixSolarishUcredGeteuid_napi));
+    exports.Set("libcUnixSolarishUcredGetruid", Napi::Function::New(env, libcUnixSolarishUcredGetruid_napi));
+    exports.Set("libcUnixSolarishUcredGetsuid", Napi::Function::New(env, libcUnixSolarishUcredGetsuid_napi));
+    exports.Set("libcUnixSolarishUcredGetegid", Napi::Function::New(env, libcUnixSolarishUcredGetegid_napi));
+    exports.Set("libcUnixSolarishUcredGetrgid", Napi::Function::New(env, libcUnixSolarishUcredGetrgid_napi));
+    exports.Set("libcUnixSolarishUcredGetsgid", Napi::Function::New(env, libcUnixSolarishUcredGetsgid_napi));
+    exports.Set("libcUnixSolarishUcredGetgroups", Napi::Function::New(env, libcUnixSolarishUcredGetgroups_napi));
+    exports.Set("libcUnixSolarishUcredGetpid", Napi::Function::New(env, libcUnixSolarishUcredGetpid_napi));
+    exports.Set("libcUnixSolarishUcredGetprojid", Napi::Function::New(env, libcUnixSolarishUcredGetprojid_napi));
+    exports.Set("libcUnixSolarishUcredGetzoneid", Napi::Function::New(env, libcUnixSolarishUcredGetzoneid_napi));
+    exports.Set("libcUnixSolarishUcredGetpflags", Napi::Function::New(env, libcUnixSolarishUcredGetpflags_napi));
+    exports.Set("libcUnixSolarishUcredSize", Napi::Function::New(env, libcUnixSolarishUcredSize_napi));
+    exports.Set("libcUnixSolarishPsetCreate", Napi::Function::New(env, libcUnixSolarishPsetCreate_napi));
+    exports.Set("libcUnixSolarishPsetDestroy", Napi::Function::New(env, libcUnixSolarishPsetDestroy_napi));
+    exports.Set("libcUnixSolarishPsetAssign", Napi::Function::New(env, libcUnixSolarishPsetAssign_napi));
+    exports.Set("libcUnixSolarishPsetInfo", Napi::Function::New(env, libcUnixSolarishPsetInfo_napi));
+    exports.Set("libcUnixSolarishPsetBind", Napi::Function::New(env, libcUnixSolarishPsetBind_napi));
+    exports.Set("libcUnixSolarishPsetList", Napi::Function::New(env, libcUnixSolarishPsetList_napi));
+    exports.Set("libcUnixSolarishPsetSetattr", Napi::Function::New(env, libcUnixSolarishPsetSetattr_napi));
+    exports.Set("libcUnixSolarishPsetGetattr", Napi::Function::New(env, libcUnixSolarishPsetGetattr_napi));
+    exports.Set("libcUnixSolarishProcessorBind", Napi::Function::New(env, libcUnixSolarishProcessorBind_napi));
+    exports.Set("libcUnixSolarishPOnline", Napi::Function::New(env, libcUnixSolarishPOnline_napi));
+    exports.Set("libcUnixSolarishProcessorInfo", Napi::Function::New(env, libcUnixSolarishProcessorInfo_napi));
+    exports.Set("libcUnixSolarishGetexecname", Napi::Function::New(env, libcUnixSolarishGetexecname_napi));
+    exports.Set("libcUnixSolarishGethostid", Napi::Function::New(env, libcUnixSolarishGethostid_napi));
+    exports.Set("libcUnixSolarishGetpflags", Napi::Function::New(env, libcUnixSolarishGetpflags_napi));
+    exports.Set("libcUnixSolarishSetpflags", Napi::Function::New(env, libcUnixSolarishSetpflags_napi));
+    exports.Set("libcUnixSolarishSysinfo", Napi::Function::New(env, libcUnixSolarishSysinfo_napi));
+    exports.Set("libcUnixSolarishFaccessat", Napi::Function::New(env, libcUnixSolarishFaccessat_napi));
+    exports.Set("libcUnixSolarishDlIteratePhdr", Napi::Function::New(env, libcUnixSolarishDlIteratePhdr_napi));
+    exports.Set("libcUnixSolarishGetpagesize", Napi::Function::New(env, libcUnixSolarishGetpagesize_napi));
+    exports.Set("libcUnixSolarishGetpagesizes", Napi::Function::New(env, libcUnixSolarishGetpagesizes_napi));
+    exports.Set("libcUnixSolarishMmapobj", Napi::Function::New(env, libcUnixSolarishMmapobj_napi));
+    exports.Set("libcUnixSolarishMeminfo", Napi::Function::New(env, libcUnixSolarishMeminfo_napi));
+    exports.Set("libcUnixSolarishStrsep", Napi::Function::New(env, libcUnixSolarishStrsep_napi));
+    exports.Set("libcUnixSolarishGetisax", Napi::Function::New(env, libcUnixSolarishGetisax_napi));
+    exports.Set("libcUnixSolarishBacktrace", Napi::Function::New(env, libcUnixSolarishBacktrace_napi));
+    exports.Set("libcUnixSolarishBacktraceSymbols", Napi::Function::New(env, libcUnixSolarishBacktraceSymbols_napi));
+    exports.Set("libcUnixSolarishBacktraceSymbolsFd", Napi::Function::New(env, libcUnixSolarishBacktraceSymbolsFd_napi));
+    exports.Set("libcUnixSolarishGetoptLong", Napi::Function::New(env, libcUnixSolarishGetoptLong_napi));
+    exports.Set("libcUnixSolarishSync", Napi::Function::New(env, libcUnixSolarishSync_napi));
+    exports.Set("libcUnixSolarishAioCancel", Napi::Function::New(env, libcUnixSolarishAioCancel_napi));
+    exports.Set("libcUnixSolarishAioError", Napi::Function::New(env, libcUnixSolarishAioError_napi));
+    exports.Set("libcUnixSolarishAioFsync", Napi::Function::New(env, libcUnixSolarishAioFsync_napi));
+    exports.Set("libcUnixSolarishAioRead", Napi::Function::New(env, libcUnixSolarishAioRead_napi));
+    exports.Set("libcUnixSolarishAioReturn", Napi::Function::New(env, libcUnixSolarishAioReturn_napi));
+    exports.Set("libcUnixSolarishAioSuspend", Napi::Function::New(env, libcUnixSolarishAioSuspend_napi));
+    exports.Set("libcUnixSolarishAioWaitn", Napi::Function::New(env, libcUnixSolarishAioWaitn_napi));
+    exports.Set("libcUnixSolarishAioWrite", Napi::Function::New(env, libcUnixSolarishAioWrite_napi));
+    exports.Set("libcUnixSolarishLioListio", Napi::Function::New(env, libcUnixSolarishLioListio_napi));
+    exports.Set("libcUnixSolarishMajor", Napi::Function::New(env, libcUnixSolarishMajor_napi));
+    exports.Set("libcUnixSolarishMinor", Napi::Function::New(env, libcUnixSolarishMinor_napi));
+    exports.Set("libcUnixSolarishMakedev", Napi::Function::New(env, libcUnixSolarishMakedev_napi));
+    exports.Set("libcUnixSolarishArc4random", Napi::Function::New(env, libcUnixSolarishArc4random_napi));
+    exports.Set("libcUnixSolarishArc4randomBuf", Napi::Function::New(env, libcUnixSolarishArc4randomBuf_napi));
+    exports.Set("libcUnixSolarishArc4randomUniform", Napi::Function::New(env, libcUnixSolarishArc4randomUniform_napi));
+    exports.Set("libcUnixSolarishSecureGetenv", Napi::Function::New(env, libcUnixSolarishSecureGetenv_napi));
+    exports.Set("libcUnixSolarishStrftime", Napi::Function::New(env, libcUnixSolarishStrftime_napi));
+    exports.Set("libcUnixSolarishStrftimeL", Napi::Function::New(env, libcUnixSolarishStrftimeL_napi));
+    exports.Set("libcUnixSolarishSendfile", Napi::Function::New(env, libcUnixSolarishSendfile_napi));
+    exports.Set("libcUnixSolarishSendfilev", Napi::Function::New(env, libcUnixSolarishSendfilev_napi));
+    exports.Set("libcUnixSolarishLgrpInit", Napi::Function::New(env, libcUnixSolarishLgrpInit_napi));
+    exports.Set("libcUnixSolarishLgrpFini", Napi::Function::New(env, libcUnixSolarishLgrpFini_napi));
+    exports.Set("libcUnixSolarishLgrpAffinityGet", Napi::Function::New(env, libcUnixSolarishLgrpAffinityGet_napi));
+    exports.Set("libcUnixSolarishLgrpAffinitySet", Napi::Function::New(env, libcUnixSolarishLgrpAffinitySet_napi));
+    exports.Set("libcUnixSolarishLgrpCpus", Napi::Function::New(env, libcUnixSolarishLgrpCpus_napi));
+    exports.Set("libcUnixSolarishLgrpMemSize", Napi::Function::New(env, libcUnixSolarishLgrpMemSize_napi));
+    exports.Set("libcUnixSolarishLgrpNlgrps", Napi::Function::New(env, libcUnixSolarishLgrpNlgrps_napi));
+    exports.Set("libcUnixSolarishLgrpView", Napi::Function::New(env, libcUnixSolarishLgrpView_napi));
+    exports.Set("libcUnixSolarishLgrpHome", Napi::Function::New(env, libcUnixSolarishLgrpHome_napi));
+    exports.Set("libcUnixSolarishLgrpVersion", Napi::Function::New(env, libcUnixSolarishLgrpVersion_napi));
+    exports.Set("libcUnixSolarishLgrpResources", Napi::Function::New(env, libcUnixSolarishLgrpResources_napi));
+    exports.Set("libcUnixSolarishLgrpRoot", Napi::Function::New(env, libcUnixSolarishLgrpRoot_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_unix_solarish_napi, nullptr };

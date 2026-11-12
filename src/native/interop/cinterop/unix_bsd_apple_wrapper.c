@@ -22,7 +22,7 @@
 #endif
 #endif
 
-uint32_t libc_unix_bsd_apple_get_MACH_TASK_SELF(void) {
+uint32_t libcUnixBsdAppleGetMACHTASKSELF(void) {
     static uint32_t* km_sym_ptr = NULL;
 #ifdef _WIN32
     if (km_sym_ptr == NULL) {
@@ -48,7 +48,7 @@ uint32_t libc_unix_bsd_apple_get_MACH_TASK_SELF(void) {
     return 0;
 }
 
-void libc_unix_bsd_apple_set_MACH_TASK_SELF(uint32_t km_val) {
+void libcUnixBsdAppleSetMACHTASKSELF(uint32_t km_val) {
     static uint32_t* km_sym_ptr = NULL;
 #ifdef _WIN32
     if (km_sym_ptr == NULL) {
@@ -73,7 +73,7 @@ void libc_unix_bsd_apple_set_MACH_TASK_SELF(uint32_t km_val) {
     }
 }
 
-uint64_t libc_unix_bsd_apple_get_VM_PAGE_SIZE(void) {
+uint64_t libcUnixBsdAppleGetVMPAGESIZE(void) {
     static uint64_t* km_sym_ptr = NULL;
 #ifdef _WIN32
     if (km_sym_ptr == NULL) {
@@ -99,7 +99,7 @@ uint64_t libc_unix_bsd_apple_get_VM_PAGE_SIZE(void) {
     return 0;
 }
 
-void libc_unix_bsd_apple_setgrent(void) {
+void libcUnixBsdAppleSetgrent(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -127,7 +127,7 @@ void libc_unix_bsd_apple_setgrent(void) {
     errno = ENOSYS;
 }
 
-int32_t libc_unix_bsd_apple_daemon(int32_t nochdir, int32_t noclose) {
+int32_t libcUnixBsdAppleDaemon(int32_t nochdir, int32_t noclose) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -155,7 +155,7 @@ int32_t libc_unix_bsd_apple_daemon(int32_t nochdir, int32_t noclose) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_semDestroy(void* sem) {
+int32_t libcUnixBsdAppleSemDestroy(void* sem) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -183,7 +183,7 @@ int32_t libc_unix_bsd_apple_semDestroy(void* sem) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_semInit(void* sem, int32_t pshared, uint32_t value) {
+int32_t libcUnixBsdAppleSemInit(void* sem, int32_t pshared, uint32_t value) {
     typedef int32_t (*km_fn_t)(void*, int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -211,7 +211,7 @@ int32_t libc_unix_bsd_apple_semInit(void* sem, int32_t pshared, uint32_t value) 
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_aioRead(void* aiocbp) {
+int32_t libcUnixBsdAppleAioRead(void* aiocbp) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -239,7 +239,7 @@ int32_t libc_unix_bsd_apple_aioRead(void* aiocbp) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_aioWrite(void* aiocbp) {
+int32_t libcUnixBsdAppleAioWrite(void* aiocbp) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -267,7 +267,7 @@ int32_t libc_unix_bsd_apple_aioWrite(void* aiocbp) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_aioFsync(int32_t op, void* aiocbp) {
+int32_t libcUnixBsdAppleAioFsync(int32_t op, void* aiocbp) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -295,7 +295,7 @@ int32_t libc_unix_bsd_apple_aioFsync(int32_t op, void* aiocbp) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_aioError(void* aiocbp) {
+int32_t libcUnixBsdAppleAioError(void* aiocbp) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -323,7 +323,7 @@ int32_t libc_unix_bsd_apple_aioError(void* aiocbp) {
     return -1;
 }
 
-int64_t libc_unix_bsd_apple_aioReturn(void* aiocbp) {
+int64_t libcUnixBsdAppleAioReturn(void* aiocbp) {
     typedef int64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -351,7 +351,7 @@ int64_t libc_unix_bsd_apple_aioReturn(void* aiocbp) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_aioSuspend(void* aiocb_list, int32_t nitems, void* timeout) {
+int32_t libcUnixBsdAppleAioSuspend(void* aiocbList, int32_t nitems, void* timeout) {
     typedef int32_t (*km_fn_t)(void*, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -373,13 +373,13 @@ int32_t libc_unix_bsd_apple_aioSuspend(void* aiocb_list, int32_t nitems, void* t
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(aiocb_list, nitems, timeout);
+        return km_fn_ptr(aiocbList, nitems, timeout);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_aioCancel(int32_t fd, void* aiocbp) {
+int32_t libcUnixBsdAppleAioCancel(int32_t fd, void* aiocbp) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -407,7 +407,7 @@ int32_t libc_unix_bsd_apple_aioCancel(int32_t fd, void* aiocbp) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_chflags(const char* path, uint32_t flags) {
+int32_t libcUnixBsdAppleChflags(const char* path, uint32_t flags) {
     typedef int32_t (*km_fn_t)(const char*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -435,7 +435,7 @@ int32_t libc_unix_bsd_apple_chflags(const char* path, uint32_t flags) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_fchflags(int32_t fd, uint32_t flags) {
+int32_t libcUnixBsdAppleFchflags(int32_t fd, uint32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -463,7 +463,7 @@ int32_t libc_unix_bsd_apple_fchflags(int32_t fd, uint32_t flags) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_clockGetres(uint32_t clk_id, void* tp) {
+int32_t libcUnixBsdAppleClockGetres(uint32_t clkId, void* tp) {
     typedef int32_t (*km_fn_t)(uint32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -485,13 +485,13 @@ int32_t libc_unix_bsd_apple_clockGetres(uint32_t clk_id, void* tp) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(clk_id, tp);
+        return km_fn_ptr(clkId, tp);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_clockGettime(uint32_t clk_id, void* tp) {
+int32_t libcUnixBsdAppleClockGettime(uint32_t clkId, void* tp) {
     typedef int32_t (*km_fn_t)(uint32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -513,13 +513,13 @@ int32_t libc_unix_bsd_apple_clockGettime(uint32_t clk_id, void* tp) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(clk_id, tp);
+        return km_fn_ptr(clkId, tp);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_lioListio(int32_t mode, void* aiocb_list, int32_t nitems, void* sevp) {
+int32_t libcUnixBsdAppleLioListio(int32_t mode, void* aiocbList, int32_t nitems, void* sevp) {
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -541,13 +541,13 @@ int32_t libc_unix_bsd_apple_lioListio(int32_t mode, void* aiocb_list, int32_t ni
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(mode, aiocb_list, nitems, sevp);
+        return km_fn_ptr(mode, aiocbList, nitems, sevp);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_dirfd(void* dirp) {
+int32_t libcUnixBsdAppleDirfd(void* dirp) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -575,7 +575,7 @@ int32_t libc_unix_bsd_apple_dirfd(void* dirp) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_lutimes(const char* file, void* times) {
+int32_t libcUnixBsdAppleLutimes(const char* file, void* times) {
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -603,7 +603,7 @@ int32_t libc_unix_bsd_apple_lutimes(const char* file, void* times) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_gettimeofday(void* tp, void* tz) {
+int32_t libcUnixBsdAppleGettimeofday(void* tp, void* tz) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -631,7 +631,7 @@ int32_t libc_unix_bsd_apple_gettimeofday(void* tp, void* tz) {
     return -1;
 }
 
-void* libc_unix_bsd_apple_getutxent(void) {
+void* libcUnixBsdAppleGetutxent(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -659,7 +659,7 @@ void* libc_unix_bsd_apple_getutxent(void) {
     return NULL;
 }
 
-void* libc_unix_bsd_apple_getutxid(void* ut) {
+void* libcUnixBsdAppleGetutxid(void* ut) {
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -687,7 +687,7 @@ void* libc_unix_bsd_apple_getutxid(void* ut) {
     return NULL;
 }
 
-void* libc_unix_bsd_apple_getutxline(void* ut) {
+void* libcUnixBsdAppleGetutxline(void* ut) {
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -715,7 +715,7 @@ void* libc_unix_bsd_apple_getutxline(void* ut) {
     return NULL;
 }
 
-void* libc_unix_bsd_apple_pututxline(void* ut) {
+void* libcUnixBsdApplePututxline(void* ut) {
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -743,7 +743,7 @@ void* libc_unix_bsd_apple_pututxline(void* ut) {
     return NULL;
 }
 
-void libc_unix_bsd_apple_setutxent(void) {
+void libcUnixBsdAppleSetutxent(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -771,7 +771,7 @@ void libc_unix_bsd_apple_setutxent(void) {
     errno = ENOSYS;
 }
 
-void libc_unix_bsd_apple_endutxent(void) {
+void libcUnixBsdAppleEndutxent(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -799,7 +799,7 @@ void libc_unix_bsd_apple_endutxent(void) {
     errno = ENOSYS;
 }
 
-int32_t libc_unix_bsd_apple_utmpxname(const char* file) {
+int32_t libcUnixBsdAppleUtmpxname(const char* file) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -827,15 +827,15 @@ int32_t libc_unix_bsd_apple_utmpxname(const char* file) {
     return -1;
 }
 
-char* libc_unix_bsd_apple_asctime(void* tm) {
+char* libcUnixBsdAppleAsctime(void* tm) {
     return (char*)asctime(tm);
 }
 
-char* libc_unix_bsd_apple_ctime(void* clock) {
+char* libcUnixBsdAppleCtime(void* clock) {
     return (char*)ctime(clock);
 }
 
-void* libc_unix_bsd_apple_getdate(const char* datestr) {
+void* libcUnixBsdAppleGetdate(const char* datestr) {
     typedef void* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -863,7 +863,7 @@ void* libc_unix_bsd_apple_getdate(const char* datestr) {
     return NULL;
 }
 
-char* libc_unix_bsd_apple_strptime(const char* buf, const char* format, void* timeptr) {
+char* libcUnixBsdAppleStrptime(const char* buf, const char* format, void* timeptr) {
     typedef char* (*km_fn_t)(const char*, const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -891,7 +891,7 @@ char* libc_unix_bsd_apple_strptime(const char* buf, const char* format, void* ti
     return NULL;
 }
 
-char* libc_unix_bsd_apple_asctimeR(void* tm, char* result) {
+char* libcUnixBsdAppleAsctimeR(void* tm, char* result) {
     typedef char* (*km_fn_t)(void*, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -919,7 +919,7 @@ char* libc_unix_bsd_apple_asctimeR(void* tm, char* result) {
     return NULL;
 }
 
-char* libc_unix_bsd_apple_ctimeR(void* clock, char* result) {
+char* libcUnixBsdAppleCtimeR(void* clock, char* result) {
     typedef char* (*km_fn_t)(void*, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -947,7 +947,7 @@ char* libc_unix_bsd_apple_ctimeR(void* clock, char* result) {
     return NULL;
 }
 
-int32_t libc_unix_bsd_apple_getnameinfo(void* sa, uint32_t salen, char* host, uint32_t hostlen, char* serv, uint32_t servlen, int32_t flags) {
+int32_t libcUnixBsdAppleGetnameinfo(void* sa, uint32_t salen, char* host, uint32_t hostlen, char* serv, uint32_t servlen, int32_t flags) {
     typedef int32_t (*km_fn_t)(void*, uint32_t, char*, uint32_t, char*, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -975,7 +975,7 @@ int32_t libc_unix_bsd_apple_getnameinfo(void* sa, uint32_t salen, char* host, ui
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_mincore(void* addr, uint64_t len, char* vec) {
+int32_t libcUnixBsdAppleMincore(void* addr, uint64_t len, char* vec) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1003,7 +1003,7 @@ int32_t libc_unix_bsd_apple_mincore(void* addr, uint64_t len, char* vec) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_sysctlnametomib(const char* name, void* mibp, void* sizep) {
+int32_t libcUnixBsdAppleSysctlnametomib(const char* name, void* mibp, void* sizep) {
     typedef int32_t (*km_fn_t)(const char*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1031,7 +1031,7 @@ int32_t libc_unix_bsd_apple_sysctlnametomib(const char* name, void* mibp, void* 
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_mprotect(void* addr, uint64_t len, int32_t prot) {
+int32_t libcUnixBsdAppleMprotect(void* addr, uint64_t len, int32_t prot) {
 #if !defined(_WIN32)
     return (int32_t)mprotect(addr, len, prot);
 #else
@@ -1043,7 +1043,7 @@ int32_t libc_unix_bsd_apple_mprotect(void* addr, uint64_t len, int32_t prot) {
 #endif
 }
 
-int32_t libc_unix_bsd_apple_semget(int32_t key, int32_t nsems, int32_t semflg) {
+int32_t libcUnixBsdAppleSemget(int32_t key, int32_t nsems, int32_t semflg) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1071,7 +1071,7 @@ int32_t libc_unix_bsd_apple_semget(int32_t key, int32_t nsems, int32_t semflg) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_semctl(int32_t semid, int32_t semnum, int32_t cmd, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcUnixBsdAppleSemctl(int32_t semid, int32_t semnum, int32_t cmd, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1105,7 +1105,7 @@ int32_t libc_unix_bsd_apple_semctl(int32_t semid, int32_t semnum, int32_t cmd, i
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_semop(int32_t semid, void* sops, uint64_t nsops) {
+int32_t libcUnixBsdAppleSemop(int32_t semid, void* sops, uint64_t nsops) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1133,7 +1133,7 @@ int32_t libc_unix_bsd_apple_semop(int32_t semid, void* sops, uint64_t nsops) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_shmOpen(const char* name, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcUnixBsdAppleShmOpen(const char* name, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(const char*, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1167,7 +1167,7 @@ int32_t libc_unix_bsd_apple_shmOpen(const char* name, int32_t oflag, int32_t km_
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_ftok(const char* pathname, int32_t proj_id) {
+int32_t libcUnixBsdAppleFtok(const char* pathname, int32_t projId) {
     typedef int32_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1189,13 +1189,13 @@ int32_t libc_unix_bsd_apple_ftok(const char* pathname, int32_t proj_id) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(pathname, proj_id);
+        return km_fn_ptr(pathname, projId);
     }
     errno = ENOSYS;
     return -1;
 }
 
-void* libc_unix_bsd_apple_shmat(int32_t shmid, void* shmaddr, int32_t shmflg) {
+void* libcUnixBsdAppleShmat(int32_t shmid, void* shmaddr, int32_t shmflg) {
     typedef void* (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1223,7 +1223,7 @@ void* libc_unix_bsd_apple_shmat(int32_t shmid, void* shmaddr, int32_t shmflg) {
     return NULL;
 }
 
-int32_t libc_unix_bsd_apple_shmdt(void* shmaddr) {
+int32_t libcUnixBsdAppleShmdt(void* shmaddr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1251,7 +1251,7 @@ int32_t libc_unix_bsd_apple_shmdt(void* shmaddr) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_shmctl(int32_t shmid, int32_t cmd, void* buf) {
+int32_t libcUnixBsdAppleShmctl(int32_t shmid, int32_t cmd, void* buf) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1279,7 +1279,7 @@ int32_t libc_unix_bsd_apple_shmctl(int32_t shmid, int32_t cmd, void* buf) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_shmget(int32_t key, uint64_t size, int32_t shmflg) {
+int32_t libcUnixBsdAppleShmget(int32_t key, uint64_t size, int32_t shmflg) {
     typedef int32_t (*km_fn_t)(int32_t, uint64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1307,7 +1307,7 @@ int32_t libc_unix_bsd_apple_shmget(int32_t key, uint64_t size, int32_t shmflg) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_sysctl(void* name, uint32_t namelen, void* oldp, void* oldlenp, void* newp, uint64_t newlen) {
+int32_t libcUnixBsdAppleSysctl(void* name, uint32_t namelen, void* oldp, void* oldlenp, void* newp, uint64_t newlen) {
     typedef int32_t (*km_fn_t)(void*, uint32_t, void*, void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1335,7 +1335,7 @@ int32_t libc_unix_bsd_apple_sysctl(void* name, uint32_t namelen, void* oldp, voi
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_sysctlbyname(const char* name, void* oldp, void* oldlenp, void* newp, uint64_t newlen) {
+int32_t libcUnixBsdAppleSysctlbyname(const char* name, void* oldp, void* oldlenp, void* newp, uint64_t newlen) {
     typedef int32_t (*km_fn_t)(const char*, void*, void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1363,7 +1363,7 @@ int32_t libc_unix_bsd_apple_sysctlbyname(const char* name, void* oldp, void* old
     return -1;
 }
 
-uint64_t libc_unix_bsd_apple_machAbsoluteTime(void) {
+uint64_t libcUnixBsdAppleMachAbsoluteTime(void) {
     typedef uint64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1391,7 +1391,7 @@ uint64_t libc_unix_bsd_apple_machAbsoluteTime(void) {
     return 0;
 }
 
-int32_t libc_unix_bsd_apple_machTimebaseInfo(void* info) {
+int32_t libcUnixBsdAppleMachTimebaseInfo(void* info) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1419,7 +1419,7 @@ int32_t libc_unix_bsd_apple_machTimebaseInfo(void* info) {
     return -1;
 }
 
-uint32_t libc_unix_bsd_apple_machHostSelf(void) {
+uint32_t libcUnixBsdAppleMachHostSelf(void) {
     typedef uint32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1447,7 +1447,7 @@ uint32_t libc_unix_bsd_apple_machHostSelf(void) {
     return 0;
 }
 
-uint32_t libc_unix_bsd_apple_machThreadSelf(void) {
+uint32_t libcUnixBsdAppleMachThreadSelf(void) {
     typedef uint32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1475,7 +1475,7 @@ uint32_t libc_unix_bsd_apple_machThreadSelf(void) {
     return 0;
 }
 
-int32_t libc_unix_bsd_apple_pthreadCondTimedwaitRelativeNp(void* cond, void* lock, void* timeout) {
+int32_t libcUnixBsdApplePthreadCondTimedwaitRelativeNp(void* cond, void* lock, void* timeout) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1503,7 +1503,7 @@ int32_t libc_unix_bsd_apple_pthreadCondTimedwaitRelativeNp(void* cond, void* loc
     return ENOSYS;
 }
 
-int32_t libc_unix_bsd_apple_pthreadAttrGetscope(void* attr, void* contentionscope) {
+int32_t libcUnixBsdApplePthreadAttrGetscope(void* attr, void* contentionscope) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1531,7 +1531,7 @@ int32_t libc_unix_bsd_apple_pthreadAttrGetscope(void* attr, void* contentionscop
     return ENOSYS;
 }
 
-int32_t libc_unix_bsd_apple_pthreadAttrGetstackaddr(void* attr, void* stackaddr) {
+int32_t libcUnixBsdApplePthreadAttrGetstackaddr(void* attr, void* stackaddr) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1559,7 +1559,7 @@ int32_t libc_unix_bsd_apple_pthreadAttrGetstackaddr(void* attr, void* stackaddr)
     return ENOSYS;
 }
 
-int32_t libc_unix_bsd_apple_pthreadAttrGetdetachstate(void* attr, void* detachstate) {
+int32_t libcUnixBsdApplePthreadAttrGetdetachstate(void* attr, void* detachstate) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1587,7 +1587,7 @@ int32_t libc_unix_bsd_apple_pthreadAttrGetdetachstate(void* attr, void* detachst
     return ENOSYS;
 }
 
-int32_t libc_unix_bsd_apple_pthreadAttrSetscope(void* attr, int32_t contentionscope) {
+int32_t libcUnixBsdApplePthreadAttrSetscope(void* attr, int32_t contentionscope) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1615,7 +1615,7 @@ int32_t libc_unix_bsd_apple_pthreadAttrSetscope(void* attr, int32_t contentionsc
     return ENOSYS;
 }
 
-int32_t libc_unix_bsd_apple_pthreadAttrSetstackaddr(void* attr, void* stackaddr) {
+int32_t libcUnixBsdApplePthreadAttrSetstackaddr(void* attr, void* stackaddr) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1643,7 +1643,7 @@ int32_t libc_unix_bsd_apple_pthreadAttrSetstackaddr(void* attr, void* stackaddr)
     return ENOSYS;
 }
 
-int32_t libc_unix_bsd_apple_pthreadSetnameNp(const char* name) {
+int32_t libcUnixBsdApplePthreadSetnameNp(const char* name) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1671,7 +1671,7 @@ int32_t libc_unix_bsd_apple_pthreadSetnameNp(const char* name) {
     return ENOSYS;
 }
 
-int32_t libc_unix_bsd_apple_pthreadGetnameNp(void* thread, char* name, uint64_t len) {
+int32_t libcUnixBsdApplePthreadGetnameNp(void* thread, char* name, uint64_t len) {
     typedef int32_t (*km_fn_t)(void*, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1699,7 +1699,7 @@ int32_t libc_unix_bsd_apple_pthreadGetnameNp(void* thread, char* name, uint64_t 
     return ENOSYS;
 }
 
-uint32_t libc_unix_bsd_apple_pthreadMachThreadNp(void* thread) {
+uint32_t libcUnixBsdApplePthreadMachThreadNp(void* thread) {
     typedef uint32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1727,7 +1727,7 @@ uint32_t libc_unix_bsd_apple_pthreadMachThreadNp(void* thread) {
     return 0;
 }
 
-void* libc_unix_bsd_apple_pthreadFromMachThreadNp(uint32_t port) {
+void* libcUnixBsdApplePthreadFromMachThreadNp(uint32_t port) {
     typedef void* (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1755,7 +1755,7 @@ void* libc_unix_bsd_apple_pthreadFromMachThreadNp(uint32_t port) {
     return NULL;
 }
 
-void* libc_unix_bsd_apple_pthreadGetStackaddrNp(void* thread) {
+void* libcUnixBsdApplePthreadGetStackaddrNp(void* thread) {
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1783,7 +1783,7 @@ void* libc_unix_bsd_apple_pthreadGetStackaddrNp(void* thread) {
     return NULL;
 }
 
-uint64_t libc_unix_bsd_apple_pthreadGetStacksizeNp(void* thread) {
+uint64_t libcUnixBsdApplePthreadGetStacksizeNp(void* thread) {
     typedef uint64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1811,7 +1811,7 @@ uint64_t libc_unix_bsd_apple_pthreadGetStacksizeNp(void* thread) {
     return 0;
 }
 
-int32_t libc_unix_bsd_apple_pthreadMainNp(void) {
+int32_t libcUnixBsdApplePthreadMainNp(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1839,7 +1839,7 @@ int32_t libc_unix_bsd_apple_pthreadMainNp(void) {
     return ENOSYS;
 }
 
-int32_t libc_unix_bsd_apple_pthreadThreadidNp(void* thread, void* thread_id) {
+int32_t libcUnixBsdApplePthreadThreadidNp(void* thread, void* threadId) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1861,13 +1861,13 @@ int32_t libc_unix_bsd_apple_pthreadThreadidNp(void* thread, void* thread_id) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(thread, thread_id);
+        return km_fn_ptr(thread, threadId);
     }
     errno = ENOSYS;
     return ENOSYS;
 }
 
-void libc_unix_bsd_apple_pthreadJitWriteProtectNp(int32_t enabled) {
+void libcUnixBsdApplePthreadJitWriteProtectNp(int32_t enabled) {
     typedef void (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1895,7 +1895,7 @@ void libc_unix_bsd_apple_pthreadJitWriteProtectNp(int32_t enabled) {
     errno = ENOSYS;
 }
 
-int32_t libc_unix_bsd_apple_pthreadJitWriteProtectSupportedNp(void) {
+int32_t libcUnixBsdApplePthreadJitWriteProtectSupportedNp(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1923,7 +1923,7 @@ int32_t libc_unix_bsd_apple_pthreadJitWriteProtectSupportedNp(void) {
     return ENOSYS;
 }
 
-int32_t libc_unix_bsd_apple_pthreadJitWriteWithCallbackNp(void* callback, void* ctx) {
+int32_t libcUnixBsdApplePthreadJitWriteWithCallbackNp(void* callback, void* ctx) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1951,7 +1951,7 @@ int32_t libc_unix_bsd_apple_pthreadJitWriteWithCallbackNp(void* callback, void* 
     return ENOSYS;
 }
 
-void libc_unix_bsd_apple_pthreadJitWriteFreezeCallbacksNp(void) {
+void libcUnixBsdApplePthreadJitWriteFreezeCallbacksNp(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1979,7 +1979,7 @@ void libc_unix_bsd_apple_pthreadJitWriteFreezeCallbacksNp(void) {
     errno = ENOSYS;
 }
 
-int32_t libc_unix_bsd_apple_pthreadCpuNumberNp(void* cpu_number_out) {
+int32_t libcUnixBsdApplePthreadCpuNumberNp(void* cpuNumberOut) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2001,13 +2001,13 @@ int32_t libc_unix_bsd_apple_pthreadCpuNumberNp(void* cpu_number_out) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(cpu_number_out);
+        return km_fn_ptr(cpuNumberOut);
     }
     errno = ENOSYS;
     return ENOSYS;
 }
 
-int32_t libc_unix_bsd_apple_osSyncWaitOnAddress(void* addr, uint64_t value, uint64_t size, uint32_t flags) {
+int32_t libcUnixBsdAppleOsSyncWaitOnAddress(void* addr, uint64_t value, uint64_t size, uint32_t flags) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, uint64_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2035,7 +2035,7 @@ int32_t libc_unix_bsd_apple_osSyncWaitOnAddress(void* addr, uint64_t value, uint
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_osSyncWaitOnAddressWithDeadline(void* addr, uint64_t value, uint64_t size, uint32_t flags, uint32_t clockid, uint64_t deadline) {
+int32_t libcUnixBsdAppleOsSyncWaitOnAddressWithDeadline(void* addr, uint64_t value, uint64_t size, uint32_t flags, uint32_t clockid, uint64_t deadline) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, uint64_t, uint32_t, uint32_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2063,7 +2063,7 @@ int32_t libc_unix_bsd_apple_osSyncWaitOnAddressWithDeadline(void* addr, uint64_t
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_osSyncWaitOnAddressWithTimeout(void* addr, uint64_t value, uint64_t size, uint32_t flags, uint32_t clockid, uint64_t timeout_ns) {
+int32_t libcUnixBsdAppleOsSyncWaitOnAddressWithTimeout(void* addr, uint64_t value, uint64_t size, uint32_t flags, uint32_t clockid, uint64_t timeoutNs) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, uint64_t, uint32_t, uint32_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2085,13 +2085,13 @@ int32_t libc_unix_bsd_apple_osSyncWaitOnAddressWithTimeout(void* addr, uint64_t 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(addr, value, size, flags, clockid, timeout_ns);
+        return km_fn_ptr(addr, value, size, flags, clockid, timeoutNs);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_osSyncWakeByAddressAny(void* addr, uint64_t size, uint32_t flags) {
+int32_t libcUnixBsdAppleOsSyncWakeByAddressAny(void* addr, uint64_t size, uint32_t flags) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2119,7 +2119,7 @@ int32_t libc_unix_bsd_apple_osSyncWakeByAddressAny(void* addr, uint64_t size, ui
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_osSyncWakeByAddressAll(void* addr, uint64_t size, uint32_t flags) {
+int32_t libcUnixBsdAppleOsSyncWakeByAddressAll(void* addr, uint64_t size, uint32_t flags) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2147,7 +2147,7 @@ int32_t libc_unix_bsd_apple_osSyncWakeByAddressAll(void* addr, uint64_t size, ui
     return -1;
 }
 
-void libc_unix_bsd_apple_osUnfairLockLock(void* lock) {
+void libcUnixBsdAppleOsUnfairLockLock(void* lock) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2175,7 +2175,7 @@ void libc_unix_bsd_apple_osUnfairLockLock(void* lock) {
     errno = ENOSYS;
 }
 
-bool libc_unix_bsd_apple_osUnfairLockTrylock(void* lock) {
+bool libcUnixBsdAppleOsUnfairLockTrylock(void* lock) {
     typedef bool (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2203,7 +2203,7 @@ bool libc_unix_bsd_apple_osUnfairLockTrylock(void* lock) {
     return false;
 }
 
-void libc_unix_bsd_apple_osUnfairLockUnlock(void* lock) {
+void libcUnixBsdAppleOsUnfairLockUnlock(void* lock) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2231,7 +2231,7 @@ void libc_unix_bsd_apple_osUnfairLockUnlock(void* lock) {
     errno = ENOSYS;
 }
 
-void libc_unix_bsd_apple_osUnfairLockAssertOwner(void* lock) {
+void libcUnixBsdAppleOsUnfairLockAssertOwner(void* lock) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2259,7 +2259,7 @@ void libc_unix_bsd_apple_osUnfairLockAssertOwner(void* lock) {
     errno = ENOSYS;
 }
 
-void libc_unix_bsd_apple_osUnfairLockAssertNotOwner(void* lock) {
+void libcUnixBsdAppleOsUnfairLockAssertNotOwner(void* lock) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2287,7 +2287,7 @@ void libc_unix_bsd_apple_osUnfairLockAssertNotOwner(void* lock) {
     errno = ENOSYS;
 }
 
-void* libc_unix_bsd_apple_osLogCreate(const char* subsystem, const char* category) {
+void* libcUnixBsdAppleOsLogCreate(const char* subsystem, const char* category) {
     typedef void* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2315,7 +2315,7 @@ void* libc_unix_bsd_apple_osLogCreate(const char* subsystem, const char* categor
     return NULL;
 }
 
-bool libc_unix_bsd_apple_osLogTypeEnabled(void* oslog, uint8_t tpe) {
+bool libcUnixBsdAppleOsLogTypeEnabled(void* oslog, uint8_t tpe) {
     typedef bool (*km_fn_t)(void*, uint8_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2343,7 +2343,7 @@ bool libc_unix_bsd_apple_osLogTypeEnabled(void* oslog, uint8_t tpe) {
     return false;
 }
 
-uint64_t libc_unix_bsd_apple_osSignpostIdMakeWithPointer(void* arg_0_log, void* ptr) {
+uint64_t libcUnixBsdAppleOsSignpostIdMakeWithPointer(void* arg0Log, void* ptr) {
     typedef uint64_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2365,13 +2365,13 @@ uint64_t libc_unix_bsd_apple_osSignpostIdMakeWithPointer(void* arg_0_log, void* 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_log, ptr);
+        return km_fn_ptr(arg0Log, ptr);
     }
     errno = ENOSYS;
     return 0;
 }
 
-uint64_t libc_unix_bsd_apple_osSignpostIdGenerate(void* arg_0_log) {
+uint64_t libcUnixBsdAppleOsSignpostIdGenerate(void* arg0Log) {
     typedef uint64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2393,13 +2393,13 @@ uint64_t libc_unix_bsd_apple_osSignpostIdGenerate(void* arg_0_log) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_log);
+        return km_fn_ptr(arg0Log);
     }
     errno = ENOSYS;
     return 0;
 }
 
-bool libc_unix_bsd_apple_osSignpostEnabled(void* arg_0_log) {
+bool libcUnixBsdAppleOsSignpostEnabled(void* arg0Log) {
     typedef bool (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2421,13 +2421,13 @@ bool libc_unix_bsd_apple_osSignpostEnabled(void* arg_0_log) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_log);
+        return km_fn_ptr(arg0Log);
     }
     errno = ENOSYS;
     return false;
 }
 
-int32_t libc_unix_bsd_apple_threadPolicySet(void* thread, uint32_t flavor, void* policy_info, uint32_t count) {
+int32_t libcUnixBsdAppleThreadPolicySet(void* thread, uint32_t flavor, void* policyInfo, uint32_t count) {
     typedef int32_t (*km_fn_t)(void*, uint32_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2449,13 +2449,13 @@ int32_t libc_unix_bsd_apple_threadPolicySet(void* thread, uint32_t flavor, void*
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(thread, flavor, policy_info, count);
+        return km_fn_ptr(thread, flavor, policyInfo, count);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_threadPolicyGet(void* thread, uint32_t flavor, void* policy_info, void* count, void* get_default) {
+int32_t libcUnixBsdAppleThreadPolicyGet(void* thread, uint32_t flavor, void* policyInfo, void* count, void* getDefault) {
     typedef int32_t (*km_fn_t)(void*, uint32_t, void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2477,13 +2477,13 @@ int32_t libc_unix_bsd_apple_threadPolicyGet(void* thread, uint32_t flavor, void*
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(thread, flavor, policy_info, count, get_default);
+        return km_fn_ptr(thread, flavor, policyInfo, count, getDefault);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_threadInfo(uint32_t target_act, uint32_t flavor, void* thread_info_out, void* thread_info_outCnt) {
+int32_t libcUnixBsdAppleThreadInfo(uint32_t targetAct, uint32_t flavor, void* threadInfoOut, void* threadInfoOutCnt) {
     typedef int32_t (*km_fn_t)(uint32_t, uint32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2505,13 +2505,13 @@ int32_t libc_unix_bsd_apple_threadInfo(uint32_t target_act, uint32_t flavor, voi
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(target_act, flavor, thread_info_out, thread_info_outCnt);
+        return km_fn_ptr(targetAct, flavor, threadInfoOut, threadInfoOutCnt);
     }
     errno = ENOSYS;
     return -1;
 }
 
-void* libc_unix_bsd_apple_error(void) {
+void* libcUnixBsdAppleError(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2537,7 +2537,7 @@ void* libc_unix_bsd_apple_error(void) {
     return NULL;
 }
 
-int32_t libc_unix_bsd_apple_backtrace(void* buf, int32_t sz) {
+int32_t libcUnixBsdAppleBacktrace(void* buf, int32_t sz) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2565,7 +2565,7 @@ int32_t libc_unix_bsd_apple_backtrace(void* buf, int32_t sz) {
     return -1;
 }
 
-void* libc_unix_bsd_apple_backtraceSymbols(void* addrs, int32_t sz) {
+void* libcUnixBsdAppleBacktraceSymbols(void* addrs, int32_t sz) {
     typedef void* (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2593,7 +2593,7 @@ void* libc_unix_bsd_apple_backtraceSymbols(void* addrs, int32_t sz) {
     return NULL;
 }
 
-void libc_unix_bsd_apple_backtraceSymbolsFd(void* addrs, int32_t sz, int32_t fd) {
+void libcUnixBsdAppleBacktraceSymbolsFd(void* addrs, int32_t sz, int32_t fd) {
     typedef void (*km_fn_t)(void*, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2621,7 +2621,7 @@ void libc_unix_bsd_apple_backtraceSymbolsFd(void* addrs, int32_t sz, int32_t fd)
     errno = ENOSYS;
 }
 
-int32_t libc_unix_bsd_apple_backtraceFromFp(void* startfp, void* array, int32_t size) {
+int32_t libcUnixBsdAppleBacktraceFromFp(void* startfp, void* array, int32_t size) {
     typedef int32_t (*km_fn_t)(void*, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2649,7 +2649,7 @@ int32_t libc_unix_bsd_apple_backtraceFromFp(void* startfp, void* array, int32_t 
     return -1;
 }
 
-void libc_unix_bsd_apple_backtraceImageOffsets(void* array, void* image_offsets, int32_t size) {
+void libcUnixBsdAppleBacktraceImageOffsets(void* array, void* imageOffsets, int32_t size) {
     typedef void (*km_fn_t)(void*, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2671,13 +2671,13 @@ void libc_unix_bsd_apple_backtraceImageOffsets(void* array, void* image_offsets,
     }
 #endif
     if (km_fn_ptr != NULL) {
-        km_fn_ptr(array, image_offsets, size);
+        km_fn_ptr(array, imageOffsets, size);
         return;
     }
     errno = ENOSYS;
 }
 
-uint64_t libc_unix_bsd_apple_backtraceAsync(void* array, uint64_t length, void* task_id) {
+uint64_t libcUnixBsdAppleBacktraceAsync(void* array, uint64_t length, void* taskId) {
     typedef uint64_t (*km_fn_t)(void*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2699,13 +2699,13 @@ uint64_t libc_unix_bsd_apple_backtraceAsync(void* array, uint64_t length, void* 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(array, length, task_id);
+        return km_fn_ptr(array, length, taskId);
     }
     errno = ENOSYS;
     return 0;
 }
 
-int32_t libc_unix_bsd_apple_statfs(const char* path, void* buf) {
+int32_t libcUnixBsdAppleStatfs(const char* path, void* buf) {
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2733,7 +2733,7 @@ int32_t libc_unix_bsd_apple_statfs(const char* path, void* buf) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_fstatfs(int32_t fd, void* buf) {
+int32_t libcUnixBsdAppleFstatfs(int32_t fd, void* buf) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2761,7 +2761,7 @@ int32_t libc_unix_bsd_apple_fstatfs(int32_t fd, void* buf) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_kevent(int32_t kq, void* changelist, int32_t nchanges, void* eventlist, int32_t nevents, void* timeout) {
+int32_t libcUnixBsdAppleKevent(int32_t kq, void* changelist, int32_t nchanges, void* eventlist, int32_t nevents, void* timeout) {
 #if defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__)
     return (int32_t)kevent(kq, changelist, nchanges, eventlist, nevents, timeout);
 #else
@@ -2776,7 +2776,7 @@ int32_t libc_unix_bsd_apple_kevent(int32_t kq, void* changelist, int32_t nchange
 #endif
 }
 
-int32_t libc_unix_bsd_apple_kevent64(int32_t kq, void* changelist, int32_t nchanges, void* eventlist, int32_t nevents, uint32_t flags, void* timeout) {
+int32_t libcUnixBsdAppleKevent64(int32_t kq, void* changelist, int32_t nchanges, void* eventlist, int32_t nevents, uint32_t flags, void* timeout) {
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t, void*, int32_t, uint32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2809,7 +2809,7 @@ int32_t libc_unix_bsd_apple_kevent64(int32_t kq, void* changelist, int32_t nchan
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_mount(const char* src, const char* target, int32_t flags, void* data) {
+int32_t libcUnixBsdAppleMount(const char* src, const char* target, int32_t flags, void* data) {
     typedef int32_t (*km_fn_t)(const char*, const char*, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2837,7 +2837,7 @@ int32_t libc_unix_bsd_apple_mount(const char* src, const char* target, int32_t f
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_fmount(const char* src, int32_t fd, int32_t flags, void* data) {
+int32_t libcUnixBsdAppleFmount(const char* src, int32_t fd, int32_t flags, void* data) {
     typedef int32_t (*km_fn_t)(const char*, int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2865,7 +2865,7 @@ int32_t libc_unix_bsd_apple_fmount(const char* src, int32_t fd, int32_t flags, v
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_ptrace(int32_t request, int32_t pid, char* addr, int32_t data) {
+int32_t libcUnixBsdApplePtrace(int32_t request, int32_t pid, char* addr, int32_t data) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2893,7 +2893,7 @@ int32_t libc_unix_bsd_apple_ptrace(int32_t request, int32_t pid, char* addr, int
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_quotactl(const char* special, int32_t cmd, int32_t id, char* data) {
+int32_t libcUnixBsdAppleQuotactl(const char* special, int32_t cmd, int32_t id, char* data) {
     typedef int32_t (*km_fn_t)(const char*, int32_t, int32_t, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2921,7 +2921,7 @@ int32_t libc_unix_bsd_apple_quotactl(const char* special, int32_t cmd, int32_t i
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_sethostname(const char* name, int32_t len) {
+int32_t libcUnixBsdAppleSethostname(const char* name, int32_t len) {
     typedef int32_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2949,7 +2949,7 @@ int32_t libc_unix_bsd_apple_sethostname(const char* name, int32_t len) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_sendfile(int32_t fd, int32_t s, int64_t offset, void* len, void* hdtr, int32_t flags) {
+int32_t libcUnixBsdAppleSendfile(int32_t fd, int32_t s, int64_t offset, void* len, void* hdtr, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int64_t, void*, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2977,7 +2977,7 @@ int32_t libc_unix_bsd_apple_sendfile(int32_t fd, int32_t s, int64_t offset, void
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_futimens(int32_t fd, void* times) {
+int32_t libcUnixBsdAppleFutimens(int32_t fd, void* times) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3005,7 +3005,7 @@ int32_t libc_unix_bsd_apple_futimens(int32_t fd, void* times) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_utimensat(int32_t dirfd, const char* path, void* times, int32_t flag) {
+int32_t libcUnixBsdAppleUtimensat(int32_t dirfd, const char* path, void* times, int32_t flag) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3033,7 +3033,7 @@ int32_t libc_unix_bsd_apple_utimensat(int32_t dirfd, const char* path, void* tim
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_openpty(void* amaster, void* aslave, char* name, void* termp, void* winp) {
+int32_t libcUnixBsdAppleOpenpty(void* amaster, void* aslave, char* name, void* termp, void* winp) {
     typedef int32_t (*km_fn_t)(void*, void*, char*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3061,7 +3061,7 @@ int32_t libc_unix_bsd_apple_openpty(void* amaster, void* aslave, char* name, voi
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_forkpty(void* amaster, char* name, void* termp, void* winp) {
+int32_t libcUnixBsdAppleForkpty(void* amaster, char* name, void* termp, void* winp) {
     typedef int32_t (*km_fn_t)(void*, char*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3089,7 +3089,7 @@ int32_t libc_unix_bsd_apple_forkpty(void* amaster, char* name, void* termp, void
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_loginTty(int32_t fd) {
+int32_t libcUnixBsdAppleLoginTty(int32_t fd) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3117,7 +3117,7 @@ int32_t libc_unix_bsd_apple_loginTty(int32_t fd) {
     return -1;
 }
 
-void* libc_unix_bsd_apple_duplocale(void* base) {
+void* libcUnixBsdAppleDuplocale(void* base) {
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3145,7 +3145,7 @@ void* libc_unix_bsd_apple_duplocale(void* base) {
     return NULL;
 }
 
-int32_t libc_unix_bsd_apple_freelocale(void* loc) {
+int32_t libcUnixBsdAppleFreelocale(void* loc) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3173,7 +3173,7 @@ int32_t libc_unix_bsd_apple_freelocale(void* loc) {
     return -1;
 }
 
-void* libc_unix_bsd_apple_localeconvL(void* loc) {
+void* libcUnixBsdAppleLocaleconvL(void* loc) {
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3201,7 +3201,7 @@ void* libc_unix_bsd_apple_localeconvL(void* loc) {
     return NULL;
 }
 
-void* libc_unix_bsd_apple_newlocale(int32_t mask, const char* locale, void* base) {
+void* libcUnixBsdAppleNewlocale(int32_t mask, const char* locale, void* base) {
     typedef void* (*km_fn_t)(int32_t, const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3229,7 +3229,7 @@ void* libc_unix_bsd_apple_newlocale(int32_t mask, const char* locale, void* base
     return NULL;
 }
 
-void* libc_unix_bsd_apple_uselocale(void* loc) {
+void* libcUnixBsdAppleUselocale(void* loc) {
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3257,7 +3257,7 @@ void* libc_unix_bsd_apple_uselocale(void* loc) {
     return NULL;
 }
 
-const char* libc_unix_bsd_apple_querylocale(int32_t mask, void* loc) {
+const char* libcUnixBsdAppleQuerylocale(int32_t mask, void* loc) {
     typedef const char* (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3285,7 +3285,7 @@ const char* libc_unix_bsd_apple_querylocale(int32_t mask, void* loc) {
     return NULL;
 }
 
-int32_t libc_unix_bsd_apple_getpriority(int32_t which, uint32_t who) {
+int32_t libcUnixBsdAppleGetpriority(int32_t which, uint32_t who) {
     typedef int32_t (*km_fn_t)(int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3313,7 +3313,7 @@ int32_t libc_unix_bsd_apple_getpriority(int32_t which, uint32_t who) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_setpriority(int32_t which, uint32_t who, int32_t prio) {
+int32_t libcUnixBsdAppleSetpriority(int32_t which, uint32_t who, int32_t prio) {
     typedef int32_t (*km_fn_t)(int32_t, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3341,7 +3341,7 @@ int32_t libc_unix_bsd_apple_setpriority(int32_t which, uint32_t who, int32_t pri
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_getdomainname(char* name, int32_t len) {
+int32_t libcUnixBsdAppleGetdomainname(char* name, int32_t len) {
     typedef int32_t (*km_fn_t)(char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3369,7 +3369,7 @@ int32_t libc_unix_bsd_apple_getdomainname(char* name, int32_t len) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_setdomainname(const char* name, int32_t len) {
+int32_t libcUnixBsdAppleSetdomainname(const char* name, int32_t len) {
     typedef int32_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3397,7 +3397,7 @@ int32_t libc_unix_bsd_apple_setdomainname(const char* name, int32_t len) {
     return -1;
 }
 
-int64_t libc_unix_bsd_apple_preadv(int32_t fd, void* iov, int32_t iovcnt, int64_t offset) {
+int64_t libcUnixBsdApplePreadv(int32_t fd, void* iov, int32_t iovcnt, int64_t offset) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3425,7 +3425,7 @@ int64_t libc_unix_bsd_apple_preadv(int32_t fd, void* iov, int32_t iovcnt, int64_
     return -1;
 }
 
-int64_t libc_unix_bsd_apple_pwritev(int32_t fd, void* iov, int32_t iovcnt, int64_t offset) {
+int64_t libcUnixBsdApplePwritev(int32_t fd, void* iov, int32_t iovcnt, int64_t offset) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3453,7 +3453,7 @@ int64_t libc_unix_bsd_apple_pwritev(int32_t fd, void* iov, int32_t iovcnt, int64
     return -1;
 }
 
-int64_t libc_unix_bsd_apple_getxattr(const char* path, const char* name, void* value, uint64_t size, uint32_t position, int32_t flags) {
+int64_t libcUnixBsdAppleGetxattr(const char* path, const char* name, void* value, uint64_t size, uint32_t position, int32_t flags) {
     typedef int64_t (*km_fn_t)(const char*, const char*, void*, uint64_t, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3481,7 +3481,7 @@ int64_t libc_unix_bsd_apple_getxattr(const char* path, const char* name, void* v
     return -1;
 }
 
-int64_t libc_unix_bsd_apple_fgetxattr(int32_t filedes, const char* name, void* value, uint64_t size, uint32_t position, int32_t flags) {
+int64_t libcUnixBsdAppleFgetxattr(int32_t filedes, const char* name, void* value, uint64_t size, uint32_t position, int32_t flags) {
     typedef int64_t (*km_fn_t)(int32_t, const char*, void*, uint64_t, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3509,7 +3509,7 @@ int64_t libc_unix_bsd_apple_fgetxattr(int32_t filedes, const char* name, void* v
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_setxattr(const char* path, const char* name, void* value, uint64_t size, uint32_t position, int32_t flags) {
+int32_t libcUnixBsdAppleSetxattr(const char* path, const char* name, void* value, uint64_t size, uint32_t position, int32_t flags) {
     typedef int32_t (*km_fn_t)(const char*, const char*, void*, uint64_t, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3537,7 +3537,7 @@ int32_t libc_unix_bsd_apple_setxattr(const char* path, const char* name, void* v
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_fsetxattr(int32_t filedes, const char* name, void* value, uint64_t size, uint32_t position, int32_t flags) {
+int32_t libcUnixBsdAppleFsetxattr(int32_t filedes, const char* name, void* value, uint64_t size, uint32_t position, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, void*, uint64_t, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3565,7 +3565,7 @@ int32_t libc_unix_bsd_apple_fsetxattr(int32_t filedes, const char* name, void* v
     return -1;
 }
 
-int64_t libc_unix_bsd_apple_listxattr(const char* path, char* list, uint64_t size, int32_t flags) {
+int64_t libcUnixBsdAppleListxattr(const char* path, char* list, uint64_t size, int32_t flags) {
     typedef int64_t (*km_fn_t)(const char*, char*, uint64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3593,7 +3593,7 @@ int64_t libc_unix_bsd_apple_listxattr(const char* path, char* list, uint64_t siz
     return -1;
 }
 
-int64_t libc_unix_bsd_apple_flistxattr(int32_t filedes, char* list, uint64_t size, int32_t flags) {
+int64_t libcUnixBsdAppleFlistxattr(int32_t filedes, char* list, uint64_t size, int32_t flags) {
     typedef int64_t (*km_fn_t)(int32_t, char*, uint64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3621,7 +3621,7 @@ int64_t libc_unix_bsd_apple_flistxattr(int32_t filedes, char* list, uint64_t siz
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_removexattr(const char* path, const char* name, int32_t flags) {
+int32_t libcUnixBsdAppleRemovexattr(const char* path, const char* name, int32_t flags) {
     typedef int32_t (*km_fn_t)(const char*, const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3649,7 +3649,7 @@ int32_t libc_unix_bsd_apple_removexattr(const char* path, const char* name, int3
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_renamexNp(const char* from, const char* to, uint32_t flags) {
+int32_t libcUnixBsdAppleRenamexNp(const char* from, const char* to, uint32_t flags) {
     typedef int32_t (*km_fn_t)(const char*, const char*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3677,7 +3677,7 @@ int32_t libc_unix_bsd_apple_renamexNp(const char* from, const char* to, uint32_t
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_renameatxNp(int32_t fromfd, const char* from, int32_t tofd, const char* to, uint32_t flags) {
+int32_t libcUnixBsdAppleRenameatxNp(int32_t fromfd, const char* from, int32_t tofd, const char* to, uint32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, const char*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3705,7 +3705,7 @@ int32_t libc_unix_bsd_apple_renameatxNp(int32_t fromfd, const char* from, int32_
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_fremovexattr(int32_t filedes, const char* name, int32_t flags) {
+int32_t libcUnixBsdAppleFremovexattr(int32_t filedes, const char* name, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3733,7 +3733,7 @@ int32_t libc_unix_bsd_apple_fremovexattr(int32_t filedes, const char* name, int3
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_getgrouplist(const char* name, int32_t basegid, void* groups, void* ngroups) {
+int32_t libcUnixBsdAppleGetgrouplist(const char* name, int32_t basegid, void* groups, void* ngroups) {
     typedef int32_t (*km_fn_t)(const char*, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3761,7 +3761,7 @@ int32_t libc_unix_bsd_apple_getgrouplist(const char* name, int32_t basegid, void
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_initgroups(const char* user, int32_t basegroup) {
+int32_t libcUnixBsdAppleInitgroups(const char* user, int32_t basegroup) {
     typedef int32_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3789,7 +3789,7 @@ int32_t libc_unix_bsd_apple_initgroups(const char* user, int32_t basegroup) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_waitid(uint32_t idtype, uint32_t id, void* infop, int32_t options) {
+int32_t libcUnixBsdAppleWaitid(uint32_t idtype, uint32_t id, void* infop, int32_t options) {
     typedef int32_t (*km_fn_t)(uint32_t, uint32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3817,7 +3817,7 @@ int32_t libc_unix_bsd_apple_waitid(uint32_t idtype, uint32_t id, void* infop, in
     return -1;
 }
 
-void* libc_unix_bsd_apple_brk(void* addr) {
+void* libcUnixBsdAppleBrk(void* addr) {
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3845,7 +3845,7 @@ void* libc_unix_bsd_apple_brk(void* addr) {
     return NULL;
 }
 
-void* libc_unix_bsd_apple_sbrk(int32_t increment) {
+void* libcUnixBsdAppleSbrk(int32_t increment) {
     typedef void* (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3873,7 +3873,7 @@ void* libc_unix_bsd_apple_sbrk(int32_t increment) {
     return NULL;
 }
 
-int32_t libc_unix_bsd_apple_settimeofday(void* tv, void* tz) {
+int32_t libcUnixBsdAppleSettimeofday(void* tv, void* tz) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3901,7 +3901,7 @@ int32_t libc_unix_bsd_apple_settimeofday(void* tv, void* tz) {
     return -1;
 }
 
-uint32_t libc_unix_bsd_apple_dyldImageCount(void) {
+uint32_t libcUnixBsdAppleDyldImageCount(void) {
     typedef uint32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3927,7 +3927,7 @@ uint32_t libc_unix_bsd_apple_dyldImageCount(void) {
     return 0;
 }
 
-void* libc_unix_bsd_apple_dyldGetImageHeader(uint32_t image_index) {
+void* libcUnixBsdAppleDyldGetImageHeader(uint32_t imageIndex) {
     typedef void* (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3947,13 +3947,13 @@ void* libc_unix_bsd_apple_dyldGetImageHeader(uint32_t image_index) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(image_index);
+        return km_fn_ptr(imageIndex);
     }
     errno = ENOSYS;
     return NULL;
 }
 
-int64_t libc_unix_bsd_apple_dyldGetImageVmaddrSlide(uint32_t image_index) {
+int64_t libcUnixBsdAppleDyldGetImageVmaddrSlide(uint32_t imageIndex) {
     typedef int64_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3973,13 +3973,13 @@ int64_t libc_unix_bsd_apple_dyldGetImageVmaddrSlide(uint32_t image_index) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(image_index);
+        return km_fn_ptr(imageIndex);
     }
     errno = ENOSYS;
     return -1;
 }
 
-const char* libc_unix_bsd_apple_dyldGetImageName(uint32_t image_index) {
+const char* libcUnixBsdAppleDyldGetImageName(uint32_t imageIndex) {
     typedef const char* (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3999,13 +3999,13 @@ const char* libc_unix_bsd_apple_dyldGetImageName(uint32_t image_index) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(image_index);
+        return km_fn_ptr(imageIndex);
     }
     errno = ENOSYS;
     return NULL;
 }
 
-int32_t libc_unix_bsd_apple_posixSpawn(void* pid, const char* path, void* file_actions, void* attrp, void* argv, void* envp) {
+int32_t libcUnixBsdApplePosixSpawn(void* pid, const char* path, void* fileActions, void* attrp, void* argv, void* envp) {
     typedef int32_t (*km_fn_t)(void*, const char*, void*, void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4027,13 +4027,13 @@ int32_t libc_unix_bsd_apple_posixSpawn(void* pid, const char* path, void* file_a
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(pid, path, file_actions, attrp, argv, envp);
+        return km_fn_ptr(pid, path, fileActions, attrp, argv, envp);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_posixSpawnp(void* pid, const char* file, void* file_actions, void* attrp, void* argv, void* envp) {
+int32_t libcUnixBsdApplePosixSpawnp(void* pid, const char* file, void* fileActions, void* attrp, void* argv, void* envp) {
     typedef int32_t (*km_fn_t)(void*, const char*, void*, void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4055,13 +4055,13 @@ int32_t libc_unix_bsd_apple_posixSpawnp(void* pid, const char* file, void* file_
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(pid, file, file_actions, attrp, argv, envp);
+        return km_fn_ptr(pid, file, fileActions, attrp, argv, envp);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_posixSpawnattrInit(void* attr) {
+int32_t libcUnixBsdApplePosixSpawnattrInit(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4089,7 +4089,7 @@ int32_t libc_unix_bsd_apple_posixSpawnattrInit(void* attr) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_posixSpawnattrDestroy(void* attr) {
+int32_t libcUnixBsdApplePosixSpawnattrDestroy(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4117,7 +4117,7 @@ int32_t libc_unix_bsd_apple_posixSpawnattrDestroy(void* attr) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_posixSpawnattrGetsigdefault(void* attr, void* arg_1_default) {
+int32_t libcUnixBsdApplePosixSpawnattrGetsigdefault(void* attr, void* arg1Default) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4139,13 +4139,13 @@ int32_t libc_unix_bsd_apple_posixSpawnattrGetsigdefault(void* attr, void* arg_1_
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(attr, arg_1_default);
+        return km_fn_ptr(attr, arg1Default);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_posixSpawnattrSetsigdefault(void* attr, void* arg_1_default) {
+int32_t libcUnixBsdApplePosixSpawnattrSetsigdefault(void* attr, void* arg1Default) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4167,13 +4167,13 @@ int32_t libc_unix_bsd_apple_posixSpawnattrSetsigdefault(void* attr, void* arg_1_
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(attr, arg_1_default);
+        return km_fn_ptr(attr, arg1Default);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_posixSpawnattrGetsigmask(void* attr, void* arg_1_default) {
+int32_t libcUnixBsdApplePosixSpawnattrGetsigmask(void* attr, void* arg1Default) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4195,13 +4195,13 @@ int32_t libc_unix_bsd_apple_posixSpawnattrGetsigmask(void* attr, void* arg_1_def
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(attr, arg_1_default);
+        return km_fn_ptr(attr, arg1Default);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_posixSpawnattrSetsigmask(void* attr, void* arg_1_default) {
+int32_t libcUnixBsdApplePosixSpawnattrSetsigmask(void* attr, void* arg1Default) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4223,13 +4223,13 @@ int32_t libc_unix_bsd_apple_posixSpawnattrSetsigmask(void* attr, void* arg_1_def
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(attr, arg_1_default);
+        return km_fn_ptr(attr, arg1Default);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_posixSpawnattrGetflags(void* attr, void* flags) {
+int32_t libcUnixBsdApplePosixSpawnattrGetflags(void* attr, void* flags) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4257,7 +4257,7 @@ int32_t libc_unix_bsd_apple_posixSpawnattrGetflags(void* attr, void* flags) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_posixSpawnattrSetflags(void* attr, int16_t flags) {
+int32_t libcUnixBsdApplePosixSpawnattrSetflags(void* attr, int16_t flags) {
     typedef int32_t (*km_fn_t)(void*, int16_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4285,7 +4285,7 @@ int32_t libc_unix_bsd_apple_posixSpawnattrSetflags(void* attr, int16_t flags) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_posixSpawnattrGetpgroup(void* attr, void* flags) {
+int32_t libcUnixBsdApplePosixSpawnattrGetpgroup(void* attr, void* flags) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4313,7 +4313,7 @@ int32_t libc_unix_bsd_apple_posixSpawnattrGetpgroup(void* attr, void* flags) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_posixSpawnattrSetpgroup(void* attr, int32_t flags) {
+int32_t libcUnixBsdApplePosixSpawnattrSetpgroup(void* attr, int32_t flags) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4341,7 +4341,7 @@ int32_t libc_unix_bsd_apple_posixSpawnattrSetpgroup(void* attr, int32_t flags) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_posixSpawnattrSetarchprefNp(void* attr, uint64_t count, void* pref, void* subpref, void* ocount) {
+int32_t libcUnixBsdApplePosixSpawnattrSetarchprefNp(void* attr, uint64_t count, void* pref, void* subpref, void* ocount) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4369,7 +4369,7 @@ int32_t libc_unix_bsd_apple_posixSpawnattrSetarchprefNp(void* attr, uint64_t cou
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_posixSpawnattrGetarchprefNp(void* attr, uint64_t count, void* pref, void* subpref, void* ocount) {
+int32_t libcUnixBsdApplePosixSpawnattrGetarchprefNp(void* attr, uint64_t count, void* pref, void* subpref, void* ocount) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4397,7 +4397,7 @@ int32_t libc_unix_bsd_apple_posixSpawnattrGetarchprefNp(void* attr, uint64_t cou
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_posixSpawnattrGetbinprefNp(void* attr, uint64_t count, void* pref, void* ocount) {
+int32_t libcUnixBsdApplePosixSpawnattrGetbinprefNp(void* attr, uint64_t count, void* pref, void* ocount) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4425,7 +4425,7 @@ int32_t libc_unix_bsd_apple_posixSpawnattrGetbinprefNp(void* attr, uint64_t coun
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_posixSpawnattrSetbinprefNp(void* attr, uint64_t count, void* pref, void* ocount) {
+int32_t libcUnixBsdApplePosixSpawnattrSetbinprefNp(void* attr, uint64_t count, void* pref, void* ocount) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4453,7 +4453,7 @@ int32_t libc_unix_bsd_apple_posixSpawnattrSetbinprefNp(void* attr, uint64_t coun
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_posixSpawnFileActionsInit(void* actions) {
+int32_t libcUnixBsdApplePosixSpawnFileActionsInit(void* actions) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4481,7 +4481,7 @@ int32_t libc_unix_bsd_apple_posixSpawnFileActionsInit(void* actions) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_posixSpawnFileActionsDestroy(void* actions) {
+int32_t libcUnixBsdApplePosixSpawnFileActionsDestroy(void* actions) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4509,7 +4509,7 @@ int32_t libc_unix_bsd_apple_posixSpawnFileActionsDestroy(void* actions) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_posixSpawnFileActionsAddopen(void* actions, int32_t fd, const char* path, int32_t oflag, uint16_t mode) {
+int32_t libcUnixBsdApplePosixSpawnFileActionsAddopen(void* actions, int32_t fd, const char* path, int32_t oflag, uint16_t mode) {
     typedef int32_t (*km_fn_t)(void*, int32_t, const char*, int32_t, uint16_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4537,7 +4537,7 @@ int32_t libc_unix_bsd_apple_posixSpawnFileActionsAddopen(void* actions, int32_t 
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_posixSpawnFileActionsAddclose(void* actions, int32_t fd) {
+int32_t libcUnixBsdApplePosixSpawnFileActionsAddclose(void* actions, int32_t fd) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4565,7 +4565,7 @@ int32_t libc_unix_bsd_apple_posixSpawnFileActionsAddclose(void* actions, int32_t
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_posixSpawnFileActionsAdddup2(void* actions, int32_t fd, int32_t newfd) {
+int32_t libcUnixBsdApplePosixSpawnFileActionsAdddup2(void* actions, int32_t fd, int32_t newfd) {
     typedef int32_t (*km_fn_t)(void*, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4593,7 +4593,7 @@ int32_t libc_unix_bsd_apple_posixSpawnFileActionsAdddup2(void* actions, int32_t 
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_uname(void* buf) {
+int32_t libcUnixBsdAppleUname(void* buf) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4621,7 +4621,7 @@ int32_t libc_unix_bsd_apple_uname(void* buf) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_connectx(int32_t arg_0_socket, void* endpoints, uint32_t associd, uint32_t flags, void* iov, uint32_t iovcnt, void* len, void* connid) {
+int32_t libcUnixBsdAppleConnectx(int32_t arg0Socket, void* endpoints, uint32_t associd, uint32_t flags, void* iov, uint32_t iovcnt, void* len, void* connid) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t, uint32_t, void*, uint32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4643,13 +4643,13 @@ int32_t libc_unix_bsd_apple_connectx(int32_t arg_0_socket, void* endpoints, uint
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_socket, endpoints, associd, flags, iov, iovcnt, len, connid);
+        return km_fn_ptr(arg0Socket, endpoints, associd, flags, iov, iovcnt, len, connid);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_disconnectx(int32_t arg_0_socket, uint32_t associd, uint32_t connid) {
+int32_t libcUnixBsdAppleDisconnectx(int32_t arg0Socket, uint32_t associd, uint32_t connid) {
     typedef int32_t (*km_fn_t)(int32_t, uint32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4671,13 +4671,13 @@ int32_t libc_unix_bsd_apple_disconnectx(int32_t arg_0_socket, uint32_t associd, 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_socket, associd, connid);
+        return km_fn_ptr(arg0Socket, associd, connid);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_ntpAdjtime(void* buf) {
+int32_t libcUnixBsdAppleNtpAdjtime(void* buf) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4705,7 +4705,7 @@ int32_t libc_unix_bsd_apple_ntpAdjtime(void* buf) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_ntpGettime(void* buf) {
+int32_t libcUnixBsdAppleNtpGettime(void* buf) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4733,7 +4733,7 @@ int32_t libc_unix_bsd_apple_ntpGettime(void* buf) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_getmntinfo(void* mntbufp, int32_t flags) {
+int32_t libcUnixBsdAppleGetmntinfo(void* mntbufp, int32_t flags) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4761,7 +4761,7 @@ int32_t libc_unix_bsd_apple_getmntinfo(void* mntbufp, int32_t flags) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_getfsstat(void* mntbufp, int32_t bufsize, int32_t flags) {
+int32_t libcUnixBsdAppleGetfsstat(void* mntbufp, int32_t bufsize, int32_t flags) {
     typedef int32_t (*km_fn_t)(void*, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4789,7 +4789,7 @@ int32_t libc_unix_bsd_apple_getfsstat(void* mntbufp, int32_t bufsize, int32_t fl
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_clonefile(const char* src, const char* dst, uint32_t flags) {
+int32_t libcUnixBsdAppleClonefile(const char* src, const char* dst, uint32_t flags) {
     typedef int32_t (*km_fn_t)(const char*, const char*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4817,7 +4817,7 @@ int32_t libc_unix_bsd_apple_clonefile(const char* src, const char* dst, uint32_t
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_clonefileat(int32_t src_dirfd, const char* src, int32_t dst_dirfd, const char* dst, uint32_t flags) {
+int32_t libcUnixBsdAppleClonefileat(int32_t srcDirfd, const char* src, int32_t dstDirfd, const char* dst, uint32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, const char*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4839,13 +4839,13 @@ int32_t libc_unix_bsd_apple_clonefileat(int32_t src_dirfd, const char* src, int3
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(src_dirfd, src, dst_dirfd, dst, flags);
+        return km_fn_ptr(srcDirfd, src, dstDirfd, dst, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_fclonefileat(int32_t srcfd, int32_t dst_dirfd, const char* dst, uint32_t flags) {
+int32_t libcUnixBsdAppleFclonefileat(int32_t srcfd, int32_t dstDirfd, const char* dst, uint32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, const char*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4867,13 +4867,13 @@ int32_t libc_unix_bsd_apple_fclonefileat(int32_t srcfd, int32_t dst_dirfd, const
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(srcfd, dst_dirfd, dst, flags);
+        return km_fn_ptr(srcfd, dstDirfd, dst, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_copyfile(const char* from, const char* to, void* state, uint32_t flags) {
+int32_t libcUnixBsdAppleCopyfile(const char* from, const char* to, void* state, uint32_t flags) {
     typedef int32_t (*km_fn_t)(const char*, const char*, void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4901,7 +4901,7 @@ int32_t libc_unix_bsd_apple_copyfile(const char* from, const char* to, void* sta
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_fcopyfile(int32_t from, int32_t to, void* state, uint32_t flags) {
+int32_t libcUnixBsdAppleFcopyfile(int32_t from, int32_t to, void* state, uint32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4929,7 +4929,7 @@ int32_t libc_unix_bsd_apple_fcopyfile(int32_t from, int32_t to, void* state, uin
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_copyfileStateFree(void* s) {
+int32_t libcUnixBsdAppleCopyfileStateFree(void* s) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4957,7 +4957,7 @@ int32_t libc_unix_bsd_apple_copyfileStateFree(void* s) {
     return -1;
 }
 
-void* libc_unix_bsd_apple_copyfileStateAlloc(void) {
+void* libcUnixBsdAppleCopyfileStateAlloc(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4985,7 +4985,7 @@ void* libc_unix_bsd_apple_copyfileStateAlloc(void) {
     return NULL;
 }
 
-int32_t libc_unix_bsd_apple_copyfileStateGet(void* s, uint32_t flags, void* dst) {
+int32_t libcUnixBsdAppleCopyfileStateGet(void* s, uint32_t flags, void* dst) {
     typedef int32_t (*km_fn_t)(void*, uint32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5013,7 +5013,7 @@ int32_t libc_unix_bsd_apple_copyfileStateGet(void* s, uint32_t flags, void* dst)
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_copyfileStateSet(void* s, uint32_t flags, void* src) {
+int32_t libcUnixBsdAppleCopyfileStateSet(void* s, uint32_t flags, void* src) {
     typedef int32_t (*km_fn_t)(void*, uint32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5041,7 +5041,7 @@ int32_t libc_unix_bsd_apple_copyfileStateSet(void* s, uint32_t flags, void* src)
     return -1;
 }
 
-char* libc_unix_bsd_apple_machErrorString(int32_t error_value) {
+char* libcUnixBsdAppleMachErrorString(int32_t errorValue) {
     typedef char* (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5063,13 +5063,13 @@ char* libc_unix_bsd_apple_machErrorString(int32_t error_value) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(error_value);
+        return km_fn_ptr(errorValue);
     }
     errno = ENOSYS;
     return NULL;
 }
 
-int32_t libc_unix_bsd_apple_memsetS(void* s, uint64_t smax, int32_t c, uint64_t n) {
+int32_t libcUnixBsdAppleMemsetS(void* s, uint64_t smax, int32_t c, uint64_t n) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, int32_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5097,7 +5097,7 @@ int32_t libc_unix_bsd_apple_memsetS(void* s, uint64_t smax, int32_t c, uint64_t 
     return -1;
 }
 
-void libc_unix_bsd_apple_memsetPattern4(void* b, void* pattern4, uint64_t len) {
+void libcUnixBsdAppleMemsetPattern4(void* b, void* pattern4, uint64_t len) {
     typedef void (*km_fn_t)(void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5125,7 +5125,7 @@ void libc_unix_bsd_apple_memsetPattern4(void* b, void* pattern4, uint64_t len) {
     errno = ENOSYS;
 }
 
-void libc_unix_bsd_apple_memsetPattern8(void* b, void* pattern8, uint64_t len) {
+void libcUnixBsdAppleMemsetPattern8(void* b, void* pattern8, uint64_t len) {
     typedef void (*km_fn_t)(void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5153,7 +5153,7 @@ void libc_unix_bsd_apple_memsetPattern8(void* b, void* pattern8, uint64_t len) {
     errno = ENOSYS;
 }
 
-void libc_unix_bsd_apple_memsetPattern16(void* b, void* pattern16, uint64_t len) {
+void libcUnixBsdAppleMemsetPattern16(void* b, void* pattern16, uint64_t len) {
     typedef void (*km_fn_t)(void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5181,7 +5181,7 @@ void libc_unix_bsd_apple_memsetPattern16(void* b, void* pattern16, uint64_t len)
     errno = ENOSYS;
 }
 
-int64_t libc_unix_bsd_apple_strtonum(const char* arg_0_numstr, int64_t arg_1_minval, int64_t arg_2_maxval, void* errstrp) {
+int64_t libcUnixBsdAppleStrtonum(const char* numstr, int64_t minval, int64_t maxval, void* errstrp) {
     typedef int64_t (*km_fn_t)(const char*, int64_t, int64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5203,13 +5203,13 @@ int64_t libc_unix_bsd_apple_strtonum(const char* arg_0_numstr, int64_t arg_1_min
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_numstr, arg_1_minval, arg_2_maxval, errstrp);
+        return km_fn_ptr(numstr, minval, maxval, errstrp);
     }
     errno = ENOSYS;
     return -1;
 }
 
-void libc_unix_bsd_apple_mallocPrintf(const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+void libcUnixBsdAppleMallocPrintf(const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef void (*km_fn_t)(const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5243,7 +5243,7 @@ void libc_unix_bsd_apple_mallocPrintf(const char* format, int32_t km_vac, int64_
     errno = ENOSYS;
 }
 
-int32_t libc_unix_bsd_apple_mallocZoneCheck(void* zone) {
+int32_t libcUnixBsdAppleMallocZoneCheck(void* zone) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5271,7 +5271,7 @@ int32_t libc_unix_bsd_apple_mallocZoneCheck(void* zone) {
     return -1;
 }
 
-void libc_unix_bsd_apple_mallocZonePrint(void* zone, int32_t verbose) {
+void libcUnixBsdAppleMallocZonePrint(void* zone, int32_t verbose) {
     typedef void (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5299,7 +5299,7 @@ void libc_unix_bsd_apple_mallocZonePrint(void* zone, int32_t verbose) {
     errno = ENOSYS;
 }
 
-void libc_unix_bsd_apple_mallocZoneStatistics(void* zone, void* stats) {
+void libcUnixBsdAppleMallocZoneStatistics(void* zone, void* stats) {
     typedef void (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5327,7 +5327,7 @@ void libc_unix_bsd_apple_mallocZoneStatistics(void* zone, void* stats) {
     errno = ENOSYS;
 }
 
-void libc_unix_bsd_apple_mallocZoneLog(void* zone, void* address) {
+void libcUnixBsdAppleMallocZoneLog(void* zone, void* address) {
     typedef void (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5355,7 +5355,7 @@ void libc_unix_bsd_apple_mallocZoneLog(void* zone, void* address) {
     errno = ENOSYS;
 }
 
-void libc_unix_bsd_apple_mallocZonePrintPtrInfo(void* ptr) {
+void libcUnixBsdAppleMallocZonePrintPtrInfo(void* ptr) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5383,7 +5383,7 @@ void libc_unix_bsd_apple_mallocZonePrintPtrInfo(void* ptr) {
     errno = ENOSYS;
 }
 
-void* libc_unix_bsd_apple_mallocDefaultZone(void) {
+void* libcUnixBsdAppleMallocDefaultZone(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5411,7 +5411,7 @@ void* libc_unix_bsd_apple_mallocDefaultZone(void) {
     return NULL;
 }
 
-void* libc_unix_bsd_apple_mallocZoneFromPtr(void* ptr) {
+void* libcUnixBsdAppleMallocZoneFromPtr(void* ptr) {
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5439,7 +5439,7 @@ void* libc_unix_bsd_apple_mallocZoneFromPtr(void* ptr) {
     return NULL;
 }
 
-void* libc_unix_bsd_apple_mallocZoneMalloc(void* zone, uint64_t size) {
+void* libcUnixBsdAppleMallocZoneMalloc(void* zone, uint64_t size) {
     typedef void* (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5467,7 +5467,7 @@ void* libc_unix_bsd_apple_mallocZoneMalloc(void* zone, uint64_t size) {
     return NULL;
 }
 
-void* libc_unix_bsd_apple_mallocZoneValloc(void* zone, uint64_t size) {
+void* libcUnixBsdAppleMallocZoneValloc(void* zone, uint64_t size) {
     typedef void* (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5495,7 +5495,7 @@ void* libc_unix_bsd_apple_mallocZoneValloc(void* zone, uint64_t size) {
     return NULL;
 }
 
-void* libc_unix_bsd_apple_mallocZoneCalloc(void* zone, uint64_t num_items, uint64_t size) {
+void* libcUnixBsdAppleMallocZoneCalloc(void* zone, uint64_t numItems, uint64_t size) {
     typedef void* (*km_fn_t)(void*, uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5517,13 +5517,13 @@ void* libc_unix_bsd_apple_mallocZoneCalloc(void* zone, uint64_t num_items, uint6
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(zone, num_items, size);
+        return km_fn_ptr(zone, numItems, size);
     }
     errno = ENOSYS;
     return NULL;
 }
 
-void* libc_unix_bsd_apple_mallocZoneRealloc(void* zone, void* ptr, uint64_t size) {
+void* libcUnixBsdAppleMallocZoneRealloc(void* zone, void* ptr, uint64_t size) {
     typedef void* (*km_fn_t)(void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5551,7 +5551,7 @@ void* libc_unix_bsd_apple_mallocZoneRealloc(void* zone, void* ptr, uint64_t size
     return NULL;
 }
 
-void libc_unix_bsd_apple_mallocZoneFree(void* zone, void* ptr) {
+void libcUnixBsdAppleMallocZoneFree(void* zone, void* ptr) {
     typedef void (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5579,7 +5579,7 @@ void libc_unix_bsd_apple_mallocZoneFree(void* zone, void* ptr) {
     errno = ENOSYS;
 }
 
-int32_t libc_unix_bsd_apple_procListpids(uint32_t t, uint32_t typeinfo, void* buffer, int32_t buffersize) {
+int32_t libcUnixBsdAppleProcListpids(uint32_t t, uint32_t typeinfo, void* buffer, int32_t buffersize) {
     typedef int32_t (*km_fn_t)(uint32_t, uint32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5607,7 +5607,7 @@ int32_t libc_unix_bsd_apple_procListpids(uint32_t t, uint32_t typeinfo, void* bu
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_procListallpids(void* buffer, int32_t buffersize) {
+int32_t libcUnixBsdAppleProcListallpids(void* buffer, int32_t buffersize) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5635,7 +5635,7 @@ int32_t libc_unix_bsd_apple_procListallpids(void* buffer, int32_t buffersize) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_procListpgrppids(int32_t pgrpid, void* buffer, int32_t buffersize) {
+int32_t libcUnixBsdAppleProcListpgrppids(int32_t pgrpid, void* buffer, int32_t buffersize) {
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5663,7 +5663,7 @@ int32_t libc_unix_bsd_apple_procListpgrppids(int32_t pgrpid, void* buffer, int32
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_procListchildpids(int32_t ppid, void* buffer, int32_t buffersize) {
+int32_t libcUnixBsdAppleProcListchildpids(int32_t ppid, void* buffer, int32_t buffersize) {
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5691,7 +5691,7 @@ int32_t libc_unix_bsd_apple_procListchildpids(int32_t ppid, void* buffer, int32_
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_procPidinfo(int32_t pid, int32_t flavor, uint64_t arg, void* buffer, int32_t buffersize) {
+int32_t libcUnixBsdAppleProcPidinfo(int32_t pid, int32_t flavor, uint64_t arg, void* buffer, int32_t buffersize) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, uint64_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5719,7 +5719,7 @@ int32_t libc_unix_bsd_apple_procPidinfo(int32_t pid, int32_t flavor, uint64_t ar
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_procPidfdinfo(int32_t pid, int32_t fd, int32_t flavor, void* buffer, int32_t buffersize) {
+int32_t libcUnixBsdAppleProcPidfdinfo(int32_t pid, int32_t fd, int32_t flavor, void* buffer, int32_t buffersize) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5747,7 +5747,7 @@ int32_t libc_unix_bsd_apple_procPidfdinfo(int32_t pid, int32_t fd, int32_t flavo
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_procPidfileportinfo(int32_t pid, uint32_t fileport, int32_t flavor, void* buffer, int32_t buffersize) {
+int32_t libcUnixBsdAppleProcPidfileportinfo(int32_t pid, uint32_t fileport, int32_t flavor, void* buffer, int32_t buffersize) {
     typedef int32_t (*km_fn_t)(int32_t, uint32_t, int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5775,7 +5775,7 @@ int32_t libc_unix_bsd_apple_procPidfileportinfo(int32_t pid, uint32_t fileport, 
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_procPidpath(int32_t pid, void* buffer, uint32_t buffersize) {
+int32_t libcUnixBsdAppleProcPidpath(int32_t pid, void* buffer, uint32_t buffersize) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5803,7 +5803,7 @@ int32_t libc_unix_bsd_apple_procPidpath(int32_t pid, void* buffer, uint32_t buff
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_procName(int32_t pid, void* buffer, uint32_t buffersize) {
+int32_t libcUnixBsdAppleProcName(int32_t pid, void* buffer, uint32_t buffersize) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5831,7 +5831,7 @@ int32_t libc_unix_bsd_apple_procName(int32_t pid, void* buffer, uint32_t buffers
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_procRegionfilename(int32_t pid, uint64_t address, void* buffer, uint32_t buffersize) {
+int32_t libcUnixBsdAppleProcRegionfilename(int32_t pid, uint64_t address, void* buffer, uint32_t buffersize) {
     typedef int32_t (*km_fn_t)(int32_t, uint64_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5859,7 +5859,7 @@ int32_t libc_unix_bsd_apple_procRegionfilename(int32_t pid, uint64_t address, vo
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_procKmsgbuf(void* buffer, uint32_t buffersize) {
+int32_t libcUnixBsdAppleProcKmsgbuf(void* buffer, uint32_t buffersize) {
     typedef int32_t (*km_fn_t)(void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5887,7 +5887,7 @@ int32_t libc_unix_bsd_apple_procKmsgbuf(void* buffer, uint32_t buffersize) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_procLibversion(void* major, void* minor) {
+int32_t libcUnixBsdAppleProcLibversion(void* major, void* minor) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5915,7 +5915,7 @@ int32_t libc_unix_bsd_apple_procLibversion(void* major, void* minor) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_procPidRusage(int32_t pid, int32_t flavor, void* buffer) {
+int32_t libcUnixBsdAppleProcPidRusage(int32_t pid, int32_t flavor, void* buffer) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5943,7 +5943,7 @@ int32_t libc_unix_bsd_apple_procPidRusage(int32_t pid, int32_t flavor, void* buf
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_procSetNoSmt(void) {
+int32_t libcUnixBsdAppleProcSetNoSmt(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5971,7 +5971,7 @@ int32_t libc_unix_bsd_apple_procSetNoSmt(void) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_procSetthreadNoSmt(void) {
+int32_t libcUnixBsdAppleProcSetthreadNoSmt(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5999,7 +5999,7 @@ int32_t libc_unix_bsd_apple_procSetthreadNoSmt(void) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_procSetCsm(uint32_t flags) {
+int32_t libcUnixBsdAppleProcSetCsm(uint32_t flags) {
     typedef int32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6027,7 +6027,7 @@ int32_t libc_unix_bsd_apple_procSetCsm(uint32_t flags) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_procSetthreadCsm(uint32_t flags) {
+int32_t libcUnixBsdAppleProcSetthreadCsm(uint32_t flags) {
     typedef int32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6055,7 +6055,7 @@ int32_t libc_unix_bsd_apple_procSetthreadCsm(uint32_t flags) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_gethostuuid(void* id, void* timeout) {
+int32_t libcUnixBsdAppleGethostuuid(void* id, void* timeout) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6083,7 +6083,7 @@ int32_t libc_unix_bsd_apple_gethostuuid(void* id, void* timeout) {
     return -1;
 }
 
-int64_t libc_unix_bsd_apple_gethostid(void) {
+int64_t libcUnixBsdAppleGethostid(void) {
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6111,7 +6111,7 @@ int64_t libc_unix_bsd_apple_gethostid(void) {
     return -1;
 }
 
-void libc_unix_bsd_apple_sethostid(int64_t hostid) {
+void libcUnixBsdAppleSethostid(int64_t hostid) {
     typedef void (*km_fn_t)(int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6139,7 +6139,7 @@ void libc_unix_bsd_apple_sethostid(int64_t hostid) {
     errno = ENOSYS;
 }
 
-int32_t libc_unix_bsd_apple_cCRandomGenerateBytes(void* bytes, uint64_t size) {
+int32_t libcUnixBsdAppleCCRandomGenerateBytes(void* bytes, uint64_t size) {
     typedef int32_t (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6167,7 +6167,7 @@ int32_t libc_unix_bsd_apple_cCRandomGenerateBytes(void* bytes, uint64_t size) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_getentropy(void* buf, uint64_t buflen) {
+int32_t libcUnixBsdAppleGetentropy(void* buf, uint64_t buflen) {
     typedef int32_t (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6195,7 +6195,7 @@ int32_t libc_unix_bsd_apple_getentropy(void* buf, uint64_t buflen) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_nsgetExecutablePath(char* buf, void* bufsize) {
+int32_t libcUnixBsdAppleNsgetExecutablePath(char* buf, void* bufsize) {
     typedef int32_t (*km_fn_t)(char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6221,7 +6221,7 @@ int32_t libc_unix_bsd_apple_nsgetExecutablePath(char* buf, void* bufsize) {
     return -1;
 }
 
-void* libc_unix_bsd_apple_nsgetArgv(void) {
+void* libcUnixBsdAppleNsgetArgv(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6247,7 +6247,7 @@ void* libc_unix_bsd_apple_nsgetArgv(void) {
     return NULL;
 }
 
-void* libc_unix_bsd_apple_nsgetArgc(void) {
+void* libcUnixBsdAppleNsgetArgc(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6273,7 +6273,7 @@ void* libc_unix_bsd_apple_nsgetArgc(void) {
     return NULL;
 }
 
-void* libc_unix_bsd_apple_nsgetEnviron(void) {
+void* libcUnixBsdAppleNsgetEnviron(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6299,7 +6299,7 @@ void* libc_unix_bsd_apple_nsgetEnviron(void) {
     return NULL;
 }
 
-void* libc_unix_bsd_apple_nsgetProgname(void) {
+void* libcUnixBsdAppleNsgetProgname(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6325,7 +6325,7 @@ void* libc_unix_bsd_apple_nsgetProgname(void) {
     return NULL;
 }
 
-int32_t libc_unix_bsd_apple_machVmMap(void* target_task, void* address, uint64_t size, uint64_t mask, int32_t flags, uint32_t object, uint64_t offset, int32_t copy, int32_t cur_protection, int32_t max_protection, uint32_t inheritance) {
+int32_t libcUnixBsdAppleMachVmMap(void* targetTask, void* address, uint64_t size, uint64_t mask, int32_t flags, uint32_t object, uint64_t offset, int32_t copy, int32_t curProtection, int32_t maxProtection, uint32_t inheritance) {
     typedef int32_t (*km_fn_t)(void*, void*, uint64_t, uint64_t, int32_t, uint32_t, uint64_t, int32_t, int32_t, int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6347,13 +6347,13 @@ int32_t libc_unix_bsd_apple_machVmMap(void* target_task, void* address, uint64_t
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(target_task, address, size, mask, flags, object, offset, copy, cur_protection, max_protection, inheritance);
+        return km_fn_ptr(targetTask, address, size, mask, flags, object, offset, copy, curProtection, maxProtection, inheritance);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_vmAllocate(void* target_task, void* address, uint64_t size, int32_t flags) {
+int32_t libcUnixBsdAppleVmAllocate(void* targetTask, void* address, uint64_t size, int32_t flags) {
     typedef int32_t (*km_fn_t)(void*, void*, uint64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6375,13 +6375,13 @@ int32_t libc_unix_bsd_apple_vmAllocate(void* target_task, void* address, uint64_
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(target_task, address, size, flags);
+        return km_fn_ptr(targetTask, address, size, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_vmDeallocate(void* target_task, uint64_t address, uint64_t size) {
+int32_t libcUnixBsdAppleVmDeallocate(void* targetTask, uint64_t address, uint64_t size) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6403,13 +6403,13 @@ int32_t libc_unix_bsd_apple_vmDeallocate(void* target_task, uint64_t address, ui
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(target_task, address, size);
+        return km_fn_ptr(targetTask, address, size);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_hostStatistics64(uint32_t host_priv, int32_t flavor, void* host_info64_out, void* host_info64_outCnt) {
+int32_t libcUnixBsdAppleHostStatistics64(uint32_t hostPriv, int32_t flavor, void* hostInfo64Out, void* hostInfo64OutCnt) {
     typedef int32_t (*km_fn_t)(uint32_t, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6436,13 +6436,13 @@ int32_t libc_unix_bsd_apple_hostStatistics64(uint32_t host_priv, int32_t flavor,
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(host_priv, flavor, host_info64_out, host_info64_outCnt);
+        return km_fn_ptr(hostPriv, flavor, hostInfo64Out, hostInfo64OutCnt);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_hostProcessorInfo(uint32_t host, int32_t flavor, void* out_processor_count, void* out_processor_info, void* out_processor_infoCnt) {
+int32_t libcUnixBsdAppleHostProcessorInfo(uint32_t host, int32_t flavor, void* outProcessorCount, void* outProcessorInfo, void* outProcessorInfoCnt) {
     typedef int32_t (*km_fn_t)(uint32_t, int32_t, void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6464,13 +6464,13 @@ int32_t libc_unix_bsd_apple_hostProcessorInfo(uint32_t host, int32_t flavor, voi
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(host, flavor, out_processor_count, out_processor_info, out_processor_infoCnt);
+        return km_fn_ptr(host, flavor, outProcessorCount, outProcessorInfo, outProcessorInfoCnt);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_taskForPid(uint32_t host, int32_t pid, void* task) {
+int32_t libcUnixBsdAppleTaskForPid(uint32_t host, int32_t pid, void* task) {
     typedef int32_t (*km_fn_t)(uint32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6498,7 +6498,7 @@ int32_t libc_unix_bsd_apple_taskForPid(uint32_t host, int32_t pid, void* task) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_taskInfo(uint32_t host, uint32_t flavor, void* task_info_out, void* task_info_count) {
+int32_t libcUnixBsdAppleTaskInfo(uint32_t host, uint32_t flavor, void* taskInfoOut, void* taskInfoCount) {
     typedef int32_t (*km_fn_t)(uint32_t, uint32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6520,13 +6520,13 @@ int32_t libc_unix_bsd_apple_taskInfo(uint32_t host, uint32_t flavor, void* task_
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(host, flavor, task_info_out, task_info_count);
+        return km_fn_ptr(host, flavor, taskInfoOut, taskInfoCount);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_taskCreate(uint32_t target_task, void* ledgers, uint32_t ledgersCnt, int32_t inherit_memory, void* child_task) {
+int32_t libcUnixBsdAppleTaskCreate(uint32_t targetTask, void* ledgers, uint32_t ledgersCnt, int32_t inheritMemory, void* childTask) {
     typedef int32_t (*km_fn_t)(uint32_t, void*, uint32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6548,13 +6548,13 @@ int32_t libc_unix_bsd_apple_taskCreate(uint32_t target_task, void* ledgers, uint
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(target_task, ledgers, ledgersCnt, inherit_memory, child_task);
+        return km_fn_ptr(targetTask, ledgers, ledgersCnt, inheritMemory, childTask);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_taskTerminate(uint32_t target_task) {
+int32_t libcUnixBsdAppleTaskTerminate(uint32_t targetTask) {
     typedef int32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6576,13 +6576,13 @@ int32_t libc_unix_bsd_apple_taskTerminate(uint32_t target_task) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(target_task);
+        return km_fn_ptr(targetTask);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_taskThreads(uint32_t target_task, void* act_list, void* act_listCnt) {
+int32_t libcUnixBsdAppleTaskThreads(uint32_t targetTask, void* actList, void* actListCnt) {
     typedef int32_t (*km_fn_t)(uint32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6604,13 +6604,13 @@ int32_t libc_unix_bsd_apple_taskThreads(uint32_t target_task, void* act_list, vo
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(target_task, act_list, act_listCnt);
+        return km_fn_ptr(targetTask, actList, actListCnt);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_hostStatistics(uint32_t host_priv, int32_t flavor, void* host_info_out, void* host_info_outCnt) {
+int32_t libcUnixBsdAppleHostStatistics(uint32_t hostPriv, int32_t flavor, void* hostInfoOut, void* hostInfoOutCnt) {
     typedef int32_t (*km_fn_t)(uint32_t, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6632,13 +6632,13 @@ int32_t libc_unix_bsd_apple_hostStatistics(uint32_t host_priv, int32_t flavor, v
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(host_priv, flavor, host_info_out, host_info_outCnt);
+        return km_fn_ptr(hostPriv, flavor, hostInfoOut, hostInfoOutCnt);
     }
     errno = ENOSYS;
     return -1;
 }
 
-uint32_t libc_unix_bsd_apple_sysdirGetNextSearchPathEnumeration(uint32_t state, char* path) {
+uint32_t libcUnixBsdAppleSysdirGetNextSearchPathEnumeration(uint32_t state, char* path) {
     typedef uint32_t (*km_fn_t)(uint32_t, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6666,7 +6666,7 @@ uint32_t libc_unix_bsd_apple_sysdirGetNextSearchPathEnumeration(uint32_t state, 
     return 0;
 }
 
-int32_t libc_unix_bsd_apple_getattrlist(const char* path, void* attrList, void* attrBuf, uint64_t attrBufSize, uint32_t options) {
+int32_t libcUnixBsdAppleGetattrlist(const char* path, void* attrList, void* attrBuf, uint64_t attrBufSize, uint32_t options) {
     typedef int32_t (*km_fn_t)(const char*, void*, void*, uint64_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6694,7 +6694,7 @@ int32_t libc_unix_bsd_apple_getattrlist(const char* path, void* attrList, void* 
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_fgetattrlist(int32_t fd, void* attrList, void* attrBuf, uint64_t attrBufSize, uint32_t options) {
+int32_t libcUnixBsdAppleFgetattrlist(int32_t fd, void* attrList, void* attrBuf, uint64_t attrBufSize, uint32_t options) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, uint64_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6722,7 +6722,7 @@ int32_t libc_unix_bsd_apple_fgetattrlist(int32_t fd, void* attrList, void* attrB
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_getattrlistat(int32_t fd, const char* path, void* attrList, void* attrBuf, uint64_t attrBufSize, uint64_t options) {
+int32_t libcUnixBsdAppleGetattrlistat(int32_t fd, const char* path, void* attrList, void* attrBuf, uint64_t attrBufSize, uint64_t options) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, void*, void*, uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6750,7 +6750,7 @@ int32_t libc_unix_bsd_apple_getattrlistat(int32_t fd, const char* path, void* at
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_setattrlist(const char* path, void* attrList, void* attrBuf, uint64_t attrBufSize, uint32_t options) {
+int32_t libcUnixBsdAppleSetattrlist(const char* path, void* attrList, void* attrBuf, uint64_t attrBufSize, uint32_t options) {
     typedef int32_t (*km_fn_t)(const char*, void*, void*, uint64_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6778,7 +6778,7 @@ int32_t libc_unix_bsd_apple_setattrlist(const char* path, void* attrList, void* 
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_fsetattrlist(int32_t fd, void* attrList, void* attrBuf, uint64_t attrBufSize, uint32_t options) {
+int32_t libcUnixBsdAppleFsetattrlist(int32_t fd, void* attrList, void* attrBuf, uint64_t attrBufSize, uint32_t options) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, uint64_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6806,7 +6806,7 @@ int32_t libc_unix_bsd_apple_fsetattrlist(int32_t fd, void* attrList, void* attrB
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_setattrlistat(int32_t dir_fd, const char* path, void* attrList, void* attrBuf, uint64_t attrBufSize, uint32_t options) {
+int32_t libcUnixBsdAppleSetattrlistat(int32_t dirFd, const char* path, void* attrList, void* attrBuf, uint64_t attrBufSize, uint32_t options) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, void*, void*, uint64_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6828,13 +6828,13 @@ int32_t libc_unix_bsd_apple_setattrlistat(int32_t dir_fd, const char* path, void
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(dir_fd, path, attrList, attrBuf, attrBufSize, options);
+        return km_fn_ptr(dirFd, path, attrList, attrBuf, attrBufSize, options);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_getattrlistbulk(int32_t dirfd, void* attrList, void* attrBuf, uint64_t attrBufSize, uint64_t options) {
+int32_t libcUnixBsdAppleGetattrlistbulk(int32_t dirfd, void* attrList, void* attrBuf, uint64_t attrBufSize, uint64_t options) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6862,7 +6862,7 @@ int32_t libc_unix_bsd_apple_getattrlistbulk(int32_t dirfd, void* attrList, void*
     return -1;
 }
 
-uint64_t libc_unix_bsd_apple_mallocSize(void* ptr) {
+uint64_t libcUnixBsdAppleMallocSize(void* ptr) {
     typedef uint64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6890,7 +6890,7 @@ uint64_t libc_unix_bsd_apple_mallocSize(void* ptr) {
     return 0;
 }
 
-uint64_t libc_unix_bsd_apple_mallocGoodSize(uint64_t size) {
+uint64_t libcUnixBsdAppleMallocGoodSize(uint64_t size) {
     typedef uint64_t (*km_fn_t)(uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6918,7 +6918,7 @@ uint64_t libc_unix_bsd_apple_mallocGoodSize(uint64_t size) {
     return 0;
 }
 
-char* libc_unix_bsd_apple_dirname(char* path) {
+char* libcUnixBsdAppleDirname(char* path) {
     typedef char* (*km_fn_t)(char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6946,7 +6946,7 @@ char* libc_unix_bsd_apple_dirname(char* path) {
     return NULL;
 }
 
-char* libc_unix_bsd_apple_basename(char* path) {
+char* libcUnixBsdAppleBasename(char* path) {
     typedef char* (*km_fn_t)(char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6974,7 +6974,7 @@ char* libc_unix_bsd_apple_basename(char* path) {
     return NULL;
 }
 
-int32_t libc_unix_bsd_apple_mkfifoat(int32_t dirfd, const char* pathname, uint16_t mode) {
+int32_t libcUnixBsdAppleMkfifoat(int32_t dirfd, const char* pathname, uint16_t mode) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, uint16_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7002,7 +7002,7 @@ int32_t libc_unix_bsd_apple_mkfifoat(int32_t dirfd, const char* pathname, uint16
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_mknodat(int32_t dirfd, const char* pathname, uint16_t mode, int32_t dev) {
+int32_t libcUnixBsdAppleMknodat(int32_t dirfd, const char* pathname, uint16_t mode, int32_t dev) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, uint16_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7030,7 +7030,7 @@ int32_t libc_unix_bsd_apple_mknodat(int32_t dirfd, const char* pathname, uint16_
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_freadlink(int32_t fd, char* buf, uint64_t size) {
+int32_t libcUnixBsdAppleFreadlink(int32_t fd, char* buf, uint64_t size) {
     typedef int32_t (*km_fn_t)(int32_t, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7058,7 +7058,7 @@ int32_t libc_unix_bsd_apple_freadlink(int32_t fd, char* buf, uint64_t size) {
     return -1;
 }
 
-int32_t libc_unix_bsd_apple_execvP(const char* file, const char* search_path, void* argv) {
+int32_t libcUnixBsdAppleExecvP(const char* file, const char* searchPath, void* argv) {
     typedef int32_t (*km_fn_t)(const char*, const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7080,13 +7080,13 @@ int32_t libc_unix_bsd_apple_execvP(const char* file, const char* search_path, vo
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(file, search_path, argv);
+        return km_fn_ptr(file, searchPath, argv);
     }
     errno = ENOSYS;
     return -1;
 }
 
-void libc_unix_bsd_apple_qsortR(void* base, uint64_t num, uint64_t size, void* arg, void* compar) {
+void libcUnixBsdAppleQsortR(void* base, uint64_t num, uint64_t size, void* arg, void* compar) {
     typedef void (*km_fn_t)(void*, uint64_t, uint64_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7114,7 +7114,7 @@ void libc_unix_bsd_apple_qsortR(void* base, uint64_t num, uint64_t size, void* a
     errno = ENOSYS;
 }
 
-int32_t libc_unix_bsd_apple_clockSettime(uint32_t clock_id, void* tp) {
+int32_t libcUnixBsdAppleClockSettime(uint32_t clockId, void* tp) {
     typedef int32_t (*km_fn_t)(uint32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7136,13 +7136,13 @@ int32_t libc_unix_bsd_apple_clockSettime(uint32_t clock_id, void* tp) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(clock_id, tp);
+        return km_fn_ptr(clockId, tp);
     }
     errno = ENOSYS;
     return -1;
 }
 
-void* libc_unix_bsd_apple_memmem(void* haystack, uint64_t haystacklen, void* needle, uint64_t needlelen) {
+void* libcUnixBsdAppleMemmem(void* haystack, uint64_t haystacklen, void* needle, uint64_t needlelen) {
     typedef void* (*km_fn_t)(void*, uint64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7170,7 +7170,7 @@ void* libc_unix_bsd_apple_memmem(void* haystack, uint64_t haystacklen, void* nee
     return NULL;
 }
 
-int32_t libc_unix_bsd_apple_taskSetInfo(uint32_t target_task, uint32_t flavor, void* task_info_in, uint32_t task_info_inCnt) {
+int32_t libcUnixBsdAppleTaskSetInfo(uint32_t targetTask, uint32_t flavor, void* taskInfoIn, uint32_t taskInfoInCnt) {
     typedef int32_t (*km_fn_t)(uint32_t, uint32_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7192,13 +7192,13 @@ int32_t libc_unix_bsd_apple_taskSetInfo(uint32_t target_task, uint32_t flavor, v
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(target_task, flavor, task_info_in, task_info_inCnt);
+        return km_fn_ptr(targetTask, flavor, taskInfoIn, taskInfoInCnt);
     }
     errno = ENOSYS;
     return -1;
 }
 
-void* libc_unix_bsd_apple_iconvOpen(const char* tocode, const char* fromcode) {
+void* libcUnixBsdAppleIconvOpen(const char* tocode, const char* fromcode) {
     typedef void* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7247,7 +7247,7 @@ void* libc_unix_bsd_apple_iconvOpen(const char* tocode, const char* fromcode) {
     return NULL;
 }
 
-uint64_t libc_unix_bsd_apple_iconv(void* cd, void* inbuf, void* inbytesleft, void* outbuf, void* outbytesleft) {
+uint64_t libcUnixBsdAppleIconv(void* cd, void* inbuf, void* inbytesleft, void* outbuf, void* outbytesleft) {
     typedef uint64_t (*km_fn_t)(void*, void*, void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7296,7 +7296,7 @@ uint64_t libc_unix_bsd_apple_iconv(void* cd, void* inbuf, void* inbytesleft, voi
     return 0;
 }
 
-int32_t libc_unix_bsd_apple_iconvClose(void* cd) {
+int32_t libcUnixBsdAppleIconvClose(void* cd) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

@@ -3,9 +3,12 @@
 package io.github.kotlinmania.libc.new.netbsd.utmpx
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.libc.new.netbsd.utmp.Utmp
 import io.github.kotlinmania.libc.new.qurt.UidT
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 private object NewNetbsdUtmpxJniBridge {
     init {
@@ -13,78 +16,78 @@ private object NewNetbsdUtmpxJniBridge {
     }
 
     @JvmStatic
-    external fun libc_new_netbsd_utmpx_setutxent()
+    external fun libcNewNetbsdUtmpxSetutxent()
 
     @JvmStatic
-    external fun libc_new_netbsd_utmpx_endutxent()
+    external fun libcNewNetbsdUtmpxEndutxent()
 
     @JvmStatic
-    external fun libc_new_netbsd_utmpx_getutxent(): Long
+    external fun libcNewNetbsdUtmpxGetutxent(): Long
 
     @JvmStatic
-    external fun libc_new_netbsd_utmpx_getutxid(ut: Long): Long
+    external fun libcNewNetbsdUtmpxGetutxid(ut: Long): Long
 
     @JvmStatic
-    external fun libc_new_netbsd_utmpx_getutxline(ut: Long): Long
+    external fun libcNewNetbsdUtmpxGetutxline(ut: Long): Long
 
     @JvmStatic
-    external fun libc_new_netbsd_utmpx_pututxline(ut: Long): Long
+    external fun libcNewNetbsdUtmpxPututxline(ut: Long): Long
 
     @JvmStatic
-    external fun libc_new_netbsd_utmpx_updwtmpx(file: String?, ut: Long): Int
+    external fun libcNewNetbsdUtmpxUpdwtmpx(file: Long, ut: Long): Int
 
     @JvmStatic
-    external fun libc_new_netbsd_utmpx_getlastlogx(fname: String?, uid: Int, ll: Long): Long
+    external fun libcNewNetbsdUtmpxGetlastlogx(fname: Long, uid: Int, ll: Long): Long
 
     @JvmStatic
-    external fun libc_new_netbsd_utmpx_updlastlogx(fname: String?, uid: Int, ll: Long): Int
+    external fun libcNewNetbsdUtmpxUpdlastlogx(fname: Long, uid: Int, ll: Long): Int
 
     @JvmStatic
-    external fun libc_new_netbsd_utmpx_getutmp(ux: Long, u: Long)
+    external fun libcNewNetbsdUtmpxGetutmp(ux: Long, u: Long)
 
     @JvmStatic
-    external fun libc_new_netbsd_utmpx_getutmpx(u: Long, ux: Long)
+    external fun libcNewNetbsdUtmpxGetutmpx(u: Long, ux: Long)
 
     @JvmStatic
-    external fun libc_new_netbsd_utmpx_utmpxname(file: String?): Int
+    external fun libcNewNetbsdUtmpxUtmpxname(file: Long): Int
 }
 
 public actual fun setutxent() {
-    NewNetbsdUtmpxJniBridge.libc_new_netbsd_utmpx_setutxent()
+    NewNetbsdUtmpxJniBridge.libcNewNetbsdUtmpxSetutxent()
 }
 
 public actual fun endutxent() {
-    NewNetbsdUtmpxJniBridge.libc_new_netbsd_utmpx_endutxent()
+    NewNetbsdUtmpxJniBridge.libcNewNetbsdUtmpxEndutxent()
 }
 
-public actual fun getutxent(): COpaquePointer? =
-    NewNetbsdUtmpxJniBridge.libc_new_netbsd_utmpx_getutxent().let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getutxent(): MutPtr<Utmpx> =
+    MutPtr(NewNetbsdUtmpxJniBridge.libcNewNetbsdUtmpxGetutxent())
 
-public actual fun getutxid(ut: COpaquePointer?): COpaquePointer? =
-    NewNetbsdUtmpxJniBridge.libc_new_netbsd_utmpx_getutxid((ut?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getutxid(ut: ConstPtr<Utmpx>): MutPtr<Utmpx> =
+    MutPtr(NewNetbsdUtmpxJniBridge.libcNewNetbsdUtmpxGetutxid(ut.rawAddress))
 
-public actual fun getutxline(ut: COpaquePointer?): COpaquePointer? =
-    NewNetbsdUtmpxJniBridge.libc_new_netbsd_utmpx_getutxline((ut?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getutxline(ut: ConstPtr<Utmpx>): MutPtr<Utmpx> =
+    MutPtr(NewNetbsdUtmpxJniBridge.libcNewNetbsdUtmpxGetutxline(ut.rawAddress))
 
-public actual fun pututxline(ut: COpaquePointer?): COpaquePointer? =
-    NewNetbsdUtmpxJniBridge.libc_new_netbsd_utmpx_pututxline((ut?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun pututxline(ut: ConstPtr<Utmpx>): MutPtr<Utmpx> =
+    MutPtr(NewNetbsdUtmpxJniBridge.libcNewNetbsdUtmpxPututxline(ut.rawAddress))
 
-public actual fun updwtmpx(file: String?, ut: COpaquePointer?): CInt =
-    NewNetbsdUtmpxJniBridge.libc_new_netbsd_utmpx_updwtmpx(file, (ut?.value ?: 0L))
+public actual fun updwtmpx(file: ConstPtr<CChar>, ut: ConstPtr<Utmpx>): CInt =
+    NewNetbsdUtmpxJniBridge.libcNewNetbsdUtmpxUpdwtmpx(file.rawAddress, ut.rawAddress)
 
-public actual fun getlastlogx(fname: String?, uid: UidT, ll: COpaquePointer?): COpaquePointer? =
-    NewNetbsdUtmpxJniBridge.libc_new_netbsd_utmpx_getlastlogx(fname, uid.toInt(), (ll?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getlastlogx(fname: ConstPtr<CChar>, uid: UidT, ll: MutPtr<Lastlogx>): MutPtr<Lastlogx> =
+    MutPtr(NewNetbsdUtmpxJniBridge.libcNewNetbsdUtmpxGetlastlogx(fname.rawAddress, uid.toInt(), ll.rawAddress))
 
-public actual fun updlastlogx(fname: String?, uid: UidT, ll: COpaquePointer?): CInt =
-    NewNetbsdUtmpxJniBridge.libc_new_netbsd_utmpx_updlastlogx(fname, uid.toInt(), (ll?.value ?: 0L))
+public actual fun updlastlogx(fname: ConstPtr<CChar>, uid: UidT, ll: MutPtr<Lastlogx>): CInt =
+    NewNetbsdUtmpxJniBridge.libcNewNetbsdUtmpxUpdlastlogx(fname.rawAddress, uid.toInt(), ll.rawAddress)
 
-public actual fun getutmp(ux: COpaquePointer?, u: COpaquePointer?) {
-    NewNetbsdUtmpxJniBridge.libc_new_netbsd_utmpx_getutmp((ux?.value ?: 0L), (u?.value ?: 0L))
+public actual fun getutmp(ux: ConstPtr<Utmpx>, u: MutPtr<Utmp>) {
+    NewNetbsdUtmpxJniBridge.libcNewNetbsdUtmpxGetutmp(ux.rawAddress, u.rawAddress)
 }
 
-public actual fun getutmpx(u: COpaquePointer?, ux: COpaquePointer?) {
-    NewNetbsdUtmpxJniBridge.libc_new_netbsd_utmpx_getutmpx((u?.value ?: 0L), (ux?.value ?: 0L))
+public actual fun getutmpx(u: ConstPtr<Utmp>, ux: MutPtr<Utmpx>) {
+    NewNetbsdUtmpxJniBridge.libcNewNetbsdUtmpxGetutmpx(u.rawAddress, ux.rawAddress)
 }
 
-public actual fun utmpxname(file: String?): CInt =
-    NewNetbsdUtmpxJniBridge.libc_new_netbsd_utmpx_utmpxname(file)
+public actual fun utmpxname(file: ConstPtr<CChar>): CInt =
+    NewNetbsdUtmpxJniBridge.libcNewNetbsdUtmpxUtmpxname(file.rawAddress)

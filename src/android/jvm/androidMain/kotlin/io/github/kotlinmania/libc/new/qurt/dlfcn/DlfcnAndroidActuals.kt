@@ -3,8 +3,11 @@
 package io.github.kotlinmania.libc.new.qurt.dlfcn
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 private object NewQurtDlfcnJniBridge {
     init {
@@ -12,26 +15,26 @@ private object NewQurtDlfcnJniBridge {
     }
 
     @JvmStatic
-    external fun libc_new_qurt_dlfcn_dlopen(filename: String?, flag: Int): Long
+    external fun libcNewQurtDlfcnDlopen(filename: Long, flag: Int): Long
 
     @JvmStatic
-    external fun libc_new_qurt_dlfcn_dlclose(handle: Long): Int
+    external fun libcNewQurtDlfcnDlclose(handle: Long): Int
 
     @JvmStatic
-    external fun libc_new_qurt_dlfcn_dlsym(handle: Long, symbol: String?): Long
+    external fun libcNewQurtDlfcnDlsym(handle: Long, symbol: Long): Long
 
     @JvmStatic
-    external fun libc_new_qurt_dlfcn_dlerror(): Long
+    external fun libcNewQurtDlfcnDlerror(): Long
 }
 
-public actual fun dlopen(filename: String?, flag: CInt): COpaquePointer? =
-    NewQurtDlfcnJniBridge.libc_new_qurt_dlfcn_dlopen(filename, flag).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun dlopen(filename: ConstPtr<CChar>, flag: CInt): MutPtr<CVoid> =
+    MutPtr(NewQurtDlfcnJniBridge.libcNewQurtDlfcnDlopen(filename.rawAddress, flag))
 
-public actual fun dlclose(handle: COpaquePointer?): CInt =
-    NewQurtDlfcnJniBridge.libc_new_qurt_dlfcn_dlclose((handle?.value ?: 0L))
+public actual fun dlclose(handle: MutPtr<CVoid>): CInt =
+    NewQurtDlfcnJniBridge.libcNewQurtDlfcnDlclose(handle.rawAddress)
 
-public actual fun dlsym(handle: COpaquePointer?, symbol: String?): COpaquePointer? =
-    NewQurtDlfcnJniBridge.libc_new_qurt_dlfcn_dlsym((handle?.value ?: 0L), symbol).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun dlsym(handle: MutPtr<CVoid>, symbol: ConstPtr<CChar>): MutPtr<CVoid> =
+    MutPtr(NewQurtDlfcnJniBridge.libcNewQurtDlfcnDlsym(handle.rawAddress, symbol.rawAddress))
 
-public actual fun dlerror(): COpaquePointer? =
-    NewQurtDlfcnJniBridge.libc_new_qurt_dlfcn_dlerror().let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun dlerror(): MutPtr<CChar> =
+    MutPtr(NewQurtDlfcnJniBridge.libcNewQurtDlfcnDlerror())

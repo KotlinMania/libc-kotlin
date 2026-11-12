@@ -3,19 +3,30 @@
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CLonglong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
+import io.github.kotlinmania.libc.CUshort
 import io.github.kotlinmania.libc.unix.DIR
 import io.github.kotlinmania.libc.unix.GidT
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.PidT
 import io.github.kotlinmania.libc.unix.SizeT
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.Timeval
 import io.github.kotlinmania.libc.unix.UidT
+import io.github.kotlinmania.libc.unix.Winsize
 import io.github.kotlinmania.libc.unix.bsd.PthreadT
+import io.github.kotlinmania.libc.unix.bsd.Sockaddr
 import io.github.kotlinmania.libc.unix.bsd.SocklenT
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.StackT
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.Termios
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.Timezone
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 private object UnixBsdNetbsdlikeOpenbsdJniBridge {
     init {
@@ -23,374 +34,374 @@ private object UnixBsdNetbsdlikeOpenbsdJniBridge {
     }
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_gettimeofday(tp: Long, tz: Long): Int
+    external fun libcUnixBsdNetbsdlikeOpenbsdGettimeofday(tp: Long, tz: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_settimeofday(tp: Long, tz: Long): Int
+    external fun libcUnixBsdNetbsdlikeOpenbsdSettimeofday(tp: Long, tz: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_pledge(promises: String?, execpromises: String?): Int
+    external fun libcUnixBsdNetbsdlikeOpenbsdPledge(promises: Long, execpromises: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_unveil(path: String?, permissions: String?): Int
+    external fun libcUnixBsdNetbsdlikeOpenbsdUnveil(path: Long, permissions: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_strtonum(nptr: String?, minval: Long, maxval: Long, errstr: Long): Long
+    external fun libcUnixBsdNetbsdlikeOpenbsdStrtonum(nptr: Long, minval: Long, maxval: Long, errstr: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_dup3(src: Int, dst: Int, flags: Int): Int
+    external fun libcUnixBsdNetbsdlikeOpenbsdDup3(src: Int, dst: Int, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_chflags(path: String?, flags: Int): Int
+    external fun libcUnixBsdNetbsdlikeOpenbsdChflags(path: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_fchflags(fd: Int, flags: Int): Int
+    external fun libcUnixBsdNetbsdlikeOpenbsdFchflags(fd: Int, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_chflagsat(fd: Int, path: String?, flags: Int, atflag: Int): Int
+    external fun libcUnixBsdNetbsdlikeOpenbsdChflagsat(fd: Int, path: Long, flags: Int, atflag: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_dirfd(dirp: Long): Int
+    external fun libcUnixBsdNetbsdlikeOpenbsdDirfd(dirp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_getnameinfo(sa: Long, salen: Int, host: Long, hostlen: Long, serv: Long, servlen: Long, flags: Int): Int
+    external fun libcUnixBsdNetbsdlikeOpenbsdGetnameinfo(sa: Long, salen: Int, host: Long, hostlen: Long, serv: Long, servlen: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_getresgid(rgid: Long, egid: Long, sgid: Long): Int
+    external fun libcUnixBsdNetbsdlikeOpenbsdGetresgid(rgid: Long, egid: Long, sgid: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_getresuid(ruid: Long, euid: Long, suid: Long): Int
+    external fun libcUnixBsdNetbsdlikeOpenbsdGetresuid(ruid: Long, euid: Long, suid: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_kevent(kq: Int, changelist: Long, nchanges: Int, eventlist: Long, nevents: Int, timeout: Long): Int
+    external fun libcUnixBsdNetbsdlikeOpenbsdKevent(kq: Int, changelist: Long, nchanges: Int, eventlist: Long, nevents: Int, timeout: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_mprotect(addr: Long, len: Long, prot: Int): Int
+    external fun libcUnixBsdNetbsdlikeOpenbsdMprotect(addr: Long, len: Long, prot: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_getthrid(): Int
+    external fun libcUnixBsdNetbsdlikeOpenbsdGetthrid(): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_pthreadAttrGetguardsize(attr: Long, guardsize: Long): Int
+    external fun libcUnixBsdNetbsdlikeOpenbsdPthreadAttrGetguardsize(attr: Long, guardsize: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_pthreadAttrSetguardsize(attr: Long, guardsize: Long): Int
+    external fun libcUnixBsdNetbsdlikeOpenbsdPthreadAttrSetguardsize(attr: Long, guardsize: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_pthreadAttrGetstack(attr: Long, stackaddr: Long, stacksize: Long): Int
+    external fun libcUnixBsdNetbsdlikeOpenbsdPthreadAttrGetstack(attr: Long, stackaddr: Long, stacksize: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_pthreadMainNp(): Int
+    external fun libcUnixBsdNetbsdlikeOpenbsdPthreadMainNp(): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_pthreadGetNameNp(tid: Long, name: Long, len: Long)
+    external fun libcUnixBsdNetbsdlikeOpenbsdPthreadGetNameNp(tid: Long, name: Long, len: Long)
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_pthreadSetNameNp(tid: Long, name: String?)
+    external fun libcUnixBsdNetbsdlikeOpenbsdPthreadSetNameNp(tid: Long, name: Long)
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_pthreadStacksegNp(thread: Long, sinfo: Long): Int
+    external fun libcUnixBsdNetbsdlikeOpenbsdPthreadStacksegNp(thread: Long, sinfo: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_openpty(amaster: Long, aslave: Long, name: Long, termp: Long, winp: Long): Int
+    external fun libcUnixBsdNetbsdlikeOpenbsdOpenpty(amaster: Long, aslave: Long, name: Long, termp: Long, winp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_forkpty(amaster: Long, name: Long, termp: Long, winp: Long): Int
+    external fun libcUnixBsdNetbsdlikeOpenbsdForkpty(amaster: Long, name: Long, termp: Long, winp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_sysctl(name: Long, namelen: Int, oldp: Long, oldlenp: Long, newp: Long, newlen: Long): Int
+    external fun libcUnixBsdNetbsdlikeOpenbsdSysctl(name: Long, namelen: Int, oldp: Long, oldlenp: Long, newp: Long, newlen: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_setresgid(rgid: Short, egid: Short, sgid: Short): Int
+    external fun libcUnixBsdNetbsdlikeOpenbsdSetresgid(rgid: Short, egid: Short, sgid: Short): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_setresuid(ruid: Short, euid: Short, suid: Short): Int
+    external fun libcUnixBsdNetbsdlikeOpenbsdSetresuid(ruid: Short, euid: Short, suid: Short): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_ptrace(request: Int, pid: Int, addr: Long, data: Int): Int
+    external fun libcUnixBsdNetbsdlikeOpenbsdPtrace(request: Int, pid: Int, addr: Long, data: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_utrace(label: String?, addr: Long, len: Long): Int
+    external fun libcUnixBsdNetbsdlikeOpenbsdUtrace(label: Long, addr: Long, len: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_memmem(haystack: Long, haystacklen: Long, needle: Long, needlelen: Long): Long
+    external fun libcUnixBsdNetbsdlikeOpenbsdMemmem(haystack: Long, haystacklen: Long, needle: Long, needlelen: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_dlIteratePhdr(callback: Long, data: Long): Int
+    external fun libcUnixBsdNetbsdlikeOpenbsdDlIteratePhdr(callback: Long, data: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_uselocale(loc: Long): Long
+    external fun libcUnixBsdNetbsdlikeOpenbsdUselocale(loc: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_freelocale(loc: Long)
+    external fun libcUnixBsdNetbsdlikeOpenbsdFreelocale(loc: Long)
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_newlocale(mask: Int, locale: String?, base: Long): Long
+    external fun libcUnixBsdNetbsdlikeOpenbsdNewlocale(mask: Int, locale: Long, base: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_duplocale(base: Long): Long
+    external fun libcUnixBsdNetbsdlikeOpenbsdDuplocale(base: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_explicitBzero(s: Long, len: Long)
+    external fun libcUnixBsdNetbsdlikeOpenbsdExplicitBzero(s: Long, len: Long)
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_setproctitle(fmt: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long)
+    external fun libcUnixBsdNetbsdlikeOpenbsdSetproctitle(fmt: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long)
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_freezero(ptr: Long, size: Long)
+    external fun libcUnixBsdNetbsdlikeOpenbsdFreezero(ptr: Long, size: Long)
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_mallocConceal(size: Long): Long
+    external fun libcUnixBsdNetbsdlikeOpenbsdMallocConceal(size: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_callocConceal(nmemb: Long, size: Long): Long
+    external fun libcUnixBsdNetbsdlikeOpenbsdCallocConceal(nmemb: Long, size: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_srand48Deterministic(seed: Long)
+    external fun libcUnixBsdNetbsdlikeOpenbsdSrand48Deterministic(seed: Long)
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_seed48Deterministic(xseed: Long): Long
+    external fun libcUnixBsdNetbsdlikeOpenbsdSeed48Deterministic(xseed: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_lcong48Deterministic(p: Long)
+    external fun libcUnixBsdNetbsdlikeOpenbsdLcong48Deterministic(p: Long)
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_lsearch(key: Long, base: Long, nelp: Long, width: Long, compar: Long): Long
+    external fun libcUnixBsdNetbsdlikeOpenbsdLsearch(key: Long, base: Long, nelp: Long, width: Long, compar: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_lfind(key: Long, base: Long, nelp: Long, width: Long, compar: Long): Long
+    external fun libcUnixBsdNetbsdlikeOpenbsdLfind(key: Long, base: Long, nelp: Long, width: Long, compar: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_hcreate(nelt: Long): Int
+    external fun libcUnixBsdNetbsdlikeOpenbsdHcreate(nelt: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_hdestroy()
+    external fun libcUnixBsdNetbsdlikeOpenbsdHdestroy()
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_futex(uaddr: Long, op: Int, value: Int, timeout: Long, uaddr2: Long): Int
+    external fun libcUnixBsdNetbsdlikeOpenbsdFutex(uaddr: Long, op: Int, value: Int, timeout: Long, uaddr2: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_mimmutable(addr: Long, len: Long): Int
+    external fun libcUnixBsdNetbsdlikeOpenbsdMimmutable(addr: Long, len: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_reboot(mode: Int): Int
+    external fun libcUnixBsdNetbsdlikeOpenbsdReboot(mode: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_statfs(path: String?, buf: Long): Int
+    external fun libcUnixBsdNetbsdlikeOpenbsdStatfs(path: Long, buf: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_fstatfs(fd: Int, buf: Long): Int
+    external fun libcUnixBsdNetbsdlikeOpenbsdFstatfs(fd: Int, buf: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_getmntinfo(mntbufp: Long, flags: Int): Int
+    external fun libcUnixBsdNetbsdlikeOpenbsdGetmntinfo(mntbufp: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_getfsstat(buf: Long, bufsize: Long, flags: Int): Int
+    external fun libcUnixBsdNetbsdlikeOpenbsdGetfsstat(buf: Long, bufsize: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_elfAuxInfo(aux: Int, buf: Long, buflen: Int): Int
+    external fun libcUnixBsdNetbsdlikeOpenbsdElfAuxInfo(aux: Int, buf: Long, buflen: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_backtrace(addrlist: Long, len: Long): Long
+    external fun libcUnixBsdNetbsdlikeOpenbsdBacktrace(addrlist: Long, len: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_backtraceSymbols(addrlist: Long, len: Long): Long
+    external fun libcUnixBsdNetbsdlikeOpenbsdBacktraceSymbols(addrlist: Long, len: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_backtraceSymbolsFd(addrlist: Long, len: Long, fd: Int): Int
+    external fun libcUnixBsdNetbsdlikeOpenbsdBacktraceSymbolsFd(addrlist: Long, len: Long, fd: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_netbsdlike_openbsd_backtraceSymbolsFmt(addrlist: Long, len: Long, fmt: String?): Long
+    external fun libcUnixBsdNetbsdlikeOpenbsdBacktraceSymbolsFmt(addrlist: Long, len: Long, fmt: Long): Long
 }
 
-public actual fun gettimeofday(tp: COpaquePointer?, tz: COpaquePointer?): CInt =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_gettimeofday((tp?.value ?: 0L), (tz?.value ?: 0L))
+public actual fun gettimeofday(tp: MutPtr<Timeval>, tz: MutPtr<Timezone>): CInt =
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdGettimeofday(tp.rawAddress, tz.rawAddress)
 
-public actual fun settimeofday(tp: COpaquePointer?, tz: COpaquePointer?): CInt =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_settimeofday((tp?.value ?: 0L), (tz?.value ?: 0L))
+public actual fun settimeofday(tp: ConstPtr<Timeval>, tz: ConstPtr<Timezone>): CInt =
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdSettimeofday(tp.rawAddress, tz.rawAddress)
 
-public actual fun pledge(promises: String?, execpromises: String?): CInt =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_pledge(promises, execpromises)
+public actual fun pledge(promises: ConstPtr<CChar>, execpromises: ConstPtr<CChar>): CInt =
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdPledge(promises.rawAddress, execpromises.rawAddress)
 
-public actual fun unveil(path: String?, permissions: String?): CInt =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_unveil(path, permissions)
+public actual fun unveil(path: ConstPtr<CChar>, permissions: ConstPtr<CChar>): CInt =
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdUnveil(path.rawAddress, permissions.rawAddress)
 
-public actual fun strtonum(nptr: String?, minval: CLonglong, maxval: CLonglong, errstr: COpaquePointer?): CLonglong =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_strtonum(nptr, minval, maxval, (errstr?.value ?: 0L))
+public actual fun strtonum(nptr: ConstPtr<CChar>, minval: CLonglong, maxval: CLonglong, errstr: MutPtr<ConstPtr<CChar>>): CLonglong =
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdStrtonum(nptr.rawAddress, minval, maxval, errstr.rawAddress)
 
 public actual fun dup3(src: CInt, dst: CInt, flags: CInt): CInt =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_dup3(src, dst, flags)
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdDup3(src, dst, flags)
 
-public actual fun chflags(path: String?, flags: CUint): CInt =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_chflags(path, flags.toInt())
+public actual fun chflags(path: ConstPtr<CChar>, flags: CUint): CInt =
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdChflags(path.rawAddress, flags.toInt())
 
 public actual fun fchflags(fd: CInt, flags: CUint): CInt =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_fchflags(fd, flags.toInt())
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdFchflags(fd, flags.toInt())
 
-public actual fun chflagsat(fd: CInt, path: String?, flags: CUint, atflag: CInt): CInt =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_chflagsat(fd, path, flags.toInt(), atflag)
+public actual fun chflagsat(fd: CInt, path: ConstPtr<CChar>, flags: CUint, atflag: CInt): CInt =
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdChflagsat(fd, path.rawAddress, flags.toInt(), atflag)
 
-public actual fun dirfd(dirp: DIR?): CInt =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_dirfd((dirp?.handle ?: 0L))
+public actual fun dirfd(dirp: MutPtr<DIR>): CInt =
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdDirfd(dirp.rawAddress)
 
-public actual fun getnameinfo(sa: COpaquePointer?, salen: SocklenT, host: COpaquePointer?, hostlen: SizeT, serv: COpaquePointer?, servlen: SizeT, flags: CInt): CInt =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_getnameinfo((sa?.value ?: 0L), salen.toInt(), (host?.value ?: 0L), hostlen.toLong(), (serv?.value ?: 0L), servlen.toLong(), flags)
+public actual fun getnameinfo(sa: ConstPtr<Sockaddr>, salen: SocklenT, host: MutPtr<CChar>, hostlen: SizeT, serv: MutPtr<CChar>, servlen: SizeT, flags: CInt): CInt =
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdGetnameinfo(sa.rawAddress, salen.toInt(), host.rawAddress, hostlen.toLong(), serv.rawAddress, servlen.toLong(), flags)
 
-public actual fun getresgid(rgid: COpaquePointer?, egid: COpaquePointer?, sgid: COpaquePointer?): CInt =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_getresgid((rgid?.value ?: 0L), (egid?.value ?: 0L), (sgid?.value ?: 0L))
+public actual fun getresgid(rgid: MutPtr<GidT>, egid: MutPtr<GidT>, sgid: MutPtr<GidT>): CInt =
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdGetresgid(rgid.rawAddress, egid.rawAddress, sgid.rawAddress)
 
-public actual fun getresuid(ruid: COpaquePointer?, euid: COpaquePointer?, suid: COpaquePointer?): CInt =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_getresuid((ruid?.value ?: 0L), (euid?.value ?: 0L), (suid?.value ?: 0L))
+public actual fun getresuid(ruid: MutPtr<UidT>, euid: MutPtr<UidT>, suid: MutPtr<UidT>): CInt =
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdGetresuid(ruid.rawAddress, euid.rawAddress, suid.rawAddress)
 
-public actual fun kevent(kq: CInt, changelist: COpaquePointer?, nchanges: CInt, eventlist: COpaquePointer?, nevents: CInt, timeout: COpaquePointer?): CInt =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_kevent(kq, (changelist?.value ?: 0L), nchanges, (eventlist?.value ?: 0L), nevents, (timeout?.value ?: 0L))
+public actual fun kevent(kq: CInt, changelist: ConstPtr<Kevent>, nchanges: CInt, eventlist: MutPtr<Kevent>, nevents: CInt, timeout: ConstPtr<Timespec>): CInt =
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdKevent(kq, changelist.rawAddress, nchanges, eventlist.rawAddress, nevents, timeout.rawAddress)
 
-public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_mprotect((addr?.value ?: 0L), len.toLong(), prot)
+public actual fun mprotect(addr: MutPtr<CVoid>, len: SizeT, prot: CInt): CInt =
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdMprotect(addr.rawAddress, len.toLong(), prot)
 
 public actual fun getthrid(): PidT =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_getthrid()
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdGetthrid()
 
-public actual fun pthreadAttrGetguardsize(attr: COpaquePointer?, guardsize: COpaquePointer?): CInt =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_pthreadAttrGetguardsize((attr?.value ?: 0L), (guardsize?.value ?: 0L))
+public actual fun pthreadAttrGetguardsize(attr: ConstPtr<PthreadAttrT>, guardsize: MutPtr<SizeT>): CInt =
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdPthreadAttrGetguardsize(attr.rawAddress, guardsize.rawAddress)
 
-public actual fun pthreadAttrSetguardsize(attr: COpaquePointer?, guardsize: SizeT): CInt =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_pthreadAttrSetguardsize((attr?.value ?: 0L), guardsize.toLong())
+public actual fun pthreadAttrSetguardsize(attr: MutPtr<PthreadAttrT>, guardsize: SizeT): CInt =
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdPthreadAttrSetguardsize(attr.rawAddress, guardsize.toLong())
 
-public actual fun pthreadAttrGetstack(attr: COpaquePointer?, stackaddr: COpaquePointer?, stacksize: COpaquePointer?): CInt =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_pthreadAttrGetstack((attr?.value ?: 0L), (stackaddr?.value ?: 0L), (stacksize?.value ?: 0L))
+public actual fun pthreadAttrGetstack(attr: ConstPtr<PthreadAttrT>, stackaddr: MutPtr<MutPtr<CVoid>>, stacksize: MutPtr<SizeT>): CInt =
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdPthreadAttrGetstack(attr.rawAddress, stackaddr.rawAddress, stacksize.rawAddress)
 
 public actual fun pthreadMainNp(): CInt =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_pthreadMainNp()
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdPthreadMainNp()
 
-public actual fun pthreadGetNameNp(tid: PthreadT, name: COpaquePointer?, len: SizeT) {
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_pthreadGetNameNp(tid.toLong(), (name?.value ?: 0L), len.toLong())
+public actual fun pthreadGetNameNp(tid: PthreadT, name: MutPtr<CChar>, len: SizeT) {
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdPthreadGetNameNp(tid.toLong(), name.rawAddress, len.toLong())
 }
 
-public actual fun pthreadSetNameNp(tid: PthreadT, name: String?) {
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_pthreadSetNameNp(tid.toLong(), name)
+public actual fun pthreadSetNameNp(tid: PthreadT, name: ConstPtr<CChar>) {
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdPthreadSetNameNp(tid.toLong(), name.rawAddress)
 }
 
-public actual fun pthreadStacksegNp(thread: PthreadT, sinfo: COpaquePointer?): CInt =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_pthreadStacksegNp(thread.toLong(), (sinfo?.value ?: 0L))
+public actual fun pthreadStacksegNp(thread: PthreadT, sinfo: MutPtr<StackT>): CInt =
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdPthreadStacksegNp(thread.toLong(), sinfo.rawAddress)
 
-public actual fun openpty(amaster: COpaquePointer?, aslave: COpaquePointer?, name: COpaquePointer?, termp: COpaquePointer?, winp: COpaquePointer?): CInt =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_openpty((amaster?.value ?: 0L), (aslave?.value ?: 0L), (name?.value ?: 0L), (termp?.value ?: 0L), (winp?.value ?: 0L))
+public actual fun openpty(amaster: MutPtr<CInt>, aslave: MutPtr<CInt>, name: MutPtr<CChar>, termp: ConstPtr<Termios>, winp: ConstPtr<Winsize>): CInt =
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdOpenpty(amaster.rawAddress, aslave.rawAddress, name.rawAddress, termp.rawAddress, winp.rawAddress)
 
-public actual fun forkpty(amaster: COpaquePointer?, name: COpaquePointer?, termp: COpaquePointer?, winp: COpaquePointer?): PidT =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_forkpty((amaster?.value ?: 0L), (name?.value ?: 0L), (termp?.value ?: 0L), (winp?.value ?: 0L))
+public actual fun forkpty(amaster: MutPtr<CInt>, name: MutPtr<CChar>, termp: ConstPtr<Termios>, winp: ConstPtr<Winsize>): PidT =
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdForkpty(amaster.rawAddress, name.rawAddress, termp.rawAddress, winp.rawAddress)
 
-public actual fun sysctl(name: COpaquePointer?, namelen: CUint, oldp: COpaquePointer?, oldlenp: COpaquePointer?, newp: COpaquePointer?, newlen: SizeT): CInt =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_sysctl((name?.value ?: 0L), namelen.toInt(), (oldp?.value ?: 0L), (oldlenp?.value ?: 0L), (newp?.value ?: 0L), newlen.toLong())
+public actual fun sysctl(name: ConstPtr<CInt>, namelen: CUint, oldp: MutPtr<CVoid>, oldlenp: MutPtr<SizeT>, newp: MutPtr<CVoid>, newlen: SizeT): CInt =
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdSysctl(name.rawAddress, namelen.toInt(), oldp.rawAddress, oldlenp.rawAddress, newp.rawAddress, newlen.toLong())
 
 public actual fun setresgid(rgid: GidT, egid: GidT, sgid: GidT): CInt =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_setresgid(rgid.toShort(), egid.toShort(), sgid.toShort())
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdSetresgid(rgid.toShort(), egid.toShort(), sgid.toShort())
 
 public actual fun setresuid(ruid: UidT, euid: UidT, suid: UidT): CInt =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_setresuid(ruid.toShort(), euid.toShort(), suid.toShort())
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdSetresuid(ruid.toShort(), euid.toShort(), suid.toShort())
 
 public actual fun ptrace(request: CInt, pid: PidT, addr: CaddrT, data: CInt): CInt =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_ptrace(request, pid, (addr?.value ?: 0L), data)
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdPtrace(request, pid, addr.rawAddress, data)
 
-public actual fun utrace(label: String?, addr: COpaquePointer?, len: SizeT): CInt =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_utrace(label, (addr?.value ?: 0L), len.toLong())
+public actual fun utrace(label: ConstPtr<CChar>, addr: ConstPtr<CVoid>, len: SizeT): CInt =
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdUtrace(label.rawAddress, addr.rawAddress, len.toLong())
 
-public actual fun memmem(haystack: COpaquePointer?, haystacklen: SizeT, needle: COpaquePointer?, needlelen: SizeT): COpaquePointer? =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_memmem((haystack?.value ?: 0L), haystacklen.toLong(), (needle?.value ?: 0L), needlelen.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun memmem(haystack: ConstPtr<CVoid>, haystacklen: SizeT, needle: ConstPtr<CVoid>, needlelen: SizeT): MutPtr<CVoid> =
+    MutPtr(UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdMemmem(haystack.rawAddress, haystacklen.toLong(), needle.rawAddress, needlelen.toLong()))
 
-public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_dlIteratePhdr(0L, (data?.value ?: 0L))
+public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: MutPtr<CVoid>): CInt =
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdDlIteratePhdr(0L, data.rawAddress)
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_uselocale((loc?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+    MutPtr(UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdUselocale(loc.rawAddress))
 
 public actual fun freelocale(loc: LocaleT) {
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_freelocale((loc?.value ?: 0L))
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdFreelocale(loc.rawAddress)
 }
 
-public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_newlocale(mask, locale, (base?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun newlocale(mask: CInt, locale: ConstPtr<CChar>, base: LocaleT): LocaleT =
+    MutPtr(UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdNewlocale(mask, locale.rawAddress, base.rawAddress))
 
 public actual fun duplocale(base: LocaleT): LocaleT =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_duplocale((base?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+    MutPtr(UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdDuplocale(base.rawAddress))
 
-public actual fun explicitBzero(s: COpaquePointer?, len: SizeT) {
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_explicitBzero((s?.value ?: 0L), len.toLong())
+public actual fun explicitBzero(s: MutPtr<CVoid>, len: SizeT) {
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdExplicitBzero(s.rawAddress, len.toLong())
 }
 
-public actual fun setproctitle(fmt: String?, vararg variadicArgs: Long) {
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_setproctitle(fmt, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun setproctitle(fmt: ConstPtr<CChar>, vararg variadicArgs: Long) {
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdSetproctitle(fmt.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 }
 
-public actual fun freezero(ptr: COpaquePointer?, size: SizeT) {
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_freezero((ptr?.value ?: 0L), size.toLong())
+public actual fun freezero(ptr: MutPtr<CVoid>, size: SizeT) {
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdFreezero(ptr.rawAddress, size.toLong())
 }
 
-public actual fun mallocConceal(size: SizeT): COpaquePointer? =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_mallocConceal(size.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun mallocConceal(size: SizeT): MutPtr<CVoid> =
+    MutPtr(UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdMallocConceal(size.toLong()))
 
-public actual fun callocConceal(nmemb: SizeT, size: SizeT): COpaquePointer? =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_callocConceal(nmemb.toLong(), size.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun callocConceal(nmemb: SizeT, size: SizeT): MutPtr<CVoid> =
+    MutPtr(UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdCallocConceal(nmemb.toLong(), size.toLong()))
 
 public actual fun srand48Deterministic(seed: CLong) {
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_srand48Deterministic(seed)
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdSrand48Deterministic(seed)
 }
 
-public actual fun seed48Deterministic(xseed: COpaquePointer?): COpaquePointer? =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_seed48Deterministic((xseed?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun seed48Deterministic(xseed: MutPtr<CUshort>): MutPtr<CUshort> =
+    MutPtr(UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdSeed48Deterministic(xseed.rawAddress))
 
-public actual fun lcong48Deterministic(p: COpaquePointer?) {
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_lcong48Deterministic((p?.value ?: 0L))
+public actual fun lcong48Deterministic(p: MutPtr<CUshort>) {
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdLcong48Deterministic(p.rawAddress)
 }
 
-public actual fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: LsearchComparCallback?): COpaquePointer? =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_lsearch((key?.value ?: 0L), (base?.value ?: 0L), (nelp?.value ?: 0L), width.toLong(), 0L).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun lsearch(key: ConstPtr<CVoid>, base: MutPtr<CVoid>, nelp: MutPtr<SizeT>, width: SizeT, compar: LsearchComparCallback?): MutPtr<CVoid> =
+    MutPtr(UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdLsearch(key.rawAddress, base.rawAddress, nelp.rawAddress, width.toLong(), 0L))
 
-public actual fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: LsearchComparCallback?): COpaquePointer? =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_lfind((key?.value ?: 0L), (base?.value ?: 0L), (nelp?.value ?: 0L), width.toLong(), 0L).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun lfind(key: ConstPtr<CVoid>, base: ConstPtr<CVoid>, nelp: MutPtr<SizeT>, width: SizeT, compar: LsearchComparCallback?): MutPtr<CVoid> =
+    MutPtr(UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdLfind(key.rawAddress, base.rawAddress, nelp.rawAddress, width.toLong(), 0L))
 
 public actual fun hcreate(nelt: SizeT): CInt =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_hcreate(nelt.toLong())
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdHcreate(nelt.toLong())
 
 public actual fun hdestroy() {
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_hdestroy()
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdHdestroy()
 }
 
-public actual fun hsearch(entry: Entry, action: Action): COpaquePointer? =
-    null
+public actual fun hsearch(entry: Entry, action: Action): MutPtr<Entry> =
+    MutPtr(0L)
 
-public actual fun futex(uaddr: COpaquePointer?, op: CInt, value: CInt, timeout: COpaquePointer?, uaddr2: COpaquePointer?): CInt =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_futex((uaddr?.value ?: 0L), op, value, (timeout?.value ?: 0L), (uaddr2?.value ?: 0L))
+public actual fun futex(uaddr: MutPtr<UInt>, op: CInt, value: CInt, timeout: ConstPtr<Timespec>, uaddr2: MutPtr<UInt>): CInt =
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdFutex(uaddr.rawAddress, op, value, timeout.rawAddress, uaddr2.rawAddress)
 
-public actual fun mimmutable(addr: COpaquePointer?, len: SizeT): CInt =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_mimmutable((addr?.value ?: 0L), len.toLong())
+public actual fun mimmutable(addr: MutPtr<CVoid>, len: SizeT): CInt =
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdMimmutable(addr.rawAddress, len.toLong())
 
 public actual fun reboot(mode: CInt): CInt =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_reboot(mode)
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdReboot(mode)
 
-public actual fun statfs(path: String?, buf: COpaquePointer?): CInt =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_statfs(path, (buf?.value ?: 0L))
+public actual fun statfs(path: ConstPtr<CChar>, buf: MutPtr<Statfs>): CInt =
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdStatfs(path.rawAddress, buf.rawAddress)
 
-public actual fun fstatfs(fd: CInt, buf: COpaquePointer?): CInt =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_fstatfs(fd, (buf?.value ?: 0L))
+public actual fun fstatfs(fd: CInt, buf: MutPtr<Statfs>): CInt =
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdFstatfs(fd, buf.rawAddress)
 
-public actual fun getmntinfo(mntbufp: COpaquePointer?, flags: CInt): CInt =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_getmntinfo((mntbufp?.value ?: 0L), flags)
+public actual fun getmntinfo(mntbufp: MutPtr<MutPtr<Statfs>>, flags: CInt): CInt =
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdGetmntinfo(mntbufp.rawAddress, flags)
 
-public actual fun getfsstat(buf: COpaquePointer?, bufsize: SizeT, flags: CInt): CInt =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_getfsstat((buf?.value ?: 0L), bufsize.toLong(), flags)
+public actual fun getfsstat(buf: MutPtr<Statfs>, bufsize: SizeT, flags: CInt): CInt =
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdGetfsstat(buf.rawAddress, bufsize.toLong(), flags)
 
-public actual fun elfAuxInfo(aux: CInt, buf: COpaquePointer?, buflen: CInt): CInt =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_elfAuxInfo(aux, (buf?.value ?: 0L), buflen)
+public actual fun elfAuxInfo(aux: CInt, buf: MutPtr<CVoid>, buflen: CInt): CInt =
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdElfAuxInfo(aux, buf.rawAddress, buflen)
 
-public actual fun backtrace(addrlist: COpaquePointer?, len: SizeT): SizeT =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_backtrace((addrlist?.value ?: 0L), len.toLong()).toULong()
+public actual fun backtrace(addrlist: MutPtr<MutPtr<CVoid>>, len: SizeT): SizeT =
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdBacktrace(addrlist.rawAddress, len.toLong()).toULong()
 
-public actual fun backtraceSymbols(addrlist: COpaquePointer?, len: SizeT): COpaquePointer? =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_backtraceSymbols((addrlist?.value ?: 0L), len.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun backtraceSymbols(addrlist: ConstPtr<MutPtr<CVoid>>, len: SizeT): MutPtr<MutPtr<CChar>> =
+    MutPtr(UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdBacktraceSymbols(addrlist.rawAddress, len.toLong()))
 
-public actual fun backtraceSymbolsFd(addrlist: COpaquePointer?, len: SizeT, fd: CInt): CInt =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_backtraceSymbolsFd((addrlist?.value ?: 0L), len.toLong(), fd)
+public actual fun backtraceSymbolsFd(addrlist: ConstPtr<MutPtr<CVoid>>, len: SizeT, fd: CInt): CInt =
+    UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdBacktraceSymbolsFd(addrlist.rawAddress, len.toLong(), fd)
 
-public actual fun backtraceSymbolsFmt(addrlist: COpaquePointer?, len: SizeT, fmt: String?): COpaquePointer? =
-    UnixBsdNetbsdlikeOpenbsdJniBridge.libc_unix_bsd_netbsdlike_openbsd_backtraceSymbolsFmt((addrlist?.value ?: 0L), len.toLong(), fmt).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun backtraceSymbolsFmt(addrlist: ConstPtr<MutPtr<CVoid>>, len: SizeT, fmt: ConstPtr<CChar>): MutPtr<MutPtr<CChar>> =
+    MutPtr(UnixBsdNetbsdlikeOpenbsdJniBridge.libcUnixBsdNetbsdlikeOpenbsdBacktraceSymbolsFmt(addrlist.rawAddress, len.toLong(), fmt.rawAddress))

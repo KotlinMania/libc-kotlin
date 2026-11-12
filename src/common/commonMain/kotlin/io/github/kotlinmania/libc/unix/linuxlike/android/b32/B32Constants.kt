@@ -4,8 +4,9 @@ package io.github.kotlinmania.libc.unix.linuxlike.android.b32
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.unix.SizeT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 // These constants must be of the same type of sigaction.saFlags
 public val SA_NOCLDSTOP: CInt = 0x00000001
@@ -26,7 +27,7 @@ public val RTLD_GLOBAL: CInt = 2
 
 public val RTLD_NOW: CInt = 0
 
-public val RTLD_DEFAULT: COpaquePointer? = COpaquePointer((-1).toLong())
+public val RTLD_DEFAULT: MutPtr<CVoid> = MutPtr<CVoid>((-1).toLong())
 
 public val PTRACE_GETFPREGS: CInt = 14
 

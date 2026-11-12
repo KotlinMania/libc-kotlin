@@ -1,15 +1,17 @@
 package io.github.kotlinmania.libc.unix.solarish
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CLonglong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.unix.UintptrT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
-public typealias CaddrT = COpaquePointer?
+public typealias CaddrT = MutPtr<CChar>
 
 public typealias ClockidT = CInt
 
@@ -83,7 +85,7 @@ public typealias BlksizeT = CInt
 
 public typealias NlItem = CInt
 
-public typealias MqdT = COpaquePointer?
+public typealias MqdT = MutPtr<CVoid>
 
 public typealias IdT = CInt
 
@@ -105,9 +107,9 @@ public typealias LgrpMemSizeFlagT = CUint
 
 public typealias LgrpViewT = CUint
 
-public typealias PosixSpawnattrT = COpaquePointer?
+public typealias PosixSpawnattrT = MutPtr<CVoid>
 
-public typealias PosixSpawnFileActionsT = COpaquePointer?
+public typealias PosixSpawnFileActionsT = MutPtr<CVoid>
 
 public class Timezone(
     public val handle: Long = -1L,

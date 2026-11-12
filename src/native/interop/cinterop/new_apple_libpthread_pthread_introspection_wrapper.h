@@ -9,9 +9,9 @@
 extern "C" {
 #endif
 
-void* libc_new_apple_libpthread_pthread_introspection_pthreadIntrospectionHookInstall(void* hook);
-int32_t libc_new_apple_libpthread_pthread_introspection_pthreadIntrospectionSetspecificNp(void* thread, uint64_t key, void* value);
-void* libc_new_apple_libpthread_pthread_introspection_pthreadIntrospectionGetspecificNp(void* thread, uint64_t key);
+void* libcNewAppleLibpthreadPthreadIntrospectionPthreadIntrospectionHookInstall(void* hook);
+int32_t libcNewAppleLibpthreadPthreadIntrospectionPthreadIntrospectionSetspecificNp(void* thread, uint64_t key, void* value);
+void* libcNewAppleLibpthreadPthreadIntrospectionPthreadIntrospectionGetspecificNp(void* thread, uint64_t key);
 
 #ifdef __cplusplus
 }

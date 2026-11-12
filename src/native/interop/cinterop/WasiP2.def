@@ -4,3 +4,4 @@ headerFilter = wasi_p2_wrapper.h
 compilerOpts = -Isrc/native/interop/cinterop
 staticLibraries = wasi_p2_wrapper.a
 linkerOpts.mingw = -lws2_32
+noStringConversion = libcWasiP2Getaddrinfo

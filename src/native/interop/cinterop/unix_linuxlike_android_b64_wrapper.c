@@ -15,7 +15,7 @@
 #endif
 #endif
 
-bool libc_unix_linuxlike_android_b64_systemPropertyWait(void* pi, uint32_t arg_1_old_serial, void* arg_2_new_serial_ptr, void* arg_3_relative_timeout) {
+bool libcUnixLinuxlikeAndroidB64SystemPropertyWait(void* pi, uint32_t oldSerial, void* newSerialPtr, void* relativeTimeout) {
     typedef bool (*km_fn_t)(void*, uint32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -35,7 +35,7 @@ bool libc_unix_linuxlike_android_b64_systemPropertyWait(void* pi, uint32_t arg_1
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(pi, arg_1_old_serial, arg_2_new_serial_ptr, arg_3_relative_timeout);
+        return km_fn_ptr(pi, oldSerial, newSerialPtr, relativeTimeout);
     }
     errno = ENOSYS;
     return false;

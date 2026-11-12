@@ -2,630 +2,646 @@
 
 package io.github.kotlinmania.libc.unix.linuxlike.android
 
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.unix.DIR
 import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.GidT
+import io.github.kotlinmania.libc.unix.Group
+import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.PidT
+import io.github.kotlinmania.libc.unix.Pollfd
+import io.github.kotlinmania.libc.unix.Rlimit
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.Timeval
 import io.github.kotlinmania.libc.unix.UidT
 import io.github.kotlinmania.libc.unix.linuxlike.ClockidT
+import io.github.kotlinmania.libc.unix.linuxlike.EpollEvent
 import io.github.kotlinmania.libc.unix.linuxlike.IdT
+import io.github.kotlinmania.libc.unix.linuxlike.Rlimit64
+import io.github.kotlinmania.libc.unix.linuxlike.SchedParam
+import io.github.kotlinmania.libc.unix.linuxlike.Sockaddr
+import io.github.kotlinmania.libc.unix.linuxlike.Timezone
 import io.github.kotlinmania.libc.unix.linuxlike.android.b64.Off64T
+import io.github.kotlinmania.libc.unix.linuxlike.android.b64.SigsetT
 import io.github.kotlinmania.libc.unix.linuxlike.android.b64.SocklenT
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_androidSetAbortMessage
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_arc4random
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_arc4randomBuf
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_arc4randomUniform
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_basename
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_clockNanosleep
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_clone
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_daemon
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_dirname
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_dlIteratePhdr
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_endgrent
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_epollCreate
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_epollCreate1
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_epollCtl
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_epollWait
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_errno
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_eventfd
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_eventfdRead
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_eventfdWrite
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_faccessat
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_fallocate
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_fallocate64
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_fflushUnlocked
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_fgetsUnlocked
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_fgetxattr
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_flistxattr
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_freadUnlocked
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_fremovexattr
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_fsetxattr
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_fwriteUnlocked
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_getauxval
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_getentropy
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_getgrent
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_getgrgid
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_getgrgidR
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_getgrnam
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_getgrnamR
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_getgrouplist
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_getnameinfo
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_getoptLong
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_getpriority
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_getrandom
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_getrlimit
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_getrlimit64
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_gettid
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_gettimeofday
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_getutent
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_getxattr
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_initgroups
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_inotifyAddWatch
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_inotifyInit
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_inotifyInit1
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_inotifyRmWatch
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_klogctl
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_lgetxattr
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_listxattr
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_llistxattr
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_lremovexattr
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_lsetxattr
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_madvise
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_mallocInfo
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_mallocUsableSize
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_memfdCreate
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_memmem
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_mlock2
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_mount
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_mprotect
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_msync
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_personality
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_popen
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_posixFallocate
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_posixFallocate64
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_ppoll
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_prctl
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_preadv
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_prlimit
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_prlimit64
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_processVmReadv
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_processVmWritev
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_ptrace
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_pwritev
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_reallocarray
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_regcomp
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_regerror
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_regexec
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_regfree
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_removexattr
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_renameat2
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_schedCpualloc
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_schedCpucount
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_schedCpufree
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_schedGetPriorityMax
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_schedGetPriorityMin
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_schedGetaffinity
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_schedGetcpu
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_schedGetparam
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_schedGetscheduler
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_schedRrGetInterval
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_schedSetaffinity
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_schedSetparam
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_schedSetscheduler
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_seekdir
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_semClose
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_semGetvalue
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_semOpen
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_semTimedwait
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_semUnlink
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_sendfile
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_sendfile64
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_setfsgid
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_setfsuid
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_setgrent
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_sethostname
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_setns
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_setpriority
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_setrlimit
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_setrlimit64
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_settimeofday
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_setutent
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_setxattr
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_sigaltstack
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_signalfd
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_sigsuspend
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_sigtimedwait
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_sigwait
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_splice
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_strerrorR
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_swapoff
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_swapon
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_sync
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_syncfs
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_syscall
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_sysinfo
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_systemPropertyFind
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_systemPropertyFindNth
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_systemPropertyForeach
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_systemPropertyGet
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_systemPropertySet
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_tee
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_telldir
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_tgkill
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_timerfdCreate
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_timerfdGettime
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_timerfdSettime
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_umount
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_umount2
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_unshare
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_utmpname
-import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libc_unix_linuxlike_android_vmsplice
+import io.github.kotlinmania.libc.unix.linuxlike.android.b64.Sysinfo
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidAndroidSetAbortMessage
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidArc4random
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidArc4randomBuf
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidArc4randomUniform
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidBasename
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidClockNanosleep
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidClone
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidDaemon
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidDirname
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidDlIteratePhdr
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidEndgrent
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidEpollCreate
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidEpollCreate1
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidEpollCtl
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidEpollWait
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidErrno
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidEventfd
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidEventfdRead
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidEventfdWrite
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidFaccessat
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidFallocate
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidFallocate64
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidFflushUnlocked
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidFgetsUnlocked
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidFgetxattr
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidFlistxattr
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidFreadUnlocked
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidFremovexattr
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidFsetxattr
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidFwriteUnlocked
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidGetauxval
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidGetentropy
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidGetgrent
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidGetgrgid
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidGetgrgidR
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidGetgrnam
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidGetgrnamR
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidGetgrouplist
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidGetnameinfo
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidGetoptLong
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidGetpriority
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidGetrandom
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidGetrlimit
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidGetrlimit64
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidGettid
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidGettimeofday
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidGetutent
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidGetxattr
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidInitgroups
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidInotifyAddWatch
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidInotifyInit
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidInotifyInit1
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidInotifyRmWatch
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidKlogctl
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidLgetxattr
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidListxattr
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidLlistxattr
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidLremovexattr
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidLsetxattr
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidMadvise
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidMallocInfo
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidMallocUsableSize
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidMemfdCreate
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidMemmem
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidMlock2
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidMount
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidMprotect
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidMsync
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidPersonality
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidPopen
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidPosixFallocate
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidPosixFallocate64
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidPpoll
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidPrctl
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidPreadv
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidPrlimit
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidPrlimit64
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidProcessVmReadv
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidProcessVmWritev
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidPtrace
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidPwritev
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidReallocarray
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidRegcomp
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidRegerror
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidRegexec
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidRegfree
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidRemovexattr
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidRenameat2
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSchedCpualloc
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSchedCpucount
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSchedCpufree
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSchedGetPriorityMax
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSchedGetPriorityMin
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSchedGetaffinity
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSchedGetcpu
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSchedGetparam
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSchedGetscheduler
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSchedRrGetInterval
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSchedSetaffinity
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSchedSetparam
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSchedSetscheduler
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSeekdir
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSemClose
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSemGetvalue
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSemOpen
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSemTimedwait
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSemUnlink
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSendfile
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSendfile64
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSetfsgid
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSetfsuid
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSetgrent
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSethostname
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSetns
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSetpriority
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSetrlimit
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSetrlimit64
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSettimeofday
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSetutent
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSetxattr
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSigaltstack
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSignalfd
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSigsuspend
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSigtimedwait
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSigwait
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSplice
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidStrerrorR
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSwapoff
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSwapon
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSync
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSyncfs
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSyscall
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSysinfo
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSystemPropertyFind
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSystemPropertyFindNth
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSystemPropertyForeach
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSystemPropertyGet
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidSystemPropertySet
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidTee
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidTelldir
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidTgkill
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidTimerfdCreate
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidTimerfdGettime
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidTimerfdSettime
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidUmount
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidUmount2
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidUnshare
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidUtmpname
+import io.github.kotlinmania.libc.unix.linuxlike.android.cinterop.libcUnixLinuxlikeAndroidVmsplice
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
 
 public actual fun setgrent() {
-    libc_unix_linuxlike_android_setgrent()
+    libcUnixLinuxlikeAndroidSetgrent()
 }
 
 public actual fun endgrent() {
-    libc_unix_linuxlike_android_endgrent()
+    libcUnixLinuxlikeAndroidEndgrent()
 }
 
-public actual fun getgrent(): COpaquePointer? =
-    libc_unix_linuxlike_android_getgrent()?.let { COpaquePointer(it.toLong()) }
+public actual fun getgrent(): MutPtr<Group> =
+    MutPtr(libcUnixLinuxlikeAndroidGetgrent()?.toLong() ?: 0L)
 
-public actual fun getrlimit64(resource: CInt, rlim: COpaquePointer?): CInt =
-    libc_unix_linuxlike_android_getrlimit64(resource, rlim?.value?.toCPointer<ByteVar>())
+public actual fun getrlimit64(resource: CInt, rlim: MutPtr<Rlimit64>): CInt =
+    libcUnixLinuxlikeAndroidGetrlimit64(resource, rlim.rawAddress.toCPointer<ByteVar>())
 
-public actual fun setrlimit64(resource: CInt, rlim: COpaquePointer?): CInt =
-    libc_unix_linuxlike_android_setrlimit64(resource, rlim?.value?.toCPointer<ByteVar>())
+public actual fun setrlimit64(resource: CInt, rlim: ConstPtr<Rlimit64>): CInt =
+    libcUnixLinuxlikeAndroidSetrlimit64(resource, rlim.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getrlimit(resource: CInt, rlim: COpaquePointer?): CInt =
-    libc_unix_linuxlike_android_getrlimit(resource, rlim?.value?.toCPointer<ByteVar>())
+public actual fun getrlimit(resource: CInt, rlim: MutPtr<Rlimit>): CInt =
+    libcUnixLinuxlikeAndroidGetrlimit(resource, rlim.rawAddress.toCPointer<ByteVar>())
 
-public actual fun setrlimit(resource: CInt, rlim: COpaquePointer?): CInt =
-    libc_unix_linuxlike_android_setrlimit(resource, rlim?.value?.toCPointer<ByteVar>())
+public actual fun setrlimit(resource: CInt, rlim: ConstPtr<Rlimit>): CInt =
+    libcUnixLinuxlikeAndroidSetrlimit(resource, rlim.rawAddress.toCPointer<ByteVar>())
 
-public actual fun prlimit(pid: PidT, resource: CInt, newLimit: COpaquePointer?, oldLimit: COpaquePointer?): CInt =
-    libc_unix_linuxlike_android_prlimit(pid, resource, newLimit?.value?.toCPointer<ByteVar>(), oldLimit?.value?.toCPointer<ByteVar>())
+public actual fun prlimit(pid: PidT, resource: CInt, newLimit: ConstPtr<Rlimit>, oldLimit: MutPtr<Rlimit>): CInt =
+    libcUnixLinuxlikeAndroidPrlimit(pid, resource, newLimit.rawAddress.toCPointer<ByteVar>(), oldLimit.rawAddress.toCPointer<ByteVar>())
 
-public actual fun prlimit64(pid: PidT, resource: CInt, newLimit: COpaquePointer?, oldLimit: COpaquePointer?): CInt =
-    libc_unix_linuxlike_android_prlimit64(pid, resource, newLimit?.value?.toCPointer<ByteVar>(), oldLimit?.value?.toCPointer<ByteVar>())
+public actual fun prlimit64(pid: PidT, resource: CInt, newLimit: ConstPtr<Rlimit64>, oldLimit: MutPtr<Rlimit64>): CInt =
+    libcUnixLinuxlikeAndroidPrlimit64(pid, resource, newLimit.rawAddress.toCPointer<ByteVar>(), oldLimit.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strerrorR(errnum: CInt, buf: COpaquePointer?, buflen: SizeT): CInt =
-    libc_unix_linuxlike_android_strerrorR(errnum, buf?.value?.toCPointer<ByteVar>(), buflen)
+public actual fun strerrorR(errnum: CInt, buf: MutPtr<CChar>, buflen: SizeT): CInt =
+    libcUnixLinuxlikeAndroidStrerrorR(errnum, buf.rawAddress.toCPointer<ByteVar>(), buflen)
 
-public actual fun gettimeofday(tp: COpaquePointer?, tz: COpaquePointer?): CInt =
-    libc_unix_linuxlike_android_gettimeofday(tp?.value?.toCPointer<ByteVar>(), tz?.value?.toCPointer<ByteVar>())
+public actual fun gettimeofday(tp: MutPtr<Timeval>, tz: MutPtr<Timezone>): CInt =
+    libcUnixLinuxlikeAndroidGettimeofday(tp.rawAddress.toCPointer<ByteVar>(), tz.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mlock2(addr: COpaquePointer?, len: SizeT, flags: CInt): CInt =
-    libc_unix_linuxlike_android_mlock2(addr?.value?.toCPointer<ByteVar>(), len, flags)
+public actual fun mlock2(addr: ConstPtr<CVoid>, len: SizeT, flags: CInt): CInt =
+    libcUnixLinuxlikeAndroidMlock2(addr.rawAddress.toCPointer<ByteVar>(), len, flags)
 
-public actual fun madvise(addr: COpaquePointer?, len: SizeT, advice: CInt): CInt =
-    libc_unix_linuxlike_android_madvise(addr?.value?.toCPointer<ByteVar>(), len, advice)
+public actual fun madvise(addr: MutPtr<CVoid>, len: SizeT, advice: CInt): CInt =
+    libcUnixLinuxlikeAndroidMadvise(addr.rawAddress.toCPointer<ByteVar>(), len, advice)
 
-public actual fun msync(addr: COpaquePointer?, len: SizeT, flags: CInt): CInt =
-    libc_unix_linuxlike_android_msync(addr?.value?.toCPointer<ByteVar>(), len, flags)
+public actual fun msync(addr: MutPtr<CVoid>, len: SizeT, flags: CInt): CInt =
+    libcUnixLinuxlikeAndroidMsync(addr.rawAddress.toCPointer<ByteVar>(), len, flags)
 
-public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt =
-    libc_unix_linuxlike_android_mprotect(addr?.value?.toCPointer<ByteVar>(), len, prot)
+public actual fun mprotect(addr: MutPtr<CVoid>, len: SizeT, prot: CInt): CInt =
+    libcUnixLinuxlikeAndroidMprotect(addr.rawAddress.toCPointer<ByteVar>(), len, prot)
 
-public actual fun getnameinfo(sa: COpaquePointer?, salen: SocklenT, host: COpaquePointer?, hostlen: SizeT, serv: COpaquePointer?, servlen: SizeT, flags: CInt): CInt =
-    libc_unix_linuxlike_android_getnameinfo(sa?.value?.toCPointer<ByteVar>(), salen, host?.value?.toCPointer<ByteVar>(), hostlen, serv?.value?.toCPointer<ByteVar>(), servlen, flags)
+public actual fun getnameinfo(sa: ConstPtr<Sockaddr>, salen: SocklenT, host: MutPtr<CChar>, hostlen: SizeT, serv: MutPtr<CChar>, servlen: SizeT, flags: CInt): CInt =
+    libcUnixLinuxlikeAndroidGetnameinfo(sa.rawAddress.toCPointer<ByteVar>(), salen, host.rawAddress.toCPointer<ByteVar>(), hostlen, serv.rawAddress.toCPointer<ByteVar>(), servlen, flags)
 
-public actual fun preadv(fd: CInt, iov: COpaquePointer?, count: CInt, offset: OffT): SsizeT =
-    libc_unix_linuxlike_android_preadv(fd, iov?.value?.toCPointer<ByteVar>(), count, offset)
+public actual fun preadv(fd: CInt, iov: ConstPtr<Iovec>, count: CInt, offset: OffT): SsizeT =
+    libcUnixLinuxlikeAndroidPreadv(fd, iov.rawAddress.toCPointer<ByteVar>(), count, offset)
 
-public actual fun pwritev(fd: CInt, iov: COpaquePointer?, count: CInt, offset: OffT): SsizeT =
-    libc_unix_linuxlike_android_pwritev(fd, iov?.value?.toCPointer<ByteVar>(), count, offset)
+public actual fun pwritev(fd: CInt, iov: ConstPtr<Iovec>, count: CInt, offset: OffT): SsizeT =
+    libcUnixLinuxlikeAndroidPwritev(fd, iov.rawAddress.toCPointer<ByteVar>(), count, offset)
 
-public actual fun processVmReadv(pid: PidT, localIov: COpaquePointer?, localIovCount: CUlong, remoteIov: COpaquePointer?, remoteIovCount: CUlong, flags: CUlong): SsizeT =
-    libc_unix_linuxlike_android_processVmReadv(pid, localIov?.value?.toCPointer<ByteVar>(), localIovCount, remoteIov?.value?.toCPointer<ByteVar>(), remoteIovCount, flags)
+public actual fun processVmReadv(pid: PidT, localIov: ConstPtr<Iovec>, localIovCount: CUlong, remoteIov: ConstPtr<Iovec>, remoteIovCount: CUlong, flags: CUlong): SsizeT =
+    libcUnixLinuxlikeAndroidProcessVmReadv(pid, localIov.rawAddress.toCPointer<ByteVar>(), localIovCount, remoteIov.rawAddress.toCPointer<ByteVar>(), remoteIovCount, flags)
 
-public actual fun processVmWritev(pid: PidT, localIov: COpaquePointer?, localIovCount: CUlong, remoteIov: COpaquePointer?, remoteIovCount: CUlong, flags: CUlong): SsizeT =
-    libc_unix_linuxlike_android_processVmWritev(pid, localIov?.value?.toCPointer<ByteVar>(), localIovCount, remoteIov?.value?.toCPointer<ByteVar>(), remoteIovCount, flags)
+public actual fun processVmWritev(pid: PidT, localIov: ConstPtr<Iovec>, localIovCount: CUlong, remoteIov: ConstPtr<Iovec>, remoteIovCount: CUlong, flags: CUlong): SsizeT =
+    libcUnixLinuxlikeAndroidProcessVmWritev(pid, localIov.rawAddress.toCPointer<ByteVar>(), localIovCount, remoteIov.rawAddress.toCPointer<ByteVar>(), remoteIovCount, flags)
 
 public actual fun ptrace(request: CInt, vararg variadicArgs: Long): CLong =
-    libc_unix_linuxlike_android_ptrace(request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+    libcUnixLinuxlikeAndroidPtrace(request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun getpriority(which: CInt, who: IdT): CInt =
-    libc_unix_linuxlike_android_getpriority(which, who)
+    libcUnixLinuxlikeAndroidGetpriority(which, who)
 
 public actual fun setpriority(which: CInt, who: IdT, prio: CInt): CInt =
-    libc_unix_linuxlike_android_setpriority(which, who, prio)
+    libcUnixLinuxlikeAndroidSetpriority(which, who, prio)
 
-public actual fun schedCpualloc(count: SizeT): COpaquePointer? =
-    libc_unix_linuxlike_android_schedCpualloc(count)?.let { COpaquePointer(it.toLong()) }
+public actual fun schedCpualloc(count: SizeT): MutPtr<CpuSetT> =
+    MutPtr(libcUnixLinuxlikeAndroidSchedCpualloc(count)?.toLong() ?: 0L)
 
-public actual fun schedCpufree(set: COpaquePointer?) {
-    libc_unix_linuxlike_android_schedCpufree(set?.value?.toCPointer<ByteVar>())
+public actual fun schedCpufree(set: MutPtr<CpuSetT>) {
+    libcUnixLinuxlikeAndroidSchedCpufree(set.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun schedCpucount(setsize: SizeT, set: COpaquePointer?): CInt =
-    libc_unix_linuxlike_android_schedCpucount(setsize, set?.value?.toCPointer<ByteVar>())
+public actual fun schedCpucount(setsize: SizeT, set: ConstPtr<CpuSetT>): CInt =
+    libcUnixLinuxlikeAndroidSchedCpucount(setsize, set.rawAddress.toCPointer<ByteVar>())
 
 public actual fun schedGetcpu(): CInt =
-    libc_unix_linuxlike_android_schedGetcpu()
+    libcUnixLinuxlikeAndroidSchedGetcpu()
 
 public actual fun mallinfo(): Mallinfo =
     Mallinfo()
 
-public actual fun mallocInfo(options: CInt, stream: FILE?): CInt =
-    libc_unix_linuxlike_android_mallocInfo(options, stream?.handle?.toCPointer<ByteVar>())
+public actual fun mallocInfo(options: CInt, stream: MutPtr<FILE>): CInt =
+    libcUnixLinuxlikeAndroidMallocInfo(options, stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mallocUsableSize(ptr: COpaquePointer?): SizeT =
-    libc_unix_linuxlike_android_mallocUsableSize(ptr?.value?.toCPointer<ByteVar>())
+public actual fun mallocUsableSize(ptr: ConstPtr<CVoid>): SizeT =
+    libcUnixLinuxlikeAndroidMallocUsableSize(ptr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun utmpname(name: String?): CInt =
-    libc_unix_linuxlike_android_utmpname(name)
+public actual fun utmpname(name: ConstPtr<CChar>): CInt =
+    libcUnixLinuxlikeAndroidUtmpname(name.rawAddress.toCPointer<ByteVar>())
 
 public actual fun setutent() {
-    libc_unix_linuxlike_android_setutent()
+    libcUnixLinuxlikeAndroidSetutent()
 }
 
-public actual fun getutent(): COpaquePointer? =
-    libc_unix_linuxlike_android_getutent()?.let { COpaquePointer(it.toLong()) }
+public actual fun getutent(): MutPtr<Utmp> =
+    MutPtr(libcUnixLinuxlikeAndroidGetutent()?.toLong() ?: 0L)
 
-public actual fun seekdir(dirp: DIR?, loc: CLong) {
-    libc_unix_linuxlike_android_seekdir(dirp?.handle?.toCPointer<ByteVar>(), loc)
+public actual fun seekdir(dirp: MutPtr<DIR>, loc: CLong) {
+    libcUnixLinuxlikeAndroidSeekdir(dirp.rawAddress.toCPointer<ByteVar>(), loc)
 }
 
-public actual fun telldir(dirp: DIR?): CLong =
-    libc_unix_linuxlike_android_telldir(dirp?.handle?.toCPointer<ByteVar>())
+public actual fun telldir(dirp: MutPtr<DIR>): CLong =
+    libcUnixLinuxlikeAndroidTelldir(dirp.rawAddress.toCPointer<ByteVar>())
 
 public actual fun fallocate(fd: CInt, mode: CInt, offset: OffT, len: OffT): CInt =
-    libc_unix_linuxlike_android_fallocate(fd, mode, offset, len)
+    libcUnixLinuxlikeAndroidFallocate(fd, mode, offset, len)
 
 public actual fun fallocate64(fd: CInt, mode: CInt, offset: Off64T, len: Off64T): CInt =
-    libc_unix_linuxlike_android_fallocate64(fd, mode, offset, len)
+    libcUnixLinuxlikeAndroidFallocate64(fd, mode, offset, len)
 
 public actual fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt =
-    libc_unix_linuxlike_android_posixFallocate(fd, offset, len)
+    libcUnixLinuxlikeAndroidPosixFallocate(fd, offset, len)
 
 public actual fun posixFallocate64(fd: CInt, offset: Off64T, len: Off64T): CInt =
-    libc_unix_linuxlike_android_posixFallocate64(fd, offset, len)
+    libcUnixLinuxlikeAndroidPosixFallocate64(fd, offset, len)
 
-public actual fun getxattr(path: String?, name: String?, value: COpaquePointer?, size: SizeT): SsizeT =
-    libc_unix_linuxlike_android_getxattr(path, name, value?.value?.toCPointer<ByteVar>(), size)
+public actual fun getxattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>, value: MutPtr<CVoid>, size: SizeT): SsizeT =
+    libcUnixLinuxlikeAndroidGetxattr(path.rawAddress.toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>(), size)
 
-public actual fun lgetxattr(path: String?, name: String?, value: COpaquePointer?, size: SizeT): SsizeT =
-    libc_unix_linuxlike_android_lgetxattr(path, name, value?.value?.toCPointer<ByteVar>(), size)
+public actual fun lgetxattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>, value: MutPtr<CVoid>, size: SizeT): SsizeT =
+    libcUnixLinuxlikeAndroidLgetxattr(path.rawAddress.toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>(), size)
 
-public actual fun fgetxattr(filedes: CInt, name: String?, value: COpaquePointer?, size: SizeT): SsizeT =
-    libc_unix_linuxlike_android_fgetxattr(filedes, name, value?.value?.toCPointer<ByteVar>(), size)
+public actual fun fgetxattr(filedes: CInt, name: ConstPtr<CChar>, value: MutPtr<CVoid>, size: SizeT): SsizeT =
+    libcUnixLinuxlikeAndroidFgetxattr(filedes, name.rawAddress.toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>(), size)
 
-public actual fun setxattr(path: String?, name: String?, value: COpaquePointer?, size: SizeT, flags: CInt): CInt =
-    libc_unix_linuxlike_android_setxattr(path, name, value?.value?.toCPointer<ByteVar>(), size, flags)
+public actual fun setxattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>, value: ConstPtr<CVoid>, size: SizeT, flags: CInt): CInt =
+    libcUnixLinuxlikeAndroidSetxattr(path.rawAddress.toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>(), size, flags)
 
-public actual fun lsetxattr(path: String?, name: String?, value: COpaquePointer?, size: SizeT, flags: CInt): CInt =
-    libc_unix_linuxlike_android_lsetxattr(path, name, value?.value?.toCPointer<ByteVar>(), size, flags)
+public actual fun lsetxattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>, value: ConstPtr<CVoid>, size: SizeT, flags: CInt): CInt =
+    libcUnixLinuxlikeAndroidLsetxattr(path.rawAddress.toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>(), size, flags)
 
-public actual fun fsetxattr(filedes: CInt, name: String?, value: COpaquePointer?, size: SizeT, flags: CInt): CInt =
-    libc_unix_linuxlike_android_fsetxattr(filedes, name, value?.value?.toCPointer<ByteVar>(), size, flags)
+public actual fun fsetxattr(filedes: CInt, name: ConstPtr<CChar>, value: ConstPtr<CVoid>, size: SizeT, flags: CInt): CInt =
+    libcUnixLinuxlikeAndroidFsetxattr(filedes, name.rawAddress.toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>(), size, flags)
 
-public actual fun listxattr(path: String?, list: COpaquePointer?, size: SizeT): SsizeT =
-    libc_unix_linuxlike_android_listxattr(path, list?.value?.toCPointer<ByteVar>(), size)
+public actual fun listxattr(path: ConstPtr<CChar>, list: MutPtr<CChar>, size: SizeT): SsizeT =
+    libcUnixLinuxlikeAndroidListxattr(path.rawAddress.toCPointer<ByteVar>(), list.rawAddress.toCPointer<ByteVar>(), size)
 
-public actual fun llistxattr(path: String?, list: COpaquePointer?, size: SizeT): SsizeT =
-    libc_unix_linuxlike_android_llistxattr(path, list?.value?.toCPointer<ByteVar>(), size)
+public actual fun llistxattr(path: ConstPtr<CChar>, list: MutPtr<CChar>, size: SizeT): SsizeT =
+    libcUnixLinuxlikeAndroidLlistxattr(path.rawAddress.toCPointer<ByteVar>(), list.rawAddress.toCPointer<ByteVar>(), size)
 
-public actual fun flistxattr(filedes: CInt, list: COpaquePointer?, size: SizeT): SsizeT =
-    libc_unix_linuxlike_android_flistxattr(filedes, list?.value?.toCPointer<ByteVar>(), size)
+public actual fun flistxattr(filedes: CInt, list: MutPtr<CChar>, size: SizeT): SsizeT =
+    libcUnixLinuxlikeAndroidFlistxattr(filedes, list.rawAddress.toCPointer<ByteVar>(), size)
 
-public actual fun removexattr(path: String?, name: String?): CInt =
-    libc_unix_linuxlike_android_removexattr(path, name)
+public actual fun removexattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>): CInt =
+    libcUnixLinuxlikeAndroidRemovexattr(path.rawAddress.toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>())
 
-public actual fun lremovexattr(path: String?, name: String?): CInt =
-    libc_unix_linuxlike_android_lremovexattr(path, name)
+public actual fun lremovexattr(path: ConstPtr<CChar>, name: ConstPtr<CChar>): CInt =
+    libcUnixLinuxlikeAndroidLremovexattr(path.rawAddress.toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fremovexattr(filedes: CInt, name: String?): CInt =
-    libc_unix_linuxlike_android_fremovexattr(filedes, name)
+public actual fun fremovexattr(filedes: CInt, name: ConstPtr<CChar>): CInt =
+    libcUnixLinuxlikeAndroidFremovexattr(filedes, name.rawAddress.toCPointer<ByteVar>())
 
-public actual fun signalfd(fd: CInt, mask: COpaquePointer?, flags: CInt): CInt =
-    libc_unix_linuxlike_android_signalfd(fd, mask?.value?.toCPointer<ByteVar>(), flags)
+public actual fun signalfd(fd: CInt, mask: ConstPtr<SigsetT>, flags: CInt): CInt =
+    libcUnixLinuxlikeAndroidSignalfd(fd, mask.rawAddress.toCPointer<ByteVar>(), flags)
 
 public actual fun timerfdCreate(clock: ClockidT, flags: CInt): CInt =
-    libc_unix_linuxlike_android_timerfdCreate(clock, flags)
+    libcUnixLinuxlikeAndroidTimerfdCreate(clock, flags)
 
-public actual fun timerfdGettime(fd: CInt, currentValue: COpaquePointer?): CInt =
-    libc_unix_linuxlike_android_timerfdGettime(fd, currentValue?.value?.toCPointer<ByteVar>())
+public actual fun timerfdGettime(fd: CInt, currentValue: MutPtr<Itimerspec>): CInt =
+    libcUnixLinuxlikeAndroidTimerfdGettime(fd, currentValue.rawAddress.toCPointer<ByteVar>())
 
-public actual fun timerfdSettime(fd: CInt, flags: CInt, newValue: COpaquePointer?, oldValue: COpaquePointer?): CInt =
-    libc_unix_linuxlike_android_timerfdSettime(fd, flags, newValue?.value?.toCPointer<ByteVar>(), oldValue?.value?.toCPointer<ByteVar>())
+public actual fun timerfdSettime(fd: CInt, flags: CInt, newValue: ConstPtr<Itimerspec>, oldValue: MutPtr<Itimerspec>): CInt =
+    libcUnixLinuxlikeAndroidTimerfdSettime(fd, flags, newValue.rawAddress.toCPointer<ByteVar>(), oldValue.rawAddress.toCPointer<ByteVar>())
 
 public actual fun syscall(num: CLong, vararg variadicArgs: Long): CLong =
-    libc_unix_linuxlike_android_syscall(num, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+    libcUnixLinuxlikeAndroidSyscall(num, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun schedGetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
-    libc_unix_linuxlike_android_schedGetaffinity(pid, cpusetsize, cpuset?.value?.toCPointer<ByteVar>())
+public actual fun schedGetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: MutPtr<CpuSetT>): CInt =
+    libcUnixLinuxlikeAndroidSchedGetaffinity(pid, cpusetsize, cpuset.rawAddress.toCPointer<ByteVar>())
 
-public actual fun schedSetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
-    libc_unix_linuxlike_android_schedSetaffinity(pid, cpusetsize, cpuset?.value?.toCPointer<ByteVar>())
+public actual fun schedSetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: ConstPtr<CpuSetT>): CInt =
+    libcUnixLinuxlikeAndroidSchedSetaffinity(pid, cpusetsize, cpuset.rawAddress.toCPointer<ByteVar>())
 
 public actual fun epollCreate(size: CInt): CInt =
-    libc_unix_linuxlike_android_epollCreate(size)
+    libcUnixLinuxlikeAndroidEpollCreate(size)
 
 public actual fun epollCreate1(flags: CInt): CInt =
-    libc_unix_linuxlike_android_epollCreate1(flags)
+    libcUnixLinuxlikeAndroidEpollCreate1(flags)
 
-public actual fun epollWait(epfd: CInt, events: COpaquePointer?, maxevents: CInt, timeout: CInt): CInt =
-    libc_unix_linuxlike_android_epollWait(epfd, events?.value?.toCPointer<ByteVar>(), maxevents, timeout)
+public actual fun epollWait(epfd: CInt, events: MutPtr<EpollEvent>, maxevents: CInt, timeout: CInt): CInt =
+    libcUnixLinuxlikeAndroidEpollWait(epfd, events.rawAddress.toCPointer<ByteVar>(), maxevents, timeout)
 
-public actual fun epollCtl(epfd: CInt, op: CInt, fd: CInt, event: COpaquePointer?): CInt =
-    libc_unix_linuxlike_android_epollCtl(epfd, op, fd, event?.value?.toCPointer<ByteVar>())
+public actual fun epollCtl(epfd: CInt, op: CInt, fd: CInt, event: MutPtr<EpollEvent>): CInt =
+    libcUnixLinuxlikeAndroidEpollCtl(epfd, op, fd, event.rawAddress.toCPointer<ByteVar>())
 
 public actual fun unshare(flags: CInt): CInt =
-    libc_unix_linuxlike_android_unshare(flags)
+    libcUnixLinuxlikeAndroidUnshare(flags)
 
-public actual fun umount(target: String?): CInt =
-    libc_unix_linuxlike_android_umount(target)
+public actual fun umount(target: ConstPtr<CChar>): CInt =
+    libcUnixLinuxlikeAndroidUmount(target.rawAddress.toCPointer<ByteVar>())
 
 public actual fun schedGetPriorityMax(policy: CInt): CInt =
-    libc_unix_linuxlike_android_schedGetPriorityMax(policy)
+    libcUnixLinuxlikeAndroidSchedGetPriorityMax(policy)
 
 public actual fun tee(fdIn: CInt, fdOut: CInt, len: SizeT, flags: CUint): SsizeT =
-    libc_unix_linuxlike_android_tee(fdIn, fdOut, len, flags)
+    libcUnixLinuxlikeAndroidTee(fdIn, fdOut, len, flags)
 
-public actual fun settimeofday(tv: COpaquePointer?, tz: COpaquePointer?): CInt =
-    libc_unix_linuxlike_android_settimeofday(tv?.value?.toCPointer<ByteVar>(), tz?.value?.toCPointer<ByteVar>())
+public actual fun settimeofday(tv: ConstPtr<Timeval>, tz: ConstPtr<Timezone>): CInt =
+    libcUnixLinuxlikeAndroidSettimeofday(tv.rawAddress.toCPointer<ByteVar>(), tz.rawAddress.toCPointer<ByteVar>())
 
-public actual fun splice(fdIn: CInt, offIn: COpaquePointer?, fdOut: CInt, offOut: COpaquePointer?, len: SizeT, flags: CUint): SsizeT =
-    libc_unix_linuxlike_android_splice(fdIn, offIn?.value?.toCPointer<ByteVar>(), fdOut, offOut?.value?.toCPointer<ByteVar>(), len, flags)
+public actual fun splice(fdIn: CInt, offIn: MutPtr<LoffT>, fdOut: CInt, offOut: MutPtr<LoffT>, len: SizeT, flags: CUint): SsizeT =
+    libcUnixLinuxlikeAndroidSplice(fdIn, offIn.rawAddress.toCPointer<ByteVar>(), fdOut, offOut.rawAddress.toCPointer<ByteVar>(), len, flags)
 
 public actual fun eventfd(initval: CUint, flags: CInt): CInt =
-    libc_unix_linuxlike_android_eventfd(initval, flags)
+    libcUnixLinuxlikeAndroidEventfd(initval, flags)
 
-public actual fun eventfdRead(fd: CInt, value: COpaquePointer?): CInt =
-    libc_unix_linuxlike_android_eventfdRead(fd, value?.value?.toCPointer<ByteVar>())
+public actual fun eventfdRead(fd: CInt, value: MutPtr<EventfdT>): CInt =
+    libcUnixLinuxlikeAndroidEventfdRead(fd, value.rawAddress.toCPointer<ByteVar>())
 
 public actual fun eventfdWrite(fd: CInt, value: EventfdT): CInt =
-    libc_unix_linuxlike_android_eventfdWrite(fd, value)
+    libcUnixLinuxlikeAndroidEventfdWrite(fd, value)
 
-public actual fun schedRrGetInterval(pid: PidT, tp: COpaquePointer?): CInt =
-    libc_unix_linuxlike_android_schedRrGetInterval(pid, tp?.value?.toCPointer<ByteVar>())
+public actual fun schedRrGetInterval(pid: PidT, tp: MutPtr<Timespec>): CInt =
+    libcUnixLinuxlikeAndroidSchedRrGetInterval(pid, tp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semTimedwait(sem: COpaquePointer?, abstime: COpaquePointer?): CInt =
-    libc_unix_linuxlike_android_semTimedwait(sem?.value?.toCPointer<ByteVar>(), abstime?.value?.toCPointer<ByteVar>())
+public actual fun semTimedwait(sem: MutPtr<SemT>, abstime: ConstPtr<Timespec>): CInt =
+    libcUnixLinuxlikeAndroidSemTimedwait(sem.rawAddress.toCPointer<ByteVar>(), abstime.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semGetvalue(sem: COpaquePointer?, sval: COpaquePointer?): CInt =
-    libc_unix_linuxlike_android_semGetvalue(sem?.value?.toCPointer<ByteVar>(), sval?.value?.toCPointer<ByteVar>())
+public actual fun semGetvalue(sem: MutPtr<SemT>, sval: MutPtr<CInt>): CInt =
+    libcUnixLinuxlikeAndroidSemGetvalue(sem.rawAddress.toCPointer<ByteVar>(), sval.rawAddress.toCPointer<ByteVar>())
 
-public actual fun schedSetparam(pid: PidT, param: COpaquePointer?): CInt =
-    libc_unix_linuxlike_android_schedSetparam(pid, param?.value?.toCPointer<ByteVar>())
+public actual fun schedSetparam(pid: PidT, param: ConstPtr<SchedParam>): CInt =
+    libcUnixLinuxlikeAndroidSchedSetparam(pid, param.rawAddress.toCPointer<ByteVar>())
 
 public actual fun setns(fd: CInt, nstype: CInt): CInt =
-    libc_unix_linuxlike_android_setns(fd, nstype)
+    libcUnixLinuxlikeAndroidSetns(fd, nstype)
 
-public actual fun swapoff(puath: String?): CInt =
-    libc_unix_linuxlike_android_swapoff(puath)
+public actual fun swapoff(puath: ConstPtr<CChar>): CInt =
+    libcUnixLinuxlikeAndroidSwapoff(puath.rawAddress.toCPointer<ByteVar>())
 
-public actual fun vmsplice(fd: CInt, iov: COpaquePointer?, nrSegs: SizeT, flags: CUint): SsizeT =
-    libc_unix_linuxlike_android_vmsplice(fd, iov?.value?.toCPointer<ByteVar>(), nrSegs, flags)
+public actual fun vmsplice(fd: CInt, iov: ConstPtr<Iovec>, nrSegs: SizeT, flags: CUint): SsizeT =
+    libcUnixLinuxlikeAndroidVmsplice(fd, iov.rawAddress.toCPointer<ByteVar>(), nrSegs, flags)
 
-public actual fun mount(src: String?, target: String?, fstype: String?, flags: CUlong, data: COpaquePointer?): CInt =
-    libc_unix_linuxlike_android_mount(src, target, fstype, flags, data?.value?.toCPointer<ByteVar>())
+public actual fun mount(src: ConstPtr<CChar>, target: ConstPtr<CChar>, fstype: ConstPtr<CChar>, flags: CUlong, data: ConstPtr<CVoid>): CInt =
+    libcUnixLinuxlikeAndroidMount(src.rawAddress.toCPointer<ByteVar>(), target.rawAddress.toCPointer<ByteVar>(), fstype.rawAddress.toCPointer<ByteVar>(), flags, data.rawAddress.toCPointer<ByteVar>())
 
 public actual fun personality(persona: CUint): CInt =
-    libc_unix_linuxlike_android_personality(persona)
+    libcUnixLinuxlikeAndroidPersonality(persona)
 
 public actual fun prctl(option: CInt, vararg variadicArgs: Long): CInt =
-    libc_unix_linuxlike_android_prctl(option, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+    libcUnixLinuxlikeAndroidPrctl(option, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun schedGetparam(pid: PidT, param: COpaquePointer?): CInt =
-    libc_unix_linuxlike_android_schedGetparam(pid, param?.value?.toCPointer<ByteVar>())
+public actual fun schedGetparam(pid: PidT, param: MutPtr<SchedParam>): CInt =
+    libcUnixLinuxlikeAndroidSchedGetparam(pid, param.rawAddress.toCPointer<ByteVar>())
 
-public actual fun ppoll(fds: COpaquePointer?, nfds: NfdsT, timeout: COpaquePointer?, sigmask: COpaquePointer?): CInt =
-    libc_unix_linuxlike_android_ppoll(fds?.value?.toCPointer<ByteVar>(), nfds, timeout?.value?.toCPointer<ByteVar>(), sigmask?.value?.toCPointer<ByteVar>())
+public actual fun ppoll(fds: MutPtr<Pollfd>, nfds: NfdsT, timeout: ConstPtr<Timespec>, sigmask: ConstPtr<SigsetT>): CInt =
+    libcUnixLinuxlikeAndroidPpoll(fds.rawAddress.toCPointer<ByteVar>(), nfds, timeout.rawAddress.toCPointer<ByteVar>(), sigmask.rawAddress.toCPointer<ByteVar>())
 
-public actual fun clone(cb: CloneCbCallback, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, vararg variadicArgs: Long): CInt =
-    libc_unix_linuxlike_android_clone(0L.toCPointer<ByteVar>(), childStack?.value?.toCPointer<ByteVar>(), flags, arg?.value?.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun clone(cb: CloneCbCallback, childStack: MutPtr<CVoid>, flags: CInt, arg: MutPtr<CVoid>, vararg variadicArgs: Long): CInt =
+    libcUnixLinuxlikeAndroidClone(0L.toCPointer<ByteVar>(), childStack.rawAddress.toCPointer<ByteVar>(), flags, arg.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun schedGetscheduler(pid: PidT): CInt =
-    libc_unix_linuxlike_android_schedGetscheduler(pid)
+    libcUnixLinuxlikeAndroidSchedGetscheduler(pid)
 
-public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: COpaquePointer?, rmtp: COpaquePointer?): CInt =
-    libc_unix_linuxlike_android_clockNanosleep(clkId, flags, rqtp?.value?.toCPointer<ByteVar>(), rmtp?.value?.toCPointer<ByteVar>())
+public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: ConstPtr<Timespec>, rmtp: MutPtr<Timespec>): CInt =
+    libcUnixLinuxlikeAndroidClockNanosleep(clkId, flags, rqtp.rawAddress.toCPointer<ByteVar>(), rmtp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sethostname(name: String?, len: SizeT): CInt =
-    libc_unix_linuxlike_android_sethostname(name, len)
+public actual fun sethostname(name: ConstPtr<CChar>, len: SizeT): CInt =
+    libcUnixLinuxlikeAndroidSethostname(name.rawAddress.toCPointer<ByteVar>(), len)
 
 public actual fun schedGetPriorityMin(policy: CInt): CInt =
-    libc_unix_linuxlike_android_schedGetPriorityMin(policy)
+    libcUnixLinuxlikeAndroidSchedGetPriorityMin(policy)
 
-public actual fun sysinfo(info: COpaquePointer?): CInt =
-    libc_unix_linuxlike_android_sysinfo(info?.value?.toCPointer<ByteVar>())
+public actual fun sysinfo(info: MutPtr<Sysinfo>): CInt =
+    libcUnixLinuxlikeAndroidSysinfo(info.rawAddress.toCPointer<ByteVar>())
 
-public actual fun umount2(target: String?, flags: CInt): CInt =
-    libc_unix_linuxlike_android_umount2(target, flags)
+public actual fun umount2(target: ConstPtr<CChar>, flags: CInt): CInt =
+    libcUnixLinuxlikeAndroidUmount2(target.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun swapon(path: String?, swapflags: CInt): CInt =
-    libc_unix_linuxlike_android_swapon(path, swapflags)
+public actual fun swapon(path: ConstPtr<CChar>, swapflags: CInt): CInt =
+    libcUnixLinuxlikeAndroidSwapon(path.rawAddress.toCPointer<ByteVar>(), swapflags)
 
-public actual fun schedSetscheduler(pid: PidT, policy: CInt, param: COpaquePointer?): CInt =
-    libc_unix_linuxlike_android_schedSetscheduler(pid, policy, param?.value?.toCPointer<ByteVar>())
+public actual fun schedSetscheduler(pid: PidT, policy: CInt, param: ConstPtr<SchedParam>): CInt =
+    libcUnixLinuxlikeAndroidSchedSetscheduler(pid, policy, param.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sendfile(outFd: CInt, inFd: CInt, offset: COpaquePointer?, count: SizeT): SsizeT =
-    libc_unix_linuxlike_android_sendfile(outFd, inFd, offset?.value?.toCPointer<ByteVar>(), count)
+public actual fun sendfile(outFd: CInt, inFd: CInt, offset: MutPtr<OffT>, count: SizeT): SsizeT =
+    libcUnixLinuxlikeAndroidSendfile(outFd, inFd, offset.rawAddress.toCPointer<ByteVar>(), count)
 
-public actual fun sendfile64(outFd: CInt, inFd: CInt, offset: COpaquePointer?, count: SizeT): SsizeT =
-    libc_unix_linuxlike_android_sendfile64(outFd, inFd, offset?.value?.toCPointer<ByteVar>(), count)
+public actual fun sendfile64(outFd: CInt, inFd: CInt, offset: MutPtr<Off64T>, count: SizeT): SsizeT =
+    libcUnixLinuxlikeAndroidSendfile64(outFd, inFd, offset.rawAddress.toCPointer<ByteVar>(), count)
 
 public actual fun setfsgid(gid: GidT): CInt =
-    libc_unix_linuxlike_android_setfsgid(gid)
+    libcUnixLinuxlikeAndroidSetfsgid(gid)
 
 public actual fun setfsuid(uid: UidT): CInt =
-    libc_unix_linuxlike_android_setfsuid(uid)
+    libcUnixLinuxlikeAndroidSetfsuid(uid)
 
-public actual fun sigsuspend(mask: COpaquePointer?): CInt =
-    libc_unix_linuxlike_android_sigsuspend(mask?.value?.toCPointer<ByteVar>())
+public actual fun sigsuspend(mask: ConstPtr<SigsetT>): CInt =
+    libcUnixLinuxlikeAndroidSigsuspend(mask.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getgrgidR(gid: GidT, grp: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    libc_unix_linuxlike_android_getgrgidR(gid, grp?.value?.toCPointer<ByteVar>(), buf?.value?.toCPointer<ByteVar>(), buflen, result?.value?.toCPointer<ByteVar>())
+public actual fun getgrgidR(gid: GidT, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+    libcUnixLinuxlikeAndroidGetgrgidR(gid, grp.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>(), buflen, result.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sigaltstack(ss: COpaquePointer?, oss: COpaquePointer?): CInt =
-    libc_unix_linuxlike_android_sigaltstack(ss?.value?.toCPointer<ByteVar>(), oss?.value?.toCPointer<ByteVar>())
+public actual fun sigaltstack(ss: ConstPtr<StackT>, oss: MutPtr<StackT>): CInt =
+    libcUnixLinuxlikeAndroidSigaltstack(ss.rawAddress.toCPointer<ByteVar>(), oss.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semClose(sem: COpaquePointer?): CInt =
-    libc_unix_linuxlike_android_semClose(sem?.value?.toCPointer<ByteVar>())
+public actual fun semClose(sem: MutPtr<SemT>): CInt =
+    libcUnixLinuxlikeAndroidSemClose(sem.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getgrnamR(name: String?, grp: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    libc_unix_linuxlike_android_getgrnamR(name, grp?.value?.toCPointer<ByteVar>(), buf?.value?.toCPointer<ByteVar>(), buflen, result?.value?.toCPointer<ByteVar>())
+public actual fun getgrnamR(name: ConstPtr<CChar>, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+    libcUnixLinuxlikeAndroidGetgrnamR(name.rawAddress.toCPointer<ByteVar>(), grp.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>(), buflen, result.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    libc_unix_linuxlike_android_semOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.let { COpaquePointer(it.toLong()) }
+public actual fun semOpen(name: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): MutPtr<SemT> =
+    MutPtr(libcUnixLinuxlikeAndroidSemOpen(name.rawAddress.toCPointer<ByteVar>(), oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.toLong() ?: 0L)
 
-public actual fun getgrnam(name: String?): COpaquePointer? =
-    libc_unix_linuxlike_android_getgrnam(name)?.let { COpaquePointer(it.toLong()) }
+public actual fun getgrnam(name: ConstPtr<CChar>): MutPtr<Group> =
+    MutPtr(libcUnixLinuxlikeAndroidGetgrnam(name.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun semUnlink(name: String?): CInt =
-    libc_unix_linuxlike_android_semUnlink(name)
+public actual fun semUnlink(name: ConstPtr<CChar>): CInt =
+    libcUnixLinuxlikeAndroidSemUnlink(name.rawAddress.toCPointer<ByteVar>())
 
 public actual fun daemon(nochdir: CInt, noclose: CInt): CInt =
-    libc_unix_linuxlike_android_daemon(nochdir, noclose)
+    libcUnixLinuxlikeAndroidDaemon(nochdir, noclose)
 
-public actual fun sigtimedwait(set: COpaquePointer?, info: COpaquePointer?, timeout: COpaquePointer?): CInt =
-    libc_unix_linuxlike_android_sigtimedwait(set?.value?.toCPointer<ByteVar>(), info?.value?.toCPointer<ByteVar>(), timeout?.value?.toCPointer<ByteVar>())
+public actual fun sigtimedwait(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>, timeout: ConstPtr<Timespec>): CInt =
+    libcUnixLinuxlikeAndroidSigtimedwait(set.rawAddress.toCPointer<ByteVar>(), info.rawAddress.toCPointer<ByteVar>(), timeout.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sigwait(set: COpaquePointer?, sig: COpaquePointer?): CInt =
-    libc_unix_linuxlike_android_sigwait(set?.value?.toCPointer<ByteVar>(), sig?.value?.toCPointer<ByteVar>())
+public actual fun sigwait(set: ConstPtr<SigsetT>, sig: MutPtr<CInt>): CInt =
+    libcUnixLinuxlikeAndroidSigwait(set.rawAddress.toCPointer<ByteVar>(), sig.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getgrgid(gid: GidT): COpaquePointer? =
-    libc_unix_linuxlike_android_getgrgid(gid)?.let { COpaquePointer(it.toLong()) }
+public actual fun getgrgid(gid: GidT): MutPtr<Group> =
+    MutPtr(libcUnixLinuxlikeAndroidGetgrgid(gid)?.toLong() ?: 0L)
 
-public actual fun getgrouplist(user: String?, group: GidT, groups: COpaquePointer?, ngroups: COpaquePointer?): CInt =
-    libc_unix_linuxlike_android_getgrouplist(user, group, groups?.value?.toCPointer<ByteVar>(), ngroups?.value?.toCPointer<ByteVar>())
+public actual fun getgrouplist(user: ConstPtr<CChar>, group: GidT, groups: MutPtr<GidT>, ngroups: MutPtr<CInt>): CInt =
+    libcUnixLinuxlikeAndroidGetgrouplist(user.rawAddress.toCPointer<ByteVar>(), group, groups.rawAddress.toCPointer<ByteVar>(), ngroups.rawAddress.toCPointer<ByteVar>())
 
-public actual fun initgroups(user: String?, group: GidT): CInt =
-    libc_unix_linuxlike_android_initgroups(user, group)
+public actual fun initgroups(user: ConstPtr<CChar>, group: GidT): CInt =
+    libcUnixLinuxlikeAndroidInitgroups(user.rawAddress.toCPointer<ByteVar>(), group)
 
-public actual fun popen(command: String?, mode: String?): FILE? =
-    libc_unix_linuxlike_android_popen(command, mode)?.let { FILE(it.toLong()) }
+public actual fun popen(command: ConstPtr<CChar>, mode: ConstPtr<CChar>): MutPtr<FILE> =
+    MutPtr(libcUnixLinuxlikeAndroidPopen(command.rawAddress.toCPointer<ByteVar>(), mode.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt =
-    libc_unix_linuxlike_android_faccessat(dirfd, pathname, mode, flags)
+public actual fun faccessat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: CInt, flags: CInt): CInt =
+    libcUnixLinuxlikeAndroidFaccessat(dirfd, pathname.rawAddress.toCPointer<ByteVar>(), mode, flags)
 
-public actual fun errno(): COpaquePointer? =
-    libc_unix_linuxlike_android_errno()?.let { COpaquePointer(it.toLong()) }
+public actual fun errno(): MutPtr<CInt> =
+    MutPtr(libcUnixLinuxlikeAndroidErrno()?.toLong() ?: 0L)
 
 public actual fun inotifyRmWatch(fd: CInt, wd: UInt): CInt =
-    libc_unix_linuxlike_android_inotifyRmWatch(fd, wd)
+    libcUnixLinuxlikeAndroidInotifyRmWatch(fd, wd)
 
 public actual fun inotifyInit(): CInt =
-    libc_unix_linuxlike_android_inotifyInit()
+    libcUnixLinuxlikeAndroidInotifyInit()
 
 public actual fun inotifyInit1(flags: CInt): CInt =
-    libc_unix_linuxlike_android_inotifyInit1(flags)
+    libcUnixLinuxlikeAndroidInotifyInit1(flags)
 
-public actual fun inotifyAddWatch(fd: CInt, path: String?, mask: UInt): CInt =
-    libc_unix_linuxlike_android_inotifyAddWatch(fd, path, mask)
+public actual fun inotifyAddWatch(fd: CInt, path: ConstPtr<CChar>, mask: UInt): CInt =
+    libcUnixLinuxlikeAndroidInotifyAddWatch(fd, path.rawAddress.toCPointer<ByteVar>(), mask)
 
-public actual fun regcomp(preg: COpaquePointer?, pattern: String?, cflags: CInt): CInt =
-    libc_unix_linuxlike_android_regcomp(preg?.value?.toCPointer<ByteVar>(), pattern, cflags)
+public actual fun regcomp(preg: MutPtr<RegexT>, pattern: ConstPtr<CChar>, cflags: CInt): CInt =
+    libcUnixLinuxlikeAndroidRegcomp(preg.rawAddress.toCPointer<ByteVar>(), pattern.rawAddress.toCPointer<ByteVar>(), cflags)
 
-public actual fun regexec(preg: COpaquePointer?, input: String?, nmatch: SizeT, pmatch: COpaquePointer?, eflags: CInt): CInt =
-    libc_unix_linuxlike_android_regexec(preg?.value?.toCPointer<ByteVar>(), input, nmatch, pmatch?.value?.toCPointer<ByteVar>(), eflags)
+public actual fun regexec(preg: ConstPtr<RegexT>, input: ConstPtr<CChar>, nmatch: SizeT, pmatch: MutPtr<RegmatchT>, eflags: CInt): CInt =
+    libcUnixLinuxlikeAndroidRegexec(preg.rawAddress.toCPointer<ByteVar>(), input.rawAddress.toCPointer<ByteVar>(), nmatch, pmatch.rawAddress.toCPointer<ByteVar>(), eflags)
 
-public actual fun regerror(errcode: CInt, preg: COpaquePointer?, errbuf: COpaquePointer?, errbufSize: SizeT): SizeT =
-    libc_unix_linuxlike_android_regerror(errcode, preg?.value?.toCPointer<ByteVar>(), errbuf?.value?.toCPointer<ByteVar>(), errbufSize)
+public actual fun regerror(errcode: CInt, preg: ConstPtr<RegexT>, errbuf: MutPtr<CChar>, errbufSize: SizeT): SizeT =
+    libcUnixLinuxlikeAndroidRegerror(errcode, preg.rawAddress.toCPointer<ByteVar>(), errbuf.rawAddress.toCPointer<ByteVar>(), errbufSize)
 
-public actual fun regfree(preg: COpaquePointer?) {
-    libc_unix_linuxlike_android_regfree(preg?.value?.toCPointer<ByteVar>())
+public actual fun regfree(preg: MutPtr<RegexT>) {
+    libcUnixLinuxlikeAndroidRegfree(preg.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun androidSetAbortMessage(msg: String?) {
-    libc_unix_linuxlike_android_androidSetAbortMessage(msg)
+public actual fun androidSetAbortMessage(msg: ConstPtr<CChar>) {
+    libcUnixLinuxlikeAndroidAndroidSetAbortMessage(msg.rawAddress.toCPointer<ByteVar>())
 }
 
 public actual fun gettid(): PidT =
-    libc_unix_linuxlike_android_gettid()
+    libcUnixLinuxlikeAndroidGettid()
 
 public actual fun tgkill(tgid: PidT, tid: PidT, sig: CInt): CInt =
-    libc_unix_linuxlike_android_tgkill(tgid, tid, sig)
+    libcUnixLinuxlikeAndroidTgkill(tgid, tid, sig)
 
 public actual fun getauxval(type: CUlong): CUlong =
-    libc_unix_linuxlike_android_getauxval(type)
+    libcUnixLinuxlikeAndroidGetauxval(type)
 
-public actual fun getrandom(buf: COpaquePointer?, buflen: SizeT, flags: CUint): SsizeT =
-    libc_unix_linuxlike_android_getrandom(buf?.value?.toCPointer<ByteVar>(), buflen, flags)
+public actual fun getrandom(buf: MutPtr<CVoid>, buflen: SizeT, flags: CUint): SsizeT =
+    libcUnixLinuxlikeAndroidGetrandom(buf.rawAddress.toCPointer<ByteVar>(), buflen, flags)
 
-public actual fun getentropy(buf: COpaquePointer?, buflen: SizeT): CInt =
-    libc_unix_linuxlike_android_getentropy(buf?.value?.toCPointer<ByteVar>(), buflen)
+public actual fun getentropy(buf: MutPtr<CVoid>, buflen: SizeT): CInt =
+    libcUnixLinuxlikeAndroidGetentropy(buf.rawAddress.toCPointer<ByteVar>(), buflen)
 
-public actual fun systemPropertySet(name: String?, value: String?): CInt =
-    libc_unix_linuxlike_android_systemPropertySet(name, value)
+public actual fun systemPropertySet(name: ConstPtr<CChar>, value: ConstPtr<CChar>): CInt =
+    libcUnixLinuxlikeAndroidSystemPropertySet(name.rawAddress.toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>())
 
-public actual fun systemPropertyGet(name: String?, value: COpaquePointer?): CInt =
-    libc_unix_linuxlike_android_systemPropertyGet(name, value?.value?.toCPointer<ByteVar>())
+public actual fun systemPropertyGet(name: ConstPtr<CChar>, value: MutPtr<CChar>): CInt =
+    libcUnixLinuxlikeAndroidSystemPropertyGet(name.rawAddress.toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>())
 
-public actual fun systemPropertyFind(name: String?): COpaquePointer? =
-    libc_unix_linuxlike_android_systemPropertyFind(name)?.let { COpaquePointer(it.toLong()) }
+public actual fun systemPropertyFind(name: ConstPtr<CChar>): ConstPtr<PropInfo> =
+    ConstPtr(libcUnixLinuxlikeAndroidSystemPropertyFind(name.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun systemPropertyFindNth(n: CUint): COpaquePointer? =
-    libc_unix_linuxlike_android_systemPropertyFindNth(n)?.let { COpaquePointer(it.toLong()) }
+public actual fun systemPropertyFindNth(n: CUint): ConstPtr<PropInfo> =
+    ConstPtr(libcUnixLinuxlikeAndroidSystemPropertyFindNth(n)?.toLong() ?: 0L)
 
-public actual fun systemPropertyForeach(callback: SystemPropertyForeachCallbackCallback, cookie: COpaquePointer?): CInt =
-    libc_unix_linuxlike_android_systemPropertyForeach(0L.toCPointer<ByteVar>(), cookie?.value?.toCPointer<ByteVar>())
+public actual fun systemPropertyForeach(callback: SystemPropertyForeachCallbackCallback, cookie: MutPtr<CVoid>): CInt =
+    libcUnixLinuxlikeAndroidSystemPropertyForeach(0L.toCPointer<ByteVar>(), cookie.rawAddress.toCPointer<ByteVar>())
 
-public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt =
-    libc_unix_linuxlike_android_dlIteratePhdr(0L.toCPointer<ByteVar>(), data?.value?.toCPointer<ByteVar>())
+public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: MutPtr<CVoid>): CInt =
+    libcUnixLinuxlikeAndroidDlIteratePhdr(0L.toCPointer<ByteVar>(), data.rawAddress.toCPointer<ByteVar>())
 
 public actual fun arc4random(): UInt =
-    libc_unix_linuxlike_android_arc4random()
+    libcUnixLinuxlikeAndroidArc4random()
 
 public actual fun arc4randomUniform(upperBound: UInt): UInt =
-    libc_unix_linuxlike_android_arc4randomUniform(upperBound)
+    libcUnixLinuxlikeAndroidArc4randomUniform(upperBound)
 
-public actual fun arc4randomBuf(buf: COpaquePointer?, n: SizeT) {
-    libc_unix_linuxlike_android_arc4randomBuf(buf?.value?.toCPointer<ByteVar>(), n)
+public actual fun arc4randomBuf(buf: MutPtr<CVoid>, n: SizeT) {
+    libcUnixLinuxlikeAndroidArc4randomBuf(buf.rawAddress.toCPointer<ByteVar>(), n)
 }
 
-public actual fun reallocarray(ptr: COpaquePointer?, nmemb: SizeT, size: SizeT): COpaquePointer? =
-    libc_unix_linuxlike_android_reallocarray(ptr?.value?.toCPointer<ByteVar>(), nmemb, size)?.let { COpaquePointer(it.toLong()) }
+public actual fun reallocarray(ptr: MutPtr<CVoid>, nmemb: SizeT, size: SizeT): MutPtr<CVoid> =
+    MutPtr(libcUnixLinuxlikeAndroidReallocarray(ptr.rawAddress.toCPointer<ByteVar>(), nmemb, size)?.toLong() ?: 0L)
 
-public actual fun dirname(path: String?): COpaquePointer? =
-    libc_unix_linuxlike_android_dirname(path)?.let { COpaquePointer(it.toLong()) }
+public actual fun dirname(path: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcUnixLinuxlikeAndroidDirname(path.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun basename(path: String?): COpaquePointer? =
-    libc_unix_linuxlike_android_basename(path)?.let { COpaquePointer(it.toLong()) }
+public actual fun basename(path: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcUnixLinuxlikeAndroidBasename(path.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun getoptLong(argc: CInt, argv: COpaquePointer?, optstring: String?, longopts: COpaquePointer?, longindex: COpaquePointer?): CInt =
-    libc_unix_linuxlike_android_getoptLong(argc, argv?.value?.toCPointer<ByteVar>(), optstring, longopts?.value?.toCPointer<ByteVar>(), longindex?.value?.toCPointer<ByteVar>())
+public actual fun getoptLong(argc: CInt, argv: ConstPtr<MutPtr<CChar>>, optstring: ConstPtr<CChar>, longopts: ConstPtr<Option>, longindex: MutPtr<CInt>): CInt =
+    libcUnixLinuxlikeAndroidGetoptLong(argc, argv.rawAddress.toCPointer<ByteVar>(), optstring.rawAddress.toCPointer<ByteVar>(), longopts.rawAddress.toCPointer<ByteVar>(), longindex.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sync() {
-    libc_unix_linuxlike_android_sync()
+    libcUnixLinuxlikeAndroidSync()
 }
 
 public actual fun syncfs(fd: CInt): CInt =
-    libc_unix_linuxlike_android_syncfs(fd)
+    libcUnixLinuxlikeAndroidSyncfs(fd)
 
-public actual fun memmem(haystack: COpaquePointer?, haystacklen: SizeT, needle: COpaquePointer?, needlelen: SizeT): COpaquePointer? =
-    libc_unix_linuxlike_android_memmem(haystack?.value?.toCPointer<ByteVar>(), haystacklen, needle?.value?.toCPointer<ByteVar>(), needlelen)?.let { COpaquePointer(it.toLong()) }
+public actual fun memmem(haystack: ConstPtr<CVoid>, haystacklen: SizeT, needle: ConstPtr<CVoid>, needlelen: SizeT): MutPtr<CVoid> =
+    MutPtr(libcUnixLinuxlikeAndroidMemmem(haystack.rawAddress.toCPointer<ByteVar>(), haystacklen, needle.rawAddress.toCPointer<ByteVar>(), needlelen)?.toLong() ?: 0L)
 
-public actual fun freadUnlocked(buf: COpaquePointer?, size: SizeT, nobj: SizeT, stream: FILE?): SizeT =
-    libc_unix_linuxlike_android_freadUnlocked(buf?.value?.toCPointer<ByteVar>(), size, nobj, stream?.handle?.toCPointer<ByteVar>())
+public actual fun freadUnlocked(buf: MutPtr<CVoid>, size: SizeT, nobj: SizeT, stream: MutPtr<FILE>): SizeT =
+    libcUnixLinuxlikeAndroidFreadUnlocked(buf.rawAddress.toCPointer<ByteVar>(), size, nobj, stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fwriteUnlocked(buf: COpaquePointer?, size: SizeT, nobj: SizeT, stream: FILE?): SizeT =
-    libc_unix_linuxlike_android_fwriteUnlocked(buf?.value?.toCPointer<ByteVar>(), size, nobj, stream?.handle?.toCPointer<ByteVar>())
+public actual fun fwriteUnlocked(buf: ConstPtr<CVoid>, size: SizeT, nobj: SizeT, stream: MutPtr<FILE>): SizeT =
+    libcUnixLinuxlikeAndroidFwriteUnlocked(buf.rawAddress.toCPointer<ByteVar>(), size, nobj, stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fflushUnlocked(stream: FILE?): CInt =
-    libc_unix_linuxlike_android_fflushUnlocked(stream?.handle?.toCPointer<ByteVar>())
+public actual fun fflushUnlocked(stream: MutPtr<FILE>): CInt =
+    libcUnixLinuxlikeAndroidFflushUnlocked(stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fgetsUnlocked(buf: COpaquePointer?, size: CInt, stream: FILE?): COpaquePointer? =
-    libc_unix_linuxlike_android_fgetsUnlocked(buf?.value?.toCPointer<ByteVar>(), size, stream?.handle?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun fgetsUnlocked(buf: MutPtr<CChar>, size: CInt, stream: MutPtr<FILE>): MutPtr<CChar> =
+    MutPtr(libcUnixLinuxlikeAndroidFgetsUnlocked(buf.rawAddress.toCPointer<ByteVar>(), size, stream.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun klogctl(syslogType: CInt, bufp: COpaquePointer?, len: CInt): CInt =
-    libc_unix_linuxlike_android_klogctl(syslogType, bufp?.value?.toCPointer<ByteVar>(), len)
+public actual fun klogctl(syslogType: CInt, bufp: MutPtr<CChar>, len: CInt): CInt =
+    libcUnixLinuxlikeAndroidKlogctl(syslogType, bufp.rawAddress.toCPointer<ByteVar>(), len)
 
-public actual fun memfdCreate(name: String?, flags: CUint): CInt =
-    libc_unix_linuxlike_android_memfdCreate(name, flags)
+public actual fun memfdCreate(name: ConstPtr<CChar>, flags: CUint): CInt =
+    libcUnixLinuxlikeAndroidMemfdCreate(name.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun renameat2(olddirfd: CInt, oldpath: String?, newdirfd: CInt, newpath: String?, flags: CUint): CInt =
-    libc_unix_linuxlike_android_renameat2(olddirfd, oldpath, newdirfd, newpath, flags)
+public actual fun renameat2(olddirfd: CInt, oldpath: ConstPtr<CChar>, newdirfd: CInt, newpath: ConstPtr<CChar>, flags: CUint): CInt =
+    libcUnixLinuxlikeAndroidRenameat2(olddirfd, oldpath.rawAddress.toCPointer<ByteVar>(), newdirfd, newpath.rawAddress.toCPointer<ByteVar>(), flags)

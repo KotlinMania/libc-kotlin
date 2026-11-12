@@ -9,7 +9,7 @@
 extern "C" {
 #endif
 
-int32_t libc_unix_bsd_apple_b32_exchangedata(const char* path1, const char* path2, uint64_t options);
+int32_t libcUnixBsdAppleB32Exchangedata(const char* path1, const char* path2, uint64_t options);
 
 #ifdef __cplusplus
 }

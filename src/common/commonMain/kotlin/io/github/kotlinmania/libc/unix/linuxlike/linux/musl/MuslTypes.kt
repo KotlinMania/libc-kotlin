@@ -3,11 +3,12 @@ package io.github.kotlinmania.libc.unix.linuxlike.linux.musl
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
-public typealias PthreadT = COpaquePointer?
+public typealias PthreadT = MutPtr<CVoid>
 
 public typealias ClockT = CLong
 

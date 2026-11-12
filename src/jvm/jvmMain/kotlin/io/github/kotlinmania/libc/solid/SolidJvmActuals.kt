@@ -3,1838 +3,1894 @@
 package io.github.kotlinmania.libc.solid
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CLonglong
-import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
+import io.github.kotlinmania.libc.CUshort
 import io.github.kotlinmania.libc.solid.aarch64.WcharT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 private object SolidJniBridge {
     init {
+        loadNativeLibrary()
+    }
+
+    private fun loadNativeLibrary() {
+        val osRaw = System.getProperty("os.name", "").lowercase()
+        val archRaw = System.getProperty("os.arch", "").lowercase()
+        val hostPlatform =
+            when {
+                osRaw.contains("win") -> "windows"
+                osRaw.contains("mac") || osRaw.contains("darwin") -> "macos"
+                else -> "linux"
+            }
+        val hostArch =
+            when {
+                archRaw == "aarch64" || archRaw == "arm64" -> "aarch64"
+                archRaw == "amd64" || archRaw == "x86_64" -> "x86_64"
+                else -> archRaw
+            }
+        val libFileName =
+            when (hostPlatform) {
+                "windows" -> "libc_jni.dll"
+                "macos" -> "liblibc_jni.dylib"
+                else -> "liblibc_jni.so"
+            }
+        val pathSep = System.getProperty("path.separator", ":")
+        val libPathProp = System.getProperty("java.library.path", "")
+        for (dirEntry in libPathProp.split(pathSep)) {
+            if (dirEntry.isEmpty()) continue
+            val candidate = java.io.File(dirEntry, libFileName)
+            if (candidate.isFile) {
+                System.load(candidate.absolutePath)
+                return
+            }
+        }
+        val resourcePath = "io/github/kotlinmania/libc/native/$hostPlatform-$hostArch/$libFileName"
+        val stream = SolidJniBridge::class.java.classLoader?.getResourceAsStream(resourcePath)
+        if (stream != null) {
+            val suffix = "." + libFileName.substringAfterLast('.')
+            val extracted =
+                java.nio.file.Files
+                    .createTempFile("libc_jni-", suffix)
+                    .toFile()
+            extracted.deleteOnExit()
+            stream.use { input ->
+                extracted.outputStream().use { output ->
+                    input.copyTo(output)
+                }
+            }
+            System.load(extracted.absolutePath)
+            return
+        }
         System.loadLibrary("libc_jni")
     }
 
     @JvmStatic
-    external fun libc_solid_get_OPTARG(): Long
+    external fun libcSolidGetOPTARG(): Long
 
     @JvmStatic
-    external fun libc_solid_set_OPTARG(value: Long)
+    external fun libcSolidSetOPTARG(value: Long)
 
     @JvmStatic
-    external fun libc_solid_get_OPTERR(): Int
+    external fun libcSolidGetOPTERR(): Int
 
     @JvmStatic
-    external fun libc_solid_set_OPTERR(value: Int)
+    external fun libcSolidSetOPTERR(value: Int)
 
     @JvmStatic
-    external fun libc_solid_get_OPTIND(): Int
+    external fun libcSolidGetOPTIND(): Int
 
     @JvmStatic
-    external fun libc_solid_set_OPTIND(value: Int)
+    external fun libcSolidSetOPTIND(value: Int)
 
     @JvmStatic
-    external fun libc_solid_get_OPTOPT(): Int
+    external fun libcSolidGetOPTOPT(): Int
 
     @JvmStatic
-    external fun libc_solid_set_OPTOPT(value: Int)
+    external fun libcSolidSetOPTOPT(value: Int)
 
     @JvmStatic
-    external fun libc_solid_get_OPTRESET(): Int
+    external fun libcSolidGetOPTRESET(): Int
 
     @JvmStatic
-    external fun libc_solid_set_OPTRESET(value: Int)
+    external fun libcSolidSetOPTRESET(value: Int)
 
     @JvmStatic
-    external fun libc_solid_get_SUBOPTARG(): Long
+    external fun libcSolidGetSUBOPTARG(): Long
 
     @JvmStatic
-    external fun libc_solid_set_SUBOPTARG(value: Long)
+    external fun libcSolidSetSUBOPTARG(value: Long)
 
     @JvmStatic
-    external fun libc_solid_isalnum(c: Int): Int
+    external fun libcSolidIsalnum(c: Int): Int
 
     @JvmStatic
-    external fun libc_solid_isalpha(c: Int): Int
+    external fun libcSolidIsalpha(c: Int): Int
 
     @JvmStatic
-    external fun libc_solid_iscntrl(c: Int): Int
+    external fun libcSolidIscntrl(c: Int): Int
 
     @JvmStatic
-    external fun libc_solid_isdigit(c: Int): Int
+    external fun libcSolidIsdigit(c: Int): Int
 
     @JvmStatic
-    external fun libc_solid_isgraph(c: Int): Int
+    external fun libcSolidIsgraph(c: Int): Int
 
     @JvmStatic
-    external fun libc_solid_islower(c: Int): Int
+    external fun libcSolidIslower(c: Int): Int
 
     @JvmStatic
-    external fun libc_solid_isprint(c: Int): Int
+    external fun libcSolidIsprint(c: Int): Int
 
     @JvmStatic
-    external fun libc_solid_ispunct(c: Int): Int
+    external fun libcSolidIspunct(c: Int): Int
 
     @JvmStatic
-    external fun libc_solid_isspace(c: Int): Int
+    external fun libcSolidIsspace(c: Int): Int
 
     @JvmStatic
-    external fun libc_solid_isupper(c: Int): Int
+    external fun libcSolidIsupper(c: Int): Int
 
     @JvmStatic
-    external fun libc_solid_isxdigit(c: Int): Int
+    external fun libcSolidIsxdigit(c: Int): Int
 
     @JvmStatic
-    external fun libc_solid_isblank(c: Int): Int
+    external fun libcSolidIsblank(c: Int): Int
 
     @JvmStatic
-    external fun libc_solid_tolower(c: Int): Int
+    external fun libcSolidTolower(c: Int): Int
 
     @JvmStatic
-    external fun libc_solid_toupper(c: Int): Int
+    external fun libcSolidToupper(c: Int): Int
 
     @JvmStatic
-    external fun libc_solid_getStdioFile(fileno: Int): Long
+    external fun libcSolidGetStdioFile(fileno: Int): Long
 
     @JvmStatic
-    external fun libc_solid_clearerr(arg1: Long)
+    external fun libcSolidClearerr(arg1: Long)
 
     @JvmStatic
-    external fun libc_solid_fclose(arg1: Long): Int
+    external fun libcSolidFclose(arg1: Long): Int
 
     @JvmStatic
-    external fun libc_solid_feof(arg1: Long): Int
+    external fun libcSolidFeof(arg1: Long): Int
 
     @JvmStatic
-    external fun libc_solid_ferror(arg1: Long): Int
+    external fun libcSolidFerror(arg1: Long): Int
 
     @JvmStatic
-    external fun libc_solid_fflush(arg1: Long): Int
+    external fun libcSolidFflush(arg1: Long): Int
 
     @JvmStatic
-    external fun libc_solid_fgetc(arg1: Long): Int
+    external fun libcSolidFgetc(arg1: Long): Int
 
     @JvmStatic
-    external fun libc_solid_fgets(arg1: Long, arg2: Int, arg3: Long): Long
+    external fun libcSolidFgets(arg1: Long, arg2: Int, arg3: Long): Long
 
     @JvmStatic
-    external fun libc_solid_fopen(arg1: String?, arg2: String?): Long
+    external fun libcSolidFopen(arg1: Long, arg2: Long): Long
 
     @JvmStatic
-    external fun libc_solid_fprintf(arg1: Long, arg2: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcSolidFprintf(arg1: Long, arg2: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_solid_fputc(arg1: Int, arg2: Long): Int
+    external fun libcSolidFputc(arg1: Int, arg2: Long): Int
 
     @JvmStatic
-    external fun libc_solid_fputs(arg1: String?, arg2: Long): Int
+    external fun libcSolidFputs(arg1: Long, arg2: Long): Int
 
     @JvmStatic
-    external fun libc_solid_fread(arg1: Long, arg2: Long, arg3: Long, arg4: Long): Long
+    external fun libcSolidFread(arg1: Long, arg2: Long, arg3: Long, arg4: Long): Long
 
     @JvmStatic
-    external fun libc_solid_freopen(arg1: String?, arg2: String?, arg3: Long): Long
+    external fun libcSolidFreopen(arg1: Long, arg2: Long, arg3: Long): Long
 
     @JvmStatic
-    external fun libc_solid_fscanf(arg1: Long, arg2: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcSolidFscanf(arg1: Long, arg2: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_solid_fseek(arg1: Long, arg2: Long, arg3: Int): Int
+    external fun libcSolidFseek(arg1: Long, arg2: Long, arg3: Int): Int
 
     @JvmStatic
-    external fun libc_solid_ftell(arg1: Long): Long
+    external fun libcSolidFtell(arg1: Long): Long
 
     @JvmStatic
-    external fun libc_solid_fwrite(arg1: Long, arg2: Long, arg3: Long, arg4: Long): Long
+    external fun libcSolidFwrite(arg1: Long, arg2: Long, arg3: Long, arg4: Long): Long
 
     @JvmStatic
-    external fun libc_solid_getc(arg1: Long): Int
+    external fun libcSolidGetc(arg1: Long): Int
 
     @JvmStatic
-    external fun libc_solid_getchar(): Int
+    external fun libcSolidGetchar(): Int
 
     @JvmStatic
-    external fun libc_solid_perror(arg1: String?)
+    external fun libcSolidPerror(arg1: Long)
 
     @JvmStatic
-    external fun libc_solid_printf(arg1: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcSolidPrintf(arg1: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_solid_putc(arg1: Int, arg2: Long): Int
+    external fun libcSolidPutc(arg1: Int, arg2: Long): Int
 
     @JvmStatic
-    external fun libc_solid_putchar(arg1: Int): Int
+    external fun libcSolidPutchar(arg1: Int): Int
 
     @JvmStatic
-    external fun libc_solid_puts(arg1: String?): Int
+    external fun libcSolidPuts(arg1: Long): Int
 
     @JvmStatic
-    external fun libc_solid_remove(arg1: String?): Int
+    external fun libcSolidRemove(arg1: Long): Int
 
     @JvmStatic
-    external fun libc_solid_rewind(arg1: Long)
+    external fun libcSolidRewind(arg1: Long)
 
     @JvmStatic
-    external fun libc_solid_scanf(arg1: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcSolidScanf(arg1: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_solid_setbuf(arg1: Long, arg2: Long)
+    external fun libcSolidSetbuf(arg1: Long, arg2: Long)
 
     @JvmStatic
-    external fun libc_solid_setvbuf(arg1: Long, arg2: Long, arg3: Int, arg4: Long): Int
+    external fun libcSolidSetvbuf(arg1: Long, arg2: Long, arg3: Int, arg4: Long): Int
 
     @JvmStatic
-    external fun libc_solid_sscanf(arg1: String?, arg2: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcSolidSscanf(arg1: Long, arg2: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_solid_tmpfile(): Long
+    external fun libcSolidTmpfile(): Long
 
     @JvmStatic
-    external fun libc_solid_ungetc(arg1: Int, arg2: Long): Int
+    external fun libcSolidUngetc(arg1: Int, arg2: Long): Int
 
     @JvmStatic
-    external fun libc_solid_vfprintf(arg1: Long, arg2: String?, arg3: Long): Int
+    external fun libcSolidVfprintf(arg1: Long, arg2: Long, arg3: Long): Int
 
     @JvmStatic
-    external fun libc_solid_vprintf(arg1: String?, arg2: Long): Int
+    external fun libcSolidVprintf(arg1: Long, arg2: Long): Int
 
     @JvmStatic
-    external fun libc_solid_gets(arg1: Long): Long
+    external fun libcSolidGets(arg1: Long): Long
 
     @JvmStatic
-    external fun libc_solid_sprintf(arg1: Long, arg2: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcSolidSprintf(arg1: Long, arg2: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_solid_tmpnam(arg1: String?): Long
+    external fun libcSolidTmpnam(arg1: Long): Long
 
     @JvmStatic
-    external fun libc_solid_vsprintf(arg1: Long, arg2: String?, arg3: Long): Int
+    external fun libcSolidVsprintf(arg1: Long, arg2: Long, arg3: Long): Int
 
     @JvmStatic
-    external fun libc_solid_rename(arg1: String?, arg2: String?): Int
+    external fun libcSolidRename(arg1: Long, arg2: Long): Int
 
     @JvmStatic
-    external fun libc_solid_asiprintf(arg1: Long, arg2: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcSolidAsiprintf(arg1: Long, arg2: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_solid_fiprintf(arg1: Long, arg2: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcSolidFiprintf(arg1: Long, arg2: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_solid_fiscanf(arg1: Long, arg2: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcSolidFiscanf(arg1: Long, arg2: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_solid_iprintf(arg1: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcSolidIprintf(arg1: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_solid_iscanf(arg1: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcSolidIscanf(arg1: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_solid_siprintf(arg1: Long, arg2: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcSolidSiprintf(arg1: Long, arg2: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_solid_siscanf(arg1: Long, arg2: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcSolidSiscanf(arg1: Long, arg2: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_solid_sniprintf(arg1: Long, arg2: Long, arg3: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcSolidSniprintf(arg1: Long, arg2: Long, arg3: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_solid_vasiprintf(arg1: Long, arg2: String?, arg3: Long): Int
+    external fun libcSolidVasiprintf(arg1: Long, arg2: Long, arg3: Long): Int
 
     @JvmStatic
-    external fun libc_solid_vfiprintf(arg1: Long, arg2: String?, arg3: Long): Int
+    external fun libcSolidVfiprintf(arg1: Long, arg2: Long, arg3: Long): Int
 
     @JvmStatic
-    external fun libc_solid_vfiscanf(arg1: Long, arg2: String?, arg3: Long): Int
+    external fun libcSolidVfiscanf(arg1: Long, arg2: Long, arg3: Long): Int
 
     @JvmStatic
-    external fun libc_solid_viprintf(arg1: String?, arg2: Long): Int
+    external fun libcSolidViprintf(arg1: Long, arg2: Long): Int
 
     @JvmStatic
-    external fun libc_solid_viscanf(arg1: String?, arg2: Long): Int
+    external fun libcSolidViscanf(arg1: Long, arg2: Long): Int
 
     @JvmStatic
-    external fun libc_solid_vsiprintf(arg1: Long, arg2: String?, arg3: Long): Int
+    external fun libcSolidVsiprintf(arg1: Long, arg2: Long, arg3: Long): Int
 
     @JvmStatic
-    external fun libc_solid_vsiscanf(arg1: String?, arg2: String?, arg3: Long): Int
+    external fun libcSolidVsiscanf(arg1: Long, arg2: Long, arg3: Long): Int
 
     @JvmStatic
-    external fun libc_solid_vsniprintf(arg1: Long, arg2: Long, arg3: String?, arg4: Long): Int
+    external fun libcSolidVsniprintf(arg1: Long, arg2: Long, arg3: Long, arg4: Long): Int
 
     @JvmStatic
-    external fun libc_solid_vdiprintf(arg1: Int, arg2: String?, arg3: Long): Int
+    external fun libcSolidVdiprintf(arg1: Int, arg2: Long, arg3: Long): Int
 
     @JvmStatic
-    external fun libc_solid_diprintf(arg1: Int, arg2: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcSolidDiprintf(arg1: Int, arg2: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_solid_fgetpos(arg1: Long, arg2: Long): Int
+    external fun libcSolidFgetpos(arg1: Long, arg2: Long): Int
 
     @JvmStatic
-    external fun libc_solid_fsetpos(arg1: Long, arg2: Long): Int
+    external fun libcSolidFsetpos(arg1: Long, arg2: Long): Int
 
     @JvmStatic
-    external fun libc_solid_fdopen(arg1: Int, arg2: String?): Long
+    external fun libcSolidFdopen(arg1: Int, arg2: Long): Long
 
     @JvmStatic
-    external fun libc_solid_fileno(arg1: Long): Int
+    external fun libcSolidFileno(arg1: Long): Int
 
     @JvmStatic
-    external fun libc_solid_flockfile(arg1: Long)
+    external fun libcSolidFlockfile(arg1: Long)
 
     @JvmStatic
-    external fun libc_solid_ftrylockfile(arg1: Long): Int
+    external fun libcSolidFtrylockfile(arg1: Long): Int
 
     @JvmStatic
-    external fun libc_solid_funlockfile(arg1: Long)
+    external fun libcSolidFunlockfile(arg1: Long)
 
     @JvmStatic
-    external fun libc_solid_getcUnlocked(arg1: Long): Int
+    external fun libcSolidGetcUnlocked(arg1: Long): Int
 
     @JvmStatic
-    external fun libc_solid_getcharUnlocked(): Int
+    external fun libcSolidGetcharUnlocked(): Int
 
     @JvmStatic
-    external fun libc_solid_putcUnlocked(arg1: Int, arg2: Long): Int
+    external fun libcSolidPutcUnlocked(arg1: Int, arg2: Long): Int
 
     @JvmStatic
-    external fun libc_solid_putcharUnlocked(arg1: Int): Int
+    external fun libcSolidPutcharUnlocked(arg1: Int): Int
 
     @JvmStatic
-    external fun libc_solid_snprintf(arg1: Long, arg2: Long, arg3: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcSolidSnprintf(arg1: Long, arg2: Long, arg3: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_solid_vsnprintf(arg1: Long, arg2: Long, arg3: String?, arg4: Long): Int
+    external fun libcSolidVsnprintf(arg1: Long, arg2: Long, arg3: Long, arg4: Long): Int
 
     @JvmStatic
-    external fun libc_solid_getw(arg1: Long): Int
+    external fun libcSolidGetw(arg1: Long): Int
 
     @JvmStatic
-    external fun libc_solid_putw(arg1: Int, arg2: Long): Int
+    external fun libcSolidPutw(arg1: Int, arg2: Long): Int
 
     @JvmStatic
-    external fun libc_solid_tempnam(arg1: String?, arg2: String?): Long
+    external fun libcSolidTempnam(arg1: Long, arg2: Long): Long
 
     @JvmStatic
-    external fun libc_solid_fseeko(stream: Long, offset: Long, whence: Int): Int
+    external fun libcSolidFseeko(stream: Long, offset: Long, whence: Int): Int
 
     @JvmStatic
-    external fun libc_solid_ftello(stream: Long): Long
+    external fun libcSolidFtello(stream: Long): Long
 
     @JvmStatic
-    external fun libc_solid_atof(arg1: String?): Double
+    external fun libcSolidAtof(arg1: Long): Double
 
     @JvmStatic
-    external fun libc_solid_strtod(arg1: String?, arg2: Long): Double
+    external fun libcSolidStrtod(arg1: Long, arg2: Long): Double
 
     @JvmStatic
-    external fun libc_solid_drand48(): Double
+    external fun libcSolidDrand48(): Double
 
     @JvmStatic
-    external fun libc_solid_erand48(arg1: Long): Double
+    external fun libcSolidErand48(arg1: Long): Double
 
     @JvmStatic
-    external fun libc_solid_strtof(arg1: String?, arg2: Long): Float
+    external fun libcSolidStrtof(arg1: Long, arg2: Long): Float
 
     @JvmStatic
-    external fun libc_solid_strtold(arg1: String?, arg2: Long): Double
+    external fun libcSolidStrtold(arg1: Long, arg2: Long): Double
 
     @JvmStatic
-    external fun libc_solid_strtodL(arg1: String?, arg2: Long, arg3: Long): Double
+    external fun libcSolidStrtodL(arg1: Long, arg2: Long, arg3: Long): Double
 
     @JvmStatic
-    external fun libc_solid_strtofL(arg1: String?, arg2: Long, arg3: Long): Float
+    external fun libcSolidStrtofL(arg1: Long, arg2: Long, arg3: Long): Float
 
     @JvmStatic
-    external fun libc_solid_strtoldL(arg1: String?, arg2: Long, arg3: Long): Double
+    external fun libcSolidStrtoldL(arg1: Long, arg2: Long, arg3: Long): Double
 
     @JvmStatic
-    external fun libc_solid_exit(arg1: Int)
+    external fun libcSolidExit(arg1: Int)
 
     @JvmStatic
-    external fun libc_solid_abort()
+    external fun libcSolidAbort()
 
     @JvmStatic
-    external fun libc_solid_abs(arg1: Int): Int
+    external fun libcSolidAbs(arg1: Int): Int
 
     @JvmStatic
-    external fun libc_solid_atexit(arg1: Long): Int
+    external fun libcSolidAtexit(arg1: Long): Int
 
     @JvmStatic
-    external fun libc_solid_atoi(arg1: String?): Int
+    external fun libcSolidAtoi(arg1: Long): Int
 
     @JvmStatic
-    external fun libc_solid_atol(arg1: String?): Long
+    external fun libcSolidAtol(arg1: Long): Long
 
     @JvmStatic
-    external fun libc_solid_itoa(arg1: Int, arg2: Long, arg3: Int): Long
+    external fun libcSolidItoa(arg1: Int, arg2: Long, arg3: Int): Long
 
     @JvmStatic
-    external fun libc_solid_ltoa(arg1: Long, arg2: Long, arg3: Int): Long
+    external fun libcSolidLtoa(arg1: Long, arg2: Long, arg3: Int): Long
 
     @JvmStatic
-    external fun libc_solid_ultoa(arg1: Long, arg2: Long, arg3: Int): Long
+    external fun libcSolidUltoa(arg1: Long, arg2: Long, arg3: Int): Long
 
     @JvmStatic
-    external fun libc_solid_bsearch(arg1: Long, arg2: Long, arg3: Long, arg4: Long, arg5: Long): Long
+    external fun libcSolidBsearch(arg1: Long, arg2: Long, arg3: Long, arg4: Long, arg5: Long): Long
 
     @JvmStatic
-    external fun libc_solid_calloc(arg1: Long, arg2: Long): Long
+    external fun libcSolidCalloc(arg1: Long, arg2: Long): Long
 
     @JvmStatic
-    external fun libc_solid_free(arg1: Long)
+    external fun libcSolidFree(arg1: Long)
 
     @JvmStatic
-    external fun libc_solid_getenv(arg1: String?): Long
+    external fun libcSolidGetenv(arg1: Long): Long
 
     @JvmStatic
-    external fun libc_solid_labs(arg1: Long): Long
+    external fun libcSolidLabs(arg1: Long): Long
 
     @JvmStatic
-    external fun libc_solid_malloc(arg1: Long): Long
+    external fun libcSolidMalloc(arg1: Long): Long
 
     @JvmStatic
-    external fun libc_solid_qsort(arg1: Long, arg2: Long, arg3: Long, arg4: Long)
+    external fun libcSolidQsort(arg1: Long, arg2: Long, arg3: Long, arg4: Long)
 
     @JvmStatic
-    external fun libc_solid_rand(): Int
+    external fun libcSolidRand(): Int
 
     @JvmStatic
-    external fun libc_solid_realloc(arg1: Long, arg2: Long): Long
+    external fun libcSolidRealloc(arg1: Long, arg2: Long): Long
 
     @JvmStatic
-    external fun libc_solid_srand(arg1: Int)
+    external fun libcSolidSrand(arg1: Int)
 
     @JvmStatic
-    external fun libc_solid_strtol(arg1: String?, arg2: Long, arg3: Int): Long
+    external fun libcSolidStrtol(arg1: Long, arg2: Long, arg3: Int): Long
 
     @JvmStatic
-    external fun libc_solid_strtoul(arg1: String?, arg2: Long, arg3: Int): Long
+    external fun libcSolidStrtoul(arg1: Long, arg2: Long, arg3: Int): Long
 
     @JvmStatic
-    external fun libc_solid_mblen(arg1: String?, arg2: Long): Int
+    external fun libcSolidMblen(arg1: Long, arg2: Long): Int
 
     @JvmStatic
-    external fun libc_solid_mbstowcs(arg1: Long, arg2: String?, arg3: Long): Long
+    external fun libcSolidMbstowcs(arg1: Long, arg2: Long, arg3: Long): Long
 
     @JvmStatic
-    external fun libc_solid_wctomb(arg1: Long, arg2: Int): Int
+    external fun libcSolidWctomb(arg1: Long, arg2: Int): Int
 
     @JvmStatic
-    external fun libc_solid_mbtowc(arg1: Long, arg2: String?, arg3: Long): Int
+    external fun libcSolidMbtowc(arg1: Long, arg2: Long, arg3: Long): Int
 
     @JvmStatic
-    external fun libc_solid_wcstombs(arg1: Long, arg2: Long, arg3: Long): Long
+    external fun libcSolidWcstombs(arg1: Long, arg2: Long, arg3: Long): Long
 
     @JvmStatic
-    external fun libc_solid_randR(arg1: Long): Int
+    external fun libcSolidRandR(arg1: Long): Int
 
     @JvmStatic
-    external fun libc_solid_jrand48(arg1: Long): Long
+    external fun libcSolidJrand48(arg1: Long): Long
 
     @JvmStatic
-    external fun libc_solid_lcong48(arg1: Long)
+    external fun libcSolidLcong48(arg1: Long)
 
     @JvmStatic
-    external fun libc_solid_lrand48(): Long
+    external fun libcSolidLrand48(): Long
 
     @JvmStatic
-    external fun libc_solid_mrand48(): Long
+    external fun libcSolidMrand48(): Long
 
     @JvmStatic
-    external fun libc_solid_nrand48(arg1: Long): Long
+    external fun libcSolidNrand48(arg1: Long): Long
 
     @JvmStatic
-    external fun libc_solid_seed48(arg1: Long): Long
+    external fun libcSolidSeed48(arg1: Long): Long
 
     @JvmStatic
-    external fun libc_solid_srand48(arg1: Long)
+    external fun libcSolidSrand48(arg1: Long)
 
     @JvmStatic
-    external fun libc_solid_putenv(arg1: Long): Int
+    external fun libcSolidPutenv(arg1: Long): Int
 
     @JvmStatic
-    external fun libc_solid_a64l(arg1: String?): Long
+    external fun libcSolidA64l(arg1: Long): Long
 
     @JvmStatic
-    external fun libc_solid_l64a(arg1: Long): Long
+    external fun libcSolidL64a(arg1: Long): Long
 
     @JvmStatic
-    external fun libc_solid_random(): Long
+    external fun libcSolidRandom(): Long
 
     @JvmStatic
-    external fun libc_solid_setstate(arg1: Long): Long
+    external fun libcSolidSetstate(arg1: Long): Long
 
     @JvmStatic
-    external fun libc_solid_initstate(arg1: Int, arg2: Long, arg3: Long): Long
+    external fun libcSolidInitstate(arg1: Int, arg2: Long, arg3: Long): Long
 
     @JvmStatic
-    external fun libc_solid_srandom(arg1: Int)
+    external fun libcSolidSrandom(arg1: Int)
 
     @JvmStatic
-    external fun libc_solid_mkostemp(arg1: Long, arg2: Int): Int
+    external fun libcSolidMkostemp(arg1: Long, arg2: Int): Int
 
     @JvmStatic
-    external fun libc_solid_mkostemps(arg1: Long, arg2: Int, arg3: Int): Int
+    external fun libcSolidMkostemps(arg1: Long, arg2: Int, arg3: Int): Int
 
     @JvmStatic
-    external fun libc_solid_mkdtemp(arg1: Long): Long
+    external fun libcSolidMkdtemp(arg1: Long): Long
 
     @JvmStatic
-    external fun libc_solid_mkstemp(arg1: Long): Int
+    external fun libcSolidMkstemp(arg1: Long): Int
 
     @JvmStatic
-    external fun libc_solid_mktemp(arg1: Long): Long
+    external fun libcSolidMktemp(arg1: Long): Long
 
     @JvmStatic
-    external fun libc_solid_atoll(arg1: String?): Long
+    external fun libcSolidAtoll(arg1: Long): Long
 
     @JvmStatic
-    external fun libc_solid_llabs(arg1: Long): Long
+    external fun libcSolidLlabs(arg1: Long): Long
 
     @JvmStatic
-    external fun libc_solid_strtoll(arg1: String?, arg2: Long, arg3: Int): Long
+    external fun libcSolidStrtoll(arg1: Long, arg2: Long, arg3: Int): Long
 
     @JvmStatic
-    external fun libc_solid_strtoull(arg1: String?, arg2: Long, arg3: Int): Long
+    external fun libcSolidStrtoull(arg1: Long, arg2: Long, arg3: Int): Long
 
     @JvmStatic
-    external fun libc_solid_alignedAlloc(arg1: Long, arg2: Long): Long
+    external fun libcSolidAlignedAlloc(arg1: Long, arg2: Long): Long
 
     @JvmStatic
-    external fun libc_solid_atQuickExit(arg1: Long): Int
+    external fun libcSolidAtQuickExit(arg1: Long): Int
 
     @JvmStatic
-    external fun libc_solid_quickExit(arg1: Int)
+    external fun libcSolidQuickExit(arg1: Int)
 
     @JvmStatic
-    external fun libc_solid_setenv(arg1: String?, arg2: String?, arg3: Int): Int
+    external fun libcSolidSetenv(arg1: Long, arg2: Long, arg3: Int): Int
 
     @JvmStatic
-    external fun libc_solid_unsetenv(arg1: String?): Int
+    external fun libcSolidUnsetenv(arg1: Long): Int
 
     @JvmStatic
-    external fun libc_solid_humanizeNumber(arg1: Long, arg2: Long, arg3: Long, arg4: String?, arg5: Int, arg6: Int): Int
+    external fun libcSolidHumanizeNumber(arg1: Long, arg2: Long, arg3: Long, arg4: Long, arg5: Int, arg6: Int): Int
 
     @JvmStatic
-    external fun libc_solid_dehumanizeNumber(arg1: String?, arg2: Long): Int
+    external fun libcSolidDehumanizeNumber(arg1: Long, arg2: Long): Int
 
     @JvmStatic
-    external fun libc_solid_getenvR(arg1: String?, arg2: Long, arg3: Long): Int
+    external fun libcSolidGetenvR(arg1: Long, arg2: Long, arg3: Long): Int
 
     @JvmStatic
-    external fun libc_solid_heapsort(arg1: Long, arg2: Long, arg3: Long, arg4: Long): Int
+    external fun libcSolidHeapsort(arg1: Long, arg2: Long, arg3: Long, arg4: Long): Int
 
     @JvmStatic
-    external fun libc_solid_mergesort(arg1: Long, arg2: Long, arg3: Long, arg4: Long): Int
+    external fun libcSolidMergesort(arg1: Long, arg2: Long, arg3: Long, arg4: Long): Int
 
     @JvmStatic
-    external fun libc_solid_radixsort(arg1: Long, arg2: Int, arg3: Long, arg4: Int): Int
+    external fun libcSolidRadixsort(arg1: Long, arg2: Int, arg3: Long, arg4: Int): Int
 
     @JvmStatic
-    external fun libc_solid_sradixsort(arg1: Long, arg2: Int, arg3: Long, arg4: Int): Int
+    external fun libcSolidSradixsort(arg1: Long, arg2: Int, arg3: Long, arg4: Int): Int
 
     @JvmStatic
-    external fun libc_solid_getprogname(): Long
+    external fun libcSolidGetprogname(): Long
 
     @JvmStatic
-    external fun libc_solid_setprogname(arg1: String?)
+    external fun libcSolidSetprogname(arg1: Long)
 
     @JvmStatic
-    external fun libc_solid_qabs(arg1: Long): Long
+    external fun libcSolidQabs(arg1: Long): Long
 
     @JvmStatic
-    external fun libc_solid_strtoq(arg1: String?, arg2: Long, arg3: Int): Long
+    external fun libcSolidStrtoq(arg1: Long, arg2: Long, arg3: Int): Long
 
     @JvmStatic
-    external fun libc_solid_strtouq(arg1: String?, arg2: Long, arg3: Int): Long
+    external fun libcSolidStrtouq(arg1: Long, arg2: Long, arg3: Int): Long
 
     @JvmStatic
-    external fun libc_solid_strsuftoll(arg1: String?, arg2: String?, arg3: Long, arg4: Long): Long
+    external fun libcSolidStrsuftoll(arg1: Long, arg2: Long, arg3: Long, arg4: Long): Long
 
     @JvmStatic
-    external fun libc_solid_strsuftollx(arg1: String?, arg2: String?, arg3: Long, arg4: Long, arg5: Long, arg6: Long): Long
+    external fun libcSolidStrsuftollx(arg1: Long, arg2: Long, arg3: Long, arg4: Long, arg5: Long, arg6: Long): Long
 
     @JvmStatic
-    external fun libc_solid_l64aR(arg1: Long, arg2: Long, arg3: Int): Int
+    external fun libcSolidL64aR(arg1: Long, arg2: Long, arg3: Int): Int
 
     @JvmStatic
-    external fun libc_solid_strtolL(arg1: String?, arg2: Long, arg3: Int, arg4: Long): Long
+    external fun libcSolidStrtolL(arg1: Long, arg2: Long, arg3: Int, arg4: Long): Long
 
     @JvmStatic
-    external fun libc_solid_strtoulL(arg1: String?, arg2: Long, arg3: Int, arg4: Long): Long
+    external fun libcSolidStrtoulL(arg1: Long, arg2: Long, arg3: Int, arg4: Long): Long
 
     @JvmStatic
-    external fun libc_solid_strtollL(arg1: String?, arg2: Long, arg3: Int, arg4: Long): Long
+    external fun libcSolidStrtollL(arg1: Long, arg2: Long, arg3: Int, arg4: Long): Long
 
     @JvmStatic
-    external fun libc_solid_strtoullL(arg1: String?, arg2: Long, arg3: Int, arg4: Long): Long
+    external fun libcSolidStrtoullL(arg1: Long, arg2: Long, arg3: Int, arg4: Long): Long
 
     @JvmStatic
-    external fun libc_solid_strtoqL(arg1: String?, arg2: Long, arg3: Int, arg4: Long): Long
+    external fun libcSolidStrtoqL(arg1: Long, arg2: Long, arg3: Int, arg4: Long): Long
 
     @JvmStatic
-    external fun libc_solid_strtouqL(arg1: String?, arg2: Long, arg3: Int, arg4: Long): Long
+    external fun libcSolidStrtouqL(arg1: Long, arg2: Long, arg3: Int, arg4: Long): Long
 
     @JvmStatic
-    external fun libc_solid_mbCurMaxL(arg1: Long): Long
+    external fun libcSolidMbCurMaxL(arg1: Long): Long
 
     @JvmStatic
-    external fun libc_solid_mblenL(arg1: String?, arg2: Long, arg3: Long): Int
+    external fun libcSolidMblenL(arg1: Long, arg2: Long, arg3: Long): Int
 
     @JvmStatic
-    external fun libc_solid_mbstowcsL(arg1: Long, arg2: String?, arg3: Long, arg4: Long): Long
+    external fun libcSolidMbstowcsL(arg1: Long, arg2: Long, arg3: Long, arg4: Long): Long
 
     @JvmStatic
-    external fun libc_solid_wctombL(arg1: Long, arg2: Int, arg3: Long): Int
+    external fun libcSolidWctombL(arg1: Long, arg2: Int, arg3: Long): Int
 
     @JvmStatic
-    external fun libc_solid_mbtowcL(arg1: Long, arg2: String?, arg3: Long, arg4: Long): Int
+    external fun libcSolidMbtowcL(arg1: Long, arg2: Long, arg3: Long, arg4: Long): Int
 
     @JvmStatic
-    external fun libc_solid_wcstombsL(arg1: Long, arg2: Long, arg3: Long, arg4: Long): Long
+    external fun libcSolidWcstombsL(arg1: Long, arg2: Long, arg3: Long, arg4: Long): Long
 
     @JvmStatic
-    external fun libc_solid_memchr(arg1: Long, arg2: Int, arg3: Long): Long
+    external fun libcSolidMemchr(arg1: Long, arg2: Int, arg3: Long): Long
 
     @JvmStatic
-    external fun libc_solid_memcmp(arg1: Long, arg2: Long, arg3: Long): Int
+    external fun libcSolidMemcmp(arg1: Long, arg2: Long, arg3: Long): Int
 
     @JvmStatic
-    external fun libc_solid_memcpy(arg1: Long, arg2: Long, arg3: Long): Long
+    external fun libcSolidMemcpy(arg1: Long, arg2: Long, arg3: Long): Long
 
     @JvmStatic
-    external fun libc_solid_memmove(arg1: Long, arg2: Long, arg3: Long): Long
+    external fun libcSolidMemmove(arg1: Long, arg2: Long, arg3: Long): Long
 
     @JvmStatic
-    external fun libc_solid_memset(arg1: Long, arg2: Int, arg3: Long): Long
+    external fun libcSolidMemset(arg1: Long, arg2: Int, arg3: Long): Long
 
     @JvmStatic
-    external fun libc_solid_strcat(arg1: Long, arg2: String?): Long
+    external fun libcSolidStrcat(arg1: Long, arg2: Long): Long
 
     @JvmStatic
-    external fun libc_solid_strchr(arg1: String?, arg2: Int): Long
+    external fun libcSolidStrchr(arg1: Long, arg2: Int): Long
 
     @JvmStatic
-    external fun libc_solid_strcmp(arg1: String?, arg2: String?): Int
+    external fun libcSolidStrcmp(arg1: Long, arg2: Long): Int
 
     @JvmStatic
-    external fun libc_solid_strcoll(arg1: String?, arg2: String?): Int
+    external fun libcSolidStrcoll(arg1: Long, arg2: Long): Int
 
     @JvmStatic
-    external fun libc_solid_strcpy(arg1: Long, arg2: String?): Long
+    external fun libcSolidStrcpy(arg1: Long, arg2: Long): Long
 
     @JvmStatic
-    external fun libc_solid_strcspn(arg1: String?, arg2: String?): Long
+    external fun libcSolidStrcspn(arg1: Long, arg2: Long): Long
 
     @JvmStatic
-    external fun libc_solid_strerror(arg1: Int): Long
+    external fun libcSolidStrerror(arg1: Int): Long
 
     @JvmStatic
-    external fun libc_solid_strlen(arg1: String?): Long
+    external fun libcSolidStrlen(arg1: Long): Long
 
     @JvmStatic
-    external fun libc_solid_strncat(arg1: Long, arg2: String?, arg3: Long): Long
+    external fun libcSolidStrncat(arg1: Long, arg2: Long, arg3: Long): Long
 
     @JvmStatic
-    external fun libc_solid_strncmp(arg1: String?, arg2: String?, arg3: Long): Int
+    external fun libcSolidStrncmp(arg1: Long, arg2: Long, arg3: Long): Int
 
     @JvmStatic
-    external fun libc_solid_strncpy(arg1: Long, arg2: String?, arg3: Long): Long
+    external fun libcSolidStrncpy(arg1: Long, arg2: Long, arg3: Long): Long
 
     @JvmStatic
-    external fun libc_solid_strpbrk(arg1: String?, arg2: String?): Long
+    external fun libcSolidStrpbrk(arg1: Long, arg2: Long): Long
 
     @JvmStatic
-    external fun libc_solid_strrchr(arg1: String?, arg2: Int): Long
+    external fun libcSolidStrrchr(arg1: Long, arg2: Int): Long
 
     @JvmStatic
-    external fun libc_solid_strspn(arg1: String?, arg2: String?): Long
+    external fun libcSolidStrspn(arg1: Long, arg2: Long): Long
 
     @JvmStatic
-    external fun libc_solid_strstr(arg1: String?, arg2: String?): Long
+    external fun libcSolidStrstr(arg1: Long, arg2: Long): Long
 
     @JvmStatic
-    external fun libc_solid_strtok(arg1: Long, arg2: String?): Long
+    external fun libcSolidStrtok(arg1: Long, arg2: Long): Long
 
     @JvmStatic
-    external fun libc_solid_strtokR(arg1: Long, arg2: String?, arg3: Long): Long
+    external fun libcSolidStrtokR(arg1: Long, arg2: Long, arg3: Long): Long
 
     @JvmStatic
-    external fun libc_solid_strerrorR(arg1: Int, arg2: Long, arg3: Long): Int
+    external fun libcSolidStrerrorR(arg1: Int, arg2: Long, arg3: Long): Int
 
     @JvmStatic
-    external fun libc_solid_strxfrm(arg1: Long, arg2: String?, arg3: Long): Long
+    external fun libcSolidStrxfrm(arg1: Long, arg2: Long, arg3: Long): Long
 
     @JvmStatic
-    external fun libc_solid_memccpy(arg1: Long, arg2: Long, arg3: Int, arg4: Long): Long
+    external fun libcSolidMemccpy(arg1: Long, arg2: Long, arg3: Int, arg4: Long): Long
 
     @JvmStatic
-    external fun libc_solid_strdup(arg1: String?): Long
+    external fun libcSolidStrdup(arg1: Long): Long
 
     @JvmStatic
-    external fun libc_solid_stpcpy(arg1: Long, arg2: String?): Long
+    external fun libcSolidStpcpy(arg1: Long, arg2: Long): Long
 
     @JvmStatic
-    external fun libc_solid_stpncpy(arg1: Long, arg2: String?, arg3: Long): Long
+    external fun libcSolidStpncpy(arg1: Long, arg2: Long, arg3: Long): Long
 
     @JvmStatic
-    external fun libc_solid_strnlen(arg1: String?, arg2: Long): Long
+    external fun libcSolidStrnlen(arg1: Long, arg2: Long): Long
 
     @JvmStatic
-    external fun libc_solid_memmem(arg1: Long, arg2: Long, arg3: Long, arg4: Long): Long
+    external fun libcSolidMemmem(arg1: Long, arg2: Long, arg3: Long, arg4: Long): Long
 
     @JvmStatic
-    external fun libc_solid_strcasestr(arg1: String?, arg2: String?): Long
+    external fun libcSolidStrcasestr(arg1: Long, arg2: Long): Long
 
     @JvmStatic
-    external fun libc_solid_strlcat(arg1: Long, arg2: String?, arg3: Long): Long
+    external fun libcSolidStrlcat(arg1: Long, arg2: Long, arg3: Long): Long
 
     @JvmStatic
-    external fun libc_solid_strlcpy(arg1: Long, arg2: String?, arg3: Long): Long
+    external fun libcSolidStrlcpy(arg1: Long, arg2: Long, arg3: Long): Long
 
     @JvmStatic
-    external fun libc_solid_strsep(arg1: Long, arg2: String?): Long
+    external fun libcSolidStrsep(arg1: Long, arg2: Long): Long
 
     @JvmStatic
-    external fun libc_solid_stresep(arg1: Long, arg2: String?, arg3: Int): Long
+    external fun libcSolidStresep(arg1: Long, arg2: Long, arg3: Int): Long
 
     @JvmStatic
-    external fun libc_solid_strndup(arg1: String?, arg2: Long): Long
+    external fun libcSolidStrndup(arg1: Long, arg2: Long): Long
 
     @JvmStatic
-    external fun libc_solid_memrchr(arg1: Long, arg2: Int, arg3: Long): Long
+    external fun libcSolidMemrchr(arg1: Long, arg2: Int, arg3: Long): Long
 
     @JvmStatic
-    external fun libc_solid_explicitMemset(arg1: Long, arg2: Int, arg3: Long): Long
+    external fun libcSolidExplicitMemset(arg1: Long, arg2: Int, arg3: Long): Long
 
     @JvmStatic
-    external fun libc_solid_consttimeMemequal(arg1: Long, arg2: Long, arg3: Long): Int
+    external fun libcSolidConsttimeMemequal(arg1: Long, arg2: Long, arg3: Long): Int
 
     @JvmStatic
-    external fun libc_solid_strcollL(arg1: String?, arg2: String?, arg3: Long): Int
+    external fun libcSolidStrcollL(arg1: Long, arg2: Long, arg3: Long): Int
 
     @JvmStatic
-    external fun libc_solid_strxfrmL(arg1: Long, arg2: String?, arg3: Long, arg4: Long): Long
+    external fun libcSolidStrxfrmL(arg1: Long, arg2: Long, arg3: Long, arg4: Long): Long
 
     @JvmStatic
-    external fun libc_solid_strerrorL(arg1: Int, arg2: Long): Long
+    external fun libcSolidStrerrorL(arg1: Int, arg2: Long): Long
 
     @JvmStatic
-    external fun libc_solid_bcmp(arg1: Long, arg2: Long, arg3: Long): Int
+    external fun libcSolidBcmp(arg1: Long, arg2: Long, arg3: Long): Int
 
     @JvmStatic
-    external fun libc_solid_bcopy(arg1: Long, arg2: Long, arg3: Long)
+    external fun libcSolidBcopy(arg1: Long, arg2: Long, arg3: Long)
 
     @JvmStatic
-    external fun libc_solid_bzero(arg1: Long, arg2: Long)
+    external fun libcSolidBzero(arg1: Long, arg2: Long)
 
     @JvmStatic
-    external fun libc_solid_ffs(arg1: Int): Int
+    external fun libcSolidFfs(arg1: Int): Int
 
     @JvmStatic
-    external fun libc_solid_popcount(arg1: Int): Int
+    external fun libcSolidPopcount(arg1: Int): Int
 
     @JvmStatic
-    external fun libc_solid_popcountl(arg1: Long): Int
+    external fun libcSolidPopcountl(arg1: Long): Int
 
     @JvmStatic
-    external fun libc_solid_popcountll(arg1: Long): Int
+    external fun libcSolidPopcountll(arg1: Long): Int
 
     @JvmStatic
-    external fun libc_solid_popcount32(arg1: Int): Int
+    external fun libcSolidPopcount32(arg1: Int): Int
 
     @JvmStatic
-    external fun libc_solid_popcount64(arg1: Long): Int
+    external fun libcSolidPopcount64(arg1: Long): Int
 
     @JvmStatic
-    external fun libc_solid_rindex(arg1: String?, arg2: Int): Long
+    external fun libcSolidRindex(arg1: Long, arg2: Int): Long
 
     @JvmStatic
-    external fun libc_solid_strcasecmp(arg1: String?, arg2: String?): Int
+    external fun libcSolidStrcasecmp(arg1: Long, arg2: Long): Int
 
     @JvmStatic
-    external fun libc_solid_strncasecmp(arg1: String?, arg2: String?, arg3: Long): Int
+    external fun libcSolidStrncasecmp(arg1: Long, arg2: Long, arg3: Long): Int
 
     @JvmStatic
-    external fun libc_solid_signal(arg1: Int, arg2: Long): Long
+    external fun libcSolidSignal(arg1: Int, arg2: Long): Long
 
     @JvmStatic
-    external fun libc_solid_raise(arg1: Int): Int
+    external fun libcSolidRaise(arg1: Int): Int
 
     @JvmStatic
-    external fun libc_solid_asctime(arg1: Long): Long
+    external fun libcSolidAsctime(arg1: Long): Long
 
     @JvmStatic
-    external fun libc_solid_clock(): Int
+    external fun libcSolidClock(): Int
 
     @JvmStatic
-    external fun libc_solid_ctime(arg1: Long): Long
+    external fun libcSolidCtime(arg1: Long): Long
 
     @JvmStatic
-    external fun libc_solid_difftime(arg1: Long, arg2: Long): Double
+    external fun libcSolidDifftime(arg1: Long, arg2: Long): Double
 
     @JvmStatic
-    external fun libc_solid_gmtime(arg1: Long): Long
+    external fun libcSolidGmtime(arg1: Long): Long
 
     @JvmStatic
-    external fun libc_solid_localtime(arg1: Long): Long
+    external fun libcSolidLocaltime(arg1: Long): Long
 
     @JvmStatic
-    external fun libc_solid_time(arg1: Long): Long
+    external fun libcSolidTime(arg1: Long): Long
 
     @JvmStatic
-    external fun libc_solid_mktime(arg1: Long): Long
+    external fun libcSolidMktime(arg1: Long): Long
 
     @JvmStatic
-    external fun libc_solid_strftime(arg1: Long, arg2: Long, arg3: String?, arg4: Long): Long
+    external fun libcSolidStrftime(arg1: Long, arg2: Long, arg3: Long, arg4: Long): Long
 
     @JvmStatic
-    external fun libc_solid_utime(arg1: String?, arg2: Long): Int
+    external fun libcSolidUtime(arg1: Long, arg2: Long): Int
 
     @JvmStatic
-    external fun libc_solid_asctimeR(arg1: Long, arg2: Long): Long
+    external fun libcSolidAsctimeR(arg1: Long, arg2: Long): Long
 
     @JvmStatic
-    external fun libc_solid_ctimeR(arg1: Long, arg2: Long): Long
+    external fun libcSolidCtimeR(arg1: Long, arg2: Long): Long
 
     @JvmStatic
-    external fun libc_solid_gmtimeR(arg1: Long, arg2: Long): Long
+    external fun libcSolidGmtimeR(arg1: Long, arg2: Long): Long
 
     @JvmStatic
-    external fun libc_solid_localtimeR(arg1: Long, arg2: Long): Long
+    external fun libcSolidLocaltimeR(arg1: Long, arg2: Long): Long
 
     @JvmStatic
-    external fun libc_solid_stat(arg1: String?, arg2: Long): Int
+    external fun libcSolidStat(arg1: Long, arg2: Long): Int
 
     @JvmStatic
-    external fun libc_solid_lstat(arg1: String?, arg2: Long): Int
+    external fun libcSolidLstat(arg1: Long, arg2: Long): Int
 
     @JvmStatic
-    external fun libc_solid_fstat(arg1: Int, arg2: Long): Int
+    external fun libcSolidFstat(arg1: Int, arg2: Long): Int
 
     @JvmStatic
-    external fun libc_solid_chmod(arg1: String?, arg2: Int): Int
+    external fun libcSolidChmod(arg1: Long, arg2: Int): Int
 
     @JvmStatic
-    external fun libc_solid_mkdir(arg1: String?, arg2: Int): Int
+    external fun libcSolidMkdir(arg1: Long, arg2: Int): Int
 
     @JvmStatic
-    external fun libc_solid_open(arg1: String?, arg2: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcSolidOpen(arg1: Long, arg2: Int, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_solid_creat(arg1: String?, arg2: Int): Int
+    external fun libcSolidCreat(arg1: Long, arg2: Int): Int
 
     @JvmStatic
-    external fun libc_solid_close(arg1: Int): Int
+    external fun libcSolidClose(arg1: Int): Int
 
     @JvmStatic
-    external fun libc_solid_read(arg1: Int, arg2: Long, arg3: Int): Int
+    external fun libcSolidRead(arg1: Int, arg2: Long, arg3: Int): Int
 
     @JvmStatic
-    external fun libc_solid_write(arg1: Int, arg2: Long, arg3: Int): Int
+    external fun libcSolidWrite(arg1: Int, arg2: Long, arg3: Int): Int
 
     @JvmStatic
-    external fun libc_solid_unlink(arg1: String?): Int
+    external fun libcSolidUnlink(arg1: Long): Int
 
     @JvmStatic
-    external fun libc_solid_tell(arg1: Int): Long
+    external fun libcSolidTell(arg1: Int): Long
 
     @JvmStatic
-    external fun libc_solid_dup(arg1: Int): Int
+    external fun libcSolidDup(arg1: Int): Int
 
     @JvmStatic
-    external fun libc_solid_dup2(arg1: Int, arg2: Int): Int
+    external fun libcSolidDup2(arg1: Int, arg2: Int): Int
 
     @JvmStatic
-    external fun libc_solid_access(arg1: String?, arg2: Int): Int
+    external fun libcSolidAccess(arg1: Long, arg2: Int): Int
 
     @JvmStatic
-    external fun libc_solid_rmdir(arg1: String?): Int
+    external fun libcSolidRmdir(arg1: Long): Int
 
     @JvmStatic
-    external fun libc_solid_chdir(arg1: String?): Int
+    external fun libcSolidChdir(arg1: Long): Int
 
     @JvmStatic
-    external fun libc_solid_getwd(arg1: Long): Long
+    external fun libcSolidGetwd(arg1: Long): Long
 
     @JvmStatic
-    external fun libc_solid_getcwd(arg1: Long, arg2: Long): Long
+    external fun libcSolidGetcwd(arg1: Long, arg2: Long): Long
 
     @JvmStatic
-    external fun libc_solid_getopt(arg1: Int, arg2: Long, arg3: String?): Int
+    external fun libcSolidGetopt(arg1: Int, arg2: Long, arg3: Long): Int
 
     @JvmStatic
-    external fun libc_solid_getsubopt(arg1: Long, arg2: Long, arg3: Long): Int
+    external fun libcSolidGetsubopt(arg1: Long, arg2: Long, arg3: Long): Int
 
     @JvmStatic
-    external fun libc_solid_fcntl(arg1: Int, arg2: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcSolidFcntl(arg1: Int, arg2: Int, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_solid_getpid(): Int
+    external fun libcSolidGetpid(): Int
 
     @JvmStatic
-    external fun libc_solid_sleep(arg1: Int): Int
+    external fun libcSolidSleep(arg1: Int): Int
 
     @JvmStatic
-    external fun libc_solid_usleep(arg1: Int): Int
+    external fun libcSolidUsleep(arg1: Int): Int
 
     @JvmStatic
-    external fun libc_solid_localeconv(): Long
+    external fun libcSolidLocaleconv(): Long
 
     @JvmStatic
-    external fun libc_solid_setlocale(arg1: Int, arg2: String?): Long
+    external fun libcSolidSetlocale(arg1: Int, arg2: Long): Long
 
     @JvmStatic
-    external fun libc_solid_duplocale(arg1: Long): Long
+    external fun libcSolidDuplocale(arg1: Long): Long
 
     @JvmStatic
-    external fun libc_solid_freelocale(arg1: Long)
+    external fun libcSolidFreelocale(arg1: Long)
 
     @JvmStatic
-    external fun libc_solid_localeconvL(arg1: Long): Long
+    external fun libcSolidLocaleconvL(arg1: Long): Long
 
     @JvmStatic
-    external fun libc_solid_newlocale(arg1: Int, arg2: String?, arg3: Long): Long
+    external fun libcSolidNewlocale(arg1: Int, arg2: Long, arg3: Long): Long
 
     @JvmStatic
-    external fun libc_solid_nlLanginfo(item: Long): Long
+    external fun libcSolidNlLanginfo(item: Long): Long
 
     @JvmStatic
-    external fun libc_solid_nlLanginfoL(item: Long, locale: Long): Long
+    external fun libcSolidNlLanginfoL(item: Long, locale: Long): Long
 
     @JvmStatic
-    external fun libc_solid_memalign(align: Long, size: Long): Long
+    external fun libcSolidMemalign(align: Long, size: Long): Long
 
     @JvmStatic
-    external fun libc_solid_lseek(arg1: Int, arg2: Long, arg3: Int): Long
+    external fun libcSolidLseek(arg1: Int, arg2: Long, arg3: Int): Long
 }
 
-public actual var OPTARG: COpaquePointer?
-    get() = SolidJniBridge.libc_solid_get_OPTARG().let { if (it == 0L) null else COpaquePointer(it) }
+public actual var OPTARG: MutPtr<CChar>
+    get() = MutPtr(SolidJniBridge.libcSolidGetOPTARG())
     set(value) {
-        SolidJniBridge.libc_solid_set_OPTARG((value?.value ?: 0L))
+        SolidJniBridge.libcSolidSetOPTARG(value.rawAddress)
     }
 
 public actual var OPTERR: CInt
-    get() = SolidJniBridge.libc_solid_get_OPTERR()
+    get() = SolidJniBridge.libcSolidGetOPTERR()
     set(value) {
-        SolidJniBridge.libc_solid_set_OPTERR(value)
+        SolidJniBridge.libcSolidSetOPTERR(value)
     }
 
 public actual var OPTIND: CInt
-    get() = SolidJniBridge.libc_solid_get_OPTIND()
+    get() = SolidJniBridge.libcSolidGetOPTIND()
     set(value) {
-        SolidJniBridge.libc_solid_set_OPTIND(value)
+        SolidJniBridge.libcSolidSetOPTIND(value)
     }
 
 public actual var OPTOPT: CInt
-    get() = SolidJniBridge.libc_solid_get_OPTOPT()
+    get() = SolidJniBridge.libcSolidGetOPTOPT()
     set(value) {
-        SolidJniBridge.libc_solid_set_OPTOPT(value)
+        SolidJniBridge.libcSolidSetOPTOPT(value)
     }
 
 public actual var OPTRESET: CInt
-    get() = SolidJniBridge.libc_solid_get_OPTRESET()
+    get() = SolidJniBridge.libcSolidGetOPTRESET()
     set(value) {
-        SolidJniBridge.libc_solid_set_OPTRESET(value)
+        SolidJniBridge.libcSolidSetOPTRESET(value)
     }
 
-public actual var SUBOPTARG: COpaquePointer?
-    get() = SolidJniBridge.libc_solid_get_SUBOPTARG().let { if (it == 0L) null else COpaquePointer(it) }
+public actual var SUBOPTARG: MutPtr<CChar>
+    get() = MutPtr(SolidJniBridge.libcSolidGetSUBOPTARG())
     set(value) {
-        SolidJniBridge.libc_solid_set_SUBOPTARG((value?.value ?: 0L))
+        SolidJniBridge.libcSolidSetSUBOPTARG(value.rawAddress)
     }
 
 public actual fun isalnum(c: CInt): CInt =
-    SolidJniBridge.libc_solid_isalnum(c)
+    SolidJniBridge.libcSolidIsalnum(c)
 
 public actual fun isalpha(c: CInt): CInt =
-    SolidJniBridge.libc_solid_isalpha(c)
+    SolidJniBridge.libcSolidIsalpha(c)
 
 public actual fun iscntrl(c: CInt): CInt =
-    SolidJniBridge.libc_solid_iscntrl(c)
+    SolidJniBridge.libcSolidIscntrl(c)
 
 public actual fun isdigit(c: CInt): CInt =
-    SolidJniBridge.libc_solid_isdigit(c)
+    SolidJniBridge.libcSolidIsdigit(c)
 
 public actual fun isgraph(c: CInt): CInt =
-    SolidJniBridge.libc_solid_isgraph(c)
+    SolidJniBridge.libcSolidIsgraph(c)
 
 public actual fun islower(c: CInt): CInt =
-    SolidJniBridge.libc_solid_islower(c)
+    SolidJniBridge.libcSolidIslower(c)
 
 public actual fun isprint(c: CInt): CInt =
-    SolidJniBridge.libc_solid_isprint(c)
+    SolidJniBridge.libcSolidIsprint(c)
 
 public actual fun ispunct(c: CInt): CInt =
-    SolidJniBridge.libc_solid_ispunct(c)
+    SolidJniBridge.libcSolidIspunct(c)
 
 public actual fun isspace(c: CInt): CInt =
-    SolidJniBridge.libc_solid_isspace(c)
+    SolidJniBridge.libcSolidIsspace(c)
 
 public actual fun isupper(c: CInt): CInt =
-    SolidJniBridge.libc_solid_isupper(c)
+    SolidJniBridge.libcSolidIsupper(c)
 
 public actual fun isxdigit(c: CInt): CInt =
-    SolidJniBridge.libc_solid_isxdigit(c)
+    SolidJniBridge.libcSolidIsxdigit(c)
 
 public actual fun isblank(c: CInt): CInt =
-    SolidJniBridge.libc_solid_isblank(c)
+    SolidJniBridge.libcSolidIsblank(c)
 
 public actual fun tolower(c: CInt): CInt =
-    SolidJniBridge.libc_solid_tolower(c)
+    SolidJniBridge.libcSolidTolower(c)
 
 public actual fun toupper(c: CInt): CInt =
-    SolidJniBridge.libc_solid_toupper(c)
+    SolidJniBridge.libcSolidToupper(c)
 
-public actual fun getStdioFile(fileno: CInt): FILE? =
-    SolidJniBridge.libc_solid_getStdioFile(fileno).let { if (it == 0L) null else FILE(it) }
+public actual fun getStdioFile(fileno: CInt): MutPtr<FILE> =
+    MutPtr(SolidJniBridge.libcSolidGetStdioFile(fileno))
 
-public actual fun clearerr(arg1: FILE?) {
-    SolidJniBridge.libc_solid_clearerr((arg1?.handle ?: 0L))
+public actual fun clearerr(arg1: MutPtr<FILE>) {
+    SolidJniBridge.libcSolidClearerr(arg1.rawAddress)
 }
 
-public actual fun fclose(arg1: FILE?): CInt =
-    SolidJniBridge.libc_solid_fclose((arg1?.handle ?: 0L))
+public actual fun fclose(arg1: MutPtr<FILE>): CInt =
+    SolidJniBridge.libcSolidFclose(arg1.rawAddress)
 
-public actual fun feof(arg1: FILE?): CInt =
-    SolidJniBridge.libc_solid_feof((arg1?.handle ?: 0L))
+public actual fun feof(arg1: MutPtr<FILE>): CInt =
+    SolidJniBridge.libcSolidFeof(arg1.rawAddress)
 
-public actual fun ferror(arg1: FILE?): CInt =
-    SolidJniBridge.libc_solid_ferror((arg1?.handle ?: 0L))
+public actual fun ferror(arg1: MutPtr<FILE>): CInt =
+    SolidJniBridge.libcSolidFerror(arg1.rawAddress)
 
-public actual fun fflush(arg1: FILE?): CInt =
-    SolidJniBridge.libc_solid_fflush((arg1?.handle ?: 0L))
+public actual fun fflush(arg1: MutPtr<FILE>): CInt =
+    SolidJniBridge.libcSolidFflush(arg1.rawAddress)
 
-public actual fun fgetc(arg1: FILE?): CInt =
-    SolidJniBridge.libc_solid_fgetc((arg1?.handle ?: 0L))
+public actual fun fgetc(arg1: MutPtr<FILE>): CInt =
+    SolidJniBridge.libcSolidFgetc(arg1.rawAddress)
 
-public actual fun fgets(arg1: COpaquePointer?, arg2: CInt, arg3: FILE?): COpaquePointer? =
-    SolidJniBridge.libc_solid_fgets((arg1?.value ?: 0L), arg2, (arg3?.handle ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun fgets(arg1: MutPtr<CChar>, arg2: CInt, arg3: MutPtr<FILE>): MutPtr<CChar> =
+    MutPtr(SolidJniBridge.libcSolidFgets(arg1.rawAddress, arg2, arg3.rawAddress))
 
-public actual fun fopen(arg1: String?, arg2: String?): FILE? =
-    SolidJniBridge.libc_solid_fopen(arg1, arg2).let { if (it == 0L) null else FILE(it) }
+public actual fun fopen(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>): MutPtr<FILE> =
+    MutPtr(SolidJniBridge.libcSolidFopen(arg1.rawAddress, arg2.rawAddress))
 
-public actual fun fprintf(arg1: FILE?, arg2: String?, vararg variadicArgs: Long): CInt =
-    SolidJniBridge.libc_solid_fprintf((arg1?.handle ?: 0L), arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun fprintf(arg1: MutPtr<FILE>, arg2: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    SolidJniBridge.libcSolidFprintf(arg1.rawAddress, arg2.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun fputc(arg1: CInt, arg2: FILE?): CInt =
-    SolidJniBridge.libc_solid_fputc(arg1, (arg2?.handle ?: 0L))
+public actual fun fputc(arg1: CInt, arg2: MutPtr<FILE>): CInt =
+    SolidJniBridge.libcSolidFputc(arg1, arg2.rawAddress)
 
-public actual fun fputs(arg1: String?, arg2: FILE?): CInt =
-    SolidJniBridge.libc_solid_fputs(arg1, (arg2?.handle ?: 0L))
+public actual fun fputs(arg1: ConstPtr<CChar>, arg2: MutPtr<FILE>): CInt =
+    SolidJniBridge.libcSolidFputs(arg1.rawAddress, arg2.rawAddress)
 
-public actual fun fread(arg1: COpaquePointer?, arg2: SizeT, arg3: SizeT, arg4: FILE?): SizeT =
-    SolidJniBridge.libc_solid_fread((arg1?.value ?: 0L), arg2.toLong(), arg3.toLong(), (arg4?.handle ?: 0L)).toULong()
+public actual fun fread(arg1: MutPtr<CVoid>, arg2: SizeT, arg3: SizeT, arg4: MutPtr<FILE>): SizeT =
+    SolidJniBridge.libcSolidFread(arg1.rawAddress, arg2.toLong(), arg3.toLong(), arg4.rawAddress).toULong()
 
-public actual fun freopen(arg1: String?, arg2: String?, arg3: FILE?): FILE? =
-    SolidJniBridge.libc_solid_freopen(arg1, arg2, (arg3?.handle ?: 0L)).let { if (it == 0L) null else FILE(it) }
+public actual fun freopen(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>, arg3: MutPtr<FILE>): MutPtr<FILE> =
+    MutPtr(SolidJniBridge.libcSolidFreopen(arg1.rawAddress, arg2.rawAddress, arg3.rawAddress))
 
-public actual fun fscanf(arg1: FILE?, arg2: String?, vararg variadicArgs: Long): CInt =
-    SolidJniBridge.libc_solid_fscanf((arg1?.handle ?: 0L), arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun fscanf(arg1: MutPtr<FILE>, arg2: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    SolidJniBridge.libcSolidFscanf(arg1.rawAddress, arg2.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun fseek(arg1: FILE?, arg2: CLong, arg3: CInt): CInt =
-    SolidJniBridge.libc_solid_fseek((arg1?.handle ?: 0L), arg2, arg3)
+public actual fun fseek(arg1: MutPtr<FILE>, arg2: CLong, arg3: CInt): CInt =
+    SolidJniBridge.libcSolidFseek(arg1.rawAddress, arg2, arg3)
 
-public actual fun ftell(arg1: FILE?): CLong =
-    SolidJniBridge.libc_solid_ftell((arg1?.handle ?: 0L))
+public actual fun ftell(arg1: MutPtr<FILE>): CLong =
+    SolidJniBridge.libcSolidFtell(arg1.rawAddress)
 
-public actual fun fwrite(arg1: COpaquePointer?, arg2: SizeT, arg3: SizeT, arg4: FILE?): SizeT =
-    SolidJniBridge.libc_solid_fwrite((arg1?.value ?: 0L), arg2.toLong(), arg3.toLong(), (arg4?.handle ?: 0L)).toULong()
+public actual fun fwrite(arg1: ConstPtr<CVoid>, arg2: SizeT, arg3: SizeT, arg4: MutPtr<FILE>): SizeT =
+    SolidJniBridge.libcSolidFwrite(arg1.rawAddress, arg2.toLong(), arg3.toLong(), arg4.rawAddress).toULong()
 
-public actual fun getc(arg1: FILE?): CInt =
-    SolidJniBridge.libc_solid_getc((arg1?.handle ?: 0L))
+public actual fun getc(arg1: MutPtr<FILE>): CInt =
+    SolidJniBridge.libcSolidGetc(arg1.rawAddress)
 
 public actual fun getchar(): CInt =
-    SolidJniBridge.libc_solid_getchar()
+    SolidJniBridge.libcSolidGetchar()
 
-public actual fun perror(arg1: String?) {
-    SolidJniBridge.libc_solid_perror(arg1)
+public actual fun perror(arg1: ConstPtr<CChar>) {
+    SolidJniBridge.libcSolidPerror(arg1.rawAddress)
 }
 
-public actual fun printf(arg1: String?, vararg variadicArgs: Long): CInt =
-    SolidJniBridge.libc_solid_printf(arg1, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun printf(arg1: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    SolidJniBridge.libcSolidPrintf(arg1.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun putc(arg1: CInt, arg2: FILE?): CInt =
-    SolidJniBridge.libc_solid_putc(arg1, (arg2?.handle ?: 0L))
+public actual fun putc(arg1: CInt, arg2: MutPtr<FILE>): CInt =
+    SolidJniBridge.libcSolidPutc(arg1, arg2.rawAddress)
 
 public actual fun putchar(arg1: CInt): CInt =
-    SolidJniBridge.libc_solid_putchar(arg1)
+    SolidJniBridge.libcSolidPutchar(arg1)
 
-public actual fun puts(arg1: String?): CInt =
-    SolidJniBridge.libc_solid_puts(arg1)
+public actual fun puts(arg1: ConstPtr<CChar>): CInt =
+    SolidJniBridge.libcSolidPuts(arg1.rawAddress)
 
-public actual fun remove(arg1: String?): CInt =
-    SolidJniBridge.libc_solid_remove(arg1)
+public actual fun remove(arg1: ConstPtr<CChar>): CInt =
+    SolidJniBridge.libcSolidRemove(arg1.rawAddress)
 
-public actual fun rewind(arg1: FILE?) {
-    SolidJniBridge.libc_solid_rewind((arg1?.handle ?: 0L))
+public actual fun rewind(arg1: MutPtr<FILE>) {
+    SolidJniBridge.libcSolidRewind(arg1.rawAddress)
 }
 
-public actual fun scanf(arg1: String?, vararg variadicArgs: Long): CInt =
-    SolidJniBridge.libc_solid_scanf(arg1, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun scanf(arg1: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    SolidJniBridge.libcSolidScanf(arg1.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun setbuf(arg1: FILE?, arg2: COpaquePointer?) {
-    SolidJniBridge.libc_solid_setbuf((arg1?.handle ?: 0L), (arg2?.value ?: 0L))
+public actual fun setbuf(arg1: MutPtr<FILE>, arg2: MutPtr<CChar>) {
+    SolidJniBridge.libcSolidSetbuf(arg1.rawAddress, arg2.rawAddress)
 }
 
-public actual fun setvbuf(arg1: FILE?, arg2: COpaquePointer?, arg3: CInt, arg4: SizeT): CInt =
-    SolidJniBridge.libc_solid_setvbuf((arg1?.handle ?: 0L), (arg2?.value ?: 0L), arg3, arg4.toLong())
+public actual fun setvbuf(arg1: MutPtr<FILE>, arg2: MutPtr<CChar>, arg3: CInt, arg4: SizeT): CInt =
+    SolidJniBridge.libcSolidSetvbuf(arg1.rawAddress, arg2.rawAddress, arg3, arg4.toLong())
 
-public actual fun sscanf(arg1: String?, arg2: String?, vararg variadicArgs: Long): CInt =
-    SolidJniBridge.libc_solid_sscanf(arg1, arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun sscanf(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    SolidJniBridge.libcSolidSscanf(arg1.rawAddress, arg2.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun tmpfile(): FILE? =
-    SolidJniBridge.libc_solid_tmpfile().let { if (it == 0L) null else FILE(it) }
+public actual fun tmpfile(): MutPtr<FILE> =
+    MutPtr(SolidJniBridge.libcSolidTmpfile())
 
-public actual fun ungetc(arg1: CInt, arg2: FILE?): CInt =
-    SolidJniBridge.libc_solid_ungetc(arg1, (arg2?.handle ?: 0L))
+public actual fun ungetc(arg1: CInt, arg2: MutPtr<FILE>): CInt =
+    SolidJniBridge.libcSolidUngetc(arg1, arg2.rawAddress)
 
-public actual fun vfprintf(arg1: FILE?, arg2: String?, arg3: VaList): CInt =
-    SolidJniBridge.libc_solid_vfprintf((arg1?.handle ?: 0L), arg2, (arg3?.value ?: 0L))
+public actual fun vfprintf(arg1: MutPtr<FILE>, arg2: ConstPtr<CChar>, arg3: VaList): CInt =
+    SolidJniBridge.libcSolidVfprintf(arg1.rawAddress, arg2.rawAddress, arg3.rawAddress)
 
-public actual fun vprintf(arg1: String?, arg2: VaList): CInt =
-    SolidJniBridge.libc_solid_vprintf(arg1, (arg2?.value ?: 0L))
+public actual fun vprintf(arg1: ConstPtr<CChar>, arg2: VaList): CInt =
+    SolidJniBridge.libcSolidVprintf(arg1.rawAddress, arg2.rawAddress)
 
-public actual fun gets(arg1: COpaquePointer?): COpaquePointer? =
-    SolidJniBridge.libc_solid_gets((arg1?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun gets(arg1: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(SolidJniBridge.libcSolidGets(arg1.rawAddress))
 
-public actual fun sprintf(arg1: COpaquePointer?, arg2: String?, vararg variadicArgs: Long): CInt =
-    SolidJniBridge.libc_solid_sprintf((arg1?.value ?: 0L), arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun sprintf(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    SolidJniBridge.libcSolidSprintf(arg1.rawAddress, arg2.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun tmpnam(arg1: String?): COpaquePointer? =
-    SolidJniBridge.libc_solid_tmpnam(arg1).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun tmpnam(arg1: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(SolidJniBridge.libcSolidTmpnam(arg1.rawAddress))
 
-public actual fun vsprintf(arg1: COpaquePointer?, arg2: String?, arg3: VaList): CInt =
-    SolidJniBridge.libc_solid_vsprintf((arg1?.value ?: 0L), arg2, (arg3?.value ?: 0L))
+public actual fun vsprintf(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, arg3: VaList): CInt =
+    SolidJniBridge.libcSolidVsprintf(arg1.rawAddress, arg2.rawAddress, arg3.rawAddress)
 
-public actual fun rename(arg1: String?, arg2: String?): CInt =
-    SolidJniBridge.libc_solid_rename(arg1, arg2)
+public actual fun rename(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>): CInt =
+    SolidJniBridge.libcSolidRename(arg1.rawAddress, arg2.rawAddress)
 
-public actual fun asiprintf(arg1: COpaquePointer?, arg2: String?, vararg variadicArgs: Long): CInt =
-    SolidJniBridge.libc_solid_asiprintf((arg1?.value ?: 0L), arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun asiprintf(arg1: MutPtr<MutPtr<CChar>>, arg2: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    SolidJniBridge.libcSolidAsiprintf(arg1.rawAddress, arg2.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun fiprintf(arg1: FILE?, arg2: String?, vararg variadicArgs: Long): CInt =
-    SolidJniBridge.libc_solid_fiprintf((arg1?.handle ?: 0L), arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun fiprintf(arg1: MutPtr<FILE>, arg2: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    SolidJniBridge.libcSolidFiprintf(arg1.rawAddress, arg2.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun fiscanf(arg1: FILE?, arg2: String?, vararg variadicArgs: Long): CInt =
-    SolidJniBridge.libc_solid_fiscanf((arg1?.handle ?: 0L), arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun fiscanf(arg1: MutPtr<FILE>, arg2: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    SolidJniBridge.libcSolidFiscanf(arg1.rawAddress, arg2.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun iprintf(arg1: String?, vararg variadicArgs: Long): CInt =
-    SolidJniBridge.libc_solid_iprintf(arg1, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun iprintf(arg1: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    SolidJniBridge.libcSolidIprintf(arg1.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun iscanf(arg1: String?, vararg variadicArgs: Long): CInt =
-    SolidJniBridge.libc_solid_iscanf(arg1, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun iscanf(arg1: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    SolidJniBridge.libcSolidIscanf(arg1.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun siprintf(arg1: COpaquePointer?, arg2: String?, vararg variadicArgs: Long): CInt =
-    SolidJniBridge.libc_solid_siprintf((arg1?.value ?: 0L), arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun siprintf(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    SolidJniBridge.libcSolidSiprintf(arg1.rawAddress, arg2.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun siscanf(arg1: COpaquePointer?, arg2: String?, vararg variadicArgs: Long): CInt =
-    SolidJniBridge.libc_solid_siscanf((arg1?.value ?: 0L), arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun siscanf(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    SolidJniBridge.libcSolidSiscanf(arg1.rawAddress, arg2.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun sniprintf(arg1: COpaquePointer?, arg2: SizeT, arg3: String?, vararg variadicArgs: Long): CInt =
-    SolidJniBridge.libc_solid_sniprintf((arg1?.value ?: 0L), arg2.toLong(), arg3, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun sniprintf(arg1: MutPtr<CChar>, arg2: SizeT, arg3: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    SolidJniBridge.libcSolidSniprintf(arg1.rawAddress, arg2.toLong(), arg3.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun vasiprintf(arg1: COpaquePointer?, arg2: String?, arg3: VaList): CInt =
-    SolidJniBridge.libc_solid_vasiprintf((arg1?.value ?: 0L), arg2, (arg3?.value ?: 0L))
+public actual fun vasiprintf(arg1: MutPtr<MutPtr<CChar>>, arg2: ConstPtr<CChar>, arg3: VaList): CInt =
+    SolidJniBridge.libcSolidVasiprintf(arg1.rawAddress, arg2.rawAddress, arg3.rawAddress)
 
-public actual fun vfiprintf(arg1: FILE?, arg2: String?, arg3: VaList): CInt =
-    SolidJniBridge.libc_solid_vfiprintf((arg1?.handle ?: 0L), arg2, (arg3?.value ?: 0L))
+public actual fun vfiprintf(arg1: MutPtr<FILE>, arg2: ConstPtr<CChar>, arg3: VaList): CInt =
+    SolidJniBridge.libcSolidVfiprintf(arg1.rawAddress, arg2.rawAddress, arg3.rawAddress)
 
-public actual fun vfiscanf(arg1: FILE?, arg2: String?, arg3: VaList): CInt =
-    SolidJniBridge.libc_solid_vfiscanf((arg1?.handle ?: 0L), arg2, (arg3?.value ?: 0L))
+public actual fun vfiscanf(arg1: MutPtr<FILE>, arg2: ConstPtr<CChar>, arg3: VaList): CInt =
+    SolidJniBridge.libcSolidVfiscanf(arg1.rawAddress, arg2.rawAddress, arg3.rawAddress)
 
-public actual fun viprintf(arg1: String?, arg2: VaList): CInt =
-    SolidJniBridge.libc_solid_viprintf(arg1, (arg2?.value ?: 0L))
+public actual fun viprintf(arg1: ConstPtr<CChar>, arg2: VaList): CInt =
+    SolidJniBridge.libcSolidViprintf(arg1.rawAddress, arg2.rawAddress)
 
-public actual fun viscanf(arg1: String?, arg2: VaList): CInt =
-    SolidJniBridge.libc_solid_viscanf(arg1, (arg2?.value ?: 0L))
+public actual fun viscanf(arg1: ConstPtr<CChar>, arg2: VaList): CInt =
+    SolidJniBridge.libcSolidViscanf(arg1.rawAddress, arg2.rawAddress)
 
-public actual fun vsiprintf(arg1: COpaquePointer?, arg2: String?, arg3: VaList): CInt =
-    SolidJniBridge.libc_solid_vsiprintf((arg1?.value ?: 0L), arg2, (arg3?.value ?: 0L))
+public actual fun vsiprintf(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, arg3: VaList): CInt =
+    SolidJniBridge.libcSolidVsiprintf(arg1.rawAddress, arg2.rawAddress, arg3.rawAddress)
 
-public actual fun vsiscanf(arg1: String?, arg2: String?, arg3: VaList): CInt =
-    SolidJniBridge.libc_solid_vsiscanf(arg1, arg2, (arg3?.value ?: 0L))
+public actual fun vsiscanf(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>, arg3: VaList): CInt =
+    SolidJniBridge.libcSolidVsiscanf(arg1.rawAddress, arg2.rawAddress, arg3.rawAddress)
 
-public actual fun vsniprintf(arg1: COpaquePointer?, arg2: SizeT, arg3: String?, arg4: VaList): CInt =
-    SolidJniBridge.libc_solid_vsniprintf((arg1?.value ?: 0L), arg2.toLong(), arg3, (arg4?.value ?: 0L))
+public actual fun vsniprintf(arg1: MutPtr<CChar>, arg2: SizeT, arg3: ConstPtr<CChar>, arg4: VaList): CInt =
+    SolidJniBridge.libcSolidVsniprintf(arg1.rawAddress, arg2.toLong(), arg3.rawAddress, arg4.rawAddress)
 
-public actual fun vdiprintf(arg1: CInt, arg2: String?, arg3: VaList): CInt =
-    SolidJniBridge.libc_solid_vdiprintf(arg1, arg2, (arg3?.value ?: 0L))
+public actual fun vdiprintf(arg1: CInt, arg2: ConstPtr<CChar>, arg3: VaList): CInt =
+    SolidJniBridge.libcSolidVdiprintf(arg1, arg2.rawAddress, arg3.rawAddress)
 
-public actual fun diprintf(arg1: CInt, arg2: String?, vararg variadicArgs: Long): CInt =
-    SolidJniBridge.libc_solid_diprintf(arg1, arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun diprintf(arg1: CInt, arg2: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    SolidJniBridge.libcSolidDiprintf(arg1, arg2.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun fgetpos(arg1: FILE?, arg2: COpaquePointer?): CInt =
-    SolidJniBridge.libc_solid_fgetpos((arg1?.handle ?: 0L), (arg2?.value ?: 0L))
+public actual fun fgetpos(arg1: MutPtr<FILE>, arg2: MutPtr<FposT>): CInt =
+    SolidJniBridge.libcSolidFgetpos(arg1.rawAddress, arg2.rawAddress)
 
-public actual fun fsetpos(arg1: FILE?, arg2: COpaquePointer?): CInt =
-    SolidJniBridge.libc_solid_fsetpos((arg1?.handle ?: 0L), (arg2?.value ?: 0L))
+public actual fun fsetpos(arg1: MutPtr<FILE>, arg2: ConstPtr<FposT>): CInt =
+    SolidJniBridge.libcSolidFsetpos(arg1.rawAddress, arg2.rawAddress)
 
-public actual fun fdopen(arg1: CInt, arg2: String?): FILE? =
-    SolidJniBridge.libc_solid_fdopen(arg1, arg2).let { if (it == 0L) null else FILE(it) }
+public actual fun fdopen(arg1: CInt, arg2: ConstPtr<CChar>): MutPtr<FILE> =
+    MutPtr(SolidJniBridge.libcSolidFdopen(arg1, arg2.rawAddress))
 
-public actual fun fileno(arg1: FILE?): CInt =
-    SolidJniBridge.libc_solid_fileno((arg1?.handle ?: 0L))
+public actual fun fileno(arg1: MutPtr<FILE>): CInt =
+    SolidJniBridge.libcSolidFileno(arg1.rawAddress)
 
-public actual fun flockfile(arg1: FILE?) {
-    SolidJniBridge.libc_solid_flockfile((arg1?.handle ?: 0L))
+public actual fun flockfile(arg1: MutPtr<FILE>) {
+    SolidJniBridge.libcSolidFlockfile(arg1.rawAddress)
 }
 
-public actual fun ftrylockfile(arg1: FILE?): CInt =
-    SolidJniBridge.libc_solid_ftrylockfile((arg1?.handle ?: 0L))
+public actual fun ftrylockfile(arg1: MutPtr<FILE>): CInt =
+    SolidJniBridge.libcSolidFtrylockfile(arg1.rawAddress)
 
-public actual fun funlockfile(arg1: FILE?) {
-    SolidJniBridge.libc_solid_funlockfile((arg1?.handle ?: 0L))
+public actual fun funlockfile(arg1: MutPtr<FILE>) {
+    SolidJniBridge.libcSolidFunlockfile(arg1.rawAddress)
 }
 
-public actual fun getcUnlocked(arg1: FILE?): CInt =
-    SolidJniBridge.libc_solid_getcUnlocked((arg1?.handle ?: 0L))
+public actual fun getcUnlocked(arg1: MutPtr<FILE>): CInt =
+    SolidJniBridge.libcSolidGetcUnlocked(arg1.rawAddress)
 
 public actual fun getcharUnlocked(): CInt =
-    SolidJniBridge.libc_solid_getcharUnlocked()
+    SolidJniBridge.libcSolidGetcharUnlocked()
 
-public actual fun putcUnlocked(arg1: CInt, arg2: FILE?): CInt =
-    SolidJniBridge.libc_solid_putcUnlocked(arg1, (arg2?.handle ?: 0L))
+public actual fun putcUnlocked(arg1: CInt, arg2: MutPtr<FILE>): CInt =
+    SolidJniBridge.libcSolidPutcUnlocked(arg1, arg2.rawAddress)
 
 public actual fun putcharUnlocked(arg1: CInt): CInt =
-    SolidJniBridge.libc_solid_putcharUnlocked(arg1)
+    SolidJniBridge.libcSolidPutcharUnlocked(arg1)
 
-public actual fun snprintf(arg1: COpaquePointer?, arg2: SizeT, arg3: String?, vararg variadicArgs: Long): CInt =
-    SolidJniBridge.libc_solid_snprintf((arg1?.value ?: 0L), arg2.toLong(), arg3, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun snprintf(arg1: MutPtr<CChar>, arg2: SizeT, arg3: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    SolidJniBridge.libcSolidSnprintf(arg1.rawAddress, arg2.toLong(), arg3.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun vsnprintf(arg1: COpaquePointer?, arg2: SizeT, arg3: String?, arg4: VaList): CInt =
-    SolidJniBridge.libc_solid_vsnprintf((arg1?.value ?: 0L), arg2.toLong(), arg3, (arg4?.value ?: 0L))
+public actual fun vsnprintf(arg1: MutPtr<CChar>, arg2: SizeT, arg3: ConstPtr<CChar>, arg4: VaList): CInt =
+    SolidJniBridge.libcSolidVsnprintf(arg1.rawAddress, arg2.toLong(), arg3.rawAddress, arg4.rawAddress)
 
-public actual fun getw(arg1: FILE?): CInt =
-    SolidJniBridge.libc_solid_getw((arg1?.handle ?: 0L))
+public actual fun getw(arg1: MutPtr<FILE>): CInt =
+    SolidJniBridge.libcSolidGetw(arg1.rawAddress)
 
-public actual fun putw(arg1: CInt, arg2: FILE?): CInt =
-    SolidJniBridge.libc_solid_putw(arg1, (arg2?.handle ?: 0L))
+public actual fun putw(arg1: CInt, arg2: MutPtr<FILE>): CInt =
+    SolidJniBridge.libcSolidPutw(arg1, arg2.rawAddress)
 
-public actual fun tempnam(arg1: String?, arg2: String?): COpaquePointer? =
-    SolidJniBridge.libc_solid_tempnam(arg1, arg2).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun tempnam(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(SolidJniBridge.libcSolidTempnam(arg1.rawAddress, arg2.rawAddress))
 
-public actual fun fseeko(stream: FILE?, offset: OffT, whence: CInt): CInt =
-    SolidJniBridge.libc_solid_fseeko((stream?.handle ?: 0L), offset, whence)
+public actual fun fseeko(stream: MutPtr<FILE>, offset: OffT, whence: CInt): CInt =
+    SolidJniBridge.libcSolidFseeko(stream.rawAddress, offset, whence)
 
-public actual fun ftello(stream: FILE?): OffT =
-    SolidJniBridge.libc_solid_ftello((stream?.handle ?: 0L))
+public actual fun ftello(stream: MutPtr<FILE>): OffT =
+    SolidJniBridge.libcSolidFtello(stream.rawAddress)
 
-public actual fun atof(arg1: String?): Double =
-    SolidJniBridge.libc_solid_atof(arg1)
+public actual fun atof(arg1: ConstPtr<CChar>): Double =
+    SolidJniBridge.libcSolidAtof(arg1.rawAddress)
 
-public actual fun strtod(arg1: String?, arg2: COpaquePointer?): Double =
-    SolidJniBridge.libc_solid_strtod(arg1, (arg2?.value ?: 0L))
+public actual fun strtod(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>): Double =
+    SolidJniBridge.libcSolidStrtod(arg1.rawAddress, arg2.rawAddress)
 
 public actual fun drand48(): Double =
-    SolidJniBridge.libc_solid_drand48()
+    SolidJniBridge.libcSolidDrand48()
 
-public actual fun erand48(arg1: COpaquePointer?): Double =
-    SolidJniBridge.libc_solid_erand48((arg1?.value ?: 0L))
+public actual fun erand48(arg1: MutPtr<CUshort>): Double =
+    SolidJniBridge.libcSolidErand48(arg1.rawAddress)
 
-public actual fun strtof(arg1: String?, arg2: COpaquePointer?): Float =
-    SolidJniBridge.libc_solid_strtof(arg1, (arg2?.value ?: 0L))
+public actual fun strtof(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>): Float =
+    SolidJniBridge.libcSolidStrtof(arg1.rawAddress, arg2.rawAddress)
 
-public actual fun strtold(arg1: String?, arg2: COpaquePointer?): Double =
-    SolidJniBridge.libc_solid_strtold(arg1, (arg2?.value ?: 0L))
+public actual fun strtold(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>): Double =
+    SolidJniBridge.libcSolidStrtold(arg1.rawAddress, arg2.rawAddress)
 
-public actual fun strtodL(arg1: String?, arg2: COpaquePointer?, arg3: LocaleT): Double =
-    SolidJniBridge.libc_solid_strtodL(arg1, (arg2?.value ?: 0L), arg3.toLong())
+public actual fun strtodL(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: LocaleT): Double =
+    SolidJniBridge.libcSolidStrtodL(arg1.rawAddress, arg2.rawAddress, arg3.toLong())
 
-public actual fun strtofL(arg1: String?, arg2: COpaquePointer?, arg3: LocaleT): Float =
-    SolidJniBridge.libc_solid_strtofL(arg1, (arg2?.value ?: 0L), arg3.toLong())
+public actual fun strtofL(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: LocaleT): Float =
+    SolidJniBridge.libcSolidStrtofL(arg1.rawAddress, arg2.rawAddress, arg3.toLong())
 
-public actual fun strtoldL(arg1: String?, arg2: COpaquePointer?, arg3: LocaleT): Double =
-    SolidJniBridge.libc_solid_strtoldL(arg1, (arg2?.value ?: 0L), arg3.toLong())
+public actual fun strtoldL(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: LocaleT): Double =
+    SolidJniBridge.libcSolidStrtoldL(arg1.rawAddress, arg2.rawAddress, arg3.toLong())
 
 public actual fun exit(arg1: CInt): Nothing {
-    SolidJniBridge.libc_solid_exit(arg1)
+    SolidJniBridge.libcSolidExit(arg1)
     error("Unreachable noreturn C function exit")
 }
 
 public actual fun abort(): Nothing {
-    SolidJniBridge.libc_solid_abort()
+    SolidJniBridge.libcSolidAbort()
     error("Unreachable noreturn C function abort")
 }
 
 public actual fun abs(arg1: CInt): CInt =
-    SolidJniBridge.libc_solid_abs(arg1)
+    SolidJniBridge.libcSolidAbs(arg1)
 
 public actual fun atexit(arg1: AtexitArg1Callback?): CInt =
-    SolidJniBridge.libc_solid_atexit(0L)
+    SolidJniBridge.libcSolidAtexit(0L)
 
-public actual fun atoi(arg1: String?): CInt =
-    SolidJniBridge.libc_solid_atoi(arg1)
+public actual fun atoi(arg1: ConstPtr<CChar>): CInt =
+    SolidJniBridge.libcSolidAtoi(arg1.rawAddress)
 
-public actual fun atol(arg1: String?): CLong =
-    SolidJniBridge.libc_solid_atol(arg1)
+public actual fun atol(arg1: ConstPtr<CChar>): CLong =
+    SolidJniBridge.libcSolidAtol(arg1.rawAddress)
 
-public actual fun itoa(arg1: CInt, arg2: COpaquePointer?, arg3: CInt): COpaquePointer? =
-    SolidJniBridge.libc_solid_itoa(arg1, (arg2?.value ?: 0L), arg3).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun itoa(arg1: CInt, arg2: MutPtr<CChar>, arg3: CInt): MutPtr<CChar> =
+    MutPtr(SolidJniBridge.libcSolidItoa(arg1, arg2.rawAddress, arg3))
 
-public actual fun ltoa(arg1: CLong, arg2: COpaquePointer?, arg3: CInt): COpaquePointer? =
-    SolidJniBridge.libc_solid_ltoa(arg1, (arg2?.value ?: 0L), arg3).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun ltoa(arg1: CLong, arg2: MutPtr<CChar>, arg3: CInt): MutPtr<CChar> =
+    MutPtr(SolidJniBridge.libcSolidLtoa(arg1, arg2.rawAddress, arg3))
 
-public actual fun ultoa(arg1: CUlong, arg2: COpaquePointer?, arg3: CInt): COpaquePointer? =
-    SolidJniBridge.libc_solid_ultoa(arg1.toLong(), (arg2?.value ?: 0L), arg3).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun ultoa(arg1: CUlong, arg2: MutPtr<CChar>, arg3: CInt): MutPtr<CChar> =
+    MutPtr(SolidJniBridge.libcSolidUltoa(arg1.toLong(), arg2.rawAddress, arg3))
 
-public actual fun bsearch(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: SizeT, arg4: SizeT, arg5: BsearchArg5Callback?): COpaquePointer? =
-    SolidJniBridge.libc_solid_bsearch((arg1?.value ?: 0L), (arg2?.value ?: 0L), arg3.toLong(), arg4.toLong(), 0L).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun bsearch(arg1: ConstPtr<CVoid>, arg2: ConstPtr<CVoid>, arg3: SizeT, arg4: SizeT, arg5: BsearchArg5Callback?): MutPtr<CVoid> =
+    MutPtr(SolidJniBridge.libcSolidBsearch(arg1.rawAddress, arg2.rawAddress, arg3.toLong(), arg4.toLong(), 0L))
 
-public actual fun calloc(arg1: SizeT, arg2: SizeT): COpaquePointer? =
-    SolidJniBridge.libc_solid_calloc(arg1.toLong(), arg2.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun calloc(arg1: SizeT, arg2: SizeT): MutPtr<CVoid> =
+    MutPtr(SolidJniBridge.libcSolidCalloc(arg1.toLong(), arg2.toLong()))
 
 public actual fun div(arg1: CInt, arg2: CInt): DivT =
     DivT()
 
-public actual fun free(arg1: COpaquePointer?) {
-    SolidJniBridge.libc_solid_free((arg1?.value ?: 0L))
+public actual fun free(arg1: MutPtr<CVoid>) {
+    SolidJniBridge.libcSolidFree(arg1.rawAddress)
 }
 
-public actual fun getenv(arg1: String?): COpaquePointer? =
-    SolidJniBridge.libc_solid_getenv(arg1).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getenv(arg1: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(SolidJniBridge.libcSolidGetenv(arg1.rawAddress))
 
 public actual fun labs(arg1: CLong): CLong =
-    SolidJniBridge.libc_solid_labs(arg1)
+    SolidJniBridge.libcSolidLabs(arg1)
 
 public actual fun ldiv(arg1: CLong, arg2: CLong): LdivT =
     LdivT()
 
-public actual fun malloc(arg1: SizeT): COpaquePointer? =
-    SolidJniBridge.libc_solid_malloc(arg1.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun malloc(arg1: SizeT): MutPtr<CVoid> =
+    MutPtr(SolidJniBridge.libcSolidMalloc(arg1.toLong()))
 
-public actual fun qsort(arg1: COpaquePointer?, arg2: SizeT, arg3: SizeT, arg4: BsearchArg5Callback?) {
-    SolidJniBridge.libc_solid_qsort((arg1?.value ?: 0L), arg2.toLong(), arg3.toLong(), 0L)
+public actual fun qsort(arg1: MutPtr<CVoid>, arg2: SizeT, arg3: SizeT, arg4: BsearchArg5Callback?) {
+    SolidJniBridge.libcSolidQsort(arg1.rawAddress, arg2.toLong(), arg3.toLong(), 0L)
 }
 
 public actual fun rand(): CInt =
-    SolidJniBridge.libc_solid_rand()
+    SolidJniBridge.libcSolidRand()
 
-public actual fun realloc(arg1: COpaquePointer?, arg2: SizeT): COpaquePointer? =
-    SolidJniBridge.libc_solid_realloc((arg1?.value ?: 0L), arg2.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun realloc(arg1: MutPtr<CVoid>, arg2: SizeT): MutPtr<CVoid> =
+    MutPtr(SolidJniBridge.libcSolidRealloc(arg1.rawAddress, arg2.toLong()))
 
 public actual fun srand(arg1: CUint) {
-    SolidJniBridge.libc_solid_srand(arg1.toInt())
+    SolidJniBridge.libcSolidSrand(arg1.toInt())
 }
 
-public actual fun strtol(arg1: String?, arg2: COpaquePointer?, arg3: CInt): CLong =
-    SolidJniBridge.libc_solid_strtol(arg1, (arg2?.value ?: 0L), arg3)
+public actual fun strtol(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt): CLong =
+    SolidJniBridge.libcSolidStrtol(arg1.rawAddress, arg2.rawAddress, arg3)
 
-public actual fun strtoul(arg1: String?, arg2: COpaquePointer?, arg3: CInt): CUlong =
-    SolidJniBridge.libc_solid_strtoul(arg1, (arg2?.value ?: 0L), arg3).toULong()
+public actual fun strtoul(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt): CUlong =
+    SolidJniBridge.libcSolidStrtoul(arg1.rawAddress, arg2.rawAddress, arg3).toULong()
 
-public actual fun mblen(arg1: String?, arg2: SizeT): CInt =
-    SolidJniBridge.libc_solid_mblen(arg1, arg2.toLong())
+public actual fun mblen(arg1: ConstPtr<CChar>, arg2: SizeT): CInt =
+    SolidJniBridge.libcSolidMblen(arg1.rawAddress, arg2.toLong())
 
-public actual fun mbstowcs(arg1: COpaquePointer?, arg2: String?, arg3: SizeT): SizeT =
-    SolidJniBridge.libc_solid_mbstowcs((arg1?.value ?: 0L), arg2, arg3.toLong()).toULong()
+public actual fun mbstowcs(arg1: MutPtr<WcharT>, arg2: ConstPtr<CChar>, arg3: SizeT): SizeT =
+    SolidJniBridge.libcSolidMbstowcs(arg1.rawAddress, arg2.rawAddress, arg3.toLong()).toULong()
 
-public actual fun wctomb(arg1: COpaquePointer?, arg2: WcharT): CInt =
-    SolidJniBridge.libc_solid_wctomb((arg1?.value ?: 0L), arg2.toInt())
+public actual fun wctomb(arg1: MutPtr<CChar>, arg2: WcharT): CInt =
+    SolidJniBridge.libcSolidWctomb(arg1.rawAddress, arg2.toInt())
 
-public actual fun mbtowc(arg1: COpaquePointer?, arg2: String?, arg3: SizeT): CInt =
-    SolidJniBridge.libc_solid_mbtowc((arg1?.value ?: 0L), arg2, arg3.toLong())
+public actual fun mbtowc(arg1: MutPtr<WcharT>, arg2: ConstPtr<CChar>, arg3: SizeT): CInt =
+    SolidJniBridge.libcSolidMbtowc(arg1.rawAddress, arg2.rawAddress, arg3.toLong())
 
-public actual fun wcstombs(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: SizeT): SizeT =
-    SolidJniBridge.libc_solid_wcstombs((arg1?.value ?: 0L), (arg2?.value ?: 0L), arg3.toLong()).toULong()
+public actual fun wcstombs(arg1: MutPtr<CChar>, arg2: ConstPtr<WcharT>, arg3: SizeT): SizeT =
+    SolidJniBridge.libcSolidWcstombs(arg1.rawAddress, arg2.rawAddress, arg3.toLong()).toULong()
 
-public actual fun randR(arg1: COpaquePointer?): CInt =
-    SolidJniBridge.libc_solid_randR((arg1?.value ?: 0L))
+public actual fun randR(arg1: MutPtr<CUint>): CInt =
+    SolidJniBridge.libcSolidRandR(arg1.rawAddress)
 
-public actual fun jrand48(arg1: COpaquePointer?): CLong =
-    SolidJniBridge.libc_solid_jrand48((arg1?.value ?: 0L))
+public actual fun jrand48(arg1: MutPtr<CUshort>): CLong =
+    SolidJniBridge.libcSolidJrand48(arg1.rawAddress)
 
-public actual fun lcong48(arg1: COpaquePointer?) {
-    SolidJniBridge.libc_solid_lcong48((arg1?.value ?: 0L))
+public actual fun lcong48(arg1: MutPtr<CUshort>) {
+    SolidJniBridge.libcSolidLcong48(arg1.rawAddress)
 }
 
 public actual fun lrand48(): CLong =
-    SolidJniBridge.libc_solid_lrand48()
+    SolidJniBridge.libcSolidLrand48()
 
 public actual fun mrand48(): CLong =
-    SolidJniBridge.libc_solid_mrand48()
+    SolidJniBridge.libcSolidMrand48()
 
-public actual fun nrand48(arg1: COpaquePointer?): CLong =
-    SolidJniBridge.libc_solid_nrand48((arg1?.value ?: 0L))
+public actual fun nrand48(arg1: MutPtr<CUshort>): CLong =
+    SolidJniBridge.libcSolidNrand48(arg1.rawAddress)
 
-public actual fun seed48(arg1: COpaquePointer?): COpaquePointer? =
-    SolidJniBridge.libc_solid_seed48((arg1?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun seed48(arg1: MutPtr<CUshort>): MutPtr<CUshort> =
+    MutPtr(SolidJniBridge.libcSolidSeed48(arg1.rawAddress))
 
 public actual fun srand48(arg1: CLong) {
-    SolidJniBridge.libc_solid_srand48(arg1)
+    SolidJniBridge.libcSolidSrand48(arg1)
 }
 
-public actual fun putenv(arg1: COpaquePointer?): CInt =
-    SolidJniBridge.libc_solid_putenv((arg1?.value ?: 0L))
+public actual fun putenv(arg1: MutPtr<CChar>): CInt =
+    SolidJniBridge.libcSolidPutenv(arg1.rawAddress)
 
-public actual fun a64l(arg1: String?): CLong =
-    SolidJniBridge.libc_solid_a64l(arg1)
+public actual fun a64l(arg1: ConstPtr<CChar>): CLong =
+    SolidJniBridge.libcSolidA64l(arg1.rawAddress)
 
-public actual fun l64a(arg1: CLong): COpaquePointer? =
-    SolidJniBridge.libc_solid_l64a(arg1).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun l64a(arg1: CLong): MutPtr<CChar> =
+    MutPtr(SolidJniBridge.libcSolidL64a(arg1))
 
 public actual fun random(): CLong =
-    SolidJniBridge.libc_solid_random()
+    SolidJniBridge.libcSolidRandom()
 
-public actual fun setstate(arg1: COpaquePointer?): COpaquePointer? =
-    SolidJniBridge.libc_solid_setstate((arg1?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun setstate(arg1: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(SolidJniBridge.libcSolidSetstate(arg1.rawAddress))
 
-public actual fun initstate(arg1: CUint, arg2: COpaquePointer?, arg3: SizeT): COpaquePointer? =
-    SolidJniBridge.libc_solid_initstate(arg1.toInt(), (arg2?.value ?: 0L), arg3.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun initstate(arg1: CUint, arg2: MutPtr<CChar>, arg3: SizeT): MutPtr<CChar> =
+    MutPtr(SolidJniBridge.libcSolidInitstate(arg1.toInt(), arg2.rawAddress, arg3.toLong()))
 
 public actual fun srandom(arg1: CUint) {
-    SolidJniBridge.libc_solid_srandom(arg1.toInt())
+    SolidJniBridge.libcSolidSrandom(arg1.toInt())
 }
 
-public actual fun mkostemp(arg1: COpaquePointer?, arg2: CInt): CInt =
-    SolidJniBridge.libc_solid_mkostemp((arg1?.value ?: 0L), arg2)
+public actual fun mkostemp(arg1: MutPtr<CChar>, arg2: CInt): CInt =
+    SolidJniBridge.libcSolidMkostemp(arg1.rawAddress, arg2)
 
-public actual fun mkostemps(arg1: COpaquePointer?, arg2: CInt, arg3: CInt): CInt =
-    SolidJniBridge.libc_solid_mkostemps((arg1?.value ?: 0L), arg2, arg3)
+public actual fun mkostemps(arg1: MutPtr<CChar>, arg2: CInt, arg3: CInt): CInt =
+    SolidJniBridge.libcSolidMkostemps(arg1.rawAddress, arg2, arg3)
 
-public actual fun mkdtemp(arg1: COpaquePointer?): COpaquePointer? =
-    SolidJniBridge.libc_solid_mkdtemp((arg1?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun mkdtemp(arg1: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(SolidJniBridge.libcSolidMkdtemp(arg1.rawAddress))
 
-public actual fun mkstemp(arg1: COpaquePointer?): CInt =
-    SolidJniBridge.libc_solid_mkstemp((arg1?.value ?: 0L))
+public actual fun mkstemp(arg1: MutPtr<CChar>): CInt =
+    SolidJniBridge.libcSolidMkstemp(arg1.rawAddress)
 
-public actual fun mktemp(arg1: COpaquePointer?): COpaquePointer? =
-    SolidJniBridge.libc_solid_mktemp((arg1?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun mktemp(arg1: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(SolidJniBridge.libcSolidMktemp(arg1.rawAddress))
 
-public actual fun atoll(arg1: String?): CLonglong =
-    SolidJniBridge.libc_solid_atoll(arg1)
+public actual fun atoll(arg1: ConstPtr<CChar>): CLonglong =
+    SolidJniBridge.libcSolidAtoll(arg1.rawAddress)
 
 public actual fun llabs(arg1: CLonglong): CLonglong =
-    SolidJniBridge.libc_solid_llabs(arg1)
+    SolidJniBridge.libcSolidLlabs(arg1)
 
 public actual fun lldiv(arg1: CLonglong, arg2: CLonglong): LldivT =
     LldivT()
 
-public actual fun strtoll(arg1: String?, arg2: COpaquePointer?, arg3: CInt): CLonglong =
-    SolidJniBridge.libc_solid_strtoll(arg1, (arg2?.value ?: 0L), arg3)
+public actual fun strtoll(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt): CLonglong =
+    SolidJniBridge.libcSolidStrtoll(arg1.rawAddress, arg2.rawAddress, arg3)
 
-public actual fun strtoull(arg1: String?, arg2: COpaquePointer?, arg3: CInt): CUlonglong =
-    SolidJniBridge.libc_solid_strtoull(arg1, (arg2?.value ?: 0L), arg3).toULong()
+public actual fun strtoull(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt): CUlonglong =
+    SolidJniBridge.libcSolidStrtoull(arg1.rawAddress, arg2.rawAddress, arg3).toULong()
 
-public actual fun alignedAlloc(arg1: SizeT, arg2: SizeT): COpaquePointer? =
-    SolidJniBridge.libc_solid_alignedAlloc(arg1.toLong(), arg2.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun alignedAlloc(arg1: SizeT, arg2: SizeT): MutPtr<CVoid> =
+    MutPtr(SolidJniBridge.libcSolidAlignedAlloc(arg1.toLong(), arg2.toLong()))
 
 public actual fun atQuickExit(arg1: AtexitArg1Callback?): CInt =
-    SolidJniBridge.libc_solid_atQuickExit(0L)
+    SolidJniBridge.libcSolidAtQuickExit(0L)
 
 public actual fun quickExit(arg1: CInt) {
-    SolidJniBridge.libc_solid_quickExit(arg1)
+    SolidJniBridge.libcSolidQuickExit(arg1)
 }
 
-public actual fun setenv(arg1: String?, arg2: String?, arg3: CInt): CInt =
-    SolidJniBridge.libc_solid_setenv(arg1, arg2, arg3)
+public actual fun setenv(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>, arg3: CInt): CInt =
+    SolidJniBridge.libcSolidSetenv(arg1.rawAddress, arg2.rawAddress, arg3)
 
-public actual fun unsetenv(arg1: String?): CInt =
-    SolidJniBridge.libc_solid_unsetenv(arg1)
+public actual fun unsetenv(arg1: ConstPtr<CChar>): CInt =
+    SolidJniBridge.libcSolidUnsetenv(arg1.rawAddress)
 
-public actual fun humanizeNumber(arg1: COpaquePointer?, arg2: SizeT, arg3: Long, arg4: String?, arg5: CInt, arg6: CInt): CInt =
-    SolidJniBridge.libc_solid_humanizeNumber((arg1?.value ?: 0L), arg2.toLong(), arg3, arg4, arg5, arg6)
+public actual fun humanizeNumber(arg1: MutPtr<CChar>, arg2: SizeT, arg3: Long, arg4: ConstPtr<CChar>, arg5: CInt, arg6: CInt): CInt =
+    SolidJniBridge.libcSolidHumanizeNumber(arg1.rawAddress, arg2.toLong(), arg3, arg4.rawAddress, arg5, arg6)
 
-public actual fun dehumanizeNumber(arg1: String?, arg2: COpaquePointer?): CInt =
-    SolidJniBridge.libc_solid_dehumanizeNumber(arg1, (arg2?.value ?: 0L))
+public actual fun dehumanizeNumber(arg1: ConstPtr<CChar>, arg2: MutPtr<Long>): CInt =
+    SolidJniBridge.libcSolidDehumanizeNumber(arg1.rawAddress, arg2.rawAddress)
 
-public actual fun getenvR(arg1: String?, arg2: COpaquePointer?, arg3: SizeT): CInt =
-    SolidJniBridge.libc_solid_getenvR(arg1, (arg2?.value ?: 0L), arg3.toLong())
+public actual fun getenvR(arg1: ConstPtr<CChar>, arg2: MutPtr<CChar>, arg3: SizeT): CInt =
+    SolidJniBridge.libcSolidGetenvR(arg1.rawAddress, arg2.rawAddress, arg3.toLong())
 
-public actual fun heapsort(arg1: COpaquePointer?, arg2: SizeT, arg3: SizeT, arg4: BsearchArg5Callback?): CInt =
-    SolidJniBridge.libc_solid_heapsort((arg1?.value ?: 0L), arg2.toLong(), arg3.toLong(), 0L)
+public actual fun heapsort(arg1: MutPtr<CVoid>, arg2: SizeT, arg3: SizeT, arg4: BsearchArg5Callback?): CInt =
+    SolidJniBridge.libcSolidHeapsort(arg1.rawAddress, arg2.toLong(), arg3.toLong(), 0L)
 
-public actual fun mergesort(arg1: COpaquePointer?, arg2: SizeT, arg3: SizeT, arg4: BsearchArg5Callback?): CInt =
-    SolidJniBridge.libc_solid_mergesort((arg1?.value ?: 0L), arg2.toLong(), arg3.toLong(), 0L)
+public actual fun mergesort(arg1: MutPtr<CVoid>, arg2: SizeT, arg3: SizeT, arg4: BsearchArg5Callback?): CInt =
+    SolidJniBridge.libcSolidMergesort(arg1.rawAddress, arg2.toLong(), arg3.toLong(), 0L)
 
-public actual fun radixsort(arg1: COpaquePointer?, arg2: CInt, arg3: COpaquePointer?, arg4: CUint): CInt =
-    SolidJniBridge.libc_solid_radixsort((arg1?.value ?: 0L), arg2, (arg3?.value ?: 0L), arg4.toInt())
+public actual fun radixsort(arg1: MutPtr<ConstPtr<CUchar>>, arg2: CInt, arg3: ConstPtr<CUchar>, arg4: CUint): CInt =
+    SolidJniBridge.libcSolidRadixsort(arg1.rawAddress, arg2, arg3.rawAddress, arg4.toInt())
 
-public actual fun sradixsort(arg1: COpaquePointer?, arg2: CInt, arg3: COpaquePointer?, arg4: CUint): CInt =
-    SolidJniBridge.libc_solid_sradixsort((arg1?.value ?: 0L), arg2, (arg3?.value ?: 0L), arg4.toInt())
+public actual fun sradixsort(arg1: MutPtr<ConstPtr<CUchar>>, arg2: CInt, arg3: ConstPtr<CUchar>, arg4: CUint): CInt =
+    SolidJniBridge.libcSolidSradixsort(arg1.rawAddress, arg2, arg3.rawAddress, arg4.toInt())
 
-public actual fun getprogname(): COpaquePointer? =
-    SolidJniBridge.libc_solid_getprogname().let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getprogname(): ConstPtr<CChar> =
+    ConstPtr(SolidJniBridge.libcSolidGetprogname())
 
-public actual fun setprogname(arg1: String?) {
-    SolidJniBridge.libc_solid_setprogname(arg1)
+public actual fun setprogname(arg1: ConstPtr<CChar>) {
+    SolidJniBridge.libcSolidSetprogname(arg1.rawAddress)
 }
 
 public actual fun qabs(arg1: QuadT): QuadT =
-    SolidJniBridge.libc_solid_qabs(arg1)
+    SolidJniBridge.libcSolidQabs(arg1)
 
-public actual fun strtoq(arg1: String?, arg2: COpaquePointer?, arg3: CInt): QuadT =
-    SolidJniBridge.libc_solid_strtoq(arg1, (arg2?.value ?: 0L), arg3)
+public actual fun strtoq(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt): QuadT =
+    SolidJniBridge.libcSolidStrtoq(arg1.rawAddress, arg2.rawAddress, arg3)
 
-public actual fun strtouq(arg1: String?, arg2: COpaquePointer?, arg3: CInt): UQuadT =
-    SolidJniBridge.libc_solid_strtouq(arg1, (arg2?.value ?: 0L), arg3).toULong()
+public actual fun strtouq(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt): UQuadT =
+    SolidJniBridge.libcSolidStrtouq(arg1.rawAddress, arg2.rawAddress, arg3).toULong()
 
-public actual fun strsuftoll(arg1: String?, arg2: String?, arg3: CLonglong, arg4: CLonglong): CLonglong =
-    SolidJniBridge.libc_solid_strsuftoll(arg1, arg2, arg3, arg4)
+public actual fun strsuftoll(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>, arg3: CLonglong, arg4: CLonglong): CLonglong =
+    SolidJniBridge.libcSolidStrsuftoll(arg1.rawAddress, arg2.rawAddress, arg3, arg4)
 
-public actual fun strsuftollx(arg1: String?, arg2: String?, arg3: CLonglong, arg4: CLonglong, arg5: COpaquePointer?, arg6: SizeT): CLonglong =
-    SolidJniBridge.libc_solid_strsuftollx(arg1, arg2, arg3, arg4, (arg5?.value ?: 0L), arg6.toLong())
+public actual fun strsuftollx(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>, arg3: CLonglong, arg4: CLonglong, arg5: MutPtr<CChar>, arg6: SizeT): CLonglong =
+    SolidJniBridge.libcSolidStrsuftollx(arg1.rawAddress, arg2.rawAddress, arg3, arg4, arg5.rawAddress, arg6.toLong())
 
-public actual fun l64aR(arg1: CLong, arg2: COpaquePointer?, arg3: CInt): CInt =
-    SolidJniBridge.libc_solid_l64aR(arg1, (arg2?.value ?: 0L), arg3)
+public actual fun l64aR(arg1: CLong, arg2: MutPtr<CChar>, arg3: CInt): CInt =
+    SolidJniBridge.libcSolidL64aR(arg1, arg2.rawAddress, arg3)
 
 public actual fun qdiv(arg1: QuadT, arg2: QuadT): QdivT =
     QdivT()
 
-public actual fun strtolL(arg1: String?, arg2: COpaquePointer?, arg3: CInt, arg4: LocaleT): CLong =
-    SolidJniBridge.libc_solid_strtolL(arg1, (arg2?.value ?: 0L), arg3, arg4.toLong())
+public actual fun strtolL(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt, arg4: LocaleT): CLong =
+    SolidJniBridge.libcSolidStrtolL(arg1.rawAddress, arg2.rawAddress, arg3, arg4.toLong())
 
-public actual fun strtoulL(arg1: String?, arg2: COpaquePointer?, arg3: CInt, arg4: LocaleT): CUlong =
-    SolidJniBridge.libc_solid_strtoulL(arg1, (arg2?.value ?: 0L), arg3, arg4.toLong()).toULong()
+public actual fun strtoulL(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt, arg4: LocaleT): CUlong =
+    SolidJniBridge.libcSolidStrtoulL(arg1.rawAddress, arg2.rawAddress, arg3, arg4.toLong()).toULong()
 
-public actual fun strtollL(arg1: String?, arg2: COpaquePointer?, arg3: CInt, arg4: LocaleT): CLonglong =
-    SolidJniBridge.libc_solid_strtollL(arg1, (arg2?.value ?: 0L), arg3, arg4.toLong())
+public actual fun strtollL(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt, arg4: LocaleT): CLonglong =
+    SolidJniBridge.libcSolidStrtollL(arg1.rawAddress, arg2.rawAddress, arg3, arg4.toLong())
 
-public actual fun strtoullL(arg1: String?, arg2: COpaquePointer?, arg3: CInt, arg4: LocaleT): CUlonglong =
-    SolidJniBridge.libc_solid_strtoullL(arg1, (arg2?.value ?: 0L), arg3, arg4.toLong()).toULong()
+public actual fun strtoullL(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt, arg4: LocaleT): CUlonglong =
+    SolidJniBridge.libcSolidStrtoullL(arg1.rawAddress, arg2.rawAddress, arg3, arg4.toLong()).toULong()
 
-public actual fun strtoqL(arg1: String?, arg2: COpaquePointer?, arg3: CInt, arg4: LocaleT): QuadT =
-    SolidJniBridge.libc_solid_strtoqL(arg1, (arg2?.value ?: 0L), arg3, arg4.toLong())
+public actual fun strtoqL(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt, arg4: LocaleT): QuadT =
+    SolidJniBridge.libcSolidStrtoqL(arg1.rawAddress, arg2.rawAddress, arg3, arg4.toLong())
 
-public actual fun strtouqL(arg1: String?, arg2: COpaquePointer?, arg3: CInt, arg4: LocaleT): UQuadT =
-    SolidJniBridge.libc_solid_strtouqL(arg1, (arg2?.value ?: 0L), arg3, arg4.toLong()).toULong()
+public actual fun strtouqL(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt, arg4: LocaleT): UQuadT =
+    SolidJniBridge.libcSolidStrtouqL(arg1.rawAddress, arg2.rawAddress, arg3, arg4.toLong()).toULong()
 
 public actual fun mbCurMaxL(arg1: LocaleT): SizeT =
-    SolidJniBridge.libc_solid_mbCurMaxL(arg1.toLong()).toULong()
+    SolidJniBridge.libcSolidMbCurMaxL(arg1.toLong()).toULong()
 
-public actual fun mblenL(arg1: String?, arg2: SizeT, arg3: LocaleT): CInt =
-    SolidJniBridge.libc_solid_mblenL(arg1, arg2.toLong(), arg3.toLong())
+public actual fun mblenL(arg1: ConstPtr<CChar>, arg2: SizeT, arg3: LocaleT): CInt =
+    SolidJniBridge.libcSolidMblenL(arg1.rawAddress, arg2.toLong(), arg3.toLong())
 
-public actual fun mbstowcsL(arg1: COpaquePointer?, arg2: String?, arg3: SizeT, arg4: LocaleT): SizeT =
-    SolidJniBridge.libc_solid_mbstowcsL((arg1?.value ?: 0L), arg2, arg3.toLong(), arg4.toLong()).toULong()
+public actual fun mbstowcsL(arg1: MutPtr<WcharT>, arg2: ConstPtr<CChar>, arg3: SizeT, arg4: LocaleT): SizeT =
+    SolidJniBridge.libcSolidMbstowcsL(arg1.rawAddress, arg2.rawAddress, arg3.toLong(), arg4.toLong()).toULong()
 
-public actual fun wctombL(arg1: COpaquePointer?, arg2: WcharT, arg3: LocaleT): CInt =
-    SolidJniBridge.libc_solid_wctombL((arg1?.value ?: 0L), arg2.toInt(), arg3.toLong())
+public actual fun wctombL(arg1: MutPtr<CChar>, arg2: WcharT, arg3: LocaleT): CInt =
+    SolidJniBridge.libcSolidWctombL(arg1.rawAddress, arg2.toInt(), arg3.toLong())
 
-public actual fun mbtowcL(arg1: COpaquePointer?, arg2: String?, arg3: SizeT, arg4: LocaleT): CInt =
-    SolidJniBridge.libc_solid_mbtowcL((arg1?.value ?: 0L), arg2, arg3.toLong(), arg4.toLong())
+public actual fun mbtowcL(arg1: MutPtr<WcharT>, arg2: ConstPtr<CChar>, arg3: SizeT, arg4: LocaleT): CInt =
+    SolidJniBridge.libcSolidMbtowcL(arg1.rawAddress, arg2.rawAddress, arg3.toLong(), arg4.toLong())
 
-public actual fun wcstombsL(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: SizeT, arg4: LocaleT): SizeT =
-    SolidJniBridge.libc_solid_wcstombsL((arg1?.value ?: 0L), (arg2?.value ?: 0L), arg3.toLong(), arg4.toLong()).toULong()
+public actual fun wcstombsL(arg1: MutPtr<CChar>, arg2: ConstPtr<WcharT>, arg3: SizeT, arg4: LocaleT): SizeT =
+    SolidJniBridge.libcSolidWcstombsL(arg1.rawAddress, arg2.rawAddress, arg3.toLong(), arg4.toLong()).toULong()
 
-public actual fun memchr(arg1: COpaquePointer?, arg2: CInt, arg3: SizeT): COpaquePointer? =
-    SolidJniBridge.libc_solid_memchr((arg1?.value ?: 0L), arg2, arg3.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun memchr(arg1: ConstPtr<CVoid>, arg2: CInt, arg3: SizeT): MutPtr<CVoid> =
+    MutPtr(SolidJniBridge.libcSolidMemchr(arg1.rawAddress, arg2, arg3.toLong()))
 
-public actual fun memcmp(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: SizeT): CInt =
-    SolidJniBridge.libc_solid_memcmp((arg1?.value ?: 0L), (arg2?.value ?: 0L), arg3.toLong())
+public actual fun memcmp(arg1: ConstPtr<CVoid>, arg2: ConstPtr<CVoid>, arg3: SizeT): CInt =
+    SolidJniBridge.libcSolidMemcmp(arg1.rawAddress, arg2.rawAddress, arg3.toLong())
 
-public actual fun memcpy(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: SizeT): COpaquePointer? =
-    SolidJniBridge.libc_solid_memcpy((arg1?.value ?: 0L), (arg2?.value ?: 0L), arg3.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun memcpy(arg1: MutPtr<CVoid>, arg2: ConstPtr<CVoid>, arg3: SizeT): MutPtr<CVoid> =
+    MutPtr(SolidJniBridge.libcSolidMemcpy(arg1.rawAddress, arg2.rawAddress, arg3.toLong()))
 
-public actual fun memmove(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: SizeT): COpaquePointer? =
-    SolidJniBridge.libc_solid_memmove((arg1?.value ?: 0L), (arg2?.value ?: 0L), arg3.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun memmove(arg1: MutPtr<CVoid>, arg2: ConstPtr<CVoid>, arg3: SizeT): MutPtr<CVoid> =
+    MutPtr(SolidJniBridge.libcSolidMemmove(arg1.rawAddress, arg2.rawAddress, arg3.toLong()))
 
-public actual fun memset(arg1: COpaquePointer?, arg2: CInt, arg3: SizeT): COpaquePointer? =
-    SolidJniBridge.libc_solid_memset((arg1?.value ?: 0L), arg2, arg3.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun memset(arg1: MutPtr<CVoid>, arg2: CInt, arg3: SizeT): MutPtr<CVoid> =
+    MutPtr(SolidJniBridge.libcSolidMemset(arg1.rawAddress, arg2, arg3.toLong()))
 
-public actual fun strcat(arg1: COpaquePointer?, arg2: String?): COpaquePointer? =
-    SolidJniBridge.libc_solid_strcat((arg1?.value ?: 0L), arg2).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun strcat(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(SolidJniBridge.libcSolidStrcat(arg1.rawAddress, arg2.rawAddress))
 
-public actual fun strchr(arg1: String?, arg2: CInt): COpaquePointer? =
-    SolidJniBridge.libc_solid_strchr(arg1, arg2).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun strchr(arg1: ConstPtr<CChar>, arg2: CInt): MutPtr<CChar> =
+    MutPtr(SolidJniBridge.libcSolidStrchr(arg1.rawAddress, arg2))
 
-public actual fun strcmp(arg1: String?, arg2: String?): CInt =
-    SolidJniBridge.libc_solid_strcmp(arg1, arg2)
+public actual fun strcmp(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>): CInt =
+    SolidJniBridge.libcSolidStrcmp(arg1.rawAddress, arg2.rawAddress)
 
-public actual fun strcoll(arg1: String?, arg2: String?): CInt =
-    SolidJniBridge.libc_solid_strcoll(arg1, arg2)
+public actual fun strcoll(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>): CInt =
+    SolidJniBridge.libcSolidStrcoll(arg1.rawAddress, arg2.rawAddress)
 
-public actual fun strcpy(arg1: COpaquePointer?, arg2: String?): COpaquePointer? =
-    SolidJniBridge.libc_solid_strcpy((arg1?.value ?: 0L), arg2).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun strcpy(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(SolidJniBridge.libcSolidStrcpy(arg1.rawAddress, arg2.rawAddress))
 
-public actual fun strcspn(arg1: String?, arg2: String?): SizeT =
-    SolidJniBridge.libc_solid_strcspn(arg1, arg2).toULong()
+public actual fun strcspn(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>): SizeT =
+    SolidJniBridge.libcSolidStrcspn(arg1.rawAddress, arg2.rawAddress).toULong()
 
-public actual fun strerror(arg1: CInt): COpaquePointer? =
-    SolidJniBridge.libc_solid_strerror(arg1).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun strerror(arg1: CInt): MutPtr<CChar> =
+    MutPtr(SolidJniBridge.libcSolidStrerror(arg1))
 
-public actual fun strlen(arg1: String?): SizeT =
-    SolidJniBridge.libc_solid_strlen(arg1).toULong()
+public actual fun strlen(arg1: ConstPtr<CChar>): SizeT =
+    SolidJniBridge.libcSolidStrlen(arg1.rawAddress).toULong()
 
-public actual fun strncat(arg1: COpaquePointer?, arg2: String?, arg3: SizeT): COpaquePointer? =
-    SolidJniBridge.libc_solid_strncat((arg1?.value ?: 0L), arg2, arg3.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun strncat(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, arg3: SizeT): MutPtr<CChar> =
+    MutPtr(SolidJniBridge.libcSolidStrncat(arg1.rawAddress, arg2.rawAddress, arg3.toLong()))
 
-public actual fun strncmp(arg1: String?, arg2: String?, arg3: SizeT): CInt =
-    SolidJniBridge.libc_solid_strncmp(arg1, arg2, arg3.toLong())
+public actual fun strncmp(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>, arg3: SizeT): CInt =
+    SolidJniBridge.libcSolidStrncmp(arg1.rawAddress, arg2.rawAddress, arg3.toLong())
 
-public actual fun strncpy(arg1: COpaquePointer?, arg2: String?, arg3: SizeT): COpaquePointer? =
-    SolidJniBridge.libc_solid_strncpy((arg1?.value ?: 0L), arg2, arg3.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun strncpy(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, arg3: SizeT): MutPtr<CChar> =
+    MutPtr(SolidJniBridge.libcSolidStrncpy(arg1.rawAddress, arg2.rawAddress, arg3.toLong()))
 
-public actual fun strpbrk(arg1: String?, arg2: String?): COpaquePointer? =
-    SolidJniBridge.libc_solid_strpbrk(arg1, arg2).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun strpbrk(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(SolidJniBridge.libcSolidStrpbrk(arg1.rawAddress, arg2.rawAddress))
 
-public actual fun strrchr(arg1: String?, arg2: CInt): COpaquePointer? =
-    SolidJniBridge.libc_solid_strrchr(arg1, arg2).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun strrchr(arg1: ConstPtr<CChar>, arg2: CInt): MutPtr<CChar> =
+    MutPtr(SolidJniBridge.libcSolidStrrchr(arg1.rawAddress, arg2))
 
-public actual fun strspn(arg1: String?, arg2: String?): SizeT =
-    SolidJniBridge.libc_solid_strspn(arg1, arg2).toULong()
+public actual fun strspn(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>): SizeT =
+    SolidJniBridge.libcSolidStrspn(arg1.rawAddress, arg2.rawAddress).toULong()
 
-public actual fun strstr(arg1: String?, arg2: String?): COpaquePointer? =
-    SolidJniBridge.libc_solid_strstr(arg1, arg2).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun strstr(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(SolidJniBridge.libcSolidStrstr(arg1.rawAddress, arg2.rawAddress))
 
-public actual fun strtok(arg1: COpaquePointer?, arg2: String?): COpaquePointer? =
-    SolidJniBridge.libc_solid_strtok((arg1?.value ?: 0L), arg2).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun strtok(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(SolidJniBridge.libcSolidStrtok(arg1.rawAddress, arg2.rawAddress))
 
-public actual fun strtokR(arg1: COpaquePointer?, arg2: String?, arg3: COpaquePointer?): COpaquePointer? =
-    SolidJniBridge.libc_solid_strtokR((arg1?.value ?: 0L), arg2, (arg3?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun strtokR(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, arg3: MutPtr<MutPtr<CChar>>): MutPtr<CChar> =
+    MutPtr(SolidJniBridge.libcSolidStrtokR(arg1.rawAddress, arg2.rawAddress, arg3.rawAddress))
 
-public actual fun strerrorR(arg1: CInt, arg2: COpaquePointer?, arg3: SizeT): CInt =
-    SolidJniBridge.libc_solid_strerrorR(arg1, (arg2?.value ?: 0L), arg3.toLong())
+public actual fun strerrorR(arg1: CInt, arg2: MutPtr<CChar>, arg3: SizeT): CInt =
+    SolidJniBridge.libcSolidStrerrorR(arg1, arg2.rawAddress, arg3.toLong())
 
-public actual fun strxfrm(arg1: COpaquePointer?, arg2: String?, arg3: SizeT): SizeT =
-    SolidJniBridge.libc_solid_strxfrm((arg1?.value ?: 0L), arg2, arg3.toLong()).toULong()
+public actual fun strxfrm(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, arg3: SizeT): SizeT =
+    SolidJniBridge.libcSolidStrxfrm(arg1.rawAddress, arg2.rawAddress, arg3.toLong()).toULong()
 
-public actual fun memccpy(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: CInt, arg4: SizeT): COpaquePointer? =
-    SolidJniBridge.libc_solid_memccpy((arg1?.value ?: 0L), (arg2?.value ?: 0L), arg3, arg4.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun memccpy(arg1: MutPtr<CVoid>, arg2: ConstPtr<CVoid>, arg3: CInt, arg4: SizeT): MutPtr<CVoid> =
+    MutPtr(SolidJniBridge.libcSolidMemccpy(arg1.rawAddress, arg2.rawAddress, arg3, arg4.toLong()))
 
-public actual fun strdup(arg1: String?): COpaquePointer? =
-    SolidJniBridge.libc_solid_strdup(arg1).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun strdup(arg1: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(SolidJniBridge.libcSolidStrdup(arg1.rawAddress))
 
-public actual fun stpcpy(arg1: COpaquePointer?, arg2: String?): COpaquePointer? =
-    SolidJniBridge.libc_solid_stpcpy((arg1?.value ?: 0L), arg2).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun stpcpy(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(SolidJniBridge.libcSolidStpcpy(arg1.rawAddress, arg2.rawAddress))
 
-public actual fun stpncpy(arg1: COpaquePointer?, arg2: String?, arg3: SizeT): COpaquePointer? =
-    SolidJniBridge.libc_solid_stpncpy((arg1?.value ?: 0L), arg2, arg3.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun stpncpy(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, arg3: SizeT): MutPtr<CChar> =
+    MutPtr(SolidJniBridge.libcSolidStpncpy(arg1.rawAddress, arg2.rawAddress, arg3.toLong()))
 
-public actual fun strnlen(arg1: String?, arg2: SizeT): SizeT =
-    SolidJniBridge.libc_solid_strnlen(arg1, arg2.toLong()).toULong()
+public actual fun strnlen(arg1: ConstPtr<CChar>, arg2: SizeT): SizeT =
+    SolidJniBridge.libcSolidStrnlen(arg1.rawAddress, arg2.toLong()).toULong()
 
-public actual fun memmem(arg1: COpaquePointer?, arg2: SizeT, arg3: COpaquePointer?, arg4: SizeT): COpaquePointer? =
-    SolidJniBridge.libc_solid_memmem((arg1?.value ?: 0L), arg2.toLong(), (arg3?.value ?: 0L), arg4.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun memmem(arg1: ConstPtr<CVoid>, arg2: SizeT, arg3: ConstPtr<CVoid>, arg4: SizeT): MutPtr<CVoid> =
+    MutPtr(SolidJniBridge.libcSolidMemmem(arg1.rawAddress, arg2.toLong(), arg3.rawAddress, arg4.toLong()))
 
-public actual fun strcasestr(arg1: String?, arg2: String?): COpaquePointer? =
-    SolidJniBridge.libc_solid_strcasestr(arg1, arg2).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun strcasestr(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(SolidJniBridge.libcSolidStrcasestr(arg1.rawAddress, arg2.rawAddress))
 
-public actual fun strlcat(arg1: COpaquePointer?, arg2: String?, arg3: SizeT): SizeT =
-    SolidJniBridge.libc_solid_strlcat((arg1?.value ?: 0L), arg2, arg3.toLong()).toULong()
+public actual fun strlcat(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, arg3: SizeT): SizeT =
+    SolidJniBridge.libcSolidStrlcat(arg1.rawAddress, arg2.rawAddress, arg3.toLong()).toULong()
 
-public actual fun strlcpy(arg1: COpaquePointer?, arg2: String?, arg3: SizeT): SizeT =
-    SolidJniBridge.libc_solid_strlcpy((arg1?.value ?: 0L), arg2, arg3.toLong()).toULong()
+public actual fun strlcpy(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, arg3: SizeT): SizeT =
+    SolidJniBridge.libcSolidStrlcpy(arg1.rawAddress, arg2.rawAddress, arg3.toLong()).toULong()
 
-public actual fun strsep(arg1: COpaquePointer?, arg2: String?): COpaquePointer? =
-    SolidJniBridge.libc_solid_strsep((arg1?.value ?: 0L), arg2).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun strsep(arg1: MutPtr<MutPtr<CChar>>, arg2: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(SolidJniBridge.libcSolidStrsep(arg1.rawAddress, arg2.rawAddress))
 
-public actual fun stresep(arg1: COpaquePointer?, arg2: String?, arg3: CInt): COpaquePointer? =
-    SolidJniBridge.libc_solid_stresep((arg1?.value ?: 0L), arg2, arg3).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun stresep(arg1: MutPtr<MutPtr<CChar>>, arg2: ConstPtr<CChar>, arg3: CInt): MutPtr<CChar> =
+    MutPtr(SolidJniBridge.libcSolidStresep(arg1.rawAddress, arg2.rawAddress, arg3))
 
-public actual fun strndup(arg1: String?, arg2: SizeT): COpaquePointer? =
-    SolidJniBridge.libc_solid_strndup(arg1, arg2.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun strndup(arg1: ConstPtr<CChar>, arg2: SizeT): MutPtr<CChar> =
+    MutPtr(SolidJniBridge.libcSolidStrndup(arg1.rawAddress, arg2.toLong()))
 
-public actual fun memrchr(arg1: COpaquePointer?, arg2: CInt, arg3: SizeT): COpaquePointer? =
-    SolidJniBridge.libc_solid_memrchr((arg1?.value ?: 0L), arg2, arg3.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun memrchr(arg1: ConstPtr<CVoid>, arg2: CInt, arg3: SizeT): MutPtr<CVoid> =
+    MutPtr(SolidJniBridge.libcSolidMemrchr(arg1.rawAddress, arg2, arg3.toLong()))
 
-public actual fun explicitMemset(arg1: COpaquePointer?, arg2: CInt, arg3: SizeT): COpaquePointer? =
-    SolidJniBridge.libc_solid_explicitMemset((arg1?.value ?: 0L), arg2, arg3.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun explicitMemset(arg1: MutPtr<CVoid>, arg2: CInt, arg3: SizeT): MutPtr<CVoid> =
+    MutPtr(SolidJniBridge.libcSolidExplicitMemset(arg1.rawAddress, arg2, arg3.toLong()))
 
-public actual fun consttimeMemequal(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: SizeT): CInt =
-    SolidJniBridge.libc_solid_consttimeMemequal((arg1?.value ?: 0L), (arg2?.value ?: 0L), arg3.toLong())
+public actual fun consttimeMemequal(arg1: ConstPtr<CVoid>, arg2: ConstPtr<CVoid>, arg3: SizeT): CInt =
+    SolidJniBridge.libcSolidConsttimeMemequal(arg1.rawAddress, arg2.rawAddress, arg3.toLong())
 
-public actual fun strcollL(arg1: String?, arg2: String?, arg3: LocaleT): CInt =
-    SolidJniBridge.libc_solid_strcollL(arg1, arg2, arg3.toLong())
+public actual fun strcollL(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>, arg3: LocaleT): CInt =
+    SolidJniBridge.libcSolidStrcollL(arg1.rawAddress, arg2.rawAddress, arg3.toLong())
 
-public actual fun strxfrmL(arg1: COpaquePointer?, arg2: String?, arg3: SizeT, arg4: LocaleT): SizeT =
-    SolidJniBridge.libc_solid_strxfrmL((arg1?.value ?: 0L), arg2, arg3.toLong(), arg4.toLong()).toULong()
+public actual fun strxfrmL(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, arg3: SizeT, arg4: LocaleT): SizeT =
+    SolidJniBridge.libcSolidStrxfrmL(arg1.rawAddress, arg2.rawAddress, arg3.toLong(), arg4.toLong()).toULong()
 
-public actual fun strerrorL(arg1: CInt, arg2: LocaleT): COpaquePointer? =
-    SolidJniBridge.libc_solid_strerrorL(arg1, arg2.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun strerrorL(arg1: CInt, arg2: LocaleT): MutPtr<CChar> =
+    MutPtr(SolidJniBridge.libcSolidStrerrorL(arg1, arg2.toLong()))
 
-public actual fun bcmp(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: SizeT): CInt =
-    SolidJniBridge.libc_solid_bcmp((arg1?.value ?: 0L), (arg2?.value ?: 0L), arg3.toLong())
+public actual fun bcmp(arg1: ConstPtr<CVoid>, arg2: ConstPtr<CVoid>, arg3: SizeT): CInt =
+    SolidJniBridge.libcSolidBcmp(arg1.rawAddress, arg2.rawAddress, arg3.toLong())
 
-public actual fun bcopy(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: SizeT) {
-    SolidJniBridge.libc_solid_bcopy((arg1?.value ?: 0L), (arg2?.value ?: 0L), arg3.toLong())
+public actual fun bcopy(arg1: ConstPtr<CVoid>, arg2: MutPtr<CVoid>, arg3: SizeT) {
+    SolidJniBridge.libcSolidBcopy(arg1.rawAddress, arg2.rawAddress, arg3.toLong())
 }
 
-public actual fun bzero(arg1: COpaquePointer?, arg2: SizeT) {
-    SolidJniBridge.libc_solid_bzero((arg1?.value ?: 0L), arg2.toLong())
+public actual fun bzero(arg1: MutPtr<CVoid>, arg2: SizeT) {
+    SolidJniBridge.libcSolidBzero(arg1.rawAddress, arg2.toLong())
 }
 
 public actual fun ffs(arg1: CInt): CInt =
-    SolidJniBridge.libc_solid_ffs(arg1)
+    SolidJniBridge.libcSolidFfs(arg1)
 
 public actual fun popcount(arg1: CUint): CUint =
-    SolidJniBridge.libc_solid_popcount(arg1.toInt()).toUInt()
+    SolidJniBridge.libcSolidPopcount(arg1.toInt()).toUInt()
 
 public actual fun popcountl(arg1: CUlong): CUint =
-    SolidJniBridge.libc_solid_popcountl(arg1.toLong()).toUInt()
+    SolidJniBridge.libcSolidPopcountl(arg1.toLong()).toUInt()
 
 public actual fun popcountll(arg1: CUlonglong): CUint =
-    SolidJniBridge.libc_solid_popcountll(arg1.toLong()).toUInt()
+    SolidJniBridge.libcSolidPopcountll(arg1.toLong()).toUInt()
 
 public actual fun popcount32(arg1: UInt): CUint =
-    SolidJniBridge.libc_solid_popcount32(arg1.toInt()).toUInt()
+    SolidJniBridge.libcSolidPopcount32(arg1.toInt()).toUInt()
 
 public actual fun popcount64(arg1: ULong): CUint =
-    SolidJniBridge.libc_solid_popcount64(arg1.toLong()).toUInt()
+    SolidJniBridge.libcSolidPopcount64(arg1.toLong()).toUInt()
 
-public actual fun rindex(arg1: String?, arg2: CInt): COpaquePointer? =
-    SolidJniBridge.libc_solid_rindex(arg1, arg2).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun rindex(arg1: ConstPtr<CChar>, arg2: CInt): MutPtr<CChar> =
+    MutPtr(SolidJniBridge.libcSolidRindex(arg1.rawAddress, arg2))
 
-public actual fun strcasecmp(arg1: String?, arg2: String?): CInt =
-    SolidJniBridge.libc_solid_strcasecmp(arg1, arg2)
+public actual fun strcasecmp(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>): CInt =
+    SolidJniBridge.libcSolidStrcasecmp(arg1.rawAddress, arg2.rawAddress)
 
-public actual fun strncasecmp(arg1: String?, arg2: String?, arg3: SizeT): CInt =
-    SolidJniBridge.libc_solid_strncasecmp(arg1, arg2, arg3.toLong())
+public actual fun strncasecmp(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>, arg3: SizeT): CInt =
+    SolidJniBridge.libcSolidStrncasecmp(arg1.rawAddress, arg2.rawAddress, arg3.toLong())
 
 public actual fun signal(arg1: CInt, arg2: SighandlerT): SighandlerT =
-    SolidJniBridge.libc_solid_signal(arg1, arg2.toLong()).toULong()
+    SolidJniBridge.libcSolidSignal(arg1, arg2.toLong()).toULong()
 
 public actual fun raise(arg1: CInt): CInt =
-    SolidJniBridge.libc_solid_raise(arg1)
+    SolidJniBridge.libcSolidRaise(arg1)
 
-public actual fun asctime(arg1: COpaquePointer?): COpaquePointer? =
-    SolidJniBridge.libc_solid_asctime((arg1?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun asctime(arg1: ConstPtr<Tm>): MutPtr<CChar> =
+    MutPtr(SolidJniBridge.libcSolidAsctime(arg1.rawAddress))
 
 public actual fun clock(): ClockT =
-    SolidJniBridge.libc_solid_clock().toUInt()
+    SolidJniBridge.libcSolidClock().toUInt()
 
-public actual fun ctime(arg1: COpaquePointer?): COpaquePointer? =
-    SolidJniBridge.libc_solid_ctime((arg1?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun ctime(arg1: ConstPtr<TimeT>): MutPtr<CChar> =
+    MutPtr(SolidJniBridge.libcSolidCtime(arg1.rawAddress))
 
 public actual fun difftime(arg1: TimeT, arg2: TimeT): Double =
-    SolidJniBridge.libc_solid_difftime(arg1, arg2)
+    SolidJniBridge.libcSolidDifftime(arg1, arg2)
 
-public actual fun gmtime(arg1: COpaquePointer?): COpaquePointer? =
-    SolidJniBridge.libc_solid_gmtime((arg1?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun gmtime(arg1: ConstPtr<TimeT>): MutPtr<Tm> =
+    MutPtr(SolidJniBridge.libcSolidGmtime(arg1.rawAddress))
 
-public actual fun localtime(arg1: COpaquePointer?): COpaquePointer? =
-    SolidJniBridge.libc_solid_localtime((arg1?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun localtime(arg1: ConstPtr<TimeT>): MutPtr<Tm> =
+    MutPtr(SolidJniBridge.libcSolidLocaltime(arg1.rawAddress))
 
-public actual fun time(arg1: COpaquePointer?): TimeT =
-    SolidJniBridge.libc_solid_time((arg1?.value ?: 0L))
+public actual fun time(arg1: MutPtr<TimeT>): TimeT =
+    SolidJniBridge.libcSolidTime(arg1.rawAddress)
 
-public actual fun mktime(arg1: COpaquePointer?): TimeT =
-    SolidJniBridge.libc_solid_mktime((arg1?.value ?: 0L))
+public actual fun mktime(arg1: MutPtr<Tm>): TimeT =
+    SolidJniBridge.libcSolidMktime(arg1.rawAddress)
 
-public actual fun strftime(arg1: COpaquePointer?, arg2: SizeT, arg3: String?, arg4: COpaquePointer?): SizeT =
-    SolidJniBridge.libc_solid_strftime((arg1?.value ?: 0L), arg2.toLong(), arg3, (arg4?.value ?: 0L)).toULong()
+public actual fun strftime(arg1: MutPtr<CChar>, arg2: SizeT, arg3: ConstPtr<CChar>, arg4: ConstPtr<Tm>): SizeT =
+    SolidJniBridge.libcSolidStrftime(arg1.rawAddress, arg2.toLong(), arg3.rawAddress, arg4.rawAddress).toULong()
 
-public actual fun utime(arg1: String?, arg2: COpaquePointer?): CInt =
-    SolidJniBridge.libc_solid_utime(arg1, (arg2?.value ?: 0L))
+public actual fun utime(arg1: ConstPtr<CChar>, arg2: MutPtr<TimeT>): CInt =
+    SolidJniBridge.libcSolidUtime(arg1.rawAddress, arg2.rawAddress)
 
-public actual fun asctimeR(arg1: COpaquePointer?, arg2: COpaquePointer?): COpaquePointer? =
-    SolidJniBridge.libc_solid_asctimeR((arg1?.value ?: 0L), (arg2?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun asctimeR(arg1: ConstPtr<Tm>, arg2: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(SolidJniBridge.libcSolidAsctimeR(arg1.rawAddress, arg2.rawAddress))
 
-public actual fun ctimeR(arg1: COpaquePointer?, arg2: COpaquePointer?): COpaquePointer? =
-    SolidJniBridge.libc_solid_ctimeR((arg1?.value ?: 0L), (arg2?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun ctimeR(arg1: ConstPtr<TimeT>, arg2: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(SolidJniBridge.libcSolidCtimeR(arg1.rawAddress, arg2.rawAddress))
 
-public actual fun gmtimeR(arg1: COpaquePointer?, arg2: COpaquePointer?): COpaquePointer? =
-    SolidJniBridge.libc_solid_gmtimeR((arg1?.value ?: 0L), (arg2?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun gmtimeR(arg1: ConstPtr<TimeT>, arg2: MutPtr<Tm>): MutPtr<Tm> =
+    MutPtr(SolidJniBridge.libcSolidGmtimeR(arg1.rawAddress, arg2.rawAddress))
 
-public actual fun localtimeR(arg1: COpaquePointer?, arg2: COpaquePointer?): COpaquePointer? =
-    SolidJniBridge.libc_solid_localtimeR((arg1?.value ?: 0L), (arg2?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun localtimeR(arg1: ConstPtr<TimeT>, arg2: MutPtr<Tm>): MutPtr<Tm> =
+    MutPtr(SolidJniBridge.libcSolidLocaltimeR(arg1.rawAddress, arg2.rawAddress))
 
-public actual fun stat(arg1: String?, arg2: COpaquePointer?): CInt =
-    SolidJniBridge.libc_solid_stat(arg1, (arg2?.value ?: 0L))
+public actual fun stat(arg1: ConstPtr<CChar>, arg2: MutPtr<Stat>): CInt =
+    SolidJniBridge.libcSolidStat(arg1.rawAddress, arg2.rawAddress)
 
-public actual fun lstat(arg1: String?, arg2: COpaquePointer?): CInt =
-    SolidJniBridge.libc_solid_lstat(arg1, (arg2?.value ?: 0L))
+public actual fun lstat(arg1: ConstPtr<CChar>, arg2: MutPtr<Stat>): CInt =
+    SolidJniBridge.libcSolidLstat(arg1.rawAddress, arg2.rawAddress)
 
-public actual fun fstat(arg1: CInt, arg2: COpaquePointer?): CInt =
-    SolidJniBridge.libc_solid_fstat(arg1, (arg2?.value ?: 0L))
+public actual fun fstat(arg1: CInt, arg2: MutPtr<Stat>): CInt =
+    SolidJniBridge.libcSolidFstat(arg1, arg2.rawAddress)
 
-public actual fun chmod(arg1: String?, arg2: ModeT): CInt =
-    SolidJniBridge.libc_solid_chmod(arg1, arg2.toInt())
+public actual fun chmod(arg1: ConstPtr<CChar>, arg2: ModeT): CInt =
+    SolidJniBridge.libcSolidChmod(arg1.rawAddress, arg2.toInt())
 
-public actual fun mkdir(arg1: String?, arg2: ModeT): CInt =
-    SolidJniBridge.libc_solid_mkdir(arg1, arg2.toInt())
+public actual fun mkdir(arg1: ConstPtr<CChar>, arg2: ModeT): CInt =
+    SolidJniBridge.libcSolidMkdir(arg1.rawAddress, arg2.toInt())
 
-public actual fun open(arg1: String?, arg2: CInt, vararg variadicArgs: Long): CInt =
-    SolidJniBridge.libc_solid_open(arg1, arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun open(arg1: ConstPtr<CChar>, arg2: CInt, vararg variadicArgs: Long): CInt =
+    SolidJniBridge.libcSolidOpen(arg1.rawAddress, arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun creat(arg1: String?, arg2: CInt): CInt =
-    SolidJniBridge.libc_solid_creat(arg1, arg2)
+public actual fun creat(arg1: ConstPtr<CChar>, arg2: CInt): CInt =
+    SolidJniBridge.libcSolidCreat(arg1.rawAddress, arg2)
 
 public actual fun close(arg1: CInt): CInt =
-    SolidJniBridge.libc_solid_close(arg1)
+    SolidJniBridge.libcSolidClose(arg1)
 
-public actual fun read(arg1: CInt, arg2: COpaquePointer?, arg3: CInt): CInt =
-    SolidJniBridge.libc_solid_read(arg1, (arg2?.value ?: 0L), arg3)
+public actual fun read(arg1: CInt, arg2: MutPtr<CVoid>, arg3: CInt): CInt =
+    SolidJniBridge.libcSolidRead(arg1, arg2.rawAddress, arg3)
 
-public actual fun write(arg1: CInt, arg2: COpaquePointer?, arg3: CInt): CInt =
-    SolidJniBridge.libc_solid_write(arg1, (arg2?.value ?: 0L), arg3)
+public actual fun write(arg1: CInt, arg2: ConstPtr<CVoid>, arg3: CInt): CInt =
+    SolidJniBridge.libcSolidWrite(arg1, arg2.rawAddress, arg3)
 
-public actual fun unlink(arg1: String?): CInt =
-    SolidJniBridge.libc_solid_unlink(arg1)
+public actual fun unlink(arg1: ConstPtr<CChar>): CInt =
+    SolidJniBridge.libcSolidUnlink(arg1.rawAddress)
 
 public actual fun tell(arg1: CInt): CLong =
-    SolidJniBridge.libc_solid_tell(arg1)
+    SolidJniBridge.libcSolidTell(arg1)
 
 public actual fun dup(arg1: CInt): CInt =
-    SolidJniBridge.libc_solid_dup(arg1)
+    SolidJniBridge.libcSolidDup(arg1)
 
 public actual fun dup2(arg1: CInt, arg2: CInt): CInt =
-    SolidJniBridge.libc_solid_dup2(arg1, arg2)
+    SolidJniBridge.libcSolidDup2(arg1, arg2)
 
-public actual fun access(arg1: String?, arg2: CInt): CInt =
-    SolidJniBridge.libc_solid_access(arg1, arg2)
+public actual fun access(arg1: ConstPtr<CChar>, arg2: CInt): CInt =
+    SolidJniBridge.libcSolidAccess(arg1.rawAddress, arg2)
 
-public actual fun rmdir(arg1: String?): CInt =
-    SolidJniBridge.libc_solid_rmdir(arg1)
+public actual fun rmdir(arg1: ConstPtr<CChar>): CInt =
+    SolidJniBridge.libcSolidRmdir(arg1.rawAddress)
 
-public actual fun chdir(arg1: String?): CInt =
-    SolidJniBridge.libc_solid_chdir(arg1)
+public actual fun chdir(arg1: ConstPtr<CChar>): CInt =
+    SolidJniBridge.libcSolidChdir(arg1.rawAddress)
 
-public actual fun getwd(arg1: COpaquePointer?): COpaquePointer? =
-    SolidJniBridge.libc_solid_getwd((arg1?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getwd(arg1: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(SolidJniBridge.libcSolidGetwd(arg1.rawAddress))
 
-public actual fun getcwd(arg1: COpaquePointer?, arg2: SizeT): COpaquePointer? =
-    SolidJniBridge.libc_solid_getcwd((arg1?.value ?: 0L), arg2.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getcwd(arg1: MutPtr<CChar>, arg2: SizeT): MutPtr<CChar> =
+    MutPtr(SolidJniBridge.libcSolidGetcwd(arg1.rawAddress, arg2.toLong()))
 
-public actual fun getopt(arg1: CInt, arg2: COpaquePointer?, arg3: String?): CInt =
-    SolidJniBridge.libc_solid_getopt(arg1, (arg2?.value ?: 0L), arg3)
+public actual fun getopt(arg1: CInt, arg2: MutPtr<MutPtr<CChar>>, arg3: ConstPtr<CChar>): CInt =
+    SolidJniBridge.libcSolidGetopt(arg1, arg2.rawAddress, arg3.rawAddress)
 
-public actual fun getsubopt(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: COpaquePointer?): CInt =
-    SolidJniBridge.libc_solid_getsubopt((arg1?.value ?: 0L), (arg2?.value ?: 0L), (arg3?.value ?: 0L))
+public actual fun getsubopt(arg1: MutPtr<MutPtr<CChar>>, arg2: ConstPtr<MutPtr<CChar>>, arg3: MutPtr<MutPtr<CChar>>): CInt =
+    SolidJniBridge.libcSolidGetsubopt(arg1.rawAddress, arg2.rawAddress, arg3.rawAddress)
 
 public actual fun fcntl(arg1: CInt, arg2: CInt, vararg variadicArgs: Long): CInt =
-    SolidJniBridge.libc_solid_fcntl(arg1, arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+    SolidJniBridge.libcSolidFcntl(arg1, arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun getpid(): PidT =
-    SolidJniBridge.libc_solid_getpid()
+    SolidJniBridge.libcSolidGetpid()
 
 public actual fun sleep(arg1: CUint): CUint =
-    SolidJniBridge.libc_solid_sleep(arg1.toInt()).toUInt()
+    SolidJniBridge.libcSolidSleep(arg1.toInt()).toUInt()
 
 public actual fun usleep(arg1: UsecondsT): CInt =
-    SolidJniBridge.libc_solid_usleep(arg1.toInt())
+    SolidJniBridge.libcSolidUsleep(arg1.toInt())
 
-public actual fun localeconv(): COpaquePointer? =
-    SolidJniBridge.libc_solid_localeconv().let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun localeconv(): MutPtr<Lconv> =
+    MutPtr(SolidJniBridge.libcSolidLocaleconv())
 
-public actual fun setlocale(arg1: CInt, arg2: String?): COpaquePointer? =
-    SolidJniBridge.libc_solid_setlocale(arg1, arg2).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun setlocale(arg1: CInt, arg2: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(SolidJniBridge.libcSolidSetlocale(arg1, arg2.rawAddress))
 
 public actual fun duplocale(arg1: LocaleT): LocaleT =
-    SolidJniBridge.libc_solid_duplocale(arg1.toLong()).toULong()
+    SolidJniBridge.libcSolidDuplocale(arg1.toLong()).toULong()
 
 public actual fun freelocale(arg1: LocaleT) {
-    SolidJniBridge.libc_solid_freelocale(arg1.toLong())
+    SolidJniBridge.libcSolidFreelocale(arg1.toLong())
 }
 
-public actual fun localeconvL(arg1: LocaleT): COpaquePointer? =
-    SolidJniBridge.libc_solid_localeconvL(arg1.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun localeconvL(arg1: LocaleT): MutPtr<Lconv> =
+    MutPtr(SolidJniBridge.libcSolidLocaleconvL(arg1.toLong()))
 
-public actual fun newlocale(arg1: CInt, arg2: String?, arg3: LocaleT): LocaleT =
-    SolidJniBridge.libc_solid_newlocale(arg1, arg2, arg3.toLong()).toULong()
+public actual fun newlocale(arg1: CInt, arg2: ConstPtr<CChar>, arg3: LocaleT): LocaleT =
+    SolidJniBridge.libcSolidNewlocale(arg1, arg2.rawAddress, arg3.toLong()).toULong()
 
-public actual fun nlLanginfo(item: NlItem): COpaquePointer? =
-    SolidJniBridge.libc_solid_nlLanginfo(item).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun nlLanginfo(item: NlItem): MutPtr<CChar> =
+    MutPtr(SolidJniBridge.libcSolidNlLanginfo(item))
 
-public actual fun nlLanginfoL(item: NlItem, locale: LocaleT): COpaquePointer? =
-    SolidJniBridge.libc_solid_nlLanginfoL(item, locale.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun nlLanginfoL(item: NlItem, locale: LocaleT): MutPtr<CChar> =
+    MutPtr(SolidJniBridge.libcSolidNlLanginfoL(item, locale.toLong()))
 
-public actual fun memalign(align: SizeT, size: SizeT): COpaquePointer? =
-    SolidJniBridge.libc_solid_memalign(align.toLong(), size.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun memalign(align: SizeT, size: SizeT): MutPtr<CVoid> =
+    MutPtr(SolidJniBridge.libcSolidMemalign(align.toLong(), size.toLong()))
 
 public actual fun lseek(arg1: CInt, arg2: OffT, arg3: CInt): OffT =
-    SolidJniBridge.libc_solid_lseek(arg1, arg2, arg3)
+    SolidJniBridge.libcSolidLseek(arg1, arg2, arg3)

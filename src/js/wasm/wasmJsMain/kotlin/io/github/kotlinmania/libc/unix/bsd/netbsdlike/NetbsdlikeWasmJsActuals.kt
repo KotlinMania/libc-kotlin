@@ -3,507 +3,524 @@
 package io.github.kotlinmania.libc.unix.bsd.netbsdlike
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.unix.GidT
+import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.PidT
+import io.github.kotlinmania.libc.unix.Pollfd
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
+import io.github.kotlinmania.libc.unix.Timespec
 import io.github.kotlinmania.libc.unix.bsd.NfdsT
 import io.github.kotlinmania.libc.unix.bsd.OffT
 import io.github.kotlinmania.libc.unix.bsd.PthreadT
+import io.github.kotlinmania.libc.unix.bsd.Sockaddr
+import io.github.kotlinmania.libc.unix.bsd.SocklenT
+import io.github.kotlinmania.libc.unix.bsd.Utsname
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.IdtypeT
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.PosixSpawnFileActionsT
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.PosixSpawnattrT
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.PthreadCondattrT
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.PthreadMutexT
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.PthreadSpinlockT
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.ShmidDs
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.SiginfoT
+import io.github.kotlinmania.libc.unix.bsd.netbsdlike.netbsd.SigsetT
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.DevT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 @JsFun("() => { if (typeof globalThis.__km_napi_libc !== 'undefined') return globalThis.__km_napi_libc !== null; if (typeof process === 'undefined' || !process.versions || !process.versions.node) { globalThis.__km_napi_libc = null; return false; } var mod = process.getBuiltinModule ? process.getBuiltinModule('module') : (process.mainModule && process.mainModule.constructor); var req = (mod && mod.createRequire) ? mod.createRequire((process.cwd ? process.cwd() : '.') + '/package.json') : (process.mainModule ? process.mainModule.require : null); if (!req) { globalThis.__km_napi_libc = null; return false; } try { globalThis.__km_napi_libc = req('@kotlinmania/libc-native-bindings'); return true; } catch (_) {} var fs = req('fs'); var path = req('path'); var dir = process.cwd ? process.cwd() : '.'; var rels = ['libc_native.node', 'build/node-ffi/libc_native.node', 'build/node-ffi/release/libc_native.node', 'build/node-ffi/debug/libc_native.node', 'src/js/node-libc/build/Release/libc_native.node', 'src/js/node-libc/build/Debug/libc_native.node', 'src/js/node-libc/dist/build/Release/libc_native.node', 'src/js/node-libc/dist/build/Debug/libc_native.node', 'c_native.node', 'build/node-ffi/c_native.node', 'build/node-ffi/release/c_native.node', 'build/node-ffi/debug/c_native.node', 'src/js/node-libc/build/Release/c_native.node', 'src/js/node-libc/build/Debug/c_native.node', 'src/js/node-libc/dist/build/Release/c_native.node', 'src/js/node-libc/dist/build/Debug/c_native.node']; for (var d = 0; d < 8; d++) { for (var i = 0; i < rels.length; i++) { var c = path.resolve(dir, rels[i]); if (fs.existsSync(c)) { globalThis.__km_napi_libc = req(c); return true; } } var parent = path.dirname(dir); if (parent === dir) break; dir = parent; } globalThis.__km_napi_libc = null; return false; }")
-private external fun _initUnixBsdNetbsdlikeNapiAddon(): Boolean
+private external fun initUnixBsdNetbsdlikeNapiAddon(): Boolean
 
-private val _unixBsdNetbsdlikeNapiAvailable: Boolean = _initUnixBsdNetbsdlikeNapiAddon()
+private val unixBsdNetbsdlikeNapiAvailable: Boolean = initUnixBsdNetbsdlikeNapiAddon()
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_setgrent()")
-private external fun _wasm_libc_unix_bsd_netbsdlike_setgrent()
+@JsFun("() => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikeSetgrent()")
+private external fun wasmLibcUnixBsdNetbsdlikeSetgrent()
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_semDestroy(p0)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_semDestroy(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikeSemDestroy(p0)")
+private external fun wasmLibcUnixBsdNetbsdlikeSemDestroy(p0: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_semInit(p0, p1, p2)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_semInit(p0: String, p1: Int, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikeSemInit(p0, p1, p2)")
+private external fun wasmLibcUnixBsdNetbsdlikeSemInit(p0: String, p1: Int, p2: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_daemon(p0, p1)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_daemon(p0: Int, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikeDaemon(p0, p1)")
+private external fun wasmLibcUnixBsdNetbsdlikeDaemon(p0: Int, p1: Int): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_accept4(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_accept4(p0: Int, p1: String, p2: String, p3: Int): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikeAccept4(p0, p1, p2, p3)")
+private external fun wasmLibcUnixBsdNetbsdlikeAccept4(p0: Int, p1: String, p2: String, p3: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_mincore(p0, p1, p2)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_mincore(p0: String, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikeMincore(p0, p1, p2)")
+private external fun wasmLibcUnixBsdNetbsdlikeMincore(p0: String, p1: String, p2: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_clockGetres(p0, p1)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_clockGetres(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikeClockGetres(p0, p1)")
+private external fun wasmLibcUnixBsdNetbsdlikeClockGetres(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_clockGettime(p0, p1)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_clockGettime(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikeClockGettime(p0, p1)")
+private external fun wasmLibcUnixBsdNetbsdlikeClockGettime(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_clockSettime(p0, p1)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_clockSettime(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikeClockSettime(p0, p1)")
+private external fun wasmLibcUnixBsdNetbsdlikeClockSettime(p0: Int, p1: String): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_errno()")
-private external fun _wasm_libc_unix_bsd_netbsdlike_errno(): String
+@JsFun("() => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikeErrno()")
+private external fun wasmLibcUnixBsdNetbsdlikeErrno(): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_shmOpen(p0, p1, p2)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_shmOpen(p0: String?, p1: Int, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikeShmOpen(p0, p1, p2)")
+private external fun wasmLibcUnixBsdNetbsdlikeShmOpen(p0: String, p1: Int, p2: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_memrchr(p0, p1, p2)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_memrchr(p0: String, p1: Int, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikeMemrchr(p0, p1, p2)")
+private external fun wasmLibcUnixBsdNetbsdlikeMemrchr(p0: String, p1: Int, p2: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_mkostemp(p0, p1)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_mkostemp(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikeMkostemp(p0, p1)")
+private external fun wasmLibcUnixBsdNetbsdlikeMkostemp(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_mkostemps(p0, p1, p2)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_mkostemps(p0: String, p1: Int, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikeMkostemps(p0, p1, p2)")
+private external fun wasmLibcUnixBsdNetbsdlikeMkostemps(p0: String, p1: Int, p2: Int): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_pwritev(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_pwritev(p0: Int, p1: String, p2: Int, p3: String): String
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikePwritev(p0, p1, p2, p3)")
+private external fun wasmLibcUnixBsdNetbsdlikePwritev(p0: Int, p1: String, p2: Int, p3: String): String
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_preadv(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_preadv(p0: Int, p1: String, p2: Int, p3: String): String
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikePreadv(p0, p1, p2, p3)")
+private external fun wasmLibcUnixBsdNetbsdlikePreadv(p0: Int, p1: String, p2: Int, p3: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_futimens(p0, p1)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_futimens(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikeFutimens(p0, p1)")
+private external fun wasmLibcUnixBsdNetbsdlikeFutimens(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_utimensat(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_utimensat(p0: Int, p1: String?, p2: String, p3: Int): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikeUtimensat(p0, p1, p2, p3)")
+private external fun wasmLibcUnixBsdNetbsdlikeUtimensat(p0: Int, p1: String, p2: String, p3: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_fdatasync(p0)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_fdatasync(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikeFdatasync(p0)")
+private external fun wasmLibcUnixBsdNetbsdlikeFdatasync(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_loginTty(p0)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_loginTty(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikeLoginTty(p0)")
+private external fun wasmLibcUnixBsdNetbsdlikeLoginTty(p0: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_getpriority(p0, p1)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_getpriority(p0: Int, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikeGetpriority(p0, p1)")
+private external fun wasmLibcUnixBsdNetbsdlikeGetpriority(p0: Int, p1: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_setpriority(p0, p1, p2)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_setpriority(p0: Int, p1: Int, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikeSetpriority(p0, p1, p2)")
+private external fun wasmLibcUnixBsdNetbsdlikeSetpriority(p0: Int, p1: Int, p2: Int): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_mknodat(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_mknodat(p0: Int, p1: String?, p2: Int, p3: Int): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikeMknodat(p0, p1, p2, p3)")
+private external fun wasmLibcUnixBsdNetbsdlikeMknodat(p0: Int, p1: String, p2: Int, p3: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_mkfifoat(p0, p1, p2)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_mkfifoat(p0: Int, p1: String?, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikeMkfifoat(p0, p1, p2)")
+private external fun wasmLibcUnixBsdNetbsdlikeMkfifoat(p0: Int, p1: String, p2: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_semTimedwait(p0, p1)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_semTimedwait(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikeSemTimedwait(p0, p1)")
+private external fun wasmLibcUnixBsdNetbsdlikeSemTimedwait(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_semGetvalue(p0, p1)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_semGetvalue(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikeSemGetvalue(p0, p1)")
+private external fun wasmLibcUnixBsdNetbsdlikeSemGetvalue(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_pthreadCondattrSetclock(p0, p1)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_pthreadCondattrSetclock(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikePthreadCondattrSetclock(p0, p1)")
+private external fun wasmLibcUnixBsdNetbsdlikePthreadCondattrSetclock(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_sethostname(p0, p1)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_sethostname(p0: String?, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikeSethostname(p0, p1)")
+private external fun wasmLibcUnixBsdNetbsdlikeSethostname(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_pthreadMutexTimedlock(p0, p1)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_pthreadMutexTimedlock(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikePthreadMutexTimedlock(p0, p1)")
+private external fun wasmLibcUnixBsdNetbsdlikePthreadMutexTimedlock(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_pthreadSpinInit(p0, p1)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_pthreadSpinInit(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikePthreadSpinInit(p0, p1)")
+private external fun wasmLibcUnixBsdNetbsdlikePthreadSpinInit(p0: String, p1: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_pthreadSpinDestroy(p0)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_pthreadSpinDestroy(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikePthreadSpinDestroy(p0)")
+private external fun wasmLibcUnixBsdNetbsdlikePthreadSpinDestroy(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_pthreadSpinLock(p0)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_pthreadSpinLock(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikePthreadSpinLock(p0)")
+private external fun wasmLibcUnixBsdNetbsdlikePthreadSpinLock(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_pthreadSpinTrylock(p0)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_pthreadSpinTrylock(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikePthreadSpinTrylock(p0)")
+private external fun wasmLibcUnixBsdNetbsdlikePthreadSpinTrylock(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_pthreadSpinUnlock(p0)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_pthreadSpinUnlock(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikePthreadSpinUnlock(p0)")
+private external fun wasmLibcUnixBsdNetbsdlikePthreadSpinUnlock(p0: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_pthreadSetschedparam(p0, p1, p2)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_pthreadSetschedparam(p0: String, p1: Int, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikePthreadSetschedparam(p0, p1, p2)")
+private external fun wasmLibcUnixBsdNetbsdlikePthreadSetschedparam(p0: String, p1: Int, p2: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_pthreadGetschedparam(p0, p1, p2)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_pthreadGetschedparam(p0: String, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikePthreadGetschedparam(p0, p1, p2)")
+private external fun wasmLibcUnixBsdNetbsdlikePthreadGetschedparam(p0: String, p1: String, p2: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_pipe2(p0, p1)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_pipe2(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikePipe2(p0, p1)")
+private external fun wasmLibcUnixBsdNetbsdlikePipe2(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_ppoll(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_ppoll(p0: String, p1: Int, p2: String, p3: String): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikePpoll(p0, p1, p2, p3)")
+private external fun wasmLibcUnixBsdNetbsdlikePpoll(p0: String, p1: Int, p2: String, p3: String): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_getgrouplist(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_getgrouplist(p0: String?, p1: Int, p2: String, p3: String): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikeGetgrouplist(p0, p1, p2, p3)")
+private external fun wasmLibcUnixBsdNetbsdlikeGetgrouplist(p0: String, p1: Int, p2: String, p3: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_initgroups(p0, p1)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_initgroups(p0: String?, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikeInitgroups(p0, p1)")
+private external fun wasmLibcUnixBsdNetbsdlikeInitgroups(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_getdomainname(p0, p1)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_getdomainname(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikeGetdomainname(p0, p1)")
+private external fun wasmLibcUnixBsdNetbsdlikeGetdomainname(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_setdomainname(p0, p1)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_setdomainname(p0: String?, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikeSetdomainname(p0, p1)")
+private external fun wasmLibcUnixBsdNetbsdlikeSetdomainname(p0: String, p1: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_uname(p0)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_uname(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikeUname(p0)")
+private external fun wasmLibcUnixBsdNetbsdlikeUname(p0: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_shmget(p0, p1, p2)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_shmget(p0: String, p1: String, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikeShmget(p0, p1, p2)")
+private external fun wasmLibcUnixBsdNetbsdlikeShmget(p0: String, p1: String, p2: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_shmat(p0, p1, p2)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_shmat(p0: Int, p1: String, p2: Int): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikeShmat(p0, p1, p2)")
+private external fun wasmLibcUnixBsdNetbsdlikeShmat(p0: Int, p1: String, p2: Int): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_shmdt(p0)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_shmdt(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikeShmdt(p0)")
+private external fun wasmLibcUnixBsdNetbsdlikeShmdt(p0: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_shmctl(p0, p1, p2)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_shmctl(p0: Int, p1: Int, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikeShmctl(p0, p1, p2)")
+private external fun wasmLibcUnixBsdNetbsdlikeShmctl(p0: Int, p1: Int, p2: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_execvpe(p0, p1, p2)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_execvpe(p0: String?, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikeExecvpe(p0, p1, p2)")
+private external fun wasmLibcUnixBsdNetbsdlikeExecvpe(p0: String, p1: String, p2: String): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_waitid(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_waitid(p0: Int, p1: Int, p2: String, p3: Int): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikeWaitid(p0, p1, p2, p3)")
+private external fun wasmLibcUnixBsdNetbsdlikeWaitid(p0: Int, p1: Int, p2: String, p3: Int): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_posixSpawn(p0, p1, p2, p3, p4, p5)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_posixSpawn(p0: String, p1: String?, p2: String, p3: String, p4: String, p5: String): Int
+@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikePosixSpawn(p0, p1, p2, p3, p4, p5)")
+private external fun wasmLibcUnixBsdNetbsdlikePosixSpawn(p0: String, p1: String, p2: String, p3: String, p4: String, p5: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_posixSpawnp(p0, p1, p2, p3, p4, p5)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_posixSpawnp(p0: String, p1: String?, p2: String, p3: String, p4: String, p5: String): Int
+@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikePosixSpawnp(p0, p1, p2, p3, p4, p5)")
+private external fun wasmLibcUnixBsdNetbsdlikePosixSpawnp(p0: String, p1: String, p2: String, p3: String, p4: String, p5: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_posixSpawnattrInit(p0)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_posixSpawnattrInit(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikePosixSpawnattrInit(p0)")
+private external fun wasmLibcUnixBsdNetbsdlikePosixSpawnattrInit(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_posixSpawnattrDestroy(p0)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_posixSpawnattrDestroy(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikePosixSpawnattrDestroy(p0)")
+private external fun wasmLibcUnixBsdNetbsdlikePosixSpawnattrDestroy(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_posixSpawnattrGetsigdefault(p0, p1)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_posixSpawnattrGetsigdefault(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikePosixSpawnattrGetsigdefault(p0, p1)")
+private external fun wasmLibcUnixBsdNetbsdlikePosixSpawnattrGetsigdefault(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_posixSpawnattrSetsigdefault(p0, p1)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_posixSpawnattrSetsigdefault(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikePosixSpawnattrSetsigdefault(p0, p1)")
+private external fun wasmLibcUnixBsdNetbsdlikePosixSpawnattrSetsigdefault(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_posixSpawnattrGetsigmask(p0, p1)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_posixSpawnattrGetsigmask(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikePosixSpawnattrGetsigmask(p0, p1)")
+private external fun wasmLibcUnixBsdNetbsdlikePosixSpawnattrGetsigmask(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_posixSpawnattrSetsigmask(p0, p1)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_posixSpawnattrSetsigmask(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikePosixSpawnattrSetsigmask(p0, p1)")
+private external fun wasmLibcUnixBsdNetbsdlikePosixSpawnattrSetsigmask(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_posixSpawnattrGetflags(p0, p1)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_posixSpawnattrGetflags(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikePosixSpawnattrGetflags(p0, p1)")
+private external fun wasmLibcUnixBsdNetbsdlikePosixSpawnattrGetflags(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_posixSpawnattrSetflags(p0, p1)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_posixSpawnattrSetflags(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikePosixSpawnattrSetflags(p0, p1)")
+private external fun wasmLibcUnixBsdNetbsdlikePosixSpawnattrSetflags(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_posixSpawnattrGetpgroup(p0, p1)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_posixSpawnattrGetpgroup(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikePosixSpawnattrGetpgroup(p0, p1)")
+private external fun wasmLibcUnixBsdNetbsdlikePosixSpawnattrGetpgroup(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_posixSpawnattrSetpgroup(p0, p1)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_posixSpawnattrSetpgroup(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikePosixSpawnattrSetpgroup(p0, p1)")
+private external fun wasmLibcUnixBsdNetbsdlikePosixSpawnattrSetpgroup(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_posixSpawnattrGetschedpolicy(p0, p1)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_posixSpawnattrGetschedpolicy(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikePosixSpawnattrGetschedpolicy(p0, p1)")
+private external fun wasmLibcUnixBsdNetbsdlikePosixSpawnattrGetschedpolicy(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_posixSpawnattrSetschedpolicy(p0, p1)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_posixSpawnattrSetschedpolicy(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikePosixSpawnattrSetschedpolicy(p0, p1)")
+private external fun wasmLibcUnixBsdNetbsdlikePosixSpawnattrSetschedpolicy(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_posixSpawnattrGetschedparam(p0, p1)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_posixSpawnattrGetschedparam(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikePosixSpawnattrGetschedparam(p0, p1)")
+private external fun wasmLibcUnixBsdNetbsdlikePosixSpawnattrGetschedparam(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_posixSpawnattrSetschedparam(p0, p1)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_posixSpawnattrSetschedparam(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikePosixSpawnattrSetschedparam(p0, p1)")
+private external fun wasmLibcUnixBsdNetbsdlikePosixSpawnattrSetschedparam(p0: String, p1: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_posixSpawnFileActionsInit(p0)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_posixSpawnFileActionsInit(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikePosixSpawnFileActionsInit(p0)")
+private external fun wasmLibcUnixBsdNetbsdlikePosixSpawnFileActionsInit(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_posixSpawnFileActionsDestroy(p0)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_posixSpawnFileActionsDestroy(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikePosixSpawnFileActionsDestroy(p0)")
+private external fun wasmLibcUnixBsdNetbsdlikePosixSpawnFileActionsDestroy(p0: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_posixSpawnFileActionsAddopen(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_posixSpawnFileActionsAddopen(p0: String, p1: Int, p2: String?, p3: Int, p4: Int): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikePosixSpawnFileActionsAddopen(p0, p1, p2, p3, p4)")
+private external fun wasmLibcUnixBsdNetbsdlikePosixSpawnFileActionsAddopen(p0: String, p1: Int, p2: String, p3: Int, p4: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_posixSpawnFileActionsAddclose(p0, p1)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_posixSpawnFileActionsAddclose(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikePosixSpawnFileActionsAddclose(p0, p1)")
+private external fun wasmLibcUnixBsdNetbsdlikePosixSpawnFileActionsAddclose(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_posixSpawnFileActionsAdddup2(p0, p1, p2)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_posixSpawnFileActionsAdddup2(p0: String, p1: Int, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikePosixSpawnFileActionsAdddup2(p0, p1, p2)")
+private external fun wasmLibcUnixBsdNetbsdlikePosixSpawnFileActionsAdddup2(p0: String, p1: Int, p2: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_reallocarray(p0, p1, p2)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_reallocarray(p0: String, p1: String, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikeReallocarray(p0, p1, p2)")
+private external fun wasmLibcUnixBsdNetbsdlikeReallocarray(p0: String, p1: String, p2: String): String
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_gethostid()")
-private external fun _wasm_libc_unix_bsd_netbsdlike_gethostid(): String
+@JsFun("() => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikeGethostid()")
+private external fun wasmLibcUnixBsdNetbsdlikeGethostid(): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_sethostid(p0)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_sethostid(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikeSethostid(p0)")
+private external fun wasmLibcUnixBsdNetbsdlikeSethostid(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_ftok(p0, p1)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_ftok(p0: String?, p1: Int): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikeFtok(p0, p1)")
+private external fun wasmLibcUnixBsdNetbsdlikeFtok(p0: String, p1: Int): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_dirname(p0)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_dirname(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikeDirname(p0)")
+private external fun wasmLibcUnixBsdNetbsdlikeDirname(p0: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_basename(p0)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_basename(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikeBasename(p0)")
+private external fun wasmLibcUnixBsdNetbsdlikeBasename(p0: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_getentropy(p0, p1)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_getentropy(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikeGetentropy(p0, p1)")
+private external fun wasmLibcUnixBsdNetbsdlikeGetentropy(p0: String, p1: String): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_sendmmsg(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_sendmmsg(p0: Int, p1: String, p2: Int, p3: Int): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikeSendmmsg(p0, p1, p2, p3)")
+private external fun wasmLibcUnixBsdNetbsdlikeSendmmsg(p0: Int, p1: String, p2: Int, p3: Int): Int
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_recvmmsg(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_recvmmsg(p0: Int, p1: String, p2: Int, p3: Int, p4: String): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikeRecvmmsg(p0, p1, p2, p3, p4)")
+private external fun wasmLibcUnixBsdNetbsdlikeRecvmmsg(p0: Int, p1: String, p2: Int, p3: Int, p4: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_bsd_netbsdlike_closefrom(p0)")
-private external fun _wasm_libc_unix_bsd_netbsdlike_closefrom(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixBsdNetbsdlikeClosefrom(p0)")
+private external fun wasmLibcUnixBsdNetbsdlikeClosefrom(p0: Int): Int
 
 public actual fun setgrent() {
-    if (_unixBsdNetbsdlikeNapiAvailable) {
-        _wasm_libc_unix_bsd_netbsdlike_setgrent()
+    if (unixBsdNetbsdlikeNapiAvailable) {
+        wasmLibcUnixBsdNetbsdlikeSetgrent()
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun semDestroy(sem: COpaquePointer?): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_semDestroy((sem?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun semDestroy(sem: MutPtr<SemT>): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikeSemDestroy(sem.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semInit(sem: COpaquePointer?, pshared: CInt, value: CUint): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_semInit((sem?.value ?: 0L).toString(), pshared, value.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun semInit(sem: MutPtr<SemT>, pshared: CInt, value: CUint): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikeSemInit(sem.rawAddress.toString(), pshared, value.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun daemon(nochdir: CInt, noclose: CInt): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_daemon(nochdir, noclose) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikeDaemon(nochdir, noclose) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun accept4(s: CInt, addr: COpaquePointer?, addrlen: COpaquePointer?, flags: CInt): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_accept4(s, (addr?.value ?: 0L).toString(), (addrlen?.value ?: 0L).toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun accept4(s: CInt, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>, flags: CInt): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikeAccept4(s, addr.rawAddress.toString(), addrlen.rawAddress.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mincore(addr: COpaquePointer?, len: SizeT, vec: COpaquePointer?): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_mincore((addr?.value ?: 0L).toString(), len.toString(), (vec?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mincore(addr: MutPtr<CVoid>, len: SizeT, vec: MutPtr<CChar>): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikeMincore(addr.rawAddress.toString(), len.toString(), vec.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun clockGetres(clkId: ClockidT, tp: COpaquePointer?): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_clockGetres(clkId, (tp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun clockGetres(clkId: ClockidT, tp: MutPtr<Timespec>): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikeClockGetres(clkId, tp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun clockGettime(clkId: ClockidT, tp: COpaquePointer?): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_clockGettime(clkId, (tp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun clockGettime(clkId: ClockidT, tp: MutPtr<Timespec>): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikeClockGettime(clkId, tp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun clockSettime(clkId: ClockidT, tp: COpaquePointer?): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_clockSettime(clkId, (tp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun clockSettime(clkId: ClockidT, tp: ConstPtr<Timespec>): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikeClockSettime(clkId, tp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun errno(): COpaquePointer? =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_errno().toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun errno(): MutPtr<CInt> =
+    if (unixBsdNetbsdlikeNapiAvailable) MutPtr(wasmLibcUnixBsdNetbsdlikeErrno().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun shmOpen(name: String?, oflag: CInt, mode: ModeT): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_shmOpen(name, oflag, mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun shmOpen(name: ConstPtr<CChar>, oflag: CInt, mode: ModeT): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikeShmOpen(name.rawAddress.toString(), oflag, mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memrchr(cx: COpaquePointer?, c: CInt, n: SizeT): COpaquePointer? =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_memrchr((cx?.value ?: 0L).toString(), c, n.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun memrchr(cx: ConstPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+    if (unixBsdNetbsdlikeNapiAvailable) MutPtr(wasmLibcUnixBsdNetbsdlikeMemrchr(cx.rawAddress.toString(), c, n.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mkostemp(template: COpaquePointer?, flags: CInt): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_mkostemp((template?.value ?: 0L).toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mkostemp(template: MutPtr<CChar>, flags: CInt): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikeMkostemp(template.rawAddress.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mkostemps(template: COpaquePointer?, suffixlen: CInt, flags: CInt): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_mkostemps((template?.value ?: 0L).toString(), suffixlen, flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mkostemps(template: MutPtr<CChar>, suffixlen: CInt, flags: CInt): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikeMkostemps(template.rawAddress.toString(), suffixlen, flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pwritev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: OffT): SsizeT =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_pwritev(fd, (iov?.value ?: 0L).toString(), iovcnt, offset.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pwritev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikePwritev(fd, iov.rawAddress.toString(), iovcnt, offset.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun preadv(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: OffT): SsizeT =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_preadv(fd, (iov?.value ?: 0L).toString(), iovcnt, offset.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun preadv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikePreadv(fd, iov.rawAddress.toString(), iovcnt, offset.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun futimens(fd: CInt, times: COpaquePointer?): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_futimens(fd, (times?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun futimens(fd: CInt, times: ConstPtr<Timespec>): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikeFutimens(fd, times.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun utimensat(dirfd: CInt, path: String?, times: COpaquePointer?, flag: CInt): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_utimensat(dirfd, path, (times?.value ?: 0L).toString(), flag) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun utimensat(dirfd: CInt, path: ConstPtr<CChar>, times: ConstPtr<Timespec>, flag: CInt): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikeUtimensat(dirfd, path.rawAddress.toString(), times.rawAddress.toString(), flag) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun fdatasync(fd: CInt): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_fdatasync(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikeFdatasync(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun loginTty(fd: CInt): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_loginTty(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikeLoginTty(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun getpriority(which: CInt, who: IdT): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_getpriority(which, who.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikeGetpriority(which, who.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun setpriority(which: CInt, who: IdT, prio: CInt): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_setpriority(which, who.toInt(), prio) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikeSetpriority(which, who.toInt(), prio) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_mknodat(dirfd, pathname, mode.toInt(), dev) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mknodat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT, dev: DevT): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikeMknodat(dirfd, pathname.rawAddress.toString(), mode.toInt(), dev) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_mkfifoat(dirfd, pathname, mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mkfifoat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikeMkfifoat(dirfd, pathname.rawAddress.toString(), mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semTimedwait(sem: COpaquePointer?, abstime: COpaquePointer?): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_semTimedwait((sem?.value ?: 0L).toString(), (abstime?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun semTimedwait(sem: MutPtr<SemT>, abstime: ConstPtr<Timespec>): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikeSemTimedwait(sem.rawAddress.toString(), abstime.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semGetvalue(sem: COpaquePointer?, sval: COpaquePointer?): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_semGetvalue((sem?.value ?: 0L).toString(), (sval?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun semGetvalue(sem: MutPtr<SemT>, sval: MutPtr<CInt>): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikeSemGetvalue(sem.rawAddress.toString(), sval.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondattrSetclock(attr: COpaquePointer?, clockId: ClockidT): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_pthreadCondattrSetclock((attr?.value ?: 0L).toString(), clockId) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadCondattrSetclock(attr: MutPtr<PthreadCondattrT>, clockId: ClockidT): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikePthreadCondattrSetclock(attr.rawAddress.toString(), clockId) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sethostname(name: String?, len: SizeT): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_sethostname(name, len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sethostname(name: ConstPtr<CChar>, len: SizeT): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikeSethostname(name.rawAddress.toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexTimedlock(lock: COpaquePointer?, abstime: COpaquePointer?): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_pthreadMutexTimedlock((lock?.value ?: 0L).toString(), (abstime?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadMutexTimedlock(lock: MutPtr<PthreadMutexT>, abstime: ConstPtr<Timespec>): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikePthreadMutexTimedlock(lock.rawAddress.toString(), abstime.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadSpinInit(lock: COpaquePointer?, pshared: CInt): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_pthreadSpinInit((lock?.value ?: 0L).toString(), pshared) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadSpinInit(lock: MutPtr<PthreadSpinlockT>, pshared: CInt): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikePthreadSpinInit(lock.rawAddress.toString(), pshared) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadSpinDestroy(lock: COpaquePointer?): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_pthreadSpinDestroy((lock?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadSpinDestroy(lock: MutPtr<PthreadSpinlockT>): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikePthreadSpinDestroy(lock.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadSpinLock(lock: COpaquePointer?): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_pthreadSpinLock((lock?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadSpinLock(lock: MutPtr<PthreadSpinlockT>): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikePthreadSpinLock(lock.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadSpinTrylock(lock: COpaquePointer?): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_pthreadSpinTrylock((lock?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadSpinTrylock(lock: MutPtr<PthreadSpinlockT>): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikePthreadSpinTrylock(lock.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadSpinUnlock(lock: COpaquePointer?): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_pthreadSpinUnlock((lock?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadSpinUnlock(lock: MutPtr<PthreadSpinlockT>): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikePthreadSpinUnlock(lock.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: COpaquePointer?): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_pthreadSetschedparam(native.toLong().toString(), policy, (param?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: ConstPtr<SchedParam>): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikePthreadSetschedparam(native.toLong().toString(), policy, param.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadGetschedparam(native: PthreadT, policy: COpaquePointer?, param: COpaquePointer?): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_pthreadGetschedparam(native.toLong().toString(), (policy?.value ?: 0L).toString(), (param?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadGetschedparam(native: PthreadT, policy: MutPtr<CInt>, param: MutPtr<SchedParam>): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikePthreadGetschedparam(native.toLong().toString(), policy.rawAddress.toString(), param.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pipe2(fds: COpaquePointer?, flags: CInt): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_pipe2((fds?.value ?: 0L).toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pipe2(fds: MutPtr<CInt>, flags: CInt): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikePipe2(fds.rawAddress.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ppoll(fds: COpaquePointer?, nfds: NfdsT, ts: COpaquePointer?, sigmask: COpaquePointer?): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_ppoll((fds?.value ?: 0L).toString(), nfds.toInt(), (ts?.value ?: 0L).toString(), (sigmask?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ppoll(fds: MutPtr<Pollfd>, nfds: NfdsT, ts: ConstPtr<Timespec>, sigmask: ConstPtr<SigsetT>): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikePpoll(fds.rawAddress.toString(), nfds.toInt(), ts.rawAddress.toString(), sigmask.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getgrouplist(name: String?, basegid: GidT, groups: COpaquePointer?, ngroups: COpaquePointer?): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_getgrouplist(name, basegid.toInt(), (groups?.value ?: 0L).toString(), (ngroups?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getgrouplist(name: ConstPtr<CChar>, basegid: GidT, groups: MutPtr<GidT>, ngroups: MutPtr<CInt>): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikeGetgrouplist(name.rawAddress.toString(), basegid.toInt(), groups.rawAddress.toString(), ngroups.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun initgroups(name: String?, basegid: GidT): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_initgroups(name, basegid.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun initgroups(name: ConstPtr<CChar>, basegid: GidT): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikeInitgroups(name.rawAddress.toString(), basegid.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getdomainname(name: COpaquePointer?, len: SizeT): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_getdomainname((name?.value ?: 0L).toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getdomainname(name: MutPtr<CChar>, len: SizeT): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikeGetdomainname(name.rawAddress.toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setdomainname(name: String?, len: SizeT): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_setdomainname(name, len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun setdomainname(name: ConstPtr<CChar>, len: SizeT): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikeSetdomainname(name.rawAddress.toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun uname(buf: COpaquePointer?): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_uname((buf?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun uname(buf: MutPtr<Utsname>): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikeUname(buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun shmget(key: KeyT, size: SizeT, shmflg: CInt): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_shmget(key.toString(), size.toString(), shmflg) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikeShmget(key.toString(), size.toString(), shmflg) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun shmat(shmid: CInt, shmaddr: COpaquePointer?, shmflg: CInt): COpaquePointer? =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_shmat(shmid, (shmaddr?.value ?: 0L).toString(), shmflg).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun shmat(shmid: CInt, shmaddr: ConstPtr<CVoid>, shmflg: CInt): MutPtr<CVoid> =
+    if (unixBsdNetbsdlikeNapiAvailable) MutPtr(wasmLibcUnixBsdNetbsdlikeShmat(shmid, shmaddr.rawAddress.toString(), shmflg).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun shmdt(shmaddr: COpaquePointer?): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_shmdt((shmaddr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun shmdt(shmaddr: ConstPtr<CVoid>): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikeShmdt(shmaddr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun shmctl(shmid: CInt, cmd: CInt, buf: COpaquePointer?): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_shmctl(shmid, cmd, (buf?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun shmctl(shmid: CInt, cmd: CInt, buf: MutPtr<ShmidDs>): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikeShmctl(shmid, cmd, buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun execvpe(file: String?, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_execvpe(file, (argv?.value ?: 0L).toString(), (envp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun execvpe(file: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>, envp: ConstPtr<ConstPtr<CChar>>): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikeExecvpe(file.rawAddress.toString(), argv.rawAddress.toString(), envp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun waitid(idtype: IdtypeT, id: IdT, infop: COpaquePointer?, options: CInt): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_waitid(idtype, id.toInt(), (infop?.value ?: 0L).toString(), options) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun waitid(idtype: IdtypeT, id: IdT, infop: MutPtr<SiginfoT>, options: CInt): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikeWaitid(idtype, id.toInt(), infop.rawAddress.toString(), options) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawn(pid: COpaquePointer?, path: String?, fileActions: COpaquePointer?, attrp: COpaquePointer?, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_posixSpawn((pid?.value ?: 0L).toString(), path, (fileActions?.value ?: 0L).toString(), (attrp?.value ?: 0L).toString(), (argv?.value ?: 0L).toString(), (envp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawn(pid: MutPtr<PidT>, path: ConstPtr<CChar>, fileActions: ConstPtr<PosixSpawnFileActionsT>, attrp: ConstPtr<PosixSpawnattrT>, argv: ConstPtr<MutPtr<CChar>>, envp: ConstPtr<MutPtr<CChar>>): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikePosixSpawn(pid.rawAddress.toString(), path.rawAddress.toString(), fileActions.rawAddress.toString(), attrp.rawAddress.toString(), argv.rawAddress.toString(), envp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnp(pid: COpaquePointer?, file: String?, fileActions: COpaquePointer?, attrp: COpaquePointer?, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_posixSpawnp((pid?.value ?: 0L).toString(), file, (fileActions?.value ?: 0L).toString(), (attrp?.value ?: 0L).toString(), (argv?.value ?: 0L).toString(), (envp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnp(pid: MutPtr<PidT>, file: ConstPtr<CChar>, fileActions: ConstPtr<PosixSpawnFileActionsT>, attrp: ConstPtr<PosixSpawnattrT>, argv: ConstPtr<MutPtr<CChar>>, envp: ConstPtr<MutPtr<CChar>>): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikePosixSpawnp(pid.rawAddress.toString(), file.rawAddress.toString(), fileActions.rawAddress.toString(), attrp.rawAddress.toString(), argv.rawAddress.toString(), envp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrInit(attr: COpaquePointer?): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_posixSpawnattrInit((attr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrInit(attr: MutPtr<PosixSpawnattrT>): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikePosixSpawnattrInit(attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrDestroy(attr: COpaquePointer?): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_posixSpawnattrDestroy((attr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrDestroy(attr: MutPtr<PosixSpawnattrT>): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikePosixSpawnattrDestroy(attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrGetsigdefault(attr: COpaquePointer?, default: COpaquePointer?): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_posixSpawnattrGetsigdefault((attr?.value ?: 0L).toString(), (default?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrGetsigdefault(attr: ConstPtr<PosixSpawnattrT>, default: MutPtr<SigsetT>): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikePosixSpawnattrGetsigdefault(attr.rawAddress.toString(), default.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrSetsigdefault(attr: COpaquePointer?, default: COpaquePointer?): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_posixSpawnattrSetsigdefault((attr?.value ?: 0L).toString(), (default?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrSetsigdefault(attr: MutPtr<PosixSpawnattrT>, default: ConstPtr<SigsetT>): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikePosixSpawnattrSetsigdefault(attr.rawAddress.toString(), default.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrGetsigmask(attr: COpaquePointer?, default: COpaquePointer?): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_posixSpawnattrGetsigmask((attr?.value ?: 0L).toString(), (default?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrGetsigmask(attr: ConstPtr<PosixSpawnattrT>, default: MutPtr<SigsetT>): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikePosixSpawnattrGetsigmask(attr.rawAddress.toString(), default.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrSetsigmask(attr: COpaquePointer?, default: COpaquePointer?): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_posixSpawnattrSetsigmask((attr?.value ?: 0L).toString(), (default?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrSetsigmask(attr: MutPtr<PosixSpawnattrT>, default: ConstPtr<SigsetT>): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikePosixSpawnattrSetsigmask(attr.rawAddress.toString(), default.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrGetflags(attr: COpaquePointer?, flags: COpaquePointer?): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_posixSpawnattrGetflags((attr?.value ?: 0L).toString(), (flags?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrGetflags(attr: ConstPtr<PosixSpawnattrT>, flags: MutPtr<CShort>): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikePosixSpawnattrGetflags(attr.rawAddress.toString(), flags.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrSetflags(attr: COpaquePointer?, flags: CShort): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_posixSpawnattrSetflags((attr?.value ?: 0L).toString(), flags.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrSetflags(attr: MutPtr<PosixSpawnattrT>, flags: CShort): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikePosixSpawnattrSetflags(attr.rawAddress.toString(), flags.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrGetpgroup(attr: COpaquePointer?, flags: COpaquePointer?): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_posixSpawnattrGetpgroup((attr?.value ?: 0L).toString(), (flags?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrGetpgroup(attr: ConstPtr<PosixSpawnattrT>, flags: MutPtr<PidT>): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikePosixSpawnattrGetpgroup(attr.rawAddress.toString(), flags.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrSetpgroup(attr: COpaquePointer?, flags: PidT): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_posixSpawnattrSetpgroup((attr?.value ?: 0L).toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrSetpgroup(attr: MutPtr<PosixSpawnattrT>, flags: PidT): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikePosixSpawnattrSetpgroup(attr.rawAddress.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrGetschedpolicy(attr: COpaquePointer?, flags: COpaquePointer?): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_posixSpawnattrGetschedpolicy((attr?.value ?: 0L).toString(), (flags?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrGetschedpolicy(attr: ConstPtr<PosixSpawnattrT>, flags: MutPtr<CInt>): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikePosixSpawnattrGetschedpolicy(attr.rawAddress.toString(), flags.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrSetschedpolicy(attr: COpaquePointer?, flags: CInt): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_posixSpawnattrSetschedpolicy((attr?.value ?: 0L).toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrSetschedpolicy(attr: MutPtr<PosixSpawnattrT>, flags: CInt): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikePosixSpawnattrSetschedpolicy(attr.rawAddress.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrGetschedparam(attr: COpaquePointer?, param: COpaquePointer?): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_posixSpawnattrGetschedparam((attr?.value ?: 0L).toString(), (param?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrGetschedparam(attr: ConstPtr<PosixSpawnattrT>, param: MutPtr<SchedParam>): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikePosixSpawnattrGetschedparam(attr.rawAddress.toString(), param.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrSetschedparam(attr: COpaquePointer?, param: COpaquePointer?): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_posixSpawnattrSetschedparam((attr?.value ?: 0L).toString(), (param?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrSetschedparam(attr: MutPtr<PosixSpawnattrT>, param: ConstPtr<SchedParam>): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikePosixSpawnattrSetschedparam(attr.rawAddress.toString(), param.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnFileActionsInit(actions: COpaquePointer?): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_posixSpawnFileActionsInit((actions?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnFileActionsInit(actions: MutPtr<PosixSpawnFileActionsT>): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikePosixSpawnFileActionsInit(actions.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnFileActionsDestroy(actions: COpaquePointer?): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_posixSpawnFileActionsDestroy((actions?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnFileActionsDestroy(actions: MutPtr<PosixSpawnFileActionsT>): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikePosixSpawnFileActionsDestroy(actions.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnFileActionsAddopen(actions: COpaquePointer?, fd: CInt, path: String?, oflag: CInt, mode: ModeT): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_posixSpawnFileActionsAddopen((actions?.value ?: 0L).toString(), fd, path, oflag, mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnFileActionsAddopen(actions: MutPtr<PosixSpawnFileActionsT>, fd: CInt, path: ConstPtr<CChar>, oflag: CInt, mode: ModeT): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikePosixSpawnFileActionsAddopen(actions.rawAddress.toString(), fd, path.rawAddress.toString(), oflag, mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnFileActionsAddclose(actions: COpaquePointer?, fd: CInt): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_posixSpawnFileActionsAddclose((actions?.value ?: 0L).toString(), fd) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnFileActionsAddclose(actions: MutPtr<PosixSpawnFileActionsT>, fd: CInt): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikePosixSpawnFileActionsAddclose(actions.rawAddress.toString(), fd) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnFileActionsAdddup2(actions: COpaquePointer?, fd: CInt, newfd: CInt): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_posixSpawnFileActionsAdddup2((actions?.value ?: 0L).toString(), fd, newfd) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnFileActionsAdddup2(actions: MutPtr<PosixSpawnFileActionsT>, fd: CInt, newfd: CInt): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikePosixSpawnFileActionsAdddup2(actions.rawAddress.toString(), fd, newfd) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun reallocarray(ptr: COpaquePointer?, nmemb: SizeT, size: SizeT): COpaquePointer? =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_reallocarray((ptr?.value ?: 0L).toString(), nmemb.toString(), size.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun reallocarray(ptr: MutPtr<CVoid>, nmemb: SizeT, size: SizeT): MutPtr<CVoid> =
+    if (unixBsdNetbsdlikeNapiAvailable) MutPtr(wasmLibcUnixBsdNetbsdlikeReallocarray(ptr.rawAddress.toString(), nmemb.toString(), size.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun gethostid(): CLong =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_gethostid().toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikeGethostid().toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sethostid(hostid: CLong): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_sethostid(hostid.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikeSethostid(hostid.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ftok(path: String?, id: CInt): KeyT =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_ftok(path, id).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ftok(path: ConstPtr<CChar>, id: CInt): KeyT =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikeFtok(path.rawAddress.toString(), id).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun dirname(path: COpaquePointer?): COpaquePointer? =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_dirname((path?.value ?: 0L).toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun dirname(path: MutPtr<CChar>): MutPtr<CChar> =
+    if (unixBsdNetbsdlikeNapiAvailable) MutPtr(wasmLibcUnixBsdNetbsdlikeDirname(path.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun basename(path: COpaquePointer?): COpaquePointer? =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_basename((path?.value ?: 0L).toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun basename(path: MutPtr<CChar>): MutPtr<CChar> =
+    if (unixBsdNetbsdlikeNapiAvailable) MutPtr(wasmLibcUnixBsdNetbsdlikeBasename(path.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getentropy(buf: COpaquePointer?, buflen: SizeT): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_getentropy((buf?.value ?: 0L).toString(), buflen.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getentropy(buf: MutPtr<CVoid>, buflen: SizeT): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikeGetentropy(buf.rawAddress.toString(), buflen.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sendmmsg(sockfd: CInt, mmsg: COpaquePointer?, vlen: CUint, flags: CInt): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_sendmmsg(sockfd, (mmsg?.value ?: 0L).toString(), vlen.toInt(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sendmmsg(sockfd: CInt, mmsg: MutPtr<Mmsghdr>, vlen: CUint, flags: CInt): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikeSendmmsg(sockfd, mmsg.rawAddress.toString(), vlen.toInt(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun recvmmsg(sockfd: CInt, mmsg: COpaquePointer?, vlen: CUint, flags: CInt, timeout: COpaquePointer?): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_recvmmsg(sockfd, (mmsg?.value ?: 0L).toString(), vlen.toInt(), flags, (timeout?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun recvmmsg(sockfd: CInt, mmsg: MutPtr<Mmsghdr>, vlen: CUint, flags: CInt, timeout: MutPtr<Timespec>): CInt =
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikeRecvmmsg(sockfd, mmsg.rawAddress.toString(), vlen.toInt(), flags, timeout.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun closefrom(lowfd: CInt): CInt =
-    if (_unixBsdNetbsdlikeNapiAvailable) _wasm_libc_unix_bsd_netbsdlike_closefrom(lowfd) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixBsdNetbsdlikeNapiAvailable) wasmLibcUnixBsdNetbsdlikeClosefrom(lowfd) else throw UnsupportedOperationException("Native FFI addon is not available")

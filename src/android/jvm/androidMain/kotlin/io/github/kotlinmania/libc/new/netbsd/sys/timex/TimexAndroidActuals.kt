@@ -4,7 +4,7 @@ package io.github.kotlinmania.libc.new.netbsd.sys.timex
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 private object NewNetbsdSysTimexJniBridge {
     init {
@@ -12,14 +12,14 @@ private object NewNetbsdSysTimexJniBridge {
     }
 
     @JvmStatic
-    external fun libc_new_netbsd_sys_timex_ntpGettime(buf: Long): Int
+    external fun libcNewNetbsdSysTimexNtpGettime(buf: Long): Int
 
     @JvmStatic
-    external fun libc_new_netbsd_sys_timex_ntpAdjtime(buf: Long): Int
+    external fun libcNewNetbsdSysTimexNtpAdjtime(buf: Long): Int
 }
 
-public actual fun ntpGettime(buf: COpaquePointer?): CInt =
-    NewNetbsdSysTimexJniBridge.libc_new_netbsd_sys_timex_ntpGettime((buf?.value ?: 0L))
+public actual fun ntpGettime(buf: MutPtr<Ntptimeval>): CInt =
+    NewNetbsdSysTimexJniBridge.libcNewNetbsdSysTimexNtpGettime(buf.rawAddress)
 
-public actual fun ntpAdjtime(buf: COpaquePointer?): CInt =
-    NewNetbsdSysTimexJniBridge.libc_new_netbsd_sys_timex_ntpAdjtime((buf?.value ?: 0L))
+public actual fun ntpAdjtime(buf: MutPtr<Timex>): CInt =
+    NewNetbsdSysTimexJniBridge.libcNewNetbsdSysTimexNtpAdjtime(buf.rawAddress)

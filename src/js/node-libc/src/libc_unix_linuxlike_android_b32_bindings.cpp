@@ -51,7 +51,7 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_unix_linuxlike_android_b32_timegm64_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidB32Timegm64_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* tm = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(void*);
@@ -90,7 +90,7 @@ static Napi::Value libc_unix_linuxlike_android_b32_timegm64_napi(const Napi::Cal
 }
 
 static void register_unix_linuxlike_android_b32_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_unix_linuxlike_android_b32_timegm64", Napi::Function::New(env, libc_unix_linuxlike_android_b32_timegm64_napi));
+    exports.Set("libcUnixLinuxlikeAndroidB32Timegm64", Napi::Function::New(env, libcUnixLinuxlikeAndroidB32Timegm64_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_unix_linuxlike_android_b32_napi, nullptr };

@@ -4,9 +4,11 @@ package io.github.kotlinmania.libc.new.apple.libpthread.pthread.introspection
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.new.apple.libpthread.sys.pthread.pthreadtypes.PthreadKeyT
 import io.github.kotlinmania.libc.new.qurt.PthreadT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 private object NewAppleLibpthreadPthreadIntrospectionJniBridge {
     init {
@@ -14,20 +16,20 @@ private object NewAppleLibpthreadPthreadIntrospectionJniBridge {
     }
 
     @JvmStatic
-    external fun libc_new_apple_libpthread_pthread_introspection_pthreadIntrospectionHookInstall(hook: Long): Long
+    external fun libcNewAppleLibpthreadPthreadIntrospectionPthreadIntrospectionHookInstall(hook: Long): Long
 
     @JvmStatic
-    external fun libc_new_apple_libpthread_pthread_introspection_pthreadIntrospectionSetspecificNp(thread: Long, key: Long, value: Long): Int
+    external fun libcNewAppleLibpthreadPthreadIntrospectionPthreadIntrospectionSetspecificNp(thread: Long, key: Long, value: Long): Int
 
     @JvmStatic
-    external fun libc_new_apple_libpthread_pthread_introspection_pthreadIntrospectionGetspecificNp(thread: Long, key: Long): Long
+    external fun libcNewAppleLibpthreadPthreadIntrospectionPthreadIntrospectionGetspecificNp(thread: Long, key: Long): Long
 }
 
 public actual fun pthreadIntrospectionHookInstall(hook: PthreadIntrospectionHookT): PthreadIntrospectionHookT =
     PthreadIntrospectionHookT { _, _, _, _ -> }
 
-public actual fun pthreadIntrospectionSetspecificNp(thread: PthreadT, key: PthreadKeyT, value: COpaquePointer?): CInt =
-    NewAppleLibpthreadPthreadIntrospectionJniBridge.libc_new_apple_libpthread_pthread_introspection_pthreadIntrospectionSetspecificNp(thread.toLong(), key.toLong(), (value?.value ?: 0L))
+public actual fun pthreadIntrospectionSetspecificNp(thread: PthreadT, key: PthreadKeyT, value: ConstPtr<CVoid>): CInt =
+    NewAppleLibpthreadPthreadIntrospectionJniBridge.libcNewAppleLibpthreadPthreadIntrospectionPthreadIntrospectionSetspecificNp(thread.toLong(), key.toLong(), value.rawAddress)
 
-public actual fun pthreadIntrospectionGetspecificNp(thread: PthreadT, key: PthreadKeyT): COpaquePointer? =
-    NewAppleLibpthreadPthreadIntrospectionJniBridge.libc_new_apple_libpthread_pthread_introspection_pthreadIntrospectionGetspecificNp(thread.toLong(), key.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun pthreadIntrospectionGetspecificNp(thread: PthreadT, key: PthreadKeyT): MutPtr<CVoid> =
+    MutPtr(NewAppleLibpthreadPthreadIntrospectionJniBridge.libcNewAppleLibpthreadPthreadIntrospectionPthreadIntrospectionGetspecificNp(thread.toLong(), key.toLong()))

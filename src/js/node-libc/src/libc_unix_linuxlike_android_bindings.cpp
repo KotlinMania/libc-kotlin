@@ -51,7 +51,7 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_unix_linuxlike_android_setgrent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSetgrent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -81,7 +81,7 @@ static Napi::Value libc_unix_linuxlike_android_setgrent_napi(const Napi::Callbac
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_linuxlike_android_endgrent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidEndgrent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -111,7 +111,7 @@ static Napi::Value libc_unix_linuxlike_android_endgrent_napi(const Napi::Callbac
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_linuxlike_android_getgrent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidGetgrent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -143,7 +143,7 @@ static Napi::Value libc_unix_linuxlike_android_getgrent_napi(const Napi::Callbac
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_linuxlike_android_getrlimit64_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidGetrlimit64_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t resource = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* rlim = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -182,7 +182,7 @@ static Napi::Value libc_unix_linuxlike_android_getrlimit64_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_setrlimit64_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSetrlimit64_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t resource = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* rlim = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -221,7 +221,7 @@ static Napi::Value libc_unix_linuxlike_android_setrlimit64_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_getrlimit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidGetrlimit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t resource = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* rlim = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -255,7 +255,7 @@ static Napi::Value libc_unix_linuxlike_android_getrlimit_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_setrlimit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSetrlimit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t resource = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* rlim = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -289,12 +289,12 @@ static Napi::Value libc_unix_linuxlike_android_setrlimit_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_prlimit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidPrlimit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t resource = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    void* new_limit = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    void* old_limit = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    void* newLimit = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* oldLimit = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -317,7 +317,7 @@ static Napi::Value libc_unix_linuxlike_android_prlimit_napi(const Napi::Callback
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(pid, resource, new_limit, old_limit);
+        km_res = km_fn_ptr(pid, resource, newLimit, oldLimit);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -325,12 +325,12 @@ static Napi::Value libc_unix_linuxlike_android_prlimit_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_prlimit64_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidPrlimit64_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t resource = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    void* new_limit = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    void* old_limit = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    void* newLimit = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* oldLimit = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -358,7 +358,7 @@ static Napi::Value libc_unix_linuxlike_android_prlimit64_napi(const Napi::Callba
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(pid, resource, new_limit, old_limit);
+        km_res = km_fn_ptr(pid, resource, newLimit, oldLimit);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -366,7 +366,7 @@ static Napi::Value libc_unix_linuxlike_android_prlimit64_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_strerrorR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidStrerrorR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t errnum = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -401,7 +401,7 @@ static Napi::Value libc_unix_linuxlike_android_strerrorR_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_gettimeofday_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidGettimeofday_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* tp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* tz = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -435,7 +435,7 @@ static Napi::Value libc_unix_linuxlike_android_gettimeofday_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_mlock2_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidMlock2_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -470,7 +470,7 @@ static Napi::Value libc_unix_linuxlike_android_mlock2_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_madvise_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidMadvise_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -505,7 +505,7 @@ static Napi::Value libc_unix_linuxlike_android_madvise_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_msync_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidMsync_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -540,7 +540,7 @@ static Napi::Value libc_unix_linuxlike_android_msync_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_mprotect_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidMprotect_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -575,7 +575,7 @@ static Napi::Value libc_unix_linuxlike_android_mprotect_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_getnameinfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidGetnameinfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* sa = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t salen = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -614,7 +614,7 @@ static Napi::Value libc_unix_linuxlike_android_getnameinfo_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_preadv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidPreadv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -650,7 +650,7 @@ static Napi::Value libc_unix_linuxlike_android_preadv_napi(const Napi::CallbackI
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_android_pwritev_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidPwritev_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -686,13 +686,13 @@ static Napi::Value libc_unix_linuxlike_android_pwritev_napi(const Napi::Callback
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_android_processVmReadv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidProcessVmReadv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* local_iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t local_iov_count = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    void* remote_iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
-    uint64_t remote_iov_count = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
+    void* localIov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t localIovCount = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    void* remoteIov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    uint64_t remoteIovCount = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
     uint64_t flags = km_info.Length() > 5 ? km_napi_arg_u64(km_info[5]) : 0;
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, void*, uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -716,7 +716,7 @@ static Napi::Value libc_unix_linuxlike_android_processVmReadv_napi(const Napi::C
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(pid, local_iov, local_iov_count, remote_iov, remote_iov_count, flags);
+        km_res = km_fn_ptr(pid, localIov, localIovCount, remoteIov, remoteIovCount, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -724,13 +724,13 @@ static Napi::Value libc_unix_linuxlike_android_processVmReadv_napi(const Napi::C
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_android_processVmWritev_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidProcessVmWritev_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* local_iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t local_iov_count = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    void* remote_iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
-    uint64_t remote_iov_count = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
+    void* localIov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t localIovCount = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    void* remoteIov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    uint64_t remoteIovCount = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
     uint64_t flags = km_info.Length() > 5 ? km_napi_arg_u64(km_info[5]) : 0;
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, void*, uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -754,7 +754,7 @@ static Napi::Value libc_unix_linuxlike_android_processVmWritev_napi(const Napi::
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(pid, local_iov, local_iov_count, remote_iov, remote_iov_count, flags);
+        km_res = km_fn_ptr(pid, localIov, localIovCount, remoteIov, remoteIovCount, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -762,7 +762,7 @@ static Napi::Value libc_unix_linuxlike_android_processVmWritev_napi(const Napi::
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_android_ptrace_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidPtrace_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t request = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t km_vac = km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0;
@@ -805,7 +805,7 @@ static Napi::Value libc_unix_linuxlike_android_ptrace_napi(const Napi::CallbackI
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_android_getpriority_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidGetpriority_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t which = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t who = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -839,7 +839,7 @@ static Napi::Value libc_unix_linuxlike_android_getpriority_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_setpriority_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSetpriority_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t which = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t who = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -874,7 +874,7 @@ static Napi::Value libc_unix_linuxlike_android_setpriority_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_schedCpualloc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSchedCpualloc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t count = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     typedef void* (*km_fn_t)(uint64_t);
@@ -905,7 +905,7 @@ static Napi::Value libc_unix_linuxlike_android_schedCpualloc_napi(const Napi::Ca
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_linuxlike_android_schedCpufree_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSchedCpufree_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -934,7 +934,7 @@ static Napi::Value libc_unix_linuxlike_android_schedCpufree_napi(const Napi::Cal
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_linuxlike_android_schedCpucount_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSchedCpucount_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t setsize = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -966,7 +966,7 @@ static Napi::Value libc_unix_linuxlike_android_schedCpucount_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_schedGetcpu_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSchedGetcpu_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -998,7 +998,7 @@ static Napi::Value libc_unix_linuxlike_android_schedGetcpu_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_mallocInfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidMallocInfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t options = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1032,7 +1032,7 @@ static Napi::Value libc_unix_linuxlike_android_mallocInfo_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_mallocUsableSize_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidMallocUsableSize_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef uint64_t (*km_fn_t)(void*);
@@ -1065,11 +1065,9 @@ static Napi::Value libc_unix_linuxlike_android_mallocUsableSize_napi(const Napi:
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_android_utmpname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidUtmpname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1100,7 +1098,7 @@ static Napi::Value libc_unix_linuxlike_android_utmpname_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_setutent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSetutent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1130,7 +1128,7 @@ static Napi::Value libc_unix_linuxlike_android_setutent_napi(const Napi::Callbac
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_linuxlike_android_getutent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidGetutent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1162,7 +1160,7 @@ static Napi::Value libc_unix_linuxlike_android_getutent_napi(const Napi::Callbac
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_linuxlike_android_seekdir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSeekdir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* dirp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int64_t loc = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
@@ -1194,7 +1192,7 @@ static Napi::Value libc_unix_linuxlike_android_seekdir_napi(const Napi::Callback
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_linuxlike_android_telldir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidTelldir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* dirp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(void*);
@@ -1227,7 +1225,7 @@ static Napi::Value libc_unix_linuxlike_android_telldir_napi(const Napi::Callback
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_android_fallocate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidFallocate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t mode = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1263,7 +1261,7 @@ static Napi::Value libc_unix_linuxlike_android_fallocate_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_fallocate64_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidFallocate64_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t mode = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1304,7 +1302,7 @@ static Napi::Value libc_unix_linuxlike_android_fallocate64_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_posixFallocate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidPosixFallocate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int64_t offset = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
@@ -1339,7 +1337,7 @@ static Napi::Value libc_unix_linuxlike_android_posixFallocate_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_posixFallocate64_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidPosixFallocate64_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int64_t offset = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
@@ -1379,14 +1377,10 @@ static Napi::Value libc_unix_linuxlike_android_posixFallocate64_napi(const Napi:
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_getxattr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidGetxattr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
-    bool name_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint64_t size = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
     typedef int64_t (*km_fn_t)(const char*, const char*, void*, uint64_t);
@@ -1419,14 +1413,10 @@ static Napi::Value libc_unix_linuxlike_android_getxattr_napi(const Napi::Callbac
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_android_lgetxattr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidLgetxattr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
-    bool name_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint64_t size = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
     typedef int64_t (*km_fn_t)(const char*, const char*, void*, uint64_t);
@@ -1459,12 +1449,10 @@ static Napi::Value libc_unix_linuxlike_android_lgetxattr_napi(const Napi::Callba
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_android_fgetxattr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidFgetxattr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t filedes = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool name_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint64_t size = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
     typedef int64_t (*km_fn_t)(int32_t, const char*, void*, uint64_t);
@@ -1497,14 +1485,10 @@ static Napi::Value libc_unix_linuxlike_android_fgetxattr_napi(const Napi::Callba
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_android_setxattr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSetxattr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
-    bool name_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint64_t size = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
     int32_t flags = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
@@ -1538,14 +1522,10 @@ static Napi::Value libc_unix_linuxlike_android_setxattr_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_lsetxattr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidLsetxattr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
-    bool name_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint64_t size = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
     int32_t flags = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
@@ -1579,12 +1559,10 @@ static Napi::Value libc_unix_linuxlike_android_lsetxattr_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_fsetxattr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidFsetxattr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t filedes = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool name_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint64_t size = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
     int32_t flags = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
@@ -1618,11 +1596,9 @@ static Napi::Value libc_unix_linuxlike_android_fsetxattr_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_listxattr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidListxattr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* list = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t size = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef int64_t (*km_fn_t)(const char*, char*, uint64_t);
@@ -1655,11 +1631,9 @@ static Napi::Value libc_unix_linuxlike_android_listxattr_napi(const Napi::Callba
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_android_llistxattr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidLlistxattr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* list = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t size = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef int64_t (*km_fn_t)(const char*, char*, uint64_t);
@@ -1692,7 +1666,7 @@ static Napi::Value libc_unix_linuxlike_android_llistxattr_napi(const Napi::Callb
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_android_flistxattr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidFlistxattr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t filedes = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     char* list = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1727,14 +1701,10 @@ static Napi::Value libc_unix_linuxlike_android_flistxattr_napi(const Napi::Callb
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_android_removexattr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidRemovexattr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
-    bool name_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1765,14 +1735,10 @@ static Napi::Value libc_unix_linuxlike_android_removexattr_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_lremovexattr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidLremovexattr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
-    bool name_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1803,12 +1769,10 @@ static Napi::Value libc_unix_linuxlike_android_lremovexattr_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_fremovexattr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidFremovexattr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t filedes = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool name_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1839,7 +1803,7 @@ static Napi::Value libc_unix_linuxlike_android_fremovexattr_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_signalfd_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSignalfd_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* mask = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1874,7 +1838,7 @@ static Napi::Value libc_unix_linuxlike_android_signalfd_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_timerfdCreate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidTimerfdCreate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t clock = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1908,10 +1872,10 @@ static Napi::Value libc_unix_linuxlike_android_timerfdCreate_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_timerfdGettime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidTimerfdGettime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* current_value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* currentValue = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1934,7 +1898,7 @@ static Napi::Value libc_unix_linuxlike_android_timerfdGettime_napi(const Napi::C
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(fd, current_value);
+        km_res = km_fn_ptr(fd, currentValue);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1942,12 +1906,12 @@ static Napi::Value libc_unix_linuxlike_android_timerfdGettime_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_timerfdSettime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidTimerfdSettime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    void* new_value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    void* old_value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    void* newValue = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* oldValue = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1970,7 +1934,7 @@ static Napi::Value libc_unix_linuxlike_android_timerfdSettime_napi(const Napi::C
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(fd, flags, new_value, old_value);
+        km_res = km_fn_ptr(fd, flags, newValue, oldValue);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1978,7 +1942,7 @@ static Napi::Value libc_unix_linuxlike_android_timerfdSettime_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_syscall_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSyscall_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int64_t num = km_info.Length() > 0 ? km_napi_arg_i64(km_info[0]) : 0;
     int32_t km_vac = km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0;
@@ -2021,7 +1985,7 @@ static Napi::Value libc_unix_linuxlike_android_syscall_napi(const Napi::Callback
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_android_schedGetaffinity_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSchedGetaffinity_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint64_t cpusetsize = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -2056,7 +2020,7 @@ static Napi::Value libc_unix_linuxlike_android_schedGetaffinity_napi(const Napi:
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_schedSetaffinity_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSchedSetaffinity_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint64_t cpusetsize = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -2091,7 +2055,7 @@ static Napi::Value libc_unix_linuxlike_android_schedSetaffinity_napi(const Napi:
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_epollCreate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidEpollCreate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t size = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -2124,7 +2088,7 @@ static Napi::Value libc_unix_linuxlike_android_epollCreate_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_epollCreate1_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidEpollCreate1_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t flags = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -2157,7 +2121,7 @@ static Napi::Value libc_unix_linuxlike_android_epollCreate1_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_epollWait_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidEpollWait_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t epfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* events = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2193,7 +2157,7 @@ static Napi::Value libc_unix_linuxlike_android_epollWait_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_epollCtl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidEpollCtl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t epfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t op = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -2229,7 +2193,7 @@ static Napi::Value libc_unix_linuxlike_android_epollCtl_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_unshare_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidUnshare_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t flags = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -2262,11 +2226,9 @@ static Napi::Value libc_unix_linuxlike_android_unshare_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_umount_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidUmount_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool target_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string target_str = target_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* target = target_null ? nullptr : target_str.c_str();
+    const char* target = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2297,7 +2259,7 @@ static Napi::Value libc_unix_linuxlike_android_umount_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_schedGetPriorityMax_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSchedGetPriorityMax_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t policy = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -2330,10 +2292,10 @@ static Napi::Value libc_unix_linuxlike_android_schedGetPriorityMax_napi(const Na
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_tee_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidTee_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t fd_in = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t fd_out = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t fdIn = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t fdOut = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     uint64_t len = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     uint32_t flags = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(int32_t, int32_t, uint64_t, uint32_t);
@@ -2358,7 +2320,7 @@ static Napi::Value libc_unix_linuxlike_android_tee_napi(const Napi::CallbackInfo
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(fd_in, fd_out, len, flags);
+        km_res = km_fn_ptr(fdIn, fdOut, len, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2366,7 +2328,7 @@ static Napi::Value libc_unix_linuxlike_android_tee_napi(const Napi::CallbackInfo
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_android_settimeofday_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSettimeofday_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* tv = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* tz = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2400,12 +2362,12 @@ static Napi::Value libc_unix_linuxlike_android_settimeofday_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_splice_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSplice_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t fd_in = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* off_in = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    int32_t fd_out = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    void* off_out = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    int32_t fdIn = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* offIn = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    int32_t fdOut = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    void* offOut = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     uint64_t len = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
     uint32_t flags = static_cast<uint32_t>(km_info.Length() > 5 ? km_info[5].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, void*, uint64_t, uint32_t);
@@ -2430,7 +2392,7 @@ static Napi::Value libc_unix_linuxlike_android_splice_napi(const Napi::CallbackI
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(fd_in, off_in, fd_out, off_out, len, flags);
+        km_res = km_fn_ptr(fdIn, offIn, fdOut, offOut, len, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2438,7 +2400,7 @@ static Napi::Value libc_unix_linuxlike_android_splice_napi(const Napi::CallbackI
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_android_eventfd_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidEventfd_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t initval = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -2472,7 +2434,7 @@ static Napi::Value libc_unix_linuxlike_android_eventfd_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_eventfdRead_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidEventfdRead_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2506,7 +2468,7 @@ static Napi::Value libc_unix_linuxlike_android_eventfdRead_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_eventfdWrite_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidEventfdWrite_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint64_t value = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -2540,7 +2502,7 @@ static Napi::Value libc_unix_linuxlike_android_eventfdWrite_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_schedRrGetInterval_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSchedRrGetInterval_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* tp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2574,7 +2536,7 @@ static Napi::Value libc_unix_linuxlike_android_schedRrGetInterval_napi(const Nap
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_semTimedwait_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSemTimedwait_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* sem = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* abstime = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2608,7 +2570,7 @@ static Napi::Value libc_unix_linuxlike_android_semTimedwait_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_semGetvalue_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSemGetvalue_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* sem = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* sval = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2642,7 +2604,7 @@ static Napi::Value libc_unix_linuxlike_android_semGetvalue_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_schedSetparam_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSchedSetparam_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* param = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2676,7 +2638,7 @@ static Napi::Value libc_unix_linuxlike_android_schedSetparam_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_setns_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSetns_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t nstype = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -2710,11 +2672,9 @@ static Napi::Value libc_unix_linuxlike_android_setns_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_swapoff_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSwapoff_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool puath_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string puath_str = puath_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* puath = puath_null ? nullptr : puath_str.c_str();
+    const char* puath = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2745,11 +2705,11 @@ static Napi::Value libc_unix_linuxlike_android_swapoff_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_vmsplice_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidVmsplice_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t nr_segs = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    uint64_t nrSegs = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     uint32_t flags = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2773,7 +2733,7 @@ static Napi::Value libc_unix_linuxlike_android_vmsplice_napi(const Napi::Callbac
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(fd, iov, nr_segs, flags);
+        km_res = km_fn_ptr(fd, iov, nrSegs, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2781,17 +2741,11 @@ static Napi::Value libc_unix_linuxlike_android_vmsplice_napi(const Napi::Callbac
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_android_mount_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidMount_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool src_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string src_str = src_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* src = src_null ? nullptr : src_str.c_str();
-    bool target_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string target_str = target_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* target = target_null ? nullptr : target_str.c_str();
-    bool fstype_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string fstype_str = fstype_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* fstype = fstype_null ? nullptr : fstype_str.c_str();
+    const char* src = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* target = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    const char* fstype = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint64_t flags = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
     void* data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
     typedef int32_t (*km_fn_t)(const char*, const char*, const char*, uint64_t, void*);
@@ -2824,7 +2778,7 @@ static Napi::Value libc_unix_linuxlike_android_mount_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_personality_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidPersonality_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t persona = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -2857,7 +2811,7 @@ static Napi::Value libc_unix_linuxlike_android_personality_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_prctl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidPrctl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t option = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t km_vac = km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0;
@@ -2900,7 +2854,7 @@ static Napi::Value libc_unix_linuxlike_android_prctl_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_schedGetparam_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSchedGetparam_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* param = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2934,7 +2888,7 @@ static Napi::Value libc_unix_linuxlike_android_schedGetparam_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_ppoll_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidPpoll_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* fds = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t nfds = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -2970,10 +2924,10 @@ static Napi::Value libc_unix_linuxlike_android_ppoll_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_clone_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidClone_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cb = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* child_stack = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* childStack = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     void* arg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     int32_t km_vac = km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0;
@@ -3004,11 +2958,11 @@ static Napi::Value libc_unix_linuxlike_android_clone_napi(const Napi::CallbackIn
     int32_t km_res = -1;
     if (km_fn_ptr != nullptr) {
         switch (km_vac) {
-            case 0: km_res = km_fn_ptr(cb, child_stack, flags, arg); break;
-            case 1: km_res = km_fn_ptr(cb, child_stack, flags, arg, static_cast<intptr_t>(km_va0)); break;
-            case 2: km_res = km_fn_ptr(cb, child_stack, flags, arg, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1)); break;
-            case 3: km_res = km_fn_ptr(cb, child_stack, flags, arg, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2)); break;
-            default: km_res = km_fn_ptr(cb, child_stack, flags, arg, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2), static_cast<intptr_t>(km_va3)); break;
+            case 0: km_res = km_fn_ptr(cb, childStack, flags, arg); break;
+            case 1: km_res = km_fn_ptr(cb, childStack, flags, arg, static_cast<intptr_t>(km_va0)); break;
+            case 2: km_res = km_fn_ptr(cb, childStack, flags, arg, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1)); break;
+            case 3: km_res = km_fn_ptr(cb, childStack, flags, arg, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2)); break;
+            default: km_res = km_fn_ptr(cb, childStack, flags, arg, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2), static_cast<intptr_t>(km_va3)); break;
         }
     } else {
         errno = ENOSYS;
@@ -3016,7 +2970,7 @@ static Napi::Value libc_unix_linuxlike_android_clone_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_schedGetscheduler_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSchedGetscheduler_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -3049,9 +3003,9 @@ static Napi::Value libc_unix_linuxlike_android_schedGetscheduler_napi(const Napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_clockNanosleep_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidClockNanosleep_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t clk_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t clkId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     void* rqtp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* rmtp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
@@ -3077,7 +3031,7 @@ static Napi::Value libc_unix_linuxlike_android_clockNanosleep_napi(const Napi::C
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(clk_id, flags, rqtp, rmtp);
+        km_res = km_fn_ptr(clkId, flags, rqtp, rmtp);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3085,11 +3039,9 @@ static Napi::Value libc_unix_linuxlike_android_clockNanosleep_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_sethostname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSethostname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
     typedef int32_t (*km_fn_t)(const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3121,7 +3073,7 @@ static Napi::Value libc_unix_linuxlike_android_sethostname_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_schedGetPriorityMin_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSchedGetPriorityMin_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t policy = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -3154,7 +3106,7 @@ static Napi::Value libc_unix_linuxlike_android_schedGetPriorityMin_napi(const Na
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_sysinfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSysinfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -3187,11 +3139,9 @@ static Napi::Value libc_unix_linuxlike_android_sysinfo_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_umount2_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidUmount2_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool target_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string target_str = target_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* target = target_null ? nullptr : target_str.c_str();
+    const char* target = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3223,11 +3173,9 @@ static Napi::Value libc_unix_linuxlike_android_umount2_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_swapon_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSwapon_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t swapflags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3259,7 +3207,7 @@ static Napi::Value libc_unix_linuxlike_android_swapon_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_schedSetscheduler_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSchedSetscheduler_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t policy = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3294,10 +3242,10 @@ static Napi::Value libc_unix_linuxlike_android_schedSetscheduler_napi(const Napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_sendfile_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSendfile_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t out_fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t in_fd = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t outFd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t inFd = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     void* offset = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint64_t count = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, void*, uint64_t);
@@ -3322,7 +3270,7 @@ static Napi::Value libc_unix_linuxlike_android_sendfile_napi(const Napi::Callbac
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(out_fd, in_fd, offset, count);
+        km_res = km_fn_ptr(outFd, inFd, offset, count);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3330,10 +3278,10 @@ static Napi::Value libc_unix_linuxlike_android_sendfile_napi(const Napi::Callbac
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_android_sendfile64_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSendfile64_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t out_fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t in_fd = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t outFd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t inFd = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     void* offset = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint64_t count = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, void*, uint64_t);
@@ -3363,7 +3311,7 @@ static Napi::Value libc_unix_linuxlike_android_sendfile64_napi(const Napi::Callb
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(out_fd, in_fd, offset, count);
+        km_res = km_fn_ptr(outFd, inFd, offset, count);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3371,7 +3319,7 @@ static Napi::Value libc_unix_linuxlike_android_sendfile64_napi(const Napi::Callb
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_android_setfsgid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSetfsgid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint16_t gid = static_cast<uint16_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint16_t);
@@ -3404,7 +3352,7 @@ static Napi::Value libc_unix_linuxlike_android_setfsgid_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_setfsuid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSetfsuid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint16_t uid = static_cast<uint16_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint16_t);
@@ -3437,7 +3385,7 @@ static Napi::Value libc_unix_linuxlike_android_setfsuid_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_sigsuspend_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSigsuspend_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mask = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -3470,7 +3418,7 @@ static Napi::Value libc_unix_linuxlike_android_sigsuspend_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_getgrgidR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidGetgrgidR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint16_t gid = static_cast<uint16_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* grp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3507,7 +3455,7 @@ static Napi::Value libc_unix_linuxlike_android_getgrgidR_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_sigaltstack_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSigaltstack_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ss = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* oss = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3541,7 +3489,7 @@ static Napi::Value libc_unix_linuxlike_android_sigaltstack_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_semClose_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSemClose_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* sem = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -3574,11 +3522,9 @@ static Napi::Value libc_unix_linuxlike_android_semClose_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_getgrnamR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidGetgrnamR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* grp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint64_t buflen = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
@@ -3613,11 +3559,9 @@ static Napi::Value libc_unix_linuxlike_android_getgrnamR_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_semOpen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSemOpen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t oflag = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     int32_t km_vac = km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
@@ -3659,11 +3603,9 @@ static Napi::Value libc_unix_linuxlike_android_semOpen_napi(const Napi::Callback
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_linuxlike_android_getgrnam_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidGetgrnam_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3694,11 +3636,9 @@ static Napi::Value libc_unix_linuxlike_android_getgrnam_napi(const Napi::Callbac
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_linuxlike_android_semUnlink_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSemUnlink_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3729,7 +3669,7 @@ static Napi::Value libc_unix_linuxlike_android_semUnlink_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_daemon_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidDaemon_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t nochdir = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t noclose = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3763,7 +3703,7 @@ static Napi::Value libc_unix_linuxlike_android_daemon_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_sigtimedwait_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSigtimedwait_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3798,7 +3738,7 @@ static Napi::Value libc_unix_linuxlike_android_sigtimedwait_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_sigwait_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSigwait_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* sig = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3832,7 +3772,7 @@ static Napi::Value libc_unix_linuxlike_android_sigwait_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_getgrgid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidGetgrgid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint16_t gid = static_cast<uint16_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void* (*km_fn_t)(uint16_t);
@@ -3865,11 +3805,9 @@ static Napi::Value libc_unix_linuxlike_android_getgrgid_napi(const Napi::Callbac
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_linuxlike_android_getgrouplist_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidGetgrouplist_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool user_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string user_str = user_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* user = user_null ? nullptr : user_str.c_str();
+    const char* user = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint16_t group = static_cast<uint16_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     void* groups = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* ngroups = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
@@ -3903,11 +3841,9 @@ static Napi::Value libc_unix_linuxlike_android_getgrouplist_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_initgroups_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidInitgroups_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool user_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string user_str = user_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* user = user_null ? nullptr : user_str.c_str();
+    const char* user = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint16_t group = static_cast<uint16_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, uint16_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3939,14 +3875,10 @@ static Napi::Value libc_unix_linuxlike_android_initgroups_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_popen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidPopen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool command_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string command_str = command_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* command = command_null ? nullptr : command_str.c_str();
-    bool mode_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string mode_str = mode_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* mode = mode_null ? nullptr : mode_str.c_str();
+    const char* command = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* mode = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef void* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3977,12 +3909,10 @@ static Napi::Value libc_unix_linuxlike_android_popen_napi(const Napi::CallbackIn
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_linuxlike_android_faccessat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidFaccessat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t dirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool pathname_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string pathname_str = pathname_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* pathname = pathname_null ? nullptr : pathname_str.c_str();
+    const char* pathname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t mode = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     int32_t flags = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, int32_t);
@@ -4015,7 +3945,7 @@ static Napi::Value libc_unix_linuxlike_android_faccessat_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_errno_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidErrno_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4045,7 +3975,7 @@ static Napi::Value libc_unix_linuxlike_android_errno_napi(const Napi::CallbackIn
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_linuxlike_android_inotifyRmWatch_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidInotifyRmWatch_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t wd = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4079,7 +4009,7 @@ static Napi::Value libc_unix_linuxlike_android_inotifyRmWatch_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_inotifyInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidInotifyInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4111,7 +4041,7 @@ static Napi::Value libc_unix_linuxlike_android_inotifyInit_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_inotifyInit1_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidInotifyInit1_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t flags = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -4144,12 +4074,10 @@ static Napi::Value libc_unix_linuxlike_android_inotifyInit1_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_inotifyAddWatch_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidInotifyAddWatch_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool path_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint32_t mask = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, const char*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4181,12 +4109,10 @@ static Napi::Value libc_unix_linuxlike_android_inotifyAddWatch_napi(const Napi::
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_regcomp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidRegcomp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* preg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool pattern_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string pattern_str = pattern_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* pattern = pattern_null ? nullptr : pattern_str.c_str();
+    const char* pattern = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t cflags = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4218,12 +4144,10 @@ static Napi::Value libc_unix_linuxlike_android_regcomp_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_regexec_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidRegexec_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* preg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool input_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string input_str = input_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* input = input_null ? nullptr : input_str.c_str();
+    const char* input = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t nmatch = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     void* pmatch = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     int32_t eflags = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
@@ -4257,12 +4181,12 @@ static Napi::Value libc_unix_linuxlike_android_regexec_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_regerror_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidRegerror_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t errcode = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* preg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     char* errbuf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    uint64_t errbuf_size = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
+    uint64_t errbufSize = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
     typedef uint64_t (*km_fn_t)(int32_t, void*, char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4285,7 +4209,7 @@ static Napi::Value libc_unix_linuxlike_android_regerror_napi(const Napi::Callbac
 #endif
     uint64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(errcode, preg, errbuf, errbuf_size);
+        km_res = km_fn_ptr(errcode, preg, errbuf, errbufSize);
     } else {
         errno = ENOSYS;
         km_res = 0;
@@ -4293,7 +4217,7 @@ static Napi::Value libc_unix_linuxlike_android_regerror_napi(const Napi::Callbac
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_android_regfree_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidRegfree_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* preg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -4324,11 +4248,9 @@ static Napi::Value libc_unix_linuxlike_android_regfree_napi(const Napi::Callback
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_linuxlike_android_androidSetAbortMessage_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidAndroidSetAbortMessage_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool msg_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string msg_str = msg_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* msg = msg_null ? nullptr : msg_str.c_str();
+    const char* msg = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4357,7 +4279,7 @@ static Napi::Value libc_unix_linuxlike_android_androidSetAbortMessage_napi(const
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_linuxlike_android_gettid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidGettid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4389,7 +4311,7 @@ static Napi::Value libc_unix_linuxlike_android_gettid_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_tgkill_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidTgkill_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t tgid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t tid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4424,9 +4346,9 @@ static Napi::Value libc_unix_linuxlike_android_tgkill_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_getauxval_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidGetauxval_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint64_t type_ = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
+    uint64_t type = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     typedef uint64_t (*km_fn_t)(uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4449,7 +4371,7 @@ static Napi::Value libc_unix_linuxlike_android_getauxval_napi(const Napi::Callba
 #endif
     uint64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(type_);
+        km_res = km_fn_ptr(type);
     } else {
         errno = ENOSYS;
         km_res = 0;
@@ -4457,7 +4379,7 @@ static Napi::Value libc_unix_linuxlike_android_getauxval_napi(const Napi::Callba
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_android_getrandom_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidGetrandom_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t buflen = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -4492,7 +4414,7 @@ static Napi::Value libc_unix_linuxlike_android_getrandom_napi(const Napi::Callba
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_android_getentropy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidGetentropy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t buflen = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -4526,14 +4448,10 @@ static Napi::Value libc_unix_linuxlike_android_getentropy_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_systemPropertySet_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSystemPropertySet_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg_0_name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg_0_name_str = arg_0_name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg_0_name = arg_0_name_null ? nullptr : arg_0_name_str.c_str();
-    bool arg_1_value_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg_1_value_str = arg_1_value_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg_1_value = arg_1_value_null ? nullptr : arg_1_value_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* value = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4554,7 +4472,7 @@ static Napi::Value libc_unix_linuxlike_android_systemPropertySet_napi(const Napi
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_name, arg_1_value);
+        km_res = km_fn_ptr(name, value);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4562,12 +4480,10 @@ static Napi::Value libc_unix_linuxlike_android_systemPropertySet_napi(const Napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_systemPropertyGet_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSystemPropertyGet_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg_0_name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg_0_name_str = arg_0_name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg_0_name = arg_0_name_null ? nullptr : arg_0_name_str.c_str();
-    char* arg_1_value = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    char* value = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4588,7 +4504,7 @@ static Napi::Value libc_unix_linuxlike_android_systemPropertyGet_napi(const Napi
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_name, arg_1_value);
+        km_res = km_fn_ptr(name, value);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4596,11 +4512,9 @@ static Napi::Value libc_unix_linuxlike_android_systemPropertyGet_napi(const Napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_systemPropertyFind_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSystemPropertyFind_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg_0_name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg_0_name_str = arg_0_name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg_0_name = arg_0_name_null ? nullptr : arg_0_name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4621,7 +4535,7 @@ static Napi::Value libc_unix_linuxlike_android_systemPropertyFind_napi(const Nap
 #endif
     void* km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_name);
+        km_res = km_fn_ptr(name);
     } else {
         errno = ENOSYS;
         km_res = nullptr;
@@ -4629,9 +4543,9 @@ static Napi::Value libc_unix_linuxlike_android_systemPropertyFind_napi(const Nap
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_linuxlike_android_systemPropertyFindNth_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSystemPropertyFindNth_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint32_t arg_0_n = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    uint32_t n = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void* (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4652,7 +4566,7 @@ static Napi::Value libc_unix_linuxlike_android_systemPropertyFindNth_napi(const 
 #endif
     void* km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_n);
+        km_res = km_fn_ptr(n);
     } else {
         errno = ENOSYS;
         km_res = nullptr;
@@ -4660,10 +4574,10 @@ static Napi::Value libc_unix_linuxlike_android_systemPropertyFindNth_napi(const 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_linuxlike_android_systemPropertyForeach_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSystemPropertyForeach_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_callback = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* arg_1_cookie = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* callback = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* cookie = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4684,7 +4598,7 @@ static Napi::Value libc_unix_linuxlike_android_systemPropertyForeach_napi(const 
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_callback, arg_1_cookie);
+        km_res = km_fn_ptr(callback, cookie);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4692,7 +4606,7 @@ static Napi::Value libc_unix_linuxlike_android_systemPropertyForeach_napi(const 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_dlIteratePhdr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidDlIteratePhdr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* callback = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -4726,7 +4640,7 @@ static Napi::Value libc_unix_linuxlike_android_dlIteratePhdr_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_arc4random_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidArc4random_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef uint32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4758,9 +4672,9 @@ static Napi::Value libc_unix_linuxlike_android_arc4random_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_arc4randomUniform_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidArc4randomUniform_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint32_t arg_0_upper_bound = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    uint32_t upperBound = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef uint32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4783,7 +4697,7 @@ static Napi::Value libc_unix_linuxlike_android_arc4randomUniform_napi(const Napi
 #endif
     uint32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_upper_bound);
+        km_res = km_fn_ptr(upperBound);
     } else {
         errno = ENOSYS;
         km_res = 0;
@@ -4791,10 +4705,10 @@ static Napi::Value libc_unix_linuxlike_android_arc4randomUniform_napi(const Napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_arc4randomBuf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidArc4randomBuf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    uint64_t arg_1_n = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
+    void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    uint64_t n = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
     typedef void (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4816,14 +4730,14 @@ static Napi::Value libc_unix_linuxlike_android_arc4randomBuf_napi(const Napi::Ca
     }
 #endif
     if (km_fn_ptr != nullptr) {
-        km_fn_ptr(arg_0_buf, arg_1_n);
+        km_fn_ptr(buf, n);
     } else {
         errno = ENOSYS;
     }
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_linuxlike_android_reallocarray_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidReallocarray_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t nmemb = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -4858,11 +4772,9 @@ static Napi::Value libc_unix_linuxlike_android_reallocarray_napi(const Napi::Cal
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_linuxlike_android_dirname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidDirname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef char* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4893,11 +4805,9 @@ static Napi::Value libc_unix_linuxlike_android_dirname_napi(const Napi::Callback
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_linuxlike_android_basename_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidBasename_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef char* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4928,13 +4838,11 @@ static Napi::Value libc_unix_linuxlike_android_basename_napi(const Napi::Callbac
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_linuxlike_android_getoptLong_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidGetoptLong_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t argc = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* argv = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    bool optstring_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string optstring_str = optstring_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* optstring = optstring_null ? nullptr : optstring_str.c_str();
+    const char* optstring = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* longopts = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     void* longindex = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, const char*, void*, void*);
@@ -4967,7 +4875,7 @@ static Napi::Value libc_unix_linuxlike_android_getoptLong_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_sync_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSync_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4997,7 +4905,7 @@ static Napi::Value libc_unix_linuxlike_android_sync_napi(const Napi::CallbackInf
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_linuxlike_android_syncfs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidSyncfs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -5030,7 +4938,7 @@ static Napi::Value libc_unix_linuxlike_android_syncfs_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_memmem_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidMemmem_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* haystack = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t haystacklen = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -5066,7 +4974,7 @@ static Napi::Value libc_unix_linuxlike_android_memmem_napi(const Napi::CallbackI
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_linuxlike_android_freadUnlocked_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidFreadUnlocked_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -5102,7 +5010,7 @@ static Napi::Value libc_unix_linuxlike_android_freadUnlocked_napi(const Napi::Ca
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_android_fwriteUnlocked_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidFwriteUnlocked_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -5138,7 +5046,7 @@ static Napi::Value libc_unix_linuxlike_android_fwriteUnlocked_napi(const Napi::C
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_android_fflushUnlocked_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidFflushUnlocked_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -5171,7 +5079,7 @@ static Napi::Value libc_unix_linuxlike_android_fflushUnlocked_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_fgetsUnlocked_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidFgetsUnlocked_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t size = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -5206,9 +5114,9 @@ static Napi::Value libc_unix_linuxlike_android_fgetsUnlocked_napi(const Napi::Ca
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_linuxlike_android_klogctl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidKlogctl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t syslog_type = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t syslogType = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     char* bufp = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t len = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, char*, int32_t);
@@ -5233,7 +5141,7 @@ static Napi::Value libc_unix_linuxlike_android_klogctl_napi(const Napi::Callback
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(syslog_type, bufp, len);
+        km_res = km_fn_ptr(syslogType, bufp, len);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5241,11 +5149,9 @@ static Napi::Value libc_unix_linuxlike_android_klogctl_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_memfdCreate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidMemfdCreate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t flags = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5277,16 +5183,12 @@ static Napi::Value libc_unix_linuxlike_android_memfdCreate_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_android_renameat2_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeAndroidRenameat2_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t olddirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool oldpath_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string oldpath_str = oldpath_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* oldpath = oldpath_null ? nullptr : oldpath_str.c_str();
+    const char* oldpath = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t newdirfd = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    bool newpath_null = (km_info.Length() <= 3 || km_info[3].IsNull() || km_info[3].IsUndefined());
-    std::string newpath_str = newpath_null ? std::string() : km_info[3].ToString().Utf8Value();
-    const char* newpath = newpath_null ? nullptr : newpath_str.c_str();
+    const char* newpath = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     uint32_t flags = static_cast<uint32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, const char*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5319,155 +5221,155 @@ static Napi::Value libc_unix_linuxlike_android_renameat2_napi(const Napi::Callba
 }
 
 static void register_unix_linuxlike_android_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_unix_linuxlike_android_setgrent", Napi::Function::New(env, libc_unix_linuxlike_android_setgrent_napi));
-    exports.Set("libc_unix_linuxlike_android_endgrent", Napi::Function::New(env, libc_unix_linuxlike_android_endgrent_napi));
-    exports.Set("libc_unix_linuxlike_android_getgrent", Napi::Function::New(env, libc_unix_linuxlike_android_getgrent_napi));
-    exports.Set("libc_unix_linuxlike_android_getrlimit64", Napi::Function::New(env, libc_unix_linuxlike_android_getrlimit64_napi));
-    exports.Set("libc_unix_linuxlike_android_setrlimit64", Napi::Function::New(env, libc_unix_linuxlike_android_setrlimit64_napi));
-    exports.Set("libc_unix_linuxlike_android_getrlimit", Napi::Function::New(env, libc_unix_linuxlike_android_getrlimit_napi));
-    exports.Set("libc_unix_linuxlike_android_setrlimit", Napi::Function::New(env, libc_unix_linuxlike_android_setrlimit_napi));
-    exports.Set("libc_unix_linuxlike_android_prlimit", Napi::Function::New(env, libc_unix_linuxlike_android_prlimit_napi));
-    exports.Set("libc_unix_linuxlike_android_prlimit64", Napi::Function::New(env, libc_unix_linuxlike_android_prlimit64_napi));
-    exports.Set("libc_unix_linuxlike_android_strerrorR", Napi::Function::New(env, libc_unix_linuxlike_android_strerrorR_napi));
-    exports.Set("libc_unix_linuxlike_android_gettimeofday", Napi::Function::New(env, libc_unix_linuxlike_android_gettimeofday_napi));
-    exports.Set("libc_unix_linuxlike_android_mlock2", Napi::Function::New(env, libc_unix_linuxlike_android_mlock2_napi));
-    exports.Set("libc_unix_linuxlike_android_madvise", Napi::Function::New(env, libc_unix_linuxlike_android_madvise_napi));
-    exports.Set("libc_unix_linuxlike_android_msync", Napi::Function::New(env, libc_unix_linuxlike_android_msync_napi));
-    exports.Set("libc_unix_linuxlike_android_mprotect", Napi::Function::New(env, libc_unix_linuxlike_android_mprotect_napi));
-    exports.Set("libc_unix_linuxlike_android_getnameinfo", Napi::Function::New(env, libc_unix_linuxlike_android_getnameinfo_napi));
-    exports.Set("libc_unix_linuxlike_android_preadv", Napi::Function::New(env, libc_unix_linuxlike_android_preadv_napi));
-    exports.Set("libc_unix_linuxlike_android_pwritev", Napi::Function::New(env, libc_unix_linuxlike_android_pwritev_napi));
-    exports.Set("libc_unix_linuxlike_android_processVmReadv", Napi::Function::New(env, libc_unix_linuxlike_android_processVmReadv_napi));
-    exports.Set("libc_unix_linuxlike_android_processVmWritev", Napi::Function::New(env, libc_unix_linuxlike_android_processVmWritev_napi));
-    exports.Set("libc_unix_linuxlike_android_ptrace", Napi::Function::New(env, libc_unix_linuxlike_android_ptrace_napi));
-    exports.Set("libc_unix_linuxlike_android_getpriority", Napi::Function::New(env, libc_unix_linuxlike_android_getpriority_napi));
-    exports.Set("libc_unix_linuxlike_android_setpriority", Napi::Function::New(env, libc_unix_linuxlike_android_setpriority_napi));
-    exports.Set("libc_unix_linuxlike_android_schedCpualloc", Napi::Function::New(env, libc_unix_linuxlike_android_schedCpualloc_napi));
-    exports.Set("libc_unix_linuxlike_android_schedCpufree", Napi::Function::New(env, libc_unix_linuxlike_android_schedCpufree_napi));
-    exports.Set("libc_unix_linuxlike_android_schedCpucount", Napi::Function::New(env, libc_unix_linuxlike_android_schedCpucount_napi));
-    exports.Set("libc_unix_linuxlike_android_schedGetcpu", Napi::Function::New(env, libc_unix_linuxlike_android_schedGetcpu_napi));
-    exports.Set("libc_unix_linuxlike_android_mallocInfo", Napi::Function::New(env, libc_unix_linuxlike_android_mallocInfo_napi));
-    exports.Set("libc_unix_linuxlike_android_mallocUsableSize", Napi::Function::New(env, libc_unix_linuxlike_android_mallocUsableSize_napi));
-    exports.Set("libc_unix_linuxlike_android_utmpname", Napi::Function::New(env, libc_unix_linuxlike_android_utmpname_napi));
-    exports.Set("libc_unix_linuxlike_android_setutent", Napi::Function::New(env, libc_unix_linuxlike_android_setutent_napi));
-    exports.Set("libc_unix_linuxlike_android_getutent", Napi::Function::New(env, libc_unix_linuxlike_android_getutent_napi));
-    exports.Set("libc_unix_linuxlike_android_seekdir", Napi::Function::New(env, libc_unix_linuxlike_android_seekdir_napi));
-    exports.Set("libc_unix_linuxlike_android_telldir", Napi::Function::New(env, libc_unix_linuxlike_android_telldir_napi));
-    exports.Set("libc_unix_linuxlike_android_fallocate", Napi::Function::New(env, libc_unix_linuxlike_android_fallocate_napi));
-    exports.Set("libc_unix_linuxlike_android_fallocate64", Napi::Function::New(env, libc_unix_linuxlike_android_fallocate64_napi));
-    exports.Set("libc_unix_linuxlike_android_posixFallocate", Napi::Function::New(env, libc_unix_linuxlike_android_posixFallocate_napi));
-    exports.Set("libc_unix_linuxlike_android_posixFallocate64", Napi::Function::New(env, libc_unix_linuxlike_android_posixFallocate64_napi));
-    exports.Set("libc_unix_linuxlike_android_getxattr", Napi::Function::New(env, libc_unix_linuxlike_android_getxattr_napi));
-    exports.Set("libc_unix_linuxlike_android_lgetxattr", Napi::Function::New(env, libc_unix_linuxlike_android_lgetxattr_napi));
-    exports.Set("libc_unix_linuxlike_android_fgetxattr", Napi::Function::New(env, libc_unix_linuxlike_android_fgetxattr_napi));
-    exports.Set("libc_unix_linuxlike_android_setxattr", Napi::Function::New(env, libc_unix_linuxlike_android_setxattr_napi));
-    exports.Set("libc_unix_linuxlike_android_lsetxattr", Napi::Function::New(env, libc_unix_linuxlike_android_lsetxattr_napi));
-    exports.Set("libc_unix_linuxlike_android_fsetxattr", Napi::Function::New(env, libc_unix_linuxlike_android_fsetxattr_napi));
-    exports.Set("libc_unix_linuxlike_android_listxattr", Napi::Function::New(env, libc_unix_linuxlike_android_listxattr_napi));
-    exports.Set("libc_unix_linuxlike_android_llistxattr", Napi::Function::New(env, libc_unix_linuxlike_android_llistxattr_napi));
-    exports.Set("libc_unix_linuxlike_android_flistxattr", Napi::Function::New(env, libc_unix_linuxlike_android_flistxattr_napi));
-    exports.Set("libc_unix_linuxlike_android_removexattr", Napi::Function::New(env, libc_unix_linuxlike_android_removexattr_napi));
-    exports.Set("libc_unix_linuxlike_android_lremovexattr", Napi::Function::New(env, libc_unix_linuxlike_android_lremovexattr_napi));
-    exports.Set("libc_unix_linuxlike_android_fremovexattr", Napi::Function::New(env, libc_unix_linuxlike_android_fremovexattr_napi));
-    exports.Set("libc_unix_linuxlike_android_signalfd", Napi::Function::New(env, libc_unix_linuxlike_android_signalfd_napi));
-    exports.Set("libc_unix_linuxlike_android_timerfdCreate", Napi::Function::New(env, libc_unix_linuxlike_android_timerfdCreate_napi));
-    exports.Set("libc_unix_linuxlike_android_timerfdGettime", Napi::Function::New(env, libc_unix_linuxlike_android_timerfdGettime_napi));
-    exports.Set("libc_unix_linuxlike_android_timerfdSettime", Napi::Function::New(env, libc_unix_linuxlike_android_timerfdSettime_napi));
-    exports.Set("libc_unix_linuxlike_android_syscall", Napi::Function::New(env, libc_unix_linuxlike_android_syscall_napi));
-    exports.Set("libc_unix_linuxlike_android_schedGetaffinity", Napi::Function::New(env, libc_unix_linuxlike_android_schedGetaffinity_napi));
-    exports.Set("libc_unix_linuxlike_android_schedSetaffinity", Napi::Function::New(env, libc_unix_linuxlike_android_schedSetaffinity_napi));
-    exports.Set("libc_unix_linuxlike_android_epollCreate", Napi::Function::New(env, libc_unix_linuxlike_android_epollCreate_napi));
-    exports.Set("libc_unix_linuxlike_android_epollCreate1", Napi::Function::New(env, libc_unix_linuxlike_android_epollCreate1_napi));
-    exports.Set("libc_unix_linuxlike_android_epollWait", Napi::Function::New(env, libc_unix_linuxlike_android_epollWait_napi));
-    exports.Set("libc_unix_linuxlike_android_epollCtl", Napi::Function::New(env, libc_unix_linuxlike_android_epollCtl_napi));
-    exports.Set("libc_unix_linuxlike_android_unshare", Napi::Function::New(env, libc_unix_linuxlike_android_unshare_napi));
-    exports.Set("libc_unix_linuxlike_android_umount", Napi::Function::New(env, libc_unix_linuxlike_android_umount_napi));
-    exports.Set("libc_unix_linuxlike_android_schedGetPriorityMax", Napi::Function::New(env, libc_unix_linuxlike_android_schedGetPriorityMax_napi));
-    exports.Set("libc_unix_linuxlike_android_tee", Napi::Function::New(env, libc_unix_linuxlike_android_tee_napi));
-    exports.Set("libc_unix_linuxlike_android_settimeofday", Napi::Function::New(env, libc_unix_linuxlike_android_settimeofday_napi));
-    exports.Set("libc_unix_linuxlike_android_splice", Napi::Function::New(env, libc_unix_linuxlike_android_splice_napi));
-    exports.Set("libc_unix_linuxlike_android_eventfd", Napi::Function::New(env, libc_unix_linuxlike_android_eventfd_napi));
-    exports.Set("libc_unix_linuxlike_android_eventfdRead", Napi::Function::New(env, libc_unix_linuxlike_android_eventfdRead_napi));
-    exports.Set("libc_unix_linuxlike_android_eventfdWrite", Napi::Function::New(env, libc_unix_linuxlike_android_eventfdWrite_napi));
-    exports.Set("libc_unix_linuxlike_android_schedRrGetInterval", Napi::Function::New(env, libc_unix_linuxlike_android_schedRrGetInterval_napi));
-    exports.Set("libc_unix_linuxlike_android_semTimedwait", Napi::Function::New(env, libc_unix_linuxlike_android_semTimedwait_napi));
-    exports.Set("libc_unix_linuxlike_android_semGetvalue", Napi::Function::New(env, libc_unix_linuxlike_android_semGetvalue_napi));
-    exports.Set("libc_unix_linuxlike_android_schedSetparam", Napi::Function::New(env, libc_unix_linuxlike_android_schedSetparam_napi));
-    exports.Set("libc_unix_linuxlike_android_setns", Napi::Function::New(env, libc_unix_linuxlike_android_setns_napi));
-    exports.Set("libc_unix_linuxlike_android_swapoff", Napi::Function::New(env, libc_unix_linuxlike_android_swapoff_napi));
-    exports.Set("libc_unix_linuxlike_android_vmsplice", Napi::Function::New(env, libc_unix_linuxlike_android_vmsplice_napi));
-    exports.Set("libc_unix_linuxlike_android_mount", Napi::Function::New(env, libc_unix_linuxlike_android_mount_napi));
-    exports.Set("libc_unix_linuxlike_android_personality", Napi::Function::New(env, libc_unix_linuxlike_android_personality_napi));
-    exports.Set("libc_unix_linuxlike_android_prctl", Napi::Function::New(env, libc_unix_linuxlike_android_prctl_napi));
-    exports.Set("libc_unix_linuxlike_android_schedGetparam", Napi::Function::New(env, libc_unix_linuxlike_android_schedGetparam_napi));
-    exports.Set("libc_unix_linuxlike_android_ppoll", Napi::Function::New(env, libc_unix_linuxlike_android_ppoll_napi));
-    exports.Set("libc_unix_linuxlike_android_clone", Napi::Function::New(env, libc_unix_linuxlike_android_clone_napi));
-    exports.Set("libc_unix_linuxlike_android_schedGetscheduler", Napi::Function::New(env, libc_unix_linuxlike_android_schedGetscheduler_napi));
-    exports.Set("libc_unix_linuxlike_android_clockNanosleep", Napi::Function::New(env, libc_unix_linuxlike_android_clockNanosleep_napi));
-    exports.Set("libc_unix_linuxlike_android_sethostname", Napi::Function::New(env, libc_unix_linuxlike_android_sethostname_napi));
-    exports.Set("libc_unix_linuxlike_android_schedGetPriorityMin", Napi::Function::New(env, libc_unix_linuxlike_android_schedGetPriorityMin_napi));
-    exports.Set("libc_unix_linuxlike_android_sysinfo", Napi::Function::New(env, libc_unix_linuxlike_android_sysinfo_napi));
-    exports.Set("libc_unix_linuxlike_android_umount2", Napi::Function::New(env, libc_unix_linuxlike_android_umount2_napi));
-    exports.Set("libc_unix_linuxlike_android_swapon", Napi::Function::New(env, libc_unix_linuxlike_android_swapon_napi));
-    exports.Set("libc_unix_linuxlike_android_schedSetscheduler", Napi::Function::New(env, libc_unix_linuxlike_android_schedSetscheduler_napi));
-    exports.Set("libc_unix_linuxlike_android_sendfile", Napi::Function::New(env, libc_unix_linuxlike_android_sendfile_napi));
-    exports.Set("libc_unix_linuxlike_android_sendfile64", Napi::Function::New(env, libc_unix_linuxlike_android_sendfile64_napi));
-    exports.Set("libc_unix_linuxlike_android_setfsgid", Napi::Function::New(env, libc_unix_linuxlike_android_setfsgid_napi));
-    exports.Set("libc_unix_linuxlike_android_setfsuid", Napi::Function::New(env, libc_unix_linuxlike_android_setfsuid_napi));
-    exports.Set("libc_unix_linuxlike_android_sigsuspend", Napi::Function::New(env, libc_unix_linuxlike_android_sigsuspend_napi));
-    exports.Set("libc_unix_linuxlike_android_getgrgidR", Napi::Function::New(env, libc_unix_linuxlike_android_getgrgidR_napi));
-    exports.Set("libc_unix_linuxlike_android_sigaltstack", Napi::Function::New(env, libc_unix_linuxlike_android_sigaltstack_napi));
-    exports.Set("libc_unix_linuxlike_android_semClose", Napi::Function::New(env, libc_unix_linuxlike_android_semClose_napi));
-    exports.Set("libc_unix_linuxlike_android_getgrnamR", Napi::Function::New(env, libc_unix_linuxlike_android_getgrnamR_napi));
-    exports.Set("libc_unix_linuxlike_android_semOpen", Napi::Function::New(env, libc_unix_linuxlike_android_semOpen_napi));
-    exports.Set("libc_unix_linuxlike_android_getgrnam", Napi::Function::New(env, libc_unix_linuxlike_android_getgrnam_napi));
-    exports.Set("libc_unix_linuxlike_android_semUnlink", Napi::Function::New(env, libc_unix_linuxlike_android_semUnlink_napi));
-    exports.Set("libc_unix_linuxlike_android_daemon", Napi::Function::New(env, libc_unix_linuxlike_android_daemon_napi));
-    exports.Set("libc_unix_linuxlike_android_sigtimedwait", Napi::Function::New(env, libc_unix_linuxlike_android_sigtimedwait_napi));
-    exports.Set("libc_unix_linuxlike_android_sigwait", Napi::Function::New(env, libc_unix_linuxlike_android_sigwait_napi));
-    exports.Set("libc_unix_linuxlike_android_getgrgid", Napi::Function::New(env, libc_unix_linuxlike_android_getgrgid_napi));
-    exports.Set("libc_unix_linuxlike_android_getgrouplist", Napi::Function::New(env, libc_unix_linuxlike_android_getgrouplist_napi));
-    exports.Set("libc_unix_linuxlike_android_initgroups", Napi::Function::New(env, libc_unix_linuxlike_android_initgroups_napi));
-    exports.Set("libc_unix_linuxlike_android_popen", Napi::Function::New(env, libc_unix_linuxlike_android_popen_napi));
-    exports.Set("libc_unix_linuxlike_android_faccessat", Napi::Function::New(env, libc_unix_linuxlike_android_faccessat_napi));
-    exports.Set("libc_unix_linuxlike_android_errno", Napi::Function::New(env, libc_unix_linuxlike_android_errno_napi));
-    exports.Set("libc_unix_linuxlike_android_inotifyRmWatch", Napi::Function::New(env, libc_unix_linuxlike_android_inotifyRmWatch_napi));
-    exports.Set("libc_unix_linuxlike_android_inotifyInit", Napi::Function::New(env, libc_unix_linuxlike_android_inotifyInit_napi));
-    exports.Set("libc_unix_linuxlike_android_inotifyInit1", Napi::Function::New(env, libc_unix_linuxlike_android_inotifyInit1_napi));
-    exports.Set("libc_unix_linuxlike_android_inotifyAddWatch", Napi::Function::New(env, libc_unix_linuxlike_android_inotifyAddWatch_napi));
-    exports.Set("libc_unix_linuxlike_android_regcomp", Napi::Function::New(env, libc_unix_linuxlike_android_regcomp_napi));
-    exports.Set("libc_unix_linuxlike_android_regexec", Napi::Function::New(env, libc_unix_linuxlike_android_regexec_napi));
-    exports.Set("libc_unix_linuxlike_android_regerror", Napi::Function::New(env, libc_unix_linuxlike_android_regerror_napi));
-    exports.Set("libc_unix_linuxlike_android_regfree", Napi::Function::New(env, libc_unix_linuxlike_android_regfree_napi));
-    exports.Set("libc_unix_linuxlike_android_androidSetAbortMessage", Napi::Function::New(env, libc_unix_linuxlike_android_androidSetAbortMessage_napi));
-    exports.Set("libc_unix_linuxlike_android_gettid", Napi::Function::New(env, libc_unix_linuxlike_android_gettid_napi));
-    exports.Set("libc_unix_linuxlike_android_tgkill", Napi::Function::New(env, libc_unix_linuxlike_android_tgkill_napi));
-    exports.Set("libc_unix_linuxlike_android_getauxval", Napi::Function::New(env, libc_unix_linuxlike_android_getauxval_napi));
-    exports.Set("libc_unix_linuxlike_android_getrandom", Napi::Function::New(env, libc_unix_linuxlike_android_getrandom_napi));
-    exports.Set("libc_unix_linuxlike_android_getentropy", Napi::Function::New(env, libc_unix_linuxlike_android_getentropy_napi));
-    exports.Set("libc_unix_linuxlike_android_systemPropertySet", Napi::Function::New(env, libc_unix_linuxlike_android_systemPropertySet_napi));
-    exports.Set("libc_unix_linuxlike_android_systemPropertyGet", Napi::Function::New(env, libc_unix_linuxlike_android_systemPropertyGet_napi));
-    exports.Set("libc_unix_linuxlike_android_systemPropertyFind", Napi::Function::New(env, libc_unix_linuxlike_android_systemPropertyFind_napi));
-    exports.Set("libc_unix_linuxlike_android_systemPropertyFindNth", Napi::Function::New(env, libc_unix_linuxlike_android_systemPropertyFindNth_napi));
-    exports.Set("libc_unix_linuxlike_android_systemPropertyForeach", Napi::Function::New(env, libc_unix_linuxlike_android_systemPropertyForeach_napi));
-    exports.Set("libc_unix_linuxlike_android_dlIteratePhdr", Napi::Function::New(env, libc_unix_linuxlike_android_dlIteratePhdr_napi));
-    exports.Set("libc_unix_linuxlike_android_arc4random", Napi::Function::New(env, libc_unix_linuxlike_android_arc4random_napi));
-    exports.Set("libc_unix_linuxlike_android_arc4randomUniform", Napi::Function::New(env, libc_unix_linuxlike_android_arc4randomUniform_napi));
-    exports.Set("libc_unix_linuxlike_android_arc4randomBuf", Napi::Function::New(env, libc_unix_linuxlike_android_arc4randomBuf_napi));
-    exports.Set("libc_unix_linuxlike_android_reallocarray", Napi::Function::New(env, libc_unix_linuxlike_android_reallocarray_napi));
-    exports.Set("libc_unix_linuxlike_android_dirname", Napi::Function::New(env, libc_unix_linuxlike_android_dirname_napi));
-    exports.Set("libc_unix_linuxlike_android_basename", Napi::Function::New(env, libc_unix_linuxlike_android_basename_napi));
-    exports.Set("libc_unix_linuxlike_android_getoptLong", Napi::Function::New(env, libc_unix_linuxlike_android_getoptLong_napi));
-    exports.Set("libc_unix_linuxlike_android_sync", Napi::Function::New(env, libc_unix_linuxlike_android_sync_napi));
-    exports.Set("libc_unix_linuxlike_android_syncfs", Napi::Function::New(env, libc_unix_linuxlike_android_syncfs_napi));
-    exports.Set("libc_unix_linuxlike_android_memmem", Napi::Function::New(env, libc_unix_linuxlike_android_memmem_napi));
-    exports.Set("libc_unix_linuxlike_android_freadUnlocked", Napi::Function::New(env, libc_unix_linuxlike_android_freadUnlocked_napi));
-    exports.Set("libc_unix_linuxlike_android_fwriteUnlocked", Napi::Function::New(env, libc_unix_linuxlike_android_fwriteUnlocked_napi));
-    exports.Set("libc_unix_linuxlike_android_fflushUnlocked", Napi::Function::New(env, libc_unix_linuxlike_android_fflushUnlocked_napi));
-    exports.Set("libc_unix_linuxlike_android_fgetsUnlocked", Napi::Function::New(env, libc_unix_linuxlike_android_fgetsUnlocked_napi));
-    exports.Set("libc_unix_linuxlike_android_klogctl", Napi::Function::New(env, libc_unix_linuxlike_android_klogctl_napi));
-    exports.Set("libc_unix_linuxlike_android_memfdCreate", Napi::Function::New(env, libc_unix_linuxlike_android_memfdCreate_napi));
-    exports.Set("libc_unix_linuxlike_android_renameat2", Napi::Function::New(env, libc_unix_linuxlike_android_renameat2_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSetgrent", Napi::Function::New(env, libcUnixLinuxlikeAndroidSetgrent_napi));
+    exports.Set("libcUnixLinuxlikeAndroidEndgrent", Napi::Function::New(env, libcUnixLinuxlikeAndroidEndgrent_napi));
+    exports.Set("libcUnixLinuxlikeAndroidGetgrent", Napi::Function::New(env, libcUnixLinuxlikeAndroidGetgrent_napi));
+    exports.Set("libcUnixLinuxlikeAndroidGetrlimit64", Napi::Function::New(env, libcUnixLinuxlikeAndroidGetrlimit64_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSetrlimit64", Napi::Function::New(env, libcUnixLinuxlikeAndroidSetrlimit64_napi));
+    exports.Set("libcUnixLinuxlikeAndroidGetrlimit", Napi::Function::New(env, libcUnixLinuxlikeAndroidGetrlimit_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSetrlimit", Napi::Function::New(env, libcUnixLinuxlikeAndroidSetrlimit_napi));
+    exports.Set("libcUnixLinuxlikeAndroidPrlimit", Napi::Function::New(env, libcUnixLinuxlikeAndroidPrlimit_napi));
+    exports.Set("libcUnixLinuxlikeAndroidPrlimit64", Napi::Function::New(env, libcUnixLinuxlikeAndroidPrlimit64_napi));
+    exports.Set("libcUnixLinuxlikeAndroidStrerrorR", Napi::Function::New(env, libcUnixLinuxlikeAndroidStrerrorR_napi));
+    exports.Set("libcUnixLinuxlikeAndroidGettimeofday", Napi::Function::New(env, libcUnixLinuxlikeAndroidGettimeofday_napi));
+    exports.Set("libcUnixLinuxlikeAndroidMlock2", Napi::Function::New(env, libcUnixLinuxlikeAndroidMlock2_napi));
+    exports.Set("libcUnixLinuxlikeAndroidMadvise", Napi::Function::New(env, libcUnixLinuxlikeAndroidMadvise_napi));
+    exports.Set("libcUnixLinuxlikeAndroidMsync", Napi::Function::New(env, libcUnixLinuxlikeAndroidMsync_napi));
+    exports.Set("libcUnixLinuxlikeAndroidMprotect", Napi::Function::New(env, libcUnixLinuxlikeAndroidMprotect_napi));
+    exports.Set("libcUnixLinuxlikeAndroidGetnameinfo", Napi::Function::New(env, libcUnixLinuxlikeAndroidGetnameinfo_napi));
+    exports.Set("libcUnixLinuxlikeAndroidPreadv", Napi::Function::New(env, libcUnixLinuxlikeAndroidPreadv_napi));
+    exports.Set("libcUnixLinuxlikeAndroidPwritev", Napi::Function::New(env, libcUnixLinuxlikeAndroidPwritev_napi));
+    exports.Set("libcUnixLinuxlikeAndroidProcessVmReadv", Napi::Function::New(env, libcUnixLinuxlikeAndroidProcessVmReadv_napi));
+    exports.Set("libcUnixLinuxlikeAndroidProcessVmWritev", Napi::Function::New(env, libcUnixLinuxlikeAndroidProcessVmWritev_napi));
+    exports.Set("libcUnixLinuxlikeAndroidPtrace", Napi::Function::New(env, libcUnixLinuxlikeAndroidPtrace_napi));
+    exports.Set("libcUnixLinuxlikeAndroidGetpriority", Napi::Function::New(env, libcUnixLinuxlikeAndroidGetpriority_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSetpriority", Napi::Function::New(env, libcUnixLinuxlikeAndroidSetpriority_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSchedCpualloc", Napi::Function::New(env, libcUnixLinuxlikeAndroidSchedCpualloc_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSchedCpufree", Napi::Function::New(env, libcUnixLinuxlikeAndroidSchedCpufree_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSchedCpucount", Napi::Function::New(env, libcUnixLinuxlikeAndroidSchedCpucount_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSchedGetcpu", Napi::Function::New(env, libcUnixLinuxlikeAndroidSchedGetcpu_napi));
+    exports.Set("libcUnixLinuxlikeAndroidMallocInfo", Napi::Function::New(env, libcUnixLinuxlikeAndroidMallocInfo_napi));
+    exports.Set("libcUnixLinuxlikeAndroidMallocUsableSize", Napi::Function::New(env, libcUnixLinuxlikeAndroidMallocUsableSize_napi));
+    exports.Set("libcUnixLinuxlikeAndroidUtmpname", Napi::Function::New(env, libcUnixLinuxlikeAndroidUtmpname_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSetutent", Napi::Function::New(env, libcUnixLinuxlikeAndroidSetutent_napi));
+    exports.Set("libcUnixLinuxlikeAndroidGetutent", Napi::Function::New(env, libcUnixLinuxlikeAndroidGetutent_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSeekdir", Napi::Function::New(env, libcUnixLinuxlikeAndroidSeekdir_napi));
+    exports.Set("libcUnixLinuxlikeAndroidTelldir", Napi::Function::New(env, libcUnixLinuxlikeAndroidTelldir_napi));
+    exports.Set("libcUnixLinuxlikeAndroidFallocate", Napi::Function::New(env, libcUnixLinuxlikeAndroidFallocate_napi));
+    exports.Set("libcUnixLinuxlikeAndroidFallocate64", Napi::Function::New(env, libcUnixLinuxlikeAndroidFallocate64_napi));
+    exports.Set("libcUnixLinuxlikeAndroidPosixFallocate", Napi::Function::New(env, libcUnixLinuxlikeAndroidPosixFallocate_napi));
+    exports.Set("libcUnixLinuxlikeAndroidPosixFallocate64", Napi::Function::New(env, libcUnixLinuxlikeAndroidPosixFallocate64_napi));
+    exports.Set("libcUnixLinuxlikeAndroidGetxattr", Napi::Function::New(env, libcUnixLinuxlikeAndroidGetxattr_napi));
+    exports.Set("libcUnixLinuxlikeAndroidLgetxattr", Napi::Function::New(env, libcUnixLinuxlikeAndroidLgetxattr_napi));
+    exports.Set("libcUnixLinuxlikeAndroidFgetxattr", Napi::Function::New(env, libcUnixLinuxlikeAndroidFgetxattr_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSetxattr", Napi::Function::New(env, libcUnixLinuxlikeAndroidSetxattr_napi));
+    exports.Set("libcUnixLinuxlikeAndroidLsetxattr", Napi::Function::New(env, libcUnixLinuxlikeAndroidLsetxattr_napi));
+    exports.Set("libcUnixLinuxlikeAndroidFsetxattr", Napi::Function::New(env, libcUnixLinuxlikeAndroidFsetxattr_napi));
+    exports.Set("libcUnixLinuxlikeAndroidListxattr", Napi::Function::New(env, libcUnixLinuxlikeAndroidListxattr_napi));
+    exports.Set("libcUnixLinuxlikeAndroidLlistxattr", Napi::Function::New(env, libcUnixLinuxlikeAndroidLlistxattr_napi));
+    exports.Set("libcUnixLinuxlikeAndroidFlistxattr", Napi::Function::New(env, libcUnixLinuxlikeAndroidFlistxattr_napi));
+    exports.Set("libcUnixLinuxlikeAndroidRemovexattr", Napi::Function::New(env, libcUnixLinuxlikeAndroidRemovexattr_napi));
+    exports.Set("libcUnixLinuxlikeAndroidLremovexattr", Napi::Function::New(env, libcUnixLinuxlikeAndroidLremovexattr_napi));
+    exports.Set("libcUnixLinuxlikeAndroidFremovexattr", Napi::Function::New(env, libcUnixLinuxlikeAndroidFremovexattr_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSignalfd", Napi::Function::New(env, libcUnixLinuxlikeAndroidSignalfd_napi));
+    exports.Set("libcUnixLinuxlikeAndroidTimerfdCreate", Napi::Function::New(env, libcUnixLinuxlikeAndroidTimerfdCreate_napi));
+    exports.Set("libcUnixLinuxlikeAndroidTimerfdGettime", Napi::Function::New(env, libcUnixLinuxlikeAndroidTimerfdGettime_napi));
+    exports.Set("libcUnixLinuxlikeAndroidTimerfdSettime", Napi::Function::New(env, libcUnixLinuxlikeAndroidTimerfdSettime_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSyscall", Napi::Function::New(env, libcUnixLinuxlikeAndroidSyscall_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSchedGetaffinity", Napi::Function::New(env, libcUnixLinuxlikeAndroidSchedGetaffinity_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSchedSetaffinity", Napi::Function::New(env, libcUnixLinuxlikeAndroidSchedSetaffinity_napi));
+    exports.Set("libcUnixLinuxlikeAndroidEpollCreate", Napi::Function::New(env, libcUnixLinuxlikeAndroidEpollCreate_napi));
+    exports.Set("libcUnixLinuxlikeAndroidEpollCreate1", Napi::Function::New(env, libcUnixLinuxlikeAndroidEpollCreate1_napi));
+    exports.Set("libcUnixLinuxlikeAndroidEpollWait", Napi::Function::New(env, libcUnixLinuxlikeAndroidEpollWait_napi));
+    exports.Set("libcUnixLinuxlikeAndroidEpollCtl", Napi::Function::New(env, libcUnixLinuxlikeAndroidEpollCtl_napi));
+    exports.Set("libcUnixLinuxlikeAndroidUnshare", Napi::Function::New(env, libcUnixLinuxlikeAndroidUnshare_napi));
+    exports.Set("libcUnixLinuxlikeAndroidUmount", Napi::Function::New(env, libcUnixLinuxlikeAndroidUmount_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSchedGetPriorityMax", Napi::Function::New(env, libcUnixLinuxlikeAndroidSchedGetPriorityMax_napi));
+    exports.Set("libcUnixLinuxlikeAndroidTee", Napi::Function::New(env, libcUnixLinuxlikeAndroidTee_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSettimeofday", Napi::Function::New(env, libcUnixLinuxlikeAndroidSettimeofday_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSplice", Napi::Function::New(env, libcUnixLinuxlikeAndroidSplice_napi));
+    exports.Set("libcUnixLinuxlikeAndroidEventfd", Napi::Function::New(env, libcUnixLinuxlikeAndroidEventfd_napi));
+    exports.Set("libcUnixLinuxlikeAndroidEventfdRead", Napi::Function::New(env, libcUnixLinuxlikeAndroidEventfdRead_napi));
+    exports.Set("libcUnixLinuxlikeAndroidEventfdWrite", Napi::Function::New(env, libcUnixLinuxlikeAndroidEventfdWrite_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSchedRrGetInterval", Napi::Function::New(env, libcUnixLinuxlikeAndroidSchedRrGetInterval_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSemTimedwait", Napi::Function::New(env, libcUnixLinuxlikeAndroidSemTimedwait_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSemGetvalue", Napi::Function::New(env, libcUnixLinuxlikeAndroidSemGetvalue_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSchedSetparam", Napi::Function::New(env, libcUnixLinuxlikeAndroidSchedSetparam_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSetns", Napi::Function::New(env, libcUnixLinuxlikeAndroidSetns_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSwapoff", Napi::Function::New(env, libcUnixLinuxlikeAndroidSwapoff_napi));
+    exports.Set("libcUnixLinuxlikeAndroidVmsplice", Napi::Function::New(env, libcUnixLinuxlikeAndroidVmsplice_napi));
+    exports.Set("libcUnixLinuxlikeAndroidMount", Napi::Function::New(env, libcUnixLinuxlikeAndroidMount_napi));
+    exports.Set("libcUnixLinuxlikeAndroidPersonality", Napi::Function::New(env, libcUnixLinuxlikeAndroidPersonality_napi));
+    exports.Set("libcUnixLinuxlikeAndroidPrctl", Napi::Function::New(env, libcUnixLinuxlikeAndroidPrctl_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSchedGetparam", Napi::Function::New(env, libcUnixLinuxlikeAndroidSchedGetparam_napi));
+    exports.Set("libcUnixLinuxlikeAndroidPpoll", Napi::Function::New(env, libcUnixLinuxlikeAndroidPpoll_napi));
+    exports.Set("libcUnixLinuxlikeAndroidClone", Napi::Function::New(env, libcUnixLinuxlikeAndroidClone_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSchedGetscheduler", Napi::Function::New(env, libcUnixLinuxlikeAndroidSchedGetscheduler_napi));
+    exports.Set("libcUnixLinuxlikeAndroidClockNanosleep", Napi::Function::New(env, libcUnixLinuxlikeAndroidClockNanosleep_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSethostname", Napi::Function::New(env, libcUnixLinuxlikeAndroidSethostname_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSchedGetPriorityMin", Napi::Function::New(env, libcUnixLinuxlikeAndroidSchedGetPriorityMin_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSysinfo", Napi::Function::New(env, libcUnixLinuxlikeAndroidSysinfo_napi));
+    exports.Set("libcUnixLinuxlikeAndroidUmount2", Napi::Function::New(env, libcUnixLinuxlikeAndroidUmount2_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSwapon", Napi::Function::New(env, libcUnixLinuxlikeAndroidSwapon_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSchedSetscheduler", Napi::Function::New(env, libcUnixLinuxlikeAndroidSchedSetscheduler_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSendfile", Napi::Function::New(env, libcUnixLinuxlikeAndroidSendfile_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSendfile64", Napi::Function::New(env, libcUnixLinuxlikeAndroidSendfile64_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSetfsgid", Napi::Function::New(env, libcUnixLinuxlikeAndroidSetfsgid_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSetfsuid", Napi::Function::New(env, libcUnixLinuxlikeAndroidSetfsuid_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSigsuspend", Napi::Function::New(env, libcUnixLinuxlikeAndroidSigsuspend_napi));
+    exports.Set("libcUnixLinuxlikeAndroidGetgrgidR", Napi::Function::New(env, libcUnixLinuxlikeAndroidGetgrgidR_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSigaltstack", Napi::Function::New(env, libcUnixLinuxlikeAndroidSigaltstack_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSemClose", Napi::Function::New(env, libcUnixLinuxlikeAndroidSemClose_napi));
+    exports.Set("libcUnixLinuxlikeAndroidGetgrnamR", Napi::Function::New(env, libcUnixLinuxlikeAndroidGetgrnamR_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSemOpen", Napi::Function::New(env, libcUnixLinuxlikeAndroidSemOpen_napi));
+    exports.Set("libcUnixLinuxlikeAndroidGetgrnam", Napi::Function::New(env, libcUnixLinuxlikeAndroidGetgrnam_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSemUnlink", Napi::Function::New(env, libcUnixLinuxlikeAndroidSemUnlink_napi));
+    exports.Set("libcUnixLinuxlikeAndroidDaemon", Napi::Function::New(env, libcUnixLinuxlikeAndroidDaemon_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSigtimedwait", Napi::Function::New(env, libcUnixLinuxlikeAndroidSigtimedwait_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSigwait", Napi::Function::New(env, libcUnixLinuxlikeAndroidSigwait_napi));
+    exports.Set("libcUnixLinuxlikeAndroidGetgrgid", Napi::Function::New(env, libcUnixLinuxlikeAndroidGetgrgid_napi));
+    exports.Set("libcUnixLinuxlikeAndroidGetgrouplist", Napi::Function::New(env, libcUnixLinuxlikeAndroidGetgrouplist_napi));
+    exports.Set("libcUnixLinuxlikeAndroidInitgroups", Napi::Function::New(env, libcUnixLinuxlikeAndroidInitgroups_napi));
+    exports.Set("libcUnixLinuxlikeAndroidPopen", Napi::Function::New(env, libcUnixLinuxlikeAndroidPopen_napi));
+    exports.Set("libcUnixLinuxlikeAndroidFaccessat", Napi::Function::New(env, libcUnixLinuxlikeAndroidFaccessat_napi));
+    exports.Set("libcUnixLinuxlikeAndroidErrno", Napi::Function::New(env, libcUnixLinuxlikeAndroidErrno_napi));
+    exports.Set("libcUnixLinuxlikeAndroidInotifyRmWatch", Napi::Function::New(env, libcUnixLinuxlikeAndroidInotifyRmWatch_napi));
+    exports.Set("libcUnixLinuxlikeAndroidInotifyInit", Napi::Function::New(env, libcUnixLinuxlikeAndroidInotifyInit_napi));
+    exports.Set("libcUnixLinuxlikeAndroidInotifyInit1", Napi::Function::New(env, libcUnixLinuxlikeAndroidInotifyInit1_napi));
+    exports.Set("libcUnixLinuxlikeAndroidInotifyAddWatch", Napi::Function::New(env, libcUnixLinuxlikeAndroidInotifyAddWatch_napi));
+    exports.Set("libcUnixLinuxlikeAndroidRegcomp", Napi::Function::New(env, libcUnixLinuxlikeAndroidRegcomp_napi));
+    exports.Set("libcUnixLinuxlikeAndroidRegexec", Napi::Function::New(env, libcUnixLinuxlikeAndroidRegexec_napi));
+    exports.Set("libcUnixLinuxlikeAndroidRegerror", Napi::Function::New(env, libcUnixLinuxlikeAndroidRegerror_napi));
+    exports.Set("libcUnixLinuxlikeAndroidRegfree", Napi::Function::New(env, libcUnixLinuxlikeAndroidRegfree_napi));
+    exports.Set("libcUnixLinuxlikeAndroidAndroidSetAbortMessage", Napi::Function::New(env, libcUnixLinuxlikeAndroidAndroidSetAbortMessage_napi));
+    exports.Set("libcUnixLinuxlikeAndroidGettid", Napi::Function::New(env, libcUnixLinuxlikeAndroidGettid_napi));
+    exports.Set("libcUnixLinuxlikeAndroidTgkill", Napi::Function::New(env, libcUnixLinuxlikeAndroidTgkill_napi));
+    exports.Set("libcUnixLinuxlikeAndroidGetauxval", Napi::Function::New(env, libcUnixLinuxlikeAndroidGetauxval_napi));
+    exports.Set("libcUnixLinuxlikeAndroidGetrandom", Napi::Function::New(env, libcUnixLinuxlikeAndroidGetrandom_napi));
+    exports.Set("libcUnixLinuxlikeAndroidGetentropy", Napi::Function::New(env, libcUnixLinuxlikeAndroidGetentropy_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSystemPropertySet", Napi::Function::New(env, libcUnixLinuxlikeAndroidSystemPropertySet_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSystemPropertyGet", Napi::Function::New(env, libcUnixLinuxlikeAndroidSystemPropertyGet_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSystemPropertyFind", Napi::Function::New(env, libcUnixLinuxlikeAndroidSystemPropertyFind_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSystemPropertyFindNth", Napi::Function::New(env, libcUnixLinuxlikeAndroidSystemPropertyFindNth_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSystemPropertyForeach", Napi::Function::New(env, libcUnixLinuxlikeAndroidSystemPropertyForeach_napi));
+    exports.Set("libcUnixLinuxlikeAndroidDlIteratePhdr", Napi::Function::New(env, libcUnixLinuxlikeAndroidDlIteratePhdr_napi));
+    exports.Set("libcUnixLinuxlikeAndroidArc4random", Napi::Function::New(env, libcUnixLinuxlikeAndroidArc4random_napi));
+    exports.Set("libcUnixLinuxlikeAndroidArc4randomUniform", Napi::Function::New(env, libcUnixLinuxlikeAndroidArc4randomUniform_napi));
+    exports.Set("libcUnixLinuxlikeAndroidArc4randomBuf", Napi::Function::New(env, libcUnixLinuxlikeAndroidArc4randomBuf_napi));
+    exports.Set("libcUnixLinuxlikeAndroidReallocarray", Napi::Function::New(env, libcUnixLinuxlikeAndroidReallocarray_napi));
+    exports.Set("libcUnixLinuxlikeAndroidDirname", Napi::Function::New(env, libcUnixLinuxlikeAndroidDirname_napi));
+    exports.Set("libcUnixLinuxlikeAndroidBasename", Napi::Function::New(env, libcUnixLinuxlikeAndroidBasename_napi));
+    exports.Set("libcUnixLinuxlikeAndroidGetoptLong", Napi::Function::New(env, libcUnixLinuxlikeAndroidGetoptLong_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSync", Napi::Function::New(env, libcUnixLinuxlikeAndroidSync_napi));
+    exports.Set("libcUnixLinuxlikeAndroidSyncfs", Napi::Function::New(env, libcUnixLinuxlikeAndroidSyncfs_napi));
+    exports.Set("libcUnixLinuxlikeAndroidMemmem", Napi::Function::New(env, libcUnixLinuxlikeAndroidMemmem_napi));
+    exports.Set("libcUnixLinuxlikeAndroidFreadUnlocked", Napi::Function::New(env, libcUnixLinuxlikeAndroidFreadUnlocked_napi));
+    exports.Set("libcUnixLinuxlikeAndroidFwriteUnlocked", Napi::Function::New(env, libcUnixLinuxlikeAndroidFwriteUnlocked_napi));
+    exports.Set("libcUnixLinuxlikeAndroidFflushUnlocked", Napi::Function::New(env, libcUnixLinuxlikeAndroidFflushUnlocked_napi));
+    exports.Set("libcUnixLinuxlikeAndroidFgetsUnlocked", Napi::Function::New(env, libcUnixLinuxlikeAndroidFgetsUnlocked_napi));
+    exports.Set("libcUnixLinuxlikeAndroidKlogctl", Napi::Function::New(env, libcUnixLinuxlikeAndroidKlogctl_napi));
+    exports.Set("libcUnixLinuxlikeAndroidMemfdCreate", Napi::Function::New(env, libcUnixLinuxlikeAndroidMemfdCreate_napi));
+    exports.Set("libcUnixLinuxlikeAndroidRenameat2", Napi::Function::New(env, libcUnixLinuxlikeAndroidRenameat2_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_unix_linuxlike_android_napi, nullptr };

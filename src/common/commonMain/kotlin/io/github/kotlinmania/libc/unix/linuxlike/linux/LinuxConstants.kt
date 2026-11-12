@@ -1906,7 +1906,7 @@ public val IW_EV_LCP_PK_LEN: Int = 4
 
 public val IW_EV_CHAR_PK_LEN: Int = 20
 
-// IW_EV_LCP_PK_LEN + crate::IFNAMSIZ;
+// IW_EV_LCP_PK_LEN + Ifnamsiz;
 public val IW_EV_UINT_PK_LEN: Int = 8
 
 // IW_EV_LCP_PK_LEN + sizeOf::<u32>();
@@ -1918,7 +1918,7 @@ public val IW_EV_PARAM_PK_LEN: Int = 12
 // IW_EV_LCP_PK_LEN + sizeOf::<iwParam>();
 public val IW_EV_ADDR_PK_LEN: Int = 20
 
-// IW_EV_LCP_PK_LEN + sizeOf::<crate::sockaddr>();
+// IW_EV_LCP_PK_LEN + sizeOf::<sockaddr>();
 public val IW_EV_QUAL_PK_LEN: Int = 8
 
 // IW_EV_LCP_PK_LEN + sizeOf::<iwQuality>();

@@ -33,7 +33,7 @@
 #endif
 #endif
 
-void* libc_solid_get_OPTARG(void) {
+void* libcSolidGetOPTARG(void) {
     static void** km_sym_ptr = NULL;
 #ifdef _WIN32
     if (km_sym_ptr == NULL) {
@@ -59,7 +59,7 @@ void* libc_solid_get_OPTARG(void) {
     return NULL;
 }
 
-void libc_solid_set_OPTARG(void* km_val) {
+void libcSolidSetOPTARG(void* km_val) {
     static void** km_sym_ptr = NULL;
 #ifdef _WIN32
     if (km_sym_ptr == NULL) {
@@ -84,7 +84,7 @@ void libc_solid_set_OPTARG(void* km_val) {
     }
 }
 
-int32_t libc_solid_get_OPTERR(void) {
+int32_t libcSolidGetOPTERR(void) {
     static int32_t* km_sym_ptr = NULL;
 #ifdef _WIN32
     if (km_sym_ptr == NULL) {
@@ -110,7 +110,7 @@ int32_t libc_solid_get_OPTERR(void) {
     return -1;
 }
 
-void libc_solid_set_OPTERR(int32_t km_val) {
+void libcSolidSetOPTERR(int32_t km_val) {
     static int32_t* km_sym_ptr = NULL;
 #ifdef _WIN32
     if (km_sym_ptr == NULL) {
@@ -135,7 +135,7 @@ void libc_solid_set_OPTERR(int32_t km_val) {
     }
 }
 
-int32_t libc_solid_get_OPTIND(void) {
+int32_t libcSolidGetOPTIND(void) {
     static int32_t* km_sym_ptr = NULL;
 #ifdef _WIN32
     if (km_sym_ptr == NULL) {
@@ -161,7 +161,7 @@ int32_t libc_solid_get_OPTIND(void) {
     return -1;
 }
 
-void libc_solid_set_OPTIND(int32_t km_val) {
+void libcSolidSetOPTIND(int32_t km_val) {
     static int32_t* km_sym_ptr = NULL;
 #ifdef _WIN32
     if (km_sym_ptr == NULL) {
@@ -186,7 +186,7 @@ void libc_solid_set_OPTIND(int32_t km_val) {
     }
 }
 
-int32_t libc_solid_get_OPTOPT(void) {
+int32_t libcSolidGetOPTOPT(void) {
     static int32_t* km_sym_ptr = NULL;
 #ifdef _WIN32
     if (km_sym_ptr == NULL) {
@@ -212,7 +212,7 @@ int32_t libc_solid_get_OPTOPT(void) {
     return -1;
 }
 
-void libc_solid_set_OPTOPT(int32_t km_val) {
+void libcSolidSetOPTOPT(int32_t km_val) {
     static int32_t* km_sym_ptr = NULL;
 #ifdef _WIN32
     if (km_sym_ptr == NULL) {
@@ -237,7 +237,7 @@ void libc_solid_set_OPTOPT(int32_t km_val) {
     }
 }
 
-int32_t libc_solid_get_OPTRESET(void) {
+int32_t libcSolidGetOPTRESET(void) {
     static int32_t* km_sym_ptr = NULL;
 #ifdef _WIN32
     if (km_sym_ptr == NULL) {
@@ -263,7 +263,7 @@ int32_t libc_solid_get_OPTRESET(void) {
     return -1;
 }
 
-void libc_solid_set_OPTRESET(int32_t km_val) {
+void libcSolidSetOPTRESET(int32_t km_val) {
     static int32_t* km_sym_ptr = NULL;
 #ifdef _WIN32
     if (km_sym_ptr == NULL) {
@@ -288,7 +288,7 @@ void libc_solid_set_OPTRESET(int32_t km_val) {
     }
 }
 
-void* libc_solid_get_SUBOPTARG(void) {
+void* libcSolidGetSUBOPTARG(void) {
     static void** km_sym_ptr = NULL;
 #ifdef _WIN32
     if (km_sym_ptr == NULL) {
@@ -314,7 +314,7 @@ void* libc_solid_get_SUBOPTARG(void) {
     return NULL;
 }
 
-void libc_solid_set_SUBOPTARG(void* km_val) {
+void libcSolidSetSUBOPTARG(void* km_val) {
     static void** km_sym_ptr = NULL;
 #ifdef _WIN32
     if (km_sym_ptr == NULL) {
@@ -339,63 +339,63 @@ void libc_solid_set_SUBOPTARG(void* km_val) {
     }
 }
 
-int32_t libc_solid_isalnum(int32_t c) {
+int32_t libcSolidIsalnum(int32_t c) {
     return (int32_t)isalnum(c);
 }
 
-int32_t libc_solid_isalpha(int32_t c) {
+int32_t libcSolidIsalpha(int32_t c) {
     return (int32_t)isalpha(c);
 }
 
-int32_t libc_solid_iscntrl(int32_t c) {
+int32_t libcSolidIscntrl(int32_t c) {
     return (int32_t)iscntrl(c);
 }
 
-int32_t libc_solid_isdigit(int32_t c) {
+int32_t libcSolidIsdigit(int32_t c) {
     return (int32_t)isdigit(c);
 }
 
-int32_t libc_solid_isgraph(int32_t c) {
+int32_t libcSolidIsgraph(int32_t c) {
     return (int32_t)isgraph(c);
 }
 
-int32_t libc_solid_islower(int32_t c) {
+int32_t libcSolidIslower(int32_t c) {
     return (int32_t)islower(c);
 }
 
-int32_t libc_solid_isprint(int32_t c) {
+int32_t libcSolidIsprint(int32_t c) {
     return (int32_t)isprint(c);
 }
 
-int32_t libc_solid_ispunct(int32_t c) {
+int32_t libcSolidIspunct(int32_t c) {
     return (int32_t)ispunct(c);
 }
 
-int32_t libc_solid_isspace(int32_t c) {
+int32_t libcSolidIsspace(int32_t c) {
     return (int32_t)isspace(c);
 }
 
-int32_t libc_solid_isupper(int32_t c) {
+int32_t libcSolidIsupper(int32_t c) {
     return (int32_t)isupper(c);
 }
 
-int32_t libc_solid_isxdigit(int32_t c) {
+int32_t libcSolidIsxdigit(int32_t c) {
     return (int32_t)isxdigit(c);
 }
 
-int32_t libc_solid_isblank(int32_t c) {
+int32_t libcSolidIsblank(int32_t c) {
     return (int32_t)isblank(c);
 }
 
-int32_t libc_solid_tolower(int32_t c) {
+int32_t libcSolidTolower(int32_t c) {
     return (int32_t)tolower(c);
 }
 
-int32_t libc_solid_toupper(int32_t c) {
+int32_t libcSolidToupper(int32_t c) {
     return (int32_t)toupper(c);
 }
 
-void* libc_solid_getStdioFile(int32_t fileno) {
+void* libcSolidGetStdioFile(int32_t fileno) {
     typedef void* (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -421,39 +421,39 @@ void* libc_solid_getStdioFile(int32_t fileno) {
     return NULL;
 }
 
-void libc_solid_clearerr(void* arg1) {
+void libcSolidClearerr(void* arg1) {
     clearerr((FILE*)arg1);
 }
 
-int32_t libc_solid_fclose(void* arg1) {
+int32_t libcSolidFclose(void* arg1) {
     return (int32_t)fclose((FILE*)arg1);
 }
 
-int32_t libc_solid_feof(void* arg1) {
+int32_t libcSolidFeof(void* arg1) {
     return (int32_t)feof((FILE*)arg1);
 }
 
-int32_t libc_solid_ferror(void* arg1) {
+int32_t libcSolidFerror(void* arg1) {
     return (int32_t)ferror((FILE*)arg1);
 }
 
-int32_t libc_solid_fflush(void* arg1) {
+int32_t libcSolidFflush(void* arg1) {
     return (int32_t)fflush((FILE*)arg1);
 }
 
-int32_t libc_solid_fgetc(void* arg1) {
+int32_t libcSolidFgetc(void* arg1) {
     return (int32_t)fgetc((FILE*)arg1);
 }
 
-char* libc_solid_fgets(char* arg1, int32_t arg2, void* arg3) {
+char* libcSolidFgets(char* arg1, int32_t arg2, void* arg3) {
     return (char*)fgets(arg1, arg2, (FILE*)arg3);
 }
 
-void* libc_solid_fopen(const char* arg1, const char* arg2) {
+void* libcSolidFopen(const char* arg1, const char* arg2) {
     return (void*)fopen(arg1, arg2);
 }
 
-int32_t libc_solid_fprintf(void* arg1, const char* arg2, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcSolidFprintf(void* arg1, const char* arg2, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(void*, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -487,23 +487,23 @@ int32_t libc_solid_fprintf(void* arg1, const char* arg2, int32_t km_vac, int64_t
     return -1;
 }
 
-int32_t libc_solid_fputc(int32_t arg1, void* arg2) {
+int32_t libcSolidFputc(int32_t arg1, void* arg2) {
     return (int32_t)fputc(arg1, (FILE*)arg2);
 }
 
-int32_t libc_solid_fputs(const char* arg1, void* arg2) {
+int32_t libcSolidFputs(const char* arg1, void* arg2) {
     return (int32_t)fputs(arg1, (FILE*)arg2);
 }
 
-uint64_t libc_solid_fread(void* arg1, uint64_t arg2, uint64_t arg3, void* arg4) {
+uint64_t libcSolidFread(void* arg1, uint64_t arg2, uint64_t arg3, void* arg4) {
     return (uint64_t)fread(arg1, arg2, arg3, (FILE*)arg4);
 }
 
-void* libc_solid_freopen(const char* arg1, const char* arg2, void* arg3) {
+void* libcSolidFreopen(const char* arg1, const char* arg2, void* arg3) {
     return (void*)freopen(arg1, arg2, (FILE*)arg3);
 }
 
-int32_t libc_solid_fscanf(void* arg1, const char* arg2, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcSolidFscanf(void* arg1, const char* arg2, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(void*, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -537,31 +537,31 @@ int32_t libc_solid_fscanf(void* arg1, const char* arg2, int32_t km_vac, int64_t 
     return -1;
 }
 
-int32_t libc_solid_fseek(void* arg1, int64_t arg2, int32_t arg3) {
+int32_t libcSolidFseek(void* arg1, int64_t arg2, int32_t arg3) {
     return (int32_t)fseek((FILE*)arg1, arg2, arg3);
 }
 
-int64_t libc_solid_ftell(void* arg1) {
+int64_t libcSolidFtell(void* arg1) {
     return (int64_t)ftell((FILE*)arg1);
 }
 
-uint64_t libc_solid_fwrite(void* arg1, uint64_t arg2, uint64_t arg3, void* arg4) {
+uint64_t libcSolidFwrite(void* arg1, uint64_t arg2, uint64_t arg3, void* arg4) {
     return (uint64_t)fwrite(arg1, arg2, arg3, (FILE*)arg4);
 }
 
-int32_t libc_solid_getc(void* arg1) {
+int32_t libcSolidGetc(void* arg1) {
     return (int32_t)getc((FILE*)arg1);
 }
 
-int32_t libc_solid_getchar(void) {
+int32_t libcSolidGetchar(void) {
     return (int32_t)getchar();
 }
 
-void libc_solid_perror(const char* arg1) {
+void libcSolidPerror(const char* arg1) {
     perror(arg1);
 }
 
-int32_t libc_solid_printf(const char* arg1, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcSolidPrintf(const char* arg1, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -595,7 +595,7 @@ int32_t libc_solid_printf(const char* arg1, int32_t km_vac, int64_t km_va0, int6
     return -1;
 }
 
-int32_t libc_solid_putc(int32_t arg1, void* arg2) {
+int32_t libcSolidPutc(int32_t arg1, void* arg2) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -623,23 +623,23 @@ int32_t libc_solid_putc(int32_t arg1, void* arg2) {
     return -1;
 }
 
-int32_t libc_solid_putchar(int32_t arg1) {
+int32_t libcSolidPutchar(int32_t arg1) {
     return (int32_t)putchar(arg1);
 }
 
-int32_t libc_solid_puts(const char* arg1) {
+int32_t libcSolidPuts(const char* arg1) {
     return (int32_t)puts(arg1);
 }
 
-int32_t libc_solid_remove(const char* arg1) {
+int32_t libcSolidRemove(const char* arg1) {
     return (int32_t)remove(arg1);
 }
 
-void libc_solid_rewind(void* arg1) {
+void libcSolidRewind(void* arg1) {
     rewind((FILE*)arg1);
 }
 
-int32_t libc_solid_scanf(const char* arg1, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcSolidScanf(const char* arg1, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -673,15 +673,15 @@ int32_t libc_solid_scanf(const char* arg1, int32_t km_vac, int64_t km_va0, int64
     return -1;
 }
 
-void libc_solid_setbuf(void* arg1, char* arg2) {
+void libcSolidSetbuf(void* arg1, char* arg2) {
     setbuf((FILE*)arg1, arg2);
 }
 
-int32_t libc_solid_setvbuf(void* arg1, char* arg2, int32_t arg3, uint64_t arg4) {
+int32_t libcSolidSetvbuf(void* arg1, char* arg2, int32_t arg3, uint64_t arg4) {
     return (int32_t)setvbuf((FILE*)arg1, arg2, arg3, arg4);
 }
 
-int32_t libc_solid_sscanf(const char* arg1, const char* arg2, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcSolidSscanf(const char* arg1, const char* arg2, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(const char*, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -715,15 +715,15 @@ int32_t libc_solid_sscanf(const char* arg1, const char* arg2, int32_t km_vac, in
     return -1;
 }
 
-void* libc_solid_tmpfile(void) {
+void* libcSolidTmpfile(void) {
     return (void*)tmpfile();
 }
 
-int32_t libc_solid_ungetc(int32_t arg1, void* arg2) {
+int32_t libcSolidUngetc(int32_t arg1, void* arg2) {
     return (int32_t)ungetc(arg1, (FILE*)arg2);
 }
 
-int32_t libc_solid_vfprintf(void* arg1, const char* arg2, char* arg3) {
+int32_t libcSolidVfprintf(void* arg1, const char* arg2, char* arg3) {
     typedef int32_t (*km_fn_t)(void*, const char*, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -751,7 +751,7 @@ int32_t libc_solid_vfprintf(void* arg1, const char* arg2, char* arg3) {
     return -1;
 }
 
-int32_t libc_solid_vprintf(const char* arg1, char* arg2) {
+int32_t libcSolidVprintf(const char* arg1, char* arg2) {
     typedef int32_t (*km_fn_t)(const char*, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -779,7 +779,7 @@ int32_t libc_solid_vprintf(const char* arg1, char* arg2) {
     return -1;
 }
 
-char* libc_solid_gets(char* arg1) {
+char* libcSolidGets(char* arg1) {
     typedef char* (*km_fn_t)(char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -807,7 +807,7 @@ char* libc_solid_gets(char* arg1) {
     return NULL;
 }
 
-int32_t libc_solid_sprintf(char* arg1, const char* arg2, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcSolidSprintf(char* arg1, const char* arg2, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(char*, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -841,7 +841,7 @@ int32_t libc_solid_sprintf(char* arg1, const char* arg2, int32_t km_vac, int64_t
     return -1;
 }
 
-char* libc_solid_tmpnam(const char* arg1) {
+char* libcSolidTmpnam(const char* arg1) {
     typedef char* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -869,7 +869,7 @@ char* libc_solid_tmpnam(const char* arg1) {
     return NULL;
 }
 
-int32_t libc_solid_vsprintf(char* arg1, const char* arg2, char* arg3) {
+int32_t libcSolidVsprintf(char* arg1, const char* arg2, char* arg3) {
     typedef int32_t (*km_fn_t)(char*, const char*, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -897,11 +897,11 @@ int32_t libc_solid_vsprintf(char* arg1, const char* arg2, char* arg3) {
     return -1;
 }
 
-int32_t libc_solid_rename(const char* arg1, const char* arg2) {
+int32_t libcSolidRename(const char* arg1, const char* arg2) {
     return (int32_t)rename(arg1, arg2);
 }
 
-int32_t libc_solid_asiprintf(void* arg1, const char* arg2, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcSolidAsiprintf(void* arg1, const char* arg2, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(void*, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -935,7 +935,7 @@ int32_t libc_solid_asiprintf(void* arg1, const char* arg2, int32_t km_vac, int64
     return -1;
 }
 
-int32_t libc_solid_fiprintf(void* arg1, const char* arg2, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcSolidFiprintf(void* arg1, const char* arg2, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(void*, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -969,7 +969,7 @@ int32_t libc_solid_fiprintf(void* arg1, const char* arg2, int32_t km_vac, int64_
     return -1;
 }
 
-int32_t libc_solid_fiscanf(void* arg1, const char* arg2, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcSolidFiscanf(void* arg1, const char* arg2, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(void*, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1003,7 +1003,7 @@ int32_t libc_solid_fiscanf(void* arg1, const char* arg2, int32_t km_vac, int64_t
     return -1;
 }
 
-int32_t libc_solid_iprintf(const char* arg1, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcSolidIprintf(const char* arg1, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1037,7 +1037,7 @@ int32_t libc_solid_iprintf(const char* arg1, int32_t km_vac, int64_t km_va0, int
     return -1;
 }
 
-int32_t libc_solid_iscanf(const char* arg1, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcSolidIscanf(const char* arg1, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1071,7 +1071,7 @@ int32_t libc_solid_iscanf(const char* arg1, int32_t km_vac, int64_t km_va0, int6
     return -1;
 }
 
-int32_t libc_solid_siprintf(char* arg1, const char* arg2, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcSolidSiprintf(char* arg1, const char* arg2, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(char*, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1105,7 +1105,7 @@ int32_t libc_solid_siprintf(char* arg1, const char* arg2, int32_t km_vac, int64_
     return -1;
 }
 
-int32_t libc_solid_siscanf(char* arg1, const char* arg2, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcSolidSiscanf(char* arg1, const char* arg2, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(char*, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1139,7 +1139,7 @@ int32_t libc_solid_siscanf(char* arg1, const char* arg2, int32_t km_vac, int64_t
     return -1;
 }
 
-int32_t libc_solid_sniprintf(char* arg1, uint64_t arg2, const char* arg3, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcSolidSniprintf(char* arg1, uint64_t arg2, const char* arg3, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(char*, uint64_t, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1173,7 +1173,7 @@ int32_t libc_solid_sniprintf(char* arg1, uint64_t arg2, const char* arg3, int32_
     return -1;
 }
 
-int32_t libc_solid_vasiprintf(void* arg1, const char* arg2, char* arg3) {
+int32_t libcSolidVasiprintf(void* arg1, const char* arg2, char* arg3) {
     typedef int32_t (*km_fn_t)(void*, const char*, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1201,7 +1201,7 @@ int32_t libc_solid_vasiprintf(void* arg1, const char* arg2, char* arg3) {
     return -1;
 }
 
-int32_t libc_solid_vfiprintf(void* arg1, const char* arg2, char* arg3) {
+int32_t libcSolidVfiprintf(void* arg1, const char* arg2, char* arg3) {
     typedef int32_t (*km_fn_t)(void*, const char*, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1229,7 +1229,7 @@ int32_t libc_solid_vfiprintf(void* arg1, const char* arg2, char* arg3) {
     return -1;
 }
 
-int32_t libc_solid_vfiscanf(void* arg1, const char* arg2, char* arg3) {
+int32_t libcSolidVfiscanf(void* arg1, const char* arg2, char* arg3) {
     typedef int32_t (*km_fn_t)(void*, const char*, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1257,7 +1257,7 @@ int32_t libc_solid_vfiscanf(void* arg1, const char* arg2, char* arg3) {
     return -1;
 }
 
-int32_t libc_solid_viprintf(const char* arg1, char* arg2) {
+int32_t libcSolidViprintf(const char* arg1, char* arg2) {
     typedef int32_t (*km_fn_t)(const char*, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1285,7 +1285,7 @@ int32_t libc_solid_viprintf(const char* arg1, char* arg2) {
     return -1;
 }
 
-int32_t libc_solid_viscanf(const char* arg1, char* arg2) {
+int32_t libcSolidViscanf(const char* arg1, char* arg2) {
     typedef int32_t (*km_fn_t)(const char*, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1313,7 +1313,7 @@ int32_t libc_solid_viscanf(const char* arg1, char* arg2) {
     return -1;
 }
 
-int32_t libc_solid_vsiprintf(char* arg1, const char* arg2, char* arg3) {
+int32_t libcSolidVsiprintf(char* arg1, const char* arg2, char* arg3) {
     typedef int32_t (*km_fn_t)(char*, const char*, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1341,7 +1341,7 @@ int32_t libc_solid_vsiprintf(char* arg1, const char* arg2, char* arg3) {
     return -1;
 }
 
-int32_t libc_solid_vsiscanf(const char* arg1, const char* arg2, char* arg3) {
+int32_t libcSolidVsiscanf(const char* arg1, const char* arg2, char* arg3) {
     typedef int32_t (*km_fn_t)(const char*, const char*, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1369,7 +1369,7 @@ int32_t libc_solid_vsiscanf(const char* arg1, const char* arg2, char* arg3) {
     return -1;
 }
 
-int32_t libc_solid_vsniprintf(char* arg1, uint64_t arg2, const char* arg3, char* arg4) {
+int32_t libcSolidVsniprintf(char* arg1, uint64_t arg2, const char* arg3, char* arg4) {
     typedef int32_t (*km_fn_t)(char*, uint64_t, const char*, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1397,7 +1397,7 @@ int32_t libc_solid_vsniprintf(char* arg1, uint64_t arg2, const char* arg3, char*
     return -1;
 }
 
-int32_t libc_solid_vdiprintf(int32_t arg1, const char* arg2, char* arg3) {
+int32_t libcSolidVdiprintf(int32_t arg1, const char* arg2, char* arg3) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1425,7 +1425,7 @@ int32_t libc_solid_vdiprintf(int32_t arg1, const char* arg2, char* arg3) {
     return -1;
 }
 
-int32_t libc_solid_diprintf(int32_t arg1, const char* arg2, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcSolidDiprintf(int32_t arg1, const char* arg2, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1459,7 +1459,7 @@ int32_t libc_solid_diprintf(int32_t arg1, const char* arg2, int32_t km_vac, int6
     return -1;
 }
 
-int32_t libc_solid_fgetpos(void* arg1, void* arg2) {
+int32_t libcSolidFgetpos(void* arg1, void* arg2) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1487,7 +1487,7 @@ int32_t libc_solid_fgetpos(void* arg1, void* arg2) {
     return -1;
 }
 
-int32_t libc_solid_fsetpos(void* arg1, void* arg2) {
+int32_t libcSolidFsetpos(void* arg1, void* arg2) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1515,7 +1515,7 @@ int32_t libc_solid_fsetpos(void* arg1, void* arg2) {
     return -1;
 }
 
-void* libc_solid_fdopen(int32_t arg1, const char* arg2) {
+void* libcSolidFdopen(int32_t arg1, const char* arg2) {
     typedef void* (*km_fn_t)(int32_t, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1543,7 +1543,7 @@ void* libc_solid_fdopen(int32_t arg1, const char* arg2) {
     return NULL;
 }
 
-int32_t libc_solid_fileno(void* arg1) {
+int32_t libcSolidFileno(void* arg1) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1571,7 +1571,7 @@ int32_t libc_solid_fileno(void* arg1) {
     return -1;
 }
 
-void libc_solid_flockfile(void* arg1) {
+void libcSolidFlockfile(void* arg1) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1599,7 +1599,7 @@ void libc_solid_flockfile(void* arg1) {
     errno = ENOSYS;
 }
 
-int32_t libc_solid_ftrylockfile(void* arg1) {
+int32_t libcSolidFtrylockfile(void* arg1) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1627,7 +1627,7 @@ int32_t libc_solid_ftrylockfile(void* arg1) {
     return -1;
 }
 
-void libc_solid_funlockfile(void* arg1) {
+void libcSolidFunlockfile(void* arg1) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1655,7 +1655,7 @@ void libc_solid_funlockfile(void* arg1) {
     errno = ENOSYS;
 }
 
-int32_t libc_solid_getcUnlocked(void* arg1) {
+int32_t libcSolidGetcUnlocked(void* arg1) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1683,7 +1683,7 @@ int32_t libc_solid_getcUnlocked(void* arg1) {
     return -1;
 }
 
-int32_t libc_solid_getcharUnlocked(void) {
+int32_t libcSolidGetcharUnlocked(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1711,7 +1711,7 @@ int32_t libc_solid_getcharUnlocked(void) {
     return -1;
 }
 
-int32_t libc_solid_putcUnlocked(int32_t arg1, void* arg2) {
+int32_t libcSolidPutcUnlocked(int32_t arg1, void* arg2) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1739,7 +1739,7 @@ int32_t libc_solid_putcUnlocked(int32_t arg1, void* arg2) {
     return -1;
 }
 
-int32_t libc_solid_putcharUnlocked(int32_t arg1) {
+int32_t libcSolidPutcharUnlocked(int32_t arg1) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1767,7 +1767,7 @@ int32_t libc_solid_putcharUnlocked(int32_t arg1) {
     return -1;
 }
 
-int32_t libc_solid_snprintf(char* arg1, uint64_t arg2, const char* arg3, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcSolidSnprintf(char* arg1, uint64_t arg2, const char* arg3, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(char*, uint64_t, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1801,7 +1801,7 @@ int32_t libc_solid_snprintf(char* arg1, uint64_t arg2, const char* arg3, int32_t
     return -1;
 }
 
-int32_t libc_solid_vsnprintf(char* arg1, uint64_t arg2, const char* arg3, char* arg4) {
+int32_t libcSolidVsnprintf(char* arg1, uint64_t arg2, const char* arg3, char* arg4) {
     typedef int32_t (*km_fn_t)(char*, uint64_t, const char*, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1829,7 +1829,7 @@ int32_t libc_solid_vsnprintf(char* arg1, uint64_t arg2, const char* arg3, char* 
     return -1;
 }
 
-int32_t libc_solid_getw(void* arg1) {
+int32_t libcSolidGetw(void* arg1) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1857,7 +1857,7 @@ int32_t libc_solid_getw(void* arg1) {
     return -1;
 }
 
-int32_t libc_solid_putw(int32_t arg1, void* arg2) {
+int32_t libcSolidPutw(int32_t arg1, void* arg2) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1885,7 +1885,7 @@ int32_t libc_solid_putw(int32_t arg1, void* arg2) {
     return -1;
 }
 
-char* libc_solid_tempnam(const char* arg1, const char* arg2) {
+char* libcSolidTempnam(const char* arg1, const char* arg2) {
     typedef char* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1913,7 +1913,7 @@ char* libc_solid_tempnam(const char* arg1, const char* arg2) {
     return NULL;
 }
 
-int32_t libc_solid_fseeko(void* stream, int64_t offset, int32_t whence) {
+int32_t libcSolidFseeko(void* stream, int64_t offset, int32_t whence) {
     typedef int32_t (*km_fn_t)(void*, int64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1941,7 +1941,7 @@ int32_t libc_solid_fseeko(void* stream, int64_t offset, int32_t whence) {
     return -1;
 }
 
-int64_t libc_solid_ftello(void* stream) {
+int64_t libcSolidFtello(void* stream) {
     typedef int64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1969,15 +1969,15 @@ int64_t libc_solid_ftello(void* stream) {
     return -1;
 }
 
-double libc_solid_atof(const char* arg1) {
+double libcSolidAtof(const char* arg1) {
     return (double)atof(arg1);
 }
 
-double libc_solid_strtod(const char* arg1, void* arg2) {
+double libcSolidStrtod(const char* arg1, void* arg2) {
     return (double)strtod(arg1, arg2);
 }
 
-double libc_solid_drand48(void) {
+double libcSolidDrand48(void) {
     typedef double (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2005,7 +2005,7 @@ double libc_solid_drand48(void) {
     return 0.0;
 }
 
-double libc_solid_erand48(void* arg1) {
+double libcSolidErand48(void* arg1) {
     typedef double (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2033,11 +2033,11 @@ double libc_solid_erand48(void* arg1) {
     return 0.0;
 }
 
-float libc_solid_strtof(const char* arg1, void* arg2) {
+float libcSolidStrtof(const char* arg1, void* arg2) {
     return (float)strtof(arg1, arg2);
 }
 
-double libc_solid_strtold(const char* arg1, void* arg2) {
+double libcSolidStrtold(const char* arg1, void* arg2) {
     typedef double (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2065,7 +2065,7 @@ double libc_solid_strtold(const char* arg1, void* arg2) {
     return 0.0;
 }
 
-double libc_solid_strtodL(const char* arg1, void* arg2, void* arg3) {
+double libcSolidStrtodL(const char* arg1, void* arg2, void* arg3) {
     typedef double (*km_fn_t)(const char*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2093,7 +2093,7 @@ double libc_solid_strtodL(const char* arg1, void* arg2, void* arg3) {
     return 0.0;
 }
 
-float libc_solid_strtofL(const char* arg1, void* arg2, void* arg3) {
+float libcSolidStrtofL(const char* arg1, void* arg2, void* arg3) {
     typedef float (*km_fn_t)(const char*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2121,7 +2121,7 @@ float libc_solid_strtofL(const char* arg1, void* arg2, void* arg3) {
     return 0.0f;
 }
 
-double libc_solid_strtoldL(const char* arg1, void* arg2, void* arg3) {
+double libcSolidStrtoldL(const char* arg1, void* arg2, void* arg3) {
     typedef double (*km_fn_t)(const char*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2149,7 +2149,7 @@ double libc_solid_strtoldL(const char* arg1, void* arg2, void* arg3) {
     return 0.0;
 }
 
-void libc_solid_exit(int32_t arg1) {
+void libcSolidExit(int32_t arg1) {
     typedef void (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2175,15 +2175,15 @@ void libc_solid_exit(int32_t arg1) {
     errno = ENOSYS;
 }
 
-void libc_solid_abort(void) {
+void libcSolidAbort(void) {
     abort();
 }
 
-int32_t libc_solid_abs(int32_t arg1) {
+int32_t libcSolidAbs(int32_t arg1) {
     return (int32_t)abs(arg1);
 }
 
-int32_t libc_solid_atexit(void* arg1) {
+int32_t libcSolidAtexit(void* arg1) {
     if (arg1 == NULL) {
         errno = EINVAL;
         return -1;
@@ -2219,15 +2219,15 @@ int32_t libc_solid_atexit(void* arg1) {
 #endif
 }
 
-int32_t libc_solid_atoi(const char* arg1) {
+int32_t libcSolidAtoi(const char* arg1) {
     return (int32_t)atoi(arg1);
 }
 
-int64_t libc_solid_atol(const char* arg1) {
+int64_t libcSolidAtol(const char* arg1) {
     return (int64_t)atol(arg1);
 }
 
-char* libc_solid_itoa(int32_t arg1, char* arg2, int32_t arg3) {
+char* libcSolidItoa(int32_t arg1, char* arg2, int32_t arg3) {
     typedef char* (*km_fn_t)(int32_t, char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2255,7 +2255,7 @@ char* libc_solid_itoa(int32_t arg1, char* arg2, int32_t arg3) {
     return NULL;
 }
 
-char* libc_solid_ltoa(int64_t arg1, char* arg2, int32_t arg3) {
+char* libcSolidLtoa(int64_t arg1, char* arg2, int32_t arg3) {
     typedef char* (*km_fn_t)(int64_t, char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2283,7 +2283,7 @@ char* libc_solid_ltoa(int64_t arg1, char* arg2, int32_t arg3) {
     return NULL;
 }
 
-char* libc_solid_ultoa(uint64_t arg1, char* arg2, int32_t arg3) {
+char* libcSolidUltoa(uint64_t arg1, char* arg2, int32_t arg3) {
     typedef char* (*km_fn_t)(uint64_t, char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2311,7 +2311,7 @@ char* libc_solid_ultoa(uint64_t arg1, char* arg2, int32_t arg3) {
     return NULL;
 }
 
-void* libc_solid_bsearch(void* arg1, void* arg2, uint64_t arg3, uint64_t arg4, void* arg5) {
+void* libcSolidBsearch(void* arg1, void* arg2, uint64_t arg3, uint64_t arg4, void* arg5) {
     typedef void* (*km_fn_t)(void*, void*, uint64_t, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2339,19 +2339,19 @@ void* libc_solid_bsearch(void* arg1, void* arg2, uint64_t arg3, uint64_t arg4, v
     return NULL;
 }
 
-void* libc_solid_calloc(uint64_t arg1, uint64_t arg2) {
+void* libcSolidCalloc(uint64_t arg1, uint64_t arg2) {
     return (void*)calloc(arg1, arg2);
 }
 
-void libc_solid_free(void* arg1) {
+void libcSolidFree(void* arg1) {
     free(arg1);
 }
 
-char* libc_solid_getenv(const char* arg1) {
+char* libcSolidGetenv(const char* arg1) {
     return (char*)getenv(arg1);
 }
 
-int64_t libc_solid_labs(int64_t arg1) {
+int64_t libcSolidLabs(int64_t arg1) {
     typedef int64_t (*km_fn_t)(int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2379,11 +2379,11 @@ int64_t libc_solid_labs(int64_t arg1) {
     return -1;
 }
 
-void* libc_solid_malloc(uint64_t arg1) {
+void* libcSolidMalloc(uint64_t arg1) {
     return (void*)malloc(arg1);
 }
 
-void libc_solid_qsort(void* arg1, uint64_t arg2, uint64_t arg3, void* arg4) {
+void libcSolidQsort(void* arg1, uint64_t arg2, uint64_t arg3, void* arg4) {
     typedef void (*km_fn_t)(void*, uint64_t, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2411,27 +2411,27 @@ void libc_solid_qsort(void* arg1, uint64_t arg2, uint64_t arg3, void* arg4) {
     errno = ENOSYS;
 }
 
-int32_t libc_solid_rand(void) {
+int32_t libcSolidRand(void) {
     return (int32_t)rand();
 }
 
-void* libc_solid_realloc(void* arg1, uint64_t arg2) {
+void* libcSolidRealloc(void* arg1, uint64_t arg2) {
     return (void*)realloc(arg1, arg2);
 }
 
-void libc_solid_srand(uint32_t arg1) {
+void libcSolidSrand(uint32_t arg1) {
     srand(arg1);
 }
 
-int64_t libc_solid_strtol(const char* arg1, void* arg2, int32_t arg3) {
+int64_t libcSolidStrtol(const char* arg1, void* arg2, int32_t arg3) {
     return (int64_t)strtol(arg1, arg2, arg3);
 }
 
-uint64_t libc_solid_strtoul(const char* arg1, void* arg2, int32_t arg3) {
+uint64_t libcSolidStrtoul(const char* arg1, void* arg2, int32_t arg3) {
     return (uint64_t)strtoul(arg1, arg2, arg3);
 }
 
-int32_t libc_solid_mblen(const char* arg1, uint64_t arg2) {
+int32_t libcSolidMblen(const char* arg1, uint64_t arg2) {
     typedef int32_t (*km_fn_t)(const char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2459,7 +2459,7 @@ int32_t libc_solid_mblen(const char* arg1, uint64_t arg2) {
     return -1;
 }
 
-uint64_t libc_solid_mbstowcs(void* arg1, const char* arg2, uint64_t arg3) {
+uint64_t libcSolidMbstowcs(void* arg1, const char* arg2, uint64_t arg3) {
     typedef uint64_t (*km_fn_t)(void*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2487,7 +2487,7 @@ uint64_t libc_solid_mbstowcs(void* arg1, const char* arg2, uint64_t arg3) {
     return 0;
 }
 
-int32_t libc_solid_wctomb(char* arg1, uint32_t arg2) {
+int32_t libcSolidWctomb(char* arg1, uint32_t arg2) {
     typedef int32_t (*km_fn_t)(char*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2515,7 +2515,7 @@ int32_t libc_solid_wctomb(char* arg1, uint32_t arg2) {
     return -1;
 }
 
-int32_t libc_solid_mbtowc(void* arg1, const char* arg2, uint64_t arg3) {
+int32_t libcSolidMbtowc(void* arg1, const char* arg2, uint64_t arg3) {
     typedef int32_t (*km_fn_t)(void*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2543,7 +2543,7 @@ int32_t libc_solid_mbtowc(void* arg1, const char* arg2, uint64_t arg3) {
     return -1;
 }
 
-uint64_t libc_solid_wcstombs(char* arg1, void* arg2, uint64_t arg3) {
+uint64_t libcSolidWcstombs(char* arg1, void* arg2, uint64_t arg3) {
     typedef uint64_t (*km_fn_t)(char*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2571,7 +2571,7 @@ uint64_t libc_solid_wcstombs(char* arg1, void* arg2, uint64_t arg3) {
     return 0;
 }
 
-int32_t libc_solid_randR(void* arg1) {
+int32_t libcSolidRandR(void* arg1) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2599,7 +2599,7 @@ int32_t libc_solid_randR(void* arg1) {
     return -1;
 }
 
-int64_t libc_solid_jrand48(void* arg1) {
+int64_t libcSolidJrand48(void* arg1) {
     typedef int64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2627,7 +2627,7 @@ int64_t libc_solid_jrand48(void* arg1) {
     return -1;
 }
 
-void libc_solid_lcong48(void* arg1) {
+void libcSolidLcong48(void* arg1) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2655,7 +2655,7 @@ void libc_solid_lcong48(void* arg1) {
     errno = ENOSYS;
 }
 
-int64_t libc_solid_lrand48(void) {
+int64_t libcSolidLrand48(void) {
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2683,7 +2683,7 @@ int64_t libc_solid_lrand48(void) {
     return -1;
 }
 
-int64_t libc_solid_mrand48(void) {
+int64_t libcSolidMrand48(void) {
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2711,7 +2711,7 @@ int64_t libc_solid_mrand48(void) {
     return -1;
 }
 
-int64_t libc_solid_nrand48(void* arg1) {
+int64_t libcSolidNrand48(void* arg1) {
     typedef int64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2739,7 +2739,7 @@ int64_t libc_solid_nrand48(void* arg1) {
     return -1;
 }
 
-void* libc_solid_seed48(void* arg1) {
+void* libcSolidSeed48(void* arg1) {
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2767,7 +2767,7 @@ void* libc_solid_seed48(void* arg1) {
     return NULL;
 }
 
-void libc_solid_srand48(int64_t arg1) {
+void libcSolidSrand48(int64_t arg1) {
     typedef void (*km_fn_t)(int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2795,7 +2795,7 @@ void libc_solid_srand48(int64_t arg1) {
     errno = ENOSYS;
 }
 
-int32_t libc_solid_putenv(char* arg1) {
+int32_t libcSolidPutenv(char* arg1) {
     typedef int32_t (*km_fn_t)(char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2823,7 +2823,7 @@ int32_t libc_solid_putenv(char* arg1) {
     return -1;
 }
 
-int64_t libc_solid_a64l(const char* arg1) {
+int64_t libcSolidA64l(const char* arg1) {
     typedef int64_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2851,7 +2851,7 @@ int64_t libc_solid_a64l(const char* arg1) {
     return -1;
 }
 
-char* libc_solid_l64a(int64_t arg1) {
+char* libcSolidL64a(int64_t arg1) {
     typedef char* (*km_fn_t)(int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2879,7 +2879,7 @@ char* libc_solid_l64a(int64_t arg1) {
     return NULL;
 }
 
-int64_t libc_solid_random(void) {
+int64_t libcSolidRandom(void) {
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2907,7 +2907,7 @@ int64_t libc_solid_random(void) {
     return -1;
 }
 
-char* libc_solid_setstate(char* arg1) {
+char* libcSolidSetstate(char* arg1) {
     typedef char* (*km_fn_t)(char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2935,7 +2935,7 @@ char* libc_solid_setstate(char* arg1) {
     return NULL;
 }
 
-char* libc_solid_initstate(uint32_t arg1, char* arg2, uint64_t arg3) {
+char* libcSolidInitstate(uint32_t arg1, char* arg2, uint64_t arg3) {
     typedef char* (*km_fn_t)(uint32_t, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2963,7 +2963,7 @@ char* libc_solid_initstate(uint32_t arg1, char* arg2, uint64_t arg3) {
     return NULL;
 }
 
-void libc_solid_srandom(uint32_t arg1) {
+void libcSolidSrandom(uint32_t arg1) {
     typedef void (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2991,7 +2991,7 @@ void libc_solid_srandom(uint32_t arg1) {
     errno = ENOSYS;
 }
 
-int32_t libc_solid_mkostemp(char* arg1, int32_t arg2) {
+int32_t libcSolidMkostemp(char* arg1, int32_t arg2) {
     typedef int32_t (*km_fn_t)(char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3019,7 +3019,7 @@ int32_t libc_solid_mkostemp(char* arg1, int32_t arg2) {
     return -1;
 }
 
-int32_t libc_solid_mkostemps(char* arg1, int32_t arg2, int32_t arg3) {
+int32_t libcSolidMkostemps(char* arg1, int32_t arg2, int32_t arg3) {
     typedef int32_t (*km_fn_t)(char*, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3047,7 +3047,7 @@ int32_t libc_solid_mkostemps(char* arg1, int32_t arg2, int32_t arg3) {
     return -1;
 }
 
-char* libc_solid_mkdtemp(char* arg1) {
+char* libcSolidMkdtemp(char* arg1) {
     typedef char* (*km_fn_t)(char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3075,7 +3075,7 @@ char* libc_solid_mkdtemp(char* arg1) {
     return NULL;
 }
 
-int32_t libc_solid_mkstemp(char* arg1) {
+int32_t libcSolidMkstemp(char* arg1) {
     typedef int32_t (*km_fn_t)(char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3103,7 +3103,7 @@ int32_t libc_solid_mkstemp(char* arg1) {
     return -1;
 }
 
-char* libc_solid_mktemp(char* arg1) {
+char* libcSolidMktemp(char* arg1) {
     typedef char* (*km_fn_t)(char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3131,23 +3131,23 @@ char* libc_solid_mktemp(char* arg1) {
     return NULL;
 }
 
-int64_t libc_solid_atoll(const char* arg1) {
+int64_t libcSolidAtoll(const char* arg1) {
     return (int64_t)atoll(arg1);
 }
 
-int64_t libc_solid_llabs(int64_t arg1) {
+int64_t libcSolidLlabs(int64_t arg1) {
     return (int64_t)llabs(arg1);
 }
 
-int64_t libc_solid_strtoll(const char* arg1, void* arg2, int32_t arg3) {
+int64_t libcSolidStrtoll(const char* arg1, void* arg2, int32_t arg3) {
     return (int64_t)strtoll(arg1, arg2, arg3);
 }
 
-uint64_t libc_solid_strtoull(const char* arg1, void* arg2, int32_t arg3) {
+uint64_t libcSolidStrtoull(const char* arg1, void* arg2, int32_t arg3) {
     return (uint64_t)strtoull(arg1, arg2, arg3);
 }
 
-void* libc_solid_alignedAlloc(uint64_t arg1, uint64_t arg2) {
+void* libcSolidAlignedAlloc(uint64_t arg1, uint64_t arg2) {
     typedef void* (*km_fn_t)(uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3175,7 +3175,7 @@ void* libc_solid_alignedAlloc(uint64_t arg1, uint64_t arg2) {
     return NULL;
 }
 
-int32_t libc_solid_atQuickExit(void* arg1) {
+int32_t libcSolidAtQuickExit(void* arg1) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3203,7 +3203,7 @@ int32_t libc_solid_atQuickExit(void* arg1) {
     return -1;
 }
 
-void libc_solid_quickExit(int32_t arg1) {
+void libcSolidQuickExit(int32_t arg1) {
     typedef void (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3231,7 +3231,7 @@ void libc_solid_quickExit(int32_t arg1) {
     errno = ENOSYS;
 }
 
-int32_t libc_solid_setenv(const char* arg1, const char* arg2, int32_t arg3) {
+int32_t libcSolidSetenv(const char* arg1, const char* arg2, int32_t arg3) {
 #if !defined(_WIN32)
     return (int32_t)setenv(arg1, arg2, arg3);
 #else
@@ -3243,7 +3243,7 @@ int32_t libc_solid_setenv(const char* arg1, const char* arg2, int32_t arg3) {
 #endif
 }
 
-int32_t libc_solid_unsetenv(const char* arg1) {
+int32_t libcSolidUnsetenv(const char* arg1) {
 #if !defined(_WIN32)
     return (int32_t)unsetenv(arg1);
 #else
@@ -3253,7 +3253,7 @@ int32_t libc_solid_unsetenv(const char* arg1) {
 #endif
 }
 
-int32_t libc_solid_humanizeNumber(char* arg1, uint64_t arg2, int64_t arg3, const char* arg4, int32_t arg5, int32_t arg6) {
+int32_t libcSolidHumanizeNumber(char* arg1, uint64_t arg2, int64_t arg3, const char* arg4, int32_t arg5, int32_t arg6) {
     typedef int32_t (*km_fn_t)(char*, uint64_t, int64_t, const char*, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3281,7 +3281,7 @@ int32_t libc_solid_humanizeNumber(char* arg1, uint64_t arg2, int64_t arg3, const
     return -1;
 }
 
-int32_t libc_solid_dehumanizeNumber(const char* arg1, void* arg2) {
+int32_t libcSolidDehumanizeNumber(const char* arg1, void* arg2) {
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3309,7 +3309,7 @@ int32_t libc_solid_dehumanizeNumber(const char* arg1, void* arg2) {
     return -1;
 }
 
-int32_t libc_solid_getenvR(const char* arg1, char* arg2, uint64_t arg3) {
+int32_t libcSolidGetenvR(const char* arg1, char* arg2, uint64_t arg3) {
     typedef int32_t (*km_fn_t)(const char*, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3337,7 +3337,7 @@ int32_t libc_solid_getenvR(const char* arg1, char* arg2, uint64_t arg3) {
     return -1;
 }
 
-int32_t libc_solid_heapsort(void* arg1, uint64_t arg2, uint64_t arg3, void* arg4) {
+int32_t libcSolidHeapsort(void* arg1, uint64_t arg2, uint64_t arg3, void* arg4) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3365,7 +3365,7 @@ int32_t libc_solid_heapsort(void* arg1, uint64_t arg2, uint64_t arg3, void* arg4
     return -1;
 }
 
-int32_t libc_solid_mergesort(void* arg1, uint64_t arg2, uint64_t arg3, void* arg4) {
+int32_t libcSolidMergesort(void* arg1, uint64_t arg2, uint64_t arg3, void* arg4) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3393,7 +3393,7 @@ int32_t libc_solid_mergesort(void* arg1, uint64_t arg2, uint64_t arg3, void* arg
     return -1;
 }
 
-int32_t libc_solid_radixsort(void* arg1, int32_t arg2, void* arg3, uint32_t arg4) {
+int32_t libcSolidRadixsort(void* arg1, int32_t arg2, void* arg3, uint32_t arg4) {
     typedef int32_t (*km_fn_t)(void*, int32_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3421,7 +3421,7 @@ int32_t libc_solid_radixsort(void* arg1, int32_t arg2, void* arg3, uint32_t arg4
     return -1;
 }
 
-int32_t libc_solid_sradixsort(void* arg1, int32_t arg2, void* arg3, uint32_t arg4) {
+int32_t libcSolidSradixsort(void* arg1, int32_t arg2, void* arg3, uint32_t arg4) {
     typedef int32_t (*km_fn_t)(void*, int32_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3449,7 +3449,7 @@ int32_t libc_solid_sradixsort(void* arg1, int32_t arg2, void* arg3, uint32_t arg
     return -1;
 }
 
-const char* libc_solid_getprogname(void) {
+const char* libcSolidGetprogname(void) {
     typedef const char* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3477,7 +3477,7 @@ const char* libc_solid_getprogname(void) {
     return NULL;
 }
 
-void libc_solid_setprogname(const char* arg1) {
+void libcSolidSetprogname(const char* arg1) {
     typedef void (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3505,7 +3505,7 @@ void libc_solid_setprogname(const char* arg1) {
     errno = ENOSYS;
 }
 
-int64_t libc_solid_qabs(int64_t arg1) {
+int64_t libcSolidQabs(int64_t arg1) {
     typedef int64_t (*km_fn_t)(int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3533,7 +3533,7 @@ int64_t libc_solid_qabs(int64_t arg1) {
     return -1;
 }
 
-int64_t libc_solid_strtoq(const char* arg1, void* arg2, int32_t arg3) {
+int64_t libcSolidStrtoq(const char* arg1, void* arg2, int32_t arg3) {
     typedef int64_t (*km_fn_t)(const char*, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3561,7 +3561,7 @@ int64_t libc_solid_strtoq(const char* arg1, void* arg2, int32_t arg3) {
     return -1;
 }
 
-uint64_t libc_solid_strtouq(const char* arg1, void* arg2, int32_t arg3) {
+uint64_t libcSolidStrtouq(const char* arg1, void* arg2, int32_t arg3) {
     typedef uint64_t (*km_fn_t)(const char*, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3589,7 +3589,7 @@ uint64_t libc_solid_strtouq(const char* arg1, void* arg2, int32_t arg3) {
     return 0;
 }
 
-int64_t libc_solid_strsuftoll(const char* arg1, const char* arg2, int64_t arg3, int64_t arg4) {
+int64_t libcSolidStrsuftoll(const char* arg1, const char* arg2, int64_t arg3, int64_t arg4) {
     typedef int64_t (*km_fn_t)(const char*, const char*, int64_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3617,7 +3617,7 @@ int64_t libc_solid_strsuftoll(const char* arg1, const char* arg2, int64_t arg3, 
     return -1;
 }
 
-int64_t libc_solid_strsuftollx(const char* arg1, const char* arg2, int64_t arg3, int64_t arg4, char* arg5, uint64_t arg6) {
+int64_t libcSolidStrsuftollx(const char* arg1, const char* arg2, int64_t arg3, int64_t arg4, char* arg5, uint64_t arg6) {
     typedef int64_t (*km_fn_t)(const char*, const char*, int64_t, int64_t, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3645,7 +3645,7 @@ int64_t libc_solid_strsuftollx(const char* arg1, const char* arg2, int64_t arg3,
     return -1;
 }
 
-int32_t libc_solid_l64aR(int64_t arg1, char* arg2, int32_t arg3) {
+int32_t libcSolidL64aR(int64_t arg1, char* arg2, int32_t arg3) {
     typedef int32_t (*km_fn_t)(int64_t, char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3673,7 +3673,7 @@ int32_t libc_solid_l64aR(int64_t arg1, char* arg2, int32_t arg3) {
     return -1;
 }
 
-int64_t libc_solid_strtolL(const char* arg1, void* arg2, int32_t arg3, void* arg4) {
+int64_t libcSolidStrtolL(const char* arg1, void* arg2, int32_t arg3, void* arg4) {
     typedef int64_t (*km_fn_t)(const char*, void*, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3701,7 +3701,7 @@ int64_t libc_solid_strtolL(const char* arg1, void* arg2, int32_t arg3, void* arg
     return -1;
 }
 
-uint64_t libc_solid_strtoulL(const char* arg1, void* arg2, int32_t arg3, void* arg4) {
+uint64_t libcSolidStrtoulL(const char* arg1, void* arg2, int32_t arg3, void* arg4) {
     typedef uint64_t (*km_fn_t)(const char*, void*, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3729,7 +3729,7 @@ uint64_t libc_solid_strtoulL(const char* arg1, void* arg2, int32_t arg3, void* a
     return 0;
 }
 
-int64_t libc_solid_strtollL(const char* arg1, void* arg2, int32_t arg3, void* arg4) {
+int64_t libcSolidStrtollL(const char* arg1, void* arg2, int32_t arg3, void* arg4) {
     typedef int64_t (*km_fn_t)(const char*, void*, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3757,7 +3757,7 @@ int64_t libc_solid_strtollL(const char* arg1, void* arg2, int32_t arg3, void* ar
     return -1;
 }
 
-uint64_t libc_solid_strtoullL(const char* arg1, void* arg2, int32_t arg3, void* arg4) {
+uint64_t libcSolidStrtoullL(const char* arg1, void* arg2, int32_t arg3, void* arg4) {
     typedef uint64_t (*km_fn_t)(const char*, void*, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3785,7 +3785,7 @@ uint64_t libc_solid_strtoullL(const char* arg1, void* arg2, int32_t arg3, void* 
     return 0;
 }
 
-int64_t libc_solid_strtoqL(const char* arg1, void* arg2, int32_t arg3, void* arg4) {
+int64_t libcSolidStrtoqL(const char* arg1, void* arg2, int32_t arg3, void* arg4) {
     typedef int64_t (*km_fn_t)(const char*, void*, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3813,7 +3813,7 @@ int64_t libc_solid_strtoqL(const char* arg1, void* arg2, int32_t arg3, void* arg
     return -1;
 }
 
-uint64_t libc_solid_strtouqL(const char* arg1, void* arg2, int32_t arg3, void* arg4) {
+uint64_t libcSolidStrtouqL(const char* arg1, void* arg2, int32_t arg3, void* arg4) {
     typedef uint64_t (*km_fn_t)(const char*, void*, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3841,7 +3841,7 @@ uint64_t libc_solid_strtouqL(const char* arg1, void* arg2, int32_t arg3, void* a
     return 0;
 }
 
-uint64_t libc_solid_mbCurMaxL(void* arg1) {
+uint64_t libcSolidMbCurMaxL(void* arg1) {
     typedef uint64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3867,7 +3867,7 @@ uint64_t libc_solid_mbCurMaxL(void* arg1) {
     return 0;
 }
 
-int32_t libc_solid_mblenL(const char* arg1, uint64_t arg2, void* arg3) {
+int32_t libcSolidMblenL(const char* arg1, uint64_t arg2, void* arg3) {
     typedef int32_t (*km_fn_t)(const char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3895,7 +3895,7 @@ int32_t libc_solid_mblenL(const char* arg1, uint64_t arg2, void* arg3) {
     return -1;
 }
 
-uint64_t libc_solid_mbstowcsL(void* arg1, const char* arg2, uint64_t arg3, void* arg4) {
+uint64_t libcSolidMbstowcsL(void* arg1, const char* arg2, uint64_t arg3, void* arg4) {
     typedef uint64_t (*km_fn_t)(void*, const char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3923,7 +3923,7 @@ uint64_t libc_solid_mbstowcsL(void* arg1, const char* arg2, uint64_t arg3, void*
     return 0;
 }
 
-int32_t libc_solid_wctombL(char* arg1, uint32_t arg2, void* arg3) {
+int32_t libcSolidWctombL(char* arg1, uint32_t arg2, void* arg3) {
     typedef int32_t (*km_fn_t)(char*, uint32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3951,7 +3951,7 @@ int32_t libc_solid_wctombL(char* arg1, uint32_t arg2, void* arg3) {
     return -1;
 }
 
-int32_t libc_solid_mbtowcL(void* arg1, const char* arg2, uint64_t arg3, void* arg4) {
+int32_t libcSolidMbtowcL(void* arg1, const char* arg2, uint64_t arg3, void* arg4) {
     typedef int32_t (*km_fn_t)(void*, const char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3979,7 +3979,7 @@ int32_t libc_solid_mbtowcL(void* arg1, const char* arg2, uint64_t arg3, void* ar
     return -1;
 }
 
-uint64_t libc_solid_wcstombsL(char* arg1, void* arg2, uint64_t arg3, void* arg4) {
+uint64_t libcSolidWcstombsL(char* arg1, void* arg2, uint64_t arg3, void* arg4) {
     typedef uint64_t (*km_fn_t)(char*, void*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4007,91 +4007,91 @@ uint64_t libc_solid_wcstombsL(char* arg1, void* arg2, uint64_t arg3, void* arg4)
     return 0;
 }
 
-void* libc_solid_memchr(void* arg1, int32_t arg2, uint64_t arg3) {
+void* libcSolidMemchr(void* arg1, int32_t arg2, uint64_t arg3) {
     return (void*)memchr(arg1, arg2, arg3);
 }
 
-int32_t libc_solid_memcmp(void* arg1, void* arg2, uint64_t arg3) {
+int32_t libcSolidMemcmp(void* arg1, void* arg2, uint64_t arg3) {
     return (int32_t)memcmp(arg1, arg2, arg3);
 }
 
-void* libc_solid_memcpy(void* arg1, void* arg2, uint64_t arg3) {
+void* libcSolidMemcpy(void* arg1, void* arg2, uint64_t arg3) {
     return (void*)memcpy(arg1, arg2, arg3);
 }
 
-void* libc_solid_memmove(void* arg1, void* arg2, uint64_t arg3) {
+void* libcSolidMemmove(void* arg1, void* arg2, uint64_t arg3) {
     return (void*)memmove(arg1, arg2, arg3);
 }
 
-void* libc_solid_memset(void* arg1, int32_t arg2, uint64_t arg3) {
+void* libcSolidMemset(void* arg1, int32_t arg2, uint64_t arg3) {
     return (void*)memset(arg1, arg2, arg3);
 }
 
-char* libc_solid_strcat(char* arg1, const char* arg2) {
+char* libcSolidStrcat(char* arg1, const char* arg2) {
     return (char*)strcat(arg1, arg2);
 }
 
-char* libc_solid_strchr(const char* arg1, int32_t arg2) {
+char* libcSolidStrchr(const char* arg1, int32_t arg2) {
     return (char*)strchr(arg1, arg2);
 }
 
-int32_t libc_solid_strcmp(const char* arg1, const char* arg2) {
+int32_t libcSolidStrcmp(const char* arg1, const char* arg2) {
     return (int32_t)strcmp(arg1, arg2);
 }
 
-int32_t libc_solid_strcoll(const char* arg1, const char* arg2) {
+int32_t libcSolidStrcoll(const char* arg1, const char* arg2) {
     return (int32_t)strcoll(arg1, arg2);
 }
 
-char* libc_solid_strcpy(char* arg1, const char* arg2) {
+char* libcSolidStrcpy(char* arg1, const char* arg2) {
     return (char*)strcpy(arg1, arg2);
 }
 
-uint64_t libc_solid_strcspn(const char* arg1, const char* arg2) {
+uint64_t libcSolidStrcspn(const char* arg1, const char* arg2) {
     return (uint64_t)strcspn(arg1, arg2);
 }
 
-char* libc_solid_strerror(int32_t arg1) {
+char* libcSolidStrerror(int32_t arg1) {
     return (char*)strerror(arg1);
 }
 
-uint64_t libc_solid_strlen(const char* arg1) {
+uint64_t libcSolidStrlen(const char* arg1) {
     return (uint64_t)strlen(arg1);
 }
 
-char* libc_solid_strncat(char* arg1, const char* arg2, uint64_t arg3) {
+char* libcSolidStrncat(char* arg1, const char* arg2, uint64_t arg3) {
     return (char*)strncat(arg1, arg2, arg3);
 }
 
-int32_t libc_solid_strncmp(const char* arg1, const char* arg2, uint64_t arg3) {
+int32_t libcSolidStrncmp(const char* arg1, const char* arg2, uint64_t arg3) {
     return (int32_t)strncmp(arg1, arg2, arg3);
 }
 
-char* libc_solid_strncpy(char* arg1, const char* arg2, uint64_t arg3) {
+char* libcSolidStrncpy(char* arg1, const char* arg2, uint64_t arg3) {
     return (char*)strncpy(arg1, arg2, arg3);
 }
 
-char* libc_solid_strpbrk(const char* arg1, const char* arg2) {
+char* libcSolidStrpbrk(const char* arg1, const char* arg2) {
     return (char*)strpbrk(arg1, arg2);
 }
 
-char* libc_solid_strrchr(const char* arg1, int32_t arg2) {
+char* libcSolidStrrchr(const char* arg1, int32_t arg2) {
     return (char*)strrchr(arg1, arg2);
 }
 
-uint64_t libc_solid_strspn(const char* arg1, const char* arg2) {
+uint64_t libcSolidStrspn(const char* arg1, const char* arg2) {
     return (uint64_t)strspn(arg1, arg2);
 }
 
-char* libc_solid_strstr(const char* arg1, const char* arg2) {
+char* libcSolidStrstr(const char* arg1, const char* arg2) {
     return (char*)strstr(arg1, arg2);
 }
 
-char* libc_solid_strtok(char* arg1, const char* arg2) {
+char* libcSolidStrtok(char* arg1, const char* arg2) {
     return (char*)strtok(arg1, arg2);
 }
 
-char* libc_solid_strtokR(char* arg1, const char* arg2, void* arg3) {
+char* libcSolidStrtokR(char* arg1, const char* arg2, void* arg3) {
     typedef char* (*km_fn_t)(char*, const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4119,7 +4119,7 @@ char* libc_solid_strtokR(char* arg1, const char* arg2, void* arg3) {
     return NULL;
 }
 
-int32_t libc_solid_strerrorR(int32_t arg1, char* arg2, uint64_t arg3) {
+int32_t libcSolidStrerrorR(int32_t arg1, char* arg2, uint64_t arg3) {
     typedef int32_t (*km_fn_t)(int32_t, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4147,11 +4147,11 @@ int32_t libc_solid_strerrorR(int32_t arg1, char* arg2, uint64_t arg3) {
     return -1;
 }
 
-uint64_t libc_solid_strxfrm(char* arg1, const char* arg2, uint64_t arg3) {
+uint64_t libcSolidStrxfrm(char* arg1, const char* arg2, uint64_t arg3) {
     return (uint64_t)strxfrm(arg1, arg2, arg3);
 }
 
-void* libc_solid_memccpy(void* arg1, void* arg2, int32_t arg3, uint64_t arg4) {
+void* libcSolidMemccpy(void* arg1, void* arg2, int32_t arg3, uint64_t arg4) {
     typedef void* (*km_fn_t)(void*, void*, int32_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4179,11 +4179,11 @@ void* libc_solid_memccpy(void* arg1, void* arg2, int32_t arg3, uint64_t arg4) {
     return NULL;
 }
 
-char* libc_solid_strdup(const char* arg1) {
+char* libcSolidStrdup(const char* arg1) {
     return (char*)strdup(arg1);
 }
 
-char* libc_solid_stpcpy(char* arg1, const char* arg2) {
+char* libcSolidStpcpy(char* arg1, const char* arg2) {
     typedef char* (*km_fn_t)(char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4211,7 +4211,7 @@ char* libc_solid_stpcpy(char* arg1, const char* arg2) {
     return NULL;
 }
 
-char* libc_solid_stpncpy(char* arg1, const char* arg2, uint64_t arg3) {
+char* libcSolidStpncpy(char* arg1, const char* arg2, uint64_t arg3) {
     typedef char* (*km_fn_t)(char*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4239,11 +4239,11 @@ char* libc_solid_stpncpy(char* arg1, const char* arg2, uint64_t arg3) {
     return NULL;
 }
 
-uint64_t libc_solid_strnlen(const char* arg1, uint64_t arg2) {
+uint64_t libcSolidStrnlen(const char* arg1, uint64_t arg2) {
     return (uint64_t)strnlen(arg1, arg2);
 }
 
-void* libc_solid_memmem(void* arg1, uint64_t arg2, void* arg3, uint64_t arg4) {
+void* libcSolidMemmem(void* arg1, uint64_t arg2, void* arg3, uint64_t arg4) {
     typedef void* (*km_fn_t)(void*, uint64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4271,7 +4271,7 @@ void* libc_solid_memmem(void* arg1, uint64_t arg2, void* arg3, uint64_t arg4) {
     return NULL;
 }
 
-char* libc_solid_strcasestr(const char* arg1, const char* arg2) {
+char* libcSolidStrcasestr(const char* arg1, const char* arg2) {
     typedef char* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4299,7 +4299,7 @@ char* libc_solid_strcasestr(const char* arg1, const char* arg2) {
     return NULL;
 }
 
-uint64_t libc_solid_strlcat(char* arg1, const char* arg2, uint64_t arg3) {
+uint64_t libcSolidStrlcat(char* arg1, const char* arg2, uint64_t arg3) {
     typedef uint64_t (*km_fn_t)(char*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4327,7 +4327,7 @@ uint64_t libc_solid_strlcat(char* arg1, const char* arg2, uint64_t arg3) {
     return 0;
 }
 
-uint64_t libc_solid_strlcpy(char* arg1, const char* arg2, uint64_t arg3) {
+uint64_t libcSolidStrlcpy(char* arg1, const char* arg2, uint64_t arg3) {
     typedef uint64_t (*km_fn_t)(char*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4355,7 +4355,7 @@ uint64_t libc_solid_strlcpy(char* arg1, const char* arg2, uint64_t arg3) {
     return 0;
 }
 
-char* libc_solid_strsep(void* arg1, const char* arg2) {
+char* libcSolidStrsep(void* arg1, const char* arg2) {
     typedef char* (*km_fn_t)(void*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4383,7 +4383,7 @@ char* libc_solid_strsep(void* arg1, const char* arg2) {
     return NULL;
 }
 
-char* libc_solid_stresep(void* arg1, const char* arg2, int32_t arg3) {
+char* libcSolidStresep(void* arg1, const char* arg2, int32_t arg3) {
     typedef char* (*km_fn_t)(void*, const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4411,7 +4411,7 @@ char* libc_solid_stresep(void* arg1, const char* arg2, int32_t arg3) {
     return NULL;
 }
 
-char* libc_solid_strndup(const char* arg1, uint64_t arg2) {
+char* libcSolidStrndup(const char* arg1, uint64_t arg2) {
 #if !defined(_WIN32)
     return (char*)strndup(arg1, arg2);
 #else
@@ -4422,7 +4422,7 @@ char* libc_solid_strndup(const char* arg1, uint64_t arg2) {
 #endif
 }
 
-void* libc_solid_memrchr(void* arg1, int32_t arg2, uint64_t arg3) {
+void* libcSolidMemrchr(void* arg1, int32_t arg2, uint64_t arg3) {
     typedef void* (*km_fn_t)(void*, int32_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4450,7 +4450,7 @@ void* libc_solid_memrchr(void* arg1, int32_t arg2, uint64_t arg3) {
     return NULL;
 }
 
-void* libc_solid_explicitMemset(void* arg1, int32_t arg2, uint64_t arg3) {
+void* libcSolidExplicitMemset(void* arg1, int32_t arg2, uint64_t arg3) {
     typedef void* (*km_fn_t)(void*, int32_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4478,7 +4478,7 @@ void* libc_solid_explicitMemset(void* arg1, int32_t arg2, uint64_t arg3) {
     return NULL;
 }
 
-int32_t libc_solid_consttimeMemequal(void* arg1, void* arg2, uint64_t arg3) {
+int32_t libcSolidConsttimeMemequal(void* arg1, void* arg2, uint64_t arg3) {
     typedef int32_t (*km_fn_t)(void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4506,7 +4506,7 @@ int32_t libc_solid_consttimeMemequal(void* arg1, void* arg2, uint64_t arg3) {
     return -1;
 }
 
-int32_t libc_solid_strcollL(const char* arg1, const char* arg2, void* arg3) {
+int32_t libcSolidStrcollL(const char* arg1, const char* arg2, void* arg3) {
     typedef int32_t (*km_fn_t)(const char*, const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4534,7 +4534,7 @@ int32_t libc_solid_strcollL(const char* arg1, const char* arg2, void* arg3) {
     return -1;
 }
 
-uint64_t libc_solid_strxfrmL(char* arg1, const char* arg2, uint64_t arg3, void* arg4) {
+uint64_t libcSolidStrxfrmL(char* arg1, const char* arg2, uint64_t arg3, void* arg4) {
     typedef uint64_t (*km_fn_t)(char*, const char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4562,7 +4562,7 @@ uint64_t libc_solid_strxfrmL(char* arg1, const char* arg2, uint64_t arg3, void* 
     return 0;
 }
 
-char* libc_solid_strerrorL(int32_t arg1, void* arg2) {
+char* libcSolidStrerrorL(int32_t arg1, void* arg2) {
     typedef char* (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4590,7 +4590,7 @@ char* libc_solid_strerrorL(int32_t arg1, void* arg2) {
     return NULL;
 }
 
-int32_t libc_solid_bcmp(void* arg1, void* arg2, uint64_t arg3) {
+int32_t libcSolidBcmp(void* arg1, void* arg2, uint64_t arg3) {
     typedef int32_t (*km_fn_t)(void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4618,7 +4618,7 @@ int32_t libc_solid_bcmp(void* arg1, void* arg2, uint64_t arg3) {
     return -1;
 }
 
-void libc_solid_bcopy(void* arg1, void* arg2, uint64_t arg3) {
+void libcSolidBcopy(void* arg1, void* arg2, uint64_t arg3) {
     typedef void (*km_fn_t)(void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4646,7 +4646,7 @@ void libc_solid_bcopy(void* arg1, void* arg2, uint64_t arg3) {
     errno = ENOSYS;
 }
 
-void libc_solid_bzero(void* arg1, uint64_t arg2) {
+void libcSolidBzero(void* arg1, uint64_t arg2) {
     typedef void (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4674,7 +4674,7 @@ void libc_solid_bzero(void* arg1, uint64_t arg2) {
     errno = ENOSYS;
 }
 
-int32_t libc_solid_ffs(int32_t arg1) {
+int32_t libcSolidFfs(int32_t arg1) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4702,7 +4702,7 @@ int32_t libc_solid_ffs(int32_t arg1) {
     return -1;
 }
 
-uint32_t libc_solid_popcount(uint32_t arg1) {
+uint32_t libcSolidPopcount(uint32_t arg1) {
     typedef uint32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4730,7 +4730,7 @@ uint32_t libc_solid_popcount(uint32_t arg1) {
     return 0;
 }
 
-uint32_t libc_solid_popcountl(uint64_t arg1) {
+uint32_t libcSolidPopcountl(uint64_t arg1) {
     typedef uint32_t (*km_fn_t)(uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4758,7 +4758,7 @@ uint32_t libc_solid_popcountl(uint64_t arg1) {
     return 0;
 }
 
-uint32_t libc_solid_popcountll(uint64_t arg1) {
+uint32_t libcSolidPopcountll(uint64_t arg1) {
     typedef uint32_t (*km_fn_t)(uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4786,7 +4786,7 @@ uint32_t libc_solid_popcountll(uint64_t arg1) {
     return 0;
 }
 
-uint32_t libc_solid_popcount32(uint32_t arg1) {
+uint32_t libcSolidPopcount32(uint32_t arg1) {
     typedef uint32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4814,7 +4814,7 @@ uint32_t libc_solid_popcount32(uint32_t arg1) {
     return 0;
 }
 
-uint32_t libc_solid_popcount64(uint64_t arg1) {
+uint32_t libcSolidPopcount64(uint64_t arg1) {
     typedef uint32_t (*km_fn_t)(uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4847,7 +4847,7 @@ uint32_t libc_solid_popcount64(uint64_t arg1) {
     return 0;
 }
 
-char* libc_solid_rindex(const char* arg1, int32_t arg2) {
+char* libcSolidRindex(const char* arg1, int32_t arg2) {
     typedef char* (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4875,7 +4875,7 @@ char* libc_solid_rindex(const char* arg1, int32_t arg2) {
     return NULL;
 }
 
-int32_t libc_solid_strcasecmp(const char* arg1, const char* arg2) {
+int32_t libcSolidStrcasecmp(const char* arg1, const char* arg2) {
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4903,7 +4903,7 @@ int32_t libc_solid_strcasecmp(const char* arg1, const char* arg2) {
     return -1;
 }
 
-int32_t libc_solid_strncasecmp(const char* arg1, const char* arg2, uint64_t arg3) {
+int32_t libcSolidStrncasecmp(const char* arg1, const char* arg2, uint64_t arg3) {
     typedef int32_t (*km_fn_t)(const char*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4931,7 +4931,7 @@ int32_t libc_solid_strncasecmp(const char* arg1, const char* arg2, uint64_t arg3
     return -1;
 }
 
-uint64_t libc_solid_signal(int32_t arg1, uint64_t arg2) {
+uint64_t libcSolidSignal(int32_t arg1, uint64_t arg2) {
     typedef uint64_t (*km_fn_t)(int32_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4959,47 +4959,47 @@ uint64_t libc_solid_signal(int32_t arg1, uint64_t arg2) {
     return 0;
 }
 
-int32_t libc_solid_raise(int32_t arg1) {
+int32_t libcSolidRaise(int32_t arg1) {
     return (int32_t)raise(arg1);
 }
 
-char* libc_solid_asctime(void* arg1) {
+char* libcSolidAsctime(void* arg1) {
     return (char*)asctime(arg1);
 }
 
-uint32_t libc_solid_clock(void) {
+uint32_t libcSolidClock(void) {
     return (uint32_t)clock();
 }
 
-char* libc_solid_ctime(void* arg1) {
+char* libcSolidCtime(void* arg1) {
     return (char*)ctime(arg1);
 }
 
-double libc_solid_difftime(int64_t arg1, int64_t arg2) {
+double libcSolidDifftime(int64_t arg1, int64_t arg2) {
     return (double)difftime(arg1, arg2);
 }
 
-void* libc_solid_gmtime(void* arg1) {
+void* libcSolidGmtime(void* arg1) {
     return (void*)gmtime(arg1);
 }
 
-void* libc_solid_localtime(void* arg1) {
+void* libcSolidLocaltime(void* arg1) {
     return (void*)localtime(arg1);
 }
 
-int64_t libc_solid_time(void* arg1) {
+int64_t libcSolidTime(void* arg1) {
     return (int64_t)time(arg1);
 }
 
-int64_t libc_solid_mktime(void* arg1) {
+int64_t libcSolidMktime(void* arg1) {
     return (int64_t)mktime(arg1);
 }
 
-uint64_t libc_solid_strftime(char* arg1, uint64_t arg2, const char* arg3, void* arg4) {
+uint64_t libcSolidStrftime(char* arg1, uint64_t arg2, const char* arg3, void* arg4) {
     return (uint64_t)strftime(arg1, arg2, arg3, arg4);
 }
 
-int32_t libc_solid_utime(const char* arg1, void* arg2) {
+int32_t libcSolidUtime(const char* arg1, void* arg2) {
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5027,7 +5027,7 @@ int32_t libc_solid_utime(const char* arg1, void* arg2) {
     return -1;
 }
 
-char* libc_solid_asctimeR(void* arg1, char* arg2) {
+char* libcSolidAsctimeR(void* arg1, char* arg2) {
     typedef char* (*km_fn_t)(void*, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5055,7 +5055,7 @@ char* libc_solid_asctimeR(void* arg1, char* arg2) {
     return NULL;
 }
 
-char* libc_solid_ctimeR(void* arg1, char* arg2) {
+char* libcSolidCtimeR(void* arg1, char* arg2) {
     typedef char* (*km_fn_t)(void*, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5083,7 +5083,7 @@ char* libc_solid_ctimeR(void* arg1, char* arg2) {
     return NULL;
 }
 
-void* libc_solid_gmtimeR(void* arg1, void* arg2) {
+void* libcSolidGmtimeR(void* arg1, void* arg2) {
     typedef void* (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5111,7 +5111,7 @@ void* libc_solid_gmtimeR(void* arg1, void* arg2) {
     return NULL;
 }
 
-void* libc_solid_localtimeR(void* arg1, void* arg2) {
+void* libcSolidLocaltimeR(void* arg1, void* arg2) {
     typedef void* (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5139,11 +5139,11 @@ void* libc_solid_localtimeR(void* arg1, void* arg2) {
     return NULL;
 }
 
-int32_t libc_solid_stat(const char* arg1, void* arg2) {
+int32_t libcSolidStat(const char* arg1, void* arg2) {
     return (int32_t)stat(arg1, arg2);
 }
 
-int32_t libc_solid_lstat(const char* arg1, void* arg2) {
+int32_t libcSolidLstat(const char* arg1, void* arg2) {
 #if !defined(_WIN32)
     return (int32_t)lstat(arg1, arg2);
 #else
@@ -5154,11 +5154,11 @@ int32_t libc_solid_lstat(const char* arg1, void* arg2) {
 #endif
 }
 
-int32_t libc_solid_fstat(int32_t arg1, void* arg2) {
+int32_t libcSolidFstat(int32_t arg1, void* arg2) {
     return (int32_t)fstat(arg1, arg2);
 }
 
-int32_t libc_solid_chmod(const char* arg1, uint32_t arg2) {
+int32_t libcSolidChmod(const char* arg1, uint32_t arg2) {
 #if !defined(_WIN32)
     return (int32_t)chmod(arg1, arg2);
 #else
@@ -5169,7 +5169,7 @@ int32_t libc_solid_chmod(const char* arg1, uint32_t arg2) {
 #endif
 }
 
-int32_t libc_solid_mkdir(const char* arg1, uint32_t arg2) {
+int32_t libcSolidMkdir(const char* arg1, uint32_t arg2) {
     typedef int32_t (*km_fn_t)(const char*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5197,7 +5197,7 @@ int32_t libc_solid_mkdir(const char* arg1, uint32_t arg2) {
     return -1;
 }
 
-int32_t libc_solid_open(const char* arg1, int32_t arg2, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcSolidOpen(const char* arg1, int32_t arg2, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(const char*, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5231,27 +5231,27 @@ int32_t libc_solid_open(const char* arg1, int32_t arg2, int32_t km_vac, int64_t 
     return -1;
 }
 
-int32_t libc_solid_creat(const char* arg1, int32_t arg2) {
+int32_t libcSolidCreat(const char* arg1, int32_t arg2) {
     return (int32_t)creat(arg1, arg2);
 }
 
-int32_t libc_solid_close(int32_t arg1) {
+int32_t libcSolidClose(int32_t arg1) {
     return (int32_t)close(arg1);
 }
 
-int32_t libc_solid_read(int32_t arg1, void* arg2, int32_t arg3) {
+int32_t libcSolidRead(int32_t arg1, void* arg2, int32_t arg3) {
     return (int32_t)read(arg1, arg2, arg3);
 }
 
-int32_t libc_solid_write(int32_t arg1, void* arg2, int32_t arg3) {
+int32_t libcSolidWrite(int32_t arg1, void* arg2, int32_t arg3) {
     return (int32_t)write(arg1, arg2, arg3);
 }
 
-int32_t libc_solid_unlink(const char* arg1) {
+int32_t libcSolidUnlink(const char* arg1) {
     return (int32_t)unlink(arg1);
 }
 
-int64_t libc_solid_tell(int32_t arg1) {
+int64_t libcSolidTell(int32_t arg1) {
     typedef int64_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5279,27 +5279,27 @@ int64_t libc_solid_tell(int32_t arg1) {
     return -1;
 }
 
-int32_t libc_solid_dup(int32_t arg1) {
+int32_t libcSolidDup(int32_t arg1) {
     return (int32_t)dup(arg1);
 }
 
-int32_t libc_solid_dup2(int32_t arg1, int32_t arg2) {
+int32_t libcSolidDup2(int32_t arg1, int32_t arg2) {
     return (int32_t)dup2(arg1, arg2);
 }
 
-int32_t libc_solid_access(const char* arg1, int32_t arg2) {
+int32_t libcSolidAccess(const char* arg1, int32_t arg2) {
     return (int32_t)access(arg1, arg2);
 }
 
-int32_t libc_solid_rmdir(const char* arg1) {
+int32_t libcSolidRmdir(const char* arg1) {
     return (int32_t)rmdir(arg1);
 }
 
-int32_t libc_solid_chdir(const char* arg1) {
+int32_t libcSolidChdir(const char* arg1) {
     return (int32_t)chdir(arg1);
 }
 
-char* libc_solid_getwd(char* arg1) {
+char* libcSolidGetwd(char* arg1) {
     typedef char* (*km_fn_t)(char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5327,11 +5327,11 @@ char* libc_solid_getwd(char* arg1) {
     return NULL;
 }
 
-char* libc_solid_getcwd(char* arg1, uint64_t arg2) {
+char* libcSolidGetcwd(char* arg1, uint64_t arg2) {
     return (char*)getcwd(arg1, arg2);
 }
 
-int32_t libc_solid_getopt(int32_t arg1, void* arg2, const char* arg3) {
+int32_t libcSolidGetopt(int32_t arg1, void* arg2, const char* arg3) {
     typedef int32_t (*km_fn_t)(int32_t, void*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5359,7 +5359,7 @@ int32_t libc_solid_getopt(int32_t arg1, void* arg2, const char* arg3) {
     return -1;
 }
 
-int32_t libc_solid_getsubopt(void* arg1, void* arg2, void* arg3) {
+int32_t libcSolidGetsubopt(void* arg1, void* arg2, void* arg3) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5387,7 +5387,7 @@ int32_t libc_solid_getsubopt(void* arg1, void* arg2, void* arg3) {
     return -1;
 }
 
-int32_t libc_solid_fcntl(int32_t arg1, int32_t arg2, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcSolidFcntl(int32_t arg1, int32_t arg2, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5421,11 +5421,11 @@ int32_t libc_solid_fcntl(int32_t arg1, int32_t arg2, int32_t km_vac, int64_t km_
     return -1;
 }
 
-int32_t libc_solid_getpid(void) {
+int32_t libcSolidGetpid(void) {
     return (int32_t)getpid();
 }
 
-uint32_t libc_solid_sleep(uint32_t arg1) {
+uint32_t libcSolidSleep(uint32_t arg1) {
 #if !defined(_WIN32)
     return (uint32_t)sleep(arg1);
 #else
@@ -5435,7 +5435,7 @@ uint32_t libc_solid_sleep(uint32_t arg1) {
 #endif
 }
 
-int32_t libc_solid_usleep(uint32_t arg1) {
+int32_t libcSolidUsleep(uint32_t arg1) {
 #if !defined(_WIN32)
     return (int32_t)usleep(arg1);
 #else
@@ -5445,15 +5445,15 @@ int32_t libc_solid_usleep(uint32_t arg1) {
 #endif
 }
 
-void* libc_solid_localeconv(void) {
+void* libcSolidLocaleconv(void) {
     return (void*)localeconv();
 }
 
-char* libc_solid_setlocale(int32_t arg1, const char* arg2) {
+char* libcSolidSetlocale(int32_t arg1, const char* arg2) {
     return (char*)setlocale(arg1, arg2);
 }
 
-void* libc_solid_duplocale(void* arg1) {
+void* libcSolidDuplocale(void* arg1) {
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5481,7 +5481,7 @@ void* libc_solid_duplocale(void* arg1) {
     return NULL;
 }
 
-void libc_solid_freelocale(void* arg1) {
+void libcSolidFreelocale(void* arg1) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5509,7 +5509,7 @@ void libc_solid_freelocale(void* arg1) {
     errno = ENOSYS;
 }
 
-void* libc_solid_localeconvL(void* arg1) {
+void* libcSolidLocaleconvL(void* arg1) {
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5537,7 +5537,7 @@ void* libc_solid_localeconvL(void* arg1) {
     return NULL;
 }
 
-void* libc_solid_newlocale(int32_t arg1, const char* arg2, void* arg3) {
+void* libcSolidNewlocale(int32_t arg1, const char* arg2, void* arg3) {
     typedef void* (*km_fn_t)(int32_t, const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5565,7 +5565,7 @@ void* libc_solid_newlocale(int32_t arg1, const char* arg2, void* arg3) {
     return NULL;
 }
 
-char* libc_solid_nlLanginfo(int64_t item) {
+char* libcSolidNlLanginfo(int64_t item) {
     typedef char* (*km_fn_t)(int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5593,7 +5593,7 @@ char* libc_solid_nlLanginfo(int64_t item) {
     return NULL;
 }
 
-char* libc_solid_nlLanginfoL(int64_t item, void* locale) {
+char* libcSolidNlLanginfoL(int64_t item, void* locale) {
     typedef char* (*km_fn_t)(int64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5621,7 +5621,7 @@ char* libc_solid_nlLanginfoL(int64_t item, void* locale) {
     return NULL;
 }
 
-void* libc_solid_memalign(uint64_t align, uint64_t size) {
+void* libcSolidMemalign(uint64_t align, uint64_t size) {
     typedef void* (*km_fn_t)(uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5649,7 +5649,7 @@ void* libc_solid_memalign(uint64_t align, uint64_t size) {
     return NULL;
 }
 
-int64_t libc_solid_lseek(int32_t arg1, int64_t arg2, int32_t arg3) {
+int64_t libcSolidLseek(int32_t arg1, int64_t arg2, int32_t arg3) {
     return (int64_t)lseek(arg1, arg2, arg3);
 }
 

@@ -3,10 +3,10 @@ package io.github.kotlinmania.libc.unix.bsd.freebsdlike.dragonfly
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.unix.UintptrT
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public typealias DevT = UInt
 
@@ -40,7 +40,7 @@ public typealias ShmattT = CUint
 
 public typealias MqdT = CInt
 
-public typealias SemT = Sem?
+public typealias SemT = MutPtr<Sem>
 
 public typealias CpusetT = CpumaskT
 
@@ -68,9 +68,9 @@ public typealias VmSubsysT = CInt
 
 public typealias VmEflagsT = CUint
 
-public typealias VmMapT = COpaquePointer?
+public typealias VmMapT = MutPtr<CAnonymousVmMap>
 
-public typealias VmMapEntryT = COpaquePointer?
+public typealias VmMapEntryT = MutPtr<VmMapEntry>
 
 public typealias Pmap = CAnonymousPmap
 

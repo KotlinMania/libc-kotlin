@@ -3,6 +3,7 @@ package io.github.kotlinmania.libc.types
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
+import io.github.kotlinmania.rustlang.core.mem.MaybeUninit
 
 // Platform-agnostic support types.
 
@@ -46,7 +47,7 @@ internal class Padding<T>(
      */
 
     public companion object {
-        // Note: Change this into zeroed() and use MaybeUninit::zeroed()
+        // Note: Change this into zeroed() and use MaybeUninit.zeroed()
         // when we depend on rustc 1.75.0.
 
         /**

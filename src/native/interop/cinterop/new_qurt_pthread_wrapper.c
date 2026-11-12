@@ -18,7 +18,7 @@
 #endif
 #endif
 
-int32_t libc_new_qurt_pthread_pthreadCreate(void* thread, void* attr, void* start_routine, void* arg) {
+int32_t libcNewQurtPthreadPthreadCreate(void* thread, void* attr, void* startRoutine, void* arg) {
     typedef int32_t (*km_fn_t)(void*, void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -40,13 +40,13 @@ int32_t libc_new_qurt_pthread_pthreadCreate(void* thread, void* attr, void* star
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(thread, attr, start_routine, arg);
+        return km_fn_ptr(thread, attr, startRoutine, arg);
     }
     errno = ENOSYS;
     return ENOSYS;
 }
 
-int32_t libc_new_qurt_pthread_pthreadJoin(void* thread, void* retval) {
+int32_t libcNewQurtPthreadPthreadJoin(void* thread, void* retval) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -74,7 +74,7 @@ int32_t libc_new_qurt_pthread_pthreadJoin(void* thread, void* retval) {
     return ENOSYS;
 }
 
-int32_t libc_new_qurt_pthread_pthreadDetach(void* thread) {
+int32_t libcNewQurtPthreadPthreadDetach(void* thread) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -102,7 +102,7 @@ int32_t libc_new_qurt_pthread_pthreadDetach(void* thread) {
     return ENOSYS;
 }
 
-void libc_new_qurt_pthread_pthreadExit(void* retval) {
+void libcNewQurtPthreadPthreadExit(void* retval) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -130,7 +130,7 @@ void libc_new_qurt_pthread_pthreadExit(void* retval) {
     errno = ENOSYS;
 }
 
-void* libc_new_qurt_pthread_pthreadSelf(void) {
+void* libcNewQurtPthreadPthreadSelf(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -158,7 +158,7 @@ void* libc_new_qurt_pthread_pthreadSelf(void) {
     return NULL;
 }
 
-int32_t libc_new_qurt_pthread_pthreadEqual(void* t1, void* t2) {
+int32_t libcNewQurtPthreadPthreadEqual(void* t1, void* t2) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -186,7 +186,7 @@ int32_t libc_new_qurt_pthread_pthreadEqual(void* t1, void* t2) {
     return -1;
 }
 
-int32_t libc_new_qurt_pthread_pthreadAttrInit(void* attr) {
+int32_t libcNewQurtPthreadPthreadAttrInit(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -214,7 +214,7 @@ int32_t libc_new_qurt_pthread_pthreadAttrInit(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_new_qurt_pthread_pthreadAttrDestroy(void* attr) {
+int32_t libcNewQurtPthreadPthreadAttrDestroy(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -242,7 +242,7 @@ int32_t libc_new_qurt_pthread_pthreadAttrDestroy(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_new_qurt_pthread_pthreadAttrSetstacksize(void* attr, uint64_t stacksize) {
+int32_t libcNewQurtPthreadPthreadAttrSetstacksize(void* attr, uint64_t stacksize) {
     typedef int32_t (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -270,7 +270,7 @@ int32_t libc_new_qurt_pthread_pthreadAttrSetstacksize(void* attr, uint64_t stack
     return ENOSYS;
 }
 
-int32_t libc_new_qurt_pthread_pthreadAttrGetstacksize(void* attr, void* stacksize) {
+int32_t libcNewQurtPthreadPthreadAttrGetstacksize(void* attr, void* stacksize) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -298,7 +298,7 @@ int32_t libc_new_qurt_pthread_pthreadAttrGetstacksize(void* attr, void* stacksiz
     return ENOSYS;
 }
 
-int32_t libc_new_qurt_pthread_pthreadAttrSetdetachstate(void* attr, int32_t detachstate) {
+int32_t libcNewQurtPthreadPthreadAttrSetdetachstate(void* attr, int32_t detachstate) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -326,7 +326,7 @@ int32_t libc_new_qurt_pthread_pthreadAttrSetdetachstate(void* attr, int32_t deta
     return ENOSYS;
 }
 
-int32_t libc_new_qurt_pthread_pthreadAttrGetdetachstate(void* attr, void* detachstate) {
+int32_t libcNewQurtPthreadPthreadAttrGetdetachstate(void* attr, void* detachstate) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -354,7 +354,7 @@ int32_t libc_new_qurt_pthread_pthreadAttrGetdetachstate(void* attr, void* detach
     return ENOSYS;
 }
 
-int32_t libc_new_qurt_pthread_pthreadMutexInit(void* mutex, void* attr) {
+int32_t libcNewQurtPthreadPthreadMutexInit(void* mutex, void* attr) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -382,7 +382,7 @@ int32_t libc_new_qurt_pthread_pthreadMutexInit(void* mutex, void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_new_qurt_pthread_pthreadMutexDestroy(void* mutex) {
+int32_t libcNewQurtPthreadPthreadMutexDestroy(void* mutex) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -410,7 +410,7 @@ int32_t libc_new_qurt_pthread_pthreadMutexDestroy(void* mutex) {
     return ENOSYS;
 }
 
-int32_t libc_new_qurt_pthread_pthreadMutexLock(void* mutex) {
+int32_t libcNewQurtPthreadPthreadMutexLock(void* mutex) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -438,7 +438,7 @@ int32_t libc_new_qurt_pthread_pthreadMutexLock(void* mutex) {
     return ENOSYS;
 }
 
-int32_t libc_new_qurt_pthread_pthreadMutexTrylock(void* mutex) {
+int32_t libcNewQurtPthreadPthreadMutexTrylock(void* mutex) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -466,7 +466,7 @@ int32_t libc_new_qurt_pthread_pthreadMutexTrylock(void* mutex) {
     return ENOSYS;
 }
 
-int32_t libc_new_qurt_pthread_pthreadMutexUnlock(void* mutex) {
+int32_t libcNewQurtPthreadPthreadMutexUnlock(void* mutex) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -494,7 +494,7 @@ int32_t libc_new_qurt_pthread_pthreadMutexUnlock(void* mutex) {
     return ENOSYS;
 }
 
-int32_t libc_new_qurt_pthread_pthreadMutexattrInit(void* attr) {
+int32_t libcNewQurtPthreadPthreadMutexattrInit(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -522,7 +522,7 @@ int32_t libc_new_qurt_pthread_pthreadMutexattrInit(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_new_qurt_pthread_pthreadMutexattrDestroy(void* attr) {
+int32_t libcNewQurtPthreadPthreadMutexattrDestroy(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -550,7 +550,7 @@ int32_t libc_new_qurt_pthread_pthreadMutexattrDestroy(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_new_qurt_pthread_pthreadMutexattrSettype(void* attr, int32_t kind) {
+int32_t libcNewQurtPthreadPthreadMutexattrSettype(void* attr, int32_t kind) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -578,7 +578,7 @@ int32_t libc_new_qurt_pthread_pthreadMutexattrSettype(void* attr, int32_t kind) 
     return ENOSYS;
 }
 
-int32_t libc_new_qurt_pthread_pthreadMutexattrGettype(void* attr, void* kind) {
+int32_t libcNewQurtPthreadPthreadMutexattrGettype(void* attr, void* kind) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -606,7 +606,7 @@ int32_t libc_new_qurt_pthread_pthreadMutexattrGettype(void* attr, void* kind) {
     return ENOSYS;
 }
 
-int32_t libc_new_qurt_pthread_pthreadCondInit(void* cond, void* attr) {
+int32_t libcNewQurtPthreadPthreadCondInit(void* cond, void* attr) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -634,7 +634,7 @@ int32_t libc_new_qurt_pthread_pthreadCondInit(void* cond, void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_new_qurt_pthread_pthreadCondDestroy(void* cond) {
+int32_t libcNewQurtPthreadPthreadCondDestroy(void* cond) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -662,7 +662,7 @@ int32_t libc_new_qurt_pthread_pthreadCondDestroy(void* cond) {
     return ENOSYS;
 }
 
-int32_t libc_new_qurt_pthread_pthreadCondWait(void* cond, void* mutex) {
+int32_t libcNewQurtPthreadPthreadCondWait(void* cond, void* mutex) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -690,7 +690,7 @@ int32_t libc_new_qurt_pthread_pthreadCondWait(void* cond, void* mutex) {
     return ENOSYS;
 }
 
-int32_t libc_new_qurt_pthread_pthreadCondTimedwait(void* cond, void* mutex, void* abstime) {
+int32_t libcNewQurtPthreadPthreadCondTimedwait(void* cond, void* mutex, void* abstime) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -718,7 +718,7 @@ int32_t libc_new_qurt_pthread_pthreadCondTimedwait(void* cond, void* mutex, void
     return ENOSYS;
 }
 
-int32_t libc_new_qurt_pthread_pthreadCondSignal(void* cond) {
+int32_t libcNewQurtPthreadPthreadCondSignal(void* cond) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -746,7 +746,7 @@ int32_t libc_new_qurt_pthread_pthreadCondSignal(void* cond) {
     return ENOSYS;
 }
 
-int32_t libc_new_qurt_pthread_pthreadCondBroadcast(void* cond) {
+int32_t libcNewQurtPthreadPthreadCondBroadcast(void* cond) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -774,7 +774,7 @@ int32_t libc_new_qurt_pthread_pthreadCondBroadcast(void* cond) {
     return ENOSYS;
 }
 
-int32_t libc_new_qurt_pthread_pthreadCondattrInit(void* attr) {
+int32_t libcNewQurtPthreadPthreadCondattrInit(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -802,7 +802,7 @@ int32_t libc_new_qurt_pthread_pthreadCondattrInit(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_new_qurt_pthread_pthreadCondattrDestroy(void* attr) {
+int32_t libcNewQurtPthreadPthreadCondattrDestroy(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -830,7 +830,7 @@ int32_t libc_new_qurt_pthread_pthreadCondattrDestroy(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_new_qurt_pthread_pthreadCondattrSetclock(void* attr, int32_t clock_id) {
+int32_t libcNewQurtPthreadPthreadCondattrSetclock(void* attr, int32_t clockId) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -852,13 +852,13 @@ int32_t libc_new_qurt_pthread_pthreadCondattrSetclock(void* attr, int32_t clock_
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(attr, clock_id);
+        return km_fn_ptr(attr, clockId);
     }
     errno = ENOSYS;
     return ENOSYS;
 }
 
-int32_t libc_new_qurt_pthread_pthreadKeyCreate(void* key, void* destructor) {
+int32_t libcNewQurtPthreadPthreadKeyCreate(void* key, void* destructor) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -886,7 +886,7 @@ int32_t libc_new_qurt_pthread_pthreadKeyCreate(void* key, void* destructor) {
     return ENOSYS;
 }
 
-int32_t libc_new_qurt_pthread_pthreadKeyDelete(int32_t key) {
+int32_t libcNewQurtPthreadPthreadKeyDelete(int32_t key) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -914,7 +914,7 @@ int32_t libc_new_qurt_pthread_pthreadKeyDelete(int32_t key) {
     return ENOSYS;
 }
 
-void* libc_new_qurt_pthread_pthreadGetspecific(int32_t key) {
+void* libcNewQurtPthreadPthreadGetspecific(int32_t key) {
     typedef void* (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -942,7 +942,7 @@ void* libc_new_qurt_pthread_pthreadGetspecific(int32_t key) {
     return NULL;
 }
 
-int32_t libc_new_qurt_pthread_pthreadSetspecific(int32_t key, void* value) {
+int32_t libcNewQurtPthreadPthreadSetspecific(int32_t key, void* value) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -970,7 +970,7 @@ int32_t libc_new_qurt_pthread_pthreadSetspecific(int32_t key, void* value) {
     return ENOSYS;
 }
 
-int32_t libc_new_qurt_pthread_pthreadOnce(void* once_control, void* init_routine) {
+int32_t libcNewQurtPthreadPthreadOnce(void* onceControl, void* initRoutine) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -992,13 +992,13 @@ int32_t libc_new_qurt_pthread_pthreadOnce(void* once_control, void* init_routine
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(once_control, init_routine);
+        return km_fn_ptr(onceControl, initRoutine);
     }
     errno = ENOSYS;
     return ENOSYS;
 }
 
-int32_t libc_new_qurt_pthread_pthreadGetnameNp(void* thread, char* name, uint64_t len) {
+int32_t libcNewQurtPthreadPthreadGetnameNp(void* thread, char* name, uint64_t len) {
     typedef int32_t (*km_fn_t)(void*, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1026,7 +1026,7 @@ int32_t libc_new_qurt_pthread_pthreadGetnameNp(void* thread, char* name, uint64_
     return ENOSYS;
 }
 
-int32_t libc_new_qurt_pthread_pthreadAttrSetaffinityNp(void* attr, uint64_t cpusetsize, void* cpuset) {
+int32_t libcNewQurtPthreadPthreadAttrSetaffinityNp(void* attr, uint64_t cpusetsize, void* cpuset) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1054,7 +1054,7 @@ int32_t libc_new_qurt_pthread_pthreadAttrSetaffinityNp(void* attr, uint64_t cpus
     return ENOSYS;
 }
 
-int32_t libc_new_qurt_pthread_pthreadAttrGetaffinityNp(void* attr, uint64_t cpusetsize, void* cpuset) {
+int32_t libcNewQurtPthreadPthreadAttrGetaffinityNp(void* attr, uint64_t cpusetsize, void* cpuset) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1082,7 +1082,7 @@ int32_t libc_new_qurt_pthread_pthreadAttrGetaffinityNp(void* attr, uint64_t cpus
     return ENOSYS;
 }
 
-int32_t libc_new_qurt_pthread_posixMemalign(void* memptr, uint64_t alignment, uint64_t size) {
+int32_t libcNewQurtPthreadPosixMemalign(void* memptr, uint64_t alignment, uint64_t size) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

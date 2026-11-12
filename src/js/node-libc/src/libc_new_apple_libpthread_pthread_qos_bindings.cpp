@@ -51,10 +51,10 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_new_apple_libpthread_pthread_qos_pthreadAttrGetQosClassNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewAppleLibpthreadPthreadQosPthreadAttrGetQosClassNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* arg_1_class = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* arg1Class = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* priority = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -78,7 +78,7 @@ static Napi::Value libc_new_apple_libpthread_pthread_qos_pthreadAttrGetQosClassN
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(attr, arg_1_class, priority);
+        km_res = km_fn_ptr(attr, arg1Class, priority);
     } else {
         errno = ENOSYS;
         km_res = ENOSYS;
@@ -86,10 +86,10 @@ static Napi::Value libc_new_apple_libpthread_pthread_qos_pthreadAttrGetQosClassN
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_apple_libpthread_pthread_qos_pthreadGetQosClassNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewAppleLibpthreadPthreadQosPthreadGetQosClassNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* thread = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* arg_1_class = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* arg1Class = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* priority = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -113,7 +113,7 @@ static Napi::Value libc_new_apple_libpthread_pthread_qos_pthreadGetQosClassNp_na
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(thread, arg_1_class, priority);
+        km_res = km_fn_ptr(thread, arg1Class, priority);
     } else {
         errno = ENOSYS;
         km_res = ENOSYS;
@@ -122,8 +122,8 @@ static Napi::Value libc_new_apple_libpthread_pthread_qos_pthreadGetQosClassNp_na
 }
 
 static void register_new_apple_libpthread_pthread_qos_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_new_apple_libpthread_pthread_qos_pthreadAttrGetQosClassNp", Napi::Function::New(env, libc_new_apple_libpthread_pthread_qos_pthreadAttrGetQosClassNp_napi));
-    exports.Set("libc_new_apple_libpthread_pthread_qos_pthreadGetQosClassNp", Napi::Function::New(env, libc_new_apple_libpthread_pthread_qos_pthreadGetQosClassNp_napi));
+    exports.Set("libcNewAppleLibpthreadPthreadQosPthreadAttrGetQosClassNp", Napi::Function::New(env, libcNewAppleLibpthreadPthreadQosPthreadAttrGetQosClassNp_napi));
+    exports.Set("libcNewAppleLibpthreadPthreadQosPthreadGetQosClassNp", Napi::Function::New(env, libcNewAppleLibpthreadPthreadQosPthreadGetQosClassNp_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_new_apple_libpthread_pthread_qos_napi, nullptr };

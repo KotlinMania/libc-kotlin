@@ -4,10 +4,11 @@ import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CLonglong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public typealias WcharT = Int
 
@@ -35,7 +36,7 @@ public typealias NlinkT = CUlong
 
 public typealias OffT = CLonglong
 
-public typealias PthreadT = COpaquePointer?
+public typealias PthreadT = MutPtr<CVoid>
 
 // Must be Int due to library/std/sysCommon/threadLocal.rs,
 // should technically be *mut cVoid
@@ -45,7 +46,7 @@ public typealias RlimT = CUlonglong
 
 public typealias SaFamilyT = UShort
 
-public typealias SemT = COpaquePointer?
+public typealias SemT = MutPtr<CVoid>
 
 public typealias SigsetT = CUlonglong
 

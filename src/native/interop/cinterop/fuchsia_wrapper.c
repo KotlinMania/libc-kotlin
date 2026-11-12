@@ -41,151 +41,151 @@
 #endif
 #endif
 
-int32_t libc_fuchsia_isalnum(int32_t c) {
+int32_t libcFuchsiaIsalnum(int32_t c) {
     return (int32_t)isalnum(c);
 }
 
-int32_t libc_fuchsia_isalpha(int32_t c) {
+int32_t libcFuchsiaIsalpha(int32_t c) {
     return (int32_t)isalpha(c);
 }
 
-int32_t libc_fuchsia_iscntrl(int32_t c) {
+int32_t libcFuchsiaIscntrl(int32_t c) {
     return (int32_t)iscntrl(c);
 }
 
-int32_t libc_fuchsia_isdigit(int32_t c) {
+int32_t libcFuchsiaIsdigit(int32_t c) {
     return (int32_t)isdigit(c);
 }
 
-int32_t libc_fuchsia_isgraph(int32_t c) {
+int32_t libcFuchsiaIsgraph(int32_t c) {
     return (int32_t)isgraph(c);
 }
 
-int32_t libc_fuchsia_islower(int32_t c) {
+int32_t libcFuchsiaIslower(int32_t c) {
     return (int32_t)islower(c);
 }
 
-int32_t libc_fuchsia_isprint(int32_t c) {
+int32_t libcFuchsiaIsprint(int32_t c) {
     return (int32_t)isprint(c);
 }
 
-int32_t libc_fuchsia_ispunct(int32_t c) {
+int32_t libcFuchsiaIspunct(int32_t c) {
     return (int32_t)ispunct(c);
 }
 
-int32_t libc_fuchsia_isspace(int32_t c) {
+int32_t libcFuchsiaIsspace(int32_t c) {
     return (int32_t)isspace(c);
 }
 
-int32_t libc_fuchsia_isupper(int32_t c) {
+int32_t libcFuchsiaIsupper(int32_t c) {
     return (int32_t)isupper(c);
 }
 
-int32_t libc_fuchsia_isxdigit(int32_t c) {
+int32_t libcFuchsiaIsxdigit(int32_t c) {
     return (int32_t)isxdigit(c);
 }
 
-int32_t libc_fuchsia_isblank(int32_t c) {
+int32_t libcFuchsiaIsblank(int32_t c) {
     return (int32_t)isblank(c);
 }
 
-int32_t libc_fuchsia_tolower(int32_t c) {
+int32_t libcFuchsiaTolower(int32_t c) {
     return (int32_t)tolower(c);
 }
 
-int32_t libc_fuchsia_toupper(int32_t c) {
+int32_t libcFuchsiaToupper(int32_t c) {
     return (int32_t)toupper(c);
 }
 
-void* libc_fuchsia_fopen(const char* filename, const char* mode) {
+void* libcFuchsiaFopen(const char* filename, const char* mode) {
     return (void*)fopen(filename, mode);
 }
 
-void* libc_fuchsia_freopen(const char* filename, const char* mode, void* file) {
+void* libcFuchsiaFreopen(const char* filename, const char* mode, void* file) {
     return (void*)freopen(filename, mode, (FILE*)file);
 }
 
-int32_t libc_fuchsia_fflush(void* file) {
+int32_t libcFuchsiaFflush(void* file) {
     return (int32_t)fflush((FILE*)file);
 }
 
-int32_t libc_fuchsia_fclose(void* file) {
+int32_t libcFuchsiaFclose(void* file) {
     return (int32_t)fclose((FILE*)file);
 }
 
-int32_t libc_fuchsia_remove(const char* filename) {
+int32_t libcFuchsiaRemove(const char* filename) {
     return (int32_t)remove(filename);
 }
 
-int32_t libc_fuchsia_rename(const char* oldname, const char* newname) {
+int32_t libcFuchsiaRename(const char* oldname, const char* newname) {
     return (int32_t)rename(oldname, newname);
 }
 
-void* libc_fuchsia_tmpfile(void) {
+void* libcFuchsiaTmpfile(void) {
     return (void*)tmpfile();
 }
 
-int32_t libc_fuchsia_setvbuf(void* stream, char* buffer, int32_t mode, uint64_t size) {
+int32_t libcFuchsiaSetvbuf(void* stream, char* buffer, int32_t mode, uint64_t size) {
     return (int32_t)setvbuf((FILE*)stream, buffer, mode, size);
 }
 
-void libc_fuchsia_setbuf(void* stream, char* buf) {
+void libcFuchsiaSetbuf(void* stream, char* buf) {
     setbuf((FILE*)stream, buf);
 }
 
-int32_t libc_fuchsia_getchar(void) {
+int32_t libcFuchsiaGetchar(void) {
     return (int32_t)getchar();
 }
 
-int32_t libc_fuchsia_putchar(int32_t c) {
+int32_t libcFuchsiaPutchar(int32_t c) {
     return (int32_t)putchar(c);
 }
 
-int32_t libc_fuchsia_fgetc(void* stream) {
+int32_t libcFuchsiaFgetc(void* stream) {
     return (int32_t)fgetc((FILE*)stream);
 }
 
-char* libc_fuchsia_fgets(char* buf, int32_t n, void* stream) {
+char* libcFuchsiaFgets(char* buf, int32_t n, void* stream) {
     return (char*)fgets(buf, n, (FILE*)stream);
 }
 
-int32_t libc_fuchsia_fputc(int32_t c, void* stream) {
+int32_t libcFuchsiaFputc(int32_t c, void* stream) {
     return (int32_t)fputc(c, (FILE*)stream);
 }
 
-int32_t libc_fuchsia_fputs(const char* s, void* stream) {
+int32_t libcFuchsiaFputs(const char* s, void* stream) {
     return (int32_t)fputs(s, (FILE*)stream);
 }
 
-int32_t libc_fuchsia_puts(const char* s) {
+int32_t libcFuchsiaPuts(const char* s) {
     return (int32_t)puts(s);
 }
 
-int32_t libc_fuchsia_ungetc(int32_t c, void* stream) {
+int32_t libcFuchsiaUngetc(int32_t c, void* stream) {
     return (int32_t)ungetc(c, (FILE*)stream);
 }
 
-uint64_t libc_fuchsia_fread(void* ptr, uint64_t size, uint64_t nobj, void* stream) {
+uint64_t libcFuchsiaFread(void* ptr, uint64_t size, uint64_t nobj, void* stream) {
     return (uint64_t)fread(ptr, size, nobj, (FILE*)stream);
 }
 
-uint64_t libc_fuchsia_fwrite(void* ptr, uint64_t size, uint64_t nobj, void* stream) {
+uint64_t libcFuchsiaFwrite(void* ptr, uint64_t size, uint64_t nobj, void* stream) {
     return (uint64_t)fwrite(ptr, size, nobj, (FILE*)stream);
 }
 
-int32_t libc_fuchsia_fseek(void* stream, int64_t offset, int32_t whence) {
+int32_t libcFuchsiaFseek(void* stream, int64_t offset, int32_t whence) {
     return (int32_t)fseek((FILE*)stream, offset, whence);
 }
 
-int64_t libc_fuchsia_ftell(void* stream) {
+int64_t libcFuchsiaFtell(void* stream) {
     return (int64_t)ftell((FILE*)stream);
 }
 
-void libc_fuchsia_rewind(void* stream) {
+void libcFuchsiaRewind(void* stream) {
     rewind((FILE*)stream);
 }
 
-int32_t libc_fuchsia_fgetpos(void* stream, void* ptr) {
+int32_t libcFuchsiaFgetpos(void* stream, void* ptr) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -213,7 +213,7 @@ int32_t libc_fuchsia_fgetpos(void* stream, void* ptr) {
     return -1;
 }
 
-int32_t libc_fuchsia_fsetpos(void* stream, void* ptr) {
+int32_t libcFuchsiaFsetpos(void* stream, void* ptr) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -241,83 +241,83 @@ int32_t libc_fuchsia_fsetpos(void* stream, void* ptr) {
     return -1;
 }
 
-int32_t libc_fuchsia_feof(void* stream) {
+int32_t libcFuchsiaFeof(void* stream) {
     return (int32_t)feof((FILE*)stream);
 }
 
-int32_t libc_fuchsia_ferror(void* stream) {
+int32_t libcFuchsiaFerror(void* stream) {
     return (int32_t)ferror((FILE*)stream);
 }
 
-void libc_fuchsia_perror(const char* s) {
+void libcFuchsiaPerror(const char* s) {
     perror(s);
 }
 
-double libc_fuchsia_atof(const char* s) {
+double libcFuchsiaAtof(const char* s) {
     return (double)atof(s);
 }
 
-int32_t libc_fuchsia_atoi(const char* s) {
+int32_t libcFuchsiaAtoi(const char* s) {
     return (int32_t)atoi(s);
 }
 
-int64_t libc_fuchsia_atol(const char* s) {
+int64_t libcFuchsiaAtol(const char* s) {
     return (int64_t)atol(s);
 }
 
-int64_t libc_fuchsia_atoll(const char* s) {
+int64_t libcFuchsiaAtoll(const char* s) {
     return (int64_t)atoll(s);
 }
 
-double libc_fuchsia_strtod(const char* s, void* endp) {
+double libcFuchsiaStrtod(const char* s, void* endp) {
     return (double)strtod(s, endp);
 }
 
-float libc_fuchsia_strtof(const char* s, void* endp) {
+float libcFuchsiaStrtof(const char* s, void* endp) {
     return (float)strtof(s, endp);
 }
 
-int64_t libc_fuchsia_strtol(const char* s, void* endp, int32_t base) {
+int64_t libcFuchsiaStrtol(const char* s, void* endp, int32_t base) {
     return (int64_t)strtol(s, endp, base);
 }
 
-int64_t libc_fuchsia_strtoll(const char* s, void* endp, int32_t base) {
+int64_t libcFuchsiaStrtoll(const char* s, void* endp, int32_t base) {
     return (int64_t)strtoll(s, endp, base);
 }
 
-uint64_t libc_fuchsia_strtoul(const char* s, void* endp, int32_t base) {
+uint64_t libcFuchsiaStrtoul(const char* s, void* endp, int32_t base) {
     return (uint64_t)strtoul(s, endp, base);
 }
 
-uint64_t libc_fuchsia_strtoull(const char* s, void* endp, int32_t base) {
+uint64_t libcFuchsiaStrtoull(const char* s, void* endp, int32_t base) {
     return (uint64_t)strtoull(s, endp, base);
 }
 
-void* libc_fuchsia_calloc(uint64_t nobj, uint64_t size) {
+void* libcFuchsiaCalloc(uint64_t nobj, uint64_t size) {
     return (void*)calloc(nobj, size);
 }
 
-void* libc_fuchsia_malloc(uint64_t size) {
+void* libcFuchsiaMalloc(uint64_t size) {
     return (void*)malloc(size);
 }
 
-void* libc_fuchsia_realloc(void* p, uint64_t size) {
+void* libcFuchsiaRealloc(void* p, uint64_t size) {
     return (void*)realloc(p, size);
 }
 
-void libc_fuchsia_free(void* p) {
+void libcFuchsiaFree(void* p) {
     free(p);
 }
 
-void libc_fuchsia_abort(void) {
+void libcFuchsiaAbort(void) {
     abort();
 }
 
-void libc_fuchsia_exit(int32_t status) {
+void libcFuchsiaExit(int32_t status) {
     exit(status);
 }
 
-int32_t libc_fuchsia_atexit(void* cb) {
+int32_t libcFuchsiaAtexit(void* cb) {
     if (cb == NULL) {
         errno = EINVAL;
         return -1;
@@ -353,7 +353,7 @@ int32_t libc_fuchsia_atexit(void* cb) {
 #endif
 }
 
-int32_t libc_fuchsia_system(const char* s) {
+int32_t libcFuchsiaSystem(const char* s) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -381,87 +381,87 @@ int32_t libc_fuchsia_system(const char* s) {
     return -1;
 }
 
-char* libc_fuchsia_getenv(const char* s) {
+char* libcFuchsiaGetenv(const char* s) {
     return (char*)getenv(s);
 }
 
-char* libc_fuchsia_strcpy(char* dst, const char* src) {
+char* libcFuchsiaStrcpy(char* dst, const char* src) {
     return (char*)strcpy(dst, src);
 }
 
-char* libc_fuchsia_strncpy(char* dst, const char* src, uint64_t n) {
+char* libcFuchsiaStrncpy(char* dst, const char* src, uint64_t n) {
     return (char*)strncpy(dst, src, n);
 }
 
-char* libc_fuchsia_strcat(char* s, const char* ct) {
+char* libcFuchsiaStrcat(char* s, const char* ct) {
     return (char*)strcat(s, ct);
 }
 
-char* libc_fuchsia_strncat(char* s, const char* ct, uint64_t n) {
+char* libcFuchsiaStrncat(char* s, const char* ct, uint64_t n) {
     return (char*)strncat(s, ct, n);
 }
 
-int32_t libc_fuchsia_strcmp(const char* cs, const char* ct) {
+int32_t libcFuchsiaStrcmp(const char* cs, const char* ct) {
     return (int32_t)strcmp(cs, ct);
 }
 
-int32_t libc_fuchsia_strncmp(const char* cs, const char* ct, uint64_t n) {
+int32_t libcFuchsiaStrncmp(const char* cs, const char* ct, uint64_t n) {
     return (int32_t)strncmp(cs, ct, n);
 }
 
-int32_t libc_fuchsia_strcoll(const char* cs, const char* ct) {
+int32_t libcFuchsiaStrcoll(const char* cs, const char* ct) {
     return (int32_t)strcoll(cs, ct);
 }
 
-char* libc_fuchsia_strchr(const char* cs, int32_t c) {
+char* libcFuchsiaStrchr(const char* cs, int32_t c) {
     return (char*)strchr(cs, c);
 }
 
-char* libc_fuchsia_strrchr(const char* cs, int32_t c) {
+char* libcFuchsiaStrrchr(const char* cs, int32_t c) {
     return (char*)strrchr(cs, c);
 }
 
-uint64_t libc_fuchsia_strspn(const char* cs, const char* ct) {
+uint64_t libcFuchsiaStrspn(const char* cs, const char* ct) {
     return (uint64_t)strspn(cs, ct);
 }
 
-uint64_t libc_fuchsia_strcspn(const char* cs, const char* ct) {
+uint64_t libcFuchsiaStrcspn(const char* cs, const char* ct) {
     return (uint64_t)strcspn(cs, ct);
 }
 
-char* libc_fuchsia_strdup(const char* cs) {
+char* libcFuchsiaStrdup(const char* cs) {
     return (char*)strdup(cs);
 }
 
-char* libc_fuchsia_strpbrk(const char* cs, const char* ct) {
+char* libcFuchsiaStrpbrk(const char* cs, const char* ct) {
     return (char*)strpbrk(cs, ct);
 }
 
-char* libc_fuchsia_strstr(const char* cs, const char* ct) {
+char* libcFuchsiaStrstr(const char* cs, const char* ct) {
     return (char*)strstr(cs, ct);
 }
 
-uint64_t libc_fuchsia_strlen(const char* cs) {
+uint64_t libcFuchsiaStrlen(const char* cs) {
     return (uint64_t)strlen(cs);
 }
 
-uint64_t libc_fuchsia_strnlen(const char* cs, uint64_t maxlen) {
+uint64_t libcFuchsiaStrnlen(const char* cs, uint64_t maxlen) {
     return (uint64_t)strnlen(cs, maxlen);
 }
 
-char* libc_fuchsia_strerror(int32_t n) {
+char* libcFuchsiaStrerror(int32_t n) {
     return (char*)strerror(n);
 }
 
-char* libc_fuchsia_strtok(char* s, const char* t) {
+char* libcFuchsiaStrtok(char* s, const char* t) {
     return (char*)strtok(s, t);
 }
 
-uint64_t libc_fuchsia_strxfrm(char* s, const char* ct, uint64_t n) {
+uint64_t libcFuchsiaStrxfrm(char* s, const char* ct, uint64_t n) {
     return (uint64_t)strxfrm(s, ct, n);
 }
 
-uint64_t libc_fuchsia_wcslen(void* buf) {
+uint64_t libcFuchsiaWcslen(void* buf) {
     typedef uint64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -489,7 +489,7 @@ uint64_t libc_fuchsia_wcslen(void* buf) {
     return 0;
 }
 
-uint64_t libc_fuchsia_wcstombs(char* dest, void* src, uint64_t n) {
+uint64_t libcFuchsiaWcstombs(char* dest, void* src, uint64_t n) {
     typedef uint64_t (*km_fn_t)(char*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -517,11 +517,11 @@ uint64_t libc_fuchsia_wcstombs(char* dest, void* src, uint64_t n) {
     return 0;
 }
 
-void* libc_fuchsia_memchr(void* cx, int32_t c, uint64_t n) {
+void* libcFuchsiaMemchr(void* cx, int32_t c, uint64_t n) {
     return (void*)memchr(cx, c, n);
 }
 
-void* libc_fuchsia_wmemchr(void* cx, uint32_t c, uint64_t n) {
+void* libcFuchsiaWmemchr(void* cx, uint32_t c, uint64_t n) {
     typedef void* (*km_fn_t)(void*, uint32_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -549,27 +549,27 @@ void* libc_fuchsia_wmemchr(void* cx, uint32_t c, uint64_t n) {
     return NULL;
 }
 
-int32_t libc_fuchsia_memcmp(void* cx, void* ct, uint64_t n) {
+int32_t libcFuchsiaMemcmp(void* cx, void* ct, uint64_t n) {
     return (int32_t)memcmp(cx, ct, n);
 }
 
-void* libc_fuchsia_memcpy(void* dest, void* src, uint64_t n) {
+void* libcFuchsiaMemcpy(void* dest, void* src, uint64_t n) {
     return (void*)memcpy(dest, src, n);
 }
 
-void* libc_fuchsia_memmove(void* dest, void* src, uint64_t n) {
+void* libcFuchsiaMemmove(void* dest, void* src, uint64_t n) {
     return (void*)memmove(dest, src, n);
 }
 
-void* libc_fuchsia_memset(void* dest, int32_t c, uint64_t n) {
+void* libcFuchsiaMemset(void* dest, int32_t c, uint64_t n) {
     return (void*)memset(dest, c, n);
 }
 
-int32_t libc_fuchsia_abs(int32_t i) {
+int32_t libcFuchsiaAbs(int32_t i) {
     return (int32_t)abs(i);
 }
 
-int64_t libc_fuchsia_labs(int64_t i) {
+int64_t libcFuchsiaLabs(int64_t i) {
     typedef int64_t (*km_fn_t)(int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -597,15 +597,15 @@ int64_t libc_fuchsia_labs(int64_t i) {
     return -1;
 }
 
-int32_t libc_fuchsia_rand(void) {
+int32_t libcFuchsiaRand(void) {
     return (int32_t)rand();
 }
 
-void libc_fuchsia_srand(uint32_t seed) {
+void libcFuchsiaSrand(uint32_t seed) {
     srand(seed);
 }
 
-void* libc_fuchsia_getpwnam(const char* name) {
+void* libcFuchsiaGetpwnam(const char* name) {
     typedef void* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -633,7 +633,7 @@ void* libc_fuchsia_getpwnam(const char* name) {
     return NULL;
 }
 
-void* libc_fuchsia_getpwuid(uint32_t uid) {
+void* libcFuchsiaGetpwuid(uint32_t uid) {
     typedef void* (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -661,7 +661,7 @@ void* libc_fuchsia_getpwuid(uint32_t uid) {
     return NULL;
 }
 
-int32_t libc_fuchsia_fprintf(void* stream, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcFuchsiaFprintf(void* stream, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(void*, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -695,7 +695,7 @@ int32_t libc_fuchsia_fprintf(void* stream, const char* format, int32_t km_vac, i
     return -1;
 }
 
-int32_t libc_fuchsia_printf(const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcFuchsiaPrintf(const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -729,7 +729,7 @@ int32_t libc_fuchsia_printf(const char* format, int32_t km_vac, int64_t km_va0, 
     return -1;
 }
 
-int32_t libc_fuchsia_snprintf(char* s, uint64_t n, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcFuchsiaSnprintf(char* s, uint64_t n, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(char*, uint64_t, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -763,7 +763,7 @@ int32_t libc_fuchsia_snprintf(char* s, uint64_t n, const char* format, int32_t k
     return -1;
 }
 
-int32_t libc_fuchsia_sprintf(char* s, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcFuchsiaSprintf(char* s, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(char*, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -797,7 +797,7 @@ int32_t libc_fuchsia_sprintf(char* s, const char* format, int32_t km_vac, int64_
     return -1;
 }
 
-int32_t libc_fuchsia_fscanf(void* stream, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcFuchsiaFscanf(void* stream, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(void*, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -831,7 +831,7 @@ int32_t libc_fuchsia_fscanf(void* stream, const char* format, int32_t km_vac, in
     return -1;
 }
 
-int32_t libc_fuchsia_scanf(const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcFuchsiaScanf(const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -865,7 +865,7 @@ int32_t libc_fuchsia_scanf(const char* format, int32_t km_vac, int64_t km_va0, i
     return -1;
 }
 
-int32_t libc_fuchsia_sscanf(const char* s, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcFuchsiaSscanf(const char* s, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(const char*, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -899,7 +899,7 @@ int32_t libc_fuchsia_sscanf(const char* s, const char* format, int32_t km_vac, i
     return -1;
 }
 
-int32_t libc_fuchsia_getcharUnlocked(void) {
+int32_t libcFuchsiaGetcharUnlocked(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -927,7 +927,7 @@ int32_t libc_fuchsia_getcharUnlocked(void) {
     return -1;
 }
 
-int32_t libc_fuchsia_putcharUnlocked(int32_t c) {
+int32_t libcFuchsiaPutcharUnlocked(int32_t c) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -955,56 +955,56 @@ int32_t libc_fuchsia_putcharUnlocked(int32_t c) {
     return -1;
 }
 
-int32_t libc_fuchsia_socket(int32_t domain, int32_t ty, int32_t protocol) {
+int32_t libcFuchsiaSocket(int32_t domain, int32_t ty, int32_t protocol) {
     return (int32_t)socket(domain, ty, protocol);
 }
 
-int32_t libc_fuchsia_connect(int32_t arg_0_socket, void* address, uint32_t len) {
-    return (int32_t)connect(arg_0_socket, address, len);
+int32_t libcFuchsiaConnect(int32_t arg0Socket, void* address, uint32_t len) {
+    return (int32_t)connect(arg0Socket, address, len);
 }
 
-int32_t libc_fuchsia_listen(int32_t arg_0_socket, int32_t backlog) {
-    return (int32_t)listen(arg_0_socket, backlog);
+int32_t libcFuchsiaListen(int32_t arg0Socket, int32_t backlog) {
+    return (int32_t)listen(arg0Socket, backlog);
 }
 
-int32_t libc_fuchsia_accept(int32_t arg_0_socket, void* address, void* address_len) {
-    return (int32_t)accept(arg_0_socket, address, address_len);
+int32_t libcFuchsiaAccept(int32_t arg0Socket, void* address, void* addressLen) {
+    return (int32_t)accept(arg0Socket, address, addressLen);
 }
 
-int32_t libc_fuchsia_getpeername(int32_t arg_0_socket, void* address, void* address_len) {
-    return (int32_t)getpeername(arg_0_socket, address, address_len);
+int32_t libcFuchsiaGetpeername(int32_t arg0Socket, void* address, void* addressLen) {
+    return (int32_t)getpeername(arg0Socket, address, addressLen);
 }
 
-int32_t libc_fuchsia_getsockname(int32_t arg_0_socket, void* address, void* address_len) {
-    return (int32_t)getsockname(arg_0_socket, address, address_len);
+int32_t libcFuchsiaGetsockname(int32_t arg0Socket, void* address, void* addressLen) {
+    return (int32_t)getsockname(arg0Socket, address, addressLen);
 }
 
-int32_t libc_fuchsia_setsockopt(int32_t arg_0_socket, int32_t level, int32_t name, void* value, uint32_t option_len) {
-    return (int32_t)setsockopt(arg_0_socket, level, name, value, option_len);
+int32_t libcFuchsiaSetsockopt(int32_t arg0Socket, int32_t level, int32_t name, void* value, uint32_t optionLen) {
+    return (int32_t)setsockopt(arg0Socket, level, name, value, optionLen);
 }
 
-int32_t libc_fuchsia_socketpair(int32_t domain, int32_t type_, int32_t protocol, void* socket_vector) {
+int32_t libcFuchsiaSocketpair(int32_t domain, int32_t type, int32_t protocol, void* socketVector) {
 #if !defined(_WIN32)
-    return (int32_t)socketpair(domain, type_, protocol, socket_vector);
+    return (int32_t)socketpair(domain, type, protocol, socketVector);
 #else
     (void)domain;
-    (void)type_;
+    (void)type;
     (void)protocol;
-    (void)socket_vector;
+    (void)socketVector;
     errno = ENOSYS;
     return -1;
 #endif
 }
 
-int64_t libc_fuchsia_sendto(int32_t arg_0_socket, void* buf, uint64_t len, int32_t flags, void* addr, uint32_t addrlen) {
-    return (int64_t)sendto(arg_0_socket, buf, len, flags, addr, addrlen);
+int64_t libcFuchsiaSendto(int32_t arg0Socket, void* buf, uint64_t len, int32_t flags, void* addr, uint32_t addrlen) {
+    return (int64_t)sendto(arg0Socket, buf, len, flags, addr, addrlen);
 }
 
-int32_t libc_fuchsia_shutdown(int32_t arg_0_socket, int32_t how) {
-    return (int32_t)shutdown(arg_0_socket, how);
+int32_t libcFuchsiaShutdown(int32_t arg0Socket, int32_t how) {
+    return (int32_t)shutdown(arg0Socket, how);
 }
 
-int32_t libc_fuchsia_chmod(const char* path, uint32_t mode) {
+int32_t libcFuchsiaChmod(const char* path, uint32_t mode) {
 #if !defined(_WIN32)
     return (int32_t)chmod(path, mode);
 #else
@@ -1015,7 +1015,7 @@ int32_t libc_fuchsia_chmod(const char* path, uint32_t mode) {
 #endif
 }
 
-int32_t libc_fuchsia_fchmod(int32_t fd, uint32_t mode) {
+int32_t libcFuchsiaFchmod(int32_t fd, uint32_t mode) {
 #if !defined(_WIN32)
     return (int32_t)fchmod(fd, mode);
 #else
@@ -1026,11 +1026,11 @@ int32_t libc_fuchsia_fchmod(int32_t fd, uint32_t mode) {
 #endif
 }
 
-int32_t libc_fuchsia_fstat(int32_t fildes, void* buf) {
+int32_t libcFuchsiaFstat(int32_t fildes, void* buf) {
     return (int32_t)fstat(fildes, buf);
 }
 
-int32_t libc_fuchsia_mkdir(const char* path, uint32_t mode) {
+int32_t libcFuchsiaMkdir(const char* path, uint32_t mode) {
     typedef int32_t (*km_fn_t)(const char*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1058,11 +1058,11 @@ int32_t libc_fuchsia_mkdir(const char* path, uint32_t mode) {
     return -1;
 }
 
-int32_t libc_fuchsia_stat(const char* path, void* buf) {
+int32_t libcFuchsiaStat(const char* path, void* buf) {
     return (int32_t)stat(path, buf);
 }
 
-int32_t libc_fuchsia_pclose(void* stream) {
+int32_t libcFuchsiaPclose(void* stream) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1090,7 +1090,7 @@ int32_t libc_fuchsia_pclose(void* stream) {
     return -1;
 }
 
-void* libc_fuchsia_fdopen(int32_t fd, const char* mode) {
+void* libcFuchsiaFdopen(int32_t fd, const char* mode) {
     typedef void* (*km_fn_t)(int32_t, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1118,7 +1118,7 @@ void* libc_fuchsia_fdopen(int32_t fd, const char* mode) {
     return NULL;
 }
 
-int32_t libc_fuchsia_fileno(void* stream) {
+int32_t libcFuchsiaFileno(void* stream) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1146,7 +1146,7 @@ int32_t libc_fuchsia_fileno(void* stream) {
     return -1;
 }
 
-int32_t libc_fuchsia_open(const char* path, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcFuchsiaOpen(const char* path, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(const char*, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1180,11 +1180,11 @@ int32_t libc_fuchsia_open(const char* path, int32_t oflag, int32_t km_vac, int64
     return -1;
 }
 
-int32_t libc_fuchsia_creat(const char* path, uint32_t mode) {
+int32_t libcFuchsiaCreat(const char* path, uint32_t mode) {
     return (int32_t)creat(path, mode);
 }
 
-int32_t libc_fuchsia_fcntl(int32_t fd, int32_t cmd, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcFuchsiaFcntl(int32_t fd, int32_t cmd, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1218,7 +1218,7 @@ int32_t libc_fuchsia_fcntl(int32_t fd, int32_t cmd, int32_t km_vac, int64_t km_v
     return -1;
 }
 
-void* libc_fuchsia_opendir(const char* dirname) {
+void* libcFuchsiaOpendir(const char* dirname) {
 #if !defined(_WIN32)
     return (void*)opendir(dirname);
 #else
@@ -1228,7 +1228,7 @@ void* libc_fuchsia_opendir(const char* dirname) {
 #endif
 }
 
-void* libc_fuchsia_readdir(void* dirp) {
+void* libcFuchsiaReaddir(void* dirp) {
 #if !defined(_WIN32)
     return (void*)readdir((DIR*)dirp);
 #else
@@ -1238,7 +1238,7 @@ void* libc_fuchsia_readdir(void* dirp) {
 #endif
 }
 
-int32_t libc_fuchsia_readdirR(void* dirp, void* entry, void* result) {
+int32_t libcFuchsiaReaddirR(void* dirp, void* entry, void* result) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1266,7 +1266,7 @@ int32_t libc_fuchsia_readdirR(void* dirp, void* entry, void* result) {
     return -1;
 }
 
-int32_t libc_fuchsia_closedir(void* dirp) {
+int32_t libcFuchsiaClosedir(void* dirp) {
 #if !defined(_WIN32)
     return (int32_t)closedir((DIR*)dirp);
 #else
@@ -1276,7 +1276,7 @@ int32_t libc_fuchsia_closedir(void* dirp) {
 #endif
 }
 
-void libc_fuchsia_rewinddir(void* dirp) {
+void libcFuchsiaRewinddir(void* dirp) {
 #if !defined(_WIN32)
     rewinddir((DIR*)dirp);
 #else
@@ -1285,7 +1285,7 @@ void libc_fuchsia_rewinddir(void* dirp) {
 #endif
 }
 
-int32_t libc_fuchsia_openat(int32_t dirfd, const char* pathname, int32_t flags, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcFuchsiaOpenat(int32_t dirfd, const char* pathname, int32_t flags, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1319,7 +1319,7 @@ int32_t libc_fuchsia_openat(int32_t dirfd, const char* pathname, int32_t flags, 
     return -1;
 }
 
-int32_t libc_fuchsia_fchmodat(int32_t dirfd, const char* pathname, uint32_t mode, int32_t flags) {
+int32_t libcFuchsiaFchmodat(int32_t dirfd, const char* pathname, uint32_t mode, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1347,7 +1347,7 @@ int32_t libc_fuchsia_fchmodat(int32_t dirfd, const char* pathname, uint32_t mode
     return -1;
 }
 
-int32_t libc_fuchsia_fchown(int32_t fd, uint32_t owner, uint32_t group) {
+int32_t libcFuchsiaFchown(int32_t fd, uint32_t owner, uint32_t group) {
 #if !defined(_WIN32)
     return (int32_t)fchown(fd, owner, group);
 #else
@@ -1359,7 +1359,7 @@ int32_t libc_fuchsia_fchown(int32_t fd, uint32_t owner, uint32_t group) {
 #endif
 }
 
-int32_t libc_fuchsia_fchownat(int32_t dirfd, const char* pathname, uint32_t owner, uint32_t group, int32_t flags) {
+int32_t libcFuchsiaFchownat(int32_t dirfd, const char* pathname, uint32_t owner, uint32_t group, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, uint32_t, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1387,7 +1387,7 @@ int32_t libc_fuchsia_fchownat(int32_t dirfd, const char* pathname, uint32_t owne
     return -1;
 }
 
-int32_t libc_fuchsia_fstatat(int32_t dirfd, const char* pathname, void* buf, int32_t flags) {
+int32_t libcFuchsiaFstatat(int32_t dirfd, const char* pathname, void* buf, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1415,7 +1415,7 @@ int32_t libc_fuchsia_fstatat(int32_t dirfd, const char* pathname, void* buf, int
     return -1;
 }
 
-int32_t libc_fuchsia_linkat(int32_t olddirfd, const char* oldpath, int32_t newdirfd, const char* newpath, int32_t flags) {
+int32_t libcFuchsiaLinkat(int32_t olddirfd, const char* oldpath, int32_t newdirfd, const char* newpath, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1443,7 +1443,7 @@ int32_t libc_fuchsia_linkat(int32_t olddirfd, const char* oldpath, int32_t newdi
     return -1;
 }
 
-int32_t libc_fuchsia_mkdirat(int32_t dirfd, const char* pathname, uint32_t mode) {
+int32_t libcFuchsiaMkdirat(int32_t dirfd, const char* pathname, uint32_t mode) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1471,7 +1471,7 @@ int32_t libc_fuchsia_mkdirat(int32_t dirfd, const char* pathname, uint32_t mode)
     return -1;
 }
 
-int64_t libc_fuchsia_readlinkat(int32_t dirfd, const char* pathname, char* buf, uint64_t bufsiz) {
+int64_t libcFuchsiaReadlinkat(int32_t dirfd, const char* pathname, char* buf, uint64_t bufsiz) {
     typedef int64_t (*km_fn_t)(int32_t, const char*, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1499,7 +1499,7 @@ int64_t libc_fuchsia_readlinkat(int32_t dirfd, const char* pathname, char* buf, 
     return -1;
 }
 
-int32_t libc_fuchsia_renameat(int32_t olddirfd, const char* oldpath, int32_t newdirfd, const char* newpath) {
+int32_t libcFuchsiaRenameat(int32_t olddirfd, const char* oldpath, int32_t newdirfd, const char* newpath) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1527,7 +1527,7 @@ int32_t libc_fuchsia_renameat(int32_t olddirfd, const char* oldpath, int32_t new
     return -1;
 }
 
-int32_t libc_fuchsia_symlinkat(const char* target, int32_t newdirfd, const char* linkpath) {
+int32_t libcFuchsiaSymlinkat(const char* target, int32_t newdirfd, const char* linkpath) {
     typedef int32_t (*km_fn_t)(const char*, int32_t, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1555,7 +1555,7 @@ int32_t libc_fuchsia_symlinkat(const char* target, int32_t newdirfd, const char*
     return -1;
 }
 
-int32_t libc_fuchsia_unlinkat(int32_t dirfd, const char* pathname, int32_t flags) {
+int32_t libcFuchsiaUnlinkat(int32_t dirfd, const char* pathname, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1583,11 +1583,11 @@ int32_t libc_fuchsia_unlinkat(int32_t dirfd, const char* pathname, int32_t flags
     return -1;
 }
 
-int32_t libc_fuchsia_access(const char* path, int32_t amode) {
+int32_t libcFuchsiaAccess(const char* path, int32_t amode) {
     return (int32_t)access(path, amode);
 }
 
-uint32_t libc_fuchsia_alarm(uint32_t seconds) {
+uint32_t libcFuchsiaAlarm(uint32_t seconds) {
     typedef uint32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1615,11 +1615,11 @@ uint32_t libc_fuchsia_alarm(uint32_t seconds) {
     return 0;
 }
 
-int32_t libc_fuchsia_chdir(const char* dir) {
+int32_t libcFuchsiaChdir(const char* dir) {
     return (int32_t)chdir(dir);
 }
 
-int32_t libc_fuchsia_chown(const char* path, uint32_t uid, uint32_t gid) {
+int32_t libcFuchsiaChown(const char* path, uint32_t uid, uint32_t gid) {
 #if !defined(_WIN32)
     return (int32_t)chown(path, uid, gid);
 #else
@@ -1631,7 +1631,7 @@ int32_t libc_fuchsia_chown(const char* path, uint32_t uid, uint32_t gid) {
 #endif
 }
 
-int32_t libc_fuchsia_lchown(const char* path, uint32_t uid, uint32_t gid) {
+int32_t libcFuchsiaLchown(const char* path, uint32_t uid, uint32_t gid) {
     typedef int32_t (*km_fn_t)(const char*, uint32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1659,19 +1659,19 @@ int32_t libc_fuchsia_lchown(const char* path, uint32_t uid, uint32_t gid) {
     return -1;
 }
 
-int32_t libc_fuchsia_close(int32_t fd) {
+int32_t libcFuchsiaClose(int32_t fd) {
     return (int32_t)close(fd);
 }
 
-int32_t libc_fuchsia_dup(int32_t fd) {
+int32_t libcFuchsiaDup(int32_t fd) {
     return (int32_t)dup(fd);
 }
 
-int32_t libc_fuchsia_dup2(int32_t src, int32_t dst) {
+int32_t libcFuchsiaDup2(int32_t src, int32_t dst) {
     return (int32_t)dup2(src, dst);
 }
 
-int32_t libc_fuchsia_execl(const char* path, const char* arg0, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcFuchsiaExecl(const char* path, const char* arg0, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(const char*, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1705,7 +1705,7 @@ int32_t libc_fuchsia_execl(const char* path, const char* arg0, int32_t km_vac, i
     return -1;
 }
 
-int32_t libc_fuchsia_execle(const char* path, const char* arg0, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcFuchsiaExecle(const char* path, const char* arg0, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(const char*, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1739,7 +1739,7 @@ int32_t libc_fuchsia_execle(const char* path, const char* arg0, int32_t km_vac, 
     return -1;
 }
 
-int32_t libc_fuchsia_execlp(const char* file, const char* arg0, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcFuchsiaExeclp(const char* file, const char* arg0, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(const char*, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1773,7 +1773,7 @@ int32_t libc_fuchsia_execlp(const char* file, const char* arg0, int32_t km_vac, 
     return -1;
 }
 
-int32_t libc_fuchsia_execv(const char* prog, void* argv) {
+int32_t libcFuchsiaExecv(const char* prog, void* argv) {
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1801,7 +1801,7 @@ int32_t libc_fuchsia_execv(const char* prog, void* argv) {
     return -1;
 }
 
-int32_t libc_fuchsia_execve(const char* prog, void* argv, void* envp) {
+int32_t libcFuchsiaExecve(const char* prog, void* argv, void* envp) {
     typedef int32_t (*km_fn_t)(const char*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1829,7 +1829,7 @@ int32_t libc_fuchsia_execve(const char* prog, void* argv, void* envp) {
     return -1;
 }
 
-int32_t libc_fuchsia_execvp(const char* c, void* argv) {
+int32_t libcFuchsiaExecvp(const char* c, void* argv) {
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1857,7 +1857,7 @@ int32_t libc_fuchsia_execvp(const char* c, void* argv) {
     return -1;
 }
 
-int32_t libc_fuchsia_fork(void) {
+int32_t libcFuchsiaFork(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1885,7 +1885,7 @@ int32_t libc_fuchsia_fork(void) {
     return -1;
 }
 
-int64_t libc_fuchsia_fpathconf(int32_t filedes, int32_t name) {
+int64_t libcFuchsiaFpathconf(int32_t filedes, int32_t name) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1913,11 +1913,11 @@ int64_t libc_fuchsia_fpathconf(int32_t filedes, int32_t name) {
     return -1;
 }
 
-char* libc_fuchsia_getcwd(char* buf, uint64_t size) {
+char* libcFuchsiaGetcwd(char* buf, uint64_t size) {
     return (char*)getcwd(buf, size);
 }
 
-uint32_t libc_fuchsia_getegid(void) {
+uint32_t libcFuchsiaGetegid(void) {
 #if !defined(_WIN32)
     return (uint32_t)getegid();
 #else
@@ -1926,7 +1926,7 @@ uint32_t libc_fuchsia_getegid(void) {
 #endif
 }
 
-uint32_t libc_fuchsia_geteuid(void) {
+uint32_t libcFuchsiaGeteuid(void) {
 #if !defined(_WIN32)
     return (uint32_t)geteuid();
 #else
@@ -1935,7 +1935,7 @@ uint32_t libc_fuchsia_geteuid(void) {
 #endif
 }
 
-uint32_t libc_fuchsia_getgid(void) {
+uint32_t libcFuchsiaGetgid(void) {
 #if !defined(_WIN32)
     return (uint32_t)getgid();
 #else
@@ -1944,7 +1944,7 @@ uint32_t libc_fuchsia_getgid(void) {
 #endif
 }
 
-int32_t libc_fuchsia_getgroups(int32_t ngroups_max, void* groups) {
+int32_t libcFuchsiaGetgroups(int32_t ngroupsMax, void* groups) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1966,13 +1966,13 @@ int32_t libc_fuchsia_getgroups(int32_t ngroups_max, void* groups) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(ngroups_max, groups);
+        return km_fn_ptr(ngroupsMax, groups);
     }
     errno = ENOSYS;
     return -1;
 }
 
-char* libc_fuchsia_getlogin(void) {
+char* libcFuchsiaGetlogin(void) {
     typedef char* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2000,7 +2000,7 @@ char* libc_fuchsia_getlogin(void) {
     return NULL;
 }
 
-int32_t libc_fuchsia_getopt(int32_t argc, void* argv, const char* optstr) {
+int32_t libcFuchsiaGetopt(int32_t argc, void* argv, const char* optstr) {
     typedef int32_t (*km_fn_t)(int32_t, void*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2028,7 +2028,7 @@ int32_t libc_fuchsia_getopt(int32_t argc, void* argv, const char* optstr) {
     return -1;
 }
 
-int32_t libc_fuchsia_getpgid(int32_t pid) {
+int32_t libcFuchsiaGetpgid(int32_t pid) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2056,7 +2056,7 @@ int32_t libc_fuchsia_getpgid(int32_t pid) {
     return -1;
 }
 
-int32_t libc_fuchsia_getpgrp(void) {
+int32_t libcFuchsiaGetpgrp(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2084,11 +2084,11 @@ int32_t libc_fuchsia_getpgrp(void) {
     return -1;
 }
 
-int32_t libc_fuchsia_getpid(void) {
+int32_t libcFuchsiaGetpid(void) {
     return (int32_t)getpid();
 }
 
-int32_t libc_fuchsia_getppid(void) {
+int32_t libcFuchsiaGetppid(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2116,7 +2116,7 @@ int32_t libc_fuchsia_getppid(void) {
     return -1;
 }
 
-uint32_t libc_fuchsia_getuid(void) {
+uint32_t libcFuchsiaGetuid(void) {
 #if !defined(_WIN32)
     return (uint32_t)getuid();
 #else
@@ -2125,11 +2125,11 @@ uint32_t libc_fuchsia_getuid(void) {
 #endif
 }
 
-int32_t libc_fuchsia_isatty(int32_t fd) {
+int32_t libcFuchsiaIsatty(int32_t fd) {
     return (int32_t)isatty(fd);
 }
 
-int32_t libc_fuchsia_link(const char* src, const char* dst) {
+int32_t libcFuchsiaLink(const char* src, const char* dst) {
 #if !defined(_WIN32)
     return (int32_t)link(src, dst);
 #else
@@ -2140,11 +2140,11 @@ int32_t libc_fuchsia_link(const char* src, const char* dst) {
 #endif
 }
 
-int64_t libc_fuchsia_lseek(int32_t fd, int64_t offset, int32_t whence) {
+int64_t libcFuchsiaLseek(int32_t fd, int64_t offset, int32_t whence) {
     return (int64_t)lseek(fd, offset, whence);
 }
 
-int64_t libc_fuchsia_pathconf(const char* path, int32_t name) {
+int64_t libcFuchsiaPathconf(const char* path, int32_t name) {
     typedef int64_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2172,7 +2172,7 @@ int64_t libc_fuchsia_pathconf(const char* path, int32_t name) {
     return -1;
 }
 
-int32_t libc_fuchsia_pause(void) {
+int32_t libcFuchsiaPause(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2200,7 +2200,7 @@ int32_t libc_fuchsia_pause(void) {
     return -1;
 }
 
-int32_t libc_fuchsia_pipe(void* fds) {
+int32_t libcFuchsiaPipe(void* fds) {
 #if !defined(_WIN32)
     return (int32_t)pipe(fds);
 #else
@@ -2210,7 +2210,7 @@ int32_t libc_fuchsia_pipe(void* fds) {
 #endif
 }
 
-int32_t libc_fuchsia_posixMemalign(void* memptr, uint64_t align, uint64_t size) {
+int32_t libcFuchsiaPosixMemalign(void* memptr, uint64_t align, uint64_t size) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2238,15 +2238,15 @@ int32_t libc_fuchsia_posixMemalign(void* memptr, uint64_t align, uint64_t size) 
     return -1;
 }
 
-int64_t libc_fuchsia_read(int32_t fd, void* buf, uint64_t count) {
+int64_t libcFuchsiaRead(int32_t fd, void* buf, uint64_t count) {
     return (int64_t)read(fd, buf, count);
 }
 
-int32_t libc_fuchsia_rmdir(const char* path) {
+int32_t libcFuchsiaRmdir(const char* path) {
     return (int32_t)rmdir(path);
 }
 
-int32_t libc_fuchsia_seteuid(uint32_t uid) {
+int32_t libcFuchsiaSeteuid(uint32_t uid) {
     typedef int32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2274,7 +2274,7 @@ int32_t libc_fuchsia_seteuid(uint32_t uid) {
     return -1;
 }
 
-int32_t libc_fuchsia_setegid(uint32_t gid) {
+int32_t libcFuchsiaSetegid(uint32_t gid) {
     typedef int32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2302,7 +2302,7 @@ int32_t libc_fuchsia_setegid(uint32_t gid) {
     return -1;
 }
 
-int32_t libc_fuchsia_setgid(uint32_t gid) {
+int32_t libcFuchsiaSetgid(uint32_t gid) {
     typedef int32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2330,7 +2330,7 @@ int32_t libc_fuchsia_setgid(uint32_t gid) {
     return -1;
 }
 
-int32_t libc_fuchsia_setpgid(int32_t pid, int32_t pgid) {
+int32_t libcFuchsiaSetpgid(int32_t pid, int32_t pgid) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2358,7 +2358,7 @@ int32_t libc_fuchsia_setpgid(int32_t pid, int32_t pgid) {
     return -1;
 }
 
-int32_t libc_fuchsia_setsid(void) {
+int32_t libcFuchsiaSetsid(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2386,7 +2386,7 @@ int32_t libc_fuchsia_setsid(void) {
     return -1;
 }
 
-int32_t libc_fuchsia_setuid(uint32_t uid) {
+int32_t libcFuchsiaSetuid(uint32_t uid) {
     typedef int32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2414,7 +2414,7 @@ int32_t libc_fuchsia_setuid(uint32_t uid) {
     return -1;
 }
 
-uint32_t libc_fuchsia_sleep(uint32_t secs) {
+uint32_t libcFuchsiaSleep(uint32_t secs) {
 #if !defined(_WIN32)
     return (uint32_t)sleep(secs);
 #else
@@ -2424,7 +2424,7 @@ uint32_t libc_fuchsia_sleep(uint32_t secs) {
 #endif
 }
 
-int32_t libc_fuchsia_nanosleep(void* rqtp, void* rmtp) {
+int32_t libcFuchsiaNanosleep(void* rqtp, void* rmtp) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2452,7 +2452,7 @@ int32_t libc_fuchsia_nanosleep(void* rqtp, void* rmtp) {
     return -1;
 }
 
-int32_t libc_fuchsia_tcgetpgrp(int32_t fd) {
+int32_t libcFuchsiaTcgetpgrp(int32_t fd) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2480,7 +2480,7 @@ int32_t libc_fuchsia_tcgetpgrp(int32_t fd) {
     return -1;
 }
 
-int32_t libc_fuchsia_tcsetpgrp(int32_t fd, int32_t pgrp) {
+int32_t libcFuchsiaTcsetpgrp(int32_t fd, int32_t pgrp) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2508,7 +2508,7 @@ int32_t libc_fuchsia_tcsetpgrp(int32_t fd, int32_t pgrp) {
     return -1;
 }
 
-char* libc_fuchsia_ttyname(int32_t fd) {
+char* libcFuchsiaTtyname(int32_t fd) {
     typedef char* (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2536,11 +2536,11 @@ char* libc_fuchsia_ttyname(int32_t fd) {
     return NULL;
 }
 
-int32_t libc_fuchsia_unlink(const char* c) {
+int32_t libcFuchsiaUnlink(const char* c) {
     return (int32_t)unlink(c);
 }
 
-int32_t libc_fuchsia_wait(void* status) {
+int32_t libcFuchsiaWait(void* status) {
 #if !defined(_WIN32)
     return (int32_t)wait(status);
 #else
@@ -2550,7 +2550,7 @@ int32_t libc_fuchsia_wait(void* status) {
 #endif
 }
 
-int32_t libc_fuchsia_waitpid(int32_t pid, void* status, int32_t options) {
+int32_t libcFuchsiaWaitpid(int32_t pid, void* status, int32_t options) {
 #if !defined(_WIN32)
     return (int32_t)waitpid(pid, status, options);
 #else
@@ -2562,11 +2562,11 @@ int32_t libc_fuchsia_waitpid(int32_t pid, void* status, int32_t options) {
 #endif
 }
 
-int64_t libc_fuchsia_write(int32_t fd, void* buf, uint64_t count) {
+int64_t libcFuchsiaWrite(int32_t fd, void* buf, uint64_t count) {
     return (int64_t)write(fd, buf, count);
 }
 
-int64_t libc_fuchsia_pread(int32_t fd, void* buf, uint64_t count, int64_t offset) {
+int64_t libcFuchsiaPread(int32_t fd, void* buf, uint64_t count, int64_t offset) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2594,7 +2594,7 @@ int64_t libc_fuchsia_pread(int32_t fd, void* buf, uint64_t count, int64_t offset
     return -1;
 }
 
-int64_t libc_fuchsia_pwrite(int32_t fd, void* buf, uint64_t count, int64_t offset) {
+int64_t libcFuchsiaPwrite(int32_t fd, void* buf, uint64_t count, int64_t offset) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2622,11 +2622,11 @@ int64_t libc_fuchsia_pwrite(int32_t fd, void* buf, uint64_t count, int64_t offse
     return -1;
 }
 
-uint32_t libc_fuchsia_umask(uint32_t mask) {
+uint32_t libcFuchsiaUmask(uint32_t mask) {
     return (uint32_t)umask(mask);
 }
 
-int32_t libc_fuchsia_utime(const char* file, void* buf) {
+int32_t libcFuchsiaUtime(const char* file, void* buf) {
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2654,7 +2654,7 @@ int32_t libc_fuchsia_utime(const char* file, void* buf) {
     return -1;
 }
 
-int32_t libc_fuchsia_kill(int32_t pid, int32_t sig) {
+int32_t libcFuchsiaKill(int32_t pid, int32_t sig) {
 #if !defined(_WIN32)
     return (int32_t)kill(pid, sig);
 #else
@@ -2665,7 +2665,7 @@ int32_t libc_fuchsia_kill(int32_t pid, int32_t sig) {
 #endif
 }
 
-int32_t libc_fuchsia_mlock(void* addr, uint64_t len) {
+int32_t libcFuchsiaMlock(void* addr, uint64_t len) {
 #if !defined(_WIN32)
     return (int32_t)mlock(addr, len);
 #else
@@ -2676,7 +2676,7 @@ int32_t libc_fuchsia_mlock(void* addr, uint64_t len) {
 #endif
 }
 
-int32_t libc_fuchsia_munlock(void* addr, uint64_t len) {
+int32_t libcFuchsiaMunlock(void* addr, uint64_t len) {
 #if !defined(_WIN32)
     return (int32_t)munlock(addr, len);
 #else
@@ -2687,7 +2687,7 @@ int32_t libc_fuchsia_munlock(void* addr, uint64_t len) {
 #endif
 }
 
-int32_t libc_fuchsia_mlockall(int32_t flags) {
+int32_t libcFuchsiaMlockall(int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2715,7 +2715,7 @@ int32_t libc_fuchsia_mlockall(int32_t flags) {
     return -1;
 }
 
-int32_t libc_fuchsia_munlockall(void) {
+int32_t libcFuchsiaMunlockall(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2743,7 +2743,7 @@ int32_t libc_fuchsia_munlockall(void) {
     return -1;
 }
 
-void* libc_fuchsia_mmap(void* addr, uint64_t len, int32_t prot, int32_t flags, int32_t fd, int64_t offset) {
+void* libcFuchsiaMmap(void* addr, uint64_t len, int32_t prot, int32_t flags, int32_t fd, int64_t offset) {
 #if !defined(_WIN32)
     return (void*)mmap(addr, len, prot, flags, fd, offset);
 #else
@@ -2758,7 +2758,7 @@ void* libc_fuchsia_mmap(void* addr, uint64_t len, int32_t prot, int32_t flags, i
 #endif
 }
 
-int32_t libc_fuchsia_munmap(void* addr, uint64_t len) {
+int32_t libcFuchsiaMunmap(void* addr, uint64_t len) {
 #if !defined(_WIN32)
     return (int32_t)munmap(addr, len);
 #else
@@ -2769,7 +2769,7 @@ int32_t libc_fuchsia_munmap(void* addr, uint64_t len) {
 #endif
 }
 
-uint32_t libc_fuchsia_ifNametoindex(const char* ifname) {
+uint32_t libcFuchsiaIfNametoindex(const char* ifname) {
     typedef uint32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2797,7 +2797,7 @@ uint32_t libc_fuchsia_ifNametoindex(const char* ifname) {
     return 0;
 }
 
-char* libc_fuchsia_ifIndextoname(uint32_t ifindex, char* ifname) {
+char* libcFuchsiaIfIndextoname(uint32_t ifindex, char* ifname) {
     typedef char* (*km_fn_t)(uint32_t, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2825,7 +2825,7 @@ char* libc_fuchsia_ifIndextoname(uint32_t ifindex, char* ifname) {
     return NULL;
 }
 
-int32_t libc_fuchsia_lstat(const char* path, void* buf) {
+int32_t libcFuchsiaLstat(const char* path, void* buf) {
 #if !defined(_WIN32)
     return (int32_t)lstat(path, buf);
 #else
@@ -2836,7 +2836,7 @@ int32_t libc_fuchsia_lstat(const char* path, void* buf) {
 #endif
 }
 
-int32_t libc_fuchsia_fsync(int32_t fd) {
+int32_t libcFuchsiaFsync(int32_t fd) {
 #if !defined(_WIN32)
     return (int32_t)fsync(fd);
 #else
@@ -2846,7 +2846,7 @@ int32_t libc_fuchsia_fsync(int32_t fd) {
 #endif
 }
 
-int32_t libc_fuchsia_setenv(const char* name, const char* val, int32_t overwrite) {
+int32_t libcFuchsiaSetenv(const char* name, const char* val, int32_t overwrite) {
 #if !defined(_WIN32)
     return (int32_t)setenv(name, val, overwrite);
 #else
@@ -2858,7 +2858,7 @@ int32_t libc_fuchsia_setenv(const char* name, const char* val, int32_t overwrite
 #endif
 }
 
-int32_t libc_fuchsia_unsetenv(const char* name) {
+int32_t libcFuchsiaUnsetenv(const char* name) {
 #if !defined(_WIN32)
     return (int32_t)unsetenv(name);
 #else
@@ -2868,7 +2868,7 @@ int32_t libc_fuchsia_unsetenv(const char* name) {
 #endif
 }
 
-int32_t libc_fuchsia_symlink(const char* path1, const char* path2) {
+int32_t libcFuchsiaSymlink(const char* path1, const char* path2) {
 #if !defined(_WIN32)
     return (int32_t)symlink(path1, path2);
 #else
@@ -2879,7 +2879,7 @@ int32_t libc_fuchsia_symlink(const char* path1, const char* path2) {
 #endif
 }
 
-int32_t libc_fuchsia_ftruncate(int32_t fd, int64_t length) {
+int32_t libcFuchsiaFtruncate(int32_t fd, int64_t length) {
 #if !defined(_WIN32)
     return (int32_t)ftruncate(fd, length);
 #else
@@ -2890,7 +2890,7 @@ int32_t libc_fuchsia_ftruncate(int32_t fd, int64_t length) {
 #endif
 }
 
-uint64_t libc_fuchsia_signal(int32_t signum, uint64_t handler) {
+uint64_t libcFuchsiaSignal(int32_t signum, uint64_t handler) {
     typedef uint64_t (*km_fn_t)(int32_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2918,7 +2918,7 @@ uint64_t libc_fuchsia_signal(int32_t signum, uint64_t handler) {
     return 0;
 }
 
-char* libc_fuchsia_realpath(const char* pathname, char* resolved) {
+char* libcFuchsiaRealpath(const char* pathname, char* resolved) {
     typedef char* (*km_fn_t)(const char*, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2946,7 +2946,7 @@ char* libc_fuchsia_realpath(const char* pathname, char* resolved) {
     return NULL;
 }
 
-int32_t libc_fuchsia_flock(int32_t fd, int32_t operation) {
+int32_t libcFuchsiaFlock(int32_t fd, int32_t operation) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2974,7 +2974,7 @@ int32_t libc_fuchsia_flock(int32_t fd, int32_t operation) {
     return -1;
 }
 
-int32_t libc_fuchsia_gettimeofday(void* tp, void* tz) {
+int32_t libcFuchsiaGettimeofday(void* tp, void* tz) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3002,7 +3002,7 @@ int32_t libc_fuchsia_gettimeofday(void* tp, void* tz) {
     return -1;
 }
 
-int64_t libc_fuchsia_times(void* buf) {
+int64_t libcFuchsiaTimes(void* buf) {
     typedef int64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3030,7 +3030,7 @@ int64_t libc_fuchsia_times(void* buf) {
     return -1;
 }
 
-void* libc_fuchsia_pthreadSelf(void) {
+void* libcFuchsiaPthreadSelf(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3058,7 +3058,7 @@ void* libc_fuchsia_pthreadSelf(void) {
     return NULL;
 }
 
-int32_t libc_fuchsia_pthreadJoin(void* native, void* value) {
+int32_t libcFuchsiaPthreadJoin(void* native, void* value) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3086,7 +3086,7 @@ int32_t libc_fuchsia_pthreadJoin(void* native, void* value) {
     return ENOSYS;
 }
 
-void libc_fuchsia_pthreadExit(void* value) {
+void libcFuchsiaPthreadExit(void* value) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3114,7 +3114,7 @@ void libc_fuchsia_pthreadExit(void* value) {
     errno = ENOSYS;
 }
 
-int32_t libc_fuchsia_pthreadAttrInit(void* attr) {
+int32_t libcFuchsiaPthreadAttrInit(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3142,7 +3142,7 @@ int32_t libc_fuchsia_pthreadAttrInit(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_fuchsia_pthreadAttrDestroy(void* attr) {
+int32_t libcFuchsiaPthreadAttrDestroy(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3170,7 +3170,7 @@ int32_t libc_fuchsia_pthreadAttrDestroy(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_fuchsia_pthreadAttrGetstacksize(void* attr, void* stacksize) {
+int32_t libcFuchsiaPthreadAttrGetstacksize(void* attr, void* stacksize) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3198,7 +3198,7 @@ int32_t libc_fuchsia_pthreadAttrGetstacksize(void* attr, void* stacksize) {
     return ENOSYS;
 }
 
-int32_t libc_fuchsia_pthreadAttrSetstacksize(void* attr, uint64_t stack_size) {
+int32_t libcFuchsiaPthreadAttrSetstacksize(void* attr, uint64_t stackSize) {
     typedef int32_t (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3220,13 +3220,13 @@ int32_t libc_fuchsia_pthreadAttrSetstacksize(void* attr, uint64_t stack_size) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(attr, stack_size);
+        return km_fn_ptr(attr, stackSize);
     }
     errno = ENOSYS;
     return ENOSYS;
 }
 
-int32_t libc_fuchsia_pthreadAttrSetdetachstate(void* attr, int32_t state) {
+int32_t libcFuchsiaPthreadAttrSetdetachstate(void* attr, int32_t state) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3254,7 +3254,7 @@ int32_t libc_fuchsia_pthreadAttrSetdetachstate(void* attr, int32_t state) {
     return ENOSYS;
 }
 
-int32_t libc_fuchsia_pthreadDetach(void* thread) {
+int32_t libcFuchsiaPthreadDetach(void* thread) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3282,7 +3282,7 @@ int32_t libc_fuchsia_pthreadDetach(void* thread) {
     return ENOSYS;
 }
 
-int32_t libc_fuchsia_schedYield(void) {
+int32_t libcFuchsiaSchedYield(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3310,7 +3310,7 @@ int32_t libc_fuchsia_schedYield(void) {
     return -1;
 }
 
-int32_t libc_fuchsia_pthreadKeyCreate(void* key, void* dtor) {
+int32_t libcFuchsiaPthreadKeyCreate(void* key, void* dtor) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3338,7 +3338,7 @@ int32_t libc_fuchsia_pthreadKeyCreate(void* key, void* dtor) {
     return ENOSYS;
 }
 
-int32_t libc_fuchsia_pthreadKeyDelete(uint32_t key) {
+int32_t libcFuchsiaPthreadKeyDelete(uint32_t key) {
     typedef int32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3366,7 +3366,7 @@ int32_t libc_fuchsia_pthreadKeyDelete(uint32_t key) {
     return ENOSYS;
 }
 
-void* libc_fuchsia_pthreadGetspecific(uint32_t key) {
+void* libcFuchsiaPthreadGetspecific(uint32_t key) {
     typedef void* (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3394,7 +3394,7 @@ void* libc_fuchsia_pthreadGetspecific(uint32_t key) {
     return NULL;
 }
 
-int32_t libc_fuchsia_pthreadSetspecific(uint32_t key, void* value) {
+int32_t libcFuchsiaPthreadSetspecific(uint32_t key, void* value) {
     typedef int32_t (*km_fn_t)(uint32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3422,7 +3422,7 @@ int32_t libc_fuchsia_pthreadSetspecific(uint32_t key, void* value) {
     return ENOSYS;
 }
 
-int32_t libc_fuchsia_pthreadMutexInit(void* lock, void* attr) {
+int32_t libcFuchsiaPthreadMutexInit(void* lock, void* attr) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3450,7 +3450,7 @@ int32_t libc_fuchsia_pthreadMutexInit(void* lock, void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_fuchsia_pthreadMutexDestroy(void* lock) {
+int32_t libcFuchsiaPthreadMutexDestroy(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3478,7 +3478,7 @@ int32_t libc_fuchsia_pthreadMutexDestroy(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_fuchsia_pthreadMutexLock(void* lock) {
+int32_t libcFuchsiaPthreadMutexLock(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3506,7 +3506,7 @@ int32_t libc_fuchsia_pthreadMutexLock(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_fuchsia_pthreadMutexTrylock(void* lock) {
+int32_t libcFuchsiaPthreadMutexTrylock(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3534,7 +3534,7 @@ int32_t libc_fuchsia_pthreadMutexTrylock(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_fuchsia_pthreadMutexUnlock(void* lock) {
+int32_t libcFuchsiaPthreadMutexUnlock(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3562,7 +3562,7 @@ int32_t libc_fuchsia_pthreadMutexUnlock(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_fuchsia_pthreadMutexattrInit(void* attr) {
+int32_t libcFuchsiaPthreadMutexattrInit(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3590,7 +3590,7 @@ int32_t libc_fuchsia_pthreadMutexattrInit(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_fuchsia_pthreadMutexattrDestroy(void* attr) {
+int32_t libcFuchsiaPthreadMutexattrDestroy(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3618,7 +3618,7 @@ int32_t libc_fuchsia_pthreadMutexattrDestroy(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_fuchsia_pthreadMutexattrSettype(void* attr, int32_t arg_1_type) {
+int32_t libcFuchsiaPthreadMutexattrSettype(void* attr, int32_t type) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3640,13 +3640,13 @@ int32_t libc_fuchsia_pthreadMutexattrSettype(void* attr, int32_t arg_1_type) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(attr, arg_1_type);
+        return km_fn_ptr(attr, type);
     }
     errno = ENOSYS;
     return ENOSYS;
 }
 
-int32_t libc_fuchsia_pthreadCondInit(void* cond, void* attr) {
+int32_t libcFuchsiaPthreadCondInit(void* cond, void* attr) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3674,7 +3674,7 @@ int32_t libc_fuchsia_pthreadCondInit(void* cond, void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_fuchsia_pthreadCondWait(void* cond, void* lock) {
+int32_t libcFuchsiaPthreadCondWait(void* cond, void* lock) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3702,7 +3702,7 @@ int32_t libc_fuchsia_pthreadCondWait(void* cond, void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_fuchsia_pthreadCondTimedwait(void* cond, void* lock, void* abstime) {
+int32_t libcFuchsiaPthreadCondTimedwait(void* cond, void* lock, void* abstime) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3730,7 +3730,7 @@ int32_t libc_fuchsia_pthreadCondTimedwait(void* cond, void* lock, void* abstime)
     return ENOSYS;
 }
 
-int32_t libc_fuchsia_pthreadCondSignal(void* cond) {
+int32_t libcFuchsiaPthreadCondSignal(void* cond) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3758,7 +3758,7 @@ int32_t libc_fuchsia_pthreadCondSignal(void* cond) {
     return ENOSYS;
 }
 
-int32_t libc_fuchsia_pthreadCondBroadcast(void* cond) {
+int32_t libcFuchsiaPthreadCondBroadcast(void* cond) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3786,7 +3786,7 @@ int32_t libc_fuchsia_pthreadCondBroadcast(void* cond) {
     return ENOSYS;
 }
 
-int32_t libc_fuchsia_pthreadCondDestroy(void* cond) {
+int32_t libcFuchsiaPthreadCondDestroy(void* cond) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3814,7 +3814,7 @@ int32_t libc_fuchsia_pthreadCondDestroy(void* cond) {
     return ENOSYS;
 }
 
-int32_t libc_fuchsia_pthreadCondattrInit(void* attr) {
+int32_t libcFuchsiaPthreadCondattrInit(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3842,7 +3842,7 @@ int32_t libc_fuchsia_pthreadCondattrInit(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_fuchsia_pthreadCondattrDestroy(void* attr) {
+int32_t libcFuchsiaPthreadCondattrDestroy(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3870,7 +3870,7 @@ int32_t libc_fuchsia_pthreadCondattrDestroy(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_fuchsia_pthreadRwlockInit(void* lock, void* attr) {
+int32_t libcFuchsiaPthreadRwlockInit(void* lock, void* attr) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3898,7 +3898,7 @@ int32_t libc_fuchsia_pthreadRwlockInit(void* lock, void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_fuchsia_pthreadRwlockDestroy(void* lock) {
+int32_t libcFuchsiaPthreadRwlockDestroy(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3926,7 +3926,7 @@ int32_t libc_fuchsia_pthreadRwlockDestroy(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_fuchsia_pthreadRwlockRdlock(void* lock) {
+int32_t libcFuchsiaPthreadRwlockRdlock(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3954,7 +3954,7 @@ int32_t libc_fuchsia_pthreadRwlockRdlock(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_fuchsia_pthreadRwlockTryrdlock(void* lock) {
+int32_t libcFuchsiaPthreadRwlockTryrdlock(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3982,7 +3982,7 @@ int32_t libc_fuchsia_pthreadRwlockTryrdlock(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_fuchsia_pthreadRwlockWrlock(void* lock) {
+int32_t libcFuchsiaPthreadRwlockWrlock(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4010,7 +4010,7 @@ int32_t libc_fuchsia_pthreadRwlockWrlock(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_fuchsia_pthreadRwlockTrywrlock(void* lock) {
+int32_t libcFuchsiaPthreadRwlockTrywrlock(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4038,7 +4038,7 @@ int32_t libc_fuchsia_pthreadRwlockTrywrlock(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_fuchsia_pthreadRwlockUnlock(void* lock) {
+int32_t libcFuchsiaPthreadRwlockUnlock(void* lock) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4066,7 +4066,7 @@ int32_t libc_fuchsia_pthreadRwlockUnlock(void* lock) {
     return ENOSYS;
 }
 
-int32_t libc_fuchsia_pthreadRwlockattrInit(void* attr) {
+int32_t libcFuchsiaPthreadRwlockattrInit(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4094,7 +4094,7 @@ int32_t libc_fuchsia_pthreadRwlockattrInit(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_fuchsia_pthreadRwlockattrDestroy(void* attr) {
+int32_t libcFuchsiaPthreadRwlockattrDestroy(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4122,7 +4122,7 @@ int32_t libc_fuchsia_pthreadRwlockattrDestroy(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_fuchsia_pthreadGetnameNp(void* thread, char* name, uint64_t len) {
+int32_t libcFuchsiaPthreadGetnameNp(void* thread, char* name, uint64_t len) {
     typedef int32_t (*km_fn_t)(void*, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4150,7 +4150,7 @@ int32_t libc_fuchsia_pthreadGetnameNp(void* thread, char* name, uint64_t len) {
     return ENOSYS;
 }
 
-int32_t libc_fuchsia_pthreadSetnameNp(void* thread, const char* name) {
+int32_t libcFuchsiaPthreadSetnameNp(void* thread, const char* name) {
     typedef int32_t (*km_fn_t)(void*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4178,7 +4178,7 @@ int32_t libc_fuchsia_pthreadSetnameNp(void* thread, const char* name) {
     return ENOSYS;
 }
 
-int32_t libc_fuchsia_strerrorR(int32_t errnum, char* buf, uint64_t buflen) {
+int32_t libcFuchsiaStrerrorR(int32_t errnum, char* buf, uint64_t buflen) {
     typedef int32_t (*km_fn_t)(int32_t, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4206,15 +4206,15 @@ int32_t libc_fuchsia_strerrorR(int32_t errnum, char* buf, uint64_t buflen) {
     return -1;
 }
 
-int32_t libc_fuchsia_getsockopt(int32_t sockfd, int32_t level, int32_t optname, void* optval, void* optlen) {
+int32_t libcFuchsiaGetsockopt(int32_t sockfd, int32_t level, int32_t optname, void* optval, void* optlen) {
     return (int32_t)getsockopt(sockfd, level, optname, optval, optlen);
 }
 
-int32_t libc_fuchsia_raise(int32_t signum) {
+int32_t libcFuchsiaRaise(int32_t signum) {
     return (int32_t)raise(signum);
 }
 
-int32_t libc_fuchsia_sigaction(int32_t signum, void* act, void* oldact) {
+int32_t libcFuchsiaSigaction(int32_t signum, void* act, void* oldact) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4242,7 +4242,7 @@ int32_t libc_fuchsia_sigaction(int32_t signum, void* act, void* oldact) {
     return -1;
 }
 
-int32_t libc_fuchsia_utimes(const char* filename, void* times) {
+int32_t libcFuchsiaUtimes(const char* filename, void* times) {
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4270,7 +4270,7 @@ int32_t libc_fuchsia_utimes(const char* filename, void* times) {
     return -1;
 }
 
-void* libc_fuchsia_dlopen(const char* filename, int32_t flag) {
+void* libcFuchsiaDlopen(const char* filename, int32_t flag) {
 #if !defined(_WIN32)
     return (void*)dlopen(filename, flag);
 #else
@@ -4281,7 +4281,7 @@ void* libc_fuchsia_dlopen(const char* filename, int32_t flag) {
 #endif
 }
 
-char* libc_fuchsia_dlerror(void) {
+char* libcFuchsiaDlerror(void) {
 #if !defined(_WIN32)
     return (char*)dlerror();
 #else
@@ -4290,7 +4290,7 @@ char* libc_fuchsia_dlerror(void) {
 #endif
 }
 
-void* libc_fuchsia_dlsym(void* handle, const char* symbol) {
+void* libcFuchsiaDlsym(void* handle, const char* symbol) {
 #if !defined(_WIN32)
     return (void*)dlsym(handle, symbol);
 #else
@@ -4301,7 +4301,7 @@ void* libc_fuchsia_dlsym(void* handle, const char* symbol) {
 #endif
 }
 
-int32_t libc_fuchsia_dlclose(void* handle) {
+int32_t libcFuchsiaDlclose(void* handle) {
 #if !defined(_WIN32)
     return (int32_t)dlclose(handle);
 #else
@@ -4311,7 +4311,7 @@ int32_t libc_fuchsia_dlclose(void* handle) {
 #endif
 }
 
-int32_t libc_fuchsia_dladdr(void* addr, void* info) {
+int32_t libcFuchsiaDladdr(void* addr, void* info) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4339,7 +4339,7 @@ int32_t libc_fuchsia_dladdr(void* addr, void* info) {
     return -1;
 }
 
-int32_t libc_fuchsia_getaddrinfo(const char* node, const char* service, void* hints, void* res) {
+int32_t libcFuchsiaGetaddrinfo(const char* node, const char* service, void* hints, void* res) {
     typedef int32_t (*km_fn_t)(const char*, const char*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4367,7 +4367,7 @@ int32_t libc_fuchsia_getaddrinfo(const char* node, const char* service, void* hi
     return -1;
 }
 
-void libc_fuchsia_freeaddrinfo(void* res) {
+void libcFuchsiaFreeaddrinfo(void* res) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4395,7 +4395,7 @@ void libc_fuchsia_freeaddrinfo(void* res) {
     errno = ENOSYS;
 }
 
-const char* libc_fuchsia_gaiStrerror(int32_t errcode) {
+const char* libcFuchsiaGaiStrerror(int32_t errcode) {
     typedef const char* (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4423,7 +4423,7 @@ const char* libc_fuchsia_gaiStrerror(int32_t errcode) {
     return NULL;
 }
 
-int32_t libc_fuchsia_resInit(void) {
+int32_t libcFuchsiaResInit(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4451,7 +4451,7 @@ int32_t libc_fuchsia_resInit(void) {
     return -1;
 }
 
-void* libc_fuchsia_gmtimeR(void* time_p, void* result) {
+void* libcFuchsiaGmtimeR(void* timeP, void* result) {
     typedef void* (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4473,13 +4473,13 @@ void* libc_fuchsia_gmtimeR(void* time_p, void* result) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(time_p, result);
+        return km_fn_ptr(timeP, result);
     }
     errno = ENOSYS;
     return NULL;
 }
 
-void* libc_fuchsia_localtimeR(void* time_p, void* result) {
+void* libcFuchsiaLocaltimeR(void* timeP, void* result) {
     typedef void* (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4501,29 +4501,29 @@ void* libc_fuchsia_localtimeR(void* time_p, void* result) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(time_p, result);
+        return km_fn_ptr(timeP, result);
     }
     errno = ENOSYS;
     return NULL;
 }
 
-int64_t libc_fuchsia_mktime(void* tm) {
+int64_t libcFuchsiaMktime(void* tm) {
     return (int64_t)mktime(tm);
 }
 
-int64_t libc_fuchsia_time(void* arg_0_time) {
-    return (int64_t)time(arg_0_time);
+int64_t libcFuchsiaTime(void* arg0Time) {
+    return (int64_t)time(arg0Time);
 }
 
-void* libc_fuchsia_gmtime(void* time_p) {
-    return (void*)gmtime(time_p);
+void* libcFuchsiaGmtime(void* timeP) {
+    return (void*)gmtime(timeP);
 }
 
-void* libc_fuchsia_localtime(void* time_p) {
-    return (void*)localtime(time_p);
+void* libcFuchsiaLocaltime(void* timeP) {
+    return (void*)localtime(timeP);
 }
 
-int32_t libc_fuchsia_mknod(const char* pathname, uint32_t mode, uint64_t dev) {
+int32_t libcFuchsiaMknod(const char* pathname, uint32_t mode, uint64_t dev) {
 #if !defined(_WIN32)
     return (int32_t)mknod(pathname, mode, dev);
 #else
@@ -4535,7 +4535,7 @@ int32_t libc_fuchsia_mknod(const char* pathname, uint32_t mode, uint64_t dev) {
 #endif
 }
 
-int32_t libc_fuchsia_uname(void* buf) {
+int32_t libcFuchsiaUname(void* buf) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4563,7 +4563,7 @@ int32_t libc_fuchsia_uname(void* buf) {
     return -1;
 }
 
-int32_t libc_fuchsia_gethostname(char* name, uint64_t len) {
+int32_t libcFuchsiaGethostname(char* name, uint64_t len) {
     typedef int32_t (*km_fn_t)(char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4591,7 +4591,7 @@ int32_t libc_fuchsia_gethostname(char* name, uint64_t len) {
     return -1;
 }
 
-void* libc_fuchsia_getservbyname(const char* name, const char* proto) {
+void* libcFuchsiaGetservbyname(const char* name, const char* proto) {
     typedef void* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4619,7 +4619,7 @@ void* libc_fuchsia_getservbyname(const char* name, const char* proto) {
     return NULL;
 }
 
-void* libc_fuchsia_getprotobyname(const char* name) {
+void* libcFuchsiaGetprotobyname(const char* name) {
     typedef void* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4647,7 +4647,7 @@ void* libc_fuchsia_getprotobyname(const char* name) {
     return NULL;
 }
 
-void* libc_fuchsia_getprotobynumber(int32_t proto) {
+void* libcFuchsiaGetprotobynumber(int32_t proto) {
     typedef void* (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4675,7 +4675,7 @@ void* libc_fuchsia_getprotobynumber(int32_t proto) {
     return NULL;
 }
 
-int32_t libc_fuchsia_usleep(uint32_t secs) {
+int32_t libcFuchsiaUsleep(uint32_t secs) {
 #if !defined(_WIN32)
     return (int32_t)usleep(secs);
 #else
@@ -4685,15 +4685,15 @@ int32_t libc_fuchsia_usleep(uint32_t secs) {
 #endif
 }
 
-int64_t libc_fuchsia_send(int32_t arg_0_socket, void* buf, uint64_t len, int32_t flags) {
-    return (int64_t)send(arg_0_socket, buf, len, flags);
+int64_t libcFuchsiaSend(int32_t arg0Socket, void* buf, uint64_t len, int32_t flags) {
+    return (int64_t)send(arg0Socket, buf, len, flags);
 }
 
-int64_t libc_fuchsia_recv(int32_t arg_0_socket, void* buf, uint64_t len, int32_t flags) {
-    return (int64_t)recv(arg_0_socket, buf, len, flags);
+int64_t libcFuchsiaRecv(int32_t arg0Socket, void* buf, uint64_t len, int32_t flags) {
+    return (int64_t)recv(arg0Socket, buf, len, flags);
 }
 
-int32_t libc_fuchsia_putenv(char* string) {
+int32_t libcFuchsiaPutenv(char* string) {
     typedef int32_t (*km_fn_t)(char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4721,7 +4721,7 @@ int32_t libc_fuchsia_putenv(char* string) {
     return -1;
 }
 
-int32_t libc_fuchsia_poll(void* fds, uint64_t nfds, int32_t timeout) {
+int32_t libcFuchsiaPoll(void* fds, uint64_t nfds, int32_t timeout) {
 #if !defined(_WIN32)
     return (int32_t)poll(fds, nfds, timeout);
 #else
@@ -4733,7 +4733,7 @@ int32_t libc_fuchsia_poll(void* fds, uint64_t nfds, int32_t timeout) {
 #endif
 }
 
-int32_t libc_fuchsia_select(int32_t nfds, void* readfds, void* writefds, void* errorfds, void* timeout) {
+int32_t libcFuchsiaSelect(int32_t nfds, void* readfds, void* writefds, void* errorfds, void* timeout) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4761,15 +4761,15 @@ int32_t libc_fuchsia_select(int32_t nfds, void* readfds, void* writefds, void* e
     return -1;
 }
 
-char* libc_fuchsia_setlocale(int32_t category, const char* locale) {
+char* libcFuchsiaSetlocale(int32_t category, const char* locale) {
     return (char*)setlocale(category, locale);
 }
 
-void* libc_fuchsia_localeconv(void) {
+void* libcFuchsiaLocaleconv(void) {
     return (void*)localeconv();
 }
 
-int32_t libc_fuchsia_semDestroy(void* sem) {
+int32_t libcFuchsiaSemDestroy(void* sem) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4797,7 +4797,7 @@ int32_t libc_fuchsia_semDestroy(void* sem) {
     return -1;
 }
 
-int32_t libc_fuchsia_semWait(void* sem) {
+int32_t libcFuchsiaSemWait(void* sem) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4825,7 +4825,7 @@ int32_t libc_fuchsia_semWait(void* sem) {
     return -1;
 }
 
-int32_t libc_fuchsia_semTrywait(void* sem) {
+int32_t libcFuchsiaSemTrywait(void* sem) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4853,7 +4853,7 @@ int32_t libc_fuchsia_semTrywait(void* sem) {
     return -1;
 }
 
-int32_t libc_fuchsia_semPost(void* sem) {
+int32_t libcFuchsiaSemPost(void* sem) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4881,7 +4881,7 @@ int32_t libc_fuchsia_semPost(void* sem) {
     return -1;
 }
 
-int32_t libc_fuchsia_semInit(void* sem, int32_t pshared, uint32_t value) {
+int32_t libcFuchsiaSemInit(void* sem, int32_t pshared, uint32_t value) {
     typedef int32_t (*km_fn_t)(void*, int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4909,7 +4909,7 @@ int32_t libc_fuchsia_semInit(void* sem, int32_t pshared, uint32_t value) {
     return -1;
 }
 
-int32_t libc_fuchsia_statvfs(const char* path, void* buf) {
+int32_t libcFuchsiaStatvfs(const char* path, void* buf) {
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4937,7 +4937,7 @@ int32_t libc_fuchsia_statvfs(const char* path, void* buf) {
     return -1;
 }
 
-int32_t libc_fuchsia_fstatvfs(int32_t fd, void* buf) {
+int32_t libcFuchsiaFstatvfs(int32_t fd, void* buf) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4965,7 +4965,7 @@ int32_t libc_fuchsia_fstatvfs(int32_t fd, void* buf) {
     return -1;
 }
 
-int64_t libc_fuchsia_readlink(const char* path, char* buf, uint64_t bufsz) {
+int64_t libcFuchsiaReadlink(const char* path, char* buf, uint64_t bufsz) {
 #if !defined(_WIN32)
     return (int64_t)readlink(path, buf, bufsz);
 #else
@@ -4977,7 +4977,7 @@ int64_t libc_fuchsia_readlink(const char* path, char* buf, uint64_t bufsz) {
 #endif
 }
 
-int32_t libc_fuchsia_sigemptyset(void* set) {
+int32_t libcFuchsiaSigemptyset(void* set) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5005,7 +5005,7 @@ int32_t libc_fuchsia_sigemptyset(void* set) {
     return -1;
 }
 
-int32_t libc_fuchsia_sigaddset(void* set, int32_t signum) {
+int32_t libcFuchsiaSigaddset(void* set, int32_t signum) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5033,7 +5033,7 @@ int32_t libc_fuchsia_sigaddset(void* set, int32_t signum) {
     return -1;
 }
 
-int32_t libc_fuchsia_sigfillset(void* set) {
+int32_t libcFuchsiaSigfillset(void* set) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5061,7 +5061,7 @@ int32_t libc_fuchsia_sigfillset(void* set) {
     return -1;
 }
 
-int32_t libc_fuchsia_sigdelset(void* set, int32_t signum) {
+int32_t libcFuchsiaSigdelset(void* set, int32_t signum) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5089,7 +5089,7 @@ int32_t libc_fuchsia_sigdelset(void* set, int32_t signum) {
     return -1;
 }
 
-int32_t libc_fuchsia_sigismember(void* set, int32_t signum) {
+int32_t libcFuchsiaSigismember(void* set, int32_t signum) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5117,7 +5117,7 @@ int32_t libc_fuchsia_sigismember(void* set, int32_t signum) {
     return -1;
 }
 
-int32_t libc_fuchsia_sigprocmask(int32_t how, void* set, void* oldset) {
+int32_t libcFuchsiaSigprocmask(int32_t how, void* set, void* oldset) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5145,7 +5145,7 @@ int32_t libc_fuchsia_sigprocmask(int32_t how, void* set, void* oldset) {
     return -1;
 }
 
-int32_t libc_fuchsia_sigpending(void* set) {
+int32_t libcFuchsiaSigpending(void* set) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5173,7 +5173,7 @@ int32_t libc_fuchsia_sigpending(void* set) {
     return -1;
 }
 
-int64_t libc_fuchsia_timegm(void* tm) {
+int64_t libcFuchsiaTimegm(void* tm) {
     typedef int64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5201,7 +5201,7 @@ int64_t libc_fuchsia_timegm(void* tm) {
     return -1;
 }
 
-int32_t libc_fuchsia_getsid(int32_t pid) {
+int32_t libcFuchsiaGetsid(int32_t pid) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5229,7 +5229,7 @@ int32_t libc_fuchsia_getsid(int32_t pid) {
     return -1;
 }
 
-int64_t libc_fuchsia_sysconf(int32_t name) {
+int64_t libcFuchsiaSysconf(int32_t name) {
 #if !defined(_WIN32)
     return (int64_t)sysconf(name);
 #else
@@ -5239,7 +5239,7 @@ int64_t libc_fuchsia_sysconf(int32_t name) {
 #endif
 }
 
-int32_t libc_fuchsia_mkfifo(const char* path, uint32_t mode) {
+int32_t libcFuchsiaMkfifo(const char* path, uint32_t mode) {
 #if !defined(_WIN32)
     return (int32_t)mkfifo(path, mode);
 #else
@@ -5250,7 +5250,7 @@ int32_t libc_fuchsia_mkfifo(const char* path, uint32_t mode) {
 #endif
 }
 
-int32_t libc_fuchsia_pselect(int32_t nfds, void* readfds, void* writefds, void* errorfds, void* timeout, void* sigmask) {
+int32_t libcFuchsiaPselect(int32_t nfds, void* readfds, void* writefds, void* errorfds, void* timeout, void* sigmask) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5278,7 +5278,7 @@ int32_t libc_fuchsia_pselect(int32_t nfds, void* readfds, void* writefds, void* 
     return -1;
 }
 
-int32_t libc_fuchsia_fseeko(void* stream, int64_t offset, int32_t whence) {
+int32_t libcFuchsiaFseeko(void* stream, int64_t offset, int32_t whence) {
     typedef int32_t (*km_fn_t)(void*, int64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5306,7 +5306,7 @@ int32_t libc_fuchsia_fseeko(void* stream, int64_t offset, int32_t whence) {
     return -1;
 }
 
-int64_t libc_fuchsia_ftello(void* stream) {
+int64_t libcFuchsiaFtello(void* stream) {
     typedef int64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5334,7 +5334,7 @@ int64_t libc_fuchsia_ftello(void* stream) {
     return -1;
 }
 
-int32_t libc_fuchsia_tcdrain(int32_t fd) {
+int32_t libcFuchsiaTcdrain(int32_t fd) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5362,7 +5362,7 @@ int32_t libc_fuchsia_tcdrain(int32_t fd) {
     return -1;
 }
 
-uint32_t libc_fuchsia_cfgetispeed(void* termios) {
+uint32_t libcFuchsiaCfgetispeed(void* termios) {
     typedef uint32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5390,7 +5390,7 @@ uint32_t libc_fuchsia_cfgetispeed(void* termios) {
     return 0;
 }
 
-uint32_t libc_fuchsia_cfgetospeed(void* termios) {
+uint32_t libcFuchsiaCfgetospeed(void* termios) {
     typedef uint32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5418,7 +5418,7 @@ uint32_t libc_fuchsia_cfgetospeed(void* termios) {
     return 0;
 }
 
-void libc_fuchsia_cfmakeraw(void* termios) {
+void libcFuchsiaCfmakeraw(void* termios) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5446,7 +5446,7 @@ void libc_fuchsia_cfmakeraw(void* termios) {
     errno = ENOSYS;
 }
 
-int32_t libc_fuchsia_cfsetispeed(void* termios, uint32_t speed) {
+int32_t libcFuchsiaCfsetispeed(void* termios, uint32_t speed) {
     typedef int32_t (*km_fn_t)(void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5474,7 +5474,7 @@ int32_t libc_fuchsia_cfsetispeed(void* termios, uint32_t speed) {
     return -1;
 }
 
-int32_t libc_fuchsia_cfsetospeed(void* termios, uint32_t speed) {
+int32_t libcFuchsiaCfsetospeed(void* termios, uint32_t speed) {
     typedef int32_t (*km_fn_t)(void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5502,7 +5502,7 @@ int32_t libc_fuchsia_cfsetospeed(void* termios, uint32_t speed) {
     return -1;
 }
 
-int32_t libc_fuchsia_cfsetspeed(void* termios, uint32_t speed) {
+int32_t libcFuchsiaCfsetspeed(void* termios, uint32_t speed) {
     typedef int32_t (*km_fn_t)(void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5530,7 +5530,7 @@ int32_t libc_fuchsia_cfsetspeed(void* termios, uint32_t speed) {
     return -1;
 }
 
-int32_t libc_fuchsia_tcgetattr(int32_t fd, void* termios) {
+int32_t libcFuchsiaTcgetattr(int32_t fd, void* termios) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5558,7 +5558,7 @@ int32_t libc_fuchsia_tcgetattr(int32_t fd, void* termios) {
     return -1;
 }
 
-int32_t libc_fuchsia_tcsetattr(int32_t fd, int32_t optional_actions, void* termios) {
+int32_t libcFuchsiaTcsetattr(int32_t fd, int32_t optionalActions, void* termios) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5580,13 +5580,13 @@ int32_t libc_fuchsia_tcsetattr(int32_t fd, int32_t optional_actions, void* termi
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(fd, optional_actions, termios);
+        return km_fn_ptr(fd, optionalActions, termios);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_fuchsia_tcflow(int32_t fd, int32_t action) {
+int32_t libcFuchsiaTcflow(int32_t fd, int32_t action) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5614,7 +5614,7 @@ int32_t libc_fuchsia_tcflow(int32_t fd, int32_t action) {
     return -1;
 }
 
-int32_t libc_fuchsia_tcflush(int32_t fd, int32_t action) {
+int32_t libcFuchsiaTcflush(int32_t fd, int32_t action) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5642,7 +5642,7 @@ int32_t libc_fuchsia_tcflush(int32_t fd, int32_t action) {
     return -1;
 }
 
-int32_t libc_fuchsia_tcgetsid(int32_t fd) {
+int32_t libcFuchsiaTcgetsid(int32_t fd) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5670,7 +5670,7 @@ int32_t libc_fuchsia_tcgetsid(int32_t fd) {
     return -1;
 }
 
-int32_t libc_fuchsia_tcsendbreak(int32_t fd, int32_t duration) {
+int32_t libcFuchsiaTcsendbreak(int32_t fd, int32_t duration) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5698,7 +5698,7 @@ int32_t libc_fuchsia_tcsendbreak(int32_t fd, int32_t duration) {
     return -1;
 }
 
-int32_t libc_fuchsia_mkstemp(char* arg_0_template) {
+int32_t libcFuchsiaMkstemp(char* arg0Template) {
     typedef int32_t (*km_fn_t)(char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5720,13 +5720,13 @@ int32_t libc_fuchsia_mkstemp(char* arg_0_template) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_template);
+        return km_fn_ptr(arg0Template);
     }
     errno = ENOSYS;
     return -1;
 }
 
-char* libc_fuchsia_mkdtemp(char* arg_0_template) {
+char* libcFuchsiaMkdtemp(char* arg0Template) {
     typedef char* (*km_fn_t)(char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5748,13 +5748,13 @@ char* libc_fuchsia_mkdtemp(char* arg_0_template) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_template);
+        return km_fn_ptr(arg0Template);
     }
     errno = ENOSYS;
     return NULL;
 }
 
-char* libc_fuchsia_tmpnam(char* ptr) {
+char* libcFuchsiaTmpnam(char* ptr) {
     typedef char* (*km_fn_t)(char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5782,7 +5782,7 @@ char* libc_fuchsia_tmpnam(char* ptr) {
     return NULL;
 }
 
-void libc_fuchsia_openlog(const char* ident, int32_t logopt, int32_t facility) {
+void libcFuchsiaOpenlog(const char* ident, int32_t logopt, int32_t facility) {
     typedef void (*km_fn_t)(const char*, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5810,7 +5810,7 @@ void libc_fuchsia_openlog(const char* ident, int32_t logopt, int32_t facility) {
     errno = ENOSYS;
 }
 
-void libc_fuchsia_closelog(void) {
+void libcFuchsiaCloselog(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5838,7 +5838,7 @@ void libc_fuchsia_closelog(void) {
     errno = ENOSYS;
 }
 
-int32_t libc_fuchsia_setlogmask(int32_t maskpri) {
+int32_t libcFuchsiaSetlogmask(int32_t maskpri) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5866,7 +5866,7 @@ int32_t libc_fuchsia_setlogmask(int32_t maskpri) {
     return -1;
 }
 
-void libc_fuchsia_syslog(int32_t priority, const char* message, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+void libcFuchsiaSyslog(int32_t priority, const char* message, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef void (*km_fn_t)(int32_t, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5900,7 +5900,7 @@ void libc_fuchsia_syslog(int32_t priority, const char* message, int32_t km_vac, 
     errno = ENOSYS;
 }
 
-int32_t libc_fuchsia_grantpt(int32_t fd) {
+int32_t libcFuchsiaGrantpt(int32_t fd) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5928,7 +5928,7 @@ int32_t libc_fuchsia_grantpt(int32_t fd) {
     return -1;
 }
 
-int32_t libc_fuchsia_posixOpenpt(int32_t flags) {
+int32_t libcFuchsiaPosixOpenpt(int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5956,7 +5956,7 @@ int32_t libc_fuchsia_posixOpenpt(int32_t flags) {
     return -1;
 }
 
-char* libc_fuchsia_ptsname(int32_t fd) {
+char* libcFuchsiaPtsname(int32_t fd) {
     typedef char* (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5984,7 +5984,7 @@ char* libc_fuchsia_ptsname(int32_t fd) {
     return NULL;
 }
 
-int32_t libc_fuchsia_unlockpt(int32_t fd) {
+int32_t libcFuchsiaUnlockpt(int32_t fd) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6012,7 +6012,7 @@ int32_t libc_fuchsia_unlockpt(int32_t fd) {
     return -1;
 }
 
-int32_t libc_fuchsia_fdatasync(int32_t fd) {
+int32_t libcFuchsiaFdatasync(int32_t fd) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6040,7 +6040,7 @@ int32_t libc_fuchsia_fdatasync(int32_t fd) {
     return -1;
 }
 
-int32_t libc_fuchsia_clockGetres(int32_t clk_id, void* tp) {
+int32_t libcFuchsiaClockGetres(int32_t clkId, void* tp) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6062,13 +6062,13 @@ int32_t libc_fuchsia_clockGetres(int32_t clk_id, void* tp) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(clk_id, tp);
+        return km_fn_ptr(clkId, tp);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_fuchsia_clockGettime(int32_t clk_id, void* tp) {
+int32_t libcFuchsiaClockGettime(int32_t clkId, void* tp) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6090,13 +6090,13 @@ int32_t libc_fuchsia_clockGettime(int32_t clk_id, void* tp) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(clk_id, tp);
+        return km_fn_ptr(clkId, tp);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_fuchsia_clockSettime(int32_t clk_id, void* tp) {
+int32_t libcFuchsiaClockSettime(int32_t clkId, void* tp) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6118,13 +6118,13 @@ int32_t libc_fuchsia_clockSettime(int32_t clk_id, void* tp) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(clk_id, tp);
+        return km_fn_ptr(clkId, tp);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_fuchsia_dirfd(void* dirp) {
+int32_t libcFuchsiaDirfd(void* dirp) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6152,7 +6152,7 @@ int32_t libc_fuchsia_dirfd(void* dirp) {
     return -1;
 }
 
-int32_t libc_fuchsia_pthreadGetattrNp(void* native, void* attr) {
+int32_t libcFuchsiaPthreadGetattrNp(void* native, void* attr) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6180,7 +6180,7 @@ int32_t libc_fuchsia_pthreadGetattrNp(void* native, void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_fuchsia_pthreadAttrGetstack(void* attr, void* stackaddr, void* stacksize) {
+int32_t libcFuchsiaPthreadAttrGetstack(void* attr, void* stackaddr, void* stacksize) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6208,7 +6208,7 @@ int32_t libc_fuchsia_pthreadAttrGetstack(void* attr, void* stackaddr, void* stac
     return ENOSYS;
 }
 
-void* libc_fuchsia_memalign(uint64_t align, uint64_t size) {
+void* libcFuchsiaMemalign(uint64_t align, uint64_t size) {
     typedef void* (*km_fn_t)(uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6236,7 +6236,7 @@ void* libc_fuchsia_memalign(uint64_t align, uint64_t size) {
     return NULL;
 }
 
-int32_t libc_fuchsia_setgroups(uint64_t ngroups, void* ptr) {
+int32_t libcFuchsiaSetgroups(uint64_t ngroups, void* ptr) {
     typedef int32_t (*km_fn_t)(uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6264,7 +6264,7 @@ int32_t libc_fuchsia_setgroups(uint64_t ngroups, void* ptr) {
     return -1;
 }
 
-int32_t libc_fuchsia_pipe2(void* fds, int32_t flags) {
+int32_t libcFuchsiaPipe2(void* fds, int32_t flags) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6292,7 +6292,7 @@ int32_t libc_fuchsia_pipe2(void* fds, int32_t flags) {
     return -1;
 }
 
-int32_t libc_fuchsia_statfs(const char* path, void* buf) {
+int32_t libcFuchsiaStatfs(const char* path, void* buf) {
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6320,7 +6320,7 @@ int32_t libc_fuchsia_statfs(const char* path, void* buf) {
     return -1;
 }
 
-int32_t libc_fuchsia_fstatfs(int32_t fd, void* buf) {
+int32_t libcFuchsiaFstatfs(int32_t fd, void* buf) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6348,7 +6348,7 @@ int32_t libc_fuchsia_fstatfs(int32_t fd, void* buf) {
     return -1;
 }
 
-void* libc_fuchsia_memrchr(void* cx, int32_t c, uint64_t n) {
+void* libcFuchsiaMemrchr(void* cx, int32_t c, uint64_t n) {
     typedef void* (*km_fn_t)(void*, int32_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6376,7 +6376,7 @@ void* libc_fuchsia_memrchr(void* cx, int32_t c, uint64_t n) {
     return NULL;
 }
 
-int32_t libc_fuchsia_posixFadvise(int32_t fd, int64_t offset, int64_t len, int32_t advise) {
+int32_t libcFuchsiaPosixFadvise(int32_t fd, int64_t offset, int64_t len, int32_t advise) {
     typedef int32_t (*km_fn_t)(int32_t, int64_t, int64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6404,7 +6404,7 @@ int32_t libc_fuchsia_posixFadvise(int32_t fd, int64_t offset, int64_t len, int32
     return -1;
 }
 
-int32_t libc_fuchsia_futimens(int32_t fd, void* times) {
+int32_t libcFuchsiaFutimens(int32_t fd, void* times) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6432,7 +6432,7 @@ int32_t libc_fuchsia_futimens(int32_t fd, void* times) {
     return -1;
 }
 
-int32_t libc_fuchsia_utimensat(int32_t dirfd, const char* path, void* times, int32_t flag) {
+int32_t libcFuchsiaUtimensat(int32_t dirfd, const char* path, void* times, int32_t flag) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6460,7 +6460,7 @@ int32_t libc_fuchsia_utimensat(int32_t dirfd, const char* path, void* times, int
     return -1;
 }
 
-void* libc_fuchsia_duplocale(void* base) {
+void* libcFuchsiaDuplocale(void* base) {
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6488,7 +6488,7 @@ void* libc_fuchsia_duplocale(void* base) {
     return NULL;
 }
 
-void libc_fuchsia_freelocale(void* loc) {
+void libcFuchsiaFreelocale(void* loc) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6516,7 +6516,7 @@ void libc_fuchsia_freelocale(void* loc) {
     errno = ENOSYS;
 }
 
-void* libc_fuchsia_newlocale(int32_t mask, const char* locale, void* base) {
+void* libcFuchsiaNewlocale(int32_t mask, const char* locale, void* base) {
     typedef void* (*km_fn_t)(int32_t, const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6544,7 +6544,7 @@ void* libc_fuchsia_newlocale(int32_t mask, const char* locale, void* base) {
     return NULL;
 }
 
-void* libc_fuchsia_uselocale(void* loc) {
+void* libcFuchsiaUselocale(void* loc) {
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6572,7 +6572,7 @@ void* libc_fuchsia_uselocale(void* loc) {
     return NULL;
 }
 
-void* libc_fuchsia_fdopendir(int32_t fd) {
+void* libcFuchsiaFdopendir(int32_t fd) {
     typedef void* (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6600,7 +6600,7 @@ void* libc_fuchsia_fdopendir(int32_t fd) {
     return NULL;
 }
 
-int32_t libc_fuchsia_mknodat(int32_t dirfd, const char* pathname, uint32_t mode, uint64_t dev) {
+int32_t libcFuchsiaMknodat(int32_t dirfd, const char* pathname, uint32_t mode, uint64_t dev) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, uint32_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6628,7 +6628,7 @@ int32_t libc_fuchsia_mknodat(int32_t dirfd, const char* pathname, uint32_t mode,
     return -1;
 }
 
-int32_t libc_fuchsia_pthreadCondattrGetclock(void* attr, void* clock_id) {
+int32_t libcFuchsiaPthreadCondattrGetclock(void* attr, void* clockId) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6650,13 +6650,13 @@ int32_t libc_fuchsia_pthreadCondattrGetclock(void* attr, void* clock_id) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(attr, clock_id);
+        return km_fn_ptr(attr, clockId);
     }
     errno = ENOSYS;
     return ENOSYS;
 }
 
-int32_t libc_fuchsia_pthreadCondattrSetclock(void* attr, int32_t clock_id) {
+int32_t libcFuchsiaPthreadCondattrSetclock(void* attr, int32_t clockId) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6678,13 +6678,13 @@ int32_t libc_fuchsia_pthreadCondattrSetclock(void* attr, int32_t clock_id) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(attr, clock_id);
+        return km_fn_ptr(attr, clockId);
     }
     errno = ENOSYS;
     return ENOSYS;
 }
 
-int32_t libc_fuchsia_accept4(int32_t fd, void* addr, void* len, int32_t flg) {
+int32_t libcFuchsiaAccept4(int32_t fd, void* addr, void* len, int32_t flg) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6712,7 +6712,7 @@ int32_t libc_fuchsia_accept4(int32_t fd, void* addr, void* len, int32_t flg) {
     return -1;
 }
 
-int32_t libc_fuchsia_ptsnameR(int32_t fd, char* buf, uint64_t buflen) {
+int32_t libcFuchsiaPtsnameR(int32_t fd, char* buf, uint64_t buflen) {
     typedef int32_t (*km_fn_t)(int32_t, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6740,7 +6740,7 @@ int32_t libc_fuchsia_ptsnameR(int32_t fd, char* buf, uint64_t buflen) {
     return -1;
 }
 
-int32_t libc_fuchsia_clearenv(void) {
+int32_t libcFuchsiaClearenv(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6768,7 +6768,7 @@ int32_t libc_fuchsia_clearenv(void) {
     return -1;
 }
 
-int32_t libc_fuchsia_waitid(uint32_t idtype, uint32_t id, void* infop, int32_t options) {
+int32_t libcFuchsiaWaitid(uint32_t idtype, uint32_t id, void* infop, int32_t options) {
     typedef int32_t (*km_fn_t)(uint32_t, uint32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6796,7 +6796,7 @@ int32_t libc_fuchsia_waitid(uint32_t idtype, uint32_t id, void* infop, int32_t o
     return -1;
 }
 
-int32_t libc_fuchsia_setreuid(uint32_t ruid, uint32_t euid) {
+int32_t libcFuchsiaSetreuid(uint32_t ruid, uint32_t euid) {
     typedef int32_t (*km_fn_t)(uint32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6824,7 +6824,7 @@ int32_t libc_fuchsia_setreuid(uint32_t ruid, uint32_t euid) {
     return -1;
 }
 
-int32_t libc_fuchsia_setregid(uint32_t rgid, uint32_t egid) {
+int32_t libcFuchsiaSetregid(uint32_t rgid, uint32_t egid) {
     typedef int32_t (*km_fn_t)(uint32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6852,7 +6852,7 @@ int32_t libc_fuchsia_setregid(uint32_t rgid, uint32_t egid) {
     return -1;
 }
 
-int32_t libc_fuchsia_getresuid(void* ruid, void* euid, void* suid) {
+int32_t libcFuchsiaGetresuid(void* ruid, void* euid, void* suid) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6880,7 +6880,7 @@ int32_t libc_fuchsia_getresuid(void* ruid, void* euid, void* suid) {
     return -1;
 }
 
-int32_t libc_fuchsia_getresgid(void* rgid, void* egid, void* sgid) {
+int32_t libcFuchsiaGetresgid(void* rgid, void* egid, void* sgid) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6908,7 +6908,7 @@ int32_t libc_fuchsia_getresgid(void* rgid, void* egid, void* sgid) {
     return -1;
 }
 
-int32_t libc_fuchsia_acct(const char* filename) {
+int32_t libcFuchsiaAcct(const char* filename) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6936,7 +6936,7 @@ int32_t libc_fuchsia_acct(const char* filename) {
     return -1;
 }
 
-int32_t libc_fuchsia_brk(void* addr) {
+int32_t libcFuchsiaBrk(void* addr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6964,7 +6964,7 @@ int32_t libc_fuchsia_brk(void* addr) {
     return -1;
 }
 
-int32_t libc_fuchsia_setresgid(uint32_t rgid, uint32_t egid, uint32_t sgid) {
+int32_t libcFuchsiaSetresgid(uint32_t rgid, uint32_t egid, uint32_t sgid) {
     typedef int32_t (*km_fn_t)(uint32_t, uint32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6992,7 +6992,7 @@ int32_t libc_fuchsia_setresgid(uint32_t rgid, uint32_t egid, uint32_t sgid) {
     return -1;
 }
 
-int32_t libc_fuchsia_setresuid(uint32_t ruid, uint32_t euid, uint32_t suid) {
+int32_t libcFuchsiaSetresuid(uint32_t ruid, uint32_t euid, uint32_t suid) {
     typedef int32_t (*km_fn_t)(uint32_t, uint32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7020,7 +7020,7 @@ int32_t libc_fuchsia_setresuid(uint32_t ruid, uint32_t euid, uint32_t suid) {
     return -1;
 }
 
-int32_t libc_fuchsia_openpty(void* amaster, void* aslave, char* name, void* termp, void* winp) {
+int32_t libcFuchsiaOpenpty(void* amaster, void* aslave, char* name, void* termp, void* winp) {
     typedef int32_t (*km_fn_t)(void*, void*, char*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7048,7 +7048,7 @@ int32_t libc_fuchsia_openpty(void* amaster, void* aslave, char* name, void* term
     return -1;
 }
 
-int32_t libc_fuchsia_execvpe(const char* file, void* argv, void* envp) {
+int32_t libcFuchsiaExecvpe(const char* file, void* argv, void* envp) {
     typedef int32_t (*km_fn_t)(const char*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7076,7 +7076,7 @@ int32_t libc_fuchsia_execvpe(const char* file, void* argv, void* envp) {
     return -1;
 }
 
-int32_t libc_fuchsia_fexecve(int32_t fd, void* argv, void* envp) {
+int32_t libcFuchsiaFexecve(int32_t fd, void* argv, void* envp) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7104,7 +7104,7 @@ int32_t libc_fuchsia_fexecve(int32_t fd, void* argv, void* envp) {
     return -1;
 }
 
-int32_t libc_fuchsia_ioctl(int32_t fd, int32_t request, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcFuchsiaIoctl(int32_t fd, int32_t request, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7138,7 +7138,7 @@ int32_t libc_fuchsia_ioctl(int32_t fd, int32_t request, int32_t km_vac, int64_t 
     return -1;
 }
 
-int32_t libc_fuchsia_lutimes(const char* file, void* times) {
+int32_t libcFuchsiaLutimes(const char* file, void* times) {
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7166,7 +7166,7 @@ int32_t libc_fuchsia_lutimes(const char* file, void* times) {
     return -1;
 }
 
-void libc_fuchsia_setpwent(void) {
+void libcFuchsiaSetpwent(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7194,7 +7194,7 @@ void libc_fuchsia_setpwent(void) {
     errno = ENOSYS;
 }
 
-void libc_fuchsia_endpwent(void) {
+void libcFuchsiaEndpwent(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7222,7 +7222,7 @@ void libc_fuchsia_endpwent(void) {
     errno = ENOSYS;
 }
 
-void* libc_fuchsia_getpwent(void) {
+void* libcFuchsiaGetpwent(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7250,7 +7250,7 @@ void* libc_fuchsia_getpwent(void) {
     return NULL;
 }
 
-int32_t libc_fuchsia_shmOpen(const char* name, int32_t oflag, uint32_t mode) {
+int32_t libcFuchsiaShmOpen(const char* name, int32_t oflag, uint32_t mode) {
     typedef int32_t (*km_fn_t)(const char*, int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7278,7 +7278,7 @@ int32_t libc_fuchsia_shmOpen(const char* name, int32_t oflag, uint32_t mode) {
     return -1;
 }
 
-int32_t libc_fuchsia_shmget(int32_t key, uint64_t size, int32_t shmflg) {
+int32_t libcFuchsiaShmget(int32_t key, uint64_t size, int32_t shmflg) {
     typedef int32_t (*km_fn_t)(int32_t, uint64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7306,7 +7306,7 @@ int32_t libc_fuchsia_shmget(int32_t key, uint64_t size, int32_t shmflg) {
     return -1;
 }
 
-void* libc_fuchsia_shmat(int32_t shmid, void* shmaddr, int32_t shmflg) {
+void* libcFuchsiaShmat(int32_t shmid, void* shmaddr, int32_t shmflg) {
     typedef void* (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7334,7 +7334,7 @@ void* libc_fuchsia_shmat(int32_t shmid, void* shmaddr, int32_t shmflg) {
     return NULL;
 }
 
-int32_t libc_fuchsia_shmdt(void* shmaddr) {
+int32_t libcFuchsiaShmdt(void* shmaddr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7362,7 +7362,7 @@ int32_t libc_fuchsia_shmdt(void* shmaddr) {
     return -1;
 }
 
-int32_t libc_fuchsia_shmctl(int32_t shmid, int32_t cmd, void* buf) {
+int32_t libcFuchsiaShmctl(int32_t shmid, int32_t cmd, void* buf) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7390,7 +7390,7 @@ int32_t libc_fuchsia_shmctl(int32_t shmid, int32_t cmd, void* buf) {
     return -1;
 }
 
-int32_t libc_fuchsia_ftok(const char* pathname, int32_t proj_id) {
+int32_t libcFuchsiaFtok(const char* pathname, int32_t projId) {
     typedef int32_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7412,13 +7412,13 @@ int32_t libc_fuchsia_ftok(const char* pathname, int32_t proj_id) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(pathname, proj_id);
+        return km_fn_ptr(pathname, projId);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_fuchsia_semget(int32_t key, int32_t nsems, int32_t semflag) {
+int32_t libcFuchsiaSemget(int32_t key, int32_t nsems, int32_t semflag) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7446,7 +7446,7 @@ int32_t libc_fuchsia_semget(int32_t key, int32_t nsems, int32_t semflag) {
     return -1;
 }
 
-int32_t libc_fuchsia_semop(int32_t semid, void* sops, uint64_t nsops) {
+int32_t libcFuchsiaSemop(int32_t semid, void* sops, uint64_t nsops) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7474,7 +7474,7 @@ int32_t libc_fuchsia_semop(int32_t semid, void* sops, uint64_t nsops) {
     return -1;
 }
 
-int32_t libc_fuchsia_semctl(int32_t semid, int32_t semnum, int32_t cmd, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcFuchsiaSemctl(int32_t semid, int32_t semnum, int32_t cmd, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7508,7 +7508,7 @@ int32_t libc_fuchsia_semctl(int32_t semid, int32_t semnum, int32_t cmd, int32_t 
     return -1;
 }
 
-int32_t libc_fuchsia_msgctl(int32_t msqid, int32_t cmd, void* buf) {
+int32_t libcFuchsiaMsgctl(int32_t msqid, int32_t cmd, void* buf) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7536,7 +7536,7 @@ int32_t libc_fuchsia_msgctl(int32_t msqid, int32_t cmd, void* buf) {
     return -1;
 }
 
-int32_t libc_fuchsia_msgget(int32_t key, int32_t msgflg) {
+int32_t libcFuchsiaMsgget(int32_t key, int32_t msgflg) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7564,7 +7564,7 @@ int32_t libc_fuchsia_msgget(int32_t key, int32_t msgflg) {
     return -1;
 }
 
-int64_t libc_fuchsia_msgrcv(int32_t msqid, void* msgp, uint64_t msgsz, int64_t msgtyp, int32_t msgflg) {
+int64_t libcFuchsiaMsgrcv(int32_t msqid, void* msgp, uint64_t msgsz, int64_t msgtyp, int32_t msgflg) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, int64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7592,7 +7592,7 @@ int64_t libc_fuchsia_msgrcv(int32_t msqid, void* msgp, uint64_t msgsz, int64_t m
     return -1;
 }
 
-int32_t libc_fuchsia_msgsnd(int32_t msqid, void* msgp, uint64_t msgsz, int32_t msgflg) {
+int32_t libcFuchsiaMsgsnd(int32_t msqid, void* msgp, uint64_t msgsz, int32_t msgflg) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7620,7 +7620,7 @@ int32_t libc_fuchsia_msgsnd(int32_t msqid, void* msgp, uint64_t msgsz, int32_t m
     return -1;
 }
 
-int32_t libc_fuchsia_mprotect(void* addr, uint64_t len, int32_t prot) {
+int32_t libcFuchsiaMprotect(void* addr, uint64_t len, int32_t prot) {
 #if !defined(_WIN32)
     return (int32_t)mprotect(addr, len, prot);
 #else
@@ -7632,7 +7632,7 @@ int32_t libc_fuchsia_mprotect(void* addr, uint64_t len, int32_t prot) {
 #endif
 }
 
-void* libc_fuchsia_errnoLocation(void) {
+void* libcFuchsiaErrnoLocation(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7658,7 +7658,7 @@ void* libc_fuchsia_errnoLocation(void) {
     return NULL;
 }
 
-int32_t libc_fuchsia_fallocate(int32_t fd, int32_t mode, int64_t offset, int64_t len) {
+int32_t libcFuchsiaFallocate(int32_t fd, int32_t mode, int64_t offset, int64_t len) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int64_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7686,7 +7686,7 @@ int32_t libc_fuchsia_fallocate(int32_t fd, int32_t mode, int64_t offset, int64_t
     return -1;
 }
 
-int32_t libc_fuchsia_posixFallocate(int32_t fd, int64_t offset, int64_t len) {
+int32_t libcFuchsiaPosixFallocate(int32_t fd, int64_t offset, int64_t len) {
     typedef int32_t (*km_fn_t)(int32_t, int64_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7714,7 +7714,7 @@ int32_t libc_fuchsia_posixFallocate(int32_t fd, int64_t offset, int64_t len) {
     return -1;
 }
 
-int64_t libc_fuchsia_readahead(int32_t fd, int64_t offset, uint64_t count) {
+int64_t libcFuchsiaReadahead(int32_t fd, int64_t offset, uint64_t count) {
     typedef int64_t (*km_fn_t)(int32_t, int64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7742,7 +7742,7 @@ int64_t libc_fuchsia_readahead(int32_t fd, int64_t offset, uint64_t count) {
     return -1;
 }
 
-int32_t libc_fuchsia_signalfd(int32_t fd, void* mask, int32_t flags) {
+int32_t libcFuchsiaSignalfd(int32_t fd, void* mask, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7770,7 +7770,7 @@ int32_t libc_fuchsia_signalfd(int32_t fd, void* mask, int32_t flags) {
     return -1;
 }
 
-int32_t libc_fuchsia_timerfdCreate(int32_t clockid, int32_t flags) {
+int32_t libcFuchsiaTimerfdCreate(int32_t clockid, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7798,7 +7798,7 @@ int32_t libc_fuchsia_timerfdCreate(int32_t clockid, int32_t flags) {
     return -1;
 }
 
-int32_t libc_fuchsia_timerfdGettime(int32_t fd, void* curr_value) {
+int32_t libcFuchsiaTimerfdGettime(int32_t fd, void* currValue) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7820,13 +7820,13 @@ int32_t libc_fuchsia_timerfdGettime(int32_t fd, void* curr_value) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(fd, curr_value);
+        return km_fn_ptr(fd, currValue);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_fuchsia_timerfdSettime(int32_t fd, int32_t flags, void* new_value, void* old_value) {
+int32_t libcFuchsiaTimerfdSettime(int32_t fd, int32_t flags, void* newValue, void* oldValue) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7848,13 +7848,13 @@ int32_t libc_fuchsia_timerfdSettime(int32_t fd, int32_t flags, void* new_value, 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(fd, flags, new_value, old_value);
+        return km_fn_ptr(fd, flags, newValue, oldValue);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_fuchsia_pwritev(int32_t fd, void* iov, int32_t iovcnt, int64_t offset) {
+int64_t libcFuchsiaPwritev(int32_t fd, void* iov, int32_t iovcnt, int64_t offset) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7882,7 +7882,7 @@ int64_t libc_fuchsia_pwritev(int32_t fd, void* iov, int32_t iovcnt, int64_t offs
     return -1;
 }
 
-int64_t libc_fuchsia_preadv(int32_t fd, void* iov, int32_t iovcnt, int64_t offset) {
+int64_t libcFuchsiaPreadv(int32_t fd, void* iov, int32_t iovcnt, int64_t offset) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7910,7 +7910,7 @@ int64_t libc_fuchsia_preadv(int32_t fd, void* iov, int32_t iovcnt, int64_t offse
     return -1;
 }
 
-int32_t libc_fuchsia_quotactl(int32_t cmd, const char* special, int32_t id, char* data) {
+int32_t libcFuchsiaQuotactl(int32_t cmd, const char* special, int32_t id, char* data) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7938,7 +7938,7 @@ int32_t libc_fuchsia_quotactl(int32_t cmd, const char* special, int32_t id, char
     return -1;
 }
 
-int32_t libc_fuchsia_dup3(int32_t oldfd, int32_t newfd, int32_t flags) {
+int32_t libcFuchsiaDup3(int32_t oldfd, int32_t newfd, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7966,7 +7966,7 @@ int32_t libc_fuchsia_dup3(int32_t oldfd, int32_t newfd, int32_t flags) {
     return -1;
 }
 
-int32_t libc_fuchsia_mkostemp(char* arg_0_template, int32_t flags) {
+int32_t libcFuchsiaMkostemp(char* arg0Template, int32_t flags) {
     typedef int32_t (*km_fn_t)(char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7988,13 +7988,13 @@ int32_t libc_fuchsia_mkostemp(char* arg_0_template, int32_t flags) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_template, flags);
+        return km_fn_ptr(arg0Template, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_fuchsia_mkostemps(char* arg_0_template, int32_t suffixlen, int32_t flags) {
+int32_t libcFuchsiaMkostemps(char* arg0Template, int32_t suffixlen, int32_t flags) {
     typedef int32_t (*km_fn_t)(char*, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8016,13 +8016,13 @@ int32_t libc_fuchsia_mkostemps(char* arg_0_template, int32_t suffixlen, int32_t 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_template, suffixlen, flags);
+        return km_fn_ptr(arg0Template, suffixlen, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_fuchsia_sigtimedwait(void* set, void* info, void* timeout) {
+int32_t libcFuchsiaSigtimedwait(void* set, void* info, void* timeout) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8050,7 +8050,7 @@ int32_t libc_fuchsia_sigtimedwait(void* set, void* info, void* timeout) {
     return -1;
 }
 
-int32_t libc_fuchsia_sigwaitinfo(void* set, void* info) {
+int32_t libcFuchsiaSigwaitinfo(void* set, void* info) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8078,7 +8078,7 @@ int32_t libc_fuchsia_sigwaitinfo(void* set, void* info) {
     return -1;
 }
 
-char* libc_fuchsia_nlLanginfoL(int32_t item, void* locale) {
+char* libcFuchsiaNlLanginfoL(int32_t item, void* locale) {
     typedef char* (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8106,7 +8106,7 @@ char* libc_fuchsia_nlLanginfoL(int32_t item, void* locale) {
     return NULL;
 }
 
-int32_t libc_fuchsia_getnameinfo(void* sa, uint32_t salen, char* host, uint32_t hostlen, char* serv, uint32_t servlen, int32_t flags) {
+int32_t libcFuchsiaGetnameinfo(void* sa, uint32_t salen, char* host, uint32_t hostlen, char* serv, uint32_t servlen, int32_t flags) {
     typedef int32_t (*km_fn_t)(void*, uint32_t, char*, uint32_t, char*, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8134,7 +8134,7 @@ int32_t libc_fuchsia_getnameinfo(void* sa, uint32_t salen, char* host, uint32_t 
     return -1;
 }
 
-int32_t libc_fuchsia_reboot(int32_t how_to) {
+int32_t libcFuchsiaReboot(int32_t howTo) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8156,13 +8156,13 @@ int32_t libc_fuchsia_reboot(int32_t how_to) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(how_to);
+        return km_fn_ptr(howTo);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_fuchsia_setfsgid(uint32_t gid) {
+int32_t libcFuchsiaSetfsgid(uint32_t gid) {
     typedef int32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8190,7 +8190,7 @@ int32_t libc_fuchsia_setfsgid(uint32_t gid) {
     return -1;
 }
 
-int32_t libc_fuchsia_setfsuid(uint32_t uid) {
+int32_t libcFuchsiaSetfsuid(uint32_t uid) {
     typedef int32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8218,7 +8218,7 @@ int32_t libc_fuchsia_setfsuid(uint32_t uid) {
     return -1;
 }
 
-int32_t libc_fuchsia_mkfifoat(int32_t dirfd, const char* pathname, uint32_t mode) {
+int32_t libcFuchsiaMkfifoat(int32_t dirfd, const char* pathname, uint32_t mode) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8246,7 +8246,7 @@ int32_t libc_fuchsia_mkfifoat(int32_t dirfd, const char* pathname, uint32_t mode
     return -1;
 }
 
-void* libc_fuchsia_ifNameindex(void) {
+void* libcFuchsiaIfNameindex(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8274,7 +8274,7 @@ void* libc_fuchsia_ifNameindex(void) {
     return NULL;
 }
 
-void libc_fuchsia_ifFreenameindex(void* ptr) {
+void libcFuchsiaIfFreenameindex(void* ptr) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8302,7 +8302,7 @@ void libc_fuchsia_ifFreenameindex(void* ptr) {
     errno = ENOSYS;
 }
 
-int32_t libc_fuchsia_syncFileRange(int32_t fd, int64_t offset, int64_t nbytes, uint32_t flags) {
+int32_t libcFuchsiaSyncFileRange(int32_t fd, int64_t offset, int64_t nbytes, uint32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, int64_t, int64_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8330,7 +8330,7 @@ int32_t libc_fuchsia_syncFileRange(int32_t fd, int64_t offset, int64_t nbytes, u
     return -1;
 }
 
-int32_t libc_fuchsia_getifaddrs(void* ifap) {
+int32_t libcFuchsiaGetifaddrs(void* ifap) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8358,7 +8358,7 @@ int32_t libc_fuchsia_getifaddrs(void* ifap) {
     return -1;
 }
 
-void libc_fuchsia_freeifaddrs(void* ifa) {
+void libcFuchsiaFreeifaddrs(void* ifa) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8386,7 +8386,7 @@ void libc_fuchsia_freeifaddrs(void* ifa) {
     errno = ENOSYS;
 }
 
-int32_t libc_fuchsia_glob(const char* pattern, int32_t flags, void* errfunc, void* pglob) {
+int32_t libcFuchsiaGlob(const char* pattern, int32_t flags, void* errfunc, void* pglob) {
     typedef int32_t (*km_fn_t)(const char*, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8414,7 +8414,7 @@ int32_t libc_fuchsia_glob(const char* pattern, int32_t flags, void* errfunc, voi
     return -1;
 }
 
-void libc_fuchsia_globfree(void* pglob) {
+void libcFuchsiaGlobfree(void* pglob) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8442,7 +8442,7 @@ void libc_fuchsia_globfree(void* pglob) {
     errno = ENOSYS;
 }
 
-int32_t libc_fuchsia_posixMadvise(void* addr, uint64_t len, int32_t advice) {
+int32_t libcFuchsiaPosixMadvise(void* addr, uint64_t len, int32_t advice) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8470,7 +8470,7 @@ int32_t libc_fuchsia_posixMadvise(void* addr, uint64_t len, int32_t advice) {
     return -1;
 }
 
-int32_t libc_fuchsia_shmUnlink(const char* name) {
+int32_t libcFuchsiaShmUnlink(const char* name) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8498,7 +8498,7 @@ int32_t libc_fuchsia_shmUnlink(const char* name) {
     return -1;
 }
 
-void libc_fuchsia_seekdir(void* dirp, int64_t loc) {
+void libcFuchsiaSeekdir(void* dirp, int64_t loc) {
     typedef void (*km_fn_t)(void*, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8526,7 +8526,7 @@ void libc_fuchsia_seekdir(void* dirp, int64_t loc) {
     errno = ENOSYS;
 }
 
-int64_t libc_fuchsia_telldir(void* dirp) {
+int64_t libcFuchsiaTelldir(void* dirp) {
     typedef int64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8554,7 +8554,7 @@ int64_t libc_fuchsia_telldir(void* dirp) {
     return -1;
 }
 
-int32_t libc_fuchsia_madvise(void* addr, uint64_t len, int32_t advice) {
+int32_t libcFuchsiaMadvise(void* addr, uint64_t len, int32_t advice) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8582,7 +8582,7 @@ int32_t libc_fuchsia_madvise(void* addr, uint64_t len, int32_t advice) {
     return -1;
 }
 
-int32_t libc_fuchsia_msync(void* addr, uint64_t len, int32_t flags) {
+int32_t libcFuchsiaMsync(void* addr, uint64_t len, int32_t flags) {
 #if !defined(_WIN32)
     return (int32_t)msync(addr, len, flags);
 #else
@@ -8594,11 +8594,11 @@ int32_t libc_fuchsia_msync(void* addr, uint64_t len, int32_t flags) {
 #endif
 }
 
-int64_t libc_fuchsia_recvfrom(int32_t arg_0_socket, void* buf, uint64_t len, int32_t flags, void* addr, void* addrlen) {
-    return (int64_t)recvfrom(arg_0_socket, buf, len, flags, addr, addrlen);
+int64_t libcFuchsiaRecvfrom(int32_t arg0Socket, void* buf, uint64_t len, int32_t flags, void* addr, void* addrlen) {
+    return (int64_t)recvfrom(arg0Socket, buf, len, flags, addr, addrlen);
 }
 
-int32_t libc_fuchsia_mkstemps(char* arg_0_template, int32_t suffixlen) {
+int32_t libcFuchsiaMkstemps(char* arg0Template, int32_t suffixlen) {
     typedef int32_t (*km_fn_t)(char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8620,13 +8620,13 @@ int32_t libc_fuchsia_mkstemps(char* arg_0_template, int32_t suffixlen) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_template, suffixlen);
+        return km_fn_ptr(arg0Template, suffixlen);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_fuchsia_futimes(int32_t fd, void* times) {
+int32_t libcFuchsiaFutimes(int32_t fd, void* times) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8654,7 +8654,7 @@ int32_t libc_fuchsia_futimes(int32_t fd, void* times) {
     return -1;
 }
 
-char* libc_fuchsia_nlLanginfo(int32_t item) {
+char* libcFuchsiaNlLanginfo(int32_t item) {
     typedef char* (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8682,11 +8682,11 @@ char* libc_fuchsia_nlLanginfo(int32_t item) {
     return NULL;
 }
 
-int32_t libc_fuchsia_bind(int32_t arg_0_socket, void* address, uint32_t address_len) {
-    return (int32_t)bind(arg_0_socket, address, address_len);
+int32_t libcFuchsiaBind(int32_t arg0Socket, void* address, uint32_t addressLen) {
+    return (int32_t)bind(arg0Socket, address, addressLen);
 }
 
-int64_t libc_fuchsia_writev(int32_t fd, void* iov, int32_t iovcnt) {
+int64_t libcFuchsiaWritev(int32_t fd, void* iov, int32_t iovcnt) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8714,7 +8714,7 @@ int64_t libc_fuchsia_writev(int32_t fd, void* iov, int32_t iovcnt) {
     return -1;
 }
 
-int64_t libc_fuchsia_readv(int32_t fd, void* iov, int32_t iovcnt) {
+int64_t libcFuchsiaReadv(int32_t fd, void* iov, int32_t iovcnt) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8742,7 +8742,7 @@ int64_t libc_fuchsia_readv(int32_t fd, void* iov, int32_t iovcnt) {
     return -1;
 }
 
-int64_t libc_fuchsia_sendmsg(int32_t fd, void* msg, int32_t flags) {
+int64_t libcFuchsiaSendmsg(int32_t fd, void* msg, int32_t flags) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8770,7 +8770,7 @@ int64_t libc_fuchsia_sendmsg(int32_t fd, void* msg, int32_t flags) {
     return -1;
 }
 
-int64_t libc_fuchsia_recvmsg(int32_t fd, void* msg, int32_t flags) {
+int64_t libcFuchsiaRecvmsg(int32_t fd, void* msg, int32_t flags) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8798,7 +8798,7 @@ int64_t libc_fuchsia_recvmsg(int32_t fd, void* msg, int32_t flags) {
     return -1;
 }
 
-int32_t libc_fuchsia_getdomainname(char* name, uint64_t len) {
+int32_t libcFuchsiaGetdomainname(char* name, uint64_t len) {
     typedef int32_t (*km_fn_t)(char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8826,7 +8826,7 @@ int32_t libc_fuchsia_getdomainname(char* name, uint64_t len) {
     return -1;
 }
 
-int32_t libc_fuchsia_setdomainname(const char* name, uint64_t len) {
+int32_t libcFuchsiaSetdomainname(const char* name, uint64_t len) {
     typedef int32_t (*km_fn_t)(const char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8854,7 +8854,7 @@ int32_t libc_fuchsia_setdomainname(const char* name, uint64_t len) {
     return -1;
 }
 
-int32_t libc_fuchsia_vhangup(void) {
+int32_t libcFuchsiaVhangup(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8882,7 +8882,7 @@ int32_t libc_fuchsia_vhangup(void) {
     return -1;
 }
 
-int32_t libc_fuchsia_sendmmsg(int32_t sockfd, void* msgvec, uint32_t vlen, int32_t flags) {
+int32_t libcFuchsiaSendmmsg(int32_t sockfd, void* msgvec, uint32_t vlen, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8910,7 +8910,7 @@ int32_t libc_fuchsia_sendmmsg(int32_t sockfd, void* msgvec, uint32_t vlen, int32
     return -1;
 }
 
-int32_t libc_fuchsia_recvmmsg(int32_t sockfd, void* msgvec, uint32_t vlen, int32_t flags, void* timeout) {
+int32_t libcFuchsiaRecvmmsg(int32_t sockfd, void* msgvec, uint32_t vlen, int32_t flags, void* timeout) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8938,7 +8938,7 @@ int32_t libc_fuchsia_recvmmsg(int32_t sockfd, void* msgvec, uint32_t vlen, int32
     return -1;
 }
 
-void libc_fuchsia_sync(void) {
+void libcFuchsiaSync(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8966,7 +8966,7 @@ void libc_fuchsia_sync(void) {
     errno = ENOSYS;
 }
 
-int64_t libc_fuchsia_syscall(int64_t num, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int64_t libcFuchsiaSyscall(int64_t num, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int64_t (*km_fn_t)(int64_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9000,7 +9000,7 @@ int64_t libc_fuchsia_syscall(int64_t num, int32_t km_vac, int64_t km_va0, int64_
     return -1;
 }
 
-int32_t libc_fuchsia_schedGetaffinity(int32_t pid, uint64_t cpusetsize, void* cpuset) {
+int32_t libcFuchsiaSchedGetaffinity(int32_t pid, uint64_t cpusetsize, void* cpuset) {
     typedef int32_t (*km_fn_t)(int32_t, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9028,7 +9028,7 @@ int32_t libc_fuchsia_schedGetaffinity(int32_t pid, uint64_t cpusetsize, void* cp
     return -1;
 }
 
-int32_t libc_fuchsia_schedSetaffinity(int32_t pid, uint64_t cpusetsize, void* cpuset) {
+int32_t libcFuchsiaSchedSetaffinity(int32_t pid, uint64_t cpusetsize, void* cpuset) {
     typedef int32_t (*km_fn_t)(int32_t, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9056,7 +9056,7 @@ int32_t libc_fuchsia_schedSetaffinity(int32_t pid, uint64_t cpusetsize, void* cp
     return -1;
 }
 
-int32_t libc_fuchsia_umount(const char* target) {
+int32_t libcFuchsiaUmount(const char* target) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9084,7 +9084,7 @@ int32_t libc_fuchsia_umount(const char* target) {
     return -1;
 }
 
-int32_t libc_fuchsia_schedGetPriorityMax(int32_t policy) {
+int32_t libcFuchsiaSchedGetPriorityMax(int32_t policy) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9112,7 +9112,7 @@ int32_t libc_fuchsia_schedGetPriorityMax(int32_t policy) {
     return -1;
 }
 
-int64_t libc_fuchsia_tee(int32_t fd_in, int32_t fd_out, uint64_t len, uint32_t flags) {
+int64_t libcFuchsiaTee(int32_t fdIn, int32_t fdOut, uint64_t len, uint32_t flags) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, uint64_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9134,13 +9134,13 @@ int64_t libc_fuchsia_tee(int32_t fd_in, int32_t fd_out, uint64_t len, uint32_t f
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(fd_in, fd_out, len, flags);
+        return km_fn_ptr(fdIn, fdOut, len, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_fuchsia_settimeofday(void* tv, void* tz) {
+int32_t libcFuchsiaSettimeofday(void* tv, void* tz) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9168,7 +9168,7 @@ int32_t libc_fuchsia_settimeofday(void* tv, void* tz) {
     return -1;
 }
 
-int64_t libc_fuchsia_splice(int32_t fd_in, void* off_in, int32_t fd_out, void* off_out, uint64_t len, uint32_t flags) {
+int64_t libcFuchsiaSplice(int32_t fdIn, void* offIn, int32_t fdOut, void* offOut, uint64_t len, uint32_t flags) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, void*, uint64_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9190,13 +9190,13 @@ int64_t libc_fuchsia_splice(int32_t fd_in, void* off_in, int32_t fd_out, void* o
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(fd_in, off_in, fd_out, off_out, len, flags);
+        return km_fn_ptr(fdIn, offIn, fdOut, offOut, len, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_fuchsia_eventfd(uint32_t initval, int32_t flags) {
+int32_t libcFuchsiaEventfd(uint32_t initval, int32_t flags) {
     typedef int32_t (*km_fn_t)(uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9224,7 +9224,7 @@ int32_t libc_fuchsia_eventfd(uint32_t initval, int32_t flags) {
     return -1;
 }
 
-int32_t libc_fuchsia_schedRrGetInterval(int32_t pid, void* tp) {
+int32_t libcFuchsiaSchedRrGetInterval(int32_t pid, void* tp) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9252,7 +9252,7 @@ int32_t libc_fuchsia_schedRrGetInterval(int32_t pid, void* tp) {
     return -1;
 }
 
-int32_t libc_fuchsia_semTimedwait(void* sem, void* abstime) {
+int32_t libcFuchsiaSemTimedwait(void* sem, void* abstime) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9280,7 +9280,7 @@ int32_t libc_fuchsia_semTimedwait(void* sem, void* abstime) {
     return -1;
 }
 
-int32_t libc_fuchsia_semGetvalue(void* sem, void* sval) {
+int32_t libcFuchsiaSemGetvalue(void* sem, void* sval) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9308,7 +9308,7 @@ int32_t libc_fuchsia_semGetvalue(void* sem, void* sval) {
     return -1;
 }
 
-int32_t libc_fuchsia_schedSetparam(int32_t pid, void* param) {
+int32_t libcFuchsiaSchedSetparam(int32_t pid, void* param) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9336,7 +9336,7 @@ int32_t libc_fuchsia_schedSetparam(int32_t pid, void* param) {
     return -1;
 }
 
-int32_t libc_fuchsia_swapoff(const char* puath) {
+int32_t libcFuchsiaSwapoff(const char* puath) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9364,7 +9364,7 @@ int32_t libc_fuchsia_swapoff(const char* puath) {
     return -1;
 }
 
-int64_t libc_fuchsia_vmsplice(int32_t fd, void* iov, uint64_t nr_segs, uint32_t flags) {
+int64_t libcFuchsiaVmsplice(int32_t fd, void* iov, uint64_t nrSegs, uint32_t flags) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9386,13 +9386,13 @@ int64_t libc_fuchsia_vmsplice(int32_t fd, void* iov, uint64_t nr_segs, uint32_t 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(fd, iov, nr_segs, flags);
+        return km_fn_ptr(fd, iov, nrSegs, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_fuchsia_mount(const char* src, const char* target, const char* fstype, uint64_t flags, void* data) {
+int32_t libcFuchsiaMount(const char* src, const char* target, const char* fstype, uint64_t flags, void* data) {
     typedef int32_t (*km_fn_t)(const char*, const char*, const char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9420,7 +9420,7 @@ int32_t libc_fuchsia_mount(const char* src, const char* target, const char* fsty
     return -1;
 }
 
-int32_t libc_fuchsia_personality(uint64_t persona) {
+int32_t libcFuchsiaPersonality(uint64_t persona) {
     typedef int32_t (*km_fn_t)(uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9448,7 +9448,7 @@ int32_t libc_fuchsia_personality(uint64_t persona) {
     return -1;
 }
 
-int32_t libc_fuchsia_schedGetparam(int32_t pid, void* param) {
+int32_t libcFuchsiaSchedGetparam(int32_t pid, void* param) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9476,7 +9476,7 @@ int32_t libc_fuchsia_schedGetparam(int32_t pid, void* param) {
     return -1;
 }
 
-int32_t libc_fuchsia_ppoll(void* fds, uint64_t nfds, void* timeout, void* sigmask) {
+int32_t libcFuchsiaPpoll(void* fds, uint64_t nfds, void* timeout, void* sigmask) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9504,7 +9504,7 @@ int32_t libc_fuchsia_ppoll(void* fds, uint64_t nfds, void* timeout, void* sigmas
     return -1;
 }
 
-int32_t libc_fuchsia_pthreadMutexTimedlock(void* lock, void* abstime) {
+int32_t libcFuchsiaPthreadMutexTimedlock(void* lock, void* abstime) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9532,7 +9532,7 @@ int32_t libc_fuchsia_pthreadMutexTimedlock(void* lock, void* abstime) {
     return ENOSYS;
 }
 
-int32_t libc_fuchsia_clone(void* cb, void* child_stack, int32_t flags, void* arg, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcFuchsiaClone(void* cb, void* childStack, int32_t flags, void* arg, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(void*, void*, int32_t, void*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9555,18 +9555,18 @@ int32_t libc_fuchsia_clone(void* cb, void* child_stack, int32_t flags, void* arg
 #endif
     if (km_fn_ptr != NULL) {
         switch (km_vac) {
-            case 0: return km_fn_ptr(cb, child_stack, flags, arg);
-            case 1: return km_fn_ptr(cb, child_stack, flags, arg, (intptr_t)km_va0);
-            case 2: return km_fn_ptr(cb, child_stack, flags, arg, (intptr_t)km_va0, (intptr_t)km_va1);
-            case 3: return km_fn_ptr(cb, child_stack, flags, arg, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2);
-            default: return km_fn_ptr(cb, child_stack, flags, arg, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3);
+            case 0: return km_fn_ptr(cb, childStack, flags, arg);
+            case 1: return km_fn_ptr(cb, childStack, flags, arg, (intptr_t)km_va0);
+            case 2: return km_fn_ptr(cb, childStack, flags, arg, (intptr_t)km_va0, (intptr_t)km_va1);
+            case 3: return km_fn_ptr(cb, childStack, flags, arg, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2);
+            default: return km_fn_ptr(cb, childStack, flags, arg, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3);
         }
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_fuchsia_schedGetscheduler(int32_t pid) {
+int32_t libcFuchsiaSchedGetscheduler(int32_t pid) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9594,7 +9594,7 @@ int32_t libc_fuchsia_schedGetscheduler(int32_t pid) {
     return -1;
 }
 
-int32_t libc_fuchsia_clockNanosleep(int32_t clk_id, int32_t flags, void* rqtp, void* rmtp) {
+int32_t libcFuchsiaClockNanosleep(int32_t clkId, int32_t flags, void* rqtp, void* rmtp) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9616,13 +9616,13 @@ int32_t libc_fuchsia_clockNanosleep(int32_t clk_id, int32_t flags, void* rqtp, v
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(clk_id, flags, rqtp, rmtp);
+        return km_fn_ptr(clkId, flags, rqtp, rmtp);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_fuchsia_pthreadAttrGetguardsize(void* attr, void* guardsize) {
+int32_t libcFuchsiaPthreadAttrGetguardsize(void* attr, void* guardsize) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9650,7 +9650,7 @@ int32_t libc_fuchsia_pthreadAttrGetguardsize(void* attr, void* guardsize) {
     return ENOSYS;
 }
 
-int32_t libc_fuchsia_pthreadAttrSetguardsize(void* attr, uint64_t guardsize) {
+int32_t libcFuchsiaPthreadAttrSetguardsize(void* attr, uint64_t guardsize) {
     typedef int32_t (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9678,7 +9678,7 @@ int32_t libc_fuchsia_pthreadAttrSetguardsize(void* attr, uint64_t guardsize) {
     return ENOSYS;
 }
 
-int32_t libc_fuchsia_sethostname(const char* name, uint64_t len) {
+int32_t libcFuchsiaSethostname(const char* name, uint64_t len) {
     typedef int32_t (*km_fn_t)(const char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9706,7 +9706,7 @@ int32_t libc_fuchsia_sethostname(const char* name, uint64_t len) {
     return -1;
 }
 
-int32_t libc_fuchsia_schedGetPriorityMin(int32_t policy) {
+int32_t libcFuchsiaSchedGetPriorityMin(int32_t policy) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9734,7 +9734,7 @@ int32_t libc_fuchsia_schedGetPriorityMin(int32_t policy) {
     return -1;
 }
 
-int32_t libc_fuchsia_umount2(const char* target, int32_t flags) {
+int32_t libcFuchsiaUmount2(const char* target, int32_t flags) {
     typedef int32_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9762,7 +9762,7 @@ int32_t libc_fuchsia_umount2(const char* target, int32_t flags) {
     return -1;
 }
 
-int32_t libc_fuchsia_swapon(const char* path, int32_t swapflags) {
+int32_t libcFuchsiaSwapon(const char* path, int32_t swapflags) {
     typedef int32_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9790,7 +9790,7 @@ int32_t libc_fuchsia_swapon(const char* path, int32_t swapflags) {
     return -1;
 }
 
-int32_t libc_fuchsia_schedSetscheduler(int32_t pid, int32_t policy, void* param) {
+int32_t libcFuchsiaSchedSetscheduler(int32_t pid, int32_t policy, void* param) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9818,7 +9818,7 @@ int32_t libc_fuchsia_schedSetscheduler(int32_t pid, int32_t policy, void* param)
     return -1;
 }
 
-int32_t libc_fuchsia_sigsuspend(void* mask) {
+int32_t libcFuchsiaSigsuspend(void* mask) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9846,7 +9846,7 @@ int32_t libc_fuchsia_sigsuspend(void* mask) {
     return -1;
 }
 
-int32_t libc_fuchsia_getgrgidR(uint32_t gid, void* grp, char* buf, uint64_t buflen, void* result) {
+int32_t libcFuchsiaGetgrgidR(uint32_t gid, void* grp, char* buf, uint64_t buflen, void* result) {
     typedef int32_t (*km_fn_t)(uint32_t, void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9874,7 +9874,7 @@ int32_t libc_fuchsia_getgrgidR(uint32_t gid, void* grp, char* buf, uint64_t bufl
     return -1;
 }
 
-int32_t libc_fuchsia_sigaltstack(void* ss, void* oss) {
+int32_t libcFuchsiaSigaltstack(void* ss, void* oss) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9902,7 +9902,7 @@ int32_t libc_fuchsia_sigaltstack(void* ss, void* oss) {
     return -1;
 }
 
-int32_t libc_fuchsia_semClose(void* sem) {
+int32_t libcFuchsiaSemClose(void* sem) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9930,7 +9930,7 @@ int32_t libc_fuchsia_semClose(void* sem) {
     return -1;
 }
 
-int32_t libc_fuchsia_getdtablesize(void) {
+int32_t libcFuchsiaGetdtablesize(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9958,7 +9958,7 @@ int32_t libc_fuchsia_getdtablesize(void) {
     return -1;
 }
 
-int32_t libc_fuchsia_getgrnamR(const char* name, void* grp, char* buf, uint64_t buflen, void* result) {
+int32_t libcFuchsiaGetgrnamR(const char* name, void* grp, char* buf, uint64_t buflen, void* result) {
     typedef int32_t (*km_fn_t)(const char*, void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9986,7 +9986,7 @@ int32_t libc_fuchsia_getgrnamR(const char* name, void* grp, char* buf, uint64_t 
     return -1;
 }
 
-int32_t libc_fuchsia_initgroups(const char* user, uint32_t group) {
+int32_t libcFuchsiaInitgroups(const char* user, uint32_t group) {
     typedef int32_t (*km_fn_t)(const char*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10014,7 +10014,7 @@ int32_t libc_fuchsia_initgroups(const char* user, uint32_t group) {
     return -1;
 }
 
-int32_t libc_fuchsia_pthreadSigmask(int32_t how, void* set, void* oldset) {
+int32_t libcFuchsiaPthreadSigmask(int32_t how, void* set, void* oldset) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10042,7 +10042,7 @@ int32_t libc_fuchsia_pthreadSigmask(int32_t how, void* set, void* oldset) {
     return ENOSYS;
 }
 
-void* libc_fuchsia_semOpen(const char* name, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+void* libcFuchsiaSemOpen(const char* name, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef void* (*km_fn_t)(const char*, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10076,7 +10076,7 @@ void* libc_fuchsia_semOpen(const char* name, int32_t oflag, int32_t km_vac, int6
     return NULL;
 }
 
-void* libc_fuchsia_getgrnam(const char* name) {
+void* libcFuchsiaGetgrnam(const char* name) {
     typedef void* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10104,7 +10104,7 @@ void* libc_fuchsia_getgrnam(const char* name) {
     return NULL;
 }
 
-int32_t libc_fuchsia_pthreadCancel(void* thread) {
+int32_t libcFuchsiaPthreadCancel(void* thread) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10132,7 +10132,7 @@ int32_t libc_fuchsia_pthreadCancel(void* thread) {
     return ENOSYS;
 }
 
-int32_t libc_fuchsia_pthreadKill(void* thread, int32_t sig) {
+int32_t libcFuchsiaPthreadKill(void* thread, int32_t sig) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10160,7 +10160,7 @@ int32_t libc_fuchsia_pthreadKill(void* thread, int32_t sig) {
     return ENOSYS;
 }
 
-int32_t libc_fuchsia_semUnlink(const char* name) {
+int32_t libcFuchsiaSemUnlink(const char* name) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10188,7 +10188,7 @@ int32_t libc_fuchsia_semUnlink(const char* name) {
     return -1;
 }
 
-int32_t libc_fuchsia_daemon(int32_t nochdir, int32_t noclose) {
+int32_t libcFuchsiaDaemon(int32_t nochdir, int32_t noclose) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10216,7 +10216,7 @@ int32_t libc_fuchsia_daemon(int32_t nochdir, int32_t noclose) {
     return -1;
 }
 
-int32_t libc_fuchsia_getpwnamR(const char* name, void* pwd, char* buf, uint64_t buflen, void* result) {
+int32_t libcFuchsiaGetpwnamR(const char* name, void* pwd, char* buf, uint64_t buflen, void* result) {
     typedef int32_t (*km_fn_t)(const char*, void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10244,7 +10244,7 @@ int32_t libc_fuchsia_getpwnamR(const char* name, void* pwd, char* buf, uint64_t 
     return -1;
 }
 
-int32_t libc_fuchsia_getpwuidR(uint32_t uid, void* pwd, char* buf, uint64_t buflen, void* result) {
+int32_t libcFuchsiaGetpwuidR(uint32_t uid, void* pwd, char* buf, uint64_t buflen, void* result) {
     typedef int32_t (*km_fn_t)(uint32_t, void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10272,7 +10272,7 @@ int32_t libc_fuchsia_getpwuidR(uint32_t uid, void* pwd, char* buf, uint64_t bufl
     return -1;
 }
 
-int32_t libc_fuchsia_sigwait(void* set, void* sig) {
+int32_t libcFuchsiaSigwait(void* set, void* sig) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10300,7 +10300,7 @@ int32_t libc_fuchsia_sigwait(void* set, void* sig) {
     return -1;
 }
 
-int32_t libc_fuchsia_pthreadAtfork(void* prepare, void* parent, void* child) {
+int32_t libcFuchsiaPthreadAtfork(void* prepare, void* parent, void* child) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10328,7 +10328,7 @@ int32_t libc_fuchsia_pthreadAtfork(void* prepare, void* parent, void* child) {
     return ENOSYS;
 }
 
-void* libc_fuchsia_getgrgid(uint32_t gid) {
+void* libcFuchsiaGetgrgid(uint32_t gid) {
     typedef void* (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10356,7 +10356,7 @@ void* libc_fuchsia_getgrgid(uint32_t gid) {
     return NULL;
 }
 
-void libc_fuchsia_setgrent(void) {
+void libcFuchsiaSetgrent(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10384,7 +10384,7 @@ void libc_fuchsia_setgrent(void) {
     errno = ENOSYS;
 }
 
-void libc_fuchsia_endgrent(void) {
+void libcFuchsiaEndgrent(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10412,7 +10412,7 @@ void libc_fuchsia_endgrent(void) {
     errno = ENOSYS;
 }
 
-void* libc_fuchsia_getgrent(void) {
+void* libcFuchsiaGetgrent(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10440,7 +10440,7 @@ void* libc_fuchsia_getgrent(void) {
     return NULL;
 }
 
-int32_t libc_fuchsia_getgrouplist(const char* user, uint32_t group, void* groups, void* ngroups) {
+int32_t libcFuchsiaGetgrouplist(const char* user, uint32_t group, void* groups, void* ngroups) {
     typedef int32_t (*km_fn_t)(const char*, uint32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10468,7 +10468,7 @@ int32_t libc_fuchsia_getgrouplist(const char* user, uint32_t group, void* groups
     return -1;
 }
 
-void* libc_fuchsia_popen(const char* command, const char* mode) {
+void* libcFuchsiaPopen(const char* command, const char* mode) {
     typedef void* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10496,7 +10496,7 @@ void* libc_fuchsia_popen(const char* command, const char* mode) {
     return NULL;
 }
 
-int32_t libc_fuchsia_faccessat(int32_t dirfd, const char* pathname, int32_t mode, int32_t flags) {
+int32_t libcFuchsiaFaccessat(int32_t dirfd, const char* pathname, int32_t mode, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10524,7 +10524,7 @@ int32_t libc_fuchsia_faccessat(int32_t dirfd, const char* pathname, int32_t mode
     return -1;
 }
 
-int32_t libc_fuchsia_pthreadCreate(void* native, void* attr, void* f, void* value) {
+int32_t libcFuchsiaPthreadCreate(void* native, void* attr, void* f, void* value) {
     typedef int32_t (*km_fn_t)(void*, void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -10552,7 +10552,7 @@ int32_t libc_fuchsia_pthreadCreate(void* native, void* attr, void* f, void* valu
     return ENOSYS;
 }
 
-int32_t libc_fuchsia_dlIteratePhdr(void* callback, void* data) {
+int32_t libcFuchsiaDlIteratePhdr(void* callback, void* data) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

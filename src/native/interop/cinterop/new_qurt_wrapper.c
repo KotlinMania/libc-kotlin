@@ -20,7 +20,7 @@
 #endif
 #endif
 
-void* libc_new_qurt_opendir(const char* name) {
+void* libcNewQurtOpendir(const char* name) {
 #if !defined(_WIN32)
     return (void*)opendir(name);
 #else
@@ -30,7 +30,7 @@ void* libc_new_qurt_opendir(const char* name) {
 #endif
 }
 
-void* libc_new_qurt_readdir(void* dirp) {
+void* libcNewQurtReaddir(void* dirp) {
 #if !defined(_WIN32)
     return (void*)readdir((DIR*)dirp);
 #else
@@ -40,7 +40,7 @@ void* libc_new_qurt_readdir(void* dirp) {
 #endif
 }
 
-int32_t libc_new_qurt_closedir(void* dirp) {
+int32_t libcNewQurtClosedir(void* dirp) {
 #if !defined(_WIN32)
     return (int32_t)closedir((DIR*)dirp);
 #else
@@ -50,7 +50,7 @@ int32_t libc_new_qurt_closedir(void* dirp) {
 #endif
 }
 
-int32_t libc_new_qurt_mkdir(const char* path, uint32_t mode) {
+int32_t libcNewQurtMkdir(const char* path, uint32_t mode) {
     typedef int32_t (*km_fn_t)(const char*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -78,7 +78,7 @@ int32_t libc_new_qurt_mkdir(const char* path, uint32_t mode) {
     return -1;
 }
 
-int32_t libc_new_qurt_pthreadAttrGetstack(void* attr, void* stackaddr, void* stacksize) {
+int32_t libcNewQurtPthreadAttrGetstack(void* attr, void* stackaddr, void* stacksize) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -106,7 +106,7 @@ int32_t libc_new_qurt_pthreadAttrGetstack(void* attr, void* stackaddr, void* sta
     return ENOSYS;
 }
 
-int32_t libc_new_qurt_pthreadAttrSetstack(void* attr, void* stackaddr, uint64_t stacksize) {
+int32_t libcNewQurtPthreadAttrSetstack(void* attr, void* stackaddr, uint64_t stacksize) {
     typedef int32_t (*km_fn_t)(void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -134,7 +134,7 @@ int32_t libc_new_qurt_pthreadAttrSetstack(void* attr, void* stackaddr, uint64_t 
     return ENOSYS;
 }
 
-int32_t libc_new_qurt_clockGetcpuclockid(int32_t pid, void* clock_id) {
+int32_t libcNewQurtClockGetcpuclockid(int32_t pid, void* clockId) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -156,13 +156,13 @@ int32_t libc_new_qurt_clockGetcpuclockid(int32_t pid, void* clock_id) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(pid, clock_id);
+        return km_fn_ptr(pid, clockId);
     }
     errno = ENOSYS;
     return -1;
 }
 
-void* libc_new_qurt_semOpen(const char* name, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+void* libcNewQurtSemOpen(const char* name, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef void* (*km_fn_t)(const char*, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -196,7 +196,7 @@ void* libc_new_qurt_semOpen(const char* name, int32_t oflag, int32_t km_vac, int
     return NULL;
 }
 
-int32_t libc_new_qurt_semClose(void* sem) {
+int32_t libcNewQurtSemClose(void* sem) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -224,7 +224,7 @@ int32_t libc_new_qurt_semClose(void* sem) {
     return -1;
 }
 
-int32_t libc_new_qurt_semUnlink(const char* name) {
+int32_t libcNewQurtSemUnlink(const char* name) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -252,7 +252,7 @@ int32_t libc_new_qurt_semUnlink(const char* name) {
     return -1;
 }
 
-void* libc_new_qurt_alignedAlloc(uint64_t alignment, uint64_t size) {
+void* libcNewQurtAlignedAlloc(uint64_t alignment, uint64_t size) {
     typedef void* (*km_fn_t)(uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -280,95 +280,95 @@ void* libc_new_qurt_alignedAlloc(uint64_t alignment, uint64_t size) {
     return NULL;
 }
 
-uint64_t libc_new_qurt_strlen(const char* s) {
+uint64_t libcNewQurtStrlen(const char* s) {
     return (uint64_t)strlen(s);
 }
 
-char* libc_new_qurt_strcpy(char* dest, const char* src) {
+char* libcNewQurtStrcpy(char* dest, const char* src) {
     return (char*)strcpy(dest, src);
 }
 
-char* libc_new_qurt_strncpy(char* dest, const char* src, uint64_t n) {
+char* libcNewQurtStrncpy(char* dest, const char* src, uint64_t n) {
     return (char*)strncpy(dest, src, n);
 }
 
-char* libc_new_qurt_strcat(char* dest, const char* src) {
+char* libcNewQurtStrcat(char* dest, const char* src) {
     return (char*)strcat(dest, src);
 }
 
-char* libc_new_qurt_strncat(char* dest, const char* src, uint64_t n) {
+char* libcNewQurtStrncat(char* dest, const char* src, uint64_t n) {
     return (char*)strncat(dest, src, n);
 }
 
-int32_t libc_new_qurt_strcmp(const char* s1, const char* s2) {
+int32_t libcNewQurtStrcmp(const char* s1, const char* s2) {
     return (int32_t)strcmp(s1, s2);
 }
 
-int32_t libc_new_qurt_strncmp(const char* s1, const char* s2, uint64_t n) {
+int32_t libcNewQurtStrncmp(const char* s1, const char* s2, uint64_t n) {
     return (int32_t)strncmp(s1, s2, n);
 }
 
-int32_t libc_new_qurt_strcoll(const char* s1, const char* s2) {
+int32_t libcNewQurtStrcoll(const char* s1, const char* s2) {
     return (int32_t)strcoll(s1, s2);
 }
 
-uint64_t libc_new_qurt_strxfrm(char* dest, const char* src, uint64_t n) {
+uint64_t libcNewQurtStrxfrm(char* dest, const char* src, uint64_t n) {
     return (uint64_t)strxfrm(dest, src, n);
 }
 
-char* libc_new_qurt_strchr(const char* s, int32_t c) {
+char* libcNewQurtStrchr(const char* s, int32_t c) {
     return (char*)strchr(s, c);
 }
 
-char* libc_new_qurt_strrchr(const char* s, int32_t c) {
+char* libcNewQurtStrrchr(const char* s, int32_t c) {
     return (char*)strrchr(s, c);
 }
 
-uint64_t libc_new_qurt_strspn(const char* s, const char* arg_1_accept) {
-    return (uint64_t)strspn(s, arg_1_accept);
+uint64_t libcNewQurtStrspn(const char* s, const char* arg1Accept) {
+    return (uint64_t)strspn(s, arg1Accept);
 }
 
-uint64_t libc_new_qurt_strcspn(const char* s, const char* reject) {
+uint64_t libcNewQurtStrcspn(const char* s, const char* reject) {
     return (uint64_t)strcspn(s, reject);
 }
 
-char* libc_new_qurt_strpbrk(const char* s, const char* arg_1_accept) {
-    return (char*)strpbrk(s, arg_1_accept);
+char* libcNewQurtStrpbrk(const char* s, const char* arg1Accept) {
+    return (char*)strpbrk(s, arg1Accept);
 }
 
-char* libc_new_qurt_strstr(const char* haystack, const char* needle) {
+char* libcNewQurtStrstr(const char* haystack, const char* needle) {
     return (char*)strstr(haystack, needle);
 }
 
-char* libc_new_qurt_strtok(char* s, const char* delim) {
+char* libcNewQurtStrtok(char* s, const char* delim) {
     return (char*)strtok(s, delim);
 }
 
-char* libc_new_qurt_strerror(int32_t errnum) {
+char* libcNewQurtStrerror(int32_t errnum) {
     return (char*)strerror(errnum);
 }
 
-void* libc_new_qurt_memchr(void* s, int32_t c, uint64_t n) {
+void* libcNewQurtMemchr(void* s, int32_t c, uint64_t n) {
     return (void*)memchr(s, c, n);
 }
 
-int32_t libc_new_qurt_memcmp(void* s1, void* s2, uint64_t n) {
+int32_t libcNewQurtMemcmp(void* s1, void* s2, uint64_t n) {
     return (int32_t)memcmp(s1, s2, n);
 }
 
-void* libc_new_qurt_memcpy(void* dest, void* src, uint64_t n) {
+void* libcNewQurtMemcpy(void* dest, void* src, uint64_t n) {
     return (void*)memcpy(dest, src, n);
 }
 
-void* libc_new_qurt_memmove(void* dest, void* src, uint64_t n) {
+void* libcNewQurtMemmove(void* dest, void* src, uint64_t n) {
     return (void*)memmove(dest, src, n);
 }
 
-void* libc_new_qurt_memset(void* s, int32_t c, uint64_t n) {
+void* libcNewQurtMemset(void* s, int32_t c, uint64_t n) {
     return (void*)memset(s, c, n);
 }
 
-int32_t libc_new_qurt_fork(void) {
+int32_t libcNewQurtFork(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -396,7 +396,7 @@ int32_t libc_new_qurt_fork(void) {
     return -1;
 }
 
-int32_t libc_new_qurt_execve(const char* filename, void* argv, void* envp) {
+int32_t libcNewQurtExecve(const char* filename, void* argv, void* envp) {
     typedef int32_t (*km_fn_t)(const char*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -424,55 +424,55 @@ int32_t libc_new_qurt_execve(const char* filename, void* argv, void* envp) {
     return -1;
 }
 
-int32_t libc_new_qurt_isalnum(int32_t c) {
+int32_t libcNewQurtIsalnum(int32_t c) {
     return (int32_t)isalnum(c);
 }
 
-int32_t libc_new_qurt_isalpha(int32_t c) {
+int32_t libcNewQurtIsalpha(int32_t c) {
     return (int32_t)isalpha(c);
 }
 
-int32_t libc_new_qurt_iscntrl(int32_t c) {
+int32_t libcNewQurtIscntrl(int32_t c) {
     return (int32_t)iscntrl(c);
 }
 
-int32_t libc_new_qurt_isdigit(int32_t c) {
+int32_t libcNewQurtIsdigit(int32_t c) {
     return (int32_t)isdigit(c);
 }
 
-int32_t libc_new_qurt_isgraph(int32_t c) {
+int32_t libcNewQurtIsgraph(int32_t c) {
     return (int32_t)isgraph(c);
 }
 
-int32_t libc_new_qurt_islower(int32_t c) {
+int32_t libcNewQurtIslower(int32_t c) {
     return (int32_t)islower(c);
 }
 
-int32_t libc_new_qurt_isprint(int32_t c) {
+int32_t libcNewQurtIsprint(int32_t c) {
     return (int32_t)isprint(c);
 }
 
-int32_t libc_new_qurt_ispunct(int32_t c) {
+int32_t libcNewQurtIspunct(int32_t c) {
     return (int32_t)ispunct(c);
 }
 
-int32_t libc_new_qurt_isspace(int32_t c) {
+int32_t libcNewQurtIsspace(int32_t c) {
     return (int32_t)isspace(c);
 }
 
-int32_t libc_new_qurt_isupper(int32_t c) {
+int32_t libcNewQurtIsupper(int32_t c) {
     return (int32_t)isupper(c);
 }
 
-int32_t libc_new_qurt_isxdigit(int32_t c) {
+int32_t libcNewQurtIsxdigit(int32_t c) {
     return (int32_t)isxdigit(c);
 }
 
-int32_t libc_new_qurt_tolower(int32_t c) {
+int32_t libcNewQurtTolower(int32_t c) {
     return (int32_t)tolower(c);
 }
 
-int32_t libc_new_qurt_toupper(int32_t c) {
+int32_t libcNewQurtToupper(int32_t c) {
     return (int32_t)toupper(c);
 }
 

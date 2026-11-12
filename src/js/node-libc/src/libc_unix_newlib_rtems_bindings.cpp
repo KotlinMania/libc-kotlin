@@ -51,7 +51,7 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_unix_newlib_rtems_futimens_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNewlibRtemsFutimens_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* times = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -85,7 +85,7 @@ static Napi::Value libc_unix_newlib_rtems_futimens_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_newlib_rtems_writev_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNewlibRtemsWritev_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -120,7 +120,7 @@ static Napi::Value libc_unix_newlib_rtems_writev_napi(const Napi::CallbackInfo& 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_newlib_rtems_readv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNewlibRtemsReadv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -155,7 +155,7 @@ static Napi::Value libc_unix_newlib_rtems_readv_napi(const Napi::CallbackInfo& k
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_newlib_rtems_pthreadCreate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNewlibRtemsPthreadCreate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* native = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -191,10 +191,10 @@ static Napi::Value libc_unix_newlib_rtems_pthreadCreate_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_newlib_rtems_pthreadCondattrSetclock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNewlibRtemsPthreadCondattrSetclock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    uint64_t clock_id = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
+    uint64_t clockId = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
     typedef int32_t (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -217,7 +217,7 @@ static Napi::Value libc_unix_newlib_rtems_pthreadCondattrSetclock_napi(const Nap
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(attr, clock_id);
+        km_res = km_fn_ptr(attr, clockId);
     } else {
         errno = ENOSYS;
         km_res = ENOSYS;
@@ -225,7 +225,7 @@ static Napi::Value libc_unix_newlib_rtems_pthreadCondattrSetclock_napi(const Nap
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_newlib_rtems_getentropy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNewlibRtemsGetentropy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t buflen = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -259,7 +259,7 @@ static Napi::Value libc_unix_newlib_rtems_getentropy_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_newlib_rtems_arc4randomBuf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNewlibRtemsArc4randomBuf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t nbytes = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -291,7 +291,7 @@ static Napi::Value libc_unix_newlib_rtems_arc4randomBuf_napi(const Napi::Callbac
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_newlib_rtems_setgroups_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNewlibRtemsSetgroups_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t ngroups = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* grouplist = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -326,14 +326,14 @@ static Napi::Value libc_unix_newlib_rtems_setgroups_napi(const Napi::CallbackInf
 }
 
 static void register_unix_newlib_rtems_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_unix_newlib_rtems_futimens", Napi::Function::New(env, libc_unix_newlib_rtems_futimens_napi));
-    exports.Set("libc_unix_newlib_rtems_writev", Napi::Function::New(env, libc_unix_newlib_rtems_writev_napi));
-    exports.Set("libc_unix_newlib_rtems_readv", Napi::Function::New(env, libc_unix_newlib_rtems_readv_napi));
-    exports.Set("libc_unix_newlib_rtems_pthreadCreate", Napi::Function::New(env, libc_unix_newlib_rtems_pthreadCreate_napi));
-    exports.Set("libc_unix_newlib_rtems_pthreadCondattrSetclock", Napi::Function::New(env, libc_unix_newlib_rtems_pthreadCondattrSetclock_napi));
-    exports.Set("libc_unix_newlib_rtems_getentropy", Napi::Function::New(env, libc_unix_newlib_rtems_getentropy_napi));
-    exports.Set("libc_unix_newlib_rtems_arc4randomBuf", Napi::Function::New(env, libc_unix_newlib_rtems_arc4randomBuf_napi));
-    exports.Set("libc_unix_newlib_rtems_setgroups", Napi::Function::New(env, libc_unix_newlib_rtems_setgroups_napi));
+    exports.Set("libcUnixNewlibRtemsFutimens", Napi::Function::New(env, libcUnixNewlibRtemsFutimens_napi));
+    exports.Set("libcUnixNewlibRtemsWritev", Napi::Function::New(env, libcUnixNewlibRtemsWritev_napi));
+    exports.Set("libcUnixNewlibRtemsReadv", Napi::Function::New(env, libcUnixNewlibRtemsReadv_napi));
+    exports.Set("libcUnixNewlibRtemsPthreadCreate", Napi::Function::New(env, libcUnixNewlibRtemsPthreadCreate_napi));
+    exports.Set("libcUnixNewlibRtemsPthreadCondattrSetclock", Napi::Function::New(env, libcUnixNewlibRtemsPthreadCondattrSetclock_napi));
+    exports.Set("libcUnixNewlibRtemsGetentropy", Napi::Function::New(env, libcUnixNewlibRtemsGetentropy_napi));
+    exports.Set("libcUnixNewlibRtemsArc4randomBuf", Napi::Function::New(env, libcUnixNewlibRtemsArc4randomBuf_napi));
+    exports.Set("libcUnixNewlibRtemsSetgroups", Napi::Function::New(env, libcUnixNewlibRtemsSetgroups_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_unix_newlib_rtems_napi, nullptr };

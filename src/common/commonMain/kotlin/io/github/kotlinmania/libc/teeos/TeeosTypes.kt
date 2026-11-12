@@ -1,14 +1,17 @@
 package io.github.kotlinmania.libc.teeos
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public fun interface FnCallback {
-    public operator fun invoke(x: COpaquePointer?, y: COpaquePointer?): CInt
+    public operator fun invoke(x: ConstPtr<CVoid>, y: ConstPtr<CVoid>): CInt
 }
 
 public typealias CBool = Int
@@ -54,17 +57,17 @@ public typealias ClockidT = CInt
 public typealias SusecondsT = CLong
 
 public fun interface OnceFn {
-    public operator fun invoke()
+    public operator fun invoke(): CVoid
 }
 
 public typealias PthreadOnceT = CInt
 
-public typealias VaList = COpaquePointer?
+public typealias VaList = MutPtr<CChar>
 
 public typealias WintT = CUint
 
 public typealias WctypeT = CUlong
 
 public fun interface Cmpfunc {
-    public operator fun invoke(x: COpaquePointer?, y: COpaquePointer?): CInt
+    public operator fun invoke(x: ConstPtr<CVoid>, y: ConstPtr<CVoid>): CInt
 }

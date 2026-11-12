@@ -4,9 +4,11 @@ package io.github.kotlinmania.libc.new.qurt.sys.mman
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.new.qurt.OffT
 import io.github.kotlinmania.libc.new.qurt.SizeT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 private object NewQurtSysMmanJniBridge {
     init {
@@ -14,50 +16,50 @@ private object NewQurtSysMmanJniBridge {
     }
 
     @JvmStatic
-    external fun libc_new_qurt_sys_mman_mmap(addr: Long, len: Long, prot: Int, flags: Int, fd: Int, offset: Long): Long
+    external fun libcNewQurtSysMmanMmap(addr: Long, len: Long, prot: Int, flags: Int, fd: Int, offset: Long): Long
 
     @JvmStatic
-    external fun libc_new_qurt_sys_mman_munmap(addr: Long, len: Long): Int
+    external fun libcNewQurtSysMmanMunmap(addr: Long, len: Long): Int
 
     @JvmStatic
-    external fun libc_new_qurt_sys_mman_mprotect(addr: Long, len: Long, prot: Int): Int
+    external fun libcNewQurtSysMmanMprotect(addr: Long, len: Long, prot: Int): Int
 
     @JvmStatic
-    external fun libc_new_qurt_sys_mman_mlock(addr: Long, len: Long): Int
+    external fun libcNewQurtSysMmanMlock(addr: Long, len: Long): Int
 
     @JvmStatic
-    external fun libc_new_qurt_sys_mman_munlock(addr: Long, len: Long): Int
+    external fun libcNewQurtSysMmanMunlock(addr: Long, len: Long): Int
 
     @JvmStatic
-    external fun libc_new_qurt_sys_mman_mlockall(flags: Int): Int
+    external fun libcNewQurtSysMmanMlockall(flags: Int): Int
 
     @JvmStatic
-    external fun libc_new_qurt_sys_mman_munlockall(): Int
+    external fun libcNewQurtSysMmanMunlockall(): Int
 
     @JvmStatic
-    external fun libc_new_qurt_sys_mman_msync(addr: Long, len: Long, flags: Int): Int
+    external fun libcNewQurtSysMmanMsync(addr: Long, len: Long, flags: Int): Int
 }
 
-public actual fun mmap(addr: COpaquePointer?, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: OffT): COpaquePointer? =
-    NewQurtSysMmanJniBridge.libc_new_qurt_sys_mman_mmap((addr?.value ?: 0L), len.toLong(), prot, flags, fd, offset).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun mmap(addr: MutPtr<CVoid>, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: OffT): MutPtr<CVoid> =
+    MutPtr(NewQurtSysMmanJniBridge.libcNewQurtSysMmanMmap(addr.rawAddress, len.toLong(), prot, flags, fd, offset))
 
-public actual fun munmap(addr: COpaquePointer?, len: SizeT): CInt =
-    NewQurtSysMmanJniBridge.libc_new_qurt_sys_mman_munmap((addr?.value ?: 0L), len.toLong())
+public actual fun munmap(addr: MutPtr<CVoid>, len: SizeT): CInt =
+    NewQurtSysMmanJniBridge.libcNewQurtSysMmanMunmap(addr.rawAddress, len.toLong())
 
-public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt =
-    NewQurtSysMmanJniBridge.libc_new_qurt_sys_mman_mprotect((addr?.value ?: 0L), len.toLong(), prot)
+public actual fun mprotect(addr: MutPtr<CVoid>, len: SizeT, prot: CInt): CInt =
+    NewQurtSysMmanJniBridge.libcNewQurtSysMmanMprotect(addr.rawAddress, len.toLong(), prot)
 
-public actual fun mlock(addr: COpaquePointer?, len: SizeT): CInt =
-    NewQurtSysMmanJniBridge.libc_new_qurt_sys_mman_mlock((addr?.value ?: 0L), len.toLong())
+public actual fun mlock(addr: ConstPtr<CVoid>, len: SizeT): CInt =
+    NewQurtSysMmanJniBridge.libcNewQurtSysMmanMlock(addr.rawAddress, len.toLong())
 
-public actual fun munlock(addr: COpaquePointer?, len: SizeT): CInt =
-    NewQurtSysMmanJniBridge.libc_new_qurt_sys_mman_munlock((addr?.value ?: 0L), len.toLong())
+public actual fun munlock(addr: ConstPtr<CVoid>, len: SizeT): CInt =
+    NewQurtSysMmanJniBridge.libcNewQurtSysMmanMunlock(addr.rawAddress, len.toLong())
 
 public actual fun mlockall(flags: CInt): CInt =
-    NewQurtSysMmanJniBridge.libc_new_qurt_sys_mman_mlockall(flags)
+    NewQurtSysMmanJniBridge.libcNewQurtSysMmanMlockall(flags)
 
 public actual fun munlockall(): CInt =
-    NewQurtSysMmanJniBridge.libc_new_qurt_sys_mman_munlockall()
+    NewQurtSysMmanJniBridge.libcNewQurtSysMmanMunlockall()
 
-public actual fun msync(addr: COpaquePointer?, len: SizeT, flags: CInt): CInt =
-    NewQurtSysMmanJniBridge.libc_new_qurt_sys_mman_msync((addr?.value ?: 0L), len.toLong(), flags)
+public actual fun msync(addr: MutPtr<CVoid>, len: SizeT, flags: CInt): CInt =
+    NewQurtSysMmanJniBridge.libcNewQurtSysMmanMsync(addr.rawAddress, len.toLong(), flags)

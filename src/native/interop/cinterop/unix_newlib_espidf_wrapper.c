@@ -15,7 +15,7 @@
 #endif
 #endif
 
-int32_t libc_unix_newlib_espidf_pthreadCreate(void* native, void* attr, void* f, void* value) {
+int32_t libcUnixNewlibEspidfPthreadCreate(void* native, void* attr, void* f, void* value) {
     typedef int32_t (*km_fn_t)(void*, void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -43,7 +43,7 @@ int32_t libc_unix_newlib_espidf_pthreadCreate(void* native, void* attr, void* f,
     return ENOSYS;
 }
 
-int64_t libc_unix_newlib_espidf_getrandom(void* buf, uint64_t buflen, uint32_t flags) {
+int64_t libcUnixNewlibEspidfGetrandom(void* buf, uint64_t buflen, uint32_t flags) {
     typedef int64_t (*km_fn_t)(void*, uint64_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -71,7 +71,7 @@ int64_t libc_unix_newlib_espidf_getrandom(void* buf, uint64_t buflen, uint32_t f
     return -1;
 }
 
-void libc_unix_newlib_espidf_gethostname(char* name, int64_t namelen) {
+void libcUnixNewlibEspidfGethostname(char* name, int64_t namelen) {
     typedef void (*km_fn_t)(char*, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -99,7 +99,7 @@ void libc_unix_newlib_espidf_gethostname(char* name, int64_t namelen) {
     errno = ENOSYS;
 }
 
-int64_t libc_unix_newlib_espidf_sendmsg(int32_t s, void* msg, int32_t flags) {
+int64_t libcUnixNewlibEspidfSendmsg(int32_t s, void* msg, int32_t flags) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -127,7 +127,7 @@ int64_t libc_unix_newlib_espidf_sendmsg(int32_t s, void* msg, int32_t flags) {
     return -1;
 }
 
-int64_t libc_unix_newlib_espidf_recvmsg(int32_t s, void* msg, int32_t flags) {
+int64_t libcUnixNewlibEspidfRecvmsg(int32_t s, void* msg, int32_t flags) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -155,7 +155,7 @@ int64_t libc_unix_newlib_espidf_recvmsg(int32_t s, void* msg, int32_t flags) {
     return -1;
 }
 
-int32_t libc_unix_newlib_espidf_eventfd(uint32_t initval, int32_t flags) {
+int32_t libcUnixNewlibEspidfEventfd(uint32_t initval, int32_t flags) {
     typedef int32_t (*km_fn_t)(uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

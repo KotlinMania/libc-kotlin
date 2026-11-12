@@ -51,7 +51,7 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_unix_linuxlike_l4re_uclibc_gettimeofday_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeL4reUclibcGettimeofday_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* tp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* tz = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -85,7 +85,7 @@ static Napi::Value libc_unix_linuxlike_l4re_uclibc_gettimeofday_napi(const Napi:
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_l4re_uclibc_pthreadRwlockattrGetkindNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeL4reUclibcPthreadRwlockattrGetkindNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* val = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -119,7 +119,7 @@ static Napi::Value libc_unix_linuxlike_l4re_uclibc_pthreadRwlockattrGetkindNp_na
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_l4re_uclibc_pthreadRwlockattrSetkindNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeL4reUclibcPthreadRwlockattrSetkindNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t val = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -153,7 +153,7 @@ static Napi::Value libc_unix_linuxlike_l4re_uclibc_pthreadRwlockattrSetkindNp_na
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_l4re_uclibc_openpty_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeL4reUclibcOpenpty_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* amaster = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* aslave = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -190,7 +190,7 @@ static Napi::Value libc_unix_linuxlike_l4re_uclibc_openpty_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_l4re_uclibc_getnameinfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeL4reUclibcGetnameinfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* sa = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t salen = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -229,7 +229,7 @@ static Napi::Value libc_unix_linuxlike_l4re_uclibc_getnameinfo_napi(const Napi::
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_l4re_uclibc_pwritev_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeL4reUclibcPwritev_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -265,7 +265,7 @@ static Napi::Value libc_unix_linuxlike_l4re_uclibc_pwritev_napi(const Napi::Call
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_l4re_uclibc_preadv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeL4reUclibcPreadv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -301,7 +301,7 @@ static Napi::Value libc_unix_linuxlike_l4re_uclibc_preadv_napi(const Napi::Callb
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_linuxlike_l4re_uclibc_getrlimit64_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeL4reUclibcGetrlimit64_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t resource = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* rlim = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -340,7 +340,7 @@ static Napi::Value libc_unix_linuxlike_l4re_uclibc_getrlimit64_napi(const Napi::
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_l4re_uclibc_setrlimit64_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeL4reUclibcSetrlimit64_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t resource = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* rlim = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -379,7 +379,7 @@ static Napi::Value libc_unix_linuxlike_l4re_uclibc_setrlimit64_napi(const Napi::
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_l4re_uclibc_getrlimit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeL4reUclibcGetrlimit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t resource = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* rlim = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -413,7 +413,7 @@ static Napi::Value libc_unix_linuxlike_l4re_uclibc_getrlimit_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_l4re_uclibc_setrlimit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeL4reUclibcSetrlimit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t resource = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* rlim = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -447,9 +447,9 @@ static Napi::Value libc_unix_linuxlike_l4re_uclibc_setrlimit_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_l4re_uclibc_getauxval_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeL4reUclibcGetauxval_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint64_t type_ = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
+    uint64_t type = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     typedef uint64_t (*km_fn_t)(uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -472,7 +472,7 @@ static Napi::Value libc_unix_linuxlike_l4re_uclibc_getauxval_napi(const Napi::Ca
 #endif
     uint64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(type_);
+        km_res = km_fn_ptr(type);
     } else {
         errno = ENOSYS;
         km_res = 0;
@@ -481,18 +481,18 @@ static Napi::Value libc_unix_linuxlike_l4re_uclibc_getauxval_napi(const Napi::Ca
 }
 
 static void register_unix_linuxlike_l4re_uclibc_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_unix_linuxlike_l4re_uclibc_gettimeofday", Napi::Function::New(env, libc_unix_linuxlike_l4re_uclibc_gettimeofday_napi));
-    exports.Set("libc_unix_linuxlike_l4re_uclibc_pthreadRwlockattrGetkindNp", Napi::Function::New(env, libc_unix_linuxlike_l4re_uclibc_pthreadRwlockattrGetkindNp_napi));
-    exports.Set("libc_unix_linuxlike_l4re_uclibc_pthreadRwlockattrSetkindNp", Napi::Function::New(env, libc_unix_linuxlike_l4re_uclibc_pthreadRwlockattrSetkindNp_napi));
-    exports.Set("libc_unix_linuxlike_l4re_uclibc_openpty", Napi::Function::New(env, libc_unix_linuxlike_l4re_uclibc_openpty_napi));
-    exports.Set("libc_unix_linuxlike_l4re_uclibc_getnameinfo", Napi::Function::New(env, libc_unix_linuxlike_l4re_uclibc_getnameinfo_napi));
-    exports.Set("libc_unix_linuxlike_l4re_uclibc_pwritev", Napi::Function::New(env, libc_unix_linuxlike_l4re_uclibc_pwritev_napi));
-    exports.Set("libc_unix_linuxlike_l4re_uclibc_preadv", Napi::Function::New(env, libc_unix_linuxlike_l4re_uclibc_preadv_napi));
-    exports.Set("libc_unix_linuxlike_l4re_uclibc_getrlimit64", Napi::Function::New(env, libc_unix_linuxlike_l4re_uclibc_getrlimit64_napi));
-    exports.Set("libc_unix_linuxlike_l4re_uclibc_setrlimit64", Napi::Function::New(env, libc_unix_linuxlike_l4re_uclibc_setrlimit64_napi));
-    exports.Set("libc_unix_linuxlike_l4re_uclibc_getrlimit", Napi::Function::New(env, libc_unix_linuxlike_l4re_uclibc_getrlimit_napi));
-    exports.Set("libc_unix_linuxlike_l4re_uclibc_setrlimit", Napi::Function::New(env, libc_unix_linuxlike_l4re_uclibc_setrlimit_napi));
-    exports.Set("libc_unix_linuxlike_l4re_uclibc_getauxval", Napi::Function::New(env, libc_unix_linuxlike_l4re_uclibc_getauxval_napi));
+    exports.Set("libcUnixLinuxlikeL4reUclibcGettimeofday", Napi::Function::New(env, libcUnixLinuxlikeL4reUclibcGettimeofday_napi));
+    exports.Set("libcUnixLinuxlikeL4reUclibcPthreadRwlockattrGetkindNp", Napi::Function::New(env, libcUnixLinuxlikeL4reUclibcPthreadRwlockattrGetkindNp_napi));
+    exports.Set("libcUnixLinuxlikeL4reUclibcPthreadRwlockattrSetkindNp", Napi::Function::New(env, libcUnixLinuxlikeL4reUclibcPthreadRwlockattrSetkindNp_napi));
+    exports.Set("libcUnixLinuxlikeL4reUclibcOpenpty", Napi::Function::New(env, libcUnixLinuxlikeL4reUclibcOpenpty_napi));
+    exports.Set("libcUnixLinuxlikeL4reUclibcGetnameinfo", Napi::Function::New(env, libcUnixLinuxlikeL4reUclibcGetnameinfo_napi));
+    exports.Set("libcUnixLinuxlikeL4reUclibcPwritev", Napi::Function::New(env, libcUnixLinuxlikeL4reUclibcPwritev_napi));
+    exports.Set("libcUnixLinuxlikeL4reUclibcPreadv", Napi::Function::New(env, libcUnixLinuxlikeL4reUclibcPreadv_napi));
+    exports.Set("libcUnixLinuxlikeL4reUclibcGetrlimit64", Napi::Function::New(env, libcUnixLinuxlikeL4reUclibcGetrlimit64_napi));
+    exports.Set("libcUnixLinuxlikeL4reUclibcSetrlimit64", Napi::Function::New(env, libcUnixLinuxlikeL4reUclibcSetrlimit64_napi));
+    exports.Set("libcUnixLinuxlikeL4reUclibcGetrlimit", Napi::Function::New(env, libcUnixLinuxlikeL4reUclibcGetrlimit_napi));
+    exports.Set("libcUnixLinuxlikeL4reUclibcSetrlimit", Napi::Function::New(env, libcUnixLinuxlikeL4reUclibcSetrlimit_napi));
+    exports.Set("libcUnixLinuxlikeL4reUclibcGetauxval", Napi::Function::New(env, libcUnixLinuxlikeL4reUclibcGetauxval_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_unix_linuxlike_l4re_uclibc_napi, nullptr };

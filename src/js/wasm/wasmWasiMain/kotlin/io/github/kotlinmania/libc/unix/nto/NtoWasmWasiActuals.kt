@@ -1,639 +1,725 @@
-@file:OptIn(kotlin.ExperimentalUnsignedTypes::class)
+@file:OptIn(kotlin.ExperimentalUnsignedTypes::class, kotlin.wasm.ExperimentalWasmInterop::class)
 
 package io.github.kotlinmania.libc.unix.nto
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.unix.DIR
 import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.GidT
+import io.github.kotlinmania.libc.unix.Group
+import io.github.kotlinmania.libc.unix.Iovec
+import io.github.kotlinmania.libc.unix.Itimerval
 import io.github.kotlinmania.libc.unix.PidT
+import io.github.kotlinmania.libc.unix.Rlimit
+import io.github.kotlinmania.libc.unix.Rusage
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.Timeval
 import io.github.kotlinmania.libc.unix.UidT
+import io.github.kotlinmania.libc.unix.Winsize
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
-private var _ffi_static_SYSPAGE_PTR: COpaquePointer? = null
-public actual var SYSPAGE_PTR: COpaquePointer?
-    get() = _ffi_static_SYSPAGE_PTR
+// The host must provide the C companion wrapper exports in import module libc.
+public actual var SYSPAGE_PTR: MutPtr<SyspageEntry>
+    get() = throw UnsupportedOperationException("WasmWasi foreign static _syspage_ptr requires a host memory/aggregate ABI adapter")
     set(value) {
-        _ffi_static_SYSPAGE_PTR = value
+        throw UnsupportedOperationException("WasmWasi foreign static _syspage_ptr requires a host memory/aggregate ABI adapter")
     }
 
-public actual fun sendmmsg(sockfd: CInt, msgvec: COpaquePointer?, vlen: CUint, flags: CUint): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun sendmmsg(sockfd: CInt, msgvec: MutPtr<Mmsghdr>, vlen: CUint, flags: CUint): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoSendmmsg")
 
-public actual fun recvmmsg(sockfd: CInt, msgvec: COpaquePointer?, vlen: CUint, flags: CUint, timeout: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun recvmmsg(sockfd: CInt, msgvec: MutPtr<Mmsghdr>, vlen: CUint, flags: CUint, timeout: MutPtr<Timespec>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoRecvmmsg")
 
-public actual fun semDestroy(sem: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun semDestroy(sem: MutPtr<SemT>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoSemDestroy")
 
-public actual fun semInit(sem: COpaquePointer?, pshared: CInt, value: CUint): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun semInit(sem: MutPtr<SemT>, pshared: CInt, value: CUint): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoSemInit")
+
+@kotlin.wasm.WasmImport("libc", "libcUnixNtoFdatasync")
+private external fun wasiLibcUnixNtoFdatasync(fd: Int): Int
 
 public actual fun fdatasync(fd: CInt): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+    wasiLibcUnixNtoFdatasync(fd).toInt()
+
+@kotlin.wasm.WasmImport("libc", "libcUnixNtoGetpriority")
+private external fun wasiLibcUnixNtoGetpriority(which: Int, who: Int): Int
 
 public actual fun getpriority(which: CInt, who: IdT): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+    wasiLibcUnixNtoGetpriority(which, who).toInt()
+
+@kotlin.wasm.WasmImport("libc", "libcUnixNtoSetpriority")
+private external fun wasiLibcUnixNtoSetpriority(which: Int, who: Int, prio: Int): Int
 
 public actual fun setpriority(which: CInt, who: IdT, prio: CInt): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+    wasiLibcUnixNtoSetpriority(which, who, prio).toInt()
 
-public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun mkfifoat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoMkfifoat")
 
-public actual fun mknodat(fd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun mknodat(fd: CInt, pathname: ConstPtr<CChar>, mode: ModeT, dev: DevT): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoMknodat")
 
-public actual fun clockGetres(clkId: ClockidT, tp: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun clockGetres(clkId: ClockidT, tp: MutPtr<Timespec>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoClockGetres")
 
-public actual fun clockGettime(clkId: ClockidT, tp: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun clockGettime(clkId: ClockidT, tp: MutPtr<Timespec>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoClockGettime")
 
-public actual fun clockSettime(clkId: ClockidT, tp: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun clockSettime(clkId: ClockidT, tp: ConstPtr<Timespec>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoClockSettime")
 
-public actual fun clockGetcpuclockid(pid: PidT, clkId: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun clockGetcpuclockid(pid: PidT, clkId: MutPtr<ClockidT>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoClockGetcpuclockid")
 
-public actual fun pthreadAttrGetstack(attr: COpaquePointer?, stackaddr: COpaquePointer?, stacksize: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun pthreadAttrGetstack(attr: ConstPtr<PthreadAttrT>, stackaddr: MutPtr<MutPtr<CVoid>>, stacksize: MutPtr<SizeT>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPthreadAttrGetstack")
 
-public actual fun memalign(align: SizeT, size: SizeT): COpaquePointer? =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun memalign(align: SizeT, size: SizeT): MutPtr<CVoid> =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoMemalign")
 
-public actual fun setgroups(ngroups: CInt, ptr: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun setgroups(ngroups: CInt, ptr: ConstPtr<GidT>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoSetgroups")
+
+@kotlin.wasm.WasmImport("libc", "libcUnixNtoPosixFadvise")
+private external fun wasiLibcUnixNtoPosixFadvise(fd: Int, offset: Long, len: Long, advise: Int): Int
 
 public actual fun posixFadvise(fd: CInt, offset: OffT, len: OffT, advise: CInt): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+    wasiLibcUnixNtoPosixFadvise(fd, offset, len, advise).toInt()
 
-public actual fun futimens(fd: CInt, times: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun futimens(fd: CInt, times: ConstPtr<Timespec>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoFutimens")
 
-public actual fun nlLanginfo(item: NlItem): COpaquePointer? =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun nlLanginfo(item: NlItem): MutPtr<CChar> =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoNlLanginfo")
 
-public actual fun utimensat(dirfd: CInt, path: String?, times: COpaquePointer?, flag: CInt): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun utimensat(dirfd: CInt, path: ConstPtr<CChar>, times: ConstPtr<Timespec>, flag: CInt): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoUtimensat")
 
-public actual fun pthreadCondattrGetclock(attr: COpaquePointer?, clockId: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun pthreadCondattrGetclock(attr: ConstPtr<PthreadCondattrT>, clockId: MutPtr<ClockidT>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPthreadCondattrGetclock")
 
-public actual fun pthreadCondattrSetclock(attr: COpaquePointer?, clockId: ClockidT): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun pthreadCondattrSetclock(attr: MutPtr<PthreadCondattrT>, clockId: ClockidT): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPthreadCondattrSetclock")
 
-public actual fun pthreadCondattrSetpshared(attr: COpaquePointer?, pshared: CInt): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun pthreadCondattrSetpshared(attr: MutPtr<PthreadCondattrT>, pshared: CInt): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPthreadCondattrSetpshared")
 
-public actual fun pthreadMutexattrSetpshared(attr: COpaquePointer?, pshared: CInt): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun pthreadMutexattrSetpshared(attr: MutPtr<PthreadMutexattrT>, pshared: CInt): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPthreadMutexattrSetpshared")
 
-public actual fun pthreadRwlockattrGetpshared(attr: COpaquePointer?, value: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun pthreadRwlockattrGetpshared(attr: ConstPtr<PthreadRwlockattrT>, value: MutPtr<CInt>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPthreadRwlockattrGetpshared")
 
-public actual fun pthreadRwlockattrSetpshared(attr: COpaquePointer?, value: CInt): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun pthreadRwlockattrSetpshared(attr: MutPtr<PthreadRwlockattrT>, value: CInt): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPthreadRwlockattrSetpshared")
 
-public actual fun ptsnameR(fd: CInt, buf: COpaquePointer?, buflen: SizeT): COpaquePointer? =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun ptsnameR(fd: CInt, buf: MutPtr<CChar>, buflen: SizeT): MutPtr<CChar> =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPtsnameR")
+
+@kotlin.wasm.WasmImport("libc", "libcUnixNtoClearenv")
+private external fun wasiLibcUnixNtoClearenv(): Int
 
 public actual fun clearenv(): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+    wasiLibcUnixNtoClearenv().toInt()
 
-public actual fun waitid(idtype: IdtypeT, id: IdT, infop: COpaquePointer?, options: CInt): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun waitid(idtype: IdtypeT, id: IdT, infop: MutPtr<SiginfoT>, options: CInt): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoWaitid")
 
-public actual fun wait4(pid: PidT, status: COpaquePointer?, options: CInt, rusage: COpaquePointer?): PidT =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun wait4(pid: PidT, status: MutPtr<CInt>, options: CInt, rusage: MutPtr<Rusage>): PidT =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoWait4")
 
-public actual fun execvpe(file: String?, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun execvpe(file: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>, envp: ConstPtr<ConstPtr<CChar>>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoExecvpe")
 
-public actual fun getifaddrs(ifap: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun getifaddrs(ifap: MutPtr<MutPtr<Ifaddrs>>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoGetifaddrs")
 
-public actual fun freeifaddrs(ifa: COpaquePointer?): Unit =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun freeifaddrs(ifa: MutPtr<Ifaddrs>): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoFreeifaddrs")
 
-public actual fun bind(socket: CInt, address: COpaquePointer?, addressLen: SocklenT): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun bind(socket: CInt, address: ConstPtr<Sockaddr>, addressLen: SocklenT): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoBind")
 
-public actual fun writev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun writev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoWritev")
 
-public actual fun readv(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun readv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoReadv")
 
-public actual fun sendmsg(fd: CInt, msg: COpaquePointer?, flags: CInt): SsizeT =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun sendmsg(fd: CInt, msg: ConstPtr<Msghdr>, flags: CInt): SsizeT =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoSendmsg")
 
-public actual fun recvmsg(fd: CInt, msg: COpaquePointer?, flags: CInt): SsizeT =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun recvmsg(fd: CInt, msg: MutPtr<Msghdr>, flags: CInt): SsizeT =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoRecvmsg")
 
-public actual fun openpty(amaster: COpaquePointer?, aslave: COpaquePointer?, name: COpaquePointer?, termp: COpaquePointer?, winp: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun openpty(amaster: MutPtr<CInt>, aslave: MutPtr<CInt>, name: MutPtr<CChar>, termp: MutPtr<Termios>, winp: MutPtr<Winsize>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoOpenpty")
 
-public actual fun forkpty(amaster: COpaquePointer?, name: COpaquePointer?, termp: COpaquePointer?, winp: COpaquePointer?): PidT =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun forkpty(amaster: MutPtr<CInt>, name: MutPtr<CChar>, termp: MutPtr<Termios>, winp: MutPtr<Winsize>): PidT =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoForkpty")
+
+@kotlin.wasm.WasmImport("libc", "libcUnixNtoLoginTty")
+private external fun wasiLibcUnixNtoLoginTty(fd: Int): Int
 
 public actual fun loginTty(fd: CInt): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+    wasiLibcUnixNtoLoginTty(fd).toInt()
 
-public actual fun uname(buf: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun uname(buf: MutPtr<Utsname>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoUname")
 
-public actual fun getpeereid(socket: CInt, euid: COpaquePointer?, egid: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun getpeereid(socket: CInt, euid: MutPtr<UidT>, egid: MutPtr<GidT>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoGetpeereid")
 
-public actual fun strerrorR(errnum: CInt, buf: COpaquePointer?, buflen: SizeT): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun strerrorR(errnum: CInt, buf: MutPtr<CChar>, buflen: SizeT): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoStrerrorR")
+
+@kotlin.wasm.WasmImport("libc", "libcUnixNtoAbs")
+private external fun wasiLibcUnixNtoAbs(i: Int): Int
 
 public actual fun abs(i: CInt): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+    wasiLibcUnixNtoAbs(i).toInt()
+
+@kotlin.wasm.WasmImport("libc", "libcUnixNtoLabs")
+private external fun wasiLibcUnixNtoLabs(i: Long): Long
 
 public actual fun labs(i: CLong): CLong =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+    wasiLibcUnixNtoLabs(i).toLong()
+
+@kotlin.wasm.WasmImport("libc", "libcUnixNtoRand")
+private external fun wasiLibcUnixNtoRand(): Int
 
 public actual fun rand(): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+    wasiLibcUnixNtoRand().toInt()
+
+@kotlin.wasm.WasmImport("libc", "libcUnixNtoSrand")
+private external fun wasiLibcUnixNtoSrand(seed: Int): Unit
 
 public actual fun srand(seed: CUint): Unit =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+    wasiLibcUnixNtoSrand(seed.toInt())
+
+@kotlin.wasm.WasmImport("libc", "libcUnixNtoSetpwent")
+private external fun wasiLibcUnixNtoSetpwent(): Unit
 
 public actual fun setpwent(): Unit =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+    wasiLibcUnixNtoSetpwent()
+
+@kotlin.wasm.WasmImport("libc", "libcUnixNtoEndpwent")
+private external fun wasiLibcUnixNtoEndpwent(): Unit
 
 public actual fun endpwent(): Unit =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+    wasiLibcUnixNtoEndpwent()
 
-public actual fun getpwent(): COpaquePointer? =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun getpwent(): MutPtr<Passwd> =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoGetpwent")
+
+@kotlin.wasm.WasmImport("libc", "libcUnixNtoSetgrent")
+private external fun wasiLibcUnixNtoSetgrent(): Unit
 
 public actual fun setgrent(): Unit =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+    wasiLibcUnixNtoSetgrent()
+
+@kotlin.wasm.WasmImport("libc", "libcUnixNtoEndgrent")
+private external fun wasiLibcUnixNtoEndgrent(): Unit
 
 public actual fun endgrent(): Unit =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+    wasiLibcUnixNtoEndgrent()
 
-public actual fun getgrent(): COpaquePointer? =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun getgrent(): MutPtr<Group> =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoGetgrent")
+
+@kotlin.wasm.WasmImport("libc", "libcUnixNtoSetspent")
+private external fun wasiLibcUnixNtoSetspent(): Unit
 
 public actual fun setspent(): Unit =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+    wasiLibcUnixNtoSetspent()
+
+@kotlin.wasm.WasmImport("libc", "libcUnixNtoEndspent")
+private external fun wasiLibcUnixNtoEndspent(): Unit
 
 public actual fun endspent(): Unit =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+    wasiLibcUnixNtoEndspent()
 
-public actual fun shmOpen(name: String?, oflag: CInt, mode: ModeT): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun shmOpen(name: ConstPtr<CChar>, oflag: CInt, mode: ModeT): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoShmOpen")
 
-public actual fun ftok(pathname: String?, projId: CInt): KeyT =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun ftok(pathname: ConstPtr<CChar>, projId: CInt): KeyT =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoFtok")
 
-public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun mprotect(addr: MutPtr<CVoid>, len: SizeT, prot: CInt): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoMprotect")
+
+@kotlin.wasm.WasmImport("libc", "libcUnixNtoPosixFallocate")
+private external fun wasiLibcUnixNtoPosixFallocate(fd: Int, offset: Long, len: Long): Int
 
 public actual fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+    wasiLibcUnixNtoPosixFallocate(fd, offset, len).toInt()
 
-public actual fun mkostemp(template: COpaquePointer?, flags: CInt): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun mkostemp(template: MutPtr<CChar>, flags: CInt): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoMkostemp")
 
-public actual fun mkostemps(template: COpaquePointer?, suffixlen: CInt, flags: CInt): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun mkostemps(template: MutPtr<CChar>, suffixlen: CInt, flags: CInt): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoMkostemps")
 
-public actual fun sigtimedwait(set: COpaquePointer?, info: COpaquePointer?, timeout: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun sigtimedwait(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>, timeout: ConstPtr<Timespec>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoSigtimedwait")
 
-public actual fun sigwaitinfo(set: COpaquePointer?, info: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun sigwaitinfo(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoSigwaitinfo")
 
 public actual fun pthreadSetschedprio(native: PthreadT, priority: CInt): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPthreadSetschedprio")
 
-public actual fun ifNameindex(): COpaquePointer? =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun ifNameindex(): MutPtr<IfNameindex> =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoIfNameindex")
 
-public actual fun ifFreenameindex(ptr: COpaquePointer?): Unit =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun ifFreenameindex(ptr: MutPtr<IfNameindex>): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoIfFreenameindex")
 
-public actual fun glob(pattern: String?, flags: CInt, errfunc: GlobTGlErrfuncCallback?, pglob: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun glob(pattern: ConstPtr<CChar>, flags: CInt, errfunc: GlobTGlErrfuncCallback?, pglob: MutPtr<GlobT>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoGlob")
 
-public actual fun globfree(pglob: COpaquePointer?): Unit =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun globfree(pglob: MutPtr<GlobT>): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoGlobfree")
 
-public actual fun posixMadvise(addr: COpaquePointer?, len: SizeT, advice: CInt): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun posixMadvise(addr: MutPtr<CVoid>, len: SizeT, advice: CInt): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPosixMadvise")
 
-public actual fun shmUnlink(name: String?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun shmUnlink(name: ConstPtr<CChar>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoShmUnlink")
 
-public actual fun seekdir(dirp: DIR?, loc: CLong): Unit =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun seekdir(dirp: MutPtr<DIR>, loc: CLong): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoSeekdir")
 
-public actual fun telldir(dirp: DIR?): CLong =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun telldir(dirp: MutPtr<DIR>): CLong =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoTelldir")
 
-public actual fun msync(addr: COpaquePointer?, len: SizeT, flags: CInt): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun msync(addr: MutPtr<CVoid>, len: SizeT, flags: CInt): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoMsync")
 
-public actual fun recvfrom(socket: CInt, buf: COpaquePointer?, len: SizeT, flags: CInt, addr: COpaquePointer?, addrlen: COpaquePointer?): SsizeT =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun recvfrom(socket: CInt, buf: MutPtr<CVoid>, len: SizeT, flags: CInt, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): SsizeT =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoRecvfrom")
 
-public actual fun mkstemps(template: COpaquePointer?, suffixlen: CInt): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun mkstemps(template: MutPtr<CChar>, suffixlen: CInt): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoMkstemps")
 
-public actual fun getdomainname(name: COpaquePointer?, len: SizeT): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun getdomainname(name: MutPtr<CChar>, len: SizeT): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoGetdomainname")
 
-public actual fun setdomainname(name: String?, len: SizeT): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun setdomainname(name: ConstPtr<CChar>, len: SizeT): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoSetdomainname")
+
+@kotlin.wasm.WasmImport("libc", "libcUnixNtoSync")
+private external fun wasiLibcUnixNtoSync(): Unit
 
 public actual fun sync(): Unit =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+    wasiLibcUnixNtoSync()
 
-public actual fun pthreadGetschedparam(native: PthreadT, policy: COpaquePointer?, param: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun pthreadGetschedparam(native: PthreadT, policy: MutPtr<CInt>, param: MutPtr<SchedParam>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPthreadGetschedparam")
 
-public actual fun umount(target: String?, flags: CInt): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun umount(target: ConstPtr<CChar>, flags: CInt): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoUmount")
+
+@kotlin.wasm.WasmImport("libc", "libcUnixNtoSchedGetPriorityMax")
+private external fun wasiLibcUnixNtoSchedGetPriorityMax(policy: Int): Int
 
 public actual fun schedGetPriorityMax(policy: CInt): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+    wasiLibcUnixNtoSchedGetPriorityMax(policy).toInt()
 
-public actual fun settimeofday(tv: COpaquePointer?, tz: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun settimeofday(tv: ConstPtr<Timeval>, tz: ConstPtr<CVoid>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoSettimeofday")
 
-public actual fun schedRrGetInterval(pid: PidT, tp: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun schedRrGetInterval(pid: PidT, tp: MutPtr<Timespec>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoSchedRrGetInterval")
 
-public actual fun semTimedwait(sem: COpaquePointer?, abstime: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun semTimedwait(sem: MutPtr<SemT>, abstime: ConstPtr<Timespec>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoSemTimedwait")
 
-public actual fun semGetvalue(sem: COpaquePointer?, sval: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun semGetvalue(sem: MutPtr<SemT>, sval: MutPtr<CInt>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoSemGetvalue")
 
-public actual fun schedSetparam(pid: PidT, param: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun schedSetparam(pid: PidT, param: ConstPtr<SchedParam>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoSchedSetparam")
 
-public actual fun mount(specialDevice: String?, mountDirectory: String?, flags: CInt, mountType: String?, mountData: COpaquePointer?, mountDatalen: CInt): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun mount(specialDevice: ConstPtr<CChar>, mountDirectory: ConstPtr<CChar>, flags: CInt, mountType: ConstPtr<CChar>, mountData: ConstPtr<CVoid>, mountDatalen: CInt): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoMount")
 
-public actual fun schedGetparam(pid: PidT, param: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun schedGetparam(pid: PidT, param: MutPtr<SchedParam>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoSchedGetparam")
 
-public actual fun pthreadMutexConsistent(mutex: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun pthreadMutexConsistent(mutex: MutPtr<PthreadMutexT>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPthreadMutexConsistent")
 
-public actual fun pthreadMutexTimedlock(lock: COpaquePointer?, abstime: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun pthreadMutexTimedlock(lock: MutPtr<PthreadMutexT>, abstime: ConstPtr<Timespec>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPthreadMutexTimedlock")
 
-public actual fun pthreadSpinInit(lock: COpaquePointer?, pshared: CInt): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun pthreadSpinInit(lock: MutPtr<PthreadSpinlockT>, pshared: CInt): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPthreadSpinInit")
 
-public actual fun pthreadSpinDestroy(lock: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun pthreadSpinDestroy(lock: MutPtr<PthreadSpinlockT>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPthreadSpinDestroy")
 
-public actual fun pthreadSpinLock(lock: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun pthreadSpinLock(lock: MutPtr<PthreadSpinlockT>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPthreadSpinLock")
 
-public actual fun pthreadSpinTrylock(lock: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun pthreadSpinTrylock(lock: MutPtr<PthreadSpinlockT>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPthreadSpinTrylock")
 
-public actual fun pthreadSpinUnlock(lock: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun pthreadSpinUnlock(lock: MutPtr<PthreadSpinlockT>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPthreadSpinUnlock")
 
-public actual fun pthreadBarrierattrInit(attr: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun pthreadBarrierattrInit(attr: MutPtr<PthreadBarrierattrT>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPthreadBarrierattrInit")
 
-public actual fun pthreadBarrierattrDestroy(attr: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun pthreadBarrierattrDestroy(attr: MutPtr<PthreadBarrierattrT>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPthreadBarrierattrDestroy")
 
-public actual fun pthreadBarrierattrGetpshared(attr: COpaquePointer?, pshared: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun pthreadBarrierattrGetpshared(attr: ConstPtr<PthreadBarrierattrT>, pshared: MutPtr<CInt>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPthreadBarrierattrGetpshared")
 
-public actual fun pthreadBarrierattrSetpshared(attr: COpaquePointer?, pshared: CInt): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun pthreadBarrierattrSetpshared(attr: MutPtr<PthreadBarrierattrT>, pshared: CInt): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPthreadBarrierattrSetpshared")
 
-public actual fun pthreadBarrierInit(barrier: COpaquePointer?, attr: COpaquePointer?, count: CUint): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun pthreadBarrierInit(barrier: MutPtr<PthreadBarrierT>, attr: ConstPtr<PthreadBarrierattrT>, count: CUint): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPthreadBarrierInit")
 
-public actual fun pthreadBarrierDestroy(barrier: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun pthreadBarrierDestroy(barrier: MutPtr<PthreadBarrierT>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPthreadBarrierDestroy")
 
-public actual fun pthreadBarrierWait(barrier: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun pthreadBarrierWait(barrier: MutPtr<PthreadBarrierT>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPthreadBarrierWait")
+
+@kotlin.wasm.WasmImport("libc", "libcUnixNtoSchedGetscheduler")
+private external fun wasiLibcUnixNtoSchedGetscheduler(pid: Int): Int
 
 public actual fun schedGetscheduler(pid: PidT): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+    wasiLibcUnixNtoSchedGetscheduler(pid).toInt()
 
-public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: COpaquePointer?, rmtp: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: ConstPtr<Timespec>, rmtp: MutPtr<Timespec>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoClockNanosleep")
 
-public actual fun pthreadAttrGetguardsize(attr: COpaquePointer?, guardsize: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun pthreadAttrGetguardsize(attr: ConstPtr<PthreadAttrT>, guardsize: MutPtr<SizeT>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPthreadAttrGetguardsize")
 
-public actual fun pthreadAttrSetguardsize(attr: COpaquePointer?, guardsize: SizeT): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun pthreadAttrSetguardsize(attr: MutPtr<PthreadAttrT>, guardsize: SizeT): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPthreadAttrSetguardsize")
 
-public actual fun sethostname(name: String?, len: SizeT): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun sethostname(name: ConstPtr<CChar>, len: SizeT): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoSethostname")
+
+@kotlin.wasm.WasmImport("libc", "libcUnixNtoSchedGetPriorityMin")
+private external fun wasiLibcUnixNtoSchedGetPriorityMin(policy: Int): Int
 
 public actual fun schedGetPriorityMin(policy: CInt): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+    wasiLibcUnixNtoSchedGetPriorityMin(policy).toInt()
 
-public actual fun pthreadCondattrGetpshared(attr: COpaquePointer?, pshared: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun pthreadCondattrGetpshared(attr: ConstPtr<PthreadCondattrT>, pshared: MutPtr<CInt>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPthreadCondattrGetpshared")
 
-public actual fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: ConstPtr<SchedParam>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPthreadSetschedparam")
 
-public actual fun schedSetscheduler(pid: PidT, policy: CInt, param: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun schedSetscheduler(pid: PidT, policy: CInt, param: ConstPtr<SchedParam>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoSchedSetscheduler")
 
-public actual fun sigsuspend(mask: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun sigsuspend(mask: ConstPtr<SigsetT>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoSigsuspend")
 
-public actual fun getgrgidR(gid: GidT, grp: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun getgrgidR(gid: GidT, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoGetgrgidR")
 
-public actual fun semClose(sem: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun semClose(sem: MutPtr<SemT>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoSemClose")
+
+@kotlin.wasm.WasmImport("libc", "libcUnixNtoGetdtablesize")
+private external fun wasiLibcUnixNtoGetdtablesize(): Int
 
 public actual fun getdtablesize(): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+    wasiLibcUnixNtoGetdtablesize().toInt()
 
-public actual fun getgrnamR(name: String?, grp: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun getgrnamR(name: ConstPtr<CChar>, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoGetgrnamR")
 
-public actual fun initgroups(user: String?, group: GidT): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun initgroups(user: ConstPtr<CChar>, group: GidT): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoInitgroups")
 
-public actual fun pthreadSigmask(how: CInt, set: COpaquePointer?, oldset: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun pthreadSigmask(how: CInt, set: ConstPtr<SigsetT>, oldset: MutPtr<SigsetT>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPthreadSigmask")
 
-public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun semOpen(name: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): MutPtr<SemT> =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoSemOpen")
 
-public actual fun getgrnam(name: String?): COpaquePointer? =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun getgrnam(name: ConstPtr<CChar>): MutPtr<Group> =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoGetgrnam")
 
 public actual fun pthreadCancel(thread: PthreadT): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPthreadCancel")
 
 public actual fun pthreadKill(thread: PthreadT, sig: CInt): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPthreadKill")
 
-public actual fun semUnlink(name: String?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun semUnlink(name: ConstPtr<CChar>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoSemUnlink")
+
+@kotlin.wasm.WasmImport("libc", "libcUnixNtoDaemon")
+private external fun wasiLibcUnixNtoDaemon(nochdir: Int, noclose: Int): Int
 
 public actual fun daemon(nochdir: CInt, noclose: CInt): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+    wasiLibcUnixNtoDaemon(nochdir, noclose).toInt()
 
-public actual fun getpwnamR(name: String?, pwd: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun getpwnamR(name: ConstPtr<CChar>, pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoGetpwnamR")
 
-public actual fun getpwuidR(uid: UidT, pwd: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun getpwuidR(uid: UidT, pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoGetpwuidR")
 
-public actual fun sigwait(set: COpaquePointer?, sig: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun sigwait(set: ConstPtr<SigsetT>, sig: MutPtr<CInt>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoSigwait")
 
 public actual fun pthreadAtfork(prepare: PthreadAtforkPrepareCallback?, parent: PthreadAtforkPrepareCallback?, child: PthreadAtforkPrepareCallback?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPthreadAtfork")
 
-public actual fun getgrgid(gid: GidT): COpaquePointer? =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun getgrgid(gid: GidT): MutPtr<Group> =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoGetgrgid")
 
-public actual fun getgrouplist(user: String?, group: GidT, groups: COpaquePointer?, ngroups: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun getgrouplist(user: ConstPtr<CChar>, group: GidT, groups: MutPtr<GidT>, ngroups: MutPtr<CInt>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoGetgrouplist")
 
-public actual fun pthreadMutexattrGetpshared(attr: COpaquePointer?, pshared: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun pthreadMutexattrGetpshared(attr: ConstPtr<PthreadMutexattrT>, pshared: MutPtr<CInt>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPthreadMutexattrGetpshared")
 
-public actual fun pthreadMutexattrGetrobust(attr: COpaquePointer?, robustness: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun pthreadMutexattrGetrobust(attr: ConstPtr<PthreadMutexattrT>, robustness: MutPtr<CInt>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPthreadMutexattrGetrobust")
 
-public actual fun pthreadMutexattrSetrobust(attr: COpaquePointer?, robustness: CInt): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun pthreadMutexattrSetrobust(attr: MutPtr<PthreadMutexattrT>, robustness: CInt): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPthreadMutexattrSetrobust")
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun pthreadCreate(native: MutPtr<PthreadT>, attr: ConstPtr<PthreadAttrT>, f: PthreadCreateFCallback, value: MutPtr<CVoid>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPthreadCreate")
 
-public actual fun getitimer(which: CInt, currValue: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun getitimer(which: CInt, currValue: MutPtr<Itimerval>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoGetitimer")
 
-public actual fun setitimer(which: CInt, value: COpaquePointer?, ovalue: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun setitimer(which: CInt, value: ConstPtr<Itimerval>, ovalue: MutPtr<Itimerval>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoSetitimer")
 
-public actual fun posixSpawn(pid: COpaquePointer?, path: String?, fileActions: COpaquePointer?, attrp: COpaquePointer?, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun posixSpawn(pid: MutPtr<PidT>, path: ConstPtr<CChar>, fileActions: ConstPtr<PosixSpawnFileActionsT>, attrp: ConstPtr<PosixSpawnattrT>, argv: ConstPtr<MutPtr<CChar>>, envp: ConstPtr<MutPtr<CChar>>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPosixSpawn")
 
-public actual fun posixSpawnp(pid: COpaquePointer?, file: String?, fileActions: COpaquePointer?, attrp: COpaquePointer?, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun posixSpawnp(pid: MutPtr<PidT>, file: ConstPtr<CChar>, fileActions: ConstPtr<PosixSpawnFileActionsT>, attrp: ConstPtr<PosixSpawnattrT>, argv: ConstPtr<MutPtr<CChar>>, envp: ConstPtr<MutPtr<CChar>>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPosixSpawnp")
 
-public actual fun posixSpawnattrInit(attr: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun posixSpawnattrInit(attr: MutPtr<PosixSpawnattrT>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPosixSpawnattrInit")
 
-public actual fun posixSpawnattrDestroy(attr: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun posixSpawnattrDestroy(attr: MutPtr<PosixSpawnattrT>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPosixSpawnattrDestroy")
 
-public actual fun posixSpawnattrGetsigdefault(attr: COpaquePointer?, default: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun posixSpawnattrGetsigdefault(attr: ConstPtr<PosixSpawnattrT>, default: MutPtr<SigsetT>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPosixSpawnattrGetsigdefault")
 
-public actual fun posixSpawnattrSetsigdefault(attr: COpaquePointer?, default: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun posixSpawnattrSetsigdefault(attr: MutPtr<PosixSpawnattrT>, default: ConstPtr<SigsetT>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPosixSpawnattrSetsigdefault")
 
-public actual fun posixSpawnattrGetsigmask(attr: COpaquePointer?, default: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun posixSpawnattrGetsigmask(attr: ConstPtr<PosixSpawnattrT>, default: MutPtr<SigsetT>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPosixSpawnattrGetsigmask")
 
-public actual fun posixSpawnattrSetsigmask(attr: COpaquePointer?, default: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun posixSpawnattrSetsigmask(attr: MutPtr<PosixSpawnattrT>, default: ConstPtr<SigsetT>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPosixSpawnattrSetsigmask")
 
-public actual fun posixSpawnattrGetflags(attr: COpaquePointer?, flags: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun posixSpawnattrGetflags(attr: ConstPtr<PosixSpawnattrT>, flags: MutPtr<CShort>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPosixSpawnattrGetflags")
 
-public actual fun posixSpawnattrSetflags(attr: COpaquePointer?, flags: CShort): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun posixSpawnattrSetflags(attr: MutPtr<PosixSpawnattrT>, flags: CShort): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPosixSpawnattrSetflags")
 
-public actual fun posixSpawnattrGetpgroup(attr: COpaquePointer?, flags: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun posixSpawnattrGetpgroup(attr: ConstPtr<PosixSpawnattrT>, flags: MutPtr<PidT>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPosixSpawnattrGetpgroup")
 
-public actual fun posixSpawnattrSetpgroup(attr: COpaquePointer?, flags: PidT): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun posixSpawnattrSetpgroup(attr: MutPtr<PosixSpawnattrT>, flags: PidT): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPosixSpawnattrSetpgroup")
 
-public actual fun posixSpawnattrGetschedpolicy(attr: COpaquePointer?, flags: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun posixSpawnattrGetschedpolicy(attr: ConstPtr<PosixSpawnattrT>, flags: MutPtr<CInt>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPosixSpawnattrGetschedpolicy")
 
-public actual fun posixSpawnattrSetschedpolicy(attr: COpaquePointer?, flags: CInt): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun posixSpawnattrSetschedpolicy(attr: MutPtr<PosixSpawnattrT>, flags: CInt): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPosixSpawnattrSetschedpolicy")
 
-public actual fun posixSpawnattrGetschedparam(attr: COpaquePointer?, param: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun posixSpawnattrGetschedparam(attr: ConstPtr<PosixSpawnattrT>, param: MutPtr<SchedParam>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPosixSpawnattrGetschedparam")
 
-public actual fun posixSpawnattrSetschedparam(attr: COpaquePointer?, param: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun posixSpawnattrSetschedparam(attr: MutPtr<PosixSpawnattrT>, param: ConstPtr<SchedParam>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPosixSpawnattrSetschedparam")
 
-public actual fun posixSpawnFileActionsInit(actions: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun posixSpawnFileActionsInit(actions: MutPtr<PosixSpawnFileActionsT>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPosixSpawnFileActionsInit")
 
-public actual fun posixSpawnFileActionsDestroy(actions: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun posixSpawnFileActionsDestroy(actions: MutPtr<PosixSpawnFileActionsT>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPosixSpawnFileActionsDestroy")
 
-public actual fun posixSpawnFileActionsAddopen(actions: COpaquePointer?, fd: CInt, path: String?, oflag: CInt, mode: ModeT): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun posixSpawnFileActionsAddopen(actions: MutPtr<PosixSpawnFileActionsT>, fd: CInt, path: ConstPtr<CChar>, oflag: CInt, mode: ModeT): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPosixSpawnFileActionsAddopen")
 
-public actual fun posixSpawnFileActionsAddclose(actions: COpaquePointer?, fd: CInt): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun posixSpawnFileActionsAddclose(actions: MutPtr<PosixSpawnFileActionsT>, fd: CInt): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPosixSpawnFileActionsAddclose")
 
-public actual fun posixSpawnFileActionsAdddup2(actions: COpaquePointer?, fd: CInt, newfd: CInt): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun posixSpawnFileActionsAdddup2(actions: MutPtr<PosixSpawnFileActionsT>, fd: CInt, newfd: CInt): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPosixSpawnFileActionsAdddup2")
 
-public actual fun popen(command: String?, mode: String?): FILE? =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun popen(command: ConstPtr<CChar>, mode: ConstPtr<CChar>): MutPtr<FILE> =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPopen")
 
-public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun faccessat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: CInt, flags: CInt): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoFaccessat")
+
+@kotlin.wasm.WasmImport("libc", "libcUnixNtoInotifyRmWatch")
+private external fun wasiLibcUnixNtoInotifyRmWatch(fd: Int, wd: Int): Int
 
 public actual fun inotifyRmWatch(fd: CInt, wd: CInt): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+    wasiLibcUnixNtoInotifyRmWatch(fd, wd).toInt()
+
+@kotlin.wasm.WasmImport("libc", "libcUnixNtoInotifyInit")
+private external fun wasiLibcUnixNtoInotifyInit(): Int
 
 public actual fun inotifyInit(): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+    wasiLibcUnixNtoInotifyInit().toInt()
 
-public actual fun inotifyAddWatch(fd: CInt, path: String?, mask: UInt): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun inotifyAddWatch(fd: CInt, path: ConstPtr<CChar>, mask: UInt): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoInotifyAddWatch")
+
+@kotlin.wasm.WasmImport("libc", "libcUnixNtoGettid")
+private external fun wasiLibcUnixNtoGettid(): Int
 
 public actual fun gettid(): PidT =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+    wasiLibcUnixNtoGettid().toInt()
 
-public actual fun pthreadGetcpuclockid(thread: PthreadT, clkId: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun pthreadGetcpuclockid(thread: PthreadT, clkId: MutPtr<ClockidT>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPthreadGetcpuclockid")
 
-public actual fun getnameinfo(sa: COpaquePointer?, salen: SocklenT, host: COpaquePointer?, hostlen: SocklenT, serv: COpaquePointer?, servlen: SocklenT, flags: CInt): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun getnameinfo(sa: ConstPtr<Sockaddr>, salen: SocklenT, host: MutPtr<CChar>, hostlen: SocklenT, serv: MutPtr<CChar>, servlen: SocklenT, flags: CInt): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoGetnameinfo")
+
+@kotlin.wasm.WasmImport("libc", "libcUnixNtoMallopt")
+private external fun wasiLibcUnixNtoMallopt(param: Int, value: Long): Int
 
 public actual fun mallopt(param: CInt, value: Long): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+    wasiLibcUnixNtoMallopt(param, value).toInt()
 
-public actual fun gettimeofday(tp: COpaquePointer?, tz: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun gettimeofday(tp: MutPtr<Timeval>, tz: MutPtr<CVoid>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoGettimeofday")
 
-public actual fun ctermid(s: COpaquePointer?): COpaquePointer? =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun ctermid(s: MutPtr<CChar>): MutPtr<CChar> =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoCtermid")
 
 public actual fun ioctl(fd: CInt, request: CInt, vararg variadicArgs: Long): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoIoctl")
 
 public actual fun mallinfo(): Mallinfo =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoMallinfo")
 
-public actual fun getpwentR(pwd: COpaquePointer?, buf: COpaquePointer?, bufsize: CInt, result: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun getpwentR(pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, bufsize: CInt, result: MutPtr<MutPtr<Passwd>>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoGetpwentR")
 
-public actual fun pthreadGetnameNp(thread: PthreadT, name: COpaquePointer?, len: CInt): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun pthreadGetnameNp(thread: PthreadT, name: MutPtr<CChar>, len: CInt): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPthreadGetnameNp")
 
-public actual fun pthreadSetnameNp(thread: PthreadT, name: String?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun pthreadSetnameNp(thread: PthreadT, name: ConstPtr<CChar>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoPthreadSetnameNp")
 
-public actual fun sysctl(arg0: COpaquePointer?, arg1: CUint, arg2: COpaquePointer?, arg3: COpaquePointer?, arg4: COpaquePointer?, arg5: SizeT): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun sysctl(arg0: ConstPtr<CInt>, arg1: CUint, arg2: MutPtr<CVoid>, arg3: MutPtr<SizeT>, arg4: ConstPtr<CVoid>, arg5: SizeT): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoSysctl")
 
-public actual fun getrlimit(resource: CInt, rlim: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun getrlimit(resource: CInt, rlim: MutPtr<Rlimit>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoGetrlimit")
 
-public actual fun setrlimit(resource: CInt, rlp: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun setrlimit(resource: CInt, rlp: ConstPtr<Rlimit>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoSetrlimit")
 
-public actual fun lioListio(mode: CInt, list: COpaquePointer?, nent: CInt, sig: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun lioListio(mode: CInt, list: ConstPtr<MutPtr<Aiocb>>, nent: CInt, sig: MutPtr<Sigevent>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoLioListio")
 
-public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: MutPtr<CVoid>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoDlIteratePhdr")
 
-public actual fun memsetS(s: COpaquePointer?, smax: SizeT, c: CInt, n: SizeT): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun memsetS(s: MutPtr<CVoid>, smax: SizeT, c: CInt, n: SizeT): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoMemsetS")
 
-public actual fun regcomp(preg: COpaquePointer?, pattern: String?, cflags: CInt): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun regcomp(preg: MutPtr<RegexT>, pattern: ConstPtr<CChar>, cflags: CInt): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoRegcomp")
 
-public actual fun regexec(preg: COpaquePointer?, str: String?, nmatch: SizeT, pmatch: COpaquePointer?, eflags: CInt): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun regexec(preg: ConstPtr<RegexT>, str: ConstPtr<CChar>, nmatch: SizeT, pmatch: MutPtr<RegmatchT>, eflags: CInt): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoRegexec")
 
-public actual fun regerror(errcode: CInt, preg: COpaquePointer?, errbuf: COpaquePointer?, errbufSize: SizeT): SizeT =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun regerror(errcode: CInt, preg: ConstPtr<RegexT>, errbuf: MutPtr<CChar>, errbufSize: SizeT): SizeT =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoRegerror")
 
-public actual fun regfree(preg: COpaquePointer?): Unit =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun regfree(preg: MutPtr<RegexT>): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoRegfree")
 
-public actual fun dirfd(dirp: DIR?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun dirfd(dirp: MutPtr<DIR>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoDirfd")
 
-public actual fun dircntl(dir: DIR?, cmd: CInt, vararg variadicArgs: Long): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun dircntl(dir: MutPtr<DIR>, cmd: CInt, vararg variadicArgs: Long): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoDircntl")
 
-public actual fun aioCancel(fd: CInt, aiocbp: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun aioCancel(fd: CInt, aiocbp: MutPtr<Aiocb>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoAioCancel")
 
-public actual fun aioError(aiocbp: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun aioError(aiocbp: ConstPtr<Aiocb>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoAioError")
 
-public actual fun aioFsync(operation: CInt, aiocbp: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun aioFsync(operation: CInt, aiocbp: MutPtr<Aiocb>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoAioFsync")
 
-public actual fun aioRead(aiocbp: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun aioRead(aiocbp: MutPtr<Aiocb>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoAioRead")
 
-public actual fun aioReturn(aiocpb: COpaquePointer?): SsizeT =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun aioReturn(aiocpb: MutPtr<Aiocb>): SsizeT =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoAioReturn")
 
-public actual fun aioSuspend(list: COpaquePointer?, nent: CInt, timeout: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun aioSuspend(list: ConstPtr<ConstPtr<Aiocb>>, nent: CInt, timeout: ConstPtr<Timespec>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoAioSuspend")
 
-public actual fun aioWrite(aiocpb: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun aioWrite(aiocpb: MutPtr<Aiocb>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoAioWrite")
 
 public actual fun mqClose(mqdes: MqdT): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoMqClose")
 
-public actual fun mqGetattr(mqdes: MqdT, mqstat: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun mqGetattr(mqdes: MqdT, mqstat: MutPtr<MqAttr>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoMqGetattr")
 
-public actual fun mqNotify(mqdes: MqdT, notification: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun mqNotify(mqdes: MqdT, notification: ConstPtr<Sigevent>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoMqNotify")
 
-public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun mqOpen(name: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): MqdT =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoMqOpen")
 
-public actual fun mqReceive(mqdes: MqdT, msgPtr: COpaquePointer?, msgLen: SizeT, msgPrio: COpaquePointer?): SsizeT =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun mqReceive(mqdes: MqdT, msgPtr: MutPtr<CChar>, msgLen: SizeT, msgPrio: MutPtr<CUint>): SsizeT =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoMqReceive")
 
-public actual fun mqSend(mqdes: MqdT, msgPtr: String?, msgLen: SizeT, msgPrio: CUint): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun mqSend(mqdes: MqdT, msgPtr: ConstPtr<CChar>, msgLen: SizeT, msgPrio: CUint): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoMqSend")
 
-public actual fun mqSetattr(mqdes: MqdT, mqstat: COpaquePointer?, omqstat: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun mqSetattr(mqdes: MqdT, mqstat: ConstPtr<MqAttr>, omqstat: MutPtr<MqAttr>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoMqSetattr")
 
-public actual fun mqTimedreceive(mqdes: MqdT, msgPtr: COpaquePointer?, msgLen: SizeT, msgPrio: COpaquePointer?, absTimeout: COpaquePointer?): SsizeT =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun mqTimedreceive(mqdes: MqdT, msgPtr: MutPtr<CChar>, msgLen: SizeT, msgPrio: MutPtr<CUint>, absTimeout: ConstPtr<Timespec>): SsizeT =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoMqTimedreceive")
 
-public actual fun mqTimedsend(mqdes: MqdT, msgPtr: String?, msgLen: SizeT, msgPrio: CUint, absTimeout: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun mqTimedsend(mqdes: MqdT, msgPtr: ConstPtr<CChar>, msgLen: SizeT, msgPrio: CUint, absTimeout: ConstPtr<Timespec>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoMqTimedsend")
 
-public actual fun mqUnlink(name: String?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun mqUnlink(name: ConstPtr<CChar>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoMqUnlink")
 
-public actual fun getErrnoPtr(): COpaquePointer? =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun getErrnoPtr(): MutPtr<CInt> =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoGetErrnoPtr")
 
-public actual fun myThreadExit(valuePtr: COpaquePointer?): Unit =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun myThreadExit(valuePtr: MutPtr<ConstPtr<CVoid>>): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixNtoMyThreadExit")

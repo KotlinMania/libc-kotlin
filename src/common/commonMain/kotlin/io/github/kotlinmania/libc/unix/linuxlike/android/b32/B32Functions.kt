@@ -1,6 +1,7 @@
 package io.github.kotlinmania.libc.unix.linuxlike.android.b32
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.libc.unix.linuxlike.Tm
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 
-public expect fun timegm64(tm: COpaquePointer?): Time64T
+public expect fun timegm64(tm: ConstPtr<Tm>): Time64T

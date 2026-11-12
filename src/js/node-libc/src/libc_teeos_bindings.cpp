@@ -51,7 +51,7 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_teeos_calloc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosCalloc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t nobj = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -85,7 +85,7 @@ static Napi::Value libc_teeos_calloc_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_teeos_malloc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosMalloc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t size = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     typedef void* (*km_fn_t)(uint64_t);
@@ -118,7 +118,7 @@ static Napi::Value libc_teeos_malloc_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_teeos_realloc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosRealloc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* p = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -152,7 +152,7 @@ static Napi::Value libc_teeos_realloc_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_teeos_alignedAlloc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosAlignedAlloc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t align = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -186,7 +186,7 @@ static Napi::Value libc_teeos_alignedAlloc_napi(const Napi::CallbackInfo& km_inf
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_teeos_free_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosFree_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* p = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -217,7 +217,7 @@ static Napi::Value libc_teeos_free_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_teeos_posixMemalign_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosPosixMemalign_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* memptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t align = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -252,7 +252,7 @@ static Napi::Value libc_teeos_posixMemalign_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_memchr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosMemchr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cx = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t c = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -287,7 +287,7 @@ static Napi::Value libc_teeos_memchr_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_teeos_wmemchr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosWmemchr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cx = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t c = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -322,7 +322,7 @@ static Napi::Value libc_teeos_wmemchr_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_teeos_memcmp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosMemcmp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cx = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* ct = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -357,7 +357,7 @@ static Napi::Value libc_teeos_memcmp_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_memcpy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosMemcpy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* dest = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* src = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -392,7 +392,7 @@ static Napi::Value libc_teeos_memcpy_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_teeos_memmove_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosMemmove_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* dest = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* src = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -427,7 +427,7 @@ static Napi::Value libc_teeos_memmove_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_teeos_memset_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosMemset_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* dest = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t c = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -462,7 +462,7 @@ static Napi::Value libc_teeos_memset_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_teeos_pthreadSelf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosPthreadSelf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -494,7 +494,7 @@ static Napi::Value libc_teeos_pthreadSelf_napi(const Napi::CallbackInfo& km_info
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_teeos_pthreadJoin_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosPthreadJoin_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* native = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -528,7 +528,7 @@ static Napi::Value libc_teeos_pthreadJoin_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_pthreadExit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosPthreadExit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -559,7 +559,7 @@ static Napi::Value libc_teeos_pthreadExit_napi(const Napi::CallbackInfo& km_info
     return km_env.Undefined();
 }
 
-static Napi::Value libc_teeos_pthreadAttrInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosPthreadAttrInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -592,7 +592,7 @@ static Napi::Value libc_teeos_pthreadAttrInit_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_pthreadAttrDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosPthreadAttrDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -625,7 +625,7 @@ static Napi::Value libc_teeos_pthreadAttrDestroy_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_pthreadAttrGetstack_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosPthreadAttrGetstack_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* stackaddr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -660,10 +660,10 @@ static Napi::Value libc_teeos_pthreadAttrGetstack_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_pthreadAttrSetstacksize_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosPthreadAttrSetstacksize_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    uint64_t stack_size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
+    uint64_t stackSize = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
     typedef int32_t (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -686,7 +686,7 @@ static Napi::Value libc_teeos_pthreadAttrSetstacksize_napi(const Napi::CallbackI
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(attr, stack_size);
+        km_res = km_fn_ptr(attr, stackSize);
     } else {
         errno = ENOSYS;
         km_res = ENOSYS;
@@ -694,7 +694,7 @@ static Napi::Value libc_teeos_pthreadAttrSetstacksize_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_pthreadAttrGetstacksize_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosPthreadAttrGetstacksize_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* size = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -728,11 +728,11 @@ static Napi::Value libc_teeos_pthreadAttrGetstacksize_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_pthreadAttrSettee_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosPthreadAttrSettee_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t ca = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    int32_t task_id = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    int32_t taskId = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     int32_t shadow = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -756,7 +756,7 @@ static Napi::Value libc_teeos_pthreadAttrSettee_napi(const Napi::CallbackInfo& k
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(attr, ca, task_id, shadow);
+        km_res = km_fn_ptr(attr, ca, taskId, shadow);
     } else {
         errno = ENOSYS;
         km_res = ENOSYS;
@@ -764,7 +764,7 @@ static Napi::Value libc_teeos_pthreadAttrSettee_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_schedYield_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosSchedYield_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -796,7 +796,7 @@ static Napi::Value libc_teeos_schedYield_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_pthreadKeyCreate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosPthreadKeyCreate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* key = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* dtor = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -830,7 +830,7 @@ static Napi::Value libc_teeos_pthreadKeyCreate_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_pthreadKeyDelete_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosPthreadKeyDelete_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t key = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -863,7 +863,7 @@ static Napi::Value libc_teeos_pthreadKeyDelete_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_pthreadGetspecific_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosPthreadGetspecific_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t key = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void* (*km_fn_t)(uint32_t);
@@ -896,7 +896,7 @@ static Napi::Value libc_teeos_pthreadGetspecific_napi(const Napi::CallbackInfo& 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_teeos_pthreadSetspecific_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosPthreadSetspecific_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t key = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -930,7 +930,7 @@ static Napi::Value libc_teeos_pthreadSetspecific_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_pthreadMutexDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosPthreadMutexDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -963,7 +963,7 @@ static Napi::Value libc_teeos_pthreadMutexDestroy_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_pthreadMutexInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosPthreadMutexInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -997,7 +997,7 @@ static Napi::Value libc_teeos_pthreadMutexInit_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_pthreadMutexLock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosPthreadMutexLock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -1030,7 +1030,7 @@ static Napi::Value libc_teeos_pthreadMutexLock_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_pthreadMutexTrylock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosPthreadMutexTrylock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -1063,7 +1063,7 @@ static Napi::Value libc_teeos_pthreadMutexTrylock_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_pthreadMutexUnlock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosPthreadMutexUnlock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -1096,7 +1096,7 @@ static Napi::Value libc_teeos_pthreadMutexUnlock_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_pthreadMutexattrDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosPthreadMutexattrDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -1129,7 +1129,7 @@ static Napi::Value libc_teeos_pthreadMutexattrDestroy_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_pthreadMutexattrInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosPthreadMutexattrInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -1162,10 +1162,10 @@ static Napi::Value libc_teeos_pthreadMutexattrInit_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_pthreadMutexattrSettype_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosPthreadMutexattrSettype_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    int32_t arg_1_type = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t type = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1188,7 +1188,7 @@ static Napi::Value libc_teeos_pthreadMutexattrSettype_napi(const Napi::CallbackI
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(attr, arg_1_type);
+        km_res = km_fn_ptr(attr, type);
     } else {
         errno = ENOSYS;
         km_res = ENOSYS;
@@ -1196,7 +1196,7 @@ static Napi::Value libc_teeos_pthreadMutexattrSettype_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_pthreadMutexattrSetpshared_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosPthreadMutexattrSetpshared_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t pshared = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1230,7 +1230,7 @@ static Napi::Value libc_teeos_pthreadMutexattrSetpshared_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_pthreadCondBroadcast_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosPthreadCondBroadcast_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cond = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -1263,7 +1263,7 @@ static Napi::Value libc_teeos_pthreadCondBroadcast_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_pthreadCondDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosPthreadCondDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cond = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -1296,7 +1296,7 @@ static Napi::Value libc_teeos_pthreadCondDestroy_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_pthreadCondInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosPthreadCondInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cond = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1330,7 +1330,7 @@ static Napi::Value libc_teeos_pthreadCondInit_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_pthreadCondSignal_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosPthreadCondSignal_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cond = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -1363,7 +1363,7 @@ static Napi::Value libc_teeos_pthreadCondSignal_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_pthreadCondWait_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosPthreadCondWait_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cond = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1397,7 +1397,7 @@ static Napi::Value libc_teeos_pthreadCondWait_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_pthreadCondTimedwait_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosPthreadCondTimedwait_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cond = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1432,7 +1432,7 @@ static Napi::Value libc_teeos_pthreadCondTimedwait_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_pthreadMutexattrSetrobust_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosPthreadMutexattrSetrobust_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t robustness = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1466,7 +1466,7 @@ static Napi::Value libc_teeos_pthreadMutexattrSetrobust_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_pthreadCreate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosPthreadCreate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* native = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1502,7 +1502,7 @@ static Napi::Value libc_teeos_pthreadCreate_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_pthreadSpinInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosPthreadSpinInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t pshared = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1536,7 +1536,7 @@ static Napi::Value libc_teeos_pthreadSpinInit_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_pthreadSpinDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosPthreadSpinDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -1569,7 +1569,7 @@ static Napi::Value libc_teeos_pthreadSpinDestroy_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_pthreadSpinLock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosPthreadSpinLock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -1602,7 +1602,7 @@ static Napi::Value libc_teeos_pthreadSpinLock_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_pthreadSpinTrylock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosPthreadSpinTrylock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -1635,7 +1635,7 @@ static Napi::Value libc_teeos_pthreadSpinTrylock_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_pthreadSpinUnlock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosPthreadSpinUnlock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -1668,7 +1668,7 @@ static Napi::Value libc_teeos_pthreadSpinUnlock_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_pthreadSetschedprio_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosPthreadSetschedprio_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* native = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t priority = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1702,7 +1702,7 @@ static Napi::Value libc_teeos_pthreadSetschedprio_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_pthreadOnce_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosPthreadOnce_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* pot = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* f = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1736,7 +1736,7 @@ static Napi::Value libc_teeos_pthreadOnce_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_pthreadEqual_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosPthreadEqual_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* p1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* p2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1770,7 +1770,7 @@ static Napi::Value libc_teeos_pthreadEqual_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_pthreadMutexattrSetprotocol_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosPthreadMutexattrSetprotocol_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* a = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t protocol = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1804,7 +1804,7 @@ static Napi::Value libc_teeos_pthreadMutexattrSetprotocol_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_pthreadAttrSetstack_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosPthreadAttrSetstack_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* stack = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1839,7 +1839,7 @@ static Napi::Value libc_teeos_pthreadAttrSetstack_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_pthreadSetaffinityNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosPthreadSetaffinityNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* td = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1874,7 +1874,7 @@ static Napi::Value libc_teeos_pthreadSetaffinityNp_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_pthreadGetaffinityNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosPthreadGetaffinityNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* td = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1909,11 +1909,9 @@ static Napi::Value libc_teeos_pthreadGetaffinityNp_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_printf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosPrintf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool fmt_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string fmt_str = fmt_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* fmt = fmt_null ? nullptr : fmt_str.c_str();
+    const char* fmt = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t km_vac = km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 2 ? km_napi_arg_i64(km_info[2]) : 0;
     int64_t km_va1 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
@@ -1954,11 +1952,9 @@ static Napi::Value libc_teeos_printf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_scanf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosScanf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool fmt_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string fmt_str = fmt_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* fmt = fmt_null ? nullptr : fmt_str.c_str();
+    const char* fmt = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t km_vac = km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 2 ? km_napi_arg_i64(km_info[2]) : 0;
     int64_t km_va1 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
@@ -1999,13 +1995,11 @@ static Napi::Value libc_teeos_scanf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_snprintf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosSnprintf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* s = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t n = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
-    bool fmt_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string fmt_str = fmt_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* fmt = fmt_null ? nullptr : fmt_str.c_str();
+    const char* fmt = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     int32_t km_vac = km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 4 ? km_napi_arg_i64(km_info[4]) : 0;
     int64_t km_va1 = km_info.Length() > 5 ? km_napi_arg_i64(km_info[5]) : 0;
@@ -2046,12 +2040,10 @@ static Napi::Value libc_teeos_snprintf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_sprintf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosSprintf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* s = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool fmt_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string fmt_str = fmt_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* fmt = fmt_null ? nullptr : fmt_str.c_str();
+    const char* fmt = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t km_vac = km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
     int64_t km_va1 = km_info.Length() > 4 ? km_napi_arg_i64(km_info[4]) : 0;
@@ -2092,13 +2084,11 @@ static Napi::Value libc_teeos_sprintf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_vsnprintf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosVsnprintf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* s = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t n = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
-    bool fmt_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string fmt_str = fmt_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* fmt = fmt_null ? nullptr : fmt_str.c_str();
+    const char* fmt = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     char* ap = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(char*, uint64_t, const char*, char*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2130,12 +2120,10 @@ static Napi::Value libc_teeos_vsnprintf_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_vsprintf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosVsprintf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* s = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool fmt_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string fmt_str = fmt_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* fmt = fmt_null ? nullptr : fmt_str.c_str();
+    const char* fmt = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     char* ap = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(char*, const char*, char*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2167,7 +2155,7 @@ static Napi::Value libc_teeos_vsprintf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_abort_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosAbort_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2197,7 +2185,7 @@ static Napi::Value libc_teeos_abort_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_teeos_schedGetaffinity_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosSchedGetaffinity_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint64_t cpusetsize = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -2232,7 +2220,7 @@ static Napi::Value libc_teeos_schedGetaffinity_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_schedSetaffinity_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosSchedSetaffinity_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint64_t cpusetsize = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -2267,7 +2255,7 @@ static Napi::Value libc_teeos_schedSetaffinity_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_sysconf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosSysconf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t name = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(int32_t);
@@ -2300,7 +2288,7 @@ static Napi::Value libc_teeos_sysconf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_teeos_mmap_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosMmap_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -2338,7 +2326,7 @@ static Napi::Value libc_teeos_mmap_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_teeos_munmap_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosMunmap_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -2372,7 +2360,7 @@ static Napi::Value libc_teeos_munmap_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_errnoLocation_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosErrnoLocation_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2402,7 +2390,7 @@ static Napi::Value libc_teeos_errnoLocation_napi(const Napi::CallbackInfo& km_in
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_teeos_strerror_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosStrerror_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t e = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef char* (*km_fn_t)(int32_t);
@@ -2435,9 +2423,9 @@ static Napi::Value libc_teeos_strerror_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_teeos_clockGettime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosClockGettime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t clock_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t clockId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* tp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2461,7 +2449,7 @@ static Napi::Value libc_teeos_clockGettime_napi(const Napi::CallbackInfo& km_inf
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(clock_id, tp);
+        km_res = km_fn_ptr(clockId, tp);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2469,7 +2457,7 @@ static Napi::Value libc_teeos_clockGettime_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_getpid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosGetpid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2501,7 +2489,7 @@ static Napi::Value libc_teeos_getpid_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_gettimeofday_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosGettimeofday_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* tv = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* tz = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2535,14 +2523,12 @@ static Napi::Value libc_teeos_gettimeofday_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_strftime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosStrftime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    char* arg_0_restrict = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    char* arg0Restrict = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t sz = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
-    bool arg_2_restrict_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string arg_2_restrict_str = arg_2_restrict_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* arg_2_restrict = arg_2_restrict_null ? nullptr : arg_2_restrict_str.c_str();
-    void* arg_3_restrict = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    const char* arg2Restrict = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* arg3Restrict = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef uint64_t (*km_fn_t)(char*, uint64_t, const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2565,7 +2551,7 @@ static Napi::Value libc_teeos_strftime_napi(const Napi::CallbackInfo& km_info) {
 #endif
     uint64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_restrict, sz, arg_2_restrict, arg_3_restrict);
+        km_res = km_fn_ptr(arg0Restrict, sz, arg2Restrict, arg3Restrict);
     } else {
         errno = ENOSYS;
         km_res = 0;
@@ -2573,7 +2559,7 @@ static Napi::Value libc_teeos_strftime_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_teeos_time_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosTime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* t = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(void*);
@@ -2606,7 +2592,7 @@ static Napi::Value libc_teeos_time_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_teeos_semClose_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosSemClose_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* sem = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -2639,7 +2625,7 @@ static Napi::Value libc_teeos_semClose_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_semDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosSemDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* sem = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -2672,7 +2658,7 @@ static Napi::Value libc_teeos_semDestroy_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_semGetvalue_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosSemGetvalue_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* sem = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* valp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2706,7 +2692,7 @@ static Napi::Value libc_teeos_semGetvalue_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_semInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosSemInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* sem = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t pshared = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -2741,11 +2727,9 @@ static Napi::Value libc_teeos_semInit_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_semOpen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosSemOpen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     int32_t km_vac = km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
@@ -2787,7 +2771,7 @@ static Napi::Value libc_teeos_semOpen_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_teeos_semPost_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosSemPost_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* sem = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -2820,11 +2804,9 @@ static Napi::Value libc_teeos_semPost_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_semUnlink_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosSemUnlink_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2855,7 +2837,7 @@ static Napi::Value libc_teeos_semUnlink_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_semWait_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosSemWait_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* sem = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -2888,12 +2870,10 @@ static Napi::Value libc_teeos_semWait_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_setlocale_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosSetlocale_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t cat = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool name_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef char* (*km_fn_t)(int32_t, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2924,14 +2904,10 @@ static Napi::Value libc_teeos_setlocale_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_teeos_strcoll_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosStrcoll_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool l_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string l_str = l_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* l = l_null ? nullptr : l_str.c_str();
-    bool r_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string r_str = r_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* r = r_null ? nullptr : r_str.c_str();
+    const char* l = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* r = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2962,12 +2938,10 @@ static Napi::Value libc_teeos_strcoll_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_strxfrm_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosStrxfrm_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* dest = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool src_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string src_str = src_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* src = src_null ? nullptr : src_str.c_str();
+    const char* src = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t n = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef uint64_t (*km_fn_t)(char*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2999,11 +2973,9 @@ static Napi::Value libc_teeos_strxfrm_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_teeos_strtod_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosStrtod_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* p = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef double (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3035,12 +3007,10 @@ static Napi::Value libc_teeos_strtod_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
-static Napi::Value libc_teeos_mbrtowc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosMbrtowc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* wc = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool src_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string src_str = src_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* src = src_null ? nullptr : src_str.c_str();
+    const char* src = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t n = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     void* st = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef uint64_t (*km_fn_t)(void*, const char*, uint64_t, void*);
@@ -3073,7 +3043,7 @@ static Napi::Value libc_teeos_mbrtowc_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_teeos_wcrtomb_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosWcrtomb_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* s = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t wc = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3108,7 +3078,7 @@ static Napi::Value libc_teeos_wcrtomb_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_teeos_wctob_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosWctob_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t c = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -3141,7 +3111,7 @@ static Napi::Value libc_teeos_wctob_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_srandom_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosSrandom_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t seed = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(uint32_t);
@@ -3172,7 +3142,7 @@ static Napi::Value libc_teeos_srandom_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_teeos_initstate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosInitstate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t seed = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     char* state = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3207,7 +3177,7 @@ static Napi::Value libc_teeos_initstate_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_teeos_setstate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosSetstate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* state = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef char* (*km_fn_t)(char*);
@@ -3240,7 +3210,7 @@ static Napi::Value libc_teeos_setstate_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_teeos_random_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosRandom_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3272,11 +3242,9 @@ static Napi::Value libc_teeos_random_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_teeos_strchr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosStrchr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t c = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef char* (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3308,11 +3276,9 @@ static Napi::Value libc_teeos_strchr_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_teeos_strlen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosStrlen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool cs_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string cs_str = cs_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* cs = cs_null ? nullptr : cs_str.c_str();
+    const char* cs = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef uint64_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3343,14 +3309,10 @@ static Napi::Value libc_teeos_strlen_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_teeos_strcmp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosStrcmp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool l_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string l_str = l_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* l = l_null ? nullptr : l_str.c_str();
-    bool r_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string r_str = r_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* r = r_null ? nullptr : r_str.c_str();
+    const char* l = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* r = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3381,12 +3343,10 @@ static Napi::Value libc_teeos_strcmp_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_strcpy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosStrcpy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* dest = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool src_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string src_str = src_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* src = src_null ? nullptr : src_str.c_str();
+    const char* src = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef char* (*km_fn_t)(char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3417,14 +3377,10 @@ static Napi::Value libc_teeos_strcpy_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_teeos_strncmp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosStrncmp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool arg_0_l_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string arg_0_l_str = arg_0_l_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* arg_0_l = arg_0_l_null ? nullptr : arg_0_l_str.c_str();
-    bool r_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string r_str = r_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* r = r_null ? nullptr : r_str.c_str();
+    const char* l = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* r = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t n = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef int32_t (*km_fn_t)(const char*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3448,7 +3404,7 @@ static Napi::Value libc_teeos_strncmp_napi(const Napi::CallbackInfo& km_info) {
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_l, r, n);
+        km_res = km_fn_ptr(l, r, n);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3456,12 +3412,10 @@ static Napi::Value libc_teeos_strncmp_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_strncpy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosStrncpy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* dest = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool src_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string src_str = src_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* src = src_null ? nullptr : src_str.c_str();
+    const char* src = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t n = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef char* (*km_fn_t)(char*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3493,11 +3447,9 @@ static Napi::Value libc_teeos_strncpy_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_teeos_strnlen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosStrnlen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool cs_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string cs_str = cs_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* cs = cs_null ? nullptr : cs_str.c_str();
+    const char* cs = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t n = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
     typedef uint64_t (*km_fn_t)(const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3529,11 +3481,9 @@ static Napi::Value libc_teeos_strnlen_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_teeos_strrchr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosStrrchr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t c = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef char* (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3565,14 +3515,10 @@ static Napi::Value libc_teeos_strrchr_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_teeos_strstr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosStrstr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool h_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string h_str = h_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* h = h_null ? nullptr : h_str.c_str();
-    bool n_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string n_str = n_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* n = n_null ? nullptr : n_str.c_str();
+    const char* h = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* n = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef char* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3603,7 +3549,7 @@ static Napi::Value libc_teeos_strstr_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_teeos_wcschr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosWcschr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* s = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t c = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3637,7 +3583,7 @@ static Napi::Value libc_teeos_wcschr_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_teeos_wcslen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosWcslen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* s = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef uint64_t (*km_fn_t)(void*);
@@ -3670,7 +3616,7 @@ static Napi::Value libc_teeos_wcslen_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_teeos_isalpha_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosIsalpha_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -3703,7 +3649,7 @@ static Napi::Value libc_teeos_isalpha_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_isascii_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosIsascii_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -3736,7 +3682,7 @@ static Napi::Value libc_teeos_isascii_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_isdigit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosIsdigit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -3769,7 +3715,7 @@ static Napi::Value libc_teeos_isdigit_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_islower_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosIslower_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -3802,7 +3748,7 @@ static Napi::Value libc_teeos_islower_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_isprint_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosIsprint_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -3835,7 +3781,7 @@ static Napi::Value libc_teeos_isprint_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_isspace_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosIsspace_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -3868,7 +3814,7 @@ static Napi::Value libc_teeos_isspace_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_iswctype_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosIswctype_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t wc = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint64_t ttype = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -3902,7 +3848,7 @@ static Napi::Value libc_teeos_iswctype_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_iswdigit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosIswdigit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t wc = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -3935,7 +3881,7 @@ static Napi::Value libc_teeos_iswdigit_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_iswlower_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosIswlower_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t wc = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -3968,7 +3914,7 @@ static Napi::Value libc_teeos_iswlower_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_iswspace_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosIswspace_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t wc = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -4001,7 +3947,7 @@ static Napi::Value libc_teeos_iswspace_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_iswupper_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosIswupper_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t wc = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -4034,7 +3980,7 @@ static Napi::Value libc_teeos_iswupper_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_towupper_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosTowupper_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t wc = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef uint32_t (*km_fn_t)(uint32_t);
@@ -4067,7 +4013,7 @@ static Napi::Value libc_teeos_towupper_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_towlower_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosTowlower_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t wc = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef uint32_t (*km_fn_t)(uint32_t);
@@ -4100,7 +4046,7 @@ static Napi::Value libc_teeos_towlower_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_atan_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosAtan_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     double x = km_info.Length() > 0 ? km_info[0].ToNumber().DoubleValue() : 0.0;
     typedef double (*km_fn_t)(double);
@@ -4133,7 +4079,7 @@ static Napi::Value libc_teeos_atan_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
-static Napi::Value libc_teeos_ceil_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosCeil_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     double x = km_info.Length() > 0 ? km_info[0].ToNumber().DoubleValue() : 0.0;
     typedef double (*km_fn_t)(double);
@@ -4166,7 +4112,7 @@ static Napi::Value libc_teeos_ceil_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
-static Napi::Value libc_teeos_ceilf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosCeilf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     float x = km_info.Length() > 0 ? km_info[0].ToNumber().FloatValue() : 0.0f;
     typedef float (*km_fn_t)(float);
@@ -4199,7 +4145,7 @@ static Napi::Value libc_teeos_ceilf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
-static Napi::Value libc_teeos_exp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosExp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     double x = km_info.Length() > 0 ? km_info[0].ToNumber().DoubleValue() : 0.0;
     typedef double (*km_fn_t)(double);
@@ -4232,7 +4178,7 @@ static Napi::Value libc_teeos_exp_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
-static Napi::Value libc_teeos_fabs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosFabs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     double x = km_info.Length() > 0 ? km_info[0].ToNumber().DoubleValue() : 0.0;
     typedef double (*km_fn_t)(double);
@@ -4265,7 +4211,7 @@ static Napi::Value libc_teeos_fabs_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
-static Napi::Value libc_teeos_floor_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosFloor_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     double x = km_info.Length() > 0 ? km_info[0].ToNumber().DoubleValue() : 0.0;
     typedef double (*km_fn_t)(double);
@@ -4298,7 +4244,7 @@ static Napi::Value libc_teeos_floor_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
-static Napi::Value libc_teeos_frexp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosFrexp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     double x = km_info.Length() > 0 ? km_info[0].ToNumber().DoubleValue() : 0.0;
     void* e = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -4332,7 +4278,7 @@ static Napi::Value libc_teeos_frexp_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
-static Napi::Value libc_teeos_log_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosLog_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     double x = km_info.Length() > 0 ? km_info[0].ToNumber().DoubleValue() : 0.0;
     typedef double (*km_fn_t)(double);
@@ -4365,7 +4311,7 @@ static Napi::Value libc_teeos_log_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
-static Napi::Value libc_teeos_log2_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosLog2_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     double x = km_info.Length() > 0 ? km_info[0].ToNumber().DoubleValue() : 0.0;
     typedef double (*km_fn_t)(double);
@@ -4398,7 +4344,7 @@ static Napi::Value libc_teeos_log2_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
-static Napi::Value libc_teeos_pow_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosPow_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     double x = km_info.Length() > 0 ? km_info[0].ToNumber().DoubleValue() : 0.0;
     double y = km_info.Length() > 1 ? km_info[1].ToNumber().DoubleValue() : 0.0;
@@ -4432,7 +4378,7 @@ static Napi::Value libc_teeos_pow_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
-static Napi::Value libc_teeos_roundf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosRoundf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     float x = km_info.Length() > 0 ? km_info[0].ToNumber().FloatValue() : 0.0f;
     typedef float (*km_fn_t)(float);
@@ -4465,7 +4411,7 @@ static Napi::Value libc_teeos_roundf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
-static Napi::Value libc_teeos_scalbn_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosScalbn_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     double x = km_info.Length() > 0 ? km_info[0].ToNumber().DoubleValue() : 0.0;
     int32_t n = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4499,7 +4445,7 @@ static Napi::Value libc_teeos_scalbn_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
-static Napi::Value libc_teeos_sqrt_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosSqrt_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     double x = km_info.Length() > 0 ? km_info[0].ToNumber().DoubleValue() : 0.0;
     typedef double (*km_fn_t)(double);
@@ -4532,7 +4478,7 @@ static Napi::Value libc_teeos_sqrt_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
-static Napi::Value libc_teeos_abs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosAbs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t x = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -4565,11 +4511,9 @@ static Napi::Value libc_teeos_abs_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_atof_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosAtof_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef double (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4600,11 +4544,9 @@ static Napi::Value libc_teeos_atof_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
-static Napi::Value libc_teeos_atoi_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosAtoi_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4635,11 +4577,9 @@ static Napi::Value libc_teeos_atoi_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_teeos_atol_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosAtol_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4670,11 +4610,9 @@ static Napi::Value libc_teeos_atol_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_teeos_atoll_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosAtoll_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4705,7 +4643,7 @@ static Napi::Value libc_teeos_atoll_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_teeos_bsearch_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosBsearch_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* key = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* base = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -4742,7 +4680,7 @@ static Napi::Value libc_teeos_bsearch_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_teeos_ecvt_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosEcvt_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     double x = km_info.Length() > 0 ? km_info[0].ToNumber().DoubleValue() : 0.0;
     int32_t n = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4778,7 +4716,7 @@ static Napi::Value libc_teeos_ecvt_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_teeos_imaxabs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosImaxabs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int64_t a = km_info.Length() > 0 ? km_napi_arg_i64(km_info[0]) : 0;
     typedef int64_t (*km_fn_t)(int64_t);
@@ -4811,7 +4749,7 @@ static Napi::Value libc_teeos_imaxabs_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_teeos_llabs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosLlabs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int64_t a = km_info.Length() > 0 ? km_napi_arg_i64(km_info[0]) : 0;
     typedef int64_t (*km_fn_t)(int64_t);
@@ -4844,7 +4782,7 @@ static Napi::Value libc_teeos_llabs_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_teeos_qsort_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosQsort_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* base = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t nel = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -4878,11 +4816,9 @@ static Napi::Value libc_teeos_qsort_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_teeos_strtoul_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosStrtoul_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* p = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t base = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef uint64_t (*km_fn_t)(const char*, void*, int32_t);
@@ -4915,11 +4851,9 @@ static Napi::Value libc_teeos_strtoul_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_teeos_strtol_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosStrtol_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* p = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t base = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(const char*, void*, int32_t);
@@ -4952,7 +4886,7 @@ static Napi::Value libc_teeos_strtol_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_teeos_wcstod_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcTeeosWcstod_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* s = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* p = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -4987,149 +4921,149 @@ static Napi::Value libc_teeos_wcstod_napi(const Napi::CallbackInfo& km_info) {
 }
 
 static void register_teeos_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_teeos_calloc", Napi::Function::New(env, libc_teeos_calloc_napi));
-    exports.Set("libc_teeos_malloc", Napi::Function::New(env, libc_teeos_malloc_napi));
-    exports.Set("libc_teeos_realloc", Napi::Function::New(env, libc_teeos_realloc_napi));
-    exports.Set("libc_teeos_alignedAlloc", Napi::Function::New(env, libc_teeos_alignedAlloc_napi));
-    exports.Set("libc_teeos_free", Napi::Function::New(env, libc_teeos_free_napi));
-    exports.Set("libc_teeos_posixMemalign", Napi::Function::New(env, libc_teeos_posixMemalign_napi));
-    exports.Set("libc_teeos_memchr", Napi::Function::New(env, libc_teeos_memchr_napi));
-    exports.Set("libc_teeos_wmemchr", Napi::Function::New(env, libc_teeos_wmemchr_napi));
-    exports.Set("libc_teeos_memcmp", Napi::Function::New(env, libc_teeos_memcmp_napi));
-    exports.Set("libc_teeos_memcpy", Napi::Function::New(env, libc_teeos_memcpy_napi));
-    exports.Set("libc_teeos_memmove", Napi::Function::New(env, libc_teeos_memmove_napi));
-    exports.Set("libc_teeos_memset", Napi::Function::New(env, libc_teeos_memset_napi));
-    exports.Set("libc_teeos_pthreadSelf", Napi::Function::New(env, libc_teeos_pthreadSelf_napi));
-    exports.Set("libc_teeos_pthreadJoin", Napi::Function::New(env, libc_teeos_pthreadJoin_napi));
-    exports.Set("libc_teeos_pthreadExit", Napi::Function::New(env, libc_teeos_pthreadExit_napi));
-    exports.Set("libc_teeos_pthreadAttrInit", Napi::Function::New(env, libc_teeos_pthreadAttrInit_napi));
-    exports.Set("libc_teeos_pthreadAttrDestroy", Napi::Function::New(env, libc_teeos_pthreadAttrDestroy_napi));
-    exports.Set("libc_teeos_pthreadAttrGetstack", Napi::Function::New(env, libc_teeos_pthreadAttrGetstack_napi));
-    exports.Set("libc_teeos_pthreadAttrSetstacksize", Napi::Function::New(env, libc_teeos_pthreadAttrSetstacksize_napi));
-    exports.Set("libc_teeos_pthreadAttrGetstacksize", Napi::Function::New(env, libc_teeos_pthreadAttrGetstacksize_napi));
-    exports.Set("libc_teeos_pthreadAttrSettee", Napi::Function::New(env, libc_teeos_pthreadAttrSettee_napi));
-    exports.Set("libc_teeos_schedYield", Napi::Function::New(env, libc_teeos_schedYield_napi));
-    exports.Set("libc_teeos_pthreadKeyCreate", Napi::Function::New(env, libc_teeos_pthreadKeyCreate_napi));
-    exports.Set("libc_teeos_pthreadKeyDelete", Napi::Function::New(env, libc_teeos_pthreadKeyDelete_napi));
-    exports.Set("libc_teeos_pthreadGetspecific", Napi::Function::New(env, libc_teeos_pthreadGetspecific_napi));
-    exports.Set("libc_teeos_pthreadSetspecific", Napi::Function::New(env, libc_teeos_pthreadSetspecific_napi));
-    exports.Set("libc_teeos_pthreadMutexDestroy", Napi::Function::New(env, libc_teeos_pthreadMutexDestroy_napi));
-    exports.Set("libc_teeos_pthreadMutexInit", Napi::Function::New(env, libc_teeos_pthreadMutexInit_napi));
-    exports.Set("libc_teeos_pthreadMutexLock", Napi::Function::New(env, libc_teeos_pthreadMutexLock_napi));
-    exports.Set("libc_teeos_pthreadMutexTrylock", Napi::Function::New(env, libc_teeos_pthreadMutexTrylock_napi));
-    exports.Set("libc_teeos_pthreadMutexUnlock", Napi::Function::New(env, libc_teeos_pthreadMutexUnlock_napi));
-    exports.Set("libc_teeos_pthreadMutexattrDestroy", Napi::Function::New(env, libc_teeos_pthreadMutexattrDestroy_napi));
-    exports.Set("libc_teeos_pthreadMutexattrInit", Napi::Function::New(env, libc_teeos_pthreadMutexattrInit_napi));
-    exports.Set("libc_teeos_pthreadMutexattrSettype", Napi::Function::New(env, libc_teeos_pthreadMutexattrSettype_napi));
-    exports.Set("libc_teeos_pthreadMutexattrSetpshared", Napi::Function::New(env, libc_teeos_pthreadMutexattrSetpshared_napi));
-    exports.Set("libc_teeos_pthreadCondBroadcast", Napi::Function::New(env, libc_teeos_pthreadCondBroadcast_napi));
-    exports.Set("libc_teeos_pthreadCondDestroy", Napi::Function::New(env, libc_teeos_pthreadCondDestroy_napi));
-    exports.Set("libc_teeos_pthreadCondInit", Napi::Function::New(env, libc_teeos_pthreadCondInit_napi));
-    exports.Set("libc_teeos_pthreadCondSignal", Napi::Function::New(env, libc_teeos_pthreadCondSignal_napi));
-    exports.Set("libc_teeos_pthreadCondWait", Napi::Function::New(env, libc_teeos_pthreadCondWait_napi));
-    exports.Set("libc_teeos_pthreadCondTimedwait", Napi::Function::New(env, libc_teeos_pthreadCondTimedwait_napi));
-    exports.Set("libc_teeos_pthreadMutexattrSetrobust", Napi::Function::New(env, libc_teeos_pthreadMutexattrSetrobust_napi));
-    exports.Set("libc_teeos_pthreadCreate", Napi::Function::New(env, libc_teeos_pthreadCreate_napi));
-    exports.Set("libc_teeos_pthreadSpinInit", Napi::Function::New(env, libc_teeos_pthreadSpinInit_napi));
-    exports.Set("libc_teeos_pthreadSpinDestroy", Napi::Function::New(env, libc_teeos_pthreadSpinDestroy_napi));
-    exports.Set("libc_teeos_pthreadSpinLock", Napi::Function::New(env, libc_teeos_pthreadSpinLock_napi));
-    exports.Set("libc_teeos_pthreadSpinTrylock", Napi::Function::New(env, libc_teeos_pthreadSpinTrylock_napi));
-    exports.Set("libc_teeos_pthreadSpinUnlock", Napi::Function::New(env, libc_teeos_pthreadSpinUnlock_napi));
-    exports.Set("libc_teeos_pthreadSetschedprio", Napi::Function::New(env, libc_teeos_pthreadSetschedprio_napi));
-    exports.Set("libc_teeos_pthreadOnce", Napi::Function::New(env, libc_teeos_pthreadOnce_napi));
-    exports.Set("libc_teeos_pthreadEqual", Napi::Function::New(env, libc_teeos_pthreadEqual_napi));
-    exports.Set("libc_teeos_pthreadMutexattrSetprotocol", Napi::Function::New(env, libc_teeos_pthreadMutexattrSetprotocol_napi));
-    exports.Set("libc_teeos_pthreadAttrSetstack", Napi::Function::New(env, libc_teeos_pthreadAttrSetstack_napi));
-    exports.Set("libc_teeos_pthreadSetaffinityNp", Napi::Function::New(env, libc_teeos_pthreadSetaffinityNp_napi));
-    exports.Set("libc_teeos_pthreadGetaffinityNp", Napi::Function::New(env, libc_teeos_pthreadGetaffinityNp_napi));
-    exports.Set("libc_teeos_printf", Napi::Function::New(env, libc_teeos_printf_napi));
-    exports.Set("libc_teeos_scanf", Napi::Function::New(env, libc_teeos_scanf_napi));
-    exports.Set("libc_teeos_snprintf", Napi::Function::New(env, libc_teeos_snprintf_napi));
-    exports.Set("libc_teeos_sprintf", Napi::Function::New(env, libc_teeos_sprintf_napi));
-    exports.Set("libc_teeos_vsnprintf", Napi::Function::New(env, libc_teeos_vsnprintf_napi));
-    exports.Set("libc_teeos_vsprintf", Napi::Function::New(env, libc_teeos_vsprintf_napi));
-    exports.Set("libc_teeos_abort", Napi::Function::New(env, libc_teeos_abort_napi));
-    exports.Set("libc_teeos_schedGetaffinity", Napi::Function::New(env, libc_teeos_schedGetaffinity_napi));
-    exports.Set("libc_teeos_schedSetaffinity", Napi::Function::New(env, libc_teeos_schedSetaffinity_napi));
-    exports.Set("libc_teeos_sysconf", Napi::Function::New(env, libc_teeos_sysconf_napi));
-    exports.Set("libc_teeos_mmap", Napi::Function::New(env, libc_teeos_mmap_napi));
-    exports.Set("libc_teeos_munmap", Napi::Function::New(env, libc_teeos_munmap_napi));
-    exports.Set("libc_teeos_errnoLocation", Napi::Function::New(env, libc_teeos_errnoLocation_napi));
-    exports.Set("libc_teeos_strerror", Napi::Function::New(env, libc_teeos_strerror_napi));
-    exports.Set("libc_teeos_clockGettime", Napi::Function::New(env, libc_teeos_clockGettime_napi));
-    exports.Set("libc_teeos_getpid", Napi::Function::New(env, libc_teeos_getpid_napi));
-    exports.Set("libc_teeos_gettimeofday", Napi::Function::New(env, libc_teeos_gettimeofday_napi));
-    exports.Set("libc_teeos_strftime", Napi::Function::New(env, libc_teeos_strftime_napi));
-    exports.Set("libc_teeos_time", Napi::Function::New(env, libc_teeos_time_napi));
-    exports.Set("libc_teeos_semClose", Napi::Function::New(env, libc_teeos_semClose_napi));
-    exports.Set("libc_teeos_semDestroy", Napi::Function::New(env, libc_teeos_semDestroy_napi));
-    exports.Set("libc_teeos_semGetvalue", Napi::Function::New(env, libc_teeos_semGetvalue_napi));
-    exports.Set("libc_teeos_semInit", Napi::Function::New(env, libc_teeos_semInit_napi));
-    exports.Set("libc_teeos_semOpen", Napi::Function::New(env, libc_teeos_semOpen_napi));
-    exports.Set("libc_teeos_semPost", Napi::Function::New(env, libc_teeos_semPost_napi));
-    exports.Set("libc_teeos_semUnlink", Napi::Function::New(env, libc_teeos_semUnlink_napi));
-    exports.Set("libc_teeos_semWait", Napi::Function::New(env, libc_teeos_semWait_napi));
-    exports.Set("libc_teeos_setlocale", Napi::Function::New(env, libc_teeos_setlocale_napi));
-    exports.Set("libc_teeos_strcoll", Napi::Function::New(env, libc_teeos_strcoll_napi));
-    exports.Set("libc_teeos_strxfrm", Napi::Function::New(env, libc_teeos_strxfrm_napi));
-    exports.Set("libc_teeos_strtod", Napi::Function::New(env, libc_teeos_strtod_napi));
-    exports.Set("libc_teeos_mbrtowc", Napi::Function::New(env, libc_teeos_mbrtowc_napi));
-    exports.Set("libc_teeos_wcrtomb", Napi::Function::New(env, libc_teeos_wcrtomb_napi));
-    exports.Set("libc_teeos_wctob", Napi::Function::New(env, libc_teeos_wctob_napi));
-    exports.Set("libc_teeos_srandom", Napi::Function::New(env, libc_teeos_srandom_napi));
-    exports.Set("libc_teeos_initstate", Napi::Function::New(env, libc_teeos_initstate_napi));
-    exports.Set("libc_teeos_setstate", Napi::Function::New(env, libc_teeos_setstate_napi));
-    exports.Set("libc_teeos_random", Napi::Function::New(env, libc_teeos_random_napi));
-    exports.Set("libc_teeos_strchr", Napi::Function::New(env, libc_teeos_strchr_napi));
-    exports.Set("libc_teeos_strlen", Napi::Function::New(env, libc_teeos_strlen_napi));
-    exports.Set("libc_teeos_strcmp", Napi::Function::New(env, libc_teeos_strcmp_napi));
-    exports.Set("libc_teeos_strcpy", Napi::Function::New(env, libc_teeos_strcpy_napi));
-    exports.Set("libc_teeos_strncmp", Napi::Function::New(env, libc_teeos_strncmp_napi));
-    exports.Set("libc_teeos_strncpy", Napi::Function::New(env, libc_teeos_strncpy_napi));
-    exports.Set("libc_teeos_strnlen", Napi::Function::New(env, libc_teeos_strnlen_napi));
-    exports.Set("libc_teeos_strrchr", Napi::Function::New(env, libc_teeos_strrchr_napi));
-    exports.Set("libc_teeos_strstr", Napi::Function::New(env, libc_teeos_strstr_napi));
-    exports.Set("libc_teeos_wcschr", Napi::Function::New(env, libc_teeos_wcschr_napi));
-    exports.Set("libc_teeos_wcslen", Napi::Function::New(env, libc_teeos_wcslen_napi));
-    exports.Set("libc_teeos_isalpha", Napi::Function::New(env, libc_teeos_isalpha_napi));
-    exports.Set("libc_teeos_isascii", Napi::Function::New(env, libc_teeos_isascii_napi));
-    exports.Set("libc_teeos_isdigit", Napi::Function::New(env, libc_teeos_isdigit_napi));
-    exports.Set("libc_teeos_islower", Napi::Function::New(env, libc_teeos_islower_napi));
-    exports.Set("libc_teeos_isprint", Napi::Function::New(env, libc_teeos_isprint_napi));
-    exports.Set("libc_teeos_isspace", Napi::Function::New(env, libc_teeos_isspace_napi));
-    exports.Set("libc_teeos_iswctype", Napi::Function::New(env, libc_teeos_iswctype_napi));
-    exports.Set("libc_teeos_iswdigit", Napi::Function::New(env, libc_teeos_iswdigit_napi));
-    exports.Set("libc_teeos_iswlower", Napi::Function::New(env, libc_teeos_iswlower_napi));
-    exports.Set("libc_teeos_iswspace", Napi::Function::New(env, libc_teeos_iswspace_napi));
-    exports.Set("libc_teeos_iswupper", Napi::Function::New(env, libc_teeos_iswupper_napi));
-    exports.Set("libc_teeos_towupper", Napi::Function::New(env, libc_teeos_towupper_napi));
-    exports.Set("libc_teeos_towlower", Napi::Function::New(env, libc_teeos_towlower_napi));
-    exports.Set("libc_teeos_atan", Napi::Function::New(env, libc_teeos_atan_napi));
-    exports.Set("libc_teeos_ceil", Napi::Function::New(env, libc_teeos_ceil_napi));
-    exports.Set("libc_teeos_ceilf", Napi::Function::New(env, libc_teeos_ceilf_napi));
-    exports.Set("libc_teeos_exp", Napi::Function::New(env, libc_teeos_exp_napi));
-    exports.Set("libc_teeos_fabs", Napi::Function::New(env, libc_teeos_fabs_napi));
-    exports.Set("libc_teeos_floor", Napi::Function::New(env, libc_teeos_floor_napi));
-    exports.Set("libc_teeos_frexp", Napi::Function::New(env, libc_teeos_frexp_napi));
-    exports.Set("libc_teeos_log", Napi::Function::New(env, libc_teeos_log_napi));
-    exports.Set("libc_teeos_log2", Napi::Function::New(env, libc_teeos_log2_napi));
-    exports.Set("libc_teeos_pow", Napi::Function::New(env, libc_teeos_pow_napi));
-    exports.Set("libc_teeos_roundf", Napi::Function::New(env, libc_teeos_roundf_napi));
-    exports.Set("libc_teeos_scalbn", Napi::Function::New(env, libc_teeos_scalbn_napi));
-    exports.Set("libc_teeos_sqrt", Napi::Function::New(env, libc_teeos_sqrt_napi));
-    exports.Set("libc_teeos_abs", Napi::Function::New(env, libc_teeos_abs_napi));
-    exports.Set("libc_teeos_atof", Napi::Function::New(env, libc_teeos_atof_napi));
-    exports.Set("libc_teeos_atoi", Napi::Function::New(env, libc_teeos_atoi_napi));
-    exports.Set("libc_teeos_atol", Napi::Function::New(env, libc_teeos_atol_napi));
-    exports.Set("libc_teeos_atoll", Napi::Function::New(env, libc_teeos_atoll_napi));
-    exports.Set("libc_teeos_bsearch", Napi::Function::New(env, libc_teeos_bsearch_napi));
-    exports.Set("libc_teeos_ecvt", Napi::Function::New(env, libc_teeos_ecvt_napi));
-    exports.Set("libc_teeos_imaxabs", Napi::Function::New(env, libc_teeos_imaxabs_napi));
-    exports.Set("libc_teeos_llabs", Napi::Function::New(env, libc_teeos_llabs_napi));
-    exports.Set("libc_teeos_qsort", Napi::Function::New(env, libc_teeos_qsort_napi));
-    exports.Set("libc_teeos_strtoul", Napi::Function::New(env, libc_teeos_strtoul_napi));
-    exports.Set("libc_teeos_strtol", Napi::Function::New(env, libc_teeos_strtol_napi));
-    exports.Set("libc_teeos_wcstod", Napi::Function::New(env, libc_teeos_wcstod_napi));
+    exports.Set("libcTeeosCalloc", Napi::Function::New(env, libcTeeosCalloc_napi));
+    exports.Set("libcTeeosMalloc", Napi::Function::New(env, libcTeeosMalloc_napi));
+    exports.Set("libcTeeosRealloc", Napi::Function::New(env, libcTeeosRealloc_napi));
+    exports.Set("libcTeeosAlignedAlloc", Napi::Function::New(env, libcTeeosAlignedAlloc_napi));
+    exports.Set("libcTeeosFree", Napi::Function::New(env, libcTeeosFree_napi));
+    exports.Set("libcTeeosPosixMemalign", Napi::Function::New(env, libcTeeosPosixMemalign_napi));
+    exports.Set("libcTeeosMemchr", Napi::Function::New(env, libcTeeosMemchr_napi));
+    exports.Set("libcTeeosWmemchr", Napi::Function::New(env, libcTeeosWmemchr_napi));
+    exports.Set("libcTeeosMemcmp", Napi::Function::New(env, libcTeeosMemcmp_napi));
+    exports.Set("libcTeeosMemcpy", Napi::Function::New(env, libcTeeosMemcpy_napi));
+    exports.Set("libcTeeosMemmove", Napi::Function::New(env, libcTeeosMemmove_napi));
+    exports.Set("libcTeeosMemset", Napi::Function::New(env, libcTeeosMemset_napi));
+    exports.Set("libcTeeosPthreadSelf", Napi::Function::New(env, libcTeeosPthreadSelf_napi));
+    exports.Set("libcTeeosPthreadJoin", Napi::Function::New(env, libcTeeosPthreadJoin_napi));
+    exports.Set("libcTeeosPthreadExit", Napi::Function::New(env, libcTeeosPthreadExit_napi));
+    exports.Set("libcTeeosPthreadAttrInit", Napi::Function::New(env, libcTeeosPthreadAttrInit_napi));
+    exports.Set("libcTeeosPthreadAttrDestroy", Napi::Function::New(env, libcTeeosPthreadAttrDestroy_napi));
+    exports.Set("libcTeeosPthreadAttrGetstack", Napi::Function::New(env, libcTeeosPthreadAttrGetstack_napi));
+    exports.Set("libcTeeosPthreadAttrSetstacksize", Napi::Function::New(env, libcTeeosPthreadAttrSetstacksize_napi));
+    exports.Set("libcTeeosPthreadAttrGetstacksize", Napi::Function::New(env, libcTeeosPthreadAttrGetstacksize_napi));
+    exports.Set("libcTeeosPthreadAttrSettee", Napi::Function::New(env, libcTeeosPthreadAttrSettee_napi));
+    exports.Set("libcTeeosSchedYield", Napi::Function::New(env, libcTeeosSchedYield_napi));
+    exports.Set("libcTeeosPthreadKeyCreate", Napi::Function::New(env, libcTeeosPthreadKeyCreate_napi));
+    exports.Set("libcTeeosPthreadKeyDelete", Napi::Function::New(env, libcTeeosPthreadKeyDelete_napi));
+    exports.Set("libcTeeosPthreadGetspecific", Napi::Function::New(env, libcTeeosPthreadGetspecific_napi));
+    exports.Set("libcTeeosPthreadSetspecific", Napi::Function::New(env, libcTeeosPthreadSetspecific_napi));
+    exports.Set("libcTeeosPthreadMutexDestroy", Napi::Function::New(env, libcTeeosPthreadMutexDestroy_napi));
+    exports.Set("libcTeeosPthreadMutexInit", Napi::Function::New(env, libcTeeosPthreadMutexInit_napi));
+    exports.Set("libcTeeosPthreadMutexLock", Napi::Function::New(env, libcTeeosPthreadMutexLock_napi));
+    exports.Set("libcTeeosPthreadMutexTrylock", Napi::Function::New(env, libcTeeosPthreadMutexTrylock_napi));
+    exports.Set("libcTeeosPthreadMutexUnlock", Napi::Function::New(env, libcTeeosPthreadMutexUnlock_napi));
+    exports.Set("libcTeeosPthreadMutexattrDestroy", Napi::Function::New(env, libcTeeosPthreadMutexattrDestroy_napi));
+    exports.Set("libcTeeosPthreadMutexattrInit", Napi::Function::New(env, libcTeeosPthreadMutexattrInit_napi));
+    exports.Set("libcTeeosPthreadMutexattrSettype", Napi::Function::New(env, libcTeeosPthreadMutexattrSettype_napi));
+    exports.Set("libcTeeosPthreadMutexattrSetpshared", Napi::Function::New(env, libcTeeosPthreadMutexattrSetpshared_napi));
+    exports.Set("libcTeeosPthreadCondBroadcast", Napi::Function::New(env, libcTeeosPthreadCondBroadcast_napi));
+    exports.Set("libcTeeosPthreadCondDestroy", Napi::Function::New(env, libcTeeosPthreadCondDestroy_napi));
+    exports.Set("libcTeeosPthreadCondInit", Napi::Function::New(env, libcTeeosPthreadCondInit_napi));
+    exports.Set("libcTeeosPthreadCondSignal", Napi::Function::New(env, libcTeeosPthreadCondSignal_napi));
+    exports.Set("libcTeeosPthreadCondWait", Napi::Function::New(env, libcTeeosPthreadCondWait_napi));
+    exports.Set("libcTeeosPthreadCondTimedwait", Napi::Function::New(env, libcTeeosPthreadCondTimedwait_napi));
+    exports.Set("libcTeeosPthreadMutexattrSetrobust", Napi::Function::New(env, libcTeeosPthreadMutexattrSetrobust_napi));
+    exports.Set("libcTeeosPthreadCreate", Napi::Function::New(env, libcTeeosPthreadCreate_napi));
+    exports.Set("libcTeeosPthreadSpinInit", Napi::Function::New(env, libcTeeosPthreadSpinInit_napi));
+    exports.Set("libcTeeosPthreadSpinDestroy", Napi::Function::New(env, libcTeeosPthreadSpinDestroy_napi));
+    exports.Set("libcTeeosPthreadSpinLock", Napi::Function::New(env, libcTeeosPthreadSpinLock_napi));
+    exports.Set("libcTeeosPthreadSpinTrylock", Napi::Function::New(env, libcTeeosPthreadSpinTrylock_napi));
+    exports.Set("libcTeeosPthreadSpinUnlock", Napi::Function::New(env, libcTeeosPthreadSpinUnlock_napi));
+    exports.Set("libcTeeosPthreadSetschedprio", Napi::Function::New(env, libcTeeosPthreadSetschedprio_napi));
+    exports.Set("libcTeeosPthreadOnce", Napi::Function::New(env, libcTeeosPthreadOnce_napi));
+    exports.Set("libcTeeosPthreadEqual", Napi::Function::New(env, libcTeeosPthreadEqual_napi));
+    exports.Set("libcTeeosPthreadMutexattrSetprotocol", Napi::Function::New(env, libcTeeosPthreadMutexattrSetprotocol_napi));
+    exports.Set("libcTeeosPthreadAttrSetstack", Napi::Function::New(env, libcTeeosPthreadAttrSetstack_napi));
+    exports.Set("libcTeeosPthreadSetaffinityNp", Napi::Function::New(env, libcTeeosPthreadSetaffinityNp_napi));
+    exports.Set("libcTeeosPthreadGetaffinityNp", Napi::Function::New(env, libcTeeosPthreadGetaffinityNp_napi));
+    exports.Set("libcTeeosPrintf", Napi::Function::New(env, libcTeeosPrintf_napi));
+    exports.Set("libcTeeosScanf", Napi::Function::New(env, libcTeeosScanf_napi));
+    exports.Set("libcTeeosSnprintf", Napi::Function::New(env, libcTeeosSnprintf_napi));
+    exports.Set("libcTeeosSprintf", Napi::Function::New(env, libcTeeosSprintf_napi));
+    exports.Set("libcTeeosVsnprintf", Napi::Function::New(env, libcTeeosVsnprintf_napi));
+    exports.Set("libcTeeosVsprintf", Napi::Function::New(env, libcTeeosVsprintf_napi));
+    exports.Set("libcTeeosAbort", Napi::Function::New(env, libcTeeosAbort_napi));
+    exports.Set("libcTeeosSchedGetaffinity", Napi::Function::New(env, libcTeeosSchedGetaffinity_napi));
+    exports.Set("libcTeeosSchedSetaffinity", Napi::Function::New(env, libcTeeosSchedSetaffinity_napi));
+    exports.Set("libcTeeosSysconf", Napi::Function::New(env, libcTeeosSysconf_napi));
+    exports.Set("libcTeeosMmap", Napi::Function::New(env, libcTeeosMmap_napi));
+    exports.Set("libcTeeosMunmap", Napi::Function::New(env, libcTeeosMunmap_napi));
+    exports.Set("libcTeeosErrnoLocation", Napi::Function::New(env, libcTeeosErrnoLocation_napi));
+    exports.Set("libcTeeosStrerror", Napi::Function::New(env, libcTeeosStrerror_napi));
+    exports.Set("libcTeeosClockGettime", Napi::Function::New(env, libcTeeosClockGettime_napi));
+    exports.Set("libcTeeosGetpid", Napi::Function::New(env, libcTeeosGetpid_napi));
+    exports.Set("libcTeeosGettimeofday", Napi::Function::New(env, libcTeeosGettimeofday_napi));
+    exports.Set("libcTeeosStrftime", Napi::Function::New(env, libcTeeosStrftime_napi));
+    exports.Set("libcTeeosTime", Napi::Function::New(env, libcTeeosTime_napi));
+    exports.Set("libcTeeosSemClose", Napi::Function::New(env, libcTeeosSemClose_napi));
+    exports.Set("libcTeeosSemDestroy", Napi::Function::New(env, libcTeeosSemDestroy_napi));
+    exports.Set("libcTeeosSemGetvalue", Napi::Function::New(env, libcTeeosSemGetvalue_napi));
+    exports.Set("libcTeeosSemInit", Napi::Function::New(env, libcTeeosSemInit_napi));
+    exports.Set("libcTeeosSemOpen", Napi::Function::New(env, libcTeeosSemOpen_napi));
+    exports.Set("libcTeeosSemPost", Napi::Function::New(env, libcTeeosSemPost_napi));
+    exports.Set("libcTeeosSemUnlink", Napi::Function::New(env, libcTeeosSemUnlink_napi));
+    exports.Set("libcTeeosSemWait", Napi::Function::New(env, libcTeeosSemWait_napi));
+    exports.Set("libcTeeosSetlocale", Napi::Function::New(env, libcTeeosSetlocale_napi));
+    exports.Set("libcTeeosStrcoll", Napi::Function::New(env, libcTeeosStrcoll_napi));
+    exports.Set("libcTeeosStrxfrm", Napi::Function::New(env, libcTeeosStrxfrm_napi));
+    exports.Set("libcTeeosStrtod", Napi::Function::New(env, libcTeeosStrtod_napi));
+    exports.Set("libcTeeosMbrtowc", Napi::Function::New(env, libcTeeosMbrtowc_napi));
+    exports.Set("libcTeeosWcrtomb", Napi::Function::New(env, libcTeeosWcrtomb_napi));
+    exports.Set("libcTeeosWctob", Napi::Function::New(env, libcTeeosWctob_napi));
+    exports.Set("libcTeeosSrandom", Napi::Function::New(env, libcTeeosSrandom_napi));
+    exports.Set("libcTeeosInitstate", Napi::Function::New(env, libcTeeosInitstate_napi));
+    exports.Set("libcTeeosSetstate", Napi::Function::New(env, libcTeeosSetstate_napi));
+    exports.Set("libcTeeosRandom", Napi::Function::New(env, libcTeeosRandom_napi));
+    exports.Set("libcTeeosStrchr", Napi::Function::New(env, libcTeeosStrchr_napi));
+    exports.Set("libcTeeosStrlen", Napi::Function::New(env, libcTeeosStrlen_napi));
+    exports.Set("libcTeeosStrcmp", Napi::Function::New(env, libcTeeosStrcmp_napi));
+    exports.Set("libcTeeosStrcpy", Napi::Function::New(env, libcTeeosStrcpy_napi));
+    exports.Set("libcTeeosStrncmp", Napi::Function::New(env, libcTeeosStrncmp_napi));
+    exports.Set("libcTeeosStrncpy", Napi::Function::New(env, libcTeeosStrncpy_napi));
+    exports.Set("libcTeeosStrnlen", Napi::Function::New(env, libcTeeosStrnlen_napi));
+    exports.Set("libcTeeosStrrchr", Napi::Function::New(env, libcTeeosStrrchr_napi));
+    exports.Set("libcTeeosStrstr", Napi::Function::New(env, libcTeeosStrstr_napi));
+    exports.Set("libcTeeosWcschr", Napi::Function::New(env, libcTeeosWcschr_napi));
+    exports.Set("libcTeeosWcslen", Napi::Function::New(env, libcTeeosWcslen_napi));
+    exports.Set("libcTeeosIsalpha", Napi::Function::New(env, libcTeeosIsalpha_napi));
+    exports.Set("libcTeeosIsascii", Napi::Function::New(env, libcTeeosIsascii_napi));
+    exports.Set("libcTeeosIsdigit", Napi::Function::New(env, libcTeeosIsdigit_napi));
+    exports.Set("libcTeeosIslower", Napi::Function::New(env, libcTeeosIslower_napi));
+    exports.Set("libcTeeosIsprint", Napi::Function::New(env, libcTeeosIsprint_napi));
+    exports.Set("libcTeeosIsspace", Napi::Function::New(env, libcTeeosIsspace_napi));
+    exports.Set("libcTeeosIswctype", Napi::Function::New(env, libcTeeosIswctype_napi));
+    exports.Set("libcTeeosIswdigit", Napi::Function::New(env, libcTeeosIswdigit_napi));
+    exports.Set("libcTeeosIswlower", Napi::Function::New(env, libcTeeosIswlower_napi));
+    exports.Set("libcTeeosIswspace", Napi::Function::New(env, libcTeeosIswspace_napi));
+    exports.Set("libcTeeosIswupper", Napi::Function::New(env, libcTeeosIswupper_napi));
+    exports.Set("libcTeeosTowupper", Napi::Function::New(env, libcTeeosTowupper_napi));
+    exports.Set("libcTeeosTowlower", Napi::Function::New(env, libcTeeosTowlower_napi));
+    exports.Set("libcTeeosAtan", Napi::Function::New(env, libcTeeosAtan_napi));
+    exports.Set("libcTeeosCeil", Napi::Function::New(env, libcTeeosCeil_napi));
+    exports.Set("libcTeeosCeilf", Napi::Function::New(env, libcTeeosCeilf_napi));
+    exports.Set("libcTeeosExp", Napi::Function::New(env, libcTeeosExp_napi));
+    exports.Set("libcTeeosFabs", Napi::Function::New(env, libcTeeosFabs_napi));
+    exports.Set("libcTeeosFloor", Napi::Function::New(env, libcTeeosFloor_napi));
+    exports.Set("libcTeeosFrexp", Napi::Function::New(env, libcTeeosFrexp_napi));
+    exports.Set("libcTeeosLog", Napi::Function::New(env, libcTeeosLog_napi));
+    exports.Set("libcTeeosLog2", Napi::Function::New(env, libcTeeosLog2_napi));
+    exports.Set("libcTeeosPow", Napi::Function::New(env, libcTeeosPow_napi));
+    exports.Set("libcTeeosRoundf", Napi::Function::New(env, libcTeeosRoundf_napi));
+    exports.Set("libcTeeosScalbn", Napi::Function::New(env, libcTeeosScalbn_napi));
+    exports.Set("libcTeeosSqrt", Napi::Function::New(env, libcTeeosSqrt_napi));
+    exports.Set("libcTeeosAbs", Napi::Function::New(env, libcTeeosAbs_napi));
+    exports.Set("libcTeeosAtof", Napi::Function::New(env, libcTeeosAtof_napi));
+    exports.Set("libcTeeosAtoi", Napi::Function::New(env, libcTeeosAtoi_napi));
+    exports.Set("libcTeeosAtol", Napi::Function::New(env, libcTeeosAtol_napi));
+    exports.Set("libcTeeosAtoll", Napi::Function::New(env, libcTeeosAtoll_napi));
+    exports.Set("libcTeeosBsearch", Napi::Function::New(env, libcTeeosBsearch_napi));
+    exports.Set("libcTeeosEcvt", Napi::Function::New(env, libcTeeosEcvt_napi));
+    exports.Set("libcTeeosImaxabs", Napi::Function::New(env, libcTeeosImaxabs_napi));
+    exports.Set("libcTeeosLlabs", Napi::Function::New(env, libcTeeosLlabs_napi));
+    exports.Set("libcTeeosQsort", Napi::Function::New(env, libcTeeosQsort_napi));
+    exports.Set("libcTeeosStrtoul", Napi::Function::New(env, libcTeeosStrtoul_napi));
+    exports.Set("libcTeeosStrtol", Napi::Function::New(env, libcTeeosStrtol_napi));
+    exports.Set("libcTeeosWcstod", Napi::Function::New(env, libcTeeosWcstod_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_teeos_napi, nullptr };

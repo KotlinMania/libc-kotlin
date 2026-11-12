@@ -1,14 +1,17 @@
-@file:OptIn(kotlin.ExperimentalUnsignedTypes::class)
+@file:OptIn(kotlin.ExperimentalUnsignedTypes::class, kotlin.wasm.ExperimentalWasmInterop::class)
 
 package io.github.kotlinmania.libc.new.apple.libpthread.pthread.spawn
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.new.apple.libpthread.sys.qos.QosClassT
+import io.github.kotlinmania.libc.unix.bsd.apple.PosixSpawnattrT
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
-public actual fun posixSpawnattrSetQosClassNp(attr: COpaquePointer?, qosClass: QosClassT): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+// The host must provide the C companion wrapper exports in import module libc.
+public actual fun posixSpawnattrSetQosClassNp(attr: MutPtr<PosixSpawnattrT>, qosClass: QosClassT): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcNewAppleLibpthreadPthreadSpawnPosixSpawnattrSetQosClassNp")
 
-public actual fun posixSpawnattrGetQosClassNp(attr: COpaquePointer?, qosClass: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun posixSpawnattrGetQosClassNp(attr: ConstPtr<PosixSpawnattrT>, qosClass: MutPtr<QosClassT>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcNewAppleLibpthreadPthreadSpawnPosixSpawnattrGetQosClassNp")

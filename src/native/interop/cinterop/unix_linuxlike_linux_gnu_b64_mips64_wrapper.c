@@ -15,7 +15,7 @@
 #endif
 #endif
 
-int32_t libc_unix_linuxlike_linux_gnu_b64_mips64_sysctl(void* name, int32_t namelen, void* oldp, void* oldlenp, void* newp, uint64_t newlen) {
+int32_t libcUnixLinuxlikeLinuxGnuB64Mips64Sysctl(void* name, int32_t namelen, void* oldp, void* oldlenp, void* newp, uint64_t newlen) {
     typedef int32_t (*km_fn_t)(void*, int32_t, void*, void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

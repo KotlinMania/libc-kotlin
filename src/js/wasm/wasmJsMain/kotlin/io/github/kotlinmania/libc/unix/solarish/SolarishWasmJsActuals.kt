@@ -3,1723 +3,1735 @@
 package io.github.kotlinmania.libc.unix.solarish
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
+import io.github.kotlinmania.libc.CDouble
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.unix.DIR
 import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.GidT
+import io.github.kotlinmania.libc.unix.Group
+import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.PidT
+import io.github.kotlinmania.libc.unix.Rlimit
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.Timeval
 import io.github.kotlinmania.libc.unix.UidT
 import io.github.kotlinmania.libc.unix.UintptrT
+import io.github.kotlinmania.libc.unix.solarish.illumos.Aiocb
 import io.github.kotlinmania.libc.unix.solarish.illumos.LgrpAffinityT
 import io.github.kotlinmania.libc.unix.solarish.illumos.LgrpRsrcT
+import io.github.kotlinmania.libc.unix.solarish.illumos.ShmidDs
+import io.github.kotlinmania.libc.unix.solarish.illumos.Utmpx
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 @JsFun("() => { if (typeof globalThis.__km_napi_libc !== 'undefined') return globalThis.__km_napi_libc !== null; if (typeof process === 'undefined' || !process.versions || !process.versions.node) { globalThis.__km_napi_libc = null; return false; } var mod = process.getBuiltinModule ? process.getBuiltinModule('module') : (process.mainModule && process.mainModule.constructor); var req = (mod && mod.createRequire) ? mod.createRequire((process.cwd ? process.cwd() : '.') + '/package.json') : (process.mainModule ? process.mainModule.require : null); if (!req) { globalThis.__km_napi_libc = null; return false; } try { globalThis.__km_napi_libc = req('@kotlinmania/libc-native-bindings'); return true; } catch (_) {} var fs = req('fs'); var path = req('path'); var dir = process.cwd ? process.cwd() : '.'; var rels = ['libc_native.node', 'build/node-ffi/libc_native.node', 'build/node-ffi/release/libc_native.node', 'build/node-ffi/debug/libc_native.node', 'src/js/node-libc/build/Release/libc_native.node', 'src/js/node-libc/build/Debug/libc_native.node', 'src/js/node-libc/dist/build/Release/libc_native.node', 'src/js/node-libc/dist/build/Debug/libc_native.node', 'c_native.node', 'build/node-ffi/c_native.node', 'build/node-ffi/release/c_native.node', 'build/node-ffi/debug/c_native.node', 'src/js/node-libc/build/Release/c_native.node', 'src/js/node-libc/build/Debug/c_native.node', 'src/js/node-libc/dist/build/Release/c_native.node', 'src/js/node-libc/dist/build/Debug/c_native.node']; for (var d = 0; d < 8; d++) { for (var i = 0; i < rels.length; i++) { var c = path.resolve(dir, rels[i]); if (fs.existsSync(c)) { globalThis.__km_napi_libc = req(c); return true; } } var parent = path.dirname(dir); if (parent === dir) break; dir = parent; } globalThis.__km_napi_libc = null; return false; }")
-private external fun _initUnixSolarishNapiAddon(): Boolean
+private external fun initUnixSolarishNapiAddon(): Boolean
 
-private val _unixSolarishNapiAvailable: Boolean = _initUnixSolarishNapiAddon()
+private val unixSolarishNapiAvailable: Boolean = initUnixSolarishNapiAddon()
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_getrlimit(p0, p1)")
-private external fun _wasm_libc_unix_solarish_getrlimit(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishGetrlimit(p0, p1)")
+private external fun wasmLibcUnixSolarishGetrlimit(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_setrlimit(p0, p1)")
-private external fun _wasm_libc_unix_solarish_setrlimit(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishSetrlimit(p0, p1)")
+private external fun wasmLibcUnixSolarishSetrlimit(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_solarish_strerrorR(p0, p1, p2)")
-private external fun _wasm_libc_unix_solarish_strerrorR(p0: Int, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixSolarishStrerrorR(p0, p1, p2)")
+private external fun wasmLibcUnixSolarishStrerrorR(p0: Int, p1: String, p2: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_semDestroy(p0)")
-private external fun _wasm_libc_unix_solarish_semDestroy(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishSemDestroy(p0)")
+private external fun wasmLibcUnixSolarishSemDestroy(p0: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_solarish_semInit(p0, p1, p2)")
-private external fun _wasm_libc_unix_solarish_semInit(p0: String, p1: Int, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixSolarishSemInit(p0, p1, p2)")
+private external fun wasmLibcUnixSolarishSemInit(p0: String, p1: Int, p2: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_abs(p0)")
-private external fun _wasm_libc_unix_solarish_abs(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishAbs(p0)")
+private external fun wasmLibcUnixSolarishAbs(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_acct(p0)")
-private external fun _wasm_libc_unix_solarish_acct(p0: String?): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishAcct(p0)")
+private external fun wasmLibcUnixSolarishAcct(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_dirfd(p0)")
-private external fun _wasm_libc_unix_solarish_dirfd(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishDirfd(p0)")
+private external fun wasmLibcUnixSolarishDirfd(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_labs(p0)")
-private external fun _wasm_libc_unix_solarish_labs(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishLabs(p0)")
+private external fun wasmLibcUnixSolarishLabs(p0: String): String
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_solarish_rand()")
-private external fun _wasm_libc_unix_solarish_rand(): Int
+@JsFun("() => globalThis.__km_napi_libc.libcUnixSolarishRand()")
+private external fun wasmLibcUnixSolarishRand(): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_srand(p0)")
-private external fun _wasm_libc_unix_solarish_srand(p0: Int)
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishSrand(p0)")
+private external fun wasmLibcUnixSolarishSrand(p0: Int)
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_getentropy(p0, p1)")
-private external fun _wasm_libc_unix_solarish_getentropy(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishGetentropy(p0, p1)")
+private external fun wasmLibcUnixSolarishGetentropy(p0: String, p1: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_solarish_getrandom(p0, p1, p2)")
-private external fun _wasm_libc_unix_solarish_getrandom(p0: String, p1: String, p2: Int): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixSolarishGetrandom(p0, p1, p2)")
+private external fun wasmLibcUnixSolarishGetrandom(p0: String, p1: String, p2: Int): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_gettimeofday(p0, p1)")
-private external fun _wasm_libc_unix_solarish_gettimeofday(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishGettimeofday(p0, p1)")
+private external fun wasmLibcUnixSolarishGettimeofday(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_settimeofday(p0, p1)")
-private external fun _wasm_libc_unix_solarish_settimeofday(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishSettimeofday(p0, p1)")
+private external fun wasmLibcUnixSolarishSettimeofday(p0: String, p1: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_getifaddrs(p0)")
-private external fun _wasm_libc_unix_solarish_getifaddrs(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishGetifaddrs(p0)")
+private external fun wasmLibcUnixSolarishGetifaddrs(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_freeifaddrs(p0)")
-private external fun _wasm_libc_unix_solarish_freeifaddrs(p0: String)
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishFreeifaddrs(p0)")
+private external fun wasmLibcUnixSolarishFreeifaddrs(p0: String)
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_stackGetbounds(p0)")
-private external fun _wasm_libc_unix_solarish_stackGetbounds(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishStackGetbounds(p0)")
+private external fun wasmLibcUnixSolarishStackGetbounds(p0: String): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_solarish_getgrouplist(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_solarish_getgrouplist(p0: String?, p1: Int, p2: String, p3: String): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixSolarishGetgrouplist(p0, p1, p2, p3)")
+private external fun wasmLibcUnixSolarishGetgrouplist(p0: String, p1: Int, p2: String, p3: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_initgroups(p0, p1)")
-private external fun _wasm_libc_unix_solarish_initgroups(p0: String?, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishInitgroups(p0, p1)")
+private external fun wasmLibcUnixSolarishInitgroups(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_setgroups(p0, p1)")
-private external fun _wasm_libc_unix_solarish_setgroups(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishSetgroups(p0, p1)")
+private external fun wasmLibcUnixSolarishSetgroups(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libc_unix_solarish_ioctl(p0, p1, p2, p3, p4, p5, p6)")
-private external fun _wasm_libc_unix_solarish_ioctl(p0: Int, p1: Int, p2: Int, p3: String, p4: String, p5: String, p6: String): Int
+@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libcUnixSolarishIoctl(p0, p1, p2, p3, p4, p5, p6)")
+private external fun wasmLibcUnixSolarishIoctl(p0: Int, p1: Int, p2: Int, p3: String, p4: String, p5: String, p6: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_solarish_mprotect(p0, p1, p2)")
-private external fun _wasm_libc_unix_solarish_mprotect(p0: String, p1: String, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixSolarishMprotect(p0, p1, p2)")
+private external fun wasmLibcUnixSolarishMprotect(p0: String, p1: String, p2: Int): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_solarish_errno()")
-private external fun _wasm_libc_unix_solarish_errno(): String
+@JsFun("() => globalThis.__km_napi_libc.libcUnixSolarishErrno()")
+private external fun wasmLibcUnixSolarishErrno(): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_clockGetres(p0, p1)")
-private external fun _wasm_libc_unix_solarish_clockGetres(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishClockGetres(p0, p1)")
+private external fun wasmLibcUnixSolarishClockGetres(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_clockGettime(p0, p1)")
-private external fun _wasm_libc_unix_solarish_clockGettime(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishClockGettime(p0, p1)")
+private external fun wasmLibcUnixSolarishClockGettime(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_solarish_clockNanosleep(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_solarish_clockNanosleep(p0: Int, p1: Int, p2: String, p3: String): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixSolarishClockNanosleep(p0, p1, p2, p3)")
+private external fun wasmLibcUnixSolarishClockNanosleep(p0: Int, p1: Int, p2: String, p3: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_clockSettime(p0, p1)")
-private external fun _wasm_libc_unix_solarish_clockSettime(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishClockSettime(p0, p1)")
+private external fun wasmLibcUnixSolarishClockSettime(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libc_unix_solarish_getnameinfo(p0, p1, p2, p3, p4, p5, p6)")
-private external fun _wasm_libc_unix_solarish_getnameinfo(p0: String, p1: Int, p2: String, p3: Int, p4: String, p5: Int, p6: Int): Int
+@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libcUnixSolarishGetnameinfo(p0, p1, p2, p3, p4, p5, p6)")
+private external fun wasmLibcUnixSolarishGetnameinfo(p0: String, p1: Int, p2: String, p3: Int, p4: String, p5: Int, p6: Int): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_solarish_setpwent()")
-private external fun _wasm_libc_unix_solarish_setpwent()
+@JsFun("() => globalThis.__km_napi_libc.libcUnixSolarishSetpwent()")
+private external fun wasmLibcUnixSolarishSetpwent()
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_solarish_endpwent()")
-private external fun _wasm_libc_unix_solarish_endpwent()
+@JsFun("() => globalThis.__km_napi_libc.libcUnixSolarishEndpwent()")
+private external fun wasmLibcUnixSolarishEndpwent()
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_solarish_getpwent()")
-private external fun _wasm_libc_unix_solarish_getpwent(): String
+@JsFun("() => globalThis.__km_napi_libc.libcUnixSolarishGetpwent()")
+private external fun wasmLibcUnixSolarishGetpwent(): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_fdatasync(p0)")
-private external fun _wasm_libc_unix_solarish_fdatasync(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishFdatasync(p0)")
+private external fun wasmLibcUnixSolarishFdatasync(p0: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_nlLanginfoL(p0, p1)")
-private external fun _wasm_libc_unix_solarish_nlLanginfoL(p0: Int, p1: String): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishNlLanginfoL(p0, p1)")
+private external fun wasmLibcUnixSolarishNlLanginfoL(p0: Int, p1: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_duplocale(p0)")
-private external fun _wasm_libc_unix_solarish_duplocale(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishDuplocale(p0)")
+private external fun wasmLibcUnixSolarishDuplocale(p0: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_freelocale(p0)")
-private external fun _wasm_libc_unix_solarish_freelocale(p0: String)
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishFreelocale(p0)")
+private external fun wasmLibcUnixSolarishFreelocale(p0: String)
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_solarish_newlocale(p0, p1, p2)")
-private external fun _wasm_libc_unix_solarish_newlocale(p0: Int, p1: String?, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixSolarishNewlocale(p0, p1, p2)")
+private external fun wasmLibcUnixSolarishNewlocale(p0: Int, p1: String, p2: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_uselocale(p0)")
-private external fun _wasm_libc_unix_solarish_uselocale(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishUselocale(p0)")
+private external fun wasmLibcUnixSolarishUselocale(p0: String): String
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_solarish_getprogname()")
-private external fun _wasm_libc_unix_solarish_getprogname(): String
+@JsFun("() => globalThis.__km_napi_libc.libcUnixSolarishGetprogname()")
+private external fun wasmLibcUnixSolarishGetprogname(): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_setprogname(p0)")
-private external fun _wasm_libc_unix_solarish_setprogname(p0: String?)
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishSetprogname(p0)")
+private external fun wasmLibcUnixSolarishSetprogname(p0: String)
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_getloadavg(p0, p1)")
-private external fun _wasm_libc_unix_solarish_getloadavg(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishGetloadavg(p0, p1)")
+private external fun wasmLibcUnixSolarishGetloadavg(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_getpriority(p0, p1)")
-private external fun _wasm_libc_unix_solarish_getpriority(p0: Int, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishGetpriority(p0, p1)")
+private external fun wasmLibcUnixSolarishGetpriority(p0: Int, p1: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_solarish_setpriority(p0, p1, p2)")
-private external fun _wasm_libc_unix_solarish_setpriority(p0: Int, p1: Int, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixSolarishSetpriority(p0, p1, p2)")
+private external fun wasmLibcUnixSolarishSetpriority(p0: Int, p1: Int, p2: Int): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_solarish_mknodat(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_solarish_mknodat(p0: Int, p1: String?, p2: Int, p3: String): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixSolarishMknodat(p0, p1, p2, p3)")
+private external fun wasmLibcUnixSolarishMknodat(p0: Int, p1: String, p2: Int, p3: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_solarish_mkfifoat(p0, p1, p2)")
-private external fun _wasm_libc_unix_solarish_mkfifoat(p0: Int, p1: String?, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixSolarishMkfifoat(p0, p1, p2)")
+private external fun wasmLibcUnixSolarishMkfifoat(p0: Int, p1: String, p2: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_sethostname(p0, p1)")
-private external fun _wasm_libc_unix_solarish_sethostname(p0: String?, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishSethostname(p0, p1)")
+private external fun wasmLibcUnixSolarishSethostname(p0: String, p1: Int): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_solarish_ifNameindex()")
-private external fun _wasm_libc_unix_solarish_ifNameindex(): String
+@JsFun("() => globalThis.__km_napi_libc.libcUnixSolarishIfNameindex()")
+private external fun wasmLibcUnixSolarishIfNameindex(): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_ifFreenameindex(p0)")
-private external fun _wasm_libc_unix_solarish_ifFreenameindex(p0: String)
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishIfFreenameindex(p0)")
+private external fun wasmLibcUnixSolarishIfFreenameindex(p0: String)
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_solarish_pthreadCreate(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_solarish_pthreadCreate(p0: String, p1: String, p2: String, p3: String): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixSolarishPthreadCreate(p0, p1, p2, p3)")
+private external fun wasmLibcUnixSolarishPthreadCreate(p0: String, p1: String, p2: String, p3: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_solarish_pthreadAttrGetstack(p0, p1, p2)")
-private external fun _wasm_libc_unix_solarish_pthreadAttrGetstack(p0: String, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixSolarishPthreadAttrGetstack(p0, p1, p2)")
+private external fun wasmLibcUnixSolarishPthreadAttrGetstack(p0: String, p1: String, p2: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_pthreadCondattrGetclock(p0, p1)")
-private external fun _wasm_libc_unix_solarish_pthreadCondattrGetclock(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishPthreadCondattrGetclock(p0, p1)")
+private external fun wasmLibcUnixSolarishPthreadCondattrGetclock(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_pthreadCondattrSetclock(p0, p1)")
-private external fun _wasm_libc_unix_solarish_pthreadCondattrSetclock(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishPthreadCondattrSetclock(p0, p1)")
+private external fun wasmLibcUnixSolarishPthreadCondattrSetclock(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_semTimedwait(p0, p1)")
-private external fun _wasm_libc_unix_solarish_semTimedwait(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishSemTimedwait(p0, p1)")
+private external fun wasmLibcUnixSolarishSemTimedwait(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_semGetvalue(p0, p1)")
-private external fun _wasm_libc_unix_solarish_semGetvalue(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishSemGetvalue(p0, p1)")
+private external fun wasmLibcUnixSolarishSemGetvalue(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_pthreadMutexTimedlock(p0, p1)")
-private external fun _wasm_libc_unix_solarish_pthreadMutexTimedlock(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishPthreadMutexTimedlock(p0, p1)")
+private external fun wasmLibcUnixSolarishPthreadMutexTimedlock(p0: String, p1: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_solarish_pthreadGetnameNp(p0, p1, p2)")
-private external fun _wasm_libc_unix_solarish_pthreadGetnameNp(p0: String, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixSolarishPthreadGetnameNp(p0, p1, p2)")
+private external fun wasmLibcUnixSolarishPthreadGetnameNp(p0: String, p1: String, p2: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_pthreadSetnameNp(p0, p1)")
-private external fun _wasm_libc_unix_solarish_pthreadSetnameNp(p0: String, p1: String?): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishPthreadSetnameNp(p0, p1)")
+private external fun wasmLibcUnixSolarishPthreadSetnameNp(p0: String, p1: String): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_solarish_waitid(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_solarish_waitid(p0: Int, p1: Int, p2: String, p3: Int): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixSolarishWaitid(p0, p1, p2, p3)")
+private external fun wasmLibcUnixSolarishWaitid(p0: Int, p1: Int, p2: String, p3: Int): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_solarish_glob(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_solarish_glob(p0: String?, p1: Int, p2: String, p3: String): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixSolarishGlob(p0, p1, p2, p3)")
+private external fun wasmLibcUnixSolarishGlob(p0: String, p1: Int, p2: String, p3: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_globfree(p0)")
-private external fun _wasm_libc_unix_solarish_globfree(p0: String)
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishGlobfree(p0)")
+private external fun wasmLibcUnixSolarishGlobfree(p0: String)
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_solarish_posixFallocate(p0, p1, p2)")
-private external fun _wasm_libc_unix_solarish_posixFallocate(p0: Int, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixSolarishPosixFallocate(p0, p1, p2)")
+private external fun wasmLibcUnixSolarishPosixFallocate(p0: Int, p1: String, p2: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_solarish_posixMadvise(p0, p1, p2)")
-private external fun _wasm_libc_unix_solarish_posixMadvise(p0: String, p1: String, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixSolarishPosixMadvise(p0, p1, p2)")
+private external fun wasmLibcUnixSolarishPosixMadvise(p0: String, p1: String, p2: Int): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libc_unix_solarish_posixSpawn(p0, p1, p2, p3, p4, p5)")
-private external fun _wasm_libc_unix_solarish_posixSpawn(p0: String, p1: String?, p2: String, p3: String, p4: String, p5: String): Int
+@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libcUnixSolarishPosixSpawn(p0, p1, p2, p3, p4, p5)")
+private external fun wasmLibcUnixSolarishPosixSpawn(p0: String, p1: String, p2: String, p3: String, p4: String, p5: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libc_unix_solarish_posixSpawnp(p0, p1, p2, p3, p4, p5)")
-private external fun _wasm_libc_unix_solarish_posixSpawnp(p0: String, p1: String?, p2: String, p3: String, p4: String, p5: String): Int
+@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libcUnixSolarishPosixSpawnp(p0, p1, p2, p3, p4, p5)")
+private external fun wasmLibcUnixSolarishPosixSpawnp(p0: String, p1: String, p2: String, p3: String, p4: String, p5: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_posixSpawnFileActionsInit(p0)")
-private external fun _wasm_libc_unix_solarish_posixSpawnFileActionsInit(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishPosixSpawnFileActionsInit(p0)")
+private external fun wasmLibcUnixSolarishPosixSpawnFileActionsInit(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_posixSpawnFileActionsDestroy(p0)")
-private external fun _wasm_libc_unix_solarish_posixSpawnFileActionsDestroy(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishPosixSpawnFileActionsDestroy(p0)")
+private external fun wasmLibcUnixSolarishPosixSpawnFileActionsDestroy(p0: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_unix_solarish_posixSpawnFileActionsAddopen(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_unix_solarish_posixSpawnFileActionsAddopen(p0: String, p1: Int, p2: String?, p3: Int, p4: Int): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcUnixSolarishPosixSpawnFileActionsAddopen(p0, p1, p2, p3, p4)")
+private external fun wasmLibcUnixSolarishPosixSpawnFileActionsAddopen(p0: String, p1: Int, p2: String, p3: Int, p4: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_posixSpawnFileActionsAddclose(p0, p1)")
-private external fun _wasm_libc_unix_solarish_posixSpawnFileActionsAddclose(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishPosixSpawnFileActionsAddclose(p0, p1)")
+private external fun wasmLibcUnixSolarishPosixSpawnFileActionsAddclose(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_solarish_posixSpawnFileActionsAdddup2(p0, p1, p2)")
-private external fun _wasm_libc_unix_solarish_posixSpawnFileActionsAdddup2(p0: String, p1: Int, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixSolarishPosixSpawnFileActionsAdddup2(p0, p1, p2)")
+private external fun wasmLibcUnixSolarishPosixSpawnFileActionsAdddup2(p0: String, p1: Int, p2: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_posixSpawnFileActionsAddclosefromNp(p0, p1)")
-private external fun _wasm_libc_unix_solarish_posixSpawnFileActionsAddclosefromNp(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishPosixSpawnFileActionsAddclosefromNp(p0, p1)")
+private external fun wasmLibcUnixSolarishPosixSpawnFileActionsAddclosefromNp(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_posixSpawnFileActionsAddchdir(p0, p1)")
-private external fun _wasm_libc_unix_solarish_posixSpawnFileActionsAddchdir(p0: String, p1: String?): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishPosixSpawnFileActionsAddchdir(p0, p1)")
+private external fun wasmLibcUnixSolarishPosixSpawnFileActionsAddchdir(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_posixSpawnFileActionsAddchdirNp(p0, p1)")
-private external fun _wasm_libc_unix_solarish_posixSpawnFileActionsAddchdirNp(p0: String, p1: String?): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishPosixSpawnFileActionsAddchdirNp(p0, p1)")
+private external fun wasmLibcUnixSolarishPosixSpawnFileActionsAddchdirNp(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_posixSpawnFileActionsAddfchdir(p0, p1)")
-private external fun _wasm_libc_unix_solarish_posixSpawnFileActionsAddfchdir(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishPosixSpawnFileActionsAddfchdir(p0, p1)")
+private external fun wasmLibcUnixSolarishPosixSpawnFileActionsAddfchdir(p0: String, p1: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_posixSpawnattrInit(p0)")
-private external fun _wasm_libc_unix_solarish_posixSpawnattrInit(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishPosixSpawnattrInit(p0)")
+private external fun wasmLibcUnixSolarishPosixSpawnattrInit(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_posixSpawnattrDestroy(p0)")
-private external fun _wasm_libc_unix_solarish_posixSpawnattrDestroy(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishPosixSpawnattrDestroy(p0)")
+private external fun wasmLibcUnixSolarishPosixSpawnattrDestroy(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_posixSpawnattrSetflags(p0, p1)")
-private external fun _wasm_libc_unix_solarish_posixSpawnattrSetflags(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishPosixSpawnattrSetflags(p0, p1)")
+private external fun wasmLibcUnixSolarishPosixSpawnattrSetflags(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_posixSpawnattrGetflags(p0, p1)")
-private external fun _wasm_libc_unix_solarish_posixSpawnattrGetflags(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishPosixSpawnattrGetflags(p0, p1)")
+private external fun wasmLibcUnixSolarishPosixSpawnattrGetflags(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_posixSpawnattrSetpgroup(p0, p1)")
-private external fun _wasm_libc_unix_solarish_posixSpawnattrSetpgroup(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishPosixSpawnattrSetpgroup(p0, p1)")
+private external fun wasmLibcUnixSolarishPosixSpawnattrSetpgroup(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_posixSpawnattrGetpgroup(p0, p1)")
-private external fun _wasm_libc_unix_solarish_posixSpawnattrGetpgroup(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishPosixSpawnattrGetpgroup(p0, p1)")
+private external fun wasmLibcUnixSolarishPosixSpawnattrGetpgroup(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_posixSpawnattrSetschedparam(p0, p1)")
-private external fun _wasm_libc_unix_solarish_posixSpawnattrSetschedparam(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishPosixSpawnattrSetschedparam(p0, p1)")
+private external fun wasmLibcUnixSolarishPosixSpawnattrSetschedparam(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_posixSpawnattrGetschedparam(p0, p1)")
-private external fun _wasm_libc_unix_solarish_posixSpawnattrGetschedparam(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishPosixSpawnattrGetschedparam(p0, p1)")
+private external fun wasmLibcUnixSolarishPosixSpawnattrGetschedparam(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_posixSpawnattrSetschedpolicy(p0, p1)")
-private external fun _wasm_libc_unix_solarish_posixSpawnattrSetschedpolicy(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishPosixSpawnattrSetschedpolicy(p0, p1)")
+private external fun wasmLibcUnixSolarishPosixSpawnattrSetschedpolicy(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_posixSpawnattrGetschedpolicy(p0, p1)")
-private external fun _wasm_libc_unix_solarish_posixSpawnattrGetschedpolicy(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishPosixSpawnattrGetschedpolicy(p0, p1)")
+private external fun wasmLibcUnixSolarishPosixSpawnattrGetschedpolicy(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_posixSpawnattrSetsigdefault(p0, p1)")
-private external fun _wasm_libc_unix_solarish_posixSpawnattrSetsigdefault(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishPosixSpawnattrSetsigdefault(p0, p1)")
+private external fun wasmLibcUnixSolarishPosixSpawnattrSetsigdefault(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_posixSpawnattrGetsigdefault(p0, p1)")
-private external fun _wasm_libc_unix_solarish_posixSpawnattrGetsigdefault(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishPosixSpawnattrGetsigdefault(p0, p1)")
+private external fun wasmLibcUnixSolarishPosixSpawnattrGetsigdefault(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_posixSpawnattrSetsigignoreNp(p0, p1)")
-private external fun _wasm_libc_unix_solarish_posixSpawnattrSetsigignoreNp(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishPosixSpawnattrSetsigignoreNp(p0, p1)")
+private external fun wasmLibcUnixSolarishPosixSpawnattrSetsigignoreNp(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_posixSpawnattrGetsigignoreNp(p0, p1)")
-private external fun _wasm_libc_unix_solarish_posixSpawnattrGetsigignoreNp(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishPosixSpawnattrGetsigignoreNp(p0, p1)")
+private external fun wasmLibcUnixSolarishPosixSpawnattrGetsigignoreNp(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_posixSpawnattrSetsigmask(p0, p1)")
-private external fun _wasm_libc_unix_solarish_posixSpawnattrSetsigmask(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishPosixSpawnattrSetsigmask(p0, p1)")
+private external fun wasmLibcUnixSolarishPosixSpawnattrSetsigmask(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_posixSpawnattrGetsigmask(p0, p1)")
-private external fun _wasm_libc_unix_solarish_posixSpawnattrGetsigmask(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishPosixSpawnattrGetsigmask(p0, p1)")
+private external fun wasmLibcUnixSolarishPosixSpawnattrGetsigmask(p0: String, p1: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_solarish_shmat(p0, p1, p2)")
-private external fun _wasm_libc_unix_solarish_shmat(p0: Int, p1: String, p2: Int): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixSolarishShmat(p0, p1, p2)")
+private external fun wasmLibcUnixSolarishShmat(p0: Int, p1: String, p2: Int): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_solarish_shmctl(p0, p1, p2)")
-private external fun _wasm_libc_unix_solarish_shmctl(p0: Int, p1: Int, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixSolarishShmctl(p0, p1, p2)")
+private external fun wasmLibcUnixSolarishShmctl(p0: Int, p1: Int, p2: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_shmdt(p0)")
-private external fun _wasm_libc_unix_solarish_shmdt(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishShmdt(p0)")
+private external fun wasmLibcUnixSolarishShmdt(p0: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_solarish_shmget(p0, p1, p2)")
-private external fun _wasm_libc_unix_solarish_shmget(p0: Int, p1: String, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixSolarishShmget(p0, p1, p2)")
+private external fun wasmLibcUnixSolarishShmget(p0: Int, p1: String, p2: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_solarish_shmOpen(p0, p1, p2)")
-private external fun _wasm_libc_unix_solarish_shmOpen(p0: String?, p1: Int, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixSolarishShmOpen(p0, p1, p2)")
+private external fun wasmLibcUnixSolarishShmOpen(p0: String, p1: Int, p2: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_shmUnlink(p0)")
-private external fun _wasm_libc_unix_solarish_shmUnlink(p0: String?): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishShmUnlink(p0)")
+private external fun wasmLibcUnixSolarishShmUnlink(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_seekdir(p0, p1)")
-private external fun _wasm_libc_unix_solarish_seekdir(p0: String, p1: String)
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishSeekdir(p0, p1)")
+private external fun wasmLibcUnixSolarishSeekdir(p0: String, p1: String)
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_telldir(p0)")
-private external fun _wasm_libc_unix_solarish_telldir(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishTelldir(p0)")
+private external fun wasmLibcUnixSolarishTelldir(p0: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_solarish_madvise(p0, p1, p2)")
-private external fun _wasm_libc_unix_solarish_madvise(p0: String, p1: String, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixSolarishMadvise(p0, p1, p2)")
+private external fun wasmLibcUnixSolarishMadvise(p0: String, p1: String, p2: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_solarish_msync(p0, p1, p2)")
-private external fun _wasm_libc_unix_solarish_msync(p0: String, p1: String, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixSolarishMsync(p0, p1, p2)")
+private external fun wasmLibcUnixSolarishMsync(p0: String, p1: String, p2: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_memalign(p0, p1)")
-private external fun _wasm_libc_unix_solarish_memalign(p0: String, p1: String): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishMemalign(p0, p1)")
+private external fun wasmLibcUnixSolarishMemalign(p0: String, p1: String): String
 
-@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libc_unix_solarish_recvfrom(p0, p1, p2, p3, p4, p5)")
-private external fun _wasm_libc_unix_solarish_recvfrom(p0: Int, p1: String, p2: String, p3: Int, p4: String, p5: String): String
+@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libcUnixSolarishRecvfrom(p0, p1, p2, p3, p4, p5)")
+private external fun wasmLibcUnixSolarishRecvfrom(p0: Int, p1: String, p2: String, p3: Int, p4: String, p5: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_mkstemps(p0, p1)")
-private external fun _wasm_libc_unix_solarish_mkstemps(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishMkstemps(p0, p1)")
+private external fun wasmLibcUnixSolarishMkstemps(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_solarish_futimesat(p0, p1, p2)")
-private external fun _wasm_libc_unix_solarish_futimesat(p0: Int, p1: String?, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixSolarishFutimesat(p0, p1, p2)")
+private external fun wasmLibcUnixSolarishFutimesat(p0: Int, p1: String, p2: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_futimens(p0, p1)")
-private external fun _wasm_libc_unix_solarish_futimens(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishFutimens(p0, p1)")
+private external fun wasmLibcUnixSolarishFutimens(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_solarish_utimensat(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_solarish_utimensat(p0: Int, p1: String?, p2: String, p3: Int): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixSolarishUtimensat(p0, p1, p2, p3)")
+private external fun wasmLibcUnixSolarishUtimensat(p0: Int, p1: String, p2: String, p3: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_nlLanginfo(p0)")
-private external fun _wasm_libc_unix_solarish_nlLanginfo(p0: Int): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishNlLanginfo(p0)")
+private external fun wasmLibcUnixSolarishNlLanginfo(p0: Int): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_solarish_bind(p0, p1, p2)")
-private external fun _wasm_libc_unix_solarish_bind(p0: Int, p1: String, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixSolarishBind(p0, p1, p2)")
+private external fun wasmLibcUnixSolarishBind(p0: Int, p1: String, p2: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_solarish_writev(p0, p1, p2)")
-private external fun _wasm_libc_unix_solarish_writev(p0: Int, p1: String, p2: Int): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixSolarishWritev(p0, p1, p2)")
+private external fun wasmLibcUnixSolarishWritev(p0: Int, p1: String, p2: Int): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_solarish_readv(p0, p1, p2)")
-private external fun _wasm_libc_unix_solarish_readv(p0: Int, p1: String, p2: Int): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixSolarishReadv(p0, p1, p2)")
+private external fun wasmLibcUnixSolarishReadv(p0: Int, p1: String, p2: Int): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_solarish_sendmsg(p0, p1, p2)")
-private external fun _wasm_libc_unix_solarish_sendmsg(p0: Int, p1: String, p2: Int): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixSolarishSendmsg(p0, p1, p2)")
+private external fun wasmLibcUnixSolarishSendmsg(p0: Int, p1: String, p2: Int): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_solarish_recvmsg(p0, p1, p2)")
-private external fun _wasm_libc_unix_solarish_recvmsg(p0: Int, p1: String, p2: Int): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixSolarishRecvmsg(p0, p1, p2)")
+private external fun wasmLibcUnixSolarishRecvmsg(p0: Int, p1: String, p2: Int): String
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_solarish_accept4(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_solarish_accept4(p0: Int, p1: String, p2: String, p3: Int): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixSolarishAccept4(p0, p1, p2, p3)")
+private external fun wasmLibcUnixSolarishAccept4(p0: Int, p1: String, p2: String, p3: Int): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libc_unix_solarish_mqOpen(p0, p1, p2, p3, p4, p5, p6)")
-private external fun _wasm_libc_unix_solarish_mqOpen(p0: String?, p1: Int, p2: Int, p3: String, p4: String, p5: String, p6: String): String
+@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libcUnixSolarishMqOpen(p0, p1, p2, p3, p4, p5, p6)")
+private external fun wasmLibcUnixSolarishMqOpen(p0: String, p1: Int, p2: Int, p3: String, p4: String, p5: String, p6: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_mqClose(p0)")
-private external fun _wasm_libc_unix_solarish_mqClose(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishMqClose(p0)")
+private external fun wasmLibcUnixSolarishMqClose(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_mqUnlink(p0)")
-private external fun _wasm_libc_unix_solarish_mqUnlink(p0: String?): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishMqUnlink(p0)")
+private external fun wasmLibcUnixSolarishMqUnlink(p0: String): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_solarish_mqReceive(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_solarish_mqReceive(p0: String, p1: String, p2: String, p3: String): String
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixSolarishMqReceive(p0, p1, p2, p3)")
+private external fun wasmLibcUnixSolarishMqReceive(p0: String, p1: String, p2: String, p3: String): String
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_unix_solarish_mqTimedreceive(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_unix_solarish_mqTimedreceive(p0: String, p1: String, p2: String, p3: String, p4: String): String
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcUnixSolarishMqTimedreceive(p0, p1, p2, p3, p4)")
+private external fun wasmLibcUnixSolarishMqTimedreceive(p0: String, p1: String, p2: String, p3: String, p4: String): String
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_solarish_mqSend(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_solarish_mqSend(p0: String, p1: String?, p2: String, p3: Int): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixSolarishMqSend(p0, p1, p2, p3)")
+private external fun wasmLibcUnixSolarishMqSend(p0: String, p1: String, p2: String, p3: Int): Int
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_unix_solarish_mqTimedsend(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_unix_solarish_mqTimedsend(p0: String, p1: String?, p2: String, p3: Int, p4: String): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcUnixSolarishMqTimedsend(p0, p1, p2, p3, p4)")
+private external fun wasmLibcUnixSolarishMqTimedsend(p0: String, p1: String, p2: String, p3: Int, p4: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_mqGetattr(p0, p1)")
-private external fun _wasm_libc_unix_solarish_mqGetattr(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishMqGetattr(p0, p1)")
+private external fun wasmLibcUnixSolarishMqGetattr(p0: String, p1: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_solarish_mqSetattr(p0, p1, p2)")
-private external fun _wasm_libc_unix_solarish_mqSetattr(p0: String, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixSolarishMqSetattr(p0, p1, p2)")
+private external fun wasmLibcUnixSolarishMqSetattr(p0: String, p1: String, p2: String): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_solarish_portCreate()")
-private external fun _wasm_libc_unix_solarish_portCreate(): Int
+@JsFun("() => globalThis.__km_napi_libc.libcUnixSolarishPortCreate()")
+private external fun wasmLibcUnixSolarishPortCreate(): Int
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_unix_solarish_portAssociate(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_unix_solarish_portAssociate(p0: Int, p1: Int, p2: String, p3: Int, p4: String): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcUnixSolarishPortAssociate(p0, p1, p2, p3, p4)")
+private external fun wasmLibcUnixSolarishPortAssociate(p0: Int, p1: Int, p2: String, p3: Int, p4: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_solarish_portDissociate(p0, p1, p2)")
-private external fun _wasm_libc_unix_solarish_portDissociate(p0: Int, p1: Int, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixSolarishPortDissociate(p0, p1, p2)")
+private external fun wasmLibcUnixSolarishPortDissociate(p0: Int, p1: Int, p2: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_solarish_portGet(p0, p1, p2)")
-private external fun _wasm_libc_unix_solarish_portGet(p0: Int, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixSolarishPortGet(p0, p1, p2)")
+private external fun wasmLibcUnixSolarishPortGet(p0: Int, p1: String, p2: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_unix_solarish_portGetn(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_unix_solarish_portGetn(p0: Int, p1: String, p2: Int, p3: String, p4: String): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcUnixSolarishPortGetn(p0, p1, p2, p3, p4)")
+private external fun wasmLibcUnixSolarishPortGetn(p0: Int, p1: String, p2: Int, p3: String, p4: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_solarish_portSend(p0, p1, p2)")
-private external fun _wasm_libc_unix_solarish_portSend(p0: Int, p1: Int, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixSolarishPortSend(p0, p1, p2)")
+private external fun wasmLibcUnixSolarishPortSend(p0: Int, p1: Int, p2: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_unix_solarish_portSendn(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_unix_solarish_portSendn(p0: String, p1: String, p2: Int, p3: Int, p4: String): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcUnixSolarishPortSendn(p0, p1, p2, p3, p4)")
+private external fun wasmLibcUnixSolarishPortSendn(p0: String, p1: String, p2: Int, p3: Int, p4: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_unix_solarish_getgrgidR(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_unix_solarish_getgrgidR(p0: Int, p1: String, p2: String, p3: String, p4: String): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcUnixSolarishGetgrgidR(p0, p1, p2, p3, p4)")
+private external fun wasmLibcUnixSolarishGetgrgidR(p0: Int, p1: String, p2: String, p3: String, p4: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_sigaltstack(p0, p1)")
-private external fun _wasm_libc_unix_solarish_sigaltstack(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishSigaltstack(p0, p1)")
+private external fun wasmLibcUnixSolarishSigaltstack(p0: String, p1: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_sigsuspend(p0)")
-private external fun _wasm_libc_unix_solarish_sigsuspend(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishSigsuspend(p0)")
+private external fun wasmLibcUnixSolarishSigsuspend(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_semClose(p0)")
-private external fun _wasm_libc_unix_solarish_semClose(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishSemClose(p0)")
+private external fun wasmLibcUnixSolarishSemClose(p0: String): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_solarish_getdtablesize()")
-private external fun _wasm_libc_unix_solarish_getdtablesize(): Int
+@JsFun("() => globalThis.__km_napi_libc.libcUnixSolarishGetdtablesize()")
+private external fun wasmLibcUnixSolarishGetdtablesize(): Int
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_unix_solarish_getgrnamR(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_unix_solarish_getgrnamR(p0: String?, p1: String, p2: String, p3: String, p4: String): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcUnixSolarishGetgrnamR(p0, p1, p2, p3, p4)")
+private external fun wasmLibcUnixSolarishGetgrnamR(p0: String, p1: String, p2: String, p3: String, p4: String): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_solarish_thrSelf()")
-private external fun _wasm_libc_unix_solarish_thrSelf(): String
+@JsFun("() => globalThis.__km_napi_libc.libcUnixSolarishThrSelf()")
+private external fun wasmLibcUnixSolarishThrSelf(): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_solarish_pthreadSigmask(p0, p1, p2)")
-private external fun _wasm_libc_unix_solarish_pthreadSigmask(p0: Int, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixSolarishPthreadSigmask(p0, p1, p2)")
+private external fun wasmLibcUnixSolarishPthreadSigmask(p0: Int, p1: String, p2: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libc_unix_solarish_semOpen(p0, p1, p2, p3, p4, p5, p6)")
-private external fun _wasm_libc_unix_solarish_semOpen(p0: String?, p1: Int, p2: Int, p3: String, p4: String, p5: String, p6: String): String
+@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libcUnixSolarishSemOpen(p0, p1, p2, p3, p4, p5, p6)")
+private external fun wasmLibcUnixSolarishSemOpen(p0: String, p1: Int, p2: Int, p3: String, p4: String, p5: String, p6: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_getgrnam(p0)")
-private external fun _wasm_libc_unix_solarish_getgrnam(p0: String?): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishGetgrnam(p0)")
+private external fun wasmLibcUnixSolarishGetgrnam(p0: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_pthreadKill(p0, p1)")
-private external fun _wasm_libc_unix_solarish_pthreadKill(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishPthreadKill(p0, p1)")
+private external fun wasmLibcUnixSolarishPthreadKill(p0: String, p1: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_schedGetPriorityMin(p0)")
-private external fun _wasm_libc_unix_solarish_schedGetPriorityMin(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishSchedGetPriorityMin(p0)")
+private external fun wasmLibcUnixSolarishSchedGetPriorityMin(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_schedGetPriorityMax(p0)")
-private external fun _wasm_libc_unix_solarish_schedGetPriorityMax(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishSchedGetPriorityMax(p0)")
+private external fun wasmLibcUnixSolarishSchedGetPriorityMax(p0: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_schedGetparam(p0, p1)")
-private external fun _wasm_libc_unix_solarish_schedGetparam(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishSchedGetparam(p0, p1)")
+private external fun wasmLibcUnixSolarishSchedGetparam(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_schedSetparam(p0, p1)")
-private external fun _wasm_libc_unix_solarish_schedSetparam(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishSchedSetparam(p0, p1)")
+private external fun wasmLibcUnixSolarishSchedSetparam(p0: Int, p1: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_schedGetscheduler(p0)")
-private external fun _wasm_libc_unix_solarish_schedGetscheduler(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishSchedGetscheduler(p0)")
+private external fun wasmLibcUnixSolarishSchedGetscheduler(p0: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_solarish_schedSetscheduler(p0, p1, p2)")
-private external fun _wasm_libc_unix_solarish_schedSetscheduler(p0: Int, p1: Int, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixSolarishSchedSetscheduler(p0, p1, p2)")
+private external fun wasmLibcUnixSolarishSchedSetscheduler(p0: Int, p1: Int, p2: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_semUnlink(p0)")
-private external fun _wasm_libc_unix_solarish_semUnlink(p0: String?): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishSemUnlink(p0)")
+private external fun wasmLibcUnixSolarishSemUnlink(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_daemon(p0, p1)")
-private external fun _wasm_libc_unix_solarish_daemon(p0: Int, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishDaemon(p0, p1)")
+private external fun wasmLibcUnixSolarishDaemon(p0: Int, p1: Int): Int
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_unix_solarish_getpwnamR(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_unix_solarish_getpwnamR(p0: String?, p1: String, p2: String, p3: String, p4: String): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcUnixSolarishGetpwnamR(p0, p1, p2, p3, p4)")
+private external fun wasmLibcUnixSolarishGetpwnamR(p0: String, p1: String, p2: String, p3: String, p4: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_unix_solarish_getpwuidR(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_unix_solarish_getpwuidR(p0: Int, p1: String, p2: String, p3: String, p4: String): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcUnixSolarishGetpwuidR(p0, p1, p2, p3, p4)")
+private external fun wasmLibcUnixSolarishGetpwuidR(p0: Int, p1: String, p2: String, p3: String, p4: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_solarish_nativeGetpwentR(p0, p1, p2)")
-private external fun _wasm_libc_unix_solarish_nativeGetpwentR(p0: String, p1: String, p2: Int): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixSolarishNativeGetpwentR(p0, p1, p2)")
+private external fun wasmLibcUnixSolarishNativeGetpwentR(p0: String, p1: String, p2: Int): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_solarish_nativeGetgrentR(p0, p1, p2)")
-private external fun _wasm_libc_unix_solarish_nativeGetgrentR(p0: String, p1: String, p2: Int): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixSolarishNativeGetgrentR(p0, p1, p2)")
+private external fun wasmLibcUnixSolarishNativeGetgrentR(p0: String, p1: String, p2: Int): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_sigwait(p0, p1)")
-private external fun _wasm_libc_unix_solarish_sigwait(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishSigwait(p0, p1)")
+private external fun wasmLibcUnixSolarishSigwait(p0: String, p1: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_solarish_pthreadAtfork(p0, p1, p2)")
-private external fun _wasm_libc_unix_solarish_pthreadAtfork(p0: String, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixSolarishPthreadAtfork(p0, p1, p2)")
+private external fun wasmLibcUnixSolarishPthreadAtfork(p0: String, p1: String, p2: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_getgrgid(p0)")
-private external fun _wasm_libc_unix_solarish_getgrgid(p0: Int): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishGetgrgid(p0)")
+private external fun wasmLibcUnixSolarishGetgrgid(p0: Int): String
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_solarish_setgrent()")
-private external fun _wasm_libc_unix_solarish_setgrent()
+@JsFun("() => globalThis.__km_napi_libc.libcUnixSolarishSetgrent()")
+private external fun wasmLibcUnixSolarishSetgrent()
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_solarish_endgrent()")
-private external fun _wasm_libc_unix_solarish_endgrent()
+@JsFun("() => globalThis.__km_napi_libc.libcUnixSolarishEndgrent()")
+private external fun wasmLibcUnixSolarishEndgrent()
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_solarish_getgrent()")
-private external fun _wasm_libc_unix_solarish_getgrent(): String
+@JsFun("() => globalThis.__km_napi_libc.libcUnixSolarishGetgrent()")
+private external fun wasmLibcUnixSolarishGetgrent(): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_popen(p0, p1)")
-private external fun _wasm_libc_unix_solarish_popen(p0: String?, p1: String?): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishPopen(p0, p1)")
+private external fun wasmLibcUnixSolarishPopen(p0: String, p1: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_solarish_dup3(p0, p1, p2)")
-private external fun _wasm_libc_unix_solarish_dup3(p0: Int, p1: Int, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixSolarishDup3(p0, p1, p2)")
+private external fun wasmLibcUnixSolarishDup3(p0: Int, p1: Int, p2: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_uname(p0)")
-private external fun _wasm_libc_unix_solarish_uname(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishUname(p0)")
+private external fun wasmLibcUnixSolarishUname(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_pipe2(p0, p1)")
-private external fun _wasm_libc_unix_solarish_pipe2(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishPipe2(p0, p1)")
+private external fun wasmLibcUnixSolarishPipe2(p0: String, p1: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_makeutx(p0)")
-private external fun _wasm_libc_unix_solarish_makeutx(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishMakeutx(p0)")
+private external fun wasmLibcUnixSolarishMakeutx(p0: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_modutx(p0)")
-private external fun _wasm_libc_unix_solarish_modutx(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishModutx(p0)")
+private external fun wasmLibcUnixSolarishModutx(p0: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_updwtmpx(p0, p1)")
-private external fun _wasm_libc_unix_solarish_updwtmpx(p0: String?, p1: String)
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishUpdwtmpx(p0, p1)")
+private external fun wasmLibcUnixSolarishUpdwtmpx(p0: String, p1: String)
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_utmpxname(p0)")
-private external fun _wasm_libc_unix_solarish_utmpxname(p0: String?): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishUtmpxname(p0)")
+private external fun wasmLibcUnixSolarishUtmpxname(p0: String): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_solarish_getutxent()")
-private external fun _wasm_libc_unix_solarish_getutxent(): String
+@JsFun("() => globalThis.__km_napi_libc.libcUnixSolarishGetutxent()")
+private external fun wasmLibcUnixSolarishGetutxent(): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_getutxid(p0)")
-private external fun _wasm_libc_unix_solarish_getutxid(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishGetutxid(p0)")
+private external fun wasmLibcUnixSolarishGetutxid(p0: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_getutxline(p0)")
-private external fun _wasm_libc_unix_solarish_getutxline(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishGetutxline(p0)")
+private external fun wasmLibcUnixSolarishGetutxline(p0: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_pututxline(p0)")
-private external fun _wasm_libc_unix_solarish_pututxline(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishPututxline(p0)")
+private external fun wasmLibcUnixSolarishPututxline(p0: String): String
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_solarish_setutxent()")
-private external fun _wasm_libc_unix_solarish_setutxent()
+@JsFun("() => globalThis.__km_napi_libc.libcUnixSolarishSetutxent()")
+private external fun wasmLibcUnixSolarishSetutxent()
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_solarish_endutxent()")
-private external fun _wasm_libc_unix_solarish_endutxent()
+@JsFun("() => globalThis.__km_napi_libc.libcUnixSolarishEndutxent()")
+private external fun wasmLibcUnixSolarishEndutxent()
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_solarish_endutent()")
-private external fun _wasm_libc_unix_solarish_endutent()
+@JsFun("() => globalThis.__km_napi_libc.libcUnixSolarishEndutent()")
+private external fun wasmLibcUnixSolarishEndutent()
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_solarish_getutent()")
-private external fun _wasm_libc_unix_solarish_getutent(): String
+@JsFun("() => globalThis.__km_napi_libc.libcUnixSolarishGetutent()")
+private external fun wasmLibcUnixSolarishGetutent(): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_getutid(p0)")
-private external fun _wasm_libc_unix_solarish_getutid(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishGetutid(p0)")
+private external fun wasmLibcUnixSolarishGetutid(p0: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_getutline(p0)")
-private external fun _wasm_libc_unix_solarish_getutline(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishGetutline(p0)")
+private external fun wasmLibcUnixSolarishGetutline(p0: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_pututline(p0)")
-private external fun _wasm_libc_unix_solarish_pututline(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishPututline(p0)")
+private external fun wasmLibcUnixSolarishPututline(p0: String): String
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_solarish_setutent()")
-private external fun _wasm_libc_unix_solarish_setutent()
+@JsFun("() => globalThis.__km_napi_libc.libcUnixSolarishSetutent()")
+private external fun wasmLibcUnixSolarishSetutent()
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_utmpname(p0)")
-private external fun _wasm_libc_unix_solarish_utmpname(p0: String?): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishUtmpname(p0)")
+private external fun wasmLibcUnixSolarishUtmpname(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_getutmp(p0, p1)")
-private external fun _wasm_libc_unix_solarish_getutmp(p0: String, p1: String)
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishGetutmp(p0, p1)")
+private external fun wasmLibcUnixSolarishGetutmp(p0: String, p1: String)
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_getutmpx(p0, p1)")
-private external fun _wasm_libc_unix_solarish_getutmpx(p0: String, p1: String)
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishGetutmpx(p0, p1)")
+private external fun wasmLibcUnixSolarishGetutmpx(p0: String, p1: String)
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_updwtmp(p0, p1)")
-private external fun _wasm_libc_unix_solarish_updwtmp(p0: String?, p1: String)
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishUpdwtmp(p0, p1)")
+private external fun wasmLibcUnixSolarishUpdwtmp(p0: String, p1: String)
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_ntpAdjtime(p0)")
-private external fun _wasm_libc_unix_solarish_ntpAdjtime(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishNtpAdjtime(p0)")
+private external fun wasmLibcUnixSolarishNtpAdjtime(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_ntpGettime(p0)")
-private external fun _wasm_libc_unix_solarish_ntpGettime(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishNtpGettime(p0)")
+private external fun wasmLibcUnixSolarishNtpGettime(p0: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_solarish_timerCreate(p0, p1, p2)")
-private external fun _wasm_libc_unix_solarish_timerCreate(p0: Int, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixSolarishTimerCreate(p0, p1, p2)")
+private external fun wasmLibcUnixSolarishTimerCreate(p0: Int, p1: String, p2: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_timerDelete(p0)")
-private external fun _wasm_libc_unix_solarish_timerDelete(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishTimerDelete(p0)")
+private external fun wasmLibcUnixSolarishTimerDelete(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_timerGetoverrun(p0)")
-private external fun _wasm_libc_unix_solarish_timerGetoverrun(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishTimerGetoverrun(p0)")
+private external fun wasmLibcUnixSolarishTimerGetoverrun(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_timerGettime(p0, p1)")
-private external fun _wasm_libc_unix_solarish_timerGettime(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishTimerGettime(p0, p1)")
+private external fun wasmLibcUnixSolarishTimerGettime(p0: String, p1: String): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_solarish_timerSettime(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_solarish_timerSettime(p0: String, p1: Int, p2: String, p3: String): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixSolarishTimerSettime(p0, p1, p2, p3)")
+private external fun wasmLibcUnixSolarishTimerSettime(p0: String, p1: Int, p2: String, p3: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_ucredGet(p0)")
-private external fun _wasm_libc_unix_solarish_ucredGet(p0: Int): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishUcredGet(p0)")
+private external fun wasmLibcUnixSolarishUcredGet(p0: Int): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_getpeerucred(p0, p1)")
-private external fun _wasm_libc_unix_solarish_getpeerucred(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishGetpeerucred(p0, p1)")
+private external fun wasmLibcUnixSolarishGetpeerucred(p0: Int, p1: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_ucredFree(p0)")
-private external fun _wasm_libc_unix_solarish_ucredFree(p0: String)
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishUcredFree(p0)")
+private external fun wasmLibcUnixSolarishUcredFree(p0: String)
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_ucredGeteuid(p0)")
-private external fun _wasm_libc_unix_solarish_ucredGeteuid(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishUcredGeteuid(p0)")
+private external fun wasmLibcUnixSolarishUcredGeteuid(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_ucredGetruid(p0)")
-private external fun _wasm_libc_unix_solarish_ucredGetruid(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishUcredGetruid(p0)")
+private external fun wasmLibcUnixSolarishUcredGetruid(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_ucredGetsuid(p0)")
-private external fun _wasm_libc_unix_solarish_ucredGetsuid(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishUcredGetsuid(p0)")
+private external fun wasmLibcUnixSolarishUcredGetsuid(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_ucredGetegid(p0)")
-private external fun _wasm_libc_unix_solarish_ucredGetegid(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishUcredGetegid(p0)")
+private external fun wasmLibcUnixSolarishUcredGetegid(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_ucredGetrgid(p0)")
-private external fun _wasm_libc_unix_solarish_ucredGetrgid(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishUcredGetrgid(p0)")
+private external fun wasmLibcUnixSolarishUcredGetrgid(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_ucredGetsgid(p0)")
-private external fun _wasm_libc_unix_solarish_ucredGetsgid(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishUcredGetsgid(p0)")
+private external fun wasmLibcUnixSolarishUcredGetsgid(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_ucredGetgroups(p0, p1)")
-private external fun _wasm_libc_unix_solarish_ucredGetgroups(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishUcredGetgroups(p0, p1)")
+private external fun wasmLibcUnixSolarishUcredGetgroups(p0: String, p1: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_ucredGetpid(p0)")
-private external fun _wasm_libc_unix_solarish_ucredGetpid(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishUcredGetpid(p0)")
+private external fun wasmLibcUnixSolarishUcredGetpid(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_ucredGetprojid(p0)")
-private external fun _wasm_libc_unix_solarish_ucredGetprojid(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishUcredGetprojid(p0)")
+private external fun wasmLibcUnixSolarishUcredGetprojid(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_ucredGetzoneid(p0)")
-private external fun _wasm_libc_unix_solarish_ucredGetzoneid(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishUcredGetzoneid(p0)")
+private external fun wasmLibcUnixSolarishUcredGetzoneid(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_ucredGetpflags(p0, p1)")
-private external fun _wasm_libc_unix_solarish_ucredGetpflags(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishUcredGetpflags(p0, p1)")
+private external fun wasmLibcUnixSolarishUcredGetpflags(p0: String, p1: Int): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_solarish_ucredSize()")
-private external fun _wasm_libc_unix_solarish_ucredSize(): String
+@JsFun("() => globalThis.__km_napi_libc.libcUnixSolarishUcredSize()")
+private external fun wasmLibcUnixSolarishUcredSize(): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_psetCreate(p0)")
-private external fun _wasm_libc_unix_solarish_psetCreate(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishPsetCreate(p0)")
+private external fun wasmLibcUnixSolarishPsetCreate(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_psetDestroy(p0)")
-private external fun _wasm_libc_unix_solarish_psetDestroy(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishPsetDestroy(p0)")
+private external fun wasmLibcUnixSolarishPsetDestroy(p0: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_solarish_psetAssign(p0, p1, p2)")
-private external fun _wasm_libc_unix_solarish_psetAssign(p0: Int, p1: Int, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixSolarishPsetAssign(p0, p1, p2)")
+private external fun wasmLibcUnixSolarishPsetAssign(p0: Int, p1: Int, p2: String): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_solarish_psetInfo(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_solarish_psetInfo(p0: Int, p1: String, p2: String, p3: String): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixSolarishPsetInfo(p0, p1, p2, p3)")
+private external fun wasmLibcUnixSolarishPsetInfo(p0: Int, p1: String, p2: String, p3: String): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_solarish_psetBind(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_solarish_psetBind(p0: Int, p1: Int, p2: Int, p3: String): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixSolarishPsetBind(p0, p1, p2, p3)")
+private external fun wasmLibcUnixSolarishPsetBind(p0: Int, p1: Int, p2: Int, p3: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_psetList(p0, p1)")
-private external fun _wasm_libc_unix_solarish_psetList(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishPsetList(p0, p1)")
+private external fun wasmLibcUnixSolarishPsetList(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_psetSetattr(p0, p1)")
-private external fun _wasm_libc_unix_solarish_psetSetattr(p0: Int, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishPsetSetattr(p0, p1)")
+private external fun wasmLibcUnixSolarishPsetSetattr(p0: Int, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_psetGetattr(p0, p1)")
-private external fun _wasm_libc_unix_solarish_psetGetattr(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishPsetGetattr(p0, p1)")
+private external fun wasmLibcUnixSolarishPsetGetattr(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_solarish_processorBind(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_solarish_processorBind(p0: Int, p1: Int, p2: Int, p3: String): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixSolarishProcessorBind(p0, p1, p2, p3)")
+private external fun wasmLibcUnixSolarishProcessorBind(p0: Int, p1: Int, p2: Int, p3: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_pOnline(p0, p1)")
-private external fun _wasm_libc_unix_solarish_pOnline(p0: Int, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishPOnline(p0, p1)")
+private external fun wasmLibcUnixSolarishPOnline(p0: Int, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_processorInfo(p0, p1)")
-private external fun _wasm_libc_unix_solarish_processorInfo(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishProcessorInfo(p0, p1)")
+private external fun wasmLibcUnixSolarishProcessorInfo(p0: Int, p1: String): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_solarish_getexecname()")
-private external fun _wasm_libc_unix_solarish_getexecname(): String
+@JsFun("() => globalThis.__km_napi_libc.libcUnixSolarishGetexecname()")
+private external fun wasmLibcUnixSolarishGetexecname(): String
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_solarish_gethostid()")
-private external fun _wasm_libc_unix_solarish_gethostid(): String
+@JsFun("() => globalThis.__km_napi_libc.libcUnixSolarishGethostid()")
+private external fun wasmLibcUnixSolarishGethostid(): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_getpflags(p0)")
-private external fun _wasm_libc_unix_solarish_getpflags(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishGetpflags(p0)")
+private external fun wasmLibcUnixSolarishGetpflags(p0: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_setpflags(p0, p1)")
-private external fun _wasm_libc_unix_solarish_setpflags(p0: Int, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishSetpflags(p0, p1)")
+private external fun wasmLibcUnixSolarishSetpflags(p0: Int, p1: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_solarish_sysinfo(p0, p1, p2)")
-private external fun _wasm_libc_unix_solarish_sysinfo(p0: Int, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixSolarishSysinfo(p0, p1, p2)")
+private external fun wasmLibcUnixSolarishSysinfo(p0: Int, p1: String, p2: String): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_solarish_faccessat(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_solarish_faccessat(p0: Int, p1: String?, p2: Int, p3: Int): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixSolarishFaccessat(p0, p1, p2, p3)")
+private external fun wasmLibcUnixSolarishFaccessat(p0: Int, p1: String, p2: Int, p3: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_dlIteratePhdr(p0, p1)")
-private external fun _wasm_libc_unix_solarish_dlIteratePhdr(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishDlIteratePhdr(p0, p1)")
+private external fun wasmLibcUnixSolarishDlIteratePhdr(p0: String, p1: String): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_solarish_getpagesize()")
-private external fun _wasm_libc_unix_solarish_getpagesize(): Int
+@JsFun("() => globalThis.__km_napi_libc.libcUnixSolarishGetpagesize()")
+private external fun wasmLibcUnixSolarishGetpagesize(): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_getpagesizes(p0, p1)")
-private external fun _wasm_libc_unix_solarish_getpagesizes(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishGetpagesizes(p0, p1)")
+private external fun wasmLibcUnixSolarishGetpagesizes(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_unix_solarish_mmapobj(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_unix_solarish_mmapobj(p0: Int, p1: Int, p2: String, p3: String, p4: String): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcUnixSolarishMmapobj(p0, p1, p2, p3, p4)")
+private external fun wasmLibcUnixSolarishMmapobj(p0: Int, p1: Int, p2: String, p3: String, p4: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libc_unix_solarish_meminfo(p0, p1, p2, p3, p4, p5)")
-private external fun _wasm_libc_unix_solarish_meminfo(p0: String, p1: Int, p2: String, p3: Int, p4: String, p5: String): Int
+@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libcUnixSolarishMeminfo(p0, p1, p2, p3, p4, p5)")
+private external fun wasmLibcUnixSolarishMeminfo(p0: String, p1: Int, p2: String, p3: Int, p4: String, p5: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_strsep(p0, p1)")
-private external fun _wasm_libc_unix_solarish_strsep(p0: String, p1: String?): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishStrsep(p0, p1)")
+private external fun wasmLibcUnixSolarishStrsep(p0: String, p1: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_getisax(p0, p1)")
-private external fun _wasm_libc_unix_solarish_getisax(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishGetisax(p0, p1)")
+private external fun wasmLibcUnixSolarishGetisax(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_backtrace(p0, p1)")
-private external fun _wasm_libc_unix_solarish_backtrace(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishBacktrace(p0, p1)")
+private external fun wasmLibcUnixSolarishBacktrace(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_backtraceSymbols(p0, p1)")
-private external fun _wasm_libc_unix_solarish_backtraceSymbols(p0: String, p1: Int): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishBacktraceSymbols(p0, p1)")
+private external fun wasmLibcUnixSolarishBacktraceSymbols(p0: String, p1: Int): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_solarish_backtraceSymbolsFd(p0, p1, p2)")
-private external fun _wasm_libc_unix_solarish_backtraceSymbolsFd(p0: String, p1: Int, p2: Int)
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixSolarishBacktraceSymbolsFd(p0, p1, p2)")
+private external fun wasmLibcUnixSolarishBacktraceSymbolsFd(p0: String, p1: Int, p2: Int)
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_unix_solarish_getoptLong(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_unix_solarish_getoptLong(p0: Int, p1: String, p2: String?, p3: String, p4: String): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcUnixSolarishGetoptLong(p0, p1, p2, p3, p4)")
+private external fun wasmLibcUnixSolarishGetoptLong(p0: Int, p1: String, p2: String, p3: String, p4: String): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_solarish_sync()")
-private external fun _wasm_libc_unix_solarish_sync()
+@JsFun("() => globalThis.__km_napi_libc.libcUnixSolarishSync()")
+private external fun wasmLibcUnixSolarishSync()
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_aioCancel(p0, p1)")
-private external fun _wasm_libc_unix_solarish_aioCancel(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishAioCancel(p0, p1)")
+private external fun wasmLibcUnixSolarishAioCancel(p0: Int, p1: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_aioError(p0)")
-private external fun _wasm_libc_unix_solarish_aioError(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishAioError(p0)")
+private external fun wasmLibcUnixSolarishAioError(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_aioFsync(p0, p1)")
-private external fun _wasm_libc_unix_solarish_aioFsync(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishAioFsync(p0, p1)")
+private external fun wasmLibcUnixSolarishAioFsync(p0: Int, p1: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_aioRead(p0)")
-private external fun _wasm_libc_unix_solarish_aioRead(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishAioRead(p0)")
+private external fun wasmLibcUnixSolarishAioRead(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_aioReturn(p0)")
-private external fun _wasm_libc_unix_solarish_aioReturn(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishAioReturn(p0)")
+private external fun wasmLibcUnixSolarishAioReturn(p0: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_solarish_aioSuspend(p0, p1, p2)")
-private external fun _wasm_libc_unix_solarish_aioSuspend(p0: String, p1: Int, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixSolarishAioSuspend(p0, p1, p2)")
+private external fun wasmLibcUnixSolarishAioSuspend(p0: String, p1: Int, p2: String): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_solarish_aioWaitn(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_solarish_aioWaitn(p0: String, p1: Int, p2: String, p3: String): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixSolarishAioWaitn(p0, p1, p2, p3)")
+private external fun wasmLibcUnixSolarishAioWaitn(p0: String, p1: Int, p2: String, p3: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_aioWrite(p0)")
-private external fun _wasm_libc_unix_solarish_aioWrite(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishAioWrite(p0)")
+private external fun wasmLibcUnixSolarishAioWrite(p0: String): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_solarish_lioListio(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_solarish_lioListio(p0: Int, p1: String, p2: Int, p3: String): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixSolarishLioListio(p0, p1, p2, p3)")
+private external fun wasmLibcUnixSolarishLioListio(p0: Int, p1: String, p2: Int, p3: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_major(p0, p1)")
-private external fun _wasm_libc_unix_solarish_major(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishMajor(p0, p1)")
+private external fun wasmLibcUnixSolarishMajor(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_minor(p0, p1)")
-private external fun _wasm_libc_unix_solarish_minor(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishMinor(p0, p1)")
+private external fun wasmLibcUnixSolarishMinor(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_solarish_makedev(p0, p1, p2)")
-private external fun _wasm_libc_unix_solarish_makedev(p0: Int, p1: Int, p2: Int): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixSolarishMakedev(p0, p1, p2)")
+private external fun wasmLibcUnixSolarishMakedev(p0: Int, p1: Int, p2: Int): String
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_solarish_arc4random()")
-private external fun _wasm_libc_unix_solarish_arc4random(): Int
+@JsFun("() => globalThis.__km_napi_libc.libcUnixSolarishArc4random()")
+private external fun wasmLibcUnixSolarishArc4random(): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_arc4randomBuf(p0, p1)")
-private external fun _wasm_libc_unix_solarish_arc4randomBuf(p0: String, p1: String)
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishArc4randomBuf(p0, p1)")
+private external fun wasmLibcUnixSolarishArc4randomBuf(p0: String, p1: String)
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_arc4randomUniform(p0)")
-private external fun _wasm_libc_unix_solarish_arc4randomUniform(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishArc4randomUniform(p0)")
+private external fun wasmLibcUnixSolarishArc4randomUniform(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_secureGetenv(p0)")
-private external fun _wasm_libc_unix_solarish_secureGetenv(p0: String?): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishSecureGetenv(p0)")
+private external fun wasmLibcUnixSolarishSecureGetenv(p0: String): String
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_solarish_strftime(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_solarish_strftime(p0: String, p1: String, p2: String?, p3: String): String
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixSolarishStrftime(p0, p1, p2, p3)")
+private external fun wasmLibcUnixSolarishStrftime(p0: String, p1: String, p2: String, p3: String): String
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_unix_solarish_strftimeL(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_unix_solarish_strftimeL(p0: String, p1: String, p2: String?, p3: String, p4: String): String
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcUnixSolarishStrftimeL(p0, p1, p2, p3, p4)")
+private external fun wasmLibcUnixSolarishStrftimeL(p0: String, p1: String, p2: String, p3: String, p4: String): String
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_solarish_sendfile(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_solarish_sendfile(p0: Int, p1: Int, p2: String, p3: String): String
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixSolarishSendfile(p0, p1, p2, p3)")
+private external fun wasmLibcUnixSolarishSendfile(p0: Int, p1: Int, p2: String, p3: String): String
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_solarish_sendfilev(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_solarish_sendfilev(p0: Int, p1: String, p2: Int, p3: String): String
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixSolarishSendfilev(p0, p1, p2, p3)")
+private external fun wasmLibcUnixSolarishSendfilev(p0: Int, p1: String, p2: Int, p3: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_lgrpInit(p0)")
-private external fun _wasm_libc_unix_solarish_lgrpInit(p0: Int): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishLgrpInit(p0)")
+private external fun wasmLibcUnixSolarishLgrpInit(p0: Int): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_lgrpFini(p0)")
-private external fun _wasm_libc_unix_solarish_lgrpFini(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishLgrpFini(p0)")
+private external fun wasmLibcUnixSolarishLgrpFini(p0: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_solarish_lgrpAffinityGet(p0, p1, p2)")
-private external fun _wasm_libc_unix_solarish_lgrpAffinityGet(p0: Int, p1: Int, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixSolarishLgrpAffinityGet(p0, p1, p2)")
+private external fun wasmLibcUnixSolarishLgrpAffinityGet(p0: Int, p1: Int, p2: Int): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_solarish_lgrpAffinitySet(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_solarish_lgrpAffinitySet(p0: Int, p1: Int, p2: Int, p3: Int): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixSolarishLgrpAffinitySet(p0, p1, p2, p3)")
+private external fun wasmLibcUnixSolarishLgrpAffinitySet(p0: Int, p1: Int, p2: Int, p3: Int): Int
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_unix_solarish_lgrpCpus(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_unix_solarish_lgrpCpus(p0: String, p1: Int, p2: String, p3: Int, p4: Int): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcUnixSolarishLgrpCpus(p0, p1, p2, p3, p4)")
+private external fun wasmLibcUnixSolarishLgrpCpus(p0: String, p1: Int, p2: String, p3: Int, p4: Int): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_solarish_lgrpMemSize(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_solarish_lgrpMemSize(p0: String, p1: Int, p2: Int, p3: Int): String
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixSolarishLgrpMemSize(p0, p1, p2, p3)")
+private external fun wasmLibcUnixSolarishLgrpMemSize(p0: String, p1: Int, p2: Int, p3: Int): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_lgrpNlgrps(p0)")
-private external fun _wasm_libc_unix_solarish_lgrpNlgrps(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishLgrpNlgrps(p0)")
+private external fun wasmLibcUnixSolarishLgrpNlgrps(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_lgrpView(p0)")
-private external fun _wasm_libc_unix_solarish_lgrpView(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishLgrpView(p0)")
+private external fun wasmLibcUnixSolarishLgrpView(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_solarish_lgrpHome(p0, p1)")
-private external fun _wasm_libc_unix_solarish_lgrpHome(p0: Int, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixSolarishLgrpHome(p0, p1)")
+private external fun wasmLibcUnixSolarishLgrpHome(p0: Int, p1: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_lgrpVersion(p0)")
-private external fun _wasm_libc_unix_solarish_lgrpVersion(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishLgrpVersion(p0)")
+private external fun wasmLibcUnixSolarishLgrpVersion(p0: Int): Int
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_unix_solarish_lgrpResources(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_unix_solarish_lgrpResources(p0: String, p1: Int, p2: String, p3: Int, p4: Int): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcUnixSolarishLgrpResources(p0, p1, p2, p3, p4)")
+private external fun wasmLibcUnixSolarishLgrpResources(p0: String, p1: Int, p2: String, p3: Int, p4: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_solarish_lgrpRoot(p0)")
-private external fun _wasm_libc_unix_solarish_lgrpRoot(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixSolarishLgrpRoot(p0)")
+private external fun wasmLibcUnixSolarishLgrpRoot(p0: String): Int
 
-public actual fun getrlimit(resource: CInt, rlim: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_getrlimit(resource, (rlim?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getrlimit(resource: CInt, rlim: MutPtr<Rlimit>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishGetrlimit(resource, rlim.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setrlimit(resource: CInt, rlim: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_setrlimit(resource, (rlim?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun setrlimit(resource: CInt, rlim: ConstPtr<Rlimit>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishSetrlimit(resource, rlim.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strerrorR(errnum: CInt, buf: COpaquePointer?, buflen: SizeT): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_strerrorR(errnum, (buf?.value ?: 0L).toString(), buflen.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strerrorR(errnum: CInt, buf: MutPtr<CChar>, buflen: SizeT): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishStrerrorR(errnum, buf.rawAddress.toString(), buflen.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semDestroy(sem: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_semDestroy((sem?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun semDestroy(sem: MutPtr<SemT>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishSemDestroy(sem.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semInit(sem: COpaquePointer?, pshared: CInt, value: CUint): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_semInit((sem?.value ?: 0L).toString(), pshared, value.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun semInit(sem: MutPtr<SemT>, pshared: CInt, value: CUint): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishSemInit(sem.rawAddress.toString(), pshared, value.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun abs(i: CInt): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_abs(i) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishAbs(i) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun acct(filename: String?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_acct(filename) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun acct(filename: ConstPtr<CChar>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishAcct(filename.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun dirfd(dirp: DIR?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_dirfd((dirp?.handle ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun dirfd(dirp: MutPtr<DIR>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishDirfd(dirp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun labs(i: CLong): CLong =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_labs(i.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishLabs(i.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun rand(): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_rand() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishRand() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun srand(seed: CUint) {
-    if (_unixSolarishNapiAvailable) {
-        _wasm_libc_unix_solarish_srand(seed.toInt())
+    if (unixSolarishNapiAvailable) {
+        wasmLibcUnixSolarishSrand(seed.toInt())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun getentropy(buf: COpaquePointer?, buflen: SizeT): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_getentropy((buf?.value ?: 0L).toString(), buflen.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getentropy(buf: MutPtr<CVoid>, buflen: SizeT): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishGetentropy(buf.rawAddress.toString(), buflen.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getrandom(bbuf: COpaquePointer?, buflen: SizeT, flags: CUint): SsizeT =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_getrandom((bbuf?.value ?: 0L).toString(), buflen.toString(), flags.toInt()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getrandom(bbuf: MutPtr<CVoid>, buflen: SizeT, flags: CUint): SsizeT =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishGetrandom(bbuf.rawAddress.toString(), buflen.toString(), flags.toInt()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun gettimeofday(tp: COpaquePointer?, tz: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_gettimeofday((tp?.value ?: 0L).toString(), (tz?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun gettimeofday(tp: MutPtr<Timeval>, tz: MutPtr<CVoid>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishGettimeofday(tp.rawAddress.toString(), tz.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun settimeofday(tp: COpaquePointer?, tz: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_settimeofday((tp?.value ?: 0L).toString(), (tz?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun settimeofday(tp: ConstPtr<Timeval>, tz: ConstPtr<CVoid>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishSettimeofday(tp.rawAddress.toString(), tz.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getifaddrs(ifap: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_getifaddrs((ifap?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getifaddrs(ifap: MutPtr<MutPtr<Ifaddrs>>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishGetifaddrs(ifap.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun freeifaddrs(ifa: COpaquePointer?) {
-    if (_unixSolarishNapiAvailable) {
-        _wasm_libc_unix_solarish_freeifaddrs((ifa?.value ?: 0L).toString())
+public actual fun freeifaddrs(ifa: MutPtr<Ifaddrs>) {
+    if (unixSolarishNapiAvailable) {
+        wasmLibcUnixSolarishFreeifaddrs(ifa.rawAddress.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun stackGetbounds(sp: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_stackGetbounds((sp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun stackGetbounds(sp: MutPtr<StackT>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishStackGetbounds(sp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getgrouplist(name: String?, basegid: GidT, groups: COpaquePointer?, ngroups: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_getgrouplist(name, basegid.toInt(), (groups?.value ?: 0L).toString(), (ngroups?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getgrouplist(name: ConstPtr<CChar>, basegid: GidT, groups: MutPtr<GidT>, ngroups: MutPtr<CInt>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishGetgrouplist(name.rawAddress.toString(), basegid.toInt(), groups.rawAddress.toString(), ngroups.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun initgroups(name: String?, basegid: GidT): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_initgroups(name, basegid.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun initgroups(name: ConstPtr<CChar>, basegid: GidT): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishInitgroups(name.rawAddress.toString(), basegid.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setgroups(ngroups: CInt, ptr: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_setgroups(ngroups, (ptr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun setgroups(ngroups: CInt, ptr: ConstPtr<GidT>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishSetgroups(ngroups, ptr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun ioctl(fildes: CInt, request: CInt, vararg variadicArgs: Long): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_ioctl(fildes, request, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishIoctl(fildes, request, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_mprotect((addr?.value ?: 0L).toString(), len.toString(), prot) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mprotect(addr: MutPtr<CVoid>, len: SizeT, prot: CInt): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishMprotect(addr.rawAddress.toString(), len.toString(), prot) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun errno(): COpaquePointer? =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_errno().toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun errno(): MutPtr<CInt> =
+    if (unixSolarishNapiAvailable) MutPtr(wasmLibcUnixSolarishErrno().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun clockGetres(clkId: ClockidT, tp: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_clockGetres(clkId, (tp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun clockGetres(clkId: ClockidT, tp: MutPtr<Timespec>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishClockGetres(clkId, tp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun clockGettime(clkId: ClockidT, tp: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_clockGettime(clkId, (tp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun clockGettime(clkId: ClockidT, tp: MutPtr<Timespec>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishClockGettime(clkId, tp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: COpaquePointer?, rmtp: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_clockNanosleep(clkId, flags, (rqtp?.value ?: 0L).toString(), (rmtp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: ConstPtr<Timespec>, rmtp: MutPtr<Timespec>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishClockNanosleep(clkId, flags, rqtp.rawAddress.toString(), rmtp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun clockSettime(clkId: ClockidT, tp: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_clockSettime(clkId, (tp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun clockSettime(clkId: ClockidT, tp: ConstPtr<Timespec>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishClockSettime(clkId, tp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getnameinfo(sa: COpaquePointer?, salen: SocklenT, host: COpaquePointer?, hostlen: SocklenT, serv: COpaquePointer?, servlen: SocklenT, flags: CInt): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_getnameinfo((sa?.value ?: 0L).toString(), salen.toInt(), (host?.value ?: 0L).toString(), hostlen.toInt(), (serv?.value ?: 0L).toString(), servlen.toInt(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getnameinfo(sa: ConstPtr<Sockaddr>, salen: SocklenT, host: MutPtr<CChar>, hostlen: SocklenT, serv: MutPtr<CChar>, servlen: SocklenT, flags: CInt): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishGetnameinfo(sa.rawAddress.toString(), salen.toInt(), host.rawAddress.toString(), hostlen.toInt(), serv.rawAddress.toString(), servlen.toInt(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun setpwent() {
-    if (_unixSolarishNapiAvailable) {
-        _wasm_libc_unix_solarish_setpwent()
+    if (unixSolarishNapiAvailable) {
+        wasmLibcUnixSolarishSetpwent()
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
 public actual fun endpwent() {
-    if (_unixSolarishNapiAvailable) {
-        _wasm_libc_unix_solarish_endpwent()
+    if (unixSolarishNapiAvailable) {
+        wasmLibcUnixSolarishEndpwent()
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun getpwent(): COpaquePointer? =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_getpwent().toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getpwent(): MutPtr<Passwd> =
+    if (unixSolarishNapiAvailable) MutPtr(wasmLibcUnixSolarishGetpwent().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun fdatasync(fd: CInt): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_fdatasync(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishFdatasync(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun nlLanginfoL(item: NlItem, locale: LocaleT): COpaquePointer? =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_nlLanginfoL(item, (locale?.value ?: 0L).toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun nlLanginfoL(item: NlItem, locale: LocaleT): MutPtr<CChar> =
+    if (unixSolarishNapiAvailable) MutPtr(wasmLibcUnixSolarishNlLanginfoL(item, locale.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun duplocale(base: LocaleT): LocaleT =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_duplocale((base?.value ?: 0L).toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) MutPtr(wasmLibcUnixSolarishDuplocale(base.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun freelocale(loc: LocaleT) {
-    if (_unixSolarishNapiAvailable) {
-        _wasm_libc_unix_solarish_freelocale((loc?.value ?: 0L).toString())
+    if (unixSolarishNapiAvailable) {
+        wasmLibcUnixSolarishFreelocale(loc.rawAddress.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_newlocale(mask, locale, (base?.value ?: 0L).toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun newlocale(mask: CInt, locale: ConstPtr<CChar>, base: LocaleT): LocaleT =
+    if (unixSolarishNapiAvailable) MutPtr(wasmLibcUnixSolarishNewlocale(mask, locale.rawAddress.toString(), base.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_uselocale((loc?.value ?: 0L).toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) MutPtr(wasmLibcUnixSolarishUselocale(loc.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getprogname(): COpaquePointer? =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_getprogname().toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getprogname(): ConstPtr<CChar> =
+    if (unixSolarishNapiAvailable) ConstPtr(wasmLibcUnixSolarishGetprogname().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setprogname(name: String?) {
-    if (_unixSolarishNapiAvailable) {
-        _wasm_libc_unix_solarish_setprogname(name)
+public actual fun setprogname(name: ConstPtr<CChar>) {
+    if (unixSolarishNapiAvailable) {
+        wasmLibcUnixSolarishSetprogname(name.rawAddress.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun getloadavg(loadavg: COpaquePointer?, nelem: CInt): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_getloadavg((loadavg?.value ?: 0L).toString(), nelem) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getloadavg(loadavg: MutPtr<CDouble>, nelem: CInt): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishGetloadavg(loadavg.rawAddress.toString(), nelem) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun getpriority(which: CInt, who: CInt): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_getpriority(which, who) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishGetpriority(which, who) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun setpriority(which: CInt, who: CInt, prio: CInt): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_setpriority(which, who, prio) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishSetpriority(which, who, prio) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_mknodat(dirfd, pathname, mode.toInt(), dev.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mknodat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT, dev: DevT): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishMknodat(dirfd, pathname.rawAddress.toString(), mode.toInt(), dev.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_mkfifoat(dirfd, pathname, mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mkfifoat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishMkfifoat(dirfd, pathname.rawAddress.toString(), mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sethostname(name: String?, len: CInt): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_sethostname(name, len) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sethostname(name: ConstPtr<CChar>, len: CInt): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishSethostname(name.rawAddress.toString(), len) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ifNameindex(): COpaquePointer? =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_ifNameindex().toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ifNameindex(): MutPtr<IfNameindex> =
+    if (unixSolarishNapiAvailable) MutPtr(wasmLibcUnixSolarishIfNameindex().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ifFreenameindex(ptr: COpaquePointer?) {
-    if (_unixSolarishNapiAvailable) {
-        _wasm_libc_unix_solarish_ifFreenameindex((ptr?.value ?: 0L).toString())
+public actual fun ifFreenameindex(ptr: MutPtr<IfNameindex>) {
+    if (unixSolarishNapiAvailable) {
+        wasmLibcUnixSolarishIfFreenameindex(ptr.rawAddress.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_pthreadCreate((native?.value ?: 0L).toString(), (attr?.value ?: 0L).toString(), 0L.toString(), (value?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadCreate(native: MutPtr<PthreadT>, attr: ConstPtr<PthreadAttrT>, f: PthreadCreateFCallback, value: MutPtr<CVoid>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPthreadCreate(native.rawAddress.toString(), attr.rawAddress.toString(), 0L.toString(), value.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrGetstack(attr: COpaquePointer?, stackaddr: COpaquePointer?, stacksize: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_pthreadAttrGetstack((attr?.value ?: 0L).toString(), (stackaddr?.value ?: 0L).toString(), (stacksize?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadAttrGetstack(attr: ConstPtr<PthreadAttrT>, stackaddr: MutPtr<MutPtr<CVoid>>, stacksize: MutPtr<SizeT>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPthreadAttrGetstack(attr.rawAddress.toString(), stackaddr.rawAddress.toString(), stacksize.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondattrGetclock(attr: COpaquePointer?, clockId: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_pthreadCondattrGetclock((attr?.value ?: 0L).toString(), (clockId?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadCondattrGetclock(attr: ConstPtr<PthreadCondattrT>, clockId: MutPtr<ClockidT>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPthreadCondattrGetclock(attr.rawAddress.toString(), clockId.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondattrSetclock(attr: COpaquePointer?, clockId: ClockidT): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_pthreadCondattrSetclock((attr?.value ?: 0L).toString(), clockId) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadCondattrSetclock(attr: MutPtr<PthreadCondattrT>, clockId: ClockidT): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPthreadCondattrSetclock(attr.rawAddress.toString(), clockId) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semTimedwait(sem: COpaquePointer?, abstime: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_semTimedwait((sem?.value ?: 0L).toString(), (abstime?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun semTimedwait(sem: MutPtr<SemT>, abstime: ConstPtr<Timespec>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishSemTimedwait(sem.rawAddress.toString(), abstime.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semGetvalue(sem: COpaquePointer?, sval: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_semGetvalue((sem?.value ?: 0L).toString(), (sval?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun semGetvalue(sem: MutPtr<SemT>, sval: MutPtr<CInt>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishSemGetvalue(sem.rawAddress.toString(), sval.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexTimedlock(lock: COpaquePointer?, abstime: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_pthreadMutexTimedlock((lock?.value ?: 0L).toString(), (abstime?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadMutexTimedlock(lock: MutPtr<PthreadMutexT>, abstime: ConstPtr<Timespec>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPthreadMutexTimedlock(lock.rawAddress.toString(), abstime.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadGetnameNp(tid: PthreadT, name: COpaquePointer?, len: SizeT): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_pthreadGetnameNp(tid.toLong().toString(), (name?.value ?: 0L).toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadGetnameNp(tid: PthreadT, name: MutPtr<CChar>, len: SizeT): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPthreadGetnameNp(tid.toLong().toString(), name.rawAddress.toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadSetnameNp(tid: PthreadT, name: String?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_pthreadSetnameNp(tid.toLong().toString(), name) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadSetnameNp(tid: PthreadT, name: ConstPtr<CChar>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPthreadSetnameNp(tid.toLong().toString(), name.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun waitid(idtype: IdtypeT, id: IdT, infop: COpaquePointer?, options: CInt): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_waitid(idtype.toInt(), id, (infop?.value ?: 0L).toString(), options) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun waitid(idtype: IdtypeT, id: IdT, infop: MutPtr<SiginfoT>, options: CInt): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishWaitid(idtype.toInt(), id, infop.rawAddress.toString(), options) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_glob(pattern, flags, 0L.toString(), (pglob?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun glob(pattern: ConstPtr<CChar>, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: MutPtr<GlobT>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishGlob(pattern.rawAddress.toString(), flags, 0L.toString(), pglob.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun globfree(pglob: COpaquePointer?) {
-    if (_unixSolarishNapiAvailable) {
-        _wasm_libc_unix_solarish_globfree((pglob?.value ?: 0L).toString())
+public actual fun globfree(pglob: MutPtr<GlobT>) {
+    if (unixSolarishNapiAvailable) {
+        wasmLibcUnixSolarishGlobfree(pglob.rawAddress.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
 public actual fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_posixFallocate(fd, offset.toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPosixFallocate(fd, offset.toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixMadvise(addr: COpaquePointer?, len: SizeT, advice: CInt): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_posixMadvise((addr?.value ?: 0L).toString(), len.toString(), advice) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixMadvise(addr: MutPtr<CVoid>, len: SizeT, advice: CInt): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPosixMadvise(addr.rawAddress.toString(), len.toString(), advice) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawn(pid: COpaquePointer?, path: String?, fileActions: COpaquePointer?, attrp: COpaquePointer?, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_posixSpawn((pid?.value ?: 0L).toString(), path, (fileActions?.value ?: 0L).toString(), (attrp?.value ?: 0L).toString(), (argv?.value ?: 0L).toString(), (envp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawn(pid: MutPtr<PidT>, path: ConstPtr<CChar>, fileActions: ConstPtr<PosixSpawnFileActionsT>, attrp: ConstPtr<PosixSpawnattrT>, argv: ConstPtr<MutPtr<CChar>>, envp: ConstPtr<MutPtr<CChar>>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPosixSpawn(pid.rawAddress.toString(), path.rawAddress.toString(), fileActions.rawAddress.toString(), attrp.rawAddress.toString(), argv.rawAddress.toString(), envp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnp(pid: COpaquePointer?, file: String?, fileActions: COpaquePointer?, attrp: COpaquePointer?, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_posixSpawnp((pid?.value ?: 0L).toString(), file, (fileActions?.value ?: 0L).toString(), (attrp?.value ?: 0L).toString(), (argv?.value ?: 0L).toString(), (envp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnp(pid: MutPtr<PidT>, file: ConstPtr<CChar>, fileActions: ConstPtr<PosixSpawnFileActionsT>, attrp: ConstPtr<PosixSpawnattrT>, argv: ConstPtr<MutPtr<CChar>>, envp: ConstPtr<MutPtr<CChar>>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPosixSpawnp(pid.rawAddress.toString(), file.rawAddress.toString(), fileActions.rawAddress.toString(), attrp.rawAddress.toString(), argv.rawAddress.toString(), envp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnFileActionsInit(fileActions: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_posixSpawnFileActionsInit((fileActions?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnFileActionsInit(fileActions: MutPtr<PosixSpawnFileActionsT>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPosixSpawnFileActionsInit(fileActions.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnFileActionsDestroy(fileActions: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_posixSpawnFileActionsDestroy((fileActions?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnFileActionsDestroy(fileActions: MutPtr<PosixSpawnFileActionsT>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPosixSpawnFileActionsDestroy(fileActions.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnFileActionsAddopen(fileActions: COpaquePointer?, fildes: CInt, path: String?, oflag: CInt, mode: ModeT): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_posixSpawnFileActionsAddopen((fileActions?.value ?: 0L).toString(), fildes, path, oflag, mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnFileActionsAddopen(fileActions: MutPtr<PosixSpawnFileActionsT>, fildes: CInt, path: ConstPtr<CChar>, oflag: CInt, mode: ModeT): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPosixSpawnFileActionsAddopen(fileActions.rawAddress.toString(), fildes, path.rawAddress.toString(), oflag, mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnFileActionsAddclose(fileActions: COpaquePointer?, fildes: CInt): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_posixSpawnFileActionsAddclose((fileActions?.value ?: 0L).toString(), fildes) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnFileActionsAddclose(fileActions: MutPtr<PosixSpawnFileActionsT>, fildes: CInt): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPosixSpawnFileActionsAddclose(fileActions.rawAddress.toString(), fildes) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnFileActionsAdddup2(fileActions: COpaquePointer?, fildes: CInt, newfildes: CInt): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_posixSpawnFileActionsAdddup2((fileActions?.value ?: 0L).toString(), fildes, newfildes) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnFileActionsAdddup2(fileActions: MutPtr<PosixSpawnFileActionsT>, fildes: CInt, newfildes: CInt): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPosixSpawnFileActionsAdddup2(fileActions.rawAddress.toString(), fildes, newfildes) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnFileActionsAddclosefromNp(fileActions: COpaquePointer?, lowfiledes: CInt): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_posixSpawnFileActionsAddclosefromNp((fileActions?.value ?: 0L).toString(), lowfiledes) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnFileActionsAddclosefromNp(fileActions: MutPtr<PosixSpawnFileActionsT>, lowfiledes: CInt): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPosixSpawnFileActionsAddclosefromNp(fileActions.rawAddress.toString(), lowfiledes) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnFileActionsAddchdir(fileActions: COpaquePointer?, path: String?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_posixSpawnFileActionsAddchdir((fileActions?.value ?: 0L).toString(), path) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnFileActionsAddchdir(fileActions: MutPtr<PosixSpawnFileActionsT>, path: ConstPtr<CChar>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPosixSpawnFileActionsAddchdir(fileActions.rawAddress.toString(), path.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnFileActionsAddchdirNp(fileActions: COpaquePointer?, path: String?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_posixSpawnFileActionsAddchdirNp((fileActions?.value ?: 0L).toString(), path) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnFileActionsAddchdirNp(fileActions: MutPtr<PosixSpawnFileActionsT>, path: ConstPtr<CChar>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPosixSpawnFileActionsAddchdirNp(fileActions.rawAddress.toString(), path.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnFileActionsAddfchdir(fileActions: COpaquePointer?, fd: CInt): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_posixSpawnFileActionsAddfchdir((fileActions?.value ?: 0L).toString(), fd) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnFileActionsAddfchdir(fileActions: MutPtr<PosixSpawnFileActionsT>, fd: CInt): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPosixSpawnFileActionsAddfchdir(fileActions.rawAddress.toString(), fd) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrInit(attr: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_posixSpawnattrInit((attr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrInit(attr: MutPtr<PosixSpawnattrT>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPosixSpawnattrInit(attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrDestroy(attr: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_posixSpawnattrDestroy((attr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrDestroy(attr: MutPtr<PosixSpawnattrT>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPosixSpawnattrDestroy(attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrSetflags(attr: COpaquePointer?, flags: CShort): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_posixSpawnattrSetflags((attr?.value ?: 0L).toString(), flags.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrSetflags(attr: MutPtr<PosixSpawnattrT>, flags: CShort): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPosixSpawnattrSetflags(attr.rawAddress.toString(), flags.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrGetflags(attr: COpaquePointer?, flags: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_posixSpawnattrGetflags((attr?.value ?: 0L).toString(), (flags?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrGetflags(attr: ConstPtr<PosixSpawnattrT>, flags: MutPtr<CShort>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPosixSpawnattrGetflags(attr.rawAddress.toString(), flags.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrSetpgroup(attr: COpaquePointer?, pgroup: PidT): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_posixSpawnattrSetpgroup((attr?.value ?: 0L).toString(), pgroup) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrSetpgroup(attr: MutPtr<PosixSpawnattrT>, pgroup: PidT): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPosixSpawnattrSetpgroup(attr.rawAddress.toString(), pgroup) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrGetpgroup(attr: COpaquePointer?, pgroup: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_posixSpawnattrGetpgroup((attr?.value ?: 0L).toString(), (pgroup?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrGetpgroup(attr: ConstPtr<PosixSpawnattrT>, pgroup: MutPtr<PidT>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPosixSpawnattrGetpgroup(attr.rawAddress.toString(), pgroup.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrSetschedparam(attr: COpaquePointer?, param: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_posixSpawnattrSetschedparam((attr?.value ?: 0L).toString(), (param?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrSetschedparam(attr: MutPtr<PosixSpawnattrT>, param: ConstPtr<SchedParam>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPosixSpawnattrSetschedparam(attr.rawAddress.toString(), param.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrGetschedparam(attr: COpaquePointer?, param: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_posixSpawnattrGetschedparam((attr?.value ?: 0L).toString(), (param?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrGetschedparam(attr: ConstPtr<PosixSpawnattrT>, param: MutPtr<SchedParam>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPosixSpawnattrGetschedparam(attr.rawAddress.toString(), param.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrSetschedpolicy(attr: COpaquePointer?, policy: CInt): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_posixSpawnattrSetschedpolicy((attr?.value ?: 0L).toString(), policy) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrSetschedpolicy(attr: MutPtr<PosixSpawnattrT>, policy: CInt): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPosixSpawnattrSetschedpolicy(attr.rawAddress.toString(), policy) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrGetschedpolicy(attr: COpaquePointer?, policy: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_posixSpawnattrGetschedpolicy((attr?.value ?: 0L).toString(), (policy?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrGetschedpolicy(attr: ConstPtr<PosixSpawnattrT>, policy: MutPtr<CInt>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPosixSpawnattrGetschedpolicy(attr.rawAddress.toString(), policy.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrSetsigdefault(attr: COpaquePointer?, sigdefault: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_posixSpawnattrSetsigdefault((attr?.value ?: 0L).toString(), (sigdefault?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrSetsigdefault(attr: MutPtr<PosixSpawnattrT>, sigdefault: ConstPtr<SigsetT>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPosixSpawnattrSetsigdefault(attr.rawAddress.toString(), sigdefault.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrGetsigdefault(attr: COpaquePointer?, sigdefault: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_posixSpawnattrGetsigdefault((attr?.value ?: 0L).toString(), (sigdefault?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrGetsigdefault(attr: ConstPtr<PosixSpawnattrT>, sigdefault: MutPtr<SigsetT>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPosixSpawnattrGetsigdefault(attr.rawAddress.toString(), sigdefault.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrSetsigignoreNp(attr: COpaquePointer?, sigignore: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_posixSpawnattrSetsigignoreNp((attr?.value ?: 0L).toString(), (sigignore?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrSetsigignoreNp(attr: MutPtr<PosixSpawnattrT>, sigignore: ConstPtr<SigsetT>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPosixSpawnattrSetsigignoreNp(attr.rawAddress.toString(), sigignore.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrGetsigignoreNp(attr: COpaquePointer?, sigignore: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_posixSpawnattrGetsigignoreNp((attr?.value ?: 0L).toString(), (sigignore?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrGetsigignoreNp(attr: ConstPtr<PosixSpawnattrT>, sigignore: MutPtr<SigsetT>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPosixSpawnattrGetsigignoreNp(attr.rawAddress.toString(), sigignore.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrSetsigmask(attr: COpaquePointer?, sigmask: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_posixSpawnattrSetsigmask((attr?.value ?: 0L).toString(), (sigmask?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrSetsigmask(attr: MutPtr<PosixSpawnattrT>, sigmask: ConstPtr<SigsetT>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPosixSpawnattrSetsigmask(attr.rawAddress.toString(), sigmask.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrGetsigmask(attr: COpaquePointer?, sigmask: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_posixSpawnattrGetsigmask((attr?.value ?: 0L).toString(), (sigmask?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrGetsigmask(attr: ConstPtr<PosixSpawnattrT>, sigmask: MutPtr<SigsetT>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPosixSpawnattrGetsigmask(attr.rawAddress.toString(), sigmask.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun shmat(shmid: CInt, shmaddr: COpaquePointer?, shmflg: CInt): COpaquePointer? =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_shmat(shmid, (shmaddr?.value ?: 0L).toString(), shmflg).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun shmat(shmid: CInt, shmaddr: ConstPtr<CVoid>, shmflg: CInt): MutPtr<CVoid> =
+    if (unixSolarishNapiAvailable) MutPtr(wasmLibcUnixSolarishShmat(shmid, shmaddr.rawAddress.toString(), shmflg).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun shmctl(shmid: CInt, cmd: CInt, buf: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_shmctl(shmid, cmd, (buf?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun shmctl(shmid: CInt, cmd: CInt, buf: MutPtr<ShmidDs>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishShmctl(shmid, cmd, buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun shmdt(shmaddr: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_shmdt((shmaddr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun shmdt(shmaddr: ConstPtr<CVoid>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishShmdt(shmaddr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun shmget(key: KeyT, size: SizeT, shmflg: CInt): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_shmget(key, size.toString(), shmflg) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishShmget(key, size.toString(), shmflg) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun shmOpen(name: String?, oflag: CInt, mode: ModeT): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_shmOpen(name, oflag, mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun shmOpen(name: ConstPtr<CChar>, oflag: CInt, mode: ModeT): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishShmOpen(name.rawAddress.toString(), oflag, mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun shmUnlink(name: String?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_shmUnlink(name) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun shmUnlink(name: ConstPtr<CChar>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishShmUnlink(name.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun seekdir(dirp: DIR?, loc: CLong) {
-    if (_unixSolarishNapiAvailable) {
-        _wasm_libc_unix_solarish_seekdir((dirp?.handle ?: 0L).toString(), loc.toString())
+public actual fun seekdir(dirp: MutPtr<DIR>, loc: CLong) {
+    if (unixSolarishNapiAvailable) {
+        wasmLibcUnixSolarishSeekdir(dirp.rawAddress.toString(), loc.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun telldir(dirp: DIR?): CLong =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_telldir((dirp?.handle ?: 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun telldir(dirp: MutPtr<DIR>): CLong =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishTelldir(dirp.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun madvise(addr: COpaquePointer?, len: SizeT, advice: CInt): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_madvise((addr?.value ?: 0L).toString(), len.toString(), advice) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun madvise(addr: MutPtr<CVoid>, len: SizeT, advice: CInt): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishMadvise(addr.rawAddress.toString(), len.toString(), advice) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msync(addr: COpaquePointer?, len: SizeT, flags: CInt): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_msync((addr?.value ?: 0L).toString(), len.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun msync(addr: MutPtr<CVoid>, len: SizeT, flags: CInt): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishMsync(addr.rawAddress.toString(), len.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memalign(align: SizeT, size: SizeT): COpaquePointer? =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_memalign(align.toString(), size.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun memalign(align: SizeT, size: SizeT): MutPtr<CVoid> =
+    if (unixSolarishNapiAvailable) MutPtr(wasmLibcUnixSolarishMemalign(align.toString(), size.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun recvfrom(socket: CInt, buf: COpaquePointer?, len: SizeT, flags: CInt, addr: COpaquePointer?, addrlen: COpaquePointer?): SsizeT =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_recvfrom(socket, (buf?.value ?: 0L).toString(), len.toString(), flags, (addr?.value ?: 0L).toString(), (addrlen?.value ?: 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun recvfrom(socket: CInt, buf: MutPtr<CVoid>, len: SizeT, flags: CInt, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): SsizeT =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishRecvfrom(socket, buf.rawAddress.toString(), len.toString(), flags, addr.rawAddress.toString(), addrlen.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mkstemps(template: COpaquePointer?, suffixlen: CInt): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_mkstemps((template?.value ?: 0L).toString(), suffixlen) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mkstemps(template: MutPtr<CChar>, suffixlen: CInt): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishMkstemps(template.rawAddress.toString(), suffixlen) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun futimesat(fd: CInt, path: String?, times: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_futimesat(fd, path, (times?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun futimesat(fd: CInt, path: ConstPtr<CChar>, times: ConstPtr<Timeval>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishFutimesat(fd, path.rawAddress.toString(), times.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun futimens(dirfd: CInt, times: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_futimens(dirfd, (times?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun futimens(dirfd: CInt, times: ConstPtr<Timespec>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishFutimens(dirfd, times.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun utimensat(dirfd: CInt, path: String?, times: COpaquePointer?, flag: CInt): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_utimensat(dirfd, path, (times?.value ?: 0L).toString(), flag) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun utimensat(dirfd: CInt, path: ConstPtr<CChar>, times: ConstPtr<Timespec>, flag: CInt): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishUtimensat(dirfd, path.rawAddress.toString(), times.rawAddress.toString(), flag) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun nlLanginfo(item: NlItem): COpaquePointer? =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_nlLanginfo(item).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun nlLanginfo(item: NlItem): MutPtr<CChar> =
+    if (unixSolarishNapiAvailable) MutPtr(wasmLibcUnixSolarishNlLanginfo(item).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun bind(socket: CInt, address: COpaquePointer?, addressLen: SocklenT): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_bind(socket, (address?.value ?: 0L).toString(), addressLen.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun bind(socket: CInt, address: ConstPtr<Sockaddr>, addressLen: SocklenT): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishBind(socket, address.rawAddress.toString(), addressLen.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun writev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_writev(fd, (iov?.value ?: 0L).toString(), iovcnt).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun writev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishWritev(fd, iov.rawAddress.toString(), iovcnt).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun readv(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_readv(fd, (iov?.value ?: 0L).toString(), iovcnt).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun readv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishReadv(fd, iov.rawAddress.toString(), iovcnt).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sendmsg(fd: CInt, msg: COpaquePointer?, flags: CInt): SsizeT =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_sendmsg(fd, (msg?.value ?: 0L).toString(), flags).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sendmsg(fd: CInt, msg: ConstPtr<Msghdr>, flags: CInt): SsizeT =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishSendmsg(fd, msg.rawAddress.toString(), flags).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun recvmsg(fd: CInt, msg: COpaquePointer?, flags: CInt): SsizeT =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_recvmsg(fd, (msg?.value ?: 0L).toString(), flags).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun recvmsg(fd: CInt, msg: MutPtr<Msghdr>, flags: CInt): SsizeT =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishRecvmsg(fd, msg.rawAddress.toString(), flags).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun accept4(fd: CInt, address: COpaquePointer?, addressLen: COpaquePointer?, flags: CInt): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_accept4(fd, (address?.value ?: 0L).toString(), (addressLen?.value ?: 0L).toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun accept4(fd: CInt, address: MutPtr<Sockaddr>, addressLen: MutPtr<SocklenT>, flags: CInt): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishAccept4(fd, address.rawAddress.toString(), addressLen.rawAddress.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_mqOpen(name, oflag, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mqOpen(name: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): MqdT =
+    if (unixSolarishNapiAvailable) MutPtr(wasmLibcUnixSolarishMqOpen(name.rawAddress.toString(), oflag, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun mqClose(mqd: MqdT): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_mqClose((mqd?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishMqClose(mqd.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mqUnlink(name: String?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_mqUnlink(name) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mqUnlink(name: ConstPtr<CChar>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishMqUnlink(name.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mqReceive(mqd: MqdT, msgPtr: COpaquePointer?, msgLen: SizeT, msgPrio: COpaquePointer?): SsizeT =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_mqReceive((mqd?.value ?: 0L).toString(), (msgPtr?.value ?: 0L).toString(), msgLen.toString(), (msgPrio?.value ?: 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mqReceive(mqd: MqdT, msgPtr: MutPtr<CChar>, msgLen: SizeT, msgPrio: MutPtr<CUint>): SsizeT =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishMqReceive(mqd.rawAddress.toString(), msgPtr.rawAddress.toString(), msgLen.toString(), msgPrio.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mqTimedreceive(mqd: MqdT, msgPtr: COpaquePointer?, msgLen: SizeT, msgPrio: COpaquePointer?, absTimeout: COpaquePointer?): SsizeT =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_mqTimedreceive((mqd?.value ?: 0L).toString(), (msgPtr?.value ?: 0L).toString(), msgLen.toString(), (msgPrio?.value ?: 0L).toString(), (absTimeout?.value ?: 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mqTimedreceive(mqd: MqdT, msgPtr: MutPtr<CChar>, msgLen: SizeT, msgPrio: MutPtr<CUint>, absTimeout: ConstPtr<Timespec>): SsizeT =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishMqTimedreceive(mqd.rawAddress.toString(), msgPtr.rawAddress.toString(), msgLen.toString(), msgPrio.rawAddress.toString(), absTimeout.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mqSend(mqd: MqdT, msgPtr: String?, msgLen: SizeT, msgPrio: CUint): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_mqSend((mqd?.value ?: 0L).toString(), msgPtr, msgLen.toString(), msgPrio.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mqSend(mqd: MqdT, msgPtr: ConstPtr<CChar>, msgLen: SizeT, msgPrio: CUint): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishMqSend(mqd.rawAddress.toString(), msgPtr.rawAddress.toString(), msgLen.toString(), msgPrio.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mqTimedsend(mqd: MqdT, msgPtr: String?, msgLen: SizeT, msgPrio: CUint, absTimeout: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_mqTimedsend((mqd?.value ?: 0L).toString(), msgPtr, msgLen.toString(), msgPrio.toInt(), (absTimeout?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mqTimedsend(mqd: MqdT, msgPtr: ConstPtr<CChar>, msgLen: SizeT, msgPrio: CUint, absTimeout: ConstPtr<Timespec>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishMqTimedsend(mqd.rawAddress.toString(), msgPtr.rawAddress.toString(), msgLen.toString(), msgPrio.toInt(), absTimeout.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mqGetattr(mqd: MqdT, attr: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_mqGetattr((mqd?.value ?: 0L).toString(), (attr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mqGetattr(mqd: MqdT, attr: MutPtr<MqAttr>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishMqGetattr(mqd.rawAddress.toString(), attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mqSetattr(mqd: MqdT, newattr: COpaquePointer?, oldattr: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_mqSetattr((mqd?.value ?: 0L).toString(), (newattr?.value ?: 0L).toString(), (oldattr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mqSetattr(mqd: MqdT, newattr: ConstPtr<MqAttr>, oldattr: MutPtr<MqAttr>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishMqSetattr(mqd.rawAddress.toString(), newattr.rawAddress.toString(), oldattr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun portCreate(): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_portCreate() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPortCreate() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun portAssociate(port: CInt, source: CInt, obj: UintptrT, events: CInt, user: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_portAssociate(port, source, obj.toString(), events, (user?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun portAssociate(port: CInt, source: CInt, obj: UintptrT, events: CInt, user: MutPtr<CVoid>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPortAssociate(port, source, obj.toString(), events, user.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun portDissociate(port: CInt, source: CInt, obj: UintptrT): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_portDissociate(port, source, obj.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPortDissociate(port, source, obj.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun portGet(port: CInt, pe: COpaquePointer?, timeout: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_portGet(port, (pe?.value ?: 0L).toString(), (timeout?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun portGet(port: CInt, pe: MutPtr<PortEvent>, timeout: MutPtr<Timespec>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPortGet(port, pe.rawAddress.toString(), timeout.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun portGetn(port: CInt, peList: COpaquePointer?, max: CUint, nget: COpaquePointer?, timeout: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_portGetn(port, (peList?.value ?: 0L).toString(), max.toInt(), (nget?.value ?: 0L).toString(), (timeout?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun portGetn(port: CInt, peList: MutPtr<PortEvent>, max: CUint, nget: MutPtr<CUint>, timeout: MutPtr<Timespec>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPortGetn(port, peList.rawAddress.toString(), max.toInt(), nget.rawAddress.toString(), timeout.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun portSend(port: CInt, events: CInt, user: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_portSend(port, events, (user?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun portSend(port: CInt, events: CInt, user: MutPtr<CVoid>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPortSend(port, events, user.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun portSendn(portList: COpaquePointer?, errorList: COpaquePointer?, nent: CUint, events: CInt, user: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_portSendn((portList?.value ?: 0L).toString(), (errorList?.value ?: 0L).toString(), nent.toInt(), events, (user?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun portSendn(portList: MutPtr<CInt>, errorList: MutPtr<CInt>, nent: CUint, events: CInt, user: MutPtr<CVoid>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPortSendn(portList.rawAddress.toString(), errorList.rawAddress.toString(), nent.toInt(), events, user.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getgrgidR(gid: GidT, grp: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_getgrgidR(gid.toInt(), (grp?.value ?: 0L).toString(), (buf?.value ?: 0L).toString(), buflen.toString(), (result?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getgrgidR(gid: GidT, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishGetgrgidR(gid.toInt(), grp.rawAddress.toString(), buf.rawAddress.toString(), buflen.toString(), result.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigaltstack(ss: COpaquePointer?, oss: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_sigaltstack((ss?.value ?: 0L).toString(), (oss?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sigaltstack(ss: ConstPtr<StackT>, oss: MutPtr<StackT>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishSigaltstack(ss.rawAddress.toString(), oss.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigsuspend(mask: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_sigsuspend((mask?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sigsuspend(mask: ConstPtr<SigsetT>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishSigsuspend(mask.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semClose(sem: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_semClose((sem?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun semClose(sem: MutPtr<SemT>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishSemClose(sem.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun getdtablesize(): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_getdtablesize() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishGetdtablesize() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getgrnamR(name: String?, grp: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_getgrnamR(name, (grp?.value ?: 0L).toString(), (buf?.value ?: 0L).toString(), buflen.toString(), (result?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getgrnamR(name: ConstPtr<CChar>, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishGetgrnamR(name.rawAddress.toString(), grp.rawAddress.toString(), buf.rawAddress.toString(), buflen.toString(), result.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun thrSelf(): ThreadT =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_thrSelf().toLong().toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishThrSelf().toLong().toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadSigmask(how: CInt, set: COpaquePointer?, oldset: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_pthreadSigmask(how, (set?.value ?: 0L).toString(), (oldset?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadSigmask(how: CInt, set: ConstPtr<SigsetT>, oldset: MutPtr<SigsetT>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPthreadSigmask(how, set.rawAddress.toString(), oldset.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_semOpen(name, oflag, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun semOpen(name: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): MutPtr<SemT> =
+    if (unixSolarishNapiAvailable) MutPtr(wasmLibcUnixSolarishSemOpen(name.rawAddress.toString(), oflag, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getgrnam(name: String?): COpaquePointer? =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_getgrnam(name).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getgrnam(name: ConstPtr<CChar>): MutPtr<Group> =
+    if (unixSolarishNapiAvailable) MutPtr(wasmLibcUnixSolarishGetgrnam(name.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun pthreadKill(thread: PthreadT, sig: CInt): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_pthreadKill(thread.toLong().toString(), sig) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPthreadKill(thread.toLong().toString(), sig) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun schedGetPriorityMin(policy: CInt): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_schedGetPriorityMin(policy) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishSchedGetPriorityMin(policy) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun schedGetPriorityMax(policy: CInt): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_schedGetPriorityMax(policy) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishSchedGetPriorityMax(policy) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun schedGetparam(pid: PidT, param: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_schedGetparam(pid, (param?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun schedGetparam(pid: PidT, param: MutPtr<SchedParam>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishSchedGetparam(pid, param.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun schedSetparam(pid: PidT, param: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_schedSetparam(pid, (param?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun schedSetparam(pid: PidT, param: ConstPtr<SchedParam>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishSchedSetparam(pid, param.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun schedGetscheduler(pid: PidT): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_schedGetscheduler(pid) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishSchedGetscheduler(pid) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun schedSetscheduler(pid: PidT, policy: CInt, param: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_schedSetscheduler(pid, policy, (param?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun schedSetscheduler(pid: PidT, policy: CInt, param: ConstPtr<SchedParam>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishSchedSetscheduler(pid, policy, param.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semUnlink(name: String?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_semUnlink(name) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun semUnlink(name: ConstPtr<CChar>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishSemUnlink(name.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun daemon(nochdir: CInt, noclose: CInt): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_daemon(nochdir, noclose) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishDaemon(nochdir, noclose) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getpwnamR(name: String?, pwd: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_getpwnamR(name, (pwd?.value ?: 0L).toString(), (buf?.value ?: 0L).toString(), buflen.toString(), (result?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getpwnamR(name: ConstPtr<CChar>, pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishGetpwnamR(name.rawAddress.toString(), pwd.rawAddress.toString(), buf.rawAddress.toString(), buflen.toString(), result.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getpwuidR(uid: UidT, pwd: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_getpwuidR(uid.toInt(), (pwd?.value ?: 0L).toString(), (buf?.value ?: 0L).toString(), buflen.toString(), (result?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getpwuidR(uid: UidT, pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishGetpwuidR(uid.toInt(), pwd.rawAddress.toString(), buf.rawAddress.toString(), buflen.toString(), result.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun nativeGetpwentR(pwd: COpaquePointer?, buf: COpaquePointer?, buflen: CInt): COpaquePointer? =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_nativeGetpwentR((pwd?.value ?: 0L).toString(), (buf?.value ?: 0L).toString(), buflen).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun nativeGetpwentR(pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: CInt): MutPtr<Passwd> =
+    if (unixSolarishNapiAvailable) MutPtr(wasmLibcUnixSolarishNativeGetpwentR(pwd.rawAddress.toString(), buf.rawAddress.toString(), buflen).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun nativeGetgrentR(grp: COpaquePointer?, buf: COpaquePointer?, buflen: CInt): COpaquePointer? =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_nativeGetgrentR((grp?.value ?: 0L).toString(), (buf?.value ?: 0L).toString(), buflen).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun nativeGetgrentR(grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: CInt): MutPtr<Group> =
+    if (unixSolarishNapiAvailable) MutPtr(wasmLibcUnixSolarishNativeGetgrentR(grp.rawAddress.toString(), buf.rawAddress.toString(), buflen).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigwait(set: COpaquePointer?, sig: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_sigwait((set?.value ?: 0L).toString(), (sig?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sigwait(set: ConstPtr<SigsetT>, sig: MutPtr<CInt>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishSigwait(set.rawAddress.toString(), sig.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun pthreadAtfork(prepare: PthreadAtforkPrepareCallback?, parent: PthreadAtforkPrepareCallback?, child: PthreadAtforkPrepareCallback?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_pthreadAtfork(0L.toString(), 0L.toString(), 0L.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPthreadAtfork(0L.toString(), 0L.toString(), 0L.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getgrgid(gid: GidT): COpaquePointer? =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_getgrgid(gid.toInt()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getgrgid(gid: GidT): MutPtr<Group> =
+    if (unixSolarishNapiAvailable) MutPtr(wasmLibcUnixSolarishGetgrgid(gid.toInt()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun setgrent() {
-    if (_unixSolarishNapiAvailable) {
-        _wasm_libc_unix_solarish_setgrent()
+    if (unixSolarishNapiAvailable) {
+        wasmLibcUnixSolarishSetgrent()
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
 public actual fun endgrent() {
-    if (_unixSolarishNapiAvailable) {
-        _wasm_libc_unix_solarish_endgrent()
+    if (unixSolarishNapiAvailable) {
+        wasmLibcUnixSolarishEndgrent()
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun getgrent(): COpaquePointer? =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_getgrent().toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getgrent(): MutPtr<Group> =
+    if (unixSolarishNapiAvailable) MutPtr(wasmLibcUnixSolarishGetgrent().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun popen(command: String?, mode: String?): FILE? =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_popen(command, mode).toLong().let { if (it == 0L) null else FILE(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun popen(command: ConstPtr<CChar>, mode: ConstPtr<CChar>): MutPtr<FILE> =
+    if (unixSolarishNapiAvailable) MutPtr(wasmLibcUnixSolarishPopen(command.rawAddress.toString(), mode.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun dup3(src: CInt, dst: CInt, flags: CInt): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_dup3(src, dst, flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishDup3(src, dst, flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun uname(buf: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_uname((buf?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun uname(buf: MutPtr<Utsname>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishUname(buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pipe2(fds: COpaquePointer?, flags: CInt): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_pipe2((fds?.value ?: 0L).toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pipe2(fds: MutPtr<CInt>, flags: CInt): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPipe2(fds.rawAddress.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun makeutx(ux: COpaquePointer?): COpaquePointer? =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_makeutx((ux?.value ?: 0L).toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun makeutx(ux: ConstPtr<Utmpx>): MutPtr<Utmpx> =
+    if (unixSolarishNapiAvailable) MutPtr(wasmLibcUnixSolarishMakeutx(ux.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun modutx(ux: COpaquePointer?): COpaquePointer? =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_modutx((ux?.value ?: 0L).toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun modutx(ux: ConstPtr<Utmpx>): MutPtr<Utmpx> =
+    if (unixSolarishNapiAvailable) MutPtr(wasmLibcUnixSolarishModutx(ux.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun updwtmpx(file: String?, ut: COpaquePointer?) {
-    if (_unixSolarishNapiAvailable) {
-        _wasm_libc_unix_solarish_updwtmpx(file, (ut?.value ?: 0L).toString())
+public actual fun updwtmpx(file: ConstPtr<CChar>, ut: MutPtr<Utmpx>) {
+    if (unixSolarishNapiAvailable) {
+        wasmLibcUnixSolarishUpdwtmpx(file.rawAddress.toString(), ut.rawAddress.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun utmpxname(file: String?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_utmpxname(file) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun utmpxname(file: ConstPtr<CChar>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishUtmpxname(file.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getutxent(): COpaquePointer? =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_getutxent().toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getutxent(): MutPtr<Utmpx> =
+    if (unixSolarishNapiAvailable) MutPtr(wasmLibcUnixSolarishGetutxent().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getutxid(ut: COpaquePointer?): COpaquePointer? =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_getutxid((ut?.value ?: 0L).toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getutxid(ut: ConstPtr<Utmpx>): MutPtr<Utmpx> =
+    if (unixSolarishNapiAvailable) MutPtr(wasmLibcUnixSolarishGetutxid(ut.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getutxline(ut: COpaquePointer?): COpaquePointer? =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_getutxline((ut?.value ?: 0L).toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getutxline(ut: ConstPtr<Utmpx>): MutPtr<Utmpx> =
+    if (unixSolarishNapiAvailable) MutPtr(wasmLibcUnixSolarishGetutxline(ut.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pututxline(ut: COpaquePointer?): COpaquePointer? =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_pututxline((ut?.value ?: 0L).toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pututxline(ut: ConstPtr<Utmpx>): MutPtr<Utmpx> =
+    if (unixSolarishNapiAvailable) MutPtr(wasmLibcUnixSolarishPututxline(ut.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun setutxent() {
-    if (_unixSolarishNapiAvailable) {
-        _wasm_libc_unix_solarish_setutxent()
+    if (unixSolarishNapiAvailable) {
+        wasmLibcUnixSolarishSetutxent()
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
 public actual fun endutxent() {
-    if (_unixSolarishNapiAvailable) {
-        _wasm_libc_unix_solarish_endutxent()
+    if (unixSolarishNapiAvailable) {
+        wasmLibcUnixSolarishEndutxent()
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
 public actual fun endutent() {
-    if (_unixSolarishNapiAvailable) {
-        _wasm_libc_unix_solarish_endutent()
+    if (unixSolarishNapiAvailable) {
+        wasmLibcUnixSolarishEndutent()
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun getutent(): COpaquePointer? =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_getutent().toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getutent(): MutPtr<Utmp> =
+    if (unixSolarishNapiAvailable) MutPtr(wasmLibcUnixSolarishGetutent().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getutid(u: COpaquePointer?): COpaquePointer? =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_getutid((u?.value ?: 0L).toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getutid(u: ConstPtr<Utmp>): MutPtr<Utmp> =
+    if (unixSolarishNapiAvailable) MutPtr(wasmLibcUnixSolarishGetutid(u.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getutline(u: COpaquePointer?): COpaquePointer? =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_getutline((u?.value ?: 0L).toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getutline(u: ConstPtr<Utmp>): MutPtr<Utmp> =
+    if (unixSolarishNapiAvailable) MutPtr(wasmLibcUnixSolarishGetutline(u.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pututline(u: COpaquePointer?): COpaquePointer? =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_pututline((u?.value ?: 0L).toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pututline(u: ConstPtr<Utmp>): MutPtr<Utmp> =
+    if (unixSolarishNapiAvailable) MutPtr(wasmLibcUnixSolarishPututline(u.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun setutent() {
-    if (_unixSolarishNapiAvailable) {
-        _wasm_libc_unix_solarish_setutent()
+    if (unixSolarishNapiAvailable) {
+        wasmLibcUnixSolarishSetutent()
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun utmpname(file: String?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_utmpname(file) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun utmpname(file: ConstPtr<CChar>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishUtmpname(file.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getutmp(ux: COpaquePointer?, u: COpaquePointer?) {
-    if (_unixSolarishNapiAvailable) {
-        _wasm_libc_unix_solarish_getutmp((ux?.value ?: 0L).toString(), (u?.value ?: 0L).toString())
+public actual fun getutmp(ux: ConstPtr<Utmpx>, u: MutPtr<Utmp>) {
+    if (unixSolarishNapiAvailable) {
+        wasmLibcUnixSolarishGetutmp(ux.rawAddress.toString(), u.rawAddress.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun getutmpx(u: COpaquePointer?, ux: COpaquePointer?) {
-    if (_unixSolarishNapiAvailable) {
-        _wasm_libc_unix_solarish_getutmpx((u?.value ?: 0L).toString(), (ux?.value ?: 0L).toString())
+public actual fun getutmpx(u: ConstPtr<Utmp>, ux: MutPtr<Utmpx>) {
+    if (unixSolarishNapiAvailable) {
+        wasmLibcUnixSolarishGetutmpx(u.rawAddress.toString(), ux.rawAddress.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun updwtmp(file: String?, u: COpaquePointer?) {
-    if (_unixSolarishNapiAvailable) {
-        _wasm_libc_unix_solarish_updwtmp(file, (u?.value ?: 0L).toString())
+public actual fun updwtmp(file: ConstPtr<CChar>, u: MutPtr<Utmp>) {
+    if (unixSolarishNapiAvailable) {
+        wasmLibcUnixSolarishUpdwtmp(file.rawAddress.toString(), u.rawAddress.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun ntpAdjtime(buf: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_ntpAdjtime((buf?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ntpAdjtime(buf: MutPtr<Timex>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishNtpAdjtime(buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ntpGettime(buf: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_ntpGettime((buf?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ntpGettime(buf: MutPtr<Ntptimeval>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishNtpGettime(buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun timerCreate(clockId: ClockidT, evp: COpaquePointer?, timerid: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_timerCreate(clockId, (evp?.value ?: 0L).toString(), (timerid?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun timerCreate(clockId: ClockidT, evp: MutPtr<Sigevent>, timerid: MutPtr<TimerT>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishTimerCreate(clockId, evp.rawAddress.toString(), timerid.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun timerDelete(timerid: TimerT): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_timerDelete(timerid.toLong().toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishTimerDelete(timerid.toLong().toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun timerGetoverrun(timerid: TimerT): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_timerGetoverrun(timerid.toLong().toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishTimerGetoverrun(timerid.toLong().toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun timerGettime(timerid: TimerT, value: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_timerGettime(timerid.toLong().toString(), (value?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun timerGettime(timerid: TimerT, value: MutPtr<Itimerspec>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishTimerGettime(timerid.toLong().toString(), value.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun timerSettime(timerid: TimerT, flags: CInt, value: COpaquePointer?, ovalue: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_timerSettime(timerid.toLong().toString(), flags, (value?.value ?: 0L).toString(), (ovalue?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun timerSettime(timerid: TimerT, flags: CInt, value: ConstPtr<Itimerspec>, ovalue: MutPtr<Itimerspec>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishTimerSettime(timerid.toLong().toString(), flags, value.rawAddress.toString(), ovalue.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ucredGet(pid: PidT): COpaquePointer? =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_ucredGet(pid).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ucredGet(pid: PidT): MutPtr<UcredT> =
+    if (unixSolarishNapiAvailable) MutPtr(wasmLibcUnixSolarishUcredGet(pid).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getpeerucred(fd: CInt, ucred: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_getpeerucred(fd, (ucred?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getpeerucred(fd: CInt, ucred: MutPtr<MutPtr<UcredT>>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishGetpeerucred(fd, ucred.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ucredFree(ucred: COpaquePointer?) {
-    if (_unixSolarishNapiAvailable) {
-        _wasm_libc_unix_solarish_ucredFree((ucred?.value ?: 0L).toString())
+public actual fun ucredFree(ucred: MutPtr<UcredT>) {
+    if (unixSolarishNapiAvailable) {
+        wasmLibcUnixSolarishUcredFree(ucred.rawAddress.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun ucredGeteuid(ucred: COpaquePointer?): UidT =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_ucredGeteuid((ucred?.value ?: 0L).toString()).toUShort() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ucredGeteuid(ucred: ConstPtr<UcredT>): UidT =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishUcredGeteuid(ucred.rawAddress.toString()).toUShort() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ucredGetruid(ucred: COpaquePointer?): UidT =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_ucredGetruid((ucred?.value ?: 0L).toString()).toUShort() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ucredGetruid(ucred: ConstPtr<UcredT>): UidT =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishUcredGetruid(ucred.rawAddress.toString()).toUShort() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ucredGetsuid(ucred: COpaquePointer?): UidT =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_ucredGetsuid((ucred?.value ?: 0L).toString()).toUShort() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ucredGetsuid(ucred: ConstPtr<UcredT>): UidT =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishUcredGetsuid(ucred.rawAddress.toString()).toUShort() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ucredGetegid(ucred: COpaquePointer?): GidT =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_ucredGetegid((ucred?.value ?: 0L).toString()).toUShort() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ucredGetegid(ucred: ConstPtr<UcredT>): GidT =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishUcredGetegid(ucred.rawAddress.toString()).toUShort() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ucredGetrgid(ucred: COpaquePointer?): GidT =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_ucredGetrgid((ucred?.value ?: 0L).toString()).toUShort() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ucredGetrgid(ucred: ConstPtr<UcredT>): GidT =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishUcredGetrgid(ucred.rawAddress.toString()).toUShort() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ucredGetsgid(ucred: COpaquePointer?): GidT =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_ucredGetsgid((ucred?.value ?: 0L).toString()).toUShort() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ucredGetsgid(ucred: ConstPtr<UcredT>): GidT =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishUcredGetsgid(ucred.rawAddress.toString()).toUShort() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ucredGetgroups(ucred: COpaquePointer?, groups: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_ucredGetgroups((ucred?.value ?: 0L).toString(), (groups?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ucredGetgroups(ucred: ConstPtr<UcredT>, groups: MutPtr<ConstPtr<GidT>>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishUcredGetgroups(ucred.rawAddress.toString(), groups.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ucredGetpid(ucred: COpaquePointer?): PidT =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_ucredGetpid((ucred?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ucredGetpid(ucred: ConstPtr<UcredT>): PidT =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishUcredGetpid(ucred.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ucredGetprojid(ucred: COpaquePointer?): ProjidT =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_ucredGetprojid((ucred?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ucredGetprojid(ucred: ConstPtr<UcredT>): ProjidT =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishUcredGetprojid(ucred.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ucredGetzoneid(ucred: COpaquePointer?): ZoneidT =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_ucredGetzoneid((ucred?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ucredGetzoneid(ucred: ConstPtr<UcredT>): ZoneidT =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishUcredGetzoneid(ucred.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ucredGetpflags(ucred: COpaquePointer?, flags: CUint): CUint =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_ucredGetpflags((ucred?.value ?: 0L).toString(), flags.toInt()).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ucredGetpflags(ucred: ConstPtr<UcredT>, flags: CUint): CUint =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishUcredGetpflags(ucred.rawAddress.toString(), flags.toInt()).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun ucredSize(): SizeT =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_ucredSize().toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishUcredSize().toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun psetCreate(newpset: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_psetCreate((newpset?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun psetCreate(newpset: MutPtr<PsetidT>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPsetCreate(newpset.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun psetDestroy(pset: PsetidT): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_psetDestroy(pset) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPsetDestroy(pset) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun psetAssign(pset: PsetidT, cpu: ProcessoridT, opset: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_psetAssign(pset, cpu, (opset?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun psetAssign(pset: PsetidT, cpu: ProcessoridT, opset: MutPtr<PsetidT>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPsetAssign(pset, cpu, opset.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun psetInfo(pset: PsetidT, tpe: COpaquePointer?, numcpus: COpaquePointer?, cpulist: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_psetInfo(pset, (tpe?.value ?: 0L).toString(), (numcpus?.value ?: 0L).toString(), (cpulist?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun psetInfo(pset: PsetidT, tpe: MutPtr<CInt>, numcpus: MutPtr<CUint>, cpulist: MutPtr<ProcessoridT>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPsetInfo(pset, tpe.rawAddress.toString(), numcpus.rawAddress.toString(), cpulist.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun psetBind(pset: PsetidT, idtype: IdtypeT, id: IdT, opset: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_psetBind(pset, idtype.toInt(), id, (opset?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun psetBind(pset: PsetidT, idtype: IdtypeT, id: IdT, opset: MutPtr<PsetidT>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPsetBind(pset, idtype.toInt(), id, opset.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun psetList(pset: COpaquePointer?, numpsets: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_psetList((pset?.value ?: 0L).toString(), (numpsets?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun psetList(pset: MutPtr<PsetidT>, numpsets: MutPtr<CUint>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPsetList(pset.rawAddress.toString(), numpsets.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun psetSetattr(pset: PsetidT, attr: CUint): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_psetSetattr(pset, attr.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPsetSetattr(pset, attr.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun psetGetattr(pset: PsetidT, attr: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_psetGetattr(pset, (attr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun psetGetattr(pset: PsetidT, attr: MutPtr<CUint>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPsetGetattr(pset, attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun processorBind(idtype: IdtypeT, id: IdT, newBinding: ProcessoridT, oldBinding: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_processorBind(idtype.toInt(), id, newBinding, (oldBinding?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun processorBind(idtype: IdtypeT, id: IdT, newBinding: ProcessoridT, oldBinding: MutPtr<ProcessoridT>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishProcessorBind(idtype.toInt(), id, newBinding, oldBinding.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun pOnline(processorid: ProcessoridT, flag: CInt): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_pOnline(processorid, flag) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishPOnline(processorid, flag) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun processorInfo(processorid: ProcessoridT, infop: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_processorInfo(processorid, (infop?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun processorInfo(processorid: ProcessoridT, infop: MutPtr<ProcessorInfoT>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishProcessorInfo(processorid, infop.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getexecname(): COpaquePointer? =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_getexecname().toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getexecname(): ConstPtr<CChar> =
+    if (unixSolarishNapiAvailable) ConstPtr(wasmLibcUnixSolarishGetexecname().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun gethostid(): CLong =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_gethostid().toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishGethostid().toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun getpflags(flags: CUint): CUint =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_getpflags(flags.toInt()).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishGetpflags(flags.toInt()).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun setpflags(flags: CUint, value: CUint): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_setpflags(flags.toInt(), value.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishSetpflags(flags.toInt(), value.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sysinfo(command: CInt, buf: COpaquePointer?, count: CLong): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_sysinfo(command, (buf?.value ?: 0L).toString(), count.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sysinfo(command: CInt, buf: MutPtr<CChar>, count: CLong): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishSysinfo(command, buf.rawAddress.toString(), count.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun faccessat(fd: CInt, path: String?, amode: CInt, flag: CInt): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_faccessat(fd, path, amode, flag) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun faccessat(fd: CInt, path: ConstPtr<CChar>, amode: CInt, flag: CInt): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishFaccessat(fd, path.rawAddress.toString(), amode, flag) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_dlIteratePhdr(0L.toString(), (data?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: MutPtr<CVoid>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishDlIteratePhdr(0L.toString(), data.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun getpagesize(): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_getpagesize() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishGetpagesize() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getpagesizes(pagesize: COpaquePointer?, nelem: CInt): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_getpagesizes((pagesize?.value ?: 0L).toString(), nelem) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getpagesizes(pagesize: MutPtr<SizeT>, nelem: CInt): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishGetpagesizes(pagesize.rawAddress.toString(), nelem) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mmapobj(fd: CInt, flags: CUint, storage: COpaquePointer?, elements: COpaquePointer?, arg: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_mmapobj(fd, flags.toInt(), (storage?.value ?: 0L).toString(), (elements?.value ?: 0L).toString(), (arg?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mmapobj(fd: CInt, flags: CUint, storage: MutPtr<MmapobjResultT>, elements: MutPtr<CUint>, arg: MutPtr<CVoid>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishMmapobj(fd, flags.toInt(), storage.rawAddress.toString(), elements.rawAddress.toString(), arg.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun meminfo(inaddr: COpaquePointer?, addrCount: CInt, infoReq: COpaquePointer?, infoCount: CInt, outdata: COpaquePointer?, validity: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_meminfo((inaddr?.value ?: 0L).toString(), addrCount, (infoReq?.value ?: 0L).toString(), infoCount, (outdata?.value ?: 0L).toString(), (validity?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun meminfo(inaddr: ConstPtr<ULong>, addrCount: CInt, infoReq: ConstPtr<CUint>, infoCount: CInt, outdata: MutPtr<ULong>, validity: MutPtr<CUint>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishMeminfo(inaddr.rawAddress.toString(), addrCount, infoReq.rawAddress.toString(), infoCount, outdata.rawAddress.toString(), validity.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strsep(string: COpaquePointer?, delim: String?): COpaquePointer? =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_strsep((string?.value ?: 0L).toString(), delim).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strsep(string: MutPtr<MutPtr<CChar>>, delim: ConstPtr<CChar>): MutPtr<CChar> =
+    if (unixSolarishNapiAvailable) MutPtr(wasmLibcUnixSolarishStrsep(string.rawAddress.toString(), delim.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getisax(array: COpaquePointer?, n: CUint): CUint =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_getisax((array?.value ?: 0L).toString(), n.toInt()).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getisax(array: MutPtr<UInt>, n: CUint): CUint =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishGetisax(array.rawAddress.toString(), n.toInt()).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun backtrace(buffer: COpaquePointer?, size: CInt): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_backtrace((buffer?.value ?: 0L).toString(), size) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun backtrace(buffer: MutPtr<MutPtr<CVoid>>, size: CInt): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishBacktrace(buffer.rawAddress.toString(), size) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun backtraceSymbols(buffer: COpaquePointer?, size: CInt): COpaquePointer? =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_backtraceSymbols((buffer?.value ?: 0L).toString(), size).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun backtraceSymbols(buffer: ConstPtr<MutPtr<CVoid>>, size: CInt): MutPtr<MutPtr<CChar>> =
+    if (unixSolarishNapiAvailable) MutPtr(wasmLibcUnixSolarishBacktraceSymbols(buffer.rawAddress.toString(), size).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun backtraceSymbolsFd(buffer: COpaquePointer?, size: CInt, fd: CInt) {
-    if (_unixSolarishNapiAvailable) {
-        _wasm_libc_unix_solarish_backtraceSymbolsFd((buffer?.value ?: 0L).toString(), size, fd)
+public actual fun backtraceSymbolsFd(buffer: ConstPtr<MutPtr<CVoid>>, size: CInt, fd: CInt) {
+    if (unixSolarishNapiAvailable) {
+        wasmLibcUnixSolarishBacktraceSymbolsFd(buffer.rawAddress.toString(), size, fd)
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun getoptLong(argc: CInt, argv: COpaquePointer?, optstring: String?, longopts: COpaquePointer?, longindex: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_getoptLong(argc, (argv?.value ?: 0L).toString(), optstring, (longopts?.value ?: 0L).toString(), (longindex?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getoptLong(argc: CInt, argv: ConstPtr<MutPtr<CChar>>, optstring: ConstPtr<CChar>, longopts: ConstPtr<Option>, longindex: MutPtr<CInt>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishGetoptLong(argc, argv.rawAddress.toString(), optstring.rawAddress.toString(), longopts.rawAddress.toString(), longindex.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sync() {
-    if (_unixSolarishNapiAvailable) {
-        _wasm_libc_unix_solarish_sync()
+    if (unixSolarishNapiAvailable) {
+        wasmLibcUnixSolarishSync()
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun aioCancel(fd: CInt, aiocbp: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_aioCancel(fd, (aiocbp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun aioCancel(fd: CInt, aiocbp: MutPtr<Aiocb>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishAioCancel(fd, aiocbp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun aioError(aiocbp: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_aioError((aiocbp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun aioError(aiocbp: ConstPtr<Aiocb>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishAioError(aiocbp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun aioFsync(op: CInt, aiocbp: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_aioFsync(op, (aiocbp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun aioFsync(op: CInt, aiocbp: MutPtr<Aiocb>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishAioFsync(op, aiocbp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun aioRead(aiocbp: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_aioRead((aiocbp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun aioRead(aiocbp: MutPtr<Aiocb>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishAioRead(aiocbp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun aioReturn(aiocbp: COpaquePointer?): SsizeT =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_aioReturn((aiocbp?.value ?: 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun aioReturn(aiocbp: MutPtr<Aiocb>): SsizeT =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishAioReturn(aiocbp.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun aioSuspend(aiocbList: COpaquePointer?, nitems: CInt, timeout: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_aioSuspend((aiocbList?.value ?: 0L).toString(), nitems, (timeout?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun aioSuspend(aiocbList: ConstPtr<ConstPtr<Aiocb>>, nitems: CInt, timeout: ConstPtr<Timespec>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishAioSuspend(aiocbList.rawAddress.toString(), nitems, timeout.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun aioWaitn(aiocbList: COpaquePointer?, nent: CUint, nwait: COpaquePointer?, timeout: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_aioWaitn((aiocbList?.value ?: 0L).toString(), nent.toInt(), (nwait?.value ?: 0L).toString(), (timeout?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun aioWaitn(aiocbList: MutPtr<MutPtr<Aiocb>>, nent: CUint, nwait: MutPtr<CUint>, timeout: ConstPtr<Timespec>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishAioWaitn(aiocbList.rawAddress.toString(), nent.toInt(), nwait.rawAddress.toString(), timeout.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun aioWrite(aiocbp: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_aioWrite((aiocbp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun aioWrite(aiocbp: MutPtr<Aiocb>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishAioWrite(aiocbp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun lioListio(mode: CInt, aiocbList: COpaquePointer?, nitems: CInt, sevp: COpaquePointer?): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_lioListio(mode, (aiocbList?.value ?: 0L).toString(), nitems, (sevp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun lioListio(mode: CInt, aiocbList: ConstPtr<MutPtr<Aiocb>>, nitems: CInt, sevp: MutPtr<Sigevent>): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishLioListio(mode, aiocbList.rawAddress.toString(), nitems, sevp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun major(version: CInt, devnum: DevT): MajorT =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_major(version, devnum.toString()).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishMajor(version, devnum.toString()).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun minor(version: CInt, devnum: DevT): MinorT =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_minor(version, devnum.toString()).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishMinor(version, devnum.toString()).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun makedev(version: CInt, majdev: MajorT, mindev: MinorT): DevT =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_makedev(version, majdev.toInt(), mindev.toInt()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishMakedev(version, majdev.toInt(), mindev.toInt()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun arc4random(): UInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_arc4random().toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishArc4random().toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun arc4randomBuf(buf: COpaquePointer?, nbytes: SizeT) {
-    if (_unixSolarishNapiAvailable) {
-        _wasm_libc_unix_solarish_arc4randomBuf((buf?.value ?: 0L).toString(), nbytes.toString())
+public actual fun arc4randomBuf(buf: MutPtr<CVoid>, nbytes: SizeT) {
+    if (unixSolarishNapiAvailable) {
+        wasmLibcUnixSolarishArc4randomBuf(buf.rawAddress.toString(), nbytes.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
 public actual fun arc4randomUniform(upperBound: UInt): UInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_arc4randomUniform(upperBound.toInt()).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishArc4randomUniform(upperBound.toInt()).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun secureGetenv(name: String?): COpaquePointer? =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_secureGetenv(name).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun secureGetenv(name: ConstPtr<CChar>): MutPtr<CChar> =
+    if (unixSolarishNapiAvailable) MutPtr(wasmLibcUnixSolarishSecureGetenv(name.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strftime(s: COpaquePointer?, maxsize: SizeT, format: String?, timeptr: COpaquePointer?): SizeT =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_strftime((s?.value ?: 0L).toString(), maxsize.toString(), format, (timeptr?.value ?: 0L).toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strftime(s: MutPtr<CChar>, maxsize: SizeT, format: ConstPtr<CChar>, timeptr: ConstPtr<Tm>): SizeT =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishStrftime(s.rawAddress.toString(), maxsize.toString(), format.rawAddress.toString(), timeptr.rawAddress.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strftimeL(s: COpaquePointer?, maxsize: SizeT, format: String?, timeptr: COpaquePointer?, loc: LocaleT): SizeT =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_strftimeL((s?.value ?: 0L).toString(), maxsize.toString(), format, (timeptr?.value ?: 0L).toString(), (loc?.value ?: 0L).toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strftimeL(s: MutPtr<CChar>, maxsize: SizeT, format: ConstPtr<CChar>, timeptr: ConstPtr<Tm>, loc: LocaleT): SizeT =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishStrftimeL(s.rawAddress.toString(), maxsize.toString(), format.rawAddress.toString(), timeptr.rawAddress.toString(), loc.rawAddress.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sendfile(outFd: CInt, inFd: CInt, off: COpaquePointer?, len: SizeT): SsizeT =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_sendfile(outFd, inFd, (off?.value ?: 0L).toString(), len.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sendfile(outFd: CInt, inFd: CInt, off: MutPtr<OffT>, len: SizeT): SsizeT =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishSendfile(outFd, inFd, off.rawAddress.toString(), len.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sendfilev(fildes: CInt, vec: COpaquePointer?, sfvcnt: CInt, xferred: COpaquePointer?): SsizeT =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_sendfilev(fildes, (vec?.value ?: 0L).toString(), sfvcnt, (xferred?.value ?: 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sendfilev(fildes: CInt, vec: ConstPtr<SendfilevecT>, sfvcnt: CInt, xferred: MutPtr<SizeT>): SsizeT =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishSendfilev(fildes, vec.rawAddress.toString(), sfvcnt, xferred.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun lgrpInit(view: LgrpViewT): LgrpCookieT =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_lgrpInit(view.toInt()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishLgrpInit(view.toInt()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun lgrpFini(cookie: LgrpCookieT): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_lgrpFini(cookie.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishLgrpFini(cookie.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun lgrpAffinityGet(idtype: IdtypeT, id: IdT, lgrp: LgrpIdT): LgrpAffinityT =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_lgrpAffinityGet(idtype.toInt(), id, lgrp) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishLgrpAffinityGet(idtype.toInt(), id, lgrp) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun lgrpAffinitySet(idtype: IdtypeT, id: IdT, lgrp: LgrpIdT, aff: LgrpAffinityT): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_lgrpAffinitySet(idtype.toInt(), id, lgrp, aff) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishLgrpAffinitySet(idtype.toInt(), id, lgrp, aff) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun lgrpCpus(cookie: LgrpCookieT, lgrp: LgrpIdT, cpuids: COpaquePointer?, count: CUint, content: LgrpContentT): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_lgrpCpus(cookie.toString(), lgrp, (cpuids?.value ?: 0L).toString(), count.toInt(), content.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun lgrpCpus(cookie: LgrpCookieT, lgrp: LgrpIdT, cpuids: MutPtr<ProcessoridT>, count: CUint, content: LgrpContentT): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishLgrpCpus(cookie.toString(), lgrp, cpuids.rawAddress.toString(), count.toInt(), content.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun lgrpMemSize(cookie: LgrpCookieT, lgrp: LgrpIdT, tpe: LgrpMemSizeFlagT, content: LgrpContentT): LgrpMemSizeT =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_lgrpMemSize(cookie.toString(), lgrp, tpe.toInt(), content.toInt()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishLgrpMemSize(cookie.toString(), lgrp, tpe.toInt(), content.toInt()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun lgrpNlgrps(cookie: LgrpCookieT): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_lgrpNlgrps(cookie.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishLgrpNlgrps(cookie.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun lgrpView(cookie: LgrpCookieT): LgrpViewT =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_lgrpView(cookie.toString()).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishLgrpView(cookie.toString()).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun lgrpHome(idtype: IdtypeT, id: IdT): LgrpIdT =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_lgrpHome(idtype.toInt(), id) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishLgrpHome(idtype.toInt(), id) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun lgrpVersion(version: CInt): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_lgrpVersion(version) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishLgrpVersion(version) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun lgrpResources(cookie: LgrpCookieT, lgrp: LgrpIdT, lgrps: COpaquePointer?, count: CUint, tpe: LgrpRsrcT): CInt =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_lgrpResources(cookie.toString(), lgrp, (lgrps?.value ?: 0L).toString(), count.toInt(), tpe) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun lgrpResources(cookie: LgrpCookieT, lgrp: LgrpIdT, lgrps: MutPtr<LgrpIdT>, count: CUint, tpe: LgrpRsrcT): CInt =
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishLgrpResources(cookie.toString(), lgrp, lgrps.rawAddress.toString(), count.toInt(), tpe) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun lgrpRoot(cookie: LgrpCookieT): LgrpIdT =
-    if (_unixSolarishNapiAvailable) _wasm_libc_unix_solarish_lgrpRoot(cookie.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixSolarishNapiAvailable) wasmLibcUnixSolarishLgrpRoot(cookie.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")

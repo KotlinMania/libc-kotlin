@@ -23,7 +23,7 @@
 #endif
 #endif
 
-int32_t libc_unix_newlib_getrlimit(int32_t resource, void* rlim) {
+int32_t libcUnixNewlibGetrlimit(int32_t resource, void* rlim) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -51,7 +51,7 @@ int32_t libc_unix_newlib_getrlimit(int32_t resource, void* rlim) {
     return -1;
 }
 
-int32_t libc_unix_newlib_setrlimit(int32_t resource, void* rlim) {
+int32_t libcUnixNewlibSetrlimit(int32_t resource, void* rlim) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -79,7 +79,7 @@ int32_t libc_unix_newlib_setrlimit(int32_t resource, void* rlim) {
     return -1;
 }
 
-int32_t libc_unix_newlib_strerrorR(int32_t errnum, char* buf, uint64_t buflen) {
+int32_t libcUnixNewlibStrerrorR(int32_t errnum, char* buf, uint64_t buflen) {
     typedef int32_t (*km_fn_t)(int32_t, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -107,7 +107,7 @@ int32_t libc_unix_newlib_strerrorR(int32_t errnum, char* buf, uint64_t buflen) {
     return -1;
 }
 
-int32_t libc_unix_newlib_semDestroy(void* sem) {
+int32_t libcUnixNewlibSemDestroy(void* sem) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -135,7 +135,7 @@ int32_t libc_unix_newlib_semDestroy(void* sem) {
     return -1;
 }
 
-int32_t libc_unix_newlib_semInit(void* sem, int32_t pshared, uint32_t value) {
+int32_t libcUnixNewlibSemInit(void* sem, int32_t pshared, uint32_t value) {
     typedef int32_t (*km_fn_t)(void*, int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -163,11 +163,11 @@ int32_t libc_unix_newlib_semInit(void* sem, int32_t pshared, uint32_t value) {
     return -1;
 }
 
-int32_t libc_unix_newlib_abs(int32_t i) {
+int32_t libcUnixNewlibAbs(int32_t i) {
     return (int32_t)abs(i);
 }
 
-int64_t libc_unix_newlib_labs(int64_t i) {
+int64_t libcUnixNewlibLabs(int64_t i) {
     typedef int64_t (*km_fn_t)(int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -195,19 +195,19 @@ int64_t libc_unix_newlib_labs(int64_t i) {
     return -1;
 }
 
-int32_t libc_unix_newlib_rand(void) {
+int32_t libcUnixNewlibRand(void) {
     return (int32_t)rand();
 }
 
-void libc_unix_newlib_srand(uint32_t seed) {
+void libcUnixNewlibSrand(uint32_t seed) {
     srand(seed);
 }
 
-int32_t libc_unix_newlib_bind(int32_t fd, void* addr, uint32_t len) {
+int32_t libcUnixNewlibBind(int32_t fd, void* addr, uint32_t len) {
     return (int32_t)bind(fd, addr, len);
 }
 
-int32_t libc_unix_newlib_clockSettime(uint64_t clock_id, void* tp) {
+int32_t libcUnixNewlibClockSettime(uint64_t clockId, void* tp) {
     typedef int32_t (*km_fn_t)(uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -229,13 +229,13 @@ int32_t libc_unix_newlib_clockSettime(uint64_t clock_id, void* tp) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(clock_id, tp);
+        return km_fn_ptr(clockId, tp);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_newlib_clockGettime(uint64_t clock_id, void* tp) {
+int32_t libcUnixNewlibClockGettime(uint64_t clockId, void* tp) {
     typedef int32_t (*km_fn_t)(uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -257,13 +257,13 @@ int32_t libc_unix_newlib_clockGettime(uint64_t clock_id, void* tp) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(clock_id, tp);
+        return km_fn_ptr(clockId, tp);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_newlib_clockGetres(uint64_t clock_id, void* res) {
+int32_t libcUnixNewlibClockGetres(uint64_t clockId, void* res) {
     typedef int32_t (*km_fn_t)(uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -285,13 +285,13 @@ int32_t libc_unix_newlib_clockGetres(uint64_t clock_id, void* res) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(clock_id, res);
+        return km_fn_ptr(clockId, res);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_newlib_closesocket(int32_t sockfd) {
+int32_t libcUnixNewlibClosesocket(int32_t sockfd) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -319,7 +319,7 @@ int32_t libc_unix_newlib_closesocket(int32_t sockfd) {
     return -1;
 }
 
-int32_t libc_unix_newlib_ioctl(int32_t fd, uint64_t request, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcUnixNewlibIoctl(int32_t fd, uint64_t request, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(int32_t, uint64_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -353,11 +353,11 @@ int32_t libc_unix_newlib_ioctl(int32_t fd, uint64_t request, int32_t km_vac, int
     return -1;
 }
 
-int64_t libc_unix_newlib_recvfrom(int32_t fd, void* buf, uint64_t n, int32_t flags, void* addr, void* addr_len) {
-    return (int64_t)recvfrom(fd, buf, n, flags, addr, addr_len);
+int64_t libcUnixNewlibRecvfrom(int32_t fd, void* buf, uint64_t n, int32_t flags, void* addr, void* addrLen) {
+    return (int64_t)recvfrom(fd, buf, n, flags, addr, addrLen);
 }
 
-int32_t libc_unix_newlib_getnameinfo(void* sa, uint32_t salen, char* host, uint32_t hostlen, char* serv, uint32_t servlen, int32_t flags) {
+int32_t libcUnixNewlibGetnameinfo(void* sa, uint32_t salen, char* host, uint32_t hostlen, char* serv, uint32_t servlen, int32_t flags) {
     typedef int32_t (*km_fn_t)(void*, uint32_t, char*, uint32_t, char*, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -385,7 +385,7 @@ int32_t libc_unix_newlib_getnameinfo(void* sa, uint32_t salen, char* host, uint3
     return -1;
 }
 
-void* libc_unix_newlib_memalign(uint64_t align, uint64_t size) {
+void* libcUnixNewlibMemalign(uint64_t align, uint64_t size) {
     typedef void* (*km_fn_t)(uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -413,7 +413,7 @@ void* libc_unix_newlib_memalign(uint64_t align, uint64_t size) {
     return NULL;
 }
 
-int32_t libc_unix_newlib_fexecve(int32_t fd, void* argv, void* envp) {
+int32_t libcUnixNewlibFexecve(int32_t fd, void* argv, void* envp) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -441,7 +441,7 @@ int32_t libc_unix_newlib_fexecve(int32_t fd, void* argv, void* envp) {
     return -1;
 }
 
-int32_t libc_unix_newlib_gettimeofday(void* tp, void* tz) {
+int32_t libcUnixNewlibGettimeofday(void* tp, void* tz) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -469,7 +469,7 @@ int32_t libc_unix_newlib_gettimeofday(void* tp, void* tz) {
     return -1;
 }
 
-int32_t libc_unix_newlib_getgrgidR(uint16_t gid, void* grp, char* buf, uint64_t buflen, void* result) {
+int32_t libcUnixNewlibGetgrgidR(uint16_t gid, void* grp, char* buf, uint64_t buflen, void* result) {
     typedef int32_t (*km_fn_t)(uint16_t, void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -497,7 +497,7 @@ int32_t libc_unix_newlib_getgrgidR(uint16_t gid, void* grp, char* buf, uint64_t 
     return -1;
 }
 
-int32_t libc_unix_newlib_sigaltstack(void* ss, void* oss) {
+int32_t libcUnixNewlibSigaltstack(void* ss, void* oss) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -525,7 +525,7 @@ int32_t libc_unix_newlib_sigaltstack(void* ss, void* oss) {
     return -1;
 }
 
-int32_t libc_unix_newlib_semClose(void* sem) {
+int32_t libcUnixNewlibSemClose(void* sem) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -553,7 +553,7 @@ int32_t libc_unix_newlib_semClose(void* sem) {
     return -1;
 }
 
-int32_t libc_unix_newlib_getdtablesize(void) {
+int32_t libcUnixNewlibGetdtablesize(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -581,7 +581,7 @@ int32_t libc_unix_newlib_getdtablesize(void) {
     return -1;
 }
 
-int32_t libc_unix_newlib_getgrnamR(const char* name, void* grp, char* buf, uint64_t buflen, void* result) {
+int32_t libcUnixNewlibGetgrnamR(const char* name, void* grp, char* buf, uint64_t buflen, void* result) {
     typedef int32_t (*km_fn_t)(const char*, void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -609,7 +609,7 @@ int32_t libc_unix_newlib_getgrnamR(const char* name, void* grp, char* buf, uint6
     return -1;
 }
 
-int32_t libc_unix_newlib_pthreadSigmask(int32_t how, void* set, void* oldset) {
+int32_t libcUnixNewlibPthreadSigmask(int32_t how, void* set, void* oldset) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -637,7 +637,7 @@ int32_t libc_unix_newlib_pthreadSigmask(int32_t how, void* set, void* oldset) {
     return ENOSYS;
 }
 
-void* libc_unix_newlib_semOpen(const char* name, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+void* libcUnixNewlibSemOpen(const char* name, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef void* (*km_fn_t)(const char*, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -671,7 +671,7 @@ void* libc_unix_newlib_semOpen(const char* name, int32_t oflag, int32_t km_vac, 
     return NULL;
 }
 
-void* libc_unix_newlib_getgrnam(const char* name) {
+void* libcUnixNewlibGetgrnam(const char* name) {
     typedef void* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -699,7 +699,7 @@ void* libc_unix_newlib_getgrnam(const char* name) {
     return NULL;
 }
 
-int32_t libc_unix_newlib_pthreadKill(void* thread, int32_t sig) {
+int32_t libcUnixNewlibPthreadKill(void* thread, int32_t sig) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -727,7 +727,7 @@ int32_t libc_unix_newlib_pthreadKill(void* thread, int32_t sig) {
     return ENOSYS;
 }
 
-int32_t libc_unix_newlib_semUnlink(const char* name) {
+int32_t libcUnixNewlibSemUnlink(const char* name) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -755,7 +755,7 @@ int32_t libc_unix_newlib_semUnlink(const char* name) {
     return -1;
 }
 
-int32_t libc_unix_newlib_daemon(int32_t nochdir, int32_t noclose) {
+int32_t libcUnixNewlibDaemon(int32_t nochdir, int32_t noclose) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -783,7 +783,7 @@ int32_t libc_unix_newlib_daemon(int32_t nochdir, int32_t noclose) {
     return -1;
 }
 
-int32_t libc_unix_newlib_getpwnamR(const char* name, void* pwd, char* buf, uint64_t buflen, void* result) {
+int32_t libcUnixNewlibGetpwnamR(const char* name, void* pwd, char* buf, uint64_t buflen, void* result) {
     typedef int32_t (*km_fn_t)(const char*, void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -811,7 +811,7 @@ int32_t libc_unix_newlib_getpwnamR(const char* name, void* pwd, char* buf, uint6
     return -1;
 }
 
-int32_t libc_unix_newlib_getpwuidR(uint16_t uid, void* pwd, char* buf, uint64_t buflen, void* result) {
+int32_t libcUnixNewlibGetpwuidR(uint16_t uid, void* pwd, char* buf, uint64_t buflen, void* result) {
     typedef int32_t (*km_fn_t)(uint16_t, void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -839,7 +839,7 @@ int32_t libc_unix_newlib_getpwuidR(uint16_t uid, void* pwd, char* buf, uint64_t 
     return -1;
 }
 
-int32_t libc_unix_newlib_sigwait(void* set, void* sig) {
+int32_t libcUnixNewlibSigwait(void* set, void* sig) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -867,7 +867,7 @@ int32_t libc_unix_newlib_sigwait(void* set, void* sig) {
     return -1;
 }
 
-int32_t libc_unix_newlib_pthreadAtfork(void* prepare, void* parent, void* child) {
+int32_t libcUnixNewlibPthreadAtfork(void* prepare, void* parent, void* child) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -895,7 +895,7 @@ int32_t libc_unix_newlib_pthreadAtfork(void* prepare, void* parent, void* child)
     return ENOSYS;
 }
 
-void* libc_unix_newlib_getgrgid(uint16_t gid) {
+void* libcUnixNewlibGetgrgid(uint16_t gid) {
     typedef void* (*km_fn_t)(uint16_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -923,7 +923,7 @@ void* libc_unix_newlib_getgrgid(uint16_t gid) {
     return NULL;
 }
 
-void* libc_unix_newlib_popen(const char* command, const char* mode) {
+void* libcUnixNewlibPopen(const char* command, const char* mode) {
     typedef void* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -951,7 +951,7 @@ void* libc_unix_newlib_popen(const char* command, const char* mode) {
     return NULL;
 }
 
-int32_t libc_unix_newlib_uname(void* buf) {
+int32_t libcUnixNewlibUname(void* buf) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

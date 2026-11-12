@@ -51,7 +51,7 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_errnoLocation_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflyErrnoLocation_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -81,7 +81,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_errnoLocation_napi(const 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_setgrent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflySetgrent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -111,7 +111,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_setgrent_napi(const Napi:
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_mprotect_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflyMprotect_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -146,9 +146,9 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_mprotect_napi(const Napi:
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_setutxdb_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflySetutxdb_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint32_t arg_0_type = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    uint32_t type = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     char* file = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(uint32_t, char*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -172,7 +172,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_setutxdb_napi(const Napi:
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_type, file);
+        km_res = km_fn_ptr(type, file);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -180,7 +180,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_setutxdb_napi(const Napi:
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_aioWaitcomplete_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflyAioWaitcomplete_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* iocbp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* timeout = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -214,7 +214,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_aioWaitcomplete_napi(cons
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_devnameR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflyDevnameR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t dev = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint16_t mode = static_cast<uint16_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -250,7 +250,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_devnameR_napi(const Napi:
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_waitid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflyWaitid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t idtype = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int64_t id = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
@@ -286,7 +286,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_waitid_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_freelocale_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflyFreelocale_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* loc = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -317,7 +317,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_freelocale_napi(const Nap
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_lwpRtprio_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflyLwpRtprio_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t function = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t pid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -353,11 +353,9 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_lwpRtprio_napi(const Napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_statfs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflyStatfs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -389,7 +387,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_statfs_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_fstatfs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflyFstatfs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -423,7 +421,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_fstatfs_napi(const Napi::
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_uname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflyUname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -456,7 +454,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_uname_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_memmem_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflyMemmem_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* haystack = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t haystacklen = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -492,7 +490,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_memmem_napi(const Napi::C
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_pthreadSpinInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflyPthreadSpinInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t pshared = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -526,7 +524,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_pthreadSpinInit_napi(cons
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_pthreadSpinDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflyPthreadSpinDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -559,7 +557,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_pthreadSpinDestroy_napi(c
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_pthreadSpinLock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflyPthreadSpinLock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -592,7 +590,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_pthreadSpinLock_napi(cons
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_pthreadSpinTrylock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflyPthreadSpinTrylock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -625,7 +623,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_pthreadSpinTrylock_napi(c
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_pthreadSpinUnlock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflyPthreadSpinUnlock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -658,7 +656,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_pthreadSpinUnlock_napi(co
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_schedGetaffinity_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflySchedGetaffinity_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint64_t cpusetsize = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -693,7 +691,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_schedGetaffinity_napi(con
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_schedSetaffinity_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflySchedSetaffinity_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint64_t cpusetsize = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -728,7 +726,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_schedSetaffinity_napi(con
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_schedGetcpu_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflySchedGetcpu_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -760,11 +758,9 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_schedGetcpu_napi(const Na
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_setproctitle_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflySetproctitle_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool fmt_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string fmt_str = fmt_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* fmt = fmt_null ? nullptr : fmt_str.c_str();
+    const char* fmt = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t km_vac = km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 2 ? km_napi_arg_i64(km_info[2]) : 0;
     int64_t km_va1 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
@@ -804,7 +800,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_setproctitle_napi(const N
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_shmget_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflyShmget_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int64_t key = km_info.Length() > 0 ? km_napi_arg_i64(km_info[0]) : 0;
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -839,7 +835,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_shmget_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_shmat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflyShmat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t shmid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* shmaddr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -874,7 +870,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_shmat_napi(const Napi::Ca
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_shmdt_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflyShmdt_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* shmaddr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -907,7 +903,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_shmdt_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_shmctl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflyShmctl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t shmid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t cmd = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -942,7 +938,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_shmctl_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_procctl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflyProcctl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t idtype = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int64_t id = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
@@ -978,11 +974,9 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_procctl_napi(const Napi::
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_updwtmpx_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflyUpdwtmpx_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool file_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string file_str = file_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* file = file_null ? nullptr : file_str.c_str();
+    const char* file = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* ut = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1014,11 +1008,9 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_updwtmpx_napi(const Napi:
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_getlastlogx_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflyGetlastlogx_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool fname_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string fname_str = fname_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* fname = fname_null ? nullptr : fname_str.c_str();
+    const char* fname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint16_t uid = static_cast<uint16_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     void* ll = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef void* (*km_fn_t)(const char*, uint16_t, void*);
@@ -1051,11 +1043,9 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_getlastlogx_napi(const Na
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_updlastlogx_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflyUpdlastlogx_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool fname_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string fname_str = fname_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* fname = fname_null ? nullptr : fname_str.c_str();
+    const char* fname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint16_t uid = static_cast<uint16_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     void* ll = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(const char*, uint16_t, void*);
@@ -1088,11 +1078,9 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_updlastlogx_napi(const Na
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_utmpxname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflyUtmpxname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool file_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string file_str = file_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* file = file_null ? nullptr : file_str.c_str();
+    const char* file = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1123,7 +1111,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_utmpxname_napi(const Napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_sysCheckpoint_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflySysCheckpoint_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t tpe = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t fd = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1159,7 +1147,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_sysCheckpoint_napi(const 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_umtxSleep_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflyUmtxSleep_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t value = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1194,7 +1182,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_umtxSleep_napi(const Napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_umtxWakeup_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflyUmtxWakeup_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t count = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1228,7 +1216,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_umtxWakeup_napi(const Nap
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_dirname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflyDirname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* path = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef char* (*km_fn_t)(char*);
@@ -1261,7 +1249,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_dirname_napi(const Napi::
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_basename_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflyBasename_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* path = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef char* (*km_fn_t)(char*);
@@ -1294,7 +1282,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_basename_napi(const Napi:
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_getmntinfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflyGetmntinfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mntbufp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1328,7 +1316,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_getmntinfo_napi(const Nap
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_getmntvinfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflyGetmntvinfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mntbufp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* mntvbufp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1363,7 +1351,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_getmntvinfo_napi(const Na
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_closefrom_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflyClosefrom_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t lowfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -1396,7 +1384,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_closefrom_napi(const Napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_aioCancel_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflyAioCancel_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* aiocbp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1430,7 +1418,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_aioCancel_napi(const Napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_aioError_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflyAioError_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* aiocbp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -1463,7 +1451,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_aioError_napi(const Napi:
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_aioFsync_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflyAioFsync_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t op = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* aiocbp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1497,7 +1485,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_aioFsync_napi(const Napi:
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_aioRead_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflyAioRead_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* aiocbp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -1530,7 +1518,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_aioRead_napi(const Napi::
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_aioReturn_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflyAioReturn_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* aiocbp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(void*);
@@ -1563,9 +1551,9 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_aioReturn_napi(const Napi
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_aioSuspend_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflyAioSuspend_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* aiocb_list = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* aiocbList = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t nitems = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     void* timeout = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(void*, int32_t, void*);
@@ -1590,7 +1578,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_aioSuspend_napi(const Nap
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(aiocb_list, nitems, timeout);
+        km_res = km_fn_ptr(aiocbList, nitems, timeout);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1598,7 +1586,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_aioSuspend_napi(const Nap
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_aioWrite_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflyAioWrite_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* aiocbp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -1631,10 +1619,10 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_aioWrite_napi(const Napi:
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_lioListio_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflyLioListio_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t mode = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* aiocb_list = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* aiocbList = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t nitems = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     void* sevp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t, void*);
@@ -1659,7 +1647,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_lioListio_napi(const Napi
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(mode, aiocb_list, nitems, sevp);
+        km_res = km_fn_ptr(mode, aiocbList, nitems, sevp);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1667,7 +1655,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_lioListio_napi(const Napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_reallocf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflyReallocf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1701,7 +1689,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_reallocf_napi(const Napi:
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_freezero_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflyFreezero_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1733,7 +1721,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_freezero_napi(const Napi:
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_kvmVmMapEntryFirst_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflyKvmVmMapEntryFirst_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* kvm = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* map = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1789,7 +1777,7 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_kvmVmMapEntryFirst_napi(c
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_kvmVmMapEntryNext_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdFreebsdlikeDragonflyKvmVmMapEntryNext_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* kvm = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* map = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1846,57 +1834,57 @@ static Napi::Value libc_unix_bsd_freebsdlike_dragonfly_kvmVmMapEntryNext_napi(co
 }
 
 static void register_unix_bsd_freebsdlike_dragonfly_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_errnoLocation", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_errnoLocation_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_setgrent", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_setgrent_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_mprotect", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_mprotect_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_setutxdb", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_setutxdb_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_aioWaitcomplete", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_aioWaitcomplete_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_devnameR", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_devnameR_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_waitid", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_waitid_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_freelocale", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_freelocale_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_lwpRtprio", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_lwpRtprio_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_statfs", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_statfs_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_fstatfs", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_fstatfs_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_uname", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_uname_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_memmem", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_memmem_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_pthreadSpinInit", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_pthreadSpinInit_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_pthreadSpinDestroy", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_pthreadSpinDestroy_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_pthreadSpinLock", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_pthreadSpinLock_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_pthreadSpinTrylock", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_pthreadSpinTrylock_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_pthreadSpinUnlock", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_pthreadSpinUnlock_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_schedGetaffinity", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_schedGetaffinity_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_schedSetaffinity", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_schedSetaffinity_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_schedGetcpu", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_schedGetcpu_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_setproctitle", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_setproctitle_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_shmget", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_shmget_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_shmat", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_shmat_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_shmdt", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_shmdt_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_shmctl", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_shmctl_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_procctl", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_procctl_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_updwtmpx", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_updwtmpx_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_getlastlogx", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_getlastlogx_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_updlastlogx", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_updlastlogx_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_utmpxname", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_utmpxname_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_sysCheckpoint", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_sysCheckpoint_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_umtxSleep", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_umtxSleep_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_umtxWakeup", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_umtxWakeup_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_dirname", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_dirname_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_basename", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_basename_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_getmntinfo", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_getmntinfo_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_getmntvinfo", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_getmntvinfo_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_closefrom", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_closefrom_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_aioCancel", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_aioCancel_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_aioError", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_aioError_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_aioFsync", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_aioFsync_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_aioRead", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_aioRead_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_aioReturn", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_aioReturn_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_aioSuspend", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_aioSuspend_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_aioWrite", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_aioWrite_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_lioListio", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_lioListio_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_reallocf", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_reallocf_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_freezero", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_freezero_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_kvmVmMapEntryFirst", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_kvmVmMapEntryFirst_napi));
-    exports.Set("libc_unix_bsd_freebsdlike_dragonfly_kvmVmMapEntryNext", Napi::Function::New(env, libc_unix_bsd_freebsdlike_dragonfly_kvmVmMapEntryNext_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflyErrnoLocation", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflyErrnoLocation_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflySetgrent", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflySetgrent_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflyMprotect", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflyMprotect_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflySetutxdb", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflySetutxdb_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflyAioWaitcomplete", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflyAioWaitcomplete_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflyDevnameR", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflyDevnameR_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflyWaitid", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflyWaitid_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflyFreelocale", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflyFreelocale_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflyLwpRtprio", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflyLwpRtprio_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflyStatfs", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflyStatfs_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflyFstatfs", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflyFstatfs_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflyUname", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflyUname_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflyMemmem", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflyMemmem_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflyPthreadSpinInit", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflyPthreadSpinInit_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflyPthreadSpinDestroy", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflyPthreadSpinDestroy_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflyPthreadSpinLock", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflyPthreadSpinLock_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflyPthreadSpinTrylock", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflyPthreadSpinTrylock_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflyPthreadSpinUnlock", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflyPthreadSpinUnlock_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflySchedGetaffinity", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflySchedGetaffinity_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflySchedSetaffinity", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflySchedSetaffinity_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflySchedGetcpu", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflySchedGetcpu_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflySetproctitle", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflySetproctitle_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflyShmget", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflyShmget_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflyShmat", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflyShmat_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflyShmdt", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflyShmdt_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflyShmctl", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflyShmctl_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflyProcctl", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflyProcctl_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflyUpdwtmpx", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflyUpdwtmpx_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflyGetlastlogx", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflyGetlastlogx_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflyUpdlastlogx", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflyUpdlastlogx_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflyUtmpxname", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflyUtmpxname_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflySysCheckpoint", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflySysCheckpoint_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflyUmtxSleep", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflyUmtxSleep_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflyUmtxWakeup", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflyUmtxWakeup_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflyDirname", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflyDirname_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflyBasename", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflyBasename_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflyGetmntinfo", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflyGetmntinfo_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflyGetmntvinfo", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflyGetmntvinfo_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflyClosefrom", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflyClosefrom_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflyAioCancel", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflyAioCancel_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflyAioError", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflyAioError_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflyAioFsync", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflyAioFsync_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflyAioRead", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflyAioRead_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflyAioReturn", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflyAioReturn_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflyAioSuspend", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflyAioSuspend_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflyAioWrite", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflyAioWrite_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflyLioListio", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflyLioListio_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflyReallocf", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflyReallocf_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflyFreezero", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflyFreezero_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflyKvmVmMapEntryFirst", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflyKvmVmMapEntryFirst_napi));
+    exports.Set("libcUnixBsdFreebsdlikeDragonflyKvmVmMapEntryNext", Napi::Function::New(env, libcUnixBsdFreebsdlikeDragonflyKvmVmMapEntryNext_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_unix_bsd_freebsdlike_dragonfly_napi, nullptr };

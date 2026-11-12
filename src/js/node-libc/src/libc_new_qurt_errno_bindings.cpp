@@ -51,7 +51,7 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_new_qurt_errno_errnoLocation_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtErrnoErrnoLocation_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -82,7 +82,7 @@ static Napi::Value libc_new_qurt_errno_errnoLocation_napi(const Napi::CallbackIn
 }
 
 static void register_new_qurt_errno_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_new_qurt_errno_errnoLocation", Napi::Function::New(env, libc_new_qurt_errno_errnoLocation_napi));
+    exports.Set("libcNewQurtErrnoErrnoLocation", Napi::Function::New(env, libcNewQurtErrnoErrnoLocation_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_new_qurt_errno_napi, nullptr };

@@ -6,12 +6,13 @@ package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.x8664.notx32
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.PthreadMutexT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.FsblkcntT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.FsfilcntT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public data class Statvfs(
     public var fBsize: CUlong = 0uL,
@@ -801,4 +802,4 @@ public val SYS_FCHMODAT2: CLong = 452L
 
 public val SYS_MSEAL: CLong = 462L
 
-public expect fun sysctl(name: COpaquePointer?, namelen: CInt, oldp: COpaquePointer?, oldlenp: COpaquePointer?, newp: COpaquePointer?, newlen: SizeT): CInt
+public expect fun sysctl(name: MutPtr<CInt>, namelen: CInt, oldp: MutPtr<CVoid>, oldlenp: MutPtr<SizeT>, newp: MutPtr<CVoid>, newlen: SizeT): CInt

@@ -3,22 +3,47 @@
 package io.github.kotlinmania.libc.unix.aix
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CDouble
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CLonglong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
+import io.github.kotlinmania.libc.CUshort
 import io.github.kotlinmania.libc.unix.DIR
 import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.GidT
+import io.github.kotlinmania.libc.unix.Group
 import io.github.kotlinmania.libc.unix.IntptrT
+import io.github.kotlinmania.libc.unix.Iovec
+import io.github.kotlinmania.libc.unix.Itimerval
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.PidT
+import io.github.kotlinmania.libc.unix.Pollfd
+import io.github.kotlinmania.libc.unix.Rlimit
+import io.github.kotlinmania.libc.unix.Rusage
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.Timeval
 import io.github.kotlinmania.libc.unix.UidT
+import io.github.kotlinmania.libc.unix.aix.powerpc64.Aiocb
+import io.github.kotlinmania.libc.unix.aix.powerpc64.MsqidDs
+import io.github.kotlinmania.libc.unix.aix.powerpc64.PthreadBarrierT
+import io.github.kotlinmania.libc.unix.aix.powerpc64.PthreadMutexT
+import io.github.kotlinmania.libc.unix.aix.powerpc64.PthreadOnceT
+import io.github.kotlinmania.libc.unix.aix.powerpc64.PthreadRwlockT
+import io.github.kotlinmania.libc.unix.aix.powerpc64.PthreadSpinlockT
+import io.github.kotlinmania.libc.unix.aix.powerpc64.SiginfoT
+import io.github.kotlinmania.libc.unix.aix.powerpc64.SigsetT
+import io.github.kotlinmania.libc.unix.aix.powerpc64.Stat
+import io.github.kotlinmania.libc.unix.aix.powerpc64.Statfs
+import io.github.kotlinmania.libc.unix.aix.powerpc64.UcontextT
+import io.github.kotlinmania.libc.unix.aix.powerpc64.Utmpx
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 private object UnixAixJniBridge {
     init {
@@ -26,2047 +51,2035 @@ private object UnixAixJniBridge {
     }
 
     @JvmStatic
-    external fun libc_unix_aix_thrKill(id: Long, sig: Int): Int
+    external fun libcUnixAixThrKill(id: Long, sig: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_thrSelf(): Long
+    external fun libcUnixAixThrSelf(): Long
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadAtfork(prepare: Long, parent: Long, child: Long): Int
+    external fun libcUnixAixPthreadAtfork(prepare: Long, parent: Long, child: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadAttrGetdetachstate(attr: Long, detachstate: Long): Int
+    external fun libcUnixAixPthreadAttrGetdetachstate(attr: Long, detachstate: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadAttrGetguardsize(attr: Long, guardsize: Long): Int
+    external fun libcUnixAixPthreadAttrGetguardsize(attr: Long, guardsize: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadAttrGetinheritsched(attr: Long, inheritsched: Long): Int
+    external fun libcUnixAixPthreadAttrGetinheritsched(attr: Long, inheritsched: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadAttrGetschedparam(attr: Long, param: Long): Int
+    external fun libcUnixAixPthreadAttrGetschedparam(attr: Long, param: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadAttrGetstackaddr(attr: Long, stackaddr: Long): Int
+    external fun libcUnixAixPthreadAttrGetstackaddr(attr: Long, stackaddr: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadAttrGetschedpolicy(attr: Long, policy: Long): Int
+    external fun libcUnixAixPthreadAttrGetschedpolicy(attr: Long, policy: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadAttrGetscope(attr: Long, contentionscope: Long): Int
+    external fun libcUnixAixPthreadAttrGetscope(attr: Long, contentionscope: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadAttrGetstack(attr: Long, stackaddr: Long, stacksize: Long): Int
+    external fun libcUnixAixPthreadAttrGetstack(attr: Long, stackaddr: Long, stacksize: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadAttrSetguardsize(attr: Long, guardsize: Long): Int
+    external fun libcUnixAixPthreadAttrSetguardsize(attr: Long, guardsize: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadAttrSetinheritsched(attr: Long, inheritsched: Int): Int
+    external fun libcUnixAixPthreadAttrSetinheritsched(attr: Long, inheritsched: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadAttrSetschedparam(attr: Long, param: Long): Int
+    external fun libcUnixAixPthreadAttrSetschedparam(attr: Long, param: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadAttrSetschedpolicy(attr: Long, policy: Int): Int
+    external fun libcUnixAixPthreadAttrSetschedpolicy(attr: Long, policy: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadAttrSetscope(attr: Long, contentionscope: Int): Int
+    external fun libcUnixAixPthreadAttrSetscope(attr: Long, contentionscope: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadAttrSetstack(attr: Long, stackaddr: Long, stacksize: Long): Int
+    external fun libcUnixAixPthreadAttrSetstack(attr: Long, stackaddr: Long, stacksize: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadAttrSetstackaddr(attr: Long, stackaddr: Long): Int
+    external fun libcUnixAixPthreadAttrSetstackaddr(attr: Long, stackaddr: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadBarrierattrDestroy(attr: Long): Int
+    external fun libcUnixAixPthreadBarrierattrDestroy(attr: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadBarrierattrGetpshared(attr: Long, pshared: Long): Int
+    external fun libcUnixAixPthreadBarrierattrGetpshared(attr: Long, pshared: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadBarrierattrInit(attr: Long): Int
+    external fun libcUnixAixPthreadBarrierattrInit(attr: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadBarrierattrSetpshared(attr: Long, pshared: Int): Int
+    external fun libcUnixAixPthreadBarrierattrSetpshared(attr: Long, pshared: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadBarrierDestroy(barrier: Long): Int
+    external fun libcUnixAixPthreadBarrierDestroy(barrier: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadBarrierInit(barrier: Long, attr: Long, count: Int): Int
+    external fun libcUnixAixPthreadBarrierInit(barrier: Long, attr: Long, count: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadBarrierWait(barrier: Long): Int
+    external fun libcUnixAixPthreadBarrierWait(barrier: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadCancel(thread: Long): Int
+    external fun libcUnixAixPthreadCancel(thread: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadCleanupPop(execute: Int)
+    external fun libcUnixAixPthreadCondattrGetclock(attr: Long, clockId: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadCleanupPush(routine: Long, arg: Long)
+    external fun libcUnixAixPthreadCondattrGetpshared(attr: Long, pshared: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadCondattrGetclock(attr: Long, clockId: Long): Int
+    external fun libcUnixAixPthreadCondattrSetclock(attr: Long, clockId: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadCondattrGetpshared(attr: Long, pshared: Long): Int
+    external fun libcUnixAixPthreadCondattrSetpshared(attr: Long, pshared: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadCondattrSetclock(attr: Long, clockId: Long): Int
+    external fun libcUnixAixPthreadCreate(thread: Long, attr: Long, startRoutine: Long, arg: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadCondattrSetpshared(attr: Long, pshared: Int): Int
+    external fun libcUnixAixPthreadGetconcurrency(): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadCreate(thread: Long, attr: Long, startRoutine: Long, arg: Long): Int
+    external fun libcUnixAixPthreadGetcpuclockid(threadId: Long, clockId: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadGetconcurrency(): Int
+    external fun libcUnixAixPthreadGetschedparam(thread: Long, policy: Long, param: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadGetcpuclockid(threadId: Long, clockId: Long): Int
+    external fun libcUnixAixPthreadKill(thread: Long, sig: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadGetschedparam(thread: Long, policy: Long, param: Long): Int
+    external fun libcUnixAixPthreadMutexattrGetprioceiling(attr: Long, prioceiling: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadKill(thread: Long, sig: Int): Int
+    external fun libcUnixAixPthreadMutexattrGetprotocol(attr: Long, protocol: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadMutexattrGetprioceiling(attr: Long, prioceiling: Long): Int
+    external fun libcUnixAixPthreadMutexattrGetpshared(attr: Long, pshared: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadMutexattrGetprotocol(attr: Long, protocol: Long): Int
+    external fun libcUnixAixPthreadMutexattrGetrobust(attr: Long, robust: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadMutexattrGetpshared(attr: Long, pshared: Long): Int
+    external fun libcUnixAixPthreadMutexattrGettype(attr: Long, type: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadMutexattrGetrobust(attr: Long, robust: Long): Int
+    external fun libcUnixAixPthreadMutexattrSetprioceiling(attr: Long, prioceiling: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadMutexattrGettype(attr: Long, type: Long): Int
+    external fun libcUnixAixPthreadMutexattrSetprotocol(attr: Long, protocol: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadMutexattrSetprioceiling(attr: Long, prioceiling: Int): Int
+    external fun libcUnixAixPthreadMutexattrSetpshared(attr: Long, pshared: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadMutexattrSetprotocol(attr: Long, protocol: Int): Int
+    external fun libcUnixAixPthreadMutexattrSetrobust(attr: Long, robust: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadMutexattrSetpshared(attr: Long, pshared: Int): Int
+    external fun libcUnixAixPthreadMutexConsistent(mutex: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadMutexattrSetrobust(attr: Long, robust: Int): Int
+    external fun libcUnixAixPthreadMutexGetprioceiling(mutex: Long, prioceiling: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadMutexConsistent(mutex: Long): Int
+    external fun libcUnixAixPthreadMutexSetprioceiling(mutex: Long, prioceiling: Int, oldCeiling: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadMutexGetprioceiling(mutex: Long, prioceiling: Long): Int
+    external fun libcUnixAixPthreadMutexTimedlock(mutex: Long, abstime: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadMutexSetprioceiling(mutex: Long, prioceiling: Int, oldCeiling: Long): Int
+    external fun libcUnixAixPthreadOnce(onceControl: Long, initRoutine: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadMutexTimedlock(mutex: Long, abstime: Long): Int
+    external fun libcUnixAixPthreadRwlockattrGetpshared(attr: Long, pshared: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadOnce(onceControl: Long, initRoutine: Long): Int
+    external fun libcUnixAixPthreadRwlockattrSetpshared(attr: Long, pshared: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadRwlockattrGetpshared(attr: Long, pshared: Long): Int
+    external fun libcUnixAixPthreadRwlockTimedrdlock(rwlock: Long, abstime: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadRwlockattrSetpshared(attr: Long, pshared: Int): Int
+    external fun libcUnixAixPthreadRwlockTimedwrlock(rwlock: Long, abstime: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadRwlockTimedrdlock(rwlock: Long, abstime: Long): Int
+    external fun libcUnixAixPthreadSetcancelstate(state: Int, oldstate: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadRwlockTimedwrlock(rwlock: Long, abstime: Long): Int
+    external fun libcUnixAixPthreadSetcanceltype(type: Int, oldtype: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadSetcancelstate(state: Int, oldstate: Long): Int
+    external fun libcUnixAixPthreadSetconcurrency(newLevel: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadSetcanceltype(type: Int, oldtype: Long): Int
+    external fun libcUnixAixPthreadSetschedparam(thread: Long, policy: Int, param: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadSetconcurrency(newLevel: Int): Int
+    external fun libcUnixAixPthreadSetschedprio(thread: Long, prio: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadSetschedparam(thread: Long, policy: Int, param: Long): Int
+    external fun libcUnixAixPthreadSigmask(how: Int, set: Long, oset: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadSetschedprio(thread: Long, prio: Int): Int
+    external fun libcUnixAixPthreadSpinDestroy(lock: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadSigmask(how: Int, set: Long, oset: Long): Int
+    external fun libcUnixAixPthreadSpinInit(lock: Long, pshared: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadSpinDestroy(lock: Long): Int
+    external fun libcUnixAixPthreadSpinLock(lock: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadSpinInit(lock: Long, pshared: Int): Int
+    external fun libcUnixAixPthreadSpinTrylock(lock: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadSpinLock(lock: Long): Int
+    external fun libcUnixAixPthreadSpinUnlock(lock: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadSpinTrylock(lock: Long): Int
+    external fun libcUnixAixIconv(cd: Long, inbuf: Long, inbytesleft: Long, outbuf: Long, outbytesleft: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadSpinUnlock(lock: Long): Int
+    external fun libcUnixAixIconvClose(cd: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pthreadTestcancel()
+    external fun libcUnixAixIconvOpen(tocode: Long, fromcode: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_iconv(cd: Long, inbuf: Long, inbytesleft: Long, outbuf: Long, outbytesleft: Long): Long
+    external fun libcUnixAixAcct(filename: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_iconvClose(cd: Long): Int
+    external fun libcUnixAixAioCancel(fildes: Int, aiocbp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_iconvOpen(tocode: String?, fromcode: String?): Long
+    external fun libcUnixAixAioError(aiocbp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_acct(filename: Long): Int
+    external fun libcUnixAixAioFsync(op: Int, aiocbp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_aioCancel(fildes: Int, aiocbp: Long): Int
+    external fun libcUnixAixAioRead(aiocbp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_aioError(aiocbp: Long): Int
+    external fun libcUnixAixAioReturn(aiocbp: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_aioFsync(op: Int, aiocbp: Long): Int
+    external fun libcUnixAixAioSuspend(list: Long, nent: Int, timeout: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_aioRead(aiocbp: Long): Int
+    external fun libcUnixAixAioWrite(aiocbp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_aioReturn(aiocbp: Long): Long
+    external fun libcUnixAixBasename(path: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_aioSuspend(list: Long, nent: Int, timeout: Long): Int
+    external fun libcUnixAixBind(socket: Int, address: Long, addressLen: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_aioWrite(aiocbp: Long): Int
+    external fun libcUnixAixBrk(addr: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_basename(path: Long): Long
+    external fun libcUnixAixClearenv(): Int
 
     @JvmStatic
-    external fun libc_unix_aix_bind(socket: Int, address: Long, addressLen: Int): Int
+    external fun libcUnixAixClockGetcpuclockid(pid: Int, clkId: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_brk(addr: Long): Int
+    external fun libcUnixAixClockGetres(clkId: Long, tp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_clearenv(): Int
+    external fun libcUnixAixClockGettime(clkId: Long, tp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_clockGetcpuclockid(pid: Int, clkId: Long): Int
+    external fun libcUnixAixClockNanosleep(clkId: Long, flags: Int, rqtp: Long, rmtp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_clockGetres(clkId: Long, tp: Long): Int
+    external fun libcUnixAixClockSettime(clockId: Long, tp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_clockGettime(clkId: Long, tp: Long): Int
+    external fun libcUnixAixCreat64(path: Long, mode: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_clockNanosleep(clkId: Long, flags: Int, rqtp: Long, rmtp: Long): Int
+    external fun libcUnixAixCtermid(s: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_clockSettime(clockId: Long, tp: Long): Int
+    external fun libcUnixAixDirfd(dirp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_creat64(path: String?, mode: Int): Int
+    external fun libcUnixAixDirname(path: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_ctermid(s: Long): Long
+    external fun libcUnixAixDrand48(): Double
 
     @JvmStatic
-    external fun libc_unix_aix_dirfd(dirp: Long): Int
+    external fun libcUnixAixDuplocale(arg1: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_dirname(path: Long): Long
+    external fun libcUnixAixEndgrent()
 
     @JvmStatic
-    external fun libc_unix_aix_drand48(): Double
+    external fun libcUnixAixEndmntent(streamp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_duplocale(arg1: Long): Long
+    external fun libcUnixAixEndpwent()
 
     @JvmStatic
-    external fun libc_unix_aix_endgrent()
+    external fun libcUnixAixEndutent()
 
     @JvmStatic
-    external fun libc_unix_aix_endmntent(streamp: Long): Int
+    external fun libcUnixAixEndutxent()
 
     @JvmStatic
-    external fun libc_unix_aix_endpwent()
+    external fun libcUnixAixErand48(xseed: Long): Double
 
     @JvmStatic
-    external fun libc_unix_aix_endutent()
+    external fun libcUnixAixFaccessat(dirfd: Int, pathname: Long, mode: Int, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_endutxent()
+    external fun libcUnixAixFattach(fildes: Int, path: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_erand48(xseed: Long): Double
+    external fun libcUnixAixFdatasync(fd: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_faccessat(dirfd: Int, pathname: String?, mode: Int, flags: Int): Int
+    external fun libcUnixAixFexecve(fd: Int, argv: Long, envp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_fattach(fildes: Int, path: String?): Int
+    external fun libcUnixAixFfs(value: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_fdatasync(fd: Int): Int
+    external fun libcUnixAixFfsl(value: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_fexecve(fd: Int, argv: Long, envp: Long): Int
+    external fun libcUnixAixFfsll(value: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_ffs(value: Int): Int
+    external fun libcUnixAixFgetgrent(file: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_ffsl(value: Long): Int
+    external fun libcUnixAixFgetpos64(stream: Long, ptr: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_ffsll(value: Long): Int
+    external fun libcUnixAixFgetpwent(file: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_fgetgrent(file: Long): Long
+    external fun libcUnixAixFopen64(filename: Long, mode: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_fgetpos64(stream: Long, ptr: Long): Int
+    external fun libcUnixAixFreelocale(loc: Long)
 
     @JvmStatic
-    external fun libc_unix_aix_fgetpwent(file: Long): Long
+    external fun libcUnixAixFreopen64(filename: Long, mode: Long, file: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_fopen64(filename: String?, mode: String?): Long
+    external fun libcUnixAixFseeko64(stream: Long, offset: Long, whence: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_freelocale(loc: Long)
+    external fun libcUnixAixFsetpos64(stream: Long, ptr: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_freopen64(filename: String?, mode: String?, file: Long): Long
+    external fun libcUnixAixFstat64(fildes: Int, buf: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_fseeko64(stream: Long, offset: Long, whence: Int): Int
+    external fun libcUnixAixFstatfs(fd: Int, buf: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_fsetpos64(stream: Long, ptr: Long): Int
+    external fun libcUnixAixFstatfs64(fd: Int, buf: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_fstat64(fildes: Int, buf: Long): Int
+    external fun libcUnixAixFstatvfs64(fd: Int, buf: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_fstatfs(fd: Int, buf: Long): Int
+    external fun libcUnixAixFtello64(stream: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_fstatfs64(fd: Int, buf: Long): Int
+    external fun libcUnixAixFtok(path: Long, id: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_fstatvfs64(fd: Int, buf: Long): Int
+    external fun libcUnixAixFtruncate64(fd: Int, length: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_ftello64(stream: Long): Long
+    external fun libcUnixAixFutimens(fd: Int, times: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_ftok(path: String?, id: Int): Int
+    external fun libcUnixAixGetcontext(ucp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_ftruncate64(fd: Int, length: Long): Int
+    external fun libcUnixAixGetdomainname(name: Long, len: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_futimens(fd: Int, times: Long): Int
+    external fun libcUnixAixGetdtablesize(): Int
 
     @JvmStatic
-    external fun libc_unix_aix_getcontext(ucp: Long): Int
+    external fun libcUnixAixGetgrent(): Long
 
     @JvmStatic
-    external fun libc_unix_aix_getdomainname(name: Long, len: Int): Int
+    external fun libcUnixAixGetgrgid(gid: Short): Long
 
     @JvmStatic
-    external fun libc_unix_aix_getdtablesize(): Int
+    external fun libcUnixAixGetgrgidR(gid: Short, grp: Long, buf: Long, buflen: Long, result: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_getgrent(): Long
+    external fun libcUnixAixGetgrnam(name: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_getgrgid(gid: Short): Long
+    external fun libcUnixAixGetgrnamR(name: Long, grp: Long, buf: Long, buflen: Long, result: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_getgrgidR(gid: Short, grp: Long, buf: Long, buflen: Long, result: Long): Int
+    external fun libcUnixAixGetgrset(user: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_getgrnam(name: String?): Long
+    external fun libcUnixAixGethostid(): Long
 
     @JvmStatic
-    external fun libc_unix_aix_getgrnamR(name: String?, grp: Long, buf: Long, buflen: Long, result: Long): Int
+    external fun libcUnixAixGetmntent(stream: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_getgrset(user: String?): Long
+    external fun libcUnixAixGetnameinfo(sa: Long, salen: Long, host: Long, hostlen: Long, serv: Long, servlen: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_gethostid(): Long
+    external fun libcUnixAixGetpagesize(): Int
 
     @JvmStatic
-    external fun libc_unix_aix_getmntent(stream: Long): Long
+    external fun libcUnixAixGetpeereid(socket: Int, euid: Long, egid: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_getnameinfo(sa: Long, salen: Long, host: Long, hostlen: Long, serv: Long, servlen: Long, flags: Int): Int
+    external fun libcUnixAixGetpriority(which: Int, who: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_getpagesize(): Int
+    external fun libcUnixAixGetpwent(): Long
 
     @JvmStatic
-    external fun libc_unix_aix_getpeereid(socket: Int, euid: Long, egid: Long): Int
+    external fun libcUnixAixGetpwnamR(name: Long, pwd: Long, buf: Long, buflen: Long, result: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_getpriority(which: Int, who: Int): Int
+    external fun libcUnixAixGetpwuidR(uid: Short, pwd: Long, buf: Long, buflen: Long, result: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_getpwent(): Long
+    external fun libcUnixAixGetrlimit(resource: Int, rlim: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_getpwnamR(name: String?, pwd: Long, buf: Long, buflen: Long, result: Long): Int
+    external fun libcUnixAixGetrlimit64(resource: Int, rlim: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_getpwuidR(uid: Short, pwd: Long, buf: Long, buflen: Long, result: Long): Int
+    external fun libcUnixAixGettimeofday(tp: Long, tz: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_getrlimit(resource: Int, rlim: Long): Int
+    external fun libcUnixAixGetitimer(which: Int, currValue: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_getrlimit64(resource: Int, rlim: Long): Int
+    external fun libcUnixAixGetutent(): Long
 
     @JvmStatic
-    external fun libc_unix_aix_gettimeofday(tp: Long, tz: Long): Int
+    external fun libcUnixAixGetutid(u: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_getitimer(which: Int, currValue: Long): Int
+    external fun libcUnixAixGetutline(u: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_getutent(): Long
+    external fun libcUnixAixGetutxent(): Long
 
     @JvmStatic
-    external fun libc_unix_aix_getutid(u: Long): Long
+    external fun libcUnixAixGetutxid(ut: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_getutline(u: Long): Long
+    external fun libcUnixAixGetutxline(ut: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_getutxent(): Long
+    external fun libcUnixAixGlob(pattern: Long, flags: Int, errfunc: Long, pglob: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_getutxid(ut: Long): Long
+    external fun libcUnixAixGlobfree(pglob: Long)
 
     @JvmStatic
-    external fun libc_unix_aix_getutxline(ut: Long): Long
+    external fun libcUnixAixHasmntopt(mnt: Long, opt: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_glob(pattern: String?, flags: Int, errfunc: Long, pglob: Long): Int
+    external fun libcUnixAixHcreate(nelt: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_globfree(pglob: Long)
+    external fun libcUnixAixHdestroy()
 
     @JvmStatic
-    external fun libc_unix_aix_hasmntopt(mnt: Long, opt: String?): Long
+    external fun libcUnixAixIfFreenameindex(ptr: Long)
 
     @JvmStatic
-    external fun libc_unix_aix_hcreate(nelt: Long): Int
+    external fun libcUnixAixIfNameindex(): Long
 
     @JvmStatic
-    external fun libc_unix_aix_hdestroy()
+    external fun libcUnixAixInitgroups(name: Long, basegid: Short): Int
 
     @JvmStatic
-    external fun libc_unix_aix_ifFreenameindex(ptr: Long)
+    external fun libcUnixAixIoctl(fildes: Int, request: Int, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_ifNameindex(): Long
+    external fun libcUnixAixJrand48(xseed: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_initgroups(name: String?, basegid: Short): Int
+    external fun libcUnixAixLcong48(p: Long)
 
     @JvmStatic
-    external fun libc_unix_aix_ioctl(fildes: Int, request: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcUnixAixLfind(key: Long, base: Long, nelp: Long, width: Long, compar: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_jrand48(xseed: Long): Long
+    external fun libcUnixAixLioListio(mode: Int, aiocbList: Long, nent: Int, sevp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_lcong48(p: Long)
+    external fun libcUnixAixLoadquery(flags: Int, buf: Long, buflen: Int, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_lfind(key: Long, base: Long, nelp: Long, width: Long, compar: Long): Long
+    external fun libcUnixAixLparGetInfo(command: Int, buf: Long, bufsize: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_lioListio(mode: Int, aiocbList: Long, nent: Int, sevp: Long): Int
+    external fun libcUnixAixLparSetResources(id: Int, resource: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_loadquery(flags: Int, buf: Long, buflen: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcUnixAixLrand48(): Long
 
     @JvmStatic
-    external fun libc_unix_aix_lparGetInfo(command: Int, buf: Long, bufsize: Long): Int
+    external fun libcUnixAixLsearch(key: Long, base: Long, nelp: Long, width: Long, compar: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_lparSetResources(id: Int, resource: Long): Int
+    external fun libcUnixAixLseek64(fd: Int, offset: Long, whence: Int): Long
 
     @JvmStatic
-    external fun libc_unix_aix_lrand48(): Long
+    external fun libcUnixAixLstat64(path: Long, buf: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_lsearch(key: Long, base: Long, nelp: Long, width: Long, compar: Long): Long
+    external fun libcUnixAixMadvise(addr: Long, len: Long, advice: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_lseek64(fd: Int, offset: Long, whence: Int): Long
+    external fun libcUnixAixMakecontext(ucp: Long, func: Long, argc: Int, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long)
 
     @JvmStatic
-    external fun libc_unix_aix_lstat64(path: String?, buf: Long): Int
+    external fun libcUnixAixMallopt(param: Int, value: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_madvise(addr: Long, len: Long, advice: Int): Int
+    external fun libcUnixAixMemmem(haystack: Long, haystacklen: Long, needle: Long, needlelen: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_makecontext(ucp: Long, func: Long, argc: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long)
+    external fun libcUnixAixMemsetS(s: Long, smax: Long, c: Int, n: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_mallopt(param: Int, value: Int): Int
+    external fun libcUnixAixMincore(addr: Long, len: Long, vec: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_memmem(haystack: Long, haystacklen: Long, needle: Long, needlelen: Long): Long
+    external fun libcUnixAixMkfifoat(dirfd: Int, pathname: Long, mode: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_memsetS(s: Long, smax: Long, c: Int, n: Long): Int
+    external fun libcUnixAixMknodat(dirfd: Int, pathname: Long, mode: Int, dev: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_mincore(addr: Long, len: Long, vec: Long): Int
+    external fun libcUnixAixMount(device: Long, path: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_mkfifoat(dirfd: Int, pathname: String?, mode: Int): Int
+    external fun libcUnixAixMprotect(addr: Long, len: Long, prot: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_mknodat(dirfd: Int, pathname: String?, mode: Int, dev: Long): Int
+    external fun libcUnixAixMqClose(mqd: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_mount(device: String?, path: String?, flags: Int): Int
+    external fun libcUnixAixMqGetattr(mqd: Long, attr: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_mprotect(addr: Long, len: Long, prot: Int): Int
+    external fun libcUnixAixMqNotify(mqd: Long, notification: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_mqClose(mqd: Long): Int
+    external fun libcUnixAixMqOpen(name: Long, oflag: Int, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_mqGetattr(mqd: Long, attr: Long): Int
+    external fun libcUnixAixMqReceive(mqd: Long, msgPtr: Long, msgLen: Long, msgPrio: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_mqNotify(mqd: Long, notification: Long): Int
+    external fun libcUnixAixMqSend(mqd: Long, msgPtr: Long, msgLen: Long, msgPrio: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_mqOpen(name: String?, oflag: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
+    external fun libcUnixAixMqSetattr(mqd: Long, newattr: Long, oldattr: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_mqReceive(mqd: Long, msgPtr: Long, msgLen: Long, msgPrio: Long): Long
+    external fun libcUnixAixMqTimedreceive(mqd: Long, msgPtr: Long, msgLen: Long, msgPrio: Long, absTimeout: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_mqSend(mqd: Long, msgPtr: String?, msgLen: Long, msgPrio: Int): Int
+    external fun libcUnixAixMqTimedsend(mqd: Long, msgPtr: Long, msgLen: Long, msgPrio: Int, absTimeout: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_mqSetattr(mqd: Long, newattr: Long, oldattr: Long): Int
+    external fun libcUnixAixMqUnlink(name: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_mqTimedreceive(mqd: Long, msgPtr: Long, msgLen: Long, msgPrio: Long, absTimeout: Long): Long
+    external fun libcUnixAixMrand48(): Long
 
     @JvmStatic
-    external fun libc_unix_aix_mqTimedsend(mqd: Long, msgPtr: String?, msgLen: Long, msgPrio: Int, absTimeout: Long): Int
+    external fun libcUnixAixMsgctl(msqid: Int, cmd: Int, buf: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_mqUnlink(name: String?): Int
+    external fun libcUnixAixMsgget(key: Int, msgflg: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_mrand48(): Long
+    external fun libcUnixAixMsgrcv(msqid: Int, msgp: Long, msgsz: Long, msgtyp: Long, msgflg: Int): Long
 
     @JvmStatic
-    external fun libc_unix_aix_msgctl(msqid: Int, cmd: Int, buf: Long): Int
+    external fun libcUnixAixMsgsnd(msqid: Int, msgp: Long, msgsz: Long, msgflg: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_msgget(key: Int, msgflg: Int): Int
+    external fun libcUnixAixMsync(addr: Long, len: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_msgrcv(msqid: Int, msgp: Long, msgsz: Long, msgtyp: Long, msgflg: Int): Long
+    external fun libcUnixAixNewlocale(mask: Int, locale: Long, base: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_msgsnd(msqid: Int, msgp: Long, msgsz: Long, msgflg: Int): Int
+    external fun libcUnixAixNlLanginfo(item: Int): Long
 
     @JvmStatic
-    external fun libc_unix_aix_msync(addr: Long, len: Long, flags: Int): Int
+    external fun libcUnixAixNlLanginfoL(item: Int, loc: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_newlocale(mask: Int, locale: String?, base: Long): Long
+    external fun libcUnixAixNrand48(xseed: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_nlLanginfo(item: Int): Long
+    external fun libcUnixAixOpen64(path: Long, oflag: Int, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_nlLanginfoL(item: Int, loc: Long): Long
+    external fun libcUnixAixPollsetCreate(maxfd: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_nrand48(xseed: Long): Long
+    external fun libcUnixAixPollsetCtl(ps: Int, pollctlArray: Long, arrayLength: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_open64(path: String?, oflag: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcUnixAixPollsetDestroy(ps: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pollsetCreate(maxfd: Int): Int
+    external fun libcUnixAixPollsetPoll(ps: Int, polldataArray: Long, arrayLength: Int, timeout: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pollsetCtl(ps: Int, pollctlArray: Long, arrayLength: Int): Int
+    external fun libcUnixAixPollsetQuery(ps: Int, pollfdQuery: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pollsetDestroy(ps: Int): Int
+    external fun libcUnixAixPopen(command: Long, mode: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_pollsetPoll(ps: Int, polldataArray: Long, arrayLength: Int, timeout: Int): Int
+    external fun libcUnixAixPosixFadvise(fd: Int, offset: Long, len: Long, advise: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pollsetQuery(ps: Int, pollfdQuery: Long): Int
+    external fun libcUnixAixPosixFadvise64(fd: Int, offset: Long, len: Long, advise: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_popen(command: String?, mode: String?): Long
+    external fun libcUnixAixPosixFallocate(fd: Int, offset: Long, len: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_posixFadvise(fd: Int, offset: Long, len: Long, advise: Int): Int
+    external fun libcUnixAixPosixFallocate64(fd: Int, offset: Long, len: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_posixFadvise64(fd: Int, offset: Long, len: Long, advise: Int): Int
+    external fun libcUnixAixPosixMadvise(addr: Long, len: Long, advice: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_posixFallocate(fd: Int, offset: Long, len: Long): Int
+    external fun libcUnixAixPosixSpawn(pid: Long, path: Long, fileActions: Long, attrp: Long, argv: Long, envp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_posixFallocate64(fd: Int, offset: Long, len: Long): Int
+    external fun libcUnixAixPosixSpawnFileActionsAddclose(actions: Long, fd: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_posixMadvise(addr: Long, len: Long, advice: Int): Int
+    external fun libcUnixAixPosixSpawnFileActionsAdddup2(actions: Long, fd: Int, newfd: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_posixSpawn(pid: Long, path: String?, fileActions: Long, attrp: Long, argv: Long, envp: Long): Int
+    external fun libcUnixAixPosixSpawnFileActionsAddopen(actions: Long, fd: Int, path: Long, oflag: Int, mode: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_posixSpawnFileActionsAddclose(actions: Long, fd: Int): Int
+    external fun libcUnixAixPosixSpawnFileActionsDestroy(actions: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_posixSpawnFileActionsAdddup2(actions: Long, fd: Int, newfd: Int): Int
+    external fun libcUnixAixPosixSpawnFileActionsInit(actions: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_posixSpawnFileActionsAddopen(actions: Long, fd: Int, path: String?, oflag: Int, mode: Int): Int
+    external fun libcUnixAixPosixSpawnattrDestroy(attr: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_posixSpawnFileActionsDestroy(actions: Long): Int
+    external fun libcUnixAixPosixSpawnattrGetflags(attr: Long, flags: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_posixSpawnFileActionsInit(actions: Long): Int
+    external fun libcUnixAixPosixSpawnattrGetpgroup(attr: Long, flags: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_posixSpawnattrDestroy(attr: Long): Int
+    external fun libcUnixAixPosixSpawnattrGetschedparam(attr: Long, param: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_posixSpawnattrGetflags(attr: Long, flags: Long): Int
+    external fun libcUnixAixPosixSpawnattrGetschedpolicy(attr: Long, flags: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_posixSpawnattrGetpgroup(attr: Long, flags: Long): Int
+    external fun libcUnixAixPosixSpawnattrGetsigdefault(attr: Long, default: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_posixSpawnattrGetschedparam(attr: Long, param: Long): Int
+    external fun libcUnixAixPosixSpawnattrGetsigmask(attr: Long, default: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_posixSpawnattrGetschedpolicy(attr: Long, flags: Long): Int
+    external fun libcUnixAixPosixSpawnattrInit(attr: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_posixSpawnattrGetsigdefault(attr: Long, default: Long): Int
+    external fun libcUnixAixPosixSpawnattrSetflags(attr: Long, flags: Short): Int
 
     @JvmStatic
-    external fun libc_unix_aix_posixSpawnattrGetsigmask(attr: Long, default: Long): Int
+    external fun libcUnixAixPosixSpawnattrSetpgroup(attr: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_posixSpawnattrInit(attr: Long): Int
+    external fun libcUnixAixPosixSpawnattrSetschedparam(attr: Long, param: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_posixSpawnattrSetflags(attr: Long, flags: Short): Int
+    external fun libcUnixAixPosixSpawnattrSetschedpolicy(attr: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_posixSpawnattrSetpgroup(attr: Long, flags: Int): Int
+    external fun libcUnixAixPosixSpawnattrSetsigdefault(attr: Long, default: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_posixSpawnattrSetschedparam(attr: Long, param: Long): Int
+    external fun libcUnixAixPosixSpawnattrSetsigmask(attr: Long, default: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_posixSpawnattrSetschedpolicy(attr: Long, flags: Int): Int
+    external fun libcUnixAixPosixSpawnp(pid: Long, file: Long, fileActions: Long, attrp: Long, argv: Long, envp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_posixSpawnattrSetsigdefault(attr: Long, default: Long): Int
+    external fun libcUnixAixPread64(fd: Int, buf: Long, count: Long, offset: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_posixSpawnattrSetsigmask(attr: Long, default: Long): Int
+    external fun libcUnixAixPreadv(fd: Int, iov: Long, iovcnt: Int, offset: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_posixSpawnp(pid: Long, file: String?, fileActions: Long, attrp: Long, argv: Long, envp: Long): Int
+    external fun libcUnixAixPtrace64(request: Int, id: Long, addr: Long, data: Int, buff: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pread64(fd: Int, buf: Long, count: Long, offset: Long): Long
+    external fun libcUnixAixPututline(u: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_preadv(fd: Int, iov: Long, iovcnt: Int, offset: Long): Long
+    external fun libcUnixAixPututxline(ut: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_ptrace64(request: Int, id: Long, addr: Long, data: Int, buff: Long): Int
+    external fun libcUnixAixPwrite64(fd: Int, buf: Long, count: Long, offset: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_pututline(u: Long): Long
+    external fun libcUnixAixPwritev(fd: Int, iov: Long, iovcnt: Int, offset: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_pututxline(ut: Long): Long
+    external fun libcUnixAixQuotactl(cmd: Long, special: Int, id: Int, data: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pwrite64(fd: Int, buf: Long, count: Long, offset: Long): Long
+    external fun libcUnixAixRand(): Int
 
     @JvmStatic
-    external fun libc_unix_aix_pwritev(fd: Int, iov: Long, iovcnt: Int, offset: Long): Long
+    external fun libcUnixAixReadv(fd: Int, iov: Long, iovcnt: Int): Long
 
     @JvmStatic
-    external fun libc_unix_aix_quotactl(cmd: Long, special: Int, id: Int, data: Long): Int
+    external fun libcUnixAixRecvfrom(socket: Int, buf: Long, len: Long, flags: Int, addr: Long, addrlen: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_rand(): Int
+    external fun libcUnixAixRecvmmsg(sockfd: Int, msgvec: Long, vlen: Int, flags: Int, timeout: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_readv(fd: Int, iov: Long, iovcnt: Int): Long
+    external fun libcUnixAixRecvmsg(sockfd: Int, msg: Long, flags: Int): Long
 
     @JvmStatic
-    external fun libc_unix_aix_recvfrom(socket: Int, buf: Long, len: Long, flags: Int, addr: Long, addrlen: Long): Long
+    external fun libcUnixAixRegcomp(preg: Long, pattern: Long, cflags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_recvmmsg(sockfd: Int, msgvec: Long, vlen: Int, flags: Int, timeout: Long): Int
+    external fun libcUnixAixRegerror(errcode: Int, preg: Long, errbuf: Long, errbufSize: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_recvmsg(sockfd: Int, msg: Long, flags: Int): Long
+    external fun libcUnixAixRegexec(preg: Long, input: Long, nmatch: Long, pmatch: Long, eflags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_regcomp(preg: Long, pattern: String?, cflags: Int): Int
+    external fun libcUnixAixRegfree(preg: Long)
 
     @JvmStatic
-    external fun libc_unix_aix_regerror(errcode: Int, preg: Long, errbuf: Long, errbufSize: Long): Long
+    external fun libcUnixAixSbrk(increment: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_regexec(preg: Long, input: String?, nmatch: Long, pmatch: Long, eflags: Int): Int
+    external fun libcUnixAixSchedGetparam(pid: Int, param: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_regfree(preg: Long)
+    external fun libcUnixAixSchedGetscheduler(pid: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_sbrk(increment: Long): Long
+    external fun libcUnixAixSchedGetPriorityMax(policy: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_schedGetparam(pid: Int, param: Long): Int
+    external fun libcUnixAixSchedGetPriorityMin(policy: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_schedGetscheduler(pid: Int): Int
+    external fun libcUnixAixSchedRrGetInterval(pid: Int, tp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_schedGetPriorityMax(policy: Int): Int
+    external fun libcUnixAixSchedSetparam(pid: Int, param: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_schedGetPriorityMin(policy: Int): Int
+    external fun libcUnixAixSchedSetscheduler(pid: Int, policy: Int, param: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_schedRrGetInterval(pid: Int, tp: Long): Int
+    external fun libcUnixAixSctpOptInfo(sd: Int, id: Int, opt: Int, argSize: Long, size: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_schedSetparam(pid: Int, param: Long): Int
+    external fun libcUnixAixSctpPeeloff(s: Int, id: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_schedSetscheduler(pid: Int, policy: Int, param: Long): Int
+    external fun libcUnixAixSeed48(xseed: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_sctpOptInfo(sd: Int, id: Int, opt: Int, argSize: Long, size: Long): Int
+    external fun libcUnixAixSeekdir(dirp: Long, loc: Long)
 
     @JvmStatic
-    external fun libc_unix_aix_sctpPeeloff(s: Int, id: Long): Int
+    external fun libcUnixAixSemClose(sem: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_seed48(xseed: Long): Long
+    external fun libcUnixAixSemDestroy(sem: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_seekdir(dirp: Long, loc: Long)
+    external fun libcUnixAixSemGetvalue(sem: Long, sval: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_semClose(sem: Long): Int
+    external fun libcUnixAixSemInit(sem: Long, pshared: Int, value: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_semDestroy(sem: Long): Int
+    external fun libcUnixAixSemOpen(name: Long, oflag: Int, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_semGetvalue(sem: Long, sval: Long): Int
+    external fun libcUnixAixSemTimedwait(sem: Long, abstime: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_semInit(sem: Long, pshared: Int, value: Int): Int
+    external fun libcUnixAixSemUnlink(name: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_semOpen(name: String?, oflag: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Long
+    external fun libcUnixAixSemctl(semid: Int, semnum: Int, cmd: Int, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_semTimedwait(sem: Long, abstime: Long): Int
+    external fun libcUnixAixSemget(key: Int, nsems: Int, semflag: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_semUnlink(name: String?): Int
+    external fun libcUnixAixSemop(semid: Int, sops: Long, nsops: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_semctl(semid: Int, semnum: Int, cmd: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcUnixAixSendFile(socket: Long, iobuf: Long, flags: Int): Long
 
     @JvmStatic
-    external fun libc_unix_aix_semget(key: Int, nsems: Int, semflag: Int): Int
+    external fun libcUnixAixSendmmsg(sockfd: Int, msgvec: Long, vlen: Int, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_semop(semid: Int, sops: Long, nsops: Long): Int
+    external fun libcUnixAixSendmsg(sockfd: Int, msg: Long, flags: Int): Long
 
     @JvmStatic
-    external fun libc_unix_aix_sendFile(socket: Long, iobuf: Long, flags: Int): Long
+    external fun libcUnixAixSetcontext(ucp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_sendmmsg(sockfd: Int, msgvec: Long, vlen: Int, flags: Int): Int
+    external fun libcUnixAixSetdomainname(name: Long, len: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_sendmsg(sockfd: Int, msg: Long, flags: Int): Long
+    external fun libcUnixAixSetgroups(ngroups: Int, ptr: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_setcontext(ucp: Long): Int
+    external fun libcUnixAixSetgrent()
 
     @JvmStatic
-    external fun libc_unix_aix_setdomainname(name: String?, len: Int): Int
+    external fun libcUnixAixSethostid(hostid: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_setgroups(ngroups: Int, ptr: Long): Int
+    external fun libcUnixAixSethostname(name: Long, len: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_setgrent()
+    external fun libcUnixAixSetmntent(filename: Long, ty: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_sethostid(hostid: Int): Int
+    external fun libcUnixAixSetpriority(which: Int, who: Int, priority: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_sethostname(name: String?, len: Int): Int
+    external fun libcUnixAixSetpwent()
 
     @JvmStatic
-    external fun libc_unix_aix_setmntent(filename: String?, ty: String?): Long
+    external fun libcUnixAixSetrlimit(resource: Int, rlim: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_setpriority(which: Int, who: Int, priority: Int): Int
+    external fun libcUnixAixSetrlimit64(resource: Int, rlim: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_setpwent()
+    external fun libcUnixAixSettimeofday(tv: Long, tz: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_setrlimit(resource: Int, rlim: Long): Int
+    external fun libcUnixAixSetitimer(which: Int, newValue: Long, oldValue: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_setrlimit64(resource: Int, rlim: Long): Int
+    external fun libcUnixAixSetutent()
 
     @JvmStatic
-    external fun libc_unix_aix_settimeofday(tv: Long, tz: Long): Int
+    external fun libcUnixAixSetutxent()
 
     @JvmStatic
-    external fun libc_unix_aix_setitimer(which: Int, newValue: Long, oldValue: Long): Int
+    external fun libcUnixAixSigaltstack(ss: Long, oss: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_setutent()
+    external fun libcUnixAixSigsuspend(mask: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_setutxent()
+    external fun libcUnixAixSigtimedwait(set: Long, info: Long, timeout: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_sigaltstack(ss: Long, oss: Long): Int
+    external fun libcUnixAixSigwait(set: Long, sig: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_sigsuspend(mask: Long): Int
+    external fun libcUnixAixSigwaitinfo(set: Long, info: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_sigtimedwait(set: Long, info: Long, timeout: Long): Int
+    external fun libcUnixAixShmat(shmid: Int, shmaddr: Long, shmflg: Int): Long
 
     @JvmStatic
-    external fun libc_unix_aix_sigwait(set: Long, sig: Long): Int
+    external fun libcUnixAixShmdt(shmaddr: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_sigwaitinfo(set: Long, info: Long): Int
+    external fun libcUnixAixShmctl(shmid: Int, cmd: Int, buf: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_shmat(shmid: Int, shmaddr: Long, shmflg: Int): Long
+    external fun libcUnixAixShmget(key: Int, size: Long, shmflg: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_shmdt(shmaddr: Long): Int
+    external fun libcUnixAixShmOpen(name: Long, oflag: Int, mode: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_shmctl(shmid: Int, cmd: Int, buf: Long): Int
+    external fun libcUnixAixShmUnlink(name: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_shmget(key: Int, size: Long, shmflg: Int): Int
+    external fun libcUnixAixSplice(socket1: Int, socket2: Int, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_shmOpen(name: String?, oflag: Int, mode: Int): Int
+    external fun libcUnixAixSrand(seed: Int)
 
     @JvmStatic
-    external fun libc_unix_aix_shmUnlink(name: String?): Int
+    external fun libcUnixAixSrand48(seed: Long)
 
     @JvmStatic
-    external fun libc_unix_aix_splice(socket1: Int, socket2: Int, flags: Int): Int
+    external fun libcUnixAixStat64(path: Long, buf: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_srand(seed: Int)
+    external fun libcUnixAixStat64at(dirfd: Int, path: Long, buf: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_srand48(seed: Long)
+    external fun libcUnixAixStatfs(path: Long, buf: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_stat64(path: String?, buf: Long): Int
+    external fun libcUnixAixStatfs64(path: Long, buf: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_stat64at(dirfd: Int, path: String?, buf: Long, flags: Int): Int
+    external fun libcUnixAixStatvfs64(path: Long, buf: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_statfs(path: String?, buf: Long): Int
+    external fun libcUnixAixStatx(path: Long, buf: Long, length: Int, command: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_statfs64(path: String?, buf: Long): Int
+    external fun libcUnixAixStrcasecmpL(string1: Long, string2: Long, locale: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_statvfs64(path: String?, buf: Long): Int
+    external fun libcUnixAixStrerrorR(errnum: Int, buf: Long, buflen: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_statx(path: String?, buf: Long, length: Int, command: Int): Int
+    external fun libcUnixAixStrftime(arg1: Long, arg2: Long, arg3: Long, arg4: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_strcasecmpL(string1: String?, string2: String?, locale: Long): Int
+    external fun libcUnixAixStrncasecmpL(string1: Long, string2: Long, length: Long, locale: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_strerrorR(errnum: Int, buf: Long, buflen: Long): Int
+    external fun libcUnixAixStrptime(s: Long, format: Long, tm: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_strftime(arg1: Long, arg2: Long, arg3: String?, arg4: Long): Long
+    external fun libcUnixAixStrsep(string: Long, delim: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_strncasecmpL(string1: String?, string2: String?, length: Long, locale: Long): Int
+    external fun libcUnixAixSwapcontext(uocp: Long, ucp: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_strptime(s: String?, format: String?, tm: Long): Long
+    external fun libcUnixAixSwapoff(path: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_strsep(string: Long, delim: String?): Long
+    external fun libcUnixAixSwapon(path: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_swapcontext(uocp: Long, ucp: Long): Int
+    external fun libcUnixAixSync()
 
     @JvmStatic
-    external fun libc_unix_aix_swapoff(path: String?): Int
+    external fun libcUnixAixTelldir(dirp: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_swapon(path: String?): Int
+    external fun libcUnixAixTimerCreate(clockid: Long, sevp: Long, timerid: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_sync()
+    external fun libcUnixAixTimerDelete(timerid: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_telldir(dirp: Long): Long
+    external fun libcUnixAixTimerGetoverrun(timerid: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_timerCreate(clockid: Long, sevp: Long, timerid: Long): Int
+    external fun libcUnixAixTimerGettime(timerid: Long, value: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_timerDelete(timerid: Long): Int
+    external fun libcUnixAixTimerSettime(timerid: Long, flags: Int, newValue: Long, oldValue: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_timerGetoverrun(timerid: Long): Int
+    external fun libcUnixAixTruncate64(path: Long, length: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_timerGettime(timerid: Long, value: Long): Int
+    external fun libcUnixAixUname(buf: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_timerSettime(timerid: Long, flags: Int, newValue: Long, oldValue: Long): Int
+    external fun libcUnixAixUpdwtmp(file: Long, u: Long)
 
     @JvmStatic
-    external fun libc_unix_aix_truncate64(path: String?, length: Long): Int
+    external fun libcUnixAixUselocale(loc: Long): Long
 
     @JvmStatic
-    external fun libc_unix_aix_uname(buf: Long): Int
+    external fun libcUnixAixUtmpname(file: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_updwtmp(file: String?, u: Long)
+    external fun libcUnixAixUtimensat(dirfd: Int, path: Long, times: Long, flag: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_uselocale(loc: Long): Long
+    external fun libcUnixAixWait4(pid: Int, status: Long, options: Int, rusage: Long): Int
 
     @JvmStatic
-    external fun libc_unix_aix_utmpname(file: String?): Int
+    external fun libcUnixAixWaitid(idtype: Int, id: Int, infop: Long, options: Int): Int
 
     @JvmStatic
-    external fun libc_unix_aix_utimensat(dirfd: Int, path: String?, times: Long, flag: Int): Int
+    external fun libcUnixAixWritev(fd: Int, iov: Long, iovcnt: Int): Long
 
     @JvmStatic
-    external fun libc_unix_aix_wait4(pid: Int, status: Long, options: Int, rusage: Long): Int
-
-    @JvmStatic
-    external fun libc_unix_aix_waitid(idtype: Int, id: Int, infop: Long, options: Int): Int
-
-    @JvmStatic
-    external fun libc_unix_aix_writev(fd: Int, iov: Long, iovcnt: Int): Long
-
-    @JvmStatic
-    external fun libc_unix_aix_errno(): Long
+    external fun libcUnixAixErrno(): Long
 }
 
 public actual fun thrKill(id: ThreadT, sig: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_thrKill(id.toLong(), sig)
+    UnixAixJniBridge.libcUnixAixThrKill(id.toLong(), sig)
 
 public actual fun thrSelf(): ThreadT =
-    UnixAixJniBridge.libc_unix_aix_thrSelf().toUInt()
+    UnixAixJniBridge.libcUnixAixThrSelf().toUInt()
 
 public actual fun pthreadAtfork(prepare: PthreadAtforkPrepareCallback?, parent: PthreadAtforkPrepareCallback?, child: PthreadAtforkPrepareCallback?): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadAtfork(0L, 0L, 0L)
+    UnixAixJniBridge.libcUnixAixPthreadAtfork(0L, 0L, 0L)
 
-public actual fun pthreadAttrGetdetachstate(attr: COpaquePointer?, detachstate: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadAttrGetdetachstate((attr?.value ?: 0L), (detachstate?.value ?: 0L))
+public actual fun pthreadAttrGetdetachstate(attr: ConstPtr<PthreadAttrT>, detachstate: MutPtr<CInt>): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadAttrGetdetachstate(attr.rawAddress, detachstate.rawAddress)
 
-public actual fun pthreadAttrGetguardsize(attr: COpaquePointer?, guardsize: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadAttrGetguardsize((attr?.value ?: 0L), (guardsize?.value ?: 0L))
+public actual fun pthreadAttrGetguardsize(attr: ConstPtr<PthreadAttrT>, guardsize: MutPtr<SizeT>): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadAttrGetguardsize(attr.rawAddress, guardsize.rawAddress)
 
-public actual fun pthreadAttrGetinheritsched(attr: COpaquePointer?, inheritsched: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadAttrGetinheritsched((attr?.value ?: 0L), (inheritsched?.value ?: 0L))
+public actual fun pthreadAttrGetinheritsched(attr: ConstPtr<PthreadAttrT>, inheritsched: MutPtr<CInt>): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadAttrGetinheritsched(attr.rawAddress, inheritsched.rawAddress)
 
-public actual fun pthreadAttrGetschedparam(attr: COpaquePointer?, param: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadAttrGetschedparam((attr?.value ?: 0L), (param?.value ?: 0L))
+public actual fun pthreadAttrGetschedparam(attr: ConstPtr<PthreadAttrT>, param: MutPtr<SchedParam>): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadAttrGetschedparam(attr.rawAddress, param.rawAddress)
 
-public actual fun pthreadAttrGetstackaddr(attr: COpaquePointer?, stackaddr: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadAttrGetstackaddr((attr?.value ?: 0L), (stackaddr?.value ?: 0L))
+public actual fun pthreadAttrGetstackaddr(attr: ConstPtr<PthreadAttrT>, stackaddr: MutPtr<MutPtr<CVoid>>): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadAttrGetstackaddr(attr.rawAddress, stackaddr.rawAddress)
 
-public actual fun pthreadAttrGetschedpolicy(attr: COpaquePointer?, policy: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadAttrGetschedpolicy((attr?.value ?: 0L), (policy?.value ?: 0L))
+public actual fun pthreadAttrGetschedpolicy(attr: ConstPtr<PthreadAttrT>, policy: MutPtr<CInt>): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadAttrGetschedpolicy(attr.rawAddress, policy.rawAddress)
 
-public actual fun pthreadAttrGetscope(attr: COpaquePointer?, contentionscope: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadAttrGetscope((attr?.value ?: 0L), (contentionscope?.value ?: 0L))
+public actual fun pthreadAttrGetscope(attr: ConstPtr<PthreadAttrT>, contentionscope: MutPtr<CInt>): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadAttrGetscope(attr.rawAddress, contentionscope.rawAddress)
 
-public actual fun pthreadAttrGetstack(attr: COpaquePointer?, stackaddr: COpaquePointer?, stacksize: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadAttrGetstack((attr?.value ?: 0L), (stackaddr?.value ?: 0L), (stacksize?.value ?: 0L))
+public actual fun pthreadAttrGetstack(attr: ConstPtr<PthreadAttrT>, stackaddr: MutPtr<MutPtr<CVoid>>, stacksize: MutPtr<SizeT>): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadAttrGetstack(attr.rawAddress, stackaddr.rawAddress, stacksize.rawAddress)
 
-public actual fun pthreadAttrSetguardsize(attr: COpaquePointer?, guardsize: SizeT): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadAttrSetguardsize((attr?.value ?: 0L), guardsize.toLong())
+public actual fun pthreadAttrSetguardsize(attr: MutPtr<PthreadAttrT>, guardsize: SizeT): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadAttrSetguardsize(attr.rawAddress, guardsize.toLong())
 
-public actual fun pthreadAttrSetinheritsched(attr: COpaquePointer?, inheritsched: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadAttrSetinheritsched((attr?.value ?: 0L), inheritsched)
+public actual fun pthreadAttrSetinheritsched(attr: MutPtr<PthreadAttrT>, inheritsched: CInt): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadAttrSetinheritsched(attr.rawAddress, inheritsched)
 
-public actual fun pthreadAttrSetschedparam(attr: COpaquePointer?, param: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadAttrSetschedparam((attr?.value ?: 0L), (param?.value ?: 0L))
+public actual fun pthreadAttrSetschedparam(attr: MutPtr<PthreadAttrT>, param: ConstPtr<SchedParam>): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadAttrSetschedparam(attr.rawAddress, param.rawAddress)
 
-public actual fun pthreadAttrSetschedpolicy(attr: COpaquePointer?, policy: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadAttrSetschedpolicy((attr?.value ?: 0L), policy)
+public actual fun pthreadAttrSetschedpolicy(attr: MutPtr<PthreadAttrT>, policy: CInt): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadAttrSetschedpolicy(attr.rawAddress, policy)
 
-public actual fun pthreadAttrSetscope(attr: COpaquePointer?, contentionscope: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadAttrSetscope((attr?.value ?: 0L), contentionscope)
+public actual fun pthreadAttrSetscope(attr: MutPtr<PthreadAttrT>, contentionscope: CInt): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadAttrSetscope(attr.rawAddress, contentionscope)
 
-public actual fun pthreadAttrSetstack(attr: COpaquePointer?, stackaddr: COpaquePointer?, stacksize: SizeT): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadAttrSetstack((attr?.value ?: 0L), (stackaddr?.value ?: 0L), stacksize.toLong())
+public actual fun pthreadAttrSetstack(attr: MutPtr<PthreadAttrT>, stackaddr: MutPtr<CVoid>, stacksize: SizeT): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadAttrSetstack(attr.rawAddress, stackaddr.rawAddress, stacksize.toLong())
 
-public actual fun pthreadAttrSetstackaddr(attr: COpaquePointer?, stackaddr: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadAttrSetstackaddr((attr?.value ?: 0L), (stackaddr?.value ?: 0L))
+public actual fun pthreadAttrSetstackaddr(attr: MutPtr<PthreadAttrT>, stackaddr: MutPtr<CVoid>): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadAttrSetstackaddr(attr.rawAddress, stackaddr.rawAddress)
 
-public actual fun pthreadBarrierattrDestroy(attr: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadBarrierattrDestroy((attr?.value ?: 0L))
+public actual fun pthreadBarrierattrDestroy(attr: MutPtr<PthreadBarrierattrT>): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadBarrierattrDestroy(attr.rawAddress)
 
-public actual fun pthreadBarrierattrGetpshared(attr: COpaquePointer?, pshared: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadBarrierattrGetpshared((attr?.value ?: 0L), (pshared?.value ?: 0L))
+public actual fun pthreadBarrierattrGetpshared(attr: ConstPtr<PthreadBarrierattrT>, pshared: MutPtr<CInt>): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadBarrierattrGetpshared(attr.rawAddress, pshared.rawAddress)
 
-public actual fun pthreadBarrierattrInit(attr: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadBarrierattrInit((attr?.value ?: 0L))
+public actual fun pthreadBarrierattrInit(attr: MutPtr<PthreadBarrierattrT>): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadBarrierattrInit(attr.rawAddress)
 
-public actual fun pthreadBarrierattrSetpshared(attr: COpaquePointer?, pshared: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadBarrierattrSetpshared((attr?.value ?: 0L), pshared)
+public actual fun pthreadBarrierattrSetpshared(attr: MutPtr<PthreadBarrierattrT>, pshared: CInt): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadBarrierattrSetpshared(attr.rawAddress, pshared)
 
-public actual fun pthreadBarrierDestroy(barrier: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadBarrierDestroy((barrier?.value ?: 0L))
+public actual fun pthreadBarrierDestroy(barrier: MutPtr<PthreadBarrierT>): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadBarrierDestroy(barrier.rawAddress)
 
-public actual fun pthreadBarrierInit(barrier: COpaquePointer?, attr: COpaquePointer?, count: CUint): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadBarrierInit((barrier?.value ?: 0L), (attr?.value ?: 0L), count.toInt())
+public actual fun pthreadBarrierInit(barrier: MutPtr<PthreadBarrierT>, attr: ConstPtr<PthreadBarrierattrT>, count: CUint): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadBarrierInit(barrier.rawAddress, attr.rawAddress, count.toInt())
 
-public actual fun pthreadBarrierWait(barrier: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadBarrierWait((barrier?.value ?: 0L))
+public actual fun pthreadBarrierWait(barrier: MutPtr<PthreadBarrierT>): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadBarrierWait(barrier.rawAddress)
 
 public actual fun pthreadCancel(thread: PthreadT): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadCancel(thread.toLong())
+    UnixAixJniBridge.libcUnixAixPthreadCancel(thread.toLong())
 
-public actual fun pthreadCleanupPop(execute: CInt) {
-    UnixAixJniBridge.libc_unix_aix_pthreadCleanupPop(execute)
-}
+public actual fun pthreadCleanupPop(execute: CInt): CVoid =
+    CVoid()
 
-public actual fun pthreadCleanupPush(routine: PthreadCleanupPushRoutineCallback?, arg: COpaquePointer?) {
-    UnixAixJniBridge.libc_unix_aix_pthreadCleanupPush(0L, (arg?.value ?: 0L))
-}
+public actual fun pthreadCleanupPush(routine: PthreadCleanupPushRoutineCallback?, arg: MutPtr<CVoid>): CVoid =
+    CVoid()
 
-public actual fun pthreadCondattrGetclock(attr: COpaquePointer?, clockId: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadCondattrGetclock((attr?.value ?: 0L), (clockId?.value ?: 0L))
+public actual fun pthreadCondattrGetclock(attr: ConstPtr<PthreadCondattrT>, clockId: MutPtr<ClockidT>): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadCondattrGetclock(attr.rawAddress, clockId.rawAddress)
 
-public actual fun pthreadCondattrGetpshared(attr: COpaquePointer?, pshared: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadCondattrGetpshared((attr?.value ?: 0L), (pshared?.value ?: 0L))
+public actual fun pthreadCondattrGetpshared(attr: ConstPtr<PthreadCondattrT>, pshared: MutPtr<CInt>): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadCondattrGetpshared(attr.rawAddress, pshared.rawAddress)
 
-public actual fun pthreadCondattrSetclock(attr: COpaquePointer?, clockId: ClockidT): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadCondattrSetclock((attr?.value ?: 0L), clockId)
+public actual fun pthreadCondattrSetclock(attr: MutPtr<PthreadCondattrT>, clockId: ClockidT): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadCondattrSetclock(attr.rawAddress, clockId)
 
-public actual fun pthreadCondattrSetpshared(attr: COpaquePointer?, pshared: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadCondattrSetpshared((attr?.value ?: 0L), pshared)
+public actual fun pthreadCondattrSetpshared(attr: MutPtr<PthreadCondattrT>, pshared: CInt): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadCondattrSetpshared(attr.rawAddress, pshared)
 
-public actual fun pthreadCreate(thread: COpaquePointer?, attr: COpaquePointer?, startRoutine: PthreadCreateStartRoutineCallback, arg: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadCreate((thread?.value ?: 0L), (attr?.value ?: 0L), 0L, (arg?.value ?: 0L))
+public actual fun pthreadCreate(thread: MutPtr<PthreadT>, attr: ConstPtr<PthreadAttrT>, startRoutine: PthreadCreateStartRoutineCallback, arg: MutPtr<CVoid>): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadCreate(thread.rawAddress, attr.rawAddress, 0L, arg.rawAddress)
 
 public actual fun pthreadGetconcurrency(): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadGetconcurrency()
+    UnixAixJniBridge.libcUnixAixPthreadGetconcurrency()
 
-public actual fun pthreadGetcpuclockid(threadId: PthreadT, clockId: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadGetcpuclockid(threadId.toLong(), (clockId?.value ?: 0L))
+public actual fun pthreadGetcpuclockid(threadId: PthreadT, clockId: MutPtr<ClockidT>): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadGetcpuclockid(threadId.toLong(), clockId.rawAddress)
 
-public actual fun pthreadGetschedparam(thread: PthreadT, policy: COpaquePointer?, param: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadGetschedparam(thread.toLong(), (policy?.value ?: 0L), (param?.value ?: 0L))
+public actual fun pthreadGetschedparam(thread: PthreadT, policy: MutPtr<CInt>, param: MutPtr<SchedParam>): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadGetschedparam(thread.toLong(), policy.rawAddress, param.rawAddress)
 
 public actual fun pthreadKill(thread: PthreadT, sig: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadKill(thread.toLong(), sig)
+    UnixAixJniBridge.libcUnixAixPthreadKill(thread.toLong(), sig)
 
-public actual fun pthreadMutexattrGetprioceiling(attr: COpaquePointer?, prioceiling: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadMutexattrGetprioceiling((attr?.value ?: 0L), (prioceiling?.value ?: 0L))
+public actual fun pthreadMutexattrGetprioceiling(attr: ConstPtr<PthreadMutexattrT>, prioceiling: MutPtr<CInt>): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadMutexattrGetprioceiling(attr.rawAddress, prioceiling.rawAddress)
 
-public actual fun pthreadMutexattrGetprotocol(attr: COpaquePointer?, protocol: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadMutexattrGetprotocol((attr?.value ?: 0L), (protocol?.value ?: 0L))
+public actual fun pthreadMutexattrGetprotocol(attr: ConstPtr<PthreadMutexattrT>, protocol: MutPtr<CInt>): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadMutexattrGetprotocol(attr.rawAddress, protocol.rawAddress)
 
-public actual fun pthreadMutexattrGetpshared(attr: COpaquePointer?, pshared: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadMutexattrGetpshared((attr?.value ?: 0L), (pshared?.value ?: 0L))
+public actual fun pthreadMutexattrGetpshared(attr: ConstPtr<PthreadMutexattrT>, pshared: MutPtr<CInt>): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadMutexattrGetpshared(attr.rawAddress, pshared.rawAddress)
 
-public actual fun pthreadMutexattrGetrobust(attr: COpaquePointer?, robust: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadMutexattrGetrobust((attr?.value ?: 0L), (robust?.value ?: 0L))
+public actual fun pthreadMutexattrGetrobust(attr: ConstPtr<PthreadMutexattrT>, robust: MutPtr<CInt>): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadMutexattrGetrobust(attr.rawAddress, robust.rawAddress)
 
-public actual fun pthreadMutexattrGettype(attr: COpaquePointer?, type: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadMutexattrGettype((attr?.value ?: 0L), (type?.value ?: 0L))
+public actual fun pthreadMutexattrGettype(attr: ConstPtr<PthreadMutexattrT>, type: MutPtr<CInt>): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadMutexattrGettype(attr.rawAddress, type.rawAddress)
 
-public actual fun pthreadMutexattrSetprioceiling(attr: COpaquePointer?, prioceiling: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadMutexattrSetprioceiling((attr?.value ?: 0L), prioceiling)
+public actual fun pthreadMutexattrSetprioceiling(attr: MutPtr<PthreadMutexattrT>, prioceiling: CInt): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadMutexattrSetprioceiling(attr.rawAddress, prioceiling)
 
-public actual fun pthreadMutexattrSetprotocol(attr: COpaquePointer?, protocol: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadMutexattrSetprotocol((attr?.value ?: 0L), protocol)
+public actual fun pthreadMutexattrSetprotocol(attr: MutPtr<PthreadMutexattrT>, protocol: CInt): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadMutexattrSetprotocol(attr.rawAddress, protocol)
 
-public actual fun pthreadMutexattrSetpshared(attr: COpaquePointer?, pshared: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadMutexattrSetpshared((attr?.value ?: 0L), pshared)
+public actual fun pthreadMutexattrSetpshared(attr: MutPtr<PthreadMutexattrT>, pshared: CInt): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadMutexattrSetpshared(attr.rawAddress, pshared)
 
-public actual fun pthreadMutexattrSetrobust(attr: COpaquePointer?, robust: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadMutexattrSetrobust((attr?.value ?: 0L), robust)
+public actual fun pthreadMutexattrSetrobust(attr: MutPtr<PthreadMutexattrT>, robust: CInt): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadMutexattrSetrobust(attr.rawAddress, robust)
 
-public actual fun pthreadMutexConsistent(mutex: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadMutexConsistent((mutex?.value ?: 0L))
+public actual fun pthreadMutexConsistent(mutex: MutPtr<PthreadMutexT>): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadMutexConsistent(mutex.rawAddress)
 
-public actual fun pthreadMutexGetprioceiling(mutex: COpaquePointer?, prioceiling: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadMutexGetprioceiling((mutex?.value ?: 0L), (prioceiling?.value ?: 0L))
+public actual fun pthreadMutexGetprioceiling(mutex: ConstPtr<PthreadMutexT>, prioceiling: MutPtr<CInt>): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadMutexGetprioceiling(mutex.rawAddress, prioceiling.rawAddress)
 
-public actual fun pthreadMutexSetprioceiling(mutex: COpaquePointer?, prioceiling: CInt, oldCeiling: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadMutexSetprioceiling((mutex?.value ?: 0L), prioceiling, (oldCeiling?.value ?: 0L))
+public actual fun pthreadMutexSetprioceiling(mutex: MutPtr<PthreadMutexT>, prioceiling: CInt, oldCeiling: MutPtr<CInt>): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadMutexSetprioceiling(mutex.rawAddress, prioceiling, oldCeiling.rawAddress)
 
-public actual fun pthreadMutexTimedlock(mutex: COpaquePointer?, abstime: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadMutexTimedlock((mutex?.value ?: 0L), (abstime?.value ?: 0L))
+public actual fun pthreadMutexTimedlock(mutex: MutPtr<PthreadMutexT>, abstime: ConstPtr<Timespec>): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadMutexTimedlock(mutex.rawAddress, abstime.rawAddress)
 
-public actual fun pthreadOnce(onceControl: COpaquePointer?, initRoutine: PthreadAtforkPrepareCallback?): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadOnce((onceControl?.value ?: 0L), 0L)
+public actual fun pthreadOnce(onceControl: MutPtr<PthreadOnceT>, initRoutine: PthreadAtforkPrepareCallback?): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadOnce(onceControl.rawAddress, 0L)
 
-public actual fun pthreadRwlockattrGetpshared(attr: COpaquePointer?, pshared: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadRwlockattrGetpshared((attr?.value ?: 0L), (pshared?.value ?: 0L))
+public actual fun pthreadRwlockattrGetpshared(attr: ConstPtr<PthreadRwlockattrT>, pshared: MutPtr<CInt>): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadRwlockattrGetpshared(attr.rawAddress, pshared.rawAddress)
 
-public actual fun pthreadRwlockattrSetpshared(attr: COpaquePointer?, pshared: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadRwlockattrSetpshared((attr?.value ?: 0L), pshared)
+public actual fun pthreadRwlockattrSetpshared(attr: MutPtr<PthreadRwlockattrT>, pshared: CInt): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadRwlockattrSetpshared(attr.rawAddress, pshared)
 
-public actual fun pthreadRwlockTimedrdlock(rwlock: COpaquePointer?, abstime: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadRwlockTimedrdlock((rwlock?.value ?: 0L), (abstime?.value ?: 0L))
+public actual fun pthreadRwlockTimedrdlock(rwlock: MutPtr<PthreadRwlockT>, abstime: ConstPtr<Timespec>): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadRwlockTimedrdlock(rwlock.rawAddress, abstime.rawAddress)
 
-public actual fun pthreadRwlockTimedwrlock(rwlock: COpaquePointer?, abstime: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadRwlockTimedwrlock((rwlock?.value ?: 0L), (abstime?.value ?: 0L))
+public actual fun pthreadRwlockTimedwrlock(rwlock: MutPtr<PthreadRwlockT>, abstime: ConstPtr<Timespec>): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadRwlockTimedwrlock(rwlock.rawAddress, abstime.rawAddress)
 
-public actual fun pthreadSetcancelstate(state: CInt, oldstate: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadSetcancelstate(state, (oldstate?.value ?: 0L))
+public actual fun pthreadSetcancelstate(state: CInt, oldstate: MutPtr<CInt>): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadSetcancelstate(state, oldstate.rawAddress)
 
-public actual fun pthreadSetcanceltype(type: CInt, oldtype: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadSetcanceltype(type, (oldtype?.value ?: 0L))
+public actual fun pthreadSetcanceltype(type: CInt, oldtype: MutPtr<CInt>): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadSetcanceltype(type, oldtype.rawAddress)
 
 public actual fun pthreadSetconcurrency(newLevel: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadSetconcurrency(newLevel)
+    UnixAixJniBridge.libcUnixAixPthreadSetconcurrency(newLevel)
 
-public actual fun pthreadSetschedparam(thread: PthreadT, policy: CInt, param: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadSetschedparam(thread.toLong(), policy, (param?.value ?: 0L))
+public actual fun pthreadSetschedparam(thread: PthreadT, policy: CInt, param: ConstPtr<SchedParam>): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadSetschedparam(thread.toLong(), policy, param.rawAddress)
 
 public actual fun pthreadSetschedprio(thread: PthreadT, prio: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadSetschedprio(thread.toLong(), prio)
+    UnixAixJniBridge.libcUnixAixPthreadSetschedprio(thread.toLong(), prio)
 
-public actual fun pthreadSigmask(how: CInt, set: COpaquePointer?, oset: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadSigmask(how, (set?.value ?: 0L), (oset?.value ?: 0L))
+public actual fun pthreadSigmask(how: CInt, set: ConstPtr<SigsetT>, oset: MutPtr<SigsetT>): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadSigmask(how, set.rawAddress, oset.rawAddress)
 
-public actual fun pthreadSpinDestroy(lock: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadSpinDestroy((lock?.value ?: 0L))
+public actual fun pthreadSpinDestroy(lock: MutPtr<PthreadSpinlockT>): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadSpinDestroy(lock.rawAddress)
 
-public actual fun pthreadSpinInit(lock: COpaquePointer?, pshared: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadSpinInit((lock?.value ?: 0L), pshared)
+public actual fun pthreadSpinInit(lock: MutPtr<PthreadSpinlockT>, pshared: CInt): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadSpinInit(lock.rawAddress, pshared)
 
-public actual fun pthreadSpinLock(lock: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadSpinLock((lock?.value ?: 0L))
+public actual fun pthreadSpinLock(lock: MutPtr<PthreadSpinlockT>): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadSpinLock(lock.rawAddress)
 
-public actual fun pthreadSpinTrylock(lock: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadSpinTrylock((lock?.value ?: 0L))
+public actual fun pthreadSpinTrylock(lock: MutPtr<PthreadSpinlockT>): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadSpinTrylock(lock.rawAddress)
 
-public actual fun pthreadSpinUnlock(lock: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_pthreadSpinUnlock((lock?.value ?: 0L))
+public actual fun pthreadSpinUnlock(lock: MutPtr<PthreadSpinlockT>): CInt =
+    UnixAixJniBridge.libcUnixAixPthreadSpinUnlock(lock.rawAddress)
 
-public actual fun pthreadTestcancel() {
-    UnixAixJniBridge.libc_unix_aix_pthreadTestcancel()
-}
+public actual fun pthreadTestcancel(): CVoid =
+    CVoid()
 
-public actual fun iconv(cd: IconvT, inbuf: COpaquePointer?, inbytesleft: COpaquePointer?, outbuf: COpaquePointer?, outbytesleft: COpaquePointer?): SizeT =
-    UnixAixJniBridge.libc_unix_aix_iconv((cd?.value ?: 0L), (inbuf?.value ?: 0L), (inbytesleft?.value ?: 0L), (outbuf?.value ?: 0L), (outbytesleft?.value ?: 0L)).toULong()
+public actual fun iconv(cd: IconvT, inbuf: MutPtr<MutPtr<CChar>>, inbytesleft: MutPtr<SizeT>, outbuf: MutPtr<MutPtr<CChar>>, outbytesleft: MutPtr<SizeT>): SizeT =
+    UnixAixJniBridge.libcUnixAixIconv(cd.rawAddress, inbuf.rawAddress, inbytesleft.rawAddress, outbuf.rawAddress, outbytesleft.rawAddress).toULong()
 
 public actual fun iconvClose(cd: IconvT): CInt =
-    UnixAixJniBridge.libc_unix_aix_iconvClose((cd?.value ?: 0L))
+    UnixAixJniBridge.libcUnixAixIconvClose(cd.rawAddress)
 
-public actual fun iconvOpen(tocode: String?, fromcode: String?): IconvT =
-    UnixAixJniBridge.libc_unix_aix_iconvOpen(tocode, fromcode).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun iconvOpen(tocode: ConstPtr<CChar>, fromcode: ConstPtr<CChar>): IconvT =
+    MutPtr(UnixAixJniBridge.libcUnixAixIconvOpen(tocode.rawAddress, fromcode.rawAddress))
 
-public actual fun acct(filename: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_acct((filename?.value ?: 0L))
+public actual fun acct(filename: MutPtr<CChar>): CInt =
+    UnixAixJniBridge.libcUnixAixAcct(filename.rawAddress)
 
-public actual fun aioCancel(fildes: CInt, aiocbp: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_aioCancel(fildes, (aiocbp?.value ?: 0L))
+public actual fun aioCancel(fildes: CInt, aiocbp: MutPtr<Aiocb>): CInt =
+    UnixAixJniBridge.libcUnixAixAioCancel(fildes, aiocbp.rawAddress)
 
-public actual fun aioError(aiocbp: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_aioError((aiocbp?.value ?: 0L))
+public actual fun aioError(aiocbp: ConstPtr<Aiocb>): CInt =
+    UnixAixJniBridge.libcUnixAixAioError(aiocbp.rawAddress)
 
-public actual fun aioFsync(op: CInt, aiocbp: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_aioFsync(op, (aiocbp?.value ?: 0L))
+public actual fun aioFsync(op: CInt, aiocbp: MutPtr<Aiocb>): CInt =
+    UnixAixJniBridge.libcUnixAixAioFsync(op, aiocbp.rawAddress)
 
-public actual fun aioRead(aiocbp: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_aioRead((aiocbp?.value ?: 0L))
+public actual fun aioRead(aiocbp: MutPtr<Aiocb>): CInt =
+    UnixAixJniBridge.libcUnixAixAioRead(aiocbp.rawAddress)
 
-public actual fun aioReturn(aiocbp: COpaquePointer?): SsizeT =
-    UnixAixJniBridge.libc_unix_aix_aioReturn((aiocbp?.value ?: 0L))
+public actual fun aioReturn(aiocbp: MutPtr<Aiocb>): SsizeT =
+    UnixAixJniBridge.libcUnixAixAioReturn(aiocbp.rawAddress)
 
-public actual fun aioSuspend(list: COpaquePointer?, nent: CInt, timeout: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_aioSuspend((list?.value ?: 0L), nent, (timeout?.value ?: 0L))
+public actual fun aioSuspend(list: ConstPtr<ConstPtr<Aiocb>>, nent: CInt, timeout: ConstPtr<Timespec>): CInt =
+    UnixAixJniBridge.libcUnixAixAioSuspend(list.rawAddress, nent, timeout.rawAddress)
 
-public actual fun aioWrite(aiocbp: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_aioWrite((aiocbp?.value ?: 0L))
+public actual fun aioWrite(aiocbp: MutPtr<Aiocb>): CInt =
+    UnixAixJniBridge.libcUnixAixAioWrite(aiocbp.rawAddress)
 
-public actual fun basename(path: COpaquePointer?): COpaquePointer? =
-    UnixAixJniBridge.libc_unix_aix_basename((path?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun basename(path: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(UnixAixJniBridge.libcUnixAixBasename(path.rawAddress))
 
-public actual fun bind(socket: CInt, address: COpaquePointer?, addressLen: SocklenT): CInt =
-    UnixAixJniBridge.libc_unix_aix_bind(socket, (address?.value ?: 0L), addressLen.toInt())
+public actual fun bind(socket: CInt, address: ConstPtr<Sockaddr>, addressLen: SocklenT): CInt =
+    UnixAixJniBridge.libcUnixAixBind(socket, address.rawAddress, addressLen.toInt())
 
-public actual fun brk(addr: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_brk((addr?.value ?: 0L))
+public actual fun brk(addr: MutPtr<CVoid>): CInt =
+    UnixAixJniBridge.libcUnixAixBrk(addr.rawAddress)
 
 public actual fun clearenv(): CInt =
-    UnixAixJniBridge.libc_unix_aix_clearenv()
+    UnixAixJniBridge.libcUnixAixClearenv()
 
-public actual fun clockGetcpuclockid(pid: PidT, clkId: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_clockGetcpuclockid(pid, (clkId?.value ?: 0L))
+public actual fun clockGetcpuclockid(pid: PidT, clkId: MutPtr<ClockidT>): CInt =
+    UnixAixJniBridge.libcUnixAixClockGetcpuclockid(pid, clkId.rawAddress)
 
-public actual fun clockGetres(clkId: ClockidT, tp: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_clockGetres(clkId, (tp?.value ?: 0L))
+public actual fun clockGetres(clkId: ClockidT, tp: MutPtr<Timespec>): CInt =
+    UnixAixJniBridge.libcUnixAixClockGetres(clkId, tp.rawAddress)
 
-public actual fun clockGettime(clkId: ClockidT, tp: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_clockGettime(clkId, (tp?.value ?: 0L))
+public actual fun clockGettime(clkId: ClockidT, tp: MutPtr<Timespec>): CInt =
+    UnixAixJniBridge.libcUnixAixClockGettime(clkId, tp.rawAddress)
 
-public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: COpaquePointer?, rmtp: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_clockNanosleep(clkId, flags, (rqtp?.value ?: 0L), (rmtp?.value ?: 0L))
+public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: ConstPtr<Timespec>, rmtp: MutPtr<Timespec>): CInt =
+    UnixAixJniBridge.libcUnixAixClockNanosleep(clkId, flags, rqtp.rawAddress, rmtp.rawAddress)
 
-public actual fun clockSettime(clockId: ClockidT, tp: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_clockSettime(clockId, (tp?.value ?: 0L))
+public actual fun clockSettime(clockId: ClockidT, tp: ConstPtr<Timespec>): CInt =
+    UnixAixJniBridge.libcUnixAixClockSettime(clockId, tp.rawAddress)
 
-public actual fun creat64(path: String?, mode: ModeT): CInt =
-    UnixAixJniBridge.libc_unix_aix_creat64(path, mode.toInt())
+public actual fun creat64(path: ConstPtr<CChar>, mode: ModeT): CInt =
+    UnixAixJniBridge.libcUnixAixCreat64(path.rawAddress, mode.toInt())
 
-public actual fun ctermid(s: COpaquePointer?): COpaquePointer? =
-    UnixAixJniBridge.libc_unix_aix_ctermid((s?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun ctermid(s: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(UnixAixJniBridge.libcUnixAixCtermid(s.rawAddress))
 
-public actual fun dirfd(dirp: DIR?): CInt =
-    UnixAixJniBridge.libc_unix_aix_dirfd((dirp?.handle ?: 0L))
+public actual fun dirfd(dirp: MutPtr<DIR>): CInt =
+    UnixAixJniBridge.libcUnixAixDirfd(dirp.rawAddress)
 
-public actual fun dirname(path: COpaquePointer?): COpaquePointer? =
-    UnixAixJniBridge.libc_unix_aix_dirname((path?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun dirname(path: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(UnixAixJniBridge.libcUnixAixDirname(path.rawAddress))
 
 public actual fun drand48(): CDouble =
-    UnixAixJniBridge.libc_unix_aix_drand48()
+    UnixAixJniBridge.libcUnixAixDrand48()
 
 public actual fun duplocale(arg1: LocaleT): LocaleT =
-    UnixAixJniBridge.libc_unix_aix_duplocale((arg1?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+    MutPtr(UnixAixJniBridge.libcUnixAixDuplocale(arg1.rawAddress))
 
 public actual fun endgrent() {
-    UnixAixJniBridge.libc_unix_aix_endgrent()
+    UnixAixJniBridge.libcUnixAixEndgrent()
 }
 
-public actual fun endmntent(streamp: FILE?): CInt =
-    UnixAixJniBridge.libc_unix_aix_endmntent((streamp?.handle ?: 0L))
+public actual fun endmntent(streamp: MutPtr<FILE>): CInt =
+    UnixAixJniBridge.libcUnixAixEndmntent(streamp.rawAddress)
 
 public actual fun endpwent() {
-    UnixAixJniBridge.libc_unix_aix_endpwent()
+    UnixAixJniBridge.libcUnixAixEndpwent()
 }
 
 public actual fun endutent() {
-    UnixAixJniBridge.libc_unix_aix_endutent()
+    UnixAixJniBridge.libcUnixAixEndutent()
 }
 
 public actual fun endutxent() {
-    UnixAixJniBridge.libc_unix_aix_endutxent()
+    UnixAixJniBridge.libcUnixAixEndutxent()
 }
 
-public actual fun erand48(xseed: COpaquePointer?): CDouble =
-    UnixAixJniBridge.libc_unix_aix_erand48((xseed?.value ?: 0L))
+public actual fun erand48(xseed: MutPtr<CUshort>): CDouble =
+    UnixAixJniBridge.libcUnixAixErand48(xseed.rawAddress)
 
-public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_faccessat(dirfd, pathname, mode, flags)
+public actual fun faccessat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: CInt, flags: CInt): CInt =
+    UnixAixJniBridge.libcUnixAixFaccessat(dirfd, pathname.rawAddress, mode, flags)
 
-public actual fun fattach(fildes: CInt, path: String?): CInt =
-    UnixAixJniBridge.libc_unix_aix_fattach(fildes, path)
+public actual fun fattach(fildes: CInt, path: ConstPtr<CChar>): CInt =
+    UnixAixJniBridge.libcUnixAixFattach(fildes, path.rawAddress)
 
 public actual fun fdatasync(fd: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_fdatasync(fd)
+    UnixAixJniBridge.libcUnixAixFdatasync(fd)
 
-public actual fun fexecve(fd: CInt, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_fexecve(fd, (argv?.value ?: 0L), (envp?.value ?: 0L))
+public actual fun fexecve(fd: CInt, argv: ConstPtr<ConstPtr<CChar>>, envp: ConstPtr<ConstPtr<CChar>>): CInt =
+    UnixAixJniBridge.libcUnixAixFexecve(fd, argv.rawAddress, envp.rawAddress)
 
 public actual fun ffs(value: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_ffs(value)
+    UnixAixJniBridge.libcUnixAixFfs(value)
 
 public actual fun ffsl(value: CLong): CInt =
-    UnixAixJniBridge.libc_unix_aix_ffsl(value)
+    UnixAixJniBridge.libcUnixAixFfsl(value)
 
 public actual fun ffsll(value: CLonglong): CInt =
-    UnixAixJniBridge.libc_unix_aix_ffsll(value)
+    UnixAixJniBridge.libcUnixAixFfsll(value)
 
-public actual fun fgetgrent(file: FILE?): COpaquePointer? =
-    UnixAixJniBridge.libc_unix_aix_fgetgrent((file?.handle ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun fgetgrent(file: MutPtr<FILE>): MutPtr<Group> =
+    MutPtr(UnixAixJniBridge.libcUnixAixFgetgrent(file.rawAddress))
 
-public actual fun fgetpos64(stream: FILE?, ptr: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_fgetpos64((stream?.handle ?: 0L), (ptr?.value ?: 0L))
+public actual fun fgetpos64(stream: MutPtr<FILE>, ptr: MutPtr<Fpos64T>): CInt =
+    UnixAixJniBridge.libcUnixAixFgetpos64(stream.rawAddress, ptr.rawAddress)
 
-public actual fun fgetpwent(file: FILE?): COpaquePointer? =
-    UnixAixJniBridge.libc_unix_aix_fgetpwent((file?.handle ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun fgetpwent(file: MutPtr<FILE>): MutPtr<Passwd> =
+    MutPtr(UnixAixJniBridge.libcUnixAixFgetpwent(file.rawAddress))
 
-public actual fun fopen64(filename: String?, mode: String?): FILE? =
-    UnixAixJniBridge.libc_unix_aix_fopen64(filename, mode).let { if (it == 0L) null else FILE(it) }
+public actual fun fopen64(filename: ConstPtr<CChar>, mode: ConstPtr<CChar>): MutPtr<FILE> =
+    MutPtr(UnixAixJniBridge.libcUnixAixFopen64(filename.rawAddress, mode.rawAddress))
 
 public actual fun freelocale(loc: LocaleT) {
-    UnixAixJniBridge.libc_unix_aix_freelocale((loc?.value ?: 0L))
+    UnixAixJniBridge.libcUnixAixFreelocale(loc.rawAddress)
 }
 
-public actual fun freopen64(filename: String?, mode: String?, file: FILE?): FILE? =
-    UnixAixJniBridge.libc_unix_aix_freopen64(filename, mode, (file?.handle ?: 0L)).let { if (it == 0L) null else FILE(it) }
+public actual fun freopen64(filename: ConstPtr<CChar>, mode: ConstPtr<CChar>, file: MutPtr<FILE>): MutPtr<FILE> =
+    MutPtr(UnixAixJniBridge.libcUnixAixFreopen64(filename.rawAddress, mode.rawAddress, file.rawAddress))
 
-public actual fun fseeko64(stream: FILE?, offset: Off64T, whence: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_fseeko64((stream?.handle ?: 0L), offset, whence)
+public actual fun fseeko64(stream: MutPtr<FILE>, offset: Off64T, whence: CInt): CInt =
+    UnixAixJniBridge.libcUnixAixFseeko64(stream.rawAddress, offset, whence)
 
-public actual fun fsetpos64(stream: FILE?, ptr: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_fsetpos64((stream?.handle ?: 0L), (ptr?.value ?: 0L))
+public actual fun fsetpos64(stream: MutPtr<FILE>, ptr: ConstPtr<Fpos64T>): CInt =
+    UnixAixJniBridge.libcUnixAixFsetpos64(stream.rawAddress, ptr.rawAddress)
 
-public actual fun fstat64(fildes: CInt, buf: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_fstat64(fildes, (buf?.value ?: 0L))
+public actual fun fstat64(fildes: CInt, buf: MutPtr<Stat64>): CInt =
+    UnixAixJniBridge.libcUnixAixFstat64(fildes, buf.rawAddress)
 
-public actual fun fstatfs(fd: CInt, buf: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_fstatfs(fd, (buf?.value ?: 0L))
+public actual fun fstatfs(fd: CInt, buf: MutPtr<Statfs>): CInt =
+    UnixAixJniBridge.libcUnixAixFstatfs(fd, buf.rawAddress)
 
-public actual fun fstatfs64(fd: CInt, buf: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_fstatfs64(fd, (buf?.value ?: 0L))
+public actual fun fstatfs64(fd: CInt, buf: MutPtr<Statfs64>): CInt =
+    UnixAixJniBridge.libcUnixAixFstatfs64(fd, buf.rawAddress)
 
-public actual fun fstatvfs64(fd: CInt, buf: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_fstatvfs64(fd, (buf?.value ?: 0L))
+public actual fun fstatvfs64(fd: CInt, buf: MutPtr<Statvfs64>): CInt =
+    UnixAixJniBridge.libcUnixAixFstatvfs64(fd, buf.rawAddress)
 
-public actual fun ftello64(stream: FILE?): Off64T =
-    UnixAixJniBridge.libc_unix_aix_ftello64((stream?.handle ?: 0L))
+public actual fun ftello64(stream: MutPtr<FILE>): Off64T =
+    UnixAixJniBridge.libcUnixAixFtello64(stream.rawAddress)
 
-public actual fun ftok(path: String?, id: CInt): KeyT =
-    UnixAixJniBridge.libc_unix_aix_ftok(path, id)
+public actual fun ftok(path: ConstPtr<CChar>, id: CInt): KeyT =
+    UnixAixJniBridge.libcUnixAixFtok(path.rawAddress, id)
 
 public actual fun ftruncate64(fd: CInt, length: Off64T): CInt =
-    UnixAixJniBridge.libc_unix_aix_ftruncate64(fd, length)
+    UnixAixJniBridge.libcUnixAixFtruncate64(fd, length)
 
-public actual fun futimens(fd: CInt, times: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_futimens(fd, (times?.value ?: 0L))
+public actual fun futimens(fd: CInt, times: ConstPtr<Timespec>): CInt =
+    UnixAixJniBridge.libcUnixAixFutimens(fd, times.rawAddress)
 
-public actual fun getcontext(ucp: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_getcontext((ucp?.value ?: 0L))
+public actual fun getcontext(ucp: MutPtr<UcontextT>): CInt =
+    UnixAixJniBridge.libcUnixAixGetcontext(ucp.rawAddress)
 
-public actual fun getdomainname(name: COpaquePointer?, len: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_getdomainname((name?.value ?: 0L), len)
+public actual fun getdomainname(name: MutPtr<CChar>, len: CInt): CInt =
+    UnixAixJniBridge.libcUnixAixGetdomainname(name.rawAddress, len)
 
 public actual fun getdtablesize(): CInt =
-    UnixAixJniBridge.libc_unix_aix_getdtablesize()
+    UnixAixJniBridge.libcUnixAixGetdtablesize()
 
-public actual fun getgrent(): COpaquePointer? =
-    UnixAixJniBridge.libc_unix_aix_getgrent().let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getgrent(): MutPtr<Group> =
+    MutPtr(UnixAixJniBridge.libcUnixAixGetgrent())
 
-public actual fun getgrgid(gid: GidT): COpaquePointer? =
-    UnixAixJniBridge.libc_unix_aix_getgrgid(gid.toShort()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getgrgid(gid: GidT): MutPtr<Group> =
+    MutPtr(UnixAixJniBridge.libcUnixAixGetgrgid(gid.toShort()))
 
-public actual fun getgrgidR(gid: GidT, grp: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_getgrgidR(gid.toShort(), (grp?.value ?: 0L), (buf?.value ?: 0L), buflen.toLong(), (result?.value ?: 0L))
+public actual fun getgrgidR(gid: GidT, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+    UnixAixJniBridge.libcUnixAixGetgrgidR(gid.toShort(), grp.rawAddress, buf.rawAddress, buflen.toLong(), result.rawAddress)
 
-public actual fun getgrnam(name: String?): COpaquePointer? =
-    UnixAixJniBridge.libc_unix_aix_getgrnam(name).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getgrnam(name: ConstPtr<CChar>): MutPtr<Group> =
+    MutPtr(UnixAixJniBridge.libcUnixAixGetgrnam(name.rawAddress))
 
-public actual fun getgrnamR(name: String?, grp: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_getgrnamR(name, (grp?.value ?: 0L), (buf?.value ?: 0L), buflen.toLong(), (result?.value ?: 0L))
+public actual fun getgrnamR(name: ConstPtr<CChar>, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+    UnixAixJniBridge.libcUnixAixGetgrnamR(name.rawAddress, grp.rawAddress, buf.rawAddress, buflen.toLong(), result.rawAddress)
 
-public actual fun getgrset(user: String?): COpaquePointer? =
-    UnixAixJniBridge.libc_unix_aix_getgrset(user).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getgrset(user: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(UnixAixJniBridge.libcUnixAixGetgrset(user.rawAddress))
 
 public actual fun gethostid(): CLong =
-    UnixAixJniBridge.libc_unix_aix_gethostid()
+    UnixAixJniBridge.libcUnixAixGethostid()
 
-public actual fun getmntent(stream: FILE?): COpaquePointer? =
-    UnixAixJniBridge.libc_unix_aix_getmntent((stream?.handle ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getmntent(stream: MutPtr<FILE>): MutPtr<Mntent> =
+    MutPtr(UnixAixJniBridge.libcUnixAixGetmntent(stream.rawAddress))
 
-public actual fun getnameinfo(sa: COpaquePointer?, salen: SizeT, host: COpaquePointer?, hostlen: SizeT, serv: COpaquePointer?, servlen: SizeT, flags: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_getnameinfo((sa?.value ?: 0L), salen.toLong(), (host?.value ?: 0L), hostlen.toLong(), (serv?.value ?: 0L), servlen.toLong(), flags)
+public actual fun getnameinfo(sa: ConstPtr<Sockaddr>, salen: SizeT, host: MutPtr<CChar>, hostlen: SizeT, serv: MutPtr<CChar>, servlen: SizeT, flags: CInt): CInt =
+    UnixAixJniBridge.libcUnixAixGetnameinfo(sa.rawAddress, salen.toLong(), host.rawAddress, hostlen.toLong(), serv.rawAddress, servlen.toLong(), flags)
 
 public actual fun getpagesize(): CInt =
-    UnixAixJniBridge.libc_unix_aix_getpagesize()
+    UnixAixJniBridge.libcUnixAixGetpagesize()
 
-public actual fun getpeereid(socket: CInt, euid: COpaquePointer?, egid: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_getpeereid(socket, (euid?.value ?: 0L), (egid?.value ?: 0L))
+public actual fun getpeereid(socket: CInt, euid: MutPtr<UidT>, egid: MutPtr<GidT>): CInt =
+    UnixAixJniBridge.libcUnixAixGetpeereid(socket, euid.rawAddress, egid.rawAddress)
 
 public actual fun getpriority(which: CInt, who: IdT): CInt =
-    UnixAixJniBridge.libc_unix_aix_getpriority(which, who.toInt())
+    UnixAixJniBridge.libcUnixAixGetpriority(which, who.toInt())
 
-public actual fun getpwent(): COpaquePointer? =
-    UnixAixJniBridge.libc_unix_aix_getpwent().let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getpwent(): MutPtr<Passwd> =
+    MutPtr(UnixAixJniBridge.libcUnixAixGetpwent())
 
-public actual fun getpwnamR(name: String?, pwd: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_getpwnamR(name, (pwd?.value ?: 0L), (buf?.value ?: 0L), buflen.toLong(), (result?.value ?: 0L))
+public actual fun getpwnamR(name: ConstPtr<CChar>, pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt =
+    UnixAixJniBridge.libcUnixAixGetpwnamR(name.rawAddress, pwd.rawAddress, buf.rawAddress, buflen.toLong(), result.rawAddress)
 
-public actual fun getpwuidR(uid: UidT, pwd: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_getpwuidR(uid.toShort(), (pwd?.value ?: 0L), (buf?.value ?: 0L), buflen.toLong(), (result?.value ?: 0L))
+public actual fun getpwuidR(uid: UidT, pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt =
+    UnixAixJniBridge.libcUnixAixGetpwuidR(uid.toShort(), pwd.rawAddress, buf.rawAddress, buflen.toLong(), result.rawAddress)
 
-public actual fun getrlimit(resource: CInt, rlim: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_getrlimit(resource, (rlim?.value ?: 0L))
+public actual fun getrlimit(resource: CInt, rlim: MutPtr<Rlimit>): CInt =
+    UnixAixJniBridge.libcUnixAixGetrlimit(resource, rlim.rawAddress)
 
-public actual fun getrlimit64(resource: CInt, rlim: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_getrlimit64(resource, (rlim?.value ?: 0L))
+public actual fun getrlimit64(resource: CInt, rlim: MutPtr<Rlimit64>): CInt =
+    UnixAixJniBridge.libcUnixAixGetrlimit64(resource, rlim.rawAddress)
 
-public actual fun gettimeofday(tp: COpaquePointer?, tz: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_gettimeofday((tp?.value ?: 0L), (tz?.value ?: 0L))
+public actual fun gettimeofday(tp: MutPtr<Timeval>, tz: MutPtr<CVoid>): CInt =
+    UnixAixJniBridge.libcUnixAixGettimeofday(tp.rawAddress, tz.rawAddress)
 
-public actual fun getitimer(which: CInt, currValue: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_getitimer(which, (currValue?.value ?: 0L))
+public actual fun getitimer(which: CInt, currValue: MutPtr<Itimerval>): CInt =
+    UnixAixJniBridge.libcUnixAixGetitimer(which, currValue.rawAddress)
 
-public actual fun getutent(): COpaquePointer? =
-    UnixAixJniBridge.libc_unix_aix_getutent().let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getutent(): MutPtr<Utmp> =
+    MutPtr(UnixAixJniBridge.libcUnixAixGetutent())
 
-public actual fun getutid(u: COpaquePointer?): COpaquePointer? =
-    UnixAixJniBridge.libc_unix_aix_getutid((u?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getutid(u: ConstPtr<Utmp>): MutPtr<Utmp> =
+    MutPtr(UnixAixJniBridge.libcUnixAixGetutid(u.rawAddress))
 
-public actual fun getutline(u: COpaquePointer?): COpaquePointer? =
-    UnixAixJniBridge.libc_unix_aix_getutline((u?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getutline(u: ConstPtr<Utmp>): MutPtr<Utmp> =
+    MutPtr(UnixAixJniBridge.libcUnixAixGetutline(u.rawAddress))
 
-public actual fun getutxent(): COpaquePointer? =
-    UnixAixJniBridge.libc_unix_aix_getutxent().let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getutxent(): MutPtr<Utmpx> =
+    MutPtr(UnixAixJniBridge.libcUnixAixGetutxent())
 
-public actual fun getutxid(ut: COpaquePointer?): COpaquePointer? =
-    UnixAixJniBridge.libc_unix_aix_getutxid((ut?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getutxid(ut: ConstPtr<Utmpx>): MutPtr<Utmpx> =
+    MutPtr(UnixAixJniBridge.libcUnixAixGetutxid(ut.rawAddress))
 
-public actual fun getutxline(ut: COpaquePointer?): COpaquePointer? =
-    UnixAixJniBridge.libc_unix_aix_getutxline((ut?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getutxline(ut: ConstPtr<Utmpx>): MutPtr<Utmpx> =
+    MutPtr(UnixAixJniBridge.libcUnixAixGetutxline(ut.rawAddress))
 
-public actual fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_glob(pattern, flags, 0L, (pglob?.value ?: 0L))
+public actual fun glob(pattern: ConstPtr<CChar>, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: MutPtr<GlobT>): CInt =
+    UnixAixJniBridge.libcUnixAixGlob(pattern.rawAddress, flags, 0L, pglob.rawAddress)
 
-public actual fun globfree(pglob: COpaquePointer?) {
-    UnixAixJniBridge.libc_unix_aix_globfree((pglob?.value ?: 0L))
+public actual fun globfree(pglob: MutPtr<GlobT>) {
+    UnixAixJniBridge.libcUnixAixGlobfree(pglob.rawAddress)
 }
 
-public actual fun hasmntopt(mnt: COpaquePointer?, opt: String?): COpaquePointer? =
-    UnixAixJniBridge.libc_unix_aix_hasmntopt((mnt?.value ?: 0L), opt).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun hasmntopt(mnt: ConstPtr<Mntent>, opt: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(UnixAixJniBridge.libcUnixAixHasmntopt(mnt.rawAddress, opt.rawAddress))
 
 public actual fun hcreate(nelt: SizeT): CInt =
-    UnixAixJniBridge.libc_unix_aix_hcreate(nelt.toLong())
+    UnixAixJniBridge.libcUnixAixHcreate(nelt.toLong())
 
 public actual fun hdestroy() {
-    UnixAixJniBridge.libc_unix_aix_hdestroy()
+    UnixAixJniBridge.libcUnixAixHdestroy()
 }
 
-public actual fun hsearch(entry: Entry, action: Action): COpaquePointer? =
-    null
+public actual fun hsearch(entry: Entry, action: Action): MutPtr<Entry> =
+    MutPtr(0L)
 
-public actual fun ifFreenameindex(ptr: COpaquePointer?) {
-    UnixAixJniBridge.libc_unix_aix_ifFreenameindex((ptr?.value ?: 0L))
+public actual fun ifFreenameindex(ptr: MutPtr<IfNameindex>) {
+    UnixAixJniBridge.libcUnixAixIfFreenameindex(ptr.rawAddress)
 }
 
-public actual fun ifNameindex(): COpaquePointer? =
-    UnixAixJniBridge.libc_unix_aix_ifNameindex().let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun ifNameindex(): MutPtr<IfNameindex> =
+    MutPtr(UnixAixJniBridge.libcUnixAixIfNameindex())
 
-public actual fun initgroups(name: String?, basegid: GidT): CInt =
-    UnixAixJniBridge.libc_unix_aix_initgroups(name, basegid.toShort())
+public actual fun initgroups(name: ConstPtr<CChar>, basegid: GidT): CInt =
+    UnixAixJniBridge.libcUnixAixInitgroups(name.rawAddress, basegid.toShort())
 
 public actual fun ioctl(fildes: CInt, request: CInt, vararg variadicArgs: Long): CInt =
-    UnixAixJniBridge.libc_unix_aix_ioctl(fildes, request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+    UnixAixJniBridge.libcUnixAixIoctl(fildes, request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun jrand48(xseed: COpaquePointer?): CLong =
-    UnixAixJniBridge.libc_unix_aix_jrand48((xseed?.value ?: 0L))
+public actual fun jrand48(xseed: MutPtr<CUshort>): CLong =
+    UnixAixJniBridge.libcUnixAixJrand48(xseed.rawAddress)
 
-public actual fun lcong48(p: COpaquePointer?) {
-    UnixAixJniBridge.libc_unix_aix_lcong48((p?.value ?: 0L))
+public actual fun lcong48(p: MutPtr<CUshort>) {
+    UnixAixJniBridge.libcUnixAixLcong48(p.rawAddress)
 }
 
-public actual fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: LfindComparCallback?): COpaquePointer? =
-    UnixAixJniBridge.libc_unix_aix_lfind((key?.value ?: 0L), (base?.value ?: 0L), (nelp?.value ?: 0L), width.toLong(), 0L).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun lfind(key: ConstPtr<CVoid>, base: ConstPtr<CVoid>, nelp: MutPtr<SizeT>, width: SizeT, compar: LfindComparCallback?): MutPtr<CVoid> =
+    MutPtr(UnixAixJniBridge.libcUnixAixLfind(key.rawAddress, base.rawAddress, nelp.rawAddress, width.toLong(), 0L))
 
-public actual fun lioListio(mode: CInt, aiocbList: COpaquePointer?, nent: CInt, sevp: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_lioListio(mode, (aiocbList?.value ?: 0L), nent, (sevp?.value ?: 0L))
+public actual fun lioListio(mode: CInt, aiocbList: ConstPtr<MutPtr<Aiocb>>, nent: CInt, sevp: MutPtr<Sigevent>): CInt =
+    UnixAixJniBridge.libcUnixAixLioListio(mode, aiocbList.rawAddress, nent, sevp.rawAddress)
 
-public actual fun loadquery(flags: CInt, buf: COpaquePointer?, buflen: CUint, vararg variadicArgs: Long): CInt =
-    UnixAixJniBridge.libc_unix_aix_loadquery(flags, (buf?.value ?: 0L), buflen.toInt(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun loadquery(flags: CInt, buf: MutPtr<CVoid>, buflen: CUint, vararg variadicArgs: Long): CInt =
+    UnixAixJniBridge.libcUnixAixLoadquery(flags, buf.rawAddress, buflen.toInt(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun lparGetInfo(command: CInt, buf: COpaquePointer?, bufsize: SizeT): CInt =
-    UnixAixJniBridge.libc_unix_aix_lparGetInfo(command, (buf?.value ?: 0L), bufsize.toLong())
+public actual fun lparGetInfo(command: CInt, buf: MutPtr<CVoid>, bufsize: SizeT): CInt =
+    UnixAixJniBridge.libcUnixAixLparGetInfo(command, buf.rawAddress, bufsize.toLong())
 
-public actual fun lparSetResources(id: CInt, resource: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_lparSetResources(id, (resource?.value ?: 0L))
+public actual fun lparSetResources(id: CInt, resource: MutPtr<CVoid>): CInt =
+    UnixAixJniBridge.libcUnixAixLparSetResources(id, resource.rawAddress)
 
 public actual fun lrand48(): CLong =
-    UnixAixJniBridge.libc_unix_aix_lrand48()
+    UnixAixJniBridge.libcUnixAixLrand48()
 
-public actual fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: LfindComparCallback?): COpaquePointer? =
-    UnixAixJniBridge.libc_unix_aix_lsearch((key?.value ?: 0L), (base?.value ?: 0L), (nelp?.value ?: 0L), width.toLong(), 0L).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun lsearch(key: ConstPtr<CVoid>, base: MutPtr<CVoid>, nelp: MutPtr<SizeT>, width: SizeT, compar: LfindComparCallback?): MutPtr<CVoid> =
+    MutPtr(UnixAixJniBridge.libcUnixAixLsearch(key.rawAddress, base.rawAddress, nelp.rawAddress, width.toLong(), 0L))
 
 public actual fun lseek64(fd: CInt, offset: Off64T, whence: CInt): Off64T =
-    UnixAixJniBridge.libc_unix_aix_lseek64(fd, offset, whence)
+    UnixAixJniBridge.libcUnixAixLseek64(fd, offset, whence)
 
-public actual fun lstat64(path: String?, buf: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_lstat64(path, (buf?.value ?: 0L))
+public actual fun lstat64(path: ConstPtr<CChar>, buf: MutPtr<Stat64>): CInt =
+    UnixAixJniBridge.libcUnixAixLstat64(path.rawAddress, buf.rawAddress)
 
 public actual fun madvise(addr: CaddrT, len: SizeT, advice: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_madvise((addr?.value ?: 0L), len.toLong(), advice)
+    UnixAixJniBridge.libcUnixAixMadvise(addr.rawAddress, len.toLong(), advice)
 
-public actual fun makecontext(ucp: COpaquePointer?, func: PthreadAtforkPrepareCallback, argc: CInt, vararg variadicArgs: Long) {
-    UnixAixJniBridge.libc_unix_aix_makecontext((ucp?.value ?: 0L), 0L, argc, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun makecontext(ucp: MutPtr<UcontextT>, func: PthreadAtforkPrepareCallback, argc: CInt, vararg variadicArgs: Long) {
+    UnixAixJniBridge.libcUnixAixMakecontext(ucp.rawAddress, 0L, argc, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 }
 
 public actual fun mallinfo(): Mallinfo =
     Mallinfo()
 
 public actual fun mallopt(param: CInt, value: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_mallopt(param, value)
+    UnixAixJniBridge.libcUnixAixMallopt(param, value)
 
-public actual fun memmem(haystack: COpaquePointer?, haystacklen: SizeT, needle: COpaquePointer?, needlelen: SizeT): COpaquePointer? =
-    UnixAixJniBridge.libc_unix_aix_memmem((haystack?.value ?: 0L), haystacklen.toLong(), (needle?.value ?: 0L), needlelen.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun memmem(haystack: ConstPtr<CVoid>, haystacklen: SizeT, needle: ConstPtr<CVoid>, needlelen: SizeT): MutPtr<CVoid> =
+    MutPtr(UnixAixJniBridge.libcUnixAixMemmem(haystack.rawAddress, haystacklen.toLong(), needle.rawAddress, needlelen.toLong()))
 
-public actual fun memsetS(s: COpaquePointer?, smax: SizeT, c: CInt, n: SizeT): CInt =
-    UnixAixJniBridge.libc_unix_aix_memsetS((s?.value ?: 0L), smax.toLong(), c, n.toLong())
+public actual fun memsetS(s: MutPtr<CVoid>, smax: SizeT, c: CInt, n: SizeT): CInt =
+    UnixAixJniBridge.libcUnixAixMemsetS(s.rawAddress, smax.toLong(), c, n.toLong())
 
-public actual fun mincore(addr: CaddrT, len: SizeT, vec: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_mincore((addr?.value ?: 0L), len.toLong(), (vec?.value ?: 0L))
+public actual fun mincore(addr: CaddrT, len: SizeT, vec: MutPtr<CChar>): CInt =
+    UnixAixJniBridge.libcUnixAixMincore(addr.rawAddress, len.toLong(), vec.rawAddress)
 
-public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
-    UnixAixJniBridge.libc_unix_aix_mkfifoat(dirfd, pathname, mode.toInt())
+public actual fun mkfifoat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT): CInt =
+    UnixAixJniBridge.libcUnixAixMkfifoat(dirfd, pathname.rawAddress, mode.toInt())
 
-public actual fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt =
-    UnixAixJniBridge.libc_unix_aix_mknodat(dirfd, pathname, mode.toInt(), dev.toLong())
+public actual fun mknodat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT, dev: DevT): CInt =
+    UnixAixJniBridge.libcUnixAixMknodat(dirfd, pathname.rawAddress, mode.toInt(), dev.toLong())
 
-public actual fun mount(device: String?, path: String?, flags: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_mount(device, path, flags)
+public actual fun mount(device: ConstPtr<CChar>, path: ConstPtr<CChar>, flags: CInt): CInt =
+    UnixAixJniBridge.libcUnixAixMount(device.rawAddress, path.rawAddress, flags)
 
-public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_mprotect((addr?.value ?: 0L), len.toLong(), prot)
+public actual fun mprotect(addr: MutPtr<CVoid>, len: SizeT, prot: CInt): CInt =
+    UnixAixJniBridge.libcUnixAixMprotect(addr.rawAddress, len.toLong(), prot)
 
 public actual fun mqClose(mqd: MqdT): CInt =
-    UnixAixJniBridge.libc_unix_aix_mqClose(mqd.toLong())
+    UnixAixJniBridge.libcUnixAixMqClose(mqd.toLong())
 
-public actual fun mqGetattr(mqd: MqdT, attr: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_mqGetattr(mqd.toLong(), (attr?.value ?: 0L))
+public actual fun mqGetattr(mqd: MqdT, attr: MutPtr<MqAttr>): CInt =
+    UnixAixJniBridge.libcUnixAixMqGetattr(mqd.toLong(), attr.rawAddress)
 
-public actual fun mqNotify(mqd: MqdT, notification: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_mqNotify(mqd.toLong(), (notification?.value ?: 0L))
+public actual fun mqNotify(mqd: MqdT, notification: ConstPtr<Sigevent>): CInt =
+    UnixAixJniBridge.libcUnixAixMqNotify(mqd.toLong(), notification.rawAddress)
 
-public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
-    UnixAixJniBridge.libc_unix_aix_mqOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L).toInt()
+public actual fun mqOpen(name: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): MqdT =
+    UnixAixJniBridge.libcUnixAixMqOpen(name.rawAddress, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L).toInt()
 
-public actual fun mqReceive(mqd: MqdT, msgPtr: COpaquePointer?, msgLen: SizeT, msgPrio: COpaquePointer?): SsizeT =
-    UnixAixJniBridge.libc_unix_aix_mqReceive(mqd.toLong(), (msgPtr?.value ?: 0L), msgLen.toLong(), (msgPrio?.value ?: 0L))
+public actual fun mqReceive(mqd: MqdT, msgPtr: MutPtr<CChar>, msgLen: SizeT, msgPrio: MutPtr<CUint>): SsizeT =
+    UnixAixJniBridge.libcUnixAixMqReceive(mqd.toLong(), msgPtr.rawAddress, msgLen.toLong(), msgPrio.rawAddress)
 
-public actual fun mqSend(mqd: MqdT, msgPtr: String?, msgLen: SizeT, msgPrio: CUint): CInt =
-    UnixAixJniBridge.libc_unix_aix_mqSend(mqd.toLong(), msgPtr, msgLen.toLong(), msgPrio.toInt())
+public actual fun mqSend(mqd: MqdT, msgPtr: ConstPtr<CChar>, msgLen: SizeT, msgPrio: CUint): CInt =
+    UnixAixJniBridge.libcUnixAixMqSend(mqd.toLong(), msgPtr.rawAddress, msgLen.toLong(), msgPrio.toInt())
 
-public actual fun mqSetattr(mqd: MqdT, newattr: COpaquePointer?, oldattr: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_mqSetattr(mqd.toLong(), (newattr?.value ?: 0L), (oldattr?.value ?: 0L))
+public actual fun mqSetattr(mqd: MqdT, newattr: ConstPtr<MqAttr>, oldattr: MutPtr<MqAttr>): CInt =
+    UnixAixJniBridge.libcUnixAixMqSetattr(mqd.toLong(), newattr.rawAddress, oldattr.rawAddress)
 
-public actual fun mqTimedreceive(mqd: MqdT, msgPtr: COpaquePointer?, msgLen: SizeT, msgPrio: COpaquePointer?, absTimeout: COpaquePointer?): SsizeT =
-    UnixAixJniBridge.libc_unix_aix_mqTimedreceive(mqd.toLong(), (msgPtr?.value ?: 0L), msgLen.toLong(), (msgPrio?.value ?: 0L), (absTimeout?.value ?: 0L))
+public actual fun mqTimedreceive(mqd: MqdT, msgPtr: MutPtr<CChar>, msgLen: SizeT, msgPrio: MutPtr<CUint>, absTimeout: ConstPtr<Timespec>): SsizeT =
+    UnixAixJniBridge.libcUnixAixMqTimedreceive(mqd.toLong(), msgPtr.rawAddress, msgLen.toLong(), msgPrio.rawAddress, absTimeout.rawAddress)
 
-public actual fun mqTimedsend(mqd: MqdT, msgPtr: String?, msgLen: SizeT, msgPrio: CUint, absTimeout: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_mqTimedsend(mqd.toLong(), msgPtr, msgLen.toLong(), msgPrio.toInt(), (absTimeout?.value ?: 0L))
+public actual fun mqTimedsend(mqd: MqdT, msgPtr: ConstPtr<CChar>, msgLen: SizeT, msgPrio: CUint, absTimeout: ConstPtr<Timespec>): CInt =
+    UnixAixJniBridge.libcUnixAixMqTimedsend(mqd.toLong(), msgPtr.rawAddress, msgLen.toLong(), msgPrio.toInt(), absTimeout.rawAddress)
 
-public actual fun mqUnlink(name: String?): CInt =
-    UnixAixJniBridge.libc_unix_aix_mqUnlink(name)
+public actual fun mqUnlink(name: ConstPtr<CChar>): CInt =
+    UnixAixJniBridge.libcUnixAixMqUnlink(name.rawAddress)
 
 public actual fun mrand48(): CLong =
-    UnixAixJniBridge.libc_unix_aix_mrand48()
+    UnixAixJniBridge.libcUnixAixMrand48()
 
-public actual fun msgctl(msqid: CInt, cmd: CInt, buf: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_msgctl(msqid, cmd, (buf?.value ?: 0L))
+public actual fun msgctl(msqid: CInt, cmd: CInt, buf: MutPtr<MsqidDs>): CInt =
+    UnixAixJniBridge.libcUnixAixMsgctl(msqid, cmd, buf.rawAddress)
 
 public actual fun msgget(key: KeyT, msgflg: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_msgget(key, msgflg)
+    UnixAixJniBridge.libcUnixAixMsgget(key, msgflg)
 
-public actual fun msgrcv(msqid: CInt, msgp: COpaquePointer?, msgsz: SizeT, msgtyp: CLong, msgflg: CInt): SsizeT =
-    UnixAixJniBridge.libc_unix_aix_msgrcv(msqid, (msgp?.value ?: 0L), msgsz.toLong(), msgtyp, msgflg)
+public actual fun msgrcv(msqid: CInt, msgp: MutPtr<CVoid>, msgsz: SizeT, msgtyp: CLong, msgflg: CInt): SsizeT =
+    UnixAixJniBridge.libcUnixAixMsgrcv(msqid, msgp.rawAddress, msgsz.toLong(), msgtyp, msgflg)
 
-public actual fun msgsnd(msqid: CInt, msgp: COpaquePointer?, msgsz: SizeT, msgflg: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_msgsnd(msqid, (msgp?.value ?: 0L), msgsz.toLong(), msgflg)
+public actual fun msgsnd(msqid: CInt, msgp: ConstPtr<CVoid>, msgsz: SizeT, msgflg: CInt): CInt =
+    UnixAixJniBridge.libcUnixAixMsgsnd(msqid, msgp.rawAddress, msgsz.toLong(), msgflg)
 
-public actual fun msync(addr: COpaquePointer?, len: SizeT, flags: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_msync((addr?.value ?: 0L), len.toLong(), flags)
+public actual fun msync(addr: MutPtr<CVoid>, len: SizeT, flags: CInt): CInt =
+    UnixAixJniBridge.libcUnixAixMsync(addr.rawAddress, len.toLong(), flags)
 
-public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
-    UnixAixJniBridge.libc_unix_aix_newlocale(mask, locale, (base?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun newlocale(mask: CInt, locale: ConstPtr<CChar>, base: LocaleT): LocaleT =
+    MutPtr(UnixAixJniBridge.libcUnixAixNewlocale(mask, locale.rawAddress, base.rawAddress))
 
-public actual fun nlLanginfo(item: NlItem): COpaquePointer? =
-    UnixAixJniBridge.libc_unix_aix_nlLanginfo(item).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun nlLanginfo(item: NlItem): MutPtr<CChar> =
+    MutPtr(UnixAixJniBridge.libcUnixAixNlLanginfo(item))
 
-public actual fun nlLanginfoL(item: NlItem, loc: LocaleT): COpaquePointer? =
-    UnixAixJniBridge.libc_unix_aix_nlLanginfoL(item, (loc?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun nlLanginfoL(item: NlItem, loc: LocaleT): MutPtr<CChar> =
+    MutPtr(UnixAixJniBridge.libcUnixAixNlLanginfoL(item, loc.rawAddress))
 
-public actual fun nrand48(xseed: COpaquePointer?): CLong =
-    UnixAixJniBridge.libc_unix_aix_nrand48((xseed?.value ?: 0L))
+public actual fun nrand48(xseed: MutPtr<CUshort>): CLong =
+    UnixAixJniBridge.libcUnixAixNrand48(xseed.rawAddress)
 
-public actual fun open64(path: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
-    UnixAixJniBridge.libc_unix_aix_open64(path, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun open64(path: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): CInt =
+    UnixAixJniBridge.libcUnixAixOpen64(path.rawAddress, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun pollsetCreate(maxfd: CInt): PollsetT =
-    UnixAixJniBridge.libc_unix_aix_pollsetCreate(maxfd)
+    UnixAixJniBridge.libcUnixAixPollsetCreate(maxfd)
 
-public actual fun pollsetCtl(ps: PollsetT, pollctlArray: COpaquePointer?, arrayLength: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_pollsetCtl(ps, (pollctlArray?.value ?: 0L), arrayLength)
+public actual fun pollsetCtl(ps: PollsetT, pollctlArray: MutPtr<PollCtl>, arrayLength: CInt): CInt =
+    UnixAixJniBridge.libcUnixAixPollsetCtl(ps, pollctlArray.rawAddress, arrayLength)
 
 public actual fun pollsetDestroy(ps: PollsetT): CInt =
-    UnixAixJniBridge.libc_unix_aix_pollsetDestroy(ps)
+    UnixAixJniBridge.libcUnixAixPollsetDestroy(ps)
 
-public actual fun pollsetPoll(ps: PollsetT, polldataArray: COpaquePointer?, arrayLength: CInt, timeout: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_pollsetPoll(ps, (polldataArray?.value ?: 0L), arrayLength, timeout)
+public actual fun pollsetPoll(ps: PollsetT, polldataArray: MutPtr<Pollfd>, arrayLength: CInt, timeout: CInt): CInt =
+    UnixAixJniBridge.libcUnixAixPollsetPoll(ps, polldataArray.rawAddress, arrayLength, timeout)
 
-public actual fun pollsetQuery(ps: PollsetT, pollfdQuery: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_pollsetQuery(ps, (pollfdQuery?.value ?: 0L))
+public actual fun pollsetQuery(ps: PollsetT, pollfdQuery: MutPtr<Pollfd>): CInt =
+    UnixAixJniBridge.libcUnixAixPollsetQuery(ps, pollfdQuery.rawAddress)
 
-public actual fun popen(command: String?, mode: String?): FILE? =
-    UnixAixJniBridge.libc_unix_aix_popen(command, mode).let { if (it == 0L) null else FILE(it) }
+public actual fun popen(command: ConstPtr<CChar>, mode: ConstPtr<CChar>): MutPtr<FILE> =
+    MutPtr(UnixAixJniBridge.libcUnixAixPopen(command.rawAddress, mode.rawAddress))
 
 public actual fun posixFadvise(fd: CInt, offset: OffT, len: OffT, advise: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_posixFadvise(fd, offset, len, advise)
+    UnixAixJniBridge.libcUnixAixPosixFadvise(fd, offset, len, advise)
 
 public actual fun posixFadvise64(fd: CInt, offset: Off64T, len: Off64T, advise: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_posixFadvise64(fd, offset, len, advise)
+    UnixAixJniBridge.libcUnixAixPosixFadvise64(fd, offset, len, advise)
 
 public actual fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt =
-    UnixAixJniBridge.libc_unix_aix_posixFallocate(fd, offset, len)
+    UnixAixJniBridge.libcUnixAixPosixFallocate(fd, offset, len)
 
 public actual fun posixFallocate64(fd: CInt, offset: Off64T, len: Off64T): CInt =
-    UnixAixJniBridge.libc_unix_aix_posixFallocate64(fd, offset, len)
+    UnixAixJniBridge.libcUnixAixPosixFallocate64(fd, offset, len)
 
-public actual fun posixMadvise(addr: COpaquePointer?, len: SizeT, advice: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_posixMadvise((addr?.value ?: 0L), len.toLong(), advice)
+public actual fun posixMadvise(addr: MutPtr<CVoid>, len: SizeT, advice: CInt): CInt =
+    UnixAixJniBridge.libcUnixAixPosixMadvise(addr.rawAddress, len.toLong(), advice)
 
-public actual fun posixSpawn(pid: COpaquePointer?, path: String?, fileActions: COpaquePointer?, attrp: COpaquePointer?, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_posixSpawn((pid?.value ?: 0L), path, (fileActions?.value ?: 0L), (attrp?.value ?: 0L), (argv?.value ?: 0L), (envp?.value ?: 0L))
+public actual fun posixSpawn(pid: MutPtr<PidT>, path: ConstPtr<CChar>, fileActions: ConstPtr<PosixSpawnFileActionsT>, attrp: ConstPtr<PosixSpawnattrT>, argv: ConstPtr<MutPtr<CChar>>, envp: ConstPtr<MutPtr<CChar>>): CInt =
+    UnixAixJniBridge.libcUnixAixPosixSpawn(pid.rawAddress, path.rawAddress, fileActions.rawAddress, attrp.rawAddress, argv.rawAddress, envp.rawAddress)
 
-public actual fun posixSpawnFileActionsAddclose(actions: COpaquePointer?, fd: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_posixSpawnFileActionsAddclose((actions?.value ?: 0L), fd)
+public actual fun posixSpawnFileActionsAddclose(actions: MutPtr<PosixSpawnFileActionsT>, fd: CInt): CInt =
+    UnixAixJniBridge.libcUnixAixPosixSpawnFileActionsAddclose(actions.rawAddress, fd)
 
-public actual fun posixSpawnFileActionsAdddup2(actions: COpaquePointer?, fd: CInt, newfd: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_posixSpawnFileActionsAdddup2((actions?.value ?: 0L), fd, newfd)
+public actual fun posixSpawnFileActionsAdddup2(actions: MutPtr<PosixSpawnFileActionsT>, fd: CInt, newfd: CInt): CInt =
+    UnixAixJniBridge.libcUnixAixPosixSpawnFileActionsAdddup2(actions.rawAddress, fd, newfd)
 
-public actual fun posixSpawnFileActionsAddopen(actions: COpaquePointer?, fd: CInt, path: String?, oflag: CInt, mode: ModeT): CInt =
-    UnixAixJniBridge.libc_unix_aix_posixSpawnFileActionsAddopen((actions?.value ?: 0L), fd, path, oflag, mode.toInt())
+public actual fun posixSpawnFileActionsAddopen(actions: MutPtr<PosixSpawnFileActionsT>, fd: CInt, path: ConstPtr<CChar>, oflag: CInt, mode: ModeT): CInt =
+    UnixAixJniBridge.libcUnixAixPosixSpawnFileActionsAddopen(actions.rawAddress, fd, path.rawAddress, oflag, mode.toInt())
 
-public actual fun posixSpawnFileActionsDestroy(actions: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_posixSpawnFileActionsDestroy((actions?.value ?: 0L))
+public actual fun posixSpawnFileActionsDestroy(actions: MutPtr<PosixSpawnFileActionsT>): CInt =
+    UnixAixJniBridge.libcUnixAixPosixSpawnFileActionsDestroy(actions.rawAddress)
 
-public actual fun posixSpawnFileActionsInit(actions: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_posixSpawnFileActionsInit((actions?.value ?: 0L))
+public actual fun posixSpawnFileActionsInit(actions: MutPtr<PosixSpawnFileActionsT>): CInt =
+    UnixAixJniBridge.libcUnixAixPosixSpawnFileActionsInit(actions.rawAddress)
 
-public actual fun posixSpawnattrDestroy(attr: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_posixSpawnattrDestroy((attr?.value ?: 0L))
+public actual fun posixSpawnattrDestroy(attr: MutPtr<PosixSpawnattrT>): CInt =
+    UnixAixJniBridge.libcUnixAixPosixSpawnattrDestroy(attr.rawAddress)
 
-public actual fun posixSpawnattrGetflags(attr: COpaquePointer?, flags: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_posixSpawnattrGetflags((attr?.value ?: 0L), (flags?.value ?: 0L))
+public actual fun posixSpawnattrGetflags(attr: ConstPtr<PosixSpawnattrT>, flags: MutPtr<CShort>): CInt =
+    UnixAixJniBridge.libcUnixAixPosixSpawnattrGetflags(attr.rawAddress, flags.rawAddress)
 
-public actual fun posixSpawnattrGetpgroup(attr: COpaquePointer?, flags: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_posixSpawnattrGetpgroup((attr?.value ?: 0L), (flags?.value ?: 0L))
+public actual fun posixSpawnattrGetpgroup(attr: ConstPtr<PosixSpawnattrT>, flags: MutPtr<PidT>): CInt =
+    UnixAixJniBridge.libcUnixAixPosixSpawnattrGetpgroup(attr.rawAddress, flags.rawAddress)
 
-public actual fun posixSpawnattrGetschedparam(attr: COpaquePointer?, param: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_posixSpawnattrGetschedparam((attr?.value ?: 0L), (param?.value ?: 0L))
+public actual fun posixSpawnattrGetschedparam(attr: ConstPtr<PosixSpawnattrT>, param: MutPtr<SchedParam>): CInt =
+    UnixAixJniBridge.libcUnixAixPosixSpawnattrGetschedparam(attr.rawAddress, param.rawAddress)
 
-public actual fun posixSpawnattrGetschedpolicy(attr: COpaquePointer?, flags: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_posixSpawnattrGetschedpolicy((attr?.value ?: 0L), (flags?.value ?: 0L))
+public actual fun posixSpawnattrGetschedpolicy(attr: ConstPtr<PosixSpawnattrT>, flags: MutPtr<CInt>): CInt =
+    UnixAixJniBridge.libcUnixAixPosixSpawnattrGetschedpolicy(attr.rawAddress, flags.rawAddress)
 
-public actual fun posixSpawnattrGetsigdefault(attr: COpaquePointer?, default: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_posixSpawnattrGetsigdefault((attr?.value ?: 0L), (default?.value ?: 0L))
+public actual fun posixSpawnattrGetsigdefault(attr: ConstPtr<PosixSpawnattrT>, default: MutPtr<SigsetT>): CInt =
+    UnixAixJniBridge.libcUnixAixPosixSpawnattrGetsigdefault(attr.rawAddress, default.rawAddress)
 
-public actual fun posixSpawnattrGetsigmask(attr: COpaquePointer?, default: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_posixSpawnattrGetsigmask((attr?.value ?: 0L), (default?.value ?: 0L))
+public actual fun posixSpawnattrGetsigmask(attr: ConstPtr<PosixSpawnattrT>, default: MutPtr<SigsetT>): CInt =
+    UnixAixJniBridge.libcUnixAixPosixSpawnattrGetsigmask(attr.rawAddress, default.rawAddress)
 
-public actual fun posixSpawnattrInit(attr: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_posixSpawnattrInit((attr?.value ?: 0L))
+public actual fun posixSpawnattrInit(attr: MutPtr<PosixSpawnattrT>): CInt =
+    UnixAixJniBridge.libcUnixAixPosixSpawnattrInit(attr.rawAddress)
 
-public actual fun posixSpawnattrSetflags(attr: COpaquePointer?, flags: CShort): CInt =
-    UnixAixJniBridge.libc_unix_aix_posixSpawnattrSetflags((attr?.value ?: 0L), flags)
+public actual fun posixSpawnattrSetflags(attr: MutPtr<PosixSpawnattrT>, flags: CShort): CInt =
+    UnixAixJniBridge.libcUnixAixPosixSpawnattrSetflags(attr.rawAddress, flags)
 
-public actual fun posixSpawnattrSetpgroup(attr: COpaquePointer?, flags: PidT): CInt =
-    UnixAixJniBridge.libc_unix_aix_posixSpawnattrSetpgroup((attr?.value ?: 0L), flags)
+public actual fun posixSpawnattrSetpgroup(attr: MutPtr<PosixSpawnattrT>, flags: PidT): CInt =
+    UnixAixJniBridge.libcUnixAixPosixSpawnattrSetpgroup(attr.rawAddress, flags)
 
-public actual fun posixSpawnattrSetschedparam(attr: COpaquePointer?, param: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_posixSpawnattrSetschedparam((attr?.value ?: 0L), (param?.value ?: 0L))
+public actual fun posixSpawnattrSetschedparam(attr: MutPtr<PosixSpawnattrT>, param: ConstPtr<SchedParam>): CInt =
+    UnixAixJniBridge.libcUnixAixPosixSpawnattrSetschedparam(attr.rawAddress, param.rawAddress)
 
-public actual fun posixSpawnattrSetschedpolicy(attr: COpaquePointer?, flags: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_posixSpawnattrSetschedpolicy((attr?.value ?: 0L), flags)
+public actual fun posixSpawnattrSetschedpolicy(attr: MutPtr<PosixSpawnattrT>, flags: CInt): CInt =
+    UnixAixJniBridge.libcUnixAixPosixSpawnattrSetschedpolicy(attr.rawAddress, flags)
 
-public actual fun posixSpawnattrSetsigdefault(attr: COpaquePointer?, default: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_posixSpawnattrSetsigdefault((attr?.value ?: 0L), (default?.value ?: 0L))
+public actual fun posixSpawnattrSetsigdefault(attr: MutPtr<PosixSpawnattrT>, default: ConstPtr<SigsetT>): CInt =
+    UnixAixJniBridge.libcUnixAixPosixSpawnattrSetsigdefault(attr.rawAddress, default.rawAddress)
 
-public actual fun posixSpawnattrSetsigmask(attr: COpaquePointer?, default: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_posixSpawnattrSetsigmask((attr?.value ?: 0L), (default?.value ?: 0L))
+public actual fun posixSpawnattrSetsigmask(attr: MutPtr<PosixSpawnattrT>, default: ConstPtr<SigsetT>): CInt =
+    UnixAixJniBridge.libcUnixAixPosixSpawnattrSetsigmask(attr.rawAddress, default.rawAddress)
 
-public actual fun posixSpawnp(pid: COpaquePointer?, file: String?, fileActions: COpaquePointer?, attrp: COpaquePointer?, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_posixSpawnp((pid?.value ?: 0L), file, (fileActions?.value ?: 0L), (attrp?.value ?: 0L), (argv?.value ?: 0L), (envp?.value ?: 0L))
+public actual fun posixSpawnp(pid: MutPtr<PidT>, file: ConstPtr<CChar>, fileActions: ConstPtr<PosixSpawnFileActionsT>, attrp: ConstPtr<PosixSpawnattrT>, argv: ConstPtr<MutPtr<CChar>>, envp: ConstPtr<MutPtr<CChar>>): CInt =
+    UnixAixJniBridge.libcUnixAixPosixSpawnp(pid.rawAddress, file.rawAddress, fileActions.rawAddress, attrp.rawAddress, argv.rawAddress, envp.rawAddress)
 
-public actual fun pread64(fd: CInt, buf: COpaquePointer?, count: SizeT, offset: Off64T): SsizeT =
-    UnixAixJniBridge.libc_unix_aix_pread64(fd, (buf?.value ?: 0L), count.toLong(), offset)
+public actual fun pread64(fd: CInt, buf: MutPtr<CVoid>, count: SizeT, offset: Off64T): SsizeT =
+    UnixAixJniBridge.libcUnixAixPread64(fd, buf.rawAddress, count.toLong(), offset)
 
-public actual fun preadv(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: OffsetT): SsizeT =
-    UnixAixJniBridge.libc_unix_aix_preadv(fd, (iov?.value ?: 0L), iovcnt, offset)
+public actual fun preadv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffsetT): SsizeT =
+    UnixAixJniBridge.libcUnixAixPreadv(fd, iov.rawAddress, iovcnt, offset)
 
-public actual fun ptrace64(request: CInt, id: CLonglong, addr: CLonglong, data: CInt, buff: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_ptrace64(request, id, addr, data, (buff?.value ?: 0L))
+public actual fun ptrace64(request: CInt, id: CLonglong, addr: CLonglong, data: CInt, buff: MutPtr<CInt>): CInt =
+    UnixAixJniBridge.libcUnixAixPtrace64(request, id, addr, data, buff.rawAddress)
 
-public actual fun pututline(u: COpaquePointer?): COpaquePointer? =
-    UnixAixJniBridge.libc_unix_aix_pututline((u?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun pututline(u: ConstPtr<Utmp>): MutPtr<Utmp> =
+    MutPtr(UnixAixJniBridge.libcUnixAixPututline(u.rawAddress))
 
-public actual fun pututxline(ut: COpaquePointer?): COpaquePointer? =
-    UnixAixJniBridge.libc_unix_aix_pututxline((ut?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun pututxline(ut: ConstPtr<Utmpx>): MutPtr<Utmpx> =
+    MutPtr(UnixAixJniBridge.libcUnixAixPututxline(ut.rawAddress))
 
-public actual fun pwrite64(fd: CInt, buf: COpaquePointer?, count: SizeT, offset: Off64T): SsizeT =
-    UnixAixJniBridge.libc_unix_aix_pwrite64(fd, (buf?.value ?: 0L), count.toLong(), offset)
+public actual fun pwrite64(fd: CInt, buf: ConstPtr<CVoid>, count: SizeT, offset: Off64T): SsizeT =
+    UnixAixJniBridge.libcUnixAixPwrite64(fd, buf.rawAddress, count.toLong(), offset)
 
-public actual fun pwritev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: OffsetT): SsizeT =
-    UnixAixJniBridge.libc_unix_aix_pwritev(fd, (iov?.value ?: 0L), iovcnt, offset)
+public actual fun pwritev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffsetT): SsizeT =
+    UnixAixJniBridge.libcUnixAixPwritev(fd, iov.rawAddress, iovcnt, offset)
 
-public actual fun quotactl(cmd: COpaquePointer?, special: CInt, id: CInt, data: CaddrT): CInt =
-    UnixAixJniBridge.libc_unix_aix_quotactl((cmd?.value ?: 0L), special, id, (data?.value ?: 0L))
+public actual fun quotactl(cmd: MutPtr<CChar>, special: CInt, id: CInt, data: CaddrT): CInt =
+    UnixAixJniBridge.libcUnixAixQuotactl(cmd.rawAddress, special, id, data.rawAddress)
 
 public actual fun rand(): CInt =
-    UnixAixJniBridge.libc_unix_aix_rand()
+    UnixAixJniBridge.libcUnixAixRand()
 
-public actual fun readv(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT =
-    UnixAixJniBridge.libc_unix_aix_readv(fd, (iov?.value ?: 0L), iovcnt)
+public actual fun readv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+    UnixAixJniBridge.libcUnixAixReadv(fd, iov.rawAddress, iovcnt)
 
-public actual fun recvfrom(socket: CInt, buf: COpaquePointer?, len: SizeT, flags: CInt, addr: COpaquePointer?, addrlen: COpaquePointer?): SsizeT =
-    UnixAixJniBridge.libc_unix_aix_recvfrom(socket, (buf?.value ?: 0L), len.toLong(), flags, (addr?.value ?: 0L), (addrlen?.value ?: 0L))
+public actual fun recvfrom(socket: CInt, buf: MutPtr<CVoid>, len: SizeT, flags: CInt, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): SsizeT =
+    UnixAixJniBridge.libcUnixAixRecvfrom(socket, buf.rawAddress, len.toLong(), flags, addr.rawAddress, addrlen.rawAddress)
 
-public actual fun recvmmsg(sockfd: CInt, msgvec: COpaquePointer?, vlen: CUint, flags: CInt, timeout: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_recvmmsg(sockfd, (msgvec?.value ?: 0L), vlen.toInt(), flags, (timeout?.value ?: 0L))
+public actual fun recvmmsg(sockfd: CInt, msgvec: MutPtr<Mmsghdr>, vlen: CUint, flags: CInt, timeout: MutPtr<Timespec>): CInt =
+    UnixAixJniBridge.libcUnixAixRecvmmsg(sockfd, msgvec.rawAddress, vlen.toInt(), flags, timeout.rawAddress)
 
-public actual fun recvmsg(sockfd: CInt, msg: COpaquePointer?, flags: CInt): SsizeT =
-    UnixAixJniBridge.libc_unix_aix_recvmsg(sockfd, (msg?.value ?: 0L), flags)
+public actual fun recvmsg(sockfd: CInt, msg: MutPtr<Msghdr>, flags: CInt): SsizeT =
+    UnixAixJniBridge.libcUnixAixRecvmsg(sockfd, msg.rawAddress, flags)
 
-public actual fun regcomp(preg: COpaquePointer?, pattern: String?, cflags: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_regcomp((preg?.value ?: 0L), pattern, cflags)
+public actual fun regcomp(preg: MutPtr<RegexT>, pattern: ConstPtr<CChar>, cflags: CInt): CInt =
+    UnixAixJniBridge.libcUnixAixRegcomp(preg.rawAddress, pattern.rawAddress, cflags)
 
-public actual fun regerror(errcode: CInt, preg: COpaquePointer?, errbuf: COpaquePointer?, errbufSize: SizeT): SizeT =
-    UnixAixJniBridge.libc_unix_aix_regerror(errcode, (preg?.value ?: 0L), (errbuf?.value ?: 0L), errbufSize.toLong()).toULong()
+public actual fun regerror(errcode: CInt, preg: ConstPtr<RegexT>, errbuf: MutPtr<CChar>, errbufSize: SizeT): SizeT =
+    UnixAixJniBridge.libcUnixAixRegerror(errcode, preg.rawAddress, errbuf.rawAddress, errbufSize.toLong()).toULong()
 
-public actual fun regexec(preg: COpaquePointer?, input: String?, nmatch: SizeT, pmatch: COpaquePointer?, eflags: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_regexec((preg?.value ?: 0L), input, nmatch.toLong(), (pmatch?.value ?: 0L), eflags)
+public actual fun regexec(preg: ConstPtr<RegexT>, input: ConstPtr<CChar>, nmatch: SizeT, pmatch: MutPtr<RegmatchT>, eflags: CInt): CInt =
+    UnixAixJniBridge.libcUnixAixRegexec(preg.rawAddress, input.rawAddress, nmatch.toLong(), pmatch.rawAddress, eflags)
 
-public actual fun regfree(preg: COpaquePointer?) {
-    UnixAixJniBridge.libc_unix_aix_regfree((preg?.value ?: 0L))
+public actual fun regfree(preg: MutPtr<RegexT>) {
+    UnixAixJniBridge.libcUnixAixRegfree(preg.rawAddress)
 }
 
-public actual fun sbrk(increment: IntptrT): COpaquePointer? =
-    UnixAixJniBridge.libc_unix_aix_sbrk(increment).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun sbrk(increment: IntptrT): MutPtr<CVoid> =
+    MutPtr(UnixAixJniBridge.libcUnixAixSbrk(increment))
 
-public actual fun schedGetparam(pid: PidT, param: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_schedGetparam(pid, (param?.value ?: 0L))
+public actual fun schedGetparam(pid: PidT, param: MutPtr<SchedParam>): CInt =
+    UnixAixJniBridge.libcUnixAixSchedGetparam(pid, param.rawAddress)
 
 public actual fun schedGetscheduler(pid: PidT): CInt =
-    UnixAixJniBridge.libc_unix_aix_schedGetscheduler(pid)
+    UnixAixJniBridge.libcUnixAixSchedGetscheduler(pid)
 
 public actual fun schedGetPriorityMax(policy: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_schedGetPriorityMax(policy)
+    UnixAixJniBridge.libcUnixAixSchedGetPriorityMax(policy)
 
 public actual fun schedGetPriorityMin(policy: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_schedGetPriorityMin(policy)
+    UnixAixJniBridge.libcUnixAixSchedGetPriorityMin(policy)
 
-public actual fun schedRrGetInterval(pid: PidT, tp: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_schedRrGetInterval(pid, (tp?.value ?: 0L))
+public actual fun schedRrGetInterval(pid: PidT, tp: MutPtr<Timespec>): CInt =
+    UnixAixJniBridge.libcUnixAixSchedRrGetInterval(pid, tp.rawAddress)
 
-public actual fun schedSetparam(pid: PidT, param: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_schedSetparam(pid, (param?.value ?: 0L))
+public actual fun schedSetparam(pid: PidT, param: ConstPtr<SchedParam>): CInt =
+    UnixAixJniBridge.libcUnixAixSchedSetparam(pid, param.rawAddress)
 
-public actual fun schedSetscheduler(pid: PidT, policy: CInt, param: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_schedSetscheduler(pid, policy, (param?.value ?: 0L))
+public actual fun schedSetscheduler(pid: PidT, policy: CInt, param: ConstPtr<SchedParam>): CInt =
+    UnixAixJniBridge.libcUnixAixSchedSetscheduler(pid, policy, param.rawAddress)
 
-public actual fun sctpOptInfo(sd: CInt, id: SctpAssocT, opt: CInt, argSize: COpaquePointer?, size: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_sctpOptInfo(sd, id.toInt(), opt, (argSize?.value ?: 0L), (size?.value ?: 0L))
+public actual fun sctpOptInfo(sd: CInt, id: SctpAssocT, opt: CInt, argSize: MutPtr<CVoid>, size: MutPtr<SizeT>): CInt =
+    UnixAixJniBridge.libcUnixAixSctpOptInfo(sd, id.toInt(), opt, argSize.rawAddress, size.rawAddress)
 
-public actual fun sctpPeeloff(s: CInt, id: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_sctpPeeloff(s, (id?.value ?: 0L))
+public actual fun sctpPeeloff(s: CInt, id: MutPtr<CUint>): CInt =
+    UnixAixJniBridge.libcUnixAixSctpPeeloff(s, id.rawAddress)
 
-public actual fun seed48(xseed: COpaquePointer?): COpaquePointer? =
-    UnixAixJniBridge.libc_unix_aix_seed48((xseed?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun seed48(xseed: MutPtr<CUshort>): MutPtr<CUshort> =
+    MutPtr(UnixAixJniBridge.libcUnixAixSeed48(xseed.rawAddress))
 
-public actual fun seekdir(dirp: DIR?, loc: CLong) {
-    UnixAixJniBridge.libc_unix_aix_seekdir((dirp?.handle ?: 0L), loc)
+public actual fun seekdir(dirp: MutPtr<DIR>, loc: CLong) {
+    UnixAixJniBridge.libcUnixAixSeekdir(dirp.rawAddress, loc)
 }
 
-public actual fun semClose(sem: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_semClose((sem?.value ?: 0L))
+public actual fun semClose(sem: MutPtr<SemT>): CInt =
+    UnixAixJniBridge.libcUnixAixSemClose(sem.rawAddress)
 
-public actual fun semDestroy(sem: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_semDestroy((sem?.value ?: 0L))
+public actual fun semDestroy(sem: MutPtr<SemT>): CInt =
+    UnixAixJniBridge.libcUnixAixSemDestroy(sem.rawAddress)
 
-public actual fun semGetvalue(sem: COpaquePointer?, sval: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_semGetvalue((sem?.value ?: 0L), (sval?.value ?: 0L))
+public actual fun semGetvalue(sem: MutPtr<SemT>, sval: MutPtr<CInt>): CInt =
+    UnixAixJniBridge.libcUnixAixSemGetvalue(sem.rawAddress, sval.rawAddress)
 
-public actual fun semInit(sem: COpaquePointer?, pshared: CInt, value: CUint): CInt =
-    UnixAixJniBridge.libc_unix_aix_semInit((sem?.value ?: 0L), pshared, value.toInt())
+public actual fun semInit(sem: MutPtr<SemT>, pshared: CInt, value: CUint): CInt =
+    UnixAixJniBridge.libcUnixAixSemInit(sem.rawAddress, pshared, value.toInt())
 
-public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    UnixAixJniBridge.libc_unix_aix_semOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun semOpen(name: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): MutPtr<SemT> =
+    MutPtr(UnixAixJniBridge.libcUnixAixSemOpen(name.rawAddress, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L))
 
-public actual fun semTimedwait(sem: COpaquePointer?, abstime: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_semTimedwait((sem?.value ?: 0L), (abstime?.value ?: 0L))
+public actual fun semTimedwait(sem: MutPtr<SemT>, abstime: ConstPtr<Timespec>): CInt =
+    UnixAixJniBridge.libcUnixAixSemTimedwait(sem.rawAddress, abstime.rawAddress)
 
-public actual fun semUnlink(name: String?): CInt =
-    UnixAixJniBridge.libc_unix_aix_semUnlink(name)
+public actual fun semUnlink(name: ConstPtr<CChar>): CInt =
+    UnixAixJniBridge.libcUnixAixSemUnlink(name.rawAddress)
 
 public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
-    UnixAixJniBridge.libc_unix_aix_semctl(semid, semnum, cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+    UnixAixJniBridge.libcUnixAixSemctl(semid, semnum, cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun semget(key: KeyT, nsems: CInt, semflag: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_semget(key, nsems, semflag)
+    UnixAixJniBridge.libcUnixAixSemget(key, nsems, semflag)
 
-public actual fun semop(semid: CInt, sops: COpaquePointer?, nsops: SizeT): CInt =
-    UnixAixJniBridge.libc_unix_aix_semop(semid, (sops?.value ?: 0L), nsops.toLong())
+public actual fun semop(semid: CInt, sops: MutPtr<Sembuf>, nsops: SizeT): CInt =
+    UnixAixJniBridge.libcUnixAixSemop(semid, sops.rawAddress, nsops.toLong())
 
-public actual fun sendFile(socket: COpaquePointer?, iobuf: COpaquePointer?, flags: CUint): SsizeT =
-    UnixAixJniBridge.libc_unix_aix_sendFile((socket?.value ?: 0L), (iobuf?.value ?: 0L), flags.toInt())
+public actual fun sendFile(socket: MutPtr<CInt>, iobuf: MutPtr<SfParms>, flags: CUint): SsizeT =
+    UnixAixJniBridge.libcUnixAixSendFile(socket.rawAddress, iobuf.rawAddress, flags.toInt())
 
-public actual fun sendmmsg(sockfd: CInt, msgvec: COpaquePointer?, vlen: CUint, flags: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_sendmmsg(sockfd, (msgvec?.value ?: 0L), vlen.toInt(), flags)
+public actual fun sendmmsg(sockfd: CInt, msgvec: MutPtr<Mmsghdr>, vlen: CUint, flags: CInt): CInt =
+    UnixAixJniBridge.libcUnixAixSendmmsg(sockfd, msgvec.rawAddress, vlen.toInt(), flags)
 
-public actual fun sendmsg(sockfd: CInt, msg: COpaquePointer?, flags: CInt): SsizeT =
-    UnixAixJniBridge.libc_unix_aix_sendmsg(sockfd, (msg?.value ?: 0L), flags)
+public actual fun sendmsg(sockfd: CInt, msg: ConstPtr<Msghdr>, flags: CInt): SsizeT =
+    UnixAixJniBridge.libcUnixAixSendmsg(sockfd, msg.rawAddress, flags)
 
-public actual fun setcontext(ucp: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_setcontext((ucp?.value ?: 0L))
+public actual fun setcontext(ucp: ConstPtr<UcontextT>): CInt =
+    UnixAixJniBridge.libcUnixAixSetcontext(ucp.rawAddress)
 
-public actual fun setdomainname(name: String?, len: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_setdomainname(name, len)
+public actual fun setdomainname(name: ConstPtr<CChar>, len: CInt): CInt =
+    UnixAixJniBridge.libcUnixAixSetdomainname(name.rawAddress, len)
 
-public actual fun setgroups(ngroups: CInt, ptr: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_setgroups(ngroups, (ptr?.value ?: 0L))
+public actual fun setgroups(ngroups: CInt, ptr: ConstPtr<GidT>): CInt =
+    UnixAixJniBridge.libcUnixAixSetgroups(ngroups, ptr.rawAddress)
 
 public actual fun setgrent() {
-    UnixAixJniBridge.libc_unix_aix_setgrent()
+    UnixAixJniBridge.libcUnixAixSetgrent()
 }
 
 public actual fun sethostid(hostid: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_sethostid(hostid)
+    UnixAixJniBridge.libcUnixAixSethostid(hostid)
 
-public actual fun sethostname(name: String?, len: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_sethostname(name, len)
+public actual fun sethostname(name: ConstPtr<CChar>, len: CInt): CInt =
+    UnixAixJniBridge.libcUnixAixSethostname(name.rawAddress, len)
 
-public actual fun setmntent(filename: String?, ty: String?): FILE? =
-    UnixAixJniBridge.libc_unix_aix_setmntent(filename, ty).let { if (it == 0L) null else FILE(it) }
+public actual fun setmntent(filename: ConstPtr<CChar>, ty: ConstPtr<CChar>): MutPtr<FILE> =
+    MutPtr(UnixAixJniBridge.libcUnixAixSetmntent(filename.rawAddress, ty.rawAddress))
 
 public actual fun setpriority(which: CInt, who: IdT, priority: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_setpriority(which, who.toInt(), priority)
+    UnixAixJniBridge.libcUnixAixSetpriority(which, who.toInt(), priority)
 
 public actual fun setpwent() {
-    UnixAixJniBridge.libc_unix_aix_setpwent()
+    UnixAixJniBridge.libcUnixAixSetpwent()
 }
 
-public actual fun setrlimit(resource: CInt, rlim: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_setrlimit(resource, (rlim?.value ?: 0L))
+public actual fun setrlimit(resource: CInt, rlim: ConstPtr<Rlimit>): CInt =
+    UnixAixJniBridge.libcUnixAixSetrlimit(resource, rlim.rawAddress)
 
-public actual fun setrlimit64(resource: CInt, rlim: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_setrlimit64(resource, (rlim?.value ?: 0L))
+public actual fun setrlimit64(resource: CInt, rlim: ConstPtr<Rlimit64>): CInt =
+    UnixAixJniBridge.libcUnixAixSetrlimit64(resource, rlim.rawAddress)
 
-public actual fun settimeofday(tv: COpaquePointer?, tz: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_settimeofday((tv?.value ?: 0L), (tz?.value ?: 0L))
+public actual fun settimeofday(tv: ConstPtr<Timeval>, tz: ConstPtr<Timezone>): CInt =
+    UnixAixJniBridge.libcUnixAixSettimeofday(tv.rawAddress, tz.rawAddress)
 
-public actual fun setitimer(which: CInt, newValue: COpaquePointer?, oldValue: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_setitimer(which, (newValue?.value ?: 0L), (oldValue?.value ?: 0L))
+public actual fun setitimer(which: CInt, newValue: ConstPtr<Itimerval>, oldValue: MutPtr<Itimerval>): CInt =
+    UnixAixJniBridge.libcUnixAixSetitimer(which, newValue.rawAddress, oldValue.rawAddress)
 
 public actual fun setutent() {
-    UnixAixJniBridge.libc_unix_aix_setutent()
+    UnixAixJniBridge.libcUnixAixSetutent()
 }
 
 public actual fun setutxent() {
-    UnixAixJniBridge.libc_unix_aix_setutxent()
+    UnixAixJniBridge.libcUnixAixSetutxent()
 }
 
-public actual fun sigaltstack(ss: COpaquePointer?, oss: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_sigaltstack((ss?.value ?: 0L), (oss?.value ?: 0L))
+public actual fun sigaltstack(ss: ConstPtr<StackT>, oss: MutPtr<StackT>): CInt =
+    UnixAixJniBridge.libcUnixAixSigaltstack(ss.rawAddress, oss.rawAddress)
 
-public actual fun sigsuspend(mask: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_sigsuspend((mask?.value ?: 0L))
+public actual fun sigsuspend(mask: ConstPtr<SigsetT>): CInt =
+    UnixAixJniBridge.libcUnixAixSigsuspend(mask.rawAddress)
 
-public actual fun sigtimedwait(set: COpaquePointer?, info: COpaquePointer?, timeout: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_sigtimedwait((set?.value ?: 0L), (info?.value ?: 0L), (timeout?.value ?: 0L))
+public actual fun sigtimedwait(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>, timeout: ConstPtr<Timespec>): CInt =
+    UnixAixJniBridge.libcUnixAixSigtimedwait(set.rawAddress, info.rawAddress, timeout.rawAddress)
 
-public actual fun sigwait(set: COpaquePointer?, sig: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_sigwait((set?.value ?: 0L), (sig?.value ?: 0L))
+public actual fun sigwait(set: ConstPtr<SigsetT>, sig: MutPtr<CInt>): CInt =
+    UnixAixJniBridge.libcUnixAixSigwait(set.rawAddress, sig.rawAddress)
 
-public actual fun sigwaitinfo(set: COpaquePointer?, info: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_sigwaitinfo((set?.value ?: 0L), (info?.value ?: 0L))
+public actual fun sigwaitinfo(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>): CInt =
+    UnixAixJniBridge.libcUnixAixSigwaitinfo(set.rawAddress, info.rawAddress)
 
-public actual fun shmat(shmid: CInt, shmaddr: COpaquePointer?, shmflg: CInt): COpaquePointer? =
-    UnixAixJniBridge.libc_unix_aix_shmat(shmid, (shmaddr?.value ?: 0L), shmflg).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun shmat(shmid: CInt, shmaddr: ConstPtr<CVoid>, shmflg: CInt): MutPtr<CVoid> =
+    MutPtr(UnixAixJniBridge.libcUnixAixShmat(shmid, shmaddr.rawAddress, shmflg))
 
-public actual fun shmdt(shmaddr: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_shmdt((shmaddr?.value ?: 0L))
+public actual fun shmdt(shmaddr: ConstPtr<CVoid>): CInt =
+    UnixAixJniBridge.libcUnixAixShmdt(shmaddr.rawAddress)
 
-public actual fun shmctl(shmid: CInt, cmd: CInt, buf: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_shmctl(shmid, cmd, (buf?.value ?: 0L))
+public actual fun shmctl(shmid: CInt, cmd: CInt, buf: MutPtr<ShmidDs>): CInt =
+    UnixAixJniBridge.libcUnixAixShmctl(shmid, cmd, buf.rawAddress)
 
 public actual fun shmget(key: KeyT, size: SizeT, shmflg: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_shmget(key, size.toLong(), shmflg)
+    UnixAixJniBridge.libcUnixAixShmget(key, size.toLong(), shmflg)
 
-public actual fun shmOpen(name: String?, oflag: CInt, mode: ModeT): CInt =
-    UnixAixJniBridge.libc_unix_aix_shmOpen(name, oflag, mode.toInt())
+public actual fun shmOpen(name: ConstPtr<CChar>, oflag: CInt, mode: ModeT): CInt =
+    UnixAixJniBridge.libcUnixAixShmOpen(name.rawAddress, oflag, mode.toInt())
 
-public actual fun shmUnlink(name: String?): CInt =
-    UnixAixJniBridge.libc_unix_aix_shmUnlink(name)
+public actual fun shmUnlink(name: ConstPtr<CChar>): CInt =
+    UnixAixJniBridge.libcUnixAixShmUnlink(name.rawAddress)
 
 public actual fun splice(socket1: CInt, socket2: CInt, flags: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_splice(socket1, socket2, flags)
+    UnixAixJniBridge.libcUnixAixSplice(socket1, socket2, flags)
 
 public actual fun srand(seed: CUint) {
-    UnixAixJniBridge.libc_unix_aix_srand(seed.toInt())
+    UnixAixJniBridge.libcUnixAixSrand(seed.toInt())
 }
 
 public actual fun srand48(seed: CLong) {
-    UnixAixJniBridge.libc_unix_aix_srand48(seed)
+    UnixAixJniBridge.libcUnixAixSrand48(seed)
 }
 
-public actual fun stat64(path: String?, buf: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_stat64(path, (buf?.value ?: 0L))
+public actual fun stat64(path: ConstPtr<CChar>, buf: MutPtr<Stat64>): CInt =
+    UnixAixJniBridge.libcUnixAixStat64(path.rawAddress, buf.rawAddress)
 
-public actual fun stat64at(dirfd: CInt, path: String?, buf: COpaquePointer?, flags: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_stat64at(dirfd, path, (buf?.value ?: 0L), flags)
+public actual fun stat64at(dirfd: CInt, path: ConstPtr<CChar>, buf: MutPtr<Stat64>, flags: CInt): CInt =
+    UnixAixJniBridge.libcUnixAixStat64at(dirfd, path.rawAddress, buf.rawAddress, flags)
 
-public actual fun statfs(path: String?, buf: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_statfs(path, (buf?.value ?: 0L))
+public actual fun statfs(path: ConstPtr<CChar>, buf: MutPtr<Statfs>): CInt =
+    UnixAixJniBridge.libcUnixAixStatfs(path.rawAddress, buf.rawAddress)
 
-public actual fun statfs64(path: String?, buf: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_statfs64(path, (buf?.value ?: 0L))
+public actual fun statfs64(path: ConstPtr<CChar>, buf: MutPtr<Statfs64>): CInt =
+    UnixAixJniBridge.libcUnixAixStatfs64(path.rawAddress, buf.rawAddress)
 
-public actual fun statvfs64(path: String?, buf: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_statvfs64(path, (buf?.value ?: 0L))
+public actual fun statvfs64(path: ConstPtr<CChar>, buf: MutPtr<Statvfs64>): CInt =
+    UnixAixJniBridge.libcUnixAixStatvfs64(path.rawAddress, buf.rawAddress)
 
-public actual fun statx(path: String?, buf: COpaquePointer?, length: CInt, command: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_statx(path, (buf?.value ?: 0L), length, command)
+public actual fun statx(path: ConstPtr<CChar>, buf: MutPtr<Stat>, length: CInt, command: CInt): CInt =
+    UnixAixJniBridge.libcUnixAixStatx(path.rawAddress, buf.rawAddress, length, command)
 
-public actual fun strcasecmpL(string1: String?, string2: String?, locale: LocaleT): CInt =
-    UnixAixJniBridge.libc_unix_aix_strcasecmpL(string1, string2, (locale?.value ?: 0L))
+public actual fun strcasecmpL(string1: ConstPtr<CChar>, string2: ConstPtr<CChar>, locale: LocaleT): CInt =
+    UnixAixJniBridge.libcUnixAixStrcasecmpL(string1.rawAddress, string2.rawAddress, locale.rawAddress)
 
-public actual fun strerrorR(errnum: CInt, buf: COpaquePointer?, buflen: SizeT): CInt =
-    UnixAixJniBridge.libc_unix_aix_strerrorR(errnum, (buf?.value ?: 0L), buflen.toLong())
+public actual fun strerrorR(errnum: CInt, buf: MutPtr<CChar>, buflen: SizeT): CInt =
+    UnixAixJniBridge.libcUnixAixStrerrorR(errnum, buf.rawAddress, buflen.toLong())
 
-public actual fun strftime(arg1: COpaquePointer?, arg2: SizeT, arg3: String?, arg4: COpaquePointer?): SizeT =
-    UnixAixJniBridge.libc_unix_aix_strftime((arg1?.value ?: 0L), arg2.toLong(), arg3, (arg4?.value ?: 0L)).toULong()
+public actual fun strftime(arg1: MutPtr<CChar>, arg2: SizeT, arg3: ConstPtr<CChar>, arg4: ConstPtr<Tm>): SizeT =
+    UnixAixJniBridge.libcUnixAixStrftime(arg1.rawAddress, arg2.toLong(), arg3.rawAddress, arg4.rawAddress).toULong()
 
-public actual fun strncasecmpL(string1: String?, string2: String?, length: SizeT, locale: LocaleT): CInt =
-    UnixAixJniBridge.libc_unix_aix_strncasecmpL(string1, string2, length.toLong(), (locale?.value ?: 0L))
+public actual fun strncasecmpL(string1: ConstPtr<CChar>, string2: ConstPtr<CChar>, length: SizeT, locale: LocaleT): CInt =
+    UnixAixJniBridge.libcUnixAixStrncasecmpL(string1.rawAddress, string2.rawAddress, length.toLong(), locale.rawAddress)
 
-public actual fun strptime(s: String?, format: String?, tm: COpaquePointer?): COpaquePointer? =
-    UnixAixJniBridge.libc_unix_aix_strptime(s, format, (tm?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun strptime(s: ConstPtr<CChar>, format: ConstPtr<CChar>, tm: MutPtr<Tm>): MutPtr<CChar> =
+    MutPtr(UnixAixJniBridge.libcUnixAixStrptime(s.rawAddress, format.rawAddress, tm.rawAddress))
 
-public actual fun strsep(string: COpaquePointer?, delim: String?): COpaquePointer? =
-    UnixAixJniBridge.libc_unix_aix_strsep((string?.value ?: 0L), delim).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun strsep(string: MutPtr<MutPtr<CChar>>, delim: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(UnixAixJniBridge.libcUnixAixStrsep(string.rawAddress, delim.rawAddress))
 
-public actual fun swapcontext(uocp: COpaquePointer?, ucp: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_swapcontext((uocp?.value ?: 0L), (ucp?.value ?: 0L))
+public actual fun swapcontext(uocp: MutPtr<UcontextT>, ucp: ConstPtr<UcontextT>): CInt =
+    UnixAixJniBridge.libcUnixAixSwapcontext(uocp.rawAddress, ucp.rawAddress)
 
-public actual fun swapoff(path: String?): CInt =
-    UnixAixJniBridge.libc_unix_aix_swapoff(path)
+public actual fun swapoff(path: ConstPtr<CChar>): CInt =
+    UnixAixJniBridge.libcUnixAixSwapoff(path.rawAddress)
 
-public actual fun swapon(path: String?): CInt =
-    UnixAixJniBridge.libc_unix_aix_swapon(path)
+public actual fun swapon(path: ConstPtr<CChar>): CInt =
+    UnixAixJniBridge.libcUnixAixSwapon(path.rawAddress)
 
 public actual fun sync() {
-    UnixAixJniBridge.libc_unix_aix_sync()
+    UnixAixJniBridge.libcUnixAixSync()
 }
 
-public actual fun telldir(dirp: DIR?): CLong =
-    UnixAixJniBridge.libc_unix_aix_telldir((dirp?.handle ?: 0L))
+public actual fun telldir(dirp: MutPtr<DIR>): CLong =
+    UnixAixJniBridge.libcUnixAixTelldir(dirp.rawAddress)
 
-public actual fun timerCreate(clockid: ClockidT, sevp: COpaquePointer?, timerid: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_timerCreate(clockid, (sevp?.value ?: 0L), (timerid?.value ?: 0L))
+public actual fun timerCreate(clockid: ClockidT, sevp: MutPtr<Sigevent>, timerid: MutPtr<TimerT>): CInt =
+    UnixAixJniBridge.libcUnixAixTimerCreate(clockid, sevp.rawAddress, timerid.rawAddress)
 
 public actual fun timerDelete(timerid: TimerT): CInt =
-    UnixAixJniBridge.libc_unix_aix_timerDelete(timerid)
+    UnixAixJniBridge.libcUnixAixTimerDelete(timerid)
 
 public actual fun timerGetoverrun(timerid: TimerT): CInt =
-    UnixAixJniBridge.libc_unix_aix_timerGetoverrun(timerid)
+    UnixAixJniBridge.libcUnixAixTimerGetoverrun(timerid)
 
-public actual fun timerGettime(timerid: TimerT, value: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_timerGettime(timerid, (value?.value ?: 0L))
+public actual fun timerGettime(timerid: TimerT, value: MutPtr<Itimerspec>): CInt =
+    UnixAixJniBridge.libcUnixAixTimerGettime(timerid, value.rawAddress)
 
-public actual fun timerSettime(timerid: TimerT, flags: CInt, newValue: COpaquePointer?, oldValue: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_timerSettime(timerid, flags, (newValue?.value ?: 0L), (oldValue?.value ?: 0L))
+public actual fun timerSettime(timerid: TimerT, flags: CInt, newValue: ConstPtr<Itimerspec>, oldValue: MutPtr<Itimerspec>): CInt =
+    UnixAixJniBridge.libcUnixAixTimerSettime(timerid, flags, newValue.rawAddress, oldValue.rawAddress)
 
-public actual fun truncate64(path: String?, length: Off64T): CInt =
-    UnixAixJniBridge.libc_unix_aix_truncate64(path, length)
+public actual fun truncate64(path: ConstPtr<CChar>, length: Off64T): CInt =
+    UnixAixJniBridge.libcUnixAixTruncate64(path.rawAddress, length)
 
-public actual fun uname(buf: COpaquePointer?): CInt =
-    UnixAixJniBridge.libc_unix_aix_uname((buf?.value ?: 0L))
+public actual fun uname(buf: MutPtr<Utsname>): CInt =
+    UnixAixJniBridge.libcUnixAixUname(buf.rawAddress)
 
-public actual fun updwtmp(file: String?, u: COpaquePointer?) {
-    UnixAixJniBridge.libc_unix_aix_updwtmp(file, (u?.value ?: 0L))
+public actual fun updwtmp(file: ConstPtr<CChar>, u: ConstPtr<Utmp>) {
+    UnixAixJniBridge.libcUnixAixUpdwtmp(file.rawAddress, u.rawAddress)
 }
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
-    UnixAixJniBridge.libc_unix_aix_uselocale((loc?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+    MutPtr(UnixAixJniBridge.libcUnixAixUselocale(loc.rawAddress))
 
-public actual fun utmpname(file: String?): CInt =
-    UnixAixJniBridge.libc_unix_aix_utmpname(file)
+public actual fun utmpname(file: ConstPtr<CChar>): CInt =
+    UnixAixJniBridge.libcUnixAixUtmpname(file.rawAddress)
 
-public actual fun utimensat(dirfd: CInt, path: String?, times: COpaquePointer?, flag: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_utimensat(dirfd, path, (times?.value ?: 0L), flag)
+public actual fun utimensat(dirfd: CInt, path: ConstPtr<CChar>, times: ConstPtr<Timespec>, flag: CInt): CInt =
+    UnixAixJniBridge.libcUnixAixUtimensat(dirfd, path.rawAddress, times.rawAddress, flag)
 
-public actual fun wait4(pid: PidT, status: COpaquePointer?, options: CInt, rusage: COpaquePointer?): PidT =
-    UnixAixJniBridge.libc_unix_aix_wait4(pid, (status?.value ?: 0L), options, (rusage?.value ?: 0L))
+public actual fun wait4(pid: PidT, status: MutPtr<CInt>, options: CInt, rusage: MutPtr<Rusage>): PidT =
+    UnixAixJniBridge.libcUnixAixWait4(pid, status.rawAddress, options, rusage.rawAddress)
 
-public actual fun waitid(idtype: IdtypeT, id: IdT, infop: COpaquePointer?, options: CInt): CInt =
-    UnixAixJniBridge.libc_unix_aix_waitid(idtype.toInt(), id.toInt(), (infop?.value ?: 0L), options)
+public actual fun waitid(idtype: IdtypeT, id: IdT, infop: MutPtr<SiginfoT>, options: CInt): CInt =
+    UnixAixJniBridge.libcUnixAixWaitid(idtype.toInt(), id.toInt(), infop.rawAddress, options)
 
-public actual fun writev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT =
-    UnixAixJniBridge.libc_unix_aix_writev(fd, (iov?.value ?: 0L), iovcnt)
+public actual fun writev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+    UnixAixJniBridge.libcUnixAixWritev(fd, iov.rawAddress, iovcnt)
 
-public actual fun errno(): COpaquePointer? =
-    UnixAixJniBridge.libc_unix_aix_errno().let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun errno(): MutPtr<CInt> =
+    MutPtr(UnixAixJniBridge.libcUnixAixErrno())

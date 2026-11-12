@@ -9,6 +9,7 @@ import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
 import io.github.kotlinmania.libc.CUshort
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 // Dummy functions, these don't really exist in VxWorks.
 // wait.h macros
@@ -114,7 +115,7 @@ public typealias VxSdId = VxObjHandle
 
 public typealias VxCondvarId = VxObjHandle
 
-public typealias VxSemId = VxSemaphore?
+public typealias VxSemId = MutPtr<VxSemaphore>
 
 public typealias ObjHandle = VxObjHandle
 

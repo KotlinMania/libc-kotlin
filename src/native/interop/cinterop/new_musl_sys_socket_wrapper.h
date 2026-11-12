@@ -9,8 +9,8 @@
 extern "C" {
 #endif
 
-int32_t libc_new_musl_sys_socket_sendmmsg(int32_t sockfd, void* msgvec, uint32_t vlen, uint32_t flags);
-int32_t libc_new_musl_sys_socket_recvmmsg(int32_t sockfd, void* msgvec, uint32_t vlen, uint32_t flags, void* timeout);
+int32_t libcNewMuslSysSocketSendmmsg(int32_t sockfd, void* msgvec, uint32_t vlen, uint32_t flags);
+int32_t libcNewMuslSysSocketRecvmmsg(int32_t sockfd, void* msgvec, uint32_t vlen, uint32_t flags, void* timeout);
 
 #ifdef __cplusplus
 }

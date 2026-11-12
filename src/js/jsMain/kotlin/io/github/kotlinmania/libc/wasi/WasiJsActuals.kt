@@ -3,38 +3,41 @@
 package io.github.kotlinmania.libc.wasi
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CDouble
 import io.github.kotlinmania.libc.CFloat
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CLonglong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
-private val _wasiNapiAddon: dynamic =
+private val wasiNapiAddon: dynamic =
     js("(function() { if (typeof globalThis !== 'undefined' && typeof globalThis.__km_napi_libc !== 'undefined') return globalThis.__km_napi_libc; if (typeof process === 'undefined' || !process.versions || !process.versions.node) return null; var mod = process.getBuiltinModule ? process.getBuiltinModule('module') : (process.mainModule && process.mainModule.constructor); var req = (mod && mod.createRequire) ? mod.createRequire((process.cwd ? process.cwd() : '.') + '/package.json') : (process.mainModule ? process.mainModule.require : null); if (!req) return null; try { var pkg = req('@kotlinmania/libc-native-bindings'); if (typeof globalThis !== 'undefined') globalThis.__km_napi_libc = pkg; return pkg; } catch (_) {} var fs = req('fs'); var path = req('path'); var dir = process.cwd ? process.cwd() : '.'; var rels = ['libc_native.node', 'build/node-ffi/libc_native.node', 'build/node-ffi/release/libc_native.node', 'build/node-ffi/debug/libc_native.node', 'src/js/node-libc/build/Release/libc_native.node', 'src/js/node-libc/build/Debug/libc_native.node', 'src/js/node-libc/dist/build/Release/libc_native.node', 'src/js/node-libc/dist/build/Debug/libc_native.node', 'c_native.node', 'build/node-ffi/c_native.node', 'build/node-ffi/release/c_native.node', 'build/node-ffi/debug/c_native.node', 'src/js/node-libc/build/Release/c_native.node', 'src/js/node-libc/build/Debug/c_native.node', 'src/js/node-libc/dist/build/Release/c_native.node', 'src/js/node-libc/dist/build/Debug/c_native.node']; for (var d = 0; d < 8; d++) { for (var i = 0; i < rels.length; i++) { var c = path.resolve(dir, rels[i]); if (fs.existsSync(c)) { var loaded = req(c); if (typeof globalThis !== 'undefined') globalThis.__km_napi_libc = loaded; return loaded; } } var parent = path.dirname(dir); if (parent === dir) break; dir = parent; } if (typeof globalThis !== 'undefined') globalThis.__km_napi_libc = null; return null; })()")
 
-public actual var ENVIRON: COpaquePointer?
-    get() = if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_get_ENVIRON() as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual var ENVIRON: MutPtr<MutPtr<CChar>>
+    get() = if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiGetENVIRON() as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
     set(value) {
-        if (_wasiNapiAddon != null) {
-            _wasiNapiAddon.libc_wasi_set_ENVIRON((value?.value ?: 0L).toString())
+        if (wasiNapiAddon != null) {
+            wasiNapiAddon.libcWasiSetENVIRON(value.rawAddress.toString())
         } else {
             throw UnsupportedOperationException("Native FFI addon is not available")
         }
     }
 
 public actual val CLOCK_MONOTONIC1: UByte
-    get() = if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_get_CLOCK_MONOTONIC1() as Int).toUByte() else throw UnsupportedOperationException("Native FFI addon is not available")
+    get() = if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiGetCLOCKMONOTONIC1() as Int).toUByte() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual val CLOCK_REALTIME1: UByte
-    get() = if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_get_CLOCK_REALTIME1() as Int).toUByte() else throw UnsupportedOperationException("Native FFI addon is not available")
+    get() = if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiGetCLOCKREALTIME1() as Int).toUByte() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun exit(code: CInt): Nothing {
-    if (_wasiNapiAddon != null) {
-        _wasiNapiAddon.libc_wasi_exit(code)
+    if (wasiNapiAddon != null) {
+        wasiNapiAddon.libcWasiExit(code)
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
@@ -42,923 +45,923 @@ public actual fun exit(code: CInt): Nothing {
 }
 
 public actual fun abort(): Nothing {
-    if (_wasiNapiAddon != null) {
-        _wasiNapiAddon.libc_wasi_abort()
+    if (wasiNapiAddon != null) {
+        wasiNapiAddon.libcWasiAbort()
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
     error("Unreachable noreturn C function abort")
 }
 
-public actual fun alignedAlloc(a: SizeT, b: SizeT): COpaquePointer? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_alignedAlloc(a.toString(), b.toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun alignedAlloc(a: SizeT, b: SizeT): MutPtr<CVoid> =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiAlignedAlloc(a.toString(), b.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun calloc(amt: SizeT, amt2: SizeT): COpaquePointer? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_calloc(amt.toString(), amt2.toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun calloc(amt: SizeT, amt2: SizeT): MutPtr<CVoid> =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiCalloc(amt.toString(), amt2.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun free(ptr: COpaquePointer?) {
-    if (_wasiNapiAddon != null) {
-        _wasiNapiAddon.libc_wasi_free((ptr?.value ?: 0L).toString())
+public actual fun free(ptr: MutPtr<CVoid>) {
+    if (wasiNapiAddon != null) {
+        wasiNapiAddon.libcWasiFree(ptr.rawAddress.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun getenv(s: String?): COpaquePointer? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_getenv(s) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getenv(s: ConstPtr<CChar>): MutPtr<CChar> =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiGetenv(s.rawAddress.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun malloc(amt: SizeT): COpaquePointer? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_malloc(amt.toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun malloc(amt: SizeT): MutPtr<CVoid> =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiMalloc(amt.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mallocUsableSize(ptr: COpaquePointer?): SizeT =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_mallocUsableSize((ptr?.value ?: 0L).toString()) as String).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mallocUsableSize(ptr: MutPtr<CVoid>): SizeT =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiMallocUsableSize(ptr.rawAddress.toString()) as String).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sbrk(increment: IntptrT): COpaquePointer? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_sbrk(increment.toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sbrk(increment: IntptrT): MutPtr<CVoid> =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiSbrk(increment.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun rand(): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_rand() as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiRand() as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun read(fd: CInt, ptr: COpaquePointer?, size: SizeT): SsizeT =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_read(fd, (ptr?.value ?: 0L).toString(), size.toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun read(fd: CInt, ptr: MutPtr<CVoid>, size: SizeT): SsizeT =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiRead(fd, ptr.rawAddress.toString(), size.toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun realloc(ptr: COpaquePointer?, amt: SizeT): COpaquePointer? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_realloc((ptr?.value ?: 0L).toString(), amt.toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun realloc(ptr: MutPtr<CVoid>, amt: SizeT): MutPtr<CVoid> =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiRealloc(ptr.rawAddress.toString(), amt.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setenv(k: String?, v: String?, a: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_setenv(k, v, a) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun setenv(k: ConstPtr<CChar>, v: ConstPtr<CChar>, a: CInt): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiSetenv(k.rawAddress.toString(), v.rawAddress.toString(), a) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun unsetenv(k: String?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_unsetenv(k) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun unsetenv(k: ConstPtr<CChar>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiUnsetenv(k.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun clearenv(): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_clearenv() as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiClearenv() as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun write(fd: CInt, ptr: COpaquePointer?, size: SizeT): SsizeT =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_write(fd, (ptr?.value ?: 0L).toString(), size.toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun write(fd: CInt, ptr: ConstPtr<CVoid>, size: SizeT): SsizeT =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiWrite(fd, ptr.rawAddress.toString(), size.toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fopen(a: String?, b: String?): FILE? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_fopen(a, b) as String).toLong().let { if (it == 0L) null else FILE(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fopen(a: ConstPtr<CChar>, b: ConstPtr<CChar>): MutPtr<FILE> =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiFopen(a.rawAddress.toString(), b.rawAddress.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun freopen(a: String?, b: String?, f: FILE?): FILE? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_freopen(a, b, (f?.handle ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else FILE(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun freopen(a: ConstPtr<CChar>, b: ConstPtr<CChar>, f: MutPtr<FILE>): MutPtr<FILE> =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiFreopen(a.rawAddress.toString(), b.rawAddress.toString(), f.rawAddress.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fclose(f: FILE?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_fclose((f?.handle ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fclose(f: MutPtr<FILE>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiFclose(f.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun remove(a: String?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_remove(a) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun remove(a: ConstPtr<CChar>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiRemove(a.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun rename(a: String?, b: String?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_rename(a, b) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun rename(a: ConstPtr<CChar>, b: ConstPtr<CChar>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiRename(a.rawAddress.toString(), b.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun feof(f: FILE?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_feof((f?.handle ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun feof(f: MutPtr<FILE>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiFeof(f.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ferror(f: FILE?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_ferror((f?.handle ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ferror(f: MutPtr<FILE>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiFerror(f.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fflush(f: FILE?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_fflush((f?.handle ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fflush(f: MutPtr<FILE>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiFflush(f.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun clearerr(f: FILE?) {
-    if (_wasiNapiAddon != null) {
-        _wasiNapiAddon.libc_wasi_clearerr((f?.handle ?: 0L).toString())
+public actual fun clearerr(f: MutPtr<FILE>) {
+    if (wasiNapiAddon != null) {
+        wasiNapiAddon.libcWasiClearerr(f.rawAddress.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun fseek(f: FILE?, b: CLong, c: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_fseek((f?.handle ?: 0L).toString(), b.toString(), c) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fseek(f: MutPtr<FILE>, b: CLong, c: CInt): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiFseek(f.rawAddress.toString(), b.toString(), c) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ftell(f: FILE?): CLong =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_ftell((f?.handle ?: 0L).toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ftell(f: MutPtr<FILE>): CLong =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiFtell(f.rawAddress.toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun rewind(f: FILE?) {
-    if (_wasiNapiAddon != null) {
-        _wasiNapiAddon.libc_wasi_rewind((f?.handle ?: 0L).toString())
+public actual fun rewind(f: MutPtr<FILE>) {
+    if (wasiNapiAddon != null) {
+        wasiNapiAddon.libcWasiRewind(f.rawAddress.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun fgetpos(f: FILE?, pos: COpaquePointer?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_fgetpos((f?.handle ?: 0L).toString(), (pos?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fgetpos(f: MutPtr<FILE>, pos: MutPtr<FposT>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiFgetpos(f.rawAddress.toString(), pos.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fsetpos(f: FILE?, pos: COpaquePointer?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_fsetpos((f?.handle ?: 0L).toString(), (pos?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fsetpos(f: MutPtr<FILE>, pos: ConstPtr<FposT>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiFsetpos(f.rawAddress.toString(), pos.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fread(buf: COpaquePointer?, a: SizeT, b: SizeT, f: FILE?): SizeT =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_fread((buf?.value ?: 0L).toString(), a.toString(), b.toString(), (f?.handle ?: 0L).toString()) as String).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fread(buf: MutPtr<CVoid>, a: SizeT, b: SizeT, f: MutPtr<FILE>): SizeT =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiFread(buf.rawAddress.toString(), a.toString(), b.toString(), f.rawAddress.toString()) as String).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fwrite(buf: COpaquePointer?, a: SizeT, b: SizeT, f: FILE?): SizeT =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_fwrite((buf?.value ?: 0L).toString(), a.toString(), b.toString(), (f?.handle ?: 0L).toString()) as String).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fwrite(buf: ConstPtr<CVoid>, a: SizeT, b: SizeT, f: MutPtr<FILE>): SizeT =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiFwrite(buf.rawAddress.toString(), a.toString(), b.toString(), f.rawAddress.toString()) as String).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fgetc(f: FILE?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_fgetc((f?.handle ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fgetc(f: MutPtr<FILE>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiFgetc(f.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getc(f: FILE?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_getc((f?.handle ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getc(f: MutPtr<FILE>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiGetc(f.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun getchar(): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_getchar() as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiGetchar() as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ungetc(a: CInt, f: FILE?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_ungetc(a, (f?.handle ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ungetc(a: CInt, f: MutPtr<FILE>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiUngetc(a, f.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fputc(a: CInt, f: FILE?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_fputc(a, (f?.handle ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fputc(a: CInt, f: MutPtr<FILE>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiFputc(a, f.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun putc(a: CInt, f: FILE?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_putc(a, (f?.handle ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun putc(a: CInt, f: MutPtr<FILE>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPutc(a, f.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun putchar(a: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_putchar(a) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPutchar(a) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fputs(a: String?, f: FILE?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_fputs(a, (f?.handle ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fputs(a: ConstPtr<CChar>, f: MutPtr<FILE>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiFputs(a.rawAddress.toString(), f.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun puts(a: String?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_puts(a) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun puts(a: ConstPtr<CChar>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPuts(a.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun perror(a: String?) {
-    if (_wasiNapiAddon != null) {
-        _wasiNapiAddon.libc_wasi_perror(a)
+public actual fun perror(a: ConstPtr<CChar>) {
+    if (wasiNapiAddon != null) {
+        wasiNapiAddon.libcWasiPerror(a.rawAddress.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
 public actual fun srand(a: CUint) {
-    if (_wasiNapiAddon != null) {
-        _wasiNapiAddon.libc_wasi_srand(a.toInt())
+    if (wasiNapiAddon != null) {
+        wasiNapiAddon.libcWasiSrand(a.toInt())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
 public actual fun atexit(a: AtexitACallback): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_atexit(0L.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiAtexit(0L.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun atQuickExit(a: AtexitACallback): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_atQuickExit(0L.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiAtQuickExit(0L.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun quickExit(a: CInt): Nothing {
-    if (_wasiNapiAddon != null) {
-        _wasiNapiAddon.libc_wasi_quickExit(a)
+    if (wasiNapiAddon != null) {
+        wasiNapiAddon.libcWasiQuickExit(a)
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
     error("Unreachable noreturn C function quickExit")
 }
 
-public actual fun posixMemalign(a: COpaquePointer?, b: SizeT, c: SizeT): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_posixMemalign((a?.value ?: 0L).toString(), b.toString(), c.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixMemalign(a: MutPtr<MutPtr<CVoid>>, b: SizeT, c: SizeT): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPosixMemalign(a.rawAddress.toString(), b.toString(), c.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun randR(a: COpaquePointer?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_randR((a?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun randR(a: MutPtr<CUint>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiRandR(a.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun random(): CLong =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_random() as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiRandom() as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun srandom(a: CUint) {
-    if (_wasiNapiAddon != null) {
-        _wasiNapiAddon.libc_wasi_srandom(a.toInt())
+    if (wasiNapiAddon != null) {
+        wasiNapiAddon.libcWasiSrandom(a.toInt())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun putenv(a: COpaquePointer?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_putenv((a?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun putenv(a: MutPtr<CChar>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPutenv(a.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun clock(): ClockT =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_clock() as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiClock() as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun time(a: COpaquePointer?): TimeT =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_time((a?.value ?: 0L).toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun time(a: MutPtr<TimeT>): TimeT =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiTime(a.rawAddress.toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun difftime(a: TimeT, b: TimeT): CDouble =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_difftime(a.toString(), b.toString()) as Double) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiDifftime(a.toString(), b.toString()) as Double) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mktime(a: COpaquePointer?): TimeT =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_mktime((a?.value ?: 0L).toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mktime(a: MutPtr<Tm>): TimeT =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiMktime(a.rawAddress.toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strftime(a: COpaquePointer?, b: SizeT, c: String?, d: COpaquePointer?): SizeT =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_strftime((a?.value ?: 0L).toString(), b.toString(), c, (d?.value ?: 0L).toString()) as String).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strftime(a: MutPtr<CChar>, b: SizeT, c: ConstPtr<CChar>, d: ConstPtr<Tm>): SizeT =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiStrftime(a.rawAddress.toString(), b.toString(), c.rawAddress.toString(), d.rawAddress.toString()) as String).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun gmtime(a: COpaquePointer?): COpaquePointer? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_gmtime((a?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun gmtime(a: ConstPtr<TimeT>): MutPtr<Tm> =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiGmtime(a.rawAddress.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun gmtimeR(a: COpaquePointer?, b: COpaquePointer?): COpaquePointer? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_gmtimeR((a?.value ?: 0L).toString(), (b?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun gmtimeR(a: ConstPtr<TimeT>, b: MutPtr<Tm>): MutPtr<Tm> =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiGmtimeR(a.rawAddress.toString(), b.rawAddress.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun localtime(a: COpaquePointer?): COpaquePointer? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_localtime((a?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun localtime(a: ConstPtr<TimeT>): MutPtr<Tm> =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiLocaltime(a.rawAddress.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun localtimeR(a: COpaquePointer?, b: COpaquePointer?): COpaquePointer? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_localtimeR((a?.value ?: 0L).toString(), (b?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun localtimeR(a: ConstPtr<TimeT>, b: MutPtr<Tm>): MutPtr<Tm> =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiLocaltimeR(a.rawAddress.toString(), b.rawAddress.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun asctimeR(a: COpaquePointer?, b: COpaquePointer?): COpaquePointer? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_asctimeR((a?.value ?: 0L).toString(), (b?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun asctimeR(a: ConstPtr<Tm>, b: MutPtr<CChar>): MutPtr<CChar> =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiAsctimeR(a.rawAddress.toString(), b.rawAddress.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ctimeR(a: COpaquePointer?, b: COpaquePointer?): COpaquePointer? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_ctimeR((a?.value ?: 0L).toString(), (b?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ctimeR(a: ConstPtr<TimeT>, b: MutPtr<CChar>): MutPtr<CChar> =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiCtimeR(a.rawAddress.toString(), b.rawAddress.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun nanosleep(a: COpaquePointer?, b: COpaquePointer?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_nanosleep((a?.value ?: 0L).toString(), (b?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun nanosleep(a: ConstPtr<Timespec>, b: MutPtr<Timespec>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiNanosleep(a.rawAddress.toString(), b.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun clockGetres(a: ClockidT, b: COpaquePointer?): CInt =
+public actual fun clockGetres(a: ClockidT, b: MutPtr<Timespec>): CInt =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun clockGettime(a: ClockidT, b: COpaquePointer?): CInt =
+public actual fun clockGettime(a: ClockidT, b: MutPtr<Timespec>): CInt =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun clockNanosleep(a: ClockidT, a2: CInt, b: COpaquePointer?, c: COpaquePointer?): CInt =
+public actual fun clockNanosleep(a: ClockidT, a2: CInt, b: ConstPtr<Timespec>, c: MutPtr<Timespec>): CInt =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun isalnum(c: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_isalnum(c) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiIsalnum(c) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun isalpha(c: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_isalpha(c) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiIsalpha(c) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun iscntrl(c: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_iscntrl(c) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiIscntrl(c) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun isdigit(c: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_isdigit(c) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiIsdigit(c) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun isgraph(c: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_isgraph(c) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiIsgraph(c) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun islower(c: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_islower(c) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiIslower(c) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun isprint(c: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_isprint(c) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiIsprint(c) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun ispunct(c: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_ispunct(c) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiIspunct(c) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun isspace(c: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_isspace(c) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiIsspace(c) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun isupper(c: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_isupper(c) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiIsupper(c) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun isxdigit(c: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_isxdigit(c) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiIsxdigit(c) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun isblank(c: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_isblank(c) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiIsblank(c) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun tolower(c: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_tolower(c) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiTolower(c) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun toupper(c: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_toupper(c) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiToupper(c) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setvbuf(stream: FILE?, buffer: COpaquePointer?, mode: CInt, size: SizeT): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_setvbuf((stream?.handle ?: 0L).toString(), (buffer?.value ?: 0L).toString(), mode, size.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun setvbuf(stream: MutPtr<FILE>, buffer: MutPtr<CChar>, mode: CInt, size: SizeT): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiSetvbuf(stream.rawAddress.toString(), buffer.rawAddress.toString(), mode, size.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setbuf(stream: FILE?, buf: COpaquePointer?) {
-    if (_wasiNapiAddon != null) {
-        _wasiNapiAddon.libc_wasi_setbuf((stream?.handle ?: 0L).toString(), (buf?.value ?: 0L).toString())
+public actual fun setbuf(stream: MutPtr<FILE>, buf: MutPtr<CChar>) {
+    if (wasiNapiAddon != null) {
+        wasiNapiAddon.libcWasiSetbuf(stream.rawAddress.toString(), buf.rawAddress.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun fgets(buf: COpaquePointer?, n: CInt, stream: FILE?): COpaquePointer? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_fgets((buf?.value ?: 0L).toString(), n, (stream?.handle ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fgets(buf: MutPtr<CChar>, n: CInt, stream: MutPtr<FILE>): MutPtr<CChar> =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiFgets(buf.rawAddress.toString(), n, stream.rawAddress.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun atof(s: String?): CDouble =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_atof(s) as Double) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun atof(s: ConstPtr<CChar>): CDouble =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiAtof(s.rawAddress.toString()) as Double) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun atoi(s: String?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_atoi(s) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun atoi(s: ConstPtr<CChar>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiAtoi(s.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun atol(s: String?): CLong =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_atol(s) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun atol(s: ConstPtr<CChar>): CLong =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiAtol(s.rawAddress.toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun atoll(s: String?): CLonglong =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_atoll(s) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun atoll(s: ConstPtr<CChar>): CLonglong =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiAtoll(s.rawAddress.toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtod(s: String?, endp: COpaquePointer?): CDouble =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_strtod(s, (endp?.value ?: 0L).toString()) as Double) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strtod(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>): CDouble =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiStrtod(s.rawAddress.toString(), endp.rawAddress.toString()) as Double) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtof(s: String?, endp: COpaquePointer?): CFloat =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_strtof(s, (endp?.value ?: 0L).toString()) as Double).toFloat() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strtof(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>): CFloat =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiStrtof(s.rawAddress.toString(), endp.rawAddress.toString()) as Double).toFloat() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtol(s: String?, endp: COpaquePointer?, base: CInt): CLong =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_strtol(s, (endp?.value ?: 0L).toString(), base) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strtol(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CLong =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiStrtol(s.rawAddress.toString(), endp.rawAddress.toString(), base) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtoll(s: String?, endp: COpaquePointer?, base: CInt): CLonglong =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_strtoll(s, (endp?.value ?: 0L).toString(), base) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strtoll(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CLonglong =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiStrtoll(s.rawAddress.toString(), endp.rawAddress.toString(), base) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtoul(s: String?, endp: COpaquePointer?, base: CInt): CUlong =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_strtoul(s, (endp?.value ?: 0L).toString(), base) as String).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strtoul(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CUlong =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiStrtoul(s.rawAddress.toString(), endp.rawAddress.toString(), base) as String).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtoull(s: String?, endp: COpaquePointer?, base: CInt): CUlonglong =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_strtoull(s, (endp?.value ?: 0L).toString(), base) as String).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strtoull(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CUlonglong =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiStrtoull(s.rawAddress.toString(), endp.rawAddress.toString(), base) as String).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strcpy(dst: COpaquePointer?, src: String?): COpaquePointer? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_strcpy((dst?.value ?: 0L).toString(), src) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strcpy(dst: MutPtr<CChar>, src: ConstPtr<CChar>): MutPtr<CChar> =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiStrcpy(dst.rawAddress.toString(), src.rawAddress.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strncpy(dst: COpaquePointer?, src: String?, n: SizeT): COpaquePointer? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_strncpy((dst?.value ?: 0L).toString(), src, n.toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strncpy(dst: MutPtr<CChar>, src: ConstPtr<CChar>, n: SizeT): MutPtr<CChar> =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiStrncpy(dst.rawAddress.toString(), src.rawAddress.toString(), n.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strcat(s: COpaquePointer?, ct: String?): COpaquePointer? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_strcat((s?.value ?: 0L).toString(), ct) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strcat(s: MutPtr<CChar>, ct: ConstPtr<CChar>): MutPtr<CChar> =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiStrcat(s.rawAddress.toString(), ct.rawAddress.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strncat(s: COpaquePointer?, ct: String?, n: SizeT): COpaquePointer? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_strncat((s?.value ?: 0L).toString(), ct, n.toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strncat(s: MutPtr<CChar>, ct: ConstPtr<CChar>, n: SizeT): MutPtr<CChar> =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiStrncat(s.rawAddress.toString(), ct.rawAddress.toString(), n.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strcmp(cs: String?, ct: String?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_strcmp(cs, ct) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strcmp(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiStrcmp(cs.rawAddress.toString(), ct.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strncmp(cs: String?, ct: String?, n: SizeT): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_strncmp(cs, ct, n.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strncmp(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>, n: SizeT): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiStrncmp(cs.rawAddress.toString(), ct.rawAddress.toString(), n.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strcoll(cs: String?, ct: String?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_strcoll(cs, ct) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strcoll(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiStrcoll(cs.rawAddress.toString(), ct.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strchr(cs: String?, c: CInt): COpaquePointer? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_strchr(cs, c) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strchr(cs: ConstPtr<CChar>, c: CInt): MutPtr<CChar> =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiStrchr(cs.rawAddress.toString(), c) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strrchr(cs: String?, c: CInt): COpaquePointer? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_strrchr(cs, c) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strrchr(cs: ConstPtr<CChar>, c: CInt): MutPtr<CChar> =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiStrrchr(cs.rawAddress.toString(), c) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strspn(cs: String?, ct: String?): SizeT =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_strspn(cs, ct) as String).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strspn(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): SizeT =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiStrspn(cs.rawAddress.toString(), ct.rawAddress.toString()) as String).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strcspn(cs: String?, ct: String?): SizeT =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_strcspn(cs, ct) as String).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strcspn(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): SizeT =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiStrcspn(cs.rawAddress.toString(), ct.rawAddress.toString()) as String).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strdup(cs: String?): COpaquePointer? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_strdup(cs) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strdup(cs: ConstPtr<CChar>): MutPtr<CChar> =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiStrdup(cs.rawAddress.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strndup(cs: String?, n: SizeT): COpaquePointer? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_strndup(cs, n.toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strndup(cs: ConstPtr<CChar>, n: SizeT): MutPtr<CChar> =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiStrndup(cs.rawAddress.toString(), n.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strpbrk(cs: String?, ct: String?): COpaquePointer? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_strpbrk(cs, ct) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strpbrk(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): MutPtr<CChar> =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiStrpbrk(cs.rawAddress.toString(), ct.rawAddress.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strstr(cs: String?, ct: String?): COpaquePointer? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_strstr(cs, ct) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strstr(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): MutPtr<CChar> =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiStrstr(cs.rawAddress.toString(), ct.rawAddress.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strcasecmp(s1: String?, s2: String?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_strcasecmp(s1, s2) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strcasecmp(s1: ConstPtr<CChar>, s2: ConstPtr<CChar>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiStrcasecmp(s1.rawAddress.toString(), s2.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strncasecmp(s1: String?, s2: String?, n: SizeT): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_strncasecmp(s1, s2, n.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strncasecmp(s1: ConstPtr<CChar>, s2: ConstPtr<CChar>, n: SizeT): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiStrncasecmp(s1.rawAddress.toString(), s2.rawAddress.toString(), n.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strlen(cs: String?): SizeT =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_strlen(cs) as String).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strlen(cs: ConstPtr<CChar>): SizeT =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiStrlen(cs.rawAddress.toString()) as String).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strnlen(cs: String?, maxlen: SizeT): SizeT =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_strnlen(cs, maxlen.toString()) as String).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strnlen(cs: ConstPtr<CChar>, maxlen: SizeT): SizeT =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiStrnlen(cs.rawAddress.toString(), maxlen.toString()) as String).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strerror(n: CInt): COpaquePointer? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_strerror(n) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strerror(n: CInt): MutPtr<CChar> =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiStrerror(n) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strtok(s: COpaquePointer?, t: String?): COpaquePointer? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_strtok((s?.value ?: 0L).toString(), t) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strtok(s: MutPtr<CChar>, t: ConstPtr<CChar>): MutPtr<CChar> =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiStrtok(s.rawAddress.toString(), t.rawAddress.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strxfrm(s: COpaquePointer?, ct: String?, n: SizeT): SizeT =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_strxfrm((s?.value ?: 0L).toString(), ct, n.toString()) as String).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strxfrm(s: MutPtr<CChar>, ct: ConstPtr<CChar>, n: SizeT): SizeT =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiStrxfrm(s.rawAddress.toString(), ct.rawAddress.toString(), n.toString()) as String).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memchr(cx: COpaquePointer?, c: CInt, n: SizeT): COpaquePointer? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_memchr((cx?.value ?: 0L).toString(), c, n.toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun memchr(cx: ConstPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiMemchr(cx.rawAddress.toString(), c, n.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memcmp(cx: COpaquePointer?, ct: COpaquePointer?, n: SizeT): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_memcmp((cx?.value ?: 0L).toString(), (ct?.value ?: 0L).toString(), n.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun memcmp(cx: ConstPtr<CVoid>, ct: ConstPtr<CVoid>, n: SizeT): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiMemcmp(cx.rawAddress.toString(), ct.rawAddress.toString(), n.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memcpy(dest: COpaquePointer?, src: COpaquePointer?, n: SizeT): COpaquePointer? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_memcpy((dest?.value ?: 0L).toString(), (src?.value ?: 0L).toString(), n.toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun memcpy(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, n: SizeT): MutPtr<CVoid> =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiMemcpy(dest.rawAddress.toString(), src.rawAddress.toString(), n.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memmove(dest: COpaquePointer?, src: COpaquePointer?, n: SizeT): COpaquePointer? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_memmove((dest?.value ?: 0L).toString(), (src?.value ?: 0L).toString(), n.toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun memmove(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, n: SizeT): MutPtr<CVoid> =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiMemmove(dest.rawAddress.toString(), src.rawAddress.toString(), n.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memset(dest: COpaquePointer?, c: CInt, n: SizeT): COpaquePointer? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_memset((dest?.value ?: 0L).toString(), c, n.toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun memset(dest: MutPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiMemset(dest.rawAddress.toString(), c, n.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fprintf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_fprintf((stream?.handle ?: 0L).toString(), format, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fprintf(stream: MutPtr<FILE>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiFprintf(stream.rawAddress.toString(), format.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun printf(format: String?, vararg variadicArgs: Long): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_printf(format, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun printf(format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPrintf(format.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun snprintf(s: COpaquePointer?, n: SizeT, format: String?, vararg variadicArgs: Long): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_snprintf((s?.value ?: 0L).toString(), n.toString(), format, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun snprintf(s: MutPtr<CChar>, n: SizeT, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiSnprintf(s.rawAddress.toString(), n.toString(), format.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sprintf(s: COpaquePointer?, format: String?, vararg variadicArgs: Long): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_sprintf((s?.value ?: 0L).toString(), format, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sprintf(s: MutPtr<CChar>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiSprintf(s.rawAddress.toString(), format.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fscanf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_fscanf((stream?.handle ?: 0L).toString(), format, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fscanf(stream: MutPtr<FILE>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiFscanf(stream.rawAddress.toString(), format.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun scanf(format: String?, vararg variadicArgs: Long): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_scanf(format, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun scanf(format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiScanf(format.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sscanf(s: String?, format: String?, vararg variadicArgs: Long): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_sscanf(s, format, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sscanf(s: ConstPtr<CChar>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiSscanf(s.rawAddress.toString(), format.rawAddress.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun getcharUnlocked(): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_getcharUnlocked() as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiGetcharUnlocked() as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun putcharUnlocked(c: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_putcharUnlocked(c) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPutcharUnlocked(c) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun shutdown(socket: CInt, how: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_shutdown(socket, how) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiShutdown(socket, how) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fstat(fildes: CInt, buf: COpaquePointer?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_fstat(fildes, (buf?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fstat(fildes: CInt, buf: MutPtr<Stat>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiFstat(fildes, buf.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mkdir(path: String?, mode: ModeT): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_mkdir(path, mode.toInt()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mkdir(path: ConstPtr<CChar>, mode: ModeT): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiMkdir(path.rawAddress.toString(), mode.toInt()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun stat(path: String?, buf: COpaquePointer?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_stat(path, (buf?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun stat(path: ConstPtr<CChar>, buf: MutPtr<Stat>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiStat(path.rawAddress.toString(), buf.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fdopen(fd: CInt, mode: String?): FILE? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_fdopen(fd, mode) as String).toLong().let { if (it == 0L) null else FILE(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fdopen(fd: CInt, mode: ConstPtr<CChar>): MutPtr<FILE> =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiFdopen(fd, mode.rawAddress.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fileno(stream: FILE?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_fileno((stream?.handle ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fileno(stream: MutPtr<FILE>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiFileno(stream.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun open(path: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_open(path, oflag, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun open(path: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiOpen(path.rawAddress.toString(), oflag, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun creat(path: String?, mode: ModeT): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_creat(path, mode.toInt()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun creat(path: ConstPtr<CChar>, mode: ModeT): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiCreat(path.rawAddress.toString(), mode.toInt()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun fcntl(fd: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_fcntl(fd, cmd, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiFcntl(fd, cmd, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun opendir(dirname: String?): DIR? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_opendir(dirname) as String).toLong().let { if (it == 0L) null else DIR(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun opendir(dirname: ConstPtr<CChar>): MutPtr<DIR> =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiOpendir(dirname.rawAddress.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fdopendir(fd: CInt): DIR? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_fdopendir(fd) as String).toLong().let { if (it == 0L) null else DIR(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fdopendir(fd: CInt): MutPtr<DIR> =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiFdopendir(fd) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun readdir(dirp: DIR?): COpaquePointer? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_readdir((dirp?.handle ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun readdir(dirp: MutPtr<DIR>): MutPtr<Dirent> =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiReaddir(dirp.rawAddress.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun closedir(dirp: DIR?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_closedir((dirp?.handle ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun closedir(dirp: MutPtr<DIR>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiClosedir(dirp.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun rewinddir(dirp: DIR?) {
-    if (_wasiNapiAddon != null) {
-        _wasiNapiAddon.libc_wasi_rewinddir((dirp?.handle ?: 0L).toString())
+public actual fun rewinddir(dirp: MutPtr<DIR>) {
+    if (wasiNapiAddon != null) {
+        wasiNapiAddon.libcWasiRewinddir(dirp.rawAddress.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun dirfd(dirp: DIR?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_dirfd((dirp?.handle ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun dirfd(dirp: MutPtr<DIR>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiDirfd(dirp.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun seekdir(dirp: DIR?, loc: CLong) {
-    if (_wasiNapiAddon != null) {
-        _wasiNapiAddon.libc_wasi_seekdir((dirp?.handle ?: 0L).toString(), loc.toString())
+public actual fun seekdir(dirp: MutPtr<DIR>, loc: CLong) {
+    if (wasiNapiAddon != null) {
+        wasiNapiAddon.libcWasiSeekdir(dirp.rawAddress.toString(), loc.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun telldir(dirp: DIR?): CLong =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_telldir((dirp?.handle ?: 0L).toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun telldir(dirp: MutPtr<DIR>): CLong =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiTelldir(dirp.rawAddress.toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun openat(dirfd: CInt, pathname: String?, flags: CInt, vararg variadicArgs: Long): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_openat(dirfd, pathname, flags, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun openat(dirfd: CInt, pathname: ConstPtr<CChar>, flags: CInt, vararg variadicArgs: Long): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiOpenat(dirfd, pathname.rawAddress.toString(), flags, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fstatat(dirfd: CInt, pathname: String?, buf: COpaquePointer?, flags: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_fstatat(dirfd, pathname, (buf?.value ?: 0L).toString(), flags) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fstatat(dirfd: CInt, pathname: ConstPtr<CChar>, buf: MutPtr<Stat>, flags: CInt): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiFstatat(dirfd, pathname.rawAddress.toString(), buf.rawAddress.toString(), flags) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun linkat(olddirfd: CInt, oldpath: String?, newdirfd: CInt, newpath: String?, flags: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_linkat(olddirfd, oldpath, newdirfd, newpath, flags) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun linkat(olddirfd: CInt, oldpath: ConstPtr<CChar>, newdirfd: CInt, newpath: ConstPtr<CChar>, flags: CInt): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiLinkat(olddirfd, oldpath.rawAddress.toString(), newdirfd, newpath.rawAddress.toString(), flags) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mkdirat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_mkdirat(dirfd, pathname, mode.toInt()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mkdirat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiMkdirat(dirfd, pathname.rawAddress.toString(), mode.toInt()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun readlinkat(dirfd: CInt, pathname: String?, buf: COpaquePointer?, bufsiz: SizeT): SsizeT =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_readlinkat(dirfd, pathname, (buf?.value ?: 0L).toString(), bufsiz.toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun readlinkat(dirfd: CInt, pathname: ConstPtr<CChar>, buf: MutPtr<CChar>, bufsiz: SizeT): SsizeT =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiReadlinkat(dirfd, pathname.rawAddress.toString(), buf.rawAddress.toString(), bufsiz.toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun renameat(olddirfd: CInt, oldpath: String?, newdirfd: CInt, newpath: String?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_renameat(olddirfd, oldpath, newdirfd, newpath) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun renameat(olddirfd: CInt, oldpath: ConstPtr<CChar>, newdirfd: CInt, newpath: ConstPtr<CChar>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiRenameat(olddirfd, oldpath.rawAddress.toString(), newdirfd, newpath.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun symlinkat(target: String?, newdirfd: CInt, linkpath: String?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_symlinkat(target, newdirfd, linkpath) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun symlinkat(target: ConstPtr<CChar>, newdirfd: CInt, linkpath: ConstPtr<CChar>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiSymlinkat(target.rawAddress.toString(), newdirfd, linkpath.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun unlinkat(dirfd: CInt, pathname: String?, flags: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_unlinkat(dirfd, pathname, flags) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun unlinkat(dirfd: CInt, pathname: ConstPtr<CChar>, flags: CInt): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiUnlinkat(dirfd, pathname.rawAddress.toString(), flags) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun access(path: String?, amode: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_access(path, amode) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun access(path: ConstPtr<CChar>, amode: CInt): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiAccess(path.rawAddress.toString(), amode) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun close(fd: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_close(fd) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiClose(fd) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun fpathconf(filedes: CInt, name: CInt): CLong =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_fpathconf(filedes, name) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiFpathconf(filedes, name) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getopt(argc: CInt, argv: COpaquePointer?, optstr: String?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_getopt(argc, (argv?.value ?: 0L).toString(), optstr) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getopt(argc: CInt, argv: ConstPtr<MutPtr<CChar>>, optstr: ConstPtr<CChar>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiGetopt(argc, argv.rawAddress.toString(), optstr.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun isatty(fd: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_isatty(fd) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiIsatty(fd) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun link(src: String?, dst: String?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_link(src, dst) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun link(src: ConstPtr<CChar>, dst: ConstPtr<CChar>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiLink(src.rawAddress.toString(), dst.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun lseek(fd: CInt, offset: OffT, whence: CInt): OffT =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_lseek(fd, offset.toString(), whence) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiLseek(fd, offset.toString(), whence) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pathconf(path: String?, name: CInt): CLong =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pathconf(path, name) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pathconf(path: ConstPtr<CChar>, name: CInt): CLong =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPathconf(path.rawAddress.toString(), name) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun rmdir(path: String?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_rmdir(path) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun rmdir(path: ConstPtr<CChar>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiRmdir(path.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sleep(secs: CUint): CUint =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_sleep(secs.toInt()) as Int).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiSleep(secs.toInt()) as Int).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun unlink(c: String?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_unlink(c) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun unlink(c: ConstPtr<CChar>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiUnlink(c.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pread(fd: CInt, buf: COpaquePointer?, count: SizeT, offset: OffT): SsizeT =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pread(fd, (buf?.value ?: 0L).toString(), count.toString(), offset.toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pread(fd: CInt, buf: MutPtr<CVoid>, count: SizeT, offset: OffT): SsizeT =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPread(fd, buf.rawAddress.toString(), count.toString(), offset.toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pwrite(fd: CInt, buf: COpaquePointer?, count: SizeT, offset: OffT): SsizeT =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pwrite(fd, (buf?.value ?: 0L).toString(), count.toString(), offset.toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pwrite(fd: CInt, buf: ConstPtr<CVoid>, count: SizeT, offset: OffT): SsizeT =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPwrite(fd, buf.rawAddress.toString(), count.toString(), offset.toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun lstat(path: String?, buf: COpaquePointer?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_lstat(path, (buf?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun lstat(path: ConstPtr<CChar>, buf: MutPtr<Stat>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiLstat(path.rawAddress.toString(), buf.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun fsync(fd: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_fsync(fd) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiFsync(fd) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun fdatasync(fd: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_fdatasync(fd) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiFdatasync(fd) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun symlink(path1: String?, path2: String?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_symlink(path1, path2) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun symlink(path1: ConstPtr<CChar>, path2: ConstPtr<CChar>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiSymlink(path1.rawAddress.toString(), path2.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun truncate(path: String?, length: OffT): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_truncate(path, length.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun truncate(path: ConstPtr<CChar>, length: OffT): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiTruncate(path.rawAddress.toString(), length.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun ftruncate(fd: CInt, length: OffT): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_ftruncate(fd, length.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiFtruncate(fd, length.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getrusage(resource: CInt, usage: COpaquePointer?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_getrusage(resource, (usage?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getrusage(resource: CInt, usage: MutPtr<Rusage>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiGetrusage(resource, usage.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun gettimeofday(tp: COpaquePointer?, tz: COpaquePointer?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_gettimeofday((tp?.value ?: 0L).toString(), (tz?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun gettimeofday(tp: MutPtr<Timeval>, tz: MutPtr<CVoid>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiGettimeofday(tp.rawAddress.toString(), tz.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun times(buf: COpaquePointer?): ClockT =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_times((buf?.value ?: 0L).toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun times(buf: MutPtr<Tms>): ClockT =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiTimes(buf.rawAddress.toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strerrorR(errnum: CInt, buf: COpaquePointer?, buflen: SizeT): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_strerrorR(errnum, (buf?.value ?: 0L).toString(), buflen.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strerrorR(errnum: CInt, buf: MutPtr<CChar>, buflen: SizeT): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiStrerrorR(errnum, buf.rawAddress.toString(), buflen.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun usleep(secs: CUint): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_usleep(secs.toInt()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiUsleep(secs.toInt()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun send(socket: CInt, buf: COpaquePointer?, len: SizeT, flags: CInt): SsizeT =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_send(socket, (buf?.value ?: 0L).toString(), len.toString(), flags) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun send(socket: CInt, buf: ConstPtr<CVoid>, len: SizeT, flags: CInt): SsizeT =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiSend(socket, buf.rawAddress.toString(), len.toString(), flags) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun recv(socket: CInt, buf: COpaquePointer?, len: SizeT, flags: CInt): SsizeT =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_recv(socket, (buf?.value ?: 0L).toString(), len.toString(), flags) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun recv(socket: CInt, buf: MutPtr<CVoid>, len: SizeT, flags: CInt): SsizeT =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiRecv(socket, buf.rawAddress.toString(), len.toString(), flags) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun poll(fds: COpaquePointer?, nfds: NfdsT, timeout: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_poll((fds?.value ?: 0L).toString(), nfds.toString(), timeout) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun poll(fds: MutPtr<Pollfd>, nfds: NfdsT, timeout: CInt): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPoll(fds.rawAddress.toString(), nfds.toString(), timeout) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setlocale(category: CInt, locale: String?): COpaquePointer? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_setlocale(category, locale) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun setlocale(category: CInt, locale: ConstPtr<CChar>): MutPtr<CChar> =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiSetlocale(category, locale.rawAddress.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun localeconv(): COpaquePointer? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_localeconv() as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun localeconv(): MutPtr<Lconv> =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiLocaleconv() as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun readlink(path: String?, buf: COpaquePointer?, bufsz: SizeT): SsizeT =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_readlink(path, (buf?.value ?: 0L).toString(), bufsz.toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun readlink(path: ConstPtr<CChar>, buf: MutPtr<CChar>, bufsz: SizeT): SsizeT =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiReadlink(path.rawAddress.toString(), buf.rawAddress.toString(), bufsz.toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun timegm(tm: COpaquePointer?): TimeT =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_timegm((tm?.value ?: 0L).toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun timegm(tm: MutPtr<Tm>): TimeT =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiTimegm(tm.rawAddress.toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sysconf(name: CInt): CLong =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_sysconf(name) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiSysconf(name) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun ioctl(fd: CInt, request: CInt, vararg variadicArgs: Long): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_ioctl(fd, request, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiIoctl(fd, request, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fseeko(stream: FILE?, offset: OffT, whence: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_fseeko((stream?.handle ?: 0L).toString(), offset.toString(), whence) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fseeko(stream: MutPtr<FILE>, offset: OffT, whence: CInt): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiFseeko(stream.rawAddress.toString(), offset.toString(), whence) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ftello(stream: FILE?): OffT =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_ftello((stream?.handle ?: 0L).toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ftello(stream: MutPtr<FILE>): OffT =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiFtello(stream.rawAddress.toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_posixFallocate(fd, offset.toString(), len.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPosixFallocate(fd, offset.toString(), len.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strcasestr(cs: String?, ct: String?): COpaquePointer? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_strcasestr(cs, ct) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strcasestr(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): MutPtr<CChar> =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiStrcasestr(cs.rawAddress.toString(), ct.rawAddress.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getline(lineptr: COpaquePointer?, n: COpaquePointer?, stream: FILE?): SsizeT =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_getline((lineptr?.value ?: 0L).toString(), (n?.value ?: 0L).toString(), (stream?.handle ?: 0L).toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getline(lineptr: MutPtr<MutPtr<CChar>>, n: MutPtr<SizeT>, stream: MutPtr<FILE>): SsizeT =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiGetline(lineptr.rawAddress.toString(), n.rawAddress.toString(), stream.rawAddress.toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_faccessat(dirfd, pathname, mode, flags) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun faccessat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: CInt, flags: CInt): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiFaccessat(dirfd, pathname.rawAddress.toString(), mode, flags) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun writev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_writev(fd, (iov?.value ?: 0L).toString(), iovcnt) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun writev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiWritev(fd, iov.rawAddress.toString(), iovcnt) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun readv(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_readv(fd, (iov?.value ?: 0L).toString(), iovcnt) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun readv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiReadv(fd, iov.rawAddress.toString(), iovcnt) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pwritev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: OffT): SsizeT =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pwritev(fd, (iov?.value ?: 0L).toString(), iovcnt, offset.toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pwritev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPwritev(fd, iov.rawAddress.toString(), iovcnt, offset.toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun preadv(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: OffT): SsizeT =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_preadv(fd, (iov?.value ?: 0L).toString(), iovcnt, offset.toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun preadv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPreadv(fd, iov.rawAddress.toString(), iovcnt, offset.toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun posixFadvise(fd: CInt, offset: OffT, len: OffT, advise: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_posixFadvise(fd, offset.toString(), len.toString(), advise) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPosixFadvise(fd, offset.toString(), len.toString(), advise) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun futimens(fd: CInt, times: COpaquePointer?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_futimens(fd, (times?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun futimens(fd: CInt, times: ConstPtr<Timespec>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiFutimens(fd, times.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun utimensat(dirfd: CInt, path: String?, times: COpaquePointer?, flag: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_utimensat(dirfd, path, (times?.value ?: 0L).toString(), flag) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun utimensat(dirfd: CInt, path: ConstPtr<CChar>, times: ConstPtr<Timespec>, flag: CInt): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiUtimensat(dirfd, path.rawAddress.toString(), times.rawAddress.toString(), flag) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getentropy(buf: COpaquePointer?, buflen: SizeT): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_getentropy((buf?.value ?: 0L).toString(), buflen.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getentropy(buf: MutPtr<CVoid>, buflen: SizeT): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiGetentropy(buf.rawAddress.toString(), buflen.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memrchr(cx: COpaquePointer?, c: CInt, n: SizeT): COpaquePointer? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_memrchr((cx?.value ?: 0L).toString(), c, n.toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun memrchr(cx: ConstPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiMemrchr(cx.rawAddress.toString(), c, n.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun abs(i: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_abs(i) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiAbs(i) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun labs(i: CLong): CLong =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_labs(i.toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiLabs(i.toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun duplocale(base: LocaleT): LocaleT =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_duplocale((base?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiDuplocale(base.rawAddress.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun freelocale(loc: LocaleT) {
-    if (_wasiNapiAddon != null) {
-        _wasiNapiAddon.libc_wasi_freelocale((loc?.value ?: 0L).toString())
+    if (wasiNapiAddon != null) {
+        wasiNapiAddon.libcWasiFreelocale(loc.rawAddress.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_newlocale(mask, locale, (base?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun newlocale(mask: CInt, locale: ConstPtr<CChar>, base: LocaleT): LocaleT =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiNewlocale(mask, locale.rawAddress.toString(), base.rawAddress.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_uselocale((loc?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiUselocale(loc.rawAddress.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun schedYield(): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_schedYield() as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiSchedYield() as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getcwd(buf: COpaquePointer?, size: SizeT): COpaquePointer? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_getcwd((buf?.value ?: 0L).toString(), size.toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getcwd(buf: MutPtr<CChar>, size: SizeT): MutPtr<CChar> =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiGetcwd(buf.rawAddress.toString(), size.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun chdir(dir: String?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_chdir(dir) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun chdir(dir: ConstPtr<CChar>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiChdir(dir.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun nlLanginfo(item: NlItem): COpaquePointer? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_nlLanginfo(item) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun nlLanginfo(item: NlItem): MutPtr<CChar> =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiNlLanginfo(item) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun nlLanginfoL(item: NlItem, loc: LocaleT): COpaquePointer? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_nlLanginfoL(item, (loc?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun nlLanginfoL(item: NlItem, loc: LocaleT): MutPtr<CChar> =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiNlLanginfoL(item, loc.rawAddress.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun select(nfds: CInt, readfds: COpaquePointer?, writefds: COpaquePointer?, errorfds: COpaquePointer?, timeout: COpaquePointer?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_select(nfds, (readfds?.value ?: 0L).toString(), (writefds?.value ?: 0L).toString(), (errorfds?.value ?: 0L).toString(), (timeout?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun select(nfds: CInt, readfds: MutPtr<FdSet>, writefds: MutPtr<FdSet>, errorfds: MutPtr<FdSet>, timeout: ConstPtr<Timeval>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiSelect(nfds, readfds.rawAddress.toString(), writefds.rawAddress.toString(), errorfds.rawAddress.toString(), timeout.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wasilibcRegisterPreopenedFd(fd: CInt, path: String?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_wasilibcRegisterPreopenedFd(fd, path) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wasilibcRegisterPreopenedFd(fd: CInt, path: ConstPtr<CChar>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiWasilibcRegisterPreopenedFd(fd, path.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun wasilibcFdRenumber(fd: CInt, newfd: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_wasilibcFdRenumber(fd, newfd) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiWasilibcFdRenumber(fd, newfd) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wasilibcUnlinkat(fd: CInt, path: String?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_wasilibcUnlinkat(fd, path) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wasilibcUnlinkat(fd: CInt, path: ConstPtr<CChar>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiWasilibcUnlinkat(fd, path.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wasilibcRmdirat(fd: CInt, path: String?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_wasilibcRmdirat(fd, path) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wasilibcRmdirat(fd: CInt, path: ConstPtr<CChar>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiWasilibcRmdirat(fd, path.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wasilibcFindRelpath(path: String?, absPrefix: COpaquePointer?, relativePath: COpaquePointer?, relativePathLen: ULong): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_wasilibcFindRelpath(path, (absPrefix?.value ?: 0L).toString(), (relativePath?.value ?: 0L).toString(), relativePathLen.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wasilibcFindRelpath(path: ConstPtr<CChar>, absPrefix: MutPtr<ConstPtr<CChar>>, relativePath: MutPtr<MutPtr<CChar>>, relativePathLen: ULong): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiWasilibcFindRelpath(path.rawAddress.toString(), absPrefix.rawAddress.toString(), relativePath.rawAddress.toString(), relativePathLen.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun wasilibcTell(fd: CInt): OffT =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_wasilibcTell(fd) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiWasilibcTell(fd) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wasilibcNocwdWasilibcUnlinkat(dirfd: CInt, path: String?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_wasilibcNocwdWasilibcUnlinkat(dirfd, path) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wasilibcNocwdWasilibcUnlinkat(dirfd: CInt, path: ConstPtr<CChar>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiWasilibcNocwdWasilibcUnlinkat(dirfd, path.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wasilibcNocwdWasilibcRmdirat(dirfd: CInt, path: String?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_wasilibcNocwdWasilibcRmdirat(dirfd, path) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wasilibcNocwdWasilibcRmdirat(dirfd: CInt, path: ConstPtr<CChar>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiWasilibcNocwdWasilibcRmdirat(dirfd, path.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wasilibcNocwdLinkat(olddirfd: CInt, oldpath: String?, newdirfd: CInt, newpath: String?, flags: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_wasilibcNocwdLinkat(olddirfd, oldpath, newdirfd, newpath, flags) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wasilibcNocwdLinkat(olddirfd: CInt, oldpath: ConstPtr<CChar>, newdirfd: CInt, newpath: ConstPtr<CChar>, flags: CInt): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiWasilibcNocwdLinkat(olddirfd, oldpath.rawAddress.toString(), newdirfd, newpath.rawAddress.toString(), flags) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wasilibcNocwdSymlinkat(target: String?, dirfd: CInt, path: String?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_wasilibcNocwdSymlinkat(target, dirfd, path) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wasilibcNocwdSymlinkat(target: ConstPtr<CChar>, dirfd: CInt, path: ConstPtr<CChar>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiWasilibcNocwdSymlinkat(target.rawAddress.toString(), dirfd, path.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wasilibcNocwdReadlinkat(dirfd: CInt, path: String?, buf: COpaquePointer?, bufsize: ULong): Long =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_wasilibcNocwdReadlinkat(dirfd, path, (buf?.value ?: 0L).toString(), bufsize.toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wasilibcNocwdReadlinkat(dirfd: CInt, path: ConstPtr<CChar>, buf: MutPtr<CChar>, bufsize: ULong): Long =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiWasilibcNocwdReadlinkat(dirfd, path.rawAddress.toString(), buf.rawAddress.toString(), bufsize.toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wasilibcNocwdFaccessat(dirfd: CInt, path: String?, mode: CInt, flags: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_wasilibcNocwdFaccessat(dirfd, path, mode, flags) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wasilibcNocwdFaccessat(dirfd: CInt, path: ConstPtr<CChar>, mode: CInt, flags: CInt): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiWasilibcNocwdFaccessat(dirfd, path.rawAddress.toString(), mode, flags) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wasilibcNocwdRenameat(olddirfd: CInt, oldpath: String?, newdirfd: CInt, newpath: String?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_wasilibcNocwdRenameat(olddirfd, oldpath, newdirfd, newpath) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wasilibcNocwdRenameat(olddirfd: CInt, oldpath: ConstPtr<CChar>, newdirfd: CInt, newpath: ConstPtr<CChar>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiWasilibcNocwdRenameat(olddirfd, oldpath.rawAddress.toString(), newdirfd, newpath.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wasilibcNocwdOpenatNomode(dirfd: CInt, path: String?, flags: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_wasilibcNocwdOpenatNomode(dirfd, path, flags) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wasilibcNocwdOpenatNomode(dirfd: CInt, path: ConstPtr<CChar>, flags: CInt): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiWasilibcNocwdOpenatNomode(dirfd, path.rawAddress.toString(), flags) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wasilibcNocwdFstatat(dirfd: CInt, path: String?, buf: COpaquePointer?, flags: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_wasilibcNocwdFstatat(dirfd, path, (buf?.value ?: 0L).toString(), flags) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wasilibcNocwdFstatat(dirfd: CInt, path: ConstPtr<CChar>, buf: MutPtr<Stat>, flags: CInt): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiWasilibcNocwdFstatat(dirfd, path.rawAddress.toString(), buf.rawAddress.toString(), flags) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wasilibcNocwdMkdiratNomode(dirfd: CInt, path: String?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_wasilibcNocwdMkdiratNomode(dirfd, path) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wasilibcNocwdMkdiratNomode(dirfd: CInt, path: ConstPtr<CChar>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiWasilibcNocwdMkdiratNomode(dirfd, path.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wasilibcNocwdUtimensat(dirfd: CInt, path: String?, times: COpaquePointer?, flags: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_wasilibcNocwdUtimensat(dirfd, path, (times?.value ?: 0L).toString(), flags) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wasilibcNocwdUtimensat(dirfd: CInt, path: ConstPtr<CChar>, times: ConstPtr<Timespec>, flags: CInt): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiWasilibcNocwdUtimensat(dirfd, path.rawAddress.toString(), times.rawAddress.toString(), flags) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wasilibcNocwdOpendirat(dirfd: CInt, path: String?): DIR? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_wasilibcNocwdOpendirat(dirfd, path) as String).toLong().let { if (it == 0L) null else DIR(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wasilibcNocwdOpendirat(dirfd: CInt, path: ConstPtr<CChar>): MutPtr<DIR> =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiWasilibcNocwdOpendirat(dirfd, path.rawAddress.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wasilibcAccess(pathname: String?, mode: CInt, flags: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_wasilibcAccess(pathname, mode, flags) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wasilibcAccess(pathname: ConstPtr<CChar>, mode: CInt, flags: CInt): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiWasilibcAccess(pathname.rawAddress.toString(), mode, flags) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wasilibcStat(pathname: String?, buf: COpaquePointer?, flags: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_wasilibcStat(pathname, (buf?.value ?: 0L).toString(), flags) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wasilibcStat(pathname: ConstPtr<CChar>, buf: MutPtr<Stat>, flags: CInt): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiWasilibcStat(pathname.rawAddress.toString(), buf.rawAddress.toString(), flags) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wasilibcUtimens(pathname: String?, times: COpaquePointer?, flags: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_wasilibcUtimens(pathname, (times?.value ?: 0L).toString(), flags) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wasilibcUtimens(pathname: ConstPtr<CChar>, times: ConstPtr<Timespec>, flags: CInt): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiWasilibcUtimens(pathname.rawAddress.toString(), times.rawAddress.toString(), flags) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wasilibcLink(oldpath: String?, newpath: String?, flags: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_wasilibcLink(oldpath, newpath, flags) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wasilibcLink(oldpath: ConstPtr<CChar>, newpath: ConstPtr<CChar>, flags: CInt): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiWasilibcLink(oldpath.rawAddress.toString(), newpath.rawAddress.toString(), flags) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wasilibcLinkOldat(olddirfd: CInt, oldpath: String?, newpath: String?, flags: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_wasilibcLinkOldat(olddirfd, oldpath, newpath, flags) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wasilibcLinkOldat(olddirfd: CInt, oldpath: ConstPtr<CChar>, newpath: ConstPtr<CChar>, flags: CInt): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiWasilibcLinkOldat(olddirfd, oldpath.rawAddress.toString(), newpath.rawAddress.toString(), flags) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wasilibcLinkNewat(oldpath: String?, newdirfd: CInt, newpath: String?, flags: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_wasilibcLinkNewat(oldpath, newdirfd, newpath, flags) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wasilibcLinkNewat(oldpath: ConstPtr<CChar>, newdirfd: CInt, newpath: ConstPtr<CChar>, flags: CInt): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiWasilibcLinkNewat(oldpath.rawAddress.toString(), newdirfd, newpath.rawAddress.toString(), flags) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wasilibcRenameOldat(olddirfd: CInt, oldpath: String?, newpath: String?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_wasilibcRenameOldat(olddirfd, oldpath, newpath) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wasilibcRenameOldat(olddirfd: CInt, oldpath: ConstPtr<CChar>, newpath: ConstPtr<CChar>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiWasilibcRenameOldat(olddirfd, oldpath.rawAddress.toString(), newpath.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun wasilibcRenameNewat(oldpath: String?, newdirfd: CInt, newpath: String?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_wasilibcRenameNewat(oldpath, newdirfd, newpath) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun wasilibcRenameNewat(oldpath: ConstPtr<CChar>, newdirfd: CInt, newpath: ConstPtr<CChar>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiWasilibcRenameNewat(oldpath.rawAddress.toString(), newdirfd, newpath.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun arc4random(): UInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_arc4random() as Int).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiArc4random() as Int).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun arc4randomBuf(a: COpaquePointer?, b: SizeT) {
-    if (_wasiNapiAddon != null) {
-        _wasiNapiAddon.libc_wasi_arc4randomBuf((a?.value ?: 0L).toString(), b.toString())
+public actual fun arc4randomBuf(a: MutPtr<CVoid>, b: SizeT) {
+    if (wasiNapiAddon != null) {
+        wasiNapiAddon.libcWasiArc4randomBuf(a.rawAddress.toString(), b.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
 public actual fun arc4randomUniform(a: UInt): UInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_arc4randomUniform(a.toInt()) as Int).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiArc4randomUniform(a.toInt()) as Int).toUInt() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun errnoLocation(): COpaquePointer? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_errnoLocation() as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun errnoLocation(): MutPtr<CInt> =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiErrnoLocation() as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun chmod(path: String?, mode: ModeT): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_chmod(path, mode.toInt()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun chmod(path: ConstPtr<CChar>, mode: ModeT): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiChmod(path.rawAddress.toString(), mode.toInt()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun fchmod(fd: CInt, mode: ModeT): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_fchmod(fd, mode.toInt()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiFchmod(fd, mode.toInt()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun realpath(pathname: String?, resolved: COpaquePointer?): COpaquePointer? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_realpath(pathname, (resolved?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun realpath(pathname: ConstPtr<CChar>, resolved: MutPtr<CChar>): MutPtr<CChar> =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiRealpath(pathname.rawAddress.toString(), resolved.rawAddress.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun pthreadSelf(): PthreadT =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadSelf() as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiPthreadSelf() as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadCreate((native?.value ?: 0L).toString(), (attr?.value ?: 0L).toString(), 0L.toString(), (value?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadCreate(native: MutPtr<PthreadT>, attr: ConstPtr<PthreadAttrT>, f: PthreadCreateFCallback, value: MutPtr<CVoid>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPthreadCreate(native.rawAddress.toString(), attr.rawAddress.toString(), 0L.toString(), value.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun pthreadEqual(t1: PthreadT, t2: PthreadT): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadEqual((t1?.value ?: 0L).toString(), (t2?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPthreadEqual(t1.rawAddress.toString(), t2.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadJoin(native: PthreadT, value: COpaquePointer?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadJoin((native?.value ?: 0L).toString(), (value?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadJoin(native: PthreadT, value: MutPtr<MutPtr<CVoid>>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPthreadJoin(native.rawAddress.toString(), value.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrInit(attr: COpaquePointer?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadAttrInit((attr?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadAttrInit(attr: MutPtr<PthreadAttrT>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPthreadAttrInit(attr.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrDestroy(attr: COpaquePointer?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadAttrDestroy((attr?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadAttrDestroy(attr: MutPtr<PthreadAttrT>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPthreadAttrDestroy(attr.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrGetstacksize(attr: COpaquePointer?, stacksize: COpaquePointer?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadAttrGetstacksize((attr?.value ?: 0L).toString(), (stacksize?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadAttrGetstacksize(attr: ConstPtr<PthreadAttrT>, stacksize: MutPtr<SizeT>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPthreadAttrGetstacksize(attr.rawAddress.toString(), stacksize.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrSetstacksize(attr: COpaquePointer?, stackSize: SizeT): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadAttrSetstacksize((attr?.value ?: 0L).toString(), stackSize.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadAttrSetstacksize(attr: MutPtr<PthreadAttrT>, stackSize: SizeT): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPthreadAttrSetstacksize(attr.rawAddress.toString(), stackSize.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrSetdetachstate(attr: COpaquePointer?, state: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadAttrSetdetachstate((attr?.value ?: 0L).toString(), state) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadAttrSetdetachstate(attr: MutPtr<PthreadAttrT>, state: CInt): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPthreadAttrSetdetachstate(attr.rawAddress.toString(), state) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun pthreadDetach(thread: PthreadT): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadDetach((thread?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPthreadDetach(thread.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadKeyCreate(key: COpaquePointer?, dtor: PthreadKeyCreateDtorCallback?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadKeyCreate((key?.value ?: 0L).toString(), 0L.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadKeyCreate(key: MutPtr<PthreadKeyT>, dtor: PthreadKeyCreateDtorCallback?): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPthreadKeyCreate(key.rawAddress.toString(), 0L.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun pthreadKeyDelete(key: PthreadKeyT): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadKeyDelete(key.toInt()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPthreadKeyDelete(key.toInt()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadGetspecific(key: PthreadKeyT): COpaquePointer? =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadGetspecific(key.toInt()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadGetspecific(key: PthreadKeyT): MutPtr<CVoid> =
+    if (wasiNapiAddon != null) MutPtr((wasiNapiAddon.libcWasiPthreadGetspecific(key.toInt()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadSetspecific(key: PthreadKeyT, value: COpaquePointer?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadSetspecific(key.toInt(), (value?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadSetspecific(key: PthreadKeyT, value: ConstPtr<CVoid>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPthreadSetspecific(key.toInt(), value.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexInit(lock: COpaquePointer?, attr: COpaquePointer?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadMutexInit((lock?.value ?: 0L).toString(), (attr?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadMutexInit(lock: MutPtr<PthreadMutexT>, attr: ConstPtr<PthreadMutexattrT>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPthreadMutexInit(lock.rawAddress.toString(), attr.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexDestroy(lock: COpaquePointer?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadMutexDestroy((lock?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadMutexDestroy(lock: MutPtr<PthreadMutexT>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPthreadMutexDestroy(lock.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexLock(lock: COpaquePointer?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadMutexLock((lock?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadMutexLock(lock: MutPtr<PthreadMutexT>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPthreadMutexLock(lock.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexTrylock(lock: COpaquePointer?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadMutexTrylock((lock?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadMutexTrylock(lock: MutPtr<PthreadMutexT>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPthreadMutexTrylock(lock.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexUnlock(lock: COpaquePointer?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadMutexUnlock((lock?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadMutexUnlock(lock: MutPtr<PthreadMutexT>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPthreadMutexUnlock(lock.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexattrInit(attr: COpaquePointer?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadMutexattrInit((attr?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadMutexattrInit(attr: MutPtr<PthreadMutexattrT>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPthreadMutexattrInit(attr.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexattrDestroy(attr: COpaquePointer?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadMutexattrDestroy((attr?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadMutexattrDestroy(attr: MutPtr<PthreadMutexattrT>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPthreadMutexattrDestroy(attr.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexattrSettype(attr: COpaquePointer?, type: CInt): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadMutexattrSettype((attr?.value ?: 0L).toString(), type) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadMutexattrSettype(attr: MutPtr<PthreadMutexattrT>, type: CInt): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPthreadMutexattrSettype(attr.rawAddress.toString(), type) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondInit(cond: COpaquePointer?, attr: COpaquePointer?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadCondInit((cond?.value ?: 0L).toString(), (attr?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadCondInit(cond: MutPtr<PthreadCondT>, attr: ConstPtr<PthreadCondattrT>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPthreadCondInit(cond.rawAddress.toString(), attr.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondWait(cond: COpaquePointer?, lock: COpaquePointer?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadCondWait((cond?.value ?: 0L).toString(), (lock?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadCondWait(cond: MutPtr<PthreadCondT>, lock: MutPtr<PthreadMutexT>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPthreadCondWait(cond.rawAddress.toString(), lock.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondTimedwait(cond: COpaquePointer?, lock: COpaquePointer?, abstime: COpaquePointer?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadCondTimedwait((cond?.value ?: 0L).toString(), (lock?.value ?: 0L).toString(), (abstime?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadCondTimedwait(cond: MutPtr<PthreadCondT>, lock: MutPtr<PthreadMutexT>, abstime: ConstPtr<Timespec>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPthreadCondTimedwait(cond.rawAddress.toString(), lock.rawAddress.toString(), abstime.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondSignal(cond: COpaquePointer?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadCondSignal((cond?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadCondSignal(cond: MutPtr<PthreadCondT>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPthreadCondSignal(cond.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondBroadcast(cond: COpaquePointer?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadCondBroadcast((cond?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadCondBroadcast(cond: MutPtr<PthreadCondT>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPthreadCondBroadcast(cond.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondDestroy(cond: COpaquePointer?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadCondDestroy((cond?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadCondDestroy(cond: MutPtr<PthreadCondT>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPthreadCondDestroy(cond.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondattrInit(attr: COpaquePointer?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadCondattrInit((attr?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadCondattrInit(attr: MutPtr<PthreadCondattrT>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPthreadCondattrInit(attr.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondattrDestroy(attr: COpaquePointer?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadCondattrDestroy((attr?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadCondattrDestroy(attr: MutPtr<PthreadCondattrT>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPthreadCondattrDestroy(attr.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadRwlockInit(lock: COpaquePointer?, attr: COpaquePointer?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadRwlockInit((lock?.value ?: 0L).toString(), (attr?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadRwlockInit(lock: MutPtr<PthreadRwlockT>, attr: ConstPtr<PthreadRwlockattrT>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPthreadRwlockInit(lock.rawAddress.toString(), attr.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadRwlockDestroy(lock: COpaquePointer?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadRwlockDestroy((lock?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadRwlockDestroy(lock: MutPtr<PthreadRwlockT>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPthreadRwlockDestroy(lock.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadRwlockRdlock(lock: COpaquePointer?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadRwlockRdlock((lock?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadRwlockRdlock(lock: MutPtr<PthreadRwlockT>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPthreadRwlockRdlock(lock.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadRwlockTryrdlock(lock: COpaquePointer?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadRwlockTryrdlock((lock?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadRwlockTryrdlock(lock: MutPtr<PthreadRwlockT>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPthreadRwlockTryrdlock(lock.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadRwlockWrlock(lock: COpaquePointer?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadRwlockWrlock((lock?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadRwlockWrlock(lock: MutPtr<PthreadRwlockT>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPthreadRwlockWrlock(lock.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadRwlockTrywrlock(lock: COpaquePointer?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadRwlockTrywrlock((lock?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadRwlockTrywrlock(lock: MutPtr<PthreadRwlockT>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPthreadRwlockTrywrlock(lock.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadRwlockUnlock(lock: COpaquePointer?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadRwlockUnlock((lock?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadRwlockUnlock(lock: MutPtr<PthreadRwlockT>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPthreadRwlockUnlock(lock.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadRwlockattrInit(attr: COpaquePointer?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadRwlockattrInit((attr?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadRwlockattrInit(attr: MutPtr<PthreadRwlockattrT>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPthreadRwlockattrInit(attr.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadRwlockattrDestroy(attr: COpaquePointer?): CInt =
-    if (_wasiNapiAddon != null) (_wasiNapiAddon.libc_wasi_pthreadRwlockattrDestroy((attr?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadRwlockattrDestroy(attr: MutPtr<PthreadRwlockattrT>): CInt =
+    if (wasiNapiAddon != null) (wasiNapiAddon.libcWasiPthreadRwlockattrDestroy(attr.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")

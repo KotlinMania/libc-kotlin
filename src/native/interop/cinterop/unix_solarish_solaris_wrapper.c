@@ -15,7 +15,7 @@
 #endif
 #endif
 
-int32_t libc_unix_solarish_solaris_fexecve(int32_t fd, void* argv, void* envp) {
+int32_t libcUnixSolarishSolarisFexecve(int32_t fd, void* argv, void* envp) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -43,7 +43,7 @@ int32_t libc_unix_solarish_solaris_fexecve(int32_t fd, void* argv, void* envp) {
     return -1;
 }
 
-int32_t libc_unix_solarish_solaris_mincore(void* addr, uint64_t len, char* vec) {
+int32_t libcUnixSolarishSolarisMincore(void* addr, uint64_t len, char* vec) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -71,7 +71,7 @@ int32_t libc_unix_solarish_solaris_mincore(void* addr, uint64_t len, char* vec) 
     return -1;
 }
 
-int32_t libc_unix_solarish_solaris_doorCall(int32_t d, void* params) {
+int32_t libcUnixSolarishSolarisDoorCall(int32_t d, void* params) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -99,7 +99,7 @@ int32_t libc_unix_solarish_solaris_doorCall(int32_t d, void* params) {
     return -1;
 }
 
-int32_t libc_unix_solarish_solaris_doorReturn(char* data_ptr, uint64_t data_size, void* desc_ptr, uint32_t num_desc) {
+int32_t libcUnixSolarishSolarisDoorReturn(char* dataPtr, uint64_t dataSize, void* descPtr, uint32_t numDesc) {
     typedef int32_t (*km_fn_t)(char*, uint64_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -121,13 +121,13 @@ int32_t libc_unix_solarish_solaris_doorReturn(char* data_ptr, uint64_t data_size
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(data_ptr, data_size, desc_ptr, num_desc);
+        return km_fn_ptr(dataPtr, dataSize, descPtr, numDesc);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_solarish_solaris_doorCreate(void* server_procedure, void* cookie, uint32_t attributes) {
+int32_t libcUnixSolarishSolarisDoorCreate(void* serverProcedure, void* cookie, uint32_t attributes) {
     typedef int32_t (*km_fn_t)(void*, void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -149,13 +149,13 @@ int32_t libc_unix_solarish_solaris_doorCreate(void* server_procedure, void* cook
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(server_procedure, cookie, attributes);
+        return km_fn_ptr(serverProcedure, cookie, attributes);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_solarish_solaris_fattach(int32_t fildes, const char* path) {
+int32_t libcUnixSolarishSolarisFattach(int32_t fildes, const char* path) {
     typedef int32_t (*km_fn_t)(int32_t, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -183,7 +183,7 @@ int32_t libc_unix_solarish_solaris_fattach(int32_t fildes, const char* path) {
     return -1;
 }
 
-int32_t libc_unix_solarish_solaris_pthreadGetattrNp(void* thread, void* attr) {
+int32_t libcUnixSolarishSolarisPthreadGetattrNp(void* thread, void* attr) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -211,7 +211,7 @@ int32_t libc_unix_solarish_solaris_pthreadGetattrNp(void* thread, void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_unix_solarish_solaris_euidaccess(const char* path, int32_t amode) {
+int32_t libcUnixSolarishSolarisEuidaccess(const char* path, int32_t amode) {
     typedef int32_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -239,7 +239,7 @@ int32_t libc_unix_solarish_solaris_euidaccess(const char* path, int32_t amode) {
     return -1;
 }
 
-int32_t libc_unix_solarish_solaris_openpty(void* amain, void* asubord, char* name, void* termp, void* winp) {
+int32_t libcUnixSolarishSolarisOpenpty(void* amain, void* asubord, char* name, void* termp, void* winp) {
     typedef int32_t (*km_fn_t)(void*, void*, char*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -267,7 +267,7 @@ int32_t libc_unix_solarish_solaris_openpty(void* amain, void* asubord, char* nam
     return -1;
 }
 
-int32_t libc_unix_solarish_solaris_forkpty(void* amain, char* name, void* termp, void* winp) {
+int32_t libcUnixSolarishSolarisForkpty(void* amain, char* name, void* termp, void* winp) {
     typedef int32_t (*km_fn_t)(void*, char*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

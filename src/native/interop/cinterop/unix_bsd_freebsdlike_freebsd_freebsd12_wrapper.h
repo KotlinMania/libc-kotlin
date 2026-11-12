@@ -9,13 +9,13 @@
 extern "C" {
 #endif
 
-void libc_unix_bsd_freebsdlike_freebsd_freebsd12_setgrent(void);
-int32_t libc_unix_bsd_freebsdlike_freebsd_freebsd12_mprotect(void* addr, uint64_t len, int32_t prot);
-void libc_unix_bsd_freebsdlike_freebsd_freebsd12_freelocale(void* loc);
-int64_t libc_unix_bsd_freebsdlike_freebsd_freebsd12_msgrcv(int32_t msqid, void* msgp, uint64_t msgsz, int64_t msgtyp, int32_t msgflg);
-char* libc_unix_bsd_freebsdlike_freebsd_freebsd12_dirname(char* path);
-char* libc_unix_bsd_freebsdlike_freebsd_freebsd12_basename(char* path);
-void libc_unix_bsd_freebsdlike_freebsd_freebsd12_qsortR(void* base, uint64_t num, uint64_t size, void* arg, void* compar);
+void libcUnixBsdFreebsdlikeFreebsdFreebsd12Setgrent(void);
+int32_t libcUnixBsdFreebsdlikeFreebsdFreebsd12Mprotect(void* addr, uint64_t len, int32_t prot);
+void libcUnixBsdFreebsdlikeFreebsdFreebsd12Freelocale(void* loc);
+int64_t libcUnixBsdFreebsdlikeFreebsdFreebsd12Msgrcv(int32_t msqid, void* msgp, uint64_t msgsz, int64_t msgtyp, int32_t msgflg);
+char* libcUnixBsdFreebsdlikeFreebsdFreebsd12Dirname(char* path);
+char* libcUnixBsdFreebsdlikeFreebsdFreebsd12Basename(char* path);
+void libcUnixBsdFreebsdlikeFreebsdFreebsd12QsortR(void* base, uint64_t num, uint64_t size, void* arg, void* compar);
 
 #ifdef __cplusplus
 }

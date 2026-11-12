@@ -9,22 +9,22 @@
 extern "C" {
 #endif
 
-uint64_t libc_new_qurt_signal_signal(int32_t sig, uint64_t handler);
-int32_t libc_new_qurt_signal_kill(int32_t pid, int32_t sig);
-int32_t libc_new_qurt_signal_raise(int32_t sig);
-uint32_t libc_new_qurt_signal_alarm(uint32_t seconds);
-int32_t libc_new_qurt_signal_pause(void);
-int32_t libc_new_qurt_signal_sigemptyset(void* set);
-int32_t libc_new_qurt_signal_sigfillset(void* set);
-int32_t libc_new_qurt_signal_sigaddset(void* set, int32_t signum);
-int32_t libc_new_qurt_signal_sigdelset(void* set, int32_t signum);
-int32_t libc_new_qurt_signal_sigismember(void* set, int32_t signum);
-int32_t libc_new_qurt_signal_sigprocmask(int32_t how, void* set, void* oldset);
-int32_t libc_new_qurt_signal_sigpending(void* set);
-int32_t libc_new_qurt_signal_sigsuspend(void* mask);
-int32_t libc_new_qurt_signal_sigwait(void* set, void* sig);
-int32_t libc_new_qurt_signal_sigaction(int32_t sig, void* act, void* oact);
-int32_t libc_new_qurt_signal_sigtimedwait(void* set, void* info, void* timeout);
+uint64_t libcNewQurtSignalSignal(int32_t sig, uint64_t handler);
+int32_t libcNewQurtSignalKill(int32_t pid, int32_t sig);
+int32_t libcNewQurtSignalRaise(int32_t sig);
+uint32_t libcNewQurtSignalAlarm(uint32_t seconds);
+int32_t libcNewQurtSignalPause(void);
+int32_t libcNewQurtSignalSigemptyset(void* set);
+int32_t libcNewQurtSignalSigfillset(void* set);
+int32_t libcNewQurtSignalSigaddset(void* set, int32_t signum);
+int32_t libcNewQurtSignalSigdelset(void* set, int32_t signum);
+int32_t libcNewQurtSignalSigismember(void* set, int32_t signum);
+int32_t libcNewQurtSignalSigprocmask(int32_t how, void* set, void* oldset);
+int32_t libcNewQurtSignalSigpending(void* set);
+int32_t libcNewQurtSignalSigsuspend(void* mask);
+int32_t libcNewQurtSignalSigwait(void* set, void* sig);
+int32_t libcNewQurtSignalSigaction(int32_t sig, void* act, void* oact);
+int32_t libcNewQurtSignalSigtimedwait(void* set, void* info, void* timeout);
 
 #ifdef __cplusplus
 }

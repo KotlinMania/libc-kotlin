@@ -9,21 +9,21 @@
 extern "C" {
 #endif
 
-int32_t libc_wasi_p2_socket(int32_t domain, int32_t type_, int32_t protocol);
-int32_t libc_wasi_p2_connect(int32_t fd, void* name, uint32_t addrlen);
-int32_t libc_wasi_p2_bind(int32_t arg_0_socket, void* addr, uint32_t addrlen);
-int32_t libc_wasi_p2_listen(int32_t arg_0_socket, int32_t backlog);
-int32_t libc_wasi_p2_accept(int32_t arg_0_socket, void* addr, void* addrlen);
-int32_t libc_wasi_p2_accept4(int32_t arg_0_socket, void* addr, void* addrlen, int32_t flags);
-int32_t libc_wasi_p2_getsockname(int32_t arg_0_socket, void* addr, void* addrlen);
-int32_t libc_wasi_p2_getpeername(int32_t arg_0_socket, void* addr, void* addrlen);
-int64_t libc_wasi_p2_sendto(int32_t arg_0_socket, void* buffer, uint64_t length, int32_t flags, void* addr, uint32_t addrlen);
-int64_t libc_wasi_p2_recvfrom(int32_t arg_0_socket, void* buffer, uint64_t length, int32_t flags, void* addr, void* addrlen);
-int32_t libc_wasi_p2_getsockopt(int32_t sockfd, int32_t level, int32_t optname, void* optval, void* optlen);
-int32_t libc_wasi_p2_setsockopt(int32_t sockfd, int32_t level, int32_t optname, void* optval, uint32_t optlen);
-int32_t libc_wasi_p2_getaddrinfo(const char* host, const char* serv, void* hint, void* res);
-void libc_wasi_p2_freeaddrinfo(void* p);
-const char* libc_wasi_p2_gaiStrerror(int32_t ecode);
+int32_t libcWasiP2Socket(int32_t domain, int32_t type, int32_t protocol);
+int32_t libcWasiP2Connect(int32_t fd, void* name, uint32_t addrlen);
+int32_t libcWasiP2Bind(int32_t arg0Socket, void* addr, uint32_t addrlen);
+int32_t libcWasiP2Listen(int32_t arg0Socket, int32_t backlog);
+int32_t libcWasiP2Accept(int32_t arg0Socket, void* addr, void* addrlen);
+int32_t libcWasiP2Accept4(int32_t arg0Socket, void* addr, void* addrlen, int32_t flags);
+int32_t libcWasiP2Getsockname(int32_t arg0Socket, void* addr, void* addrlen);
+int32_t libcWasiP2Getpeername(int32_t arg0Socket, void* addr, void* addrlen);
+int64_t libcWasiP2Sendto(int32_t arg0Socket, void* buffer, uint64_t length, int32_t flags, void* addr, uint32_t addrlen);
+int64_t libcWasiP2Recvfrom(int32_t arg0Socket, void* buffer, uint64_t length, int32_t flags, void* addr, void* addrlen);
+int32_t libcWasiP2Getsockopt(int32_t sockfd, int32_t level, int32_t optname, void* optval, void* optlen);
+int32_t libcWasiP2Setsockopt(int32_t sockfd, int32_t level, int32_t optname, void* optval, uint32_t optlen);
+int32_t libcWasiP2Getaddrinfo(const char* host, const char* serv, void* hint, void* res);
+void libcWasiP2Freeaddrinfo(void* p);
+const char* libcWasiP2GaiStrerror(int32_t ecode);
 
 #ifdef __cplusplus
 }

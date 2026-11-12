@@ -3,15 +3,18 @@
 package io.github.kotlinmania.libc.wasi
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CDouble
 import io.github.kotlinmania.libc.CFloat
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CLonglong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 private object WasiJniBridge {
     init {
@@ -19,1750 +22,1750 @@ private object WasiJniBridge {
     }
 
     @JvmStatic
-    external fun libc_wasi_get_ENVIRON(): Long
+    external fun libcWasiGetENVIRON(): Long
 
     @JvmStatic
-    external fun libc_wasi_set_ENVIRON(value: Long)
+    external fun libcWasiSetENVIRON(value: Long)
 
     @JvmStatic
-    external fun libc_wasi_get_CLOCK_MONOTONIC1(): Byte
+    external fun libcWasiGetCLOCKMONOTONIC1(): Byte
 
     @JvmStatic
-    external fun libc_wasi_get_CLOCK_REALTIME1(): Byte
+    external fun libcWasiGetCLOCKREALTIME1(): Byte
 
     @JvmStatic
-    external fun libc_wasi_exit(code: Int)
+    external fun libcWasiExit(code: Int)
 
     @JvmStatic
-    external fun libc_wasi_abort()
+    external fun libcWasiAbort()
 
     @JvmStatic
-    external fun libc_wasi_alignedAlloc(a: Long, b: Long): Long
+    external fun libcWasiAlignedAlloc(a: Long, b: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_calloc(amt: Long, amt2: Long): Long
+    external fun libcWasiCalloc(amt: Long, amt2: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_free(ptr: Long)
+    external fun libcWasiFree(ptr: Long)
 
     @JvmStatic
-    external fun libc_wasi_getenv(s: String?): Long
+    external fun libcWasiGetenv(s: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_malloc(amt: Long): Long
+    external fun libcWasiMalloc(amt: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_mallocUsableSize(ptr: Long): Long
+    external fun libcWasiMallocUsableSize(ptr: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_sbrk(increment: Long): Long
+    external fun libcWasiSbrk(increment: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_rand(): Int
+    external fun libcWasiRand(): Int
 
     @JvmStatic
-    external fun libc_wasi_read(fd: Int, ptr: Long, size: Long): Long
+    external fun libcWasiRead(fd: Int, ptr: Long, size: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_realloc(ptr: Long, amt: Long): Long
+    external fun libcWasiRealloc(ptr: Long, amt: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_setenv(k: String?, v: String?, a: Int): Int
+    external fun libcWasiSetenv(k: Long, v: Long, a: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_unsetenv(k: String?): Int
+    external fun libcWasiUnsetenv(k: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_clearenv(): Int
+    external fun libcWasiClearenv(): Int
 
     @JvmStatic
-    external fun libc_wasi_write(fd: Int, ptr: Long, size: Long): Long
+    external fun libcWasiWrite(fd: Int, ptr: Long, size: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_fopen(a: String?, b: String?): Long
+    external fun libcWasiFopen(a: Long, b: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_freopen(a: String?, b: String?, f: Long): Long
+    external fun libcWasiFreopen(a: Long, b: Long, f: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_fclose(f: Long): Int
+    external fun libcWasiFclose(f: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_remove(a: String?): Int
+    external fun libcWasiRemove(a: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_rename(a: String?, b: String?): Int
+    external fun libcWasiRename(a: Long, b: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_feof(f: Long): Int
+    external fun libcWasiFeof(f: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_ferror(f: Long): Int
+    external fun libcWasiFerror(f: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_fflush(f: Long): Int
+    external fun libcWasiFflush(f: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_clearerr(f: Long)
+    external fun libcWasiClearerr(f: Long)
 
     @JvmStatic
-    external fun libc_wasi_fseek(f: Long, b: Long, c: Int): Int
+    external fun libcWasiFseek(f: Long, b: Long, c: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_ftell(f: Long): Long
+    external fun libcWasiFtell(f: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_rewind(f: Long)
+    external fun libcWasiRewind(f: Long)
 
     @JvmStatic
-    external fun libc_wasi_fgetpos(f: Long, pos: Long): Int
+    external fun libcWasiFgetpos(f: Long, pos: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_fsetpos(f: Long, pos: Long): Int
+    external fun libcWasiFsetpos(f: Long, pos: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_fread(buf: Long, a: Long, b: Long, f: Long): Long
+    external fun libcWasiFread(buf: Long, a: Long, b: Long, f: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_fwrite(buf: Long, a: Long, b: Long, f: Long): Long
+    external fun libcWasiFwrite(buf: Long, a: Long, b: Long, f: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_fgetc(f: Long): Int
+    external fun libcWasiFgetc(f: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_getc(f: Long): Int
+    external fun libcWasiGetc(f: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_getchar(): Int
+    external fun libcWasiGetchar(): Int
 
     @JvmStatic
-    external fun libc_wasi_ungetc(a: Int, f: Long): Int
+    external fun libcWasiUngetc(a: Int, f: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_fputc(a: Int, f: Long): Int
+    external fun libcWasiFputc(a: Int, f: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_putc(a: Int, f: Long): Int
+    external fun libcWasiPutc(a: Int, f: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_putchar(a: Int): Int
+    external fun libcWasiPutchar(a: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_fputs(a: String?, f: Long): Int
+    external fun libcWasiFputs(a: Long, f: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_puts(a: String?): Int
+    external fun libcWasiPuts(a: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_perror(a: String?)
+    external fun libcWasiPerror(a: Long)
 
     @JvmStatic
-    external fun libc_wasi_srand(a: Int)
+    external fun libcWasiSrand(a: Int)
 
     @JvmStatic
-    external fun libc_wasi_atexit(a: Long): Int
+    external fun libcWasiAtexit(a: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_atQuickExit(a: Long): Int
+    external fun libcWasiAtQuickExit(a: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_quickExit(a: Int)
+    external fun libcWasiQuickExit(a: Int)
 
     @JvmStatic
-    external fun libc_wasi_posixMemalign(a: Long, b: Long, c: Long): Int
+    external fun libcWasiPosixMemalign(a: Long, b: Long, c: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_randR(a: Long): Int
+    external fun libcWasiRandR(a: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_random(): Long
+    external fun libcWasiRandom(): Long
 
     @JvmStatic
-    external fun libc_wasi_srandom(a: Int)
+    external fun libcWasiSrandom(a: Int)
 
     @JvmStatic
-    external fun libc_wasi_putenv(a: Long): Int
+    external fun libcWasiPutenv(a: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_clock(): Long
+    external fun libcWasiClock(): Long
 
     @JvmStatic
-    external fun libc_wasi_time(a: Long): Long
+    external fun libcWasiTime(a: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_difftime(a: Long, b: Long): Double
+    external fun libcWasiDifftime(a: Long, b: Long): Double
 
     @JvmStatic
-    external fun libc_wasi_mktime(a: Long): Long
+    external fun libcWasiMktime(a: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_strftime(a: Long, b: Long, c: String?, d: Long): Long
+    external fun libcWasiStrftime(a: Long, b: Long, c: Long, d: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_gmtime(a: Long): Long
+    external fun libcWasiGmtime(a: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_gmtimeR(a: Long, b: Long): Long
+    external fun libcWasiGmtimeR(a: Long, b: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_localtime(a: Long): Long
+    external fun libcWasiLocaltime(a: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_localtimeR(a: Long, b: Long): Long
+    external fun libcWasiLocaltimeR(a: Long, b: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_asctimeR(a: Long, b: Long): Long
+    external fun libcWasiAsctimeR(a: Long, b: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_ctimeR(a: Long, b: Long): Long
+    external fun libcWasiCtimeR(a: Long, b: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_nanosleep(a: Long, b: Long): Int
+    external fun libcWasiNanosleep(a: Long, b: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_isalnum(c: Int): Int
+    external fun libcWasiIsalnum(c: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_isalpha(c: Int): Int
+    external fun libcWasiIsalpha(c: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_iscntrl(c: Int): Int
+    external fun libcWasiIscntrl(c: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_isdigit(c: Int): Int
+    external fun libcWasiIsdigit(c: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_isgraph(c: Int): Int
+    external fun libcWasiIsgraph(c: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_islower(c: Int): Int
+    external fun libcWasiIslower(c: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_isprint(c: Int): Int
+    external fun libcWasiIsprint(c: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_ispunct(c: Int): Int
+    external fun libcWasiIspunct(c: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_isspace(c: Int): Int
+    external fun libcWasiIsspace(c: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_isupper(c: Int): Int
+    external fun libcWasiIsupper(c: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_isxdigit(c: Int): Int
+    external fun libcWasiIsxdigit(c: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_isblank(c: Int): Int
+    external fun libcWasiIsblank(c: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_tolower(c: Int): Int
+    external fun libcWasiTolower(c: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_toupper(c: Int): Int
+    external fun libcWasiToupper(c: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_setvbuf(stream: Long, buffer: Long, mode: Int, size: Long): Int
+    external fun libcWasiSetvbuf(stream: Long, buffer: Long, mode: Int, size: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_setbuf(stream: Long, buf: Long)
+    external fun libcWasiSetbuf(stream: Long, buf: Long)
 
     @JvmStatic
-    external fun libc_wasi_fgets(buf: Long, n: Int, stream: Long): Long
+    external fun libcWasiFgets(buf: Long, n: Int, stream: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_atof(s: String?): Double
+    external fun libcWasiAtof(s: Long): Double
 
     @JvmStatic
-    external fun libc_wasi_atoi(s: String?): Int
+    external fun libcWasiAtoi(s: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_atol(s: String?): Long
+    external fun libcWasiAtol(s: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_atoll(s: String?): Long
+    external fun libcWasiAtoll(s: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_strtod(s: String?, endp: Long): Double
+    external fun libcWasiStrtod(s: Long, endp: Long): Double
 
     @JvmStatic
-    external fun libc_wasi_strtof(s: String?, endp: Long): Float
+    external fun libcWasiStrtof(s: Long, endp: Long): Float
 
     @JvmStatic
-    external fun libc_wasi_strtol(s: String?, endp: Long, base: Int): Long
+    external fun libcWasiStrtol(s: Long, endp: Long, base: Int): Long
 
     @JvmStatic
-    external fun libc_wasi_strtoll(s: String?, endp: Long, base: Int): Long
+    external fun libcWasiStrtoll(s: Long, endp: Long, base: Int): Long
 
     @JvmStatic
-    external fun libc_wasi_strtoul(s: String?, endp: Long, base: Int): Long
+    external fun libcWasiStrtoul(s: Long, endp: Long, base: Int): Long
 
     @JvmStatic
-    external fun libc_wasi_strtoull(s: String?, endp: Long, base: Int): Long
+    external fun libcWasiStrtoull(s: Long, endp: Long, base: Int): Long
 
     @JvmStatic
-    external fun libc_wasi_strcpy(dst: Long, src: String?): Long
+    external fun libcWasiStrcpy(dst: Long, src: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_strncpy(dst: Long, src: String?, n: Long): Long
+    external fun libcWasiStrncpy(dst: Long, src: Long, n: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_strcat(s: Long, ct: String?): Long
+    external fun libcWasiStrcat(s: Long, ct: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_strncat(s: Long, ct: String?, n: Long): Long
+    external fun libcWasiStrncat(s: Long, ct: Long, n: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_strcmp(cs: String?, ct: String?): Int
+    external fun libcWasiStrcmp(cs: Long, ct: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_strncmp(cs: String?, ct: String?, n: Long): Int
+    external fun libcWasiStrncmp(cs: Long, ct: Long, n: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_strcoll(cs: String?, ct: String?): Int
+    external fun libcWasiStrcoll(cs: Long, ct: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_strchr(cs: String?, c: Int): Long
+    external fun libcWasiStrchr(cs: Long, c: Int): Long
 
     @JvmStatic
-    external fun libc_wasi_strrchr(cs: String?, c: Int): Long
+    external fun libcWasiStrrchr(cs: Long, c: Int): Long
 
     @JvmStatic
-    external fun libc_wasi_strspn(cs: String?, ct: String?): Long
+    external fun libcWasiStrspn(cs: Long, ct: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_strcspn(cs: String?, ct: String?): Long
+    external fun libcWasiStrcspn(cs: Long, ct: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_strdup(cs: String?): Long
+    external fun libcWasiStrdup(cs: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_strndup(cs: String?, n: Long): Long
+    external fun libcWasiStrndup(cs: Long, n: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_strpbrk(cs: String?, ct: String?): Long
+    external fun libcWasiStrpbrk(cs: Long, ct: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_strstr(cs: String?, ct: String?): Long
+    external fun libcWasiStrstr(cs: Long, ct: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_strcasecmp(s1: String?, s2: String?): Int
+    external fun libcWasiStrcasecmp(s1: Long, s2: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_strncasecmp(s1: String?, s2: String?, n: Long): Int
+    external fun libcWasiStrncasecmp(s1: Long, s2: Long, n: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_strlen(cs: String?): Long
+    external fun libcWasiStrlen(cs: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_strnlen(cs: String?, maxlen: Long): Long
+    external fun libcWasiStrnlen(cs: Long, maxlen: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_strerror(n: Int): Long
+    external fun libcWasiStrerror(n: Int): Long
 
     @JvmStatic
-    external fun libc_wasi_strtok(s: Long, t: String?): Long
+    external fun libcWasiStrtok(s: Long, t: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_strxfrm(s: Long, ct: String?, n: Long): Long
+    external fun libcWasiStrxfrm(s: Long, ct: Long, n: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_memchr(cx: Long, c: Int, n: Long): Long
+    external fun libcWasiMemchr(cx: Long, c: Int, n: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_memcmp(cx: Long, ct: Long, n: Long): Int
+    external fun libcWasiMemcmp(cx: Long, ct: Long, n: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_memcpy(dest: Long, src: Long, n: Long): Long
+    external fun libcWasiMemcpy(dest: Long, src: Long, n: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_memmove(dest: Long, src: Long, n: Long): Long
+    external fun libcWasiMemmove(dest: Long, src: Long, n: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_memset(dest: Long, c: Int, n: Long): Long
+    external fun libcWasiMemset(dest: Long, c: Int, n: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_fprintf(stream: Long, format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcWasiFprintf(stream: Long, format: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_printf(format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcWasiPrintf(format: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_snprintf(s: Long, n: Long, format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcWasiSnprintf(s: Long, n: Long, format: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_sprintf(s: Long, format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcWasiSprintf(s: Long, format: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_fscanf(stream: Long, format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcWasiFscanf(stream: Long, format: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_scanf(format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcWasiScanf(format: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_sscanf(s: String?, format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcWasiSscanf(s: Long, format: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_getcharUnlocked(): Int
+    external fun libcWasiGetcharUnlocked(): Int
 
     @JvmStatic
-    external fun libc_wasi_putcharUnlocked(c: Int): Int
+    external fun libcWasiPutcharUnlocked(c: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_shutdown(socket: Int, how: Int): Int
+    external fun libcWasiShutdown(socket: Int, how: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_fstat(fildes: Int, buf: Long): Int
+    external fun libcWasiFstat(fildes: Int, buf: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_mkdir(path: String?, mode: Int): Int
+    external fun libcWasiMkdir(path: Long, mode: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_stat(path: String?, buf: Long): Int
+    external fun libcWasiStat(path: Long, buf: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_fdopen(fd: Int, mode: String?): Long
+    external fun libcWasiFdopen(fd: Int, mode: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_fileno(stream: Long): Int
+    external fun libcWasiFileno(stream: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_open(path: String?, oflag: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcWasiOpen(path: Long, oflag: Int, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_creat(path: String?, mode: Int): Int
+    external fun libcWasiCreat(path: Long, mode: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_fcntl(fd: Int, cmd: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcWasiFcntl(fd: Int, cmd: Int, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_opendir(dirname: String?): Long
+    external fun libcWasiOpendir(dirname: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_fdopendir(fd: Int): Long
+    external fun libcWasiFdopendir(fd: Int): Long
 
     @JvmStatic
-    external fun libc_wasi_readdir(dirp: Long): Long
+    external fun libcWasiReaddir(dirp: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_closedir(dirp: Long): Int
+    external fun libcWasiClosedir(dirp: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_rewinddir(dirp: Long)
+    external fun libcWasiRewinddir(dirp: Long)
 
     @JvmStatic
-    external fun libc_wasi_dirfd(dirp: Long): Int
+    external fun libcWasiDirfd(dirp: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_seekdir(dirp: Long, loc: Long)
+    external fun libcWasiSeekdir(dirp: Long, loc: Long)
 
     @JvmStatic
-    external fun libc_wasi_telldir(dirp: Long): Long
+    external fun libcWasiTelldir(dirp: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_openat(dirfd: Int, pathname: String?, flags: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcWasiOpenat(dirfd: Int, pathname: Long, flags: Int, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_fstatat(dirfd: Int, pathname: String?, buf: Long, flags: Int): Int
+    external fun libcWasiFstatat(dirfd: Int, pathname: Long, buf: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_linkat(olddirfd: Int, oldpath: String?, newdirfd: Int, newpath: String?, flags: Int): Int
+    external fun libcWasiLinkat(olddirfd: Int, oldpath: Long, newdirfd: Int, newpath: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_mkdirat(dirfd: Int, pathname: String?, mode: Int): Int
+    external fun libcWasiMkdirat(dirfd: Int, pathname: Long, mode: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_readlinkat(dirfd: Int, pathname: String?, buf: Long, bufsiz: Long): Long
+    external fun libcWasiReadlinkat(dirfd: Int, pathname: Long, buf: Long, bufsiz: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_renameat(olddirfd: Int, oldpath: String?, newdirfd: Int, newpath: String?): Int
+    external fun libcWasiRenameat(olddirfd: Int, oldpath: Long, newdirfd: Int, newpath: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_symlinkat(target: String?, newdirfd: Int, linkpath: String?): Int
+    external fun libcWasiSymlinkat(target: Long, newdirfd: Int, linkpath: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_unlinkat(dirfd: Int, pathname: String?, flags: Int): Int
+    external fun libcWasiUnlinkat(dirfd: Int, pathname: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_access(path: String?, amode: Int): Int
+    external fun libcWasiAccess(path: Long, amode: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_close(fd: Int): Int
+    external fun libcWasiClose(fd: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_fpathconf(filedes: Int, name: Int): Long
+    external fun libcWasiFpathconf(filedes: Int, name: Int): Long
 
     @JvmStatic
-    external fun libc_wasi_getopt(argc: Int, argv: Long, optstr: String?): Int
+    external fun libcWasiGetopt(argc: Int, argv: Long, optstr: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_isatty(fd: Int): Int
+    external fun libcWasiIsatty(fd: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_link(src: String?, dst: String?): Int
+    external fun libcWasiLink(src: Long, dst: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_lseek(fd: Int, offset: Long, whence: Int): Long
+    external fun libcWasiLseek(fd: Int, offset: Long, whence: Int): Long
 
     @JvmStatic
-    external fun libc_wasi_pathconf(path: String?, name: Int): Long
+    external fun libcWasiPathconf(path: Long, name: Int): Long
 
     @JvmStatic
-    external fun libc_wasi_rmdir(path: String?): Int
+    external fun libcWasiRmdir(path: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_sleep(secs: Int): Int
+    external fun libcWasiSleep(secs: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_unlink(c: String?): Int
+    external fun libcWasiUnlink(c: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_pread(fd: Int, buf: Long, count: Long, offset: Long): Long
+    external fun libcWasiPread(fd: Int, buf: Long, count: Long, offset: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_pwrite(fd: Int, buf: Long, count: Long, offset: Long): Long
+    external fun libcWasiPwrite(fd: Int, buf: Long, count: Long, offset: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_lstat(path: String?, buf: Long): Int
+    external fun libcWasiLstat(path: Long, buf: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_fsync(fd: Int): Int
+    external fun libcWasiFsync(fd: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_fdatasync(fd: Int): Int
+    external fun libcWasiFdatasync(fd: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_symlink(path1: String?, path2: String?): Int
+    external fun libcWasiSymlink(path1: Long, path2: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_truncate(path: String?, length: Long): Int
+    external fun libcWasiTruncate(path: Long, length: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_ftruncate(fd: Int, length: Long): Int
+    external fun libcWasiFtruncate(fd: Int, length: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_getrusage(resource: Int, usage: Long): Int
+    external fun libcWasiGetrusage(resource: Int, usage: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_gettimeofday(tp: Long, tz: Long): Int
+    external fun libcWasiGettimeofday(tp: Long, tz: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_times(buf: Long): Long
+    external fun libcWasiTimes(buf: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_strerrorR(errnum: Int, buf: Long, buflen: Long): Int
+    external fun libcWasiStrerrorR(errnum: Int, buf: Long, buflen: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_usleep(secs: Int): Int
+    external fun libcWasiUsleep(secs: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_send(socket: Int, buf: Long, len: Long, flags: Int): Long
+    external fun libcWasiSend(socket: Int, buf: Long, len: Long, flags: Int): Long
 
     @JvmStatic
-    external fun libc_wasi_recv(socket: Int, buf: Long, len: Long, flags: Int): Long
+    external fun libcWasiRecv(socket: Int, buf: Long, len: Long, flags: Int): Long
 
     @JvmStatic
-    external fun libc_wasi_poll(fds: Long, nfds: Long, timeout: Int): Int
+    external fun libcWasiPoll(fds: Long, nfds: Long, timeout: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_setlocale(category: Int, locale: String?): Long
+    external fun libcWasiSetlocale(category: Int, locale: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_localeconv(): Long
+    external fun libcWasiLocaleconv(): Long
 
     @JvmStatic
-    external fun libc_wasi_readlink(path: String?, buf: Long, bufsz: Long): Long
+    external fun libcWasiReadlink(path: Long, buf: Long, bufsz: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_timegm(tm: Long): Long
+    external fun libcWasiTimegm(tm: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_sysconf(name: Int): Long
+    external fun libcWasiSysconf(name: Int): Long
 
     @JvmStatic
-    external fun libc_wasi_ioctl(fd: Int, request: Int, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcWasiIoctl(fd: Int, request: Int, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_fseeko(stream: Long, offset: Long, whence: Int): Int
+    external fun libcWasiFseeko(stream: Long, offset: Long, whence: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_ftello(stream: Long): Long
+    external fun libcWasiFtello(stream: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_posixFallocate(fd: Int, offset: Long, len: Long): Int
+    external fun libcWasiPosixFallocate(fd: Int, offset: Long, len: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_strcasestr(cs: String?, ct: String?): Long
+    external fun libcWasiStrcasestr(cs: Long, ct: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_getline(lineptr: Long, n: Long, stream: Long): Long
+    external fun libcWasiGetline(lineptr: Long, n: Long, stream: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_faccessat(dirfd: Int, pathname: String?, mode: Int, flags: Int): Int
+    external fun libcWasiFaccessat(dirfd: Int, pathname: Long, mode: Int, flags: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_writev(fd: Int, iov: Long, iovcnt: Int): Long
+    external fun libcWasiWritev(fd: Int, iov: Long, iovcnt: Int): Long
 
     @JvmStatic
-    external fun libc_wasi_readv(fd: Int, iov: Long, iovcnt: Int): Long
+    external fun libcWasiReadv(fd: Int, iov: Long, iovcnt: Int): Long
 
     @JvmStatic
-    external fun libc_wasi_pwritev(fd: Int, iov: Long, iovcnt: Int, offset: Long): Long
+    external fun libcWasiPwritev(fd: Int, iov: Long, iovcnt: Int, offset: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_preadv(fd: Int, iov: Long, iovcnt: Int, offset: Long): Long
+    external fun libcWasiPreadv(fd: Int, iov: Long, iovcnt: Int, offset: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_posixFadvise(fd: Int, offset: Long, len: Long, advise: Int): Int
+    external fun libcWasiPosixFadvise(fd: Int, offset: Long, len: Long, advise: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_futimens(fd: Int, times: Long): Int
+    external fun libcWasiFutimens(fd: Int, times: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_utimensat(dirfd: Int, path: String?, times: Long, flag: Int): Int
+    external fun libcWasiUtimensat(dirfd: Int, path: Long, times: Long, flag: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_getentropy(buf: Long, buflen: Long): Int
+    external fun libcWasiGetentropy(buf: Long, buflen: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_memrchr(cx: Long, c: Int, n: Long): Long
+    external fun libcWasiMemrchr(cx: Long, c: Int, n: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_abs(i: Int): Int
+    external fun libcWasiAbs(i: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_labs(i: Long): Long
+    external fun libcWasiLabs(i: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_duplocale(base: Long): Long
+    external fun libcWasiDuplocale(base: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_freelocale(loc: Long)
+    external fun libcWasiFreelocale(loc: Long)
 
     @JvmStatic
-    external fun libc_wasi_newlocale(mask: Int, locale: String?, base: Long): Long
+    external fun libcWasiNewlocale(mask: Int, locale: Long, base: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_uselocale(loc: Long): Long
+    external fun libcWasiUselocale(loc: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_schedYield(): Int
+    external fun libcWasiSchedYield(): Int
 
     @JvmStatic
-    external fun libc_wasi_getcwd(buf: Long, size: Long): Long
+    external fun libcWasiGetcwd(buf: Long, size: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_chdir(dir: String?): Int
+    external fun libcWasiChdir(dir: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_nlLanginfo(item: Int): Long
+    external fun libcWasiNlLanginfo(item: Int): Long
 
     @JvmStatic
-    external fun libc_wasi_nlLanginfoL(item: Int, loc: Long): Long
+    external fun libcWasiNlLanginfoL(item: Int, loc: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_select(nfds: Int, readfds: Long, writefds: Long, errorfds: Long, timeout: Long): Int
+    external fun libcWasiSelect(nfds: Int, readfds: Long, writefds: Long, errorfds: Long, timeout: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_wasilibcRegisterPreopenedFd(fd: Int, path: String?): Int
+    external fun libcWasiWasilibcRegisterPreopenedFd(fd: Int, path: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_wasilibcFdRenumber(fd: Int, newfd: Int): Int
+    external fun libcWasiWasilibcFdRenumber(fd: Int, newfd: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_wasilibcUnlinkat(fd: Int, path: String?): Int
+    external fun libcWasiWasilibcUnlinkat(fd: Int, path: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_wasilibcRmdirat(fd: Int, path: String?): Int
+    external fun libcWasiWasilibcRmdirat(fd: Int, path: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_wasilibcFindRelpath(path: String?, absPrefix: Long, relativePath: Long, relativePathLen: Long): Int
+    external fun libcWasiWasilibcFindRelpath(path: Long, absPrefix: Long, relativePath: Long, relativePathLen: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_wasilibcTell(fd: Int): Long
+    external fun libcWasiWasilibcTell(fd: Int): Long
 
     @JvmStatic
-    external fun libc_wasi_wasilibcNocwdWasilibcUnlinkat(dirfd: Int, path: String?): Int
+    external fun libcWasiWasilibcNocwdWasilibcUnlinkat(dirfd: Int, path: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_wasilibcNocwdWasilibcRmdirat(dirfd: Int, path: String?): Int
+    external fun libcWasiWasilibcNocwdWasilibcRmdirat(dirfd: Int, path: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_wasilibcNocwdLinkat(olddirfd: Int, oldpath: String?, newdirfd: Int, newpath: String?, flags: Int): Int
+    external fun libcWasiWasilibcNocwdLinkat(olddirfd: Int, oldpath: Long, newdirfd: Int, newpath: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_wasilibcNocwdSymlinkat(target: String?, dirfd: Int, path: String?): Int
+    external fun libcWasiWasilibcNocwdSymlinkat(target: Long, dirfd: Int, path: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_wasilibcNocwdReadlinkat(dirfd: Int, path: String?, buf: Long, bufsize: Long): Long
+    external fun libcWasiWasilibcNocwdReadlinkat(dirfd: Int, path: Long, buf: Long, bufsize: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_wasilibcNocwdFaccessat(dirfd: Int, path: String?, mode: Int, flags: Int): Int
+    external fun libcWasiWasilibcNocwdFaccessat(dirfd: Int, path: Long, mode: Int, flags: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_wasilibcNocwdRenameat(olddirfd: Int, oldpath: String?, newdirfd: Int, newpath: String?): Int
+    external fun libcWasiWasilibcNocwdRenameat(olddirfd: Int, oldpath: Long, newdirfd: Int, newpath: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_wasilibcNocwdOpenatNomode(dirfd: Int, path: String?, flags: Int): Int
+    external fun libcWasiWasilibcNocwdOpenatNomode(dirfd: Int, path: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_wasilibcNocwdFstatat(dirfd: Int, path: String?, buf: Long, flags: Int): Int
+    external fun libcWasiWasilibcNocwdFstatat(dirfd: Int, path: Long, buf: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_wasilibcNocwdMkdiratNomode(dirfd: Int, path: String?): Int
+    external fun libcWasiWasilibcNocwdMkdiratNomode(dirfd: Int, path: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_wasilibcNocwdUtimensat(dirfd: Int, path: String?, times: Long, flags: Int): Int
+    external fun libcWasiWasilibcNocwdUtimensat(dirfd: Int, path: Long, times: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_wasilibcNocwdOpendirat(dirfd: Int, path: String?): Long
+    external fun libcWasiWasilibcNocwdOpendirat(dirfd: Int, path: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_wasilibcAccess(pathname: String?, mode: Int, flags: Int): Int
+    external fun libcWasiWasilibcAccess(pathname: Long, mode: Int, flags: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_wasilibcStat(pathname: String?, buf: Long, flags: Int): Int
+    external fun libcWasiWasilibcStat(pathname: Long, buf: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_wasilibcUtimens(pathname: String?, times: Long, flags: Int): Int
+    external fun libcWasiWasilibcUtimens(pathname: Long, times: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_wasilibcLink(oldpath: String?, newpath: String?, flags: Int): Int
+    external fun libcWasiWasilibcLink(oldpath: Long, newpath: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_wasilibcLinkOldat(olddirfd: Int, oldpath: String?, newpath: String?, flags: Int): Int
+    external fun libcWasiWasilibcLinkOldat(olddirfd: Int, oldpath: Long, newpath: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_wasilibcLinkNewat(oldpath: String?, newdirfd: Int, newpath: String?, flags: Int): Int
+    external fun libcWasiWasilibcLinkNewat(oldpath: Long, newdirfd: Int, newpath: Long, flags: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_wasilibcRenameOldat(olddirfd: Int, oldpath: String?, newpath: String?): Int
+    external fun libcWasiWasilibcRenameOldat(olddirfd: Int, oldpath: Long, newpath: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_wasilibcRenameNewat(oldpath: String?, newdirfd: Int, newpath: String?): Int
+    external fun libcWasiWasilibcRenameNewat(oldpath: Long, newdirfd: Int, newpath: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_arc4random(): Int
+    external fun libcWasiArc4random(): Int
 
     @JvmStatic
-    external fun libc_wasi_arc4randomBuf(a: Long, b: Long)
+    external fun libcWasiArc4randomBuf(a: Long, b: Long)
 
     @JvmStatic
-    external fun libc_wasi_arc4randomUniform(a: Int): Int
+    external fun libcWasiArc4randomUniform(a: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_errnoLocation(): Long
+    external fun libcWasiErrnoLocation(): Long
 
     @JvmStatic
-    external fun libc_wasi_chmod(path: String?, mode: Int): Int
+    external fun libcWasiChmod(path: Long, mode: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_fchmod(fd: Int, mode: Int): Int
+    external fun libcWasiFchmod(fd: Int, mode: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_realpath(pathname: String?, resolved: Long): Long
+    external fun libcWasiRealpath(pathname: Long, resolved: Long): Long
 
     @JvmStatic
-    external fun libc_wasi_pthreadSelf(): Long
+    external fun libcWasiPthreadSelf(): Long
 
     @JvmStatic
-    external fun libc_wasi_pthreadCreate(native: Long, attr: Long, f: Long, value: Long): Int
+    external fun libcWasiPthreadCreate(native: Long, attr: Long, f: Long, value: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_pthreadEqual(t1: Long, t2: Long): Int
+    external fun libcWasiPthreadEqual(t1: Long, t2: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_pthreadJoin(native: Long, value: Long): Int
+    external fun libcWasiPthreadJoin(native: Long, value: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_pthreadAttrInit(attr: Long): Int
+    external fun libcWasiPthreadAttrInit(attr: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_pthreadAttrDestroy(attr: Long): Int
+    external fun libcWasiPthreadAttrDestroy(attr: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_pthreadAttrGetstacksize(attr: Long, stacksize: Long): Int
+    external fun libcWasiPthreadAttrGetstacksize(attr: Long, stacksize: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_pthreadAttrSetstacksize(attr: Long, stackSize: Long): Int
+    external fun libcWasiPthreadAttrSetstacksize(attr: Long, stackSize: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_pthreadAttrSetdetachstate(attr: Long, state: Int): Int
+    external fun libcWasiPthreadAttrSetdetachstate(attr: Long, state: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_pthreadDetach(thread: Long): Int
+    external fun libcWasiPthreadDetach(thread: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_pthreadKeyCreate(key: Long, dtor: Long): Int
+    external fun libcWasiPthreadKeyCreate(key: Long, dtor: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_pthreadKeyDelete(key: Int): Int
+    external fun libcWasiPthreadKeyDelete(key: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_pthreadGetspecific(key: Int): Long
+    external fun libcWasiPthreadGetspecific(key: Int): Long
 
     @JvmStatic
-    external fun libc_wasi_pthreadSetspecific(key: Int, value: Long): Int
+    external fun libcWasiPthreadSetspecific(key: Int, value: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_pthreadMutexInit(lock: Long, attr: Long): Int
+    external fun libcWasiPthreadMutexInit(lock: Long, attr: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_pthreadMutexDestroy(lock: Long): Int
+    external fun libcWasiPthreadMutexDestroy(lock: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_pthreadMutexLock(lock: Long): Int
+    external fun libcWasiPthreadMutexLock(lock: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_pthreadMutexTrylock(lock: Long): Int
+    external fun libcWasiPthreadMutexTrylock(lock: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_pthreadMutexUnlock(lock: Long): Int
+    external fun libcWasiPthreadMutexUnlock(lock: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_pthreadMutexattrInit(attr: Long): Int
+    external fun libcWasiPthreadMutexattrInit(attr: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_pthreadMutexattrDestroy(attr: Long): Int
+    external fun libcWasiPthreadMutexattrDestroy(attr: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_pthreadMutexattrSettype(attr: Long, type: Int): Int
+    external fun libcWasiPthreadMutexattrSettype(attr: Long, type: Int): Int
 
     @JvmStatic
-    external fun libc_wasi_pthreadCondInit(cond: Long, attr: Long): Int
+    external fun libcWasiPthreadCondInit(cond: Long, attr: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_pthreadCondWait(cond: Long, lock: Long): Int
+    external fun libcWasiPthreadCondWait(cond: Long, lock: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_pthreadCondTimedwait(cond: Long, lock: Long, abstime: Long): Int
+    external fun libcWasiPthreadCondTimedwait(cond: Long, lock: Long, abstime: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_pthreadCondSignal(cond: Long): Int
+    external fun libcWasiPthreadCondSignal(cond: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_pthreadCondBroadcast(cond: Long): Int
+    external fun libcWasiPthreadCondBroadcast(cond: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_pthreadCondDestroy(cond: Long): Int
+    external fun libcWasiPthreadCondDestroy(cond: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_pthreadCondattrInit(attr: Long): Int
+    external fun libcWasiPthreadCondattrInit(attr: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_pthreadCondattrDestroy(attr: Long): Int
+    external fun libcWasiPthreadCondattrDestroy(attr: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_pthreadRwlockInit(lock: Long, attr: Long): Int
+    external fun libcWasiPthreadRwlockInit(lock: Long, attr: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_pthreadRwlockDestroy(lock: Long): Int
+    external fun libcWasiPthreadRwlockDestroy(lock: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_pthreadRwlockRdlock(lock: Long): Int
+    external fun libcWasiPthreadRwlockRdlock(lock: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_pthreadRwlockTryrdlock(lock: Long): Int
+    external fun libcWasiPthreadRwlockTryrdlock(lock: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_pthreadRwlockWrlock(lock: Long): Int
+    external fun libcWasiPthreadRwlockWrlock(lock: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_pthreadRwlockTrywrlock(lock: Long): Int
+    external fun libcWasiPthreadRwlockTrywrlock(lock: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_pthreadRwlockUnlock(lock: Long): Int
+    external fun libcWasiPthreadRwlockUnlock(lock: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_pthreadRwlockattrInit(attr: Long): Int
+    external fun libcWasiPthreadRwlockattrInit(attr: Long): Int
 
     @JvmStatic
-    external fun libc_wasi_pthreadRwlockattrDestroy(attr: Long): Int
+    external fun libcWasiPthreadRwlockattrDestroy(attr: Long): Int
 }
 
-public actual var ENVIRON: COpaquePointer?
-    get() = WasiJniBridge.libc_wasi_get_ENVIRON().let { if (it == 0L) null else COpaquePointer(it) }
+public actual var ENVIRON: MutPtr<MutPtr<CChar>>
+    get() = MutPtr(WasiJniBridge.libcWasiGetENVIRON())
     set(value) {
-        WasiJniBridge.libc_wasi_set_ENVIRON((value?.value ?: 0L))
+        WasiJniBridge.libcWasiSetENVIRON(value.rawAddress)
     }
 
 public actual val CLOCK_MONOTONIC1: UByte
-    get() = WasiJniBridge.libc_wasi_get_CLOCK_MONOTONIC1().toUByte()
+    get() = WasiJniBridge.libcWasiGetCLOCKMONOTONIC1().toUByte()
 
 public actual val CLOCK_REALTIME1: UByte
-    get() = WasiJniBridge.libc_wasi_get_CLOCK_REALTIME1().toUByte()
+    get() = WasiJniBridge.libcWasiGetCLOCKREALTIME1().toUByte()
 
 public actual fun exit(code: CInt): Nothing {
-    WasiJniBridge.libc_wasi_exit(code)
+    WasiJniBridge.libcWasiExit(code)
     error("Unreachable noreturn C function exit")
 }
 
 public actual fun abort(): Nothing {
-    WasiJniBridge.libc_wasi_abort()
+    WasiJniBridge.libcWasiAbort()
     error("Unreachable noreturn C function abort")
 }
 
-public actual fun alignedAlloc(a: SizeT, b: SizeT): COpaquePointer? =
-    WasiJniBridge.libc_wasi_alignedAlloc(a.toLong(), b.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun alignedAlloc(a: SizeT, b: SizeT): MutPtr<CVoid> =
+    MutPtr(WasiJniBridge.libcWasiAlignedAlloc(a.toLong(), b.toLong()))
 
-public actual fun calloc(amt: SizeT, amt2: SizeT): COpaquePointer? =
-    WasiJniBridge.libc_wasi_calloc(amt.toLong(), amt2.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun calloc(amt: SizeT, amt2: SizeT): MutPtr<CVoid> =
+    MutPtr(WasiJniBridge.libcWasiCalloc(amt.toLong(), amt2.toLong()))
 
-public actual fun free(ptr: COpaquePointer?) {
-    WasiJniBridge.libc_wasi_free((ptr?.value ?: 0L))
+public actual fun free(ptr: MutPtr<CVoid>) {
+    WasiJniBridge.libcWasiFree(ptr.rawAddress)
 }
 
-public actual fun getenv(s: String?): COpaquePointer? =
-    WasiJniBridge.libc_wasi_getenv(s).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getenv(s: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(WasiJniBridge.libcWasiGetenv(s.rawAddress))
 
-public actual fun malloc(amt: SizeT): COpaquePointer? =
-    WasiJniBridge.libc_wasi_malloc(amt.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun malloc(amt: SizeT): MutPtr<CVoid> =
+    MutPtr(WasiJniBridge.libcWasiMalloc(amt.toLong()))
 
-public actual fun mallocUsableSize(ptr: COpaquePointer?): SizeT =
-    WasiJniBridge.libc_wasi_mallocUsableSize((ptr?.value ?: 0L)).toULong()
+public actual fun mallocUsableSize(ptr: MutPtr<CVoid>): SizeT =
+    WasiJniBridge.libcWasiMallocUsableSize(ptr.rawAddress).toULong()
 
-public actual fun sbrk(increment: IntptrT): COpaquePointer? =
-    WasiJniBridge.libc_wasi_sbrk(increment).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun sbrk(increment: IntptrT): MutPtr<CVoid> =
+    MutPtr(WasiJniBridge.libcWasiSbrk(increment))
 
 public actual fun rand(): CInt =
-    WasiJniBridge.libc_wasi_rand()
+    WasiJniBridge.libcWasiRand()
 
-public actual fun read(fd: CInt, ptr: COpaquePointer?, size: SizeT): SsizeT =
-    WasiJniBridge.libc_wasi_read(fd, (ptr?.value ?: 0L), size.toLong())
+public actual fun read(fd: CInt, ptr: MutPtr<CVoid>, size: SizeT): SsizeT =
+    WasiJniBridge.libcWasiRead(fd, ptr.rawAddress, size.toLong())
 
-public actual fun realloc(ptr: COpaquePointer?, amt: SizeT): COpaquePointer? =
-    WasiJniBridge.libc_wasi_realloc((ptr?.value ?: 0L), amt.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun realloc(ptr: MutPtr<CVoid>, amt: SizeT): MutPtr<CVoid> =
+    MutPtr(WasiJniBridge.libcWasiRealloc(ptr.rawAddress, amt.toLong()))
 
-public actual fun setenv(k: String?, v: String?, a: CInt): CInt =
-    WasiJniBridge.libc_wasi_setenv(k, v, a)
+public actual fun setenv(k: ConstPtr<CChar>, v: ConstPtr<CChar>, a: CInt): CInt =
+    WasiJniBridge.libcWasiSetenv(k.rawAddress, v.rawAddress, a)
 
-public actual fun unsetenv(k: String?): CInt =
-    WasiJniBridge.libc_wasi_unsetenv(k)
+public actual fun unsetenv(k: ConstPtr<CChar>): CInt =
+    WasiJniBridge.libcWasiUnsetenv(k.rawAddress)
 
 public actual fun clearenv(): CInt =
-    WasiJniBridge.libc_wasi_clearenv()
+    WasiJniBridge.libcWasiClearenv()
 
-public actual fun write(fd: CInt, ptr: COpaquePointer?, size: SizeT): SsizeT =
-    WasiJniBridge.libc_wasi_write(fd, (ptr?.value ?: 0L), size.toLong())
+public actual fun write(fd: CInt, ptr: ConstPtr<CVoid>, size: SizeT): SsizeT =
+    WasiJniBridge.libcWasiWrite(fd, ptr.rawAddress, size.toLong())
 
-public actual fun fopen(a: String?, b: String?): FILE? =
-    WasiJniBridge.libc_wasi_fopen(a, b).let { if (it == 0L) null else FILE(it) }
+public actual fun fopen(a: ConstPtr<CChar>, b: ConstPtr<CChar>): MutPtr<FILE> =
+    MutPtr(WasiJniBridge.libcWasiFopen(a.rawAddress, b.rawAddress))
 
-public actual fun freopen(a: String?, b: String?, f: FILE?): FILE? =
-    WasiJniBridge.libc_wasi_freopen(a, b, (f?.handle ?: 0L)).let { if (it == 0L) null else FILE(it) }
+public actual fun freopen(a: ConstPtr<CChar>, b: ConstPtr<CChar>, f: MutPtr<FILE>): MutPtr<FILE> =
+    MutPtr(WasiJniBridge.libcWasiFreopen(a.rawAddress, b.rawAddress, f.rawAddress))
 
-public actual fun fclose(f: FILE?): CInt =
-    WasiJniBridge.libc_wasi_fclose((f?.handle ?: 0L))
+public actual fun fclose(f: MutPtr<FILE>): CInt =
+    WasiJniBridge.libcWasiFclose(f.rawAddress)
 
-public actual fun remove(a: String?): CInt =
-    WasiJniBridge.libc_wasi_remove(a)
+public actual fun remove(a: ConstPtr<CChar>): CInt =
+    WasiJniBridge.libcWasiRemove(a.rawAddress)
 
-public actual fun rename(a: String?, b: String?): CInt =
-    WasiJniBridge.libc_wasi_rename(a, b)
+public actual fun rename(a: ConstPtr<CChar>, b: ConstPtr<CChar>): CInt =
+    WasiJniBridge.libcWasiRename(a.rawAddress, b.rawAddress)
 
-public actual fun feof(f: FILE?): CInt =
-    WasiJniBridge.libc_wasi_feof((f?.handle ?: 0L))
+public actual fun feof(f: MutPtr<FILE>): CInt =
+    WasiJniBridge.libcWasiFeof(f.rawAddress)
 
-public actual fun ferror(f: FILE?): CInt =
-    WasiJniBridge.libc_wasi_ferror((f?.handle ?: 0L))
+public actual fun ferror(f: MutPtr<FILE>): CInt =
+    WasiJniBridge.libcWasiFerror(f.rawAddress)
 
-public actual fun fflush(f: FILE?): CInt =
-    WasiJniBridge.libc_wasi_fflush((f?.handle ?: 0L))
+public actual fun fflush(f: MutPtr<FILE>): CInt =
+    WasiJniBridge.libcWasiFflush(f.rawAddress)
 
-public actual fun clearerr(f: FILE?) {
-    WasiJniBridge.libc_wasi_clearerr((f?.handle ?: 0L))
+public actual fun clearerr(f: MutPtr<FILE>) {
+    WasiJniBridge.libcWasiClearerr(f.rawAddress)
 }
 
-public actual fun fseek(f: FILE?, b: CLong, c: CInt): CInt =
-    WasiJniBridge.libc_wasi_fseek((f?.handle ?: 0L), b, c)
+public actual fun fseek(f: MutPtr<FILE>, b: CLong, c: CInt): CInt =
+    WasiJniBridge.libcWasiFseek(f.rawAddress, b, c)
 
-public actual fun ftell(f: FILE?): CLong =
-    WasiJniBridge.libc_wasi_ftell((f?.handle ?: 0L))
+public actual fun ftell(f: MutPtr<FILE>): CLong =
+    WasiJniBridge.libcWasiFtell(f.rawAddress)
 
-public actual fun rewind(f: FILE?) {
-    WasiJniBridge.libc_wasi_rewind((f?.handle ?: 0L))
+public actual fun rewind(f: MutPtr<FILE>) {
+    WasiJniBridge.libcWasiRewind(f.rawAddress)
 }
 
-public actual fun fgetpos(f: FILE?, pos: COpaquePointer?): CInt =
-    WasiJniBridge.libc_wasi_fgetpos((f?.handle ?: 0L), (pos?.value ?: 0L))
+public actual fun fgetpos(f: MutPtr<FILE>, pos: MutPtr<FposT>): CInt =
+    WasiJniBridge.libcWasiFgetpos(f.rawAddress, pos.rawAddress)
 
-public actual fun fsetpos(f: FILE?, pos: COpaquePointer?): CInt =
-    WasiJniBridge.libc_wasi_fsetpos((f?.handle ?: 0L), (pos?.value ?: 0L))
+public actual fun fsetpos(f: MutPtr<FILE>, pos: ConstPtr<FposT>): CInt =
+    WasiJniBridge.libcWasiFsetpos(f.rawAddress, pos.rawAddress)
 
-public actual fun fread(buf: COpaquePointer?, a: SizeT, b: SizeT, f: FILE?): SizeT =
-    WasiJniBridge.libc_wasi_fread((buf?.value ?: 0L), a.toLong(), b.toLong(), (f?.handle ?: 0L)).toULong()
+public actual fun fread(buf: MutPtr<CVoid>, a: SizeT, b: SizeT, f: MutPtr<FILE>): SizeT =
+    WasiJniBridge.libcWasiFread(buf.rawAddress, a.toLong(), b.toLong(), f.rawAddress).toULong()
 
-public actual fun fwrite(buf: COpaquePointer?, a: SizeT, b: SizeT, f: FILE?): SizeT =
-    WasiJniBridge.libc_wasi_fwrite((buf?.value ?: 0L), a.toLong(), b.toLong(), (f?.handle ?: 0L)).toULong()
+public actual fun fwrite(buf: ConstPtr<CVoid>, a: SizeT, b: SizeT, f: MutPtr<FILE>): SizeT =
+    WasiJniBridge.libcWasiFwrite(buf.rawAddress, a.toLong(), b.toLong(), f.rawAddress).toULong()
 
-public actual fun fgetc(f: FILE?): CInt =
-    WasiJniBridge.libc_wasi_fgetc((f?.handle ?: 0L))
+public actual fun fgetc(f: MutPtr<FILE>): CInt =
+    WasiJniBridge.libcWasiFgetc(f.rawAddress)
 
-public actual fun getc(f: FILE?): CInt =
-    WasiJniBridge.libc_wasi_getc((f?.handle ?: 0L))
+public actual fun getc(f: MutPtr<FILE>): CInt =
+    WasiJniBridge.libcWasiGetc(f.rawAddress)
 
 public actual fun getchar(): CInt =
-    WasiJniBridge.libc_wasi_getchar()
+    WasiJniBridge.libcWasiGetchar()
 
-public actual fun ungetc(a: CInt, f: FILE?): CInt =
-    WasiJniBridge.libc_wasi_ungetc(a, (f?.handle ?: 0L))
+public actual fun ungetc(a: CInt, f: MutPtr<FILE>): CInt =
+    WasiJniBridge.libcWasiUngetc(a, f.rawAddress)
 
-public actual fun fputc(a: CInt, f: FILE?): CInt =
-    WasiJniBridge.libc_wasi_fputc(a, (f?.handle ?: 0L))
+public actual fun fputc(a: CInt, f: MutPtr<FILE>): CInt =
+    WasiJniBridge.libcWasiFputc(a, f.rawAddress)
 
-public actual fun putc(a: CInt, f: FILE?): CInt =
-    WasiJniBridge.libc_wasi_putc(a, (f?.handle ?: 0L))
+public actual fun putc(a: CInt, f: MutPtr<FILE>): CInt =
+    WasiJniBridge.libcWasiPutc(a, f.rawAddress)
 
 public actual fun putchar(a: CInt): CInt =
-    WasiJniBridge.libc_wasi_putchar(a)
+    WasiJniBridge.libcWasiPutchar(a)
 
-public actual fun fputs(a: String?, f: FILE?): CInt =
-    WasiJniBridge.libc_wasi_fputs(a, (f?.handle ?: 0L))
+public actual fun fputs(a: ConstPtr<CChar>, f: MutPtr<FILE>): CInt =
+    WasiJniBridge.libcWasiFputs(a.rawAddress, f.rawAddress)
 
-public actual fun puts(a: String?): CInt =
-    WasiJniBridge.libc_wasi_puts(a)
+public actual fun puts(a: ConstPtr<CChar>): CInt =
+    WasiJniBridge.libcWasiPuts(a.rawAddress)
 
-public actual fun perror(a: String?) {
-    WasiJniBridge.libc_wasi_perror(a)
+public actual fun perror(a: ConstPtr<CChar>) {
+    WasiJniBridge.libcWasiPerror(a.rawAddress)
 }
 
 public actual fun srand(a: CUint) {
-    WasiJniBridge.libc_wasi_srand(a.toInt())
+    WasiJniBridge.libcWasiSrand(a.toInt())
 }
 
 public actual fun atexit(a: AtexitACallback): CInt =
-    WasiJniBridge.libc_wasi_atexit(0L)
+    WasiJniBridge.libcWasiAtexit(0L)
 
 public actual fun atQuickExit(a: AtexitACallback): CInt =
-    WasiJniBridge.libc_wasi_atQuickExit(0L)
+    WasiJniBridge.libcWasiAtQuickExit(0L)
 
 public actual fun quickExit(a: CInt): Nothing {
-    WasiJniBridge.libc_wasi_quickExit(a)
+    WasiJniBridge.libcWasiQuickExit(a)
     error("Unreachable noreturn C function quickExit")
 }
 
-public actual fun posixMemalign(a: COpaquePointer?, b: SizeT, c: SizeT): CInt =
-    WasiJniBridge.libc_wasi_posixMemalign((a?.value ?: 0L), b.toLong(), c.toLong())
+public actual fun posixMemalign(a: MutPtr<MutPtr<CVoid>>, b: SizeT, c: SizeT): CInt =
+    WasiJniBridge.libcWasiPosixMemalign(a.rawAddress, b.toLong(), c.toLong())
 
-public actual fun randR(a: COpaquePointer?): CInt =
-    WasiJniBridge.libc_wasi_randR((a?.value ?: 0L))
+public actual fun randR(a: MutPtr<CUint>): CInt =
+    WasiJniBridge.libcWasiRandR(a.rawAddress)
 
 public actual fun random(): CLong =
-    WasiJniBridge.libc_wasi_random()
+    WasiJniBridge.libcWasiRandom()
 
 public actual fun srandom(a: CUint) {
-    WasiJniBridge.libc_wasi_srandom(a.toInt())
+    WasiJniBridge.libcWasiSrandom(a.toInt())
 }
 
-public actual fun putenv(a: COpaquePointer?): CInt =
-    WasiJniBridge.libc_wasi_putenv((a?.value ?: 0L))
+public actual fun putenv(a: MutPtr<CChar>): CInt =
+    WasiJniBridge.libcWasiPutenv(a.rawAddress)
 
 public actual fun clock(): ClockT =
-    WasiJniBridge.libc_wasi_clock()
+    WasiJniBridge.libcWasiClock()
 
-public actual fun time(a: COpaquePointer?): TimeT =
-    WasiJniBridge.libc_wasi_time((a?.value ?: 0L))
+public actual fun time(a: MutPtr<TimeT>): TimeT =
+    WasiJniBridge.libcWasiTime(a.rawAddress)
 
 public actual fun difftime(a: TimeT, b: TimeT): CDouble =
-    WasiJniBridge.libc_wasi_difftime(a, b)
+    WasiJniBridge.libcWasiDifftime(a, b)
 
-public actual fun mktime(a: COpaquePointer?): TimeT =
-    WasiJniBridge.libc_wasi_mktime((a?.value ?: 0L))
+public actual fun mktime(a: MutPtr<Tm>): TimeT =
+    WasiJniBridge.libcWasiMktime(a.rawAddress)
 
-public actual fun strftime(a: COpaquePointer?, b: SizeT, c: String?, d: COpaquePointer?): SizeT =
-    WasiJniBridge.libc_wasi_strftime((a?.value ?: 0L), b.toLong(), c, (d?.value ?: 0L)).toULong()
+public actual fun strftime(a: MutPtr<CChar>, b: SizeT, c: ConstPtr<CChar>, d: ConstPtr<Tm>): SizeT =
+    WasiJniBridge.libcWasiStrftime(a.rawAddress, b.toLong(), c.rawAddress, d.rawAddress).toULong()
 
-public actual fun gmtime(a: COpaquePointer?): COpaquePointer? =
-    WasiJniBridge.libc_wasi_gmtime((a?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun gmtime(a: ConstPtr<TimeT>): MutPtr<Tm> =
+    MutPtr(WasiJniBridge.libcWasiGmtime(a.rawAddress))
 
-public actual fun gmtimeR(a: COpaquePointer?, b: COpaquePointer?): COpaquePointer? =
-    WasiJniBridge.libc_wasi_gmtimeR((a?.value ?: 0L), (b?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun gmtimeR(a: ConstPtr<TimeT>, b: MutPtr<Tm>): MutPtr<Tm> =
+    MutPtr(WasiJniBridge.libcWasiGmtimeR(a.rawAddress, b.rawAddress))
 
-public actual fun localtime(a: COpaquePointer?): COpaquePointer? =
-    WasiJniBridge.libc_wasi_localtime((a?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun localtime(a: ConstPtr<TimeT>): MutPtr<Tm> =
+    MutPtr(WasiJniBridge.libcWasiLocaltime(a.rawAddress))
 
-public actual fun localtimeR(a: COpaquePointer?, b: COpaquePointer?): COpaquePointer? =
-    WasiJniBridge.libc_wasi_localtimeR((a?.value ?: 0L), (b?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun localtimeR(a: ConstPtr<TimeT>, b: MutPtr<Tm>): MutPtr<Tm> =
+    MutPtr(WasiJniBridge.libcWasiLocaltimeR(a.rawAddress, b.rawAddress))
 
-public actual fun asctimeR(a: COpaquePointer?, b: COpaquePointer?): COpaquePointer? =
-    WasiJniBridge.libc_wasi_asctimeR((a?.value ?: 0L), (b?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun asctimeR(a: ConstPtr<Tm>, b: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(WasiJniBridge.libcWasiAsctimeR(a.rawAddress, b.rawAddress))
 
-public actual fun ctimeR(a: COpaquePointer?, b: COpaquePointer?): COpaquePointer? =
-    WasiJniBridge.libc_wasi_ctimeR((a?.value ?: 0L), (b?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun ctimeR(a: ConstPtr<TimeT>, b: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(WasiJniBridge.libcWasiCtimeR(a.rawAddress, b.rawAddress))
 
-public actual fun nanosleep(a: COpaquePointer?, b: COpaquePointer?): CInt =
-    WasiJniBridge.libc_wasi_nanosleep((a?.value ?: 0L), (b?.value ?: 0L))
+public actual fun nanosleep(a: ConstPtr<Timespec>, b: MutPtr<Timespec>): CInt =
+    WasiJniBridge.libcWasiNanosleep(a.rawAddress, b.rawAddress)
 
-public actual fun clockGetres(a: ClockidT, b: COpaquePointer?): CInt =
+public actual fun clockGetres(a: ClockidT, b: MutPtr<Timespec>): CInt =
     0
 
-public actual fun clockGettime(a: ClockidT, b: COpaquePointer?): CInt =
+public actual fun clockGettime(a: ClockidT, b: MutPtr<Timespec>): CInt =
     0
 
-public actual fun clockNanosleep(a: ClockidT, a2: CInt, b: COpaquePointer?, c: COpaquePointer?): CInt =
+public actual fun clockNanosleep(a: ClockidT, a2: CInt, b: ConstPtr<Timespec>, c: MutPtr<Timespec>): CInt =
     0
 
 public actual fun isalnum(c: CInt): CInt =
-    WasiJniBridge.libc_wasi_isalnum(c)
+    WasiJniBridge.libcWasiIsalnum(c)
 
 public actual fun isalpha(c: CInt): CInt =
-    WasiJniBridge.libc_wasi_isalpha(c)
+    WasiJniBridge.libcWasiIsalpha(c)
 
 public actual fun iscntrl(c: CInt): CInt =
-    WasiJniBridge.libc_wasi_iscntrl(c)
+    WasiJniBridge.libcWasiIscntrl(c)
 
 public actual fun isdigit(c: CInt): CInt =
-    WasiJniBridge.libc_wasi_isdigit(c)
+    WasiJniBridge.libcWasiIsdigit(c)
 
 public actual fun isgraph(c: CInt): CInt =
-    WasiJniBridge.libc_wasi_isgraph(c)
+    WasiJniBridge.libcWasiIsgraph(c)
 
 public actual fun islower(c: CInt): CInt =
-    WasiJniBridge.libc_wasi_islower(c)
+    WasiJniBridge.libcWasiIslower(c)
 
 public actual fun isprint(c: CInt): CInt =
-    WasiJniBridge.libc_wasi_isprint(c)
+    WasiJniBridge.libcWasiIsprint(c)
 
 public actual fun ispunct(c: CInt): CInt =
-    WasiJniBridge.libc_wasi_ispunct(c)
+    WasiJniBridge.libcWasiIspunct(c)
 
 public actual fun isspace(c: CInt): CInt =
-    WasiJniBridge.libc_wasi_isspace(c)
+    WasiJniBridge.libcWasiIsspace(c)
 
 public actual fun isupper(c: CInt): CInt =
-    WasiJniBridge.libc_wasi_isupper(c)
+    WasiJniBridge.libcWasiIsupper(c)
 
 public actual fun isxdigit(c: CInt): CInt =
-    WasiJniBridge.libc_wasi_isxdigit(c)
+    WasiJniBridge.libcWasiIsxdigit(c)
 
 public actual fun isblank(c: CInt): CInt =
-    WasiJniBridge.libc_wasi_isblank(c)
+    WasiJniBridge.libcWasiIsblank(c)
 
 public actual fun tolower(c: CInt): CInt =
-    WasiJniBridge.libc_wasi_tolower(c)
+    WasiJniBridge.libcWasiTolower(c)
 
 public actual fun toupper(c: CInt): CInt =
-    WasiJniBridge.libc_wasi_toupper(c)
+    WasiJniBridge.libcWasiToupper(c)
 
-public actual fun setvbuf(stream: FILE?, buffer: COpaquePointer?, mode: CInt, size: SizeT): CInt =
-    WasiJniBridge.libc_wasi_setvbuf((stream?.handle ?: 0L), (buffer?.value ?: 0L), mode, size.toLong())
+public actual fun setvbuf(stream: MutPtr<FILE>, buffer: MutPtr<CChar>, mode: CInt, size: SizeT): CInt =
+    WasiJniBridge.libcWasiSetvbuf(stream.rawAddress, buffer.rawAddress, mode, size.toLong())
 
-public actual fun setbuf(stream: FILE?, buf: COpaquePointer?) {
-    WasiJniBridge.libc_wasi_setbuf((stream?.handle ?: 0L), (buf?.value ?: 0L))
+public actual fun setbuf(stream: MutPtr<FILE>, buf: MutPtr<CChar>) {
+    WasiJniBridge.libcWasiSetbuf(stream.rawAddress, buf.rawAddress)
 }
 
-public actual fun fgets(buf: COpaquePointer?, n: CInt, stream: FILE?): COpaquePointer? =
-    WasiJniBridge.libc_wasi_fgets((buf?.value ?: 0L), n, (stream?.handle ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun fgets(buf: MutPtr<CChar>, n: CInt, stream: MutPtr<FILE>): MutPtr<CChar> =
+    MutPtr(WasiJniBridge.libcWasiFgets(buf.rawAddress, n, stream.rawAddress))
 
-public actual fun atof(s: String?): CDouble =
-    WasiJniBridge.libc_wasi_atof(s)
+public actual fun atof(s: ConstPtr<CChar>): CDouble =
+    WasiJniBridge.libcWasiAtof(s.rawAddress)
 
-public actual fun atoi(s: String?): CInt =
-    WasiJniBridge.libc_wasi_atoi(s)
+public actual fun atoi(s: ConstPtr<CChar>): CInt =
+    WasiJniBridge.libcWasiAtoi(s.rawAddress)
 
-public actual fun atol(s: String?): CLong =
-    WasiJniBridge.libc_wasi_atol(s)
+public actual fun atol(s: ConstPtr<CChar>): CLong =
+    WasiJniBridge.libcWasiAtol(s.rawAddress)
 
-public actual fun atoll(s: String?): CLonglong =
-    WasiJniBridge.libc_wasi_atoll(s)
+public actual fun atoll(s: ConstPtr<CChar>): CLonglong =
+    WasiJniBridge.libcWasiAtoll(s.rawAddress)
 
-public actual fun strtod(s: String?, endp: COpaquePointer?): CDouble =
-    WasiJniBridge.libc_wasi_strtod(s, (endp?.value ?: 0L))
+public actual fun strtod(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>): CDouble =
+    WasiJniBridge.libcWasiStrtod(s.rawAddress, endp.rawAddress)
 
-public actual fun strtof(s: String?, endp: COpaquePointer?): CFloat =
-    WasiJniBridge.libc_wasi_strtof(s, (endp?.value ?: 0L))
+public actual fun strtof(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>): CFloat =
+    WasiJniBridge.libcWasiStrtof(s.rawAddress, endp.rawAddress)
 
-public actual fun strtol(s: String?, endp: COpaquePointer?, base: CInt): CLong =
-    WasiJniBridge.libc_wasi_strtol(s, (endp?.value ?: 0L), base)
+public actual fun strtol(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CLong =
+    WasiJniBridge.libcWasiStrtol(s.rawAddress, endp.rawAddress, base)
 
-public actual fun strtoll(s: String?, endp: COpaquePointer?, base: CInt): CLonglong =
-    WasiJniBridge.libc_wasi_strtoll(s, (endp?.value ?: 0L), base)
+public actual fun strtoll(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CLonglong =
+    WasiJniBridge.libcWasiStrtoll(s.rawAddress, endp.rawAddress, base)
 
-public actual fun strtoul(s: String?, endp: COpaquePointer?, base: CInt): CUlong =
-    WasiJniBridge.libc_wasi_strtoul(s, (endp?.value ?: 0L), base).toULong()
+public actual fun strtoul(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CUlong =
+    WasiJniBridge.libcWasiStrtoul(s.rawAddress, endp.rawAddress, base).toULong()
 
-public actual fun strtoull(s: String?, endp: COpaquePointer?, base: CInt): CUlonglong =
-    WasiJniBridge.libc_wasi_strtoull(s, (endp?.value ?: 0L), base).toULong()
+public actual fun strtoull(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CUlonglong =
+    WasiJniBridge.libcWasiStrtoull(s.rawAddress, endp.rawAddress, base).toULong()
 
-public actual fun strcpy(dst: COpaquePointer?, src: String?): COpaquePointer? =
-    WasiJniBridge.libc_wasi_strcpy((dst?.value ?: 0L), src).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun strcpy(dst: MutPtr<CChar>, src: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(WasiJniBridge.libcWasiStrcpy(dst.rawAddress, src.rawAddress))
 
-public actual fun strncpy(dst: COpaquePointer?, src: String?, n: SizeT): COpaquePointer? =
-    WasiJniBridge.libc_wasi_strncpy((dst?.value ?: 0L), src, n.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun strncpy(dst: MutPtr<CChar>, src: ConstPtr<CChar>, n: SizeT): MutPtr<CChar> =
+    MutPtr(WasiJniBridge.libcWasiStrncpy(dst.rawAddress, src.rawAddress, n.toLong()))
 
-public actual fun strcat(s: COpaquePointer?, ct: String?): COpaquePointer? =
-    WasiJniBridge.libc_wasi_strcat((s?.value ?: 0L), ct).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun strcat(s: MutPtr<CChar>, ct: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(WasiJniBridge.libcWasiStrcat(s.rawAddress, ct.rawAddress))
 
-public actual fun strncat(s: COpaquePointer?, ct: String?, n: SizeT): COpaquePointer? =
-    WasiJniBridge.libc_wasi_strncat((s?.value ?: 0L), ct, n.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun strncat(s: MutPtr<CChar>, ct: ConstPtr<CChar>, n: SizeT): MutPtr<CChar> =
+    MutPtr(WasiJniBridge.libcWasiStrncat(s.rawAddress, ct.rawAddress, n.toLong()))
 
-public actual fun strcmp(cs: String?, ct: String?): CInt =
-    WasiJniBridge.libc_wasi_strcmp(cs, ct)
+public actual fun strcmp(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): CInt =
+    WasiJniBridge.libcWasiStrcmp(cs.rawAddress, ct.rawAddress)
 
-public actual fun strncmp(cs: String?, ct: String?, n: SizeT): CInt =
-    WasiJniBridge.libc_wasi_strncmp(cs, ct, n.toLong())
+public actual fun strncmp(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>, n: SizeT): CInt =
+    WasiJniBridge.libcWasiStrncmp(cs.rawAddress, ct.rawAddress, n.toLong())
 
-public actual fun strcoll(cs: String?, ct: String?): CInt =
-    WasiJniBridge.libc_wasi_strcoll(cs, ct)
+public actual fun strcoll(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): CInt =
+    WasiJniBridge.libcWasiStrcoll(cs.rawAddress, ct.rawAddress)
 
-public actual fun strchr(cs: String?, c: CInt): COpaquePointer? =
-    WasiJniBridge.libc_wasi_strchr(cs, c).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun strchr(cs: ConstPtr<CChar>, c: CInt): MutPtr<CChar> =
+    MutPtr(WasiJniBridge.libcWasiStrchr(cs.rawAddress, c))
 
-public actual fun strrchr(cs: String?, c: CInt): COpaquePointer? =
-    WasiJniBridge.libc_wasi_strrchr(cs, c).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun strrchr(cs: ConstPtr<CChar>, c: CInt): MutPtr<CChar> =
+    MutPtr(WasiJniBridge.libcWasiStrrchr(cs.rawAddress, c))
 
-public actual fun strspn(cs: String?, ct: String?): SizeT =
-    WasiJniBridge.libc_wasi_strspn(cs, ct).toULong()
+public actual fun strspn(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): SizeT =
+    WasiJniBridge.libcWasiStrspn(cs.rawAddress, ct.rawAddress).toULong()
 
-public actual fun strcspn(cs: String?, ct: String?): SizeT =
-    WasiJniBridge.libc_wasi_strcspn(cs, ct).toULong()
+public actual fun strcspn(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): SizeT =
+    WasiJniBridge.libcWasiStrcspn(cs.rawAddress, ct.rawAddress).toULong()
 
-public actual fun strdup(cs: String?): COpaquePointer? =
-    WasiJniBridge.libc_wasi_strdup(cs).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun strdup(cs: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(WasiJniBridge.libcWasiStrdup(cs.rawAddress))
 
-public actual fun strndup(cs: String?, n: SizeT): COpaquePointer? =
-    WasiJniBridge.libc_wasi_strndup(cs, n.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun strndup(cs: ConstPtr<CChar>, n: SizeT): MutPtr<CChar> =
+    MutPtr(WasiJniBridge.libcWasiStrndup(cs.rawAddress, n.toLong()))
 
-public actual fun strpbrk(cs: String?, ct: String?): COpaquePointer? =
-    WasiJniBridge.libc_wasi_strpbrk(cs, ct).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun strpbrk(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(WasiJniBridge.libcWasiStrpbrk(cs.rawAddress, ct.rawAddress))
 
-public actual fun strstr(cs: String?, ct: String?): COpaquePointer? =
-    WasiJniBridge.libc_wasi_strstr(cs, ct).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun strstr(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(WasiJniBridge.libcWasiStrstr(cs.rawAddress, ct.rawAddress))
 
-public actual fun strcasecmp(s1: String?, s2: String?): CInt =
-    WasiJniBridge.libc_wasi_strcasecmp(s1, s2)
+public actual fun strcasecmp(s1: ConstPtr<CChar>, s2: ConstPtr<CChar>): CInt =
+    WasiJniBridge.libcWasiStrcasecmp(s1.rawAddress, s2.rawAddress)
 
-public actual fun strncasecmp(s1: String?, s2: String?, n: SizeT): CInt =
-    WasiJniBridge.libc_wasi_strncasecmp(s1, s2, n.toLong())
+public actual fun strncasecmp(s1: ConstPtr<CChar>, s2: ConstPtr<CChar>, n: SizeT): CInt =
+    WasiJniBridge.libcWasiStrncasecmp(s1.rawAddress, s2.rawAddress, n.toLong())
 
-public actual fun strlen(cs: String?): SizeT =
-    WasiJniBridge.libc_wasi_strlen(cs).toULong()
+public actual fun strlen(cs: ConstPtr<CChar>): SizeT =
+    WasiJniBridge.libcWasiStrlen(cs.rawAddress).toULong()
 
-public actual fun strnlen(cs: String?, maxlen: SizeT): SizeT =
-    WasiJniBridge.libc_wasi_strnlen(cs, maxlen.toLong()).toULong()
+public actual fun strnlen(cs: ConstPtr<CChar>, maxlen: SizeT): SizeT =
+    WasiJniBridge.libcWasiStrnlen(cs.rawAddress, maxlen.toLong()).toULong()
 
-public actual fun strerror(n: CInt): COpaquePointer? =
-    WasiJniBridge.libc_wasi_strerror(n).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun strerror(n: CInt): MutPtr<CChar> =
+    MutPtr(WasiJniBridge.libcWasiStrerror(n))
 
-public actual fun strtok(s: COpaquePointer?, t: String?): COpaquePointer? =
-    WasiJniBridge.libc_wasi_strtok((s?.value ?: 0L), t).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun strtok(s: MutPtr<CChar>, t: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(WasiJniBridge.libcWasiStrtok(s.rawAddress, t.rawAddress))
 
-public actual fun strxfrm(s: COpaquePointer?, ct: String?, n: SizeT): SizeT =
-    WasiJniBridge.libc_wasi_strxfrm((s?.value ?: 0L), ct, n.toLong()).toULong()
+public actual fun strxfrm(s: MutPtr<CChar>, ct: ConstPtr<CChar>, n: SizeT): SizeT =
+    WasiJniBridge.libcWasiStrxfrm(s.rawAddress, ct.rawAddress, n.toLong()).toULong()
 
-public actual fun memchr(cx: COpaquePointer?, c: CInt, n: SizeT): COpaquePointer? =
-    WasiJniBridge.libc_wasi_memchr((cx?.value ?: 0L), c, n.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun memchr(cx: ConstPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+    MutPtr(WasiJniBridge.libcWasiMemchr(cx.rawAddress, c, n.toLong()))
 
-public actual fun memcmp(cx: COpaquePointer?, ct: COpaquePointer?, n: SizeT): CInt =
-    WasiJniBridge.libc_wasi_memcmp((cx?.value ?: 0L), (ct?.value ?: 0L), n.toLong())
+public actual fun memcmp(cx: ConstPtr<CVoid>, ct: ConstPtr<CVoid>, n: SizeT): CInt =
+    WasiJniBridge.libcWasiMemcmp(cx.rawAddress, ct.rawAddress, n.toLong())
 
-public actual fun memcpy(dest: COpaquePointer?, src: COpaquePointer?, n: SizeT): COpaquePointer? =
-    WasiJniBridge.libc_wasi_memcpy((dest?.value ?: 0L), (src?.value ?: 0L), n.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun memcpy(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, n: SizeT): MutPtr<CVoid> =
+    MutPtr(WasiJniBridge.libcWasiMemcpy(dest.rawAddress, src.rawAddress, n.toLong()))
 
-public actual fun memmove(dest: COpaquePointer?, src: COpaquePointer?, n: SizeT): COpaquePointer? =
-    WasiJniBridge.libc_wasi_memmove((dest?.value ?: 0L), (src?.value ?: 0L), n.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun memmove(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, n: SizeT): MutPtr<CVoid> =
+    MutPtr(WasiJniBridge.libcWasiMemmove(dest.rawAddress, src.rawAddress, n.toLong()))
 
-public actual fun memset(dest: COpaquePointer?, c: CInt, n: SizeT): COpaquePointer? =
-    WasiJniBridge.libc_wasi_memset((dest?.value ?: 0L), c, n.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun memset(dest: MutPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+    MutPtr(WasiJniBridge.libcWasiMemset(dest.rawAddress, c, n.toLong()))
 
-public actual fun fprintf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
-    WasiJniBridge.libc_wasi_fprintf((stream?.handle ?: 0L), format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun fprintf(stream: MutPtr<FILE>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    WasiJniBridge.libcWasiFprintf(stream.rawAddress, format.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun printf(format: String?, vararg variadicArgs: Long): CInt =
-    WasiJniBridge.libc_wasi_printf(format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun printf(format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    WasiJniBridge.libcWasiPrintf(format.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun snprintf(s: COpaquePointer?, n: SizeT, format: String?, vararg variadicArgs: Long): CInt =
-    WasiJniBridge.libc_wasi_snprintf((s?.value ?: 0L), n.toLong(), format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun snprintf(s: MutPtr<CChar>, n: SizeT, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    WasiJniBridge.libcWasiSnprintf(s.rawAddress, n.toLong(), format.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun sprintf(s: COpaquePointer?, format: String?, vararg variadicArgs: Long): CInt =
-    WasiJniBridge.libc_wasi_sprintf((s?.value ?: 0L), format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun sprintf(s: MutPtr<CChar>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    WasiJniBridge.libcWasiSprintf(s.rawAddress, format.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun fscanf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
-    WasiJniBridge.libc_wasi_fscanf((stream?.handle ?: 0L), format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun fscanf(stream: MutPtr<FILE>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    WasiJniBridge.libcWasiFscanf(stream.rawAddress, format.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun scanf(format: String?, vararg variadicArgs: Long): CInt =
-    WasiJniBridge.libc_wasi_scanf(format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun scanf(format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    WasiJniBridge.libcWasiScanf(format.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun sscanf(s: String?, format: String?, vararg variadicArgs: Long): CInt =
-    WasiJniBridge.libc_wasi_sscanf(s, format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun sscanf(s: ConstPtr<CChar>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    WasiJniBridge.libcWasiSscanf(s.rawAddress, format.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun getcharUnlocked(): CInt =
-    WasiJniBridge.libc_wasi_getcharUnlocked()
+    WasiJniBridge.libcWasiGetcharUnlocked()
 
 public actual fun putcharUnlocked(c: CInt): CInt =
-    WasiJniBridge.libc_wasi_putcharUnlocked(c)
+    WasiJniBridge.libcWasiPutcharUnlocked(c)
 
 public actual fun shutdown(socket: CInt, how: CInt): CInt =
-    WasiJniBridge.libc_wasi_shutdown(socket, how)
+    WasiJniBridge.libcWasiShutdown(socket, how)
 
-public actual fun fstat(fildes: CInt, buf: COpaquePointer?): CInt =
-    WasiJniBridge.libc_wasi_fstat(fildes, (buf?.value ?: 0L))
+public actual fun fstat(fildes: CInt, buf: MutPtr<Stat>): CInt =
+    WasiJniBridge.libcWasiFstat(fildes, buf.rawAddress)
 
-public actual fun mkdir(path: String?, mode: ModeT): CInt =
-    WasiJniBridge.libc_wasi_mkdir(path, mode.toInt())
+public actual fun mkdir(path: ConstPtr<CChar>, mode: ModeT): CInt =
+    WasiJniBridge.libcWasiMkdir(path.rawAddress, mode.toInt())
 
-public actual fun stat(path: String?, buf: COpaquePointer?): CInt =
-    WasiJniBridge.libc_wasi_stat(path, (buf?.value ?: 0L))
+public actual fun stat(path: ConstPtr<CChar>, buf: MutPtr<Stat>): CInt =
+    WasiJniBridge.libcWasiStat(path.rawAddress, buf.rawAddress)
 
-public actual fun fdopen(fd: CInt, mode: String?): FILE? =
-    WasiJniBridge.libc_wasi_fdopen(fd, mode).let { if (it == 0L) null else FILE(it) }
+public actual fun fdopen(fd: CInt, mode: ConstPtr<CChar>): MutPtr<FILE> =
+    MutPtr(WasiJniBridge.libcWasiFdopen(fd, mode.rawAddress))
 
-public actual fun fileno(stream: FILE?): CInt =
-    WasiJniBridge.libc_wasi_fileno((stream?.handle ?: 0L))
+public actual fun fileno(stream: MutPtr<FILE>): CInt =
+    WasiJniBridge.libcWasiFileno(stream.rawAddress)
 
-public actual fun open(path: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
-    WasiJniBridge.libc_wasi_open(path, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun open(path: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): CInt =
+    WasiJniBridge.libcWasiOpen(path.rawAddress, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun creat(path: String?, mode: ModeT): CInt =
-    WasiJniBridge.libc_wasi_creat(path, mode.toInt())
+public actual fun creat(path: ConstPtr<CChar>, mode: ModeT): CInt =
+    WasiJniBridge.libcWasiCreat(path.rawAddress, mode.toInt())
 
 public actual fun fcntl(fd: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
-    WasiJniBridge.libc_wasi_fcntl(fd, cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+    WasiJniBridge.libcWasiFcntl(fd, cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun opendir(dirname: String?): DIR? =
-    WasiJniBridge.libc_wasi_opendir(dirname).let { if (it == 0L) null else DIR(it) }
+public actual fun opendir(dirname: ConstPtr<CChar>): MutPtr<DIR> =
+    MutPtr(WasiJniBridge.libcWasiOpendir(dirname.rawAddress))
 
-public actual fun fdopendir(fd: CInt): DIR? =
-    WasiJniBridge.libc_wasi_fdopendir(fd).let { if (it == 0L) null else DIR(it) }
+public actual fun fdopendir(fd: CInt): MutPtr<DIR> =
+    MutPtr(WasiJniBridge.libcWasiFdopendir(fd))
 
-public actual fun readdir(dirp: DIR?): COpaquePointer? =
-    WasiJniBridge.libc_wasi_readdir((dirp?.handle ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun readdir(dirp: MutPtr<DIR>): MutPtr<Dirent> =
+    MutPtr(WasiJniBridge.libcWasiReaddir(dirp.rawAddress))
 
-public actual fun closedir(dirp: DIR?): CInt =
-    WasiJniBridge.libc_wasi_closedir((dirp?.handle ?: 0L))
+public actual fun closedir(dirp: MutPtr<DIR>): CInt =
+    WasiJniBridge.libcWasiClosedir(dirp.rawAddress)
 
-public actual fun rewinddir(dirp: DIR?) {
-    WasiJniBridge.libc_wasi_rewinddir((dirp?.handle ?: 0L))
+public actual fun rewinddir(dirp: MutPtr<DIR>) {
+    WasiJniBridge.libcWasiRewinddir(dirp.rawAddress)
 }
 
-public actual fun dirfd(dirp: DIR?): CInt =
-    WasiJniBridge.libc_wasi_dirfd((dirp?.handle ?: 0L))
+public actual fun dirfd(dirp: MutPtr<DIR>): CInt =
+    WasiJniBridge.libcWasiDirfd(dirp.rawAddress)
 
-public actual fun seekdir(dirp: DIR?, loc: CLong) {
-    WasiJniBridge.libc_wasi_seekdir((dirp?.handle ?: 0L), loc)
+public actual fun seekdir(dirp: MutPtr<DIR>, loc: CLong) {
+    WasiJniBridge.libcWasiSeekdir(dirp.rawAddress, loc)
 }
 
-public actual fun telldir(dirp: DIR?): CLong =
-    WasiJniBridge.libc_wasi_telldir((dirp?.handle ?: 0L))
+public actual fun telldir(dirp: MutPtr<DIR>): CLong =
+    WasiJniBridge.libcWasiTelldir(dirp.rawAddress)
 
-public actual fun openat(dirfd: CInt, pathname: String?, flags: CInt, vararg variadicArgs: Long): CInt =
-    WasiJniBridge.libc_wasi_openat(dirfd, pathname, flags, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun openat(dirfd: CInt, pathname: ConstPtr<CChar>, flags: CInt, vararg variadicArgs: Long): CInt =
+    WasiJniBridge.libcWasiOpenat(dirfd, pathname.rawAddress, flags, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun fstatat(dirfd: CInt, pathname: String?, buf: COpaquePointer?, flags: CInt): CInt =
-    WasiJniBridge.libc_wasi_fstatat(dirfd, pathname, (buf?.value ?: 0L), flags)
+public actual fun fstatat(dirfd: CInt, pathname: ConstPtr<CChar>, buf: MutPtr<Stat>, flags: CInt): CInt =
+    WasiJniBridge.libcWasiFstatat(dirfd, pathname.rawAddress, buf.rawAddress, flags)
 
-public actual fun linkat(olddirfd: CInt, oldpath: String?, newdirfd: CInt, newpath: String?, flags: CInt): CInt =
-    WasiJniBridge.libc_wasi_linkat(olddirfd, oldpath, newdirfd, newpath, flags)
+public actual fun linkat(olddirfd: CInt, oldpath: ConstPtr<CChar>, newdirfd: CInt, newpath: ConstPtr<CChar>, flags: CInt): CInt =
+    WasiJniBridge.libcWasiLinkat(olddirfd, oldpath.rawAddress, newdirfd, newpath.rawAddress, flags)
 
-public actual fun mkdirat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
-    WasiJniBridge.libc_wasi_mkdirat(dirfd, pathname, mode.toInt())
+public actual fun mkdirat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT): CInt =
+    WasiJniBridge.libcWasiMkdirat(dirfd, pathname.rawAddress, mode.toInt())
 
-public actual fun readlinkat(dirfd: CInt, pathname: String?, buf: COpaquePointer?, bufsiz: SizeT): SsizeT =
-    WasiJniBridge.libc_wasi_readlinkat(dirfd, pathname, (buf?.value ?: 0L), bufsiz.toLong())
+public actual fun readlinkat(dirfd: CInt, pathname: ConstPtr<CChar>, buf: MutPtr<CChar>, bufsiz: SizeT): SsizeT =
+    WasiJniBridge.libcWasiReadlinkat(dirfd, pathname.rawAddress, buf.rawAddress, bufsiz.toLong())
 
-public actual fun renameat(olddirfd: CInt, oldpath: String?, newdirfd: CInt, newpath: String?): CInt =
-    WasiJniBridge.libc_wasi_renameat(olddirfd, oldpath, newdirfd, newpath)
+public actual fun renameat(olddirfd: CInt, oldpath: ConstPtr<CChar>, newdirfd: CInt, newpath: ConstPtr<CChar>): CInt =
+    WasiJniBridge.libcWasiRenameat(olddirfd, oldpath.rawAddress, newdirfd, newpath.rawAddress)
 
-public actual fun symlinkat(target: String?, newdirfd: CInt, linkpath: String?): CInt =
-    WasiJniBridge.libc_wasi_symlinkat(target, newdirfd, linkpath)
+public actual fun symlinkat(target: ConstPtr<CChar>, newdirfd: CInt, linkpath: ConstPtr<CChar>): CInt =
+    WasiJniBridge.libcWasiSymlinkat(target.rawAddress, newdirfd, linkpath.rawAddress)
 
-public actual fun unlinkat(dirfd: CInt, pathname: String?, flags: CInt): CInt =
-    WasiJniBridge.libc_wasi_unlinkat(dirfd, pathname, flags)
+public actual fun unlinkat(dirfd: CInt, pathname: ConstPtr<CChar>, flags: CInt): CInt =
+    WasiJniBridge.libcWasiUnlinkat(dirfd, pathname.rawAddress, flags)
 
-public actual fun access(path: String?, amode: CInt): CInt =
-    WasiJniBridge.libc_wasi_access(path, amode)
+public actual fun access(path: ConstPtr<CChar>, amode: CInt): CInt =
+    WasiJniBridge.libcWasiAccess(path.rawAddress, amode)
 
 public actual fun close(fd: CInt): CInt =
-    WasiJniBridge.libc_wasi_close(fd)
+    WasiJniBridge.libcWasiClose(fd)
 
 public actual fun fpathconf(filedes: CInt, name: CInt): CLong =
-    WasiJniBridge.libc_wasi_fpathconf(filedes, name)
+    WasiJniBridge.libcWasiFpathconf(filedes, name)
 
-public actual fun getopt(argc: CInt, argv: COpaquePointer?, optstr: String?): CInt =
-    WasiJniBridge.libc_wasi_getopt(argc, (argv?.value ?: 0L), optstr)
+public actual fun getopt(argc: CInt, argv: ConstPtr<MutPtr<CChar>>, optstr: ConstPtr<CChar>): CInt =
+    WasiJniBridge.libcWasiGetopt(argc, argv.rawAddress, optstr.rawAddress)
 
 public actual fun isatty(fd: CInt): CInt =
-    WasiJniBridge.libc_wasi_isatty(fd)
+    WasiJniBridge.libcWasiIsatty(fd)
 
-public actual fun link(src: String?, dst: String?): CInt =
-    WasiJniBridge.libc_wasi_link(src, dst)
+public actual fun link(src: ConstPtr<CChar>, dst: ConstPtr<CChar>): CInt =
+    WasiJniBridge.libcWasiLink(src.rawAddress, dst.rawAddress)
 
 public actual fun lseek(fd: CInt, offset: OffT, whence: CInt): OffT =
-    WasiJniBridge.libc_wasi_lseek(fd, offset, whence)
+    WasiJniBridge.libcWasiLseek(fd, offset, whence)
 
-public actual fun pathconf(path: String?, name: CInt): CLong =
-    WasiJniBridge.libc_wasi_pathconf(path, name)
+public actual fun pathconf(path: ConstPtr<CChar>, name: CInt): CLong =
+    WasiJniBridge.libcWasiPathconf(path.rawAddress, name)
 
-public actual fun rmdir(path: String?): CInt =
-    WasiJniBridge.libc_wasi_rmdir(path)
+public actual fun rmdir(path: ConstPtr<CChar>): CInt =
+    WasiJniBridge.libcWasiRmdir(path.rawAddress)
 
 public actual fun sleep(secs: CUint): CUint =
-    WasiJniBridge.libc_wasi_sleep(secs.toInt()).toUInt()
+    WasiJniBridge.libcWasiSleep(secs.toInt()).toUInt()
 
-public actual fun unlink(c: String?): CInt =
-    WasiJniBridge.libc_wasi_unlink(c)
+public actual fun unlink(c: ConstPtr<CChar>): CInt =
+    WasiJniBridge.libcWasiUnlink(c.rawAddress)
 
-public actual fun pread(fd: CInt, buf: COpaquePointer?, count: SizeT, offset: OffT): SsizeT =
-    WasiJniBridge.libc_wasi_pread(fd, (buf?.value ?: 0L), count.toLong(), offset)
+public actual fun pread(fd: CInt, buf: MutPtr<CVoid>, count: SizeT, offset: OffT): SsizeT =
+    WasiJniBridge.libcWasiPread(fd, buf.rawAddress, count.toLong(), offset)
 
-public actual fun pwrite(fd: CInt, buf: COpaquePointer?, count: SizeT, offset: OffT): SsizeT =
-    WasiJniBridge.libc_wasi_pwrite(fd, (buf?.value ?: 0L), count.toLong(), offset)
+public actual fun pwrite(fd: CInt, buf: ConstPtr<CVoid>, count: SizeT, offset: OffT): SsizeT =
+    WasiJniBridge.libcWasiPwrite(fd, buf.rawAddress, count.toLong(), offset)
 
-public actual fun lstat(path: String?, buf: COpaquePointer?): CInt =
-    WasiJniBridge.libc_wasi_lstat(path, (buf?.value ?: 0L))
+public actual fun lstat(path: ConstPtr<CChar>, buf: MutPtr<Stat>): CInt =
+    WasiJniBridge.libcWasiLstat(path.rawAddress, buf.rawAddress)
 
 public actual fun fsync(fd: CInt): CInt =
-    WasiJniBridge.libc_wasi_fsync(fd)
+    WasiJniBridge.libcWasiFsync(fd)
 
 public actual fun fdatasync(fd: CInt): CInt =
-    WasiJniBridge.libc_wasi_fdatasync(fd)
+    WasiJniBridge.libcWasiFdatasync(fd)
 
-public actual fun symlink(path1: String?, path2: String?): CInt =
-    WasiJniBridge.libc_wasi_symlink(path1, path2)
+public actual fun symlink(path1: ConstPtr<CChar>, path2: ConstPtr<CChar>): CInt =
+    WasiJniBridge.libcWasiSymlink(path1.rawAddress, path2.rawAddress)
 
-public actual fun truncate(path: String?, length: OffT): CInt =
-    WasiJniBridge.libc_wasi_truncate(path, length)
+public actual fun truncate(path: ConstPtr<CChar>, length: OffT): CInt =
+    WasiJniBridge.libcWasiTruncate(path.rawAddress, length)
 
 public actual fun ftruncate(fd: CInt, length: OffT): CInt =
-    WasiJniBridge.libc_wasi_ftruncate(fd, length)
+    WasiJniBridge.libcWasiFtruncate(fd, length)
 
-public actual fun getrusage(resource: CInt, usage: COpaquePointer?): CInt =
-    WasiJniBridge.libc_wasi_getrusage(resource, (usage?.value ?: 0L))
+public actual fun getrusage(resource: CInt, usage: MutPtr<Rusage>): CInt =
+    WasiJniBridge.libcWasiGetrusage(resource, usage.rawAddress)
 
-public actual fun gettimeofday(tp: COpaquePointer?, tz: COpaquePointer?): CInt =
-    WasiJniBridge.libc_wasi_gettimeofday((tp?.value ?: 0L), (tz?.value ?: 0L))
+public actual fun gettimeofday(tp: MutPtr<Timeval>, tz: MutPtr<CVoid>): CInt =
+    WasiJniBridge.libcWasiGettimeofday(tp.rawAddress, tz.rawAddress)
 
-public actual fun times(buf: COpaquePointer?): ClockT =
-    WasiJniBridge.libc_wasi_times((buf?.value ?: 0L))
+public actual fun times(buf: MutPtr<Tms>): ClockT =
+    WasiJniBridge.libcWasiTimes(buf.rawAddress)
 
-public actual fun strerrorR(errnum: CInt, buf: COpaquePointer?, buflen: SizeT): CInt =
-    WasiJniBridge.libc_wasi_strerrorR(errnum, (buf?.value ?: 0L), buflen.toLong())
+public actual fun strerrorR(errnum: CInt, buf: MutPtr<CChar>, buflen: SizeT): CInt =
+    WasiJniBridge.libcWasiStrerrorR(errnum, buf.rawAddress, buflen.toLong())
 
 public actual fun usleep(secs: CUint): CInt =
-    WasiJniBridge.libc_wasi_usleep(secs.toInt())
+    WasiJniBridge.libcWasiUsleep(secs.toInt())
 
-public actual fun send(socket: CInt, buf: COpaquePointer?, len: SizeT, flags: CInt): SsizeT =
-    WasiJniBridge.libc_wasi_send(socket, (buf?.value ?: 0L), len.toLong(), flags)
+public actual fun send(socket: CInt, buf: ConstPtr<CVoid>, len: SizeT, flags: CInt): SsizeT =
+    WasiJniBridge.libcWasiSend(socket, buf.rawAddress, len.toLong(), flags)
 
-public actual fun recv(socket: CInt, buf: COpaquePointer?, len: SizeT, flags: CInt): SsizeT =
-    WasiJniBridge.libc_wasi_recv(socket, (buf?.value ?: 0L), len.toLong(), flags)
+public actual fun recv(socket: CInt, buf: MutPtr<CVoid>, len: SizeT, flags: CInt): SsizeT =
+    WasiJniBridge.libcWasiRecv(socket, buf.rawAddress, len.toLong(), flags)
 
-public actual fun poll(fds: COpaquePointer?, nfds: NfdsT, timeout: CInt): CInt =
-    WasiJniBridge.libc_wasi_poll((fds?.value ?: 0L), nfds.toLong(), timeout)
+public actual fun poll(fds: MutPtr<Pollfd>, nfds: NfdsT, timeout: CInt): CInt =
+    WasiJniBridge.libcWasiPoll(fds.rawAddress, nfds.toLong(), timeout)
 
-public actual fun setlocale(category: CInt, locale: String?): COpaquePointer? =
-    WasiJniBridge.libc_wasi_setlocale(category, locale).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun setlocale(category: CInt, locale: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(WasiJniBridge.libcWasiSetlocale(category, locale.rawAddress))
 
-public actual fun localeconv(): COpaquePointer? =
-    WasiJniBridge.libc_wasi_localeconv().let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun localeconv(): MutPtr<Lconv> =
+    MutPtr(WasiJniBridge.libcWasiLocaleconv())
 
-public actual fun readlink(path: String?, buf: COpaquePointer?, bufsz: SizeT): SsizeT =
-    WasiJniBridge.libc_wasi_readlink(path, (buf?.value ?: 0L), bufsz.toLong())
+public actual fun readlink(path: ConstPtr<CChar>, buf: MutPtr<CChar>, bufsz: SizeT): SsizeT =
+    WasiJniBridge.libcWasiReadlink(path.rawAddress, buf.rawAddress, bufsz.toLong())
 
-public actual fun timegm(tm: COpaquePointer?): TimeT =
-    WasiJniBridge.libc_wasi_timegm((tm?.value ?: 0L))
+public actual fun timegm(tm: MutPtr<Tm>): TimeT =
+    WasiJniBridge.libcWasiTimegm(tm.rawAddress)
 
 public actual fun sysconf(name: CInt): CLong =
-    WasiJniBridge.libc_wasi_sysconf(name)
+    WasiJniBridge.libcWasiSysconf(name)
 
 public actual fun ioctl(fd: CInt, request: CInt, vararg variadicArgs: Long): CInt =
-    WasiJniBridge.libc_wasi_ioctl(fd, request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+    WasiJniBridge.libcWasiIoctl(fd, request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun fseeko(stream: FILE?, offset: OffT, whence: CInt): CInt =
-    WasiJniBridge.libc_wasi_fseeko((stream?.handle ?: 0L), offset, whence)
+public actual fun fseeko(stream: MutPtr<FILE>, offset: OffT, whence: CInt): CInt =
+    WasiJniBridge.libcWasiFseeko(stream.rawAddress, offset, whence)
 
-public actual fun ftello(stream: FILE?): OffT =
-    WasiJniBridge.libc_wasi_ftello((stream?.handle ?: 0L))
+public actual fun ftello(stream: MutPtr<FILE>): OffT =
+    WasiJniBridge.libcWasiFtello(stream.rawAddress)
 
 public actual fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt =
-    WasiJniBridge.libc_wasi_posixFallocate(fd, offset, len)
+    WasiJniBridge.libcWasiPosixFallocate(fd, offset, len)
 
-public actual fun strcasestr(cs: String?, ct: String?): COpaquePointer? =
-    WasiJniBridge.libc_wasi_strcasestr(cs, ct).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun strcasestr(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(WasiJniBridge.libcWasiStrcasestr(cs.rawAddress, ct.rawAddress))
 
-public actual fun getline(lineptr: COpaquePointer?, n: COpaquePointer?, stream: FILE?): SsizeT =
-    WasiJniBridge.libc_wasi_getline((lineptr?.value ?: 0L), (n?.value ?: 0L), (stream?.handle ?: 0L))
+public actual fun getline(lineptr: MutPtr<MutPtr<CChar>>, n: MutPtr<SizeT>, stream: MutPtr<FILE>): SsizeT =
+    WasiJniBridge.libcWasiGetline(lineptr.rawAddress, n.rawAddress, stream.rawAddress)
 
-public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt =
-    WasiJniBridge.libc_wasi_faccessat(dirfd, pathname, mode, flags)
+public actual fun faccessat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: CInt, flags: CInt): CInt =
+    WasiJniBridge.libcWasiFaccessat(dirfd, pathname.rawAddress, mode, flags)
 
-public actual fun writev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT =
-    WasiJniBridge.libc_wasi_writev(fd, (iov?.value ?: 0L), iovcnt)
+public actual fun writev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+    WasiJniBridge.libcWasiWritev(fd, iov.rawAddress, iovcnt)
 
-public actual fun readv(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT =
-    WasiJniBridge.libc_wasi_readv(fd, (iov?.value ?: 0L), iovcnt)
+public actual fun readv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+    WasiJniBridge.libcWasiReadv(fd, iov.rawAddress, iovcnt)
 
-public actual fun pwritev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: OffT): SsizeT =
-    WasiJniBridge.libc_wasi_pwritev(fd, (iov?.value ?: 0L), iovcnt, offset)
+public actual fun pwritev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT =
+    WasiJniBridge.libcWasiPwritev(fd, iov.rawAddress, iovcnt, offset)
 
-public actual fun preadv(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: OffT): SsizeT =
-    WasiJniBridge.libc_wasi_preadv(fd, (iov?.value ?: 0L), iovcnt, offset)
+public actual fun preadv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT =
+    WasiJniBridge.libcWasiPreadv(fd, iov.rawAddress, iovcnt, offset)
 
 public actual fun posixFadvise(fd: CInt, offset: OffT, len: OffT, advise: CInt): CInt =
-    WasiJniBridge.libc_wasi_posixFadvise(fd, offset, len, advise)
+    WasiJniBridge.libcWasiPosixFadvise(fd, offset, len, advise)
 
-public actual fun futimens(fd: CInt, times: COpaquePointer?): CInt =
-    WasiJniBridge.libc_wasi_futimens(fd, (times?.value ?: 0L))
+public actual fun futimens(fd: CInt, times: ConstPtr<Timespec>): CInt =
+    WasiJniBridge.libcWasiFutimens(fd, times.rawAddress)
 
-public actual fun utimensat(dirfd: CInt, path: String?, times: COpaquePointer?, flag: CInt): CInt =
-    WasiJniBridge.libc_wasi_utimensat(dirfd, path, (times?.value ?: 0L), flag)
+public actual fun utimensat(dirfd: CInt, path: ConstPtr<CChar>, times: ConstPtr<Timespec>, flag: CInt): CInt =
+    WasiJniBridge.libcWasiUtimensat(dirfd, path.rawAddress, times.rawAddress, flag)
 
-public actual fun getentropy(buf: COpaquePointer?, buflen: SizeT): CInt =
-    WasiJniBridge.libc_wasi_getentropy((buf?.value ?: 0L), buflen.toLong())
+public actual fun getentropy(buf: MutPtr<CVoid>, buflen: SizeT): CInt =
+    WasiJniBridge.libcWasiGetentropy(buf.rawAddress, buflen.toLong())
 
-public actual fun memrchr(cx: COpaquePointer?, c: CInt, n: SizeT): COpaquePointer? =
-    WasiJniBridge.libc_wasi_memrchr((cx?.value ?: 0L), c, n.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun memrchr(cx: ConstPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+    MutPtr(WasiJniBridge.libcWasiMemrchr(cx.rawAddress, c, n.toLong()))
 
 public actual fun abs(i: CInt): CInt =
-    WasiJniBridge.libc_wasi_abs(i)
+    WasiJniBridge.libcWasiAbs(i)
 
 public actual fun labs(i: CLong): CLong =
-    WasiJniBridge.libc_wasi_labs(i)
+    WasiJniBridge.libcWasiLabs(i)
 
 public actual fun duplocale(base: LocaleT): LocaleT =
-    WasiJniBridge.libc_wasi_duplocale((base?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+    MutPtr(WasiJniBridge.libcWasiDuplocale(base.rawAddress))
 
 public actual fun freelocale(loc: LocaleT) {
-    WasiJniBridge.libc_wasi_freelocale((loc?.value ?: 0L))
+    WasiJniBridge.libcWasiFreelocale(loc.rawAddress)
 }
 
-public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
-    WasiJniBridge.libc_wasi_newlocale(mask, locale, (base?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun newlocale(mask: CInt, locale: ConstPtr<CChar>, base: LocaleT): LocaleT =
+    MutPtr(WasiJniBridge.libcWasiNewlocale(mask, locale.rawAddress, base.rawAddress))
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
-    WasiJniBridge.libc_wasi_uselocale((loc?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+    MutPtr(WasiJniBridge.libcWasiUselocale(loc.rawAddress))
 
 public actual fun schedYield(): CInt =
-    WasiJniBridge.libc_wasi_schedYield()
+    WasiJniBridge.libcWasiSchedYield()
 
-public actual fun getcwd(buf: COpaquePointer?, size: SizeT): COpaquePointer? =
-    WasiJniBridge.libc_wasi_getcwd((buf?.value ?: 0L), size.toLong()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun getcwd(buf: MutPtr<CChar>, size: SizeT): MutPtr<CChar> =
+    MutPtr(WasiJniBridge.libcWasiGetcwd(buf.rawAddress, size.toLong()))
 
-public actual fun chdir(dir: String?): CInt =
-    WasiJniBridge.libc_wasi_chdir(dir)
+public actual fun chdir(dir: ConstPtr<CChar>): CInt =
+    WasiJniBridge.libcWasiChdir(dir.rawAddress)
 
-public actual fun nlLanginfo(item: NlItem): COpaquePointer? =
-    WasiJniBridge.libc_wasi_nlLanginfo(item).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun nlLanginfo(item: NlItem): MutPtr<CChar> =
+    MutPtr(WasiJniBridge.libcWasiNlLanginfo(item))
 
-public actual fun nlLanginfoL(item: NlItem, loc: LocaleT): COpaquePointer? =
-    WasiJniBridge.libc_wasi_nlLanginfoL(item, (loc?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun nlLanginfoL(item: NlItem, loc: LocaleT): MutPtr<CChar> =
+    MutPtr(WasiJniBridge.libcWasiNlLanginfoL(item, loc.rawAddress))
 
-public actual fun select(nfds: CInt, readfds: COpaquePointer?, writefds: COpaquePointer?, errorfds: COpaquePointer?, timeout: COpaquePointer?): CInt =
-    WasiJniBridge.libc_wasi_select(nfds, (readfds?.value ?: 0L), (writefds?.value ?: 0L), (errorfds?.value ?: 0L), (timeout?.value ?: 0L))
+public actual fun select(nfds: CInt, readfds: MutPtr<FdSet>, writefds: MutPtr<FdSet>, errorfds: MutPtr<FdSet>, timeout: ConstPtr<Timeval>): CInt =
+    WasiJniBridge.libcWasiSelect(nfds, readfds.rawAddress, writefds.rawAddress, errorfds.rawAddress, timeout.rawAddress)
 
-public actual fun wasilibcRegisterPreopenedFd(fd: CInt, path: String?): CInt =
-    WasiJniBridge.libc_wasi_wasilibcRegisterPreopenedFd(fd, path)
+public actual fun wasilibcRegisterPreopenedFd(fd: CInt, path: ConstPtr<CChar>): CInt =
+    WasiJniBridge.libcWasiWasilibcRegisterPreopenedFd(fd, path.rawAddress)
 
 public actual fun wasilibcFdRenumber(fd: CInt, newfd: CInt): CInt =
-    WasiJniBridge.libc_wasi_wasilibcFdRenumber(fd, newfd)
+    WasiJniBridge.libcWasiWasilibcFdRenumber(fd, newfd)
 
-public actual fun wasilibcUnlinkat(fd: CInt, path: String?): CInt =
-    WasiJniBridge.libc_wasi_wasilibcUnlinkat(fd, path)
+public actual fun wasilibcUnlinkat(fd: CInt, path: ConstPtr<CChar>): CInt =
+    WasiJniBridge.libcWasiWasilibcUnlinkat(fd, path.rawAddress)
 
-public actual fun wasilibcRmdirat(fd: CInt, path: String?): CInt =
-    WasiJniBridge.libc_wasi_wasilibcRmdirat(fd, path)
+public actual fun wasilibcRmdirat(fd: CInt, path: ConstPtr<CChar>): CInt =
+    WasiJniBridge.libcWasiWasilibcRmdirat(fd, path.rawAddress)
 
-public actual fun wasilibcFindRelpath(path: String?, absPrefix: COpaquePointer?, relativePath: COpaquePointer?, relativePathLen: ULong): CInt =
-    WasiJniBridge.libc_wasi_wasilibcFindRelpath(path, (absPrefix?.value ?: 0L), (relativePath?.value ?: 0L), relativePathLen.toLong())
+public actual fun wasilibcFindRelpath(path: ConstPtr<CChar>, absPrefix: MutPtr<ConstPtr<CChar>>, relativePath: MutPtr<MutPtr<CChar>>, relativePathLen: ULong): CInt =
+    WasiJniBridge.libcWasiWasilibcFindRelpath(path.rawAddress, absPrefix.rawAddress, relativePath.rawAddress, relativePathLen.toLong())
 
 public actual fun wasilibcTell(fd: CInt): OffT =
-    WasiJniBridge.libc_wasi_wasilibcTell(fd)
+    WasiJniBridge.libcWasiWasilibcTell(fd)
 
-public actual fun wasilibcNocwdWasilibcUnlinkat(dirfd: CInt, path: String?): CInt =
-    WasiJniBridge.libc_wasi_wasilibcNocwdWasilibcUnlinkat(dirfd, path)
+public actual fun wasilibcNocwdWasilibcUnlinkat(dirfd: CInt, path: ConstPtr<CChar>): CInt =
+    WasiJniBridge.libcWasiWasilibcNocwdWasilibcUnlinkat(dirfd, path.rawAddress)
 
-public actual fun wasilibcNocwdWasilibcRmdirat(dirfd: CInt, path: String?): CInt =
-    WasiJniBridge.libc_wasi_wasilibcNocwdWasilibcRmdirat(dirfd, path)
+public actual fun wasilibcNocwdWasilibcRmdirat(dirfd: CInt, path: ConstPtr<CChar>): CInt =
+    WasiJniBridge.libcWasiWasilibcNocwdWasilibcRmdirat(dirfd, path.rawAddress)
 
-public actual fun wasilibcNocwdLinkat(olddirfd: CInt, oldpath: String?, newdirfd: CInt, newpath: String?, flags: CInt): CInt =
-    WasiJniBridge.libc_wasi_wasilibcNocwdLinkat(olddirfd, oldpath, newdirfd, newpath, flags)
+public actual fun wasilibcNocwdLinkat(olddirfd: CInt, oldpath: ConstPtr<CChar>, newdirfd: CInt, newpath: ConstPtr<CChar>, flags: CInt): CInt =
+    WasiJniBridge.libcWasiWasilibcNocwdLinkat(olddirfd, oldpath.rawAddress, newdirfd, newpath.rawAddress, flags)
 
-public actual fun wasilibcNocwdSymlinkat(target: String?, dirfd: CInt, path: String?): CInt =
-    WasiJniBridge.libc_wasi_wasilibcNocwdSymlinkat(target, dirfd, path)
+public actual fun wasilibcNocwdSymlinkat(target: ConstPtr<CChar>, dirfd: CInt, path: ConstPtr<CChar>): CInt =
+    WasiJniBridge.libcWasiWasilibcNocwdSymlinkat(target.rawAddress, dirfd, path.rawAddress)
 
-public actual fun wasilibcNocwdReadlinkat(dirfd: CInt, path: String?, buf: COpaquePointer?, bufsize: ULong): Long =
-    WasiJniBridge.libc_wasi_wasilibcNocwdReadlinkat(dirfd, path, (buf?.value ?: 0L), bufsize.toLong())
+public actual fun wasilibcNocwdReadlinkat(dirfd: CInt, path: ConstPtr<CChar>, buf: MutPtr<CChar>, bufsize: ULong): Long =
+    WasiJniBridge.libcWasiWasilibcNocwdReadlinkat(dirfd, path.rawAddress, buf.rawAddress, bufsize.toLong())
 
-public actual fun wasilibcNocwdFaccessat(dirfd: CInt, path: String?, mode: CInt, flags: CInt): CInt =
-    WasiJniBridge.libc_wasi_wasilibcNocwdFaccessat(dirfd, path, mode, flags)
+public actual fun wasilibcNocwdFaccessat(dirfd: CInt, path: ConstPtr<CChar>, mode: CInt, flags: CInt): CInt =
+    WasiJniBridge.libcWasiWasilibcNocwdFaccessat(dirfd, path.rawAddress, mode, flags)
 
-public actual fun wasilibcNocwdRenameat(olddirfd: CInt, oldpath: String?, newdirfd: CInt, newpath: String?): CInt =
-    WasiJniBridge.libc_wasi_wasilibcNocwdRenameat(olddirfd, oldpath, newdirfd, newpath)
+public actual fun wasilibcNocwdRenameat(olddirfd: CInt, oldpath: ConstPtr<CChar>, newdirfd: CInt, newpath: ConstPtr<CChar>): CInt =
+    WasiJniBridge.libcWasiWasilibcNocwdRenameat(olddirfd, oldpath.rawAddress, newdirfd, newpath.rawAddress)
 
-public actual fun wasilibcNocwdOpenatNomode(dirfd: CInt, path: String?, flags: CInt): CInt =
-    WasiJniBridge.libc_wasi_wasilibcNocwdOpenatNomode(dirfd, path, flags)
+public actual fun wasilibcNocwdOpenatNomode(dirfd: CInt, path: ConstPtr<CChar>, flags: CInt): CInt =
+    WasiJniBridge.libcWasiWasilibcNocwdOpenatNomode(dirfd, path.rawAddress, flags)
 
-public actual fun wasilibcNocwdFstatat(dirfd: CInt, path: String?, buf: COpaquePointer?, flags: CInt): CInt =
-    WasiJniBridge.libc_wasi_wasilibcNocwdFstatat(dirfd, path, (buf?.value ?: 0L), flags)
+public actual fun wasilibcNocwdFstatat(dirfd: CInt, path: ConstPtr<CChar>, buf: MutPtr<Stat>, flags: CInt): CInt =
+    WasiJniBridge.libcWasiWasilibcNocwdFstatat(dirfd, path.rawAddress, buf.rawAddress, flags)
 
-public actual fun wasilibcNocwdMkdiratNomode(dirfd: CInt, path: String?): CInt =
-    WasiJniBridge.libc_wasi_wasilibcNocwdMkdiratNomode(dirfd, path)
+public actual fun wasilibcNocwdMkdiratNomode(dirfd: CInt, path: ConstPtr<CChar>): CInt =
+    WasiJniBridge.libcWasiWasilibcNocwdMkdiratNomode(dirfd, path.rawAddress)
 
-public actual fun wasilibcNocwdUtimensat(dirfd: CInt, path: String?, times: COpaquePointer?, flags: CInt): CInt =
-    WasiJniBridge.libc_wasi_wasilibcNocwdUtimensat(dirfd, path, (times?.value ?: 0L), flags)
+public actual fun wasilibcNocwdUtimensat(dirfd: CInt, path: ConstPtr<CChar>, times: ConstPtr<Timespec>, flags: CInt): CInt =
+    WasiJniBridge.libcWasiWasilibcNocwdUtimensat(dirfd, path.rawAddress, times.rawAddress, flags)
 
-public actual fun wasilibcNocwdOpendirat(dirfd: CInt, path: String?): DIR? =
-    WasiJniBridge.libc_wasi_wasilibcNocwdOpendirat(dirfd, path).let { if (it == 0L) null else DIR(it) }
+public actual fun wasilibcNocwdOpendirat(dirfd: CInt, path: ConstPtr<CChar>): MutPtr<DIR> =
+    MutPtr(WasiJniBridge.libcWasiWasilibcNocwdOpendirat(dirfd, path.rawAddress))
 
-public actual fun wasilibcAccess(pathname: String?, mode: CInt, flags: CInt): CInt =
-    WasiJniBridge.libc_wasi_wasilibcAccess(pathname, mode, flags)
+public actual fun wasilibcAccess(pathname: ConstPtr<CChar>, mode: CInt, flags: CInt): CInt =
+    WasiJniBridge.libcWasiWasilibcAccess(pathname.rawAddress, mode, flags)
 
-public actual fun wasilibcStat(pathname: String?, buf: COpaquePointer?, flags: CInt): CInt =
-    WasiJniBridge.libc_wasi_wasilibcStat(pathname, (buf?.value ?: 0L), flags)
+public actual fun wasilibcStat(pathname: ConstPtr<CChar>, buf: MutPtr<Stat>, flags: CInt): CInt =
+    WasiJniBridge.libcWasiWasilibcStat(pathname.rawAddress, buf.rawAddress, flags)
 
-public actual fun wasilibcUtimens(pathname: String?, times: COpaquePointer?, flags: CInt): CInt =
-    WasiJniBridge.libc_wasi_wasilibcUtimens(pathname, (times?.value ?: 0L), flags)
+public actual fun wasilibcUtimens(pathname: ConstPtr<CChar>, times: ConstPtr<Timespec>, flags: CInt): CInt =
+    WasiJniBridge.libcWasiWasilibcUtimens(pathname.rawAddress, times.rawAddress, flags)
 
-public actual fun wasilibcLink(oldpath: String?, newpath: String?, flags: CInt): CInt =
-    WasiJniBridge.libc_wasi_wasilibcLink(oldpath, newpath, flags)
+public actual fun wasilibcLink(oldpath: ConstPtr<CChar>, newpath: ConstPtr<CChar>, flags: CInt): CInt =
+    WasiJniBridge.libcWasiWasilibcLink(oldpath.rawAddress, newpath.rawAddress, flags)
 
-public actual fun wasilibcLinkOldat(olddirfd: CInt, oldpath: String?, newpath: String?, flags: CInt): CInt =
-    WasiJniBridge.libc_wasi_wasilibcLinkOldat(olddirfd, oldpath, newpath, flags)
+public actual fun wasilibcLinkOldat(olddirfd: CInt, oldpath: ConstPtr<CChar>, newpath: ConstPtr<CChar>, flags: CInt): CInt =
+    WasiJniBridge.libcWasiWasilibcLinkOldat(olddirfd, oldpath.rawAddress, newpath.rawAddress, flags)
 
-public actual fun wasilibcLinkNewat(oldpath: String?, newdirfd: CInt, newpath: String?, flags: CInt): CInt =
-    WasiJniBridge.libc_wasi_wasilibcLinkNewat(oldpath, newdirfd, newpath, flags)
+public actual fun wasilibcLinkNewat(oldpath: ConstPtr<CChar>, newdirfd: CInt, newpath: ConstPtr<CChar>, flags: CInt): CInt =
+    WasiJniBridge.libcWasiWasilibcLinkNewat(oldpath.rawAddress, newdirfd, newpath.rawAddress, flags)
 
-public actual fun wasilibcRenameOldat(olddirfd: CInt, oldpath: String?, newpath: String?): CInt =
-    WasiJniBridge.libc_wasi_wasilibcRenameOldat(olddirfd, oldpath, newpath)
+public actual fun wasilibcRenameOldat(olddirfd: CInt, oldpath: ConstPtr<CChar>, newpath: ConstPtr<CChar>): CInt =
+    WasiJniBridge.libcWasiWasilibcRenameOldat(olddirfd, oldpath.rawAddress, newpath.rawAddress)
 
-public actual fun wasilibcRenameNewat(oldpath: String?, newdirfd: CInt, newpath: String?): CInt =
-    WasiJniBridge.libc_wasi_wasilibcRenameNewat(oldpath, newdirfd, newpath)
+public actual fun wasilibcRenameNewat(oldpath: ConstPtr<CChar>, newdirfd: CInt, newpath: ConstPtr<CChar>): CInt =
+    WasiJniBridge.libcWasiWasilibcRenameNewat(oldpath.rawAddress, newdirfd, newpath.rawAddress)
 
 public actual fun arc4random(): UInt =
-    WasiJniBridge.libc_wasi_arc4random().toUInt()
+    WasiJniBridge.libcWasiArc4random().toUInt()
 
-public actual fun arc4randomBuf(a: COpaquePointer?, b: SizeT) {
-    WasiJniBridge.libc_wasi_arc4randomBuf((a?.value ?: 0L), b.toLong())
+public actual fun arc4randomBuf(a: MutPtr<CVoid>, b: SizeT) {
+    WasiJniBridge.libcWasiArc4randomBuf(a.rawAddress, b.toLong())
 }
 
 public actual fun arc4randomUniform(a: UInt): UInt =
-    WasiJniBridge.libc_wasi_arc4randomUniform(a.toInt()).toUInt()
+    WasiJniBridge.libcWasiArc4randomUniform(a.toInt()).toUInt()
 
-public actual fun errnoLocation(): COpaquePointer? =
-    WasiJniBridge.libc_wasi_errnoLocation().let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun errnoLocation(): MutPtr<CInt> =
+    MutPtr(WasiJniBridge.libcWasiErrnoLocation())
 
-public actual fun chmod(path: String?, mode: ModeT): CInt =
-    WasiJniBridge.libc_wasi_chmod(path, mode.toInt())
+public actual fun chmod(path: ConstPtr<CChar>, mode: ModeT): CInt =
+    WasiJniBridge.libcWasiChmod(path.rawAddress, mode.toInt())
 
 public actual fun fchmod(fd: CInt, mode: ModeT): CInt =
-    WasiJniBridge.libc_wasi_fchmod(fd, mode.toInt())
+    WasiJniBridge.libcWasiFchmod(fd, mode.toInt())
 
-public actual fun realpath(pathname: String?, resolved: COpaquePointer?): COpaquePointer? =
-    WasiJniBridge.libc_wasi_realpath(pathname, (resolved?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun realpath(pathname: ConstPtr<CChar>, resolved: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(WasiJniBridge.libcWasiRealpath(pathname.rawAddress, resolved.rawAddress))
 
 public actual fun pthreadSelf(): PthreadT =
-    WasiJniBridge.libc_wasi_pthreadSelf().let { if (it == 0L) null else COpaquePointer(it) }
+    MutPtr(WasiJniBridge.libcWasiPthreadSelf())
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
-    WasiJniBridge.libc_wasi_pthreadCreate((native?.value ?: 0L), (attr?.value ?: 0L), 0L, (value?.value ?: 0L))
+public actual fun pthreadCreate(native: MutPtr<PthreadT>, attr: ConstPtr<PthreadAttrT>, f: PthreadCreateFCallback, value: MutPtr<CVoid>): CInt =
+    WasiJniBridge.libcWasiPthreadCreate(native.rawAddress, attr.rawAddress, 0L, value.rawAddress)
 
 public actual fun pthreadEqual(t1: PthreadT, t2: PthreadT): CInt =
-    WasiJniBridge.libc_wasi_pthreadEqual((t1?.value ?: 0L), (t2?.value ?: 0L))
+    WasiJniBridge.libcWasiPthreadEqual(t1.rawAddress, t2.rawAddress)
 
-public actual fun pthreadJoin(native: PthreadT, value: COpaquePointer?): CInt =
-    WasiJniBridge.libc_wasi_pthreadJoin((native?.value ?: 0L), (value?.value ?: 0L))
+public actual fun pthreadJoin(native: PthreadT, value: MutPtr<MutPtr<CVoid>>): CInt =
+    WasiJniBridge.libcWasiPthreadJoin(native.rawAddress, value.rawAddress)
 
-public actual fun pthreadAttrInit(attr: COpaquePointer?): CInt =
-    WasiJniBridge.libc_wasi_pthreadAttrInit((attr?.value ?: 0L))
+public actual fun pthreadAttrInit(attr: MutPtr<PthreadAttrT>): CInt =
+    WasiJniBridge.libcWasiPthreadAttrInit(attr.rawAddress)
 
-public actual fun pthreadAttrDestroy(attr: COpaquePointer?): CInt =
-    WasiJniBridge.libc_wasi_pthreadAttrDestroy((attr?.value ?: 0L))
+public actual fun pthreadAttrDestroy(attr: MutPtr<PthreadAttrT>): CInt =
+    WasiJniBridge.libcWasiPthreadAttrDestroy(attr.rawAddress)
 
-public actual fun pthreadAttrGetstacksize(attr: COpaquePointer?, stacksize: COpaquePointer?): CInt =
-    WasiJniBridge.libc_wasi_pthreadAttrGetstacksize((attr?.value ?: 0L), (stacksize?.value ?: 0L))
+public actual fun pthreadAttrGetstacksize(attr: ConstPtr<PthreadAttrT>, stacksize: MutPtr<SizeT>): CInt =
+    WasiJniBridge.libcWasiPthreadAttrGetstacksize(attr.rawAddress, stacksize.rawAddress)
 
-public actual fun pthreadAttrSetstacksize(attr: COpaquePointer?, stackSize: SizeT): CInt =
-    WasiJniBridge.libc_wasi_pthreadAttrSetstacksize((attr?.value ?: 0L), stackSize.toLong())
+public actual fun pthreadAttrSetstacksize(attr: MutPtr<PthreadAttrT>, stackSize: SizeT): CInt =
+    WasiJniBridge.libcWasiPthreadAttrSetstacksize(attr.rawAddress, stackSize.toLong())
 
-public actual fun pthreadAttrSetdetachstate(attr: COpaquePointer?, state: CInt): CInt =
-    WasiJniBridge.libc_wasi_pthreadAttrSetdetachstate((attr?.value ?: 0L), state)
+public actual fun pthreadAttrSetdetachstate(attr: MutPtr<PthreadAttrT>, state: CInt): CInt =
+    WasiJniBridge.libcWasiPthreadAttrSetdetachstate(attr.rawAddress, state)
 
 public actual fun pthreadDetach(thread: PthreadT): CInt =
-    WasiJniBridge.libc_wasi_pthreadDetach((thread?.value ?: 0L))
+    WasiJniBridge.libcWasiPthreadDetach(thread.rawAddress)
 
-public actual fun pthreadKeyCreate(key: COpaquePointer?, dtor: PthreadKeyCreateDtorCallback?): CInt =
-    WasiJniBridge.libc_wasi_pthreadKeyCreate((key?.value ?: 0L), 0L)
+public actual fun pthreadKeyCreate(key: MutPtr<PthreadKeyT>, dtor: PthreadKeyCreateDtorCallback?): CInt =
+    WasiJniBridge.libcWasiPthreadKeyCreate(key.rawAddress, 0L)
 
 public actual fun pthreadKeyDelete(key: PthreadKeyT): CInt =
-    WasiJniBridge.libc_wasi_pthreadKeyDelete(key.toInt())
+    WasiJniBridge.libcWasiPthreadKeyDelete(key.toInt())
 
-public actual fun pthreadGetspecific(key: PthreadKeyT): COpaquePointer? =
-    WasiJniBridge.libc_wasi_pthreadGetspecific(key.toInt()).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun pthreadGetspecific(key: PthreadKeyT): MutPtr<CVoid> =
+    MutPtr(WasiJniBridge.libcWasiPthreadGetspecific(key.toInt()))
 
-public actual fun pthreadSetspecific(key: PthreadKeyT, value: COpaquePointer?): CInt =
-    WasiJniBridge.libc_wasi_pthreadSetspecific(key.toInt(), (value?.value ?: 0L))
+public actual fun pthreadSetspecific(key: PthreadKeyT, value: ConstPtr<CVoid>): CInt =
+    WasiJniBridge.libcWasiPthreadSetspecific(key.toInt(), value.rawAddress)
 
-public actual fun pthreadMutexInit(lock: COpaquePointer?, attr: COpaquePointer?): CInt =
-    WasiJniBridge.libc_wasi_pthreadMutexInit((lock?.value ?: 0L), (attr?.value ?: 0L))
+public actual fun pthreadMutexInit(lock: MutPtr<PthreadMutexT>, attr: ConstPtr<PthreadMutexattrT>): CInt =
+    WasiJniBridge.libcWasiPthreadMutexInit(lock.rawAddress, attr.rawAddress)
 
-public actual fun pthreadMutexDestroy(lock: COpaquePointer?): CInt =
-    WasiJniBridge.libc_wasi_pthreadMutexDestroy((lock?.value ?: 0L))
+public actual fun pthreadMutexDestroy(lock: MutPtr<PthreadMutexT>): CInt =
+    WasiJniBridge.libcWasiPthreadMutexDestroy(lock.rawAddress)
 
-public actual fun pthreadMutexLock(lock: COpaquePointer?): CInt =
-    WasiJniBridge.libc_wasi_pthreadMutexLock((lock?.value ?: 0L))
+public actual fun pthreadMutexLock(lock: MutPtr<PthreadMutexT>): CInt =
+    WasiJniBridge.libcWasiPthreadMutexLock(lock.rawAddress)
 
-public actual fun pthreadMutexTrylock(lock: COpaquePointer?): CInt =
-    WasiJniBridge.libc_wasi_pthreadMutexTrylock((lock?.value ?: 0L))
+public actual fun pthreadMutexTrylock(lock: MutPtr<PthreadMutexT>): CInt =
+    WasiJniBridge.libcWasiPthreadMutexTrylock(lock.rawAddress)
 
-public actual fun pthreadMutexUnlock(lock: COpaquePointer?): CInt =
-    WasiJniBridge.libc_wasi_pthreadMutexUnlock((lock?.value ?: 0L))
+public actual fun pthreadMutexUnlock(lock: MutPtr<PthreadMutexT>): CInt =
+    WasiJniBridge.libcWasiPthreadMutexUnlock(lock.rawAddress)
 
-public actual fun pthreadMutexattrInit(attr: COpaquePointer?): CInt =
-    WasiJniBridge.libc_wasi_pthreadMutexattrInit((attr?.value ?: 0L))
+public actual fun pthreadMutexattrInit(attr: MutPtr<PthreadMutexattrT>): CInt =
+    WasiJniBridge.libcWasiPthreadMutexattrInit(attr.rawAddress)
 
-public actual fun pthreadMutexattrDestroy(attr: COpaquePointer?): CInt =
-    WasiJniBridge.libc_wasi_pthreadMutexattrDestroy((attr?.value ?: 0L))
+public actual fun pthreadMutexattrDestroy(attr: MutPtr<PthreadMutexattrT>): CInt =
+    WasiJniBridge.libcWasiPthreadMutexattrDestroy(attr.rawAddress)
 
-public actual fun pthreadMutexattrSettype(attr: COpaquePointer?, type: CInt): CInt =
-    WasiJniBridge.libc_wasi_pthreadMutexattrSettype((attr?.value ?: 0L), type)
+public actual fun pthreadMutexattrSettype(attr: MutPtr<PthreadMutexattrT>, type: CInt): CInt =
+    WasiJniBridge.libcWasiPthreadMutexattrSettype(attr.rawAddress, type)
 
-public actual fun pthreadCondInit(cond: COpaquePointer?, attr: COpaquePointer?): CInt =
-    WasiJniBridge.libc_wasi_pthreadCondInit((cond?.value ?: 0L), (attr?.value ?: 0L))
+public actual fun pthreadCondInit(cond: MutPtr<PthreadCondT>, attr: ConstPtr<PthreadCondattrT>): CInt =
+    WasiJniBridge.libcWasiPthreadCondInit(cond.rawAddress, attr.rawAddress)
 
-public actual fun pthreadCondWait(cond: COpaquePointer?, lock: COpaquePointer?): CInt =
-    WasiJniBridge.libc_wasi_pthreadCondWait((cond?.value ?: 0L), (lock?.value ?: 0L))
+public actual fun pthreadCondWait(cond: MutPtr<PthreadCondT>, lock: MutPtr<PthreadMutexT>): CInt =
+    WasiJniBridge.libcWasiPthreadCondWait(cond.rawAddress, lock.rawAddress)
 
-public actual fun pthreadCondTimedwait(cond: COpaquePointer?, lock: COpaquePointer?, abstime: COpaquePointer?): CInt =
-    WasiJniBridge.libc_wasi_pthreadCondTimedwait((cond?.value ?: 0L), (lock?.value ?: 0L), (abstime?.value ?: 0L))
+public actual fun pthreadCondTimedwait(cond: MutPtr<PthreadCondT>, lock: MutPtr<PthreadMutexT>, abstime: ConstPtr<Timespec>): CInt =
+    WasiJniBridge.libcWasiPthreadCondTimedwait(cond.rawAddress, lock.rawAddress, abstime.rawAddress)
 
-public actual fun pthreadCondSignal(cond: COpaquePointer?): CInt =
-    WasiJniBridge.libc_wasi_pthreadCondSignal((cond?.value ?: 0L))
+public actual fun pthreadCondSignal(cond: MutPtr<PthreadCondT>): CInt =
+    WasiJniBridge.libcWasiPthreadCondSignal(cond.rawAddress)
 
-public actual fun pthreadCondBroadcast(cond: COpaquePointer?): CInt =
-    WasiJniBridge.libc_wasi_pthreadCondBroadcast((cond?.value ?: 0L))
+public actual fun pthreadCondBroadcast(cond: MutPtr<PthreadCondT>): CInt =
+    WasiJniBridge.libcWasiPthreadCondBroadcast(cond.rawAddress)
 
-public actual fun pthreadCondDestroy(cond: COpaquePointer?): CInt =
-    WasiJniBridge.libc_wasi_pthreadCondDestroy((cond?.value ?: 0L))
+public actual fun pthreadCondDestroy(cond: MutPtr<PthreadCondT>): CInt =
+    WasiJniBridge.libcWasiPthreadCondDestroy(cond.rawAddress)
 
-public actual fun pthreadCondattrInit(attr: COpaquePointer?): CInt =
-    WasiJniBridge.libc_wasi_pthreadCondattrInit((attr?.value ?: 0L))
+public actual fun pthreadCondattrInit(attr: MutPtr<PthreadCondattrT>): CInt =
+    WasiJniBridge.libcWasiPthreadCondattrInit(attr.rawAddress)
 
-public actual fun pthreadCondattrDestroy(attr: COpaquePointer?): CInt =
-    WasiJniBridge.libc_wasi_pthreadCondattrDestroy((attr?.value ?: 0L))
+public actual fun pthreadCondattrDestroy(attr: MutPtr<PthreadCondattrT>): CInt =
+    WasiJniBridge.libcWasiPthreadCondattrDestroy(attr.rawAddress)
 
-public actual fun pthreadRwlockInit(lock: COpaquePointer?, attr: COpaquePointer?): CInt =
-    WasiJniBridge.libc_wasi_pthreadRwlockInit((lock?.value ?: 0L), (attr?.value ?: 0L))
+public actual fun pthreadRwlockInit(lock: MutPtr<PthreadRwlockT>, attr: ConstPtr<PthreadRwlockattrT>): CInt =
+    WasiJniBridge.libcWasiPthreadRwlockInit(lock.rawAddress, attr.rawAddress)
 
-public actual fun pthreadRwlockDestroy(lock: COpaquePointer?): CInt =
-    WasiJniBridge.libc_wasi_pthreadRwlockDestroy((lock?.value ?: 0L))
+public actual fun pthreadRwlockDestroy(lock: MutPtr<PthreadRwlockT>): CInt =
+    WasiJniBridge.libcWasiPthreadRwlockDestroy(lock.rawAddress)
 
-public actual fun pthreadRwlockRdlock(lock: COpaquePointer?): CInt =
-    WasiJniBridge.libc_wasi_pthreadRwlockRdlock((lock?.value ?: 0L))
+public actual fun pthreadRwlockRdlock(lock: MutPtr<PthreadRwlockT>): CInt =
+    WasiJniBridge.libcWasiPthreadRwlockRdlock(lock.rawAddress)
 
-public actual fun pthreadRwlockTryrdlock(lock: COpaquePointer?): CInt =
-    WasiJniBridge.libc_wasi_pthreadRwlockTryrdlock((lock?.value ?: 0L))
+public actual fun pthreadRwlockTryrdlock(lock: MutPtr<PthreadRwlockT>): CInt =
+    WasiJniBridge.libcWasiPthreadRwlockTryrdlock(lock.rawAddress)
 
-public actual fun pthreadRwlockWrlock(lock: COpaquePointer?): CInt =
-    WasiJniBridge.libc_wasi_pthreadRwlockWrlock((lock?.value ?: 0L))
+public actual fun pthreadRwlockWrlock(lock: MutPtr<PthreadRwlockT>): CInt =
+    WasiJniBridge.libcWasiPthreadRwlockWrlock(lock.rawAddress)
 
-public actual fun pthreadRwlockTrywrlock(lock: COpaquePointer?): CInt =
-    WasiJniBridge.libc_wasi_pthreadRwlockTrywrlock((lock?.value ?: 0L))
+public actual fun pthreadRwlockTrywrlock(lock: MutPtr<PthreadRwlockT>): CInt =
+    WasiJniBridge.libcWasiPthreadRwlockTrywrlock(lock.rawAddress)
 
-public actual fun pthreadRwlockUnlock(lock: COpaquePointer?): CInt =
-    WasiJniBridge.libc_wasi_pthreadRwlockUnlock((lock?.value ?: 0L))
+public actual fun pthreadRwlockUnlock(lock: MutPtr<PthreadRwlockT>): CInt =
+    WasiJniBridge.libcWasiPthreadRwlockUnlock(lock.rawAddress)
 
-public actual fun pthreadRwlockattrInit(attr: COpaquePointer?): CInt =
-    WasiJniBridge.libc_wasi_pthreadRwlockattrInit((attr?.value ?: 0L))
+public actual fun pthreadRwlockattrInit(attr: MutPtr<PthreadRwlockattrT>): CInt =
+    WasiJniBridge.libcWasiPthreadRwlockattrInit(attr.rawAddress)
 
-public actual fun pthreadRwlockattrDestroy(attr: COpaquePointer?): CInt =
-    WasiJniBridge.libc_wasi_pthreadRwlockattrDestroy((attr?.value ?: 0L))
+public actual fun pthreadRwlockattrDestroy(attr: MutPtr<PthreadRwlockattrT>): CInt =
+    WasiJniBridge.libcWasiPthreadRwlockattrDestroy(attr.rawAddress)

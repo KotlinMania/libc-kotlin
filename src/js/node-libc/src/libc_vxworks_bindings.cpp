@@ -51,7 +51,7 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_vxworks_isalnum_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksIsalnum_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -84,7 +84,7 @@ static Napi::Value libc_vxworks_isalnum_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_isalpha_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksIsalpha_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -117,7 +117,7 @@ static Napi::Value libc_vxworks_isalpha_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_iscntrl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksIscntrl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -150,7 +150,7 @@ static Napi::Value libc_vxworks_iscntrl_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_isdigit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksIsdigit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -183,7 +183,7 @@ static Napi::Value libc_vxworks_isdigit_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_isgraph_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksIsgraph_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -216,7 +216,7 @@ static Napi::Value libc_vxworks_isgraph_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_islower_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksIslower_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -249,7 +249,7 @@ static Napi::Value libc_vxworks_islower_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_isprint_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksIsprint_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -282,7 +282,7 @@ static Napi::Value libc_vxworks_isprint_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_ispunct_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksIspunct_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -315,7 +315,7 @@ static Napi::Value libc_vxworks_ispunct_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_isspace_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksIsspace_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -348,7 +348,7 @@ static Napi::Value libc_vxworks_isspace_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_isupper_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksIsupper_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -381,7 +381,7 @@ static Napi::Value libc_vxworks_isupper_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_isxdigit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksIsxdigit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -414,7 +414,7 @@ static Napi::Value libc_vxworks_isxdigit_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_isblank_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksIsblank_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -447,7 +447,7 @@ static Napi::Value libc_vxworks_isblank_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_tolower_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksTolower_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -480,7 +480,7 @@ static Napi::Value libc_vxworks_tolower_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_toupper_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksToupper_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -513,14 +513,10 @@ static Napi::Value libc_vxworks_toupper_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_fopen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksFopen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool filename_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string filename_str = filename_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* filename = filename_null ? nullptr : filename_str.c_str();
-    bool mode_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string mode_str = mode_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* mode = mode_null ? nullptr : mode_str.c_str();
+    const char* filename = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* mode = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef void* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -551,14 +547,10 @@ static Napi::Value libc_vxworks_fopen_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_freopen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksFreopen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool filename_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string filename_str = filename_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* filename = filename_null ? nullptr : filename_str.c_str();
-    bool mode_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string mode_str = mode_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* mode = mode_null ? nullptr : mode_str.c_str();
+    const char* filename = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* mode = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* file = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef void* (*km_fn_t)(const char*, const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -590,7 +582,7 @@ static Napi::Value libc_vxworks_freopen_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_fflush_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksFflush_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* file = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -623,7 +615,7 @@ static Napi::Value libc_vxworks_fflush_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_fclose_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksFclose_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* file = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -656,11 +648,9 @@ static Napi::Value libc_vxworks_fclose_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_remove_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksRemove_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool filename_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string filename_str = filename_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* filename = filename_null ? nullptr : filename_str.c_str();
+    const char* filename = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -691,14 +681,10 @@ static Napi::Value libc_vxworks_remove_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_rename_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksRename_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool oldname_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string oldname_str = oldname_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* oldname = oldname_null ? nullptr : oldname_str.c_str();
-    bool newname_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string newname_str = newname_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* newname = newname_null ? nullptr : newname_str.c_str();
+    const char* oldname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* newname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -729,7 +715,7 @@ static Napi::Value libc_vxworks_rename_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_tmpfile_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksTmpfile_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -761,7 +747,7 @@ static Napi::Value libc_vxworks_tmpfile_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_setvbuf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksSetvbuf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* buffer = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -797,7 +783,7 @@ static Napi::Value libc_vxworks_setvbuf_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_setbuf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksSetbuf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -829,7 +815,7 @@ static Napi::Value libc_vxworks_setbuf_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_vxworks_getchar_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksGetchar_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -861,7 +847,7 @@ static Napi::Value libc_vxworks_getchar_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_putchar_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPutchar_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -894,7 +880,7 @@ static Napi::Value libc_vxworks_putchar_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_fgetc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksFgetc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -927,7 +913,7 @@ static Napi::Value libc_vxworks_fgetc_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_fgets_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksFgets_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t n = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -962,7 +948,7 @@ static Napi::Value libc_vxworks_fgets_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_fputc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksFputc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -996,11 +982,9 @@ static Napi::Value libc_vxworks_fputc_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_fputs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksFputs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1032,11 +1016,9 @@ static Napi::Value libc_vxworks_fputs_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_puts_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPuts_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1067,7 +1049,7 @@ static Napi::Value libc_vxworks_puts_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_ungetc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksUngetc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1101,7 +1083,7 @@ static Napi::Value libc_vxworks_ungetc_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_fread_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksFread_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1137,7 +1119,7 @@ static Napi::Value libc_vxworks_fread_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_vxworks_fwrite_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksFwrite_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1173,7 +1155,7 @@ static Napi::Value libc_vxworks_fwrite_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_vxworks_fseek_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksFseek_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int64_t offset = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
@@ -1208,7 +1190,7 @@ static Napi::Value libc_vxworks_fseek_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_ftell_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksFtell_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(void*);
@@ -1241,7 +1223,7 @@ static Napi::Value libc_vxworks_ftell_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_vxworks_rewind_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksRewind_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -1272,7 +1254,7 @@ static Napi::Value libc_vxworks_rewind_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_vxworks_fgetpos_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksFgetpos_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* ptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1306,7 +1288,7 @@ static Napi::Value libc_vxworks_fgetpos_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_fsetpos_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksFsetpos_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* ptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1340,7 +1322,7 @@ static Napi::Value libc_vxworks_fsetpos_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_feof_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksFeof_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -1373,7 +1355,7 @@ static Napi::Value libc_vxworks_feof_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_ferror_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksFerror_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -1406,11 +1388,9 @@ static Napi::Value libc_vxworks_ferror_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_perror_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPerror_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1439,11 +1419,9 @@ static Napi::Value libc_vxworks_perror_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_vxworks_atof_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksAtof_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef double (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1474,11 +1452,9 @@ static Napi::Value libc_vxworks_atof_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
-static Napi::Value libc_vxworks_atoi_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksAtoi_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1509,11 +1485,9 @@ static Napi::Value libc_vxworks_atoi_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_atol_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksAtol_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1544,11 +1518,9 @@ static Napi::Value libc_vxworks_atol_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_vxworks_atoll_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksAtoll_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1579,11 +1551,9 @@ static Napi::Value libc_vxworks_atoll_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_vxworks_strtod_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksStrtod_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* endp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef double (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1615,11 +1585,9 @@ static Napi::Value libc_vxworks_strtod_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
-static Napi::Value libc_vxworks_strtof_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksStrtof_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* endp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef float (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1651,11 +1619,9 @@ static Napi::Value libc_vxworks_strtof_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
-static Napi::Value libc_vxworks_strtol_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksStrtol_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* endp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t base = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(const char*, void*, int32_t);
@@ -1688,11 +1654,9 @@ static Napi::Value libc_vxworks_strtol_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_vxworks_strtoll_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksStrtoll_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* endp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t base = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(const char*, void*, int32_t);
@@ -1725,11 +1689,9 @@ static Napi::Value libc_vxworks_strtoll_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_vxworks_strtoul_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksStrtoul_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* endp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t base = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef uint64_t (*km_fn_t)(const char*, void*, int32_t);
@@ -1762,11 +1724,9 @@ static Napi::Value libc_vxworks_strtoul_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_vxworks_strtoull_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksStrtoull_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* endp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t base = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef uint64_t (*km_fn_t)(const char*, void*, int32_t);
@@ -1799,7 +1759,7 @@ static Napi::Value libc_vxworks_strtoull_napi(const Napi::CallbackInfo& km_info)
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_vxworks_calloc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksCalloc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t nobj = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1833,7 +1793,7 @@ static Napi::Value libc_vxworks_calloc_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_malloc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksMalloc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t size = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     typedef void* (*km_fn_t)(uint64_t);
@@ -1866,7 +1826,7 @@ static Napi::Value libc_vxworks_malloc_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_realloc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksRealloc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* p = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1900,7 +1860,7 @@ static Napi::Value libc_vxworks_realloc_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_free_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksFree_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* p = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -1931,7 +1891,7 @@ static Napi::Value libc_vxworks_free_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_vxworks_abort_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksAbort_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1961,7 +1921,7 @@ static Napi::Value libc_vxworks_abort_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_vxworks_exit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksExit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t status = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(int32_t);
@@ -1992,7 +1952,7 @@ static Napi::Value libc_vxworks_exit_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_vxworks_atexit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksAtexit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cb = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     if (cb == nullptr) {
@@ -2034,11 +1994,9 @@ static Napi::Value libc_vxworks_atexit_napi(const Napi::CallbackInfo& km_info) {
 #endif
 }
 
-static Napi::Value libc_vxworks_system_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksSystem_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2069,11 +2027,9 @@ static Napi::Value libc_vxworks_system_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_getenv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksGetenv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef char* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2104,7 +2060,7 @@ static Napi::Value libc_vxworks_getenv_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_cfgetospeed_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksCfgetospeed_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* termios = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef uint32_t (*km_fn_t)(void*);
@@ -2137,7 +2093,7 @@ static Napi::Value libc_vxworks_cfgetospeed_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_cfmakeraw_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksCfmakeraw_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* termios = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -2170,7 +2126,7 @@ static Napi::Value libc_vxworks_cfmakeraw_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_cfsetispeed_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksCfsetispeed_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* termios = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t speed = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -2204,7 +2160,7 @@ static Napi::Value libc_vxworks_cfsetispeed_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_cfsetospeed_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksCfsetospeed_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* termios = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t speed = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -2238,12 +2194,10 @@ static Napi::Value libc_vxworks_cfsetospeed_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_strcpy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksStrcpy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* dst = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool src_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string src_str = src_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* src = src_null ? nullptr : src_str.c_str();
+    const char* src = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef char* (*km_fn_t)(char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2274,12 +2228,10 @@ static Napi::Value libc_vxworks_strcpy_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_strncpy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksStrncpy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* dst = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool src_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string src_str = src_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* src = src_null ? nullptr : src_str.c_str();
+    const char* src = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t n = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef char* (*km_fn_t)(char*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2311,12 +2263,10 @@ static Napi::Value libc_vxworks_strncpy_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_strcat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksStrcat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* s = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool ct_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string ct_str = ct_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* ct = ct_null ? nullptr : ct_str.c_str();
+    const char* ct = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef char* (*km_fn_t)(char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2347,12 +2297,10 @@ static Napi::Value libc_vxworks_strcat_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_strncat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksStrncat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* s = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool ct_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string ct_str = ct_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* ct = ct_null ? nullptr : ct_str.c_str();
+    const char* ct = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t n = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef char* (*km_fn_t)(char*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2384,14 +2332,10 @@ static Napi::Value libc_vxworks_strncat_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_strcmp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksStrcmp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool cs_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string cs_str = cs_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* cs = cs_null ? nullptr : cs_str.c_str();
-    bool ct_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string ct_str = ct_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* ct = ct_null ? nullptr : ct_str.c_str();
+    const char* cs = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* ct = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2422,14 +2366,10 @@ static Napi::Value libc_vxworks_strcmp_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_strncmp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksStrncmp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool cs_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string cs_str = cs_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* cs = cs_null ? nullptr : cs_str.c_str();
-    bool ct_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string ct_str = ct_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* ct = ct_null ? nullptr : ct_str.c_str();
+    const char* cs = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* ct = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t n = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef int32_t (*km_fn_t)(const char*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2461,14 +2401,10 @@ static Napi::Value libc_vxworks_strncmp_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_strcoll_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksStrcoll_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool cs_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string cs_str = cs_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* cs = cs_null ? nullptr : cs_str.c_str();
-    bool ct_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string ct_str = ct_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* ct = ct_null ? nullptr : ct_str.c_str();
+    const char* cs = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* ct = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2499,11 +2435,9 @@ static Napi::Value libc_vxworks_strcoll_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_strchr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksStrchr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool cs_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string cs_str = cs_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* cs = cs_null ? nullptr : cs_str.c_str();
+    const char* cs = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t c = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef char* (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2535,11 +2469,9 @@ static Napi::Value libc_vxworks_strchr_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_strrchr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksStrrchr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool cs_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string cs_str = cs_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* cs = cs_null ? nullptr : cs_str.c_str();
+    const char* cs = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t c = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef char* (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2571,14 +2503,10 @@ static Napi::Value libc_vxworks_strrchr_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_strspn_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksStrspn_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool cs_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string cs_str = cs_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* cs = cs_null ? nullptr : cs_str.c_str();
-    bool ct_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string ct_str = ct_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* ct = ct_null ? nullptr : ct_str.c_str();
+    const char* cs = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* ct = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef uint64_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2609,14 +2537,10 @@ static Napi::Value libc_vxworks_strspn_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_vxworks_strcspn_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksStrcspn_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool cs_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string cs_str = cs_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* cs = cs_null ? nullptr : cs_str.c_str();
-    bool ct_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string ct_str = ct_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* ct = ct_null ? nullptr : ct_str.c_str();
+    const char* cs = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* ct = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef uint64_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2647,11 +2571,9 @@ static Napi::Value libc_vxworks_strcspn_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_vxworks_strdup_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksStrdup_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool cs_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string cs_str = cs_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* cs = cs_null ? nullptr : cs_str.c_str();
+    const char* cs = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef char* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2682,14 +2604,10 @@ static Napi::Value libc_vxworks_strdup_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_strpbrk_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksStrpbrk_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool cs_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string cs_str = cs_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* cs = cs_null ? nullptr : cs_str.c_str();
-    bool ct_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string ct_str = ct_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* ct = ct_null ? nullptr : ct_str.c_str();
+    const char* cs = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* ct = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef char* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2720,14 +2638,10 @@ static Napi::Value libc_vxworks_strpbrk_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_strstr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksStrstr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool cs_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string cs_str = cs_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* cs = cs_null ? nullptr : cs_str.c_str();
-    bool ct_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string ct_str = ct_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* ct = ct_null ? nullptr : ct_str.c_str();
+    const char* cs = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* ct = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef char* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2758,14 +2672,10 @@ static Napi::Value libc_vxworks_strstr_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_strcasecmp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksStrcasecmp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s1_str = s1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s1 = s1_null ? nullptr : s1_str.c_str();
-    bool s2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string s2_str = s2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* s2 = s2_null ? nullptr : s2_str.c_str();
+    const char* s1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* s2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2796,14 +2706,10 @@ static Napi::Value libc_vxworks_strcasecmp_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_strncasecmp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksStrncasecmp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s1_str = s1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s1 = s1_null ? nullptr : s1_str.c_str();
-    bool s2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string s2_str = s2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* s2 = s2_null ? nullptr : s2_str.c_str();
+    const char* s1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* s2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t n = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef int32_t (*km_fn_t)(const char*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2835,11 +2741,9 @@ static Napi::Value libc_vxworks_strncasecmp_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_strlen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksStrlen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool cs_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string cs_str = cs_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* cs = cs_null ? nullptr : cs_str.c_str();
+    const char* cs = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef uint64_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2870,11 +2774,9 @@ static Napi::Value libc_vxworks_strlen_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_vxworks_strnlen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksStrnlen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool cs_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string cs_str = cs_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* cs = cs_null ? nullptr : cs_str.c_str();
+    const char* cs = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t n = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
     typedef uint64_t (*km_fn_t)(const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2906,7 +2808,7 @@ static Napi::Value libc_vxworks_strnlen_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_vxworks_strerror_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksStrerror_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t n = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef char* (*km_fn_t)(int32_t);
@@ -2939,12 +2841,10 @@ static Napi::Value libc_vxworks_strerror_napi(const Napi::CallbackInfo& km_info)
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_strtok_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksStrtok_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* s = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool t_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string t_str = t_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* t = t_null ? nullptr : t_str.c_str();
+    const char* t = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef char* (*km_fn_t)(char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2975,12 +2875,10 @@ static Napi::Value libc_vxworks_strtok_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_strxfrm_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksStrxfrm_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* s = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool ct_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string ct_str = ct_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* ct = ct_null ? nullptr : ct_str.c_str();
+    const char* ct = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t n = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef uint64_t (*km_fn_t)(char*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3012,7 +2910,7 @@ static Napi::Value libc_vxworks_strxfrm_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_vxworks_wcslen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksWcslen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef uint64_t (*km_fn_t)(void*);
@@ -3045,7 +2943,7 @@ static Napi::Value libc_vxworks_wcslen_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_vxworks_wcstombs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksWcstombs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* dest = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* src = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3080,7 +2978,7 @@ static Napi::Value libc_vxworks_wcstombs_napi(const Napi::CallbackInfo& km_info)
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_vxworks_memchr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksMemchr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cx = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t c = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3115,7 +3013,7 @@ static Napi::Value libc_vxworks_memchr_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_wmemchr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksWmemchr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cx = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t c = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3150,7 +3048,7 @@ static Napi::Value libc_vxworks_wmemchr_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_memcmp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksMemcmp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cx = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* ct = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3185,7 +3083,7 @@ static Napi::Value libc_vxworks_memcmp_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_memcpy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksMemcpy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* dest = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* src = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3220,7 +3118,7 @@ static Napi::Value libc_vxworks_memcpy_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_memccpy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksMemccpy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* dest = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* src = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3256,7 +3154,7 @@ static Napi::Value libc_vxworks_memccpy_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_memmove_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksMemmove_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* dest = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* src = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3291,7 +3189,7 @@ static Napi::Value libc_vxworks_memmove_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_memset_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksMemset_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* dest = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t c = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3326,7 +3224,7 @@ static Napi::Value libc_vxworks_memset_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_alignedAlloc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksAlignedAlloc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t alignment = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -3360,7 +3258,7 @@ static Napi::Value libc_vxworks_alignedAlloc_napi(const Napi::CallbackInfo& km_i
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_uname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksUname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -3393,7 +3291,7 @@ static Napi::Value libc_vxworks_uname_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_times_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksTimes_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(void*);
@@ -3426,7 +3324,7 @@ static Napi::Value libc_vxworks_times_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_vxworks_tcflush_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksTcflush_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t action = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3460,7 +3358,7 @@ static Napi::Value libc_vxworks_tcflush_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pclose_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPclose_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -3493,9 +3391,9 @@ static Napi::Value libc_vxworks_pclose_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_mkdtemp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksMkdtemp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    char* arg_0_template = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    char* arg0Template = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef char* (*km_fn_t)(char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3518,7 +3416,7 @@ static Napi::Value libc_vxworks_mkdtemp_napi(const Napi::CallbackInfo& km_info) 
 #endif
     char* km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_template);
+        km_res = km_fn_ptr(arg0Template);
     } else {
         errno = ENOSYS;
         km_res = nullptr;
@@ -3526,16 +3424,12 @@ static Napi::Value libc_vxworks_mkdtemp_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_linkat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksLinkat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t olddirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool oldpath_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string oldpath_str = oldpath_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* oldpath = oldpath_null ? nullptr : oldpath_str.c_str();
+    const char* oldpath = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t newdirfd = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    bool newpath_null = (km_info.Length() <= 3 || km_info[3].IsNull() || km_info[3].IsUndefined());
-    std::string newpath_str = newpath_null ? std::string() : km_info[3].ToString().Utf8Value();
-    const char* newpath = newpath_null ? nullptr : newpath_str.c_str();
+    const char* newpath = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3567,12 +3461,10 @@ static Napi::Value libc_vxworks_linkat_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_unlinkat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksUnlinkat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t dirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool pathname_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string pathname_str = pathname_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* pathname = pathname_null ? nullptr : pathname_str.c_str();
+    const char* pathname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3604,11 +3496,9 @@ static Napi::Value libc_vxworks_unlinkat_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_getprotobyname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksGetprotobyname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3639,7 +3529,7 @@ static Napi::Value libc_vxworks_getprotobyname_napi(const Napi::CallbackInfo& km
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_getprotobynumber_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksGetprotobynumber_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t proto = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void* (*km_fn_t)(int32_t);
@@ -3672,14 +3562,10 @@ static Napi::Value libc_vxworks_getprotobynumber_napi(const Napi::CallbackInfo& 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_getservbyname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksGetservbyname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
-    bool proto_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string proto_str = proto_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* proto = proto_null ? nullptr : proto_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* proto = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef void* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3710,12 +3596,10 @@ static Napi::Value libc_vxworks_getservbyname_napi(const Napi::CallbackInfo& km_
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_fchownat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksFchownat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t dirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool pathname_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string pathname_str = pathname_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* pathname = pathname_null ? nullptr : pathname_str.c_str();
+    const char* pathname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint16_t owner = static_cast<uint16_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     uint16_t group = static_cast<uint16_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     int32_t flags = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
@@ -3749,12 +3633,10 @@ static Napi::Value libc_vxworks_fchownat_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_fprintf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksFprintf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool format_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string format_str = format_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* format = format_null ? nullptr : format_str.c_str();
+    const char* format = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t km_vac = km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
     int64_t km_va1 = km_info.Length() > 4 ? km_napi_arg_i64(km_info[4]) : 0;
@@ -3795,11 +3677,9 @@ static Napi::Value libc_vxworks_fprintf_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_printf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPrintf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool format_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string format_str = format_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* format = format_null ? nullptr : format_str.c_str();
+    const char* format = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t km_vac = km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 2 ? km_napi_arg_i64(km_info[2]) : 0;
     int64_t km_va1 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
@@ -3840,13 +3720,11 @@ static Napi::Value libc_vxworks_printf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_snprintf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksSnprintf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* s = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t n = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
-    bool format_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string format_str = format_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* format = format_null ? nullptr : format_str.c_str();
+    const char* format = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     int32_t km_vac = km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 4 ? km_napi_arg_i64(km_info[4]) : 0;
     int64_t km_va1 = km_info.Length() > 5 ? km_napi_arg_i64(km_info[5]) : 0;
@@ -3887,12 +3765,10 @@ static Napi::Value libc_vxworks_snprintf_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_sprintf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksSprintf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* s = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool format_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string format_str = format_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* format = format_null ? nullptr : format_str.c_str();
+    const char* format = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t km_vac = km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
     int64_t km_va1 = km_info.Length() > 4 ? km_napi_arg_i64(km_info[4]) : 0;
@@ -3933,12 +3809,10 @@ static Napi::Value libc_vxworks_sprintf_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_fscanf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksFscanf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool format_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string format_str = format_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* format = format_null ? nullptr : format_str.c_str();
+    const char* format = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t km_vac = km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
     int64_t km_va1 = km_info.Length() > 4 ? km_napi_arg_i64(km_info[4]) : 0;
@@ -3979,11 +3853,9 @@ static Napi::Value libc_vxworks_fscanf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_scanf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksScanf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool format_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string format_str = format_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* format = format_null ? nullptr : format_str.c_str();
+    const char* format = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t km_vac = km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 2 ? km_napi_arg_i64(km_info[2]) : 0;
     int64_t km_va1 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
@@ -4024,14 +3896,10 @@ static Napi::Value libc_vxworks_scanf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_sscanf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksSscanf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
-    bool format_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string format_str = format_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* format = format_null ? nullptr : format_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* format = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t km_vac = km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
     int64_t km_va1 = km_info.Length() > 4 ? km_napi_arg_i64(km_info[4]) : 0;
@@ -4072,7 +3940,7 @@ static Napi::Value libc_vxworks_sscanf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_getcharUnlocked_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksGetcharUnlocked_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4104,7 +3972,7 @@ static Napi::Value libc_vxworks_getcharUnlocked_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_putcharUnlocked_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPutcharUnlocked_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -4137,11 +4005,9 @@ static Napi::Value libc_vxworks_putcharUnlocked_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_stat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksStat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4173,12 +4039,10 @@ static Napi::Value libc_vxworks_stat_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_fdopen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksFdopen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool mode_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string mode_str = mode_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* mode = mode_null ? nullptr : mode_str.c_str();
+    const char* mode = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef void* (*km_fn_t)(int32_t, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4209,7 +4073,7 @@ static Napi::Value libc_vxworks_fdopen_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_fileno_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksFileno_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -4242,11 +4106,9 @@ static Napi::Value libc_vxworks_fileno_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_creat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksCreat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t mode = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4278,7 +4140,7 @@ static Napi::Value libc_vxworks_creat_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_rewinddir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksRewinddir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* dirp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -4309,7 +4171,7 @@ static Napi::Value libc_vxworks_rewinddir_napi(const Napi::CallbackInfo& km_info
     return km_env.Undefined();
 }
 
-static Napi::Value libc_vxworks_fchown_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksFchown_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint16_t owner = static_cast<uint16_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4344,11 +4206,9 @@ static Napi::Value libc_vxworks_fchown_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_access_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksAccess_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t amode = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4380,7 +4240,7 @@ static Napi::Value libc_vxworks_access_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_alarm_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksAlarm_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t seconds = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef uint32_t (*km_fn_t)(uint32_t);
@@ -4413,7 +4273,7 @@ static Napi::Value libc_vxworks_alarm_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_fchdir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksFchdir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t dirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -4446,11 +4306,9 @@ static Napi::Value libc_vxworks_fchdir_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_chown_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksChown_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint16_t uid = static_cast<uint16_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     uint16_t gid = static_cast<uint16_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, uint16_t, uint16_t);
@@ -4483,7 +4341,7 @@ static Napi::Value libc_vxworks_chown_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_fpathconf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksFpathconf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t filedes = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t name = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4517,7 +4375,7 @@ static Napi::Value libc_vxworks_fpathconf_napi(const Napi::CallbackInfo& km_info
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_vxworks_getegid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksGetegid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef uint16_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4549,7 +4407,7 @@ static Napi::Value libc_vxworks_getegid_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_geteuid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksGeteuid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef uint16_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4581,9 +4439,9 @@ static Napi::Value libc_vxworks_geteuid_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_getgroups_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksGetgroups_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t ngroups_max = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t ngroupsMax = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* groups = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4607,7 +4465,7 @@ static Napi::Value libc_vxworks_getgroups_napi(const Napi::CallbackInfo& km_info
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(ngroups_max, groups);
+        km_res = km_fn_ptr(ngroupsMax, groups);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4615,7 +4473,7 @@ static Napi::Value libc_vxworks_getgroups_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_getlogin_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksGetlogin_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef char* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4647,13 +4505,11 @@ static Napi::Value libc_vxworks_getlogin_napi(const Napi::CallbackInfo& km_info)
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_getopt_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksGetopt_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t argc = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* argv = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    bool optstr_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string optstr_str = optstr_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* optstr = optstr_null ? nullptr : optstr_str.c_str();
+    const char* optstr = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4684,11 +4540,9 @@ static Napi::Value libc_vxworks_getopt_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pathconf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPathconf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t name = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4720,7 +4574,7 @@ static Napi::Value libc_vxworks_pathconf_napi(const Napi::CallbackInfo& km_info)
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_vxworks_pause_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPause_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4752,7 +4606,7 @@ static Napi::Value libc_vxworks_pause_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_seteuid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksSeteuid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint16_t uid = static_cast<uint16_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint16_t);
@@ -4785,7 +4639,7 @@ static Napi::Value libc_vxworks_seteuid_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_setegid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksSetegid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint16_t gid = static_cast<uint16_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint16_t);
@@ -4818,7 +4672,7 @@ static Napi::Value libc_vxworks_setegid_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_sleep_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksSleep_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t secs = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef uint32_t (*km_fn_t)(uint32_t);
@@ -4851,7 +4705,7 @@ static Napi::Value libc_vxworks_sleep_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_ttyname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksTtyname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef char* (*km_fn_t)(int32_t);
@@ -4884,7 +4738,7 @@ static Napi::Value libc_vxworks_ttyname_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_wait_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksWait_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* status = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -4917,7 +4771,7 @@ static Napi::Value libc_vxworks_wait_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_umask_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksUmask_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t mask = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -4950,7 +4804,7 @@ static Napi::Value libc_vxworks_umask_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_mlock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksMlock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -4984,7 +4838,7 @@ static Napi::Value libc_vxworks_mlock_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_mlockall_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksMlockall_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t flags = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -5017,7 +4871,7 @@ static Napi::Value libc_vxworks_mlockall_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_munlock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksMunlock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -5051,7 +4905,7 @@ static Napi::Value libc_vxworks_munlock_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_munlockall_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksMunlockall_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5083,7 +4937,7 @@ static Napi::Value libc_vxworks_munlockall_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_mmap_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksMmap_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -5121,7 +4975,7 @@ static Napi::Value libc_vxworks_mmap_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_munmap_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksMunmap_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -5155,7 +5009,7 @@ static Napi::Value libc_vxworks_munmap_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_mprotect_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksMprotect_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -5190,7 +5044,7 @@ static Napi::Value libc_vxworks_mprotect_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_msync_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksMsync_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -5225,11 +5079,9 @@ static Napi::Value libc_vxworks_msync_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_truncate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksTruncate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int64_t length = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
     typedef int32_t (*km_fn_t)(const char*, int64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5261,11 +5113,9 @@ static Napi::Value libc_vxworks_truncate_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_shmOpen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksShmOpen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t oflag = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     int32_t mode = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, int32_t, int32_t);
@@ -5298,11 +5148,9 @@ static Napi::Value libc_vxworks_shmOpen_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_shmUnlink_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksShmUnlink_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5333,7 +5181,7 @@ static Napi::Value libc_vxworks_shmUnlink_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_gettimeofday_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksGettimeofday_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* tp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* tz = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -5367,7 +5215,7 @@ static Napi::Value libc_vxworks_gettimeofday_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadExit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadExit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -5398,7 +5246,7 @@ static Napi::Value libc_vxworks_pthreadExit_napi(const Napi::CallbackInfo& km_in
     return km_env.Undefined();
 }
 
-static Napi::Value libc_vxworks_pthreadAttrSetdetachstate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadAttrSetdetachstate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t state = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -5432,7 +5280,7 @@ static Napi::Value libc_vxworks_pthreadAttrSetdetachstate_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadEqual_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadEqual_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* t1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* t2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -5466,7 +5314,7 @@ static Napi::Value libc_vxworks_pthreadEqual_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_strerrorR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksStrerrorR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t errnum = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -5501,7 +5349,7 @@ static Napi::Value libc_vxworks_strerrorR_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_sigaddset_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksSigaddset_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t signum = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -5535,7 +5383,7 @@ static Napi::Value libc_vxworks_sigaddset_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_sigaction_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksSigaction_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t signum = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* act = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -5570,11 +5418,9 @@ static Napi::Value libc_vxworks_sigaction_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_utimes_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksUtimes_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool filename_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string filename_str = filename_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* filename = filename_null ? nullptr : filename_str.c_str();
+    const char* filename = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* times = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5606,7 +5452,7 @@ static Napi::Value libc_vxworks_utimes_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_futimens_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksFutimens_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* times = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -5640,12 +5486,10 @@ static Napi::Value libc_vxworks_futimens_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_utimensat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksUtimensat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t dirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool path_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* times = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     int32_t flag = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, const char*, void*, int32_t);
@@ -5678,11 +5522,9 @@ static Napi::Value libc_vxworks_utimensat_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_dlopen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksDlopen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool filename_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string filename_str = filename_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* filename = filename_null ? nullptr : filename_str.c_str();
+    const char* filename = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t flag = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef void* (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5712,7 +5554,7 @@ static Napi::Value libc_vxworks_dlopen_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_dlerror_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksDlerror_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef char* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5742,12 +5584,10 @@ static Napi::Value libc_vxworks_dlerror_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_dlsym_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksDlsym_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* handle = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool symbol_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string symbol_str = symbol_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* symbol = symbol_null ? nullptr : symbol_str.c_str();
+    const char* symbol = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef void* (*km_fn_t)(void*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5776,7 +5616,7 @@ static Napi::Value libc_vxworks_dlsym_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_dlclose_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksDlclose_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* handle = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -5807,7 +5647,7 @@ static Napi::Value libc_vxworks_dlclose_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_dladdr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksDladdr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -5839,9 +5679,9 @@ static Napi::Value libc_vxworks_dladdr_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_gmtimeR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksGmtimeR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* time_p = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* timeP = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* result = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef void* (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5865,7 +5705,7 @@ static Napi::Value libc_vxworks_gmtimeR_napi(const Napi::CallbackInfo& km_info) 
 #endif
     void* km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(time_p, result);
+        km_res = km_fn_ptr(timeP, result);
     } else {
         errno = ENOSYS;
         km_res = nullptr;
@@ -5873,9 +5713,9 @@ static Napi::Value libc_vxworks_gmtimeR_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_localtimeR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksLocaltimeR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* time_p = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* timeP = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* result = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef void* (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5899,7 +5739,7 @@ static Napi::Value libc_vxworks_localtimeR_napi(const Napi::CallbackInfo& km_inf
 #endif
     void* km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(time_p, result);
+        km_res = km_fn_ptr(timeP, result);
     } else {
         errno = ENOSYS;
         km_res = nullptr;
@@ -5907,7 +5747,7 @@ static Napi::Value libc_vxworks_localtimeR_napi(const Napi::CallbackInfo& km_inf
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_mktime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksMktime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* tm = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(void*);
@@ -5940,9 +5780,9 @@ static Napi::Value libc_vxworks_mktime_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_vxworks_time_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksTime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_time = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* arg0Time = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5965,7 +5805,7 @@ static Napi::Value libc_vxworks_time_napi(const Napi::CallbackInfo& km_info) {
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_time);
+        km_res = km_fn_ptr(arg0Time);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5973,9 +5813,9 @@ static Napi::Value libc_vxworks_time_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_vxworks_gmtime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksGmtime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* time_p = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* timeP = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5998,7 +5838,7 @@ static Napi::Value libc_vxworks_gmtime_napi(const Napi::CallbackInfo& km_info) {
 #endif
     void* km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(time_p);
+        km_res = km_fn_ptr(timeP);
     } else {
         errno = ENOSYS;
         km_res = nullptr;
@@ -6006,9 +5846,9 @@ static Napi::Value libc_vxworks_gmtime_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_localtime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksLocaltime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* time_p = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* timeP = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6031,7 +5871,7 @@ static Napi::Value libc_vxworks_localtime_napi(const Napi::CallbackInfo& km_info
 #endif
     void* km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(time_p);
+        km_res = km_fn_ptr(timeP);
     } else {
         errno = ENOSYS;
         km_res = nullptr;
@@ -6039,7 +5879,7 @@ static Napi::Value libc_vxworks_localtime_napi(const Napi::CallbackInfo& km_info
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_timegm_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksTimegm_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* tm = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(void*);
@@ -6072,7 +5912,7 @@ static Napi::Value libc_vxworks_timegm_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_vxworks_difftime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksDifftime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int64_t time1 = km_info.Length() > 0 ? km_napi_arg_i64(km_info[0]) : 0;
     int64_t time0 = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
@@ -6106,7 +5946,7 @@ static Napi::Value libc_vxworks_difftime_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
-static Napi::Value libc_vxworks_gethostname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksGethostname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* name = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -6140,7 +5980,7 @@ static Napi::Value libc_vxworks_gethostname_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_usleep_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksUsleep_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t secs = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     typedef int32_t (*km_fn_t)(uint64_t);
@@ -6173,7 +6013,7 @@ static Napi::Value libc_vxworks_usleep_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_putenv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPutenv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* string = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(char*);
@@ -6206,12 +6046,10 @@ static Napi::Value libc_vxworks_putenv_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_setlocale_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksSetlocale_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t category = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool locale_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string locale_str = locale_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* locale = locale_null ? nullptr : locale_str.c_str();
+    const char* locale = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef char* (*km_fn_t)(int32_t, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6242,7 +6080,7 @@ static Napi::Value libc_vxworks_setlocale_napi(const Napi::CallbackInfo& km_info
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_localeconv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksLocaleconv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -6274,7 +6112,7 @@ static Napi::Value libc_vxworks_localeconv_napi(const Napi::CallbackInfo& km_inf
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_sigprocmask_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksSigprocmask_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t how = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -6309,7 +6147,7 @@ static Napi::Value libc_vxworks_sigprocmask_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_sigpending_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksSigpending_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -6342,11 +6180,9 @@ static Napi::Value libc_vxworks_sigpending_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_mkfifo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksMkfifo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t mode = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -6378,7 +6214,7 @@ static Napi::Value libc_vxworks_mkfifo_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_fseeko_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksFseeko_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int64_t offset = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
@@ -6413,7 +6249,7 @@ static Napi::Value libc_vxworks_fseeko_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_ftello_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksFtello_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(void*);
@@ -6446,9 +6282,9 @@ static Napi::Value libc_vxworks_ftello_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_vxworks_mkstemp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksMkstemp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    char* arg_0_template = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    char* arg0Template = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6471,7 +6307,7 @@ static Napi::Value libc_vxworks_mkstemp_napi(const Napi::CallbackInfo& km_info) 
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_template);
+        km_res = km_fn_ptr(arg0Template);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -6479,7 +6315,7 @@ static Napi::Value libc_vxworks_mkstemp_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_tmpnam_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksTmpnam_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* ptr = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef char* (*km_fn_t)(char*);
@@ -6512,11 +6348,9 @@ static Napi::Value libc_vxworks_tmpnam_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_openlog_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksOpenlog_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool ident_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string ident_str = ident_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* ident = ident_null ? nullptr : ident_str.c_str();
+    const char* ident = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t logopt = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     int32_t facility = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(const char*, int32_t, int32_t);
@@ -6547,7 +6381,7 @@ static Napi::Value libc_vxworks_openlog_napi(const Napi::CallbackInfo& km_info) 
     return km_env.Undefined();
 }
 
-static Napi::Value libc_vxworks_closelog_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksCloselog_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -6577,7 +6411,7 @@ static Napi::Value libc_vxworks_closelog_napi(const Napi::CallbackInfo& km_info)
     return km_env.Undefined();
 }
 
-static Napi::Value libc_vxworks_setlogmask_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksSetlogmask_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t maskpri = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -6610,12 +6444,10 @@ static Napi::Value libc_vxworks_setlogmask_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_syslog_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksSyslog_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t priority = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool message_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string message_str = message_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* message = message_null ? nullptr : message_str.c_str();
+    const char* message = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t km_vac = km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
     int64_t km_va1 = km_info.Length() > 4 ? km_napi_arg_i64(km_info[4]) : 0;
@@ -6655,7 +6487,7 @@ static Napi::Value libc_vxworks_syslog_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_vxworks_getline_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksGetline_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lineptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* n = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -6690,10 +6522,10 @@ static Napi::Value libc_vxworks_getline_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_vxworks_tcsetattr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksTcsetattr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t optional_actions = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t optionalActions = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     void* termios = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -6717,7 +6549,7 @@ static Napi::Value libc_vxworks_tcsetattr_napi(const Napi::CallbackInfo& km_info
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(fd, optional_actions, termios);
+        km_res = km_fn_ptr(fd, optionalActions, termios);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -6725,7 +6557,7 @@ static Napi::Value libc_vxworks_tcsetattr_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_tcgetattr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksTcgetattr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* termios = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -6759,7 +6591,7 @@ static Napi::Value libc_vxworks_tcgetattr_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_tcsendbreak_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksTcsendbreak_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t duration = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -6793,7 +6625,7 @@ static Napi::Value libc_vxworks_tcsendbreak_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_confstr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksConfstr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t name = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -6828,14 +6660,10 @@ static Napi::Value libc_vxworks_confstr_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_vxworks_fnmatch_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksFnmatch_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool pattern_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string pattern_str = pattern_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* pattern = pattern_null ? nullptr : pattern_str.c_str();
-    bool name_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* pattern = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -6867,15 +6695,11 @@ static Napi::Value libc_vxworks_fnmatch_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_symlinkat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksSymlinkat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool target_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string target_str = target_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* target = target_null ? nullptr : target_str.c_str();
+    const char* target = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t newdirfd = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    bool linkpath_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string linkpath_str = linkpath_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* linkpath = linkpath_null ? nullptr : linkpath_str.c_str();
+    const char* linkpath = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(const char*, int32_t, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6906,12 +6730,10 @@ static Napi::Value libc_vxworks_symlinkat_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_fchmodat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksFchmodat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t dirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool pathname_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string pathname_str = pathname_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* pathname = pathname_null ? nullptr : pathname_str.c_str();
+    const char* pathname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t mode = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     int32_t flags = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, int32_t);
@@ -6944,11 +6766,9 @@ static Napi::Value libc_vxworks_fchmodat_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_utime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksUtime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool file_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string file_str = file_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* file = file_null ? nullptr : file_str.c_str();
+    const char* file = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -6980,10 +6800,10 @@ static Napi::Value libc_vxworks_utime_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_memalign_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksMemalign_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    uint64_t block_size = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
-    uint64_t size_arg = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
+    uint64_t blockSize = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
+    uint64_t sizeArg = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
     typedef void* (*km_fn_t)(uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -7006,7 +6826,7 @@ static Napi::Value libc_vxworks_memalign_napi(const Napi::CallbackInfo& km_info)
 #endif
     void* km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(block_size, size_arg);
+        km_res = km_fn_ptr(blockSize, sizeArg);
     } else {
         errno = ENOSYS;
         km_res = nullptr;
@@ -7014,7 +6834,7 @@ static Napi::Value libc_vxworks_memalign_napi(const Napi::CallbackInfo& km_info)
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_getcwd_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksGetcwd_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -7048,11 +6868,9 @@ static Napi::Value libc_vxworks_getcwd_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_chdir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksChdir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool attr_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string attr_str = attr_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* attr = attr_null ? nullptr : attr_str.c_str();
+    const char* attr = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -7083,7 +6901,7 @@ static Napi::Value libc_vxworks_chdir_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadMutexattrInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadMutexattrInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -7116,7 +6934,7 @@ static Napi::Value libc_vxworks_pthreadMutexattrInit_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadMutexattrDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadMutexattrDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -7149,7 +6967,7 @@ static Napi::Value libc_vxworks_pthreadMutexattrDestroy_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadMutexattrSettype_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadMutexattrSettype_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* pAttr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t pType = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -7183,7 +7001,7 @@ static Napi::Value libc_vxworks_pthreadMutexattrSettype_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadMutexInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadMutexInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mutex = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -7217,7 +7035,7 @@ static Napi::Value libc_vxworks_pthreadMutexInit_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadMutexDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadMutexDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mutex = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -7250,7 +7068,7 @@ static Napi::Value libc_vxworks_pthreadMutexDestroy_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadMutexLock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadMutexLock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mutex = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -7283,7 +7101,7 @@ static Napi::Value libc_vxworks_pthreadMutexLock_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadMutexTrylock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadMutexTrylock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mutex = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -7316,7 +7134,7 @@ static Napi::Value libc_vxworks_pthreadMutexTrylock_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadMutexTimedlock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadMutexTimedlock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* spec = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -7350,7 +7168,7 @@ static Napi::Value libc_vxworks_pthreadMutexTimedlock_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadMutexUnlock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadMutexUnlock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mutex = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -7383,7 +7201,7 @@ static Napi::Value libc_vxworks_pthreadMutexUnlock_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadAttrSetname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadAttrSetname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* pAttr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* name = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -7417,7 +7235,7 @@ static Napi::Value libc_vxworks_pthreadAttrSetname_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadAttrSetstacksize_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadAttrSetstacksize_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t stacksize = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -7451,7 +7269,7 @@ static Napi::Value libc_vxworks_pthreadAttrSetstacksize_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadAttrGetstacksize_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadAttrGetstacksize_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* size = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -7485,7 +7303,7 @@ static Napi::Value libc_vxworks_pthreadAttrGetstacksize_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadAttrInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadAttrInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -7518,11 +7336,11 @@ static Napi::Value libc_vxworks_pthreadAttrInit_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadCreate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadCreate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* pThread = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* pAttr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* start_routine = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* startRoutine = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -7546,7 +7364,7 @@ static Napi::Value libc_vxworks_pthreadCreate_napi(const Napi::CallbackInfo& km_
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(pThread, pAttr, start_routine, value);
+        km_res = km_fn_ptr(pThread, pAttr, startRoutine, value);
     } else {
         errno = ENOSYS;
         km_res = ENOSYS;
@@ -7554,7 +7372,7 @@ static Napi::Value libc_vxworks_pthreadCreate_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadSetschedparam_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadSetschedparam_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* native = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t policy = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -7589,7 +7407,7 @@ static Napi::Value libc_vxworks_pthreadSetschedparam_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadGetschedparam_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadGetschedparam_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* native = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* policy = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -7624,7 +7442,7 @@ static Napi::Value libc_vxworks_pthreadGetschedparam_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadAttrSetinheritsched_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadAttrSetinheritsched_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t inheritsched = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -7658,7 +7476,7 @@ static Napi::Value libc_vxworks_pthreadAttrSetinheritsched_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadAttrSetschedpolicy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadAttrSetschedpolicy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t policy = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -7692,7 +7510,7 @@ static Napi::Value libc_vxworks_pthreadAttrSetschedpolicy_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadAttrDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadAttrDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* thread = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -7725,7 +7543,7 @@ static Napi::Value libc_vxworks_pthreadAttrDestroy_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadDetach_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadDetach_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* thread = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -7758,7 +7576,7 @@ static Napi::Value libc_vxworks_pthreadDetach_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadAtfork_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadAtfork_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* prepare = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* parent = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -7793,7 +7611,7 @@ static Napi::Value libc_vxworks_pthreadAtfork_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_fstat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksFstat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fildes = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -7827,11 +7645,9 @@ static Napi::Value libc_vxworks_fstat_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_lstat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksLstat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -7863,7 +7679,7 @@ static Napi::Value libc_vxworks_lstat_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_ftruncate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksFtruncate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int64_t length = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
@@ -7897,7 +7713,7 @@ static Napi::Value libc_vxworks_ftruncate_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_readdirR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksReaddirR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* pDir = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* entry = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -7932,7 +7748,7 @@ static Napi::Value libc_vxworks_readdirR_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_readdir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksReaddir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* pDir = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -7965,11 +7781,9 @@ static Napi::Value libc_vxworks_readdir_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_open_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksOpen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t oflag = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     int32_t km_vac = km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
@@ -8011,7 +7825,7 @@ static Napi::Value libc_vxworks_open_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_poll_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPoll_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* fds = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t nfds = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -8046,7 +7860,7 @@ static Napi::Value libc_vxworks_poll_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadCondattrInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadCondattrInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -8079,7 +7893,7 @@ static Napi::Value libc_vxworks_pthreadCondattrInit_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadCondattrDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadCondattrDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -8112,7 +7926,7 @@ static Napi::Value libc_vxworks_pthreadCondattrDestroy_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadCondattrGetclock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadCondattrGetclock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* pAttr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* pClockId = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -8146,7 +7960,7 @@ static Napi::Value libc_vxworks_pthreadCondattrGetclock_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadCondattrSetclock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadCondattrSetclock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* pAttr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t clockId = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -8180,7 +7994,7 @@ static Napi::Value libc_vxworks_pthreadCondattrSetclock_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadCondInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadCondInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cond = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -8214,7 +8028,7 @@ static Napi::Value libc_vxworks_pthreadCondInit_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadCondDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadCondDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cond = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -8247,7 +8061,7 @@ static Napi::Value libc_vxworks_pthreadCondDestroy_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadCondSignal_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadCondSignal_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cond = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -8280,7 +8094,7 @@ static Napi::Value libc_vxworks_pthreadCondSignal_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadCondBroadcast_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadCondBroadcast_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cond = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -8313,7 +8127,7 @@ static Napi::Value libc_vxworks_pthreadCondBroadcast_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadCondWait_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadCondWait_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cond = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* mutex = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -8347,7 +8161,7 @@ static Napi::Value libc_vxworks_pthreadCondWait_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadRwlockattrInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadRwlockattrInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -8380,7 +8194,7 @@ static Napi::Value libc_vxworks_pthreadRwlockattrInit_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadRwlockattrDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadRwlockattrDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -8413,7 +8227,7 @@ static Napi::Value libc_vxworks_pthreadRwlockattrDestroy_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadRwlockattrSetmaxreaders_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadRwlockattrSetmaxreaders_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t attr2 = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -8447,7 +8261,7 @@ static Napi::Value libc_vxworks_pthreadRwlockattrSetmaxreaders_napi(const Napi::
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadRwlockInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadRwlockInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* host = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -8481,7 +8295,7 @@ static Napi::Value libc_vxworks_pthreadRwlockInit_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadRwlockDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadRwlockDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -8514,7 +8328,7 @@ static Napi::Value libc_vxworks_pthreadRwlockDestroy_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadRwlockRdlock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadRwlockRdlock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -8547,7 +8361,7 @@ static Napi::Value libc_vxworks_pthreadRwlockRdlock_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadRwlockTryrdlock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadRwlockTryrdlock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -8580,7 +8394,7 @@ static Napi::Value libc_vxworks_pthreadRwlockTryrdlock_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadRwlockTimedrdlock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadRwlockTimedrdlock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* host = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -8614,7 +8428,7 @@ static Napi::Value libc_vxworks_pthreadRwlockTimedrdlock_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadRwlockWrlock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadRwlockWrlock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -8647,7 +8461,7 @@ static Napi::Value libc_vxworks_pthreadRwlockWrlock_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadRwlockTrywrlock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadRwlockTrywrlock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -8680,7 +8494,7 @@ static Napi::Value libc_vxworks_pthreadRwlockTrywrlock_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadRwlockTimedwrlock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadRwlockTimedwrlock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* host = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -8714,7 +8528,7 @@ static Napi::Value libc_vxworks_pthreadRwlockTimedwrlock_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadRwlockUnlock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadRwlockUnlock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -8747,7 +8561,7 @@ static Napi::Value libc_vxworks_pthreadRwlockUnlock_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadKeyCreate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadKeyCreate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* key = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* dtor = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -8781,7 +8595,7 @@ static Napi::Value libc_vxworks_pthreadKeyCreate_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadKeyDelete_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadKeyDelete_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t key = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     typedef int32_t (*km_fn_t)(uint64_t);
@@ -8814,7 +8628,7 @@ static Napi::Value libc_vxworks_pthreadKeyDelete_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadSetspecific_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadSetspecific_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t key = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     void* value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -8848,7 +8662,7 @@ static Napi::Value libc_vxworks_pthreadSetspecific_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadGetspecific_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadGetspecific_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t key = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     typedef void* (*km_fn_t)(uint64_t);
@@ -8881,7 +8695,7 @@ static Napi::Value libc_vxworks_pthreadGetspecific_napi(const Napi::CallbackInfo
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_pthreadCondTimedwait_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadCondTimedwait_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cond = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* mutex = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -8916,7 +8730,7 @@ static Napi::Value libc_vxworks_pthreadCondTimedwait_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadAttrGetname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadAttrGetname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* name = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -8950,7 +8764,7 @@ static Napi::Value libc_vxworks_pthreadAttrGetname_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadJoin_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadJoin_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* thread = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* status = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -8984,7 +8798,7 @@ static Napi::Value libc_vxworks_pthreadJoin_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadSelf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadSelf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -9016,9 +8830,9 @@ static Napi::Value libc_vxworks_pthreadSelf_napi(const Napi::CallbackInfo& km_in
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_clockGettime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksClockGettime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t clock_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t clockId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* tp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -9042,7 +8856,7 @@ static Napi::Value libc_vxworks_clockGettime_napi(const Napi::CallbackInfo& km_i
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(clock_id, tp);
+        km_res = km_fn_ptr(clockId, tp);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -9050,9 +8864,9 @@ static Napi::Value libc_vxworks_clockGettime_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_clockSettime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksClockSettime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t clock_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t clockId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* tp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -9076,7 +8890,7 @@ static Napi::Value libc_vxworks_clockSettime_napi(const Napi::CallbackInfo& km_i
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(clock_id, tp);
+        km_res = km_fn_ptr(clockId, tp);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -9084,9 +8898,9 @@ static Napi::Value libc_vxworks_clockSettime_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_clockGetres_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksClockGetres_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t clock_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t clockId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* res = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -9110,7 +8924,7 @@ static Napi::Value libc_vxworks_clockGetres_napi(const Napi::CallbackInfo& km_in
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(clock_id, res);
+        km_res = km_fn_ptr(clockId, res);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -9118,9 +8932,9 @@ static Napi::Value libc_vxworks_clockGetres_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_clockNanosleep_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksClockNanosleep_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t clock_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t clockId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     void* rqtp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* rmtp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
@@ -9146,7 +8960,7 @@ static Napi::Value libc_vxworks_clockNanosleep_napi(const Napi::CallbackInfo& km
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(clock_id, flags, rqtp, rmtp);
+        km_res = km_fn_ptr(clockId, flags, rqtp, rmtp);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -9154,7 +8968,7 @@ static Napi::Value libc_vxworks_clockNanosleep_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_nanosleep_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksNanosleep_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* rqtp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* rmtp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -9188,7 +9002,7 @@ static Napi::Value libc_vxworks_nanosleep_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_accept_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksAccept_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t s = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -9223,7 +9037,7 @@ static Napi::Value libc_vxworks_accept_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_bind_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksBind_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -9258,7 +9072,7 @@ static Napi::Value libc_vxworks_bind_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_connect_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksConnect_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t s = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* name = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -9293,7 +9107,7 @@ static Napi::Value libc_vxworks_connect_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_getpeername_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksGetpeername_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t s = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* name = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -9328,11 +9142,11 @@ static Napi::Value libc_vxworks_getpeername_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_getsockname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksGetsockname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t arg0Socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* address = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* address_len = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* addressLen = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -9355,7 +9169,7 @@ static Napi::Value libc_vxworks_getsockname_napi(const Napi::CallbackInfo& km_in
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_socket, address, address_len);
+        km_res = km_fn_ptr(arg0Socket, address, addressLen);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -9363,7 +9177,7 @@ static Napi::Value libc_vxworks_getsockname_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_getsockopt_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksGetsockopt_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t sockfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t level = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -9400,9 +9214,9 @@ static Napi::Value libc_vxworks_getsockopt_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_listen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksListen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t arg0Socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t backlog = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -9426,7 +9240,7 @@ static Napi::Value libc_vxworks_listen_napi(const Napi::CallbackInfo& km_info) {
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_socket, backlog);
+        km_res = km_fn_ptr(arg0Socket, backlog);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -9434,7 +9248,7 @@ static Napi::Value libc_vxworks_listen_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_recv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksRecv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t s = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -9470,7 +9284,7 @@ static Napi::Value libc_vxworks_recv_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_vxworks_recvfrom_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksRecvfrom_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t s = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -9508,9 +9322,9 @@ static Napi::Value libc_vxworks_recvfrom_napi(const Napi::CallbackInfo& km_info)
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_vxworks_recvmsg_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksRecvmsg_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t arg0Socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* mp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t);
@@ -9535,7 +9349,7 @@ static Napi::Value libc_vxworks_recvmsg_napi(const Napi::CallbackInfo& km_info) 
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_socket, mp, flags);
+        km_res = km_fn_ptr(arg0Socket, mp, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -9543,9 +9357,9 @@ static Napi::Value libc_vxworks_recvmsg_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_vxworks_send_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksSend_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t arg0Socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t len = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     int32_t flags = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
@@ -9571,7 +9385,7 @@ static Napi::Value libc_vxworks_send_napi(const Napi::CallbackInfo& km_info) {
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_socket, buf, len, flags);
+        km_res = km_fn_ptr(arg0Socket, buf, len, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -9579,9 +9393,9 @@ static Napi::Value libc_vxworks_send_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_vxworks_sendmsg_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksSendmsg_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t arg0Socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* mp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t);
@@ -9606,7 +9420,7 @@ static Napi::Value libc_vxworks_sendmsg_napi(const Napi::CallbackInfo& km_info) 
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_socket, mp, flags);
+        km_res = km_fn_ptr(arg0Socket, mp, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -9614,9 +9428,9 @@ static Napi::Value libc_vxworks_sendmsg_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_vxworks_sendto_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksSendto_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t arg0Socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t len = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     int32_t flags = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
@@ -9644,7 +9458,7 @@ static Napi::Value libc_vxworks_sendto_napi(const Napi::CallbackInfo& km_info) {
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_socket, buf, len, flags, addr, addrlen);
+        km_res = km_fn_ptr(arg0Socket, buf, len, flags, addr, addrlen);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -9652,13 +9466,13 @@ static Napi::Value libc_vxworks_sendto_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_vxworks_setsockopt_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksSetsockopt_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t arg0Socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t level = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     int32_t name = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     void* value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
-    uint32_t option_len = static_cast<uint32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
+    uint32_t optionLen = static_cast<uint32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -9681,7 +9495,7 @@ static Napi::Value libc_vxworks_setsockopt_napi(const Napi::CallbackInfo& km_inf
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_socket, level, name, value, option_len);
+        km_res = km_fn_ptr(arg0Socket, level, name, value, optionLen);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -9689,7 +9503,7 @@ static Napi::Value libc_vxworks_setsockopt_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_shutdown_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksShutdown_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t s = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t how = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -9723,10 +9537,10 @@ static Napi::Value libc_vxworks_shutdown_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_socket_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksSocket_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t domain = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t arg_1_type = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t type = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     int32_t protocol = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -9750,7 +9564,7 @@ static Napi::Value libc_vxworks_socket_napi(const Napi::CallbackInfo& km_info) {
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(domain, arg_1_type, protocol);
+        km_res = km_fn_ptr(domain, type, protocol);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -9758,7 +9572,7 @@ static Napi::Value libc_vxworks_socket_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_ioctl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksIoctl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t request = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -9802,7 +9616,7 @@ static Napi::Value libc_vxworks_ioctl_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_fcntl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksFcntl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t cmd = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -9846,7 +9660,7 @@ static Napi::Value libc_vxworks_fcntl_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_gaiStrerror_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksGaiStrerror_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t errcode = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef char* (*km_fn_t)(int32_t);
@@ -9879,7 +9693,7 @@ static Napi::Value libc_vxworks_gaiStrerror_napi(const Napi::CallbackInfo& km_in
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_close_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksClose_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -9912,7 +9726,7 @@ static Napi::Value libc_vxworks_close_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_read_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksRead_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -9947,7 +9761,7 @@ static Napi::Value libc_vxworks_read_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_vxworks_write_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksWrite_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -9982,7 +9796,7 @@ static Napi::Value libc_vxworks_write_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_vxworks_isatty_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksIsatty_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -10015,7 +9829,7 @@ static Napi::Value libc_vxworks_isatty_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_dup_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksDup_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t src = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -10048,7 +9862,7 @@ static Napi::Value libc_vxworks_dup_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_dup2_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksDup2_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t src = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t dst = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -10082,7 +9896,7 @@ static Napi::Value libc_vxworks_dup2_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pipe_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPipe_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* fds = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -10115,11 +9929,9 @@ static Napi::Value libc_vxworks_pipe_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_unlink_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksUnlink_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool pathname_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string pathname_str = pathname_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* pathname = pathname_null ? nullptr : pathname_str.c_str();
+    const char* pathname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -10150,7 +9962,7 @@ static Napi::Value libc_vxworks_unlink_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_lseek_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksLseek_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int64_t offset = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
@@ -10185,14 +9997,10 @@ static Napi::Value libc_vxworks_lseek_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_vxworks_getaddrinfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksGetaddrinfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool node_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string node_str = node_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* node = node_null ? nullptr : node_str.c_str();
-    bool service_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string service_str = service_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* service = service_null ? nullptr : service_str.c_str();
+    const char* node = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* service = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* hints = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* res = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(const char*, const char*, void*, void*);
@@ -10225,7 +10033,7 @@ static Napi::Value libc_vxworks_getaddrinfo_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_freeaddrinfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksFreeaddrinfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* res = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -10256,7 +10064,7 @@ static Napi::Value libc_vxworks_freeaddrinfo_napi(const Napi::CallbackInfo& km_i
     return km_env.Undefined();
 }
 
-static Napi::Value libc_vxworks_signal_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksSignal_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t signum = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint64_t handler = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -10290,7 +10098,7 @@ static Napi::Value libc_vxworks_signal_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_vxworks_getpid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksGetpid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -10322,7 +10130,7 @@ static Napi::Value libc_vxworks_getpid_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_getppid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksGetppid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -10354,7 +10162,7 @@ static Napi::Value libc_vxworks_getppid_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_setpgid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksSetpgid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t pgid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -10388,7 +10196,7 @@ static Napi::Value libc_vxworks_setpgid_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_waitpid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksWaitpid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* status = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -10423,7 +10231,7 @@ static Napi::Value libc_vxworks_waitpid_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_sysconf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksSysconf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t attr = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(int32_t);
@@ -10456,14 +10264,10 @@ static Napi::Value libc_vxworks_sysconf_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_vxworks_setenv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksSetenv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool envVarName_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string envVarName_str = envVarName_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* envVarName = envVarName_null ? nullptr : envVarName_str.c_str();
-    bool envVarValue_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string envVarValue_str = envVarValue_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* envVarValue = envVarValue_null ? nullptr : envVarValue_str.c_str();
+    const char* envVarName = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* envVarValue = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t overwrite = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -10495,11 +10299,9 @@ static Napi::Value libc_vxworks_setenv_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_unsetenv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksUnsetenv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool envVarName_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string envVarName_str = envVarName_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* envVarName = envVarName_null ? nullptr : envVarName_str.c_str();
+    const char* envVarName = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -10530,11 +10332,9 @@ static Napi::Value libc_vxworks_unsetenv_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_realpath_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksRealpath_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool fileName_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string fileName_str = fileName_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* fileName = fileName_null ? nullptr : fileName_str.c_str();
+    const char* fileName = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* resolvedName = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef char* (*km_fn_t)(const char*, char*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -10566,14 +10366,10 @@ static Napi::Value libc_vxworks_realpath_napi(const Napi::CallbackInfo& km_info)
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_link_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksLink_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool src_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string src_str = src_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* src = src_null ? nullptr : src_str.c_str();
-    bool dst_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string dst_str = dst_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* dst = dst_null ? nullptr : dst_str.c_str();
+    const char* src = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* dst = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -10604,11 +10400,9 @@ static Napi::Value libc_vxworks_link_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_readlink_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksReadlink_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t bufsize = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef int64_t (*km_fn_t)(const char*, char*, uint64_t);
@@ -10641,14 +10435,10 @@ static Napi::Value libc_vxworks_readlink_napi(const Napi::CallbackInfo& km_info)
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_vxworks_symlink_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksSymlink_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path1_str = path1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path1 = path1_null ? nullptr : path1_str.c_str();
-    bool path2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string path2_str = path2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* path2 = path2_null ? nullptr : path2_str.c_str();
+    const char* path1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* path2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -10679,11 +10469,9 @@ static Napi::Value libc_vxworks_symlink_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_opendir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksOpendir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -10714,11 +10502,9 @@ static Napi::Value libc_vxworks_opendir_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_rmdir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksRmdir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -10749,11 +10535,9 @@ static Napi::Value libc_vxworks_rmdir_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_mkdir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksMkdir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool dirName_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string dirName_str = dirName_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* dirName = dirName_null ? nullptr : dirName_str.c_str();
+    const char* dirName = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t mode = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -10785,11 +10569,9 @@ static Napi::Value libc_vxworks_mkdir_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_chmod_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksChmod_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t mode = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -10821,7 +10603,7 @@ static Napi::Value libc_vxworks_chmod_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_fchmod_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksFchmod_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t attr1 = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t attr2 = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -10855,7 +10637,7 @@ static Napi::Value libc_vxworks_fchmod_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_fsync_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksFsync_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -10888,7 +10670,7 @@ static Napi::Value libc_vxworks_fsync_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_closedir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksClosedir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -10921,7 +10703,7 @@ static Napi::Value libc_vxworks_closedir_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_schedGetPriorityMax_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksSchedGetPriorityMax_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t policy = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -10954,7 +10736,7 @@ static Napi::Value libc_vxworks_schedGetPriorityMax_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_schedGetPriorityMin_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksSchedGetPriorityMin_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t policy = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -10987,7 +10769,7 @@ static Napi::Value libc_vxworks_schedGetPriorityMin_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_schedSetparam_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksSchedSetparam_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* param = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -11021,7 +10803,7 @@ static Napi::Value libc_vxworks_schedSetparam_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_schedGetparam_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksSchedGetparam_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* param = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -11055,7 +10837,7 @@ static Napi::Value libc_vxworks_schedGetparam_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_schedSetscheduler_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksSchedSetscheduler_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t policy = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -11090,7 +10872,7 @@ static Napi::Value libc_vxworks_schedSetscheduler_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_schedGetscheduler_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksSchedGetscheduler_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -11123,7 +10905,7 @@ static Napi::Value libc_vxworks_schedGetscheduler_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_schedRrGetInterval_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksSchedRrGetInterval_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* tp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -11157,7 +10939,7 @@ static Napi::Value libc_vxworks_schedRrGetInterval_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_schedYield_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksSchedYield_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -11189,7 +10971,7 @@ static Napi::Value libc_vxworks_schedYield_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_errnoSet_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksErrnoSet_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t err = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -11222,7 +11004,7 @@ static Napi::Value libc_vxworks_errnoSet_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_errnoGet_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksErrnoGet_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -11254,7 +11036,7 @@ static Napi::Value libc_vxworks_errnoGet_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_setgid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksSetgid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint16_t gid = static_cast<uint16_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint16_t);
@@ -11287,7 +11069,7 @@ static Napi::Value libc_vxworks_setgid_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_getgid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksGetgid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef uint16_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -11319,7 +11101,7 @@ static Napi::Value libc_vxworks_getgid_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_setuid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksSetuid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint16_t uid = static_cast<uint16_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint16_t);
@@ -11352,7 +11134,7 @@ static Napi::Value libc_vxworks_setuid_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_getuid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksGetuid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef uint16_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -11384,9 +11166,9 @@ static Napi::Value libc_vxworks_getuid_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_sigemptyset_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksSigemptyset_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -11409,7 +11191,7 @@ static Napi::Value libc_vxworks_sigemptyset_napi(const Napi::CallbackInfo& km_in
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_set);
+        km_res = km_fn_ptr(set);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -11417,7 +11199,7 @@ static Napi::Value libc_vxworks_sigemptyset_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_sigfillset_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksSigfillset_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -11450,7 +11232,7 @@ static Napi::Value libc_vxworks_sigfillset_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_sigdelset_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksSigdelset_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t signum = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -11484,7 +11266,7 @@ static Napi::Value libc_vxworks_sigdelset_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_sigismember_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksSigismember_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t signum = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -11518,11 +11300,11 @@ static Napi::Value libc_vxworks_sigismember_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pthreadSigmask_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPthreadSigmask_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_how = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* arg_2_oset = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    int32_t how = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* oset = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -11545,7 +11327,7 @@ static Napi::Value libc_vxworks_pthreadSigmask_napi(const Napi::CallbackInfo& km
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_how, arg_1_set, arg_2_oset);
+        km_res = km_fn_ptr(how, set, oset);
     } else {
         errno = ENOSYS;
         km_res = ENOSYS;
@@ -11553,10 +11335,10 @@ static Napi::Value libc_vxworks_pthreadSigmask_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_kill_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksKill_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t arg_1_signo = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t signo = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -11579,7 +11361,7 @@ static Napi::Value libc_vxworks_kill_napi(const Napi::CallbackInfo& km_info) {
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_pid, arg_1_signo);
+        km_res = km_fn_ptr(pid, signo);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -11587,7 +11369,7 @@ static Napi::Value libc_vxworks_kill_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_taskKill_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksTaskKill_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t taskId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t signo = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -11621,9 +11403,9 @@ static Napi::Value libc_vxworks_taskKill_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_raise_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksRaise_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_signo = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t signo = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -11646,7 +11428,7 @@ static Napi::Value libc_vxworks_raise_napi(const Napi::CallbackInfo& km_info) {
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_signo);
+        km_res = km_fn_ptr(signo);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -11654,7 +11436,7 @@ static Napi::Value libc_vxworks_raise_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_taskIdSelf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksTaskIdSelf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -11686,7 +11468,7 @@ static Napi::Value libc_vxworks_taskIdSelf_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_taskDelay_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksTaskDelay_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t ticks = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -11719,10 +11501,10 @@ static Napi::Value libc_vxworks_taskDelay_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_taskNameSet_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksTaskNameSet_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t task_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    char* task_name = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    int32_t taskId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    char* taskName = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -11745,7 +11527,7 @@ static Napi::Value libc_vxworks_taskNameSet_napi(const Napi::CallbackInfo& km_in
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(task_id, task_name);
+        km_res = km_fn_ptr(taskId, taskName);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -11753,10 +11535,10 @@ static Napi::Value libc_vxworks_taskNameSet_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_taskNameGet_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksTaskNameGet_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t task_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    char* buf_name = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    int32_t taskId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    char* bufName = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t bufsize = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef int32_t (*km_fn_t)(int32_t, char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -11780,7 +11562,7 @@ static Napi::Value libc_vxworks_taskNameGet_napi(const Napi::CallbackInfo& km_in
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(task_id, buf_name, bufsize);
+        km_res = km_fn_ptr(taskId, bufName, bufsize);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -11788,7 +11570,7 @@ static Napi::Value libc_vxworks_taskNameGet_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_rtpInfoGet_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksRtpInfoGet_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t rtpId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* rtpStruct = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -11822,11 +11604,9 @@ static Napi::Value libc_vxworks_rtpInfoGet_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_rtpSpawn_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksRtpSpawn_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool pubrtpFileName_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string pubrtpFileName_str = pubrtpFileName_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* pubrtpFileName = pubrtpFileName_null ? nullptr : pubrtpFileName_str.c_str();
+    const char* pubrtpFileName = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* argv = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* envp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     int32_t priority = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
@@ -11863,11 +11643,9 @@ static Napi::Value libc_vxworks_rtpSpawn_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_pathIsAbsolute_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksPathIsAbsolute_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool filepath_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string filepath_str = filepath_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* filepath = filepath_null ? nullptr : filepath_str.c_str();
+    const char* filepath = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* pNameTail = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -11897,7 +11675,7 @@ static Napi::Value libc_vxworks_pathIsAbsolute_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_writev_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksWritev_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -11932,7 +11710,7 @@ static Napi::Value libc_vxworks_writev_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_vxworks_readv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksReadv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -11967,7 +11745,7 @@ static Napi::Value libc_vxworks_readv_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_vxworks_randBytes_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksRandBytes_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t length = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -12001,7 +11779,7 @@ static Napi::Value libc_vxworks_randBytes_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_randABytes_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksRandABytes_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t length = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -12035,7 +11813,7 @@ static Napi::Value libc_vxworks_randABytes_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_randUBytes_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksRandUBytes_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t length = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -12069,7 +11847,7 @@ static Napi::Value libc_vxworks_randUBytes_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_randSecure_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksRandSecure_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -12101,11 +11879,9 @@ static Napi::Value libc_vxworks_randSecure_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_mqOpen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksMqOpen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t oflag = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     int32_t km_vac = km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
@@ -12147,7 +11923,7 @@ static Napi::Value libc_vxworks_mqOpen_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_vxworks_mqClose_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksMqClose_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mqd = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -12180,11 +11956,9 @@ static Napi::Value libc_vxworks_mqClose_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_mqUnlink_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksMqUnlink_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -12215,12 +11989,12 @@ static Napi::Value libc_vxworks_mqUnlink_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_mqReceive_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksMqReceive_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mqd = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    char* msg_ptr = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t msg_len = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    void* msg_prio = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    char* msgPtr = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t msgLen = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    void* msgPrio = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int64_t (*km_fn_t)(void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -12243,7 +12017,7 @@ static Napi::Value libc_vxworks_mqReceive_napi(const Napi::CallbackInfo& km_info
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(mqd, msg_ptr, msg_len, msg_prio);
+        km_res = km_fn_ptr(mqd, msgPtr, msgLen, msgPrio);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -12251,13 +12025,13 @@ static Napi::Value libc_vxworks_mqReceive_napi(const Napi::CallbackInfo& km_info
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_vxworks_mqTimedreceive_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksMqTimedreceive_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mqd = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    char* msg_ptr = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t msg_len = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    void* msg_prio = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
-    void* abs_timeout = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
+    char* msgPtr = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t msgLen = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    void* msgPrio = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    void* absTimeout = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
     typedef int64_t (*km_fn_t)(void*, char*, uint64_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -12280,7 +12054,7 @@ static Napi::Value libc_vxworks_mqTimedreceive_napi(const Napi::CallbackInfo& km
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(mqd, msg_ptr, msg_len, msg_prio, abs_timeout);
+        km_res = km_fn_ptr(mqd, msgPtr, msgLen, msgPrio, absTimeout);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -12288,14 +12062,12 @@ static Napi::Value libc_vxworks_mqTimedreceive_napi(const Napi::CallbackInfo& km
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_vxworks_mqSend_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksMqSend_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mqd = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool msg_ptr_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string msg_ptr_str = msg_ptr_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* msg_ptr = msg_ptr_null ? nullptr : msg_ptr_str.c_str();
-    uint64_t msg_len = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    uint32_t msg_prio = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
+    const char* msgPtr = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t msgLen = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    uint32_t msgPrio = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, const char*, uint64_t, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -12318,7 +12090,7 @@ static Napi::Value libc_vxworks_mqSend_napi(const Napi::CallbackInfo& km_info) {
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(mqd, msg_ptr, msg_len, msg_prio);
+        km_res = km_fn_ptr(mqd, msgPtr, msgLen, msgPrio);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -12326,15 +12098,13 @@ static Napi::Value libc_vxworks_mqSend_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_mqTimedsend_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksMqTimedsend_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mqd = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool msg_ptr_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string msg_ptr_str = msg_ptr_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* msg_ptr = msg_ptr_null ? nullptr : msg_ptr_str.c_str();
-    uint64_t msg_len = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    uint32_t msg_prio = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
-    void* abs_timeout = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
+    const char* msgPtr = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t msgLen = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    uint32_t msgPrio = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
+    void* absTimeout = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
     typedef int32_t (*km_fn_t)(void*, const char*, uint64_t, uint32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -12357,7 +12127,7 @@ static Napi::Value libc_vxworks_mqTimedsend_napi(const Napi::CallbackInfo& km_in
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(mqd, msg_ptr, msg_len, msg_prio, abs_timeout);
+        km_res = km_fn_ptr(mqd, msgPtr, msgLen, msgPrio, absTimeout);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -12365,7 +12135,7 @@ static Napi::Value libc_vxworks_mqTimedsend_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_mqGetattr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksMqGetattr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mqd = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -12399,7 +12169,7 @@ static Napi::Value libc_vxworks_mqGetattr_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_mqSetattr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksMqSetattr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mqd = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* newattr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -12434,7 +12204,7 @@ static Napi::Value libc_vxworks_mqSetattr_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_vxCpuEnabledGet_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksVxCpuEnabledGet_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef uint32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -12466,7 +12236,7 @@ static Napi::Value libc_vxworks_vxCpuEnabledGet_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_vxworks_vxCpuConfiguredGet_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcVxworksVxCpuConfiguredGet_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef uint32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -12499,364 +12269,364 @@ static Napi::Value libc_vxworks_vxCpuConfiguredGet_napi(const Napi::CallbackInfo
 }
 
 static void register_vxworks_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_vxworks_isalnum", Napi::Function::New(env, libc_vxworks_isalnum_napi));
-    exports.Set("libc_vxworks_isalpha", Napi::Function::New(env, libc_vxworks_isalpha_napi));
-    exports.Set("libc_vxworks_iscntrl", Napi::Function::New(env, libc_vxworks_iscntrl_napi));
-    exports.Set("libc_vxworks_isdigit", Napi::Function::New(env, libc_vxworks_isdigit_napi));
-    exports.Set("libc_vxworks_isgraph", Napi::Function::New(env, libc_vxworks_isgraph_napi));
-    exports.Set("libc_vxworks_islower", Napi::Function::New(env, libc_vxworks_islower_napi));
-    exports.Set("libc_vxworks_isprint", Napi::Function::New(env, libc_vxworks_isprint_napi));
-    exports.Set("libc_vxworks_ispunct", Napi::Function::New(env, libc_vxworks_ispunct_napi));
-    exports.Set("libc_vxworks_isspace", Napi::Function::New(env, libc_vxworks_isspace_napi));
-    exports.Set("libc_vxworks_isupper", Napi::Function::New(env, libc_vxworks_isupper_napi));
-    exports.Set("libc_vxworks_isxdigit", Napi::Function::New(env, libc_vxworks_isxdigit_napi));
-    exports.Set("libc_vxworks_isblank", Napi::Function::New(env, libc_vxworks_isblank_napi));
-    exports.Set("libc_vxworks_tolower", Napi::Function::New(env, libc_vxworks_tolower_napi));
-    exports.Set("libc_vxworks_toupper", Napi::Function::New(env, libc_vxworks_toupper_napi));
-    exports.Set("libc_vxworks_fopen", Napi::Function::New(env, libc_vxworks_fopen_napi));
-    exports.Set("libc_vxworks_freopen", Napi::Function::New(env, libc_vxworks_freopen_napi));
-    exports.Set("libc_vxworks_fflush", Napi::Function::New(env, libc_vxworks_fflush_napi));
-    exports.Set("libc_vxworks_fclose", Napi::Function::New(env, libc_vxworks_fclose_napi));
-    exports.Set("libc_vxworks_remove", Napi::Function::New(env, libc_vxworks_remove_napi));
-    exports.Set("libc_vxworks_rename", Napi::Function::New(env, libc_vxworks_rename_napi));
-    exports.Set("libc_vxworks_tmpfile", Napi::Function::New(env, libc_vxworks_tmpfile_napi));
-    exports.Set("libc_vxworks_setvbuf", Napi::Function::New(env, libc_vxworks_setvbuf_napi));
-    exports.Set("libc_vxworks_setbuf", Napi::Function::New(env, libc_vxworks_setbuf_napi));
-    exports.Set("libc_vxworks_getchar", Napi::Function::New(env, libc_vxworks_getchar_napi));
-    exports.Set("libc_vxworks_putchar", Napi::Function::New(env, libc_vxworks_putchar_napi));
-    exports.Set("libc_vxworks_fgetc", Napi::Function::New(env, libc_vxworks_fgetc_napi));
-    exports.Set("libc_vxworks_fgets", Napi::Function::New(env, libc_vxworks_fgets_napi));
-    exports.Set("libc_vxworks_fputc", Napi::Function::New(env, libc_vxworks_fputc_napi));
-    exports.Set("libc_vxworks_fputs", Napi::Function::New(env, libc_vxworks_fputs_napi));
-    exports.Set("libc_vxworks_puts", Napi::Function::New(env, libc_vxworks_puts_napi));
-    exports.Set("libc_vxworks_ungetc", Napi::Function::New(env, libc_vxworks_ungetc_napi));
-    exports.Set("libc_vxworks_fread", Napi::Function::New(env, libc_vxworks_fread_napi));
-    exports.Set("libc_vxworks_fwrite", Napi::Function::New(env, libc_vxworks_fwrite_napi));
-    exports.Set("libc_vxworks_fseek", Napi::Function::New(env, libc_vxworks_fseek_napi));
-    exports.Set("libc_vxworks_ftell", Napi::Function::New(env, libc_vxworks_ftell_napi));
-    exports.Set("libc_vxworks_rewind", Napi::Function::New(env, libc_vxworks_rewind_napi));
-    exports.Set("libc_vxworks_fgetpos", Napi::Function::New(env, libc_vxworks_fgetpos_napi));
-    exports.Set("libc_vxworks_fsetpos", Napi::Function::New(env, libc_vxworks_fsetpos_napi));
-    exports.Set("libc_vxworks_feof", Napi::Function::New(env, libc_vxworks_feof_napi));
-    exports.Set("libc_vxworks_ferror", Napi::Function::New(env, libc_vxworks_ferror_napi));
-    exports.Set("libc_vxworks_perror", Napi::Function::New(env, libc_vxworks_perror_napi));
-    exports.Set("libc_vxworks_atof", Napi::Function::New(env, libc_vxworks_atof_napi));
-    exports.Set("libc_vxworks_atoi", Napi::Function::New(env, libc_vxworks_atoi_napi));
-    exports.Set("libc_vxworks_atol", Napi::Function::New(env, libc_vxworks_atol_napi));
-    exports.Set("libc_vxworks_atoll", Napi::Function::New(env, libc_vxworks_atoll_napi));
-    exports.Set("libc_vxworks_strtod", Napi::Function::New(env, libc_vxworks_strtod_napi));
-    exports.Set("libc_vxworks_strtof", Napi::Function::New(env, libc_vxworks_strtof_napi));
-    exports.Set("libc_vxworks_strtol", Napi::Function::New(env, libc_vxworks_strtol_napi));
-    exports.Set("libc_vxworks_strtoll", Napi::Function::New(env, libc_vxworks_strtoll_napi));
-    exports.Set("libc_vxworks_strtoul", Napi::Function::New(env, libc_vxworks_strtoul_napi));
-    exports.Set("libc_vxworks_strtoull", Napi::Function::New(env, libc_vxworks_strtoull_napi));
-    exports.Set("libc_vxworks_calloc", Napi::Function::New(env, libc_vxworks_calloc_napi));
-    exports.Set("libc_vxworks_malloc", Napi::Function::New(env, libc_vxworks_malloc_napi));
-    exports.Set("libc_vxworks_realloc", Napi::Function::New(env, libc_vxworks_realloc_napi));
-    exports.Set("libc_vxworks_free", Napi::Function::New(env, libc_vxworks_free_napi));
-    exports.Set("libc_vxworks_abort", Napi::Function::New(env, libc_vxworks_abort_napi));
-    exports.Set("libc_vxworks_exit", Napi::Function::New(env, libc_vxworks_exit_napi));
-    exports.Set("libc_vxworks_atexit", Napi::Function::New(env, libc_vxworks_atexit_napi));
-    exports.Set("libc_vxworks_system", Napi::Function::New(env, libc_vxworks_system_napi));
-    exports.Set("libc_vxworks_getenv", Napi::Function::New(env, libc_vxworks_getenv_napi));
-    exports.Set("libc_vxworks_cfgetospeed", Napi::Function::New(env, libc_vxworks_cfgetospeed_napi));
-    exports.Set("libc_vxworks_cfmakeraw", Napi::Function::New(env, libc_vxworks_cfmakeraw_napi));
-    exports.Set("libc_vxworks_cfsetispeed", Napi::Function::New(env, libc_vxworks_cfsetispeed_napi));
-    exports.Set("libc_vxworks_cfsetospeed", Napi::Function::New(env, libc_vxworks_cfsetospeed_napi));
-    exports.Set("libc_vxworks_strcpy", Napi::Function::New(env, libc_vxworks_strcpy_napi));
-    exports.Set("libc_vxworks_strncpy", Napi::Function::New(env, libc_vxworks_strncpy_napi));
-    exports.Set("libc_vxworks_strcat", Napi::Function::New(env, libc_vxworks_strcat_napi));
-    exports.Set("libc_vxworks_strncat", Napi::Function::New(env, libc_vxworks_strncat_napi));
-    exports.Set("libc_vxworks_strcmp", Napi::Function::New(env, libc_vxworks_strcmp_napi));
-    exports.Set("libc_vxworks_strncmp", Napi::Function::New(env, libc_vxworks_strncmp_napi));
-    exports.Set("libc_vxworks_strcoll", Napi::Function::New(env, libc_vxworks_strcoll_napi));
-    exports.Set("libc_vxworks_strchr", Napi::Function::New(env, libc_vxworks_strchr_napi));
-    exports.Set("libc_vxworks_strrchr", Napi::Function::New(env, libc_vxworks_strrchr_napi));
-    exports.Set("libc_vxworks_strspn", Napi::Function::New(env, libc_vxworks_strspn_napi));
-    exports.Set("libc_vxworks_strcspn", Napi::Function::New(env, libc_vxworks_strcspn_napi));
-    exports.Set("libc_vxworks_strdup", Napi::Function::New(env, libc_vxworks_strdup_napi));
-    exports.Set("libc_vxworks_strpbrk", Napi::Function::New(env, libc_vxworks_strpbrk_napi));
-    exports.Set("libc_vxworks_strstr", Napi::Function::New(env, libc_vxworks_strstr_napi));
-    exports.Set("libc_vxworks_strcasecmp", Napi::Function::New(env, libc_vxworks_strcasecmp_napi));
-    exports.Set("libc_vxworks_strncasecmp", Napi::Function::New(env, libc_vxworks_strncasecmp_napi));
-    exports.Set("libc_vxworks_strlen", Napi::Function::New(env, libc_vxworks_strlen_napi));
-    exports.Set("libc_vxworks_strnlen", Napi::Function::New(env, libc_vxworks_strnlen_napi));
-    exports.Set("libc_vxworks_strerror", Napi::Function::New(env, libc_vxworks_strerror_napi));
-    exports.Set("libc_vxworks_strtok", Napi::Function::New(env, libc_vxworks_strtok_napi));
-    exports.Set("libc_vxworks_strxfrm", Napi::Function::New(env, libc_vxworks_strxfrm_napi));
-    exports.Set("libc_vxworks_wcslen", Napi::Function::New(env, libc_vxworks_wcslen_napi));
-    exports.Set("libc_vxworks_wcstombs", Napi::Function::New(env, libc_vxworks_wcstombs_napi));
-    exports.Set("libc_vxworks_memchr", Napi::Function::New(env, libc_vxworks_memchr_napi));
-    exports.Set("libc_vxworks_wmemchr", Napi::Function::New(env, libc_vxworks_wmemchr_napi));
-    exports.Set("libc_vxworks_memcmp", Napi::Function::New(env, libc_vxworks_memcmp_napi));
-    exports.Set("libc_vxworks_memcpy", Napi::Function::New(env, libc_vxworks_memcpy_napi));
-    exports.Set("libc_vxworks_memccpy", Napi::Function::New(env, libc_vxworks_memccpy_napi));
-    exports.Set("libc_vxworks_memmove", Napi::Function::New(env, libc_vxworks_memmove_napi));
-    exports.Set("libc_vxworks_memset", Napi::Function::New(env, libc_vxworks_memset_napi));
-    exports.Set("libc_vxworks_alignedAlloc", Napi::Function::New(env, libc_vxworks_alignedAlloc_napi));
-    exports.Set("libc_vxworks_uname", Napi::Function::New(env, libc_vxworks_uname_napi));
-    exports.Set("libc_vxworks_times", Napi::Function::New(env, libc_vxworks_times_napi));
-    exports.Set("libc_vxworks_tcflush", Napi::Function::New(env, libc_vxworks_tcflush_napi));
-    exports.Set("libc_vxworks_pclose", Napi::Function::New(env, libc_vxworks_pclose_napi));
-    exports.Set("libc_vxworks_mkdtemp", Napi::Function::New(env, libc_vxworks_mkdtemp_napi));
-    exports.Set("libc_vxworks_linkat", Napi::Function::New(env, libc_vxworks_linkat_napi));
-    exports.Set("libc_vxworks_unlinkat", Napi::Function::New(env, libc_vxworks_unlinkat_napi));
-    exports.Set("libc_vxworks_getprotobyname", Napi::Function::New(env, libc_vxworks_getprotobyname_napi));
-    exports.Set("libc_vxworks_getprotobynumber", Napi::Function::New(env, libc_vxworks_getprotobynumber_napi));
-    exports.Set("libc_vxworks_getservbyname", Napi::Function::New(env, libc_vxworks_getservbyname_napi));
-    exports.Set("libc_vxworks_fchownat", Napi::Function::New(env, libc_vxworks_fchownat_napi));
-    exports.Set("libc_vxworks_fprintf", Napi::Function::New(env, libc_vxworks_fprintf_napi));
-    exports.Set("libc_vxworks_printf", Napi::Function::New(env, libc_vxworks_printf_napi));
-    exports.Set("libc_vxworks_snprintf", Napi::Function::New(env, libc_vxworks_snprintf_napi));
-    exports.Set("libc_vxworks_sprintf", Napi::Function::New(env, libc_vxworks_sprintf_napi));
-    exports.Set("libc_vxworks_fscanf", Napi::Function::New(env, libc_vxworks_fscanf_napi));
-    exports.Set("libc_vxworks_scanf", Napi::Function::New(env, libc_vxworks_scanf_napi));
-    exports.Set("libc_vxworks_sscanf", Napi::Function::New(env, libc_vxworks_sscanf_napi));
-    exports.Set("libc_vxworks_getcharUnlocked", Napi::Function::New(env, libc_vxworks_getcharUnlocked_napi));
-    exports.Set("libc_vxworks_putcharUnlocked", Napi::Function::New(env, libc_vxworks_putcharUnlocked_napi));
-    exports.Set("libc_vxworks_stat", Napi::Function::New(env, libc_vxworks_stat_napi));
-    exports.Set("libc_vxworks_fdopen", Napi::Function::New(env, libc_vxworks_fdopen_napi));
-    exports.Set("libc_vxworks_fileno", Napi::Function::New(env, libc_vxworks_fileno_napi));
-    exports.Set("libc_vxworks_creat", Napi::Function::New(env, libc_vxworks_creat_napi));
-    exports.Set("libc_vxworks_rewinddir", Napi::Function::New(env, libc_vxworks_rewinddir_napi));
-    exports.Set("libc_vxworks_fchown", Napi::Function::New(env, libc_vxworks_fchown_napi));
-    exports.Set("libc_vxworks_access", Napi::Function::New(env, libc_vxworks_access_napi));
-    exports.Set("libc_vxworks_alarm", Napi::Function::New(env, libc_vxworks_alarm_napi));
-    exports.Set("libc_vxworks_fchdir", Napi::Function::New(env, libc_vxworks_fchdir_napi));
-    exports.Set("libc_vxworks_chown", Napi::Function::New(env, libc_vxworks_chown_napi));
-    exports.Set("libc_vxworks_fpathconf", Napi::Function::New(env, libc_vxworks_fpathconf_napi));
-    exports.Set("libc_vxworks_getegid", Napi::Function::New(env, libc_vxworks_getegid_napi));
-    exports.Set("libc_vxworks_geteuid", Napi::Function::New(env, libc_vxworks_geteuid_napi));
-    exports.Set("libc_vxworks_getgroups", Napi::Function::New(env, libc_vxworks_getgroups_napi));
-    exports.Set("libc_vxworks_getlogin", Napi::Function::New(env, libc_vxworks_getlogin_napi));
-    exports.Set("libc_vxworks_getopt", Napi::Function::New(env, libc_vxworks_getopt_napi));
-    exports.Set("libc_vxworks_pathconf", Napi::Function::New(env, libc_vxworks_pathconf_napi));
-    exports.Set("libc_vxworks_pause", Napi::Function::New(env, libc_vxworks_pause_napi));
-    exports.Set("libc_vxworks_seteuid", Napi::Function::New(env, libc_vxworks_seteuid_napi));
-    exports.Set("libc_vxworks_setegid", Napi::Function::New(env, libc_vxworks_setegid_napi));
-    exports.Set("libc_vxworks_sleep", Napi::Function::New(env, libc_vxworks_sleep_napi));
-    exports.Set("libc_vxworks_ttyname", Napi::Function::New(env, libc_vxworks_ttyname_napi));
-    exports.Set("libc_vxworks_wait", Napi::Function::New(env, libc_vxworks_wait_napi));
-    exports.Set("libc_vxworks_umask", Napi::Function::New(env, libc_vxworks_umask_napi));
-    exports.Set("libc_vxworks_mlock", Napi::Function::New(env, libc_vxworks_mlock_napi));
-    exports.Set("libc_vxworks_mlockall", Napi::Function::New(env, libc_vxworks_mlockall_napi));
-    exports.Set("libc_vxworks_munlock", Napi::Function::New(env, libc_vxworks_munlock_napi));
-    exports.Set("libc_vxworks_munlockall", Napi::Function::New(env, libc_vxworks_munlockall_napi));
-    exports.Set("libc_vxworks_mmap", Napi::Function::New(env, libc_vxworks_mmap_napi));
-    exports.Set("libc_vxworks_munmap", Napi::Function::New(env, libc_vxworks_munmap_napi));
-    exports.Set("libc_vxworks_mprotect", Napi::Function::New(env, libc_vxworks_mprotect_napi));
-    exports.Set("libc_vxworks_msync", Napi::Function::New(env, libc_vxworks_msync_napi));
-    exports.Set("libc_vxworks_truncate", Napi::Function::New(env, libc_vxworks_truncate_napi));
-    exports.Set("libc_vxworks_shmOpen", Napi::Function::New(env, libc_vxworks_shmOpen_napi));
-    exports.Set("libc_vxworks_shmUnlink", Napi::Function::New(env, libc_vxworks_shmUnlink_napi));
-    exports.Set("libc_vxworks_gettimeofday", Napi::Function::New(env, libc_vxworks_gettimeofday_napi));
-    exports.Set("libc_vxworks_pthreadExit", Napi::Function::New(env, libc_vxworks_pthreadExit_napi));
-    exports.Set("libc_vxworks_pthreadAttrSetdetachstate", Napi::Function::New(env, libc_vxworks_pthreadAttrSetdetachstate_napi));
-    exports.Set("libc_vxworks_pthreadEqual", Napi::Function::New(env, libc_vxworks_pthreadEqual_napi));
-    exports.Set("libc_vxworks_strerrorR", Napi::Function::New(env, libc_vxworks_strerrorR_napi));
-    exports.Set("libc_vxworks_sigaddset", Napi::Function::New(env, libc_vxworks_sigaddset_napi));
-    exports.Set("libc_vxworks_sigaction", Napi::Function::New(env, libc_vxworks_sigaction_napi));
-    exports.Set("libc_vxworks_utimes", Napi::Function::New(env, libc_vxworks_utimes_napi));
-    exports.Set("libc_vxworks_futimens", Napi::Function::New(env, libc_vxworks_futimens_napi));
-    exports.Set("libc_vxworks_utimensat", Napi::Function::New(env, libc_vxworks_utimensat_napi));
-    exports.Set("libc_vxworks_dlopen", Napi::Function::New(env, libc_vxworks_dlopen_napi));
-    exports.Set("libc_vxworks_dlerror", Napi::Function::New(env, libc_vxworks_dlerror_napi));
-    exports.Set("libc_vxworks_dlsym", Napi::Function::New(env, libc_vxworks_dlsym_napi));
-    exports.Set("libc_vxworks_dlclose", Napi::Function::New(env, libc_vxworks_dlclose_napi));
-    exports.Set("libc_vxworks_dladdr", Napi::Function::New(env, libc_vxworks_dladdr_napi));
-    exports.Set("libc_vxworks_gmtimeR", Napi::Function::New(env, libc_vxworks_gmtimeR_napi));
-    exports.Set("libc_vxworks_localtimeR", Napi::Function::New(env, libc_vxworks_localtimeR_napi));
-    exports.Set("libc_vxworks_mktime", Napi::Function::New(env, libc_vxworks_mktime_napi));
-    exports.Set("libc_vxworks_time", Napi::Function::New(env, libc_vxworks_time_napi));
-    exports.Set("libc_vxworks_gmtime", Napi::Function::New(env, libc_vxworks_gmtime_napi));
-    exports.Set("libc_vxworks_localtime", Napi::Function::New(env, libc_vxworks_localtime_napi));
-    exports.Set("libc_vxworks_timegm", Napi::Function::New(env, libc_vxworks_timegm_napi));
-    exports.Set("libc_vxworks_difftime", Napi::Function::New(env, libc_vxworks_difftime_napi));
-    exports.Set("libc_vxworks_gethostname", Napi::Function::New(env, libc_vxworks_gethostname_napi));
-    exports.Set("libc_vxworks_usleep", Napi::Function::New(env, libc_vxworks_usleep_napi));
-    exports.Set("libc_vxworks_putenv", Napi::Function::New(env, libc_vxworks_putenv_napi));
-    exports.Set("libc_vxworks_setlocale", Napi::Function::New(env, libc_vxworks_setlocale_napi));
-    exports.Set("libc_vxworks_localeconv", Napi::Function::New(env, libc_vxworks_localeconv_napi));
-    exports.Set("libc_vxworks_sigprocmask", Napi::Function::New(env, libc_vxworks_sigprocmask_napi));
-    exports.Set("libc_vxworks_sigpending", Napi::Function::New(env, libc_vxworks_sigpending_napi));
-    exports.Set("libc_vxworks_mkfifo", Napi::Function::New(env, libc_vxworks_mkfifo_napi));
-    exports.Set("libc_vxworks_fseeko", Napi::Function::New(env, libc_vxworks_fseeko_napi));
-    exports.Set("libc_vxworks_ftello", Napi::Function::New(env, libc_vxworks_ftello_napi));
-    exports.Set("libc_vxworks_mkstemp", Napi::Function::New(env, libc_vxworks_mkstemp_napi));
-    exports.Set("libc_vxworks_tmpnam", Napi::Function::New(env, libc_vxworks_tmpnam_napi));
-    exports.Set("libc_vxworks_openlog", Napi::Function::New(env, libc_vxworks_openlog_napi));
-    exports.Set("libc_vxworks_closelog", Napi::Function::New(env, libc_vxworks_closelog_napi));
-    exports.Set("libc_vxworks_setlogmask", Napi::Function::New(env, libc_vxworks_setlogmask_napi));
-    exports.Set("libc_vxworks_syslog", Napi::Function::New(env, libc_vxworks_syslog_napi));
-    exports.Set("libc_vxworks_getline", Napi::Function::New(env, libc_vxworks_getline_napi));
-    exports.Set("libc_vxworks_tcsetattr", Napi::Function::New(env, libc_vxworks_tcsetattr_napi));
-    exports.Set("libc_vxworks_tcgetattr", Napi::Function::New(env, libc_vxworks_tcgetattr_napi));
-    exports.Set("libc_vxworks_tcsendbreak", Napi::Function::New(env, libc_vxworks_tcsendbreak_napi));
-    exports.Set("libc_vxworks_confstr", Napi::Function::New(env, libc_vxworks_confstr_napi));
-    exports.Set("libc_vxworks_fnmatch", Napi::Function::New(env, libc_vxworks_fnmatch_napi));
-    exports.Set("libc_vxworks_symlinkat", Napi::Function::New(env, libc_vxworks_symlinkat_napi));
-    exports.Set("libc_vxworks_fchmodat", Napi::Function::New(env, libc_vxworks_fchmodat_napi));
-    exports.Set("libc_vxworks_utime", Napi::Function::New(env, libc_vxworks_utime_napi));
-    exports.Set("libc_vxworks_memalign", Napi::Function::New(env, libc_vxworks_memalign_napi));
-    exports.Set("libc_vxworks_getcwd", Napi::Function::New(env, libc_vxworks_getcwd_napi));
-    exports.Set("libc_vxworks_chdir", Napi::Function::New(env, libc_vxworks_chdir_napi));
-    exports.Set("libc_vxworks_pthreadMutexattrInit", Napi::Function::New(env, libc_vxworks_pthreadMutexattrInit_napi));
-    exports.Set("libc_vxworks_pthreadMutexattrDestroy", Napi::Function::New(env, libc_vxworks_pthreadMutexattrDestroy_napi));
-    exports.Set("libc_vxworks_pthreadMutexattrSettype", Napi::Function::New(env, libc_vxworks_pthreadMutexattrSettype_napi));
-    exports.Set("libc_vxworks_pthreadMutexInit", Napi::Function::New(env, libc_vxworks_pthreadMutexInit_napi));
-    exports.Set("libc_vxworks_pthreadMutexDestroy", Napi::Function::New(env, libc_vxworks_pthreadMutexDestroy_napi));
-    exports.Set("libc_vxworks_pthreadMutexLock", Napi::Function::New(env, libc_vxworks_pthreadMutexLock_napi));
-    exports.Set("libc_vxworks_pthreadMutexTrylock", Napi::Function::New(env, libc_vxworks_pthreadMutexTrylock_napi));
-    exports.Set("libc_vxworks_pthreadMutexTimedlock", Napi::Function::New(env, libc_vxworks_pthreadMutexTimedlock_napi));
-    exports.Set("libc_vxworks_pthreadMutexUnlock", Napi::Function::New(env, libc_vxworks_pthreadMutexUnlock_napi));
-    exports.Set("libc_vxworks_pthreadAttrSetname", Napi::Function::New(env, libc_vxworks_pthreadAttrSetname_napi));
-    exports.Set("libc_vxworks_pthreadAttrSetstacksize", Napi::Function::New(env, libc_vxworks_pthreadAttrSetstacksize_napi));
-    exports.Set("libc_vxworks_pthreadAttrGetstacksize", Napi::Function::New(env, libc_vxworks_pthreadAttrGetstacksize_napi));
-    exports.Set("libc_vxworks_pthreadAttrInit", Napi::Function::New(env, libc_vxworks_pthreadAttrInit_napi));
-    exports.Set("libc_vxworks_pthreadCreate", Napi::Function::New(env, libc_vxworks_pthreadCreate_napi));
-    exports.Set("libc_vxworks_pthreadSetschedparam", Napi::Function::New(env, libc_vxworks_pthreadSetschedparam_napi));
-    exports.Set("libc_vxworks_pthreadGetschedparam", Napi::Function::New(env, libc_vxworks_pthreadGetschedparam_napi));
-    exports.Set("libc_vxworks_pthreadAttrSetinheritsched", Napi::Function::New(env, libc_vxworks_pthreadAttrSetinheritsched_napi));
-    exports.Set("libc_vxworks_pthreadAttrSetschedpolicy", Napi::Function::New(env, libc_vxworks_pthreadAttrSetschedpolicy_napi));
-    exports.Set("libc_vxworks_pthreadAttrDestroy", Napi::Function::New(env, libc_vxworks_pthreadAttrDestroy_napi));
-    exports.Set("libc_vxworks_pthreadDetach", Napi::Function::New(env, libc_vxworks_pthreadDetach_napi));
-    exports.Set("libc_vxworks_pthreadAtfork", Napi::Function::New(env, libc_vxworks_pthreadAtfork_napi));
-    exports.Set("libc_vxworks_fstat", Napi::Function::New(env, libc_vxworks_fstat_napi));
-    exports.Set("libc_vxworks_lstat", Napi::Function::New(env, libc_vxworks_lstat_napi));
-    exports.Set("libc_vxworks_ftruncate", Napi::Function::New(env, libc_vxworks_ftruncate_napi));
-    exports.Set("libc_vxworks_readdirR", Napi::Function::New(env, libc_vxworks_readdirR_napi));
-    exports.Set("libc_vxworks_readdir", Napi::Function::New(env, libc_vxworks_readdir_napi));
-    exports.Set("libc_vxworks_open", Napi::Function::New(env, libc_vxworks_open_napi));
-    exports.Set("libc_vxworks_poll", Napi::Function::New(env, libc_vxworks_poll_napi));
-    exports.Set("libc_vxworks_pthreadCondattrInit", Napi::Function::New(env, libc_vxworks_pthreadCondattrInit_napi));
-    exports.Set("libc_vxworks_pthreadCondattrDestroy", Napi::Function::New(env, libc_vxworks_pthreadCondattrDestroy_napi));
-    exports.Set("libc_vxworks_pthreadCondattrGetclock", Napi::Function::New(env, libc_vxworks_pthreadCondattrGetclock_napi));
-    exports.Set("libc_vxworks_pthreadCondattrSetclock", Napi::Function::New(env, libc_vxworks_pthreadCondattrSetclock_napi));
-    exports.Set("libc_vxworks_pthreadCondInit", Napi::Function::New(env, libc_vxworks_pthreadCondInit_napi));
-    exports.Set("libc_vxworks_pthreadCondDestroy", Napi::Function::New(env, libc_vxworks_pthreadCondDestroy_napi));
-    exports.Set("libc_vxworks_pthreadCondSignal", Napi::Function::New(env, libc_vxworks_pthreadCondSignal_napi));
-    exports.Set("libc_vxworks_pthreadCondBroadcast", Napi::Function::New(env, libc_vxworks_pthreadCondBroadcast_napi));
-    exports.Set("libc_vxworks_pthreadCondWait", Napi::Function::New(env, libc_vxworks_pthreadCondWait_napi));
-    exports.Set("libc_vxworks_pthreadRwlockattrInit", Napi::Function::New(env, libc_vxworks_pthreadRwlockattrInit_napi));
-    exports.Set("libc_vxworks_pthreadRwlockattrDestroy", Napi::Function::New(env, libc_vxworks_pthreadRwlockattrDestroy_napi));
-    exports.Set("libc_vxworks_pthreadRwlockattrSetmaxreaders", Napi::Function::New(env, libc_vxworks_pthreadRwlockattrSetmaxreaders_napi));
-    exports.Set("libc_vxworks_pthreadRwlockInit", Napi::Function::New(env, libc_vxworks_pthreadRwlockInit_napi));
-    exports.Set("libc_vxworks_pthreadRwlockDestroy", Napi::Function::New(env, libc_vxworks_pthreadRwlockDestroy_napi));
-    exports.Set("libc_vxworks_pthreadRwlockRdlock", Napi::Function::New(env, libc_vxworks_pthreadRwlockRdlock_napi));
-    exports.Set("libc_vxworks_pthreadRwlockTryrdlock", Napi::Function::New(env, libc_vxworks_pthreadRwlockTryrdlock_napi));
-    exports.Set("libc_vxworks_pthreadRwlockTimedrdlock", Napi::Function::New(env, libc_vxworks_pthreadRwlockTimedrdlock_napi));
-    exports.Set("libc_vxworks_pthreadRwlockWrlock", Napi::Function::New(env, libc_vxworks_pthreadRwlockWrlock_napi));
-    exports.Set("libc_vxworks_pthreadRwlockTrywrlock", Napi::Function::New(env, libc_vxworks_pthreadRwlockTrywrlock_napi));
-    exports.Set("libc_vxworks_pthreadRwlockTimedwrlock", Napi::Function::New(env, libc_vxworks_pthreadRwlockTimedwrlock_napi));
-    exports.Set("libc_vxworks_pthreadRwlockUnlock", Napi::Function::New(env, libc_vxworks_pthreadRwlockUnlock_napi));
-    exports.Set("libc_vxworks_pthreadKeyCreate", Napi::Function::New(env, libc_vxworks_pthreadKeyCreate_napi));
-    exports.Set("libc_vxworks_pthreadKeyDelete", Napi::Function::New(env, libc_vxworks_pthreadKeyDelete_napi));
-    exports.Set("libc_vxworks_pthreadSetspecific", Napi::Function::New(env, libc_vxworks_pthreadSetspecific_napi));
-    exports.Set("libc_vxworks_pthreadGetspecific", Napi::Function::New(env, libc_vxworks_pthreadGetspecific_napi));
-    exports.Set("libc_vxworks_pthreadCondTimedwait", Napi::Function::New(env, libc_vxworks_pthreadCondTimedwait_napi));
-    exports.Set("libc_vxworks_pthreadAttrGetname", Napi::Function::New(env, libc_vxworks_pthreadAttrGetname_napi));
-    exports.Set("libc_vxworks_pthreadJoin", Napi::Function::New(env, libc_vxworks_pthreadJoin_napi));
-    exports.Set("libc_vxworks_pthreadSelf", Napi::Function::New(env, libc_vxworks_pthreadSelf_napi));
-    exports.Set("libc_vxworks_clockGettime", Napi::Function::New(env, libc_vxworks_clockGettime_napi));
-    exports.Set("libc_vxworks_clockSettime", Napi::Function::New(env, libc_vxworks_clockSettime_napi));
-    exports.Set("libc_vxworks_clockGetres", Napi::Function::New(env, libc_vxworks_clockGetres_napi));
-    exports.Set("libc_vxworks_clockNanosleep", Napi::Function::New(env, libc_vxworks_clockNanosleep_napi));
-    exports.Set("libc_vxworks_nanosleep", Napi::Function::New(env, libc_vxworks_nanosleep_napi));
-    exports.Set("libc_vxworks_accept", Napi::Function::New(env, libc_vxworks_accept_napi));
-    exports.Set("libc_vxworks_bind", Napi::Function::New(env, libc_vxworks_bind_napi));
-    exports.Set("libc_vxworks_connect", Napi::Function::New(env, libc_vxworks_connect_napi));
-    exports.Set("libc_vxworks_getpeername", Napi::Function::New(env, libc_vxworks_getpeername_napi));
-    exports.Set("libc_vxworks_getsockname", Napi::Function::New(env, libc_vxworks_getsockname_napi));
-    exports.Set("libc_vxworks_getsockopt", Napi::Function::New(env, libc_vxworks_getsockopt_napi));
-    exports.Set("libc_vxworks_listen", Napi::Function::New(env, libc_vxworks_listen_napi));
-    exports.Set("libc_vxworks_recv", Napi::Function::New(env, libc_vxworks_recv_napi));
-    exports.Set("libc_vxworks_recvfrom", Napi::Function::New(env, libc_vxworks_recvfrom_napi));
-    exports.Set("libc_vxworks_recvmsg", Napi::Function::New(env, libc_vxworks_recvmsg_napi));
-    exports.Set("libc_vxworks_send", Napi::Function::New(env, libc_vxworks_send_napi));
-    exports.Set("libc_vxworks_sendmsg", Napi::Function::New(env, libc_vxworks_sendmsg_napi));
-    exports.Set("libc_vxworks_sendto", Napi::Function::New(env, libc_vxworks_sendto_napi));
-    exports.Set("libc_vxworks_setsockopt", Napi::Function::New(env, libc_vxworks_setsockopt_napi));
-    exports.Set("libc_vxworks_shutdown", Napi::Function::New(env, libc_vxworks_shutdown_napi));
-    exports.Set("libc_vxworks_socket", Napi::Function::New(env, libc_vxworks_socket_napi));
-    exports.Set("libc_vxworks_ioctl", Napi::Function::New(env, libc_vxworks_ioctl_napi));
-    exports.Set("libc_vxworks_fcntl", Napi::Function::New(env, libc_vxworks_fcntl_napi));
-    exports.Set("libc_vxworks_gaiStrerror", Napi::Function::New(env, libc_vxworks_gaiStrerror_napi));
-    exports.Set("libc_vxworks_close", Napi::Function::New(env, libc_vxworks_close_napi));
-    exports.Set("libc_vxworks_read", Napi::Function::New(env, libc_vxworks_read_napi));
-    exports.Set("libc_vxworks_write", Napi::Function::New(env, libc_vxworks_write_napi));
-    exports.Set("libc_vxworks_isatty", Napi::Function::New(env, libc_vxworks_isatty_napi));
-    exports.Set("libc_vxworks_dup", Napi::Function::New(env, libc_vxworks_dup_napi));
-    exports.Set("libc_vxworks_dup2", Napi::Function::New(env, libc_vxworks_dup2_napi));
-    exports.Set("libc_vxworks_pipe", Napi::Function::New(env, libc_vxworks_pipe_napi));
-    exports.Set("libc_vxworks_unlink", Napi::Function::New(env, libc_vxworks_unlink_napi));
-    exports.Set("libc_vxworks_lseek", Napi::Function::New(env, libc_vxworks_lseek_napi));
-    exports.Set("libc_vxworks_getaddrinfo", Napi::Function::New(env, libc_vxworks_getaddrinfo_napi));
-    exports.Set("libc_vxworks_freeaddrinfo", Napi::Function::New(env, libc_vxworks_freeaddrinfo_napi));
-    exports.Set("libc_vxworks_signal", Napi::Function::New(env, libc_vxworks_signal_napi));
-    exports.Set("libc_vxworks_getpid", Napi::Function::New(env, libc_vxworks_getpid_napi));
-    exports.Set("libc_vxworks_getppid", Napi::Function::New(env, libc_vxworks_getppid_napi));
-    exports.Set("libc_vxworks_setpgid", Napi::Function::New(env, libc_vxworks_setpgid_napi));
-    exports.Set("libc_vxworks_waitpid", Napi::Function::New(env, libc_vxworks_waitpid_napi));
-    exports.Set("libc_vxworks_sysconf", Napi::Function::New(env, libc_vxworks_sysconf_napi));
-    exports.Set("libc_vxworks_setenv", Napi::Function::New(env, libc_vxworks_setenv_napi));
-    exports.Set("libc_vxworks_unsetenv", Napi::Function::New(env, libc_vxworks_unsetenv_napi));
-    exports.Set("libc_vxworks_realpath", Napi::Function::New(env, libc_vxworks_realpath_napi));
-    exports.Set("libc_vxworks_link", Napi::Function::New(env, libc_vxworks_link_napi));
-    exports.Set("libc_vxworks_readlink", Napi::Function::New(env, libc_vxworks_readlink_napi));
-    exports.Set("libc_vxworks_symlink", Napi::Function::New(env, libc_vxworks_symlink_napi));
-    exports.Set("libc_vxworks_opendir", Napi::Function::New(env, libc_vxworks_opendir_napi));
-    exports.Set("libc_vxworks_rmdir", Napi::Function::New(env, libc_vxworks_rmdir_napi));
-    exports.Set("libc_vxworks_mkdir", Napi::Function::New(env, libc_vxworks_mkdir_napi));
-    exports.Set("libc_vxworks_chmod", Napi::Function::New(env, libc_vxworks_chmod_napi));
-    exports.Set("libc_vxworks_fchmod", Napi::Function::New(env, libc_vxworks_fchmod_napi));
-    exports.Set("libc_vxworks_fsync", Napi::Function::New(env, libc_vxworks_fsync_napi));
-    exports.Set("libc_vxworks_closedir", Napi::Function::New(env, libc_vxworks_closedir_napi));
-    exports.Set("libc_vxworks_schedGetPriorityMax", Napi::Function::New(env, libc_vxworks_schedGetPriorityMax_napi));
-    exports.Set("libc_vxworks_schedGetPriorityMin", Napi::Function::New(env, libc_vxworks_schedGetPriorityMin_napi));
-    exports.Set("libc_vxworks_schedSetparam", Napi::Function::New(env, libc_vxworks_schedSetparam_napi));
-    exports.Set("libc_vxworks_schedGetparam", Napi::Function::New(env, libc_vxworks_schedGetparam_napi));
-    exports.Set("libc_vxworks_schedSetscheduler", Napi::Function::New(env, libc_vxworks_schedSetscheduler_napi));
-    exports.Set("libc_vxworks_schedGetscheduler", Napi::Function::New(env, libc_vxworks_schedGetscheduler_napi));
-    exports.Set("libc_vxworks_schedRrGetInterval", Napi::Function::New(env, libc_vxworks_schedRrGetInterval_napi));
-    exports.Set("libc_vxworks_schedYield", Napi::Function::New(env, libc_vxworks_schedYield_napi));
-    exports.Set("libc_vxworks_errnoSet", Napi::Function::New(env, libc_vxworks_errnoSet_napi));
-    exports.Set("libc_vxworks_errnoGet", Napi::Function::New(env, libc_vxworks_errnoGet_napi));
-    exports.Set("libc_vxworks_setgid", Napi::Function::New(env, libc_vxworks_setgid_napi));
-    exports.Set("libc_vxworks_getgid", Napi::Function::New(env, libc_vxworks_getgid_napi));
-    exports.Set("libc_vxworks_setuid", Napi::Function::New(env, libc_vxworks_setuid_napi));
-    exports.Set("libc_vxworks_getuid", Napi::Function::New(env, libc_vxworks_getuid_napi));
-    exports.Set("libc_vxworks_sigemptyset", Napi::Function::New(env, libc_vxworks_sigemptyset_napi));
-    exports.Set("libc_vxworks_sigfillset", Napi::Function::New(env, libc_vxworks_sigfillset_napi));
-    exports.Set("libc_vxworks_sigdelset", Napi::Function::New(env, libc_vxworks_sigdelset_napi));
-    exports.Set("libc_vxworks_sigismember", Napi::Function::New(env, libc_vxworks_sigismember_napi));
-    exports.Set("libc_vxworks_pthreadSigmask", Napi::Function::New(env, libc_vxworks_pthreadSigmask_napi));
-    exports.Set("libc_vxworks_kill", Napi::Function::New(env, libc_vxworks_kill_napi));
-    exports.Set("libc_vxworks_taskKill", Napi::Function::New(env, libc_vxworks_taskKill_napi));
-    exports.Set("libc_vxworks_raise", Napi::Function::New(env, libc_vxworks_raise_napi));
-    exports.Set("libc_vxworks_taskIdSelf", Napi::Function::New(env, libc_vxworks_taskIdSelf_napi));
-    exports.Set("libc_vxworks_taskDelay", Napi::Function::New(env, libc_vxworks_taskDelay_napi));
-    exports.Set("libc_vxworks_taskNameSet", Napi::Function::New(env, libc_vxworks_taskNameSet_napi));
-    exports.Set("libc_vxworks_taskNameGet", Napi::Function::New(env, libc_vxworks_taskNameGet_napi));
-    exports.Set("libc_vxworks_rtpInfoGet", Napi::Function::New(env, libc_vxworks_rtpInfoGet_napi));
-    exports.Set("libc_vxworks_rtpSpawn", Napi::Function::New(env, libc_vxworks_rtpSpawn_napi));
-    exports.Set("libc_vxworks_pathIsAbsolute", Napi::Function::New(env, libc_vxworks_pathIsAbsolute_napi));
-    exports.Set("libc_vxworks_writev", Napi::Function::New(env, libc_vxworks_writev_napi));
-    exports.Set("libc_vxworks_readv", Napi::Function::New(env, libc_vxworks_readv_napi));
-    exports.Set("libc_vxworks_randBytes", Napi::Function::New(env, libc_vxworks_randBytes_napi));
-    exports.Set("libc_vxworks_randABytes", Napi::Function::New(env, libc_vxworks_randABytes_napi));
-    exports.Set("libc_vxworks_randUBytes", Napi::Function::New(env, libc_vxworks_randUBytes_napi));
-    exports.Set("libc_vxworks_randSecure", Napi::Function::New(env, libc_vxworks_randSecure_napi));
-    exports.Set("libc_vxworks_mqOpen", Napi::Function::New(env, libc_vxworks_mqOpen_napi));
-    exports.Set("libc_vxworks_mqClose", Napi::Function::New(env, libc_vxworks_mqClose_napi));
-    exports.Set("libc_vxworks_mqUnlink", Napi::Function::New(env, libc_vxworks_mqUnlink_napi));
-    exports.Set("libc_vxworks_mqReceive", Napi::Function::New(env, libc_vxworks_mqReceive_napi));
-    exports.Set("libc_vxworks_mqTimedreceive", Napi::Function::New(env, libc_vxworks_mqTimedreceive_napi));
-    exports.Set("libc_vxworks_mqSend", Napi::Function::New(env, libc_vxworks_mqSend_napi));
-    exports.Set("libc_vxworks_mqTimedsend", Napi::Function::New(env, libc_vxworks_mqTimedsend_napi));
-    exports.Set("libc_vxworks_mqGetattr", Napi::Function::New(env, libc_vxworks_mqGetattr_napi));
-    exports.Set("libc_vxworks_mqSetattr", Napi::Function::New(env, libc_vxworks_mqSetattr_napi));
-    exports.Set("libc_vxworks_vxCpuEnabledGet", Napi::Function::New(env, libc_vxworks_vxCpuEnabledGet_napi));
-    exports.Set("libc_vxworks_vxCpuConfiguredGet", Napi::Function::New(env, libc_vxworks_vxCpuConfiguredGet_napi));
+    exports.Set("libcVxworksIsalnum", Napi::Function::New(env, libcVxworksIsalnum_napi));
+    exports.Set("libcVxworksIsalpha", Napi::Function::New(env, libcVxworksIsalpha_napi));
+    exports.Set("libcVxworksIscntrl", Napi::Function::New(env, libcVxworksIscntrl_napi));
+    exports.Set("libcVxworksIsdigit", Napi::Function::New(env, libcVxworksIsdigit_napi));
+    exports.Set("libcVxworksIsgraph", Napi::Function::New(env, libcVxworksIsgraph_napi));
+    exports.Set("libcVxworksIslower", Napi::Function::New(env, libcVxworksIslower_napi));
+    exports.Set("libcVxworksIsprint", Napi::Function::New(env, libcVxworksIsprint_napi));
+    exports.Set("libcVxworksIspunct", Napi::Function::New(env, libcVxworksIspunct_napi));
+    exports.Set("libcVxworksIsspace", Napi::Function::New(env, libcVxworksIsspace_napi));
+    exports.Set("libcVxworksIsupper", Napi::Function::New(env, libcVxworksIsupper_napi));
+    exports.Set("libcVxworksIsxdigit", Napi::Function::New(env, libcVxworksIsxdigit_napi));
+    exports.Set("libcVxworksIsblank", Napi::Function::New(env, libcVxworksIsblank_napi));
+    exports.Set("libcVxworksTolower", Napi::Function::New(env, libcVxworksTolower_napi));
+    exports.Set("libcVxworksToupper", Napi::Function::New(env, libcVxworksToupper_napi));
+    exports.Set("libcVxworksFopen", Napi::Function::New(env, libcVxworksFopen_napi));
+    exports.Set("libcVxworksFreopen", Napi::Function::New(env, libcVxworksFreopen_napi));
+    exports.Set("libcVxworksFflush", Napi::Function::New(env, libcVxworksFflush_napi));
+    exports.Set("libcVxworksFclose", Napi::Function::New(env, libcVxworksFclose_napi));
+    exports.Set("libcVxworksRemove", Napi::Function::New(env, libcVxworksRemove_napi));
+    exports.Set("libcVxworksRename", Napi::Function::New(env, libcVxworksRename_napi));
+    exports.Set("libcVxworksTmpfile", Napi::Function::New(env, libcVxworksTmpfile_napi));
+    exports.Set("libcVxworksSetvbuf", Napi::Function::New(env, libcVxworksSetvbuf_napi));
+    exports.Set("libcVxworksSetbuf", Napi::Function::New(env, libcVxworksSetbuf_napi));
+    exports.Set("libcVxworksGetchar", Napi::Function::New(env, libcVxworksGetchar_napi));
+    exports.Set("libcVxworksPutchar", Napi::Function::New(env, libcVxworksPutchar_napi));
+    exports.Set("libcVxworksFgetc", Napi::Function::New(env, libcVxworksFgetc_napi));
+    exports.Set("libcVxworksFgets", Napi::Function::New(env, libcVxworksFgets_napi));
+    exports.Set("libcVxworksFputc", Napi::Function::New(env, libcVxworksFputc_napi));
+    exports.Set("libcVxworksFputs", Napi::Function::New(env, libcVxworksFputs_napi));
+    exports.Set("libcVxworksPuts", Napi::Function::New(env, libcVxworksPuts_napi));
+    exports.Set("libcVxworksUngetc", Napi::Function::New(env, libcVxworksUngetc_napi));
+    exports.Set("libcVxworksFread", Napi::Function::New(env, libcVxworksFread_napi));
+    exports.Set("libcVxworksFwrite", Napi::Function::New(env, libcVxworksFwrite_napi));
+    exports.Set("libcVxworksFseek", Napi::Function::New(env, libcVxworksFseek_napi));
+    exports.Set("libcVxworksFtell", Napi::Function::New(env, libcVxworksFtell_napi));
+    exports.Set("libcVxworksRewind", Napi::Function::New(env, libcVxworksRewind_napi));
+    exports.Set("libcVxworksFgetpos", Napi::Function::New(env, libcVxworksFgetpos_napi));
+    exports.Set("libcVxworksFsetpos", Napi::Function::New(env, libcVxworksFsetpos_napi));
+    exports.Set("libcVxworksFeof", Napi::Function::New(env, libcVxworksFeof_napi));
+    exports.Set("libcVxworksFerror", Napi::Function::New(env, libcVxworksFerror_napi));
+    exports.Set("libcVxworksPerror", Napi::Function::New(env, libcVxworksPerror_napi));
+    exports.Set("libcVxworksAtof", Napi::Function::New(env, libcVxworksAtof_napi));
+    exports.Set("libcVxworksAtoi", Napi::Function::New(env, libcVxworksAtoi_napi));
+    exports.Set("libcVxworksAtol", Napi::Function::New(env, libcVxworksAtol_napi));
+    exports.Set("libcVxworksAtoll", Napi::Function::New(env, libcVxworksAtoll_napi));
+    exports.Set("libcVxworksStrtod", Napi::Function::New(env, libcVxworksStrtod_napi));
+    exports.Set("libcVxworksStrtof", Napi::Function::New(env, libcVxworksStrtof_napi));
+    exports.Set("libcVxworksStrtol", Napi::Function::New(env, libcVxworksStrtol_napi));
+    exports.Set("libcVxworksStrtoll", Napi::Function::New(env, libcVxworksStrtoll_napi));
+    exports.Set("libcVxworksStrtoul", Napi::Function::New(env, libcVxworksStrtoul_napi));
+    exports.Set("libcVxworksStrtoull", Napi::Function::New(env, libcVxworksStrtoull_napi));
+    exports.Set("libcVxworksCalloc", Napi::Function::New(env, libcVxworksCalloc_napi));
+    exports.Set("libcVxworksMalloc", Napi::Function::New(env, libcVxworksMalloc_napi));
+    exports.Set("libcVxworksRealloc", Napi::Function::New(env, libcVxworksRealloc_napi));
+    exports.Set("libcVxworksFree", Napi::Function::New(env, libcVxworksFree_napi));
+    exports.Set("libcVxworksAbort", Napi::Function::New(env, libcVxworksAbort_napi));
+    exports.Set("libcVxworksExit", Napi::Function::New(env, libcVxworksExit_napi));
+    exports.Set("libcVxworksAtexit", Napi::Function::New(env, libcVxworksAtexit_napi));
+    exports.Set("libcVxworksSystem", Napi::Function::New(env, libcVxworksSystem_napi));
+    exports.Set("libcVxworksGetenv", Napi::Function::New(env, libcVxworksGetenv_napi));
+    exports.Set("libcVxworksCfgetospeed", Napi::Function::New(env, libcVxworksCfgetospeed_napi));
+    exports.Set("libcVxworksCfmakeraw", Napi::Function::New(env, libcVxworksCfmakeraw_napi));
+    exports.Set("libcVxworksCfsetispeed", Napi::Function::New(env, libcVxworksCfsetispeed_napi));
+    exports.Set("libcVxworksCfsetospeed", Napi::Function::New(env, libcVxworksCfsetospeed_napi));
+    exports.Set("libcVxworksStrcpy", Napi::Function::New(env, libcVxworksStrcpy_napi));
+    exports.Set("libcVxworksStrncpy", Napi::Function::New(env, libcVxworksStrncpy_napi));
+    exports.Set("libcVxworksStrcat", Napi::Function::New(env, libcVxworksStrcat_napi));
+    exports.Set("libcVxworksStrncat", Napi::Function::New(env, libcVxworksStrncat_napi));
+    exports.Set("libcVxworksStrcmp", Napi::Function::New(env, libcVxworksStrcmp_napi));
+    exports.Set("libcVxworksStrncmp", Napi::Function::New(env, libcVxworksStrncmp_napi));
+    exports.Set("libcVxworksStrcoll", Napi::Function::New(env, libcVxworksStrcoll_napi));
+    exports.Set("libcVxworksStrchr", Napi::Function::New(env, libcVxworksStrchr_napi));
+    exports.Set("libcVxworksStrrchr", Napi::Function::New(env, libcVxworksStrrchr_napi));
+    exports.Set("libcVxworksStrspn", Napi::Function::New(env, libcVxworksStrspn_napi));
+    exports.Set("libcVxworksStrcspn", Napi::Function::New(env, libcVxworksStrcspn_napi));
+    exports.Set("libcVxworksStrdup", Napi::Function::New(env, libcVxworksStrdup_napi));
+    exports.Set("libcVxworksStrpbrk", Napi::Function::New(env, libcVxworksStrpbrk_napi));
+    exports.Set("libcVxworksStrstr", Napi::Function::New(env, libcVxworksStrstr_napi));
+    exports.Set("libcVxworksStrcasecmp", Napi::Function::New(env, libcVxworksStrcasecmp_napi));
+    exports.Set("libcVxworksStrncasecmp", Napi::Function::New(env, libcVxworksStrncasecmp_napi));
+    exports.Set("libcVxworksStrlen", Napi::Function::New(env, libcVxworksStrlen_napi));
+    exports.Set("libcVxworksStrnlen", Napi::Function::New(env, libcVxworksStrnlen_napi));
+    exports.Set("libcVxworksStrerror", Napi::Function::New(env, libcVxworksStrerror_napi));
+    exports.Set("libcVxworksStrtok", Napi::Function::New(env, libcVxworksStrtok_napi));
+    exports.Set("libcVxworksStrxfrm", Napi::Function::New(env, libcVxworksStrxfrm_napi));
+    exports.Set("libcVxworksWcslen", Napi::Function::New(env, libcVxworksWcslen_napi));
+    exports.Set("libcVxworksWcstombs", Napi::Function::New(env, libcVxworksWcstombs_napi));
+    exports.Set("libcVxworksMemchr", Napi::Function::New(env, libcVxworksMemchr_napi));
+    exports.Set("libcVxworksWmemchr", Napi::Function::New(env, libcVxworksWmemchr_napi));
+    exports.Set("libcVxworksMemcmp", Napi::Function::New(env, libcVxworksMemcmp_napi));
+    exports.Set("libcVxworksMemcpy", Napi::Function::New(env, libcVxworksMemcpy_napi));
+    exports.Set("libcVxworksMemccpy", Napi::Function::New(env, libcVxworksMemccpy_napi));
+    exports.Set("libcVxworksMemmove", Napi::Function::New(env, libcVxworksMemmove_napi));
+    exports.Set("libcVxworksMemset", Napi::Function::New(env, libcVxworksMemset_napi));
+    exports.Set("libcVxworksAlignedAlloc", Napi::Function::New(env, libcVxworksAlignedAlloc_napi));
+    exports.Set("libcVxworksUname", Napi::Function::New(env, libcVxworksUname_napi));
+    exports.Set("libcVxworksTimes", Napi::Function::New(env, libcVxworksTimes_napi));
+    exports.Set("libcVxworksTcflush", Napi::Function::New(env, libcVxworksTcflush_napi));
+    exports.Set("libcVxworksPclose", Napi::Function::New(env, libcVxworksPclose_napi));
+    exports.Set("libcVxworksMkdtemp", Napi::Function::New(env, libcVxworksMkdtemp_napi));
+    exports.Set("libcVxworksLinkat", Napi::Function::New(env, libcVxworksLinkat_napi));
+    exports.Set("libcVxworksUnlinkat", Napi::Function::New(env, libcVxworksUnlinkat_napi));
+    exports.Set("libcVxworksGetprotobyname", Napi::Function::New(env, libcVxworksGetprotobyname_napi));
+    exports.Set("libcVxworksGetprotobynumber", Napi::Function::New(env, libcVxworksGetprotobynumber_napi));
+    exports.Set("libcVxworksGetservbyname", Napi::Function::New(env, libcVxworksGetservbyname_napi));
+    exports.Set("libcVxworksFchownat", Napi::Function::New(env, libcVxworksFchownat_napi));
+    exports.Set("libcVxworksFprintf", Napi::Function::New(env, libcVxworksFprintf_napi));
+    exports.Set("libcVxworksPrintf", Napi::Function::New(env, libcVxworksPrintf_napi));
+    exports.Set("libcVxworksSnprintf", Napi::Function::New(env, libcVxworksSnprintf_napi));
+    exports.Set("libcVxworksSprintf", Napi::Function::New(env, libcVxworksSprintf_napi));
+    exports.Set("libcVxworksFscanf", Napi::Function::New(env, libcVxworksFscanf_napi));
+    exports.Set("libcVxworksScanf", Napi::Function::New(env, libcVxworksScanf_napi));
+    exports.Set("libcVxworksSscanf", Napi::Function::New(env, libcVxworksSscanf_napi));
+    exports.Set("libcVxworksGetcharUnlocked", Napi::Function::New(env, libcVxworksGetcharUnlocked_napi));
+    exports.Set("libcVxworksPutcharUnlocked", Napi::Function::New(env, libcVxworksPutcharUnlocked_napi));
+    exports.Set("libcVxworksStat", Napi::Function::New(env, libcVxworksStat_napi));
+    exports.Set("libcVxworksFdopen", Napi::Function::New(env, libcVxworksFdopen_napi));
+    exports.Set("libcVxworksFileno", Napi::Function::New(env, libcVxworksFileno_napi));
+    exports.Set("libcVxworksCreat", Napi::Function::New(env, libcVxworksCreat_napi));
+    exports.Set("libcVxworksRewinddir", Napi::Function::New(env, libcVxworksRewinddir_napi));
+    exports.Set("libcVxworksFchown", Napi::Function::New(env, libcVxworksFchown_napi));
+    exports.Set("libcVxworksAccess", Napi::Function::New(env, libcVxworksAccess_napi));
+    exports.Set("libcVxworksAlarm", Napi::Function::New(env, libcVxworksAlarm_napi));
+    exports.Set("libcVxworksFchdir", Napi::Function::New(env, libcVxworksFchdir_napi));
+    exports.Set("libcVxworksChown", Napi::Function::New(env, libcVxworksChown_napi));
+    exports.Set("libcVxworksFpathconf", Napi::Function::New(env, libcVxworksFpathconf_napi));
+    exports.Set("libcVxworksGetegid", Napi::Function::New(env, libcVxworksGetegid_napi));
+    exports.Set("libcVxworksGeteuid", Napi::Function::New(env, libcVxworksGeteuid_napi));
+    exports.Set("libcVxworksGetgroups", Napi::Function::New(env, libcVxworksGetgroups_napi));
+    exports.Set("libcVxworksGetlogin", Napi::Function::New(env, libcVxworksGetlogin_napi));
+    exports.Set("libcVxworksGetopt", Napi::Function::New(env, libcVxworksGetopt_napi));
+    exports.Set("libcVxworksPathconf", Napi::Function::New(env, libcVxworksPathconf_napi));
+    exports.Set("libcVxworksPause", Napi::Function::New(env, libcVxworksPause_napi));
+    exports.Set("libcVxworksSeteuid", Napi::Function::New(env, libcVxworksSeteuid_napi));
+    exports.Set("libcVxworksSetegid", Napi::Function::New(env, libcVxworksSetegid_napi));
+    exports.Set("libcVxworksSleep", Napi::Function::New(env, libcVxworksSleep_napi));
+    exports.Set("libcVxworksTtyname", Napi::Function::New(env, libcVxworksTtyname_napi));
+    exports.Set("libcVxworksWait", Napi::Function::New(env, libcVxworksWait_napi));
+    exports.Set("libcVxworksUmask", Napi::Function::New(env, libcVxworksUmask_napi));
+    exports.Set("libcVxworksMlock", Napi::Function::New(env, libcVxworksMlock_napi));
+    exports.Set("libcVxworksMlockall", Napi::Function::New(env, libcVxworksMlockall_napi));
+    exports.Set("libcVxworksMunlock", Napi::Function::New(env, libcVxworksMunlock_napi));
+    exports.Set("libcVxworksMunlockall", Napi::Function::New(env, libcVxworksMunlockall_napi));
+    exports.Set("libcVxworksMmap", Napi::Function::New(env, libcVxworksMmap_napi));
+    exports.Set("libcVxworksMunmap", Napi::Function::New(env, libcVxworksMunmap_napi));
+    exports.Set("libcVxworksMprotect", Napi::Function::New(env, libcVxworksMprotect_napi));
+    exports.Set("libcVxworksMsync", Napi::Function::New(env, libcVxworksMsync_napi));
+    exports.Set("libcVxworksTruncate", Napi::Function::New(env, libcVxworksTruncate_napi));
+    exports.Set("libcVxworksShmOpen", Napi::Function::New(env, libcVxworksShmOpen_napi));
+    exports.Set("libcVxworksShmUnlink", Napi::Function::New(env, libcVxworksShmUnlink_napi));
+    exports.Set("libcVxworksGettimeofday", Napi::Function::New(env, libcVxworksGettimeofday_napi));
+    exports.Set("libcVxworksPthreadExit", Napi::Function::New(env, libcVxworksPthreadExit_napi));
+    exports.Set("libcVxworksPthreadAttrSetdetachstate", Napi::Function::New(env, libcVxworksPthreadAttrSetdetachstate_napi));
+    exports.Set("libcVxworksPthreadEqual", Napi::Function::New(env, libcVxworksPthreadEqual_napi));
+    exports.Set("libcVxworksStrerrorR", Napi::Function::New(env, libcVxworksStrerrorR_napi));
+    exports.Set("libcVxworksSigaddset", Napi::Function::New(env, libcVxworksSigaddset_napi));
+    exports.Set("libcVxworksSigaction", Napi::Function::New(env, libcVxworksSigaction_napi));
+    exports.Set("libcVxworksUtimes", Napi::Function::New(env, libcVxworksUtimes_napi));
+    exports.Set("libcVxworksFutimens", Napi::Function::New(env, libcVxworksFutimens_napi));
+    exports.Set("libcVxworksUtimensat", Napi::Function::New(env, libcVxworksUtimensat_napi));
+    exports.Set("libcVxworksDlopen", Napi::Function::New(env, libcVxworksDlopen_napi));
+    exports.Set("libcVxworksDlerror", Napi::Function::New(env, libcVxworksDlerror_napi));
+    exports.Set("libcVxworksDlsym", Napi::Function::New(env, libcVxworksDlsym_napi));
+    exports.Set("libcVxworksDlclose", Napi::Function::New(env, libcVxworksDlclose_napi));
+    exports.Set("libcVxworksDladdr", Napi::Function::New(env, libcVxworksDladdr_napi));
+    exports.Set("libcVxworksGmtimeR", Napi::Function::New(env, libcVxworksGmtimeR_napi));
+    exports.Set("libcVxworksLocaltimeR", Napi::Function::New(env, libcVxworksLocaltimeR_napi));
+    exports.Set("libcVxworksMktime", Napi::Function::New(env, libcVxworksMktime_napi));
+    exports.Set("libcVxworksTime", Napi::Function::New(env, libcVxworksTime_napi));
+    exports.Set("libcVxworksGmtime", Napi::Function::New(env, libcVxworksGmtime_napi));
+    exports.Set("libcVxworksLocaltime", Napi::Function::New(env, libcVxworksLocaltime_napi));
+    exports.Set("libcVxworksTimegm", Napi::Function::New(env, libcVxworksTimegm_napi));
+    exports.Set("libcVxworksDifftime", Napi::Function::New(env, libcVxworksDifftime_napi));
+    exports.Set("libcVxworksGethostname", Napi::Function::New(env, libcVxworksGethostname_napi));
+    exports.Set("libcVxworksUsleep", Napi::Function::New(env, libcVxworksUsleep_napi));
+    exports.Set("libcVxworksPutenv", Napi::Function::New(env, libcVxworksPutenv_napi));
+    exports.Set("libcVxworksSetlocale", Napi::Function::New(env, libcVxworksSetlocale_napi));
+    exports.Set("libcVxworksLocaleconv", Napi::Function::New(env, libcVxworksLocaleconv_napi));
+    exports.Set("libcVxworksSigprocmask", Napi::Function::New(env, libcVxworksSigprocmask_napi));
+    exports.Set("libcVxworksSigpending", Napi::Function::New(env, libcVxworksSigpending_napi));
+    exports.Set("libcVxworksMkfifo", Napi::Function::New(env, libcVxworksMkfifo_napi));
+    exports.Set("libcVxworksFseeko", Napi::Function::New(env, libcVxworksFseeko_napi));
+    exports.Set("libcVxworksFtello", Napi::Function::New(env, libcVxworksFtello_napi));
+    exports.Set("libcVxworksMkstemp", Napi::Function::New(env, libcVxworksMkstemp_napi));
+    exports.Set("libcVxworksTmpnam", Napi::Function::New(env, libcVxworksTmpnam_napi));
+    exports.Set("libcVxworksOpenlog", Napi::Function::New(env, libcVxworksOpenlog_napi));
+    exports.Set("libcVxworksCloselog", Napi::Function::New(env, libcVxworksCloselog_napi));
+    exports.Set("libcVxworksSetlogmask", Napi::Function::New(env, libcVxworksSetlogmask_napi));
+    exports.Set("libcVxworksSyslog", Napi::Function::New(env, libcVxworksSyslog_napi));
+    exports.Set("libcVxworksGetline", Napi::Function::New(env, libcVxworksGetline_napi));
+    exports.Set("libcVxworksTcsetattr", Napi::Function::New(env, libcVxworksTcsetattr_napi));
+    exports.Set("libcVxworksTcgetattr", Napi::Function::New(env, libcVxworksTcgetattr_napi));
+    exports.Set("libcVxworksTcsendbreak", Napi::Function::New(env, libcVxworksTcsendbreak_napi));
+    exports.Set("libcVxworksConfstr", Napi::Function::New(env, libcVxworksConfstr_napi));
+    exports.Set("libcVxworksFnmatch", Napi::Function::New(env, libcVxworksFnmatch_napi));
+    exports.Set("libcVxworksSymlinkat", Napi::Function::New(env, libcVxworksSymlinkat_napi));
+    exports.Set("libcVxworksFchmodat", Napi::Function::New(env, libcVxworksFchmodat_napi));
+    exports.Set("libcVxworksUtime", Napi::Function::New(env, libcVxworksUtime_napi));
+    exports.Set("libcVxworksMemalign", Napi::Function::New(env, libcVxworksMemalign_napi));
+    exports.Set("libcVxworksGetcwd", Napi::Function::New(env, libcVxworksGetcwd_napi));
+    exports.Set("libcVxworksChdir", Napi::Function::New(env, libcVxworksChdir_napi));
+    exports.Set("libcVxworksPthreadMutexattrInit", Napi::Function::New(env, libcVxworksPthreadMutexattrInit_napi));
+    exports.Set("libcVxworksPthreadMutexattrDestroy", Napi::Function::New(env, libcVxworksPthreadMutexattrDestroy_napi));
+    exports.Set("libcVxworksPthreadMutexattrSettype", Napi::Function::New(env, libcVxworksPthreadMutexattrSettype_napi));
+    exports.Set("libcVxworksPthreadMutexInit", Napi::Function::New(env, libcVxworksPthreadMutexInit_napi));
+    exports.Set("libcVxworksPthreadMutexDestroy", Napi::Function::New(env, libcVxworksPthreadMutexDestroy_napi));
+    exports.Set("libcVxworksPthreadMutexLock", Napi::Function::New(env, libcVxworksPthreadMutexLock_napi));
+    exports.Set("libcVxworksPthreadMutexTrylock", Napi::Function::New(env, libcVxworksPthreadMutexTrylock_napi));
+    exports.Set("libcVxworksPthreadMutexTimedlock", Napi::Function::New(env, libcVxworksPthreadMutexTimedlock_napi));
+    exports.Set("libcVxworksPthreadMutexUnlock", Napi::Function::New(env, libcVxworksPthreadMutexUnlock_napi));
+    exports.Set("libcVxworksPthreadAttrSetname", Napi::Function::New(env, libcVxworksPthreadAttrSetname_napi));
+    exports.Set("libcVxworksPthreadAttrSetstacksize", Napi::Function::New(env, libcVxworksPthreadAttrSetstacksize_napi));
+    exports.Set("libcVxworksPthreadAttrGetstacksize", Napi::Function::New(env, libcVxworksPthreadAttrGetstacksize_napi));
+    exports.Set("libcVxworksPthreadAttrInit", Napi::Function::New(env, libcVxworksPthreadAttrInit_napi));
+    exports.Set("libcVxworksPthreadCreate", Napi::Function::New(env, libcVxworksPthreadCreate_napi));
+    exports.Set("libcVxworksPthreadSetschedparam", Napi::Function::New(env, libcVxworksPthreadSetschedparam_napi));
+    exports.Set("libcVxworksPthreadGetschedparam", Napi::Function::New(env, libcVxworksPthreadGetschedparam_napi));
+    exports.Set("libcVxworksPthreadAttrSetinheritsched", Napi::Function::New(env, libcVxworksPthreadAttrSetinheritsched_napi));
+    exports.Set("libcVxworksPthreadAttrSetschedpolicy", Napi::Function::New(env, libcVxworksPthreadAttrSetschedpolicy_napi));
+    exports.Set("libcVxworksPthreadAttrDestroy", Napi::Function::New(env, libcVxworksPthreadAttrDestroy_napi));
+    exports.Set("libcVxworksPthreadDetach", Napi::Function::New(env, libcVxworksPthreadDetach_napi));
+    exports.Set("libcVxworksPthreadAtfork", Napi::Function::New(env, libcVxworksPthreadAtfork_napi));
+    exports.Set("libcVxworksFstat", Napi::Function::New(env, libcVxworksFstat_napi));
+    exports.Set("libcVxworksLstat", Napi::Function::New(env, libcVxworksLstat_napi));
+    exports.Set("libcVxworksFtruncate", Napi::Function::New(env, libcVxworksFtruncate_napi));
+    exports.Set("libcVxworksReaddirR", Napi::Function::New(env, libcVxworksReaddirR_napi));
+    exports.Set("libcVxworksReaddir", Napi::Function::New(env, libcVxworksReaddir_napi));
+    exports.Set("libcVxworksOpen", Napi::Function::New(env, libcVxworksOpen_napi));
+    exports.Set("libcVxworksPoll", Napi::Function::New(env, libcVxworksPoll_napi));
+    exports.Set("libcVxworksPthreadCondattrInit", Napi::Function::New(env, libcVxworksPthreadCondattrInit_napi));
+    exports.Set("libcVxworksPthreadCondattrDestroy", Napi::Function::New(env, libcVxworksPthreadCondattrDestroy_napi));
+    exports.Set("libcVxworksPthreadCondattrGetclock", Napi::Function::New(env, libcVxworksPthreadCondattrGetclock_napi));
+    exports.Set("libcVxworksPthreadCondattrSetclock", Napi::Function::New(env, libcVxworksPthreadCondattrSetclock_napi));
+    exports.Set("libcVxworksPthreadCondInit", Napi::Function::New(env, libcVxworksPthreadCondInit_napi));
+    exports.Set("libcVxworksPthreadCondDestroy", Napi::Function::New(env, libcVxworksPthreadCondDestroy_napi));
+    exports.Set("libcVxworksPthreadCondSignal", Napi::Function::New(env, libcVxworksPthreadCondSignal_napi));
+    exports.Set("libcVxworksPthreadCondBroadcast", Napi::Function::New(env, libcVxworksPthreadCondBroadcast_napi));
+    exports.Set("libcVxworksPthreadCondWait", Napi::Function::New(env, libcVxworksPthreadCondWait_napi));
+    exports.Set("libcVxworksPthreadRwlockattrInit", Napi::Function::New(env, libcVxworksPthreadRwlockattrInit_napi));
+    exports.Set("libcVxworksPthreadRwlockattrDestroy", Napi::Function::New(env, libcVxworksPthreadRwlockattrDestroy_napi));
+    exports.Set("libcVxworksPthreadRwlockattrSetmaxreaders", Napi::Function::New(env, libcVxworksPthreadRwlockattrSetmaxreaders_napi));
+    exports.Set("libcVxworksPthreadRwlockInit", Napi::Function::New(env, libcVxworksPthreadRwlockInit_napi));
+    exports.Set("libcVxworksPthreadRwlockDestroy", Napi::Function::New(env, libcVxworksPthreadRwlockDestroy_napi));
+    exports.Set("libcVxworksPthreadRwlockRdlock", Napi::Function::New(env, libcVxworksPthreadRwlockRdlock_napi));
+    exports.Set("libcVxworksPthreadRwlockTryrdlock", Napi::Function::New(env, libcVxworksPthreadRwlockTryrdlock_napi));
+    exports.Set("libcVxworksPthreadRwlockTimedrdlock", Napi::Function::New(env, libcVxworksPthreadRwlockTimedrdlock_napi));
+    exports.Set("libcVxworksPthreadRwlockWrlock", Napi::Function::New(env, libcVxworksPthreadRwlockWrlock_napi));
+    exports.Set("libcVxworksPthreadRwlockTrywrlock", Napi::Function::New(env, libcVxworksPthreadRwlockTrywrlock_napi));
+    exports.Set("libcVxworksPthreadRwlockTimedwrlock", Napi::Function::New(env, libcVxworksPthreadRwlockTimedwrlock_napi));
+    exports.Set("libcVxworksPthreadRwlockUnlock", Napi::Function::New(env, libcVxworksPthreadRwlockUnlock_napi));
+    exports.Set("libcVxworksPthreadKeyCreate", Napi::Function::New(env, libcVxworksPthreadKeyCreate_napi));
+    exports.Set("libcVxworksPthreadKeyDelete", Napi::Function::New(env, libcVxworksPthreadKeyDelete_napi));
+    exports.Set("libcVxworksPthreadSetspecific", Napi::Function::New(env, libcVxworksPthreadSetspecific_napi));
+    exports.Set("libcVxworksPthreadGetspecific", Napi::Function::New(env, libcVxworksPthreadGetspecific_napi));
+    exports.Set("libcVxworksPthreadCondTimedwait", Napi::Function::New(env, libcVxworksPthreadCondTimedwait_napi));
+    exports.Set("libcVxworksPthreadAttrGetname", Napi::Function::New(env, libcVxworksPthreadAttrGetname_napi));
+    exports.Set("libcVxworksPthreadJoin", Napi::Function::New(env, libcVxworksPthreadJoin_napi));
+    exports.Set("libcVxworksPthreadSelf", Napi::Function::New(env, libcVxworksPthreadSelf_napi));
+    exports.Set("libcVxworksClockGettime", Napi::Function::New(env, libcVxworksClockGettime_napi));
+    exports.Set("libcVxworksClockSettime", Napi::Function::New(env, libcVxworksClockSettime_napi));
+    exports.Set("libcVxworksClockGetres", Napi::Function::New(env, libcVxworksClockGetres_napi));
+    exports.Set("libcVxworksClockNanosleep", Napi::Function::New(env, libcVxworksClockNanosleep_napi));
+    exports.Set("libcVxworksNanosleep", Napi::Function::New(env, libcVxworksNanosleep_napi));
+    exports.Set("libcVxworksAccept", Napi::Function::New(env, libcVxworksAccept_napi));
+    exports.Set("libcVxworksBind", Napi::Function::New(env, libcVxworksBind_napi));
+    exports.Set("libcVxworksConnect", Napi::Function::New(env, libcVxworksConnect_napi));
+    exports.Set("libcVxworksGetpeername", Napi::Function::New(env, libcVxworksGetpeername_napi));
+    exports.Set("libcVxworksGetsockname", Napi::Function::New(env, libcVxworksGetsockname_napi));
+    exports.Set("libcVxworksGetsockopt", Napi::Function::New(env, libcVxworksGetsockopt_napi));
+    exports.Set("libcVxworksListen", Napi::Function::New(env, libcVxworksListen_napi));
+    exports.Set("libcVxworksRecv", Napi::Function::New(env, libcVxworksRecv_napi));
+    exports.Set("libcVxworksRecvfrom", Napi::Function::New(env, libcVxworksRecvfrom_napi));
+    exports.Set("libcVxworksRecvmsg", Napi::Function::New(env, libcVxworksRecvmsg_napi));
+    exports.Set("libcVxworksSend", Napi::Function::New(env, libcVxworksSend_napi));
+    exports.Set("libcVxworksSendmsg", Napi::Function::New(env, libcVxworksSendmsg_napi));
+    exports.Set("libcVxworksSendto", Napi::Function::New(env, libcVxworksSendto_napi));
+    exports.Set("libcVxworksSetsockopt", Napi::Function::New(env, libcVxworksSetsockopt_napi));
+    exports.Set("libcVxworksShutdown", Napi::Function::New(env, libcVxworksShutdown_napi));
+    exports.Set("libcVxworksSocket", Napi::Function::New(env, libcVxworksSocket_napi));
+    exports.Set("libcVxworksIoctl", Napi::Function::New(env, libcVxworksIoctl_napi));
+    exports.Set("libcVxworksFcntl", Napi::Function::New(env, libcVxworksFcntl_napi));
+    exports.Set("libcVxworksGaiStrerror", Napi::Function::New(env, libcVxworksGaiStrerror_napi));
+    exports.Set("libcVxworksClose", Napi::Function::New(env, libcVxworksClose_napi));
+    exports.Set("libcVxworksRead", Napi::Function::New(env, libcVxworksRead_napi));
+    exports.Set("libcVxworksWrite", Napi::Function::New(env, libcVxworksWrite_napi));
+    exports.Set("libcVxworksIsatty", Napi::Function::New(env, libcVxworksIsatty_napi));
+    exports.Set("libcVxworksDup", Napi::Function::New(env, libcVxworksDup_napi));
+    exports.Set("libcVxworksDup2", Napi::Function::New(env, libcVxworksDup2_napi));
+    exports.Set("libcVxworksPipe", Napi::Function::New(env, libcVxworksPipe_napi));
+    exports.Set("libcVxworksUnlink", Napi::Function::New(env, libcVxworksUnlink_napi));
+    exports.Set("libcVxworksLseek", Napi::Function::New(env, libcVxworksLseek_napi));
+    exports.Set("libcVxworksGetaddrinfo", Napi::Function::New(env, libcVxworksGetaddrinfo_napi));
+    exports.Set("libcVxworksFreeaddrinfo", Napi::Function::New(env, libcVxworksFreeaddrinfo_napi));
+    exports.Set("libcVxworksSignal", Napi::Function::New(env, libcVxworksSignal_napi));
+    exports.Set("libcVxworksGetpid", Napi::Function::New(env, libcVxworksGetpid_napi));
+    exports.Set("libcVxworksGetppid", Napi::Function::New(env, libcVxworksGetppid_napi));
+    exports.Set("libcVxworksSetpgid", Napi::Function::New(env, libcVxworksSetpgid_napi));
+    exports.Set("libcVxworksWaitpid", Napi::Function::New(env, libcVxworksWaitpid_napi));
+    exports.Set("libcVxworksSysconf", Napi::Function::New(env, libcVxworksSysconf_napi));
+    exports.Set("libcVxworksSetenv", Napi::Function::New(env, libcVxworksSetenv_napi));
+    exports.Set("libcVxworksUnsetenv", Napi::Function::New(env, libcVxworksUnsetenv_napi));
+    exports.Set("libcVxworksRealpath", Napi::Function::New(env, libcVxworksRealpath_napi));
+    exports.Set("libcVxworksLink", Napi::Function::New(env, libcVxworksLink_napi));
+    exports.Set("libcVxworksReadlink", Napi::Function::New(env, libcVxworksReadlink_napi));
+    exports.Set("libcVxworksSymlink", Napi::Function::New(env, libcVxworksSymlink_napi));
+    exports.Set("libcVxworksOpendir", Napi::Function::New(env, libcVxworksOpendir_napi));
+    exports.Set("libcVxworksRmdir", Napi::Function::New(env, libcVxworksRmdir_napi));
+    exports.Set("libcVxworksMkdir", Napi::Function::New(env, libcVxworksMkdir_napi));
+    exports.Set("libcVxworksChmod", Napi::Function::New(env, libcVxworksChmod_napi));
+    exports.Set("libcVxworksFchmod", Napi::Function::New(env, libcVxworksFchmod_napi));
+    exports.Set("libcVxworksFsync", Napi::Function::New(env, libcVxworksFsync_napi));
+    exports.Set("libcVxworksClosedir", Napi::Function::New(env, libcVxworksClosedir_napi));
+    exports.Set("libcVxworksSchedGetPriorityMax", Napi::Function::New(env, libcVxworksSchedGetPriorityMax_napi));
+    exports.Set("libcVxworksSchedGetPriorityMin", Napi::Function::New(env, libcVxworksSchedGetPriorityMin_napi));
+    exports.Set("libcVxworksSchedSetparam", Napi::Function::New(env, libcVxworksSchedSetparam_napi));
+    exports.Set("libcVxworksSchedGetparam", Napi::Function::New(env, libcVxworksSchedGetparam_napi));
+    exports.Set("libcVxworksSchedSetscheduler", Napi::Function::New(env, libcVxworksSchedSetscheduler_napi));
+    exports.Set("libcVxworksSchedGetscheduler", Napi::Function::New(env, libcVxworksSchedGetscheduler_napi));
+    exports.Set("libcVxworksSchedRrGetInterval", Napi::Function::New(env, libcVxworksSchedRrGetInterval_napi));
+    exports.Set("libcVxworksSchedYield", Napi::Function::New(env, libcVxworksSchedYield_napi));
+    exports.Set("libcVxworksErrnoSet", Napi::Function::New(env, libcVxworksErrnoSet_napi));
+    exports.Set("libcVxworksErrnoGet", Napi::Function::New(env, libcVxworksErrnoGet_napi));
+    exports.Set("libcVxworksSetgid", Napi::Function::New(env, libcVxworksSetgid_napi));
+    exports.Set("libcVxworksGetgid", Napi::Function::New(env, libcVxworksGetgid_napi));
+    exports.Set("libcVxworksSetuid", Napi::Function::New(env, libcVxworksSetuid_napi));
+    exports.Set("libcVxworksGetuid", Napi::Function::New(env, libcVxworksGetuid_napi));
+    exports.Set("libcVxworksSigemptyset", Napi::Function::New(env, libcVxworksSigemptyset_napi));
+    exports.Set("libcVxworksSigfillset", Napi::Function::New(env, libcVxworksSigfillset_napi));
+    exports.Set("libcVxworksSigdelset", Napi::Function::New(env, libcVxworksSigdelset_napi));
+    exports.Set("libcVxworksSigismember", Napi::Function::New(env, libcVxworksSigismember_napi));
+    exports.Set("libcVxworksPthreadSigmask", Napi::Function::New(env, libcVxworksPthreadSigmask_napi));
+    exports.Set("libcVxworksKill", Napi::Function::New(env, libcVxworksKill_napi));
+    exports.Set("libcVxworksTaskKill", Napi::Function::New(env, libcVxworksTaskKill_napi));
+    exports.Set("libcVxworksRaise", Napi::Function::New(env, libcVxworksRaise_napi));
+    exports.Set("libcVxworksTaskIdSelf", Napi::Function::New(env, libcVxworksTaskIdSelf_napi));
+    exports.Set("libcVxworksTaskDelay", Napi::Function::New(env, libcVxworksTaskDelay_napi));
+    exports.Set("libcVxworksTaskNameSet", Napi::Function::New(env, libcVxworksTaskNameSet_napi));
+    exports.Set("libcVxworksTaskNameGet", Napi::Function::New(env, libcVxworksTaskNameGet_napi));
+    exports.Set("libcVxworksRtpInfoGet", Napi::Function::New(env, libcVxworksRtpInfoGet_napi));
+    exports.Set("libcVxworksRtpSpawn", Napi::Function::New(env, libcVxworksRtpSpawn_napi));
+    exports.Set("libcVxworksPathIsAbsolute", Napi::Function::New(env, libcVxworksPathIsAbsolute_napi));
+    exports.Set("libcVxworksWritev", Napi::Function::New(env, libcVxworksWritev_napi));
+    exports.Set("libcVxworksReadv", Napi::Function::New(env, libcVxworksReadv_napi));
+    exports.Set("libcVxworksRandBytes", Napi::Function::New(env, libcVxworksRandBytes_napi));
+    exports.Set("libcVxworksRandABytes", Napi::Function::New(env, libcVxworksRandABytes_napi));
+    exports.Set("libcVxworksRandUBytes", Napi::Function::New(env, libcVxworksRandUBytes_napi));
+    exports.Set("libcVxworksRandSecure", Napi::Function::New(env, libcVxworksRandSecure_napi));
+    exports.Set("libcVxworksMqOpen", Napi::Function::New(env, libcVxworksMqOpen_napi));
+    exports.Set("libcVxworksMqClose", Napi::Function::New(env, libcVxworksMqClose_napi));
+    exports.Set("libcVxworksMqUnlink", Napi::Function::New(env, libcVxworksMqUnlink_napi));
+    exports.Set("libcVxworksMqReceive", Napi::Function::New(env, libcVxworksMqReceive_napi));
+    exports.Set("libcVxworksMqTimedreceive", Napi::Function::New(env, libcVxworksMqTimedreceive_napi));
+    exports.Set("libcVxworksMqSend", Napi::Function::New(env, libcVxworksMqSend_napi));
+    exports.Set("libcVxworksMqTimedsend", Napi::Function::New(env, libcVxworksMqTimedsend_napi));
+    exports.Set("libcVxworksMqGetattr", Napi::Function::New(env, libcVxworksMqGetattr_napi));
+    exports.Set("libcVxworksMqSetattr", Napi::Function::New(env, libcVxworksMqSetattr_napi));
+    exports.Set("libcVxworksVxCpuEnabledGet", Napi::Function::New(env, libcVxworksVxCpuEnabledGet_napi));
+    exports.Set("libcVxworksVxCpuConfiguredGet", Napi::Function::New(env, libcVxworksVxCpuConfiguredGet_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_vxworks_napi, nullptr };

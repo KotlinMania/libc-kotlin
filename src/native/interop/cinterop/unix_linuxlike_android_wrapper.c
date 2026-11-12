@@ -21,7 +21,7 @@
 #endif
 #endif
 
-void libc_unix_linuxlike_android_setgrent(void) {
+void libcUnixLinuxlikeAndroidSetgrent(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -49,7 +49,7 @@ void libc_unix_linuxlike_android_setgrent(void) {
     errno = ENOSYS;
 }
 
-void libc_unix_linuxlike_android_endgrent(void) {
+void libcUnixLinuxlikeAndroidEndgrent(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -77,7 +77,7 @@ void libc_unix_linuxlike_android_endgrent(void) {
     errno = ENOSYS;
 }
 
-void* libc_unix_linuxlike_android_getgrent(void) {
+void* libcUnixLinuxlikeAndroidGetgrent(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -105,7 +105,7 @@ void* libc_unix_linuxlike_android_getgrent(void) {
     return NULL;
 }
 
-int32_t libc_unix_linuxlike_android_getrlimit64(int32_t resource, void* rlim) {
+int32_t libcUnixLinuxlikeAndroidGetrlimit64(int32_t resource, void* rlim) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -138,7 +138,7 @@ int32_t libc_unix_linuxlike_android_getrlimit64(int32_t resource, void* rlim) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_setrlimit64(int32_t resource, void* rlim) {
+int32_t libcUnixLinuxlikeAndroidSetrlimit64(int32_t resource, void* rlim) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -171,7 +171,7 @@ int32_t libc_unix_linuxlike_android_setrlimit64(int32_t resource, void* rlim) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_getrlimit(int32_t resource, void* rlim) {
+int32_t libcUnixLinuxlikeAndroidGetrlimit(int32_t resource, void* rlim) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -199,7 +199,7 @@ int32_t libc_unix_linuxlike_android_getrlimit(int32_t resource, void* rlim) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_setrlimit(int32_t resource, void* rlim) {
+int32_t libcUnixLinuxlikeAndroidSetrlimit(int32_t resource, void* rlim) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -227,7 +227,7 @@ int32_t libc_unix_linuxlike_android_setrlimit(int32_t resource, void* rlim) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_prlimit(int32_t pid, int32_t resource, void* new_limit, void* old_limit) {
+int32_t libcUnixLinuxlikeAndroidPrlimit(int32_t pid, int32_t resource, void* newLimit, void* oldLimit) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -249,13 +249,13 @@ int32_t libc_unix_linuxlike_android_prlimit(int32_t pid, int32_t resource, void*
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(pid, resource, new_limit, old_limit);
+        return km_fn_ptr(pid, resource, newLimit, oldLimit);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_prlimit64(int32_t pid, int32_t resource, void* new_limit, void* old_limit) {
+int32_t libcUnixLinuxlikeAndroidPrlimit64(int32_t pid, int32_t resource, void* newLimit, void* oldLimit) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -282,13 +282,13 @@ int32_t libc_unix_linuxlike_android_prlimit64(int32_t pid, int32_t resource, voi
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(pid, resource, new_limit, old_limit);
+        return km_fn_ptr(pid, resource, newLimit, oldLimit);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_strerrorR(int32_t errnum, char* buf, uint64_t buflen) {
+int32_t libcUnixLinuxlikeAndroidStrerrorR(int32_t errnum, char* buf, uint64_t buflen) {
     typedef int32_t (*km_fn_t)(int32_t, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -316,7 +316,7 @@ int32_t libc_unix_linuxlike_android_strerrorR(int32_t errnum, char* buf, uint64_
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_gettimeofday(void* tp, void* tz) {
+int32_t libcUnixLinuxlikeAndroidGettimeofday(void* tp, void* tz) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -344,7 +344,7 @@ int32_t libc_unix_linuxlike_android_gettimeofday(void* tp, void* tz) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_mlock2(void* addr, uint64_t len, int32_t flags) {
+int32_t libcUnixLinuxlikeAndroidMlock2(void* addr, uint64_t len, int32_t flags) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -372,7 +372,7 @@ int32_t libc_unix_linuxlike_android_mlock2(void* addr, uint64_t len, int32_t fla
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_madvise(void* addr, uint64_t len, int32_t advice) {
+int32_t libcUnixLinuxlikeAndroidMadvise(void* addr, uint64_t len, int32_t advice) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -400,7 +400,7 @@ int32_t libc_unix_linuxlike_android_madvise(void* addr, uint64_t len, int32_t ad
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_msync(void* addr, uint64_t len, int32_t flags) {
+int32_t libcUnixLinuxlikeAndroidMsync(void* addr, uint64_t len, int32_t flags) {
 #if !defined(_WIN32)
     return (int32_t)msync(addr, len, flags);
 #else
@@ -412,7 +412,7 @@ int32_t libc_unix_linuxlike_android_msync(void* addr, uint64_t len, int32_t flag
 #endif
 }
 
-int32_t libc_unix_linuxlike_android_mprotect(void* addr, uint64_t len, int32_t prot) {
+int32_t libcUnixLinuxlikeAndroidMprotect(void* addr, uint64_t len, int32_t prot) {
 #if !defined(_WIN32)
     return (int32_t)mprotect(addr, len, prot);
 #else
@@ -424,7 +424,7 @@ int32_t libc_unix_linuxlike_android_mprotect(void* addr, uint64_t len, int32_t p
 #endif
 }
 
-int32_t libc_unix_linuxlike_android_getnameinfo(void* sa, uint32_t salen, char* host, uint64_t hostlen, char* serv, uint64_t servlen, int32_t flags) {
+int32_t libcUnixLinuxlikeAndroidGetnameinfo(void* sa, uint32_t salen, char* host, uint64_t hostlen, char* serv, uint64_t servlen, int32_t flags) {
     typedef int32_t (*km_fn_t)(void*, uint32_t, char*, uint64_t, char*, uint64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -452,7 +452,7 @@ int32_t libc_unix_linuxlike_android_getnameinfo(void* sa, uint32_t salen, char* 
     return -1;
 }
 
-int64_t libc_unix_linuxlike_android_preadv(int32_t fd, void* iov, int32_t count, int64_t offset) {
+int64_t libcUnixLinuxlikeAndroidPreadv(int32_t fd, void* iov, int32_t count, int64_t offset) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -480,7 +480,7 @@ int64_t libc_unix_linuxlike_android_preadv(int32_t fd, void* iov, int32_t count,
     return -1;
 }
 
-int64_t libc_unix_linuxlike_android_pwritev(int32_t fd, void* iov, int32_t count, int64_t offset) {
+int64_t libcUnixLinuxlikeAndroidPwritev(int32_t fd, void* iov, int32_t count, int64_t offset) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -508,7 +508,7 @@ int64_t libc_unix_linuxlike_android_pwritev(int32_t fd, void* iov, int32_t count
     return -1;
 }
 
-int64_t libc_unix_linuxlike_android_processVmReadv(int32_t pid, void* local_iov, uint64_t local_iov_count, void* remote_iov, uint64_t remote_iov_count, uint64_t flags) {
+int64_t libcUnixLinuxlikeAndroidProcessVmReadv(int32_t pid, void* localIov, uint64_t localIovCount, void* remoteIov, uint64_t remoteIovCount, uint64_t flags) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, void*, uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -530,13 +530,13 @@ int64_t libc_unix_linuxlike_android_processVmReadv(int32_t pid, void* local_iov,
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(pid, local_iov, local_iov_count, remote_iov, remote_iov_count, flags);
+        return km_fn_ptr(pid, localIov, localIovCount, remoteIov, remoteIovCount, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_unix_linuxlike_android_processVmWritev(int32_t pid, void* local_iov, uint64_t local_iov_count, void* remote_iov, uint64_t remote_iov_count, uint64_t flags) {
+int64_t libcUnixLinuxlikeAndroidProcessVmWritev(int32_t pid, void* localIov, uint64_t localIovCount, void* remoteIov, uint64_t remoteIovCount, uint64_t flags) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, void*, uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -558,13 +558,13 @@ int64_t libc_unix_linuxlike_android_processVmWritev(int32_t pid, void* local_iov
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(pid, local_iov, local_iov_count, remote_iov, remote_iov_count, flags);
+        return km_fn_ptr(pid, localIov, localIovCount, remoteIov, remoteIovCount, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_unix_linuxlike_android_ptrace(int32_t request, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int64_t libcUnixLinuxlikeAndroidPtrace(int32_t request, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int64_t (*km_fn_t)(int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -598,7 +598,7 @@ int64_t libc_unix_linuxlike_android_ptrace(int32_t request, int32_t km_vac, int6
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_getpriority(int32_t which, uint32_t who) {
+int32_t libcUnixLinuxlikeAndroidGetpriority(int32_t which, uint32_t who) {
     typedef int32_t (*km_fn_t)(int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -626,7 +626,7 @@ int32_t libc_unix_linuxlike_android_getpriority(int32_t which, uint32_t who) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_setpriority(int32_t which, uint32_t who, int32_t prio) {
+int32_t libcUnixLinuxlikeAndroidSetpriority(int32_t which, uint32_t who, int32_t prio) {
     typedef int32_t (*km_fn_t)(int32_t, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -654,7 +654,7 @@ int32_t libc_unix_linuxlike_android_setpriority(int32_t which, uint32_t who, int
     return -1;
 }
 
-void* libc_unix_linuxlike_android_schedCpualloc(uint64_t count) {
+void* libcUnixLinuxlikeAndroidSchedCpualloc(uint64_t count) {
     typedef void* (*km_fn_t)(uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -680,7 +680,7 @@ void* libc_unix_linuxlike_android_schedCpualloc(uint64_t count) {
     return NULL;
 }
 
-void libc_unix_linuxlike_android_schedCpufree(void* set) {
+void libcUnixLinuxlikeAndroidSchedCpufree(void* set) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -706,7 +706,7 @@ void libc_unix_linuxlike_android_schedCpufree(void* set) {
     errno = ENOSYS;
 }
 
-int32_t libc_unix_linuxlike_android_schedCpucount(uint64_t setsize, void* set) {
+int32_t libcUnixLinuxlikeAndroidSchedCpucount(uint64_t setsize, void* set) {
     typedef int32_t (*km_fn_t)(uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -732,7 +732,7 @@ int32_t libc_unix_linuxlike_android_schedCpucount(uint64_t setsize, void* set) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_schedGetcpu(void) {
+int32_t libcUnixLinuxlikeAndroidSchedGetcpu(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -760,7 +760,7 @@ int32_t libc_unix_linuxlike_android_schedGetcpu(void) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_mallocInfo(int32_t options, void* stream) {
+int32_t libcUnixLinuxlikeAndroidMallocInfo(int32_t options, void* stream) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -788,7 +788,7 @@ int32_t libc_unix_linuxlike_android_mallocInfo(int32_t options, void* stream) {
     return -1;
 }
 
-uint64_t libc_unix_linuxlike_android_mallocUsableSize(void* ptr) {
+uint64_t libcUnixLinuxlikeAndroidMallocUsableSize(void* ptr) {
     typedef uint64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -816,7 +816,7 @@ uint64_t libc_unix_linuxlike_android_mallocUsableSize(void* ptr) {
     return 0;
 }
 
-int32_t libc_unix_linuxlike_android_utmpname(const char* name) {
+int32_t libcUnixLinuxlikeAndroidUtmpname(const char* name) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -844,7 +844,7 @@ int32_t libc_unix_linuxlike_android_utmpname(const char* name) {
     return -1;
 }
 
-void libc_unix_linuxlike_android_setutent(void) {
+void libcUnixLinuxlikeAndroidSetutent(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -872,7 +872,7 @@ void libc_unix_linuxlike_android_setutent(void) {
     errno = ENOSYS;
 }
 
-void* libc_unix_linuxlike_android_getutent(void) {
+void* libcUnixLinuxlikeAndroidGetutent(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -900,7 +900,7 @@ void* libc_unix_linuxlike_android_getutent(void) {
     return NULL;
 }
 
-void libc_unix_linuxlike_android_seekdir(void* dirp, int64_t loc) {
+void libcUnixLinuxlikeAndroidSeekdir(void* dirp, int64_t loc) {
     typedef void (*km_fn_t)(void*, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -928,7 +928,7 @@ void libc_unix_linuxlike_android_seekdir(void* dirp, int64_t loc) {
     errno = ENOSYS;
 }
 
-int64_t libc_unix_linuxlike_android_telldir(void* dirp) {
+int64_t libcUnixLinuxlikeAndroidTelldir(void* dirp) {
     typedef int64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -956,7 +956,7 @@ int64_t libc_unix_linuxlike_android_telldir(void* dirp) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_fallocate(int32_t fd, int32_t mode, int64_t offset, int64_t len) {
+int32_t libcUnixLinuxlikeAndroidFallocate(int32_t fd, int32_t mode, int64_t offset, int64_t len) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int64_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -984,7 +984,7 @@ int32_t libc_unix_linuxlike_android_fallocate(int32_t fd, int32_t mode, int64_t 
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_fallocate64(int32_t fd, int32_t mode, int64_t offset, int64_t len) {
+int32_t libcUnixLinuxlikeAndroidFallocate64(int32_t fd, int32_t mode, int64_t offset, int64_t len) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int64_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1017,7 +1017,7 @@ int32_t libc_unix_linuxlike_android_fallocate64(int32_t fd, int32_t mode, int64_
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_posixFallocate(int32_t fd, int64_t offset, int64_t len) {
+int32_t libcUnixLinuxlikeAndroidPosixFallocate(int32_t fd, int64_t offset, int64_t len) {
     typedef int32_t (*km_fn_t)(int32_t, int64_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1045,7 +1045,7 @@ int32_t libc_unix_linuxlike_android_posixFallocate(int32_t fd, int64_t offset, i
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_posixFallocate64(int32_t fd, int64_t offset, int64_t len) {
+int32_t libcUnixLinuxlikeAndroidPosixFallocate64(int32_t fd, int64_t offset, int64_t len) {
     typedef int32_t (*km_fn_t)(int32_t, int64_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1078,7 +1078,7 @@ int32_t libc_unix_linuxlike_android_posixFallocate64(int32_t fd, int64_t offset,
     return -1;
 }
 
-int64_t libc_unix_linuxlike_android_getxattr(const char* path, const char* name, void* value, uint64_t size) {
+int64_t libcUnixLinuxlikeAndroidGetxattr(const char* path, const char* name, void* value, uint64_t size) {
     typedef int64_t (*km_fn_t)(const char*, const char*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1106,7 +1106,7 @@ int64_t libc_unix_linuxlike_android_getxattr(const char* path, const char* name,
     return -1;
 }
 
-int64_t libc_unix_linuxlike_android_lgetxattr(const char* path, const char* name, void* value, uint64_t size) {
+int64_t libcUnixLinuxlikeAndroidLgetxattr(const char* path, const char* name, void* value, uint64_t size) {
     typedef int64_t (*km_fn_t)(const char*, const char*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1134,7 +1134,7 @@ int64_t libc_unix_linuxlike_android_lgetxattr(const char* path, const char* name
     return -1;
 }
 
-int64_t libc_unix_linuxlike_android_fgetxattr(int32_t filedes, const char* name, void* value, uint64_t size) {
+int64_t libcUnixLinuxlikeAndroidFgetxattr(int32_t filedes, const char* name, void* value, uint64_t size) {
     typedef int64_t (*km_fn_t)(int32_t, const char*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1162,7 +1162,7 @@ int64_t libc_unix_linuxlike_android_fgetxattr(int32_t filedes, const char* name,
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_setxattr(const char* path, const char* name, void* value, uint64_t size, int32_t flags) {
+int32_t libcUnixLinuxlikeAndroidSetxattr(const char* path, const char* name, void* value, uint64_t size, int32_t flags) {
     typedef int32_t (*km_fn_t)(const char*, const char*, void*, uint64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1190,7 +1190,7 @@ int32_t libc_unix_linuxlike_android_setxattr(const char* path, const char* name,
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_lsetxattr(const char* path, const char* name, void* value, uint64_t size, int32_t flags) {
+int32_t libcUnixLinuxlikeAndroidLsetxattr(const char* path, const char* name, void* value, uint64_t size, int32_t flags) {
     typedef int32_t (*km_fn_t)(const char*, const char*, void*, uint64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1218,7 +1218,7 @@ int32_t libc_unix_linuxlike_android_lsetxattr(const char* path, const char* name
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_fsetxattr(int32_t filedes, const char* name, void* value, uint64_t size, int32_t flags) {
+int32_t libcUnixLinuxlikeAndroidFsetxattr(int32_t filedes, const char* name, void* value, uint64_t size, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, void*, uint64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1246,7 +1246,7 @@ int32_t libc_unix_linuxlike_android_fsetxattr(int32_t filedes, const char* name,
     return -1;
 }
 
-int64_t libc_unix_linuxlike_android_listxattr(const char* path, char* list, uint64_t size) {
+int64_t libcUnixLinuxlikeAndroidListxattr(const char* path, char* list, uint64_t size) {
     typedef int64_t (*km_fn_t)(const char*, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1274,7 +1274,7 @@ int64_t libc_unix_linuxlike_android_listxattr(const char* path, char* list, uint
     return -1;
 }
 
-int64_t libc_unix_linuxlike_android_llistxattr(const char* path, char* list, uint64_t size) {
+int64_t libcUnixLinuxlikeAndroidLlistxattr(const char* path, char* list, uint64_t size) {
     typedef int64_t (*km_fn_t)(const char*, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1302,7 +1302,7 @@ int64_t libc_unix_linuxlike_android_llistxattr(const char* path, char* list, uin
     return -1;
 }
 
-int64_t libc_unix_linuxlike_android_flistxattr(int32_t filedes, char* list, uint64_t size) {
+int64_t libcUnixLinuxlikeAndroidFlistxattr(int32_t filedes, char* list, uint64_t size) {
     typedef int64_t (*km_fn_t)(int32_t, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1330,7 +1330,7 @@ int64_t libc_unix_linuxlike_android_flistxattr(int32_t filedes, char* list, uint
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_removexattr(const char* path, const char* name) {
+int32_t libcUnixLinuxlikeAndroidRemovexattr(const char* path, const char* name) {
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1358,7 +1358,7 @@ int32_t libc_unix_linuxlike_android_removexattr(const char* path, const char* na
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_lremovexattr(const char* path, const char* name) {
+int32_t libcUnixLinuxlikeAndroidLremovexattr(const char* path, const char* name) {
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1386,7 +1386,7 @@ int32_t libc_unix_linuxlike_android_lremovexattr(const char* path, const char* n
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_fremovexattr(int32_t filedes, const char* name) {
+int32_t libcUnixLinuxlikeAndroidFremovexattr(int32_t filedes, const char* name) {
     typedef int32_t (*km_fn_t)(int32_t, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1414,7 +1414,7 @@ int32_t libc_unix_linuxlike_android_fremovexattr(int32_t filedes, const char* na
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_signalfd(int32_t fd, void* mask, int32_t flags) {
+int32_t libcUnixLinuxlikeAndroidSignalfd(int32_t fd, void* mask, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1442,7 +1442,7 @@ int32_t libc_unix_linuxlike_android_signalfd(int32_t fd, void* mask, int32_t fla
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_timerfdCreate(int32_t clock, int32_t flags) {
+int32_t libcUnixLinuxlikeAndroidTimerfdCreate(int32_t clock, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1470,7 +1470,7 @@ int32_t libc_unix_linuxlike_android_timerfdCreate(int32_t clock, int32_t flags) 
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_timerfdGettime(int32_t fd, void* current_value) {
+int32_t libcUnixLinuxlikeAndroidTimerfdGettime(int32_t fd, void* currentValue) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1492,13 +1492,13 @@ int32_t libc_unix_linuxlike_android_timerfdGettime(int32_t fd, void* current_val
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(fd, current_value);
+        return km_fn_ptr(fd, currentValue);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_timerfdSettime(int32_t fd, int32_t flags, void* new_value, void* old_value) {
+int32_t libcUnixLinuxlikeAndroidTimerfdSettime(int32_t fd, int32_t flags, void* newValue, void* oldValue) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1520,13 +1520,13 @@ int32_t libc_unix_linuxlike_android_timerfdSettime(int32_t fd, int32_t flags, vo
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(fd, flags, new_value, old_value);
+        return km_fn_ptr(fd, flags, newValue, oldValue);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_unix_linuxlike_android_syscall(int64_t num, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int64_t libcUnixLinuxlikeAndroidSyscall(int64_t num, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int64_t (*km_fn_t)(int64_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1560,7 +1560,7 @@ int64_t libc_unix_linuxlike_android_syscall(int64_t num, int32_t km_vac, int64_t
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_schedGetaffinity(int32_t pid, uint64_t cpusetsize, void* cpuset) {
+int32_t libcUnixLinuxlikeAndroidSchedGetaffinity(int32_t pid, uint64_t cpusetsize, void* cpuset) {
     typedef int32_t (*km_fn_t)(int32_t, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1588,7 +1588,7 @@ int32_t libc_unix_linuxlike_android_schedGetaffinity(int32_t pid, uint64_t cpuse
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_schedSetaffinity(int32_t pid, uint64_t cpusetsize, void* cpuset) {
+int32_t libcUnixLinuxlikeAndroidSchedSetaffinity(int32_t pid, uint64_t cpusetsize, void* cpuset) {
     typedef int32_t (*km_fn_t)(int32_t, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1616,7 +1616,7 @@ int32_t libc_unix_linuxlike_android_schedSetaffinity(int32_t pid, uint64_t cpuse
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_epollCreate(int32_t size) {
+int32_t libcUnixLinuxlikeAndroidEpollCreate(int32_t size) {
 #if defined(__linux__)
     return (int32_t)epoll_create(size);
 #else
@@ -1626,7 +1626,7 @@ int32_t libc_unix_linuxlike_android_epollCreate(int32_t size) {
 #endif
 }
 
-int32_t libc_unix_linuxlike_android_epollCreate1(int32_t flags) {
+int32_t libcUnixLinuxlikeAndroidEpollCreate1(int32_t flags) {
 #if defined(__linux__)
     return (int32_t)epoll_create1(flags);
 #else
@@ -1636,7 +1636,7 @@ int32_t libc_unix_linuxlike_android_epollCreate1(int32_t flags) {
 #endif
 }
 
-int32_t libc_unix_linuxlike_android_epollWait(int32_t epfd, void* events, int32_t maxevents, int32_t timeout) {
+int32_t libcUnixLinuxlikeAndroidEpollWait(int32_t epfd, void* events, int32_t maxevents, int32_t timeout) {
 #if defined(__linux__)
     return (int32_t)epoll_wait(epfd, events, maxevents, timeout);
 #else
@@ -1649,7 +1649,7 @@ int32_t libc_unix_linuxlike_android_epollWait(int32_t epfd, void* events, int32_
 #endif
 }
 
-int32_t libc_unix_linuxlike_android_epollCtl(int32_t epfd, int32_t op, int32_t fd, void* event) {
+int32_t libcUnixLinuxlikeAndroidEpollCtl(int32_t epfd, int32_t op, int32_t fd, void* event) {
 #if defined(__linux__)
     return (int32_t)epoll_ctl(epfd, op, fd, event);
 #else
@@ -1662,7 +1662,7 @@ int32_t libc_unix_linuxlike_android_epollCtl(int32_t epfd, int32_t op, int32_t f
 #endif
 }
 
-int32_t libc_unix_linuxlike_android_unshare(int32_t flags) {
+int32_t libcUnixLinuxlikeAndroidUnshare(int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1690,7 +1690,7 @@ int32_t libc_unix_linuxlike_android_unshare(int32_t flags) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_umount(const char* target) {
+int32_t libcUnixLinuxlikeAndroidUmount(const char* target) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1718,7 +1718,7 @@ int32_t libc_unix_linuxlike_android_umount(const char* target) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_schedGetPriorityMax(int32_t policy) {
+int32_t libcUnixLinuxlikeAndroidSchedGetPriorityMax(int32_t policy) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1746,7 +1746,7 @@ int32_t libc_unix_linuxlike_android_schedGetPriorityMax(int32_t policy) {
     return -1;
 }
 
-int64_t libc_unix_linuxlike_android_tee(int32_t fd_in, int32_t fd_out, uint64_t len, uint32_t flags) {
+int64_t libcUnixLinuxlikeAndroidTee(int32_t fdIn, int32_t fdOut, uint64_t len, uint32_t flags) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, uint64_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1768,13 +1768,13 @@ int64_t libc_unix_linuxlike_android_tee(int32_t fd_in, int32_t fd_out, uint64_t 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(fd_in, fd_out, len, flags);
+        return km_fn_ptr(fdIn, fdOut, len, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_settimeofday(void* tv, void* tz) {
+int32_t libcUnixLinuxlikeAndroidSettimeofday(void* tv, void* tz) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1802,7 +1802,7 @@ int32_t libc_unix_linuxlike_android_settimeofday(void* tv, void* tz) {
     return -1;
 }
 
-int64_t libc_unix_linuxlike_android_splice(int32_t fd_in, void* off_in, int32_t fd_out, void* off_out, uint64_t len, uint32_t flags) {
+int64_t libcUnixLinuxlikeAndroidSplice(int32_t fdIn, void* offIn, int32_t fdOut, void* offOut, uint64_t len, uint32_t flags) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, void*, uint64_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1824,13 +1824,13 @@ int64_t libc_unix_linuxlike_android_splice(int32_t fd_in, void* off_in, int32_t 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(fd_in, off_in, fd_out, off_out, len, flags);
+        return km_fn_ptr(fdIn, offIn, fdOut, offOut, len, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_eventfd(uint32_t initval, int32_t flags) {
+int32_t libcUnixLinuxlikeAndroidEventfd(uint32_t initval, int32_t flags) {
     typedef int32_t (*km_fn_t)(uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1858,7 +1858,7 @@ int32_t libc_unix_linuxlike_android_eventfd(uint32_t initval, int32_t flags) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_eventfdRead(int32_t fd, void* value) {
+int32_t libcUnixLinuxlikeAndroidEventfdRead(int32_t fd, void* value) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1886,7 +1886,7 @@ int32_t libc_unix_linuxlike_android_eventfdRead(int32_t fd, void* value) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_eventfdWrite(int32_t fd, uint64_t value) {
+int32_t libcUnixLinuxlikeAndroidEventfdWrite(int32_t fd, uint64_t value) {
     typedef int32_t (*km_fn_t)(int32_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1914,7 +1914,7 @@ int32_t libc_unix_linuxlike_android_eventfdWrite(int32_t fd, uint64_t value) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_schedRrGetInterval(int32_t pid, void* tp) {
+int32_t libcUnixLinuxlikeAndroidSchedRrGetInterval(int32_t pid, void* tp) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1942,7 +1942,7 @@ int32_t libc_unix_linuxlike_android_schedRrGetInterval(int32_t pid, void* tp) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_semTimedwait(void* sem, void* abstime) {
+int32_t libcUnixLinuxlikeAndroidSemTimedwait(void* sem, void* abstime) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1970,7 +1970,7 @@ int32_t libc_unix_linuxlike_android_semTimedwait(void* sem, void* abstime) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_semGetvalue(void* sem, void* sval) {
+int32_t libcUnixLinuxlikeAndroidSemGetvalue(void* sem, void* sval) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1998,7 +1998,7 @@ int32_t libc_unix_linuxlike_android_semGetvalue(void* sem, void* sval) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_schedSetparam(int32_t pid, void* param) {
+int32_t libcUnixLinuxlikeAndroidSchedSetparam(int32_t pid, void* param) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2026,7 +2026,7 @@ int32_t libc_unix_linuxlike_android_schedSetparam(int32_t pid, void* param) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_setns(int32_t fd, int32_t nstype) {
+int32_t libcUnixLinuxlikeAndroidSetns(int32_t fd, int32_t nstype) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2054,7 +2054,7 @@ int32_t libc_unix_linuxlike_android_setns(int32_t fd, int32_t nstype) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_swapoff(const char* puath) {
+int32_t libcUnixLinuxlikeAndroidSwapoff(const char* puath) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2082,7 +2082,7 @@ int32_t libc_unix_linuxlike_android_swapoff(const char* puath) {
     return -1;
 }
 
-int64_t libc_unix_linuxlike_android_vmsplice(int32_t fd, void* iov, uint64_t nr_segs, uint32_t flags) {
+int64_t libcUnixLinuxlikeAndroidVmsplice(int32_t fd, void* iov, uint64_t nrSegs, uint32_t flags) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2104,13 +2104,13 @@ int64_t libc_unix_linuxlike_android_vmsplice(int32_t fd, void* iov, uint64_t nr_
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(fd, iov, nr_segs, flags);
+        return km_fn_ptr(fd, iov, nrSegs, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_mount(const char* src, const char* target, const char* fstype, uint64_t flags, void* data) {
+int32_t libcUnixLinuxlikeAndroidMount(const char* src, const char* target, const char* fstype, uint64_t flags, void* data) {
     typedef int32_t (*km_fn_t)(const char*, const char*, const char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2138,7 +2138,7 @@ int32_t libc_unix_linuxlike_android_mount(const char* src, const char* target, c
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_personality(uint32_t persona) {
+int32_t libcUnixLinuxlikeAndroidPersonality(uint32_t persona) {
     typedef int32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2166,7 +2166,7 @@ int32_t libc_unix_linuxlike_android_personality(uint32_t persona) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_prctl(int32_t option, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcUnixLinuxlikeAndroidPrctl(int32_t option, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2200,7 +2200,7 @@ int32_t libc_unix_linuxlike_android_prctl(int32_t option, int32_t km_vac, int64_
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_schedGetparam(int32_t pid, void* param) {
+int32_t libcUnixLinuxlikeAndroidSchedGetparam(int32_t pid, void* param) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2228,7 +2228,7 @@ int32_t libc_unix_linuxlike_android_schedGetparam(int32_t pid, void* param) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_ppoll(void* fds, uint32_t nfds, void* timeout, void* sigmask) {
+int32_t libcUnixLinuxlikeAndroidPpoll(void* fds, uint32_t nfds, void* timeout, void* sigmask) {
     typedef int32_t (*km_fn_t)(void*, uint32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2256,7 +2256,7 @@ int32_t libc_unix_linuxlike_android_ppoll(void* fds, uint32_t nfds, void* timeou
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_clone(void* cb, void* child_stack, int32_t flags, void* arg, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcUnixLinuxlikeAndroidClone(void* cb, void* childStack, int32_t flags, void* arg, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(void*, void*, int32_t, void*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2279,18 +2279,18 @@ int32_t libc_unix_linuxlike_android_clone(void* cb, void* child_stack, int32_t f
 #endif
     if (km_fn_ptr != NULL) {
         switch (km_vac) {
-            case 0: return km_fn_ptr(cb, child_stack, flags, arg);
-            case 1: return km_fn_ptr(cb, child_stack, flags, arg, (intptr_t)km_va0);
-            case 2: return km_fn_ptr(cb, child_stack, flags, arg, (intptr_t)km_va0, (intptr_t)km_va1);
-            case 3: return km_fn_ptr(cb, child_stack, flags, arg, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2);
-            default: return km_fn_ptr(cb, child_stack, flags, arg, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3);
+            case 0: return km_fn_ptr(cb, childStack, flags, arg);
+            case 1: return km_fn_ptr(cb, childStack, flags, arg, (intptr_t)km_va0);
+            case 2: return km_fn_ptr(cb, childStack, flags, arg, (intptr_t)km_va0, (intptr_t)km_va1);
+            case 3: return km_fn_ptr(cb, childStack, flags, arg, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2);
+            default: return km_fn_ptr(cb, childStack, flags, arg, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3);
         }
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_schedGetscheduler(int32_t pid) {
+int32_t libcUnixLinuxlikeAndroidSchedGetscheduler(int32_t pid) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2318,7 +2318,7 @@ int32_t libc_unix_linuxlike_android_schedGetscheduler(int32_t pid) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_clockNanosleep(int32_t clk_id, int32_t flags, void* rqtp, void* rmtp) {
+int32_t libcUnixLinuxlikeAndroidClockNanosleep(int32_t clkId, int32_t flags, void* rqtp, void* rmtp) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2340,13 +2340,13 @@ int32_t libc_unix_linuxlike_android_clockNanosleep(int32_t clk_id, int32_t flags
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(clk_id, flags, rqtp, rmtp);
+        return km_fn_ptr(clkId, flags, rqtp, rmtp);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_sethostname(const char* name, uint64_t len) {
+int32_t libcUnixLinuxlikeAndroidSethostname(const char* name, uint64_t len) {
     typedef int32_t (*km_fn_t)(const char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2374,7 +2374,7 @@ int32_t libc_unix_linuxlike_android_sethostname(const char* name, uint64_t len) 
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_schedGetPriorityMin(int32_t policy) {
+int32_t libcUnixLinuxlikeAndroidSchedGetPriorityMin(int32_t policy) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2402,7 +2402,7 @@ int32_t libc_unix_linuxlike_android_schedGetPriorityMin(int32_t policy) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_sysinfo(void* info) {
+int32_t libcUnixLinuxlikeAndroidSysinfo(void* info) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2430,7 +2430,7 @@ int32_t libc_unix_linuxlike_android_sysinfo(void* info) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_umount2(const char* target, int32_t flags) {
+int32_t libcUnixLinuxlikeAndroidUmount2(const char* target, int32_t flags) {
     typedef int32_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2458,7 +2458,7 @@ int32_t libc_unix_linuxlike_android_umount2(const char* target, int32_t flags) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_swapon(const char* path, int32_t swapflags) {
+int32_t libcUnixLinuxlikeAndroidSwapon(const char* path, int32_t swapflags) {
     typedef int32_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2486,7 +2486,7 @@ int32_t libc_unix_linuxlike_android_swapon(const char* path, int32_t swapflags) 
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_schedSetscheduler(int32_t pid, int32_t policy, void* param) {
+int32_t libcUnixLinuxlikeAndroidSchedSetscheduler(int32_t pid, int32_t policy, void* param) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2514,7 +2514,7 @@ int32_t libc_unix_linuxlike_android_schedSetscheduler(int32_t pid, int32_t polic
     return -1;
 }
 
-int64_t libc_unix_linuxlike_android_sendfile(int32_t out_fd, int32_t in_fd, void* offset, uint64_t count) {
+int64_t libcUnixLinuxlikeAndroidSendfile(int32_t outFd, int32_t inFd, void* offset, uint64_t count) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2536,13 +2536,13 @@ int64_t libc_unix_linuxlike_android_sendfile(int32_t out_fd, int32_t in_fd, void
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(out_fd, in_fd, offset, count);
+        return km_fn_ptr(outFd, inFd, offset, count);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_unix_linuxlike_android_sendfile64(int32_t out_fd, int32_t in_fd, void* offset, uint64_t count) {
+int64_t libcUnixLinuxlikeAndroidSendfile64(int32_t outFd, int32_t inFd, void* offset, uint64_t count) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2569,13 +2569,13 @@ int64_t libc_unix_linuxlike_android_sendfile64(int32_t out_fd, int32_t in_fd, vo
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(out_fd, in_fd, offset, count);
+        return km_fn_ptr(outFd, inFd, offset, count);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_setfsgid(uint16_t gid) {
+int32_t libcUnixLinuxlikeAndroidSetfsgid(uint16_t gid) {
     typedef int32_t (*km_fn_t)(uint16_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2603,7 +2603,7 @@ int32_t libc_unix_linuxlike_android_setfsgid(uint16_t gid) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_setfsuid(uint16_t uid) {
+int32_t libcUnixLinuxlikeAndroidSetfsuid(uint16_t uid) {
     typedef int32_t (*km_fn_t)(uint16_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2631,7 +2631,7 @@ int32_t libc_unix_linuxlike_android_setfsuid(uint16_t uid) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_sigsuspend(void* mask) {
+int32_t libcUnixLinuxlikeAndroidSigsuspend(void* mask) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2659,7 +2659,7 @@ int32_t libc_unix_linuxlike_android_sigsuspend(void* mask) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_getgrgidR(uint16_t gid, void* grp, char* buf, uint64_t buflen, void* result) {
+int32_t libcUnixLinuxlikeAndroidGetgrgidR(uint16_t gid, void* grp, char* buf, uint64_t buflen, void* result) {
     typedef int32_t (*km_fn_t)(uint16_t, void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2687,7 +2687,7 @@ int32_t libc_unix_linuxlike_android_getgrgidR(uint16_t gid, void* grp, char* buf
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_sigaltstack(void* ss, void* oss) {
+int32_t libcUnixLinuxlikeAndroidSigaltstack(void* ss, void* oss) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2715,7 +2715,7 @@ int32_t libc_unix_linuxlike_android_sigaltstack(void* ss, void* oss) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_semClose(void* sem) {
+int32_t libcUnixLinuxlikeAndroidSemClose(void* sem) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2743,7 +2743,7 @@ int32_t libc_unix_linuxlike_android_semClose(void* sem) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_getgrnamR(const char* name, void* grp, char* buf, uint64_t buflen, void* result) {
+int32_t libcUnixLinuxlikeAndroidGetgrnamR(const char* name, void* grp, char* buf, uint64_t buflen, void* result) {
     typedef int32_t (*km_fn_t)(const char*, void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2771,7 +2771,7 @@ int32_t libc_unix_linuxlike_android_getgrnamR(const char* name, void* grp, char*
     return -1;
 }
 
-void* libc_unix_linuxlike_android_semOpen(const char* name, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+void* libcUnixLinuxlikeAndroidSemOpen(const char* name, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef void* (*km_fn_t)(const char*, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2805,7 +2805,7 @@ void* libc_unix_linuxlike_android_semOpen(const char* name, int32_t oflag, int32
     return NULL;
 }
 
-void* libc_unix_linuxlike_android_getgrnam(const char* name) {
+void* libcUnixLinuxlikeAndroidGetgrnam(const char* name) {
     typedef void* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2833,7 +2833,7 @@ void* libc_unix_linuxlike_android_getgrnam(const char* name) {
     return NULL;
 }
 
-int32_t libc_unix_linuxlike_android_semUnlink(const char* name) {
+int32_t libcUnixLinuxlikeAndroidSemUnlink(const char* name) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2861,7 +2861,7 @@ int32_t libc_unix_linuxlike_android_semUnlink(const char* name) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_daemon(int32_t nochdir, int32_t noclose) {
+int32_t libcUnixLinuxlikeAndroidDaemon(int32_t nochdir, int32_t noclose) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2889,7 +2889,7 @@ int32_t libc_unix_linuxlike_android_daemon(int32_t nochdir, int32_t noclose) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_sigtimedwait(void* set, void* info, void* timeout) {
+int32_t libcUnixLinuxlikeAndroidSigtimedwait(void* set, void* info, void* timeout) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2917,7 +2917,7 @@ int32_t libc_unix_linuxlike_android_sigtimedwait(void* set, void* info, void* ti
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_sigwait(void* set, void* sig) {
+int32_t libcUnixLinuxlikeAndroidSigwait(void* set, void* sig) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2945,7 +2945,7 @@ int32_t libc_unix_linuxlike_android_sigwait(void* set, void* sig) {
     return -1;
 }
 
-void* libc_unix_linuxlike_android_getgrgid(uint16_t gid) {
+void* libcUnixLinuxlikeAndroidGetgrgid(uint16_t gid) {
     typedef void* (*km_fn_t)(uint16_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2973,7 +2973,7 @@ void* libc_unix_linuxlike_android_getgrgid(uint16_t gid) {
     return NULL;
 }
 
-int32_t libc_unix_linuxlike_android_getgrouplist(const char* user, uint16_t group, void* groups, void* ngroups) {
+int32_t libcUnixLinuxlikeAndroidGetgrouplist(const char* user, uint16_t group, void* groups, void* ngroups) {
     typedef int32_t (*km_fn_t)(const char*, uint16_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3001,7 +3001,7 @@ int32_t libc_unix_linuxlike_android_getgrouplist(const char* user, uint16_t grou
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_initgroups(const char* user, uint16_t group) {
+int32_t libcUnixLinuxlikeAndroidInitgroups(const char* user, uint16_t group) {
     typedef int32_t (*km_fn_t)(const char*, uint16_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3029,7 +3029,7 @@ int32_t libc_unix_linuxlike_android_initgroups(const char* user, uint16_t group)
     return -1;
 }
 
-void* libc_unix_linuxlike_android_popen(const char* command, const char* mode) {
+void* libcUnixLinuxlikeAndroidPopen(const char* command, const char* mode) {
     typedef void* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3057,7 +3057,7 @@ void* libc_unix_linuxlike_android_popen(const char* command, const char* mode) {
     return NULL;
 }
 
-int32_t libc_unix_linuxlike_android_faccessat(int32_t dirfd, const char* pathname, int32_t mode, int32_t flags) {
+int32_t libcUnixLinuxlikeAndroidFaccessat(int32_t dirfd, const char* pathname, int32_t mode, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3085,7 +3085,7 @@ int32_t libc_unix_linuxlike_android_faccessat(int32_t dirfd, const char* pathnam
     return -1;
 }
 
-void* libc_unix_linuxlike_android_errno(void) {
+void* libcUnixLinuxlikeAndroidErrno(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3111,7 +3111,7 @@ void* libc_unix_linuxlike_android_errno(void) {
     return NULL;
 }
 
-int32_t libc_unix_linuxlike_android_inotifyRmWatch(int32_t fd, uint32_t wd) {
+int32_t libcUnixLinuxlikeAndroidInotifyRmWatch(int32_t fd, uint32_t wd) {
     typedef int32_t (*km_fn_t)(int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3139,7 +3139,7 @@ int32_t libc_unix_linuxlike_android_inotifyRmWatch(int32_t fd, uint32_t wd) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_inotifyInit(void) {
+int32_t libcUnixLinuxlikeAndroidInotifyInit(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3167,7 +3167,7 @@ int32_t libc_unix_linuxlike_android_inotifyInit(void) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_inotifyInit1(int32_t flags) {
+int32_t libcUnixLinuxlikeAndroidInotifyInit1(int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3195,7 +3195,7 @@ int32_t libc_unix_linuxlike_android_inotifyInit1(int32_t flags) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_inotifyAddWatch(int32_t fd, const char* path, uint32_t mask) {
+int32_t libcUnixLinuxlikeAndroidInotifyAddWatch(int32_t fd, const char* path, uint32_t mask) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3223,7 +3223,7 @@ int32_t libc_unix_linuxlike_android_inotifyAddWatch(int32_t fd, const char* path
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_regcomp(void* preg, const char* pattern, int32_t cflags) {
+int32_t libcUnixLinuxlikeAndroidRegcomp(void* preg, const char* pattern, int32_t cflags) {
     typedef int32_t (*km_fn_t)(void*, const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3251,7 +3251,7 @@ int32_t libc_unix_linuxlike_android_regcomp(void* preg, const char* pattern, int
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_regexec(void* preg, const char* input, uint64_t nmatch, void* pmatch, int32_t eflags) {
+int32_t libcUnixLinuxlikeAndroidRegexec(void* preg, const char* input, uint64_t nmatch, void* pmatch, int32_t eflags) {
     typedef int32_t (*km_fn_t)(void*, const char*, uint64_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3279,7 +3279,7 @@ int32_t libc_unix_linuxlike_android_regexec(void* preg, const char* input, uint6
     return -1;
 }
 
-uint64_t libc_unix_linuxlike_android_regerror(int32_t errcode, void* preg, char* errbuf, uint64_t errbuf_size) {
+uint64_t libcUnixLinuxlikeAndroidRegerror(int32_t errcode, void* preg, char* errbuf, uint64_t errbufSize) {
     typedef uint64_t (*km_fn_t)(int32_t, void*, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3301,13 +3301,13 @@ uint64_t libc_unix_linuxlike_android_regerror(int32_t errcode, void* preg, char*
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(errcode, preg, errbuf, errbuf_size);
+        return km_fn_ptr(errcode, preg, errbuf, errbufSize);
     }
     errno = ENOSYS;
     return 0;
 }
 
-void libc_unix_linuxlike_android_regfree(void* preg) {
+void libcUnixLinuxlikeAndroidRegfree(void* preg) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3335,7 +3335,7 @@ void libc_unix_linuxlike_android_regfree(void* preg) {
     errno = ENOSYS;
 }
 
-void libc_unix_linuxlike_android_androidSetAbortMessage(const char* msg) {
+void libcUnixLinuxlikeAndroidAndroidSetAbortMessage(const char* msg) {
     typedef void (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3363,7 +3363,7 @@ void libc_unix_linuxlike_android_androidSetAbortMessage(const char* msg) {
     errno = ENOSYS;
 }
 
-int32_t libc_unix_linuxlike_android_gettid(void) {
+int32_t libcUnixLinuxlikeAndroidGettid(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3391,7 +3391,7 @@ int32_t libc_unix_linuxlike_android_gettid(void) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_tgkill(int32_t tgid, int32_t tid, int32_t sig) {
+int32_t libcUnixLinuxlikeAndroidTgkill(int32_t tgid, int32_t tid, int32_t sig) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3419,7 +3419,7 @@ int32_t libc_unix_linuxlike_android_tgkill(int32_t tgid, int32_t tid, int32_t si
     return -1;
 }
 
-uint64_t libc_unix_linuxlike_android_getauxval(uint64_t type_) {
+uint64_t libcUnixLinuxlikeAndroidGetauxval(uint64_t type) {
     typedef uint64_t (*km_fn_t)(uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3441,13 +3441,13 @@ uint64_t libc_unix_linuxlike_android_getauxval(uint64_t type_) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(type_);
+        return km_fn_ptr(type);
     }
     errno = ENOSYS;
     return 0;
 }
 
-int64_t libc_unix_linuxlike_android_getrandom(void* buf, uint64_t buflen, uint32_t flags) {
+int64_t libcUnixLinuxlikeAndroidGetrandom(void* buf, uint64_t buflen, uint32_t flags) {
     typedef int64_t (*km_fn_t)(void*, uint64_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3475,7 +3475,7 @@ int64_t libc_unix_linuxlike_android_getrandom(void* buf, uint64_t buflen, uint32
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_getentropy(void* buf, uint64_t buflen) {
+int32_t libcUnixLinuxlikeAndroidGetentropy(void* buf, uint64_t buflen) {
     typedef int32_t (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3503,7 +3503,7 @@ int32_t libc_unix_linuxlike_android_getentropy(void* buf, uint64_t buflen) {
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_systemPropertySet(const char* arg_0_name, const char* arg_1_value) {
+int32_t libcUnixLinuxlikeAndroidSystemPropertySet(const char* name, const char* value) {
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3523,13 +3523,13 @@ int32_t libc_unix_linuxlike_android_systemPropertySet(const char* arg_0_name, co
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_name, arg_1_value);
+        return km_fn_ptr(name, value);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_systemPropertyGet(const char* arg_0_name, char* arg_1_value) {
+int32_t libcUnixLinuxlikeAndroidSystemPropertyGet(const char* name, char* value) {
     typedef int32_t (*km_fn_t)(const char*, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3549,13 +3549,13 @@ int32_t libc_unix_linuxlike_android_systemPropertyGet(const char* arg_0_name, ch
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_name, arg_1_value);
+        return km_fn_ptr(name, value);
     }
     errno = ENOSYS;
     return -1;
 }
 
-void* libc_unix_linuxlike_android_systemPropertyFind(const char* arg_0_name) {
+void* libcUnixLinuxlikeAndroidSystemPropertyFind(const char* name) {
     typedef void* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3575,13 +3575,13 @@ void* libc_unix_linuxlike_android_systemPropertyFind(const char* arg_0_name) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_name);
+        return km_fn_ptr(name);
     }
     errno = ENOSYS;
     return NULL;
 }
 
-void* libc_unix_linuxlike_android_systemPropertyFindNth(uint32_t arg_0_n) {
+void* libcUnixLinuxlikeAndroidSystemPropertyFindNth(uint32_t n) {
     typedef void* (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3601,13 +3601,13 @@ void* libc_unix_linuxlike_android_systemPropertyFindNth(uint32_t arg_0_n) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_n);
+        return km_fn_ptr(n);
     }
     errno = ENOSYS;
     return NULL;
 }
 
-int32_t libc_unix_linuxlike_android_systemPropertyForeach(void* arg_0_callback, void* arg_1_cookie) {
+int32_t libcUnixLinuxlikeAndroidSystemPropertyForeach(void* callback, void* cookie) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3627,13 +3627,13 @@ int32_t libc_unix_linuxlike_android_systemPropertyForeach(void* arg_0_callback, 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_callback, arg_1_cookie);
+        return km_fn_ptr(callback, cookie);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_dlIteratePhdr(void* callback, void* data) {
+int32_t libcUnixLinuxlikeAndroidDlIteratePhdr(void* callback, void* data) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3661,7 +3661,7 @@ int32_t libc_unix_linuxlike_android_dlIteratePhdr(void* callback, void* data) {
     return -1;
 }
 
-uint32_t libc_unix_linuxlike_android_arc4random(void) {
+uint32_t libcUnixLinuxlikeAndroidArc4random(void) {
     typedef uint32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3689,7 +3689,7 @@ uint32_t libc_unix_linuxlike_android_arc4random(void) {
     return 0;
 }
 
-uint32_t libc_unix_linuxlike_android_arc4randomUniform(uint32_t arg_0_upper_bound) {
+uint32_t libcUnixLinuxlikeAndroidArc4randomUniform(uint32_t upperBound) {
     typedef uint32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3711,13 +3711,13 @@ uint32_t libc_unix_linuxlike_android_arc4randomUniform(uint32_t arg_0_upper_boun
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_upper_bound);
+        return km_fn_ptr(upperBound);
     }
     errno = ENOSYS;
     return 0;
 }
 
-void libc_unix_linuxlike_android_arc4randomBuf(void* arg_0_buf, uint64_t arg_1_n) {
+void libcUnixLinuxlikeAndroidArc4randomBuf(void* buf, uint64_t n) {
     typedef void (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3739,13 +3739,13 @@ void libc_unix_linuxlike_android_arc4randomBuf(void* arg_0_buf, uint64_t arg_1_n
     }
 #endif
     if (km_fn_ptr != NULL) {
-        km_fn_ptr(arg_0_buf, arg_1_n);
+        km_fn_ptr(buf, n);
         return;
     }
     errno = ENOSYS;
 }
 
-void* libc_unix_linuxlike_android_reallocarray(void* ptr, uint64_t nmemb, uint64_t size) {
+void* libcUnixLinuxlikeAndroidReallocarray(void* ptr, uint64_t nmemb, uint64_t size) {
     typedef void* (*km_fn_t)(void*, uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3773,7 +3773,7 @@ void* libc_unix_linuxlike_android_reallocarray(void* ptr, uint64_t nmemb, uint64
     return NULL;
 }
 
-char* libc_unix_linuxlike_android_dirname(const char* path) {
+char* libcUnixLinuxlikeAndroidDirname(const char* path) {
     typedef char* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3801,7 +3801,7 @@ char* libc_unix_linuxlike_android_dirname(const char* path) {
     return NULL;
 }
 
-char* libc_unix_linuxlike_android_basename(const char* path) {
+char* libcUnixLinuxlikeAndroidBasename(const char* path) {
     typedef char* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3829,7 +3829,7 @@ char* libc_unix_linuxlike_android_basename(const char* path) {
     return NULL;
 }
 
-int32_t libc_unix_linuxlike_android_getoptLong(int32_t argc, void* argv, const char* optstring, void* longopts, void* longindex) {
+int32_t libcUnixLinuxlikeAndroidGetoptLong(int32_t argc, void* argv, const char* optstring, void* longopts, void* longindex) {
     typedef int32_t (*km_fn_t)(int32_t, void*, const char*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3857,7 +3857,7 @@ int32_t libc_unix_linuxlike_android_getoptLong(int32_t argc, void* argv, const c
     return -1;
 }
 
-void libc_unix_linuxlike_android_sync(void) {
+void libcUnixLinuxlikeAndroidSync(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3885,7 +3885,7 @@ void libc_unix_linuxlike_android_sync(void) {
     errno = ENOSYS;
 }
 
-int32_t libc_unix_linuxlike_android_syncfs(int32_t fd) {
+int32_t libcUnixLinuxlikeAndroidSyncfs(int32_t fd) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3913,7 +3913,7 @@ int32_t libc_unix_linuxlike_android_syncfs(int32_t fd) {
     return -1;
 }
 
-void* libc_unix_linuxlike_android_memmem(void* haystack, uint64_t haystacklen, void* needle, uint64_t needlelen) {
+void* libcUnixLinuxlikeAndroidMemmem(void* haystack, uint64_t haystacklen, void* needle, uint64_t needlelen) {
     typedef void* (*km_fn_t)(void*, uint64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3941,7 +3941,7 @@ void* libc_unix_linuxlike_android_memmem(void* haystack, uint64_t haystacklen, v
     return NULL;
 }
 
-uint64_t libc_unix_linuxlike_android_freadUnlocked(void* buf, uint64_t size, uint64_t nobj, void* stream) {
+uint64_t libcUnixLinuxlikeAndroidFreadUnlocked(void* buf, uint64_t size, uint64_t nobj, void* stream) {
     typedef uint64_t (*km_fn_t)(void*, uint64_t, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3969,7 +3969,7 @@ uint64_t libc_unix_linuxlike_android_freadUnlocked(void* buf, uint64_t size, uin
     return 0;
 }
 
-uint64_t libc_unix_linuxlike_android_fwriteUnlocked(void* buf, uint64_t size, uint64_t nobj, void* stream) {
+uint64_t libcUnixLinuxlikeAndroidFwriteUnlocked(void* buf, uint64_t size, uint64_t nobj, void* stream) {
     typedef uint64_t (*km_fn_t)(void*, uint64_t, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3997,7 +3997,7 @@ uint64_t libc_unix_linuxlike_android_fwriteUnlocked(void* buf, uint64_t size, ui
     return 0;
 }
 
-int32_t libc_unix_linuxlike_android_fflushUnlocked(void* stream) {
+int32_t libcUnixLinuxlikeAndroidFflushUnlocked(void* stream) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4025,7 +4025,7 @@ int32_t libc_unix_linuxlike_android_fflushUnlocked(void* stream) {
     return -1;
 }
 
-char* libc_unix_linuxlike_android_fgetsUnlocked(char* buf, int32_t size, void* stream) {
+char* libcUnixLinuxlikeAndroidFgetsUnlocked(char* buf, int32_t size, void* stream) {
     typedef char* (*km_fn_t)(char*, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4053,7 +4053,7 @@ char* libc_unix_linuxlike_android_fgetsUnlocked(char* buf, int32_t size, void* s
     return NULL;
 }
 
-int32_t libc_unix_linuxlike_android_klogctl(int32_t syslog_type, char* bufp, int32_t len) {
+int32_t libcUnixLinuxlikeAndroidKlogctl(int32_t syslogType, char* bufp, int32_t len) {
     typedef int32_t (*km_fn_t)(int32_t, char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4075,13 +4075,13 @@ int32_t libc_unix_linuxlike_android_klogctl(int32_t syslog_type, char* bufp, int
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(syslog_type, bufp, len);
+        return km_fn_ptr(syslogType, bufp, len);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_memfdCreate(const char* name, uint32_t flags) {
+int32_t libcUnixLinuxlikeAndroidMemfdCreate(const char* name, uint32_t flags) {
     typedef int32_t (*km_fn_t)(const char*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4109,7 +4109,7 @@ int32_t libc_unix_linuxlike_android_memfdCreate(const char* name, uint32_t flags
     return -1;
 }
 
-int32_t libc_unix_linuxlike_android_renameat2(int32_t olddirfd, const char* oldpath, int32_t newdirfd, const char* newpath, uint32_t flags) {
+int32_t libcUnixLinuxlikeAndroidRenameat2(int32_t olddirfd, const char* oldpath, int32_t newdirfd, const char* newpath, uint32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, const char*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

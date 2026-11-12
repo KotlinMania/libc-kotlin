@@ -3,171 +3,174 @@
 package io.github.kotlinmania.libc.hermit
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.libc.CChar
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 @JsFun("() => { if (typeof globalThis.__km_napi_libc !== 'undefined') return globalThis.__km_napi_libc !== null; if (typeof process === 'undefined' || !process.versions || !process.versions.node) { globalThis.__km_napi_libc = null; return false; } var mod = process.getBuiltinModule ? process.getBuiltinModule('module') : (process.mainModule && process.mainModule.constructor); var req = (mod && mod.createRequire) ? mod.createRequire((process.cwd ? process.cwd() : '.') + '/package.json') : (process.mainModule ? process.mainModule.require : null); if (!req) { globalThis.__km_napi_libc = null; return false; } try { globalThis.__km_napi_libc = req('@kotlinmania/libc-native-bindings'); return true; } catch (_) {} var fs = req('fs'); var path = req('path'); var dir = process.cwd ? process.cwd() : '.'; var rels = ['libc_native.node', 'build/node-ffi/libc_native.node', 'build/node-ffi/release/libc_native.node', 'build/node-ffi/debug/libc_native.node', 'src/js/node-libc/build/Release/libc_native.node', 'src/js/node-libc/build/Debug/libc_native.node', 'src/js/node-libc/dist/build/Release/libc_native.node', 'src/js/node-libc/dist/build/Debug/libc_native.node', 'c_native.node', 'build/node-ffi/c_native.node', 'build/node-ffi/release/c_native.node', 'build/node-ffi/debug/c_native.node', 'src/js/node-libc/build/Release/c_native.node', 'src/js/node-libc/build/Debug/c_native.node', 'src/js/node-libc/dist/build/Release/c_native.node', 'src/js/node-libc/dist/build/Debug/c_native.node']; for (var d = 0; d < 8; d++) { for (var i = 0; i < rels.length; i++) { var c = path.resolve(dir, rels[i]); if (fs.existsSync(c)) { globalThis.__km_napi_libc = req(c); return true; } } var parent = path.dirname(dir); if (parent === dir) break; dir = parent; } globalThis.__km_napi_libc = null; return false; }")
-private external fun _initHermitNapiAddon(): Boolean
+private external fun initHermitNapiAddon(): Boolean
 
-private val _hermitNapiAvailable: Boolean = _initHermitNapiAddon()
+private val hermitNapiAvailable: Boolean = initHermitNapiAddon()
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_hermit_alloc(p0, p1)")
-private external fun _wasm_libc_hermit_alloc(p0: String, p1: String): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcHermitAlloc(p0, p1)")
+private external fun wasmLibcHermitAlloc(p0: String, p1: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_hermit_allocZeroed(p0, p1)")
-private external fun _wasm_libc_hermit_allocZeroed(p0: String, p1: String): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcHermitAllocZeroed(p0, p1)")
+private external fun wasmLibcHermitAllocZeroed(p0: String, p1: String): String
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_hermit_realloc(p0, p1, p2, p3)")
-private external fun _wasm_libc_hermit_realloc(p0: String, p1: String, p2: String, p3: String): String
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcHermitRealloc(p0, p1, p2, p3)")
+private external fun wasmLibcHermitRealloc(p0: String, p1: String, p2: String, p3: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_hermit_dealloc(p0, p1, p2)")
-private external fun _wasm_libc_hermit_dealloc(p0: String, p1: String, p2: String)
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcHermitDealloc(p0, p1, p2)")
+private external fun wasmLibcHermitDealloc(p0: String, p1: String, p2: String)
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_hermit_exit(p0)")
-private external fun _wasm_libc_hermit_exit(p0: Int)
+@JsFun("(p0) => globalThis.__km_napi_libc.libcHermitExit(p0)")
+private external fun wasmLibcHermitExit(p0: Int)
 
-@JsFun("() => globalThis.__km_napi_libc.libc_hermit_abort()")
-private external fun _wasm_libc_hermit_abort()
+@JsFun("() => globalThis.__km_napi_libc.libcHermitAbort()")
+private external fun wasmLibcHermitAbort()
 
-@JsFun("() => globalThis.__km_napi_libc.libc_hermit_errno()")
-private external fun _wasm_libc_hermit_errno(): Int
+@JsFun("() => globalThis.__km_napi_libc.libcHermitErrno()")
+private external fun wasmLibcHermitErrno(): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_hermit_clockGettime(p0, p1)")
-private external fun _wasm_libc_hermit_clockGettime(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcHermitClockGettime(p0, p1)")
+private external fun wasmLibcHermitClockGettime(p0: Int, p1: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_hermit_nanosleep(p0)")
-private external fun _wasm_libc_hermit_nanosleep(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcHermitNanosleep(p0)")
+private external fun wasmLibcHermitNanosleep(p0: String): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_hermit_availableParallelism()")
-private external fun _wasm_libc_hermit_availableParallelism(): String
+@JsFun("() => globalThis.__km_napi_libc.libcHermitAvailableParallelism()")
+private external fun wasmLibcHermitAvailableParallelism(): String
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_hermit_futexWait(p0, p1, p2, p3)")
-private external fun _wasm_libc_hermit_futexWait(p0: String, p1: Int, p2: String, p3: Int): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcHermitFutexWait(p0, p1, p2, p3)")
+private external fun wasmLibcHermitFutexWait(p0: String, p1: Int, p2: String, p3: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_hermit_futexWake(p0, p1)")
-private external fun _wasm_libc_hermit_futexWake(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcHermitFutexWake(p0, p1)")
+private external fun wasmLibcHermitFutexWake(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_hermit_stat(p0, p1)")
-private external fun _wasm_libc_hermit_stat(p0: String?, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcHermitStat(p0, p1)")
+private external fun wasmLibcHermitStat(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_hermit_fstat(p0, p1)")
-private external fun _wasm_libc_hermit_fstat(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcHermitFstat(p0, p1)")
+private external fun wasmLibcHermitFstat(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_hermit_lstat(p0, p1)")
-private external fun _wasm_libc_hermit_lstat(p0: String?, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcHermitLstat(p0, p1)")
+private external fun wasmLibcHermitLstat(p0: String, p1: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_hermit_open(p0, p1, p2)")
-private external fun _wasm_libc_hermit_open(p0: String?, p1: Int, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcHermitOpen(p0, p1, p2)")
+private external fun wasmLibcHermitOpen(p0: String, p1: Int, p2: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_hermit_unlink(p0)")
-private external fun _wasm_libc_hermit_unlink(p0: String?): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcHermitUnlink(p0)")
+private external fun wasmLibcHermitUnlink(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_hermit_mkdir(p0, p1)")
-private external fun _wasm_libc_hermit_mkdir(p0: String?, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcHermitMkdir(p0, p1)")
+private external fun wasmLibcHermitMkdir(p0: String, p1: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_hermit_rmdir(p0)")
-private external fun _wasm_libc_hermit_rmdir(p0: String?): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcHermitRmdir(p0)")
+private external fun wasmLibcHermitRmdir(p0: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_hermit_read(p0, p1, p2)")
-private external fun _wasm_libc_hermit_read(p0: Int, p1: String, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcHermitRead(p0, p1, p2)")
+private external fun wasmLibcHermitRead(p0: Int, p1: String, p2: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_hermit_write(p0, p1, p2)")
-private external fun _wasm_libc_hermit_write(p0: Int, p1: String, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcHermitWrite(p0, p1, p2)")
+private external fun wasmLibcHermitWrite(p0: Int, p1: String, p2: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_hermit_readv(p0, p1, p2)")
-private external fun _wasm_libc_hermit_readv(p0: Int, p1: String, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcHermitReadv(p0, p1, p2)")
+private external fun wasmLibcHermitReadv(p0: Int, p1: String, p2: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_hermit_writev(p0, p1, p2)")
-private external fun _wasm_libc_hermit_writev(p0: Int, p1: String, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcHermitWritev(p0, p1, p2)")
+private external fun wasmLibcHermitWritev(p0: Int, p1: String, p2: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_hermit_close(p0)")
-private external fun _wasm_libc_hermit_close(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcHermitClose(p0)")
+private external fun wasmLibcHermitClose(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_hermit_dup(p0)")
-private external fun _wasm_libc_hermit_dup(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcHermitDup(p0)")
+private external fun wasmLibcHermitDup(p0: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_hermit_fcntl(p0, p1, p2)")
-private external fun _wasm_libc_hermit_fcntl(p0: Int, p1: Int, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcHermitFcntl(p0, p1, p2)")
+private external fun wasmLibcHermitFcntl(p0: Int, p1: Int, p2: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_hermit_getdents64(p0, p1, p2)")
-private external fun _wasm_libc_hermit_getdents64(p0: Int, p1: String, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcHermitGetdents64(p0, p1, p2)")
+private external fun wasmLibcHermitGetdents64(p0: Int, p1: String, p2: String): String
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_hermit_getaddrinfo(p0, p1, p2, p3)")
-private external fun _wasm_libc_hermit_getaddrinfo(p0: String?, p1: String?, p2: String, p3: String): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcHermitGetaddrinfo(p0, p1, p2, p3)")
+private external fun wasmLibcHermitGetaddrinfo(p0: String, p1: String, p2: String, p3: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_hermit_freeaddrinfo(p0)")
-private external fun _wasm_libc_hermit_freeaddrinfo(p0: String)
+@JsFun("(p0) => globalThis.__km_napi_libc.libcHermitFreeaddrinfo(p0)")
+private external fun wasmLibcHermitFreeaddrinfo(p0: String)
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_hermit_socket(p0, p1, p2)")
-private external fun _wasm_libc_hermit_socket(p0: Int, p1: Int, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcHermitSocket(p0, p1, p2)")
+private external fun wasmLibcHermitSocket(p0: Int, p1: Int, p2: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_hermit_bind(p0, p1, p2)")
-private external fun _wasm_libc_hermit_bind(p0: Int, p1: String, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcHermitBind(p0, p1, p2)")
+private external fun wasmLibcHermitBind(p0: Int, p1: String, p2: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_hermit_listen(p0, p1)")
-private external fun _wasm_libc_hermit_listen(p0: Int, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcHermitListen(p0, p1)")
+private external fun wasmLibcHermitListen(p0: Int, p1: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_hermit_accept(p0, p1, p2)")
-private external fun _wasm_libc_hermit_accept(p0: Int, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcHermitAccept(p0, p1, p2)")
+private external fun wasmLibcHermitAccept(p0: Int, p1: String, p2: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_hermit_connect(p0, p1, p2)")
-private external fun _wasm_libc_hermit_connect(p0: Int, p1: String, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcHermitConnect(p0, p1, p2)")
+private external fun wasmLibcHermitConnect(p0: Int, p1: String, p2: Int): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_hermit_recv(p0, p1, p2, p3)")
-private external fun _wasm_libc_hermit_recv(p0: Int, p1: String, p2: String, p3: Int): String
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcHermitRecv(p0, p1, p2, p3)")
+private external fun wasmLibcHermitRecv(p0: Int, p1: String, p2: String, p3: Int): String
 
-@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libc_hermit_recvfrom(p0, p1, p2, p3, p4, p5)")
-private external fun _wasm_libc_hermit_recvfrom(p0: Int, p1: String, p2: String, p3: Int, p4: String, p5: String): String
+@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libcHermitRecvfrom(p0, p1, p2, p3, p4, p5)")
+private external fun wasmLibcHermitRecvfrom(p0: Int, p1: String, p2: String, p3: Int, p4: String, p5: String): String
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_hermit_send(p0, p1, p2, p3)")
-private external fun _wasm_libc_hermit_send(p0: Int, p1: String, p2: String, p3: Int): String
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcHermitSend(p0, p1, p2, p3)")
+private external fun wasmLibcHermitSend(p0: Int, p1: String, p2: String, p3: Int): String
 
-@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libc_hermit_sendto(p0, p1, p2, p3, p4, p5)")
-private external fun _wasm_libc_hermit_sendto(p0: Int, p1: String, p2: String, p3: Int, p4: String, p5: Int): String
+@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libcHermitSendto(p0, p1, p2, p3, p4, p5)")
+private external fun wasmLibcHermitSendto(p0: Int, p1: String, p2: String, p3: Int, p4: String, p5: Int): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_hermit_getpeername(p0, p1, p2)")
-private external fun _wasm_libc_hermit_getpeername(p0: Int, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcHermitGetpeername(p0, p1, p2)")
+private external fun wasmLibcHermitGetpeername(p0: Int, p1: String, p2: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_hermit_getsockname(p0, p1, p2)")
-private external fun _wasm_libc_hermit_getsockname(p0: Int, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcHermitGetsockname(p0, p1, p2)")
+private external fun wasmLibcHermitGetsockname(p0: Int, p1: String, p2: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_hermit_getsockopt(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_hermit_getsockopt(p0: Int, p1: Int, p2: Int, p3: String, p4: String): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcHermitGetsockopt(p0, p1, p2, p3, p4)")
+private external fun wasmLibcHermitGetsockopt(p0: Int, p1: Int, p2: Int, p3: String, p4: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_hermit_setsockopt(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_hermit_setsockopt(p0: Int, p1: Int, p2: Int, p3: String, p4: Int): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcHermitSetsockopt(p0, p1, p2, p3, p4)")
+private external fun wasmLibcHermitSetsockopt(p0: Int, p1: Int, p2: Int, p3: String, p4: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_hermit_ioctl(p0, p1, p2)")
-private external fun _wasm_libc_hermit_ioctl(p0: Int, p1: Int, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcHermitIoctl(p0, p1, p2)")
+private external fun wasmLibcHermitIoctl(p0: Int, p1: Int, p2: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_hermit_shutdown(p0, p1)")
-private external fun _wasm_libc_hermit_shutdown(p0: Int, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcHermitShutdown(p0, p1)")
+private external fun wasmLibcHermitShutdown(p0: Int, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_hermit_eventfd(p0, p1)")
-private external fun _wasm_libc_hermit_eventfd(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcHermitEventfd(p0, p1)")
+private external fun wasmLibcHermitEventfd(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_hermit_poll(p0, p1, p2)")
-private external fun _wasm_libc_hermit_poll(p0: String, p1: String, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcHermitPoll(p0, p1, p2)")
+private external fun wasmLibcHermitPoll(p0: String, p1: String, p2: Int): Int
 
-public actual fun alloc(size: ULong, align: ULong): COpaquePointer? =
-    if (_hermitNapiAvailable) _wasm_libc_hermit_alloc(size.toString(), align.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun alloc(size: ULong, align: ULong): MutPtr<UByte> =
+    if (hermitNapiAvailable) MutPtr(wasmLibcHermitAlloc(size.toString(), align.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun allocZeroed(size: ULong, align: ULong): COpaquePointer? =
-    if (_hermitNapiAvailable) _wasm_libc_hermit_allocZeroed(size.toString(), align.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun allocZeroed(size: ULong, align: ULong): MutPtr<UByte> =
+    if (hermitNapiAvailable) MutPtr(wasmLibcHermitAllocZeroed(size.toString(), align.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun realloc(ptr: COpaquePointer?, size: ULong, align: ULong, newSize: ULong): COpaquePointer? =
-    if (_hermitNapiAvailable) _wasm_libc_hermit_realloc((ptr?.value ?: 0L).toString(), size.toString(), align.toString(), newSize.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun realloc(ptr: MutPtr<UByte>, size: ULong, align: ULong, newSize: ULong): MutPtr<UByte> =
+    if (hermitNapiAvailable) MutPtr(wasmLibcHermitRealloc(ptr.rawAddress.toString(), size.toString(), align.toString(), newSize.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun dealloc(ptr: COpaquePointer?, size: ULong, align: ULong) {
-    if (_hermitNapiAvailable) {
-        _wasm_libc_hermit_dealloc((ptr?.value ?: 0L).toString(), size.toString(), align.toString())
+public actual fun dealloc(ptr: MutPtr<UByte>, size: ULong, align: ULong) {
+    if (hermitNapiAvailable) {
+        wasmLibcHermitDealloc(ptr.rawAddress.toString(), size.toString(), align.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
 public actual fun exit(status: Int): Nothing {
-    if (_hermitNapiAvailable) {
-        _wasm_libc_hermit_exit(status)
+    if (hermitNapiAvailable) {
+        wasmLibcHermitExit(status)
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
@@ -175,8 +178,8 @@ public actual fun exit(status: Int): Nothing {
 }
 
 public actual fun abort(): Nothing {
-    if (_hermitNapiAvailable) {
-        _wasm_libc_hermit_abort()
+    if (hermitNapiAvailable) {
+        wasmLibcHermitAbort()
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
@@ -184,126 +187,126 @@ public actual fun abort(): Nothing {
 }
 
 public actual fun errno(): Int =
-    if (_hermitNapiAvailable) _wasm_libc_hermit_errno() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (hermitNapiAvailable) wasmLibcHermitErrno() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun clockGettime(clockid: ClockidT, tp: COpaquePointer?): Int =
-    if (_hermitNapiAvailable) _wasm_libc_hermit_clockGettime(clockid, (tp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun clockGettime(clockid: ClockidT, tp: MutPtr<Timespec>): Int =
+    if (hermitNapiAvailable) wasmLibcHermitClockGettime(clockid, tp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun nanosleep(req: COpaquePointer?): Int =
-    if (_hermitNapiAvailable) _wasm_libc_hermit_nanosleep((req?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun nanosleep(req: ConstPtr<Timespec>): Int =
+    if (hermitNapiAvailable) wasmLibcHermitNanosleep(req.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun availableParallelism(): ULong =
-    if (_hermitNapiAvailable) _wasm_libc_hermit_availableParallelism().toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (hermitNapiAvailable) wasmLibcHermitAvailableParallelism().toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun futexWait(address: COpaquePointer?, expected: UInt, timeout: COpaquePointer?, flags: UInt): Int =
-    if (_hermitNapiAvailable) _wasm_libc_hermit_futexWait((address?.value ?: 0L).toString(), expected.toInt(), (timeout?.value ?: 0L).toString(), flags.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun futexWait(address: MutPtr<UInt>, expected: UInt, timeout: ConstPtr<Timespec>, flags: UInt): Int =
+    if (hermitNapiAvailable) wasmLibcHermitFutexWait(address.rawAddress.toString(), expected.toInt(), timeout.rawAddress.toString(), flags.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun futexWake(address: COpaquePointer?, count: Int): Int =
-    if (_hermitNapiAvailable) _wasm_libc_hermit_futexWake((address?.value ?: 0L).toString(), count) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun futexWake(address: MutPtr<UInt>, count: Int): Int =
+    if (hermitNapiAvailable) wasmLibcHermitFutexWake(address.rawAddress.toString(), count) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun stat(path: String?, stat: COpaquePointer?): Int =
-    if (_hermitNapiAvailable) _wasm_libc_hermit_stat(path, (stat?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun stat(path: ConstPtr<CChar>, stat: MutPtr<Stat>): Int =
+    if (hermitNapiAvailable) wasmLibcHermitStat(path.rawAddress.toString(), stat.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fstat(fd: Int, stat: COpaquePointer?): Int =
-    if (_hermitNapiAvailable) _wasm_libc_hermit_fstat(fd, (stat?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fstat(fd: Int, stat: MutPtr<Stat>): Int =
+    if (hermitNapiAvailable) wasmLibcHermitFstat(fd, stat.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun lstat(path: String?, stat: COpaquePointer?): Int =
-    if (_hermitNapiAvailable) _wasm_libc_hermit_lstat(path, (stat?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun lstat(path: ConstPtr<CChar>, stat: MutPtr<Stat>): Int =
+    if (hermitNapiAvailable) wasmLibcHermitLstat(path.rawAddress.toString(), stat.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun open(path: String?, flags: Int, mode: ModeT): Int =
-    if (_hermitNapiAvailable) _wasm_libc_hermit_open(path, flags, mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun open(path: ConstPtr<CChar>, flags: Int, mode: ModeT): Int =
+    if (hermitNapiAvailable) wasmLibcHermitOpen(path.rawAddress.toString(), flags, mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun unlink(path: String?): Int =
-    if (_hermitNapiAvailable) _wasm_libc_hermit_unlink(path) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun unlink(path: ConstPtr<CChar>): Int =
+    if (hermitNapiAvailable) wasmLibcHermitUnlink(path.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mkdir(path: String?, mode: ModeT): Int =
-    if (_hermitNapiAvailable) _wasm_libc_hermit_mkdir(path, mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mkdir(path: ConstPtr<CChar>, mode: ModeT): Int =
+    if (hermitNapiAvailable) wasmLibcHermitMkdir(path.rawAddress.toString(), mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun rmdir(path: String?): Int =
-    if (_hermitNapiAvailable) _wasm_libc_hermit_rmdir(path) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun rmdir(path: ConstPtr<CChar>): Int =
+    if (hermitNapiAvailable) wasmLibcHermitRmdir(path.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun read(fd: Int, buf: COpaquePointer?, len: ULong): Long =
-    if (_hermitNapiAvailable) _wasm_libc_hermit_read(fd, (buf?.value ?: 0L).toString(), len.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun read(fd: Int, buf: MutPtr<UByte>, len: ULong): Long =
+    if (hermitNapiAvailable) wasmLibcHermitRead(fd, buf.rawAddress.toString(), len.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun write(fd: Int, buf: COpaquePointer?, len: ULong): Long =
-    if (_hermitNapiAvailable) _wasm_libc_hermit_write(fd, (buf?.value ?: 0L).toString(), len.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun write(fd: Int, buf: ConstPtr<UByte>, len: ULong): Long =
+    if (hermitNapiAvailable) wasmLibcHermitWrite(fd, buf.rawAddress.toString(), len.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun readv(fd: Int, iov: COpaquePointer?, iovcnt: ULong): Long =
-    if (_hermitNapiAvailable) _wasm_libc_hermit_readv(fd, (iov?.value ?: 0L).toString(), iovcnt.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun readv(fd: Int, iov: ConstPtr<Iovec>, iovcnt: ULong): Long =
+    if (hermitNapiAvailable) wasmLibcHermitReadv(fd, iov.rawAddress.toString(), iovcnt.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun writev(fd: Int, iov: COpaquePointer?, iovcnt: ULong): Long =
-    if (_hermitNapiAvailable) _wasm_libc_hermit_writev(fd, (iov?.value ?: 0L).toString(), iovcnt.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun writev(fd: Int, iov: ConstPtr<Iovec>, iovcnt: ULong): Long =
+    if (hermitNapiAvailable) wasmLibcHermitWritev(fd, iov.rawAddress.toString(), iovcnt.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun close(fd: Int): Int =
-    if (_hermitNapiAvailable) _wasm_libc_hermit_close(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (hermitNapiAvailable) wasmLibcHermitClose(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun dup(fd: Int): Int =
-    if (_hermitNapiAvailable) _wasm_libc_hermit_dup(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (hermitNapiAvailable) wasmLibcHermitDup(fd) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun fcntl(fd: Int, cmd: Int, arg: Int): Int =
-    if (_hermitNapiAvailable) _wasm_libc_hermit_fcntl(fd, cmd, arg) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (hermitNapiAvailable) wasmLibcHermitFcntl(fd, cmd, arg) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getdents64(fd: Int, dirp: COpaquePointer?, count: ULong): Long =
-    if (_hermitNapiAvailable) _wasm_libc_hermit_getdents64(fd, (dirp?.value ?: 0L).toString(), count.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getdents64(fd: Int, dirp: MutPtr<Dirent64>, count: ULong): Long =
+    if (hermitNapiAvailable) wasmLibcHermitGetdents64(fd, dirp.rawAddress.toString(), count.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getaddrinfo(nodename: String?, servname: String?, hints: COpaquePointer?, res: COpaquePointer?): Int =
-    if (_hermitNapiAvailable) _wasm_libc_hermit_getaddrinfo(nodename, servname, (hints?.value ?: 0L).toString(), (res?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getaddrinfo(nodename: ConstPtr<CChar>, servname: ConstPtr<CChar>, hints: ConstPtr<Addrinfo>, res: MutPtr<MutPtr<Addrinfo>>): Int =
+    if (hermitNapiAvailable) wasmLibcHermitGetaddrinfo(nodename.rawAddress.toString(), servname.rawAddress.toString(), hints.rawAddress.toString(), res.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun freeaddrinfo(ai: COpaquePointer?) {
-    if (_hermitNapiAvailable) {
-        _wasm_libc_hermit_freeaddrinfo((ai?.value ?: 0L).toString())
+public actual fun freeaddrinfo(ai: MutPtr<Addrinfo>) {
+    if (hermitNapiAvailable) {
+        wasmLibcHermitFreeaddrinfo(ai.rawAddress.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
 public actual fun socket(domain: Int, ty: Int, protocol: Int): Int =
-    if (_hermitNapiAvailable) _wasm_libc_hermit_socket(domain, ty, protocol) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (hermitNapiAvailable) wasmLibcHermitSocket(domain, ty, protocol) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun bind(sockfd: Int, addr: COpaquePointer?, addrlen: SocklenT): Int =
-    if (_hermitNapiAvailable) _wasm_libc_hermit_bind(sockfd, (addr?.value ?: 0L).toString(), addrlen.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun bind(sockfd: Int, addr: ConstPtr<Sockaddr>, addrlen: SocklenT): Int =
+    if (hermitNapiAvailable) wasmLibcHermitBind(sockfd, addr.rawAddress.toString(), addrlen.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun listen(sockfd: Int, backlog: Int): Int =
-    if (_hermitNapiAvailable) _wasm_libc_hermit_listen(sockfd, backlog) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (hermitNapiAvailable) wasmLibcHermitListen(sockfd, backlog) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun accept(sockfd: Int, addr: COpaquePointer?, addrlen: COpaquePointer?): Int =
-    if (_hermitNapiAvailable) _wasm_libc_hermit_accept(sockfd, (addr?.value ?: 0L).toString(), (addrlen?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun accept(sockfd: Int, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): Int =
+    if (hermitNapiAvailable) wasmLibcHermitAccept(sockfd, addr.rawAddress.toString(), addrlen.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun connect(sockfd: Int, addr: COpaquePointer?, addrlen: SocklenT): Int =
-    if (_hermitNapiAvailable) _wasm_libc_hermit_connect(sockfd, (addr?.value ?: 0L).toString(), addrlen.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun connect(sockfd: Int, addr: ConstPtr<Sockaddr>, addrlen: SocklenT): Int =
+    if (hermitNapiAvailable) wasmLibcHermitConnect(sockfd, addr.rawAddress.toString(), addrlen.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun recv(sockfd: Int, buf: COpaquePointer?, len: ULong, flags: Int): Long =
-    if (_hermitNapiAvailable) _wasm_libc_hermit_recv(sockfd, (buf?.value ?: 0L).toString(), len.toString(), flags).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun recv(sockfd: Int, buf: MutPtr<UByte>, len: ULong, flags: Int): Long =
+    if (hermitNapiAvailable) wasmLibcHermitRecv(sockfd, buf.rawAddress.toString(), len.toString(), flags).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun recvfrom(sockfd: Int, buf: COpaquePointer?, len: ULong, flags: Int, addr: COpaquePointer?, addrlen: COpaquePointer?): Long =
-    if (_hermitNapiAvailable) _wasm_libc_hermit_recvfrom(sockfd, (buf?.value ?: 0L).toString(), len.toString(), flags, (addr?.value ?: 0L).toString(), (addrlen?.value ?: 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun recvfrom(sockfd: Int, buf: MutPtr<CVoid>, len: ULong, flags: Int, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): Long =
+    if (hermitNapiAvailable) wasmLibcHermitRecvfrom(sockfd, buf.rawAddress.toString(), len.toString(), flags, addr.rawAddress.toString(), addrlen.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun send(sockfd: Int, buf: COpaquePointer?, len: ULong, flags: Int): Long =
-    if (_hermitNapiAvailable) _wasm_libc_hermit_send(sockfd, (buf?.value ?: 0L).toString(), len.toString(), flags).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun send(sockfd: Int, buf: ConstPtr<CVoid>, len: ULong, flags: Int): Long =
+    if (hermitNapiAvailable) wasmLibcHermitSend(sockfd, buf.rawAddress.toString(), len.toString(), flags).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sendto(sockfd: Int, buf: COpaquePointer?, len: ULong, flags: Int, to: COpaquePointer?, tolen: SocklenT): Long =
-    if (_hermitNapiAvailable) _wasm_libc_hermit_sendto(sockfd, (buf?.value ?: 0L).toString(), len.toString(), flags, (to?.value ?: 0L).toString(), tolen.toInt()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sendto(sockfd: Int, buf: ConstPtr<CVoid>, len: ULong, flags: Int, to: ConstPtr<Sockaddr>, tolen: SocklenT): Long =
+    if (hermitNapiAvailable) wasmLibcHermitSendto(sockfd, buf.rawAddress.toString(), len.toString(), flags, to.rawAddress.toString(), tolen.toInt()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getpeername(sockfd: Int, addr: COpaquePointer?, addrlen: COpaquePointer?): Int =
-    if (_hermitNapiAvailable) _wasm_libc_hermit_getpeername(sockfd, (addr?.value ?: 0L).toString(), (addrlen?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getpeername(sockfd: Int, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): Int =
+    if (hermitNapiAvailable) wasmLibcHermitGetpeername(sockfd, addr.rawAddress.toString(), addrlen.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getsockname(sockfd: Int, addr: COpaquePointer?, addrlen: COpaquePointer?): Int =
-    if (_hermitNapiAvailable) _wasm_libc_hermit_getsockname(sockfd, (addr?.value ?: 0L).toString(), (addrlen?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getsockname(sockfd: Int, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): Int =
+    if (hermitNapiAvailable) wasmLibcHermitGetsockname(sockfd, addr.rawAddress.toString(), addrlen.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getsockopt(sockfd: Int, level: Int, optname: Int, optval: COpaquePointer?, optlen: COpaquePointer?): Int =
-    if (_hermitNapiAvailable) _wasm_libc_hermit_getsockopt(sockfd, level, optname, (optval?.value ?: 0L).toString(), (optlen?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getsockopt(sockfd: Int, level: Int, optname: Int, optval: MutPtr<CVoid>, optlen: MutPtr<SocklenT>): Int =
+    if (hermitNapiAvailable) wasmLibcHermitGetsockopt(sockfd, level, optname, optval.rawAddress.toString(), optlen.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setsockopt(sockfd: Int, level: Int, optname: Int, optval: COpaquePointer?, optlen: SocklenT): Int =
-    if (_hermitNapiAvailable) _wasm_libc_hermit_setsockopt(sockfd, level, optname, (optval?.value ?: 0L).toString(), optlen.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun setsockopt(sockfd: Int, level: Int, optname: Int, optval: ConstPtr<CVoid>, optlen: SocklenT): Int =
+    if (hermitNapiAvailable) wasmLibcHermitSetsockopt(sockfd, level, optname, optval.rawAddress.toString(), optlen.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ioctl(sockfd: Int, cmd: Int, argp: COpaquePointer?): Int =
-    if (_hermitNapiAvailable) _wasm_libc_hermit_ioctl(sockfd, cmd, (argp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ioctl(sockfd: Int, cmd: Int, argp: MutPtr<CVoid>): Int =
+    if (hermitNapiAvailable) wasmLibcHermitIoctl(sockfd, cmd, argp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun shutdown(sockfd: Int, how: Int): Int =
-    if (_hermitNapiAvailable) _wasm_libc_hermit_shutdown(sockfd, how) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (hermitNapiAvailable) wasmLibcHermitShutdown(sockfd, how) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun eventfd(initval: ULong, flags: Short): Int =
-    if (_hermitNapiAvailable) _wasm_libc_hermit_eventfd(initval.toString(), flags.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (hermitNapiAvailable) wasmLibcHermitEventfd(initval.toString(), flags.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun poll(fds: COpaquePointer?, nfds: NfdsT, timeout: Int): Int =
-    if (_hermitNapiAvailable) _wasm_libc_hermit_poll((fds?.value ?: 0L).toString(), nfds.toString(), timeout) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun poll(fds: MutPtr<Pollfd>, nfds: NfdsT, timeout: Int): Int =
+    if (hermitNapiAvailable) wasmLibcHermitPoll(fds.rawAddress.toString(), nfds.toString(), timeout) else throw UnsupportedOperationException("Native FFI addon is not available")

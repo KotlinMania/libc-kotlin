@@ -51,9 +51,9 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_clockNanosleep_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdClockNanosleep_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t clk_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t clkId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     void* rqtp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* rmtp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
@@ -79,7 +79,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_clockNanosleep_napi(const Nap
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(clk_id, flags, rqtp, rmtp);
+        km_res = km_fn_ptr(clkId, flags, rqtp, rmtp);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -87,7 +87,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_clockNanosleep_napi(const Nap
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_reallocarr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdReallocarr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t number = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -122,11 +122,9 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_reallocarr_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_chflags_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdChflags_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t flags = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
     typedef int32_t (*km_fn_t)(const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -158,7 +156,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_chflags_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_fchflags_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdFchflags_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint64_t flags = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -192,11 +190,9 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_fchflags_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_lchflags_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdLchflags_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t flags = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
     typedef int32_t (*km_fn_t)(const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -228,7 +224,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_lchflags_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_extattrListFd_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdExtattrListFd_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t attrnamespace = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -264,11 +260,9 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_extattrListFd_napi(const Napi
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_extattrListFile_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdExtattrListFile_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t attrnamespace = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     void* data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint64_t nbytes = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
@@ -302,11 +296,9 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_extattrListFile_napi(const Na
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_extattrListLink_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdExtattrListLink_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t attrnamespace = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     void* data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint64_t nbytes = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
@@ -340,13 +332,11 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_extattrListLink_napi(const Na
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_extattrDeleteFd_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdExtattrDeleteFd_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t attrnamespace = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    bool attrname_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string attrname_str = attrname_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* attrname = attrname_null ? nullptr : attrname_str.c_str();
+    const char* attrname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, int32_t, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -377,15 +367,11 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_extattrDeleteFd_napi(const Na
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_extattrDeleteFile_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdExtattrDeleteFile_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t attrnamespace = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    bool attrname_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string attrname_str = attrname_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* attrname = attrname_null ? nullptr : attrname_str.c_str();
+    const char* attrname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(const char*, int32_t, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -416,15 +402,11 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_extattrDeleteFile_napi(const 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_extattrDeleteLink_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdExtattrDeleteLink_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t attrnamespace = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    bool attrname_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string attrname_str = attrname_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* attrname = attrname_null ? nullptr : attrname_str.c_str();
+    const char* attrname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(const char*, int32_t, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -455,13 +437,11 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_extattrDeleteLink_napi(const 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_extattrGetFd_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdExtattrGetFd_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t attrnamespace = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    bool attrname_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string attrname_str = attrname_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* attrname = attrname_null ? nullptr : attrname_str.c_str();
+    const char* attrname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     uint64_t nbytes = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, const char*, void*, uint64_t);
@@ -494,15 +474,11 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_extattrGetFd_napi(const Napi:
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_extattrGetFile_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdExtattrGetFile_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t attrnamespace = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    bool attrname_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string attrname_str = attrname_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* attrname = attrname_null ? nullptr : attrname_str.c_str();
+    const char* attrname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     uint64_t nbytes = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
     typedef int64_t (*km_fn_t)(const char*, int32_t, const char*, void*, uint64_t);
@@ -535,15 +511,11 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_extattrGetFile_napi(const Nap
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_extattrGetLink_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdExtattrGetLink_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t attrnamespace = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    bool attrname_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string attrname_str = attrname_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* attrname = attrname_null ? nullptr : attrname_str.c_str();
+    const char* attrname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     uint64_t nbytes = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
     typedef int64_t (*km_fn_t)(const char*, int32_t, const char*, void*, uint64_t);
@@ -576,7 +548,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_extattrGetLink_napi(const Nap
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_extattrNamespaceToString_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdExtattrNamespaceToString_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t attrnamespace = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* string = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -610,13 +582,11 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_extattrNamespaceToString_napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_extattrSetFd_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdExtattrSetFd_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t attrnamespace = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    bool attrname_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string attrname_str = attrname_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* attrname = attrname_null ? nullptr : attrname_str.c_str();
+    const char* attrname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     uint64_t nbytes = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, const char*, void*, uint64_t);
@@ -649,15 +619,11 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_extattrSetFd_napi(const Napi:
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_extattrSetFile_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdExtattrSetFile_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t attrnamespace = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    bool attrname_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string attrname_str = attrname_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* attrname = attrname_null ? nullptr : attrname_str.c_str();
+    const char* attrname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     uint64_t nbytes = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
     typedef int32_t (*km_fn_t)(const char*, int32_t, const char*, void*, uint64_t);
@@ -690,15 +656,11 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_extattrSetFile_napi(const Nap
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_extattrSetLink_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdExtattrSetLink_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t attrnamespace = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    bool attrname_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string attrname_str = attrname_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* attrname = attrname_null ? nullptr : attrname_str.c_str();
+    const char* attrname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     uint64_t nbytes = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
     typedef int32_t (*km_fn_t)(const char*, int32_t, const char*, void*, uint64_t);
@@ -731,11 +693,9 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_extattrSetLink_napi(const Nap
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_extattrStringToNamespace_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdExtattrStringToNamespace_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool string_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string string_str = string_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* string = string_null ? nullptr : string_str.c_str();
+    const char* string = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* attrnamespace = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -767,7 +727,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_extattrStringToNamespace_napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_openpty_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdOpenpty_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* amaster = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* aslave = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -804,7 +764,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_openpty_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_forkpty_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdForkpty_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* amaster = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* name = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -840,7 +800,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_forkpty_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_ptsnameR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdPtsnameR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -875,11 +835,9 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_ptsnameR_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_lutimes_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdLutimes_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool file_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string file_str = file_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* file = file_null ? nullptr : file_str.c_str();
+    const char* file = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* times = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -909,7 +867,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_lutimes_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_gettimeofday_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdGettimeofday_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* tp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* tz = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -941,7 +899,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_gettimeofday_napi(const Napi:
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_getnameinfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdGetnameinfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* sa = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t salen = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -980,7 +938,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_getnameinfo_napi(const Napi::
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_mprotect_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdMprotect_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1015,7 +973,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_mprotect_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_sysctl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdSysctl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* name = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t namelen = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1053,11 +1011,9 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_sysctl_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_sysctlbyname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdSysctlbyname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* oldp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* oldlenp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* newp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
@@ -1092,11 +1048,9 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_sysctlbyname_napi(const Napi:
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_sysctlnametomib_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdSysctlnametomib_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool sname_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string sname_str = sname_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* sname = sname_null ? nullptr : sname_str.c_str();
+    const char* sname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* name = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* namelenp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(const char*, void*, void*);
@@ -1129,7 +1083,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_sysctlnametomib_napi(const Na
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_kevent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdKevent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t kq = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* changelist = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1165,14 +1119,10 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_kevent_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_mount_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdMount_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool src_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string src_str = src_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* src = src_null ? nullptr : src_str.c_str();
-    bool target_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string target_str = target_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* target = target_null ? nullptr : target_str.c_str();
+    const char* src = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* target = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     void* data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     uint64_t size = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
@@ -1204,11 +1154,9 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_mount_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_mqOpen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdMqOpen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t oflag = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     int32_t km_vac = km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
@@ -1250,7 +1198,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_mqOpen_napi(const Napi::Callb
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_mqClose_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdMqClose_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mqd = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -1283,7 +1231,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_mqClose_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_mqGetattr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdMqGetattr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mqd = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1317,7 +1265,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_mqGetattr_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_mqNotify_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdMqNotify_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mqd = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* notification = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1351,12 +1299,12 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_mqNotify_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_mqReceive_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdMqReceive_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mqd = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    char* msg_ptr = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t msg_len = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    void* msg_prio = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    char* msgPtr = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t msgLen = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    void* msgPrio = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int64_t (*km_fn_t)(void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1379,7 +1327,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_mqReceive_napi(const Napi::Ca
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(mqd, msg_ptr, msg_len, msg_prio);
+        km_res = km_fn_ptr(mqd, msgPtr, msgLen, msgPrio);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1387,14 +1335,12 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_mqReceive_napi(const Napi::Ca
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_mqSend_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdMqSend_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mqd = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool msg_ptr_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string msg_ptr_str = msg_ptr_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* msg_ptr = msg_ptr_null ? nullptr : msg_ptr_str.c_str();
-    uint64_t msg_len = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    uint32_t msg_prio = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
+    const char* msgPtr = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t msgLen = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    uint32_t msgPrio = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, const char*, uint64_t, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1417,7 +1363,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_mqSend_napi(const Napi::Callb
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(mqd, msg_ptr, msg_len, msg_prio);
+        km_res = km_fn_ptr(mqd, msgPtr, msgLen, msgPrio);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1425,7 +1371,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_mqSend_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_mqSetattr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdMqSetattr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mqd = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* newattr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1460,13 +1406,13 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_mqSetattr_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_mqTimedreceive_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdMqTimedreceive_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mqd = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    char* msg_ptr = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t msg_len = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    void* msg_prio = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
-    void* abs_timeout = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
+    char* msgPtr = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t msgLen = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    void* msgPrio = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    void* absTimeout = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
     typedef int64_t (*km_fn_t)(void*, char*, uint64_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1487,7 +1433,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_mqTimedreceive_napi(const Nap
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(mqd, msg_ptr, msg_len, msg_prio, abs_timeout);
+        km_res = km_fn_ptr(mqd, msgPtr, msgLen, msgPrio, absTimeout);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1495,15 +1441,13 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_mqTimedreceive_napi(const Nap
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_mqTimedsend_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdMqTimedsend_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mqd = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool msg_ptr_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string msg_ptr_str = msg_ptr_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* msg_ptr = msg_ptr_null ? nullptr : msg_ptr_str.c_str();
-    uint64_t msg_len = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    uint32_t msg_prio = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
-    void* abs_timeout = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
+    const char* msgPtr = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    uint64_t msgLen = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    uint32_t msgPrio = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
+    void* absTimeout = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
     typedef int32_t (*km_fn_t)(void*, const char*, uint64_t, uint32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1524,7 +1468,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_mqTimedsend_napi(const Napi::
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(mqd, msg_ptr, msg_len, msg_prio, abs_timeout);
+        km_res = km_fn_ptr(mqd, msgPtr, msgLen, msgPrio, absTimeout);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1532,11 +1476,9 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_mqTimedsend_napi(const Napi::
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_mqUnlink_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdMqUnlink_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1567,7 +1509,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_mqUnlink_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_ptrace_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdPtrace_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t request = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t pid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1603,11 +1545,9 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_ptrace_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_utrace_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdUtrace_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool label_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string label_str = label_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* label = label_null ? nullptr : label_str.c_str();
+    const char* label = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t len = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef int32_t (*km_fn_t)(const char*, void*, uint64_t);
@@ -1640,7 +1580,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_utrace_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_pthreadGetnameNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdPthreadGetnameNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* t = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* name = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1675,12 +1615,10 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_pthreadGetnameNp_napi(const N
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_pthreadSetnameNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdPthreadSetnameNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* t = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool name_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* arg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(void*, const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1712,7 +1650,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_pthreadSetnameNp_napi(const N
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_pthreadAttrGetNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdPthreadAttrGetNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* thread = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1746,7 +1684,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_pthreadAttrGetNp_napi(const N
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_pthreadGetattrNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdPthreadGetattrNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* native = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1780,7 +1718,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_pthreadGetattrNp_napi(const N
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_pthreadAttrGetguardsize_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdPthreadAttrGetguardsize_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* guardsize = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1814,7 +1752,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_pthreadAttrGetguardsize_napi(
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_pthreadAttrSetguardsize_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdPthreadAttrSetguardsize_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t guardsize = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1848,7 +1786,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_pthreadAttrSetguardsize_napi(
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_pthreadAttrGetstack_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdPthreadAttrGetstack_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* stackaddr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1883,7 +1821,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_pthreadAttrGetstack_napi(cons
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_pthreadGetaffinityNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdPthreadGetaffinityNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* thread = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1918,7 +1856,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_pthreadGetaffinityNp_napi(con
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_pthreadSetaffinityNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdPthreadSetaffinityNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* thread = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1953,7 +1891,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_pthreadSetaffinityNp_napi(con
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_cpusetCreate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdCpusetCreate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1983,7 +1921,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_cpusetCreate_napi(const Napi:
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_cpusetDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdCpusetDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -2012,7 +1950,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_cpusetDestroy_napi(const Napi
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_cpusetClr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdCpusetClr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t cpu = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2044,7 +1982,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_cpusetClr_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_cpusetSet_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdCpusetSet_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t cpu = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2076,7 +2014,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_cpusetSet_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_cpusetIsset_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdCpusetIsset_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t cpu = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2108,7 +2046,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_cpusetIsset_napi(const Napi::
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_cpusetSize_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdCpusetSize_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef uint64_t (*km_fn_t)(void*);
@@ -2139,7 +2077,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_cpusetSize_napi(const Napi::C
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_cpusetZero_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdCpusetZero_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -2168,7 +2106,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_cpusetZero_napi(const Napi::C
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_sigtimedwait_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdSigtimedwait_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2201,7 +2139,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_sigtimedwait_napi(const Napi:
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_sigwaitinfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdSigwaitinfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2235,7 +2173,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_sigwaitinfo_napi(const Napi::
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_duplocale_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdDuplocale_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* base = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -2268,7 +2206,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_duplocale_napi(const Napi::Ca
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_freelocale_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdFreelocale_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* loc = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -2299,7 +2237,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_freelocale_napi(const Napi::C
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_localeconvL_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdLocaleconvL_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* loc = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -2332,12 +2270,10 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_localeconvL_napi(const Napi::
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_newlocale_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdNewlocale_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t mask = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool locale_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string locale_str = locale_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* locale = locale_null ? nullptr : locale_str.c_str();
+    const char* locale = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* base = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef void* (*km_fn_t)(int32_t, const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2369,7 +2305,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_newlocale_napi(const Napi::Ca
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_settimeofday_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdSettimeofday_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* tv = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* tz = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2401,7 +2337,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_settimeofday_napi(const Napi:
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_dup3_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdDup3_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t src = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t dst = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -2436,7 +2372,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_dup3_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_kqueue1_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdKqueue1_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t flags = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -2469,7 +2405,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_kqueue1_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_lwpSelf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdLwpSelf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2499,7 +2435,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_lwpSelf_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_memmem_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdMemmem_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* haystack = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t haystacklen = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -2535,7 +2471,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_memmem_napi(const Napi::Callb
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_dlIteratePhdr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdDlIteratePhdr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* callback = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2569,7 +2505,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_dlIteratePhdr_napi(const Napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_dlauxinfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdDlauxinfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2599,14 +2535,10 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_dlauxinfo_napi(const Napi::Ca
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_iconvOpen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdIconvOpen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool tocode_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string tocode_str = tocode_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* tocode = tocode_null ? nullptr : tocode_str.c_str();
-    bool fromcode_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string fromcode_str = fromcode_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* fromcode = fromcode_null ? nullptr : fromcode_str.c_str();
+    const char* tocode = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* fromcode = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef void* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2637,7 +2569,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_iconvOpen_napi(const Napi::Ca
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_iconv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdIconv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cd = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* inbuf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2674,7 +2606,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_iconv_napi(const Napi::Callba
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_iconvClose_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdIconvClose_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cd = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -2707,7 +2639,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_iconvClose_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_timerCreate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdTimerCreate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t clockid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* sevp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2742,7 +2674,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_timerCreate_napi(const Napi::
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_timerDelete_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdTimerDelete_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* timerid = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -2775,7 +2707,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_timerDelete_napi(const Napi::
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_timerGetoverrun_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdTimerGetoverrun_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* timerid = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -2808,10 +2740,10 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_timerGetoverrun_napi(const Na
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_timerGettime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdTimerGettime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* timerid = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* curr_value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* currValue = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2832,7 +2764,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_timerGettime_napi(const Napi:
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(timerid, curr_value);
+        km_res = km_fn_ptr(timerid, currValue);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2840,12 +2772,12 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_timerGettime_napi(const Napi:
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_timerSettime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdTimerSettime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* timerid = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    void* new_value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    void* old_value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    void* newValue = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* oldValue = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(void*, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2866,7 +2798,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_timerSettime_napi(const Napi:
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(timerid, flags, new_value, old_value);
+        km_res = km_fn_ptr(timerid, flags, newValue, oldValue);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -2874,15 +2806,11 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_timerSettime_napi(const Napi:
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_dlvsym_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdDlvsym_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* handle = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool symbol_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string symbol_str = symbol_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* symbol = symbol_null ? nullptr : symbol_str.c_str();
-    bool version_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string version_str = version_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* version = version_null ? nullptr : version_str.c_str();
+    const char* symbol = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    const char* version = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef void* (*km_fn_t)(void*, const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2913,7 +2841,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_dlvsym_napi(const Napi::Callb
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_explicitMemset_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdExplicitMemset_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* b = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t c = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -2946,7 +2874,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_explicitMemset_napi(const Nap
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_consttimeMemequal_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdConsttimeMemequal_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* a = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* b = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2981,11 +2909,9 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_consttimeMemequal_napi(const 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_setproctitle_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdSetproctitle_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool fmt_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string fmt_str = fmt_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* fmt = fmt_null ? nullptr : fmt_str.c_str();
+    const char* fmt = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t km_vac = km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 2 ? km_napi_arg_i64(km_info[2]) : 0;
     int64_t km_va1 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
@@ -3025,7 +2951,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_setproctitle_napi(const Napi:
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_mremap_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdMremap_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* oldp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t oldsize = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -3062,7 +2988,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_mremap_napi(const Napi::Callb
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_schedRrGetInterval_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdSchedRrGetInterval_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* t = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3094,7 +3020,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_schedRrGetInterval_napi(const
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_schedSetparam_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdSchedSetparam_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* param = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3128,7 +3054,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_schedSetparam_napi(const Napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_schedGetparam_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdSchedGetparam_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* param = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3162,7 +3088,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_schedGetparam_napi(const Napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_schedGetscheduler_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdSchedGetscheduler_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -3195,7 +3121,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_schedGetscheduler_napi(const 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_schedSetscheduler_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdSchedSetscheduler_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t policy = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3230,7 +3156,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_schedSetscheduler_napi(const 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_pollts_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdPollts_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* fds = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t nfds = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3264,7 +3190,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_pollts_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_getrandom_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdGetrandom_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t buflen = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -3299,7 +3225,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_getrandom_napi(const Napi::Ca
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_reboot_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdReboot_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t mode = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     char* bootstr = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3333,7 +3259,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_reboot_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_lwpPark_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdLwpPark_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t clock = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3369,7 +3295,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_lwpPark_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_lwpUnpark_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdLwpUnpark_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t lwp = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* hint = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3401,7 +3327,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_lwpUnpark_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_lwpUnparkAll_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdLwpUnparkAll_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* targets = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t ntargets = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -3434,7 +3360,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_lwpUnparkAll_napi(const Napi:
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_getmntinfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdGetmntinfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mntbufp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3468,7 +3394,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_getmntinfo_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_getvfsstat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdGetvfsstat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t bufsize = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -3503,7 +3429,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_getvfsstat_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_eventfd_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdEventfd_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t val = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3537,7 +3463,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_eventfd_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_eventfdRead_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdEventfdRead_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t efd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* valp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3571,7 +3497,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_eventfdRead_napi(const Napi::
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_eventfdWrite_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdEventfdWrite_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t efd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint64_t val = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -3605,7 +3531,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_eventfdWrite_napi(const Napi:
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_timerfdCreate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdTimerfdCreate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t clockid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3639,10 +3565,10 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_timerfdCreate_napi(const Napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_timerfdGettime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdTimerfdGettime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* curr_value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* currValue = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3665,7 +3591,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_timerfdGettime_napi(const Nap
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(fd, curr_value);
+        km_res = km_fn_ptr(fd, currValue);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3673,12 +3599,12 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_timerfdGettime_napi(const Nap
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_timerfdSettime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdTimerfdSettime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    void* new_value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    void* old_value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    void* newValue = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* oldValue = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3701,7 +3627,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_timerfdSettime_napi(const Nap
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(fd, flags, new_value, old_value);
+        km_res = km_fn_ptr(fd, flags, newValue, oldValue);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3709,7 +3635,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_timerfdSettime_napi(const Nap
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_qsortR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdQsortR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* base = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t num = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -3744,7 +3670,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_qsortR_napi(const Napi::Callb
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_aioRead_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdAioRead_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* aiocbp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -3777,7 +3703,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_aioRead_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_aioWrite_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdAioWrite_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* aiocbp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -3810,7 +3736,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_aioWrite_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_aioFsync_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdAioFsync_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t op = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* aiocbp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3844,7 +3770,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_aioFsync_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_aioError_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdAioError_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* aiocbp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -3877,7 +3803,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_aioError_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_aioReturn_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdAioReturn_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* aiocbp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(void*);
@@ -3910,9 +3836,9 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_aioReturn_napi(const Napi::Ca
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_aioSuspend_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdAioSuspend_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* aiocb_list = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* aiocbList = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t nitems = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     void* timeout = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(void*, int32_t, void*);
@@ -3935,7 +3861,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_aioSuspend_napi(const Napi::C
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(aiocb_list, nitems, timeout);
+        km_res = km_fn_ptr(aiocbList, nitems, timeout);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3943,7 +3869,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_aioSuspend_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_aioCancel_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdAioCancel_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* aiocbp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3977,10 +3903,10 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_aioCancel_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_lioListio_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdLioListio_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t mode = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* aiocb_list = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* aiocbList = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t nitems = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     void* sevp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t, void*);
@@ -4005,7 +3931,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_lioListio_napi(const Napi::Ca
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(mode, aiocb_list, nitems, sevp);
+        km_res = km_fn_ptr(mode, aiocbList, nitems, sevp);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4013,7 +3939,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_lioListio_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_getpwentR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdGetpwentR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* pwd = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -4068,7 +3994,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_getpwentR_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_getgrentR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdGetgrentR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* grp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -4125,66 +4051,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_getgrentR_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_efopen_napi(const Napi::CallbackInfo& km_info) {
-    Napi::Env km_env = km_info.Env();
-    bool p_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string p_str = p_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* p = p_null ? nullptr : p_str.c_str();
-    bool m_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string m_str = m_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* m = m_null ? nullptr : m_str.c_str();
-    typedef void* (*km_fn_t)(const char*, const char*);
-    static km_fn_t km_fn_ptr = nullptr;
-#ifdef _WIN32
-    if (km_fn_ptr == nullptr) {
-        HMODULE km_h_ucrt = GetModuleHandleA("ucrtbase.dll");
-        if (km_h_ucrt == nullptr) km_h_ucrt = LoadLibraryA("ucrtbase.dll");
-        if (km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "efopen")));
-        if (km_fn_ptr == nullptr && km_h_ucrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_ucrt, "_efopen")));
-        if (km_fn_ptr == nullptr) {
-            HMODULE km_h_msvcrt = GetModuleHandleA("msvcrt.dll");
-            if (km_h_msvcrt == nullptr) km_h_msvcrt = LoadLibraryA("msvcrt.dll");
-            if (km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "efopen")));
-            if (km_fn_ptr == nullptr && km_h_msvcrt != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(reinterpret_cast<void*>(GetProcAddress(km_h_msvcrt, "_efopen")));
-        }
-    }
-#else
-    if (km_fn_ptr == nullptr) {
-        km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(RTLD_DEFAULT, "efopen"));
-#ifdef __APPLE__
-        if (km_fn_ptr == nullptr) {
-            static void* km_h_util = nullptr;
-            static bool km_h_util_init = false;
-            if (!km_h_util_init) {
-                km_h_util_init = true;
-                km_h_util = dlopen("/usr/lib/libutil.dylib", RTLD_LAZY | RTLD_LOCAL);
-            }
-            if (km_h_util != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_util, "efopen"));
-        }
-#elif defined(__linux__) && !defined(__ANDROID__)
-        if (km_fn_ptr == nullptr) {
-            static void* km_h_util = nullptr;
-            static bool km_h_util_init = false;
-            if (!km_h_util_init) {
-                km_h_util_init = true;
-                km_h_util = dlopen("libutil.so", RTLD_LAZY | RTLD_LOCAL);
-            }
-            if (km_h_util != nullptr) km_fn_ptr = reinterpret_cast<km_fn_t>(dlsym(km_h_util, "efopen"));
-        }
-#endif
-    }
-#endif
-    void* km_res;
-    if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(p, m);
-    } else {
-        errno = ENOSYS;
-        km_res = nullptr;
-    }
-    return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
-}
-
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_emalloc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdEmalloc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t n = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     typedef void* (*km_fn_t)(uint64_t);
@@ -4238,7 +4105,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_emalloc_napi(const Napi::Call
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_ecalloc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdEcalloc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t n = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     uint64_t c = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -4293,7 +4160,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_ecalloc_napi(const Napi::Call
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_erealloc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdErealloc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* p = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t n = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -4348,7 +4215,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_erealloc_napi(const Napi::Cal
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_ereallocarr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdEreallocarr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* p = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t n = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -4402,11 +4269,9 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_ereallocarr_napi(const Napi::
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_estrdup_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdEstrdup_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef char* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4458,11 +4323,9 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_estrdup_napi(const Napi::Call
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_estrndup_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdEstrndup_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
     typedef char* (*km_fn_t)(const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4515,12 +4378,10 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_estrndup_napi(const Napi::Cal
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_estrlcpy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdEstrlcpy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* dst = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool src_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string src_str = src_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* src = src_null ? nullptr : src_str.c_str();
+    const char* src = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t len = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef uint64_t (*km_fn_t)(char*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4573,12 +4434,10 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_estrlcpy_napi(const Napi::Cal
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_estrlcat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdEstrlcat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* dst = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool src_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string src_str = src_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* src = src_null ? nullptr : src_str.c_str();
+    const char* src = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t len = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef uint64_t (*km_fn_t)(char*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4631,11 +4490,9 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_estrlcat_napi(const Napi::Cal
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_estrtoi_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdEstrtoi_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool nptr_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string nptr_str = nptr_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* nptr = nptr_null ? nullptr : nptr_str.c_str();
+    const char* nptr = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t base = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     int64_t lo = km_info.Length() > 2 ? km_napi_arg_i64(km_info[2]) : 0;
     int64_t hi = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
@@ -4690,11 +4547,9 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_estrtoi_napi(const Napi::Call
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_estrtou_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdEstrtou_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool nptr_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string nptr_str = nptr_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* nptr = nptr_null ? nullptr : nptr_str.c_str();
+    const char* nptr = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t base = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     uint64_t lo = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     uint64_t hi = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
@@ -4749,12 +4604,10 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_estrtou_napi(const Napi::Call
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_easprintf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdEasprintf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* string = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool fmt_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string fmt_str = fmt_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* fmt = fmt_null ? nullptr : fmt_str.c_str();
+    const char* fmt = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t km_vac = km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
     int64_t km_va1 = km_info.Length() > 4 ? km_napi_arg_i64(km_info[4]) : 0;
@@ -4816,12 +4669,10 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_easprintf_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_evasprintf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdEvasprintf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* string = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool fmt_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string fmt_str = fmt_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* fmt = fmt_null ? nullptr : fmt_str.c_str();
+    const char* fmt = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t km_vac = km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
     int64_t km_va1 = km_info.Length() > 4 ? km_napi_arg_i64(km_info[4]) : 0;
@@ -4883,7 +4734,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_evasprintf_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_esetfunc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdEsetfunc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cb = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -4937,11 +4788,9 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_esetfunc_napi(const Napi::Cal
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_securePath_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdSecurePath_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4993,13 +4842,11 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_securePath_napi(const Napi::C
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_snprintb_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdSnprintb_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t buflen = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
-    bool fmt_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string fmt_str = fmt_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* fmt = fmt_null ? nullptr : fmt_str.c_str();
+    const char* fmt = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint64_t val = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
     typedef int32_t (*km_fn_t)(char*, uint64_t, const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5052,13 +4899,11 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_snprintb_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_snprintbM_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdSnprintbM_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t buflen = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
-    bool fmt_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string fmt_str = fmt_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* fmt = fmt_null ? nullptr : fmt_str.c_str();
+    const char* fmt = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint64_t val = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
     uint64_t max = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
     typedef int32_t (*km_fn_t)(char*, uint64_t, const char*, uint64_t, uint64_t);
@@ -5112,7 +4957,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_snprintbM_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_getbootfile_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdGetbootfile_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef const char* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5165,7 +5010,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_getbootfile_napi(const Napi::
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_getbyteorder_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdGetbyteorder_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5218,13 +5063,11 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_getbyteorder_napi(const Napi:
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_getdiskrawname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdGetdiskrawname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t buflen = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
-    bool name_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef const char* (*km_fn_t)(char*, uint64_t, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5276,13 +5119,11 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_getdiskrawname_napi(const Nap
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_getdiskcookedname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdGetdiskcookedname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t buflen = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
-    bool name_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef const char* (*km_fn_t)(char*, uint64_t, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5334,13 +5175,11 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_getdiskcookedname_napi(const 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_getfsspecname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdGetfsspecname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t buflen = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
-    bool spec_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string spec_str = spec_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* spec = spec_null ? nullptr : spec_str.c_str();
+    const char* spec = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef const char* (*km_fn_t)(char*, uint64_t, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5392,7 +5231,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_getfsspecname_napi(const Napi
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_strpct_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdStrpct_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t bufsiz = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -5450,7 +5289,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_strpct_napi(const Napi::Callb
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_strspct_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdStrspct_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t bufsiz = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -5508,7 +5347,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_strspct_napi(const Napi::Call
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_login_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdLogin_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ut = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -5558,7 +5397,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_login_napi(const Napi::Callba
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_loginx_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdLoginx_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ut = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -5608,11 +5447,9 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_loginx_napi(const Napi::Callb
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_logout_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdLogout_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool line_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string line_str = line_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* line = line_null ? nullptr : line_str.c_str();
+    const char* line = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5662,11 +5499,9 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_logout_napi(const Napi::Callb
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_logoutx_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdLogoutx_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool line_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string line_str = line_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* line = line_null ? nullptr : line_str.c_str();
+    const char* line = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t status = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     int32_t tpe = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(const char*, int32_t, int32_t);
@@ -5718,17 +5553,11 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_logoutx_napi(const Napi::Call
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_logwtmp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdLogwtmp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool line_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string line_str = line_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* line = line_null ? nullptr : line_str.c_str();
-    bool name_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
-    bool host_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string host_str = host_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* host = host_null ? nullptr : host_str.c_str();
+    const char* line = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    const char* host = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef void (*km_fn_t)(const char*, const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5778,17 +5607,11 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_logwtmp_napi(const Napi::Call
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_logwtmpx_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdLogwtmpx_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool line_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string line_str = line_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* line = line_null ? nullptr : line_str.c_str();
-    bool name_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
-    bool host_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string host_str = host_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* host = host_null ? nullptr : host_str.c_str();
+    const char* line = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    const char* host = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     int32_t status = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     int32_t tpe = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(const char*, const char*, const char*, int32_t, int32_t);
@@ -5840,14 +5663,10 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_logwtmpx_napi(const Napi::Cal
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_getxattr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdGetxattr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
-    bool name_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint64_t size = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
     typedef int64_t (*km_fn_t)(const char*, const char*, void*, uint64_t);
@@ -5901,14 +5720,10 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_getxattr_napi(const Napi::Cal
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_lgetxattr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdLgetxattr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
-    bool name_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint64_t size = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
     typedef int64_t (*km_fn_t)(const char*, const char*, void*, uint64_t);
@@ -5962,12 +5777,10 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_lgetxattr_napi(const Napi::Ca
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_fgetxattr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdFgetxattr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t filedes = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool name_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint64_t size = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
     typedef int64_t (*km_fn_t)(int32_t, const char*, void*, uint64_t);
@@ -6021,14 +5834,10 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_fgetxattr_napi(const Napi::Ca
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_setxattr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdSetxattr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
-    bool name_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint64_t size = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
     typedef int32_t (*km_fn_t)(const char*, const char*, void*, uint64_t);
@@ -6082,14 +5891,10 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_setxattr_napi(const Napi::Cal
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_lsetxattr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdLsetxattr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
-    bool name_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint64_t size = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
     typedef int32_t (*km_fn_t)(const char*, const char*, void*, uint64_t);
@@ -6143,12 +5948,10 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_lsetxattr_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_fsetxattr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdFsetxattr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t filedes = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool name_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint64_t size = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
     int32_t flags = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
@@ -6203,11 +6006,9 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_fsetxattr_napi(const Napi::Ca
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_listxattr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdListxattr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* list = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t size = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef int64_t (*km_fn_t)(const char*, char*, uint64_t);
@@ -6261,11 +6062,9 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_listxattr_napi(const Napi::Ca
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_llistxattr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdLlistxattr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* list = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t size = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef int64_t (*km_fn_t)(const char*, char*, uint64_t);
@@ -6319,7 +6118,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_llistxattr_napi(const Napi::C
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_flistxattr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdFlistxattr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t filedes = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     char* list = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -6375,14 +6174,10 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_flistxattr_napi(const Napi::C
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_removexattr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdRemovexattr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
-    bool name_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6434,14 +6229,10 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_removexattr_napi(const Napi::
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_lremovexattr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdLremovexattr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
-    bool name_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6493,15 +6284,11 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_lremovexattr_napi(const Napi:
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_fremovexattr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdFremovexattr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool path_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
-    bool name_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6553,9 +6340,9 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_fremovexattr_napi(const Napi:
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_stringToFlags_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdStringToFlags_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* string_p = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* stringP = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* setp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* clrp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*, void*);
@@ -6601,7 +6388,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_stringToFlags_napi(const Napi
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(string_p, setp, clrp);
+        km_res = km_fn_ptr(stringP, setp, clrp);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -6609,12 +6396,10 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_stringToFlags_napi(const Napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_flagsToString_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdFlagsToString_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t flags = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
-    bool def_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string def_str = def_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* def = def_null ? nullptr : def_str.c_str();
+    const char* def = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(uint64_t, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6666,7 +6451,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_flagsToString_napi(const Napi
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_kinfoGetvmmap_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdKinfoGetvmmap_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* cntp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -6721,7 +6506,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_kinfoGetvmmap_napi(const Napi
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_backtrace_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdBacktrace_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addrlist = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -6776,7 +6561,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_backtrace_napi(const Napi::Ca
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_backtraceSymbols_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdBacktraceSymbols_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addrlist = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -6831,7 +6616,7 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_backtraceSymbols_napi(const N
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_backtraceSymbolsFd_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdBacktraceSymbolsFd_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addrlist = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -6887,13 +6672,11 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_backtraceSymbolsFd_napi(const
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_backtraceSymbolsFmt_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdBacktraceSymbolsFmt_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addrlist = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
-    bool fmt_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string fmt_str = fmt_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* fmt = fmt_null ? nullptr : fmt_str.c_str();
+    const char* fmt = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef void* (*km_fn_t)(void*, uint64_t, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6945,14 +6728,12 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_backtraceSymbolsFmt_napi(cons
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_bsd_netbsdlike_netbsd_backtraceSymbolsFdFmt_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixBsdNetbsdlikeNetbsdBacktraceSymbolsFdFmt_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addrlist = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
     int32_t fd = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    bool fmt_null = (km_info.Length() <= 3 || km_info[3].IsNull() || km_info[3].IsUndefined());
-    std::string fmt_str = fmt_null ? std::string() : km_info[3].ToString().Utf8Value();
-    const char* fmt = fmt_null ? nullptr : fmt_str.c_str();
+    const char* fmt = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(void*, uint64_t, int32_t, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -7005,171 +6786,170 @@ static Napi::Value libc_unix_bsd_netbsdlike_netbsd_backtraceSymbolsFdFmt_napi(co
 }
 
 static void register_unix_bsd_netbsdlike_netbsd_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_clockNanosleep", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_clockNanosleep_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_reallocarr", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_reallocarr_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_chflags", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_chflags_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_fchflags", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_fchflags_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_lchflags", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_lchflags_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_extattrListFd", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_extattrListFd_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_extattrListFile", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_extattrListFile_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_extattrListLink", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_extattrListLink_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_extattrDeleteFd", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_extattrDeleteFd_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_extattrDeleteFile", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_extattrDeleteFile_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_extattrDeleteLink", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_extattrDeleteLink_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_extattrGetFd", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_extattrGetFd_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_extattrGetFile", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_extattrGetFile_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_extattrGetLink", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_extattrGetLink_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_extattrNamespaceToString", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_extattrNamespaceToString_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_extattrSetFd", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_extattrSetFd_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_extattrSetFile", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_extattrSetFile_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_extattrSetLink", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_extattrSetLink_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_extattrStringToNamespace", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_extattrStringToNamespace_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_openpty", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_openpty_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_forkpty", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_forkpty_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_ptsnameR", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_ptsnameR_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_lutimes", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_lutimes_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_gettimeofday", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_gettimeofday_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_getnameinfo", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_getnameinfo_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_mprotect", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_mprotect_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_sysctl", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_sysctl_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_sysctlbyname", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_sysctlbyname_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_sysctlnametomib", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_sysctlnametomib_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_kevent", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_kevent_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_mount", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_mount_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_mqOpen", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_mqOpen_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_mqClose", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_mqClose_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_mqGetattr", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_mqGetattr_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_mqNotify", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_mqNotify_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_mqReceive", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_mqReceive_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_mqSend", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_mqSend_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_mqSetattr", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_mqSetattr_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_mqTimedreceive", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_mqTimedreceive_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_mqTimedsend", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_mqTimedsend_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_mqUnlink", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_mqUnlink_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_ptrace", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_ptrace_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_utrace", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_utrace_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_pthreadGetnameNp", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_pthreadGetnameNp_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_pthreadSetnameNp", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_pthreadSetnameNp_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_pthreadAttrGetNp", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_pthreadAttrGetNp_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_pthreadGetattrNp", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_pthreadGetattrNp_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_pthreadAttrGetguardsize", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_pthreadAttrGetguardsize_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_pthreadAttrSetguardsize", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_pthreadAttrSetguardsize_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_pthreadAttrGetstack", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_pthreadAttrGetstack_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_pthreadGetaffinityNp", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_pthreadGetaffinityNp_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_pthreadSetaffinityNp", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_pthreadSetaffinityNp_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_cpusetCreate", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_cpusetCreate_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_cpusetDestroy", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_cpusetDestroy_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_cpusetClr", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_cpusetClr_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_cpusetSet", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_cpusetSet_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_cpusetIsset", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_cpusetIsset_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_cpusetSize", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_cpusetSize_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_cpusetZero", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_cpusetZero_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_sigtimedwait", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_sigtimedwait_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_sigwaitinfo", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_sigwaitinfo_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_duplocale", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_duplocale_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_freelocale", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_freelocale_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_localeconvL", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_localeconvL_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_newlocale", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_newlocale_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_settimeofday", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_settimeofday_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_dup3", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_dup3_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_kqueue1", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_kqueue1_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_lwpSelf", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_lwpSelf_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_memmem", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_memmem_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_dlIteratePhdr", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_dlIteratePhdr_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_dlauxinfo", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_dlauxinfo_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_iconvOpen", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_iconvOpen_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_iconv", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_iconv_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_iconvClose", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_iconvClose_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_timerCreate", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_timerCreate_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_timerDelete", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_timerDelete_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_timerGetoverrun", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_timerGetoverrun_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_timerGettime", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_timerGettime_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_timerSettime", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_timerSettime_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_dlvsym", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_dlvsym_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_explicitMemset", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_explicitMemset_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_consttimeMemequal", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_consttimeMemequal_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_setproctitle", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_setproctitle_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_mremap", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_mremap_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_schedRrGetInterval", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_schedRrGetInterval_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_schedSetparam", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_schedSetparam_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_schedGetparam", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_schedGetparam_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_schedGetscheduler", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_schedGetscheduler_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_schedSetscheduler", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_schedSetscheduler_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_pollts", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_pollts_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_getrandom", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_getrandom_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_reboot", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_reboot_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_lwpPark", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_lwpPark_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_lwpUnpark", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_lwpUnpark_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_lwpUnparkAll", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_lwpUnparkAll_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_getmntinfo", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_getmntinfo_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_getvfsstat", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_getvfsstat_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_eventfd", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_eventfd_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_eventfdRead", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_eventfdRead_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_eventfdWrite", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_eventfdWrite_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_timerfdCreate", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_timerfdCreate_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_timerfdGettime", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_timerfdGettime_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_timerfdSettime", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_timerfdSettime_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_qsortR", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_qsortR_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_aioRead", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_aioRead_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_aioWrite", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_aioWrite_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_aioFsync", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_aioFsync_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_aioError", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_aioError_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_aioReturn", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_aioReturn_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_aioSuspend", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_aioSuspend_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_aioCancel", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_aioCancel_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_lioListio", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_lioListio_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_getpwentR", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_getpwentR_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_getgrentR", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_getgrentR_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_efopen", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_efopen_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_emalloc", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_emalloc_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_ecalloc", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_ecalloc_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_erealloc", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_erealloc_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_ereallocarr", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_ereallocarr_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_estrdup", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_estrdup_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_estrndup", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_estrndup_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_estrlcpy", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_estrlcpy_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_estrlcat", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_estrlcat_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_estrtoi", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_estrtoi_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_estrtou", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_estrtou_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_easprintf", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_easprintf_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_evasprintf", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_evasprintf_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_esetfunc", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_esetfunc_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_securePath", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_securePath_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_snprintb", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_snprintb_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_snprintbM", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_snprintbM_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_getbootfile", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_getbootfile_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_getbyteorder", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_getbyteorder_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_getdiskrawname", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_getdiskrawname_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_getdiskcookedname", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_getdiskcookedname_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_getfsspecname", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_getfsspecname_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_strpct", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_strpct_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_strspct", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_strspct_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_login", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_login_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_loginx", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_loginx_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_logout", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_logout_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_logoutx", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_logoutx_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_logwtmp", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_logwtmp_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_logwtmpx", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_logwtmpx_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_getxattr", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_getxattr_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_lgetxattr", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_lgetxattr_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_fgetxattr", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_fgetxattr_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_setxattr", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_setxattr_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_lsetxattr", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_lsetxattr_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_fsetxattr", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_fsetxattr_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_listxattr", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_listxattr_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_llistxattr", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_llistxattr_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_flistxattr", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_flistxattr_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_removexattr", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_removexattr_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_lremovexattr", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_lremovexattr_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_fremovexattr", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_fremovexattr_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_stringToFlags", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_stringToFlags_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_flagsToString", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_flagsToString_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_kinfoGetvmmap", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_kinfoGetvmmap_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_backtrace", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_backtrace_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_backtraceSymbols", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_backtraceSymbols_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_backtraceSymbolsFd", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_backtraceSymbolsFd_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_backtraceSymbolsFmt", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_backtraceSymbolsFmt_napi));
-    exports.Set("libc_unix_bsd_netbsdlike_netbsd_backtraceSymbolsFdFmt", Napi::Function::New(env, libc_unix_bsd_netbsdlike_netbsd_backtraceSymbolsFdFmt_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdClockNanosleep", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdClockNanosleep_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdReallocarr", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdReallocarr_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdChflags", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdChflags_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdFchflags", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdFchflags_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdLchflags", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdLchflags_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdExtattrListFd", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdExtattrListFd_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdExtattrListFile", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdExtattrListFile_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdExtattrListLink", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdExtattrListLink_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdExtattrDeleteFd", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdExtattrDeleteFd_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdExtattrDeleteFile", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdExtattrDeleteFile_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdExtattrDeleteLink", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdExtattrDeleteLink_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdExtattrGetFd", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdExtattrGetFd_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdExtattrGetFile", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdExtattrGetFile_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdExtattrGetLink", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdExtattrGetLink_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdExtattrNamespaceToString", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdExtattrNamespaceToString_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdExtattrSetFd", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdExtattrSetFd_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdExtattrSetFile", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdExtattrSetFile_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdExtattrSetLink", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdExtattrSetLink_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdExtattrStringToNamespace", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdExtattrStringToNamespace_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdOpenpty", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdOpenpty_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdForkpty", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdForkpty_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdPtsnameR", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdPtsnameR_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdLutimes", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdLutimes_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdGettimeofday", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdGettimeofday_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdGetnameinfo", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdGetnameinfo_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdMprotect", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdMprotect_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdSysctl", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdSysctl_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdSysctlbyname", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdSysctlbyname_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdSysctlnametomib", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdSysctlnametomib_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdKevent", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdKevent_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdMount", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdMount_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdMqOpen", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdMqOpen_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdMqClose", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdMqClose_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdMqGetattr", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdMqGetattr_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdMqNotify", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdMqNotify_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdMqReceive", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdMqReceive_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdMqSend", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdMqSend_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdMqSetattr", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdMqSetattr_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdMqTimedreceive", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdMqTimedreceive_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdMqTimedsend", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdMqTimedsend_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdMqUnlink", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdMqUnlink_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdPtrace", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdPtrace_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdUtrace", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdUtrace_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdPthreadGetnameNp", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdPthreadGetnameNp_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdPthreadSetnameNp", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdPthreadSetnameNp_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdPthreadAttrGetNp", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdPthreadAttrGetNp_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdPthreadGetattrNp", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdPthreadGetattrNp_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdPthreadAttrGetguardsize", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdPthreadAttrGetguardsize_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdPthreadAttrSetguardsize", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdPthreadAttrSetguardsize_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdPthreadAttrGetstack", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdPthreadAttrGetstack_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdPthreadGetaffinityNp", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdPthreadGetaffinityNp_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdPthreadSetaffinityNp", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdPthreadSetaffinityNp_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdCpusetCreate", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdCpusetCreate_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdCpusetDestroy", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdCpusetDestroy_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdCpusetClr", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdCpusetClr_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdCpusetSet", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdCpusetSet_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdCpusetIsset", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdCpusetIsset_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdCpusetSize", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdCpusetSize_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdCpusetZero", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdCpusetZero_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdSigtimedwait", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdSigtimedwait_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdSigwaitinfo", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdSigwaitinfo_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdDuplocale", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdDuplocale_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdFreelocale", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdFreelocale_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdLocaleconvL", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdLocaleconvL_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdNewlocale", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdNewlocale_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdSettimeofday", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdSettimeofday_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdDup3", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdDup3_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdKqueue1", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdKqueue1_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdLwpSelf", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdLwpSelf_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdMemmem", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdMemmem_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdDlIteratePhdr", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdDlIteratePhdr_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdDlauxinfo", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdDlauxinfo_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdIconvOpen", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdIconvOpen_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdIconv", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdIconv_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdIconvClose", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdIconvClose_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdTimerCreate", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdTimerCreate_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdTimerDelete", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdTimerDelete_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdTimerGetoverrun", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdTimerGetoverrun_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdTimerGettime", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdTimerGettime_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdTimerSettime", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdTimerSettime_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdDlvsym", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdDlvsym_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdExplicitMemset", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdExplicitMemset_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdConsttimeMemequal", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdConsttimeMemequal_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdSetproctitle", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdSetproctitle_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdMremap", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdMremap_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdSchedRrGetInterval", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdSchedRrGetInterval_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdSchedSetparam", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdSchedSetparam_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdSchedGetparam", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdSchedGetparam_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdSchedGetscheduler", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdSchedGetscheduler_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdSchedSetscheduler", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdSchedSetscheduler_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdPollts", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdPollts_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdGetrandom", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdGetrandom_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdReboot", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdReboot_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdLwpPark", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdLwpPark_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdLwpUnpark", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdLwpUnpark_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdLwpUnparkAll", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdLwpUnparkAll_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdGetmntinfo", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdGetmntinfo_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdGetvfsstat", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdGetvfsstat_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdEventfd", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdEventfd_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdEventfdRead", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdEventfdRead_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdEventfdWrite", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdEventfdWrite_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdTimerfdCreate", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdTimerfdCreate_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdTimerfdGettime", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdTimerfdGettime_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdTimerfdSettime", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdTimerfdSettime_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdQsortR", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdQsortR_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdAioRead", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdAioRead_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdAioWrite", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdAioWrite_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdAioFsync", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdAioFsync_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdAioError", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdAioError_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdAioReturn", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdAioReturn_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdAioSuspend", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdAioSuspend_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdAioCancel", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdAioCancel_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdLioListio", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdLioListio_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdGetpwentR", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdGetpwentR_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdGetgrentR", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdGetgrentR_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdEmalloc", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdEmalloc_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdEcalloc", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdEcalloc_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdErealloc", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdErealloc_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdEreallocarr", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdEreallocarr_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdEstrdup", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdEstrdup_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdEstrndup", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdEstrndup_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdEstrlcpy", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdEstrlcpy_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdEstrlcat", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdEstrlcat_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdEstrtoi", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdEstrtoi_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdEstrtou", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdEstrtou_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdEasprintf", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdEasprintf_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdEvasprintf", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdEvasprintf_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdEsetfunc", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdEsetfunc_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdSecurePath", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdSecurePath_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdSnprintb", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdSnprintb_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdSnprintbM", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdSnprintbM_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdGetbootfile", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdGetbootfile_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdGetbyteorder", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdGetbyteorder_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdGetdiskrawname", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdGetdiskrawname_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdGetdiskcookedname", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdGetdiskcookedname_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdGetfsspecname", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdGetfsspecname_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdStrpct", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdStrpct_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdStrspct", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdStrspct_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdLogin", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdLogin_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdLoginx", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdLoginx_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdLogout", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdLogout_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdLogoutx", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdLogoutx_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdLogwtmp", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdLogwtmp_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdLogwtmpx", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdLogwtmpx_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdGetxattr", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdGetxattr_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdLgetxattr", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdLgetxattr_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdFgetxattr", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdFgetxattr_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdSetxattr", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdSetxattr_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdLsetxattr", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdLsetxattr_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdFsetxattr", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdFsetxattr_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdListxattr", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdListxattr_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdLlistxattr", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdLlistxattr_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdFlistxattr", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdFlistxattr_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdRemovexattr", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdRemovexattr_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdLremovexattr", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdLremovexattr_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdFremovexattr", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdFremovexattr_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdStringToFlags", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdStringToFlags_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdFlagsToString", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdFlagsToString_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdKinfoGetvmmap", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdKinfoGetvmmap_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdBacktrace", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdBacktrace_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdBacktraceSymbols", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdBacktraceSymbols_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdBacktraceSymbolsFd", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdBacktraceSymbolsFd_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdBacktraceSymbolsFmt", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdBacktraceSymbolsFmt_napi));
+    exports.Set("libcUnixBsdNetbsdlikeNetbsdBacktraceSymbolsFdFmt", Napi::Function::New(env, libcUnixBsdNetbsdlikeNetbsdBacktraceSymbolsFdFmt_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_unix_bsd_netbsdlike_netbsd_napi, nullptr };

@@ -27,7 +27,7 @@
 #endif
 #endif
 
-void* libc_unix_redox_errnoLocation(void) {
+void* libcUnixRedoxErrnoLocation(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -53,7 +53,7 @@ void* libc_unix_redox_errnoLocation(void) {
     return NULL;
 }
 
-int32_t libc_unix_redox_strerrorR(int32_t errnum, char* buf, uint64_t buflen) {
+int32_t libcUnixRedoxStrerrorR(int32_t errnum, char* buf, uint64_t buflen) {
     typedef int32_t (*km_fn_t)(int32_t, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -81,7 +81,7 @@ int32_t libc_unix_redox_strerrorR(int32_t errnum, char* buf, uint64_t buflen) {
     return -1;
 }
 
-int32_t libc_unix_redox_dirfd(void* dirp) {
+int32_t libcUnixRedoxDirfd(void* dirp) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -109,7 +109,7 @@ int32_t libc_unix_redox_dirfd(void* dirp) {
     return -1;
 }
 
-int32_t libc_unix_redox_pipe2(void* fds, int32_t flags) {
+int32_t libcUnixRedoxPipe2(void* fds, int32_t flags) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -137,7 +137,7 @@ int32_t libc_unix_redox_pipe2(void* fds, int32_t flags) {
     return -1;
 }
 
-int32_t libc_unix_redox_getdtablesize(void) {
+int32_t libcUnixRedoxGetdtablesize(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -165,7 +165,7 @@ int32_t libc_unix_redox_getdtablesize(void) {
     return -1;
 }
 
-int32_t libc_unix_redox_getresgid(void* rgid, void* egid, void* sgid) {
+int32_t libcUnixRedoxGetresgid(void* rgid, void* egid, void* sgid) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -193,7 +193,7 @@ int32_t libc_unix_redox_getresgid(void* rgid, void* egid, void* sgid) {
     return -1;
 }
 
-int32_t libc_unix_redox_getresuid(void* ruid, void* euid, void* suid) {
+int32_t libcUnixRedoxGetresuid(void* ruid, void* euid, void* suid) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -221,7 +221,7 @@ int32_t libc_unix_redox_getresuid(void* ruid, void* euid, void* suid) {
     return -1;
 }
 
-int32_t libc_unix_redox_setresgid(int32_t rgid, int32_t egid, int32_t sgid) {
+int32_t libcUnixRedoxSetresgid(int32_t rgid, int32_t egid, int32_t sgid) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -249,7 +249,7 @@ int32_t libc_unix_redox_setresgid(int32_t rgid, int32_t egid, int32_t sgid) {
     return -1;
 }
 
-int32_t libc_unix_redox_setresuid(int32_t ruid, int32_t euid, int32_t suid) {
+int32_t libcUnixRedoxSetresuid(int32_t ruid, int32_t euid, int32_t suid) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -277,7 +277,7 @@ int32_t libc_unix_redox_setresuid(int32_t ruid, int32_t euid, int32_t suid) {
     return -1;
 }
 
-void* libc_unix_redox_getgrent(void) {
+void* libcUnixRedoxGetgrent(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -305,7 +305,7 @@ void* libc_unix_redox_getgrent(void) {
     return NULL;
 }
 
-void libc_unix_redox_setgrent(void) {
+void libcUnixRedoxSetgrent(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -333,7 +333,7 @@ void libc_unix_redox_setgrent(void) {
     errno = ENOSYS;
 }
 
-void libc_unix_redox_endgrent(void) {
+void libcUnixRedoxEndgrent(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -361,7 +361,7 @@ void libc_unix_redox_endgrent(void) {
     errno = ENOSYS;
 }
 
-void* libc_unix_redox_getgrgid(int32_t gid) {
+void* libcUnixRedoxGetgrgid(int32_t gid) {
     typedef void* (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -389,7 +389,7 @@ void* libc_unix_redox_getgrgid(int32_t gid) {
     return NULL;
 }
 
-int32_t libc_unix_redox_getgrgidR(int32_t gid, void* grp, char* buf, uint64_t buflen, void* result) {
+int32_t libcUnixRedoxGetgrgidR(int32_t gid, void* grp, char* buf, uint64_t buflen, void* result) {
     typedef int32_t (*km_fn_t)(int32_t, void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -417,7 +417,7 @@ int32_t libc_unix_redox_getgrgidR(int32_t gid, void* grp, char* buf, uint64_t bu
     return -1;
 }
 
-void* libc_unix_redox_getgrnam(const char* name) {
+void* libcUnixRedoxGetgrnam(const char* name) {
     typedef void* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -445,7 +445,7 @@ void* libc_unix_redox_getgrnam(const char* name) {
     return NULL;
 }
 
-int32_t libc_unix_redox_getgrnamR(const char* name, void* grp, char* buf, uint64_t buflen, void* result) {
+int32_t libcUnixRedoxGetgrnamR(const char* name, void* grp, char* buf, uint64_t buflen, void* result) {
     typedef int32_t (*km_fn_t)(const char*, void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -473,7 +473,7 @@ int32_t libc_unix_redox_getgrnamR(const char* name, void* grp, char* buf, uint64
     return -1;
 }
 
-int32_t libc_unix_redox_getgrouplist(const char* user, int32_t group, void* groups, void* ngroups) {
+int32_t libcUnixRedoxGetgrouplist(const char* user, int32_t group, void* groups, void* ngroups) {
     typedef int32_t (*km_fn_t)(const char*, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -501,7 +501,7 @@ int32_t libc_unix_redox_getgrouplist(const char* user, int32_t group, void* grou
     return -1;
 }
 
-void* libc_unix_redox_memalign(uint64_t align, uint64_t size) {
+void* libcUnixRedoxMemalign(uint64_t align, uint64_t size) {
     typedef void* (*km_fn_t)(uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -529,7 +529,7 @@ void* libc_unix_redox_memalign(uint64_t align, uint64_t size) {
     return NULL;
 }
 
-int32_t libc_unix_redox_getnameinfo(void* addr, uint32_t addrlen, char* host, uint32_t hostlen, char* serv, uint32_t servlen, int32_t flags) {
+int32_t libcUnixRedoxGetnameinfo(void* addr, uint32_t addrlen, char* host, uint32_t hostlen, char* serv, uint32_t servlen, int32_t flags) {
     typedef int32_t (*km_fn_t)(void*, uint32_t, char*, uint32_t, char*, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -557,7 +557,7 @@ int32_t libc_unix_redox_getnameinfo(void* addr, uint32_t addrlen, char* host, ui
     return -1;
 }
 
-int32_t libc_unix_redox_pthreadAtfork(void* prepare, void* parent, void* child) {
+int32_t libcUnixRedoxPthreadAtfork(void* prepare, void* parent, void* child) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -585,7 +585,7 @@ int32_t libc_unix_redox_pthreadAtfork(void* prepare, void* parent, void* child) 
     return ENOSYS;
 }
 
-int32_t libc_unix_redox_pthreadCreate(void* tid, void* attr, void* start, void* arg) {
+int32_t libcUnixRedoxPthreadCreate(void* tid, void* attr, void* start, void* arg) {
     typedef int32_t (*km_fn_t)(void*, void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -613,7 +613,7 @@ int32_t libc_unix_redox_pthreadCreate(void* tid, void* attr, void* start, void* 
     return ENOSYS;
 }
 
-int32_t libc_unix_redox_pthreadCondattrSetclock(void* attr, int32_t clock_id) {
+int32_t libcUnixRedoxPthreadCondattrSetclock(void* attr, int32_t clockId) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -635,13 +635,13 @@ int32_t libc_unix_redox_pthreadCondattrSetclock(void* attr, int32_t clock_id) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(attr, clock_id);
+        return km_fn_ptr(attr, clockId);
     }
     errno = ENOSYS;
     return ENOSYS;
 }
 
-int32_t libc_unix_redox_openpty(void* amaster, void* aslave, char* name, void* termp, void* winp) {
+int32_t libcUnixRedoxOpenpty(void* amaster, void* aslave, char* name, void* termp, void* winp) {
     typedef int32_t (*km_fn_t)(void*, void*, char*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -669,7 +669,7 @@ int32_t libc_unix_redox_openpty(void* amaster, void* aslave, char* name, void* t
     return -1;
 }
 
-void* libc_unix_redox_getpwent(void) {
+void* libcUnixRedoxGetpwent(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -697,7 +697,7 @@ void* libc_unix_redox_getpwent(void) {
     return NULL;
 }
 
-void libc_unix_redox_setpwent(void) {
+void libcUnixRedoxSetpwent(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -725,7 +725,7 @@ void libc_unix_redox_setpwent(void) {
     errno = ENOSYS;
 }
 
-void libc_unix_redox_endpwent(void) {
+void libcUnixRedoxEndpwent(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -753,7 +753,7 @@ void libc_unix_redox_endpwent(void) {
     errno = ENOSYS;
 }
 
-int32_t libc_unix_redox_getpwnamR(const char* name, void* pwd, char* buf, uint64_t buflen, void* result) {
+int32_t libcUnixRedoxGetpwnamR(const char* name, void* pwd, char* buf, uint64_t buflen, void* result) {
     typedef int32_t (*km_fn_t)(const char*, void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -781,7 +781,7 @@ int32_t libc_unix_redox_getpwnamR(const char* name, void* pwd, char* buf, uint64
     return -1;
 }
 
-int32_t libc_unix_redox_getpwuidR(int32_t uid, void* pwd, char* buf, uint64_t buflen, void* result) {
+int32_t libcUnixRedoxGetpwuidR(int32_t uid, void* pwd, char* buf, uint64_t buflen, void* result) {
     typedef int32_t (*km_fn_t)(int32_t, void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -809,7 +809,7 @@ int32_t libc_unix_redox_getpwuidR(int32_t uid, void* pwd, char* buf, uint64_t bu
     return -1;
 }
 
-int32_t libc_unix_redox_pthreadSigmask(int32_t how, void* set, void* oldset) {
+int32_t libcUnixRedoxPthreadSigmask(int32_t how, void* set, void* oldset) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -837,7 +837,7 @@ int32_t libc_unix_redox_pthreadSigmask(int32_t how, void* set, void* oldset) {
     return ENOSYS;
 }
 
-int32_t libc_unix_redox_pthreadCancel(void* thread) {
+int32_t libcUnixRedoxPthreadCancel(void* thread) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -865,7 +865,7 @@ int32_t libc_unix_redox_pthreadCancel(void* thread) {
     return ENOSYS;
 }
 
-int32_t libc_unix_redox_pthreadKill(void* thread, int32_t sig) {
+int32_t libcUnixRedoxPthreadKill(void* thread, int32_t sig) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -893,7 +893,7 @@ int32_t libc_unix_redox_pthreadKill(void* thread, int32_t sig) {
     return ENOSYS;
 }
 
-int32_t libc_unix_redox_sigtimedwait(void* set, void* sig, void* timeout) {
+int32_t libcUnixRedoxSigtimedwait(void* set, void* sig, void* timeout) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -921,7 +921,7 @@ int32_t libc_unix_redox_sigtimedwait(void* set, void* sig, void* timeout) {
     return -1;
 }
 
-int32_t libc_unix_redox_sigwait(void* set, void* sig) {
+int32_t libcUnixRedoxSigwait(void* set, void* sig) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -949,7 +949,7 @@ int32_t libc_unix_redox_sigwait(void* set, void* sig) {
     return -1;
 }
 
-int32_t libc_unix_redox_getsubopt(void* optionp, void* tokens, void* valuep) {
+int32_t libcUnixRedoxGetsubopt(void* optionp, void* tokens, void* valuep) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -977,7 +977,7 @@ int32_t libc_unix_redox_getsubopt(void* optionp, void* tokens, void* valuep) {
     return -1;
 }
 
-int32_t libc_unix_redox_mkostemp(char* arg_0_template, int32_t flags) {
+int32_t libcUnixRedoxMkostemp(char* arg0Template, int32_t flags) {
     typedef int32_t (*km_fn_t)(char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -999,13 +999,13 @@ int32_t libc_unix_redox_mkostemp(char* arg_0_template, int32_t flags) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_template, flags);
+        return km_fn_ptr(arg0Template, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_redox_mkostemps(char* arg_0_template, int32_t suffixlen, int32_t flags) {
+int32_t libcUnixRedoxMkostemps(char* arg0Template, int32_t suffixlen, int32_t flags) {
     typedef int32_t (*km_fn_t)(char*, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1027,13 +1027,13 @@ int32_t libc_unix_redox_mkostemps(char* arg_0_template, int32_t suffixlen, int32
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_template, suffixlen, flags);
+        return km_fn_ptr(arg0Template, suffixlen, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-void* libc_unix_redox_reallocarray(void* ptr, uint64_t nmemb, uint64_t size) {
+void* libcUnixRedoxReallocarray(void* ptr, uint64_t nmemb, uint64_t size) {
     typedef void* (*km_fn_t)(void*, uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1061,7 +1061,7 @@ void* libc_unix_redox_reallocarray(void* ptr, uint64_t nmemb, uint64_t size) {
     return NULL;
 }
 
-int32_t libc_unix_redox_renameat2(int32_t olddirfd, const char* oldpath, int32_t newdirfd, const char* newpath, uint32_t flags) {
+int32_t libcUnixRedoxRenameat2(int32_t olddirfd, const char* oldpath, int32_t newdirfd, const char* newpath, uint32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, const char*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1089,7 +1089,7 @@ int32_t libc_unix_redox_renameat2(int32_t olddirfd, const char* oldpath, int32_t
     return -1;
 }
 
-void libc_unix_redox_explicitBzero(void* p, uint64_t len) {
+void libcUnixRedoxExplicitBzero(void* p, uint64_t len) {
     typedef void (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1117,7 +1117,7 @@ void libc_unix_redox_explicitBzero(void* p, uint64_t len) {
     errno = ENOSYS;
 }
 
-uint64_t libc_unix_redox_strlcat(char* dst, const char* src, uint64_t siz) {
+uint64_t libcUnixRedoxStrlcat(char* dst, const char* src, uint64_t siz) {
     typedef uint64_t (*km_fn_t)(char*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1145,7 +1145,7 @@ uint64_t libc_unix_redox_strlcat(char* dst, const char* src, uint64_t siz) {
     return 0;
 }
 
-uint64_t libc_unix_redox_strlcpy(char* dst, const char* src, uint64_t siz) {
+uint64_t libcUnixRedoxStrlcpy(char* dst, const char* src, uint64_t siz) {
     typedef uint64_t (*km_fn_t)(char*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1173,7 +1173,7 @@ uint64_t libc_unix_redox_strlcpy(char* dst, const char* src, uint64_t siz) {
     return 0;
 }
 
-int32_t libc_unix_redox_epollCreate(int32_t size) {
+int32_t libcUnixRedoxEpollCreate(int32_t size) {
 #if defined(__linux__)
     return (int32_t)epoll_create(size);
 #else
@@ -1183,7 +1183,7 @@ int32_t libc_unix_redox_epollCreate(int32_t size) {
 #endif
 }
 
-int32_t libc_unix_redox_epollCreate1(int32_t flags) {
+int32_t libcUnixRedoxEpollCreate1(int32_t flags) {
 #if defined(__linux__)
     return (int32_t)epoll_create1(flags);
 #else
@@ -1193,7 +1193,7 @@ int32_t libc_unix_redox_epollCreate1(int32_t flags) {
 #endif
 }
 
-int32_t libc_unix_redox_epollWait(int32_t epfd, void* events, int32_t maxevents, int32_t timeout) {
+int32_t libcUnixRedoxEpollWait(int32_t epfd, void* events, int32_t maxevents, int32_t timeout) {
 #if defined(__linux__)
     return (int32_t)epoll_wait(epfd, events, maxevents, timeout);
 #else
@@ -1206,7 +1206,7 @@ int32_t libc_unix_redox_epollWait(int32_t epfd, void* events, int32_t maxevents,
 #endif
 }
 
-int32_t libc_unix_redox_epollCtl(int32_t epfd, int32_t op, int32_t fd, void* event) {
+int32_t libcUnixRedoxEpollCtl(int32_t epfd, int32_t op, int32_t fd, void* event) {
 #if defined(__linux__)
     return (int32_t)epoll_ctl(epfd, op, fd, event);
 #else
@@ -1219,7 +1219,7 @@ int32_t libc_unix_redox_epollCtl(int32_t epfd, int32_t op, int32_t fd, void* eve
 #endif
 }
 
-int32_t libc_unix_redox_ioctl(int32_t fd, uint64_t request, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcUnixRedoxIoctl(int32_t fd, uint64_t request, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(int32_t, uint64_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1253,7 +1253,7 @@ int32_t libc_unix_redox_ioctl(int32_t fd, uint64_t request, int32_t km_vac, int6
     return -1;
 }
 
-int32_t libc_unix_redox_madvise(void* addr, uint64_t len, int32_t advice) {
+int32_t libcUnixRedoxMadvise(void* addr, uint64_t len, int32_t advice) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1281,7 +1281,7 @@ int32_t libc_unix_redox_madvise(void* addr, uint64_t len, int32_t advice) {
     return -1;
 }
 
-int32_t libc_unix_redox_msync(void* addr, uint64_t len, int32_t flags) {
+int32_t libcUnixRedoxMsync(void* addr, uint64_t len, int32_t flags) {
 #if !defined(_WIN32)
     return (int32_t)msync(addr, len, flags);
 #else
@@ -1293,7 +1293,7 @@ int32_t libc_unix_redox_msync(void* addr, uint64_t len, int32_t flags) {
 #endif
 }
 
-int32_t libc_unix_redox_mprotect(void* addr, uint64_t len, int32_t prot) {
+int32_t libcUnixRedoxMprotect(void* addr, uint64_t len, int32_t prot) {
 #if !defined(_WIN32)
     return (int32_t)mprotect(addr, len, prot);
 #else
@@ -1305,7 +1305,7 @@ int32_t libc_unix_redox_mprotect(void* addr, uint64_t len, int32_t prot) {
 #endif
 }
 
-int32_t libc_unix_redox_shmOpen(const char* name, int32_t oflag, int32_t mode) {
+int32_t libcUnixRedoxShmOpen(const char* name, int32_t oflag, int32_t mode) {
     typedef int32_t (*km_fn_t)(const char*, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1333,7 +1333,7 @@ int32_t libc_unix_redox_shmOpen(const char* name, int32_t oflag, int32_t mode) {
     return -1;
 }
 
-int32_t libc_unix_redox_shmUnlink(const char* name) {
+int32_t libcUnixRedoxShmUnlink(const char* name) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1361,7 +1361,7 @@ int32_t libc_unix_redox_shmUnlink(const char* name) {
     return -1;
 }
 
-int32_t libc_unix_redox_getpriority(int32_t which, uint32_t who) {
+int32_t libcUnixRedoxGetpriority(int32_t which, uint32_t who) {
     typedef int32_t (*km_fn_t)(int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1389,7 +1389,7 @@ int32_t libc_unix_redox_getpriority(int32_t which, uint32_t who) {
     return -1;
 }
 
-int32_t libc_unix_redox_setpriority(int32_t which, uint32_t who, int32_t prio) {
+int32_t libcUnixRedoxSetpriority(int32_t which, uint32_t who, int32_t prio) {
     typedef int32_t (*km_fn_t)(int32_t, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1417,7 +1417,7 @@ int32_t libc_unix_redox_setpriority(int32_t which, uint32_t who, int32_t prio) {
     return -1;
 }
 
-int32_t libc_unix_redox_getrlimit(int32_t resource, void* rlim) {
+int32_t libcUnixRedoxGetrlimit(int32_t resource, void* rlim) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1445,7 +1445,7 @@ int32_t libc_unix_redox_getrlimit(int32_t resource, void* rlim) {
     return -1;
 }
 
-int32_t libc_unix_redox_setrlimit(int32_t resource, void* rlim) {
+int32_t libcUnixRedoxSetrlimit(int32_t resource, void* rlim) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1473,7 +1473,7 @@ int32_t libc_unix_redox_setrlimit(int32_t resource, void* rlim) {
     return -1;
 }
 
-void* libc_unix_redox_cmsgData(void* cmsg) {
+void* libcUnixRedoxCmsgData(void* cmsg) {
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1501,7 +1501,7 @@ void* libc_unix_redox_cmsgData(void* cmsg) {
     return NULL;
 }
 
-void* libc_unix_redox_cmsgFirsthdr(void* mhdr) {
+void* libcUnixRedoxCmsgFirsthdr(void* mhdr) {
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1529,7 +1529,7 @@ void* libc_unix_redox_cmsgFirsthdr(void* mhdr) {
     return NULL;
 }
 
-void* libc_unix_redox_cmsgNxthdr(void* mhdr, void* cmsg) {
+void* libcUnixRedoxCmsgNxthdr(void* mhdr, void* cmsg) {
     typedef void* (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1557,15 +1557,15 @@ void* libc_unix_redox_cmsgNxthdr(void* mhdr, void* cmsg) {
     return NULL;
 }
 
-int32_t libc_unix_redox_bind(int32_t arg_0_socket, void* address, uint32_t address_len) {
-    return (int32_t)bind(arg_0_socket, address, address_len);
+int32_t libcUnixRedoxBind(int32_t arg0Socket, void* address, uint32_t addressLen) {
+    return (int32_t)bind(arg0Socket, address, addressLen);
 }
 
-int64_t libc_unix_redox_recvfrom(int32_t arg_0_socket, void* buf, uint64_t len, int32_t flags, void* addr, void* addrlen) {
-    return (int64_t)recvfrom(arg_0_socket, buf, len, flags, addr, addrlen);
+int64_t libcUnixRedoxRecvfrom(int32_t arg0Socket, void* buf, uint64_t len, int32_t flags, void* addr, void* addrlen) {
+    return (int64_t)recvfrom(arg0Socket, buf, len, flags, addr, addrlen);
 }
 
-int64_t libc_unix_redox_recvmsg(int32_t arg_0_socket, void* msg, int32_t flags) {
+int64_t libcUnixRedoxRecvmsg(int32_t arg0Socket, void* msg, int32_t flags) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1587,13 +1587,13 @@ int64_t libc_unix_redox_recvmsg(int32_t arg_0_socket, void* msg, int32_t flags) 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_socket, msg, flags);
+        return km_fn_ptr(arg0Socket, msg, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_unix_redox_sendmsg(int32_t arg_0_socket, void* msg, int32_t flags) {
+int64_t libcUnixRedoxSendmsg(int32_t arg0Socket, void* msg, int32_t flags) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1615,13 +1615,13 @@ int64_t libc_unix_redox_sendmsg(int32_t arg_0_socket, void* msg, int32_t flags) 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_socket, msg, flags);
+        return km_fn_ptr(arg0Socket, msg, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_unix_redox_futimens(int32_t fd, void* times) {
+int32_t libcUnixRedoxFutimens(int32_t fd, void* times) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1649,7 +1649,7 @@ int32_t libc_unix_redox_futimens(int32_t fd, void* times) {
     return -1;
 }
 
-int64_t libc_unix_redox_preadv(int32_t fd, void* iov, int32_t iovcnt, int64_t offset) {
+int64_t libcUnixRedoxPreadv(int32_t fd, void* iov, int32_t iovcnt, int64_t offset) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1677,7 +1677,7 @@ int64_t libc_unix_redox_preadv(int32_t fd, void* iov, int32_t iovcnt, int64_t of
     return -1;
 }
 
-int64_t libc_unix_redox_pwritev(int32_t fd, void* iov, int32_t iovcnt, int64_t offset) {
+int64_t libcUnixRedoxPwritev(int32_t fd, void* iov, int32_t iovcnt, int64_t offset) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1705,7 +1705,7 @@ int64_t libc_unix_redox_pwritev(int32_t fd, void* iov, int32_t iovcnt, int64_t o
     return -1;
 }
 
-int64_t libc_unix_redox_readv(int32_t fd, void* iov, int32_t iovcnt) {
+int64_t libcUnixRedoxReadv(int32_t fd, void* iov, int32_t iovcnt) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1733,7 +1733,7 @@ int64_t libc_unix_redox_readv(int32_t fd, void* iov, int32_t iovcnt) {
     return -1;
 }
 
-int64_t libc_unix_redox_writev(int32_t fd, void* iov, int32_t iovcnt) {
+int64_t libcUnixRedoxWritev(int32_t fd, void* iov, int32_t iovcnt) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1761,7 +1761,7 @@ int64_t libc_unix_redox_writev(int32_t fd, void* iov, int32_t iovcnt) {
     return -1;
 }
 
-int32_t libc_unix_redox_uname(void* utsname) {
+int32_t libcUnixRedoxUname(void* utsname) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1789,7 +1789,7 @@ int32_t libc_unix_redox_uname(void* utsname) {
     return -1;
 }
 
-int32_t libc_unix_redox_gettimeofday(void* tp, void* tz) {
+int32_t libcUnixRedoxGettimeofday(void* tp, void* tz) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1817,7 +1817,7 @@ int32_t libc_unix_redox_gettimeofday(void* tp, void* tz) {
     return -1;
 }
 
-int32_t libc_unix_redox_clockGettime(int32_t clk_id, void* tp) {
+int32_t libcUnixRedoxClockGettime(int32_t clkId, void* tp) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1839,17 +1839,17 @@ int32_t libc_unix_redox_clockGettime(int32_t clk_id, void* tp) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(clk_id, tp);
+        return km_fn_ptr(clkId, tp);
     }
     errno = ENOSYS;
     return -1;
 }
 
-uint64_t libc_unix_redox_strftime(char* s, uint64_t max, const char* format, void* tm) {
+uint64_t libcUnixRedoxStrftime(char* s, uint64_t max, const char* format, void* tm) {
     return (uint64_t)strftime(s, max, format, tm);
 }
 
-int32_t libc_unix_redox_loginTty(int32_t fd) {
+int32_t libcUnixRedoxLoginTty(int32_t fd) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

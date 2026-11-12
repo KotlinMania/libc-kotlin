@@ -19,7 +19,7 @@
 #endif
 #endif
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_trusty_TrustyJniBridge_libc_1trusty_1calloc(JNIEnv* km_env, jclass km_clazz, jlong nobj, jlong size) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_trusty_TrustyJniBridge_libcTrustyCalloc(JNIEnv* km_env, jclass km_clazz, jlong nobj, jlong size) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(uint64_t, uint64_t);
@@ -52,7 +52,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_trusty_TrustyJniBridge_l
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_trusty_TrustyJniBridge_libc_1trusty_1malloc(JNIEnv* km_env, jclass km_clazz, jlong size) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_trusty_TrustyJniBridge_libcTrustyMalloc(JNIEnv* km_env, jclass km_clazz, jlong size) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(uint64_t);
@@ -85,7 +85,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_trusty_TrustyJniBridge_l
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_trusty_TrustyJniBridge_libc_1trusty_1realloc(JNIEnv* km_env, jclass km_clazz, jlong p, jlong size) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_trusty_TrustyJniBridge_libcTrustyRealloc(JNIEnv* km_env, jclass km_clazz, jlong p, jlong size) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void*, uint64_t);
@@ -118,7 +118,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_trusty_TrustyJniBridge_l
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_trusty_TrustyJniBridge_libc_1trusty_1free(JNIEnv* km_env, jclass km_clazz, jlong p) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_trusty_TrustyJniBridge_libcTrustyFree(JNIEnv* km_env, jclass km_clazz, jlong p) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void*);
@@ -148,7 +148,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_trusty_TrustyJniBridge_li
     }
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_trusty_TrustyJniBridge_libc_1trusty_1memalign(JNIEnv* km_env, jclass km_clazz, jlong align, jlong size) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_trusty_TrustyJniBridge_libcTrustyMemalign(JNIEnv* km_env, jclass km_clazz, jlong align, jlong size) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(uint64_t, uint64_t);
@@ -181,7 +181,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_trusty_TrustyJniBridge_l
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_trusty_TrustyJniBridge_libc_1trusty_1posixMemalign(JNIEnv* km_env, jclass km_clazz, jlong memptr, jlong align, jlong size) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_trusty_TrustyJniBridge_libcTrustyPosixMemalign(JNIEnv* km_env, jclass km_clazz, jlong memptr, jlong align, jlong size) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint64_t, uint64_t);
@@ -214,7 +214,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_trusty_TrustyJniBridge_li
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_trusty_TrustyJniBridge_libc_1trusty_1write(JNIEnv* km_env, jclass km_clazz, jint fd, jlong buf, jlong count) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_trusty_TrustyJniBridge_libcTrustyWrite(JNIEnv* km_env, jclass km_clazz, jint fd, jlong buf, jlong count) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t);
@@ -247,7 +247,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_trusty_TrustyJniBridge_l
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_trusty_TrustyJniBridge_libc_1trusty_1writev(JNIEnv* km_env, jclass km_clazz, jint fd, jlong iov, jint iovcnt) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_trusty_TrustyJniBridge_libcTrustyWritev(JNIEnv* km_env, jclass km_clazz, jint fd, jlong iov, jint iovcnt) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t);
@@ -280,7 +280,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_trusty_TrustyJniBridge_l
     return (jlong)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_trusty_TrustyJniBridge_libc_1trusty_1close(JNIEnv* km_env, jclass km_clazz, jint fd) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_trusty_TrustyJniBridge_libcTrustyClose(JNIEnv* km_env, jclass km_clazz, jint fd) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -313,10 +313,9 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_trusty_TrustyJniBridge_li
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_trusty_TrustyJniBridge_libc_1trusty_1strlen(JNIEnv* km_env, jclass km_clazz, jstring cs) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_trusty_TrustyJniBridge_libcTrustyStrlen(JNIEnv* km_env, jclass km_clazz, jlong cs) {
     (void)km_env;
     (void)km_clazz;
-    const char* cs_utf = (cs != NULL) ? (*km_env)->GetStringUTFChars(km_env, cs, NULL) : NULL;
     typedef uint64_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -339,16 +338,15 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_trusty_TrustyJniBridge_l
 #endif
     uint64_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(cs_utf);
+        km_res = km_fn_ptr((const char*)(uintptr_t)cs);
     } else {
         errno = ENOSYS;
         km_res = 0;
     }
-    if (cs != NULL && cs_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, cs, cs_utf);
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_trusty_TrustyJniBridge_libc_1trusty_1getauxval(JNIEnv* km_env, jclass km_clazz, jlong type_) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_trusty_TrustyJniBridge_libcTrustyGetauxval(JNIEnv* km_env, jclass km_clazz, jlong type) {
     (void)km_env;
     (void)km_clazz;
     typedef uint64_t (*km_fn_t)(uint64_t);
@@ -373,7 +371,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_trusty_TrustyJniBridge_l
 #endif
     uint64_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((uint64_t)type_);
+        km_res = km_fn_ptr((uint64_t)type);
     } else {
         errno = ENOSYS;
         km_res = 0;
@@ -381,7 +379,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_trusty_TrustyJniBridge_l
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_trusty_TrustyJniBridge_libc_1trusty_1mmap(JNIEnv* km_env, jclass km_clazz, jlong addr, jlong len, jint prot, jint flags, jint fd, jlong offset) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_trusty_TrustyJniBridge_libcTrustyMmap(JNIEnv* km_env, jclass km_clazz, jlong addr, jlong len, jint prot, jint flags, jint fd, jlong offset) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void*, uint64_t, int32_t, int32_t, int32_t, int64_t);
@@ -414,7 +412,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_trusty_TrustyJniBridge_l
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_trusty_TrustyJniBridge_libc_1trusty_1munmap(JNIEnv* km_env, jclass km_clazz, jlong addr, jlong len) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_trusty_TrustyJniBridge_libcTrustyMunmap(JNIEnv* km_env, jclass km_clazz, jlong addr, jlong len) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint64_t);
@@ -447,7 +445,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_trusty_TrustyJniBridge_li
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_trusty_TrustyJniBridge_libc_1trusty_1clockGettime(JNIEnv* km_env, jclass km_clazz, jint clk_id, jlong tp) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_trusty_TrustyJniBridge_libcTrustyClockGettime(JNIEnv* km_env, jclass km_clazz, jint clkId, jlong tp) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -472,7 +470,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_trusty_TrustyJniBridge_li
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)clk_id, (void*)(uintptr_t)tp);
+        km_res = km_fn_ptr((int32_t)clkId, (void*)(uintptr_t)tp);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -480,7 +478,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_trusty_TrustyJniBridge_li
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_trusty_TrustyJniBridge_libc_1trusty_1nanosleep(JNIEnv* km_env, jclass km_clazz, jlong rqtp, jlong rmtp) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_trusty_TrustyJniBridge_libcTrustyNanosleep(JNIEnv* km_env, jclass km_clazz, jlong rqtp, jlong rmtp) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);

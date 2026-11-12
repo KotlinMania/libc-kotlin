@@ -3,1176 +3,1187 @@
 package io.github.kotlinmania.libc.unix.haiku
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CDouble
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
+import io.github.kotlinmania.libc.CUshort
 import io.github.kotlinmania.libc.unix.DIR
 import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.GidT
+import io.github.kotlinmania.libc.unix.Group
 import io.github.kotlinmania.libc.unix.IntptrT
+import io.github.kotlinmania.libc.unix.Iovec
+import io.github.kotlinmania.libc.unix.Itimerval
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.PidT
+import io.github.kotlinmania.libc.unix.Pollfd
+import io.github.kotlinmania.libc.unix.Rlimit
 import io.github.kotlinmania.libc.unix.Sigval
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.Timeval
 import io.github.kotlinmania.libc.unix.UidT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 @JsFun("() => { if (typeof globalThis.__km_napi_libc !== 'undefined') return globalThis.__km_napi_libc !== null; if (typeof process === 'undefined' || !process.versions || !process.versions.node) { globalThis.__km_napi_libc = null; return false; } var mod = process.getBuiltinModule ? process.getBuiltinModule('module') : (process.mainModule && process.mainModule.constructor); var req = (mod && mod.createRequire) ? mod.createRequire((process.cwd ? process.cwd() : '.') + '/package.json') : (process.mainModule ? process.mainModule.require : null); if (!req) { globalThis.__km_napi_libc = null; return false; } try { globalThis.__km_napi_libc = req('@kotlinmania/libc-native-bindings'); return true; } catch (_) {} var fs = req('fs'); var path = req('path'); var dir = process.cwd ? process.cwd() : '.'; var rels = ['libc_native.node', 'build/node-ffi/libc_native.node', 'build/node-ffi/release/libc_native.node', 'build/node-ffi/debug/libc_native.node', 'src/js/node-libc/build/Release/libc_native.node', 'src/js/node-libc/build/Debug/libc_native.node', 'src/js/node-libc/dist/build/Release/libc_native.node', 'src/js/node-libc/dist/build/Debug/libc_native.node', 'c_native.node', 'build/node-ffi/c_native.node', 'build/node-ffi/release/c_native.node', 'build/node-ffi/debug/c_native.node', 'src/js/node-libc/build/Release/c_native.node', 'src/js/node-libc/build/Debug/c_native.node', 'src/js/node-libc/dist/build/Release/c_native.node', 'src/js/node-libc/dist/build/Debug/c_native.node']; for (var d = 0; d < 8; d++) { for (var i = 0; i < rels.length; i++) { var c = path.resolve(dir, rels[i]); if (fs.existsSync(c)) { globalThis.__km_napi_libc = req(c); return true; } } var parent = path.dirname(dir); if (parent === dir) break; dir = parent; } globalThis.__km_napi_libc = null; return false; }")
-private external fun _initUnixHaikuNapiAddon(): Boolean
+private external fun initUnixHaikuNapiAddon(): Boolean
 
-private val _unixHaikuNapiAvailable: Boolean = _initUnixHaikuNapiAddon()
+private val unixHaikuNapiAvailable: Boolean = initUnixHaikuNapiAddon()
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_haiku_getrlimit(p0, p1)")
-private external fun _wasm_libc_unix_haiku_getrlimit(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixHaikuGetrlimit(p0, p1)")
+private external fun wasmLibcUnixHaikuGetrlimit(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_haiku_setrlimit(p0, p1)")
-private external fun _wasm_libc_unix_haiku_setrlimit(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixHaikuSetrlimit(p0, p1)")
+private external fun wasmLibcUnixHaikuSetrlimit(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_haiku_getpriority(p0, p1)")
-private external fun _wasm_libc_unix_haiku_getpriority(p0: Int, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixHaikuGetpriority(p0, p1)")
+private external fun wasmLibcUnixHaikuGetpriority(p0: Int, p1: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_haiku_setpriority(p0, p1, p2)")
-private external fun _wasm_libc_unix_haiku_setpriority(p0: Int, p1: Int, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixHaikuSetpriority(p0, p1, p2)")
+private external fun wasmLibcUnixHaikuSetpriority(p0: Int, p1: Int, p2: Int): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_haiku_endusershell()")
-private external fun _wasm_libc_unix_haiku_endusershell()
+@JsFun("() => globalThis.__km_napi_libc.libcUnixHaikuEndusershell()")
+private external fun wasmLibcUnixHaikuEndusershell()
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_haiku_getpass(p0)")
-private external fun _wasm_libc_unix_haiku_getpass(p0: String?): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixHaikuGetpass(p0)")
+private external fun wasmLibcUnixHaikuGetpass(p0: String): String
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_haiku_getusershell()")
-private external fun _wasm_libc_unix_haiku_getusershell(): String
+@JsFun("() => globalThis.__km_napi_libc.libcUnixHaikuGetusershell()")
+private external fun wasmLibcUnixHaikuGetusershell(): String
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_haiku_issetugid()")
-private external fun _wasm_libc_unix_haiku_issetugid(): Int
+@JsFun("() => globalThis.__km_napi_libc.libcUnixHaikuIssetugid()")
+private external fun wasmLibcUnixHaikuIssetugid(): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_haiku_setusershell()")
-private external fun _wasm_libc_unix_haiku_setusershell()
+@JsFun("() => globalThis.__km_napi_libc.libcUnixHaikuSetusershell()")
+private external fun wasmLibcUnixHaikuSetusershell()
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_haiku_utimensat(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_haiku_utimensat(p0: Int, p1: String?, p2: String, p3: Int): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixHaikuUtimensat(p0, p1, p2, p3)")
+private external fun wasmLibcUnixHaikuUtimensat(p0: Int, p1: String, p2: String, p3: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_haiku_futimens(p0, p1)")
-private external fun _wasm_libc_unix_haiku_futimens(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixHaikuFutimens(p0, p1)")
+private external fun wasmLibcUnixHaikuFutimens(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_haiku_strerrorR(p0, p1, p2)")
-private external fun _wasm_libc_unix_haiku_strerrorR(p0: Int, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixHaikuStrerrorR(p0, p1, p2)")
+private external fun wasmLibcUnixHaikuStrerrorR(p0: Int, p1: String, p2: String): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_haiku_errnop()")
-private external fun _wasm_libc_unix_haiku_errnop(): String
+@JsFun("() => globalThis.__km_napi_libc.libcUnixHaikuErrnop()")
+private external fun wasmLibcUnixHaikuErrnop(): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_haiku_abs(p0)")
-private external fun _wasm_libc_unix_haiku_abs(p0: Int): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixHaikuAbs(p0)")
+private external fun wasmLibcUnixHaikuAbs(p0: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_haiku_labs(p0)")
-private external fun _wasm_libc_unix_haiku_labs(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixHaikuLabs(p0)")
+private external fun wasmLibcUnixHaikuLabs(p0: String): String
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_haiku_rand()")
-private external fun _wasm_libc_unix_haiku_rand(): Int
+@JsFun("() => globalThis.__km_napi_libc.libcUnixHaikuRand()")
+private external fun wasmLibcUnixHaikuRand(): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_haiku_srand(p0)")
-private external fun _wasm_libc_unix_haiku_srand(p0: Int)
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixHaikuSrand(p0)")
+private external fun wasmLibcUnixHaikuSrand(p0: Int)
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_haiku_getifaddrs(p0)")
-private external fun _wasm_libc_unix_haiku_getifaddrs(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixHaikuGetifaddrs(p0)")
+private external fun wasmLibcUnixHaikuGetifaddrs(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_haiku_freeifaddrs(p0)")
-private external fun _wasm_libc_unix_haiku_freeifaddrs(p0: String)
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixHaikuFreeifaddrs(p0)")
+private external fun wasmLibcUnixHaikuFreeifaddrs(p0: String)
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_haiku_ppoll(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_haiku_ppoll(p0: String, p1: String, p2: String, p3: String): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixHaikuPpoll(p0, p1, p2, p3)")
+private external fun wasmLibcUnixHaikuPpoll(p0: String, p1: String, p2: String, p3: String): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_haiku_getspent()")
-private external fun _wasm_libc_unix_haiku_getspent(): String
+@JsFun("() => globalThis.__km_napi_libc.libcUnixHaikuGetspent()")
+private external fun wasmLibcUnixHaikuGetspent(): String
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_haiku_getspentR(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_haiku_getspentR(p0: String, p1: String, p2: String, p3: String): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixHaikuGetspentR(p0, p1, p2, p3)")
+private external fun wasmLibcUnixHaikuGetspentR(p0: String, p1: String, p2: String, p3: String): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_haiku_setspent()")
-private external fun _wasm_libc_unix_haiku_setspent()
+@JsFun("() => globalThis.__km_napi_libc.libcUnixHaikuSetspent()")
+private external fun wasmLibcUnixHaikuSetspent()
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_haiku_endspent()")
-private external fun _wasm_libc_unix_haiku_endspent()
+@JsFun("() => globalThis.__km_napi_libc.libcUnixHaikuEndspent()")
+private external fun wasmLibcUnixHaikuEndspent()
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_haiku_getspnam(p0)")
-private external fun _wasm_libc_unix_haiku_getspnam(p0: String?): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixHaikuGetspnam(p0)")
+private external fun wasmLibcUnixHaikuGetspnam(p0: String): String
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_unix_haiku_getspnamR(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_unix_haiku_getspnamR(p0: String?, p1: String, p2: String, p3: String, p4: String): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcUnixHaikuGetspnamR(p0, p1, p2, p3, p4)")
+private external fun wasmLibcUnixHaikuGetspnamR(p0: String, p1: String, p2: String, p3: String, p4: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_haiku_sgetspent(p0)")
-private external fun _wasm_libc_unix_haiku_sgetspent(p0: String?): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixHaikuSgetspent(p0)")
+private external fun wasmLibcUnixHaikuSgetspent(p0: String): String
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_unix_haiku_sgetspentR(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_unix_haiku_sgetspentR(p0: String?, p1: String, p2: String, p3: String, p4: String): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcUnixHaikuSgetspentR(p0, p1, p2, p3, p4)")
+private external fun wasmLibcUnixHaikuSgetspentR(p0: String, p1: String, p2: String, p3: String, p4: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_haiku_fgetspent(p0)")
-private external fun _wasm_libc_unix_haiku_fgetspent(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixHaikuFgetspent(p0)")
+private external fun wasmLibcUnixHaikuFgetspent(p0: String): String
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_unix_haiku_fgetspentR(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_unix_haiku_fgetspentR(p0: String, p1: String, p2: String, p3: String, p4: String): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcUnixHaikuFgetspentR(p0, p1, p2, p3, p4)")
+private external fun wasmLibcUnixHaikuFgetspentR(p0: String, p1: String, p2: String, p3: String, p4: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_haiku_mkfifoat(p0, p1, p2)")
-private external fun _wasm_libc_unix_haiku_mkfifoat(p0: Int, p1: String?, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixHaikuMkfifoat(p0, p1, p2)")
+private external fun wasmLibcUnixHaikuMkfifoat(p0: Int, p1: String, p2: Int): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_haiku_mknodat(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_haiku_mknodat(p0: Int, p1: String?, p2: Int, p3: Int): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixHaikuMknodat(p0, p1, p2, p3)")
+private external fun wasmLibcUnixHaikuMknodat(p0: Int, p1: String, p2: Int, p3: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_haiku_semDestroy(p0)")
-private external fun _wasm_libc_unix_haiku_semDestroy(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixHaikuSemDestroy(p0)")
+private external fun wasmLibcUnixHaikuSemDestroy(p0: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_haiku_semInit(p0, p1, p2)")
-private external fun _wasm_libc_unix_haiku_semInit(p0: String, p1: Int, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixHaikuSemInit(p0, p1, p2)")
+private external fun wasmLibcUnixHaikuSemInit(p0: String, p1: Int, p2: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_haiku_clockGetres(p0, p1)")
-private external fun _wasm_libc_unix_haiku_clockGetres(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixHaikuClockGetres(p0, p1)")
+private external fun wasmLibcUnixHaikuClockGetres(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_haiku_clockGettime(p0, p1)")
-private external fun _wasm_libc_unix_haiku_clockGettime(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixHaikuClockGettime(p0, p1)")
+private external fun wasmLibcUnixHaikuClockGettime(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_haiku_clockSettime(p0, p1)")
-private external fun _wasm_libc_unix_haiku_clockSettime(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixHaikuClockSettime(p0, p1)")
+private external fun wasmLibcUnixHaikuClockSettime(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_haiku_clockGetcpuclockid(p0, p1)")
-private external fun _wasm_libc_unix_haiku_clockGetcpuclockid(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixHaikuClockGetcpuclockid(p0, p1)")
+private external fun wasmLibcUnixHaikuClockGetcpuclockid(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_haiku_pthreadCreate(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_haiku_pthreadCreate(p0: String, p1: String, p2: String, p3: String): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixHaikuPthreadCreate(p0, p1, p2, p3)")
+private external fun wasmLibcUnixHaikuPthreadCreate(p0: String, p1: String, p2: String, p3: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_haiku_pthreadAttrGetguardsize(p0, p1)")
-private external fun _wasm_libc_unix_haiku_pthreadAttrGetguardsize(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixHaikuPthreadAttrGetguardsize(p0, p1)")
+private external fun wasmLibcUnixHaikuPthreadAttrGetguardsize(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_haiku_pthreadAttrSetguardsize(p0, p1)")
-private external fun _wasm_libc_unix_haiku_pthreadAttrSetguardsize(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixHaikuPthreadAttrSetguardsize(p0, p1)")
+private external fun wasmLibcUnixHaikuPthreadAttrSetguardsize(p0: String, p1: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_haiku_pthreadAttrGetstack(p0, p1, p2)")
-private external fun _wasm_libc_unix_haiku_pthreadAttrGetstack(p0: String, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixHaikuPthreadAttrGetstack(p0, p1, p2)")
+private external fun wasmLibcUnixHaikuPthreadAttrGetstack(p0: String, p1: String, p2: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_haiku_pthreadCondattrGetclock(p0, p1)")
-private external fun _wasm_libc_unix_haiku_pthreadCondattrGetclock(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixHaikuPthreadCondattrGetclock(p0, p1)")
+private external fun wasmLibcUnixHaikuPthreadCondattrGetclock(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_haiku_pthreadCondattrSetclock(p0, p1)")
-private external fun _wasm_libc_unix_haiku_pthreadCondattrSetclock(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixHaikuPthreadCondattrSetclock(p0, p1)")
+private external fun wasmLibcUnixHaikuPthreadCondattrSetclock(p0: String, p1: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_haiku_valloc(p0)")
-private external fun _wasm_libc_unix_haiku_valloc(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixHaikuValloc(p0)")
+private external fun wasmLibcUnixHaikuValloc(p0: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_haiku_mallocUsableSize(p0)")
-private external fun _wasm_libc_unix_haiku_mallocUsableSize(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixHaikuMallocUsableSize(p0)")
+private external fun wasmLibcUnixHaikuMallocUsableSize(p0: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_haiku_memalign(p0, p1)")
-private external fun _wasm_libc_unix_haiku_memalign(p0: String, p1: String): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixHaikuMemalign(p0, p1)")
+private external fun wasmLibcUnixHaikuMemalign(p0: String, p1: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_haiku_setgroups(p0, p1)")
-private external fun _wasm_libc_unix_haiku_setgroups(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixHaikuSetgroups(p0, p1)")
+private external fun wasmLibcUnixHaikuSetgroups(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_haiku_initgroups(p0, p1)")
-private external fun _wasm_libc_unix_haiku_initgroups(p0: String?, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixHaikuInitgroups(p0, p1)")
+private external fun wasmLibcUnixHaikuInitgroups(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libc_unix_haiku_ioctl(p0, p1, p2, p3, p4, p5, p6)")
-private external fun _wasm_libc_unix_haiku_ioctl(p0: Int, p1: String, p2: Int, p3: String, p4: String, p5: String, p6: String): Int
+@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libcUnixHaikuIoctl(p0, p1, p2, p3, p4, p5, p6)")
+private external fun wasmLibcUnixHaikuIoctl(p0: Int, p1: String, p2: Int, p3: String, p4: String, p5: String, p6: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_haiku_mprotect(p0, p1, p2)")
-private external fun _wasm_libc_unix_haiku_mprotect(p0: String, p1: String, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixHaikuMprotect(p0, p1, p2)")
+private external fun wasmLibcUnixHaikuMprotect(p0: String, p1: String, p2: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_haiku_dirfd(p0)")
-private external fun _wasm_libc_unix_haiku_dirfd(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixHaikuDirfd(p0)")
+private external fun wasmLibcUnixHaikuDirfd(p0: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libc_unix_haiku_getnameinfo(p0, p1, p2, p3, p4, p5, p6)")
-private external fun _wasm_libc_unix_haiku_getnameinfo(p0: String, p1: Int, p2: String, p3: Int, p4: String, p5: Int, p6: Int): Int
+@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libcUnixHaikuGetnameinfo(p0, p1, p2, p3, p4, p5, p6)")
+private external fun wasmLibcUnixHaikuGetnameinfo(p0: String, p1: Int, p2: String, p3: Int, p4: String, p5: Int, p6: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_haiku_pthreadMutexTimedlock(p0, p1)")
-private external fun _wasm_libc_unix_haiku_pthreadMutexTimedlock(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixHaikuPthreadMutexTimedlock(p0, p1)")
+private external fun wasmLibcUnixHaikuPthreadMutexTimedlock(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_haiku_pthreadSpinInit(p0, p1)")
-private external fun _wasm_libc_unix_haiku_pthreadSpinInit(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixHaikuPthreadSpinInit(p0, p1)")
+private external fun wasmLibcUnixHaikuPthreadSpinInit(p0: String, p1: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_haiku_pthreadSpinDestroy(p0)")
-private external fun _wasm_libc_unix_haiku_pthreadSpinDestroy(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixHaikuPthreadSpinDestroy(p0)")
+private external fun wasmLibcUnixHaikuPthreadSpinDestroy(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_haiku_pthreadSpinLock(p0)")
-private external fun _wasm_libc_unix_haiku_pthreadSpinLock(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixHaikuPthreadSpinLock(p0)")
+private external fun wasmLibcUnixHaikuPthreadSpinLock(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_haiku_pthreadSpinTrylock(p0)")
-private external fun _wasm_libc_unix_haiku_pthreadSpinTrylock(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixHaikuPthreadSpinTrylock(p0)")
+private external fun wasmLibcUnixHaikuPthreadSpinTrylock(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_haiku_pthreadSpinUnlock(p0)")
-private external fun _wasm_libc_unix_haiku_pthreadSpinUnlock(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixHaikuPthreadSpinUnlock(p0)")
+private external fun wasmLibcUnixHaikuPthreadSpinUnlock(p0: String): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_haiku_waitid(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_haiku_waitid(p0: Int, p1: Int, p2: String, p3: Int): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixHaikuWaitid(p0, p1, p2, p3)")
+private external fun wasmLibcUnixHaikuWaitid(p0: Int, p1: Int, p2: String, p3: Int): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_haiku_glob(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_haiku_glob(p0: String?, p1: Int, p2: String, p3: String): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixHaikuGlob(p0, p1, p2, p3)")
+private external fun wasmLibcUnixHaikuGlob(p0: String, p1: Int, p2: String, p3: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_haiku_globfree(p0)")
-private external fun _wasm_libc_unix_haiku_globfree(p0: String)
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixHaikuGlobfree(p0)")
+private external fun wasmLibcUnixHaikuGlobfree(p0: String)
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_haiku_gettimeofday(p0, p1)")
-private external fun _wasm_libc_unix_haiku_gettimeofday(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixHaikuGettimeofday(p0, p1)")
+private external fun wasmLibcUnixHaikuGettimeofday(p0: String, p1: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_haiku_posixMadvise(p0, p1, p2)")
-private external fun _wasm_libc_unix_haiku_posixMadvise(p0: String, p1: String, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixHaikuPosixMadvise(p0, p1, p2)")
+private external fun wasmLibcUnixHaikuPosixMadvise(p0: String, p1: String, p2: Int): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_haiku_posixFadvise(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_haiku_posixFadvise(p0: Int, p1: String, p2: String, p3: Int): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixHaikuPosixFadvise(p0, p1, p2, p3)")
+private external fun wasmLibcUnixHaikuPosixFadvise(p0: Int, p1: String, p2: String, p3: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_haiku_posixFallocate(p0, p1, p2)")
-private external fun _wasm_libc_unix_haiku_posixFallocate(p0: Int, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixHaikuPosixFallocate(p0, p1, p2)")
+private external fun wasmLibcUnixHaikuPosixFallocate(p0: Int, p1: String, p2: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_haiku_shmOpen(p0, p1, p2)")
-private external fun _wasm_libc_unix_haiku_shmOpen(p0: String?, p1: Int, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixHaikuShmOpen(p0, p1, p2)")
+private external fun wasmLibcUnixHaikuShmOpen(p0: String, p1: Int, p2: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_haiku_shmUnlink(p0)")
-private external fun _wasm_libc_unix_haiku_shmUnlink(p0: String?): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixHaikuShmUnlink(p0)")
+private external fun wasmLibcUnixHaikuShmUnlink(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_haiku_seekdir(p0, p1)")
-private external fun _wasm_libc_unix_haiku_seekdir(p0: String, p1: String)
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixHaikuSeekdir(p0, p1)")
+private external fun wasmLibcUnixHaikuSeekdir(p0: String, p1: String)
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_haiku_telldir(p0)")
-private external fun _wasm_libc_unix_haiku_telldir(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixHaikuTelldir(p0)")
+private external fun wasmLibcUnixHaikuTelldir(p0: String): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_haiku_madvise(p0, p1, p2)")
-private external fun _wasm_libc_unix_haiku_madvise(p0: String, p1: String, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixHaikuMadvise(p0, p1, p2)")
+private external fun wasmLibcUnixHaikuMadvise(p0: String, p1: String, p2: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_haiku_msync(p0, p1, p2)")
-private external fun _wasm_libc_unix_haiku_msync(p0: String, p1: String, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixHaikuMsync(p0, p1, p2)")
+private external fun wasmLibcUnixHaikuMsync(p0: String, p1: String, p2: Int): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libc_unix_haiku_recvfrom(p0, p1, p2, p3, p4, p5)")
-private external fun _wasm_libc_unix_haiku_recvfrom(p0: Int, p1: String, p2: String, p3: Int, p4: String, p5: String): String
+@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libcUnixHaikuRecvfrom(p0, p1, p2, p3, p4, p5)")
+private external fun wasmLibcUnixHaikuRecvfrom(p0: Int, p1: String, p2: String, p3: Int, p4: String, p5: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_haiku_nlLanginfo(p0)")
-private external fun _wasm_libc_unix_haiku_nlLanginfo(p0: Int): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixHaikuNlLanginfo(p0)")
+private external fun wasmLibcUnixHaikuNlLanginfo(p0: Int): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_haiku_bind(p0, p1, p2)")
-private external fun _wasm_libc_unix_haiku_bind(p0: Int, p1: String, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixHaikuBind(p0, p1, p2)")
+private external fun wasmLibcUnixHaikuBind(p0: Int, p1: String, p2: Int): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_haiku_accept4(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_haiku_accept4(p0: Int, p1: String, p2: String, p3: Int): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixHaikuAccept4(p0, p1, p2, p3)")
+private external fun wasmLibcUnixHaikuAccept4(p0: Int, p1: String, p2: String, p3: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_haiku_writev(p0, p1, p2)")
-private external fun _wasm_libc_unix_haiku_writev(p0: Int, p1: String, p2: Int): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixHaikuWritev(p0, p1, p2)")
+private external fun wasmLibcUnixHaikuWritev(p0: Int, p1: String, p2: Int): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_haiku_readv(p0, p1, p2)")
-private external fun _wasm_libc_unix_haiku_readv(p0: Int, p1: String, p2: Int): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixHaikuReadv(p0, p1, p2)")
+private external fun wasmLibcUnixHaikuReadv(p0: Int, p1: String, p2: Int): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_haiku_sendmsg(p0, p1, p2)")
-private external fun _wasm_libc_unix_haiku_sendmsg(p0: Int, p1: String, p2: Int): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixHaikuSendmsg(p0, p1, p2)")
+private external fun wasmLibcUnixHaikuSendmsg(p0: Int, p1: String, p2: Int): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_haiku_recvmsg(p0, p1, p2)")
-private external fun _wasm_libc_unix_haiku_recvmsg(p0: Int, p1: String, p2: Int): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixHaikuRecvmsg(p0, p1, p2)")
+private external fun wasmLibcUnixHaikuRecvmsg(p0: Int, p1: String, p2: Int): String
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_haiku_execvpe(p0, p1, p2)")
-private external fun _wasm_libc_unix_haiku_execvpe(p0: String?, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixHaikuExecvpe(p0, p1, p2)")
+private external fun wasmLibcUnixHaikuExecvpe(p0: String, p1: String, p2: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_unix_haiku_getgrgidR(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_unix_haiku_getgrgidR(p0: Int, p1: String, p2: String, p3: String, p4: String): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcUnixHaikuGetgrgidR(p0, p1, p2, p3, p4)")
+private external fun wasmLibcUnixHaikuGetgrgidR(p0: Int, p1: String, p2: String, p3: String, p4: String): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_haiku_getgrouplist(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_haiku_getgrouplist(p0: String?, p1: Int, p2: String, p3: String): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixHaikuGetgrouplist(p0, p1, p2, p3)")
+private external fun wasmLibcUnixHaikuGetgrouplist(p0: String, p1: Int, p2: String, p3: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_haiku_sigaltstack(p0, p1)")
-private external fun _wasm_libc_unix_haiku_sigaltstack(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixHaikuSigaltstack(p0, p1)")
+private external fun wasmLibcUnixHaikuSigaltstack(p0: String, p1: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_haiku_sigsuspend(p0)")
-private external fun _wasm_libc_unix_haiku_sigsuspend(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixHaikuSigsuspend(p0)")
+private external fun wasmLibcUnixHaikuSigsuspend(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_haiku_semClose(p0)")
-private external fun _wasm_libc_unix_haiku_semClose(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixHaikuSemClose(p0)")
+private external fun wasmLibcUnixHaikuSemClose(p0: String): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_haiku_getdtablesize()")
-private external fun _wasm_libc_unix_haiku_getdtablesize(): Int
+@JsFun("() => globalThis.__km_napi_libc.libcUnixHaikuGetdtablesize()")
+private external fun wasmLibcUnixHaikuGetdtablesize(): Int
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_unix_haiku_getgrnamR(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_unix_haiku_getgrnamR(p0: String?, p1: String, p2: String, p3: String, p4: String): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcUnixHaikuGetgrnamR(p0, p1, p2, p3, p4)")
+private external fun wasmLibcUnixHaikuGetgrnamR(p0: String, p1: String, p2: String, p3: String, p4: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_haiku_pthreadSigmask(p0, p1, p2)")
-private external fun _wasm_libc_unix_haiku_pthreadSigmask(p0: Int, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixHaikuPthreadSigmask(p0, p1, p2)")
+private external fun wasmLibcUnixHaikuPthreadSigmask(p0: Int, p1: String, p2: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libc_unix_haiku_semOpen(p0, p1, p2, p3, p4, p5, p6)")
-private external fun _wasm_libc_unix_haiku_semOpen(p0: String?, p1: Int, p2: Int, p3: String, p4: String, p5: String, p6: String): String
+@JsFun("(p0, p1, p2, p3, p4, p5, p6) => globalThis.__km_napi_libc.libcUnixHaikuSemOpen(p0, p1, p2, p3, p4, p5, p6)")
+private external fun wasmLibcUnixHaikuSemOpen(p0: String, p1: Int, p2: Int, p3: String, p4: String, p5: String, p6: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_haiku_getgrnam(p0)")
-private external fun _wasm_libc_unix_haiku_getgrnam(p0: String?): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixHaikuGetgrnam(p0)")
+private external fun wasmLibcUnixHaikuGetgrnam(p0: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_haiku_pthreadKill(p0, p1)")
-private external fun _wasm_libc_unix_haiku_pthreadKill(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixHaikuPthreadKill(p0, p1)")
+private external fun wasmLibcUnixHaikuPthreadKill(p0: String, p1: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_haiku_semUnlink(p0)")
-private external fun _wasm_libc_unix_haiku_semUnlink(p0: String?): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixHaikuSemUnlink(p0)")
+private external fun wasmLibcUnixHaikuSemUnlink(p0: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_unix_haiku_getpwnamR(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_unix_haiku_getpwnamR(p0: String?, p1: String, p2: String, p3: String, p4: String): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcUnixHaikuGetpwnamR(p0, p1, p2, p3, p4)")
+private external fun wasmLibcUnixHaikuGetpwnamR(p0: String, p1: String, p2: String, p3: String, p4: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_unix_haiku_getpwuidR(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_unix_haiku_getpwuidR(p0: Int, p1: String, p2: String, p3: String, p4: String): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcUnixHaikuGetpwuidR(p0, p1, p2, p3, p4)")
+private external fun wasmLibcUnixHaikuGetpwuidR(p0: Int, p1: String, p2: String, p3: String, p4: String): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_haiku_getpwent()")
-private external fun _wasm_libc_unix_haiku_getpwent(): String
+@JsFun("() => globalThis.__km_napi_libc.libcUnixHaikuGetpwent()")
+private external fun wasmLibcUnixHaikuGetpwent(): String
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_haiku_setpwent()")
-private external fun _wasm_libc_unix_haiku_setpwent()
+@JsFun("() => globalThis.__km_napi_libc.libcUnixHaikuSetpwent()")
+private external fun wasmLibcUnixHaikuSetpwent()
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_haiku_endpwent()")
-private external fun _wasm_libc_unix_haiku_endpwent()
+@JsFun("() => globalThis.__km_napi_libc.libcUnixHaikuEndpwent()")
+private external fun wasmLibcUnixHaikuEndpwent()
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_haiku_endgrent()")
-private external fun _wasm_libc_unix_haiku_endgrent()
+@JsFun("() => globalThis.__km_napi_libc.libcUnixHaikuEndgrent()")
+private external fun wasmLibcUnixHaikuEndgrent()
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_haiku_getgrent()")
-private external fun _wasm_libc_unix_haiku_getgrent(): String
+@JsFun("() => globalThis.__km_napi_libc.libcUnixHaikuGetgrent()")
+private external fun wasmLibcUnixHaikuGetgrent(): String
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_haiku_setgrent()")
-private external fun _wasm_libc_unix_haiku_setgrent()
+@JsFun("() => globalThis.__km_napi_libc.libcUnixHaikuSetgrent()")
+private external fun wasmLibcUnixHaikuSetgrent()
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_haiku_sigwait(p0, p1)")
-private external fun _wasm_libc_unix_haiku_sigwait(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixHaikuSigwait(p0, p1)")
+private external fun wasmLibcUnixHaikuSigwait(p0: String, p1: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_haiku_pthreadAtfork(p0, p1, p2)")
-private external fun _wasm_libc_unix_haiku_pthreadAtfork(p0: String, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixHaikuPthreadAtfork(p0, p1, p2)")
+private external fun wasmLibcUnixHaikuPthreadAtfork(p0: String, p1: String, p2: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_haiku_getgrgid(p0)")
-private external fun _wasm_libc_unix_haiku_getgrgid(p0: Int): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixHaikuGetgrgid(p0)")
+private external fun wasmLibcUnixHaikuGetgrgid(p0: Int): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_haiku_popen(p0, p1)")
-private external fun _wasm_libc_unix_haiku_popen(p0: String?, p1: String?): String
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixHaikuPopen(p0, p1)")
+private external fun wasmLibcUnixHaikuPopen(p0: String, p1: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_haiku_sethostname(p0, p1)")
-private external fun _wasm_libc_unix_haiku_sethostname(p0: String?, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixHaikuSethostname(p0, p1)")
+private external fun wasmLibcUnixHaikuSethostname(p0: String, p1: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_haiku_uname(p0)")
-private external fun _wasm_libc_unix_haiku_uname(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixHaikuUname(p0)")
+private external fun wasmLibcUnixHaikuUname(p0: String): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_haiku_getutxent()")
-private external fun _wasm_libc_unix_haiku_getutxent(): String
+@JsFun("() => globalThis.__km_napi_libc.libcUnixHaikuGetutxent()")
+private external fun wasmLibcUnixHaikuGetutxent(): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_haiku_getutxid(p0)")
-private external fun _wasm_libc_unix_haiku_getutxid(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixHaikuGetutxid(p0)")
+private external fun wasmLibcUnixHaikuGetutxid(p0: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_haiku_getutxline(p0)")
-private external fun _wasm_libc_unix_haiku_getutxline(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixHaikuGetutxline(p0)")
+private external fun wasmLibcUnixHaikuGetutxline(p0: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_haiku_pututxline(p0)")
-private external fun _wasm_libc_unix_haiku_pututxline(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixHaikuPututxline(p0)")
+private external fun wasmLibcUnixHaikuPututxline(p0: String): String
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_haiku_setutxent()")
-private external fun _wasm_libc_unix_haiku_setutxent()
+@JsFun("() => globalThis.__km_napi_libc.libcUnixHaikuSetutxent()")
+private external fun wasmLibcUnixHaikuSetutxent()
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_haiku_endutxent()")
-private external fun _wasm_libc_unix_haiku_endutxent()
+@JsFun("() => globalThis.__km_napi_libc.libcUnixHaikuEndutxent()")
+private external fun wasmLibcUnixHaikuEndutxent()
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_haiku_faccessat(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_haiku_faccessat(p0: Int, p1: String?, p2: Int, p3: Int): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixHaikuFaccessat(p0, p1, p2, p3)")
+private external fun wasmLibcUnixHaikuFaccessat(p0: Int, p1: String, p2: Int, p3: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_haiku_sigtimedwait(p0, p1, p2)")
-private external fun _wasm_libc_unix_haiku_sigtimedwait(p0: String, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixHaikuSigtimedwait(p0, p1, p2)")
+private external fun wasmLibcUnixHaikuSigtimedwait(p0: String, p1: String, p2: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_haiku_sigwaitinfo(p0, p1)")
-private external fun _wasm_libc_unix_haiku_sigwaitinfo(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixHaikuSigwaitinfo(p0, p1)")
+private external fun wasmLibcUnixHaikuSigwaitinfo(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_haiku_getitimer(p0, p1)")
-private external fun _wasm_libc_unix_haiku_getitimer(p0: Int, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixHaikuGetitimer(p0, p1)")
+private external fun wasmLibcUnixHaikuGetitimer(p0: Int, p1: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_haiku_setitimer(p0, p1, p2)")
-private external fun _wasm_libc_unix_haiku_setitimer(p0: Int, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixHaikuSetitimer(p0, p1, p2)")
+private external fun wasmLibcUnixHaikuSetitimer(p0: Int, p1: String, p2: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_haiku_regcomp(p0, p1, p2)")
-private external fun _wasm_libc_unix_haiku_regcomp(p0: String, p1: String?, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixHaikuRegcomp(p0, p1, p2)")
+private external fun wasmLibcUnixHaikuRegcomp(p0: String, p1: String, p2: Int): Int
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_unix_haiku_regexec(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_unix_haiku_regexec(p0: String, p1: String?, p2: String, p3: String, p4: Int): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcUnixHaikuRegexec(p0, p1, p2, p3, p4)")
+private external fun wasmLibcUnixHaikuRegexec(p0: String, p1: String, p2: String, p3: String, p4: Int): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_haiku_regerror(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_haiku_regerror(p0: Int, p1: String, p2: String, p3: String): String
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixHaikuRegerror(p0, p1, p2, p3)")
+private external fun wasmLibcUnixHaikuRegerror(p0: Int, p1: String, p2: String, p3: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_haiku_regfree(p0)")
-private external fun _wasm_libc_unix_haiku_regfree(p0: String)
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixHaikuRegfree(p0)")
+private external fun wasmLibcUnixHaikuRegfree(p0: String)
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_haiku_msgctl(p0, p1, p2)")
-private external fun _wasm_libc_unix_haiku_msgctl(p0: Int, p1: Int, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixHaikuMsgctl(p0, p1, p2)")
+private external fun wasmLibcUnixHaikuMsgctl(p0: Int, p1: Int, p2: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_haiku_msgget(p0, p1)")
-private external fun _wasm_libc_unix_haiku_msgget(p0: Int, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixHaikuMsgget(p0, p1)")
+private external fun wasmLibcUnixHaikuMsgget(p0: Int, p1: Int): Int
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_unix_haiku_msgrcv(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_unix_haiku_msgrcv(p0: Int, p1: String, p2: String, p3: String, p4: Int): String
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcUnixHaikuMsgrcv(p0, p1, p2, p3, p4)")
+private external fun wasmLibcUnixHaikuMsgrcv(p0: Int, p1: String, p2: String, p3: String, p4: Int): String
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_haiku_msgsnd(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_haiku_msgsnd(p0: Int, p1: String, p2: String, p3: Int): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixHaikuMsgsnd(p0, p1, p2, p3)")
+private external fun wasmLibcUnixHaikuMsgsnd(p0: Int, p1: String, p2: String, p3: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_haiku_semget(p0, p1, p2)")
-private external fun _wasm_libc_unix_haiku_semget(p0: Int, p1: Int, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixHaikuSemget(p0, p1, p2)")
+private external fun wasmLibcUnixHaikuSemget(p0: Int, p1: Int, p2: Int): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5, p6, p7) => globalThis.__km_napi_libc.libc_unix_haiku_semctl(p0, p1, p2, p3, p4, p5, p6, p7)")
-private external fun _wasm_libc_unix_haiku_semctl(p0: Int, p1: Int, p2: Int, p3: Int, p4: String, p5: String, p6: String, p7: String): Int
+@JsFun("(p0, p1, p2, p3, p4, p5, p6, p7) => globalThis.__km_napi_libc.libcUnixHaikuSemctl(p0, p1, p2, p3, p4, p5, p6, p7)")
+private external fun wasmLibcUnixHaikuSemctl(p0: Int, p1: Int, p2: Int, p3: Int, p4: String, p5: String, p6: String, p7: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_haiku_semop(p0, p1, p2)")
-private external fun _wasm_libc_unix_haiku_semop(p0: Int, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixHaikuSemop(p0, p1, p2)")
+private external fun wasmLibcUnixHaikuSemop(p0: Int, p1: String, p2: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_haiku_ftok(p0, p1)")
-private external fun _wasm_libc_unix_haiku_ftok(p0: String?, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixHaikuFtok(p0, p1)")
+private external fun wasmLibcUnixHaikuFtok(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_haiku_memrchr(p0, p1, p2)")
-private external fun _wasm_libc_unix_haiku_memrchr(p0: String, p1: Int, p2: String): String
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixHaikuMemrchr(p0, p1, p2)")
+private external fun wasmLibcUnixHaikuMemrchr(p0: String, p1: Int, p2: String): String
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_unix_haiku_lsearch(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_unix_haiku_lsearch(p0: String, p1: String, p2: String, p3: String, p4: String): String
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcUnixHaikuLsearch(p0, p1, p2, p3, p4)")
+private external fun wasmLibcUnixHaikuLsearch(p0: String, p1: String, p2: String, p3: String, p4: String): String
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_unix_haiku_lfind(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_unix_haiku_lfind(p0: String, p1: String, p2: String, p3: String, p4: String): String
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcUnixHaikuLfind(p0, p1, p2, p3, p4)")
+private external fun wasmLibcUnixHaikuLfind(p0: String, p1: String, p2: String, p3: String, p4: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_haiku_hcreate(p0)")
-private external fun _wasm_libc_unix_haiku_hcreate(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixHaikuHcreate(p0)")
+private external fun wasmLibcUnixHaikuHcreate(p0: String): Int
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_haiku_hdestroy()")
-private external fun _wasm_libc_unix_haiku_hdestroy()
+@JsFun("() => globalThis.__km_napi_libc.libcUnixHaikuHdestroy()")
+private external fun wasmLibcUnixHaikuHdestroy()
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_haiku_drand48()")
-private external fun _wasm_libc_unix_haiku_drand48(): Double
+@JsFun("() => globalThis.__km_napi_libc.libcUnixHaikuDrand48()")
+private external fun wasmLibcUnixHaikuDrand48(): Double
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_haiku_erand48(p0)")
-private external fun _wasm_libc_unix_haiku_erand48(p0: String): Double
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixHaikuErand48(p0)")
+private external fun wasmLibcUnixHaikuErand48(p0: String): Double
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_haiku_lrand48()")
-private external fun _wasm_libc_unix_haiku_lrand48(): String
+@JsFun("() => globalThis.__km_napi_libc.libcUnixHaikuLrand48()")
+private external fun wasmLibcUnixHaikuLrand48(): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_haiku_nrand48(p0)")
-private external fun _wasm_libc_unix_haiku_nrand48(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixHaikuNrand48(p0)")
+private external fun wasmLibcUnixHaikuNrand48(p0: String): String
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_haiku_mrand48()")
-private external fun _wasm_libc_unix_haiku_mrand48(): String
+@JsFun("() => globalThis.__km_napi_libc.libcUnixHaikuMrand48()")
+private external fun wasmLibcUnixHaikuMrand48(): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_haiku_jrand48(p0)")
-private external fun _wasm_libc_unix_haiku_jrand48(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixHaikuJrand48(p0)")
+private external fun wasmLibcUnixHaikuJrand48(p0: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_haiku_srand48(p0)")
-private external fun _wasm_libc_unix_haiku_srand48(p0: String)
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixHaikuSrand48(p0)")
+private external fun wasmLibcUnixHaikuSrand48(p0: String)
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_haiku_seed48(p0)")
-private external fun _wasm_libc_unix_haiku_seed48(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixHaikuSeed48(p0)")
+private external fun wasmLibcUnixHaikuSeed48(p0: String): String
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_haiku_lcong48(p0)")
-private external fun _wasm_libc_unix_haiku_lcong48(p0: String)
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixHaikuLcong48(p0)")
+private external fun wasmLibcUnixHaikuLcong48(p0: String)
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_haiku_clearenv()")
-private external fun _wasm_libc_unix_haiku_clearenv(): Int
+@JsFun("() => globalThis.__km_napi_libc.libcUnixHaikuClearenv()")
+private external fun wasmLibcUnixHaikuClearenv(): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_haiku_ctermid(p0)")
-private external fun _wasm_libc_unix_haiku_ctermid(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixHaikuCtermid(p0)")
+private external fun wasmLibcUnixHaikuCtermid(p0: String): String
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_haiku_sync()")
-private external fun _wasm_libc_unix_haiku_sync()
+@JsFun("() => globalThis.__km_napi_libc.libcUnixHaikuSync()")
+private external fun wasmLibcUnixHaikuSync()
 
-@JsFun("() => globalThis.__km_napi_libc.libc_unix_haiku_getpagesize()")
-private external fun _wasm_libc_unix_haiku_getpagesize(): Int
+@JsFun("() => globalThis.__km_napi_libc.libcUnixHaikuGetpagesize()")
+private external fun wasmLibcUnixHaikuGetpagesize(): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_haiku_brk(p0)")
-private external fun _wasm_libc_unix_haiku_brk(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixHaikuBrk(p0)")
+private external fun wasmLibcUnixHaikuBrk(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_haiku_sbrk(p0)")
-private external fun _wasm_libc_unix_haiku_sbrk(p0: String): String
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixHaikuSbrk(p0)")
+private external fun wasmLibcUnixHaikuSbrk(p0: String): String
 
-@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libc_unix_haiku_posixSpawn(p0, p1, p2, p3, p4, p5)")
-private external fun _wasm_libc_unix_haiku_posixSpawn(p0: String, p1: String?, p2: String, p3: String, p4: String, p5: String): Int
+@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libcUnixHaikuPosixSpawn(p0, p1, p2, p3, p4, p5)")
+private external fun wasmLibcUnixHaikuPosixSpawn(p0: String, p1: String, p2: String, p3: String, p4: String, p5: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libc_unix_haiku_posixSpawnp(p0, p1, p2, p3, p4, p5)")
-private external fun _wasm_libc_unix_haiku_posixSpawnp(p0: String, p1: String?, p2: String, p3: String, p4: String, p5: String): Int
+@JsFun("(p0, p1, p2, p3, p4, p5) => globalThis.__km_napi_libc.libcUnixHaikuPosixSpawnp(p0, p1, p2, p3, p4, p5)")
+private external fun wasmLibcUnixHaikuPosixSpawnp(p0: String, p1: String, p2: String, p3: String, p4: String, p5: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_haiku_posixSpawnFileActionsInit(p0)")
-private external fun _wasm_libc_unix_haiku_posixSpawnFileActionsInit(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixHaikuPosixSpawnFileActionsInit(p0)")
+private external fun wasmLibcUnixHaikuPosixSpawnFileActionsInit(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_haiku_posixSpawnFileActionsDestroy(p0)")
-private external fun _wasm_libc_unix_haiku_posixSpawnFileActionsDestroy(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixHaikuPosixSpawnFileActionsDestroy(p0)")
+private external fun wasmLibcUnixHaikuPosixSpawnFileActionsDestroy(p0: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_unix_haiku_posixSpawnFileActionsAddopen(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_unix_haiku_posixSpawnFileActionsAddopen(p0: String, p1: Int, p2: String?, p3: Int, p4: Int): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcUnixHaikuPosixSpawnFileActionsAddopen(p0, p1, p2, p3, p4)")
+private external fun wasmLibcUnixHaikuPosixSpawnFileActionsAddopen(p0: String, p1: Int, p2: String, p3: Int, p4: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_haiku_posixSpawnFileActionsAddclose(p0, p1)")
-private external fun _wasm_libc_unix_haiku_posixSpawnFileActionsAddclose(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixHaikuPosixSpawnFileActionsAddclose(p0, p1)")
+private external fun wasmLibcUnixHaikuPosixSpawnFileActionsAddclose(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_haiku_posixSpawnFileActionsAdddup2(p0, p1, p2)")
-private external fun _wasm_libc_unix_haiku_posixSpawnFileActionsAdddup2(p0: String, p1: Int, p2: Int): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixHaikuPosixSpawnFileActionsAdddup2(p0, p1, p2)")
+private external fun wasmLibcUnixHaikuPosixSpawnFileActionsAdddup2(p0: String, p1: Int, p2: Int): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_haiku_posixSpawnattrInit(p0)")
-private external fun _wasm_libc_unix_haiku_posixSpawnattrInit(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixHaikuPosixSpawnattrInit(p0)")
+private external fun wasmLibcUnixHaikuPosixSpawnattrInit(p0: String): Int
 
-@JsFun("(p0) => globalThis.__km_napi_libc.libc_unix_haiku_posixSpawnattrDestroy(p0)")
-private external fun _wasm_libc_unix_haiku_posixSpawnattrDestroy(p0: String): Int
+@JsFun("(p0) => globalThis.__km_napi_libc.libcUnixHaikuPosixSpawnattrDestroy(p0)")
+private external fun wasmLibcUnixHaikuPosixSpawnattrDestroy(p0: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_haiku_posixSpawnattrGetflags(p0, p1)")
-private external fun _wasm_libc_unix_haiku_posixSpawnattrGetflags(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixHaikuPosixSpawnattrGetflags(p0, p1)")
+private external fun wasmLibcUnixHaikuPosixSpawnattrGetflags(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_haiku_posixSpawnattrSetflags(p0, p1)")
-private external fun _wasm_libc_unix_haiku_posixSpawnattrSetflags(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixHaikuPosixSpawnattrSetflags(p0, p1)")
+private external fun wasmLibcUnixHaikuPosixSpawnattrSetflags(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_haiku_posixSpawnattrGetpgroup(p0, p1)")
-private external fun _wasm_libc_unix_haiku_posixSpawnattrGetpgroup(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixHaikuPosixSpawnattrGetpgroup(p0, p1)")
+private external fun wasmLibcUnixHaikuPosixSpawnattrGetpgroup(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_haiku_posixSpawnattrSetpgroup(p0, p1)")
-private external fun _wasm_libc_unix_haiku_posixSpawnattrSetpgroup(p0: String, p1: Int): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixHaikuPosixSpawnattrSetpgroup(p0, p1)")
+private external fun wasmLibcUnixHaikuPosixSpawnattrSetpgroup(p0: String, p1: Int): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_haiku_posixSpawnattrGetsigdefault(p0, p1)")
-private external fun _wasm_libc_unix_haiku_posixSpawnattrGetsigdefault(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixHaikuPosixSpawnattrGetsigdefault(p0, p1)")
+private external fun wasmLibcUnixHaikuPosixSpawnattrGetsigdefault(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_haiku_posixSpawnattrSetsigdefault(p0, p1)")
-private external fun _wasm_libc_unix_haiku_posixSpawnattrSetsigdefault(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixHaikuPosixSpawnattrSetsigdefault(p0, p1)")
+private external fun wasmLibcUnixHaikuPosixSpawnattrSetsigdefault(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_haiku_posixSpawnattrGetsigmask(p0, p1)")
-private external fun _wasm_libc_unix_haiku_posixSpawnattrGetsigmask(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixHaikuPosixSpawnattrGetsigmask(p0, p1)")
+private external fun wasmLibcUnixHaikuPosixSpawnattrGetsigmask(p0: String, p1: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_haiku_posixSpawnattrSetsigmask(p0, p1)")
-private external fun _wasm_libc_unix_haiku_posixSpawnattrSetsigmask(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixHaikuPosixSpawnattrSetsigmask(p0, p1)")
+private external fun wasmLibcUnixHaikuPosixSpawnattrSetsigmask(p0: String, p1: String): Int
 
-@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libc_unix_haiku_getoptLong(p0, p1, p2, p3, p4)")
-private external fun _wasm_libc_unix_haiku_getoptLong(p0: Int, p1: String, p2: String?, p3: String, p4: String): Int
+@JsFun("(p0, p1, p2, p3, p4) => globalThis.__km_napi_libc.libcUnixHaikuGetoptLong(p0, p1, p2, p3, p4)")
+private external fun wasmLibcUnixHaikuGetoptLong(p0: Int, p1: String, p2: String, p3: String, p4: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_haiku_strcasecmpL(p0, p1, p2)")
-private external fun _wasm_libc_unix_haiku_strcasecmpL(p0: String?, p1: String?, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixHaikuStrcasecmpL(p0, p1, p2)")
+private external fun wasmLibcUnixHaikuStrcasecmpL(p0: String, p1: String, p2: String): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_haiku_strncasecmpL(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_haiku_strncasecmpL(p0: String?, p1: String?, p2: String, p3: String): Int
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixHaikuStrncasecmpL(p0, p1, p2, p3)")
+private external fun wasmLibcUnixHaikuStrncasecmpL(p0: String, p1: String, p2: String, p3: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_haiku_getentropy(p0, p1)")
-private external fun _wasm_libc_unix_haiku_getentropy(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixHaikuGetentropy(p0, p1)")
+private external fun wasmLibcUnixHaikuGetentropy(p0: String, p1: String): Int
 
-@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libc_unix_haiku_memmem(p0, p1, p2, p3)")
-private external fun _wasm_libc_unix_haiku_memmem(p0: String, p1: String, p2: String, p3: String): String
+@JsFun("(p0, p1, p2, p3) => globalThis.__km_napi_libc.libcUnixHaikuMemmem(p0, p1, p2, p3)")
+private external fun wasmLibcUnixHaikuMemmem(p0: String, p1: String, p2: String, p3: String): String
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_haiku_pthreadGetattrNp(p0, p1)")
-private external fun _wasm_libc_unix_haiku_pthreadGetattrNp(p0: String, p1: String): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixHaikuPthreadGetattrNp(p0, p1)")
+private external fun wasmLibcUnixHaikuPthreadGetattrNp(p0: String, p1: String): Int
 
-@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libc_unix_haiku_pthreadGetnameNp(p0, p1, p2)")
-private external fun _wasm_libc_unix_haiku_pthreadGetnameNp(p0: String, p1: String, p2: String): Int
+@JsFun("(p0, p1, p2) => globalThis.__km_napi_libc.libcUnixHaikuPthreadGetnameNp(p0, p1, p2)")
+private external fun wasmLibcUnixHaikuPthreadGetnameNp(p0: String, p1: String, p2: String): Int
 
-@JsFun("(p0, p1) => globalThis.__km_napi_libc.libc_unix_haiku_pthreadSetnameNp(p0, p1)")
-private external fun _wasm_libc_unix_haiku_pthreadSetnameNp(p0: String, p1: String?): Int
+@JsFun("(p0, p1) => globalThis.__km_napi_libc.libcUnixHaikuPthreadSetnameNp(p0, p1)")
+private external fun wasmLibcUnixHaikuPthreadSetnameNp(p0: String, p1: String): Int
 
-public actual fun getrlimit(resource: CInt, rlim: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_getrlimit(resource, (rlim?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getrlimit(resource: CInt, rlim: MutPtr<Rlimit>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuGetrlimit(resource, rlim.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setrlimit(resource: CInt, rlim: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_setrlimit(resource, (rlim?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun setrlimit(resource: CInt, rlim: ConstPtr<Rlimit>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuSetrlimit(resource, rlim.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun getpriority(which: CInt, who: IdT): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_getpriority(which, who) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuGetpriority(which, who) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun setpriority(which: CInt, who: IdT, priority: CInt): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_setpriority(which, who, priority) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuSetpriority(which, who, priority) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun endusershell() {
-    if (_unixHaikuNapiAvailable) {
-        _wasm_libc_unix_haiku_endusershell()
+    if (unixHaikuNapiAvailable) {
+        wasmLibcUnixHaikuEndusershell()
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun getpass(prompt: String?): COpaquePointer? =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_getpass(prompt).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getpass(prompt: ConstPtr<CChar>): MutPtr<CChar> =
+    if (unixHaikuNapiAvailable) MutPtr(wasmLibcUnixHaikuGetpass(prompt.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getusershell(): COpaquePointer? =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_getusershell().toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getusershell(): MutPtr<CChar> =
+    if (unixHaikuNapiAvailable) MutPtr(wasmLibcUnixHaikuGetusershell().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun issetugid(): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_issetugid() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuIssetugid() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun setusershell() {
-    if (_unixHaikuNapiAvailable) {
-        _wasm_libc_unix_haiku_setusershell()
+    if (unixHaikuNapiAvailable) {
+        wasmLibcUnixHaikuSetusershell()
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun utimensat(fd: CInt, path: String?, times: COpaquePointer?, flag: CInt): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_utimensat(fd, path, (times?.value ?: 0L).toString(), flag) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun utimensat(fd: CInt, path: ConstPtr<CChar>, times: ConstPtr<Timespec>, flag: CInt): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuUtimensat(fd, path.rawAddress.toString(), times.rawAddress.toString(), flag) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun futimens(fd: CInt, times: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_futimens(fd, (times?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun futimens(fd: CInt, times: ConstPtr<Timespec>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuFutimens(fd, times.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strerrorR(errnum: CInt, buf: COpaquePointer?, buflen: SizeT): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_strerrorR(errnum, (buf?.value ?: 0L).toString(), buflen.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strerrorR(errnum: CInt, buf: MutPtr<CChar>, buflen: SizeT): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuStrerrorR(errnum, buf.rawAddress.toString(), buflen.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun errnop(): COpaquePointer? =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_errnop().toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun errnop(): MutPtr<CInt> =
+    if (unixHaikuNapiAvailable) MutPtr(wasmLibcUnixHaikuErrnop().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun abs(i: CInt): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_abs(i) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuAbs(i) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun labs(i: CLong): CLong =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_labs(i.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuLabs(i.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun rand(): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_rand() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuRand() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun srand(seed: CUint) {
-    if (_unixHaikuNapiAvailable) {
-        _wasm_libc_unix_haiku_srand(seed.toInt())
+    if (unixHaikuNapiAvailable) {
+        wasmLibcUnixHaikuSrand(seed.toInt())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun getifaddrs(ifap: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_getifaddrs((ifap?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getifaddrs(ifap: MutPtr<MutPtr<Ifaddrs>>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuGetifaddrs(ifap.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun freeifaddrs(ifa: COpaquePointer?) {
-    if (_unixHaikuNapiAvailable) {
-        _wasm_libc_unix_haiku_freeifaddrs((ifa?.value ?: 0L).toString())
+public actual fun freeifaddrs(ifa: MutPtr<Ifaddrs>) {
+    if (unixHaikuNapiAvailable) {
+        wasmLibcUnixHaikuFreeifaddrs(ifa.rawAddress.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun ppoll(fds: COpaquePointer?, numfds: NfdsT, timeout: COpaquePointer?, sigMask: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_ppoll((fds?.value ?: 0L).toString(), numfds.toString(), (timeout?.value ?: 0L).toString(), (sigMask?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ppoll(fds: MutPtr<Pollfd>, numfds: NfdsT, timeout: ConstPtr<Timespec>, sigMask: ConstPtr<SigsetT>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuPpoll(fds.rawAddress.toString(), numfds.toString(), timeout.rawAddress.toString(), sigMask.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getspent(): COpaquePointer? =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_getspent().toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getspent(): MutPtr<Spwd> =
+    if (unixHaikuNapiAvailable) MutPtr(wasmLibcUnixHaikuGetspent().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getspentR(pwd: COpaquePointer?, buf: COpaquePointer?, bufferSize: SizeT, res: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_getspentR((pwd?.value ?: 0L).toString(), (buf?.value ?: 0L).toString(), bufferSize.toString(), (res?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getspentR(pwd: MutPtr<Spwd>, buf: MutPtr<CChar>, bufferSize: SizeT, res: MutPtr<MutPtr<Spwd>>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuGetspentR(pwd.rawAddress.toString(), buf.rawAddress.toString(), bufferSize.toString(), res.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun setspent() {
-    if (_unixHaikuNapiAvailable) {
-        _wasm_libc_unix_haiku_setspent()
+    if (unixHaikuNapiAvailable) {
+        wasmLibcUnixHaikuSetspent()
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
 public actual fun endspent() {
-    if (_unixHaikuNapiAvailable) {
-        _wasm_libc_unix_haiku_endspent()
+    if (unixHaikuNapiAvailable) {
+        wasmLibcUnixHaikuEndspent()
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun getspnam(name: String?): COpaquePointer? =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_getspnam(name).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getspnam(name: ConstPtr<CChar>): MutPtr<Spwd> =
+    if (unixHaikuNapiAvailable) MutPtr(wasmLibcUnixHaikuGetspnam(name.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getspnamR(name: String?, spwd: COpaquePointer?, buffer: COpaquePointer?, bufferSize: SizeT, res: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_getspnamR(name, (spwd?.value ?: 0L).toString(), (buffer?.value ?: 0L).toString(), bufferSize.toString(), (res?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getspnamR(name: ConstPtr<CChar>, spwd: MutPtr<Spwd>, buffer: MutPtr<CChar>, bufferSize: SizeT, res: MutPtr<MutPtr<Spwd>>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuGetspnamR(name.rawAddress.toString(), spwd.rawAddress.toString(), buffer.rawAddress.toString(), bufferSize.toString(), res.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sgetspent(line: String?): COpaquePointer? =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_sgetspent(line).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sgetspent(line: ConstPtr<CChar>): MutPtr<Spwd> =
+    if (unixHaikuNapiAvailable) MutPtr(wasmLibcUnixHaikuSgetspent(line.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sgetspentR(line: String?, spwd: COpaquePointer?, buffer: COpaquePointer?, bufferSize: SizeT, res: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_sgetspentR(line, (spwd?.value ?: 0L).toString(), (buffer?.value ?: 0L).toString(), bufferSize.toString(), (res?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sgetspentR(line: ConstPtr<CChar>, spwd: MutPtr<Spwd>, buffer: MutPtr<CChar>, bufferSize: SizeT, res: MutPtr<MutPtr<Spwd>>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuSgetspentR(line.rawAddress.toString(), spwd.rawAddress.toString(), buffer.rawAddress.toString(), bufferSize.toString(), res.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fgetspent(file: FILE?): COpaquePointer? =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_fgetspent((file?.handle ?: 0L).toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fgetspent(file: MutPtr<FILE>): MutPtr<Spwd> =
+    if (unixHaikuNapiAvailable) MutPtr(wasmLibcUnixHaikuFgetspent(file.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fgetspentR(file: FILE?, spwd: COpaquePointer?, buffer: COpaquePointer?, bufferSize: SizeT, res: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_fgetspentR((file?.handle ?: 0L).toString(), (spwd?.value ?: 0L).toString(), (buffer?.value ?: 0L).toString(), bufferSize.toString(), (res?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fgetspentR(file: MutPtr<FILE>, spwd: MutPtr<Spwd>, buffer: MutPtr<CChar>, bufferSize: SizeT, res: MutPtr<MutPtr<Spwd>>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuFgetspentR(file.rawAddress.toString(), spwd.rawAddress.toString(), buffer.rawAddress.toString(), bufferSize.toString(), res.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_mkfifoat(dirfd, pathname, mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mkfifoat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuMkfifoat(dirfd, pathname.rawAddress.toString(), mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_mknodat(dirfd, pathname, mode.toInt(), dev) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mknodat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT, dev: DevT): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuMknodat(dirfd, pathname.rawAddress.toString(), mode.toInt(), dev) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semDestroy(sem: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_semDestroy((sem?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun semDestroy(sem: MutPtr<SemT>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuSemDestroy(sem.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semInit(sem: COpaquePointer?, pshared: CInt, value: CUint): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_semInit((sem?.value ?: 0L).toString(), pshared, value.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun semInit(sem: MutPtr<SemT>, pshared: CInt, value: CUint): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuSemInit(sem.rawAddress.toString(), pshared, value.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun clockGetres(clkId: ClockidT, tp: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_clockGetres(clkId, (tp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun clockGetres(clkId: ClockidT, tp: MutPtr<Timespec>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuClockGetres(clkId, tp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun clockGettime(clkId: ClockidT, tp: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_clockGettime(clkId, (tp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun clockGettime(clkId: ClockidT, tp: MutPtr<Timespec>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuClockGettime(clkId, tp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun clockSettime(clkId: ClockidT, tp: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_clockSettime(clkId, (tp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun clockSettime(clkId: ClockidT, tp: ConstPtr<Timespec>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuClockSettime(clkId, tp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun clockGetcpuclockid(pid: PidT, clkId: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_clockGetcpuclockid(pid, (clkId?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun clockGetcpuclockid(pid: PidT, clkId: MutPtr<ClockidT>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuClockGetcpuclockid(pid, clkId.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCreate(thread: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_pthreadCreate((thread?.value ?: 0L).toString(), (attr?.value ?: 0L).toString(), 0L.toString(), (value?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadCreate(thread: MutPtr<PthreadT>, attr: ConstPtr<PthreadAttrT>, f: PthreadCreateFCallback, value: MutPtr<CVoid>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuPthreadCreate(thread.rawAddress.toString(), attr.rawAddress.toString(), 0L.toString(), value.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrGetguardsize(attr: COpaquePointer?, guardsize: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_pthreadAttrGetguardsize((attr?.value ?: 0L).toString(), (guardsize?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadAttrGetguardsize(attr: ConstPtr<PthreadAttrT>, guardsize: MutPtr<SizeT>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuPthreadAttrGetguardsize(attr.rawAddress.toString(), guardsize.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrSetguardsize(attr: COpaquePointer?, guardsize: SizeT): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_pthreadAttrSetguardsize((attr?.value ?: 0L).toString(), guardsize.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadAttrSetguardsize(attr: MutPtr<PthreadAttrT>, guardsize: SizeT): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuPthreadAttrSetguardsize(attr.rawAddress.toString(), guardsize.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrGetstack(attr: COpaquePointer?, stackaddr: COpaquePointer?, stacksize: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_pthreadAttrGetstack((attr?.value ?: 0L).toString(), (stackaddr?.value ?: 0L).toString(), (stacksize?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadAttrGetstack(attr: ConstPtr<PthreadAttrT>, stackaddr: MutPtr<MutPtr<CVoid>>, stacksize: MutPtr<SizeT>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuPthreadAttrGetstack(attr.rawAddress.toString(), stackaddr.rawAddress.toString(), stacksize.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondattrGetclock(attr: COpaquePointer?, clockId: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_pthreadCondattrGetclock((attr?.value ?: 0L).toString(), (clockId?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadCondattrGetclock(attr: ConstPtr<PthreadCondattrT>, clockId: MutPtr<ClockidT>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuPthreadCondattrGetclock(attr.rawAddress.toString(), clockId.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadCondattrSetclock(attr: COpaquePointer?, clockId: ClockidT): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_pthreadCondattrSetclock((attr?.value ?: 0L).toString(), clockId) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadCondattrSetclock(attr: MutPtr<PthreadCondattrT>, clockId: ClockidT): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuPthreadCondattrSetclock(attr.rawAddress.toString(), clockId) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun valloc(numBytes: SizeT): COpaquePointer? =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_valloc(numBytes.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun valloc(numBytes: SizeT): MutPtr<CVoid> =
+    if (unixHaikuNapiAvailable) MutPtr(wasmLibcUnixHaikuValloc(numBytes.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mallocUsableSize(ptr: COpaquePointer?): SizeT =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_mallocUsableSize((ptr?.value ?: 0L).toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mallocUsableSize(ptr: MutPtr<CVoid>): SizeT =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuMallocUsableSize(ptr.rawAddress.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memalign(align: SizeT, size: SizeT): COpaquePointer? =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_memalign(align.toString(), size.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun memalign(align: SizeT, size: SizeT): MutPtr<CVoid> =
+    if (unixHaikuNapiAvailable) MutPtr(wasmLibcUnixHaikuMemalign(align.toString(), size.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setgroups(ngroups: CInt, ptr: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_setgroups(ngroups, (ptr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun setgroups(ngroups: CInt, ptr: ConstPtr<GidT>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuSetgroups(ngroups, ptr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun initgroups(name: String?, basegid: GidT): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_initgroups(name, basegid.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun initgroups(name: ConstPtr<CChar>, basegid: GidT): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuInitgroups(name.rawAddress.toString(), basegid.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun ioctl(fd: CInt, request: CUlong, vararg variadicArgs: Long): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_ioctl(fd, request.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuIoctl(fd, request.toString(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_mprotect((addr?.value ?: 0L).toString(), len.toString(), prot) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mprotect(addr: MutPtr<CVoid>, len: SizeT, prot: CInt): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuMprotect(addr.rawAddress.toString(), len.toString(), prot) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun dirfd(dirp: DIR?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_dirfd((dirp?.handle ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun dirfd(dirp: MutPtr<DIR>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuDirfd(dirp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getnameinfo(sa: COpaquePointer?, salen: SocklenT, host: COpaquePointer?, hostlen: SocklenT, serv: COpaquePointer?, servlen: SocklenT, flags: CInt): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_getnameinfo((sa?.value ?: 0L).toString(), salen.toInt(), (host?.value ?: 0L).toString(), hostlen.toInt(), (serv?.value ?: 0L).toString(), servlen.toInt(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getnameinfo(sa: ConstPtr<Sockaddr>, salen: SocklenT, host: MutPtr<CChar>, hostlen: SocklenT, serv: MutPtr<CChar>, servlen: SocklenT, flags: CInt): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuGetnameinfo(sa.rawAddress.toString(), salen.toInt(), host.rawAddress.toString(), hostlen.toInt(), serv.rawAddress.toString(), servlen.toInt(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadMutexTimedlock(lock: COpaquePointer?, abstime: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_pthreadMutexTimedlock((lock?.value ?: 0L).toString(), (abstime?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadMutexTimedlock(lock: MutPtr<PthreadMutexT>, abstime: ConstPtr<Timespec>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuPthreadMutexTimedlock(lock.rawAddress.toString(), abstime.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun pthreadSigqueue(thread: PthreadT, sig: CInt, value: Sigval): CInt =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadSpinInit(lock: COpaquePointer?, pshared: CInt): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_pthreadSpinInit((lock?.value ?: 0L).toString(), pshared) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadSpinInit(lock: MutPtr<PthreadSpinlockT>, pshared: CInt): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuPthreadSpinInit(lock.rawAddress.toString(), pshared) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadSpinDestroy(lock: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_pthreadSpinDestroy((lock?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadSpinDestroy(lock: MutPtr<PthreadSpinlockT>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuPthreadSpinDestroy(lock.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadSpinLock(lock: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_pthreadSpinLock((lock?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadSpinLock(lock: MutPtr<PthreadSpinlockT>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuPthreadSpinLock(lock.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadSpinTrylock(lock: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_pthreadSpinTrylock((lock?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadSpinTrylock(lock: MutPtr<PthreadSpinlockT>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuPthreadSpinTrylock(lock.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadSpinUnlock(lock: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_pthreadSpinUnlock((lock?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadSpinUnlock(lock: MutPtr<PthreadSpinlockT>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuPthreadSpinUnlock(lock.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun waitid(idtype: IdtypeT, id: IdT, infop: COpaquePointer?, options: CInt): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_waitid(idtype, id, (infop?.value ?: 0L).toString(), options) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun waitid(idtype: IdtypeT, id: IdT, infop: MutPtr<SiginfoT>, options: CInt): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuWaitid(idtype, id, infop.rawAddress.toString(), options) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_glob(pattern, flags, 0L.toString(), (pglob?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun glob(pattern: ConstPtr<CChar>, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: MutPtr<GlobT>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuGlob(pattern.rawAddress.toString(), flags, 0L.toString(), pglob.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun globfree(pglob: COpaquePointer?) {
-    if (_unixHaikuNapiAvailable) {
-        _wasm_libc_unix_haiku_globfree((pglob?.value ?: 0L).toString())
+public actual fun globfree(pglob: MutPtr<GlobT>) {
+    if (unixHaikuNapiAvailable) {
+        wasmLibcUnixHaikuGlobfree(pglob.rawAddress.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun gettimeofday(tp: COpaquePointer?, tz: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_gettimeofday((tp?.value ?: 0L).toString(), (tz?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun gettimeofday(tp: MutPtr<Timeval>, tz: MutPtr<CVoid>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuGettimeofday(tp.rawAddress.toString(), tz.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixMadvise(addr: COpaquePointer?, len: SizeT, advice: CInt): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_posixMadvise((addr?.value ?: 0L).toString(), len.toString(), advice) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixMadvise(addr: MutPtr<CVoid>, len: SizeT, advice: CInt): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuPosixMadvise(addr.rawAddress.toString(), len.toString(), advice) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun posixFadvise(fd: CInt, offset: OffT, len: OffT, advice: CInt): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_posixFadvise(fd, offset.toString(), len.toString(), advice) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuPosixFadvise(fd, offset.toString(), len.toString(), advice) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_posixFallocate(fd, offset.toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuPosixFallocate(fd, offset.toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun shmOpen(name: String?, oflag: CInt, mode: ModeT): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_shmOpen(name, oflag, mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun shmOpen(name: ConstPtr<CChar>, oflag: CInt, mode: ModeT): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuShmOpen(name.rawAddress.toString(), oflag, mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun shmUnlink(name: String?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_shmUnlink(name) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun shmUnlink(name: ConstPtr<CChar>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuShmUnlink(name.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun seekdir(dirp: DIR?, loc: CLong) {
-    if (_unixHaikuNapiAvailable) {
-        _wasm_libc_unix_haiku_seekdir((dirp?.handle ?: 0L).toString(), loc.toString())
+public actual fun seekdir(dirp: MutPtr<DIR>, loc: CLong) {
+    if (unixHaikuNapiAvailable) {
+        wasmLibcUnixHaikuSeekdir(dirp.rawAddress.toString(), loc.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun telldir(dirp: DIR?): CLong =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_telldir((dirp?.handle ?: 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun telldir(dirp: MutPtr<DIR>): CLong =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuTelldir(dirp.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun madvise(addr: COpaquePointer?, len: SizeT, advice: CInt): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_madvise((addr?.value ?: 0L).toString(), len.toString(), advice) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun madvise(addr: MutPtr<CVoid>, len: SizeT, advice: CInt): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuMadvise(addr.rawAddress.toString(), len.toString(), advice) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msync(addr: COpaquePointer?, len: SizeT, flags: CInt): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_msync((addr?.value ?: 0L).toString(), len.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun msync(addr: MutPtr<CVoid>, len: SizeT, flags: CInt): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuMsync(addr.rawAddress.toString(), len.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun recvfrom(socket: CInt, buf: COpaquePointer?, len: SizeT, flags: CInt, addr: COpaquePointer?, addrlen: COpaquePointer?): SsizeT =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_recvfrom(socket, (buf?.value ?: 0L).toString(), len.toString(), flags, (addr?.value ?: 0L).toString(), (addrlen?.value ?: 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun recvfrom(socket: CInt, buf: MutPtr<CVoid>, len: SizeT, flags: CInt, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): SsizeT =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuRecvfrom(socket, buf.rawAddress.toString(), len.toString(), flags, addr.rawAddress.toString(), addrlen.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun nlLanginfo(item: NlItem): COpaquePointer? =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_nlLanginfo(item).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun nlLanginfo(item: NlItem): MutPtr<CChar> =
+    if (unixHaikuNapiAvailable) MutPtr(wasmLibcUnixHaikuNlLanginfo(item).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun bind(socket: CInt, address: COpaquePointer?, addressLen: SocklenT): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_bind(socket, (address?.value ?: 0L).toString(), addressLen.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun bind(socket: CInt, address: ConstPtr<Sockaddr>, addressLen: SocklenT): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuBind(socket, address.rawAddress.toString(), addressLen.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun accept4(socket: CInt, address: COpaquePointer?, addressLength: COpaquePointer?, flags: CInt): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_accept4(socket, (address?.value ?: 0L).toString(), (addressLength?.value ?: 0L).toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun accept4(socket: CInt, address: MutPtr<Sockaddr>, addressLength: MutPtr<SocklenT>, flags: CInt): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuAccept4(socket, address.rawAddress.toString(), addressLength.rawAddress.toString(), flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun writev(fd: CInt, iov: COpaquePointer?, count: CInt): SsizeT =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_writev(fd, (iov?.value ?: 0L).toString(), count).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun writev(fd: CInt, iov: ConstPtr<Iovec>, count: CInt): SsizeT =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuWritev(fd, iov.rawAddress.toString(), count).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun readv(fd: CInt, iov: COpaquePointer?, count: CInt): SsizeT =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_readv(fd, (iov?.value ?: 0L).toString(), count).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun readv(fd: CInt, iov: ConstPtr<Iovec>, count: CInt): SsizeT =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuReadv(fd, iov.rawAddress.toString(), count).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sendmsg(fd: CInt, msg: COpaquePointer?, flags: CInt): SsizeT =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_sendmsg(fd, (msg?.value ?: 0L).toString(), flags).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sendmsg(fd: CInt, msg: ConstPtr<Msghdr>, flags: CInt): SsizeT =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuSendmsg(fd, msg.rawAddress.toString(), flags).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun recvmsg(fd: CInt, msg: COpaquePointer?, flags: CInt): SsizeT =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_recvmsg(fd, (msg?.value ?: 0L).toString(), flags).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun recvmsg(fd: CInt, msg: MutPtr<Msghdr>, flags: CInt): SsizeT =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuRecvmsg(fd, msg.rawAddress.toString(), flags).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun execvpe(file: String?, argv: COpaquePointer?, environment: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_execvpe(file, (argv?.value ?: 0L).toString(), (environment?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun execvpe(file: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>, environment: ConstPtr<ConstPtr<CChar>>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuExecvpe(file.rawAddress.toString(), argv.rawAddress.toString(), environment.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getgrgidR(gid: GidT, grp: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_getgrgidR(gid.toInt(), (grp?.value ?: 0L).toString(), (buf?.value ?: 0L).toString(), buflen.toString(), (result?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getgrgidR(gid: GidT, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuGetgrgidR(gid.toInt(), grp.rawAddress.toString(), buf.rawAddress.toString(), buflen.toString(), result.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getgrouplist(user: String?, basegroup: GidT, grouplist: COpaquePointer?, groupcount: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_getgrouplist(user, basegroup.toInt(), (grouplist?.value ?: 0L).toString(), (groupcount?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getgrouplist(user: ConstPtr<CChar>, basegroup: GidT, grouplist: MutPtr<GidT>, groupcount: MutPtr<CInt>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuGetgrouplist(user.rawAddress.toString(), basegroup.toInt(), grouplist.rawAddress.toString(), groupcount.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigaltstack(ss: COpaquePointer?, oss: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_sigaltstack((ss?.value ?: 0L).toString(), (oss?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sigaltstack(ss: ConstPtr<StackT>, oss: MutPtr<StackT>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuSigaltstack(ss.rawAddress.toString(), oss.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigsuspend(mask: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_sigsuspend((mask?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sigsuspend(mask: ConstPtr<SigsetT>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuSigsuspend(mask.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semClose(sem: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_semClose((sem?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun semClose(sem: MutPtr<SemT>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuSemClose(sem.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun getdtablesize(): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_getdtablesize() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuGetdtablesize() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getgrnamR(name: String?, grp: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_getgrnamR(name, (grp?.value ?: 0L).toString(), (buf?.value ?: 0L).toString(), buflen.toString(), (result?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getgrnamR(name: ConstPtr<CChar>, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuGetgrnamR(name.rawAddress.toString(), grp.rawAddress.toString(), buf.rawAddress.toString(), buflen.toString(), result.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadSigmask(how: CInt, set: COpaquePointer?, oldset: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_pthreadSigmask(how, (set?.value ?: 0L).toString(), (oldset?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadSigmask(how: CInt, set: ConstPtr<SigsetT>, oldset: MutPtr<SigsetT>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuPthreadSigmask(how, set.rawAddress.toString(), oldset.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_semOpen(name, oflag, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun semOpen(name: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): MutPtr<SemT> =
+    if (unixHaikuNapiAvailable) MutPtr(wasmLibcUnixHaikuSemOpen(name.rawAddress.toString(), oflag, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getgrnam(name: String?): COpaquePointer? =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_getgrnam(name).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getgrnam(name: ConstPtr<CChar>): MutPtr<Group> =
+    if (unixHaikuNapiAvailable) MutPtr(wasmLibcUnixHaikuGetgrnam(name.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun pthreadKill(thread: PthreadT, sig: CInt): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_pthreadKill(thread.toLong().toString(), sig) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuPthreadKill(thread.toLong().toString(), sig) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semUnlink(name: String?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_semUnlink(name) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun semUnlink(name: ConstPtr<CChar>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuSemUnlink(name.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getpwnamR(name: String?, pwd: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_getpwnamR(name, (pwd?.value ?: 0L).toString(), (buf?.value ?: 0L).toString(), buflen.toString(), (result?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getpwnamR(name: ConstPtr<CChar>, pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuGetpwnamR(name.rawAddress.toString(), pwd.rawAddress.toString(), buf.rawAddress.toString(), buflen.toString(), result.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getpwuidR(uid: UidT, pwd: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_getpwuidR(uid.toInt(), (pwd?.value ?: 0L).toString(), (buf?.value ?: 0L).toString(), buflen.toString(), (result?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getpwuidR(uid: UidT, pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuGetpwuidR(uid.toInt(), pwd.rawAddress.toString(), buf.rawAddress.toString(), buflen.toString(), result.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getpwent(): COpaquePointer? =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_getpwent().toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getpwent(): MutPtr<Passwd> =
+    if (unixHaikuNapiAvailable) MutPtr(wasmLibcUnixHaikuGetpwent().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun setpwent() {
-    if (_unixHaikuNapiAvailable) {
-        _wasm_libc_unix_haiku_setpwent()
+    if (unixHaikuNapiAvailable) {
+        wasmLibcUnixHaikuSetpwent()
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
 public actual fun endpwent() {
-    if (_unixHaikuNapiAvailable) {
-        _wasm_libc_unix_haiku_endpwent()
+    if (unixHaikuNapiAvailable) {
+        wasmLibcUnixHaikuEndpwent()
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
 public actual fun endgrent() {
-    if (_unixHaikuNapiAvailable) {
-        _wasm_libc_unix_haiku_endgrent()
+    if (unixHaikuNapiAvailable) {
+        wasmLibcUnixHaikuEndgrent()
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun getgrent(): COpaquePointer? =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_getgrent().toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getgrent(): MutPtr<Group> =
+    if (unixHaikuNapiAvailable) MutPtr(wasmLibcUnixHaikuGetgrent().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun setgrent() {
-    if (_unixHaikuNapiAvailable) {
-        _wasm_libc_unix_haiku_setgrent()
+    if (unixHaikuNapiAvailable) {
+        wasmLibcUnixHaikuSetgrent()
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun sigwait(set: COpaquePointer?, sig: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_sigwait((set?.value ?: 0L).toString(), (sig?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sigwait(set: ConstPtr<SigsetT>, sig: MutPtr<CInt>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuSigwait(set.rawAddress.toString(), sig.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun pthreadAtfork(prepare: PthreadAtforkPrepareCallback?, parent: PthreadAtforkPrepareCallback?, child: PthreadAtforkPrepareCallback?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_pthreadAtfork(0L.toString(), 0L.toString(), 0L.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuPthreadAtfork(0L.toString(), 0L.toString(), 0L.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getgrgid(gid: GidT): COpaquePointer? =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_getgrgid(gid.toInt()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getgrgid(gid: GidT): MutPtr<Group> =
+    if (unixHaikuNapiAvailable) MutPtr(wasmLibcUnixHaikuGetgrgid(gid.toInt()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun popen(command: String?, mode: String?): FILE? =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_popen(command, mode).toLong().let { if (it == 0L) null else FILE(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun popen(command: ConstPtr<CChar>, mode: ConstPtr<CChar>): MutPtr<FILE> =
+    if (unixHaikuNapiAvailable) MutPtr(wasmLibcUnixHaikuPopen(command.rawAddress.toString(), mode.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sethostname(name: String?, len: SizeT): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_sethostname(name, len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sethostname(name: ConstPtr<CChar>, len: SizeT): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuSethostname(name.rawAddress.toString(), len.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun uname(buf: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_uname((buf?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun uname(buf: MutPtr<Utsname>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuUname(buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getutxent(): COpaquePointer? =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_getutxent().toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getutxent(): MutPtr<Utmpx> =
+    if (unixHaikuNapiAvailable) MutPtr(wasmLibcUnixHaikuGetutxent().toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getutxid(ut: COpaquePointer?): COpaquePointer? =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_getutxid((ut?.value ?: 0L).toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getutxid(ut: ConstPtr<Utmpx>): MutPtr<Utmpx> =
+    if (unixHaikuNapiAvailable) MutPtr(wasmLibcUnixHaikuGetutxid(ut.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getutxline(ut: COpaquePointer?): COpaquePointer? =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_getutxline((ut?.value ?: 0L).toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getutxline(ut: ConstPtr<Utmpx>): MutPtr<Utmpx> =
+    if (unixHaikuNapiAvailable) MutPtr(wasmLibcUnixHaikuGetutxline(ut.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pututxline(ut: COpaquePointer?): COpaquePointer? =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_pututxline((ut?.value ?: 0L).toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pututxline(ut: ConstPtr<Utmpx>): MutPtr<Utmpx> =
+    if (unixHaikuNapiAvailable) MutPtr(wasmLibcUnixHaikuPututxline(ut.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun setutxent() {
-    if (_unixHaikuNapiAvailable) {
-        _wasm_libc_unix_haiku_setutxent()
+    if (unixHaikuNapiAvailable) {
+        wasmLibcUnixHaikuSetutxent()
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
 public actual fun endutxent() {
-    if (_unixHaikuNapiAvailable) {
-        _wasm_libc_unix_haiku_endutxent()
+    if (unixHaikuNapiAvailable) {
+        wasmLibcUnixHaikuEndutxent()
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_faccessat(dirfd, pathname, mode, flags) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun faccessat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: CInt, flags: CInt): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuFaccessat(dirfd, pathname.rawAddress.toString(), mode, flags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigtimedwait(set: COpaquePointer?, info: COpaquePointer?, timeout: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_sigtimedwait((set?.value ?: 0L).toString(), (info?.value ?: 0L).toString(), (timeout?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sigtimedwait(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>, timeout: ConstPtr<Timespec>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuSigtimedwait(set.rawAddress.toString(), info.rawAddress.toString(), timeout.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sigwaitinfo(set: COpaquePointer?, info: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_sigwaitinfo((set?.value ?: 0L).toString(), (info?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sigwaitinfo(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuSigwaitinfo(set.rawAddress.toString(), info.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getitimer(which: CInt, currValue: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_getitimer(which, (currValue?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getitimer(which: CInt, currValue: MutPtr<Itimerval>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuGetitimer(which, currValue.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setitimer(which: CInt, newValue: COpaquePointer?, oldValue: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_setitimer(which, (newValue?.value ?: 0L).toString(), (oldValue?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun setitimer(which: CInt, newValue: ConstPtr<Itimerval>, oldValue: MutPtr<Itimerval>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuSetitimer(which, newValue.rawAddress.toString(), oldValue.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun regcomp(preg: COpaquePointer?, pattern: String?, cflags: CInt): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_regcomp((preg?.value ?: 0L).toString(), pattern, cflags) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun regcomp(preg: MutPtr<RegexT>, pattern: ConstPtr<CChar>, cflags: CInt): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuRegcomp(preg.rawAddress.toString(), pattern.rawAddress.toString(), cflags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun regexec(preg: COpaquePointer?, input: String?, nmatch: SizeT, pmatch: COpaquePointer?, eflags: CInt): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_regexec((preg?.value ?: 0L).toString(), input, nmatch.toString(), (pmatch?.value ?: 0L).toString(), eflags) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun regexec(preg: ConstPtr<RegexT>, input: ConstPtr<CChar>, nmatch: SizeT, pmatch: MutPtr<RegmatchT>, eflags: CInt): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuRegexec(preg.rawAddress.toString(), input.rawAddress.toString(), nmatch.toString(), pmatch.rawAddress.toString(), eflags) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun regerror(errcode: CInt, preg: COpaquePointer?, errbuf: COpaquePointer?, errbufSize: SizeT): SizeT =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_regerror(errcode, (preg?.value ?: 0L).toString(), (errbuf?.value ?: 0L).toString(), errbufSize.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun regerror(errcode: CInt, preg: ConstPtr<RegexT>, errbuf: MutPtr<CChar>, errbufSize: SizeT): SizeT =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuRegerror(errcode, preg.rawAddress.toString(), errbuf.rawAddress.toString(), errbufSize.toString()).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun regfree(preg: COpaquePointer?) {
-    if (_unixHaikuNapiAvailable) {
-        _wasm_libc_unix_haiku_regfree((preg?.value ?: 0L).toString())
+public actual fun regfree(preg: MutPtr<RegexT>) {
+    if (unixHaikuNapiAvailable) {
+        wasmLibcUnixHaikuRegfree(preg.rawAddress.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun msgctl(msqid: CInt, cmd: CInt, buf: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_msgctl(msqid, cmd, (buf?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun msgctl(msqid: CInt, cmd: CInt, buf: MutPtr<MsqidDs>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuMsgctl(msqid, cmd, buf.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun msgget(key: KeyT, msgflg: CInt): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_msgget(key, msgflg) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuMsgget(key, msgflg) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgrcv(msqid: CInt, msgp: COpaquePointer?, msgsz: SizeT, msgtype: CLong, msgflg: CInt): SsizeT =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_msgrcv(msqid, (msgp?.value ?: 0L).toString(), msgsz.toString(), msgtype.toString(), msgflg).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun msgrcv(msqid: CInt, msgp: MutPtr<CVoid>, msgsz: SizeT, msgtype: CLong, msgflg: CInt): SsizeT =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuMsgrcv(msqid, msgp.rawAddress.toString(), msgsz.toString(), msgtype.toString(), msgflg).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun msgsnd(msqid: CInt, msgp: COpaquePointer?, msgsz: SizeT, msgflg: CInt): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_msgsnd(msqid, (msgp?.value ?: 0L).toString(), msgsz.toString(), msgflg) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun msgsnd(msqid: CInt, msgp: ConstPtr<CVoid>, msgsz: SizeT, msgflg: CInt): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuMsgsnd(msqid, msgp.rawAddress.toString(), msgsz.toString(), msgflg) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun semget(key: KeyT, nsems: CInt, semflg: CInt): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_semget(key, nsems, semflg) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuSemget(key, nsems, semflg) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_semctl(semid, semnum, cmd, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuSemctl(semid, semnum, cmd, variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun semop(semid: CInt, sops: COpaquePointer?, nsops: SizeT): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_semop(semid, (sops?.value ?: 0L).toString(), nsops.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun semop(semid: CInt, sops: MutPtr<Sembuf>, nsops: SizeT): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuSemop(semid, sops.rawAddress.toString(), nsops.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ftok(pathname: String?, projId: CInt): KeyT =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_ftok(pathname, projId) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ftok(pathname: ConstPtr<CChar>, projId: CInt): KeyT =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuFtok(pathname.rawAddress.toString(), projId) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memrchr(cx: COpaquePointer?, c: CInt, n: SizeT): COpaquePointer? =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_memrchr((cx?.value ?: 0L).toString(), c, n.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun memrchr(cx: ConstPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+    if (unixHaikuNapiAvailable) MutPtr(wasmLibcUnixHaikuMemrchr(cx.rawAddress.toString(), c, n.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: LsearchComparCallback?): COpaquePointer? =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_lsearch((key?.value ?: 0L).toString(), (base?.value ?: 0L).toString(), (nelp?.value ?: 0L).toString(), width.toString(), 0L.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun lsearch(key: ConstPtr<CVoid>, base: MutPtr<CVoid>, nelp: MutPtr<SizeT>, width: SizeT, compar: LsearchComparCallback?): MutPtr<CVoid> =
+    if (unixHaikuNapiAvailable) MutPtr(wasmLibcUnixHaikuLsearch(key.rawAddress.toString(), base.rawAddress.toString(), nelp.rawAddress.toString(), width.toString(), 0L.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: LsearchComparCallback?): COpaquePointer? =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_lfind((key?.value ?: 0L).toString(), (base?.value ?: 0L).toString(), (nelp?.value ?: 0L).toString(), width.toString(), 0L.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun lfind(key: ConstPtr<CVoid>, base: ConstPtr<CVoid>, nelp: MutPtr<SizeT>, width: SizeT, compar: LsearchComparCallback?): MutPtr<CVoid> =
+    if (unixHaikuNapiAvailable) MutPtr(wasmLibcUnixHaikuLfind(key.rawAddress.toString(), base.rawAddress.toString(), nelp.rawAddress.toString(), width.toString(), 0L.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun hcreate(nelt: SizeT): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_hcreate(nelt.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuHcreate(nelt.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun hdestroy() {
-    if (_unixHaikuNapiAvailable) {
-        _wasm_libc_unix_haiku_hdestroy()
+    if (unixHaikuNapiAvailable) {
+        wasmLibcUnixHaikuHdestroy()
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun hsearch(entry: Entry, action: Action): COpaquePointer? =
+public actual fun hsearch(entry: Entry, action: Action): MutPtr<Entry> =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun drand48(): CDouble =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_drand48() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuDrand48() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun erand48(xseed: COpaquePointer?): CDouble =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_erand48((xseed?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun erand48(xseed: MutPtr<CUshort>): CDouble =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuErand48(xseed.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun lrand48(): CLong =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_lrand48().toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuLrand48().toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun nrand48(xseed: COpaquePointer?): CLong =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_nrand48((xseed?.value ?: 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun nrand48(xseed: MutPtr<CUshort>): CLong =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuNrand48(xseed.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun mrand48(): CLong =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_mrand48().toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuMrand48().toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun jrand48(xseed: COpaquePointer?): CLong =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_jrand48((xseed?.value ?: 0L).toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun jrand48(xseed: MutPtr<CUshort>): CLong =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuJrand48(xseed.rawAddress.toString()).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun srand48(seed: CLong) {
-    if (_unixHaikuNapiAvailable) {
-        _wasm_libc_unix_haiku_srand48(seed.toString())
+    if (unixHaikuNapiAvailable) {
+        wasmLibcUnixHaikuSrand48(seed.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun seed48(xseed: COpaquePointer?): COpaquePointer? =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_seed48((xseed?.value ?: 0L).toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun seed48(xseed: MutPtr<CUshort>): MutPtr<CUshort> =
+    if (unixHaikuNapiAvailable) MutPtr(wasmLibcUnixHaikuSeed48(xseed.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun lcong48(p: COpaquePointer?) {
-    if (_unixHaikuNapiAvailable) {
-        _wasm_libc_unix_haiku_lcong48((p?.value ?: 0L).toString())
+public actual fun lcong48(p: MutPtr<CUshort>) {
+    if (unixHaikuNapiAvailable) {
+        wasmLibcUnixHaikuLcong48(p.rawAddress.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
 public actual fun clearenv(): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_clearenv() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuClearenv() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ctermid(s: COpaquePointer?): COpaquePointer? =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_ctermid((s?.value ?: 0L).toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ctermid(s: MutPtr<CChar>): MutPtr<CChar> =
+    if (unixHaikuNapiAvailable) MutPtr(wasmLibcUnixHaikuCtermid(s.rawAddress.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sync() {
-    if (_unixHaikuNapiAvailable) {
-        _wasm_libc_unix_haiku_sync()
+    if (unixHaikuNapiAvailable) {
+        wasmLibcUnixHaikuSync()
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
 public actual fun getpagesize(): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_getpagesize() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuGetpagesize() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun brk(addr: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_brk((addr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun brk(addr: MutPtr<CVoid>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuBrk(addr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sbrk(increment: IntptrT): COpaquePointer? =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_sbrk(increment.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sbrk(increment: IntptrT): MutPtr<CVoid> =
+    if (unixHaikuNapiAvailable) MutPtr(wasmLibcUnixHaikuSbrk(increment.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawn(pid: COpaquePointer?, path: String?, fileActions: COpaquePointer?, attrp: COpaquePointer?, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_posixSpawn((pid?.value ?: 0L).toString(), path, (fileActions?.value ?: 0L).toString(), (attrp?.value ?: 0L).toString(), (argv?.value ?: 0L).toString(), (envp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawn(pid: MutPtr<PidT>, path: ConstPtr<CChar>, fileActions: ConstPtr<PosixSpawnFileActionsT>, attrp: ConstPtr<PosixSpawnattrT>, argv: ConstPtr<MutPtr<CChar>>, envp: ConstPtr<MutPtr<CChar>>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuPosixSpawn(pid.rawAddress.toString(), path.rawAddress.toString(), fileActions.rawAddress.toString(), attrp.rawAddress.toString(), argv.rawAddress.toString(), envp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnp(pid: COpaquePointer?, file: String?, fileActions: COpaquePointer?, attrp: COpaquePointer?, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_posixSpawnp((pid?.value ?: 0L).toString(), file, (fileActions?.value ?: 0L).toString(), (attrp?.value ?: 0L).toString(), (argv?.value ?: 0L).toString(), (envp?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnp(pid: MutPtr<PidT>, file: ConstPtr<CChar>, fileActions: ConstPtr<PosixSpawnFileActionsT>, attrp: ConstPtr<PosixSpawnattrT>, argv: ConstPtr<MutPtr<CChar>>, envp: ConstPtr<MutPtr<CChar>>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuPosixSpawnp(pid.rawAddress.toString(), file.rawAddress.toString(), fileActions.rawAddress.toString(), attrp.rawAddress.toString(), argv.rawAddress.toString(), envp.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnFileActionsInit(fileActions: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_posixSpawnFileActionsInit((fileActions?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnFileActionsInit(fileActions: MutPtr<PosixSpawnFileActionsT>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuPosixSpawnFileActionsInit(fileActions.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnFileActionsDestroy(fileActions: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_posixSpawnFileActionsDestroy((fileActions?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnFileActionsDestroy(fileActions: MutPtr<PosixSpawnFileActionsT>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuPosixSpawnFileActionsDestroy(fileActions.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnFileActionsAddopen(fileActions: COpaquePointer?, fildes: CInt, path: String?, oflag: CInt, mode: ModeT): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_posixSpawnFileActionsAddopen((fileActions?.value ?: 0L).toString(), fildes, path, oflag, mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnFileActionsAddopen(fileActions: MutPtr<PosixSpawnFileActionsT>, fildes: CInt, path: ConstPtr<CChar>, oflag: CInt, mode: ModeT): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuPosixSpawnFileActionsAddopen(fileActions.rawAddress.toString(), fildes, path.rawAddress.toString(), oflag, mode.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnFileActionsAddclose(fileActions: COpaquePointer?, fildes: CInt): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_posixSpawnFileActionsAddclose((fileActions?.value ?: 0L).toString(), fildes) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnFileActionsAddclose(fileActions: MutPtr<PosixSpawnFileActionsT>, fildes: CInt): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuPosixSpawnFileActionsAddclose(fileActions.rawAddress.toString(), fildes) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnFileActionsAdddup2(fileActions: COpaquePointer?, fildes: CInt, newfildes: CInt): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_posixSpawnFileActionsAdddup2((fileActions?.value ?: 0L).toString(), fildes, newfildes) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnFileActionsAdddup2(fileActions: MutPtr<PosixSpawnFileActionsT>, fildes: CInt, newfildes: CInt): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuPosixSpawnFileActionsAdddup2(fileActions.rawAddress.toString(), fildes, newfildes) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrInit(attr: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_posixSpawnattrInit((attr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrInit(attr: MutPtr<PosixSpawnattrT>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuPosixSpawnattrInit(attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrDestroy(attr: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_posixSpawnattrDestroy((attr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrDestroy(attr: MutPtr<PosixSpawnattrT>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuPosixSpawnattrDestroy(attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrGetflags(attr: COpaquePointer?, flags: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_posixSpawnattrGetflags((attr?.value ?: 0L).toString(), (flags?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrGetflags(attr: ConstPtr<PosixSpawnattrT>, flags: MutPtr<CShort>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuPosixSpawnattrGetflags(attr.rawAddress.toString(), flags.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrSetflags(attr: COpaquePointer?, flags: CShort): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_posixSpawnattrSetflags((attr?.value ?: 0L).toString(), flags.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrSetflags(attr: MutPtr<PosixSpawnattrT>, flags: CShort): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuPosixSpawnattrSetflags(attr.rawAddress.toString(), flags.toInt()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrGetpgroup(attr: COpaquePointer?, pgroup: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_posixSpawnattrGetpgroup((attr?.value ?: 0L).toString(), (pgroup?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrGetpgroup(attr: ConstPtr<PosixSpawnattrT>, pgroup: MutPtr<PidT>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuPosixSpawnattrGetpgroup(attr.rawAddress.toString(), pgroup.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrSetpgroup(attr: COpaquePointer?, pgroup: PidT): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_posixSpawnattrSetpgroup((attr?.value ?: 0L).toString(), pgroup) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrSetpgroup(attr: MutPtr<PosixSpawnattrT>, pgroup: PidT): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuPosixSpawnattrSetpgroup(attr.rawAddress.toString(), pgroup) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrGetsigdefault(attr: COpaquePointer?, sigdefault: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_posixSpawnattrGetsigdefault((attr?.value ?: 0L).toString(), (sigdefault?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrGetsigdefault(attr: ConstPtr<PosixSpawnattrT>, sigdefault: MutPtr<SigsetT>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuPosixSpawnattrGetsigdefault(attr.rawAddress.toString(), sigdefault.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrSetsigdefault(attr: COpaquePointer?, sigdefault: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_posixSpawnattrSetsigdefault((attr?.value ?: 0L).toString(), (sigdefault?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrSetsigdefault(attr: MutPtr<PosixSpawnattrT>, sigdefault: ConstPtr<SigsetT>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuPosixSpawnattrSetsigdefault(attr.rawAddress.toString(), sigdefault.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrGetsigmask(attr: COpaquePointer?, sigmask: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_posixSpawnattrGetsigmask((attr?.value ?: 0L).toString(), (sigmask?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrGetsigmask(attr: ConstPtr<PosixSpawnattrT>, sigmask: MutPtr<SigsetT>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuPosixSpawnattrGetsigmask(attr.rawAddress.toString(), sigmask.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnattrSetsigmask(attr: COpaquePointer?, sigmask: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_posixSpawnattrSetsigmask((attr?.value ?: 0L).toString(), (sigmask?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnattrSetsigmask(attr: MutPtr<PosixSpawnattrT>, sigmask: ConstPtr<SigsetT>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuPosixSpawnattrSetsigmask(attr.rawAddress.toString(), sigmask.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getoptLong(argc: CInt, argv: COpaquePointer?, optstring: String?, longopts: COpaquePointer?, longindex: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_getoptLong(argc, (argv?.value ?: 0L).toString(), optstring, (longopts?.value ?: 0L).toString(), (longindex?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getoptLong(argc: CInt, argv: ConstPtr<MutPtr<CChar>>, optstring: ConstPtr<CChar>, longopts: ConstPtr<Option>, longindex: MutPtr<CInt>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuGetoptLong(argc, argv.rawAddress.toString(), optstring.rawAddress.toString(), longopts.rawAddress.toString(), longindex.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strcasecmpL(string1: String?, string2: String?, locale: LocaleT): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_strcasecmpL(string1, string2, (locale?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strcasecmpL(string1: ConstPtr<CChar>, string2: ConstPtr<CChar>, locale: LocaleT): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuStrcasecmpL(string1.rawAddress.toString(), string2.rawAddress.toString(), locale.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun strncasecmpL(string1: String?, string2: String?, length: SizeT, locale: LocaleT): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_strncasecmpL(string1, string2, length.toString(), (locale?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun strncasecmpL(string1: ConstPtr<CChar>, string2: ConstPtr<CChar>, length: SizeT, locale: LocaleT): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuStrncasecmpL(string1.rawAddress.toString(), string2.rawAddress.toString(), length.toString(), locale.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getentropy(buf: COpaquePointer?, buflen: SizeT): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_getentropy((buf?.value ?: 0L).toString(), buflen.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getentropy(buf: MutPtr<CVoid>, buflen: SizeT): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuGetentropy(buf.rawAddress.toString(), buflen.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memmem(source: COpaquePointer?, sourceLength: SizeT, search: COpaquePointer?, searchLength: SizeT): COpaquePointer? =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_memmem((source?.value ?: 0L).toString(), sourceLength.toString(), (search?.value ?: 0L).toString(), searchLength.toString()).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun memmem(source: ConstPtr<CVoid>, sourceLength: SizeT, search: ConstPtr<CVoid>, searchLength: SizeT): MutPtr<CVoid> =
+    if (unixHaikuNapiAvailable) MutPtr(wasmLibcUnixHaikuMemmem(source.rawAddress.toString(), sourceLength.toString(), search.rawAddress.toString(), searchLength.toString()).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadGetattrNp(thread: PthreadT, attr: COpaquePointer?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_pthreadGetattrNp(thread.toLong().toString(), (attr?.value ?: 0L).toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadGetattrNp(thread: PthreadT, attr: MutPtr<PthreadAttrT>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuPthreadGetattrNp(thread.toLong().toString(), attr.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadGetnameNp(thread: PthreadT, buffer: COpaquePointer?, length: SizeT): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_pthreadGetnameNp(thread.toLong().toString(), (buffer?.value ?: 0L).toString(), length.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadGetnameNp(thread: PthreadT, buffer: MutPtr<CChar>, length: SizeT): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuPthreadGetnameNp(thread.toLong().toString(), buffer.rawAddress.toString(), length.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadSetnameNp(thread: PthreadT, name: String?): CInt =
-    if (_unixHaikuNapiAvailable) _wasm_libc_unix_haiku_pthreadSetnameNp(thread.toLong().toString(), name) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadSetnameNp(thread: PthreadT, name: ConstPtr<CChar>): CInt =
+    if (unixHaikuNapiAvailable) wasmLibcUnixHaikuPthreadSetnameNp(thread.toLong().toString(), name.rawAddress.toString()) else throw UnsupportedOperationException("Native FFI addon is not available")

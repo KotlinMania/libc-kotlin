@@ -4,7 +4,7 @@
 #include <dlfcn.h>
 #endif
 
-void* libc_new_qurt_dlfcn_dlopen(const char* filename, int32_t flag) {
+void* libcNewQurtDlfcnDlopen(const char* filename, int32_t flag) {
 #if !defined(_WIN32)
     return (void*)dlopen(filename, flag);
 #else
@@ -15,7 +15,7 @@ void* libc_new_qurt_dlfcn_dlopen(const char* filename, int32_t flag) {
 #endif
 }
 
-int32_t libc_new_qurt_dlfcn_dlclose(void* handle) {
+int32_t libcNewQurtDlfcnDlclose(void* handle) {
 #if !defined(_WIN32)
     return (int32_t)dlclose(handle);
 #else
@@ -25,7 +25,7 @@ int32_t libc_new_qurt_dlfcn_dlclose(void* handle) {
 #endif
 }
 
-void* libc_new_qurt_dlfcn_dlsym(void* handle, const char* symbol) {
+void* libcNewQurtDlfcnDlsym(void* handle, const char* symbol) {
 #if !defined(_WIN32)
     return (void*)dlsym(handle, symbol);
 #else
@@ -36,7 +36,7 @@ void* libc_new_qurt_dlfcn_dlsym(void* handle, const char* symbol) {
 #endif
 }
 
-char* libc_new_qurt_dlfcn_dlerror(void) {
+char* libcNewQurtDlfcnDlerror(void) {
 #if !defined(_WIN32)
     return (char*)dlerror();
 #else

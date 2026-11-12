@@ -6,6 +6,8 @@ import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUshort
 import io.github.kotlinmania.libc.new.qurt.SaFamilyT
+import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+import io.github.kotlinmania.rustlang.core.mem.TypeLayout
 
 // Header: `uapi / linux / netlink.h`
 
@@ -68,7 +70,30 @@ public data class Nlmsghdr(
     public var nlmsgFlags: UShort = 0u,
     public var nlmsgSeq: UInt = 0u,
     public var nlmsgPid: UInt = 0u,
-)
+) {
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<Nlmsghdr> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<Nlmsghdr> {
+                override val sizeBytes: Long = 16L
+                override val alignBytes: Long = 4L
+                override fun readNative(addr: Long): Nlmsghdr =
+                    Nlmsghdr(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr + 4L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr + 6L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 8L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 12L),
+                    )
+                override fun writeNative(addr: Long, value: Nlmsghdr) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr, value.nlmsgLen)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr + 4L, value.nlmsgType)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr + 6L, value.nlmsgFlags)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 8L, value.nlmsgSeq)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 12L, value.nlmsgPid)
+                }
+            }
+    }
+}
 
 public val NLM_F_REQUEST: CInt = 1
 
@@ -117,7 +142,24 @@ public val NLMSG_MIN_TYPE: CInt = 0x10
 public data class Nlmsgerr(
     public var error: CInt = 0,
     public var msg: Nlmsghdr = Nlmsghdr(),
-)
+) {
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<Nlmsgerr> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<Nlmsgerr> {
+                override val sizeBytes: Long = 20L
+                override val alignBytes: Long = 4L
+                override fun readNative(addr: Long): Nlmsgerr =
+                    Nlmsgerr(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).readNative(addr),
+                        (Nlmsghdr.typeLayout()).readNative(addr + 4L),
+                    )
+                override fun writeNative(addr: Long, value: Nlmsgerr) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.I32).writeNative(addr, value.error)
+                    (Nlmsghdr.typeLayout()).writeNative(addr + 4L, value.msg)
+                }
+            }
+    }
+}
 
 public val NETLINK_ADD_MEMBERSHIP: CInt = 1
 
@@ -145,14 +187,50 @@ public val NETLINK_GET_STRICT_CHK: CInt = 12
 
 public data class NlPktinfo(
     public var group: UInt = 0u,
-)
+) {
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<NlPktinfo> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<NlPktinfo> {
+                override val sizeBytes: Long = 4L
+                override val alignBytes: Long = 4L
+                override fun readNative(addr: Long): NlPktinfo =
+                    NlPktinfo(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr),
+                    )
+                override fun writeNative(addr: Long, value: NlPktinfo) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr, value.group)
+                }
+            }
+    }
+}
 
 public data class NlMmapReq(
     public var nmBlockSize: CUint = 0u,
     public var nmBlockNr: CUint = 0u,
     public var nmFrameSize: CUint = 0u,
     public var nmFrameNr: CUint = 0u,
-)
+) {
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<NlMmapReq> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<NlMmapReq> {
+                override val sizeBytes: Long = 16L
+                override val alignBytes: Long = 4L
+                override fun readNative(addr: Long): NlMmapReq =
+                    NlMmapReq(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 4L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 8L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 12L),
+                    )
+                override fun writeNative(addr: Long, value: NlMmapReq) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr, value.nmBlockSize)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 4L, value.nmBlockNr)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 8L, value.nmFrameSize)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 12L, value.nmFrameNr)
+                }
+            }
+    }
+}
 
 public data class NlMmapHdr(
     public var nmStatus: CUint = 0u,
@@ -161,12 +239,54 @@ public data class NlMmapHdr(
     public var nmPid: UInt = 0u,
     public var nmUid: UInt = 0u,
     public var nmGid: UInt = 0u,
-)
+) {
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<NlMmapHdr> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<NlMmapHdr> {
+                override val sizeBytes: Long = 24L
+                override val alignBytes: Long = 4L
+                override fun readNative(addr: Long): NlMmapHdr =
+                    NlMmapHdr(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 4L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 8L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 12L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 16L),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr + 20L),
+                    )
+                override fun writeNative(addr: Long, value: NlMmapHdr) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr, value.nmStatus)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 4L, value.nmLen)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 8L, value.nmGroup)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 12L, value.nmPid)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 16L, value.nmUid)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr + 20L, value.nmGid)
+                }
+            }
+    }
+}
 
 public data class Nlattr(
     public var nlaLen: UShort = 0u,
     public var nlaType: UShort = 0u,
-)
+) {
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<Nlattr> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<Nlattr> {
+                override val sizeBytes: Long = 4L
+                override val alignBytes: Long = 2L
+                override fun readNative(addr: Long): Nlattr =
+                    Nlattr(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr),
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).readNative(addr + 2L),
+                    )
+                override fun writeNative(addr: Long, value: Nlattr) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr, value.nlaLen)
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U16).writeNative(addr + 2L, value.nlaType)
+                }
+            }
+    }
+}
 
 public val NLA_F_NESTED: CInt = 1 shl 15
 

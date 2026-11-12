@@ -16,12 +16,29 @@ import io.github.kotlinmania.libc.unix.newlib.ModeT
 import io.github.kotlinmania.libc.unix.newlib.NlinkT
 import io.github.kotlinmania.libc.unix.newlib.OffT
 import io.github.kotlinmania.libc.unix.newlib.TimeT
+import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+import io.github.kotlinmania.rustlang.core.mem.TypeLayout
 
 // Common types used by most newlib platforms
 
 public data class SigsetT(
     public var value: UInt = 0u,
-)
+) {
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<SigsetT> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<SigsetT> {
+                override val sizeBytes: Long = 4L
+                override val alignBytes: Long = 4L
+                override fun readNative(addr: Long): SigsetT =
+                    SigsetT(
+                        (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).readNative(addr),
+                    )
+                override fun writeNative(addr: Long, value: SigsetT) {
+                    (io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.U32).writeNative(addr, value.value)
+                }
+            }
+    }
+}
 
 public class Stat(
     public var stDev: DevT = 0,

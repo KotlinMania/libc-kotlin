@@ -51,11 +51,9 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_new_netbsd_utmp_utmpname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewNetbsdUtmpUtmpname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool file_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string file_str = file_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* file = file_null ? nullptr : file_str.c_str();
+    const char* file = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -107,7 +105,7 @@ static Napi::Value libc_new_netbsd_utmp_utmpname_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_netbsd_utmp_setutent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewNetbsdUtmpSetutent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -158,7 +156,7 @@ static Napi::Value libc_new_netbsd_utmp_setutent_napi(const Napi::CallbackInfo& 
     return km_env.Undefined();
 }
 
-static Napi::Value libc_new_netbsd_utmp_getutent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewNetbsdUtmpGetutent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -209,7 +207,7 @@ static Napi::Value libc_new_netbsd_utmp_getutent_napi(const Napi::CallbackInfo& 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_new_netbsd_utmp_endutent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewNetbsdUtmpEndutent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -261,10 +259,10 @@ static Napi::Value libc_new_netbsd_utmp_endutent_napi(const Napi::CallbackInfo& 
 }
 
 static void register_new_netbsd_utmp_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_new_netbsd_utmp_utmpname", Napi::Function::New(env, libc_new_netbsd_utmp_utmpname_napi));
-    exports.Set("libc_new_netbsd_utmp_setutent", Napi::Function::New(env, libc_new_netbsd_utmp_setutent_napi));
-    exports.Set("libc_new_netbsd_utmp_getutent", Napi::Function::New(env, libc_new_netbsd_utmp_getutent_napi));
-    exports.Set("libc_new_netbsd_utmp_endutent", Napi::Function::New(env, libc_new_netbsd_utmp_endutent_napi));
+    exports.Set("libcNewNetbsdUtmpUtmpname", Napi::Function::New(env, libcNewNetbsdUtmpUtmpname_napi));
+    exports.Set("libcNewNetbsdUtmpSetutent", Napi::Function::New(env, libcNewNetbsdUtmpSetutent_napi));
+    exports.Set("libcNewNetbsdUtmpGetutent", Napi::Function::New(env, libcNewNetbsdUtmpGetutent_napi));
+    exports.Set("libcNewNetbsdUtmpEndutent", Napi::Function::New(env, libcNewNetbsdUtmpEndutent_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_new_netbsd_utmp_napi, nullptr };

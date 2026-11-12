@@ -1,13 +1,14 @@
 package io.github.kotlinmania.libc.unix.newlib.horizon
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CLonglong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUshort
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public typealias WcharT = CUint
 
@@ -31,7 +32,7 @@ public typealias ClockT = CUlong
 
 public typealias DaddrT = CLong
 
-public typealias CaddrT = COpaquePointer?
+public typealias CaddrT = MutPtr<CChar>
 
 public typealias SbintimeT = CLonglong
 

@@ -11,7 +11,7 @@ public val SOL_CAN_RAW: CInt = SOL_CAN_BASE + CAN_RAW
 
 public val CAN_RAW_FILTER_MAX: CInt = 512
 
-// Note(cleanup): use `cEnum !`, which needs to be adapted to allow omitting a type.
+// Note(cleanup): use `cEnum`, which needs to be adapted to allow omitting a type.
 public val CAN_RAW_FILTER: CInt = 1
 
 public val CAN_RAW_ERR_FILTER: CInt = 2

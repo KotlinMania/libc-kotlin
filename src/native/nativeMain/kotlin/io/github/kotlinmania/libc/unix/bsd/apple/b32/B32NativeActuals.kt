@@ -2,9 +2,13 @@
 
 package io.github.kotlinmania.libc.unix.bsd.apple.b32
 
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CUlong
-import io.github.kotlinmania.libc.unix.bsd.apple.b32.cinterop.libc_unix_bsd_apple_b32_exchangedata
+import io.github.kotlinmania.libc.unix.bsd.apple.b32.cinterop.libcUnixBsdAppleB32Exchangedata
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import kotlinx.cinterop.ByteVar
+import kotlinx.cinterop.toCPointer
 
-public actual fun exchangedata(path1: String?, path2: String?, options: CUlong): CInt =
-    libc_unix_bsd_apple_b32_exchangedata(path1, path2, options)
+public actual fun exchangedata(path1: ConstPtr<CChar>, path2: ConstPtr<CChar>, options: CUlong): CInt =
+    libcUnixBsdAppleB32Exchangedata(path1.rawAddress.toCPointer<ByteVar>(), path2.rawAddress.toCPointer<ByteVar>(), options)

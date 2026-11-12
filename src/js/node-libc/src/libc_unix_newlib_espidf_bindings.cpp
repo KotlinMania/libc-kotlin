@@ -51,7 +51,7 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_unix_newlib_espidf_pthreadCreate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNewlibEspidfPthreadCreate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* native = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -87,7 +87,7 @@ static Napi::Value libc_unix_newlib_espidf_pthreadCreate_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_newlib_espidf_getrandom_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNewlibEspidfGetrandom_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t buflen = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -122,7 +122,7 @@ static Napi::Value libc_unix_newlib_espidf_getrandom_napi(const Napi::CallbackIn
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_newlib_espidf_gethostname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNewlibEspidfGethostname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* name = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int64_t namelen = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
@@ -154,7 +154,7 @@ static Napi::Value libc_unix_newlib_espidf_gethostname_napi(const Napi::Callback
     return km_env.Undefined();
 }
 
-static Napi::Value libc_unix_newlib_espidf_sendmsg_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNewlibEspidfSendmsg_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t s = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* msg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -189,7 +189,7 @@ static Napi::Value libc_unix_newlib_espidf_sendmsg_napi(const Napi::CallbackInfo
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_newlib_espidf_recvmsg_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNewlibEspidfRecvmsg_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t s = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* msg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -224,7 +224,7 @@ static Napi::Value libc_unix_newlib_espidf_recvmsg_napi(const Napi::CallbackInfo
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_newlib_espidf_eventfd_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNewlibEspidfEventfd_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t initval = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -259,12 +259,12 @@ static Napi::Value libc_unix_newlib_espidf_eventfd_napi(const Napi::CallbackInfo
 }
 
 static void register_unix_newlib_espidf_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_unix_newlib_espidf_pthreadCreate", Napi::Function::New(env, libc_unix_newlib_espidf_pthreadCreate_napi));
-    exports.Set("libc_unix_newlib_espidf_getrandom", Napi::Function::New(env, libc_unix_newlib_espidf_getrandom_napi));
-    exports.Set("libc_unix_newlib_espidf_gethostname", Napi::Function::New(env, libc_unix_newlib_espidf_gethostname_napi));
-    exports.Set("libc_unix_newlib_espidf_sendmsg", Napi::Function::New(env, libc_unix_newlib_espidf_sendmsg_napi));
-    exports.Set("libc_unix_newlib_espidf_recvmsg", Napi::Function::New(env, libc_unix_newlib_espidf_recvmsg_napi));
-    exports.Set("libc_unix_newlib_espidf_eventfd", Napi::Function::New(env, libc_unix_newlib_espidf_eventfd_napi));
+    exports.Set("libcUnixNewlibEspidfPthreadCreate", Napi::Function::New(env, libcUnixNewlibEspidfPthreadCreate_napi));
+    exports.Set("libcUnixNewlibEspidfGetrandom", Napi::Function::New(env, libcUnixNewlibEspidfGetrandom_napi));
+    exports.Set("libcUnixNewlibEspidfGethostname", Napi::Function::New(env, libcUnixNewlibEspidfGethostname_napi));
+    exports.Set("libcUnixNewlibEspidfSendmsg", Napi::Function::New(env, libcUnixNewlibEspidfSendmsg_napi));
+    exports.Set("libcUnixNewlibEspidfRecvmsg", Napi::Function::New(env, libcUnixNewlibEspidfRecvmsg_napi));
+    exports.Set("libcUnixNewlibEspidfEventfd", Napi::Function::New(env, libcUnixNewlibEspidfEventfd_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_unix_newlib_espidf_napi, nullptr };

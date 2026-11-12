@@ -3,1466 +3,1470 @@
 package io.github.kotlinmania.libc.vxworks
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CDouble
 import io.github.kotlinmania.libc.CFloat
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CLonglong
-import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
 import io.github.kotlinmania.libc.vxworks.aarch64.WcharT
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_abort
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_accept
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_access
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_alarm
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_alignedAlloc
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_atexit
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_atof
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_atoi
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_atol
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_atoll
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_bind
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_calloc
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_cfgetospeed
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_cfmakeraw
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_cfsetispeed
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_cfsetospeed
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_chdir
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_chmod
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_chown
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_clockGetres
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_clockGettime
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_clockNanosleep
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_clockSettime
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_close
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_closedir
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_closelog
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_confstr
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_connect
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_creat
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_difftime
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_dladdr
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_dlclose
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_dlerror
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_dlopen
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_dlsym
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_dup
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_dup2
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_errnoGet
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_errnoSet
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_exit
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_fchdir
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_fchmod
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_fchmodat
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_fchown
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_fchownat
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_fclose
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_fcntl
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_fdopen
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_feof
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_ferror
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_fflush
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_fgetc
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_fgetpos
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_fgets
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_fileno
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_fnmatch
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_fopen
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_fpathconf
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_fprintf
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_fputc
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_fputs
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_fread
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_free
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_freeaddrinfo
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_freopen
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_fscanf
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_fseek
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_fseeko
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_fsetpos
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_fstat
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_fsync
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_ftell
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_ftello
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_ftruncate
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_futimens
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_fwrite
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_gaiStrerror
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_getaddrinfo
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_getchar
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_getcharUnlocked
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_getcwd
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_getegid
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_getenv
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_geteuid
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_getgid
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_getgroups
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_gethostname
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_getline
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_getlogin
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_getopt
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_getpeername
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_getpid
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_getppid
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_getprotobyname
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_getprotobynumber
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_getservbyname
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_getsockname
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_getsockopt
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_gettimeofday
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_getuid
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_gmtime
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_gmtimeR
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_ioctl
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_isalnum
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_isalpha
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_isatty
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_isblank
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_iscntrl
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_isdigit
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_isgraph
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_islower
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_isprint
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_ispunct
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_isspace
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_isupper
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_isxdigit
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_kill
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_link
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_linkat
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_listen
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_localeconv
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_localtime
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_localtimeR
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_lseek
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_lstat
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_malloc
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_memalign
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_memccpy
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_memchr
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_memcmp
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_memcpy
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_memmove
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_memset
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_mkdir
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_mkdtemp
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_mkfifo
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_mkstemp
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_mktime
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_mlock
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_mlockall
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_mmap
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_mprotect
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_mqClose
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_mqGetattr
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_mqOpen
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_mqReceive
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_mqSend
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_mqSetattr
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_mqTimedreceive
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_mqTimedsend
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_mqUnlink
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_msync
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_munlock
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_munlockall
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_munmap
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_nanosleep
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_open
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_opendir
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_openlog
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pathIsAbsolute
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pathconf
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pause
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pclose
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_perror
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pipe
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_poll
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_printf
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadAtfork
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadAttrDestroy
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadAttrGetname
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadAttrGetstacksize
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadAttrInit
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadAttrSetdetachstate
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadAttrSetinheritsched
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadAttrSetname
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadAttrSetschedpolicy
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadAttrSetstacksize
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadCondBroadcast
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadCondDestroy
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadCondInit
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadCondSignal
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadCondTimedwait
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadCondWait
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadCondattrDestroy
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadCondattrGetclock
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadCondattrInit
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadCondattrSetclock
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadCreate
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadDetach
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadEqual
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadExit
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadGetschedparam
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadGetspecific
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadJoin
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadKeyCreate
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadKeyDelete
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadMutexDestroy
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadMutexInit
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadMutexLock
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadMutexTimedlock
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadMutexTrylock
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadMutexUnlock
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadMutexattrDestroy
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadMutexattrInit
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadMutexattrSettype
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadRwlockDestroy
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadRwlockInit
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadRwlockRdlock
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadRwlockTimedrdlock
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadRwlockTimedwrlock
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadRwlockTryrdlock
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadRwlockTrywrlock
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadRwlockUnlock
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadRwlockWrlock
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadRwlockattrDestroy
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadRwlockattrInit
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadRwlockattrSetmaxreaders
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadSelf
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadSetschedparam
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadSetspecific
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_pthreadSigmask
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_putchar
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_putcharUnlocked
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_putenv
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_puts
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_raise
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_randABytes
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_randBytes
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_randSecure
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_randUBytes
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_read
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_readdir
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_readdirR
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_readlink
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_readv
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_realloc
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_realpath
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_recv
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_recvfrom
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_recvmsg
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_remove
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_rename
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_rewind
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_rewinddir
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_rmdir
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_rtpInfoGet
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_rtpSpawn
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_scanf
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_schedGetPriorityMax
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_schedGetPriorityMin
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_schedGetparam
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_schedGetscheduler
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_schedRrGetInterval
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_schedSetparam
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_schedSetscheduler
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_schedYield
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_send
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_sendmsg
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_sendto
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_setbuf
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_setegid
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_setenv
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_seteuid
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_setgid
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_setlocale
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_setlogmask
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_setpgid
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_setsockopt
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_setuid
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_setvbuf
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_shmOpen
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_shmUnlink
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_shutdown
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_sigaction
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_sigaddset
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_sigdelset
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_sigemptyset
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_sigfillset
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_sigismember
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_signal
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_sigpending
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_sigprocmask
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_sleep
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_snprintf
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_socket
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_sprintf
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_sscanf
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_stat
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_strcasecmp
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_strcat
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_strchr
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_strcmp
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_strcoll
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_strcpy
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_strcspn
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_strdup
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_strerror
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_strerrorR
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_strlen
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_strncasecmp
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_strncat
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_strncmp
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_strncpy
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_strnlen
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_strpbrk
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_strrchr
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_strspn
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_strstr
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_strtod
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_strtof
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_strtok
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_strtol
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_strtoll
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_strtoul
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_strtoull
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_strxfrm
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_symlink
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_symlinkat
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_sysconf
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_syslog
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_system
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_taskDelay
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_taskIdSelf
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_taskKill
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_taskNameGet
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_taskNameSet
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_tcflush
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_tcgetattr
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_tcsendbreak
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_tcsetattr
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_time
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_timegm
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_times
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_tmpfile
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_tmpnam
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_tolower
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_toupper
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_truncate
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_ttyname
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_umask
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_uname
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_ungetc
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_unlink
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_unlinkat
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_unsetenv
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_usleep
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_utime
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_utimensat
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_utimes
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_vxCpuConfiguredGet
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_vxCpuEnabledGet
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_wait
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_waitpid
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_wcslen
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_wcstombs
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_wmemchr
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_write
-import io.github.kotlinmania.libc.vxworks.cinterop.libc_vxworks_writev
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksAbort
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksAccept
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksAccess
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksAlarm
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksAlignedAlloc
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksAtexit
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksAtof
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksAtoi
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksAtol
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksAtoll
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksBind
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksCalloc
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksCfgetospeed
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksCfmakeraw
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksCfsetispeed
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksCfsetospeed
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksChdir
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksChmod
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksChown
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksClockGetres
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksClockGettime
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksClockNanosleep
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksClockSettime
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksClose
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksClosedir
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksCloselog
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksConfstr
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksConnect
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksCreat
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksDifftime
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksDladdr
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksDlclose
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksDlerror
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksDlopen
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksDlsym
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksDup
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksDup2
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksErrnoGet
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksErrnoSet
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksExit
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksFchdir
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksFchmod
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksFchmodat
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksFchown
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksFchownat
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksFclose
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksFcntl
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksFdopen
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksFeof
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksFerror
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksFflush
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksFgetc
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksFgetpos
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksFgets
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksFileno
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksFnmatch
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksFopen
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksFpathconf
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksFprintf
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksFputc
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksFputs
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksFread
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksFree
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksFreeaddrinfo
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksFreopen
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksFscanf
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksFseek
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksFseeko
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksFsetpos
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksFstat
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksFsync
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksFtell
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksFtello
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksFtruncate
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksFutimens
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksFwrite
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksGaiStrerror
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksGetaddrinfo
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksGetchar
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksGetcharUnlocked
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksGetcwd
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksGetegid
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksGetenv
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksGeteuid
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksGetgid
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksGetgroups
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksGethostname
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksGetline
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksGetlogin
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksGetopt
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksGetpeername
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksGetpid
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksGetppid
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksGetprotobyname
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksGetprotobynumber
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksGetservbyname
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksGetsockname
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksGetsockopt
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksGettimeofday
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksGetuid
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksGmtime
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksGmtimeR
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksIoctl
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksIsalnum
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksIsalpha
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksIsatty
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksIsblank
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksIscntrl
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksIsdigit
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksIsgraph
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksIslower
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksIsprint
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksIspunct
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksIsspace
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksIsupper
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksIsxdigit
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksKill
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksLink
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksLinkat
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksListen
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksLocaleconv
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksLocaltime
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksLocaltimeR
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksLseek
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksLstat
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksMalloc
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksMemalign
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksMemccpy
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksMemchr
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksMemcmp
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksMemcpy
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksMemmove
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksMemset
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksMkdir
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksMkdtemp
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksMkfifo
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksMkstemp
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksMktime
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksMlock
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksMlockall
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksMmap
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksMprotect
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksMqClose
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksMqGetattr
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksMqOpen
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksMqReceive
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksMqSend
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksMqSetattr
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksMqTimedreceive
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksMqTimedsend
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksMqUnlink
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksMsync
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksMunlock
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksMunlockall
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksMunmap
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksNanosleep
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksOpen
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksOpendir
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksOpenlog
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPathIsAbsolute
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPathconf
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPause
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPclose
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPerror
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPipe
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPoll
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPrintf
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadAtfork
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadAttrDestroy
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadAttrGetname
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadAttrGetstacksize
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadAttrInit
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadAttrSetdetachstate
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadAttrSetinheritsched
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadAttrSetname
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadAttrSetschedpolicy
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadAttrSetstacksize
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadCondBroadcast
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadCondDestroy
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadCondInit
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadCondSignal
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadCondTimedwait
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadCondWait
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadCondattrDestroy
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadCondattrGetclock
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadCondattrInit
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadCondattrSetclock
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadCreate
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadDetach
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadEqual
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadExit
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadGetschedparam
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadGetspecific
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadJoin
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadKeyCreate
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadKeyDelete
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadMutexDestroy
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadMutexInit
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadMutexLock
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadMutexTimedlock
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadMutexTrylock
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadMutexUnlock
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadMutexattrDestroy
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadMutexattrInit
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadMutexattrSettype
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadRwlockDestroy
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadRwlockInit
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadRwlockRdlock
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadRwlockTimedrdlock
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadRwlockTimedwrlock
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadRwlockTryrdlock
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadRwlockTrywrlock
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadRwlockUnlock
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadRwlockWrlock
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadRwlockattrDestroy
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadRwlockattrInit
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadRwlockattrSetmaxreaders
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadSelf
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadSetschedparam
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadSetspecific
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPthreadSigmask
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPutchar
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPutcharUnlocked
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPutenv
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksPuts
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksRaise
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksRandABytes
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksRandBytes
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksRandSecure
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksRandUBytes
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksRead
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksReaddir
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksReaddirR
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksReadlink
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksReadv
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksRealloc
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksRealpath
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksRecv
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksRecvfrom
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksRecvmsg
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksRemove
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksRename
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksRewind
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksRewinddir
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksRmdir
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksRtpInfoGet
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksRtpSpawn
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksScanf
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksSchedGetPriorityMax
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksSchedGetPriorityMin
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksSchedGetparam
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksSchedGetscheduler
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksSchedRrGetInterval
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksSchedSetparam
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksSchedSetscheduler
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksSchedYield
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksSend
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksSendmsg
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksSendto
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksSetbuf
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksSetegid
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksSetenv
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksSeteuid
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksSetgid
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksSetlocale
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksSetlogmask
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksSetpgid
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksSetsockopt
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksSetuid
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksSetvbuf
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksShmOpen
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksShmUnlink
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksShutdown
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksSigaction
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksSigaddset
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksSigdelset
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksSigemptyset
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksSigfillset
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksSigismember
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksSignal
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksSigpending
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksSigprocmask
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksSleep
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksSnprintf
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksSocket
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksSprintf
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksSscanf
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksStat
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksStrcasecmp
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksStrcat
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksStrchr
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksStrcmp
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksStrcoll
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksStrcpy
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksStrcspn
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksStrdup
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksStrerror
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksStrerrorR
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksStrlen
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksStrncasecmp
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksStrncat
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksStrncmp
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksStrncpy
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksStrnlen
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksStrpbrk
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksStrrchr
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksStrspn
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksStrstr
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksStrtod
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksStrtof
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksStrtok
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksStrtol
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksStrtoll
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksStrtoul
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksStrtoull
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksStrxfrm
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksSymlink
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksSymlinkat
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksSysconf
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksSyslog
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksSystem
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksTaskDelay
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksTaskIdSelf
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksTaskKill
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksTaskNameGet
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksTaskNameSet
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksTcflush
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksTcgetattr
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksTcsendbreak
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksTcsetattr
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksTime
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksTimegm
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksTimes
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksTmpfile
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksTmpnam
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksTolower
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksToupper
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksTruncate
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksTtyname
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksUmask
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksUname
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksUngetc
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksUnlink
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksUnlinkat
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksUnsetenv
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksUsleep
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksUtime
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksUtimensat
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksUtimes
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksVxCpuConfiguredGet
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksVxCpuEnabledGet
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksWait
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksWaitpid
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksWcslen
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksWcstombs
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksWmemchr
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksWrite
+import io.github.kotlinmania.libc.vxworks.cinterop.libcVxworksWritev
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
 
 public actual fun isalnum(c: CInt): CInt =
-    libc_vxworks_isalnum(c)
+    libcVxworksIsalnum(c)
 
 public actual fun isalpha(c: CInt): CInt =
-    libc_vxworks_isalpha(c)
+    libcVxworksIsalpha(c)
 
 public actual fun iscntrl(c: CInt): CInt =
-    libc_vxworks_iscntrl(c)
+    libcVxworksIscntrl(c)
 
 public actual fun isdigit(c: CInt): CInt =
-    libc_vxworks_isdigit(c)
+    libcVxworksIsdigit(c)
 
 public actual fun isgraph(c: CInt): CInt =
-    libc_vxworks_isgraph(c)
+    libcVxworksIsgraph(c)
 
 public actual fun islower(c: CInt): CInt =
-    libc_vxworks_islower(c)
+    libcVxworksIslower(c)
 
 public actual fun isprint(c: CInt): CInt =
-    libc_vxworks_isprint(c)
+    libcVxworksIsprint(c)
 
 public actual fun ispunct(c: CInt): CInt =
-    libc_vxworks_ispunct(c)
+    libcVxworksIspunct(c)
 
 public actual fun isspace(c: CInt): CInt =
-    libc_vxworks_isspace(c)
+    libcVxworksIsspace(c)
 
 public actual fun isupper(c: CInt): CInt =
-    libc_vxworks_isupper(c)
+    libcVxworksIsupper(c)
 
 public actual fun isxdigit(c: CInt): CInt =
-    libc_vxworks_isxdigit(c)
+    libcVxworksIsxdigit(c)
 
 public actual fun isblank(c: CInt): CInt =
-    libc_vxworks_isblank(c)
+    libcVxworksIsblank(c)
 
 public actual fun tolower(c: CInt): CInt =
-    libc_vxworks_tolower(c)
+    libcVxworksTolower(c)
 
 public actual fun toupper(c: CInt): CInt =
-    libc_vxworks_toupper(c)
+    libcVxworksToupper(c)
 
-public actual fun fopen(filename: String?, mode: String?): FILE? =
-    libc_vxworks_fopen(filename, mode)?.let { FILE(it.toLong()) }
+public actual fun fopen(filename: ConstPtr<CChar>, mode: ConstPtr<CChar>): MutPtr<FILE> =
+    MutPtr(libcVxworksFopen(filename.rawAddress.toCPointer<ByteVar>(), mode.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun freopen(filename: String?, mode: String?, file: FILE?): FILE? =
-    libc_vxworks_freopen(filename, mode, file?.handle?.toCPointer<ByteVar>())?.let { FILE(it.toLong()) }
+public actual fun freopen(filename: ConstPtr<CChar>, mode: ConstPtr<CChar>, file: MutPtr<FILE>): MutPtr<FILE> =
+    MutPtr(libcVxworksFreopen(filename.rawAddress.toCPointer<ByteVar>(), mode.rawAddress.toCPointer<ByteVar>(), file.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun fflush(file: FILE?): CInt =
-    libc_vxworks_fflush(file?.handle?.toCPointer<ByteVar>())
+public actual fun fflush(file: MutPtr<FILE>): CInt =
+    libcVxworksFflush(file.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fclose(file: FILE?): CInt =
-    libc_vxworks_fclose(file?.handle?.toCPointer<ByteVar>())
+public actual fun fclose(file: MutPtr<FILE>): CInt =
+    libcVxworksFclose(file.rawAddress.toCPointer<ByteVar>())
 
-public actual fun remove(filename: String?): CInt =
-    libc_vxworks_remove(filename)
+public actual fun remove(filename: ConstPtr<CChar>): CInt =
+    libcVxworksRemove(filename.rawAddress.toCPointer<ByteVar>())
 
-public actual fun rename(oldname: String?, newname: String?): CInt =
-    libc_vxworks_rename(oldname, newname)
+public actual fun rename(oldname: ConstPtr<CChar>, newname: ConstPtr<CChar>): CInt =
+    libcVxworksRename(oldname.rawAddress.toCPointer<ByteVar>(), newname.rawAddress.toCPointer<ByteVar>())
 
-public actual fun tmpfile(): FILE? =
-    libc_vxworks_tmpfile()?.let { FILE(it.toLong()) }
+public actual fun tmpfile(): MutPtr<FILE> =
+    MutPtr(libcVxworksTmpfile()?.toLong() ?: 0L)
 
-public actual fun setvbuf(stream: FILE?, buffer: COpaquePointer?, mode: CInt, size: SizeT): CInt =
-    libc_vxworks_setvbuf(stream?.handle?.toCPointer<ByteVar>(), buffer?.value?.toCPointer<ByteVar>(), mode, size)
+public actual fun setvbuf(stream: MutPtr<FILE>, buffer: MutPtr<CChar>, mode: CInt, size: SizeT): CInt =
+    libcVxworksSetvbuf(stream.rawAddress.toCPointer<ByteVar>(), buffer.rawAddress.toCPointer<ByteVar>(), mode, size)
 
-public actual fun setbuf(stream: FILE?, buf: COpaquePointer?) {
-    libc_vxworks_setbuf(stream?.handle?.toCPointer<ByteVar>(), buf?.value?.toCPointer<ByteVar>())
+public actual fun setbuf(stream: MutPtr<FILE>, buf: MutPtr<CChar>) {
+    libcVxworksSetbuf(stream.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>())
 }
 
 public actual fun getchar(): CInt =
-    libc_vxworks_getchar()
+    libcVxworksGetchar()
 
 public actual fun putchar(c: CInt): CInt =
-    libc_vxworks_putchar(c)
+    libcVxworksPutchar(c)
 
-public actual fun fgetc(stream: FILE?): CInt =
-    libc_vxworks_fgetc(stream?.handle?.toCPointer<ByteVar>())
+public actual fun fgetc(stream: MutPtr<FILE>): CInt =
+    libcVxworksFgetc(stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fgets(buf: COpaquePointer?, n: CInt, stream: FILE?): COpaquePointer? =
-    libc_vxworks_fgets(buf?.value?.toCPointer<ByteVar>(), n, stream?.handle?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun fgets(buf: MutPtr<CChar>, n: CInt, stream: MutPtr<FILE>): MutPtr<CChar> =
+    MutPtr(libcVxworksFgets(buf.rawAddress.toCPointer<ByteVar>(), n, stream.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun fputc(c: CInt, stream: FILE?): CInt =
-    libc_vxworks_fputc(c, stream?.handle?.toCPointer<ByteVar>())
+public actual fun fputc(c: CInt, stream: MutPtr<FILE>): CInt =
+    libcVxworksFputc(c, stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fputs(s: String?, stream: FILE?): CInt =
-    libc_vxworks_fputs(s, stream?.handle?.toCPointer<ByteVar>())
+public actual fun fputs(s: ConstPtr<CChar>, stream: MutPtr<FILE>): CInt =
+    libcVxworksFputs(s.rawAddress.toCPointer<ByteVar>(), stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun puts(s: String?): CInt =
-    libc_vxworks_puts(s)
+public actual fun puts(s: ConstPtr<CChar>): CInt =
+    libcVxworksPuts(s.rawAddress.toCPointer<ByteVar>())
 
-public actual fun ungetc(c: CInt, stream: FILE?): CInt =
-    libc_vxworks_ungetc(c, stream?.handle?.toCPointer<ByteVar>())
+public actual fun ungetc(c: CInt, stream: MutPtr<FILE>): CInt =
+    libcVxworksUngetc(c, stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fread(ptr: COpaquePointer?, size: SizeT, nobj: SizeT, stream: FILE?): SizeT =
-    libc_vxworks_fread(ptr?.value?.toCPointer<ByteVar>(), size, nobj, stream?.handle?.toCPointer<ByteVar>())
+public actual fun fread(ptr: MutPtr<CVoid>, size: SizeT, nobj: SizeT, stream: MutPtr<FILE>): SizeT =
+    libcVxworksFread(ptr.rawAddress.toCPointer<ByteVar>(), size, nobj, stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fwrite(ptr: COpaquePointer?, size: SizeT, nobj: SizeT, stream: FILE?): SizeT =
-    libc_vxworks_fwrite(ptr?.value?.toCPointer<ByteVar>(), size, nobj, stream?.handle?.toCPointer<ByteVar>())
+public actual fun fwrite(ptr: ConstPtr<CVoid>, size: SizeT, nobj: SizeT, stream: MutPtr<FILE>): SizeT =
+    libcVxworksFwrite(ptr.rawAddress.toCPointer<ByteVar>(), size, nobj, stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fseek(stream: FILE?, offset: CLong, whence: CInt): CInt =
-    libc_vxworks_fseek(stream?.handle?.toCPointer<ByteVar>(), offset, whence)
+public actual fun fseek(stream: MutPtr<FILE>, offset: CLong, whence: CInt): CInt =
+    libcVxworksFseek(stream.rawAddress.toCPointer<ByteVar>(), offset, whence)
 
-public actual fun ftell(stream: FILE?): CLong =
-    libc_vxworks_ftell(stream?.handle?.toCPointer<ByteVar>())
+public actual fun ftell(stream: MutPtr<FILE>): CLong =
+    libcVxworksFtell(stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun rewind(stream: FILE?) {
-    libc_vxworks_rewind(stream?.handle?.toCPointer<ByteVar>())
+public actual fun rewind(stream: MutPtr<FILE>) {
+    libcVxworksRewind(stream.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun fgetpos(stream: FILE?, ptr: COpaquePointer?): CInt =
-    libc_vxworks_fgetpos(stream?.handle?.toCPointer<ByteVar>(), ptr?.value?.toCPointer<ByteVar>())
+public actual fun fgetpos(stream: MutPtr<FILE>, ptr: MutPtr<FposT>): CInt =
+    libcVxworksFgetpos(stream.rawAddress.toCPointer<ByteVar>(), ptr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fsetpos(stream: FILE?, ptr: COpaquePointer?): CInt =
-    libc_vxworks_fsetpos(stream?.handle?.toCPointer<ByteVar>(), ptr?.value?.toCPointer<ByteVar>())
+public actual fun fsetpos(stream: MutPtr<FILE>, ptr: ConstPtr<FposT>): CInt =
+    libcVxworksFsetpos(stream.rawAddress.toCPointer<ByteVar>(), ptr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun feof(stream: FILE?): CInt =
-    libc_vxworks_feof(stream?.handle?.toCPointer<ByteVar>())
+public actual fun feof(stream: MutPtr<FILE>): CInt =
+    libcVxworksFeof(stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun ferror(stream: FILE?): CInt =
-    libc_vxworks_ferror(stream?.handle?.toCPointer<ByteVar>())
+public actual fun ferror(stream: MutPtr<FILE>): CInt =
+    libcVxworksFerror(stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun perror(s: String?) {
-    libc_vxworks_perror(s)
+public actual fun perror(s: ConstPtr<CChar>) {
+    libcVxworksPerror(s.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun atof(s: String?): CDouble =
-    libc_vxworks_atof(s)
+public actual fun atof(s: ConstPtr<CChar>): CDouble =
+    libcVxworksAtof(s.rawAddress.toCPointer<ByteVar>())
 
-public actual fun atoi(s: String?): CInt =
-    libc_vxworks_atoi(s)
+public actual fun atoi(s: ConstPtr<CChar>): CInt =
+    libcVxworksAtoi(s.rawAddress.toCPointer<ByteVar>())
 
-public actual fun atol(s: String?): CLong =
-    libc_vxworks_atol(s)
+public actual fun atol(s: ConstPtr<CChar>): CLong =
+    libcVxworksAtol(s.rawAddress.toCPointer<ByteVar>())
 
-public actual fun atoll(s: String?): CLonglong =
-    libc_vxworks_atoll(s)
+public actual fun atoll(s: ConstPtr<CChar>): CLonglong =
+    libcVxworksAtoll(s.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strtod(s: String?, endp: COpaquePointer?): CDouble =
-    libc_vxworks_strtod(s, endp?.value?.toCPointer<ByteVar>())
+public actual fun strtod(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>): CDouble =
+    libcVxworksStrtod(s.rawAddress.toCPointer<ByteVar>(), endp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strtof(s: String?, endp: COpaquePointer?): CFloat =
-    libc_vxworks_strtof(s, endp?.value?.toCPointer<ByteVar>())
+public actual fun strtof(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>): CFloat =
+    libcVxworksStrtof(s.rawAddress.toCPointer<ByteVar>(), endp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strtol(s: String?, endp: COpaquePointer?, base: CInt): CLong =
-    libc_vxworks_strtol(s, endp?.value?.toCPointer<ByteVar>(), base)
+public actual fun strtol(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CLong =
+    libcVxworksStrtol(s.rawAddress.toCPointer<ByteVar>(), endp.rawAddress.toCPointer<ByteVar>(), base)
 
-public actual fun strtoll(s: String?, endp: COpaquePointer?, base: CInt): CLonglong =
-    libc_vxworks_strtoll(s, endp?.value?.toCPointer<ByteVar>(), base)
+public actual fun strtoll(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CLonglong =
+    libcVxworksStrtoll(s.rawAddress.toCPointer<ByteVar>(), endp.rawAddress.toCPointer<ByteVar>(), base)
 
-public actual fun strtoul(s: String?, endp: COpaquePointer?, base: CInt): CUlong =
-    libc_vxworks_strtoul(s, endp?.value?.toCPointer<ByteVar>(), base)
+public actual fun strtoul(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CUlong =
+    libcVxworksStrtoul(s.rawAddress.toCPointer<ByteVar>(), endp.rawAddress.toCPointer<ByteVar>(), base)
 
-public actual fun strtoull(s: String?, endp: COpaquePointer?, base: CInt): CUlonglong =
-    libc_vxworks_strtoull(s, endp?.value?.toCPointer<ByteVar>(), base)
+public actual fun strtoull(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CUlonglong =
+    libcVxworksStrtoull(s.rawAddress.toCPointer<ByteVar>(), endp.rawAddress.toCPointer<ByteVar>(), base)
 
-public actual fun calloc(nobj: SizeT, size: SizeT): COpaquePointer? =
-    libc_vxworks_calloc(nobj, size)?.let { COpaquePointer(it.toLong()) }
+public actual fun calloc(nobj: SizeT, size: SizeT): MutPtr<CVoid> =
+    MutPtr(libcVxworksCalloc(nobj, size)?.toLong() ?: 0L)
 
-public actual fun malloc(size: SizeT): COpaquePointer? =
-    libc_vxworks_malloc(size)?.let { COpaquePointer(it.toLong()) }
+public actual fun malloc(size: SizeT): MutPtr<CVoid> =
+    MutPtr(libcVxworksMalloc(size)?.toLong() ?: 0L)
 
-public actual fun realloc(p: COpaquePointer?, size: SizeT): COpaquePointer? =
-    libc_vxworks_realloc(p?.value?.toCPointer<ByteVar>(), size)?.let { COpaquePointer(it.toLong()) }
+public actual fun realloc(p: MutPtr<CVoid>, size: SizeT): MutPtr<CVoid> =
+    MutPtr(libcVxworksRealloc(p.rawAddress.toCPointer<ByteVar>(), size)?.toLong() ?: 0L)
 
-public actual fun free(p: COpaquePointer?) {
-    libc_vxworks_free(p?.value?.toCPointer<ByteVar>())
+public actual fun free(p: MutPtr<CVoid>) {
+    libcVxworksFree(p.rawAddress.toCPointer<ByteVar>())
 }
 
 public actual fun abort(): Nothing {
-    libc_vxworks_abort()
+    libcVxworksAbort()
     error("Unreachable noreturn C function abort")
 }
 
 public actual fun exit(status: CInt): Nothing {
-    libc_vxworks_exit(status)
+    libcVxworksExit(status)
     error("Unreachable noreturn C function exit")
 }
 
 public actual fun atexit(cb: AtexitCbCallback): CInt =
-    libc_vxworks_atexit(0L.toCPointer<ByteVar>())
+    libcVxworksAtexit(0L.toCPointer<ByteVar>())
 
-public actual fun system(s: String?): CInt =
-    libc_vxworks_system(s)
+public actual fun system(s: ConstPtr<CChar>): CInt =
+    libcVxworksSystem(s.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getenv(s: String?): COpaquePointer? =
-    libc_vxworks_getenv(s)?.let { COpaquePointer(it.toLong()) }
+public actual fun getenv(s: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcVxworksGetenv(s.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun cfgetospeed(termios: COpaquePointer?): SpeedT =
-    libc_vxworks_cfgetospeed(termios?.value?.toCPointer<ByteVar>())
+public actual fun cfgetospeed(termios: ConstPtr<Termios>): SpeedT =
+    libcVxworksCfgetospeed(termios.rawAddress.toCPointer<ByteVar>())
 
-public actual fun cfmakeraw(termios: COpaquePointer?): CInt =
-    libc_vxworks_cfmakeraw(termios?.value?.toCPointer<ByteVar>())
+public actual fun cfmakeraw(termios: MutPtr<Termios>): CInt =
+    libcVxworksCfmakeraw(termios.rawAddress.toCPointer<ByteVar>())
 
-public actual fun cfsetispeed(termios: COpaquePointer?, speed: SpeedT): CInt =
-    libc_vxworks_cfsetispeed(termios?.value?.toCPointer<ByteVar>(), speed)
+public actual fun cfsetispeed(termios: MutPtr<Termios>, speed: SpeedT): CInt =
+    libcVxworksCfsetispeed(termios.rawAddress.toCPointer<ByteVar>(), speed)
 
-public actual fun cfsetospeed(termios: COpaquePointer?, speed: SpeedT): CInt =
-    libc_vxworks_cfsetospeed(termios?.value?.toCPointer<ByteVar>(), speed)
+public actual fun cfsetospeed(termios: MutPtr<Termios>, speed: SpeedT): CInt =
+    libcVxworksCfsetospeed(termios.rawAddress.toCPointer<ByteVar>(), speed)
 
-public actual fun strcpy(dst: COpaquePointer?, src: String?): COpaquePointer? =
-    libc_vxworks_strcpy(dst?.value?.toCPointer<ByteVar>(), src)?.let { COpaquePointer(it.toLong()) }
+public actual fun strcpy(dst: MutPtr<CChar>, src: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcVxworksStrcpy(dst.rawAddress.toCPointer<ByteVar>(), src.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strncpy(dst: COpaquePointer?, src: String?, n: SizeT): COpaquePointer? =
-    libc_vxworks_strncpy(dst?.value?.toCPointer<ByteVar>(), src, n)?.let { COpaquePointer(it.toLong()) }
+public actual fun strncpy(dst: MutPtr<CChar>, src: ConstPtr<CChar>, n: SizeT): MutPtr<CChar> =
+    MutPtr(libcVxworksStrncpy(dst.rawAddress.toCPointer<ByteVar>(), src.rawAddress.toCPointer<ByteVar>(), n)?.toLong() ?: 0L)
 
-public actual fun strcat(s: COpaquePointer?, ct: String?): COpaquePointer? =
-    libc_vxworks_strcat(s?.value?.toCPointer<ByteVar>(), ct)?.let { COpaquePointer(it.toLong()) }
+public actual fun strcat(s: MutPtr<CChar>, ct: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcVxworksStrcat(s.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strncat(s: COpaquePointer?, ct: String?, n: SizeT): COpaquePointer? =
-    libc_vxworks_strncat(s?.value?.toCPointer<ByteVar>(), ct, n)?.let { COpaquePointer(it.toLong()) }
+public actual fun strncat(s: MutPtr<CChar>, ct: ConstPtr<CChar>, n: SizeT): MutPtr<CChar> =
+    MutPtr(libcVxworksStrncat(s.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>(), n)?.toLong() ?: 0L)
 
-public actual fun strcmp(cs: String?, ct: String?): CInt =
-    libc_vxworks_strcmp(cs, ct)
+public actual fun strcmp(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): CInt =
+    libcVxworksStrcmp(cs.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strncmp(cs: String?, ct: String?, n: SizeT): CInt =
-    libc_vxworks_strncmp(cs, ct, n)
+public actual fun strncmp(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>, n: SizeT): CInt =
+    libcVxworksStrncmp(cs.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>(), n)
 
-public actual fun strcoll(cs: String?, ct: String?): CInt =
-    libc_vxworks_strcoll(cs, ct)
+public actual fun strcoll(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): CInt =
+    libcVxworksStrcoll(cs.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strchr(cs: String?, c: CInt): COpaquePointer? =
-    libc_vxworks_strchr(cs, c)?.let { COpaquePointer(it.toLong()) }
+public actual fun strchr(cs: ConstPtr<CChar>, c: CInt): MutPtr<CChar> =
+    MutPtr(libcVxworksStrchr(cs.rawAddress.toCPointer<ByteVar>(), c)?.toLong() ?: 0L)
 
-public actual fun strrchr(cs: String?, c: CInt): COpaquePointer? =
-    libc_vxworks_strrchr(cs, c)?.let { COpaquePointer(it.toLong()) }
+public actual fun strrchr(cs: ConstPtr<CChar>, c: CInt): MutPtr<CChar> =
+    MutPtr(libcVxworksStrrchr(cs.rawAddress.toCPointer<ByteVar>(), c)?.toLong() ?: 0L)
 
-public actual fun strspn(cs: String?, ct: String?): SizeT =
-    libc_vxworks_strspn(cs, ct)
+public actual fun strspn(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): SizeT =
+    libcVxworksStrspn(cs.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strcspn(cs: String?, ct: String?): SizeT =
-    libc_vxworks_strcspn(cs, ct)
+public actual fun strcspn(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): SizeT =
+    libcVxworksStrcspn(cs.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strdup(cs: String?): COpaquePointer? =
-    libc_vxworks_strdup(cs)?.let { COpaquePointer(it.toLong()) }
+public actual fun strdup(cs: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcVxworksStrdup(cs.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strpbrk(cs: String?, ct: String?): COpaquePointer? =
-    libc_vxworks_strpbrk(cs, ct)?.let { COpaquePointer(it.toLong()) }
+public actual fun strpbrk(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcVxworksStrpbrk(cs.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strstr(cs: String?, ct: String?): COpaquePointer? =
-    libc_vxworks_strstr(cs, ct)?.let { COpaquePointer(it.toLong()) }
+public actual fun strstr(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcVxworksStrstr(cs.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strcasecmp(s1: String?, s2: String?): CInt =
-    libc_vxworks_strcasecmp(s1, s2)
+public actual fun strcasecmp(s1: ConstPtr<CChar>, s2: ConstPtr<CChar>): CInt =
+    libcVxworksStrcasecmp(s1.rawAddress.toCPointer<ByteVar>(), s2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strncasecmp(s1: String?, s2: String?, n: SizeT): CInt =
-    libc_vxworks_strncasecmp(s1, s2, n)
+public actual fun strncasecmp(s1: ConstPtr<CChar>, s2: ConstPtr<CChar>, n: SizeT): CInt =
+    libcVxworksStrncasecmp(s1.rawAddress.toCPointer<ByteVar>(), s2.rawAddress.toCPointer<ByteVar>(), n)
 
-public actual fun strlen(cs: String?): SizeT =
-    libc_vxworks_strlen(cs)
+public actual fun strlen(cs: ConstPtr<CChar>): SizeT =
+    libcVxworksStrlen(cs.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strnlen(cs: String?, n: SizeT): SizeT =
-    libc_vxworks_strnlen(cs, n)
+public actual fun strnlen(cs: ConstPtr<CChar>, n: SizeT): SizeT =
+    libcVxworksStrnlen(cs.rawAddress.toCPointer<ByteVar>(), n)
 
-public actual fun strerror(n: CInt): COpaquePointer? =
-    libc_vxworks_strerror(n)?.let { COpaquePointer(it.toLong()) }
+public actual fun strerror(n: CInt): MutPtr<CChar> =
+    MutPtr(libcVxworksStrerror(n)?.toLong() ?: 0L)
 
-public actual fun strtok(s: COpaquePointer?, t: String?): COpaquePointer? =
-    libc_vxworks_strtok(s?.value?.toCPointer<ByteVar>(), t)?.let { COpaquePointer(it.toLong()) }
+public actual fun strtok(s: MutPtr<CChar>, t: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcVxworksStrtok(s.rawAddress.toCPointer<ByteVar>(), t.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strxfrm(s: COpaquePointer?, ct: String?, n: SizeT): SizeT =
-    libc_vxworks_strxfrm(s?.value?.toCPointer<ByteVar>(), ct, n)
+public actual fun strxfrm(s: MutPtr<CChar>, ct: ConstPtr<CChar>, n: SizeT): SizeT =
+    libcVxworksStrxfrm(s.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>(), n)
 
-public actual fun wcslen(buf: COpaquePointer?): SizeT =
-    libc_vxworks_wcslen(buf?.value?.toCPointer<ByteVar>())
+public actual fun wcslen(buf: ConstPtr<WcharT>): SizeT =
+    libcVxworksWcslen(buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun wcstombs(dest: COpaquePointer?, src: COpaquePointer?, n: SizeT): SizeT =
-    libc_vxworks_wcstombs(dest?.value?.toCPointer<ByteVar>(), src?.value?.toCPointer<ByteVar>(), n)
+public actual fun wcstombs(dest: MutPtr<CChar>, src: ConstPtr<WcharT>, n: SizeT): SizeT =
+    libcVxworksWcstombs(dest.rawAddress.toCPointer<ByteVar>(), src.rawAddress.toCPointer<ByteVar>(), n)
 
-public actual fun memchr(cx: COpaquePointer?, c: CInt, n: SizeT): COpaquePointer? =
-    libc_vxworks_memchr(cx?.value?.toCPointer<ByteVar>(), c, n)?.let { COpaquePointer(it.toLong()) }
+public actual fun memchr(cx: ConstPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+    MutPtr(libcVxworksMemchr(cx.rawAddress.toCPointer<ByteVar>(), c, n)?.toLong() ?: 0L)
 
-public actual fun wmemchr(cx: COpaquePointer?, c: WcharT, n: SizeT): COpaquePointer? =
-    libc_vxworks_wmemchr(cx?.value?.toCPointer<ByteVar>(), c, n)?.let { COpaquePointer(it.toLong()) }
+public actual fun wmemchr(cx: ConstPtr<WcharT>, c: WcharT, n: SizeT): MutPtr<WcharT> =
+    MutPtr(libcVxworksWmemchr(cx.rawAddress.toCPointer<ByteVar>(), c, n)?.toLong() ?: 0L)
 
-public actual fun memcmp(cx: COpaquePointer?, ct: COpaquePointer?, n: SizeT): CInt =
-    libc_vxworks_memcmp(cx?.value?.toCPointer<ByteVar>(), ct?.value?.toCPointer<ByteVar>(), n)
+public actual fun memcmp(cx: ConstPtr<CVoid>, ct: ConstPtr<CVoid>, n: SizeT): CInt =
+    libcVxworksMemcmp(cx.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>(), n)
 
-public actual fun memcpy(dest: COpaquePointer?, src: COpaquePointer?, n: SizeT): COpaquePointer? =
-    libc_vxworks_memcpy(dest?.value?.toCPointer<ByteVar>(), src?.value?.toCPointer<ByteVar>(), n)?.let { COpaquePointer(it.toLong()) }
+public actual fun memcpy(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, n: SizeT): MutPtr<CVoid> =
+    MutPtr(libcVxworksMemcpy(dest.rawAddress.toCPointer<ByteVar>(), src.rawAddress.toCPointer<ByteVar>(), n)?.toLong() ?: 0L)
 
-public actual fun memccpy(dest: COpaquePointer?, src: COpaquePointer?, c: CInt, n: SizeT): COpaquePointer? =
-    libc_vxworks_memccpy(dest?.value?.toCPointer<ByteVar>(), src?.value?.toCPointer<ByteVar>(), c, n)?.let { COpaquePointer(it.toLong()) }
+public actual fun memccpy(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+    MutPtr(libcVxworksMemccpy(dest.rawAddress.toCPointer<ByteVar>(), src.rawAddress.toCPointer<ByteVar>(), c, n)?.toLong() ?: 0L)
 
-public actual fun memmove(dest: COpaquePointer?, src: COpaquePointer?, n: SizeT): COpaquePointer? =
-    libc_vxworks_memmove(dest?.value?.toCPointer<ByteVar>(), src?.value?.toCPointer<ByteVar>(), n)?.let { COpaquePointer(it.toLong()) }
+public actual fun memmove(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, n: SizeT): MutPtr<CVoid> =
+    MutPtr(libcVxworksMemmove(dest.rawAddress.toCPointer<ByteVar>(), src.rawAddress.toCPointer<ByteVar>(), n)?.toLong() ?: 0L)
 
-public actual fun memset(dest: COpaquePointer?, c: CInt, n: SizeT): COpaquePointer? =
-    libc_vxworks_memset(dest?.value?.toCPointer<ByteVar>(), c, n)?.let { COpaquePointer(it.toLong()) }
+public actual fun memset(dest: MutPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+    MutPtr(libcVxworksMemset(dest.rawAddress.toCPointer<ByteVar>(), c, n)?.toLong() ?: 0L)
 
-public actual fun alignedAlloc(alignment: SizeT, size: SizeT): COpaquePointer? =
-    libc_vxworks_alignedAlloc(alignment, size)?.let { COpaquePointer(it.toLong()) }
+public actual fun alignedAlloc(alignment: SizeT, size: SizeT): MutPtr<CVoid> =
+    MutPtr(libcVxworksAlignedAlloc(alignment, size)?.toLong() ?: 0L)
 
-public actual fun uname(buf: COpaquePointer?): CInt =
-    libc_vxworks_uname(buf?.value?.toCPointer<ByteVar>())
+public actual fun uname(buf: MutPtr<Utsname>): CInt =
+    libcVxworksUname(buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun times(buf: COpaquePointer?): ClockT =
-    libc_vxworks_times(buf?.value?.toCPointer<ByteVar>())
+public actual fun times(buf: MutPtr<Tms>): ClockT =
+    libcVxworksTimes(buf.rawAddress.toCPointer<ByteVar>())
 
 public actual fun tcflush(fd: CInt, action: CInt): CInt =
-    libc_vxworks_tcflush(fd, action)
+    libcVxworksTcflush(fd, action)
 
-public actual fun pclose(stream: FILE?): CInt =
-    libc_vxworks_pclose(stream?.handle?.toCPointer<ByteVar>())
+public actual fun pclose(stream: MutPtr<FILE>): CInt =
+    libcVxworksPclose(stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mkdtemp(template: COpaquePointer?): COpaquePointer? =
-    libc_vxworks_mkdtemp(template?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun mkdtemp(template: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcVxworksMkdtemp(template.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun linkat(olddirfd: CInt, oldpath: String?, newdirfd: CInt, newpath: String?, flags: CInt): CInt =
-    libc_vxworks_linkat(olddirfd, oldpath, newdirfd, newpath, flags)
+public actual fun linkat(olddirfd: CInt, oldpath: ConstPtr<CChar>, newdirfd: CInt, newpath: ConstPtr<CChar>, flags: CInt): CInt =
+    libcVxworksLinkat(olddirfd, oldpath.rawAddress.toCPointer<ByteVar>(), newdirfd, newpath.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun unlinkat(dirfd: CInt, pathname: String?, flags: CInt): CInt =
-    libc_vxworks_unlinkat(dirfd, pathname, flags)
+public actual fun unlinkat(dirfd: CInt, pathname: ConstPtr<CChar>, flags: CInt): CInt =
+    libcVxworksUnlinkat(dirfd, pathname.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun getprotobyname(name: String?): COpaquePointer? =
-    libc_vxworks_getprotobyname(name)?.let { COpaquePointer(it.toLong()) }
+public actual fun getprotobyname(name: ConstPtr<CChar>): MutPtr<Protoent> =
+    MutPtr(libcVxworksGetprotobyname(name.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun getprotobynumber(proto: CInt): COpaquePointer? =
-    libc_vxworks_getprotobynumber(proto)?.let { COpaquePointer(it.toLong()) }
+public actual fun getprotobynumber(proto: CInt): MutPtr<Protoent> =
+    MutPtr(libcVxworksGetprotobynumber(proto)?.toLong() ?: 0L)
 
-public actual fun getservbyname(name: String?, proto: String?): COpaquePointer? =
-    libc_vxworks_getservbyname(name, proto)?.let { COpaquePointer(it.toLong()) }
+public actual fun getservbyname(name: ConstPtr<CChar>, proto: ConstPtr<CChar>): MutPtr<Servent> =
+    MutPtr(libcVxworksGetservbyname(name.rawAddress.toCPointer<ByteVar>(), proto.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun fchownat(dirfd: CInt, pathname: String?, owner: UidT, group: GidT, flags: CInt): CInt =
-    libc_vxworks_fchownat(dirfd, pathname, owner, group, flags)
+public actual fun fchownat(dirfd: CInt, pathname: ConstPtr<CChar>, owner: UidT, group: GidT, flags: CInt): CInt =
+    libcVxworksFchownat(dirfd, pathname.rawAddress.toCPointer<ByteVar>(), owner, group, flags)
 
-public actual fun fprintf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
-    libc_vxworks_fprintf(stream?.handle?.toCPointer<ByteVar>(), format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun fprintf(stream: MutPtr<FILE>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    libcVxworksFprintf(stream.rawAddress.toCPointer<ByteVar>(), format.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun printf(format: String?, vararg variadicArgs: Long): CInt =
-    libc_vxworks_printf(format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun printf(format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    libcVxworksPrintf(format.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun snprintf(s: COpaquePointer?, n: SizeT, format: String?, vararg variadicArgs: Long): CInt =
-    libc_vxworks_snprintf(s?.value?.toCPointer<ByteVar>(), n, format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun snprintf(s: MutPtr<CChar>, n: SizeT, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    libcVxworksSnprintf(s.rawAddress.toCPointer<ByteVar>(), n, format.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun sprintf(s: COpaquePointer?, format: String?, vararg variadicArgs: Long): CInt =
-    libc_vxworks_sprintf(s?.value?.toCPointer<ByteVar>(), format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun sprintf(s: MutPtr<CChar>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    libcVxworksSprintf(s.rawAddress.toCPointer<ByteVar>(), format.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun fscanf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
-    libc_vxworks_fscanf(stream?.handle?.toCPointer<ByteVar>(), format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun fscanf(stream: MutPtr<FILE>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    libcVxworksFscanf(stream.rawAddress.toCPointer<ByteVar>(), format.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun scanf(format: String?, vararg variadicArgs: Long): CInt =
-    libc_vxworks_scanf(format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun scanf(format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    libcVxworksScanf(format.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun sscanf(s: String?, format: String?, vararg variadicArgs: Long): CInt =
-    libc_vxworks_sscanf(s, format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun sscanf(s: ConstPtr<CChar>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    libcVxworksSscanf(s.rawAddress.toCPointer<ByteVar>(), format.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun getcharUnlocked(): CInt =
-    libc_vxworks_getcharUnlocked()
+    libcVxworksGetcharUnlocked()
 
 public actual fun putcharUnlocked(c: CInt): CInt =
-    libc_vxworks_putcharUnlocked(c)
+    libcVxworksPutcharUnlocked(c)
 
-public actual fun stat(path: String?, buf: COpaquePointer?): CInt =
-    libc_vxworks_stat(path, buf?.value?.toCPointer<ByteVar>())
+public actual fun stat(path: ConstPtr<CChar>, buf: MutPtr<Stat>): CInt =
+    libcVxworksStat(path.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fdopen(fd: CInt, mode: String?): FILE? =
-    libc_vxworks_fdopen(fd, mode)?.let { FILE(it.toLong()) }
+public actual fun fdopen(fd: CInt, mode: ConstPtr<CChar>): MutPtr<FILE> =
+    MutPtr(libcVxworksFdopen(fd, mode.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun fileno(stream: FILE?): CInt =
-    libc_vxworks_fileno(stream?.handle?.toCPointer<ByteVar>())
+public actual fun fileno(stream: MutPtr<FILE>): CInt =
+    libcVxworksFileno(stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun creat(path: String?, mode: ModeT): CInt =
-    libc_vxworks_creat(path, mode)
+public actual fun creat(path: ConstPtr<CChar>, mode: ModeT): CInt =
+    libcVxworksCreat(path.rawAddress.toCPointer<ByteVar>(), mode)
 
-public actual fun rewinddir(dirp: DIR?) {
-    libc_vxworks_rewinddir(dirp?.handle?.toCPointer<ByteVar>())
+public actual fun rewinddir(dirp: MutPtr<DIR>) {
+    libcVxworksRewinddir(dirp.rawAddress.toCPointer<ByteVar>())
 }
 
 public actual fun fchown(fd: CInt, owner: UidT, group: GidT): CInt =
-    libc_vxworks_fchown(fd, owner, group)
+    libcVxworksFchown(fd, owner, group)
 
-public actual fun access(path: String?, amode: CInt): CInt =
-    libc_vxworks_access(path, amode)
+public actual fun access(path: ConstPtr<CChar>, amode: CInt): CInt =
+    libcVxworksAccess(path.rawAddress.toCPointer<ByteVar>(), amode)
 
 public actual fun alarm(seconds: CUint): CUint =
-    libc_vxworks_alarm(seconds)
+    libcVxworksAlarm(seconds)
 
 public actual fun fchdir(dirfd: CInt): CInt =
-    libc_vxworks_fchdir(dirfd)
+    libcVxworksFchdir(dirfd)
 
-public actual fun chown(path: String?, uid: UidT, gid: GidT): CInt =
-    libc_vxworks_chown(path, uid, gid)
+public actual fun chown(path: ConstPtr<CChar>, uid: UidT, gid: GidT): CInt =
+    libcVxworksChown(path.rawAddress.toCPointer<ByteVar>(), uid, gid)
 
 public actual fun fpathconf(filedes: CInt, name: CInt): CLong =
-    libc_vxworks_fpathconf(filedes, name)
+    libcVxworksFpathconf(filedes, name)
 
 public actual fun getegid(): GidT =
-    libc_vxworks_getegid()
+    libcVxworksGetegid()
 
 public actual fun geteuid(): UidT =
-    libc_vxworks_geteuid()
+    libcVxworksGeteuid()
 
-public actual fun getgroups(ngroupsMax: CInt, groups: COpaquePointer?): CInt =
-    libc_vxworks_getgroups(ngroupsMax, groups?.value?.toCPointer<ByteVar>())
+public actual fun getgroups(ngroupsMax: CInt, groups: MutPtr<GidT>): CInt =
+    libcVxworksGetgroups(ngroupsMax, groups.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getlogin(): COpaquePointer? =
-    libc_vxworks_getlogin()?.let { COpaquePointer(it.toLong()) }
+public actual fun getlogin(): MutPtr<CChar> =
+    MutPtr(libcVxworksGetlogin()?.toLong() ?: 0L)
 
-public actual fun getopt(argc: CInt, argv: COpaquePointer?, optstr: String?): CInt =
-    libc_vxworks_getopt(argc, argv?.value?.toCPointer<ByteVar>(), optstr)
+public actual fun getopt(argc: CInt, argv: ConstPtr<MutPtr<CChar>>, optstr: ConstPtr<CChar>): CInt =
+    libcVxworksGetopt(argc, argv.rawAddress.toCPointer<ByteVar>(), optstr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pathconf(path: String?, name: CInt): CLong =
-    libc_vxworks_pathconf(path, name)
+public actual fun pathconf(path: ConstPtr<CChar>, name: CInt): CLong =
+    libcVxworksPathconf(path.rawAddress.toCPointer<ByteVar>(), name)
 
 public actual fun pause(): CInt =
-    libc_vxworks_pause()
+    libcVxworksPause()
 
 public actual fun seteuid(uid: UidT): CInt =
-    libc_vxworks_seteuid(uid)
+    libcVxworksSeteuid(uid)
 
 public actual fun setegid(gid: GidT): CInt =
-    libc_vxworks_setegid(gid)
+    libcVxworksSetegid(gid)
 
 public actual fun sleep(secs: CUint): CUint =
-    libc_vxworks_sleep(secs)
+    libcVxworksSleep(secs)
 
-public actual fun ttyname(fd: CInt): COpaquePointer? =
-    libc_vxworks_ttyname(fd)?.let { COpaquePointer(it.toLong()) }
+public actual fun ttyname(fd: CInt): MutPtr<CChar> =
+    MutPtr(libcVxworksTtyname(fd)?.toLong() ?: 0L)
 
-public actual fun wait(status: COpaquePointer?): PidT =
-    libc_vxworks_wait(status?.value?.toCPointer<ByteVar>())
+public actual fun wait(status: MutPtr<CInt>): PidT =
+    libcVxworksWait(status.rawAddress.toCPointer<ByteVar>())
 
 public actual fun umask(mask: ModeT): ModeT =
-    libc_vxworks_umask(mask)
+    libcVxworksUmask(mask)
 
-public actual fun mlock(addr: COpaquePointer?, len: SizeT): CInt =
-    libc_vxworks_mlock(addr?.value?.toCPointer<ByteVar>(), len)
+public actual fun mlock(addr: ConstPtr<CVoid>, len: SizeT): CInt =
+    libcVxworksMlock(addr.rawAddress.toCPointer<ByteVar>(), len)
 
 public actual fun mlockall(flags: CInt): CInt =
-    libc_vxworks_mlockall(flags)
+    libcVxworksMlockall(flags)
 
-public actual fun munlock(addr: COpaquePointer?, len: SizeT): CInt =
-    libc_vxworks_munlock(addr?.value?.toCPointer<ByteVar>(), len)
+public actual fun munlock(addr: ConstPtr<CVoid>, len: SizeT): CInt =
+    libcVxworksMunlock(addr.rawAddress.toCPointer<ByteVar>(), len)
 
 public actual fun munlockall(): CInt =
-    libc_vxworks_munlockall()
+    libcVxworksMunlockall()
 
-public actual fun mmap(addr: COpaquePointer?, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: OffT): COpaquePointer? =
-    libc_vxworks_mmap(addr?.value?.toCPointer<ByteVar>(), len, prot, flags, fd, offset)?.let { COpaquePointer(it.toLong()) }
+public actual fun mmap(addr: MutPtr<CVoid>, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: OffT): MutPtr<CVoid> =
+    MutPtr(libcVxworksMmap(addr.rawAddress.toCPointer<ByteVar>(), len, prot, flags, fd, offset)?.toLong() ?: 0L)
 
-public actual fun munmap(addr: COpaquePointer?, len: SizeT): CInt =
-    libc_vxworks_munmap(addr?.value?.toCPointer<ByteVar>(), len)
+public actual fun munmap(addr: MutPtr<CVoid>, len: SizeT): CInt =
+    libcVxworksMunmap(addr.rawAddress.toCPointer<ByteVar>(), len)
 
-public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt =
-    libc_vxworks_mprotect(addr?.value?.toCPointer<ByteVar>(), len, prot)
+public actual fun mprotect(addr: MutPtr<CVoid>, len: SizeT, prot: CInt): CInt =
+    libcVxworksMprotect(addr.rawAddress.toCPointer<ByteVar>(), len, prot)
 
-public actual fun msync(addr: COpaquePointer?, len: SizeT, flags: CInt): CInt =
-    libc_vxworks_msync(addr?.value?.toCPointer<ByteVar>(), len, flags)
+public actual fun msync(addr: MutPtr<CVoid>, len: SizeT, flags: CInt): CInt =
+    libcVxworksMsync(addr.rawAddress.toCPointer<ByteVar>(), len, flags)
 
-public actual fun truncate(path: String?, length: OffT): CInt =
-    libc_vxworks_truncate(path, length)
+public actual fun truncate(path: ConstPtr<CChar>, length: OffT): CInt =
+    libcVxworksTruncate(path.rawAddress.toCPointer<ByteVar>(), length)
 
-public actual fun shmOpen(name: String?, oflag: CInt, mode: ModeT): CInt =
-    libc_vxworks_shmOpen(name, oflag, mode)
+public actual fun shmOpen(name: ConstPtr<CChar>, oflag: CInt, mode: ModeT): CInt =
+    libcVxworksShmOpen(name.rawAddress.toCPointer<ByteVar>(), oflag, mode)
 
-public actual fun shmUnlink(name: String?): CInt =
-    libc_vxworks_shmUnlink(name)
+public actual fun shmUnlink(name: ConstPtr<CChar>): CInt =
+    libcVxworksShmUnlink(name.rawAddress.toCPointer<ByteVar>())
 
-public actual fun gettimeofday(tp: COpaquePointer?, tz: COpaquePointer?): CInt =
-    libc_vxworks_gettimeofday(tp?.value?.toCPointer<ByteVar>(), tz?.value?.toCPointer<ByteVar>())
+public actual fun gettimeofday(tp: MutPtr<Timeval>, tz: MutPtr<CVoid>): CInt =
+    libcVxworksGettimeofday(tp.rawAddress.toCPointer<ByteVar>(), tz.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadExit(value: COpaquePointer?): Nothing {
-    libc_vxworks_pthreadExit(value?.value?.toCPointer<ByteVar>())
+public actual fun pthreadExit(value: MutPtr<CVoid>): Nothing {
+    libcVxworksPthreadExit(value.rawAddress.toCPointer<ByteVar>())
     error("Unreachable noreturn C function pthreadExit")
 }
 
-public actual fun pthreadAttrSetdetachstate(attr: COpaquePointer?, state: CInt): CInt =
-    libc_vxworks_pthreadAttrSetdetachstate(attr?.value?.toCPointer<ByteVar>(), state)
+public actual fun pthreadAttrSetdetachstate(attr: MutPtr<PthreadAttrT>, state: CInt): CInt =
+    libcVxworksPthreadAttrSetdetachstate(attr.rawAddress.toCPointer<ByteVar>(), state)
 
 public actual fun pthreadEqual(t1: PthreadT, t2: PthreadT): CInt =
-    libc_vxworks_pthreadEqual(t1.toLong().toCPointer<ByteVar>(), t2.toLong().toCPointer<ByteVar>())
+    libcVxworksPthreadEqual(t1.toLong().toCPointer<ByteVar>(), t2.toLong().toCPointer<ByteVar>())
 
-public actual fun strerrorR(errnum: CInt, buf: COpaquePointer?, buflen: SizeT): CInt =
-    libc_vxworks_strerrorR(errnum, buf?.value?.toCPointer<ByteVar>(), buflen)
+public actual fun strerrorR(errnum: CInt, buf: MutPtr<CChar>, buflen: SizeT): CInt =
+    libcVxworksStrerrorR(errnum, buf.rawAddress.toCPointer<ByteVar>(), buflen)
 
-public actual fun sigaddset(set: COpaquePointer?, signum: CInt): CInt =
-    libc_vxworks_sigaddset(set?.value?.toCPointer<ByteVar>(), signum)
+public actual fun sigaddset(set: MutPtr<SigsetT>, signum: CInt): CInt =
+    libcVxworksSigaddset(set.rawAddress.toCPointer<ByteVar>(), signum)
 
-public actual fun sigaction(signum: CInt, act: COpaquePointer?, oldact: COpaquePointer?): CInt =
-    libc_vxworks_sigaction(signum, act?.value?.toCPointer<ByteVar>(), oldact?.value?.toCPointer<ByteVar>())
+public actual fun sigaction(signum: CInt, act: ConstPtr<Sigaction>, oldact: MutPtr<Sigaction>): CInt =
+    libcVxworksSigaction(signum, act.rawAddress.toCPointer<ByteVar>(), oldact.rawAddress.toCPointer<ByteVar>())
 
-public actual fun utimes(filename: String?, times: COpaquePointer?): CInt =
-    libc_vxworks_utimes(filename, times?.value?.toCPointer<ByteVar>())
+public actual fun utimes(filename: ConstPtr<CChar>, times: ConstPtr<Timeval>): CInt =
+    libcVxworksUtimes(filename.rawAddress.toCPointer<ByteVar>(), times.rawAddress.toCPointer<ByteVar>())
 
-public actual fun futimens(fd: CInt, times: COpaquePointer?): CInt =
-    libc_vxworks_futimens(fd, times?.value?.toCPointer<ByteVar>())
+public actual fun futimens(fd: CInt, times: ConstPtr<Timespec>): CInt =
+    libcVxworksFutimens(fd, times.rawAddress.toCPointer<ByteVar>())
 
-public actual fun utimensat(dirfd: CInt, path: String?, times: COpaquePointer?, flag: CInt): CInt =
-    libc_vxworks_utimensat(dirfd, path, times?.value?.toCPointer<ByteVar>(), flag)
+public actual fun utimensat(dirfd: CInt, path: ConstPtr<CChar>, times: ConstPtr<Timespec>, flag: CInt): CInt =
+    libcVxworksUtimensat(dirfd, path.rawAddress.toCPointer<ByteVar>(), times.rawAddress.toCPointer<ByteVar>(), flag)
 
-public actual fun dlopen(filename: String?, flag: CInt): COpaquePointer? =
-    libc_vxworks_dlopen(filename, flag)?.let { COpaquePointer(it.toLong()) }
+public actual fun dlopen(filename: ConstPtr<CChar>, flag: CInt): MutPtr<CVoid> =
+    MutPtr(libcVxworksDlopen(filename.rawAddress.toCPointer<ByteVar>(), flag)?.toLong() ?: 0L)
 
-public actual fun dlerror(): COpaquePointer? =
-    libc_vxworks_dlerror()?.let { COpaquePointer(it.toLong()) }
+public actual fun dlerror(): MutPtr<CChar> =
+    MutPtr(libcVxworksDlerror()?.toLong() ?: 0L)
 
-public actual fun dlsym(handle: COpaquePointer?, symbol: String?): COpaquePointer? =
-    libc_vxworks_dlsym(handle?.value?.toCPointer<ByteVar>(), symbol)?.let { COpaquePointer(it.toLong()) }
+public actual fun dlsym(handle: MutPtr<CVoid>, symbol: ConstPtr<CChar>): MutPtr<CVoid> =
+    MutPtr(libcVxworksDlsym(handle.rawAddress.toCPointer<ByteVar>(), symbol.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun dlclose(handle: COpaquePointer?): CInt =
-    libc_vxworks_dlclose(handle?.value?.toCPointer<ByteVar>())
+public actual fun dlclose(handle: MutPtr<CVoid>): CInt =
+    libcVxworksDlclose(handle.rawAddress.toCPointer<ByteVar>())
 
-public actual fun dladdr(addr: COpaquePointer?, info: COpaquePointer?): CInt =
-    libc_vxworks_dladdr(addr?.value?.toCPointer<ByteVar>(), info?.value?.toCPointer<ByteVar>())
+public actual fun dladdr(addr: MutPtr<CVoid>, info: MutPtr<DlInfo>): CInt =
+    libcVxworksDladdr(addr.rawAddress.toCPointer<ByteVar>(), info.rawAddress.toCPointer<ByteVar>())
 
-public actual fun gmtimeR(timeP: COpaquePointer?, result: COpaquePointer?): COpaquePointer? =
-    libc_vxworks_gmtimeR(timeP?.value?.toCPointer<ByteVar>(), result?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun gmtimeR(timeP: ConstPtr<TimeT>, result: MutPtr<Tm>): MutPtr<Tm> =
+    MutPtr(libcVxworksGmtimeR(timeP.rawAddress.toCPointer<ByteVar>(), result.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun localtimeR(timeP: COpaquePointer?, result: COpaquePointer?): COpaquePointer? =
-    libc_vxworks_localtimeR(timeP?.value?.toCPointer<ByteVar>(), result?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun localtimeR(timeP: ConstPtr<TimeT>, result: MutPtr<Tm>): MutPtr<Tm> =
+    MutPtr(libcVxworksLocaltimeR(timeP.rawAddress.toCPointer<ByteVar>(), result.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun mktime(tm: COpaquePointer?): TimeT =
-    libc_vxworks_mktime(tm?.value?.toCPointer<ByteVar>())
+public actual fun mktime(tm: MutPtr<Tm>): TimeT =
+    libcVxworksMktime(tm.rawAddress.toCPointer<ByteVar>())
 
-public actual fun time(time: COpaquePointer?): TimeT =
-    libc_vxworks_time(time?.value?.toCPointer<ByteVar>())
+public actual fun time(time: MutPtr<TimeT>): TimeT =
+    libcVxworksTime(time.rawAddress.toCPointer<ByteVar>())
 
-public actual fun gmtime(timeP: COpaquePointer?): COpaquePointer? =
-    libc_vxworks_gmtime(timeP?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun gmtime(timeP: ConstPtr<TimeT>): MutPtr<Tm> =
+    MutPtr(libcVxworksGmtime(timeP.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun localtime(timeP: COpaquePointer?): COpaquePointer? =
-    libc_vxworks_localtime(timeP?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun localtime(timeP: ConstPtr<TimeT>): MutPtr<Tm> =
+    MutPtr(libcVxworksLocaltime(timeP.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun timegm(tm: COpaquePointer?): TimeT =
-    libc_vxworks_timegm(tm?.value?.toCPointer<ByteVar>())
+public actual fun timegm(tm: MutPtr<Tm>): TimeT =
+    libcVxworksTimegm(tm.rawAddress.toCPointer<ByteVar>())
 
 public actual fun difftime(time1: TimeT, time0: TimeT): CDouble =
-    libc_vxworks_difftime(time1, time0)
+    libcVxworksDifftime(time1, time0)
 
-public actual fun gethostname(name: COpaquePointer?, len: SizeT): CInt =
-    libc_vxworks_gethostname(name?.value?.toCPointer<ByteVar>(), len)
+public actual fun gethostname(name: MutPtr<CChar>, len: SizeT): CInt =
+    libcVxworksGethostname(name.rawAddress.toCPointer<ByteVar>(), len)
 
 public actual fun usleep(secs: UsecondsT): CInt =
-    libc_vxworks_usleep(secs)
+    libcVxworksUsleep(secs)
 
-public actual fun putenv(string: COpaquePointer?): CInt =
-    libc_vxworks_putenv(string?.value?.toCPointer<ByteVar>())
+public actual fun putenv(string: MutPtr<CChar>): CInt =
+    libcVxworksPutenv(string.rawAddress.toCPointer<ByteVar>())
 
-public actual fun setlocale(category: CInt, locale: String?): COpaquePointer? =
-    libc_vxworks_setlocale(category, locale)?.let { COpaquePointer(it.toLong()) }
+public actual fun setlocale(category: CInt, locale: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcVxworksSetlocale(category, locale.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun localeconv(): COpaquePointer? =
-    libc_vxworks_localeconv()?.let { COpaquePointer(it.toLong()) }
+public actual fun localeconv(): MutPtr<Lconv> =
+    MutPtr(libcVxworksLocaleconv()?.toLong() ?: 0L)
 
-public actual fun sigprocmask(how: CInt, set: COpaquePointer?, oldset: COpaquePointer?): CInt =
-    libc_vxworks_sigprocmask(how, set?.value?.toCPointer<ByteVar>(), oldset?.value?.toCPointer<ByteVar>())
+public actual fun sigprocmask(how: CInt, set: ConstPtr<SigsetT>, oldset: MutPtr<SigsetT>): CInt =
+    libcVxworksSigprocmask(how, set.rawAddress.toCPointer<ByteVar>(), oldset.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sigpending(set: COpaquePointer?): CInt =
-    libc_vxworks_sigpending(set?.value?.toCPointer<ByteVar>())
+public actual fun sigpending(set: MutPtr<SigsetT>): CInt =
+    libcVxworksSigpending(set.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mkfifo(path: String?, mode: ModeT): CInt =
-    libc_vxworks_mkfifo(path, mode)
+public actual fun mkfifo(path: ConstPtr<CChar>, mode: ModeT): CInt =
+    libcVxworksMkfifo(path.rawAddress.toCPointer<ByteVar>(), mode)
 
-public actual fun fseeko(stream: FILE?, offset: OffT, whence: CInt): CInt =
-    libc_vxworks_fseeko(stream?.handle?.toCPointer<ByteVar>(), offset, whence)
+public actual fun fseeko(stream: MutPtr<FILE>, offset: OffT, whence: CInt): CInt =
+    libcVxworksFseeko(stream.rawAddress.toCPointer<ByteVar>(), offset, whence)
 
-public actual fun ftello(stream: FILE?): OffT =
-    libc_vxworks_ftello(stream?.handle?.toCPointer<ByteVar>())
+public actual fun ftello(stream: MutPtr<FILE>): OffT =
+    libcVxworksFtello(stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mkstemp(template: COpaquePointer?): CInt =
-    libc_vxworks_mkstemp(template?.value?.toCPointer<ByteVar>())
+public actual fun mkstemp(template: MutPtr<CChar>): CInt =
+    libcVxworksMkstemp(template.rawAddress.toCPointer<ByteVar>())
 
-public actual fun tmpnam(ptr: COpaquePointer?): COpaquePointer? =
-    libc_vxworks_tmpnam(ptr?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun tmpnam(ptr: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcVxworksTmpnam(ptr.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun openlog(ident: String?, logopt: CInt, facility: CInt) {
-    libc_vxworks_openlog(ident, logopt, facility)
+public actual fun openlog(ident: ConstPtr<CChar>, logopt: CInt, facility: CInt) {
+    libcVxworksOpenlog(ident.rawAddress.toCPointer<ByteVar>(), logopt, facility)
 }
 
 public actual fun closelog() {
-    libc_vxworks_closelog()
+    libcVxworksCloselog()
 }
 
 public actual fun setlogmask(maskpri: CInt): CInt =
-    libc_vxworks_setlogmask(maskpri)
+    libcVxworksSetlogmask(maskpri)
 
-public actual fun syslog(priority: CInt, message: String?, vararg variadicArgs: Long) {
-    libc_vxworks_syslog(priority, message, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun syslog(priority: CInt, message: ConstPtr<CChar>, vararg variadicArgs: Long) {
+    libcVxworksSyslog(priority, message.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 }
 
-public actual fun getline(lineptr: COpaquePointer?, n: COpaquePointer?, stream: FILE?): SsizeT =
-    libc_vxworks_getline(lineptr?.value?.toCPointer<ByteVar>(), n?.value?.toCPointer<ByteVar>(), stream?.handle?.toCPointer<ByteVar>())
+public actual fun getline(lineptr: MutPtr<MutPtr<CChar>>, n: MutPtr<SizeT>, stream: MutPtr<FILE>): SsizeT =
+    libcVxworksGetline(lineptr.rawAddress.toCPointer<ByteVar>(), n.rawAddress.toCPointer<ByteVar>(), stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun tcsetattr(fd: CInt, optionalActions: CInt, termios: COpaquePointer?): CInt =
-    libc_vxworks_tcsetattr(fd, optionalActions, termios?.value?.toCPointer<ByteVar>())
+public actual fun tcsetattr(fd: CInt, optionalActions: CInt, termios: ConstPtr<Termios>): CInt =
+    libcVxworksTcsetattr(fd, optionalActions, termios.rawAddress.toCPointer<ByteVar>())
 
-public actual fun tcgetattr(fd: CInt, termios: COpaquePointer?): CInt =
-    libc_vxworks_tcgetattr(fd, termios?.value?.toCPointer<ByteVar>())
+public actual fun tcgetattr(fd: CInt, termios: MutPtr<Termios>): CInt =
+    libcVxworksTcgetattr(fd, termios.rawAddress.toCPointer<ByteVar>())
 
 public actual fun tcsendbreak(fd: CInt, duration: CInt): CInt =
-    libc_vxworks_tcsendbreak(fd, duration)
+    libcVxworksTcsendbreak(fd, duration)
 
-public actual fun confstr(name: CInt, buf: COpaquePointer?, len: SizeT): SizeT =
-    libc_vxworks_confstr(name, buf?.value?.toCPointer<ByteVar>(), len)
+public actual fun confstr(name: CInt, buf: MutPtr<CChar>, len: SizeT): SizeT =
+    libcVxworksConfstr(name, buf.rawAddress.toCPointer<ByteVar>(), len)
 
-public actual fun fnmatch(pattern: String?, name: String?, flags: CInt): CInt =
-    libc_vxworks_fnmatch(pattern, name, flags)
+public actual fun fnmatch(pattern: ConstPtr<CChar>, name: ConstPtr<CChar>, flags: CInt): CInt =
+    libcVxworksFnmatch(pattern.rawAddress.toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun symlinkat(target: String?, newdirfd: CInt, linkpath: String?): CInt =
-    libc_vxworks_symlinkat(target, newdirfd, linkpath)
+public actual fun symlinkat(target: ConstPtr<CChar>, newdirfd: CInt, linkpath: ConstPtr<CChar>): CInt =
+    libcVxworksSymlinkat(target.rawAddress.toCPointer<ByteVar>(), newdirfd, linkpath.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fchmodat(dirfd: CInt, pathname: String?, mode: ModeT, flags: CInt): CInt =
-    libc_vxworks_fchmodat(dirfd, pathname, mode, flags)
+public actual fun fchmodat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT, flags: CInt): CInt =
+    libcVxworksFchmodat(dirfd, pathname.rawAddress.toCPointer<ByteVar>(), mode, flags)
 
-public actual fun utime(file: String?, buf: COpaquePointer?): CInt =
-    libc_vxworks_utime(file, buf?.value?.toCPointer<ByteVar>())
+public actual fun utime(file: ConstPtr<CChar>, buf: ConstPtr<Utimbuf>): CInt =
+    libcVxworksUtime(file.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun memalign(blockSize: SizeT, sizeArg: SizeT): COpaquePointer? =
-    libc_vxworks_memalign(blockSize, sizeArg)?.let { COpaquePointer(it.toLong()) }
+public actual fun memalign(blockSize: SizeT, sizeArg: SizeT): MutPtr<CVoid> =
+    MutPtr(libcVxworksMemalign(blockSize, sizeArg)?.toLong() ?: 0L)
 
-public actual fun getcwd(buf: COpaquePointer?, size: SizeT): COpaquePointer? =
-    libc_vxworks_getcwd(buf?.value?.toCPointer<ByteVar>(), size)?.let { COpaquePointer(it.toLong()) }
+public actual fun getcwd(buf: MutPtr<CChar>, size: SizeT): MutPtr<CChar> =
+    MutPtr(libcVxworksGetcwd(buf.rawAddress.toCPointer<ByteVar>(), size)?.toLong() ?: 0L)
 
-public actual fun chdir(attr: String?): CInt =
-    libc_vxworks_chdir(attr)
+public actual fun chdir(attr: ConstPtr<CChar>): CInt =
+    libcVxworksChdir(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexattrInit(attr: COpaquePointer?): CInt =
-    libc_vxworks_pthreadMutexattrInit(attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexattrInit(attr: MutPtr<PthreadMutexattrT>): CInt =
+    libcVxworksPthreadMutexattrInit(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexattrDestroy(attr: COpaquePointer?): CInt =
-    libc_vxworks_pthreadMutexattrDestroy(attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexattrDestroy(attr: MutPtr<PthreadMutexattrT>): CInt =
+    libcVxworksPthreadMutexattrDestroy(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexattrSettype(pAttr: COpaquePointer?, pType: CInt): CInt =
-    libc_vxworks_pthreadMutexattrSettype(pAttr?.value?.toCPointer<ByteVar>(), pType)
+public actual fun pthreadMutexattrSettype(pAttr: MutPtr<PthreadMutexattrT>, pType: CInt): CInt =
+    libcVxworksPthreadMutexattrSettype(pAttr.rawAddress.toCPointer<ByteVar>(), pType)
 
-public actual fun pthreadMutexInit(mutex: COpaquePointer?, attr: COpaquePointer?): CInt =
-    libc_vxworks_pthreadMutexInit(mutex?.value?.toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexInit(mutex: MutPtr<PthreadMutexT>, attr: ConstPtr<PthreadMutexattrT>): CInt =
+    libcVxworksPthreadMutexInit(mutex.rawAddress.toCPointer<ByteVar>(), attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexDestroy(mutex: COpaquePointer?): CInt =
-    libc_vxworks_pthreadMutexDestroy(mutex?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexDestroy(mutex: MutPtr<PthreadMutexT>): CInt =
+    libcVxworksPthreadMutexDestroy(mutex.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexLock(mutex: COpaquePointer?): CInt =
-    libc_vxworks_pthreadMutexLock(mutex?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexLock(mutex: MutPtr<PthreadMutexT>): CInt =
+    libcVxworksPthreadMutexLock(mutex.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexTrylock(mutex: COpaquePointer?): CInt =
-    libc_vxworks_pthreadMutexTrylock(mutex?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexTrylock(mutex: MutPtr<PthreadMutexT>): CInt =
+    libcVxworksPthreadMutexTrylock(mutex.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexTimedlock(attr: COpaquePointer?, spec: COpaquePointer?): CInt =
-    libc_vxworks_pthreadMutexTimedlock(attr?.value?.toCPointer<ByteVar>(), spec?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexTimedlock(attr: MutPtr<PthreadMutexT>, spec: ConstPtr<Timespec>): CInt =
+    libcVxworksPthreadMutexTimedlock(attr.rawAddress.toCPointer<ByteVar>(), spec.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexUnlock(mutex: COpaquePointer?): CInt =
-    libc_vxworks_pthreadMutexUnlock(mutex?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexUnlock(mutex: MutPtr<PthreadMutexT>): CInt =
+    libcVxworksPthreadMutexUnlock(mutex.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrSetname(pAttr: COpaquePointer?, name: COpaquePointer?): CInt =
-    libc_vxworks_pthreadAttrSetname(pAttr?.value?.toCPointer<ByteVar>(), name?.value?.toCPointer<ByteVar>())
+public actual fun pthreadAttrSetname(pAttr: MutPtr<PthreadAttrT>, name: MutPtr<CChar>): CInt =
+    libcVxworksPthreadAttrSetname(pAttr.rawAddress.toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrSetstacksize(attr: COpaquePointer?, stacksize: SizeT): CInt =
-    libc_vxworks_pthreadAttrSetstacksize(attr?.value?.toCPointer<ByteVar>(), stacksize)
+public actual fun pthreadAttrSetstacksize(attr: MutPtr<PthreadAttrT>, stacksize: SizeT): CInt =
+    libcVxworksPthreadAttrSetstacksize(attr.rawAddress.toCPointer<ByteVar>(), stacksize)
 
-public actual fun pthreadAttrGetstacksize(attr: COpaquePointer?, size: COpaquePointer?): CInt =
-    libc_vxworks_pthreadAttrGetstacksize(attr?.value?.toCPointer<ByteVar>(), size?.value?.toCPointer<ByteVar>())
+public actual fun pthreadAttrGetstacksize(attr: ConstPtr<PthreadAttrT>, size: MutPtr<SizeT>): CInt =
+    libcVxworksPthreadAttrGetstacksize(attr.rawAddress.toCPointer<ByteVar>(), size.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrInit(attr: COpaquePointer?): CInt =
-    libc_vxworks_pthreadAttrInit(attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadAttrInit(attr: MutPtr<PthreadAttrT>): CInt =
+    libcVxworksPthreadAttrInit(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCreate(pThread: COpaquePointer?, pAttr: COpaquePointer?, startRoutine: PthreadCreateStartRoutineCallback, value: COpaquePointer?): CInt =
-    libc_vxworks_pthreadCreate(pThread?.value?.toCPointer<ByteVar>(), pAttr?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), value?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCreate(pThread: MutPtr<PthreadT>, pAttr: ConstPtr<PthreadAttrT>, startRoutine: PthreadCreateStartRoutineCallback, value: MutPtr<CVoid>): CInt =
+    libcVxworksPthreadCreate(pThread.rawAddress.toCPointer<ByteVar>(), pAttr.rawAddress.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: COpaquePointer?): CInt =
-    libc_vxworks_pthreadSetschedparam(native.toLong().toCPointer<ByteVar>(), policy, param?.value?.toCPointer<ByteVar>())
+public actual fun pthreadSetschedparam(native: PthreadT, policy: CInt, param: ConstPtr<SchedParam>): CInt =
+    libcVxworksPthreadSetschedparam(native.toLong().toCPointer<ByteVar>(), policy, param.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadGetschedparam(native: PthreadT, policy: COpaquePointer?, param: COpaquePointer?): CInt =
-    libc_vxworks_pthreadGetschedparam(native.toLong().toCPointer<ByteVar>(), policy?.value?.toCPointer<ByteVar>(), param?.value?.toCPointer<ByteVar>())
+public actual fun pthreadGetschedparam(native: PthreadT, policy: MutPtr<CInt>, param: MutPtr<SchedParam>): CInt =
+    libcVxworksPthreadGetschedparam(native.toLong().toCPointer<ByteVar>(), policy.rawAddress.toCPointer<ByteVar>(), param.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrSetinheritsched(attr: COpaquePointer?, inheritsched: CInt): CInt =
-    libc_vxworks_pthreadAttrSetinheritsched(attr?.value?.toCPointer<ByteVar>(), inheritsched)
+public actual fun pthreadAttrSetinheritsched(attr: MutPtr<PthreadAttrT>, inheritsched: CInt): CInt =
+    libcVxworksPthreadAttrSetinheritsched(attr.rawAddress.toCPointer<ByteVar>(), inheritsched)
 
-public actual fun pthreadAttrSetschedpolicy(attr: COpaquePointer?, policy: CInt): CInt =
-    libc_vxworks_pthreadAttrSetschedpolicy(attr?.value?.toCPointer<ByteVar>(), policy)
+public actual fun pthreadAttrSetschedpolicy(attr: MutPtr<PthreadAttrT>, policy: CInt): CInt =
+    libcVxworksPthreadAttrSetschedpolicy(attr.rawAddress.toCPointer<ByteVar>(), policy)
 
-public actual fun pthreadAttrDestroy(thread: COpaquePointer?): CInt =
-    libc_vxworks_pthreadAttrDestroy(thread?.value?.toCPointer<ByteVar>())
+public actual fun pthreadAttrDestroy(thread: MutPtr<PthreadAttrT>): CInt =
+    libcVxworksPthreadAttrDestroy(thread.rawAddress.toCPointer<ByteVar>())
 
 public actual fun pthreadDetach(thread: PthreadT): CInt =
-    libc_vxworks_pthreadDetach(thread.toLong().toCPointer<ByteVar>())
+    libcVxworksPthreadDetach(thread.toLong().toCPointer<ByteVar>())
 
 public actual fun pthreadAtfork(prepare: AtexitCbCallback?, parent: AtexitCbCallback?, child: AtexitCbCallback?): CInt =
-    libc_vxworks_pthreadAtfork(0L.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
+    libcVxworksPthreadAtfork(0L.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
 
-public actual fun fstat(fildes: CInt, buf: COpaquePointer?): CInt =
-    libc_vxworks_fstat(fildes, buf?.value?.toCPointer<ByteVar>())
+public actual fun fstat(fildes: CInt, buf: MutPtr<Stat>): CInt =
+    libcVxworksFstat(fildes, buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun lstat(path: String?, buf: COpaquePointer?): CInt =
-    libc_vxworks_lstat(path, buf?.value?.toCPointer<ByteVar>())
+public actual fun lstat(path: ConstPtr<CChar>, buf: MutPtr<Stat>): CInt =
+    libcVxworksLstat(path.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>())
 
 public actual fun ftruncate(fd: CInt, length: OffT): CInt =
-    libc_vxworks_ftruncate(fd, length)
+    libcVxworksFtruncate(fd, length)
 
-public actual fun readdirR(pDir: DIR?, entry: COpaquePointer?, result: COpaquePointer?): CInt =
-    libc_vxworks_readdirR(pDir?.handle?.toCPointer<ByteVar>(), entry?.value?.toCPointer<ByteVar>(), result?.value?.toCPointer<ByteVar>())
+public actual fun readdirR(pDir: MutPtr<DIR>, entry: MutPtr<Dirent>, result: MutPtr<MutPtr<Dirent>>): CInt =
+    libcVxworksReaddirR(pDir.rawAddress.toCPointer<ByteVar>(), entry.rawAddress.toCPointer<ByteVar>(), result.rawAddress.toCPointer<ByteVar>())
 
-public actual fun readdir(pDir: DIR?): COpaquePointer? =
-    libc_vxworks_readdir(pDir?.handle?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun readdir(pDir: MutPtr<DIR>): MutPtr<Dirent> =
+    MutPtr(libcVxworksReaddir(pDir.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun open(path: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
-    libc_vxworks_open(path, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun open(path: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): CInt =
+    libcVxworksOpen(path.rawAddress.toCPointer<ByteVar>(), oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun poll(fds: COpaquePointer?, nfds: NfdsT, timeout: CInt): CInt =
-    libc_vxworks_poll(fds?.value?.toCPointer<ByteVar>(), nfds, timeout)
+public actual fun poll(fds: MutPtr<Pollfd>, nfds: NfdsT, timeout: CInt): CInt =
+    libcVxworksPoll(fds.rawAddress.toCPointer<ByteVar>(), nfds, timeout)
 
-public actual fun pthreadCondattrInit(attr: COpaquePointer?): CInt =
-    libc_vxworks_pthreadCondattrInit(attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCondattrInit(attr: MutPtr<PthreadCondattrT>): CInt =
+    libcVxworksPthreadCondattrInit(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondattrDestroy(attr: COpaquePointer?): CInt =
-    libc_vxworks_pthreadCondattrDestroy(attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCondattrDestroy(attr: MutPtr<PthreadCondattrT>): CInt =
+    libcVxworksPthreadCondattrDestroy(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondattrGetclock(pAttr: COpaquePointer?, pClockId: COpaquePointer?): CInt =
-    libc_vxworks_pthreadCondattrGetclock(pAttr?.value?.toCPointer<ByteVar>(), pClockId?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCondattrGetclock(pAttr: ConstPtr<PthreadCondattrT>, pClockId: MutPtr<ClockidT>): CInt =
+    libcVxworksPthreadCondattrGetclock(pAttr.rawAddress.toCPointer<ByteVar>(), pClockId.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondattrSetclock(pAttr: COpaquePointer?, clockId: ClockidT): CInt =
-    libc_vxworks_pthreadCondattrSetclock(pAttr?.value?.toCPointer<ByteVar>(), clockId)
+public actual fun pthreadCondattrSetclock(pAttr: MutPtr<PthreadCondattrT>, clockId: ClockidT): CInt =
+    libcVxworksPthreadCondattrSetclock(pAttr.rawAddress.toCPointer<ByteVar>(), clockId)
 
-public actual fun pthreadCondInit(cond: COpaquePointer?, attr: COpaquePointer?): CInt =
-    libc_vxworks_pthreadCondInit(cond?.value?.toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCondInit(cond: MutPtr<PthreadCondT>, attr: ConstPtr<PthreadCondattrT>): CInt =
+    libcVxworksPthreadCondInit(cond.rawAddress.toCPointer<ByteVar>(), attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondDestroy(cond: COpaquePointer?): CInt =
-    libc_vxworks_pthreadCondDestroy(cond?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCondDestroy(cond: MutPtr<PthreadCondT>): CInt =
+    libcVxworksPthreadCondDestroy(cond.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondSignal(cond: COpaquePointer?): CInt =
-    libc_vxworks_pthreadCondSignal(cond?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCondSignal(cond: MutPtr<PthreadCondT>): CInt =
+    libcVxworksPthreadCondSignal(cond.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondBroadcast(cond: COpaquePointer?): CInt =
-    libc_vxworks_pthreadCondBroadcast(cond?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCondBroadcast(cond: MutPtr<PthreadCondT>): CInt =
+    libcVxworksPthreadCondBroadcast(cond.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondWait(cond: COpaquePointer?, mutex: COpaquePointer?): CInt =
-    libc_vxworks_pthreadCondWait(cond?.value?.toCPointer<ByteVar>(), mutex?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCondWait(cond: MutPtr<PthreadCondT>, mutex: MutPtr<PthreadMutexT>): CInt =
+    libcVxworksPthreadCondWait(cond.rawAddress.toCPointer<ByteVar>(), mutex.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadRwlockattrInit(attr: COpaquePointer?): CInt =
-    libc_vxworks_pthreadRwlockattrInit(attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadRwlockattrInit(attr: MutPtr<PthreadRwlockattrT>): CInt =
+    libcVxworksPthreadRwlockattrInit(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadRwlockattrDestroy(attr: COpaquePointer?): CInt =
-    libc_vxworks_pthreadRwlockattrDestroy(attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadRwlockattrDestroy(attr: MutPtr<PthreadRwlockattrT>): CInt =
+    libcVxworksPthreadRwlockattrDestroy(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadRwlockattrSetmaxreaders(attr: COpaquePointer?, attr2: CUint): CInt =
-    libc_vxworks_pthreadRwlockattrSetmaxreaders(attr?.value?.toCPointer<ByteVar>(), attr2)
+public actual fun pthreadRwlockattrSetmaxreaders(attr: MutPtr<PthreadRwlockattrT>, attr2: CUint): CInt =
+    libcVxworksPthreadRwlockattrSetmaxreaders(attr.rawAddress.toCPointer<ByteVar>(), attr2)
 
-public actual fun pthreadRwlockInit(attr: COpaquePointer?, host: COpaquePointer?): CInt =
-    libc_vxworks_pthreadRwlockInit(attr?.value?.toCPointer<ByteVar>(), host?.value?.toCPointer<ByteVar>())
+public actual fun pthreadRwlockInit(attr: MutPtr<PthreadRwlockT>, host: ConstPtr<PthreadRwlockattrT>): CInt =
+    libcVxworksPthreadRwlockInit(attr.rawAddress.toCPointer<ByteVar>(), host.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadRwlockDestroy(attr: COpaquePointer?): CInt =
-    libc_vxworks_pthreadRwlockDestroy(attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadRwlockDestroy(attr: MutPtr<PthreadRwlockT>): CInt =
+    libcVxworksPthreadRwlockDestroy(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadRwlockRdlock(attr: COpaquePointer?): CInt =
-    libc_vxworks_pthreadRwlockRdlock(attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadRwlockRdlock(attr: MutPtr<PthreadRwlockT>): CInt =
+    libcVxworksPthreadRwlockRdlock(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadRwlockTryrdlock(attr: COpaquePointer?): CInt =
-    libc_vxworks_pthreadRwlockTryrdlock(attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadRwlockTryrdlock(attr: MutPtr<PthreadRwlockT>): CInt =
+    libcVxworksPthreadRwlockTryrdlock(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadRwlockTimedrdlock(attr: COpaquePointer?, host: COpaquePointer?): CInt =
-    libc_vxworks_pthreadRwlockTimedrdlock(attr?.value?.toCPointer<ByteVar>(), host?.value?.toCPointer<ByteVar>())
+public actual fun pthreadRwlockTimedrdlock(attr: MutPtr<PthreadRwlockT>, host: ConstPtr<Timespec>): CInt =
+    libcVxworksPthreadRwlockTimedrdlock(attr.rawAddress.toCPointer<ByteVar>(), host.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadRwlockWrlock(attr: COpaquePointer?): CInt =
-    libc_vxworks_pthreadRwlockWrlock(attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadRwlockWrlock(attr: MutPtr<PthreadRwlockT>): CInt =
+    libcVxworksPthreadRwlockWrlock(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadRwlockTrywrlock(attr: COpaquePointer?): CInt =
-    libc_vxworks_pthreadRwlockTrywrlock(attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadRwlockTrywrlock(attr: MutPtr<PthreadRwlockT>): CInt =
+    libcVxworksPthreadRwlockTrywrlock(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadRwlockTimedwrlock(attr: COpaquePointer?, host: COpaquePointer?): CInt =
-    libc_vxworks_pthreadRwlockTimedwrlock(attr?.value?.toCPointer<ByteVar>(), host?.value?.toCPointer<ByteVar>())
+public actual fun pthreadRwlockTimedwrlock(attr: MutPtr<PthreadRwlockT>, host: ConstPtr<Timespec>): CInt =
+    libcVxworksPthreadRwlockTimedwrlock(attr.rawAddress.toCPointer<ByteVar>(), host.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadRwlockUnlock(attr: COpaquePointer?): CInt =
-    libc_vxworks_pthreadRwlockUnlock(attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadRwlockUnlock(attr: MutPtr<PthreadRwlockT>): CInt =
+    libcVxworksPthreadRwlockUnlock(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadKeyCreate(key: COpaquePointer?, dtor: PthreadKeyCreateDtorCallback?): CInt =
-    libc_vxworks_pthreadKeyCreate(key?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
+public actual fun pthreadKeyCreate(key: MutPtr<PthreadKeyT>, dtor: PthreadKeyCreateDtorCallback?): CInt =
+    libcVxworksPthreadKeyCreate(key.rawAddress.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
 
 public actual fun pthreadKeyDelete(key: PthreadKeyT): CInt =
-    libc_vxworks_pthreadKeyDelete(key)
+    libcVxworksPthreadKeyDelete(key)
 
-public actual fun pthreadSetspecific(key: PthreadKeyT, value: COpaquePointer?): CInt =
-    libc_vxworks_pthreadSetspecific(key, value?.value?.toCPointer<ByteVar>())
+public actual fun pthreadSetspecific(key: PthreadKeyT, value: ConstPtr<CVoid>): CInt =
+    libcVxworksPthreadSetspecific(key, value.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadGetspecific(key: PthreadKeyT): COpaquePointer? =
-    libc_vxworks_pthreadGetspecific(key)?.let { COpaquePointer(it.toLong()) }
+public actual fun pthreadGetspecific(key: PthreadKeyT): MutPtr<CVoid> =
+    MutPtr(libcVxworksPthreadGetspecific(key)?.toLong() ?: 0L)
 
-public actual fun pthreadCondTimedwait(cond: COpaquePointer?, mutex: COpaquePointer?, abstime: COpaquePointer?): CInt =
-    libc_vxworks_pthreadCondTimedwait(cond?.value?.toCPointer<ByteVar>(), mutex?.value?.toCPointer<ByteVar>(), abstime?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCondTimedwait(cond: MutPtr<PthreadCondT>, mutex: MutPtr<PthreadMutexT>, abstime: ConstPtr<Timespec>): CInt =
+    libcVxworksPthreadCondTimedwait(cond.rawAddress.toCPointer<ByteVar>(), mutex.rawAddress.toCPointer<ByteVar>(), abstime.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrGetname(attr: COpaquePointer?, name: COpaquePointer?): CInt =
-    libc_vxworks_pthreadAttrGetname(attr?.value?.toCPointer<ByteVar>(), name?.value?.toCPointer<ByteVar>())
+public actual fun pthreadAttrGetname(attr: MutPtr<PthreadAttrT>, name: MutPtr<MutPtr<CChar>>): CInt =
+    libcVxworksPthreadAttrGetname(attr.rawAddress.toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadJoin(thread: PthreadT, status: COpaquePointer?): CInt =
-    libc_vxworks_pthreadJoin(thread.toLong().toCPointer<ByteVar>(), status?.value?.toCPointer<ByteVar>())
+public actual fun pthreadJoin(thread: PthreadT, status: MutPtr<MutPtr<CVoid>>): CInt =
+    libcVxworksPthreadJoin(thread.toLong().toCPointer<ByteVar>(), status.rawAddress.toCPointer<ByteVar>())
 
 public actual fun pthreadSelf(): PthreadT =
-    (libc_vxworks_pthreadSelf()?.toLong() ?: 0L).toULong()
+    (libcVxworksPthreadSelf()?.toLong() ?: 0L).toULong()
 
-public actual fun clockGettime(clockId: ClockidT, tp: COpaquePointer?): CInt =
-    libc_vxworks_clockGettime(clockId, tp?.value?.toCPointer<ByteVar>())
+public actual fun clockGettime(clockId: ClockidT, tp: MutPtr<Timespec>): CInt =
+    libcVxworksClockGettime(clockId, tp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun clockSettime(clockId: ClockidT, tp: COpaquePointer?): CInt =
-    libc_vxworks_clockSettime(clockId, tp?.value?.toCPointer<ByteVar>())
+public actual fun clockSettime(clockId: ClockidT, tp: ConstPtr<Timespec>): CInt =
+    libcVxworksClockSettime(clockId, tp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun clockGetres(clockId: ClockidT, res: COpaquePointer?): CInt =
-    libc_vxworks_clockGetres(clockId, res?.value?.toCPointer<ByteVar>())
+public actual fun clockGetres(clockId: ClockidT, res: MutPtr<Timespec>): CInt =
+    libcVxworksClockGetres(clockId, res.rawAddress.toCPointer<ByteVar>())
 
-public actual fun clockNanosleep(clockId: ClockidT, flags: CInt, rqtp: COpaquePointer?, rmtp: COpaquePointer?): CInt =
-    libc_vxworks_clockNanosleep(clockId, flags, rqtp?.value?.toCPointer<ByteVar>(), rmtp?.value?.toCPointer<ByteVar>())
+public actual fun clockNanosleep(clockId: ClockidT, flags: CInt, rqtp: ConstPtr<Timespec>, rmtp: MutPtr<Timespec>): CInt =
+    libcVxworksClockNanosleep(clockId, flags, rqtp.rawAddress.toCPointer<ByteVar>(), rmtp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun nanosleep(rqtp: COpaquePointer?, rmtp: COpaquePointer?): CInt =
-    libc_vxworks_nanosleep(rqtp?.value?.toCPointer<ByteVar>(), rmtp?.value?.toCPointer<ByteVar>())
+public actual fun nanosleep(rqtp: ConstPtr<Timespec>, rmtp: MutPtr<Timespec>): CInt =
+    libcVxworksNanosleep(rqtp.rawAddress.toCPointer<ByteVar>(), rmtp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun accept(s: CInt, addr: COpaquePointer?, addrlen: COpaquePointer?): CInt =
-    libc_vxworks_accept(s, addr?.value?.toCPointer<ByteVar>(), addrlen?.value?.toCPointer<ByteVar>())
+public actual fun accept(s: CInt, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): CInt =
+    libcVxworksAccept(s, addr.rawAddress.toCPointer<ByteVar>(), addrlen.rawAddress.toCPointer<ByteVar>())
 
-public actual fun bind(fd: CInt, addr: COpaquePointer?, len: SocklenT): CInt =
-    libc_vxworks_bind(fd, addr?.value?.toCPointer<ByteVar>(), len)
+public actual fun bind(fd: CInt, addr: ConstPtr<Sockaddr>, len: SocklenT): CInt =
+    libcVxworksBind(fd, addr.rawAddress.toCPointer<ByteVar>(), len)
 
-public actual fun connect(s: CInt, name: COpaquePointer?, namelen: SocklenT): CInt =
-    libc_vxworks_connect(s, name?.value?.toCPointer<ByteVar>(), namelen)
+public actual fun connect(s: CInt, name: ConstPtr<Sockaddr>, namelen: SocklenT): CInt =
+    libcVxworksConnect(s, name.rawAddress.toCPointer<ByteVar>(), namelen)
 
-public actual fun getpeername(s: CInt, name: COpaquePointer?, namelen: COpaquePointer?): CInt =
-    libc_vxworks_getpeername(s, name?.value?.toCPointer<ByteVar>(), namelen?.value?.toCPointer<ByteVar>())
+public actual fun getpeername(s: CInt, name: MutPtr<Sockaddr>, namelen: MutPtr<SocklenT>): CInt =
+    libcVxworksGetpeername(s, name.rawAddress.toCPointer<ByteVar>(), namelen.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getsockname(socket: CInt, address: COpaquePointer?, addressLen: COpaquePointer?): CInt =
-    libc_vxworks_getsockname(socket, address?.value?.toCPointer<ByteVar>(), addressLen?.value?.toCPointer<ByteVar>())
+public actual fun getsockname(socket: CInt, address: MutPtr<Sockaddr>, addressLen: MutPtr<SocklenT>): CInt =
+    libcVxworksGetsockname(socket, address.rawAddress.toCPointer<ByteVar>(), addressLen.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getsockopt(sockfd: CInt, level: CInt, optname: CInt, optval: COpaquePointer?, optlen: COpaquePointer?): CInt =
-    libc_vxworks_getsockopt(sockfd, level, optname, optval?.value?.toCPointer<ByteVar>(), optlen?.value?.toCPointer<ByteVar>())
+public actual fun getsockopt(sockfd: CInt, level: CInt, optname: CInt, optval: MutPtr<CVoid>, optlen: MutPtr<SocklenT>): CInt =
+    libcVxworksGetsockopt(sockfd, level, optname, optval.rawAddress.toCPointer<ByteVar>(), optlen.rawAddress.toCPointer<ByteVar>())
 
 public actual fun listen(socket: CInt, backlog: CInt): CInt =
-    libc_vxworks_listen(socket, backlog)
+    libcVxworksListen(socket, backlog)
 
-public actual fun recv(s: CInt, buf: COpaquePointer?, bufLen: SizeT, flags: CInt): SsizeT =
-    libc_vxworks_recv(s, buf?.value?.toCPointer<ByteVar>(), bufLen, flags)
+public actual fun recv(s: CInt, buf: MutPtr<CVoid>, bufLen: SizeT, flags: CInt): SsizeT =
+    libcVxworksRecv(s, buf.rawAddress.toCPointer<ByteVar>(), bufLen, flags)
 
-public actual fun recvfrom(s: CInt, buf: COpaquePointer?, bufLen: SizeT, flags: CInt, from: COpaquePointer?, pFromLen: COpaquePointer?): SsizeT =
-    libc_vxworks_recvfrom(s, buf?.value?.toCPointer<ByteVar>(), bufLen, flags, from?.value?.toCPointer<ByteVar>(), pFromLen?.value?.toCPointer<ByteVar>())
+public actual fun recvfrom(s: CInt, buf: MutPtr<CVoid>, bufLen: SizeT, flags: CInt, from: MutPtr<Sockaddr>, pFromLen: MutPtr<SocklenT>): SsizeT =
+    libcVxworksRecvfrom(s, buf.rawAddress.toCPointer<ByteVar>(), bufLen, flags, from.rawAddress.toCPointer<ByteVar>(), pFromLen.rawAddress.toCPointer<ByteVar>())
 
-public actual fun recvmsg(socket: CInt, mp: COpaquePointer?, flags: CInt): SsizeT =
-    libc_vxworks_recvmsg(socket, mp?.value?.toCPointer<ByteVar>(), flags)
+public actual fun recvmsg(socket: CInt, mp: MutPtr<Msghdr>, flags: CInt): SsizeT =
+    libcVxworksRecvmsg(socket, mp.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun send(socket: CInt, buf: COpaquePointer?, len: SizeT, flags: CInt): SsizeT =
-    libc_vxworks_send(socket, buf?.value?.toCPointer<ByteVar>(), len, flags)
+public actual fun send(socket: CInt, buf: ConstPtr<CVoid>, len: SizeT, flags: CInt): SsizeT =
+    libcVxworksSend(socket, buf.rawAddress.toCPointer<ByteVar>(), len, flags)
 
-public actual fun sendmsg(socket: CInt, mp: COpaquePointer?, flags: CInt): SsizeT =
-    libc_vxworks_sendmsg(socket, mp?.value?.toCPointer<ByteVar>(), flags)
+public actual fun sendmsg(socket: CInt, mp: ConstPtr<Msghdr>, flags: CInt): SsizeT =
+    libcVxworksSendmsg(socket, mp.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun sendto(socket: CInt, buf: COpaquePointer?, len: SizeT, flags: CInt, addr: COpaquePointer?, addrlen: SocklenT): SsizeT =
-    libc_vxworks_sendto(socket, buf?.value?.toCPointer<ByteVar>(), len, flags, addr?.value?.toCPointer<ByteVar>(), addrlen)
+public actual fun sendto(socket: CInt, buf: ConstPtr<CVoid>, len: SizeT, flags: CInt, addr: ConstPtr<Sockaddr>, addrlen: SocklenT): SsizeT =
+    libcVxworksSendto(socket, buf.rawAddress.toCPointer<ByteVar>(), len, flags, addr.rawAddress.toCPointer<ByteVar>(), addrlen)
 
-public actual fun setsockopt(socket: CInt, level: CInt, name: CInt, value: COpaquePointer?, optionLen: SocklenT): CInt =
-    libc_vxworks_setsockopt(socket, level, name, value?.value?.toCPointer<ByteVar>(), optionLen)
+public actual fun setsockopt(socket: CInt, level: CInt, name: CInt, value: ConstPtr<CVoid>, optionLen: SocklenT): CInt =
+    libcVxworksSetsockopt(socket, level, name, value.rawAddress.toCPointer<ByteVar>(), optionLen)
 
 public actual fun shutdown(s: CInt, how: CInt): CInt =
-    libc_vxworks_shutdown(s, how)
+    libcVxworksShutdown(s, how)
 
 public actual fun socket(domain: CInt, type: CInt, protocol: CInt): CInt =
-    libc_vxworks_socket(domain, type, protocol)
+    libcVxworksSocket(domain, type, protocol)
 
 public actual fun ioctl(fd: CInt, request: CInt, vararg variadicArgs: Long): CInt =
-    libc_vxworks_ioctl(fd, request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+    libcVxworksIoctl(fd, request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun fcntl(fd: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
-    libc_vxworks_fcntl(fd, cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+    libcVxworksFcntl(fd, cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun gaiStrerror(errcode: CInt): COpaquePointer? =
-    libc_vxworks_gaiStrerror(errcode)?.let { COpaquePointer(it.toLong()) }
+public actual fun gaiStrerror(errcode: CInt): MutPtr<CChar> =
+    MutPtr(libcVxworksGaiStrerror(errcode)?.toLong() ?: 0L)
 
 public actual fun close(fd: CInt): CInt =
-    libc_vxworks_close(fd)
+    libcVxworksClose(fd)
 
-public actual fun read(fd: CInt, buf: COpaquePointer?, count: SizeT): SsizeT =
-    libc_vxworks_read(fd, buf?.value?.toCPointer<ByteVar>(), count)
+public actual fun read(fd: CInt, buf: MutPtr<CVoid>, count: SizeT): SsizeT =
+    libcVxworksRead(fd, buf.rawAddress.toCPointer<ByteVar>(), count)
 
-public actual fun write(fd: CInt, buf: COpaquePointer?, count: SizeT): SsizeT =
-    libc_vxworks_write(fd, buf?.value?.toCPointer<ByteVar>(), count)
+public actual fun write(fd: CInt, buf: ConstPtr<CVoid>, count: SizeT): SsizeT =
+    libcVxworksWrite(fd, buf.rawAddress.toCPointer<ByteVar>(), count)
 
 public actual fun isatty(fd: CInt): CInt =
-    libc_vxworks_isatty(fd)
+    libcVxworksIsatty(fd)
 
 public actual fun dup(src: CInt): CInt =
-    libc_vxworks_dup(src)
+    libcVxworksDup(src)
 
 public actual fun dup2(src: CInt, dst: CInt): CInt =
-    libc_vxworks_dup2(src, dst)
+    libcVxworksDup2(src, dst)
 
-public actual fun pipe(fds: COpaquePointer?): CInt =
-    libc_vxworks_pipe(fds?.value?.toCPointer<ByteVar>())
+public actual fun pipe(fds: MutPtr<CInt>): CInt =
+    libcVxworksPipe(fds.rawAddress.toCPointer<ByteVar>())
 
-public actual fun unlink(pathname: String?): CInt =
-    libc_vxworks_unlink(pathname)
+public actual fun unlink(pathname: ConstPtr<CChar>): CInt =
+    libcVxworksUnlink(pathname.rawAddress.toCPointer<ByteVar>())
 
 public actual fun lseek(fd: CInt, offset: OffT, whence: CInt): OffT =
-    libc_vxworks_lseek(fd, offset, whence)
+    libcVxworksLseek(fd, offset, whence)
 
-public actual fun getaddrinfo(node: String?, service: String?, hints: COpaquePointer?, res: COpaquePointer?): CInt =
-    libc_vxworks_getaddrinfo(node, service, hints?.value?.toCPointer<ByteVar>(), res?.value?.toCPointer<ByteVar>())
+public actual fun getaddrinfo(node: ConstPtr<CChar>, service: ConstPtr<CChar>, hints: ConstPtr<Addrinfo>, res: MutPtr<MutPtr<Addrinfo>>): CInt =
+    libcVxworksGetaddrinfo(node.rawAddress.toCPointer<ByteVar>(), service.rawAddress.toCPointer<ByteVar>(), hints.rawAddress.toCPointer<ByteVar>(), res.rawAddress.toCPointer<ByteVar>())
 
-public actual fun freeaddrinfo(res: COpaquePointer?) {
-    libc_vxworks_freeaddrinfo(res?.value?.toCPointer<ByteVar>())
+public actual fun freeaddrinfo(res: MutPtr<Addrinfo>) {
+    libcVxworksFreeaddrinfo(res.rawAddress.toCPointer<ByteVar>())
 }
 
 public actual fun signal(signum: CInt, handler: SighandlerT): SighandlerT =
-    libc_vxworks_signal(signum, handler)
+    libcVxworksSignal(signum, handler)
 
 public actual fun getpid(): PidT =
-    libc_vxworks_getpid()
+    libcVxworksGetpid()
 
 public actual fun getppid(): PidT =
-    libc_vxworks_getppid()
+    libcVxworksGetppid()
 
 public actual fun setpgid(pid: PidT, pgid: PidT): PidT =
-    libc_vxworks_setpgid(pid, pgid)
+    libcVxworksSetpgid(pid, pgid)
 
-public actual fun waitpid(pid: PidT, status: COpaquePointer?, options: CInt): PidT =
-    libc_vxworks_waitpid(pid, status?.value?.toCPointer<ByteVar>(), options)
+public actual fun waitpid(pid: PidT, status: MutPtr<CInt>, options: CInt): PidT =
+    libcVxworksWaitpid(pid, status.rawAddress.toCPointer<ByteVar>(), options)
 
 public actual fun sysconf(attr: CInt): CLong =
-    libc_vxworks_sysconf(attr)
+    libcVxworksSysconf(attr)
 
-public actual fun setenv(envVarName: String?, envVarValue: String?, overwrite: CInt): CInt =
-    libc_vxworks_setenv(envVarName, envVarValue, overwrite)
+public actual fun setenv(envVarName: ConstPtr<CChar>, envVarValue: ConstPtr<CChar>, overwrite: CInt): CInt =
+    libcVxworksSetenv(envVarName.rawAddress.toCPointer<ByteVar>(), envVarValue.rawAddress.toCPointer<ByteVar>(), overwrite)
 
-public actual fun unsetenv(envVarName: String?): CInt =
-    libc_vxworks_unsetenv(envVarName)
+public actual fun unsetenv(envVarName: ConstPtr<CChar>): CInt =
+    libcVxworksUnsetenv(envVarName.rawAddress.toCPointer<ByteVar>())
 
-public actual fun realpath(fileName: String?, resolvedName: COpaquePointer?): COpaquePointer? =
-    libc_vxworks_realpath(fileName, resolvedName?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun realpath(fileName: ConstPtr<CChar>, resolvedName: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcVxworksRealpath(fileName.rawAddress.toCPointer<ByteVar>(), resolvedName.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun link(src: String?, dst: String?): CInt =
-    libc_vxworks_link(src, dst)
+public actual fun link(src: ConstPtr<CChar>, dst: ConstPtr<CChar>): CInt =
+    libcVxworksLink(src.rawAddress.toCPointer<ByteVar>(), dst.rawAddress.toCPointer<ByteVar>())
 
-public actual fun readlink(path: String?, buf: COpaquePointer?, bufsize: SizeT): SsizeT =
-    libc_vxworks_readlink(path, buf?.value?.toCPointer<ByteVar>(), bufsize)
+public actual fun readlink(path: ConstPtr<CChar>, buf: MutPtr<CChar>, bufsize: SizeT): SsizeT =
+    libcVxworksReadlink(path.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>(), bufsize)
 
-public actual fun symlink(path1: String?, path2: String?): CInt =
-    libc_vxworks_symlink(path1, path2)
+public actual fun symlink(path1: ConstPtr<CChar>, path2: ConstPtr<CChar>): CInt =
+    libcVxworksSymlink(path1.rawAddress.toCPointer<ByteVar>(), path2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun opendir(name: String?): DIR? =
-    libc_vxworks_opendir(name)?.let { DIR(it.toLong()) }
+public actual fun opendir(name: ConstPtr<CChar>): MutPtr<DIR> =
+    MutPtr(libcVxworksOpendir(name.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun rmdir(path: String?): CInt =
-    libc_vxworks_rmdir(path)
+public actual fun rmdir(path: ConstPtr<CChar>): CInt =
+    libcVxworksRmdir(path.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mkdir(dirName: String?, mode: ModeT): CInt =
-    libc_vxworks_mkdir(dirName, mode)
+public actual fun mkdir(dirName: ConstPtr<CChar>, mode: ModeT): CInt =
+    libcVxworksMkdir(dirName.rawAddress.toCPointer<ByteVar>(), mode)
 
-public actual fun chmod(path: String?, mode: ModeT): CInt =
-    libc_vxworks_chmod(path, mode)
+public actual fun chmod(path: ConstPtr<CChar>, mode: ModeT): CInt =
+    libcVxworksChmod(path.rawAddress.toCPointer<ByteVar>(), mode)
 
 public actual fun fchmod(attr1: CInt, attr2: ModeT): CInt =
-    libc_vxworks_fchmod(attr1, attr2)
+    libcVxworksFchmod(attr1, attr2)
 
 public actual fun fsync(fd: CInt): CInt =
-    libc_vxworks_fsync(fd)
+    libcVxworksFsync(fd)
 
-public actual fun closedir(ptr: DIR?): CInt =
-    libc_vxworks_closedir(ptr?.handle?.toCPointer<ByteVar>())
+public actual fun closedir(ptr: MutPtr<DIR>): CInt =
+    libcVxworksClosedir(ptr.rawAddress.toCPointer<ByteVar>())
 
 public actual fun schedGetPriorityMax(policy: CInt): CInt =
-    libc_vxworks_schedGetPriorityMax(policy)
+    libcVxworksSchedGetPriorityMax(policy)
 
 public actual fun schedGetPriorityMin(policy: CInt): CInt =
-    libc_vxworks_schedGetPriorityMin(policy)
+    libcVxworksSchedGetPriorityMin(policy)
 
-public actual fun schedSetparam(pid: PidT, param: COpaquePointer?): CInt =
-    libc_vxworks_schedSetparam(pid, param?.value?.toCPointer<ByteVar>())
+public actual fun schedSetparam(pid: PidT, param: ConstPtr<SchedParam>): CInt =
+    libcVxworksSchedSetparam(pid, param.rawAddress.toCPointer<ByteVar>())
 
-public actual fun schedGetparam(pid: PidT, param: COpaquePointer?): CInt =
-    libc_vxworks_schedGetparam(pid, param?.value?.toCPointer<ByteVar>())
+public actual fun schedGetparam(pid: PidT, param: MutPtr<SchedParam>): CInt =
+    libcVxworksSchedGetparam(pid, param.rawAddress.toCPointer<ByteVar>())
 
-public actual fun schedSetscheduler(pid: PidT, policy: CInt, param: COpaquePointer?): CInt =
-    libc_vxworks_schedSetscheduler(pid, policy, param?.value?.toCPointer<ByteVar>())
+public actual fun schedSetscheduler(pid: PidT, policy: CInt, param: ConstPtr<SchedParam>): CInt =
+    libcVxworksSchedSetscheduler(pid, policy, param.rawAddress.toCPointer<ByteVar>())
 
 public actual fun schedGetscheduler(pid: PidT): CInt =
-    libc_vxworks_schedGetscheduler(pid)
+    libcVxworksSchedGetscheduler(pid)
 
-public actual fun schedRrGetInterval(pid: PidT, tp: COpaquePointer?): CInt =
-    libc_vxworks_schedRrGetInterval(pid, tp?.value?.toCPointer<ByteVar>())
+public actual fun schedRrGetInterval(pid: PidT, tp: MutPtr<Timespec>): CInt =
+    libcVxworksSchedRrGetInterval(pid, tp.rawAddress.toCPointer<ByteVar>())
 
 public actual fun schedYield(): CInt =
-    libc_vxworks_schedYield()
+    libcVxworksSchedYield()
 
 public actual fun errnoSet(err: CInt): CInt =
-    libc_vxworks_errnoSet(err)
+    libcVxworksErrnoSet(err)
 
 public actual fun errnoGet(): CInt =
-    libc_vxworks_errnoGet()
+    libcVxworksErrnoGet()
 
 public actual fun setgid(gid: GidT): CInt =
-    libc_vxworks_setgid(gid)
+    libcVxworksSetgid(gid)
 
 public actual fun getgid(): GidT =
-    libc_vxworks_getgid()
+    libcVxworksGetgid()
 
 public actual fun setuid(uid: UidT): CInt =
-    libc_vxworks_setuid(uid)
+    libcVxworksSetuid(uid)
 
 public actual fun getuid(): UidT =
-    libc_vxworks_getuid()
+    libcVxworksGetuid()
 
-public actual fun sigemptyset(set: COpaquePointer?): CInt =
-    libc_vxworks_sigemptyset(set?.value?.toCPointer<ByteVar>())
+public actual fun sigemptyset(set: MutPtr<SigsetT>): CInt =
+    libcVxworksSigemptyset(set.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sigfillset(set: COpaquePointer?): CInt =
-    libc_vxworks_sigfillset(set?.value?.toCPointer<ByteVar>())
+public actual fun sigfillset(set: MutPtr<SigsetT>): CInt =
+    libcVxworksSigfillset(set.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sigdelset(set: COpaquePointer?, signum: CInt): CInt =
-    libc_vxworks_sigdelset(set?.value?.toCPointer<ByteVar>(), signum)
+public actual fun sigdelset(set: MutPtr<SigsetT>, signum: CInt): CInt =
+    libcVxworksSigdelset(set.rawAddress.toCPointer<ByteVar>(), signum)
 
-public actual fun sigismember(set: COpaquePointer?, signum: CInt): CInt =
-    libc_vxworks_sigismember(set?.value?.toCPointer<ByteVar>(), signum)
+public actual fun sigismember(set: ConstPtr<SigsetT>, signum: CInt): CInt =
+    libcVxworksSigismember(set.rawAddress.toCPointer<ByteVar>(), signum)
 
-public actual fun pthreadSigmask(how: CInt, set: COpaquePointer?, oset: COpaquePointer?): CInt =
-    libc_vxworks_pthreadSigmask(how, set?.value?.toCPointer<ByteVar>(), oset?.value?.toCPointer<ByteVar>())
+public actual fun pthreadSigmask(how: CInt, set: ConstPtr<SigsetT>, oset: MutPtr<SigsetT>): CInt =
+    libcVxworksPthreadSigmask(how, set.rawAddress.toCPointer<ByteVar>(), oset.rawAddress.toCPointer<ByteVar>())
 
 public actual fun kill(pid: PidT, signo: CInt): CInt =
-    libc_vxworks_kill(pid, signo)
+    libcVxworksKill(pid, signo)
 
 public actual fun sigqueue(pid: PidT, signo: CInt, value: Sigval): CInt =
     0
 
 public actual fun taskKill(taskId: TaskId, signo: CInt): CInt =
-    libc_vxworks_taskKill(taskId, signo)
+    libcVxworksTaskKill(taskId, signo)
 
 public actual fun raise(signo: CInt): CInt =
-    libc_vxworks_raise(signo)
+    libcVxworksRaise(signo)
 
 public actual fun taskIdSelf(): TaskId =
-    libc_vxworks_taskIdSelf()
+    libcVxworksTaskIdSelf()
 
 public actual fun taskDelay(ticks: VxTicksT): CInt =
-    libc_vxworks_taskDelay(ticks)
+    libcVxworksTaskDelay(ticks)
 
-public actual fun taskNameSet(taskId: TaskId, taskName: COpaquePointer?): CInt =
-    libc_vxworks_taskNameSet(taskId, taskName?.value?.toCPointer<ByteVar>())
+public actual fun taskNameSet(taskId: TaskId, taskName: MutPtr<CChar>): CInt =
+    libcVxworksTaskNameSet(taskId, taskName.rawAddress.toCPointer<ByteVar>())
 
-public actual fun taskNameGet(taskId: TaskId, bufName: COpaquePointer?, bufsize: SizeT): CInt =
-    libc_vxworks_taskNameGet(taskId, bufName?.value?.toCPointer<ByteVar>(), bufsize)
+public actual fun taskNameGet(taskId: TaskId, bufName: MutPtr<CChar>, bufsize: SizeT): CInt =
+    libcVxworksTaskNameGet(taskId, bufName.rawAddress.toCPointer<ByteVar>(), bufsize)
 
-public actual fun rtpInfoGet(rtpId: RtpId, rtpStruct: COpaquePointer?): CInt =
-    libc_vxworks_rtpInfoGet(rtpId, rtpStruct?.value?.toCPointer<ByteVar>())
+public actual fun rtpInfoGet(rtpId: RtpId, rtpStruct: MutPtr<RtpDesc>): CInt =
+    libcVxworksRtpInfoGet(rtpId, rtpStruct.rawAddress.toCPointer<ByteVar>())
 
-public actual fun rtpSpawn(pubrtpFileName: String?, argv: COpaquePointer?, envp: COpaquePointer?, priority: CInt, uStackSize: SizeT, options: CInt, taskOptions: CInt): RtpId =
-    libc_vxworks_rtpSpawn(pubrtpFileName, argv?.value?.toCPointer<ByteVar>(), envp?.value?.toCPointer<ByteVar>(), priority, uStackSize, options, taskOptions)
+public actual fun rtpSpawn(pubrtpFileName: ConstPtr<CChar>, argv: MutPtr<ConstPtr<CChar>>, envp: MutPtr<ConstPtr<CChar>>, priority: CInt, uStackSize: SizeT, options: CInt, taskOptions: CInt): RtpId =
+    libcVxworksRtpSpawn(pubrtpFileName.rawAddress.toCPointer<ByteVar>(), argv.rawAddress.toCPointer<ByteVar>(), envp.rawAddress.toCPointer<ByteVar>(), priority, uStackSize, options, taskOptions)
 
-public actual fun pathIsAbsolute(filepath: String?, pNameTail: COpaquePointer?): Bool =
-    libc_vxworks_pathIsAbsolute(filepath, pNameTail?.value?.toCPointer<ByteVar>())
+public actual fun pathIsAbsolute(filepath: ConstPtr<CChar>, pNameTail: MutPtr<ConstPtr<CChar>>): Bool =
+    libcVxworksPathIsAbsolute(filepath.rawAddress.toCPointer<ByteVar>(), pNameTail.rawAddress.toCPointer<ByteVar>())
 
-public actual fun writev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT =
-    libc_vxworks_writev(fd, iov?.value?.toCPointer<ByteVar>(), iovcnt)
+public actual fun writev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+    libcVxworksWritev(fd, iov.rawAddress.toCPointer<ByteVar>(), iovcnt)
 
-public actual fun readv(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT =
-    libc_vxworks_readv(fd, iov?.value?.toCPointer<ByteVar>(), iovcnt)
+public actual fun readv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+    libcVxworksReadv(fd, iov.rawAddress.toCPointer<ByteVar>(), iovcnt)
 
-public actual fun randBytes(buf: COpaquePointer?, length: CInt): CInt =
-    libc_vxworks_randBytes(buf?.value?.toCPointer<ByteVar>(), length)
+public actual fun randBytes(buf: MutPtr<CUchar>, length: CInt): CInt =
+    libcVxworksRandBytes(buf.rawAddress.toCPointer<ByteVar>(), length)
 
-public actual fun randABytes(buf: COpaquePointer?, length: CInt): CInt =
-    libc_vxworks_randABytes(buf?.value?.toCPointer<ByteVar>(), length)
+public actual fun randABytes(buf: MutPtr<CUchar>, length: CInt): CInt =
+    libcVxworksRandABytes(buf.rawAddress.toCPointer<ByteVar>(), length)
 
-public actual fun randUBytes(buf: COpaquePointer?, length: CInt): CInt =
-    libc_vxworks_randUBytes(buf?.value?.toCPointer<ByteVar>(), length)
+public actual fun randUBytes(buf: MutPtr<CUchar>, length: CInt): CInt =
+    libcVxworksRandUBytes(buf.rawAddress.toCPointer<ByteVar>(), length)
 
 public actual fun randSecure(): CInt =
-    libc_vxworks_randSecure()
+    libcVxworksRandSecure()
 
-public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
-    (libc_vxworks_mqOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.toLong() ?: 0L).toInt()
+public actual fun mqOpen(name: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): MqdT =
+    (libcVxworksMqOpen(name.rawAddress.toCPointer<ByteVar>(), oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.toLong() ?: 0L).toInt()
 
 public actual fun mqClose(mqd: MqdT): CInt =
-    libc_vxworks_mqClose(mqd.toLong().toCPointer<ByteVar>())
+    libcVxworksMqClose(mqd.toLong().toCPointer<ByteVar>())
 
-public actual fun mqUnlink(name: String?): CInt =
-    libc_vxworks_mqUnlink(name)
+public actual fun mqUnlink(name: ConstPtr<CChar>): CInt =
+    libcVxworksMqUnlink(name.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mqReceive(mqd: MqdT, msgPtr: COpaquePointer?, msgLen: SizeT, msgPrio: COpaquePointer?): SsizeT =
-    libc_vxworks_mqReceive(mqd.toLong().toCPointer<ByteVar>(), msgPtr?.value?.toCPointer<ByteVar>(), msgLen, msgPrio?.value?.toCPointer<ByteVar>())
+public actual fun mqReceive(mqd: MqdT, msgPtr: MutPtr<CChar>, msgLen: SizeT, msgPrio: MutPtr<CUint>): SsizeT =
+    libcVxworksMqReceive(mqd.toLong().toCPointer<ByteVar>(), msgPtr.rawAddress.toCPointer<ByteVar>(), msgLen, msgPrio.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mqTimedreceive(mqd: MqdT, msgPtr: COpaquePointer?, msgLen: SizeT, msgPrio: COpaquePointer?, absTimeout: COpaquePointer?): SsizeT =
-    libc_vxworks_mqTimedreceive(mqd.toLong().toCPointer<ByteVar>(), msgPtr?.value?.toCPointer<ByteVar>(), msgLen, msgPrio?.value?.toCPointer<ByteVar>(), absTimeout?.value?.toCPointer<ByteVar>())
+public actual fun mqTimedreceive(mqd: MqdT, msgPtr: MutPtr<CChar>, msgLen: SizeT, msgPrio: MutPtr<CUint>, absTimeout: ConstPtr<Timespec>): SsizeT =
+    libcVxworksMqTimedreceive(mqd.toLong().toCPointer<ByteVar>(), msgPtr.rawAddress.toCPointer<ByteVar>(), msgLen, msgPrio.rawAddress.toCPointer<ByteVar>(), absTimeout.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mqSend(mqd: MqdT, msgPtr: String?, msgLen: SizeT, msgPrio: CUint): CInt =
-    libc_vxworks_mqSend(mqd.toLong().toCPointer<ByteVar>(), msgPtr, msgLen, msgPrio)
+public actual fun mqSend(mqd: MqdT, msgPtr: ConstPtr<CChar>, msgLen: SizeT, msgPrio: CUint): CInt =
+    libcVxworksMqSend(mqd.toLong().toCPointer<ByteVar>(), msgPtr.rawAddress.toCPointer<ByteVar>(), msgLen, msgPrio)
 
-public actual fun mqTimedsend(mqd: MqdT, msgPtr: String?, msgLen: SizeT, msgPrio: CUint, absTimeout: COpaquePointer?): CInt =
-    libc_vxworks_mqTimedsend(mqd.toLong().toCPointer<ByteVar>(), msgPtr, msgLen, msgPrio, absTimeout?.value?.toCPointer<ByteVar>())
+public actual fun mqTimedsend(mqd: MqdT, msgPtr: ConstPtr<CChar>, msgLen: SizeT, msgPrio: CUint, absTimeout: ConstPtr<Timespec>): CInt =
+    libcVxworksMqTimedsend(mqd.toLong().toCPointer<ByteVar>(), msgPtr.rawAddress.toCPointer<ByteVar>(), msgLen, msgPrio, absTimeout.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mqGetattr(mqd: MqdT, attr: COpaquePointer?): CInt =
-    libc_vxworks_mqGetattr(mqd.toLong().toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>())
+public actual fun mqGetattr(mqd: MqdT, attr: MutPtr<MqAttr>): CInt =
+    libcVxworksMqGetattr(mqd.toLong().toCPointer<ByteVar>(), attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mqSetattr(mqd: MqdT, newattr: COpaquePointer?, oldattr: COpaquePointer?): CInt =
-    libc_vxworks_mqSetattr(mqd.toLong().toCPointer<ByteVar>(), newattr?.value?.toCPointer<ByteVar>(), oldattr?.value?.toCPointer<ByteVar>())
+public actual fun mqSetattr(mqd: MqdT, newattr: ConstPtr<MqAttr>, oldattr: MutPtr<MqAttr>): CInt =
+    libcVxworksMqSetattr(mqd.toLong().toCPointer<ByteVar>(), newattr.rawAddress.toCPointer<ByteVar>(), oldattr.rawAddress.toCPointer<ByteVar>())
 
 public actual fun vxCpuEnabledGet(): CpusetT =
-    libc_vxworks_vxCpuEnabledGet()
+    libcVxworksVxCpuEnabledGet()
 
 public actual fun vxCpuConfiguredGet(): CpusetT =
-    libc_vxworks_vxCpuConfiguredGet()
+    libcVxworksVxCpuConfiguredGet()

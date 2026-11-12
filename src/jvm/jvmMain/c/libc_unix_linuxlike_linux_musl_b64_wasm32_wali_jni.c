@@ -19,7 +19,7 @@
 #endif
 #endif
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysRead(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRead(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, uint32_t);
@@ -52,7 +52,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysWrite(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysWrite(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, uint32_t);
@@ -85,7 +85,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysOpen(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysOpen(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t);
@@ -118,7 +118,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysClose(JNIEnv* km_env, jclass km_clazz, jint a1) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysClose(JNIEnv* km_env, jclass km_clazz, jint a1) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t);
@@ -151,7 +151,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysStat(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysStat(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
@@ -184,7 +184,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysFstat(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFstat(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
@@ -217,7 +217,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysLstat(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysLstat(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
@@ -250,7 +250,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysPoll(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysPoll(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, uint32_t, int32_t);
@@ -283,7 +283,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysLseek(JNIEnv* km_env, jclass km_clazz, jint a1, jlong a2, jint a3) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysLseek(JNIEnv* km_env, jclass km_clazz, jint a1, jlong a2, jint a3) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int64_t, int32_t);
@@ -316,7 +316,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysMmap(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4, jint a5, jlong a6) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysMmap(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4, jint a5, jlong a6) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, uint32_t, int32_t, int32_t, int32_t, int64_t);
@@ -349,7 +349,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysMprotect(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysMprotect(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, uint32_t, int32_t);
@@ -382,7 +382,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysMunmap(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysMunmap(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, uint32_t);
@@ -415,7 +415,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysBrk(JNIEnv* km_env, jclass km_clazz, jint a1) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysBrk(JNIEnv* km_env, jclass km_clazz, jint a1) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t);
@@ -448,7 +448,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysRtSigaction(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRtSigaction(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, uint32_t);
@@ -481,7 +481,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysRtSigprocmask(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRtSigprocmask(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, uint32_t);
@@ -514,7 +514,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysRtSigreturn(JNIEnv* km_env, jclass km_clazz, jlong a1) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRtSigreturn(JNIEnv* km_env, jclass km_clazz, jlong a1) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int64_t);
@@ -547,7 +547,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysIoctl(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysIoctl(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t);
@@ -580,7 +580,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysPread64(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jlong a4) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysPread64(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jlong a4) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, uint32_t, int64_t);
@@ -618,7 +618,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysPwrite64(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jlong a4) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysPwrite64(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jlong a4) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, uint32_t, int64_t);
@@ -656,7 +656,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysReadv(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysReadv(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t);
@@ -689,7 +689,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysWritev(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysWritev(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t);
@@ -722,7 +722,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysAccess(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysAccess(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
@@ -755,7 +755,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysPipe(JNIEnv* km_env, jclass km_clazz, jint a1) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysPipe(JNIEnv* km_env, jclass km_clazz, jint a1) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t);
@@ -788,7 +788,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysSelect(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4, jint a5) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSelect(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4, jint a5) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t, int32_t);
@@ -821,7 +821,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysSchedYield(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSchedYield(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(void);
@@ -854,7 +854,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysMremap(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4, jint a5) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysMremap(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4, jint a5) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, uint32_t, uint32_t, int32_t, int32_t);
@@ -887,7 +887,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysMsync(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysMsync(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, uint32_t, int32_t);
@@ -920,7 +920,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysMadvise(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysMadvise(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, uint32_t, int32_t);
@@ -953,7 +953,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysDup(JNIEnv* km_env, jclass km_clazz, jint a1) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysDup(JNIEnv* km_env, jclass km_clazz, jint a1) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t);
@@ -986,7 +986,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysDup2(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysDup2(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
@@ -1019,7 +1019,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysNanosleep(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysNanosleep(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
@@ -1052,7 +1052,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysAlarm(JNIEnv* km_env, jclass km_clazz, jint a1) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysAlarm(JNIEnv* km_env, jclass km_clazz, jint a1) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t);
@@ -1085,7 +1085,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysSetitimer(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetitimer(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t);
@@ -1118,7 +1118,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysGetpid(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetpid(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(void);
@@ -1151,7 +1151,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysSocket(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSocket(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t);
@@ -1184,7 +1184,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysConnect(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysConnect(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, uint32_t);
@@ -1217,7 +1217,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysAccept(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysAccept(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t);
@@ -1250,7 +1250,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysSendto(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4, jint a5, jint a6) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSendto(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4, jint a5, jint a6) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, uint32_t, int32_t, int32_t, uint32_t);
@@ -1283,7 +1283,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysRecvfrom(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4, jint a5, jint a6) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRecvfrom(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4, jint a5, jint a6) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, uint32_t, int32_t, int32_t, int32_t);
@@ -1316,7 +1316,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysSendmsg(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSendmsg(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t);
@@ -1349,7 +1349,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysRecvmsg(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRecvmsg(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t);
@@ -1382,7 +1382,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysShutdown(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysShutdown(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
@@ -1415,7 +1415,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysBind(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysBind(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, uint32_t);
@@ -1448,7 +1448,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysListen(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysListen(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
@@ -1481,7 +1481,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysGetsockname(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetsockname(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t);
@@ -1514,7 +1514,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysGetpeername(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetpeername(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t);
@@ -1547,7 +1547,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysSocketpair(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSocketpair(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t);
@@ -1580,7 +1580,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysSetsockopt(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4, jint a5) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetsockopt(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4, jint a5) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t, uint32_t);
@@ -1613,7 +1613,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysGetsockopt(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4, jint a5) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetsockopt(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4, jint a5) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t, int32_t);
@@ -1646,7 +1646,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysFork(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFork(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(void);
@@ -1679,7 +1679,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysExecve(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysExecve(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t);
@@ -1712,7 +1712,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysExit(JNIEnv* km_env, jclass km_clazz, jint a1) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysExit(JNIEnv* km_env, jclass km_clazz, jint a1) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t);
@@ -1745,7 +1745,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysWait4(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysWait4(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t);
@@ -1778,7 +1778,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysKill(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysKill(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
@@ -1811,7 +1811,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysUname(JNIEnv* km_env, jclass km_clazz, jint a1) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysUname(JNIEnv* km_env, jclass km_clazz, jint a1) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t);
@@ -1844,7 +1844,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysFcntl(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFcntl(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t);
@@ -1877,7 +1877,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysFlock(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFlock(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
@@ -1910,7 +1910,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysFsync(JNIEnv* km_env, jclass km_clazz, jint a1) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFsync(JNIEnv* km_env, jclass km_clazz, jint a1) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t);
@@ -1943,7 +1943,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysFdatasync(JNIEnv* km_env, jclass km_clazz, jint a1) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFdatasync(JNIEnv* km_env, jclass km_clazz, jint a1) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t);
@@ -1976,7 +1976,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysFtruncate(JNIEnv* km_env, jclass km_clazz, jint a1, jlong a2) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFtruncate(JNIEnv* km_env, jclass km_clazz, jint a1, jlong a2) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int64_t);
@@ -2009,7 +2009,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysGetdents(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetdents(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t);
@@ -2042,7 +2042,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysGetcwd(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetcwd(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, uint32_t);
@@ -2075,7 +2075,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysChdir(JNIEnv* km_env, jclass km_clazz, jint a1) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysChdir(JNIEnv* km_env, jclass km_clazz, jint a1) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t);
@@ -2108,7 +2108,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysFchdir(JNIEnv* km_env, jclass km_clazz, jint a1) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFchdir(JNIEnv* km_env, jclass km_clazz, jint a1) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t);
@@ -2141,7 +2141,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysRename(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRename(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
@@ -2174,7 +2174,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysMkdir(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysMkdir(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
@@ -2207,7 +2207,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysRmdir(JNIEnv* km_env, jclass km_clazz, jint a1) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRmdir(JNIEnv* km_env, jclass km_clazz, jint a1) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t);
@@ -2240,7 +2240,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysLink(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysLink(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
@@ -2273,7 +2273,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysUnlink(JNIEnv* km_env, jclass km_clazz, jint a1) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysUnlink(JNIEnv* km_env, jclass km_clazz, jint a1) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t);
@@ -2306,7 +2306,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysSymlink(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSymlink(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
@@ -2339,7 +2339,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysReadlink(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysReadlink(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, uint32_t);
@@ -2372,7 +2372,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysChmod(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysChmod(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
@@ -2405,7 +2405,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysFchmod(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFchmod(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
@@ -2438,7 +2438,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysChown(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysChown(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t);
@@ -2471,7 +2471,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysFchown(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFchown(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t);
@@ -2504,7 +2504,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysUmask(JNIEnv* km_env, jclass km_clazz, jint a1) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysUmask(JNIEnv* km_env, jclass km_clazz, jint a1) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t);
@@ -2537,7 +2537,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysGetrlimit(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetrlimit(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
@@ -2570,7 +2570,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysGetrusage(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetrusage(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
@@ -2603,7 +2603,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysSysinfo(JNIEnv* km_env, jclass km_clazz, jint a1) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSysinfo(JNIEnv* km_env, jclass km_clazz, jint a1) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t);
@@ -2636,7 +2636,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysGetuid(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetuid(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(void);
@@ -2669,7 +2669,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysGetgid(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetgid(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(void);
@@ -2702,7 +2702,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysSetuid(JNIEnv* km_env, jclass km_clazz, jint a1) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetuid(JNIEnv* km_env, jclass km_clazz, jint a1) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t);
@@ -2735,7 +2735,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysSetgid(JNIEnv* km_env, jclass km_clazz, jint a1) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetgid(JNIEnv* km_env, jclass km_clazz, jint a1) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t);
@@ -2768,7 +2768,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysGeteuid(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGeteuid(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(void);
@@ -2801,7 +2801,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysGetegid(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetegid(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(void);
@@ -2834,7 +2834,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysSetpgid(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetpgid(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
@@ -2867,7 +2867,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysGetppid(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetppid(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(void);
@@ -2900,7 +2900,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysSetsid(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetsid(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(void);
@@ -2933,7 +2933,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysSetreuid(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetreuid(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
@@ -2966,7 +2966,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysSetregid(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetregid(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
@@ -2999,7 +2999,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysGetgroups(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetgroups(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(uint32_t, int32_t);
@@ -3032,7 +3032,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysSetgroups(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetgroups(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(uint32_t, int32_t);
@@ -3065,7 +3065,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysSetresuid(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetresuid(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t);
@@ -3098,7 +3098,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysSetresgid(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetresgid(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t);
@@ -3131,7 +3131,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysGetpgid(JNIEnv* km_env, jclass km_clazz, jint a1) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetpgid(JNIEnv* km_env, jclass km_clazz, jint a1) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t);
@@ -3164,7 +3164,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysGetsid(JNIEnv* km_env, jclass km_clazz, jint a1) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetsid(JNIEnv* km_env, jclass km_clazz, jint a1) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t);
@@ -3197,7 +3197,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysRtSigpending(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRtSigpending(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, uint32_t);
@@ -3230,7 +3230,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysRtSigsuspend(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRtSigsuspend(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, uint32_t);
@@ -3263,7 +3263,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysSigaltstack(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSigaltstack(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
@@ -3296,7 +3296,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysUtime(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysUtime(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
@@ -3329,7 +3329,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysStatfs(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysStatfs(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
@@ -3362,7 +3362,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysFstatfs(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFstatfs(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
@@ -3395,7 +3395,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysPrctl(JNIEnv* km_env, jclass km_clazz, jint a1, jlong a2, jlong a3, jlong a4, jlong a5) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysPrctl(JNIEnv* km_env, jclass km_clazz, jint a1, jlong a2, jlong a3, jlong a4, jlong a5) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, uint64_t, uint64_t, uint64_t, uint64_t);
@@ -3428,7 +3428,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysSetrlimit(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetrlimit(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
@@ -3461,7 +3461,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysChroot(JNIEnv* km_env, jclass km_clazz, jint a1) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysChroot(JNIEnv* km_env, jclass km_clazz, jint a1) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t);
@@ -3494,7 +3494,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysGettid(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGettid(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(void);
@@ -3527,7 +3527,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysTkill(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysTkill(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
@@ -3560,7 +3560,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysFutex(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4, jint a5, jint a6) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFutex(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4, jint a5, jint a6) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t);
@@ -3593,7 +3593,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysSchedGetaffinity(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSchedGetaffinity(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, uint32_t, int32_t);
@@ -3626,7 +3626,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysGetdents64(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetdents64(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t);
@@ -3664,7 +3664,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysSetTidAddress(JNIEnv* km_env, jclass km_clazz, jint a1) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSetTidAddress(JNIEnv* km_env, jclass km_clazz, jint a1) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t);
@@ -3697,7 +3697,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysFadvise(JNIEnv* km_env, jclass km_clazz, jint a1, jlong a2, jlong a3, jint a4) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFadvise(JNIEnv* km_env, jclass km_clazz, jint a1, jlong a2, jlong a3, jint a4) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int64_t, int64_t, int32_t);
@@ -3730,7 +3730,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysClockGettime(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysClockGettime(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
@@ -3763,7 +3763,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysClockGetres(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysClockGetres(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
@@ -3796,7 +3796,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysClockNanosleep(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysClockNanosleep(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t);
@@ -3829,7 +3829,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysExitGroup(JNIEnv* km_env, jclass km_clazz, jint a1) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysExitGroup(JNIEnv* km_env, jclass km_clazz, jint a1) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t);
@@ -3862,7 +3862,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysEpollCtl(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysEpollCtl(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t);
@@ -3895,7 +3895,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysOpenat(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysOpenat(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t);
@@ -3928,7 +3928,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysMkdirat(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysMkdirat(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t);
@@ -3961,7 +3961,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysFchownat(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4, jint a5) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFchownat(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4, jint a5) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t, int32_t);
@@ -3994,7 +3994,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysFstatat(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFstatat(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t);
@@ -4027,7 +4027,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysUnlinkat(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysUnlinkat(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t);
@@ -4060,7 +4060,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysLinkat(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4, jint a5) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysLinkat(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4, jint a5) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t, int32_t);
@@ -4093,7 +4093,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysSymlinkat(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysSymlinkat(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t);
@@ -4126,7 +4126,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysReadlinkat(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysReadlinkat(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, uint32_t);
@@ -4159,7 +4159,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysFchmodat(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFchmodat(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t);
@@ -4192,7 +4192,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysFaccessat(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFaccessat(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t);
@@ -4225,7 +4225,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysPselect6(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4, jint a5, jint a6) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysPselect6(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4, jint a5, jint a6) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t, int32_t, int32_t);
@@ -4258,7 +4258,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysPpoll(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4, jint a5) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysPpoll(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4, jint a5) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, uint32_t, int32_t, int32_t, uint32_t);
@@ -4291,7 +4291,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysUtimensat(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysUtimensat(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t);
@@ -4324,7 +4324,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysEpollPwait(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4, jint a5, jint a6) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysEpollPwait(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4, jint a5, jint a6) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t, int32_t, uint32_t);
@@ -4357,7 +4357,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysEventfd(JNIEnv* km_env, jclass km_clazz, jint a1) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysEventfd(JNIEnv* km_env, jclass km_clazz, jint a1) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t);
@@ -4390,7 +4390,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysAccept4(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysAccept4(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t);
@@ -4423,7 +4423,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysEventfd2(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysEventfd2(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
@@ -4456,7 +4456,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysEpollCreate1(JNIEnv* km_env, jclass km_clazz, jint a1) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysEpollCreate1(JNIEnv* km_env, jclass km_clazz, jint a1) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t);
@@ -4489,7 +4489,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysDup3(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysDup3(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t);
@@ -4522,7 +4522,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysPipe2(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysPipe2(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
@@ -4555,7 +4555,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysPrlimit64(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysPrlimit64(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t);
@@ -4593,7 +4593,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysRenameat2(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4, jint a5) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysRenameat2(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4, jint a5) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t, int32_t);
@@ -4626,7 +4626,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysGetrandom(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysGetrandom(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, uint32_t, int32_t);
@@ -4659,7 +4659,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysStatx(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4, jint a5) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysStatx(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4, jint a5) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t, int32_t);
@@ -4692,7 +4692,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_mus
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libc_1unix_1linuxlike_1linux_1musl_1b64_1wasm32_1wali_1syscallSysFaccessat2(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_linuxlike_linux_musl_b64_wasm32_wali_UnixLinuxlikeLinuxMuslB64Wasm32WaliJniBridge_libcUnixLinuxlikeLinuxMuslB64Wasm32WaliSyscallSysFaccessat2(JNIEnv* km_env, jclass km_clazz, jint a1, jint a2, jint a3, jint a4) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, int32_t, int32_t);

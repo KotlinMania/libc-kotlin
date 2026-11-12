@@ -18,7 +18,7 @@
 #endif
 #endif
 
-int32_t libc_new_apple_libpthread_pthread_qos_pthreadAttrGetQosClassNp(void* attr, void* arg_1_class, void* priority) {
+int32_t libcNewAppleLibpthreadPthreadQosPthreadAttrGetQosClassNp(void* attr, void* arg1Class, void* priority) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -40,13 +40,13 @@ int32_t libc_new_apple_libpthread_pthread_qos_pthreadAttrGetQosClassNp(void* att
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(attr, arg_1_class, priority);
+        return km_fn_ptr(attr, arg1Class, priority);
     }
     errno = ENOSYS;
     return ENOSYS;
 }
 
-int32_t libc_new_apple_libpthread_pthread_qos_pthreadGetQosClassNp(void* thread, void* arg_1_class, void* priority) {
+int32_t libcNewAppleLibpthreadPthreadQosPthreadGetQosClassNp(void* thread, void* arg1Class, void* priority) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -68,7 +68,7 @@ int32_t libc_new_apple_libpthread_pthread_qos_pthreadGetQosClassNp(void* thread,
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(thread, arg_1_class, priority);
+        return km_fn_ptr(thread, arg1Class, priority);
     }
     errno = ENOSYS;
     return ENOSYS;

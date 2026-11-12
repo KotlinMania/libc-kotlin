@@ -2,10 +2,11 @@
 
 package io.github.kotlinmania.libc.unix.linuxlike.android.b32
 
-import io.github.kotlinmania.libc.COpaquePointer
-import io.github.kotlinmania.libc.unix.linuxlike.android.b32.cinterop.libc_unix_linuxlike_android_b32_timegm64
+import io.github.kotlinmania.libc.unix.linuxlike.Tm
+import io.github.kotlinmania.libc.unix.linuxlike.android.b32.cinterop.libcUnixLinuxlikeAndroidB32Timegm64
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 
-public actual fun timegm64(tm: COpaquePointer?): Time64T =
-    libc_unix_linuxlike_android_b32_timegm64(tm?.value?.toCPointer<ByteVar>())
+public actual fun timegm64(tm: ConstPtr<Tm>): Time64T =
+    libcUnixLinuxlikeAndroidB32Timegm64(tm.rawAddress.toCPointer<ByteVar>())

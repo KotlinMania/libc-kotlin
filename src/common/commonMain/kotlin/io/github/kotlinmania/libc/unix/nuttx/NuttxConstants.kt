@@ -2,7 +2,8 @@ package io.github.kotlinmania.libc.unix.nuttx
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 // Reserved two pointer size for reserved area for some structures.
 // This ensures that the size of these structures is large enough
@@ -573,4 +574,4 @@ public val IP_ADD_MEMBERSHIP: Int = 0x14
 public val IP_DROP_MEMBERSHIP: Int = 0x15
 
 // dlfcn.h
-public val RTLD_DEFAULT: COpaquePointer? = null
+public val RTLD_DEFAULT: MutPtr<CVoid> = MutPtr(0L)

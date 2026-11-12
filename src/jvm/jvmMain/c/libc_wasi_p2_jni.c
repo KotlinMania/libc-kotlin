@@ -19,7 +19,7 @@
 #endif
 #endif
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_libc_1wasi_1p2_1socket(JNIEnv* km_env, jclass km_clazz, jint domain, jint type_, jint protocol) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_libcWasiP2Socket(JNIEnv* km_env, jclass km_clazz, jint domain, jint type, jint protocol) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t);
@@ -44,7 +44,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_l
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)domain, (int32_t)type_, (int32_t)protocol);
+        km_res = km_fn_ptr((int32_t)domain, (int32_t)type, (int32_t)protocol);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -52,7 +52,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_l
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_libc_1wasi_1p2_1connect(JNIEnv* km_env, jclass km_clazz, jint fd, jlong name, jint addrlen) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_libcWasiP2Connect(JNIEnv* km_env, jclass km_clazz, jint fd, jlong name, jint addrlen) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t);
@@ -85,7 +85,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_l
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_libc_1wasi_1p2_1bind(JNIEnv* km_env, jclass km_clazz, jint arg_0_socket, jlong addr, jint addrlen) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_libcWasiP2Bind(JNIEnv* km_env, jclass km_clazz, jint arg0Socket, jlong addr, jint addrlen) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t);
@@ -110,7 +110,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_l
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)arg_0_socket, (void*)(uintptr_t)addr, (uint32_t)addrlen);
+        km_res = km_fn_ptr((int32_t)arg0Socket, (void*)(uintptr_t)addr, (uint32_t)addrlen);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -118,7 +118,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_l
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_libc_1wasi_1p2_1listen(JNIEnv* km_env, jclass km_clazz, jint arg_0_socket, jint backlog) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_libcWasiP2Listen(JNIEnv* km_env, jclass km_clazz, jint arg0Socket, jint backlog) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
@@ -143,7 +143,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_l
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)arg_0_socket, (int32_t)backlog);
+        km_res = km_fn_ptr((int32_t)arg0Socket, (int32_t)backlog);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -151,7 +151,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_l
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_libc_1wasi_1p2_1accept(JNIEnv* km_env, jclass km_clazz, jint arg_0_socket, jlong addr, jlong addrlen) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_libcWasiP2Accept(JNIEnv* km_env, jclass km_clazz, jint arg0Socket, jlong addr, jlong addrlen) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
@@ -176,7 +176,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_l
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)arg_0_socket, (void*)(uintptr_t)addr, (void*)(uintptr_t)addrlen);
+        km_res = km_fn_ptr((int32_t)arg0Socket, (void*)(uintptr_t)addr, (void*)(uintptr_t)addrlen);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -184,7 +184,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_l
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_libc_1wasi_1p2_1accept4(JNIEnv* km_env, jclass km_clazz, jint arg_0_socket, jlong addr, jlong addrlen, jint flags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_libcWasiP2Accept4(JNIEnv* km_env, jclass km_clazz, jint arg0Socket, jlong addr, jlong addrlen, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, void*, int32_t);
@@ -209,7 +209,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_l
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)arg_0_socket, (void*)(uintptr_t)addr, (void*)(uintptr_t)addrlen, (int32_t)flags);
+        km_res = km_fn_ptr((int32_t)arg0Socket, (void*)(uintptr_t)addr, (void*)(uintptr_t)addrlen, (int32_t)flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -217,7 +217,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_l
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_libc_1wasi_1p2_1getsockname(JNIEnv* km_env, jclass km_clazz, jint arg_0_socket, jlong addr, jlong addrlen) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_libcWasiP2Getsockname(JNIEnv* km_env, jclass km_clazz, jint arg0Socket, jlong addr, jlong addrlen) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
@@ -242,7 +242,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_l
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)arg_0_socket, (void*)(uintptr_t)addr, (void*)(uintptr_t)addrlen);
+        km_res = km_fn_ptr((int32_t)arg0Socket, (void*)(uintptr_t)addr, (void*)(uintptr_t)addrlen);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -250,7 +250,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_l
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_libc_1wasi_1p2_1getpeername(JNIEnv* km_env, jclass km_clazz, jint arg_0_socket, jlong addr, jlong addrlen) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_libcWasiP2Getpeername(JNIEnv* km_env, jclass km_clazz, jint arg0Socket, jlong addr, jlong addrlen) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
@@ -275,7 +275,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_l
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)arg_0_socket, (void*)(uintptr_t)addr, (void*)(uintptr_t)addrlen);
+        km_res = km_fn_ptr((int32_t)arg0Socket, (void*)(uintptr_t)addr, (void*)(uintptr_t)addrlen);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -283,7 +283,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_l
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_libc_1wasi_1p2_1sendto(JNIEnv* km_env, jclass km_clazz, jint arg_0_socket, jlong buffer, jlong length, jint flags, jlong addr, jint addrlen) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_libcWasiP2Sendto(JNIEnv* km_env, jclass km_clazz, jint arg0Socket, jlong buffer, jlong length, jint flags, jlong addr, jint addrlen) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, int32_t, void*, uint32_t);
@@ -308,7 +308,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_
 #endif
     int64_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)arg_0_socket, (void*)(uintptr_t)buffer, (uint64_t)length, (int32_t)flags, (void*)(uintptr_t)addr, (uint32_t)addrlen);
+        km_res = km_fn_ptr((int32_t)arg0Socket, (void*)(uintptr_t)buffer, (uint64_t)length, (int32_t)flags, (void*)(uintptr_t)addr, (uint32_t)addrlen);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -316,7 +316,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_libc_1wasi_1p2_1recvfrom(JNIEnv* km_env, jclass km_clazz, jint arg_0_socket, jlong buffer, jlong length, jint flags, jlong addr, jlong addrlen) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_libcWasiP2Recvfrom(JNIEnv* km_env, jclass km_clazz, jint arg0Socket, jlong buffer, jlong length, jint flags, jlong addr, jlong addrlen) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, int32_t, void*, void*);
@@ -341,7 +341,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_
 #endif
     int64_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)arg_0_socket, (void*)(uintptr_t)buffer, (uint64_t)length, (int32_t)flags, (void*)(uintptr_t)addr, (void*)(uintptr_t)addrlen);
+        km_res = km_fn_ptr((int32_t)arg0Socket, (void*)(uintptr_t)buffer, (uint64_t)length, (int32_t)flags, (void*)(uintptr_t)addr, (void*)(uintptr_t)addrlen);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -349,7 +349,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_
     return (jlong)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_libc_1wasi_1p2_1getsockopt(JNIEnv* km_env, jclass km_clazz, jint sockfd, jint level, jint optname, jlong optval, jlong optlen) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_libcWasiP2Getsockopt(JNIEnv* km_env, jclass km_clazz, jint sockfd, jint level, jint optname, jlong optval, jlong optlen) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, void*, void*);
@@ -382,7 +382,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_l
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_libc_1wasi_1p2_1setsockopt(JNIEnv* km_env, jclass km_clazz, jint sockfd, jint level, jint optname, jlong optval, jint optlen) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_libcWasiP2Setsockopt(JNIEnv* km_env, jclass km_clazz, jint sockfd, jint level, jint optname, jlong optval, jint optlen) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, void*, uint32_t);
@@ -415,11 +415,9 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_l
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_libc_1wasi_1p2_1getaddrinfo(JNIEnv* km_env, jclass km_clazz, jstring host, jstring serv, jlong hint, jlong res) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_libcWasiP2Getaddrinfo(JNIEnv* km_env, jclass km_clazz, jlong host, jlong serv, jlong hint, jlong res) {
     (void)km_env;
     (void)km_clazz;
-    const char* host_utf = (host != NULL) ? (*km_env)->GetStringUTFChars(km_env, host, NULL) : NULL;
-    const char* serv_utf = (serv != NULL) ? (*km_env)->GetStringUTFChars(km_env, serv, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, const char*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -442,17 +440,15 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_l
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(host_utf, serv_utf, (void*)(uintptr_t)hint, (void*)(uintptr_t)res);
+        km_res = km_fn_ptr((const char*)(uintptr_t)host, (const char*)(uintptr_t)serv, (void*)(uintptr_t)hint, (void*)(uintptr_t)res);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (host != NULL && host_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, host, host_utf);
-    if (serv != NULL && serv_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, serv, serv_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_libc_1wasi_1p2_1freeaddrinfo(JNIEnv* km_env, jclass km_clazz, jlong p) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_libcWasiP2Freeaddrinfo(JNIEnv* km_env, jclass km_clazz, jlong p) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void*);
@@ -482,7 +478,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_l
     }
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_libc_1wasi_1p2_1gaiStrerror(JNIEnv* km_env, jclass km_clazz, jint ecode) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_wasi_p2_WasiP2JniBridge_libcWasiP2GaiStrerror(JNIEnv* km_env, jclass km_clazz, jint ecode) {
     (void)km_env;
     (void)km_clazz;
     typedef const char* (*km_fn_t)(int32_t);

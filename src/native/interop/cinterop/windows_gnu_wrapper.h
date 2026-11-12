@@ -9,9 +9,9 @@
 extern "C" {
 #endif
 
-int32_t libc_windows_gnu_strcasecmp(const char* s1, const char* s2);
-int32_t libc_windows_gnu_strncasecmp(const char* s1, const char* s2, uint64_t n);
-void* libc_windows_gnu_wmemchr(void* cx, uint16_t c, uint64_t n);
+int32_t libcWindowsGnuStrcasecmp(const char* s1, const char* s2);
+int32_t libcWindowsGnuStrncasecmp(const char* s1, const char* s2, uint64_t n);
+void* libcWindowsGnuWmemchr(void* cx, uint16_t c, uint64_t n);
 
 #ifdef __cplusplus
 }

@@ -3,3 +3,4 @@ headers = new_qurt_dlfcn_wrapper.h
 headerFilter = new_qurt_dlfcn_wrapper.h
 compilerOpts = -Isrc/native/interop/cinterop
 staticLibraries = new_qurt_dlfcn_wrapper.a
+noStringConversion = libcNewQurtDlfcnDlopen libcNewQurtDlfcnDlsym

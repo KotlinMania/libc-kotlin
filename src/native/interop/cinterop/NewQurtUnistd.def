@@ -4,3 +4,4 @@ headerFilter = new_qurt_unistd_wrapper.h
 compilerOpts = -Isrc/native/interop/cinterop
 staticLibraries = new_qurt_unistd_wrapper.a
 linkerOpts.mingw = -lws2_32
+noStringConversion = libcNewQurtUnistdAccess libcNewQurtUnistdUnlink libcNewQurtUnistdRmdir

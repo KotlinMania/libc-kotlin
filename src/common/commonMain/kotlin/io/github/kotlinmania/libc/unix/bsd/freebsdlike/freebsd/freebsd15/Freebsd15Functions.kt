@@ -1,19 +1,23 @@
 package io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd15
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.IdT
+import io.github.kotlinmania.libc.unix.bsd.freebsdlike.KvmT
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.CpulevelT
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.CpuwhichT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public fun interface QsortRComparCallback {
-    public operator fun invoke(arg0: COpaquePointer?, arg1: COpaquePointer?, arg2: COpaquePointer?): CInt
+    public operator fun invoke(arg0: ConstPtr<CVoid>, arg1: ConstPtr<CVoid>, arg2: MutPtr<CVoid>): CInt
 }
 
 public fun makedev(major: CUint, minor: CUint): DevT {
@@ -33,20 +37,20 @@ public fun minor(dev: DevT): CInt = (((dev shr 24) and 0xff00uL) or (dev and 0xf
 
 public expect fun setgrent()
 
-public expect fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt
+public expect fun mprotect(addr: MutPtr<CVoid>, len: SizeT, prot: CInt): CInt
 
 public expect fun freelocale(loc: LocaleT)
 
-public expect fun msgrcv(msqid: CInt, msgp: COpaquePointer?, msgsz: SizeT, msgtyp: CLong, msgflg: CInt): SsizeT
+public expect fun msgrcv(msqid: CInt, msgp: MutPtr<CVoid>, msgsz: SizeT, msgtyp: CLong, msgflg: CInt): SsizeT
 
-public expect fun cpusetGetdomain(level: CpulevelT, which: CpuwhichT, id: IdT, setsize: SizeT, mask: COpaquePointer?, policy: COpaquePointer?): CInt
+public expect fun cpusetGetdomain(level: CpulevelT, which: CpuwhichT, id: IdT, setsize: SizeT, mask: MutPtr<DomainsetT>, policy: MutPtr<CInt>): CInt
 
-public expect fun cpusetSetdomain(level: CpulevelT, which: CpuwhichT, id: IdT, setsize: SizeT, mask: COpaquePointer?, policy: CInt): CInt
+public expect fun cpusetSetdomain(level: CpulevelT, which: CpuwhichT, id: IdT, setsize: SizeT, mask: ConstPtr<DomainsetT>, policy: CInt): CInt
 
-public expect fun dirname(path: COpaquePointer?): COpaquePointer?
+public expect fun dirname(path: MutPtr<CChar>): MutPtr<CChar>
 
-public expect fun basename(path: COpaquePointer?): COpaquePointer?
+public expect fun basename(path: MutPtr<CChar>): MutPtr<CChar>
 
-public expect fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, compar: QsortRComparCallback?, arg: COpaquePointer?)
+public expect fun qsortR(base: MutPtr<CVoid>, num: SizeT, size: SizeT, compar: QsortRComparCallback?, arg: MutPtr<CVoid>)
 
-public expect fun kvmKerndisp(kd: COpaquePointer?): KssizeT
+public expect fun kvmKerndisp(kd: MutPtr<KvmT>): KssizeT

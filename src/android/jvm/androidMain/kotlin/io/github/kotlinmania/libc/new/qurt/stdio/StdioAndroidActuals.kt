@@ -3,12 +3,16 @@
 package io.github.kotlinmania.libc.new.qurt.stdio
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.new.qurt.FILE
+import io.github.kotlinmania.libc.new.qurt.FposT
 import io.github.kotlinmania.libc.new.qurt.SizeT
 import io.github.kotlinmania.libc.new.qurt.VaList
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 private object NewQurtStdioJniBridge {
     init {
@@ -16,252 +20,252 @@ private object NewQurtStdioJniBridge {
     }
 
     @JvmStatic
-    external fun libc_new_qurt_stdio_fopen(filename: String?, mode: String?): Long
+    external fun libcNewQurtStdioFopen(filename: Long, mode: Long): Long
 
     @JvmStatic
-    external fun libc_new_qurt_stdio_freopen(filename: String?, mode: String?, stream: Long): Long
+    external fun libcNewQurtStdioFreopen(filename: Long, mode: Long, stream: Long): Long
 
     @JvmStatic
-    external fun libc_new_qurt_stdio_fclose(stream: Long): Int
+    external fun libcNewQurtStdioFclose(stream: Long): Int
 
     @JvmStatic
-    external fun libc_new_qurt_stdio_fflush(stream: Long): Int
+    external fun libcNewQurtStdioFflush(stream: Long): Int
 
     @JvmStatic
-    external fun libc_new_qurt_stdio_fread(ptr: Long, size: Long, nmemb: Long, stream: Long): Long
+    external fun libcNewQurtStdioFread(ptr: Long, size: Long, nmemb: Long, stream: Long): Long
 
     @JvmStatic
-    external fun libc_new_qurt_stdio_fwrite(ptr: Long, size: Long, nmemb: Long, stream: Long): Long
+    external fun libcNewQurtStdioFwrite(ptr: Long, size: Long, nmemb: Long, stream: Long): Long
 
     @JvmStatic
-    external fun libc_new_qurt_stdio_fgetc(stream: Long): Int
+    external fun libcNewQurtStdioFgetc(stream: Long): Int
 
     @JvmStatic
-    external fun libc_new_qurt_stdio_fputc(c: Int, stream: Long): Int
+    external fun libcNewQurtStdioFputc(c: Int, stream: Long): Int
 
     @JvmStatic
-    external fun libc_new_qurt_stdio_getchar(): Int
+    external fun libcNewQurtStdioGetchar(): Int
 
     @JvmStatic
-    external fun libc_new_qurt_stdio_putchar(c: Int): Int
+    external fun libcNewQurtStdioPutchar(c: Int): Int
 
     @JvmStatic
-    external fun libc_new_qurt_stdio_ungetc(c: Int, stream: Long): Int
+    external fun libcNewQurtStdioUngetc(c: Int, stream: Long): Int
 
     @JvmStatic
-    external fun libc_new_qurt_stdio_fgets(s: Long, size: Int, stream: Long): Long
+    external fun libcNewQurtStdioFgets(s: Long, size: Int, stream: Long): Long
 
     @JvmStatic
-    external fun libc_new_qurt_stdio_fputs(s: String?, stream: Long): Int
+    external fun libcNewQurtStdioFputs(s: Long, stream: Long): Int
 
     @JvmStatic
-    external fun libc_new_qurt_stdio_gets(s: Long): Long
+    external fun libcNewQurtStdioGets(s: Long): Long
 
     @JvmStatic
-    external fun libc_new_qurt_stdio_puts(s: String?): Int
+    external fun libcNewQurtStdioPuts(s: Long): Int
 
     @JvmStatic
-    external fun libc_new_qurt_stdio_printf(format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcNewQurtStdioPrintf(format: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_new_qurt_stdio_fprintf(stream: Long, format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcNewQurtStdioFprintf(stream: Long, format: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_new_qurt_stdio_sprintf(s: Long, format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcNewQurtStdioSprintf(s: Long, format: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_new_qurt_stdio_snprintf(s: Long, n: Long, format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcNewQurtStdioSnprintf(s: Long, n: Long, format: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_new_qurt_stdio_vprintf(format: String?, ap: Long): Int
+    external fun libcNewQurtStdioVprintf(format: Long, ap: Long): Int
 
     @JvmStatic
-    external fun libc_new_qurt_stdio_vfprintf(stream: Long, format: String?, ap: Long): Int
+    external fun libcNewQurtStdioVfprintf(stream: Long, format: Long, ap: Long): Int
 
     @JvmStatic
-    external fun libc_new_qurt_stdio_vsprintf(s: Long, format: String?, ap: Long): Int
+    external fun libcNewQurtStdioVsprintf(s: Long, format: Long, ap: Long): Int
 
     @JvmStatic
-    external fun libc_new_qurt_stdio_vsnprintf(s: Long, n: Long, format: String?, ap: Long): Int
+    external fun libcNewQurtStdioVsnprintf(s: Long, n: Long, format: Long, ap: Long): Int
 
     @JvmStatic
-    external fun libc_new_qurt_stdio_scanf(format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcNewQurtStdioScanf(format: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_new_qurt_stdio_fscanf(stream: Long, format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcNewQurtStdioFscanf(stream: Long, format: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_new_qurt_stdio_sscanf(s: String?, format: String?, km_vac: Int, km_va0: Long, km_va1: Long, km_va2: Long, km_va3: Long): Int
+    external fun libcNewQurtStdioSscanf(s: Long, format: Long, kmVac: Int, kmVa0: Long, kmVa1: Long, kmVa2: Long, kmVa3: Long): Int
 
     @JvmStatic
-    external fun libc_new_qurt_stdio_fseek(stream: Long, offset: Long, whence: Int): Int
+    external fun libcNewQurtStdioFseek(stream: Long, offset: Long, whence: Int): Int
 
     @JvmStatic
-    external fun libc_new_qurt_stdio_ftell(stream: Long): Long
+    external fun libcNewQurtStdioFtell(stream: Long): Long
 
     @JvmStatic
-    external fun libc_new_qurt_stdio_rewind(stream: Long)
+    external fun libcNewQurtStdioRewind(stream: Long)
 
     @JvmStatic
-    external fun libc_new_qurt_stdio_fgetpos(stream: Long, pos: Long): Int
+    external fun libcNewQurtStdioFgetpos(stream: Long, pos: Long): Int
 
     @JvmStatic
-    external fun libc_new_qurt_stdio_fsetpos(stream: Long, pos: Long): Int
+    external fun libcNewQurtStdioFsetpos(stream: Long, pos: Long): Int
 
     @JvmStatic
-    external fun libc_new_qurt_stdio_clearerr(stream: Long)
+    external fun libcNewQurtStdioClearerr(stream: Long)
 
     @JvmStatic
-    external fun libc_new_qurt_stdio_feof(stream: Long): Int
+    external fun libcNewQurtStdioFeof(stream: Long): Int
 
     @JvmStatic
-    external fun libc_new_qurt_stdio_ferror(stream: Long): Int
+    external fun libcNewQurtStdioFerror(stream: Long): Int
 
     @JvmStatic
-    external fun libc_new_qurt_stdio_perror(s: String?)
+    external fun libcNewQurtStdioPerror(s: Long)
 
     @JvmStatic
-    external fun libc_new_qurt_stdio_remove(filename: String?): Int
+    external fun libcNewQurtStdioRemove(filename: Long): Int
 
     @JvmStatic
-    external fun libc_new_qurt_stdio_rename(old: String?, new: String?): Int
+    external fun libcNewQurtStdioRename(old: Long, new: Long): Int
 
     @JvmStatic
-    external fun libc_new_qurt_stdio_tmpfile(): Long
+    external fun libcNewQurtStdioTmpfile(): Long
 
     @JvmStatic
-    external fun libc_new_qurt_stdio_tmpnam(s: Long): Long
+    external fun libcNewQurtStdioTmpnam(s: Long): Long
 
     @JvmStatic
-    external fun libc_new_qurt_stdio_setvbuf(stream: Long, buffer: Long, mode: Int, size: Long): Int
+    external fun libcNewQurtStdioSetvbuf(stream: Long, buffer: Long, mode: Int, size: Long): Int
 
     @JvmStatic
-    external fun libc_new_qurt_stdio_setbuf(stream: Long, buffer: Long)
+    external fun libcNewQurtStdioSetbuf(stream: Long, buffer: Long)
 }
 
-public actual fun fopen(filename: String?, mode: String?): FILE? =
-    NewQurtStdioJniBridge.libc_new_qurt_stdio_fopen(filename, mode).let { if (it == 0L) null else FILE(it) }
+public actual fun fopen(filename: ConstPtr<CChar>, mode: ConstPtr<CChar>): MutPtr<FILE> =
+    MutPtr(NewQurtStdioJniBridge.libcNewQurtStdioFopen(filename.rawAddress, mode.rawAddress))
 
-public actual fun freopen(filename: String?, mode: String?, stream: FILE?): FILE? =
-    NewQurtStdioJniBridge.libc_new_qurt_stdio_freopen(filename, mode, (stream?.handle ?: 0L)).let { if (it == 0L) null else FILE(it) }
+public actual fun freopen(filename: ConstPtr<CChar>, mode: ConstPtr<CChar>, stream: MutPtr<FILE>): MutPtr<FILE> =
+    MutPtr(NewQurtStdioJniBridge.libcNewQurtStdioFreopen(filename.rawAddress, mode.rawAddress, stream.rawAddress))
 
-public actual fun fclose(stream: FILE?): CInt =
-    NewQurtStdioJniBridge.libc_new_qurt_stdio_fclose((stream?.handle ?: 0L))
+public actual fun fclose(stream: MutPtr<FILE>): CInt =
+    NewQurtStdioJniBridge.libcNewQurtStdioFclose(stream.rawAddress)
 
-public actual fun fflush(stream: FILE?): CInt =
-    NewQurtStdioJniBridge.libc_new_qurt_stdio_fflush((stream?.handle ?: 0L))
+public actual fun fflush(stream: MutPtr<FILE>): CInt =
+    NewQurtStdioJniBridge.libcNewQurtStdioFflush(stream.rawAddress)
 
-public actual fun fread(ptr: COpaquePointer?, size: SizeT, nmemb: SizeT, stream: FILE?): SizeT =
-    NewQurtStdioJniBridge.libc_new_qurt_stdio_fread((ptr?.value ?: 0L), size.toLong(), nmemb.toLong(), (stream?.handle ?: 0L)).toULong()
+public actual fun fread(ptr: MutPtr<CVoid>, size: SizeT, nmemb: SizeT, stream: MutPtr<FILE>): SizeT =
+    NewQurtStdioJniBridge.libcNewQurtStdioFread(ptr.rawAddress, size.toLong(), nmemb.toLong(), stream.rawAddress).toULong()
 
-public actual fun fwrite(ptr: COpaquePointer?, size: SizeT, nmemb: SizeT, stream: FILE?): SizeT =
-    NewQurtStdioJniBridge.libc_new_qurt_stdio_fwrite((ptr?.value ?: 0L), size.toLong(), nmemb.toLong(), (stream?.handle ?: 0L)).toULong()
+public actual fun fwrite(ptr: ConstPtr<CVoid>, size: SizeT, nmemb: SizeT, stream: MutPtr<FILE>): SizeT =
+    NewQurtStdioJniBridge.libcNewQurtStdioFwrite(ptr.rawAddress, size.toLong(), nmemb.toLong(), stream.rawAddress).toULong()
 
-public actual fun fgetc(stream: FILE?): CInt =
-    NewQurtStdioJniBridge.libc_new_qurt_stdio_fgetc((stream?.handle ?: 0L))
+public actual fun fgetc(stream: MutPtr<FILE>): CInt =
+    NewQurtStdioJniBridge.libcNewQurtStdioFgetc(stream.rawAddress)
 
-public actual fun fputc(c: CInt, stream: FILE?): CInt =
-    NewQurtStdioJniBridge.libc_new_qurt_stdio_fputc(c, (stream?.handle ?: 0L))
+public actual fun fputc(c: CInt, stream: MutPtr<FILE>): CInt =
+    NewQurtStdioJniBridge.libcNewQurtStdioFputc(c, stream.rawAddress)
 
 public actual fun getchar(): CInt =
-    NewQurtStdioJniBridge.libc_new_qurt_stdio_getchar()
+    NewQurtStdioJniBridge.libcNewQurtStdioGetchar()
 
 public actual fun putchar(c: CInt): CInt =
-    NewQurtStdioJniBridge.libc_new_qurt_stdio_putchar(c)
+    NewQurtStdioJniBridge.libcNewQurtStdioPutchar(c)
 
-public actual fun ungetc(c: CInt, stream: FILE?): CInt =
-    NewQurtStdioJniBridge.libc_new_qurt_stdio_ungetc(c, (stream?.handle ?: 0L))
+public actual fun ungetc(c: CInt, stream: MutPtr<FILE>): CInt =
+    NewQurtStdioJniBridge.libcNewQurtStdioUngetc(c, stream.rawAddress)
 
-public actual fun fgets(s: COpaquePointer?, size: CInt, stream: FILE?): COpaquePointer? =
-    NewQurtStdioJniBridge.libc_new_qurt_stdio_fgets((s?.value ?: 0L), size, (stream?.handle ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun fgets(s: MutPtr<CChar>, size: CInt, stream: MutPtr<FILE>): MutPtr<CChar> =
+    MutPtr(NewQurtStdioJniBridge.libcNewQurtStdioFgets(s.rawAddress, size, stream.rawAddress))
 
-public actual fun fputs(s: String?, stream: FILE?): CInt =
-    NewQurtStdioJniBridge.libc_new_qurt_stdio_fputs(s, (stream?.handle ?: 0L))
+public actual fun fputs(s: ConstPtr<CChar>, stream: MutPtr<FILE>): CInt =
+    NewQurtStdioJniBridge.libcNewQurtStdioFputs(s.rawAddress, stream.rawAddress)
 
-public actual fun gets(s: COpaquePointer?): COpaquePointer? =
-    NewQurtStdioJniBridge.libc_new_qurt_stdio_gets((s?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun gets(s: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(NewQurtStdioJniBridge.libcNewQurtStdioGets(s.rawAddress))
 
-public actual fun puts(s: String?): CInt =
-    NewQurtStdioJniBridge.libc_new_qurt_stdio_puts(s)
+public actual fun puts(s: ConstPtr<CChar>): CInt =
+    NewQurtStdioJniBridge.libcNewQurtStdioPuts(s.rawAddress)
 
-public actual fun printf(format: String?, vararg variadicArgs: Long): CInt =
-    NewQurtStdioJniBridge.libc_new_qurt_stdio_printf(format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun printf(format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    NewQurtStdioJniBridge.libcNewQurtStdioPrintf(format.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun fprintf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
-    NewQurtStdioJniBridge.libc_new_qurt_stdio_fprintf((stream?.handle ?: 0L), format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun fprintf(stream: MutPtr<FILE>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    NewQurtStdioJniBridge.libcNewQurtStdioFprintf(stream.rawAddress, format.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun sprintf(s: COpaquePointer?, format: String?, vararg variadicArgs: Long): CInt =
-    NewQurtStdioJniBridge.libc_new_qurt_stdio_sprintf((s?.value ?: 0L), format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun sprintf(s: MutPtr<CChar>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    NewQurtStdioJniBridge.libcNewQurtStdioSprintf(s.rawAddress, format.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun snprintf(s: COpaquePointer?, n: SizeT, format: String?, vararg variadicArgs: Long): CInt =
-    NewQurtStdioJniBridge.libc_new_qurt_stdio_snprintf((s?.value ?: 0L), n.toLong(), format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun snprintf(s: MutPtr<CChar>, n: SizeT, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    NewQurtStdioJniBridge.libcNewQurtStdioSnprintf(s.rawAddress, n.toLong(), format.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun vprintf(format: String?, ap: VaList): CInt =
-    NewQurtStdioJniBridge.libc_new_qurt_stdio_vprintf(format, (ap?.value ?: 0L))
+public actual fun vprintf(format: ConstPtr<CChar>, ap: VaList): CInt =
+    NewQurtStdioJniBridge.libcNewQurtStdioVprintf(format.rawAddress, ap.rawAddress)
 
-public actual fun vfprintf(stream: FILE?, format: String?, ap: VaList): CInt =
-    NewQurtStdioJniBridge.libc_new_qurt_stdio_vfprintf((stream?.handle ?: 0L), format, (ap?.value ?: 0L))
+public actual fun vfprintf(stream: MutPtr<FILE>, format: ConstPtr<CChar>, ap: VaList): CInt =
+    NewQurtStdioJniBridge.libcNewQurtStdioVfprintf(stream.rawAddress, format.rawAddress, ap.rawAddress)
 
-public actual fun vsprintf(s: COpaquePointer?, format: String?, ap: VaList): CInt =
-    NewQurtStdioJniBridge.libc_new_qurt_stdio_vsprintf((s?.value ?: 0L), format, (ap?.value ?: 0L))
+public actual fun vsprintf(s: MutPtr<CChar>, format: ConstPtr<CChar>, ap: VaList): CInt =
+    NewQurtStdioJniBridge.libcNewQurtStdioVsprintf(s.rawAddress, format.rawAddress, ap.rawAddress)
 
-public actual fun vsnprintf(s: COpaquePointer?, n: SizeT, format: String?, ap: VaList): CInt =
-    NewQurtStdioJniBridge.libc_new_qurt_stdio_vsnprintf((s?.value ?: 0L), n.toLong(), format, (ap?.value ?: 0L))
+public actual fun vsnprintf(s: MutPtr<CChar>, n: SizeT, format: ConstPtr<CChar>, ap: VaList): CInt =
+    NewQurtStdioJniBridge.libcNewQurtStdioVsnprintf(s.rawAddress, n.toLong(), format.rawAddress, ap.rawAddress)
 
-public actual fun scanf(format: String?, vararg variadicArgs: Long): CInt =
-    NewQurtStdioJniBridge.libc_new_qurt_stdio_scanf(format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun scanf(format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    NewQurtStdioJniBridge.libcNewQurtStdioScanf(format.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun fscanf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
-    NewQurtStdioJniBridge.libc_new_qurt_stdio_fscanf((stream?.handle ?: 0L), format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun fscanf(stream: MutPtr<FILE>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    NewQurtStdioJniBridge.libcNewQurtStdioFscanf(stream.rawAddress, format.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun sscanf(s: String?, format: String?, vararg variadicArgs: Long): CInt =
-    NewQurtStdioJniBridge.libc_new_qurt_stdio_sscanf(s, format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun sscanf(s: ConstPtr<CChar>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    NewQurtStdioJniBridge.libcNewQurtStdioSscanf(s.rawAddress, format.rawAddress, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun fseek(stream: FILE?, offset: CLong, whence: CInt): CInt =
-    NewQurtStdioJniBridge.libc_new_qurt_stdio_fseek((stream?.handle ?: 0L), offset, whence)
+public actual fun fseek(stream: MutPtr<FILE>, offset: CLong, whence: CInt): CInt =
+    NewQurtStdioJniBridge.libcNewQurtStdioFseek(stream.rawAddress, offset, whence)
 
-public actual fun ftell(stream: FILE?): CLong =
-    NewQurtStdioJniBridge.libc_new_qurt_stdio_ftell((stream?.handle ?: 0L))
+public actual fun ftell(stream: MutPtr<FILE>): CLong =
+    NewQurtStdioJniBridge.libcNewQurtStdioFtell(stream.rawAddress)
 
-public actual fun rewind(stream: FILE?) {
-    NewQurtStdioJniBridge.libc_new_qurt_stdio_rewind((stream?.handle ?: 0L))
+public actual fun rewind(stream: MutPtr<FILE>) {
+    NewQurtStdioJniBridge.libcNewQurtStdioRewind(stream.rawAddress)
 }
 
-public actual fun fgetpos(stream: FILE?, pos: COpaquePointer?): CInt =
-    NewQurtStdioJniBridge.libc_new_qurt_stdio_fgetpos((stream?.handle ?: 0L), (pos?.value ?: 0L))
+public actual fun fgetpos(stream: MutPtr<FILE>, pos: MutPtr<FposT>): CInt =
+    NewQurtStdioJniBridge.libcNewQurtStdioFgetpos(stream.rawAddress, pos.rawAddress)
 
-public actual fun fsetpos(stream: FILE?, pos: COpaquePointer?): CInt =
-    NewQurtStdioJniBridge.libc_new_qurt_stdio_fsetpos((stream?.handle ?: 0L), (pos?.value ?: 0L))
+public actual fun fsetpos(stream: MutPtr<FILE>, pos: ConstPtr<FposT>): CInt =
+    NewQurtStdioJniBridge.libcNewQurtStdioFsetpos(stream.rawAddress, pos.rawAddress)
 
-public actual fun clearerr(stream: FILE?) {
-    NewQurtStdioJniBridge.libc_new_qurt_stdio_clearerr((stream?.handle ?: 0L))
+public actual fun clearerr(stream: MutPtr<FILE>) {
+    NewQurtStdioJniBridge.libcNewQurtStdioClearerr(stream.rawAddress)
 }
 
-public actual fun feof(stream: FILE?): CInt =
-    NewQurtStdioJniBridge.libc_new_qurt_stdio_feof((stream?.handle ?: 0L))
+public actual fun feof(stream: MutPtr<FILE>): CInt =
+    NewQurtStdioJniBridge.libcNewQurtStdioFeof(stream.rawAddress)
 
-public actual fun ferror(stream: FILE?): CInt =
-    NewQurtStdioJniBridge.libc_new_qurt_stdio_ferror((stream?.handle ?: 0L))
+public actual fun ferror(stream: MutPtr<FILE>): CInt =
+    NewQurtStdioJniBridge.libcNewQurtStdioFerror(stream.rawAddress)
 
-public actual fun perror(s: String?) {
-    NewQurtStdioJniBridge.libc_new_qurt_stdio_perror(s)
+public actual fun perror(s: ConstPtr<CChar>) {
+    NewQurtStdioJniBridge.libcNewQurtStdioPerror(s.rawAddress)
 }
 
-public actual fun remove(filename: String?): CInt =
-    NewQurtStdioJniBridge.libc_new_qurt_stdio_remove(filename)
+public actual fun remove(filename: ConstPtr<CChar>): CInt =
+    NewQurtStdioJniBridge.libcNewQurtStdioRemove(filename.rawAddress)
 
-public actual fun rename(old: String?, new: String?): CInt =
-    NewQurtStdioJniBridge.libc_new_qurt_stdio_rename(old, new)
+public actual fun rename(old: ConstPtr<CChar>, new: ConstPtr<CChar>): CInt =
+    NewQurtStdioJniBridge.libcNewQurtStdioRename(old.rawAddress, new.rawAddress)
 
-public actual fun tmpfile(): FILE? =
-    NewQurtStdioJniBridge.libc_new_qurt_stdio_tmpfile().let { if (it == 0L) null else FILE(it) }
+public actual fun tmpfile(): MutPtr<FILE> =
+    MutPtr(NewQurtStdioJniBridge.libcNewQurtStdioTmpfile())
 
-public actual fun tmpnam(s: COpaquePointer?): COpaquePointer? =
-    NewQurtStdioJniBridge.libc_new_qurt_stdio_tmpnam((s?.value ?: 0L)).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun tmpnam(s: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(NewQurtStdioJniBridge.libcNewQurtStdioTmpnam(s.rawAddress))
 
-public actual fun setvbuf(stream: FILE?, buffer: COpaquePointer?, mode: CInt, size: SizeT): CInt =
-    NewQurtStdioJniBridge.libc_new_qurt_stdio_setvbuf((stream?.handle ?: 0L), (buffer?.value ?: 0L), mode, size.toLong())
+public actual fun setvbuf(stream: MutPtr<FILE>, buffer: MutPtr<CChar>, mode: CInt, size: SizeT): CInt =
+    NewQurtStdioJniBridge.libcNewQurtStdioSetvbuf(stream.rawAddress, buffer.rawAddress, mode, size.toLong())
 
-public actual fun setbuf(stream: FILE?, buffer: COpaquePointer?) {
-    NewQurtStdioJniBridge.libc_new_qurt_stdio_setbuf((stream?.handle ?: 0L), (buffer?.value ?: 0L))
+public actual fun setbuf(stream: MutPtr<FILE>, buffer: MutPtr<CChar>) {
+    NewQurtStdioJniBridge.libcNewQurtStdioSetbuf(stream.rawAddress, buffer.rawAddress)
 }

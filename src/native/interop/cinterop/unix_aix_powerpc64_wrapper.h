@@ -9,7 +9,7 @@
 extern "C" {
 #endif
 
-uint64_t libc_unix_aix_powerpc64_getsystemcfg(int32_t label);
+uint64_t libcUnixAixPowerpc64Getsystemcfg(int32_t label);
 
 #ifdef __cplusplus
 }

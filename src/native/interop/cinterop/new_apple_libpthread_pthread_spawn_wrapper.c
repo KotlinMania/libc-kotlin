@@ -18,7 +18,7 @@
 #endif
 #endif
 
-int32_t libc_new_apple_libpthread_pthread_spawn_posixSpawnattrGetQosClassNp(void* attr, void* qos_class) {
+int32_t libcNewAppleLibpthreadPthreadSpawnPosixSpawnattrGetQosClassNp(void* attr, void* qosClass) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -40,7 +40,7 @@ int32_t libc_new_apple_libpthread_pthread_spawn_posixSpawnattrGetQosClassNp(void
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(attr, qos_class);
+        return km_fn_ptr(attr, qosClass);
     }
     errno = ENOSYS;
     return -1;

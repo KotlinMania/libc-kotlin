@@ -51,11 +51,9 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_new_qurt_sys_stat_stat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtSysStatStat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool pathname_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string pathname_str = pathname_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* pathname = pathname_null ? nullptr : pathname_str.c_str();
+    const char* pathname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* statbuf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -87,7 +85,7 @@ static Napi::Value libc_new_qurt_sys_stat_stat_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_sys_stat_fstat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtSysStatFstat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* statbuf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -122,8 +120,8 @@ static Napi::Value libc_new_qurt_sys_stat_fstat_napi(const Napi::CallbackInfo& k
 }
 
 static void register_new_qurt_sys_stat_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_new_qurt_sys_stat_stat", Napi::Function::New(env, libc_new_qurt_sys_stat_stat_napi));
-    exports.Set("libc_new_qurt_sys_stat_fstat", Napi::Function::New(env, libc_new_qurt_sys_stat_fstat_napi));
+    exports.Set("libcNewQurtSysStatStat", Napi::Function::New(env, libcNewQurtSysStatStat_napi));
+    exports.Set("libcNewQurtSysStatFstat", Napi::Function::New(env, libcNewQurtSysStatFstat_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_new_qurt_sys_stat_napi, nullptr };

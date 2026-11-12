@@ -51,7 +51,7 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_new_netbsd_sys_timex_ntpGettime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewNetbsdSysTimexNtpGettime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -82,7 +82,7 @@ static Napi::Value libc_new_netbsd_sys_timex_ntpGettime_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_netbsd_sys_timex_ntpAdjtime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewNetbsdSysTimexNtpAdjtime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -116,8 +116,8 @@ static Napi::Value libc_new_netbsd_sys_timex_ntpAdjtime_napi(const Napi::Callbac
 }
 
 static void register_new_netbsd_sys_timex_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_new_netbsd_sys_timex_ntpGettime", Napi::Function::New(env, libc_new_netbsd_sys_timex_ntpGettime_napi));
-    exports.Set("libc_new_netbsd_sys_timex_ntpAdjtime", Napi::Function::New(env, libc_new_netbsd_sys_timex_ntpAdjtime_napi));
+    exports.Set("libcNewNetbsdSysTimexNtpGettime", Napi::Function::New(env, libcNewNetbsdSysTimexNtpGettime_napi));
+    exports.Set("libcNewNetbsdSysTimexNtpAdjtime", Napi::Function::New(env, libcNewNetbsdSysTimexNtpAdjtime_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_new_netbsd_sys_timex_napi, nullptr };

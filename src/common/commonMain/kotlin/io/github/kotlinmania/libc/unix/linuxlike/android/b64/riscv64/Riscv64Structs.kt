@@ -11,6 +11,8 @@ import io.github.kotlinmania.libc.unix.linuxlike.android.DevT
 import io.github.kotlinmania.libc.unix.linuxlike.android.InoT
 import io.github.kotlinmania.libc.unix.linuxlike.android.TimeT
 import io.github.kotlinmania.libc.unix.linuxlike.android.b64.Off64T
+import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+import io.github.kotlinmania.rustlang.core.mem.TypeLayout
 
 public class Stat(
     public var stDev: DevT = 0uL,
@@ -69,4 +71,25 @@ public data class MaxAlignT(
     }
 
     override fun hashCode(): Int = this.priv.contentHashCode()
+
+    public companion object {
+        public fun typeLayout(): io.github.kotlinmania.rustlang.core.mem.TypeLayout<MaxAlignT> =
+            object : io.github.kotlinmania.rustlang.core.mem.TypeLayout<MaxAlignT> {
+                override val sizeBytes: Long = 32L
+                override val alignBytes: Long = 16L
+                override fun readNative(addr: Long): MaxAlignT =
+                    MaxAlignT(
+                        (
+                            io.github.kotlinmania.rustlang.core.mem
+                                .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.F32, (8).toInt())
+                        ).readNative(addr),
+                    )
+                override fun writeNative(addr: Long, value: MaxAlignT) {
+                    (
+                        io.github.kotlinmania.rustlang.core.mem
+                            .FixedArrayTypeLayout(io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts.F32, (8).toInt())
+                    ).writeNative(addr, value.priv)
+                }
+            }
+    }
 }

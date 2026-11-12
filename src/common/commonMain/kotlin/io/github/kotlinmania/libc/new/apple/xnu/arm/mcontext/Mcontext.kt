@@ -4,6 +4,7 @@ package io.github.kotlinmania.libc.new.apple.xnu.arm.mcontext
 import io.github.kotlinmania.libc.new.apple.xnu.mach.arm.structs.DarwinArmExceptionState64
 import io.github.kotlinmania.libc.new.apple.xnu.mach.arm.structs.DarwinArmNeonState64
 import io.github.kotlinmania.libc.new.apple.xnu.mach.arm.structs.DarwinArmThreadState64
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 // Header: `arm / _mcontext.h`
 //
@@ -15,4 +16,4 @@ public data class DarwinMcontext64(
     public var ns: DarwinArmNeonState64 = DarwinArmNeonState64(),
 )
 
-public typealias McontextT = DarwinMcontext64?
+public typealias McontextT = MutPtr<DarwinMcontext64>

@@ -51,7 +51,7 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_fuchsia_isalnum_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaIsalnum_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -84,7 +84,7 @@ static Napi::Value libc_fuchsia_isalnum_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_isalpha_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaIsalpha_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -117,7 +117,7 @@ static Napi::Value libc_fuchsia_isalpha_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_iscntrl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaIscntrl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -150,7 +150,7 @@ static Napi::Value libc_fuchsia_iscntrl_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_isdigit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaIsdigit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -183,7 +183,7 @@ static Napi::Value libc_fuchsia_isdigit_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_isgraph_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaIsgraph_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -216,7 +216,7 @@ static Napi::Value libc_fuchsia_isgraph_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_islower_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaIslower_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -249,7 +249,7 @@ static Napi::Value libc_fuchsia_islower_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_isprint_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaIsprint_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -282,7 +282,7 @@ static Napi::Value libc_fuchsia_isprint_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_ispunct_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaIspunct_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -315,7 +315,7 @@ static Napi::Value libc_fuchsia_ispunct_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_isspace_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaIsspace_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -348,7 +348,7 @@ static Napi::Value libc_fuchsia_isspace_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_isupper_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaIsupper_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -381,7 +381,7 @@ static Napi::Value libc_fuchsia_isupper_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_isxdigit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaIsxdigit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -414,7 +414,7 @@ static Napi::Value libc_fuchsia_isxdigit_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_isblank_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaIsblank_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -447,7 +447,7 @@ static Napi::Value libc_fuchsia_isblank_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_tolower_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaTolower_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -480,7 +480,7 @@ static Napi::Value libc_fuchsia_tolower_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_toupper_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaToupper_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -513,14 +513,10 @@ static Napi::Value libc_fuchsia_toupper_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_fopen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFopen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool filename_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string filename_str = filename_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* filename = filename_null ? nullptr : filename_str.c_str();
-    bool mode_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string mode_str = mode_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* mode = mode_null ? nullptr : mode_str.c_str();
+    const char* filename = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* mode = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef void* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -551,14 +547,10 @@ static Napi::Value libc_fuchsia_fopen_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_freopen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFreopen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool filename_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string filename_str = filename_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* filename = filename_null ? nullptr : filename_str.c_str();
-    bool mode_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string mode_str = mode_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* mode = mode_null ? nullptr : mode_str.c_str();
+    const char* filename = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* mode = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* file = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef void* (*km_fn_t)(const char*, const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -590,7 +582,7 @@ static Napi::Value libc_fuchsia_freopen_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_fflush_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFflush_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* file = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -623,7 +615,7 @@ static Napi::Value libc_fuchsia_fflush_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_fclose_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFclose_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* file = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -656,11 +648,9 @@ static Napi::Value libc_fuchsia_fclose_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_remove_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaRemove_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool filename_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string filename_str = filename_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* filename = filename_null ? nullptr : filename_str.c_str();
+    const char* filename = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -691,14 +681,10 @@ static Napi::Value libc_fuchsia_remove_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_rename_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaRename_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool oldname_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string oldname_str = oldname_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* oldname = oldname_null ? nullptr : oldname_str.c_str();
-    bool newname_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string newname_str = newname_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* newname = newname_null ? nullptr : newname_str.c_str();
+    const char* oldname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* newname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -729,7 +715,7 @@ static Napi::Value libc_fuchsia_rename_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_tmpfile_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaTmpfile_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -761,7 +747,7 @@ static Napi::Value libc_fuchsia_tmpfile_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_setvbuf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSetvbuf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* buffer = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -797,7 +783,7 @@ static Napi::Value libc_fuchsia_setvbuf_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_setbuf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSetbuf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -829,7 +815,7 @@ static Napi::Value libc_fuchsia_setbuf_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_fuchsia_getchar_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGetchar_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -861,7 +847,7 @@ static Napi::Value libc_fuchsia_getchar_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_putchar_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPutchar_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -894,7 +880,7 @@ static Napi::Value libc_fuchsia_putchar_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_fgetc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFgetc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -927,7 +913,7 @@ static Napi::Value libc_fuchsia_fgetc_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_fgets_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFgets_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t n = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -962,7 +948,7 @@ static Napi::Value libc_fuchsia_fgets_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_fputc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFputc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -996,11 +982,9 @@ static Napi::Value libc_fuchsia_fputc_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_fputs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFputs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1032,11 +1016,9 @@ static Napi::Value libc_fuchsia_fputs_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_puts_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPuts_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1067,7 +1049,7 @@ static Napi::Value libc_fuchsia_puts_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_ungetc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaUngetc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1101,7 +1083,7 @@ static Napi::Value libc_fuchsia_ungetc_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_fread_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFread_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1137,7 +1119,7 @@ static Napi::Value libc_fuchsia_fread_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_fwrite_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFwrite_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1173,7 +1155,7 @@ static Napi::Value libc_fuchsia_fwrite_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_fseek_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFseek_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int64_t offset = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
@@ -1208,7 +1190,7 @@ static Napi::Value libc_fuchsia_fseek_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_ftell_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFtell_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(void*);
@@ -1241,7 +1223,7 @@ static Napi::Value libc_fuchsia_ftell_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_rewind_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaRewind_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -1272,7 +1254,7 @@ static Napi::Value libc_fuchsia_rewind_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_fuchsia_fgetpos_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFgetpos_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* ptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1306,7 +1288,7 @@ static Napi::Value libc_fuchsia_fgetpos_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_fsetpos_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFsetpos_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* ptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1340,7 +1322,7 @@ static Napi::Value libc_fuchsia_fsetpos_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_feof_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFeof_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -1373,7 +1355,7 @@ static Napi::Value libc_fuchsia_feof_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_ferror_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFerror_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -1406,11 +1388,9 @@ static Napi::Value libc_fuchsia_ferror_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_perror_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPerror_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1439,11 +1419,9 @@ static Napi::Value libc_fuchsia_perror_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_fuchsia_atof_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaAtof_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef double (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1474,11 +1452,9 @@ static Napi::Value libc_fuchsia_atof_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
-static Napi::Value libc_fuchsia_atoi_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaAtoi_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1509,11 +1485,9 @@ static Napi::Value libc_fuchsia_atoi_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_atol_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaAtol_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1544,11 +1518,9 @@ static Napi::Value libc_fuchsia_atol_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_atoll_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaAtoll_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1579,11 +1551,9 @@ static Napi::Value libc_fuchsia_atoll_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_strtod_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaStrtod_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* endp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef double (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1615,11 +1585,9 @@ static Napi::Value libc_fuchsia_strtod_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
-static Napi::Value libc_fuchsia_strtof_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaStrtof_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* endp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef float (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1651,11 +1619,9 @@ static Napi::Value libc_fuchsia_strtof_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
-static Napi::Value libc_fuchsia_strtol_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaStrtol_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* endp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t base = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(const char*, void*, int32_t);
@@ -1688,11 +1654,9 @@ static Napi::Value libc_fuchsia_strtol_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_strtoll_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaStrtoll_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* endp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t base = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(const char*, void*, int32_t);
@@ -1725,11 +1689,9 @@ static Napi::Value libc_fuchsia_strtoll_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_strtoul_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaStrtoul_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* endp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t base = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef uint64_t (*km_fn_t)(const char*, void*, int32_t);
@@ -1762,11 +1724,9 @@ static Napi::Value libc_fuchsia_strtoul_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_strtoull_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaStrtoull_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* endp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t base = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef uint64_t (*km_fn_t)(const char*, void*, int32_t);
@@ -1799,7 +1759,7 @@ static Napi::Value libc_fuchsia_strtoull_napi(const Napi::CallbackInfo& km_info)
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_calloc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaCalloc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t nobj = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1833,7 +1793,7 @@ static Napi::Value libc_fuchsia_calloc_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_malloc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaMalloc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t size = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     typedef void* (*km_fn_t)(uint64_t);
@@ -1866,7 +1826,7 @@ static Napi::Value libc_fuchsia_malloc_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_realloc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaRealloc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* p = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1900,7 +1860,7 @@ static Napi::Value libc_fuchsia_realloc_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_free_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFree_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* p = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -1931,7 +1891,7 @@ static Napi::Value libc_fuchsia_free_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_fuchsia_abort_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaAbort_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1961,7 +1921,7 @@ static Napi::Value libc_fuchsia_abort_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_fuchsia_exit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaExit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t status = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(int32_t);
@@ -1992,7 +1952,7 @@ static Napi::Value libc_fuchsia_exit_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_fuchsia_atexit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaAtexit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cb = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     if (cb == nullptr) {
@@ -2034,11 +1994,9 @@ static Napi::Value libc_fuchsia_atexit_napi(const Napi::CallbackInfo& km_info) {
 #endif
 }
 
-static Napi::Value libc_fuchsia_system_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSystem_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2069,11 +2027,9 @@ static Napi::Value libc_fuchsia_system_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_getenv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGetenv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef char* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2104,12 +2060,10 @@ static Napi::Value libc_fuchsia_getenv_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_strcpy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaStrcpy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* dst = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool src_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string src_str = src_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* src = src_null ? nullptr : src_str.c_str();
+    const char* src = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef char* (*km_fn_t)(char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2140,12 +2094,10 @@ static Napi::Value libc_fuchsia_strcpy_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_strncpy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaStrncpy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* dst = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool src_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string src_str = src_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* src = src_null ? nullptr : src_str.c_str();
+    const char* src = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t n = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef char* (*km_fn_t)(char*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2177,12 +2129,10 @@ static Napi::Value libc_fuchsia_strncpy_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_strcat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaStrcat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* s = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool ct_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string ct_str = ct_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* ct = ct_null ? nullptr : ct_str.c_str();
+    const char* ct = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef char* (*km_fn_t)(char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2213,12 +2163,10 @@ static Napi::Value libc_fuchsia_strcat_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_strncat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaStrncat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* s = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool ct_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string ct_str = ct_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* ct = ct_null ? nullptr : ct_str.c_str();
+    const char* ct = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t n = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef char* (*km_fn_t)(char*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2250,14 +2198,10 @@ static Napi::Value libc_fuchsia_strncat_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_strcmp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaStrcmp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool cs_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string cs_str = cs_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* cs = cs_null ? nullptr : cs_str.c_str();
-    bool ct_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string ct_str = ct_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* ct = ct_null ? nullptr : ct_str.c_str();
+    const char* cs = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* ct = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2288,14 +2232,10 @@ static Napi::Value libc_fuchsia_strcmp_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_strncmp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaStrncmp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool cs_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string cs_str = cs_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* cs = cs_null ? nullptr : cs_str.c_str();
-    bool ct_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string ct_str = ct_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* ct = ct_null ? nullptr : ct_str.c_str();
+    const char* cs = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* ct = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t n = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef int32_t (*km_fn_t)(const char*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2327,14 +2267,10 @@ static Napi::Value libc_fuchsia_strncmp_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_strcoll_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaStrcoll_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool cs_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string cs_str = cs_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* cs = cs_null ? nullptr : cs_str.c_str();
-    bool ct_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string ct_str = ct_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* ct = ct_null ? nullptr : ct_str.c_str();
+    const char* cs = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* ct = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2365,11 +2301,9 @@ static Napi::Value libc_fuchsia_strcoll_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_strchr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaStrchr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool cs_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string cs_str = cs_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* cs = cs_null ? nullptr : cs_str.c_str();
+    const char* cs = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t c = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef char* (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2401,11 +2335,9 @@ static Napi::Value libc_fuchsia_strchr_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_strrchr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaStrrchr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool cs_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string cs_str = cs_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* cs = cs_null ? nullptr : cs_str.c_str();
+    const char* cs = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t c = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef char* (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2437,14 +2369,10 @@ static Napi::Value libc_fuchsia_strrchr_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_strspn_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaStrspn_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool cs_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string cs_str = cs_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* cs = cs_null ? nullptr : cs_str.c_str();
-    bool ct_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string ct_str = ct_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* ct = ct_null ? nullptr : ct_str.c_str();
+    const char* cs = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* ct = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef uint64_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2475,14 +2403,10 @@ static Napi::Value libc_fuchsia_strspn_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_strcspn_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaStrcspn_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool cs_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string cs_str = cs_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* cs = cs_null ? nullptr : cs_str.c_str();
-    bool ct_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string ct_str = ct_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* ct = ct_null ? nullptr : ct_str.c_str();
+    const char* cs = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* ct = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef uint64_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2513,11 +2437,9 @@ static Napi::Value libc_fuchsia_strcspn_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_strdup_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaStrdup_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool cs_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string cs_str = cs_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* cs = cs_null ? nullptr : cs_str.c_str();
+    const char* cs = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef char* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2548,14 +2470,10 @@ static Napi::Value libc_fuchsia_strdup_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_strpbrk_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaStrpbrk_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool cs_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string cs_str = cs_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* cs = cs_null ? nullptr : cs_str.c_str();
-    bool ct_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string ct_str = ct_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* ct = ct_null ? nullptr : ct_str.c_str();
+    const char* cs = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* ct = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef char* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2586,14 +2504,10 @@ static Napi::Value libc_fuchsia_strpbrk_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_strstr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaStrstr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool cs_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string cs_str = cs_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* cs = cs_null ? nullptr : cs_str.c_str();
-    bool ct_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string ct_str = ct_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* ct = ct_null ? nullptr : ct_str.c_str();
+    const char* cs = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* ct = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef char* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2624,11 +2538,9 @@ static Napi::Value libc_fuchsia_strstr_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_strlen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaStrlen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool cs_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string cs_str = cs_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* cs = cs_null ? nullptr : cs_str.c_str();
+    const char* cs = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef uint64_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2659,11 +2571,9 @@ static Napi::Value libc_fuchsia_strlen_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_strnlen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaStrnlen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool cs_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string cs_str = cs_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* cs = cs_null ? nullptr : cs_str.c_str();
+    const char* cs = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t maxlen = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
     typedef uint64_t (*km_fn_t)(const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2695,7 +2605,7 @@ static Napi::Value libc_fuchsia_strnlen_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_strerror_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaStrerror_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t n = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef char* (*km_fn_t)(int32_t);
@@ -2728,12 +2638,10 @@ static Napi::Value libc_fuchsia_strerror_napi(const Napi::CallbackInfo& km_info)
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_strtok_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaStrtok_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* s = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool t_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string t_str = t_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* t = t_null ? nullptr : t_str.c_str();
+    const char* t = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef char* (*km_fn_t)(char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2764,12 +2672,10 @@ static Napi::Value libc_fuchsia_strtok_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_strxfrm_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaStrxfrm_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* s = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool ct_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string ct_str = ct_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* ct = ct_null ? nullptr : ct_str.c_str();
+    const char* ct = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t n = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef uint64_t (*km_fn_t)(char*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2801,7 +2707,7 @@ static Napi::Value libc_fuchsia_strxfrm_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_wcslen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaWcslen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef uint64_t (*km_fn_t)(void*);
@@ -2834,7 +2740,7 @@ static Napi::Value libc_fuchsia_wcslen_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_wcstombs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaWcstombs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* dest = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* src = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2869,7 +2775,7 @@ static Napi::Value libc_fuchsia_wcstombs_napi(const Napi::CallbackInfo& km_info)
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_memchr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaMemchr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cx = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t c = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -2904,7 +2810,7 @@ static Napi::Value libc_fuchsia_memchr_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_wmemchr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaWmemchr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cx = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t c = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -2939,7 +2845,7 @@ static Napi::Value libc_fuchsia_wmemchr_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_memcmp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaMemcmp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cx = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* ct = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2974,7 +2880,7 @@ static Napi::Value libc_fuchsia_memcmp_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_memcpy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaMemcpy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* dest = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* src = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3009,7 +2915,7 @@ static Napi::Value libc_fuchsia_memcpy_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_memmove_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaMemmove_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* dest = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* src = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -3044,7 +2950,7 @@ static Napi::Value libc_fuchsia_memmove_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_memset_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaMemset_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* dest = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t c = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3079,7 +2985,7 @@ static Napi::Value libc_fuchsia_memset_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_abs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaAbs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t i = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -3112,7 +3018,7 @@ static Napi::Value libc_fuchsia_abs_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_labs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaLabs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int64_t i = km_info.Length() > 0 ? km_napi_arg_i64(km_info[0]) : 0;
     typedef int64_t (*km_fn_t)(int64_t);
@@ -3145,7 +3051,7 @@ static Napi::Value libc_fuchsia_labs_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_rand_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaRand_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3177,7 +3083,7 @@ static Napi::Value libc_fuchsia_rand_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_srand_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSrand_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t seed = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(uint32_t);
@@ -3208,11 +3114,9 @@ static Napi::Value libc_fuchsia_srand_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_fuchsia_getpwnam_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGetpwnam_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3243,7 +3147,7 @@ static Napi::Value libc_fuchsia_getpwnam_napi(const Napi::CallbackInfo& km_info)
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_getpwuid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGetpwuid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t uid = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void* (*km_fn_t)(uint32_t);
@@ -3276,12 +3180,10 @@ static Napi::Value libc_fuchsia_getpwuid_napi(const Napi::CallbackInfo& km_info)
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_fprintf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFprintf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool format_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string format_str = format_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* format = format_null ? nullptr : format_str.c_str();
+    const char* format = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t km_vac = km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
     int64_t km_va1 = km_info.Length() > 4 ? km_napi_arg_i64(km_info[4]) : 0;
@@ -3322,11 +3224,9 @@ static Napi::Value libc_fuchsia_fprintf_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_printf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPrintf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool format_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string format_str = format_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* format = format_null ? nullptr : format_str.c_str();
+    const char* format = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t km_vac = km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 2 ? km_napi_arg_i64(km_info[2]) : 0;
     int64_t km_va1 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
@@ -3367,13 +3267,11 @@ static Napi::Value libc_fuchsia_printf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_snprintf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSnprintf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* s = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t n = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
-    bool format_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string format_str = format_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* format = format_null ? nullptr : format_str.c_str();
+    const char* format = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     int32_t km_vac = km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 4 ? km_napi_arg_i64(km_info[4]) : 0;
     int64_t km_va1 = km_info.Length() > 5 ? km_napi_arg_i64(km_info[5]) : 0;
@@ -3414,12 +3312,10 @@ static Napi::Value libc_fuchsia_snprintf_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_sprintf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSprintf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* s = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool format_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string format_str = format_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* format = format_null ? nullptr : format_str.c_str();
+    const char* format = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t km_vac = km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
     int64_t km_va1 = km_info.Length() > 4 ? km_napi_arg_i64(km_info[4]) : 0;
@@ -3460,12 +3356,10 @@ static Napi::Value libc_fuchsia_sprintf_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_fscanf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFscanf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool format_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string format_str = format_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* format = format_null ? nullptr : format_str.c_str();
+    const char* format = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t km_vac = km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
     int64_t km_va1 = km_info.Length() > 4 ? km_napi_arg_i64(km_info[4]) : 0;
@@ -3506,11 +3400,9 @@ static Napi::Value libc_fuchsia_fscanf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_scanf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaScanf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool format_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string format_str = format_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* format = format_null ? nullptr : format_str.c_str();
+    const char* format = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t km_vac = km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 2 ? km_napi_arg_i64(km_info[2]) : 0;
     int64_t km_va1 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
@@ -3551,14 +3443,10 @@ static Napi::Value libc_fuchsia_scanf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_sscanf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSscanf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
-    bool format_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string format_str = format_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* format = format_null ? nullptr : format_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* format = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t km_vac = km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
     int64_t km_va1 = km_info.Length() > 4 ? km_napi_arg_i64(km_info[4]) : 0;
@@ -3599,7 +3487,7 @@ static Napi::Value libc_fuchsia_sscanf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_getcharUnlocked_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGetcharUnlocked_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3631,7 +3519,7 @@ static Napi::Value libc_fuchsia_getcharUnlocked_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_putcharUnlocked_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPutcharUnlocked_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -3664,7 +3552,7 @@ static Napi::Value libc_fuchsia_putcharUnlocked_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_socket_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSocket_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t domain = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t ty = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -3699,9 +3587,9 @@ static Napi::Value libc_fuchsia_socket_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_connect_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaConnect_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t arg0Socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* address = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint32_t len = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t);
@@ -3726,7 +3614,7 @@ static Napi::Value libc_fuchsia_connect_napi(const Napi::CallbackInfo& km_info) 
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_socket, address, len);
+        km_res = km_fn_ptr(arg0Socket, address, len);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3734,9 +3622,9 @@ static Napi::Value libc_fuchsia_connect_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_listen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaListen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t arg0Socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t backlog = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3760,7 +3648,7 @@ static Napi::Value libc_fuchsia_listen_napi(const Napi::CallbackInfo& km_info) {
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_socket, backlog);
+        km_res = km_fn_ptr(arg0Socket, backlog);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3768,11 +3656,11 @@ static Napi::Value libc_fuchsia_listen_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_accept_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaAccept_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t arg0Socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* address = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* address_len = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* addressLen = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3795,7 +3683,7 @@ static Napi::Value libc_fuchsia_accept_napi(const Napi::CallbackInfo& km_info) {
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_socket, address, address_len);
+        km_res = km_fn_ptr(arg0Socket, address, addressLen);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3803,11 +3691,11 @@ static Napi::Value libc_fuchsia_accept_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_getpeername_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGetpeername_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t arg0Socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* address = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* address_len = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* addressLen = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3830,7 +3718,7 @@ static Napi::Value libc_fuchsia_getpeername_napi(const Napi::CallbackInfo& km_in
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_socket, address, address_len);
+        km_res = km_fn_ptr(arg0Socket, address, addressLen);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3838,11 +3726,11 @@ static Napi::Value libc_fuchsia_getpeername_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_getsockname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGetsockname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t arg0Socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* address = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* address_len = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* addressLen = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3865,7 +3753,7 @@ static Napi::Value libc_fuchsia_getsockname_napi(const Napi::CallbackInfo& km_in
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_socket, address, address_len);
+        km_res = km_fn_ptr(arg0Socket, address, addressLen);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3873,13 +3761,13 @@ static Napi::Value libc_fuchsia_getsockname_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_setsockopt_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSetsockopt_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t arg0Socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t level = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     int32_t name = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     void* value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
-    uint32_t option_len = static_cast<uint32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
+    uint32_t optionLen = static_cast<uint32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3902,7 +3790,7 @@ static Napi::Value libc_fuchsia_setsockopt_napi(const Napi::CallbackInfo& km_inf
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_socket, level, name, value, option_len);
+        km_res = km_fn_ptr(arg0Socket, level, name, value, optionLen);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3910,12 +3798,12 @@ static Napi::Value libc_fuchsia_setsockopt_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_socketpair_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSocketpair_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t domain = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t type_ = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t type = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     int32_t protocol = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    void* socket_vector = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    void* socketVector = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3938,7 +3826,7 @@ static Napi::Value libc_fuchsia_socketpair_napi(const Napi::CallbackInfo& km_inf
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(domain, type_, protocol, socket_vector);
+        km_res = km_fn_ptr(domain, type, protocol, socketVector);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3946,9 +3834,9 @@ static Napi::Value libc_fuchsia_socketpair_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_sendto_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSendto_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t arg0Socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t len = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     int32_t flags = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
@@ -3976,7 +3864,7 @@ static Napi::Value libc_fuchsia_sendto_napi(const Napi::CallbackInfo& km_info) {
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_socket, buf, len, flags, addr, addrlen);
+        km_res = km_fn_ptr(arg0Socket, buf, len, flags, addr, addrlen);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -3984,9 +3872,9 @@ static Napi::Value libc_fuchsia_sendto_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_shutdown_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaShutdown_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t arg0Socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t how = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4010,7 +3898,7 @@ static Napi::Value libc_fuchsia_shutdown_napi(const Napi::CallbackInfo& km_info)
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_socket, how);
+        km_res = km_fn_ptr(arg0Socket, how);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4018,11 +3906,9 @@ static Napi::Value libc_fuchsia_shutdown_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_chmod_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaChmod_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t mode = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4054,7 +3940,7 @@ static Napi::Value libc_fuchsia_chmod_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_fchmod_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFchmod_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t mode = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4088,7 +3974,7 @@ static Napi::Value libc_fuchsia_fchmod_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_fstat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFstat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fildes = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -4122,11 +4008,9 @@ static Napi::Value libc_fuchsia_fstat_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_mkdir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaMkdir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t mode = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4158,11 +4042,9 @@ static Napi::Value libc_fuchsia_mkdir_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_stat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaStat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4194,7 +4076,7 @@ static Napi::Value libc_fuchsia_stat_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pclose_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPclose_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -4227,12 +4109,10 @@ static Napi::Value libc_fuchsia_pclose_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_fdopen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFdopen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool mode_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string mode_str = mode_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* mode = mode_null ? nullptr : mode_str.c_str();
+    const char* mode = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef void* (*km_fn_t)(int32_t, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4263,7 +4143,7 @@ static Napi::Value libc_fuchsia_fdopen_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_fileno_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFileno_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -4296,11 +4176,9 @@ static Napi::Value libc_fuchsia_fileno_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_open_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaOpen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t oflag = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     int32_t km_vac = km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
@@ -4342,11 +4220,9 @@ static Napi::Value libc_fuchsia_open_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_creat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaCreat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t mode = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4378,7 +4254,7 @@ static Napi::Value libc_fuchsia_creat_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_fcntl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFcntl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t cmd = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4422,11 +4298,9 @@ static Napi::Value libc_fuchsia_fcntl_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_opendir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaOpendir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool dirname_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string dirname_str = dirname_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* dirname = dirname_null ? nullptr : dirname_str.c_str();
+    const char* dirname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4457,7 +4331,7 @@ static Napi::Value libc_fuchsia_opendir_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_readdir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaReaddir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* dirp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -4490,7 +4364,7 @@ static Napi::Value libc_fuchsia_readdir_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_readdirR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaReaddirR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* dirp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* entry = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -4525,7 +4399,7 @@ static Napi::Value libc_fuchsia_readdirR_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_closedir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaClosedir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* dirp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -4558,7 +4432,7 @@ static Napi::Value libc_fuchsia_closedir_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_rewinddir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaRewinddir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* dirp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -4589,12 +4463,10 @@ static Napi::Value libc_fuchsia_rewinddir_napi(const Napi::CallbackInfo& km_info
     return km_env.Undefined();
 }
 
-static Napi::Value libc_fuchsia_openat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaOpenat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t dirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool pathname_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string pathname_str = pathname_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* pathname = pathname_null ? nullptr : pathname_str.c_str();
+    const char* pathname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     int32_t km_vac = km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 4 ? km_napi_arg_i64(km_info[4]) : 0;
@@ -4636,12 +4508,10 @@ static Napi::Value libc_fuchsia_openat_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_fchmodat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFchmodat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t dirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool pathname_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string pathname_str = pathname_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* pathname = pathname_null ? nullptr : pathname_str.c_str();
+    const char* pathname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint32_t mode = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     int32_t flags = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, const char*, uint32_t, int32_t);
@@ -4674,7 +4544,7 @@ static Napi::Value libc_fuchsia_fchmodat_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_fchown_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFchown_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t owner = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4709,12 +4579,10 @@ static Napi::Value libc_fuchsia_fchown_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_fchownat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFchownat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t dirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool pathname_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string pathname_str = pathname_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* pathname = pathname_null ? nullptr : pathname_str.c_str();
+    const char* pathname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint32_t owner = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     uint32_t group = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     int32_t flags = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
@@ -4748,12 +4616,10 @@ static Napi::Value libc_fuchsia_fchownat_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_fstatat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFstatat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t dirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool pathname_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string pathname_str = pathname_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* pathname = pathname_null ? nullptr : pathname_str.c_str();
+    const char* pathname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, const char*, void*, int32_t);
@@ -4786,16 +4652,12 @@ static Napi::Value libc_fuchsia_fstatat_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_linkat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaLinkat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t olddirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool oldpath_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string oldpath_str = oldpath_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* oldpath = oldpath_null ? nullptr : oldpath_str.c_str();
+    const char* oldpath = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t newdirfd = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    bool newpath_null = (km_info.Length() <= 3 || km_info[3].IsNull() || km_info[3].IsUndefined());
-    std::string newpath_str = newpath_null ? std::string() : km_info[3].ToString().Utf8Value();
-    const char* newpath = newpath_null ? nullptr : newpath_str.c_str();
+    const char* newpath = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4827,12 +4689,10 @@ static Napi::Value libc_fuchsia_linkat_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_mkdirat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaMkdirat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t dirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool pathname_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string pathname_str = pathname_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* pathname = pathname_null ? nullptr : pathname_str.c_str();
+    const char* pathname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint32_t mode = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, const char*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4864,12 +4724,10 @@ static Napi::Value libc_fuchsia_mkdirat_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_readlinkat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaReadlinkat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t dirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool pathname_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string pathname_str = pathname_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* pathname = pathname_null ? nullptr : pathname_str.c_str();
+    const char* pathname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint64_t bufsiz = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
     typedef int64_t (*km_fn_t)(int32_t, const char*, char*, uint64_t);
@@ -4902,16 +4760,12 @@ static Napi::Value libc_fuchsia_readlinkat_napi(const Napi::CallbackInfo& km_inf
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_renameat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaRenameat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t olddirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool oldpath_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string oldpath_str = oldpath_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* oldpath = oldpath_null ? nullptr : oldpath_str.c_str();
+    const char* oldpath = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t newdirfd = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    bool newpath_null = (km_info.Length() <= 3 || km_info[3].IsNull() || km_info[3].IsUndefined());
-    std::string newpath_str = newpath_null ? std::string() : km_info[3].ToString().Utf8Value();
-    const char* newpath = newpath_null ? nullptr : newpath_str.c_str();
+    const char* newpath = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4942,15 +4796,11 @@ static Napi::Value libc_fuchsia_renameat_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_symlinkat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSymlinkat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool target_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string target_str = target_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* target = target_null ? nullptr : target_str.c_str();
+    const char* target = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t newdirfd = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    bool linkpath_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string linkpath_str = linkpath_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* linkpath = linkpath_null ? nullptr : linkpath_str.c_str();
+    const char* linkpath = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(const char*, int32_t, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4981,12 +4831,10 @@ static Napi::Value libc_fuchsia_symlinkat_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_unlinkat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaUnlinkat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t dirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool pathname_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string pathname_str = pathname_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* pathname = pathname_null ? nullptr : pathname_str.c_str();
+    const char* pathname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5018,11 +4866,9 @@ static Napi::Value libc_fuchsia_unlinkat_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_access_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaAccess_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t amode = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5054,7 +4900,7 @@ static Napi::Value libc_fuchsia_access_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_alarm_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaAlarm_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t seconds = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef uint32_t (*km_fn_t)(uint32_t);
@@ -5087,11 +4933,9 @@ static Napi::Value libc_fuchsia_alarm_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_chdir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaChdir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool dir_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string dir_str = dir_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* dir = dir_null ? nullptr : dir_str.c_str();
+    const char* dir = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5122,11 +4966,9 @@ static Napi::Value libc_fuchsia_chdir_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_chown_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaChown_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t uid = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     uint32_t gid = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, uint32_t, uint32_t);
@@ -5159,11 +5001,9 @@ static Napi::Value libc_fuchsia_chown_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_lchown_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaLchown_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t uid = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     uint32_t gid = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, uint32_t, uint32_t);
@@ -5196,7 +5036,7 @@ static Napi::Value libc_fuchsia_lchown_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_close_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaClose_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -5229,7 +5069,7 @@ static Napi::Value libc_fuchsia_close_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_dup_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaDup_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -5262,7 +5102,7 @@ static Napi::Value libc_fuchsia_dup_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_dup2_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaDup2_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t src = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t dst = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -5296,14 +5136,10 @@ static Napi::Value libc_fuchsia_dup2_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_execl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaExecl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
-    bool arg0_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg0_str = arg0_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg0 = arg0_null ? nullptr : arg0_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* arg0 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t km_vac = km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
     int64_t km_va1 = km_info.Length() > 4 ? km_napi_arg_i64(km_info[4]) : 0;
@@ -5344,14 +5180,10 @@ static Napi::Value libc_fuchsia_execl_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_execle_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaExecle_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
-    bool arg0_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg0_str = arg0_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg0 = arg0_null ? nullptr : arg0_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* arg0 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t km_vac = km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
     int64_t km_va1 = km_info.Length() > 4 ? km_napi_arg_i64(km_info[4]) : 0;
@@ -5392,14 +5224,10 @@ static Napi::Value libc_fuchsia_execle_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_execlp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaExeclp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool file_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string file_str = file_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* file = file_null ? nullptr : file_str.c_str();
-    bool arg0_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string arg0_str = arg0_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* arg0 = arg0_null ? nullptr : arg0_str.c_str();
+    const char* file = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* arg0 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t km_vac = km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
     int64_t km_va1 = km_info.Length() > 4 ? km_napi_arg_i64(km_info[4]) : 0;
@@ -5440,11 +5268,9 @@ static Napi::Value libc_fuchsia_execlp_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_execv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaExecv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool prog_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string prog_str = prog_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* prog = prog_null ? nullptr : prog_str.c_str();
+    const char* prog = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* argv = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5476,11 +5302,9 @@ static Napi::Value libc_fuchsia_execv_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_execve_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaExecve_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool prog_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string prog_str = prog_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* prog = prog_null ? nullptr : prog_str.c_str();
+    const char* prog = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* argv = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* envp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(const char*, void*, void*);
@@ -5513,11 +5337,9 @@ static Napi::Value libc_fuchsia_execve_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_execvp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaExecvp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool c_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string c_str = c_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* c = c_null ? nullptr : c_str.c_str();
+    const char* c = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* argv = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5549,7 +5371,7 @@ static Napi::Value libc_fuchsia_execvp_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_fork_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFork_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5581,7 +5403,7 @@ static Napi::Value libc_fuchsia_fork_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_fpathconf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFpathconf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t filedes = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t name = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -5615,7 +5437,7 @@ static Napi::Value libc_fuchsia_fpathconf_napi(const Napi::CallbackInfo& km_info
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_getcwd_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGetcwd_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -5649,7 +5471,7 @@ static Napi::Value libc_fuchsia_getcwd_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_getegid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGetegid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef uint32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5681,7 +5503,7 @@ static Napi::Value libc_fuchsia_getegid_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_geteuid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGeteuid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef uint32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5713,7 +5535,7 @@ static Napi::Value libc_fuchsia_geteuid_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_getgid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGetgid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef uint32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5745,9 +5567,9 @@ static Napi::Value libc_fuchsia_getgid_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_getgroups_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGetgroups_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t ngroups_max = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t ngroupsMax = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* groups = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5771,7 +5593,7 @@ static Napi::Value libc_fuchsia_getgroups_napi(const Napi::CallbackInfo& km_info
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(ngroups_max, groups);
+        km_res = km_fn_ptr(ngroupsMax, groups);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5779,7 +5601,7 @@ static Napi::Value libc_fuchsia_getgroups_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_getlogin_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGetlogin_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef char* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5811,13 +5633,11 @@ static Napi::Value libc_fuchsia_getlogin_napi(const Napi::CallbackInfo& km_info)
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_getopt_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGetopt_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t argc = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* argv = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    bool optstr_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string optstr_str = optstr_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* optstr = optstr_null ? nullptr : optstr_str.c_str();
+    const char* optstr = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5848,7 +5668,7 @@ static Napi::Value libc_fuchsia_getopt_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_getpgid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGetpgid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -5881,7 +5701,7 @@ static Napi::Value libc_fuchsia_getpgid_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_getpgrp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGetpgrp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5913,7 +5733,7 @@ static Napi::Value libc_fuchsia_getpgrp_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_getpid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGetpid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5945,7 +5765,7 @@ static Napi::Value libc_fuchsia_getpid_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_getppid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGetppid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5977,7 +5797,7 @@ static Napi::Value libc_fuchsia_getppid_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_getuid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGetuid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef uint32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -6009,7 +5829,7 @@ static Napi::Value libc_fuchsia_getuid_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_isatty_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaIsatty_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -6042,14 +5862,10 @@ static Napi::Value libc_fuchsia_isatty_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_link_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaLink_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool src_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string src_str = src_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* src = src_null ? nullptr : src_str.c_str();
-    bool dst_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string dst_str = dst_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* dst = dst_null ? nullptr : dst_str.c_str();
+    const char* src = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* dst = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6080,7 +5896,7 @@ static Napi::Value libc_fuchsia_link_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_lseek_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaLseek_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int64_t offset = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
@@ -6115,11 +5931,9 @@ static Napi::Value libc_fuchsia_lseek_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_pathconf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPathconf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t name = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -6151,7 +5965,7 @@ static Napi::Value libc_fuchsia_pathconf_napi(const Napi::CallbackInfo& km_info)
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_pause_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPause_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -6183,7 +5997,7 @@ static Napi::Value libc_fuchsia_pause_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pipe_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPipe_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* fds = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -6216,7 +6030,7 @@ static Napi::Value libc_fuchsia_pipe_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_posixMemalign_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPosixMemalign_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* memptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t align = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -6251,7 +6065,7 @@ static Napi::Value libc_fuchsia_posixMemalign_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_read_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaRead_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -6286,11 +6100,9 @@ static Napi::Value libc_fuchsia_read_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_rmdir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaRmdir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6321,7 +6133,7 @@ static Napi::Value libc_fuchsia_rmdir_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_seteuid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSeteuid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t uid = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -6354,7 +6166,7 @@ static Napi::Value libc_fuchsia_seteuid_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_setegid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSetegid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t gid = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -6387,7 +6199,7 @@ static Napi::Value libc_fuchsia_setegid_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_setgid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSetgid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t gid = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -6420,7 +6232,7 @@ static Napi::Value libc_fuchsia_setgid_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_setpgid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSetpgid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t pgid = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -6454,7 +6266,7 @@ static Napi::Value libc_fuchsia_setpgid_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_setsid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSetsid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -6486,7 +6298,7 @@ static Napi::Value libc_fuchsia_setsid_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_setuid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSetuid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t uid = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -6519,7 +6331,7 @@ static Napi::Value libc_fuchsia_setuid_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_sleep_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSleep_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t secs = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef uint32_t (*km_fn_t)(uint32_t);
@@ -6552,7 +6364,7 @@ static Napi::Value libc_fuchsia_sleep_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_nanosleep_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaNanosleep_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* rqtp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* rmtp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -6586,7 +6398,7 @@ static Napi::Value libc_fuchsia_nanosleep_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_tcgetpgrp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaTcgetpgrp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -6619,7 +6431,7 @@ static Napi::Value libc_fuchsia_tcgetpgrp_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_tcsetpgrp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaTcsetpgrp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t pgrp = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -6653,7 +6465,7 @@ static Napi::Value libc_fuchsia_tcsetpgrp_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_ttyname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaTtyname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef char* (*km_fn_t)(int32_t);
@@ -6686,11 +6498,9 @@ static Napi::Value libc_fuchsia_ttyname_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_unlink_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaUnlink_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool c_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string c_str = c_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* c = c_null ? nullptr : c_str.c_str();
+    const char* c = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6721,7 +6531,7 @@ static Napi::Value libc_fuchsia_unlink_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_wait_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaWait_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* status = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -6754,7 +6564,7 @@ static Napi::Value libc_fuchsia_wait_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_waitpid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaWaitpid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* status = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -6789,7 +6599,7 @@ static Napi::Value libc_fuchsia_waitpid_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_write_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaWrite_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -6824,7 +6634,7 @@ static Napi::Value libc_fuchsia_write_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_pread_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPread_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -6860,7 +6670,7 @@ static Napi::Value libc_fuchsia_pread_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_pwrite_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPwrite_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -6896,7 +6706,7 @@ static Napi::Value libc_fuchsia_pwrite_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_umask_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaUmask_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t mask = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef uint32_t (*km_fn_t)(uint32_t);
@@ -6929,11 +6739,9 @@ static Napi::Value libc_fuchsia_umask_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_utime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaUtime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool file_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string file_str = file_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* file = file_null ? nullptr : file_str.c_str();
+    const char* file = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -6965,7 +6773,7 @@ static Napi::Value libc_fuchsia_utime_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_kill_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaKill_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t sig = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -6999,7 +6807,7 @@ static Napi::Value libc_fuchsia_kill_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_mlock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaMlock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -7033,7 +6841,7 @@ static Napi::Value libc_fuchsia_mlock_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_munlock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaMunlock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -7067,7 +6875,7 @@ static Napi::Value libc_fuchsia_munlock_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_mlockall_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaMlockall_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t flags = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -7100,7 +6908,7 @@ static Napi::Value libc_fuchsia_mlockall_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_munlockall_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaMunlockall_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -7132,7 +6940,7 @@ static Napi::Value libc_fuchsia_munlockall_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_mmap_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaMmap_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -7170,7 +6978,7 @@ static Napi::Value libc_fuchsia_mmap_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_munmap_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaMunmap_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -7204,11 +7012,9 @@ static Napi::Value libc_fuchsia_munmap_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_ifNametoindex_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaIfNametoindex_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool ifname_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string ifname_str = ifname_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* ifname = ifname_null ? nullptr : ifname_str.c_str();
+    const char* ifname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef uint32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -7239,7 +7045,7 @@ static Napi::Value libc_fuchsia_ifNametoindex_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_ifIndextoname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaIfIndextoname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t ifindex = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     char* ifname = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -7273,11 +7079,9 @@ static Napi::Value libc_fuchsia_ifIndextoname_napi(const Napi::CallbackInfo& km_
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_lstat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaLstat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -7309,7 +7113,7 @@ static Napi::Value libc_fuchsia_lstat_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_fsync_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFsync_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -7342,14 +7146,10 @@ static Napi::Value libc_fuchsia_fsync_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_setenv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSetenv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
-    bool val_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string val_str = val_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* val = val_null ? nullptr : val_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* val = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t overwrite = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -7381,11 +7181,9 @@ static Napi::Value libc_fuchsia_setenv_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_unsetenv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaUnsetenv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -7416,14 +7214,10 @@ static Napi::Value libc_fuchsia_unsetenv_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_symlink_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSymlink_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path1_str = path1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path1 = path1_null ? nullptr : path1_str.c_str();
-    bool path2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string path2_str = path2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* path2 = path2_null ? nullptr : path2_str.c_str();
+    const char* path1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* path2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -7454,7 +7248,7 @@ static Napi::Value libc_fuchsia_symlink_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_ftruncate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFtruncate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int64_t length = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
@@ -7488,7 +7282,7 @@ static Napi::Value libc_fuchsia_ftruncate_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_signal_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSignal_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t signum = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint64_t handler = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -7522,11 +7316,9 @@ static Napi::Value libc_fuchsia_signal_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_realpath_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaRealpath_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool pathname_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string pathname_str = pathname_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* pathname = pathname_null ? nullptr : pathname_str.c_str();
+    const char* pathname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* resolved = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef char* (*km_fn_t)(const char*, char*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -7558,7 +7350,7 @@ static Napi::Value libc_fuchsia_realpath_napi(const Napi::CallbackInfo& km_info)
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_flock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFlock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t operation = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -7592,7 +7384,7 @@ static Napi::Value libc_fuchsia_flock_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_gettimeofday_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGettimeofday_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* tp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* tz = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -7626,7 +7418,7 @@ static Napi::Value libc_fuchsia_gettimeofday_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_times_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaTimes_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(void*);
@@ -7659,7 +7451,7 @@ static Napi::Value libc_fuchsia_times_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_pthreadSelf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadSelf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -7691,7 +7483,7 @@ static Napi::Value libc_fuchsia_pthreadSelf_napi(const Napi::CallbackInfo& km_in
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_pthreadJoin_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadJoin_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* native = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -7725,7 +7517,7 @@ static Napi::Value libc_fuchsia_pthreadJoin_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadExit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadExit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -7756,7 +7548,7 @@ static Napi::Value libc_fuchsia_pthreadExit_napi(const Napi::CallbackInfo& km_in
     return km_env.Undefined();
 }
 
-static Napi::Value libc_fuchsia_pthreadAttrInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadAttrInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -7789,7 +7581,7 @@ static Napi::Value libc_fuchsia_pthreadAttrInit_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadAttrDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadAttrDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -7822,7 +7614,7 @@ static Napi::Value libc_fuchsia_pthreadAttrDestroy_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadAttrGetstacksize_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadAttrGetstacksize_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* stacksize = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -7856,10 +7648,10 @@ static Napi::Value libc_fuchsia_pthreadAttrGetstacksize_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadAttrSetstacksize_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadAttrSetstacksize_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    uint64_t stack_size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
+    uint64_t stackSize = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
     typedef int32_t (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -7882,7 +7674,7 @@ static Napi::Value libc_fuchsia_pthreadAttrSetstacksize_napi(const Napi::Callbac
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(attr, stack_size);
+        km_res = km_fn_ptr(attr, stackSize);
     } else {
         errno = ENOSYS;
         km_res = ENOSYS;
@@ -7890,7 +7682,7 @@ static Napi::Value libc_fuchsia_pthreadAttrSetstacksize_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadAttrSetdetachstate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadAttrSetdetachstate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t state = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -7924,7 +7716,7 @@ static Napi::Value libc_fuchsia_pthreadAttrSetdetachstate_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadDetach_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadDetach_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* thread = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -7957,7 +7749,7 @@ static Napi::Value libc_fuchsia_pthreadDetach_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_schedYield_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSchedYield_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -7989,7 +7781,7 @@ static Napi::Value libc_fuchsia_schedYield_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadKeyCreate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadKeyCreate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* key = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* dtor = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -8023,7 +7815,7 @@ static Napi::Value libc_fuchsia_pthreadKeyCreate_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadKeyDelete_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadKeyDelete_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t key = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -8056,7 +7848,7 @@ static Napi::Value libc_fuchsia_pthreadKeyDelete_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadGetspecific_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadGetspecific_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t key = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void* (*km_fn_t)(uint32_t);
@@ -8089,7 +7881,7 @@ static Napi::Value libc_fuchsia_pthreadGetspecific_napi(const Napi::CallbackInfo
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_pthreadSetspecific_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadSetspecific_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t key = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -8123,7 +7915,7 @@ static Napi::Value libc_fuchsia_pthreadSetspecific_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadMutexInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadMutexInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -8157,7 +7949,7 @@ static Napi::Value libc_fuchsia_pthreadMutexInit_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadMutexDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadMutexDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -8190,7 +7982,7 @@ static Napi::Value libc_fuchsia_pthreadMutexDestroy_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadMutexLock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadMutexLock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -8223,7 +8015,7 @@ static Napi::Value libc_fuchsia_pthreadMutexLock_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadMutexTrylock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadMutexTrylock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -8256,7 +8048,7 @@ static Napi::Value libc_fuchsia_pthreadMutexTrylock_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadMutexUnlock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadMutexUnlock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -8289,7 +8081,7 @@ static Napi::Value libc_fuchsia_pthreadMutexUnlock_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadMutexattrInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadMutexattrInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -8322,7 +8114,7 @@ static Napi::Value libc_fuchsia_pthreadMutexattrInit_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadMutexattrDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadMutexattrDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -8355,10 +8147,10 @@ static Napi::Value libc_fuchsia_pthreadMutexattrDestroy_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadMutexattrSettype_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadMutexattrSettype_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    int32_t arg_1_type = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t type = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -8381,7 +8173,7 @@ static Napi::Value libc_fuchsia_pthreadMutexattrSettype_napi(const Napi::Callbac
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(attr, arg_1_type);
+        km_res = km_fn_ptr(attr, type);
     } else {
         errno = ENOSYS;
         km_res = ENOSYS;
@@ -8389,7 +8181,7 @@ static Napi::Value libc_fuchsia_pthreadMutexattrSettype_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadCondInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadCondInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cond = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -8423,7 +8215,7 @@ static Napi::Value libc_fuchsia_pthreadCondInit_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadCondWait_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadCondWait_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cond = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -8457,7 +8249,7 @@ static Napi::Value libc_fuchsia_pthreadCondWait_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadCondTimedwait_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadCondTimedwait_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cond = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -8492,7 +8284,7 @@ static Napi::Value libc_fuchsia_pthreadCondTimedwait_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadCondSignal_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadCondSignal_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cond = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -8525,7 +8317,7 @@ static Napi::Value libc_fuchsia_pthreadCondSignal_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadCondBroadcast_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadCondBroadcast_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cond = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -8558,7 +8350,7 @@ static Napi::Value libc_fuchsia_pthreadCondBroadcast_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadCondDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadCondDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cond = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -8591,7 +8383,7 @@ static Napi::Value libc_fuchsia_pthreadCondDestroy_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadCondattrInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadCondattrInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -8624,7 +8416,7 @@ static Napi::Value libc_fuchsia_pthreadCondattrInit_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadCondattrDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadCondattrDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -8657,7 +8449,7 @@ static Napi::Value libc_fuchsia_pthreadCondattrDestroy_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadRwlockInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadRwlockInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -8691,7 +8483,7 @@ static Napi::Value libc_fuchsia_pthreadRwlockInit_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadRwlockDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadRwlockDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -8724,7 +8516,7 @@ static Napi::Value libc_fuchsia_pthreadRwlockDestroy_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadRwlockRdlock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadRwlockRdlock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -8757,7 +8549,7 @@ static Napi::Value libc_fuchsia_pthreadRwlockRdlock_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadRwlockTryrdlock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadRwlockTryrdlock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -8790,7 +8582,7 @@ static Napi::Value libc_fuchsia_pthreadRwlockTryrdlock_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadRwlockWrlock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadRwlockWrlock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -8823,7 +8615,7 @@ static Napi::Value libc_fuchsia_pthreadRwlockWrlock_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadRwlockTrywrlock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadRwlockTrywrlock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -8856,7 +8648,7 @@ static Napi::Value libc_fuchsia_pthreadRwlockTrywrlock_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadRwlockUnlock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadRwlockUnlock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -8889,7 +8681,7 @@ static Napi::Value libc_fuchsia_pthreadRwlockUnlock_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadRwlockattrInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadRwlockattrInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -8922,7 +8714,7 @@ static Napi::Value libc_fuchsia_pthreadRwlockattrInit_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadRwlockattrDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadRwlockattrDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -8955,7 +8747,7 @@ static Napi::Value libc_fuchsia_pthreadRwlockattrDestroy_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadGetnameNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadGetnameNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* thread = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* name = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -8990,12 +8782,10 @@ static Napi::Value libc_fuchsia_pthreadGetnameNp_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadSetnameNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadSetnameNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* thread = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool name_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -9026,7 +8816,7 @@ static Napi::Value libc_fuchsia_pthreadSetnameNp_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_strerrorR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaStrerrorR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t errnum = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -9061,7 +8851,7 @@ static Napi::Value libc_fuchsia_strerrorR_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_getsockopt_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGetsockopt_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t sockfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t level = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -9098,7 +8888,7 @@ static Napi::Value libc_fuchsia_getsockopt_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_raise_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaRaise_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t signum = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -9131,7 +8921,7 @@ static Napi::Value libc_fuchsia_raise_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_sigaction_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSigaction_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t signum = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* act = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -9166,11 +8956,9 @@ static Napi::Value libc_fuchsia_sigaction_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_utimes_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaUtimes_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool filename_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string filename_str = filename_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* filename = filename_null ? nullptr : filename_str.c_str();
+    const char* filename = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* times = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -9202,11 +8990,9 @@ static Napi::Value libc_fuchsia_utimes_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_dlopen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaDlopen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool filename_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string filename_str = filename_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* filename = filename_null ? nullptr : filename_str.c_str();
+    const char* filename = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t flag = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef void* (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -9238,7 +9024,7 @@ static Napi::Value libc_fuchsia_dlopen_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_dlerror_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaDlerror_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef char* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -9270,12 +9056,10 @@ static Napi::Value libc_fuchsia_dlerror_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_dlsym_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaDlsym_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* handle = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool symbol_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string symbol_str = symbol_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* symbol = symbol_null ? nullptr : symbol_str.c_str();
+    const char* symbol = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef void* (*km_fn_t)(void*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -9306,7 +9090,7 @@ static Napi::Value libc_fuchsia_dlsym_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_dlclose_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaDlclose_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* handle = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -9339,7 +9123,7 @@ static Napi::Value libc_fuchsia_dlclose_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_dladdr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaDladdr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -9373,14 +9157,10 @@ static Napi::Value libc_fuchsia_dladdr_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_getaddrinfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGetaddrinfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool node_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string node_str = node_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* node = node_null ? nullptr : node_str.c_str();
-    bool service_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string service_str = service_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* service = service_null ? nullptr : service_str.c_str();
+    const char* node = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* service = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* hints = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* res = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(const char*, const char*, void*, void*);
@@ -9413,7 +9193,7 @@ static Napi::Value libc_fuchsia_getaddrinfo_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_freeaddrinfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFreeaddrinfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* res = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -9444,7 +9224,7 @@ static Napi::Value libc_fuchsia_freeaddrinfo_napi(const Napi::CallbackInfo& km_i
     return km_env.Undefined();
 }
 
-static Napi::Value libc_fuchsia_gaiStrerror_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGaiStrerror_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t errcode = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef const char* (*km_fn_t)(int32_t);
@@ -9477,7 +9257,7 @@ static Napi::Value libc_fuchsia_gaiStrerror_napi(const Napi::CallbackInfo& km_in
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_resInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaResInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -9509,9 +9289,9 @@ static Napi::Value libc_fuchsia_resInit_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_gmtimeR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGmtimeR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* time_p = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* timeP = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* result = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef void* (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -9535,7 +9315,7 @@ static Napi::Value libc_fuchsia_gmtimeR_napi(const Napi::CallbackInfo& km_info) 
 #endif
     void* km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(time_p, result);
+        km_res = km_fn_ptr(timeP, result);
     } else {
         errno = ENOSYS;
         km_res = nullptr;
@@ -9543,9 +9323,9 @@ static Napi::Value libc_fuchsia_gmtimeR_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_localtimeR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaLocaltimeR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* time_p = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* timeP = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* result = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef void* (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -9569,7 +9349,7 @@ static Napi::Value libc_fuchsia_localtimeR_napi(const Napi::CallbackInfo& km_inf
 #endif
     void* km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(time_p, result);
+        km_res = km_fn_ptr(timeP, result);
     } else {
         errno = ENOSYS;
         km_res = nullptr;
@@ -9577,7 +9357,7 @@ static Napi::Value libc_fuchsia_localtimeR_napi(const Napi::CallbackInfo& km_inf
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_mktime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaMktime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* tm = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(void*);
@@ -9610,9 +9390,9 @@ static Napi::Value libc_fuchsia_mktime_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_time_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaTime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* arg_0_time = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* arg0Time = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -9635,7 +9415,7 @@ static Napi::Value libc_fuchsia_time_napi(const Napi::CallbackInfo& km_info) {
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_time);
+        km_res = km_fn_ptr(arg0Time);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -9643,9 +9423,9 @@ static Napi::Value libc_fuchsia_time_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_gmtime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGmtime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* time_p = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* timeP = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -9668,7 +9448,7 @@ static Napi::Value libc_fuchsia_gmtime_napi(const Napi::CallbackInfo& km_info) {
 #endif
     void* km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(time_p);
+        km_res = km_fn_ptr(timeP);
     } else {
         errno = ENOSYS;
         km_res = nullptr;
@@ -9676,9 +9456,9 @@ static Napi::Value libc_fuchsia_gmtime_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_localtime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaLocaltime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    void* time_p = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* timeP = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -9701,7 +9481,7 @@ static Napi::Value libc_fuchsia_localtime_napi(const Napi::CallbackInfo& km_info
 #endif
     void* km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(time_p);
+        km_res = km_fn_ptr(timeP);
     } else {
         errno = ENOSYS;
         km_res = nullptr;
@@ -9709,11 +9489,9 @@ static Napi::Value libc_fuchsia_localtime_napi(const Napi::CallbackInfo& km_info
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_mknod_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaMknod_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool pathname_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string pathname_str = pathname_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* pathname = pathname_null ? nullptr : pathname_str.c_str();
+    const char* pathname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t mode = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     uint64_t dev = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef int32_t (*km_fn_t)(const char*, uint32_t, uint64_t);
@@ -9746,7 +9524,7 @@ static Napi::Value libc_fuchsia_mknod_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_uname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaUname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -9779,7 +9557,7 @@ static Napi::Value libc_fuchsia_uname_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_gethostname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGethostname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* name = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -9813,14 +9591,10 @@ static Napi::Value libc_fuchsia_gethostname_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_getservbyname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGetservbyname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
-    bool proto_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string proto_str = proto_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* proto = proto_null ? nullptr : proto_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* proto = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef void* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -9851,11 +9625,9 @@ static Napi::Value libc_fuchsia_getservbyname_napi(const Napi::CallbackInfo& km_
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_getprotobyname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGetprotobyname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -9886,7 +9658,7 @@ static Napi::Value libc_fuchsia_getprotobyname_napi(const Napi::CallbackInfo& km
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_getprotobynumber_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGetprotobynumber_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t proto = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void* (*km_fn_t)(int32_t);
@@ -9919,7 +9691,7 @@ static Napi::Value libc_fuchsia_getprotobynumber_napi(const Napi::CallbackInfo& 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_usleep_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaUsleep_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t secs = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -9952,9 +9724,9 @@ static Napi::Value libc_fuchsia_usleep_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_send_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSend_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t arg0Socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t len = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     int32_t flags = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
@@ -9980,7 +9752,7 @@ static Napi::Value libc_fuchsia_send_napi(const Napi::CallbackInfo& km_info) {
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_socket, buf, len, flags);
+        km_res = km_fn_ptr(arg0Socket, buf, len, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -9988,9 +9760,9 @@ static Napi::Value libc_fuchsia_send_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_recv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaRecv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t arg0Socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t len = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     int32_t flags = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
@@ -10016,7 +9788,7 @@ static Napi::Value libc_fuchsia_recv_napi(const Napi::CallbackInfo& km_info) {
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_socket, buf, len, flags);
+        km_res = km_fn_ptr(arg0Socket, buf, len, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -10024,7 +9796,7 @@ static Napi::Value libc_fuchsia_recv_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_putenv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPutenv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* string = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(char*);
@@ -10057,7 +9829,7 @@ static Napi::Value libc_fuchsia_putenv_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_poll_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPoll_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* fds = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t nfds = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -10092,7 +9864,7 @@ static Napi::Value libc_fuchsia_poll_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_select_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSelect_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t nfds = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* readfds = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -10129,12 +9901,10 @@ static Napi::Value libc_fuchsia_select_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_setlocale_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSetlocale_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t category = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool locale_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string locale_str = locale_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* locale = locale_null ? nullptr : locale_str.c_str();
+    const char* locale = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef char* (*km_fn_t)(int32_t, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -10165,7 +9935,7 @@ static Napi::Value libc_fuchsia_setlocale_napi(const Napi::CallbackInfo& km_info
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_localeconv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaLocaleconv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -10197,7 +9967,7 @@ static Napi::Value libc_fuchsia_localeconv_napi(const Napi::CallbackInfo& km_inf
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_semDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSemDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* sem = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -10230,7 +10000,7 @@ static Napi::Value libc_fuchsia_semDestroy_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_semWait_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSemWait_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* sem = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -10263,7 +10033,7 @@ static Napi::Value libc_fuchsia_semWait_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_semTrywait_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSemTrywait_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* sem = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -10296,7 +10066,7 @@ static Napi::Value libc_fuchsia_semTrywait_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_semPost_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSemPost_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* sem = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -10329,7 +10099,7 @@ static Napi::Value libc_fuchsia_semPost_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_semInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSemInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* sem = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t pshared = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -10364,11 +10134,9 @@ static Napi::Value libc_fuchsia_semInit_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_statvfs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaStatvfs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -10400,7 +10168,7 @@ static Napi::Value libc_fuchsia_statvfs_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_fstatvfs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFstatvfs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -10434,11 +10202,9 @@ static Napi::Value libc_fuchsia_fstatvfs_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_readlink_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaReadlink_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t bufsz = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef int64_t (*km_fn_t)(const char*, char*, uint64_t);
@@ -10471,7 +10237,7 @@ static Napi::Value libc_fuchsia_readlink_napi(const Napi::CallbackInfo& km_info)
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_sigemptyset_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSigemptyset_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -10504,7 +10270,7 @@ static Napi::Value libc_fuchsia_sigemptyset_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_sigaddset_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSigaddset_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t signum = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -10538,7 +10304,7 @@ static Napi::Value libc_fuchsia_sigaddset_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_sigfillset_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSigfillset_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -10571,7 +10337,7 @@ static Napi::Value libc_fuchsia_sigfillset_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_sigdelset_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSigdelset_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t signum = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -10605,7 +10371,7 @@ static Napi::Value libc_fuchsia_sigdelset_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_sigismember_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSigismember_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t signum = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -10639,7 +10405,7 @@ static Napi::Value libc_fuchsia_sigismember_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_sigprocmask_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSigprocmask_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t how = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -10674,7 +10440,7 @@ static Napi::Value libc_fuchsia_sigprocmask_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_sigpending_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSigpending_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -10707,7 +10473,7 @@ static Napi::Value libc_fuchsia_sigpending_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_timegm_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaTimegm_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* tm = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(void*);
@@ -10740,7 +10506,7 @@ static Napi::Value libc_fuchsia_timegm_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_getsid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGetsid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -10773,7 +10539,7 @@ static Napi::Value libc_fuchsia_getsid_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_sysconf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSysconf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t name = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(int32_t);
@@ -10806,11 +10572,9 @@ static Napi::Value libc_fuchsia_sysconf_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_mkfifo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaMkfifo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t mode = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -10842,7 +10606,7 @@ static Napi::Value libc_fuchsia_mkfifo_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pselect_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPselect_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t nfds = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* readfds = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -10880,7 +10644,7 @@ static Napi::Value libc_fuchsia_pselect_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_fseeko_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFseeko_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int64_t offset = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
@@ -10915,7 +10679,7 @@ static Napi::Value libc_fuchsia_fseeko_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_ftello_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFtello_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(void*);
@@ -10948,7 +10712,7 @@ static Napi::Value libc_fuchsia_ftello_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_tcdrain_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaTcdrain_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -10981,7 +10745,7 @@ static Napi::Value libc_fuchsia_tcdrain_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_cfgetispeed_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaCfgetispeed_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* termios = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef uint32_t (*km_fn_t)(void*);
@@ -11014,7 +10778,7 @@ static Napi::Value libc_fuchsia_cfgetispeed_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_cfgetospeed_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaCfgetospeed_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* termios = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef uint32_t (*km_fn_t)(void*);
@@ -11047,7 +10811,7 @@ static Napi::Value libc_fuchsia_cfgetospeed_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_cfmakeraw_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaCfmakeraw_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* termios = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -11078,7 +10842,7 @@ static Napi::Value libc_fuchsia_cfmakeraw_napi(const Napi::CallbackInfo& km_info
     return km_env.Undefined();
 }
 
-static Napi::Value libc_fuchsia_cfsetispeed_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaCfsetispeed_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* termios = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t speed = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -11112,7 +10876,7 @@ static Napi::Value libc_fuchsia_cfsetispeed_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_cfsetospeed_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaCfsetospeed_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* termios = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t speed = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -11146,7 +10910,7 @@ static Napi::Value libc_fuchsia_cfsetospeed_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_cfsetspeed_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaCfsetspeed_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* termios = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t speed = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -11180,7 +10944,7 @@ static Napi::Value libc_fuchsia_cfsetspeed_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_tcgetattr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaTcgetattr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* termios = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -11214,10 +10978,10 @@ static Napi::Value libc_fuchsia_tcgetattr_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_tcsetattr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaTcsetattr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t optional_actions = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t optionalActions = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     void* termios = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -11241,7 +11005,7 @@ static Napi::Value libc_fuchsia_tcsetattr_napi(const Napi::CallbackInfo& km_info
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(fd, optional_actions, termios);
+        km_res = km_fn_ptr(fd, optionalActions, termios);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -11249,7 +11013,7 @@ static Napi::Value libc_fuchsia_tcsetattr_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_tcflow_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaTcflow_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t action = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -11283,7 +11047,7 @@ static Napi::Value libc_fuchsia_tcflow_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_tcflush_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaTcflush_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t action = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -11317,7 +11081,7 @@ static Napi::Value libc_fuchsia_tcflush_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_tcgetsid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaTcgetsid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -11350,7 +11114,7 @@ static Napi::Value libc_fuchsia_tcgetsid_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_tcsendbreak_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaTcsendbreak_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t duration = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -11384,9 +11148,9 @@ static Napi::Value libc_fuchsia_tcsendbreak_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_mkstemp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaMkstemp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    char* arg_0_template = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    char* arg0Template = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -11409,7 +11173,7 @@ static Napi::Value libc_fuchsia_mkstemp_napi(const Napi::CallbackInfo& km_info) 
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_template);
+        km_res = km_fn_ptr(arg0Template);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -11417,9 +11181,9 @@ static Napi::Value libc_fuchsia_mkstemp_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_mkdtemp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaMkdtemp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    char* arg_0_template = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    char* arg0Template = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef char* (*km_fn_t)(char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -11442,7 +11206,7 @@ static Napi::Value libc_fuchsia_mkdtemp_napi(const Napi::CallbackInfo& km_info) 
 #endif
     char* km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_template);
+        km_res = km_fn_ptr(arg0Template);
     } else {
         errno = ENOSYS;
         km_res = nullptr;
@@ -11450,7 +11214,7 @@ static Napi::Value libc_fuchsia_mkdtemp_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_tmpnam_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaTmpnam_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* ptr = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef char* (*km_fn_t)(char*);
@@ -11483,11 +11247,9 @@ static Napi::Value libc_fuchsia_tmpnam_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_openlog_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaOpenlog_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool ident_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string ident_str = ident_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* ident = ident_null ? nullptr : ident_str.c_str();
+    const char* ident = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t logopt = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     int32_t facility = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(const char*, int32_t, int32_t);
@@ -11518,7 +11280,7 @@ static Napi::Value libc_fuchsia_openlog_napi(const Napi::CallbackInfo& km_info) 
     return km_env.Undefined();
 }
 
-static Napi::Value libc_fuchsia_closelog_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaCloselog_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -11548,7 +11310,7 @@ static Napi::Value libc_fuchsia_closelog_napi(const Napi::CallbackInfo& km_info)
     return km_env.Undefined();
 }
 
-static Napi::Value libc_fuchsia_setlogmask_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSetlogmask_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t maskpri = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -11581,12 +11343,10 @@ static Napi::Value libc_fuchsia_setlogmask_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_syslog_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSyslog_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t priority = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool message_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string message_str = message_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* message = message_null ? nullptr : message_str.c_str();
+    const char* message = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t km_vac = km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
     int64_t km_va1 = km_info.Length() > 4 ? km_napi_arg_i64(km_info[4]) : 0;
@@ -11626,7 +11386,7 @@ static Napi::Value libc_fuchsia_syslog_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_fuchsia_grantpt_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGrantpt_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -11659,7 +11419,7 @@ static Napi::Value libc_fuchsia_grantpt_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_posixOpenpt_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPosixOpenpt_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t flags = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -11692,7 +11452,7 @@ static Napi::Value libc_fuchsia_posixOpenpt_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_ptsname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPtsname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef char* (*km_fn_t)(int32_t);
@@ -11725,7 +11485,7 @@ static Napi::Value libc_fuchsia_ptsname_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_unlockpt_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaUnlockpt_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -11758,7 +11518,7 @@ static Napi::Value libc_fuchsia_unlockpt_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_fdatasync_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFdatasync_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -11791,9 +11551,9 @@ static Napi::Value libc_fuchsia_fdatasync_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_clockGetres_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaClockGetres_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t clk_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t clkId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* tp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -11817,7 +11577,7 @@ static Napi::Value libc_fuchsia_clockGetres_napi(const Napi::CallbackInfo& km_in
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(clk_id, tp);
+        km_res = km_fn_ptr(clkId, tp);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -11825,9 +11585,9 @@ static Napi::Value libc_fuchsia_clockGetres_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_clockGettime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaClockGettime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t clk_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t clkId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* tp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -11851,7 +11611,7 @@ static Napi::Value libc_fuchsia_clockGettime_napi(const Napi::CallbackInfo& km_i
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(clk_id, tp);
+        km_res = km_fn_ptr(clkId, tp);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -11859,9 +11619,9 @@ static Napi::Value libc_fuchsia_clockGettime_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_clockSettime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaClockSettime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t clk_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t clkId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* tp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -11885,7 +11645,7 @@ static Napi::Value libc_fuchsia_clockSettime_napi(const Napi::CallbackInfo& km_i
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(clk_id, tp);
+        km_res = km_fn_ptr(clkId, tp);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -11893,7 +11653,7 @@ static Napi::Value libc_fuchsia_clockSettime_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_dirfd_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaDirfd_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* dirp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -11926,7 +11686,7 @@ static Napi::Value libc_fuchsia_dirfd_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadGetattrNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadGetattrNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* native = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -11960,7 +11720,7 @@ static Napi::Value libc_fuchsia_pthreadGetattrNp_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadAttrGetstack_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadAttrGetstack_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* stackaddr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -11995,7 +11755,7 @@ static Napi::Value libc_fuchsia_pthreadAttrGetstack_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_memalign_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaMemalign_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t align = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -12029,7 +11789,7 @@ static Napi::Value libc_fuchsia_memalign_napi(const Napi::CallbackInfo& km_info)
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_setgroups_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSetgroups_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t ngroups = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     void* ptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -12063,7 +11823,7 @@ static Napi::Value libc_fuchsia_setgroups_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pipe2_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPipe2_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* fds = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -12097,11 +11857,9 @@ static Napi::Value libc_fuchsia_pipe2_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_statfs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaStatfs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -12133,7 +11891,7 @@ static Napi::Value libc_fuchsia_statfs_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_fstatfs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFstatfs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -12167,7 +11925,7 @@ static Napi::Value libc_fuchsia_fstatfs_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_memrchr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaMemrchr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cx = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t c = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -12202,7 +11960,7 @@ static Napi::Value libc_fuchsia_memrchr_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_posixFadvise_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPosixFadvise_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int64_t offset = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
@@ -12238,7 +11996,7 @@ static Napi::Value libc_fuchsia_posixFadvise_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_futimens_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFutimens_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* times = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -12272,12 +12030,10 @@ static Napi::Value libc_fuchsia_futimens_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_utimensat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaUtimensat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t dirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool path_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* times = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     int32_t flag = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, const char*, void*, int32_t);
@@ -12310,7 +12066,7 @@ static Napi::Value libc_fuchsia_utimensat_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_duplocale_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaDuplocale_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* base = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -12343,7 +12099,7 @@ static Napi::Value libc_fuchsia_duplocale_napi(const Napi::CallbackInfo& km_info
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_freelocale_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFreelocale_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* loc = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -12374,12 +12130,10 @@ static Napi::Value libc_fuchsia_freelocale_napi(const Napi::CallbackInfo& km_inf
     return km_env.Undefined();
 }
 
-static Napi::Value libc_fuchsia_newlocale_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaNewlocale_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t mask = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool locale_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string locale_str = locale_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* locale = locale_null ? nullptr : locale_str.c_str();
+    const char* locale = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* base = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef void* (*km_fn_t)(int32_t, const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -12411,7 +12165,7 @@ static Napi::Value libc_fuchsia_newlocale_napi(const Napi::CallbackInfo& km_info
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_uselocale_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaUselocale_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* loc = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -12444,7 +12198,7 @@ static Napi::Value libc_fuchsia_uselocale_napi(const Napi::CallbackInfo& km_info
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_fdopendir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFdopendir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void* (*km_fn_t)(int32_t);
@@ -12477,12 +12231,10 @@ static Napi::Value libc_fuchsia_fdopendir_napi(const Napi::CallbackInfo& km_info
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_mknodat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaMknodat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t dirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool pathname_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string pathname_str = pathname_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* pathname = pathname_null ? nullptr : pathname_str.c_str();
+    const char* pathname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint32_t mode = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     uint64_t dev = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
     typedef int32_t (*km_fn_t)(int32_t, const char*, uint32_t, uint64_t);
@@ -12515,10 +12267,10 @@ static Napi::Value libc_fuchsia_mknodat_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadCondattrGetclock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadCondattrGetclock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* clock_id = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* clockId = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -12541,7 +12293,7 @@ static Napi::Value libc_fuchsia_pthreadCondattrGetclock_napi(const Napi::Callbac
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(attr, clock_id);
+        km_res = km_fn_ptr(attr, clockId);
     } else {
         errno = ENOSYS;
         km_res = ENOSYS;
@@ -12549,10 +12301,10 @@ static Napi::Value libc_fuchsia_pthreadCondattrGetclock_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadCondattrSetclock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadCondattrSetclock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    int32_t clock_id = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t clockId = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -12575,7 +12327,7 @@ static Napi::Value libc_fuchsia_pthreadCondattrSetclock_napi(const Napi::Callbac
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(attr, clock_id);
+        km_res = km_fn_ptr(attr, clockId);
     } else {
         errno = ENOSYS;
         km_res = ENOSYS;
@@ -12583,7 +12335,7 @@ static Napi::Value libc_fuchsia_pthreadCondattrSetclock_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_accept4_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaAccept4_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -12619,7 +12371,7 @@ static Napi::Value libc_fuchsia_accept4_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_ptsnameR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPtsnameR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -12654,7 +12406,7 @@ static Napi::Value libc_fuchsia_ptsnameR_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_clearenv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaClearenv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -12686,7 +12438,7 @@ static Napi::Value libc_fuchsia_clearenv_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_waitid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaWaitid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t idtype = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t id = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -12722,7 +12474,7 @@ static Napi::Value libc_fuchsia_waitid_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_setreuid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSetreuid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t ruid = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t euid = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -12756,7 +12508,7 @@ static Napi::Value libc_fuchsia_setreuid_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_setregid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSetregid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t rgid = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t egid = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -12790,7 +12542,7 @@ static Napi::Value libc_fuchsia_setregid_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_getresuid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGetresuid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ruid = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* euid = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -12825,7 +12577,7 @@ static Napi::Value libc_fuchsia_getresuid_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_getresgid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGetresgid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* rgid = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* egid = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -12860,11 +12612,9 @@ static Napi::Value libc_fuchsia_getresgid_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_acct_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaAcct_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool filename_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string filename_str = filename_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* filename = filename_null ? nullptr : filename_str.c_str();
+    const char* filename = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -12895,7 +12645,7 @@ static Napi::Value libc_fuchsia_acct_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_brk_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaBrk_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -12928,7 +12678,7 @@ static Napi::Value libc_fuchsia_brk_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_setresgid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSetresgid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t rgid = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t egid = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -12963,7 +12713,7 @@ static Napi::Value libc_fuchsia_setresgid_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_setresuid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSetresuid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t ruid = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t euid = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -12998,7 +12748,7 @@ static Napi::Value libc_fuchsia_setresuid_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_openpty_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaOpenpty_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* amaster = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* aslave = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -13035,11 +12785,9 @@ static Napi::Value libc_fuchsia_openpty_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_execvpe_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaExecvpe_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool file_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string file_str = file_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* file = file_null ? nullptr : file_str.c_str();
+    const char* file = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* argv = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* envp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(const char*, void*, void*);
@@ -13072,7 +12820,7 @@ static Napi::Value libc_fuchsia_execvpe_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_fexecve_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFexecve_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* argv = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -13107,7 +12855,7 @@ static Napi::Value libc_fuchsia_fexecve_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_ioctl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaIoctl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t request = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -13151,11 +12899,9 @@ static Napi::Value libc_fuchsia_ioctl_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_lutimes_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaLutimes_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool file_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string file_str = file_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* file = file_null ? nullptr : file_str.c_str();
+    const char* file = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* times = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -13187,7 +12933,7 @@ static Napi::Value libc_fuchsia_lutimes_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_setpwent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSetpwent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -13217,7 +12963,7 @@ static Napi::Value libc_fuchsia_setpwent_napi(const Napi::CallbackInfo& km_info)
     return km_env.Undefined();
 }
 
-static Napi::Value libc_fuchsia_endpwent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaEndpwent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -13247,7 +12993,7 @@ static Napi::Value libc_fuchsia_endpwent_napi(const Napi::CallbackInfo& km_info)
     return km_env.Undefined();
 }
 
-static Napi::Value libc_fuchsia_getpwent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGetpwent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -13279,11 +13025,9 @@ static Napi::Value libc_fuchsia_getpwent_napi(const Napi::CallbackInfo& km_info)
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_shmOpen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaShmOpen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t oflag = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     uint32_t mode = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, int32_t, uint32_t);
@@ -13316,7 +13060,7 @@ static Napi::Value libc_fuchsia_shmOpen_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_shmget_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaShmget_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t key = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -13351,7 +13095,7 @@ static Napi::Value libc_fuchsia_shmget_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_shmat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaShmat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t shmid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* shmaddr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -13386,7 +13130,7 @@ static Napi::Value libc_fuchsia_shmat_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_shmdt_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaShmdt_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* shmaddr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -13419,7 +13163,7 @@ static Napi::Value libc_fuchsia_shmdt_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_shmctl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaShmctl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t shmid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t cmd = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -13454,12 +13198,10 @@ static Napi::Value libc_fuchsia_shmctl_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_ftok_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFtok_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool pathname_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string pathname_str = pathname_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* pathname = pathname_null ? nullptr : pathname_str.c_str();
-    int32_t proj_id = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    const char* pathname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    int32_t projId = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -13482,7 +13224,7 @@ static Napi::Value libc_fuchsia_ftok_napi(const Napi::CallbackInfo& km_info) {
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(pathname, proj_id);
+        km_res = km_fn_ptr(pathname, projId);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -13490,7 +13232,7 @@ static Napi::Value libc_fuchsia_ftok_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_semget_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSemget_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t key = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t nsems = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -13525,7 +13267,7 @@ static Napi::Value libc_fuchsia_semget_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_semop_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSemop_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t semid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* sops = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -13560,7 +13302,7 @@ static Napi::Value libc_fuchsia_semop_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_semctl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSemctl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t semid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t semnum = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -13605,7 +13347,7 @@ static Napi::Value libc_fuchsia_semctl_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_msgctl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaMsgctl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t msqid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t cmd = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -13640,7 +13382,7 @@ static Napi::Value libc_fuchsia_msgctl_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_msgget_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaMsgget_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t key = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t msgflg = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -13674,7 +13416,7 @@ static Napi::Value libc_fuchsia_msgget_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_msgrcv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaMsgrcv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t msqid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* msgp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -13711,7 +13453,7 @@ static Napi::Value libc_fuchsia_msgrcv_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_msgsnd_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaMsgsnd_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t msqid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* msgp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -13747,7 +13489,7 @@ static Napi::Value libc_fuchsia_msgsnd_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_mprotect_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaMprotect_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -13782,7 +13524,7 @@ static Napi::Value libc_fuchsia_mprotect_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_errnoLocation_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaErrnoLocation_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -13812,7 +13554,7 @@ static Napi::Value libc_fuchsia_errnoLocation_napi(const Napi::CallbackInfo& km_
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_fallocate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFallocate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t mode = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -13848,7 +13590,7 @@ static Napi::Value libc_fuchsia_fallocate_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_posixFallocate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPosixFallocate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int64_t offset = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
@@ -13883,7 +13625,7 @@ static Napi::Value libc_fuchsia_posixFallocate_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_readahead_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaReadahead_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int64_t offset = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
@@ -13918,7 +13660,7 @@ static Napi::Value libc_fuchsia_readahead_napi(const Napi::CallbackInfo& km_info
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_signalfd_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSignalfd_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* mask = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -13953,7 +13695,7 @@ static Napi::Value libc_fuchsia_signalfd_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_timerfdCreate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaTimerfdCreate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t clockid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -13987,10 +13729,10 @@ static Napi::Value libc_fuchsia_timerfdCreate_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_timerfdGettime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaTimerfdGettime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* curr_value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* currValue = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -14013,7 +13755,7 @@ static Napi::Value libc_fuchsia_timerfdGettime_napi(const Napi::CallbackInfo& km
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(fd, curr_value);
+        km_res = km_fn_ptr(fd, currValue);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -14021,12 +13763,12 @@ static Napi::Value libc_fuchsia_timerfdGettime_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_timerfdSettime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaTimerfdSettime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    void* new_value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    void* old_value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    void* newValue = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* oldValue = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -14049,7 +13791,7 @@ static Napi::Value libc_fuchsia_timerfdSettime_napi(const Napi::CallbackInfo& km
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(fd, flags, new_value, old_value);
+        km_res = km_fn_ptr(fd, flags, newValue, oldValue);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -14057,7 +13799,7 @@ static Napi::Value libc_fuchsia_timerfdSettime_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pwritev_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPwritev_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -14093,7 +13835,7 @@ static Napi::Value libc_fuchsia_pwritev_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_preadv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPreadv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -14129,12 +13871,10 @@ static Napi::Value libc_fuchsia_preadv_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_quotactl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaQuotactl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t cmd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool special_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string special_str = special_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* special = special_null ? nullptr : special_str.c_str();
+    const char* special = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t id = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     char* data = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, char*);
@@ -14167,7 +13907,7 @@ static Napi::Value libc_fuchsia_quotactl_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_dup3_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaDup3_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t oldfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t newfd = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -14202,9 +13942,9 @@ static Napi::Value libc_fuchsia_dup3_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_mkostemp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaMkostemp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    char* arg_0_template = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    char* arg0Template = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -14228,7 +13968,7 @@ static Napi::Value libc_fuchsia_mkostemp_napi(const Napi::CallbackInfo& km_info)
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_template, flags);
+        km_res = km_fn_ptr(arg0Template, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -14236,9 +13976,9 @@ static Napi::Value libc_fuchsia_mkostemp_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_mkostemps_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaMkostemps_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    char* arg_0_template = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    char* arg0Template = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t suffixlen = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     int32_t flags = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(char*, int32_t, int32_t);
@@ -14263,7 +14003,7 @@ static Napi::Value libc_fuchsia_mkostemps_napi(const Napi::CallbackInfo& km_info
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_template, suffixlen, flags);
+        km_res = km_fn_ptr(arg0Template, suffixlen, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -14271,7 +14011,7 @@ static Napi::Value libc_fuchsia_mkostemps_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_sigtimedwait_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSigtimedwait_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -14306,7 +14046,7 @@ static Napi::Value libc_fuchsia_sigtimedwait_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_sigwaitinfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSigwaitinfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* info = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -14340,7 +14080,7 @@ static Napi::Value libc_fuchsia_sigwaitinfo_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_nlLanginfoL_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaNlLanginfoL_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t item = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* locale = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -14374,7 +14114,7 @@ static Napi::Value libc_fuchsia_nlLanginfoL_napi(const Napi::CallbackInfo& km_in
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_getnameinfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGetnameinfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* sa = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t salen = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -14413,9 +14153,9 @@ static Napi::Value libc_fuchsia_getnameinfo_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_reboot_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaReboot_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t how_to = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t howTo = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -14438,7 +14178,7 @@ static Napi::Value libc_fuchsia_reboot_napi(const Napi::CallbackInfo& km_info) {
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(how_to);
+        km_res = km_fn_ptr(howTo);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -14446,7 +14186,7 @@ static Napi::Value libc_fuchsia_reboot_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_setfsgid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSetfsgid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t gid = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -14479,7 +14219,7 @@ static Napi::Value libc_fuchsia_setfsgid_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_setfsuid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSetfsuid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t uid = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -14512,12 +14252,10 @@ static Napi::Value libc_fuchsia_setfsuid_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_mkfifoat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaMkfifoat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t dirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool pathname_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string pathname_str = pathname_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* pathname = pathname_null ? nullptr : pathname_str.c_str();
+    const char* pathname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint32_t mode = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, const char*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -14549,7 +14287,7 @@ static Napi::Value libc_fuchsia_mkfifoat_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_ifNameindex_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaIfNameindex_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -14581,7 +14319,7 @@ static Napi::Value libc_fuchsia_ifNameindex_napi(const Napi::CallbackInfo& km_in
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_ifFreenameindex_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaIfFreenameindex_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -14612,7 +14350,7 @@ static Napi::Value libc_fuchsia_ifFreenameindex_napi(const Napi::CallbackInfo& k
     return km_env.Undefined();
 }
 
-static Napi::Value libc_fuchsia_syncFileRange_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSyncFileRange_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int64_t offset = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
@@ -14648,7 +14386,7 @@ static Napi::Value libc_fuchsia_syncFileRange_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_getifaddrs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGetifaddrs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ifap = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -14681,7 +14419,7 @@ static Napi::Value libc_fuchsia_getifaddrs_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_freeifaddrs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFreeifaddrs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ifa = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -14712,11 +14450,9 @@ static Napi::Value libc_fuchsia_freeifaddrs_napi(const Napi::CallbackInfo& km_in
     return km_env.Undefined();
 }
 
-static Napi::Value libc_fuchsia_glob_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGlob_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool pattern_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string pattern_str = pattern_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* pattern = pattern_null ? nullptr : pattern_str.c_str();
+    const char* pattern = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     void* errfunc = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* pglob = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
@@ -14750,7 +14486,7 @@ static Napi::Value libc_fuchsia_glob_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_globfree_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGlobfree_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* pglob = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -14781,7 +14517,7 @@ static Napi::Value libc_fuchsia_globfree_napi(const Napi::CallbackInfo& km_info)
     return km_env.Undefined();
 }
 
-static Napi::Value libc_fuchsia_posixMadvise_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPosixMadvise_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -14816,11 +14552,9 @@ static Napi::Value libc_fuchsia_posixMadvise_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_shmUnlink_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaShmUnlink_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -14851,7 +14585,7 @@ static Napi::Value libc_fuchsia_shmUnlink_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_seekdir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSeekdir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* dirp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int64_t loc = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
@@ -14883,7 +14617,7 @@ static Napi::Value libc_fuchsia_seekdir_napi(const Napi::CallbackInfo& km_info) 
     return km_env.Undefined();
 }
 
-static Napi::Value libc_fuchsia_telldir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaTelldir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* dirp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(void*);
@@ -14916,7 +14650,7 @@ static Napi::Value libc_fuchsia_telldir_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_madvise_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaMadvise_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -14951,7 +14685,7 @@ static Napi::Value libc_fuchsia_madvise_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_msync_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaMsync_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -14986,9 +14720,9 @@ static Napi::Value libc_fuchsia_msync_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_recvfrom_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaRecvfrom_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t arg0Socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t len = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     int32_t flags = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
@@ -15016,7 +14750,7 @@ static Napi::Value libc_fuchsia_recvfrom_napi(const Napi::CallbackInfo& km_info)
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_socket, buf, len, flags, addr, addrlen);
+        km_res = km_fn_ptr(arg0Socket, buf, len, flags, addr, addrlen);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -15024,9 +14758,9 @@ static Napi::Value libc_fuchsia_recvfrom_napi(const Napi::CallbackInfo& km_info)
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_mkstemps_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaMkstemps_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    char* arg_0_template = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    char* arg0Template = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t suffixlen = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -15050,7 +14784,7 @@ static Napi::Value libc_fuchsia_mkstemps_napi(const Napi::CallbackInfo& km_info)
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_template, suffixlen);
+        km_res = km_fn_ptr(arg0Template, suffixlen);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -15058,7 +14792,7 @@ static Napi::Value libc_fuchsia_mkstemps_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_futimes_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFutimes_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* times = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -15092,7 +14826,7 @@ static Napi::Value libc_fuchsia_futimes_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_nlLanginfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaNlLanginfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t item = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef char* (*km_fn_t)(int32_t);
@@ -15125,11 +14859,11 @@ static Napi::Value libc_fuchsia_nlLanginfo_napi(const Napi::CallbackInfo& km_inf
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_bind_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaBind_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t arg0Socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* address = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint32_t address_len = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    uint32_t addressLen = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -15152,7 +14886,7 @@ static Napi::Value libc_fuchsia_bind_napi(const Napi::CallbackInfo& km_info) {
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_socket, address, address_len);
+        km_res = km_fn_ptr(arg0Socket, address, addressLen);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -15160,7 +14894,7 @@ static Napi::Value libc_fuchsia_bind_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_writev_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaWritev_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -15195,7 +14929,7 @@ static Napi::Value libc_fuchsia_writev_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_readv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaReadv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -15230,7 +14964,7 @@ static Napi::Value libc_fuchsia_readv_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_sendmsg_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSendmsg_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* msg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -15265,7 +14999,7 @@ static Napi::Value libc_fuchsia_sendmsg_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_recvmsg_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaRecvmsg_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* msg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -15300,7 +15034,7 @@ static Napi::Value libc_fuchsia_recvmsg_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_getdomainname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGetdomainname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* name = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -15334,11 +15068,9 @@ static Napi::Value libc_fuchsia_getdomainname_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_setdomainname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSetdomainname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
     typedef int32_t (*km_fn_t)(const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -15370,7 +15102,7 @@ static Napi::Value libc_fuchsia_setdomainname_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_vhangup_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaVhangup_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -15402,7 +15134,7 @@ static Napi::Value libc_fuchsia_vhangup_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_sendmmsg_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSendmmsg_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t sockfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* msgvec = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -15438,7 +15170,7 @@ static Napi::Value libc_fuchsia_sendmmsg_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_recvmmsg_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaRecvmmsg_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t sockfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* msgvec = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -15475,7 +15207,7 @@ static Napi::Value libc_fuchsia_recvmmsg_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_sync_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSync_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -15505,7 +15237,7 @@ static Napi::Value libc_fuchsia_sync_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_fuchsia_syscall_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSyscall_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int64_t num = km_info.Length() > 0 ? km_napi_arg_i64(km_info[0]) : 0;
     int32_t km_vac = km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0;
@@ -15548,7 +15280,7 @@ static Napi::Value libc_fuchsia_syscall_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_schedGetaffinity_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSchedGetaffinity_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint64_t cpusetsize = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -15583,7 +15315,7 @@ static Napi::Value libc_fuchsia_schedGetaffinity_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_schedSetaffinity_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSchedSetaffinity_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint64_t cpusetsize = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -15618,11 +15350,9 @@ static Napi::Value libc_fuchsia_schedSetaffinity_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_umount_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaUmount_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool target_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string target_str = target_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* target = target_null ? nullptr : target_str.c_str();
+    const char* target = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -15653,7 +15383,7 @@ static Napi::Value libc_fuchsia_umount_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_schedGetPriorityMax_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSchedGetPriorityMax_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t policy = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -15686,10 +15416,10 @@ static Napi::Value libc_fuchsia_schedGetPriorityMax_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_tee_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaTee_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t fd_in = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    int32_t fd_out = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t fdIn = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t fdOut = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     uint64_t len = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     uint32_t flags = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(int32_t, int32_t, uint64_t, uint32_t);
@@ -15714,7 +15444,7 @@ static Napi::Value libc_fuchsia_tee_napi(const Napi::CallbackInfo& km_info) {
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(fd_in, fd_out, len, flags);
+        km_res = km_fn_ptr(fdIn, fdOut, len, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -15722,7 +15452,7 @@ static Napi::Value libc_fuchsia_tee_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_settimeofday_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSettimeofday_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* tv = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* tz = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -15756,12 +15486,12 @@ static Napi::Value libc_fuchsia_settimeofday_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_splice_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSplice_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t fd_in = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* off_in = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    int32_t fd_out = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    void* off_out = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
+    int32_t fdIn = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    void* offIn = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    int32_t fdOut = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
+    void* offOut = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     uint64_t len = km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0;
     uint32_t flags = static_cast<uint32_t>(km_info.Length() > 5 ? km_info[5].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, void*, uint64_t, uint32_t);
@@ -15786,7 +15516,7 @@ static Napi::Value libc_fuchsia_splice_napi(const Napi::CallbackInfo& km_info) {
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(fd_in, off_in, fd_out, off_out, len, flags);
+        km_res = km_fn_ptr(fdIn, offIn, fdOut, offOut, len, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -15794,7 +15524,7 @@ static Napi::Value libc_fuchsia_splice_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_eventfd_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaEventfd_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t initval = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -15828,7 +15558,7 @@ static Napi::Value libc_fuchsia_eventfd_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_schedRrGetInterval_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSchedRrGetInterval_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* tp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -15862,7 +15592,7 @@ static Napi::Value libc_fuchsia_schedRrGetInterval_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_semTimedwait_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSemTimedwait_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* sem = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* abstime = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -15896,7 +15626,7 @@ static Napi::Value libc_fuchsia_semTimedwait_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_semGetvalue_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSemGetvalue_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* sem = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* sval = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -15930,7 +15660,7 @@ static Napi::Value libc_fuchsia_semGetvalue_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_schedSetparam_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSchedSetparam_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* param = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -15964,11 +15694,9 @@ static Napi::Value libc_fuchsia_schedSetparam_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_swapoff_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSwapoff_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool puath_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string puath_str = puath_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* puath = puath_null ? nullptr : puath_str.c_str();
+    const char* puath = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -15999,11 +15727,11 @@ static Napi::Value libc_fuchsia_swapoff_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_vmsplice_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaVmsplice_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    uint64_t nr_segs = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
+    uint64_t nrSegs = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     uint32_t flags = static_cast<uint32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -16027,7 +15755,7 @@ static Napi::Value libc_fuchsia_vmsplice_napi(const Napi::CallbackInfo& km_info)
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(fd, iov, nr_segs, flags);
+        km_res = km_fn_ptr(fd, iov, nrSegs, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -16035,17 +15763,11 @@ static Napi::Value libc_fuchsia_vmsplice_napi(const Napi::CallbackInfo& km_info)
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_fuchsia_mount_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaMount_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool src_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string src_str = src_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* src = src_null ? nullptr : src_str.c_str();
-    bool target_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string target_str = target_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* target = target_null ? nullptr : target_str.c_str();
-    bool fstype_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string fstype_str = fstype_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* fstype = fstype_null ? nullptr : fstype_str.c_str();
+    const char* src = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* target = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    const char* fstype = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint64_t flags = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
     void* data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
     typedef int32_t (*km_fn_t)(const char*, const char*, const char*, uint64_t, void*);
@@ -16078,7 +15800,7 @@ static Napi::Value libc_fuchsia_mount_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_personality_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPersonality_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t persona = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     typedef int32_t (*km_fn_t)(uint64_t);
@@ -16111,7 +15833,7 @@ static Napi::Value libc_fuchsia_personality_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_schedGetparam_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSchedGetparam_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* param = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -16145,7 +15867,7 @@ static Napi::Value libc_fuchsia_schedGetparam_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_ppoll_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPpoll_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* fds = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t nfds = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -16181,7 +15903,7 @@ static Napi::Value libc_fuchsia_ppoll_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadMutexTimedlock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadMutexTimedlock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* abstime = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -16215,10 +15937,10 @@ static Napi::Value libc_fuchsia_pthreadMutexTimedlock_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_clone_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaClone_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cb = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    void* child_stack = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* childStack = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     void* arg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     int32_t km_vac = km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0;
@@ -16249,11 +15971,11 @@ static Napi::Value libc_fuchsia_clone_napi(const Napi::CallbackInfo& km_info) {
     int32_t km_res = -1;
     if (km_fn_ptr != nullptr) {
         switch (km_vac) {
-            case 0: km_res = km_fn_ptr(cb, child_stack, flags, arg); break;
-            case 1: km_res = km_fn_ptr(cb, child_stack, flags, arg, static_cast<intptr_t>(km_va0)); break;
-            case 2: km_res = km_fn_ptr(cb, child_stack, flags, arg, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1)); break;
-            case 3: km_res = km_fn_ptr(cb, child_stack, flags, arg, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2)); break;
-            default: km_res = km_fn_ptr(cb, child_stack, flags, arg, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2), static_cast<intptr_t>(km_va3)); break;
+            case 0: km_res = km_fn_ptr(cb, childStack, flags, arg); break;
+            case 1: km_res = km_fn_ptr(cb, childStack, flags, arg, static_cast<intptr_t>(km_va0)); break;
+            case 2: km_res = km_fn_ptr(cb, childStack, flags, arg, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1)); break;
+            case 3: km_res = km_fn_ptr(cb, childStack, flags, arg, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2)); break;
+            default: km_res = km_fn_ptr(cb, childStack, flags, arg, static_cast<intptr_t>(km_va0), static_cast<intptr_t>(km_va1), static_cast<intptr_t>(km_va2), static_cast<intptr_t>(km_va3)); break;
         }
     } else {
         errno = ENOSYS;
@@ -16261,7 +15983,7 @@ static Napi::Value libc_fuchsia_clone_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_schedGetscheduler_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSchedGetscheduler_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -16294,9 +16016,9 @@ static Napi::Value libc_fuchsia_schedGetscheduler_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_clockNanosleep_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaClockNanosleep_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t clk_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t clkId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     void* rqtp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* rmtp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
@@ -16322,7 +16044,7 @@ static Napi::Value libc_fuchsia_clockNanosleep_napi(const Napi::CallbackInfo& km
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(clk_id, flags, rqtp, rmtp);
+        km_res = km_fn_ptr(clkId, flags, rqtp, rmtp);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -16330,7 +16052,7 @@ static Napi::Value libc_fuchsia_clockNanosleep_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadAttrGetguardsize_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadAttrGetguardsize_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* guardsize = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -16364,7 +16086,7 @@ static Napi::Value libc_fuchsia_pthreadAttrGetguardsize_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadAttrSetguardsize_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadAttrSetguardsize_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t guardsize = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -16398,11 +16120,9 @@ static Napi::Value libc_fuchsia_pthreadAttrSetguardsize_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_sethostname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSethostname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t len = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
     typedef int32_t (*km_fn_t)(const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -16434,7 +16154,7 @@ static Napi::Value libc_fuchsia_sethostname_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_schedGetPriorityMin_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSchedGetPriorityMin_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t policy = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -16467,11 +16187,9 @@ static Napi::Value libc_fuchsia_schedGetPriorityMin_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_umount2_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaUmount2_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool target_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string target_str = target_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* target = target_null ? nullptr : target_str.c_str();
+    const char* target = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -16503,11 +16221,9 @@ static Napi::Value libc_fuchsia_umount2_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_swapon_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSwapon_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t swapflags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -16539,7 +16255,7 @@ static Napi::Value libc_fuchsia_swapon_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_schedSetscheduler_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSchedSetscheduler_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t pid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t policy = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -16574,7 +16290,7 @@ static Napi::Value libc_fuchsia_schedSetscheduler_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_sigsuspend_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSigsuspend_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* mask = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -16607,7 +16323,7 @@ static Napi::Value libc_fuchsia_sigsuspend_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_getgrgidR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGetgrgidR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t gid = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* grp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -16644,7 +16360,7 @@ static Napi::Value libc_fuchsia_getgrgidR_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_sigaltstack_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSigaltstack_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ss = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* oss = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -16678,7 +16394,7 @@ static Napi::Value libc_fuchsia_sigaltstack_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_semClose_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSemClose_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* sem = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -16711,7 +16427,7 @@ static Napi::Value libc_fuchsia_semClose_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_getdtablesize_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGetdtablesize_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -16743,11 +16459,9 @@ static Napi::Value libc_fuchsia_getdtablesize_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_getgrnamR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGetgrnamR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* grp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint64_t buflen = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
@@ -16782,11 +16496,9 @@ static Napi::Value libc_fuchsia_getgrnamR_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_initgroups_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaInitgroups_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool user_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string user_str = user_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* user = user_null ? nullptr : user_str.c_str();
+    const char* user = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t group = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -16818,7 +16530,7 @@ static Napi::Value libc_fuchsia_initgroups_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadSigmask_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadSigmask_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t how = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -16853,11 +16565,9 @@ static Napi::Value libc_fuchsia_pthreadSigmask_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_semOpen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSemOpen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t oflag = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     int32_t km_vac = km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
@@ -16899,11 +16609,9 @@ static Napi::Value libc_fuchsia_semOpen_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_getgrnam_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGetgrnam_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -16934,7 +16642,7 @@ static Napi::Value libc_fuchsia_getgrnam_napi(const Napi::CallbackInfo& km_info)
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_pthreadCancel_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadCancel_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* thread = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -16967,7 +16675,7 @@ static Napi::Value libc_fuchsia_pthreadCancel_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadKill_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadKill_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* thread = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t sig = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -17001,11 +16709,9 @@ static Napi::Value libc_fuchsia_pthreadKill_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_semUnlink_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSemUnlink_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -17036,7 +16742,7 @@ static Napi::Value libc_fuchsia_semUnlink_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_daemon_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaDaemon_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t nochdir = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t noclose = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -17070,11 +16776,9 @@ static Napi::Value libc_fuchsia_daemon_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_getpwnamR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGetpwnamR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool name_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* pwd = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint64_t buflen = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
@@ -17109,7 +16813,7 @@ static Napi::Value libc_fuchsia_getpwnamR_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_getpwuidR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGetpwuidR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t uid = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* pwd = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -17146,7 +16850,7 @@ static Napi::Value libc_fuchsia_getpwuidR_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_sigwait_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSigwait_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* set = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* sig = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -17180,7 +16884,7 @@ static Napi::Value libc_fuchsia_sigwait_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadAtfork_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadAtfork_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* prepare = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* parent = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -17215,7 +16919,7 @@ static Napi::Value libc_fuchsia_pthreadAtfork_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_getgrgid_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGetgrgid_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t gid = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void* (*km_fn_t)(uint32_t);
@@ -17248,7 +16952,7 @@ static Napi::Value libc_fuchsia_getgrgid_napi(const Napi::CallbackInfo& km_info)
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_setgrent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaSetgrent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -17278,7 +16982,7 @@ static Napi::Value libc_fuchsia_setgrent_napi(const Napi::CallbackInfo& km_info)
     return km_env.Undefined();
 }
 
-static Napi::Value libc_fuchsia_endgrent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaEndgrent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -17308,7 +17012,7 @@ static Napi::Value libc_fuchsia_endgrent_napi(const Napi::CallbackInfo& km_info)
     return km_env.Undefined();
 }
 
-static Napi::Value libc_fuchsia_getgrent_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGetgrent_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -17340,11 +17044,9 @@ static Napi::Value libc_fuchsia_getgrent_napi(const Napi::CallbackInfo& km_info)
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_getgrouplist_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaGetgrouplist_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool user_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string user_str = user_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* user = user_null ? nullptr : user_str.c_str();
+    const char* user = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t group = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     void* groups = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* ngroups = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
@@ -17378,14 +17080,10 @@ static Napi::Value libc_fuchsia_getgrouplist_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_popen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPopen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool command_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string command_str = command_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* command = command_null ? nullptr : command_str.c_str();
-    bool mode_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string mode_str = mode_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* mode = mode_null ? nullptr : mode_str.c_str();
+    const char* command = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* mode = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef void* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -17416,12 +17114,10 @@ static Napi::Value libc_fuchsia_popen_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_fuchsia_faccessat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaFaccessat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t dirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool pathname_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string pathname_str = pathname_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* pathname = pathname_null ? nullptr : pathname_str.c_str();
+    const char* pathname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t mode = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     int32_t flags = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, int32_t);
@@ -17454,7 +17150,7 @@ static Napi::Value libc_fuchsia_faccessat_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_pthreadCreate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaPthreadCreate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* native = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -17490,7 +17186,7 @@ static Napi::Value libc_fuchsia_pthreadCreate_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_fuchsia_dlIteratePhdr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcFuchsiaDlIteratePhdr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* callback = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* data = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -17525,507 +17221,507 @@ static Napi::Value libc_fuchsia_dlIteratePhdr_napi(const Napi::CallbackInfo& km_
 }
 
 static void register_fuchsia_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_fuchsia_isalnum", Napi::Function::New(env, libc_fuchsia_isalnum_napi));
-    exports.Set("libc_fuchsia_isalpha", Napi::Function::New(env, libc_fuchsia_isalpha_napi));
-    exports.Set("libc_fuchsia_iscntrl", Napi::Function::New(env, libc_fuchsia_iscntrl_napi));
-    exports.Set("libc_fuchsia_isdigit", Napi::Function::New(env, libc_fuchsia_isdigit_napi));
-    exports.Set("libc_fuchsia_isgraph", Napi::Function::New(env, libc_fuchsia_isgraph_napi));
-    exports.Set("libc_fuchsia_islower", Napi::Function::New(env, libc_fuchsia_islower_napi));
-    exports.Set("libc_fuchsia_isprint", Napi::Function::New(env, libc_fuchsia_isprint_napi));
-    exports.Set("libc_fuchsia_ispunct", Napi::Function::New(env, libc_fuchsia_ispunct_napi));
-    exports.Set("libc_fuchsia_isspace", Napi::Function::New(env, libc_fuchsia_isspace_napi));
-    exports.Set("libc_fuchsia_isupper", Napi::Function::New(env, libc_fuchsia_isupper_napi));
-    exports.Set("libc_fuchsia_isxdigit", Napi::Function::New(env, libc_fuchsia_isxdigit_napi));
-    exports.Set("libc_fuchsia_isblank", Napi::Function::New(env, libc_fuchsia_isblank_napi));
-    exports.Set("libc_fuchsia_tolower", Napi::Function::New(env, libc_fuchsia_tolower_napi));
-    exports.Set("libc_fuchsia_toupper", Napi::Function::New(env, libc_fuchsia_toupper_napi));
-    exports.Set("libc_fuchsia_fopen", Napi::Function::New(env, libc_fuchsia_fopen_napi));
-    exports.Set("libc_fuchsia_freopen", Napi::Function::New(env, libc_fuchsia_freopen_napi));
-    exports.Set("libc_fuchsia_fflush", Napi::Function::New(env, libc_fuchsia_fflush_napi));
-    exports.Set("libc_fuchsia_fclose", Napi::Function::New(env, libc_fuchsia_fclose_napi));
-    exports.Set("libc_fuchsia_remove", Napi::Function::New(env, libc_fuchsia_remove_napi));
-    exports.Set("libc_fuchsia_rename", Napi::Function::New(env, libc_fuchsia_rename_napi));
-    exports.Set("libc_fuchsia_tmpfile", Napi::Function::New(env, libc_fuchsia_tmpfile_napi));
-    exports.Set("libc_fuchsia_setvbuf", Napi::Function::New(env, libc_fuchsia_setvbuf_napi));
-    exports.Set("libc_fuchsia_setbuf", Napi::Function::New(env, libc_fuchsia_setbuf_napi));
-    exports.Set("libc_fuchsia_getchar", Napi::Function::New(env, libc_fuchsia_getchar_napi));
-    exports.Set("libc_fuchsia_putchar", Napi::Function::New(env, libc_fuchsia_putchar_napi));
-    exports.Set("libc_fuchsia_fgetc", Napi::Function::New(env, libc_fuchsia_fgetc_napi));
-    exports.Set("libc_fuchsia_fgets", Napi::Function::New(env, libc_fuchsia_fgets_napi));
-    exports.Set("libc_fuchsia_fputc", Napi::Function::New(env, libc_fuchsia_fputc_napi));
-    exports.Set("libc_fuchsia_fputs", Napi::Function::New(env, libc_fuchsia_fputs_napi));
-    exports.Set("libc_fuchsia_puts", Napi::Function::New(env, libc_fuchsia_puts_napi));
-    exports.Set("libc_fuchsia_ungetc", Napi::Function::New(env, libc_fuchsia_ungetc_napi));
-    exports.Set("libc_fuchsia_fread", Napi::Function::New(env, libc_fuchsia_fread_napi));
-    exports.Set("libc_fuchsia_fwrite", Napi::Function::New(env, libc_fuchsia_fwrite_napi));
-    exports.Set("libc_fuchsia_fseek", Napi::Function::New(env, libc_fuchsia_fseek_napi));
-    exports.Set("libc_fuchsia_ftell", Napi::Function::New(env, libc_fuchsia_ftell_napi));
-    exports.Set("libc_fuchsia_rewind", Napi::Function::New(env, libc_fuchsia_rewind_napi));
-    exports.Set("libc_fuchsia_fgetpos", Napi::Function::New(env, libc_fuchsia_fgetpos_napi));
-    exports.Set("libc_fuchsia_fsetpos", Napi::Function::New(env, libc_fuchsia_fsetpos_napi));
-    exports.Set("libc_fuchsia_feof", Napi::Function::New(env, libc_fuchsia_feof_napi));
-    exports.Set("libc_fuchsia_ferror", Napi::Function::New(env, libc_fuchsia_ferror_napi));
-    exports.Set("libc_fuchsia_perror", Napi::Function::New(env, libc_fuchsia_perror_napi));
-    exports.Set("libc_fuchsia_atof", Napi::Function::New(env, libc_fuchsia_atof_napi));
-    exports.Set("libc_fuchsia_atoi", Napi::Function::New(env, libc_fuchsia_atoi_napi));
-    exports.Set("libc_fuchsia_atol", Napi::Function::New(env, libc_fuchsia_atol_napi));
-    exports.Set("libc_fuchsia_atoll", Napi::Function::New(env, libc_fuchsia_atoll_napi));
-    exports.Set("libc_fuchsia_strtod", Napi::Function::New(env, libc_fuchsia_strtod_napi));
-    exports.Set("libc_fuchsia_strtof", Napi::Function::New(env, libc_fuchsia_strtof_napi));
-    exports.Set("libc_fuchsia_strtol", Napi::Function::New(env, libc_fuchsia_strtol_napi));
-    exports.Set("libc_fuchsia_strtoll", Napi::Function::New(env, libc_fuchsia_strtoll_napi));
-    exports.Set("libc_fuchsia_strtoul", Napi::Function::New(env, libc_fuchsia_strtoul_napi));
-    exports.Set("libc_fuchsia_strtoull", Napi::Function::New(env, libc_fuchsia_strtoull_napi));
-    exports.Set("libc_fuchsia_calloc", Napi::Function::New(env, libc_fuchsia_calloc_napi));
-    exports.Set("libc_fuchsia_malloc", Napi::Function::New(env, libc_fuchsia_malloc_napi));
-    exports.Set("libc_fuchsia_realloc", Napi::Function::New(env, libc_fuchsia_realloc_napi));
-    exports.Set("libc_fuchsia_free", Napi::Function::New(env, libc_fuchsia_free_napi));
-    exports.Set("libc_fuchsia_abort", Napi::Function::New(env, libc_fuchsia_abort_napi));
-    exports.Set("libc_fuchsia_exit", Napi::Function::New(env, libc_fuchsia_exit_napi));
-    exports.Set("libc_fuchsia_atexit", Napi::Function::New(env, libc_fuchsia_atexit_napi));
-    exports.Set("libc_fuchsia_system", Napi::Function::New(env, libc_fuchsia_system_napi));
-    exports.Set("libc_fuchsia_getenv", Napi::Function::New(env, libc_fuchsia_getenv_napi));
-    exports.Set("libc_fuchsia_strcpy", Napi::Function::New(env, libc_fuchsia_strcpy_napi));
-    exports.Set("libc_fuchsia_strncpy", Napi::Function::New(env, libc_fuchsia_strncpy_napi));
-    exports.Set("libc_fuchsia_strcat", Napi::Function::New(env, libc_fuchsia_strcat_napi));
-    exports.Set("libc_fuchsia_strncat", Napi::Function::New(env, libc_fuchsia_strncat_napi));
-    exports.Set("libc_fuchsia_strcmp", Napi::Function::New(env, libc_fuchsia_strcmp_napi));
-    exports.Set("libc_fuchsia_strncmp", Napi::Function::New(env, libc_fuchsia_strncmp_napi));
-    exports.Set("libc_fuchsia_strcoll", Napi::Function::New(env, libc_fuchsia_strcoll_napi));
-    exports.Set("libc_fuchsia_strchr", Napi::Function::New(env, libc_fuchsia_strchr_napi));
-    exports.Set("libc_fuchsia_strrchr", Napi::Function::New(env, libc_fuchsia_strrchr_napi));
-    exports.Set("libc_fuchsia_strspn", Napi::Function::New(env, libc_fuchsia_strspn_napi));
-    exports.Set("libc_fuchsia_strcspn", Napi::Function::New(env, libc_fuchsia_strcspn_napi));
-    exports.Set("libc_fuchsia_strdup", Napi::Function::New(env, libc_fuchsia_strdup_napi));
-    exports.Set("libc_fuchsia_strpbrk", Napi::Function::New(env, libc_fuchsia_strpbrk_napi));
-    exports.Set("libc_fuchsia_strstr", Napi::Function::New(env, libc_fuchsia_strstr_napi));
-    exports.Set("libc_fuchsia_strlen", Napi::Function::New(env, libc_fuchsia_strlen_napi));
-    exports.Set("libc_fuchsia_strnlen", Napi::Function::New(env, libc_fuchsia_strnlen_napi));
-    exports.Set("libc_fuchsia_strerror", Napi::Function::New(env, libc_fuchsia_strerror_napi));
-    exports.Set("libc_fuchsia_strtok", Napi::Function::New(env, libc_fuchsia_strtok_napi));
-    exports.Set("libc_fuchsia_strxfrm", Napi::Function::New(env, libc_fuchsia_strxfrm_napi));
-    exports.Set("libc_fuchsia_wcslen", Napi::Function::New(env, libc_fuchsia_wcslen_napi));
-    exports.Set("libc_fuchsia_wcstombs", Napi::Function::New(env, libc_fuchsia_wcstombs_napi));
-    exports.Set("libc_fuchsia_memchr", Napi::Function::New(env, libc_fuchsia_memchr_napi));
-    exports.Set("libc_fuchsia_wmemchr", Napi::Function::New(env, libc_fuchsia_wmemchr_napi));
-    exports.Set("libc_fuchsia_memcmp", Napi::Function::New(env, libc_fuchsia_memcmp_napi));
-    exports.Set("libc_fuchsia_memcpy", Napi::Function::New(env, libc_fuchsia_memcpy_napi));
-    exports.Set("libc_fuchsia_memmove", Napi::Function::New(env, libc_fuchsia_memmove_napi));
-    exports.Set("libc_fuchsia_memset", Napi::Function::New(env, libc_fuchsia_memset_napi));
-    exports.Set("libc_fuchsia_abs", Napi::Function::New(env, libc_fuchsia_abs_napi));
-    exports.Set("libc_fuchsia_labs", Napi::Function::New(env, libc_fuchsia_labs_napi));
-    exports.Set("libc_fuchsia_rand", Napi::Function::New(env, libc_fuchsia_rand_napi));
-    exports.Set("libc_fuchsia_srand", Napi::Function::New(env, libc_fuchsia_srand_napi));
-    exports.Set("libc_fuchsia_getpwnam", Napi::Function::New(env, libc_fuchsia_getpwnam_napi));
-    exports.Set("libc_fuchsia_getpwuid", Napi::Function::New(env, libc_fuchsia_getpwuid_napi));
-    exports.Set("libc_fuchsia_fprintf", Napi::Function::New(env, libc_fuchsia_fprintf_napi));
-    exports.Set("libc_fuchsia_printf", Napi::Function::New(env, libc_fuchsia_printf_napi));
-    exports.Set("libc_fuchsia_snprintf", Napi::Function::New(env, libc_fuchsia_snprintf_napi));
-    exports.Set("libc_fuchsia_sprintf", Napi::Function::New(env, libc_fuchsia_sprintf_napi));
-    exports.Set("libc_fuchsia_fscanf", Napi::Function::New(env, libc_fuchsia_fscanf_napi));
-    exports.Set("libc_fuchsia_scanf", Napi::Function::New(env, libc_fuchsia_scanf_napi));
-    exports.Set("libc_fuchsia_sscanf", Napi::Function::New(env, libc_fuchsia_sscanf_napi));
-    exports.Set("libc_fuchsia_getcharUnlocked", Napi::Function::New(env, libc_fuchsia_getcharUnlocked_napi));
-    exports.Set("libc_fuchsia_putcharUnlocked", Napi::Function::New(env, libc_fuchsia_putcharUnlocked_napi));
-    exports.Set("libc_fuchsia_socket", Napi::Function::New(env, libc_fuchsia_socket_napi));
-    exports.Set("libc_fuchsia_connect", Napi::Function::New(env, libc_fuchsia_connect_napi));
-    exports.Set("libc_fuchsia_listen", Napi::Function::New(env, libc_fuchsia_listen_napi));
-    exports.Set("libc_fuchsia_accept", Napi::Function::New(env, libc_fuchsia_accept_napi));
-    exports.Set("libc_fuchsia_getpeername", Napi::Function::New(env, libc_fuchsia_getpeername_napi));
-    exports.Set("libc_fuchsia_getsockname", Napi::Function::New(env, libc_fuchsia_getsockname_napi));
-    exports.Set("libc_fuchsia_setsockopt", Napi::Function::New(env, libc_fuchsia_setsockopt_napi));
-    exports.Set("libc_fuchsia_socketpair", Napi::Function::New(env, libc_fuchsia_socketpair_napi));
-    exports.Set("libc_fuchsia_sendto", Napi::Function::New(env, libc_fuchsia_sendto_napi));
-    exports.Set("libc_fuchsia_shutdown", Napi::Function::New(env, libc_fuchsia_shutdown_napi));
-    exports.Set("libc_fuchsia_chmod", Napi::Function::New(env, libc_fuchsia_chmod_napi));
-    exports.Set("libc_fuchsia_fchmod", Napi::Function::New(env, libc_fuchsia_fchmod_napi));
-    exports.Set("libc_fuchsia_fstat", Napi::Function::New(env, libc_fuchsia_fstat_napi));
-    exports.Set("libc_fuchsia_mkdir", Napi::Function::New(env, libc_fuchsia_mkdir_napi));
-    exports.Set("libc_fuchsia_stat", Napi::Function::New(env, libc_fuchsia_stat_napi));
-    exports.Set("libc_fuchsia_pclose", Napi::Function::New(env, libc_fuchsia_pclose_napi));
-    exports.Set("libc_fuchsia_fdopen", Napi::Function::New(env, libc_fuchsia_fdopen_napi));
-    exports.Set("libc_fuchsia_fileno", Napi::Function::New(env, libc_fuchsia_fileno_napi));
-    exports.Set("libc_fuchsia_open", Napi::Function::New(env, libc_fuchsia_open_napi));
-    exports.Set("libc_fuchsia_creat", Napi::Function::New(env, libc_fuchsia_creat_napi));
-    exports.Set("libc_fuchsia_fcntl", Napi::Function::New(env, libc_fuchsia_fcntl_napi));
-    exports.Set("libc_fuchsia_opendir", Napi::Function::New(env, libc_fuchsia_opendir_napi));
-    exports.Set("libc_fuchsia_readdir", Napi::Function::New(env, libc_fuchsia_readdir_napi));
-    exports.Set("libc_fuchsia_readdirR", Napi::Function::New(env, libc_fuchsia_readdirR_napi));
-    exports.Set("libc_fuchsia_closedir", Napi::Function::New(env, libc_fuchsia_closedir_napi));
-    exports.Set("libc_fuchsia_rewinddir", Napi::Function::New(env, libc_fuchsia_rewinddir_napi));
-    exports.Set("libc_fuchsia_openat", Napi::Function::New(env, libc_fuchsia_openat_napi));
-    exports.Set("libc_fuchsia_fchmodat", Napi::Function::New(env, libc_fuchsia_fchmodat_napi));
-    exports.Set("libc_fuchsia_fchown", Napi::Function::New(env, libc_fuchsia_fchown_napi));
-    exports.Set("libc_fuchsia_fchownat", Napi::Function::New(env, libc_fuchsia_fchownat_napi));
-    exports.Set("libc_fuchsia_fstatat", Napi::Function::New(env, libc_fuchsia_fstatat_napi));
-    exports.Set("libc_fuchsia_linkat", Napi::Function::New(env, libc_fuchsia_linkat_napi));
-    exports.Set("libc_fuchsia_mkdirat", Napi::Function::New(env, libc_fuchsia_mkdirat_napi));
-    exports.Set("libc_fuchsia_readlinkat", Napi::Function::New(env, libc_fuchsia_readlinkat_napi));
-    exports.Set("libc_fuchsia_renameat", Napi::Function::New(env, libc_fuchsia_renameat_napi));
-    exports.Set("libc_fuchsia_symlinkat", Napi::Function::New(env, libc_fuchsia_symlinkat_napi));
-    exports.Set("libc_fuchsia_unlinkat", Napi::Function::New(env, libc_fuchsia_unlinkat_napi));
-    exports.Set("libc_fuchsia_access", Napi::Function::New(env, libc_fuchsia_access_napi));
-    exports.Set("libc_fuchsia_alarm", Napi::Function::New(env, libc_fuchsia_alarm_napi));
-    exports.Set("libc_fuchsia_chdir", Napi::Function::New(env, libc_fuchsia_chdir_napi));
-    exports.Set("libc_fuchsia_chown", Napi::Function::New(env, libc_fuchsia_chown_napi));
-    exports.Set("libc_fuchsia_lchown", Napi::Function::New(env, libc_fuchsia_lchown_napi));
-    exports.Set("libc_fuchsia_close", Napi::Function::New(env, libc_fuchsia_close_napi));
-    exports.Set("libc_fuchsia_dup", Napi::Function::New(env, libc_fuchsia_dup_napi));
-    exports.Set("libc_fuchsia_dup2", Napi::Function::New(env, libc_fuchsia_dup2_napi));
-    exports.Set("libc_fuchsia_execl", Napi::Function::New(env, libc_fuchsia_execl_napi));
-    exports.Set("libc_fuchsia_execle", Napi::Function::New(env, libc_fuchsia_execle_napi));
-    exports.Set("libc_fuchsia_execlp", Napi::Function::New(env, libc_fuchsia_execlp_napi));
-    exports.Set("libc_fuchsia_execv", Napi::Function::New(env, libc_fuchsia_execv_napi));
-    exports.Set("libc_fuchsia_execve", Napi::Function::New(env, libc_fuchsia_execve_napi));
-    exports.Set("libc_fuchsia_execvp", Napi::Function::New(env, libc_fuchsia_execvp_napi));
-    exports.Set("libc_fuchsia_fork", Napi::Function::New(env, libc_fuchsia_fork_napi));
-    exports.Set("libc_fuchsia_fpathconf", Napi::Function::New(env, libc_fuchsia_fpathconf_napi));
-    exports.Set("libc_fuchsia_getcwd", Napi::Function::New(env, libc_fuchsia_getcwd_napi));
-    exports.Set("libc_fuchsia_getegid", Napi::Function::New(env, libc_fuchsia_getegid_napi));
-    exports.Set("libc_fuchsia_geteuid", Napi::Function::New(env, libc_fuchsia_geteuid_napi));
-    exports.Set("libc_fuchsia_getgid", Napi::Function::New(env, libc_fuchsia_getgid_napi));
-    exports.Set("libc_fuchsia_getgroups", Napi::Function::New(env, libc_fuchsia_getgroups_napi));
-    exports.Set("libc_fuchsia_getlogin", Napi::Function::New(env, libc_fuchsia_getlogin_napi));
-    exports.Set("libc_fuchsia_getopt", Napi::Function::New(env, libc_fuchsia_getopt_napi));
-    exports.Set("libc_fuchsia_getpgid", Napi::Function::New(env, libc_fuchsia_getpgid_napi));
-    exports.Set("libc_fuchsia_getpgrp", Napi::Function::New(env, libc_fuchsia_getpgrp_napi));
-    exports.Set("libc_fuchsia_getpid", Napi::Function::New(env, libc_fuchsia_getpid_napi));
-    exports.Set("libc_fuchsia_getppid", Napi::Function::New(env, libc_fuchsia_getppid_napi));
-    exports.Set("libc_fuchsia_getuid", Napi::Function::New(env, libc_fuchsia_getuid_napi));
-    exports.Set("libc_fuchsia_isatty", Napi::Function::New(env, libc_fuchsia_isatty_napi));
-    exports.Set("libc_fuchsia_link", Napi::Function::New(env, libc_fuchsia_link_napi));
-    exports.Set("libc_fuchsia_lseek", Napi::Function::New(env, libc_fuchsia_lseek_napi));
-    exports.Set("libc_fuchsia_pathconf", Napi::Function::New(env, libc_fuchsia_pathconf_napi));
-    exports.Set("libc_fuchsia_pause", Napi::Function::New(env, libc_fuchsia_pause_napi));
-    exports.Set("libc_fuchsia_pipe", Napi::Function::New(env, libc_fuchsia_pipe_napi));
-    exports.Set("libc_fuchsia_posixMemalign", Napi::Function::New(env, libc_fuchsia_posixMemalign_napi));
-    exports.Set("libc_fuchsia_read", Napi::Function::New(env, libc_fuchsia_read_napi));
-    exports.Set("libc_fuchsia_rmdir", Napi::Function::New(env, libc_fuchsia_rmdir_napi));
-    exports.Set("libc_fuchsia_seteuid", Napi::Function::New(env, libc_fuchsia_seteuid_napi));
-    exports.Set("libc_fuchsia_setegid", Napi::Function::New(env, libc_fuchsia_setegid_napi));
-    exports.Set("libc_fuchsia_setgid", Napi::Function::New(env, libc_fuchsia_setgid_napi));
-    exports.Set("libc_fuchsia_setpgid", Napi::Function::New(env, libc_fuchsia_setpgid_napi));
-    exports.Set("libc_fuchsia_setsid", Napi::Function::New(env, libc_fuchsia_setsid_napi));
-    exports.Set("libc_fuchsia_setuid", Napi::Function::New(env, libc_fuchsia_setuid_napi));
-    exports.Set("libc_fuchsia_sleep", Napi::Function::New(env, libc_fuchsia_sleep_napi));
-    exports.Set("libc_fuchsia_nanosleep", Napi::Function::New(env, libc_fuchsia_nanosleep_napi));
-    exports.Set("libc_fuchsia_tcgetpgrp", Napi::Function::New(env, libc_fuchsia_tcgetpgrp_napi));
-    exports.Set("libc_fuchsia_tcsetpgrp", Napi::Function::New(env, libc_fuchsia_tcsetpgrp_napi));
-    exports.Set("libc_fuchsia_ttyname", Napi::Function::New(env, libc_fuchsia_ttyname_napi));
-    exports.Set("libc_fuchsia_unlink", Napi::Function::New(env, libc_fuchsia_unlink_napi));
-    exports.Set("libc_fuchsia_wait", Napi::Function::New(env, libc_fuchsia_wait_napi));
-    exports.Set("libc_fuchsia_waitpid", Napi::Function::New(env, libc_fuchsia_waitpid_napi));
-    exports.Set("libc_fuchsia_write", Napi::Function::New(env, libc_fuchsia_write_napi));
-    exports.Set("libc_fuchsia_pread", Napi::Function::New(env, libc_fuchsia_pread_napi));
-    exports.Set("libc_fuchsia_pwrite", Napi::Function::New(env, libc_fuchsia_pwrite_napi));
-    exports.Set("libc_fuchsia_umask", Napi::Function::New(env, libc_fuchsia_umask_napi));
-    exports.Set("libc_fuchsia_utime", Napi::Function::New(env, libc_fuchsia_utime_napi));
-    exports.Set("libc_fuchsia_kill", Napi::Function::New(env, libc_fuchsia_kill_napi));
-    exports.Set("libc_fuchsia_mlock", Napi::Function::New(env, libc_fuchsia_mlock_napi));
-    exports.Set("libc_fuchsia_munlock", Napi::Function::New(env, libc_fuchsia_munlock_napi));
-    exports.Set("libc_fuchsia_mlockall", Napi::Function::New(env, libc_fuchsia_mlockall_napi));
-    exports.Set("libc_fuchsia_munlockall", Napi::Function::New(env, libc_fuchsia_munlockall_napi));
-    exports.Set("libc_fuchsia_mmap", Napi::Function::New(env, libc_fuchsia_mmap_napi));
-    exports.Set("libc_fuchsia_munmap", Napi::Function::New(env, libc_fuchsia_munmap_napi));
-    exports.Set("libc_fuchsia_ifNametoindex", Napi::Function::New(env, libc_fuchsia_ifNametoindex_napi));
-    exports.Set("libc_fuchsia_ifIndextoname", Napi::Function::New(env, libc_fuchsia_ifIndextoname_napi));
-    exports.Set("libc_fuchsia_lstat", Napi::Function::New(env, libc_fuchsia_lstat_napi));
-    exports.Set("libc_fuchsia_fsync", Napi::Function::New(env, libc_fuchsia_fsync_napi));
-    exports.Set("libc_fuchsia_setenv", Napi::Function::New(env, libc_fuchsia_setenv_napi));
-    exports.Set("libc_fuchsia_unsetenv", Napi::Function::New(env, libc_fuchsia_unsetenv_napi));
-    exports.Set("libc_fuchsia_symlink", Napi::Function::New(env, libc_fuchsia_symlink_napi));
-    exports.Set("libc_fuchsia_ftruncate", Napi::Function::New(env, libc_fuchsia_ftruncate_napi));
-    exports.Set("libc_fuchsia_signal", Napi::Function::New(env, libc_fuchsia_signal_napi));
-    exports.Set("libc_fuchsia_realpath", Napi::Function::New(env, libc_fuchsia_realpath_napi));
-    exports.Set("libc_fuchsia_flock", Napi::Function::New(env, libc_fuchsia_flock_napi));
-    exports.Set("libc_fuchsia_gettimeofday", Napi::Function::New(env, libc_fuchsia_gettimeofday_napi));
-    exports.Set("libc_fuchsia_times", Napi::Function::New(env, libc_fuchsia_times_napi));
-    exports.Set("libc_fuchsia_pthreadSelf", Napi::Function::New(env, libc_fuchsia_pthreadSelf_napi));
-    exports.Set("libc_fuchsia_pthreadJoin", Napi::Function::New(env, libc_fuchsia_pthreadJoin_napi));
-    exports.Set("libc_fuchsia_pthreadExit", Napi::Function::New(env, libc_fuchsia_pthreadExit_napi));
-    exports.Set("libc_fuchsia_pthreadAttrInit", Napi::Function::New(env, libc_fuchsia_pthreadAttrInit_napi));
-    exports.Set("libc_fuchsia_pthreadAttrDestroy", Napi::Function::New(env, libc_fuchsia_pthreadAttrDestroy_napi));
-    exports.Set("libc_fuchsia_pthreadAttrGetstacksize", Napi::Function::New(env, libc_fuchsia_pthreadAttrGetstacksize_napi));
-    exports.Set("libc_fuchsia_pthreadAttrSetstacksize", Napi::Function::New(env, libc_fuchsia_pthreadAttrSetstacksize_napi));
-    exports.Set("libc_fuchsia_pthreadAttrSetdetachstate", Napi::Function::New(env, libc_fuchsia_pthreadAttrSetdetachstate_napi));
-    exports.Set("libc_fuchsia_pthreadDetach", Napi::Function::New(env, libc_fuchsia_pthreadDetach_napi));
-    exports.Set("libc_fuchsia_schedYield", Napi::Function::New(env, libc_fuchsia_schedYield_napi));
-    exports.Set("libc_fuchsia_pthreadKeyCreate", Napi::Function::New(env, libc_fuchsia_pthreadKeyCreate_napi));
-    exports.Set("libc_fuchsia_pthreadKeyDelete", Napi::Function::New(env, libc_fuchsia_pthreadKeyDelete_napi));
-    exports.Set("libc_fuchsia_pthreadGetspecific", Napi::Function::New(env, libc_fuchsia_pthreadGetspecific_napi));
-    exports.Set("libc_fuchsia_pthreadSetspecific", Napi::Function::New(env, libc_fuchsia_pthreadSetspecific_napi));
-    exports.Set("libc_fuchsia_pthreadMutexInit", Napi::Function::New(env, libc_fuchsia_pthreadMutexInit_napi));
-    exports.Set("libc_fuchsia_pthreadMutexDestroy", Napi::Function::New(env, libc_fuchsia_pthreadMutexDestroy_napi));
-    exports.Set("libc_fuchsia_pthreadMutexLock", Napi::Function::New(env, libc_fuchsia_pthreadMutexLock_napi));
-    exports.Set("libc_fuchsia_pthreadMutexTrylock", Napi::Function::New(env, libc_fuchsia_pthreadMutexTrylock_napi));
-    exports.Set("libc_fuchsia_pthreadMutexUnlock", Napi::Function::New(env, libc_fuchsia_pthreadMutexUnlock_napi));
-    exports.Set("libc_fuchsia_pthreadMutexattrInit", Napi::Function::New(env, libc_fuchsia_pthreadMutexattrInit_napi));
-    exports.Set("libc_fuchsia_pthreadMutexattrDestroy", Napi::Function::New(env, libc_fuchsia_pthreadMutexattrDestroy_napi));
-    exports.Set("libc_fuchsia_pthreadMutexattrSettype", Napi::Function::New(env, libc_fuchsia_pthreadMutexattrSettype_napi));
-    exports.Set("libc_fuchsia_pthreadCondInit", Napi::Function::New(env, libc_fuchsia_pthreadCondInit_napi));
-    exports.Set("libc_fuchsia_pthreadCondWait", Napi::Function::New(env, libc_fuchsia_pthreadCondWait_napi));
-    exports.Set("libc_fuchsia_pthreadCondTimedwait", Napi::Function::New(env, libc_fuchsia_pthreadCondTimedwait_napi));
-    exports.Set("libc_fuchsia_pthreadCondSignal", Napi::Function::New(env, libc_fuchsia_pthreadCondSignal_napi));
-    exports.Set("libc_fuchsia_pthreadCondBroadcast", Napi::Function::New(env, libc_fuchsia_pthreadCondBroadcast_napi));
-    exports.Set("libc_fuchsia_pthreadCondDestroy", Napi::Function::New(env, libc_fuchsia_pthreadCondDestroy_napi));
-    exports.Set("libc_fuchsia_pthreadCondattrInit", Napi::Function::New(env, libc_fuchsia_pthreadCondattrInit_napi));
-    exports.Set("libc_fuchsia_pthreadCondattrDestroy", Napi::Function::New(env, libc_fuchsia_pthreadCondattrDestroy_napi));
-    exports.Set("libc_fuchsia_pthreadRwlockInit", Napi::Function::New(env, libc_fuchsia_pthreadRwlockInit_napi));
-    exports.Set("libc_fuchsia_pthreadRwlockDestroy", Napi::Function::New(env, libc_fuchsia_pthreadRwlockDestroy_napi));
-    exports.Set("libc_fuchsia_pthreadRwlockRdlock", Napi::Function::New(env, libc_fuchsia_pthreadRwlockRdlock_napi));
-    exports.Set("libc_fuchsia_pthreadRwlockTryrdlock", Napi::Function::New(env, libc_fuchsia_pthreadRwlockTryrdlock_napi));
-    exports.Set("libc_fuchsia_pthreadRwlockWrlock", Napi::Function::New(env, libc_fuchsia_pthreadRwlockWrlock_napi));
-    exports.Set("libc_fuchsia_pthreadRwlockTrywrlock", Napi::Function::New(env, libc_fuchsia_pthreadRwlockTrywrlock_napi));
-    exports.Set("libc_fuchsia_pthreadRwlockUnlock", Napi::Function::New(env, libc_fuchsia_pthreadRwlockUnlock_napi));
-    exports.Set("libc_fuchsia_pthreadRwlockattrInit", Napi::Function::New(env, libc_fuchsia_pthreadRwlockattrInit_napi));
-    exports.Set("libc_fuchsia_pthreadRwlockattrDestroy", Napi::Function::New(env, libc_fuchsia_pthreadRwlockattrDestroy_napi));
-    exports.Set("libc_fuchsia_pthreadGetnameNp", Napi::Function::New(env, libc_fuchsia_pthreadGetnameNp_napi));
-    exports.Set("libc_fuchsia_pthreadSetnameNp", Napi::Function::New(env, libc_fuchsia_pthreadSetnameNp_napi));
-    exports.Set("libc_fuchsia_strerrorR", Napi::Function::New(env, libc_fuchsia_strerrorR_napi));
-    exports.Set("libc_fuchsia_getsockopt", Napi::Function::New(env, libc_fuchsia_getsockopt_napi));
-    exports.Set("libc_fuchsia_raise", Napi::Function::New(env, libc_fuchsia_raise_napi));
-    exports.Set("libc_fuchsia_sigaction", Napi::Function::New(env, libc_fuchsia_sigaction_napi));
-    exports.Set("libc_fuchsia_utimes", Napi::Function::New(env, libc_fuchsia_utimes_napi));
-    exports.Set("libc_fuchsia_dlopen", Napi::Function::New(env, libc_fuchsia_dlopen_napi));
-    exports.Set("libc_fuchsia_dlerror", Napi::Function::New(env, libc_fuchsia_dlerror_napi));
-    exports.Set("libc_fuchsia_dlsym", Napi::Function::New(env, libc_fuchsia_dlsym_napi));
-    exports.Set("libc_fuchsia_dlclose", Napi::Function::New(env, libc_fuchsia_dlclose_napi));
-    exports.Set("libc_fuchsia_dladdr", Napi::Function::New(env, libc_fuchsia_dladdr_napi));
-    exports.Set("libc_fuchsia_getaddrinfo", Napi::Function::New(env, libc_fuchsia_getaddrinfo_napi));
-    exports.Set("libc_fuchsia_freeaddrinfo", Napi::Function::New(env, libc_fuchsia_freeaddrinfo_napi));
-    exports.Set("libc_fuchsia_gaiStrerror", Napi::Function::New(env, libc_fuchsia_gaiStrerror_napi));
-    exports.Set("libc_fuchsia_resInit", Napi::Function::New(env, libc_fuchsia_resInit_napi));
-    exports.Set("libc_fuchsia_gmtimeR", Napi::Function::New(env, libc_fuchsia_gmtimeR_napi));
-    exports.Set("libc_fuchsia_localtimeR", Napi::Function::New(env, libc_fuchsia_localtimeR_napi));
-    exports.Set("libc_fuchsia_mktime", Napi::Function::New(env, libc_fuchsia_mktime_napi));
-    exports.Set("libc_fuchsia_time", Napi::Function::New(env, libc_fuchsia_time_napi));
-    exports.Set("libc_fuchsia_gmtime", Napi::Function::New(env, libc_fuchsia_gmtime_napi));
-    exports.Set("libc_fuchsia_localtime", Napi::Function::New(env, libc_fuchsia_localtime_napi));
-    exports.Set("libc_fuchsia_mknod", Napi::Function::New(env, libc_fuchsia_mknod_napi));
-    exports.Set("libc_fuchsia_uname", Napi::Function::New(env, libc_fuchsia_uname_napi));
-    exports.Set("libc_fuchsia_gethostname", Napi::Function::New(env, libc_fuchsia_gethostname_napi));
-    exports.Set("libc_fuchsia_getservbyname", Napi::Function::New(env, libc_fuchsia_getservbyname_napi));
-    exports.Set("libc_fuchsia_getprotobyname", Napi::Function::New(env, libc_fuchsia_getprotobyname_napi));
-    exports.Set("libc_fuchsia_getprotobynumber", Napi::Function::New(env, libc_fuchsia_getprotobynumber_napi));
-    exports.Set("libc_fuchsia_usleep", Napi::Function::New(env, libc_fuchsia_usleep_napi));
-    exports.Set("libc_fuchsia_send", Napi::Function::New(env, libc_fuchsia_send_napi));
-    exports.Set("libc_fuchsia_recv", Napi::Function::New(env, libc_fuchsia_recv_napi));
-    exports.Set("libc_fuchsia_putenv", Napi::Function::New(env, libc_fuchsia_putenv_napi));
-    exports.Set("libc_fuchsia_poll", Napi::Function::New(env, libc_fuchsia_poll_napi));
-    exports.Set("libc_fuchsia_select", Napi::Function::New(env, libc_fuchsia_select_napi));
-    exports.Set("libc_fuchsia_setlocale", Napi::Function::New(env, libc_fuchsia_setlocale_napi));
-    exports.Set("libc_fuchsia_localeconv", Napi::Function::New(env, libc_fuchsia_localeconv_napi));
-    exports.Set("libc_fuchsia_semDestroy", Napi::Function::New(env, libc_fuchsia_semDestroy_napi));
-    exports.Set("libc_fuchsia_semWait", Napi::Function::New(env, libc_fuchsia_semWait_napi));
-    exports.Set("libc_fuchsia_semTrywait", Napi::Function::New(env, libc_fuchsia_semTrywait_napi));
-    exports.Set("libc_fuchsia_semPost", Napi::Function::New(env, libc_fuchsia_semPost_napi));
-    exports.Set("libc_fuchsia_semInit", Napi::Function::New(env, libc_fuchsia_semInit_napi));
-    exports.Set("libc_fuchsia_statvfs", Napi::Function::New(env, libc_fuchsia_statvfs_napi));
-    exports.Set("libc_fuchsia_fstatvfs", Napi::Function::New(env, libc_fuchsia_fstatvfs_napi));
-    exports.Set("libc_fuchsia_readlink", Napi::Function::New(env, libc_fuchsia_readlink_napi));
-    exports.Set("libc_fuchsia_sigemptyset", Napi::Function::New(env, libc_fuchsia_sigemptyset_napi));
-    exports.Set("libc_fuchsia_sigaddset", Napi::Function::New(env, libc_fuchsia_sigaddset_napi));
-    exports.Set("libc_fuchsia_sigfillset", Napi::Function::New(env, libc_fuchsia_sigfillset_napi));
-    exports.Set("libc_fuchsia_sigdelset", Napi::Function::New(env, libc_fuchsia_sigdelset_napi));
-    exports.Set("libc_fuchsia_sigismember", Napi::Function::New(env, libc_fuchsia_sigismember_napi));
-    exports.Set("libc_fuchsia_sigprocmask", Napi::Function::New(env, libc_fuchsia_sigprocmask_napi));
-    exports.Set("libc_fuchsia_sigpending", Napi::Function::New(env, libc_fuchsia_sigpending_napi));
-    exports.Set("libc_fuchsia_timegm", Napi::Function::New(env, libc_fuchsia_timegm_napi));
-    exports.Set("libc_fuchsia_getsid", Napi::Function::New(env, libc_fuchsia_getsid_napi));
-    exports.Set("libc_fuchsia_sysconf", Napi::Function::New(env, libc_fuchsia_sysconf_napi));
-    exports.Set("libc_fuchsia_mkfifo", Napi::Function::New(env, libc_fuchsia_mkfifo_napi));
-    exports.Set("libc_fuchsia_pselect", Napi::Function::New(env, libc_fuchsia_pselect_napi));
-    exports.Set("libc_fuchsia_fseeko", Napi::Function::New(env, libc_fuchsia_fseeko_napi));
-    exports.Set("libc_fuchsia_ftello", Napi::Function::New(env, libc_fuchsia_ftello_napi));
-    exports.Set("libc_fuchsia_tcdrain", Napi::Function::New(env, libc_fuchsia_tcdrain_napi));
-    exports.Set("libc_fuchsia_cfgetispeed", Napi::Function::New(env, libc_fuchsia_cfgetispeed_napi));
-    exports.Set("libc_fuchsia_cfgetospeed", Napi::Function::New(env, libc_fuchsia_cfgetospeed_napi));
-    exports.Set("libc_fuchsia_cfmakeraw", Napi::Function::New(env, libc_fuchsia_cfmakeraw_napi));
-    exports.Set("libc_fuchsia_cfsetispeed", Napi::Function::New(env, libc_fuchsia_cfsetispeed_napi));
-    exports.Set("libc_fuchsia_cfsetospeed", Napi::Function::New(env, libc_fuchsia_cfsetospeed_napi));
-    exports.Set("libc_fuchsia_cfsetspeed", Napi::Function::New(env, libc_fuchsia_cfsetspeed_napi));
-    exports.Set("libc_fuchsia_tcgetattr", Napi::Function::New(env, libc_fuchsia_tcgetattr_napi));
-    exports.Set("libc_fuchsia_tcsetattr", Napi::Function::New(env, libc_fuchsia_tcsetattr_napi));
-    exports.Set("libc_fuchsia_tcflow", Napi::Function::New(env, libc_fuchsia_tcflow_napi));
-    exports.Set("libc_fuchsia_tcflush", Napi::Function::New(env, libc_fuchsia_tcflush_napi));
-    exports.Set("libc_fuchsia_tcgetsid", Napi::Function::New(env, libc_fuchsia_tcgetsid_napi));
-    exports.Set("libc_fuchsia_tcsendbreak", Napi::Function::New(env, libc_fuchsia_tcsendbreak_napi));
-    exports.Set("libc_fuchsia_mkstemp", Napi::Function::New(env, libc_fuchsia_mkstemp_napi));
-    exports.Set("libc_fuchsia_mkdtemp", Napi::Function::New(env, libc_fuchsia_mkdtemp_napi));
-    exports.Set("libc_fuchsia_tmpnam", Napi::Function::New(env, libc_fuchsia_tmpnam_napi));
-    exports.Set("libc_fuchsia_openlog", Napi::Function::New(env, libc_fuchsia_openlog_napi));
-    exports.Set("libc_fuchsia_closelog", Napi::Function::New(env, libc_fuchsia_closelog_napi));
-    exports.Set("libc_fuchsia_setlogmask", Napi::Function::New(env, libc_fuchsia_setlogmask_napi));
-    exports.Set("libc_fuchsia_syslog", Napi::Function::New(env, libc_fuchsia_syslog_napi));
-    exports.Set("libc_fuchsia_grantpt", Napi::Function::New(env, libc_fuchsia_grantpt_napi));
-    exports.Set("libc_fuchsia_posixOpenpt", Napi::Function::New(env, libc_fuchsia_posixOpenpt_napi));
-    exports.Set("libc_fuchsia_ptsname", Napi::Function::New(env, libc_fuchsia_ptsname_napi));
-    exports.Set("libc_fuchsia_unlockpt", Napi::Function::New(env, libc_fuchsia_unlockpt_napi));
-    exports.Set("libc_fuchsia_fdatasync", Napi::Function::New(env, libc_fuchsia_fdatasync_napi));
-    exports.Set("libc_fuchsia_clockGetres", Napi::Function::New(env, libc_fuchsia_clockGetres_napi));
-    exports.Set("libc_fuchsia_clockGettime", Napi::Function::New(env, libc_fuchsia_clockGettime_napi));
-    exports.Set("libc_fuchsia_clockSettime", Napi::Function::New(env, libc_fuchsia_clockSettime_napi));
-    exports.Set("libc_fuchsia_dirfd", Napi::Function::New(env, libc_fuchsia_dirfd_napi));
-    exports.Set("libc_fuchsia_pthreadGetattrNp", Napi::Function::New(env, libc_fuchsia_pthreadGetattrNp_napi));
-    exports.Set("libc_fuchsia_pthreadAttrGetstack", Napi::Function::New(env, libc_fuchsia_pthreadAttrGetstack_napi));
-    exports.Set("libc_fuchsia_memalign", Napi::Function::New(env, libc_fuchsia_memalign_napi));
-    exports.Set("libc_fuchsia_setgroups", Napi::Function::New(env, libc_fuchsia_setgroups_napi));
-    exports.Set("libc_fuchsia_pipe2", Napi::Function::New(env, libc_fuchsia_pipe2_napi));
-    exports.Set("libc_fuchsia_statfs", Napi::Function::New(env, libc_fuchsia_statfs_napi));
-    exports.Set("libc_fuchsia_fstatfs", Napi::Function::New(env, libc_fuchsia_fstatfs_napi));
-    exports.Set("libc_fuchsia_memrchr", Napi::Function::New(env, libc_fuchsia_memrchr_napi));
-    exports.Set("libc_fuchsia_posixFadvise", Napi::Function::New(env, libc_fuchsia_posixFadvise_napi));
-    exports.Set("libc_fuchsia_futimens", Napi::Function::New(env, libc_fuchsia_futimens_napi));
-    exports.Set("libc_fuchsia_utimensat", Napi::Function::New(env, libc_fuchsia_utimensat_napi));
-    exports.Set("libc_fuchsia_duplocale", Napi::Function::New(env, libc_fuchsia_duplocale_napi));
-    exports.Set("libc_fuchsia_freelocale", Napi::Function::New(env, libc_fuchsia_freelocale_napi));
-    exports.Set("libc_fuchsia_newlocale", Napi::Function::New(env, libc_fuchsia_newlocale_napi));
-    exports.Set("libc_fuchsia_uselocale", Napi::Function::New(env, libc_fuchsia_uselocale_napi));
-    exports.Set("libc_fuchsia_fdopendir", Napi::Function::New(env, libc_fuchsia_fdopendir_napi));
-    exports.Set("libc_fuchsia_mknodat", Napi::Function::New(env, libc_fuchsia_mknodat_napi));
-    exports.Set("libc_fuchsia_pthreadCondattrGetclock", Napi::Function::New(env, libc_fuchsia_pthreadCondattrGetclock_napi));
-    exports.Set("libc_fuchsia_pthreadCondattrSetclock", Napi::Function::New(env, libc_fuchsia_pthreadCondattrSetclock_napi));
-    exports.Set("libc_fuchsia_accept4", Napi::Function::New(env, libc_fuchsia_accept4_napi));
-    exports.Set("libc_fuchsia_ptsnameR", Napi::Function::New(env, libc_fuchsia_ptsnameR_napi));
-    exports.Set("libc_fuchsia_clearenv", Napi::Function::New(env, libc_fuchsia_clearenv_napi));
-    exports.Set("libc_fuchsia_waitid", Napi::Function::New(env, libc_fuchsia_waitid_napi));
-    exports.Set("libc_fuchsia_setreuid", Napi::Function::New(env, libc_fuchsia_setreuid_napi));
-    exports.Set("libc_fuchsia_setregid", Napi::Function::New(env, libc_fuchsia_setregid_napi));
-    exports.Set("libc_fuchsia_getresuid", Napi::Function::New(env, libc_fuchsia_getresuid_napi));
-    exports.Set("libc_fuchsia_getresgid", Napi::Function::New(env, libc_fuchsia_getresgid_napi));
-    exports.Set("libc_fuchsia_acct", Napi::Function::New(env, libc_fuchsia_acct_napi));
-    exports.Set("libc_fuchsia_brk", Napi::Function::New(env, libc_fuchsia_brk_napi));
-    exports.Set("libc_fuchsia_setresgid", Napi::Function::New(env, libc_fuchsia_setresgid_napi));
-    exports.Set("libc_fuchsia_setresuid", Napi::Function::New(env, libc_fuchsia_setresuid_napi));
-    exports.Set("libc_fuchsia_openpty", Napi::Function::New(env, libc_fuchsia_openpty_napi));
-    exports.Set("libc_fuchsia_execvpe", Napi::Function::New(env, libc_fuchsia_execvpe_napi));
-    exports.Set("libc_fuchsia_fexecve", Napi::Function::New(env, libc_fuchsia_fexecve_napi));
-    exports.Set("libc_fuchsia_ioctl", Napi::Function::New(env, libc_fuchsia_ioctl_napi));
-    exports.Set("libc_fuchsia_lutimes", Napi::Function::New(env, libc_fuchsia_lutimes_napi));
-    exports.Set("libc_fuchsia_setpwent", Napi::Function::New(env, libc_fuchsia_setpwent_napi));
-    exports.Set("libc_fuchsia_endpwent", Napi::Function::New(env, libc_fuchsia_endpwent_napi));
-    exports.Set("libc_fuchsia_getpwent", Napi::Function::New(env, libc_fuchsia_getpwent_napi));
-    exports.Set("libc_fuchsia_shmOpen", Napi::Function::New(env, libc_fuchsia_shmOpen_napi));
-    exports.Set("libc_fuchsia_shmget", Napi::Function::New(env, libc_fuchsia_shmget_napi));
-    exports.Set("libc_fuchsia_shmat", Napi::Function::New(env, libc_fuchsia_shmat_napi));
-    exports.Set("libc_fuchsia_shmdt", Napi::Function::New(env, libc_fuchsia_shmdt_napi));
-    exports.Set("libc_fuchsia_shmctl", Napi::Function::New(env, libc_fuchsia_shmctl_napi));
-    exports.Set("libc_fuchsia_ftok", Napi::Function::New(env, libc_fuchsia_ftok_napi));
-    exports.Set("libc_fuchsia_semget", Napi::Function::New(env, libc_fuchsia_semget_napi));
-    exports.Set("libc_fuchsia_semop", Napi::Function::New(env, libc_fuchsia_semop_napi));
-    exports.Set("libc_fuchsia_semctl", Napi::Function::New(env, libc_fuchsia_semctl_napi));
-    exports.Set("libc_fuchsia_msgctl", Napi::Function::New(env, libc_fuchsia_msgctl_napi));
-    exports.Set("libc_fuchsia_msgget", Napi::Function::New(env, libc_fuchsia_msgget_napi));
-    exports.Set("libc_fuchsia_msgrcv", Napi::Function::New(env, libc_fuchsia_msgrcv_napi));
-    exports.Set("libc_fuchsia_msgsnd", Napi::Function::New(env, libc_fuchsia_msgsnd_napi));
-    exports.Set("libc_fuchsia_mprotect", Napi::Function::New(env, libc_fuchsia_mprotect_napi));
-    exports.Set("libc_fuchsia_errnoLocation", Napi::Function::New(env, libc_fuchsia_errnoLocation_napi));
-    exports.Set("libc_fuchsia_fallocate", Napi::Function::New(env, libc_fuchsia_fallocate_napi));
-    exports.Set("libc_fuchsia_posixFallocate", Napi::Function::New(env, libc_fuchsia_posixFallocate_napi));
-    exports.Set("libc_fuchsia_readahead", Napi::Function::New(env, libc_fuchsia_readahead_napi));
-    exports.Set("libc_fuchsia_signalfd", Napi::Function::New(env, libc_fuchsia_signalfd_napi));
-    exports.Set("libc_fuchsia_timerfdCreate", Napi::Function::New(env, libc_fuchsia_timerfdCreate_napi));
-    exports.Set("libc_fuchsia_timerfdGettime", Napi::Function::New(env, libc_fuchsia_timerfdGettime_napi));
-    exports.Set("libc_fuchsia_timerfdSettime", Napi::Function::New(env, libc_fuchsia_timerfdSettime_napi));
-    exports.Set("libc_fuchsia_pwritev", Napi::Function::New(env, libc_fuchsia_pwritev_napi));
-    exports.Set("libc_fuchsia_preadv", Napi::Function::New(env, libc_fuchsia_preadv_napi));
-    exports.Set("libc_fuchsia_quotactl", Napi::Function::New(env, libc_fuchsia_quotactl_napi));
-    exports.Set("libc_fuchsia_dup3", Napi::Function::New(env, libc_fuchsia_dup3_napi));
-    exports.Set("libc_fuchsia_mkostemp", Napi::Function::New(env, libc_fuchsia_mkostemp_napi));
-    exports.Set("libc_fuchsia_mkostemps", Napi::Function::New(env, libc_fuchsia_mkostemps_napi));
-    exports.Set("libc_fuchsia_sigtimedwait", Napi::Function::New(env, libc_fuchsia_sigtimedwait_napi));
-    exports.Set("libc_fuchsia_sigwaitinfo", Napi::Function::New(env, libc_fuchsia_sigwaitinfo_napi));
-    exports.Set("libc_fuchsia_nlLanginfoL", Napi::Function::New(env, libc_fuchsia_nlLanginfoL_napi));
-    exports.Set("libc_fuchsia_getnameinfo", Napi::Function::New(env, libc_fuchsia_getnameinfo_napi));
-    exports.Set("libc_fuchsia_reboot", Napi::Function::New(env, libc_fuchsia_reboot_napi));
-    exports.Set("libc_fuchsia_setfsgid", Napi::Function::New(env, libc_fuchsia_setfsgid_napi));
-    exports.Set("libc_fuchsia_setfsuid", Napi::Function::New(env, libc_fuchsia_setfsuid_napi));
-    exports.Set("libc_fuchsia_mkfifoat", Napi::Function::New(env, libc_fuchsia_mkfifoat_napi));
-    exports.Set("libc_fuchsia_ifNameindex", Napi::Function::New(env, libc_fuchsia_ifNameindex_napi));
-    exports.Set("libc_fuchsia_ifFreenameindex", Napi::Function::New(env, libc_fuchsia_ifFreenameindex_napi));
-    exports.Set("libc_fuchsia_syncFileRange", Napi::Function::New(env, libc_fuchsia_syncFileRange_napi));
-    exports.Set("libc_fuchsia_getifaddrs", Napi::Function::New(env, libc_fuchsia_getifaddrs_napi));
-    exports.Set("libc_fuchsia_freeifaddrs", Napi::Function::New(env, libc_fuchsia_freeifaddrs_napi));
-    exports.Set("libc_fuchsia_glob", Napi::Function::New(env, libc_fuchsia_glob_napi));
-    exports.Set("libc_fuchsia_globfree", Napi::Function::New(env, libc_fuchsia_globfree_napi));
-    exports.Set("libc_fuchsia_posixMadvise", Napi::Function::New(env, libc_fuchsia_posixMadvise_napi));
-    exports.Set("libc_fuchsia_shmUnlink", Napi::Function::New(env, libc_fuchsia_shmUnlink_napi));
-    exports.Set("libc_fuchsia_seekdir", Napi::Function::New(env, libc_fuchsia_seekdir_napi));
-    exports.Set("libc_fuchsia_telldir", Napi::Function::New(env, libc_fuchsia_telldir_napi));
-    exports.Set("libc_fuchsia_madvise", Napi::Function::New(env, libc_fuchsia_madvise_napi));
-    exports.Set("libc_fuchsia_msync", Napi::Function::New(env, libc_fuchsia_msync_napi));
-    exports.Set("libc_fuchsia_recvfrom", Napi::Function::New(env, libc_fuchsia_recvfrom_napi));
-    exports.Set("libc_fuchsia_mkstemps", Napi::Function::New(env, libc_fuchsia_mkstemps_napi));
-    exports.Set("libc_fuchsia_futimes", Napi::Function::New(env, libc_fuchsia_futimes_napi));
-    exports.Set("libc_fuchsia_nlLanginfo", Napi::Function::New(env, libc_fuchsia_nlLanginfo_napi));
-    exports.Set("libc_fuchsia_bind", Napi::Function::New(env, libc_fuchsia_bind_napi));
-    exports.Set("libc_fuchsia_writev", Napi::Function::New(env, libc_fuchsia_writev_napi));
-    exports.Set("libc_fuchsia_readv", Napi::Function::New(env, libc_fuchsia_readv_napi));
-    exports.Set("libc_fuchsia_sendmsg", Napi::Function::New(env, libc_fuchsia_sendmsg_napi));
-    exports.Set("libc_fuchsia_recvmsg", Napi::Function::New(env, libc_fuchsia_recvmsg_napi));
-    exports.Set("libc_fuchsia_getdomainname", Napi::Function::New(env, libc_fuchsia_getdomainname_napi));
-    exports.Set("libc_fuchsia_setdomainname", Napi::Function::New(env, libc_fuchsia_setdomainname_napi));
-    exports.Set("libc_fuchsia_vhangup", Napi::Function::New(env, libc_fuchsia_vhangup_napi));
-    exports.Set("libc_fuchsia_sendmmsg", Napi::Function::New(env, libc_fuchsia_sendmmsg_napi));
-    exports.Set("libc_fuchsia_recvmmsg", Napi::Function::New(env, libc_fuchsia_recvmmsg_napi));
-    exports.Set("libc_fuchsia_sync", Napi::Function::New(env, libc_fuchsia_sync_napi));
-    exports.Set("libc_fuchsia_syscall", Napi::Function::New(env, libc_fuchsia_syscall_napi));
-    exports.Set("libc_fuchsia_schedGetaffinity", Napi::Function::New(env, libc_fuchsia_schedGetaffinity_napi));
-    exports.Set("libc_fuchsia_schedSetaffinity", Napi::Function::New(env, libc_fuchsia_schedSetaffinity_napi));
-    exports.Set("libc_fuchsia_umount", Napi::Function::New(env, libc_fuchsia_umount_napi));
-    exports.Set("libc_fuchsia_schedGetPriorityMax", Napi::Function::New(env, libc_fuchsia_schedGetPriorityMax_napi));
-    exports.Set("libc_fuchsia_tee", Napi::Function::New(env, libc_fuchsia_tee_napi));
-    exports.Set("libc_fuchsia_settimeofday", Napi::Function::New(env, libc_fuchsia_settimeofday_napi));
-    exports.Set("libc_fuchsia_splice", Napi::Function::New(env, libc_fuchsia_splice_napi));
-    exports.Set("libc_fuchsia_eventfd", Napi::Function::New(env, libc_fuchsia_eventfd_napi));
-    exports.Set("libc_fuchsia_schedRrGetInterval", Napi::Function::New(env, libc_fuchsia_schedRrGetInterval_napi));
-    exports.Set("libc_fuchsia_semTimedwait", Napi::Function::New(env, libc_fuchsia_semTimedwait_napi));
-    exports.Set("libc_fuchsia_semGetvalue", Napi::Function::New(env, libc_fuchsia_semGetvalue_napi));
-    exports.Set("libc_fuchsia_schedSetparam", Napi::Function::New(env, libc_fuchsia_schedSetparam_napi));
-    exports.Set("libc_fuchsia_swapoff", Napi::Function::New(env, libc_fuchsia_swapoff_napi));
-    exports.Set("libc_fuchsia_vmsplice", Napi::Function::New(env, libc_fuchsia_vmsplice_napi));
-    exports.Set("libc_fuchsia_mount", Napi::Function::New(env, libc_fuchsia_mount_napi));
-    exports.Set("libc_fuchsia_personality", Napi::Function::New(env, libc_fuchsia_personality_napi));
-    exports.Set("libc_fuchsia_schedGetparam", Napi::Function::New(env, libc_fuchsia_schedGetparam_napi));
-    exports.Set("libc_fuchsia_ppoll", Napi::Function::New(env, libc_fuchsia_ppoll_napi));
-    exports.Set("libc_fuchsia_pthreadMutexTimedlock", Napi::Function::New(env, libc_fuchsia_pthreadMutexTimedlock_napi));
-    exports.Set("libc_fuchsia_clone", Napi::Function::New(env, libc_fuchsia_clone_napi));
-    exports.Set("libc_fuchsia_schedGetscheduler", Napi::Function::New(env, libc_fuchsia_schedGetscheduler_napi));
-    exports.Set("libc_fuchsia_clockNanosleep", Napi::Function::New(env, libc_fuchsia_clockNanosleep_napi));
-    exports.Set("libc_fuchsia_pthreadAttrGetguardsize", Napi::Function::New(env, libc_fuchsia_pthreadAttrGetguardsize_napi));
-    exports.Set("libc_fuchsia_pthreadAttrSetguardsize", Napi::Function::New(env, libc_fuchsia_pthreadAttrSetguardsize_napi));
-    exports.Set("libc_fuchsia_sethostname", Napi::Function::New(env, libc_fuchsia_sethostname_napi));
-    exports.Set("libc_fuchsia_schedGetPriorityMin", Napi::Function::New(env, libc_fuchsia_schedGetPriorityMin_napi));
-    exports.Set("libc_fuchsia_umount2", Napi::Function::New(env, libc_fuchsia_umount2_napi));
-    exports.Set("libc_fuchsia_swapon", Napi::Function::New(env, libc_fuchsia_swapon_napi));
-    exports.Set("libc_fuchsia_schedSetscheduler", Napi::Function::New(env, libc_fuchsia_schedSetscheduler_napi));
-    exports.Set("libc_fuchsia_sigsuspend", Napi::Function::New(env, libc_fuchsia_sigsuspend_napi));
-    exports.Set("libc_fuchsia_getgrgidR", Napi::Function::New(env, libc_fuchsia_getgrgidR_napi));
-    exports.Set("libc_fuchsia_sigaltstack", Napi::Function::New(env, libc_fuchsia_sigaltstack_napi));
-    exports.Set("libc_fuchsia_semClose", Napi::Function::New(env, libc_fuchsia_semClose_napi));
-    exports.Set("libc_fuchsia_getdtablesize", Napi::Function::New(env, libc_fuchsia_getdtablesize_napi));
-    exports.Set("libc_fuchsia_getgrnamR", Napi::Function::New(env, libc_fuchsia_getgrnamR_napi));
-    exports.Set("libc_fuchsia_initgroups", Napi::Function::New(env, libc_fuchsia_initgroups_napi));
-    exports.Set("libc_fuchsia_pthreadSigmask", Napi::Function::New(env, libc_fuchsia_pthreadSigmask_napi));
-    exports.Set("libc_fuchsia_semOpen", Napi::Function::New(env, libc_fuchsia_semOpen_napi));
-    exports.Set("libc_fuchsia_getgrnam", Napi::Function::New(env, libc_fuchsia_getgrnam_napi));
-    exports.Set("libc_fuchsia_pthreadCancel", Napi::Function::New(env, libc_fuchsia_pthreadCancel_napi));
-    exports.Set("libc_fuchsia_pthreadKill", Napi::Function::New(env, libc_fuchsia_pthreadKill_napi));
-    exports.Set("libc_fuchsia_semUnlink", Napi::Function::New(env, libc_fuchsia_semUnlink_napi));
-    exports.Set("libc_fuchsia_daemon", Napi::Function::New(env, libc_fuchsia_daemon_napi));
-    exports.Set("libc_fuchsia_getpwnamR", Napi::Function::New(env, libc_fuchsia_getpwnamR_napi));
-    exports.Set("libc_fuchsia_getpwuidR", Napi::Function::New(env, libc_fuchsia_getpwuidR_napi));
-    exports.Set("libc_fuchsia_sigwait", Napi::Function::New(env, libc_fuchsia_sigwait_napi));
-    exports.Set("libc_fuchsia_pthreadAtfork", Napi::Function::New(env, libc_fuchsia_pthreadAtfork_napi));
-    exports.Set("libc_fuchsia_getgrgid", Napi::Function::New(env, libc_fuchsia_getgrgid_napi));
-    exports.Set("libc_fuchsia_setgrent", Napi::Function::New(env, libc_fuchsia_setgrent_napi));
-    exports.Set("libc_fuchsia_endgrent", Napi::Function::New(env, libc_fuchsia_endgrent_napi));
-    exports.Set("libc_fuchsia_getgrent", Napi::Function::New(env, libc_fuchsia_getgrent_napi));
-    exports.Set("libc_fuchsia_getgrouplist", Napi::Function::New(env, libc_fuchsia_getgrouplist_napi));
-    exports.Set("libc_fuchsia_popen", Napi::Function::New(env, libc_fuchsia_popen_napi));
-    exports.Set("libc_fuchsia_faccessat", Napi::Function::New(env, libc_fuchsia_faccessat_napi));
-    exports.Set("libc_fuchsia_pthreadCreate", Napi::Function::New(env, libc_fuchsia_pthreadCreate_napi));
-    exports.Set("libc_fuchsia_dlIteratePhdr", Napi::Function::New(env, libc_fuchsia_dlIteratePhdr_napi));
+    exports.Set("libcFuchsiaIsalnum", Napi::Function::New(env, libcFuchsiaIsalnum_napi));
+    exports.Set("libcFuchsiaIsalpha", Napi::Function::New(env, libcFuchsiaIsalpha_napi));
+    exports.Set("libcFuchsiaIscntrl", Napi::Function::New(env, libcFuchsiaIscntrl_napi));
+    exports.Set("libcFuchsiaIsdigit", Napi::Function::New(env, libcFuchsiaIsdigit_napi));
+    exports.Set("libcFuchsiaIsgraph", Napi::Function::New(env, libcFuchsiaIsgraph_napi));
+    exports.Set("libcFuchsiaIslower", Napi::Function::New(env, libcFuchsiaIslower_napi));
+    exports.Set("libcFuchsiaIsprint", Napi::Function::New(env, libcFuchsiaIsprint_napi));
+    exports.Set("libcFuchsiaIspunct", Napi::Function::New(env, libcFuchsiaIspunct_napi));
+    exports.Set("libcFuchsiaIsspace", Napi::Function::New(env, libcFuchsiaIsspace_napi));
+    exports.Set("libcFuchsiaIsupper", Napi::Function::New(env, libcFuchsiaIsupper_napi));
+    exports.Set("libcFuchsiaIsxdigit", Napi::Function::New(env, libcFuchsiaIsxdigit_napi));
+    exports.Set("libcFuchsiaIsblank", Napi::Function::New(env, libcFuchsiaIsblank_napi));
+    exports.Set("libcFuchsiaTolower", Napi::Function::New(env, libcFuchsiaTolower_napi));
+    exports.Set("libcFuchsiaToupper", Napi::Function::New(env, libcFuchsiaToupper_napi));
+    exports.Set("libcFuchsiaFopen", Napi::Function::New(env, libcFuchsiaFopen_napi));
+    exports.Set("libcFuchsiaFreopen", Napi::Function::New(env, libcFuchsiaFreopen_napi));
+    exports.Set("libcFuchsiaFflush", Napi::Function::New(env, libcFuchsiaFflush_napi));
+    exports.Set("libcFuchsiaFclose", Napi::Function::New(env, libcFuchsiaFclose_napi));
+    exports.Set("libcFuchsiaRemove", Napi::Function::New(env, libcFuchsiaRemove_napi));
+    exports.Set("libcFuchsiaRename", Napi::Function::New(env, libcFuchsiaRename_napi));
+    exports.Set("libcFuchsiaTmpfile", Napi::Function::New(env, libcFuchsiaTmpfile_napi));
+    exports.Set("libcFuchsiaSetvbuf", Napi::Function::New(env, libcFuchsiaSetvbuf_napi));
+    exports.Set("libcFuchsiaSetbuf", Napi::Function::New(env, libcFuchsiaSetbuf_napi));
+    exports.Set("libcFuchsiaGetchar", Napi::Function::New(env, libcFuchsiaGetchar_napi));
+    exports.Set("libcFuchsiaPutchar", Napi::Function::New(env, libcFuchsiaPutchar_napi));
+    exports.Set("libcFuchsiaFgetc", Napi::Function::New(env, libcFuchsiaFgetc_napi));
+    exports.Set("libcFuchsiaFgets", Napi::Function::New(env, libcFuchsiaFgets_napi));
+    exports.Set("libcFuchsiaFputc", Napi::Function::New(env, libcFuchsiaFputc_napi));
+    exports.Set("libcFuchsiaFputs", Napi::Function::New(env, libcFuchsiaFputs_napi));
+    exports.Set("libcFuchsiaPuts", Napi::Function::New(env, libcFuchsiaPuts_napi));
+    exports.Set("libcFuchsiaUngetc", Napi::Function::New(env, libcFuchsiaUngetc_napi));
+    exports.Set("libcFuchsiaFread", Napi::Function::New(env, libcFuchsiaFread_napi));
+    exports.Set("libcFuchsiaFwrite", Napi::Function::New(env, libcFuchsiaFwrite_napi));
+    exports.Set("libcFuchsiaFseek", Napi::Function::New(env, libcFuchsiaFseek_napi));
+    exports.Set("libcFuchsiaFtell", Napi::Function::New(env, libcFuchsiaFtell_napi));
+    exports.Set("libcFuchsiaRewind", Napi::Function::New(env, libcFuchsiaRewind_napi));
+    exports.Set("libcFuchsiaFgetpos", Napi::Function::New(env, libcFuchsiaFgetpos_napi));
+    exports.Set("libcFuchsiaFsetpos", Napi::Function::New(env, libcFuchsiaFsetpos_napi));
+    exports.Set("libcFuchsiaFeof", Napi::Function::New(env, libcFuchsiaFeof_napi));
+    exports.Set("libcFuchsiaFerror", Napi::Function::New(env, libcFuchsiaFerror_napi));
+    exports.Set("libcFuchsiaPerror", Napi::Function::New(env, libcFuchsiaPerror_napi));
+    exports.Set("libcFuchsiaAtof", Napi::Function::New(env, libcFuchsiaAtof_napi));
+    exports.Set("libcFuchsiaAtoi", Napi::Function::New(env, libcFuchsiaAtoi_napi));
+    exports.Set("libcFuchsiaAtol", Napi::Function::New(env, libcFuchsiaAtol_napi));
+    exports.Set("libcFuchsiaAtoll", Napi::Function::New(env, libcFuchsiaAtoll_napi));
+    exports.Set("libcFuchsiaStrtod", Napi::Function::New(env, libcFuchsiaStrtod_napi));
+    exports.Set("libcFuchsiaStrtof", Napi::Function::New(env, libcFuchsiaStrtof_napi));
+    exports.Set("libcFuchsiaStrtol", Napi::Function::New(env, libcFuchsiaStrtol_napi));
+    exports.Set("libcFuchsiaStrtoll", Napi::Function::New(env, libcFuchsiaStrtoll_napi));
+    exports.Set("libcFuchsiaStrtoul", Napi::Function::New(env, libcFuchsiaStrtoul_napi));
+    exports.Set("libcFuchsiaStrtoull", Napi::Function::New(env, libcFuchsiaStrtoull_napi));
+    exports.Set("libcFuchsiaCalloc", Napi::Function::New(env, libcFuchsiaCalloc_napi));
+    exports.Set("libcFuchsiaMalloc", Napi::Function::New(env, libcFuchsiaMalloc_napi));
+    exports.Set("libcFuchsiaRealloc", Napi::Function::New(env, libcFuchsiaRealloc_napi));
+    exports.Set("libcFuchsiaFree", Napi::Function::New(env, libcFuchsiaFree_napi));
+    exports.Set("libcFuchsiaAbort", Napi::Function::New(env, libcFuchsiaAbort_napi));
+    exports.Set("libcFuchsiaExit", Napi::Function::New(env, libcFuchsiaExit_napi));
+    exports.Set("libcFuchsiaAtexit", Napi::Function::New(env, libcFuchsiaAtexit_napi));
+    exports.Set("libcFuchsiaSystem", Napi::Function::New(env, libcFuchsiaSystem_napi));
+    exports.Set("libcFuchsiaGetenv", Napi::Function::New(env, libcFuchsiaGetenv_napi));
+    exports.Set("libcFuchsiaStrcpy", Napi::Function::New(env, libcFuchsiaStrcpy_napi));
+    exports.Set("libcFuchsiaStrncpy", Napi::Function::New(env, libcFuchsiaStrncpy_napi));
+    exports.Set("libcFuchsiaStrcat", Napi::Function::New(env, libcFuchsiaStrcat_napi));
+    exports.Set("libcFuchsiaStrncat", Napi::Function::New(env, libcFuchsiaStrncat_napi));
+    exports.Set("libcFuchsiaStrcmp", Napi::Function::New(env, libcFuchsiaStrcmp_napi));
+    exports.Set("libcFuchsiaStrncmp", Napi::Function::New(env, libcFuchsiaStrncmp_napi));
+    exports.Set("libcFuchsiaStrcoll", Napi::Function::New(env, libcFuchsiaStrcoll_napi));
+    exports.Set("libcFuchsiaStrchr", Napi::Function::New(env, libcFuchsiaStrchr_napi));
+    exports.Set("libcFuchsiaStrrchr", Napi::Function::New(env, libcFuchsiaStrrchr_napi));
+    exports.Set("libcFuchsiaStrspn", Napi::Function::New(env, libcFuchsiaStrspn_napi));
+    exports.Set("libcFuchsiaStrcspn", Napi::Function::New(env, libcFuchsiaStrcspn_napi));
+    exports.Set("libcFuchsiaStrdup", Napi::Function::New(env, libcFuchsiaStrdup_napi));
+    exports.Set("libcFuchsiaStrpbrk", Napi::Function::New(env, libcFuchsiaStrpbrk_napi));
+    exports.Set("libcFuchsiaStrstr", Napi::Function::New(env, libcFuchsiaStrstr_napi));
+    exports.Set("libcFuchsiaStrlen", Napi::Function::New(env, libcFuchsiaStrlen_napi));
+    exports.Set("libcFuchsiaStrnlen", Napi::Function::New(env, libcFuchsiaStrnlen_napi));
+    exports.Set("libcFuchsiaStrerror", Napi::Function::New(env, libcFuchsiaStrerror_napi));
+    exports.Set("libcFuchsiaStrtok", Napi::Function::New(env, libcFuchsiaStrtok_napi));
+    exports.Set("libcFuchsiaStrxfrm", Napi::Function::New(env, libcFuchsiaStrxfrm_napi));
+    exports.Set("libcFuchsiaWcslen", Napi::Function::New(env, libcFuchsiaWcslen_napi));
+    exports.Set("libcFuchsiaWcstombs", Napi::Function::New(env, libcFuchsiaWcstombs_napi));
+    exports.Set("libcFuchsiaMemchr", Napi::Function::New(env, libcFuchsiaMemchr_napi));
+    exports.Set("libcFuchsiaWmemchr", Napi::Function::New(env, libcFuchsiaWmemchr_napi));
+    exports.Set("libcFuchsiaMemcmp", Napi::Function::New(env, libcFuchsiaMemcmp_napi));
+    exports.Set("libcFuchsiaMemcpy", Napi::Function::New(env, libcFuchsiaMemcpy_napi));
+    exports.Set("libcFuchsiaMemmove", Napi::Function::New(env, libcFuchsiaMemmove_napi));
+    exports.Set("libcFuchsiaMemset", Napi::Function::New(env, libcFuchsiaMemset_napi));
+    exports.Set("libcFuchsiaAbs", Napi::Function::New(env, libcFuchsiaAbs_napi));
+    exports.Set("libcFuchsiaLabs", Napi::Function::New(env, libcFuchsiaLabs_napi));
+    exports.Set("libcFuchsiaRand", Napi::Function::New(env, libcFuchsiaRand_napi));
+    exports.Set("libcFuchsiaSrand", Napi::Function::New(env, libcFuchsiaSrand_napi));
+    exports.Set("libcFuchsiaGetpwnam", Napi::Function::New(env, libcFuchsiaGetpwnam_napi));
+    exports.Set("libcFuchsiaGetpwuid", Napi::Function::New(env, libcFuchsiaGetpwuid_napi));
+    exports.Set("libcFuchsiaFprintf", Napi::Function::New(env, libcFuchsiaFprintf_napi));
+    exports.Set("libcFuchsiaPrintf", Napi::Function::New(env, libcFuchsiaPrintf_napi));
+    exports.Set("libcFuchsiaSnprintf", Napi::Function::New(env, libcFuchsiaSnprintf_napi));
+    exports.Set("libcFuchsiaSprintf", Napi::Function::New(env, libcFuchsiaSprintf_napi));
+    exports.Set("libcFuchsiaFscanf", Napi::Function::New(env, libcFuchsiaFscanf_napi));
+    exports.Set("libcFuchsiaScanf", Napi::Function::New(env, libcFuchsiaScanf_napi));
+    exports.Set("libcFuchsiaSscanf", Napi::Function::New(env, libcFuchsiaSscanf_napi));
+    exports.Set("libcFuchsiaGetcharUnlocked", Napi::Function::New(env, libcFuchsiaGetcharUnlocked_napi));
+    exports.Set("libcFuchsiaPutcharUnlocked", Napi::Function::New(env, libcFuchsiaPutcharUnlocked_napi));
+    exports.Set("libcFuchsiaSocket", Napi::Function::New(env, libcFuchsiaSocket_napi));
+    exports.Set("libcFuchsiaConnect", Napi::Function::New(env, libcFuchsiaConnect_napi));
+    exports.Set("libcFuchsiaListen", Napi::Function::New(env, libcFuchsiaListen_napi));
+    exports.Set("libcFuchsiaAccept", Napi::Function::New(env, libcFuchsiaAccept_napi));
+    exports.Set("libcFuchsiaGetpeername", Napi::Function::New(env, libcFuchsiaGetpeername_napi));
+    exports.Set("libcFuchsiaGetsockname", Napi::Function::New(env, libcFuchsiaGetsockname_napi));
+    exports.Set("libcFuchsiaSetsockopt", Napi::Function::New(env, libcFuchsiaSetsockopt_napi));
+    exports.Set("libcFuchsiaSocketpair", Napi::Function::New(env, libcFuchsiaSocketpair_napi));
+    exports.Set("libcFuchsiaSendto", Napi::Function::New(env, libcFuchsiaSendto_napi));
+    exports.Set("libcFuchsiaShutdown", Napi::Function::New(env, libcFuchsiaShutdown_napi));
+    exports.Set("libcFuchsiaChmod", Napi::Function::New(env, libcFuchsiaChmod_napi));
+    exports.Set("libcFuchsiaFchmod", Napi::Function::New(env, libcFuchsiaFchmod_napi));
+    exports.Set("libcFuchsiaFstat", Napi::Function::New(env, libcFuchsiaFstat_napi));
+    exports.Set("libcFuchsiaMkdir", Napi::Function::New(env, libcFuchsiaMkdir_napi));
+    exports.Set("libcFuchsiaStat", Napi::Function::New(env, libcFuchsiaStat_napi));
+    exports.Set("libcFuchsiaPclose", Napi::Function::New(env, libcFuchsiaPclose_napi));
+    exports.Set("libcFuchsiaFdopen", Napi::Function::New(env, libcFuchsiaFdopen_napi));
+    exports.Set("libcFuchsiaFileno", Napi::Function::New(env, libcFuchsiaFileno_napi));
+    exports.Set("libcFuchsiaOpen", Napi::Function::New(env, libcFuchsiaOpen_napi));
+    exports.Set("libcFuchsiaCreat", Napi::Function::New(env, libcFuchsiaCreat_napi));
+    exports.Set("libcFuchsiaFcntl", Napi::Function::New(env, libcFuchsiaFcntl_napi));
+    exports.Set("libcFuchsiaOpendir", Napi::Function::New(env, libcFuchsiaOpendir_napi));
+    exports.Set("libcFuchsiaReaddir", Napi::Function::New(env, libcFuchsiaReaddir_napi));
+    exports.Set("libcFuchsiaReaddirR", Napi::Function::New(env, libcFuchsiaReaddirR_napi));
+    exports.Set("libcFuchsiaClosedir", Napi::Function::New(env, libcFuchsiaClosedir_napi));
+    exports.Set("libcFuchsiaRewinddir", Napi::Function::New(env, libcFuchsiaRewinddir_napi));
+    exports.Set("libcFuchsiaOpenat", Napi::Function::New(env, libcFuchsiaOpenat_napi));
+    exports.Set("libcFuchsiaFchmodat", Napi::Function::New(env, libcFuchsiaFchmodat_napi));
+    exports.Set("libcFuchsiaFchown", Napi::Function::New(env, libcFuchsiaFchown_napi));
+    exports.Set("libcFuchsiaFchownat", Napi::Function::New(env, libcFuchsiaFchownat_napi));
+    exports.Set("libcFuchsiaFstatat", Napi::Function::New(env, libcFuchsiaFstatat_napi));
+    exports.Set("libcFuchsiaLinkat", Napi::Function::New(env, libcFuchsiaLinkat_napi));
+    exports.Set("libcFuchsiaMkdirat", Napi::Function::New(env, libcFuchsiaMkdirat_napi));
+    exports.Set("libcFuchsiaReadlinkat", Napi::Function::New(env, libcFuchsiaReadlinkat_napi));
+    exports.Set("libcFuchsiaRenameat", Napi::Function::New(env, libcFuchsiaRenameat_napi));
+    exports.Set("libcFuchsiaSymlinkat", Napi::Function::New(env, libcFuchsiaSymlinkat_napi));
+    exports.Set("libcFuchsiaUnlinkat", Napi::Function::New(env, libcFuchsiaUnlinkat_napi));
+    exports.Set("libcFuchsiaAccess", Napi::Function::New(env, libcFuchsiaAccess_napi));
+    exports.Set("libcFuchsiaAlarm", Napi::Function::New(env, libcFuchsiaAlarm_napi));
+    exports.Set("libcFuchsiaChdir", Napi::Function::New(env, libcFuchsiaChdir_napi));
+    exports.Set("libcFuchsiaChown", Napi::Function::New(env, libcFuchsiaChown_napi));
+    exports.Set("libcFuchsiaLchown", Napi::Function::New(env, libcFuchsiaLchown_napi));
+    exports.Set("libcFuchsiaClose", Napi::Function::New(env, libcFuchsiaClose_napi));
+    exports.Set("libcFuchsiaDup", Napi::Function::New(env, libcFuchsiaDup_napi));
+    exports.Set("libcFuchsiaDup2", Napi::Function::New(env, libcFuchsiaDup2_napi));
+    exports.Set("libcFuchsiaExecl", Napi::Function::New(env, libcFuchsiaExecl_napi));
+    exports.Set("libcFuchsiaExecle", Napi::Function::New(env, libcFuchsiaExecle_napi));
+    exports.Set("libcFuchsiaExeclp", Napi::Function::New(env, libcFuchsiaExeclp_napi));
+    exports.Set("libcFuchsiaExecv", Napi::Function::New(env, libcFuchsiaExecv_napi));
+    exports.Set("libcFuchsiaExecve", Napi::Function::New(env, libcFuchsiaExecve_napi));
+    exports.Set("libcFuchsiaExecvp", Napi::Function::New(env, libcFuchsiaExecvp_napi));
+    exports.Set("libcFuchsiaFork", Napi::Function::New(env, libcFuchsiaFork_napi));
+    exports.Set("libcFuchsiaFpathconf", Napi::Function::New(env, libcFuchsiaFpathconf_napi));
+    exports.Set("libcFuchsiaGetcwd", Napi::Function::New(env, libcFuchsiaGetcwd_napi));
+    exports.Set("libcFuchsiaGetegid", Napi::Function::New(env, libcFuchsiaGetegid_napi));
+    exports.Set("libcFuchsiaGeteuid", Napi::Function::New(env, libcFuchsiaGeteuid_napi));
+    exports.Set("libcFuchsiaGetgid", Napi::Function::New(env, libcFuchsiaGetgid_napi));
+    exports.Set("libcFuchsiaGetgroups", Napi::Function::New(env, libcFuchsiaGetgroups_napi));
+    exports.Set("libcFuchsiaGetlogin", Napi::Function::New(env, libcFuchsiaGetlogin_napi));
+    exports.Set("libcFuchsiaGetopt", Napi::Function::New(env, libcFuchsiaGetopt_napi));
+    exports.Set("libcFuchsiaGetpgid", Napi::Function::New(env, libcFuchsiaGetpgid_napi));
+    exports.Set("libcFuchsiaGetpgrp", Napi::Function::New(env, libcFuchsiaGetpgrp_napi));
+    exports.Set("libcFuchsiaGetpid", Napi::Function::New(env, libcFuchsiaGetpid_napi));
+    exports.Set("libcFuchsiaGetppid", Napi::Function::New(env, libcFuchsiaGetppid_napi));
+    exports.Set("libcFuchsiaGetuid", Napi::Function::New(env, libcFuchsiaGetuid_napi));
+    exports.Set("libcFuchsiaIsatty", Napi::Function::New(env, libcFuchsiaIsatty_napi));
+    exports.Set("libcFuchsiaLink", Napi::Function::New(env, libcFuchsiaLink_napi));
+    exports.Set("libcFuchsiaLseek", Napi::Function::New(env, libcFuchsiaLseek_napi));
+    exports.Set("libcFuchsiaPathconf", Napi::Function::New(env, libcFuchsiaPathconf_napi));
+    exports.Set("libcFuchsiaPause", Napi::Function::New(env, libcFuchsiaPause_napi));
+    exports.Set("libcFuchsiaPipe", Napi::Function::New(env, libcFuchsiaPipe_napi));
+    exports.Set("libcFuchsiaPosixMemalign", Napi::Function::New(env, libcFuchsiaPosixMemalign_napi));
+    exports.Set("libcFuchsiaRead", Napi::Function::New(env, libcFuchsiaRead_napi));
+    exports.Set("libcFuchsiaRmdir", Napi::Function::New(env, libcFuchsiaRmdir_napi));
+    exports.Set("libcFuchsiaSeteuid", Napi::Function::New(env, libcFuchsiaSeteuid_napi));
+    exports.Set("libcFuchsiaSetegid", Napi::Function::New(env, libcFuchsiaSetegid_napi));
+    exports.Set("libcFuchsiaSetgid", Napi::Function::New(env, libcFuchsiaSetgid_napi));
+    exports.Set("libcFuchsiaSetpgid", Napi::Function::New(env, libcFuchsiaSetpgid_napi));
+    exports.Set("libcFuchsiaSetsid", Napi::Function::New(env, libcFuchsiaSetsid_napi));
+    exports.Set("libcFuchsiaSetuid", Napi::Function::New(env, libcFuchsiaSetuid_napi));
+    exports.Set("libcFuchsiaSleep", Napi::Function::New(env, libcFuchsiaSleep_napi));
+    exports.Set("libcFuchsiaNanosleep", Napi::Function::New(env, libcFuchsiaNanosleep_napi));
+    exports.Set("libcFuchsiaTcgetpgrp", Napi::Function::New(env, libcFuchsiaTcgetpgrp_napi));
+    exports.Set("libcFuchsiaTcsetpgrp", Napi::Function::New(env, libcFuchsiaTcsetpgrp_napi));
+    exports.Set("libcFuchsiaTtyname", Napi::Function::New(env, libcFuchsiaTtyname_napi));
+    exports.Set("libcFuchsiaUnlink", Napi::Function::New(env, libcFuchsiaUnlink_napi));
+    exports.Set("libcFuchsiaWait", Napi::Function::New(env, libcFuchsiaWait_napi));
+    exports.Set("libcFuchsiaWaitpid", Napi::Function::New(env, libcFuchsiaWaitpid_napi));
+    exports.Set("libcFuchsiaWrite", Napi::Function::New(env, libcFuchsiaWrite_napi));
+    exports.Set("libcFuchsiaPread", Napi::Function::New(env, libcFuchsiaPread_napi));
+    exports.Set("libcFuchsiaPwrite", Napi::Function::New(env, libcFuchsiaPwrite_napi));
+    exports.Set("libcFuchsiaUmask", Napi::Function::New(env, libcFuchsiaUmask_napi));
+    exports.Set("libcFuchsiaUtime", Napi::Function::New(env, libcFuchsiaUtime_napi));
+    exports.Set("libcFuchsiaKill", Napi::Function::New(env, libcFuchsiaKill_napi));
+    exports.Set("libcFuchsiaMlock", Napi::Function::New(env, libcFuchsiaMlock_napi));
+    exports.Set("libcFuchsiaMunlock", Napi::Function::New(env, libcFuchsiaMunlock_napi));
+    exports.Set("libcFuchsiaMlockall", Napi::Function::New(env, libcFuchsiaMlockall_napi));
+    exports.Set("libcFuchsiaMunlockall", Napi::Function::New(env, libcFuchsiaMunlockall_napi));
+    exports.Set("libcFuchsiaMmap", Napi::Function::New(env, libcFuchsiaMmap_napi));
+    exports.Set("libcFuchsiaMunmap", Napi::Function::New(env, libcFuchsiaMunmap_napi));
+    exports.Set("libcFuchsiaIfNametoindex", Napi::Function::New(env, libcFuchsiaIfNametoindex_napi));
+    exports.Set("libcFuchsiaIfIndextoname", Napi::Function::New(env, libcFuchsiaIfIndextoname_napi));
+    exports.Set("libcFuchsiaLstat", Napi::Function::New(env, libcFuchsiaLstat_napi));
+    exports.Set("libcFuchsiaFsync", Napi::Function::New(env, libcFuchsiaFsync_napi));
+    exports.Set("libcFuchsiaSetenv", Napi::Function::New(env, libcFuchsiaSetenv_napi));
+    exports.Set("libcFuchsiaUnsetenv", Napi::Function::New(env, libcFuchsiaUnsetenv_napi));
+    exports.Set("libcFuchsiaSymlink", Napi::Function::New(env, libcFuchsiaSymlink_napi));
+    exports.Set("libcFuchsiaFtruncate", Napi::Function::New(env, libcFuchsiaFtruncate_napi));
+    exports.Set("libcFuchsiaSignal", Napi::Function::New(env, libcFuchsiaSignal_napi));
+    exports.Set("libcFuchsiaRealpath", Napi::Function::New(env, libcFuchsiaRealpath_napi));
+    exports.Set("libcFuchsiaFlock", Napi::Function::New(env, libcFuchsiaFlock_napi));
+    exports.Set("libcFuchsiaGettimeofday", Napi::Function::New(env, libcFuchsiaGettimeofday_napi));
+    exports.Set("libcFuchsiaTimes", Napi::Function::New(env, libcFuchsiaTimes_napi));
+    exports.Set("libcFuchsiaPthreadSelf", Napi::Function::New(env, libcFuchsiaPthreadSelf_napi));
+    exports.Set("libcFuchsiaPthreadJoin", Napi::Function::New(env, libcFuchsiaPthreadJoin_napi));
+    exports.Set("libcFuchsiaPthreadExit", Napi::Function::New(env, libcFuchsiaPthreadExit_napi));
+    exports.Set("libcFuchsiaPthreadAttrInit", Napi::Function::New(env, libcFuchsiaPthreadAttrInit_napi));
+    exports.Set("libcFuchsiaPthreadAttrDestroy", Napi::Function::New(env, libcFuchsiaPthreadAttrDestroy_napi));
+    exports.Set("libcFuchsiaPthreadAttrGetstacksize", Napi::Function::New(env, libcFuchsiaPthreadAttrGetstacksize_napi));
+    exports.Set("libcFuchsiaPthreadAttrSetstacksize", Napi::Function::New(env, libcFuchsiaPthreadAttrSetstacksize_napi));
+    exports.Set("libcFuchsiaPthreadAttrSetdetachstate", Napi::Function::New(env, libcFuchsiaPthreadAttrSetdetachstate_napi));
+    exports.Set("libcFuchsiaPthreadDetach", Napi::Function::New(env, libcFuchsiaPthreadDetach_napi));
+    exports.Set("libcFuchsiaSchedYield", Napi::Function::New(env, libcFuchsiaSchedYield_napi));
+    exports.Set("libcFuchsiaPthreadKeyCreate", Napi::Function::New(env, libcFuchsiaPthreadKeyCreate_napi));
+    exports.Set("libcFuchsiaPthreadKeyDelete", Napi::Function::New(env, libcFuchsiaPthreadKeyDelete_napi));
+    exports.Set("libcFuchsiaPthreadGetspecific", Napi::Function::New(env, libcFuchsiaPthreadGetspecific_napi));
+    exports.Set("libcFuchsiaPthreadSetspecific", Napi::Function::New(env, libcFuchsiaPthreadSetspecific_napi));
+    exports.Set("libcFuchsiaPthreadMutexInit", Napi::Function::New(env, libcFuchsiaPthreadMutexInit_napi));
+    exports.Set("libcFuchsiaPthreadMutexDestroy", Napi::Function::New(env, libcFuchsiaPthreadMutexDestroy_napi));
+    exports.Set("libcFuchsiaPthreadMutexLock", Napi::Function::New(env, libcFuchsiaPthreadMutexLock_napi));
+    exports.Set("libcFuchsiaPthreadMutexTrylock", Napi::Function::New(env, libcFuchsiaPthreadMutexTrylock_napi));
+    exports.Set("libcFuchsiaPthreadMutexUnlock", Napi::Function::New(env, libcFuchsiaPthreadMutexUnlock_napi));
+    exports.Set("libcFuchsiaPthreadMutexattrInit", Napi::Function::New(env, libcFuchsiaPthreadMutexattrInit_napi));
+    exports.Set("libcFuchsiaPthreadMutexattrDestroy", Napi::Function::New(env, libcFuchsiaPthreadMutexattrDestroy_napi));
+    exports.Set("libcFuchsiaPthreadMutexattrSettype", Napi::Function::New(env, libcFuchsiaPthreadMutexattrSettype_napi));
+    exports.Set("libcFuchsiaPthreadCondInit", Napi::Function::New(env, libcFuchsiaPthreadCondInit_napi));
+    exports.Set("libcFuchsiaPthreadCondWait", Napi::Function::New(env, libcFuchsiaPthreadCondWait_napi));
+    exports.Set("libcFuchsiaPthreadCondTimedwait", Napi::Function::New(env, libcFuchsiaPthreadCondTimedwait_napi));
+    exports.Set("libcFuchsiaPthreadCondSignal", Napi::Function::New(env, libcFuchsiaPthreadCondSignal_napi));
+    exports.Set("libcFuchsiaPthreadCondBroadcast", Napi::Function::New(env, libcFuchsiaPthreadCondBroadcast_napi));
+    exports.Set("libcFuchsiaPthreadCondDestroy", Napi::Function::New(env, libcFuchsiaPthreadCondDestroy_napi));
+    exports.Set("libcFuchsiaPthreadCondattrInit", Napi::Function::New(env, libcFuchsiaPthreadCondattrInit_napi));
+    exports.Set("libcFuchsiaPthreadCondattrDestroy", Napi::Function::New(env, libcFuchsiaPthreadCondattrDestroy_napi));
+    exports.Set("libcFuchsiaPthreadRwlockInit", Napi::Function::New(env, libcFuchsiaPthreadRwlockInit_napi));
+    exports.Set("libcFuchsiaPthreadRwlockDestroy", Napi::Function::New(env, libcFuchsiaPthreadRwlockDestroy_napi));
+    exports.Set("libcFuchsiaPthreadRwlockRdlock", Napi::Function::New(env, libcFuchsiaPthreadRwlockRdlock_napi));
+    exports.Set("libcFuchsiaPthreadRwlockTryrdlock", Napi::Function::New(env, libcFuchsiaPthreadRwlockTryrdlock_napi));
+    exports.Set("libcFuchsiaPthreadRwlockWrlock", Napi::Function::New(env, libcFuchsiaPthreadRwlockWrlock_napi));
+    exports.Set("libcFuchsiaPthreadRwlockTrywrlock", Napi::Function::New(env, libcFuchsiaPthreadRwlockTrywrlock_napi));
+    exports.Set("libcFuchsiaPthreadRwlockUnlock", Napi::Function::New(env, libcFuchsiaPthreadRwlockUnlock_napi));
+    exports.Set("libcFuchsiaPthreadRwlockattrInit", Napi::Function::New(env, libcFuchsiaPthreadRwlockattrInit_napi));
+    exports.Set("libcFuchsiaPthreadRwlockattrDestroy", Napi::Function::New(env, libcFuchsiaPthreadRwlockattrDestroy_napi));
+    exports.Set("libcFuchsiaPthreadGetnameNp", Napi::Function::New(env, libcFuchsiaPthreadGetnameNp_napi));
+    exports.Set("libcFuchsiaPthreadSetnameNp", Napi::Function::New(env, libcFuchsiaPthreadSetnameNp_napi));
+    exports.Set("libcFuchsiaStrerrorR", Napi::Function::New(env, libcFuchsiaStrerrorR_napi));
+    exports.Set("libcFuchsiaGetsockopt", Napi::Function::New(env, libcFuchsiaGetsockopt_napi));
+    exports.Set("libcFuchsiaRaise", Napi::Function::New(env, libcFuchsiaRaise_napi));
+    exports.Set("libcFuchsiaSigaction", Napi::Function::New(env, libcFuchsiaSigaction_napi));
+    exports.Set("libcFuchsiaUtimes", Napi::Function::New(env, libcFuchsiaUtimes_napi));
+    exports.Set("libcFuchsiaDlopen", Napi::Function::New(env, libcFuchsiaDlopen_napi));
+    exports.Set("libcFuchsiaDlerror", Napi::Function::New(env, libcFuchsiaDlerror_napi));
+    exports.Set("libcFuchsiaDlsym", Napi::Function::New(env, libcFuchsiaDlsym_napi));
+    exports.Set("libcFuchsiaDlclose", Napi::Function::New(env, libcFuchsiaDlclose_napi));
+    exports.Set("libcFuchsiaDladdr", Napi::Function::New(env, libcFuchsiaDladdr_napi));
+    exports.Set("libcFuchsiaGetaddrinfo", Napi::Function::New(env, libcFuchsiaGetaddrinfo_napi));
+    exports.Set("libcFuchsiaFreeaddrinfo", Napi::Function::New(env, libcFuchsiaFreeaddrinfo_napi));
+    exports.Set("libcFuchsiaGaiStrerror", Napi::Function::New(env, libcFuchsiaGaiStrerror_napi));
+    exports.Set("libcFuchsiaResInit", Napi::Function::New(env, libcFuchsiaResInit_napi));
+    exports.Set("libcFuchsiaGmtimeR", Napi::Function::New(env, libcFuchsiaGmtimeR_napi));
+    exports.Set("libcFuchsiaLocaltimeR", Napi::Function::New(env, libcFuchsiaLocaltimeR_napi));
+    exports.Set("libcFuchsiaMktime", Napi::Function::New(env, libcFuchsiaMktime_napi));
+    exports.Set("libcFuchsiaTime", Napi::Function::New(env, libcFuchsiaTime_napi));
+    exports.Set("libcFuchsiaGmtime", Napi::Function::New(env, libcFuchsiaGmtime_napi));
+    exports.Set("libcFuchsiaLocaltime", Napi::Function::New(env, libcFuchsiaLocaltime_napi));
+    exports.Set("libcFuchsiaMknod", Napi::Function::New(env, libcFuchsiaMknod_napi));
+    exports.Set("libcFuchsiaUname", Napi::Function::New(env, libcFuchsiaUname_napi));
+    exports.Set("libcFuchsiaGethostname", Napi::Function::New(env, libcFuchsiaGethostname_napi));
+    exports.Set("libcFuchsiaGetservbyname", Napi::Function::New(env, libcFuchsiaGetservbyname_napi));
+    exports.Set("libcFuchsiaGetprotobyname", Napi::Function::New(env, libcFuchsiaGetprotobyname_napi));
+    exports.Set("libcFuchsiaGetprotobynumber", Napi::Function::New(env, libcFuchsiaGetprotobynumber_napi));
+    exports.Set("libcFuchsiaUsleep", Napi::Function::New(env, libcFuchsiaUsleep_napi));
+    exports.Set("libcFuchsiaSend", Napi::Function::New(env, libcFuchsiaSend_napi));
+    exports.Set("libcFuchsiaRecv", Napi::Function::New(env, libcFuchsiaRecv_napi));
+    exports.Set("libcFuchsiaPutenv", Napi::Function::New(env, libcFuchsiaPutenv_napi));
+    exports.Set("libcFuchsiaPoll", Napi::Function::New(env, libcFuchsiaPoll_napi));
+    exports.Set("libcFuchsiaSelect", Napi::Function::New(env, libcFuchsiaSelect_napi));
+    exports.Set("libcFuchsiaSetlocale", Napi::Function::New(env, libcFuchsiaSetlocale_napi));
+    exports.Set("libcFuchsiaLocaleconv", Napi::Function::New(env, libcFuchsiaLocaleconv_napi));
+    exports.Set("libcFuchsiaSemDestroy", Napi::Function::New(env, libcFuchsiaSemDestroy_napi));
+    exports.Set("libcFuchsiaSemWait", Napi::Function::New(env, libcFuchsiaSemWait_napi));
+    exports.Set("libcFuchsiaSemTrywait", Napi::Function::New(env, libcFuchsiaSemTrywait_napi));
+    exports.Set("libcFuchsiaSemPost", Napi::Function::New(env, libcFuchsiaSemPost_napi));
+    exports.Set("libcFuchsiaSemInit", Napi::Function::New(env, libcFuchsiaSemInit_napi));
+    exports.Set("libcFuchsiaStatvfs", Napi::Function::New(env, libcFuchsiaStatvfs_napi));
+    exports.Set("libcFuchsiaFstatvfs", Napi::Function::New(env, libcFuchsiaFstatvfs_napi));
+    exports.Set("libcFuchsiaReadlink", Napi::Function::New(env, libcFuchsiaReadlink_napi));
+    exports.Set("libcFuchsiaSigemptyset", Napi::Function::New(env, libcFuchsiaSigemptyset_napi));
+    exports.Set("libcFuchsiaSigaddset", Napi::Function::New(env, libcFuchsiaSigaddset_napi));
+    exports.Set("libcFuchsiaSigfillset", Napi::Function::New(env, libcFuchsiaSigfillset_napi));
+    exports.Set("libcFuchsiaSigdelset", Napi::Function::New(env, libcFuchsiaSigdelset_napi));
+    exports.Set("libcFuchsiaSigismember", Napi::Function::New(env, libcFuchsiaSigismember_napi));
+    exports.Set("libcFuchsiaSigprocmask", Napi::Function::New(env, libcFuchsiaSigprocmask_napi));
+    exports.Set("libcFuchsiaSigpending", Napi::Function::New(env, libcFuchsiaSigpending_napi));
+    exports.Set("libcFuchsiaTimegm", Napi::Function::New(env, libcFuchsiaTimegm_napi));
+    exports.Set("libcFuchsiaGetsid", Napi::Function::New(env, libcFuchsiaGetsid_napi));
+    exports.Set("libcFuchsiaSysconf", Napi::Function::New(env, libcFuchsiaSysconf_napi));
+    exports.Set("libcFuchsiaMkfifo", Napi::Function::New(env, libcFuchsiaMkfifo_napi));
+    exports.Set("libcFuchsiaPselect", Napi::Function::New(env, libcFuchsiaPselect_napi));
+    exports.Set("libcFuchsiaFseeko", Napi::Function::New(env, libcFuchsiaFseeko_napi));
+    exports.Set("libcFuchsiaFtello", Napi::Function::New(env, libcFuchsiaFtello_napi));
+    exports.Set("libcFuchsiaTcdrain", Napi::Function::New(env, libcFuchsiaTcdrain_napi));
+    exports.Set("libcFuchsiaCfgetispeed", Napi::Function::New(env, libcFuchsiaCfgetispeed_napi));
+    exports.Set("libcFuchsiaCfgetospeed", Napi::Function::New(env, libcFuchsiaCfgetospeed_napi));
+    exports.Set("libcFuchsiaCfmakeraw", Napi::Function::New(env, libcFuchsiaCfmakeraw_napi));
+    exports.Set("libcFuchsiaCfsetispeed", Napi::Function::New(env, libcFuchsiaCfsetispeed_napi));
+    exports.Set("libcFuchsiaCfsetospeed", Napi::Function::New(env, libcFuchsiaCfsetospeed_napi));
+    exports.Set("libcFuchsiaCfsetspeed", Napi::Function::New(env, libcFuchsiaCfsetspeed_napi));
+    exports.Set("libcFuchsiaTcgetattr", Napi::Function::New(env, libcFuchsiaTcgetattr_napi));
+    exports.Set("libcFuchsiaTcsetattr", Napi::Function::New(env, libcFuchsiaTcsetattr_napi));
+    exports.Set("libcFuchsiaTcflow", Napi::Function::New(env, libcFuchsiaTcflow_napi));
+    exports.Set("libcFuchsiaTcflush", Napi::Function::New(env, libcFuchsiaTcflush_napi));
+    exports.Set("libcFuchsiaTcgetsid", Napi::Function::New(env, libcFuchsiaTcgetsid_napi));
+    exports.Set("libcFuchsiaTcsendbreak", Napi::Function::New(env, libcFuchsiaTcsendbreak_napi));
+    exports.Set("libcFuchsiaMkstemp", Napi::Function::New(env, libcFuchsiaMkstemp_napi));
+    exports.Set("libcFuchsiaMkdtemp", Napi::Function::New(env, libcFuchsiaMkdtemp_napi));
+    exports.Set("libcFuchsiaTmpnam", Napi::Function::New(env, libcFuchsiaTmpnam_napi));
+    exports.Set("libcFuchsiaOpenlog", Napi::Function::New(env, libcFuchsiaOpenlog_napi));
+    exports.Set("libcFuchsiaCloselog", Napi::Function::New(env, libcFuchsiaCloselog_napi));
+    exports.Set("libcFuchsiaSetlogmask", Napi::Function::New(env, libcFuchsiaSetlogmask_napi));
+    exports.Set("libcFuchsiaSyslog", Napi::Function::New(env, libcFuchsiaSyslog_napi));
+    exports.Set("libcFuchsiaGrantpt", Napi::Function::New(env, libcFuchsiaGrantpt_napi));
+    exports.Set("libcFuchsiaPosixOpenpt", Napi::Function::New(env, libcFuchsiaPosixOpenpt_napi));
+    exports.Set("libcFuchsiaPtsname", Napi::Function::New(env, libcFuchsiaPtsname_napi));
+    exports.Set("libcFuchsiaUnlockpt", Napi::Function::New(env, libcFuchsiaUnlockpt_napi));
+    exports.Set("libcFuchsiaFdatasync", Napi::Function::New(env, libcFuchsiaFdatasync_napi));
+    exports.Set("libcFuchsiaClockGetres", Napi::Function::New(env, libcFuchsiaClockGetres_napi));
+    exports.Set("libcFuchsiaClockGettime", Napi::Function::New(env, libcFuchsiaClockGettime_napi));
+    exports.Set("libcFuchsiaClockSettime", Napi::Function::New(env, libcFuchsiaClockSettime_napi));
+    exports.Set("libcFuchsiaDirfd", Napi::Function::New(env, libcFuchsiaDirfd_napi));
+    exports.Set("libcFuchsiaPthreadGetattrNp", Napi::Function::New(env, libcFuchsiaPthreadGetattrNp_napi));
+    exports.Set("libcFuchsiaPthreadAttrGetstack", Napi::Function::New(env, libcFuchsiaPthreadAttrGetstack_napi));
+    exports.Set("libcFuchsiaMemalign", Napi::Function::New(env, libcFuchsiaMemalign_napi));
+    exports.Set("libcFuchsiaSetgroups", Napi::Function::New(env, libcFuchsiaSetgroups_napi));
+    exports.Set("libcFuchsiaPipe2", Napi::Function::New(env, libcFuchsiaPipe2_napi));
+    exports.Set("libcFuchsiaStatfs", Napi::Function::New(env, libcFuchsiaStatfs_napi));
+    exports.Set("libcFuchsiaFstatfs", Napi::Function::New(env, libcFuchsiaFstatfs_napi));
+    exports.Set("libcFuchsiaMemrchr", Napi::Function::New(env, libcFuchsiaMemrchr_napi));
+    exports.Set("libcFuchsiaPosixFadvise", Napi::Function::New(env, libcFuchsiaPosixFadvise_napi));
+    exports.Set("libcFuchsiaFutimens", Napi::Function::New(env, libcFuchsiaFutimens_napi));
+    exports.Set("libcFuchsiaUtimensat", Napi::Function::New(env, libcFuchsiaUtimensat_napi));
+    exports.Set("libcFuchsiaDuplocale", Napi::Function::New(env, libcFuchsiaDuplocale_napi));
+    exports.Set("libcFuchsiaFreelocale", Napi::Function::New(env, libcFuchsiaFreelocale_napi));
+    exports.Set("libcFuchsiaNewlocale", Napi::Function::New(env, libcFuchsiaNewlocale_napi));
+    exports.Set("libcFuchsiaUselocale", Napi::Function::New(env, libcFuchsiaUselocale_napi));
+    exports.Set("libcFuchsiaFdopendir", Napi::Function::New(env, libcFuchsiaFdopendir_napi));
+    exports.Set("libcFuchsiaMknodat", Napi::Function::New(env, libcFuchsiaMknodat_napi));
+    exports.Set("libcFuchsiaPthreadCondattrGetclock", Napi::Function::New(env, libcFuchsiaPthreadCondattrGetclock_napi));
+    exports.Set("libcFuchsiaPthreadCondattrSetclock", Napi::Function::New(env, libcFuchsiaPthreadCondattrSetclock_napi));
+    exports.Set("libcFuchsiaAccept4", Napi::Function::New(env, libcFuchsiaAccept4_napi));
+    exports.Set("libcFuchsiaPtsnameR", Napi::Function::New(env, libcFuchsiaPtsnameR_napi));
+    exports.Set("libcFuchsiaClearenv", Napi::Function::New(env, libcFuchsiaClearenv_napi));
+    exports.Set("libcFuchsiaWaitid", Napi::Function::New(env, libcFuchsiaWaitid_napi));
+    exports.Set("libcFuchsiaSetreuid", Napi::Function::New(env, libcFuchsiaSetreuid_napi));
+    exports.Set("libcFuchsiaSetregid", Napi::Function::New(env, libcFuchsiaSetregid_napi));
+    exports.Set("libcFuchsiaGetresuid", Napi::Function::New(env, libcFuchsiaGetresuid_napi));
+    exports.Set("libcFuchsiaGetresgid", Napi::Function::New(env, libcFuchsiaGetresgid_napi));
+    exports.Set("libcFuchsiaAcct", Napi::Function::New(env, libcFuchsiaAcct_napi));
+    exports.Set("libcFuchsiaBrk", Napi::Function::New(env, libcFuchsiaBrk_napi));
+    exports.Set("libcFuchsiaSetresgid", Napi::Function::New(env, libcFuchsiaSetresgid_napi));
+    exports.Set("libcFuchsiaSetresuid", Napi::Function::New(env, libcFuchsiaSetresuid_napi));
+    exports.Set("libcFuchsiaOpenpty", Napi::Function::New(env, libcFuchsiaOpenpty_napi));
+    exports.Set("libcFuchsiaExecvpe", Napi::Function::New(env, libcFuchsiaExecvpe_napi));
+    exports.Set("libcFuchsiaFexecve", Napi::Function::New(env, libcFuchsiaFexecve_napi));
+    exports.Set("libcFuchsiaIoctl", Napi::Function::New(env, libcFuchsiaIoctl_napi));
+    exports.Set("libcFuchsiaLutimes", Napi::Function::New(env, libcFuchsiaLutimes_napi));
+    exports.Set("libcFuchsiaSetpwent", Napi::Function::New(env, libcFuchsiaSetpwent_napi));
+    exports.Set("libcFuchsiaEndpwent", Napi::Function::New(env, libcFuchsiaEndpwent_napi));
+    exports.Set("libcFuchsiaGetpwent", Napi::Function::New(env, libcFuchsiaGetpwent_napi));
+    exports.Set("libcFuchsiaShmOpen", Napi::Function::New(env, libcFuchsiaShmOpen_napi));
+    exports.Set("libcFuchsiaShmget", Napi::Function::New(env, libcFuchsiaShmget_napi));
+    exports.Set("libcFuchsiaShmat", Napi::Function::New(env, libcFuchsiaShmat_napi));
+    exports.Set("libcFuchsiaShmdt", Napi::Function::New(env, libcFuchsiaShmdt_napi));
+    exports.Set("libcFuchsiaShmctl", Napi::Function::New(env, libcFuchsiaShmctl_napi));
+    exports.Set("libcFuchsiaFtok", Napi::Function::New(env, libcFuchsiaFtok_napi));
+    exports.Set("libcFuchsiaSemget", Napi::Function::New(env, libcFuchsiaSemget_napi));
+    exports.Set("libcFuchsiaSemop", Napi::Function::New(env, libcFuchsiaSemop_napi));
+    exports.Set("libcFuchsiaSemctl", Napi::Function::New(env, libcFuchsiaSemctl_napi));
+    exports.Set("libcFuchsiaMsgctl", Napi::Function::New(env, libcFuchsiaMsgctl_napi));
+    exports.Set("libcFuchsiaMsgget", Napi::Function::New(env, libcFuchsiaMsgget_napi));
+    exports.Set("libcFuchsiaMsgrcv", Napi::Function::New(env, libcFuchsiaMsgrcv_napi));
+    exports.Set("libcFuchsiaMsgsnd", Napi::Function::New(env, libcFuchsiaMsgsnd_napi));
+    exports.Set("libcFuchsiaMprotect", Napi::Function::New(env, libcFuchsiaMprotect_napi));
+    exports.Set("libcFuchsiaErrnoLocation", Napi::Function::New(env, libcFuchsiaErrnoLocation_napi));
+    exports.Set("libcFuchsiaFallocate", Napi::Function::New(env, libcFuchsiaFallocate_napi));
+    exports.Set("libcFuchsiaPosixFallocate", Napi::Function::New(env, libcFuchsiaPosixFallocate_napi));
+    exports.Set("libcFuchsiaReadahead", Napi::Function::New(env, libcFuchsiaReadahead_napi));
+    exports.Set("libcFuchsiaSignalfd", Napi::Function::New(env, libcFuchsiaSignalfd_napi));
+    exports.Set("libcFuchsiaTimerfdCreate", Napi::Function::New(env, libcFuchsiaTimerfdCreate_napi));
+    exports.Set("libcFuchsiaTimerfdGettime", Napi::Function::New(env, libcFuchsiaTimerfdGettime_napi));
+    exports.Set("libcFuchsiaTimerfdSettime", Napi::Function::New(env, libcFuchsiaTimerfdSettime_napi));
+    exports.Set("libcFuchsiaPwritev", Napi::Function::New(env, libcFuchsiaPwritev_napi));
+    exports.Set("libcFuchsiaPreadv", Napi::Function::New(env, libcFuchsiaPreadv_napi));
+    exports.Set("libcFuchsiaQuotactl", Napi::Function::New(env, libcFuchsiaQuotactl_napi));
+    exports.Set("libcFuchsiaDup3", Napi::Function::New(env, libcFuchsiaDup3_napi));
+    exports.Set("libcFuchsiaMkostemp", Napi::Function::New(env, libcFuchsiaMkostemp_napi));
+    exports.Set("libcFuchsiaMkostemps", Napi::Function::New(env, libcFuchsiaMkostemps_napi));
+    exports.Set("libcFuchsiaSigtimedwait", Napi::Function::New(env, libcFuchsiaSigtimedwait_napi));
+    exports.Set("libcFuchsiaSigwaitinfo", Napi::Function::New(env, libcFuchsiaSigwaitinfo_napi));
+    exports.Set("libcFuchsiaNlLanginfoL", Napi::Function::New(env, libcFuchsiaNlLanginfoL_napi));
+    exports.Set("libcFuchsiaGetnameinfo", Napi::Function::New(env, libcFuchsiaGetnameinfo_napi));
+    exports.Set("libcFuchsiaReboot", Napi::Function::New(env, libcFuchsiaReboot_napi));
+    exports.Set("libcFuchsiaSetfsgid", Napi::Function::New(env, libcFuchsiaSetfsgid_napi));
+    exports.Set("libcFuchsiaSetfsuid", Napi::Function::New(env, libcFuchsiaSetfsuid_napi));
+    exports.Set("libcFuchsiaMkfifoat", Napi::Function::New(env, libcFuchsiaMkfifoat_napi));
+    exports.Set("libcFuchsiaIfNameindex", Napi::Function::New(env, libcFuchsiaIfNameindex_napi));
+    exports.Set("libcFuchsiaIfFreenameindex", Napi::Function::New(env, libcFuchsiaIfFreenameindex_napi));
+    exports.Set("libcFuchsiaSyncFileRange", Napi::Function::New(env, libcFuchsiaSyncFileRange_napi));
+    exports.Set("libcFuchsiaGetifaddrs", Napi::Function::New(env, libcFuchsiaGetifaddrs_napi));
+    exports.Set("libcFuchsiaFreeifaddrs", Napi::Function::New(env, libcFuchsiaFreeifaddrs_napi));
+    exports.Set("libcFuchsiaGlob", Napi::Function::New(env, libcFuchsiaGlob_napi));
+    exports.Set("libcFuchsiaGlobfree", Napi::Function::New(env, libcFuchsiaGlobfree_napi));
+    exports.Set("libcFuchsiaPosixMadvise", Napi::Function::New(env, libcFuchsiaPosixMadvise_napi));
+    exports.Set("libcFuchsiaShmUnlink", Napi::Function::New(env, libcFuchsiaShmUnlink_napi));
+    exports.Set("libcFuchsiaSeekdir", Napi::Function::New(env, libcFuchsiaSeekdir_napi));
+    exports.Set("libcFuchsiaTelldir", Napi::Function::New(env, libcFuchsiaTelldir_napi));
+    exports.Set("libcFuchsiaMadvise", Napi::Function::New(env, libcFuchsiaMadvise_napi));
+    exports.Set("libcFuchsiaMsync", Napi::Function::New(env, libcFuchsiaMsync_napi));
+    exports.Set("libcFuchsiaRecvfrom", Napi::Function::New(env, libcFuchsiaRecvfrom_napi));
+    exports.Set("libcFuchsiaMkstemps", Napi::Function::New(env, libcFuchsiaMkstemps_napi));
+    exports.Set("libcFuchsiaFutimes", Napi::Function::New(env, libcFuchsiaFutimes_napi));
+    exports.Set("libcFuchsiaNlLanginfo", Napi::Function::New(env, libcFuchsiaNlLanginfo_napi));
+    exports.Set("libcFuchsiaBind", Napi::Function::New(env, libcFuchsiaBind_napi));
+    exports.Set("libcFuchsiaWritev", Napi::Function::New(env, libcFuchsiaWritev_napi));
+    exports.Set("libcFuchsiaReadv", Napi::Function::New(env, libcFuchsiaReadv_napi));
+    exports.Set("libcFuchsiaSendmsg", Napi::Function::New(env, libcFuchsiaSendmsg_napi));
+    exports.Set("libcFuchsiaRecvmsg", Napi::Function::New(env, libcFuchsiaRecvmsg_napi));
+    exports.Set("libcFuchsiaGetdomainname", Napi::Function::New(env, libcFuchsiaGetdomainname_napi));
+    exports.Set("libcFuchsiaSetdomainname", Napi::Function::New(env, libcFuchsiaSetdomainname_napi));
+    exports.Set("libcFuchsiaVhangup", Napi::Function::New(env, libcFuchsiaVhangup_napi));
+    exports.Set("libcFuchsiaSendmmsg", Napi::Function::New(env, libcFuchsiaSendmmsg_napi));
+    exports.Set("libcFuchsiaRecvmmsg", Napi::Function::New(env, libcFuchsiaRecvmmsg_napi));
+    exports.Set("libcFuchsiaSync", Napi::Function::New(env, libcFuchsiaSync_napi));
+    exports.Set("libcFuchsiaSyscall", Napi::Function::New(env, libcFuchsiaSyscall_napi));
+    exports.Set("libcFuchsiaSchedGetaffinity", Napi::Function::New(env, libcFuchsiaSchedGetaffinity_napi));
+    exports.Set("libcFuchsiaSchedSetaffinity", Napi::Function::New(env, libcFuchsiaSchedSetaffinity_napi));
+    exports.Set("libcFuchsiaUmount", Napi::Function::New(env, libcFuchsiaUmount_napi));
+    exports.Set("libcFuchsiaSchedGetPriorityMax", Napi::Function::New(env, libcFuchsiaSchedGetPriorityMax_napi));
+    exports.Set("libcFuchsiaTee", Napi::Function::New(env, libcFuchsiaTee_napi));
+    exports.Set("libcFuchsiaSettimeofday", Napi::Function::New(env, libcFuchsiaSettimeofday_napi));
+    exports.Set("libcFuchsiaSplice", Napi::Function::New(env, libcFuchsiaSplice_napi));
+    exports.Set("libcFuchsiaEventfd", Napi::Function::New(env, libcFuchsiaEventfd_napi));
+    exports.Set("libcFuchsiaSchedRrGetInterval", Napi::Function::New(env, libcFuchsiaSchedRrGetInterval_napi));
+    exports.Set("libcFuchsiaSemTimedwait", Napi::Function::New(env, libcFuchsiaSemTimedwait_napi));
+    exports.Set("libcFuchsiaSemGetvalue", Napi::Function::New(env, libcFuchsiaSemGetvalue_napi));
+    exports.Set("libcFuchsiaSchedSetparam", Napi::Function::New(env, libcFuchsiaSchedSetparam_napi));
+    exports.Set("libcFuchsiaSwapoff", Napi::Function::New(env, libcFuchsiaSwapoff_napi));
+    exports.Set("libcFuchsiaVmsplice", Napi::Function::New(env, libcFuchsiaVmsplice_napi));
+    exports.Set("libcFuchsiaMount", Napi::Function::New(env, libcFuchsiaMount_napi));
+    exports.Set("libcFuchsiaPersonality", Napi::Function::New(env, libcFuchsiaPersonality_napi));
+    exports.Set("libcFuchsiaSchedGetparam", Napi::Function::New(env, libcFuchsiaSchedGetparam_napi));
+    exports.Set("libcFuchsiaPpoll", Napi::Function::New(env, libcFuchsiaPpoll_napi));
+    exports.Set("libcFuchsiaPthreadMutexTimedlock", Napi::Function::New(env, libcFuchsiaPthreadMutexTimedlock_napi));
+    exports.Set("libcFuchsiaClone", Napi::Function::New(env, libcFuchsiaClone_napi));
+    exports.Set("libcFuchsiaSchedGetscheduler", Napi::Function::New(env, libcFuchsiaSchedGetscheduler_napi));
+    exports.Set("libcFuchsiaClockNanosleep", Napi::Function::New(env, libcFuchsiaClockNanosleep_napi));
+    exports.Set("libcFuchsiaPthreadAttrGetguardsize", Napi::Function::New(env, libcFuchsiaPthreadAttrGetguardsize_napi));
+    exports.Set("libcFuchsiaPthreadAttrSetguardsize", Napi::Function::New(env, libcFuchsiaPthreadAttrSetguardsize_napi));
+    exports.Set("libcFuchsiaSethostname", Napi::Function::New(env, libcFuchsiaSethostname_napi));
+    exports.Set("libcFuchsiaSchedGetPriorityMin", Napi::Function::New(env, libcFuchsiaSchedGetPriorityMin_napi));
+    exports.Set("libcFuchsiaUmount2", Napi::Function::New(env, libcFuchsiaUmount2_napi));
+    exports.Set("libcFuchsiaSwapon", Napi::Function::New(env, libcFuchsiaSwapon_napi));
+    exports.Set("libcFuchsiaSchedSetscheduler", Napi::Function::New(env, libcFuchsiaSchedSetscheduler_napi));
+    exports.Set("libcFuchsiaSigsuspend", Napi::Function::New(env, libcFuchsiaSigsuspend_napi));
+    exports.Set("libcFuchsiaGetgrgidR", Napi::Function::New(env, libcFuchsiaGetgrgidR_napi));
+    exports.Set("libcFuchsiaSigaltstack", Napi::Function::New(env, libcFuchsiaSigaltstack_napi));
+    exports.Set("libcFuchsiaSemClose", Napi::Function::New(env, libcFuchsiaSemClose_napi));
+    exports.Set("libcFuchsiaGetdtablesize", Napi::Function::New(env, libcFuchsiaGetdtablesize_napi));
+    exports.Set("libcFuchsiaGetgrnamR", Napi::Function::New(env, libcFuchsiaGetgrnamR_napi));
+    exports.Set("libcFuchsiaInitgroups", Napi::Function::New(env, libcFuchsiaInitgroups_napi));
+    exports.Set("libcFuchsiaPthreadSigmask", Napi::Function::New(env, libcFuchsiaPthreadSigmask_napi));
+    exports.Set("libcFuchsiaSemOpen", Napi::Function::New(env, libcFuchsiaSemOpen_napi));
+    exports.Set("libcFuchsiaGetgrnam", Napi::Function::New(env, libcFuchsiaGetgrnam_napi));
+    exports.Set("libcFuchsiaPthreadCancel", Napi::Function::New(env, libcFuchsiaPthreadCancel_napi));
+    exports.Set("libcFuchsiaPthreadKill", Napi::Function::New(env, libcFuchsiaPthreadKill_napi));
+    exports.Set("libcFuchsiaSemUnlink", Napi::Function::New(env, libcFuchsiaSemUnlink_napi));
+    exports.Set("libcFuchsiaDaemon", Napi::Function::New(env, libcFuchsiaDaemon_napi));
+    exports.Set("libcFuchsiaGetpwnamR", Napi::Function::New(env, libcFuchsiaGetpwnamR_napi));
+    exports.Set("libcFuchsiaGetpwuidR", Napi::Function::New(env, libcFuchsiaGetpwuidR_napi));
+    exports.Set("libcFuchsiaSigwait", Napi::Function::New(env, libcFuchsiaSigwait_napi));
+    exports.Set("libcFuchsiaPthreadAtfork", Napi::Function::New(env, libcFuchsiaPthreadAtfork_napi));
+    exports.Set("libcFuchsiaGetgrgid", Napi::Function::New(env, libcFuchsiaGetgrgid_napi));
+    exports.Set("libcFuchsiaSetgrent", Napi::Function::New(env, libcFuchsiaSetgrent_napi));
+    exports.Set("libcFuchsiaEndgrent", Napi::Function::New(env, libcFuchsiaEndgrent_napi));
+    exports.Set("libcFuchsiaGetgrent", Napi::Function::New(env, libcFuchsiaGetgrent_napi));
+    exports.Set("libcFuchsiaGetgrouplist", Napi::Function::New(env, libcFuchsiaGetgrouplist_napi));
+    exports.Set("libcFuchsiaPopen", Napi::Function::New(env, libcFuchsiaPopen_napi));
+    exports.Set("libcFuchsiaFaccessat", Napi::Function::New(env, libcFuchsiaFaccessat_napi));
+    exports.Set("libcFuchsiaPthreadCreate", Napi::Function::New(env, libcFuchsiaPthreadCreate_napi));
+    exports.Set("libcFuchsiaDlIteratePhdr", Napi::Function::New(env, libcFuchsiaDlIteratePhdr_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_fuchsia_napi, nullptr };

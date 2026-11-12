@@ -3,112 +3,120 @@
 package io.github.kotlinmania.libc.unix.haiku
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLonglong
-import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.PidT
+import io.github.kotlinmania.libc.unix.Rusage
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
-import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_bsd_arc4random
-import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_bsd_arc4randomBuf
-import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_bsd_arc4randomUniform
-import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_bsd_daemon
-import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_bsd_dlIteratePhdr
-import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_bsd_explicitBzero
-import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_bsd_forkpty
-import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_bsd_getprogname
-import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_bsd_kevent
-import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_bsd_kqueue
-import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_bsd_loginTty
-import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_bsd_lutimes
-import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_bsd_mkstemps
-import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_bsd_openpty
-import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_bsd_preadv
-import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_bsd_pwritev
-import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_bsd_setprogname
-import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_bsd_slAdd
-import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_bsd_slFind
-import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_bsd_slFree
-import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_bsd_slInit
-import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_bsd_strsep
-import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_bsd_strtonum
-import io.github.kotlinmania.libc.unix.haiku.cinterop.libc_unix_haiku_bsd_wait4
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.Timeval
+import io.github.kotlinmania.libc.unix.Winsize
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libcUnixHaikuBsdArc4random
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libcUnixHaikuBsdArc4randomBuf
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libcUnixHaikuBsdArc4randomUniform
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libcUnixHaikuBsdDaemon
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libcUnixHaikuBsdDlIteratePhdr
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libcUnixHaikuBsdExplicitBzero
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libcUnixHaikuBsdForkpty
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libcUnixHaikuBsdGetprogname
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libcUnixHaikuBsdKevent
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libcUnixHaikuBsdKqueue
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libcUnixHaikuBsdLoginTty
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libcUnixHaikuBsdLutimes
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libcUnixHaikuBsdMkstemps
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libcUnixHaikuBsdOpenpty
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libcUnixHaikuBsdPreadv
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libcUnixHaikuBsdPwritev
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libcUnixHaikuBsdSetprogname
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libcUnixHaikuBsdSlAdd
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libcUnixHaikuBsdSlFind
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libcUnixHaikuBsdSlFree
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libcUnixHaikuBsdSlInit
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libcUnixHaikuBsdStrsep
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libcUnixHaikuBsdStrtonum
+import io.github.kotlinmania.libc.unix.haiku.cinterop.libcUnixHaikuBsdWait4
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
 
 public actual fun daemon(nochdir: CInt, noclose: CInt): CInt =
-    libc_unix_haiku_bsd_daemon(nochdir, noclose)
+    libcUnixHaikuBsdDaemon(nochdir, noclose)
 
-public actual fun getprogname(): COpaquePointer? =
-    libc_unix_haiku_bsd_getprogname()?.let { COpaquePointer(it.toLong()) }
+public actual fun getprogname(): ConstPtr<CChar> =
+    ConstPtr(libcUnixHaikuBsdGetprogname()?.toLong() ?: 0L)
 
-public actual fun setprogname(progname: String?) {
-    libc_unix_haiku_bsd_setprogname(progname)
+public actual fun setprogname(progname: ConstPtr<CChar>) {
+    libcUnixHaikuBsdSetprogname(progname.rawAddress.toCPointer<ByteVar>())
 }
 
 public actual fun arc4random(): UInt =
-    libc_unix_haiku_bsd_arc4random()
+    libcUnixHaikuBsdArc4random()
 
 public actual fun arc4randomUniform(upperBound: UInt): UInt =
-    libc_unix_haiku_bsd_arc4randomUniform(upperBound)
+    libcUnixHaikuBsdArc4randomUniform(upperBound)
 
-public actual fun arc4randomBuf(buf: COpaquePointer?, n: SizeT) {
-    libc_unix_haiku_bsd_arc4randomBuf(buf?.value?.toCPointer<ByteVar>(), n)
+public actual fun arc4randomBuf(buf: MutPtr<CVoid>, n: SizeT) {
+    libcUnixHaikuBsdArc4randomBuf(buf.rawAddress.toCPointer<ByteVar>(), n)
 }
 
-public actual fun mkstemps(template: COpaquePointer?, suffixlen: CInt): CInt =
-    libc_unix_haiku_bsd_mkstemps(template?.value?.toCPointer<ByteVar>(), suffixlen)
+public actual fun mkstemps(template: MutPtr<CChar>, suffixlen: CInt): CInt =
+    libcUnixHaikuBsdMkstemps(template.rawAddress.toCPointer<ByteVar>(), suffixlen)
 
-public actual fun strtonum(nptr: String?, minval: CLonglong, maxval: CLonglong, errstr: COpaquePointer?): CLonglong =
-    libc_unix_haiku_bsd_strtonum(nptr, minval, maxval, errstr?.value?.toCPointer<ByteVar>())
+public actual fun strtonum(nptr: ConstPtr<CChar>, minval: CLonglong, maxval: CLonglong, errstr: MutPtr<ConstPtr<CChar>>): CLonglong =
+    libcUnixHaikuBsdStrtonum(nptr.rawAddress.toCPointer<ByteVar>(), minval, maxval, errstr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun openpty(amaster: COpaquePointer?, aslave: COpaquePointer?, name: COpaquePointer?, termp: COpaquePointer?, winp: COpaquePointer?): CInt =
-    libc_unix_haiku_bsd_openpty(amaster?.value?.toCPointer<ByteVar>(), aslave?.value?.toCPointer<ByteVar>(), name?.value?.toCPointer<ByteVar>(), termp?.value?.toCPointer<ByteVar>(), winp?.value?.toCPointer<ByteVar>())
+public actual fun openpty(amaster: MutPtr<CInt>, aslave: MutPtr<CInt>, name: MutPtr<CChar>, termp: MutPtr<Termios>, winp: MutPtr<Winsize>): CInt =
+    libcUnixHaikuBsdOpenpty(amaster.rawAddress.toCPointer<ByteVar>(), aslave.rawAddress.toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>(), termp.rawAddress.toCPointer<ByteVar>(), winp.rawAddress.toCPointer<ByteVar>())
 
 public actual fun loginTty(fd: CInt): CInt =
-    libc_unix_haiku_bsd_loginTty(fd)
+    libcUnixHaikuBsdLoginTty(fd)
 
-public actual fun forkpty(amaster: COpaquePointer?, name: COpaquePointer?, termp: COpaquePointer?, winp: COpaquePointer?): PidT =
-    libc_unix_haiku_bsd_forkpty(amaster?.value?.toCPointer<ByteVar>(), name?.value?.toCPointer<ByteVar>(), termp?.value?.toCPointer<ByteVar>(), winp?.value?.toCPointer<ByteVar>())
+public actual fun forkpty(amaster: MutPtr<CInt>, name: MutPtr<CChar>, termp: MutPtr<Termios>, winp: MutPtr<Winsize>): PidT =
+    libcUnixHaikuBsdForkpty(amaster.rawAddress.toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>(), termp.rawAddress.toCPointer<ByteVar>(), winp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strsep(string: COpaquePointer?, delimiters: String?): COpaquePointer? =
-    libc_unix_haiku_bsd_strsep(string?.value?.toCPointer<ByteVar>(), delimiters)?.let { COpaquePointer(it.toLong()) }
+public actual fun strsep(string: MutPtr<MutPtr<CChar>>, delimiters: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcUnixHaikuBsdStrsep(string.rawAddress.toCPointer<ByteVar>(), delimiters.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun explicitBzero(buf: COpaquePointer?, len: SizeT) {
-    libc_unix_haiku_bsd_explicitBzero(buf?.value?.toCPointer<ByteVar>(), len)
+public actual fun explicitBzero(buf: MutPtr<CVoid>, len: SizeT) {
+    libcUnixHaikuBsdExplicitBzero(buf.rawAddress.toCPointer<ByteVar>(), len)
 }
 
-public actual fun slInit(): COpaquePointer? =
-    libc_unix_haiku_bsd_slInit()?.let { COpaquePointer(it.toLong()) }
+public actual fun slInit(): MutPtr<StringList> =
+    MutPtr(libcUnixHaikuBsdSlInit()?.toLong() ?: 0L)
 
-public actual fun slAdd(sl: COpaquePointer?, n: COpaquePointer?): CInt =
-    libc_unix_haiku_bsd_slAdd(sl?.value?.toCPointer<ByteVar>(), n?.value?.toCPointer<ByteVar>())
+public actual fun slAdd(sl: MutPtr<StringList>, n: MutPtr<CChar>): CInt =
+    libcUnixHaikuBsdSlAdd(sl.rawAddress.toCPointer<ByteVar>(), n.rawAddress.toCPointer<ByteVar>())
 
-public actual fun slFree(sl: COpaquePointer?, i: CInt) {
-    libc_unix_haiku_bsd_slFree(sl?.value?.toCPointer<ByteVar>(), i)
+public actual fun slFree(sl: MutPtr<StringList>, i: CInt) {
+    libcUnixHaikuBsdSlFree(sl.rawAddress.toCPointer<ByteVar>(), i)
 }
 
-public actual fun slFind(sl: COpaquePointer?, n: COpaquePointer?): COpaquePointer? =
-    libc_unix_haiku_bsd_slFind(sl?.value?.toCPointer<ByteVar>(), n?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun slFind(sl: MutPtr<StringList>, n: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcUnixHaikuBsdSlFind(sl.rawAddress.toCPointer<ByteVar>(), n.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun kqueue(): CInt =
-    libc_unix_haiku_bsd_kqueue()
+    libcUnixHaikuBsdKqueue()
 
-public actual fun kevent(kq: CInt, changelist: COpaquePointer?, nchanges: CInt, eventlist: COpaquePointer?, nevents: CInt, timeout: COpaquePointer?): CInt =
-    libc_unix_haiku_bsd_kevent(kq, changelist?.value?.toCPointer<ByteVar>(), nchanges, eventlist?.value?.toCPointer<ByteVar>(), nevents, timeout?.value?.toCPointer<ByteVar>())
+public actual fun kevent(kq: CInt, changelist: ConstPtr<Kevent>, nchanges: CInt, eventlist: MutPtr<Kevent>, nevents: CInt, timeout: ConstPtr<Timespec>): CInt =
+    libcUnixHaikuBsdKevent(kq, changelist.rawAddress.toCPointer<ByteVar>(), nchanges, eventlist.rawAddress.toCPointer<ByteVar>(), nevents, timeout.rawAddress.toCPointer<ByteVar>())
 
-public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt =
-    libc_unix_haiku_bsd_dlIteratePhdr(0L.toCPointer<ByteVar>(), data?.value?.toCPointer<ByteVar>())
+public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: MutPtr<CVoid>): CInt =
+    libcUnixHaikuBsdDlIteratePhdr(0L.toCPointer<ByteVar>(), data.rawAddress.toCPointer<ByteVar>())
 
-public actual fun lutimes(file: String?, times: COpaquePointer?): CInt =
-    libc_unix_haiku_bsd_lutimes(file, times?.value?.toCPointer<ByteVar>())
+public actual fun lutimes(file: ConstPtr<CChar>, times: ConstPtr<Timeval>): CInt =
+    libcUnixHaikuBsdLutimes(file.rawAddress.toCPointer<ByteVar>(), times.rawAddress.toCPointer<ByteVar>())
 
-public actual fun preadv(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: OffT): SsizeT =
-    libc_unix_haiku_bsd_preadv(fd, iov?.value?.toCPointer<ByteVar>(), iovcnt, offset)
+public actual fun preadv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT =
+    libcUnixHaikuBsdPreadv(fd, iov.rawAddress.toCPointer<ByteVar>(), iovcnt, offset)
 
-public actual fun pwritev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: OffT): SsizeT =
-    libc_unix_haiku_bsd_pwritev(fd, iov?.value?.toCPointer<ByteVar>(), iovcnt, offset)
+public actual fun pwritev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT =
+    libcUnixHaikuBsdPwritev(fd, iov.rawAddress.toCPointer<ByteVar>(), iovcnt, offset)
 
-public actual fun wait4(pid: PidT, status: COpaquePointer?, options: CInt, rusage: COpaquePointer?): PidT =
-    libc_unix_haiku_bsd_wait4(pid, status?.value?.toCPointer<ByteVar>(), options, rusage?.value?.toCPointer<ByteVar>())
+public actual fun wait4(pid: PidT, status: MutPtr<CInt>, options: CInt, rusage: MutPtr<Rusage>): PidT =
+    libcUnixHaikuBsdWait4(pid, status.rawAddress.toCPointer<ByteVar>(), options, rusage.rawAddress.toCPointer<ByteVar>())

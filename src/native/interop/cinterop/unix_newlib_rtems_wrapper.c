@@ -15,7 +15,7 @@
 #endif
 #endif
 
-int32_t libc_unix_newlib_rtems_futimens(int32_t fd, void* times) {
+int32_t libcUnixNewlibRtemsFutimens(int32_t fd, void* times) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -43,7 +43,7 @@ int32_t libc_unix_newlib_rtems_futimens(int32_t fd, void* times) {
     return -1;
 }
 
-int64_t libc_unix_newlib_rtems_writev(int32_t fd, void* iov, int32_t iovcnt) {
+int64_t libcUnixNewlibRtemsWritev(int32_t fd, void* iov, int32_t iovcnt) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -71,7 +71,7 @@ int64_t libc_unix_newlib_rtems_writev(int32_t fd, void* iov, int32_t iovcnt) {
     return -1;
 }
 
-int64_t libc_unix_newlib_rtems_readv(int32_t fd, void* iov, int32_t iovcnt) {
+int64_t libcUnixNewlibRtemsReadv(int32_t fd, void* iov, int32_t iovcnt) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -99,7 +99,7 @@ int64_t libc_unix_newlib_rtems_readv(int32_t fd, void* iov, int32_t iovcnt) {
     return -1;
 }
 
-int32_t libc_unix_newlib_rtems_pthreadCreate(void* native, void* attr, void* f, void* value) {
+int32_t libcUnixNewlibRtemsPthreadCreate(void* native, void* attr, void* f, void* value) {
     typedef int32_t (*km_fn_t)(void*, void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -127,7 +127,7 @@ int32_t libc_unix_newlib_rtems_pthreadCreate(void* native, void* attr, void* f, 
     return ENOSYS;
 }
 
-int32_t libc_unix_newlib_rtems_pthreadCondattrSetclock(void* attr, uint64_t clock_id) {
+int32_t libcUnixNewlibRtemsPthreadCondattrSetclock(void* attr, uint64_t clockId) {
     typedef int32_t (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -149,13 +149,13 @@ int32_t libc_unix_newlib_rtems_pthreadCondattrSetclock(void* attr, uint64_t cloc
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(attr, clock_id);
+        return km_fn_ptr(attr, clockId);
     }
     errno = ENOSYS;
     return ENOSYS;
 }
 
-int32_t libc_unix_newlib_rtems_getentropy(void* buf, uint64_t buflen) {
+int32_t libcUnixNewlibRtemsGetentropy(void* buf, uint64_t buflen) {
     typedef int32_t (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -183,7 +183,7 @@ int32_t libc_unix_newlib_rtems_getentropy(void* buf, uint64_t buflen) {
     return -1;
 }
 
-void libc_unix_newlib_rtems_arc4randomBuf(void* buf, uint64_t nbytes) {
+void libcUnixNewlibRtemsArc4randomBuf(void* buf, uint64_t nbytes) {
     typedef void (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -211,7 +211,7 @@ void libc_unix_newlib_rtems_arc4randomBuf(void* buf, uint64_t nbytes) {
     errno = ENOSYS;
 }
 
-int32_t libc_unix_newlib_rtems_setgroups(int32_t ngroups, void* grouplist) {
+int32_t libcUnixNewlibRtemsSetgroups(int32_t ngroups, void* grouplist) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

@@ -51,7 +51,7 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_hermit_alloc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcHermitAlloc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t size = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     uint64_t align = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -85,7 +85,7 @@ static Napi::Value libc_hermit_alloc_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_hermit_allocZeroed_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcHermitAllocZeroed_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t size = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     uint64_t align = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -119,12 +119,12 @@ static Napi::Value libc_hermit_allocZeroed_napi(const Napi::CallbackInfo& km_inf
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_hermit_realloc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcHermitRealloc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
     uint64_t align = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
-    uint64_t new_size = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
+    uint64_t newSize = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
     typedef void* (*km_fn_t)(void*, uint64_t, uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -147,7 +147,7 @@ static Napi::Value libc_hermit_realloc_napi(const Napi::CallbackInfo& km_info) {
 #endif
     void* km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(ptr, size, align, new_size);
+        km_res = km_fn_ptr(ptr, size, align, newSize);
     } else {
         errno = ENOSYS;
         km_res = nullptr;
@@ -155,7 +155,7 @@ static Napi::Value libc_hermit_realloc_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_hermit_dealloc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcHermitDealloc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -188,7 +188,7 @@ static Napi::Value libc_hermit_dealloc_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_hermit_exit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcHermitExit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t status = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(int32_t);
@@ -219,7 +219,7 @@ static Napi::Value libc_hermit_exit_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_hermit_abort_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcHermitAbort_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -249,7 +249,7 @@ static Napi::Value libc_hermit_abort_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_hermit_errno_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcHermitErrno_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -281,7 +281,7 @@ static Napi::Value libc_hermit_errno_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_hermit_clockGettime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcHermitClockGettime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t clockid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* tp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -315,7 +315,7 @@ static Napi::Value libc_hermit_clockGettime_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_hermit_nanosleep_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcHermitNanosleep_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* req = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -348,7 +348,7 @@ static Napi::Value libc_hermit_nanosleep_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_hermit_availableParallelism_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcHermitAvailableParallelism_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef uint64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -380,7 +380,7 @@ static Napi::Value libc_hermit_availableParallelism_napi(const Napi::CallbackInf
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_hermit_futexWait_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcHermitFutexWait_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* address = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t expected = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -416,7 +416,7 @@ static Napi::Value libc_hermit_futexWait_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_hermit_futexWake_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcHermitFutexWake_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* address = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t count = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -450,12 +450,10 @@ static Napi::Value libc_hermit_futexWake_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_hermit_stat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcHermitStat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
-    void* arg_1_stat = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* arg1Stat = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -478,7 +476,7 @@ static Napi::Value libc_hermit_stat_napi(const Napi::CallbackInfo& km_info) {
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(path, arg_1_stat);
+        km_res = km_fn_ptr(path, arg1Stat);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -486,10 +484,10 @@ static Napi::Value libc_hermit_stat_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_hermit_fstat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcHermitFstat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    void* arg_1_stat = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* arg1Stat = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -512,7 +510,7 @@ static Napi::Value libc_hermit_fstat_napi(const Napi::CallbackInfo& km_info) {
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(fd, arg_1_stat);
+        km_res = km_fn_ptr(fd, arg1Stat);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -520,12 +518,10 @@ static Napi::Value libc_hermit_fstat_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_hermit_lstat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcHermitLstat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
-    void* arg_1_stat = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* arg1Stat = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -548,7 +544,7 @@ static Napi::Value libc_hermit_lstat_napi(const Napi::CallbackInfo& km_info) {
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(path, arg_1_stat);
+        km_res = km_fn_ptr(path, arg1Stat);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -556,11 +552,9 @@ static Napi::Value libc_hermit_lstat_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_hermit_open_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcHermitOpen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     uint32_t mode = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, int32_t, uint32_t);
@@ -593,11 +587,9 @@ static Napi::Value libc_hermit_open_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_hermit_unlink_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcHermitUnlink_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -628,11 +620,9 @@ static Napi::Value libc_hermit_unlink_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_hermit_mkdir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcHermitMkdir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t mode = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -664,11 +654,9 @@ static Napi::Value libc_hermit_mkdir_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_hermit_rmdir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcHermitRmdir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -699,7 +687,7 @@ static Napi::Value libc_hermit_rmdir_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_hermit_read_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcHermitRead_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -734,7 +722,7 @@ static Napi::Value libc_hermit_read_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_hermit_write_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcHermitWrite_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -769,7 +757,7 @@ static Napi::Value libc_hermit_write_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_hermit_readv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcHermitReadv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -804,7 +792,7 @@ static Napi::Value libc_hermit_readv_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_hermit_writev_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcHermitWritev_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -839,7 +827,7 @@ static Napi::Value libc_hermit_writev_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_hermit_close_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcHermitClose_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -872,7 +860,7 @@ static Napi::Value libc_hermit_close_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_hermit_dup_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcHermitDup_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -905,7 +893,7 @@ static Napi::Value libc_hermit_dup_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_hermit_fcntl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcHermitFcntl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t cmd = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -940,7 +928,7 @@ static Napi::Value libc_hermit_fcntl_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_hermit_getdents64_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcHermitGetdents64_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* dirp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -980,14 +968,10 @@ static Napi::Value libc_hermit_getdents64_napi(const Napi::CallbackInfo& km_info
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_hermit_getaddrinfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcHermitGetaddrinfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool nodename_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string nodename_str = nodename_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* nodename = nodename_null ? nullptr : nodename_str.c_str();
-    bool servname_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string servname_str = servname_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* servname = servname_null ? nullptr : servname_str.c_str();
+    const char* nodename = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* servname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* hints = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* res = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(const char*, const char*, void*, void*);
@@ -1020,7 +1004,7 @@ static Napi::Value libc_hermit_getaddrinfo_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_hermit_freeaddrinfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcHermitFreeaddrinfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ai = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -1051,7 +1035,7 @@ static Napi::Value libc_hermit_freeaddrinfo_napi(const Napi::CallbackInfo& km_in
     return km_env.Undefined();
 }
 
-static Napi::Value libc_hermit_socket_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcHermitSocket_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t domain = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t ty = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1086,7 +1070,7 @@ static Napi::Value libc_hermit_socket_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_hermit_bind_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcHermitBind_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t sockfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1121,7 +1105,7 @@ static Napi::Value libc_hermit_bind_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_hermit_listen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcHermitListen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t sockfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t backlog = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1155,7 +1139,7 @@ static Napi::Value libc_hermit_listen_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_hermit_accept_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcHermitAccept_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t sockfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1190,7 +1174,7 @@ static Napi::Value libc_hermit_accept_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_hermit_connect_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcHermitConnect_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t sockfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1225,7 +1209,7 @@ static Napi::Value libc_hermit_connect_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_hermit_recv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcHermitRecv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t sockfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1261,7 +1245,7 @@ static Napi::Value libc_hermit_recv_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_hermit_recvfrom_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcHermitRecvfrom_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t sockfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1299,7 +1283,7 @@ static Napi::Value libc_hermit_recvfrom_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_hermit_send_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcHermitSend_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t sockfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1335,7 +1319,7 @@ static Napi::Value libc_hermit_send_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_hermit_sendto_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcHermitSendto_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t sockfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1373,7 +1357,7 @@ static Napi::Value libc_hermit_sendto_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_hermit_getpeername_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcHermitGetpeername_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t sockfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1408,7 +1392,7 @@ static Napi::Value libc_hermit_getpeername_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_hermit_getsockname_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcHermitGetsockname_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t sockfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1443,7 +1427,7 @@ static Napi::Value libc_hermit_getsockname_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_hermit_getsockopt_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcHermitGetsockopt_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t sockfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t level = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1480,7 +1464,7 @@ static Napi::Value libc_hermit_getsockopt_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_hermit_setsockopt_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcHermitSetsockopt_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t sockfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t level = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1517,7 +1501,7 @@ static Napi::Value libc_hermit_setsockopt_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_hermit_ioctl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcHermitIoctl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t sockfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t cmd = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1552,7 +1536,7 @@ static Napi::Value libc_hermit_ioctl_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_hermit_shutdown_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcHermitShutdown_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t sockfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t how = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1586,7 +1570,7 @@ static Napi::Value libc_hermit_shutdown_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_hermit_eventfd_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcHermitEventfd_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t initval = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     int16_t flags = static_cast<int16_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -1620,7 +1604,7 @@ static Napi::Value libc_hermit_eventfd_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_hermit_poll_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcHermitPoll_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* fds = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t nfds = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1656,52 +1640,52 @@ static Napi::Value libc_hermit_poll_napi(const Napi::CallbackInfo& km_info) {
 }
 
 static void register_hermit_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_hermit_alloc", Napi::Function::New(env, libc_hermit_alloc_napi));
-    exports.Set("libc_hermit_allocZeroed", Napi::Function::New(env, libc_hermit_allocZeroed_napi));
-    exports.Set("libc_hermit_realloc", Napi::Function::New(env, libc_hermit_realloc_napi));
-    exports.Set("libc_hermit_dealloc", Napi::Function::New(env, libc_hermit_dealloc_napi));
-    exports.Set("libc_hermit_exit", Napi::Function::New(env, libc_hermit_exit_napi));
-    exports.Set("libc_hermit_abort", Napi::Function::New(env, libc_hermit_abort_napi));
-    exports.Set("libc_hermit_errno", Napi::Function::New(env, libc_hermit_errno_napi));
-    exports.Set("libc_hermit_clockGettime", Napi::Function::New(env, libc_hermit_clockGettime_napi));
-    exports.Set("libc_hermit_nanosleep", Napi::Function::New(env, libc_hermit_nanosleep_napi));
-    exports.Set("libc_hermit_availableParallelism", Napi::Function::New(env, libc_hermit_availableParallelism_napi));
-    exports.Set("libc_hermit_futexWait", Napi::Function::New(env, libc_hermit_futexWait_napi));
-    exports.Set("libc_hermit_futexWake", Napi::Function::New(env, libc_hermit_futexWake_napi));
-    exports.Set("libc_hermit_stat", Napi::Function::New(env, libc_hermit_stat_napi));
-    exports.Set("libc_hermit_fstat", Napi::Function::New(env, libc_hermit_fstat_napi));
-    exports.Set("libc_hermit_lstat", Napi::Function::New(env, libc_hermit_lstat_napi));
-    exports.Set("libc_hermit_open", Napi::Function::New(env, libc_hermit_open_napi));
-    exports.Set("libc_hermit_unlink", Napi::Function::New(env, libc_hermit_unlink_napi));
-    exports.Set("libc_hermit_mkdir", Napi::Function::New(env, libc_hermit_mkdir_napi));
-    exports.Set("libc_hermit_rmdir", Napi::Function::New(env, libc_hermit_rmdir_napi));
-    exports.Set("libc_hermit_read", Napi::Function::New(env, libc_hermit_read_napi));
-    exports.Set("libc_hermit_write", Napi::Function::New(env, libc_hermit_write_napi));
-    exports.Set("libc_hermit_readv", Napi::Function::New(env, libc_hermit_readv_napi));
-    exports.Set("libc_hermit_writev", Napi::Function::New(env, libc_hermit_writev_napi));
-    exports.Set("libc_hermit_close", Napi::Function::New(env, libc_hermit_close_napi));
-    exports.Set("libc_hermit_dup", Napi::Function::New(env, libc_hermit_dup_napi));
-    exports.Set("libc_hermit_fcntl", Napi::Function::New(env, libc_hermit_fcntl_napi));
-    exports.Set("libc_hermit_getdents64", Napi::Function::New(env, libc_hermit_getdents64_napi));
-    exports.Set("libc_hermit_getaddrinfo", Napi::Function::New(env, libc_hermit_getaddrinfo_napi));
-    exports.Set("libc_hermit_freeaddrinfo", Napi::Function::New(env, libc_hermit_freeaddrinfo_napi));
-    exports.Set("libc_hermit_socket", Napi::Function::New(env, libc_hermit_socket_napi));
-    exports.Set("libc_hermit_bind", Napi::Function::New(env, libc_hermit_bind_napi));
-    exports.Set("libc_hermit_listen", Napi::Function::New(env, libc_hermit_listen_napi));
-    exports.Set("libc_hermit_accept", Napi::Function::New(env, libc_hermit_accept_napi));
-    exports.Set("libc_hermit_connect", Napi::Function::New(env, libc_hermit_connect_napi));
-    exports.Set("libc_hermit_recv", Napi::Function::New(env, libc_hermit_recv_napi));
-    exports.Set("libc_hermit_recvfrom", Napi::Function::New(env, libc_hermit_recvfrom_napi));
-    exports.Set("libc_hermit_send", Napi::Function::New(env, libc_hermit_send_napi));
-    exports.Set("libc_hermit_sendto", Napi::Function::New(env, libc_hermit_sendto_napi));
-    exports.Set("libc_hermit_getpeername", Napi::Function::New(env, libc_hermit_getpeername_napi));
-    exports.Set("libc_hermit_getsockname", Napi::Function::New(env, libc_hermit_getsockname_napi));
-    exports.Set("libc_hermit_getsockopt", Napi::Function::New(env, libc_hermit_getsockopt_napi));
-    exports.Set("libc_hermit_setsockopt", Napi::Function::New(env, libc_hermit_setsockopt_napi));
-    exports.Set("libc_hermit_ioctl", Napi::Function::New(env, libc_hermit_ioctl_napi));
-    exports.Set("libc_hermit_shutdown", Napi::Function::New(env, libc_hermit_shutdown_napi));
-    exports.Set("libc_hermit_eventfd", Napi::Function::New(env, libc_hermit_eventfd_napi));
-    exports.Set("libc_hermit_poll", Napi::Function::New(env, libc_hermit_poll_napi));
+    exports.Set("libcHermitAlloc", Napi::Function::New(env, libcHermitAlloc_napi));
+    exports.Set("libcHermitAllocZeroed", Napi::Function::New(env, libcHermitAllocZeroed_napi));
+    exports.Set("libcHermitRealloc", Napi::Function::New(env, libcHermitRealloc_napi));
+    exports.Set("libcHermitDealloc", Napi::Function::New(env, libcHermitDealloc_napi));
+    exports.Set("libcHermitExit", Napi::Function::New(env, libcHermitExit_napi));
+    exports.Set("libcHermitAbort", Napi::Function::New(env, libcHermitAbort_napi));
+    exports.Set("libcHermitErrno", Napi::Function::New(env, libcHermitErrno_napi));
+    exports.Set("libcHermitClockGettime", Napi::Function::New(env, libcHermitClockGettime_napi));
+    exports.Set("libcHermitNanosleep", Napi::Function::New(env, libcHermitNanosleep_napi));
+    exports.Set("libcHermitAvailableParallelism", Napi::Function::New(env, libcHermitAvailableParallelism_napi));
+    exports.Set("libcHermitFutexWait", Napi::Function::New(env, libcHermitFutexWait_napi));
+    exports.Set("libcHermitFutexWake", Napi::Function::New(env, libcHermitFutexWake_napi));
+    exports.Set("libcHermitStat", Napi::Function::New(env, libcHermitStat_napi));
+    exports.Set("libcHermitFstat", Napi::Function::New(env, libcHermitFstat_napi));
+    exports.Set("libcHermitLstat", Napi::Function::New(env, libcHermitLstat_napi));
+    exports.Set("libcHermitOpen", Napi::Function::New(env, libcHermitOpen_napi));
+    exports.Set("libcHermitUnlink", Napi::Function::New(env, libcHermitUnlink_napi));
+    exports.Set("libcHermitMkdir", Napi::Function::New(env, libcHermitMkdir_napi));
+    exports.Set("libcHermitRmdir", Napi::Function::New(env, libcHermitRmdir_napi));
+    exports.Set("libcHermitRead", Napi::Function::New(env, libcHermitRead_napi));
+    exports.Set("libcHermitWrite", Napi::Function::New(env, libcHermitWrite_napi));
+    exports.Set("libcHermitReadv", Napi::Function::New(env, libcHermitReadv_napi));
+    exports.Set("libcHermitWritev", Napi::Function::New(env, libcHermitWritev_napi));
+    exports.Set("libcHermitClose", Napi::Function::New(env, libcHermitClose_napi));
+    exports.Set("libcHermitDup", Napi::Function::New(env, libcHermitDup_napi));
+    exports.Set("libcHermitFcntl", Napi::Function::New(env, libcHermitFcntl_napi));
+    exports.Set("libcHermitGetdents64", Napi::Function::New(env, libcHermitGetdents64_napi));
+    exports.Set("libcHermitGetaddrinfo", Napi::Function::New(env, libcHermitGetaddrinfo_napi));
+    exports.Set("libcHermitFreeaddrinfo", Napi::Function::New(env, libcHermitFreeaddrinfo_napi));
+    exports.Set("libcHermitSocket", Napi::Function::New(env, libcHermitSocket_napi));
+    exports.Set("libcHermitBind", Napi::Function::New(env, libcHermitBind_napi));
+    exports.Set("libcHermitListen", Napi::Function::New(env, libcHermitListen_napi));
+    exports.Set("libcHermitAccept", Napi::Function::New(env, libcHermitAccept_napi));
+    exports.Set("libcHermitConnect", Napi::Function::New(env, libcHermitConnect_napi));
+    exports.Set("libcHermitRecv", Napi::Function::New(env, libcHermitRecv_napi));
+    exports.Set("libcHermitRecvfrom", Napi::Function::New(env, libcHermitRecvfrom_napi));
+    exports.Set("libcHermitSend", Napi::Function::New(env, libcHermitSend_napi));
+    exports.Set("libcHermitSendto", Napi::Function::New(env, libcHermitSendto_napi));
+    exports.Set("libcHermitGetpeername", Napi::Function::New(env, libcHermitGetpeername_napi));
+    exports.Set("libcHermitGetsockname", Napi::Function::New(env, libcHermitGetsockname_napi));
+    exports.Set("libcHermitGetsockopt", Napi::Function::New(env, libcHermitGetsockopt_napi));
+    exports.Set("libcHermitSetsockopt", Napi::Function::New(env, libcHermitSetsockopt_napi));
+    exports.Set("libcHermitIoctl", Napi::Function::New(env, libcHermitIoctl_napi));
+    exports.Set("libcHermitShutdown", Napi::Function::New(env, libcHermitShutdown_napi));
+    exports.Set("libcHermitEventfd", Napi::Function::New(env, libcHermitEventfd_napi));
+    exports.Set("libcHermitPoll", Napi::Function::New(env, libcHermitPoll_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_hermit_napi, nullptr };

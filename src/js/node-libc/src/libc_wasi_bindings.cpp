@@ -51,7 +51,7 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_wasi_get_ENVIRON_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiGetENVIRON_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     static void** km_sym_ptr = nullptr;
 #ifdef _WIN32
@@ -76,7 +76,7 @@ static Napi::Value libc_wasi_get_ENVIRON_napi(const Napi::CallbackInfo& km_info)
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_set_ENVIRON_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiSetENVIRON_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     static void** km_sym_ptr = nullptr;
@@ -104,7 +104,7 @@ static Napi::Value libc_wasi_set_ENVIRON_napi(const Napi::CallbackInfo& km_info)
     return km_env.Undefined();
 }
 
-static Napi::Value libc_wasi_get_CLOCK_MONOTONIC1_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiGetCLOCKMONOTONIC1_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     static uint8_t* km_sym_ptr = nullptr;
 #ifdef _WIN32
@@ -127,7 +127,7 @@ static Napi::Value libc_wasi_get_CLOCK_MONOTONIC1_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_get_CLOCK_REALTIME1_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiGetCLOCKREALTIME1_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     static uint8_t* km_sym_ptr = nullptr;
 #ifdef _WIN32
@@ -150,7 +150,7 @@ static Napi::Value libc_wasi_get_CLOCK_REALTIME1_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_exit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiExit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t code = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(int32_t);
@@ -179,7 +179,7 @@ static Napi::Value libc_wasi_exit_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_wasi_abort_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiAbort_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -209,7 +209,7 @@ static Napi::Value libc_wasi_abort_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_wasi_alignedAlloc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiAlignedAlloc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t a = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     uint64_t b = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -243,7 +243,7 @@ static Napi::Value libc_wasi_alignedAlloc_napi(const Napi::CallbackInfo& km_info
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_calloc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiCalloc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t amt = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     uint64_t amt2 = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -277,7 +277,7 @@ static Napi::Value libc_wasi_calloc_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_free_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiFree_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -308,11 +308,9 @@ static Napi::Value libc_wasi_free_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_wasi_getenv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiGetenv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef char* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -343,7 +341,7 @@ static Napi::Value libc_wasi_getenv_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_malloc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiMalloc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint64_t amt = km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0;
     typedef void* (*km_fn_t)(uint64_t);
@@ -376,7 +374,7 @@ static Napi::Value libc_wasi_malloc_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_mallocUsableSize_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiMallocUsableSize_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef uint64_t (*km_fn_t)(void*);
@@ -409,7 +407,7 @@ static Napi::Value libc_wasi_mallocUsableSize_napi(const Napi::CallbackInfo& km_
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_wasi_sbrk_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiSbrk_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int64_t increment = km_info.Length() > 0 ? km_napi_arg_i64(km_info[0]) : 0;
     typedef void* (*km_fn_t)(int64_t);
@@ -442,7 +440,7 @@ static Napi::Value libc_wasi_sbrk_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_rand_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiRand_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -474,7 +472,7 @@ static Napi::Value libc_wasi_rand_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_read_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiRead_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* ptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -509,7 +507,7 @@ static Napi::Value libc_wasi_read_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_wasi_realloc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiRealloc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t amt = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -543,14 +541,10 @@ static Napi::Value libc_wasi_realloc_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_setenv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiSetenv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool k_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string k_str = k_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* k = k_null ? nullptr : k_str.c_str();
-    bool v_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string v_str = v_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* v = v_null ? nullptr : v_str.c_str();
+    const char* k = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* v = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t a = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -582,11 +576,9 @@ static Napi::Value libc_wasi_setenv_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_unsetenv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiUnsetenv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool k_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string k_str = k_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* k = k_null ? nullptr : k_str.c_str();
+    const char* k = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -617,7 +609,7 @@ static Napi::Value libc_wasi_unsetenv_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_clearenv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiClearenv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -649,7 +641,7 @@ static Napi::Value libc_wasi_clearenv_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_write_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiWrite_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* ptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -684,14 +676,10 @@ static Napi::Value libc_wasi_write_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_wasi_fopen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiFopen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool a_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string a_str = a_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* a = a_null ? nullptr : a_str.c_str();
-    bool b_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string b_str = b_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* b = b_null ? nullptr : b_str.c_str();
+    const char* a = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* b = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef void* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -722,14 +710,10 @@ static Napi::Value libc_wasi_fopen_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_freopen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiFreopen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool a_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string a_str = a_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* a = a_null ? nullptr : a_str.c_str();
-    bool b_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string b_str = b_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* b = b_null ? nullptr : b_str.c_str();
+    const char* a = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* b = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* f = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef void* (*km_fn_t)(const char*, const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -761,7 +745,7 @@ static Napi::Value libc_wasi_freopen_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_fclose_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiFclose_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* f = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -794,11 +778,9 @@ static Napi::Value libc_wasi_fclose_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_remove_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiRemove_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool a_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string a_str = a_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* a = a_null ? nullptr : a_str.c_str();
+    const char* a = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -829,14 +811,10 @@ static Napi::Value libc_wasi_remove_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_rename_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiRename_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool a_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string a_str = a_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* a = a_null ? nullptr : a_str.c_str();
-    bool b_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string b_str = b_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* b = b_null ? nullptr : b_str.c_str();
+    const char* a = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* b = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -867,7 +845,7 @@ static Napi::Value libc_wasi_rename_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_feof_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiFeof_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* f = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -900,7 +878,7 @@ static Napi::Value libc_wasi_feof_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_ferror_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiFerror_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* f = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -933,7 +911,7 @@ static Napi::Value libc_wasi_ferror_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_fflush_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiFflush_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* f = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -966,7 +944,7 @@ static Napi::Value libc_wasi_fflush_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_clearerr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiClearerr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* f = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -997,7 +975,7 @@ static Napi::Value libc_wasi_clearerr_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_wasi_fseek_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiFseek_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* f = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int64_t b = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
@@ -1032,7 +1010,7 @@ static Napi::Value libc_wasi_fseek_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_ftell_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiFtell_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* f = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(void*);
@@ -1065,7 +1043,7 @@ static Napi::Value libc_wasi_ftell_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_wasi_rewind_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiRewind_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* f = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -1096,7 +1074,7 @@ static Napi::Value libc_wasi_rewind_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_wasi_fgetpos_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiFgetpos_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* f = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* pos = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1130,7 +1108,7 @@ static Napi::Value libc_wasi_fgetpos_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_fsetpos_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiFsetpos_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* f = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* pos = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1164,7 +1142,7 @@ static Napi::Value libc_wasi_fsetpos_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_fread_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiFread_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t a = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1200,7 +1178,7 @@ static Napi::Value libc_wasi_fread_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_wasi_fwrite_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiFwrite_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t a = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1236,7 +1214,7 @@ static Napi::Value libc_wasi_fwrite_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_wasi_fgetc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiFgetc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* f = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -1269,7 +1247,7 @@ static Napi::Value libc_wasi_fgetc_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_getc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiGetc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* f = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -1302,7 +1280,7 @@ static Napi::Value libc_wasi_getc_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_getchar_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiGetchar_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1334,7 +1312,7 @@ static Napi::Value libc_wasi_getchar_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_ungetc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiUngetc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* f = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1368,7 +1346,7 @@ static Napi::Value libc_wasi_ungetc_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_fputc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiFputc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* f = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1402,7 +1380,7 @@ static Napi::Value libc_wasi_fputc_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_putc_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPutc_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* f = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -1436,7 +1414,7 @@ static Napi::Value libc_wasi_putc_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_putchar_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPutchar_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -1469,11 +1447,9 @@ static Napi::Value libc_wasi_putchar_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_fputs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiFputs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool a_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string a_str = a_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* a = a_null ? nullptr : a_str.c_str();
+    const char* a = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* f = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1505,11 +1481,9 @@ static Napi::Value libc_wasi_fputs_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_puts_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPuts_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool a_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string a_str = a_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* a = a_null ? nullptr : a_str.c_str();
+    const char* a = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1540,11 +1514,9 @@ static Napi::Value libc_wasi_puts_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_perror_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPerror_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool a_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string a_str = a_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* a = a_null ? nullptr : a_str.c_str();
+    const char* a = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -1573,7 +1545,7 @@ static Napi::Value libc_wasi_perror_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_wasi_srand_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiSrand_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t a = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(uint32_t);
@@ -1604,7 +1576,7 @@ static Napi::Value libc_wasi_srand_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_wasi_atexit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiAtexit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* a = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     if (a == nullptr) {
@@ -1646,7 +1618,7 @@ static Napi::Value libc_wasi_atexit_napi(const Napi::CallbackInfo& km_info) {
 #endif
 }
 
-static Napi::Value libc_wasi_atQuickExit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiAtQuickExit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* a = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -1679,7 +1651,7 @@ static Napi::Value libc_wasi_atQuickExit_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_quickExit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiQuickExit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t a = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(int32_t);
@@ -1710,7 +1682,7 @@ static Napi::Value libc_wasi_quickExit_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_wasi_posixMemalign_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPosixMemalign_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* a = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t b = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -1745,7 +1717,7 @@ static Napi::Value libc_wasi_posixMemalign_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_randR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiRandR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* a = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -1778,7 +1750,7 @@ static Napi::Value libc_wasi_randR_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_random_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiRandom_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1810,7 +1782,7 @@ static Napi::Value libc_wasi_random_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_wasi_srandom_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiSrandom_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t a = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void (*km_fn_t)(uint32_t);
@@ -1841,7 +1813,7 @@ static Napi::Value libc_wasi_srandom_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_wasi_putenv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPutenv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* a = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(char*);
@@ -1874,7 +1846,7 @@ static Napi::Value libc_wasi_putenv_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_clock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiClock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -1906,7 +1878,7 @@ static Napi::Value libc_wasi_clock_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_wasi_time_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiTime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* a = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(void*);
@@ -1939,7 +1911,7 @@ static Napi::Value libc_wasi_time_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_wasi_difftime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiDifftime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int64_t a = km_info.Length() > 0 ? km_napi_arg_i64(km_info[0]) : 0;
     int64_t b = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
@@ -1973,7 +1945,7 @@ static Napi::Value libc_wasi_difftime_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
-static Napi::Value libc_wasi_mktime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiMktime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* a = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(void*);
@@ -2006,13 +1978,11 @@ static Napi::Value libc_wasi_mktime_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_wasi_strftime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiStrftime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* a = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t b = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
-    bool c_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string c_str = c_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* c = c_null ? nullptr : c_str.c_str();
+    const char* c = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* d = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef uint64_t (*km_fn_t)(char*, uint64_t, const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -2044,7 +2014,7 @@ static Napi::Value libc_wasi_strftime_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_wasi_gmtime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiGmtime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* a = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -2077,7 +2047,7 @@ static Napi::Value libc_wasi_gmtime_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_gmtimeR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiGmtimeR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* a = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* b = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2111,7 +2081,7 @@ static Napi::Value libc_wasi_gmtimeR_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_localtime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiLocaltime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* a = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -2144,7 +2114,7 @@ static Napi::Value libc_wasi_localtime_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_localtimeR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiLocaltimeR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* a = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* b = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2178,7 +2148,7 @@ static Napi::Value libc_wasi_localtimeR_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_asctimeR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiAsctimeR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* a = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* b = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2212,7 +2182,7 @@ static Napi::Value libc_wasi_asctimeR_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_ctimeR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiCtimeR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* a = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* b = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2246,7 +2216,7 @@ static Napi::Value libc_wasi_ctimeR_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_nanosleep_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiNanosleep_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* a = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* b = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2280,7 +2250,7 @@ static Napi::Value libc_wasi_nanosleep_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_isalnum_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiIsalnum_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -2313,7 +2283,7 @@ static Napi::Value libc_wasi_isalnum_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_isalpha_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiIsalpha_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -2346,7 +2316,7 @@ static Napi::Value libc_wasi_isalpha_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_iscntrl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiIscntrl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -2379,7 +2349,7 @@ static Napi::Value libc_wasi_iscntrl_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_isdigit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiIsdigit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -2412,7 +2382,7 @@ static Napi::Value libc_wasi_isdigit_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_isgraph_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiIsgraph_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -2445,7 +2415,7 @@ static Napi::Value libc_wasi_isgraph_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_islower_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiIslower_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -2478,7 +2448,7 @@ static Napi::Value libc_wasi_islower_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_isprint_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiIsprint_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -2511,7 +2481,7 @@ static Napi::Value libc_wasi_isprint_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_ispunct_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiIspunct_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -2544,7 +2514,7 @@ static Napi::Value libc_wasi_ispunct_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_isspace_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiIsspace_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -2577,7 +2547,7 @@ static Napi::Value libc_wasi_isspace_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_isupper_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiIsupper_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -2610,7 +2580,7 @@ static Napi::Value libc_wasi_isupper_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_isxdigit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiIsxdigit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -2643,7 +2613,7 @@ static Napi::Value libc_wasi_isxdigit_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_isblank_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiIsblank_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -2676,7 +2646,7 @@ static Napi::Value libc_wasi_isblank_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_tolower_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiTolower_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -2709,7 +2679,7 @@ static Napi::Value libc_wasi_tolower_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_toupper_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiToupper_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -2742,7 +2712,7 @@ static Napi::Value libc_wasi_toupper_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_setvbuf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiSetvbuf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* buffer = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2778,7 +2748,7 @@ static Napi::Value libc_wasi_setvbuf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_setbuf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiSetbuf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -2810,7 +2780,7 @@ static Napi::Value libc_wasi_setbuf_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_wasi_fgets_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiFgets_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t n = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -2845,11 +2815,9 @@ static Napi::Value libc_wasi_fgets_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_atof_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiAtof_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef double (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2880,11 +2848,9 @@ static Napi::Value libc_wasi_atof_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
-static Napi::Value libc_wasi_atoi_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiAtoi_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2915,11 +2881,9 @@ static Napi::Value libc_wasi_atoi_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_atol_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiAtol_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2950,11 +2914,9 @@ static Napi::Value libc_wasi_atol_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_wasi_atoll_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiAtoll_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -2985,11 +2947,9 @@ static Napi::Value libc_wasi_atoll_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_wasi_strtod_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiStrtod_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* endp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef double (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3021,11 +2981,9 @@ static Napi::Value libc_wasi_strtod_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
-static Napi::Value libc_wasi_strtof_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiStrtof_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* endp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef float (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3057,11 +3015,9 @@ static Napi::Value libc_wasi_strtof_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
-static Napi::Value libc_wasi_strtol_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiStrtol_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* endp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t base = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(const char*, void*, int32_t);
@@ -3094,11 +3050,9 @@ static Napi::Value libc_wasi_strtol_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_wasi_strtoll_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiStrtoll_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* endp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t base = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(const char*, void*, int32_t);
@@ -3131,11 +3085,9 @@ static Napi::Value libc_wasi_strtoll_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_wasi_strtoul_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiStrtoul_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* endp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t base = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef uint64_t (*km_fn_t)(const char*, void*, int32_t);
@@ -3168,11 +3120,9 @@ static Napi::Value libc_wasi_strtoul_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_wasi_strtoull_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiStrtoull_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* endp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t base = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef uint64_t (*km_fn_t)(const char*, void*, int32_t);
@@ -3205,12 +3155,10 @@ static Napi::Value libc_wasi_strtoull_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_wasi_strcpy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiStrcpy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* dst = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool src_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string src_str = src_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* src = src_null ? nullptr : src_str.c_str();
+    const char* src = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef char* (*km_fn_t)(char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3241,12 +3189,10 @@ static Napi::Value libc_wasi_strcpy_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_strncpy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiStrncpy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* dst = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool src_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string src_str = src_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* src = src_null ? nullptr : src_str.c_str();
+    const char* src = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t n = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef char* (*km_fn_t)(char*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3278,12 +3224,10 @@ static Napi::Value libc_wasi_strncpy_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_strcat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiStrcat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* s = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool ct_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string ct_str = ct_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* ct = ct_null ? nullptr : ct_str.c_str();
+    const char* ct = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef char* (*km_fn_t)(char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3314,12 +3258,10 @@ static Napi::Value libc_wasi_strcat_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_strncat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiStrncat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* s = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool ct_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string ct_str = ct_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* ct = ct_null ? nullptr : ct_str.c_str();
+    const char* ct = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t n = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef char* (*km_fn_t)(char*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3351,14 +3293,10 @@ static Napi::Value libc_wasi_strncat_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_strcmp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiStrcmp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool cs_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string cs_str = cs_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* cs = cs_null ? nullptr : cs_str.c_str();
-    bool ct_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string ct_str = ct_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* ct = ct_null ? nullptr : ct_str.c_str();
+    const char* cs = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* ct = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3389,14 +3327,10 @@ static Napi::Value libc_wasi_strcmp_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_strncmp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiStrncmp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool cs_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string cs_str = cs_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* cs = cs_null ? nullptr : cs_str.c_str();
-    bool ct_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string ct_str = ct_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* ct = ct_null ? nullptr : ct_str.c_str();
+    const char* cs = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* ct = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t n = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef int32_t (*km_fn_t)(const char*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3428,14 +3362,10 @@ static Napi::Value libc_wasi_strncmp_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_strcoll_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiStrcoll_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool cs_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string cs_str = cs_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* cs = cs_null ? nullptr : cs_str.c_str();
-    bool ct_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string ct_str = ct_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* ct = ct_null ? nullptr : ct_str.c_str();
+    const char* cs = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* ct = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3466,11 +3396,9 @@ static Napi::Value libc_wasi_strcoll_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_strchr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiStrchr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool cs_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string cs_str = cs_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* cs = cs_null ? nullptr : cs_str.c_str();
+    const char* cs = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t c = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef char* (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3502,11 +3430,9 @@ static Napi::Value libc_wasi_strchr_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_strrchr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiStrrchr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool cs_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string cs_str = cs_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* cs = cs_null ? nullptr : cs_str.c_str();
+    const char* cs = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t c = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef char* (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3538,14 +3464,10 @@ static Napi::Value libc_wasi_strrchr_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_strspn_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiStrspn_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool cs_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string cs_str = cs_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* cs = cs_null ? nullptr : cs_str.c_str();
-    bool ct_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string ct_str = ct_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* ct = ct_null ? nullptr : ct_str.c_str();
+    const char* cs = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* ct = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef uint64_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3576,14 +3498,10 @@ static Napi::Value libc_wasi_strspn_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_wasi_strcspn_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiStrcspn_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool cs_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string cs_str = cs_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* cs = cs_null ? nullptr : cs_str.c_str();
-    bool ct_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string ct_str = ct_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* ct = ct_null ? nullptr : ct_str.c_str();
+    const char* cs = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* ct = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef uint64_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3614,11 +3532,9 @@ static Napi::Value libc_wasi_strcspn_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_wasi_strdup_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiStrdup_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool cs_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string cs_str = cs_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* cs = cs_null ? nullptr : cs_str.c_str();
+    const char* cs = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef char* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3649,11 +3565,9 @@ static Napi::Value libc_wasi_strdup_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_strndup_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiStrndup_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool cs_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string cs_str = cs_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* cs = cs_null ? nullptr : cs_str.c_str();
+    const char* cs = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t n = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
     typedef char* (*km_fn_t)(const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3685,14 +3599,10 @@ static Napi::Value libc_wasi_strndup_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_strpbrk_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiStrpbrk_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool cs_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string cs_str = cs_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* cs = cs_null ? nullptr : cs_str.c_str();
-    bool ct_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string ct_str = ct_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* ct = ct_null ? nullptr : ct_str.c_str();
+    const char* cs = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* ct = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef char* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3723,14 +3633,10 @@ static Napi::Value libc_wasi_strpbrk_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_strstr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiStrstr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool cs_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string cs_str = cs_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* cs = cs_null ? nullptr : cs_str.c_str();
-    bool ct_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string ct_str = ct_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* ct = ct_null ? nullptr : ct_str.c_str();
+    const char* cs = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* ct = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef char* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3761,14 +3667,10 @@ static Napi::Value libc_wasi_strstr_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_strcasecmp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiStrcasecmp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s1_str = s1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s1 = s1_null ? nullptr : s1_str.c_str();
-    bool s2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string s2_str = s2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* s2 = s2_null ? nullptr : s2_str.c_str();
+    const char* s1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* s2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3799,14 +3701,10 @@ static Napi::Value libc_wasi_strcasecmp_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_strncasecmp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiStrncasecmp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s1_str = s1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s1 = s1_null ? nullptr : s1_str.c_str();
-    bool s2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string s2_str = s2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* s2 = s2_null ? nullptr : s2_str.c_str();
+    const char* s1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* s2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t n = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef int32_t (*km_fn_t)(const char*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3838,11 +3736,9 @@ static Napi::Value libc_wasi_strncasecmp_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_strlen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiStrlen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool cs_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string cs_str = cs_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* cs = cs_null ? nullptr : cs_str.c_str();
+    const char* cs = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef uint64_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3873,11 +3769,9 @@ static Napi::Value libc_wasi_strlen_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_wasi_strnlen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiStrnlen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool cs_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string cs_str = cs_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* cs = cs_null ? nullptr : cs_str.c_str();
+    const char* cs = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t maxlen = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
     typedef uint64_t (*km_fn_t)(const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -3909,7 +3803,7 @@ static Napi::Value libc_wasi_strnlen_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_wasi_strerror_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiStrerror_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t n = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef char* (*km_fn_t)(int32_t);
@@ -3942,12 +3836,10 @@ static Napi::Value libc_wasi_strerror_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_strtok_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiStrtok_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* s = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool t_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string t_str = t_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* t = t_null ? nullptr : t_str.c_str();
+    const char* t = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef char* (*km_fn_t)(char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -3978,12 +3870,10 @@ static Napi::Value libc_wasi_strtok_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_strxfrm_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiStrxfrm_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* s = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool ct_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string ct_str = ct_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* ct = ct_null ? nullptr : ct_str.c_str();
+    const char* ct = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t n = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef uint64_t (*km_fn_t)(char*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4015,7 +3905,7 @@ static Napi::Value libc_wasi_strxfrm_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_wasi_memchr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiMemchr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cx = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t c = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4050,7 +3940,7 @@ static Napi::Value libc_wasi_memchr_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_memcmp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiMemcmp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cx = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* ct = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -4085,7 +3975,7 @@ static Napi::Value libc_wasi_memcmp_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_memcpy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiMemcpy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* dest = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* src = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -4120,7 +4010,7 @@ static Napi::Value libc_wasi_memcpy_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_memmove_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiMemmove_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* dest = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* src = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -4155,7 +4045,7 @@ static Napi::Value libc_wasi_memmove_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_memset_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiMemset_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* dest = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t c = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4190,12 +4080,10 @@ static Napi::Value libc_wasi_memset_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_fprintf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiFprintf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool format_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string format_str = format_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* format = format_null ? nullptr : format_str.c_str();
+    const char* format = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t km_vac = km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
     int64_t km_va1 = km_info.Length() > 4 ? km_napi_arg_i64(km_info[4]) : 0;
@@ -4236,11 +4124,9 @@ static Napi::Value libc_wasi_fprintf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_printf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPrintf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool format_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string format_str = format_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* format = format_null ? nullptr : format_str.c_str();
+    const char* format = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t km_vac = km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 2 ? km_napi_arg_i64(km_info[2]) : 0;
     int64_t km_va1 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
@@ -4281,13 +4167,11 @@ static Napi::Value libc_wasi_printf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_snprintf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiSnprintf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* s = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t n = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
-    bool format_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string format_str = format_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* format = format_null ? nullptr : format_str.c_str();
+    const char* format = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     int32_t km_vac = km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 4 ? km_napi_arg_i64(km_info[4]) : 0;
     int64_t km_va1 = km_info.Length() > 5 ? km_napi_arg_i64(km_info[5]) : 0;
@@ -4328,12 +4212,10 @@ static Napi::Value libc_wasi_snprintf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_sprintf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiSprintf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* s = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool format_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string format_str = format_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* format = format_null ? nullptr : format_str.c_str();
+    const char* format = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t km_vac = km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
     int64_t km_va1 = km_info.Length() > 4 ? km_napi_arg_i64(km_info[4]) : 0;
@@ -4374,12 +4256,10 @@ static Napi::Value libc_wasi_sprintf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_fscanf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiFscanf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool format_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string format_str = format_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* format = format_null ? nullptr : format_str.c_str();
+    const char* format = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t km_vac = km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
     int64_t km_va1 = km_info.Length() > 4 ? km_napi_arg_i64(km_info[4]) : 0;
@@ -4420,11 +4300,9 @@ static Napi::Value libc_wasi_fscanf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_scanf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiScanf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool format_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string format_str = format_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* format = format_null ? nullptr : format_str.c_str();
+    const char* format = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t km_vac = km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 2 ? km_napi_arg_i64(km_info[2]) : 0;
     int64_t km_va1 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
@@ -4465,14 +4343,10 @@ static Napi::Value libc_wasi_scanf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_sscanf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiSscanf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
-    bool format_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string format_str = format_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* format = format_null ? nullptr : format_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* format = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t km_vac = km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
     int64_t km_va1 = km_info.Length() > 4 ? km_napi_arg_i64(km_info[4]) : 0;
@@ -4513,7 +4387,7 @@ static Napi::Value libc_wasi_sscanf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_getcharUnlocked_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiGetcharUnlocked_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4545,7 +4419,7 @@ static Napi::Value libc_wasi_getcharUnlocked_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_putcharUnlocked_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPutcharUnlocked_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t c = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -4578,9 +4452,9 @@ static Napi::Value libc_wasi_putcharUnlocked_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_shutdown_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiShutdown_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t arg0Socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t how = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4604,7 +4478,7 @@ static Napi::Value libc_wasi_shutdown_napi(const Napi::CallbackInfo& km_info) {
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_socket, how);
+        km_res = km_fn_ptr(arg0Socket, how);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -4612,7 +4486,7 @@ static Napi::Value libc_wasi_shutdown_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_fstat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiFstat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fildes = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -4646,11 +4520,9 @@ static Napi::Value libc_wasi_fstat_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_mkdir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiMkdir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t mode = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4682,11 +4554,9 @@ static Napi::Value libc_wasi_mkdir_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_stat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiStat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4718,12 +4588,10 @@ static Napi::Value libc_wasi_stat_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_fdopen_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiFdopen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool mode_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string mode_str = mode_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* mode = mode_null ? nullptr : mode_str.c_str();
+    const char* mode = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef void* (*km_fn_t)(int32_t, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4754,7 +4622,7 @@ static Napi::Value libc_wasi_fdopen_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_fileno_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiFileno_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -4787,11 +4655,9 @@ static Napi::Value libc_wasi_fileno_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_open_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiOpen_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t oflag = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     int32_t km_vac = km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 3 ? km_napi_arg_i64(km_info[3]) : 0;
@@ -4833,11 +4699,9 @@ static Napi::Value libc_wasi_open_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_creat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiCreat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t mode = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -4869,7 +4733,7 @@ static Napi::Value libc_wasi_creat_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_fcntl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiFcntl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t cmd = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -4913,11 +4777,9 @@ static Napi::Value libc_wasi_fcntl_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_opendir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiOpendir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool dirname_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string dirname_str = dirname_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* dirname = dirname_null ? nullptr : dirname_str.c_str();
+    const char* dirname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -4948,7 +4810,7 @@ static Napi::Value libc_wasi_opendir_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_fdopendir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiFdopendir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void* (*km_fn_t)(int32_t);
@@ -4981,7 +4843,7 @@ static Napi::Value libc_wasi_fdopendir_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_readdir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiReaddir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* dirp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -5014,7 +4876,7 @@ static Napi::Value libc_wasi_readdir_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_closedir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiClosedir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* dirp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -5047,7 +4909,7 @@ static Napi::Value libc_wasi_closedir_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_rewinddir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiRewinddir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* dirp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -5078,7 +4940,7 @@ static Napi::Value libc_wasi_rewinddir_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_wasi_dirfd_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiDirfd_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* dirp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -5111,7 +4973,7 @@ static Napi::Value libc_wasi_dirfd_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_seekdir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiSeekdir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* dirp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int64_t loc = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
@@ -5143,7 +5005,7 @@ static Napi::Value libc_wasi_seekdir_napi(const Napi::CallbackInfo& km_info) {
     return km_env.Undefined();
 }
 
-static Napi::Value libc_wasi_telldir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiTelldir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* dirp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(void*);
@@ -5176,12 +5038,10 @@ static Napi::Value libc_wasi_telldir_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_wasi_openat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiOpenat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t dirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool pathname_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string pathname_str = pathname_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* pathname = pathname_null ? nullptr : pathname_str.c_str();
+    const char* pathname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     int32_t km_vac = km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0;
     int64_t km_va0 = km_info.Length() > 4 ? km_napi_arg_i64(km_info[4]) : 0;
@@ -5223,12 +5083,10 @@ static Napi::Value libc_wasi_openat_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_fstatat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiFstatat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t dirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool pathname_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string pathname_str = pathname_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* pathname = pathname_null ? nullptr : pathname_str.c_str();
+    const char* pathname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, const char*, void*, int32_t);
@@ -5261,16 +5119,12 @@ static Napi::Value libc_wasi_fstatat_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_linkat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiLinkat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t olddirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool oldpath_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string oldpath_str = oldpath_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* oldpath = oldpath_null ? nullptr : oldpath_str.c_str();
+    const char* oldpath = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t newdirfd = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    bool newpath_null = (km_info.Length() <= 3 || km_info[3].IsNull() || km_info[3].IsUndefined());
-    std::string newpath_str = newpath_null ? std::string() : km_info[3].ToString().Utf8Value();
-    const char* newpath = newpath_null ? nullptr : newpath_str.c_str();
+    const char* newpath = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5302,12 +5156,10 @@ static Napi::Value libc_wasi_linkat_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_mkdirat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiMkdirat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t dirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool pathname_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string pathname_str = pathname_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* pathname = pathname_null ? nullptr : pathname_str.c_str();
+    const char* pathname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint32_t mode = static_cast<uint32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, const char*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5339,12 +5191,10 @@ static Napi::Value libc_wasi_mkdirat_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_readlinkat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiReadlinkat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t dirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool pathname_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string pathname_str = pathname_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* pathname = pathname_null ? nullptr : pathname_str.c_str();
+    const char* pathname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint64_t bufsiz = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
     typedef int64_t (*km_fn_t)(int32_t, const char*, char*, uint64_t);
@@ -5377,16 +5227,12 @@ static Napi::Value libc_wasi_readlinkat_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_wasi_renameat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiRenameat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t olddirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool oldpath_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string oldpath_str = oldpath_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* oldpath = oldpath_null ? nullptr : oldpath_str.c_str();
+    const char* oldpath = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t newdirfd = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    bool newpath_null = (km_info.Length() <= 3 || km_info[3].IsNull() || km_info[3].IsUndefined());
-    std::string newpath_str = newpath_null ? std::string() : km_info[3].ToString().Utf8Value();
-    const char* newpath = newpath_null ? nullptr : newpath_str.c_str();
+    const char* newpath = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5417,15 +5263,11 @@ static Napi::Value libc_wasi_renameat_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_symlinkat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiSymlinkat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool target_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string target_str = target_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* target = target_null ? nullptr : target_str.c_str();
+    const char* target = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t newdirfd = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    bool linkpath_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string linkpath_str = linkpath_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* linkpath = linkpath_null ? nullptr : linkpath_str.c_str();
+    const char* linkpath = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(const char*, int32_t, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5456,12 +5298,10 @@ static Napi::Value libc_wasi_symlinkat_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_unlinkat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiUnlinkat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t dirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool pathname_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string pathname_str = pathname_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* pathname = pathname_null ? nullptr : pathname_str.c_str();
+    const char* pathname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5493,11 +5333,9 @@ static Napi::Value libc_wasi_unlinkat_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_access_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiAccess_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t amode = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5529,7 +5367,7 @@ static Napi::Value libc_wasi_access_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_close_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiClose_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -5562,7 +5400,7 @@ static Napi::Value libc_wasi_close_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_fpathconf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiFpathconf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t filedes = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t name = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -5596,13 +5434,11 @@ static Napi::Value libc_wasi_fpathconf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_wasi_getopt_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiGetopt_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t argc = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* argv = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    bool optstr_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string optstr_str = optstr_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* optstr = optstr_null ? nullptr : optstr_str.c_str();
+    const char* optstr = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5633,7 +5469,7 @@ static Napi::Value libc_wasi_getopt_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_isatty_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiIsatty_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -5666,14 +5502,10 @@ static Napi::Value libc_wasi_isatty_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_link_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiLink_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool src_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string src_str = src_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* src = src_null ? nullptr : src_str.c_str();
-    bool dst_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string dst_str = dst_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* dst = dst_null ? nullptr : dst_str.c_str();
+    const char* src = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* dst = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5704,7 +5536,7 @@ static Napi::Value libc_wasi_link_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_lseek_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiLseek_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int64_t offset = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
@@ -5739,11 +5571,9 @@ static Napi::Value libc_wasi_lseek_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_wasi_pathconf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPathconf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t name = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5775,11 +5605,9 @@ static Napi::Value libc_wasi_pathconf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_wasi_rmdir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiRmdir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5810,7 +5638,7 @@ static Napi::Value libc_wasi_rmdir_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_sleep_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiSleep_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t secs = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef uint32_t (*km_fn_t)(uint32_t);
@@ -5843,11 +5671,9 @@ static Napi::Value libc_wasi_sleep_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_unlink_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiUnlink_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool c_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string c_str = c_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* c = c_null ? nullptr : c_str.c_str();
+    const char* c = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -5878,7 +5704,7 @@ static Napi::Value libc_wasi_unlink_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_pread_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPread_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -5914,7 +5740,7 @@ static Napi::Value libc_wasi_pread_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_wasi_pwrite_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPwrite_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -5950,11 +5776,9 @@ static Napi::Value libc_wasi_pwrite_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_wasi_lstat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiLstat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -5986,7 +5810,7 @@ static Napi::Value libc_wasi_lstat_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_fsync_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiFsync_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -6019,7 +5843,7 @@ static Napi::Value libc_wasi_fsync_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_fdatasync_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiFdatasync_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -6052,14 +5876,10 @@ static Napi::Value libc_wasi_fdatasync_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_symlink_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiSymlink_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path1_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path1_str = path1_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path1 = path1_null ? nullptr : path1_str.c_str();
-    bool path2_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string path2_str = path2_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* path2 = path2_null ? nullptr : path2_str.c_str();
+    const char* path1 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* path2 = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6090,11 +5910,9 @@ static Napi::Value libc_wasi_symlink_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_truncate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiTruncate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int64_t length = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
     typedef int32_t (*km_fn_t)(const char*, int64_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -6126,7 +5944,7 @@ static Napi::Value libc_wasi_truncate_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_ftruncate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiFtruncate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int64_t length = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
@@ -6160,7 +5978,7 @@ static Napi::Value libc_wasi_ftruncate_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_getrusage_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiGetrusage_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t resource = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* usage = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -6194,7 +6012,7 @@ static Napi::Value libc_wasi_getrusage_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_gettimeofday_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiGettimeofday_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* tp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* tz = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -6228,7 +6046,7 @@ static Napi::Value libc_wasi_gettimeofday_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_times_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiTimes_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(void*);
@@ -6261,7 +6079,7 @@ static Napi::Value libc_wasi_times_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_wasi_strerrorR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiStrerrorR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t errnum = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -6296,7 +6114,7 @@ static Napi::Value libc_wasi_strerrorR_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_usleep_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiUsleep_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t secs = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -6329,9 +6147,9 @@ static Napi::Value libc_wasi_usleep_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_send_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiSend_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t arg0Socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t len = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     int32_t flags = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
@@ -6357,7 +6175,7 @@ static Napi::Value libc_wasi_send_napi(const Napi::CallbackInfo& km_info) {
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_socket, buf, len, flags);
+        km_res = km_fn_ptr(arg0Socket, buf, len, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -6365,9 +6183,9 @@ static Napi::Value libc_wasi_send_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_wasi_recv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiRecv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t arg_0_socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t arg0Socket = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t len = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     int32_t flags = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
@@ -6393,7 +6211,7 @@ static Napi::Value libc_wasi_recv_napi(const Napi::CallbackInfo& km_info) {
 #endif
     int64_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(arg_0_socket, buf, len, flags);
+        km_res = km_fn_ptr(arg0Socket, buf, len, flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -6401,7 +6219,7 @@ static Napi::Value libc_wasi_recv_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_wasi_poll_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPoll_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* fds = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t nfds = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -6436,12 +6254,10 @@ static Napi::Value libc_wasi_poll_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_setlocale_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiSetlocale_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t category = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool locale_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string locale_str = locale_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* locale = locale_null ? nullptr : locale_str.c_str();
+    const char* locale = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef char* (*km_fn_t)(int32_t, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6472,7 +6288,7 @@ static Napi::Value libc_wasi_setlocale_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_localeconv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiLocaleconv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -6504,11 +6320,9 @@ static Napi::Value libc_wasi_localeconv_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_readlink_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiReadlink_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t bufsz = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     typedef int64_t (*km_fn_t)(const char*, char*, uint64_t);
@@ -6541,7 +6355,7 @@ static Napi::Value libc_wasi_readlink_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_wasi_timegm_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiTimegm_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* tm = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(void*);
@@ -6574,7 +6388,7 @@ static Napi::Value libc_wasi_timegm_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_wasi_sysconf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiSysconf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t name = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(int32_t);
@@ -6607,7 +6421,7 @@ static Napi::Value libc_wasi_sysconf_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_wasi_ioctl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiIoctl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t request = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -6651,7 +6465,7 @@ static Napi::Value libc_wasi_ioctl_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_fseeko_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiFseeko_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int64_t offset = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
@@ -6686,7 +6500,7 @@ static Napi::Value libc_wasi_fseeko_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_ftello_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiFtello_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* stream = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(void*);
@@ -6719,7 +6533,7 @@ static Napi::Value libc_wasi_ftello_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_wasi_posixFallocate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPosixFallocate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int64_t offset = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
@@ -6754,14 +6568,10 @@ static Napi::Value libc_wasi_posixFallocate_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_strcasestr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiStrcasestr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool cs_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string cs_str = cs_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* cs = cs_null ? nullptr : cs_str.c_str();
-    bool ct_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string ct_str = ct_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* ct = ct_null ? nullptr : ct_str.c_str();
+    const char* cs = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* ct = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef char* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -6792,7 +6602,7 @@ static Napi::Value libc_wasi_strcasestr_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_getline_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiGetline_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lineptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* n = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -6827,12 +6637,10 @@ static Napi::Value libc_wasi_getline_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_wasi_faccessat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiFaccessat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t dirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool pathname_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string pathname_str = pathname_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* pathname = pathname_null ? nullptr : pathname_str.c_str();
+    const char* pathname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t mode = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     int32_t flags = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, int32_t);
@@ -6865,7 +6673,7 @@ static Napi::Value libc_wasi_faccessat_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_writev_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiWritev_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -6900,7 +6708,7 @@ static Napi::Value libc_wasi_writev_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_wasi_readv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiReadv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -6935,7 +6743,7 @@ static Napi::Value libc_wasi_readv_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_wasi_pwritev_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPwritev_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -6971,7 +6779,7 @@ static Napi::Value libc_wasi_pwritev_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_wasi_preadv_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPreadv_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* iov = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -7007,7 +6815,7 @@ static Napi::Value libc_wasi_preadv_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_wasi_posixFadvise_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPosixFadvise_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int64_t offset = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
@@ -7043,7 +6851,7 @@ static Napi::Value libc_wasi_posixFadvise_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_futimens_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiFutimens_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* times = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -7077,12 +6885,10 @@ static Napi::Value libc_wasi_futimens_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_utimensat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiUtimensat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t dirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool path_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* times = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     int32_t flag = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, const char*, void*, int32_t);
@@ -7115,7 +6921,7 @@ static Napi::Value libc_wasi_utimensat_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_getentropy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiGetentropy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t buflen = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -7149,7 +6955,7 @@ static Napi::Value libc_wasi_getentropy_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_memrchr_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiMemrchr_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cx = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t c = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -7184,7 +6990,7 @@ static Napi::Value libc_wasi_memrchr_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_abs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiAbs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t i = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -7217,7 +7023,7 @@ static Napi::Value libc_wasi_abs_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_labs_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiLabs_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int64_t i = km_info.Length() > 0 ? km_napi_arg_i64(km_info[0]) : 0;
     typedef int64_t (*km_fn_t)(int64_t);
@@ -7250,7 +7056,7 @@ static Napi::Value libc_wasi_labs_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_wasi_duplocale_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiDuplocale_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* base = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -7283,7 +7089,7 @@ static Napi::Value libc_wasi_duplocale_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_freelocale_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiFreelocale_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* loc = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void (*km_fn_t)(void*);
@@ -7314,12 +7120,10 @@ static Napi::Value libc_wasi_freelocale_napi(const Napi::CallbackInfo& km_info) 
     return km_env.Undefined();
 }
 
-static Napi::Value libc_wasi_newlocale_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiNewlocale_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t mask = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool locale_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string locale_str = locale_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* locale = locale_null ? nullptr : locale_str.c_str();
+    const char* locale = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* base = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef void* (*km_fn_t)(int32_t, const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -7351,7 +7155,7 @@ static Napi::Value libc_wasi_newlocale_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_uselocale_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiUselocale_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* loc = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -7384,7 +7188,7 @@ static Napi::Value libc_wasi_uselocale_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_schedYield_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiSchedYield_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -7416,7 +7220,7 @@ static Napi::Value libc_wasi_schedYield_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_getcwd_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiGetcwd_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -7450,11 +7254,9 @@ static Napi::Value libc_wasi_getcwd_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_chdir_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiChdir_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool dir_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string dir_str = dir_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* dir = dir_null ? nullptr : dir_str.c_str();
+    const char* dir = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -7485,7 +7287,7 @@ static Napi::Value libc_wasi_chdir_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_nlLanginfo_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiNlLanginfo_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t item = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef char* (*km_fn_t)(int32_t);
@@ -7518,7 +7320,7 @@ static Napi::Value libc_wasi_nlLanginfo_napi(const Napi::CallbackInfo& km_info) 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_nlLanginfoL_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiNlLanginfoL_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t item = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* loc = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -7552,7 +7354,7 @@ static Napi::Value libc_wasi_nlLanginfoL_napi(const Napi::CallbackInfo& km_info)
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_select_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiSelect_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t nfds = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* readfds = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -7589,12 +7391,10 @@ static Napi::Value libc_wasi_select_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_wasilibcRegisterPreopenedFd_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiWasilibcRegisterPreopenedFd_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool path_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -7623,7 +7423,7 @@ static Napi::Value libc_wasi_wasilibcRegisterPreopenedFd_napi(const Napi::Callba
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_wasilibcFdRenumber_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiWasilibcFdRenumber_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t newfd = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -7655,12 +7455,10 @@ static Napi::Value libc_wasi_wasilibcFdRenumber_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_wasilibcUnlinkat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiWasilibcUnlinkat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool path_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -7689,12 +7487,10 @@ static Napi::Value libc_wasi_wasilibcUnlinkat_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_wasilibcRmdirat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiWasilibcRmdirat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool path_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -7723,14 +7519,12 @@ static Napi::Value libc_wasi_wasilibcRmdirat_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_wasilibcFindRelpath_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiWasilibcFindRelpath_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
-    void* abs_prefix = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* relative_path = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
-    uint64_t relative_path_len = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    void* absPrefix = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    void* relativePath = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    uint64_t relativePathLen = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
     typedef int32_t (*km_fn_t)(const char*, void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -7751,7 +7545,7 @@ static Napi::Value libc_wasi_wasilibcFindRelpath_napi(const Napi::CallbackInfo& 
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(path, abs_prefix, relative_path, relative_path_len);
+        km_res = km_fn_ptr(path, absPrefix, relativePath, relativePathLen);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -7759,7 +7553,7 @@ static Napi::Value libc_wasi_wasilibcFindRelpath_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_wasilibcTell_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiWasilibcTell_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int64_t (*km_fn_t)(int32_t);
@@ -7790,12 +7584,10 @@ static Napi::Value libc_wasi_wasilibcTell_napi(const Napi::CallbackInfo& km_info
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_wasi_wasilibcNocwdWasilibcUnlinkat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiWasilibcNocwdWasilibcUnlinkat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t dirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool path_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -7824,12 +7616,10 @@ static Napi::Value libc_wasi_wasilibcNocwdWasilibcUnlinkat_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_wasilibcNocwdWasilibcRmdirat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiWasilibcNocwdWasilibcRmdirat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t dirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool path_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -7858,16 +7648,12 @@ static Napi::Value libc_wasi_wasilibcNocwdWasilibcRmdirat_napi(const Napi::Callb
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_wasilibcNocwdLinkat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiWasilibcNocwdLinkat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t olddirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool oldpath_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string oldpath_str = oldpath_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* oldpath = oldpath_null ? nullptr : oldpath_str.c_str();
+    const char* oldpath = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t newdirfd = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    bool newpath_null = (km_info.Length() <= 3 || km_info[3].IsNull() || km_info[3].IsUndefined());
-    std::string newpath_str = newpath_null ? std::string() : km_info[3].ToString().Utf8Value();
-    const char* newpath = newpath_null ? nullptr : newpath_str.c_str();
+    const char* newpath = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 4 ? km_info[4].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -7897,15 +7683,11 @@ static Napi::Value libc_wasi_wasilibcNocwdLinkat_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_wasilibcNocwdSymlinkat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiWasilibcNocwdSymlinkat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool target_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string target_str = target_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* target = target_null ? nullptr : target_str.c_str();
+    const char* target = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t dirfd = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    bool path_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(const char*, int32_t, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -7934,12 +7716,10 @@ static Napi::Value libc_wasi_wasilibcNocwdSymlinkat_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_wasilibcNocwdReadlinkat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiWasilibcNocwdReadlinkat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t dirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool path_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     uint64_t bufsize = km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0;
     typedef int64_t (*km_fn_t)(int32_t, const char*, char*, uint64_t);
@@ -7970,12 +7750,10 @@ static Napi::Value libc_wasi_wasilibcNocwdReadlinkat_napi(const Napi::CallbackIn
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_wasi_wasilibcNocwdFaccessat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiWasilibcNocwdFaccessat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t dirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool path_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t mode = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     int32_t flags = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, int32_t);
@@ -8006,16 +7784,12 @@ static Napi::Value libc_wasi_wasilibcNocwdFaccessat_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_wasilibcNocwdRenameat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiWasilibcNocwdRenameat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t olddirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool oldpath_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string oldpath_str = oldpath_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* oldpath = oldpath_null ? nullptr : oldpath_str.c_str();
+    const char* oldpath = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t newdirfd = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
-    bool newpath_null = (km_info.Length() <= 3 || km_info[3].IsNull() || km_info[3].IsUndefined());
-    std::string newpath_str = newpath_null ? std::string() : km_info[3].ToString().Utf8Value();
-    const char* newpath = newpath_null ? nullptr : newpath_str.c_str();
+    const char* newpath = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -8044,12 +7818,10 @@ static Napi::Value libc_wasi_wasilibcNocwdRenameat_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_wasilibcNocwdOpenatNomode_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiWasilibcNocwdOpenatNomode_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t dirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool path_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -8079,12 +7851,10 @@ static Napi::Value libc_wasi_wasilibcNocwdOpenatNomode_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_wasilibcNocwdFstatat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiWasilibcNocwdFstatat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t dirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool path_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, const char*, void*, int32_t);
@@ -8115,12 +7885,10 @@ static Napi::Value libc_wasi_wasilibcNocwdFstatat_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_wasilibcNocwdMkdiratNomode_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiWasilibcNocwdMkdiratNomode_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t dirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool path_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -8149,12 +7917,10 @@ static Napi::Value libc_wasi_wasilibcNocwdMkdiratNomode_napi(const Napi::Callbac
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_wasilibcNocwdUtimensat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiWasilibcNocwdUtimensat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t dirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool path_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* times = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, const char*, void*, int32_t);
@@ -8185,12 +7951,10 @@ static Napi::Value libc_wasi_wasilibcNocwdUtimensat_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_wasilibcNocwdOpendirat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiWasilibcNocwdOpendirat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t dirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool path_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef void* (*km_fn_t)(int32_t, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -8219,11 +7983,9 @@ static Napi::Value libc_wasi_wasilibcNocwdOpendirat_napi(const Napi::CallbackInf
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_wasilibcAccess_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiWasilibcAccess_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool pathname_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string pathname_str = pathname_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* pathname = pathname_null ? nullptr : pathname_str.c_str();
+    const char* pathname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t mode = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     int32_t flags = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, int32_t, int32_t);
@@ -8254,11 +8016,9 @@ static Napi::Value libc_wasi_wasilibcAccess_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_wasilibcStat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiWasilibcStat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool pathname_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string pathname_str = pathname_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* pathname = pathname_null ? nullptr : pathname_str.c_str();
+    const char* pathname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, void*, int32_t);
@@ -8289,11 +8049,9 @@ static Napi::Value libc_wasi_wasilibcStat_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_wasilibcUtimens_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiWasilibcUtimens_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool pathname_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string pathname_str = pathname_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* pathname = pathname_null ? nullptr : pathname_str.c_str();
+    const char* pathname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* times = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, void*, int32_t);
@@ -8324,14 +8082,10 @@ static Napi::Value libc_wasi_wasilibcUtimens_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_wasilibcLink_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiWasilibcLink_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool oldpath_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string oldpath_str = oldpath_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* oldpath = oldpath_null ? nullptr : oldpath_str.c_str();
-    bool newpath_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string newpath_str = newpath_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* newpath = newpath_null ? nullptr : newpath_str.c_str();
+    const char* oldpath = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* newpath = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 2 ? km_info[2].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -8361,15 +8115,11 @@ static Napi::Value libc_wasi_wasilibcLink_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_wasilibcLinkOldat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiWasilibcLinkOldat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t olddirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool oldpath_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string oldpath_str = oldpath_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* oldpath = oldpath_null ? nullptr : oldpath_str.c_str();
-    bool newpath_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string newpath_str = newpath_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* newpath = newpath_null ? nullptr : newpath_str.c_str();
+    const char* oldpath = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    const char* newpath = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t, const char*, const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -8399,15 +8149,11 @@ static Napi::Value libc_wasi_wasilibcLinkOldat_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_wasilibcLinkNewat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiWasilibcLinkNewat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool oldpath_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string oldpath_str = oldpath_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* oldpath = oldpath_null ? nullptr : oldpath_str.c_str();
+    const char* oldpath = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t newdirfd = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    bool newpath_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string newpath_str = newpath_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* newpath = newpath_null ? nullptr : newpath_str.c_str();
+    const char* newpath = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     int32_t flags = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, int32_t, const char*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -8437,15 +8183,11 @@ static Napi::Value libc_wasi_wasilibcLinkNewat_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_wasilibcRenameOldat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiWasilibcRenameOldat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t olddirfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
-    bool oldpath_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string oldpath_str = oldpath_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* oldpath = oldpath_null ? nullptr : oldpath_str.c_str();
-    bool newpath_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string newpath_str = newpath_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* newpath = newpath_null ? nullptr : newpath_str.c_str();
+    const char* oldpath = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
+    const char* newpath = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, const char*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -8474,15 +8216,11 @@ static Napi::Value libc_wasi_wasilibcRenameOldat_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_wasilibcRenameNewat_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiWasilibcRenameNewat_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool oldpath_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string oldpath_str = oldpath_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* oldpath = oldpath_null ? nullptr : oldpath_str.c_str();
+    const char* oldpath = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t newdirfd = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
-    bool newpath_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string newpath_str = newpath_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* newpath = newpath_null ? nullptr : newpath_str.c_str();
+    const char* newpath = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef int32_t (*km_fn_t)(const char*, int32_t, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -8511,7 +8249,7 @@ static Napi::Value libc_wasi_wasilibcRenameNewat_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_arc4random_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiArc4random_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef uint32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -8543,7 +8281,7 @@ static Napi::Value libc_wasi_arc4random_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_arc4randomBuf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiArc4randomBuf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* a = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t b = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -8575,7 +8313,7 @@ static Napi::Value libc_wasi_arc4randomBuf_napi(const Napi::CallbackInfo& km_inf
     return km_env.Undefined();
 }
 
-static Napi::Value libc_wasi_arc4randomUniform_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiArc4randomUniform_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t a = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef uint32_t (*km_fn_t)(uint32_t);
@@ -8608,7 +8346,7 @@ static Napi::Value libc_wasi_arc4randomUniform_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_errnoLocation_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiErrnoLocation_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -8638,11 +8376,9 @@ static Napi::Value libc_wasi_errnoLocation_napi(const Napi::CallbackInfo& km_inf
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_chmod_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiChmod_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool path_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string path_str = path_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* path = path_null ? nullptr : path_str.c_str();
+    const char* path = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint32_t mode = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(const char*, uint32_t);
     static km_fn_t km_fn_ptr = nullptr;
@@ -8674,7 +8410,7 @@ static Napi::Value libc_wasi_chmod_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_fchmod_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiFchmod_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     uint32_t mode = static_cast<uint32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -8708,11 +8444,9 @@ static Napi::Value libc_wasi_fchmod_napi(const Napi::CallbackInfo& km_info) {
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_realpath_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiRealpath_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool pathname_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string pathname_str = pathname_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* pathname = pathname_null ? nullptr : pathname_str.c_str();
+    const char* pathname = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* resolved = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef char* (*km_fn_t)(const char*, char*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -8744,7 +8478,7 @@ static Napi::Value libc_wasi_realpath_napi(const Napi::CallbackInfo& km_info) {
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_pthreadSelf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPthreadSelf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -8776,7 +8510,7 @@ static Napi::Value libc_wasi_pthreadSelf_napi(const Napi::CallbackInfo& km_info)
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_pthreadCreate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPthreadCreate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* native = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -8812,7 +8546,7 @@ static Napi::Value libc_wasi_pthreadCreate_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_pthreadEqual_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPthreadEqual_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* t1 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* t2 = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -8846,7 +8580,7 @@ static Napi::Value libc_wasi_pthreadEqual_napi(const Napi::CallbackInfo& km_info
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_pthreadJoin_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPthreadJoin_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* native = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -8880,7 +8614,7 @@ static Napi::Value libc_wasi_pthreadJoin_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_pthreadAttrInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPthreadAttrInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -8913,7 +8647,7 @@ static Napi::Value libc_wasi_pthreadAttrInit_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_pthreadAttrDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPthreadAttrDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -8946,7 +8680,7 @@ static Napi::Value libc_wasi_pthreadAttrDestroy_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_pthreadAttrGetstacksize_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPthreadAttrGetstacksize_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* stacksize = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -8980,10 +8714,10 @@ static Napi::Value libc_wasi_pthreadAttrGetstacksize_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_pthreadAttrSetstacksize_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPthreadAttrSetstacksize_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    uint64_t stack_size = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
+    uint64_t stackSize = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
     typedef int32_t (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -9006,7 +8740,7 @@ static Napi::Value libc_wasi_pthreadAttrSetstacksize_napi(const Napi::CallbackIn
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(attr, stack_size);
+        km_res = km_fn_ptr(attr, stackSize);
     } else {
         errno = ENOSYS;
         km_res = ENOSYS;
@@ -9014,7 +8748,7 @@ static Napi::Value libc_wasi_pthreadAttrSetstacksize_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_pthreadAttrSetdetachstate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPthreadAttrSetdetachstate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t state = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -9048,7 +8782,7 @@ static Napi::Value libc_wasi_pthreadAttrSetdetachstate_napi(const Napi::Callback
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_pthreadDetach_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPthreadDetach_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* thread = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -9081,7 +8815,7 @@ static Napi::Value libc_wasi_pthreadDetach_napi(const Napi::CallbackInfo& km_inf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_pthreadKeyCreate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPthreadKeyCreate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* key = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* dtor = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -9115,7 +8849,7 @@ static Napi::Value libc_wasi_pthreadKeyCreate_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_pthreadKeyDelete_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPthreadKeyDelete_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t key = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(uint32_t);
@@ -9148,7 +8882,7 @@ static Napi::Value libc_wasi_pthreadKeyDelete_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_pthreadGetspecific_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPthreadGetspecific_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t key = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef void* (*km_fn_t)(uint32_t);
@@ -9181,7 +8915,7 @@ static Napi::Value libc_wasi_pthreadGetspecific_napi(const Napi::CallbackInfo& k
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_wasi_pthreadSetspecific_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPthreadSetspecific_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     uint32_t key = static_cast<uint32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* value = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -9215,7 +8949,7 @@ static Napi::Value libc_wasi_pthreadSetspecific_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_pthreadMutexInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPthreadMutexInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -9249,7 +8983,7 @@ static Napi::Value libc_wasi_pthreadMutexInit_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_pthreadMutexDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPthreadMutexDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -9282,7 +9016,7 @@ static Napi::Value libc_wasi_pthreadMutexDestroy_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_pthreadMutexLock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPthreadMutexLock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -9315,7 +9049,7 @@ static Napi::Value libc_wasi_pthreadMutexLock_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_pthreadMutexTrylock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPthreadMutexTrylock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -9348,7 +9082,7 @@ static Napi::Value libc_wasi_pthreadMutexTrylock_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_pthreadMutexUnlock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPthreadMutexUnlock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -9381,7 +9115,7 @@ static Napi::Value libc_wasi_pthreadMutexUnlock_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_pthreadMutexattrInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPthreadMutexattrInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -9414,7 +9148,7 @@ static Napi::Value libc_wasi_pthreadMutexattrInit_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_pthreadMutexattrDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPthreadMutexattrDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -9447,10 +9181,10 @@ static Napi::Value libc_wasi_pthreadMutexattrDestroy_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_pthreadMutexattrSettype_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPthreadMutexattrSettype_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    int32_t arg_1_type = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t type = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -9473,7 +9207,7 @@ static Napi::Value libc_wasi_pthreadMutexattrSettype_napi(const Napi::CallbackIn
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(attr, arg_1_type);
+        km_res = km_fn_ptr(attr, type);
     } else {
         errno = ENOSYS;
         km_res = ENOSYS;
@@ -9481,7 +9215,7 @@ static Napi::Value libc_wasi_pthreadMutexattrSettype_napi(const Napi::CallbackIn
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_pthreadCondInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPthreadCondInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cond = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -9515,7 +9249,7 @@ static Napi::Value libc_wasi_pthreadCondInit_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_pthreadCondWait_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPthreadCondWait_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cond = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -9549,7 +9283,7 @@ static Napi::Value libc_wasi_pthreadCondWait_napi(const Napi::CallbackInfo& km_i
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_pthreadCondTimedwait_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPthreadCondTimedwait_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cond = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -9584,7 +9318,7 @@ static Napi::Value libc_wasi_pthreadCondTimedwait_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_pthreadCondSignal_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPthreadCondSignal_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cond = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -9617,7 +9351,7 @@ static Napi::Value libc_wasi_pthreadCondSignal_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_pthreadCondBroadcast_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPthreadCondBroadcast_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cond = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -9650,7 +9384,7 @@ static Napi::Value libc_wasi_pthreadCondBroadcast_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_pthreadCondDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPthreadCondDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* cond = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -9683,7 +9417,7 @@ static Napi::Value libc_wasi_pthreadCondDestroy_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_pthreadCondattrInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPthreadCondattrInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -9716,7 +9450,7 @@ static Napi::Value libc_wasi_pthreadCondattrInit_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_pthreadCondattrDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPthreadCondattrDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -9749,7 +9483,7 @@ static Napi::Value libc_wasi_pthreadCondattrDestroy_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_pthreadRwlockInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPthreadRwlockInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -9783,7 +9517,7 @@ static Napi::Value libc_wasi_pthreadRwlockInit_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_pthreadRwlockDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPthreadRwlockDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -9816,7 +9550,7 @@ static Napi::Value libc_wasi_pthreadRwlockDestroy_napi(const Napi::CallbackInfo&
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_pthreadRwlockRdlock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPthreadRwlockRdlock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -9849,7 +9583,7 @@ static Napi::Value libc_wasi_pthreadRwlockRdlock_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_pthreadRwlockTryrdlock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPthreadRwlockTryrdlock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -9882,7 +9616,7 @@ static Napi::Value libc_wasi_pthreadRwlockTryrdlock_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_pthreadRwlockWrlock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPthreadRwlockWrlock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -9915,7 +9649,7 @@ static Napi::Value libc_wasi_pthreadRwlockWrlock_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_pthreadRwlockTrywrlock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPthreadRwlockTrywrlock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -9948,7 +9682,7 @@ static Napi::Value libc_wasi_pthreadRwlockTrywrlock_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_pthreadRwlockUnlock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPthreadRwlockUnlock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* lock = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -9981,7 +9715,7 @@ static Napi::Value libc_wasi_pthreadRwlockUnlock_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_pthreadRwlockattrInit_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPthreadRwlockattrInit_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -10014,7 +9748,7 @@ static Napi::Value libc_wasi_pthreadRwlockattrInit_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_wasi_pthreadRwlockattrDestroy_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcWasiPthreadRwlockattrDestroy_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -10048,293 +9782,293 @@ static Napi::Value libc_wasi_pthreadRwlockattrDestroy_napi(const Napi::CallbackI
 }
 
 static void register_wasi_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_wasi_get_ENVIRON", Napi::Function::New(env, libc_wasi_get_ENVIRON_napi));
-    exports.Set("libc_wasi_set_ENVIRON", Napi::Function::New(env, libc_wasi_set_ENVIRON_napi));
-    exports.Set("libc_wasi_get_CLOCK_MONOTONIC1", Napi::Function::New(env, libc_wasi_get_CLOCK_MONOTONIC1_napi));
-    exports.Set("libc_wasi_get_CLOCK_REALTIME1", Napi::Function::New(env, libc_wasi_get_CLOCK_REALTIME1_napi));
-    exports.Set("libc_wasi_exit", Napi::Function::New(env, libc_wasi_exit_napi));
-    exports.Set("libc_wasi_abort", Napi::Function::New(env, libc_wasi_abort_napi));
-    exports.Set("libc_wasi_alignedAlloc", Napi::Function::New(env, libc_wasi_alignedAlloc_napi));
-    exports.Set("libc_wasi_calloc", Napi::Function::New(env, libc_wasi_calloc_napi));
-    exports.Set("libc_wasi_free", Napi::Function::New(env, libc_wasi_free_napi));
-    exports.Set("libc_wasi_getenv", Napi::Function::New(env, libc_wasi_getenv_napi));
-    exports.Set("libc_wasi_malloc", Napi::Function::New(env, libc_wasi_malloc_napi));
-    exports.Set("libc_wasi_mallocUsableSize", Napi::Function::New(env, libc_wasi_mallocUsableSize_napi));
-    exports.Set("libc_wasi_sbrk", Napi::Function::New(env, libc_wasi_sbrk_napi));
-    exports.Set("libc_wasi_rand", Napi::Function::New(env, libc_wasi_rand_napi));
-    exports.Set("libc_wasi_read", Napi::Function::New(env, libc_wasi_read_napi));
-    exports.Set("libc_wasi_realloc", Napi::Function::New(env, libc_wasi_realloc_napi));
-    exports.Set("libc_wasi_setenv", Napi::Function::New(env, libc_wasi_setenv_napi));
-    exports.Set("libc_wasi_unsetenv", Napi::Function::New(env, libc_wasi_unsetenv_napi));
-    exports.Set("libc_wasi_clearenv", Napi::Function::New(env, libc_wasi_clearenv_napi));
-    exports.Set("libc_wasi_write", Napi::Function::New(env, libc_wasi_write_napi));
-    exports.Set("libc_wasi_fopen", Napi::Function::New(env, libc_wasi_fopen_napi));
-    exports.Set("libc_wasi_freopen", Napi::Function::New(env, libc_wasi_freopen_napi));
-    exports.Set("libc_wasi_fclose", Napi::Function::New(env, libc_wasi_fclose_napi));
-    exports.Set("libc_wasi_remove", Napi::Function::New(env, libc_wasi_remove_napi));
-    exports.Set("libc_wasi_rename", Napi::Function::New(env, libc_wasi_rename_napi));
-    exports.Set("libc_wasi_feof", Napi::Function::New(env, libc_wasi_feof_napi));
-    exports.Set("libc_wasi_ferror", Napi::Function::New(env, libc_wasi_ferror_napi));
-    exports.Set("libc_wasi_fflush", Napi::Function::New(env, libc_wasi_fflush_napi));
-    exports.Set("libc_wasi_clearerr", Napi::Function::New(env, libc_wasi_clearerr_napi));
-    exports.Set("libc_wasi_fseek", Napi::Function::New(env, libc_wasi_fseek_napi));
-    exports.Set("libc_wasi_ftell", Napi::Function::New(env, libc_wasi_ftell_napi));
-    exports.Set("libc_wasi_rewind", Napi::Function::New(env, libc_wasi_rewind_napi));
-    exports.Set("libc_wasi_fgetpos", Napi::Function::New(env, libc_wasi_fgetpos_napi));
-    exports.Set("libc_wasi_fsetpos", Napi::Function::New(env, libc_wasi_fsetpos_napi));
-    exports.Set("libc_wasi_fread", Napi::Function::New(env, libc_wasi_fread_napi));
-    exports.Set("libc_wasi_fwrite", Napi::Function::New(env, libc_wasi_fwrite_napi));
-    exports.Set("libc_wasi_fgetc", Napi::Function::New(env, libc_wasi_fgetc_napi));
-    exports.Set("libc_wasi_getc", Napi::Function::New(env, libc_wasi_getc_napi));
-    exports.Set("libc_wasi_getchar", Napi::Function::New(env, libc_wasi_getchar_napi));
-    exports.Set("libc_wasi_ungetc", Napi::Function::New(env, libc_wasi_ungetc_napi));
-    exports.Set("libc_wasi_fputc", Napi::Function::New(env, libc_wasi_fputc_napi));
-    exports.Set("libc_wasi_putc", Napi::Function::New(env, libc_wasi_putc_napi));
-    exports.Set("libc_wasi_putchar", Napi::Function::New(env, libc_wasi_putchar_napi));
-    exports.Set("libc_wasi_fputs", Napi::Function::New(env, libc_wasi_fputs_napi));
-    exports.Set("libc_wasi_puts", Napi::Function::New(env, libc_wasi_puts_napi));
-    exports.Set("libc_wasi_perror", Napi::Function::New(env, libc_wasi_perror_napi));
-    exports.Set("libc_wasi_srand", Napi::Function::New(env, libc_wasi_srand_napi));
-    exports.Set("libc_wasi_atexit", Napi::Function::New(env, libc_wasi_atexit_napi));
-    exports.Set("libc_wasi_atQuickExit", Napi::Function::New(env, libc_wasi_atQuickExit_napi));
-    exports.Set("libc_wasi_quickExit", Napi::Function::New(env, libc_wasi_quickExit_napi));
-    exports.Set("libc_wasi_posixMemalign", Napi::Function::New(env, libc_wasi_posixMemalign_napi));
-    exports.Set("libc_wasi_randR", Napi::Function::New(env, libc_wasi_randR_napi));
-    exports.Set("libc_wasi_random", Napi::Function::New(env, libc_wasi_random_napi));
-    exports.Set("libc_wasi_srandom", Napi::Function::New(env, libc_wasi_srandom_napi));
-    exports.Set("libc_wasi_putenv", Napi::Function::New(env, libc_wasi_putenv_napi));
-    exports.Set("libc_wasi_clock", Napi::Function::New(env, libc_wasi_clock_napi));
-    exports.Set("libc_wasi_time", Napi::Function::New(env, libc_wasi_time_napi));
-    exports.Set("libc_wasi_difftime", Napi::Function::New(env, libc_wasi_difftime_napi));
-    exports.Set("libc_wasi_mktime", Napi::Function::New(env, libc_wasi_mktime_napi));
-    exports.Set("libc_wasi_strftime", Napi::Function::New(env, libc_wasi_strftime_napi));
-    exports.Set("libc_wasi_gmtime", Napi::Function::New(env, libc_wasi_gmtime_napi));
-    exports.Set("libc_wasi_gmtimeR", Napi::Function::New(env, libc_wasi_gmtimeR_napi));
-    exports.Set("libc_wasi_localtime", Napi::Function::New(env, libc_wasi_localtime_napi));
-    exports.Set("libc_wasi_localtimeR", Napi::Function::New(env, libc_wasi_localtimeR_napi));
-    exports.Set("libc_wasi_asctimeR", Napi::Function::New(env, libc_wasi_asctimeR_napi));
-    exports.Set("libc_wasi_ctimeR", Napi::Function::New(env, libc_wasi_ctimeR_napi));
-    exports.Set("libc_wasi_nanosleep", Napi::Function::New(env, libc_wasi_nanosleep_napi));
-    exports.Set("libc_wasi_isalnum", Napi::Function::New(env, libc_wasi_isalnum_napi));
-    exports.Set("libc_wasi_isalpha", Napi::Function::New(env, libc_wasi_isalpha_napi));
-    exports.Set("libc_wasi_iscntrl", Napi::Function::New(env, libc_wasi_iscntrl_napi));
-    exports.Set("libc_wasi_isdigit", Napi::Function::New(env, libc_wasi_isdigit_napi));
-    exports.Set("libc_wasi_isgraph", Napi::Function::New(env, libc_wasi_isgraph_napi));
-    exports.Set("libc_wasi_islower", Napi::Function::New(env, libc_wasi_islower_napi));
-    exports.Set("libc_wasi_isprint", Napi::Function::New(env, libc_wasi_isprint_napi));
-    exports.Set("libc_wasi_ispunct", Napi::Function::New(env, libc_wasi_ispunct_napi));
-    exports.Set("libc_wasi_isspace", Napi::Function::New(env, libc_wasi_isspace_napi));
-    exports.Set("libc_wasi_isupper", Napi::Function::New(env, libc_wasi_isupper_napi));
-    exports.Set("libc_wasi_isxdigit", Napi::Function::New(env, libc_wasi_isxdigit_napi));
-    exports.Set("libc_wasi_isblank", Napi::Function::New(env, libc_wasi_isblank_napi));
-    exports.Set("libc_wasi_tolower", Napi::Function::New(env, libc_wasi_tolower_napi));
-    exports.Set("libc_wasi_toupper", Napi::Function::New(env, libc_wasi_toupper_napi));
-    exports.Set("libc_wasi_setvbuf", Napi::Function::New(env, libc_wasi_setvbuf_napi));
-    exports.Set("libc_wasi_setbuf", Napi::Function::New(env, libc_wasi_setbuf_napi));
-    exports.Set("libc_wasi_fgets", Napi::Function::New(env, libc_wasi_fgets_napi));
-    exports.Set("libc_wasi_atof", Napi::Function::New(env, libc_wasi_atof_napi));
-    exports.Set("libc_wasi_atoi", Napi::Function::New(env, libc_wasi_atoi_napi));
-    exports.Set("libc_wasi_atol", Napi::Function::New(env, libc_wasi_atol_napi));
-    exports.Set("libc_wasi_atoll", Napi::Function::New(env, libc_wasi_atoll_napi));
-    exports.Set("libc_wasi_strtod", Napi::Function::New(env, libc_wasi_strtod_napi));
-    exports.Set("libc_wasi_strtof", Napi::Function::New(env, libc_wasi_strtof_napi));
-    exports.Set("libc_wasi_strtol", Napi::Function::New(env, libc_wasi_strtol_napi));
-    exports.Set("libc_wasi_strtoll", Napi::Function::New(env, libc_wasi_strtoll_napi));
-    exports.Set("libc_wasi_strtoul", Napi::Function::New(env, libc_wasi_strtoul_napi));
-    exports.Set("libc_wasi_strtoull", Napi::Function::New(env, libc_wasi_strtoull_napi));
-    exports.Set("libc_wasi_strcpy", Napi::Function::New(env, libc_wasi_strcpy_napi));
-    exports.Set("libc_wasi_strncpy", Napi::Function::New(env, libc_wasi_strncpy_napi));
-    exports.Set("libc_wasi_strcat", Napi::Function::New(env, libc_wasi_strcat_napi));
-    exports.Set("libc_wasi_strncat", Napi::Function::New(env, libc_wasi_strncat_napi));
-    exports.Set("libc_wasi_strcmp", Napi::Function::New(env, libc_wasi_strcmp_napi));
-    exports.Set("libc_wasi_strncmp", Napi::Function::New(env, libc_wasi_strncmp_napi));
-    exports.Set("libc_wasi_strcoll", Napi::Function::New(env, libc_wasi_strcoll_napi));
-    exports.Set("libc_wasi_strchr", Napi::Function::New(env, libc_wasi_strchr_napi));
-    exports.Set("libc_wasi_strrchr", Napi::Function::New(env, libc_wasi_strrchr_napi));
-    exports.Set("libc_wasi_strspn", Napi::Function::New(env, libc_wasi_strspn_napi));
-    exports.Set("libc_wasi_strcspn", Napi::Function::New(env, libc_wasi_strcspn_napi));
-    exports.Set("libc_wasi_strdup", Napi::Function::New(env, libc_wasi_strdup_napi));
-    exports.Set("libc_wasi_strndup", Napi::Function::New(env, libc_wasi_strndup_napi));
-    exports.Set("libc_wasi_strpbrk", Napi::Function::New(env, libc_wasi_strpbrk_napi));
-    exports.Set("libc_wasi_strstr", Napi::Function::New(env, libc_wasi_strstr_napi));
-    exports.Set("libc_wasi_strcasecmp", Napi::Function::New(env, libc_wasi_strcasecmp_napi));
-    exports.Set("libc_wasi_strncasecmp", Napi::Function::New(env, libc_wasi_strncasecmp_napi));
-    exports.Set("libc_wasi_strlen", Napi::Function::New(env, libc_wasi_strlen_napi));
-    exports.Set("libc_wasi_strnlen", Napi::Function::New(env, libc_wasi_strnlen_napi));
-    exports.Set("libc_wasi_strerror", Napi::Function::New(env, libc_wasi_strerror_napi));
-    exports.Set("libc_wasi_strtok", Napi::Function::New(env, libc_wasi_strtok_napi));
-    exports.Set("libc_wasi_strxfrm", Napi::Function::New(env, libc_wasi_strxfrm_napi));
-    exports.Set("libc_wasi_memchr", Napi::Function::New(env, libc_wasi_memchr_napi));
-    exports.Set("libc_wasi_memcmp", Napi::Function::New(env, libc_wasi_memcmp_napi));
-    exports.Set("libc_wasi_memcpy", Napi::Function::New(env, libc_wasi_memcpy_napi));
-    exports.Set("libc_wasi_memmove", Napi::Function::New(env, libc_wasi_memmove_napi));
-    exports.Set("libc_wasi_memset", Napi::Function::New(env, libc_wasi_memset_napi));
-    exports.Set("libc_wasi_fprintf", Napi::Function::New(env, libc_wasi_fprintf_napi));
-    exports.Set("libc_wasi_printf", Napi::Function::New(env, libc_wasi_printf_napi));
-    exports.Set("libc_wasi_snprintf", Napi::Function::New(env, libc_wasi_snprintf_napi));
-    exports.Set("libc_wasi_sprintf", Napi::Function::New(env, libc_wasi_sprintf_napi));
-    exports.Set("libc_wasi_fscanf", Napi::Function::New(env, libc_wasi_fscanf_napi));
-    exports.Set("libc_wasi_scanf", Napi::Function::New(env, libc_wasi_scanf_napi));
-    exports.Set("libc_wasi_sscanf", Napi::Function::New(env, libc_wasi_sscanf_napi));
-    exports.Set("libc_wasi_getcharUnlocked", Napi::Function::New(env, libc_wasi_getcharUnlocked_napi));
-    exports.Set("libc_wasi_putcharUnlocked", Napi::Function::New(env, libc_wasi_putcharUnlocked_napi));
-    exports.Set("libc_wasi_shutdown", Napi::Function::New(env, libc_wasi_shutdown_napi));
-    exports.Set("libc_wasi_fstat", Napi::Function::New(env, libc_wasi_fstat_napi));
-    exports.Set("libc_wasi_mkdir", Napi::Function::New(env, libc_wasi_mkdir_napi));
-    exports.Set("libc_wasi_stat", Napi::Function::New(env, libc_wasi_stat_napi));
-    exports.Set("libc_wasi_fdopen", Napi::Function::New(env, libc_wasi_fdopen_napi));
-    exports.Set("libc_wasi_fileno", Napi::Function::New(env, libc_wasi_fileno_napi));
-    exports.Set("libc_wasi_open", Napi::Function::New(env, libc_wasi_open_napi));
-    exports.Set("libc_wasi_creat", Napi::Function::New(env, libc_wasi_creat_napi));
-    exports.Set("libc_wasi_fcntl", Napi::Function::New(env, libc_wasi_fcntl_napi));
-    exports.Set("libc_wasi_opendir", Napi::Function::New(env, libc_wasi_opendir_napi));
-    exports.Set("libc_wasi_fdopendir", Napi::Function::New(env, libc_wasi_fdopendir_napi));
-    exports.Set("libc_wasi_readdir", Napi::Function::New(env, libc_wasi_readdir_napi));
-    exports.Set("libc_wasi_closedir", Napi::Function::New(env, libc_wasi_closedir_napi));
-    exports.Set("libc_wasi_rewinddir", Napi::Function::New(env, libc_wasi_rewinddir_napi));
-    exports.Set("libc_wasi_dirfd", Napi::Function::New(env, libc_wasi_dirfd_napi));
-    exports.Set("libc_wasi_seekdir", Napi::Function::New(env, libc_wasi_seekdir_napi));
-    exports.Set("libc_wasi_telldir", Napi::Function::New(env, libc_wasi_telldir_napi));
-    exports.Set("libc_wasi_openat", Napi::Function::New(env, libc_wasi_openat_napi));
-    exports.Set("libc_wasi_fstatat", Napi::Function::New(env, libc_wasi_fstatat_napi));
-    exports.Set("libc_wasi_linkat", Napi::Function::New(env, libc_wasi_linkat_napi));
-    exports.Set("libc_wasi_mkdirat", Napi::Function::New(env, libc_wasi_mkdirat_napi));
-    exports.Set("libc_wasi_readlinkat", Napi::Function::New(env, libc_wasi_readlinkat_napi));
-    exports.Set("libc_wasi_renameat", Napi::Function::New(env, libc_wasi_renameat_napi));
-    exports.Set("libc_wasi_symlinkat", Napi::Function::New(env, libc_wasi_symlinkat_napi));
-    exports.Set("libc_wasi_unlinkat", Napi::Function::New(env, libc_wasi_unlinkat_napi));
-    exports.Set("libc_wasi_access", Napi::Function::New(env, libc_wasi_access_napi));
-    exports.Set("libc_wasi_close", Napi::Function::New(env, libc_wasi_close_napi));
-    exports.Set("libc_wasi_fpathconf", Napi::Function::New(env, libc_wasi_fpathconf_napi));
-    exports.Set("libc_wasi_getopt", Napi::Function::New(env, libc_wasi_getopt_napi));
-    exports.Set("libc_wasi_isatty", Napi::Function::New(env, libc_wasi_isatty_napi));
-    exports.Set("libc_wasi_link", Napi::Function::New(env, libc_wasi_link_napi));
-    exports.Set("libc_wasi_lseek", Napi::Function::New(env, libc_wasi_lseek_napi));
-    exports.Set("libc_wasi_pathconf", Napi::Function::New(env, libc_wasi_pathconf_napi));
-    exports.Set("libc_wasi_rmdir", Napi::Function::New(env, libc_wasi_rmdir_napi));
-    exports.Set("libc_wasi_sleep", Napi::Function::New(env, libc_wasi_sleep_napi));
-    exports.Set("libc_wasi_unlink", Napi::Function::New(env, libc_wasi_unlink_napi));
-    exports.Set("libc_wasi_pread", Napi::Function::New(env, libc_wasi_pread_napi));
-    exports.Set("libc_wasi_pwrite", Napi::Function::New(env, libc_wasi_pwrite_napi));
-    exports.Set("libc_wasi_lstat", Napi::Function::New(env, libc_wasi_lstat_napi));
-    exports.Set("libc_wasi_fsync", Napi::Function::New(env, libc_wasi_fsync_napi));
-    exports.Set("libc_wasi_fdatasync", Napi::Function::New(env, libc_wasi_fdatasync_napi));
-    exports.Set("libc_wasi_symlink", Napi::Function::New(env, libc_wasi_symlink_napi));
-    exports.Set("libc_wasi_truncate", Napi::Function::New(env, libc_wasi_truncate_napi));
-    exports.Set("libc_wasi_ftruncate", Napi::Function::New(env, libc_wasi_ftruncate_napi));
-    exports.Set("libc_wasi_getrusage", Napi::Function::New(env, libc_wasi_getrusage_napi));
-    exports.Set("libc_wasi_gettimeofday", Napi::Function::New(env, libc_wasi_gettimeofday_napi));
-    exports.Set("libc_wasi_times", Napi::Function::New(env, libc_wasi_times_napi));
-    exports.Set("libc_wasi_strerrorR", Napi::Function::New(env, libc_wasi_strerrorR_napi));
-    exports.Set("libc_wasi_usleep", Napi::Function::New(env, libc_wasi_usleep_napi));
-    exports.Set("libc_wasi_send", Napi::Function::New(env, libc_wasi_send_napi));
-    exports.Set("libc_wasi_recv", Napi::Function::New(env, libc_wasi_recv_napi));
-    exports.Set("libc_wasi_poll", Napi::Function::New(env, libc_wasi_poll_napi));
-    exports.Set("libc_wasi_setlocale", Napi::Function::New(env, libc_wasi_setlocale_napi));
-    exports.Set("libc_wasi_localeconv", Napi::Function::New(env, libc_wasi_localeconv_napi));
-    exports.Set("libc_wasi_readlink", Napi::Function::New(env, libc_wasi_readlink_napi));
-    exports.Set("libc_wasi_timegm", Napi::Function::New(env, libc_wasi_timegm_napi));
-    exports.Set("libc_wasi_sysconf", Napi::Function::New(env, libc_wasi_sysconf_napi));
-    exports.Set("libc_wasi_ioctl", Napi::Function::New(env, libc_wasi_ioctl_napi));
-    exports.Set("libc_wasi_fseeko", Napi::Function::New(env, libc_wasi_fseeko_napi));
-    exports.Set("libc_wasi_ftello", Napi::Function::New(env, libc_wasi_ftello_napi));
-    exports.Set("libc_wasi_posixFallocate", Napi::Function::New(env, libc_wasi_posixFallocate_napi));
-    exports.Set("libc_wasi_strcasestr", Napi::Function::New(env, libc_wasi_strcasestr_napi));
-    exports.Set("libc_wasi_getline", Napi::Function::New(env, libc_wasi_getline_napi));
-    exports.Set("libc_wasi_faccessat", Napi::Function::New(env, libc_wasi_faccessat_napi));
-    exports.Set("libc_wasi_writev", Napi::Function::New(env, libc_wasi_writev_napi));
-    exports.Set("libc_wasi_readv", Napi::Function::New(env, libc_wasi_readv_napi));
-    exports.Set("libc_wasi_pwritev", Napi::Function::New(env, libc_wasi_pwritev_napi));
-    exports.Set("libc_wasi_preadv", Napi::Function::New(env, libc_wasi_preadv_napi));
-    exports.Set("libc_wasi_posixFadvise", Napi::Function::New(env, libc_wasi_posixFadvise_napi));
-    exports.Set("libc_wasi_futimens", Napi::Function::New(env, libc_wasi_futimens_napi));
-    exports.Set("libc_wasi_utimensat", Napi::Function::New(env, libc_wasi_utimensat_napi));
-    exports.Set("libc_wasi_getentropy", Napi::Function::New(env, libc_wasi_getentropy_napi));
-    exports.Set("libc_wasi_memrchr", Napi::Function::New(env, libc_wasi_memrchr_napi));
-    exports.Set("libc_wasi_abs", Napi::Function::New(env, libc_wasi_abs_napi));
-    exports.Set("libc_wasi_labs", Napi::Function::New(env, libc_wasi_labs_napi));
-    exports.Set("libc_wasi_duplocale", Napi::Function::New(env, libc_wasi_duplocale_napi));
-    exports.Set("libc_wasi_freelocale", Napi::Function::New(env, libc_wasi_freelocale_napi));
-    exports.Set("libc_wasi_newlocale", Napi::Function::New(env, libc_wasi_newlocale_napi));
-    exports.Set("libc_wasi_uselocale", Napi::Function::New(env, libc_wasi_uselocale_napi));
-    exports.Set("libc_wasi_schedYield", Napi::Function::New(env, libc_wasi_schedYield_napi));
-    exports.Set("libc_wasi_getcwd", Napi::Function::New(env, libc_wasi_getcwd_napi));
-    exports.Set("libc_wasi_chdir", Napi::Function::New(env, libc_wasi_chdir_napi));
-    exports.Set("libc_wasi_nlLanginfo", Napi::Function::New(env, libc_wasi_nlLanginfo_napi));
-    exports.Set("libc_wasi_nlLanginfoL", Napi::Function::New(env, libc_wasi_nlLanginfoL_napi));
-    exports.Set("libc_wasi_select", Napi::Function::New(env, libc_wasi_select_napi));
-    exports.Set("libc_wasi_wasilibcRegisterPreopenedFd", Napi::Function::New(env, libc_wasi_wasilibcRegisterPreopenedFd_napi));
-    exports.Set("libc_wasi_wasilibcFdRenumber", Napi::Function::New(env, libc_wasi_wasilibcFdRenumber_napi));
-    exports.Set("libc_wasi_wasilibcUnlinkat", Napi::Function::New(env, libc_wasi_wasilibcUnlinkat_napi));
-    exports.Set("libc_wasi_wasilibcRmdirat", Napi::Function::New(env, libc_wasi_wasilibcRmdirat_napi));
-    exports.Set("libc_wasi_wasilibcFindRelpath", Napi::Function::New(env, libc_wasi_wasilibcFindRelpath_napi));
-    exports.Set("libc_wasi_wasilibcTell", Napi::Function::New(env, libc_wasi_wasilibcTell_napi));
-    exports.Set("libc_wasi_wasilibcNocwdWasilibcUnlinkat", Napi::Function::New(env, libc_wasi_wasilibcNocwdWasilibcUnlinkat_napi));
-    exports.Set("libc_wasi_wasilibcNocwdWasilibcRmdirat", Napi::Function::New(env, libc_wasi_wasilibcNocwdWasilibcRmdirat_napi));
-    exports.Set("libc_wasi_wasilibcNocwdLinkat", Napi::Function::New(env, libc_wasi_wasilibcNocwdLinkat_napi));
-    exports.Set("libc_wasi_wasilibcNocwdSymlinkat", Napi::Function::New(env, libc_wasi_wasilibcNocwdSymlinkat_napi));
-    exports.Set("libc_wasi_wasilibcNocwdReadlinkat", Napi::Function::New(env, libc_wasi_wasilibcNocwdReadlinkat_napi));
-    exports.Set("libc_wasi_wasilibcNocwdFaccessat", Napi::Function::New(env, libc_wasi_wasilibcNocwdFaccessat_napi));
-    exports.Set("libc_wasi_wasilibcNocwdRenameat", Napi::Function::New(env, libc_wasi_wasilibcNocwdRenameat_napi));
-    exports.Set("libc_wasi_wasilibcNocwdOpenatNomode", Napi::Function::New(env, libc_wasi_wasilibcNocwdOpenatNomode_napi));
-    exports.Set("libc_wasi_wasilibcNocwdFstatat", Napi::Function::New(env, libc_wasi_wasilibcNocwdFstatat_napi));
-    exports.Set("libc_wasi_wasilibcNocwdMkdiratNomode", Napi::Function::New(env, libc_wasi_wasilibcNocwdMkdiratNomode_napi));
-    exports.Set("libc_wasi_wasilibcNocwdUtimensat", Napi::Function::New(env, libc_wasi_wasilibcNocwdUtimensat_napi));
-    exports.Set("libc_wasi_wasilibcNocwdOpendirat", Napi::Function::New(env, libc_wasi_wasilibcNocwdOpendirat_napi));
-    exports.Set("libc_wasi_wasilibcAccess", Napi::Function::New(env, libc_wasi_wasilibcAccess_napi));
-    exports.Set("libc_wasi_wasilibcStat", Napi::Function::New(env, libc_wasi_wasilibcStat_napi));
-    exports.Set("libc_wasi_wasilibcUtimens", Napi::Function::New(env, libc_wasi_wasilibcUtimens_napi));
-    exports.Set("libc_wasi_wasilibcLink", Napi::Function::New(env, libc_wasi_wasilibcLink_napi));
-    exports.Set("libc_wasi_wasilibcLinkOldat", Napi::Function::New(env, libc_wasi_wasilibcLinkOldat_napi));
-    exports.Set("libc_wasi_wasilibcLinkNewat", Napi::Function::New(env, libc_wasi_wasilibcLinkNewat_napi));
-    exports.Set("libc_wasi_wasilibcRenameOldat", Napi::Function::New(env, libc_wasi_wasilibcRenameOldat_napi));
-    exports.Set("libc_wasi_wasilibcRenameNewat", Napi::Function::New(env, libc_wasi_wasilibcRenameNewat_napi));
-    exports.Set("libc_wasi_arc4random", Napi::Function::New(env, libc_wasi_arc4random_napi));
-    exports.Set("libc_wasi_arc4randomBuf", Napi::Function::New(env, libc_wasi_arc4randomBuf_napi));
-    exports.Set("libc_wasi_arc4randomUniform", Napi::Function::New(env, libc_wasi_arc4randomUniform_napi));
-    exports.Set("libc_wasi_errnoLocation", Napi::Function::New(env, libc_wasi_errnoLocation_napi));
-    exports.Set("libc_wasi_chmod", Napi::Function::New(env, libc_wasi_chmod_napi));
-    exports.Set("libc_wasi_fchmod", Napi::Function::New(env, libc_wasi_fchmod_napi));
-    exports.Set("libc_wasi_realpath", Napi::Function::New(env, libc_wasi_realpath_napi));
-    exports.Set("libc_wasi_pthreadSelf", Napi::Function::New(env, libc_wasi_pthreadSelf_napi));
-    exports.Set("libc_wasi_pthreadCreate", Napi::Function::New(env, libc_wasi_pthreadCreate_napi));
-    exports.Set("libc_wasi_pthreadEqual", Napi::Function::New(env, libc_wasi_pthreadEqual_napi));
-    exports.Set("libc_wasi_pthreadJoin", Napi::Function::New(env, libc_wasi_pthreadJoin_napi));
-    exports.Set("libc_wasi_pthreadAttrInit", Napi::Function::New(env, libc_wasi_pthreadAttrInit_napi));
-    exports.Set("libc_wasi_pthreadAttrDestroy", Napi::Function::New(env, libc_wasi_pthreadAttrDestroy_napi));
-    exports.Set("libc_wasi_pthreadAttrGetstacksize", Napi::Function::New(env, libc_wasi_pthreadAttrGetstacksize_napi));
-    exports.Set("libc_wasi_pthreadAttrSetstacksize", Napi::Function::New(env, libc_wasi_pthreadAttrSetstacksize_napi));
-    exports.Set("libc_wasi_pthreadAttrSetdetachstate", Napi::Function::New(env, libc_wasi_pthreadAttrSetdetachstate_napi));
-    exports.Set("libc_wasi_pthreadDetach", Napi::Function::New(env, libc_wasi_pthreadDetach_napi));
-    exports.Set("libc_wasi_pthreadKeyCreate", Napi::Function::New(env, libc_wasi_pthreadKeyCreate_napi));
-    exports.Set("libc_wasi_pthreadKeyDelete", Napi::Function::New(env, libc_wasi_pthreadKeyDelete_napi));
-    exports.Set("libc_wasi_pthreadGetspecific", Napi::Function::New(env, libc_wasi_pthreadGetspecific_napi));
-    exports.Set("libc_wasi_pthreadSetspecific", Napi::Function::New(env, libc_wasi_pthreadSetspecific_napi));
-    exports.Set("libc_wasi_pthreadMutexInit", Napi::Function::New(env, libc_wasi_pthreadMutexInit_napi));
-    exports.Set("libc_wasi_pthreadMutexDestroy", Napi::Function::New(env, libc_wasi_pthreadMutexDestroy_napi));
-    exports.Set("libc_wasi_pthreadMutexLock", Napi::Function::New(env, libc_wasi_pthreadMutexLock_napi));
-    exports.Set("libc_wasi_pthreadMutexTrylock", Napi::Function::New(env, libc_wasi_pthreadMutexTrylock_napi));
-    exports.Set("libc_wasi_pthreadMutexUnlock", Napi::Function::New(env, libc_wasi_pthreadMutexUnlock_napi));
-    exports.Set("libc_wasi_pthreadMutexattrInit", Napi::Function::New(env, libc_wasi_pthreadMutexattrInit_napi));
-    exports.Set("libc_wasi_pthreadMutexattrDestroy", Napi::Function::New(env, libc_wasi_pthreadMutexattrDestroy_napi));
-    exports.Set("libc_wasi_pthreadMutexattrSettype", Napi::Function::New(env, libc_wasi_pthreadMutexattrSettype_napi));
-    exports.Set("libc_wasi_pthreadCondInit", Napi::Function::New(env, libc_wasi_pthreadCondInit_napi));
-    exports.Set("libc_wasi_pthreadCondWait", Napi::Function::New(env, libc_wasi_pthreadCondWait_napi));
-    exports.Set("libc_wasi_pthreadCondTimedwait", Napi::Function::New(env, libc_wasi_pthreadCondTimedwait_napi));
-    exports.Set("libc_wasi_pthreadCondSignal", Napi::Function::New(env, libc_wasi_pthreadCondSignal_napi));
-    exports.Set("libc_wasi_pthreadCondBroadcast", Napi::Function::New(env, libc_wasi_pthreadCondBroadcast_napi));
-    exports.Set("libc_wasi_pthreadCondDestroy", Napi::Function::New(env, libc_wasi_pthreadCondDestroy_napi));
-    exports.Set("libc_wasi_pthreadCondattrInit", Napi::Function::New(env, libc_wasi_pthreadCondattrInit_napi));
-    exports.Set("libc_wasi_pthreadCondattrDestroy", Napi::Function::New(env, libc_wasi_pthreadCondattrDestroy_napi));
-    exports.Set("libc_wasi_pthreadRwlockInit", Napi::Function::New(env, libc_wasi_pthreadRwlockInit_napi));
-    exports.Set("libc_wasi_pthreadRwlockDestroy", Napi::Function::New(env, libc_wasi_pthreadRwlockDestroy_napi));
-    exports.Set("libc_wasi_pthreadRwlockRdlock", Napi::Function::New(env, libc_wasi_pthreadRwlockRdlock_napi));
-    exports.Set("libc_wasi_pthreadRwlockTryrdlock", Napi::Function::New(env, libc_wasi_pthreadRwlockTryrdlock_napi));
-    exports.Set("libc_wasi_pthreadRwlockWrlock", Napi::Function::New(env, libc_wasi_pthreadRwlockWrlock_napi));
-    exports.Set("libc_wasi_pthreadRwlockTrywrlock", Napi::Function::New(env, libc_wasi_pthreadRwlockTrywrlock_napi));
-    exports.Set("libc_wasi_pthreadRwlockUnlock", Napi::Function::New(env, libc_wasi_pthreadRwlockUnlock_napi));
-    exports.Set("libc_wasi_pthreadRwlockattrInit", Napi::Function::New(env, libc_wasi_pthreadRwlockattrInit_napi));
-    exports.Set("libc_wasi_pthreadRwlockattrDestroy", Napi::Function::New(env, libc_wasi_pthreadRwlockattrDestroy_napi));
+    exports.Set("libcWasiGetENVIRON", Napi::Function::New(env, libcWasiGetENVIRON_napi));
+    exports.Set("libcWasiSetENVIRON", Napi::Function::New(env, libcWasiSetENVIRON_napi));
+    exports.Set("libcWasiGetCLOCKMONOTONIC1", Napi::Function::New(env, libcWasiGetCLOCKMONOTONIC1_napi));
+    exports.Set("libcWasiGetCLOCKREALTIME1", Napi::Function::New(env, libcWasiGetCLOCKREALTIME1_napi));
+    exports.Set("libcWasiExit", Napi::Function::New(env, libcWasiExit_napi));
+    exports.Set("libcWasiAbort", Napi::Function::New(env, libcWasiAbort_napi));
+    exports.Set("libcWasiAlignedAlloc", Napi::Function::New(env, libcWasiAlignedAlloc_napi));
+    exports.Set("libcWasiCalloc", Napi::Function::New(env, libcWasiCalloc_napi));
+    exports.Set("libcWasiFree", Napi::Function::New(env, libcWasiFree_napi));
+    exports.Set("libcWasiGetenv", Napi::Function::New(env, libcWasiGetenv_napi));
+    exports.Set("libcWasiMalloc", Napi::Function::New(env, libcWasiMalloc_napi));
+    exports.Set("libcWasiMallocUsableSize", Napi::Function::New(env, libcWasiMallocUsableSize_napi));
+    exports.Set("libcWasiSbrk", Napi::Function::New(env, libcWasiSbrk_napi));
+    exports.Set("libcWasiRand", Napi::Function::New(env, libcWasiRand_napi));
+    exports.Set("libcWasiRead", Napi::Function::New(env, libcWasiRead_napi));
+    exports.Set("libcWasiRealloc", Napi::Function::New(env, libcWasiRealloc_napi));
+    exports.Set("libcWasiSetenv", Napi::Function::New(env, libcWasiSetenv_napi));
+    exports.Set("libcWasiUnsetenv", Napi::Function::New(env, libcWasiUnsetenv_napi));
+    exports.Set("libcWasiClearenv", Napi::Function::New(env, libcWasiClearenv_napi));
+    exports.Set("libcWasiWrite", Napi::Function::New(env, libcWasiWrite_napi));
+    exports.Set("libcWasiFopen", Napi::Function::New(env, libcWasiFopen_napi));
+    exports.Set("libcWasiFreopen", Napi::Function::New(env, libcWasiFreopen_napi));
+    exports.Set("libcWasiFclose", Napi::Function::New(env, libcWasiFclose_napi));
+    exports.Set("libcWasiRemove", Napi::Function::New(env, libcWasiRemove_napi));
+    exports.Set("libcWasiRename", Napi::Function::New(env, libcWasiRename_napi));
+    exports.Set("libcWasiFeof", Napi::Function::New(env, libcWasiFeof_napi));
+    exports.Set("libcWasiFerror", Napi::Function::New(env, libcWasiFerror_napi));
+    exports.Set("libcWasiFflush", Napi::Function::New(env, libcWasiFflush_napi));
+    exports.Set("libcWasiClearerr", Napi::Function::New(env, libcWasiClearerr_napi));
+    exports.Set("libcWasiFseek", Napi::Function::New(env, libcWasiFseek_napi));
+    exports.Set("libcWasiFtell", Napi::Function::New(env, libcWasiFtell_napi));
+    exports.Set("libcWasiRewind", Napi::Function::New(env, libcWasiRewind_napi));
+    exports.Set("libcWasiFgetpos", Napi::Function::New(env, libcWasiFgetpos_napi));
+    exports.Set("libcWasiFsetpos", Napi::Function::New(env, libcWasiFsetpos_napi));
+    exports.Set("libcWasiFread", Napi::Function::New(env, libcWasiFread_napi));
+    exports.Set("libcWasiFwrite", Napi::Function::New(env, libcWasiFwrite_napi));
+    exports.Set("libcWasiFgetc", Napi::Function::New(env, libcWasiFgetc_napi));
+    exports.Set("libcWasiGetc", Napi::Function::New(env, libcWasiGetc_napi));
+    exports.Set("libcWasiGetchar", Napi::Function::New(env, libcWasiGetchar_napi));
+    exports.Set("libcWasiUngetc", Napi::Function::New(env, libcWasiUngetc_napi));
+    exports.Set("libcWasiFputc", Napi::Function::New(env, libcWasiFputc_napi));
+    exports.Set("libcWasiPutc", Napi::Function::New(env, libcWasiPutc_napi));
+    exports.Set("libcWasiPutchar", Napi::Function::New(env, libcWasiPutchar_napi));
+    exports.Set("libcWasiFputs", Napi::Function::New(env, libcWasiFputs_napi));
+    exports.Set("libcWasiPuts", Napi::Function::New(env, libcWasiPuts_napi));
+    exports.Set("libcWasiPerror", Napi::Function::New(env, libcWasiPerror_napi));
+    exports.Set("libcWasiSrand", Napi::Function::New(env, libcWasiSrand_napi));
+    exports.Set("libcWasiAtexit", Napi::Function::New(env, libcWasiAtexit_napi));
+    exports.Set("libcWasiAtQuickExit", Napi::Function::New(env, libcWasiAtQuickExit_napi));
+    exports.Set("libcWasiQuickExit", Napi::Function::New(env, libcWasiQuickExit_napi));
+    exports.Set("libcWasiPosixMemalign", Napi::Function::New(env, libcWasiPosixMemalign_napi));
+    exports.Set("libcWasiRandR", Napi::Function::New(env, libcWasiRandR_napi));
+    exports.Set("libcWasiRandom", Napi::Function::New(env, libcWasiRandom_napi));
+    exports.Set("libcWasiSrandom", Napi::Function::New(env, libcWasiSrandom_napi));
+    exports.Set("libcWasiPutenv", Napi::Function::New(env, libcWasiPutenv_napi));
+    exports.Set("libcWasiClock", Napi::Function::New(env, libcWasiClock_napi));
+    exports.Set("libcWasiTime", Napi::Function::New(env, libcWasiTime_napi));
+    exports.Set("libcWasiDifftime", Napi::Function::New(env, libcWasiDifftime_napi));
+    exports.Set("libcWasiMktime", Napi::Function::New(env, libcWasiMktime_napi));
+    exports.Set("libcWasiStrftime", Napi::Function::New(env, libcWasiStrftime_napi));
+    exports.Set("libcWasiGmtime", Napi::Function::New(env, libcWasiGmtime_napi));
+    exports.Set("libcWasiGmtimeR", Napi::Function::New(env, libcWasiGmtimeR_napi));
+    exports.Set("libcWasiLocaltime", Napi::Function::New(env, libcWasiLocaltime_napi));
+    exports.Set("libcWasiLocaltimeR", Napi::Function::New(env, libcWasiLocaltimeR_napi));
+    exports.Set("libcWasiAsctimeR", Napi::Function::New(env, libcWasiAsctimeR_napi));
+    exports.Set("libcWasiCtimeR", Napi::Function::New(env, libcWasiCtimeR_napi));
+    exports.Set("libcWasiNanosleep", Napi::Function::New(env, libcWasiNanosleep_napi));
+    exports.Set("libcWasiIsalnum", Napi::Function::New(env, libcWasiIsalnum_napi));
+    exports.Set("libcWasiIsalpha", Napi::Function::New(env, libcWasiIsalpha_napi));
+    exports.Set("libcWasiIscntrl", Napi::Function::New(env, libcWasiIscntrl_napi));
+    exports.Set("libcWasiIsdigit", Napi::Function::New(env, libcWasiIsdigit_napi));
+    exports.Set("libcWasiIsgraph", Napi::Function::New(env, libcWasiIsgraph_napi));
+    exports.Set("libcWasiIslower", Napi::Function::New(env, libcWasiIslower_napi));
+    exports.Set("libcWasiIsprint", Napi::Function::New(env, libcWasiIsprint_napi));
+    exports.Set("libcWasiIspunct", Napi::Function::New(env, libcWasiIspunct_napi));
+    exports.Set("libcWasiIsspace", Napi::Function::New(env, libcWasiIsspace_napi));
+    exports.Set("libcWasiIsupper", Napi::Function::New(env, libcWasiIsupper_napi));
+    exports.Set("libcWasiIsxdigit", Napi::Function::New(env, libcWasiIsxdigit_napi));
+    exports.Set("libcWasiIsblank", Napi::Function::New(env, libcWasiIsblank_napi));
+    exports.Set("libcWasiTolower", Napi::Function::New(env, libcWasiTolower_napi));
+    exports.Set("libcWasiToupper", Napi::Function::New(env, libcWasiToupper_napi));
+    exports.Set("libcWasiSetvbuf", Napi::Function::New(env, libcWasiSetvbuf_napi));
+    exports.Set("libcWasiSetbuf", Napi::Function::New(env, libcWasiSetbuf_napi));
+    exports.Set("libcWasiFgets", Napi::Function::New(env, libcWasiFgets_napi));
+    exports.Set("libcWasiAtof", Napi::Function::New(env, libcWasiAtof_napi));
+    exports.Set("libcWasiAtoi", Napi::Function::New(env, libcWasiAtoi_napi));
+    exports.Set("libcWasiAtol", Napi::Function::New(env, libcWasiAtol_napi));
+    exports.Set("libcWasiAtoll", Napi::Function::New(env, libcWasiAtoll_napi));
+    exports.Set("libcWasiStrtod", Napi::Function::New(env, libcWasiStrtod_napi));
+    exports.Set("libcWasiStrtof", Napi::Function::New(env, libcWasiStrtof_napi));
+    exports.Set("libcWasiStrtol", Napi::Function::New(env, libcWasiStrtol_napi));
+    exports.Set("libcWasiStrtoll", Napi::Function::New(env, libcWasiStrtoll_napi));
+    exports.Set("libcWasiStrtoul", Napi::Function::New(env, libcWasiStrtoul_napi));
+    exports.Set("libcWasiStrtoull", Napi::Function::New(env, libcWasiStrtoull_napi));
+    exports.Set("libcWasiStrcpy", Napi::Function::New(env, libcWasiStrcpy_napi));
+    exports.Set("libcWasiStrncpy", Napi::Function::New(env, libcWasiStrncpy_napi));
+    exports.Set("libcWasiStrcat", Napi::Function::New(env, libcWasiStrcat_napi));
+    exports.Set("libcWasiStrncat", Napi::Function::New(env, libcWasiStrncat_napi));
+    exports.Set("libcWasiStrcmp", Napi::Function::New(env, libcWasiStrcmp_napi));
+    exports.Set("libcWasiStrncmp", Napi::Function::New(env, libcWasiStrncmp_napi));
+    exports.Set("libcWasiStrcoll", Napi::Function::New(env, libcWasiStrcoll_napi));
+    exports.Set("libcWasiStrchr", Napi::Function::New(env, libcWasiStrchr_napi));
+    exports.Set("libcWasiStrrchr", Napi::Function::New(env, libcWasiStrrchr_napi));
+    exports.Set("libcWasiStrspn", Napi::Function::New(env, libcWasiStrspn_napi));
+    exports.Set("libcWasiStrcspn", Napi::Function::New(env, libcWasiStrcspn_napi));
+    exports.Set("libcWasiStrdup", Napi::Function::New(env, libcWasiStrdup_napi));
+    exports.Set("libcWasiStrndup", Napi::Function::New(env, libcWasiStrndup_napi));
+    exports.Set("libcWasiStrpbrk", Napi::Function::New(env, libcWasiStrpbrk_napi));
+    exports.Set("libcWasiStrstr", Napi::Function::New(env, libcWasiStrstr_napi));
+    exports.Set("libcWasiStrcasecmp", Napi::Function::New(env, libcWasiStrcasecmp_napi));
+    exports.Set("libcWasiStrncasecmp", Napi::Function::New(env, libcWasiStrncasecmp_napi));
+    exports.Set("libcWasiStrlen", Napi::Function::New(env, libcWasiStrlen_napi));
+    exports.Set("libcWasiStrnlen", Napi::Function::New(env, libcWasiStrnlen_napi));
+    exports.Set("libcWasiStrerror", Napi::Function::New(env, libcWasiStrerror_napi));
+    exports.Set("libcWasiStrtok", Napi::Function::New(env, libcWasiStrtok_napi));
+    exports.Set("libcWasiStrxfrm", Napi::Function::New(env, libcWasiStrxfrm_napi));
+    exports.Set("libcWasiMemchr", Napi::Function::New(env, libcWasiMemchr_napi));
+    exports.Set("libcWasiMemcmp", Napi::Function::New(env, libcWasiMemcmp_napi));
+    exports.Set("libcWasiMemcpy", Napi::Function::New(env, libcWasiMemcpy_napi));
+    exports.Set("libcWasiMemmove", Napi::Function::New(env, libcWasiMemmove_napi));
+    exports.Set("libcWasiMemset", Napi::Function::New(env, libcWasiMemset_napi));
+    exports.Set("libcWasiFprintf", Napi::Function::New(env, libcWasiFprintf_napi));
+    exports.Set("libcWasiPrintf", Napi::Function::New(env, libcWasiPrintf_napi));
+    exports.Set("libcWasiSnprintf", Napi::Function::New(env, libcWasiSnprintf_napi));
+    exports.Set("libcWasiSprintf", Napi::Function::New(env, libcWasiSprintf_napi));
+    exports.Set("libcWasiFscanf", Napi::Function::New(env, libcWasiFscanf_napi));
+    exports.Set("libcWasiScanf", Napi::Function::New(env, libcWasiScanf_napi));
+    exports.Set("libcWasiSscanf", Napi::Function::New(env, libcWasiSscanf_napi));
+    exports.Set("libcWasiGetcharUnlocked", Napi::Function::New(env, libcWasiGetcharUnlocked_napi));
+    exports.Set("libcWasiPutcharUnlocked", Napi::Function::New(env, libcWasiPutcharUnlocked_napi));
+    exports.Set("libcWasiShutdown", Napi::Function::New(env, libcWasiShutdown_napi));
+    exports.Set("libcWasiFstat", Napi::Function::New(env, libcWasiFstat_napi));
+    exports.Set("libcWasiMkdir", Napi::Function::New(env, libcWasiMkdir_napi));
+    exports.Set("libcWasiStat", Napi::Function::New(env, libcWasiStat_napi));
+    exports.Set("libcWasiFdopen", Napi::Function::New(env, libcWasiFdopen_napi));
+    exports.Set("libcWasiFileno", Napi::Function::New(env, libcWasiFileno_napi));
+    exports.Set("libcWasiOpen", Napi::Function::New(env, libcWasiOpen_napi));
+    exports.Set("libcWasiCreat", Napi::Function::New(env, libcWasiCreat_napi));
+    exports.Set("libcWasiFcntl", Napi::Function::New(env, libcWasiFcntl_napi));
+    exports.Set("libcWasiOpendir", Napi::Function::New(env, libcWasiOpendir_napi));
+    exports.Set("libcWasiFdopendir", Napi::Function::New(env, libcWasiFdopendir_napi));
+    exports.Set("libcWasiReaddir", Napi::Function::New(env, libcWasiReaddir_napi));
+    exports.Set("libcWasiClosedir", Napi::Function::New(env, libcWasiClosedir_napi));
+    exports.Set("libcWasiRewinddir", Napi::Function::New(env, libcWasiRewinddir_napi));
+    exports.Set("libcWasiDirfd", Napi::Function::New(env, libcWasiDirfd_napi));
+    exports.Set("libcWasiSeekdir", Napi::Function::New(env, libcWasiSeekdir_napi));
+    exports.Set("libcWasiTelldir", Napi::Function::New(env, libcWasiTelldir_napi));
+    exports.Set("libcWasiOpenat", Napi::Function::New(env, libcWasiOpenat_napi));
+    exports.Set("libcWasiFstatat", Napi::Function::New(env, libcWasiFstatat_napi));
+    exports.Set("libcWasiLinkat", Napi::Function::New(env, libcWasiLinkat_napi));
+    exports.Set("libcWasiMkdirat", Napi::Function::New(env, libcWasiMkdirat_napi));
+    exports.Set("libcWasiReadlinkat", Napi::Function::New(env, libcWasiReadlinkat_napi));
+    exports.Set("libcWasiRenameat", Napi::Function::New(env, libcWasiRenameat_napi));
+    exports.Set("libcWasiSymlinkat", Napi::Function::New(env, libcWasiSymlinkat_napi));
+    exports.Set("libcWasiUnlinkat", Napi::Function::New(env, libcWasiUnlinkat_napi));
+    exports.Set("libcWasiAccess", Napi::Function::New(env, libcWasiAccess_napi));
+    exports.Set("libcWasiClose", Napi::Function::New(env, libcWasiClose_napi));
+    exports.Set("libcWasiFpathconf", Napi::Function::New(env, libcWasiFpathconf_napi));
+    exports.Set("libcWasiGetopt", Napi::Function::New(env, libcWasiGetopt_napi));
+    exports.Set("libcWasiIsatty", Napi::Function::New(env, libcWasiIsatty_napi));
+    exports.Set("libcWasiLink", Napi::Function::New(env, libcWasiLink_napi));
+    exports.Set("libcWasiLseek", Napi::Function::New(env, libcWasiLseek_napi));
+    exports.Set("libcWasiPathconf", Napi::Function::New(env, libcWasiPathconf_napi));
+    exports.Set("libcWasiRmdir", Napi::Function::New(env, libcWasiRmdir_napi));
+    exports.Set("libcWasiSleep", Napi::Function::New(env, libcWasiSleep_napi));
+    exports.Set("libcWasiUnlink", Napi::Function::New(env, libcWasiUnlink_napi));
+    exports.Set("libcWasiPread", Napi::Function::New(env, libcWasiPread_napi));
+    exports.Set("libcWasiPwrite", Napi::Function::New(env, libcWasiPwrite_napi));
+    exports.Set("libcWasiLstat", Napi::Function::New(env, libcWasiLstat_napi));
+    exports.Set("libcWasiFsync", Napi::Function::New(env, libcWasiFsync_napi));
+    exports.Set("libcWasiFdatasync", Napi::Function::New(env, libcWasiFdatasync_napi));
+    exports.Set("libcWasiSymlink", Napi::Function::New(env, libcWasiSymlink_napi));
+    exports.Set("libcWasiTruncate", Napi::Function::New(env, libcWasiTruncate_napi));
+    exports.Set("libcWasiFtruncate", Napi::Function::New(env, libcWasiFtruncate_napi));
+    exports.Set("libcWasiGetrusage", Napi::Function::New(env, libcWasiGetrusage_napi));
+    exports.Set("libcWasiGettimeofday", Napi::Function::New(env, libcWasiGettimeofday_napi));
+    exports.Set("libcWasiTimes", Napi::Function::New(env, libcWasiTimes_napi));
+    exports.Set("libcWasiStrerrorR", Napi::Function::New(env, libcWasiStrerrorR_napi));
+    exports.Set("libcWasiUsleep", Napi::Function::New(env, libcWasiUsleep_napi));
+    exports.Set("libcWasiSend", Napi::Function::New(env, libcWasiSend_napi));
+    exports.Set("libcWasiRecv", Napi::Function::New(env, libcWasiRecv_napi));
+    exports.Set("libcWasiPoll", Napi::Function::New(env, libcWasiPoll_napi));
+    exports.Set("libcWasiSetlocale", Napi::Function::New(env, libcWasiSetlocale_napi));
+    exports.Set("libcWasiLocaleconv", Napi::Function::New(env, libcWasiLocaleconv_napi));
+    exports.Set("libcWasiReadlink", Napi::Function::New(env, libcWasiReadlink_napi));
+    exports.Set("libcWasiTimegm", Napi::Function::New(env, libcWasiTimegm_napi));
+    exports.Set("libcWasiSysconf", Napi::Function::New(env, libcWasiSysconf_napi));
+    exports.Set("libcWasiIoctl", Napi::Function::New(env, libcWasiIoctl_napi));
+    exports.Set("libcWasiFseeko", Napi::Function::New(env, libcWasiFseeko_napi));
+    exports.Set("libcWasiFtello", Napi::Function::New(env, libcWasiFtello_napi));
+    exports.Set("libcWasiPosixFallocate", Napi::Function::New(env, libcWasiPosixFallocate_napi));
+    exports.Set("libcWasiStrcasestr", Napi::Function::New(env, libcWasiStrcasestr_napi));
+    exports.Set("libcWasiGetline", Napi::Function::New(env, libcWasiGetline_napi));
+    exports.Set("libcWasiFaccessat", Napi::Function::New(env, libcWasiFaccessat_napi));
+    exports.Set("libcWasiWritev", Napi::Function::New(env, libcWasiWritev_napi));
+    exports.Set("libcWasiReadv", Napi::Function::New(env, libcWasiReadv_napi));
+    exports.Set("libcWasiPwritev", Napi::Function::New(env, libcWasiPwritev_napi));
+    exports.Set("libcWasiPreadv", Napi::Function::New(env, libcWasiPreadv_napi));
+    exports.Set("libcWasiPosixFadvise", Napi::Function::New(env, libcWasiPosixFadvise_napi));
+    exports.Set("libcWasiFutimens", Napi::Function::New(env, libcWasiFutimens_napi));
+    exports.Set("libcWasiUtimensat", Napi::Function::New(env, libcWasiUtimensat_napi));
+    exports.Set("libcWasiGetentropy", Napi::Function::New(env, libcWasiGetentropy_napi));
+    exports.Set("libcWasiMemrchr", Napi::Function::New(env, libcWasiMemrchr_napi));
+    exports.Set("libcWasiAbs", Napi::Function::New(env, libcWasiAbs_napi));
+    exports.Set("libcWasiLabs", Napi::Function::New(env, libcWasiLabs_napi));
+    exports.Set("libcWasiDuplocale", Napi::Function::New(env, libcWasiDuplocale_napi));
+    exports.Set("libcWasiFreelocale", Napi::Function::New(env, libcWasiFreelocale_napi));
+    exports.Set("libcWasiNewlocale", Napi::Function::New(env, libcWasiNewlocale_napi));
+    exports.Set("libcWasiUselocale", Napi::Function::New(env, libcWasiUselocale_napi));
+    exports.Set("libcWasiSchedYield", Napi::Function::New(env, libcWasiSchedYield_napi));
+    exports.Set("libcWasiGetcwd", Napi::Function::New(env, libcWasiGetcwd_napi));
+    exports.Set("libcWasiChdir", Napi::Function::New(env, libcWasiChdir_napi));
+    exports.Set("libcWasiNlLanginfo", Napi::Function::New(env, libcWasiNlLanginfo_napi));
+    exports.Set("libcWasiNlLanginfoL", Napi::Function::New(env, libcWasiNlLanginfoL_napi));
+    exports.Set("libcWasiSelect", Napi::Function::New(env, libcWasiSelect_napi));
+    exports.Set("libcWasiWasilibcRegisterPreopenedFd", Napi::Function::New(env, libcWasiWasilibcRegisterPreopenedFd_napi));
+    exports.Set("libcWasiWasilibcFdRenumber", Napi::Function::New(env, libcWasiWasilibcFdRenumber_napi));
+    exports.Set("libcWasiWasilibcUnlinkat", Napi::Function::New(env, libcWasiWasilibcUnlinkat_napi));
+    exports.Set("libcWasiWasilibcRmdirat", Napi::Function::New(env, libcWasiWasilibcRmdirat_napi));
+    exports.Set("libcWasiWasilibcFindRelpath", Napi::Function::New(env, libcWasiWasilibcFindRelpath_napi));
+    exports.Set("libcWasiWasilibcTell", Napi::Function::New(env, libcWasiWasilibcTell_napi));
+    exports.Set("libcWasiWasilibcNocwdWasilibcUnlinkat", Napi::Function::New(env, libcWasiWasilibcNocwdWasilibcUnlinkat_napi));
+    exports.Set("libcWasiWasilibcNocwdWasilibcRmdirat", Napi::Function::New(env, libcWasiWasilibcNocwdWasilibcRmdirat_napi));
+    exports.Set("libcWasiWasilibcNocwdLinkat", Napi::Function::New(env, libcWasiWasilibcNocwdLinkat_napi));
+    exports.Set("libcWasiWasilibcNocwdSymlinkat", Napi::Function::New(env, libcWasiWasilibcNocwdSymlinkat_napi));
+    exports.Set("libcWasiWasilibcNocwdReadlinkat", Napi::Function::New(env, libcWasiWasilibcNocwdReadlinkat_napi));
+    exports.Set("libcWasiWasilibcNocwdFaccessat", Napi::Function::New(env, libcWasiWasilibcNocwdFaccessat_napi));
+    exports.Set("libcWasiWasilibcNocwdRenameat", Napi::Function::New(env, libcWasiWasilibcNocwdRenameat_napi));
+    exports.Set("libcWasiWasilibcNocwdOpenatNomode", Napi::Function::New(env, libcWasiWasilibcNocwdOpenatNomode_napi));
+    exports.Set("libcWasiWasilibcNocwdFstatat", Napi::Function::New(env, libcWasiWasilibcNocwdFstatat_napi));
+    exports.Set("libcWasiWasilibcNocwdMkdiratNomode", Napi::Function::New(env, libcWasiWasilibcNocwdMkdiratNomode_napi));
+    exports.Set("libcWasiWasilibcNocwdUtimensat", Napi::Function::New(env, libcWasiWasilibcNocwdUtimensat_napi));
+    exports.Set("libcWasiWasilibcNocwdOpendirat", Napi::Function::New(env, libcWasiWasilibcNocwdOpendirat_napi));
+    exports.Set("libcWasiWasilibcAccess", Napi::Function::New(env, libcWasiWasilibcAccess_napi));
+    exports.Set("libcWasiWasilibcStat", Napi::Function::New(env, libcWasiWasilibcStat_napi));
+    exports.Set("libcWasiWasilibcUtimens", Napi::Function::New(env, libcWasiWasilibcUtimens_napi));
+    exports.Set("libcWasiWasilibcLink", Napi::Function::New(env, libcWasiWasilibcLink_napi));
+    exports.Set("libcWasiWasilibcLinkOldat", Napi::Function::New(env, libcWasiWasilibcLinkOldat_napi));
+    exports.Set("libcWasiWasilibcLinkNewat", Napi::Function::New(env, libcWasiWasilibcLinkNewat_napi));
+    exports.Set("libcWasiWasilibcRenameOldat", Napi::Function::New(env, libcWasiWasilibcRenameOldat_napi));
+    exports.Set("libcWasiWasilibcRenameNewat", Napi::Function::New(env, libcWasiWasilibcRenameNewat_napi));
+    exports.Set("libcWasiArc4random", Napi::Function::New(env, libcWasiArc4random_napi));
+    exports.Set("libcWasiArc4randomBuf", Napi::Function::New(env, libcWasiArc4randomBuf_napi));
+    exports.Set("libcWasiArc4randomUniform", Napi::Function::New(env, libcWasiArc4randomUniform_napi));
+    exports.Set("libcWasiErrnoLocation", Napi::Function::New(env, libcWasiErrnoLocation_napi));
+    exports.Set("libcWasiChmod", Napi::Function::New(env, libcWasiChmod_napi));
+    exports.Set("libcWasiFchmod", Napi::Function::New(env, libcWasiFchmod_napi));
+    exports.Set("libcWasiRealpath", Napi::Function::New(env, libcWasiRealpath_napi));
+    exports.Set("libcWasiPthreadSelf", Napi::Function::New(env, libcWasiPthreadSelf_napi));
+    exports.Set("libcWasiPthreadCreate", Napi::Function::New(env, libcWasiPthreadCreate_napi));
+    exports.Set("libcWasiPthreadEqual", Napi::Function::New(env, libcWasiPthreadEqual_napi));
+    exports.Set("libcWasiPthreadJoin", Napi::Function::New(env, libcWasiPthreadJoin_napi));
+    exports.Set("libcWasiPthreadAttrInit", Napi::Function::New(env, libcWasiPthreadAttrInit_napi));
+    exports.Set("libcWasiPthreadAttrDestroy", Napi::Function::New(env, libcWasiPthreadAttrDestroy_napi));
+    exports.Set("libcWasiPthreadAttrGetstacksize", Napi::Function::New(env, libcWasiPthreadAttrGetstacksize_napi));
+    exports.Set("libcWasiPthreadAttrSetstacksize", Napi::Function::New(env, libcWasiPthreadAttrSetstacksize_napi));
+    exports.Set("libcWasiPthreadAttrSetdetachstate", Napi::Function::New(env, libcWasiPthreadAttrSetdetachstate_napi));
+    exports.Set("libcWasiPthreadDetach", Napi::Function::New(env, libcWasiPthreadDetach_napi));
+    exports.Set("libcWasiPthreadKeyCreate", Napi::Function::New(env, libcWasiPthreadKeyCreate_napi));
+    exports.Set("libcWasiPthreadKeyDelete", Napi::Function::New(env, libcWasiPthreadKeyDelete_napi));
+    exports.Set("libcWasiPthreadGetspecific", Napi::Function::New(env, libcWasiPthreadGetspecific_napi));
+    exports.Set("libcWasiPthreadSetspecific", Napi::Function::New(env, libcWasiPthreadSetspecific_napi));
+    exports.Set("libcWasiPthreadMutexInit", Napi::Function::New(env, libcWasiPthreadMutexInit_napi));
+    exports.Set("libcWasiPthreadMutexDestroy", Napi::Function::New(env, libcWasiPthreadMutexDestroy_napi));
+    exports.Set("libcWasiPthreadMutexLock", Napi::Function::New(env, libcWasiPthreadMutexLock_napi));
+    exports.Set("libcWasiPthreadMutexTrylock", Napi::Function::New(env, libcWasiPthreadMutexTrylock_napi));
+    exports.Set("libcWasiPthreadMutexUnlock", Napi::Function::New(env, libcWasiPthreadMutexUnlock_napi));
+    exports.Set("libcWasiPthreadMutexattrInit", Napi::Function::New(env, libcWasiPthreadMutexattrInit_napi));
+    exports.Set("libcWasiPthreadMutexattrDestroy", Napi::Function::New(env, libcWasiPthreadMutexattrDestroy_napi));
+    exports.Set("libcWasiPthreadMutexattrSettype", Napi::Function::New(env, libcWasiPthreadMutexattrSettype_napi));
+    exports.Set("libcWasiPthreadCondInit", Napi::Function::New(env, libcWasiPthreadCondInit_napi));
+    exports.Set("libcWasiPthreadCondWait", Napi::Function::New(env, libcWasiPthreadCondWait_napi));
+    exports.Set("libcWasiPthreadCondTimedwait", Napi::Function::New(env, libcWasiPthreadCondTimedwait_napi));
+    exports.Set("libcWasiPthreadCondSignal", Napi::Function::New(env, libcWasiPthreadCondSignal_napi));
+    exports.Set("libcWasiPthreadCondBroadcast", Napi::Function::New(env, libcWasiPthreadCondBroadcast_napi));
+    exports.Set("libcWasiPthreadCondDestroy", Napi::Function::New(env, libcWasiPthreadCondDestroy_napi));
+    exports.Set("libcWasiPthreadCondattrInit", Napi::Function::New(env, libcWasiPthreadCondattrInit_napi));
+    exports.Set("libcWasiPthreadCondattrDestroy", Napi::Function::New(env, libcWasiPthreadCondattrDestroy_napi));
+    exports.Set("libcWasiPthreadRwlockInit", Napi::Function::New(env, libcWasiPthreadRwlockInit_napi));
+    exports.Set("libcWasiPthreadRwlockDestroy", Napi::Function::New(env, libcWasiPthreadRwlockDestroy_napi));
+    exports.Set("libcWasiPthreadRwlockRdlock", Napi::Function::New(env, libcWasiPthreadRwlockRdlock_napi));
+    exports.Set("libcWasiPthreadRwlockTryrdlock", Napi::Function::New(env, libcWasiPthreadRwlockTryrdlock_napi));
+    exports.Set("libcWasiPthreadRwlockWrlock", Napi::Function::New(env, libcWasiPthreadRwlockWrlock_napi));
+    exports.Set("libcWasiPthreadRwlockTrywrlock", Napi::Function::New(env, libcWasiPthreadRwlockTrywrlock_napi));
+    exports.Set("libcWasiPthreadRwlockUnlock", Napi::Function::New(env, libcWasiPthreadRwlockUnlock_napi));
+    exports.Set("libcWasiPthreadRwlockattrInit", Napi::Function::New(env, libcWasiPthreadRwlockattrInit_napi));
+    exports.Set("libcWasiPthreadRwlockattrDestroy", Napi::Function::New(env, libcWasiPthreadRwlockattrDestroy_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_wasi_napi, nullptr };

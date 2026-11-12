@@ -3,3 +3,4 @@ headers = unix_bsd_apple_b32_wrapper.h
 headerFilter = unix_bsd_apple_b32_wrapper.h
 compilerOpts = -Isrc/native/interop/cinterop
 staticLibraries = unix_bsd_apple_b32_wrapper.a
+noStringConversion = libcUnixBsdAppleB32Exchangedata

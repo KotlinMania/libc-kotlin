@@ -1,7 +1,9 @@
 package io.github.kotlinmania.libc.unix.bsd.apple.b64
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CUint
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
 
-public expect fun exchangedata(path1: String?, path2: String?, options: CUint): CInt
+public expect fun exchangedata(path1: ConstPtr<CChar>, path2: ConstPtr<CChar>, options: CUint): CInt

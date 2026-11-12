@@ -19,10 +19,9 @@
 #endif
 #endif
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1fhlink(JNIEnv* km_env, jclass km_clazz, jlong fhp, jstring to) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdFhlink(JNIEnv* km_env, jclass km_clazz, jlong fhp, jlong to) {
     (void)km_env;
     (void)km_clazz;
-    const char* to_utf = (to != NULL) ? (*km_env)->GetStringUTFChars(km_env, to, NULL) : NULL;
     typedef int32_t (*km_fn_t)(void*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -45,19 +44,17 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)fhp, to_utf);
+        km_res = km_fn_ptr((void*)(uintptr_t)fhp, (const char*)(uintptr_t)to);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (to != NULL && to_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, to, to_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1fhlinkat(JNIEnv* km_env, jclass km_clazz, jlong fhp, jint tofd, jstring to) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdFhlinkat(JNIEnv* km_env, jclass km_clazz, jlong fhp, jint tofd, jlong to) {
     (void)km_env;
     (void)km_clazz;
-    const char* to_utf = (to != NULL) ? (*km_env)->GetStringUTFChars(km_env, to, NULL) : NULL;
     typedef int32_t (*km_fn_t)(void*, int32_t, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -80,16 +77,15 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)fhp, (int32_t)tofd, to_utf);
+        km_res = km_fn_ptr((void*)(uintptr_t)fhp, (int32_t)tofd, (const char*)(uintptr_t)to);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (to != NULL && to_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, to, to_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1fhreadlink(JNIEnv* km_env, jclass km_clazz, jlong fhp, jlong buf, jlong bufsize) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdFhreadlink(JNIEnv* km_env, jclass km_clazz, jlong fhp, jlong buf, jlong bufsize) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, char*, uint64_t);
@@ -122,7 +118,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1getfhat(JNIEnv* km_env, jclass km_clazz, jint fd, jlong path, jlong fhp, jint flag) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdGetfhat(JNIEnv* km_env, jclass km_clazz, jint fd, jlong path, jlong fhp, jint flag) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, char*, void*, int32_t);
@@ -155,7 +151,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1error(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdError(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void);
@@ -186,7 +182,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1aioCancel(JNIEnv* km_env, jclass km_clazz, jint fd, jlong aiocbp) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdAioCancel(JNIEnv* km_env, jclass km_clazz, jint fd, jlong aiocbp) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -219,7 +215,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1aioError(JNIEnv* km_env, jclass km_clazz, jlong aiocbp) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdAioError(JNIEnv* km_env, jclass km_clazz, jlong aiocbp) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -252,7 +248,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1aioFsync(JNIEnv* km_env, jclass km_clazz, jint op, jlong aiocbp) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdAioFsync(JNIEnv* km_env, jclass km_clazz, jint op, jlong aiocbp) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -285,7 +281,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1aioRead(JNIEnv* km_env, jclass km_clazz, jlong aiocbp) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdAioRead(JNIEnv* km_env, jclass km_clazz, jlong aiocbp) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -318,7 +314,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1aioReadv(JNIEnv* km_env, jclass km_clazz, jlong aiocbp) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdAioReadv(JNIEnv* km_env, jclass km_clazz, jlong aiocbp) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -351,7 +347,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1aioReturn(JNIEnv* km_env, jclass km_clazz, jlong aiocbp) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdAioReturn(JNIEnv* km_env, jclass km_clazz, jlong aiocbp) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(void*);
@@ -384,7 +380,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
     return (jlong)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1aioSuspend(JNIEnv* km_env, jclass km_clazz, jlong aiocb_list, jint nitems, jlong timeout) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdAioSuspend(JNIEnv* km_env, jclass km_clazz, jlong aiocbList, jint nitems, jlong timeout) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t, void*);
@@ -409,7 +405,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)aiocb_list, (int32_t)nitems, (void*)(uintptr_t)timeout);
+        km_res = km_fn_ptr((void*)(uintptr_t)aiocbList, (int32_t)nitems, (void*)(uintptr_t)timeout);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -417,7 +413,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1aioWrite(JNIEnv* km_env, jclass km_clazz, jlong aiocbp) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdAioWrite(JNIEnv* km_env, jclass km_clazz, jlong aiocbp) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -450,7 +446,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1aioWritev(JNIEnv* km_env, jclass km_clazz, jlong aiocbp) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdAioWritev(JNIEnv* km_env, jclass km_clazz, jlong aiocbp) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -483,7 +479,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1copyFileRange(JNIEnv* km_env, jclass km_clazz, jint infd, jlong inoffp, jint outfd, jlong outoffp, jlong len, jint flags) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdCopyFileRange(JNIEnv* km_env, jclass km_clazz, jint infd, jlong inoffp, jint outfd, jlong outoffp, jlong len, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, void*, uint64_t, uint32_t);
@@ -516,7 +512,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1devnameR(JNIEnv* km_env, jclass km_clazz, jint dev, jshort mode, jlong buf, jint len) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdDevnameR(JNIEnv* km_env, jclass km_clazz, jint dev, jshort mode, jlong buf, jint len) {
     (void)km_env;
     (void)km_clazz;
     typedef char* (*km_fn_t)(uint32_t, uint16_t, char*, int32_t);
@@ -549,10 +545,9 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1extattrDeleteFd(JNIEnv* km_env, jclass km_clazz, jint fd, jint attrnamespace, jstring attrname) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdExtattrDeleteFd(JNIEnv* km_env, jclass km_clazz, jint fd, jint attrnamespace, jlong attrname) {
     (void)km_env;
     (void)km_clazz;
-    const char* attrname_utf = (attrname != NULL) ? (*km_env)->GetStringUTFChars(km_env, attrname, NULL) : NULL;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -575,20 +570,17 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)fd, (int32_t)attrnamespace, attrname_utf);
+        km_res = km_fn_ptr((int32_t)fd, (int32_t)attrnamespace, (const char*)(uintptr_t)attrname);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (attrname != NULL && attrname_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, attrname, attrname_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1extattrDeleteFile(JNIEnv* km_env, jclass km_clazz, jstring path, jint attrnamespace, jstring attrname) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdExtattrDeleteFile(JNIEnv* km_env, jclass km_clazz, jlong path, jint attrnamespace, jlong attrname) {
     (void)km_env;
     (void)km_clazz;
-    const char* path_utf = (path != NULL) ? (*km_env)->GetStringUTFChars(km_env, path, NULL) : NULL;
-    const char* attrname_utf = (attrname != NULL) ? (*km_env)->GetStringUTFChars(km_env, attrname, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, int32_t, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -611,21 +603,17 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(path_utf, (int32_t)attrnamespace, attrname_utf);
+        km_res = km_fn_ptr((const char*)(uintptr_t)path, (int32_t)attrnamespace, (const char*)(uintptr_t)attrname);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
-    if (attrname != NULL && attrname_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, attrname, attrname_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1extattrDeleteLink(JNIEnv* km_env, jclass km_clazz, jstring path, jint attrnamespace, jstring attrname) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdExtattrDeleteLink(JNIEnv* km_env, jclass km_clazz, jlong path, jint attrnamespace, jlong attrname) {
     (void)km_env;
     (void)km_clazz;
-    const char* path_utf = (path != NULL) ? (*km_env)->GetStringUTFChars(km_env, path, NULL) : NULL;
-    const char* attrname_utf = (attrname != NULL) ? (*km_env)->GetStringUTFChars(km_env, attrname, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, int32_t, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -648,20 +636,17 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(path_utf, (int32_t)attrnamespace, attrname_utf);
+        km_res = km_fn_ptr((const char*)(uintptr_t)path, (int32_t)attrnamespace, (const char*)(uintptr_t)attrname);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
-    if (attrname != NULL && attrname_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, attrname, attrname_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1extattrGetFd(JNIEnv* km_env, jclass km_clazz, jint fd, jint attrnamespace, jstring attrname, jlong data, jlong nbytes) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdExtattrGetFd(JNIEnv* km_env, jclass km_clazz, jint fd, jint attrnamespace, jlong attrname, jlong data, jlong nbytes) {
     (void)km_env;
     (void)km_clazz;
-    const char* attrname_utf = (attrname != NULL) ? (*km_env)->GetStringUTFChars(km_env, attrname, NULL) : NULL;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, const char*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -684,20 +669,17 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
 #endif
     int64_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)fd, (int32_t)attrnamespace, attrname_utf, (void*)(uintptr_t)data, (uint64_t)nbytes);
+        km_res = km_fn_ptr((int32_t)fd, (int32_t)attrnamespace, (const char*)(uintptr_t)attrname, (void*)(uintptr_t)data, (uint64_t)nbytes);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (attrname != NULL && attrname_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, attrname, attrname_utf);
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1extattrGetFile(JNIEnv* km_env, jclass km_clazz, jstring path, jint attrnamespace, jstring attrname, jlong data, jlong nbytes) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdExtattrGetFile(JNIEnv* km_env, jclass km_clazz, jlong path, jint attrnamespace, jlong attrname, jlong data, jlong nbytes) {
     (void)km_env;
     (void)km_clazz;
-    const char* path_utf = (path != NULL) ? (*km_env)->GetStringUTFChars(km_env, path, NULL) : NULL;
-    const char* attrname_utf = (attrname != NULL) ? (*km_env)->GetStringUTFChars(km_env, attrname, NULL) : NULL;
     typedef int64_t (*km_fn_t)(const char*, int32_t, const char*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -720,21 +702,17 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
 #endif
     int64_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(path_utf, (int32_t)attrnamespace, attrname_utf, (void*)(uintptr_t)data, (uint64_t)nbytes);
+        km_res = km_fn_ptr((const char*)(uintptr_t)path, (int32_t)attrnamespace, (const char*)(uintptr_t)attrname, (void*)(uintptr_t)data, (uint64_t)nbytes);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
-    if (attrname != NULL && attrname_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, attrname, attrname_utf);
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1extattrGetLink(JNIEnv* km_env, jclass km_clazz, jstring path, jint attrnamespace, jstring attrname, jlong data, jlong nbytes) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdExtattrGetLink(JNIEnv* km_env, jclass km_clazz, jlong path, jint attrnamespace, jlong attrname, jlong data, jlong nbytes) {
     (void)km_env;
     (void)km_clazz;
-    const char* path_utf = (path != NULL) ? (*km_env)->GetStringUTFChars(km_env, path, NULL) : NULL;
-    const char* attrname_utf = (attrname != NULL) ? (*km_env)->GetStringUTFChars(km_env, attrname, NULL) : NULL;
     typedef int64_t (*km_fn_t)(const char*, int32_t, const char*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -757,17 +735,15 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
 #endif
     int64_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(path_utf, (int32_t)attrnamespace, attrname_utf, (void*)(uintptr_t)data, (uint64_t)nbytes);
+        km_res = km_fn_ptr((const char*)(uintptr_t)path, (int32_t)attrnamespace, (const char*)(uintptr_t)attrname, (void*)(uintptr_t)data, (uint64_t)nbytes);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
-    if (attrname != NULL && attrname_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, attrname, attrname_utf);
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1extattrListFd(JNIEnv* km_env, jclass km_clazz, jint fd, jint attrnamespace, jlong data, jlong nbytes) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdExtattrListFd(JNIEnv* km_env, jclass km_clazz, jint fd, jint attrnamespace, jlong data, jlong nbytes) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, void*, uint64_t);
@@ -800,10 +776,9 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1extattrListFile(JNIEnv* km_env, jclass km_clazz, jstring path, jint attrnamespace, jlong data, jlong nbytes) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdExtattrListFile(JNIEnv* km_env, jclass km_clazz, jlong path, jint attrnamespace, jlong data, jlong nbytes) {
     (void)km_env;
     (void)km_clazz;
-    const char* path_utf = (path != NULL) ? (*km_env)->GetStringUTFChars(km_env, path, NULL) : NULL;
     typedef int64_t (*km_fn_t)(const char*, int32_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -826,19 +801,17 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
 #endif
     int64_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(path_utf, (int32_t)attrnamespace, (void*)(uintptr_t)data, (uint64_t)nbytes);
+        km_res = km_fn_ptr((const char*)(uintptr_t)path, (int32_t)attrnamespace, (void*)(uintptr_t)data, (uint64_t)nbytes);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1extattrListLink(JNIEnv* km_env, jclass km_clazz, jstring path, jint attrnamespace, jlong data, jlong nbytes) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdExtattrListLink(JNIEnv* km_env, jclass km_clazz, jlong path, jint attrnamespace, jlong data, jlong nbytes) {
     (void)km_env;
     (void)km_clazz;
-    const char* path_utf = (path != NULL) ? (*km_env)->GetStringUTFChars(km_env, path, NULL) : NULL;
     typedef int64_t (*km_fn_t)(const char*, int32_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -861,19 +834,17 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
 #endif
     int64_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(path_utf, (int32_t)attrnamespace, (void*)(uintptr_t)data, (uint64_t)nbytes);
+        km_res = km_fn_ptr((const char*)(uintptr_t)path, (int32_t)attrnamespace, (void*)(uintptr_t)data, (uint64_t)nbytes);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1extattrSetFd(JNIEnv* km_env, jclass km_clazz, jint fd, jint attrnamespace, jstring attrname, jlong data, jlong nbytes) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdExtattrSetFd(JNIEnv* km_env, jclass km_clazz, jint fd, jint attrnamespace, jlong attrname, jlong data, jlong nbytes) {
     (void)km_env;
     (void)km_clazz;
-    const char* attrname_utf = (attrname != NULL) ? (*km_env)->GetStringUTFChars(km_env, attrname, NULL) : NULL;
     typedef int64_t (*km_fn_t)(int32_t, int32_t, const char*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -896,20 +867,17 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
 #endif
     int64_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)fd, (int32_t)attrnamespace, attrname_utf, (void*)(uintptr_t)data, (uint64_t)nbytes);
+        km_res = km_fn_ptr((int32_t)fd, (int32_t)attrnamespace, (const char*)(uintptr_t)attrname, (void*)(uintptr_t)data, (uint64_t)nbytes);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (attrname != NULL && attrname_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, attrname, attrname_utf);
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1extattrSetFile(JNIEnv* km_env, jclass km_clazz, jstring path, jint attrnamespace, jstring attrname, jlong data, jlong nbytes) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdExtattrSetFile(JNIEnv* km_env, jclass km_clazz, jlong path, jint attrnamespace, jlong attrname, jlong data, jlong nbytes) {
     (void)km_env;
     (void)km_clazz;
-    const char* path_utf = (path != NULL) ? (*km_env)->GetStringUTFChars(km_env, path, NULL) : NULL;
-    const char* attrname_utf = (attrname != NULL) ? (*km_env)->GetStringUTFChars(km_env, attrname, NULL) : NULL;
     typedef int64_t (*km_fn_t)(const char*, int32_t, const char*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -932,21 +900,17 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
 #endif
     int64_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(path_utf, (int32_t)attrnamespace, attrname_utf, (void*)(uintptr_t)data, (uint64_t)nbytes);
+        km_res = km_fn_ptr((const char*)(uintptr_t)path, (int32_t)attrnamespace, (const char*)(uintptr_t)attrname, (void*)(uintptr_t)data, (uint64_t)nbytes);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
-    if (attrname != NULL && attrname_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, attrname, attrname_utf);
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1extattrSetLink(JNIEnv* km_env, jclass km_clazz, jstring path, jint attrnamespace, jstring attrname, jlong data, jlong nbytes) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdExtattrSetLink(JNIEnv* km_env, jclass km_clazz, jlong path, jint attrnamespace, jlong attrname, jlong data, jlong nbytes) {
     (void)km_env;
     (void)km_clazz;
-    const char* path_utf = (path != NULL) ? (*km_env)->GetStringUTFChars(km_env, path, NULL) : NULL;
-    const char* attrname_utf = (attrname != NULL) ? (*km_env)->GetStringUTFChars(km_env, attrname, NULL) : NULL;
     typedef int64_t (*km_fn_t)(const char*, int32_t, const char*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -969,17 +933,15 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
 #endif
     int64_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(path_utf, (int32_t)attrnamespace, attrname_utf, (void*)(uintptr_t)data, (uint64_t)nbytes);
+        km_res = km_fn_ptr((const char*)(uintptr_t)path, (int32_t)attrnamespace, (const char*)(uintptr_t)attrname, (void*)(uintptr_t)data, (uint64_t)nbytes);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
-    if (attrname != NULL && attrname_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, attrname, attrname_utf);
     return (jlong)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1fspacectl(JNIEnv* km_env, jclass km_clazz, jint fd, jint cmd, jlong rqsr, jint flags, jlong rmsr) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdFspacectl(JNIEnv* km_env, jclass km_clazz, jint fd, jint cmd, jlong rqsr, jint flags, jlong rmsr) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*, int32_t, void*);
@@ -1012,7 +974,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1jail(JNIEnv* km_env, jclass km_clazz, jlong jail) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdJail(JNIEnv* km_env, jclass km_clazz, jlong jail) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -1045,7 +1007,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1jailAttach(JNIEnv* km_env, jclass km_clazz, jint jid) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdJailAttach(JNIEnv* km_env, jclass km_clazz, jint jid) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -1078,7 +1040,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1jailRemove(JNIEnv* km_env, jclass km_clazz, jint jid) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdJailRemove(JNIEnv* km_env, jclass km_clazz, jint jid) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -1111,7 +1073,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1jailGet(JNIEnv* km_env, jclass km_clazz, jlong iov, jint niov, jint flags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdJailGet(JNIEnv* km_env, jclass km_clazz, jlong iov, jint niov, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint32_t, int32_t);
@@ -1144,7 +1106,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1jailSet(JNIEnv* km_env, jclass km_clazz, jlong iov, jint niov, jint flags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdJailSet(JNIEnv* km_env, jclass km_clazz, jlong iov, jint niov, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint32_t, int32_t);
@@ -1177,7 +1139,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1lioListio(JNIEnv* km_env, jclass km_clazz, jint mode, jlong aiocb_list, jint nitems, jlong sevp) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdLioListio(JNIEnv* km_env, jclass km_clazz, jint mode, jlong aiocbList, jint nitems, jlong sevp) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t, void*);
@@ -1202,7 +1164,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)mode, (void*)(uintptr_t)aiocb_list, (int32_t)nitems, (void*)(uintptr_t)sevp);
+        km_res = km_fn_ptr((int32_t)mode, (void*)(uintptr_t)aiocbList, (int32_t)nitems, (void*)(uintptr_t)sevp);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -1210,10 +1172,9 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1getutxuser(JNIEnv* km_env, jclass km_clazz, jstring user) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdGetutxuser(JNIEnv* km_env, jclass km_clazz, jlong user) {
     (void)km_env;
     (void)km_clazz;
-    const char* user_utf = (user != NULL) ? (*km_env)->GetStringUTFChars(km_env, user, NULL) : NULL;
     typedef void* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1236,19 +1197,17 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
 #endif
     void* km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(user_utf);
+        km_res = km_fn_ptr((const char*)(uintptr_t)user);
     } else {
         errno = ENOSYS;
         km_res = NULL;
     }
-    if (user != NULL && user_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, user, user_utf);
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1setutxdb(JNIEnv* km_env, jclass km_clazz, jint arg_0_type, jstring file) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdSetutxdb(JNIEnv* km_env, jclass km_clazz, jint type, jlong file) {
     (void)km_env;
     (void)km_clazz;
-    const char* file_utf = (file != NULL) ? (*km_env)->GetStringUTFChars(km_env, file, NULL) : NULL;
     typedef int32_t (*km_fn_t)(int32_t, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1271,16 +1230,15 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)arg_0_type, file_utf);
+        km_res = km_fn_ptr((int32_t)type, (const char*)(uintptr_t)file);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (file != NULL && file_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, file, file_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1aioWaitcomplete(JNIEnv* km_env, jclass km_clazz, jlong iocbp, jlong timeout) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdAioWaitcomplete(JNIEnv* km_env, jclass km_clazz, jlong iocbp, jlong timeout) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(void*, void*);
@@ -1313,7 +1271,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
     return (jlong)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1mqGetfdNp(JNIEnv* km_env, jclass km_clazz, jlong mqd) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdMqGetfdNp(JNIEnv* km_env, jclass km_clazz, jlong mqd) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -1346,7 +1304,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1waitid(JNIEnv* km_env, jclass km_clazz, jint idtype, jlong id, jlong infop, jint options) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdWaitid(JNIEnv* km_env, jclass km_clazz, jint idtype, jlong id, jlong infop, jint options) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(uint32_t, int64_t, void*, int32_t);
@@ -1379,7 +1337,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1ptsnameR(JNIEnv* km_env, jclass km_clazz, jint fd, jlong buf, jlong buflen) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdPtsnameR(JNIEnv* km_env, jclass km_clazz, jint fd, jlong buf, jlong buflen) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, char*, uint64_t);
@@ -1412,10 +1370,9 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1ftok(JNIEnv* km_env, jclass km_clazz, jstring pathname, jint proj_id) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdFtok(JNIEnv* km_env, jclass km_clazz, jlong pathname, jint projId) {
     (void)km_env;
     (void)km_clazz;
-    const char* pathname_utf = (pathname != NULL) ? (*km_env)->GetStringUTFChars(km_env, pathname, NULL) : NULL;
     typedef int64_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1438,16 +1395,15 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
 #endif
     int64_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(pathname_utf, (int32_t)proj_id);
+        km_res = km_fn_ptr((const char*)(uintptr_t)pathname, (int32_t)projId);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (pathname != NULL && pathname_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, pathname, pathname_utf);
     return (jlong)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1shmget(JNIEnv* km_env, jclass km_clazz, jlong key, jlong size, jint shmflg) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdShmget(JNIEnv* km_env, jclass km_clazz, jlong key, jlong size, jint shmflg) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int64_t, uint64_t, int32_t);
@@ -1480,7 +1436,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1shmat(JNIEnv* km_env, jclass km_clazz, jint shmid, jlong shmaddr, jint shmflg) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdShmat(JNIEnv* km_env, jclass km_clazz, jint shmid, jlong shmaddr, jint shmflg) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(int32_t, void*, int32_t);
@@ -1513,7 +1469,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1shmdt(JNIEnv* km_env, jclass km_clazz, jlong shmaddr) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdShmdt(JNIEnv* km_env, jclass km_clazz, jlong shmaddr) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -1546,7 +1502,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1shmctl(JNIEnv* km_env, jclass km_clazz, jint shmid, jint cmd, jlong buf) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdShmctl(JNIEnv* km_env, jclass km_clazz, jint shmid, jint cmd, jlong buf) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
@@ -1579,7 +1535,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1semget(JNIEnv* km_env, jclass km_clazz, jlong key, jint nsems, jint semflg) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdSemget(JNIEnv* km_env, jclass km_clazz, jlong key, jint nsems, jint semflg) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int64_t, int32_t, int32_t);
@@ -1612,7 +1568,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1semctl(JNIEnv* km_env, jclass km_clazz, jint semid, jint semnum, jint cmd, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdSemctl(JNIEnv* km_env, jclass km_clazz, jint semid, jint semnum, jint cmd, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, ...);
@@ -1650,7 +1606,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1semop(JNIEnv* km_env, jclass km_clazz, jint semid, jlong sops, jlong nsops) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdSemop(JNIEnv* km_env, jclass km_clazz, jint semid, jlong sops, jlong nsops) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, uint64_t);
@@ -1683,7 +1639,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1msgctl(JNIEnv* km_env, jclass km_clazz, jint msqid, jint cmd, jlong buf) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdMsgctl(JNIEnv* km_env, jclass km_clazz, jint msqid, jint cmd, jlong buf) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
@@ -1716,7 +1672,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1msgget(JNIEnv* km_env, jclass km_clazz, jlong key, jint msgflg) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdMsgget(JNIEnv* km_env, jclass km_clazz, jlong key, jint msgflg) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int64_t, int32_t);
@@ -1749,7 +1705,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1msgsnd(JNIEnv* km_env, jclass km_clazz, jint msqid, jlong msgp, jlong msgsz, jint msgflg) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdMsgsnd(JNIEnv* km_env, jclass km_clazz, jint msqid, jlong msgp, jlong msgsz, jint msgflg) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, uint64_t, int32_t);
@@ -1782,7 +1738,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1cfmakesane(JNIEnv* km_env, jclass km_clazz, jlong termios) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdCfmakesane(JNIEnv* km_env, jclass km_clazz, jlong termios) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void*);
@@ -1812,7 +1768,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     }
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1pdfork(JNIEnv* km_env, jclass km_clazz, jlong fdp, jint flags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdPdfork(JNIEnv* km_env, jclass km_clazz, jlong fdp, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t);
@@ -1845,7 +1801,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1pdgetpid(JNIEnv* km_env, jclass km_clazz, jint fd, jlong pidp) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdPdgetpid(JNIEnv* km_env, jclass km_clazz, jint fd, jlong pidp) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -1878,7 +1834,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1pdkill(JNIEnv* km_env, jclass km_clazz, jint fd, jint signum) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdPdkill(JNIEnv* km_env, jclass km_clazz, jint fd, jint signum) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
@@ -1911,7 +1867,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1rtprioThread(JNIEnv* km_env, jclass km_clazz, jint function, jint lwpid, jlong rtp) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdRtprioThread(JNIEnv* km_env, jclass km_clazz, jint function, jint lwpid, jlong rtp) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
@@ -1944,7 +1900,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1uuidgen(JNIEnv* km_env, jclass km_clazz, jlong store, jint count) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdUuidgen(JNIEnv* km_env, jclass km_clazz, jlong store, jint count) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t);
@@ -1977,7 +1933,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1thrKill(JNIEnv* km_env, jclass km_clazz, jlong id, jint sig) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdThrKill(JNIEnv* km_env, jclass km_clazz, jlong id, jint sig) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int64_t, int32_t);
@@ -2010,7 +1966,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1thrKill2(JNIEnv* km_env, jclass km_clazz, jint pid, jlong id, jint sig) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdThrKill2(JNIEnv* km_env, jclass km_clazz, jint pid, jlong id, jint sig) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int64_t, int32_t);
@@ -2043,7 +1999,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1thrSelf(JNIEnv* km_env, jclass km_clazz, jlong tid) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdThrSelf(JNIEnv* km_env, jclass km_clazz, jlong tid) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -2076,7 +2032,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1pthreadGetthreadidNp(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdPthreadGetthreadidNp(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -2109,7 +2065,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1pthreadGetaffinityNp(JNIEnv* km_env, jclass km_clazz, jlong td, jlong cpusetsize, jlong cpusetp) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdPthreadGetaffinityNp(JNIEnv* km_env, jclass km_clazz, jlong td, jlong cpusetsize, jlong cpusetp) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint64_t, void*);
@@ -2142,7 +2098,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1pthreadSetaffinityNp(JNIEnv* km_env, jclass km_clazz, jlong td, jlong cpusetsize, jlong cpusetp) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdPthreadSetaffinityNp(JNIEnv* km_env, jclass km_clazz, jlong td, jlong cpusetsize, jlong cpusetp) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint64_t, void*);
@@ -2175,7 +2131,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1schedGetaffinity(JNIEnv* km_env, jclass km_clazz, jint pid, jlong cpusetsz, jlong cpuset) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdSchedGetaffinity(JNIEnv* km_env, jclass km_clazz, jint pid, jlong cpusetsz, jlong cpuset) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, uint64_t, void*);
@@ -2208,7 +2164,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1schedSetaffinity(JNIEnv* km_env, jclass km_clazz, jint pid, jlong cpusetsz, jlong cpuset) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdSchedSetaffinity(JNIEnv* km_env, jclass km_clazz, jint pid, jlong cpusetsz, jlong cpuset) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, uint64_t, void*);
@@ -2241,7 +2197,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1schedGetcpu(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdSchedGetcpu(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -2274,7 +2230,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1pthreadMutexConsistent(JNIEnv* km_env, jclass km_clazz, jlong mutex) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdPthreadMutexConsistent(JNIEnv* km_env, jclass km_clazz, jlong mutex) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -2307,7 +2263,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1pthreadMutexattrGetrobust(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong robust) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdPthreadMutexattrGetrobust(JNIEnv* km_env, jclass km_clazz, jlong attr, jlong robust) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -2340,7 +2296,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1pthreadMutexattrSetrobust(JNIEnv* km_env, jclass km_clazz, jlong attr, jint robust) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdPthreadMutexattrSetrobust(JNIEnv* km_env, jclass km_clazz, jlong attr, jint robust) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t);
@@ -2373,7 +2329,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1pthreadSpinInit(JNIEnv* km_env, jclass km_clazz, jlong lock, jint pshared) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdPthreadSpinInit(JNIEnv* km_env, jclass km_clazz, jlong lock, jint pshared) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t);
@@ -2406,7 +2362,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1pthreadSpinDestroy(JNIEnv* km_env, jclass km_clazz, jlong lock) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdPthreadSpinDestroy(JNIEnv* km_env, jclass km_clazz, jlong lock) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -2439,7 +2395,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1pthreadSpinLock(JNIEnv* km_env, jclass km_clazz, jlong lock) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdPthreadSpinLock(JNIEnv* km_env, jclass km_clazz, jlong lock) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -2472,7 +2428,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1pthreadSpinTrylock(JNIEnv* km_env, jclass km_clazz, jlong lock) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdPthreadSpinTrylock(JNIEnv* km_env, jclass km_clazz, jlong lock) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -2505,7 +2461,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1pthreadSpinUnlock(JNIEnv* km_env, jclass km_clazz, jlong lock) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdPthreadSpinUnlock(JNIEnv* km_env, jclass km_clazz, jlong lock) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -2538,7 +2494,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1pthreadTimedjoinNp(JNIEnv* km_env, jclass km_clazz, jlong thread, jlong retval, jlong abstime) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdPthreadTimedjoinNp(JNIEnv* km_env, jclass km_clazz, jlong thread, jlong retval, jlong abstime) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, void*);
@@ -2571,10 +2527,9 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1statfs(JNIEnv* km_env, jclass km_clazz, jstring path, jlong buf) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdStatfs(JNIEnv* km_env, jclass km_clazz, jlong path, jlong buf) {
     (void)km_env;
     (void)km_clazz;
-    const char* path_utf = (path != NULL) ? (*km_env)->GetStringUTFChars(km_env, path, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2597,16 +2552,15 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(path_utf, (void*)(uintptr_t)buf);
+        km_res = km_fn_ptr((const char*)(uintptr_t)path, (void*)(uintptr_t)buf);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1fstatfs(JNIEnv* km_env, jclass km_clazz, jint fd, jlong buf) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdFstatfs(JNIEnv* km_env, jclass km_clazz, jint fd, jlong buf) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -2639,7 +2593,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1dup3(JNIEnv* km_env, jclass km_clazz, jint src, jint dst, jint flags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdDup3(JNIEnv* km_env, jclass km_clazz, jint src, jint dst, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t);
@@ -2672,7 +2626,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1xuname(JNIEnv* km_env, jclass km_clazz, jint nmln, jlong buf) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdXuname(JNIEnv* km_env, jclass km_clazz, jint nmln, jlong buf) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -2703,7 +2657,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1sendmmsg(JNIEnv* km_env, jclass km_clazz, jint sockfd, jlong msgvec, jlong vlen, jint flags) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdSendmmsg(JNIEnv* km_env, jclass km_clazz, jint sockfd, jlong msgvec, jlong vlen, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, int32_t);
@@ -2736,7 +2690,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1recvmmsg(JNIEnv* km_env, jclass km_clazz, jint sockfd, jlong msgvec, jlong vlen, jint flags, jlong timeout) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdRecvmmsg(JNIEnv* km_env, jclass km_clazz, jint sockfd, jlong msgvec, jlong vlen, jint flags, jlong timeout) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, int32_t, void*);
@@ -2769,7 +2723,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1memmem(JNIEnv* km_env, jclass km_clazz, jlong haystack, jlong haystacklen, jlong needle, jlong needlelen) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdMemmem(JNIEnv* km_env, jclass km_clazz, jlong haystack, jlong haystacklen, jlong needle, jlong needlelen) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void*, uint64_t, void*, uint64_t);
@@ -2802,7 +2756,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1fhopen(JNIEnv* km_env, jclass km_clazz, jlong fhp, jint flags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdFhopen(JNIEnv* km_env, jclass km_clazz, jlong fhp, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t);
@@ -2835,7 +2789,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1fhstat(JNIEnv* km_env, jclass km_clazz, jlong fhp, jlong buf) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdFhstat(JNIEnv* km_env, jclass km_clazz, jlong fhp, jlong buf) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -2868,7 +2822,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1fhstatfs(JNIEnv* km_env, jclass km_clazz, jlong fhp, jlong buf) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdFhstatfs(JNIEnv* km_env, jclass km_clazz, jlong fhp, jlong buf) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -2901,10 +2855,9 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1getfh(JNIEnv* km_env, jclass km_clazz, jstring path, jlong fhp) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdGetfh(JNIEnv* km_env, jclass km_clazz, jlong path, jlong fhp) {
     (void)km_env;
     (void)km_clazz;
-    const char* path_utf = (path != NULL) ? (*km_env)->GetStringUTFChars(km_env, path, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2927,19 +2880,17 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(path_utf, (void*)(uintptr_t)fhp);
+        km_res = km_fn_ptr((const char*)(uintptr_t)path, (void*)(uintptr_t)fhp);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1lgetfh(JNIEnv* km_env, jclass km_clazz, jstring path, jlong fhp) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdLgetfh(JNIEnv* km_env, jclass km_clazz, jlong path, jlong fhp) {
     (void)km_env;
     (void)km_clazz;
-    const char* path_utf = (path != NULL) ? (*km_env)->GetStringUTFChars(km_env, path, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2962,16 +2913,15 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(path_utf, (void*)(uintptr_t)fhp);
+        km_res = km_fn_ptr((const char*)(uintptr_t)path, (void*)(uintptr_t)fhp);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1getfsstat(JNIEnv* km_env, jclass km_clazz, jlong buf, jlong bufsize, jint mode) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdGetfsstat(JNIEnv* km_env, jclass km_clazz, jlong buf, jlong bufsize, jint mode) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int64_t, int32_t);
@@ -3004,7 +2954,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1getmntinfo(JNIEnv* km_env, jclass km_clazz, jlong mntbufp, jint mode) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdGetmntinfo(JNIEnv* km_env, jclass km_clazz, jlong mntbufp, jint mode) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t);
@@ -3037,11 +2987,9 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1mount(JNIEnv* km_env, jclass km_clazz, jstring type_, jstring dir, jint flags, jlong data) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdMount(JNIEnv* km_env, jclass km_clazz, jlong type, jlong dir, jint flags, jlong data) {
     (void)km_env;
     (void)km_clazz;
-    const char* type__utf = (type_ != NULL) ? (*km_env)->GetStringUTFChars(km_env, type_, NULL) : NULL;
-    const char* dir_utf = (dir != NULL) ? (*km_env)->GetStringUTFChars(km_env, dir, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, const char*, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3064,17 +3012,15 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(type__utf, dir_utf, (int32_t)flags, (void*)(uintptr_t)data);
+        km_res = km_fn_ptr((const char*)(uintptr_t)type, (const char*)(uintptr_t)dir, (int32_t)flags, (void*)(uintptr_t)data);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (type_ != NULL && type__utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, type_, type__utf);
-    if (dir != NULL && dir_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, dir, dir_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1nmount(JNIEnv* km_env, jclass km_clazz, jlong iov, jint niov, jint flags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdNmount(JNIEnv* km_env, jclass km_clazz, jlong iov, jint niov, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint32_t, int32_t);
@@ -3107,10 +3053,9 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1setproctitle(JNIEnv* km_env, jclass km_clazz, jstring fmt, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdSetproctitle(JNIEnv* km_env, jclass km_clazz, jlong fmt, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
     (void)km_env;
     (void)km_clazz;
-    const char* fmt_utf = (fmt != NULL) ? (*km_env)->GetStringUTFChars(km_env, fmt, NULL) : NULL;
     typedef void (*km_fn_t)(const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3133,19 +3078,18 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #endif
     if (km_fn_ptr != NULL) {
         switch (km_vac) {
-            case 0: km_fn_ptr(fmt_utf); break;
-            case 1: km_fn_ptr(fmt_utf, (intptr_t)km_va0); break;
-            case 2: km_fn_ptr(fmt_utf, (intptr_t)km_va0, (intptr_t)km_va1); break;
-            case 3: km_fn_ptr(fmt_utf, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2); break;
-            default: km_fn_ptr(fmt_utf, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3); break;
+            case 0: km_fn_ptr((const char*)(uintptr_t)fmt); break;
+            case 1: km_fn_ptr((const char*)(uintptr_t)fmt, (intptr_t)km_va0); break;
+            case 2: km_fn_ptr((const char*)(uintptr_t)fmt, (intptr_t)km_va0, (intptr_t)km_va1); break;
+            case 3: km_fn_ptr((const char*)(uintptr_t)fmt, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2); break;
+            default: km_fn_ptr((const char*)(uintptr_t)fmt, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3); break;
         }
     } else {
         errno = ENOSYS;
     }
-    if (fmt != NULL && fmt_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, fmt, fmt_utf);
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1rfork(JNIEnv* km_env, jclass km_clazz, jint flags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdRfork(JNIEnv* km_env, jclass km_clazz, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -3178,7 +3122,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1cpusetGetaffinity(JNIEnv* km_env, jclass km_clazz, jint level, jint which, jlong id, jlong setsize, jlong mask) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdCpusetGetaffinity(JNIEnv* km_env, jclass km_clazz, jint level, jint which, jlong id, jlong setsize, jlong mask) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int64_t, uint64_t, void*);
@@ -3211,7 +3155,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1cpusetSetaffinity(JNIEnv* km_env, jclass km_clazz, jint level, jint which, jlong id, jlong setsize, jlong mask) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdCpusetSetaffinity(JNIEnv* km_env, jclass km_clazz, jint level, jint which, jlong id, jlong setsize, jlong mask) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int64_t, uint64_t, void*);
@@ -3244,7 +3188,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1cpuset(JNIEnv* km_env, jclass km_clazz, jlong setid) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdCpuset(JNIEnv* km_env, jclass km_clazz, jlong setid) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -3277,7 +3221,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1cpusetGetid(JNIEnv* km_env, jclass km_clazz, jint level, jint which, jlong id, jlong setid) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdCpusetGetid(JNIEnv* km_env, jclass km_clazz, jint level, jint which, jlong id, jlong setid) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int64_t, void*);
@@ -3310,7 +3254,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1cpusetSetid(JNIEnv* km_env, jclass km_clazz, jint which, jlong id, jint setid) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdCpusetSetid(JNIEnv* km_env, jclass km_clazz, jint which, jlong id, jint setid) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int64_t, int32_t);
@@ -3343,7 +3287,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1capEnter(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdCapEnter(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -3376,7 +3320,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1capGetmode(JNIEnv* km_env, jclass km_clazz, jlong modep) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdCapGetmode(JNIEnv* km_env, jclass km_clazz, jlong modep) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -3409,7 +3353,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1capFcntlsGet(JNIEnv* km_env, jclass km_clazz, jint fd, jlong fcntlrightsp) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdCapFcntlsGet(JNIEnv* km_env, jclass km_clazz, jint fd, jlong fcntlrightsp) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -3442,7 +3386,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1capFcntlsLimit(JNIEnv* km_env, jclass km_clazz, jint fd, jint fcntlrights) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdCapFcntlsLimit(JNIEnv* km_env, jclass km_clazz, jint fd, jint fcntlrights) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, uint32_t);
@@ -3475,7 +3419,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1capIoctlsGet(JNIEnv* km_env, jclass km_clazz, jint fd, jlong cmds, jlong maxcmds) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdCapIoctlsGet(JNIEnv* km_env, jclass km_clazz, jint fd, jlong cmds, jlong maxcmds) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t);
@@ -3508,7 +3452,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
     return (jlong)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1capIoctlsLimit(JNIEnv* km_env, jclass km_clazz, jint fd, jlong cmds, jlong ncmds) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdCapIoctlsLimit(JNIEnv* km_env, jclass km_clazz, jint fd, jlong cmds, jlong ncmds) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, uint64_t);
@@ -3541,7 +3485,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1capRightsInit(JNIEnv* km_env, jclass km_clazz, jint version, jlong rights, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdCapRightsInit(JNIEnv* km_env, jclass km_clazz, jint version, jlong rights, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(int32_t, void*, ...);
@@ -3577,7 +3521,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1capRightsGet(JNIEnv* km_env, jclass km_clazz, jint version, jint fd, jlong rightsp) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdCapRightsGet(JNIEnv* km_env, jclass km_clazz, jint version, jint fd, jlong rightsp) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
@@ -3608,7 +3552,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1capRightsSet(JNIEnv* km_env, jclass km_clazz, jlong rights, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdCapRightsSet(JNIEnv* km_env, jclass km_clazz, jlong rights, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void*, ...);
@@ -3644,7 +3588,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1capRightsClear(JNIEnv* km_env, jclass km_clazz, jlong rights, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdCapRightsClear(JNIEnv* km_env, jclass km_clazz, jlong rights, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void*, ...);
@@ -3680,7 +3624,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jboolean JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1capRightsIsSet(JNIEnv* km_env, jclass km_clazz, jlong rights, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
+JNIEXPORT jboolean JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdCapRightsIsSet(JNIEnv* km_env, jclass km_clazz, jlong rights, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
     (void)km_env;
     (void)km_clazz;
     typedef bool (*km_fn_t)(void*, ...);
@@ -3716,7 +3660,7 @@ JNIEXPORT jboolean JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_
     return (jboolean)km_res;
 }
 
-JNIEXPORT jboolean JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1capRightsIsValid(JNIEnv* km_env, jclass km_clazz, jlong rights) {
+JNIEXPORT jboolean JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdCapRightsIsValid(JNIEnv* km_env, jclass km_clazz, jlong rights) {
     (void)km_env;
     (void)km_clazz;
     typedef bool (*km_fn_t)(void*);
@@ -3749,7 +3693,7 @@ JNIEXPORT jboolean JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_
     return (jboolean)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1capRightsLimit(JNIEnv* km_env, jclass km_clazz, jint fd, jlong rights) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdCapRightsLimit(JNIEnv* km_env, jclass km_clazz, jint fd, jlong rights) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -3782,7 +3726,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1capRightsMerge(JNIEnv* km_env, jclass km_clazz, jlong dst, jlong src) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdCapRightsMerge(JNIEnv* km_env, jclass km_clazz, jlong dst, jlong src) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void*, void*);
@@ -3815,7 +3759,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1capRightsRemove(JNIEnv* km_env, jclass km_clazz, jlong dst, jlong src) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdCapRightsRemove(JNIEnv* km_env, jclass km_clazz, jlong dst, jlong src) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void*, void*);
@@ -3848,7 +3792,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jboolean JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1capRightsContains(JNIEnv* km_env, jclass km_clazz, jlong big, jlong little) {
+JNIEXPORT jboolean JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdCapRightsContains(JNIEnv* km_env, jclass km_clazz, jlong big, jlong little) {
     (void)km_env;
     (void)km_clazz;
     typedef bool (*km_fn_t)(void*, void*);
@@ -3881,7 +3825,7 @@ JNIEXPORT jboolean JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_
     return (jboolean)km_res;
 }
 
-JNIEXPORT jboolean JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1capSandboxed(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jboolean JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdCapSandboxed(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef bool (*km_fn_t)(void);
@@ -3914,7 +3858,7 @@ JNIEXPORT jboolean JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_
     return (jboolean)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1reallocarray(JNIEnv* km_env, jclass km_clazz, jlong ptr, jlong nmemb, jlong size) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdReallocarray(JNIEnv* km_env, jclass km_clazz, jlong ptr, jlong nmemb, jlong size) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void*, uint64_t, uint64_t);
@@ -3947,7 +3891,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1ffs(JNIEnv* km_env, jclass km_clazz, jint value) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdFfs(JNIEnv* km_env, jclass km_clazz, jint value) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -3980,7 +3924,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1ffsl(JNIEnv* km_env, jclass km_clazz, jlong value) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdFfsl(JNIEnv* km_env, jclass km_clazz, jlong value) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int64_t);
@@ -4013,7 +3957,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1ffsll(JNIEnv* km_env, jclass km_clazz, jlong value) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdFfsll(JNIEnv* km_env, jclass km_clazz, jlong value) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int64_t);
@@ -4046,7 +3990,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1fls(JNIEnv* km_env, jclass km_clazz, jint value) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdFls(JNIEnv* km_env, jclass km_clazz, jint value) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -4079,7 +4023,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1flsl(JNIEnv* km_env, jclass km_clazz, jlong value) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdFlsl(JNIEnv* km_env, jclass km_clazz, jlong value) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int64_t);
@@ -4112,7 +4056,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1flsll(JNIEnv* km_env, jclass km_clazz, jlong value) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdFlsll(JNIEnv* km_env, jclass km_clazz, jlong value) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int64_t);
@@ -4145,10 +4089,9 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1mallocStatsPrint(JNIEnv* km_env, jclass km_clazz, jlong write_cb, jlong cbopaque, jstring opt) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdMallocStatsPrint(JNIEnv* km_env, jclass km_clazz, jlong writeCb, jlong cbopaque, jlong opt) {
     (void)km_env;
     (void)km_clazz;
-    const char* opt_utf = (opt != NULL) ? (*km_env)->GetStringUTFChars(km_env, opt, NULL) : NULL;
     typedef void (*km_fn_t)(void*, void*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4170,17 +4113,15 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     }
 #endif
     if (km_fn_ptr != NULL) {
-        km_fn_ptr((void*)(uintptr_t)write_cb, (void*)(uintptr_t)cbopaque, opt_utf);
+        km_fn_ptr((void*)(uintptr_t)writeCb, (void*)(uintptr_t)cbopaque, (const char*)(uintptr_t)opt);
     } else {
         errno = ENOSYS;
     }
-    if (opt != NULL && opt_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, opt, opt_utf);
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1mallctl(JNIEnv* km_env, jclass km_clazz, jstring name, jlong oldp, jlong oldlenp, jlong newp, jlong newlen) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdMallctl(JNIEnv* km_env, jclass km_clazz, jlong name, jlong oldp, jlong oldlenp, jlong newp, jlong newlen) {
     (void)km_env;
     (void)km_clazz;
-    const char* name_utf = (name != NULL) ? (*km_env)->GetStringUTFChars(km_env, name, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, void*, void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4203,19 +4144,17 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(name_utf, (void*)(uintptr_t)oldp, (void*)(uintptr_t)oldlenp, (void*)(uintptr_t)newp, (uint64_t)newlen);
+        km_res = km_fn_ptr((const char*)(uintptr_t)name, (void*)(uintptr_t)oldp, (void*)(uintptr_t)oldlenp, (void*)(uintptr_t)newp, (uint64_t)newlen);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1mallctlnametomib(JNIEnv* km_env, jclass km_clazz, jstring name, jlong mibp, jlong miplen) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdMallctlnametomib(JNIEnv* km_env, jclass km_clazz, jlong name, jlong mibp, jlong miplen) {
     (void)km_env;
     (void)km_clazz;
-    const char* name_utf = (name != NULL) ? (*km_env)->GetStringUTFChars(km_env, name, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4238,16 +4177,15 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(name_utf, (void*)(uintptr_t)mibp, (void*)(uintptr_t)miplen);
+        km_res = km_fn_ptr((const char*)(uintptr_t)name, (void*)(uintptr_t)mibp, (void*)(uintptr_t)miplen);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1mallctlbymib(JNIEnv* km_env, jclass km_clazz, jlong mib, jlong mible, jlong oldp, jlong oldlenp, jlong newp, jlong newlen) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdMallctlbymib(JNIEnv* km_env, jclass km_clazz, jlong mib, jlong mible, jlong oldp, jlong oldlenp, jlong newp, jlong newlen) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint64_t, void*, void*, void*, uint64_t);
@@ -4280,7 +4218,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1mallocx(JNIEnv* km_env, jclass km_clazz, jlong size, jint flags) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdMallocx(JNIEnv* km_env, jclass km_clazz, jlong size, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(uint64_t, int32_t);
@@ -4313,7 +4251,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1rallocx(JNIEnv* km_env, jclass km_clazz, jlong ptr, jlong size, jint flags) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdRallocx(JNIEnv* km_env, jclass km_clazz, jlong ptr, jlong size, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void*, uint64_t, int32_t);
@@ -4346,7 +4284,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1xallocx(JNIEnv* km_env, jclass km_clazz, jlong ptr, jlong size, jlong extra, jint flags) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdXallocx(JNIEnv* km_env, jclass km_clazz, jlong ptr, jlong size, jlong extra, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef uint64_t (*km_fn_t)(void*, uint64_t, uint64_t, int32_t);
@@ -4379,7 +4317,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1sallocx(JNIEnv* km_env, jclass km_clazz, jlong ptr, jint flags) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdSallocx(JNIEnv* km_env, jclass km_clazz, jlong ptr, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef uint64_t (*km_fn_t)(void*, int32_t);
@@ -4412,7 +4350,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
     return (jlong)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1dallocx(JNIEnv* km_env, jclass km_clazz, jlong ptr, jint flags) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdDallocx(JNIEnv* km_env, jclass km_clazz, jlong ptr, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void*, int32_t);
@@ -4442,7 +4380,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1sdallocx(JNIEnv* km_env, jclass km_clazz, jlong ptr, jlong size, jint flags) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdSdallocx(JNIEnv* km_env, jclass km_clazz, jlong ptr, jlong size, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void*, uint64_t, int32_t);
@@ -4472,7 +4410,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     }
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1nallocx(JNIEnv* km_env, jclass km_clazz, jlong size, jint flags) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdNallocx(JNIEnv* km_env, jclass km_clazz, jlong size, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef uint64_t (*km_fn_t)(uint64_t, int32_t);
@@ -4505,7 +4443,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
     return (jlong)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1procctl(JNIEnv* km_env, jclass km_clazz, jint idtype, jlong id, jint cmd, jlong data) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdProcctl(JNIEnv* km_env, jclass km_clazz, jint idtype, jlong id, jint cmd, jlong data) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(uint32_t, int64_t, int32_t, void*);
@@ -4538,7 +4476,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1getpagesize(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdGetpagesize(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void);
@@ -4571,7 +4509,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1getpagesizes(JNIEnv* km_env, jclass km_clazz, jlong pagesize, jint nelem) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdGetpagesizes(JNIEnv* km_env, jclass km_clazz, jlong pagesize, jint nelem) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t);
@@ -4604,7 +4542,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1clockGetcpuclockid2(JNIEnv* km_env, jclass km_clazz, jlong arg1, jint arg2, jlong arg3) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdClockGetcpuclockid2(JNIEnv* km_env, jclass km_clazz, jlong arg1, jint arg2, jlong arg3) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int64_t, int32_t, void*);
@@ -4637,10 +4575,9 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1strchrnul(JNIEnv* km_env, jclass km_clazz, jstring s, jint c) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdStrchrnul(JNIEnv* km_env, jclass km_clazz, jlong s, jint c) {
     (void)km_env;
     (void)km_clazz;
-    const char* s_utf = (s != NULL) ? (*km_env)->GetStringUTFChars(km_env, s, NULL) : NULL;
     typedef char* (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4663,19 +4600,17 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
 #endif
     char* km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(s_utf, (int32_t)c);
+        km_res = km_fn_ptr((const char*)(uintptr_t)s, (int32_t)c);
     } else {
         errno = ENOSYS;
         km_res = NULL;
     }
-    if (s != NULL && s_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, s, s_utf);
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1shmCreateLargepage(JNIEnv* km_env, jclass km_clazz, jstring path, jint flags, jint psind, jint alloc_policy, jshort mode) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdShmCreateLargepage(JNIEnv* km_env, jclass km_clazz, jlong path, jint flags, jint psind, jint allocPolicy, jshort mode) {
     (void)km_env;
     (void)km_clazz;
-    const char* path_utf = (path != NULL) ? (*km_env)->GetStringUTFChars(km_env, path, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, int32_t, int32_t, int32_t, uint16_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4698,20 +4633,17 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(path_utf, (int32_t)flags, (int32_t)psind, (int32_t)alloc_policy, (uint16_t)mode);
+        km_res = km_fn_ptr((const char*)(uintptr_t)path, (int32_t)flags, (int32_t)psind, (int32_t)allocPolicy, (uint16_t)mode);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1shmRename(JNIEnv* km_env, jclass km_clazz, jstring path_from, jstring path_to, jint flags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdShmRename(JNIEnv* km_env, jclass km_clazz, jlong pathFrom, jlong pathTo, jint flags) {
     (void)km_env;
     (void)km_clazz;
-    const char* path_from_utf = (path_from != NULL) ? (*km_env)->GetStringUTFChars(km_env, path_from, NULL) : NULL;
-    const char* path_to_utf = (path_to != NULL) ? (*km_env)->GetStringUTFChars(km_env, path_to, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4734,20 +4666,17 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(path_from_utf, path_to_utf, (int32_t)flags);
+        km_res = km_fn_ptr((const char*)(uintptr_t)pathFrom, (const char*)(uintptr_t)pathTo, (int32_t)flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (path_from != NULL && path_from_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path_from, path_from_utf);
-    if (path_to != NULL && path_to_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path_to, path_to_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1memfdCreate(JNIEnv* km_env, jclass km_clazz, jstring name, jint flags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdMemfdCreate(JNIEnv* km_env, jclass km_clazz, jlong name, jint flags) {
     (void)km_env;
     (void)km_clazz;
-    const char* name_utf = (name != NULL) ? (*km_env)->GetStringUTFChars(km_env, name, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4770,16 +4699,15 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(name_utf, (uint32_t)flags);
+        km_res = km_fn_ptr((const char*)(uintptr_t)name, (uint32_t)flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1setaudit(JNIEnv* km_env, jclass km_clazz, jlong auditinfo) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdSetaudit(JNIEnv* km_env, jclass km_clazz, jlong auditinfo) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -4812,7 +4740,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1eventfd(JNIEnv* km_env, jclass km_clazz, jint initval, jint flags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdEventfd(JNIEnv* km_env, jclass km_clazz, jint initval, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(uint32_t, int32_t);
@@ -4845,7 +4773,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1eventfdRead(JNIEnv* km_env, jclass km_clazz, jint fd, jlong value) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdEventfdRead(JNIEnv* km_env, jclass km_clazz, jint fd, jlong value) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -4878,7 +4806,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1eventfdWrite(JNIEnv* km_env, jclass km_clazz, jint fd, jlong value) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdEventfdWrite(JNIEnv* km_env, jclass km_clazz, jint fd, jlong value) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, uint64_t);
@@ -4911,7 +4839,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1fdatasync(JNIEnv* km_env, jclass km_clazz, jint fd) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdFdatasync(JNIEnv* km_env, jclass km_clazz, jint fd) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t);
@@ -4944,7 +4872,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1elfAuxInfo(JNIEnv* km_env, jclass km_clazz, jint aux, jlong buf, jint buflen) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdElfAuxInfo(JNIEnv* km_env, jclass km_clazz, jint aux, jlong buf, jint buflen) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t);
@@ -4977,10 +4905,9 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1setproctitleFast(JNIEnv* km_env, jclass km_clazz, jstring fmt, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdSetproctitleFast(JNIEnv* km_env, jclass km_clazz, jlong fmt, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
     (void)km_env;
     (void)km_clazz;
-    const char* fmt_utf = (fmt != NULL) ? (*km_env)->GetStringUTFChars(km_env, fmt, NULL) : NULL;
     typedef void (*km_fn_t)(const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5003,19 +4930,18 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #endif
     if (km_fn_ptr != NULL) {
         switch (km_vac) {
-            case 0: km_fn_ptr(fmt_utf); break;
-            case 1: km_fn_ptr(fmt_utf, (intptr_t)km_va0); break;
-            case 2: km_fn_ptr(fmt_utf, (intptr_t)km_va0, (intptr_t)km_va1); break;
-            case 3: km_fn_ptr(fmt_utf, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2); break;
-            default: km_fn_ptr(fmt_utf, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3); break;
+            case 0: km_fn_ptr((const char*)(uintptr_t)fmt); break;
+            case 1: km_fn_ptr((const char*)(uintptr_t)fmt, (intptr_t)km_va0); break;
+            case 2: km_fn_ptr((const char*)(uintptr_t)fmt, (intptr_t)km_va0, (intptr_t)km_va1); break;
+            case 3: km_fn_ptr((const char*)(uintptr_t)fmt, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2); break;
+            default: km_fn_ptr((const char*)(uintptr_t)fmt, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3); break;
         }
     } else {
         errno = ENOSYS;
     }
-    if (fmt != NULL && fmt_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, fmt, fmt_utf);
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1timingsafeBcmp(JNIEnv* km_env, jclass km_clazz, jlong a, jlong b, jlong len) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdTimingsafeBcmp(JNIEnv* km_env, jclass km_clazz, jlong a, jlong b, jlong len) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, uint64_t);
@@ -5048,7 +4974,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1timingsafeMemcmp(JNIEnv* km_env, jclass km_clazz, jlong a, jlong b, jlong len) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdTimingsafeMemcmp(JNIEnv* km_env, jclass km_clazz, jlong a, jlong b, jlong len) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, uint64_t);
@@ -5081,7 +5007,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1umtxOp(JNIEnv* km_env, jclass km_clazz, jlong obj, jint op, jlong val, jlong uaddr, jlong uaddr2) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdUmtxOp(JNIEnv* km_env, jclass km_clazz, jlong obj, jint op, jlong val, jlong uaddr, jlong uaddr2) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t, uint64_t, void*, void*);
@@ -5112,7 +5038,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1sctpPeeloff(JNIEnv* km_env, jclass km_clazz, jint s, jint id) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdSctpPeeloff(JNIEnv* km_env, jclass km_clazz, jint s, jint id) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, uint32_t);
@@ -5145,7 +5071,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1sctpBindx(JNIEnv* km_env, jclass km_clazz, jint s, jlong addrs, jint num, jint tpe) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdSctpBindx(JNIEnv* km_env, jclass km_clazz, jint s, jlong addrs, jint num, jint tpe) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t, int32_t);
@@ -5178,7 +5104,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1sctpConnectx(JNIEnv* km_env, jclass km_clazz, jint s, jlong addrs, jint addrcnt, jlong id) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdSctpConnectx(JNIEnv* km_env, jclass km_clazz, jint s, jlong addrs, jint addrcnt, jlong id) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t, void*);
@@ -5211,7 +5137,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1sctpGetaddrlen(JNIEnv* km_env, jclass km_clazz, jbyte family) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdSctpGetaddrlen(JNIEnv* km_env, jclass km_clazz, jbyte family) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(uint8_t);
@@ -5244,7 +5170,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1sctpGetpaddrs(JNIEnv* km_env, jclass km_clazz, jint s, jint asocid, jlong addrs) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdSctpGetpaddrs(JNIEnv* km_env, jclass km_clazz, jint s, jint asocid, jlong addrs) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, uint32_t, void*);
@@ -5277,7 +5203,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1sctpFreepaddrs(JNIEnv* km_env, jclass km_clazz, jlong addrs) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdSctpFreepaddrs(JNIEnv* km_env, jclass km_clazz, jlong addrs) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void*);
@@ -5307,7 +5233,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     }
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1sctpGetladdrs(JNIEnv* km_env, jclass km_clazz, jint s, jint asocid, jlong addrs) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdSctpGetladdrs(JNIEnv* km_env, jclass km_clazz, jint s, jint asocid, jlong addrs) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, uint32_t, void*);
@@ -5340,7 +5266,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1sctpFreeladdrs(JNIEnv* km_env, jclass km_clazz, jlong addrs) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdSctpFreeladdrs(JNIEnv* km_env, jclass km_clazz, jlong addrs) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void*);
@@ -5370,7 +5296,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     }
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1sctpOptInfo(JNIEnv* km_env, jclass km_clazz, jint s, jint id, jint opt, jlong arg, jlong size) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdSctpOptInfo(JNIEnv* km_env, jclass km_clazz, jint s, jint id, jint opt, jlong arg, jlong size) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, uint32_t, int32_t, void*, void*);
@@ -5403,7 +5329,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1sctpSendv(JNIEnv* km_env, jclass km_clazz, jint sd, jlong iov, jint iovcnt, jlong addrs, jint addrcnt, jlong info, jint infolen, jint infotype, jint flags) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdSctpSendv(JNIEnv* km_env, jclass km_clazz, jint sd, jlong iov, jint iovcnt, jlong addrs, jint addrcnt, jlong info, jint infolen, jint infotype, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, void*, int32_t, void*, uint32_t, uint32_t, int32_t);
@@ -5436,7 +5362,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1sctpRecvv(JNIEnv* km_env, jclass km_clazz, jint sd, jlong iov, jint iovcnt, jlong from, jlong fromlen, jlong info, jlong infolen, jlong infotype, jlong flags) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdSctpRecvv(JNIEnv* km_env, jclass km_clazz, jint sd, jlong iov, jint iovcnt, jlong from, jlong fromlen, jlong info, jlong infolen, jlong infotype, jlong flags) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t, void*, void*, void*, void*, void*, void*);
@@ -5469,7 +5395,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
     return (jlong)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1timerfdCreate(JNIEnv* km_env, jclass km_clazz, jint clockid, jint flags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdTimerfdCreate(JNIEnv* km_env, jclass km_clazz, jint clockid, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
@@ -5502,7 +5428,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1timerfdGettime(JNIEnv* km_env, jclass km_clazz, jint fd, jlong curr_value) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdTimerfdGettime(JNIEnv* km_env, jclass km_clazz, jint fd, jlong currValue) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -5527,7 +5453,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)fd, (void*)(uintptr_t)curr_value);
+        km_res = km_fn_ptr((int32_t)fd, (void*)(uintptr_t)currValue);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5535,7 +5461,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1timerfdSettime(JNIEnv* km_env, jclass km_clazz, jint fd, jint flags, jlong new_value, jlong old_value) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdTimerfdSettime(JNIEnv* km_env, jclass km_clazz, jint fd, jint flags, jlong newValue, jlong oldValue) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*, void*);
@@ -5560,7 +5486,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)fd, (int32_t)flags, (void*)(uintptr_t)new_value, (void*)(uintptr_t)old_value);
+        km_res = km_fn_ptr((int32_t)fd, (int32_t)flags, (void*)(uintptr_t)newValue, (void*)(uintptr_t)oldValue);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5568,7 +5494,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1closefrom(JNIEnv* km_env, jclass km_clazz, jint lowfd) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdClosefrom(JNIEnv* km_env, jclass km_clazz, jint lowfd) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(int32_t);
@@ -5598,7 +5524,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     }
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1closeRange(JNIEnv* km_env, jclass km_clazz, jint lowfd, jint highfd, jint flags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdCloseRange(JNIEnv* km_env, jclass km_clazz, jint lowfd, jint highfd, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(uint32_t, uint32_t, int32_t);
@@ -5631,10 +5557,9 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1execvpe(JNIEnv* km_env, jclass km_clazz, jstring file, jlong argv, jlong envp) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdExecvpe(JNIEnv* km_env, jclass km_clazz, jlong file, jlong argv, jlong envp) {
     (void)km_env;
     (void)km_clazz;
-    const char* file_utf = (file != NULL) ? (*km_env)->GetStringUTFChars(km_env, file, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5657,16 +5582,15 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(file_utf, (void*)(uintptr_t)argv, (void*)(uintptr_t)envp);
+        km_res = km_fn_ptr((const char*)(uintptr_t)file, (void*)(uintptr_t)argv, (void*)(uintptr_t)envp);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (file != NULL && file_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, file, file_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1kcmp(JNIEnv* km_env, jclass km_clazz, jint pid1, jint pid2, jint type_, jlong idx1, jlong idx2) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdKcmp(JNIEnv* km_env, jclass km_clazz, jint pid1, jint pid2, jint type, jlong idx1, jlong idx2) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, uint64_t, uint64_t);
@@ -5691,7 +5615,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)pid1, (int32_t)pid2, (int32_t)type_, (uint64_t)idx1, (uint64_t)idx2);
+        km_res = km_fn_ptr((int32_t)pid1, (int32_t)pid2, (int32_t)type, (uint64_t)idx1, (uint64_t)idx2);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -5699,11 +5623,9 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1dlvsym(JNIEnv* km_env, jclass km_clazz, jlong handle, jstring symbol, jstring version) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdDlvsym(JNIEnv* km_env, jclass km_clazz, jlong handle, jlong symbol, jlong version) {
     (void)km_env;
     (void)km_clazz;
-    const char* symbol_utf = (symbol != NULL) ? (*km_env)->GetStringUTFChars(km_env, symbol, NULL) : NULL;
-    const char* version_utf = (version != NULL) ? (*km_env)->GetStringUTFChars(km_env, version, NULL) : NULL;
     typedef void* (*km_fn_t)(void*, const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5726,17 +5648,15 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
 #endif
     void* km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)handle, symbol_utf, version_utf);
+        km_res = km_fn_ptr((void*)(uintptr_t)handle, (const char*)(uintptr_t)symbol, (const char*)(uintptr_t)version);
     } else {
         errno = ENOSYS;
         km_res = NULL;
     }
-    if (symbol != NULL && symbol_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, symbol, symbol_utf);
-    if (version != NULL && version_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, version, version_utf);
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1memstatStrerror(JNIEnv* km_env, jclass km_clazz, jint error) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdMemstatStrerror(JNIEnv* km_env, jclass km_clazz, jint error) {
     (void)km_env;
     (void)km_clazz;
     typedef const char* (*km_fn_t)(int32_t);
@@ -5790,7 +5710,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1memstatMtlAlloc(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdMemstatMtlAlloc(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void);
@@ -5844,7 +5764,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1memstatMtlFirst(JNIEnv* km_env, jclass km_clazz, jlong list) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdMemstatMtlFirst(JNIEnv* km_env, jclass km_clazz, jlong list) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void*);
@@ -5898,7 +5818,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1memstatMtlNext(JNIEnv* km_env, jclass km_clazz, jlong mtp) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdMemstatMtlNext(JNIEnv* km_env, jclass km_clazz, jlong mtp) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void*);
@@ -5952,10 +5872,9 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1memstatMtlFind(JNIEnv* km_env, jclass km_clazz, jlong list, jint allocator, jstring name) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdMemstatMtlFind(JNIEnv* km_env, jclass km_clazz, jlong list, jint allocator, jlong name) {
     (void)km_env;
     (void)km_clazz;
-    const char* name_utf = (name != NULL) ? (*km_env)->GetStringUTFChars(km_env, name, NULL) : NULL;
     typedef void* (*km_fn_t)(void*, int32_t, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5999,16 +5918,15 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
 #endif
     void* km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)list, (int32_t)allocator, name_utf);
+        km_res = km_fn_ptr((void*)(uintptr_t)list, (int32_t)allocator, (const char*)(uintptr_t)name);
     } else {
         errno = ENOSYS;
         km_res = NULL;
     }
-    if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1memstatMtlFree(JNIEnv* km_env, jclass km_clazz, jlong list) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdMemstatMtlFree(JNIEnv* km_env, jclass km_clazz, jlong list) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void*);
@@ -6059,7 +5977,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     }
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1memstatMtlGeterror(JNIEnv* km_env, jclass km_clazz, jlong list) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdMemstatMtlGeterror(JNIEnv* km_env, jclass km_clazz, jlong list) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -6113,7 +6031,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1memstatGetName(JNIEnv* km_env, jclass km_clazz, jlong mtp) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdMemstatGetName(JNIEnv* km_env, jclass km_clazz, jlong mtp) {
     (void)km_env;
     (void)km_clazz;
     typedef const char* (*km_fn_t)(void*);
@@ -6167,7 +6085,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1kvmDpcpuSetcpu(JNIEnv* km_env, jclass km_clazz, jlong kd, jint cpu) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdKvmDpcpuSetcpu(JNIEnv* km_env, jclass km_clazz, jlong kd, jint cpu) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, uint32_t);
@@ -6221,7 +6139,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1kvmGetargv(JNIEnv* km_env, jclass km_clazz, jlong kd, jlong p, jint nchr) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdKvmGetargv(JNIEnv* km_env, jclass km_clazz, jlong kd, jlong p, jint nchr) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void*, void*, int32_t);
@@ -6275,7 +6193,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1kvmGetcptime(JNIEnv* km_env, jclass km_clazz, jlong kd, jlong cp_time) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdKvmGetcptime(JNIEnv* km_env, jclass km_clazz, jlong kd, jlong cpTime) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -6321,7 +6239,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)kd, (void*)(uintptr_t)cp_time);
+        km_res = km_fn_ptr((void*)(uintptr_t)kd, (void*)(uintptr_t)cpTime);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -6329,7 +6247,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1kvmGetenvv(JNIEnv* km_env, jclass km_clazz, jlong kd, jlong p, jint nchr) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdKvmGetenvv(JNIEnv* km_env, jclass km_clazz, jlong kd, jlong p, jint nchr) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void*, void*, int32_t);
@@ -6383,7 +6301,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1kvmGeterr(JNIEnv* km_env, jclass km_clazz, jlong kd) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdKvmGeterr(JNIEnv* km_env, jclass km_clazz, jlong kd) {
     (void)km_env;
     (void)km_clazz;
     typedef char* (*km_fn_t)(void*);
@@ -6437,7 +6355,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1kvmGetmaxcpu(JNIEnv* km_env, jclass km_clazz, jlong kd) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdKvmGetmaxcpu(JNIEnv* km_env, jclass km_clazz, jlong kd) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -6491,7 +6409,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1kvmGetncpus(JNIEnv* km_env, jclass km_clazz, jlong kd) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdKvmGetncpus(JNIEnv* km_env, jclass km_clazz, jlong kd) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -6545,7 +6463,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1kvmGetpcpu(JNIEnv* km_env, jclass km_clazz, jlong kd, jint cpu) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdKvmGetpcpu(JNIEnv* km_env, jclass km_clazz, jlong kd, jint cpu) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void*, int32_t);
@@ -6599,7 +6517,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1kvmCounterU64Fetch(JNIEnv* km_env, jclass km_clazz, jlong kd, jlong base) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdKvmCounterU64Fetch(JNIEnv* km_env, jclass km_clazz, jlong kd, jlong base) {
     (void)km_env;
     (void)km_clazz;
     typedef uint64_t (*km_fn_t)(void*, uint64_t);
@@ -6653,7 +6571,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
     return (jlong)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1kvmGetswapinfo(JNIEnv* km_env, jclass km_clazz, jlong kd, jlong info, jint maxswap, jint flags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdKvmGetswapinfo(JNIEnv* km_env, jclass km_clazz, jlong kd, jlong info, jint maxswap, jint flags) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, int32_t, int32_t);
@@ -6707,7 +6625,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1kvmNative(JNIEnv* km_env, jclass km_clazz, jlong kd) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdKvmNative(JNIEnv* km_env, jclass km_clazz, jlong kd) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -6761,7 +6679,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1kvmNlist(JNIEnv* km_env, jclass km_clazz, jlong kd, jlong nl) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdKvmNlist(JNIEnv* km_env, jclass km_clazz, jlong kd, jlong nl) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -6815,7 +6733,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1kvmNlist2(JNIEnv* km_env, jclass km_clazz, jlong kd, jlong nl) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdKvmNlist2(JNIEnv* km_env, jclass km_clazz, jlong kd, jlong nl) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -6869,7 +6787,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1kvmReadZpcpu(JNIEnv* km_env, jclass km_clazz, jlong kd, jlong base, jlong buf, jlong size, jint cpu) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdKvmReadZpcpu(JNIEnv* km_env, jclass km_clazz, jlong kd, jlong base, jlong buf, jlong size, jint cpu) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(void*, uint64_t, void*, uint64_t, int32_t);
@@ -6923,7 +6841,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1kvmRead2(JNIEnv* km_env, jclass km_clazz, jlong kd, jlong addr, jlong buf, jlong nbytes) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdKvmRead2(JNIEnv* km_env, jclass km_clazz, jlong kd, jlong addr, jlong buf, jlong nbytes) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(void*, uint64_t, void*, uint64_t);
@@ -6977,7 +6895,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
     return (jlong)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1extattrNamespaceToString(JNIEnv* km_env, jclass km_clazz, jint attrnamespace, jlong string) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdExtattrNamespaceToString(JNIEnv* km_env, jclass km_clazz, jint attrnamespace, jlong string) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -7031,10 +6949,9 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1extattrStringToNamespace(JNIEnv* km_env, jclass km_clazz, jstring string, jlong attrnamespace) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdExtattrStringToNamespace(JNIEnv* km_env, jclass km_clazz, jlong string, jlong attrnamespace) {
     (void)km_env;
     (void)km_clazz;
-    const char* string_utf = (string != NULL) ? (*km_env)->GetStringUTFChars(km_env, string, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7078,16 +6995,15 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(string_utf, (void*)(uintptr_t)attrnamespace);
+        km_res = km_fn_ptr((const char*)(uintptr_t)string, (void*)(uintptr_t)attrnamespace);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (string != NULL && string_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, string, string_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1realhostname(JNIEnv* km_env, jclass km_clazz, jlong host, jlong hsize, jlong ip) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdRealhostname(JNIEnv* km_env, jclass km_clazz, jlong host, jlong hsize, jlong ip) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(char*, uint64_t, void*);
@@ -7141,7 +7057,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1realhostnameSa(JNIEnv* km_env, jclass km_clazz, jlong host, jlong hsize, jlong addr, jint addrlen) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdRealhostnameSa(JNIEnv* km_env, jclass km_clazz, jlong host, jlong hsize, jlong addr, jint addrlen) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(char*, uint64_t, void*, int32_t);
@@ -7195,10 +7111,9 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1kldIsloaded(JNIEnv* km_env, jclass km_clazz, jstring name) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdKldIsloaded(JNIEnv* km_env, jclass km_clazz, jlong name) {
     (void)km_env;
     (void)km_clazz;
-    const char* name_utf = (name != NULL) ? (*km_env)->GetStringUTFChars(km_env, name, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7242,19 +7157,17 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(name_utf);
+        km_res = km_fn_ptr((const char*)(uintptr_t)name);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1kldLoad(JNIEnv* km_env, jclass km_clazz, jstring name) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdKldLoad(JNIEnv* km_env, jclass km_clazz, jlong name) {
     (void)km_env;
     (void)km_clazz;
-    const char* name_utf = (name != NULL) ? (*km_env)->GetStringUTFChars(km_env, name, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7298,16 +7211,15 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(name_utf);
+        km_res = km_fn_ptr((const char*)(uintptr_t)name);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (name != NULL && name_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, name, name_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1kinfoGetvmmap(JNIEnv* km_env, jclass km_clazz, jint pid, jlong cntp) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdKinfoGetvmmap(JNIEnv* km_env, jclass km_clazz, jint pid, jlong cntp) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(int32_t, void*);
@@ -7361,10 +7273,9 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1hexdump(JNIEnv* km_env, jclass km_clazz, jlong ptr, jint length, jstring hdr, jint flags) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdHexdump(JNIEnv* km_env, jclass km_clazz, jlong ptr, jint length, jlong hdr, jint flags) {
     (void)km_env;
     (void)km_clazz;
-    const char* hdr_utf = (hdr != NULL) ? (*km_env)->GetStringUTFChars(km_env, hdr, NULL) : NULL;
     typedef void (*km_fn_t)(void*, int32_t, const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7407,17 +7318,15 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     }
 #endif
     if (km_fn_ptr != NULL) {
-        km_fn_ptr((void*)(uintptr_t)ptr, (int32_t)length, hdr_utf, (int32_t)flags);
+        km_fn_ptr((void*)(uintptr_t)ptr, (int32_t)length, (const char*)(uintptr_t)hdr, (int32_t)flags);
     } else {
         errno = ENOSYS;
     }
-    if (hdr != NULL && hdr_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, hdr, hdr_utf);
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1humanizeNumber(JNIEnv* km_env, jclass km_clazz, jlong buf, jlong len, jlong number, jstring suffix, jint scale, jint flags) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdHumanizeNumber(JNIEnv* km_env, jclass km_clazz, jlong buf, jlong len, jlong number, jlong suffix, jint scale, jint flags) {
     (void)km_env;
     (void)km_clazz;
-    const char* suffix_utf = (suffix != NULL) ? (*km_env)->GetStringUTFChars(km_env, suffix, NULL) : NULL;
     typedef int32_t (*km_fn_t)(char*, uint64_t, int64_t, const char*, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7461,19 +7370,17 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((char*)(uintptr_t)buf, (uint64_t)len, (int64_t)number, suffix_utf, (int32_t)scale, (int32_t)flags);
+        km_res = km_fn_ptr((char*)(uintptr_t)buf, (uint64_t)len, (int64_t)number, (const char*)(uintptr_t)suffix, (int32_t)scale, (int32_t)flags);
     } else {
         errno = ENOSYS;
         km_res = -1;
     }
-    if (suffix != NULL && suffix_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, suffix, suffix_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1flopen(JNIEnv* km_env, jclass km_clazz, jstring path, jint flags, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdFlopen(JNIEnv* km_env, jclass km_clazz, jlong path, jint flags, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
     (void)km_env;
     (void)km_clazz;
-    const char* path_utf = (path != NULL) ? (*km_env)->GetStringUTFChars(km_env, path, NULL) : NULL;
     typedef int32_t (*km_fn_t)(const char*, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7518,23 +7425,21 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     int32_t km_res = -1;
     if (km_fn_ptr != NULL) {
         switch (km_vac) {
-            case 0: km_res = km_fn_ptr(path_utf, (int32_t)flags); break;
-            case 1: km_res = km_fn_ptr(path_utf, (int32_t)flags, (intptr_t)km_va0); break;
-            case 2: km_res = km_fn_ptr(path_utf, (int32_t)flags, (intptr_t)km_va0, (intptr_t)km_va1); break;
-            case 3: km_res = km_fn_ptr(path_utf, (int32_t)flags, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2); break;
-            default: km_res = km_fn_ptr(path_utf, (int32_t)flags, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3); break;
+            case 0: km_res = km_fn_ptr((const char*)(uintptr_t)path, (int32_t)flags); break;
+            case 1: km_res = km_fn_ptr((const char*)(uintptr_t)path, (int32_t)flags, (intptr_t)km_va0); break;
+            case 2: km_res = km_fn_ptr((const char*)(uintptr_t)path, (int32_t)flags, (intptr_t)km_va0, (intptr_t)km_va1); break;
+            case 3: km_res = km_fn_ptr((const char*)(uintptr_t)path, (int32_t)flags, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2); break;
+            default: km_res = km_fn_ptr((const char*)(uintptr_t)path, (int32_t)flags, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3); break;
         }
     } else {
         errno = ENOSYS;
     }
-    if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1flopenat(JNIEnv* km_env, jclass km_clazz, jint fd, jstring path, jint flags, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdFlopenat(JNIEnv* km_env, jclass km_clazz, jint fd, jlong path, jint flags, jint km_vac, jlong km_va0, jlong km_va1, jlong km_va2, jlong km_va3) {
     (void)km_env;
     (void)km_clazz;
-    const char* path_utf = (path != NULL) ? (*km_env)->GetStringUTFChars(km_env, path, NULL) : NULL;
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7579,20 +7484,19 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     int32_t km_res = -1;
     if (km_fn_ptr != NULL) {
         switch (km_vac) {
-            case 0: km_res = km_fn_ptr((int32_t)fd, path_utf, (int32_t)flags); break;
-            case 1: km_res = km_fn_ptr((int32_t)fd, path_utf, (int32_t)flags, (intptr_t)km_va0); break;
-            case 2: km_res = km_fn_ptr((int32_t)fd, path_utf, (int32_t)flags, (intptr_t)km_va0, (intptr_t)km_va1); break;
-            case 3: km_res = km_fn_ptr((int32_t)fd, path_utf, (int32_t)flags, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2); break;
-            default: km_res = km_fn_ptr((int32_t)fd, path_utf, (int32_t)flags, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3); break;
+            case 0: km_res = km_fn_ptr((int32_t)fd, (const char*)(uintptr_t)path, (int32_t)flags); break;
+            case 1: km_res = km_fn_ptr((int32_t)fd, (const char*)(uintptr_t)path, (int32_t)flags, (intptr_t)km_va0); break;
+            case 2: km_res = km_fn_ptr((int32_t)fd, (const char*)(uintptr_t)path, (int32_t)flags, (intptr_t)km_va0, (intptr_t)km_va1); break;
+            case 3: km_res = km_fn_ptr((int32_t)fd, (const char*)(uintptr_t)path, (int32_t)flags, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2); break;
+            default: km_res = km_fn_ptr((int32_t)fd, (const char*)(uintptr_t)path, (int32_t)flags, (intptr_t)km_va0, (intptr_t)km_va1, (intptr_t)km_va2, (intptr_t)km_va3); break;
         }
     } else {
         errno = ENOSYS;
     }
-    if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1getlocalbase(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdGetlocalbase(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef const char* (*km_fn_t)(void);
@@ -7646,10 +7550,9 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1pidfileOpen(JNIEnv* km_env, jclass km_clazz, jstring path, jshort mode, jlong pidptr) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdPidfileOpen(JNIEnv* km_env, jclass km_clazz, jlong path, jshort mode, jlong pidptr) {
     (void)km_env;
     (void)km_clazz;
-    const char* path_utf = (path != NULL) ? (*km_env)->GetStringUTFChars(km_env, path, NULL) : NULL;
     typedef void* (*km_fn_t)(const char*, uint16_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -7693,16 +7596,15 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
 #endif
     void* km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(path_utf, (uint16_t)mode, (void*)(uintptr_t)pidptr);
+        km_res = km_fn_ptr((const char*)(uintptr_t)path, (uint16_t)mode, (void*)(uintptr_t)pidptr);
     } else {
         errno = ENOSYS;
         km_res = NULL;
     }
-    if (path != NULL && path_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, path, path_utf);
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1pidfileWrite(JNIEnv* km_env, jclass km_clazz, jlong path) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdPidfileWrite(JNIEnv* km_env, jclass km_clazz, jlong path) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -7756,7 +7658,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1pidfileClose(JNIEnv* km_env, jclass km_clazz, jlong path) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdPidfileClose(JNIEnv* km_env, jclass km_clazz, jlong path) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -7810,7 +7712,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1pidfileRemove(JNIEnv* km_env, jclass km_clazz, jlong path) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdPidfileRemove(JNIEnv* km_env, jclass km_clazz, jlong path) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -7864,7 +7766,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1pidfileFileno(JNIEnv* km_env, jclass km_clazz, jlong path) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdPidfileFileno(JNIEnv* km_env, jclass km_clazz, jlong path) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -7918,7 +7820,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1procstatOpenSysctl(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdProcstatOpenSysctl(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void);
@@ -7972,7 +7874,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1procstatGetfiles(JNIEnv* km_env, jclass km_clazz, jlong procstat, jlong kp, jint mmapped) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdProcstatGetfiles(JNIEnv* km_env, jclass km_clazz, jlong procstat, jlong kp, jint mmapped) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void*, void*, int32_t);
@@ -8026,7 +7928,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1procstatFreefiles(JNIEnv* km_env, jclass km_clazz, jlong procstat, jlong head) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdProcstatFreefiles(JNIEnv* km_env, jclass km_clazz, jlong procstat, jlong head) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void*, void*);
@@ -8077,7 +7979,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     }
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1procstatGetprocs(JNIEnv* km_env, jclass km_clazz, jlong procstat, jint what, jint arg, jlong count) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdProcstatGetprocs(JNIEnv* km_env, jclass km_clazz, jlong procstat, jint what, jint arg, jlong count) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void*, int32_t, int32_t, void*);
@@ -8131,7 +8033,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1procstatFreeprocs(JNIEnv* km_env, jclass km_clazz, jlong procstat, jlong p) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdProcstatFreeprocs(JNIEnv* km_env, jclass km_clazz, jlong procstat, jlong p) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void*, void*);
@@ -8182,7 +8084,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     }
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1procstatGetvmmap(JNIEnv* km_env, jclass km_clazz, jlong procstat, jlong kp, jlong count) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdProcstatGetvmmap(JNIEnv* km_env, jclass km_clazz, jlong procstat, jlong kp, jlong count) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void*, void*, void*);
@@ -8236,7 +8138,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1procstatFreevmmap(JNIEnv* km_env, jclass km_clazz, jlong procstat, jlong vmmap) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdProcstatFreevmmap(JNIEnv* km_env, jclass km_clazz, jlong procstat, jlong vmmap) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void*, void*);
@@ -8287,7 +8189,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1procstatClose(JNIEnv* km_env, jclass km_clazz, jlong procstat) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdProcstatClose(JNIEnv* km_env, jclass km_clazz, jlong procstat) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void*);
@@ -8338,7 +8240,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1procstatFreeargv(JNIEnv* km_env, jclass km_clazz, jlong procstat) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdProcstatFreeargv(JNIEnv* km_env, jclass km_clazz, jlong procstat) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void*);
@@ -8389,7 +8291,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1procstatFreeenvv(JNIEnv* km_env, jclass km_clazz, jlong procstat) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdProcstatFreeenvv(JNIEnv* km_env, jclass km_clazz, jlong procstat) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void*);
@@ -8440,7 +8342,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1procstatFreegroups(JNIEnv* km_env, jclass km_clazz, jlong procstat, jlong groups) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdProcstatFreegroups(JNIEnv* km_env, jclass km_clazz, jlong procstat, jlong groups) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void*, void*);
@@ -8491,7 +8393,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     }
 }
 
-JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1procstatFreeptlwpinfo(JNIEnv* km_env, jclass km_clazz, jlong procstat, jlong pl) {
+JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdProcstatFreeptlwpinfo(JNIEnv* km_env, jclass km_clazz, jlong procstat, jlong pl) {
     (void)km_env;
     (void)km_clazz;
     typedef void (*km_fn_t)(void*, void*);
@@ -8542,7 +8444,7 @@ JNIEXPORT void JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     }
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1procstatGetargv(JNIEnv* km_env, jclass km_clazz, jlong procstat, jlong kp, jlong nchr) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdProcstatGetargv(JNIEnv* km_env, jclass km_clazz, jlong procstat, jlong kp, jlong nchr) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void*, void*, uint64_t);
@@ -8596,7 +8498,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1procstatGetenvv(JNIEnv* km_env, jclass km_clazz, jlong procstat, jlong kp, jlong nchr) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdProcstatGetenvv(JNIEnv* km_env, jclass km_clazz, jlong procstat, jlong kp, jlong nchr) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void*, void*, uint64_t);
@@ -8650,7 +8552,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1procstatGetgroups(JNIEnv* km_env, jclass km_clazz, jlong procstat, jlong kp, jlong count) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdProcstatGetgroups(JNIEnv* km_env, jclass km_clazz, jlong procstat, jlong kp, jlong count) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void*, void*, void*);
@@ -8704,7 +8606,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1procstatGetosrel(JNIEnv* km_env, jclass km_clazz, jlong procstat, jlong kp, jlong osrelp) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdProcstatGetosrel(JNIEnv* km_env, jclass km_clazz, jlong procstat, jlong kp, jlong osrelp) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, void*);
@@ -8758,7 +8660,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1procstatGetpathname(JNIEnv* km_env, jclass km_clazz, jlong procstat, jlong kp, jlong pathname, jlong maxlen) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdProcstatGetpathname(JNIEnv* km_env, jclass km_clazz, jlong procstat, jlong kp, jlong pathname, jlong maxlen) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, char*, uint64_t);
@@ -8812,7 +8714,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1procstatGetrlimit(JNIEnv* km_env, jclass km_clazz, jlong procstat, jlong kp, jint which, jlong rlimit) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdProcstatGetrlimit(JNIEnv* km_env, jclass km_clazz, jlong procstat, jlong kp, jint which, jlong rlimit) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, int32_t, void*);
@@ -8866,7 +8768,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1procstatGetumask(JNIEnv* km_env, jclass km_clazz, jlong procstat, jlong kp, jlong maskp) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdProcstatGetumask(JNIEnv* km_env, jclass km_clazz, jlong procstat, jlong kp, jlong maskp) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, void*);
@@ -8920,10 +8822,9 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1procstatOpenCore(JNIEnv* km_env, jclass km_clazz, jstring filename) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdProcstatOpenCore(JNIEnv* km_env, jclass km_clazz, jlong filename) {
     (void)km_env;
     (void)km_clazz;
-    const char* filename_utf = (filename != NULL) ? (*km_env)->GetStringUTFChars(km_env, filename, NULL) : NULL;
     typedef void* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -8967,20 +8868,17 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
 #endif
     void* km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(filename_utf);
+        km_res = km_fn_ptr((const char*)(uintptr_t)filename);
     } else {
         errno = ENOSYS;
         km_res = NULL;
     }
-    if (filename != NULL && filename_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, filename, filename_utf);
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1procstatOpenKvm(JNIEnv* km_env, jclass km_clazz, jstring nlistf, jstring memf) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdProcstatOpenKvm(JNIEnv* km_env, jclass km_clazz, jlong nlistf, jlong memf) {
     (void)km_env;
     (void)km_clazz;
-    const char* nlistf_utf = (nlistf != NULL) ? (*km_env)->GetStringUTFChars(km_env, nlistf, NULL) : NULL;
-    const char* memf_utf = (memf != NULL) ? (*km_env)->GetStringUTFChars(km_env, memf, NULL) : NULL;
     typedef void* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -9024,17 +8922,15 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
 #endif
     void* km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(nlistf_utf, memf_utf);
+        km_res = km_fn_ptr((const char*)(uintptr_t)nlistf, (const char*)(uintptr_t)memf);
     } else {
         errno = ENOSYS;
         km_res = NULL;
     }
-    if (nlistf != NULL && nlistf_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, nlistf, nlistf_utf);
-    if (memf != NULL && memf_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, memf, memf_utf);
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1procstatGetSocketInfo(JNIEnv* km_env, jclass km_clazz, jlong proc_, jlong fst, jlong sock, jlong errbuf) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdProcstatGetSocketInfo(JNIEnv* km_env, jclass km_clazz, jlong proc, jlong fst, jlong sock, jlong errbuf) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, void*, char*);
@@ -9080,7 +8976,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)proc_, (void*)(uintptr_t)fst, (void*)(uintptr_t)sock, (char*)(uintptr_t)errbuf);
+        km_res = km_fn_ptr((void*)(uintptr_t)proc, (void*)(uintptr_t)fst, (void*)(uintptr_t)sock, (char*)(uintptr_t)errbuf);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -9088,7 +8984,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1procstatGetVnodeInfo(JNIEnv* km_env, jclass km_clazz, jlong proc_, jlong fst, jlong vn, jlong errbuf) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdProcstatGetVnodeInfo(JNIEnv* km_env, jclass km_clazz, jlong proc, jlong fst, jlong vn, jlong errbuf) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, void*, char*);
@@ -9134,7 +9030,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)proc_, (void*)(uintptr_t)fst, (void*)(uintptr_t)vn, (char*)(uintptr_t)errbuf);
+        km_res = km_fn_ptr((void*)(uintptr_t)proc, (void*)(uintptr_t)fst, (void*)(uintptr_t)vn, (char*)(uintptr_t)errbuf);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -9142,7 +9038,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1procstatGetPtsInfo(JNIEnv* km_env, jclass km_clazz, jlong proc_, jlong fst, jlong pts, jlong errbuf) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdProcstatGetPtsInfo(JNIEnv* km_env, jclass km_clazz, jlong proc, jlong fst, jlong pts, jlong errbuf) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, void*, char*);
@@ -9188,7 +9084,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)proc_, (void*)(uintptr_t)fst, (void*)(uintptr_t)pts, (char*)(uintptr_t)errbuf);
+        km_res = km_fn_ptr((void*)(uintptr_t)proc, (void*)(uintptr_t)fst, (void*)(uintptr_t)pts, (char*)(uintptr_t)errbuf);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -9196,7 +9092,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1procstatGetShmInfo(JNIEnv* km_env, jclass km_clazz, jlong proc_, jlong fst, jlong shm, jlong errbuf) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdProcstatGetShmInfo(JNIEnv* km_env, jclass km_clazz, jlong proc, jlong fst, jlong shm, jlong errbuf) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*, void*, char*);
@@ -9242,7 +9138,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((void*)(uintptr_t)proc_, (void*)(uintptr_t)fst, (void*)(uintptr_t)shm, (char*)(uintptr_t)errbuf);
+        km_res = km_fn_ptr((void*)(uintptr_t)proc, (void*)(uintptr_t)fst, (void*)(uintptr_t)shm, (char*)(uintptr_t)errbuf);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -9250,7 +9146,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1timerCreate(JNIEnv* km_env, jclass km_clazz, jint clock_id, jlong evp, jlong timerid) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdTimerCreate(JNIEnv* km_env, jclass km_clazz, jint clockId, jlong evp, jlong timerid) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
@@ -9275,7 +9171,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)clock_id, (void*)(uintptr_t)evp, (void*)(uintptr_t)timerid);
+        km_res = km_fn_ptr((int32_t)clockId, (void*)(uintptr_t)evp, (void*)(uintptr_t)timerid);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -9283,7 +9179,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1timerDelete(JNIEnv* km_env, jclass km_clazz, jlong timerid) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdTimerDelete(JNIEnv* km_env, jclass km_clazz, jlong timerid) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -9316,7 +9212,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1timerGetoverrun(JNIEnv* km_env, jclass km_clazz, jlong timerid) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdTimerGetoverrun(JNIEnv* km_env, jclass km_clazz, jlong timerid) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -9349,7 +9245,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1timerGettime(JNIEnv* km_env, jclass km_clazz, jlong timerid, jlong value) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdTimerGettime(JNIEnv* km_env, jclass km_clazz, jlong timerid, jlong value) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);
@@ -9382,7 +9278,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1timerSettime(JNIEnv* km_env, jclass km_clazz, jlong timerid, jint flags, jlong value, jlong ovalue) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdTimerSettime(JNIEnv* km_env, jclass km_clazz, jlong timerid, jint flags, jlong value, jlong ovalue) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, int32_t, void*, void*);
@@ -9415,7 +9311,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1devstatGetnumdevs(JNIEnv* km_env, jclass km_clazz, jlong kd) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdDevstatGetnumdevs(JNIEnv* km_env, jclass km_clazz, jlong kd) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -9469,7 +9365,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1devstatGetgeneration(JNIEnv* km_env, jclass km_clazz, jlong kd) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdDevstatGetgeneration(JNIEnv* km_env, jclass km_clazz, jlong kd) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(void*);
@@ -9523,7 +9419,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_fre
     return (jlong)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1devstatGetversion(JNIEnv* km_env, jclass km_clazz, jlong kd) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdDevstatGetversion(JNIEnv* km_env, jclass km_clazz, jlong kd) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -9577,7 +9473,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1devstatCheckversion(JNIEnv* km_env, jclass km_clazz, jlong kd) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdDevstatCheckversion(JNIEnv* km_env, jclass km_clazz, jlong kd) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*);
@@ -9631,7 +9527,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libc_1unix_1bsd_1freebsdlike_1freebsd_1devstatBuildmatch(JNIEnv* km_env, jclass km_clazz, jlong match_str, jlong matches, jlong num_matches) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_freebsd_UnixBsdFreebsdlikeFreebsdJniBridge_libcUnixBsdFreebsdlikeFreebsdDevstatBuildmatch(JNIEnv* km_env, jclass km_clazz, jlong matchStr, jlong matches, jlong numMatches) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(char*, void*, void*);
@@ -9677,7 +9573,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_unix_bsd_freebsdlike_free
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((char*)(uintptr_t)match_str, (void*)(uintptr_t)matches, (void*)(uintptr_t)num_matches);
+        km_res = km_fn_ptr((char*)(uintptr_t)matchStr, (void*)(uintptr_t)matches, (void*)(uintptr_t)numMatches);
     } else {
         errno = ENOSYS;
         km_res = -1;

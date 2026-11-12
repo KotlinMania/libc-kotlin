@@ -1,14 +1,18 @@
 package io.github.kotlinmania.libc.unix.nto
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUshort
 import io.github.kotlinmania.libc.unix.SizeT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.mem.ObjectSlotLayout
+import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public val SYSNAME_SIZE: Int = 256 + 1
 
@@ -120,7 +124,7 @@ public val MAP_PRIVATE: CInt = 2
 
 public val MAP_FIXED: CInt = 0x10
 
-public val MAP_FAILED: COpaquePointer? = COpaquePointer((0.inv()).toLong())
+public val MAP_FAILED: MutPtr<CVoid> = MutPtr<CVoid>((0.inv()).toLong())
 
 public val MS_ASYNC: CInt = 1
 
@@ -840,7 +844,7 @@ public val MSG_NOERROR: CInt = 4096
 
 public val LOG_NFACILITIES: CInt = 24
 
-public val SEM_FAILED: SyncT? = null
+public val SEM_FAILED: MutPtr<SemT> = MutPtr<SemT>(0xFFFFFFFFFFFFFFFFuL.toLong())
 
 public val AI_PASSIVE: CInt = 0x00000001
 
@@ -1774,9 +1778,9 @@ public val ST_NOEXEC: CUlong = 0x02uL
 
 public val ST_NOATIME: CUlong = 0x20uL
 
-public val RTLD_NEXT: COpaquePointer? = COpaquePointer((-3L))
+public val RTLD_NEXT: MutPtr<CVoid> = MutPtr<CVoid>((-3L))
 
-public val RTLD_DEFAULT: COpaquePointer? = COpaquePointer((-2L))
+public val RTLD_DEFAULT: MutPtr<CVoid> = MutPtr<CVoid>((-2L))
 
 public val RTLD_NODELETE: CInt = 0x1000
 
@@ -2582,7 +2586,7 @@ public val SCHED_SETPRIO: CInt = 7
 
 public val SCHED_SPORADIC: CInt = 4
 
-public val SHM_ANON: COpaquePointer? = COpaquePointer((-1).toLong())
+public val SHM_ANON: MutPtr<CChar> = MutPtr<CChar>((-1).toLong())
 
 public val SIGCLD: CInt = SIGCHLD
 
@@ -2600,7 +2604,7 @@ public val SO_USELOOPBACK: CInt = 0x0040
 
 public val SS_MAXSIZE: Int = 128
 
-public val SS_ALIGNSIZE: Int = 8
+public val SS_ALIGNSIZE: Int = sizeOf<Long>(typeLayoutT = PrimitiveLayouts.I64)
 
 public val SS_PAD1SIZE: Int = SS_ALIGNSIZE - 2
 
@@ -2798,4 +2802,4 @@ public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(u = CLOCK_REALT
 
 public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(active = 0, blockedwriters = 0, blockedreaders = 0, heavy = 0, lock = PTHREAD_MUTEX_INITIALIZER, rcond = PTHREAD_COND_INITIALIZER, wcond = PTHREAD_COND_INITIALIZER, owner = (-2).toUInt(), spare = 0u)
 
-public val BPF_ALIGNMENT: Int = 8
+public val BPF_ALIGNMENT: Int = sizeOf<CLong>(typeLayoutT = ObjectSlotLayout<CLong>())

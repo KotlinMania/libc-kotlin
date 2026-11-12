@@ -8,6 +8,7 @@ import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
 import io.github.kotlinmania.libc.CUshort
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public val SIOCGIFFLAGS: CUlong = 0x00008913uL
 
@@ -1612,4 +1613,4 @@ public val TRAP_PERF: CInt = 6
 // currently used in CI in some configurations, so we define them here.
 public val XFS_SUPER_MAGIC: CLong = 0x58465342L
 
-public val SEM_FAILED: SemT? = null
+public val SEM_FAILED: MutPtr<SemT> = MutPtr(0L)

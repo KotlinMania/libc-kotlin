@@ -3,11 +3,14 @@
 package io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.freebsd11
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.SizeT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 private object UnixBsdFreebsdlikeFreebsdFreebsd11JniBridge {
     init {
@@ -15,45 +18,45 @@ private object UnixBsdFreebsdlikeFreebsdFreebsd11JniBridge {
     }
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_freebsd11_setgrent(): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdFreebsd11Setgrent(): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_freebsd11_mprotect(addr: Long, len: Long, prot: Int): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdFreebsd11Mprotect(addr: Long, len: Long, prot: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_freebsd11_freelocale(loc: Long): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdFreebsd11Freelocale(loc: Long): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_freebsd11_msgrcv(msqid: Int, msgp: Long, msgsz: Long, msgtyp: Long, msgflg: Int): Int
+    external fun libcUnixBsdFreebsdlikeFreebsdFreebsd11Msgrcv(msqid: Int, msgp: Long, msgsz: Long, msgtyp: Long, msgflg: Int): Int
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_freebsd11_dirname(path: String?): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdFreebsd11Dirname(path: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_freebsd11_basename(path: String?): Long
+    external fun libcUnixBsdFreebsdlikeFreebsdFreebsd11Basename(path: Long): Long
 
     @JvmStatic
-    external fun libc_unix_bsd_freebsdlike_freebsd_freebsd11_qsortR(base: Long, num: Long, size: Long, arg: Long, compar: Long)
+    external fun libcUnixBsdFreebsdlikeFreebsdFreebsd11QsortR(base: Long, num: Long, size: Long, arg: Long, compar: Long)
 }
 
 public actual fun setgrent(): CInt =
-    UnixBsdFreebsdlikeFreebsdFreebsd11JniBridge.libc_unix_bsd_freebsdlike_freebsd_freebsd11_setgrent()
+    UnixBsdFreebsdlikeFreebsdFreebsd11JniBridge.libcUnixBsdFreebsdlikeFreebsdFreebsd11Setgrent()
 
-public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt =
-    UnixBsdFreebsdlikeFreebsdFreebsd11JniBridge.libc_unix_bsd_freebsdlike_freebsd_freebsd11_mprotect((addr?.value ?: 0L), len.toLong(), prot)
+public actual fun mprotect(addr: ConstPtr<CVoid>, len: SizeT, prot: CInt): CInt =
+    UnixBsdFreebsdlikeFreebsdFreebsd11JniBridge.libcUnixBsdFreebsdlikeFreebsdFreebsd11Mprotect(addr.rawAddress, len.toLong(), prot)
 
 public actual fun freelocale(loc: LocaleT): CInt =
-    UnixBsdFreebsdlikeFreebsdFreebsd11JniBridge.libc_unix_bsd_freebsdlike_freebsd_freebsd11_freelocale((loc?.value ?: 0L))
+    UnixBsdFreebsdlikeFreebsdFreebsd11JniBridge.libcUnixBsdFreebsdlikeFreebsdFreebsd11Freelocale(loc.rawAddress)
 
-public actual fun msgrcv(msqid: CInt, msgp: COpaquePointer?, msgsz: SizeT, msgtyp: CLong, msgflg: CInt): CInt =
-    UnixBsdFreebsdlikeFreebsdFreebsd11JniBridge.libc_unix_bsd_freebsdlike_freebsd_freebsd11_msgrcv(msqid, (msgp?.value ?: 0L), msgsz.toLong(), msgtyp, msgflg)
+public actual fun msgrcv(msqid: CInt, msgp: MutPtr<CVoid>, msgsz: SizeT, msgtyp: CLong, msgflg: CInt): CInt =
+    UnixBsdFreebsdlikeFreebsdFreebsd11JniBridge.libcUnixBsdFreebsdlikeFreebsdFreebsd11Msgrcv(msqid, msgp.rawAddress, msgsz.toLong(), msgtyp, msgflg)
 
-public actual fun dirname(path: String?): COpaquePointer? =
-    UnixBsdFreebsdlikeFreebsdFreebsd11JniBridge.libc_unix_bsd_freebsdlike_freebsd_freebsd11_dirname(path).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun dirname(path: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(UnixBsdFreebsdlikeFreebsdFreebsd11JniBridge.libcUnixBsdFreebsdlikeFreebsdFreebsd11Dirname(path.rawAddress))
 
-public actual fun basename(path: String?): COpaquePointer? =
-    UnixBsdFreebsdlikeFreebsdFreebsd11JniBridge.libc_unix_bsd_freebsdlike_freebsd_freebsd11_basename(path).let { if (it == 0L) null else COpaquePointer(it) }
+public actual fun basename(path: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(UnixBsdFreebsdlikeFreebsdFreebsd11JniBridge.libcUnixBsdFreebsdlikeFreebsdFreebsd11Basename(path.rawAddress))
 
-public actual fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, arg: COpaquePointer?, compar: QsortRComparCallback?) {
-    UnixBsdFreebsdlikeFreebsdFreebsd11JniBridge.libc_unix_bsd_freebsdlike_freebsd_freebsd11_qsortR((base?.value ?: 0L), num.toLong(), size.toLong(), (arg?.value ?: 0L), 0L)
+public actual fun qsortR(base: MutPtr<CVoid>, num: SizeT, size: SizeT, arg: MutPtr<CVoid>, compar: QsortRComparCallback?) {
+    UnixBsdFreebsdlikeFreebsdFreebsd11JniBridge.libcUnixBsdFreebsdlikeFreebsdFreebsd11QsortR(base.rawAddress, num.toLong(), size.toLong(), arg.rawAddress, 0L)
 }

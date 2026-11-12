@@ -2,1395 +2,1414 @@
 
 package io.github.kotlinmania.libc.unix.aix
 
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CDouble
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CLonglong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
+import io.github.kotlinmania.libc.CUshort
 import io.github.kotlinmania.libc.unix.DIR
 import io.github.kotlinmania.libc.unix.FILE
 import io.github.kotlinmania.libc.unix.GidT
+import io.github.kotlinmania.libc.unix.Group
 import io.github.kotlinmania.libc.unix.IntptrT
+import io.github.kotlinmania.libc.unix.Iovec
+import io.github.kotlinmania.libc.unix.Itimerval
 import io.github.kotlinmania.libc.unix.LocaleT
 import io.github.kotlinmania.libc.unix.PidT
+import io.github.kotlinmania.libc.unix.Pollfd
+import io.github.kotlinmania.libc.unix.Rlimit
+import io.github.kotlinmania.libc.unix.Rusage
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.Timeval
 import io.github.kotlinmania.libc.unix.UidT
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_acct
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_aioCancel
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_aioError
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_aioFsync
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_aioRead
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_aioReturn
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_aioSuspend
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_aioWrite
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_basename
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_bind
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_brk
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_clearenv
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_clockGetcpuclockid
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_clockGetres
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_clockGettime
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_clockNanosleep
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_clockSettime
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_creat64
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_ctermid
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_dirfd
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_dirname
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_drand48
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_duplocale
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_endgrent
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_endmntent
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_endpwent
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_endutent
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_endutxent
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_erand48
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_errno
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_faccessat
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_fattach
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_fdatasync
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_fexecve
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_ffs
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_ffsl
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_ffsll
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_fgetgrent
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_fgetpos64
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_fgetpwent
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_fopen64
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_freelocale
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_freopen64
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_fseeko64
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_fsetpos64
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_fstat64
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_fstatfs
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_fstatfs64
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_fstatvfs64
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_ftello64
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_ftok
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_ftruncate64
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_futimens
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_getcontext
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_getdomainname
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_getdtablesize
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_getgrent
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_getgrgid
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_getgrgidR
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_getgrnam
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_getgrnamR
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_getgrset
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_gethostid
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_getitimer
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_getmntent
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_getnameinfo
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_getpagesize
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_getpeereid
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_getpriority
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_getpwent
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_getpwnamR
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_getpwuidR
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_getrlimit
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_getrlimit64
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_gettimeofday
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_getutent
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_getutid
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_getutline
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_getutxent
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_getutxid
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_getutxline
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_glob
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_globfree
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_hasmntopt
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_hcreate
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_hdestroy
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_iconv
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_iconvClose
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_iconvOpen
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_ifFreenameindex
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_ifNameindex
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_initgroups
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_ioctl
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_jrand48
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_lcong48
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_lfind
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_lioListio
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_loadquery
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_lparGetInfo
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_lparSetResources
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_lrand48
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_lsearch
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_lseek64
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_lstat64
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_madvise
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_makecontext
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_mallopt
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_memmem
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_memsetS
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_mincore
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_mkfifoat
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_mknodat
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_mount
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_mprotect
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_mqClose
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_mqGetattr
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_mqNotify
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_mqOpen
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_mqReceive
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_mqSend
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_mqSetattr
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_mqTimedreceive
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_mqTimedsend
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_mqUnlink
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_mrand48
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_msgctl
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_msgget
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_msgrcv
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_msgsnd
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_msync
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_newlocale
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_nlLanginfo
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_nlLanginfoL
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_nrand48
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_open64
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pollsetCreate
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pollsetCtl
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pollsetDestroy
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pollsetPoll
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pollsetQuery
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_popen
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_posixFadvise
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_posixFadvise64
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_posixFallocate
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_posixFallocate64
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_posixMadvise
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_posixSpawn
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_posixSpawnFileActionsAddclose
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_posixSpawnFileActionsAdddup2
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_posixSpawnFileActionsAddopen
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_posixSpawnFileActionsDestroy
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_posixSpawnFileActionsInit
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_posixSpawnattrDestroy
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_posixSpawnattrGetflags
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_posixSpawnattrGetpgroup
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_posixSpawnattrGetschedparam
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_posixSpawnattrGetschedpolicy
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_posixSpawnattrGetsigdefault
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_posixSpawnattrGetsigmask
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_posixSpawnattrInit
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_posixSpawnattrSetflags
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_posixSpawnattrSetpgroup
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_posixSpawnattrSetschedparam
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_posixSpawnattrSetschedpolicy
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_posixSpawnattrSetsigdefault
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_posixSpawnattrSetsigmask
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_posixSpawnp
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pread64
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_preadv
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadAtfork
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadAttrGetdetachstate
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadAttrGetguardsize
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadAttrGetinheritsched
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadAttrGetschedparam
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadAttrGetschedpolicy
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadAttrGetscope
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadAttrGetstack
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadAttrGetstackaddr
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadAttrSetguardsize
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadAttrSetinheritsched
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadAttrSetschedparam
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadAttrSetschedpolicy
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadAttrSetscope
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadAttrSetstack
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadAttrSetstackaddr
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadBarrierDestroy
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadBarrierInit
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadBarrierWait
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadBarrierattrDestroy
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadBarrierattrGetpshared
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadBarrierattrInit
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadBarrierattrSetpshared
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadCancel
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadCleanupPop
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadCleanupPush
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadCondattrGetclock
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadCondattrGetpshared
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadCondattrSetclock
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadCondattrSetpshared
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadCreate
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadGetconcurrency
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadGetcpuclockid
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadGetschedparam
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadKill
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadMutexConsistent
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadMutexGetprioceiling
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadMutexSetprioceiling
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadMutexTimedlock
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadMutexattrGetprioceiling
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadMutexattrGetprotocol
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadMutexattrGetpshared
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadMutexattrGetrobust
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadMutexattrGettype
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadMutexattrSetprioceiling
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadMutexattrSetprotocol
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadMutexattrSetpshared
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadMutexattrSetrobust
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadOnce
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadRwlockTimedrdlock
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadRwlockTimedwrlock
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadRwlockattrGetpshared
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadRwlockattrSetpshared
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadSetcancelstate
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadSetcanceltype
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadSetconcurrency
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadSetschedparam
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadSetschedprio
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadSigmask
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadSpinDestroy
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadSpinInit
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadSpinLock
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadSpinTrylock
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadSpinUnlock
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pthreadTestcancel
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_ptrace64
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pututline
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pututxline
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pwrite64
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_pwritev
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_quotactl
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_rand
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_readv
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_recvfrom
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_recvmmsg
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_recvmsg
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_regcomp
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_regerror
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_regexec
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_regfree
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_sbrk
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_schedGetPriorityMax
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_schedGetPriorityMin
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_schedGetparam
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_schedGetscheduler
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_schedRrGetInterval
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_schedSetparam
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_schedSetscheduler
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_sctpOptInfo
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_sctpPeeloff
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_seed48
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_seekdir
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_semClose
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_semDestroy
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_semGetvalue
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_semInit
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_semOpen
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_semTimedwait
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_semUnlink
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_semctl
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_semget
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_semop
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_sendFile
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_sendmmsg
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_sendmsg
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_setcontext
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_setdomainname
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_setgrent
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_setgroups
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_sethostid
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_sethostname
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_setitimer
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_setmntent
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_setpriority
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_setpwent
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_setrlimit
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_setrlimit64
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_settimeofday
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_setutent
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_setutxent
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_shmOpen
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_shmUnlink
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_shmat
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_shmctl
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_shmdt
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_shmget
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_sigaltstack
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_sigsuspend
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_sigtimedwait
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_sigwait
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_sigwaitinfo
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_splice
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_srand
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_srand48
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_stat64
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_stat64at
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_statfs
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_statfs64
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_statvfs64
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_statx
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_strcasecmpL
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_strerrorR
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_strftime
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_strncasecmpL
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_strptime
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_strsep
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_swapcontext
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_swapoff
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_swapon
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_sync
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_telldir
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_thrKill
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_thrSelf
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_timerCreate
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_timerDelete
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_timerGetoverrun
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_timerGettime
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_timerSettime
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_truncate64
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_uname
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_updwtmp
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_uselocale
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_utimensat
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_utmpname
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_wait4
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_waitid
-import io.github.kotlinmania.libc.unix.aix.cinterop.libc_unix_aix_writev
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixAcct
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixAioCancel
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixAioError
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixAioFsync
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixAioRead
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixAioReturn
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixAioSuspend
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixAioWrite
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixBasename
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixBind
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixBrk
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixClearenv
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixClockGetcpuclockid
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixClockGetres
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixClockGettime
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixClockNanosleep
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixClockSettime
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixCreat64
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixCtermid
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixDirfd
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixDirname
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixDrand48
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixDuplocale
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixEndgrent
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixEndmntent
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixEndpwent
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixEndutent
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixEndutxent
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixErand48
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixErrno
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixFaccessat
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixFattach
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixFdatasync
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixFexecve
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixFfs
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixFfsl
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixFfsll
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixFgetgrent
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixFgetpos64
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixFgetpwent
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixFopen64
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixFreelocale
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixFreopen64
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixFseeko64
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixFsetpos64
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixFstat64
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixFstatfs
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixFstatfs64
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixFstatvfs64
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixFtello64
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixFtok
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixFtruncate64
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixFutimens
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixGetcontext
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixGetdomainname
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixGetdtablesize
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixGetgrent
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixGetgrgid
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixGetgrgidR
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixGetgrnam
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixGetgrnamR
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixGetgrset
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixGethostid
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixGetitimer
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixGetmntent
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixGetnameinfo
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixGetpagesize
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixGetpeereid
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixGetpriority
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixGetpwent
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixGetpwnamR
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixGetpwuidR
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixGetrlimit
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixGetrlimit64
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixGettimeofday
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixGetutent
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixGetutid
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixGetutline
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixGetutxent
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixGetutxid
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixGetutxline
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixGlob
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixGlobfree
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixHasmntopt
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixHcreate
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixHdestroy
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixIconv
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixIconvClose
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixIconvOpen
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixIfFreenameindex
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixIfNameindex
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixInitgroups
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixIoctl
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixJrand48
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixLcong48
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixLfind
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixLioListio
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixLoadquery
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixLparGetInfo
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixLparSetResources
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixLrand48
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixLsearch
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixLseek64
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixLstat64
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixMadvise
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixMakecontext
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixMallopt
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixMemmem
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixMemsetS
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixMincore
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixMkfifoat
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixMknodat
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixMount
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixMprotect
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixMqClose
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixMqGetattr
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixMqNotify
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixMqOpen
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixMqReceive
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixMqSend
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixMqSetattr
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixMqTimedreceive
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixMqTimedsend
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixMqUnlink
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixMrand48
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixMsgctl
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixMsgget
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixMsgrcv
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixMsgsnd
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixMsync
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixNewlocale
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixNlLanginfo
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixNlLanginfoL
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixNrand48
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixOpen64
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPollsetCreate
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPollsetCtl
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPollsetDestroy
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPollsetPoll
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPollsetQuery
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPopen
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPosixFadvise
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPosixFadvise64
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPosixFallocate
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPosixFallocate64
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPosixMadvise
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPosixSpawn
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPosixSpawnFileActionsAddclose
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPosixSpawnFileActionsAdddup2
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPosixSpawnFileActionsAddopen
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPosixSpawnFileActionsDestroy
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPosixSpawnFileActionsInit
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPosixSpawnattrDestroy
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPosixSpawnattrGetflags
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPosixSpawnattrGetpgroup
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPosixSpawnattrGetschedparam
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPosixSpawnattrGetschedpolicy
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPosixSpawnattrGetsigdefault
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPosixSpawnattrGetsigmask
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPosixSpawnattrInit
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPosixSpawnattrSetflags
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPosixSpawnattrSetpgroup
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPosixSpawnattrSetschedparam
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPosixSpawnattrSetschedpolicy
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPosixSpawnattrSetsigdefault
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPosixSpawnattrSetsigmask
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPosixSpawnp
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPread64
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPreadv
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadAtfork
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadAttrGetdetachstate
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadAttrGetguardsize
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadAttrGetinheritsched
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadAttrGetschedparam
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadAttrGetschedpolicy
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadAttrGetscope
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadAttrGetstack
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadAttrGetstackaddr
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadAttrSetguardsize
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadAttrSetinheritsched
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadAttrSetschedparam
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadAttrSetschedpolicy
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadAttrSetscope
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadAttrSetstack
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadAttrSetstackaddr
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadBarrierDestroy
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadBarrierInit
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadBarrierWait
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadBarrierattrDestroy
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadBarrierattrGetpshared
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadBarrierattrInit
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadBarrierattrSetpshared
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadCancel
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadCondattrGetclock
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadCondattrGetpshared
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadCondattrSetclock
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadCondattrSetpshared
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadCreate
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadGetconcurrency
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadGetcpuclockid
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadGetschedparam
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadKill
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadMutexConsistent
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadMutexGetprioceiling
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadMutexSetprioceiling
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadMutexTimedlock
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadMutexattrGetprioceiling
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadMutexattrGetprotocol
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadMutexattrGetpshared
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadMutexattrGetrobust
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadMutexattrGettype
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadMutexattrSetprioceiling
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadMutexattrSetprotocol
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadMutexattrSetpshared
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadMutexattrSetrobust
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadOnce
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadRwlockTimedrdlock
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadRwlockTimedwrlock
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadRwlockattrGetpshared
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadRwlockattrSetpshared
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadSetcancelstate
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadSetcanceltype
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadSetconcurrency
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadSetschedparam
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadSetschedprio
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadSigmask
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadSpinDestroy
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadSpinInit
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadSpinLock
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadSpinTrylock
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPthreadSpinUnlock
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPtrace64
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPututline
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPututxline
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPwrite64
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixPwritev
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixQuotactl
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixRand
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixReadv
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixRecvfrom
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixRecvmmsg
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixRecvmsg
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixRegcomp
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixRegerror
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixRegexec
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixRegfree
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSbrk
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSchedGetPriorityMax
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSchedGetPriorityMin
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSchedGetparam
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSchedGetscheduler
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSchedRrGetInterval
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSchedSetparam
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSchedSetscheduler
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSctpOptInfo
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSctpPeeloff
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSeed48
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSeekdir
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSemClose
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSemDestroy
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSemGetvalue
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSemInit
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSemOpen
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSemTimedwait
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSemUnlink
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSemctl
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSemget
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSemop
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSendFile
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSendmmsg
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSendmsg
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSetcontext
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSetdomainname
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSetgrent
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSetgroups
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSethostid
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSethostname
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSetitimer
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSetmntent
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSetpriority
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSetpwent
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSetrlimit
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSetrlimit64
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSettimeofday
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSetutent
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSetutxent
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixShmOpen
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixShmUnlink
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixShmat
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixShmctl
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixShmdt
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixShmget
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSigaltstack
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSigsuspend
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSigtimedwait
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSigwait
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSigwaitinfo
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSplice
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSrand
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSrand48
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixStat64
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixStat64at
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixStatfs
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixStatfs64
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixStatvfs64
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixStatx
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixStrcasecmpL
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixStrerrorR
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixStrftime
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixStrncasecmpL
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixStrptime
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixStrsep
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSwapcontext
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSwapoff
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSwapon
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixSync
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixTelldir
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixThrKill
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixThrSelf
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixTimerCreate
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixTimerDelete
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixTimerGetoverrun
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixTimerGettime
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixTimerSettime
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixTruncate64
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixUname
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixUpdwtmp
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixUselocale
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixUtimensat
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixUtmpname
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixWait4
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixWaitid
+import io.github.kotlinmania.libc.unix.aix.cinterop.libcUnixAixWritev
+import io.github.kotlinmania.libc.unix.aix.powerpc64.Aiocb
+import io.github.kotlinmania.libc.unix.aix.powerpc64.MsqidDs
+import io.github.kotlinmania.libc.unix.aix.powerpc64.PthreadBarrierT
+import io.github.kotlinmania.libc.unix.aix.powerpc64.PthreadMutexT
+import io.github.kotlinmania.libc.unix.aix.powerpc64.PthreadOnceT
+import io.github.kotlinmania.libc.unix.aix.powerpc64.PthreadRwlockT
+import io.github.kotlinmania.libc.unix.aix.powerpc64.PthreadSpinlockT
+import io.github.kotlinmania.libc.unix.aix.powerpc64.SiginfoT
+import io.github.kotlinmania.libc.unix.aix.powerpc64.SigsetT
+import io.github.kotlinmania.libc.unix.aix.powerpc64.Stat
+import io.github.kotlinmania.libc.unix.aix.powerpc64.Statfs
+import io.github.kotlinmania.libc.unix.aix.powerpc64.UcontextT
+import io.github.kotlinmania.libc.unix.aix.powerpc64.Utmpx
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
 
 public actual fun thrKill(id: ThreadT, sig: CInt): CInt =
-    libc_unix_aix_thrKill(id.toLong().toCPointer<ByteVar>(), sig)
+    libcUnixAixThrKill(id.toLong().toCPointer<ByteVar>(), sig)
 
 public actual fun thrSelf(): ThreadT =
-    (libc_unix_aix_thrSelf()?.toLong() ?: 0L).toUInt()
+    (libcUnixAixThrSelf()?.toLong() ?: 0L).toUInt()
 
 public actual fun pthreadAtfork(prepare: PthreadAtforkPrepareCallback?, parent: PthreadAtforkPrepareCallback?, child: PthreadAtforkPrepareCallback?): CInt =
-    libc_unix_aix_pthreadAtfork(0L.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
+    libcUnixAixPthreadAtfork(0L.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrGetdetachstate(attr: COpaquePointer?, detachstate: COpaquePointer?): CInt =
-    libc_unix_aix_pthreadAttrGetdetachstate(attr?.value?.toCPointer<ByteVar>(), detachstate?.value?.toCPointer<ByteVar>())
+public actual fun pthreadAttrGetdetachstate(attr: ConstPtr<PthreadAttrT>, detachstate: MutPtr<CInt>): CInt =
+    libcUnixAixPthreadAttrGetdetachstate(attr.rawAddress.toCPointer<ByteVar>(), detachstate.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrGetguardsize(attr: COpaquePointer?, guardsize: COpaquePointer?): CInt =
-    libc_unix_aix_pthreadAttrGetguardsize(attr?.value?.toCPointer<ByteVar>(), guardsize?.value?.toCPointer<ByteVar>())
+public actual fun pthreadAttrGetguardsize(attr: ConstPtr<PthreadAttrT>, guardsize: MutPtr<SizeT>): CInt =
+    libcUnixAixPthreadAttrGetguardsize(attr.rawAddress.toCPointer<ByteVar>(), guardsize.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrGetinheritsched(attr: COpaquePointer?, inheritsched: COpaquePointer?): CInt =
-    libc_unix_aix_pthreadAttrGetinheritsched(attr?.value?.toCPointer<ByteVar>(), inheritsched?.value?.toCPointer<ByteVar>())
+public actual fun pthreadAttrGetinheritsched(attr: ConstPtr<PthreadAttrT>, inheritsched: MutPtr<CInt>): CInt =
+    libcUnixAixPthreadAttrGetinheritsched(attr.rawAddress.toCPointer<ByteVar>(), inheritsched.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrGetschedparam(attr: COpaquePointer?, param: COpaquePointer?): CInt =
-    libc_unix_aix_pthreadAttrGetschedparam(attr?.value?.toCPointer<ByteVar>(), param?.value?.toCPointer<ByteVar>())
+public actual fun pthreadAttrGetschedparam(attr: ConstPtr<PthreadAttrT>, param: MutPtr<SchedParam>): CInt =
+    libcUnixAixPthreadAttrGetschedparam(attr.rawAddress.toCPointer<ByteVar>(), param.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrGetstackaddr(attr: COpaquePointer?, stackaddr: COpaquePointer?): CInt =
-    libc_unix_aix_pthreadAttrGetstackaddr(attr?.value?.toCPointer<ByteVar>(), stackaddr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadAttrGetstackaddr(attr: ConstPtr<PthreadAttrT>, stackaddr: MutPtr<MutPtr<CVoid>>): CInt =
+    libcUnixAixPthreadAttrGetstackaddr(attr.rawAddress.toCPointer<ByteVar>(), stackaddr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrGetschedpolicy(attr: COpaquePointer?, policy: COpaquePointer?): CInt =
-    libc_unix_aix_pthreadAttrGetschedpolicy(attr?.value?.toCPointer<ByteVar>(), policy?.value?.toCPointer<ByteVar>())
+public actual fun pthreadAttrGetschedpolicy(attr: ConstPtr<PthreadAttrT>, policy: MutPtr<CInt>): CInt =
+    libcUnixAixPthreadAttrGetschedpolicy(attr.rawAddress.toCPointer<ByteVar>(), policy.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrGetscope(attr: COpaquePointer?, contentionscope: COpaquePointer?): CInt =
-    libc_unix_aix_pthreadAttrGetscope(attr?.value?.toCPointer<ByteVar>(), contentionscope?.value?.toCPointer<ByteVar>())
+public actual fun pthreadAttrGetscope(attr: ConstPtr<PthreadAttrT>, contentionscope: MutPtr<CInt>): CInt =
+    libcUnixAixPthreadAttrGetscope(attr.rawAddress.toCPointer<ByteVar>(), contentionscope.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrGetstack(attr: COpaquePointer?, stackaddr: COpaquePointer?, stacksize: COpaquePointer?): CInt =
-    libc_unix_aix_pthreadAttrGetstack(attr?.value?.toCPointer<ByteVar>(), stackaddr?.value?.toCPointer<ByteVar>(), stacksize?.value?.toCPointer<ByteVar>())
+public actual fun pthreadAttrGetstack(attr: ConstPtr<PthreadAttrT>, stackaddr: MutPtr<MutPtr<CVoid>>, stacksize: MutPtr<SizeT>): CInt =
+    libcUnixAixPthreadAttrGetstack(attr.rawAddress.toCPointer<ByteVar>(), stackaddr.rawAddress.toCPointer<ByteVar>(), stacksize.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrSetguardsize(attr: COpaquePointer?, guardsize: SizeT): CInt =
-    libc_unix_aix_pthreadAttrSetguardsize(attr?.value?.toCPointer<ByteVar>(), guardsize)
+public actual fun pthreadAttrSetguardsize(attr: MutPtr<PthreadAttrT>, guardsize: SizeT): CInt =
+    libcUnixAixPthreadAttrSetguardsize(attr.rawAddress.toCPointer<ByteVar>(), guardsize)
 
-public actual fun pthreadAttrSetinheritsched(attr: COpaquePointer?, inheritsched: CInt): CInt =
-    libc_unix_aix_pthreadAttrSetinheritsched(attr?.value?.toCPointer<ByteVar>(), inheritsched)
+public actual fun pthreadAttrSetinheritsched(attr: MutPtr<PthreadAttrT>, inheritsched: CInt): CInt =
+    libcUnixAixPthreadAttrSetinheritsched(attr.rawAddress.toCPointer<ByteVar>(), inheritsched)
 
-public actual fun pthreadAttrSetschedparam(attr: COpaquePointer?, param: COpaquePointer?): CInt =
-    libc_unix_aix_pthreadAttrSetschedparam(attr?.value?.toCPointer<ByteVar>(), param?.value?.toCPointer<ByteVar>())
+public actual fun pthreadAttrSetschedparam(attr: MutPtr<PthreadAttrT>, param: ConstPtr<SchedParam>): CInt =
+    libcUnixAixPthreadAttrSetschedparam(attr.rawAddress.toCPointer<ByteVar>(), param.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrSetschedpolicy(attr: COpaquePointer?, policy: CInt): CInt =
-    libc_unix_aix_pthreadAttrSetschedpolicy(attr?.value?.toCPointer<ByteVar>(), policy)
+public actual fun pthreadAttrSetschedpolicy(attr: MutPtr<PthreadAttrT>, policy: CInt): CInt =
+    libcUnixAixPthreadAttrSetschedpolicy(attr.rawAddress.toCPointer<ByteVar>(), policy)
 
-public actual fun pthreadAttrSetscope(attr: COpaquePointer?, contentionscope: CInt): CInt =
-    libc_unix_aix_pthreadAttrSetscope(attr?.value?.toCPointer<ByteVar>(), contentionscope)
+public actual fun pthreadAttrSetscope(attr: MutPtr<PthreadAttrT>, contentionscope: CInt): CInt =
+    libcUnixAixPthreadAttrSetscope(attr.rawAddress.toCPointer<ByteVar>(), contentionscope)
 
-public actual fun pthreadAttrSetstack(attr: COpaquePointer?, stackaddr: COpaquePointer?, stacksize: SizeT): CInt =
-    libc_unix_aix_pthreadAttrSetstack(attr?.value?.toCPointer<ByteVar>(), stackaddr?.value?.toCPointer<ByteVar>(), stacksize)
+public actual fun pthreadAttrSetstack(attr: MutPtr<PthreadAttrT>, stackaddr: MutPtr<CVoid>, stacksize: SizeT): CInt =
+    libcUnixAixPthreadAttrSetstack(attr.rawAddress.toCPointer<ByteVar>(), stackaddr.rawAddress.toCPointer<ByteVar>(), stacksize)
 
-public actual fun pthreadAttrSetstackaddr(attr: COpaquePointer?, stackaddr: COpaquePointer?): CInt =
-    libc_unix_aix_pthreadAttrSetstackaddr(attr?.value?.toCPointer<ByteVar>(), stackaddr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadAttrSetstackaddr(attr: MutPtr<PthreadAttrT>, stackaddr: MutPtr<CVoid>): CInt =
+    libcUnixAixPthreadAttrSetstackaddr(attr.rawAddress.toCPointer<ByteVar>(), stackaddr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadBarrierattrDestroy(attr: COpaquePointer?): CInt =
-    libc_unix_aix_pthreadBarrierattrDestroy(attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadBarrierattrDestroy(attr: MutPtr<PthreadBarrierattrT>): CInt =
+    libcUnixAixPthreadBarrierattrDestroy(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadBarrierattrGetpshared(attr: COpaquePointer?, pshared: COpaquePointer?): CInt =
-    libc_unix_aix_pthreadBarrierattrGetpshared(attr?.value?.toCPointer<ByteVar>(), pshared?.value?.toCPointer<ByteVar>())
+public actual fun pthreadBarrierattrGetpshared(attr: ConstPtr<PthreadBarrierattrT>, pshared: MutPtr<CInt>): CInt =
+    libcUnixAixPthreadBarrierattrGetpshared(attr.rawAddress.toCPointer<ByteVar>(), pshared.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadBarrierattrInit(attr: COpaquePointer?): CInt =
-    libc_unix_aix_pthreadBarrierattrInit(attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadBarrierattrInit(attr: MutPtr<PthreadBarrierattrT>): CInt =
+    libcUnixAixPthreadBarrierattrInit(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadBarrierattrSetpshared(attr: COpaquePointer?, pshared: CInt): CInt =
-    libc_unix_aix_pthreadBarrierattrSetpshared(attr?.value?.toCPointer<ByteVar>(), pshared)
+public actual fun pthreadBarrierattrSetpshared(attr: MutPtr<PthreadBarrierattrT>, pshared: CInt): CInt =
+    libcUnixAixPthreadBarrierattrSetpshared(attr.rawAddress.toCPointer<ByteVar>(), pshared)
 
-public actual fun pthreadBarrierDestroy(barrier: COpaquePointer?): CInt =
-    libc_unix_aix_pthreadBarrierDestroy(barrier?.value?.toCPointer<ByteVar>())
+public actual fun pthreadBarrierDestroy(barrier: MutPtr<PthreadBarrierT>): CInt =
+    libcUnixAixPthreadBarrierDestroy(barrier.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadBarrierInit(barrier: COpaquePointer?, attr: COpaquePointer?, count: CUint): CInt =
-    libc_unix_aix_pthreadBarrierInit(barrier?.value?.toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>(), count)
+public actual fun pthreadBarrierInit(barrier: MutPtr<PthreadBarrierT>, attr: ConstPtr<PthreadBarrierattrT>, count: CUint): CInt =
+    libcUnixAixPthreadBarrierInit(barrier.rawAddress.toCPointer<ByteVar>(), attr.rawAddress.toCPointer<ByteVar>(), count)
 
-public actual fun pthreadBarrierWait(barrier: COpaquePointer?): CInt =
-    libc_unix_aix_pthreadBarrierWait(barrier?.value?.toCPointer<ByteVar>())
+public actual fun pthreadBarrierWait(barrier: MutPtr<PthreadBarrierT>): CInt =
+    libcUnixAixPthreadBarrierWait(barrier.rawAddress.toCPointer<ByteVar>())
 
 public actual fun pthreadCancel(thread: PthreadT): CInt =
-    libc_unix_aix_pthreadCancel(thread.toLong().toCPointer<ByteVar>())
+    libcUnixAixPthreadCancel(thread.toLong().toCPointer<ByteVar>())
 
-public actual fun pthreadCleanupPop(execute: CInt) {
-    libc_unix_aix_pthreadCleanupPop(execute)
-}
+public actual fun pthreadCleanupPop(execute: CInt): CVoid =
+    CVoid()
 
-public actual fun pthreadCleanupPush(routine: PthreadCleanupPushRoutineCallback?, arg: COpaquePointer?) {
-    libc_unix_aix_pthreadCleanupPush(0L.toCPointer<ByteVar>(), arg?.value?.toCPointer<ByteVar>())
-}
+public actual fun pthreadCleanupPush(routine: PthreadCleanupPushRoutineCallback?, arg: MutPtr<CVoid>): CVoid =
+    CVoid()
 
-public actual fun pthreadCondattrGetclock(attr: COpaquePointer?, clockId: COpaquePointer?): CInt =
-    libc_unix_aix_pthreadCondattrGetclock(attr?.value?.toCPointer<ByteVar>(), clockId?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCondattrGetclock(attr: ConstPtr<PthreadCondattrT>, clockId: MutPtr<ClockidT>): CInt =
+    libcUnixAixPthreadCondattrGetclock(attr.rawAddress.toCPointer<ByteVar>(), clockId.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondattrGetpshared(attr: COpaquePointer?, pshared: COpaquePointer?): CInt =
-    libc_unix_aix_pthreadCondattrGetpshared(attr?.value?.toCPointer<ByteVar>(), pshared?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCondattrGetpshared(attr: ConstPtr<PthreadCondattrT>, pshared: MutPtr<CInt>): CInt =
+    libcUnixAixPthreadCondattrGetpshared(attr.rawAddress.toCPointer<ByteVar>(), pshared.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondattrSetclock(attr: COpaquePointer?, clockId: ClockidT): CInt =
-    libc_unix_aix_pthreadCondattrSetclock(attr?.value?.toCPointer<ByteVar>(), clockId)
+public actual fun pthreadCondattrSetclock(attr: MutPtr<PthreadCondattrT>, clockId: ClockidT): CInt =
+    libcUnixAixPthreadCondattrSetclock(attr.rawAddress.toCPointer<ByteVar>(), clockId)
 
-public actual fun pthreadCondattrSetpshared(attr: COpaquePointer?, pshared: CInt): CInt =
-    libc_unix_aix_pthreadCondattrSetpshared(attr?.value?.toCPointer<ByteVar>(), pshared)
+public actual fun pthreadCondattrSetpshared(attr: MutPtr<PthreadCondattrT>, pshared: CInt): CInt =
+    libcUnixAixPthreadCondattrSetpshared(attr.rawAddress.toCPointer<ByteVar>(), pshared)
 
-public actual fun pthreadCreate(thread: COpaquePointer?, attr: COpaquePointer?, startRoutine: PthreadCreateStartRoutineCallback, arg: COpaquePointer?): CInt =
-    libc_unix_aix_pthreadCreate(thread?.value?.toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), arg?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCreate(thread: MutPtr<PthreadT>, attr: ConstPtr<PthreadAttrT>, startRoutine: PthreadCreateStartRoutineCallback, arg: MutPtr<CVoid>): CInt =
+    libcUnixAixPthreadCreate(thread.rawAddress.toCPointer<ByteVar>(), attr.rawAddress.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), arg.rawAddress.toCPointer<ByteVar>())
 
 public actual fun pthreadGetconcurrency(): CInt =
-    libc_unix_aix_pthreadGetconcurrency()
+    libcUnixAixPthreadGetconcurrency()
 
-public actual fun pthreadGetcpuclockid(threadId: PthreadT, clockId: COpaquePointer?): CInt =
-    libc_unix_aix_pthreadGetcpuclockid(threadId.toLong().toCPointer<ByteVar>(), clockId?.value?.toCPointer<ByteVar>())
+public actual fun pthreadGetcpuclockid(threadId: PthreadT, clockId: MutPtr<ClockidT>): CInt =
+    libcUnixAixPthreadGetcpuclockid(threadId.toLong().toCPointer<ByteVar>(), clockId.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadGetschedparam(thread: PthreadT, policy: COpaquePointer?, param: COpaquePointer?): CInt =
-    libc_unix_aix_pthreadGetschedparam(thread.toLong().toCPointer<ByteVar>(), policy?.value?.toCPointer<ByteVar>(), param?.value?.toCPointer<ByteVar>())
+public actual fun pthreadGetschedparam(thread: PthreadT, policy: MutPtr<CInt>, param: MutPtr<SchedParam>): CInt =
+    libcUnixAixPthreadGetschedparam(thread.toLong().toCPointer<ByteVar>(), policy.rawAddress.toCPointer<ByteVar>(), param.rawAddress.toCPointer<ByteVar>())
 
 public actual fun pthreadKill(thread: PthreadT, sig: CInt): CInt =
-    libc_unix_aix_pthreadKill(thread.toLong().toCPointer<ByteVar>(), sig)
+    libcUnixAixPthreadKill(thread.toLong().toCPointer<ByteVar>(), sig)
 
-public actual fun pthreadMutexattrGetprioceiling(attr: COpaquePointer?, prioceiling: COpaquePointer?): CInt =
-    libc_unix_aix_pthreadMutexattrGetprioceiling(attr?.value?.toCPointer<ByteVar>(), prioceiling?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexattrGetprioceiling(attr: ConstPtr<PthreadMutexattrT>, prioceiling: MutPtr<CInt>): CInt =
+    libcUnixAixPthreadMutexattrGetprioceiling(attr.rawAddress.toCPointer<ByteVar>(), prioceiling.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexattrGetprotocol(attr: COpaquePointer?, protocol: COpaquePointer?): CInt =
-    libc_unix_aix_pthreadMutexattrGetprotocol(attr?.value?.toCPointer<ByteVar>(), protocol?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexattrGetprotocol(attr: ConstPtr<PthreadMutexattrT>, protocol: MutPtr<CInt>): CInt =
+    libcUnixAixPthreadMutexattrGetprotocol(attr.rawAddress.toCPointer<ByteVar>(), protocol.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexattrGetpshared(attr: COpaquePointer?, pshared: COpaquePointer?): CInt =
-    libc_unix_aix_pthreadMutexattrGetpshared(attr?.value?.toCPointer<ByteVar>(), pshared?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexattrGetpshared(attr: ConstPtr<PthreadMutexattrT>, pshared: MutPtr<CInt>): CInt =
+    libcUnixAixPthreadMutexattrGetpshared(attr.rawAddress.toCPointer<ByteVar>(), pshared.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexattrGetrobust(attr: COpaquePointer?, robust: COpaquePointer?): CInt =
-    libc_unix_aix_pthreadMutexattrGetrobust(attr?.value?.toCPointer<ByteVar>(), robust?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexattrGetrobust(attr: ConstPtr<PthreadMutexattrT>, robust: MutPtr<CInt>): CInt =
+    libcUnixAixPthreadMutexattrGetrobust(attr.rawAddress.toCPointer<ByteVar>(), robust.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexattrGettype(attr: COpaquePointer?, type: COpaquePointer?): CInt =
-    libc_unix_aix_pthreadMutexattrGettype(attr?.value?.toCPointer<ByteVar>(), type?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexattrGettype(attr: ConstPtr<PthreadMutexattrT>, type: MutPtr<CInt>): CInt =
+    libcUnixAixPthreadMutexattrGettype(attr.rawAddress.toCPointer<ByteVar>(), type.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexattrSetprioceiling(attr: COpaquePointer?, prioceiling: CInt): CInt =
-    libc_unix_aix_pthreadMutexattrSetprioceiling(attr?.value?.toCPointer<ByteVar>(), prioceiling)
+public actual fun pthreadMutexattrSetprioceiling(attr: MutPtr<PthreadMutexattrT>, prioceiling: CInt): CInt =
+    libcUnixAixPthreadMutexattrSetprioceiling(attr.rawAddress.toCPointer<ByteVar>(), prioceiling)
 
-public actual fun pthreadMutexattrSetprotocol(attr: COpaquePointer?, protocol: CInt): CInt =
-    libc_unix_aix_pthreadMutexattrSetprotocol(attr?.value?.toCPointer<ByteVar>(), protocol)
+public actual fun pthreadMutexattrSetprotocol(attr: MutPtr<PthreadMutexattrT>, protocol: CInt): CInt =
+    libcUnixAixPthreadMutexattrSetprotocol(attr.rawAddress.toCPointer<ByteVar>(), protocol)
 
-public actual fun pthreadMutexattrSetpshared(attr: COpaquePointer?, pshared: CInt): CInt =
-    libc_unix_aix_pthreadMutexattrSetpshared(attr?.value?.toCPointer<ByteVar>(), pshared)
+public actual fun pthreadMutexattrSetpshared(attr: MutPtr<PthreadMutexattrT>, pshared: CInt): CInt =
+    libcUnixAixPthreadMutexattrSetpshared(attr.rawAddress.toCPointer<ByteVar>(), pshared)
 
-public actual fun pthreadMutexattrSetrobust(attr: COpaquePointer?, robust: CInt): CInt =
-    libc_unix_aix_pthreadMutexattrSetrobust(attr?.value?.toCPointer<ByteVar>(), robust)
+public actual fun pthreadMutexattrSetrobust(attr: MutPtr<PthreadMutexattrT>, robust: CInt): CInt =
+    libcUnixAixPthreadMutexattrSetrobust(attr.rawAddress.toCPointer<ByteVar>(), robust)
 
-public actual fun pthreadMutexConsistent(mutex: COpaquePointer?): CInt =
-    libc_unix_aix_pthreadMutexConsistent(mutex?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexConsistent(mutex: MutPtr<PthreadMutexT>): CInt =
+    libcUnixAixPthreadMutexConsistent(mutex.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexGetprioceiling(mutex: COpaquePointer?, prioceiling: COpaquePointer?): CInt =
-    libc_unix_aix_pthreadMutexGetprioceiling(mutex?.value?.toCPointer<ByteVar>(), prioceiling?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexGetprioceiling(mutex: ConstPtr<PthreadMutexT>, prioceiling: MutPtr<CInt>): CInt =
+    libcUnixAixPthreadMutexGetprioceiling(mutex.rawAddress.toCPointer<ByteVar>(), prioceiling.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexSetprioceiling(mutex: COpaquePointer?, prioceiling: CInt, oldCeiling: COpaquePointer?): CInt =
-    libc_unix_aix_pthreadMutexSetprioceiling(mutex?.value?.toCPointer<ByteVar>(), prioceiling, oldCeiling?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexSetprioceiling(mutex: MutPtr<PthreadMutexT>, prioceiling: CInt, oldCeiling: MutPtr<CInt>): CInt =
+    libcUnixAixPthreadMutexSetprioceiling(mutex.rawAddress.toCPointer<ByteVar>(), prioceiling, oldCeiling.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexTimedlock(mutex: COpaquePointer?, abstime: COpaquePointer?): CInt =
-    libc_unix_aix_pthreadMutexTimedlock(mutex?.value?.toCPointer<ByteVar>(), abstime?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexTimedlock(mutex: MutPtr<PthreadMutexT>, abstime: ConstPtr<Timespec>): CInt =
+    libcUnixAixPthreadMutexTimedlock(mutex.rawAddress.toCPointer<ByteVar>(), abstime.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadOnce(onceControl: COpaquePointer?, initRoutine: PthreadAtforkPrepareCallback?): CInt =
-    libc_unix_aix_pthreadOnce(onceControl?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
+public actual fun pthreadOnce(onceControl: MutPtr<PthreadOnceT>, initRoutine: PthreadAtforkPrepareCallback?): CInt =
+    libcUnixAixPthreadOnce(onceControl.rawAddress.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
 
-public actual fun pthreadRwlockattrGetpshared(attr: COpaquePointer?, pshared: COpaquePointer?): CInt =
-    libc_unix_aix_pthreadRwlockattrGetpshared(attr?.value?.toCPointer<ByteVar>(), pshared?.value?.toCPointer<ByteVar>())
+public actual fun pthreadRwlockattrGetpshared(attr: ConstPtr<PthreadRwlockattrT>, pshared: MutPtr<CInt>): CInt =
+    libcUnixAixPthreadRwlockattrGetpshared(attr.rawAddress.toCPointer<ByteVar>(), pshared.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadRwlockattrSetpshared(attr: COpaquePointer?, pshared: CInt): CInt =
-    libc_unix_aix_pthreadRwlockattrSetpshared(attr?.value?.toCPointer<ByteVar>(), pshared)
+public actual fun pthreadRwlockattrSetpshared(attr: MutPtr<PthreadRwlockattrT>, pshared: CInt): CInt =
+    libcUnixAixPthreadRwlockattrSetpshared(attr.rawAddress.toCPointer<ByteVar>(), pshared)
 
-public actual fun pthreadRwlockTimedrdlock(rwlock: COpaquePointer?, abstime: COpaquePointer?): CInt =
-    libc_unix_aix_pthreadRwlockTimedrdlock(rwlock?.value?.toCPointer<ByteVar>(), abstime?.value?.toCPointer<ByteVar>())
+public actual fun pthreadRwlockTimedrdlock(rwlock: MutPtr<PthreadRwlockT>, abstime: ConstPtr<Timespec>): CInt =
+    libcUnixAixPthreadRwlockTimedrdlock(rwlock.rawAddress.toCPointer<ByteVar>(), abstime.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadRwlockTimedwrlock(rwlock: COpaquePointer?, abstime: COpaquePointer?): CInt =
-    libc_unix_aix_pthreadRwlockTimedwrlock(rwlock?.value?.toCPointer<ByteVar>(), abstime?.value?.toCPointer<ByteVar>())
+public actual fun pthreadRwlockTimedwrlock(rwlock: MutPtr<PthreadRwlockT>, abstime: ConstPtr<Timespec>): CInt =
+    libcUnixAixPthreadRwlockTimedwrlock(rwlock.rawAddress.toCPointer<ByteVar>(), abstime.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadSetcancelstate(state: CInt, oldstate: COpaquePointer?): CInt =
-    libc_unix_aix_pthreadSetcancelstate(state, oldstate?.value?.toCPointer<ByteVar>())
+public actual fun pthreadSetcancelstate(state: CInt, oldstate: MutPtr<CInt>): CInt =
+    libcUnixAixPthreadSetcancelstate(state, oldstate.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadSetcanceltype(type: CInt, oldtype: COpaquePointer?): CInt =
-    libc_unix_aix_pthreadSetcanceltype(type, oldtype?.value?.toCPointer<ByteVar>())
+public actual fun pthreadSetcanceltype(type: CInt, oldtype: MutPtr<CInt>): CInt =
+    libcUnixAixPthreadSetcanceltype(type, oldtype.rawAddress.toCPointer<ByteVar>())
 
 public actual fun pthreadSetconcurrency(newLevel: CInt): CInt =
-    libc_unix_aix_pthreadSetconcurrency(newLevel)
+    libcUnixAixPthreadSetconcurrency(newLevel)
 
-public actual fun pthreadSetschedparam(thread: PthreadT, policy: CInt, param: COpaquePointer?): CInt =
-    libc_unix_aix_pthreadSetschedparam(thread.toLong().toCPointer<ByteVar>(), policy, param?.value?.toCPointer<ByteVar>())
+public actual fun pthreadSetschedparam(thread: PthreadT, policy: CInt, param: ConstPtr<SchedParam>): CInt =
+    libcUnixAixPthreadSetschedparam(thread.toLong().toCPointer<ByteVar>(), policy, param.rawAddress.toCPointer<ByteVar>())
 
 public actual fun pthreadSetschedprio(thread: PthreadT, prio: CInt): CInt =
-    libc_unix_aix_pthreadSetschedprio(thread.toLong().toCPointer<ByteVar>(), prio)
+    libcUnixAixPthreadSetschedprio(thread.toLong().toCPointer<ByteVar>(), prio)
 
-public actual fun pthreadSigmask(how: CInt, set: COpaquePointer?, oset: COpaquePointer?): CInt =
-    libc_unix_aix_pthreadSigmask(how, set?.value?.toCPointer<ByteVar>(), oset?.value?.toCPointer<ByteVar>())
+public actual fun pthreadSigmask(how: CInt, set: ConstPtr<SigsetT>, oset: MutPtr<SigsetT>): CInt =
+    libcUnixAixPthreadSigmask(how, set.rawAddress.toCPointer<ByteVar>(), oset.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadSpinDestroy(lock: COpaquePointer?): CInt =
-    libc_unix_aix_pthreadSpinDestroy(lock?.value?.toCPointer<ByteVar>())
+public actual fun pthreadSpinDestroy(lock: MutPtr<PthreadSpinlockT>): CInt =
+    libcUnixAixPthreadSpinDestroy(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadSpinInit(lock: COpaquePointer?, pshared: CInt): CInt =
-    libc_unix_aix_pthreadSpinInit(lock?.value?.toCPointer<ByteVar>(), pshared)
+public actual fun pthreadSpinInit(lock: MutPtr<PthreadSpinlockT>, pshared: CInt): CInt =
+    libcUnixAixPthreadSpinInit(lock.rawAddress.toCPointer<ByteVar>(), pshared)
 
-public actual fun pthreadSpinLock(lock: COpaquePointer?): CInt =
-    libc_unix_aix_pthreadSpinLock(lock?.value?.toCPointer<ByteVar>())
+public actual fun pthreadSpinLock(lock: MutPtr<PthreadSpinlockT>): CInt =
+    libcUnixAixPthreadSpinLock(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadSpinTrylock(lock: COpaquePointer?): CInt =
-    libc_unix_aix_pthreadSpinTrylock(lock?.value?.toCPointer<ByteVar>())
+public actual fun pthreadSpinTrylock(lock: MutPtr<PthreadSpinlockT>): CInt =
+    libcUnixAixPthreadSpinTrylock(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadSpinUnlock(lock: COpaquePointer?): CInt =
-    libc_unix_aix_pthreadSpinUnlock(lock?.value?.toCPointer<ByteVar>())
+public actual fun pthreadSpinUnlock(lock: MutPtr<PthreadSpinlockT>): CInt =
+    libcUnixAixPthreadSpinUnlock(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadTestcancel() {
-    libc_unix_aix_pthreadTestcancel()
-}
+public actual fun pthreadTestcancel(): CVoid =
+    CVoid()
 
-public actual fun iconv(cd: IconvT, inbuf: COpaquePointer?, inbytesleft: COpaquePointer?, outbuf: COpaquePointer?, outbytesleft: COpaquePointer?): SizeT =
-    libc_unix_aix_iconv(cd?.value?.toCPointer<ByteVar>(), inbuf?.value?.toCPointer<ByteVar>(), inbytesleft?.value?.toCPointer<ByteVar>(), outbuf?.value?.toCPointer<ByteVar>(), outbytesleft?.value?.toCPointer<ByteVar>())
+public actual fun iconv(cd: IconvT, inbuf: MutPtr<MutPtr<CChar>>, inbytesleft: MutPtr<SizeT>, outbuf: MutPtr<MutPtr<CChar>>, outbytesleft: MutPtr<SizeT>): SizeT =
+    libcUnixAixIconv(cd.rawAddress.toCPointer<ByteVar>(), inbuf.rawAddress.toCPointer<ByteVar>(), inbytesleft.rawAddress.toCPointer<ByteVar>(), outbuf.rawAddress.toCPointer<ByteVar>(), outbytesleft.rawAddress.toCPointer<ByteVar>())
 
 public actual fun iconvClose(cd: IconvT): CInt =
-    libc_unix_aix_iconvClose(cd?.value?.toCPointer<ByteVar>())
+    libcUnixAixIconvClose(cd.rawAddress.toCPointer<ByteVar>())
 
-public actual fun iconvOpen(tocode: String?, fromcode: String?): IconvT =
-    libc_unix_aix_iconvOpen(tocode, fromcode)?.let { COpaquePointer(it.toLong()) }
+public actual fun iconvOpen(tocode: ConstPtr<CChar>, fromcode: ConstPtr<CChar>): IconvT =
+    MutPtr(libcUnixAixIconvOpen(tocode.rawAddress.toCPointer<ByteVar>(), fromcode.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun acct(filename: COpaquePointer?): CInt =
-    libc_unix_aix_acct(filename?.value?.toCPointer<ByteVar>())
+public actual fun acct(filename: MutPtr<CChar>): CInt =
+    libcUnixAixAcct(filename.rawAddress.toCPointer<ByteVar>())
 
-public actual fun aioCancel(fildes: CInt, aiocbp: COpaquePointer?): CInt =
-    libc_unix_aix_aioCancel(fildes, aiocbp?.value?.toCPointer<ByteVar>())
+public actual fun aioCancel(fildes: CInt, aiocbp: MutPtr<Aiocb>): CInt =
+    libcUnixAixAioCancel(fildes, aiocbp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun aioError(aiocbp: COpaquePointer?): CInt =
-    libc_unix_aix_aioError(aiocbp?.value?.toCPointer<ByteVar>())
+public actual fun aioError(aiocbp: ConstPtr<Aiocb>): CInt =
+    libcUnixAixAioError(aiocbp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun aioFsync(op: CInt, aiocbp: COpaquePointer?): CInt =
-    libc_unix_aix_aioFsync(op, aiocbp?.value?.toCPointer<ByteVar>())
+public actual fun aioFsync(op: CInt, aiocbp: MutPtr<Aiocb>): CInt =
+    libcUnixAixAioFsync(op, aiocbp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun aioRead(aiocbp: COpaquePointer?): CInt =
-    libc_unix_aix_aioRead(aiocbp?.value?.toCPointer<ByteVar>())
+public actual fun aioRead(aiocbp: MutPtr<Aiocb>): CInt =
+    libcUnixAixAioRead(aiocbp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun aioReturn(aiocbp: COpaquePointer?): SsizeT =
-    libc_unix_aix_aioReturn(aiocbp?.value?.toCPointer<ByteVar>())
+public actual fun aioReturn(aiocbp: MutPtr<Aiocb>): SsizeT =
+    libcUnixAixAioReturn(aiocbp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun aioSuspend(list: COpaquePointer?, nent: CInt, timeout: COpaquePointer?): CInt =
-    libc_unix_aix_aioSuspend(list?.value?.toCPointer<ByteVar>(), nent, timeout?.value?.toCPointer<ByteVar>())
+public actual fun aioSuspend(list: ConstPtr<ConstPtr<Aiocb>>, nent: CInt, timeout: ConstPtr<Timespec>): CInt =
+    libcUnixAixAioSuspend(list.rawAddress.toCPointer<ByteVar>(), nent, timeout.rawAddress.toCPointer<ByteVar>())
 
-public actual fun aioWrite(aiocbp: COpaquePointer?): CInt =
-    libc_unix_aix_aioWrite(aiocbp?.value?.toCPointer<ByteVar>())
+public actual fun aioWrite(aiocbp: MutPtr<Aiocb>): CInt =
+    libcUnixAixAioWrite(aiocbp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun basename(path: COpaquePointer?): COpaquePointer? =
-    libc_unix_aix_basename(path?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun basename(path: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcUnixAixBasename(path.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun bind(socket: CInt, address: COpaquePointer?, addressLen: SocklenT): CInt =
-    libc_unix_aix_bind(socket, address?.value?.toCPointer<ByteVar>(), addressLen)
+public actual fun bind(socket: CInt, address: ConstPtr<Sockaddr>, addressLen: SocklenT): CInt =
+    libcUnixAixBind(socket, address.rawAddress.toCPointer<ByteVar>(), addressLen)
 
-public actual fun brk(addr: COpaquePointer?): CInt =
-    libc_unix_aix_brk(addr?.value?.toCPointer<ByteVar>())
+public actual fun brk(addr: MutPtr<CVoid>): CInt =
+    libcUnixAixBrk(addr.rawAddress.toCPointer<ByteVar>())
 
 public actual fun clearenv(): CInt =
-    libc_unix_aix_clearenv()
+    libcUnixAixClearenv()
 
-public actual fun clockGetcpuclockid(pid: PidT, clkId: COpaquePointer?): CInt =
-    libc_unix_aix_clockGetcpuclockid(pid, clkId?.value?.toCPointer<ByteVar>())
+public actual fun clockGetcpuclockid(pid: PidT, clkId: MutPtr<ClockidT>): CInt =
+    libcUnixAixClockGetcpuclockid(pid, clkId.rawAddress.toCPointer<ByteVar>())
 
-public actual fun clockGetres(clkId: ClockidT, tp: COpaquePointer?): CInt =
-    libc_unix_aix_clockGetres(clkId, tp?.value?.toCPointer<ByteVar>())
+public actual fun clockGetres(clkId: ClockidT, tp: MutPtr<Timespec>): CInt =
+    libcUnixAixClockGetres(clkId, tp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun clockGettime(clkId: ClockidT, tp: COpaquePointer?): CInt =
-    libc_unix_aix_clockGettime(clkId, tp?.value?.toCPointer<ByteVar>())
+public actual fun clockGettime(clkId: ClockidT, tp: MutPtr<Timespec>): CInt =
+    libcUnixAixClockGettime(clkId, tp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: COpaquePointer?, rmtp: COpaquePointer?): CInt =
-    libc_unix_aix_clockNanosleep(clkId, flags, rqtp?.value?.toCPointer<ByteVar>(), rmtp?.value?.toCPointer<ByteVar>())
+public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: ConstPtr<Timespec>, rmtp: MutPtr<Timespec>): CInt =
+    libcUnixAixClockNanosleep(clkId, flags, rqtp.rawAddress.toCPointer<ByteVar>(), rmtp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun clockSettime(clockId: ClockidT, tp: COpaquePointer?): CInt =
-    libc_unix_aix_clockSettime(clockId, tp?.value?.toCPointer<ByteVar>())
+public actual fun clockSettime(clockId: ClockidT, tp: ConstPtr<Timespec>): CInt =
+    libcUnixAixClockSettime(clockId, tp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun creat64(path: String?, mode: ModeT): CInt =
-    libc_unix_aix_creat64(path, mode)
+public actual fun creat64(path: ConstPtr<CChar>, mode: ModeT): CInt =
+    libcUnixAixCreat64(path.rawAddress.toCPointer<ByteVar>(), mode)
 
-public actual fun ctermid(s: COpaquePointer?): COpaquePointer? =
-    libc_unix_aix_ctermid(s?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun ctermid(s: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcUnixAixCtermid(s.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun dirfd(dirp: DIR?): CInt =
-    libc_unix_aix_dirfd(dirp?.handle?.toCPointer<ByteVar>())
+public actual fun dirfd(dirp: MutPtr<DIR>): CInt =
+    libcUnixAixDirfd(dirp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun dirname(path: COpaquePointer?): COpaquePointer? =
-    libc_unix_aix_dirname(path?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun dirname(path: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcUnixAixDirname(path.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun drand48(): CDouble =
-    libc_unix_aix_drand48()
+    libcUnixAixDrand48()
 
 public actual fun duplocale(arg1: LocaleT): LocaleT =
-    libc_unix_aix_duplocale(arg1?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+    MutPtr(libcUnixAixDuplocale(arg1.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun endgrent() {
-    libc_unix_aix_endgrent()
+    libcUnixAixEndgrent()
 }
 
-public actual fun endmntent(streamp: FILE?): CInt =
-    libc_unix_aix_endmntent(streamp?.handle?.toCPointer<ByteVar>())
+public actual fun endmntent(streamp: MutPtr<FILE>): CInt =
+    libcUnixAixEndmntent(streamp.rawAddress.toCPointer<ByteVar>())
 
 public actual fun endpwent() {
-    libc_unix_aix_endpwent()
+    libcUnixAixEndpwent()
 }
 
 public actual fun endutent() {
-    libc_unix_aix_endutent()
+    libcUnixAixEndutent()
 }
 
 public actual fun endutxent() {
-    libc_unix_aix_endutxent()
+    libcUnixAixEndutxent()
 }
 
-public actual fun erand48(xseed: COpaquePointer?): CDouble =
-    libc_unix_aix_erand48(xseed?.value?.toCPointer<ByteVar>())
+public actual fun erand48(xseed: MutPtr<CUshort>): CDouble =
+    libcUnixAixErand48(xseed.rawAddress.toCPointer<ByteVar>())
 
-public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt =
-    libc_unix_aix_faccessat(dirfd, pathname, mode, flags)
+public actual fun faccessat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: CInt, flags: CInt): CInt =
+    libcUnixAixFaccessat(dirfd, pathname.rawAddress.toCPointer<ByteVar>(), mode, flags)
 
-public actual fun fattach(fildes: CInt, path: String?): CInt =
-    libc_unix_aix_fattach(fildes, path)
+public actual fun fattach(fildes: CInt, path: ConstPtr<CChar>): CInt =
+    libcUnixAixFattach(fildes, path.rawAddress.toCPointer<ByteVar>())
 
 public actual fun fdatasync(fd: CInt): CInt =
-    libc_unix_aix_fdatasync(fd)
+    libcUnixAixFdatasync(fd)
 
-public actual fun fexecve(fd: CInt, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
-    libc_unix_aix_fexecve(fd, argv?.value?.toCPointer<ByteVar>(), envp?.value?.toCPointer<ByteVar>())
+public actual fun fexecve(fd: CInt, argv: ConstPtr<ConstPtr<CChar>>, envp: ConstPtr<ConstPtr<CChar>>): CInt =
+    libcUnixAixFexecve(fd, argv.rawAddress.toCPointer<ByteVar>(), envp.rawAddress.toCPointer<ByteVar>())
 
 public actual fun ffs(value: CInt): CInt =
-    libc_unix_aix_ffs(value)
+    libcUnixAixFfs(value)
 
 public actual fun ffsl(value: CLong): CInt =
-    libc_unix_aix_ffsl(value)
+    libcUnixAixFfsl(value)
 
 public actual fun ffsll(value: CLonglong): CInt =
-    libc_unix_aix_ffsll(value)
+    libcUnixAixFfsll(value)
 
-public actual fun fgetgrent(file: FILE?): COpaquePointer? =
-    libc_unix_aix_fgetgrent(file?.handle?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun fgetgrent(file: MutPtr<FILE>): MutPtr<Group> =
+    MutPtr(libcUnixAixFgetgrent(file.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun fgetpos64(stream: FILE?, ptr: COpaquePointer?): CInt =
-    libc_unix_aix_fgetpos64(stream?.handle?.toCPointer<ByteVar>(), ptr?.value?.toCPointer<ByteVar>())
+public actual fun fgetpos64(stream: MutPtr<FILE>, ptr: MutPtr<Fpos64T>): CInt =
+    libcUnixAixFgetpos64(stream.rawAddress.toCPointer<ByteVar>(), ptr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fgetpwent(file: FILE?): COpaquePointer? =
-    libc_unix_aix_fgetpwent(file?.handle?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun fgetpwent(file: MutPtr<FILE>): MutPtr<Passwd> =
+    MutPtr(libcUnixAixFgetpwent(file.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun fopen64(filename: String?, mode: String?): FILE? =
-    libc_unix_aix_fopen64(filename, mode)?.let { FILE(it.toLong()) }
+public actual fun fopen64(filename: ConstPtr<CChar>, mode: ConstPtr<CChar>): MutPtr<FILE> =
+    MutPtr(libcUnixAixFopen64(filename.rawAddress.toCPointer<ByteVar>(), mode.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun freelocale(loc: LocaleT) {
-    libc_unix_aix_freelocale(loc?.value?.toCPointer<ByteVar>())
+    libcUnixAixFreelocale(loc.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun freopen64(filename: String?, mode: String?, file: FILE?): FILE? =
-    libc_unix_aix_freopen64(filename, mode, file?.handle?.toCPointer<ByteVar>())?.let { FILE(it.toLong()) }
+public actual fun freopen64(filename: ConstPtr<CChar>, mode: ConstPtr<CChar>, file: MutPtr<FILE>): MutPtr<FILE> =
+    MutPtr(libcUnixAixFreopen64(filename.rawAddress.toCPointer<ByteVar>(), mode.rawAddress.toCPointer<ByteVar>(), file.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun fseeko64(stream: FILE?, offset: Off64T, whence: CInt): CInt =
-    libc_unix_aix_fseeko64(stream?.handle?.toCPointer<ByteVar>(), offset, whence)
+public actual fun fseeko64(stream: MutPtr<FILE>, offset: Off64T, whence: CInt): CInt =
+    libcUnixAixFseeko64(stream.rawAddress.toCPointer<ByteVar>(), offset, whence)
 
-public actual fun fsetpos64(stream: FILE?, ptr: COpaquePointer?): CInt =
-    libc_unix_aix_fsetpos64(stream?.handle?.toCPointer<ByteVar>(), ptr?.value?.toCPointer<ByteVar>())
+public actual fun fsetpos64(stream: MutPtr<FILE>, ptr: ConstPtr<Fpos64T>): CInt =
+    libcUnixAixFsetpos64(stream.rawAddress.toCPointer<ByteVar>(), ptr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fstat64(fildes: CInt, buf: COpaquePointer?): CInt =
-    libc_unix_aix_fstat64(fildes, buf?.value?.toCPointer<ByteVar>())
+public actual fun fstat64(fildes: CInt, buf: MutPtr<Stat64>): CInt =
+    libcUnixAixFstat64(fildes, buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fstatfs(fd: CInt, buf: COpaquePointer?): CInt =
-    libc_unix_aix_fstatfs(fd, buf?.value?.toCPointer<ByteVar>())
+public actual fun fstatfs(fd: CInt, buf: MutPtr<Statfs>): CInt =
+    libcUnixAixFstatfs(fd, buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fstatfs64(fd: CInt, buf: COpaquePointer?): CInt =
-    libc_unix_aix_fstatfs64(fd, buf?.value?.toCPointer<ByteVar>())
+public actual fun fstatfs64(fd: CInt, buf: MutPtr<Statfs64>): CInt =
+    libcUnixAixFstatfs64(fd, buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fstatvfs64(fd: CInt, buf: COpaquePointer?): CInt =
-    libc_unix_aix_fstatvfs64(fd, buf?.value?.toCPointer<ByteVar>())
+public actual fun fstatvfs64(fd: CInt, buf: MutPtr<Statvfs64>): CInt =
+    libcUnixAixFstatvfs64(fd, buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun ftello64(stream: FILE?): Off64T =
-    libc_unix_aix_ftello64(stream?.handle?.toCPointer<ByteVar>())
+public actual fun ftello64(stream: MutPtr<FILE>): Off64T =
+    libcUnixAixFtello64(stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun ftok(path: String?, id: CInt): KeyT =
-    libc_unix_aix_ftok(path, id)
+public actual fun ftok(path: ConstPtr<CChar>, id: CInt): KeyT =
+    libcUnixAixFtok(path.rawAddress.toCPointer<ByteVar>(), id)
 
 public actual fun ftruncate64(fd: CInt, length: Off64T): CInt =
-    libc_unix_aix_ftruncate64(fd, length)
+    libcUnixAixFtruncate64(fd, length)
 
-public actual fun futimens(fd: CInt, times: COpaquePointer?): CInt =
-    libc_unix_aix_futimens(fd, times?.value?.toCPointer<ByteVar>())
+public actual fun futimens(fd: CInt, times: ConstPtr<Timespec>): CInt =
+    libcUnixAixFutimens(fd, times.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getcontext(ucp: COpaquePointer?): CInt =
-    libc_unix_aix_getcontext(ucp?.value?.toCPointer<ByteVar>())
+public actual fun getcontext(ucp: MutPtr<UcontextT>): CInt =
+    libcUnixAixGetcontext(ucp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getdomainname(name: COpaquePointer?, len: CInt): CInt =
-    libc_unix_aix_getdomainname(name?.value?.toCPointer<ByteVar>(), len)
+public actual fun getdomainname(name: MutPtr<CChar>, len: CInt): CInt =
+    libcUnixAixGetdomainname(name.rawAddress.toCPointer<ByteVar>(), len)
 
 public actual fun getdtablesize(): CInt =
-    libc_unix_aix_getdtablesize()
+    libcUnixAixGetdtablesize()
 
-public actual fun getgrent(): COpaquePointer? =
-    libc_unix_aix_getgrent()?.let { COpaquePointer(it.toLong()) }
+public actual fun getgrent(): MutPtr<Group> =
+    MutPtr(libcUnixAixGetgrent()?.toLong() ?: 0L)
 
-public actual fun getgrgid(gid: GidT): COpaquePointer? =
-    libc_unix_aix_getgrgid(gid)?.let { COpaquePointer(it.toLong()) }
+public actual fun getgrgid(gid: GidT): MutPtr<Group> =
+    MutPtr(libcUnixAixGetgrgid(gid)?.toLong() ?: 0L)
 
-public actual fun getgrgidR(gid: GidT, grp: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    libc_unix_aix_getgrgidR(gid, grp?.value?.toCPointer<ByteVar>(), buf?.value?.toCPointer<ByteVar>(), buflen, result?.value?.toCPointer<ByteVar>())
+public actual fun getgrgidR(gid: GidT, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+    libcUnixAixGetgrgidR(gid, grp.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>(), buflen, result.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getgrnam(name: String?): COpaquePointer? =
-    libc_unix_aix_getgrnam(name)?.let { COpaquePointer(it.toLong()) }
+public actual fun getgrnam(name: ConstPtr<CChar>): MutPtr<Group> =
+    MutPtr(libcUnixAixGetgrnam(name.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun getgrnamR(name: String?, grp: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    libc_unix_aix_getgrnamR(name, grp?.value?.toCPointer<ByteVar>(), buf?.value?.toCPointer<ByteVar>(), buflen, result?.value?.toCPointer<ByteVar>())
+public actual fun getgrnamR(name: ConstPtr<CChar>, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+    libcUnixAixGetgrnamR(name.rawAddress.toCPointer<ByteVar>(), grp.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>(), buflen, result.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getgrset(user: String?): COpaquePointer? =
-    libc_unix_aix_getgrset(user)?.let { COpaquePointer(it.toLong()) }
+public actual fun getgrset(user: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcUnixAixGetgrset(user.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun gethostid(): CLong =
-    libc_unix_aix_gethostid()
+    libcUnixAixGethostid()
 
-public actual fun getmntent(stream: FILE?): COpaquePointer? =
-    libc_unix_aix_getmntent(stream?.handle?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun getmntent(stream: MutPtr<FILE>): MutPtr<Mntent> =
+    MutPtr(libcUnixAixGetmntent(stream.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun getnameinfo(sa: COpaquePointer?, salen: SizeT, host: COpaquePointer?, hostlen: SizeT, serv: COpaquePointer?, servlen: SizeT, flags: CInt): CInt =
-    libc_unix_aix_getnameinfo(sa?.value?.toCPointer<ByteVar>(), salen, host?.value?.toCPointer<ByteVar>(), hostlen, serv?.value?.toCPointer<ByteVar>(), servlen, flags)
+public actual fun getnameinfo(sa: ConstPtr<Sockaddr>, salen: SizeT, host: MutPtr<CChar>, hostlen: SizeT, serv: MutPtr<CChar>, servlen: SizeT, flags: CInt): CInt =
+    libcUnixAixGetnameinfo(sa.rawAddress.toCPointer<ByteVar>(), salen, host.rawAddress.toCPointer<ByteVar>(), hostlen, serv.rawAddress.toCPointer<ByteVar>(), servlen, flags)
 
 public actual fun getpagesize(): CInt =
-    libc_unix_aix_getpagesize()
+    libcUnixAixGetpagesize()
 
-public actual fun getpeereid(socket: CInt, euid: COpaquePointer?, egid: COpaquePointer?): CInt =
-    libc_unix_aix_getpeereid(socket, euid?.value?.toCPointer<ByteVar>(), egid?.value?.toCPointer<ByteVar>())
+public actual fun getpeereid(socket: CInt, euid: MutPtr<UidT>, egid: MutPtr<GidT>): CInt =
+    libcUnixAixGetpeereid(socket, euid.rawAddress.toCPointer<ByteVar>(), egid.rawAddress.toCPointer<ByteVar>())
 
 public actual fun getpriority(which: CInt, who: IdT): CInt =
-    libc_unix_aix_getpriority(which, who)
+    libcUnixAixGetpriority(which, who)
 
-public actual fun getpwent(): COpaquePointer? =
-    libc_unix_aix_getpwent()?.let { COpaquePointer(it.toLong()) }
+public actual fun getpwent(): MutPtr<Passwd> =
+    MutPtr(libcUnixAixGetpwent()?.toLong() ?: 0L)
 
-public actual fun getpwnamR(name: String?, pwd: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    libc_unix_aix_getpwnamR(name, pwd?.value?.toCPointer<ByteVar>(), buf?.value?.toCPointer<ByteVar>(), buflen, result?.value?.toCPointer<ByteVar>())
+public actual fun getpwnamR(name: ConstPtr<CChar>, pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt =
+    libcUnixAixGetpwnamR(name.rawAddress.toCPointer<ByteVar>(), pwd.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>(), buflen, result.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getpwuidR(uid: UidT, pwd: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    libc_unix_aix_getpwuidR(uid, pwd?.value?.toCPointer<ByteVar>(), buf?.value?.toCPointer<ByteVar>(), buflen, result?.value?.toCPointer<ByteVar>())
+public actual fun getpwuidR(uid: UidT, pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt =
+    libcUnixAixGetpwuidR(uid, pwd.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>(), buflen, result.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getrlimit(resource: CInt, rlim: COpaquePointer?): CInt =
-    libc_unix_aix_getrlimit(resource, rlim?.value?.toCPointer<ByteVar>())
+public actual fun getrlimit(resource: CInt, rlim: MutPtr<Rlimit>): CInt =
+    libcUnixAixGetrlimit(resource, rlim.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getrlimit64(resource: CInt, rlim: COpaquePointer?): CInt =
-    libc_unix_aix_getrlimit64(resource, rlim?.value?.toCPointer<ByteVar>())
+public actual fun getrlimit64(resource: CInt, rlim: MutPtr<Rlimit64>): CInt =
+    libcUnixAixGetrlimit64(resource, rlim.rawAddress.toCPointer<ByteVar>())
 
-public actual fun gettimeofday(tp: COpaquePointer?, tz: COpaquePointer?): CInt =
-    libc_unix_aix_gettimeofday(tp?.value?.toCPointer<ByteVar>(), tz?.value?.toCPointer<ByteVar>())
+public actual fun gettimeofday(tp: MutPtr<Timeval>, tz: MutPtr<CVoid>): CInt =
+    libcUnixAixGettimeofday(tp.rawAddress.toCPointer<ByteVar>(), tz.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getitimer(which: CInt, currValue: COpaquePointer?): CInt =
-    libc_unix_aix_getitimer(which, currValue?.value?.toCPointer<ByteVar>())
+public actual fun getitimer(which: CInt, currValue: MutPtr<Itimerval>): CInt =
+    libcUnixAixGetitimer(which, currValue.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getutent(): COpaquePointer? =
-    libc_unix_aix_getutent()?.let { COpaquePointer(it.toLong()) }
+public actual fun getutent(): MutPtr<Utmp> =
+    MutPtr(libcUnixAixGetutent()?.toLong() ?: 0L)
 
-public actual fun getutid(u: COpaquePointer?): COpaquePointer? =
-    libc_unix_aix_getutid(u?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun getutid(u: ConstPtr<Utmp>): MutPtr<Utmp> =
+    MutPtr(libcUnixAixGetutid(u.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun getutline(u: COpaquePointer?): COpaquePointer? =
-    libc_unix_aix_getutline(u?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun getutline(u: ConstPtr<Utmp>): MutPtr<Utmp> =
+    MutPtr(libcUnixAixGetutline(u.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun getutxent(): COpaquePointer? =
-    libc_unix_aix_getutxent()?.let { COpaquePointer(it.toLong()) }
+public actual fun getutxent(): MutPtr<Utmpx> =
+    MutPtr(libcUnixAixGetutxent()?.toLong() ?: 0L)
 
-public actual fun getutxid(ut: COpaquePointer?): COpaquePointer? =
-    libc_unix_aix_getutxid(ut?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun getutxid(ut: ConstPtr<Utmpx>): MutPtr<Utmpx> =
+    MutPtr(libcUnixAixGetutxid(ut.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun getutxline(ut: COpaquePointer?): COpaquePointer? =
-    libc_unix_aix_getutxline(ut?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun getutxline(ut: ConstPtr<Utmpx>): MutPtr<Utmpx> =
+    MutPtr(libcUnixAixGetutxline(ut.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt =
-    libc_unix_aix_glob(pattern, flags, 0L.toCPointer<ByteVar>(), pglob?.value?.toCPointer<ByteVar>())
+public actual fun glob(pattern: ConstPtr<CChar>, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: MutPtr<GlobT>): CInt =
+    libcUnixAixGlob(pattern.rawAddress.toCPointer<ByteVar>(), flags, 0L.toCPointer<ByteVar>(), pglob.rawAddress.toCPointer<ByteVar>())
 
-public actual fun globfree(pglob: COpaquePointer?) {
-    libc_unix_aix_globfree(pglob?.value?.toCPointer<ByteVar>())
+public actual fun globfree(pglob: MutPtr<GlobT>) {
+    libcUnixAixGlobfree(pglob.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun hasmntopt(mnt: COpaquePointer?, opt: String?): COpaquePointer? =
-    libc_unix_aix_hasmntopt(mnt?.value?.toCPointer<ByteVar>(), opt)?.let { COpaquePointer(it.toLong()) }
+public actual fun hasmntopt(mnt: ConstPtr<Mntent>, opt: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcUnixAixHasmntopt(mnt.rawAddress.toCPointer<ByteVar>(), opt.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun hcreate(nelt: SizeT): CInt =
-    libc_unix_aix_hcreate(nelt)
+    libcUnixAixHcreate(nelt)
 
 public actual fun hdestroy() {
-    libc_unix_aix_hdestroy()
+    libcUnixAixHdestroy()
 }
 
-public actual fun hsearch(entry: Entry, action: Action): COpaquePointer? =
-    null
+public actual fun hsearch(entry: Entry, action: Action): MutPtr<Entry> =
+    MutPtr(0L)
 
-public actual fun ifFreenameindex(ptr: COpaquePointer?) {
-    libc_unix_aix_ifFreenameindex(ptr?.value?.toCPointer<ByteVar>())
+public actual fun ifFreenameindex(ptr: MutPtr<IfNameindex>) {
+    libcUnixAixIfFreenameindex(ptr.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun ifNameindex(): COpaquePointer? =
-    libc_unix_aix_ifNameindex()?.let { COpaquePointer(it.toLong()) }
+public actual fun ifNameindex(): MutPtr<IfNameindex> =
+    MutPtr(libcUnixAixIfNameindex()?.toLong() ?: 0L)
 
-public actual fun initgroups(name: String?, basegid: GidT): CInt =
-    libc_unix_aix_initgroups(name, basegid)
+public actual fun initgroups(name: ConstPtr<CChar>, basegid: GidT): CInt =
+    libcUnixAixInitgroups(name.rawAddress.toCPointer<ByteVar>(), basegid)
 
 public actual fun ioctl(fildes: CInt, request: CInt, vararg variadicArgs: Long): CInt =
-    libc_unix_aix_ioctl(fildes, request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+    libcUnixAixIoctl(fildes, request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun jrand48(xseed: COpaquePointer?): CLong =
-    libc_unix_aix_jrand48(xseed?.value?.toCPointer<ByteVar>())
+public actual fun jrand48(xseed: MutPtr<CUshort>): CLong =
+    libcUnixAixJrand48(xseed.rawAddress.toCPointer<ByteVar>())
 
-public actual fun lcong48(p: COpaquePointer?) {
-    libc_unix_aix_lcong48(p?.value?.toCPointer<ByteVar>())
+public actual fun lcong48(p: MutPtr<CUshort>) {
+    libcUnixAixLcong48(p.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun lfind(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: LfindComparCallback?): COpaquePointer? =
-    libc_unix_aix_lfind(key?.value?.toCPointer<ByteVar>(), base?.value?.toCPointer<ByteVar>(), nelp?.value?.toCPointer<ByteVar>(), width, 0L.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun lfind(key: ConstPtr<CVoid>, base: ConstPtr<CVoid>, nelp: MutPtr<SizeT>, width: SizeT, compar: LfindComparCallback?): MutPtr<CVoid> =
+    MutPtr(libcUnixAixLfind(key.rawAddress.toCPointer<ByteVar>(), base.rawAddress.toCPointer<ByteVar>(), nelp.rawAddress.toCPointer<ByteVar>(), width, 0L.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun lioListio(mode: CInt, aiocbList: COpaquePointer?, nent: CInt, sevp: COpaquePointer?): CInt =
-    libc_unix_aix_lioListio(mode, aiocbList?.value?.toCPointer<ByteVar>(), nent, sevp?.value?.toCPointer<ByteVar>())
+public actual fun lioListio(mode: CInt, aiocbList: ConstPtr<MutPtr<Aiocb>>, nent: CInt, sevp: MutPtr<Sigevent>): CInt =
+    libcUnixAixLioListio(mode, aiocbList.rawAddress.toCPointer<ByteVar>(), nent, sevp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun loadquery(flags: CInt, buf: COpaquePointer?, buflen: CUint, vararg variadicArgs: Long): CInt =
-    libc_unix_aix_loadquery(flags, buf?.value?.toCPointer<ByteVar>(), buflen, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun loadquery(flags: CInt, buf: MutPtr<CVoid>, buflen: CUint, vararg variadicArgs: Long): CInt =
+    libcUnixAixLoadquery(flags, buf.rawAddress.toCPointer<ByteVar>(), buflen, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun lparGetInfo(command: CInt, buf: COpaquePointer?, bufsize: SizeT): CInt =
-    libc_unix_aix_lparGetInfo(command, buf?.value?.toCPointer<ByteVar>(), bufsize)
+public actual fun lparGetInfo(command: CInt, buf: MutPtr<CVoid>, bufsize: SizeT): CInt =
+    libcUnixAixLparGetInfo(command, buf.rawAddress.toCPointer<ByteVar>(), bufsize)
 
-public actual fun lparSetResources(id: CInt, resource: COpaquePointer?): CInt =
-    libc_unix_aix_lparSetResources(id, resource?.value?.toCPointer<ByteVar>())
+public actual fun lparSetResources(id: CInt, resource: MutPtr<CVoid>): CInt =
+    libcUnixAixLparSetResources(id, resource.rawAddress.toCPointer<ByteVar>())
 
 public actual fun lrand48(): CLong =
-    libc_unix_aix_lrand48()
+    libcUnixAixLrand48()
 
-public actual fun lsearch(key: COpaquePointer?, base: COpaquePointer?, nelp: COpaquePointer?, width: SizeT, compar: LfindComparCallback?): COpaquePointer? =
-    libc_unix_aix_lsearch(key?.value?.toCPointer<ByteVar>(), base?.value?.toCPointer<ByteVar>(), nelp?.value?.toCPointer<ByteVar>(), width, 0L.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun lsearch(key: ConstPtr<CVoid>, base: MutPtr<CVoid>, nelp: MutPtr<SizeT>, width: SizeT, compar: LfindComparCallback?): MutPtr<CVoid> =
+    MutPtr(libcUnixAixLsearch(key.rawAddress.toCPointer<ByteVar>(), base.rawAddress.toCPointer<ByteVar>(), nelp.rawAddress.toCPointer<ByteVar>(), width, 0L.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun lseek64(fd: CInt, offset: Off64T, whence: CInt): Off64T =
-    libc_unix_aix_lseek64(fd, offset, whence)
+    libcUnixAixLseek64(fd, offset, whence)
 
-public actual fun lstat64(path: String?, buf: COpaquePointer?): CInt =
-    libc_unix_aix_lstat64(path, buf?.value?.toCPointer<ByteVar>())
+public actual fun lstat64(path: ConstPtr<CChar>, buf: MutPtr<Stat64>): CInt =
+    libcUnixAixLstat64(path.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>())
 
 public actual fun madvise(addr: CaddrT, len: SizeT, advice: CInt): CInt =
-    libc_unix_aix_madvise(addr?.value?.toCPointer<ByteVar>(), len, advice)
+    libcUnixAixMadvise(addr.rawAddress.toCPointer<ByteVar>(), len, advice)
 
-public actual fun makecontext(ucp: COpaquePointer?, func: PthreadAtforkPrepareCallback, argc: CInt, vararg variadicArgs: Long) {
-    libc_unix_aix_makecontext(ucp?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), argc, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun makecontext(ucp: MutPtr<UcontextT>, func: PthreadAtforkPrepareCallback, argc: CInt, vararg variadicArgs: Long) {
+    libcUnixAixMakecontext(ucp.rawAddress.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), argc, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 }
 
 public actual fun mallinfo(): Mallinfo =
     Mallinfo()
 
 public actual fun mallopt(param: CInt, value: CInt): CInt =
-    libc_unix_aix_mallopt(param, value)
+    libcUnixAixMallopt(param, value)
 
-public actual fun memmem(haystack: COpaquePointer?, haystacklen: SizeT, needle: COpaquePointer?, needlelen: SizeT): COpaquePointer? =
-    libc_unix_aix_memmem(haystack?.value?.toCPointer<ByteVar>(), haystacklen, needle?.value?.toCPointer<ByteVar>(), needlelen)?.let { COpaquePointer(it.toLong()) }
+public actual fun memmem(haystack: ConstPtr<CVoid>, haystacklen: SizeT, needle: ConstPtr<CVoid>, needlelen: SizeT): MutPtr<CVoid> =
+    MutPtr(libcUnixAixMemmem(haystack.rawAddress.toCPointer<ByteVar>(), haystacklen, needle.rawAddress.toCPointer<ByteVar>(), needlelen)?.toLong() ?: 0L)
 
-public actual fun memsetS(s: COpaquePointer?, smax: SizeT, c: CInt, n: SizeT): CInt =
-    libc_unix_aix_memsetS(s?.value?.toCPointer<ByteVar>(), smax, c, n)
+public actual fun memsetS(s: MutPtr<CVoid>, smax: SizeT, c: CInt, n: SizeT): CInt =
+    libcUnixAixMemsetS(s.rawAddress.toCPointer<ByteVar>(), smax, c, n)
 
-public actual fun mincore(addr: CaddrT, len: SizeT, vec: COpaquePointer?): CInt =
-    libc_unix_aix_mincore(addr?.value?.toCPointer<ByteVar>(), len, vec?.value?.toCPointer<ByteVar>())
+public actual fun mincore(addr: CaddrT, len: SizeT, vec: MutPtr<CChar>): CInt =
+    libcUnixAixMincore(addr.rawAddress.toCPointer<ByteVar>(), len, vec.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
-    libc_unix_aix_mkfifoat(dirfd, pathname, mode)
+public actual fun mkfifoat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT): CInt =
+    libcUnixAixMkfifoat(dirfd, pathname.rawAddress.toCPointer<ByteVar>(), mode)
 
-public actual fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt =
-    libc_unix_aix_mknodat(dirfd, pathname, mode, dev)
+public actual fun mknodat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT, dev: DevT): CInt =
+    libcUnixAixMknodat(dirfd, pathname.rawAddress.toCPointer<ByteVar>(), mode, dev)
 
-public actual fun mount(device: String?, path: String?, flags: CInt): CInt =
-    libc_unix_aix_mount(device, path, flags)
+public actual fun mount(device: ConstPtr<CChar>, path: ConstPtr<CChar>, flags: CInt): CInt =
+    libcUnixAixMount(device.rawAddress.toCPointer<ByteVar>(), path.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt =
-    libc_unix_aix_mprotect(addr?.value?.toCPointer<ByteVar>(), len, prot)
+public actual fun mprotect(addr: MutPtr<CVoid>, len: SizeT, prot: CInt): CInt =
+    libcUnixAixMprotect(addr.rawAddress.toCPointer<ByteVar>(), len, prot)
 
 public actual fun mqClose(mqd: MqdT): CInt =
-    libc_unix_aix_mqClose(mqd.toLong().toCPointer<ByteVar>())
+    libcUnixAixMqClose(mqd.toLong().toCPointer<ByteVar>())
 
-public actual fun mqGetattr(mqd: MqdT, attr: COpaquePointer?): CInt =
-    libc_unix_aix_mqGetattr(mqd.toLong().toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>())
+public actual fun mqGetattr(mqd: MqdT, attr: MutPtr<MqAttr>): CInt =
+    libcUnixAixMqGetattr(mqd.toLong().toCPointer<ByteVar>(), attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mqNotify(mqd: MqdT, notification: COpaquePointer?): CInt =
-    libc_unix_aix_mqNotify(mqd.toLong().toCPointer<ByteVar>(), notification?.value?.toCPointer<ByteVar>())
+public actual fun mqNotify(mqd: MqdT, notification: ConstPtr<Sigevent>): CInt =
+    libcUnixAixMqNotify(mqd.toLong().toCPointer<ByteVar>(), notification.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mqOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): MqdT =
-    (libc_unix_aix_mqOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.toLong() ?: 0L).toInt()
+public actual fun mqOpen(name: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): MqdT =
+    (libcUnixAixMqOpen(name.rawAddress.toCPointer<ByteVar>(), oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.toLong() ?: 0L).toInt()
 
-public actual fun mqReceive(mqd: MqdT, msgPtr: COpaquePointer?, msgLen: SizeT, msgPrio: COpaquePointer?): SsizeT =
-    libc_unix_aix_mqReceive(mqd.toLong().toCPointer<ByteVar>(), msgPtr?.value?.toCPointer<ByteVar>(), msgLen, msgPrio?.value?.toCPointer<ByteVar>())
+public actual fun mqReceive(mqd: MqdT, msgPtr: MutPtr<CChar>, msgLen: SizeT, msgPrio: MutPtr<CUint>): SsizeT =
+    libcUnixAixMqReceive(mqd.toLong().toCPointer<ByteVar>(), msgPtr.rawAddress.toCPointer<ByteVar>(), msgLen, msgPrio.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mqSend(mqd: MqdT, msgPtr: String?, msgLen: SizeT, msgPrio: CUint): CInt =
-    libc_unix_aix_mqSend(mqd.toLong().toCPointer<ByteVar>(), msgPtr, msgLen, msgPrio)
+public actual fun mqSend(mqd: MqdT, msgPtr: ConstPtr<CChar>, msgLen: SizeT, msgPrio: CUint): CInt =
+    libcUnixAixMqSend(mqd.toLong().toCPointer<ByteVar>(), msgPtr.rawAddress.toCPointer<ByteVar>(), msgLen, msgPrio)
 
-public actual fun mqSetattr(mqd: MqdT, newattr: COpaquePointer?, oldattr: COpaquePointer?): CInt =
-    libc_unix_aix_mqSetattr(mqd.toLong().toCPointer<ByteVar>(), newattr?.value?.toCPointer<ByteVar>(), oldattr?.value?.toCPointer<ByteVar>())
+public actual fun mqSetattr(mqd: MqdT, newattr: ConstPtr<MqAttr>, oldattr: MutPtr<MqAttr>): CInt =
+    libcUnixAixMqSetattr(mqd.toLong().toCPointer<ByteVar>(), newattr.rawAddress.toCPointer<ByteVar>(), oldattr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mqTimedreceive(mqd: MqdT, msgPtr: COpaquePointer?, msgLen: SizeT, msgPrio: COpaquePointer?, absTimeout: COpaquePointer?): SsizeT =
-    libc_unix_aix_mqTimedreceive(mqd.toLong().toCPointer<ByteVar>(), msgPtr?.value?.toCPointer<ByteVar>(), msgLen, msgPrio?.value?.toCPointer<ByteVar>(), absTimeout?.value?.toCPointer<ByteVar>())
+public actual fun mqTimedreceive(mqd: MqdT, msgPtr: MutPtr<CChar>, msgLen: SizeT, msgPrio: MutPtr<CUint>, absTimeout: ConstPtr<Timespec>): SsizeT =
+    libcUnixAixMqTimedreceive(mqd.toLong().toCPointer<ByteVar>(), msgPtr.rawAddress.toCPointer<ByteVar>(), msgLen, msgPrio.rawAddress.toCPointer<ByteVar>(), absTimeout.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mqTimedsend(mqd: MqdT, msgPtr: String?, msgLen: SizeT, msgPrio: CUint, absTimeout: COpaquePointer?): CInt =
-    libc_unix_aix_mqTimedsend(mqd.toLong().toCPointer<ByteVar>(), msgPtr, msgLen, msgPrio, absTimeout?.value?.toCPointer<ByteVar>())
+public actual fun mqTimedsend(mqd: MqdT, msgPtr: ConstPtr<CChar>, msgLen: SizeT, msgPrio: CUint, absTimeout: ConstPtr<Timespec>): CInt =
+    libcUnixAixMqTimedsend(mqd.toLong().toCPointer<ByteVar>(), msgPtr.rawAddress.toCPointer<ByteVar>(), msgLen, msgPrio, absTimeout.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mqUnlink(name: String?): CInt =
-    libc_unix_aix_mqUnlink(name)
+public actual fun mqUnlink(name: ConstPtr<CChar>): CInt =
+    libcUnixAixMqUnlink(name.rawAddress.toCPointer<ByteVar>())
 
 public actual fun mrand48(): CLong =
-    libc_unix_aix_mrand48()
+    libcUnixAixMrand48()
 
-public actual fun msgctl(msqid: CInt, cmd: CInt, buf: COpaquePointer?): CInt =
-    libc_unix_aix_msgctl(msqid, cmd, buf?.value?.toCPointer<ByteVar>())
+public actual fun msgctl(msqid: CInt, cmd: CInt, buf: MutPtr<MsqidDs>): CInt =
+    libcUnixAixMsgctl(msqid, cmd, buf.rawAddress.toCPointer<ByteVar>())
 
 public actual fun msgget(key: KeyT, msgflg: CInt): CInt =
-    libc_unix_aix_msgget(key, msgflg)
+    libcUnixAixMsgget(key, msgflg)
 
-public actual fun msgrcv(msqid: CInt, msgp: COpaquePointer?, msgsz: SizeT, msgtyp: CLong, msgflg: CInt): SsizeT =
-    libc_unix_aix_msgrcv(msqid, msgp?.value?.toCPointer<ByteVar>(), msgsz, msgtyp, msgflg)
+public actual fun msgrcv(msqid: CInt, msgp: MutPtr<CVoid>, msgsz: SizeT, msgtyp: CLong, msgflg: CInt): SsizeT =
+    libcUnixAixMsgrcv(msqid, msgp.rawAddress.toCPointer<ByteVar>(), msgsz, msgtyp, msgflg)
 
-public actual fun msgsnd(msqid: CInt, msgp: COpaquePointer?, msgsz: SizeT, msgflg: CInt): CInt =
-    libc_unix_aix_msgsnd(msqid, msgp?.value?.toCPointer<ByteVar>(), msgsz, msgflg)
+public actual fun msgsnd(msqid: CInt, msgp: ConstPtr<CVoid>, msgsz: SizeT, msgflg: CInt): CInt =
+    libcUnixAixMsgsnd(msqid, msgp.rawAddress.toCPointer<ByteVar>(), msgsz, msgflg)
 
-public actual fun msync(addr: COpaquePointer?, len: SizeT, flags: CInt): CInt =
-    libc_unix_aix_msync(addr?.value?.toCPointer<ByteVar>(), len, flags)
+public actual fun msync(addr: MutPtr<CVoid>, len: SizeT, flags: CInt): CInt =
+    libcUnixAixMsync(addr.rawAddress.toCPointer<ByteVar>(), len, flags)
 
-public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
-    libc_unix_aix_newlocale(mask, locale, base?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun newlocale(mask: CInt, locale: ConstPtr<CChar>, base: LocaleT): LocaleT =
+    MutPtr(libcUnixAixNewlocale(mask, locale.rawAddress.toCPointer<ByteVar>(), base.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun nlLanginfo(item: NlItem): COpaquePointer? =
-    libc_unix_aix_nlLanginfo(item)?.let { COpaquePointer(it.toLong()) }
+public actual fun nlLanginfo(item: NlItem): MutPtr<CChar> =
+    MutPtr(libcUnixAixNlLanginfo(item)?.toLong() ?: 0L)
 
-public actual fun nlLanginfoL(item: NlItem, loc: LocaleT): COpaquePointer? =
-    libc_unix_aix_nlLanginfoL(item, loc?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun nlLanginfoL(item: NlItem, loc: LocaleT): MutPtr<CChar> =
+    MutPtr(libcUnixAixNlLanginfoL(item, loc.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun nrand48(xseed: COpaquePointer?): CLong =
-    libc_unix_aix_nrand48(xseed?.value?.toCPointer<ByteVar>())
+public actual fun nrand48(xseed: MutPtr<CUshort>): CLong =
+    libcUnixAixNrand48(xseed.rawAddress.toCPointer<ByteVar>())
 
-public actual fun open64(path: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
-    libc_unix_aix_open64(path, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun open64(path: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): CInt =
+    libcUnixAixOpen64(path.rawAddress.toCPointer<ByteVar>(), oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun pollsetCreate(maxfd: CInt): PollsetT =
-    libc_unix_aix_pollsetCreate(maxfd)
+    libcUnixAixPollsetCreate(maxfd)
 
-public actual fun pollsetCtl(ps: PollsetT, pollctlArray: COpaquePointer?, arrayLength: CInt): CInt =
-    libc_unix_aix_pollsetCtl(ps, pollctlArray?.value?.toCPointer<ByteVar>(), arrayLength)
+public actual fun pollsetCtl(ps: PollsetT, pollctlArray: MutPtr<PollCtl>, arrayLength: CInt): CInt =
+    libcUnixAixPollsetCtl(ps, pollctlArray.rawAddress.toCPointer<ByteVar>(), arrayLength)
 
 public actual fun pollsetDestroy(ps: PollsetT): CInt =
-    libc_unix_aix_pollsetDestroy(ps)
+    libcUnixAixPollsetDestroy(ps)
 
-public actual fun pollsetPoll(ps: PollsetT, polldataArray: COpaquePointer?, arrayLength: CInt, timeout: CInt): CInt =
-    libc_unix_aix_pollsetPoll(ps, polldataArray?.value?.toCPointer<ByteVar>(), arrayLength, timeout)
+public actual fun pollsetPoll(ps: PollsetT, polldataArray: MutPtr<Pollfd>, arrayLength: CInt, timeout: CInt): CInt =
+    libcUnixAixPollsetPoll(ps, polldataArray.rawAddress.toCPointer<ByteVar>(), arrayLength, timeout)
 
-public actual fun pollsetQuery(ps: PollsetT, pollfdQuery: COpaquePointer?): CInt =
-    libc_unix_aix_pollsetQuery(ps, pollfdQuery?.value?.toCPointer<ByteVar>())
+public actual fun pollsetQuery(ps: PollsetT, pollfdQuery: MutPtr<Pollfd>): CInt =
+    libcUnixAixPollsetQuery(ps, pollfdQuery.rawAddress.toCPointer<ByteVar>())
 
-public actual fun popen(command: String?, mode: String?): FILE? =
-    libc_unix_aix_popen(command, mode)?.let { FILE(it.toLong()) }
+public actual fun popen(command: ConstPtr<CChar>, mode: ConstPtr<CChar>): MutPtr<FILE> =
+    MutPtr(libcUnixAixPopen(command.rawAddress.toCPointer<ByteVar>(), mode.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun posixFadvise(fd: CInt, offset: OffT, len: OffT, advise: CInt): CInt =
-    libc_unix_aix_posixFadvise(fd, offset, len, advise)
+    libcUnixAixPosixFadvise(fd, offset, len, advise)
 
 public actual fun posixFadvise64(fd: CInt, offset: Off64T, len: Off64T, advise: CInt): CInt =
-    libc_unix_aix_posixFadvise64(fd, offset, len, advise)
+    libcUnixAixPosixFadvise64(fd, offset, len, advise)
 
 public actual fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt =
-    libc_unix_aix_posixFallocate(fd, offset, len)
+    libcUnixAixPosixFallocate(fd, offset, len)
 
 public actual fun posixFallocate64(fd: CInt, offset: Off64T, len: Off64T): CInt =
-    libc_unix_aix_posixFallocate64(fd, offset, len)
+    libcUnixAixPosixFallocate64(fd, offset, len)
 
-public actual fun posixMadvise(addr: COpaquePointer?, len: SizeT, advice: CInt): CInt =
-    libc_unix_aix_posixMadvise(addr?.value?.toCPointer<ByteVar>(), len, advice)
+public actual fun posixMadvise(addr: MutPtr<CVoid>, len: SizeT, advice: CInt): CInt =
+    libcUnixAixPosixMadvise(addr.rawAddress.toCPointer<ByteVar>(), len, advice)
 
-public actual fun posixSpawn(pid: COpaquePointer?, path: String?, fileActions: COpaquePointer?, attrp: COpaquePointer?, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
-    libc_unix_aix_posixSpawn(pid?.value?.toCPointer<ByteVar>(), path, fileActions?.value?.toCPointer<ByteVar>(), attrp?.value?.toCPointer<ByteVar>(), argv?.value?.toCPointer<ByteVar>(), envp?.value?.toCPointer<ByteVar>())
+public actual fun posixSpawn(pid: MutPtr<PidT>, path: ConstPtr<CChar>, fileActions: ConstPtr<PosixSpawnFileActionsT>, attrp: ConstPtr<PosixSpawnattrT>, argv: ConstPtr<MutPtr<CChar>>, envp: ConstPtr<MutPtr<CChar>>): CInt =
+    libcUnixAixPosixSpawn(pid.rawAddress.toCPointer<ByteVar>(), path.rawAddress.toCPointer<ByteVar>(), fileActions.rawAddress.toCPointer<ByteVar>(), attrp.rawAddress.toCPointer<ByteVar>(), argv.rawAddress.toCPointer<ByteVar>(), envp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnFileActionsAddclose(actions: COpaquePointer?, fd: CInt): CInt =
-    libc_unix_aix_posixSpawnFileActionsAddclose(actions?.value?.toCPointer<ByteVar>(), fd)
+public actual fun posixSpawnFileActionsAddclose(actions: MutPtr<PosixSpawnFileActionsT>, fd: CInt): CInt =
+    libcUnixAixPosixSpawnFileActionsAddclose(actions.rawAddress.toCPointer<ByteVar>(), fd)
 
-public actual fun posixSpawnFileActionsAdddup2(actions: COpaquePointer?, fd: CInt, newfd: CInt): CInt =
-    libc_unix_aix_posixSpawnFileActionsAdddup2(actions?.value?.toCPointer<ByteVar>(), fd, newfd)
+public actual fun posixSpawnFileActionsAdddup2(actions: MutPtr<PosixSpawnFileActionsT>, fd: CInt, newfd: CInt): CInt =
+    libcUnixAixPosixSpawnFileActionsAdddup2(actions.rawAddress.toCPointer<ByteVar>(), fd, newfd)
 
-public actual fun posixSpawnFileActionsAddopen(actions: COpaquePointer?, fd: CInt, path: String?, oflag: CInt, mode: ModeT): CInt =
-    libc_unix_aix_posixSpawnFileActionsAddopen(actions?.value?.toCPointer<ByteVar>(), fd, path, oflag, mode)
+public actual fun posixSpawnFileActionsAddopen(actions: MutPtr<PosixSpawnFileActionsT>, fd: CInt, path: ConstPtr<CChar>, oflag: CInt, mode: ModeT): CInt =
+    libcUnixAixPosixSpawnFileActionsAddopen(actions.rawAddress.toCPointer<ByteVar>(), fd, path.rawAddress.toCPointer<ByteVar>(), oflag, mode)
 
-public actual fun posixSpawnFileActionsDestroy(actions: COpaquePointer?): CInt =
-    libc_unix_aix_posixSpawnFileActionsDestroy(actions?.value?.toCPointer<ByteVar>())
+public actual fun posixSpawnFileActionsDestroy(actions: MutPtr<PosixSpawnFileActionsT>): CInt =
+    libcUnixAixPosixSpawnFileActionsDestroy(actions.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnFileActionsInit(actions: COpaquePointer?): CInt =
-    libc_unix_aix_posixSpawnFileActionsInit(actions?.value?.toCPointer<ByteVar>())
+public actual fun posixSpawnFileActionsInit(actions: MutPtr<PosixSpawnFileActionsT>): CInt =
+    libcUnixAixPosixSpawnFileActionsInit(actions.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrDestroy(attr: COpaquePointer?): CInt =
-    libc_unix_aix_posixSpawnattrDestroy(attr?.value?.toCPointer<ByteVar>())
+public actual fun posixSpawnattrDestroy(attr: MutPtr<PosixSpawnattrT>): CInt =
+    libcUnixAixPosixSpawnattrDestroy(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrGetflags(attr: COpaquePointer?, flags: COpaquePointer?): CInt =
-    libc_unix_aix_posixSpawnattrGetflags(attr?.value?.toCPointer<ByteVar>(), flags?.value?.toCPointer<ByteVar>())
+public actual fun posixSpawnattrGetflags(attr: ConstPtr<PosixSpawnattrT>, flags: MutPtr<CShort>): CInt =
+    libcUnixAixPosixSpawnattrGetflags(attr.rawAddress.toCPointer<ByteVar>(), flags.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrGetpgroup(attr: COpaquePointer?, flags: COpaquePointer?): CInt =
-    libc_unix_aix_posixSpawnattrGetpgroup(attr?.value?.toCPointer<ByteVar>(), flags?.value?.toCPointer<ByteVar>())
+public actual fun posixSpawnattrGetpgroup(attr: ConstPtr<PosixSpawnattrT>, flags: MutPtr<PidT>): CInt =
+    libcUnixAixPosixSpawnattrGetpgroup(attr.rawAddress.toCPointer<ByteVar>(), flags.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrGetschedparam(attr: COpaquePointer?, param: COpaquePointer?): CInt =
-    libc_unix_aix_posixSpawnattrGetschedparam(attr?.value?.toCPointer<ByteVar>(), param?.value?.toCPointer<ByteVar>())
+public actual fun posixSpawnattrGetschedparam(attr: ConstPtr<PosixSpawnattrT>, param: MutPtr<SchedParam>): CInt =
+    libcUnixAixPosixSpawnattrGetschedparam(attr.rawAddress.toCPointer<ByteVar>(), param.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrGetschedpolicy(attr: COpaquePointer?, flags: COpaquePointer?): CInt =
-    libc_unix_aix_posixSpawnattrGetschedpolicy(attr?.value?.toCPointer<ByteVar>(), flags?.value?.toCPointer<ByteVar>())
+public actual fun posixSpawnattrGetschedpolicy(attr: ConstPtr<PosixSpawnattrT>, flags: MutPtr<CInt>): CInt =
+    libcUnixAixPosixSpawnattrGetschedpolicy(attr.rawAddress.toCPointer<ByteVar>(), flags.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrGetsigdefault(attr: COpaquePointer?, default: COpaquePointer?): CInt =
-    libc_unix_aix_posixSpawnattrGetsigdefault(attr?.value?.toCPointer<ByteVar>(), default?.value?.toCPointer<ByteVar>())
+public actual fun posixSpawnattrGetsigdefault(attr: ConstPtr<PosixSpawnattrT>, default: MutPtr<SigsetT>): CInt =
+    libcUnixAixPosixSpawnattrGetsigdefault(attr.rawAddress.toCPointer<ByteVar>(), default.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrGetsigmask(attr: COpaquePointer?, default: COpaquePointer?): CInt =
-    libc_unix_aix_posixSpawnattrGetsigmask(attr?.value?.toCPointer<ByteVar>(), default?.value?.toCPointer<ByteVar>())
+public actual fun posixSpawnattrGetsigmask(attr: ConstPtr<PosixSpawnattrT>, default: MutPtr<SigsetT>): CInt =
+    libcUnixAixPosixSpawnattrGetsigmask(attr.rawAddress.toCPointer<ByteVar>(), default.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrInit(attr: COpaquePointer?): CInt =
-    libc_unix_aix_posixSpawnattrInit(attr?.value?.toCPointer<ByteVar>())
+public actual fun posixSpawnattrInit(attr: MutPtr<PosixSpawnattrT>): CInt =
+    libcUnixAixPosixSpawnattrInit(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrSetflags(attr: COpaquePointer?, flags: CShort): CInt =
-    libc_unix_aix_posixSpawnattrSetflags(attr?.value?.toCPointer<ByteVar>(), flags)
+public actual fun posixSpawnattrSetflags(attr: MutPtr<PosixSpawnattrT>, flags: CShort): CInt =
+    libcUnixAixPosixSpawnattrSetflags(attr.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun posixSpawnattrSetpgroup(attr: COpaquePointer?, flags: PidT): CInt =
-    libc_unix_aix_posixSpawnattrSetpgroup(attr?.value?.toCPointer<ByteVar>(), flags)
+public actual fun posixSpawnattrSetpgroup(attr: MutPtr<PosixSpawnattrT>, flags: PidT): CInt =
+    libcUnixAixPosixSpawnattrSetpgroup(attr.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun posixSpawnattrSetschedparam(attr: COpaquePointer?, param: COpaquePointer?): CInt =
-    libc_unix_aix_posixSpawnattrSetschedparam(attr?.value?.toCPointer<ByteVar>(), param?.value?.toCPointer<ByteVar>())
+public actual fun posixSpawnattrSetschedparam(attr: MutPtr<PosixSpawnattrT>, param: ConstPtr<SchedParam>): CInt =
+    libcUnixAixPosixSpawnattrSetschedparam(attr.rawAddress.toCPointer<ByteVar>(), param.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrSetschedpolicy(attr: COpaquePointer?, flags: CInt): CInt =
-    libc_unix_aix_posixSpawnattrSetschedpolicy(attr?.value?.toCPointer<ByteVar>(), flags)
+public actual fun posixSpawnattrSetschedpolicy(attr: MutPtr<PosixSpawnattrT>, flags: CInt): CInt =
+    libcUnixAixPosixSpawnattrSetschedpolicy(attr.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun posixSpawnattrSetsigdefault(attr: COpaquePointer?, default: COpaquePointer?): CInt =
-    libc_unix_aix_posixSpawnattrSetsigdefault(attr?.value?.toCPointer<ByteVar>(), default?.value?.toCPointer<ByteVar>())
+public actual fun posixSpawnattrSetsigdefault(attr: MutPtr<PosixSpawnattrT>, default: ConstPtr<SigsetT>): CInt =
+    libcUnixAixPosixSpawnattrSetsigdefault(attr.rawAddress.toCPointer<ByteVar>(), default.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnattrSetsigmask(attr: COpaquePointer?, default: COpaquePointer?): CInt =
-    libc_unix_aix_posixSpawnattrSetsigmask(attr?.value?.toCPointer<ByteVar>(), default?.value?.toCPointer<ByteVar>())
+public actual fun posixSpawnattrSetsigmask(attr: MutPtr<PosixSpawnattrT>, default: ConstPtr<SigsetT>): CInt =
+    libcUnixAixPosixSpawnattrSetsigmask(attr.rawAddress.toCPointer<ByteVar>(), default.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixSpawnp(pid: COpaquePointer?, file: String?, fileActions: COpaquePointer?, attrp: COpaquePointer?, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
-    libc_unix_aix_posixSpawnp(pid?.value?.toCPointer<ByteVar>(), file, fileActions?.value?.toCPointer<ByteVar>(), attrp?.value?.toCPointer<ByteVar>(), argv?.value?.toCPointer<ByteVar>(), envp?.value?.toCPointer<ByteVar>())
+public actual fun posixSpawnp(pid: MutPtr<PidT>, file: ConstPtr<CChar>, fileActions: ConstPtr<PosixSpawnFileActionsT>, attrp: ConstPtr<PosixSpawnattrT>, argv: ConstPtr<MutPtr<CChar>>, envp: ConstPtr<MutPtr<CChar>>): CInt =
+    libcUnixAixPosixSpawnp(pid.rawAddress.toCPointer<ByteVar>(), file.rawAddress.toCPointer<ByteVar>(), fileActions.rawAddress.toCPointer<ByteVar>(), attrp.rawAddress.toCPointer<ByteVar>(), argv.rawAddress.toCPointer<ByteVar>(), envp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pread64(fd: CInt, buf: COpaquePointer?, count: SizeT, offset: Off64T): SsizeT =
-    libc_unix_aix_pread64(fd, buf?.value?.toCPointer<ByteVar>(), count, offset)
+public actual fun pread64(fd: CInt, buf: MutPtr<CVoid>, count: SizeT, offset: Off64T): SsizeT =
+    libcUnixAixPread64(fd, buf.rawAddress.toCPointer<ByteVar>(), count, offset)
 
-public actual fun preadv(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: OffsetT): SsizeT =
-    libc_unix_aix_preadv(fd, iov?.value?.toCPointer<ByteVar>(), iovcnt, offset)
+public actual fun preadv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffsetT): SsizeT =
+    libcUnixAixPreadv(fd, iov.rawAddress.toCPointer<ByteVar>(), iovcnt, offset)
 
-public actual fun ptrace64(request: CInt, id: CLonglong, addr: CLonglong, data: CInt, buff: COpaquePointer?): CInt =
-    libc_unix_aix_ptrace64(request, id, addr, data, buff?.value?.toCPointer<ByteVar>())
+public actual fun ptrace64(request: CInt, id: CLonglong, addr: CLonglong, data: CInt, buff: MutPtr<CInt>): CInt =
+    libcUnixAixPtrace64(request, id, addr, data, buff.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pututline(u: COpaquePointer?): COpaquePointer? =
-    libc_unix_aix_pututline(u?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun pututline(u: ConstPtr<Utmp>): MutPtr<Utmp> =
+    MutPtr(libcUnixAixPututline(u.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun pututxline(ut: COpaquePointer?): COpaquePointer? =
-    libc_unix_aix_pututxline(ut?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun pututxline(ut: ConstPtr<Utmpx>): MutPtr<Utmpx> =
+    MutPtr(libcUnixAixPututxline(ut.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun pwrite64(fd: CInt, buf: COpaquePointer?, count: SizeT, offset: Off64T): SsizeT =
-    libc_unix_aix_pwrite64(fd, buf?.value?.toCPointer<ByteVar>(), count, offset)
+public actual fun pwrite64(fd: CInt, buf: ConstPtr<CVoid>, count: SizeT, offset: Off64T): SsizeT =
+    libcUnixAixPwrite64(fd, buf.rawAddress.toCPointer<ByteVar>(), count, offset)
 
-public actual fun pwritev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: OffsetT): SsizeT =
-    libc_unix_aix_pwritev(fd, iov?.value?.toCPointer<ByteVar>(), iovcnt, offset)
+public actual fun pwritev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffsetT): SsizeT =
+    libcUnixAixPwritev(fd, iov.rawAddress.toCPointer<ByteVar>(), iovcnt, offset)
 
-public actual fun quotactl(cmd: COpaquePointer?, special: CInt, id: CInt, data: CaddrT): CInt =
-    libc_unix_aix_quotactl(cmd?.value?.toCPointer<ByteVar>(), special, id, data?.value?.toCPointer<ByteVar>())
+public actual fun quotactl(cmd: MutPtr<CChar>, special: CInt, id: CInt, data: CaddrT): CInt =
+    libcUnixAixQuotactl(cmd.rawAddress.toCPointer<ByteVar>(), special, id, data.rawAddress.toCPointer<ByteVar>())
 
 public actual fun rand(): CInt =
-    libc_unix_aix_rand()
+    libcUnixAixRand()
 
-public actual fun readv(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT =
-    libc_unix_aix_readv(fd, iov?.value?.toCPointer<ByteVar>(), iovcnt)
+public actual fun readv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+    libcUnixAixReadv(fd, iov.rawAddress.toCPointer<ByteVar>(), iovcnt)
 
-public actual fun recvfrom(socket: CInt, buf: COpaquePointer?, len: SizeT, flags: CInt, addr: COpaquePointer?, addrlen: COpaquePointer?): SsizeT =
-    libc_unix_aix_recvfrom(socket, buf?.value?.toCPointer<ByteVar>(), len, flags, addr?.value?.toCPointer<ByteVar>(), addrlen?.value?.toCPointer<ByteVar>())
+public actual fun recvfrom(socket: CInt, buf: MutPtr<CVoid>, len: SizeT, flags: CInt, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): SsizeT =
+    libcUnixAixRecvfrom(socket, buf.rawAddress.toCPointer<ByteVar>(), len, flags, addr.rawAddress.toCPointer<ByteVar>(), addrlen.rawAddress.toCPointer<ByteVar>())
 
-public actual fun recvmmsg(sockfd: CInt, msgvec: COpaquePointer?, vlen: CUint, flags: CInt, timeout: COpaquePointer?): CInt =
-    libc_unix_aix_recvmmsg(sockfd, msgvec?.value?.toCPointer<ByteVar>(), vlen, flags, timeout?.value?.toCPointer<ByteVar>())
+public actual fun recvmmsg(sockfd: CInt, msgvec: MutPtr<Mmsghdr>, vlen: CUint, flags: CInt, timeout: MutPtr<Timespec>): CInt =
+    libcUnixAixRecvmmsg(sockfd, msgvec.rawAddress.toCPointer<ByteVar>(), vlen, flags, timeout.rawAddress.toCPointer<ByteVar>())
 
-public actual fun recvmsg(sockfd: CInt, msg: COpaquePointer?, flags: CInt): SsizeT =
-    libc_unix_aix_recvmsg(sockfd, msg?.value?.toCPointer<ByteVar>(), flags)
+public actual fun recvmsg(sockfd: CInt, msg: MutPtr<Msghdr>, flags: CInt): SsizeT =
+    libcUnixAixRecvmsg(sockfd, msg.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun regcomp(preg: COpaquePointer?, pattern: String?, cflags: CInt): CInt =
-    libc_unix_aix_regcomp(preg?.value?.toCPointer<ByteVar>(), pattern, cflags)
+public actual fun regcomp(preg: MutPtr<RegexT>, pattern: ConstPtr<CChar>, cflags: CInt): CInt =
+    libcUnixAixRegcomp(preg.rawAddress.toCPointer<ByteVar>(), pattern.rawAddress.toCPointer<ByteVar>(), cflags)
 
-public actual fun regerror(errcode: CInt, preg: COpaquePointer?, errbuf: COpaquePointer?, errbufSize: SizeT): SizeT =
-    libc_unix_aix_regerror(errcode, preg?.value?.toCPointer<ByteVar>(), errbuf?.value?.toCPointer<ByteVar>(), errbufSize)
+public actual fun regerror(errcode: CInt, preg: ConstPtr<RegexT>, errbuf: MutPtr<CChar>, errbufSize: SizeT): SizeT =
+    libcUnixAixRegerror(errcode, preg.rawAddress.toCPointer<ByteVar>(), errbuf.rawAddress.toCPointer<ByteVar>(), errbufSize)
 
-public actual fun regexec(preg: COpaquePointer?, input: String?, nmatch: SizeT, pmatch: COpaquePointer?, eflags: CInt): CInt =
-    libc_unix_aix_regexec(preg?.value?.toCPointer<ByteVar>(), input, nmatch, pmatch?.value?.toCPointer<ByteVar>(), eflags)
+public actual fun regexec(preg: ConstPtr<RegexT>, input: ConstPtr<CChar>, nmatch: SizeT, pmatch: MutPtr<RegmatchT>, eflags: CInt): CInt =
+    libcUnixAixRegexec(preg.rawAddress.toCPointer<ByteVar>(), input.rawAddress.toCPointer<ByteVar>(), nmatch, pmatch.rawAddress.toCPointer<ByteVar>(), eflags)
 
-public actual fun regfree(preg: COpaquePointer?) {
-    libc_unix_aix_regfree(preg?.value?.toCPointer<ByteVar>())
+public actual fun regfree(preg: MutPtr<RegexT>) {
+    libcUnixAixRegfree(preg.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun sbrk(increment: IntptrT): COpaquePointer? =
-    libc_unix_aix_sbrk(increment)?.let { COpaquePointer(it.toLong()) }
+public actual fun sbrk(increment: IntptrT): MutPtr<CVoid> =
+    MutPtr(libcUnixAixSbrk(increment)?.toLong() ?: 0L)
 
-public actual fun schedGetparam(pid: PidT, param: COpaquePointer?): CInt =
-    libc_unix_aix_schedGetparam(pid, param?.value?.toCPointer<ByteVar>())
+public actual fun schedGetparam(pid: PidT, param: MutPtr<SchedParam>): CInt =
+    libcUnixAixSchedGetparam(pid, param.rawAddress.toCPointer<ByteVar>())
 
 public actual fun schedGetscheduler(pid: PidT): CInt =
-    libc_unix_aix_schedGetscheduler(pid)
+    libcUnixAixSchedGetscheduler(pid)
 
 public actual fun schedGetPriorityMax(policy: CInt): CInt =
-    libc_unix_aix_schedGetPriorityMax(policy)
+    libcUnixAixSchedGetPriorityMax(policy)
 
 public actual fun schedGetPriorityMin(policy: CInt): CInt =
-    libc_unix_aix_schedGetPriorityMin(policy)
+    libcUnixAixSchedGetPriorityMin(policy)
 
-public actual fun schedRrGetInterval(pid: PidT, tp: COpaquePointer?): CInt =
-    libc_unix_aix_schedRrGetInterval(pid, tp?.value?.toCPointer<ByteVar>())
+public actual fun schedRrGetInterval(pid: PidT, tp: MutPtr<Timespec>): CInt =
+    libcUnixAixSchedRrGetInterval(pid, tp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun schedSetparam(pid: PidT, param: COpaquePointer?): CInt =
-    libc_unix_aix_schedSetparam(pid, param?.value?.toCPointer<ByteVar>())
+public actual fun schedSetparam(pid: PidT, param: ConstPtr<SchedParam>): CInt =
+    libcUnixAixSchedSetparam(pid, param.rawAddress.toCPointer<ByteVar>())
 
-public actual fun schedSetscheduler(pid: PidT, policy: CInt, param: COpaquePointer?): CInt =
-    libc_unix_aix_schedSetscheduler(pid, policy, param?.value?.toCPointer<ByteVar>())
+public actual fun schedSetscheduler(pid: PidT, policy: CInt, param: ConstPtr<SchedParam>): CInt =
+    libcUnixAixSchedSetscheduler(pid, policy, param.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sctpOptInfo(sd: CInt, id: SctpAssocT, opt: CInt, argSize: COpaquePointer?, size: COpaquePointer?): CInt =
-    libc_unix_aix_sctpOptInfo(sd, id, opt, argSize?.value?.toCPointer<ByteVar>(), size?.value?.toCPointer<ByteVar>())
+public actual fun sctpOptInfo(sd: CInt, id: SctpAssocT, opt: CInt, argSize: MutPtr<CVoid>, size: MutPtr<SizeT>): CInt =
+    libcUnixAixSctpOptInfo(sd, id, opt, argSize.rawAddress.toCPointer<ByteVar>(), size.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sctpPeeloff(s: CInt, id: COpaquePointer?): CInt =
-    libc_unix_aix_sctpPeeloff(s, id?.value?.toCPointer<ByteVar>())
+public actual fun sctpPeeloff(s: CInt, id: MutPtr<CUint>): CInt =
+    libcUnixAixSctpPeeloff(s, id.rawAddress.toCPointer<ByteVar>())
 
-public actual fun seed48(xseed: COpaquePointer?): COpaquePointer? =
-    libc_unix_aix_seed48(xseed?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun seed48(xseed: MutPtr<CUshort>): MutPtr<CUshort> =
+    MutPtr(libcUnixAixSeed48(xseed.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun seekdir(dirp: DIR?, loc: CLong) {
-    libc_unix_aix_seekdir(dirp?.handle?.toCPointer<ByteVar>(), loc)
+public actual fun seekdir(dirp: MutPtr<DIR>, loc: CLong) {
+    libcUnixAixSeekdir(dirp.rawAddress.toCPointer<ByteVar>(), loc)
 }
 
-public actual fun semClose(sem: COpaquePointer?): CInt =
-    libc_unix_aix_semClose(sem?.value?.toCPointer<ByteVar>())
+public actual fun semClose(sem: MutPtr<SemT>): CInt =
+    libcUnixAixSemClose(sem.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semDestroy(sem: COpaquePointer?): CInt =
-    libc_unix_aix_semDestroy(sem?.value?.toCPointer<ByteVar>())
+public actual fun semDestroy(sem: MutPtr<SemT>): CInt =
+    libcUnixAixSemDestroy(sem.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semGetvalue(sem: COpaquePointer?, sval: COpaquePointer?): CInt =
-    libc_unix_aix_semGetvalue(sem?.value?.toCPointer<ByteVar>(), sval?.value?.toCPointer<ByteVar>())
+public actual fun semGetvalue(sem: MutPtr<SemT>, sval: MutPtr<CInt>): CInt =
+    libcUnixAixSemGetvalue(sem.rawAddress.toCPointer<ByteVar>(), sval.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semInit(sem: COpaquePointer?, pshared: CInt, value: CUint): CInt =
-    libc_unix_aix_semInit(sem?.value?.toCPointer<ByteVar>(), pshared, value)
+public actual fun semInit(sem: MutPtr<SemT>, pshared: CInt, value: CUint): CInt =
+    libcUnixAixSemInit(sem.rawAddress.toCPointer<ByteVar>(), pshared, value)
 
-public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    libc_unix_aix_semOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.let { COpaquePointer(it.toLong()) }
+public actual fun semOpen(name: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): MutPtr<SemT> =
+    MutPtr(libcUnixAixSemOpen(name.rawAddress.toCPointer<ByteVar>(), oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.toLong() ?: 0L)
 
-public actual fun semTimedwait(sem: COpaquePointer?, abstime: COpaquePointer?): CInt =
-    libc_unix_aix_semTimedwait(sem?.value?.toCPointer<ByteVar>(), abstime?.value?.toCPointer<ByteVar>())
+public actual fun semTimedwait(sem: MutPtr<SemT>, abstime: ConstPtr<Timespec>): CInt =
+    libcUnixAixSemTimedwait(sem.rawAddress.toCPointer<ByteVar>(), abstime.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semUnlink(name: String?): CInt =
-    libc_unix_aix_semUnlink(name)
+public actual fun semUnlink(name: ConstPtr<CChar>): CInt =
+    libcUnixAixSemUnlink(name.rawAddress.toCPointer<ByteVar>())
 
 public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
-    libc_unix_aix_semctl(semid, semnum, cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+    libcUnixAixSemctl(semid, semnum, cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun semget(key: KeyT, nsems: CInt, semflag: CInt): CInt =
-    libc_unix_aix_semget(key, nsems, semflag)
+    libcUnixAixSemget(key, nsems, semflag)
 
-public actual fun semop(semid: CInt, sops: COpaquePointer?, nsops: SizeT): CInt =
-    libc_unix_aix_semop(semid, sops?.value?.toCPointer<ByteVar>(), nsops)
+public actual fun semop(semid: CInt, sops: MutPtr<Sembuf>, nsops: SizeT): CInt =
+    libcUnixAixSemop(semid, sops.rawAddress.toCPointer<ByteVar>(), nsops)
 
-public actual fun sendFile(socket: COpaquePointer?, iobuf: COpaquePointer?, flags: CUint): SsizeT =
-    libc_unix_aix_sendFile(socket?.value?.toCPointer<ByteVar>(), iobuf?.value?.toCPointer<ByteVar>(), flags)
+public actual fun sendFile(socket: MutPtr<CInt>, iobuf: MutPtr<SfParms>, flags: CUint): SsizeT =
+    libcUnixAixSendFile(socket.rawAddress.toCPointer<ByteVar>(), iobuf.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun sendmmsg(sockfd: CInt, msgvec: COpaquePointer?, vlen: CUint, flags: CInt): CInt =
-    libc_unix_aix_sendmmsg(sockfd, msgvec?.value?.toCPointer<ByteVar>(), vlen, flags)
+public actual fun sendmmsg(sockfd: CInt, msgvec: MutPtr<Mmsghdr>, vlen: CUint, flags: CInt): CInt =
+    libcUnixAixSendmmsg(sockfd, msgvec.rawAddress.toCPointer<ByteVar>(), vlen, flags)
 
-public actual fun sendmsg(sockfd: CInt, msg: COpaquePointer?, flags: CInt): SsizeT =
-    libc_unix_aix_sendmsg(sockfd, msg?.value?.toCPointer<ByteVar>(), flags)
+public actual fun sendmsg(sockfd: CInt, msg: ConstPtr<Msghdr>, flags: CInt): SsizeT =
+    libcUnixAixSendmsg(sockfd, msg.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun setcontext(ucp: COpaquePointer?): CInt =
-    libc_unix_aix_setcontext(ucp?.value?.toCPointer<ByteVar>())
+public actual fun setcontext(ucp: ConstPtr<UcontextT>): CInt =
+    libcUnixAixSetcontext(ucp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun setdomainname(name: String?, len: CInt): CInt =
-    libc_unix_aix_setdomainname(name, len)
+public actual fun setdomainname(name: ConstPtr<CChar>, len: CInt): CInt =
+    libcUnixAixSetdomainname(name.rawAddress.toCPointer<ByteVar>(), len)
 
-public actual fun setgroups(ngroups: CInt, ptr: COpaquePointer?): CInt =
-    libc_unix_aix_setgroups(ngroups, ptr?.value?.toCPointer<ByteVar>())
+public actual fun setgroups(ngroups: CInt, ptr: ConstPtr<GidT>): CInt =
+    libcUnixAixSetgroups(ngroups, ptr.rawAddress.toCPointer<ByteVar>())
 
 public actual fun setgrent() {
-    libc_unix_aix_setgrent()
+    libcUnixAixSetgrent()
 }
 
 public actual fun sethostid(hostid: CInt): CInt =
-    libc_unix_aix_sethostid(hostid)
+    libcUnixAixSethostid(hostid)
 
-public actual fun sethostname(name: String?, len: CInt): CInt =
-    libc_unix_aix_sethostname(name, len)
+public actual fun sethostname(name: ConstPtr<CChar>, len: CInt): CInt =
+    libcUnixAixSethostname(name.rawAddress.toCPointer<ByteVar>(), len)
 
-public actual fun setmntent(filename: String?, ty: String?): FILE? =
-    libc_unix_aix_setmntent(filename, ty)?.let { FILE(it.toLong()) }
+public actual fun setmntent(filename: ConstPtr<CChar>, ty: ConstPtr<CChar>): MutPtr<FILE> =
+    MutPtr(libcUnixAixSetmntent(filename.rawAddress.toCPointer<ByteVar>(), ty.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun setpriority(which: CInt, who: IdT, priority: CInt): CInt =
-    libc_unix_aix_setpriority(which, who, priority)
+    libcUnixAixSetpriority(which, who, priority)
 
 public actual fun setpwent() {
-    libc_unix_aix_setpwent()
+    libcUnixAixSetpwent()
 }
 
-public actual fun setrlimit(resource: CInt, rlim: COpaquePointer?): CInt =
-    libc_unix_aix_setrlimit(resource, rlim?.value?.toCPointer<ByteVar>())
+public actual fun setrlimit(resource: CInt, rlim: ConstPtr<Rlimit>): CInt =
+    libcUnixAixSetrlimit(resource, rlim.rawAddress.toCPointer<ByteVar>())
 
-public actual fun setrlimit64(resource: CInt, rlim: COpaquePointer?): CInt =
-    libc_unix_aix_setrlimit64(resource, rlim?.value?.toCPointer<ByteVar>())
+public actual fun setrlimit64(resource: CInt, rlim: ConstPtr<Rlimit64>): CInt =
+    libcUnixAixSetrlimit64(resource, rlim.rawAddress.toCPointer<ByteVar>())
 
-public actual fun settimeofday(tv: COpaquePointer?, tz: COpaquePointer?): CInt =
-    libc_unix_aix_settimeofday(tv?.value?.toCPointer<ByteVar>(), tz?.value?.toCPointer<ByteVar>())
+public actual fun settimeofday(tv: ConstPtr<Timeval>, tz: ConstPtr<Timezone>): CInt =
+    libcUnixAixSettimeofday(tv.rawAddress.toCPointer<ByteVar>(), tz.rawAddress.toCPointer<ByteVar>())
 
-public actual fun setitimer(which: CInt, newValue: COpaquePointer?, oldValue: COpaquePointer?): CInt =
-    libc_unix_aix_setitimer(which, newValue?.value?.toCPointer<ByteVar>(), oldValue?.value?.toCPointer<ByteVar>())
+public actual fun setitimer(which: CInt, newValue: ConstPtr<Itimerval>, oldValue: MutPtr<Itimerval>): CInt =
+    libcUnixAixSetitimer(which, newValue.rawAddress.toCPointer<ByteVar>(), oldValue.rawAddress.toCPointer<ByteVar>())
 
 public actual fun setutent() {
-    libc_unix_aix_setutent()
+    libcUnixAixSetutent()
 }
 
 public actual fun setutxent() {
-    libc_unix_aix_setutxent()
+    libcUnixAixSetutxent()
 }
 
-public actual fun sigaltstack(ss: COpaquePointer?, oss: COpaquePointer?): CInt =
-    libc_unix_aix_sigaltstack(ss?.value?.toCPointer<ByteVar>(), oss?.value?.toCPointer<ByteVar>())
+public actual fun sigaltstack(ss: ConstPtr<StackT>, oss: MutPtr<StackT>): CInt =
+    libcUnixAixSigaltstack(ss.rawAddress.toCPointer<ByteVar>(), oss.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sigsuspend(mask: COpaquePointer?): CInt =
-    libc_unix_aix_sigsuspend(mask?.value?.toCPointer<ByteVar>())
+public actual fun sigsuspend(mask: ConstPtr<SigsetT>): CInt =
+    libcUnixAixSigsuspend(mask.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sigtimedwait(set: COpaquePointer?, info: COpaquePointer?, timeout: COpaquePointer?): CInt =
-    libc_unix_aix_sigtimedwait(set?.value?.toCPointer<ByteVar>(), info?.value?.toCPointer<ByteVar>(), timeout?.value?.toCPointer<ByteVar>())
+public actual fun sigtimedwait(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>, timeout: ConstPtr<Timespec>): CInt =
+    libcUnixAixSigtimedwait(set.rawAddress.toCPointer<ByteVar>(), info.rawAddress.toCPointer<ByteVar>(), timeout.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sigwait(set: COpaquePointer?, sig: COpaquePointer?): CInt =
-    libc_unix_aix_sigwait(set?.value?.toCPointer<ByteVar>(), sig?.value?.toCPointer<ByteVar>())
+public actual fun sigwait(set: ConstPtr<SigsetT>, sig: MutPtr<CInt>): CInt =
+    libcUnixAixSigwait(set.rawAddress.toCPointer<ByteVar>(), sig.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sigwaitinfo(set: COpaquePointer?, info: COpaquePointer?): CInt =
-    libc_unix_aix_sigwaitinfo(set?.value?.toCPointer<ByteVar>(), info?.value?.toCPointer<ByteVar>())
+public actual fun sigwaitinfo(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>): CInt =
+    libcUnixAixSigwaitinfo(set.rawAddress.toCPointer<ByteVar>(), info.rawAddress.toCPointer<ByteVar>())
 
-public actual fun shmat(shmid: CInt, shmaddr: COpaquePointer?, shmflg: CInt): COpaquePointer? =
-    libc_unix_aix_shmat(shmid, shmaddr?.value?.toCPointer<ByteVar>(), shmflg)?.let { COpaquePointer(it.toLong()) }
+public actual fun shmat(shmid: CInt, shmaddr: ConstPtr<CVoid>, shmflg: CInt): MutPtr<CVoid> =
+    MutPtr(libcUnixAixShmat(shmid, shmaddr.rawAddress.toCPointer<ByteVar>(), shmflg)?.toLong() ?: 0L)
 
-public actual fun shmdt(shmaddr: COpaquePointer?): CInt =
-    libc_unix_aix_shmdt(shmaddr?.value?.toCPointer<ByteVar>())
+public actual fun shmdt(shmaddr: ConstPtr<CVoid>): CInt =
+    libcUnixAixShmdt(shmaddr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun shmctl(shmid: CInt, cmd: CInt, buf: COpaquePointer?): CInt =
-    libc_unix_aix_shmctl(shmid, cmd, buf?.value?.toCPointer<ByteVar>())
+public actual fun shmctl(shmid: CInt, cmd: CInt, buf: MutPtr<ShmidDs>): CInt =
+    libcUnixAixShmctl(shmid, cmd, buf.rawAddress.toCPointer<ByteVar>())
 
 public actual fun shmget(key: KeyT, size: SizeT, shmflg: CInt): CInt =
-    libc_unix_aix_shmget(key, size, shmflg)
+    libcUnixAixShmget(key, size, shmflg)
 
-public actual fun shmOpen(name: String?, oflag: CInt, mode: ModeT): CInt =
-    libc_unix_aix_shmOpen(name, oflag, mode)
+public actual fun shmOpen(name: ConstPtr<CChar>, oflag: CInt, mode: ModeT): CInt =
+    libcUnixAixShmOpen(name.rawAddress.toCPointer<ByteVar>(), oflag, mode)
 
-public actual fun shmUnlink(name: String?): CInt =
-    libc_unix_aix_shmUnlink(name)
+public actual fun shmUnlink(name: ConstPtr<CChar>): CInt =
+    libcUnixAixShmUnlink(name.rawAddress.toCPointer<ByteVar>())
 
 public actual fun splice(socket1: CInt, socket2: CInt, flags: CInt): CInt =
-    libc_unix_aix_splice(socket1, socket2, flags)
+    libcUnixAixSplice(socket1, socket2, flags)
 
 public actual fun srand(seed: CUint) {
-    libc_unix_aix_srand(seed)
+    libcUnixAixSrand(seed)
 }
 
 public actual fun srand48(seed: CLong) {
-    libc_unix_aix_srand48(seed)
+    libcUnixAixSrand48(seed)
 }
 
-public actual fun stat64(path: String?, buf: COpaquePointer?): CInt =
-    libc_unix_aix_stat64(path, buf?.value?.toCPointer<ByteVar>())
+public actual fun stat64(path: ConstPtr<CChar>, buf: MutPtr<Stat64>): CInt =
+    libcUnixAixStat64(path.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun stat64at(dirfd: CInt, path: String?, buf: COpaquePointer?, flags: CInt): CInt =
-    libc_unix_aix_stat64at(dirfd, path, buf?.value?.toCPointer<ByteVar>(), flags)
+public actual fun stat64at(dirfd: CInt, path: ConstPtr<CChar>, buf: MutPtr<Stat64>, flags: CInt): CInt =
+    libcUnixAixStat64at(dirfd, path.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun statfs(path: String?, buf: COpaquePointer?): CInt =
-    libc_unix_aix_statfs(path, buf?.value?.toCPointer<ByteVar>())
+public actual fun statfs(path: ConstPtr<CChar>, buf: MutPtr<Statfs>): CInt =
+    libcUnixAixStatfs(path.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun statfs64(path: String?, buf: COpaquePointer?): CInt =
-    libc_unix_aix_statfs64(path, buf?.value?.toCPointer<ByteVar>())
+public actual fun statfs64(path: ConstPtr<CChar>, buf: MutPtr<Statfs64>): CInt =
+    libcUnixAixStatfs64(path.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun statvfs64(path: String?, buf: COpaquePointer?): CInt =
-    libc_unix_aix_statvfs64(path, buf?.value?.toCPointer<ByteVar>())
+public actual fun statvfs64(path: ConstPtr<CChar>, buf: MutPtr<Statvfs64>): CInt =
+    libcUnixAixStatvfs64(path.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun statx(path: String?, buf: COpaquePointer?, length: CInt, command: CInt): CInt =
-    libc_unix_aix_statx(path, buf?.value?.toCPointer<ByteVar>(), length, command)
+public actual fun statx(path: ConstPtr<CChar>, buf: MutPtr<Stat>, length: CInt, command: CInt): CInt =
+    libcUnixAixStatx(path.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>(), length, command)
 
-public actual fun strcasecmpL(string1: String?, string2: String?, locale: LocaleT): CInt =
-    libc_unix_aix_strcasecmpL(string1, string2, locale?.value?.toCPointer<ByteVar>())
+public actual fun strcasecmpL(string1: ConstPtr<CChar>, string2: ConstPtr<CChar>, locale: LocaleT): CInt =
+    libcUnixAixStrcasecmpL(string1.rawAddress.toCPointer<ByteVar>(), string2.rawAddress.toCPointer<ByteVar>(), locale.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strerrorR(errnum: CInt, buf: COpaquePointer?, buflen: SizeT): CInt =
-    libc_unix_aix_strerrorR(errnum, buf?.value?.toCPointer<ByteVar>(), buflen)
+public actual fun strerrorR(errnum: CInt, buf: MutPtr<CChar>, buflen: SizeT): CInt =
+    libcUnixAixStrerrorR(errnum, buf.rawAddress.toCPointer<ByteVar>(), buflen)
 
-public actual fun strftime(arg1: COpaquePointer?, arg2: SizeT, arg3: String?, arg4: COpaquePointer?): SizeT =
-    libc_unix_aix_strftime(arg1?.value?.toCPointer<ByteVar>(), arg2, arg3, arg4?.value?.toCPointer<ByteVar>())
+public actual fun strftime(arg1: MutPtr<CChar>, arg2: SizeT, arg3: ConstPtr<CChar>, arg4: ConstPtr<Tm>): SizeT =
+    libcUnixAixStrftime(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3.rawAddress.toCPointer<ByteVar>(), arg4.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strncasecmpL(string1: String?, string2: String?, length: SizeT, locale: LocaleT): CInt =
-    libc_unix_aix_strncasecmpL(string1, string2, length, locale?.value?.toCPointer<ByteVar>())
+public actual fun strncasecmpL(string1: ConstPtr<CChar>, string2: ConstPtr<CChar>, length: SizeT, locale: LocaleT): CInt =
+    libcUnixAixStrncasecmpL(string1.rawAddress.toCPointer<ByteVar>(), string2.rawAddress.toCPointer<ByteVar>(), length, locale.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strptime(s: String?, format: String?, tm: COpaquePointer?): COpaquePointer? =
-    libc_unix_aix_strptime(s, format, tm?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun strptime(s: ConstPtr<CChar>, format: ConstPtr<CChar>, tm: MutPtr<Tm>): MutPtr<CChar> =
+    MutPtr(libcUnixAixStrptime(s.rawAddress.toCPointer<ByteVar>(), format.rawAddress.toCPointer<ByteVar>(), tm.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strsep(string: COpaquePointer?, delim: String?): COpaquePointer? =
-    libc_unix_aix_strsep(string?.value?.toCPointer<ByteVar>(), delim)?.let { COpaquePointer(it.toLong()) }
+public actual fun strsep(string: MutPtr<MutPtr<CChar>>, delim: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcUnixAixStrsep(string.rawAddress.toCPointer<ByteVar>(), delim.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun swapcontext(uocp: COpaquePointer?, ucp: COpaquePointer?): CInt =
-    libc_unix_aix_swapcontext(uocp?.value?.toCPointer<ByteVar>(), ucp?.value?.toCPointer<ByteVar>())
+public actual fun swapcontext(uocp: MutPtr<UcontextT>, ucp: ConstPtr<UcontextT>): CInt =
+    libcUnixAixSwapcontext(uocp.rawAddress.toCPointer<ByteVar>(), ucp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun swapoff(path: String?): CInt =
-    libc_unix_aix_swapoff(path)
+public actual fun swapoff(path: ConstPtr<CChar>): CInt =
+    libcUnixAixSwapoff(path.rawAddress.toCPointer<ByteVar>())
 
-public actual fun swapon(path: String?): CInt =
-    libc_unix_aix_swapon(path)
+public actual fun swapon(path: ConstPtr<CChar>): CInt =
+    libcUnixAixSwapon(path.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sync() {
-    libc_unix_aix_sync()
+    libcUnixAixSync()
 }
 
-public actual fun telldir(dirp: DIR?): CLong =
-    libc_unix_aix_telldir(dirp?.handle?.toCPointer<ByteVar>())
+public actual fun telldir(dirp: MutPtr<DIR>): CLong =
+    libcUnixAixTelldir(dirp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun timerCreate(clockid: ClockidT, sevp: COpaquePointer?, timerid: COpaquePointer?): CInt =
-    libc_unix_aix_timerCreate(clockid, sevp?.value?.toCPointer<ByteVar>(), timerid?.value?.toCPointer<ByteVar>())
+public actual fun timerCreate(clockid: ClockidT, sevp: MutPtr<Sigevent>, timerid: MutPtr<TimerT>): CInt =
+    libcUnixAixTimerCreate(clockid, sevp.rawAddress.toCPointer<ByteVar>(), timerid.rawAddress.toCPointer<ByteVar>())
 
 public actual fun timerDelete(timerid: TimerT): CInt =
-    libc_unix_aix_timerDelete(timerid.toCPointer<ByteVar>())
+    libcUnixAixTimerDelete(timerid.toCPointer<ByteVar>())
 
 public actual fun timerGetoverrun(timerid: TimerT): CInt =
-    libc_unix_aix_timerGetoverrun(timerid.toCPointer<ByteVar>())
+    libcUnixAixTimerGetoverrun(timerid.toCPointer<ByteVar>())
 
-public actual fun timerGettime(timerid: TimerT, value: COpaquePointer?): CInt =
-    libc_unix_aix_timerGettime(timerid.toCPointer<ByteVar>(), value?.value?.toCPointer<ByteVar>())
+public actual fun timerGettime(timerid: TimerT, value: MutPtr<Itimerspec>): CInt =
+    libcUnixAixTimerGettime(timerid.toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>())
 
-public actual fun timerSettime(timerid: TimerT, flags: CInt, newValue: COpaquePointer?, oldValue: COpaquePointer?): CInt =
-    libc_unix_aix_timerSettime(timerid.toCPointer<ByteVar>(), flags, newValue?.value?.toCPointer<ByteVar>(), oldValue?.value?.toCPointer<ByteVar>())
+public actual fun timerSettime(timerid: TimerT, flags: CInt, newValue: ConstPtr<Itimerspec>, oldValue: MutPtr<Itimerspec>): CInt =
+    libcUnixAixTimerSettime(timerid.toCPointer<ByteVar>(), flags, newValue.rawAddress.toCPointer<ByteVar>(), oldValue.rawAddress.toCPointer<ByteVar>())
 
-public actual fun truncate64(path: String?, length: Off64T): CInt =
-    libc_unix_aix_truncate64(path, length)
+public actual fun truncate64(path: ConstPtr<CChar>, length: Off64T): CInt =
+    libcUnixAixTruncate64(path.rawAddress.toCPointer<ByteVar>(), length)
 
-public actual fun uname(buf: COpaquePointer?): CInt =
-    libc_unix_aix_uname(buf?.value?.toCPointer<ByteVar>())
+public actual fun uname(buf: MutPtr<Utsname>): CInt =
+    libcUnixAixUname(buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun updwtmp(file: String?, u: COpaquePointer?) {
-    libc_unix_aix_updwtmp(file, u?.value?.toCPointer<ByteVar>())
+public actual fun updwtmp(file: ConstPtr<CChar>, u: ConstPtr<Utmp>) {
+    libcUnixAixUpdwtmp(file.rawAddress.toCPointer<ByteVar>(), u.rawAddress.toCPointer<ByteVar>())
 }
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
-    libc_unix_aix_uselocale(loc?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+    MutPtr(libcUnixAixUselocale(loc.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun utmpname(file: String?): CInt =
-    libc_unix_aix_utmpname(file)
+public actual fun utmpname(file: ConstPtr<CChar>): CInt =
+    libcUnixAixUtmpname(file.rawAddress.toCPointer<ByteVar>())
 
-public actual fun utimensat(dirfd: CInt, path: String?, times: COpaquePointer?, flag: CInt): CInt =
-    libc_unix_aix_utimensat(dirfd, path, times?.value?.toCPointer<ByteVar>(), flag)
+public actual fun utimensat(dirfd: CInt, path: ConstPtr<CChar>, times: ConstPtr<Timespec>, flag: CInt): CInt =
+    libcUnixAixUtimensat(dirfd, path.rawAddress.toCPointer<ByteVar>(), times.rawAddress.toCPointer<ByteVar>(), flag)
 
-public actual fun wait4(pid: PidT, status: COpaquePointer?, options: CInt, rusage: COpaquePointer?): PidT =
-    libc_unix_aix_wait4(pid, status?.value?.toCPointer<ByteVar>(), options, rusage?.value?.toCPointer<ByteVar>())
+public actual fun wait4(pid: PidT, status: MutPtr<CInt>, options: CInt, rusage: MutPtr<Rusage>): PidT =
+    libcUnixAixWait4(pid, status.rawAddress.toCPointer<ByteVar>(), options, rusage.rawAddress.toCPointer<ByteVar>())
 
-public actual fun waitid(idtype: IdtypeT, id: IdT, infop: COpaquePointer?, options: CInt): CInt =
-    libc_unix_aix_waitid(idtype, id, infop?.value?.toCPointer<ByteVar>(), options)
+public actual fun waitid(idtype: IdtypeT, id: IdT, infop: MutPtr<SiginfoT>, options: CInt): CInt =
+    libcUnixAixWaitid(idtype, id, infop.rawAddress.toCPointer<ByteVar>(), options)
 
-public actual fun writev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT =
-    libc_unix_aix_writev(fd, iov?.value?.toCPointer<ByteVar>(), iovcnt)
+public actual fun writev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+    libcUnixAixWritev(fd, iov.rawAddress.toCPointer<ByteVar>(), iovcnt)
 
-public actual fun errno(): COpaquePointer? =
-    libc_unix_aix_errno()?.let { COpaquePointer(it.toLong()) }
+public actual fun errno(): MutPtr<CInt> =
+    MutPtr(libcUnixAixErrno()?.toLong() ?: 0L)

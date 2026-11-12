@@ -21,7 +21,7 @@
 #endif
 #endif
 
-int32_t libc_unix_bsd_netbsdlike_openbsd_gettimeofday(void* tp, void* tz) {
+int32_t libcUnixBsdNetbsdlikeOpenbsdGettimeofday(void* tp, void* tz) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -49,7 +49,7 @@ int32_t libc_unix_bsd_netbsdlike_openbsd_gettimeofday(void* tp, void* tz) {
     return -1;
 }
 
-int32_t libc_unix_bsd_netbsdlike_openbsd_settimeofday(void* tp, void* tz) {
+int32_t libcUnixBsdNetbsdlikeOpenbsdSettimeofday(void* tp, void* tz) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -77,7 +77,7 @@ int32_t libc_unix_bsd_netbsdlike_openbsd_settimeofday(void* tp, void* tz) {
     return -1;
 }
 
-int32_t libc_unix_bsd_netbsdlike_openbsd_pledge(const char* promises, const char* execpromises) {
+int32_t libcUnixBsdNetbsdlikeOpenbsdPledge(const char* promises, const char* execpromises) {
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -105,7 +105,7 @@ int32_t libc_unix_bsd_netbsdlike_openbsd_pledge(const char* promises, const char
     return -1;
 }
 
-int32_t libc_unix_bsd_netbsdlike_openbsd_unveil(const char* path, const char* permissions) {
+int32_t libcUnixBsdNetbsdlikeOpenbsdUnveil(const char* path, const char* permissions) {
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -133,7 +133,7 @@ int32_t libc_unix_bsd_netbsdlike_openbsd_unveil(const char* path, const char* pe
     return -1;
 }
 
-int64_t libc_unix_bsd_netbsdlike_openbsd_strtonum(const char* nptr, int64_t minval, int64_t maxval, void* errstr) {
+int64_t libcUnixBsdNetbsdlikeOpenbsdStrtonum(const char* nptr, int64_t minval, int64_t maxval, void* errstr) {
     typedef int64_t (*km_fn_t)(const char*, int64_t, int64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -161,7 +161,7 @@ int64_t libc_unix_bsd_netbsdlike_openbsd_strtonum(const char* nptr, int64_t minv
     return -1;
 }
 
-int32_t libc_unix_bsd_netbsdlike_openbsd_dup3(int32_t src, int32_t dst, int32_t flags) {
+int32_t libcUnixBsdNetbsdlikeOpenbsdDup3(int32_t src, int32_t dst, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -189,7 +189,7 @@ int32_t libc_unix_bsd_netbsdlike_openbsd_dup3(int32_t src, int32_t dst, int32_t 
     return -1;
 }
 
-int32_t libc_unix_bsd_netbsdlike_openbsd_chflags(const char* path, uint32_t flags) {
+int32_t libcUnixBsdNetbsdlikeOpenbsdChflags(const char* path, uint32_t flags) {
     typedef int32_t (*km_fn_t)(const char*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -217,7 +217,7 @@ int32_t libc_unix_bsd_netbsdlike_openbsd_chflags(const char* path, uint32_t flag
     return -1;
 }
 
-int32_t libc_unix_bsd_netbsdlike_openbsd_fchflags(int32_t fd, uint32_t flags) {
+int32_t libcUnixBsdNetbsdlikeOpenbsdFchflags(int32_t fd, uint32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -245,7 +245,7 @@ int32_t libc_unix_bsd_netbsdlike_openbsd_fchflags(int32_t fd, uint32_t flags) {
     return -1;
 }
 
-int32_t libc_unix_bsd_netbsdlike_openbsd_chflagsat(int32_t fd, const char* path, uint32_t flags, int32_t atflag) {
+int32_t libcUnixBsdNetbsdlikeOpenbsdChflagsat(int32_t fd, const char* path, uint32_t flags, int32_t atflag) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, uint32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -273,7 +273,7 @@ int32_t libc_unix_bsd_netbsdlike_openbsd_chflagsat(int32_t fd, const char* path,
     return -1;
 }
 
-int32_t libc_unix_bsd_netbsdlike_openbsd_dirfd(void* dirp) {
+int32_t libcUnixBsdNetbsdlikeOpenbsdDirfd(void* dirp) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -301,7 +301,7 @@ int32_t libc_unix_bsd_netbsdlike_openbsd_dirfd(void* dirp) {
     return -1;
 }
 
-int32_t libc_unix_bsd_netbsdlike_openbsd_getnameinfo(void* sa, uint32_t salen, char* host, uint64_t hostlen, char* serv, uint64_t servlen, int32_t flags) {
+int32_t libcUnixBsdNetbsdlikeOpenbsdGetnameinfo(void* sa, uint32_t salen, char* host, uint64_t hostlen, char* serv, uint64_t servlen, int32_t flags) {
     typedef int32_t (*km_fn_t)(void*, uint32_t, char*, uint64_t, char*, uint64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -329,7 +329,7 @@ int32_t libc_unix_bsd_netbsdlike_openbsd_getnameinfo(void* sa, uint32_t salen, c
     return -1;
 }
 
-int32_t libc_unix_bsd_netbsdlike_openbsd_getresgid(void* rgid, void* egid, void* sgid) {
+int32_t libcUnixBsdNetbsdlikeOpenbsdGetresgid(void* rgid, void* egid, void* sgid) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -357,7 +357,7 @@ int32_t libc_unix_bsd_netbsdlike_openbsd_getresgid(void* rgid, void* egid, void*
     return -1;
 }
 
-int32_t libc_unix_bsd_netbsdlike_openbsd_getresuid(void* ruid, void* euid, void* suid) {
+int32_t libcUnixBsdNetbsdlikeOpenbsdGetresuid(void* ruid, void* euid, void* suid) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -385,7 +385,7 @@ int32_t libc_unix_bsd_netbsdlike_openbsd_getresuid(void* ruid, void* euid, void*
     return -1;
 }
 
-int32_t libc_unix_bsd_netbsdlike_openbsd_kevent(int32_t kq, void* changelist, int32_t nchanges, void* eventlist, int32_t nevents, void* timeout) {
+int32_t libcUnixBsdNetbsdlikeOpenbsdKevent(int32_t kq, void* changelist, int32_t nchanges, void* eventlist, int32_t nevents, void* timeout) {
 #if defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__)
     return (int32_t)kevent(kq, changelist, nchanges, eventlist, nevents, timeout);
 #else
@@ -400,7 +400,7 @@ int32_t libc_unix_bsd_netbsdlike_openbsd_kevent(int32_t kq, void* changelist, in
 #endif
 }
 
-int32_t libc_unix_bsd_netbsdlike_openbsd_mprotect(void* addr, uint64_t len, int32_t prot) {
+int32_t libcUnixBsdNetbsdlikeOpenbsdMprotect(void* addr, uint64_t len, int32_t prot) {
 #if !defined(_WIN32)
     return (int32_t)mprotect(addr, len, prot);
 #else
@@ -412,7 +412,7 @@ int32_t libc_unix_bsd_netbsdlike_openbsd_mprotect(void* addr, uint64_t len, int3
 #endif
 }
 
-int32_t libc_unix_bsd_netbsdlike_openbsd_getthrid(void) {
+int32_t libcUnixBsdNetbsdlikeOpenbsdGetthrid(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -440,7 +440,7 @@ int32_t libc_unix_bsd_netbsdlike_openbsd_getthrid(void) {
     return -1;
 }
 
-int32_t libc_unix_bsd_netbsdlike_openbsd_pthreadAttrGetguardsize(void* attr, void* guardsize) {
+int32_t libcUnixBsdNetbsdlikeOpenbsdPthreadAttrGetguardsize(void* attr, void* guardsize) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -468,7 +468,7 @@ int32_t libc_unix_bsd_netbsdlike_openbsd_pthreadAttrGetguardsize(void* attr, voi
     return ENOSYS;
 }
 
-int32_t libc_unix_bsd_netbsdlike_openbsd_pthreadAttrSetguardsize(void* attr, uint64_t guardsize) {
+int32_t libcUnixBsdNetbsdlikeOpenbsdPthreadAttrSetguardsize(void* attr, uint64_t guardsize) {
     typedef int32_t (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -496,7 +496,7 @@ int32_t libc_unix_bsd_netbsdlike_openbsd_pthreadAttrSetguardsize(void* attr, uin
     return ENOSYS;
 }
 
-int32_t libc_unix_bsd_netbsdlike_openbsd_pthreadAttrGetstack(void* attr, void* stackaddr, void* stacksize) {
+int32_t libcUnixBsdNetbsdlikeOpenbsdPthreadAttrGetstack(void* attr, void* stackaddr, void* stacksize) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -524,7 +524,7 @@ int32_t libc_unix_bsd_netbsdlike_openbsd_pthreadAttrGetstack(void* attr, void* s
     return ENOSYS;
 }
 
-int32_t libc_unix_bsd_netbsdlike_openbsd_pthreadMainNp(void) {
+int32_t libcUnixBsdNetbsdlikeOpenbsdPthreadMainNp(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -552,7 +552,7 @@ int32_t libc_unix_bsd_netbsdlike_openbsd_pthreadMainNp(void) {
     return ENOSYS;
 }
 
-void libc_unix_bsd_netbsdlike_openbsd_pthreadGetNameNp(void* tid, char* name, uint64_t len) {
+void libcUnixBsdNetbsdlikeOpenbsdPthreadGetNameNp(void* tid, char* name, uint64_t len) {
     typedef void (*km_fn_t)(void*, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -580,7 +580,7 @@ void libc_unix_bsd_netbsdlike_openbsd_pthreadGetNameNp(void* tid, char* name, ui
     errno = ENOSYS;
 }
 
-void libc_unix_bsd_netbsdlike_openbsd_pthreadSetNameNp(void* tid, const char* name) {
+void libcUnixBsdNetbsdlikeOpenbsdPthreadSetNameNp(void* tid, const char* name) {
     typedef void (*km_fn_t)(void*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -608,7 +608,7 @@ void libc_unix_bsd_netbsdlike_openbsd_pthreadSetNameNp(void* tid, const char* na
     errno = ENOSYS;
 }
 
-int32_t libc_unix_bsd_netbsdlike_openbsd_pthreadStacksegNp(void* thread, void* sinfo) {
+int32_t libcUnixBsdNetbsdlikeOpenbsdPthreadStacksegNp(void* thread, void* sinfo) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -636,7 +636,7 @@ int32_t libc_unix_bsd_netbsdlike_openbsd_pthreadStacksegNp(void* thread, void* s
     return ENOSYS;
 }
 
-int32_t libc_unix_bsd_netbsdlike_openbsd_openpty(void* amaster, void* aslave, char* name, void* termp, void* winp) {
+int32_t libcUnixBsdNetbsdlikeOpenbsdOpenpty(void* amaster, void* aslave, char* name, void* termp, void* winp) {
     typedef int32_t (*km_fn_t)(void*, void*, char*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -664,7 +664,7 @@ int32_t libc_unix_bsd_netbsdlike_openbsd_openpty(void* amaster, void* aslave, ch
     return -1;
 }
 
-int32_t libc_unix_bsd_netbsdlike_openbsd_forkpty(void* amaster, char* name, void* termp, void* winp) {
+int32_t libcUnixBsdNetbsdlikeOpenbsdForkpty(void* amaster, char* name, void* termp, void* winp) {
     typedef int32_t (*km_fn_t)(void*, char*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -692,7 +692,7 @@ int32_t libc_unix_bsd_netbsdlike_openbsd_forkpty(void* amaster, char* name, void
     return -1;
 }
 
-int32_t libc_unix_bsd_netbsdlike_openbsd_sysctl(void* name, uint32_t namelen, void* oldp, void* oldlenp, void* newp, uint64_t newlen) {
+int32_t libcUnixBsdNetbsdlikeOpenbsdSysctl(void* name, uint32_t namelen, void* oldp, void* oldlenp, void* newp, uint64_t newlen) {
     typedef int32_t (*km_fn_t)(void*, uint32_t, void*, void*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -720,7 +720,7 @@ int32_t libc_unix_bsd_netbsdlike_openbsd_sysctl(void* name, uint32_t namelen, vo
     return -1;
 }
 
-int32_t libc_unix_bsd_netbsdlike_openbsd_setresgid(uint16_t rgid, uint16_t egid, uint16_t sgid) {
+int32_t libcUnixBsdNetbsdlikeOpenbsdSetresgid(uint16_t rgid, uint16_t egid, uint16_t sgid) {
     typedef int32_t (*km_fn_t)(uint16_t, uint16_t, uint16_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -748,7 +748,7 @@ int32_t libc_unix_bsd_netbsdlike_openbsd_setresgid(uint16_t rgid, uint16_t egid,
     return -1;
 }
 
-int32_t libc_unix_bsd_netbsdlike_openbsd_setresuid(uint16_t ruid, uint16_t euid, uint16_t suid) {
+int32_t libcUnixBsdNetbsdlikeOpenbsdSetresuid(uint16_t ruid, uint16_t euid, uint16_t suid) {
     typedef int32_t (*km_fn_t)(uint16_t, uint16_t, uint16_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -776,7 +776,7 @@ int32_t libc_unix_bsd_netbsdlike_openbsd_setresuid(uint16_t ruid, uint16_t euid,
     return -1;
 }
 
-int32_t libc_unix_bsd_netbsdlike_openbsd_ptrace(int32_t request, int32_t pid, char* addr, int32_t data) {
+int32_t libcUnixBsdNetbsdlikeOpenbsdPtrace(int32_t request, int32_t pid, char* addr, int32_t data) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -804,7 +804,7 @@ int32_t libc_unix_bsd_netbsdlike_openbsd_ptrace(int32_t request, int32_t pid, ch
     return -1;
 }
 
-int32_t libc_unix_bsd_netbsdlike_openbsd_utrace(const char* label, void* addr, uint64_t len) {
+int32_t libcUnixBsdNetbsdlikeOpenbsdUtrace(const char* label, void* addr, uint64_t len) {
     typedef int32_t (*km_fn_t)(const char*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -832,7 +832,7 @@ int32_t libc_unix_bsd_netbsdlike_openbsd_utrace(const char* label, void* addr, u
     return -1;
 }
 
-void* libc_unix_bsd_netbsdlike_openbsd_memmem(void* haystack, uint64_t haystacklen, void* needle, uint64_t needlelen) {
+void* libcUnixBsdNetbsdlikeOpenbsdMemmem(void* haystack, uint64_t haystacklen, void* needle, uint64_t needlelen) {
     typedef void* (*km_fn_t)(void*, uint64_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -860,7 +860,7 @@ void* libc_unix_bsd_netbsdlike_openbsd_memmem(void* haystack, uint64_t haystackl
     return NULL;
 }
 
-int32_t libc_unix_bsd_netbsdlike_openbsd_dlIteratePhdr(void* callback, void* data) {
+int32_t libcUnixBsdNetbsdlikeOpenbsdDlIteratePhdr(void* callback, void* data) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -888,7 +888,7 @@ int32_t libc_unix_bsd_netbsdlike_openbsd_dlIteratePhdr(void* callback, void* dat
     return -1;
 }
 
-void* libc_unix_bsd_netbsdlike_openbsd_uselocale(void* loc) {
+void* libcUnixBsdNetbsdlikeOpenbsdUselocale(void* loc) {
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -916,7 +916,7 @@ void* libc_unix_bsd_netbsdlike_openbsd_uselocale(void* loc) {
     return NULL;
 }
 
-void libc_unix_bsd_netbsdlike_openbsd_freelocale(void* loc) {
+void libcUnixBsdNetbsdlikeOpenbsdFreelocale(void* loc) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -944,7 +944,7 @@ void libc_unix_bsd_netbsdlike_openbsd_freelocale(void* loc) {
     errno = ENOSYS;
 }
 
-void* libc_unix_bsd_netbsdlike_openbsd_newlocale(int32_t mask, const char* locale, void* base) {
+void* libcUnixBsdNetbsdlikeOpenbsdNewlocale(int32_t mask, const char* locale, void* base) {
     typedef void* (*km_fn_t)(int32_t, const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -972,7 +972,7 @@ void* libc_unix_bsd_netbsdlike_openbsd_newlocale(int32_t mask, const char* local
     return NULL;
 }
 
-void* libc_unix_bsd_netbsdlike_openbsd_duplocale(void* base) {
+void* libcUnixBsdNetbsdlikeOpenbsdDuplocale(void* base) {
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1000,7 +1000,7 @@ void* libc_unix_bsd_netbsdlike_openbsd_duplocale(void* base) {
     return NULL;
 }
 
-void libc_unix_bsd_netbsdlike_openbsd_explicitBzero(void* s, uint64_t len) {
+void libcUnixBsdNetbsdlikeOpenbsdExplicitBzero(void* s, uint64_t len) {
     typedef void (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1028,7 +1028,7 @@ void libc_unix_bsd_netbsdlike_openbsd_explicitBzero(void* s, uint64_t len) {
     errno = ENOSYS;
 }
 
-void libc_unix_bsd_netbsdlike_openbsd_setproctitle(const char* fmt, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+void libcUnixBsdNetbsdlikeOpenbsdSetproctitle(const char* fmt, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef void (*km_fn_t)(const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1062,7 +1062,7 @@ void libc_unix_bsd_netbsdlike_openbsd_setproctitle(const char* fmt, int32_t km_v
     errno = ENOSYS;
 }
 
-void libc_unix_bsd_netbsdlike_openbsd_freezero(void* ptr, uint64_t size) {
+void libcUnixBsdNetbsdlikeOpenbsdFreezero(void* ptr, uint64_t size) {
     typedef void (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1090,7 +1090,7 @@ void libc_unix_bsd_netbsdlike_openbsd_freezero(void* ptr, uint64_t size) {
     errno = ENOSYS;
 }
 
-void* libc_unix_bsd_netbsdlike_openbsd_mallocConceal(uint64_t size) {
+void* libcUnixBsdNetbsdlikeOpenbsdMallocConceal(uint64_t size) {
     typedef void* (*km_fn_t)(uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1118,7 +1118,7 @@ void* libc_unix_bsd_netbsdlike_openbsd_mallocConceal(uint64_t size) {
     return NULL;
 }
 
-void* libc_unix_bsd_netbsdlike_openbsd_callocConceal(uint64_t nmemb, uint64_t size) {
+void* libcUnixBsdNetbsdlikeOpenbsdCallocConceal(uint64_t nmemb, uint64_t size) {
     typedef void* (*km_fn_t)(uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1146,7 +1146,7 @@ void* libc_unix_bsd_netbsdlike_openbsd_callocConceal(uint64_t nmemb, uint64_t si
     return NULL;
 }
 
-void libc_unix_bsd_netbsdlike_openbsd_srand48Deterministic(int64_t seed) {
+void libcUnixBsdNetbsdlikeOpenbsdSrand48Deterministic(int64_t seed) {
     typedef void (*km_fn_t)(int64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1174,7 +1174,7 @@ void libc_unix_bsd_netbsdlike_openbsd_srand48Deterministic(int64_t seed) {
     errno = ENOSYS;
 }
 
-void* libc_unix_bsd_netbsdlike_openbsd_seed48Deterministic(void* xseed) {
+void* libcUnixBsdNetbsdlikeOpenbsdSeed48Deterministic(void* xseed) {
     typedef void* (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1202,7 +1202,7 @@ void* libc_unix_bsd_netbsdlike_openbsd_seed48Deterministic(void* xseed) {
     return NULL;
 }
 
-void libc_unix_bsd_netbsdlike_openbsd_lcong48Deterministic(void* p) {
+void libcUnixBsdNetbsdlikeOpenbsdLcong48Deterministic(void* p) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1230,7 +1230,7 @@ void libc_unix_bsd_netbsdlike_openbsd_lcong48Deterministic(void* p) {
     errno = ENOSYS;
 }
 
-void* libc_unix_bsd_netbsdlike_openbsd_lsearch(void* key, void* base, void* nelp, uint64_t width, void* compar) {
+void* libcUnixBsdNetbsdlikeOpenbsdLsearch(void* key, void* base, void* nelp, uint64_t width, void* compar) {
     typedef void* (*km_fn_t)(void*, void*, void*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1258,7 +1258,7 @@ void* libc_unix_bsd_netbsdlike_openbsd_lsearch(void* key, void* base, void* nelp
     return NULL;
 }
 
-void* libc_unix_bsd_netbsdlike_openbsd_lfind(void* key, void* base, void* nelp, uint64_t width, void* compar) {
+void* libcUnixBsdNetbsdlikeOpenbsdLfind(void* key, void* base, void* nelp, uint64_t width, void* compar) {
     typedef void* (*km_fn_t)(void*, void*, void*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1286,7 +1286,7 @@ void* libc_unix_bsd_netbsdlike_openbsd_lfind(void* key, void* base, void* nelp, 
     return NULL;
 }
 
-int32_t libc_unix_bsd_netbsdlike_openbsd_hcreate(uint64_t nelt) {
+int32_t libcUnixBsdNetbsdlikeOpenbsdHcreate(uint64_t nelt) {
     typedef int32_t (*km_fn_t)(uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1314,7 +1314,7 @@ int32_t libc_unix_bsd_netbsdlike_openbsd_hcreate(uint64_t nelt) {
     return -1;
 }
 
-void libc_unix_bsd_netbsdlike_openbsd_hdestroy(void) {
+void libcUnixBsdNetbsdlikeOpenbsdHdestroy(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1342,7 +1342,7 @@ void libc_unix_bsd_netbsdlike_openbsd_hdestroy(void) {
     errno = ENOSYS;
 }
 
-int32_t libc_unix_bsd_netbsdlike_openbsd_futex(void* uaddr, int32_t op, int32_t val, void* timeout, void* uaddr2) {
+int32_t libcUnixBsdNetbsdlikeOpenbsdFutex(void* uaddr, int32_t op, int32_t val, void* timeout, void* uaddr2) {
     typedef int32_t (*km_fn_t)(void*, int32_t, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1370,7 +1370,7 @@ int32_t libc_unix_bsd_netbsdlike_openbsd_futex(void* uaddr, int32_t op, int32_t 
     return -1;
 }
 
-int32_t libc_unix_bsd_netbsdlike_openbsd_mimmutable(void* addr, uint64_t len) {
+int32_t libcUnixBsdNetbsdlikeOpenbsdMimmutable(void* addr, uint64_t len) {
     typedef int32_t (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1398,7 +1398,7 @@ int32_t libc_unix_bsd_netbsdlike_openbsd_mimmutable(void* addr, uint64_t len) {
     return -1;
 }
 
-int32_t libc_unix_bsd_netbsdlike_openbsd_reboot(int32_t mode) {
+int32_t libcUnixBsdNetbsdlikeOpenbsdReboot(int32_t mode) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1426,7 +1426,7 @@ int32_t libc_unix_bsd_netbsdlike_openbsd_reboot(int32_t mode) {
     return -1;
 }
 
-int32_t libc_unix_bsd_netbsdlike_openbsd_statfs(const char* path, void* buf) {
+int32_t libcUnixBsdNetbsdlikeOpenbsdStatfs(const char* path, void* buf) {
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1454,7 +1454,7 @@ int32_t libc_unix_bsd_netbsdlike_openbsd_statfs(const char* path, void* buf) {
     return -1;
 }
 
-int32_t libc_unix_bsd_netbsdlike_openbsd_fstatfs(int32_t fd, void* buf) {
+int32_t libcUnixBsdNetbsdlikeOpenbsdFstatfs(int32_t fd, void* buf) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1482,7 +1482,7 @@ int32_t libc_unix_bsd_netbsdlike_openbsd_fstatfs(int32_t fd, void* buf) {
     return -1;
 }
 
-int32_t libc_unix_bsd_netbsdlike_openbsd_getmntinfo(void* mntbufp, int32_t flags) {
+int32_t libcUnixBsdNetbsdlikeOpenbsdGetmntinfo(void* mntbufp, int32_t flags) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1510,7 +1510,7 @@ int32_t libc_unix_bsd_netbsdlike_openbsd_getmntinfo(void* mntbufp, int32_t flags
     return -1;
 }
 
-int32_t libc_unix_bsd_netbsdlike_openbsd_getfsstat(void* buf, uint64_t bufsize, int32_t flags) {
+int32_t libcUnixBsdNetbsdlikeOpenbsdGetfsstat(void* buf, uint64_t bufsize, int32_t flags) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1538,7 +1538,7 @@ int32_t libc_unix_bsd_netbsdlike_openbsd_getfsstat(void* buf, uint64_t bufsize, 
     return -1;
 }
 
-int32_t libc_unix_bsd_netbsdlike_openbsd_elfAuxInfo(int32_t aux, void* buf, int32_t buflen) {
+int32_t libcUnixBsdNetbsdlikeOpenbsdElfAuxInfo(int32_t aux, void* buf, int32_t buflen) {
     typedef int32_t (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1566,7 +1566,7 @@ int32_t libc_unix_bsd_netbsdlike_openbsd_elfAuxInfo(int32_t aux, void* buf, int3
     return -1;
 }
 
-uint64_t libc_unix_bsd_netbsdlike_openbsd_backtrace(void* addrlist, uint64_t len) {
+uint64_t libcUnixBsdNetbsdlikeOpenbsdBacktrace(void* addrlist, uint64_t len) {
     typedef uint64_t (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1615,7 +1615,7 @@ uint64_t libc_unix_bsd_netbsdlike_openbsd_backtrace(void* addrlist, uint64_t len
     return 0;
 }
 
-void* libc_unix_bsd_netbsdlike_openbsd_backtraceSymbols(void* addrlist, uint64_t len) {
+void* libcUnixBsdNetbsdlikeOpenbsdBacktraceSymbols(void* addrlist, uint64_t len) {
     typedef void* (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1664,7 +1664,7 @@ void* libc_unix_bsd_netbsdlike_openbsd_backtraceSymbols(void* addrlist, uint64_t
     return NULL;
 }
 
-int32_t libc_unix_bsd_netbsdlike_openbsd_backtraceSymbolsFd(void* addrlist, uint64_t len, int32_t fd) {
+int32_t libcUnixBsdNetbsdlikeOpenbsdBacktraceSymbolsFd(void* addrlist, uint64_t len, int32_t fd) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1713,7 +1713,7 @@ int32_t libc_unix_bsd_netbsdlike_openbsd_backtraceSymbolsFd(void* addrlist, uint
     return -1;
 }
 
-void* libc_unix_bsd_netbsdlike_openbsd_backtraceSymbolsFmt(void* addrlist, uint64_t len, const char* fmt) {
+void* libcUnixBsdNetbsdlikeOpenbsdBacktraceSymbolsFmt(void* addrlist, uint64_t len, const char* fmt) {
     typedef void* (*km_fn_t)(void*, uint64_t, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

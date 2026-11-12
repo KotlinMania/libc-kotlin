@@ -3,197 +3,200 @@
 package io.github.kotlinmania.libc.hermit
 
 import io.github.kotlinmania.libc.*
-import io.github.kotlinmania.libc.COpaquePointer
-import io.github.kotlinmania.libc.hermit.cinterop.libc_hermit_abort
-import io.github.kotlinmania.libc.hermit.cinterop.libc_hermit_accept
-import io.github.kotlinmania.libc.hermit.cinterop.libc_hermit_alloc
-import io.github.kotlinmania.libc.hermit.cinterop.libc_hermit_allocZeroed
-import io.github.kotlinmania.libc.hermit.cinterop.libc_hermit_availableParallelism
-import io.github.kotlinmania.libc.hermit.cinterop.libc_hermit_bind
-import io.github.kotlinmania.libc.hermit.cinterop.libc_hermit_clockGettime
-import io.github.kotlinmania.libc.hermit.cinterop.libc_hermit_close
-import io.github.kotlinmania.libc.hermit.cinterop.libc_hermit_connect
-import io.github.kotlinmania.libc.hermit.cinterop.libc_hermit_dealloc
-import io.github.kotlinmania.libc.hermit.cinterop.libc_hermit_dup
-import io.github.kotlinmania.libc.hermit.cinterop.libc_hermit_errno
-import io.github.kotlinmania.libc.hermit.cinterop.libc_hermit_eventfd
-import io.github.kotlinmania.libc.hermit.cinterop.libc_hermit_exit
-import io.github.kotlinmania.libc.hermit.cinterop.libc_hermit_fcntl
-import io.github.kotlinmania.libc.hermit.cinterop.libc_hermit_freeaddrinfo
-import io.github.kotlinmania.libc.hermit.cinterop.libc_hermit_fstat
-import io.github.kotlinmania.libc.hermit.cinterop.libc_hermit_futexWait
-import io.github.kotlinmania.libc.hermit.cinterop.libc_hermit_futexWake
-import io.github.kotlinmania.libc.hermit.cinterop.libc_hermit_getaddrinfo
-import io.github.kotlinmania.libc.hermit.cinterop.libc_hermit_getdents64
-import io.github.kotlinmania.libc.hermit.cinterop.libc_hermit_getpeername
-import io.github.kotlinmania.libc.hermit.cinterop.libc_hermit_getsockname
-import io.github.kotlinmania.libc.hermit.cinterop.libc_hermit_getsockopt
-import io.github.kotlinmania.libc.hermit.cinterop.libc_hermit_ioctl
-import io.github.kotlinmania.libc.hermit.cinterop.libc_hermit_listen
-import io.github.kotlinmania.libc.hermit.cinterop.libc_hermit_lstat
-import io.github.kotlinmania.libc.hermit.cinterop.libc_hermit_mkdir
-import io.github.kotlinmania.libc.hermit.cinterop.libc_hermit_nanosleep
-import io.github.kotlinmania.libc.hermit.cinterop.libc_hermit_open
-import io.github.kotlinmania.libc.hermit.cinterop.libc_hermit_poll
-import io.github.kotlinmania.libc.hermit.cinterop.libc_hermit_read
-import io.github.kotlinmania.libc.hermit.cinterop.libc_hermit_readv
-import io.github.kotlinmania.libc.hermit.cinterop.libc_hermit_realloc
-import io.github.kotlinmania.libc.hermit.cinterop.libc_hermit_recv
-import io.github.kotlinmania.libc.hermit.cinterop.libc_hermit_recvfrom
-import io.github.kotlinmania.libc.hermit.cinterop.libc_hermit_rmdir
-import io.github.kotlinmania.libc.hermit.cinterop.libc_hermit_send
-import io.github.kotlinmania.libc.hermit.cinterop.libc_hermit_sendto
-import io.github.kotlinmania.libc.hermit.cinterop.libc_hermit_setsockopt
-import io.github.kotlinmania.libc.hermit.cinterop.libc_hermit_shutdown
-import io.github.kotlinmania.libc.hermit.cinterop.libc_hermit_socket
-import io.github.kotlinmania.libc.hermit.cinterop.libc_hermit_stat
-import io.github.kotlinmania.libc.hermit.cinterop.libc_hermit_unlink
-import io.github.kotlinmania.libc.hermit.cinterop.libc_hermit_write
-import io.github.kotlinmania.libc.hermit.cinterop.libc_hermit_writev
+import io.github.kotlinmania.libc.CChar
+import io.github.kotlinmania.libc.hermit.cinterop.libcHermitAbort
+import io.github.kotlinmania.libc.hermit.cinterop.libcHermitAccept
+import io.github.kotlinmania.libc.hermit.cinterop.libcHermitAlloc
+import io.github.kotlinmania.libc.hermit.cinterop.libcHermitAllocZeroed
+import io.github.kotlinmania.libc.hermit.cinterop.libcHermitAvailableParallelism
+import io.github.kotlinmania.libc.hermit.cinterop.libcHermitBind
+import io.github.kotlinmania.libc.hermit.cinterop.libcHermitClockGettime
+import io.github.kotlinmania.libc.hermit.cinterop.libcHermitClose
+import io.github.kotlinmania.libc.hermit.cinterop.libcHermitConnect
+import io.github.kotlinmania.libc.hermit.cinterop.libcHermitDealloc
+import io.github.kotlinmania.libc.hermit.cinterop.libcHermitDup
+import io.github.kotlinmania.libc.hermit.cinterop.libcHermitErrno
+import io.github.kotlinmania.libc.hermit.cinterop.libcHermitEventfd
+import io.github.kotlinmania.libc.hermit.cinterop.libcHermitExit
+import io.github.kotlinmania.libc.hermit.cinterop.libcHermitFcntl
+import io.github.kotlinmania.libc.hermit.cinterop.libcHermitFreeaddrinfo
+import io.github.kotlinmania.libc.hermit.cinterop.libcHermitFstat
+import io.github.kotlinmania.libc.hermit.cinterop.libcHermitFutexWait
+import io.github.kotlinmania.libc.hermit.cinterop.libcHermitFutexWake
+import io.github.kotlinmania.libc.hermit.cinterop.libcHermitGetaddrinfo
+import io.github.kotlinmania.libc.hermit.cinterop.libcHermitGetdents64
+import io.github.kotlinmania.libc.hermit.cinterop.libcHermitGetpeername
+import io.github.kotlinmania.libc.hermit.cinterop.libcHermitGetsockname
+import io.github.kotlinmania.libc.hermit.cinterop.libcHermitGetsockopt
+import io.github.kotlinmania.libc.hermit.cinterop.libcHermitIoctl
+import io.github.kotlinmania.libc.hermit.cinterop.libcHermitListen
+import io.github.kotlinmania.libc.hermit.cinterop.libcHermitLstat
+import io.github.kotlinmania.libc.hermit.cinterop.libcHermitMkdir
+import io.github.kotlinmania.libc.hermit.cinterop.libcHermitNanosleep
+import io.github.kotlinmania.libc.hermit.cinterop.libcHermitOpen
+import io.github.kotlinmania.libc.hermit.cinterop.libcHermitPoll
+import io.github.kotlinmania.libc.hermit.cinterop.libcHermitRead
+import io.github.kotlinmania.libc.hermit.cinterop.libcHermitReadv
+import io.github.kotlinmania.libc.hermit.cinterop.libcHermitRealloc
+import io.github.kotlinmania.libc.hermit.cinterop.libcHermitRecv
+import io.github.kotlinmania.libc.hermit.cinterop.libcHermitRecvfrom
+import io.github.kotlinmania.libc.hermit.cinterop.libcHermitRmdir
+import io.github.kotlinmania.libc.hermit.cinterop.libcHermitSend
+import io.github.kotlinmania.libc.hermit.cinterop.libcHermitSendto
+import io.github.kotlinmania.libc.hermit.cinterop.libcHermitSetsockopt
+import io.github.kotlinmania.libc.hermit.cinterop.libcHermitShutdown
+import io.github.kotlinmania.libc.hermit.cinterop.libcHermitSocket
+import io.github.kotlinmania.libc.hermit.cinterop.libcHermitStat
+import io.github.kotlinmania.libc.hermit.cinterop.libcHermitUnlink
+import io.github.kotlinmania.libc.hermit.cinterop.libcHermitWrite
+import io.github.kotlinmania.libc.hermit.cinterop.libcHermitWritev
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
 
-public actual fun alloc(size: ULong, align: ULong): COpaquePointer? =
-    libc_hermit_alloc(size, align)?.let { COpaquePointer(it.toLong()) }
+public actual fun alloc(size: ULong, align: ULong): MutPtr<UByte> =
+    MutPtr(libcHermitAlloc(size, align)?.toLong() ?: 0L)
 
-public actual fun allocZeroed(size: ULong, align: ULong): COpaquePointer? =
-    libc_hermit_allocZeroed(size, align)?.let { COpaquePointer(it.toLong()) }
+public actual fun allocZeroed(size: ULong, align: ULong): MutPtr<UByte> =
+    MutPtr(libcHermitAllocZeroed(size, align)?.toLong() ?: 0L)
 
-public actual fun realloc(ptr: COpaquePointer?, size: ULong, align: ULong, newSize: ULong): COpaquePointer? =
-    libc_hermit_realloc(ptr?.value?.toCPointer<ByteVar>(), size, align, newSize)?.let { COpaquePointer(it.toLong()) }
+public actual fun realloc(ptr: MutPtr<UByte>, size: ULong, align: ULong, newSize: ULong): MutPtr<UByte> =
+    MutPtr(libcHermitRealloc(ptr.rawAddress.toCPointer<ByteVar>(), size, align, newSize)?.toLong() ?: 0L)
 
-public actual fun dealloc(ptr: COpaquePointer?, size: ULong, align: ULong) {
-    libc_hermit_dealloc(ptr?.value?.toCPointer<ByteVar>(), size, align)
+public actual fun dealloc(ptr: MutPtr<UByte>, size: ULong, align: ULong) {
+    libcHermitDealloc(ptr.rawAddress.toCPointer<ByteVar>(), size, align)
 }
 
 public actual fun exit(status: Int): Nothing {
-    libc_hermit_exit(status)
+    libcHermitExit(status)
     error("Unreachable noreturn C function exit")
 }
 
 public actual fun abort(): Nothing {
-    libc_hermit_abort()
+    libcHermitAbort()
     error("Unreachable noreturn C function abort")
 }
 
 public actual fun errno(): Int =
-    libc_hermit_errno()
+    libcHermitErrno()
 
-public actual fun clockGettime(clockid: ClockidT, tp: COpaquePointer?): Int =
-    libc_hermit_clockGettime(clockid, tp?.value?.toCPointer<ByteVar>())
+public actual fun clockGettime(clockid: ClockidT, tp: MutPtr<Timespec>): Int =
+    libcHermitClockGettime(clockid, tp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun nanosleep(req: COpaquePointer?): Int =
-    libc_hermit_nanosleep(req?.value?.toCPointer<ByteVar>())
+public actual fun nanosleep(req: ConstPtr<Timespec>): Int =
+    libcHermitNanosleep(req.rawAddress.toCPointer<ByteVar>())
 
 public actual fun availableParallelism(): ULong =
-    libc_hermit_availableParallelism()
+    libcHermitAvailableParallelism()
 
-public actual fun futexWait(address: COpaquePointer?, expected: UInt, timeout: COpaquePointer?, flags: UInt): Int =
-    libc_hermit_futexWait(address?.value?.toCPointer<ByteVar>(), expected, timeout?.value?.toCPointer<ByteVar>(), flags)
+public actual fun futexWait(address: MutPtr<UInt>, expected: UInt, timeout: ConstPtr<Timespec>, flags: UInt): Int =
+    libcHermitFutexWait(address.rawAddress.toCPointer<ByteVar>(), expected, timeout.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun futexWake(address: COpaquePointer?, count: Int): Int =
-    libc_hermit_futexWake(address?.value?.toCPointer<ByteVar>(), count)
+public actual fun futexWake(address: MutPtr<UInt>, count: Int): Int =
+    libcHermitFutexWake(address.rawAddress.toCPointer<ByteVar>(), count)
 
-public actual fun stat(path: String?, stat: COpaquePointer?): Int =
-    libc_hermit_stat(path, stat?.value?.toCPointer<ByteVar>())
+public actual fun stat(path: ConstPtr<CChar>, stat: MutPtr<Stat>): Int =
+    libcHermitStat(path.rawAddress.toCPointer<ByteVar>(), stat.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fstat(fd: Int, stat: COpaquePointer?): Int =
-    libc_hermit_fstat(fd, stat?.value?.toCPointer<ByteVar>())
+public actual fun fstat(fd: Int, stat: MutPtr<Stat>): Int =
+    libcHermitFstat(fd, stat.rawAddress.toCPointer<ByteVar>())
 
-public actual fun lstat(path: String?, stat: COpaquePointer?): Int =
-    libc_hermit_lstat(path, stat?.value?.toCPointer<ByteVar>())
+public actual fun lstat(path: ConstPtr<CChar>, stat: MutPtr<Stat>): Int =
+    libcHermitLstat(path.rawAddress.toCPointer<ByteVar>(), stat.rawAddress.toCPointer<ByteVar>())
 
-public actual fun open(path: String?, flags: Int, mode: ModeT): Int =
-    libc_hermit_open(path, flags, mode)
+public actual fun open(path: ConstPtr<CChar>, flags: Int, mode: ModeT): Int =
+    libcHermitOpen(path.rawAddress.toCPointer<ByteVar>(), flags, mode)
 
-public actual fun unlink(path: String?): Int =
-    libc_hermit_unlink(path)
+public actual fun unlink(path: ConstPtr<CChar>): Int =
+    libcHermitUnlink(path.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mkdir(path: String?, mode: ModeT): Int =
-    libc_hermit_mkdir(path, mode)
+public actual fun mkdir(path: ConstPtr<CChar>, mode: ModeT): Int =
+    libcHermitMkdir(path.rawAddress.toCPointer<ByteVar>(), mode)
 
-public actual fun rmdir(path: String?): Int =
-    libc_hermit_rmdir(path)
+public actual fun rmdir(path: ConstPtr<CChar>): Int =
+    libcHermitRmdir(path.rawAddress.toCPointer<ByteVar>())
 
-public actual fun read(fd: Int, buf: COpaquePointer?, len: ULong): Long =
-    libc_hermit_read(fd, buf?.value?.toCPointer<ByteVar>(), len)
+public actual fun read(fd: Int, buf: MutPtr<UByte>, len: ULong): Long =
+    libcHermitRead(fd, buf.rawAddress.toCPointer<ByteVar>(), len)
 
-public actual fun write(fd: Int, buf: COpaquePointer?, len: ULong): Long =
-    libc_hermit_write(fd, buf?.value?.toCPointer<ByteVar>(), len)
+public actual fun write(fd: Int, buf: ConstPtr<UByte>, len: ULong): Long =
+    libcHermitWrite(fd, buf.rawAddress.toCPointer<ByteVar>(), len)
 
-public actual fun readv(fd: Int, iov: COpaquePointer?, iovcnt: ULong): Long =
-    libc_hermit_readv(fd, iov?.value?.toCPointer<ByteVar>(), iovcnt)
+public actual fun readv(fd: Int, iov: ConstPtr<Iovec>, iovcnt: ULong): Long =
+    libcHermitReadv(fd, iov.rawAddress.toCPointer<ByteVar>(), iovcnt)
 
-public actual fun writev(fd: Int, iov: COpaquePointer?, iovcnt: ULong): Long =
-    libc_hermit_writev(fd, iov?.value?.toCPointer<ByteVar>(), iovcnt)
+public actual fun writev(fd: Int, iov: ConstPtr<Iovec>, iovcnt: ULong): Long =
+    libcHermitWritev(fd, iov.rawAddress.toCPointer<ByteVar>(), iovcnt)
 
 public actual fun close(fd: Int): Int =
-    libc_hermit_close(fd)
+    libcHermitClose(fd)
 
 public actual fun dup(fd: Int): Int =
-    libc_hermit_dup(fd)
+    libcHermitDup(fd)
 
 public actual fun fcntl(fd: Int, cmd: Int, arg: Int): Int =
-    libc_hermit_fcntl(fd, cmd, arg)
+    libcHermitFcntl(fd, cmd, arg)
 
-public actual fun getdents64(fd: Int, dirp: COpaquePointer?, count: ULong): Long =
-    libc_hermit_getdents64(fd, dirp?.value?.toCPointer<ByteVar>(), count)
+public actual fun getdents64(fd: Int, dirp: MutPtr<Dirent64>, count: ULong): Long =
+    libcHermitGetdents64(fd, dirp.rawAddress.toCPointer<ByteVar>(), count)
 
-public actual fun getaddrinfo(nodename: String?, servname: String?, hints: COpaquePointer?, res: COpaquePointer?): Int =
-    libc_hermit_getaddrinfo(nodename, servname, hints?.value?.toCPointer<ByteVar>(), res?.value?.toCPointer<ByteVar>())
+public actual fun getaddrinfo(nodename: ConstPtr<CChar>, servname: ConstPtr<CChar>, hints: ConstPtr<Addrinfo>, res: MutPtr<MutPtr<Addrinfo>>): Int =
+    libcHermitGetaddrinfo(nodename.rawAddress.toCPointer<ByteVar>(), servname.rawAddress.toCPointer<ByteVar>(), hints.rawAddress.toCPointer<ByteVar>(), res.rawAddress.toCPointer<ByteVar>())
 
-public actual fun freeaddrinfo(ai: COpaquePointer?) {
-    libc_hermit_freeaddrinfo(ai?.value?.toCPointer<ByteVar>())
+public actual fun freeaddrinfo(ai: MutPtr<Addrinfo>) {
+    libcHermitFreeaddrinfo(ai.rawAddress.toCPointer<ByteVar>())
 }
 
 public actual fun socket(domain: Int, ty: Int, protocol: Int): Int =
-    libc_hermit_socket(domain, ty, protocol)
+    libcHermitSocket(domain, ty, protocol)
 
-public actual fun bind(sockfd: Int, addr: COpaquePointer?, addrlen: SocklenT): Int =
-    libc_hermit_bind(sockfd, addr?.value?.toCPointer<ByteVar>(), addrlen)
+public actual fun bind(sockfd: Int, addr: ConstPtr<Sockaddr>, addrlen: SocklenT): Int =
+    libcHermitBind(sockfd, addr.rawAddress.toCPointer<ByteVar>(), addrlen)
 
 public actual fun listen(sockfd: Int, backlog: Int): Int =
-    libc_hermit_listen(sockfd, backlog)
+    libcHermitListen(sockfd, backlog)
 
-public actual fun accept(sockfd: Int, addr: COpaquePointer?, addrlen: COpaquePointer?): Int =
-    libc_hermit_accept(sockfd, addr?.value?.toCPointer<ByteVar>(), addrlen?.value?.toCPointer<ByteVar>())
+public actual fun accept(sockfd: Int, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): Int =
+    libcHermitAccept(sockfd, addr.rawAddress.toCPointer<ByteVar>(), addrlen.rawAddress.toCPointer<ByteVar>())
 
-public actual fun connect(sockfd: Int, addr: COpaquePointer?, addrlen: SocklenT): Int =
-    libc_hermit_connect(sockfd, addr?.value?.toCPointer<ByteVar>(), addrlen)
+public actual fun connect(sockfd: Int, addr: ConstPtr<Sockaddr>, addrlen: SocklenT): Int =
+    libcHermitConnect(sockfd, addr.rawAddress.toCPointer<ByteVar>(), addrlen)
 
-public actual fun recv(sockfd: Int, buf: COpaquePointer?, len: ULong, flags: Int): Long =
-    libc_hermit_recv(sockfd, buf?.value?.toCPointer<ByteVar>(), len, flags)
+public actual fun recv(sockfd: Int, buf: MutPtr<UByte>, len: ULong, flags: Int): Long =
+    libcHermitRecv(sockfd, buf.rawAddress.toCPointer<ByteVar>(), len, flags)
 
-public actual fun recvfrom(sockfd: Int, buf: COpaquePointer?, len: ULong, flags: Int, addr: COpaquePointer?, addrlen: COpaquePointer?): Long =
-    libc_hermit_recvfrom(sockfd, buf?.value?.toCPointer<ByteVar>(), len, flags, addr?.value?.toCPointer<ByteVar>(), addrlen?.value?.toCPointer<ByteVar>())
+public actual fun recvfrom(sockfd: Int, buf: MutPtr<CVoid>, len: ULong, flags: Int, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): Long =
+    libcHermitRecvfrom(sockfd, buf.rawAddress.toCPointer<ByteVar>(), len, flags, addr.rawAddress.toCPointer<ByteVar>(), addrlen.rawAddress.toCPointer<ByteVar>())
 
-public actual fun send(sockfd: Int, buf: COpaquePointer?, len: ULong, flags: Int): Long =
-    libc_hermit_send(sockfd, buf?.value?.toCPointer<ByteVar>(), len, flags)
+public actual fun send(sockfd: Int, buf: ConstPtr<CVoid>, len: ULong, flags: Int): Long =
+    libcHermitSend(sockfd, buf.rawAddress.toCPointer<ByteVar>(), len, flags)
 
-public actual fun sendto(sockfd: Int, buf: COpaquePointer?, len: ULong, flags: Int, to: COpaquePointer?, tolen: SocklenT): Long =
-    libc_hermit_sendto(sockfd, buf?.value?.toCPointer<ByteVar>(), len, flags, to?.value?.toCPointer<ByteVar>(), tolen)
+public actual fun sendto(sockfd: Int, buf: ConstPtr<CVoid>, len: ULong, flags: Int, to: ConstPtr<Sockaddr>, tolen: SocklenT): Long =
+    libcHermitSendto(sockfd, buf.rawAddress.toCPointer<ByteVar>(), len, flags, to.rawAddress.toCPointer<ByteVar>(), tolen)
 
-public actual fun getpeername(sockfd: Int, addr: COpaquePointer?, addrlen: COpaquePointer?): Int =
-    libc_hermit_getpeername(sockfd, addr?.value?.toCPointer<ByteVar>(), addrlen?.value?.toCPointer<ByteVar>())
+public actual fun getpeername(sockfd: Int, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): Int =
+    libcHermitGetpeername(sockfd, addr.rawAddress.toCPointer<ByteVar>(), addrlen.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getsockname(sockfd: Int, addr: COpaquePointer?, addrlen: COpaquePointer?): Int =
-    libc_hermit_getsockname(sockfd, addr?.value?.toCPointer<ByteVar>(), addrlen?.value?.toCPointer<ByteVar>())
+public actual fun getsockname(sockfd: Int, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): Int =
+    libcHermitGetsockname(sockfd, addr.rawAddress.toCPointer<ByteVar>(), addrlen.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getsockopt(sockfd: Int, level: Int, optname: Int, optval: COpaquePointer?, optlen: COpaquePointer?): Int =
-    libc_hermit_getsockopt(sockfd, level, optname, optval?.value?.toCPointer<ByteVar>(), optlen?.value?.toCPointer<ByteVar>())
+public actual fun getsockopt(sockfd: Int, level: Int, optname: Int, optval: MutPtr<CVoid>, optlen: MutPtr<SocklenT>): Int =
+    libcHermitGetsockopt(sockfd, level, optname, optval.rawAddress.toCPointer<ByteVar>(), optlen.rawAddress.toCPointer<ByteVar>())
 
-public actual fun setsockopt(sockfd: Int, level: Int, optname: Int, optval: COpaquePointer?, optlen: SocklenT): Int =
-    libc_hermit_setsockopt(sockfd, level, optname, optval?.value?.toCPointer<ByteVar>(), optlen)
+public actual fun setsockopt(sockfd: Int, level: Int, optname: Int, optval: ConstPtr<CVoid>, optlen: SocklenT): Int =
+    libcHermitSetsockopt(sockfd, level, optname, optval.rawAddress.toCPointer<ByteVar>(), optlen)
 
-public actual fun ioctl(sockfd: Int, cmd: Int, argp: COpaquePointer?): Int =
-    libc_hermit_ioctl(sockfd, cmd, argp?.value?.toCPointer<ByteVar>())
+public actual fun ioctl(sockfd: Int, cmd: Int, argp: MutPtr<CVoid>): Int =
+    libcHermitIoctl(sockfd, cmd, argp.rawAddress.toCPointer<ByteVar>())
 
 public actual fun shutdown(sockfd: Int, how: Int): Int =
-    libc_hermit_shutdown(sockfd, how)
+    libcHermitShutdown(sockfd, how)
 
 public actual fun eventfd(initval: ULong, flags: Short): Int =
-    libc_hermit_eventfd(initval, flags)
+    libcHermitEventfd(initval, flags)
 
-public actual fun poll(fds: COpaquePointer?, nfds: NfdsT, timeout: Int): Int =
-    libc_hermit_poll(fds?.value?.toCPointer<ByteVar>(), nfds, timeout)
+public actual fun poll(fds: MutPtr<Pollfd>, nfds: NfdsT, timeout: Int): Int =
+    libcHermitPoll(fds.rawAddress.toCPointer<ByteVar>(), nfds, timeout)

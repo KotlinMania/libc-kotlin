@@ -3,3 +3,4 @@ headers = hermit_wrapper.h
 headerFilter = hermit_wrapper.h
 compilerOpts = -Isrc/native/interop/cinterop
 staticLibraries = hermit_wrapper.a
+noStringConversion = libcHermitStat libcHermitLstat libcHermitOpen libcHermitUnlink libcHermitMkdir libcHermitRmdir libcHermitGetaddrinfo

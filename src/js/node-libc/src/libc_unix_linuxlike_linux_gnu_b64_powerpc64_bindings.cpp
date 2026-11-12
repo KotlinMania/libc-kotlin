@@ -51,7 +51,7 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_unix_linuxlike_linux_gnu_b64_powerpc64_sysctl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxGnuB64Powerpc64Sysctl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* name = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     int32_t namelen = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -89,7 +89,7 @@ static Napi::Value libc_unix_linuxlike_linux_gnu_b64_powerpc64_sysctl_napi(const
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_gnu_b64_powerpc64_getcontext_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxGnuB64Powerpc64Getcontext_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ucp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -122,7 +122,7 @@ static Napi::Value libc_unix_linuxlike_linux_gnu_b64_powerpc64_getcontext_napi(c
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_gnu_b64_powerpc64_setcontext_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxGnuB64Powerpc64Setcontext_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ucp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -155,7 +155,7 @@ static Napi::Value libc_unix_linuxlike_linux_gnu_b64_powerpc64_setcontext_napi(c
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_gnu_b64_powerpc64_swapcontext_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxGnuB64Powerpc64Swapcontext_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* oucp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* ucp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -189,7 +189,7 @@ static Napi::Value libc_unix_linuxlike_linux_gnu_b64_powerpc64_swapcontext_napi(
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_linuxlike_linux_gnu_b64_powerpc64_makecontext_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixLinuxlikeLinuxGnuB64Powerpc64Makecontext_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* ucp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* func = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -234,11 +234,11 @@ static Napi::Value libc_unix_linuxlike_linux_gnu_b64_powerpc64_makecontext_napi(
 }
 
 static void register_unix_linuxlike_linux_gnu_b64_powerpc64_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_unix_linuxlike_linux_gnu_b64_powerpc64_sysctl", Napi::Function::New(env, libc_unix_linuxlike_linux_gnu_b64_powerpc64_sysctl_napi));
-    exports.Set("libc_unix_linuxlike_linux_gnu_b64_powerpc64_getcontext", Napi::Function::New(env, libc_unix_linuxlike_linux_gnu_b64_powerpc64_getcontext_napi));
-    exports.Set("libc_unix_linuxlike_linux_gnu_b64_powerpc64_setcontext", Napi::Function::New(env, libc_unix_linuxlike_linux_gnu_b64_powerpc64_setcontext_napi));
-    exports.Set("libc_unix_linuxlike_linux_gnu_b64_powerpc64_swapcontext", Napi::Function::New(env, libc_unix_linuxlike_linux_gnu_b64_powerpc64_swapcontext_napi));
-    exports.Set("libc_unix_linuxlike_linux_gnu_b64_powerpc64_makecontext", Napi::Function::New(env, libc_unix_linuxlike_linux_gnu_b64_powerpc64_makecontext_napi));
+    exports.Set("libcUnixLinuxlikeLinuxGnuB64Powerpc64Sysctl", Napi::Function::New(env, libcUnixLinuxlikeLinuxGnuB64Powerpc64Sysctl_napi));
+    exports.Set("libcUnixLinuxlikeLinuxGnuB64Powerpc64Getcontext", Napi::Function::New(env, libcUnixLinuxlikeLinuxGnuB64Powerpc64Getcontext_napi));
+    exports.Set("libcUnixLinuxlikeLinuxGnuB64Powerpc64Setcontext", Napi::Function::New(env, libcUnixLinuxlikeLinuxGnuB64Powerpc64Setcontext_napi));
+    exports.Set("libcUnixLinuxlikeLinuxGnuB64Powerpc64Swapcontext", Napi::Function::New(env, libcUnixLinuxlikeLinuxGnuB64Powerpc64Swapcontext_napi));
+    exports.Set("libcUnixLinuxlikeLinuxGnuB64Powerpc64Makecontext", Napi::Function::New(env, libcUnixLinuxlikeLinuxGnuB64Powerpc64Makecontext_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_unix_linuxlike_linux_gnu_b64_powerpc64_napi, nullptr };

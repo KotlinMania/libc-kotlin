@@ -5,10 +5,13 @@ package io.github.kotlinmania.libc.vxworks
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.mem.ObjectSlotLayout
+import io.github.kotlinmania.rustlang.core.mem.PrimitiveLayouts
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public val EXIT_SUCCESS: CInt = 0
 
@@ -1217,7 +1220,7 @@ public val MS_ASYNC: CInt = 0x0002
 
 public val MS_INVALIDATE: CInt = 0x0004
 
-public val MAP_FAILED: COpaquePointer? = COpaquePointer((0.inv()).toLong())
+public val MAP_FAILED: MutPtr<CVoid> = MutPtr<CVoid>((0.inv()).toLong())
 
 // sys/ttycom.h
 public val TIOCGWINSZ: CInt = 0x1740087468L.toInt()
@@ -1226,16 +1229,16 @@ public val TIOCSWINSZ: CInt = -0x7ff78b99
 
 // Note(vxworks): This is not defined in vxWorks, but we have to define it here
 // to make the building pass for getrandom and std
-public val RTLD_DEFAULT: COpaquePointer? = null
+public val RTLD_DEFAULT: MutPtr<CVoid> = MutPtr(0L)
 
-public val SS_ALIGNSIZE: Int = 8
+public val SS_ALIGNSIZE: Int = sizeOf<UInt>(typeLayoutT = PrimitiveLayouts.U32)
 
-public val SS_PAD1SIZE: Int = SS_ALIGNSIZE - 8 - 8
+public val SS_PAD1SIZE: Int = SS_ALIGNSIZE - sizeOf<CUchar>(typeLayoutT = ObjectSlotLayout<CUchar>()) - sizeOf<SaFamilyT>(typeLayoutT = ObjectSlotLayout<CUchar>())
 
-public val SS_PAD2SIZE: Int = SS_MAXSIZE - 8 - 8 - SS_PAD1SIZE - SS_ALIGNSIZE
+public val SS_PAD2SIZE: Int = SS_MAXSIZE - sizeOf<CUchar>(typeLayoutT = ObjectSlotLayout<CUchar>()) - sizeOf<SaFamilyT>(typeLayoutT = ObjectSlotLayout<CUchar>()) - SS_PAD1SIZE - SS_ALIGNSIZE
 
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(mutexSemId = null, mutexValid = PTHREAD_VALID_OBJ, mutexInitted = PTHREAD_UNUSED_YET_OBJ, mutexCondRefCount = 0, mutexSavPriority = -1, mutexAttr = PTHREAD_MUTEXATTR_INITIALIZER, mutexSemName = UByteArray(PTHREAD_SHARED_SEM_NAME_MAX) { 0u.toUByte() })
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = PthreadMutexT(mutexSemId = MutPtr(0L), mutexValid = PTHREAD_VALID_OBJ, mutexInitted = PTHREAD_UNUSED_YET_OBJ, mutexCondRefCount = 0, mutexSavPriority = -1, mutexAttr = PTHREAD_MUTEXATTR_INITIALIZER, mutexSemName = UByteArray(PTHREAD_SHARED_SEM_NAME_MAX) { 0u.toUByte() })
 
-public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(condSemId = null, condValid = PTHREAD_VALID_OBJ, condInitted = PTHREAD_UNUSED_YET_OBJ, condRefCount = 0, condMutex = null, condAttr = PTHREAD_CONDATTR_INITIALIZER, condSemName = UByteArray(PTHREAD_SHARED_SEM_NAME_MAX) { 0u.toUByte() })
+public val PTHREAD_COND_INITIALIZER: PthreadCondT = PthreadCondT(condSemId = MutPtr(0L), condValid = PTHREAD_VALID_OBJ, condInitted = PTHREAD_UNUSED_YET_OBJ, condRefCount = 0, condMutex = MutPtr(0L), condAttr = PTHREAD_CONDATTR_INITIALIZER, condSemName = UByteArray(PTHREAD_SHARED_SEM_NAME_MAX) { 0u.toUByte() })
 
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(rwlockSemId = null, rwlockReadersRefCount = 0u, rwlockValid = PTHREAD_VALID_OBJ, rwlockInitted = PTHREAD_UNUSED_YET_OBJ, rwlockAttr = PTHREAD_RWLOCKATTR_INITIALIZER, rwlockSemName = UByteArray(PTHREAD_SHARED_SEM_NAME_MAX) { 0u.toUByte() })
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = PthreadRwlockT(rwlockSemId = MutPtr(0L), rwlockReadersRefCount = 0u, rwlockValid = PTHREAD_VALID_OBJ, rwlockInitted = PTHREAD_UNUSED_YET_OBJ, rwlockAttr = PTHREAD_RWLOCKATTR_INITIALIZER, rwlockSemName = UByteArray(PTHREAD_SHARED_SEM_NAME_MAX) { 0u.toUByte() })

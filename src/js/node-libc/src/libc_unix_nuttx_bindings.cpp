@@ -51,7 +51,7 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_unix_nuttx_errno_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNuttxErrno_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -81,7 +81,7 @@ static Napi::Value libc_unix_nuttx_errno_napi(const Napi::CallbackInfo& km_info)
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_unix_nuttx_bind_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNuttxBind_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t sockfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -116,7 +116,7 @@ static Napi::Value libc_unix_nuttx_bind_napi(const Napi::CallbackInfo& km_info) 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nuttx_ioctl_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNuttxIoctl_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     int32_t request = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
@@ -160,7 +160,7 @@ static Napi::Value libc_unix_nuttx_ioctl_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nuttx_dirfd_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNuttxDirfd_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* dirp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int32_t (*km_fn_t)(void*);
@@ -193,13 +193,13 @@ static Napi::Value libc_unix_nuttx_dirfd_napi(const Napi::CallbackInfo& km_info)
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nuttx_recvfrom_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNuttxRecvfrom_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t sockfd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     uint64_t len = km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0;
     int32_t flags = static_cast<int32_t>(km_info.Length() > 3 ? km_info[3].ToNumber().Int32Value() : 0);
-    void* src_addr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
+    void* srcAddr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 4 ? km_napi_arg_u64(km_info[4]) : 0));
     void* addrlen = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 5 ? km_napi_arg_u64(km_info[5]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*, uint64_t, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -223,7 +223,7 @@ static Napi::Value libc_unix_nuttx_recvfrom_napi(const Napi::CallbackInfo& km_in
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(sockfd, buf, len, flags, src_addr, addrlen);
+        km_res = km_fn_ptr(sockfd, buf, len, flags, srcAddr, addrlen);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -231,11 +231,11 @@ static Napi::Value libc_unix_nuttx_recvfrom_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nuttx_pthreadCreate_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNuttxPthreadCreate_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* thread = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
-    void* start_routine = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
+    void* startRoutine = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* arg = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef int32_t (*km_fn_t)(void*, void*, void*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -259,7 +259,7 @@ static Napi::Value libc_unix_nuttx_pthreadCreate_napi(const Napi::CallbackInfo& 
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(thread, attr, start_routine, arg);
+        km_res = km_fn_ptr(thread, attr, startRoutine, arg);
     } else {
         errno = ENOSYS;
         km_res = ENOSYS;
@@ -267,7 +267,7 @@ static Napi::Value libc_unix_nuttx_pthreadCreate_napi(const Napi::CallbackInfo& 
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nuttx_clockGettime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNuttxClockGettime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t clockid = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* tp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -301,7 +301,7 @@ static Napi::Value libc_unix_nuttx_clockGettime_napi(const Napi::CallbackInfo& k
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nuttx_futimens_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNuttxFutimens_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t fd = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* times = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -335,10 +335,10 @@ static Napi::Value libc_unix_nuttx_futimens_napi(const Napi::CallbackInfo& km_in
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nuttx_pthreadCondattrSetclock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNuttxPthreadCondattrSetclock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* attr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    int32_t clock_id = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
+    int32_t clockId = static_cast<int32_t>(km_info.Length() > 1 ? km_info[1].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -361,7 +361,7 @@ static Napi::Value libc_unix_nuttx_pthreadCondattrSetclock_napi(const Napi::Call
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(attr, clock_id);
+        km_res = km_fn_ptr(attr, clockId);
     } else {
         errno = ENOSYS;
         km_res = ENOSYS;
@@ -369,12 +369,10 @@ static Napi::Value libc_unix_nuttx_pthreadCondattrSetclock_napi(const Napi::Call
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nuttx_pthreadSetnameNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNuttxPthreadSetnameNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* thread = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
-    bool name_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string name_str = name_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* name = name_null ? nullptr : name_str.c_str();
+    const char* name = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(void*, const char*);
     static km_fn_t km_fn_ptr = nullptr;
 #ifdef _WIN32
@@ -405,7 +403,7 @@ static Napi::Value libc_unix_nuttx_pthreadSetnameNp_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nuttx_pthreadGetnameNp_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNuttxPthreadGetnameNp_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* thread = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* name = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -440,7 +438,7 @@ static Napi::Value libc_unix_nuttx_pthreadGetnameNp_napi(const Napi::CallbackInf
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nuttx_getrandom_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNuttxGetrandom_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* buf = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t buflen = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -475,7 +473,7 @@ static Napi::Value libc_unix_nuttx_getrandom_napi(const Napi::CallbackInfo& km_i
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_unix_nuttx_arc4random_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNuttxArc4random_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef uint32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -507,7 +505,7 @@ static Napi::Value libc_unix_nuttx_arc4random_napi(const Napi::CallbackInfo& km_
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_unix_nuttx_arc4randomBuf_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcUnixNuttxArc4randomBuf_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* bytes = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t nbytes = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
@@ -540,20 +538,20 @@ static Napi::Value libc_unix_nuttx_arc4randomBuf_napi(const Napi::CallbackInfo& 
 }
 
 static void register_unix_nuttx_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_unix_nuttx_errno", Napi::Function::New(env, libc_unix_nuttx_errno_napi));
-    exports.Set("libc_unix_nuttx_bind", Napi::Function::New(env, libc_unix_nuttx_bind_napi));
-    exports.Set("libc_unix_nuttx_ioctl", Napi::Function::New(env, libc_unix_nuttx_ioctl_napi));
-    exports.Set("libc_unix_nuttx_dirfd", Napi::Function::New(env, libc_unix_nuttx_dirfd_napi));
-    exports.Set("libc_unix_nuttx_recvfrom", Napi::Function::New(env, libc_unix_nuttx_recvfrom_napi));
-    exports.Set("libc_unix_nuttx_pthreadCreate", Napi::Function::New(env, libc_unix_nuttx_pthreadCreate_napi));
-    exports.Set("libc_unix_nuttx_clockGettime", Napi::Function::New(env, libc_unix_nuttx_clockGettime_napi));
-    exports.Set("libc_unix_nuttx_futimens", Napi::Function::New(env, libc_unix_nuttx_futimens_napi));
-    exports.Set("libc_unix_nuttx_pthreadCondattrSetclock", Napi::Function::New(env, libc_unix_nuttx_pthreadCondattrSetclock_napi));
-    exports.Set("libc_unix_nuttx_pthreadSetnameNp", Napi::Function::New(env, libc_unix_nuttx_pthreadSetnameNp_napi));
-    exports.Set("libc_unix_nuttx_pthreadGetnameNp", Napi::Function::New(env, libc_unix_nuttx_pthreadGetnameNp_napi));
-    exports.Set("libc_unix_nuttx_getrandom", Napi::Function::New(env, libc_unix_nuttx_getrandom_napi));
-    exports.Set("libc_unix_nuttx_arc4random", Napi::Function::New(env, libc_unix_nuttx_arc4random_napi));
-    exports.Set("libc_unix_nuttx_arc4randomBuf", Napi::Function::New(env, libc_unix_nuttx_arc4randomBuf_napi));
+    exports.Set("libcUnixNuttxErrno", Napi::Function::New(env, libcUnixNuttxErrno_napi));
+    exports.Set("libcUnixNuttxBind", Napi::Function::New(env, libcUnixNuttxBind_napi));
+    exports.Set("libcUnixNuttxIoctl", Napi::Function::New(env, libcUnixNuttxIoctl_napi));
+    exports.Set("libcUnixNuttxDirfd", Napi::Function::New(env, libcUnixNuttxDirfd_napi));
+    exports.Set("libcUnixNuttxRecvfrom", Napi::Function::New(env, libcUnixNuttxRecvfrom_napi));
+    exports.Set("libcUnixNuttxPthreadCreate", Napi::Function::New(env, libcUnixNuttxPthreadCreate_napi));
+    exports.Set("libcUnixNuttxClockGettime", Napi::Function::New(env, libcUnixNuttxClockGettime_napi));
+    exports.Set("libcUnixNuttxFutimens", Napi::Function::New(env, libcUnixNuttxFutimens_napi));
+    exports.Set("libcUnixNuttxPthreadCondattrSetclock", Napi::Function::New(env, libcUnixNuttxPthreadCondattrSetclock_napi));
+    exports.Set("libcUnixNuttxPthreadSetnameNp", Napi::Function::New(env, libcUnixNuttxPthreadSetnameNp_napi));
+    exports.Set("libcUnixNuttxPthreadGetnameNp", Napi::Function::New(env, libcUnixNuttxPthreadGetnameNp_napi));
+    exports.Set("libcUnixNuttxGetrandom", Napi::Function::New(env, libcUnixNuttxGetrandom_napi));
+    exports.Set("libcUnixNuttxArc4random", Napi::Function::New(env, libcUnixNuttxArc4random_napi));
+    exports.Set("libcUnixNuttxArc4randomBuf", Napi::Function::New(env, libcUnixNuttxArc4randomBuf_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_unix_nuttx_napi, nullptr };

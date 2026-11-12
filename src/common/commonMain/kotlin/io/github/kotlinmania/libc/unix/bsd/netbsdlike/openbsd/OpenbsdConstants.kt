@@ -3,7 +3,6 @@ package io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
@@ -27,6 +26,9 @@ import io.github.kotlinmania.libc.unix.bsd.netbsdlike.CRTSCTS
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.ClockidT
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.TcflagT
 import io.github.kotlinmania.libc.unix.bsd.netbsdlike.openbsd.aarch64.MAX_PAGE_SHIFT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.mem.ObjectSlotLayout
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public val UT_NAMESIZE: Int = 32
 
@@ -1291,11 +1293,11 @@ public val IFF_LINK2: CInt = 0x4000
 public val IFF_MULTICAST: CInt = 0x8000
 
 // supports multicast
-public val PTHREAD_STACK_MIN: SizeT = 1uL shl MAX_PAGE_SHIFT.toInt()
+public val PTHREAD_STACK_MIN: SizeT = 1 shl MAX_PAGE_SHIFT.toInt()
 
-public val MINSIGSTKSZ: SizeT = 3uL shl MAX_PAGE_SHIFT.toInt()
+public val MINSIGSTKSZ: SizeT = 3 shl MAX_PAGE_SHIFT.toInt()
 
-public val SIGSTKSZ: SizeT = MINSIGSTKSZ + (1uL shl MAX_PAGE_SHIFT.toInt()) * 4uL
+public val SIGSTKSZ: SizeT = MINSIGSTKSZ + ((1 shl MAX_PAGE_SHIFT.toInt()) * 4).toULong()
 
 public val PT_SET_EVENT_MASK: CInt = 12
 
@@ -1487,7 +1489,7 @@ public val LC_LAST: CInt = 7
 
 public val LC_ALL_MASK: CInt = (1 shl LC_LAST) - 2
 
-public val LC_GLOBAL_LOCALE: LocaleT = COpaquePointer((-1).toLong())
+public val LC_GLOBAL_LOCALE: LocaleT = MutPtr<CVoid>((-1).toLong())
 
 // sys/reboot.h
 public val RB_ASKNAME: CInt = 0x00001
@@ -1609,10 +1611,10 @@ public val RTAX_SEARCH: CInt = 14
 
 public val RTAX_MAX: CInt = 15
 
-public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = null
+public val PTHREAD_MUTEX_INITIALIZER: PthreadMutexT = MutPtr(0L)
 
-public val PTHREAD_COND_INITIALIZER: PthreadCondT = null
+public val PTHREAD_COND_INITIALIZER: PthreadCondT = MutPtr(0L)
 
-public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = null
+public val PTHREAD_RWLOCK_INITIALIZER: PthreadRwlockT = MutPtr(0L)
 
-public val SI_PAD: SizeT = (SI_MAXSZ / 8uL) - 3uL
+public val SI_PAD: SizeT = (SI_MAXSZ / sizeOf<CInt>(typeLayoutT = ObjectSlotLayout<CInt>())) - 3uL

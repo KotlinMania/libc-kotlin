@@ -18,7 +18,7 @@
 #endif
 #endif
 
-int32_t libc_new_qurt_sys_sched_schedYield(void) {
+int32_t libcNewQurtSysSchedSchedYield(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -46,7 +46,7 @@ int32_t libc_new_qurt_sys_sched_schedYield(void) {
     return -1;
 }
 
-int32_t libc_new_qurt_sys_sched_schedGetPriorityMax(int32_t policy) {
+int32_t libcNewQurtSysSchedSchedGetPriorityMax(int32_t policy) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -74,7 +74,7 @@ int32_t libc_new_qurt_sys_sched_schedGetPriorityMax(int32_t policy) {
     return -1;
 }
 
-int32_t libc_new_qurt_sys_sched_schedGetPriorityMin(int32_t policy) {
+int32_t libcNewQurtSysSchedSchedGetPriorityMin(int32_t policy) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

@@ -18,7 +18,7 @@
 #endif
 #endif
 
-int32_t libc_unix_bsd_freebsdlike_freebsd_freebsd11_setgrent(void) {
+int32_t libcUnixBsdFreebsdlikeFreebsdFreebsd11Setgrent(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -46,7 +46,7 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_freebsd11_setgrent(void) {
     return -1;
 }
 
-int32_t libc_unix_bsd_freebsdlike_freebsd_freebsd11_mprotect(void* addr, uint64_t len, int32_t prot) {
+int32_t libcUnixBsdFreebsdlikeFreebsdFreebsd11Mprotect(void* addr, uint64_t len, int32_t prot) {
 #if !defined(_WIN32)
     return (int32_t)mprotect(addr, len, prot);
 #else
@@ -58,7 +58,7 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_freebsd11_mprotect(void* addr, uint64_
 #endif
 }
 
-int32_t libc_unix_bsd_freebsdlike_freebsd_freebsd11_freelocale(void* loc) {
+int32_t libcUnixBsdFreebsdlikeFreebsdFreebsd11Freelocale(void* loc) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -86,7 +86,7 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_freebsd11_freelocale(void* loc) {
     return -1;
 }
 
-int32_t libc_unix_bsd_freebsdlike_freebsd_freebsd11_msgrcv(int32_t msqid, void* msgp, uint64_t msgsz, int64_t msgtyp, int32_t msgflg) {
+int32_t libcUnixBsdFreebsdlikeFreebsdFreebsd11Msgrcv(int32_t msqid, void* msgp, uint64_t msgsz, int64_t msgtyp, int32_t msgflg) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint64_t, int64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -114,7 +114,7 @@ int32_t libc_unix_bsd_freebsdlike_freebsd_freebsd11_msgrcv(int32_t msqid, void* 
     return -1;
 }
 
-char* libc_unix_bsd_freebsdlike_freebsd_freebsd11_dirname(const char* path) {
+char* libcUnixBsdFreebsdlikeFreebsdFreebsd11Dirname(const char* path) {
     typedef char* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -142,7 +142,7 @@ char* libc_unix_bsd_freebsdlike_freebsd_freebsd11_dirname(const char* path) {
     return NULL;
 }
 
-char* libc_unix_bsd_freebsdlike_freebsd_freebsd11_basename(const char* path) {
+char* libcUnixBsdFreebsdlikeFreebsdFreebsd11Basename(const char* path) {
     typedef char* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -170,7 +170,7 @@ char* libc_unix_bsd_freebsdlike_freebsd_freebsd11_basename(const char* path) {
     return NULL;
 }
 
-void libc_unix_bsd_freebsdlike_freebsd_freebsd11_qsortR(void* base, uint64_t num, uint64_t size, void* arg, void* compar) {
+void libcUnixBsdFreebsdlikeFreebsdFreebsd11QsortR(void* base, uint64_t num, uint64_t size, void* arg, void* compar) {
     typedef void (*km_fn_t)(void*, uint64_t, uint64_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

@@ -6,12 +6,14 @@ package io.github.kotlinmania.libc.unix.linuxlike.android.b32.arm
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUlong
+import io.github.kotlinmania.libc.unix.linuxlike.Sockaddr
 import io.github.kotlinmania.libc.unix.linuxlike.android.StackT
 import io.github.kotlinmania.libc.unix.linuxlike.android.b32.Sigset64T
 import io.github.kotlinmania.libc.unix.linuxlike.android.b32.SigsetT
+import io.github.kotlinmania.libc.unix.linuxlike.android.b32.SocklenT
 import io.github.kotlinmania.libc.unix.linuxlike.android.syscall
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public typealias WcharT = UInt
 
@@ -49,18 +51,53 @@ public data class CAnonymousUcSigmaskWithPadding(
     public var paddingRtSigset: UInt = 0u,
 )
 
-public data class UcontextT(
-    public var ucFlags: CUlong = 0uL,
-    public var ucLink: UcontextT? = null,
-    public var ucStack: StackT = StackT(),
-    public var ucMcontext: McontextT = Sigcontext(),
-    public var ucSigmaskCAnonymousUnion: CAnonymousUcSigmask = CAnonymousUcSigmask(),
+public class UcontextT internal constructor(
+    public var ucFlags: CUlong,
+    ucLinkCtorArg: MutPtr<UcontextT>,
+    public var ucStack: StackT,
+    ucMcontextCtorArg: McontextT,
+    public var ucSigmaskCAnonymousUnion: CAnonymousUcSigmask,
     // The kernel adds extra padding after ucSigmask to match
     // glibc sigsetT on ARM.
-    public var padding: UByteArray = UByteArray(120),
-    public var align: LongArray = LongArray(0),
-    public var ucRegspace: ULongArray = ULongArray(128),
+    public var padding: UByteArray,
+    public var align: LongArray,
+    public var ucRegspace: ULongArray,
 ) {
+    public var ucLink: MutPtr<UcontextT> = ucLinkCtorArg
+        internal set
+
+    public var ucMcontext: McontextT = ucMcontextCtorArg
+        internal set
+
+    public constructor() : this(
+        ucFlags = 0uL,
+        ucLinkCtorArg = MutPtr(0L),
+        ucStack = StackT(),
+        ucMcontextCtorArg = Sigcontext(),
+        ucSigmaskCAnonymousUnion = CAnonymousUcSigmask(),
+        padding = UByteArray(120),
+        align = LongArray(0),
+        ucRegspace = ULongArray(128),
+    )
+
+    public operator fun component1(): CUlong = this.ucFlags
+
+    public operator fun component2(): MutPtr<UcontextT> = this.ucLink
+
+    public operator fun component3(): StackT = this.ucStack
+
+    public operator fun component4(): McontextT = this.ucMcontext
+
+    public operator fun component5(): CAnonymousUcSigmask = this.ucSigmaskCAnonymousUnion
+
+    public operator fun component6(): UByteArray = this.padding
+
+    public operator fun component7(): LongArray = this.align
+
+    public operator fun component8(): ULongArray = this.ucRegspace
+
+    public fun copy(ucFlags: CUlong = this.ucFlags, ucLink: MutPtr<UcontextT> = this.ucLink, ucStack: StackT = this.ucStack, ucMcontext: McontextT = this.ucMcontext, ucSigmaskCAnonymousUnion: CAnonymousUcSigmask = this.ucSigmaskCAnonymousUnion, padding: UByteArray = this.padding, align: LongArray = this.align, ucRegspace: ULongArray = this.ucRegspace): UcontextT = UcontextT(ucFlags = ucFlags, ucLinkCtorArg = ucLink, ucStack = ucStack, ucMcontextCtorArg = ucMcontext, ucSigmaskCAnonymousUnion = ucSigmaskCAnonymousUnion, padding = padding, align = align, ucRegspace = ucRegspace)
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is UcontextT) return false
@@ -85,6 +122,29 @@ public data class UcontextT(
         result = 31 * result + this.align.contentHashCode()
         result = 31 * result + this.ucRegspace.contentHashCode()
         return result
+    }
+
+    public companion object {
+        public operator fun invoke(
+            ucFlags: CUlong = 0uL,
+            ucLink: MutPtr<UcontextT> = MutPtr(0L),
+            ucStack: StackT = StackT(),
+            ucMcontext: McontextT = Sigcontext(),
+            ucSigmaskCAnonymousUnion: CAnonymousUcSigmask = CAnonymousUcSigmask(),
+            padding: UByteArray = UByteArray(120),
+            align: LongArray = LongArray(0),
+            ucRegspace: ULongArray = ULongArray(128),
+        ): UcontextT =
+            UcontextT(
+                ucFlags = ucFlags,
+                ucLinkCtorArg = ucLink,
+                ucStack = ucStack,
+                ucMcontextCtorArg = ucMcontext,
+                ucSigmaskCAnonymousUnion = ucSigmaskCAnonymousUnion,
+                padding = padding,
+                align = align,
+                ucRegspace = ucRegspace,
+            )
     }
 }
 
@@ -899,4 +959,4 @@ public val NGREG: CInt = 18
 // From NDK's asm/auxvec.h
 public val AT_SYSINFO_EHDR: CUlong = 33uL
 
-public fun accept4(fd: CInt, addr: COpaquePointer?, len: COpaquePointer?, flg: CInt): CInt = syscall(SYS_ACCEPT4, fd.toLong(), ((addr).hashCode().toLong()), ((len).hashCode().toLong()), flg.toLong()).toInt()
+public fun accept4(fd: CInt, addr: MutPtr<Sockaddr>, len: MutPtr<SocklenT>, flg: CInt): CInt = syscall(SYS_ACCEPT4, fd.toLong(), addr.rawAddress, len.rawAddress, flg.toLong()).toInt()

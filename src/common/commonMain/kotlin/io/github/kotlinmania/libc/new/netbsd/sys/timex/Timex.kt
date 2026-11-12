@@ -4,9 +4,9 @@ package io.github.kotlinmania.libc.new.netbsd.sys.timex
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.new.qurt.Timespec
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 // Header: `sys / timex.h`
 //
@@ -124,6 +124,6 @@ public class Timex(
     public var stbcnt: CLong = 0L,
 )
 
-public expect fun ntpGettime(buf: COpaquePointer?): CInt
+public expect fun ntpGettime(buf: MutPtr<Ntptimeval>): CInt
 
-public expect fun ntpAdjtime(buf: COpaquePointer?): CInt
+public expect fun ntpAdjtime(buf: MutPtr<Timex>): CInt

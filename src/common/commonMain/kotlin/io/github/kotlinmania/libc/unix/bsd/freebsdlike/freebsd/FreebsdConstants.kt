@@ -4,7 +4,6 @@ import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CShort
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
@@ -16,6 +15,7 @@ import io.github.kotlinmania.libc.unix.bsd.freebsdlike.RlimT
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.SpeedT
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.TcflagT
 import io.github.kotlinmania.libc.unix.bsd.freebsdlike.freebsd.aarch64.MINSIGSTKSZ
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 // aio.h
 public val LIO_VECTORED: CInt = 4
@@ -2427,7 +2427,7 @@ public val SHM_STAT: CInt = 13
 
 public val SHM_INFO: CInt = 14
 
-public val SHM_ANON: COpaquePointer? = COpaquePointer(1.toLong())
+public val SHM_ANON: MutPtr<CChar> = MutPtr<CChar>(1.toLong())
 
 // The *_MAXID constants never should've been used outside of the
 // FreeBSD base system.  And with the exception of CTL_P1003_1B_MAXID,

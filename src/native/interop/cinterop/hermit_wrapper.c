@@ -15,7 +15,7 @@
 #endif
 #endif
 
-void* libc_hermit_alloc(uint64_t size, uint64_t align) {
+void* libcHermitAlloc(uint64_t size, uint64_t align) {
     typedef void* (*km_fn_t)(uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -43,7 +43,7 @@ void* libc_hermit_alloc(uint64_t size, uint64_t align) {
     return NULL;
 }
 
-void* libc_hermit_allocZeroed(uint64_t size, uint64_t align) {
+void* libcHermitAllocZeroed(uint64_t size, uint64_t align) {
     typedef void* (*km_fn_t)(uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -71,7 +71,7 @@ void* libc_hermit_allocZeroed(uint64_t size, uint64_t align) {
     return NULL;
 }
 
-void* libc_hermit_realloc(void* ptr, uint64_t size, uint64_t align, uint64_t new_size) {
+void* libcHermitRealloc(void* ptr, uint64_t size, uint64_t align, uint64_t newSize) {
     typedef void* (*km_fn_t)(void*, uint64_t, uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -93,13 +93,13 @@ void* libc_hermit_realloc(void* ptr, uint64_t size, uint64_t align, uint64_t new
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(ptr, size, align, new_size);
+        return km_fn_ptr(ptr, size, align, newSize);
     }
     errno = ENOSYS;
     return NULL;
 }
 
-void libc_hermit_dealloc(void* ptr, uint64_t size, uint64_t align) {
+void libcHermitDealloc(void* ptr, uint64_t size, uint64_t align) {
     typedef void (*km_fn_t)(void*, uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -127,7 +127,7 @@ void libc_hermit_dealloc(void* ptr, uint64_t size, uint64_t align) {
     errno = ENOSYS;
 }
 
-void libc_hermit_exit(int32_t status) {
+void libcHermitExit(int32_t status) {
     typedef void (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -155,7 +155,7 @@ void libc_hermit_exit(int32_t status) {
     errno = ENOSYS;
 }
 
-void libc_hermit_abort(void) {
+void libcHermitAbort(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -183,7 +183,7 @@ void libc_hermit_abort(void) {
     errno = ENOSYS;
 }
 
-int32_t libc_hermit_errno(void) {
+int32_t libcHermitErrno(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -211,7 +211,7 @@ int32_t libc_hermit_errno(void) {
     return -1;
 }
 
-int32_t libc_hermit_clockGettime(int32_t clockid, void* tp) {
+int32_t libcHermitClockGettime(int32_t clockid, void* tp) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -239,7 +239,7 @@ int32_t libc_hermit_clockGettime(int32_t clockid, void* tp) {
     return -1;
 }
 
-int32_t libc_hermit_nanosleep(void* req) {
+int32_t libcHermitNanosleep(void* req) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -267,7 +267,7 @@ int32_t libc_hermit_nanosleep(void* req) {
     return -1;
 }
 
-uint64_t libc_hermit_availableParallelism(void) {
+uint64_t libcHermitAvailableParallelism(void) {
     typedef uint64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -295,7 +295,7 @@ uint64_t libc_hermit_availableParallelism(void) {
     return 0;
 }
 
-int32_t libc_hermit_futexWait(void* address, uint32_t expected, void* timeout, uint32_t flags) {
+int32_t libcHermitFutexWait(void* address, uint32_t expected, void* timeout, uint32_t flags) {
     typedef int32_t (*km_fn_t)(void*, uint32_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -323,7 +323,7 @@ int32_t libc_hermit_futexWait(void* address, uint32_t expected, void* timeout, u
     return -1;
 }
 
-int32_t libc_hermit_futexWake(void* address, int32_t count) {
+int32_t libcHermitFutexWake(void* address, int32_t count) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -351,7 +351,7 @@ int32_t libc_hermit_futexWake(void* address, int32_t count) {
     return -1;
 }
 
-int32_t libc_hermit_stat(const char* path, void* arg_1_stat) {
+int32_t libcHermitStat(const char* path, void* arg1Stat) {
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -373,13 +373,13 @@ int32_t libc_hermit_stat(const char* path, void* arg_1_stat) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(path, arg_1_stat);
+        return km_fn_ptr(path, arg1Stat);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_hermit_fstat(int32_t fd, void* arg_1_stat) {
+int32_t libcHermitFstat(int32_t fd, void* arg1Stat) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -401,13 +401,13 @@ int32_t libc_hermit_fstat(int32_t fd, void* arg_1_stat) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(fd, arg_1_stat);
+        return km_fn_ptr(fd, arg1Stat);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_hermit_lstat(const char* path, void* arg_1_stat) {
+int32_t libcHermitLstat(const char* path, void* arg1Stat) {
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -429,13 +429,13 @@ int32_t libc_hermit_lstat(const char* path, void* arg_1_stat) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(path, arg_1_stat);
+        return km_fn_ptr(path, arg1Stat);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_hermit_open(const char* path, int32_t flags, uint32_t mode) {
+int32_t libcHermitOpen(const char* path, int32_t flags, uint32_t mode) {
     typedef int32_t (*km_fn_t)(const char*, int32_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -463,7 +463,7 @@ int32_t libc_hermit_open(const char* path, int32_t flags, uint32_t mode) {
     return -1;
 }
 
-int32_t libc_hermit_unlink(const char* path) {
+int32_t libcHermitUnlink(const char* path) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -491,7 +491,7 @@ int32_t libc_hermit_unlink(const char* path) {
     return -1;
 }
 
-int32_t libc_hermit_mkdir(const char* path, uint32_t mode) {
+int32_t libcHermitMkdir(const char* path, uint32_t mode) {
     typedef int32_t (*km_fn_t)(const char*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -519,7 +519,7 @@ int32_t libc_hermit_mkdir(const char* path, uint32_t mode) {
     return -1;
 }
 
-int32_t libc_hermit_rmdir(const char* path) {
+int32_t libcHermitRmdir(const char* path) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -547,7 +547,7 @@ int32_t libc_hermit_rmdir(const char* path) {
     return -1;
 }
 
-int64_t libc_hermit_read(int32_t fd, void* buf, uint64_t len) {
+int64_t libcHermitRead(int32_t fd, void* buf, uint64_t len) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -575,7 +575,7 @@ int64_t libc_hermit_read(int32_t fd, void* buf, uint64_t len) {
     return -1;
 }
 
-int64_t libc_hermit_write(int32_t fd, void* buf, uint64_t len) {
+int64_t libcHermitWrite(int32_t fd, void* buf, uint64_t len) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -603,7 +603,7 @@ int64_t libc_hermit_write(int32_t fd, void* buf, uint64_t len) {
     return -1;
 }
 
-int64_t libc_hermit_readv(int32_t fd, void* iov, uint64_t iovcnt) {
+int64_t libcHermitReadv(int32_t fd, void* iov, uint64_t iovcnt) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -631,7 +631,7 @@ int64_t libc_hermit_readv(int32_t fd, void* iov, uint64_t iovcnt) {
     return -1;
 }
 
-int64_t libc_hermit_writev(int32_t fd, void* iov, uint64_t iovcnt) {
+int64_t libcHermitWritev(int32_t fd, void* iov, uint64_t iovcnt) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -659,7 +659,7 @@ int64_t libc_hermit_writev(int32_t fd, void* iov, uint64_t iovcnt) {
     return -1;
 }
 
-int32_t libc_hermit_close(int32_t fd) {
+int32_t libcHermitClose(int32_t fd) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -687,7 +687,7 @@ int32_t libc_hermit_close(int32_t fd) {
     return -1;
 }
 
-int32_t libc_hermit_dup(int32_t fd) {
+int32_t libcHermitDup(int32_t fd) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -715,7 +715,7 @@ int32_t libc_hermit_dup(int32_t fd) {
     return -1;
 }
 
-int32_t libc_hermit_fcntl(int32_t fd, int32_t cmd, int32_t arg) {
+int32_t libcHermitFcntl(int32_t fd, int32_t cmd, int32_t arg) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -743,7 +743,7 @@ int32_t libc_hermit_fcntl(int32_t fd, int32_t cmd, int32_t arg) {
     return -1;
 }
 
-int64_t libc_hermit_getdents64(int32_t fd, void* dirp, uint64_t count) {
+int64_t libcHermitGetdents64(int32_t fd, void* dirp, uint64_t count) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -776,7 +776,7 @@ int64_t libc_hermit_getdents64(int32_t fd, void* dirp, uint64_t count) {
     return -1;
 }
 
-int32_t libc_hermit_getaddrinfo(const char* nodename, const char* servname, void* hints, void* res) {
+int32_t libcHermitGetaddrinfo(const char* nodename, const char* servname, void* hints, void* res) {
     typedef int32_t (*km_fn_t)(const char*, const char*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -804,7 +804,7 @@ int32_t libc_hermit_getaddrinfo(const char* nodename, const char* servname, void
     return -1;
 }
 
-void libc_hermit_freeaddrinfo(void* ai) {
+void libcHermitFreeaddrinfo(void* ai) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -832,7 +832,7 @@ void libc_hermit_freeaddrinfo(void* ai) {
     errno = ENOSYS;
 }
 
-int32_t libc_hermit_socket(int32_t domain, int32_t ty, int32_t protocol) {
+int32_t libcHermitSocket(int32_t domain, int32_t ty, int32_t protocol) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -860,7 +860,7 @@ int32_t libc_hermit_socket(int32_t domain, int32_t ty, int32_t protocol) {
     return -1;
 }
 
-int32_t libc_hermit_bind(int32_t sockfd, void* addr, uint32_t addrlen) {
+int32_t libcHermitBind(int32_t sockfd, void* addr, uint32_t addrlen) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -888,7 +888,7 @@ int32_t libc_hermit_bind(int32_t sockfd, void* addr, uint32_t addrlen) {
     return -1;
 }
 
-int32_t libc_hermit_listen(int32_t sockfd, int32_t backlog) {
+int32_t libcHermitListen(int32_t sockfd, int32_t backlog) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -916,7 +916,7 @@ int32_t libc_hermit_listen(int32_t sockfd, int32_t backlog) {
     return -1;
 }
 
-int32_t libc_hermit_accept(int32_t sockfd, void* addr, void* addrlen) {
+int32_t libcHermitAccept(int32_t sockfd, void* addr, void* addrlen) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -944,7 +944,7 @@ int32_t libc_hermit_accept(int32_t sockfd, void* addr, void* addrlen) {
     return -1;
 }
 
-int32_t libc_hermit_connect(int32_t sockfd, void* addr, uint32_t addrlen) {
+int32_t libcHermitConnect(int32_t sockfd, void* addr, uint32_t addrlen) {
     typedef int32_t (*km_fn_t)(int32_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -972,7 +972,7 @@ int32_t libc_hermit_connect(int32_t sockfd, void* addr, uint32_t addrlen) {
     return -1;
 }
 
-int64_t libc_hermit_recv(int32_t sockfd, void* buf, uint64_t len, int32_t flags) {
+int64_t libcHermitRecv(int32_t sockfd, void* buf, uint64_t len, int32_t flags) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1000,7 +1000,7 @@ int64_t libc_hermit_recv(int32_t sockfd, void* buf, uint64_t len, int32_t flags)
     return -1;
 }
 
-int64_t libc_hermit_recvfrom(int32_t sockfd, void* buf, uint64_t len, int32_t flags, void* addr, void* addrlen) {
+int64_t libcHermitRecvfrom(int32_t sockfd, void* buf, uint64_t len, int32_t flags, void* addr, void* addrlen) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1028,7 +1028,7 @@ int64_t libc_hermit_recvfrom(int32_t sockfd, void* buf, uint64_t len, int32_t fl
     return -1;
 }
 
-int64_t libc_hermit_send(int32_t sockfd, void* buf, uint64_t len, int32_t flags) {
+int64_t libcHermitSend(int32_t sockfd, void* buf, uint64_t len, int32_t flags) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1056,7 +1056,7 @@ int64_t libc_hermit_send(int32_t sockfd, void* buf, uint64_t len, int32_t flags)
     return -1;
 }
 
-int64_t libc_hermit_sendto(int32_t sockfd, void* buf, uint64_t len, int32_t flags, void* to, uint32_t tolen) {
+int64_t libcHermitSendto(int32_t sockfd, void* buf, uint64_t len, int32_t flags, void* to, uint32_t tolen) {
     typedef int64_t (*km_fn_t)(int32_t, void*, uint64_t, int32_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1084,7 +1084,7 @@ int64_t libc_hermit_sendto(int32_t sockfd, void* buf, uint64_t len, int32_t flag
     return -1;
 }
 
-int32_t libc_hermit_getpeername(int32_t sockfd, void* addr, void* addrlen) {
+int32_t libcHermitGetpeername(int32_t sockfd, void* addr, void* addrlen) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1112,7 +1112,7 @@ int32_t libc_hermit_getpeername(int32_t sockfd, void* addr, void* addrlen) {
     return -1;
 }
 
-int32_t libc_hermit_getsockname(int32_t sockfd, void* addr, void* addrlen) {
+int32_t libcHermitGetsockname(int32_t sockfd, void* addr, void* addrlen) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1140,7 +1140,7 @@ int32_t libc_hermit_getsockname(int32_t sockfd, void* addr, void* addrlen) {
     return -1;
 }
 
-int32_t libc_hermit_getsockopt(int32_t sockfd, int32_t level, int32_t optname, void* optval, void* optlen) {
+int32_t libcHermitGetsockopt(int32_t sockfd, int32_t level, int32_t optname, void* optval, void* optlen) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1168,7 +1168,7 @@ int32_t libc_hermit_getsockopt(int32_t sockfd, int32_t level, int32_t optname, v
     return -1;
 }
 
-int32_t libc_hermit_setsockopt(int32_t sockfd, int32_t level, int32_t optname, void* optval, uint32_t optlen) {
+int32_t libcHermitSetsockopt(int32_t sockfd, int32_t level, int32_t optname, void* optval, uint32_t optlen) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, int32_t, void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1196,7 +1196,7 @@ int32_t libc_hermit_setsockopt(int32_t sockfd, int32_t level, int32_t optname, v
     return -1;
 }
 
-int32_t libc_hermit_ioctl(int32_t sockfd, int32_t cmd, void* argp) {
+int32_t libcHermitIoctl(int32_t sockfd, int32_t cmd, void* argp) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1224,7 +1224,7 @@ int32_t libc_hermit_ioctl(int32_t sockfd, int32_t cmd, void* argp) {
     return -1;
 }
 
-int32_t libc_hermit_shutdown(int32_t sockfd, int32_t how) {
+int32_t libcHermitShutdown(int32_t sockfd, int32_t how) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1252,7 +1252,7 @@ int32_t libc_hermit_shutdown(int32_t sockfd, int32_t how) {
     return -1;
 }
 
-int32_t libc_hermit_eventfd(uint64_t initval, int16_t flags) {
+int32_t libcHermitEventfd(uint64_t initval, int16_t flags) {
     typedef int32_t (*km_fn_t)(uint64_t, int16_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1280,7 +1280,7 @@ int32_t libc_hermit_eventfd(uint64_t initval, int16_t flags) {
     return -1;
 }
 
-int32_t libc_hermit_poll(void* fds, uint64_t nfds, int32_t timeout) {
+int32_t libcHermitPoll(void* fds, uint64_t nfds, int32_t timeout) {
     typedef int32_t (*km_fn_t)(void*, uint64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

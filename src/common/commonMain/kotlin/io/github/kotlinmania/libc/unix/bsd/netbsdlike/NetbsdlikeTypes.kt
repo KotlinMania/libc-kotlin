@@ -3,8 +3,8 @@ package io.github.kotlinmania.libc.unix.bsd.netbsdlike
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 public typealias WcharT = Int
 
@@ -30,7 +30,7 @@ public typealias ClockidT = CInt
 
 public typealias IdT = UInt
 
-public typealias SemT = COpaquePointer?
+public typealias SemT = MutPtr<Sem>
 
 public typealias KeyT = CLong
 

@@ -51,7 +51,7 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_new_qurt_time_time_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtTimeTime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* tloc = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(void*);
@@ -84,7 +84,7 @@ static Napi::Value libc_new_qurt_time_time_napi(const Napi::CallbackInfo& km_inf
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_new_qurt_time_clock_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtTimeClock_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int64_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -116,7 +116,7 @@ static Napi::Value libc_new_qurt_time_clock_napi(const Napi::CallbackInfo& km_in
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_new_qurt_time_difftime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtTimeDifftime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int64_t time1 = km_info.Length() > 0 ? km_napi_arg_i64(km_info[0]) : 0;
     int64_t time0 = km_info.Length() > 1 ? km_napi_arg_i64(km_info[1]) : 0;
@@ -150,7 +150,7 @@ static Napi::Value libc_new_qurt_time_difftime_napi(const Napi::CallbackInfo& km
     return Napi::Number::New(km_env, static_cast<double>(km_res));
 }
 
-static Napi::Value libc_new_qurt_time_mktime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtTimeMktime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* tm = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef int64_t (*km_fn_t)(void*);
@@ -183,7 +183,7 @@ static Napi::Value libc_new_qurt_time_mktime_napi(const Napi::CallbackInfo& km_i
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(km_res)));
 }
 
-static Napi::Value libc_new_qurt_time_gmtime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtTimeGmtime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* timep = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -216,7 +216,7 @@ static Napi::Value libc_new_qurt_time_gmtime_napi(const Napi::CallbackInfo& km_i
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_new_qurt_time_gmtimeR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtTimeGmtimeR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* timep = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* result = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -250,7 +250,7 @@ static Napi::Value libc_new_qurt_time_gmtimeR_napi(const Napi::CallbackInfo& km_
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_new_qurt_time_localtime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtTimeLocaltime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* timep = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef void* (*km_fn_t)(void*);
@@ -283,7 +283,7 @@ static Napi::Value libc_new_qurt_time_localtime_napi(const Napi::CallbackInfo& k
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_new_qurt_time_localtimeR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtTimeLocaltimeR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* timep = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* result = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -317,7 +317,7 @@ static Napi::Value libc_new_qurt_time_localtimeR_napi(const Napi::CallbackInfo& 
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_new_qurt_time_asctime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtTimeAsctime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* tm = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef char* (*km_fn_t)(void*);
@@ -350,7 +350,7 @@ static Napi::Value libc_new_qurt_time_asctime_napi(const Napi::CallbackInfo& km_
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_new_qurt_time_asctimeR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtTimeAsctimeR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* tm = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -384,7 +384,7 @@ static Napi::Value libc_new_qurt_time_asctimeR_napi(const Napi::CallbackInfo& km
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_new_qurt_time_ctime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtTimeCtime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* timep = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     typedef char* (*km_fn_t)(void*);
@@ -417,7 +417,7 @@ static Napi::Value libc_new_qurt_time_ctime_napi(const Napi::CallbackInfo& km_in
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_new_qurt_time_ctimeR_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtTimeCtimeR_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* timep = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     char* buf = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -451,13 +451,11 @@ static Napi::Value libc_new_qurt_time_ctimeR_napi(const Napi::CallbackInfo& km_i
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_new_qurt_time_strftime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtTimeStrftime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     char* s = reinterpret_cast<char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     uint64_t maxsize = km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0;
-    bool format_null = (km_info.Length() <= 2 || km_info[2].IsNull() || km_info[2].IsUndefined());
-    std::string format_str = format_null ? std::string() : km_info[2].ToString().Utf8Value();
-    const char* format = format_null ? nullptr : format_str.c_str();
+    const char* format = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     void* timeptr = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 3 ? km_napi_arg_u64(km_info[3]) : 0));
     typedef uint64_t (*km_fn_t)(char*, uint64_t, const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -489,14 +487,10 @@ static Napi::Value libc_new_qurt_time_strftime_napi(const Napi::CallbackInfo& km
     return Napi::String::New(km_env, std::to_string(static_cast<uint64_t>(km_res)));
 }
 
-static Napi::Value libc_new_qurt_time_strptime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtTimeStrptime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    bool s_null = (km_info.Length() <= 0 || km_info[0].IsNull() || km_info[0].IsUndefined());
-    std::string s_str = s_null ? std::string() : km_info[0].ToString().Utf8Value();
-    const char* s = s_null ? nullptr : s_str.c_str();
-    bool format_null = (km_info.Length() <= 1 || km_info[1].IsNull() || km_info[1].IsUndefined());
-    std::string format_str = format_null ? std::string() : km_info[1].ToString().Utf8Value();
-    const char* format = format_null ? nullptr : format_str.c_str();
+    const char* s = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
+    const char* format = reinterpret_cast<const char*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     void* tm = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 2 ? km_napi_arg_u64(km_info[2]) : 0));
     typedef char* (*km_fn_t)(const char*, const char*, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -528,9 +522,9 @@ static Napi::Value libc_new_qurt_time_strptime_napi(const Napi::CallbackInfo& km
     return Napi::String::New(km_env, std::to_string(static_cast<int64_t>(reinterpret_cast<uintptr_t>(km_res))));
 }
 
-static Napi::Value libc_new_qurt_time_clockGettime_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtTimeClockGettime_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
-    int32_t clk_id = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
+    int32_t clkId = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     void* tp = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = nullptr;
@@ -554,7 +548,7 @@ static Napi::Value libc_new_qurt_time_clockGettime_napi(const Napi::CallbackInfo
 #endif
     int32_t km_res;
     if (km_fn_ptr != nullptr) {
-        km_res = km_fn_ptr(clk_id, tp);
+        km_res = km_fn_ptr(clkId, tp);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -562,7 +556,7 @@ static Napi::Value libc_new_qurt_time_clockGettime_napi(const Napi::CallbackInfo
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_time_nanosleep_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtTimeNanosleep_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     void* req = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 0 ? km_napi_arg_u64(km_info[0]) : 0));
     void* rem = reinterpret_cast<void*>(static_cast<uintptr_t>(km_info.Length() > 1 ? km_napi_arg_u64(km_info[1]) : 0));
@@ -597,22 +591,22 @@ static Napi::Value libc_new_qurt_time_nanosleep_napi(const Napi::CallbackInfo& k
 }
 
 static void register_new_qurt_time_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_new_qurt_time_time", Napi::Function::New(env, libc_new_qurt_time_time_napi));
-    exports.Set("libc_new_qurt_time_clock", Napi::Function::New(env, libc_new_qurt_time_clock_napi));
-    exports.Set("libc_new_qurt_time_difftime", Napi::Function::New(env, libc_new_qurt_time_difftime_napi));
-    exports.Set("libc_new_qurt_time_mktime", Napi::Function::New(env, libc_new_qurt_time_mktime_napi));
-    exports.Set("libc_new_qurt_time_gmtime", Napi::Function::New(env, libc_new_qurt_time_gmtime_napi));
-    exports.Set("libc_new_qurt_time_gmtimeR", Napi::Function::New(env, libc_new_qurt_time_gmtimeR_napi));
-    exports.Set("libc_new_qurt_time_localtime", Napi::Function::New(env, libc_new_qurt_time_localtime_napi));
-    exports.Set("libc_new_qurt_time_localtimeR", Napi::Function::New(env, libc_new_qurt_time_localtimeR_napi));
-    exports.Set("libc_new_qurt_time_asctime", Napi::Function::New(env, libc_new_qurt_time_asctime_napi));
-    exports.Set("libc_new_qurt_time_asctimeR", Napi::Function::New(env, libc_new_qurt_time_asctimeR_napi));
-    exports.Set("libc_new_qurt_time_ctime", Napi::Function::New(env, libc_new_qurt_time_ctime_napi));
-    exports.Set("libc_new_qurt_time_ctimeR", Napi::Function::New(env, libc_new_qurt_time_ctimeR_napi));
-    exports.Set("libc_new_qurt_time_strftime", Napi::Function::New(env, libc_new_qurt_time_strftime_napi));
-    exports.Set("libc_new_qurt_time_strptime", Napi::Function::New(env, libc_new_qurt_time_strptime_napi));
-    exports.Set("libc_new_qurt_time_clockGettime", Napi::Function::New(env, libc_new_qurt_time_clockGettime_napi));
-    exports.Set("libc_new_qurt_time_nanosleep", Napi::Function::New(env, libc_new_qurt_time_nanosleep_napi));
+    exports.Set("libcNewQurtTimeTime", Napi::Function::New(env, libcNewQurtTimeTime_napi));
+    exports.Set("libcNewQurtTimeClock", Napi::Function::New(env, libcNewQurtTimeClock_napi));
+    exports.Set("libcNewQurtTimeDifftime", Napi::Function::New(env, libcNewQurtTimeDifftime_napi));
+    exports.Set("libcNewQurtTimeMktime", Napi::Function::New(env, libcNewQurtTimeMktime_napi));
+    exports.Set("libcNewQurtTimeGmtime", Napi::Function::New(env, libcNewQurtTimeGmtime_napi));
+    exports.Set("libcNewQurtTimeGmtimeR", Napi::Function::New(env, libcNewQurtTimeGmtimeR_napi));
+    exports.Set("libcNewQurtTimeLocaltime", Napi::Function::New(env, libcNewQurtTimeLocaltime_napi));
+    exports.Set("libcNewQurtTimeLocaltimeR", Napi::Function::New(env, libcNewQurtTimeLocaltimeR_napi));
+    exports.Set("libcNewQurtTimeAsctime", Napi::Function::New(env, libcNewQurtTimeAsctime_napi));
+    exports.Set("libcNewQurtTimeAsctimeR", Napi::Function::New(env, libcNewQurtTimeAsctimeR_napi));
+    exports.Set("libcNewQurtTimeCtime", Napi::Function::New(env, libcNewQurtTimeCtime_napi));
+    exports.Set("libcNewQurtTimeCtimeR", Napi::Function::New(env, libcNewQurtTimeCtimeR_napi));
+    exports.Set("libcNewQurtTimeStrftime", Napi::Function::New(env, libcNewQurtTimeStrftime_napi));
+    exports.Set("libcNewQurtTimeStrptime", Napi::Function::New(env, libcNewQurtTimeStrptime_napi));
+    exports.Set("libcNewQurtTimeClockGettime", Napi::Function::New(env, libcNewQurtTimeClockGettime_napi));
+    exports.Set("libcNewQurtTimeNanosleep", Napi::Function::New(env, libcNewQurtTimeNanosleep_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_new_qurt_time_napi, nullptr };

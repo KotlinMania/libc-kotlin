@@ -3,216 +3,239 @@
 package io.github.kotlinmania.libc.unix.linuxlike.linux.gnu
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.unix.FILE
+import io.github.kotlinmania.libc.unix.Group
+import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.PidT
+import io.github.kotlinmania.libc.unix.Rlimit
 import io.github.kotlinmania.libc.unix.Sigval
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
 import io.github.kotlinmania.libc.unix.linuxlike.ClockidT
+import io.github.kotlinmania.libc.unix.linuxlike.CpuSetT
+import io.github.kotlinmania.libc.unix.linuxlike.DlInfo
+import io.github.kotlinmania.libc.unix.linuxlike.EpollEvent
 import io.github.kotlinmania.libc.unix.linuxlike.IdT
+import io.github.kotlinmania.libc.unix.linuxlike.Mmsghdr
+import io.github.kotlinmania.libc.unix.linuxlike.Mntent
+import io.github.kotlinmania.libc.unix.linuxlike.Passwd
+import io.github.kotlinmania.libc.unix.linuxlike.Rlimit64
+import io.github.kotlinmania.libc.unix.linuxlike.Sigevent
+import io.github.kotlinmania.libc.unix.linuxlike.Spwd
+import io.github.kotlinmania.libc.unix.linuxlike.Timezone
+import io.github.kotlinmania.libc.unix.linuxlike.Tm
 import io.github.kotlinmania.libc.unix.linuxlike.linux.MqdT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.Off64T
+import io.github.kotlinmania.libc.unix.linuxlike.linux.PosixSpawnFileActionsT
+import io.github.kotlinmania.libc.unix.linuxlike.linux.PthreadRwlockattrT
 import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.OffT
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.SigsetT
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.TimeT
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.Timex
+import io.github.kotlinmania.libc.unix.linuxlike.linux.gnu.b64.aarch64.PthreadAttrT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
-private val _unixLinuxlikeLinuxGnuNapiAddon: dynamic =
+private val unixLinuxlikeLinuxGnuNapiAddon: dynamic =
     js("(function() { if (typeof globalThis !== 'undefined' && typeof globalThis.__km_napi_libc !== 'undefined') return globalThis.__km_napi_libc; if (typeof process === 'undefined' || !process.versions || !process.versions.node) return null; var mod = process.getBuiltinModule ? process.getBuiltinModule('module') : (process.mainModule && process.mainModule.constructor); var req = (mod && mod.createRequire) ? mod.createRequire((process.cwd ? process.cwd() : '.') + '/package.json') : (process.mainModule ? process.mainModule.require : null); if (!req) return null; try { var pkg = req('@kotlinmania/libc-native-bindings'); if (typeof globalThis !== 'undefined') globalThis.__km_napi_libc = pkg; return pkg; } catch (_) {} var fs = req('fs'); var path = req('path'); var dir = process.cwd ? process.cwd() : '.'; var rels = ['libc_native.node', 'build/node-ffi/libc_native.node', 'build/node-ffi/release/libc_native.node', 'build/node-ffi/debug/libc_native.node', 'src/js/node-libc/build/Release/libc_native.node', 'src/js/node-libc/build/Debug/libc_native.node', 'src/js/node-libc/dist/build/Release/libc_native.node', 'src/js/node-libc/dist/build/Debug/libc_native.node', 'c_native.node', 'build/node-ffi/c_native.node', 'build/node-ffi/release/c_native.node', 'build/node-ffi/debug/c_native.node', 'src/js/node-libc/build/Release/c_native.node', 'src/js/node-libc/build/Debug/c_native.node', 'src/js/node-libc/dist/build/Release/c_native.node', 'src/js/node-libc/dist/build/Debug/c_native.node']; for (var d = 0; d < 8; d++) { for (var i = 0; i < rels.length; i++) { var c = path.resolve(dir, rels[i]); if (fs.existsSync(c)) { var loaded = req(c); if (typeof globalThis !== 'undefined') globalThis.__km_napi_libc = loaded; return loaded; } } var parent = path.dirname(dir); if (parent === dir) break; dir = parent; } if (typeof globalThis !== 'undefined') globalThis.__km_napi_libc = null; return null; })()")
 
-public actual fun fgetspentR(fp: FILE?, spbuf: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, spbufp: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_fgetspentR((fp?.handle ?: 0L).toString(), (spbuf?.value ?: 0L).toString(), (buf?.value ?: 0L).toString(), buflen.toString(), (spbufp?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fgetspentR(fp: MutPtr<FILE>, spbuf: MutPtr<Spwd>, buf: MutPtr<CChar>, buflen: SizeT, spbufp: MutPtr<MutPtr<Spwd>>): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuFgetspentR(fp.rawAddress.toString(), spbuf.rawAddress.toString(), buf.rawAddress.toString(), buflen.toString(), spbufp.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun sgetspentR(s: String?, spbuf: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, spbufp: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_sgetspentR(s, (spbuf?.value ?: 0L).toString(), (buf?.value ?: 0L).toString(), buflen.toString(), (spbufp?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sgetspentR(s: ConstPtr<CChar>, spbuf: MutPtr<Spwd>, buf: MutPtr<CChar>, buflen: SizeT, spbufp: MutPtr<MutPtr<Spwd>>): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuSgetspentR(s.rawAddress.toString(), spbuf.rawAddress.toString(), buf.rawAddress.toString(), buflen.toString(), spbufp.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getspentR(spbuf: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, spbufp: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_getspentR((spbuf?.value ?: 0L).toString(), (buf?.value ?: 0L).toString(), buflen.toString(), (spbufp?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getspentR(spbuf: MutPtr<Spwd>, buf: MutPtr<CChar>, buflen: SizeT, spbufp: MutPtr<MutPtr<Spwd>>): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuGetspentR(spbuf.rawAddress.toString(), buf.rawAddress.toString(), buflen.toString(), spbufp.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun qsortR(base: COpaquePointer?, num: SizeT, size: SizeT, compar: QsortRComparCallback?, arg: COpaquePointer?) {
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) {
-        _unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_qsortR((base?.value ?: 0L).toString(), num.toString(), size.toString(), 0L.toString(), (arg?.value ?: 0L).toString())
+public actual fun qsortR(base: MutPtr<CVoid>, num: SizeT, size: SizeT, compar: QsortRComparCallback?, arg: MutPtr<CVoid>) {
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) {
+        unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuQsortR(base.rawAddress.toString(), num.toString(), size.toString(), 0L.toString(), arg.rawAddress.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun sendmmsg(sockfd: CInt, msgvec: COpaquePointer?, vlen: CUint, flags: CInt): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_sendmmsg(sockfd, (msgvec?.value ?: 0L).toString(), vlen.toInt(), flags) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun sendmmsg(sockfd: CInt, msgvec: MutPtr<Mmsghdr>, vlen: CUint, flags: CInt): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuSendmmsg(sockfd, msgvec.rawAddress.toString(), vlen.toInt(), flags) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun recvmmsg(sockfd: CInt, msgvec: COpaquePointer?, vlen: CUint, flags: CInt, timeout: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_recvmmsg(sockfd, (msgvec?.value ?: 0L).toString(), vlen.toInt(), flags, (timeout?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun recvmmsg(sockfd: CInt, msgvec: MutPtr<Mmsghdr>, vlen: CUint, flags: CInt, timeout: MutPtr<Timespec>): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuRecvmmsg(sockfd, msgvec.rawAddress.toString(), vlen.toInt(), flags, timeout.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getrlimit64(resource: RlimitResourceT, rlim: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_getrlimit64(resource.toInt(), (rlim?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getrlimit64(resource: RlimitResourceT, rlim: MutPtr<Rlimit64>): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuGetrlimit64(resource.toInt(), rlim.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setrlimit64(resource: RlimitResourceT, rlim: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_setrlimit64(resource.toInt(), (rlim?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun setrlimit64(resource: RlimitResourceT, rlim: ConstPtr<Rlimit64>): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuSetrlimit64(resource.toInt(), rlim.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getrlimit(resource: RlimitResourceT, rlim: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_getrlimit(resource.toInt(), (rlim?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getrlimit(resource: RlimitResourceT, rlim: MutPtr<Rlimit>): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuGetrlimit(resource.toInt(), rlim.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun setrlimit(resource: RlimitResourceT, rlim: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_setrlimit(resource.toInt(), (rlim?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun setrlimit(resource: RlimitResourceT, rlim: ConstPtr<Rlimit>): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuSetrlimit(resource.toInt(), rlim.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun prlimit(pid: PidT, resource: RlimitResourceT, newLimit: COpaquePointer?, oldLimit: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_prlimit(pid, resource.toInt(), (newLimit?.value ?: 0L).toString(), (oldLimit?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun prlimit(pid: PidT, resource: RlimitResourceT, newLimit: ConstPtr<Rlimit>, oldLimit: MutPtr<Rlimit>): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuPrlimit(pid, resource.toInt(), newLimit.rawAddress.toString(), oldLimit.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun prlimit64(pid: PidT, resource: RlimitResourceT, newLimit: COpaquePointer?, oldLimit: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_prlimit64(pid, resource.toInt(), (newLimit?.value ?: 0L).toString(), (oldLimit?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun prlimit64(pid: PidT, resource: RlimitResourceT, newLimit: ConstPtr<Rlimit64>, oldLimit: MutPtr<Rlimit64>): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuPrlimit64(pid, resource.toInt(), newLimit.rawAddress.toString(), oldLimit.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun utmpname(file: String?): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_utmpname(file) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun utmpname(file: ConstPtr<CChar>): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuUtmpname(file.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun utmpxname(file: String?): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_utmpxname(file) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun utmpxname(file: ConstPtr<CChar>): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuUtmpxname(file.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getutxent(): COpaquePointer? =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_getutxent() as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getutxent(): MutPtr<Utmpx> =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) MutPtr((unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuGetutxent() as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getutxid(ut: COpaquePointer?): COpaquePointer? =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_getutxid((ut?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getutxid(ut: ConstPtr<Utmpx>): MutPtr<Utmpx> =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) MutPtr((unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuGetutxid(ut.rawAddress.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getutxline(ut: COpaquePointer?): COpaquePointer? =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_getutxline((ut?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getutxline(ut: ConstPtr<Utmpx>): MutPtr<Utmpx> =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) MutPtr((unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuGetutxline(ut.rawAddress.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pututxline(ut: COpaquePointer?): COpaquePointer? =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_pututxline((ut?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pututxline(ut: ConstPtr<Utmpx>): MutPtr<Utmpx> =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) MutPtr((unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuPututxline(ut.rawAddress.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun setutxent() {
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) {
-        _unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_setutxent()
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) {
+        unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuSetutxent()
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
 public actual fun endutxent() {
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) {
-        _unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_endutxent()
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) {
+        unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuEndutxent()
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
 public actual fun getpt(): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_getpt() as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuGetpt() as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun mallopt(param: CInt, value: CInt): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_mallopt(param, value) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuMallopt(param, value) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun gettimeofday(tp: COpaquePointer?, tz: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_gettimeofday((tp?.value ?: 0L).toString(), (tz?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun gettimeofday(tp: MutPtr<Timeval>, tz: MutPtr<Timezone>): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuGettimeofday(tp.rawAddress.toString(), tz.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getentropy(buf: COpaquePointer?, buflen: SizeT): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_getentropy((buf?.value ?: 0L).toString(), buflen.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getentropy(buf: MutPtr<CVoid>, buflen: SizeT): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuGetentropy(buf.rawAddress.toString(), buflen.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getrandom(buf: COpaquePointer?, buflen: SizeT, flags: CUint): SsizeT =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_getrandom((buf?.value ?: 0L).toString(), buflen.toString(), flags.toInt()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getrandom(buf: MutPtr<CVoid>, buflen: SizeT, flags: CUint): SsizeT =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuGetrandom(buf.rawAddress.toString(), buflen.toString(), flags.toInt()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun getauxval(type: CUlong): CUlong =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_getauxval(type.toString()) as String).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuGetauxval(type.toString()) as String).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun adjtimex(buf: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_adjtimex((buf?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun adjtimex(buf: MutPtr<Timex>): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuAdjtimex(buf.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ntpAdjtime(buf: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_ntpAdjtime((buf?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ntpAdjtime(buf: MutPtr<Timex>): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuNtpAdjtime(buf.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ntpGettime(buf: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_ntpGettime((buf?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ntpGettime(buf: MutPtr<Ntptimeval>): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuNtpGettime(buf.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun clockAdjtime(clkId: ClockidT, buf: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_clockAdjtime(clkId, (buf?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun clockAdjtime(clkId: ClockidT, buf: MutPtr<Timex>): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuClockAdjtime(clkId, buf.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fanotifyMark(fd: CInt, flags: CUint, mask: ULong, dirfd: CInt, path: String?): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_fanotifyMark(fd, flags.toInt(), mask.toString(), dirfd, path) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fanotifyMark(fd: CInt, flags: CUint, mask: ULong, dirfd: CInt, path: ConstPtr<CChar>): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuFanotifyMark(fd, flags.toInt(), mask.toString(), dirfd, path.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun preadv2(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: OffT, flags: CInt): SsizeT =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_preadv2(fd, (iov?.value ?: 0L).toString(), iovcnt, offset.toString(), flags) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun preadv2(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT, flags: CInt): SsizeT =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuPreadv2(fd, iov.rawAddress.toString(), iovcnt, offset.toString(), flags) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pwritev2(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: OffT, flags: CInt): SsizeT =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_pwritev2(fd, (iov?.value ?: 0L).toString(), iovcnt, offset.toString(), flags) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pwritev2(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT, flags: CInt): SsizeT =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuPwritev2(fd, iov.rawAddress.toString(), iovcnt, offset.toString(), flags) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun preadv64v2(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: Off64T, flags: CInt): SsizeT =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_preadv64v2(fd, (iov?.value ?: 0L).toString(), iovcnt, offset.toString(), flags) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun preadv64v2(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: Off64T, flags: CInt): SsizeT =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuPreadv64v2(fd, iov.rawAddress.toString(), iovcnt, offset.toString(), flags) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pwritev64v2(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: Off64T, flags: CInt): SsizeT =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_pwritev64v2(fd, (iov?.value ?: 0L).toString(), iovcnt, offset.toString(), flags) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pwritev64v2(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: Off64T, flags: CInt): SsizeT =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuPwritev64v2(fd, iov.rawAddress.toString(), iovcnt, offset.toString(), flags) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun renameat2(olddirfd: CInt, oldpath: String?, newdirfd: CInt, newpath: String?, flags: CUint): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_renameat2(olddirfd, oldpath, newdirfd, newpath, flags.toInt()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun renameat2(olddirfd: CInt, oldpath: ConstPtr<CChar>, newdirfd: CInt, newpath: ConstPtr<CChar>, flags: CUint): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuRenameat2(olddirfd, oldpath.rawAddress.toString(), newdirfd, newpath.rawAddress.toString(), flags.toInt()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun explicitBzero(s: COpaquePointer?, len: SizeT) {
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) {
-        _unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_explicitBzero((s?.value ?: 0L).toString(), len.toString())
+public actual fun explicitBzero(s: MutPtr<CVoid>, len: SizeT) {
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) {
+        unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuExplicitBzero(s.rawAddress.toString(), len.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun reallocarray(ptr: COpaquePointer?, nmemb: SizeT, size: SizeT): COpaquePointer? =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_reallocarray((ptr?.value ?: 0L).toString(), nmemb.toString(), size.toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun reallocarray(ptr: MutPtr<CVoid>, nmemb: SizeT, size: SizeT): MutPtr<CVoid> =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) MutPtr((unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuReallocarray(ptr.rawAddress.toString(), nmemb.toString(), size.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ctermid(s: COpaquePointer?): COpaquePointer? =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_ctermid((s?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ctermid(s: MutPtr<CChar>): MutPtr<CChar> =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) MutPtr((unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuCtermid(s.rawAddress.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun backtrace(buf: COpaquePointer?, sz: CInt): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_backtrace((buf?.value ?: 0L).toString(), sz) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun backtrace(buf: MutPtr<MutPtr<CVoid>>, sz: CInt): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuBacktrace(buf.rawAddress.toString(), sz) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun backtraceSymbols(buffer: COpaquePointer?, len: CInt): COpaquePointer? =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_backtraceSymbols((buffer?.value ?: 0L).toString(), len) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun backtraceSymbols(buffer: ConstPtr<MutPtr<CVoid>>, len: CInt): MutPtr<MutPtr<CChar>> =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) MutPtr((unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuBacktraceSymbols(buffer.rawAddress.toString(), len) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun backtraceSymbolsFd(buffer: COpaquePointer?, len: CInt, fd: CInt) {
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) {
-        _unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_backtraceSymbolsFd((buffer?.value ?: 0L).toString(), len, fd)
+public actual fun backtraceSymbolsFd(buffer: ConstPtr<MutPtr<CVoid>>, len: CInt, fd: CInt) {
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) {
+        unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuBacktraceSymbolsFd(buffer.rawAddress.toString(), len, fd)
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun glob64(pattern: String?, flags: CInt, errfunc: Glob64ErrfuncCallback?, pglob: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_glob64(pattern, flags, 0L.toString(), (pglob?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun glob64(pattern: ConstPtr<CChar>, flags: CInt, errfunc: Glob64ErrfuncCallback?, pglob: MutPtr<Glob64T>): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuGlob64(pattern.rawAddress.toString(), flags, 0L.toString(), pglob.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun globfree64(pglob: COpaquePointer?) {
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) {
-        _unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_globfree64((pglob?.value ?: 0L).toString())
+public actual fun globfree64(pglob: MutPtr<Glob64T>) {
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) {
+        unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuGlobfree64(pglob.rawAddress.toString())
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
 public actual fun ptrace(request: CUint, vararg variadicArgs: Long): CLong =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_ptrace(request.toInt(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuPtrace(request.toInt(), variadicArgs.size.coerceAtMost(4), (if (variadicArgs.size > 0) variadicArgs[0] else 0L).toString(), (if (variadicArgs.size > 1) variadicArgs[1] else 0L).toString(), (if (variadicArgs.size > 2) variadicArgs[2] else 0L).toString(), (if (variadicArgs.size > 3) variadicArgs[3] else 0L).toString()) as String).toLong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrGetaffinityNp(attr: COpaquePointer?, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_pthreadAttrGetaffinityNp((attr?.value ?: 0L).toString(), cpusetsize.toString(), (cpuset?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadAttrGetaffinityNp(attr: ConstPtr<PthreadAttrT>, cpusetsize: SizeT, cpuset: MutPtr<CpuSetT>): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuPthreadAttrGetaffinityNp(attr.rawAddress.toString(), cpusetsize.toString(), cpuset.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadAttrSetaffinityNp(attr: COpaquePointer?, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_pthreadAttrSetaffinityNp((attr?.value ?: 0L).toString(), cpusetsize.toString(), (cpuset?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadAttrSetaffinityNp(attr: MutPtr<PthreadAttrT>, cpusetsize: SizeT, cpuset: ConstPtr<CpuSetT>): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuPthreadAttrSetaffinityNp(attr.rawAddress.toString(), cpusetsize.toString(), cpuset.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun getpriority(which: PriorityWhichT, who: IdT): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_getpriority(which.toInt(), who.toInt()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuGetpriority(which.toInt(), who.toInt()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun setpriority(which: PriorityWhichT, who: IdT, prio: CInt): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_setpriority(which.toInt(), who.toInt(), prio) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuSetpriority(which.toInt(), who.toInt(), prio) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadRwlockattrGetkindNp(attr: COpaquePointer?, value: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_pthreadRwlockattrGetkindNp((attr?.value ?: 0L).toString(), (value?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadRwlockattrGetkindNp(attr: ConstPtr<PthreadRwlockattrT>, value: MutPtr<CInt>): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuPthreadRwlockattrGetkindNp(attr.rawAddress.toString(), value.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadRwlockattrSetkindNp(attr: COpaquePointer?, value: CInt): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_pthreadRwlockattrSetkindNp((attr?.value ?: 0L).toString(), value) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadRwlockattrSetkindNp(attr: MutPtr<PthreadRwlockattrT>, value: CInt): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuPthreadRwlockattrSetkindNp(attr.rawAddress.toString(), value) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun pthreadSigqueue(thread: PthreadT, sig: CInt, value: Sigval): CInt =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadTryjoinNp(thread: PthreadT, retval: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_pthreadTryjoinNp(thread.toLong().toString(), (retval?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadTryjoinNp(thread: PthreadT, retval: MutPtr<MutPtr<CVoid>>): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuPthreadTryjoinNp(thread.toLong().toString(), retval.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun pthreadTimedjoinNp(thread: PthreadT, retval: COpaquePointer?, abstime: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_pthreadTimedjoinNp(thread.toLong().toString(), (retval?.value ?: 0L).toString(), (abstime?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun pthreadTimedjoinNp(thread: PthreadT, retval: MutPtr<MutPtr<CVoid>>, abstime: ConstPtr<Timespec>): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuPthreadTimedjoinNp(thread.toLong().toString(), retval.rawAddress.toString(), abstime.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun mallinfo(): Mallinfo =
     throw UnsupportedOperationException("Native FFI addon is not available")
@@ -221,117 +244,117 @@ public actual fun mallinfo2(): Mallinfo2 =
     throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun mallocStats() {
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) {
-        _unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_mallocStats()
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) {
+        unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuMallocStats()
     } else {
         throw UnsupportedOperationException("Native FFI addon is not available")
     }
 }
 
-public actual fun mallocInfo(options: CInt, stream: FILE?): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_mallocInfo(options, (stream?.handle ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mallocInfo(options: CInt, stream: MutPtr<FILE>): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuMallocInfo(options, stream.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mallocUsableSize(ptr: COpaquePointer?): SizeT =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_mallocUsableSize((ptr?.value ?: 0L).toString()) as String).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mallocUsableSize(ptr: MutPtr<CVoid>): SizeT =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuMallocUsableSize(ptr.rawAddress.toString()) as String).toULong() else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getpwentR(pwd: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_getpwentR((pwd?.value ?: 0L).toString(), (buf?.value ?: 0L).toString(), buflen.toString(), (result?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getpwentR(pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuGetpwentR(pwd.rawAddress.toString(), buf.rawAddress.toString(), buflen.toString(), result.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getgrentR(grp: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_getgrentR((grp?.value ?: 0L).toString(), (buf?.value ?: 0L).toString(), buflen.toString(), (result?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getgrentR(grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuGetgrentR(grp.rawAddress.toString(), buf.rawAddress.toString(), buflen.toString(), result.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fgetpwentR(stream: FILE?, pwd: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_fgetpwentR((stream?.handle ?: 0L).toString(), (pwd?.value ?: 0L).toString(), (buf?.value ?: 0L).toString(), buflen.toString(), (result?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fgetpwentR(stream: MutPtr<FILE>, pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuFgetpwentR(stream.rawAddress.toString(), pwd.rawAddress.toString(), buf.rawAddress.toString(), buflen.toString(), result.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun fgetgrentR(stream: FILE?, grp: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_fgetgrentR((stream?.handle ?: 0L).toString(), (grp?.value ?: 0L).toString(), (buf?.value ?: 0L).toString(), buflen.toString(), (result?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun fgetgrentR(stream: MutPtr<FILE>, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuFgetgrentR(stream.rawAddress.toString(), grp.rawAddress.toString(), buf.rawAddress.toString(), buflen.toString(), result.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun putpwent(p: COpaquePointer?, stream: FILE?): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_putpwent((p?.value ?: 0L).toString(), (stream?.handle ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun putpwent(p: ConstPtr<Passwd>, stream: MutPtr<FILE>): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuPutpwent(p.rawAddress.toString(), stream.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun putgrent(grp: COpaquePointer?, stream: FILE?): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_putgrent((grp?.value ?: 0L).toString(), (stream?.handle ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun putgrent(grp: ConstPtr<Group>, stream: MutPtr<FILE>): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuPutgrent(grp.rawAddress.toString(), stream.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun sethostid(hostid: CLong): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_sethostid(hostid.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuSethostid(hostid.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun memfdCreate(name: String?, flags: CUint): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_memfdCreate(name, flags.toInt()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun memfdCreate(name: ConstPtr<CChar>, flags: CUint): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuMemfdCreate(name.rawAddress.toString(), flags.toInt()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mlock2(addr: COpaquePointer?, len: SizeT, flags: CUint): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_mlock2((addr?.value ?: 0L).toString(), len.toString(), flags.toInt()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mlock2(addr: ConstPtr<CVoid>, len: SizeT, flags: CUint): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuMlock2(addr.rawAddress.toString(), len.toString(), flags.toInt()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun euidaccess(pathname: String?, mode: CInt): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_euidaccess(pathname, mode) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun euidaccess(pathname: ConstPtr<CChar>, mode: CInt): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuEuidaccess(pathname.rawAddress.toString(), mode) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun eaccess(pathname: String?, mode: CInt): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_eaccess(pathname, mode) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun eaccess(pathname: ConstPtr<CChar>, mode: CInt): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuEaccess(pathname.rawAddress.toString(), mode) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun asctimeR(tm: COpaquePointer?, buf: COpaquePointer?): COpaquePointer? =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_asctimeR((tm?.value ?: 0L).toString(), (buf?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun asctimeR(tm: ConstPtr<Tm>, buf: MutPtr<CChar>): MutPtr<CChar> =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) MutPtr((unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuAsctimeR(tm.rawAddress.toString(), buf.rawAddress.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun ctimeR(timep: COpaquePointer?, buf: COpaquePointer?): COpaquePointer? =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_ctimeR((timep?.value ?: 0L).toString(), (buf?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun ctimeR(timep: ConstPtr<TimeT>, buf: MutPtr<CChar>): MutPtr<CChar> =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) MutPtr((unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuCtimeR(timep.rawAddress.toString(), buf.rawAddress.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun dirname(path: COpaquePointer?): COpaquePointer? =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_dirname((path?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun dirname(path: MutPtr<CChar>): MutPtr<CChar> =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) MutPtr((unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuDirname(path.rawAddress.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixBasename(path: COpaquePointer?): COpaquePointer? =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_posixBasename((path?.value ?: 0L).toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixBasename(path: MutPtr<CChar>): MutPtr<CChar> =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) MutPtr((unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuPosixBasename(path.rawAddress.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun gnuBasename(path: String?): COpaquePointer? =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_gnuBasename(path) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun gnuBasename(path: ConstPtr<CChar>): MutPtr<CChar> =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) MutPtr((unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuGnuBasename(path.rawAddress.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun dlmopen(lmid: LmidT, filename: String?, flag: CInt): COpaquePointer? =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_dlmopen(lmid.toString(), filename, flag) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun dlmopen(lmid: LmidT, filename: ConstPtr<CChar>, flag: CInt): MutPtr<CVoid> =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) MutPtr((unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuDlmopen(lmid.toString(), filename.rawAddress.toString(), flag) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun dlinfo(handle: COpaquePointer?, request: CInt, info: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_dlinfo((handle?.value ?: 0L).toString(), request, (info?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun dlinfo(handle: MutPtr<CVoid>, request: CInt, info: MutPtr<CVoid>): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuDlinfo(handle.rawAddress.toString(), request, info.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun dladdr1(addr: COpaquePointer?, info: COpaquePointer?, extraInfo: COpaquePointer?, flags: CInt): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_dladdr1((addr?.value ?: 0L).toString(), (info?.value ?: 0L).toString(), (extraInfo?.value ?: 0L).toString(), flags) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun dladdr1(addr: ConstPtr<CVoid>, info: MutPtr<DlInfo>, extraInfo: MutPtr<MutPtr<CVoid>>, flags: CInt): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuDladdr1(addr.rawAddress.toString(), info.rawAddress.toString(), extraInfo.rawAddress.toString(), flags) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun dlvsym(handle: COpaquePointer?, symbol: String?, version: String?): COpaquePointer? =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_dlvsym((handle?.value ?: 0L).toString(), symbol, version) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun dlvsym(handle: MutPtr<CVoid>, symbol: ConstPtr<CChar>, version: ConstPtr<CChar>): MutPtr<CVoid> =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) MutPtr((unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuDlvsym(handle.rawAddress.toString(), symbol.rawAddress.toString(), version.rawAddress.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun mallocTrim(pad: SizeT): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_mallocTrim(pad.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuMallocTrim(pad.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun gnuGetLibcRelease(): COpaquePointer? =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_gnuGetLibcRelease() as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun gnuGetLibcRelease(): ConstPtr<CChar> =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) ConstPtr((unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuGnuGetLibcRelease() as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun gnuGetLibcVersion(): COpaquePointer? =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_gnuGetLibcVersion() as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun gnuGetLibcVersion(): ConstPtr<CChar> =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) ConstPtr((unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuGnuGetLibcVersion() as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnFileActionsAddchdirNp(actions: COpaquePointer?, path: String?): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_posixSpawnFileActionsAddchdirNp((actions?.value ?: 0L).toString(), path) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnFileActionsAddchdirNp(actions: MutPtr<PosixSpawnFileActionsT>, path: ConstPtr<CChar>): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuPosixSpawnFileActionsAddchdirNp(actions.rawAddress.toString(), path.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnFileActionsAddfchdirNp(actions: COpaquePointer?, fd: CInt): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_posixSpawnFileActionsAddfchdirNp((actions?.value ?: 0L).toString(), fd) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnFileActionsAddfchdirNp(actions: MutPtr<PosixSpawnFileActionsT>, fd: CInt): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuPosixSpawnFileActionsAddfchdirNp(actions.rawAddress.toString(), fd) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnFileActionsAddclosefromNp(actions: COpaquePointer?, from: CInt): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_posixSpawnFileActionsAddclosefromNp((actions?.value ?: 0L).toString(), from) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnFileActionsAddclosefromNp(actions: MutPtr<PosixSpawnFileActionsT>, from: CInt): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuPosixSpawnFileActionsAddclosefromNp(actions.rawAddress.toString(), from) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun posixSpawnFileActionsAddtcsetpgrpNp(actions: COpaquePointer?, tcfd: CInt): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_posixSpawnFileActionsAddtcsetpgrpNp((actions?.value ?: 0L).toString(), tcfd) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun posixSpawnFileActionsAddtcsetpgrpNp(actions: MutPtr<PosixSpawnFileActionsT>, tcfd: CInt): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuPosixSpawnFileActionsAddtcsetpgrpNp(actions.rawAddress.toString(), tcfd) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun getmntentR(stream: FILE?, mntbuf: COpaquePointer?, buf: COpaquePointer?, buflen: CInt): COpaquePointer? =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_getmntentR((stream?.handle ?: 0L).toString(), (mntbuf?.value ?: 0L).toString(), (buf?.value ?: 0L).toString(), buflen) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun getmntentR(stream: MutPtr<FILE>, mntbuf: MutPtr<Mntent>, buf: MutPtr<CChar>, buflen: CInt): MutPtr<Mntent> =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) MutPtr((unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuGetmntentR(stream.rawAddress.toString(), mntbuf.rawAddress.toString(), buf.rawAddress.toString(), buflen) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun execveat(dirfd: CInt, pathname: String?, argv: COpaquePointer?, envp: COpaquePointer?, flags: CInt): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_execveat(dirfd, pathname, (argv?.value ?: 0L).toString(), (envp?.value ?: 0L).toString(), flags) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun execveat(dirfd: CInt, pathname: ConstPtr<CChar>, argv: ConstPtr<MutPtr<CChar>>, envp: ConstPtr<MutPtr<CChar>>, flags: CInt): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuExecveat(dirfd, pathname.rawAddress.toString(), argv.rawAddress.toString(), envp.rawAddress.toString(), flags) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun closeRange(first: CUint, last: CUint, flags: CInt): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_closeRange(first.toInt(), last.toInt(), flags) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuCloseRange(first.toInt(), last.toInt(), flags) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mqNotify(mqdes: MqdT, sevp: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_mqNotify(mqdes.toLong().toString(), (sevp?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mqNotify(mqdes: MqdT, sevp: ConstPtr<Sigevent>): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuMqNotify(mqdes.toLong().toString(), sevp.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun epollPwait2(epfd: CInt, events: COpaquePointer?, maxevents: CInt, timeout: COpaquePointer?, sigmask: COpaquePointer?): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_epollPwait2(epfd, (events?.value ?: 0L).toString(), maxevents, (timeout?.value ?: 0L).toString(), (sigmask?.value ?: 0L).toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun epollPwait2(epfd: CInt, events: MutPtr<EpollEvent>, maxevents: CInt, timeout: ConstPtr<Timespec>, sigmask: ConstPtr<SigsetT>): CInt =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuEpollPwait2(epfd, events.rawAddress.toString(), maxevents, timeout.rawAddress.toString(), sigmask.rawAddress.toString()) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
 
-public actual fun mempcpy(dest: COpaquePointer?, src: COpaquePointer?, n: SizeT): COpaquePointer? =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_mempcpy((dest?.value ?: 0L).toString(), (src?.value ?: 0L).toString(), n.toString()) as String).toLong().let { if (it == 0L) null else COpaquePointer(it) } else throw UnsupportedOperationException("Native FFI addon is not available")
+public actual fun mempcpy(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, n: SizeT): MutPtr<CVoid> =
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) MutPtr((unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuMempcpy(dest.rawAddress.toString(), src.rawAddress.toString(), n.toString()) as String).toLong()) else throw UnsupportedOperationException("Native FFI addon is not available")
 
 public actual fun tgkill(tgid: PidT, tid: PidT, sig: CInt): CInt =
-    if (_unixLinuxlikeLinuxGnuNapiAddon != null) (_unixLinuxlikeLinuxGnuNapiAddon.libc_unix_linuxlike_linux_gnu_tgkill(tgid, tid, sig) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")
+    if (unixLinuxlikeLinuxGnuNapiAddon != null) (unixLinuxlikeLinuxGnuNapiAddon.libcUnixLinuxlikeLinuxGnuTgkill(tgid, tid, sig) as Int) else throw UnsupportedOperationException("Native FFI addon is not available")

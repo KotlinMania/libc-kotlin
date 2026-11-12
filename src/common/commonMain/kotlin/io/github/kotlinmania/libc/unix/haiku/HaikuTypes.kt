@@ -2,11 +2,12 @@ package io.github.kotlinmania.libc.unix.haiku
 
 import io.github.kotlinmania.libc.*
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.unix.UintptrT
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 
 // This module contains bindings to the native Haiku API. The Haiku API
 // originates from BeOS, and it was the original way to perform low level
@@ -83,7 +84,7 @@ public typealias FsblkcntT = Long
 
 public typealias FsfilcntT = Long
 
-public typealias PthreadAttrT = COpaquePointer?
+public typealias PthreadAttrT = MutPtr<CVoid>
 
 public typealias NlItem = CInt
 
@@ -127,9 +128,9 @@ public typealias Elf64Xword = ULong
 
 public typealias Action = CInt
 
-public typealias PosixSpawnattrT = COpaquePointer?
+public typealias PosixSpawnattrT = MutPtr<CVoid>
 
-public typealias PosixSpawnFileActionsT = COpaquePointer?
+public typealias PosixSpawnFileActionsT = MutPtr<CVoid>
 
 public class Timezone(
     public val handle: Long = -1L,

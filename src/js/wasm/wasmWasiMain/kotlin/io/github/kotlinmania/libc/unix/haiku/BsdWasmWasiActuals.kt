@@ -1,83 +1,103 @@
-@file:OptIn(kotlin.ExperimentalUnsignedTypes::class)
+@file:OptIn(kotlin.ExperimentalUnsignedTypes::class, kotlin.wasm.ExperimentalWasmInterop::class)
 
 package io.github.kotlinmania.libc.unix.haiku
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLonglong
-import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.PidT
+import io.github.kotlinmania.libc.unix.Rusage
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
+import io.github.kotlinmania.libc.unix.Timespec
+import io.github.kotlinmania.libc.unix.Timeval
+import io.github.kotlinmania.libc.unix.Winsize
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
+
+// The host must provide the C companion wrapper exports in import module libc.
+@kotlin.wasm.WasmImport("libc", "libcUnixHaikuBsdDaemon")
+private external fun wasiLibcUnixHaikuBsdDaemon(nochdir: Int, noclose: Int): Int
 
 public actual fun daemon(nochdir: CInt, noclose: CInt): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+    wasiLibcUnixHaikuBsdDaemon(nochdir, noclose).toInt()
 
-public actual fun getprogname(): COpaquePointer? =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun getprogname(): ConstPtr<CChar> =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixHaikuBsdGetprogname")
 
-public actual fun setprogname(progname: String?): Unit =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun setprogname(progname: ConstPtr<CChar>): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixHaikuBsdSetprogname")
+
+@kotlin.wasm.WasmImport("libc", "libcUnixHaikuBsdArc4random")
+private external fun wasiLibcUnixHaikuBsdArc4random(): Int
 
 public actual fun arc4random(): UInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+    wasiLibcUnixHaikuBsdArc4random().toUInt()
+
+@kotlin.wasm.WasmImport("libc", "libcUnixHaikuBsdArc4randomUniform")
+private external fun wasiLibcUnixHaikuBsdArc4randomUniform(upperBound: Int): Int
 
 public actual fun arc4randomUniform(upperBound: UInt): UInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+    wasiLibcUnixHaikuBsdArc4randomUniform(upperBound.toInt()).toUInt()
 
-public actual fun arc4randomBuf(buf: COpaquePointer?, n: SizeT): Unit =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun arc4randomBuf(buf: MutPtr<CVoid>, n: SizeT): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixHaikuBsdArc4randomBuf")
 
-public actual fun mkstemps(template: COpaquePointer?, suffixlen: CInt): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun mkstemps(template: MutPtr<CChar>, suffixlen: CInt): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixHaikuBsdMkstemps")
 
-public actual fun strtonum(nptr: String?, minval: CLonglong, maxval: CLonglong, errstr: COpaquePointer?): CLonglong =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun strtonum(nptr: ConstPtr<CChar>, minval: CLonglong, maxval: CLonglong, errstr: MutPtr<ConstPtr<CChar>>): CLonglong =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixHaikuBsdStrtonum")
 
-public actual fun openpty(amaster: COpaquePointer?, aslave: COpaquePointer?, name: COpaquePointer?, termp: COpaquePointer?, winp: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun openpty(amaster: MutPtr<CInt>, aslave: MutPtr<CInt>, name: MutPtr<CChar>, termp: MutPtr<Termios>, winp: MutPtr<Winsize>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixHaikuBsdOpenpty")
+
+@kotlin.wasm.WasmImport("libc", "libcUnixHaikuBsdLoginTty")
+private external fun wasiLibcUnixHaikuBsdLoginTty(fd: Int): Int
 
 public actual fun loginTty(fd: CInt): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+    wasiLibcUnixHaikuBsdLoginTty(fd).toInt()
 
-public actual fun forkpty(amaster: COpaquePointer?, name: COpaquePointer?, termp: COpaquePointer?, winp: COpaquePointer?): PidT =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun forkpty(amaster: MutPtr<CInt>, name: MutPtr<CChar>, termp: MutPtr<Termios>, winp: MutPtr<Winsize>): PidT =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixHaikuBsdForkpty")
 
-public actual fun strsep(string: COpaquePointer?, delimiters: String?): COpaquePointer? =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun strsep(string: MutPtr<MutPtr<CChar>>, delimiters: ConstPtr<CChar>): MutPtr<CChar> =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixHaikuBsdStrsep")
 
-public actual fun explicitBzero(buf: COpaquePointer?, len: SizeT): Unit =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun explicitBzero(buf: MutPtr<CVoid>, len: SizeT): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixHaikuBsdExplicitBzero")
 
-public actual fun slInit(): COpaquePointer? =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun slInit(): MutPtr<StringList> =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixHaikuBsdSlInit")
 
-public actual fun slAdd(sl: COpaquePointer?, n: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun slAdd(sl: MutPtr<StringList>, n: MutPtr<CChar>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixHaikuBsdSlAdd")
 
-public actual fun slFree(sl: COpaquePointer?, i: CInt): Unit =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun slFree(sl: MutPtr<StringList>, i: CInt): Unit = throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixHaikuBsdSlFree")
 
-public actual fun slFind(sl: COpaquePointer?, n: COpaquePointer?): COpaquePointer? =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun slFind(sl: MutPtr<StringList>, n: MutPtr<CChar>): MutPtr<CChar> =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixHaikuBsdSlFind")
+
+@kotlin.wasm.WasmImport("libc", "libcUnixHaikuBsdKqueue")
+private external fun wasiLibcUnixHaikuBsdKqueue(): Int
 
 public actual fun kqueue(): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+    wasiLibcUnixHaikuBsdKqueue().toInt()
 
-public actual fun kevent(kq: CInt, changelist: COpaquePointer?, nchanges: CInt, eventlist: COpaquePointer?, nevents: CInt, timeout: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun kevent(kq: CInt, changelist: ConstPtr<Kevent>, nchanges: CInt, eventlist: MutPtr<Kevent>, nevents: CInt, timeout: ConstPtr<Timespec>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixHaikuBsdKevent")
 
-public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: MutPtr<CVoid>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixHaikuBsdDlIteratePhdr")
 
-public actual fun lutimes(file: String?, times: COpaquePointer?): CInt =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun lutimes(file: ConstPtr<CChar>, times: ConstPtr<Timeval>): CInt =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixHaikuBsdLutimes")
 
-public actual fun preadv(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: OffT): SsizeT =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun preadv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixHaikuBsdPreadv")
 
-public actual fun pwritev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: OffT): SsizeT =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun pwritev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixHaikuBsdPwritev")
 
-public actual fun wait4(pid: PidT, status: COpaquePointer?, options: CInt, rusage: COpaquePointer?): PidT =
-    throw UnsupportedOperationException("Native FFI is not available on WasmWasi")
+public actual fun wait4(pid: PidT, status: MutPtr<CInt>, options: CInt, rusage: MutPtr<Rusage>): PidT =
+    throw UnsupportedOperationException("WasmWasi FFI requires a host memory/callback/aggregate or variadic ABI adapter for libcUnixHaikuBsdWait4")

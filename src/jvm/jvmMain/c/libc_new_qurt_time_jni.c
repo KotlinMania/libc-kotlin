@@ -19,7 +19,7 @@
 #endif
 #endif
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTimeJniBridge_libc_1new_1qurt_1time_1time(JNIEnv* km_env, jclass km_clazz, jlong tloc) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTimeJniBridge_libcNewQurtTimeTime(JNIEnv* km_env, jclass km_clazz, jlong tloc) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(void*);
@@ -52,7 +52,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTim
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTimeJniBridge_libc_1new_1qurt_1time_1clock(JNIEnv* km_env, jclass km_clazz) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTimeJniBridge_libcNewQurtTimeClock(JNIEnv* km_env, jclass km_clazz) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(void);
@@ -85,7 +85,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTim
     return (jlong)km_res;
 }
 
-JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTimeJniBridge_libc_1new_1qurt_1time_1difftime(JNIEnv* km_env, jclass km_clazz, jlong time1, jlong time0) {
+JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTimeJniBridge_libcNewQurtTimeDifftime(JNIEnv* km_env, jclass km_clazz, jlong time1, jlong time0) {
     (void)km_env;
     (void)km_clazz;
     typedef double (*km_fn_t)(int64_t, int64_t);
@@ -118,7 +118,7 @@ JNIEXPORT jdouble JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtT
     return (jdouble)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTimeJniBridge_libc_1new_1qurt_1time_1mktime(JNIEnv* km_env, jclass km_clazz, jlong tm) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTimeJniBridge_libcNewQurtTimeMktime(JNIEnv* km_env, jclass km_clazz, jlong tm) {
     (void)km_env;
     (void)km_clazz;
     typedef int64_t (*km_fn_t)(void*);
@@ -151,7 +151,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTim
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTimeJniBridge_libc_1new_1qurt_1time_1gmtime(JNIEnv* km_env, jclass km_clazz, jlong timep) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTimeJniBridge_libcNewQurtTimeGmtime(JNIEnv* km_env, jclass km_clazz, jlong timep) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void*);
@@ -184,7 +184,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTim
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTimeJniBridge_libc_1new_1qurt_1time_1gmtimeR(JNIEnv* km_env, jclass km_clazz, jlong timep, jlong result) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTimeJniBridge_libcNewQurtTimeGmtimeR(JNIEnv* km_env, jclass km_clazz, jlong timep, jlong result) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void*, void*);
@@ -217,7 +217,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTim
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTimeJniBridge_libc_1new_1qurt_1time_1localtime(JNIEnv* km_env, jclass km_clazz, jlong timep) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTimeJniBridge_libcNewQurtTimeLocaltime(JNIEnv* km_env, jclass km_clazz, jlong timep) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void*);
@@ -250,7 +250,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTim
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTimeJniBridge_libc_1new_1qurt_1time_1localtimeR(JNIEnv* km_env, jclass km_clazz, jlong timep, jlong result) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTimeJniBridge_libcNewQurtTimeLocaltimeR(JNIEnv* km_env, jclass km_clazz, jlong timep, jlong result) {
     (void)km_env;
     (void)km_clazz;
     typedef void* (*km_fn_t)(void*, void*);
@@ -283,7 +283,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTim
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTimeJniBridge_libc_1new_1qurt_1time_1asctime(JNIEnv* km_env, jclass km_clazz, jlong tm) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTimeJniBridge_libcNewQurtTimeAsctime(JNIEnv* km_env, jclass km_clazz, jlong tm) {
     (void)km_env;
     (void)km_clazz;
     typedef char* (*km_fn_t)(void*);
@@ -316,7 +316,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTim
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTimeJniBridge_libc_1new_1qurt_1time_1asctimeR(JNIEnv* km_env, jclass km_clazz, jlong tm, jlong buf) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTimeJniBridge_libcNewQurtTimeAsctimeR(JNIEnv* km_env, jclass km_clazz, jlong tm, jlong buf) {
     (void)km_env;
     (void)km_clazz;
     typedef char* (*km_fn_t)(void*, char*);
@@ -349,7 +349,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTim
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTimeJniBridge_libc_1new_1qurt_1time_1ctime(JNIEnv* km_env, jclass km_clazz, jlong timep) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTimeJniBridge_libcNewQurtTimeCtime(JNIEnv* km_env, jclass km_clazz, jlong timep) {
     (void)km_env;
     (void)km_clazz;
     typedef char* (*km_fn_t)(void*);
@@ -382,7 +382,7 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTim
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTimeJniBridge_libc_1new_1qurt_1time_1ctimeR(JNIEnv* km_env, jclass km_clazz, jlong timep, jlong buf) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTimeJniBridge_libcNewQurtTimeCtimeR(JNIEnv* km_env, jclass km_clazz, jlong timep, jlong buf) {
     (void)km_env;
     (void)km_clazz;
     typedef char* (*km_fn_t)(void*, char*);
@@ -415,10 +415,9 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTim
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTimeJniBridge_libc_1new_1qurt_1time_1strftime(JNIEnv* km_env, jclass km_clazz, jlong s, jlong maxsize, jstring format, jlong timeptr) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTimeJniBridge_libcNewQurtTimeStrftime(JNIEnv* km_env, jclass km_clazz, jlong s, jlong maxsize, jlong format, jlong timeptr) {
     (void)km_env;
     (void)km_clazz;
-    const char* format_utf = (format != NULL) ? (*km_env)->GetStringUTFChars(km_env, format, NULL) : NULL;
     typedef uint64_t (*km_fn_t)(char*, uint64_t, const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -441,20 +440,17 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTim
 #endif
     uint64_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((char*)(uintptr_t)s, (uint64_t)maxsize, format_utf, (void*)(uintptr_t)timeptr);
+        km_res = km_fn_ptr((char*)(uintptr_t)s, (uint64_t)maxsize, (const char*)(uintptr_t)format, (void*)(uintptr_t)timeptr);
     } else {
         errno = ENOSYS;
         km_res = 0;
     }
-    if (format != NULL && format_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, format, format_utf);
     return (jlong)km_res;
 }
 
-JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTimeJniBridge_libc_1new_1qurt_1time_1strptime(JNIEnv* km_env, jclass km_clazz, jstring s, jstring format, jlong tm) {
+JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTimeJniBridge_libcNewQurtTimeStrptime(JNIEnv* km_env, jclass km_clazz, jlong s, jlong format, jlong tm) {
     (void)km_env;
     (void)km_clazz;
-    const char* s_utf = (s != NULL) ? (*km_env)->GetStringUTFChars(km_env, s, NULL) : NULL;
-    const char* format_utf = (format != NULL) ? (*km_env)->GetStringUTFChars(km_env, format, NULL) : NULL;
     typedef char* (*km_fn_t)(const char*, const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -477,17 +473,15 @@ JNIEXPORT jlong JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTim
 #endif
     char* km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr(s_utf, format_utf, (void*)(uintptr_t)tm);
+        km_res = km_fn_ptr((const char*)(uintptr_t)s, (const char*)(uintptr_t)format, (void*)(uintptr_t)tm);
     } else {
         errno = ENOSYS;
         km_res = NULL;
     }
-    if (s != NULL && s_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, s, s_utf);
-    if (format != NULL && format_utf != NULL) (*km_env)->ReleaseStringUTFChars(km_env, format, format_utf);
     return (jlong)(uintptr_t)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTimeJniBridge_libc_1new_1qurt_1time_1clockGettime(JNIEnv* km_env, jclass km_clazz, jint clk_id, jlong tp) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTimeJniBridge_libcNewQurtTimeClockGettime(JNIEnv* km_env, jclass km_clazz, jint clkId, jlong tp) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(int32_t, void*);
@@ -512,7 +506,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTime
 #endif
     int32_t km_res;
     if (km_fn_ptr != NULL) {
-        km_res = km_fn_ptr((int32_t)clk_id, (void*)(uintptr_t)tp);
+        km_res = km_fn_ptr((int32_t)clkId, (void*)(uintptr_t)tp);
     } else {
         errno = ENOSYS;
         km_res = -1;
@@ -520,7 +514,7 @@ JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTime
     return (jint)km_res;
 }
 
-JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTimeJniBridge_libc_1new_1qurt_1time_1nanosleep(JNIEnv* km_env, jclass km_clazz, jlong req, jlong rem) {
+JNIEXPORT jint JNICALL Java_io_github_kotlinmania_libc_new_qurt_time_NewQurtTimeJniBridge_libcNewQurtTimeNanosleep(JNIEnv* km_env, jclass km_clazz, jlong req, jlong rem) {
     (void)km_env;
     (void)km_clazz;
     typedef int32_t (*km_fn_t)(void*, void*);

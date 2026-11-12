@@ -40,151 +40,151 @@
 #endif
 #endif
 
-int32_t libc_vxworks_isalnum(int32_t c) {
+int32_t libcVxworksIsalnum(int32_t c) {
     return (int32_t)isalnum(c);
 }
 
-int32_t libc_vxworks_isalpha(int32_t c) {
+int32_t libcVxworksIsalpha(int32_t c) {
     return (int32_t)isalpha(c);
 }
 
-int32_t libc_vxworks_iscntrl(int32_t c) {
+int32_t libcVxworksIscntrl(int32_t c) {
     return (int32_t)iscntrl(c);
 }
 
-int32_t libc_vxworks_isdigit(int32_t c) {
+int32_t libcVxworksIsdigit(int32_t c) {
     return (int32_t)isdigit(c);
 }
 
-int32_t libc_vxworks_isgraph(int32_t c) {
+int32_t libcVxworksIsgraph(int32_t c) {
     return (int32_t)isgraph(c);
 }
 
-int32_t libc_vxworks_islower(int32_t c) {
+int32_t libcVxworksIslower(int32_t c) {
     return (int32_t)islower(c);
 }
 
-int32_t libc_vxworks_isprint(int32_t c) {
+int32_t libcVxworksIsprint(int32_t c) {
     return (int32_t)isprint(c);
 }
 
-int32_t libc_vxworks_ispunct(int32_t c) {
+int32_t libcVxworksIspunct(int32_t c) {
     return (int32_t)ispunct(c);
 }
 
-int32_t libc_vxworks_isspace(int32_t c) {
+int32_t libcVxworksIsspace(int32_t c) {
     return (int32_t)isspace(c);
 }
 
-int32_t libc_vxworks_isupper(int32_t c) {
+int32_t libcVxworksIsupper(int32_t c) {
     return (int32_t)isupper(c);
 }
 
-int32_t libc_vxworks_isxdigit(int32_t c) {
+int32_t libcVxworksIsxdigit(int32_t c) {
     return (int32_t)isxdigit(c);
 }
 
-int32_t libc_vxworks_isblank(int32_t c) {
+int32_t libcVxworksIsblank(int32_t c) {
     return (int32_t)isblank(c);
 }
 
-int32_t libc_vxworks_tolower(int32_t c) {
+int32_t libcVxworksTolower(int32_t c) {
     return (int32_t)tolower(c);
 }
 
-int32_t libc_vxworks_toupper(int32_t c) {
+int32_t libcVxworksToupper(int32_t c) {
     return (int32_t)toupper(c);
 }
 
-void* libc_vxworks_fopen(const char* filename, const char* mode) {
+void* libcVxworksFopen(const char* filename, const char* mode) {
     return (void*)fopen(filename, mode);
 }
 
-void* libc_vxworks_freopen(const char* filename, const char* mode, void* file) {
+void* libcVxworksFreopen(const char* filename, const char* mode, void* file) {
     return (void*)freopen(filename, mode, (FILE*)file);
 }
 
-int32_t libc_vxworks_fflush(void* file) {
+int32_t libcVxworksFflush(void* file) {
     return (int32_t)fflush((FILE*)file);
 }
 
-int32_t libc_vxworks_fclose(void* file) {
+int32_t libcVxworksFclose(void* file) {
     return (int32_t)fclose((FILE*)file);
 }
 
-int32_t libc_vxworks_remove(const char* filename) {
+int32_t libcVxworksRemove(const char* filename) {
     return (int32_t)remove(filename);
 }
 
-int32_t libc_vxworks_rename(const char* oldname, const char* newname) {
+int32_t libcVxworksRename(const char* oldname, const char* newname) {
     return (int32_t)rename(oldname, newname);
 }
 
-void* libc_vxworks_tmpfile(void) {
+void* libcVxworksTmpfile(void) {
     return (void*)tmpfile();
 }
 
-int32_t libc_vxworks_setvbuf(void* stream, char* buffer, int32_t mode, uint64_t size) {
+int32_t libcVxworksSetvbuf(void* stream, char* buffer, int32_t mode, uint64_t size) {
     return (int32_t)setvbuf((FILE*)stream, buffer, mode, size);
 }
 
-void libc_vxworks_setbuf(void* stream, char* buf) {
+void libcVxworksSetbuf(void* stream, char* buf) {
     setbuf((FILE*)stream, buf);
 }
 
-int32_t libc_vxworks_getchar(void) {
+int32_t libcVxworksGetchar(void) {
     return (int32_t)getchar();
 }
 
-int32_t libc_vxworks_putchar(int32_t c) {
+int32_t libcVxworksPutchar(int32_t c) {
     return (int32_t)putchar(c);
 }
 
-int32_t libc_vxworks_fgetc(void* stream) {
+int32_t libcVxworksFgetc(void* stream) {
     return (int32_t)fgetc((FILE*)stream);
 }
 
-char* libc_vxworks_fgets(char* buf, int32_t n, void* stream) {
+char* libcVxworksFgets(char* buf, int32_t n, void* stream) {
     return (char*)fgets(buf, n, (FILE*)stream);
 }
 
-int32_t libc_vxworks_fputc(int32_t c, void* stream) {
+int32_t libcVxworksFputc(int32_t c, void* stream) {
     return (int32_t)fputc(c, (FILE*)stream);
 }
 
-int32_t libc_vxworks_fputs(const char* s, void* stream) {
+int32_t libcVxworksFputs(const char* s, void* stream) {
     return (int32_t)fputs(s, (FILE*)stream);
 }
 
-int32_t libc_vxworks_puts(const char* s) {
+int32_t libcVxworksPuts(const char* s) {
     return (int32_t)puts(s);
 }
 
-int32_t libc_vxworks_ungetc(int32_t c, void* stream) {
+int32_t libcVxworksUngetc(int32_t c, void* stream) {
     return (int32_t)ungetc(c, (FILE*)stream);
 }
 
-uint64_t libc_vxworks_fread(void* ptr, uint64_t size, uint64_t nobj, void* stream) {
+uint64_t libcVxworksFread(void* ptr, uint64_t size, uint64_t nobj, void* stream) {
     return (uint64_t)fread(ptr, size, nobj, (FILE*)stream);
 }
 
-uint64_t libc_vxworks_fwrite(void* ptr, uint64_t size, uint64_t nobj, void* stream) {
+uint64_t libcVxworksFwrite(void* ptr, uint64_t size, uint64_t nobj, void* stream) {
     return (uint64_t)fwrite(ptr, size, nobj, (FILE*)stream);
 }
 
-int32_t libc_vxworks_fseek(void* stream, int64_t offset, int32_t whence) {
+int32_t libcVxworksFseek(void* stream, int64_t offset, int32_t whence) {
     return (int32_t)fseek((FILE*)stream, offset, whence);
 }
 
-int64_t libc_vxworks_ftell(void* stream) {
+int64_t libcVxworksFtell(void* stream) {
     return (int64_t)ftell((FILE*)stream);
 }
 
-void libc_vxworks_rewind(void* stream) {
+void libcVxworksRewind(void* stream) {
     rewind((FILE*)stream);
 }
 
-int32_t libc_vxworks_fgetpos(void* stream, void* ptr) {
+int32_t libcVxworksFgetpos(void* stream, void* ptr) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -212,7 +212,7 @@ int32_t libc_vxworks_fgetpos(void* stream, void* ptr) {
     return -1;
 }
 
-int32_t libc_vxworks_fsetpos(void* stream, void* ptr) {
+int32_t libcVxworksFsetpos(void* stream, void* ptr) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -240,83 +240,83 @@ int32_t libc_vxworks_fsetpos(void* stream, void* ptr) {
     return -1;
 }
 
-int32_t libc_vxworks_feof(void* stream) {
+int32_t libcVxworksFeof(void* stream) {
     return (int32_t)feof((FILE*)stream);
 }
 
-int32_t libc_vxworks_ferror(void* stream) {
+int32_t libcVxworksFerror(void* stream) {
     return (int32_t)ferror((FILE*)stream);
 }
 
-void libc_vxworks_perror(const char* s) {
+void libcVxworksPerror(const char* s) {
     perror(s);
 }
 
-double libc_vxworks_atof(const char* s) {
+double libcVxworksAtof(const char* s) {
     return (double)atof(s);
 }
 
-int32_t libc_vxworks_atoi(const char* s) {
+int32_t libcVxworksAtoi(const char* s) {
     return (int32_t)atoi(s);
 }
 
-int64_t libc_vxworks_atol(const char* s) {
+int64_t libcVxworksAtol(const char* s) {
     return (int64_t)atol(s);
 }
 
-int64_t libc_vxworks_atoll(const char* s) {
+int64_t libcVxworksAtoll(const char* s) {
     return (int64_t)atoll(s);
 }
 
-double libc_vxworks_strtod(const char* s, void* endp) {
+double libcVxworksStrtod(const char* s, void* endp) {
     return (double)strtod(s, endp);
 }
 
-float libc_vxworks_strtof(const char* s, void* endp) {
+float libcVxworksStrtof(const char* s, void* endp) {
     return (float)strtof(s, endp);
 }
 
-int64_t libc_vxworks_strtol(const char* s, void* endp, int32_t base) {
+int64_t libcVxworksStrtol(const char* s, void* endp, int32_t base) {
     return (int64_t)strtol(s, endp, base);
 }
 
-int64_t libc_vxworks_strtoll(const char* s, void* endp, int32_t base) {
+int64_t libcVxworksStrtoll(const char* s, void* endp, int32_t base) {
     return (int64_t)strtoll(s, endp, base);
 }
 
-uint64_t libc_vxworks_strtoul(const char* s, void* endp, int32_t base) {
+uint64_t libcVxworksStrtoul(const char* s, void* endp, int32_t base) {
     return (uint64_t)strtoul(s, endp, base);
 }
 
-uint64_t libc_vxworks_strtoull(const char* s, void* endp, int32_t base) {
+uint64_t libcVxworksStrtoull(const char* s, void* endp, int32_t base) {
     return (uint64_t)strtoull(s, endp, base);
 }
 
-void* libc_vxworks_calloc(uint64_t nobj, uint64_t size) {
+void* libcVxworksCalloc(uint64_t nobj, uint64_t size) {
     return (void*)calloc(nobj, size);
 }
 
-void* libc_vxworks_malloc(uint64_t size) {
+void* libcVxworksMalloc(uint64_t size) {
     return (void*)malloc(size);
 }
 
-void* libc_vxworks_realloc(void* p, uint64_t size) {
+void* libcVxworksRealloc(void* p, uint64_t size) {
     return (void*)realloc(p, size);
 }
 
-void libc_vxworks_free(void* p) {
+void libcVxworksFree(void* p) {
     free(p);
 }
 
-void libc_vxworks_abort(void) {
+void libcVxworksAbort(void) {
     abort();
 }
 
-void libc_vxworks_exit(int32_t status) {
+void libcVxworksExit(int32_t status) {
     exit(status);
 }
 
-int32_t libc_vxworks_atexit(void* cb) {
+int32_t libcVxworksAtexit(void* cb) {
     if (cb == NULL) {
         errno = EINVAL;
         return -1;
@@ -352,7 +352,7 @@ int32_t libc_vxworks_atexit(void* cb) {
 #endif
 }
 
-int32_t libc_vxworks_system(const char* s) {
+int32_t libcVxworksSystem(const char* s) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -380,11 +380,11 @@ int32_t libc_vxworks_system(const char* s) {
     return -1;
 }
 
-char* libc_vxworks_getenv(const char* s) {
+char* libcVxworksGetenv(const char* s) {
     return (char*)getenv(s);
 }
 
-uint32_t libc_vxworks_cfgetospeed(void* termios) {
+uint32_t libcVxworksCfgetospeed(void* termios) {
     typedef uint32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -412,7 +412,7 @@ uint32_t libc_vxworks_cfgetospeed(void* termios) {
     return 0;
 }
 
-int32_t libc_vxworks_cfmakeraw(void* termios) {
+int32_t libcVxworksCfmakeraw(void* termios) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -440,7 +440,7 @@ int32_t libc_vxworks_cfmakeraw(void* termios) {
     return -1;
 }
 
-int32_t libc_vxworks_cfsetispeed(void* termios, uint32_t speed) {
+int32_t libcVxworksCfsetispeed(void* termios, uint32_t speed) {
     typedef int32_t (*km_fn_t)(void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -468,7 +468,7 @@ int32_t libc_vxworks_cfsetispeed(void* termios, uint32_t speed) {
     return -1;
 }
 
-int32_t libc_vxworks_cfsetospeed(void* termios, uint32_t speed) {
+int32_t libcVxworksCfsetospeed(void* termios, uint32_t speed) {
     typedef int32_t (*km_fn_t)(void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -496,63 +496,63 @@ int32_t libc_vxworks_cfsetospeed(void* termios, uint32_t speed) {
     return -1;
 }
 
-char* libc_vxworks_strcpy(char* dst, const char* src) {
+char* libcVxworksStrcpy(char* dst, const char* src) {
     return (char*)strcpy(dst, src);
 }
 
-char* libc_vxworks_strncpy(char* dst, const char* src, uint64_t n) {
+char* libcVxworksStrncpy(char* dst, const char* src, uint64_t n) {
     return (char*)strncpy(dst, src, n);
 }
 
-char* libc_vxworks_strcat(char* s, const char* ct) {
+char* libcVxworksStrcat(char* s, const char* ct) {
     return (char*)strcat(s, ct);
 }
 
-char* libc_vxworks_strncat(char* s, const char* ct, uint64_t n) {
+char* libcVxworksStrncat(char* s, const char* ct, uint64_t n) {
     return (char*)strncat(s, ct, n);
 }
 
-int32_t libc_vxworks_strcmp(const char* cs, const char* ct) {
+int32_t libcVxworksStrcmp(const char* cs, const char* ct) {
     return (int32_t)strcmp(cs, ct);
 }
 
-int32_t libc_vxworks_strncmp(const char* cs, const char* ct, uint64_t n) {
+int32_t libcVxworksStrncmp(const char* cs, const char* ct, uint64_t n) {
     return (int32_t)strncmp(cs, ct, n);
 }
 
-int32_t libc_vxworks_strcoll(const char* cs, const char* ct) {
+int32_t libcVxworksStrcoll(const char* cs, const char* ct) {
     return (int32_t)strcoll(cs, ct);
 }
 
-char* libc_vxworks_strchr(const char* cs, int32_t c) {
+char* libcVxworksStrchr(const char* cs, int32_t c) {
     return (char*)strchr(cs, c);
 }
 
-char* libc_vxworks_strrchr(const char* cs, int32_t c) {
+char* libcVxworksStrrchr(const char* cs, int32_t c) {
     return (char*)strrchr(cs, c);
 }
 
-uint64_t libc_vxworks_strspn(const char* cs, const char* ct) {
+uint64_t libcVxworksStrspn(const char* cs, const char* ct) {
     return (uint64_t)strspn(cs, ct);
 }
 
-uint64_t libc_vxworks_strcspn(const char* cs, const char* ct) {
+uint64_t libcVxworksStrcspn(const char* cs, const char* ct) {
     return (uint64_t)strcspn(cs, ct);
 }
 
-char* libc_vxworks_strdup(const char* cs) {
+char* libcVxworksStrdup(const char* cs) {
     return (char*)strdup(cs);
 }
 
-char* libc_vxworks_strpbrk(const char* cs, const char* ct) {
+char* libcVxworksStrpbrk(const char* cs, const char* ct) {
     return (char*)strpbrk(cs, ct);
 }
 
-char* libc_vxworks_strstr(const char* cs, const char* ct) {
+char* libcVxworksStrstr(const char* cs, const char* ct) {
     return (char*)strstr(cs, ct);
 }
 
-int32_t libc_vxworks_strcasecmp(const char* s1, const char* s2) {
+int32_t libcVxworksStrcasecmp(const char* s1, const char* s2) {
     typedef int32_t (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -580,7 +580,7 @@ int32_t libc_vxworks_strcasecmp(const char* s1, const char* s2) {
     return -1;
 }
 
-int32_t libc_vxworks_strncasecmp(const char* s1, const char* s2, uint64_t n) {
+int32_t libcVxworksStrncasecmp(const char* s1, const char* s2, uint64_t n) {
     typedef int32_t (*km_fn_t)(const char*, const char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -608,27 +608,27 @@ int32_t libc_vxworks_strncasecmp(const char* s1, const char* s2, uint64_t n) {
     return -1;
 }
 
-uint64_t libc_vxworks_strlen(const char* cs) {
+uint64_t libcVxworksStrlen(const char* cs) {
     return (uint64_t)strlen(cs);
 }
 
-uint64_t libc_vxworks_strnlen(const char* cs, uint64_t n) {
+uint64_t libcVxworksStrnlen(const char* cs, uint64_t n) {
     return (uint64_t)strnlen(cs, n);
 }
 
-char* libc_vxworks_strerror(int32_t n) {
+char* libcVxworksStrerror(int32_t n) {
     return (char*)strerror(n);
 }
 
-char* libc_vxworks_strtok(char* s, const char* t) {
+char* libcVxworksStrtok(char* s, const char* t) {
     return (char*)strtok(s, t);
 }
 
-uint64_t libc_vxworks_strxfrm(char* s, const char* ct, uint64_t n) {
+uint64_t libcVxworksStrxfrm(char* s, const char* ct, uint64_t n) {
     return (uint64_t)strxfrm(s, ct, n);
 }
 
-uint64_t libc_vxworks_wcslen(void* buf) {
+uint64_t libcVxworksWcslen(void* buf) {
     typedef uint64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -656,7 +656,7 @@ uint64_t libc_vxworks_wcslen(void* buf) {
     return 0;
 }
 
-uint64_t libc_vxworks_wcstombs(char* dest, void* src, uint64_t n) {
+uint64_t libcVxworksWcstombs(char* dest, void* src, uint64_t n) {
     typedef uint64_t (*km_fn_t)(char*, void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -684,11 +684,11 @@ uint64_t libc_vxworks_wcstombs(char* dest, void* src, uint64_t n) {
     return 0;
 }
 
-void* libc_vxworks_memchr(void* cx, int32_t c, uint64_t n) {
+void* libcVxworksMemchr(void* cx, int32_t c, uint64_t n) {
     return (void*)memchr(cx, c, n);
 }
 
-void* libc_vxworks_wmemchr(void* cx, uint32_t c, uint64_t n) {
+void* libcVxworksWmemchr(void* cx, uint32_t c, uint64_t n) {
     typedef void* (*km_fn_t)(void*, uint32_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -716,15 +716,15 @@ void* libc_vxworks_wmemchr(void* cx, uint32_t c, uint64_t n) {
     return NULL;
 }
 
-int32_t libc_vxworks_memcmp(void* cx, void* ct, uint64_t n) {
+int32_t libcVxworksMemcmp(void* cx, void* ct, uint64_t n) {
     return (int32_t)memcmp(cx, ct, n);
 }
 
-void* libc_vxworks_memcpy(void* dest, void* src, uint64_t n) {
+void* libcVxworksMemcpy(void* dest, void* src, uint64_t n) {
     return (void*)memcpy(dest, src, n);
 }
 
-void* libc_vxworks_memccpy(void* dest, void* src, int32_t c, uint64_t n) {
+void* libcVxworksMemccpy(void* dest, void* src, int32_t c, uint64_t n) {
     typedef void* (*km_fn_t)(void*, void*, int32_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -752,15 +752,15 @@ void* libc_vxworks_memccpy(void* dest, void* src, int32_t c, uint64_t n) {
     return NULL;
 }
 
-void* libc_vxworks_memmove(void* dest, void* src, uint64_t n) {
+void* libcVxworksMemmove(void* dest, void* src, uint64_t n) {
     return (void*)memmove(dest, src, n);
 }
 
-void* libc_vxworks_memset(void* dest, int32_t c, uint64_t n) {
+void* libcVxworksMemset(void* dest, int32_t c, uint64_t n) {
     return (void*)memset(dest, c, n);
 }
 
-void* libc_vxworks_alignedAlloc(uint64_t alignment, uint64_t size) {
+void* libcVxworksAlignedAlloc(uint64_t alignment, uint64_t size) {
     typedef void* (*km_fn_t)(uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -788,7 +788,7 @@ void* libc_vxworks_alignedAlloc(uint64_t alignment, uint64_t size) {
     return NULL;
 }
 
-int32_t libc_vxworks_uname(void* buf) {
+int32_t libcVxworksUname(void* buf) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -816,7 +816,7 @@ int32_t libc_vxworks_uname(void* buf) {
     return -1;
 }
 
-int64_t libc_vxworks_times(void* buf) {
+int64_t libcVxworksTimes(void* buf) {
     typedef int64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -844,7 +844,7 @@ int64_t libc_vxworks_times(void* buf) {
     return -1;
 }
 
-int32_t libc_vxworks_tcflush(int32_t fd, int32_t action) {
+int32_t libcVxworksTcflush(int32_t fd, int32_t action) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -872,7 +872,7 @@ int32_t libc_vxworks_tcflush(int32_t fd, int32_t action) {
     return -1;
 }
 
-int32_t libc_vxworks_pclose(void* stream) {
+int32_t libcVxworksPclose(void* stream) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -900,7 +900,7 @@ int32_t libc_vxworks_pclose(void* stream) {
     return -1;
 }
 
-char* libc_vxworks_mkdtemp(char* arg_0_template) {
+char* libcVxworksMkdtemp(char* arg0Template) {
     typedef char* (*km_fn_t)(char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -922,13 +922,13 @@ char* libc_vxworks_mkdtemp(char* arg_0_template) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_template);
+        return km_fn_ptr(arg0Template);
     }
     errno = ENOSYS;
     return NULL;
 }
 
-int32_t libc_vxworks_linkat(int32_t olddirfd, const char* oldpath, int32_t newdirfd, const char* newpath, int32_t flags) {
+int32_t libcVxworksLinkat(int32_t olddirfd, const char* oldpath, int32_t newdirfd, const char* newpath, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -956,7 +956,7 @@ int32_t libc_vxworks_linkat(int32_t olddirfd, const char* oldpath, int32_t newdi
     return -1;
 }
 
-int32_t libc_vxworks_unlinkat(int32_t dirfd, const char* pathname, int32_t flags) {
+int32_t libcVxworksUnlinkat(int32_t dirfd, const char* pathname, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -984,7 +984,7 @@ int32_t libc_vxworks_unlinkat(int32_t dirfd, const char* pathname, int32_t flags
     return -1;
 }
 
-void* libc_vxworks_getprotobyname(const char* name) {
+void* libcVxworksGetprotobyname(const char* name) {
     typedef void* (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1012,7 +1012,7 @@ void* libc_vxworks_getprotobyname(const char* name) {
     return NULL;
 }
 
-void* libc_vxworks_getprotobynumber(int32_t proto) {
+void* libcVxworksGetprotobynumber(int32_t proto) {
     typedef void* (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1040,7 +1040,7 @@ void* libc_vxworks_getprotobynumber(int32_t proto) {
     return NULL;
 }
 
-void* libc_vxworks_getservbyname(const char* name, const char* proto) {
+void* libcVxworksGetservbyname(const char* name, const char* proto) {
     typedef void* (*km_fn_t)(const char*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1068,7 +1068,7 @@ void* libc_vxworks_getservbyname(const char* name, const char* proto) {
     return NULL;
 }
 
-int32_t libc_vxworks_fchownat(int32_t dirfd, const char* pathname, uint16_t owner, uint16_t group, int32_t flags) {
+int32_t libcVxworksFchownat(int32_t dirfd, const char* pathname, uint16_t owner, uint16_t group, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, uint16_t, uint16_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1096,7 +1096,7 @@ int32_t libc_vxworks_fchownat(int32_t dirfd, const char* pathname, uint16_t owne
     return -1;
 }
 
-int32_t libc_vxworks_fprintf(void* stream, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcVxworksFprintf(void* stream, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(void*, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1130,7 +1130,7 @@ int32_t libc_vxworks_fprintf(void* stream, const char* format, int32_t km_vac, i
     return -1;
 }
 
-int32_t libc_vxworks_printf(const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcVxworksPrintf(const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1164,7 +1164,7 @@ int32_t libc_vxworks_printf(const char* format, int32_t km_vac, int64_t km_va0, 
     return -1;
 }
 
-int32_t libc_vxworks_snprintf(char* s, uint64_t n, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcVxworksSnprintf(char* s, uint64_t n, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(char*, uint64_t, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1198,7 +1198,7 @@ int32_t libc_vxworks_snprintf(char* s, uint64_t n, const char* format, int32_t k
     return -1;
 }
 
-int32_t libc_vxworks_sprintf(char* s, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcVxworksSprintf(char* s, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(char*, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1232,7 +1232,7 @@ int32_t libc_vxworks_sprintf(char* s, const char* format, int32_t km_vac, int64_
     return -1;
 }
 
-int32_t libc_vxworks_fscanf(void* stream, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcVxworksFscanf(void* stream, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(void*, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1266,7 +1266,7 @@ int32_t libc_vxworks_fscanf(void* stream, const char* format, int32_t km_vac, in
     return -1;
 }
 
-int32_t libc_vxworks_scanf(const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcVxworksScanf(const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1300,7 +1300,7 @@ int32_t libc_vxworks_scanf(const char* format, int32_t km_vac, int64_t km_va0, i
     return -1;
 }
 
-int32_t libc_vxworks_sscanf(const char* s, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcVxworksSscanf(const char* s, const char* format, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(const char*, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1334,7 +1334,7 @@ int32_t libc_vxworks_sscanf(const char* s, const char* format, int32_t km_vac, i
     return -1;
 }
 
-int32_t libc_vxworks_getcharUnlocked(void) {
+int32_t libcVxworksGetcharUnlocked(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1362,7 +1362,7 @@ int32_t libc_vxworks_getcharUnlocked(void) {
     return -1;
 }
 
-int32_t libc_vxworks_putcharUnlocked(int32_t c) {
+int32_t libcVxworksPutcharUnlocked(int32_t c) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1390,11 +1390,11 @@ int32_t libc_vxworks_putcharUnlocked(int32_t c) {
     return -1;
 }
 
-int32_t libc_vxworks_stat(const char* path, void* buf) {
+int32_t libcVxworksStat(const char* path, void* buf) {
     return (int32_t)stat(path, buf);
 }
 
-void* libc_vxworks_fdopen(int32_t fd, const char* mode) {
+void* libcVxworksFdopen(int32_t fd, const char* mode) {
     typedef void* (*km_fn_t)(int32_t, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1422,7 +1422,7 @@ void* libc_vxworks_fdopen(int32_t fd, const char* mode) {
     return NULL;
 }
 
-int32_t libc_vxworks_fileno(void* stream) {
+int32_t libcVxworksFileno(void* stream) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1450,11 +1450,11 @@ int32_t libc_vxworks_fileno(void* stream) {
     return -1;
 }
 
-int32_t libc_vxworks_creat(const char* path, int32_t mode) {
+int32_t libcVxworksCreat(const char* path, int32_t mode) {
     return (int32_t)creat(path, mode);
 }
 
-void libc_vxworks_rewinddir(void* dirp) {
+void libcVxworksRewinddir(void* dirp) {
 #if !defined(_WIN32)
     rewinddir((DIR*)dirp);
 #else
@@ -1463,7 +1463,7 @@ void libc_vxworks_rewinddir(void* dirp) {
 #endif
 }
 
-int32_t libc_vxworks_fchown(int32_t fd, uint16_t owner, uint16_t group) {
+int32_t libcVxworksFchown(int32_t fd, uint16_t owner, uint16_t group) {
 #if !defined(_WIN32)
     return (int32_t)fchown(fd, owner, group);
 #else
@@ -1475,11 +1475,11 @@ int32_t libc_vxworks_fchown(int32_t fd, uint16_t owner, uint16_t group) {
 #endif
 }
 
-int32_t libc_vxworks_access(const char* path, int32_t amode) {
+int32_t libcVxworksAccess(const char* path, int32_t amode) {
     return (int32_t)access(path, amode);
 }
 
-uint32_t libc_vxworks_alarm(uint32_t seconds) {
+uint32_t libcVxworksAlarm(uint32_t seconds) {
     typedef uint32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1507,7 +1507,7 @@ uint32_t libc_vxworks_alarm(uint32_t seconds) {
     return 0;
 }
 
-int32_t libc_vxworks_fchdir(int32_t dirfd) {
+int32_t libcVxworksFchdir(int32_t dirfd) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1535,7 +1535,7 @@ int32_t libc_vxworks_fchdir(int32_t dirfd) {
     return -1;
 }
 
-int32_t libc_vxworks_chown(const char* path, uint16_t uid, uint16_t gid) {
+int32_t libcVxworksChown(const char* path, uint16_t uid, uint16_t gid) {
 #if !defined(_WIN32)
     return (int32_t)chown(path, uid, gid);
 #else
@@ -1547,7 +1547,7 @@ int32_t libc_vxworks_chown(const char* path, uint16_t uid, uint16_t gid) {
 #endif
 }
 
-int64_t libc_vxworks_fpathconf(int32_t filedes, int32_t name) {
+int64_t libcVxworksFpathconf(int32_t filedes, int32_t name) {
     typedef int64_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1575,7 +1575,7 @@ int64_t libc_vxworks_fpathconf(int32_t filedes, int32_t name) {
     return -1;
 }
 
-uint16_t libc_vxworks_getegid(void) {
+uint16_t libcVxworksGetegid(void) {
 #if !defined(_WIN32)
     return (uint16_t)getegid();
 #else
@@ -1584,7 +1584,7 @@ uint16_t libc_vxworks_getegid(void) {
 #endif
 }
 
-uint16_t libc_vxworks_geteuid(void) {
+uint16_t libcVxworksGeteuid(void) {
 #if !defined(_WIN32)
     return (uint16_t)geteuid();
 #else
@@ -1593,7 +1593,7 @@ uint16_t libc_vxworks_geteuid(void) {
 #endif
 }
 
-int32_t libc_vxworks_getgroups(int32_t ngroups_max, void* groups) {
+int32_t libcVxworksGetgroups(int32_t ngroupsMax, void* groups) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1615,13 +1615,13 @@ int32_t libc_vxworks_getgroups(int32_t ngroups_max, void* groups) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(ngroups_max, groups);
+        return km_fn_ptr(ngroupsMax, groups);
     }
     errno = ENOSYS;
     return -1;
 }
 
-char* libc_vxworks_getlogin(void) {
+char* libcVxworksGetlogin(void) {
     typedef char* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1649,7 +1649,7 @@ char* libc_vxworks_getlogin(void) {
     return NULL;
 }
 
-int32_t libc_vxworks_getopt(int32_t argc, void* argv, const char* optstr) {
+int32_t libcVxworksGetopt(int32_t argc, void* argv, const char* optstr) {
     typedef int32_t (*km_fn_t)(int32_t, void*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1677,7 +1677,7 @@ int32_t libc_vxworks_getopt(int32_t argc, void* argv, const char* optstr) {
     return -1;
 }
 
-int64_t libc_vxworks_pathconf(const char* path, int32_t name) {
+int64_t libcVxworksPathconf(const char* path, int32_t name) {
     typedef int64_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1705,7 +1705,7 @@ int64_t libc_vxworks_pathconf(const char* path, int32_t name) {
     return -1;
 }
 
-int32_t libc_vxworks_pause(void) {
+int32_t libcVxworksPause(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1733,7 +1733,7 @@ int32_t libc_vxworks_pause(void) {
     return -1;
 }
 
-int32_t libc_vxworks_seteuid(uint16_t uid) {
+int32_t libcVxworksSeteuid(uint16_t uid) {
     typedef int32_t (*km_fn_t)(uint16_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1761,7 +1761,7 @@ int32_t libc_vxworks_seteuid(uint16_t uid) {
     return -1;
 }
 
-int32_t libc_vxworks_setegid(uint16_t gid) {
+int32_t libcVxworksSetegid(uint16_t gid) {
     typedef int32_t (*km_fn_t)(uint16_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1789,7 +1789,7 @@ int32_t libc_vxworks_setegid(uint16_t gid) {
     return -1;
 }
 
-uint32_t libc_vxworks_sleep(uint32_t secs) {
+uint32_t libcVxworksSleep(uint32_t secs) {
 #if !defined(_WIN32)
     return (uint32_t)sleep(secs);
 #else
@@ -1799,7 +1799,7 @@ uint32_t libc_vxworks_sleep(uint32_t secs) {
 #endif
 }
 
-char* libc_vxworks_ttyname(int32_t fd) {
+char* libcVxworksTtyname(int32_t fd) {
     typedef char* (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1827,7 +1827,7 @@ char* libc_vxworks_ttyname(int32_t fd) {
     return NULL;
 }
 
-int32_t libc_vxworks_wait(void* status) {
+int32_t libcVxworksWait(void* status) {
 #if !defined(_WIN32)
     return (int32_t)wait(status);
 #else
@@ -1837,11 +1837,11 @@ int32_t libc_vxworks_wait(void* status) {
 #endif
 }
 
-int32_t libc_vxworks_umask(int32_t mask) {
+int32_t libcVxworksUmask(int32_t mask) {
     return (int32_t)umask(mask);
 }
 
-int32_t libc_vxworks_mlock(void* addr, uint64_t len) {
+int32_t libcVxworksMlock(void* addr, uint64_t len) {
 #if !defined(_WIN32)
     return (int32_t)mlock(addr, len);
 #else
@@ -1852,7 +1852,7 @@ int32_t libc_vxworks_mlock(void* addr, uint64_t len) {
 #endif
 }
 
-int32_t libc_vxworks_mlockall(int32_t flags) {
+int32_t libcVxworksMlockall(int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1880,7 +1880,7 @@ int32_t libc_vxworks_mlockall(int32_t flags) {
     return -1;
 }
 
-int32_t libc_vxworks_munlock(void* addr, uint64_t len) {
+int32_t libcVxworksMunlock(void* addr, uint64_t len) {
 #if !defined(_WIN32)
     return (int32_t)munlock(addr, len);
 #else
@@ -1891,7 +1891,7 @@ int32_t libc_vxworks_munlock(void* addr, uint64_t len) {
 #endif
 }
 
-int32_t libc_vxworks_munlockall(void) {
+int32_t libcVxworksMunlockall(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -1919,7 +1919,7 @@ int32_t libc_vxworks_munlockall(void) {
     return -1;
 }
 
-void* libc_vxworks_mmap(void* addr, uint64_t len, int32_t prot, int32_t flags, int32_t fd, int64_t offset) {
+void* libcVxworksMmap(void* addr, uint64_t len, int32_t prot, int32_t flags, int32_t fd, int64_t offset) {
 #if !defined(_WIN32)
     return (void*)mmap(addr, len, prot, flags, fd, offset);
 #else
@@ -1934,7 +1934,7 @@ void* libc_vxworks_mmap(void* addr, uint64_t len, int32_t prot, int32_t flags, i
 #endif
 }
 
-int32_t libc_vxworks_munmap(void* addr, uint64_t len) {
+int32_t libcVxworksMunmap(void* addr, uint64_t len) {
 #if !defined(_WIN32)
     return (int32_t)munmap(addr, len);
 #else
@@ -1945,7 +1945,7 @@ int32_t libc_vxworks_munmap(void* addr, uint64_t len) {
 #endif
 }
 
-int32_t libc_vxworks_mprotect(void* addr, uint64_t len, int32_t prot) {
+int32_t libcVxworksMprotect(void* addr, uint64_t len, int32_t prot) {
 #if !defined(_WIN32)
     return (int32_t)mprotect(addr, len, prot);
 #else
@@ -1957,7 +1957,7 @@ int32_t libc_vxworks_mprotect(void* addr, uint64_t len, int32_t prot) {
 #endif
 }
 
-int32_t libc_vxworks_msync(void* addr, uint64_t len, int32_t flags) {
+int32_t libcVxworksMsync(void* addr, uint64_t len, int32_t flags) {
 #if !defined(_WIN32)
     return (int32_t)msync(addr, len, flags);
 #else
@@ -1969,7 +1969,7 @@ int32_t libc_vxworks_msync(void* addr, uint64_t len, int32_t flags) {
 #endif
 }
 
-int32_t libc_vxworks_truncate(const char* path, int64_t length) {
+int32_t libcVxworksTruncate(const char* path, int64_t length) {
 #if !defined(_WIN32)
     return (int32_t)truncate(path, length);
 #else
@@ -1980,7 +1980,7 @@ int32_t libc_vxworks_truncate(const char* path, int64_t length) {
 #endif
 }
 
-int32_t libc_vxworks_shmOpen(const char* name, int32_t oflag, int32_t mode) {
+int32_t libcVxworksShmOpen(const char* name, int32_t oflag, int32_t mode) {
     typedef int32_t (*km_fn_t)(const char*, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2008,7 +2008,7 @@ int32_t libc_vxworks_shmOpen(const char* name, int32_t oflag, int32_t mode) {
     return -1;
 }
 
-int32_t libc_vxworks_shmUnlink(const char* name) {
+int32_t libcVxworksShmUnlink(const char* name) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2036,7 +2036,7 @@ int32_t libc_vxworks_shmUnlink(const char* name) {
     return -1;
 }
 
-int32_t libc_vxworks_gettimeofday(void* tp, void* tz) {
+int32_t libcVxworksGettimeofday(void* tp, void* tz) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2064,7 +2064,7 @@ int32_t libc_vxworks_gettimeofday(void* tp, void* tz) {
     return -1;
 }
 
-void libc_vxworks_pthreadExit(void* value) {
+void libcVxworksPthreadExit(void* value) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2092,7 +2092,7 @@ void libc_vxworks_pthreadExit(void* value) {
     errno = ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadAttrSetdetachstate(void* attr, int32_t state) {
+int32_t libcVxworksPthreadAttrSetdetachstate(void* attr, int32_t state) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2120,7 +2120,7 @@ int32_t libc_vxworks_pthreadAttrSetdetachstate(void* attr, int32_t state) {
     return ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadEqual(void* t1, void* t2) {
+int32_t libcVxworksPthreadEqual(void* t1, void* t2) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2148,7 +2148,7 @@ int32_t libc_vxworks_pthreadEqual(void* t1, void* t2) {
     return -1;
 }
 
-int32_t libc_vxworks_strerrorR(int32_t errnum, char* buf, uint64_t buflen) {
+int32_t libcVxworksStrerrorR(int32_t errnum, char* buf, uint64_t buflen) {
     typedef int32_t (*km_fn_t)(int32_t, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2176,7 +2176,7 @@ int32_t libc_vxworks_strerrorR(int32_t errnum, char* buf, uint64_t buflen) {
     return -1;
 }
 
-int32_t libc_vxworks_sigaddset(void* set, int32_t signum) {
+int32_t libcVxworksSigaddset(void* set, int32_t signum) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2204,7 +2204,7 @@ int32_t libc_vxworks_sigaddset(void* set, int32_t signum) {
     return -1;
 }
 
-int32_t libc_vxworks_sigaction(int32_t signum, void* act, void* oldact) {
+int32_t libcVxworksSigaction(int32_t signum, void* act, void* oldact) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2232,7 +2232,7 @@ int32_t libc_vxworks_sigaction(int32_t signum, void* act, void* oldact) {
     return -1;
 }
 
-int32_t libc_vxworks_utimes(const char* filename, void* times) {
+int32_t libcVxworksUtimes(const char* filename, void* times) {
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2260,7 +2260,7 @@ int32_t libc_vxworks_utimes(const char* filename, void* times) {
     return -1;
 }
 
-int32_t libc_vxworks_futimens(int32_t fd, void* times) {
+int32_t libcVxworksFutimens(int32_t fd, void* times) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2288,7 +2288,7 @@ int32_t libc_vxworks_futimens(int32_t fd, void* times) {
     return -1;
 }
 
-int32_t libc_vxworks_utimensat(int32_t dirfd, const char* path, void* times, int32_t flag) {
+int32_t libcVxworksUtimensat(int32_t dirfd, const char* path, void* times, int32_t flag) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2316,7 +2316,7 @@ int32_t libc_vxworks_utimensat(int32_t dirfd, const char* path, void* times, int
     return -1;
 }
 
-void* libc_vxworks_dlopen(const char* filename, int32_t flag) {
+void* libcVxworksDlopen(const char* filename, int32_t flag) {
     typedef void* (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2342,7 +2342,7 @@ void* libc_vxworks_dlopen(const char* filename, int32_t flag) {
     return NULL;
 }
 
-char* libc_vxworks_dlerror(void) {
+char* libcVxworksDlerror(void) {
     typedef char* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2368,7 +2368,7 @@ char* libc_vxworks_dlerror(void) {
     return NULL;
 }
 
-void* libc_vxworks_dlsym(void* handle, const char* symbol) {
+void* libcVxworksDlsym(void* handle, const char* symbol) {
     typedef void* (*km_fn_t)(void*, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2394,7 +2394,7 @@ void* libc_vxworks_dlsym(void* handle, const char* symbol) {
     return NULL;
 }
 
-int32_t libc_vxworks_dlclose(void* handle) {
+int32_t libcVxworksDlclose(void* handle) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2420,7 +2420,7 @@ int32_t libc_vxworks_dlclose(void* handle) {
     return -1;
 }
 
-int32_t libc_vxworks_dladdr(void* addr, void* info) {
+int32_t libcVxworksDladdr(void* addr, void* info) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2446,7 +2446,7 @@ int32_t libc_vxworks_dladdr(void* addr, void* info) {
     return -1;
 }
 
-void* libc_vxworks_gmtimeR(void* time_p, void* result) {
+void* libcVxworksGmtimeR(void* timeP, void* result) {
     typedef void* (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2468,13 +2468,13 @@ void* libc_vxworks_gmtimeR(void* time_p, void* result) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(time_p, result);
+        return km_fn_ptr(timeP, result);
     }
     errno = ENOSYS;
     return NULL;
 }
 
-void* libc_vxworks_localtimeR(void* time_p, void* result) {
+void* libcVxworksLocaltimeR(void* timeP, void* result) {
     typedef void* (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2496,29 +2496,29 @@ void* libc_vxworks_localtimeR(void* time_p, void* result) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(time_p, result);
+        return km_fn_ptr(timeP, result);
     }
     errno = ENOSYS;
     return NULL;
 }
 
-int64_t libc_vxworks_mktime(void* tm) {
+int64_t libcVxworksMktime(void* tm) {
     return (int64_t)mktime(tm);
 }
 
-int64_t libc_vxworks_time(void* arg_0_time) {
-    return (int64_t)time(arg_0_time);
+int64_t libcVxworksTime(void* arg0Time) {
+    return (int64_t)time(arg0Time);
 }
 
-void* libc_vxworks_gmtime(void* time_p) {
-    return (void*)gmtime(time_p);
+void* libcVxworksGmtime(void* timeP) {
+    return (void*)gmtime(timeP);
 }
 
-void* libc_vxworks_localtime(void* time_p) {
-    return (void*)localtime(time_p);
+void* libcVxworksLocaltime(void* timeP) {
+    return (void*)localtime(timeP);
 }
 
-int64_t libc_vxworks_timegm(void* tm) {
+int64_t libcVxworksTimegm(void* tm) {
     typedef int64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2546,11 +2546,11 @@ int64_t libc_vxworks_timegm(void* tm) {
     return -1;
 }
 
-double libc_vxworks_difftime(int64_t time1, int64_t time0) {
+double libcVxworksDifftime(int64_t time1, int64_t time0) {
     return (double)difftime(time1, time0);
 }
 
-int32_t libc_vxworks_gethostname(char* name, uint64_t len) {
+int32_t libcVxworksGethostname(char* name, uint64_t len) {
     typedef int32_t (*km_fn_t)(char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2578,7 +2578,7 @@ int32_t libc_vxworks_gethostname(char* name, uint64_t len) {
     return -1;
 }
 
-int32_t libc_vxworks_usleep(uint64_t secs) {
+int32_t libcVxworksUsleep(uint64_t secs) {
 #if !defined(_WIN32)
     return (int32_t)usleep(secs);
 #else
@@ -2588,7 +2588,7 @@ int32_t libc_vxworks_usleep(uint64_t secs) {
 #endif
 }
 
-int32_t libc_vxworks_putenv(char* string) {
+int32_t libcVxworksPutenv(char* string) {
     typedef int32_t (*km_fn_t)(char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2616,15 +2616,15 @@ int32_t libc_vxworks_putenv(char* string) {
     return -1;
 }
 
-char* libc_vxworks_setlocale(int32_t category, const char* locale) {
+char* libcVxworksSetlocale(int32_t category, const char* locale) {
     return (char*)setlocale(category, locale);
 }
 
-void* libc_vxworks_localeconv(void) {
+void* libcVxworksLocaleconv(void) {
     return (void*)localeconv();
 }
 
-int32_t libc_vxworks_sigprocmask(int32_t how, void* set, void* oldset) {
+int32_t libcVxworksSigprocmask(int32_t how, void* set, void* oldset) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2652,7 +2652,7 @@ int32_t libc_vxworks_sigprocmask(int32_t how, void* set, void* oldset) {
     return -1;
 }
 
-int32_t libc_vxworks_sigpending(void* set) {
+int32_t libcVxworksSigpending(void* set) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2680,7 +2680,7 @@ int32_t libc_vxworks_sigpending(void* set) {
     return -1;
 }
 
-int32_t libc_vxworks_mkfifo(const char* path, int32_t mode) {
+int32_t libcVxworksMkfifo(const char* path, int32_t mode) {
 #if !defined(_WIN32)
     return (int32_t)mkfifo(path, mode);
 #else
@@ -2691,7 +2691,7 @@ int32_t libc_vxworks_mkfifo(const char* path, int32_t mode) {
 #endif
 }
 
-int32_t libc_vxworks_fseeko(void* stream, int64_t offset, int32_t whence) {
+int32_t libcVxworksFseeko(void* stream, int64_t offset, int32_t whence) {
     typedef int32_t (*km_fn_t)(void*, int64_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2719,7 +2719,7 @@ int32_t libc_vxworks_fseeko(void* stream, int64_t offset, int32_t whence) {
     return -1;
 }
 
-int64_t libc_vxworks_ftello(void* stream) {
+int64_t libcVxworksFtello(void* stream) {
     typedef int64_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2747,7 +2747,7 @@ int64_t libc_vxworks_ftello(void* stream) {
     return -1;
 }
 
-int32_t libc_vxworks_mkstemp(char* arg_0_template) {
+int32_t libcVxworksMkstemp(char* arg0Template) {
     typedef int32_t (*km_fn_t)(char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2769,13 +2769,13 @@ int32_t libc_vxworks_mkstemp(char* arg_0_template) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_template);
+        return km_fn_ptr(arg0Template);
     }
     errno = ENOSYS;
     return -1;
 }
 
-char* libc_vxworks_tmpnam(char* ptr) {
+char* libcVxworksTmpnam(char* ptr) {
     typedef char* (*km_fn_t)(char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2803,7 +2803,7 @@ char* libc_vxworks_tmpnam(char* ptr) {
     return NULL;
 }
 
-void libc_vxworks_openlog(const char* ident, int32_t logopt, int32_t facility) {
+void libcVxworksOpenlog(const char* ident, int32_t logopt, int32_t facility) {
     typedef void (*km_fn_t)(const char*, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2831,7 +2831,7 @@ void libc_vxworks_openlog(const char* ident, int32_t logopt, int32_t facility) {
     errno = ENOSYS;
 }
 
-void libc_vxworks_closelog(void) {
+void libcVxworksCloselog(void) {
     typedef void (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2859,7 +2859,7 @@ void libc_vxworks_closelog(void) {
     errno = ENOSYS;
 }
 
-int32_t libc_vxworks_setlogmask(int32_t maskpri) {
+int32_t libcVxworksSetlogmask(int32_t maskpri) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2887,7 +2887,7 @@ int32_t libc_vxworks_setlogmask(int32_t maskpri) {
     return -1;
 }
 
-void libc_vxworks_syslog(int32_t priority, const char* message, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+void libcVxworksSyslog(int32_t priority, const char* message, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef void (*km_fn_t)(int32_t, const char*, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2921,7 +2921,7 @@ void libc_vxworks_syslog(int32_t priority, const char* message, int32_t km_vac, 
     errno = ENOSYS;
 }
 
-int64_t libc_vxworks_getline(void* lineptr, void* n, void* stream) {
+int64_t libcVxworksGetline(void* lineptr, void* n, void* stream) {
     typedef int64_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2949,7 +2949,7 @@ int64_t libc_vxworks_getline(void* lineptr, void* n, void* stream) {
     return -1;
 }
 
-int32_t libc_vxworks_tcsetattr(int32_t fd, int32_t optional_actions, void* termios) {
+int32_t libcVxworksTcsetattr(int32_t fd, int32_t optionalActions, void* termios) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -2971,13 +2971,13 @@ int32_t libc_vxworks_tcsetattr(int32_t fd, int32_t optional_actions, void* termi
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(fd, optional_actions, termios);
+        return km_fn_ptr(fd, optionalActions, termios);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_vxworks_tcgetattr(int32_t fd, void* termios) {
+int32_t libcVxworksTcgetattr(int32_t fd, void* termios) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3005,7 +3005,7 @@ int32_t libc_vxworks_tcgetattr(int32_t fd, void* termios) {
     return -1;
 }
 
-int32_t libc_vxworks_tcsendbreak(int32_t fd, int32_t duration) {
+int32_t libcVxworksTcsendbreak(int32_t fd, int32_t duration) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3033,7 +3033,7 @@ int32_t libc_vxworks_tcsendbreak(int32_t fd, int32_t duration) {
     return -1;
 }
 
-uint64_t libc_vxworks_confstr(int32_t name, char* buf, uint64_t len) {
+uint64_t libcVxworksConfstr(int32_t name, char* buf, uint64_t len) {
     typedef uint64_t (*km_fn_t)(int32_t, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3061,7 +3061,7 @@ uint64_t libc_vxworks_confstr(int32_t name, char* buf, uint64_t len) {
     return 0;
 }
 
-int32_t libc_vxworks_fnmatch(const char* pattern, const char* name, int32_t flags) {
+int32_t libcVxworksFnmatch(const char* pattern, const char* name, int32_t flags) {
     typedef int32_t (*km_fn_t)(const char*, const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3089,7 +3089,7 @@ int32_t libc_vxworks_fnmatch(const char* pattern, const char* name, int32_t flag
     return -1;
 }
 
-int32_t libc_vxworks_symlinkat(const char* target, int32_t newdirfd, const char* linkpath) {
+int32_t libcVxworksSymlinkat(const char* target, int32_t newdirfd, const char* linkpath) {
     typedef int32_t (*km_fn_t)(const char*, int32_t, const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3117,7 +3117,7 @@ int32_t libc_vxworks_symlinkat(const char* target, int32_t newdirfd, const char*
     return -1;
 }
 
-int32_t libc_vxworks_fchmodat(int32_t dirfd, const char* pathname, int32_t mode, int32_t flags) {
+int32_t libcVxworksFchmodat(int32_t dirfd, const char* pathname, int32_t mode, int32_t flags) {
     typedef int32_t (*km_fn_t)(int32_t, const char*, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3145,7 +3145,7 @@ int32_t libc_vxworks_fchmodat(int32_t dirfd, const char* pathname, int32_t mode,
     return -1;
 }
 
-int32_t libc_vxworks_utime(const char* file, void* buf) {
+int32_t libcVxworksUtime(const char* file, void* buf) {
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3173,7 +3173,7 @@ int32_t libc_vxworks_utime(const char* file, void* buf) {
     return -1;
 }
 
-void* libc_vxworks_memalign(uint64_t block_size, uint64_t size_arg) {
+void* libcVxworksMemalign(uint64_t blockSize, uint64_t sizeArg) {
     typedef void* (*km_fn_t)(uint64_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3195,21 +3195,21 @@ void* libc_vxworks_memalign(uint64_t block_size, uint64_t size_arg) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(block_size, size_arg);
+        return km_fn_ptr(blockSize, sizeArg);
     }
     errno = ENOSYS;
     return NULL;
 }
 
-char* libc_vxworks_getcwd(char* buf, uint64_t size) {
+char* libcVxworksGetcwd(char* buf, uint64_t size) {
     return (char*)getcwd(buf, size);
 }
 
-int32_t libc_vxworks_chdir(const char* attr) {
+int32_t libcVxworksChdir(const char* attr) {
     return (int32_t)chdir(attr);
 }
 
-int32_t libc_vxworks_pthreadMutexattrInit(void* attr) {
+int32_t libcVxworksPthreadMutexattrInit(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3237,7 +3237,7 @@ int32_t libc_vxworks_pthreadMutexattrInit(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadMutexattrDestroy(void* attr) {
+int32_t libcVxworksPthreadMutexattrDestroy(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3265,7 +3265,7 @@ int32_t libc_vxworks_pthreadMutexattrDestroy(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadMutexattrSettype(void* pAttr, int32_t pType) {
+int32_t libcVxworksPthreadMutexattrSettype(void* pAttr, int32_t pType) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3293,7 +3293,7 @@ int32_t libc_vxworks_pthreadMutexattrSettype(void* pAttr, int32_t pType) {
     return ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadMutexInit(void* mutex, void* attr) {
+int32_t libcVxworksPthreadMutexInit(void* mutex, void* attr) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3321,7 +3321,7 @@ int32_t libc_vxworks_pthreadMutexInit(void* mutex, void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadMutexDestroy(void* mutex) {
+int32_t libcVxworksPthreadMutexDestroy(void* mutex) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3349,7 +3349,7 @@ int32_t libc_vxworks_pthreadMutexDestroy(void* mutex) {
     return ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadMutexLock(void* mutex) {
+int32_t libcVxworksPthreadMutexLock(void* mutex) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3377,7 +3377,7 @@ int32_t libc_vxworks_pthreadMutexLock(void* mutex) {
     return ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadMutexTrylock(void* mutex) {
+int32_t libcVxworksPthreadMutexTrylock(void* mutex) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3405,7 +3405,7 @@ int32_t libc_vxworks_pthreadMutexTrylock(void* mutex) {
     return ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadMutexTimedlock(void* attr, void* spec) {
+int32_t libcVxworksPthreadMutexTimedlock(void* attr, void* spec) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3433,7 +3433,7 @@ int32_t libc_vxworks_pthreadMutexTimedlock(void* attr, void* spec) {
     return ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadMutexUnlock(void* mutex) {
+int32_t libcVxworksPthreadMutexUnlock(void* mutex) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3461,7 +3461,7 @@ int32_t libc_vxworks_pthreadMutexUnlock(void* mutex) {
     return ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadAttrSetname(void* pAttr, char* name) {
+int32_t libcVxworksPthreadAttrSetname(void* pAttr, char* name) {
     typedef int32_t (*km_fn_t)(void*, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3489,7 +3489,7 @@ int32_t libc_vxworks_pthreadAttrSetname(void* pAttr, char* name) {
     return ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadAttrSetstacksize(void* attr, uint64_t stacksize) {
+int32_t libcVxworksPthreadAttrSetstacksize(void* attr, uint64_t stacksize) {
     typedef int32_t (*km_fn_t)(void*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3517,7 +3517,7 @@ int32_t libc_vxworks_pthreadAttrSetstacksize(void* attr, uint64_t stacksize) {
     return ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadAttrGetstacksize(void* attr, void* size) {
+int32_t libcVxworksPthreadAttrGetstacksize(void* attr, void* size) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3545,7 +3545,7 @@ int32_t libc_vxworks_pthreadAttrGetstacksize(void* attr, void* size) {
     return ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadAttrInit(void* attr) {
+int32_t libcVxworksPthreadAttrInit(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3573,7 +3573,7 @@ int32_t libc_vxworks_pthreadAttrInit(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadCreate(void* pThread, void* pAttr, void* start_routine, void* value) {
+int32_t libcVxworksPthreadCreate(void* pThread, void* pAttr, void* startRoutine, void* value) {
     typedef int32_t (*km_fn_t)(void*, void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3595,13 +3595,13 @@ int32_t libc_vxworks_pthreadCreate(void* pThread, void* pAttr, void* start_routi
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(pThread, pAttr, start_routine, value);
+        return km_fn_ptr(pThread, pAttr, startRoutine, value);
     }
     errno = ENOSYS;
     return ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadSetschedparam(void* native, int32_t policy, void* param) {
+int32_t libcVxworksPthreadSetschedparam(void* native, int32_t policy, void* param) {
     typedef int32_t (*km_fn_t)(void*, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3629,7 +3629,7 @@ int32_t libc_vxworks_pthreadSetschedparam(void* native, int32_t policy, void* pa
     return ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadGetschedparam(void* native, void* policy, void* param) {
+int32_t libcVxworksPthreadGetschedparam(void* native, void* policy, void* param) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3657,7 +3657,7 @@ int32_t libc_vxworks_pthreadGetschedparam(void* native, void* policy, void* para
     return ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadAttrSetinheritsched(void* attr, int32_t inheritsched) {
+int32_t libcVxworksPthreadAttrSetinheritsched(void* attr, int32_t inheritsched) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3685,7 +3685,7 @@ int32_t libc_vxworks_pthreadAttrSetinheritsched(void* attr, int32_t inheritsched
     return ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadAttrSetschedpolicy(void* attr, int32_t policy) {
+int32_t libcVxworksPthreadAttrSetschedpolicy(void* attr, int32_t policy) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3713,7 +3713,7 @@ int32_t libc_vxworks_pthreadAttrSetschedpolicy(void* attr, int32_t policy) {
     return ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadAttrDestroy(void* thread) {
+int32_t libcVxworksPthreadAttrDestroy(void* thread) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3741,7 +3741,7 @@ int32_t libc_vxworks_pthreadAttrDestroy(void* thread) {
     return ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadDetach(void* thread) {
+int32_t libcVxworksPthreadDetach(void* thread) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3769,7 +3769,7 @@ int32_t libc_vxworks_pthreadDetach(void* thread) {
     return ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadAtfork(void* prepare, void* parent, void* child) {
+int32_t libcVxworksPthreadAtfork(void* prepare, void* parent, void* child) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3797,11 +3797,11 @@ int32_t libc_vxworks_pthreadAtfork(void* prepare, void* parent, void* child) {
     return ENOSYS;
 }
 
-int32_t libc_vxworks_fstat(int32_t fildes, void* buf) {
+int32_t libcVxworksFstat(int32_t fildes, void* buf) {
     return (int32_t)fstat(fildes, buf);
 }
 
-int32_t libc_vxworks_lstat(const char* path, void* buf) {
+int32_t libcVxworksLstat(const char* path, void* buf) {
 #if !defined(_WIN32)
     return (int32_t)lstat(path, buf);
 #else
@@ -3812,7 +3812,7 @@ int32_t libc_vxworks_lstat(const char* path, void* buf) {
 #endif
 }
 
-int32_t libc_vxworks_ftruncate(int32_t fd, int64_t length) {
+int32_t libcVxworksFtruncate(int32_t fd, int64_t length) {
 #if !defined(_WIN32)
     return (int32_t)ftruncate(fd, length);
 #else
@@ -3823,7 +3823,7 @@ int32_t libc_vxworks_ftruncate(int32_t fd, int64_t length) {
 #endif
 }
 
-int32_t libc_vxworks_readdirR(void* pDir, void* entry, void* result) {
+int32_t libcVxworksReaddirR(void* pDir, void* entry, void* result) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3851,7 +3851,7 @@ int32_t libc_vxworks_readdirR(void* pDir, void* entry, void* result) {
     return -1;
 }
 
-void* libc_vxworks_readdir(void* pDir) {
+void* libcVxworksReaddir(void* pDir) {
 #if !defined(_WIN32)
     return (void*)readdir((DIR*)pDir);
 #else
@@ -3861,7 +3861,7 @@ void* libc_vxworks_readdir(void* pDir) {
 #endif
 }
 
-int32_t libc_vxworks_open(const char* path, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcVxworksOpen(const char* path, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(const char*, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3895,7 +3895,7 @@ int32_t libc_vxworks_open(const char* path, int32_t oflag, int32_t km_vac, int64
     return -1;
 }
 
-int32_t libc_vxworks_poll(void* fds, uint32_t nfds, int32_t timeout) {
+int32_t libcVxworksPoll(void* fds, uint32_t nfds, int32_t timeout) {
 #if !defined(_WIN32)
     return (int32_t)poll(fds, nfds, timeout);
 #else
@@ -3907,7 +3907,7 @@ int32_t libc_vxworks_poll(void* fds, uint32_t nfds, int32_t timeout) {
 #endif
 }
 
-int32_t libc_vxworks_pthreadCondattrInit(void* attr) {
+int32_t libcVxworksPthreadCondattrInit(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3935,7 +3935,7 @@ int32_t libc_vxworks_pthreadCondattrInit(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadCondattrDestroy(void* attr) {
+int32_t libcVxworksPthreadCondattrDestroy(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3963,7 +3963,7 @@ int32_t libc_vxworks_pthreadCondattrDestroy(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadCondattrGetclock(void* pAttr, void* pClockId) {
+int32_t libcVxworksPthreadCondattrGetclock(void* pAttr, void* pClockId) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -3991,7 +3991,7 @@ int32_t libc_vxworks_pthreadCondattrGetclock(void* pAttr, void* pClockId) {
     return ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadCondattrSetclock(void* pAttr, int32_t clockId) {
+int32_t libcVxworksPthreadCondattrSetclock(void* pAttr, int32_t clockId) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4019,7 +4019,7 @@ int32_t libc_vxworks_pthreadCondattrSetclock(void* pAttr, int32_t clockId) {
     return ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadCondInit(void* cond, void* attr) {
+int32_t libcVxworksPthreadCondInit(void* cond, void* attr) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4047,7 +4047,7 @@ int32_t libc_vxworks_pthreadCondInit(void* cond, void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadCondDestroy(void* cond) {
+int32_t libcVxworksPthreadCondDestroy(void* cond) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4075,7 +4075,7 @@ int32_t libc_vxworks_pthreadCondDestroy(void* cond) {
     return ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadCondSignal(void* cond) {
+int32_t libcVxworksPthreadCondSignal(void* cond) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4103,7 +4103,7 @@ int32_t libc_vxworks_pthreadCondSignal(void* cond) {
     return ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadCondBroadcast(void* cond) {
+int32_t libcVxworksPthreadCondBroadcast(void* cond) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4131,7 +4131,7 @@ int32_t libc_vxworks_pthreadCondBroadcast(void* cond) {
     return ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadCondWait(void* cond, void* mutex) {
+int32_t libcVxworksPthreadCondWait(void* cond, void* mutex) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4159,7 +4159,7 @@ int32_t libc_vxworks_pthreadCondWait(void* cond, void* mutex) {
     return ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadRwlockattrInit(void* attr) {
+int32_t libcVxworksPthreadRwlockattrInit(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4187,7 +4187,7 @@ int32_t libc_vxworks_pthreadRwlockattrInit(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadRwlockattrDestroy(void* attr) {
+int32_t libcVxworksPthreadRwlockattrDestroy(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4215,7 +4215,7 @@ int32_t libc_vxworks_pthreadRwlockattrDestroy(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadRwlockattrSetmaxreaders(void* attr, uint32_t attr2) {
+int32_t libcVxworksPthreadRwlockattrSetmaxreaders(void* attr, uint32_t attr2) {
     typedef int32_t (*km_fn_t)(void*, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4243,7 +4243,7 @@ int32_t libc_vxworks_pthreadRwlockattrSetmaxreaders(void* attr, uint32_t attr2) 
     return ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadRwlockInit(void* attr, void* host) {
+int32_t libcVxworksPthreadRwlockInit(void* attr, void* host) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4271,7 +4271,7 @@ int32_t libc_vxworks_pthreadRwlockInit(void* attr, void* host) {
     return ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadRwlockDestroy(void* attr) {
+int32_t libcVxworksPthreadRwlockDestroy(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4299,7 +4299,7 @@ int32_t libc_vxworks_pthreadRwlockDestroy(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadRwlockRdlock(void* attr) {
+int32_t libcVxworksPthreadRwlockRdlock(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4327,7 +4327,7 @@ int32_t libc_vxworks_pthreadRwlockRdlock(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadRwlockTryrdlock(void* attr) {
+int32_t libcVxworksPthreadRwlockTryrdlock(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4355,7 +4355,7 @@ int32_t libc_vxworks_pthreadRwlockTryrdlock(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadRwlockTimedrdlock(void* attr, void* host) {
+int32_t libcVxworksPthreadRwlockTimedrdlock(void* attr, void* host) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4383,7 +4383,7 @@ int32_t libc_vxworks_pthreadRwlockTimedrdlock(void* attr, void* host) {
     return ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadRwlockWrlock(void* attr) {
+int32_t libcVxworksPthreadRwlockWrlock(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4411,7 +4411,7 @@ int32_t libc_vxworks_pthreadRwlockWrlock(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadRwlockTrywrlock(void* attr) {
+int32_t libcVxworksPthreadRwlockTrywrlock(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4439,7 +4439,7 @@ int32_t libc_vxworks_pthreadRwlockTrywrlock(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadRwlockTimedwrlock(void* attr, void* host) {
+int32_t libcVxworksPthreadRwlockTimedwrlock(void* attr, void* host) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4467,7 +4467,7 @@ int32_t libc_vxworks_pthreadRwlockTimedwrlock(void* attr, void* host) {
     return ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadRwlockUnlock(void* attr) {
+int32_t libcVxworksPthreadRwlockUnlock(void* attr) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4495,7 +4495,7 @@ int32_t libc_vxworks_pthreadRwlockUnlock(void* attr) {
     return ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadKeyCreate(void* key, void* dtor) {
+int32_t libcVxworksPthreadKeyCreate(void* key, void* dtor) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4523,7 +4523,7 @@ int32_t libc_vxworks_pthreadKeyCreate(void* key, void* dtor) {
     return ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadKeyDelete(uint64_t key) {
+int32_t libcVxworksPthreadKeyDelete(uint64_t key) {
     typedef int32_t (*km_fn_t)(uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4551,7 +4551,7 @@ int32_t libc_vxworks_pthreadKeyDelete(uint64_t key) {
     return ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadSetspecific(uint64_t key, void* value) {
+int32_t libcVxworksPthreadSetspecific(uint64_t key, void* value) {
     typedef int32_t (*km_fn_t)(uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4579,7 +4579,7 @@ int32_t libc_vxworks_pthreadSetspecific(uint64_t key, void* value) {
     return ENOSYS;
 }
 
-void* libc_vxworks_pthreadGetspecific(uint64_t key) {
+void* libcVxworksPthreadGetspecific(uint64_t key) {
     typedef void* (*km_fn_t)(uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4607,7 +4607,7 @@ void* libc_vxworks_pthreadGetspecific(uint64_t key) {
     return NULL;
 }
 
-int32_t libc_vxworks_pthreadCondTimedwait(void* cond, void* mutex, void* abstime) {
+int32_t libcVxworksPthreadCondTimedwait(void* cond, void* mutex, void* abstime) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4635,7 +4635,7 @@ int32_t libc_vxworks_pthreadCondTimedwait(void* cond, void* mutex, void* abstime
     return ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadAttrGetname(void* attr, void* name) {
+int32_t libcVxworksPthreadAttrGetname(void* attr, void* name) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4663,7 +4663,7 @@ int32_t libc_vxworks_pthreadAttrGetname(void* attr, void* name) {
     return ENOSYS;
 }
 
-int32_t libc_vxworks_pthreadJoin(void* thread, void* status) {
+int32_t libcVxworksPthreadJoin(void* thread, void* status) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4691,7 +4691,7 @@ int32_t libc_vxworks_pthreadJoin(void* thread, void* status) {
     return ENOSYS;
 }
 
-void* libc_vxworks_pthreadSelf(void) {
+void* libcVxworksPthreadSelf(void) {
     typedef void* (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4719,7 +4719,7 @@ void* libc_vxworks_pthreadSelf(void) {
     return NULL;
 }
 
-int32_t libc_vxworks_clockGettime(int32_t clock_id, void* tp) {
+int32_t libcVxworksClockGettime(int32_t clockId, void* tp) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4741,13 +4741,13 @@ int32_t libc_vxworks_clockGettime(int32_t clock_id, void* tp) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(clock_id, tp);
+        return km_fn_ptr(clockId, tp);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_vxworks_clockSettime(int32_t clock_id, void* tp) {
+int32_t libcVxworksClockSettime(int32_t clockId, void* tp) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4769,13 +4769,13 @@ int32_t libc_vxworks_clockSettime(int32_t clock_id, void* tp) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(clock_id, tp);
+        return km_fn_ptr(clockId, tp);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_vxworks_clockGetres(int32_t clock_id, void* res) {
+int32_t libcVxworksClockGetres(int32_t clockId, void* res) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4797,13 +4797,13 @@ int32_t libc_vxworks_clockGetres(int32_t clock_id, void* res) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(clock_id, res);
+        return km_fn_ptr(clockId, res);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_vxworks_clockNanosleep(int32_t clock_id, int32_t flags, void* rqtp, void* rmtp) {
+int32_t libcVxworksClockNanosleep(int32_t clockId, int32_t flags, void* rqtp, void* rmtp) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4825,13 +4825,13 @@ int32_t libc_vxworks_clockNanosleep(int32_t clock_id, int32_t flags, void* rqtp,
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(clock_id, flags, rqtp, rmtp);
+        return km_fn_ptr(clockId, flags, rqtp, rmtp);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_vxworks_nanosleep(void* rqtp, void* rmtp) {
+int32_t libcVxworksNanosleep(void* rqtp, void* rmtp) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4859,43 +4859,43 @@ int32_t libc_vxworks_nanosleep(void* rqtp, void* rmtp) {
     return -1;
 }
 
-int32_t libc_vxworks_accept(int32_t s, void* addr, void* addrlen) {
+int32_t libcVxworksAccept(int32_t s, void* addr, void* addrlen) {
     return (int32_t)accept(s, addr, addrlen);
 }
 
-int32_t libc_vxworks_bind(int32_t fd, void* addr, uint32_t len) {
+int32_t libcVxworksBind(int32_t fd, void* addr, uint32_t len) {
     return (int32_t)bind(fd, addr, len);
 }
 
-int32_t libc_vxworks_connect(int32_t s, void* name, uint32_t namelen) {
+int32_t libcVxworksConnect(int32_t s, void* name, uint32_t namelen) {
     return (int32_t)connect(s, name, namelen);
 }
 
-int32_t libc_vxworks_getpeername(int32_t s, void* name, void* namelen) {
+int32_t libcVxworksGetpeername(int32_t s, void* name, void* namelen) {
     return (int32_t)getpeername(s, name, namelen);
 }
 
-int32_t libc_vxworks_getsockname(int32_t arg_0_socket, void* address, void* address_len) {
-    return (int32_t)getsockname(arg_0_socket, address, address_len);
+int32_t libcVxworksGetsockname(int32_t arg0Socket, void* address, void* addressLen) {
+    return (int32_t)getsockname(arg0Socket, address, addressLen);
 }
 
-int32_t libc_vxworks_getsockopt(int32_t sockfd, int32_t level, int32_t optname, void* optval, void* optlen) {
+int32_t libcVxworksGetsockopt(int32_t sockfd, int32_t level, int32_t optname, void* optval, void* optlen) {
     return (int32_t)getsockopt(sockfd, level, optname, optval, optlen);
 }
 
-int32_t libc_vxworks_listen(int32_t arg_0_socket, int32_t backlog) {
-    return (int32_t)listen(arg_0_socket, backlog);
+int32_t libcVxworksListen(int32_t arg0Socket, int32_t backlog) {
+    return (int32_t)listen(arg0Socket, backlog);
 }
 
-int64_t libc_vxworks_recv(int32_t s, void* buf, uint64_t bufLen, int32_t flags) {
+int64_t libcVxworksRecv(int32_t s, void* buf, uint64_t bufLen, int32_t flags) {
     return (int64_t)recv(s, buf, bufLen, flags);
 }
 
-int64_t libc_vxworks_recvfrom(int32_t s, void* buf, uint64_t bufLen, int32_t flags, void* from, void* pFromLen) {
+int64_t libcVxworksRecvfrom(int32_t s, void* buf, uint64_t bufLen, int32_t flags, void* from, void* pFromLen) {
     return (int64_t)recvfrom(s, buf, bufLen, flags, from, pFromLen);
 }
 
-int64_t libc_vxworks_recvmsg(int32_t arg_0_socket, void* mp, int32_t flags) {
+int64_t libcVxworksRecvmsg(int32_t arg0Socket, void* mp, int32_t flags) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4917,17 +4917,17 @@ int64_t libc_vxworks_recvmsg(int32_t arg_0_socket, void* mp, int32_t flags) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_socket, mp, flags);
+        return km_fn_ptr(arg0Socket, mp, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_vxworks_send(int32_t arg_0_socket, void* buf, uint64_t len, int32_t flags) {
-    return (int64_t)send(arg_0_socket, buf, len, flags);
+int64_t libcVxworksSend(int32_t arg0Socket, void* buf, uint64_t len, int32_t flags) {
+    return (int64_t)send(arg0Socket, buf, len, flags);
 }
 
-int64_t libc_vxworks_sendmsg(int32_t arg_0_socket, void* mp, int32_t flags) {
+int64_t libcVxworksSendmsg(int32_t arg0Socket, void* mp, int32_t flags) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -4949,29 +4949,29 @@ int64_t libc_vxworks_sendmsg(int32_t arg_0_socket, void* mp, int32_t flags) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_socket, mp, flags);
+        return km_fn_ptr(arg0Socket, mp, flags);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_vxworks_sendto(int32_t arg_0_socket, void* buf, uint64_t len, int32_t flags, void* addr, uint32_t addrlen) {
-    return (int64_t)sendto(arg_0_socket, buf, len, flags, addr, addrlen);
+int64_t libcVxworksSendto(int32_t arg0Socket, void* buf, uint64_t len, int32_t flags, void* addr, uint32_t addrlen) {
+    return (int64_t)sendto(arg0Socket, buf, len, flags, addr, addrlen);
 }
 
-int32_t libc_vxworks_setsockopt(int32_t arg_0_socket, int32_t level, int32_t name, void* value, uint32_t option_len) {
-    return (int32_t)setsockopt(arg_0_socket, level, name, value, option_len);
+int32_t libcVxworksSetsockopt(int32_t arg0Socket, int32_t level, int32_t name, void* value, uint32_t optionLen) {
+    return (int32_t)setsockopt(arg0Socket, level, name, value, optionLen);
 }
 
-int32_t libc_vxworks_shutdown(int32_t s, int32_t how) {
+int32_t libcVxworksShutdown(int32_t s, int32_t how) {
     return (int32_t)shutdown(s, how);
 }
 
-int32_t libc_vxworks_socket(int32_t domain, int32_t arg_1_type, int32_t protocol) {
-    return (int32_t)socket(domain, arg_1_type, protocol);
+int32_t libcVxworksSocket(int32_t domain, int32_t type, int32_t protocol) {
+    return (int32_t)socket(domain, type, protocol);
 }
 
-int32_t libc_vxworks_ioctl(int32_t fd, int32_t request, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcVxworksIoctl(int32_t fd, int32_t request, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5005,7 +5005,7 @@ int32_t libc_vxworks_ioctl(int32_t fd, int32_t request, int32_t km_vac, int64_t 
     return -1;
 }
 
-int32_t libc_vxworks_fcntl(int32_t fd, int32_t cmd, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+int32_t libcVxworksFcntl(int32_t fd, int32_t cmd, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5039,7 +5039,7 @@ int32_t libc_vxworks_fcntl(int32_t fd, int32_t cmd, int32_t km_vac, int64_t km_v
     return -1;
 }
 
-char* libc_vxworks_gaiStrerror(int32_t errcode) {
+char* libcVxworksGaiStrerror(int32_t errcode) {
     typedef char* (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5067,31 +5067,31 @@ char* libc_vxworks_gaiStrerror(int32_t errcode) {
     return NULL;
 }
 
-int32_t libc_vxworks_close(int32_t fd) {
+int32_t libcVxworksClose(int32_t fd) {
     return (int32_t)close(fd);
 }
 
-int64_t libc_vxworks_read(int32_t fd, void* buf, uint64_t count) {
+int64_t libcVxworksRead(int32_t fd, void* buf, uint64_t count) {
     return (int64_t)read(fd, buf, count);
 }
 
-int64_t libc_vxworks_write(int32_t fd, void* buf, uint64_t count) {
+int64_t libcVxworksWrite(int32_t fd, void* buf, uint64_t count) {
     return (int64_t)write(fd, buf, count);
 }
 
-int32_t libc_vxworks_isatty(int32_t fd) {
+int32_t libcVxworksIsatty(int32_t fd) {
     return (int32_t)isatty(fd);
 }
 
-int32_t libc_vxworks_dup(int32_t src) {
+int32_t libcVxworksDup(int32_t src) {
     return (int32_t)dup(src);
 }
 
-int32_t libc_vxworks_dup2(int32_t src, int32_t dst) {
+int32_t libcVxworksDup2(int32_t src, int32_t dst) {
     return (int32_t)dup2(src, dst);
 }
 
-int32_t libc_vxworks_pipe(void* fds) {
+int32_t libcVxworksPipe(void* fds) {
 #if !defined(_WIN32)
     return (int32_t)pipe(fds);
 #else
@@ -5101,15 +5101,15 @@ int32_t libc_vxworks_pipe(void* fds) {
 #endif
 }
 
-int32_t libc_vxworks_unlink(const char* pathname) {
+int32_t libcVxworksUnlink(const char* pathname) {
     return (int32_t)unlink(pathname);
 }
 
-int64_t libc_vxworks_lseek(int32_t fd, int64_t offset, int32_t whence) {
+int64_t libcVxworksLseek(int32_t fd, int64_t offset, int32_t whence) {
     return (int64_t)lseek(fd, offset, whence);
 }
 
-int32_t libc_vxworks_getaddrinfo(const char* node, const char* service, void* hints, void* res) {
+int32_t libcVxworksGetaddrinfo(const char* node, const char* service, void* hints, void* res) {
     typedef int32_t (*km_fn_t)(const char*, const char*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5137,7 +5137,7 @@ int32_t libc_vxworks_getaddrinfo(const char* node, const char* service, void* hi
     return -1;
 }
 
-void libc_vxworks_freeaddrinfo(void* res) {
+void libcVxworksFreeaddrinfo(void* res) {
     typedef void (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5165,7 +5165,7 @@ void libc_vxworks_freeaddrinfo(void* res) {
     errno = ENOSYS;
 }
 
-uint64_t libc_vxworks_signal(int32_t signum, uint64_t handler) {
+uint64_t libcVxworksSignal(int32_t signum, uint64_t handler) {
     typedef uint64_t (*km_fn_t)(int32_t, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5193,11 +5193,11 @@ uint64_t libc_vxworks_signal(int32_t signum, uint64_t handler) {
     return 0;
 }
 
-int32_t libc_vxworks_getpid(void) {
+int32_t libcVxworksGetpid(void) {
     return (int32_t)getpid();
 }
 
-int32_t libc_vxworks_getppid(void) {
+int32_t libcVxworksGetppid(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5225,7 +5225,7 @@ int32_t libc_vxworks_getppid(void) {
     return -1;
 }
 
-int32_t libc_vxworks_setpgid(int32_t pid, int32_t pgid) {
+int32_t libcVxworksSetpgid(int32_t pid, int32_t pgid) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5253,7 +5253,7 @@ int32_t libc_vxworks_setpgid(int32_t pid, int32_t pgid) {
     return -1;
 }
 
-int32_t libc_vxworks_waitpid(int32_t pid, void* status, int32_t options) {
+int32_t libcVxworksWaitpid(int32_t pid, void* status, int32_t options) {
 #if !defined(_WIN32)
     return (int32_t)waitpid(pid, status, options);
 #else
@@ -5265,7 +5265,7 @@ int32_t libc_vxworks_waitpid(int32_t pid, void* status, int32_t options) {
 #endif
 }
 
-int64_t libc_vxworks_sysconf(int32_t attr) {
+int64_t libcVxworksSysconf(int32_t attr) {
 #if !defined(_WIN32)
     return (int64_t)sysconf(attr);
 #else
@@ -5275,7 +5275,7 @@ int64_t libc_vxworks_sysconf(int32_t attr) {
 #endif
 }
 
-int32_t libc_vxworks_setenv(const char* envVarName, const char* envVarValue, int32_t overwrite) {
+int32_t libcVxworksSetenv(const char* envVarName, const char* envVarValue, int32_t overwrite) {
 #if !defined(_WIN32)
     return (int32_t)setenv(envVarName, envVarValue, overwrite);
 #else
@@ -5287,7 +5287,7 @@ int32_t libc_vxworks_setenv(const char* envVarName, const char* envVarValue, int
 #endif
 }
 
-int32_t libc_vxworks_unsetenv(const char* envVarName) {
+int32_t libcVxworksUnsetenv(const char* envVarName) {
 #if !defined(_WIN32)
     return (int32_t)unsetenv(envVarName);
 #else
@@ -5297,7 +5297,7 @@ int32_t libc_vxworks_unsetenv(const char* envVarName) {
 #endif
 }
 
-char* libc_vxworks_realpath(const char* fileName, char* resolvedName) {
+char* libcVxworksRealpath(const char* fileName, char* resolvedName) {
     typedef char* (*km_fn_t)(const char*, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5325,7 +5325,7 @@ char* libc_vxworks_realpath(const char* fileName, char* resolvedName) {
     return NULL;
 }
 
-int32_t libc_vxworks_link(const char* src, const char* dst) {
+int32_t libcVxworksLink(const char* src, const char* dst) {
 #if !defined(_WIN32)
     return (int32_t)link(src, dst);
 #else
@@ -5336,7 +5336,7 @@ int32_t libc_vxworks_link(const char* src, const char* dst) {
 #endif
 }
 
-int64_t libc_vxworks_readlink(const char* path, char* buf, uint64_t bufsize) {
+int64_t libcVxworksReadlink(const char* path, char* buf, uint64_t bufsize) {
 #if !defined(_WIN32)
     return (int64_t)readlink(path, buf, bufsize);
 #else
@@ -5348,7 +5348,7 @@ int64_t libc_vxworks_readlink(const char* path, char* buf, uint64_t bufsize) {
 #endif
 }
 
-int32_t libc_vxworks_symlink(const char* path1, const char* path2) {
+int32_t libcVxworksSymlink(const char* path1, const char* path2) {
 #if !defined(_WIN32)
     return (int32_t)symlink(path1, path2);
 #else
@@ -5359,7 +5359,7 @@ int32_t libc_vxworks_symlink(const char* path1, const char* path2) {
 #endif
 }
 
-void* libc_vxworks_opendir(const char* name) {
+void* libcVxworksOpendir(const char* name) {
 #if !defined(_WIN32)
     return (void*)opendir(name);
 #else
@@ -5369,11 +5369,11 @@ void* libc_vxworks_opendir(const char* name) {
 #endif
 }
 
-int32_t libc_vxworks_rmdir(const char* path) {
+int32_t libcVxworksRmdir(const char* path) {
     return (int32_t)rmdir(path);
 }
 
-int32_t libc_vxworks_mkdir(const char* dirName, int32_t mode) {
+int32_t libcVxworksMkdir(const char* dirName, int32_t mode) {
     typedef int32_t (*km_fn_t)(const char*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5401,7 +5401,7 @@ int32_t libc_vxworks_mkdir(const char* dirName, int32_t mode) {
     return -1;
 }
 
-int32_t libc_vxworks_chmod(const char* path, int32_t mode) {
+int32_t libcVxworksChmod(const char* path, int32_t mode) {
 #if !defined(_WIN32)
     return (int32_t)chmod(path, mode);
 #else
@@ -5412,7 +5412,7 @@ int32_t libc_vxworks_chmod(const char* path, int32_t mode) {
 #endif
 }
 
-int32_t libc_vxworks_fchmod(int32_t attr1, int32_t attr2) {
+int32_t libcVxworksFchmod(int32_t attr1, int32_t attr2) {
 #if !defined(_WIN32)
     return (int32_t)fchmod(attr1, attr2);
 #else
@@ -5423,7 +5423,7 @@ int32_t libc_vxworks_fchmod(int32_t attr1, int32_t attr2) {
 #endif
 }
 
-int32_t libc_vxworks_fsync(int32_t fd) {
+int32_t libcVxworksFsync(int32_t fd) {
 #if !defined(_WIN32)
     return (int32_t)fsync(fd);
 #else
@@ -5433,7 +5433,7 @@ int32_t libc_vxworks_fsync(int32_t fd) {
 #endif
 }
 
-int32_t libc_vxworks_closedir(void* ptr) {
+int32_t libcVxworksClosedir(void* ptr) {
 #if !defined(_WIN32)
     return (int32_t)closedir((DIR*)ptr);
 #else
@@ -5443,7 +5443,7 @@ int32_t libc_vxworks_closedir(void* ptr) {
 #endif
 }
 
-int32_t libc_vxworks_schedGetPriorityMax(int32_t policy) {
+int32_t libcVxworksSchedGetPriorityMax(int32_t policy) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5471,7 +5471,7 @@ int32_t libc_vxworks_schedGetPriorityMax(int32_t policy) {
     return -1;
 }
 
-int32_t libc_vxworks_schedGetPriorityMin(int32_t policy) {
+int32_t libcVxworksSchedGetPriorityMin(int32_t policy) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5499,7 +5499,7 @@ int32_t libc_vxworks_schedGetPriorityMin(int32_t policy) {
     return -1;
 }
 
-int32_t libc_vxworks_schedSetparam(int32_t pid, void* param) {
+int32_t libcVxworksSchedSetparam(int32_t pid, void* param) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5527,7 +5527,7 @@ int32_t libc_vxworks_schedSetparam(int32_t pid, void* param) {
     return -1;
 }
 
-int32_t libc_vxworks_schedGetparam(int32_t pid, void* param) {
+int32_t libcVxworksSchedGetparam(int32_t pid, void* param) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5555,7 +5555,7 @@ int32_t libc_vxworks_schedGetparam(int32_t pid, void* param) {
     return -1;
 }
 
-int32_t libc_vxworks_schedSetscheduler(int32_t pid, int32_t policy, void* param) {
+int32_t libcVxworksSchedSetscheduler(int32_t pid, int32_t policy, void* param) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5583,7 +5583,7 @@ int32_t libc_vxworks_schedSetscheduler(int32_t pid, int32_t policy, void* param)
     return -1;
 }
 
-int32_t libc_vxworks_schedGetscheduler(int32_t pid) {
+int32_t libcVxworksSchedGetscheduler(int32_t pid) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5611,7 +5611,7 @@ int32_t libc_vxworks_schedGetscheduler(int32_t pid) {
     return -1;
 }
 
-int32_t libc_vxworks_schedRrGetInterval(int32_t pid, void* tp) {
+int32_t libcVxworksSchedRrGetInterval(int32_t pid, void* tp) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5639,7 +5639,7 @@ int32_t libc_vxworks_schedRrGetInterval(int32_t pid, void* tp) {
     return -1;
 }
 
-int32_t libc_vxworks_schedYield(void) {
+int32_t libcVxworksSchedYield(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5667,7 +5667,7 @@ int32_t libc_vxworks_schedYield(void) {
     return -1;
 }
 
-int32_t libc_vxworks_errnoSet(int32_t err) {
+int32_t libcVxworksErrnoSet(int32_t err) {
     typedef int32_t (*km_fn_t)(int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5695,7 +5695,7 @@ int32_t libc_vxworks_errnoSet(int32_t err) {
     return -1;
 }
 
-int32_t libc_vxworks_errnoGet(void) {
+int32_t libcVxworksErrnoGet(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5723,7 +5723,7 @@ int32_t libc_vxworks_errnoGet(void) {
     return -1;
 }
 
-int32_t libc_vxworks_setgid(uint16_t gid) {
+int32_t libcVxworksSetgid(uint16_t gid) {
     typedef int32_t (*km_fn_t)(uint16_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5751,7 +5751,7 @@ int32_t libc_vxworks_setgid(uint16_t gid) {
     return -1;
 }
 
-uint16_t libc_vxworks_getgid(void) {
+uint16_t libcVxworksGetgid(void) {
 #if !defined(_WIN32)
     return (uint16_t)getgid();
 #else
@@ -5760,7 +5760,7 @@ uint16_t libc_vxworks_getgid(void) {
 #endif
 }
 
-int32_t libc_vxworks_setuid(uint16_t uid) {
+int32_t libcVxworksSetuid(uint16_t uid) {
     typedef int32_t (*km_fn_t)(uint16_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5788,7 +5788,7 @@ int32_t libc_vxworks_setuid(uint16_t uid) {
     return -1;
 }
 
-uint16_t libc_vxworks_getuid(void) {
+uint16_t libcVxworksGetuid(void) {
 #if !defined(_WIN32)
     return (uint16_t)getuid();
 #else
@@ -5797,7 +5797,7 @@ uint16_t libc_vxworks_getuid(void) {
 #endif
 }
 
-int32_t libc_vxworks_sigemptyset(void* arg_0_set) {
+int32_t libcVxworksSigemptyset(void* set) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5819,13 +5819,13 @@ int32_t libc_vxworks_sigemptyset(void* arg_0_set) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_set);
+        return km_fn_ptr(set);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_vxworks_sigfillset(void* set) {
+int32_t libcVxworksSigfillset(void* set) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5853,7 +5853,7 @@ int32_t libc_vxworks_sigfillset(void* set) {
     return -1;
 }
 
-int32_t libc_vxworks_sigdelset(void* set, int32_t signum) {
+int32_t libcVxworksSigdelset(void* set, int32_t signum) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5881,7 +5881,7 @@ int32_t libc_vxworks_sigdelset(void* set, int32_t signum) {
     return -1;
 }
 
-int32_t libc_vxworks_sigismember(void* set, int32_t signum) {
+int32_t libcVxworksSigismember(void* set, int32_t signum) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5909,7 +5909,7 @@ int32_t libc_vxworks_sigismember(void* set, int32_t signum) {
     return -1;
 }
 
-int32_t libc_vxworks_pthreadSigmask(int32_t arg_0_how, void* arg_1_set, void* arg_2_oset) {
+int32_t libcVxworksPthreadSigmask(int32_t how, void* set, void* oset) {
     typedef int32_t (*km_fn_t)(int32_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5931,24 +5931,24 @@ int32_t libc_vxworks_pthreadSigmask(int32_t arg_0_how, void* arg_1_set, void* ar
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(arg_0_how, arg_1_set, arg_2_oset);
+        return km_fn_ptr(how, set, oset);
     }
     errno = ENOSYS;
     return ENOSYS;
 }
 
-int32_t libc_vxworks_kill(int32_t arg_0_pid, int32_t arg_1_signo) {
+int32_t libcVxworksKill(int32_t pid, int32_t signo) {
 #if !defined(_WIN32)
-    return (int32_t)kill(arg_0_pid, arg_1_signo);
+    return (int32_t)kill(pid, signo);
 #else
-    (void)arg_0_pid;
-    (void)arg_1_signo;
+    (void)pid;
+    (void)signo;
     errno = ENOSYS;
     return -1;
 #endif
 }
 
-int32_t libc_vxworks_taskKill(int32_t taskId, int32_t signo) {
+int32_t libcVxworksTaskKill(int32_t taskId, int32_t signo) {
     typedef int32_t (*km_fn_t)(int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -5976,11 +5976,11 @@ int32_t libc_vxworks_taskKill(int32_t taskId, int32_t signo) {
     return -1;
 }
 
-int32_t libc_vxworks_raise(int32_t arg_0_signo) {
-    return (int32_t)raise(arg_0_signo);
+int32_t libcVxworksRaise(int32_t signo) {
+    return (int32_t)raise(signo);
 }
 
-int32_t libc_vxworks_taskIdSelf(void) {
+int32_t libcVxworksTaskIdSelf(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6008,7 +6008,7 @@ int32_t libc_vxworks_taskIdSelf(void) {
     return -1;
 }
 
-int32_t libc_vxworks_taskDelay(uint32_t ticks) {
+int32_t libcVxworksTaskDelay(uint32_t ticks) {
     typedef int32_t (*km_fn_t)(uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6036,7 +6036,7 @@ int32_t libc_vxworks_taskDelay(uint32_t ticks) {
     return -1;
 }
 
-int32_t libc_vxworks_taskNameSet(int32_t task_id, char* task_name) {
+int32_t libcVxworksTaskNameSet(int32_t taskId, char* taskName) {
     typedef int32_t (*km_fn_t)(int32_t, char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6058,13 +6058,13 @@ int32_t libc_vxworks_taskNameSet(int32_t task_id, char* task_name) {
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(task_id, task_name);
+        return km_fn_ptr(taskId, taskName);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_vxworks_taskNameGet(int32_t task_id, char* buf_name, uint64_t bufsize) {
+int32_t libcVxworksTaskNameGet(int32_t taskId, char* bufName, uint64_t bufsize) {
     typedef int32_t (*km_fn_t)(int32_t, char*, uint64_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6086,13 +6086,13 @@ int32_t libc_vxworks_taskNameGet(int32_t task_id, char* buf_name, uint64_t bufsi
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(task_id, buf_name, bufsize);
+        return km_fn_ptr(taskId, bufName, bufsize);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_vxworks_rtpInfoGet(int32_t rtpId, void* rtpStruct) {
+int32_t libcVxworksRtpInfoGet(int32_t rtpId, void* rtpStruct) {
     typedef int32_t (*km_fn_t)(int32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6120,7 +6120,7 @@ int32_t libc_vxworks_rtpInfoGet(int32_t rtpId, void* rtpStruct) {
     return -1;
 }
 
-int32_t libc_vxworks_rtpSpawn(const char* pubrtpFileName, void* argv, void* envp, int32_t priority, uint64_t uStackSize, int32_t options, int32_t taskOptions) {
+int32_t libcVxworksRtpSpawn(const char* pubrtpFileName, void* argv, void* envp, int32_t priority, uint64_t uStackSize, int32_t options, int32_t taskOptions) {
     typedef int32_t (*km_fn_t)(const char*, void*, void*, int32_t, uint64_t, int32_t, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6148,7 +6148,7 @@ int32_t libc_vxworks_rtpSpawn(const char* pubrtpFileName, void* argv, void* envp
     return -1;
 }
 
-int32_t libc_vxworks_pathIsAbsolute(const char* filepath, void* pNameTail) {
+int32_t libcVxworksPathIsAbsolute(const char* filepath, void* pNameTail) {
     typedef int32_t (*km_fn_t)(const char*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6174,7 +6174,7 @@ int32_t libc_vxworks_pathIsAbsolute(const char* filepath, void* pNameTail) {
     return -1;
 }
 
-int64_t libc_vxworks_writev(int32_t fd, void* iov, int32_t iovcnt) {
+int64_t libcVxworksWritev(int32_t fd, void* iov, int32_t iovcnt) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6202,7 +6202,7 @@ int64_t libc_vxworks_writev(int32_t fd, void* iov, int32_t iovcnt) {
     return -1;
 }
 
-int64_t libc_vxworks_readv(int32_t fd, void* iov, int32_t iovcnt) {
+int64_t libcVxworksReadv(int32_t fd, void* iov, int32_t iovcnt) {
     typedef int64_t (*km_fn_t)(int32_t, void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6230,7 +6230,7 @@ int64_t libc_vxworks_readv(int32_t fd, void* iov, int32_t iovcnt) {
     return -1;
 }
 
-int32_t libc_vxworks_randBytes(void* buf, int32_t length) {
+int32_t libcVxworksRandBytes(void* buf, int32_t length) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6258,7 +6258,7 @@ int32_t libc_vxworks_randBytes(void* buf, int32_t length) {
     return -1;
 }
 
-int32_t libc_vxworks_randABytes(void* buf, int32_t length) {
+int32_t libcVxworksRandABytes(void* buf, int32_t length) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6286,7 +6286,7 @@ int32_t libc_vxworks_randABytes(void* buf, int32_t length) {
     return -1;
 }
 
-int32_t libc_vxworks_randUBytes(void* buf, int32_t length) {
+int32_t libcVxworksRandUBytes(void* buf, int32_t length) {
     typedef int32_t (*km_fn_t)(void*, int32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6314,7 +6314,7 @@ int32_t libc_vxworks_randUBytes(void* buf, int32_t length) {
     return -1;
 }
 
-int32_t libc_vxworks_randSecure(void) {
+int32_t libcVxworksRandSecure(void) {
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6342,7 +6342,7 @@ int32_t libc_vxworks_randSecure(void) {
     return -1;
 }
 
-void* libc_vxworks_mqOpen(const char* name, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
+void* libcVxworksMqOpen(const char* name, int32_t oflag, int32_t km_vac, int64_t km_va0, int64_t km_va1, int64_t km_va2, int64_t km_va3) {
     typedef void* (*km_fn_t)(const char*, int32_t, ...);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6376,7 +6376,7 @@ void* libc_vxworks_mqOpen(const char* name, int32_t oflag, int32_t km_vac, int64
     return NULL;
 }
 
-int32_t libc_vxworks_mqClose(void* mqd) {
+int32_t libcVxworksMqClose(void* mqd) {
     typedef int32_t (*km_fn_t)(void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6404,7 +6404,7 @@ int32_t libc_vxworks_mqClose(void* mqd) {
     return -1;
 }
 
-int32_t libc_vxworks_mqUnlink(const char* name) {
+int32_t libcVxworksMqUnlink(const char* name) {
     typedef int32_t (*km_fn_t)(const char*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6432,7 +6432,7 @@ int32_t libc_vxworks_mqUnlink(const char* name) {
     return -1;
 }
 
-int64_t libc_vxworks_mqReceive(void* mqd, char* msg_ptr, uint64_t msg_len, void* msg_prio) {
+int64_t libcVxworksMqReceive(void* mqd, char* msgPtr, uint64_t msgLen, void* msgPrio) {
     typedef int64_t (*km_fn_t)(void*, char*, uint64_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6454,13 +6454,13 @@ int64_t libc_vxworks_mqReceive(void* mqd, char* msg_ptr, uint64_t msg_len, void*
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(mqd, msg_ptr, msg_len, msg_prio);
+        return km_fn_ptr(mqd, msgPtr, msgLen, msgPrio);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int64_t libc_vxworks_mqTimedreceive(void* mqd, char* msg_ptr, uint64_t msg_len, void* msg_prio, void* abs_timeout) {
+int64_t libcVxworksMqTimedreceive(void* mqd, char* msgPtr, uint64_t msgLen, void* msgPrio, void* absTimeout) {
     typedef int64_t (*km_fn_t)(void*, char*, uint64_t, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6482,13 +6482,13 @@ int64_t libc_vxworks_mqTimedreceive(void* mqd, char* msg_ptr, uint64_t msg_len, 
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(mqd, msg_ptr, msg_len, msg_prio, abs_timeout);
+        return km_fn_ptr(mqd, msgPtr, msgLen, msgPrio, absTimeout);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_vxworks_mqSend(void* mqd, const char* msg_ptr, uint64_t msg_len, uint32_t msg_prio) {
+int32_t libcVxworksMqSend(void* mqd, const char* msgPtr, uint64_t msgLen, uint32_t msgPrio) {
     typedef int32_t (*km_fn_t)(void*, const char*, uint64_t, uint32_t);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6510,13 +6510,13 @@ int32_t libc_vxworks_mqSend(void* mqd, const char* msg_ptr, uint64_t msg_len, ui
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(mqd, msg_ptr, msg_len, msg_prio);
+        return km_fn_ptr(mqd, msgPtr, msgLen, msgPrio);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_vxworks_mqTimedsend(void* mqd, const char* msg_ptr, uint64_t msg_len, uint32_t msg_prio, void* abs_timeout) {
+int32_t libcVxworksMqTimedsend(void* mqd, const char* msgPtr, uint64_t msgLen, uint32_t msgPrio, void* absTimeout) {
     typedef int32_t (*km_fn_t)(void*, const char*, uint64_t, uint32_t, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6538,13 +6538,13 @@ int32_t libc_vxworks_mqTimedsend(void* mqd, const char* msg_ptr, uint64_t msg_le
     }
 #endif
     if (km_fn_ptr != NULL) {
-        return km_fn_ptr(mqd, msg_ptr, msg_len, msg_prio, abs_timeout);
+        return km_fn_ptr(mqd, msgPtr, msgLen, msgPrio, absTimeout);
     }
     errno = ENOSYS;
     return -1;
 }
 
-int32_t libc_vxworks_mqGetattr(void* mqd, void* attr) {
+int32_t libcVxworksMqGetattr(void* mqd, void* attr) {
     typedef int32_t (*km_fn_t)(void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6572,7 +6572,7 @@ int32_t libc_vxworks_mqGetattr(void* mqd, void* attr) {
     return -1;
 }
 
-int32_t libc_vxworks_mqSetattr(void* mqd, void* newattr, void* oldattr) {
+int32_t libcVxworksMqSetattr(void* mqd, void* newattr, void* oldattr) {
     typedef int32_t (*km_fn_t)(void*, void*, void*);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6600,7 +6600,7 @@ int32_t libc_vxworks_mqSetattr(void* mqd, void* newattr, void* oldattr) {
     return -1;
 }
 
-uint32_t libc_vxworks_vxCpuEnabledGet(void) {
+uint32_t libcVxworksVxCpuEnabledGet(void) {
     typedef uint32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32
@@ -6628,7 +6628,7 @@ uint32_t libc_vxworks_vxCpuEnabledGet(void) {
     return 0;
 }
 
-uint32_t libc_vxworks_vxCpuConfiguredGet(void) {
+uint32_t libcVxworksVxCpuConfiguredGet(void) {
     typedef uint32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = NULL;
 #ifdef _WIN32

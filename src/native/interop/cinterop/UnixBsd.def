@@ -4,3 +4,4 @@ headerFilter = unix_bsd_wrapper.h
 compilerOpts = -Isrc/native/interop/cinterop
 staticLibraries = unix_bsd_wrapper.a
 linkerOpts.mingw = -lws2_32
+noStringConversion = libcUnixBsdSetlogin libcUnixBsdUnmount libcUnixBsdSetprogname libcUnixBsdGlob libcUnixBsdShmUnlink libcUnixBsdGetgrnamR libcUnixBsdSemOpen libcUnixBsdGetgrnam libcUnixBsdSemUnlink libcUnixBsdGetpwnamR libcUnixBsdPopen libcUnixBsdFaccessat libcUnixBsdAcct libcUnixBsdRegcomp libcUnixBsdRegexec libcUnixBsdGetoptLong libcUnixBsdStrftime libcUnixBsdStrftimeL

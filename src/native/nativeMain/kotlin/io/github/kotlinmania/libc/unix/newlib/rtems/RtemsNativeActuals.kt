@@ -3,42 +3,50 @@
 package io.github.kotlinmania.libc.unix.newlib.rtems
 
 import io.github.kotlinmania.libc.CInt
-import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.libc.unix.GidT
+import io.github.kotlinmania.libc.unix.Iovec
 import io.github.kotlinmania.libc.unix.SizeT
 import io.github.kotlinmania.libc.unix.SsizeT
+import io.github.kotlinmania.libc.unix.Timespec
 import io.github.kotlinmania.libc.unix.newlib.ClockidT
-import io.github.kotlinmania.libc.unix.newlib.rtems.cinterop.libc_unix_newlib_rtems_arc4randomBuf
-import io.github.kotlinmania.libc.unix.newlib.rtems.cinterop.libc_unix_newlib_rtems_futimens
-import io.github.kotlinmania.libc.unix.newlib.rtems.cinterop.libc_unix_newlib_rtems_getentropy
-import io.github.kotlinmania.libc.unix.newlib.rtems.cinterop.libc_unix_newlib_rtems_pthreadCondattrSetclock
-import io.github.kotlinmania.libc.unix.newlib.rtems.cinterop.libc_unix_newlib_rtems_pthreadCreate
-import io.github.kotlinmania.libc.unix.newlib.rtems.cinterop.libc_unix_newlib_rtems_readv
-import io.github.kotlinmania.libc.unix.newlib.rtems.cinterop.libc_unix_newlib_rtems_setgroups
-import io.github.kotlinmania.libc.unix.newlib.rtems.cinterop.libc_unix_newlib_rtems_writev
+import io.github.kotlinmania.libc.unix.newlib.PthreadAttrT
+import io.github.kotlinmania.libc.unix.newlib.PthreadCondattrT
+import io.github.kotlinmania.libc.unix.newlib.PthreadT
+import io.github.kotlinmania.libc.unix.newlib.rtems.cinterop.libcUnixNewlibRtemsArc4randomBuf
+import io.github.kotlinmania.libc.unix.newlib.rtems.cinterop.libcUnixNewlibRtemsFutimens
+import io.github.kotlinmania.libc.unix.newlib.rtems.cinterop.libcUnixNewlibRtemsGetentropy
+import io.github.kotlinmania.libc.unix.newlib.rtems.cinterop.libcUnixNewlibRtemsPthreadCondattrSetclock
+import io.github.kotlinmania.libc.unix.newlib.rtems.cinterop.libcUnixNewlibRtemsPthreadCreate
+import io.github.kotlinmania.libc.unix.newlib.rtems.cinterop.libcUnixNewlibRtemsReadv
+import io.github.kotlinmania.libc.unix.newlib.rtems.cinterop.libcUnixNewlibRtemsSetgroups
+import io.github.kotlinmania.libc.unix.newlib.rtems.cinterop.libcUnixNewlibRtemsWritev
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 
-public actual fun futimens(fd: CInt, times: COpaquePointer?): CInt =
-    libc_unix_newlib_rtems_futimens(fd, times?.value?.toCPointer<ByteVar>())
+public actual fun futimens(fd: CInt, times: ConstPtr<Timespec>): CInt =
+    libcUnixNewlibRtemsFutimens(fd, times.rawAddress.toCPointer<ByteVar>())
 
-public actual fun writev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT =
-    libc_unix_newlib_rtems_writev(fd, iov?.value?.toCPointer<ByteVar>(), iovcnt)
+public actual fun writev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+    libcUnixNewlibRtemsWritev(fd, iov.rawAddress.toCPointer<ByteVar>(), iovcnt)
 
-public actual fun readv(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT =
-    libc_unix_newlib_rtems_readv(fd, iov?.value?.toCPointer<ByteVar>(), iovcnt)
+public actual fun readv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+    libcUnixNewlibRtemsReadv(fd, iov.rawAddress.toCPointer<ByteVar>(), iovcnt)
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
-    libc_unix_newlib_rtems_pthreadCreate(native?.value?.toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), value?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCreate(native: MutPtr<PthreadT>, attr: ConstPtr<PthreadAttrT>, f: PthreadCreateFCallback, value: MutPtr<CVoid>): CInt =
+    libcUnixNewlibRtemsPthreadCreate(native.rawAddress.toCPointer<ByteVar>(), attr.rawAddress.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondattrSetclock(attr: COpaquePointer?, clockId: ClockidT): CInt =
-    libc_unix_newlib_rtems_pthreadCondattrSetclock(attr?.value?.toCPointer<ByteVar>(), clockId)
+public actual fun pthreadCondattrSetclock(attr: MutPtr<PthreadCondattrT>, clockId: ClockidT): CInt =
+    libcUnixNewlibRtemsPthreadCondattrSetclock(attr.rawAddress.toCPointer<ByteVar>(), clockId)
 
-public actual fun getentropy(buf: COpaquePointer?, buflen: SizeT): CInt =
-    libc_unix_newlib_rtems_getentropy(buf?.value?.toCPointer<ByteVar>(), buflen)
+public actual fun getentropy(buf: MutPtr<CVoid>, buflen: SizeT): CInt =
+    libcUnixNewlibRtemsGetentropy(buf.rawAddress.toCPointer<ByteVar>(), buflen)
 
-public actual fun arc4randomBuf(buf: COpaquePointer?, nbytes: SizeT) {
-    libc_unix_newlib_rtems_arc4randomBuf(buf?.value?.toCPointer<ByteVar>(), nbytes)
+public actual fun arc4randomBuf(buf: MutPtr<CVoid>, nbytes: SizeT) {
+    libcUnixNewlibRtemsArc4randomBuf(buf.rawAddress.toCPointer<ByteVar>(), nbytes)
 }
 
-public actual fun setgroups(ngroups: CInt, grouplist: COpaquePointer?): CInt =
-    libc_unix_newlib_rtems_setgroups(ngroups, grouplist?.value?.toCPointer<ByteVar>())
+public actual fun setgroups(ngroups: CInt, grouplist: ConstPtr<GidT>): CInt =
+    libcUnixNewlibRtemsSetgroups(ngroups, grouplist.rawAddress.toCPointer<ByteVar>())

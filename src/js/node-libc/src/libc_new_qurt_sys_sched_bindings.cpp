@@ -51,7 +51,7 @@ static uint64_t km_napi_arg_u64(const Napi::Value& v) {
     return 0;
 }
 
-static Napi::Value libc_new_qurt_sys_sched_schedYield_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtSysSchedSchedYield_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     typedef int32_t (*km_fn_t)(void);
     static km_fn_t km_fn_ptr = nullptr;
@@ -83,7 +83,7 @@ static Napi::Value libc_new_qurt_sys_sched_schedYield_napi(const Napi::CallbackI
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_sys_sched_schedGetPriorityMax_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtSysSchedSchedGetPriorityMax_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t policy = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -116,7 +116,7 @@ static Napi::Value libc_new_qurt_sys_sched_schedGetPriorityMax_napi(const Napi::
     return Napi::Number::New(km_env, static_cast<int32_t>(km_res));
 }
 
-static Napi::Value libc_new_qurt_sys_sched_schedGetPriorityMin_napi(const Napi::CallbackInfo& km_info) {
+static Napi::Value libcNewQurtSysSchedSchedGetPriorityMin_napi(const Napi::CallbackInfo& km_info) {
     Napi::Env km_env = km_info.Env();
     int32_t policy = static_cast<int32_t>(km_info.Length() > 0 ? km_info[0].ToNumber().Int32Value() : 0);
     typedef int32_t (*km_fn_t)(int32_t);
@@ -150,9 +150,9 @@ static Napi::Value libc_new_qurt_sys_sched_schedGetPriorityMin_napi(const Napi::
 }
 
 static void register_new_qurt_sys_sched_napi(Napi::Env env, Napi::Object exports) {
-    exports.Set("libc_new_qurt_sys_sched_schedYield", Napi::Function::New(env, libc_new_qurt_sys_sched_schedYield_napi));
-    exports.Set("libc_new_qurt_sys_sched_schedGetPriorityMax", Napi::Function::New(env, libc_new_qurt_sys_sched_schedGetPriorityMax_napi));
-    exports.Set("libc_new_qurt_sys_sched_schedGetPriorityMin", Napi::Function::New(env, libc_new_qurt_sys_sched_schedGetPriorityMin_napi));
+    exports.Set("libcNewQurtSysSchedSchedYield", Napi::Function::New(env, libcNewQurtSysSchedSchedYield_napi));
+    exports.Set("libcNewQurtSysSchedSchedGetPriorityMax", Napi::Function::New(env, libcNewQurtSysSchedSchedGetPriorityMax_napi));
+    exports.Set("libcNewQurtSysSchedSchedGetPriorityMin", Napi::Function::New(env, libcNewQurtSysSchedSchedGetPriorityMin_napi));
 }
 
 static KmNapiRegistrarNode registrar_node = { &register_new_qurt_sys_sched_napi, nullptr };

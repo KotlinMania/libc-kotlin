@@ -3,2047 +3,2051 @@
 package io.github.kotlinmania.libc.fuchsia
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CDouble
 import io.github.kotlinmania.libc.CFloat
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CLonglong
-import io.github.kotlinmania.libc.COpaquePointer
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
+import io.github.kotlinmania.libc.fuchsia.aarch64.Stat
 import io.github.kotlinmania.libc.fuchsia.aarch64.WcharT
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_abort
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_abs
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_accept
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_accept4
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_access
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_acct
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_alarm
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_atexit
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_atof
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_atoi
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_atol
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_atoll
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_bind
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_brk
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_calloc
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_cfgetispeed
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_cfgetospeed
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_cfmakeraw
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_cfsetispeed
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_cfsetospeed
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_cfsetspeed
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_chdir
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_chmod
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_chown
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_clearenv
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_clockGetres
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_clockGettime
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_clockNanosleep
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_clockSettime
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_clone
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_close
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_closedir
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_closelog
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_connect
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_creat
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_daemon
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_dirfd
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_dlIteratePhdr
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_dladdr
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_dlclose
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_dlerror
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_dlopen
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_dlsym
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_dup
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_dup2
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_dup3
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_duplocale
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_endgrent
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_endpwent
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_errnoLocation
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_eventfd
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_execl
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_execle
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_execlp
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_execv
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_execve
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_execvp
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_execvpe
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_exit
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_faccessat
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_fallocate
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_fchmod
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_fchmodat
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_fchown
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_fchownat
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_fclose
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_fcntl
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_fdatasync
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_fdopen
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_fdopendir
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_feof
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_ferror
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_fexecve
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_fflush
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_fgetc
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_fgetpos
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_fgets
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_fileno
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_flock
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_fopen
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_fork
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_fpathconf
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_fprintf
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_fputc
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_fputs
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_fread
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_free
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_freeaddrinfo
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_freeifaddrs
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_freelocale
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_freopen
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_fscanf
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_fseek
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_fseeko
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_fsetpos
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_fstat
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_fstatat
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_fstatfs
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_fstatvfs
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_fsync
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_ftell
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_ftello
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_ftok
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_ftruncate
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_futimens
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_futimes
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_fwrite
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_gaiStrerror
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_getaddrinfo
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_getchar
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_getcharUnlocked
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_getcwd
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_getdomainname
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_getdtablesize
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_getegid
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_getenv
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_geteuid
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_getgid
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_getgrent
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_getgrgid
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_getgrgidR
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_getgrnam
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_getgrnamR
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_getgrouplist
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_getgroups
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_gethostname
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_getifaddrs
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_getlogin
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_getnameinfo
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_getopt
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_getpeername
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_getpgid
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_getpgrp
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_getpid
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_getppid
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_getprotobyname
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_getprotobynumber
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_getpwent
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_getpwnam
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_getpwnamR
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_getpwuid
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_getpwuidR
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_getresgid
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_getresuid
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_getservbyname
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_getsid
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_getsockname
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_getsockopt
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_gettimeofday
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_getuid
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_glob
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_globfree
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_gmtime
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_gmtimeR
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_grantpt
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_ifFreenameindex
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_ifIndextoname
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_ifNameindex
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_ifNametoindex
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_initgroups
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_ioctl
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_isalnum
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_isalpha
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_isatty
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_isblank
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_iscntrl
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_isdigit
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_isgraph
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_islower
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_isprint
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_ispunct
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_isspace
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_isupper
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_isxdigit
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_kill
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_labs
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_lchown
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_link
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_linkat
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_listen
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_localeconv
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_localtime
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_localtimeR
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_lseek
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_lstat
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_lutimes
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_madvise
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_malloc
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_memalign
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_memchr
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_memcmp
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_memcpy
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_memmove
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_memrchr
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_memset
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_mkdir
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_mkdirat
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_mkdtemp
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_mkfifo
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_mkfifoat
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_mknod
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_mknodat
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_mkostemp
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_mkostemps
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_mkstemp
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_mkstemps
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_mktime
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_mlock
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_mlockall
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_mmap
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_mount
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_mprotect
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_msgctl
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_msgget
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_msgrcv
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_msgsnd
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_msync
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_munlock
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_munlockall
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_munmap
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_nanosleep
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_newlocale
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_nlLanginfo
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_nlLanginfoL
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_open
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_openat
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_opendir
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_openlog
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_openpty
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pathconf
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pause
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pclose
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_perror
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_personality
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pipe
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pipe2
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_poll
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_popen
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_posixFadvise
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_posixFallocate
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_posixMadvise
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_posixMemalign
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_posixOpenpt
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_ppoll
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pread
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_preadv
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_printf
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pselect
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadAtfork
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadAttrDestroy
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadAttrGetguardsize
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadAttrGetstack
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadAttrGetstacksize
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadAttrInit
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadAttrSetdetachstate
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadAttrSetguardsize
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadAttrSetstacksize
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadCancel
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadCondBroadcast
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadCondDestroy
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadCondInit
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadCondSignal
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadCondTimedwait
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadCondWait
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadCondattrDestroy
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadCondattrGetclock
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadCondattrInit
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadCondattrSetclock
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadCreate
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadDetach
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadExit
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadGetattrNp
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadGetnameNp
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadGetspecific
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadJoin
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadKeyCreate
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadKeyDelete
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadKill
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadMutexDestroy
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadMutexInit
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadMutexLock
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadMutexTimedlock
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadMutexTrylock
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadMutexUnlock
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadMutexattrDestroy
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadMutexattrInit
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadMutexattrSettype
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadRwlockDestroy
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadRwlockInit
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadRwlockRdlock
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadRwlockTryrdlock
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadRwlockTrywrlock
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadRwlockUnlock
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadRwlockWrlock
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadRwlockattrDestroy
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadRwlockattrInit
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadSelf
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadSetnameNp
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadSetspecific
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pthreadSigmask
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_ptsname
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_ptsnameR
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_putchar
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_putcharUnlocked
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_putenv
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_puts
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pwrite
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_pwritev
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_quotactl
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_raise
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_rand
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_read
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_readahead
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_readdir
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_readdirR
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_readlink
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_readlinkat
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_readv
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_realloc
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_realpath
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_reboot
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_recv
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_recvfrom
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_recvmmsg
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_recvmsg
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_remove
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_rename
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_renameat
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_resInit
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_rewind
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_rewinddir
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_rmdir
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_scanf
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_schedGetPriorityMax
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_schedGetPriorityMin
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_schedGetaffinity
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_schedGetparam
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_schedGetscheduler
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_schedRrGetInterval
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_schedSetaffinity
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_schedSetparam
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_schedSetscheduler
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_schedYield
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_seekdir
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_select
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_semClose
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_semDestroy
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_semGetvalue
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_semInit
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_semOpen
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_semPost
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_semTimedwait
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_semTrywait
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_semUnlink
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_semWait
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_semctl
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_semget
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_semop
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_send
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_sendmmsg
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_sendmsg
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_sendto
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_setbuf
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_setdomainname
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_setegid
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_setenv
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_seteuid
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_setfsgid
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_setfsuid
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_setgid
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_setgrent
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_setgroups
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_sethostname
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_setlocale
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_setlogmask
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_setpgid
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_setpwent
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_setregid
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_setresgid
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_setresuid
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_setreuid
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_setsid
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_setsockopt
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_settimeofday
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_setuid
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_setvbuf
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_shmOpen
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_shmUnlink
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_shmat
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_shmctl
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_shmdt
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_shmget
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_shutdown
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_sigaction
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_sigaddset
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_sigaltstack
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_sigdelset
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_sigemptyset
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_sigfillset
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_sigismember
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_signal
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_signalfd
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_sigpending
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_sigprocmask
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_sigsuspend
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_sigtimedwait
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_sigwait
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_sigwaitinfo
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_sleep
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_snprintf
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_socket
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_socketpair
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_splice
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_sprintf
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_srand
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_sscanf
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_stat
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_statfs
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_statvfs
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_strcat
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_strchr
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_strcmp
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_strcoll
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_strcpy
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_strcspn
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_strdup
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_strerror
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_strerrorR
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_strlen
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_strncat
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_strncmp
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_strncpy
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_strnlen
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_strpbrk
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_strrchr
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_strspn
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_strstr
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_strtod
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_strtof
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_strtok
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_strtol
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_strtoll
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_strtoul
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_strtoull
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_strxfrm
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_swapoff
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_swapon
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_symlink
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_symlinkat
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_sync
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_syncFileRange
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_syscall
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_sysconf
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_syslog
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_system
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_tcdrain
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_tcflow
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_tcflush
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_tcgetattr
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_tcgetpgrp
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_tcgetsid
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_tcsendbreak
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_tcsetattr
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_tcsetpgrp
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_tee
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_telldir
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_time
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_timegm
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_timerfdCreate
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_timerfdGettime
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_timerfdSettime
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_times
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_tmpfile
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_tmpnam
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_tolower
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_toupper
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_ttyname
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_umask
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_umount
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_umount2
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_uname
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_ungetc
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_unlink
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_unlinkat
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_unlockpt
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_unsetenv
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_uselocale
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_usleep
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_utime
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_utimensat
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_utimes
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_vhangup
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_vmsplice
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_wait
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_waitid
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_waitpid
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_wcslen
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_wcstombs
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_wmemchr
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_write
-import io.github.kotlinmania.libc.fuchsia.cinterop.libc_fuchsia_writev
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaAbort
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaAbs
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaAccept
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaAccept4
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaAccess
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaAcct
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaAlarm
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaAtexit
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaAtof
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaAtoi
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaAtol
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaAtoll
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaBind
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaBrk
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaCalloc
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaCfgetispeed
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaCfgetospeed
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaCfmakeraw
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaCfsetispeed
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaCfsetospeed
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaCfsetspeed
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaChdir
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaChmod
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaChown
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaClearenv
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaClockGetres
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaClockGettime
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaClockNanosleep
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaClockSettime
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaClone
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaClose
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaClosedir
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaCloselog
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaConnect
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaCreat
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaDaemon
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaDirfd
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaDlIteratePhdr
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaDladdr
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaDlclose
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaDlerror
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaDlopen
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaDlsym
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaDup
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaDup2
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaDup3
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaDuplocale
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaEndgrent
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaEndpwent
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaErrnoLocation
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaEventfd
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaExecl
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaExecle
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaExeclp
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaExecv
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaExecve
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaExecvp
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaExecvpe
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaExit
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFaccessat
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFallocate
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFchmod
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFchmodat
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFchown
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFchownat
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFclose
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFcntl
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFdatasync
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFdopen
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFdopendir
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFeof
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFerror
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFexecve
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFflush
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFgetc
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFgetpos
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFgets
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFileno
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFlock
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFopen
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFork
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFpathconf
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFprintf
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFputc
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFputs
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFread
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFree
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFreeaddrinfo
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFreeifaddrs
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFreelocale
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFreopen
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFscanf
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFseek
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFseeko
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFsetpos
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFstat
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFstatat
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFstatfs
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFstatvfs
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFsync
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFtell
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFtello
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFtok
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFtruncate
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFutimens
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFutimes
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaFwrite
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGaiStrerror
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGetaddrinfo
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGetchar
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGetcharUnlocked
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGetcwd
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGetdomainname
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGetdtablesize
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGetegid
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGetenv
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGeteuid
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGetgid
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGetgrent
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGetgrgid
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGetgrgidR
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGetgrnam
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGetgrnamR
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGetgrouplist
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGetgroups
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGethostname
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGetifaddrs
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGetlogin
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGetnameinfo
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGetopt
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGetpeername
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGetpgid
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGetpgrp
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGetpid
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGetppid
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGetprotobyname
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGetprotobynumber
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGetpwent
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGetpwnam
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGetpwnamR
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGetpwuid
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGetpwuidR
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGetresgid
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGetresuid
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGetservbyname
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGetsid
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGetsockname
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGetsockopt
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGettimeofday
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGetuid
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGlob
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGlobfree
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGmtime
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGmtimeR
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaGrantpt
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaIfFreenameindex
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaIfIndextoname
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaIfNameindex
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaIfNametoindex
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaInitgroups
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaIoctl
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaIsalnum
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaIsalpha
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaIsatty
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaIsblank
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaIscntrl
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaIsdigit
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaIsgraph
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaIslower
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaIsprint
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaIspunct
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaIsspace
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaIsupper
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaIsxdigit
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaKill
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaLabs
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaLchown
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaLink
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaLinkat
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaListen
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaLocaleconv
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaLocaltime
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaLocaltimeR
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaLseek
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaLstat
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaLutimes
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaMadvise
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaMalloc
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaMemalign
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaMemchr
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaMemcmp
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaMemcpy
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaMemmove
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaMemrchr
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaMemset
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaMkdir
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaMkdirat
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaMkdtemp
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaMkfifo
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaMkfifoat
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaMknod
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaMknodat
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaMkostemp
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaMkostemps
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaMkstemp
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaMkstemps
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaMktime
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaMlock
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaMlockall
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaMmap
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaMount
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaMprotect
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaMsgctl
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaMsgget
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaMsgrcv
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaMsgsnd
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaMsync
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaMunlock
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaMunlockall
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaMunmap
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaNanosleep
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaNewlocale
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaNlLanginfo
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaNlLanginfoL
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaOpen
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaOpenat
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaOpendir
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaOpenlog
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaOpenpty
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPathconf
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPause
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPclose
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPerror
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPersonality
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPipe
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPipe2
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPoll
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPopen
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPosixFadvise
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPosixFallocate
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPosixMadvise
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPosixMemalign
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPosixOpenpt
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPpoll
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPread
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPreadv
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPrintf
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPselect
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadAtfork
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadAttrDestroy
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadAttrGetguardsize
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadAttrGetstack
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadAttrGetstacksize
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadAttrInit
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadAttrSetdetachstate
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadAttrSetguardsize
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadAttrSetstacksize
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadCancel
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadCondBroadcast
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadCondDestroy
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadCondInit
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadCondSignal
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadCondTimedwait
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadCondWait
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadCondattrDestroy
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadCondattrGetclock
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadCondattrInit
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadCondattrSetclock
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadCreate
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadDetach
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadExit
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadGetattrNp
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadGetnameNp
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadGetspecific
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadJoin
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadKeyCreate
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadKeyDelete
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadKill
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadMutexDestroy
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadMutexInit
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadMutexLock
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadMutexTimedlock
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadMutexTrylock
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadMutexUnlock
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadMutexattrDestroy
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadMutexattrInit
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadMutexattrSettype
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadRwlockDestroy
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadRwlockInit
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadRwlockRdlock
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadRwlockTryrdlock
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadRwlockTrywrlock
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadRwlockUnlock
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadRwlockWrlock
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadRwlockattrDestroy
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadRwlockattrInit
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadSelf
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadSetnameNp
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadSetspecific
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPthreadSigmask
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPtsname
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPtsnameR
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPutchar
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPutcharUnlocked
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPutenv
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPuts
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPwrite
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaPwritev
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaQuotactl
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaRaise
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaRand
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaRead
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaReadahead
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaReaddir
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaReaddirR
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaReadlink
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaReadlinkat
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaReadv
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaRealloc
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaRealpath
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaReboot
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaRecv
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaRecvfrom
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaRecvmmsg
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaRecvmsg
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaRemove
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaRename
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaRenameat
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaResInit
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaRewind
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaRewinddir
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaRmdir
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaScanf
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSchedGetPriorityMax
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSchedGetPriorityMin
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSchedGetaffinity
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSchedGetparam
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSchedGetscheduler
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSchedRrGetInterval
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSchedSetaffinity
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSchedSetparam
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSchedSetscheduler
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSchedYield
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSeekdir
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSelect
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSemClose
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSemDestroy
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSemGetvalue
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSemInit
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSemOpen
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSemPost
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSemTimedwait
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSemTrywait
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSemUnlink
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSemWait
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSemctl
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSemget
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSemop
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSend
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSendmmsg
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSendmsg
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSendto
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSetbuf
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSetdomainname
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSetegid
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSetenv
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSeteuid
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSetfsgid
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSetfsuid
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSetgid
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSetgrent
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSetgroups
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSethostname
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSetlocale
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSetlogmask
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSetpgid
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSetpwent
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSetregid
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSetresgid
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSetresuid
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSetreuid
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSetsid
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSetsockopt
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSettimeofday
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSetuid
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSetvbuf
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaShmOpen
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaShmUnlink
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaShmat
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaShmctl
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaShmdt
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaShmget
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaShutdown
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSigaction
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSigaddset
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSigaltstack
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSigdelset
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSigemptyset
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSigfillset
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSigismember
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSignal
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSignalfd
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSigpending
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSigprocmask
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSigsuspend
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSigtimedwait
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSigwait
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSigwaitinfo
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSleep
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSnprintf
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSocket
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSocketpair
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSplice
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSprintf
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSrand
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSscanf
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaStat
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaStatfs
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaStatvfs
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaStrcat
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaStrchr
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaStrcmp
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaStrcoll
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaStrcpy
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaStrcspn
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaStrdup
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaStrerror
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaStrerrorR
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaStrlen
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaStrncat
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaStrncmp
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaStrncpy
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaStrnlen
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaStrpbrk
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaStrrchr
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaStrspn
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaStrstr
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaStrtod
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaStrtof
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaStrtok
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaStrtol
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaStrtoll
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaStrtoul
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaStrtoull
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaStrxfrm
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSwapoff
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSwapon
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSymlink
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSymlinkat
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSync
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSyncFileRange
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSyscall
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSysconf
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSyslog
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaSystem
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaTcdrain
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaTcflow
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaTcflush
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaTcgetattr
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaTcgetpgrp
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaTcgetsid
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaTcsendbreak
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaTcsetattr
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaTcsetpgrp
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaTee
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaTelldir
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaTime
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaTimegm
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaTimerfdCreate
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaTimerfdGettime
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaTimerfdSettime
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaTimes
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaTmpfile
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaTmpnam
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaTolower
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaToupper
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaTtyname
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaUmask
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaUmount
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaUmount2
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaUname
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaUngetc
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaUnlink
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaUnlinkat
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaUnlockpt
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaUnsetenv
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaUselocale
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaUsleep
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaUtime
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaUtimensat
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaUtimes
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaVhangup
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaVmsplice
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaWait
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaWaitid
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaWaitpid
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaWcslen
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaWcstombs
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaWmemchr
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaWrite
+import io.github.kotlinmania.libc.fuchsia.cinterop.libcFuchsiaWritev
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
 
 public actual fun isalnum(c: CInt): CInt =
-    libc_fuchsia_isalnum(c)
+    libcFuchsiaIsalnum(c)
 
 public actual fun isalpha(c: CInt): CInt =
-    libc_fuchsia_isalpha(c)
+    libcFuchsiaIsalpha(c)
 
 public actual fun iscntrl(c: CInt): CInt =
-    libc_fuchsia_iscntrl(c)
+    libcFuchsiaIscntrl(c)
 
 public actual fun isdigit(c: CInt): CInt =
-    libc_fuchsia_isdigit(c)
+    libcFuchsiaIsdigit(c)
 
 public actual fun isgraph(c: CInt): CInt =
-    libc_fuchsia_isgraph(c)
+    libcFuchsiaIsgraph(c)
 
 public actual fun islower(c: CInt): CInt =
-    libc_fuchsia_islower(c)
+    libcFuchsiaIslower(c)
 
 public actual fun isprint(c: CInt): CInt =
-    libc_fuchsia_isprint(c)
+    libcFuchsiaIsprint(c)
 
 public actual fun ispunct(c: CInt): CInt =
-    libc_fuchsia_ispunct(c)
+    libcFuchsiaIspunct(c)
 
 public actual fun isspace(c: CInt): CInt =
-    libc_fuchsia_isspace(c)
+    libcFuchsiaIsspace(c)
 
 public actual fun isupper(c: CInt): CInt =
-    libc_fuchsia_isupper(c)
+    libcFuchsiaIsupper(c)
 
 public actual fun isxdigit(c: CInt): CInt =
-    libc_fuchsia_isxdigit(c)
+    libcFuchsiaIsxdigit(c)
 
 public actual fun isblank(c: CInt): CInt =
-    libc_fuchsia_isblank(c)
+    libcFuchsiaIsblank(c)
 
 public actual fun tolower(c: CInt): CInt =
-    libc_fuchsia_tolower(c)
+    libcFuchsiaTolower(c)
 
 public actual fun toupper(c: CInt): CInt =
-    libc_fuchsia_toupper(c)
+    libcFuchsiaToupper(c)
 
-public actual fun fopen(filename: String?, mode: String?): FILE? =
-    libc_fuchsia_fopen(filename, mode)?.let { FILE(it.toLong()) }
+public actual fun fopen(filename: ConstPtr<CChar>, mode: ConstPtr<CChar>): MutPtr<FILE> =
+    MutPtr(libcFuchsiaFopen(filename.rawAddress.toCPointer<ByteVar>(), mode.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun freopen(filename: String?, mode: String?, file: FILE?): FILE? =
-    libc_fuchsia_freopen(filename, mode, file?.handle?.toCPointer<ByteVar>())?.let { FILE(it.toLong()) }
+public actual fun freopen(filename: ConstPtr<CChar>, mode: ConstPtr<CChar>, file: MutPtr<FILE>): MutPtr<FILE> =
+    MutPtr(libcFuchsiaFreopen(filename.rawAddress.toCPointer<ByteVar>(), mode.rawAddress.toCPointer<ByteVar>(), file.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun fflush(file: FILE?): CInt =
-    libc_fuchsia_fflush(file?.handle?.toCPointer<ByteVar>())
+public actual fun fflush(file: MutPtr<FILE>): CInt =
+    libcFuchsiaFflush(file.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fclose(file: FILE?): CInt =
-    libc_fuchsia_fclose(file?.handle?.toCPointer<ByteVar>())
+public actual fun fclose(file: MutPtr<FILE>): CInt =
+    libcFuchsiaFclose(file.rawAddress.toCPointer<ByteVar>())
 
-public actual fun remove(filename: String?): CInt =
-    libc_fuchsia_remove(filename)
+public actual fun remove(filename: ConstPtr<CChar>): CInt =
+    libcFuchsiaRemove(filename.rawAddress.toCPointer<ByteVar>())
 
-public actual fun rename(oldname: String?, newname: String?): CInt =
-    libc_fuchsia_rename(oldname, newname)
+public actual fun rename(oldname: ConstPtr<CChar>, newname: ConstPtr<CChar>): CInt =
+    libcFuchsiaRename(oldname.rawAddress.toCPointer<ByteVar>(), newname.rawAddress.toCPointer<ByteVar>())
 
-public actual fun tmpfile(): FILE? =
-    libc_fuchsia_tmpfile()?.let { FILE(it.toLong()) }
+public actual fun tmpfile(): MutPtr<FILE> =
+    MutPtr(libcFuchsiaTmpfile()?.toLong() ?: 0L)
 
-public actual fun setvbuf(stream: FILE?, buffer: COpaquePointer?, mode: CInt, size: SizeT): CInt =
-    libc_fuchsia_setvbuf(stream?.handle?.toCPointer<ByteVar>(), buffer?.value?.toCPointer<ByteVar>(), mode, size)
+public actual fun setvbuf(stream: MutPtr<FILE>, buffer: MutPtr<CChar>, mode: CInt, size: SizeT): CInt =
+    libcFuchsiaSetvbuf(stream.rawAddress.toCPointer<ByteVar>(), buffer.rawAddress.toCPointer<ByteVar>(), mode, size)
 
-public actual fun setbuf(stream: FILE?, buf: COpaquePointer?) {
-    libc_fuchsia_setbuf(stream?.handle?.toCPointer<ByteVar>(), buf?.value?.toCPointer<ByteVar>())
+public actual fun setbuf(stream: MutPtr<FILE>, buf: MutPtr<CChar>) {
+    libcFuchsiaSetbuf(stream.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>())
 }
 
 public actual fun getchar(): CInt =
-    libc_fuchsia_getchar()
+    libcFuchsiaGetchar()
 
 public actual fun putchar(c: CInt): CInt =
-    libc_fuchsia_putchar(c)
+    libcFuchsiaPutchar(c)
 
-public actual fun fgetc(stream: FILE?): CInt =
-    libc_fuchsia_fgetc(stream?.handle?.toCPointer<ByteVar>())
+public actual fun fgetc(stream: MutPtr<FILE>): CInt =
+    libcFuchsiaFgetc(stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fgets(buf: COpaquePointer?, n: CInt, stream: FILE?): COpaquePointer? =
-    libc_fuchsia_fgets(buf?.value?.toCPointer<ByteVar>(), n, stream?.handle?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun fgets(buf: MutPtr<CChar>, n: CInt, stream: MutPtr<FILE>): MutPtr<CChar> =
+    MutPtr(libcFuchsiaFgets(buf.rawAddress.toCPointer<ByteVar>(), n, stream.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun fputc(c: CInt, stream: FILE?): CInt =
-    libc_fuchsia_fputc(c, stream?.handle?.toCPointer<ByteVar>())
+public actual fun fputc(c: CInt, stream: MutPtr<FILE>): CInt =
+    libcFuchsiaFputc(c, stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fputs(s: String?, stream: FILE?): CInt =
-    libc_fuchsia_fputs(s, stream?.handle?.toCPointer<ByteVar>())
+public actual fun fputs(s: ConstPtr<CChar>, stream: MutPtr<FILE>): CInt =
+    libcFuchsiaFputs(s.rawAddress.toCPointer<ByteVar>(), stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun puts(s: String?): CInt =
-    libc_fuchsia_puts(s)
+public actual fun puts(s: ConstPtr<CChar>): CInt =
+    libcFuchsiaPuts(s.rawAddress.toCPointer<ByteVar>())
 
-public actual fun ungetc(c: CInt, stream: FILE?): CInt =
-    libc_fuchsia_ungetc(c, stream?.handle?.toCPointer<ByteVar>())
+public actual fun ungetc(c: CInt, stream: MutPtr<FILE>): CInt =
+    libcFuchsiaUngetc(c, stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fread(ptr: COpaquePointer?, size: SizeT, nobj: SizeT, stream: FILE?): SizeT =
-    libc_fuchsia_fread(ptr?.value?.toCPointer<ByteVar>(), size, nobj, stream?.handle?.toCPointer<ByteVar>())
+public actual fun fread(ptr: MutPtr<CVoid>, size: SizeT, nobj: SizeT, stream: MutPtr<FILE>): SizeT =
+    libcFuchsiaFread(ptr.rawAddress.toCPointer<ByteVar>(), size, nobj, stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fwrite(ptr: COpaquePointer?, size: SizeT, nobj: SizeT, stream: FILE?): SizeT =
-    libc_fuchsia_fwrite(ptr?.value?.toCPointer<ByteVar>(), size, nobj, stream?.handle?.toCPointer<ByteVar>())
+public actual fun fwrite(ptr: ConstPtr<CVoid>, size: SizeT, nobj: SizeT, stream: MutPtr<FILE>): SizeT =
+    libcFuchsiaFwrite(ptr.rawAddress.toCPointer<ByteVar>(), size, nobj, stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fseek(stream: FILE?, offset: CLong, whence: CInt): CInt =
-    libc_fuchsia_fseek(stream?.handle?.toCPointer<ByteVar>(), offset, whence)
+public actual fun fseek(stream: MutPtr<FILE>, offset: CLong, whence: CInt): CInt =
+    libcFuchsiaFseek(stream.rawAddress.toCPointer<ByteVar>(), offset, whence)
 
-public actual fun ftell(stream: FILE?): CLong =
-    libc_fuchsia_ftell(stream?.handle?.toCPointer<ByteVar>())
+public actual fun ftell(stream: MutPtr<FILE>): CLong =
+    libcFuchsiaFtell(stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun rewind(stream: FILE?) {
-    libc_fuchsia_rewind(stream?.handle?.toCPointer<ByteVar>())
+public actual fun rewind(stream: MutPtr<FILE>) {
+    libcFuchsiaRewind(stream.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun fgetpos(stream: FILE?, ptr: COpaquePointer?): CInt =
-    libc_fuchsia_fgetpos(stream?.handle?.toCPointer<ByteVar>(), ptr?.value?.toCPointer<ByteVar>())
+public actual fun fgetpos(stream: MutPtr<FILE>, ptr: MutPtr<FposT>): CInt =
+    libcFuchsiaFgetpos(stream.rawAddress.toCPointer<ByteVar>(), ptr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fsetpos(stream: FILE?, ptr: COpaquePointer?): CInt =
-    libc_fuchsia_fsetpos(stream?.handle?.toCPointer<ByteVar>(), ptr?.value?.toCPointer<ByteVar>())
+public actual fun fsetpos(stream: MutPtr<FILE>, ptr: ConstPtr<FposT>): CInt =
+    libcFuchsiaFsetpos(stream.rawAddress.toCPointer<ByteVar>(), ptr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun feof(stream: FILE?): CInt =
-    libc_fuchsia_feof(stream?.handle?.toCPointer<ByteVar>())
+public actual fun feof(stream: MutPtr<FILE>): CInt =
+    libcFuchsiaFeof(stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun ferror(stream: FILE?): CInt =
-    libc_fuchsia_ferror(stream?.handle?.toCPointer<ByteVar>())
+public actual fun ferror(stream: MutPtr<FILE>): CInt =
+    libcFuchsiaFerror(stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun perror(s: String?) {
-    libc_fuchsia_perror(s)
+public actual fun perror(s: ConstPtr<CChar>) {
+    libcFuchsiaPerror(s.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun atof(s: String?): CDouble =
-    libc_fuchsia_atof(s)
+public actual fun atof(s: ConstPtr<CChar>): CDouble =
+    libcFuchsiaAtof(s.rawAddress.toCPointer<ByteVar>())
 
-public actual fun atoi(s: String?): CInt =
-    libc_fuchsia_atoi(s)
+public actual fun atoi(s: ConstPtr<CChar>): CInt =
+    libcFuchsiaAtoi(s.rawAddress.toCPointer<ByteVar>())
 
-public actual fun atol(s: String?): CLong =
-    libc_fuchsia_atol(s)
+public actual fun atol(s: ConstPtr<CChar>): CLong =
+    libcFuchsiaAtol(s.rawAddress.toCPointer<ByteVar>())
 
-public actual fun atoll(s: String?): CLonglong =
-    libc_fuchsia_atoll(s)
+public actual fun atoll(s: ConstPtr<CChar>): CLonglong =
+    libcFuchsiaAtoll(s.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strtod(s: String?, endp: COpaquePointer?): CDouble =
-    libc_fuchsia_strtod(s, endp?.value?.toCPointer<ByteVar>())
+public actual fun strtod(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>): CDouble =
+    libcFuchsiaStrtod(s.rawAddress.toCPointer<ByteVar>(), endp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strtof(s: String?, endp: COpaquePointer?): CFloat =
-    libc_fuchsia_strtof(s, endp?.value?.toCPointer<ByteVar>())
+public actual fun strtof(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>): CFloat =
+    libcFuchsiaStrtof(s.rawAddress.toCPointer<ByteVar>(), endp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strtol(s: String?, endp: COpaquePointer?, base: CInt): CLong =
-    libc_fuchsia_strtol(s, endp?.value?.toCPointer<ByteVar>(), base)
+public actual fun strtol(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CLong =
+    libcFuchsiaStrtol(s.rawAddress.toCPointer<ByteVar>(), endp.rawAddress.toCPointer<ByteVar>(), base)
 
-public actual fun strtoll(s: String?, endp: COpaquePointer?, base: CInt): CLonglong =
-    libc_fuchsia_strtoll(s, endp?.value?.toCPointer<ByteVar>(), base)
+public actual fun strtoll(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CLonglong =
+    libcFuchsiaStrtoll(s.rawAddress.toCPointer<ByteVar>(), endp.rawAddress.toCPointer<ByteVar>(), base)
 
-public actual fun strtoul(s: String?, endp: COpaquePointer?, base: CInt): CUlong =
-    libc_fuchsia_strtoul(s, endp?.value?.toCPointer<ByteVar>(), base)
+public actual fun strtoul(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CUlong =
+    libcFuchsiaStrtoul(s.rawAddress.toCPointer<ByteVar>(), endp.rawAddress.toCPointer<ByteVar>(), base)
 
-public actual fun strtoull(s: String?, endp: COpaquePointer?, base: CInt): CUlonglong =
-    libc_fuchsia_strtoull(s, endp?.value?.toCPointer<ByteVar>(), base)
+public actual fun strtoull(s: ConstPtr<CChar>, endp: MutPtr<MutPtr<CChar>>, base: CInt): CUlonglong =
+    libcFuchsiaStrtoull(s.rawAddress.toCPointer<ByteVar>(), endp.rawAddress.toCPointer<ByteVar>(), base)
 
-public actual fun calloc(nobj: SizeT, size: SizeT): COpaquePointer? =
-    libc_fuchsia_calloc(nobj, size)?.let { COpaquePointer(it.toLong()) }
+public actual fun calloc(nobj: SizeT, size: SizeT): MutPtr<CVoid> =
+    MutPtr(libcFuchsiaCalloc(nobj, size)?.toLong() ?: 0L)
 
-public actual fun malloc(size: SizeT): COpaquePointer? =
-    libc_fuchsia_malloc(size)?.let { COpaquePointer(it.toLong()) }
+public actual fun malloc(size: SizeT): MutPtr<CVoid> =
+    MutPtr(libcFuchsiaMalloc(size)?.toLong() ?: 0L)
 
-public actual fun realloc(p: COpaquePointer?, size: SizeT): COpaquePointer? =
-    libc_fuchsia_realloc(p?.value?.toCPointer<ByteVar>(), size)?.let { COpaquePointer(it.toLong()) }
+public actual fun realloc(p: MutPtr<CVoid>, size: SizeT): MutPtr<CVoid> =
+    MutPtr(libcFuchsiaRealloc(p.rawAddress.toCPointer<ByteVar>(), size)?.toLong() ?: 0L)
 
-public actual fun free(p: COpaquePointer?) {
-    libc_fuchsia_free(p?.value?.toCPointer<ByteVar>())
+public actual fun free(p: MutPtr<CVoid>) {
+    libcFuchsiaFree(p.rawAddress.toCPointer<ByteVar>())
 }
 
 public actual fun abort(): Nothing {
-    libc_fuchsia_abort()
+    libcFuchsiaAbort()
     error("Unreachable noreturn C function abort")
 }
 
 public actual fun exit(status: CInt): Nothing {
-    libc_fuchsia_exit(status)
+    libcFuchsiaExit(status)
     error("Unreachable noreturn C function exit")
 }
 
 public actual fun atexit(cb: SigactionSaRestorerCallback): CInt =
-    libc_fuchsia_atexit(0L.toCPointer<ByteVar>())
+    libcFuchsiaAtexit(0L.toCPointer<ByteVar>())
 
-public actual fun system(s: String?): CInt =
-    libc_fuchsia_system(s)
+public actual fun system(s: ConstPtr<CChar>): CInt =
+    libcFuchsiaSystem(s.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getenv(s: String?): COpaquePointer? =
-    libc_fuchsia_getenv(s)?.let { COpaquePointer(it.toLong()) }
+public actual fun getenv(s: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcFuchsiaGetenv(s.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strcpy(dst: COpaquePointer?, src: String?): COpaquePointer? =
-    libc_fuchsia_strcpy(dst?.value?.toCPointer<ByteVar>(), src)?.let { COpaquePointer(it.toLong()) }
+public actual fun strcpy(dst: MutPtr<CChar>, src: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcFuchsiaStrcpy(dst.rawAddress.toCPointer<ByteVar>(), src.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strncpy(dst: COpaquePointer?, src: String?, n: SizeT): COpaquePointer? =
-    libc_fuchsia_strncpy(dst?.value?.toCPointer<ByteVar>(), src, n)?.let { COpaquePointer(it.toLong()) }
+public actual fun strncpy(dst: MutPtr<CChar>, src: ConstPtr<CChar>, n: SizeT): MutPtr<CChar> =
+    MutPtr(libcFuchsiaStrncpy(dst.rawAddress.toCPointer<ByteVar>(), src.rawAddress.toCPointer<ByteVar>(), n)?.toLong() ?: 0L)
 
-public actual fun strcat(s: COpaquePointer?, ct: String?): COpaquePointer? =
-    libc_fuchsia_strcat(s?.value?.toCPointer<ByteVar>(), ct)?.let { COpaquePointer(it.toLong()) }
+public actual fun strcat(s: MutPtr<CChar>, ct: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcFuchsiaStrcat(s.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strncat(s: COpaquePointer?, ct: String?, n: SizeT): COpaquePointer? =
-    libc_fuchsia_strncat(s?.value?.toCPointer<ByteVar>(), ct, n)?.let { COpaquePointer(it.toLong()) }
+public actual fun strncat(s: MutPtr<CChar>, ct: ConstPtr<CChar>, n: SizeT): MutPtr<CChar> =
+    MutPtr(libcFuchsiaStrncat(s.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>(), n)?.toLong() ?: 0L)
 
-public actual fun strcmp(cs: String?, ct: String?): CInt =
-    libc_fuchsia_strcmp(cs, ct)
+public actual fun strcmp(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): CInt =
+    libcFuchsiaStrcmp(cs.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strncmp(cs: String?, ct: String?, n: SizeT): CInt =
-    libc_fuchsia_strncmp(cs, ct, n)
+public actual fun strncmp(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>, n: SizeT): CInt =
+    libcFuchsiaStrncmp(cs.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>(), n)
 
-public actual fun strcoll(cs: String?, ct: String?): CInt =
-    libc_fuchsia_strcoll(cs, ct)
+public actual fun strcoll(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): CInt =
+    libcFuchsiaStrcoll(cs.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strchr(cs: String?, c: CInt): COpaquePointer? =
-    libc_fuchsia_strchr(cs, c)?.let { COpaquePointer(it.toLong()) }
+public actual fun strchr(cs: ConstPtr<CChar>, c: CInt): MutPtr<CChar> =
+    MutPtr(libcFuchsiaStrchr(cs.rawAddress.toCPointer<ByteVar>(), c)?.toLong() ?: 0L)
 
-public actual fun strrchr(cs: String?, c: CInt): COpaquePointer? =
-    libc_fuchsia_strrchr(cs, c)?.let { COpaquePointer(it.toLong()) }
+public actual fun strrchr(cs: ConstPtr<CChar>, c: CInt): MutPtr<CChar> =
+    MutPtr(libcFuchsiaStrrchr(cs.rawAddress.toCPointer<ByteVar>(), c)?.toLong() ?: 0L)
 
-public actual fun strspn(cs: String?, ct: String?): SizeT =
-    libc_fuchsia_strspn(cs, ct)
+public actual fun strspn(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): SizeT =
+    libcFuchsiaStrspn(cs.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strcspn(cs: String?, ct: String?): SizeT =
-    libc_fuchsia_strcspn(cs, ct)
+public actual fun strcspn(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): SizeT =
+    libcFuchsiaStrcspn(cs.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strdup(cs: String?): COpaquePointer? =
-    libc_fuchsia_strdup(cs)?.let { COpaquePointer(it.toLong()) }
+public actual fun strdup(cs: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcFuchsiaStrdup(cs.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strpbrk(cs: String?, ct: String?): COpaquePointer? =
-    libc_fuchsia_strpbrk(cs, ct)?.let { COpaquePointer(it.toLong()) }
+public actual fun strpbrk(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcFuchsiaStrpbrk(cs.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strstr(cs: String?, ct: String?): COpaquePointer? =
-    libc_fuchsia_strstr(cs, ct)?.let { COpaquePointer(it.toLong()) }
+public actual fun strstr(cs: ConstPtr<CChar>, ct: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcFuchsiaStrstr(cs.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strlen(cs: String?): SizeT =
-    libc_fuchsia_strlen(cs)
+public actual fun strlen(cs: ConstPtr<CChar>): SizeT =
+    libcFuchsiaStrlen(cs.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strnlen(cs: String?, maxlen: SizeT): SizeT =
-    libc_fuchsia_strnlen(cs, maxlen)
+public actual fun strnlen(cs: ConstPtr<CChar>, maxlen: SizeT): SizeT =
+    libcFuchsiaStrnlen(cs.rawAddress.toCPointer<ByteVar>(), maxlen)
 
-public actual fun strerror(n: CInt): COpaquePointer? =
-    libc_fuchsia_strerror(n)?.let { COpaquePointer(it.toLong()) }
+public actual fun strerror(n: CInt): MutPtr<CChar> =
+    MutPtr(libcFuchsiaStrerror(n)?.toLong() ?: 0L)
 
-public actual fun strtok(s: COpaquePointer?, t: String?): COpaquePointer? =
-    libc_fuchsia_strtok(s?.value?.toCPointer<ByteVar>(), t)?.let { COpaquePointer(it.toLong()) }
+public actual fun strtok(s: MutPtr<CChar>, t: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcFuchsiaStrtok(s.rawAddress.toCPointer<ByteVar>(), t.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strxfrm(s: COpaquePointer?, ct: String?, n: SizeT): SizeT =
-    libc_fuchsia_strxfrm(s?.value?.toCPointer<ByteVar>(), ct, n)
+public actual fun strxfrm(s: MutPtr<CChar>, ct: ConstPtr<CChar>, n: SizeT): SizeT =
+    libcFuchsiaStrxfrm(s.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>(), n)
 
-public actual fun wcslen(buf: COpaquePointer?): SizeT =
-    libc_fuchsia_wcslen(buf?.value?.toCPointer<ByteVar>())
+public actual fun wcslen(buf: ConstPtr<WcharT>): SizeT =
+    libcFuchsiaWcslen(buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun wcstombs(dest: COpaquePointer?, src: COpaquePointer?, n: SizeT): SizeT =
-    libc_fuchsia_wcstombs(dest?.value?.toCPointer<ByteVar>(), src?.value?.toCPointer<ByteVar>(), n)
+public actual fun wcstombs(dest: MutPtr<CChar>, src: ConstPtr<WcharT>, n: SizeT): SizeT =
+    libcFuchsiaWcstombs(dest.rawAddress.toCPointer<ByteVar>(), src.rawAddress.toCPointer<ByteVar>(), n)
 
-public actual fun memchr(cx: COpaquePointer?, c: CInt, n: SizeT): COpaquePointer? =
-    libc_fuchsia_memchr(cx?.value?.toCPointer<ByteVar>(), c, n)?.let { COpaquePointer(it.toLong()) }
+public actual fun memchr(cx: ConstPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+    MutPtr(libcFuchsiaMemchr(cx.rawAddress.toCPointer<ByteVar>(), c, n)?.toLong() ?: 0L)
 
-public actual fun wmemchr(cx: COpaquePointer?, c: WcharT, n: SizeT): COpaquePointer? =
-    libc_fuchsia_wmemchr(cx?.value?.toCPointer<ByteVar>(), c, n)?.let { COpaquePointer(it.toLong()) }
+public actual fun wmemchr(cx: ConstPtr<WcharT>, c: WcharT, n: SizeT): MutPtr<WcharT> =
+    MutPtr(libcFuchsiaWmemchr(cx.rawAddress.toCPointer<ByteVar>(), c, n)?.toLong() ?: 0L)
 
-public actual fun memcmp(cx: COpaquePointer?, ct: COpaquePointer?, n: SizeT): CInt =
-    libc_fuchsia_memcmp(cx?.value?.toCPointer<ByteVar>(), ct?.value?.toCPointer<ByteVar>(), n)
+public actual fun memcmp(cx: ConstPtr<CVoid>, ct: ConstPtr<CVoid>, n: SizeT): CInt =
+    libcFuchsiaMemcmp(cx.rawAddress.toCPointer<ByteVar>(), ct.rawAddress.toCPointer<ByteVar>(), n)
 
-public actual fun memcpy(dest: COpaquePointer?, src: COpaquePointer?, n: SizeT): COpaquePointer? =
-    libc_fuchsia_memcpy(dest?.value?.toCPointer<ByteVar>(), src?.value?.toCPointer<ByteVar>(), n)?.let { COpaquePointer(it.toLong()) }
+public actual fun memcpy(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, n: SizeT): MutPtr<CVoid> =
+    MutPtr(libcFuchsiaMemcpy(dest.rawAddress.toCPointer<ByteVar>(), src.rawAddress.toCPointer<ByteVar>(), n)?.toLong() ?: 0L)
 
-public actual fun memmove(dest: COpaquePointer?, src: COpaquePointer?, n: SizeT): COpaquePointer? =
-    libc_fuchsia_memmove(dest?.value?.toCPointer<ByteVar>(), src?.value?.toCPointer<ByteVar>(), n)?.let { COpaquePointer(it.toLong()) }
+public actual fun memmove(dest: MutPtr<CVoid>, src: ConstPtr<CVoid>, n: SizeT): MutPtr<CVoid> =
+    MutPtr(libcFuchsiaMemmove(dest.rawAddress.toCPointer<ByteVar>(), src.rawAddress.toCPointer<ByteVar>(), n)?.toLong() ?: 0L)
 
-public actual fun memset(dest: COpaquePointer?, c: CInt, n: SizeT): COpaquePointer? =
-    libc_fuchsia_memset(dest?.value?.toCPointer<ByteVar>(), c, n)?.let { COpaquePointer(it.toLong()) }
+public actual fun memset(dest: MutPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+    MutPtr(libcFuchsiaMemset(dest.rawAddress.toCPointer<ByteVar>(), c, n)?.toLong() ?: 0L)
 
 public actual fun abs(i: CInt): CInt =
-    libc_fuchsia_abs(i)
+    libcFuchsiaAbs(i)
 
 public actual fun labs(i: CLong): CLong =
-    libc_fuchsia_labs(i)
+    libcFuchsiaLabs(i)
 
 public actual fun rand(): CInt =
-    libc_fuchsia_rand()
+    libcFuchsiaRand()
 
 public actual fun srand(seed: CUint) {
-    libc_fuchsia_srand(seed)
+    libcFuchsiaSrand(seed)
 }
 
-public actual fun getpwnam(name: String?): COpaquePointer? =
-    libc_fuchsia_getpwnam(name)?.let { COpaquePointer(it.toLong()) }
+public actual fun getpwnam(name: ConstPtr<CChar>): MutPtr<Passwd> =
+    MutPtr(libcFuchsiaGetpwnam(name.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun getpwuid(uid: UidT): COpaquePointer? =
-    libc_fuchsia_getpwuid(uid)?.let { COpaquePointer(it.toLong()) }
+public actual fun getpwuid(uid: UidT): MutPtr<Passwd> =
+    MutPtr(libcFuchsiaGetpwuid(uid)?.toLong() ?: 0L)
 
-public actual fun fprintf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
-    libc_fuchsia_fprintf(stream?.handle?.toCPointer<ByteVar>(), format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun fprintf(stream: MutPtr<FILE>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    libcFuchsiaFprintf(stream.rawAddress.toCPointer<ByteVar>(), format.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun printf(format: String?, vararg variadicArgs: Long): CInt =
-    libc_fuchsia_printf(format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun printf(format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    libcFuchsiaPrintf(format.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun snprintf(s: COpaquePointer?, n: SizeT, format: String?, vararg variadicArgs: Long): CInt =
-    libc_fuchsia_snprintf(s?.value?.toCPointer<ByteVar>(), n, format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun snprintf(s: MutPtr<CChar>, n: SizeT, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    libcFuchsiaSnprintf(s.rawAddress.toCPointer<ByteVar>(), n, format.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun sprintf(s: COpaquePointer?, format: String?, vararg variadicArgs: Long): CInt =
-    libc_fuchsia_sprintf(s?.value?.toCPointer<ByteVar>(), format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun sprintf(s: MutPtr<CChar>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    libcFuchsiaSprintf(s.rawAddress.toCPointer<ByteVar>(), format.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun fscanf(stream: FILE?, format: String?, vararg variadicArgs: Long): CInt =
-    libc_fuchsia_fscanf(stream?.handle?.toCPointer<ByteVar>(), format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun fscanf(stream: MutPtr<FILE>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    libcFuchsiaFscanf(stream.rawAddress.toCPointer<ByteVar>(), format.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun scanf(format: String?, vararg variadicArgs: Long): CInt =
-    libc_fuchsia_scanf(format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun scanf(format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    libcFuchsiaScanf(format.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun sscanf(s: String?, format: String?, vararg variadicArgs: Long): CInt =
-    libc_fuchsia_sscanf(s, format, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun sscanf(s: ConstPtr<CChar>, format: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    libcFuchsiaSscanf(s.rawAddress.toCPointer<ByteVar>(), format.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun getcharUnlocked(): CInt =
-    libc_fuchsia_getcharUnlocked()
+    libcFuchsiaGetcharUnlocked()
 
 public actual fun putcharUnlocked(c: CInt): CInt =
-    libc_fuchsia_putcharUnlocked(c)
+    libcFuchsiaPutcharUnlocked(c)
 
 public actual fun socket(domain: CInt, ty: CInt, protocol: CInt): CInt =
-    libc_fuchsia_socket(domain, ty, protocol)
+    libcFuchsiaSocket(domain, ty, protocol)
 
-public actual fun connect(socket: CInt, address: COpaquePointer?, len: SocklenT): CInt =
-    libc_fuchsia_connect(socket, address?.value?.toCPointer<ByteVar>(), len)
+public actual fun connect(socket: CInt, address: ConstPtr<Sockaddr>, len: SocklenT): CInt =
+    libcFuchsiaConnect(socket, address.rawAddress.toCPointer<ByteVar>(), len)
 
 public actual fun listen(socket: CInt, backlog: CInt): CInt =
-    libc_fuchsia_listen(socket, backlog)
+    libcFuchsiaListen(socket, backlog)
 
-public actual fun accept(socket: CInt, address: COpaquePointer?, addressLen: COpaquePointer?): CInt =
-    libc_fuchsia_accept(socket, address?.value?.toCPointer<ByteVar>(), addressLen?.value?.toCPointer<ByteVar>())
+public actual fun accept(socket: CInt, address: MutPtr<Sockaddr>, addressLen: MutPtr<SocklenT>): CInt =
+    libcFuchsiaAccept(socket, address.rawAddress.toCPointer<ByteVar>(), addressLen.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getpeername(socket: CInt, address: COpaquePointer?, addressLen: COpaquePointer?): CInt =
-    libc_fuchsia_getpeername(socket, address?.value?.toCPointer<ByteVar>(), addressLen?.value?.toCPointer<ByteVar>())
+public actual fun getpeername(socket: CInt, address: MutPtr<Sockaddr>, addressLen: MutPtr<SocklenT>): CInt =
+    libcFuchsiaGetpeername(socket, address.rawAddress.toCPointer<ByteVar>(), addressLen.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getsockname(socket: CInt, address: COpaquePointer?, addressLen: COpaquePointer?): CInt =
-    libc_fuchsia_getsockname(socket, address?.value?.toCPointer<ByteVar>(), addressLen?.value?.toCPointer<ByteVar>())
+public actual fun getsockname(socket: CInt, address: MutPtr<Sockaddr>, addressLen: MutPtr<SocklenT>): CInt =
+    libcFuchsiaGetsockname(socket, address.rawAddress.toCPointer<ByteVar>(), addressLen.rawAddress.toCPointer<ByteVar>())
 
-public actual fun setsockopt(socket: CInt, level: CInt, name: CInt, value: COpaquePointer?, optionLen: SocklenT): CInt =
-    libc_fuchsia_setsockopt(socket, level, name, value?.value?.toCPointer<ByteVar>(), optionLen)
+public actual fun setsockopt(socket: CInt, level: CInt, name: CInt, value: ConstPtr<CVoid>, optionLen: SocklenT): CInt =
+    libcFuchsiaSetsockopt(socket, level, name, value.rawAddress.toCPointer<ByteVar>(), optionLen)
 
-public actual fun socketpair(domain: CInt, type: CInt, protocol: CInt, socketVector: COpaquePointer?): CInt =
-    libc_fuchsia_socketpair(domain, type, protocol, socketVector?.value?.toCPointer<ByteVar>())
+public actual fun socketpair(domain: CInt, type: CInt, protocol: CInt, socketVector: MutPtr<CInt>): CInt =
+    libcFuchsiaSocketpair(domain, type, protocol, socketVector.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sendto(socket: CInt, buf: COpaquePointer?, len: SizeT, flags: CInt, addr: COpaquePointer?, addrlen: SocklenT): SsizeT =
-    libc_fuchsia_sendto(socket, buf?.value?.toCPointer<ByteVar>(), len, flags, addr?.value?.toCPointer<ByteVar>(), addrlen)
+public actual fun sendto(socket: CInt, buf: ConstPtr<CVoid>, len: SizeT, flags: CInt, addr: ConstPtr<Sockaddr>, addrlen: SocklenT): SsizeT =
+    libcFuchsiaSendto(socket, buf.rawAddress.toCPointer<ByteVar>(), len, flags, addr.rawAddress.toCPointer<ByteVar>(), addrlen)
 
 public actual fun shutdown(socket: CInt, how: CInt): CInt =
-    libc_fuchsia_shutdown(socket, how)
+    libcFuchsiaShutdown(socket, how)
 
-public actual fun chmod(path: String?, mode: ModeT): CInt =
-    libc_fuchsia_chmod(path, mode)
+public actual fun chmod(path: ConstPtr<CChar>, mode: ModeT): CInt =
+    libcFuchsiaChmod(path.rawAddress.toCPointer<ByteVar>(), mode)
 
 public actual fun fchmod(fd: CInt, mode: ModeT): CInt =
-    libc_fuchsia_fchmod(fd, mode)
+    libcFuchsiaFchmod(fd, mode)
 
-public actual fun fstat(fildes: CInt, buf: COpaquePointer?): CInt =
-    libc_fuchsia_fstat(fildes, buf?.value?.toCPointer<ByteVar>())
+public actual fun fstat(fildes: CInt, buf: MutPtr<Stat>): CInt =
+    libcFuchsiaFstat(fildes, buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mkdir(path: String?, mode: ModeT): CInt =
-    libc_fuchsia_mkdir(path, mode)
+public actual fun mkdir(path: ConstPtr<CChar>, mode: ModeT): CInt =
+    libcFuchsiaMkdir(path.rawAddress.toCPointer<ByteVar>(), mode)
 
-public actual fun stat(path: String?, buf: COpaquePointer?): CInt =
-    libc_fuchsia_stat(path, buf?.value?.toCPointer<ByteVar>())
+public actual fun stat(path: ConstPtr<CChar>, buf: MutPtr<Stat>): CInt =
+    libcFuchsiaStat(path.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pclose(stream: FILE?): CInt =
-    libc_fuchsia_pclose(stream?.handle?.toCPointer<ByteVar>())
+public actual fun pclose(stream: MutPtr<FILE>): CInt =
+    libcFuchsiaPclose(stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fdopen(fd: CInt, mode: String?): FILE? =
-    libc_fuchsia_fdopen(fd, mode)?.let { FILE(it.toLong()) }
+public actual fun fdopen(fd: CInt, mode: ConstPtr<CChar>): MutPtr<FILE> =
+    MutPtr(libcFuchsiaFdopen(fd, mode.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun fileno(stream: FILE?): CInt =
-    libc_fuchsia_fileno(stream?.handle?.toCPointer<ByteVar>())
+public actual fun fileno(stream: MutPtr<FILE>): CInt =
+    libcFuchsiaFileno(stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun open(path: String?, oflag: CInt, vararg variadicArgs: Long): CInt =
-    libc_fuchsia_open(path, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun open(path: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): CInt =
+    libcFuchsiaOpen(path.rawAddress.toCPointer<ByteVar>(), oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun creat(path: String?, mode: ModeT): CInt =
-    libc_fuchsia_creat(path, mode)
+public actual fun creat(path: ConstPtr<CChar>, mode: ModeT): CInt =
+    libcFuchsiaCreat(path.rawAddress.toCPointer<ByteVar>(), mode)
 
 public actual fun fcntl(fd: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
-    libc_fuchsia_fcntl(fd, cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+    libcFuchsiaFcntl(fd, cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun opendir(dirname: String?): DIR? =
-    libc_fuchsia_opendir(dirname)?.let { DIR(it.toLong()) }
+public actual fun opendir(dirname: ConstPtr<CChar>): MutPtr<DIR> =
+    MutPtr(libcFuchsiaOpendir(dirname.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun readdir(dirp: DIR?): COpaquePointer? =
-    libc_fuchsia_readdir(dirp?.handle?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun readdir(dirp: MutPtr<DIR>): MutPtr<Dirent> =
+    MutPtr(libcFuchsiaReaddir(dirp.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun readdirR(dirp: DIR?, entry: COpaquePointer?, result: COpaquePointer?): CInt =
-    libc_fuchsia_readdirR(dirp?.handle?.toCPointer<ByteVar>(), entry?.value?.toCPointer<ByteVar>(), result?.value?.toCPointer<ByteVar>())
+public actual fun readdirR(dirp: MutPtr<DIR>, entry: MutPtr<Dirent>, result: MutPtr<MutPtr<Dirent>>): CInt =
+    libcFuchsiaReaddirR(dirp.rawAddress.toCPointer<ByteVar>(), entry.rawAddress.toCPointer<ByteVar>(), result.rawAddress.toCPointer<ByteVar>())
 
-public actual fun closedir(dirp: DIR?): CInt =
-    libc_fuchsia_closedir(dirp?.handle?.toCPointer<ByteVar>())
+public actual fun closedir(dirp: MutPtr<DIR>): CInt =
+    libcFuchsiaClosedir(dirp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun rewinddir(dirp: DIR?) {
-    libc_fuchsia_rewinddir(dirp?.handle?.toCPointer<ByteVar>())
+public actual fun rewinddir(dirp: MutPtr<DIR>) {
+    libcFuchsiaRewinddir(dirp.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun openat(dirfd: CInt, pathname: String?, flags: CInt, vararg variadicArgs: Long): CInt =
-    libc_fuchsia_openat(dirfd, pathname, flags, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun openat(dirfd: CInt, pathname: ConstPtr<CChar>, flags: CInt, vararg variadicArgs: Long): CInt =
+    libcFuchsiaOpenat(dirfd, pathname.rawAddress.toCPointer<ByteVar>(), flags, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun fchmodat(dirfd: CInt, pathname: String?, mode: ModeT, flags: CInt): CInt =
-    libc_fuchsia_fchmodat(dirfd, pathname, mode, flags)
+public actual fun fchmodat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT, flags: CInt): CInt =
+    libcFuchsiaFchmodat(dirfd, pathname.rawAddress.toCPointer<ByteVar>(), mode, flags)
 
 public actual fun fchown(fd: CInt, owner: UidT, group: GidT): CInt =
-    libc_fuchsia_fchown(fd, owner, group)
+    libcFuchsiaFchown(fd, owner, group)
 
-public actual fun fchownat(dirfd: CInt, pathname: String?, owner: UidT, group: GidT, flags: CInt): CInt =
-    libc_fuchsia_fchownat(dirfd, pathname, owner, group, flags)
+public actual fun fchownat(dirfd: CInt, pathname: ConstPtr<CChar>, owner: UidT, group: GidT, flags: CInt): CInt =
+    libcFuchsiaFchownat(dirfd, pathname.rawAddress.toCPointer<ByteVar>(), owner, group, flags)
 
-public actual fun fstatat(dirfd: CInt, pathname: String?, buf: COpaquePointer?, flags: CInt): CInt =
-    libc_fuchsia_fstatat(dirfd, pathname, buf?.value?.toCPointer<ByteVar>(), flags)
+public actual fun fstatat(dirfd: CInt, pathname: ConstPtr<CChar>, buf: MutPtr<Stat>, flags: CInt): CInt =
+    libcFuchsiaFstatat(dirfd, pathname.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun linkat(olddirfd: CInt, oldpath: String?, newdirfd: CInt, newpath: String?, flags: CInt): CInt =
-    libc_fuchsia_linkat(olddirfd, oldpath, newdirfd, newpath, flags)
+public actual fun linkat(olddirfd: CInt, oldpath: ConstPtr<CChar>, newdirfd: CInt, newpath: ConstPtr<CChar>, flags: CInt): CInt =
+    libcFuchsiaLinkat(olddirfd, oldpath.rawAddress.toCPointer<ByteVar>(), newdirfd, newpath.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun mkdirat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
-    libc_fuchsia_mkdirat(dirfd, pathname, mode)
+public actual fun mkdirat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT): CInt =
+    libcFuchsiaMkdirat(dirfd, pathname.rawAddress.toCPointer<ByteVar>(), mode)
 
-public actual fun readlinkat(dirfd: CInt, pathname: String?, buf: COpaquePointer?, bufsiz: SizeT): SsizeT =
-    libc_fuchsia_readlinkat(dirfd, pathname, buf?.value?.toCPointer<ByteVar>(), bufsiz)
+public actual fun readlinkat(dirfd: CInt, pathname: ConstPtr<CChar>, buf: MutPtr<CChar>, bufsiz: SizeT): SsizeT =
+    libcFuchsiaReadlinkat(dirfd, pathname.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>(), bufsiz)
 
-public actual fun renameat(olddirfd: CInt, oldpath: String?, newdirfd: CInt, newpath: String?): CInt =
-    libc_fuchsia_renameat(olddirfd, oldpath, newdirfd, newpath)
+public actual fun renameat(olddirfd: CInt, oldpath: ConstPtr<CChar>, newdirfd: CInt, newpath: ConstPtr<CChar>): CInt =
+    libcFuchsiaRenameat(olddirfd, oldpath.rawAddress.toCPointer<ByteVar>(), newdirfd, newpath.rawAddress.toCPointer<ByteVar>())
 
-public actual fun symlinkat(target: String?, newdirfd: CInt, linkpath: String?): CInt =
-    libc_fuchsia_symlinkat(target, newdirfd, linkpath)
+public actual fun symlinkat(target: ConstPtr<CChar>, newdirfd: CInt, linkpath: ConstPtr<CChar>): CInt =
+    libcFuchsiaSymlinkat(target.rawAddress.toCPointer<ByteVar>(), newdirfd, linkpath.rawAddress.toCPointer<ByteVar>())
 
-public actual fun unlinkat(dirfd: CInt, pathname: String?, flags: CInt): CInt =
-    libc_fuchsia_unlinkat(dirfd, pathname, flags)
+public actual fun unlinkat(dirfd: CInt, pathname: ConstPtr<CChar>, flags: CInt): CInt =
+    libcFuchsiaUnlinkat(dirfd, pathname.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun access(path: String?, amode: CInt): CInt =
-    libc_fuchsia_access(path, amode)
+public actual fun access(path: ConstPtr<CChar>, amode: CInt): CInt =
+    libcFuchsiaAccess(path.rawAddress.toCPointer<ByteVar>(), amode)
 
 public actual fun alarm(seconds: CUint): CUint =
-    libc_fuchsia_alarm(seconds)
+    libcFuchsiaAlarm(seconds)
 
-public actual fun chdir(dir: String?): CInt =
-    libc_fuchsia_chdir(dir)
+public actual fun chdir(dir: ConstPtr<CChar>): CInt =
+    libcFuchsiaChdir(dir.rawAddress.toCPointer<ByteVar>())
 
-public actual fun chown(path: String?, uid: UidT, gid: GidT): CInt =
-    libc_fuchsia_chown(path, uid, gid)
+public actual fun chown(path: ConstPtr<CChar>, uid: UidT, gid: GidT): CInt =
+    libcFuchsiaChown(path.rawAddress.toCPointer<ByteVar>(), uid, gid)
 
-public actual fun lchown(path: String?, uid: UidT, gid: GidT): CInt =
-    libc_fuchsia_lchown(path, uid, gid)
+public actual fun lchown(path: ConstPtr<CChar>, uid: UidT, gid: GidT): CInt =
+    libcFuchsiaLchown(path.rawAddress.toCPointer<ByteVar>(), uid, gid)
 
 public actual fun close(fd: CInt): CInt =
-    libc_fuchsia_close(fd)
+    libcFuchsiaClose(fd)
 
 public actual fun dup(fd: CInt): CInt =
-    libc_fuchsia_dup(fd)
+    libcFuchsiaDup(fd)
 
 public actual fun dup2(src: CInt, dst: CInt): CInt =
-    libc_fuchsia_dup2(src, dst)
+    libcFuchsiaDup2(src, dst)
 
-public actual fun execl(path: String?, arg0: String?, vararg variadicArgs: Long): CInt =
-    libc_fuchsia_execl(path, arg0, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun execl(path: ConstPtr<CChar>, arg0: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    libcFuchsiaExecl(path.rawAddress.toCPointer<ByteVar>(), arg0.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun execle(path: String?, arg0: String?, vararg variadicArgs: Long): CInt =
-    libc_fuchsia_execle(path, arg0, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun execle(path: ConstPtr<CChar>, arg0: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    libcFuchsiaExecle(path.rawAddress.toCPointer<ByteVar>(), arg0.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun execlp(file: String?, arg0: String?, vararg variadicArgs: Long): CInt =
-    libc_fuchsia_execlp(file, arg0, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun execlp(file: ConstPtr<CChar>, arg0: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    libcFuchsiaExeclp(file.rawAddress.toCPointer<ByteVar>(), arg0.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun execv(prog: String?, argv: COpaquePointer?): CInt =
-    libc_fuchsia_execv(prog, argv?.value?.toCPointer<ByteVar>())
+public actual fun execv(prog: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>): CInt =
+    libcFuchsiaExecv(prog.rawAddress.toCPointer<ByteVar>(), argv.rawAddress.toCPointer<ByteVar>())
 
-public actual fun execve(prog: String?, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
-    libc_fuchsia_execve(prog, argv?.value?.toCPointer<ByteVar>(), envp?.value?.toCPointer<ByteVar>())
+public actual fun execve(prog: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>, envp: ConstPtr<ConstPtr<CChar>>): CInt =
+    libcFuchsiaExecve(prog.rawAddress.toCPointer<ByteVar>(), argv.rawAddress.toCPointer<ByteVar>(), envp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun execvp(c: String?, argv: COpaquePointer?): CInt =
-    libc_fuchsia_execvp(c, argv?.value?.toCPointer<ByteVar>())
+public actual fun execvp(c: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>): CInt =
+    libcFuchsiaExecvp(c.rawAddress.toCPointer<ByteVar>(), argv.rawAddress.toCPointer<ByteVar>())
 
 public actual fun fork(): PidT =
-    libc_fuchsia_fork()
+    libcFuchsiaFork()
 
 public actual fun fpathconf(filedes: CInt, name: CInt): CLong =
-    libc_fuchsia_fpathconf(filedes, name)
+    libcFuchsiaFpathconf(filedes, name)
 
-public actual fun getcwd(buf: COpaquePointer?, size: SizeT): COpaquePointer? =
-    libc_fuchsia_getcwd(buf?.value?.toCPointer<ByteVar>(), size)?.let { COpaquePointer(it.toLong()) }
+public actual fun getcwd(buf: MutPtr<CChar>, size: SizeT): MutPtr<CChar> =
+    MutPtr(libcFuchsiaGetcwd(buf.rawAddress.toCPointer<ByteVar>(), size)?.toLong() ?: 0L)
 
 public actual fun getegid(): GidT =
-    libc_fuchsia_getegid()
+    libcFuchsiaGetegid()
 
 public actual fun geteuid(): UidT =
-    libc_fuchsia_geteuid()
+    libcFuchsiaGeteuid()
 
 public actual fun getgid(): GidT =
-    libc_fuchsia_getgid()
+    libcFuchsiaGetgid()
 
-public actual fun getgroups(ngroupsMax: CInt, groups: COpaquePointer?): CInt =
-    libc_fuchsia_getgroups(ngroupsMax, groups?.value?.toCPointer<ByteVar>())
+public actual fun getgroups(ngroupsMax: CInt, groups: MutPtr<GidT>): CInt =
+    libcFuchsiaGetgroups(ngroupsMax, groups.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getlogin(): COpaquePointer? =
-    libc_fuchsia_getlogin()?.let { COpaquePointer(it.toLong()) }
+public actual fun getlogin(): MutPtr<CChar> =
+    MutPtr(libcFuchsiaGetlogin()?.toLong() ?: 0L)
 
-public actual fun getopt(argc: CInt, argv: COpaquePointer?, optstr: String?): CInt =
-    libc_fuchsia_getopt(argc, argv?.value?.toCPointer<ByteVar>(), optstr)
+public actual fun getopt(argc: CInt, argv: ConstPtr<MutPtr<CChar>>, optstr: ConstPtr<CChar>): CInt =
+    libcFuchsiaGetopt(argc, argv.rawAddress.toCPointer<ByteVar>(), optstr.rawAddress.toCPointer<ByteVar>())
 
 public actual fun getpgid(pid: PidT): PidT =
-    libc_fuchsia_getpgid(pid)
+    libcFuchsiaGetpgid(pid)
 
 public actual fun getpgrp(): PidT =
-    libc_fuchsia_getpgrp()
+    libcFuchsiaGetpgrp()
 
 public actual fun getpid(): PidT =
-    libc_fuchsia_getpid()
+    libcFuchsiaGetpid()
 
 public actual fun getppid(): PidT =
-    libc_fuchsia_getppid()
+    libcFuchsiaGetppid()
 
 public actual fun getuid(): UidT =
-    libc_fuchsia_getuid()
+    libcFuchsiaGetuid()
 
 public actual fun isatty(fd: CInt): CInt =
-    libc_fuchsia_isatty(fd)
+    libcFuchsiaIsatty(fd)
 
-public actual fun link(src: String?, dst: String?): CInt =
-    libc_fuchsia_link(src, dst)
+public actual fun link(src: ConstPtr<CChar>, dst: ConstPtr<CChar>): CInt =
+    libcFuchsiaLink(src.rawAddress.toCPointer<ByteVar>(), dst.rawAddress.toCPointer<ByteVar>())
 
 public actual fun lseek(fd: CInt, offset: OffT, whence: CInt): OffT =
-    libc_fuchsia_lseek(fd, offset, whence)
+    libcFuchsiaLseek(fd, offset, whence)
 
-public actual fun pathconf(path: String?, name: CInt): CLong =
-    libc_fuchsia_pathconf(path, name)
+public actual fun pathconf(path: ConstPtr<CChar>, name: CInt): CLong =
+    libcFuchsiaPathconf(path.rawAddress.toCPointer<ByteVar>(), name)
 
 public actual fun pause(): CInt =
-    libc_fuchsia_pause()
+    libcFuchsiaPause()
 
-public actual fun pipe(fds: COpaquePointer?): CInt =
-    libc_fuchsia_pipe(fds?.value?.toCPointer<ByteVar>())
+public actual fun pipe(fds: MutPtr<CInt>): CInt =
+    libcFuchsiaPipe(fds.rawAddress.toCPointer<ByteVar>())
 
-public actual fun posixMemalign(memptr: COpaquePointer?, align: SizeT, size: SizeT): CInt =
-    libc_fuchsia_posixMemalign(memptr?.value?.toCPointer<ByteVar>(), align, size)
+public actual fun posixMemalign(memptr: MutPtr<MutPtr<CVoid>>, align: SizeT, size: SizeT): CInt =
+    libcFuchsiaPosixMemalign(memptr.rawAddress.toCPointer<ByteVar>(), align, size)
 
-public actual fun read(fd: CInt, buf: COpaquePointer?, count: SizeT): SsizeT =
-    libc_fuchsia_read(fd, buf?.value?.toCPointer<ByteVar>(), count)
+public actual fun read(fd: CInt, buf: MutPtr<CVoid>, count: SizeT): SsizeT =
+    libcFuchsiaRead(fd, buf.rawAddress.toCPointer<ByteVar>(), count)
 
-public actual fun rmdir(path: String?): CInt =
-    libc_fuchsia_rmdir(path)
+public actual fun rmdir(path: ConstPtr<CChar>): CInt =
+    libcFuchsiaRmdir(path.rawAddress.toCPointer<ByteVar>())
 
 public actual fun seteuid(uid: UidT): CInt =
-    libc_fuchsia_seteuid(uid)
+    libcFuchsiaSeteuid(uid)
 
 public actual fun setegid(gid: GidT): CInt =
-    libc_fuchsia_setegid(gid)
+    libcFuchsiaSetegid(gid)
 
 public actual fun setgid(gid: GidT): CInt =
-    libc_fuchsia_setgid(gid)
+    libcFuchsiaSetgid(gid)
 
 public actual fun setpgid(pid: PidT, pgid: PidT): CInt =
-    libc_fuchsia_setpgid(pid, pgid)
+    libcFuchsiaSetpgid(pid, pgid)
 
 public actual fun setsid(): PidT =
-    libc_fuchsia_setsid()
+    libcFuchsiaSetsid()
 
 public actual fun setuid(uid: UidT): CInt =
-    libc_fuchsia_setuid(uid)
+    libcFuchsiaSetuid(uid)
 
 public actual fun sleep(secs: CUint): CUint =
-    libc_fuchsia_sleep(secs)
+    libcFuchsiaSleep(secs)
 
-public actual fun nanosleep(rqtp: COpaquePointer?, rmtp: COpaquePointer?): CInt =
-    libc_fuchsia_nanosleep(rqtp?.value?.toCPointer<ByteVar>(), rmtp?.value?.toCPointer<ByteVar>())
+public actual fun nanosleep(rqtp: ConstPtr<Timespec>, rmtp: MutPtr<Timespec>): CInt =
+    libcFuchsiaNanosleep(rqtp.rawAddress.toCPointer<ByteVar>(), rmtp.rawAddress.toCPointer<ByteVar>())
 
 public actual fun tcgetpgrp(fd: CInt): PidT =
-    libc_fuchsia_tcgetpgrp(fd)
+    libcFuchsiaTcgetpgrp(fd)
 
 public actual fun tcsetpgrp(fd: CInt, pgrp: PidT): CInt =
-    libc_fuchsia_tcsetpgrp(fd, pgrp)
+    libcFuchsiaTcsetpgrp(fd, pgrp)
 
-public actual fun ttyname(fd: CInt): COpaquePointer? =
-    libc_fuchsia_ttyname(fd)?.let { COpaquePointer(it.toLong()) }
+public actual fun ttyname(fd: CInt): MutPtr<CChar> =
+    MutPtr(libcFuchsiaTtyname(fd)?.toLong() ?: 0L)
 
-public actual fun unlink(c: String?): CInt =
-    libc_fuchsia_unlink(c)
+public actual fun unlink(c: ConstPtr<CChar>): CInt =
+    libcFuchsiaUnlink(c.rawAddress.toCPointer<ByteVar>())
 
-public actual fun wait(status: COpaquePointer?): PidT =
-    libc_fuchsia_wait(status?.value?.toCPointer<ByteVar>())
+public actual fun wait(status: MutPtr<CInt>): PidT =
+    libcFuchsiaWait(status.rawAddress.toCPointer<ByteVar>())
 
-public actual fun waitpid(pid: PidT, status: COpaquePointer?, options: CInt): PidT =
-    libc_fuchsia_waitpid(pid, status?.value?.toCPointer<ByteVar>(), options)
+public actual fun waitpid(pid: PidT, status: MutPtr<CInt>, options: CInt): PidT =
+    libcFuchsiaWaitpid(pid, status.rawAddress.toCPointer<ByteVar>(), options)
 
-public actual fun write(fd: CInt, buf: COpaquePointer?, count: SizeT): SsizeT =
-    libc_fuchsia_write(fd, buf?.value?.toCPointer<ByteVar>(), count)
+public actual fun write(fd: CInt, buf: ConstPtr<CVoid>, count: SizeT): SsizeT =
+    libcFuchsiaWrite(fd, buf.rawAddress.toCPointer<ByteVar>(), count)
 
-public actual fun pread(fd: CInt, buf: COpaquePointer?, count: SizeT, offset: OffT): SsizeT =
-    libc_fuchsia_pread(fd, buf?.value?.toCPointer<ByteVar>(), count, offset)
+public actual fun pread(fd: CInt, buf: MutPtr<CVoid>, count: SizeT, offset: OffT): SsizeT =
+    libcFuchsiaPread(fd, buf.rawAddress.toCPointer<ByteVar>(), count, offset)
 
-public actual fun pwrite(fd: CInt, buf: COpaquePointer?, count: SizeT, offset: OffT): SsizeT =
-    libc_fuchsia_pwrite(fd, buf?.value?.toCPointer<ByteVar>(), count, offset)
+public actual fun pwrite(fd: CInt, buf: ConstPtr<CVoid>, count: SizeT, offset: OffT): SsizeT =
+    libcFuchsiaPwrite(fd, buf.rawAddress.toCPointer<ByteVar>(), count, offset)
 
 public actual fun umask(mask: ModeT): ModeT =
-    libc_fuchsia_umask(mask)
+    libcFuchsiaUmask(mask)
 
-public actual fun utime(file: String?, buf: COpaquePointer?): CInt =
-    libc_fuchsia_utime(file, buf?.value?.toCPointer<ByteVar>())
+public actual fun utime(file: ConstPtr<CChar>, buf: ConstPtr<Utimbuf>): CInt =
+    libcFuchsiaUtime(file.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>())
 
 public actual fun kill(pid: PidT, sig: CInt): CInt =
-    libc_fuchsia_kill(pid, sig)
+    libcFuchsiaKill(pid, sig)
 
-public actual fun mlock(addr: COpaquePointer?, len: SizeT): CInt =
-    libc_fuchsia_mlock(addr?.value?.toCPointer<ByteVar>(), len)
+public actual fun mlock(addr: ConstPtr<CVoid>, len: SizeT): CInt =
+    libcFuchsiaMlock(addr.rawAddress.toCPointer<ByteVar>(), len)
 
-public actual fun munlock(addr: COpaquePointer?, len: SizeT): CInt =
-    libc_fuchsia_munlock(addr?.value?.toCPointer<ByteVar>(), len)
+public actual fun munlock(addr: ConstPtr<CVoid>, len: SizeT): CInt =
+    libcFuchsiaMunlock(addr.rawAddress.toCPointer<ByteVar>(), len)
 
 public actual fun mlockall(flags: CInt): CInt =
-    libc_fuchsia_mlockall(flags)
+    libcFuchsiaMlockall(flags)
 
 public actual fun munlockall(): CInt =
-    libc_fuchsia_munlockall()
+    libcFuchsiaMunlockall()
 
-public actual fun mmap(addr: COpaquePointer?, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: OffT): COpaquePointer? =
-    libc_fuchsia_mmap(addr?.value?.toCPointer<ByteVar>(), len, prot, flags, fd, offset)?.let { COpaquePointer(it.toLong()) }
+public actual fun mmap(addr: MutPtr<CVoid>, len: SizeT, prot: CInt, flags: CInt, fd: CInt, offset: OffT): MutPtr<CVoid> =
+    MutPtr(libcFuchsiaMmap(addr.rawAddress.toCPointer<ByteVar>(), len, prot, flags, fd, offset)?.toLong() ?: 0L)
 
-public actual fun munmap(addr: COpaquePointer?, len: SizeT): CInt =
-    libc_fuchsia_munmap(addr?.value?.toCPointer<ByteVar>(), len)
+public actual fun munmap(addr: MutPtr<CVoid>, len: SizeT): CInt =
+    libcFuchsiaMunmap(addr.rawAddress.toCPointer<ByteVar>(), len)
 
-public actual fun ifNametoindex(ifname: String?): CUint =
-    libc_fuchsia_ifNametoindex(ifname)
+public actual fun ifNametoindex(ifname: ConstPtr<CChar>): CUint =
+    libcFuchsiaIfNametoindex(ifname.rawAddress.toCPointer<ByteVar>())
 
-public actual fun ifIndextoname(ifindex: CUint, ifname: COpaquePointer?): COpaquePointer? =
-    libc_fuchsia_ifIndextoname(ifindex, ifname?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun ifIndextoname(ifindex: CUint, ifname: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcFuchsiaIfIndextoname(ifindex, ifname.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun lstat(path: String?, buf: COpaquePointer?): CInt =
-    libc_fuchsia_lstat(path, buf?.value?.toCPointer<ByteVar>())
+public actual fun lstat(path: ConstPtr<CChar>, buf: MutPtr<Stat>): CInt =
+    libcFuchsiaLstat(path.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>())
 
 public actual fun fsync(fd: CInt): CInt =
-    libc_fuchsia_fsync(fd)
+    libcFuchsiaFsync(fd)
 
-public actual fun setenv(name: String?, value: String?, overwrite: CInt): CInt =
-    libc_fuchsia_setenv(name, value, overwrite)
+public actual fun setenv(name: ConstPtr<CChar>, value: ConstPtr<CChar>, overwrite: CInt): CInt =
+    libcFuchsiaSetenv(name.rawAddress.toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>(), overwrite)
 
-public actual fun unsetenv(name: String?): CInt =
-    libc_fuchsia_unsetenv(name)
+public actual fun unsetenv(name: ConstPtr<CChar>): CInt =
+    libcFuchsiaUnsetenv(name.rawAddress.toCPointer<ByteVar>())
 
-public actual fun symlink(path1: String?, path2: String?): CInt =
-    libc_fuchsia_symlink(path1, path2)
+public actual fun symlink(path1: ConstPtr<CChar>, path2: ConstPtr<CChar>): CInt =
+    libcFuchsiaSymlink(path1.rawAddress.toCPointer<ByteVar>(), path2.rawAddress.toCPointer<ByteVar>())
 
 public actual fun ftruncate(fd: CInt, length: OffT): CInt =
-    libc_fuchsia_ftruncate(fd, length)
+    libcFuchsiaFtruncate(fd, length)
 
 public actual fun signal(signum: CInt, handler: SighandlerT): SighandlerT =
-    libc_fuchsia_signal(signum, handler)
+    libcFuchsiaSignal(signum, handler)
 
-public actual fun realpath(pathname: String?, resolved: COpaquePointer?): COpaquePointer? =
-    libc_fuchsia_realpath(pathname, resolved?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun realpath(pathname: ConstPtr<CChar>, resolved: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcFuchsiaRealpath(pathname.rawAddress.toCPointer<ByteVar>(), resolved.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun flock(fd: CInt, operation: CInt): CInt =
-    libc_fuchsia_flock(fd, operation)
+    libcFuchsiaFlock(fd, operation)
 
-public actual fun gettimeofday(tp: COpaquePointer?, tz: COpaquePointer?): CInt =
-    libc_fuchsia_gettimeofday(tp?.value?.toCPointer<ByteVar>(), tz?.value?.toCPointer<ByteVar>())
+public actual fun gettimeofday(tp: MutPtr<Timeval>, tz: MutPtr<CVoid>): CInt =
+    libcFuchsiaGettimeofday(tp.rawAddress.toCPointer<ByteVar>(), tz.rawAddress.toCPointer<ByteVar>())
 
-public actual fun times(buf: COpaquePointer?): ClockT =
-    libc_fuchsia_times(buf?.value?.toCPointer<ByteVar>())
+public actual fun times(buf: MutPtr<Tms>): ClockT =
+    libcFuchsiaTimes(buf.rawAddress.toCPointer<ByteVar>())
 
 public actual fun pthreadSelf(): PthreadT =
-    (libc_fuchsia_pthreadSelf()?.toLong() ?: 0L).toULong()
+    (libcFuchsiaPthreadSelf()?.toLong() ?: 0L).toULong()
 
-public actual fun pthreadJoin(native: PthreadT, value: COpaquePointer?): CInt =
-    libc_fuchsia_pthreadJoin(native.toLong().toCPointer<ByteVar>(), value?.value?.toCPointer<ByteVar>())
+public actual fun pthreadJoin(native: PthreadT, value: MutPtr<MutPtr<CVoid>>): CInt =
+    libcFuchsiaPthreadJoin(native.toLong().toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadExit(value: COpaquePointer?): Nothing {
-    libc_fuchsia_pthreadExit(value?.value?.toCPointer<ByteVar>())
+public actual fun pthreadExit(value: MutPtr<CVoid>): Nothing {
+    libcFuchsiaPthreadExit(value.rawAddress.toCPointer<ByteVar>())
     error("Unreachable noreturn C function pthreadExit")
 }
 
-public actual fun pthreadAttrInit(attr: COpaquePointer?): CInt =
-    libc_fuchsia_pthreadAttrInit(attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadAttrInit(attr: MutPtr<PthreadAttrT>): CInt =
+    libcFuchsiaPthreadAttrInit(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrDestroy(attr: COpaquePointer?): CInt =
-    libc_fuchsia_pthreadAttrDestroy(attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadAttrDestroy(attr: MutPtr<PthreadAttrT>): CInt =
+    libcFuchsiaPthreadAttrDestroy(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrGetstacksize(attr: COpaquePointer?, stacksize: COpaquePointer?): CInt =
-    libc_fuchsia_pthreadAttrGetstacksize(attr?.value?.toCPointer<ByteVar>(), stacksize?.value?.toCPointer<ByteVar>())
+public actual fun pthreadAttrGetstacksize(attr: ConstPtr<PthreadAttrT>, stacksize: MutPtr<SizeT>): CInt =
+    libcFuchsiaPthreadAttrGetstacksize(attr.rawAddress.toCPointer<ByteVar>(), stacksize.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrSetstacksize(attr: COpaquePointer?, stackSize: SizeT): CInt =
-    libc_fuchsia_pthreadAttrSetstacksize(attr?.value?.toCPointer<ByteVar>(), stackSize)
+public actual fun pthreadAttrSetstacksize(attr: MutPtr<PthreadAttrT>, stackSize: SizeT): CInt =
+    libcFuchsiaPthreadAttrSetstacksize(attr.rawAddress.toCPointer<ByteVar>(), stackSize)
 
-public actual fun pthreadAttrSetdetachstate(attr: COpaquePointer?, state: CInt): CInt =
-    libc_fuchsia_pthreadAttrSetdetachstate(attr?.value?.toCPointer<ByteVar>(), state)
+public actual fun pthreadAttrSetdetachstate(attr: MutPtr<PthreadAttrT>, state: CInt): CInt =
+    libcFuchsiaPthreadAttrSetdetachstate(attr.rawAddress.toCPointer<ByteVar>(), state)
 
 public actual fun pthreadDetach(thread: PthreadT): CInt =
-    libc_fuchsia_pthreadDetach(thread.toLong().toCPointer<ByteVar>())
+    libcFuchsiaPthreadDetach(thread.toLong().toCPointer<ByteVar>())
 
 public actual fun schedYield(): CInt =
-    libc_fuchsia_schedYield()
+    libcFuchsiaSchedYield()
 
-public actual fun pthreadKeyCreate(key: COpaquePointer?, dtor: PthreadKeyCreateDtorCallback?): CInt =
-    libc_fuchsia_pthreadKeyCreate(key?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
+public actual fun pthreadKeyCreate(key: MutPtr<PthreadKeyT>, dtor: PthreadKeyCreateDtorCallback?): CInt =
+    libcFuchsiaPthreadKeyCreate(key.rawAddress.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
 
 public actual fun pthreadKeyDelete(key: PthreadKeyT): CInt =
-    libc_fuchsia_pthreadKeyDelete(key)
+    libcFuchsiaPthreadKeyDelete(key)
 
-public actual fun pthreadGetspecific(key: PthreadKeyT): COpaquePointer? =
-    libc_fuchsia_pthreadGetspecific(key)?.let { COpaquePointer(it.toLong()) }
+public actual fun pthreadGetspecific(key: PthreadKeyT): MutPtr<CVoid> =
+    MutPtr(libcFuchsiaPthreadGetspecific(key)?.toLong() ?: 0L)
 
-public actual fun pthreadSetspecific(key: PthreadKeyT, value: COpaquePointer?): CInt =
-    libc_fuchsia_pthreadSetspecific(key, value?.value?.toCPointer<ByteVar>())
+public actual fun pthreadSetspecific(key: PthreadKeyT, value: ConstPtr<CVoid>): CInt =
+    libcFuchsiaPthreadSetspecific(key, value.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexInit(lock: COpaquePointer?, attr: COpaquePointer?): CInt =
-    libc_fuchsia_pthreadMutexInit(lock?.value?.toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexInit(lock: MutPtr<PthreadMutexT>, attr: ConstPtr<PthreadMutexattrT>): CInt =
+    libcFuchsiaPthreadMutexInit(lock.rawAddress.toCPointer<ByteVar>(), attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexDestroy(lock: COpaquePointer?): CInt =
-    libc_fuchsia_pthreadMutexDestroy(lock?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexDestroy(lock: MutPtr<PthreadMutexT>): CInt =
+    libcFuchsiaPthreadMutexDestroy(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexLock(lock: COpaquePointer?): CInt =
-    libc_fuchsia_pthreadMutexLock(lock?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexLock(lock: MutPtr<PthreadMutexT>): CInt =
+    libcFuchsiaPthreadMutexLock(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexTrylock(lock: COpaquePointer?): CInt =
-    libc_fuchsia_pthreadMutexTrylock(lock?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexTrylock(lock: MutPtr<PthreadMutexT>): CInt =
+    libcFuchsiaPthreadMutexTrylock(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexUnlock(lock: COpaquePointer?): CInt =
-    libc_fuchsia_pthreadMutexUnlock(lock?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexUnlock(lock: MutPtr<PthreadMutexT>): CInt =
+    libcFuchsiaPthreadMutexUnlock(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexattrInit(attr: COpaquePointer?): CInt =
-    libc_fuchsia_pthreadMutexattrInit(attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexattrInit(attr: MutPtr<PthreadMutexattrT>): CInt =
+    libcFuchsiaPthreadMutexattrInit(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexattrDestroy(attr: COpaquePointer?): CInt =
-    libc_fuchsia_pthreadMutexattrDestroy(attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexattrDestroy(attr: MutPtr<PthreadMutexattrT>): CInt =
+    libcFuchsiaPthreadMutexattrDestroy(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexattrSettype(attr: COpaquePointer?, type: CInt): CInt =
-    libc_fuchsia_pthreadMutexattrSettype(attr?.value?.toCPointer<ByteVar>(), type)
+public actual fun pthreadMutexattrSettype(attr: MutPtr<PthreadMutexattrT>, type: CInt): CInt =
+    libcFuchsiaPthreadMutexattrSettype(attr.rawAddress.toCPointer<ByteVar>(), type)
 
-public actual fun pthreadCondInit(cond: COpaquePointer?, attr: COpaquePointer?): CInt =
-    libc_fuchsia_pthreadCondInit(cond?.value?.toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCondInit(cond: MutPtr<PthreadCondT>, attr: ConstPtr<PthreadCondattrT>): CInt =
+    libcFuchsiaPthreadCondInit(cond.rawAddress.toCPointer<ByteVar>(), attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondWait(cond: COpaquePointer?, lock: COpaquePointer?): CInt =
-    libc_fuchsia_pthreadCondWait(cond?.value?.toCPointer<ByteVar>(), lock?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCondWait(cond: MutPtr<PthreadCondT>, lock: MutPtr<PthreadMutexT>): CInt =
+    libcFuchsiaPthreadCondWait(cond.rawAddress.toCPointer<ByteVar>(), lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondTimedwait(cond: COpaquePointer?, lock: COpaquePointer?, abstime: COpaquePointer?): CInt =
-    libc_fuchsia_pthreadCondTimedwait(cond?.value?.toCPointer<ByteVar>(), lock?.value?.toCPointer<ByteVar>(), abstime?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCondTimedwait(cond: MutPtr<PthreadCondT>, lock: MutPtr<PthreadMutexT>, abstime: ConstPtr<Timespec>): CInt =
+    libcFuchsiaPthreadCondTimedwait(cond.rawAddress.toCPointer<ByteVar>(), lock.rawAddress.toCPointer<ByteVar>(), abstime.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondSignal(cond: COpaquePointer?): CInt =
-    libc_fuchsia_pthreadCondSignal(cond?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCondSignal(cond: MutPtr<PthreadCondT>): CInt =
+    libcFuchsiaPthreadCondSignal(cond.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondBroadcast(cond: COpaquePointer?): CInt =
-    libc_fuchsia_pthreadCondBroadcast(cond?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCondBroadcast(cond: MutPtr<PthreadCondT>): CInt =
+    libcFuchsiaPthreadCondBroadcast(cond.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondDestroy(cond: COpaquePointer?): CInt =
-    libc_fuchsia_pthreadCondDestroy(cond?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCondDestroy(cond: MutPtr<PthreadCondT>): CInt =
+    libcFuchsiaPthreadCondDestroy(cond.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondattrInit(attr: COpaquePointer?): CInt =
-    libc_fuchsia_pthreadCondattrInit(attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCondattrInit(attr: MutPtr<PthreadCondattrT>): CInt =
+    libcFuchsiaPthreadCondattrInit(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondattrDestroy(attr: COpaquePointer?): CInt =
-    libc_fuchsia_pthreadCondattrDestroy(attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCondattrDestroy(attr: MutPtr<PthreadCondattrT>): CInt =
+    libcFuchsiaPthreadCondattrDestroy(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadRwlockInit(lock: COpaquePointer?, attr: COpaquePointer?): CInt =
-    libc_fuchsia_pthreadRwlockInit(lock?.value?.toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadRwlockInit(lock: MutPtr<PthreadRwlockT>, attr: ConstPtr<PthreadRwlockattrT>): CInt =
+    libcFuchsiaPthreadRwlockInit(lock.rawAddress.toCPointer<ByteVar>(), attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadRwlockDestroy(lock: COpaquePointer?): CInt =
-    libc_fuchsia_pthreadRwlockDestroy(lock?.value?.toCPointer<ByteVar>())
+public actual fun pthreadRwlockDestroy(lock: MutPtr<PthreadRwlockT>): CInt =
+    libcFuchsiaPthreadRwlockDestroy(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadRwlockRdlock(lock: COpaquePointer?): CInt =
-    libc_fuchsia_pthreadRwlockRdlock(lock?.value?.toCPointer<ByteVar>())
+public actual fun pthreadRwlockRdlock(lock: MutPtr<PthreadRwlockT>): CInt =
+    libcFuchsiaPthreadRwlockRdlock(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadRwlockTryrdlock(lock: COpaquePointer?): CInt =
-    libc_fuchsia_pthreadRwlockTryrdlock(lock?.value?.toCPointer<ByteVar>())
+public actual fun pthreadRwlockTryrdlock(lock: MutPtr<PthreadRwlockT>): CInt =
+    libcFuchsiaPthreadRwlockTryrdlock(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadRwlockWrlock(lock: COpaquePointer?): CInt =
-    libc_fuchsia_pthreadRwlockWrlock(lock?.value?.toCPointer<ByteVar>())
+public actual fun pthreadRwlockWrlock(lock: MutPtr<PthreadRwlockT>): CInt =
+    libcFuchsiaPthreadRwlockWrlock(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadRwlockTrywrlock(lock: COpaquePointer?): CInt =
-    libc_fuchsia_pthreadRwlockTrywrlock(lock?.value?.toCPointer<ByteVar>())
+public actual fun pthreadRwlockTrywrlock(lock: MutPtr<PthreadRwlockT>): CInt =
+    libcFuchsiaPthreadRwlockTrywrlock(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadRwlockUnlock(lock: COpaquePointer?): CInt =
-    libc_fuchsia_pthreadRwlockUnlock(lock?.value?.toCPointer<ByteVar>())
+public actual fun pthreadRwlockUnlock(lock: MutPtr<PthreadRwlockT>): CInt =
+    libcFuchsiaPthreadRwlockUnlock(lock.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadRwlockattrInit(attr: COpaquePointer?): CInt =
-    libc_fuchsia_pthreadRwlockattrInit(attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadRwlockattrInit(attr: MutPtr<PthreadRwlockattrT>): CInt =
+    libcFuchsiaPthreadRwlockattrInit(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadRwlockattrDestroy(attr: COpaquePointer?): CInt =
-    libc_fuchsia_pthreadRwlockattrDestroy(attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadRwlockattrDestroy(attr: MutPtr<PthreadRwlockattrT>): CInt =
+    libcFuchsiaPthreadRwlockattrDestroy(attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadGetnameNp(thread: PthreadT, name: COpaquePointer?, len: SizeT): CInt =
-    libc_fuchsia_pthreadGetnameNp(thread.toLong().toCPointer<ByteVar>(), name?.value?.toCPointer<ByteVar>(), len)
+public actual fun pthreadGetnameNp(thread: PthreadT, name: MutPtr<CChar>, len: SizeT): CInt =
+    libcFuchsiaPthreadGetnameNp(thread.toLong().toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>(), len)
 
-public actual fun pthreadSetnameNp(thread: PthreadT, name: String?): CInt =
-    libc_fuchsia_pthreadSetnameNp(thread.toLong().toCPointer<ByteVar>(), name)
+public actual fun pthreadSetnameNp(thread: PthreadT, name: ConstPtr<CChar>): CInt =
+    libcFuchsiaPthreadSetnameNp(thread.toLong().toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strerrorR(errnum: CInt, buf: COpaquePointer?, buflen: SizeT): CInt =
-    libc_fuchsia_strerrorR(errnum, buf?.value?.toCPointer<ByteVar>(), buflen)
+public actual fun strerrorR(errnum: CInt, buf: MutPtr<CChar>, buflen: SizeT): CInt =
+    libcFuchsiaStrerrorR(errnum, buf.rawAddress.toCPointer<ByteVar>(), buflen)
 
-public actual fun getsockopt(sockfd: CInt, level: CInt, optname: CInt, optval: COpaquePointer?, optlen: COpaquePointer?): CInt =
-    libc_fuchsia_getsockopt(sockfd, level, optname, optval?.value?.toCPointer<ByteVar>(), optlen?.value?.toCPointer<ByteVar>())
+public actual fun getsockopt(sockfd: CInt, level: CInt, optname: CInt, optval: MutPtr<CVoid>, optlen: MutPtr<SocklenT>): CInt =
+    libcFuchsiaGetsockopt(sockfd, level, optname, optval.rawAddress.toCPointer<ByteVar>(), optlen.rawAddress.toCPointer<ByteVar>())
 
 public actual fun raise(signum: CInt): CInt =
-    libc_fuchsia_raise(signum)
+    libcFuchsiaRaise(signum)
 
-public actual fun sigaction(signum: CInt, act: COpaquePointer?, oldact: COpaquePointer?): CInt =
-    libc_fuchsia_sigaction(signum, act?.value?.toCPointer<ByteVar>(), oldact?.value?.toCPointer<ByteVar>())
+public actual fun sigaction(signum: CInt, act: ConstPtr<Sigaction>, oldact: MutPtr<Sigaction>): CInt =
+    libcFuchsiaSigaction(signum, act.rawAddress.toCPointer<ByteVar>(), oldact.rawAddress.toCPointer<ByteVar>())
 
-public actual fun utimes(filename: String?, times: COpaquePointer?): CInt =
-    libc_fuchsia_utimes(filename, times?.value?.toCPointer<ByteVar>())
+public actual fun utimes(filename: ConstPtr<CChar>, times: ConstPtr<Timeval>): CInt =
+    libcFuchsiaUtimes(filename.rawAddress.toCPointer<ByteVar>(), times.rawAddress.toCPointer<ByteVar>())
 
-public actual fun dlopen(filename: String?, flag: CInt): COpaquePointer? =
-    libc_fuchsia_dlopen(filename, flag)?.let { COpaquePointer(it.toLong()) }
+public actual fun dlopen(filename: ConstPtr<CChar>, flag: CInt): MutPtr<CVoid> =
+    MutPtr(libcFuchsiaDlopen(filename.rawAddress.toCPointer<ByteVar>(), flag)?.toLong() ?: 0L)
 
-public actual fun dlerror(): COpaquePointer? =
-    libc_fuchsia_dlerror()?.let { COpaquePointer(it.toLong()) }
+public actual fun dlerror(): MutPtr<CChar> =
+    MutPtr(libcFuchsiaDlerror()?.toLong() ?: 0L)
 
-public actual fun dlsym(handle: COpaquePointer?, symbol: String?): COpaquePointer? =
-    libc_fuchsia_dlsym(handle?.value?.toCPointer<ByteVar>(), symbol)?.let { COpaquePointer(it.toLong()) }
+public actual fun dlsym(handle: MutPtr<CVoid>, symbol: ConstPtr<CChar>): MutPtr<CVoid> =
+    MutPtr(libcFuchsiaDlsym(handle.rawAddress.toCPointer<ByteVar>(), symbol.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun dlclose(handle: COpaquePointer?): CInt =
-    libc_fuchsia_dlclose(handle?.value?.toCPointer<ByteVar>())
+public actual fun dlclose(handle: MutPtr<CVoid>): CInt =
+    libcFuchsiaDlclose(handle.rawAddress.toCPointer<ByteVar>())
 
-public actual fun dladdr(addr: COpaquePointer?, info: COpaquePointer?): CInt =
-    libc_fuchsia_dladdr(addr?.value?.toCPointer<ByteVar>(), info?.value?.toCPointer<ByteVar>())
+public actual fun dladdr(addr: ConstPtr<CVoid>, info: MutPtr<DlInfo>): CInt =
+    libcFuchsiaDladdr(addr.rawAddress.toCPointer<ByteVar>(), info.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getaddrinfo(node: String?, service: String?, hints: COpaquePointer?, res: COpaquePointer?): CInt =
-    libc_fuchsia_getaddrinfo(node, service, hints?.value?.toCPointer<ByteVar>(), res?.value?.toCPointer<ByteVar>())
+public actual fun getaddrinfo(node: ConstPtr<CChar>, service: ConstPtr<CChar>, hints: ConstPtr<Addrinfo>, res: MutPtr<MutPtr<Addrinfo>>): CInt =
+    libcFuchsiaGetaddrinfo(node.rawAddress.toCPointer<ByteVar>(), service.rawAddress.toCPointer<ByteVar>(), hints.rawAddress.toCPointer<ByteVar>(), res.rawAddress.toCPointer<ByteVar>())
 
-public actual fun freeaddrinfo(res: COpaquePointer?) {
-    libc_fuchsia_freeaddrinfo(res?.value?.toCPointer<ByteVar>())
+public actual fun freeaddrinfo(res: MutPtr<Addrinfo>) {
+    libcFuchsiaFreeaddrinfo(res.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun gaiStrerror(errcode: CInt): COpaquePointer? =
-    libc_fuchsia_gaiStrerror(errcode)?.let { COpaquePointer(it.toLong()) }
+public actual fun gaiStrerror(errcode: CInt): ConstPtr<CChar> =
+    ConstPtr(libcFuchsiaGaiStrerror(errcode)?.toLong() ?: 0L)
 
 public actual fun resInit(): CInt =
-    libc_fuchsia_resInit()
+    libcFuchsiaResInit()
 
-public actual fun gmtimeR(timeP: COpaquePointer?, result: COpaquePointer?): COpaquePointer? =
-    libc_fuchsia_gmtimeR(timeP?.value?.toCPointer<ByteVar>(), result?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun gmtimeR(timeP: ConstPtr<TimeT>, result: MutPtr<Tm>): MutPtr<Tm> =
+    MutPtr(libcFuchsiaGmtimeR(timeP.rawAddress.toCPointer<ByteVar>(), result.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun localtimeR(timeP: COpaquePointer?, result: COpaquePointer?): COpaquePointer? =
-    libc_fuchsia_localtimeR(timeP?.value?.toCPointer<ByteVar>(), result?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun localtimeR(timeP: ConstPtr<TimeT>, result: MutPtr<Tm>): MutPtr<Tm> =
+    MutPtr(libcFuchsiaLocaltimeR(timeP.rawAddress.toCPointer<ByteVar>(), result.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun mktime(tm: COpaquePointer?): TimeT =
-    libc_fuchsia_mktime(tm?.value?.toCPointer<ByteVar>())
+public actual fun mktime(tm: MutPtr<Tm>): TimeT =
+    libcFuchsiaMktime(tm.rawAddress.toCPointer<ByteVar>())
 
-public actual fun time(time: COpaquePointer?): TimeT =
-    libc_fuchsia_time(time?.value?.toCPointer<ByteVar>())
+public actual fun time(time: MutPtr<TimeT>): TimeT =
+    libcFuchsiaTime(time.rawAddress.toCPointer<ByteVar>())
 
-public actual fun gmtime(timeP: COpaquePointer?): COpaquePointer? =
-    libc_fuchsia_gmtime(timeP?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun gmtime(timeP: ConstPtr<TimeT>): MutPtr<Tm> =
+    MutPtr(libcFuchsiaGmtime(timeP.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun localtime(timeP: COpaquePointer?): COpaquePointer? =
-    libc_fuchsia_localtime(timeP?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun localtime(timeP: ConstPtr<TimeT>): MutPtr<Tm> =
+    MutPtr(libcFuchsiaLocaltime(timeP.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun mknod(pathname: String?, mode: ModeT, dev: DevT): CInt =
-    libc_fuchsia_mknod(pathname, mode, dev)
+public actual fun mknod(pathname: ConstPtr<CChar>, mode: ModeT, dev: DevT): CInt =
+    libcFuchsiaMknod(pathname.rawAddress.toCPointer<ByteVar>(), mode, dev)
 
-public actual fun uname(buf: COpaquePointer?): CInt =
-    libc_fuchsia_uname(buf?.value?.toCPointer<ByteVar>())
+public actual fun uname(buf: MutPtr<Utsname>): CInt =
+    libcFuchsiaUname(buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun gethostname(name: COpaquePointer?, len: SizeT): CInt =
-    libc_fuchsia_gethostname(name?.value?.toCPointer<ByteVar>(), len)
+public actual fun gethostname(name: MutPtr<CChar>, len: SizeT): CInt =
+    libcFuchsiaGethostname(name.rawAddress.toCPointer<ByteVar>(), len)
 
-public actual fun getservbyname(name: String?, proto: String?): COpaquePointer? =
-    libc_fuchsia_getservbyname(name, proto)?.let { COpaquePointer(it.toLong()) }
+public actual fun getservbyname(name: ConstPtr<CChar>, proto: ConstPtr<CChar>): MutPtr<Servent> =
+    MutPtr(libcFuchsiaGetservbyname(name.rawAddress.toCPointer<ByteVar>(), proto.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun getprotobyname(name: String?): COpaquePointer? =
-    libc_fuchsia_getprotobyname(name)?.let { COpaquePointer(it.toLong()) }
+public actual fun getprotobyname(name: ConstPtr<CChar>): MutPtr<Protoent> =
+    MutPtr(libcFuchsiaGetprotobyname(name.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun getprotobynumber(proto: CInt): COpaquePointer? =
-    libc_fuchsia_getprotobynumber(proto)?.let { COpaquePointer(it.toLong()) }
+public actual fun getprotobynumber(proto: CInt): MutPtr<Protoent> =
+    MutPtr(libcFuchsiaGetprotobynumber(proto)?.toLong() ?: 0L)
 
 public actual fun usleep(secs: CUint): CInt =
-    libc_fuchsia_usleep(secs)
+    libcFuchsiaUsleep(secs)
 
-public actual fun send(socket: CInt, buf: COpaquePointer?, len: SizeT, flags: CInt): SsizeT =
-    libc_fuchsia_send(socket, buf?.value?.toCPointer<ByteVar>(), len, flags)
+public actual fun send(socket: CInt, buf: ConstPtr<CVoid>, len: SizeT, flags: CInt): SsizeT =
+    libcFuchsiaSend(socket, buf.rawAddress.toCPointer<ByteVar>(), len, flags)
 
-public actual fun recv(socket: CInt, buf: COpaquePointer?, len: SizeT, flags: CInt): SsizeT =
-    libc_fuchsia_recv(socket, buf?.value?.toCPointer<ByteVar>(), len, flags)
+public actual fun recv(socket: CInt, buf: MutPtr<CVoid>, len: SizeT, flags: CInt): SsizeT =
+    libcFuchsiaRecv(socket, buf.rawAddress.toCPointer<ByteVar>(), len, flags)
 
-public actual fun putenv(string: COpaquePointer?): CInt =
-    libc_fuchsia_putenv(string?.value?.toCPointer<ByteVar>())
+public actual fun putenv(string: MutPtr<CChar>): CInt =
+    libcFuchsiaPutenv(string.rawAddress.toCPointer<ByteVar>())
 
-public actual fun poll(fds: COpaquePointer?, nfds: NfdsT, timeout: CInt): CInt =
-    libc_fuchsia_poll(fds?.value?.toCPointer<ByteVar>(), nfds, timeout)
+public actual fun poll(fds: MutPtr<Pollfd>, nfds: NfdsT, timeout: CInt): CInt =
+    libcFuchsiaPoll(fds.rawAddress.toCPointer<ByteVar>(), nfds, timeout)
 
-public actual fun select(nfds: CInt, readfds: COpaquePointer?, writefds: COpaquePointer?, errorfds: COpaquePointer?, timeout: COpaquePointer?): CInt =
-    libc_fuchsia_select(nfds, readfds?.value?.toCPointer<ByteVar>(), writefds?.value?.toCPointer<ByteVar>(), errorfds?.value?.toCPointer<ByteVar>(), timeout?.value?.toCPointer<ByteVar>())
+public actual fun select(nfds: CInt, readfds: MutPtr<FdSet>, writefds: MutPtr<FdSet>, errorfds: MutPtr<FdSet>, timeout: MutPtr<Timeval>): CInt =
+    libcFuchsiaSelect(nfds, readfds.rawAddress.toCPointer<ByteVar>(), writefds.rawAddress.toCPointer<ByteVar>(), errorfds.rawAddress.toCPointer<ByteVar>(), timeout.rawAddress.toCPointer<ByteVar>())
 
-public actual fun setlocale(category: CInt, locale: String?): COpaquePointer? =
-    libc_fuchsia_setlocale(category, locale)?.let { COpaquePointer(it.toLong()) }
+public actual fun setlocale(category: CInt, locale: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcFuchsiaSetlocale(category, locale.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun localeconv(): COpaquePointer? =
-    libc_fuchsia_localeconv()?.let { COpaquePointer(it.toLong()) }
+public actual fun localeconv(): MutPtr<Lconv> =
+    MutPtr(libcFuchsiaLocaleconv()?.toLong() ?: 0L)
 
-public actual fun semDestroy(sem: COpaquePointer?): CInt =
-    libc_fuchsia_semDestroy(sem?.value?.toCPointer<ByteVar>())
+public actual fun semDestroy(sem: MutPtr<SemT>): CInt =
+    libcFuchsiaSemDestroy(sem.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semWait(sem: COpaquePointer?): CInt =
-    libc_fuchsia_semWait(sem?.value?.toCPointer<ByteVar>())
+public actual fun semWait(sem: MutPtr<SemT>): CInt =
+    libcFuchsiaSemWait(sem.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semTrywait(sem: COpaquePointer?): CInt =
-    libc_fuchsia_semTrywait(sem?.value?.toCPointer<ByteVar>())
+public actual fun semTrywait(sem: MutPtr<SemT>): CInt =
+    libcFuchsiaSemTrywait(sem.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semPost(sem: COpaquePointer?): CInt =
-    libc_fuchsia_semPost(sem?.value?.toCPointer<ByteVar>())
+public actual fun semPost(sem: MutPtr<SemT>): CInt =
+    libcFuchsiaSemPost(sem.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semInit(sem: COpaquePointer?, pshared: CInt, value: CUint): CInt =
-    libc_fuchsia_semInit(sem?.value?.toCPointer<ByteVar>(), pshared, value)
+public actual fun semInit(sem: MutPtr<SemT>, pshared: CInt, value: CUint): CInt =
+    libcFuchsiaSemInit(sem.rawAddress.toCPointer<ByteVar>(), pshared, value)
 
-public actual fun statvfs(path: String?, buf: COpaquePointer?): CInt =
-    libc_fuchsia_statvfs(path, buf?.value?.toCPointer<ByteVar>())
+public actual fun statvfs(path: ConstPtr<CChar>, buf: MutPtr<Statvfs>): CInt =
+    libcFuchsiaStatvfs(path.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fstatvfs(fd: CInt, buf: COpaquePointer?): CInt =
-    libc_fuchsia_fstatvfs(fd, buf?.value?.toCPointer<ByteVar>())
+public actual fun fstatvfs(fd: CInt, buf: MutPtr<Statvfs>): CInt =
+    libcFuchsiaFstatvfs(fd, buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun readlink(path: String?, buf: COpaquePointer?, bufsz: SizeT): SsizeT =
-    libc_fuchsia_readlink(path, buf?.value?.toCPointer<ByteVar>(), bufsz)
+public actual fun readlink(path: ConstPtr<CChar>, buf: MutPtr<CChar>, bufsz: SizeT): SsizeT =
+    libcFuchsiaReadlink(path.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>(), bufsz)
 
-public actual fun sigemptyset(set: COpaquePointer?): CInt =
-    libc_fuchsia_sigemptyset(set?.value?.toCPointer<ByteVar>())
+public actual fun sigemptyset(set: MutPtr<SigsetT>): CInt =
+    libcFuchsiaSigemptyset(set.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sigaddset(set: COpaquePointer?, signum: CInt): CInt =
-    libc_fuchsia_sigaddset(set?.value?.toCPointer<ByteVar>(), signum)
+public actual fun sigaddset(set: MutPtr<SigsetT>, signum: CInt): CInt =
+    libcFuchsiaSigaddset(set.rawAddress.toCPointer<ByteVar>(), signum)
 
-public actual fun sigfillset(set: COpaquePointer?): CInt =
-    libc_fuchsia_sigfillset(set?.value?.toCPointer<ByteVar>())
+public actual fun sigfillset(set: MutPtr<SigsetT>): CInt =
+    libcFuchsiaSigfillset(set.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sigdelset(set: COpaquePointer?, signum: CInt): CInt =
-    libc_fuchsia_sigdelset(set?.value?.toCPointer<ByteVar>(), signum)
+public actual fun sigdelset(set: MutPtr<SigsetT>, signum: CInt): CInt =
+    libcFuchsiaSigdelset(set.rawAddress.toCPointer<ByteVar>(), signum)
 
-public actual fun sigismember(set: COpaquePointer?, signum: CInt): CInt =
-    libc_fuchsia_sigismember(set?.value?.toCPointer<ByteVar>(), signum)
+public actual fun sigismember(set: ConstPtr<SigsetT>, signum: CInt): CInt =
+    libcFuchsiaSigismember(set.rawAddress.toCPointer<ByteVar>(), signum)
 
-public actual fun sigprocmask(how: CInt, set: COpaquePointer?, oldset: COpaquePointer?): CInt =
-    libc_fuchsia_sigprocmask(how, set?.value?.toCPointer<ByteVar>(), oldset?.value?.toCPointer<ByteVar>())
+public actual fun sigprocmask(how: CInt, set: ConstPtr<SigsetT>, oldset: MutPtr<SigsetT>): CInt =
+    libcFuchsiaSigprocmask(how, set.rawAddress.toCPointer<ByteVar>(), oldset.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sigpending(set: COpaquePointer?): CInt =
-    libc_fuchsia_sigpending(set?.value?.toCPointer<ByteVar>())
+public actual fun sigpending(set: MutPtr<SigsetT>): CInt =
+    libcFuchsiaSigpending(set.rawAddress.toCPointer<ByteVar>())
 
-public actual fun timegm(tm: COpaquePointer?): TimeT =
-    libc_fuchsia_timegm(tm?.value?.toCPointer<ByteVar>())
+public actual fun timegm(tm: MutPtr<Tm>): TimeT =
+    libcFuchsiaTimegm(tm.rawAddress.toCPointer<ByteVar>())
 
 public actual fun getsid(pid: PidT): PidT =
-    libc_fuchsia_getsid(pid)
+    libcFuchsiaGetsid(pid)
 
 public actual fun sysconf(name: CInt): CLong =
-    libc_fuchsia_sysconf(name)
+    libcFuchsiaSysconf(name)
 
-public actual fun mkfifo(path: String?, mode: ModeT): CInt =
-    libc_fuchsia_mkfifo(path, mode)
+public actual fun mkfifo(path: ConstPtr<CChar>, mode: ModeT): CInt =
+    libcFuchsiaMkfifo(path.rawAddress.toCPointer<ByteVar>(), mode)
 
-public actual fun pselect(nfds: CInt, readfds: COpaquePointer?, writefds: COpaquePointer?, errorfds: COpaquePointer?, timeout: COpaquePointer?, sigmask: COpaquePointer?): CInt =
-    libc_fuchsia_pselect(nfds, readfds?.value?.toCPointer<ByteVar>(), writefds?.value?.toCPointer<ByteVar>(), errorfds?.value?.toCPointer<ByteVar>(), timeout?.value?.toCPointer<ByteVar>(), sigmask?.value?.toCPointer<ByteVar>())
+public actual fun pselect(nfds: CInt, readfds: MutPtr<FdSet>, writefds: MutPtr<FdSet>, errorfds: MutPtr<FdSet>, timeout: ConstPtr<Timespec>, sigmask: ConstPtr<SigsetT>): CInt =
+    libcFuchsiaPselect(nfds, readfds.rawAddress.toCPointer<ByteVar>(), writefds.rawAddress.toCPointer<ByteVar>(), errorfds.rawAddress.toCPointer<ByteVar>(), timeout.rawAddress.toCPointer<ByteVar>(), sigmask.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fseeko(stream: FILE?, offset: OffT, whence: CInt): CInt =
-    libc_fuchsia_fseeko(stream?.handle?.toCPointer<ByteVar>(), offset, whence)
+public actual fun fseeko(stream: MutPtr<FILE>, offset: OffT, whence: CInt): CInt =
+    libcFuchsiaFseeko(stream.rawAddress.toCPointer<ByteVar>(), offset, whence)
 
-public actual fun ftello(stream: FILE?): OffT =
-    libc_fuchsia_ftello(stream?.handle?.toCPointer<ByteVar>())
+public actual fun ftello(stream: MutPtr<FILE>): OffT =
+    libcFuchsiaFtello(stream.rawAddress.toCPointer<ByteVar>())
 
 public actual fun tcdrain(fd: CInt): CInt =
-    libc_fuchsia_tcdrain(fd)
+    libcFuchsiaTcdrain(fd)
 
-public actual fun cfgetispeed(termios: COpaquePointer?): SpeedT =
-    libc_fuchsia_cfgetispeed(termios?.value?.toCPointer<ByteVar>())
+public actual fun cfgetispeed(termios: ConstPtr<Termios>): SpeedT =
+    libcFuchsiaCfgetispeed(termios.rawAddress.toCPointer<ByteVar>())
 
-public actual fun cfgetospeed(termios: COpaquePointer?): SpeedT =
-    libc_fuchsia_cfgetospeed(termios?.value?.toCPointer<ByteVar>())
+public actual fun cfgetospeed(termios: ConstPtr<Termios>): SpeedT =
+    libcFuchsiaCfgetospeed(termios.rawAddress.toCPointer<ByteVar>())
 
-public actual fun cfmakeraw(termios: COpaquePointer?) {
-    libc_fuchsia_cfmakeraw(termios?.value?.toCPointer<ByteVar>())
+public actual fun cfmakeraw(termios: MutPtr<Termios>) {
+    libcFuchsiaCfmakeraw(termios.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun cfsetispeed(termios: COpaquePointer?, speed: SpeedT): CInt =
-    libc_fuchsia_cfsetispeed(termios?.value?.toCPointer<ByteVar>(), speed)
+public actual fun cfsetispeed(termios: MutPtr<Termios>, speed: SpeedT): CInt =
+    libcFuchsiaCfsetispeed(termios.rawAddress.toCPointer<ByteVar>(), speed)
 
-public actual fun cfsetospeed(termios: COpaquePointer?, speed: SpeedT): CInt =
-    libc_fuchsia_cfsetospeed(termios?.value?.toCPointer<ByteVar>(), speed)
+public actual fun cfsetospeed(termios: MutPtr<Termios>, speed: SpeedT): CInt =
+    libcFuchsiaCfsetospeed(termios.rawAddress.toCPointer<ByteVar>(), speed)
 
-public actual fun cfsetspeed(termios: COpaquePointer?, speed: SpeedT): CInt =
-    libc_fuchsia_cfsetspeed(termios?.value?.toCPointer<ByteVar>(), speed)
+public actual fun cfsetspeed(termios: MutPtr<Termios>, speed: SpeedT): CInt =
+    libcFuchsiaCfsetspeed(termios.rawAddress.toCPointer<ByteVar>(), speed)
 
-public actual fun tcgetattr(fd: CInt, termios: COpaquePointer?): CInt =
-    libc_fuchsia_tcgetattr(fd, termios?.value?.toCPointer<ByteVar>())
+public actual fun tcgetattr(fd: CInt, termios: MutPtr<Termios>): CInt =
+    libcFuchsiaTcgetattr(fd, termios.rawAddress.toCPointer<ByteVar>())
 
-public actual fun tcsetattr(fd: CInt, optionalActions: CInt, termios: COpaquePointer?): CInt =
-    libc_fuchsia_tcsetattr(fd, optionalActions, termios?.value?.toCPointer<ByteVar>())
+public actual fun tcsetattr(fd: CInt, optionalActions: CInt, termios: ConstPtr<Termios>): CInt =
+    libcFuchsiaTcsetattr(fd, optionalActions, termios.rawAddress.toCPointer<ByteVar>())
 
 public actual fun tcflow(fd: CInt, action: CInt): CInt =
-    libc_fuchsia_tcflow(fd, action)
+    libcFuchsiaTcflow(fd, action)
 
 public actual fun tcflush(fd: CInt, action: CInt): CInt =
-    libc_fuchsia_tcflush(fd, action)
+    libcFuchsiaTcflush(fd, action)
 
 public actual fun tcgetsid(fd: CInt): PidT =
-    libc_fuchsia_tcgetsid(fd)
+    libcFuchsiaTcgetsid(fd)
 
 public actual fun tcsendbreak(fd: CInt, duration: CInt): CInt =
-    libc_fuchsia_tcsendbreak(fd, duration)
+    libcFuchsiaTcsendbreak(fd, duration)
 
-public actual fun mkstemp(template: COpaquePointer?): CInt =
-    libc_fuchsia_mkstemp(template?.value?.toCPointer<ByteVar>())
+public actual fun mkstemp(template: MutPtr<CChar>): CInt =
+    libcFuchsiaMkstemp(template.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mkdtemp(template: COpaquePointer?): COpaquePointer? =
-    libc_fuchsia_mkdtemp(template?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun mkdtemp(template: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcFuchsiaMkdtemp(template.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun tmpnam(ptr: COpaquePointer?): COpaquePointer? =
-    libc_fuchsia_tmpnam(ptr?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun tmpnam(ptr: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcFuchsiaTmpnam(ptr.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun openlog(ident: String?, logopt: CInt, facility: CInt) {
-    libc_fuchsia_openlog(ident, logopt, facility)
+public actual fun openlog(ident: ConstPtr<CChar>, logopt: CInt, facility: CInt) {
+    libcFuchsiaOpenlog(ident.rawAddress.toCPointer<ByteVar>(), logopt, facility)
 }
 
 public actual fun closelog() {
-    libc_fuchsia_closelog()
+    libcFuchsiaCloselog()
 }
 
 public actual fun setlogmask(maskpri: CInt): CInt =
-    libc_fuchsia_setlogmask(maskpri)
+    libcFuchsiaSetlogmask(maskpri)
 
-public actual fun syslog(priority: CInt, message: String?, vararg variadicArgs: Long) {
-    libc_fuchsia_syslog(priority, message, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun syslog(priority: CInt, message: ConstPtr<CChar>, vararg variadicArgs: Long) {
+    libcFuchsiaSyslog(priority, message.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 }
 
 public actual fun grantpt(fd: CInt): CInt =
-    libc_fuchsia_grantpt(fd)
+    libcFuchsiaGrantpt(fd)
 
 public actual fun posixOpenpt(flags: CInt): CInt =
-    libc_fuchsia_posixOpenpt(flags)
+    libcFuchsiaPosixOpenpt(flags)
 
-public actual fun ptsname(fd: CInt): COpaquePointer? =
-    libc_fuchsia_ptsname(fd)?.let { COpaquePointer(it.toLong()) }
+public actual fun ptsname(fd: CInt): MutPtr<CChar> =
+    MutPtr(libcFuchsiaPtsname(fd)?.toLong() ?: 0L)
 
 public actual fun unlockpt(fd: CInt): CInt =
-    libc_fuchsia_unlockpt(fd)
+    libcFuchsiaUnlockpt(fd)
 
 public actual fun fdatasync(fd: CInt): CInt =
-    libc_fuchsia_fdatasync(fd)
+    libcFuchsiaFdatasync(fd)
 
-public actual fun clockGetres(clkId: ClockidT, tp: COpaquePointer?): CInt =
-    libc_fuchsia_clockGetres(clkId, tp?.value?.toCPointer<ByteVar>())
+public actual fun clockGetres(clkId: ClockidT, tp: MutPtr<Timespec>): CInt =
+    libcFuchsiaClockGetres(clkId, tp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun clockGettime(clkId: ClockidT, tp: COpaquePointer?): CInt =
-    libc_fuchsia_clockGettime(clkId, tp?.value?.toCPointer<ByteVar>())
+public actual fun clockGettime(clkId: ClockidT, tp: MutPtr<Timespec>): CInt =
+    libcFuchsiaClockGettime(clkId, tp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun clockSettime(clkId: ClockidT, tp: COpaquePointer?): CInt =
-    libc_fuchsia_clockSettime(clkId, tp?.value?.toCPointer<ByteVar>())
+public actual fun clockSettime(clkId: ClockidT, tp: ConstPtr<Timespec>): CInt =
+    libcFuchsiaClockSettime(clkId, tp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun dirfd(dirp: DIR?): CInt =
-    libc_fuchsia_dirfd(dirp?.handle?.toCPointer<ByteVar>())
+public actual fun dirfd(dirp: MutPtr<DIR>): CInt =
+    libcFuchsiaDirfd(dirp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadGetattrNp(native: PthreadT, attr: COpaquePointer?): CInt =
-    libc_fuchsia_pthreadGetattrNp(native.toLong().toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>())
+public actual fun pthreadGetattrNp(native: PthreadT, attr: MutPtr<PthreadAttrT>): CInt =
+    libcFuchsiaPthreadGetattrNp(native.toLong().toCPointer<ByteVar>(), attr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrGetstack(attr: COpaquePointer?, stackaddr: COpaquePointer?, stacksize: COpaquePointer?): CInt =
-    libc_fuchsia_pthreadAttrGetstack(attr?.value?.toCPointer<ByteVar>(), stackaddr?.value?.toCPointer<ByteVar>(), stacksize?.value?.toCPointer<ByteVar>())
+public actual fun pthreadAttrGetstack(attr: ConstPtr<PthreadAttrT>, stackaddr: MutPtr<MutPtr<CVoid>>, stacksize: MutPtr<SizeT>): CInt =
+    libcFuchsiaPthreadAttrGetstack(attr.rawAddress.toCPointer<ByteVar>(), stackaddr.rawAddress.toCPointer<ByteVar>(), stacksize.rawAddress.toCPointer<ByteVar>())
 
-public actual fun memalign(align: SizeT, size: SizeT): COpaquePointer? =
-    libc_fuchsia_memalign(align, size)?.let { COpaquePointer(it.toLong()) }
+public actual fun memalign(align: SizeT, size: SizeT): MutPtr<CVoid> =
+    MutPtr(libcFuchsiaMemalign(align, size)?.toLong() ?: 0L)
 
-public actual fun setgroups(ngroups: SizeT, ptr: COpaquePointer?): CInt =
-    libc_fuchsia_setgroups(ngroups, ptr?.value?.toCPointer<ByteVar>())
+public actual fun setgroups(ngroups: SizeT, ptr: ConstPtr<GidT>): CInt =
+    libcFuchsiaSetgroups(ngroups, ptr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pipe2(fds: COpaquePointer?, flags: CInt): CInt =
-    libc_fuchsia_pipe2(fds?.value?.toCPointer<ByteVar>(), flags)
+public actual fun pipe2(fds: MutPtr<CInt>, flags: CInt): CInt =
+    libcFuchsiaPipe2(fds.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun statfs(path: String?, buf: COpaquePointer?): CInt =
-    libc_fuchsia_statfs(path, buf?.value?.toCPointer<ByteVar>())
+public actual fun statfs(path: ConstPtr<CChar>, buf: MutPtr<Statfs>): CInt =
+    libcFuchsiaStatfs(path.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fstatfs(fd: CInt, buf: COpaquePointer?): CInt =
-    libc_fuchsia_fstatfs(fd, buf?.value?.toCPointer<ByteVar>())
+public actual fun fstatfs(fd: CInt, buf: MutPtr<Statfs>): CInt =
+    libcFuchsiaFstatfs(fd, buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun memrchr(cx: COpaquePointer?, c: CInt, n: SizeT): COpaquePointer? =
-    libc_fuchsia_memrchr(cx?.value?.toCPointer<ByteVar>(), c, n)?.let { COpaquePointer(it.toLong()) }
+public actual fun memrchr(cx: ConstPtr<CVoid>, c: CInt, n: SizeT): MutPtr<CVoid> =
+    MutPtr(libcFuchsiaMemrchr(cx.rawAddress.toCPointer<ByteVar>(), c, n)?.toLong() ?: 0L)
 
 public actual fun posixFadvise(fd: CInt, offset: OffT, len: OffT, advise: CInt): CInt =
-    libc_fuchsia_posixFadvise(fd, offset, len, advise)
+    libcFuchsiaPosixFadvise(fd, offset, len, advise)
 
-public actual fun futimens(fd: CInt, times: COpaquePointer?): CInt =
-    libc_fuchsia_futimens(fd, times?.value?.toCPointer<ByteVar>())
+public actual fun futimens(fd: CInt, times: ConstPtr<Timespec>): CInt =
+    libcFuchsiaFutimens(fd, times.rawAddress.toCPointer<ByteVar>())
 
-public actual fun utimensat(dirfd: CInt, path: String?, times: COpaquePointer?, flag: CInt): CInt =
-    libc_fuchsia_utimensat(dirfd, path, times?.value?.toCPointer<ByteVar>(), flag)
+public actual fun utimensat(dirfd: CInt, path: ConstPtr<CChar>, times: ConstPtr<Timespec>, flag: CInt): CInt =
+    libcFuchsiaUtimensat(dirfd, path.rawAddress.toCPointer<ByteVar>(), times.rawAddress.toCPointer<ByteVar>(), flag)
 
 public actual fun duplocale(base: LocaleT): LocaleT =
-    libc_fuchsia_duplocale(base?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+    MutPtr(libcFuchsiaDuplocale(base.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun freelocale(loc: LocaleT) {
-    libc_fuchsia_freelocale(loc?.value?.toCPointer<ByteVar>())
+    libcFuchsiaFreelocale(loc.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun newlocale(mask: CInt, locale: String?, base: LocaleT): LocaleT =
-    libc_fuchsia_newlocale(mask, locale, base?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun newlocale(mask: CInt, locale: ConstPtr<CChar>, base: LocaleT): LocaleT =
+    MutPtr(libcFuchsiaNewlocale(mask, locale.rawAddress.toCPointer<ByteVar>(), base.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun uselocale(loc: LocaleT): LocaleT =
-    libc_fuchsia_uselocale(loc?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+    MutPtr(libcFuchsiaUselocale(loc.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun fdopendir(fd: CInt): DIR? =
-    libc_fuchsia_fdopendir(fd)?.let { DIR(it.toLong()) }
+public actual fun fdopendir(fd: CInt): MutPtr<DIR> =
+    MutPtr(libcFuchsiaFdopendir(fd)?.toLong() ?: 0L)
 
-public actual fun mknodat(dirfd: CInt, pathname: String?, mode: ModeT, dev: DevT): CInt =
-    libc_fuchsia_mknodat(dirfd, pathname, mode, dev)
+public actual fun mknodat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT, dev: DevT): CInt =
+    libcFuchsiaMknodat(dirfd, pathname.rawAddress.toCPointer<ByteVar>(), mode, dev)
 
-public actual fun pthreadCondattrGetclock(attr: COpaquePointer?, clockId: COpaquePointer?): CInt =
-    libc_fuchsia_pthreadCondattrGetclock(attr?.value?.toCPointer<ByteVar>(), clockId?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCondattrGetclock(attr: ConstPtr<PthreadCondattrT>, clockId: MutPtr<ClockidT>): CInt =
+    libcFuchsiaPthreadCondattrGetclock(attr.rawAddress.toCPointer<ByteVar>(), clockId.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadCondattrSetclock(attr: COpaquePointer?, clockId: ClockidT): CInt =
-    libc_fuchsia_pthreadCondattrSetclock(attr?.value?.toCPointer<ByteVar>(), clockId)
+public actual fun pthreadCondattrSetclock(attr: MutPtr<PthreadCondattrT>, clockId: ClockidT): CInt =
+    libcFuchsiaPthreadCondattrSetclock(attr.rawAddress.toCPointer<ByteVar>(), clockId)
 
-public actual fun accept4(fd: CInt, addr: COpaquePointer?, len: COpaquePointer?, flg: CInt): CInt =
-    libc_fuchsia_accept4(fd, addr?.value?.toCPointer<ByteVar>(), len?.value?.toCPointer<ByteVar>(), flg)
+public actual fun accept4(fd: CInt, addr: MutPtr<Sockaddr>, len: MutPtr<SocklenT>, flg: CInt): CInt =
+    libcFuchsiaAccept4(fd, addr.rawAddress.toCPointer<ByteVar>(), len.rawAddress.toCPointer<ByteVar>(), flg)
 
-public actual fun ptsnameR(fd: CInt, buf: COpaquePointer?, buflen: SizeT): CInt =
-    libc_fuchsia_ptsnameR(fd, buf?.value?.toCPointer<ByteVar>(), buflen)
+public actual fun ptsnameR(fd: CInt, buf: MutPtr<CChar>, buflen: SizeT): CInt =
+    libcFuchsiaPtsnameR(fd, buf.rawAddress.toCPointer<ByteVar>(), buflen)
 
 public actual fun clearenv(): CInt =
-    libc_fuchsia_clearenv()
+    libcFuchsiaClearenv()
 
-public actual fun waitid(idtype: IdtypeT, id: IdT, infop: COpaquePointer?, options: CInt): CInt =
-    libc_fuchsia_waitid(idtype, id, infop?.value?.toCPointer<ByteVar>(), options)
+public actual fun waitid(idtype: IdtypeT, id: IdT, infop: MutPtr<SiginfoT>, options: CInt): CInt =
+    libcFuchsiaWaitid(idtype, id, infop.rawAddress.toCPointer<ByteVar>(), options)
 
 public actual fun setreuid(ruid: UidT, euid: UidT): CInt =
-    libc_fuchsia_setreuid(ruid, euid)
+    libcFuchsiaSetreuid(ruid, euid)
 
 public actual fun setregid(rgid: GidT, egid: GidT): CInt =
-    libc_fuchsia_setregid(rgid, egid)
+    libcFuchsiaSetregid(rgid, egid)
 
-public actual fun getresuid(ruid: COpaquePointer?, euid: COpaquePointer?, suid: COpaquePointer?): CInt =
-    libc_fuchsia_getresuid(ruid?.value?.toCPointer<ByteVar>(), euid?.value?.toCPointer<ByteVar>(), suid?.value?.toCPointer<ByteVar>())
+public actual fun getresuid(ruid: MutPtr<UidT>, euid: MutPtr<UidT>, suid: MutPtr<UidT>): CInt =
+    libcFuchsiaGetresuid(ruid.rawAddress.toCPointer<ByteVar>(), euid.rawAddress.toCPointer<ByteVar>(), suid.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getresgid(rgid: COpaquePointer?, egid: COpaquePointer?, sgid: COpaquePointer?): CInt =
-    libc_fuchsia_getresgid(rgid?.value?.toCPointer<ByteVar>(), egid?.value?.toCPointer<ByteVar>(), sgid?.value?.toCPointer<ByteVar>())
+public actual fun getresgid(rgid: MutPtr<GidT>, egid: MutPtr<GidT>, sgid: MutPtr<GidT>): CInt =
+    libcFuchsiaGetresgid(rgid.rawAddress.toCPointer<ByteVar>(), egid.rawAddress.toCPointer<ByteVar>(), sgid.rawAddress.toCPointer<ByteVar>())
 
-public actual fun acct(filename: String?): CInt =
-    libc_fuchsia_acct(filename)
+public actual fun acct(filename: ConstPtr<CChar>): CInt =
+    libcFuchsiaAcct(filename.rawAddress.toCPointer<ByteVar>())
 
-public actual fun brk(addr: COpaquePointer?): CInt =
-    libc_fuchsia_brk(addr?.value?.toCPointer<ByteVar>())
+public actual fun brk(addr: MutPtr<CVoid>): CInt =
+    libcFuchsiaBrk(addr.rawAddress.toCPointer<ByteVar>())
 
 public actual fun setresgid(rgid: GidT, egid: GidT, sgid: GidT): CInt =
-    libc_fuchsia_setresgid(rgid, egid, sgid)
+    libcFuchsiaSetresgid(rgid, egid, sgid)
 
 public actual fun setresuid(ruid: UidT, euid: UidT, suid: UidT): CInt =
-    libc_fuchsia_setresuid(ruid, euid, suid)
+    libcFuchsiaSetresuid(ruid, euid, suid)
 
-public actual fun openpty(amaster: COpaquePointer?, aslave: COpaquePointer?, name: COpaquePointer?, termp: COpaquePointer?, winp: COpaquePointer?): CInt =
-    libc_fuchsia_openpty(amaster?.value?.toCPointer<ByteVar>(), aslave?.value?.toCPointer<ByteVar>(), name?.value?.toCPointer<ByteVar>(), termp?.value?.toCPointer<ByteVar>(), winp?.value?.toCPointer<ByteVar>())
+public actual fun openpty(amaster: MutPtr<CInt>, aslave: MutPtr<CInt>, name: MutPtr<CChar>, termp: ConstPtr<Termios>, winp: ConstPtr<Winsize>): CInt =
+    libcFuchsiaOpenpty(amaster.rawAddress.toCPointer<ByteVar>(), aslave.rawAddress.toCPointer<ByteVar>(), name.rawAddress.toCPointer<ByteVar>(), termp.rawAddress.toCPointer<ByteVar>(), winp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun execvpe(file: String?, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
-    libc_fuchsia_execvpe(file, argv?.value?.toCPointer<ByteVar>(), envp?.value?.toCPointer<ByteVar>())
+public actual fun execvpe(file: ConstPtr<CChar>, argv: ConstPtr<ConstPtr<CChar>>, envp: ConstPtr<ConstPtr<CChar>>): CInt =
+    libcFuchsiaExecvpe(file.rawAddress.toCPointer<ByteVar>(), argv.rawAddress.toCPointer<ByteVar>(), envp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fexecve(fd: CInt, argv: COpaquePointer?, envp: COpaquePointer?): CInt =
-    libc_fuchsia_fexecve(fd, argv?.value?.toCPointer<ByteVar>(), envp?.value?.toCPointer<ByteVar>())
+public actual fun fexecve(fd: CInt, argv: ConstPtr<ConstPtr<CChar>>, envp: ConstPtr<ConstPtr<CChar>>): CInt =
+    libcFuchsiaFexecve(fd, argv.rawAddress.toCPointer<ByteVar>(), envp.rawAddress.toCPointer<ByteVar>())
 
 public actual fun ioctl(fd: CInt, request: CInt, vararg variadicArgs: Long): CInt =
-    libc_fuchsia_ioctl(fd, request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+    libcFuchsiaIoctl(fd, request, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun lutimes(file: String?, times: COpaquePointer?): CInt =
-    libc_fuchsia_lutimes(file, times?.value?.toCPointer<ByteVar>())
+public actual fun lutimes(file: ConstPtr<CChar>, times: ConstPtr<Timeval>): CInt =
+    libcFuchsiaLutimes(file.rawAddress.toCPointer<ByteVar>(), times.rawAddress.toCPointer<ByteVar>())
 
 public actual fun setpwent() {
-    libc_fuchsia_setpwent()
+    libcFuchsiaSetpwent()
 }
 
 public actual fun endpwent() {
-    libc_fuchsia_endpwent()
+    libcFuchsiaEndpwent()
 }
 
-public actual fun getpwent(): COpaquePointer? =
-    libc_fuchsia_getpwent()?.let { COpaquePointer(it.toLong()) }
+public actual fun getpwent(): MutPtr<Passwd> =
+    MutPtr(libcFuchsiaGetpwent()?.toLong() ?: 0L)
 
-public actual fun shmOpen(name: String?, oflag: CInt, mode: ModeT): CInt =
-    libc_fuchsia_shmOpen(name, oflag, mode)
+public actual fun shmOpen(name: ConstPtr<CChar>, oflag: CInt, mode: ModeT): CInt =
+    libcFuchsiaShmOpen(name.rawAddress.toCPointer<ByteVar>(), oflag, mode)
 
 public actual fun shmget(key: KeyT, size: SizeT, shmflg: CInt): CInt =
-    libc_fuchsia_shmget(key, size, shmflg)
+    libcFuchsiaShmget(key, size, shmflg)
 
-public actual fun shmat(shmid: CInt, shmaddr: COpaquePointer?, shmflg: CInt): COpaquePointer? =
-    libc_fuchsia_shmat(shmid, shmaddr?.value?.toCPointer<ByteVar>(), shmflg)?.let { COpaquePointer(it.toLong()) }
+public actual fun shmat(shmid: CInt, shmaddr: ConstPtr<CVoid>, shmflg: CInt): MutPtr<CVoid> =
+    MutPtr(libcFuchsiaShmat(shmid, shmaddr.rawAddress.toCPointer<ByteVar>(), shmflg)?.toLong() ?: 0L)
 
-public actual fun shmdt(shmaddr: COpaquePointer?): CInt =
-    libc_fuchsia_shmdt(shmaddr?.value?.toCPointer<ByteVar>())
+public actual fun shmdt(shmaddr: ConstPtr<CVoid>): CInt =
+    libcFuchsiaShmdt(shmaddr.rawAddress.toCPointer<ByteVar>())
 
-public actual fun shmctl(shmid: CInt, cmd: CInt, buf: COpaquePointer?): CInt =
-    libc_fuchsia_shmctl(shmid, cmd, buf?.value?.toCPointer<ByteVar>())
+public actual fun shmctl(shmid: CInt, cmd: CInt, buf: MutPtr<ShmidDs>): CInt =
+    libcFuchsiaShmctl(shmid, cmd, buf.rawAddress.toCPointer<ByteVar>())
 
-public actual fun ftok(pathname: String?, projId: CInt): KeyT =
-    libc_fuchsia_ftok(pathname, projId)
+public actual fun ftok(pathname: ConstPtr<CChar>, projId: CInt): KeyT =
+    libcFuchsiaFtok(pathname.rawAddress.toCPointer<ByteVar>(), projId)
 
 public actual fun semget(key: KeyT, nsems: CInt, semflag: CInt): CInt =
-    libc_fuchsia_semget(key, nsems, semflag)
+    libcFuchsiaSemget(key, nsems, semflag)
 
-public actual fun semop(semid: CInt, sops: COpaquePointer?, nsops: SizeT): CInt =
-    libc_fuchsia_semop(semid, sops?.value?.toCPointer<ByteVar>(), nsops)
+public actual fun semop(semid: CInt, sops: MutPtr<Sembuf>, nsops: SizeT): CInt =
+    libcFuchsiaSemop(semid, sops.rawAddress.toCPointer<ByteVar>(), nsops)
 
 public actual fun semctl(semid: CInt, semnum: CInt, cmd: CInt, vararg variadicArgs: Long): CInt =
-    libc_fuchsia_semctl(semid, semnum, cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+    libcFuchsiaSemctl(semid, semnum, cmd, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun msgctl(msqid: CInt, cmd: CInt, buf: COpaquePointer?): CInt =
-    libc_fuchsia_msgctl(msqid, cmd, buf?.value?.toCPointer<ByteVar>())
+public actual fun msgctl(msqid: CInt, cmd: CInt, buf: MutPtr<MsqidDs>): CInt =
+    libcFuchsiaMsgctl(msqid, cmd, buf.rawAddress.toCPointer<ByteVar>())
 
 public actual fun msgget(key: KeyT, msgflg: CInt): CInt =
-    libc_fuchsia_msgget(key, msgflg)
+    libcFuchsiaMsgget(key, msgflg)
 
-public actual fun msgrcv(msqid: CInt, msgp: COpaquePointer?, msgsz: SizeT, msgtyp: CLong, msgflg: CInt): SsizeT =
-    libc_fuchsia_msgrcv(msqid, msgp?.value?.toCPointer<ByteVar>(), msgsz, msgtyp, msgflg)
+public actual fun msgrcv(msqid: CInt, msgp: MutPtr<CVoid>, msgsz: SizeT, msgtyp: CLong, msgflg: CInt): SsizeT =
+    libcFuchsiaMsgrcv(msqid, msgp.rawAddress.toCPointer<ByteVar>(), msgsz, msgtyp, msgflg)
 
-public actual fun msgsnd(msqid: CInt, msgp: COpaquePointer?, msgsz: SizeT, msgflg: CInt): CInt =
-    libc_fuchsia_msgsnd(msqid, msgp?.value?.toCPointer<ByteVar>(), msgsz, msgflg)
+public actual fun msgsnd(msqid: CInt, msgp: ConstPtr<CVoid>, msgsz: SizeT, msgflg: CInt): CInt =
+    libcFuchsiaMsgsnd(msqid, msgp.rawAddress.toCPointer<ByteVar>(), msgsz, msgflg)
 
-public actual fun mprotect(addr: COpaquePointer?, len: SizeT, prot: CInt): CInt =
-    libc_fuchsia_mprotect(addr?.value?.toCPointer<ByteVar>(), len, prot)
+public actual fun mprotect(addr: MutPtr<CVoid>, len: SizeT, prot: CInt): CInt =
+    libcFuchsiaMprotect(addr.rawAddress.toCPointer<ByteVar>(), len, prot)
 
-public actual fun errnoLocation(): COpaquePointer? =
-    libc_fuchsia_errnoLocation()?.let { COpaquePointer(it.toLong()) }
+public actual fun errnoLocation(): MutPtr<CInt> =
+    MutPtr(libcFuchsiaErrnoLocation()?.toLong() ?: 0L)
 
 public actual fun fallocate(fd: CInt, mode: CInt, offset: OffT, len: OffT): CInt =
-    libc_fuchsia_fallocate(fd, mode, offset, len)
+    libcFuchsiaFallocate(fd, mode, offset, len)
 
 public actual fun posixFallocate(fd: CInt, offset: OffT, len: OffT): CInt =
-    libc_fuchsia_posixFallocate(fd, offset, len)
+    libcFuchsiaPosixFallocate(fd, offset, len)
 
 public actual fun readahead(fd: CInt, offset: Off64T, count: SizeT): SsizeT =
-    libc_fuchsia_readahead(fd, offset, count)
+    libcFuchsiaReadahead(fd, offset, count)
 
-public actual fun signalfd(fd: CInt, mask: COpaquePointer?, flags: CInt): CInt =
-    libc_fuchsia_signalfd(fd, mask?.value?.toCPointer<ByteVar>(), flags)
+public actual fun signalfd(fd: CInt, mask: ConstPtr<SigsetT>, flags: CInt): CInt =
+    libcFuchsiaSignalfd(fd, mask.rawAddress.toCPointer<ByteVar>(), flags)
 
 public actual fun timerfdCreate(clockid: CInt, flags: CInt): CInt =
-    libc_fuchsia_timerfdCreate(clockid, flags)
+    libcFuchsiaTimerfdCreate(clockid, flags)
 
-public actual fun timerfdGettime(fd: CInt, currValue: COpaquePointer?): CInt =
-    libc_fuchsia_timerfdGettime(fd, currValue?.value?.toCPointer<ByteVar>())
+public actual fun timerfdGettime(fd: CInt, currValue: MutPtr<Itimerspec>): CInt =
+    libcFuchsiaTimerfdGettime(fd, currValue.rawAddress.toCPointer<ByteVar>())
 
-public actual fun timerfdSettime(fd: CInt, flags: CInt, newValue: COpaquePointer?, oldValue: COpaquePointer?): CInt =
-    libc_fuchsia_timerfdSettime(fd, flags, newValue?.value?.toCPointer<ByteVar>(), oldValue?.value?.toCPointer<ByteVar>())
+public actual fun timerfdSettime(fd: CInt, flags: CInt, newValue: ConstPtr<Itimerspec>, oldValue: MutPtr<Itimerspec>): CInt =
+    libcFuchsiaTimerfdSettime(fd, flags, newValue.rawAddress.toCPointer<ByteVar>(), oldValue.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pwritev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: OffT): SsizeT =
-    libc_fuchsia_pwritev(fd, iov?.value?.toCPointer<ByteVar>(), iovcnt, offset)
+public actual fun pwritev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT =
+    libcFuchsiaPwritev(fd, iov.rawAddress.toCPointer<ByteVar>(), iovcnt, offset)
 
-public actual fun preadv(fd: CInt, iov: COpaquePointer?, iovcnt: CInt, offset: OffT): SsizeT =
-    libc_fuchsia_preadv(fd, iov?.value?.toCPointer<ByteVar>(), iovcnt, offset)
+public actual fun preadv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt, offset: OffT): SsizeT =
+    libcFuchsiaPreadv(fd, iov.rawAddress.toCPointer<ByteVar>(), iovcnt, offset)
 
-public actual fun quotactl(cmd: CInt, special: String?, id: CInt, data: COpaquePointer?): CInt =
-    libc_fuchsia_quotactl(cmd, special, id, data?.value?.toCPointer<ByteVar>())
+public actual fun quotactl(cmd: CInt, special: ConstPtr<CChar>, id: CInt, data: MutPtr<CChar>): CInt =
+    libcFuchsiaQuotactl(cmd, special.rawAddress.toCPointer<ByteVar>(), id, data.rawAddress.toCPointer<ByteVar>())
 
 public actual fun dup3(oldfd: CInt, newfd: CInt, flags: CInt): CInt =
-    libc_fuchsia_dup3(oldfd, newfd, flags)
+    libcFuchsiaDup3(oldfd, newfd, flags)
 
-public actual fun mkostemp(template: COpaquePointer?, flags: CInt): CInt =
-    libc_fuchsia_mkostemp(template?.value?.toCPointer<ByteVar>(), flags)
+public actual fun mkostemp(template: MutPtr<CChar>, flags: CInt): CInt =
+    libcFuchsiaMkostemp(template.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun mkostemps(template: COpaquePointer?, suffixlen: CInt, flags: CInt): CInt =
-    libc_fuchsia_mkostemps(template?.value?.toCPointer<ByteVar>(), suffixlen, flags)
+public actual fun mkostemps(template: MutPtr<CChar>, suffixlen: CInt, flags: CInt): CInt =
+    libcFuchsiaMkostemps(template.rawAddress.toCPointer<ByteVar>(), suffixlen, flags)
 
-public actual fun sigtimedwait(set: COpaquePointer?, info: COpaquePointer?, timeout: COpaquePointer?): CInt =
-    libc_fuchsia_sigtimedwait(set?.value?.toCPointer<ByteVar>(), info?.value?.toCPointer<ByteVar>(), timeout?.value?.toCPointer<ByteVar>())
+public actual fun sigtimedwait(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>, timeout: ConstPtr<Timespec>): CInt =
+    libcFuchsiaSigtimedwait(set.rawAddress.toCPointer<ByteVar>(), info.rawAddress.toCPointer<ByteVar>(), timeout.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sigwaitinfo(set: COpaquePointer?, info: COpaquePointer?): CInt =
-    libc_fuchsia_sigwaitinfo(set?.value?.toCPointer<ByteVar>(), info?.value?.toCPointer<ByteVar>())
+public actual fun sigwaitinfo(set: ConstPtr<SigsetT>, info: MutPtr<SiginfoT>): CInt =
+    libcFuchsiaSigwaitinfo(set.rawAddress.toCPointer<ByteVar>(), info.rawAddress.toCPointer<ByteVar>())
 
-public actual fun nlLanginfoL(item: NlItem, locale: LocaleT): COpaquePointer? =
-    libc_fuchsia_nlLanginfoL(item, locale?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun nlLanginfoL(item: NlItem, locale: LocaleT): MutPtr<CChar> =
+    MutPtr(libcFuchsiaNlLanginfoL(item, locale.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun getnameinfo(sa: COpaquePointer?, salen: SocklenT, host: COpaquePointer?, hostlen: SocklenT, serv: COpaquePointer?, servlen: SocklenT, flags: CInt): CInt =
-    libc_fuchsia_getnameinfo(sa?.value?.toCPointer<ByteVar>(), salen, host?.value?.toCPointer<ByteVar>(), hostlen, serv?.value?.toCPointer<ByteVar>(), servlen, flags)
+public actual fun getnameinfo(sa: ConstPtr<Sockaddr>, salen: SocklenT, host: MutPtr<CChar>, hostlen: SocklenT, serv: MutPtr<CChar>, servlen: SocklenT, flags: CInt): CInt =
+    libcFuchsiaGetnameinfo(sa.rawAddress.toCPointer<ByteVar>(), salen, host.rawAddress.toCPointer<ByteVar>(), hostlen, serv.rawAddress.toCPointer<ByteVar>(), servlen, flags)
 
 public actual fun reboot(howTo: CInt): CInt =
-    libc_fuchsia_reboot(howTo)
+    libcFuchsiaReboot(howTo)
 
 public actual fun setfsgid(gid: GidT): CInt =
-    libc_fuchsia_setfsgid(gid)
+    libcFuchsiaSetfsgid(gid)
 
 public actual fun setfsuid(uid: UidT): CInt =
-    libc_fuchsia_setfsuid(uid)
+    libcFuchsiaSetfsuid(uid)
 
-public actual fun mkfifoat(dirfd: CInt, pathname: String?, mode: ModeT): CInt =
-    libc_fuchsia_mkfifoat(dirfd, pathname, mode)
+public actual fun mkfifoat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: ModeT): CInt =
+    libcFuchsiaMkfifoat(dirfd, pathname.rawAddress.toCPointer<ByteVar>(), mode)
 
-public actual fun ifNameindex(): COpaquePointer? =
-    libc_fuchsia_ifNameindex()?.let { COpaquePointer(it.toLong()) }
+public actual fun ifNameindex(): MutPtr<IfNameindex> =
+    MutPtr(libcFuchsiaIfNameindex()?.toLong() ?: 0L)
 
-public actual fun ifFreenameindex(ptr: COpaquePointer?) {
-    libc_fuchsia_ifFreenameindex(ptr?.value?.toCPointer<ByteVar>())
+public actual fun ifFreenameindex(ptr: MutPtr<IfNameindex>) {
+    libcFuchsiaIfFreenameindex(ptr.rawAddress.toCPointer<ByteVar>())
 }
 
 public actual fun syncFileRange(fd: CInt, offset: Off64T, nbytes: Off64T, flags: CUint): CInt =
-    libc_fuchsia_syncFileRange(fd, offset, nbytes, flags)
+    libcFuchsiaSyncFileRange(fd, offset, nbytes, flags)
 
-public actual fun getifaddrs(ifap: COpaquePointer?): CInt =
-    libc_fuchsia_getifaddrs(ifap?.value?.toCPointer<ByteVar>())
+public actual fun getifaddrs(ifap: MutPtr<MutPtr<Ifaddrs>>): CInt =
+    libcFuchsiaGetifaddrs(ifap.rawAddress.toCPointer<ByteVar>())
 
-public actual fun freeifaddrs(ifa: COpaquePointer?) {
-    libc_fuchsia_freeifaddrs(ifa?.value?.toCPointer<ByteVar>())
+public actual fun freeifaddrs(ifa: MutPtr<Ifaddrs>) {
+    libcFuchsiaFreeifaddrs(ifa.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun glob(pattern: String?, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: COpaquePointer?): CInt =
-    libc_fuchsia_glob(pattern, flags, 0L.toCPointer<ByteVar>(), pglob?.value?.toCPointer<ByteVar>())
+public actual fun glob(pattern: ConstPtr<CChar>, flags: CInt, errfunc: GlobErrfuncCallback?, pglob: MutPtr<GlobT>): CInt =
+    libcFuchsiaGlob(pattern.rawAddress.toCPointer<ByteVar>(), flags, 0L.toCPointer<ByteVar>(), pglob.rawAddress.toCPointer<ByteVar>())
 
-public actual fun globfree(pglob: COpaquePointer?) {
-    libc_fuchsia_globfree(pglob?.value?.toCPointer<ByteVar>())
+public actual fun globfree(pglob: MutPtr<GlobT>) {
+    libcFuchsiaGlobfree(pglob.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun posixMadvise(addr: COpaquePointer?, len: SizeT, advice: CInt): CInt =
-    libc_fuchsia_posixMadvise(addr?.value?.toCPointer<ByteVar>(), len, advice)
+public actual fun posixMadvise(addr: MutPtr<CVoid>, len: SizeT, advice: CInt): CInt =
+    libcFuchsiaPosixMadvise(addr.rawAddress.toCPointer<ByteVar>(), len, advice)
 
-public actual fun shmUnlink(name: String?): CInt =
-    libc_fuchsia_shmUnlink(name)
+public actual fun shmUnlink(name: ConstPtr<CChar>): CInt =
+    libcFuchsiaShmUnlink(name.rawAddress.toCPointer<ByteVar>())
 
-public actual fun seekdir(dirp: DIR?, loc: CLong) {
-    libc_fuchsia_seekdir(dirp?.handle?.toCPointer<ByteVar>(), loc)
+public actual fun seekdir(dirp: MutPtr<DIR>, loc: CLong) {
+    libcFuchsiaSeekdir(dirp.rawAddress.toCPointer<ByteVar>(), loc)
 }
 
-public actual fun telldir(dirp: DIR?): CLong =
-    libc_fuchsia_telldir(dirp?.handle?.toCPointer<ByteVar>())
+public actual fun telldir(dirp: MutPtr<DIR>): CLong =
+    libcFuchsiaTelldir(dirp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun madvise(addr: COpaquePointer?, len: SizeT, advice: CInt): CInt =
-    libc_fuchsia_madvise(addr?.value?.toCPointer<ByteVar>(), len, advice)
+public actual fun madvise(addr: MutPtr<CVoid>, len: SizeT, advice: CInt): CInt =
+    libcFuchsiaMadvise(addr.rawAddress.toCPointer<ByteVar>(), len, advice)
 
-public actual fun msync(addr: COpaquePointer?, len: SizeT, flags: CInt): CInt =
-    libc_fuchsia_msync(addr?.value?.toCPointer<ByteVar>(), len, flags)
+public actual fun msync(addr: MutPtr<CVoid>, len: SizeT, flags: CInt): CInt =
+    libcFuchsiaMsync(addr.rawAddress.toCPointer<ByteVar>(), len, flags)
 
-public actual fun recvfrom(socket: CInt, buf: COpaquePointer?, len: SizeT, flags: CInt, addr: COpaquePointer?, addrlen: COpaquePointer?): SsizeT =
-    libc_fuchsia_recvfrom(socket, buf?.value?.toCPointer<ByteVar>(), len, flags, addr?.value?.toCPointer<ByteVar>(), addrlen?.value?.toCPointer<ByteVar>())
+public actual fun recvfrom(socket: CInt, buf: MutPtr<CVoid>, len: SizeT, flags: CInt, addr: MutPtr<Sockaddr>, addrlen: MutPtr<SocklenT>): SsizeT =
+    libcFuchsiaRecvfrom(socket, buf.rawAddress.toCPointer<ByteVar>(), len, flags, addr.rawAddress.toCPointer<ByteVar>(), addrlen.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mkstemps(template: COpaquePointer?, suffixlen: CInt): CInt =
-    libc_fuchsia_mkstemps(template?.value?.toCPointer<ByteVar>(), suffixlen)
+public actual fun mkstemps(template: MutPtr<CChar>, suffixlen: CInt): CInt =
+    libcFuchsiaMkstemps(template.rawAddress.toCPointer<ByteVar>(), suffixlen)
 
-public actual fun futimes(fd: CInt, times: COpaquePointer?): CInt =
-    libc_fuchsia_futimes(fd, times?.value?.toCPointer<ByteVar>())
+public actual fun futimes(fd: CInt, times: ConstPtr<Timeval>): CInt =
+    libcFuchsiaFutimes(fd, times.rawAddress.toCPointer<ByteVar>())
 
-public actual fun nlLanginfo(item: NlItem): COpaquePointer? =
-    libc_fuchsia_nlLanginfo(item)?.let { COpaquePointer(it.toLong()) }
+public actual fun nlLanginfo(item: NlItem): MutPtr<CChar> =
+    MutPtr(libcFuchsiaNlLanginfo(item)?.toLong() ?: 0L)
 
-public actual fun bind(socket: CInt, address: COpaquePointer?, addressLen: SocklenT): CInt =
-    libc_fuchsia_bind(socket, address?.value?.toCPointer<ByteVar>(), addressLen)
+public actual fun bind(socket: CInt, address: ConstPtr<Sockaddr>, addressLen: SocklenT): CInt =
+    libcFuchsiaBind(socket, address.rawAddress.toCPointer<ByteVar>(), addressLen)
 
-public actual fun writev(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT =
-    libc_fuchsia_writev(fd, iov?.value?.toCPointer<ByteVar>(), iovcnt)
+public actual fun writev(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+    libcFuchsiaWritev(fd, iov.rawAddress.toCPointer<ByteVar>(), iovcnt)
 
-public actual fun readv(fd: CInt, iov: COpaquePointer?, iovcnt: CInt): SsizeT =
-    libc_fuchsia_readv(fd, iov?.value?.toCPointer<ByteVar>(), iovcnt)
+public actual fun readv(fd: CInt, iov: ConstPtr<Iovec>, iovcnt: CInt): SsizeT =
+    libcFuchsiaReadv(fd, iov.rawAddress.toCPointer<ByteVar>(), iovcnt)
 
-public actual fun sendmsg(fd: CInt, msg: COpaquePointer?, flags: CInt): SsizeT =
-    libc_fuchsia_sendmsg(fd, msg?.value?.toCPointer<ByteVar>(), flags)
+public actual fun sendmsg(fd: CInt, msg: ConstPtr<Msghdr>, flags: CInt): SsizeT =
+    libcFuchsiaSendmsg(fd, msg.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun recvmsg(fd: CInt, msg: COpaquePointer?, flags: CInt): SsizeT =
-    libc_fuchsia_recvmsg(fd, msg?.value?.toCPointer<ByteVar>(), flags)
+public actual fun recvmsg(fd: CInt, msg: MutPtr<Msghdr>, flags: CInt): SsizeT =
+    libcFuchsiaRecvmsg(fd, msg.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun getdomainname(name: COpaquePointer?, len: SizeT): CInt =
-    libc_fuchsia_getdomainname(name?.value?.toCPointer<ByteVar>(), len)
+public actual fun getdomainname(name: MutPtr<CChar>, len: SizeT): CInt =
+    libcFuchsiaGetdomainname(name.rawAddress.toCPointer<ByteVar>(), len)
 
-public actual fun setdomainname(name: String?, len: SizeT): CInt =
-    libc_fuchsia_setdomainname(name, len)
+public actual fun setdomainname(name: ConstPtr<CChar>, len: SizeT): CInt =
+    libcFuchsiaSetdomainname(name.rawAddress.toCPointer<ByteVar>(), len)
 
 public actual fun vhangup(): CInt =
-    libc_fuchsia_vhangup()
+    libcFuchsiaVhangup()
 
-public actual fun sendmmsg(sockfd: CInt, msgvec: COpaquePointer?, vlen: CUint, flags: CInt): CInt =
-    libc_fuchsia_sendmmsg(sockfd, msgvec?.value?.toCPointer<ByteVar>(), vlen, flags)
+public actual fun sendmmsg(sockfd: CInt, msgvec: MutPtr<Mmsghdr>, vlen: CUint, flags: CInt): CInt =
+    libcFuchsiaSendmmsg(sockfd, msgvec.rawAddress.toCPointer<ByteVar>(), vlen, flags)
 
-public actual fun recvmmsg(sockfd: CInt, msgvec: COpaquePointer?, vlen: CUint, flags: CInt, timeout: COpaquePointer?): CInt =
-    libc_fuchsia_recvmmsg(sockfd, msgvec?.value?.toCPointer<ByteVar>(), vlen, flags, timeout?.value?.toCPointer<ByteVar>())
+public actual fun recvmmsg(sockfd: CInt, msgvec: MutPtr<Mmsghdr>, vlen: CUint, flags: CInt, timeout: MutPtr<Timespec>): CInt =
+    libcFuchsiaRecvmmsg(sockfd, msgvec.rawAddress.toCPointer<ByteVar>(), vlen, flags, timeout.rawAddress.toCPointer<ByteVar>())
 
 public actual fun sync() {
-    libc_fuchsia_sync()
+    libcFuchsiaSync()
 }
 
 public actual fun syscall(num: CLong, vararg variadicArgs: Long): CLong =
-    libc_fuchsia_syscall(num, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+    libcFuchsiaSyscall(num, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun schedGetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
-    libc_fuchsia_schedGetaffinity(pid, cpusetsize, cpuset?.value?.toCPointer<ByteVar>())
+public actual fun schedGetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: MutPtr<CpuSetT>): CInt =
+    libcFuchsiaSchedGetaffinity(pid, cpusetsize, cpuset.rawAddress.toCPointer<ByteVar>())
 
-public actual fun schedSetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: COpaquePointer?): CInt =
-    libc_fuchsia_schedSetaffinity(pid, cpusetsize, cpuset?.value?.toCPointer<ByteVar>())
+public actual fun schedSetaffinity(pid: PidT, cpusetsize: SizeT, cpuset: ConstPtr<CpuSetT>): CInt =
+    libcFuchsiaSchedSetaffinity(pid, cpusetsize, cpuset.rawAddress.toCPointer<ByteVar>())
 
-public actual fun umount(target: String?): CInt =
-    libc_fuchsia_umount(target)
+public actual fun umount(target: ConstPtr<CChar>): CInt =
+    libcFuchsiaUmount(target.rawAddress.toCPointer<ByteVar>())
 
 public actual fun schedGetPriorityMax(policy: CInt): CInt =
-    libc_fuchsia_schedGetPriorityMax(policy)
+    libcFuchsiaSchedGetPriorityMax(policy)
 
 public actual fun tee(fdIn: CInt, fdOut: CInt, len: SizeT, flags: CUint): SsizeT =
-    libc_fuchsia_tee(fdIn, fdOut, len, flags)
+    libcFuchsiaTee(fdIn, fdOut, len, flags)
 
-public actual fun settimeofday(tv: COpaquePointer?, tz: COpaquePointer?): CInt =
-    libc_fuchsia_settimeofday(tv?.value?.toCPointer<ByteVar>(), tz?.value?.toCPointer<ByteVar>())
+public actual fun settimeofday(tv: ConstPtr<Timeval>, tz: ConstPtr<Timezone>): CInt =
+    libcFuchsiaSettimeofday(tv.rawAddress.toCPointer<ByteVar>(), tz.rawAddress.toCPointer<ByteVar>())
 
-public actual fun splice(fdIn: CInt, offIn: COpaquePointer?, fdOut: CInt, offOut: COpaquePointer?, len: SizeT, flags: CUint): SsizeT =
-    libc_fuchsia_splice(fdIn, offIn?.value?.toCPointer<ByteVar>(), fdOut, offOut?.value?.toCPointer<ByteVar>(), len, flags)
+public actual fun splice(fdIn: CInt, offIn: MutPtr<LoffT>, fdOut: CInt, offOut: MutPtr<LoffT>, len: SizeT, flags: CUint): SsizeT =
+    libcFuchsiaSplice(fdIn, offIn.rawAddress.toCPointer<ByteVar>(), fdOut, offOut.rawAddress.toCPointer<ByteVar>(), len, flags)
 
 public actual fun eventfd(initval: CUint, flags: CInt): CInt =
-    libc_fuchsia_eventfd(initval, flags)
+    libcFuchsiaEventfd(initval, flags)
 
-public actual fun schedRrGetInterval(pid: PidT, tp: COpaquePointer?): CInt =
-    libc_fuchsia_schedRrGetInterval(pid, tp?.value?.toCPointer<ByteVar>())
+public actual fun schedRrGetInterval(pid: PidT, tp: MutPtr<Timespec>): CInt =
+    libcFuchsiaSchedRrGetInterval(pid, tp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semTimedwait(sem: COpaquePointer?, abstime: COpaquePointer?): CInt =
-    libc_fuchsia_semTimedwait(sem?.value?.toCPointer<ByteVar>(), abstime?.value?.toCPointer<ByteVar>())
+public actual fun semTimedwait(sem: MutPtr<SemT>, abstime: ConstPtr<Timespec>): CInt =
+    libcFuchsiaSemTimedwait(sem.rawAddress.toCPointer<ByteVar>(), abstime.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semGetvalue(sem: COpaquePointer?, sval: COpaquePointer?): CInt =
-    libc_fuchsia_semGetvalue(sem?.value?.toCPointer<ByteVar>(), sval?.value?.toCPointer<ByteVar>())
+public actual fun semGetvalue(sem: MutPtr<SemT>, sval: MutPtr<CInt>): CInt =
+    libcFuchsiaSemGetvalue(sem.rawAddress.toCPointer<ByteVar>(), sval.rawAddress.toCPointer<ByteVar>())
 
-public actual fun schedSetparam(pid: PidT, param: COpaquePointer?): CInt =
-    libc_fuchsia_schedSetparam(pid, param?.value?.toCPointer<ByteVar>())
+public actual fun schedSetparam(pid: PidT, param: ConstPtr<SchedParam>): CInt =
+    libcFuchsiaSchedSetparam(pid, param.rawAddress.toCPointer<ByteVar>())
 
-public actual fun swapoff(puath: String?): CInt =
-    libc_fuchsia_swapoff(puath)
+public actual fun swapoff(puath: ConstPtr<CChar>): CInt =
+    libcFuchsiaSwapoff(puath.rawAddress.toCPointer<ByteVar>())
 
-public actual fun vmsplice(fd: CInt, iov: COpaquePointer?, nrSegs: SizeT, flags: CUint): SsizeT =
-    libc_fuchsia_vmsplice(fd, iov?.value?.toCPointer<ByteVar>(), nrSegs, flags)
+public actual fun vmsplice(fd: CInt, iov: ConstPtr<Iovec>, nrSegs: SizeT, flags: CUint): SsizeT =
+    libcFuchsiaVmsplice(fd, iov.rawAddress.toCPointer<ByteVar>(), nrSegs, flags)
 
-public actual fun mount(src: String?, target: String?, fstype: String?, flags: CUlong, data: COpaquePointer?): CInt =
-    libc_fuchsia_mount(src, target, fstype, flags, data?.value?.toCPointer<ByteVar>())
+public actual fun mount(src: ConstPtr<CChar>, target: ConstPtr<CChar>, fstype: ConstPtr<CChar>, flags: CUlong, data: ConstPtr<CVoid>): CInt =
+    libcFuchsiaMount(src.rawAddress.toCPointer<ByteVar>(), target.rawAddress.toCPointer<ByteVar>(), fstype.rawAddress.toCPointer<ByteVar>(), flags, data.rawAddress.toCPointer<ByteVar>())
 
 public actual fun personality(persona: CUlong): CInt =
-    libc_fuchsia_personality(persona)
+    libcFuchsiaPersonality(persona)
 
-public actual fun schedGetparam(pid: PidT, param: COpaquePointer?): CInt =
-    libc_fuchsia_schedGetparam(pid, param?.value?.toCPointer<ByteVar>())
+public actual fun schedGetparam(pid: PidT, param: MutPtr<SchedParam>): CInt =
+    libcFuchsiaSchedGetparam(pid, param.rawAddress.toCPointer<ByteVar>())
 
-public actual fun ppoll(fds: COpaquePointer?, nfds: NfdsT, timeout: COpaquePointer?, sigmask: COpaquePointer?): CInt =
-    libc_fuchsia_ppoll(fds?.value?.toCPointer<ByteVar>(), nfds, timeout?.value?.toCPointer<ByteVar>(), sigmask?.value?.toCPointer<ByteVar>())
+public actual fun ppoll(fds: MutPtr<Pollfd>, nfds: NfdsT, timeout: ConstPtr<Timespec>, sigmask: ConstPtr<SigsetT>): CInt =
+    libcFuchsiaPpoll(fds.rawAddress.toCPointer<ByteVar>(), nfds, timeout.rawAddress.toCPointer<ByteVar>(), sigmask.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadMutexTimedlock(lock: COpaquePointer?, abstime: COpaquePointer?): CInt =
-    libc_fuchsia_pthreadMutexTimedlock(lock?.value?.toCPointer<ByteVar>(), abstime?.value?.toCPointer<ByteVar>())
+public actual fun pthreadMutexTimedlock(lock: MutPtr<PthreadMutexT>, abstime: ConstPtr<Timespec>): CInt =
+    libcFuchsiaPthreadMutexTimedlock(lock.rawAddress.toCPointer<ByteVar>(), abstime.rawAddress.toCPointer<ByteVar>())
 
-public actual fun clone(cb: CloneCbCallback, childStack: COpaquePointer?, flags: CInt, arg: COpaquePointer?, vararg variadicArgs: Long): CInt =
-    libc_fuchsia_clone(0L.toCPointer<ByteVar>(), childStack?.value?.toCPointer<ByteVar>(), flags, arg?.value?.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun clone(cb: CloneCbCallback, childStack: MutPtr<CVoid>, flags: CInt, arg: MutPtr<CVoid>, vararg variadicArgs: Long): CInt =
+    libcFuchsiaClone(0L.toCPointer<ByteVar>(), childStack.rawAddress.toCPointer<ByteVar>(), flags, arg.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun schedGetscheduler(pid: PidT): CInt =
-    libc_fuchsia_schedGetscheduler(pid)
+    libcFuchsiaSchedGetscheduler(pid)
 
-public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: COpaquePointer?, rmtp: COpaquePointer?): CInt =
-    libc_fuchsia_clockNanosleep(clkId, flags, rqtp?.value?.toCPointer<ByteVar>(), rmtp?.value?.toCPointer<ByteVar>())
+public actual fun clockNanosleep(clkId: ClockidT, flags: CInt, rqtp: ConstPtr<Timespec>, rmtp: MutPtr<Timespec>): CInt =
+    libcFuchsiaClockNanosleep(clkId, flags, rqtp.rawAddress.toCPointer<ByteVar>(), rmtp.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrGetguardsize(attr: COpaquePointer?, guardsize: COpaquePointer?): CInt =
-    libc_fuchsia_pthreadAttrGetguardsize(attr?.value?.toCPointer<ByteVar>(), guardsize?.value?.toCPointer<ByteVar>())
+public actual fun pthreadAttrGetguardsize(attr: ConstPtr<PthreadAttrT>, guardsize: MutPtr<SizeT>): CInt =
+    libcFuchsiaPthreadAttrGetguardsize(attr.rawAddress.toCPointer<ByteVar>(), guardsize.rawAddress.toCPointer<ByteVar>())
 
-public actual fun pthreadAttrSetguardsize(attr: COpaquePointer?, guardsize: SizeT): CInt =
-    libc_fuchsia_pthreadAttrSetguardsize(attr?.value?.toCPointer<ByteVar>(), guardsize)
+public actual fun pthreadAttrSetguardsize(attr: MutPtr<PthreadAttrT>, guardsize: SizeT): CInt =
+    libcFuchsiaPthreadAttrSetguardsize(attr.rawAddress.toCPointer<ByteVar>(), guardsize)
 
-public actual fun sethostname(name: String?, len: SizeT): CInt =
-    libc_fuchsia_sethostname(name, len)
+public actual fun sethostname(name: ConstPtr<CChar>, len: SizeT): CInt =
+    libcFuchsiaSethostname(name.rawAddress.toCPointer<ByteVar>(), len)
 
 public actual fun schedGetPriorityMin(policy: CInt): CInt =
-    libc_fuchsia_schedGetPriorityMin(policy)
+    libcFuchsiaSchedGetPriorityMin(policy)
 
-public actual fun umount2(target: String?, flags: CInt): CInt =
-    libc_fuchsia_umount2(target, flags)
+public actual fun umount2(target: ConstPtr<CChar>, flags: CInt): CInt =
+    libcFuchsiaUmount2(target.rawAddress.toCPointer<ByteVar>(), flags)
 
-public actual fun swapon(path: String?, swapflags: CInt): CInt =
-    libc_fuchsia_swapon(path, swapflags)
+public actual fun swapon(path: ConstPtr<CChar>, swapflags: CInt): CInt =
+    libcFuchsiaSwapon(path.rawAddress.toCPointer<ByteVar>(), swapflags)
 
-public actual fun schedSetscheduler(pid: PidT, policy: CInt, param: COpaquePointer?): CInt =
-    libc_fuchsia_schedSetscheduler(pid, policy, param?.value?.toCPointer<ByteVar>())
+public actual fun schedSetscheduler(pid: PidT, policy: CInt, param: ConstPtr<SchedParam>): CInt =
+    libcFuchsiaSchedSetscheduler(pid, policy, param.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sigsuspend(mask: COpaquePointer?): CInt =
-    libc_fuchsia_sigsuspend(mask?.value?.toCPointer<ByteVar>())
+public actual fun sigsuspend(mask: ConstPtr<SigsetT>): CInt =
+    libcFuchsiaSigsuspend(mask.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getgrgidR(gid: GidT, grp: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    libc_fuchsia_getgrgidR(gid, grp?.value?.toCPointer<ByteVar>(), buf?.value?.toCPointer<ByteVar>(), buflen, result?.value?.toCPointer<ByteVar>())
+public actual fun getgrgidR(gid: GidT, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+    libcFuchsiaGetgrgidR(gid, grp.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>(), buflen, result.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sigaltstack(ss: COpaquePointer?, oss: COpaquePointer?): CInt =
-    libc_fuchsia_sigaltstack(ss?.value?.toCPointer<ByteVar>(), oss?.value?.toCPointer<ByteVar>())
+public actual fun sigaltstack(ss: ConstPtr<StackT>, oss: MutPtr<StackT>): CInt =
+    libcFuchsiaSigaltstack(ss.rawAddress.toCPointer<ByteVar>(), oss.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semClose(sem: COpaquePointer?): CInt =
-    libc_fuchsia_semClose(sem?.value?.toCPointer<ByteVar>())
+public actual fun semClose(sem: MutPtr<SemT>): CInt =
+    libcFuchsiaSemClose(sem.rawAddress.toCPointer<ByteVar>())
 
 public actual fun getdtablesize(): CInt =
-    libc_fuchsia_getdtablesize()
+    libcFuchsiaGetdtablesize()
 
-public actual fun getgrnamR(name: String?, grp: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    libc_fuchsia_getgrnamR(name, grp?.value?.toCPointer<ByteVar>(), buf?.value?.toCPointer<ByteVar>(), buflen, result?.value?.toCPointer<ByteVar>())
+public actual fun getgrnamR(name: ConstPtr<CChar>, grp: MutPtr<Group>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Group>>): CInt =
+    libcFuchsiaGetgrnamR(name.rawAddress.toCPointer<ByteVar>(), grp.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>(), buflen, result.rawAddress.toCPointer<ByteVar>())
 
-public actual fun initgroups(user: String?, group: GidT): CInt =
-    libc_fuchsia_initgroups(user, group)
+public actual fun initgroups(user: ConstPtr<CChar>, group: GidT): CInt =
+    libcFuchsiaInitgroups(user.rawAddress.toCPointer<ByteVar>(), group)
 
-public actual fun pthreadSigmask(how: CInt, set: COpaquePointer?, oldset: COpaquePointer?): CInt =
-    libc_fuchsia_pthreadSigmask(how, set?.value?.toCPointer<ByteVar>(), oldset?.value?.toCPointer<ByteVar>())
+public actual fun pthreadSigmask(how: CInt, set: ConstPtr<SigsetT>, oldset: MutPtr<SigsetT>): CInt =
+    libcFuchsiaPthreadSigmask(how, set.rawAddress.toCPointer<ByteVar>(), oldset.rawAddress.toCPointer<ByteVar>())
 
-public actual fun semOpen(name: String?, oflag: CInt, vararg variadicArgs: Long): COpaquePointer? =
-    libc_fuchsia_semOpen(name, oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.let { COpaquePointer(it.toLong()) }
+public actual fun semOpen(name: ConstPtr<CChar>, oflag: CInt, vararg variadicArgs: Long): MutPtr<SemT> =
+    MutPtr(libcFuchsiaSemOpen(name.rawAddress.toCPointer<ByteVar>(), oflag, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)?.toLong() ?: 0L)
 
-public actual fun getgrnam(name: String?): COpaquePointer? =
-    libc_fuchsia_getgrnam(name)?.let { COpaquePointer(it.toLong()) }
+public actual fun getgrnam(name: ConstPtr<CChar>): MutPtr<Group> =
+    MutPtr(libcFuchsiaGetgrnam(name.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun pthreadCancel(thread: PthreadT): CInt =
-    libc_fuchsia_pthreadCancel(thread.toLong().toCPointer<ByteVar>())
+    libcFuchsiaPthreadCancel(thread.toLong().toCPointer<ByteVar>())
 
 public actual fun pthreadKill(thread: PthreadT, sig: CInt): CInt =
-    libc_fuchsia_pthreadKill(thread.toLong().toCPointer<ByteVar>(), sig)
+    libcFuchsiaPthreadKill(thread.toLong().toCPointer<ByteVar>(), sig)
 
-public actual fun semUnlink(name: String?): CInt =
-    libc_fuchsia_semUnlink(name)
+public actual fun semUnlink(name: ConstPtr<CChar>): CInt =
+    libcFuchsiaSemUnlink(name.rawAddress.toCPointer<ByteVar>())
 
 public actual fun daemon(nochdir: CInt, noclose: CInt): CInt =
-    libc_fuchsia_daemon(nochdir, noclose)
+    libcFuchsiaDaemon(nochdir, noclose)
 
-public actual fun getpwnamR(name: String?, pwd: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    libc_fuchsia_getpwnamR(name, pwd?.value?.toCPointer<ByteVar>(), buf?.value?.toCPointer<ByteVar>(), buflen, result?.value?.toCPointer<ByteVar>())
+public actual fun getpwnamR(name: ConstPtr<CChar>, pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt =
+    libcFuchsiaGetpwnamR(name.rawAddress.toCPointer<ByteVar>(), pwd.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>(), buflen, result.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getpwuidR(uid: UidT, pwd: COpaquePointer?, buf: COpaquePointer?, buflen: SizeT, result: COpaquePointer?): CInt =
-    libc_fuchsia_getpwuidR(uid, pwd?.value?.toCPointer<ByteVar>(), buf?.value?.toCPointer<ByteVar>(), buflen, result?.value?.toCPointer<ByteVar>())
+public actual fun getpwuidR(uid: UidT, pwd: MutPtr<Passwd>, buf: MutPtr<CChar>, buflen: SizeT, result: MutPtr<MutPtr<Passwd>>): CInt =
+    libcFuchsiaGetpwuidR(uid, pwd.rawAddress.toCPointer<ByteVar>(), buf.rawAddress.toCPointer<ByteVar>(), buflen, result.rawAddress.toCPointer<ByteVar>())
 
-public actual fun sigwait(set: COpaquePointer?, sig: COpaquePointer?): CInt =
-    libc_fuchsia_sigwait(set?.value?.toCPointer<ByteVar>(), sig?.value?.toCPointer<ByteVar>())
+public actual fun sigwait(set: ConstPtr<SigsetT>, sig: MutPtr<CInt>): CInt =
+    libcFuchsiaSigwait(set.rawAddress.toCPointer<ByteVar>(), sig.rawAddress.toCPointer<ByteVar>())
 
 public actual fun pthreadAtfork(prepare: SigactionSaRestorerCallback?, parent: SigactionSaRestorerCallback?, child: SigactionSaRestorerCallback?): CInt =
-    libc_fuchsia_pthreadAtfork(0L.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
+    libcFuchsiaPthreadAtfork(0L.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>())
 
-public actual fun getgrgid(gid: GidT): COpaquePointer? =
-    libc_fuchsia_getgrgid(gid)?.let { COpaquePointer(it.toLong()) }
+public actual fun getgrgid(gid: GidT): MutPtr<Group> =
+    MutPtr(libcFuchsiaGetgrgid(gid)?.toLong() ?: 0L)
 
 public actual fun setgrent() {
-    libc_fuchsia_setgrent()
+    libcFuchsiaSetgrent()
 }
 
 public actual fun endgrent() {
-    libc_fuchsia_endgrent()
+    libcFuchsiaEndgrent()
 }
 
-public actual fun getgrent(): COpaquePointer? =
-    libc_fuchsia_getgrent()?.let { COpaquePointer(it.toLong()) }
+public actual fun getgrent(): MutPtr<Group> =
+    MutPtr(libcFuchsiaGetgrent()?.toLong() ?: 0L)
 
-public actual fun getgrouplist(user: String?, group: GidT, groups: COpaquePointer?, ngroups: COpaquePointer?): CInt =
-    libc_fuchsia_getgrouplist(user, group, groups?.value?.toCPointer<ByteVar>(), ngroups?.value?.toCPointer<ByteVar>())
+public actual fun getgrouplist(user: ConstPtr<CChar>, group: GidT, groups: MutPtr<GidT>, ngroups: MutPtr<CInt>): CInt =
+    libcFuchsiaGetgrouplist(user.rawAddress.toCPointer<ByteVar>(), group, groups.rawAddress.toCPointer<ByteVar>(), ngroups.rawAddress.toCPointer<ByteVar>())
 
-public actual fun popen(command: String?, mode: String?): FILE? =
-    libc_fuchsia_popen(command, mode)?.let { FILE(it.toLong()) }
+public actual fun popen(command: ConstPtr<CChar>, mode: ConstPtr<CChar>): MutPtr<FILE> =
+    MutPtr(libcFuchsiaPopen(command.rawAddress.toCPointer<ByteVar>(), mode.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun faccessat(dirfd: CInt, pathname: String?, mode: CInt, flags: CInt): CInt =
-    libc_fuchsia_faccessat(dirfd, pathname, mode, flags)
+public actual fun faccessat(dirfd: CInt, pathname: ConstPtr<CChar>, mode: CInt, flags: CInt): CInt =
+    libcFuchsiaFaccessat(dirfd, pathname.rawAddress.toCPointer<ByteVar>(), mode, flags)
 
-public actual fun pthreadCreate(native: COpaquePointer?, attr: COpaquePointer?, f: PthreadCreateFCallback, value: COpaquePointer?): CInt =
-    libc_fuchsia_pthreadCreate(native?.value?.toCPointer<ByteVar>(), attr?.value?.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), value?.value?.toCPointer<ByteVar>())
+public actual fun pthreadCreate(native: MutPtr<PthreadT>, attr: ConstPtr<PthreadAttrT>, f: PthreadCreateFCallback, value: MutPtr<CVoid>): CInt =
+    libcFuchsiaPthreadCreate(native.rawAddress.toCPointer<ByteVar>(), attr.rawAddress.toCPointer<ByteVar>(), 0L.toCPointer<ByteVar>(), value.rawAddress.toCPointer<ByteVar>())
 
-public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: COpaquePointer?): CInt =
-    libc_fuchsia_dlIteratePhdr(0L.toCPointer<ByteVar>(), data?.value?.toCPointer<ByteVar>())
+public actual fun dlIteratePhdr(callback: DlIteratePhdrCallbackCallback?, data: MutPtr<CVoid>): CInt =
+    libcFuchsiaDlIteratePhdr(0L.toCPointer<ByteVar>(), data.rawAddress.toCPointer<ByteVar>())

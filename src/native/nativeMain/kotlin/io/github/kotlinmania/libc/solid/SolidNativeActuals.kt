@@ -3,1239 +3,1244 @@
 package io.github.kotlinmania.libc.solid
 
 import io.github.kotlinmania.libc.*
+import io.github.kotlinmania.libc.CChar
 import io.github.kotlinmania.libc.CInt
 import io.github.kotlinmania.libc.CLong
 import io.github.kotlinmania.libc.CLonglong
-import io.github.kotlinmania.libc.COpaquePointer
+import io.github.kotlinmania.libc.CUchar
 import io.github.kotlinmania.libc.CUint
 import io.github.kotlinmania.libc.CUlong
 import io.github.kotlinmania.libc.CUlonglong
+import io.github.kotlinmania.libc.CUshort
 import io.github.kotlinmania.libc.solid.aarch64.WcharT
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_a64l
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_abort
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_abs
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_access
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_alignedAlloc
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_asctime
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_asctimeR
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_asiprintf
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_atQuickExit
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_atexit
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_atof
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_atoi
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_atol
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_atoll
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_bcmp
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_bcopy
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_bsearch
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_bzero
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_calloc
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_chdir
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_chmod
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_clearerr
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_clock
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_close
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_consttimeMemequal
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_creat
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_ctime
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_ctimeR
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_dehumanizeNumber
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_difftime
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_diprintf
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_drand48
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_dup
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_dup2
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_duplocale
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_erand48
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_exit
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_explicitMemset
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_fclose
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_fcntl
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_fdopen
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_feof
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_ferror
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_fflush
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_ffs
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_fgetc
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_fgetpos
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_fgets
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_fileno
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_fiprintf
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_fiscanf
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_flockfile
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_fopen
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_fprintf
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_fputc
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_fputs
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_fread
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_free
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_freelocale
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_freopen
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_fscanf
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_fseek
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_fseeko
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_fsetpos
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_fstat
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_ftell
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_ftello
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_ftrylockfile
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_funlockfile
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_fwrite
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_getStdioFile
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_get_OPTARG
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_get_OPTERR
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_get_OPTIND
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_get_OPTOPT
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_get_OPTRESET
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_get_SUBOPTARG
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_getc
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_getcUnlocked
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_getchar
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_getcharUnlocked
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_getcwd
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_getenv
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_getenvR
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_getopt
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_getpid
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_getprogname
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_gets
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_getsubopt
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_getw
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_getwd
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_gmtime
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_gmtimeR
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_heapsort
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_humanizeNumber
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_initstate
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_iprintf
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_isalnum
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_isalpha
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_isblank
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_iscanf
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_iscntrl
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_isdigit
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_isgraph
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_islower
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_isprint
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_ispunct
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_isspace
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_isupper
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_isxdigit
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_itoa
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_jrand48
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_l64a
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_l64aR
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_labs
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_lcong48
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_llabs
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_localeconv
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_localeconvL
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_localtime
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_localtimeR
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_lrand48
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_lseek
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_lstat
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_ltoa
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_malloc
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_mbCurMaxL
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_mblen
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_mblenL
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_mbstowcs
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_mbstowcsL
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_mbtowc
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_mbtowcL
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_memalign
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_memccpy
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_memchr
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_memcmp
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_memcpy
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_memmem
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_memmove
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_memrchr
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_memset
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_mergesort
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_mkdir
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_mkdtemp
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_mkostemp
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_mkostemps
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_mkstemp
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_mktemp
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_mktime
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_mrand48
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_newlocale
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_nlLanginfo
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_nlLanginfoL
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_nrand48
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_open
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_perror
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_popcount
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_popcount32
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_popcount64
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_popcountl
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_popcountll
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_printf
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_putc
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_putcUnlocked
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_putchar
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_putcharUnlocked
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_putenv
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_puts
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_putw
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_qabs
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_qsort
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_quickExit
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_radixsort
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_raise
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_rand
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_randR
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_random
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_read
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_realloc
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_remove
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_rename
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_rewind
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_rindex
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_rmdir
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_scanf
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_seed48
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_set_OPTARG
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_set_OPTERR
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_set_OPTIND
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_set_OPTOPT
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_set_OPTRESET
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_set_SUBOPTARG
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_setbuf
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_setenv
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_setlocale
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_setprogname
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_setstate
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_setvbuf
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_signal
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_siprintf
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_siscanf
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_sleep
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_sniprintf
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_snprintf
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_sprintf
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_sradixsort
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_srand
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_srand48
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_srandom
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_sscanf
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_stat
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_stpcpy
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_stpncpy
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strcasecmp
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strcasestr
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strcat
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strchr
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strcmp
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strcoll
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strcollL
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strcpy
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strcspn
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strdup
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strerror
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strerrorL
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strerrorR
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_stresep
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strftime
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strlcat
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strlcpy
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strlen
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strncasecmp
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strncat
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strncmp
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strncpy
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strndup
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strnlen
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strpbrk
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strrchr
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strsep
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strspn
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strstr
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strsuftoll
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strsuftollx
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strtod
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strtodL
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strtof
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strtofL
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strtok
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strtokR
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strtol
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strtolL
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strtold
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strtoldL
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strtoll
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strtollL
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strtoq
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strtoqL
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strtoul
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strtoulL
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strtoull
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strtoullL
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strtouq
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strtouqL
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strxfrm
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_strxfrmL
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_tell
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_tempnam
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_time
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_tmpfile
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_tmpnam
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_tolower
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_toupper
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_ultoa
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_ungetc
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_unlink
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_unsetenv
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_usleep
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_utime
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_vasiprintf
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_vdiprintf
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_vfiprintf
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_vfiscanf
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_vfprintf
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_viprintf
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_viscanf
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_vprintf
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_vsiprintf
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_vsiscanf
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_vsniprintf
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_vsnprintf
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_vsprintf
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_wcstombs
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_wcstombsL
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_wctomb
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_wctombL
-import io.github.kotlinmania.libc.solid.cinterop.libc_solid_write
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidA64l
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidAbort
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidAbs
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidAccess
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidAlignedAlloc
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidAsctime
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidAsctimeR
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidAsiprintf
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidAtQuickExit
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidAtexit
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidAtof
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidAtoi
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidAtol
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidAtoll
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidBcmp
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidBcopy
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidBsearch
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidBzero
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidCalloc
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidChdir
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidChmod
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidClearerr
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidClock
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidClose
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidConsttimeMemequal
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidCreat
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidCtime
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidCtimeR
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidDehumanizeNumber
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidDifftime
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidDiprintf
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidDrand48
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidDup
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidDup2
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidDuplocale
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidErand48
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidExit
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidExplicitMemset
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidFclose
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidFcntl
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidFdopen
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidFeof
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidFerror
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidFflush
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidFfs
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidFgetc
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidFgetpos
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidFgets
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidFileno
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidFiprintf
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidFiscanf
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidFlockfile
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidFopen
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidFprintf
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidFputc
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidFputs
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidFread
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidFree
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidFreelocale
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidFreopen
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidFscanf
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidFseek
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidFseeko
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidFsetpos
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidFstat
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidFtell
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidFtello
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidFtrylockfile
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidFunlockfile
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidFwrite
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidGetOPTARG
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidGetOPTERR
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidGetOPTIND
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidGetOPTOPT
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidGetOPTRESET
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidGetSUBOPTARG
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidGetStdioFile
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidGetc
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidGetcUnlocked
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidGetchar
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidGetcharUnlocked
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidGetcwd
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidGetenv
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidGetenvR
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidGetopt
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidGetpid
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidGetprogname
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidGets
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidGetsubopt
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidGetw
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidGetwd
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidGmtime
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidGmtimeR
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidHeapsort
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidHumanizeNumber
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidInitstate
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidIprintf
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidIsalnum
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidIsalpha
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidIsblank
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidIscanf
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidIscntrl
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidIsdigit
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidIsgraph
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidIslower
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidIsprint
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidIspunct
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidIsspace
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidIsupper
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidIsxdigit
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidItoa
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidJrand48
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidL64a
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidL64aR
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidLabs
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidLcong48
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidLlabs
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidLocaleconv
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidLocaleconvL
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidLocaltime
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidLocaltimeR
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidLrand48
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidLseek
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidLstat
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidLtoa
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidMalloc
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidMbCurMaxL
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidMblen
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidMblenL
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidMbstowcs
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidMbstowcsL
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidMbtowc
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidMbtowcL
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidMemalign
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidMemccpy
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidMemchr
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidMemcmp
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidMemcpy
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidMemmem
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidMemmove
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidMemrchr
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidMemset
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidMergesort
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidMkdir
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidMkdtemp
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidMkostemp
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidMkostemps
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidMkstemp
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidMktemp
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidMktime
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidMrand48
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidNewlocale
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidNlLanginfo
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidNlLanginfoL
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidNrand48
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidOpen
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidPerror
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidPopcount
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidPopcount32
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidPopcount64
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidPopcountl
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidPopcountll
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidPrintf
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidPutc
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidPutcUnlocked
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidPutchar
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidPutcharUnlocked
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidPutenv
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidPuts
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidPutw
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidQabs
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidQsort
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidQuickExit
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidRadixsort
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidRaise
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidRand
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidRandR
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidRandom
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidRead
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidRealloc
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidRemove
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidRename
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidRewind
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidRindex
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidRmdir
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidScanf
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidSeed48
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidSetOPTARG
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidSetOPTERR
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidSetOPTIND
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidSetOPTOPT
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidSetOPTRESET
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidSetSUBOPTARG
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidSetbuf
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidSetenv
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidSetlocale
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidSetprogname
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidSetstate
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidSetvbuf
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidSignal
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidSiprintf
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidSiscanf
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidSleep
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidSniprintf
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidSnprintf
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidSprintf
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidSradixsort
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidSrand
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidSrand48
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidSrandom
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidSscanf
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStat
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStpcpy
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStpncpy
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrcasecmp
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrcasestr
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrcat
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrchr
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrcmp
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrcoll
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrcollL
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrcpy
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrcspn
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrdup
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrerror
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrerrorL
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrerrorR
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStresep
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrftime
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrlcat
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrlcpy
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrlen
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrncasecmp
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrncat
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrncmp
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrncpy
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrndup
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrnlen
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrpbrk
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrrchr
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrsep
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrspn
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrstr
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrsuftoll
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrsuftollx
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrtod
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrtodL
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrtof
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrtofL
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrtok
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrtokR
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrtol
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrtolL
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrtold
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrtoldL
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrtoll
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrtollL
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrtoq
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrtoqL
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrtoul
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrtoulL
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrtoull
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrtoullL
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrtouq
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrtouqL
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrxfrm
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidStrxfrmL
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidTell
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidTempnam
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidTime
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidTmpfile
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidTmpnam
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidTolower
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidToupper
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidUltoa
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidUngetc
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidUnlink
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidUnsetenv
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidUsleep
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidUtime
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidVasiprintf
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidVdiprintf
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidVfiprintf
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidVfiscanf
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidVfprintf
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidViprintf
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidViscanf
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidVprintf
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidVsiprintf
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidVsiscanf
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidVsniprintf
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidVsnprintf
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidVsprintf
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidWcstombs
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidWcstombsL
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidWctomb
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidWctombL
+import io.github.kotlinmania.libc.solid.cinterop.libcSolidWrite
+import io.github.kotlinmania.rustlang.core.ffi.CVoid
+import io.github.kotlinmania.rustlang.core.ptr.ConstPtr
+import io.github.kotlinmania.rustlang.core.ptr.MutPtr
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.toCPointer
 import kotlinx.cinterop.toLong
 
-public actual var OPTARG: COpaquePointer?
-    get() = libc_solid_get_OPTARG()?.let { COpaquePointer(it.toLong()) }
+public actual var OPTARG: MutPtr<CChar>
+    get() = MutPtr(libcSolidGetOPTARG()?.toLong() ?: 0L)
     set(value) {
-        libc_solid_set_OPTARG(value?.value?.toCPointer<ByteVar>())
+        libcSolidSetOPTARG(value.rawAddress.toCPointer<ByteVar>())
     }
 
 public actual var OPTERR: CInt
-    get() = libc_solid_get_OPTERR()
+    get() = libcSolidGetOPTERR()
     set(value) {
-        libc_solid_set_OPTERR(value)
+        libcSolidSetOPTERR(value)
     }
 
 public actual var OPTIND: CInt
-    get() = libc_solid_get_OPTIND()
+    get() = libcSolidGetOPTIND()
     set(value) {
-        libc_solid_set_OPTIND(value)
+        libcSolidSetOPTIND(value)
     }
 
 public actual var OPTOPT: CInt
-    get() = libc_solid_get_OPTOPT()
+    get() = libcSolidGetOPTOPT()
     set(value) {
-        libc_solid_set_OPTOPT(value)
+        libcSolidSetOPTOPT(value)
     }
 
 public actual var OPTRESET: CInt
-    get() = libc_solid_get_OPTRESET()
+    get() = libcSolidGetOPTRESET()
     set(value) {
-        libc_solid_set_OPTRESET(value)
+        libcSolidSetOPTRESET(value)
     }
 
-public actual var SUBOPTARG: COpaquePointer?
-    get() = libc_solid_get_SUBOPTARG()?.let { COpaquePointer(it.toLong()) }
+public actual var SUBOPTARG: MutPtr<CChar>
+    get() = MutPtr(libcSolidGetSUBOPTARG()?.toLong() ?: 0L)
     set(value) {
-        libc_solid_set_SUBOPTARG(value?.value?.toCPointer<ByteVar>())
+        libcSolidSetSUBOPTARG(value.rawAddress.toCPointer<ByteVar>())
     }
 
 public actual fun isalnum(c: CInt): CInt =
-    libc_solid_isalnum(c)
+    libcSolidIsalnum(c)
 
 public actual fun isalpha(c: CInt): CInt =
-    libc_solid_isalpha(c)
+    libcSolidIsalpha(c)
 
 public actual fun iscntrl(c: CInt): CInt =
-    libc_solid_iscntrl(c)
+    libcSolidIscntrl(c)
 
 public actual fun isdigit(c: CInt): CInt =
-    libc_solid_isdigit(c)
+    libcSolidIsdigit(c)
 
 public actual fun isgraph(c: CInt): CInt =
-    libc_solid_isgraph(c)
+    libcSolidIsgraph(c)
 
 public actual fun islower(c: CInt): CInt =
-    libc_solid_islower(c)
+    libcSolidIslower(c)
 
 public actual fun isprint(c: CInt): CInt =
-    libc_solid_isprint(c)
+    libcSolidIsprint(c)
 
 public actual fun ispunct(c: CInt): CInt =
-    libc_solid_ispunct(c)
+    libcSolidIspunct(c)
 
 public actual fun isspace(c: CInt): CInt =
-    libc_solid_isspace(c)
+    libcSolidIsspace(c)
 
 public actual fun isupper(c: CInt): CInt =
-    libc_solid_isupper(c)
+    libcSolidIsupper(c)
 
 public actual fun isxdigit(c: CInt): CInt =
-    libc_solid_isxdigit(c)
+    libcSolidIsxdigit(c)
 
 public actual fun isblank(c: CInt): CInt =
-    libc_solid_isblank(c)
+    libcSolidIsblank(c)
 
 public actual fun tolower(c: CInt): CInt =
-    libc_solid_tolower(c)
+    libcSolidTolower(c)
 
 public actual fun toupper(c: CInt): CInt =
-    libc_solid_toupper(c)
+    libcSolidToupper(c)
 
-public actual fun getStdioFile(fileno: CInt): FILE? =
-    libc_solid_getStdioFile(fileno)?.let { FILE(it.toLong()) }
+public actual fun getStdioFile(fileno: CInt): MutPtr<FILE> =
+    MutPtr(libcSolidGetStdioFile(fileno)?.toLong() ?: 0L)
 
-public actual fun clearerr(arg1: FILE?) {
-    libc_solid_clearerr(arg1?.handle?.toCPointer<ByteVar>())
+public actual fun clearerr(arg1: MutPtr<FILE>) {
+    libcSolidClearerr(arg1.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun fclose(arg1: FILE?): CInt =
-    libc_solid_fclose(arg1?.handle?.toCPointer<ByteVar>())
+public actual fun fclose(arg1: MutPtr<FILE>): CInt =
+    libcSolidFclose(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun feof(arg1: FILE?): CInt =
-    libc_solid_feof(arg1?.handle?.toCPointer<ByteVar>())
+public actual fun feof(arg1: MutPtr<FILE>): CInt =
+    libcSolidFeof(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun ferror(arg1: FILE?): CInt =
-    libc_solid_ferror(arg1?.handle?.toCPointer<ByteVar>())
+public actual fun ferror(arg1: MutPtr<FILE>): CInt =
+    libcSolidFerror(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fflush(arg1: FILE?): CInt =
-    libc_solid_fflush(arg1?.handle?.toCPointer<ByteVar>())
+public actual fun fflush(arg1: MutPtr<FILE>): CInt =
+    libcSolidFflush(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fgetc(arg1: FILE?): CInt =
-    libc_solid_fgetc(arg1?.handle?.toCPointer<ByteVar>())
+public actual fun fgetc(arg1: MutPtr<FILE>): CInt =
+    libcSolidFgetc(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fgets(arg1: COpaquePointer?, arg2: CInt, arg3: FILE?): COpaquePointer? =
-    libc_solid_fgets(arg1?.value?.toCPointer<ByteVar>(), arg2, arg3?.handle?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun fgets(arg1: MutPtr<CChar>, arg2: CInt, arg3: MutPtr<FILE>): MutPtr<CChar> =
+    MutPtr(libcSolidFgets(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun fopen(arg1: String?, arg2: String?): FILE? =
-    libc_solid_fopen(arg1, arg2)?.let { FILE(it.toLong()) }
+public actual fun fopen(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>): MutPtr<FILE> =
+    MutPtr(libcSolidFopen(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun fprintf(arg1: FILE?, arg2: String?, vararg variadicArgs: Long): CInt =
-    libc_solid_fprintf(arg1?.handle?.toCPointer<ByteVar>(), arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun fprintf(arg1: MutPtr<FILE>, arg2: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    libcSolidFprintf(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun fputc(arg1: CInt, arg2: FILE?): CInt =
-    libc_solid_fputc(arg1, arg2?.handle?.toCPointer<ByteVar>())
+public actual fun fputc(arg1: CInt, arg2: MutPtr<FILE>): CInt =
+    libcSolidFputc(arg1, arg2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fputs(arg1: String?, arg2: FILE?): CInt =
-    libc_solid_fputs(arg1, arg2?.handle?.toCPointer<ByteVar>())
+public actual fun fputs(arg1: ConstPtr<CChar>, arg2: MutPtr<FILE>): CInt =
+    libcSolidFputs(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fread(arg1: COpaquePointer?, arg2: SizeT, arg3: SizeT, arg4: FILE?): SizeT =
-    libc_solid_fread(arg1?.value?.toCPointer<ByteVar>(), arg2, arg3, arg4?.handle?.toCPointer<ByteVar>())
+public actual fun fread(arg1: MutPtr<CVoid>, arg2: SizeT, arg3: SizeT, arg4: MutPtr<FILE>): SizeT =
+    libcSolidFread(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3, arg4.rawAddress.toCPointer<ByteVar>())
 
-public actual fun freopen(arg1: String?, arg2: String?, arg3: FILE?): FILE? =
-    libc_solid_freopen(arg1, arg2, arg3?.handle?.toCPointer<ByteVar>())?.let { FILE(it.toLong()) }
+public actual fun freopen(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>, arg3: MutPtr<FILE>): MutPtr<FILE> =
+    MutPtr(libcSolidFreopen(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun fscanf(arg1: FILE?, arg2: String?, vararg variadicArgs: Long): CInt =
-    libc_solid_fscanf(arg1?.handle?.toCPointer<ByteVar>(), arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun fscanf(arg1: MutPtr<FILE>, arg2: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    libcSolidFscanf(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun fseek(arg1: FILE?, arg2: CLong, arg3: CInt): CInt =
-    libc_solid_fseek(arg1?.handle?.toCPointer<ByteVar>(), arg2, arg3)
+public actual fun fseek(arg1: MutPtr<FILE>, arg2: CLong, arg3: CInt): CInt =
+    libcSolidFseek(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3)
 
-public actual fun ftell(arg1: FILE?): CLong =
-    libc_solid_ftell(arg1?.handle?.toCPointer<ByteVar>())
+public actual fun ftell(arg1: MutPtr<FILE>): CLong =
+    libcSolidFtell(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fwrite(arg1: COpaquePointer?, arg2: SizeT, arg3: SizeT, arg4: FILE?): SizeT =
-    libc_solid_fwrite(arg1?.value?.toCPointer<ByteVar>(), arg2, arg3, arg4?.handle?.toCPointer<ByteVar>())
+public actual fun fwrite(arg1: ConstPtr<CVoid>, arg2: SizeT, arg3: SizeT, arg4: MutPtr<FILE>): SizeT =
+    libcSolidFwrite(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3, arg4.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getc(arg1: FILE?): CInt =
-    libc_solid_getc(arg1?.handle?.toCPointer<ByteVar>())
+public actual fun getc(arg1: MutPtr<FILE>): CInt =
+    libcSolidGetc(arg1.rawAddress.toCPointer<ByteVar>())
 
 public actual fun getchar(): CInt =
-    libc_solid_getchar()
+    libcSolidGetchar()
 
-public actual fun perror(arg1: String?) {
-    libc_solid_perror(arg1)
+public actual fun perror(arg1: ConstPtr<CChar>) {
+    libcSolidPerror(arg1.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun printf(arg1: String?, vararg variadicArgs: Long): CInt =
-    libc_solid_printf(arg1, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun printf(arg1: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    libcSolidPrintf(arg1.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun putc(arg1: CInt, arg2: FILE?): CInt =
-    libc_solid_putc(arg1, arg2?.handle?.toCPointer<ByteVar>())
+public actual fun putc(arg1: CInt, arg2: MutPtr<FILE>): CInt =
+    libcSolidPutc(arg1, arg2.rawAddress.toCPointer<ByteVar>())
 
 public actual fun putchar(arg1: CInt): CInt =
-    libc_solid_putchar(arg1)
+    libcSolidPutchar(arg1)
 
-public actual fun puts(arg1: String?): CInt =
-    libc_solid_puts(arg1)
+public actual fun puts(arg1: ConstPtr<CChar>): CInt =
+    libcSolidPuts(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun remove(arg1: String?): CInt =
-    libc_solid_remove(arg1)
+public actual fun remove(arg1: ConstPtr<CChar>): CInt =
+    libcSolidRemove(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun rewind(arg1: FILE?) {
-    libc_solid_rewind(arg1?.handle?.toCPointer<ByteVar>())
+public actual fun rewind(arg1: MutPtr<FILE>) {
+    libcSolidRewind(arg1.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun scanf(arg1: String?, vararg variadicArgs: Long): CInt =
-    libc_solid_scanf(arg1, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun scanf(arg1: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    libcSolidScanf(arg1.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun setbuf(arg1: FILE?, arg2: COpaquePointer?) {
-    libc_solid_setbuf(arg1?.handle?.toCPointer<ByteVar>(), arg2?.value?.toCPointer<ByteVar>())
+public actual fun setbuf(arg1: MutPtr<FILE>, arg2: MutPtr<CChar>) {
+    libcSolidSetbuf(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun setvbuf(arg1: FILE?, arg2: COpaquePointer?, arg3: CInt, arg4: SizeT): CInt =
-    libc_solid_setvbuf(arg1?.handle?.toCPointer<ByteVar>(), arg2?.value?.toCPointer<ByteVar>(), arg3, arg4)
+public actual fun setvbuf(arg1: MutPtr<FILE>, arg2: MutPtr<CChar>, arg3: CInt, arg4: SizeT): CInt =
+    libcSolidSetvbuf(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3, arg4)
 
-public actual fun sscanf(arg1: String?, arg2: String?, vararg variadicArgs: Long): CInt =
-    libc_solid_sscanf(arg1, arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun sscanf(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    libcSolidSscanf(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun tmpfile(): FILE? =
-    libc_solid_tmpfile()?.let { FILE(it.toLong()) }
+public actual fun tmpfile(): MutPtr<FILE> =
+    MutPtr(libcSolidTmpfile()?.toLong() ?: 0L)
 
-public actual fun ungetc(arg1: CInt, arg2: FILE?): CInt =
-    libc_solid_ungetc(arg1, arg2?.handle?.toCPointer<ByteVar>())
+public actual fun ungetc(arg1: CInt, arg2: MutPtr<FILE>): CInt =
+    libcSolidUngetc(arg1, arg2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun vfprintf(arg1: FILE?, arg2: String?, arg3: VaList): CInt =
-    libc_solid_vfprintf(arg1?.handle?.toCPointer<ByteVar>(), arg2, arg3?.value?.toCPointer<ByteVar>())
+public actual fun vfprintf(arg1: MutPtr<FILE>, arg2: ConstPtr<CChar>, arg3: VaList): CInt =
+    libcSolidVfprintf(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3.rawAddress.toCPointer<ByteVar>())
 
-public actual fun vprintf(arg1: String?, arg2: VaList): CInt =
-    libc_solid_vprintf(arg1, arg2?.value?.toCPointer<ByteVar>())
+public actual fun vprintf(arg1: ConstPtr<CChar>, arg2: VaList): CInt =
+    libcSolidVprintf(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun gets(arg1: COpaquePointer?): COpaquePointer? =
-    libc_solid_gets(arg1?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun gets(arg1: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcSolidGets(arg1.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun sprintf(arg1: COpaquePointer?, arg2: String?, vararg variadicArgs: Long): CInt =
-    libc_solid_sprintf(arg1?.value?.toCPointer<ByteVar>(), arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun sprintf(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    libcSolidSprintf(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun tmpnam(arg1: String?): COpaquePointer? =
-    libc_solid_tmpnam(arg1)?.let { COpaquePointer(it.toLong()) }
+public actual fun tmpnam(arg1: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcSolidTmpnam(arg1.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun vsprintf(arg1: COpaquePointer?, arg2: String?, arg3: VaList): CInt =
-    libc_solid_vsprintf(arg1?.value?.toCPointer<ByteVar>(), arg2, arg3?.value?.toCPointer<ByteVar>())
+public actual fun vsprintf(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, arg3: VaList): CInt =
+    libcSolidVsprintf(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3.rawAddress.toCPointer<ByteVar>())
 
-public actual fun rename(arg1: String?, arg2: String?): CInt =
-    libc_solid_rename(arg1, arg2)
+public actual fun rename(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>): CInt =
+    libcSolidRename(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun asiprintf(arg1: COpaquePointer?, arg2: String?, vararg variadicArgs: Long): CInt =
-    libc_solid_asiprintf(arg1?.value?.toCPointer<ByteVar>(), arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun asiprintf(arg1: MutPtr<MutPtr<CChar>>, arg2: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    libcSolidAsiprintf(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun fiprintf(arg1: FILE?, arg2: String?, vararg variadicArgs: Long): CInt =
-    libc_solid_fiprintf(arg1?.handle?.toCPointer<ByteVar>(), arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun fiprintf(arg1: MutPtr<FILE>, arg2: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    libcSolidFiprintf(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun fiscanf(arg1: FILE?, arg2: String?, vararg variadicArgs: Long): CInt =
-    libc_solid_fiscanf(arg1?.handle?.toCPointer<ByteVar>(), arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun fiscanf(arg1: MutPtr<FILE>, arg2: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    libcSolidFiscanf(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun iprintf(arg1: String?, vararg variadicArgs: Long): CInt =
-    libc_solid_iprintf(arg1, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun iprintf(arg1: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    libcSolidIprintf(arg1.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun iscanf(arg1: String?, vararg variadicArgs: Long): CInt =
-    libc_solid_iscanf(arg1, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun iscanf(arg1: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    libcSolidIscanf(arg1.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun siprintf(arg1: COpaquePointer?, arg2: String?, vararg variadicArgs: Long): CInt =
-    libc_solid_siprintf(arg1?.value?.toCPointer<ByteVar>(), arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun siprintf(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    libcSolidSiprintf(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun siscanf(arg1: COpaquePointer?, arg2: String?, vararg variadicArgs: Long): CInt =
-    libc_solid_siscanf(arg1?.value?.toCPointer<ByteVar>(), arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun siscanf(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    libcSolidSiscanf(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun sniprintf(arg1: COpaquePointer?, arg2: SizeT, arg3: String?, vararg variadicArgs: Long): CInt =
-    libc_solid_sniprintf(arg1?.value?.toCPointer<ByteVar>(), arg2, arg3, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun sniprintf(arg1: MutPtr<CChar>, arg2: SizeT, arg3: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    libcSolidSniprintf(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun vasiprintf(arg1: COpaquePointer?, arg2: String?, arg3: VaList): CInt =
-    libc_solid_vasiprintf(arg1?.value?.toCPointer<ByteVar>(), arg2, arg3?.value?.toCPointer<ByteVar>())
+public actual fun vasiprintf(arg1: MutPtr<MutPtr<CChar>>, arg2: ConstPtr<CChar>, arg3: VaList): CInt =
+    libcSolidVasiprintf(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3.rawAddress.toCPointer<ByteVar>())
 
-public actual fun vfiprintf(arg1: FILE?, arg2: String?, arg3: VaList): CInt =
-    libc_solid_vfiprintf(arg1?.handle?.toCPointer<ByteVar>(), arg2, arg3?.value?.toCPointer<ByteVar>())
+public actual fun vfiprintf(arg1: MutPtr<FILE>, arg2: ConstPtr<CChar>, arg3: VaList): CInt =
+    libcSolidVfiprintf(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3.rawAddress.toCPointer<ByteVar>())
 
-public actual fun vfiscanf(arg1: FILE?, arg2: String?, arg3: VaList): CInt =
-    libc_solid_vfiscanf(arg1?.handle?.toCPointer<ByteVar>(), arg2, arg3?.value?.toCPointer<ByteVar>())
+public actual fun vfiscanf(arg1: MutPtr<FILE>, arg2: ConstPtr<CChar>, arg3: VaList): CInt =
+    libcSolidVfiscanf(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3.rawAddress.toCPointer<ByteVar>())
 
-public actual fun viprintf(arg1: String?, arg2: VaList): CInt =
-    libc_solid_viprintf(arg1, arg2?.value?.toCPointer<ByteVar>())
+public actual fun viprintf(arg1: ConstPtr<CChar>, arg2: VaList): CInt =
+    libcSolidViprintf(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun viscanf(arg1: String?, arg2: VaList): CInt =
-    libc_solid_viscanf(arg1, arg2?.value?.toCPointer<ByteVar>())
+public actual fun viscanf(arg1: ConstPtr<CChar>, arg2: VaList): CInt =
+    libcSolidViscanf(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun vsiprintf(arg1: COpaquePointer?, arg2: String?, arg3: VaList): CInt =
-    libc_solid_vsiprintf(arg1?.value?.toCPointer<ByteVar>(), arg2, arg3?.value?.toCPointer<ByteVar>())
+public actual fun vsiprintf(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, arg3: VaList): CInt =
+    libcSolidVsiprintf(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3.rawAddress.toCPointer<ByteVar>())
 
-public actual fun vsiscanf(arg1: String?, arg2: String?, arg3: VaList): CInt =
-    libc_solid_vsiscanf(arg1, arg2, arg3?.value?.toCPointer<ByteVar>())
+public actual fun vsiscanf(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>, arg3: VaList): CInt =
+    libcSolidVsiscanf(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3.rawAddress.toCPointer<ByteVar>())
 
-public actual fun vsniprintf(arg1: COpaquePointer?, arg2: SizeT, arg3: String?, arg4: VaList): CInt =
-    libc_solid_vsniprintf(arg1?.value?.toCPointer<ByteVar>(), arg2, arg3, arg4?.value?.toCPointer<ByteVar>())
+public actual fun vsniprintf(arg1: MutPtr<CChar>, arg2: SizeT, arg3: ConstPtr<CChar>, arg4: VaList): CInt =
+    libcSolidVsniprintf(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3.rawAddress.toCPointer<ByteVar>(), arg4.rawAddress.toCPointer<ByteVar>())
 
-public actual fun vdiprintf(arg1: CInt, arg2: String?, arg3: VaList): CInt =
-    libc_solid_vdiprintf(arg1, arg2, arg3?.value?.toCPointer<ByteVar>())
+public actual fun vdiprintf(arg1: CInt, arg2: ConstPtr<CChar>, arg3: VaList): CInt =
+    libcSolidVdiprintf(arg1, arg2.rawAddress.toCPointer<ByteVar>(), arg3.rawAddress.toCPointer<ByteVar>())
 
-public actual fun diprintf(arg1: CInt, arg2: String?, vararg variadicArgs: Long): CInt =
-    libc_solid_diprintf(arg1, arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun diprintf(arg1: CInt, arg2: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    libcSolidDiprintf(arg1, arg2.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun fgetpos(arg1: FILE?, arg2: COpaquePointer?): CInt =
-    libc_solid_fgetpos(arg1?.handle?.toCPointer<ByteVar>(), arg2?.value?.toCPointer<ByteVar>())
+public actual fun fgetpos(arg1: MutPtr<FILE>, arg2: MutPtr<FposT>): CInt =
+    libcSolidFgetpos(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fsetpos(arg1: FILE?, arg2: COpaquePointer?): CInt =
-    libc_solid_fsetpos(arg1?.handle?.toCPointer<ByteVar>(), arg2?.value?.toCPointer<ByteVar>())
+public actual fun fsetpos(arg1: MutPtr<FILE>, arg2: ConstPtr<FposT>): CInt =
+    libcSolidFsetpos(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fdopen(arg1: CInt, arg2: String?): FILE? =
-    libc_solid_fdopen(arg1, arg2)?.let { FILE(it.toLong()) }
+public actual fun fdopen(arg1: CInt, arg2: ConstPtr<CChar>): MutPtr<FILE> =
+    MutPtr(libcSolidFdopen(arg1, arg2.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun fileno(arg1: FILE?): CInt =
-    libc_solid_fileno(arg1?.handle?.toCPointer<ByteVar>())
+public actual fun fileno(arg1: MutPtr<FILE>): CInt =
+    libcSolidFileno(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun flockfile(arg1: FILE?) {
-    libc_solid_flockfile(arg1?.handle?.toCPointer<ByteVar>())
+public actual fun flockfile(arg1: MutPtr<FILE>) {
+    libcSolidFlockfile(arg1.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun ftrylockfile(arg1: FILE?): CInt =
-    libc_solid_ftrylockfile(arg1?.handle?.toCPointer<ByteVar>())
+public actual fun ftrylockfile(arg1: MutPtr<FILE>): CInt =
+    libcSolidFtrylockfile(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun funlockfile(arg1: FILE?) {
-    libc_solid_funlockfile(arg1?.handle?.toCPointer<ByteVar>())
+public actual fun funlockfile(arg1: MutPtr<FILE>) {
+    libcSolidFunlockfile(arg1.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun getcUnlocked(arg1: FILE?): CInt =
-    libc_solid_getcUnlocked(arg1?.handle?.toCPointer<ByteVar>())
+public actual fun getcUnlocked(arg1: MutPtr<FILE>): CInt =
+    libcSolidGetcUnlocked(arg1.rawAddress.toCPointer<ByteVar>())
 
 public actual fun getcharUnlocked(): CInt =
-    libc_solid_getcharUnlocked()
+    libcSolidGetcharUnlocked()
 
-public actual fun putcUnlocked(arg1: CInt, arg2: FILE?): CInt =
-    libc_solid_putcUnlocked(arg1, arg2?.handle?.toCPointer<ByteVar>())
+public actual fun putcUnlocked(arg1: CInt, arg2: MutPtr<FILE>): CInt =
+    libcSolidPutcUnlocked(arg1, arg2.rawAddress.toCPointer<ByteVar>())
 
 public actual fun putcharUnlocked(arg1: CInt): CInt =
-    libc_solid_putcharUnlocked(arg1)
+    libcSolidPutcharUnlocked(arg1)
 
-public actual fun snprintf(arg1: COpaquePointer?, arg2: SizeT, arg3: String?, vararg variadicArgs: Long): CInt =
-    libc_solid_snprintf(arg1?.value?.toCPointer<ByteVar>(), arg2, arg3, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun snprintf(arg1: MutPtr<CChar>, arg2: SizeT, arg3: ConstPtr<CChar>, vararg variadicArgs: Long): CInt =
+    libcSolidSnprintf(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3.rawAddress.toCPointer<ByteVar>(), variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun vsnprintf(arg1: COpaquePointer?, arg2: SizeT, arg3: String?, arg4: VaList): CInt =
-    libc_solid_vsnprintf(arg1?.value?.toCPointer<ByteVar>(), arg2, arg3, arg4?.value?.toCPointer<ByteVar>())
+public actual fun vsnprintf(arg1: MutPtr<CChar>, arg2: SizeT, arg3: ConstPtr<CChar>, arg4: VaList): CInt =
+    libcSolidVsnprintf(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3.rawAddress.toCPointer<ByteVar>(), arg4.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getw(arg1: FILE?): CInt =
-    libc_solid_getw(arg1?.handle?.toCPointer<ByteVar>())
+public actual fun getw(arg1: MutPtr<FILE>): CInt =
+    libcSolidGetw(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun putw(arg1: CInt, arg2: FILE?): CInt =
-    libc_solid_putw(arg1, arg2?.handle?.toCPointer<ByteVar>())
+public actual fun putw(arg1: CInt, arg2: MutPtr<FILE>): CInt =
+    libcSolidPutw(arg1, arg2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun tempnam(arg1: String?, arg2: String?): COpaquePointer? =
-    libc_solid_tempnam(arg1, arg2)?.let { COpaquePointer(it.toLong()) }
+public actual fun tempnam(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcSolidTempnam(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun fseeko(stream: FILE?, offset: OffT, whence: CInt): CInt =
-    libc_solid_fseeko(stream?.handle?.toCPointer<ByteVar>(), offset, whence)
+public actual fun fseeko(stream: MutPtr<FILE>, offset: OffT, whence: CInt): CInt =
+    libcSolidFseeko(stream.rawAddress.toCPointer<ByteVar>(), offset, whence)
 
-public actual fun ftello(stream: FILE?): OffT =
-    libc_solid_ftello(stream?.handle?.toCPointer<ByteVar>())
+public actual fun ftello(stream: MutPtr<FILE>): OffT =
+    libcSolidFtello(stream.rawAddress.toCPointer<ByteVar>())
 
-public actual fun atof(arg1: String?): Double =
-    libc_solid_atof(arg1)
+public actual fun atof(arg1: ConstPtr<CChar>): Double =
+    libcSolidAtof(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strtod(arg1: String?, arg2: COpaquePointer?): Double =
-    libc_solid_strtod(arg1, arg2?.value?.toCPointer<ByteVar>())
+public actual fun strtod(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>): Double =
+    libcSolidStrtod(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())
 
 public actual fun drand48(): Double =
-    libc_solid_drand48()
+    libcSolidDrand48()
 
-public actual fun erand48(arg1: COpaquePointer?): Double =
-    libc_solid_erand48(arg1?.value?.toCPointer<ByteVar>())
+public actual fun erand48(arg1: MutPtr<CUshort>): Double =
+    libcSolidErand48(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strtof(arg1: String?, arg2: COpaquePointer?): Float =
-    libc_solid_strtof(arg1, arg2?.value?.toCPointer<ByteVar>())
+public actual fun strtof(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>): Float =
+    libcSolidStrtof(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strtold(arg1: String?, arg2: COpaquePointer?): Double =
-    libc_solid_strtold(arg1, arg2?.value?.toCPointer<ByteVar>())
+public actual fun strtold(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>): Double =
+    libcSolidStrtold(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strtodL(arg1: String?, arg2: COpaquePointer?, arg3: LocaleT): Double =
-    libc_solid_strtodL(arg1, arg2?.value?.toCPointer<ByteVar>(), arg3.toLong().toCPointer<ByteVar>())
+public actual fun strtodL(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: LocaleT): Double =
+    libcSolidStrtodL(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3.toLong().toCPointer<ByteVar>())
 
-public actual fun strtofL(arg1: String?, arg2: COpaquePointer?, arg3: LocaleT): Float =
-    libc_solid_strtofL(arg1, arg2?.value?.toCPointer<ByteVar>(), arg3.toLong().toCPointer<ByteVar>())
+public actual fun strtofL(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: LocaleT): Float =
+    libcSolidStrtofL(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3.toLong().toCPointer<ByteVar>())
 
-public actual fun strtoldL(arg1: String?, arg2: COpaquePointer?, arg3: LocaleT): Double =
-    libc_solid_strtoldL(arg1, arg2?.value?.toCPointer<ByteVar>(), arg3.toLong().toCPointer<ByteVar>())
+public actual fun strtoldL(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: LocaleT): Double =
+    libcSolidStrtoldL(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3.toLong().toCPointer<ByteVar>())
 
 public actual fun exit(arg1: CInt): Nothing {
-    libc_solid_exit(arg1)
+    libcSolidExit(arg1)
     error("Unreachable noreturn C function exit")
 }
 
 public actual fun abort(): Nothing {
-    libc_solid_abort()
+    libcSolidAbort()
     error("Unreachable noreturn C function abort")
 }
 
 public actual fun abs(arg1: CInt): CInt =
-    libc_solid_abs(arg1)
+    libcSolidAbs(arg1)
 
 public actual fun atexit(arg1: AtexitArg1Callback?): CInt =
-    libc_solid_atexit(0L.toCPointer<ByteVar>())
+    libcSolidAtexit(0L.toCPointer<ByteVar>())
 
-public actual fun atoi(arg1: String?): CInt =
-    libc_solid_atoi(arg1)
+public actual fun atoi(arg1: ConstPtr<CChar>): CInt =
+    libcSolidAtoi(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun atol(arg1: String?): CLong =
-    libc_solid_atol(arg1)
+public actual fun atol(arg1: ConstPtr<CChar>): CLong =
+    libcSolidAtol(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun itoa(arg1: CInt, arg2: COpaquePointer?, arg3: CInt): COpaquePointer? =
-    libc_solid_itoa(arg1, arg2?.value?.toCPointer<ByteVar>(), arg3)?.let { COpaquePointer(it.toLong()) }
+public actual fun itoa(arg1: CInt, arg2: MutPtr<CChar>, arg3: CInt): MutPtr<CChar> =
+    MutPtr(libcSolidItoa(arg1, arg2.rawAddress.toCPointer<ByteVar>(), arg3)?.toLong() ?: 0L)
 
-public actual fun ltoa(arg1: CLong, arg2: COpaquePointer?, arg3: CInt): COpaquePointer? =
-    libc_solid_ltoa(arg1, arg2?.value?.toCPointer<ByteVar>(), arg3)?.let { COpaquePointer(it.toLong()) }
+public actual fun ltoa(arg1: CLong, arg2: MutPtr<CChar>, arg3: CInt): MutPtr<CChar> =
+    MutPtr(libcSolidLtoa(arg1, arg2.rawAddress.toCPointer<ByteVar>(), arg3)?.toLong() ?: 0L)
 
-public actual fun ultoa(arg1: CUlong, arg2: COpaquePointer?, arg3: CInt): COpaquePointer? =
-    libc_solid_ultoa(arg1, arg2?.value?.toCPointer<ByteVar>(), arg3)?.let { COpaquePointer(it.toLong()) }
+public actual fun ultoa(arg1: CUlong, arg2: MutPtr<CChar>, arg3: CInt): MutPtr<CChar> =
+    MutPtr(libcSolidUltoa(arg1, arg2.rawAddress.toCPointer<ByteVar>(), arg3)?.toLong() ?: 0L)
 
-public actual fun bsearch(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: SizeT, arg4: SizeT, arg5: BsearchArg5Callback?): COpaquePointer? =
-    libc_solid_bsearch(arg1?.value?.toCPointer<ByteVar>(), arg2?.value?.toCPointer<ByteVar>(), arg3, arg4, 0L.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun bsearch(arg1: ConstPtr<CVoid>, arg2: ConstPtr<CVoid>, arg3: SizeT, arg4: SizeT, arg5: BsearchArg5Callback?): MutPtr<CVoid> =
+    MutPtr(libcSolidBsearch(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3, arg4, 0L.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun calloc(arg1: SizeT, arg2: SizeT): COpaquePointer? =
-    libc_solid_calloc(arg1, arg2)?.let { COpaquePointer(it.toLong()) }
+public actual fun calloc(arg1: SizeT, arg2: SizeT): MutPtr<CVoid> =
+    MutPtr(libcSolidCalloc(arg1, arg2)?.toLong() ?: 0L)
 
 public actual fun div(arg1: CInt, arg2: CInt): DivT =
     DivT()
 
-public actual fun free(arg1: COpaquePointer?) {
-    libc_solid_free(arg1?.value?.toCPointer<ByteVar>())
+public actual fun free(arg1: MutPtr<CVoid>) {
+    libcSolidFree(arg1.rawAddress.toCPointer<ByteVar>())
 }
 
-public actual fun getenv(arg1: String?): COpaquePointer? =
-    libc_solid_getenv(arg1)?.let { COpaquePointer(it.toLong()) }
+public actual fun getenv(arg1: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcSolidGetenv(arg1.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun labs(arg1: CLong): CLong =
-    libc_solid_labs(arg1)
+    libcSolidLabs(arg1)
 
 public actual fun ldiv(arg1: CLong, arg2: CLong): LdivT =
     LdivT()
 
-public actual fun malloc(arg1: SizeT): COpaquePointer? =
-    libc_solid_malloc(arg1)?.let { COpaquePointer(it.toLong()) }
+public actual fun malloc(arg1: SizeT): MutPtr<CVoid> =
+    MutPtr(libcSolidMalloc(arg1)?.toLong() ?: 0L)
 
-public actual fun qsort(arg1: COpaquePointer?, arg2: SizeT, arg3: SizeT, arg4: BsearchArg5Callback?) {
-    libc_solid_qsort(arg1?.value?.toCPointer<ByteVar>(), arg2, arg3, 0L.toCPointer<ByteVar>())
+public actual fun qsort(arg1: MutPtr<CVoid>, arg2: SizeT, arg3: SizeT, arg4: BsearchArg5Callback?) {
+    libcSolidQsort(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3, 0L.toCPointer<ByteVar>())
 }
 
 public actual fun rand(): CInt =
-    libc_solid_rand()
+    libcSolidRand()
 
-public actual fun realloc(arg1: COpaquePointer?, arg2: SizeT): COpaquePointer? =
-    libc_solid_realloc(arg1?.value?.toCPointer<ByteVar>(), arg2)?.let { COpaquePointer(it.toLong()) }
+public actual fun realloc(arg1: MutPtr<CVoid>, arg2: SizeT): MutPtr<CVoid> =
+    MutPtr(libcSolidRealloc(arg1.rawAddress.toCPointer<ByteVar>(), arg2)?.toLong() ?: 0L)
 
 public actual fun srand(arg1: CUint) {
-    libc_solid_srand(arg1)
+    libcSolidSrand(arg1)
 }
 
-public actual fun strtol(arg1: String?, arg2: COpaquePointer?, arg3: CInt): CLong =
-    libc_solid_strtol(arg1, arg2?.value?.toCPointer<ByteVar>(), arg3)
+public actual fun strtol(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt): CLong =
+    libcSolidStrtol(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 
-public actual fun strtoul(arg1: String?, arg2: COpaquePointer?, arg3: CInt): CUlong =
-    libc_solid_strtoul(arg1, arg2?.value?.toCPointer<ByteVar>(), arg3)
+public actual fun strtoul(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt): CUlong =
+    libcSolidStrtoul(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 
-public actual fun mblen(arg1: String?, arg2: SizeT): CInt =
-    libc_solid_mblen(arg1, arg2)
+public actual fun mblen(arg1: ConstPtr<CChar>, arg2: SizeT): CInt =
+    libcSolidMblen(arg1.rawAddress.toCPointer<ByteVar>(), arg2)
 
-public actual fun mbstowcs(arg1: COpaquePointer?, arg2: String?, arg3: SizeT): SizeT =
-    libc_solid_mbstowcs(arg1?.value?.toCPointer<ByteVar>(), arg2, arg3)
+public actual fun mbstowcs(arg1: MutPtr<WcharT>, arg2: ConstPtr<CChar>, arg3: SizeT): SizeT =
+    libcSolidMbstowcs(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 
-public actual fun wctomb(arg1: COpaquePointer?, arg2: WcharT): CInt =
-    libc_solid_wctomb(arg1?.value?.toCPointer<ByteVar>(), arg2)
+public actual fun wctomb(arg1: MutPtr<CChar>, arg2: WcharT): CInt =
+    libcSolidWctomb(arg1.rawAddress.toCPointer<ByteVar>(), arg2)
 
-public actual fun mbtowc(arg1: COpaquePointer?, arg2: String?, arg3: SizeT): CInt =
-    libc_solid_mbtowc(arg1?.value?.toCPointer<ByteVar>(), arg2, arg3)
+public actual fun mbtowc(arg1: MutPtr<WcharT>, arg2: ConstPtr<CChar>, arg3: SizeT): CInt =
+    libcSolidMbtowc(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 
-public actual fun wcstombs(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: SizeT): SizeT =
-    libc_solid_wcstombs(arg1?.value?.toCPointer<ByteVar>(), arg2?.value?.toCPointer<ByteVar>(), arg3)
+public actual fun wcstombs(arg1: MutPtr<CChar>, arg2: ConstPtr<WcharT>, arg3: SizeT): SizeT =
+    libcSolidWcstombs(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 
-public actual fun randR(arg1: COpaquePointer?): CInt =
-    libc_solid_randR(arg1?.value?.toCPointer<ByteVar>())
+public actual fun randR(arg1: MutPtr<CUint>): CInt =
+    libcSolidRandR(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun jrand48(arg1: COpaquePointer?): CLong =
-    libc_solid_jrand48(arg1?.value?.toCPointer<ByteVar>())
+public actual fun jrand48(arg1: MutPtr<CUshort>): CLong =
+    libcSolidJrand48(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun lcong48(arg1: COpaquePointer?) {
-    libc_solid_lcong48(arg1?.value?.toCPointer<ByteVar>())
+public actual fun lcong48(arg1: MutPtr<CUshort>) {
+    libcSolidLcong48(arg1.rawAddress.toCPointer<ByteVar>())
 }
 
 public actual fun lrand48(): CLong =
-    libc_solid_lrand48()
+    libcSolidLrand48()
 
 public actual fun mrand48(): CLong =
-    libc_solid_mrand48()
+    libcSolidMrand48()
 
-public actual fun nrand48(arg1: COpaquePointer?): CLong =
-    libc_solid_nrand48(arg1?.value?.toCPointer<ByteVar>())
+public actual fun nrand48(arg1: MutPtr<CUshort>): CLong =
+    libcSolidNrand48(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun seed48(arg1: COpaquePointer?): COpaquePointer? =
-    libc_solid_seed48(arg1?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun seed48(arg1: MutPtr<CUshort>): MutPtr<CUshort> =
+    MutPtr(libcSolidSeed48(arg1.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun srand48(arg1: CLong) {
-    libc_solid_srand48(arg1)
+    libcSolidSrand48(arg1)
 }
 
-public actual fun putenv(arg1: COpaquePointer?): CInt =
-    libc_solid_putenv(arg1?.value?.toCPointer<ByteVar>())
+public actual fun putenv(arg1: MutPtr<CChar>): CInt =
+    libcSolidPutenv(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun a64l(arg1: String?): CLong =
-    libc_solid_a64l(arg1)
+public actual fun a64l(arg1: ConstPtr<CChar>): CLong =
+    libcSolidA64l(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun l64a(arg1: CLong): COpaquePointer? =
-    libc_solid_l64a(arg1)?.let { COpaquePointer(it.toLong()) }
+public actual fun l64a(arg1: CLong): MutPtr<CChar> =
+    MutPtr(libcSolidL64a(arg1)?.toLong() ?: 0L)
 
 public actual fun random(): CLong =
-    libc_solid_random()
+    libcSolidRandom()
 
-public actual fun setstate(arg1: COpaquePointer?): COpaquePointer? =
-    libc_solid_setstate(arg1?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun setstate(arg1: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcSolidSetstate(arg1.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun initstate(arg1: CUint, arg2: COpaquePointer?, arg3: SizeT): COpaquePointer? =
-    libc_solid_initstate(arg1, arg2?.value?.toCPointer<ByteVar>(), arg3)?.let { COpaquePointer(it.toLong()) }
+public actual fun initstate(arg1: CUint, arg2: MutPtr<CChar>, arg3: SizeT): MutPtr<CChar> =
+    MutPtr(libcSolidInitstate(arg1, arg2.rawAddress.toCPointer<ByteVar>(), arg3)?.toLong() ?: 0L)
 
 public actual fun srandom(arg1: CUint) {
-    libc_solid_srandom(arg1)
+    libcSolidSrandom(arg1)
 }
 
-public actual fun mkostemp(arg1: COpaquePointer?, arg2: CInt): CInt =
-    libc_solid_mkostemp(arg1?.value?.toCPointer<ByteVar>(), arg2)
+public actual fun mkostemp(arg1: MutPtr<CChar>, arg2: CInt): CInt =
+    libcSolidMkostemp(arg1.rawAddress.toCPointer<ByteVar>(), arg2)
 
-public actual fun mkostemps(arg1: COpaquePointer?, arg2: CInt, arg3: CInt): CInt =
-    libc_solid_mkostemps(arg1?.value?.toCPointer<ByteVar>(), arg2, arg3)
+public actual fun mkostemps(arg1: MutPtr<CChar>, arg2: CInt, arg3: CInt): CInt =
+    libcSolidMkostemps(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3)
 
-public actual fun mkdtemp(arg1: COpaquePointer?): COpaquePointer? =
-    libc_solid_mkdtemp(arg1?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun mkdtemp(arg1: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcSolidMkdtemp(arg1.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun mkstemp(arg1: COpaquePointer?): CInt =
-    libc_solid_mkstemp(arg1?.value?.toCPointer<ByteVar>())
+public actual fun mkstemp(arg1: MutPtr<CChar>): CInt =
+    libcSolidMkstemp(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mktemp(arg1: COpaquePointer?): COpaquePointer? =
-    libc_solid_mktemp(arg1?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun mktemp(arg1: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcSolidMktemp(arg1.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun atoll(arg1: String?): CLonglong =
-    libc_solid_atoll(arg1)
+public actual fun atoll(arg1: ConstPtr<CChar>): CLonglong =
+    libcSolidAtoll(arg1.rawAddress.toCPointer<ByteVar>())
 
 public actual fun llabs(arg1: CLonglong): CLonglong =
-    libc_solid_llabs(arg1)
+    libcSolidLlabs(arg1)
 
 public actual fun lldiv(arg1: CLonglong, arg2: CLonglong): LldivT =
     LldivT()
 
-public actual fun strtoll(arg1: String?, arg2: COpaquePointer?, arg3: CInt): CLonglong =
-    libc_solid_strtoll(arg1, arg2?.value?.toCPointer<ByteVar>(), arg3)
+public actual fun strtoll(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt): CLonglong =
+    libcSolidStrtoll(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 
-public actual fun strtoull(arg1: String?, arg2: COpaquePointer?, arg3: CInt): CUlonglong =
-    libc_solid_strtoull(arg1, arg2?.value?.toCPointer<ByteVar>(), arg3)
+public actual fun strtoull(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt): CUlonglong =
+    libcSolidStrtoull(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 
-public actual fun alignedAlloc(arg1: SizeT, arg2: SizeT): COpaquePointer? =
-    libc_solid_alignedAlloc(arg1, arg2)?.let { COpaquePointer(it.toLong()) }
+public actual fun alignedAlloc(arg1: SizeT, arg2: SizeT): MutPtr<CVoid> =
+    MutPtr(libcSolidAlignedAlloc(arg1, arg2)?.toLong() ?: 0L)
 
 public actual fun atQuickExit(arg1: AtexitArg1Callback?): CInt =
-    libc_solid_atQuickExit(0L.toCPointer<ByteVar>())
+    libcSolidAtQuickExit(0L.toCPointer<ByteVar>())
 
 public actual fun quickExit(arg1: CInt) {
-    libc_solid_quickExit(arg1)
+    libcSolidQuickExit(arg1)
 }
 
-public actual fun setenv(arg1: String?, arg2: String?, arg3: CInt): CInt =
-    libc_solid_setenv(arg1, arg2, arg3)
+public actual fun setenv(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>, arg3: CInt): CInt =
+    libcSolidSetenv(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 
-public actual fun unsetenv(arg1: String?): CInt =
-    libc_solid_unsetenv(arg1)
+public actual fun unsetenv(arg1: ConstPtr<CChar>): CInt =
+    libcSolidUnsetenv(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun humanizeNumber(arg1: COpaquePointer?, arg2: SizeT, arg3: Long, arg4: String?, arg5: CInt, arg6: CInt): CInt =
-    libc_solid_humanizeNumber(arg1?.value?.toCPointer<ByteVar>(), arg2, arg3, arg4, arg5, arg6)
+public actual fun humanizeNumber(arg1: MutPtr<CChar>, arg2: SizeT, arg3: Long, arg4: ConstPtr<CChar>, arg5: CInt, arg6: CInt): CInt =
+    libcSolidHumanizeNumber(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3, arg4.rawAddress.toCPointer<ByteVar>(), arg5, arg6)
 
-public actual fun dehumanizeNumber(arg1: String?, arg2: COpaquePointer?): CInt =
-    libc_solid_dehumanizeNumber(arg1, arg2?.value?.toCPointer<ByteVar>())
+public actual fun dehumanizeNumber(arg1: ConstPtr<CChar>, arg2: MutPtr<Long>): CInt =
+    libcSolidDehumanizeNumber(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getenvR(arg1: String?, arg2: COpaquePointer?, arg3: SizeT): CInt =
-    libc_solid_getenvR(arg1, arg2?.value?.toCPointer<ByteVar>(), arg3)
+public actual fun getenvR(arg1: ConstPtr<CChar>, arg2: MutPtr<CChar>, arg3: SizeT): CInt =
+    libcSolidGetenvR(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 
-public actual fun heapsort(arg1: COpaquePointer?, arg2: SizeT, arg3: SizeT, arg4: BsearchArg5Callback?): CInt =
-    libc_solid_heapsort(arg1?.value?.toCPointer<ByteVar>(), arg2, arg3, 0L.toCPointer<ByteVar>())
+public actual fun heapsort(arg1: MutPtr<CVoid>, arg2: SizeT, arg3: SizeT, arg4: BsearchArg5Callback?): CInt =
+    libcSolidHeapsort(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3, 0L.toCPointer<ByteVar>())
 
-public actual fun mergesort(arg1: COpaquePointer?, arg2: SizeT, arg3: SizeT, arg4: BsearchArg5Callback?): CInt =
-    libc_solid_mergesort(arg1?.value?.toCPointer<ByteVar>(), arg2, arg3, 0L.toCPointer<ByteVar>())
+public actual fun mergesort(arg1: MutPtr<CVoid>, arg2: SizeT, arg3: SizeT, arg4: BsearchArg5Callback?): CInt =
+    libcSolidMergesort(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3, 0L.toCPointer<ByteVar>())
 
-public actual fun radixsort(arg1: COpaquePointer?, arg2: CInt, arg3: COpaquePointer?, arg4: CUint): CInt =
-    libc_solid_radixsort(arg1?.value?.toCPointer<ByteVar>(), arg2, arg3?.value?.toCPointer<ByteVar>(), arg4)
+public actual fun radixsort(arg1: MutPtr<ConstPtr<CUchar>>, arg2: CInt, arg3: ConstPtr<CUchar>, arg4: CUint): CInt =
+    libcSolidRadixsort(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3.rawAddress.toCPointer<ByteVar>(), arg4)
 
-public actual fun sradixsort(arg1: COpaquePointer?, arg2: CInt, arg3: COpaquePointer?, arg4: CUint): CInt =
-    libc_solid_sradixsort(arg1?.value?.toCPointer<ByteVar>(), arg2, arg3?.value?.toCPointer<ByteVar>(), arg4)
+public actual fun sradixsort(arg1: MutPtr<ConstPtr<CUchar>>, arg2: CInt, arg3: ConstPtr<CUchar>, arg4: CUint): CInt =
+    libcSolidSradixsort(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3.rawAddress.toCPointer<ByteVar>(), arg4)
 
-public actual fun getprogname(): COpaquePointer? =
-    libc_solid_getprogname()?.let { COpaquePointer(it.toLong()) }
+public actual fun getprogname(): ConstPtr<CChar> =
+    ConstPtr(libcSolidGetprogname()?.toLong() ?: 0L)
 
-public actual fun setprogname(arg1: String?) {
-    libc_solid_setprogname(arg1)
+public actual fun setprogname(arg1: ConstPtr<CChar>) {
+    libcSolidSetprogname(arg1.rawAddress.toCPointer<ByteVar>())
 }
 
 public actual fun qabs(arg1: QuadT): QuadT =
-    libc_solid_qabs(arg1)
+    libcSolidQabs(arg1)
 
-public actual fun strtoq(arg1: String?, arg2: COpaquePointer?, arg3: CInt): QuadT =
-    libc_solid_strtoq(arg1, arg2?.value?.toCPointer<ByteVar>(), arg3)
+public actual fun strtoq(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt): QuadT =
+    libcSolidStrtoq(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 
-public actual fun strtouq(arg1: String?, arg2: COpaquePointer?, arg3: CInt): UQuadT =
-    libc_solid_strtouq(arg1, arg2?.value?.toCPointer<ByteVar>(), arg3)
+public actual fun strtouq(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt): UQuadT =
+    libcSolidStrtouq(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 
-public actual fun strsuftoll(arg1: String?, arg2: String?, arg3: CLonglong, arg4: CLonglong): CLonglong =
-    libc_solid_strsuftoll(arg1, arg2, arg3, arg4)
+public actual fun strsuftoll(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>, arg3: CLonglong, arg4: CLonglong): CLonglong =
+    libcSolidStrsuftoll(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3, arg4)
 
-public actual fun strsuftollx(arg1: String?, arg2: String?, arg3: CLonglong, arg4: CLonglong, arg5: COpaquePointer?, arg6: SizeT): CLonglong =
-    libc_solid_strsuftollx(arg1, arg2, arg3, arg4, arg5?.value?.toCPointer<ByteVar>(), arg6)
+public actual fun strsuftollx(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>, arg3: CLonglong, arg4: CLonglong, arg5: MutPtr<CChar>, arg6: SizeT): CLonglong =
+    libcSolidStrsuftollx(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3, arg4, arg5.rawAddress.toCPointer<ByteVar>(), arg6)
 
-public actual fun l64aR(arg1: CLong, arg2: COpaquePointer?, arg3: CInt): CInt =
-    libc_solid_l64aR(arg1, arg2?.value?.toCPointer<ByteVar>(), arg3)
+public actual fun l64aR(arg1: CLong, arg2: MutPtr<CChar>, arg3: CInt): CInt =
+    libcSolidL64aR(arg1, arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 
 public actual fun qdiv(arg1: QuadT, arg2: QuadT): QdivT =
     QdivT()
 
-public actual fun strtolL(arg1: String?, arg2: COpaquePointer?, arg3: CInt, arg4: LocaleT): CLong =
-    libc_solid_strtolL(arg1, arg2?.value?.toCPointer<ByteVar>(), arg3, arg4.toLong().toCPointer<ByteVar>())
+public actual fun strtolL(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt, arg4: LocaleT): CLong =
+    libcSolidStrtolL(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3, arg4.toLong().toCPointer<ByteVar>())
 
-public actual fun strtoulL(arg1: String?, arg2: COpaquePointer?, arg3: CInt, arg4: LocaleT): CUlong =
-    libc_solid_strtoulL(arg1, arg2?.value?.toCPointer<ByteVar>(), arg3, arg4.toLong().toCPointer<ByteVar>())
+public actual fun strtoulL(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt, arg4: LocaleT): CUlong =
+    libcSolidStrtoulL(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3, arg4.toLong().toCPointer<ByteVar>())
 
-public actual fun strtollL(arg1: String?, arg2: COpaquePointer?, arg3: CInt, arg4: LocaleT): CLonglong =
-    libc_solid_strtollL(arg1, arg2?.value?.toCPointer<ByteVar>(), arg3, arg4.toLong().toCPointer<ByteVar>())
+public actual fun strtollL(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt, arg4: LocaleT): CLonglong =
+    libcSolidStrtollL(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3, arg4.toLong().toCPointer<ByteVar>())
 
-public actual fun strtoullL(arg1: String?, arg2: COpaquePointer?, arg3: CInt, arg4: LocaleT): CUlonglong =
-    libc_solid_strtoullL(arg1, arg2?.value?.toCPointer<ByteVar>(), arg3, arg4.toLong().toCPointer<ByteVar>())
+public actual fun strtoullL(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt, arg4: LocaleT): CUlonglong =
+    libcSolidStrtoullL(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3, arg4.toLong().toCPointer<ByteVar>())
 
-public actual fun strtoqL(arg1: String?, arg2: COpaquePointer?, arg3: CInt, arg4: LocaleT): QuadT =
-    libc_solid_strtoqL(arg1, arg2?.value?.toCPointer<ByteVar>(), arg3, arg4.toLong().toCPointer<ByteVar>())
+public actual fun strtoqL(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt, arg4: LocaleT): QuadT =
+    libcSolidStrtoqL(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3, arg4.toLong().toCPointer<ByteVar>())
 
-public actual fun strtouqL(arg1: String?, arg2: COpaquePointer?, arg3: CInt, arg4: LocaleT): UQuadT =
-    libc_solid_strtouqL(arg1, arg2?.value?.toCPointer<ByteVar>(), arg3, arg4.toLong().toCPointer<ByteVar>())
+public actual fun strtouqL(arg1: ConstPtr<CChar>, arg2: MutPtr<MutPtr<CChar>>, arg3: CInt, arg4: LocaleT): UQuadT =
+    libcSolidStrtouqL(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3, arg4.toLong().toCPointer<ByteVar>())
 
 public actual fun mbCurMaxL(arg1: LocaleT): SizeT =
-    libc_solid_mbCurMaxL(arg1.toLong().toCPointer<ByteVar>())
+    libcSolidMbCurMaxL(arg1.toLong().toCPointer<ByteVar>())
 
-public actual fun mblenL(arg1: String?, arg2: SizeT, arg3: LocaleT): CInt =
-    libc_solid_mblenL(arg1, arg2, arg3.toLong().toCPointer<ByteVar>())
+public actual fun mblenL(arg1: ConstPtr<CChar>, arg2: SizeT, arg3: LocaleT): CInt =
+    libcSolidMblenL(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3.toLong().toCPointer<ByteVar>())
 
-public actual fun mbstowcsL(arg1: COpaquePointer?, arg2: String?, arg3: SizeT, arg4: LocaleT): SizeT =
-    libc_solid_mbstowcsL(arg1?.value?.toCPointer<ByteVar>(), arg2, arg3, arg4.toLong().toCPointer<ByteVar>())
+public actual fun mbstowcsL(arg1: MutPtr<WcharT>, arg2: ConstPtr<CChar>, arg3: SizeT, arg4: LocaleT): SizeT =
+    libcSolidMbstowcsL(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3, arg4.toLong().toCPointer<ByteVar>())
 
-public actual fun wctombL(arg1: COpaquePointer?, arg2: WcharT, arg3: LocaleT): CInt =
-    libc_solid_wctombL(arg1?.value?.toCPointer<ByteVar>(), arg2, arg3.toLong().toCPointer<ByteVar>())
+public actual fun wctombL(arg1: MutPtr<CChar>, arg2: WcharT, arg3: LocaleT): CInt =
+    libcSolidWctombL(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3.toLong().toCPointer<ByteVar>())
 
-public actual fun mbtowcL(arg1: COpaquePointer?, arg2: String?, arg3: SizeT, arg4: LocaleT): CInt =
-    libc_solid_mbtowcL(arg1?.value?.toCPointer<ByteVar>(), arg2, arg3, arg4.toLong().toCPointer<ByteVar>())
+public actual fun mbtowcL(arg1: MutPtr<WcharT>, arg2: ConstPtr<CChar>, arg3: SizeT, arg4: LocaleT): CInt =
+    libcSolidMbtowcL(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3, arg4.toLong().toCPointer<ByteVar>())
 
-public actual fun wcstombsL(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: SizeT, arg4: LocaleT): SizeT =
-    libc_solid_wcstombsL(arg1?.value?.toCPointer<ByteVar>(), arg2?.value?.toCPointer<ByteVar>(), arg3, arg4.toLong().toCPointer<ByteVar>())
+public actual fun wcstombsL(arg1: MutPtr<CChar>, arg2: ConstPtr<WcharT>, arg3: SizeT, arg4: LocaleT): SizeT =
+    libcSolidWcstombsL(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3, arg4.toLong().toCPointer<ByteVar>())
 
-public actual fun memchr(arg1: COpaquePointer?, arg2: CInt, arg3: SizeT): COpaquePointer? =
-    libc_solid_memchr(arg1?.value?.toCPointer<ByteVar>(), arg2, arg3)?.let { COpaquePointer(it.toLong()) }
+public actual fun memchr(arg1: ConstPtr<CVoid>, arg2: CInt, arg3: SizeT): MutPtr<CVoid> =
+    MutPtr(libcSolidMemchr(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3)?.toLong() ?: 0L)
 
-public actual fun memcmp(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: SizeT): CInt =
-    libc_solid_memcmp(arg1?.value?.toCPointer<ByteVar>(), arg2?.value?.toCPointer<ByteVar>(), arg3)
+public actual fun memcmp(arg1: ConstPtr<CVoid>, arg2: ConstPtr<CVoid>, arg3: SizeT): CInt =
+    libcSolidMemcmp(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 
-public actual fun memcpy(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: SizeT): COpaquePointer? =
-    libc_solid_memcpy(arg1?.value?.toCPointer<ByteVar>(), arg2?.value?.toCPointer<ByteVar>(), arg3)?.let { COpaquePointer(it.toLong()) }
+public actual fun memcpy(arg1: MutPtr<CVoid>, arg2: ConstPtr<CVoid>, arg3: SizeT): MutPtr<CVoid> =
+    MutPtr(libcSolidMemcpy(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)?.toLong() ?: 0L)
 
-public actual fun memmove(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: SizeT): COpaquePointer? =
-    libc_solid_memmove(arg1?.value?.toCPointer<ByteVar>(), arg2?.value?.toCPointer<ByteVar>(), arg3)?.let { COpaquePointer(it.toLong()) }
+public actual fun memmove(arg1: MutPtr<CVoid>, arg2: ConstPtr<CVoid>, arg3: SizeT): MutPtr<CVoid> =
+    MutPtr(libcSolidMemmove(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)?.toLong() ?: 0L)
 
-public actual fun memset(arg1: COpaquePointer?, arg2: CInt, arg3: SizeT): COpaquePointer? =
-    libc_solid_memset(arg1?.value?.toCPointer<ByteVar>(), arg2, arg3)?.let { COpaquePointer(it.toLong()) }
+public actual fun memset(arg1: MutPtr<CVoid>, arg2: CInt, arg3: SizeT): MutPtr<CVoid> =
+    MutPtr(libcSolidMemset(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3)?.toLong() ?: 0L)
 
-public actual fun strcat(arg1: COpaquePointer?, arg2: String?): COpaquePointer? =
-    libc_solid_strcat(arg1?.value?.toCPointer<ByteVar>(), arg2)?.let { COpaquePointer(it.toLong()) }
+public actual fun strcat(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcSolidStrcat(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strchr(arg1: String?, arg2: CInt): COpaquePointer? =
-    libc_solid_strchr(arg1, arg2)?.let { COpaquePointer(it.toLong()) }
+public actual fun strchr(arg1: ConstPtr<CChar>, arg2: CInt): MutPtr<CChar> =
+    MutPtr(libcSolidStrchr(arg1.rawAddress.toCPointer<ByteVar>(), arg2)?.toLong() ?: 0L)
 
-public actual fun strcmp(arg1: String?, arg2: String?): CInt =
-    libc_solid_strcmp(arg1, arg2)
+public actual fun strcmp(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>): CInt =
+    libcSolidStrcmp(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strcoll(arg1: String?, arg2: String?): CInt =
-    libc_solid_strcoll(arg1, arg2)
+public actual fun strcoll(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>): CInt =
+    libcSolidStrcoll(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strcpy(arg1: COpaquePointer?, arg2: String?): COpaquePointer? =
-    libc_solid_strcpy(arg1?.value?.toCPointer<ByteVar>(), arg2)?.let { COpaquePointer(it.toLong()) }
+public actual fun strcpy(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcSolidStrcpy(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strcspn(arg1: String?, arg2: String?): SizeT =
-    libc_solid_strcspn(arg1, arg2)
+public actual fun strcspn(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>): SizeT =
+    libcSolidStrcspn(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strerror(arg1: CInt): COpaquePointer? =
-    libc_solid_strerror(arg1)?.let { COpaquePointer(it.toLong()) }
+public actual fun strerror(arg1: CInt): MutPtr<CChar> =
+    MutPtr(libcSolidStrerror(arg1)?.toLong() ?: 0L)
 
-public actual fun strlen(arg1: String?): SizeT =
-    libc_solid_strlen(arg1)
+public actual fun strlen(arg1: ConstPtr<CChar>): SizeT =
+    libcSolidStrlen(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strncat(arg1: COpaquePointer?, arg2: String?, arg3: SizeT): COpaquePointer? =
-    libc_solid_strncat(arg1?.value?.toCPointer<ByteVar>(), arg2, arg3)?.let { COpaquePointer(it.toLong()) }
+public actual fun strncat(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, arg3: SizeT): MutPtr<CChar> =
+    MutPtr(libcSolidStrncat(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)?.toLong() ?: 0L)
 
-public actual fun strncmp(arg1: String?, arg2: String?, arg3: SizeT): CInt =
-    libc_solid_strncmp(arg1, arg2, arg3)
+public actual fun strncmp(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>, arg3: SizeT): CInt =
+    libcSolidStrncmp(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 
-public actual fun strncpy(arg1: COpaquePointer?, arg2: String?, arg3: SizeT): COpaquePointer? =
-    libc_solid_strncpy(arg1?.value?.toCPointer<ByteVar>(), arg2, arg3)?.let { COpaquePointer(it.toLong()) }
+public actual fun strncpy(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, arg3: SizeT): MutPtr<CChar> =
+    MutPtr(libcSolidStrncpy(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)?.toLong() ?: 0L)
 
-public actual fun strpbrk(arg1: String?, arg2: String?): COpaquePointer? =
-    libc_solid_strpbrk(arg1, arg2)?.let { COpaquePointer(it.toLong()) }
+public actual fun strpbrk(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcSolidStrpbrk(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strrchr(arg1: String?, arg2: CInt): COpaquePointer? =
-    libc_solid_strrchr(arg1, arg2)?.let { COpaquePointer(it.toLong()) }
+public actual fun strrchr(arg1: ConstPtr<CChar>, arg2: CInt): MutPtr<CChar> =
+    MutPtr(libcSolidStrrchr(arg1.rawAddress.toCPointer<ByteVar>(), arg2)?.toLong() ?: 0L)
 
-public actual fun strspn(arg1: String?, arg2: String?): SizeT =
-    libc_solid_strspn(arg1, arg2)
+public actual fun strspn(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>): SizeT =
+    libcSolidStrspn(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strstr(arg1: String?, arg2: String?): COpaquePointer? =
-    libc_solid_strstr(arg1, arg2)?.let { COpaquePointer(it.toLong()) }
+public actual fun strstr(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcSolidStrstr(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strtok(arg1: COpaquePointer?, arg2: String?): COpaquePointer? =
-    libc_solid_strtok(arg1?.value?.toCPointer<ByteVar>(), arg2)?.let { COpaquePointer(it.toLong()) }
+public actual fun strtok(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcSolidStrtok(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strtokR(arg1: COpaquePointer?, arg2: String?, arg3: COpaquePointer?): COpaquePointer? =
-    libc_solid_strtokR(arg1?.value?.toCPointer<ByteVar>(), arg2, arg3?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun strtokR(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, arg3: MutPtr<MutPtr<CChar>>): MutPtr<CChar> =
+    MutPtr(libcSolidStrtokR(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strerrorR(arg1: CInt, arg2: COpaquePointer?, arg3: SizeT): CInt =
-    libc_solid_strerrorR(arg1, arg2?.value?.toCPointer<ByteVar>(), arg3)
+public actual fun strerrorR(arg1: CInt, arg2: MutPtr<CChar>, arg3: SizeT): CInt =
+    libcSolidStrerrorR(arg1, arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 
-public actual fun strxfrm(arg1: COpaquePointer?, arg2: String?, arg3: SizeT): SizeT =
-    libc_solid_strxfrm(arg1?.value?.toCPointer<ByteVar>(), arg2, arg3)
+public actual fun strxfrm(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, arg3: SizeT): SizeT =
+    libcSolidStrxfrm(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 
-public actual fun memccpy(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: CInt, arg4: SizeT): COpaquePointer? =
-    libc_solid_memccpy(arg1?.value?.toCPointer<ByteVar>(), arg2?.value?.toCPointer<ByteVar>(), arg3, arg4)?.let { COpaquePointer(it.toLong()) }
+public actual fun memccpy(arg1: MutPtr<CVoid>, arg2: ConstPtr<CVoid>, arg3: CInt, arg4: SizeT): MutPtr<CVoid> =
+    MutPtr(libcSolidMemccpy(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3, arg4)?.toLong() ?: 0L)
 
-public actual fun strdup(arg1: String?): COpaquePointer? =
-    libc_solid_strdup(arg1)?.let { COpaquePointer(it.toLong()) }
+public actual fun strdup(arg1: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcSolidStrdup(arg1.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun stpcpy(arg1: COpaquePointer?, arg2: String?): COpaquePointer? =
-    libc_solid_stpcpy(arg1?.value?.toCPointer<ByteVar>(), arg2)?.let { COpaquePointer(it.toLong()) }
+public actual fun stpcpy(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcSolidStpcpy(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun stpncpy(arg1: COpaquePointer?, arg2: String?, arg3: SizeT): COpaquePointer? =
-    libc_solid_stpncpy(arg1?.value?.toCPointer<ByteVar>(), arg2, arg3)?.let { COpaquePointer(it.toLong()) }
+public actual fun stpncpy(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, arg3: SizeT): MutPtr<CChar> =
+    MutPtr(libcSolidStpncpy(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)?.toLong() ?: 0L)
 
-public actual fun strnlen(arg1: String?, arg2: SizeT): SizeT =
-    libc_solid_strnlen(arg1, arg2)
+public actual fun strnlen(arg1: ConstPtr<CChar>, arg2: SizeT): SizeT =
+    libcSolidStrnlen(arg1.rawAddress.toCPointer<ByteVar>(), arg2)
 
-public actual fun memmem(arg1: COpaquePointer?, arg2: SizeT, arg3: COpaquePointer?, arg4: SizeT): COpaquePointer? =
-    libc_solid_memmem(arg1?.value?.toCPointer<ByteVar>(), arg2, arg3?.value?.toCPointer<ByteVar>(), arg4)?.let { COpaquePointer(it.toLong()) }
+public actual fun memmem(arg1: ConstPtr<CVoid>, arg2: SizeT, arg3: ConstPtr<CVoid>, arg4: SizeT): MutPtr<CVoid> =
+    MutPtr(libcSolidMemmem(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3.rawAddress.toCPointer<ByteVar>(), arg4)?.toLong() ?: 0L)
 
-public actual fun strcasestr(arg1: String?, arg2: String?): COpaquePointer? =
-    libc_solid_strcasestr(arg1, arg2)?.let { COpaquePointer(it.toLong()) }
+public actual fun strcasestr(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcSolidStrcasestr(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun strlcat(arg1: COpaquePointer?, arg2: String?, arg3: SizeT): SizeT =
-    libc_solid_strlcat(arg1?.value?.toCPointer<ByteVar>(), arg2, arg3)
+public actual fun strlcat(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, arg3: SizeT): SizeT =
+    libcSolidStrlcat(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 
-public actual fun strlcpy(arg1: COpaquePointer?, arg2: String?, arg3: SizeT): SizeT =
-    libc_solid_strlcpy(arg1?.value?.toCPointer<ByteVar>(), arg2, arg3)
+public actual fun strlcpy(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, arg3: SizeT): SizeT =
+    libcSolidStrlcpy(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 
-public actual fun strsep(arg1: COpaquePointer?, arg2: String?): COpaquePointer? =
-    libc_solid_strsep(arg1?.value?.toCPointer<ByteVar>(), arg2)?.let { COpaquePointer(it.toLong()) }
+public actual fun strsep(arg1: MutPtr<MutPtr<CChar>>, arg2: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcSolidStrsep(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun stresep(arg1: COpaquePointer?, arg2: String?, arg3: CInt): COpaquePointer? =
-    libc_solid_stresep(arg1?.value?.toCPointer<ByteVar>(), arg2, arg3)?.let { COpaquePointer(it.toLong()) }
+public actual fun stresep(arg1: MutPtr<MutPtr<CChar>>, arg2: ConstPtr<CChar>, arg3: CInt): MutPtr<CChar> =
+    MutPtr(libcSolidStresep(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)?.toLong() ?: 0L)
 
-public actual fun strndup(arg1: String?, arg2: SizeT): COpaquePointer? =
-    libc_solid_strndup(arg1, arg2)?.let { COpaquePointer(it.toLong()) }
+public actual fun strndup(arg1: ConstPtr<CChar>, arg2: SizeT): MutPtr<CChar> =
+    MutPtr(libcSolidStrndup(arg1.rawAddress.toCPointer<ByteVar>(), arg2)?.toLong() ?: 0L)
 
-public actual fun memrchr(arg1: COpaquePointer?, arg2: CInt, arg3: SizeT): COpaquePointer? =
-    libc_solid_memrchr(arg1?.value?.toCPointer<ByteVar>(), arg2, arg3)?.let { COpaquePointer(it.toLong()) }
+public actual fun memrchr(arg1: ConstPtr<CVoid>, arg2: CInt, arg3: SizeT): MutPtr<CVoid> =
+    MutPtr(libcSolidMemrchr(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3)?.toLong() ?: 0L)
 
-public actual fun explicitMemset(arg1: COpaquePointer?, arg2: CInt, arg3: SizeT): COpaquePointer? =
-    libc_solid_explicitMemset(arg1?.value?.toCPointer<ByteVar>(), arg2, arg3)?.let { COpaquePointer(it.toLong()) }
+public actual fun explicitMemset(arg1: MutPtr<CVoid>, arg2: CInt, arg3: SizeT): MutPtr<CVoid> =
+    MutPtr(libcSolidExplicitMemset(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3)?.toLong() ?: 0L)
 
-public actual fun consttimeMemequal(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: SizeT): CInt =
-    libc_solid_consttimeMemequal(arg1?.value?.toCPointer<ByteVar>(), arg2?.value?.toCPointer<ByteVar>(), arg3)
+public actual fun consttimeMemequal(arg1: ConstPtr<CVoid>, arg2: ConstPtr<CVoid>, arg3: SizeT): CInt =
+    libcSolidConsttimeMemequal(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 
-public actual fun strcollL(arg1: String?, arg2: String?, arg3: LocaleT): CInt =
-    libc_solid_strcollL(arg1, arg2, arg3.toLong().toCPointer<ByteVar>())
+public actual fun strcollL(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>, arg3: LocaleT): CInt =
+    libcSolidStrcollL(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3.toLong().toCPointer<ByteVar>())
 
-public actual fun strxfrmL(arg1: COpaquePointer?, arg2: String?, arg3: SizeT, arg4: LocaleT): SizeT =
-    libc_solid_strxfrmL(arg1?.value?.toCPointer<ByteVar>(), arg2, arg3, arg4.toLong().toCPointer<ByteVar>())
+public actual fun strxfrmL(arg1: MutPtr<CChar>, arg2: ConstPtr<CChar>, arg3: SizeT, arg4: LocaleT): SizeT =
+    libcSolidStrxfrmL(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3, arg4.toLong().toCPointer<ByteVar>())
 
-public actual fun strerrorL(arg1: CInt, arg2: LocaleT): COpaquePointer? =
-    libc_solid_strerrorL(arg1, arg2.toLong().toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun strerrorL(arg1: CInt, arg2: LocaleT): MutPtr<CChar> =
+    MutPtr(libcSolidStrerrorL(arg1, arg2.toLong().toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun bcmp(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: SizeT): CInt =
-    libc_solid_bcmp(arg1?.value?.toCPointer<ByteVar>(), arg2?.value?.toCPointer<ByteVar>(), arg3)
+public actual fun bcmp(arg1: ConstPtr<CVoid>, arg2: ConstPtr<CVoid>, arg3: SizeT): CInt =
+    libcSolidBcmp(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 
-public actual fun bcopy(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: SizeT) {
-    libc_solid_bcopy(arg1?.value?.toCPointer<ByteVar>(), arg2?.value?.toCPointer<ByteVar>(), arg3)
+public actual fun bcopy(arg1: ConstPtr<CVoid>, arg2: MutPtr<CVoid>, arg3: SizeT) {
+    libcSolidBcopy(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 }
 
-public actual fun bzero(arg1: COpaquePointer?, arg2: SizeT) {
-    libc_solid_bzero(arg1?.value?.toCPointer<ByteVar>(), arg2)
+public actual fun bzero(arg1: MutPtr<CVoid>, arg2: SizeT) {
+    libcSolidBzero(arg1.rawAddress.toCPointer<ByteVar>(), arg2)
 }
 
 public actual fun ffs(arg1: CInt): CInt =
-    libc_solid_ffs(arg1)
+    libcSolidFfs(arg1)
 
 public actual fun popcount(arg1: CUint): CUint =
-    libc_solid_popcount(arg1)
+    libcSolidPopcount(arg1)
 
 public actual fun popcountl(arg1: CUlong): CUint =
-    libc_solid_popcountl(arg1)
+    libcSolidPopcountl(arg1)
 
 public actual fun popcountll(arg1: CUlonglong): CUint =
-    libc_solid_popcountll(arg1)
+    libcSolidPopcountll(arg1)
 
 public actual fun popcount32(arg1: UInt): CUint =
-    libc_solid_popcount32(arg1)
+    libcSolidPopcount32(arg1)
 
 public actual fun popcount64(arg1: ULong): CUint =
-    libc_solid_popcount64(arg1)
+    libcSolidPopcount64(arg1)
 
-public actual fun rindex(arg1: String?, arg2: CInt): COpaquePointer? =
-    libc_solid_rindex(arg1, arg2)?.let { COpaquePointer(it.toLong()) }
+public actual fun rindex(arg1: ConstPtr<CChar>, arg2: CInt): MutPtr<CChar> =
+    MutPtr(libcSolidRindex(arg1.rawAddress.toCPointer<ByteVar>(), arg2)?.toLong() ?: 0L)
 
-public actual fun strcasecmp(arg1: String?, arg2: String?): CInt =
-    libc_solid_strcasecmp(arg1, arg2)
+public actual fun strcasecmp(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>): CInt =
+    libcSolidStrcasecmp(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strncasecmp(arg1: String?, arg2: String?, arg3: SizeT): CInt =
-    libc_solid_strncasecmp(arg1, arg2, arg3)
+public actual fun strncasecmp(arg1: ConstPtr<CChar>, arg2: ConstPtr<CChar>, arg3: SizeT): CInt =
+    libcSolidStrncasecmp(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 
 public actual fun signal(arg1: CInt, arg2: SighandlerT): SighandlerT =
-    libc_solid_signal(arg1, arg2)
+    libcSolidSignal(arg1, arg2)
 
 public actual fun raise(arg1: CInt): CInt =
-    libc_solid_raise(arg1)
+    libcSolidRaise(arg1)
 
-public actual fun asctime(arg1: COpaquePointer?): COpaquePointer? =
-    libc_solid_asctime(arg1?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun asctime(arg1: ConstPtr<Tm>): MutPtr<CChar> =
+    MutPtr(libcSolidAsctime(arg1.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun clock(): ClockT =
-    libc_solid_clock()
+    libcSolidClock()
 
-public actual fun ctime(arg1: COpaquePointer?): COpaquePointer? =
-    libc_solid_ctime(arg1?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun ctime(arg1: ConstPtr<TimeT>): MutPtr<CChar> =
+    MutPtr(libcSolidCtime(arg1.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun difftime(arg1: TimeT, arg2: TimeT): Double =
-    libc_solid_difftime(arg1, arg2)
+    libcSolidDifftime(arg1, arg2)
 
-public actual fun gmtime(arg1: COpaquePointer?): COpaquePointer? =
-    libc_solid_gmtime(arg1?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun gmtime(arg1: ConstPtr<TimeT>): MutPtr<Tm> =
+    MutPtr(libcSolidGmtime(arg1.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun localtime(arg1: COpaquePointer?): COpaquePointer? =
-    libc_solid_localtime(arg1?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun localtime(arg1: ConstPtr<TimeT>): MutPtr<Tm> =
+    MutPtr(libcSolidLocaltime(arg1.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun time(arg1: COpaquePointer?): TimeT =
-    libc_solid_time(arg1?.value?.toCPointer<ByteVar>())
+public actual fun time(arg1: MutPtr<TimeT>): TimeT =
+    libcSolidTime(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun mktime(arg1: COpaquePointer?): TimeT =
-    libc_solid_mktime(arg1?.value?.toCPointer<ByteVar>())
+public actual fun mktime(arg1: MutPtr<Tm>): TimeT =
+    libcSolidMktime(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun strftime(arg1: COpaquePointer?, arg2: SizeT, arg3: String?, arg4: COpaquePointer?): SizeT =
-    libc_solid_strftime(arg1?.value?.toCPointer<ByteVar>(), arg2, arg3, arg4?.value?.toCPointer<ByteVar>())
+public actual fun strftime(arg1: MutPtr<CChar>, arg2: SizeT, arg3: ConstPtr<CChar>, arg4: ConstPtr<Tm>): SizeT =
+    libcSolidStrftime(arg1.rawAddress.toCPointer<ByteVar>(), arg2, arg3.rawAddress.toCPointer<ByteVar>(), arg4.rawAddress.toCPointer<ByteVar>())
 
-public actual fun utime(arg1: String?, arg2: COpaquePointer?): CInt =
-    libc_solid_utime(arg1, arg2?.value?.toCPointer<ByteVar>())
+public actual fun utime(arg1: ConstPtr<CChar>, arg2: MutPtr<TimeT>): CInt =
+    libcSolidUtime(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun asctimeR(arg1: COpaquePointer?, arg2: COpaquePointer?): COpaquePointer? =
-    libc_solid_asctimeR(arg1?.value?.toCPointer<ByteVar>(), arg2?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun asctimeR(arg1: ConstPtr<Tm>, arg2: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcSolidAsctimeR(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun ctimeR(arg1: COpaquePointer?, arg2: COpaquePointer?): COpaquePointer? =
-    libc_solid_ctimeR(arg1?.value?.toCPointer<ByteVar>(), arg2?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun ctimeR(arg1: ConstPtr<TimeT>, arg2: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcSolidCtimeR(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun gmtimeR(arg1: COpaquePointer?, arg2: COpaquePointer?): COpaquePointer? =
-    libc_solid_gmtimeR(arg1?.value?.toCPointer<ByteVar>(), arg2?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun gmtimeR(arg1: ConstPtr<TimeT>, arg2: MutPtr<Tm>): MutPtr<Tm> =
+    MutPtr(libcSolidGmtimeR(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun localtimeR(arg1: COpaquePointer?, arg2: COpaquePointer?): COpaquePointer? =
-    libc_solid_localtimeR(arg1?.value?.toCPointer<ByteVar>(), arg2?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun localtimeR(arg1: ConstPtr<TimeT>, arg2: MutPtr<Tm>): MutPtr<Tm> =
+    MutPtr(libcSolidLocaltimeR(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun stat(arg1: String?, arg2: COpaquePointer?): CInt =
-    libc_solid_stat(arg1, arg2?.value?.toCPointer<ByteVar>())
+public actual fun stat(arg1: ConstPtr<CChar>, arg2: MutPtr<Stat>): CInt =
+    libcSolidStat(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun lstat(arg1: String?, arg2: COpaquePointer?): CInt =
-    libc_solid_lstat(arg1, arg2?.value?.toCPointer<ByteVar>())
+public actual fun lstat(arg1: ConstPtr<CChar>, arg2: MutPtr<Stat>): CInt =
+    libcSolidLstat(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun fstat(arg1: CInt, arg2: COpaquePointer?): CInt =
-    libc_solid_fstat(arg1, arg2?.value?.toCPointer<ByteVar>())
+public actual fun fstat(arg1: CInt, arg2: MutPtr<Stat>): CInt =
+    libcSolidFstat(arg1, arg2.rawAddress.toCPointer<ByteVar>())
 
-public actual fun chmod(arg1: String?, arg2: ModeT): CInt =
-    libc_solid_chmod(arg1, arg2)
+public actual fun chmod(arg1: ConstPtr<CChar>, arg2: ModeT): CInt =
+    libcSolidChmod(arg1.rawAddress.toCPointer<ByteVar>(), arg2)
 
-public actual fun mkdir(arg1: String?, arg2: ModeT): CInt =
-    libc_solid_mkdir(arg1, arg2)
+public actual fun mkdir(arg1: ConstPtr<CChar>, arg2: ModeT): CInt =
+    libcSolidMkdir(arg1.rawAddress.toCPointer<ByteVar>(), arg2)
 
-public actual fun open(arg1: String?, arg2: CInt, vararg variadicArgs: Long): CInt =
-    libc_solid_open(arg1, arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+public actual fun open(arg1: ConstPtr<CChar>, arg2: CInt, vararg variadicArgs: Long): CInt =
+    libcSolidOpen(arg1.rawAddress.toCPointer<ByteVar>(), arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
-public actual fun creat(arg1: String?, arg2: CInt): CInt =
-    libc_solid_creat(arg1, arg2)
+public actual fun creat(arg1: ConstPtr<CChar>, arg2: CInt): CInt =
+    libcSolidCreat(arg1.rawAddress.toCPointer<ByteVar>(), arg2)
 
 public actual fun close(arg1: CInt): CInt =
-    libc_solid_close(arg1)
+    libcSolidClose(arg1)
 
-public actual fun read(arg1: CInt, arg2: COpaquePointer?, arg3: CInt): CInt =
-    libc_solid_read(arg1, arg2?.value?.toCPointer<ByteVar>(), arg3)
+public actual fun read(arg1: CInt, arg2: MutPtr<CVoid>, arg3: CInt): CInt =
+    libcSolidRead(arg1, arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 
-public actual fun write(arg1: CInt, arg2: COpaquePointer?, arg3: CInt): CInt =
-    libc_solid_write(arg1, arg2?.value?.toCPointer<ByteVar>(), arg3)
+public actual fun write(arg1: CInt, arg2: ConstPtr<CVoid>, arg3: CInt): CInt =
+    libcSolidWrite(arg1, arg2.rawAddress.toCPointer<ByteVar>(), arg3)
 
-public actual fun unlink(arg1: String?): CInt =
-    libc_solid_unlink(arg1)
+public actual fun unlink(arg1: ConstPtr<CChar>): CInt =
+    libcSolidUnlink(arg1.rawAddress.toCPointer<ByteVar>())
 
 public actual fun tell(arg1: CInt): CLong =
-    libc_solid_tell(arg1)
+    libcSolidTell(arg1)
 
 public actual fun dup(arg1: CInt): CInt =
-    libc_solid_dup(arg1)
+    libcSolidDup(arg1)
 
 public actual fun dup2(arg1: CInt, arg2: CInt): CInt =
-    libc_solid_dup2(arg1, arg2)
+    libcSolidDup2(arg1, arg2)
 
-public actual fun access(arg1: String?, arg2: CInt): CInt =
-    libc_solid_access(arg1, arg2)
+public actual fun access(arg1: ConstPtr<CChar>, arg2: CInt): CInt =
+    libcSolidAccess(arg1.rawAddress.toCPointer<ByteVar>(), arg2)
 
-public actual fun rmdir(arg1: String?): CInt =
-    libc_solid_rmdir(arg1)
+public actual fun rmdir(arg1: ConstPtr<CChar>): CInt =
+    libcSolidRmdir(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun chdir(arg1: String?): CInt =
-    libc_solid_chdir(arg1)
+public actual fun chdir(arg1: ConstPtr<CChar>): CInt =
+    libcSolidChdir(arg1.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getwd(arg1: COpaquePointer?): COpaquePointer? =
-    libc_solid_getwd(arg1?.value?.toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun getwd(arg1: MutPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcSolidGetwd(arg1.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun getcwd(arg1: COpaquePointer?, arg2: SizeT): COpaquePointer? =
-    libc_solid_getcwd(arg1?.value?.toCPointer<ByteVar>(), arg2)?.let { COpaquePointer(it.toLong()) }
+public actual fun getcwd(arg1: MutPtr<CChar>, arg2: SizeT): MutPtr<CChar> =
+    MutPtr(libcSolidGetcwd(arg1.rawAddress.toCPointer<ByteVar>(), arg2)?.toLong() ?: 0L)
 
-public actual fun getopt(arg1: CInt, arg2: COpaquePointer?, arg3: String?): CInt =
-    libc_solid_getopt(arg1, arg2?.value?.toCPointer<ByteVar>(), arg3)
+public actual fun getopt(arg1: CInt, arg2: MutPtr<MutPtr<CChar>>, arg3: ConstPtr<CChar>): CInt =
+    libcSolidGetopt(arg1, arg2.rawAddress.toCPointer<ByteVar>(), arg3.rawAddress.toCPointer<ByteVar>())
 
-public actual fun getsubopt(arg1: COpaquePointer?, arg2: COpaquePointer?, arg3: COpaquePointer?): CInt =
-    libc_solid_getsubopt(arg1?.value?.toCPointer<ByteVar>(), arg2?.value?.toCPointer<ByteVar>(), arg3?.value?.toCPointer<ByteVar>())
+public actual fun getsubopt(arg1: MutPtr<MutPtr<CChar>>, arg2: ConstPtr<MutPtr<CChar>>, arg3: MutPtr<MutPtr<CChar>>): CInt =
+    libcSolidGetsubopt(arg1.rawAddress.toCPointer<ByteVar>(), arg2.rawAddress.toCPointer<ByteVar>(), arg3.rawAddress.toCPointer<ByteVar>())
 
 public actual fun fcntl(arg1: CInt, arg2: CInt, vararg variadicArgs: Long): CInt =
-    libc_solid_fcntl(arg1, arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
+    libcSolidFcntl(arg1, arg2, variadicArgs.size.coerceAtMost(4), if (variadicArgs.size > 0) variadicArgs[0] else 0L, if (variadicArgs.size > 1) variadicArgs[1] else 0L, if (variadicArgs.size > 2) variadicArgs[2] else 0L, if (variadicArgs.size > 3) variadicArgs[3] else 0L)
 
 public actual fun getpid(): PidT =
-    libc_solid_getpid()
+    libcSolidGetpid()
 
 public actual fun sleep(arg1: CUint): CUint =
-    libc_solid_sleep(arg1)
+    libcSolidSleep(arg1)
 
 public actual fun usleep(arg1: UsecondsT): CInt =
-    libc_solid_usleep(arg1)
+    libcSolidUsleep(arg1)
 
-public actual fun localeconv(): COpaquePointer? =
-    libc_solid_localeconv()?.let { COpaquePointer(it.toLong()) }
+public actual fun localeconv(): MutPtr<Lconv> =
+    MutPtr(libcSolidLocaleconv()?.toLong() ?: 0L)
 
-public actual fun setlocale(arg1: CInt, arg2: String?): COpaquePointer? =
-    libc_solid_setlocale(arg1, arg2)?.let { COpaquePointer(it.toLong()) }
+public actual fun setlocale(arg1: CInt, arg2: ConstPtr<CChar>): MutPtr<CChar> =
+    MutPtr(libcSolidSetlocale(arg1, arg2.rawAddress.toCPointer<ByteVar>())?.toLong() ?: 0L)
 
 public actual fun duplocale(arg1: LocaleT): LocaleT =
-    (libc_solid_duplocale(arg1.toLong().toCPointer<ByteVar>())?.toLong() ?: 0L).toULong()
+    (libcSolidDuplocale(arg1.toLong().toCPointer<ByteVar>())?.toLong() ?: 0L).toULong()
 
 public actual fun freelocale(arg1: LocaleT) {
-    libc_solid_freelocale(arg1.toLong().toCPointer<ByteVar>())
+    libcSolidFreelocale(arg1.toLong().toCPointer<ByteVar>())
 }
 
-public actual fun localeconvL(arg1: LocaleT): COpaquePointer? =
-    libc_solid_localeconvL(arg1.toLong().toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun localeconvL(arg1: LocaleT): MutPtr<Lconv> =
+    MutPtr(libcSolidLocaleconvL(arg1.toLong().toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun newlocale(arg1: CInt, arg2: String?, arg3: LocaleT): LocaleT =
-    (libc_solid_newlocale(arg1, arg2, arg3.toLong().toCPointer<ByteVar>())?.toLong() ?: 0L).toULong()
+public actual fun newlocale(arg1: CInt, arg2: ConstPtr<CChar>, arg3: LocaleT): LocaleT =
+    (libcSolidNewlocale(arg1, arg2.rawAddress.toCPointer<ByteVar>(), arg3.toLong().toCPointer<ByteVar>())?.toLong() ?: 0L).toULong()
 
-public actual fun nlLanginfo(item: NlItem): COpaquePointer? =
-    libc_solid_nlLanginfo(item)?.let { COpaquePointer(it.toLong()) }
+public actual fun nlLanginfo(item: NlItem): MutPtr<CChar> =
+    MutPtr(libcSolidNlLanginfo(item)?.toLong() ?: 0L)
 
-public actual fun nlLanginfoL(item: NlItem, locale: LocaleT): COpaquePointer? =
-    libc_solid_nlLanginfoL(item, locale.toLong().toCPointer<ByteVar>())?.let { COpaquePointer(it.toLong()) }
+public actual fun nlLanginfoL(item: NlItem, locale: LocaleT): MutPtr<CChar> =
+    MutPtr(libcSolidNlLanginfoL(item, locale.toLong().toCPointer<ByteVar>())?.toLong() ?: 0L)
 
-public actual fun memalign(align: SizeT, size: SizeT): COpaquePointer? =
-    libc_solid_memalign(align, size)?.let { COpaquePointer(it.toLong()) }
+public actual fun memalign(align: SizeT, size: SizeT): MutPtr<CVoid> =
+    MutPtr(libcSolidMemalign(align, size)?.toLong() ?: 0L)
 
 public actual fun lseek(arg1: CInt, arg2: OffT, arg3: CInt): OffT =
-    libc_solid_lseek(arg1, arg2, arg3)
+    libcSolidLseek(arg1, arg2, arg3)
